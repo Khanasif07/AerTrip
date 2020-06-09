@@ -80,7 +80,7 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
             self.hideFavsButtons(isAnimated: true)
         }
         
-        tableViewVertical.setContentOffset(CGPoint(x: 0, y: -112), animated: false)
+        tableViewVertical.setContentOffset(CGPoint(x: 0, y: -topContentSpace), animated: false)
         showBluredHeaderViewCompleted()
     }
 }

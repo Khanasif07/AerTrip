@@ -188,7 +188,7 @@ class FinalCheckOutVC: BaseVC {
                 printDebug("FareDetailTableViewCell not found")
                 return UITableViewCell()
             }
-            fareDetailCell.numberOfRoomAndLabel.text = self.getRoomAndNightText()
+            fareDetailCell.setupForFinalCheckOutScreen(text: self.getRoomAndNightText())
             return fareDetailCell
         default:
             return UITableViewCell()
@@ -266,6 +266,7 @@ class FinalCheckOutVC: BaseVC {
             totalPayableNowCell.topDeviderView.isHidden = false
             totalPayableNowCell.bottomDeviderView.isHidden = false
             totalPayableNowCell.totalPriceLabel.attributedText = self.getTotalPayableAmount().amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(((totalPayableNowCell.currentUsingFor == .totalPayableAmout) ? 20.0 : 16.0)))
+            totalPayableNowCell.setupFotFinalCheckoutScreen()
             return totalPayableNowCell
             
         case 4: // Convenience Fee message Cell
@@ -335,7 +336,7 @@ class FinalCheckOutVC: BaseVC {
             }
             return CGFloat.leastNormalMagnitude
         case 5: // Fare Detail Cell
-            return 80.0
+            return UITableView.automaticDimension//80.0
         default:
             return 44 // Default Height Cell
         }
@@ -347,35 +348,35 @@ class FinalCheckOutVC: BaseVC {
             if self.isCouponApplied, self.isCouponSectionExpanded {
                 return 20.0
             } else {
-                return 0.0
+                return CGFloat.leastNormalMagnitude
             }
         case 1: // Convenince Fee Cell
             if self.isConvenienceFeeApplied {
                 return 36.0
             } else {
-                return 0.0
+                return CGFloat.leastNormalMagnitude
             }
             
         case 2: // Wallet amount Cell
             if self.isWallet {
                 return 40.0
             } else {
-                return 0.0
+                return CGFloat.leastNormalMagnitude
             }
         case 3: // total amount Cell
             return 46.0
             
         case 4: // Convenience Cell Message
             if self.isConvenienceFeeApplied {
-                return 46.0
+                return CGFloat.leastNormalMagnitude//46.0
             } else {
-                return 0.0
+                return CGFloat.leastNormalMagnitude
             }
         case 5: // Final amount message table view Cell
             if self.isCouponApplied {
                 return 87.0
             } else {
-                return 0
+                return CGFloat.leastNormalMagnitude
             }
             
         case 6: // term and privacy cell
@@ -468,7 +469,7 @@ class FinalCheckOutVC: BaseVC {
     // Get  Text based on number of rooms and nights
     private func getRoomAndNightText() -> String {
         let adultCount = self.viewModel.hotelFormData.adultsCount.count
-        var text = "For "
+        var text = ""
         text += adultCount > 1 ? "\(adultCount) Rooms" : "\(adultCount) Room"
         let totalNights = (self.viewModel.hotelFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd")!).daysFrom(self.viewModel.hotelFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd")!)
         text += (totalNights == 1) ? " & \(totalNights) Night" : " & \(totalNights) Nights"

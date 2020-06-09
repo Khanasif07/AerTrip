@@ -84,6 +84,10 @@ class SelectedContactCollectionCell: UICollectionViewCell {
     private func populateData() {
         
         if self.isUsingForGuest {
+            let imageBackGroundColor = isSelectedForGuest ? AppColors.themeGray20 : AppColors.imageBackGroundColor
+            let textColor = isSelectedForGuest ? AppColors.themeBlack : AppColors.themeGray60
+
+            
             roomLabel.text = " "
             self.profileImageView.layer.borderColor = AppColors.clear.cgColor
             self.profileImageView.layer.borderWidth = 0.0
@@ -165,7 +169,7 @@ class SelectedContactCollectionCell: UICollectionViewCell {
             }
             else if let fName = self.contact?.firstName, let lName = self.contact?.lastName {
                 if (!fName.isEmpty || !lName.isEmpty) {
-                self.profileImageView.image = AppGlobals.shared.getImageFor(firstName: fName, lastName: lName, font: AppFonts.Light.withSize(36.0),textColor: AppColors.themeGray60, offSet: CGPoint(x: 0, y: 12), backGroundColor: AppColors.imageBackGroundColor)
+                self.profileImageView.image = AppGlobals.shared.getImageFor(firstName: fName, lastName: lName, font: AppFonts.Light.withSize(36.0),textColor: textColor, offSet: CGPoint(x: 0, y: 12), backGroundColor: imageBackGroundColor)
                 }
 
             }

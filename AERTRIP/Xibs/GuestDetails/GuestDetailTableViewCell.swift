@@ -11,6 +11,8 @@ import UIKit
 protocol GuestDetailTableViewCellDelegate: class {
     func textField(_ textField: UITextField)
     func textFieldWhileEditing(_ textField: UITextField)
+    func textFieldEndEditing(_ textField: UITextField)
+
 }
 
 class GuestDetailTableViewCell: UITableViewCell {
@@ -261,6 +263,10 @@ extension GuestDetailTableViewCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.delegate?.textFieldEndEditing(textField)
     }
 }
 

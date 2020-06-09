@@ -63,7 +63,7 @@ class HotelResultVC: BaseVC {
             self.tableViewVertical.separatorStyle = .none
             self.tableViewVertical.showsVerticalScrollIndicator = false
             self.tableViewVertical.showsHorizontalScrollIndicator = false
-            self.tableViewVertical.contentInset = UIEdgeInsets(top: 112, left: 0, bottom: 0, right: 0)
+            self.tableViewVertical.contentInset = UIEdgeInsets(top: topContentSpace, left: 0, bottom: 0, right: 0)
         }
     }
     
@@ -111,6 +111,7 @@ class HotelResultVC: BaseVC {
     
     //    var container: NSPersistentContainer!
     
+    let topContentSpace: CGFloat = 96
     var time: Float = 0.0
     var timer: Timer?
     var isAboveTwentyKm: Bool = false

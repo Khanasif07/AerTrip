@@ -62,4 +62,10 @@ class TotalPayableNowCell: UITableViewCell {
         self.totalPayableNowLabel.textColor = AppColors.themeBlack
         self.totalPriceLabel.textColor = AppColors.themeBlack
     }
+    
+    internal func setupFotFinalCheckoutScreen() {
+        self.totalPayableTextTopConstraint.constant = 9
+        self.totalPayableTextBottomConstraint.constant = 9
+        self.contentView.layoutIfNeeded()
+    }
 }

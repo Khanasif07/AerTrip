@@ -19,6 +19,9 @@
 @interface AertripCalendarViewController () <FSCalendarDelegate, FSCalendarDataSource>
 
 @property (weak, nonatomic) IBOutlet FSCalendar *customCalenderView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *customCalenderViewWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *customCalenderViewLeading;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *customCalenderViewTrailing;
 @property (strong, nonatomic) NSCalendar *gregorian;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @property (strong, nonatomic) NSDate *minimumDate;
@@ -28,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UIView *weekdaysBaseView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewWidth;
 
 @end
 
@@ -36,13 +40,13 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-     if (@available(iOS 13.0, *)) {
-    
-     }
-     else {
+    if (@available(iOS 13.0, *)) {
+        
+    }
+    else {
         [self setModalPresentationStyle:UIModalPresentationOverFullScreen];
         [self setModalPresentationCapturesStatusBarAppearance:YES];
-     }
+    }
 }
 
 - (void)viewDidLoad {
@@ -52,54 +56,49 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-     if (@available(iOS 13.0, *)) {
-    
-     }
-     else {
-         [self configureInitialBottomViewPosition];
-     }
-
+    if (@available(iOS 13.0, *)) {
+        
+    }
+    else {
+        [self configureInitialBottomViewPosition];
+    }
 }
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-     if (@available(iOS 13.0, *)) {
-    
-     }
-     else {
-         [self animateBottomViewIn];
-     }
+    if (@available(iOS 13.0, *)) {
+        
+    }
+    else {
+        [self animateBottomViewIn];
+    }
     [self showDatesSelection];
-
 }
-
 
 -(void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     self.bottomViewHeight.constant = 50 + self.view.safeAreaInsets.bottom;
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-
 -(UIColor*)ONE_FIVE_THREE_COLOR {
     return  [UIColor  colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
 }
-
 
 -(UIColor*)AertripColor
 {
     return  [UIColor  colorWithRed:0/255.0 green:204/255.0 blue:153/255.0 alpha:1.0];
 }
 
-
 -(UIColor*)TWO_ZERO_FOUR_COLOR
 {
     return [UIColor colorWithRed: 204/255.0  green:204/255.0  blue:204/255.0 alpha:1];
 }
-
 
 - (NSString *)dayOfDate:(NSDate *)date {
     if (date != nil) {
@@ -113,11 +112,8 @@
         return weekdayName;
     }
     return @"";
-    
-    
 }
 
-//
 - (void)setupInitials {
     
     self.primaryDuration = 0.4;
@@ -137,10 +133,10 @@
         
         [self.doneButton setTitleColor:[self AertripColor] forState:UIControlStateNormal];
         [self.doneButton setTitleColor:[self TWO_ZERO_FOUR_COLOR] forState:UIControlStateDisabled];
-
+        
         self.cancelButton.hidden = YES;
     }
-
+    
     NSBundle * bundle = [NSBundle bundleForClass:self.class];
     UIImage * cancelImage = [UIImage imageNamed:@"cancelGray" inBundle:bundle compatibleWithTraitCollection:nil];
     
@@ -149,8 +145,16 @@
     }
     self.cancelButton.imageView.image = cancelImage;
     [self setSwipeGesture];
+    
+//    if(self.viewModel.isReturn == NO)
+//    {
+//        self.customCalenderViewLeading.constant = 2;
+//        self.customCalenderViewTrailing.constant = 2;
+//    }else{
+//        self.customCalenderViewTrailing.constant = 0;
+//        self.customCalenderViewLeading.constant = 0;
+//    }
 }
-
 
 -(void)setupWeekdays {
     
@@ -158,23 +162,23 @@
         label.font = [UIFont fontWithName:@"SourceSansPro-Regular" size:16.0];
     }
     
-    self.weekdaysBaseView.layer.shadowColor = UIColor.blackColor.CGColor;
-    self.weekdaysBaseView.layer.shadowOpacity = 0.1;
-    self.weekdaysBaseView.layer.shadowRadius = 10;
+//    self.weekdaysBaseView.layer.shadowColor = UIColor.blackColor.CGColor;
+//    self.weekdaysBaseView.layer.shadowOpacity = 0.1;
+//    self.weekdaysBaseView.layer.shadowRadius = 10;
 }
-    
-    - (void) loadFont:(NSString*)fontName {
-        NSString *fontPath = [[NSBundle mainBundle] pathForResource:fontName ofType:@"ttf"];
-        NSData *inData = [NSData dataWithContentsOfFile:fontPath];
-        CFErrorRef error;
-        CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)inData);
-        CGFontRef font = CGFontCreateWithDataProvider(provider);
-        if (! CTFontManagerRegisterGraphicsFont(font, &error)) {
-            CFStringRef errorDescription = CFErrorCopyDescription(error);
-            NSLog(@"Failed to load font: %@", errorDescription);
-            CFRelease(errorDescription);
-        }
+
+- (void) loadFont:(NSString*)fontName {
+    NSString *fontPath = [[NSBundle mainBundle] pathForResource:fontName ofType:@"ttf"];
+    NSData *inData = [NSData dataWithContentsOfFile:fontPath];
+    CFErrorRef error;
+    CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)inData);
+    CGFontRef font = CGFontCreateWithDataProvider(provider);
+    if (! CTFontManagerRegisterGraphicsFont(font, &error)) {
+        CFStringRef errorDescription = CFErrorCopyDescription(error);
+        NSLog(@"Failed to load font: %@", errorDescription);
+        CFRelease(errorDescription);
     }
+}
 
 - (void)makeTopCornersRounded:(UIView *)view withRadius:(double)radius{
     if (@available(iOS 11.0, *)) {
@@ -184,7 +188,6 @@
         // Fallback on earlier versions
     }
 }
-
 
 - (NSString *)dateFormatedFromDate:(NSDate *)date
 {
@@ -196,8 +199,6 @@
     }else {
         return @"";
     }
-    
-    
 }
 
 - (void)setupTopViewForSingleJourney {
@@ -227,17 +228,17 @@
 
 
 -(void)updateMulticityCalendarWithIndex:(NSInteger)index{
-
+    
     NSDate * previouslySelectedDate = [self getMinimumDateFor:index];
     if (previouslySelectedDate != nil ){
         self.minimumDate = previouslySelectedDate;
         [self.customCalenderView setCurrentPage:previouslySelectedDate];
     }
-
+    
     [self createSelectedDatesArray:index];
-
+    
     NSString * key = [NSString stringWithFormat:@"%ld",(long)index];
-
+    
     NSString * dateInStringFormat = [self.multicityViewModel.travelDatesDictionary objectForKey:key];
     NSDate * date = [self.dateFormatter dateFromString:dateInStringFormat];
     if (date != nil ) {
@@ -267,7 +268,7 @@
             else {
                 [self.selectedDates addObject:date];
             }
-        }        
+        }
     }
 }
 
@@ -280,10 +281,7 @@
         previousSelectedDate = NSDate.date;
     }
     else {
-        
-        
         for ( int i = 0 ; i < [self.multicityViewModel cityCount]; i++)
-            
         {
             NSString * key = [NSString stringWithFormat:@"%ld",(long)i];
             NSUInteger currentIndex = [key integerValue];
@@ -304,7 +302,7 @@
 
 -(void)selectTapAtIndex:(NSUInteger)index{
     
-
+    
     for (UIView *tapView  in self.TapStackView.subviews) {
         
         UILabel * dateLabelOne = [tapView viewWithTag:101];
@@ -342,14 +340,14 @@
         dateLabelTwo.text = dateString;
         
         if( dateLabelTwo.hidden)  {
-        
+            
             dateLabelTwo.hidden = NO;
-             dateLabelTwo.alpha = 0.0;
+            dateLabelTwo.alpha = 0.0;
             [UIView animateWithDuration:0.3 animations:^{
                 dateLabelTwo.alpha = 1.0;
                 dateLabelOne.frame = CGRectMake(0, 9 , dateLabelOne.frame.size.width, 23);
             } completion:^(BOOL finished) {
-               
+                
             }
              ];
         }
@@ -358,7 +356,7 @@
         dateLabelTwo.text = dateString;
         
         [UIView animateWithDuration:0.3 animations:^{
-           
+            
             dateLabelOne.frame = CGRectMake(0, 0 , dateLabelOne.frame.size.width, 62);
             dateLabelTwo.alpha = 0.0;
         } completion:^(BOOL finished) {
@@ -374,10 +372,10 @@
     NSUInteger count = [self.multicityViewModel cityCount];
     for ( int i = 0 ; i < count; i++) {
         
-
+        
         CGFloat width = self.view.frame.size.width/count;
         UIView * tapView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, width, 62)];
-
+        
         tapView.tag = ( i + 50);
         
         
@@ -393,17 +391,17 @@
         dateLabelOne.textColor = [self ONE_FIVE_THREE_COLOR];
         dateLabelOne.font = [UIFont fontWithName:@"SourceSansPro-Semibold" size:18];
         [tapView addSubview:dateLabelOne];
-
+        
         
         UILabel * dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 36, width, 15)];
         dateLabel.backgroundColor = [UIColor clearColor];
         dateLabel.textAlignment =  NSTextAlignmentCenter;
         dateLabel.tag = 102;
         
-
+        
         dateLabel.textColor = [self ONE_FIVE_THREE_COLOR];
         dateLabel.font = [UIFont fontWithName:@"SourceSansPro-Regular" size:12];
-
+        
         NSString * dateString = [self getDateForIndex:i];
         if (dateString.length > 0) {
             dateLabel.text = dateString;
@@ -414,18 +412,15 @@
             dateLabel.text = dateString;
             dateLabel.hidden = YES;
             dateLabelOne.frame = CGRectMake(0, 0 , width, 62);
-
+            
         }
-
+        
         [tapView addSubview:dateLabel];
         
         UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnSelectedTab:)];
         [tapView addGestureRecognizer:tapGesture];
         [self.TapStackView addArrangedSubview:tapView];
-
-
     }
-    
     
     self.multicitySelectionTabWidth.constant = self.view.frame.size.width/count;
     [self.bottomView layoutIfNeeded];
@@ -453,26 +448,25 @@
 }
 
 -(void)tapOnSelectedTab:(UITapGestureRecognizer*)tapGesture {
-  
+    
     NSUInteger index = tapGesture.view.tag;
     
     index =  ( index - 50 );
     [self selectMulticityTapAt:index];
-
+    
 }
-
 
 -(NSString*)getDateForIndex:(NSUInteger)index
 {   NSString * formattedDateString = @"";
     
     NSString * key = [NSString stringWithFormat:@"%ld",(long)index];
     NSString *dateInStringFormat = [self.multicityViewModel.travelDatesDictionary objectForKey:key];
-
+    
     if ( dateInStringFormat.length > 0) {
         
         NSDate * dateObj = [self.dateFormatter dateFromString:dateInStringFormat];
         NSDateFormatter * dateFormatter = [[NSDateFormatter alloc]init];
-        [dateFormatter setDateFormat:@"dd MMM"];
+        [dateFormatter setDateFormat:@"d MMM"];
         formattedDateString = [dateFormatter stringFromDate:dateObj];
     }
     else {
@@ -489,7 +483,7 @@
     [self.startDateSubLabel setFont:[UIFont fontWithName:@"SourceSansPro-Regular" size:16.0]];
     [self.endDateValueLabel setFont:[UIFont fontWithName:@"SourceSansPro-Regular" size:26.0]];
     [self.endDateSubLabel setFont:[UIFont fontWithName:@"SourceSansPro-Regular" size:16.0]];
-
+    
     
     if( self.multicityViewModel != nil) {
         self.topViewHeightConstraint.constant = 0;
@@ -503,18 +497,18 @@
         return;
     }
     
-    
     if (self.viewModel.isHotelCalendar) {
         self.cancelButton.hidden = YES;
         self.startDateLabel.text = @"Check-in";
         self.endDateLabel.text = @"Check-out";
         [self setupCheckInDateView];
         [self setupCheckOutDateView];
-
+        
     }else {
-            [self setupTopViewForSingleJourney];
+        [self setupTopViewForSingleJourney];
     }
 }
+
 - (void)applyShadowToDoneView {
     
     self.doneOutterView.clipsToBounds = NO;
@@ -522,9 +516,7 @@
     self.doneOutterView.layer.shadowOpacity = 1.0;
     self.doneOutterView.layer.shadowRadius = 10.0;
     self.doneOutterView.layer.shadowOffset = CGSizeMake(0.0, -6.0);
-    
 }
-
 
 - (void)setupCalender {
     self.gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
@@ -540,37 +532,37 @@
     NSCalendar *theCalendar = [NSCalendar currentCalendar];
     NSDate *maximumDate = [theCalendar dateByAddingComponents:dayComponent toDate:[NSDate date] options:0];
     self.maximumDate = maximumDate;
-
+    
     
     [self.customCalenderView setScrollDirection:FSCalendarScrollDirectionVertical];
     self.customCalenderView.dataSource = self;
     self.customCalenderView.delegate = self;
-    
+        
     self.customCalenderView.pagingEnabled = NO; // important to scroll down
-    
     
     if ( self.viewModel != nil){
         self.customCalenderView.allowsMultipleSelection = YES;
     }
     if ( self.multicityViewModel != nil) {
-       self.customCalenderView.allowsMultipleSelection = NO;
+        self.customCalenderView.allowsMultipleSelection = NO;
     }
     self.customCalenderView.firstWeekday = 1;
     self.customCalenderView.placeholderType = FSCalendarPlaceholderTypeNone;    //date cell placeholder make empty
     [self.customCalenderView registerClass:[DIYCalendarCell class] forCellReuseIdentifier:@"cell"];
-
+    
     UIPanGestureRecognizer *scopeGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self.customCalenderView  action:@selector(handleScopeGesture:)];
     [self.customCalenderView  addGestureRecognizer:scopeGesture];
     
     //HEADER
     self.customCalenderView.appearance.headerTitleColor = [UIColor blackColor];
     self.customCalenderView.appearance.headerTitleFont = [UIFont fontWithName:@"SourceSansPro-Semibold" size:20.0];
-    self.customCalenderView.headerHeight = 60.0;
-    self.customCalenderView.weekdayHeight = 0;              //hide weekday section
+    self.customCalenderView.headerHeight = 65.0;
+    self.customCalenderView.calendarWeekdayView.hidden = true;
+    self.customCalenderView.weekdayHeight = 0;              // Nitin Change hide weekday section
     
     // HeaderView
-//    FSCalendarHeaderView * headerView = [[FSCalendarHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
-//    self.customCalenderView.calendarHeaderView = headerView;
+    //    FSCalendarHeaderView * headerView = [[FSCalendarHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
+    //    self.customCalenderView.calendarHeaderView = headerView;
     
     
     //date cell
@@ -579,7 +571,7 @@
     self.customCalenderView.appearance.titleFont = [UIFont fontWithName:@"SourceSansPro-Regular" size:20.0];
     self.customCalenderView.swipeToChooseGesture.enabled = YES;
     self.customCalenderView.today = nil;
-
+    
     //COLOR SETUP
 }
 
@@ -600,9 +592,7 @@
         }
     }else {
         self.nightView.hidden = YES;
-
     }
-    
 }
 
 
@@ -636,8 +626,6 @@
         return endDay;
     
     return endDay - startDay;
-    
-    
 }
 
 -(void)setSwipeGesture{
@@ -648,8 +636,9 @@
     [self.view addGestureRecognizer:swipeGesture];
 }
 
--(void)swipeToDismiss{
-    [self animateBottomViewOut];
+-(void)swipeToDismiss
+{
+    [self doneAction:nil];
 }
 
 // Nitin Change
@@ -663,9 +652,6 @@
 }
 
 //MARK:- Target Action methods
-
-
-
 - (IBAction)doneAction:(id)sender {
     
     [self applyCalendarChanges]; // Nitin Change
@@ -673,6 +659,7 @@
         [self animateBottomViewOut];
     }
 }
+
 - (IBAction)cancelAction:(id)sender {
     self.endDateLabel.text = @"Add Return?";
     self.viewModel.isStartDateSelection = YES;
@@ -690,12 +677,13 @@
     [self setupCheckOutDateView];
     [self showDatesSelection];
     [self SwitchTapOfSingleLegTypeJourney];
-
 }
 
 - (void)SwitchTapOfSingleLegTypeJourney {
-    if (self.viewModel.isStartDateSelection) {
+    
 
+    if (self.viewModel.isStartDateSelection) {
+        
         [UIView animateWithDuration:0.2 animations:^{
             self.backgroudViewLeadingConstraint.constant = 0;
             [self.TopView layoutIfNeeded];
@@ -717,7 +705,7 @@
         if (self.viewModel.isHotelCalendar) {
             self.cancelButton.hidden = YES;
         }
-
+        
         [UIView animateWithDuration:0.2 animations:^{
             self.backgroudViewLeadingConstraint.constant = self.view.frame.size.width/2;
             [self.TopView layoutIfNeeded];
@@ -728,12 +716,24 @@
         [self.startDateLabel setFont:[UIFont fontWithName:@"SourceSansPro-Regular" size:16.0]];
         [self.startDateLabel setTextColor:[self ONE_FIVE_THREE_COLOR]];
     }
+    
+    if(self.viewModel.isReturn == NO)
+        {
+            self.customCalenderViewLeading.constant = 2;
+            self.customCalenderViewTrailing.constant = 2;
+//            self.customCalenderViewWidth.constant = self.bottomView.bounds.size.width-4;
+        }else{
+            self.customCalenderViewTrailing.constant = 0;
+            self.customCalenderViewLeading.constant = 0;
+//            self.customCalenderViewWidth.constant = self.bottomView.bounds.size.width;
+        }
 }
 
 //MARK:- BOTTOM ANIMATIONS
 - (void)configureInitialBottomViewPosition {
     self.topConstraintMainView.constant = (self.view.bounds.size.height);
 }
+
 - (void)animateBottomViewIn {
     [UIView animateWithDuration:self.primaryDuration delay:0 options: UIViewAnimationOptionCurveEaseOut animations:^{
         self.dimmerLayer.alpha = 0.4;
@@ -743,6 +743,7 @@
         
     }];
 }
+
 - (void)animateBottomViewOut {
     
     if (@available(iOS 13.0, *)) {
@@ -750,10 +751,9 @@
         [self dismissViewControllerAnimated:YES completion:nil];
     }
     else {
-       
         [UIView animateWithDuration:0.2 delay:0 options: UIViewAnimationOptionCurveEaseIn animations:^{
             self.dimmerLayer.alpha = 0.0;
-              self.topConstraintMainView.constant = (self.view.bounds.size.height);
+            self.topConstraintMainView.constant = (self.view.bounds.size.height);
             [self.view layoutIfNeeded];
         } completion:^(BOOL finished) {
             [self applyCalendarChanges]; // Nitin Change
@@ -761,8 +761,6 @@
         }];
     }
 }
-
-
 
 #pragma mark - FSCalendarDataSource
 
@@ -781,6 +779,7 @@
     DIYCalendarCell *cell = [calendar dequeueReusableCellWithIdentifier:@"cell" forDate:date atMonthPosition:monthPosition];
     return cell;
 }
+
 - (void)calendar:(FSCalendar *)calendar willDisplayCell:(FSCalendarCell *)cell forDate:(NSDate *)date atMonthPosition: (FSCalendarMonthPosition)monthPosition
 {
     [self configureCell:cell forDate:date atMonthPosition:monthPosition];
@@ -792,13 +791,12 @@
     
     NSDate * previousDate = [self.minimumDate dateByAddingTimeInterval:-86400];
     NSTimeInterval timeInterval = [date timeIntervalSinceDate:previousDate];
-
+    
     if(timeInterval > 0 )
     {
         return YES;
     }
     return NO;
-
 }
 
 - (BOOL)calendar:(FSCalendar *)calendar shouldDeselectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
@@ -808,7 +806,7 @@
         [self performSelectionInCalendar:calendar ForDate:date];
         return NO;
     }
-
+    
     return YES;
 }
 
@@ -847,7 +845,6 @@
             self.viewModel.date2 = nil;
             [self.customCalenderView selectDate:self.viewModel.date1];
             self.viewModel.isStartDateSelection = YES;
-            
         }
     }
     [self setupCheckInDateView];
@@ -856,38 +853,33 @@
     [self configureVisibleCells];
 }
 
-
-
 - (void)performSelectionInCalendar:(FSCalendar * _Nonnull)calendar ForDate:(NSDate * _Nonnull)date {
     
     
-        if (self.viewModel.date1 != nil) {
-            [self.customCalenderView deselectDate:self.viewModel.date1];
-        }
-        if (self.viewModel.date2 != nil) {
-            [self.customCalenderView deselectDate:self.viewModel.date2];
-
-        }
-        if (self.viewModel.date1 != nil && self.viewModel.date2 != nil) {
-            [self deSelectDatesInRange:self.viewModel.date1 endDate:self.viewModel.date2];
-
-        }
-    
+    if (self.viewModel.date1 != nil) {
+        [self.customCalenderView deselectDate:self.viewModel.date1];
+    }
+    if (self.viewModel.date2 != nil) {
+        [self.customCalenderView deselectDate:self.viewModel.date2];
+        
+    }
+    if (self.viewModel.date1 != nil && self.viewModel.date2 != nil) {
+        [self deSelectDatesInRange:self.viewModel.date1 endDate:self.viewModel.date2];
+    }
     
     if (self.viewModel.isStartDateSelection) {
-
+        
         if ( self.viewModel.isHotelCalendar &&  self.viewModel.date2) {
             
-        if ( [self getNumberOfNightsInRange:date endDate:self.viewModel.date2] >  30) {
+            if ( [self getNumberOfNightsInRange:date endDate:self.viewModel.date2] >  30) {
                 [AertripToastView toastInView:self.view withText:@"Sorry, reservation for more than 30 nights is not possible."];
                 [self.customCalenderView deselectDate:date];
                 [self showDatesSelection];
                 return;
             }
             if ([self.viewModel.date2 compare:date] == NSOrderedSame) {
-                 self.viewModel.date2 = nil;
+                self.viewModel.date2 = nil;
                 [self setupCheckOutDateView];
-
             }
         }
         
@@ -897,43 +889,40 @@
         if([self.viewModel.date1 compare:date] == NSOrderedAscending ) {
             [self deSelectDatesInRange:self.viewModel.date1 endDate:date];
         }
-      
+        
         self.viewModel.date1 = date;
         [self setupCheckInDateView];
         
         // if newly selected onwards date is greater than  return date
         // then remove previouly selected return date and trim previously selected date range
         if ([self.viewModel.date1 compare:self.viewModel.date2] == NSOrderedDescending) {
-
+            
             self.viewModel.date2 = nil;
             [self setupCheckOutDateView];
-
+            
         }
         
         [self showDatesSelection];
-      
+        
         if (self.viewModel.isReturn || self.viewModel.isHotelCalendar) { // Nitin Change
             self.viewModel.isStartDateSelection = NO;
             [self SwitchTapOfSingleLegTypeJourney];
         }
     }
     else {
-        
-        
-        
         if ( self.viewModel.isHotelCalendar &&  self.viewModel.date1) {
             
-                if ( [self getNumberOfNightsInRange:self.viewModel.date1 endDate:date] >  30) {
-                    [AertripToastView toastInView:self.view withText:@"Sorry, reservation for more than 30 nights is not possible."];
-                    [self.customCalenderView deselectDate:date];
-                    [self showDatesSelection];
-                    return;
-                }
-                
-                if ([date compare:self.viewModel.date1] == NSOrderedSame){
-                    self.viewModel.date1 = nil;
-                    [self setupCheckInDateView];
-                }
+            if ( [self getNumberOfNightsInRange:self.viewModel.date1 endDate:date] >  30) {
+                [AertripToastView toastInView:self.view withText:@"Sorry, reservation for more than 30 nights is not possible."];
+                [self.customCalenderView deselectDate:date];
+                [self showDatesSelection];
+                return;
+            }
+            
+            if ([date compare:self.viewModel.date1] == NSOrderedSame){
+                self.viewModel.date1 = nil;
+                [self setupCheckInDateView];
+            }
         }
         
         //Removing previously selected dates if new date is prior to currently selected return date
@@ -943,14 +932,13 @@
             [self deSelectDatesInRange:date endDate:self.viewModel.date2];
         }
         
-        
         self.viewModel.date2 = date;
         [self setupCheckOutDateView];
         
         // if newly selected return date is prior to selected onwards date
         // then set is as onwards date and remove return date value
         if ([self.viewModel.date1 compare:self.viewModel.date2] == NSOrderedDescending) {
-
+            
             self.viewModel.date1 = date;
             self.viewModel.date2 = nil;
             [self setupCheckInDateView];
@@ -965,12 +953,11 @@
         }
         
         [self showDatesSelection];
-            self.viewModel.isStartDateSelection = YES;
-            [self SwitchTapOfSingleLegTypeJourney];
-
+        self.viewModel.isStartDateSelection = YES;
+        [self SwitchTapOfSingleLegTypeJourney];
+        
     }
 }
-
 
 - (void)removeSelectedDatesForLaterTabs:(NSDate*)currentSelectedDate
 {
@@ -982,7 +969,7 @@
             
             NSTimeInterval timeInterval = [date timeIntervalSinceDate:currentSelectedDate];
             if ( timeInterval < 0 ) {
-
+                
                 [self.customCalenderView deselectDate:date];
                 [self.multicityViewModel.travelDatesDictionary setValue:@"" forKey:key];
                 [self setSubTitleForTabAtIndex:i];
@@ -1002,7 +989,7 @@
     [self setSubTitleForTabAtIndex:self.multicityViewModel.currentIndex];
     [self configureVisibleCells];
 }
-    
+
 -(void)showDatesSelection {
     
     if( self.viewModel.date1 && self.viewModel.date2) {
@@ -1013,28 +1000,36 @@
     }
 }
 
-
 - (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {
-
+    
     if(self.viewModel !=  nil ) {
         [self performSelectionInCalendar:calendar ForDate:date];
-         return;
+        [self doneAction:nil];
+        return;
     }
- 
+    
     if ( self.multicityViewModel != nil) {
         [self performDateSelectionForMultiCity:date];
         [self removeSelectedDatesForLaterTabs:date];
         NSInteger cityCount = [self.multicityViewModel cityCount];
         if ( (self.multicityViewModel.currentIndex + 1) < cityCount){
-            [self selectMulticityTapAt: (self.multicityViewModel.currentIndex + 1)];
+//            [self selectMulticityTapAt: (self.multicityViewModel.currentIndex + 1)];
+
+            NSString * key = [NSString stringWithFormat:@"%ld",(long)self.multicityViewModel.currentIndex+1];
+            NSString *val = [self.multicityViewModel.travelDatesDictionary valueForKey:key];
+            if([val  isEqual: @""])
+            {
+                [self selectMulticityTapAt: (self.multicityViewModel.currentIndex + 1)];
+            }
         }
     }
     
-     [self configureVisibleCells];
+    [self doneAction:nil];
+    [self configureVisibleCells];
 }
 - (void)selectDatesInRange:(NSDate *)startDate endDate:(NSDate *)endDate {
-   
+    
     NSInteger numberOfNights = [self getNumberOfNightsInRange:startDate endDate:endDate];
     for (int i = 1 ; i <= numberOfNights-0; i++) {
         NSDateComponents *components = [[NSDateComponents alloc] init] ;
@@ -1044,10 +1039,11 @@
         
     }
 }
+
 - (void)deSelectDatesInRange:(NSDate *)startDate endDate:(NSDate *)endDate {
     
     NSInteger numberOfNights = [self getNumberOfNightsInRange:startDate endDate:endDate];
-
+    
     for (int i = 1 ; i <= numberOfNights; i++) {
         NSDateComponents *components = [[NSDateComponents alloc] init] ;
         [components setDay:i];
@@ -1055,8 +1051,6 @@
         [self.customCalenderView deselectDate:newDateNext];
     }
 }
-
-
 
 - (void)calendarCurrentPageDidChange:(FSCalendar *)calendar
 {
@@ -1076,7 +1070,7 @@
     NSDate * previousDate = [self.minimumDate dateByAddingTimeInterval:-86400];
     
     NSTimeInterval timeInterval = [date timeIntervalSinceDate:previousDate];
-
+    
     if(timeInterval > 0 )
     {
         cell.titleLabel.textColor = [UIColor blackColor];
@@ -1097,28 +1091,28 @@
         
         
         SelectionType selectionType = SelectionTypeNone;
-
+        
         if(self.multicityViewModel !=nil &&  [self.selectedDates containsObject:date]){
             selectionType = SelectionTypeMulticity;
         }
         
+        if ([self.customCalenderView.selectedDates containsObject:date]) {
+            NSDate *previousDate = [self.gregorian dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:date options:0];
+            NSDate *nextDate = [self.gregorian dateByAddingUnit:NSCalendarUnitDay value:1 toDate:date options:0];
             if ([self.customCalenderView.selectedDates containsObject:date]) {
-                NSDate *previousDate = [self.gregorian dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:date options:0];
-                NSDate *nextDate = [self.gregorian dateByAddingUnit:NSCalendarUnitDay value:1 toDate:date options:0];
-                if ([self.customCalenderView.selectedDates containsObject:date]) {
-                    if ([self.customCalenderView.selectedDates containsObject:previousDate] && [self.customCalenderView.selectedDates containsObject:nextDate]) {
-                        selectionType = SelectionTypeMiddle;
-                    } else if ([self.customCalenderView.selectedDates containsObject:previousDate] && [self.customCalenderView.selectedDates containsObject:date]) {
-                        selectionType = SelectionTypeRightBorder;
-                    } else if ([self.customCalenderView.selectedDates containsObject:nextDate]) {
-                        selectionType = SelectionTypeLeftBorder;
-                    } else {
-                        selectionType = SelectionTypeSingle;
-                    }
+                if ([self.customCalenderView.selectedDates containsObject:previousDate] && [self.customCalenderView.selectedDates containsObject:nextDate]) {
+                    selectionType = SelectionTypeMiddle;
+                } else if ([self.customCalenderView.selectedDates containsObject:previousDate] && [self.customCalenderView.selectedDates containsObject:date]) {
+                    selectionType = SelectionTypeRightBorder;
+                } else if ([self.customCalenderView.selectedDates containsObject:nextDate]) {
+                    selectionType = SelectionTypeLeftBorder;
+                } else {
+                    selectionType = SelectionTypeSingle;
                 }
             }
+        }
         
-
+        
         if (selectionType == SelectionTypeNone) {
             diyCell.selectionLayer.hidden = YES;
             diyCell.shadowLayer.hidden = YES;
@@ -1142,7 +1136,7 @@
             cell.titleLabel.textColor = [UIColor whiteColor];
             [self showSelectionLayer:diyCell selectionType:selectionType];
         }
-
+        
         if ( selectionType == SelectionTypeRightBorder) {
             cell.titleLabel.textColor = [UIColor whiteColor];
             [self showSelectionLayer:diyCell selectionType:selectionType];
@@ -1156,9 +1150,7 @@
         
         diyCell.selectionLayer.hidden = YES;
         diyCell.previousTapSelectionLayer.hidden = YES;
-        
     }
-
 }
 
 //MARK:- CALENDER PRIVATE METHOD
@@ -1173,26 +1165,21 @@
     }];
 }
 
-
-
-
 //MARK:- Single / Return Journey Methods
 
-- (void)selectOnlyDates {
+- (void)selectOnlyDates
+{
+    if (self.viewModel.date1 != nil) {
+        [self.customCalenderView selectDate:self.viewModel.date1];
+    }
     
+    if (self.viewModel.date2 != nil) {
+        [self.customCalenderView selectDate:self.viewModel.date2];
+    }
     
-        if (self.viewModel.date1 != nil) {
-            [self.customCalenderView selectDate:self.viewModel.date1];
-        }
-    
-        if (self.viewModel.date2 != nil) {
-            [self.customCalenderView selectDate:self.viewModel.date2];
-        }
-
     [self configureVisibleCells];
-    
-    
 }
+
 - (void)selectRange {
     if (self.viewModel.date1 != nil && self.viewModel.date2 != nil) {
         [self.customCalenderView selectDate:self.viewModel.date1];
@@ -1209,10 +1196,7 @@
         [self.customCalenderView selectDate:self.viewModel.date2];
     }
     [self configureVisibleCells];
-    
 }
-
-
 
 - (void)setupCheckInDateView {
     if(self.viewModel.date1 == nil) {
@@ -1225,13 +1209,10 @@
         self.startDateSubLabel.text = [self dayOfDate:self.viewModel.date1];
     }
     [self setupNightCount];
-    
-    
-    
 }
-- (void)setupCheckOutDateView {
-    
-    
+
+- (void)setupCheckOutDateView
+{
     if(self.viewModel.date2 == nil) {
         self.endDateSubLabel.hidden = YES;
         self.endDateValueLabel.hidden = YES;
@@ -1248,25 +1229,22 @@
         }
     }
     [self setupNightCount];
-    
-    
 }
-
 
 - (IBAction)checkInButtonAction:(id)sender {
     
     if (self.viewModel.date1 != nil) {
-            [self.customCalenderView selectDate:self.viewModel.date1];
+        [self.customCalenderView selectDate:self.viewModel.date1];
     }
     
     self.viewModel.isStartDateSelection = YES;
     [self SwitchTapOfSingleLegTypeJourney];
 }
-- (IBAction)checkOutButtonAction:(id)sender {
 
-    
+- (IBAction)checkOutButtonAction:(id)sender
+{
     if (self.viewModel.date2 != nil) {
-            [self.customCalenderView selectDate:self.viewModel.date2];
+        [self.customCalenderView selectDate:self.viewModel.date2];
     }
     
     self.viewModel.isStartDateSelection = NO;

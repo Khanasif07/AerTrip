@@ -73,12 +73,12 @@ class FareUpdatedPopUpVC: BaseVC {
     
     private func getIncreaseTitleAttrText(forAmount amount: Double, fontColor: UIColor) -> NSMutableAttributedString {
         
-        let currency = "₹"
-        let finalText = "\(LocalizedString.FareIncreasedBy.localized)\n\(currency)\(amount)"
+        //let currency = "$"
+        let finalText = "\(LocalizedString.FareIncreasedBy.localized)\n\(amount.amountInDelimeterWithSymbol)"
         
         let attString: NSMutableAttributedString = NSMutableAttributedString(string: finalText, attributes: [NSAttributedString.Key.foregroundColor: fontColor, NSAttributedString.Key.font: AppFonts.SemiBold.withSize(18.0)])
         
-        attString.addAttributes([NSAttributedString.Key.font: AppFonts.Regular.withSize(28.0)], range: (finalText as NSString).range(of: "\(currency)\(amount)"))
+        attString.addAttributes([NSAttributedString.Key.font: AppFonts.Regular.withSize(28.0)], range: (finalText as NSString).range(of: "\(amount.amountInDelimeterWithSymbol)"))
 
         return attString
     }
@@ -87,8 +87,7 @@ class FareUpdatedPopUpVC: BaseVC {
         setupIncreasePopUp()
         titleLabel.attributedText = getIncreaseTitleAttrText(forAmount: increasedAmount, fontColor: AppColors.themeRed)
         
-        let currency = "₹"
-        descriptionLabel.text = "\(LocalizedString.TotalUpdatedPrice.localized) \(currency)\(totalUpdatedAmount)"
+        descriptionLabel.text = "\(LocalizedString.TotalUpdatedPrice.localized) \(totalUpdatedAmount.amountInDelimeterWithSymbol)"
     }
     
     private func updateRefundPopUp(refundAmount: Double, paymentMode: String) {
@@ -100,9 +99,8 @@ class FareUpdatedPopUpVC: BaseVC {
     
     private func updateDecreasePopUp(decreasedAmount: Double) {
         setupDecreasePopUp()
-        let currency = "₹"
-        let attrText = AppGlobals.shared.getTextWithImage(startText: "", image: #imageLiteral(resourceName: "ic_fare_dipped"), endText: "   \(LocalizedString.FareDippedBy.localized) \(currency) \(decreasedAmount)", font: AppFonts.Regular.withSize(16.0))
-        
+        //let currency = "$"
+        let attrText = AppGlobals.shared.getTextWithImage(startText: "", image: #imageLiteral(resourceName: "ic_fare_dipped"), endText: "   \(LocalizedString.FareDippedBy.localized)  \(decreasedAmount.amountInDelimeterWithSymbol)", font: AppFonts.Regular.withSize(16.0))
         attrText.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGreen], range: (attrText.string as NSString).range(of: attrText.string))
         
         decreaseLabel.attributedText = attrText

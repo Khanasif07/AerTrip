@@ -19,7 +19,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2wt-mY-hTS">
                         <rect key="frame" x="16" y="8" width="343" height="116"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iIk-Fh-H5s">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iIk-Fh-H5s">
                                 <rect key="frame" x="0.0" y="0.0" width="343" height="116"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Odl-Oi-vuI">
@@ -122,6 +122,7 @@
                 <outlet property="dividerViewTopConstraints" destination="cJ1-Ge-L8p" id="Pws-C3-1DL"/>
                 <outlet property="dropDownStackView" destination="OtQ-BV-2ab" id="u2o-Ep-agt"/>
                 <outlet property="dropDownTextField" destination="vvK-iQ-UYY" id="iw7-0K-7C1"/>
+                <outlet property="mainStackView" destination="Odl-Oi-vuI" id="BKq-Y1-Xd2"/>
                 <outlet property="shadowView" destination="2wt-mY-hTS" id="k5o-Zw-qnR"/>
                 <outlet property="shadowViewTopConstraint" destination="ExZ-kU-pkz" id="6Fz-Yu-Tvl"/>
             </connections>

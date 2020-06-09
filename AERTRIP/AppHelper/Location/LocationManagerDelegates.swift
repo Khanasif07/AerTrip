@@ -35,8 +35,9 @@ extension LocationManager: CLLocationManagerDelegate {
             self.recentCoordinates.append(loc.coordinate)
             self.lastUpdatedCoordinate =  CLLocationCoordinate2D(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude)
             DispatchQueue.main.async { [weak self] in
-                self?.locationUpdate?(loc)
+                self?.locationUpdate?(loc.coordinate, nil)
             }
+            self.stopLocationUpdates()
         }
     }
     
@@ -63,6 +64,8 @@ extension LocationManager {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         printDebug(#function)
+        self.locationUpdate?(LocationManager.defaultCoordinate, error.localizedDescription)
+        self.stopLocationUpdates()
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {

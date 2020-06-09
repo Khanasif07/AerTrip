@@ -75,6 +75,7 @@
 		0C6C1C6E22E875D300152927 /* HotelFareSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C1C6D22E875D200152927 /* HotelFareSectionHeader.swift */; };
 		0C7532C12431FC6600B8F213 /* NotificationSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7532BF2431FC6600B8F213 /* NotificationSettingsCell.swift */; };
 		0C7532C22431FC6600B8F213 /* NotificationSettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C7532C02431FC6600B8F213 /* NotificationSettingsCell.xib */; };
+		0C91D189248E94A100D91658 /* SelectBaggageVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C91D188248E94A100D91658 /* SelectBaggageVM.swift */; };
 		0C93A8E82330ABB6000795DE /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C93A8E72330ABB6000795DE /* NotificationVC.swift */; };
 		0C9CD03A247E4F49002D1073 /* SelectOtherAdonsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9CD039247E4F49002D1073 /* SelectOtherAdonsVM.swift */; };
 		0CAC8C8222E1E0620039D612 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F983A221B51A070018DFED /* UIImageExtension.swift */; };
@@ -1626,6 +1627,7 @@
 		0C6C1C6D22E875D200152927 /* HotelFareSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelFareSectionHeader.swift; sourceTree = "<group>"; };
 		0C7532BF2431FC6600B8F213 /* NotificationSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsCell.swift; sourceTree = "<group>"; };
 		0C7532C02431FC6600B8F213 /* NotificationSettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationSettingsCell.xib; sourceTree = "<group>"; };
+		0C91D188248E94A100D91658 /* SelectBaggageVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBaggageVM.swift; sourceTree = "<group>"; };
 		0C93A8E72330ABB6000795DE /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		0C9CD039247E4F49002D1073 /* SelectOtherAdonsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOtherAdonsVM.swift; sourceTree = "<group>"; };
 		0CAD5FE22338B32C0086F58D /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
@@ -3332,6 +3334,7 @@
 				0C9CD039247E4F49002D1073 /* SelectOtherAdonsVM.swift */,
 				0C0240482480686600B06AEC /* SelectPassengersVM.swift */,
 				0C07664E248E768400519276 /* BaggageContainerVM.swift */,
+				0C91D188248E94A100D91658 /* SelectBaggageVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -10324,6 +10327,7 @@
 				842EDEA1223A61F200E99409 /* HCEmailItinerariesVC.swift in Sources */,
 				84FD0DCB228A8E4800915A09 /* AccountDetailEvent.swift in Sources */,
 				840494FE2253AA7400983F5E /* HotelCheckOutDetailsVIew+TableCell.swift in Sources */,
+				0C91D189248E94A100D91658 /* SelectBaggageVM.swift in Sources */,
 				842EDEA5223A624400E99409 /* HCEmailItinerariesTableViewCell.swift in Sources */,
 				843FF662247409E3001F21B1 /* FlightJourney.m in Sources */,
 				84085CEC21F59C0E00F1E844 /* ForgotPasswordVC.swift in Sources */,
@@ -10596,11 +10600,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_hotels;
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 74;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -10804,11 +10808,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_hotels;
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 74;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;

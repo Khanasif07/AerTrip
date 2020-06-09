@@ -68,7 +68,7 @@ class HCSelectGuestsVC: BaseVC {
         newEmptyView.vType = .noResult
         return newEmptyView
     }()
-    
+    var isFirstTimeUserComming = true
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -244,24 +244,42 @@ class HCSelectGuestsVC: BaseVC {
             currentSelectedGuestIndex = IndexPath(item: min(newItem, maxItemInCurrentSection), section: currentSelectedGuestIndex.section)
         }
         
-        
         //increasing next selection according to the selected data
         var idxPath: IndexPath?
-        for (section, roomGuest) in GuestDetailsVM.shared.guests.enumerated() {
-            for (item, guest) in roomGuest.enumerated() {
-                // guest.firstName.isEmpty change for issue http://gitlab.appinvent.in/aertrip/iOS/issues/1302
-                if guest.fullName.isEmpty {
-                    idxPath = IndexPath(item: item, section: section)
+        if !isFirstTimeUserComming {
+            for (section, roomGuest) in GuestDetailsVM.shared.guests.enumerated() {
+                for (item, guest) in roomGuest.enumerated() {
+                    // guest.firstName.isEmpty change for issue http://gitlab.appinvent.in/aertrip/iOS/issues/1302
+                    if guest.fullName.isEmpty, section >= currentSelectedGuestIndex.section,   item >= currentSelectedGuestIndex.item {
+                        idxPath = IndexPath(item: item, section: section)
+                        break
+                    }
+                }
+                
+                if let idx = idxPath {
+                    currentSelectedGuestIndex = idx
                     break
                 }
             }
-            if let idx = idxPath {
-                currentSelectedGuestIndex = idx
-                break
-            }
         }
         
+        if idxPath == nil {
+            for (section, roomGuest) in GuestDetailsVM.shared.guests.enumerated() {
+                for (item, guest) in roomGuest.enumerated() {
+                    // guest.firstName.isEmpty change for issue http://gitlab.appinvent.in/aertrip/iOS/issues/1302
+                    if guest.fullName.isEmpty {
+                        idxPath = IndexPath(item: item, section: section)
+                        break
+                    }
+                }
+                if let idx = idxPath {
+                    currentSelectedGuestIndex = idx
+                    break
+                }
+            }
+        }
         selectedContactsCollectionView.reloadData()
+        isFirstTimeUserComming = false
     }
     
     //MARK:- Public
@@ -687,7 +705,7 @@ extension HCSelectGuestsVC: PagingViewControllerDataSource , PagingViewControlle
             self.currentIndex = pagingIndexItem.index
         }
     }
-
+    
 }
 
 

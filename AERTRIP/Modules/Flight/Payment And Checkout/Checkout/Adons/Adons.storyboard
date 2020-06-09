@@ -424,10 +424,10 @@ get upto 20% off </string>
             </objects>
             <point key="canvasLocation" x="-860" y="1110.4947526236883"/>
         </scene>
-        <!--Select BagageVC-->
+        <!--Select BaggageVC-->
         <scene sceneID="O3x-i6-Do9">
             <objects>
-                <viewController storyboardIdentifier="SelectBagageVC" id="4rT-oR-DOa" customClass="SelectBagageVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SelectBaggageVC" id="4rT-oR-DOa" customClass="SelectBaggageVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pU5-Nz-2sB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

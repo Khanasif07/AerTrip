@@ -57,10 +57,10 @@ class ATSwitcher: UIControl {
 
     public var isOn = false {
         didSet {
-            self.thumbView.frame.origin.x = self.isOn ? self.onPoint.x : self.offPoint.x
-            setPinImage()
-            self.backgroundColor = self.isOn ? self.onTintColor : self.offTintColor
-            
+//            self.thumbView.frame.origin.x = self.isOn ? self.onPoint.x : self.offPoint.x
+//            setPinImage()
+//            self.backgroundColor = self.isOn ? self.onTintColor : self.offTintColor
+            self.animate()
         }
     }
     public var animationDuration: Double = 0.5
@@ -159,7 +159,7 @@ class ATSwitcher: UIControl {
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         super.beginTracking(touch, with: event)
         self.isOn = !self.isOn
-        self.animate()
+        //self.animate()
         self.delegate?.switcherDidChangeValue(switcher: self, value: self.isOn)
         feedbackGenerator.impactOccurred()
         return true

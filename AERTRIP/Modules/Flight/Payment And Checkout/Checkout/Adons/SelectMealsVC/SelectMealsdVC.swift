@@ -58,7 +58,6 @@ extension SelectMealsdVC {
         }
     
     func reloadData(index : Int = 0){
-        
         self.mealsTableView.reloadRow(at: IndexPath(row: index, section: 0), with: UITableView.RowAnimation.none)
     }
     

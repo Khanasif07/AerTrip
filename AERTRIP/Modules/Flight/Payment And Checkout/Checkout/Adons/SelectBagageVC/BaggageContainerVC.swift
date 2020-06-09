@@ -14,11 +14,11 @@ class BaggageContainerVC : BaseVC {
 
     // MARK: Properties
        fileprivate var parchmentView : PagingViewController?
-       private let allTabsStr: [String] = ["BOM → LON", "LON → NYC", "NYC → DEL"]
+//       private let allTabsStr: [String] = ["BOM → LON", "LON → NYC", "NYC → DEL"]
        
-       var allChildVCs = [SelectBaggageVC]()
-       var currentIndex = 0
-       
+
+       let baggageContainerVM = BaggageContainerVM()
+    
        // MARK: IBOutlets
        @IBOutlet weak var topNavBarView: TopNavigationView!
        @IBOutlet weak var mealsContainerView: UIView!
@@ -87,10 +87,13 @@ extension BaggageContainerVC {
     }
     
     private func setUpViewPager() {
-        self.allChildVCs.removeAll()
-        for _ in 0..<allTabsStr.count {
+        self.baggageContainerVM.allChildVCs.removeAll()
+      
+        for index in 0..<AddonsDataStore.shared.allFlightKeys.count {
             let vc = SelectBaggageVC.instantiate(fromAppStoryboard: .Adons)
-            self.allChildVCs.append(vc)
+            vc.initializeVm(selectBaggageVM: SelectBaggageVM(vcIndex: index, currentFlightKey: AddonsDataStore.shared.allFlightKeys[index]))
+            vc.delegate = self
+            self.baggageContainerVM.allChildVCs.append(vc)
         }
         self.view.layoutIfNeeded()
         if let _ = self.parchmentView{
@@ -160,24 +163,45 @@ extension BaggageContainerVC: PagingViewControllerDataSource , PagingViewControl
     
     
     func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
-        self.allTabsStr.count
+        return AddonsDataStore.shared.allFlights.count
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
-        return self.allChildVCs[index]
+        return self.baggageContainerVM.allChildVCs[index]
     }
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
         
-        return MenuItem(title: self.allTabsStr[index], index: index, isSelected:false)
+        let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.allFlightKeys[index] }
+          guard let firstFlight = flightAtINdex.first else {
+              return MenuItem(title: "", index: index, isSelected:false)
+          }
+          return MenuItem(title: "\(firstFlight.fr) → \(firstFlight.to)", index: index, isSelected:false)
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
-        
         if let pagingIndexItem = pagingItem as? MenuItem {
-            currentIndex = pagingIndexItem.index
+            self.baggageContainerVM.currentIndex = pagingIndexItem.index
         }
     }
 }
 
+extension BaggageContainerVC : SelectBaggageDelegate {
+
+    func addContactButtonTapped(){
+        
+    }
+    
+    func addPassengerToBaggage(vcIndex: Int, currentFlightKey: String, baggageIndex: Int) {
+        let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+        vc.modalPresentationStyle = .overFullScreen
+        vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
+            guard let weakSelf = self else { return }
+            AddonsDataStore.shared.setContactsForBaggage(vcIndex: vcIndex, currentFlightKey: currentFlightKey, baggageIndex: baggageIndex, contacts: contacts)
+            weakSelf.baggageContainerVM.allChildVCs[vcIndex].reloadData(index: baggageIndex)
+        }
+        present(vc, animated: true, completion: nil)
+    }
+    
+}
 

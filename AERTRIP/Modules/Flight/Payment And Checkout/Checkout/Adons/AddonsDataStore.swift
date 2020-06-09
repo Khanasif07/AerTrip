@@ -49,5 +49,11 @@ class AddonsDataStore {
         adons[currentFlightKey]? = keyData
     }
     
+    func setContactsForBaggage(vcIndex: Int, currentFlightKey: String, baggageIndex: Int, contacts : [ATContact]){
+        guard var keyData = adons[currentFlightKey] else { return }
+        keyData.baggage[baggageIndex].bagageSelectedFor = contacts
+        adons[currentFlightKey]? = keyData
+    }
+    
 }
 

@@ -132,7 +132,6 @@ extension HotelCheckoutDetailVC {
         if ratesData.cancellation_penalty != nil {
             guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
             cell.configureCancellationCell(ratesData: ratesData, isHotelDetailsScreen: true)
-            cell.containerView.roundBottomCorners(cornerRadius: 0.0)
             cell.delegate = self
             if self.allIndexPath.contains(indexPath) {
                 cell.allDetailsLabel.isHidden = false
@@ -144,7 +143,6 @@ extension HotelCheckoutDetailVC {
                 cell.allDetailsLabel.isHidden = true
                 cell.allDetailsLabel.attributedText = nil
             }
-            cell.shadowViewBottomConstraints.constant = 0.0
             cell.clipsToBounds = true
             return cell
         }
@@ -153,7 +151,6 @@ extension HotelCheckoutDetailVC {
     
     internal func getPaymentInfoCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
         guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
-        cell.containerView.roundBottomCorners(cornerRadius: 00.0)
         cell.delegate = self
         cell.configurePaymentCell(ratesData: ratesData, isHotelDetailsScreen: true)
         if self.allIndexPath.contains(indexPath) {
@@ -166,7 +163,6 @@ extension HotelCheckoutDetailVC {
             cell.allDetailsLabel.attributedText = nil
             cell.infoBtnOutlet.isHidden = false
         }
-        cell.shadowViewBottomConstraints.constant = 0.0
         cell.clipsToBounds = true
         return cell
     }
@@ -174,7 +170,6 @@ extension HotelCheckoutDetailVC {
     internal func getNotesCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
         if let notesInclusion =  ratesData.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [String], !notesInclusion.isEmpty {
             guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
-            cell.containerView.roundBottomCorners(cornerRadius: 10.0)
             cell.delegate = self
             cell.configureNotesCell(ratesData: ratesData, isHotelDetailsScreen: true)
             cell.allDetailsLabel.isHidden = true
@@ -191,9 +186,13 @@ extension HotelCheckoutDetailVC {
                // cell.moreBtnOutlet.isHidden = false
             }
             cell.shadowViewBottomConstraints.constant = 26.0
+            //cell.containerView.roundBottomCorners(cornerRadius: 10.0)
+            cell.containerView.layer.cornerRadius = 10
+            cell.containerView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
             cell.clipsToBounds = true
             return cell
         }
+        
         return nil
     }
     
