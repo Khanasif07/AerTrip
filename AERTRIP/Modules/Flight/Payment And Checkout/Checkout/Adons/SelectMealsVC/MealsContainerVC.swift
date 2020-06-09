@@ -72,7 +72,12 @@ class MealsContainerVC: BaseVC {
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
-
+        for item in self.mealsContainerVM.allChildVCs {
+            let currentFlightKey = item.selectMealsVM.getCurrentFlightKey()
+            let mealsArray = item.selectMealsVM.getMeals()
+            AddonsDataStore.shared.adons[currentFlightKey]?.meal = mealsArray
+        }
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -89,7 +94,10 @@ extension MealsContainerVC {
         self.mealsContainerVM.allChildVCs.removeAll()
         for index in 0..<AddonsDataStore.shared.allFlightKeys.count {
             let vc = SelectMealsdVC.instantiate(fromAppStoryboard: .Adons)
-            vc.initializeVm(selectMealsVM: SelectMealsVM(vcIndex: index, currentFlightKey: AddonsDataStore.shared.allFlightKeys[index]))
+            
+            let currentFlightKey = AddonsDataStore.shared.allFlightKeys[index]
+            guard let keyData = AddonsDataStore.shared.adons[currentFlightKey] else { return }
+             vc.initializeVm(selectMealsVM: SelectMealsVM(vcIndex: index, currentFlightKey: currentFlightKey, mealsArray: keyData.meal))
             vc.delegate = self
             self.mealsContainerVM.allChildVCs.append(vc)
         }
@@ -189,7 +197,8 @@ extension MealsContainerVC : SelectMealDelegate {
         vc.modalPresentationStyle = .overFullScreen
         vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
             guard let weakSelf = self else { return }
-            AddonsDataStore.shared.setContactsForMeal(vcIndex: vcIndex, currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: contacts)
+           // AddonsDataStore.shared.setContactsForMeal(vcIndex: vcIndex, currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: contacts)
+        weakSelf.mealsContainerVM.allChildVCs[vcIndex].updateContactInMeal(mealIndex: mealIndex, contacts: contacts)
             weakSelf.mealsContainerVM.allChildVCs[vcIndex].reloadData(index: mealIndex)
         }
         

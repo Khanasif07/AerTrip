@@ -54,12 +54,12 @@ class SelectBagageCell: UITableViewCell {
             self.quantityLabel.isHidden = true
         }else{
            // self.mealForLabelTop.constant = 2
-            let allNamesArray = data.mealsSelectedFor.map { (contact) -> String in
+            let allNamesArray = data.bagageSelectedFor.map { (contact) -> String in
                 return contact.firstName
             }
             let conaSaperatedNames = allNamesArray.joined(separator: ", ")
             self.selectedForLabel.text = "For \(conaSaperatedNames)"
-            self.quantityLabel.text = "X\(data.mealsSelectedFor.count)"
+            self.quantityLabel.text = "X\(data.bagageSelectedFor.count)"
             self.quantityLabel.isHidden = false
         }
         

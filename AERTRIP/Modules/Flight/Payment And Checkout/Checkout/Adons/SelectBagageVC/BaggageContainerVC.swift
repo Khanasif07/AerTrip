@@ -88,7 +88,6 @@ extension BaggageContainerVC {
     
     private func setUpViewPager() {
         self.baggageContainerVM.allChildVCs.removeAll()
-      
         for index in 0..<AddonsDataStore.shared.allFlightKeys.count {
             let vc = SelectBaggageVC.instantiate(fromAppStoryboard: .Adons)
             vc.initializeVm(selectBaggageVM: SelectBaggageVM(vcIndex: index, currentFlightKey: AddonsDataStore.shared.allFlightKeys[index]))
