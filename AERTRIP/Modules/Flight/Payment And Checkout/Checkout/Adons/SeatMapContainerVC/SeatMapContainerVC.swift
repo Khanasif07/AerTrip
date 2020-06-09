@@ -139,7 +139,9 @@ extension SeatMapContainerVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         allChildVCs.enumerated().forEach { (index, seatMapVC) in
             seatMapVC.setFlightData(allFlightsData[index])
-            seatMapVC.seatMapCollView.reloadData()
+            if seatMapVC.viewModel.flightData.md.rows.count > 0 {
+                seatMapVC.seatMapCollView.reloadData()
+            }
         }
     }
     
@@ -188,7 +190,7 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
         
         delay(seconds: 0.2) {
             AppGlobals.shared.startLoading()
-
+            
         }
     }
     

@@ -98,13 +98,8 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
         if let firstGuestArray = GuestDetailsVM.shared.guests.first{
             
             if selectPassengersVM.setupFor == .seatSelection {
-                  
-                    if selectPassengersVM.seatModel.columnData.passenger?.id == firstGuestArray[indexPath.item].id {
-                        selectPassengersVM.selectedIndex.append(indexPath.item)
-                    }
                 
                 cell.setupCellFor(firstGuestArray[indexPath.item], selectPassengersVM.seatModel)
-                cell.selectionImageView.isHidden = !self.selectPassengersVM.selectedIndex.contains(indexPath.item)
                 
             }else{
                 cell.populateData(data: firstGuestArray[indexPath.item])
@@ -140,18 +135,17 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
     }
 
     private func didSelectForSeatSelection(_ indexPath: IndexPath,_ collectionView: UICollectionView) {
-        if self.selectPassengersVM.selectedIndex.contains(indexPath.item) {
-            self.selectPassengersVM.selectedIndex.removeAll()
-        } else {
-            self.selectPassengersVM.selectedIndex.removeAll()
-            self.selectPassengersVM.selectedIndex.append(indexPath.item)
-        }
-        if selectPassengersVM.selectedIndex.isEmpty {
+        
+        guard let allContacts = GuestDetailsVM.shared.guests.first, allContacts.indices.contains(indexPath.item) else { return }
+        
+        let passenger = allContacts[indexPath.item]
+        
+        if selectPassengersVM.seatModel.columnData.passenger?.id == passenger.id {
             selectedPassengerForSeat?(nil)
             selectPassengersVM.seatModel.columnData.passenger = nil
-        } else if let selectedPassenger = GuestDetailsVM.shared.guests.first?[indexPath.item] {
-            selectedPassengerForSeat?(selectedPassenger)
-            selectPassengersVM.seatModel.columnData.passenger = selectedPassenger
+        } else {
+            selectedPassengerForSeat?(passenger)
+            selectPassengersVM.seatModel.columnData.passenger = passenger
         }
         collectionView.reloadData()
         doneButton.setTitle(LocalizedString.Done.localized, for: .normal)
