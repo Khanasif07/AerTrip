@@ -12,7 +12,7 @@ extension FlightPaymentBookingStatusVC{
     
     func getAllDoneCell(_ indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: YouAreAllDoneTableViewCell.reusableIdentifier, for: indexPath) as? YouAreAllDoneTableViewCell else { return UITableViewCell() }
-        cell.configCell(forBookingId: self.viewModel.bookingId, forCid: LocalizedString.na.localized)
+        cell.configCell(forBookingId: self.viewModel.bookingId, forCid: LocalizedString.na.localized, isBookingPending: self.viewModel.bookingId.isEmpty)
 //        cell.delegate = self
         return cell
     }

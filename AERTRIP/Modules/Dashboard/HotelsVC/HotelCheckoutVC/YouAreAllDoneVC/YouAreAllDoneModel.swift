@@ -8,6 +8,11 @@
 
 struct HotelReceiptModel {
     
+    enum BookingStatusType: String {
+        case pending
+        case booked
+    }
+    
     var hid: String = ""// "549143"
     var hname: String = "" //"Hotel Blue Sapphire"
     var address: String = ""// "3351-54 Bank Street, Christian Colony, Karol Bagh, New Delhi 110005, New Delhi - 110005, India"
@@ -31,7 +36,7 @@ struct HotelReceiptModel {
     var travellers: [[TravellersList]] = []
     var part_payment: JSONDictionaryArray = [[:]]
     //    var booking_params: BookingParams?
-    var booking_status: String = ""
+    var booking_status: BookingStatusType = .pending
     var penalty_array: JSONDictionaryArray = [[:]]
 //    var cancellation_penalty: String
     var isRefundable: Bool = false //is_refundable
@@ -157,7 +162,7 @@ struct HotelReceiptModel {
             self.part_payment = obj
         }
         if let obj = json[APIKeys.booking_params.rawValue] as? JSONDictionary , let bookingStatus = obj[APIKeys.booking_status.rawValue]{
-            self.booking_status = "\(bookingStatus)".removeNull
+            self.booking_status = BookingStatusType(rawValue: "\(bookingStatus)".removeNull) ?? .pending
         }
         if let obj = json[APIKeys.penalty_array.rawValue] as? JSONDictionaryArray {
             self.penalty_array = obj

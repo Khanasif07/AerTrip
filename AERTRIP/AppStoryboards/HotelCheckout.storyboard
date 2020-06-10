@@ -1602,6 +1602,10 @@ Incomplete</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Orz-hr-Ufm" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GpL-mG-w0p" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1616,17 +1620,22 @@ Incomplete</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Orz-hr-Ufm" firstAttribute="bottom" secondItem="GpL-mG-w0p" secondAttribute="bottom" id="1jG-YF-GUM"/>
+                            <constraint firstItem="Orz-hr-Ufm" firstAttribute="top" secondItem="N2x-za-Luc" secondAttribute="top" id="8vI-oq-0d5"/>
                             <constraint firstItem="GpL-mG-w0p" firstAttribute="top" secondItem="FTq-8U-NgG" secondAttribute="top" id="CjQ-sg-hF6"/>
                             <constraint firstItem="GpL-mG-w0p" firstAttribute="trailing" secondItem="FTq-8U-NgG" secondAttribute="trailing" id="DJB-yp-fTc"/>
                             <constraint firstItem="FTq-8U-NgG" firstAttribute="trailing" secondItem="FXo-es-s65" secondAttribute="trailing" id="DQb-8W-Fry"/>
                             <constraint firstItem="GpL-mG-w0p" firstAttribute="leading" secondItem="FTq-8U-NgG" secondAttribute="leading" id="Pv3-Bt-POT"/>
                             <constraint firstItem="FXo-es-s65" firstAttribute="top" secondItem="GpL-mG-w0p" secondAttribute="bottom" id="eVl-ZZ-F8R"/>
+                            <constraint firstItem="Orz-hr-Ufm" firstAttribute="trailing" secondItem="GpL-mG-w0p" secondAttribute="trailing" id="hrj-no-nif"/>
                             <constraint firstAttribute="bottom" secondItem="FXo-es-s65" secondAttribute="bottom" id="iWU-7D-7kC"/>
+                            <constraint firstItem="Orz-hr-Ufm" firstAttribute="leading" secondItem="GpL-mG-w0p" secondAttribute="leading" id="pU2-q6-K0z"/>
                             <constraint firstItem="FXo-es-s65" firstAttribute="leading" secondItem="FTq-8U-NgG" secondAttribute="leading" id="x4G-ze-Uu2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FTq-8U-NgG"/>
                     </view>
                     <connections>
+                        <outlet property="headerHeightConstraint" destination="TLK-Mc-mBz" id="iUL-vP-fsS"/>
                         <outlet property="headerView" destination="GpL-mG-w0p" id="RDX-zB-ewF"/>
                         <outlet property="tableView" destination="FXo-es-s65" id="7GO-wu-ONz"/>
                     </connections>

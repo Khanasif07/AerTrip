@@ -57,6 +57,7 @@ struct HotelDetails {
     var thumbnail: [String] = [String]()
     var totalOccupant: Int = 0
     var pan_required: Bool = false
+    var is_price_change: Bool = false
 
     
     //Mark:- Initialization
@@ -108,7 +109,8 @@ struct HotelDetails {
             APIKeys.city.rawValue: self.city,
             APIKeys.is_refetch_cp.rawValue: self.is_refetch_cp,
             APIKeys.occupant.rawValue: self.totalOccupant,
-            APIKeys.pan_required.rawValue: self.pan_required
+            APIKeys.pan_required.rawValue: self.pan_required,
+            APIKeys.is_price_change.rawValue: self.is_price_change
 
         ]
     }
@@ -252,6 +254,10 @@ struct HotelDetails {
         
         if let obj = json[APIKeys.pan_required.rawValue] as? Bool {
             self.pan_required = obj
+        }
+        
+        if let obj = json[APIKeys.is_price_change.rawValue] as? Bool {
+            self.is_price_change = obj
         }
         
     }

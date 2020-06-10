@@ -27,6 +27,7 @@ class HCEmailItinerariesVC: BaseVC {
             self.tableView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 10.0)
         }
     }
+    @IBOutlet weak var headerHeightConstraint: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================
@@ -41,6 +42,14 @@ class HCEmailItinerariesVC: BaseVC {
     }
     
     override func initialSetup() {
+        headerView.backgroundColor = .clear
+//        tableView.backgroundColor = .clear
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        if #available(iOS 13.0, *) {
+            headerHeightConstraint.constant = 56
+        } else {
+            self.view.backgroundColor = .white
+        }
         self.headerViewSetUp()
         self.registerNibs()
     }

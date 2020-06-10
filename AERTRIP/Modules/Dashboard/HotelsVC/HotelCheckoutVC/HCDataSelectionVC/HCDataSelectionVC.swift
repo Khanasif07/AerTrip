@@ -398,6 +398,10 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
             viewModel.webserviceForItenaryDataTraveller()
             apiCount += 1
         }
+        if (self.viewModel.itineraryData?.hotelDetails?.is_price_change ?? false) {
+            
+        }
+        
     }
     
     func callForItenaryDataTravellerFail(errors: ErrorCodes) {

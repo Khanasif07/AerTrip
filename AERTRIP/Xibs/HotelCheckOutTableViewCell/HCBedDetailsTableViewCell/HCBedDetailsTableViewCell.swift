@@ -44,8 +44,8 @@ class HCBedDetailsTableViewCell: UITableViewCell {
     ///COnfigure UI
     private func configUI() {
         //Font
-        self.roomNumberLabel.font = AppFonts.SemiBold.withSize(16.0)
-        self.roomNameLabel.font = AppFonts.SemiBold.withSize(18.0)
+        self.roomNumberLabel.font = AppFonts.Regular.withSize(14.0)
+        self.roomNameLabel.font = AppFonts.Regular.withSize(14.0)
         self.roomDescLabel.font = AppFonts.Regular.withSize(14.0)
         //Text
         
@@ -66,6 +66,7 @@ class HCBedDetailsTableViewCell: UITableViewCell {
         for traveller in passengers {
            let view =  HCHotelPassengerView.instanciateFromNib()
             view.configCell(travellersImage: traveller.profile_image, travellerName: "\(traveller.first_name) \(traveller.last_name)", firstName: traveller.first_name, lastName: traveller.last_name, dob: traveller.dob, salutation: traveller.salutation, age: "\(traveller.age)")
+            view.layoutIfNeeded()
             self.passengerStackView.addArrangedSubview(view)
         }
         
@@ -79,7 +80,7 @@ class HCBedDetailsTableViewCell: UITableViewCell {
             self.shadowView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
             self.dividerView.isHidden = false
         } else {
-            self.stackViewBottomConstraint.constant = 26
+            self.stackViewBottomConstraint.constant = 8
             self.containerBottomConstraint.constant = 0
             self.containerView.roundBottomCorners(cornerRadius: 0)
             self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)

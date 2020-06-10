@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -36,18 +36,29 @@
                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                         <state key="normal" title="View"/>
                     </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="suS-4e-B13" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="55.5" width="375" height="0.5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="Jgd-Jo-sBD"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="E44-G0-EWa" secondAttribute="bottom" constant="19" id="ACn-Vi-aBz"/>
                     <constraint firstItem="7UR-LQ-qpt" firstAttribute="centerY" secondItem="E44-G0-EWa" secondAttribute="centerY" id="RSd-50-FWd"/>
                     <constraint firstItem="E44-G0-EWa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Td6-6H-KlY"/>
+                    <constraint firstItem="suS-4e-B13" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Vqz-DK-OQQ"/>
+                    <constraint firstAttribute="bottom" secondItem="suS-4e-B13" secondAttribute="bottom" id="dvW-iS-AEV"/>
                     <constraint firstAttribute="trailing" secondItem="7UR-LQ-qpt" secondAttribute="trailing" constant="16" id="gyZ-6E-g4s"/>
+                    <constraint firstAttribute="trailing" secondItem="suS-4e-B13" secondAttribute="trailing" id="hg7-7P-xtk"/>
                     <constraint firstItem="E44-G0-EWa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="snj-lI-YKj"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="confirmationVoucherLabel" destination="E44-G0-EWa" id="x6u-3l-8Hf"/>
+                <outlet property="dividerView" destination="suS-4e-B13" id="Vf3-gq-iy3"/>
                 <outlet property="titleLabelBottomContraint" destination="ACn-Vi-aBz" id="nyn-gG-cl8"/>
                 <outlet property="titleLabelTopConstraint" destination="snj-lI-YKj" id="Ahc-Eu-hs0"/>
                 <outlet property="viewButton" destination="7UR-LQ-qpt" id="9OL-LT-ku3"/>

@@ -39,7 +39,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="67" translatesAutoresizingMaskIntoConstraints="NO" id="CV8-Zy-I2S">
-                                <rect key="frame" x="0.0" y="57.5" width="375" height="334.5"/>
+                                <rect key="frame" x="0.0" y="57.5" width="375" height="347.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eOJ-1s-GYh">
                                         <rect key="frame" x="81.5" y="0.0" width="212" height="60"/>
@@ -93,8 +93,8 @@
                                             <constraint firstItem="Err-8A-mDh" firstAttribute="top" secondItem="eOJ-1s-GYh" secondAttribute="top" id="yMz-tj-ggh"/>
                                         </constraints>
                                     </view>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="I4z-vi-qSM">
-                                        <rect key="frame" x="0.0" y="127" width="375" height="207.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="I4z-vi-qSM">
+                                        <rect key="frame" x="0.0" y="127" width="375" height="220.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="What next?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ij-bR-3rD">
                                                 <rect key="frame" x="16" y="0.0" width="343" height="35.5"/>
@@ -103,10 +103,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="fIL-dy-Qqg">
-                                                <rect key="frame" x="0.0" y="53.5" width="375" height="154"/>
+                                                <rect key="frame" x="0.0" y="40.5" width="375" height="180"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="154" id="aKi-jp-ToI"/>
+                                                    <constraint firstAttribute="height" constant="180" id="aKi-jp-ToI"/>
                                                 </constraints>
                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="WgN-DP-M8C">
                                                     <size key="itemSize" width="50" height="50"/>
@@ -131,7 +131,7 @@
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ub-hp-9qV" customClass="ISPageControl" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="167.5" y="400" width="40" height="7"/>
+                                <rect key="frame" x="167.5" y="405" width="40" height="7"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="Ra7-Lf-Hl3"/>
@@ -149,7 +149,7 @@
                             <constraint firstAttribute="trailing" secondItem="7Ur-1G-zdh" secondAttribute="trailing" constant="16" id="Xwb-Y6-SNi"/>
                             <constraint firstItem="CV8-Zy-I2S" firstAttribute="top" secondItem="7Ur-1G-zdh" secondAttribute="bottom" constant="16" id="Y8z-ob-tcI"/>
                             <constraint firstItem="3Wl-Vk-v45" firstAttribute="top" secondItem="FlB-gh-hoz" secondAttribute="top" id="cj0-Gk-ffK"/>
-                            <constraint firstItem="5ub-hp-9qV" firstAttribute="top" secondItem="CV8-Zy-I2S" secondAttribute="bottom" constant="8" id="lrt-Dd-wUY"/>
+                            <constraint firstItem="5ub-hp-9qV" firstAttribute="top" secondItem="CV8-Zy-I2S" secondAttribute="bottom" id="lrt-Dd-wUY"/>
                             <constraint firstItem="5ub-hp-9qV" firstAttribute="centerX" secondItem="CV8-Zy-I2S" secondAttribute="centerX" id="uiX-EY-leY"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5ub-hp-9qV" secondAttribute="bottom" constant="12.5" id="yce-iV-STg"/>
                             <constraint firstItem="CV8-Zy-I2S" firstAttribute="leading" secondItem="FlB-gh-hoz" secondAttribute="leading" id="ykz-ZL-i46"/>

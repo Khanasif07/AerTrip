@@ -10,6 +10,9 @@ import UIKit
 
 class EmailItinerariesTextField: UITextField {
     open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(copy(_:)) || action == #selector(paste(_:)){
+            return true
+        }
         return false
     }
 }
