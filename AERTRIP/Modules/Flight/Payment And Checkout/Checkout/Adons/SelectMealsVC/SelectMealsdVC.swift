@@ -68,7 +68,6 @@ extension SelectMealsdVC {
     func updateContactInMeal(mealIndex: Int, contacts : [ATContact]){
         self.selectMealsVM.updateContactInMeal(mealIndex: mealIndex, contacts: contacts)
     }
-    
 }
 
 
@@ -89,20 +88,13 @@ extension SelectMealsdVC : UITableViewDelegate, UITableViewDataSource {
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SelectMealCell", for: indexPath) as? SelectMealCell else { fatalError("SelectMealCell not found") }
-             
-              // cell.populateData(type: AdonsVM.AdonsType(rawValue: indexPath.row) ?? AdonsVM.AdonsType.meals)
-               
-//            cell.populateData(index: indexPath.row)
-        
-        cell.populateData(data: self.selectMealsVM.getMeals()[indexPath.row], index: indexPath.row)
-                        
-               return cell
+            cell.populateData(data: self.selectMealsVM.getMeals()[indexPath.row], index: indexPath.row)
+            return cell
         }
         
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        self.delegate?.addPassengerToMeal(vcIndex: self.selectMealsVM.getVcIndex(), currentFlightKey: self.selectMealsVM.getCurrentFlightKey(), mealIndex: indexPath.row, selectedContacts: self.selectMealsVM.getMeals()[indexPath.row].mealsSelectedFor)
+        self.delegate?.addPassengerToMeal(forAdon : self.selectMealsVM.getMeals()[indexPath.row] , vcIndex: self.selectMealsVM.getVcIndex(), currentFlightKey: self.selectMealsVM.getCurrentFlightKey(), mealIndex: indexPath.row, selectedContacts: self.selectMealsVM.getMeals()[indexPath.row].mealsSelectedFor)
     
     }
     

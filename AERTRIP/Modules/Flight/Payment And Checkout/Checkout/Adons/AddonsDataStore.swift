@@ -14,9 +14,9 @@ class AddonsDataStore {
     
      var itinerary = FlightItinerary()
      var adons : [String : AddonsData] = [:]
-     var allFlightKeys : [String] {
-         return  Array(adons.keys)
-     }
+//     var allFlightKeys : [String] {
+//         return  Array(adons.keys)
+//     }
      var allFlights : [IntFlightDetail] = []
     
     

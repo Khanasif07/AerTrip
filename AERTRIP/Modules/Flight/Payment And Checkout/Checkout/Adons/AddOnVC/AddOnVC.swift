@@ -99,13 +99,13 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
             
         case .meals:
             
-            if AddonsDataStore.shared.adons.isEmpty {
-                AertripToastView.toast(in: self.view, withText: "adons not found")
-                return
-           }
+//            if AddonsDataStore.shared.adons.isEmpty {
+//                AertripToastView.toast(in: self.view, withText: "adons not found")
+//                return
+//           }
             
             let vc = MealsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-//            vc.mealsContainerVM.itinerary = AddonsDataStore.shared.itinerary
+//          vc.mealsContainerVM.itinerary = AddonsDataStore.shared.itinerary
             vc.modalPresentationStyle = .overFullScreen
             present(vc, animated: true, completion: nil)
             

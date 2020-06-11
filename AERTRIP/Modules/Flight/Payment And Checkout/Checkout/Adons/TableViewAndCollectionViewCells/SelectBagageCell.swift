@@ -40,7 +40,27 @@ class SelectBagageCell: UITableViewCell {
 
     }
 
-
+    func populateData(data : AddonsDataCustom, index : Int){
+        let price = "₹ \(data.price)"
+        self.priceLabel.text = price
+        self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
+        self.bagageTitleLabel.text = data.ssrName?.name
+        
+        if data.bagageSelectedFor.isEmpty {
+                self.selectedForLabel.text = ""
+              //  self.mealForLabelTop.constant = 0
+                self.quantityLabel.isHidden = true
+            }else{
+               // self.mealForLabelTop.constant = 2
+                let allNamesArray = data.bagageSelectedFor.map { (contact) -> String in
+                    return contact.firstName
+                }
+                let conaSaperatedNames = allNamesArray.joined(separator: ", ")
+                self.selectedForLabel.text = "For \(conaSaperatedNames)"
+                self.quantityLabel.text = "X\(data.bagageSelectedFor.count)"
+                self.quantityLabel.isHidden = false
+            }
+    }
     
      func populateData(data : Addons, index : Int){
         
@@ -63,24 +83,6 @@ class SelectBagageCell: UITableViewCell {
             self.quantityLabel.text = "X\(data.bagageSelectedFor.count)"
             self.quantityLabel.isHidden = false
         }
-        
-    }
-    
-    func populateData(index : Int){
-        
-        if index == 3{
-            let price = "₹ 8,550"
-            self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
-            self.priceLabel.text = price
-            self.bagageTitleLabel.text = "10 Kgs - Pre Purchased Excess Baggage"
-        }else{
-            let price = "₹ 807565"
-            self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
-            self.priceLabel.text = price
-            self.bagageTitleLabel.text = "10 Kgs - Pre Purchased Excess Baggage 10 Kgs - Pre Purchased Excess Baggage"
-        }
-        
-        self.layoutIfNeeded()
     }
     
     func populateOtherAdonsData(data : (title : String, price : Int, selectedForCount : Int)){

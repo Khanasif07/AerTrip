@@ -11,6 +11,7 @@ import Foundation
 struct AddonsMaster {
     var legs:[String:AddonsLeg]
     init(_ json:JSON = JSON()){
+        printDebug(json)
         legs = Dictionary(uniqueKeysWithValues: json["legs"].map { ($0.0, AddonsLeg($0.1)) })
     }
 }
@@ -106,8 +107,8 @@ struct AddonsDetails{
 
 struct AddonsDataCustom {
     
-    var adonsName : String
-    var price : Int
+    var adonsName : String = ""
+    var price : Int = 0
     var isAdult : Bool = false
     var isChild : Bool = false
     var isInfant : Bool = false
@@ -116,6 +117,10 @@ struct AddonsDataCustom {
     var bagageSelectedFor : [ATContact] = []
     var autoSelectedFor : [String] = []
 
+    init() {
+        
+    }
+    
     init(name : String, price : Int,ssrName : AddonsSsr?){
         self.adonsName = name
         self.price = price

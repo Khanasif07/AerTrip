@@ -8,16 +8,12 @@
 
 import UIKit
 
-protocol SelectBaggageDelegate : class {
-    func addContactButtonTapped()
-    func addPassengerToBaggage(vcIndex : Int, currentFlightKey : String, baggageIndex: Int)
-}
 
 class SelectBaggageVC: UIViewController {
     
     @IBOutlet weak var bagageTableView: UITableView!
     
-    private var selectBaggageVM : SelectBaggageVM!
+    var selectBaggageVM : SelectBaggageVM!
     weak var delegate : SelectBaggageDelegate?
     
     override func viewDidLoad() {
@@ -74,7 +70,7 @@ extension SelectBaggageVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.selectBaggageVM.getBaggageDataForCurrentFlight().count
+        return self.selectBaggageVM.getBaggage().count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -99,11 +95,15 @@ extension SelectBaggageVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SelectBagageCell", for: indexPath) as? SelectBagageCell else { fatalError("SelectBagageCell not found") }
-        cell.populateData(data: self.selectBaggageVM.getBaggageDataForCurrentFlight()[indexPath.row], index: indexPath.row)
-               return cell
+            cell.populateData(data: self.selectBaggageVM.getBaggage()[indexPath.row], index: indexPath.row)
+            return cell
         }
                 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.delegate?.addPassengerToBaggage(vcIndex: self.selectBaggageVM.vcIndex, currentFlightKey: self.selectBaggageVM.currentFlightKey, baggageIndex: indexPath.row)
+       
+        self.delegate?.addPassengerToBaggage(forAdon: self.selectBaggageVM.getBaggage()[indexPath.row], vcIndex: self.selectBaggageVM.getVcIndex(), currentFlightKey: self.selectBaggageVM.getCurrentFlightKey(), baggageIndex: indexPath.row, selectedContacts: self.selectBaggageVM.getBaggage()[indexPath.row].bagageSelectedFor)
+        
+        
+        
     }
 }
