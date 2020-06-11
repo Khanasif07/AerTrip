@@ -52,5 +52,4 @@ class AdonsVM  {
         let viewModel = SeatMapContainerVM(AddonsDataStore.shared.itinerary.sid, AddonsDataStore.shared.itinerary.id, AddonsDataStore.shared.itinerary.details.fk)
         return viewModel
     }
-    
 }

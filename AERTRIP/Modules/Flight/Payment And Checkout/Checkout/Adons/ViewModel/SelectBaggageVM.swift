@@ -23,11 +23,28 @@ class SelectBaggageVM {
             
         }
     
+    var sagrigatedData : [Int:[AddonsDataCustom]] = [:]
+    
     
     init(vcIndex : Int, currentFlightKey : String, addonsDetails : AddonsDetails){
         self.vcIndex = vcIndex
         self.currentFlightKey = currentFlightKey
         self.addonsDetails = addonsDetails
+        self.formatData()
+    }
+    
+    func formatData(){
+        let allInternational = addonsDetails.addonsArray.filter { $0.adonsName.contains("_IN") }
+        let allDomestic = addonsDetails.addonsArray.filter { !$0.adonsName.contains("_IN") }
+
+             if !allDomestic.isEmpty && !allInternational.isEmpty{
+                 sagrigatedData[0] = allDomestic
+                 sagrigatedData[1] = allInternational
+             }else if !allDomestic.isEmpty {
+                  sagrigatedData[0] = allDomestic
+             }else if !allInternational.isEmpty{
+                 sagrigatedData[0] = allInternational
+             }
     }
     
     func getBaggage() -> [AddonsDataCustom] {
@@ -42,8 +59,9 @@ class SelectBaggageVM {
         return currentFlightKey
     }
      
-    func updateContactInBaggage(mealIndex: Int, contacts : [ATContact]){
-        addonsDetails.addonsArray[mealIndex].bagageSelectedFor = contacts
+    func updateContactInBaggage(baggageIndex: Int, contacts : [ATContact]){
+        addonsDetails.addonsArray[baggageIndex].bagageSelectedFor = contacts
+        self.formatData()
     }
     
     }

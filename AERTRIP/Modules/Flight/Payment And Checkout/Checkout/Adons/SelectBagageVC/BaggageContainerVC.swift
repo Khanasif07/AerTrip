@@ -140,6 +140,18 @@ extension BaggageContainerVC {
         self.parchmentView?.collectionView.backgroundColor = UIColor.clear
     }
     
+    func calculateTotalAmount(){
+         var totalPrice = 0
+         for item in self.baggageContainerVM.allChildVCs {
+             let mealsArray = item.selectBaggageVM.getBaggage()
+             let selectedMeals = mealsArray.filter { !$0.mealsSelectedFor.isEmpty }
+             selectedMeals.forEach { (meal) in
+                 totalPrice += (meal.price * meal.mealsSelectedFor.count)
+             }
+         }
+         self.totalLabel.text = "₹ \(totalPrice)"
+     }
+    
 }
 
 
@@ -208,15 +220,27 @@ extension BaggageContainerVC : SelectBaggageDelegate {
         vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
             guard let weakSelf = self else { return }
             
-            weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM .addonsDetails.addonsArray.enumerated().forEach { (mealIndex,meal) in
+            weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM .addonsDetails.addonsArray.enumerated().forEach { (bagInd,bag) in
             contacts.forEach { (contact) in
-                if let contIndex = meal.bagageSelectedFor.lastIndex(where: { (cont) -> Bool in
+                if let contIndex = bag.bagageSelectedFor.lastIndex(where: { (cont) -> Bool in
                     return cont.id == contact.id
                 }){
-                    weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM.addonsDetails.addonsArray[mealIndex].bagageSelectedFor.remove(at: contIndex)
+                    weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM.addonsDetails.addonsArray[bagInd].bagageSelectedFor.remove(at: contIndex)
                 }
               }
             }
+            
+           
+            if let ind = weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM.addonsDetails.addonsArray.lastIndex(where: { (adon) -> Bool in
+                adon.adonsName == forAdon.adonsName
+            }){
+                weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM.updateContactInBaggage(baggageIndex: ind, contacts: contacts)
+            }
+            
+            weakSelf.baggageContainerVM.allChildVCs[vcIndex].reloadData()
+       
+            weakSelf.calculateTotalAmount()
+            
         }
             present(vc, animated: true, completion: nil)
     }

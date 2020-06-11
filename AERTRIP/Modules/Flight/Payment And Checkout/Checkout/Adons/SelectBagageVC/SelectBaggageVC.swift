@@ -43,7 +43,8 @@ class SelectBaggageVC: UIViewController {
        }
     
     func reloadData(index : Int = 0){
-          self.bagageTableView.reloadRow(at: IndexPath(row: index, section: 0), with: UITableView.RowAnimation.none)
+        self.bagageTableView.reloadData()
+//          self.bagageTableView.reloadRow(at: IndexPath(row: index, section: 0), with: UITableView.RowAnimation.none)
     }
     
 }
@@ -66,11 +67,11 @@ extension SelectBaggageVC {
 extension SelectBaggageVC : UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return self.selectBaggageVM.sagrigatedData.keys.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.selectBaggageVM.getBaggage().count
+        return self.selectBaggageVM.sagrigatedData[section]?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -95,15 +96,15 @@ extension SelectBaggageVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SelectBagageCell", for: indexPath) as? SelectBagageCell else { fatalError("SelectBagageCell not found") }
-            cell.populateData(data: self.selectBaggageVM.getBaggage()[indexPath.row], index: indexPath.row)
+        
+        let cellData = self.selectBaggageVM.sagrigatedData[indexPath.section]
+        
+        cell.populateData(data: cellData?[indexPath.row] ?? AddonsDataCustom(), index: indexPath.row)
             return cell
         }
                 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
-        self.delegate?.addPassengerToBaggage(forAdon: self.selectBaggageVM.getBaggage()[indexPath.row], vcIndex: self.selectBaggageVM.getVcIndex(), currentFlightKey: self.selectBaggageVM.getCurrentFlightKey(), baggageIndex: indexPath.row, selectedContacts: self.selectBaggageVM.getBaggage()[indexPath.row].bagageSelectedFor)
-        
-        
-        
+       let cellData = self.selectBaggageVM.sagrigatedData[indexPath.section]
+        self.delegate?.addPassengerToBaggage(forAdon: cellData?[indexPath.row] ?? AddonsDataCustom(), vcIndex: self.selectBaggageVM.getVcIndex(), currentFlightKey: self.selectBaggageVM.getCurrentFlightKey(), baggageIndex: indexPath.row, selectedContacts: self.selectBaggageVM.getBaggage()[indexPath.row].bagageSelectedFor)
     }
 }

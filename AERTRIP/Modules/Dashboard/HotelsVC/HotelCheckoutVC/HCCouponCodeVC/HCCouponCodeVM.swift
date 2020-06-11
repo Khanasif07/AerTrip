@@ -23,9 +23,10 @@ class HCCouponCodeVM {
     var appliedCouponData: HCCouponAppliedModel?
     var itineraryId: String = ""
     var couponCode: String = ""
+    var product = "hotels"
     
     func getCouponsDetailsApi() {
-        let params: [String : Any] = [ APIKeys.it_id.rawValue : self.itineraryId , APIKeys.product.rawValue : "hotels"]
+        let params: [String : Any] = [ APIKeys.it_id.rawValue : self.itineraryId , APIKeys.product.rawValue : self.product]
         APICaller.shared.getCouponDetailsApi(params: params, loader: true ) { [weak self] (success, errors, couponsDetails) in
             guard let sSelf = self else { return }
             if success {

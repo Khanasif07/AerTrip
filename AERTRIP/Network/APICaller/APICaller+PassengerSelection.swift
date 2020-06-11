@@ -48,7 +48,6 @@ extension APICaller{
             
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
                 if sucess {
-//                print("confirmation....\(jsonData)")
                     completionBlock(true, [], FlightItineraryData(json[APIKeys.data.rawValue]))
                 }
                 else {
