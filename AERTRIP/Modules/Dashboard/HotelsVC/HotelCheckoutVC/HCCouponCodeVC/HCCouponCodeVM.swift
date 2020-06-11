@@ -14,15 +14,34 @@ protocol HCCouponCodeVMDelegate: class {
     
     func applyCouponCodeSuccessful()
     func applyCouponCodeFailed(errors: ErrorCodes)
+    
+    func searchedCouponsDataSuccessful()
 }
 
 class HCCouponCodeVM {
     
     weak var delegate: HCCouponCodeVMDelegate?
-    var couponsData: [HCCouponModel] = []
+    private var couponsData: [HCCouponModel] = [] {
+        didSet{
+            searcedCouponsData = couponsData
+        }
+    }
+    var searcedCouponsData: [HCCouponModel] = []
     var appliedCouponData: HCCouponAppliedModel?
     var itineraryId: String = ""
     var couponCode: String = ""
+    
+    func searchCoupons(searchText: String) {
+        if searchText.isEmpty {
+            searcedCouponsData = couponsData
+        }else {
+            searcedCouponsData = couponsData.filter({ (model) -> Bool in
+                model.couponCode.lowercased().contains(searchText.lowercased())
+            })
+        }
+        self.delegate?.searchedCouponsDataSuccessful()
+    }
+    
     
     func getCouponsDetailsApi() {
         let params: [String : Any] = [ APIKeys.it_id.rawValue : self.itineraryId , APIKeys.product.rawValue : "hotels"]

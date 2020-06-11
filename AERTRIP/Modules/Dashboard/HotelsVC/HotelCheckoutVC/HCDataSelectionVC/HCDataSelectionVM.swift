@@ -50,6 +50,7 @@ class HCDataSelectionVM {
     var sId = "", hId = "", qId = ""
     var locid = ""
     var panCard: String = "CEQPK4956K"
+    var detailPageRoomRate: Rates?
     
     // MARK: - Private
     

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol HCDataSelectionVCDelegate: class {
+    func updateFarePrice()
+}
+
 class HCDataSelectionVC: BaseVC {
     // MARK: - IBOutlets
     
@@ -60,6 +64,8 @@ class HCDataSelectionVC: BaseVC {
     
     var apiCount: Int = 0
     var isGrossValueZero: Bool = false
+    weak var delegate: HCDataSelectionVCDelegate?
+    
     // MARK: - Private
     
     let hotelFormData = HotelsSearchVM.hotelFormData
@@ -398,9 +404,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
             viewModel.webserviceForItenaryDataTraveller()
             apiCount += 1
         }
-        if (self.viewModel.itineraryData?.hotelDetails?.is_price_change ?? false) {
-            
-        }
+        
         
     }
     
@@ -428,6 +432,33 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
             self.viewModel.getHotelDetailsSectionData()
         }
         self.tableView.reloadData()
+        if (self.viewModel.itineraryData?.hotelDetails?.is_price_change ?? false) {
+                    
+                    if let newAmount = viewModel.itineraryData?.total_fare, let oldAmount = self.viewModel.detailPageRoomRate?.price  {
+                        
+                        let diff = newAmount - oldAmount
+                        if diff > 0 {
+                            // increased
+                            FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: diff, totalUpdatedAmount: newAmount, continueButtonAction: { [weak self] in
+                                guard let sSelf = self else { return }
+        //                        sSelf.sendToFinalCheckoutVC()
+                                }, goBackButtonAction: { [weak self] in
+                                    guard let sSelf = self else { return }
+                                    sSelf.delegate?.updateFarePrice()
+                                    sSelf.topNavBarLeftButtonAction(sSelf.topNavView.leftButton)
+                            })
+                        }
+                        else if diff < 0 {
+                            // dipped
+        //                    FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: -diff, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
+        //                    delay(seconds: 2.0) { [weak self] in
+        //                        guard let sSelf = self else { return }
+        //                        sSelf.sendToFinalCheckoutVC()
+        //                    }
+                        }
+                        
+                    }
+                }
     }
     
     func fetchConfirmItineraryDataFail(errors: ErrorCodes) {

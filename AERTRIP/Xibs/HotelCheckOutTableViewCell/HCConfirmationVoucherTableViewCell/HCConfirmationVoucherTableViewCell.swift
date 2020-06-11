@@ -51,7 +51,8 @@ class HCConfirmationVoucherTableViewCell: UITableViewCell {
         //Color
         self.confirmationVoucherLabel.textColor = AppColors.themeBlack
         self.viewButton.setTitleColor(AppColors.themeGreen, for: .normal)
-
+        
+        self.dividerView.isHidden = true
     }
     
     ///COnfigure Cell

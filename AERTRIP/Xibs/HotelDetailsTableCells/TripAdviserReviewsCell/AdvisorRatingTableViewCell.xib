@@ -45,7 +45,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3aP-cl-P5J" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="16" y="33" width="343" height="0.5"/>
+                        <rect key="frame" x="16" y="33" width="359" height="0.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="P2x-Tn-dvv"/>
@@ -60,7 +60,7 @@
                     <constraint firstAttribute="trailing" secondItem="xTi-O9-t9I" secondAttribute="trailing" constant="16" id="dcV-1q-8bD"/>
                     <constraint firstAttribute="bottom" secondItem="3aP-cl-P5J" secondAttribute="bottom" id="nDW-QS-prn"/>
                     <constraint firstItem="3aP-cl-P5J" firstAttribute="leading" secondItem="Smc-h6-1za" secondAttribute="leading" constant="16" id="nUE-0u-Y4x"/>
-                    <constraint firstAttribute="trailing" secondItem="3aP-cl-P5J" secondAttribute="trailing" constant="16" id="q19-o4-22H"/>
+                    <constraint firstAttribute="trailing" secondItem="3aP-cl-P5J" secondAttribute="trailing" id="q19-o4-22H"/>
                     <constraint firstItem="xTi-O9-t9I" firstAttribute="leading" secondItem="7uw-l8-SL0" secondAttribute="trailing" constant="50" id="rfZ-Je-Cbb"/>
                 </constraints>
             </tableViewCellContentView>

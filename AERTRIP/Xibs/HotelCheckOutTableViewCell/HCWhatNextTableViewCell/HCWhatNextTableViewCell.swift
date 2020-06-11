@@ -50,6 +50,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
     }
     @IBOutlet weak var whatNextStackView: UIStackView!
 
+    @IBOutlet weak var dividerView: ATDividerView!
     
     //Mark:- LifeCycle
     //================

@@ -39,6 +39,7 @@ class HotelDetailsReviewsVC: BaseVC {
             self.reviewsTblView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
             self.reviewsTblView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
             self.reviewsTblView.backgroundColor = AppColors.themeWhite
+            self.reviewsTblView.showsVerticalScrollIndicator = false
         }
     }
     @IBOutlet weak var reviewTopConstraint: NSLayoutConstraint!

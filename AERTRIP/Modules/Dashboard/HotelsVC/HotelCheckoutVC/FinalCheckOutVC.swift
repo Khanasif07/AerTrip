@@ -224,6 +224,7 @@ class FinalCheckOutVC: BaseVC {
             if self.isConvenienceFeeApplied {
                 convenieneCell.aertripWalletTitleLabel.text = LocalizedString.ConvenienceFee.localized
                 convenieneCell.walletAmountLabel.attributedText = amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+                convenieneCell.labelBottomConstraint.constant = self.isWallet ? 0.0 : 11
                 return convenieneCell
             } else {
                 convenieneCell.clipsToBounds = true
@@ -252,6 +253,7 @@ class FinalCheckOutVC: BaseVC {
                 }
                 walletAmountCell.walletAmountLabel.attributedText = ("-" + abs(amountFromWallet).amountInDelimeterWithSymbol).asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
                 walletAmountCell.clipsToBounds = true
+                walletAmountCell.labelBottomConstraint.constant =  11
                 return walletAmountCell
             } else {
                 walletAmountCell.clipsToBounds = true
@@ -267,6 +269,7 @@ class FinalCheckOutVC: BaseVC {
             totalPayableNowCell.bottomDeviderView.isHidden = false
             totalPayableNowCell.totalPriceLabel.attributedText = self.getTotalPayableAmount().amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(((totalPayableNowCell.currentUsingFor == .totalPayableAmout) ? 20.0 : 16.0)))
             totalPayableNowCell.setupFotFinalCheckoutScreen()
+            totalPayableNowCell.bottomDeviderView.isHidden =  !self.isCouponApplied
             return totalPayableNowCell
             
         case 4: // Convenience Fee message Cell
@@ -352,14 +355,14 @@ class FinalCheckOutVC: BaseVC {
             }
         case 1: // Convenince Fee Cell
             if self.isConvenienceFeeApplied {
-                return 36.0
+                return UITableView.automaticDimension//36.0
             } else {
                 return CGFloat.leastNormalMagnitude
             }
             
         case 2: // Wallet amount Cell
             if self.isWallet {
-                return 40.0
+                return UITableView.automaticDimension//40.0
             } else {
                 return CGFloat.leastNormalMagnitude
             }

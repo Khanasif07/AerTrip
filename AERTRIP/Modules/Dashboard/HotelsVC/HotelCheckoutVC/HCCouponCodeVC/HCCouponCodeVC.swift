@@ -17,7 +17,7 @@ class HCCouponCodeVC: BaseVC {
     
     let viewModel = HCCouponCodeVM()
     weak var delegate: HCCouponCodeVCDelegate?
-    var selectedIndexPath: IndexPath?
+    //var selectedIndexPath: IndexPath?
     var currentIndexPath: IndexPath?
     var viewTranslation = CGPoint(x: 0, y: 0)
     
@@ -134,8 +134,8 @@ class HCCouponCodeVC: BaseVC {
     }
     
     private func emptyStateSetUp() {
-        self.emptyStateView.isHidden = !self.viewModel.couponsData.isEmpty
-        self.couponTableView.isHidden = self.viewModel.couponsData.isEmpty
+        self.emptyStateView.isHidden = !self.viewModel.searcedCouponsData.isEmpty
+        self.couponTableView.isHidden = self.viewModel.searcedCouponsData.isEmpty
         self.couponTableView.reloadData()
     }
     
@@ -214,12 +214,12 @@ class HCCouponCodeVC: BaseVC {
     }
     
     @IBAction func applyCouponButtonAction(_ sender: UIButton) {
-        self.selectedIndexPath = self.currentIndexPath
+        //self.selectedIndexPath = self.currentIndexPath
         self.hideOfferTermsView(animated: true)
         self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.couponTableView.reloadData()
-        if let indexPath = self.selectedIndexPath {
-            self.viewModel.couponCode = self.viewModel.couponsData[indexPath.row].couponCode
+        if let indexPath = self.currentIndexPath {
+            self.viewModel.couponCode = self.viewModel.searcedCouponsData[indexPath.row].couponCode
             self.viewModel.applyCouponCode()
         }
     }
@@ -234,22 +234,23 @@ class HCCouponCodeVC: BaseVC {
 extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.couponsData.count
+        return self.viewModel.searcedCouponsData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard  let cell = tableView.dequeueReusableCell(withIdentifier: CheckoutCouponCodeTableViewCell.reusableIdentifier, for: indexPath) as? CheckoutCouponCodeTableViewCell else { return UITableViewCell() }
         cell.delegate = self
-        if let selectedIndexPath = self.selectedIndexPath  {
-            cell.checkMarkImageView.image = (selectedIndexPath == indexPath) ? #imageLiteral(resourceName: "tick") : #imageLiteral(resourceName: "untick")
-            self.viewModel.couponCode = self.viewModel.couponsData[selectedIndexPath.row].couponCode
-            self.couponTextField.text = self.viewModel.couponsData[selectedIndexPath.row].couponCode
+        let model = self.viewModel.searcedCouponsData[indexPath.item]
+        if !self.viewModel.couponCode.isEmpty, self.viewModel.couponCode.lowercased() == model.couponCode.lowercased()  {
+            cell.checkMarkImageView.image =  #imageLiteral(resourceName: "tick")
+            self.viewModel.couponCode = model.couponCode
+            self.couponTextField.text = model.couponCode
            // self.couponValidationTextSetUp(isCouponValid: true)
             self.couponTextField.becomeFirstResponder()
         } else {
             cell.checkMarkImageView.image = #imageLiteral(resourceName: "untick")
         }
-        cell.configCell(currentCoupon: self.viewModel.couponsData[indexPath.item])
+        cell.configCell(currentCoupon: model)
         return cell
     }
 }
@@ -259,10 +260,13 @@ extension HCCouponCodeVC {
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         //        self.enterCouponLabel.isHidden = true
         self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
-        self.selectedIndexPath = nil
+        //self.selectedIndexPath = nil
        // self.couponValidationTextSetUp(isCouponValid: true)
         self.viewModel.couponCode = ""
         self.couponTableView.reloadData()
+        guard let text = textField.text else { return true }
+        let finalText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.viewModel.searchCoupons(searchText: finalText)
         return true
     }
     
@@ -275,32 +279,34 @@ extension HCCouponCodeVC {
         let finalText = text.trimmingCharacters(in: .whitespacesAndNewlines)
         printDebug(finalText)
         if finalText.isEmpty {
+            self.viewModel.couponCode = ""
             //            self.enterCouponLabel.isHidden = true
-            if self.selectedIndexPath == nil {
+            if self.viewModel.couponCode.isEmpty {
                 self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
             }
-            self.viewModel.couponCode = ""
+            
         } else {
             //            self.enterCouponLabel.isHidden = false
             self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
-            for (index,coupon) in self.viewModel.couponsData.enumerated() {
-                if coupon.couponTitle == finalText {
-                    let indexPath = IndexPath(row: index, section: 0)
-                    //self.couponValidationTextSetUp(isCouponValid: true)
-                    if !(self.selectedIndexPath ?? IndexPath() == indexPath) {
-                        self.selectedIndexPath = indexPath
-                        self.viewModel.couponCode = coupon.couponCode
-                        self.couponTableView.reloadData()
-                        return true
-                    }
-                } else {
-                    self.selectedIndexPath = nil
-                    //self.couponValidationTextSetUp(isCouponValid: false)
-                    self.viewModel.couponCode = finalText
-                    self.couponTableView.reloadData()
-                }
-            }
+//            for (index,coupon) in self.viewModel.couponsData.enumerated() {
+//                if coupon.couponTitle == finalText {
+//                    let indexPath = IndexPath(row: index, section: 0)
+//                    //self.couponValidationTextSetUp(isCouponValid: true)
+//                    if !(self.selectedIndexPath ?? IndexPath() == indexPath) {
+//                        self.selectedIndexPath = indexPath
+//                        self.viewModel.couponCode = coupon.couponCode
+//                        self.couponTableView.reloadData()
+//                        return true
+//                    }
+//                } else {
+//                    self.selectedIndexPath = nil
+//                    //self.couponValidationTextSetUp(isCouponValid: false)
+//                    self.viewModel.couponCode = finalText
+//                    self.couponTableView.reloadData()
+//                }
+//            }
         }
+        self.viewModel.searchCoupons(searchText: finalText)
         return true
     }
     
@@ -323,37 +329,47 @@ extension HCCouponCodeVC: PassSelectedCoupon {
     }
     
     func selectedCoupon(indexPath: IndexPath) {
-        if self.selectedIndexPath == indexPath {
+        let model = self.viewModel.searcedCouponsData[indexPath.item]
+        if !self.viewModel.couponCode.isEmpty, self.viewModel.couponCode.lowercased() == model.couponCode.lowercased() {
             self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
-            self.selectedIndexPath = nil
+            //self.selectedIndexPath = nil
             //self.couponValidationTextSetUp(isCouponValid: true)
             self.couponTextField.text = ""
             self.viewModel.couponCode = ""
             self.couponTextField.titleTextColour = AppColors.themeGray40
         } else {
-            self.selectedIndexPath = indexPath
+            self.couponTextField.text = model.couponCode
+            self.viewModel.couponCode = model.couponCode
+            //self.selectedIndexPath = indexPath
             self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
         }
+        guard let text = self.couponTextField.text else { return }
+        let finalText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.viewModel.searchCoupons(searchText: finalText)
         self.couponTableView.reloadData()
     }
 }
 
 
 extension HCCouponCodeVC: HCCouponCodeVMDelegate {
+    func searchedCouponsDataSuccessful() {
+        self.emptyStateSetUp()
+    }
+    
     
     func getCouponsDataSuccessful() {
-        if !self.viewModel.couponCode.isEmpty {
-            for (index,coupon) in self.viewModel.couponsData.enumerated() {
-                if coupon.couponCode == self.viewModel.couponCode {
-                    let indexPath = IndexPath(row: index, section: 0)
-                    if !(self.selectedIndexPath ?? IndexPath() == indexPath) {
-                        self.selectedIndexPath = indexPath
-                        self.emptyStateSetUp()
-                        return
-                    }
-                }
-            }
-        }
+//        if !self.viewModel.couponCode.isEmpty {
+//            for (index,coupon) in self.viewModel.searcedCouponsData.enumerated() {
+//                if coupon.couponCode == self.viewModel.couponCode {
+//                    let indexPath = IndexPath(row: index, section: 0)
+//                    if !(self.selectedIndexPath ?? IndexPath() == indexPath) {
+//                        self.selectedIndexPath = indexPath
+//                        self.emptyStateSetUp()
+//                        return
+//                    }
+//                }
+//            }
+//        }
         self.emptyStateSetUp()
     }
     

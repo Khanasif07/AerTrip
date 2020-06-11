@@ -40,28 +40,33 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save $ 12.00 (₹ 656)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pl-QQ-PPZ">
-                        <rect key="frame" x="198" y="16.5" width="161" height="21"/>
+                        <rect key="frame" x="198" y="17" width="161" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jSQ-sH-rA9">
-                        <rect key="frame" x="16" y="47" width="343" height="62"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                    </textView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gz5-Np-WrO">
-                        <rect key="frame" x="16" y="109" width="95" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20" id="dRd-EN-ifc"/>
-                            <constraint firstAttribute="width" constant="95" id="yiI-cd-WSe"/>
-                        </constraints>
-                        <state key="normal" title="Offer Terms"/>
-                        <connections>
-                            <action selector="offerTermsButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="wcc-wX-kPh"/>
-                        </connections>
-                    </button>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gWC-wj-9Nv">
+                        <rect key="frame" x="16" y="47" width="343" height="82"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jSQ-sH-rA9">
+                                <rect key="frame" x="0.0" y="0.0" width="10" height="54"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gz5-Np-WrO">
+                                <rect key="frame" x="0.0" y="64" width="95" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="dRd-EN-ifc"/>
+                                    <constraint firstAttribute="width" constant="95" id="yiI-cd-WSe"/>
+                                </constraints>
+                                <state key="normal" title="Offer Terms"/>
+                                <connections>
+                                    <action selector="offerTermsButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="wcc-wX-kPh"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q5m-U6-gX4" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="16" y="141.5" width="343" height="0.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -74,22 +79,20 @@
                     <constraint firstItem="EjD-5Q-5On" firstAttribute="top" secondItem="ot5-uX-JBu" secondAttribute="top" id="0l4-Bk-Xnm"/>
                     <constraint firstItem="dWR-oV-aZq" firstAttribute="centerY" secondItem="ot5-uX-JBu" secondAttribute="centerY" id="1lG-qJ-baq"/>
                     <constraint firstAttribute="trailing" secondItem="q5m-U6-gX4" secondAttribute="trailing" constant="16" id="4IS-jf-ccr"/>
-                    <constraint firstItem="gz5-Np-WrO" firstAttribute="top" secondItem="jSQ-sH-rA9" secondAttribute="bottom" id="BXr-Yl-ks3"/>
+                    <constraint firstItem="gWC-wj-9Nv" firstAttribute="leading" secondItem="ot5-uX-JBu" secondAttribute="leading" id="75f-cP-liE"/>
+                    <constraint firstItem="gWC-wj-9Nv" firstAttribute="top" secondItem="ot5-uX-JBu" secondAttribute="bottom" constant="9" id="9Ad-nc-6j8"/>
                     <constraint firstItem="EjD-5Q-5On" firstAttribute="leading" secondItem="ot5-uX-JBu" secondAttribute="leading" id="BmH-cN-kwt"/>
                     <constraint firstItem="dWR-oV-aZq" firstAttribute="leading" secondItem="ot5-uX-JBu" secondAttribute="trailing" constant="11" id="Dz2-VQ-G3t"/>
-                    <constraint firstItem="jSQ-sH-rA9" firstAttribute="top" secondItem="ot5-uX-JBu" secondAttribute="bottom" constant="9" id="ERG-te-7kJ"/>
+                    <constraint firstItem="7pl-QQ-PPZ" firstAttribute="trailing" secondItem="gWC-wj-9Nv" secondAttribute="trailing" id="Ek3-9k-4yg"/>
                     <constraint firstAttribute="trailing" secondItem="7pl-QQ-PPZ" secondAttribute="trailing" constant="16" id="Hro-iN-xm5"/>
-                    <constraint firstItem="jSQ-sH-rA9" firstAttribute="trailing" secondItem="7pl-QQ-PPZ" secondAttribute="trailing" id="JNp-6C-0py"/>
                     <constraint firstAttribute="bottom" secondItem="q5m-U6-gX4" secondAttribute="bottom" id="PWw-RS-Jse"/>
                     <constraint firstItem="q5m-U6-gX4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Roy-Z8-4ie"/>
                     <constraint firstItem="7pl-QQ-PPZ" firstAttribute="centerY" secondItem="ot5-uX-JBu" secondAttribute="centerY" id="aXW-Ed-aI8"/>
-                    <constraint firstItem="jSQ-sH-rA9" firstAttribute="leading" secondItem="ot5-uX-JBu" secondAttribute="leading" id="bhs-y2-KZc"/>
-                    <constraint firstItem="gz5-Np-WrO" firstAttribute="leading" secondItem="ot5-uX-JBu" secondAttribute="leading" id="egS-Jy-K8I"/>
                     <constraint firstItem="EjD-5Q-5On" firstAttribute="bottom" secondItem="ot5-uX-JBu" secondAttribute="bottom" id="fco-kD-Kcw"/>
                     <constraint firstItem="ot5-uX-JBu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="kK8-XN-18d"/>
                     <constraint firstItem="7pl-QQ-PPZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dWR-oV-aZq" secondAttribute="trailing" constant="10" id="mgH-We-EVg"/>
                     <constraint firstItem="ot5-uX-JBu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="pHy-E4-a2b"/>
-                    <constraint firstItem="q5m-U6-gX4" firstAttribute="top" secondItem="gz5-Np-WrO" secondAttribute="bottom" constant="12.5" id="r4s-mn-vRh"/>
+                    <constraint firstItem="q5m-U6-gX4" firstAttribute="top" secondItem="gWC-wj-9Nv" secondAttribute="bottom" constant="12.5" id="yva-E1-MbC"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

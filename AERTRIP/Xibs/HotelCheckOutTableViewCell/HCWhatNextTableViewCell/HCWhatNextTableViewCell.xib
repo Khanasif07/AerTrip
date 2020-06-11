@@ -28,6 +28,13 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FlB-gh-hoz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="455"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mo2-Zz-dI2" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="ouR-He-gbU"/>
+                                </constraints>
+                            </view>
                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_ticket_up" translatesAutoresizingMaskIntoConstraints="NO" id="3Wl-Vk-v45">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="7"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -143,12 +150,15 @@
                         <constraints>
                             <constraint firstItem="3Wl-Vk-v45" firstAttribute="leading" secondItem="FlB-gh-hoz" secondAttribute="leading" id="D33-ZL-lpl"/>
                             <constraint firstItem="7Ur-1G-zdh" firstAttribute="top" secondItem="FlB-gh-hoz" secondAttribute="top" constant="21" id="HEY-27-Nwg"/>
+                            <constraint firstAttribute="trailing" secondItem="Mo2-Zz-dI2" secondAttribute="trailing" id="L6o-Ys-XC5"/>
+                            <constraint firstItem="Mo2-Zz-dI2" firstAttribute="leading" secondItem="FlB-gh-hoz" secondAttribute="leading" id="Mlf-IK-GeF"/>
                             <constraint firstAttribute="trailing" secondItem="CV8-Zy-I2S" secondAttribute="trailing" id="Ux6-mP-RtA"/>
                             <constraint firstAttribute="trailing" secondItem="3Wl-Vk-v45" secondAttribute="trailing" id="VD6-T8-yfg"/>
                             <constraint firstItem="7Ur-1G-zdh" firstAttribute="leading" secondItem="FlB-gh-hoz" secondAttribute="leading" constant="16" id="X0j-4r-aMn"/>
                             <constraint firstAttribute="trailing" secondItem="7Ur-1G-zdh" secondAttribute="trailing" constant="16" id="Xwb-Y6-SNi"/>
                             <constraint firstItem="CV8-Zy-I2S" firstAttribute="top" secondItem="7Ur-1G-zdh" secondAttribute="bottom" constant="16" id="Y8z-ob-tcI"/>
                             <constraint firstItem="3Wl-Vk-v45" firstAttribute="top" secondItem="FlB-gh-hoz" secondAttribute="top" id="cj0-Gk-ffK"/>
+                            <constraint firstItem="Mo2-Zz-dI2" firstAttribute="top" secondItem="FlB-gh-hoz" secondAttribute="top" id="jVz-FL-iBU"/>
                             <constraint firstItem="5ub-hp-9qV" firstAttribute="top" secondItem="CV8-Zy-I2S" secondAttribute="bottom" id="lrt-Dd-wUY"/>
                             <constraint firstItem="5ub-hp-9qV" firstAttribute="centerX" secondItem="CV8-Zy-I2S" secondAttribute="centerX" id="uiX-EY-leY"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5ub-hp-9qV" secondAttribute="bottom" constant="12.5" id="yce-iV-STg"/>
@@ -166,6 +176,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="containerView" destination="FlB-gh-hoz" id="hNK-bm-vNi"/>
+                <outlet property="dividerView" destination="Mo2-Zz-dI2" id="pL9-Na-0F5"/>
                 <outlet property="fbButton" destination="Err-8A-mDh" id="2X9-Pf-hqH"/>
                 <outlet property="linkdInButton" destination="Vmz-jO-i7m" id="ZQz-Ks-aIJ"/>
                 <outlet property="pageControl" destination="5ub-hp-9qV" id="eZl-w2-PzB"/>
