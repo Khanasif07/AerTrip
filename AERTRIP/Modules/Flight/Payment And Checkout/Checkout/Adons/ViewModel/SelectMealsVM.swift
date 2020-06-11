@@ -14,24 +14,36 @@ protocol SelectMealVmDelegate : class {
 
 class SelectMealsVM {
     
-    var vcIndex : Int = 0
-    var currentFlightKey : String = ""
+    var addonsDetails = AddonsDetails()
+    private var vcIndex : Int = 0
+    private var currentFlightKey : String = ""
     weak var delegate : SelectMealVmDelegate?
-    
 
+    
     init(){
         
     }
     
-    init(vcIndex : Int, currentFlightKey : String){
+    init(vcIndex : Int, currentFlightKey : String, addonsDetails : AddonsDetails){
         self.vcIndex = vcIndex
         self.currentFlightKey = currentFlightKey
+        self.addonsDetails = addonsDetails
     }
     
+    func getMeals() -> [AddonsDataCustom] {
+        return addonsDetails.addonsArray
+    }
     
-    func getMealsDataForCurrentFlight() -> [Addons] {
-        guard let keyData = AddonsDataStore.shared.adons[self.currentFlightKey] else { return [] }
-        return keyData.meal
+    func getVcIndex() -> Int {
+        return vcIndex
+    }
+    
+    func getCurrentFlightKey() -> String {
+        return currentFlightKey
+    }
+     
+    func updateContactInMeal(mealIndex: Int, contacts : [ATContact]){
+        addonsDetails.addonsArray[mealIndex].mealsSelectedFor = contacts
     }
     
 }

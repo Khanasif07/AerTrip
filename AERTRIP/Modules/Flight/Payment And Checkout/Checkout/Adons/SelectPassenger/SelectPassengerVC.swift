@@ -60,6 +60,7 @@ extension SelectPassengerVC {
     func setUpSubView(){
         self.doneButton.roundedCorners(cornerRadius: 13)
         self.popUpBackView.roundedCorners(cornerRadius: 13)
+        self.selectPassengersVM.getAllowedPassengerForParticularAdon() 
         configureCollectionView()
         setupForView()
     }
@@ -89,21 +90,19 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return GuestDetailsVM.shared.guests.first?.count ?? 0
+        return self.selectPassengersVM.allowedPassengers.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectPassengerCell", for: indexPath) as? SelectPassengerCell else { fatalError("SelectPassengerCell not found") }
        
         if let firstGuestArray = GuestDetailsVM.shared.guests.first{
-            
             if selectPassengersVM.setupFor == .seatSelection {
-                
                 cell.setupCellFor(firstGuestArray[indexPath.item], selectPassengersVM.seatModel)
-                
             }else{
-                cell.populateData(data: firstGuestArray[indexPath.item])
-                cell.selectionImageView.isHidden = !self.selectPassengersVM.selectedContacts.contains(firstGuestArray[indexPath.item])
+                
+                cell.populateData(data: self.selectPassengersVM.allowedPassengers[indexPath.item])
+                cell.selectionImageView.isHidden = !self.selectPassengersVM.selectedContacts.contains(self.selectPassengersVM.allowedPassengers[indexPath.item])
             }
         }
         
@@ -155,18 +154,18 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
     
     private func didSelect(_ indexPath: IndexPath,_ collectionView: UICollectionView) {
         
-        guard let allContacts = GuestDetailsVM.shared.guests.first else { return }
+//        guard let allContacts = GuestDetailsVM.shared.guests.first else { return }
         
         if let index = self.selectPassengersVM.selectedContacts.firstIndex(where: { (cont) -> Bool in
-            cont.id == allContacts[indexPath.item].id
+            cont.id == self.selectPassengersVM.allowedPassengers[indexPath.item].id
         }){
             self.selectPassengersVM.selectedContacts.remove(at: index)
         }else{
-        self.selectPassengersVM.selectedContacts.append(allContacts[indexPath.item])
+        self.selectPassengersVM.selectedContacts.append(self.selectPassengersVM.allowedPassengers[indexPath.item])
         }
         
         collectionView.reloadItems(at: [IndexPath(item: indexPath.item, section: 0)])
-        self.doneButton.setTitle(self.selectPassengersVM.selectedIndex.isEmpty ? LocalizedString.Cancel.localized : LocalizedString.Done.localized, for: UIControl.State.normal)
+        self.doneButton.setTitle(self.selectPassengersVM.selectedContacts.isEmpty ? LocalizedString.Cancel.localized : LocalizedString.Done.localized, for: UIControl.State.normal)
     }
     
 }

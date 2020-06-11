@@ -14,6 +14,7 @@ protocol SelectBaggageVmDelegate : class {
 
 class SelectBaggageVM {
     
+        var addonsDetails = AddonsDetails()
         var vcIndex : Int = 0
         var currentFlightKey : String = ""
         weak var delegate : SelectBaggageVmDelegate?
@@ -21,15 +22,28 @@ class SelectBaggageVM {
         init(){
             
         }
-        
-        init(vcIndex : Int, currentFlightKey : String){
-            self.vcIndex = vcIndex
-            self.currentFlightKey = currentFlightKey
-        }
-        
-        func getBaggageDataForCurrentFlight() -> [Addons] {
-            guard let keyData = AddonsDataStore.shared.adons[self.currentFlightKey] else { return [] }
-            return keyData.baggage
-        }
-        
+    
+    
+    init(vcIndex : Int, currentFlightKey : String, addonsDetails : AddonsDetails){
+        self.vcIndex = vcIndex
+        self.currentFlightKey = currentFlightKey
+        self.addonsDetails = addonsDetails
+    }
+    
+    func getBaggage() -> [AddonsDataCustom] {
+        return addonsDetails.addonsArray
+    }
+    
+    func getVcIndex() -> Int {
+        return vcIndex
+    }
+    
+    func getCurrentFlightKey() -> String {
+        return currentFlightKey
+    }
+     
+    func updateContactInBaggage(mealIndex: Int, contacts : [ATContact]){
+        addonsDetails.addonsArray[mealIndex].bagageSelectedFor = contacts
+    }
+    
     }
