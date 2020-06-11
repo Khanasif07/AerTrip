@@ -630,7 +630,7 @@ extension AppFlowManager {
         }
     }
     
-    func presentHCCouponCodeVC(itineraryId: String, vc: FinalCheckOutVC, couponCode: String) {
+    func presentHCCouponCodeVC(itineraryId: String, vc: HCCouponCodeVCDelegate, couponCode: String, product:String = "hotels") {
         let obj = HCCouponCodeVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.delegate = vc
         obj.viewModel.itineraryId = itineraryId

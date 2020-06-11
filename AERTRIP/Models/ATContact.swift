@@ -54,6 +54,7 @@ struct ATContact {
     var age: Int
     //-------------Added for flight passengers details---------------------
     var nationality = ""
+    var countryCode = ""
     var passportNumber = ""
     var displayDob:String{
         return Date.getDateFromString(stringDate: self.dob, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM yyyy") ?? ""

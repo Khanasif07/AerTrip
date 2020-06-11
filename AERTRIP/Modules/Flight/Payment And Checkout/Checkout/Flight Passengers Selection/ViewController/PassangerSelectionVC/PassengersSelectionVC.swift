@@ -113,21 +113,21 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
 
 
-        let vc = FlightPaymentVC.instantiate(fromAppStoryboard: .FlightPayment)
-        vc.viewModel.itinerary = self.viewModel.itineraryData.itinerary
-        vc.viewModel.taxesResult = self.viewModel.taxesResult
-
+//        let vc = FlightPaymentVC.instantiate(fromAppStoryboard: .FlightPayment)
+//        vc.viewModel.itinerary = self.viewModel.itineraryData.itinerary
+//        vc.viewModel.taxesResult = self.viewModel.taxesResult
+//        vc.viewModel.passenegers = GuestDetailsVM.shared.guests.first ?? []
 
 //        let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
 //        AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary)
-        self.navigationController?.pushViewController(vc, animated: true)
+//        self.navigationController?.pushViewController(vc, animated: true)
         
-//        let validation = self.viewModel.validateGuestData()
-//        if validation.success{
-//            self.viewModel.checkValidationForNextScreen()
-//        }else{
-//            AppToast.default.showToastMessage(message: validation.msg)
-//        }
+        let validation = self.viewModel.validateGuestData()
+        if validation.success{
+            self.viewModel.checkValidationForNextScreen()
+        }else{
+            AppToast.default.showToastMessage(message: validation.msg)
+        }
     }
     
     func infoButtonTapped(isViewExpanded: Bool) {
@@ -296,9 +296,20 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
     func getResponseFromGSTValidation(_ success:Bool, error:Error?){
         AppGlobals.shared.stopLoading()
         if success{
-            let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
-            AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary)
+            let vc = FlightPaymentVC.instantiate(fromAppStoryboard: .FlightPayment)
+            vc.viewModel.itinerary = self.viewModel.itineraryData.itinerary
+            vc.viewModel.taxesResult = self.viewModel.taxesResult
+            vc.viewModel.passengers = GuestDetailsVM.shared.guests.first ?? []
+            vc.viewModel.gstDetail = self.viewModel.selectedGST
+            vc.viewModel.email = self.viewModel.email
+            vc.viewModel.mobile = self.viewModel.mobile
+            vc.viewModel.isd = self.viewModel.isdCode
+            vc.viewModel.isGSTOn = self.viewModel.isSwitchOn
+            vc.viewModel.addonsMaster = self.viewModel.addonsMaster
             self.navigationController?.pushViewController(vc, animated: true)
+//            let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
+//            AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary)
+//            self.navigationController?.pushViewController(vc, animated: true)
         }else{
             AppToast.default.showToastMessage(message: "Error while validating GST number")
         }

@@ -569,6 +569,8 @@ struct IntMultiCityAndReturnWSResponse {
                 var notEffectiveFare: Taxes
                 var cancellationCharges: SubFares
                 var reschedulingCharges: SubFares//.Details.Fee
+                //Added for IteneraryDetails:---
+                var addons:Taxes?
                 
                 init(_ json: JSON) {
                     bf = Taxes(json["BF"])
@@ -579,6 +581,10 @@ struct IntMultiCityAndReturnWSResponse {
                     notEffectiveFare = Taxes(json["net_effective_fare"])
                     cancellationCharges = SubFares(json["cancellation_charges"])
                     reschedulingCharges = SubFares(json["rescheduling_charges"])
+                    if json["addons"].dictionary != nil{
+                        addons = Taxes(json["addons"])
+                    }
+                    
                 }
                 
                 struct Taxes {
