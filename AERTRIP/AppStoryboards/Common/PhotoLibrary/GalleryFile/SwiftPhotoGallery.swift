@@ -246,7 +246,7 @@ public class SwiftPhotoGallery: UIViewController {
 
             if yFromCenter > -swipeBuffer && yFromCenter < swipeBuffer {
                 // reset everything
-                UIView.animate(withDuration: 0.25, animations: {
+                UIView.animate(withDuration: 0.2, animations: {
                     self.view.backgroundColor = self.backgroundColor.withAlphaComponent(1.0)
                     image.center = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
                 })
@@ -264,7 +264,7 @@ public class SwiftPhotoGallery: UIViewController {
                     return
                 }
 
-                UIView.animate(withDuration: 0.35, animations: {
+                UIView.animate(withDuration: 0.2, animations: {
                     self.view.alpha = 0
                     image.center = CGPoint(x: self.view.bounds.midX, y: swipeDistance)
                 }, completion: { (complete) in

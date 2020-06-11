@@ -19,6 +19,7 @@ class HCCouponCodeVC: BaseVC {
     weak var delegate: HCCouponCodeVCDelegate?
     var selectedIndexPath: IndexPath?
     var currentIndexPath: IndexPath?
+    var viewTranslation = CGPoint(x: 0, y: 0)
     
     //Mark:- IBOutlets
     //================
@@ -79,6 +80,12 @@ class HCCouponCodeVC: BaseVC {
         self.offerTermsView.roundTopCorners(cornerRadius: 10.0)
         self.offerTermsViewSetUp()
         self.registerNibs()
+        
+        //AddGesture:-
+        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        offerTermsView.isUserInteractionEnabled = true
+        swipeGesture.delegate = self
+        self.offerTermsView.addGestureRecognizer(swipeGesture)
     }
     
     override func setupFonts() {
@@ -362,9 +369,62 @@ extension HCCouponCodeVC: HCCouponCodeVMDelegate {
         }
     }
     
-    func applyCouponCodeFailed() {
+    func applyCouponCodeFailed(errors: ErrorCodes) {
         self.couponTextField.titleTextColour = AppColors.themeRed
         printDebug("Coupon Not Applied")
+        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
     }
 }
-
+extension HCCouponCodeVC {
+//Handle Swipe Gesture
+@objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+    printDebug("sender.state.rawValue: \(sender.state.rawValue)")
+    func reset() {
+        if viewTranslation.y > self.offerTermsView.height/2 {
+            hideOfferTermsView(animated: true)
+            return
+        }
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.offerTermsView.transform = .identity
+        })
+    }
+    
+    func moveView() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.offerTermsView.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
+        })
+    }
+    
+    guard let direction = sender.direction, direction.isVertical, direction == .down
+        else {
+            printDebug("sender.direction: \(sender.direction)")
+        reset()
+        return
+    }
+    let velocity = sender.velocity(in: offerTermsView).y
+    
+    switch sender.state {
+    case .changed:
+        printDebug("changed")
+        viewTranslation = sender.translation(in: self.offerTermsView)
+        moveView()
+    case .ended:
+        printDebug("ended")
+        if viewTranslation.y < self.offerTermsView.height/2 || velocity < 1000 {
+            reset()
+        } else {
+            hideOfferTermsView(animated: true)
+        }
+    case .cancelled:
+        printDebug("cancelled")
+        reset()
+    case .failed:
+        printDebug("failed")
+        reset()
+    default:
+        break
+    }
+    printDebug("viewTranslation: \(viewTranslation)")
+}
+}

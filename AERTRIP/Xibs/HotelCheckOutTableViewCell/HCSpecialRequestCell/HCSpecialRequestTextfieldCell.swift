@@ -56,13 +56,16 @@ class HCSpecialRequestTextfieldCell: UITableViewCell {
         
         self.infoTextField.titleYPadding = 11.0
         self.infoTextField.hintYPadding = 11.0
-
+        
     }
     
     internal func configCell(placeHolderText: String) {
 //        self.infoTextField.placeholder = placeHolderText
         self.infoTextField.setupTextField(placehoder: placeHolderText,with: "", keyboardType: .default, returnType: .default, isSecureText: false)
-        self.bottomDividerView.isHidden = true
+        self.infoTextField.isHiddenBottomLine = true
+        self.infoTextField.lineHeight = 0.5
+        self.infoTextField.selectedLineHeight = 0.5
+        self.bottomDividerView.isHidden = false
     }
 }
 

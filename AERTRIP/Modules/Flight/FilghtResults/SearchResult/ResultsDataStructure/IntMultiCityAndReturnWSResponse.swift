@@ -964,8 +964,9 @@ struct IntMultiCityAndReturnWSResponse {
         }
         
         struct Fdet {
-            var ffk, fr, to, dd, dt, dtm, ad, at, atm, al, fn, oc, eq, cc, bc, fbc, lo, cbg, halt, fbn: String
+            var ffk, fr, to, dd, dt, dtm, ad, at, atm, al, fn, oc, eq, cc, bc, fbc, lo, halt, fbn: String
             var bg: [String: J.Led.FD.BaggageDetails]
+            var cbg: [String: J.Led.FD.BaggageDetails]
             var ft, isLcc, tt, eqQuality, llo, slo, ccChg, ovgtf, ovgtlo: Int
             
             var isArrivalTerminalChange:Bool?
@@ -999,7 +1000,7 @@ struct IntMultiCityAndReturnWSResponse {
                 bc = json["bc"].stringValue
                 fbc = json["fbc"].stringValue
                 lo = json["lo"].stringValue
-                cbg = json["cbg"].stringValue
+//                cbg = json["cbg"].stringValue
                 halt = json["halt"].stringValue
                 fbn = json["fbn"].stringValue
                 ft = json["ft"].intValue
@@ -1012,6 +1013,7 @@ struct IntMultiCityAndReturnWSResponse {
                 ovgtf = json["ovgtf"].intValue
                 ovgtlo = json["ovgtlo"].intValue
                 bg = Dictionary(uniqueKeysWithValues: json["bg"].map { ($0.0, J.Led.FD.BaggageDetails($0.1)) })
+                cbg = Dictionary(uniqueKeysWithValues: json["cbg"].map { ($0.0, J.Led.FD.BaggageDetails($0.1)) })
 
             }
             

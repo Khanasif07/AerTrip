@@ -474,6 +474,10 @@
 		18F181E4223BC97300323775 /* FareDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F181E2223BC97300323775 /* FareDetailTableViewCell.swift */; };
 		18F181E5223BC97300323775 /* FareDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F181E3223BC97300323775 /* FareDetailTableViewCell.xib */; };
 		18F4955921B7B8B80003AC16 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4955821B7B8B80003AC16 /* UIButtonExtension.swift */; };
+		18F5BAA3248F1F5700E246C2 /* PostBookingFlightDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F5BAA2248F1F5700E246C2 /* PostBookingFlightDetailsVC.swift */; };
+		18F5BAA5248F24B100E246C2 /* PostBookingFlightInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F5BAA4248F24B100E246C2 /* PostBookingFlightInfoVC.swift */; };
+		18F5BAA7248F28F800E246C2 /* PostBookingBaggageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F5BAA6248F28F800E246C2 /* PostBookingBaggageVC.swift */; };
+		18F5BAA9248F292400E246C2 /* PostBookingFareInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F5BAA8248F292400E246C2 /* PostBookingFareInfoVC.swift */; };
 		18F7493721D1070E0051FE6F /* EditProfileThreePartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F7493621D1070E0051FE6F /* EditProfileThreePartTableViewCell.swift */; };
 		18F7493921D1071F0051FE6F /* EditProfileThreePartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F7493821D1071F0051FE6F /* EditProfileThreePartTableViewCell.xib */; };
 		18F794CE241F99B00025BD9B /* BookingHotelsDetailsTravellerTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F794CD241F99B00025BD9B /* BookingHotelsDetailsTravellerTableCell.swift */; };
@@ -2030,6 +2034,10 @@
 		18F181E2223BC97300323775 /* FareDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FareDetailTableViewCell.swift; sourceTree = "<group>"; };
 		18F181E3223BC97300323775 /* FareDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FareDetailTableViewCell.xib; sourceTree = "<group>"; };
 		18F4955821B7B8B80003AC16 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
+		18F5BAA2248F1F5700E246C2 /* PostBookingFlightDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookingFlightDetailsVC.swift; sourceTree = "<group>"; };
+		18F5BAA4248F24B100E246C2 /* PostBookingFlightInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookingFlightInfoVC.swift; sourceTree = "<group>"; };
+		18F5BAA6248F28F800E246C2 /* PostBookingBaggageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookingBaggageVC.swift; sourceTree = "<group>"; };
+		18F5BAA8248F292400E246C2 /* PostBookingFareInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookingFareInfoVC.swift; sourceTree = "<group>"; };
 		18F7493621D1070E0051FE6F /* EditProfileThreePartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileThreePartTableViewCell.swift; sourceTree = "<group>"; };
 		18F7493821D1071F0051FE6F /* EditProfileThreePartTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileThreePartTableViewCell.xib; sourceTree = "<group>"; };
 		18F794CD241F99B00025BD9B /* BookingHotelsDetailsTravellerTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingHotelsDetailsTravellerTableCell.swift; sourceTree = "<group>"; };
@@ -3838,6 +3846,7 @@
 		1827D480248690E600A0594F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				18F5BA9E248F1E3B00E246C2 /* PostBookingFlightDetails */,
 				18E17B9D248DFF7B00CC9876 /* FlightPaymentPendingVC */,
 				186FD6E72488FFA000335353 /* FlightPaymentBookingStatusVC */,
 				18AC30922487CA11004CB0B8 /* FlightPaymentVC */,
@@ -4531,6 +4540,41 @@
 				18F9E2F22255BA8E00CD0B42 /* ConvenienceFeeTableViewCell.xib */,
 			);
 			path = FinalCheckout;
+			sourceTree = "<group>";
+		};
+		18F5BA9E248F1E3B00E246C2 /* PostBookingFlightDetails */ = {
+			isa = PBXGroup;
+			children = (
+				18F5BAA1248F1E6D00E246C2 /* PostBookingFlightInfo */,
+				18F5BAA0248F1E6900E246C2 /* PostBookingBaggageInfo */,
+				18F5BA9F248F1E6200E246C2 /* PostBookingFareInfo */,
+				18F5BAA2248F1F5700E246C2 /* PostBookingFlightDetailsVC.swift */,
+			);
+			path = PostBookingFlightDetails;
+			sourceTree = "<group>";
+		};
+		18F5BA9F248F1E6200E246C2 /* PostBookingFareInfo */ = {
+			isa = PBXGroup;
+			children = (
+				18F5BAA8248F292400E246C2 /* PostBookingFareInfoVC.swift */,
+			);
+			path = PostBookingFareInfo;
+			sourceTree = "<group>";
+		};
+		18F5BAA0248F1E6900E246C2 /* PostBookingBaggageInfo */ = {
+			isa = PBXGroup;
+			children = (
+				18F5BAA6248F28F800E246C2 /* PostBookingBaggageVC.swift */,
+			);
+			path = PostBookingBaggageInfo;
+			sourceTree = "<group>";
+		};
+		18F5BAA1248F1E6D00E246C2 /* PostBookingFlightInfo */ = {
+			isa = PBXGroup;
+			children = (
+				18F5BAA4248F24B100E246C2 /* PostBookingFlightInfoVC.swift */,
+			);
+			path = PostBookingFlightInfo;
 			sourceTree = "<group>";
 		};
 		18F968002233BEAE00B163C8 /* GrowingTextView */ = {
@@ -9828,6 +9872,7 @@
 				0CC23989231639EF00ADEE92 /* TestViewController.swift in Sources */,
 				0CE3E8A62440C14D005E015E /* ThingsToAskHeader.swift in Sources */,
 				84D19ED123E0154E0011BAE8 /* FrequentFlyerTableViewCell.swift in Sources */,
+				18F5BAA7248F28F800E246C2 /* PostBookingBaggageVC.swift in Sources */,
 				84085D1721F59C0E00F1E844 /* GuestSideMenuHeaderCell.swift in Sources */,
 				843FF4BC24740231001F21B1 /* SelectMealsdVC.swift in Sources */,
 				842A56B222898C6E004FD51F /* AertripBankDetailsVC+Delegates.swift in Sources */,
@@ -10029,6 +10074,7 @@
 				84B841212223F24900CAA226 /* RecentSearchesModel.swift in Sources */,
 				842EDE7C2238E7D600E99409 /* HotelDetailsReviewsVM.swift in Sources */,
 				1879C4892292669000897CED /* BookingCallVC.swift in Sources */,
+				18F5BAA5248F24B100E246C2 /* PostBookingFlightInfoVC.swift in Sources */,
 				84F983CA21B51A070018DFED /* LocationManagerDelegates.swift in Sources */,
 				0C93A8E82330ABB6000795DE /* NotificationVC.swift in Sources */,
 				843FF50224740231001F21B1 /* InternationalReturnDetailsCell.swift in Sources */,
@@ -10125,6 +10171,7 @@
 				849DA81423E2B6C600C2E9D8 /* ATCategoryView.swift in Sources */,
 				843FF55324740232001F21B1 /* FlightResultDisplayGroup + Filters.swift in Sources */,
 				84085D0521F59C0E00F1E844 /* FFSearchVM.swift in Sources */,
+				18F5BAA9248F292400E246C2 /* PostBookingFareInfoVC.swift in Sources */,
 				1870AD1C220C769400FB32C8 /* HotelsSearched.swift in Sources */,
 				843FF54F24740232001F21B1 /* IntMultiCityAndReturnDisplay.swift in Sources */,
 				84DD249322671EDB0013F77E /* BookingDocumentsCollectionViewCell.swift in Sources */,
@@ -10158,6 +10205,7 @@
 				180632A12251D66E008B1F32 /* PaymentModal.swift in Sources */,
 				843FF51324740231001F21B1 /* InternationalReturnJourneyCell.swift in Sources */,
 				841AA50B247439B000B66720 /* NetworkLayer.swift in Sources */,
+				18F5BAA3248F1F5700E246C2 /* PostBookingFlightDetailsVC.swift in Sources */,
 				84F983C421B51A070018DFED /* PKTextView.swift in Sources */,
 				18038D19226DCF8B00A4D1DD /* AerinTextSpeechDetailVC.swift in Sources */,
 				18C31F082227CBAA0052162C /* HotelMailComposerCardViewTableViewCell.swift in Sources */,
@@ -10556,7 +10604,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 74;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -10764,7 +10812,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 74;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;

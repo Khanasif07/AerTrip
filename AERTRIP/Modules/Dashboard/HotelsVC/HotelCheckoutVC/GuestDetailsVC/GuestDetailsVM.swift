@@ -68,8 +68,6 @@ class GuestDetailsVM: NSObject {
         return false
     }
     
-    
-    
     private override init() {}
     
     func checkForDoneValidation() -> Bool {
@@ -197,17 +195,39 @@ class GuestDetailsVM: NSObject {
             self.delegate?.searchDidComplete()
             return
         }
+        let allContact = GuestDetailsVM.shared.guests.flatMap({ $0})
+        
         self.travellerContacts = HCSelectGuestsVM.shared._travellerContacts.filter({ (contact) -> Bool in
-            contact.fullName.lowercased().contains(forText.lowercased())
+            for guest in allContact {
+                if guest.firstName.lowercased() == contact.firstName.lowercased() && guest.lastName.lowercased() == contact.lastName.lowercased() {
+                    return false
+                }
+            }
+            return contact.fullName.lowercased().contains(forText.lowercased())
         })
         self.phoneContacts = HCSelectGuestsVM.shared._phoneContacts.filter({ (contact) -> Bool in
-            contact.fullName.lowercased().contains(forText.lowercased())
+            for guest in allContact {
+                if guest.firstName.lowercased() == contact.firstName.lowercased() && guest.lastName.lowercased() == contact.lastName.lowercased() {
+                    return false
+                }
+            }
+            return contact.fullName.lowercased().contains(forText.lowercased())
         })
         self.facebookContacts = HCSelectGuestsVM.shared._facebookContacts.filter({ (contact) -> Bool in
-            contact.fullName.lowercased().contains(forText.lowercased())
+            for guest in allContact {
+                if guest.firstName.lowercased() == contact.firstName.lowercased() && guest.lastName.lowercased() == contact.lastName.lowercased() {
+                    return false
+                }
+            }
+            return contact.fullName.lowercased().contains(forText.lowercased())
         })
         self.googleContacts = HCSelectGuestsVM.shared._googleContacts.filter({ (contact) -> Bool in
-            contact.fullName.lowercased().contains(forText.lowercased())
+            for guest in allContact {
+                if guest.firstName.lowercased() == contact.firstName.lowercased() && guest.lastName.lowercased() == contact.lastName.lowercased() {
+                    return false
+                }
+            }
+            return contact.fullName.lowercased().contains(forText.lowercased())
         })
         self.delegate?.searchDidComplete()
     }

@@ -266,7 +266,7 @@ extension HotelResultVC {
             //self.switchView.isOn = false
             self.viewModel.isFavouriteOn = false
             self.hideFavsButtons()
-            tableViewVertical.setContentOffset(CGPoint(x: 0, y: -112), animated: false)
+            tableViewVertical.setContentOffset(CGPoint(x: 0, y: -topContentSpace), animated: false)
             showBluredHeaderViewCompleted()
         }
         
@@ -415,7 +415,7 @@ extension HotelResultVC {
                 let yCordinateOfView = rect.origin.y
                 if ( yCordinateOfView  > yCordinate ) {
                     rect.origin.y = yCordinate
-                    print("hideHeaderBlurView.frame : \(self.headerContainerView.frame )")
+                    //printDebug("hideHeaderBlurView.frame : \(self.headerContainerView.frame )")
                     self.headerContainerViewTopConstraint.constant = yCordinate
                 }
                 
@@ -433,7 +433,7 @@ extension HotelResultVC {
                 var yCordinate = rect.origin.y + invertedOffset
                 yCordinate = min ( 0,  yCordinate)
                 rect.origin.y = yCordinate
-                print("revealBlurredHeaderView.frame : \(self.headerContainerView.frame )")
+                //printDebug("revealBlurredHeaderView.frame : \(self.headerContainerView.frame )")
                 self.headerContainerViewTopConstraint.constant = yCordinate
                 
             } ,completion: nil)

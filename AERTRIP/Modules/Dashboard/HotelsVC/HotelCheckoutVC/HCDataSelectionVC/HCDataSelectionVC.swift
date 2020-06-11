@@ -50,7 +50,6 @@ class HCDataSelectionVC: BaseVC {
     // MARK: - Public
     
     let viewModel = HCDataSelectionVM()
-    var hotelCheckOutDetailsVIew: HotelCheckOutDetailsVIew?
     var isHotelDetailsCheckOutViewOpen: Bool = false
     var statusBarHeight: CGFloat {
         return UIApplication.shared.statusBarFrame.height
@@ -74,7 +73,6 @@ class HCDataSelectionVC: BaseVC {
         setUpIndicatorView()
         
         statusBarStyle = .default
-        configureHotelCheckOutDetailsVIew()
         animateFareDetails(isHidden: true, animated: false)
         
         continueContainerView.backgroundColor = .clear
@@ -104,9 +102,6 @@ class HCDataSelectionVC: BaseVC {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
-            hotelCheckOutDetailsVIew.frame = CGRect(x: 0.0, y: AppFlowManager.default.safeAreaInsets.top, width: hotelCheckOutDetailsContainerVIew.width, height: hotelCheckOutDetailsContainerVIew.bounds.height - AppFlowManager.default.safeAreaInsets.top)
-        }
     }
     
     override func setupFonts() {
@@ -172,27 +167,6 @@ class HCDataSelectionVC: BaseVC {
         loaderContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.5)
         
         loaderContainerView.isHidden = !shouldStart
-    }
-    
-    private func configureHotelCheckOutDetailsVIew() {
-        hotelCheckOutDetailsVIew = HotelCheckOutDetailsVIew(frame: CGRect(x: 0.0, y: AppFlowManager.default.safeAreaInsets.top, width: hotelCheckOutDetailsContainerVIew.width, height: hotelCheckOutDetailsContainerVIew.bounds.height - AppFlowManager.default.safeAreaInsets.top))
-        if let hotelCheckOutDetailsView = self.hotelCheckOutDetailsVIew {
-            hotelCheckOutDetailsView.delegate = self
-            hotelCheckOutDetailsContainerVIew.addSubview(hotelCheckOutDetailsView)
-        }
-    }
-    
-    private func updateHotelCheckOutDetailsVIew() {
-        if let hotelCheckOutDetailsView = self.hotelCheckOutDetailsVIew {
-            hotelCheckOutDetailsView.sectionData.removeAll()
-            hotelCheckOutDetailsView.roomRates.removeAll()
-            hotelCheckOutDetailsView.viewModel = self.viewModel.itineraryData?.hotelDetails ?? HotelDetails()
-            hotelCheckOutDetailsView.hotelInfo = self.viewModel.hotelInfo ?? HotelSearched()
-            hotelCheckOutDetailsView.placeModel = self.viewModel.placeModel ?? PlaceModel()
-            hotelCheckOutDetailsView.sectionData = self.viewModel.sectionData
-            hotelCheckOutDetailsView.roomRates = self.viewModel.roomRates
-            hotelCheckOutDetailsView.updateData()
-        }
     }
     
     private func fillData() {
@@ -387,28 +361,27 @@ class HCDataSelectionVC: BaseVC {
 
 extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     func updateFavouriteSuccess(withMessage: String) {
-        if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
-            //            hotelCheckOutDetailsVIew.hotelDetailsTableView.reloadData()
-            sendDataChangedNotification(data: self)
-            let buttonImage: UIImage = viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
-            hotelCheckOutDetailsVIew.headerView.leftButton.setImage(buttonImage, for: .normal)
-        }
+//        if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
+//            //            hotelCheckOutDetailsVIew.hotelDetailsTableView.reloadData()
+//            sendDataChangedNotification(data: self)
+//            let buttonImage: UIImage = viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
+//            hotelCheckOutDetailsVIew.headerView.leftButton.setImage(buttonImage, for: .normal)
+//        }
     }
     
     func updateFavouriteFail(errors: ErrorCodes) {
         AppNetworking.hideLoader()
-        if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
-            sendDataChangedNotification(data: self)
-            let buttonImage: UIImage = viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
-            hotelCheckOutDetailsVIew.headerView.leftButton.setImage(buttonImage, for: .normal)
-            
-            if let _ = UserInfo.loggedInUser {
-                if errors.contains(array: [-1]) {
-                    AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
-                }
-                else {
-                    AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
-                }
+//        if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
+//            sendDataChangedNotification(data: self)
+//            let buttonImage: UIImage = viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
+//            hotelCheckOutDetailsVIew.headerView.leftButton.setImage(buttonImage, for: .normal)
+//        }
+        if let _ = UserInfo.loggedInUser {
+            if errors.contains(array: [-1]) {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+            }
+            else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
             }
         }
     }
@@ -449,24 +422,26 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
             //            AppGlobals.shared.stopLoading()
             self.fillData()
             self.viewModel.getHotelDetailsSectionData()
-            self.updateHotelCheckOutDetailsVIew()
         }
         self.tableView.reloadData()
     }
     
-    func fetchConfirmItineraryDataFail() {
+    func fetchConfirmItineraryDataFail(errors: ErrorCodes) {
         //        manageLoader(shouldStart: false)
         //        AppGlobals.shared.stopLoading()
         self.stopLoading()
         if viewModel.itineraryData == nil, confirmationCall < 5 {
             confirmationCall += 1
             viewModel.fetchConfirmItineraryData()
+        } else {
+            AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
         }
     }
     
     func willFetchRecheckRatesData() {
+        self.startLoading()
         //  manageLoader(shouldStart: true)
-        AppGlobals.shared.startLoading()
+        //AppGlobals.shared.startLoading()
         //        self.mainIndicatorView.isHidden = false
         //        self.mainIndicatorView.startAnimating()
         //       startLoading()
@@ -474,7 +449,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     
     func fetchRecheckRatesDataFail(errors: ErrorCodes) {
         // self.stopLoading()
-        AppGlobals.shared.stopLoading()
+        self.stopLoading()
         //        self.mainIndicatorView.isHidden = true
         //        manageLoader(shouldStart: true)
         if errors.contains(array: [11]) {
@@ -504,7 +479,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     func fetchRecheckRatesDataSuccess(recheckedData: ItineraryData) {
         // manageLoader(shouldStart: false)
         // stopLoading()
-        AppGlobals.shared.stopLoading()
+        self.stopLoading()
         //        self.mainIndicatorView.stopAnimating()
         //        self.mainIndicatorView.isHidden = true
         if viewModel.isValidateData(vc: self) {

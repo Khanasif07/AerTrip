@@ -546,7 +546,10 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if indexPath.section == 0 && !isInSearchMode {
-            self.viewModel.hotelsNearByMe()
+            LocationManager.shared.startUpdatingLocationWithCompletionHandler { [weak self] (location, error) in
+                LocationManager.shared.locationUpdate = nil
+                self?.viewModel.hotelsNearByMe()
+            }
         } else {
             var selected = SearchedDestination(json: [:])
             if isInSearchMode {

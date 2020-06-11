@@ -105,7 +105,7 @@ extension HotelCheckoutDetailVC: UITableViewDelegate, UITableViewDataSource {
         if let hotelData = self.viewModel {
             let sectionData = self.sectionData[indexPath.section]
             if sectionData[indexPath.row] == .paymentPolicyCell {
-                return 0.0
+                return CGFloat.leastNormalMagnitude
             } else {
                 if indexPath.section == 0, indexPath.row == 2 {
                     let text = hotelData.address + "Maps   "
@@ -141,7 +141,7 @@ extension HotelCheckoutDetailVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        delegate?.crossButtonTapped()
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -167,6 +167,7 @@ extension HotelCheckoutDetailVC {
             let selectedFevImage: UIImage = self.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
             self.headerView.leftButton.setImage(selectedFevImage, for: .normal)
             self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "black_cross"), for: .normal)
+            self.headerView.dividerView.isHidden = false
         } else {
             // hide
             self.headerView.navTitleLabel.text = ""
@@ -174,6 +175,7 @@ extension HotelCheckoutDetailVC {
             let buttonImage: UIImage = self.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
             self.headerView.leftButton.setImage(buttonImage, for: .normal)
             self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
+            self.headerView.dividerView.isHidden = true
         }
     }
     

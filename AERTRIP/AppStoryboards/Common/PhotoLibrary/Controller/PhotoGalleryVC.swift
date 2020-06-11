@@ -43,6 +43,10 @@ class PhotoGalleryVC: BaseVC {
         
         self.closeButton.setImage(ATGalleryViewConfiguration.closeButtonImage.withRenderingMode(.alwaysOriginal), for: .normal)
         self.closeButton.setImage(ATGalleryViewConfiguration.closeButtonImage.withRenderingMode(.alwaysOriginal), for: .selected)
+        
+        if #available(iOS 13.0, *) {
+            self.closeButtonTopConstraint.constant = 10
+        }
     }
     
 }
