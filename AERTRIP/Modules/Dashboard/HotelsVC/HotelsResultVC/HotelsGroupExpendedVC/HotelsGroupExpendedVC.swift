@@ -138,6 +138,8 @@ class HotelsGroupExpendedVC: StatusBarAnimatableViewController {
         }
         
     }
+    
+     
 }
 
 

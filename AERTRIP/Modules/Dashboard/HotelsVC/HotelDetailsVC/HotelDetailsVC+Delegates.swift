@@ -275,16 +275,53 @@ extension HotelDetailsVC {
             var finalY: CGFloat = 0.0
             if let cell = hotelTableView.cellForRow(at: indexPath) as? HotelDetailsCheckOutTableViewCell {
                 
-                finalY = self.view.convert(cell.contentView.frame, to: hotelTableView).origin.y + UIApplication.shared.statusBarFrame.height + 10.0
+                finalY = self.view.convert(cell.contentView.frame, to: hotelTableView).origin.y //+ UIApplication.shared.statusBarFrame.height + 10.0
                 if self.initialStickyPosition <= 0.0 {
                     self.initialStickyPosition = finalY
                 }
                 
-                UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
-                    guard let `self` = self else {return}
-                    self.stickyBottomConstraint.constant = (self.hotelTableView.contentOffset.y >= self.initialStickyPosition) ? -(self.footerView.height + AppFlowManager.default.safeAreaInsets.bottom) : 0.0
-                }.startAnimation()
-            }
+//                UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+//                    guard let `self` = self else {return}
+//                    self.stickyBottomConstraint.constant = (self.hotelTableView.contentOffset.y >= self.initialStickyPosition) ? -(self.footerView.height + AppFlowManager.default.safeAreaInsets.bottom) : 0.0
+//                }.startAnimation()
+                
+                let bottomCons = (self.hotelTableView.contentOffset.y - (self.initialStickyPosition + self.footerView.height))
+                               if (self.hotelTableView.contentSize.height - self.hotelTableView.height) <= self.hotelTableView.contentOffset.y {
+                                   //if table view scrolled till end then hide sticky view
+                                   self.stickyBottomConstraint.constant = -(self.footerView.height)
+                               }
+                               else if 0...self.footerView.height ~= bottomCons {
+                                   //hiding
+                                   UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+                                       guard let `self` = self else {return}
+                                       self.stickyBottomConstraint.constant = -(bottomCons)
+                                   }.startAnimation()
+                               }
+                               else if self.initialStickyPosition <= 0.0 {
+                                   //shown
+                                   UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+                                       guard let `self` = self else {return}
+                                       self.stickyBottomConstraint.constant = 0.0
+                                   }.startAnimation()
+                               }
+                               else if (self.initialStickyPosition + self.footerView.height) < finalY {
+                                   //hidden
+                                   UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+                                       guard let `self` = self else {return}
+                                       self.stickyBottomConstraint.constant = -(self.footerView.height)
+                                   }.startAnimation()
+                               }
+                
+            } else {
+                           if (self.initialStickyPosition + self.footerView.height) > self.hotelTableView.contentOffset.y {
+                               UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+                                   guard let `self` = self else {return}
+                                   self.stickyBottomConstraint.constant = 0.0
+                               }.startAnimation()
+                           }
+                           self.initialStickyPosition = -1.0
+                           
+                       }
         }
         else {
             self.stickyBottomConstraint.constant = 0.0
@@ -313,12 +350,12 @@ extension HotelDetailsVC {
         self.closeOnScroll(scrollView)
     }
     
-    //    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-    //        if decelerate {
-    //            self.closeOnScroll(scrollView)
-    //            self.manageBottomRateView()
-    //        }
-    //    }
+        func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+            if decelerate {
+                //self.closeOnScroll(scrollView)
+                self.manageBottomRateView()
+            }
+        }
     //
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

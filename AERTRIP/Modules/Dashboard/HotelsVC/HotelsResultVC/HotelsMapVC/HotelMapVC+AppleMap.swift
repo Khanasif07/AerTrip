@@ -15,9 +15,11 @@ extension HotelsMapVC : MKMapViewDelegate{
         
         guard let annatation = annotation as? MyAnnotation else {return nil}
         let annotationView = ResistantAnnotationView(annotation: annatation, reuseIdentifier: "route")
-        annotationView.image = returnImageForMarker(annotation: annatation)
+        let image = returnImageForMarker(annotation: annatation)
+        annotationView.image = image
         annotationView.canShowCallout = true
         annotationView.isUserInteractionEnabled = true
+        annotationView.centerOffset = CGPoint(x: 0, y: -image.size.height / 2);
         return annotationView
         
     }

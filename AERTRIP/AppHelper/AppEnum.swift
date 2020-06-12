@@ -31,6 +31,8 @@ extension Notification.Name {
     static let sessionExpired = Notification.Name("sessionExpired")
     static let bulkEnquirySent = Notification.Name("bulkEnquirySent")
     static let bookingFilterApplied = Notification.Name("bookingFilterApplied")
+    static let checkoutSessionExpired = Notification.Name("checkoutSessionExpired")
+
 }
 
 // MARK: - Applicaion Response Code From Server

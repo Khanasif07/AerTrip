@@ -65,6 +65,7 @@ class HCDataSelectionVC: BaseVC {
     var apiCount: Int = 0
     var isGrossValueZero: Bool = false
     weak var delegate: HCDataSelectionVCDelegate?
+    internal var checkoutSessionExpireCompletionHandler: (() -> Void)? = nil
     
     // MARK: - Private
     
@@ -95,6 +96,18 @@ class HCDataSelectionVC: BaseVC {
         
         setupGuestArray()
         registerXIBs()
+        
+        self.checkoutSessionExpireCompletionHandler = { [weak self] in
+            guard let strongSelf = self else {return}
+            //AppFlowManager.default.mainNavigationController.popToRootController(animated: true)
+            AppFlowManager.default.mainNavigationController.dismiss(animated: false, completion: nil)
+            AppFlowManager.default.mainNavigationController.popToRootController(animated: false)
+            //AppFlowManager.default.currentNavigation?.dismiss(animated: true, completion: nil)
+            strongSelf.topNavBarLeftButtonAction(strongSelf.topNavView.leftButton)
+            delay(seconds: 0.2) {
+                NotificationCenter.default.post(name: .checkoutSessionExpired, object: nil)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -410,7 +423,11 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     
     func callForItenaryDataTravellerFail(errors: ErrorCodes) {
         self.isGrossValueZero = true
-        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+        if errors.contains(55) {
+            AppToast.default.showToastMessage(message: LocalizedString.ResultUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonAction: self.checkoutSessionExpireCompletionHandler)
+        } else {
+            AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+        }
     }
     
     func willFetchConfirmItineraryData() {
@@ -469,7 +486,11 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
             confirmationCall += 1
             viewModel.fetchConfirmItineraryData()
         } else {
-            AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+            if errors.contains(55) {
+                AppToast.default.showToastMessage(message: LocalizedString.ResultUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonAction: self.checkoutSessionExpireCompletionHandler)
+            } else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+            }
         }
     }
     
@@ -502,7 +523,9 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
                     AppFlowManager.default.popViewController(animated: true)
                 }
             }
-        } else {
+        } else if errors.contains(55) {
+            AppToast.default.showToastMessage(message: LocalizedString.ResultUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonAction: self.checkoutSessionExpireCompletionHandler)
+        }else {
             AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
         }
         //        manageLoader(shouldStart: false)

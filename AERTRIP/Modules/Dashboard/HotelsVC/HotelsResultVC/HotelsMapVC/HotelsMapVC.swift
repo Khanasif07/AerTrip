@@ -46,6 +46,8 @@ class HotelsMapVC: StatusBarAnimatableViewController {
             self.hotelsMapCV.showsVerticalScrollIndicator = false
             self.hotelsMapCV.showsHorizontalScrollIndicator = false
             self.hotelsMapCV.backgroundColor = AppColors.clear
+            self.hotelsMapCV.decelerationRate = UIScrollView.DecelerationRate.fast
+            self.hotelsMapCV.isPagingEnabled = false
         }
     }
     

@@ -130,13 +130,7 @@ class YouAreAllDoneVC: BaseVC {
             GuestDetailsVM.shared.guests.removeAll()
         AppFlowManager.default.mainNavigationController.dismiss(animated: false, completion: nil)
         AppFlowManager.default.mainNavigationController.popToRootController(animated: false)
-        AppFlowManager.default.currentNavigation?.dismiss(animated: true, completion: {
-            
-//            AppFlowManager.default.currentNavigation?.dismiss(animated: true, completion: {
-//                AppFlowManager.default.mainNavigationController.popToRootController(animated: false)
-//            })
-        })
-        //AppFlowManager.default.mainNavigationController.popToRootController(animated: false)
+        AppFlowManager.default.currentNavigation?.dismiss(animated: true, completion: nil)
         
     }
     

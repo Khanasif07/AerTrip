@@ -79,6 +79,10 @@ class HotelsSearchVC: BaseVC {
         super.viewDidLoad()
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .checkoutSessionExpired, object: nil)
+    }
+    
     override func initialSetup() {
         
         self.cityNameLabel.text = ""
@@ -112,6 +116,9 @@ class HotelsSearchVC: BaseVC {
         self.footerViewSetUp ()
         self.setDataFromPreviousSearch()
         self.updateNearMeLocation()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(checkoutSessionExpired(_:)), name: .checkoutSessionExpired, object: nil)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -572,6 +579,10 @@ class HotelsSearchVC: BaseVC {
     
     private func footerViewSetUp() {
         self.footerView.backgroundColor = .clear
+    }
+    
+    @objc private func checkoutSessionExpired(_ note: Notification) {
+        self.searchButtonAction(self.searchBtnOutlet)
     }
     
     //MARK:- Public

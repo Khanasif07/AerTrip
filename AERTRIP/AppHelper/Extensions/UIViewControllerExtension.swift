@@ -513,7 +513,7 @@ extension UIViewController {
         transition.type = CATransitionType.push
         transition.subtype = CATransitionSubtype.fromLeft
         transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-        self.view.window!.layer.add(transition, forKey: kCATransition)
+        self.view.window?.layer.add(transition, forKey: kCATransition)
         
         dismiss(animated: false)
     }

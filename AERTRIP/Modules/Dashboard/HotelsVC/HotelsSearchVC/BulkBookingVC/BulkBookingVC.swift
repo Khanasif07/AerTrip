@@ -225,6 +225,7 @@ class BulkBookingVC: BaseVC {
         let specTapGest = UITapGestureRecognizer(target: self, action: #selector(specialReqAction))
         self.specialTextContainer.addGestureRecognizer(specTapGest)
         
+        self.navigationController?.presentationController?.delegate = self
     }
     
     private func setSearchFormData() {
@@ -578,6 +579,7 @@ extension BulkBookingVC: BulkRoomSelectionVCDelegate {
 extension BulkBookingVC: BulkBookingVMDelegate {
     func bulkBookingEnquirySuccess(enquiryId: String) {
         printDebug(enquiryId)
+        self.applyBulkBookingChanges()
         self.searchButtonOutlet.isLoading = false
         //self.hide(animated: true, shouldRemove: true)
         
@@ -739,3 +741,10 @@ extension BulkBookingVC: BulkEnquirySuccessfulVCDelegate {
         self.hide(animated: true, shouldRemove: true)
     }
 }
+extension BulkBookingVC: UIAdaptivePresentationControllerDelegate {
+    
+    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        self.applyBulkBookingChanges()
+    }
+}
+

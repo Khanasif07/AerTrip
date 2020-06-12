@@ -453,6 +453,7 @@
 "ApplyPreviousFilter" = "Apply previous filters \n ";
 "Within" = "within";
 "Kms" = "kms";
+"Result unavailable" = "Result unavailable";
 
 // Hotel Results
 "ShowHotelsBeyond" = "Show hotels beyond 20km";
