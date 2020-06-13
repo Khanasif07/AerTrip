@@ -115,6 +115,7 @@ struct AddonsDataCustom {
     var ssrName : AddonsSsr?
     var mealsSelectedFor : [ATContact] = []
     var bagageSelectedFor : [ATContact] = []
+    var othersSelectedFor : [ATContact] = []
     var autoSelectedFor : [String] = []
 
     init() {

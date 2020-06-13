@@ -40,6 +40,7 @@ class AddOnVC : BaseVC {
 extension AddOnVC {
     
     private func initialSetups() {
+        self.adonsVm.setAdonsOptions()
         configureTableView()
     }
     
@@ -76,7 +77,7 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.adonsVm.addOnsData.count
+        return self.adonsVm.addonsData.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -86,7 +87,8 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "AdonsCell", for: indexPath) as? AdonsCell else { fatalError("AdonsCell not found") }
         
-        cell.populateData(type: AdonsVM.AdonsType(rawValue: indexPath.row) ?? AdonsVM.AdonsType.meals, data: self.adonsVm.addOnsData[indexPath.row])
+        cell.populateData(data: self.adonsVm.addonsData[indexPath.row])
+        
         
         return cell
     }
@@ -99,13 +101,7 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
             
         case .meals:
             
-//            if AddonsDataStore.shared.adons.isEmpty {
-//                AertripToastView.toast(in: self.view, withText: "adons not found")
-//                return
-//           }
-            
             let vc = MealsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-//          vc.mealsContainerVM.itinerary = AddonsDataStore.shared.itinerary
             vc.modalPresentationStyle = .overFullScreen
             present(vc, animated: true, completion: nil)
             

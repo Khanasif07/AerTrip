@@ -70,12 +70,14 @@ class BaggageContainerVC : BaseVC {
            super.initialSetup()
            setupNavBar()
            setUpViewPager()
+            calculateTotalAmount()
        }
 
         @IBAction func addButtonTapped(_ sender: UIButton) {
-            let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-            vc.modalPresentationStyle = .overFullScreen
-            present(vc, animated: true, completion: nil)
+            for (index,item) in self.baggageContainerVM.allChildVCs.enumerated() {
+                AddonsDataStore.shared.flightsWithData[index].bags = item.selectBaggageVM.addonsDetails
+            }
+            self.dismiss(animated: true, completion: nil)
     }
     
     
@@ -144,9 +146,9 @@ extension BaggageContainerVC {
          var totalPrice = 0
          for item in self.baggageContainerVM.allChildVCs {
              let mealsArray = item.selectBaggageVM.getBaggage()
-             let selectedMeals = mealsArray.filter { !$0.mealsSelectedFor.isEmpty }
+             let selectedMeals = mealsArray.filter { !$0.bagageSelectedFor.isEmpty }
              selectedMeals.forEach { (meal) in
-                 totalPrice += (meal.price * meal.mealsSelectedFor.count)
+                 totalPrice += (meal.price * meal.bagageSelectedFor.count)
              }
          }
          self.totalLabel.text = "₹ \(totalPrice)"
@@ -157,7 +159,17 @@ extension BaggageContainerVC {
 
 extension BaggageContainerVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        
+        for (index,item) in self.baggageContainerVM.allChildVCs.enumerated() {
+            let mealsArray = item.selectBaggageVM.getBaggage()
+            mealsArray.enumerated().forEach { (addonIndex,_) in
+            item.selectBaggageVM.updateContactInBaggage(baggageIndex: addonIndex, contacts: [])
+        AddonsDataStore.shared.flightsWithData[index].bags.addonsArray[addonIndex].othersSelectedFor = []
+             }
+            
+             item.reloadData()
+             
+             calculateTotalAmount()
+         }
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
@@ -216,7 +228,8 @@ extension BaggageContainerVC : SelectBaggageDelegate {
         vc.modalPresentationStyle = .overFullScreen
         vc.selectPassengersVM.selectedContacts = selectedContacts
         vc.selectPassengersVM.adonsData = forAdon
-        
+        vc.selectPassengersVM.setupFor = .baggage
+
         vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
             guard let weakSelf = self else { return }
             
@@ -225,7 +238,9 @@ extension BaggageContainerVC : SelectBaggageDelegate {
                 if let contIndex = bag.bagageSelectedFor.lastIndex(where: { (cont) -> Bool in
                     return cont.id == contact.id
                 }){
-                    weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM.addonsDetails.addonsArray[bagInd].bagageSelectedFor.remove(at: contIndex)
+                    //weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM.addonsDetails.addonsArray[bagInd].bagageSelectedFor.remove(at: contIndex)
+
+                    
                 }
               }
             }

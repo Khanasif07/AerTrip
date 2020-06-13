@@ -13,15 +13,16 @@ class SelectPassengersVM {
     enum SetupFor {
         case seatSelection
         case others
+        case meals
+        case baggage
     }
-
-    var selectedIndex : [Int] = []
     
     var contactsComplition : (([ATContact]) -> Void) = {_ in ([])}
     
     var allowedPassengers : [ATContact] = []
     var selectedContacts : [ATContact] = []
     var adonsData = AddonsDataCustom()
+    var flightKys : [String] = []
     
     var setupFor: SetupFor = .others
     var seatModel = SeatMapModel.SeatMapRow()

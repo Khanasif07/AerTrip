@@ -36,6 +36,7 @@
 		0C0AB202247C439F005E5E99 /* SelectBagageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB200247C439F005E5E99 /* SelectBagageCell.swift */; };
 		0C0AB203247C439F005E5E99 /* SelectBagageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C0AB201247C439F005E5E99 /* SelectBagageCell.xib */; };
 		0C0B231524210CD700E1764D /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C0B231424210CD700E1764D /* Chat.storyboard */; };
+		0C14B8FB249343EA00C2D19A /* SelectOtherAdonsContainerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C14B8FA249343EA00C2D19A /* SelectOtherAdonsContainerVM.swift */; };
 		0C162AC8242337E9001C2B10 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162AC7242337E9001C2B10 /* MessageModel.swift */; };
 		0C162ACC24233AC5001C2B10 /* ChatVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */; };
 		0C162ACD24233AC5001C2B10 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162ACB24233AC5001C2B10 /* ChatVC.swift */; };
@@ -1588,6 +1589,7 @@
 		0C0AB200247C439F005E5E99 /* SelectBagageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBagageCell.swift; sourceTree = "<group>"; };
 		0C0AB201247C439F005E5E99 /* SelectBagageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectBagageCell.xib; sourceTree = "<group>"; };
 		0C0B231424210CD700E1764D /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
+		0C14B8FA249343EA00C2D19A /* SelectOtherAdonsContainerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOtherAdonsContainerVM.swift; sourceTree = "<group>"; };
 		0C162AC7242337E9001C2B10 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatVC+TableView.swift"; sourceTree = "<group>"; };
 		0C162ACB24233AC5001C2B10 /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
@@ -3297,8 +3299,7 @@
 				0C04CBFC247E3E4B00F11562 /* SelectOtherAdonsContainerVC.swift */,
 				0C04CBFE247E3EB600F11562 /* SelectOtherAdonsVC.swift */,
 			);
-			name = SelectOtherAdonsVC;
-			path = Adons/SelectOtherAdonsVC;
+			path = SelectOtherAdonsVC;
 			sourceTree = "<group>";
 		};
 		0C0506C92435B85700BC4703 /* WebViewVC */ = {
@@ -3337,6 +3338,7 @@
 				0C0240482480686600B06AEC /* SelectPassengersVM.swift */,
 				0C07664E248E768400519276 /* BaggageContainerVM.swift */,
 				0C91D188248E94A100D91658 /* SelectBaggageVM.swift */,
+				0C14B8FA249343EA00C2D19A /* SelectOtherAdonsContainerVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -6011,7 +6013,6 @@
 		843FF3612474022F001F21B1 /* Checkout */ = {
 			isa = PBXGroup;
 			children = (
-				0C04CBFB247E3E2D00F11562 /* SelectOtherAdonsVC */,
 				843FF3622474022F001F21B1 /* Adons */,
 				843FF3662474022F001F21B1 /* Flight Passengers Selection */,
 			);
@@ -6021,6 +6022,7 @@
 		843FF3622474022F001F21B1 /* Adons */ = {
 			isa = PBXGroup;
 			children = (
+				0C04CBFB247E3E2D00F11562 /* SelectOtherAdonsVC */,
 				0C024041247FEFEB00B06AEC /* SelectPassenger */,
 				0C0AB1FB247C3C71005E5E99 /* SelectBagageVC */,
 				847C2236247BCBED004F32D6 /* SeatMapContainerVC */,
@@ -9412,6 +9414,7 @@
 				843FF4F524740231001F21B1 /* IntMCAndReturnDetailsVM.swift in Sources */,
 				8463A5782456D4BB00C70D8C /* HotelShimmerView.swift in Sources */,
 				18FD916C229678FE00D005E9 /* BookingReschedulingHeaderView.swift in Sources */,
+				0C14B8FB249343EA00C2D19A /* SelectOtherAdonsContainerVM.swift in Sources */,
 				84085CD821F59C0E00F1E844 /* DemoVC.swift in Sources */,
 				182E8ED221DB6AAC0089C02D /* HotelCardTableViewCell.swift in Sources */,
 				843FF663247409E3001F21B1 /* Itemable.m in Sources */,

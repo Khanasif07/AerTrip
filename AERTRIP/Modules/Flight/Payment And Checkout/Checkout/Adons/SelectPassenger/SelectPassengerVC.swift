@@ -60,7 +60,7 @@ extension SelectPassengerVC {
     func setUpSubView(){
         self.doneButton.roundedCorners(cornerRadius: 13)
         self.popUpBackView.roundedCorners(cornerRadius: 13)
-        self.selectPassengersVM.getAllowedPassengerForParticularAdon() 
+        self.selectPassengersVM.getAllowedPassengerForParticularAdon()
         configureCollectionView()
         setupForView()
     }
@@ -75,11 +75,31 @@ extension SelectPassengerVC {
     }
     
     func setupForView() {
-        if selectPassengersVM.setupFor == .seatSelection {
+        
+        switch self.selectPassengersVM.setupFor {
+      
+        case .seatSelection:
             selectPassengersLabel.isHidden = true
             emptyView.isHidden = true
             selectPassengersVM.initalPassengerForSeat = selectPassengersVM.seatModel.columnData.passenger
+            
+        case .meals:
+            
+            self.selectPassengersLabel.text = LocalizedString.Select_Passengers_To_Assign_This_Meal.localized
+            self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "") • ₹ \(self.selectPassengersVM.adonsData.price)"
+      
+        case .baggage:
+          
+            self.selectPassengersLabel.text = LocalizedString.Select_Passengers_To_Assign_This_Meal.localized
+            self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "") • ₹ \(self.selectPassengersVM.adonsData.price)"
+            
+        case .others:
+         
+            self.selectPassengersLabel.text = LocalizedString.Select_Passengers.localized
+            self.titleLabel.text = self.selectPassengersVM.adonsData.ssrName?.name
+
         }
+        
     }
 }
 

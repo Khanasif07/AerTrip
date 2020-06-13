@@ -18,7 +18,6 @@ class MealsContainerVC: BaseVC {
     
     // MARK: Properties
     fileprivate var parchmentView : PagingViewController?
-    //    private let allTabsStr: [String] = ["BOM → LON", "LON → NYC", "NYC → DEL"]
     
     let mealsContainerVM = MealsContainerVM()
     
@@ -137,7 +136,6 @@ extension MealsContainerVC {
     func calculateTotalAmount(){
         var totalPrice = 0
         for item in self.mealsContainerVM.allChildVCs {
-            //                let currentFlightKey = item.selectMealsVM.getCurrentFlightKey()
             let mealsArray = item.selectMealsVM.getMeals()
             let selectedMeals = mealsArray.filter { !$0.mealsSelectedFor.isEmpty }
             selectedMeals.forEach { (meal) in
@@ -152,24 +150,13 @@ extension MealsContainerVC {
 extension MealsContainerVC: TopNavigationViewDelegate {
   
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        for item in self.mealsContainerVM.allChildVCs {
-                 let currentFlightKey = item.selectMealsVM.getCurrentFlightKey()
-                 let mealsArray = item.selectMealsVM.getMeals()
-
-            mealsArray.enumerated().forEach { (index,_) in
-                item.selectMealsVM.updateContactInMeal(mealIndex: index, contacts: [])
+        for (index,item) in self.mealsContainerVM.allChildVCs.enumerated() {
+            let mealsArray = item.selectMealsVM.getMeals()
+            mealsArray.enumerated().forEach { (addonIndex,_) in
+                item.selectMealsVM.updateContactInMeal(mealIndex: addonIndex, contacts: [])
+            AddonsDataStore.shared.flightsWithData[index].bags.addonsArray[addonIndex].mealsSelectedFor = []
             }
             item.reloadData()
-            
-            guard let keyedData = AddonsDataStore.shared.adons[currentFlightKey] else { return }
-       
-           let newMealsArray = keyedData.meal.enumerated().map { (index,meal) -> Addons in
-                var newMeal = meal
-                newMeal.mealsSelectedFor.removeAll()
-                return newMeal
-            }
-            
-            AddonsDataStore.shared.adons[currentFlightKey]?.meal = newMealsArray
             calculateTotalAmount()
         }
     }
@@ -225,6 +212,8 @@ extension MealsContainerVC : SelectMealDelegate {
         vc.modalPresentationStyle = .overFullScreen
         vc.selectPassengersVM.selectedContacts = selectedContacts
         vc.selectPassengersVM.adonsData = forAdon
+        vc.selectPassengersVM.setupFor = .meals
+
         vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
             guard let weakSelf = self else { return }
         weakSelf.mealsContainerVM.allChildVCs[vcIndex].selectMealsVM.addonsDetails.addonsArray.enumerated().forEach { (mealIndex,meal) in

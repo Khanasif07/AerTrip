@@ -16,7 +16,6 @@ class SelectMealsdVC: UIViewController {
     var selectMealsVM : SelectMealsVM!
     weak var delegate : SelectMealDelegate?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetup()
