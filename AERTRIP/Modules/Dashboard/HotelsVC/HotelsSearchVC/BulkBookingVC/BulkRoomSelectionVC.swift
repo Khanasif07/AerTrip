@@ -13,13 +13,13 @@ protocol BulkRoomSelectionVCDelegate: class {
 }
 
 class BulkRoomSelectionVC: BaseVC {
-
+    
     //Mark:- Variables
     //================
     weak var delegate: BulkRoomSelectionVCDelegate?
     private(set) var viewModel = BulkRoomSelectionVM()
     var initialTouchPoint: CGPoint = CGPoint.zero
-
+    
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var backgroundView: UIView!
@@ -32,9 +32,9 @@ class BulkRoomSelectionVC: BaseVC {
     @IBOutlet weak var adultAgeLabel: UILabel!
     @IBOutlet weak var childLabel: UILabel!
     @IBOutlet weak var childAgeLabel: UILabel!
-  
+    
     @IBOutlet weak var firstLineView: ATDividerView!
-  
+    
     @IBOutlet weak var secondLineView: ATDividerView!
     @IBOutlet weak var roomsPicker: UIPickerView! {
         didSet {
@@ -96,8 +96,8 @@ class BulkRoomSelectionVC: BaseVC {
         self.adultAgeLabel.textColor = AppColors.themeGray40
         self.childLabel.textColor = AppColors.themeBlack
         self.childAgeLabel.textColor = AppColors.themeGray40
-//        self.firstLineView.backgroundColor = AppColors.themeGray10
-//        self.secondLineView.backgroundColor = AppColors.themeGray10
+        //        self.firstLineView.backgroundColor = AppColors.themeGray10
+        //        self.secondLineView.backgroundColor = AppColors.themeGray10
     }
     
     //Mark:- Methods
@@ -108,16 +108,17 @@ class BulkRoomSelectionVC: BaseVC {
         
         
         //AddGesture:-
-        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        mainContainerView.isUserInteractionEnabled = true
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        self.view.isUserInteractionEnabled = true
+        swipeGesture.direction = .down
         swipeGesture.delegate = self
-        self.mainContainerView.addGestureRecognizer(swipeGesture)
+        self.view.addGestureRecognizer(swipeGesture)
         
         self.backgroundView.alpha = 1.0
-        self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+        self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
         //self.headerView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
         self.mainContainerView.roundTopCorners(cornerRadius: 15.0)
-//        self.headerView.layer.masksToBounds = true
+        //        self.headerView.layer.masksToBounds = true
         let tapGest = UITapGestureRecognizer(target: self, action: #selector(tappedOnBackgroundView(_:)))
         self.backgroundView.addGestureRecognizer(tapGest)
         self.hide(animated: false)
@@ -135,7 +136,7 @@ class BulkRoomSelectionVC: BaseVC {
         }, completion: { (isDone) in
         })
     }
-
+    
     private func hide(animated: Bool, shouldRemove: Bool = false) {
         self.headerView.isHidden = true
         self.safeAreaBackView.alpha = 0.0
@@ -148,7 +149,7 @@ class BulkRoomSelectionVC: BaseVC {
                 guard let _self = self else { return }
                 _self.safeAreaBackView.isHidden = true
                 if shouldRemove {
-                    _self.removeFromParentVC
+                    _self.dismiss(animated: false, completion: nil)
                 }
         })
     }
@@ -228,64 +229,7 @@ extension BulkRoomSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
 extension BulkRoomSelectionVC {
     //Handle Swipe Gesture
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-        let touchPoint = sender.location(in: self.mainContainerView?.window)
-        let velocity = sender.velocity(in: self.mainContainerView)
-        print(velocity)
-        switch sender.state {
-        case .possible:
-            print(sender.state)
-        case .began:
-            self.initialTouchPoint = touchPoint
-        case .changed:
-            let touchPointDiffY = initialTouchPoint.y - touchPoint.y
-            print(touchPointDiffY)
-            if  touchPoint.y > 0.0 {
-                if touchPointDiffY > 0 {
-                    self.mainContainerBottomConstraint.constant = -( UIScreen.main.bounds.height) + touchPointDiffY
-                }
-                else {
-                    self.mainContainerBottomConstraint.constant = touchPointDiffY
-                }
-            }
-        case .cancelled:
-            print(sender.state)
-        case .ended:
-            print(sender.state)
-            panGestureFinalAnimation(velocity: velocity,touchPoint: touchPoint)
-        case .failed:
-            print(sender.state)
-            
-        }
-    }
-    
-    
-    ///Call to use Pan Gesture Final Animation
-    private func panGestureFinalAnimation(velocity: CGPoint,touchPoint: CGPoint) {
-        //Down Direction
-        if velocity.y < 0 {
-            if velocity.y < -300 {
-                self.openBottomSheet()
-            } else {
-                if touchPoint.y <= (UIScreen.main.bounds.height)/2 {
-                    self.openBottomSheet()
-                } else {
-                    self.closeBottomSheet()
-                }
-            }
-        }
-            //Up Direction
-        else {
-            if velocity.y > 300 {
-                self.closeBottomSheet()
-            } else {
-                if touchPoint.y >= (UIScreen.main.bounds.height + (-self.mainContainerView.frame.size.height/2)){
-                    self.closeBottomSheet()
-                } else {
-                    self.openBottomSheet()
-                }
-            }
-        }
-        print(velocity.y)
+        closeBottomSheet()
     }
     
     func openBottomSheet() {

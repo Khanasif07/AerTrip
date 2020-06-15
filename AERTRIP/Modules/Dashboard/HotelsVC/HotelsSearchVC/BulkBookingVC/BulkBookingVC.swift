@@ -443,7 +443,7 @@ class BulkBookingVC: BaseVC {
     @IBAction func bulkBookingPopUpAction(_ sender: Any) {
         //        dismissKeyboard()
         self.view.endEditing(true)
-        AppFlowManager.default.showBulkRoomSelectionVC(rooms: self.viewModel.roomCounts, adults:  self.viewModel.adultsCount, children:  self.viewModel.childrenCounts, delegate: self)
+        AppFlowManager.default.showBulkRoomSelectionVC(rooms: self.viewModel.roomCounts, adults:  self.viewModel.adultsCount, children:  self.viewModel.childrenCounts, delegate: self, navigationController: self.navigationController)
     }
     
     @IBAction func whereButtonAction(_ sender: UIButton) {

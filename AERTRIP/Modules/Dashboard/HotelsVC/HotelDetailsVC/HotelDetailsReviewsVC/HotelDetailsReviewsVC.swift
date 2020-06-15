@@ -275,6 +275,9 @@ extension HotelDetailsReviewsVC: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 1 || section == 2 {
+            return UITableView.automaticDimension
+        }
         return self.getHeightForHeaderInSection(section: section)
     }
     

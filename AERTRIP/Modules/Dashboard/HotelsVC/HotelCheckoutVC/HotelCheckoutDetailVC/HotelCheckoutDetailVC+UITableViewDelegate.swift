@@ -181,6 +181,7 @@ extension HotelCheckoutDetailVC {
             let selectedFevImage: UIImage = self.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
             self.headerView.leftButton.setImage(selectedFevImage, for: .normal)
             self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "black_cross"), for: .normal)
+            self.headerView.firstRightButtonTrailingConstraint.constant = 0
             self.headerView.dividerView.isHidden = false
         } else {
             // hide
@@ -189,6 +190,7 @@ extension HotelCheckoutDetailVC {
             let buttonImage: UIImage = self.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
             self.headerView.leftButton.setImage(buttonImage, for: .normal)
             self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
+            self.headerView.firstRightButtonTrailingConstraint.constant = -3
             self.headerView.dividerView.isHidden = true
         }
     }

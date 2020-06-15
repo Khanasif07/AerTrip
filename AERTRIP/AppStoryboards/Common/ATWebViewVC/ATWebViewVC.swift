@@ -45,7 +45,7 @@ class ATWebViewVC: BaseVC {
         topNavView.delegate = self
         topNavView.backView.backgroundColor = .clear
         topNavView.backgroundColor = .clear
-        self.view.backgroundColor = .clear
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         //blurViewContainer.addShadow(withColor: UIColor.black.withAlphaComponent(0.2))
         //blurViewContainer.backgroundColor = UIColor.white.withAlphaComponent(0.40)
         //create webView
@@ -58,6 +58,8 @@ class ATWebViewVC: BaseVC {
         
         if #available(iOS 13.0, *) {
             navViewHeightConstraint.constant = 56
+        } else {
+            self.view.backgroundColor = AppColors.themeWhite
         }
     }
     

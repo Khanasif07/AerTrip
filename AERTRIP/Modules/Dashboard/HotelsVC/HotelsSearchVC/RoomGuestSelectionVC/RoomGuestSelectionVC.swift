@@ -121,10 +121,11 @@ class RoomGuestSelectionVC: BaseVC {
     private func initialSetups() {
         
         //AddGesture:-
-        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        mainContainerView.isUserInteractionEnabled = true
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        self.view.isUserInteractionEnabled = true
+        swipeGesture.direction = .down
         swipeGesture.delegate = self
-        self.headerView.addGestureRecognizer(swipeGesture)
+        self.view.addGestureRecognizer(swipeGesture)
         
         //background view
         self.backgroundView.alpha = 1.0
@@ -190,7 +191,7 @@ class RoomGuestSelectionVC: BaseVC {
                 setValue()
             }, completion: { (isDone) in
                 if shouldRemove {
-                    self.removeFromParentVC
+                    self.dismiss(animated: false, completion: nil)
                 }
             })
 //            UIView.animate(withDuration: animated ? AppConstants.kCloseAnimationDuration : 0.0, animations: {
@@ -448,86 +449,9 @@ extension RoomGuestSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
 extension RoomGuestSelectionVC {
     //Handle Swipe Gesture
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-        printDebug("sender.state.rawValue: \(sender.state.rawValue)")
-        func reset() {
-            if viewTranslation.y > self.mainContainerView.height/2 {
-                closeBottomSheet()
-                return
-            }
-            
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.mainContainerView.transform = .identity
-            })
-        }
-        
-        func moveView() {
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.mainContainerView.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
-            })
-        }
-        
-        guard let direction = sender.direction, direction.isVertical, direction == .down
-            else {
-                printDebug("sender.direction: \(sender.direction)")
-            reset()
-            return
-        }
-        let velocity = sender.velocity(in: mainContainerView).y
-        
-        switch sender.state {
-        case .changed:
-            printDebug("changed")
-            viewTranslation = sender.translation(in: self.mainContainerView)
-            moveView()
-        case .ended:
-            printDebug("ended")
-            if viewTranslation.y < self.mainContainerView.height/2 || velocity < 1000 {
-                reset()
-            } else {
-                closeBottomSheet()
-            }
-        case .cancelled:
-            printDebug("cancelled")
-            reset()
-        case .failed:
-            printDebug("failed")
-            reset()
-        default:
-            break
-        }
-        printDebug("viewTranslation: \(viewTranslation)")
+        closeBottomSheet()
     }
-    
-    
-    ///Call to use Pan Gesture Final Animation
-    private func panGestureFinalAnimation(velocity: CGPoint,touchPoint: CGPoint) {
-        //Down Direction
-        if velocity.y < 0 {
-            if velocity.y < -300 {
-                self.openBottomSheet()
-            } else {
-                if touchPoint.y <= (UIScreen.main.bounds.height)/2 {
-                    self.openBottomSheet()
-                } else {
-                    self.closeBottomSheet()
-                }
-            }
-        }
-            //Up Direction
-        else {
-            if velocity.y > 300 {
-                self.closeBottomSheet()
-            } else {
-                if touchPoint.y >= (UIScreen.main.bounds.height + (-self.mainContainerHeightConstraint.constant/2)){
-                    self.closeBottomSheet()
-                } else {
-                    self.openBottomSheet()
-                }
-            }
-        }
-        print(velocity.y)
-    }
-    
+
     func openBottomSheet() {
         self.show(animated: true)
     }

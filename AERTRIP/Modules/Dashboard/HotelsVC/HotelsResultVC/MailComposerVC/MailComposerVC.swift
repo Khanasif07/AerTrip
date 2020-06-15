@@ -125,6 +125,7 @@ class MailComposerVC: BaseVC {
         self.tableView.tableHeaderView = mailComposerHeaderView
         self.updateHeightOfHeader(mailComposerHeaderView, mailComposerHeaderView.toEmailTextView)
         mailComposerHeaderView.seeRatesButton.isUserInteractionEnabled = false
+        mailComposerHeaderView.clipsToBounds = true
     }
     
     private func setUpFooter() {
@@ -238,6 +239,10 @@ extension MailComposerVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 380
     }
 }
 

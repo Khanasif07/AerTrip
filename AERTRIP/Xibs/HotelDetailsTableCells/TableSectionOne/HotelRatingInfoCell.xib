@@ -28,18 +28,6 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pv8-KP-Jl8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="127.5"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Vf-MQ-qaM">
-                                <rect key="frame" x="336" y="16" width="27" height="27"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="27" id="EAg-gR-q9z"/>
-                                    <constraint firstAttribute="width" secondItem="6Vf-MQ-qaM" secondAttribute="height" multiplier="1:1" id="oVP-Fr-1Qd"/>
-                                </constraints>
-                                <state key="normal" image="share_file_icon"/>
-                                <state key="selected" image="saveHotelsSelected"/>
-                                <connections>
-                                    <action selector="shareButtonAction:" destination="Rpy-CL-tHE" eventType="touchUpInside" id="ggW-vp-veN"/>
-                                </connections>
-                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="oEU-GA-wMF">
                                 <rect key="frame" x="16" y="22" width="343" height="89"/>
                                 <subviews>
@@ -137,6 +125,18 @@
                                     <constraint firstAttribute="bottom" secondItem="eTp-rb-uxv" secondAttribute="bottom" id="aQ7-2K-fCc"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Vf-MQ-qaM">
+                                <rect key="frame" x="336" y="16" width="27" height="27"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="27" id="EAg-gR-q9z"/>
+                                    <constraint firstAttribute="width" secondItem="6Vf-MQ-qaM" secondAttribute="height" multiplier="1:1" id="oVP-Fr-1Qd"/>
+                                </constraints>
+                                <state key="normal" image="share_file_icon"/>
+                                <state key="selected" image="saveHotelsSelected"/>
+                                <connections>
+                                    <action selector="shareButtonAction:" destination="Rpy-CL-tHE" eventType="touchUpInside" id="ggW-vp-veN"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gSk-NW-CWC" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="16" y="127" width="343" height="0.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

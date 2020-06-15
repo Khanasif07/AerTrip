@@ -20,6 +20,9 @@ extension HotelsMapVC : MKMapViewDelegate{
         annotationView.canShowCallout = true
         annotationView.isUserInteractionEnabled = true
         annotationView.centerOffset = CGPoint(x: 0, y: -image.size.height / 2);
+        if annatation.markerType == .city {
+            annotationView.centerOffset = CGPoint(x: 0, y: 0);
+        }
         return annotationView
         
     }

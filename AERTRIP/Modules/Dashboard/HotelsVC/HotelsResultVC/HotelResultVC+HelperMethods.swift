@@ -421,6 +421,8 @@ extension HotelResultVC {
                     printDebug("hideHeaderBlurView: \(value)")
                     if value < 0 {
                         value = 16
+                    } else {
+                        value += 16
                     }
                     self.tableViewVertical.contentInset = UIEdgeInsets(top: value, left: 0, bottom: 0, right: 0)
                     
@@ -482,10 +484,18 @@ extension HotelResultVC {
             // Animatioon to move the blurEffectView
             UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseOut], animations: {
                 self.headerContainerViewTopConstraint.constant = rect.origin.y
-                let value = self.topContentSpace - abs(rect.origin.y)
-                if value > 0 {
-                //self.tableViewVertical.contentInset = UIEdgeInsets(top: value, left: 0, bottom: 0, right: 0)
+                var value = self.topContentSpace - abs(rect.origin.y)
+                if value >= 0 {
+                    value = self.topContentSpace + 16
                 }
+                if value < 0 {
+                    value = 16
+                }
+                if self.tableViewVertical.contentOffset.y < 100 {
+                    value = self.topContentSpace
+                }
+                
+                self.tableViewVertical.contentInset = UIEdgeInsets(top: value, left: 0, bottom: 0, right: 0)
             } ,completion: nil)
     }
     

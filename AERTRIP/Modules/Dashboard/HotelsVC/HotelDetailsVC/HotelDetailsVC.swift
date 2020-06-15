@@ -465,9 +465,9 @@ class HotelDetailsVC: BaseVC {
         }
     }
         
-    internal func heightForRow(tableView: UITableView, indexPath: IndexPath) -> CGFloat {
+    internal func heightForRow(tableView: UITableView, indexPath: IndexPath, isForEstimateHeight: Bool) -> CGFloat {
         if !self.viewModel.hotelDetailsTableSectionData.isEmpty, self.viewModel.hotelDetailsTableSectionData[indexPath.section][indexPath.row] == .searchTagCell {
-             return  UITableView.automaticDimension
+             return  isForEstimateHeight ? 100 : UITableView.automaticDimension
         } else {
             if indexPath.section == 0, indexPath.row == 2 {
                 if let hotelData = self.viewModel.hotelData {
@@ -482,6 +482,9 @@ class HotelDetailsVC: BaseVC {
             }
             else if indexPath.section == 0, indexPath.row == 3 {
                 //overview cell
+                if !isForEstimateHeight {
+                    return UITableView.automaticDimension
+                }
                 if let hotelData = self.viewModel.hotelData {
                     
                     let textView = UITextView()
@@ -508,10 +511,10 @@ class HotelDetailsVC: BaseVC {
                 return 550
             }
             else if  !self.viewModel.hotelDetailsTableSectionData.isEmpty, self.viewModel.hotelDetailsTableSectionData[indexPath.section][indexPath.row] == .paymentPolicyCell {
-                return 0
+                return isForEstimateHeight ? 100 : CGFloat.leastNormalMagnitude
                 }
             else {
-                 return UITableView.automaticDimension
+                return isForEstimateHeight ? 100 : UITableView.automaticDimension
             }
            
         }

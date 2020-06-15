@@ -306,6 +306,7 @@ extension HCCouponCodeVC {
 //                }
 //            }
         }
+        self.viewModel.couponCode = finalText
         self.viewModel.searchCoupons(searchText: finalText)
         return true
     }

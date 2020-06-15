@@ -384,7 +384,10 @@ extension AppFlowManager {
                 }
             }
             ob.viewModel.childrenAge = ages
-            mVC.add(childViewController: ob)
+           // mVC.add(childViewController: ob)
+            ob.modalPresentationStyle = .overCurrentContext
+            ob.modalPresentationCapturesStatusBarAppearance = true
+            mVC.present(ob, animated: true, completion: nil)
         }
     }
     
@@ -445,14 +448,18 @@ extension AppFlowManager {
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
-    func showBulkRoomSelectionVC(rooms: Int, adults: Int, children: Int, delegate: BulkRoomSelectionVCDelegate) {
+    func showBulkRoomSelectionVC(rooms: Int, adults: Int, children: Int, delegate: BulkRoomSelectionVCDelegate,navigationController: UINavigationController? = nil) {
         if let mVC = UIApplication.topViewController() {
             let ob = BulkRoomSelectionVC.instantiate(fromAppStoryboard: .HotelsSearch)
             ob.delegate = delegate
             ob.viewModel.roomCount = rooms
             ob.viewModel.adultCount = adults
             ob.viewModel.childrenCounts = children
-            mVC.add(childViewController: ob)
+            //mVC.add(childViewController: ob)
+            if #available(iOS 13.0, *) {} else {
+                ob.modalPresentationStyle = .overCurrentContext
+            }
+            (navigationController ?? mVC).present(ob, animated: true, completion: nil)
         }
     }
     

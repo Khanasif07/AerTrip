@@ -25,7 +25,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kqi-Pq-dge">
-                                <rect key="frame" x="0.0" y="0.0" width="288" height="229"/>
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="228"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotelCardPlaceHolder" translatesAutoresizingMaskIntoConstraints="NO" id="sho-Ja-Zl8">
@@ -149,7 +149,7 @@
                             <constraint firstItem="4sa-XZ-NXI" firstAttribute="top" secondItem="sho-Ja-Zl8" secondAttribute="bottom" constant="-2" id="2d9-eL-3fA"/>
                             <constraint firstItem="sho-Ja-Zl8" firstAttribute="leading" secondItem="BRm-VW-OrK" secondAttribute="leading" id="3RE-5P-Pil"/>
                             <constraint firstAttribute="trailing" secondItem="4sa-XZ-NXI" secondAttribute="trailing" id="9zc-ep-yfE"/>
-                            <constraint firstItem="sho-Ja-Zl8" firstAttribute="bottom" secondItem="Kqi-Pq-dge" secondAttribute="bottom" constant="-1" id="NwX-CK-qpS"/>
+                            <constraint firstItem="sho-Ja-Zl8" firstAttribute="bottom" secondItem="Kqi-Pq-dge" secondAttribute="bottom" id="NwX-CK-qpS"/>
                             <constraint firstItem="sho-Ja-Zl8" firstAttribute="top" secondItem="BRm-VW-OrK" secondAttribute="top" id="OK5-Op-x3a"/>
                             <constraint firstItem="sho-Ja-Zl8" firstAttribute="trailing" secondItem="Kqi-Pq-dge" secondAttribute="trailing" id="S7A-VS-RnT"/>
                             <constraint firstAttribute="bottom" secondItem="4sa-XZ-NXI" secondAttribute="bottom" id="TcC-pW-hl9"/>
