@@ -389,7 +389,7 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
         // send to you are all donr screen
         self.loaderView.isHidden = true
         print(bookingIds)
-//        let id = self.viewModel.itinerary.id
+        let id = self.viewModel.itinerary.id
 //        AppFlowManager.default.presentYouAreAllDoneVC(forItId: id, bookingIds: bookingIds, cid: cid, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong)
         
     }
