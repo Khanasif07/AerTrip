@@ -57,22 +57,15 @@ class AddonsDataStore {
         }
      }
     
-//    func setContactsForMeal(vcIndex: Int, currentFlightKey: String, mealIndex: Int, contacts : [ATContact]){
-//        guard var keyData = adons[currentFlightKey] else { return }
-//        keyData.meal[mealIndex].mealsSelectedFor = contacts
-//        adons[currentFlightKey]? = keyData
-//    }
-//
-//    func setContactsForBaggage(vcIndex: Int, currentFlightKey: String, baggageIndex: Int, contacts : [ATContact]){
-//        guard var keyData = adons[currentFlightKey] else { return }
-//        keyData.baggage[baggageIndex].bagageSelectedFor = contacts
-//        adons[currentFlightKey]? = keyData
-//    }
+
     
-    
-   
-    
-    
-    
+    func getMealsSelectionCount() -> Int {
+        
+        self.flightsWithData.forEach { (addon) in
+            
+        }
+        
+        return 0
+    }
     
 }

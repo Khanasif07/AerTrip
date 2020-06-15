@@ -95,7 +95,7 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let type = AdonsVM.AdonsType(rawValue: indexPath.row) ?? AdonsVM.AdonsType.meals
+        let type = self.adonsVm.addonsData[indexPath.row].addonsType
         
         switch type {
             
