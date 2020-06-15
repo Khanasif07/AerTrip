@@ -112,16 +112,16 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
     
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
         
-//        let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
-//        AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary, addonsMaster: self.viewModel.addonsMaster)
-//        self.navigationController?.pushViewController(vc, animated: true)
-//
-        let validation = self.viewModel.validateGuestData()
-        if validation.success{
-            self.viewModel.checkValidationForNextScreen()
-        }else{
-            AppToast.default.showToastMessage(message: validation.msg)
-        }
+        let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
+        AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary, addonsMaster: self.viewModel.addonsMaster)
+        self.navigationController?.pushViewController(vc, animated: true)
+
+        //        let validation = self.viewModel.validateGuestData()
+//        if validation.success{
+//            self.viewModel.checkValidationForNextScreen()
+//        }else{
+//            AppToast.default.showToastMessage(message: validation.msg)
+//        }
     }
     
     func infoButtonTapped(isViewExpanded: Bool) {

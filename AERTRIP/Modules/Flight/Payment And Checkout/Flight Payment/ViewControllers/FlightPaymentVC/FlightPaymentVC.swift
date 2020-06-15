@@ -91,10 +91,11 @@ class FlightPaymentVC: BaseVC {
 //        delay(seconds: 1) {
 //           self.loaderView.isHidden = true
 //        }
-//        let vc = FlightPaymentBookingStatusVC.instantiate(fromAppStoryboard: .FlightPayment)
-//        vc.viewModel.itinerary = self.viewModel.itinerary
-//        self.navigationController?.pushViewController(vc, animated: true)
-        self.viewModel.reconfirmationAPI()
+        let vc = FlightPaymentBookingStatusVC.instantiate(fromAppStoryboard: .FlightPayment)
+        vc.viewModel.itinerary = self.viewModel.itinerary
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+//        self.viewModel.reconfirmationAPI()
     }
     
     

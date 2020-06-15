@@ -33,6 +33,11 @@ class SelectPassengersVM {
         
         guard let allPassengers = GuestDetailsVM.shared.guests.first else { return }
                 
+        if setupFor == .seatSelection {
+            allowedPassengers = allPassengers
+            return
+        }
+        
         if adonsData.isAdult{
             allowedPassengers.append(contentsOf: allPassengers.filter { $0.passengerType == .Adult })
         }

@@ -84,22 +84,18 @@ extension SelectPassengerVC {
             selectPassengersVM.initalPassengerForSeat = selectPassengersVM.seatModel.columnData.passenger
             
         case .meals:
-            
             self.selectPassengersLabel.text = LocalizedString.Select_Passengers_To_Assign_This_Meal.localized
             self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "") • ₹ \(self.selectPassengersVM.adonsData.price)"
       
         case .baggage:
-          
             self.selectPassengersLabel.text = LocalizedString.Select_Passengers_To_Assign_This_Meal.localized
             self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "") • ₹ \(self.selectPassengersVM.adonsData.price)"
             
         case .others:
-         
             self.selectPassengersLabel.text = LocalizedString.Select_Passengers.localized
             self.titleLabel.text = self.selectPassengersVM.adonsData.ssrName?.name
-
-        }
         
+        }
     }
 }
 
