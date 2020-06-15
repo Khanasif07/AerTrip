@@ -22,6 +22,15 @@ class AddonsDataStore {
      var flightsWithData :[AddonsFlight] = []
      var flightKeys : [String] = []
     
+    var appliedCouponData = FlightItineraryData()
+    var taxesResult:[String:String] = [:]
+    var passengers = [ATContact]()
+    var gstDetail = GSTINModel()
+    var email = ""
+    var mobile = ""
+    var isd = ""
+    var isGSTOn = false
+    
     
     init(){
         
