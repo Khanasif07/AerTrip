@@ -566,11 +566,12 @@ struct IntMultiCityAndReturnWSResponse {
                 var grossFare: Taxes
                 var grandTotal: Taxes
                 var totalPayableNow: Taxes
-                var notEffectiveFare: Taxes
+                var netEffectiveFare: Taxes
                 var cancellationCharges: SubFares
                 var reschedulingCharges: SubFares//.Details.Fee
                 //Added for IteneraryDetails:---
                 var addons:Taxes?
+                var discount:Taxes?
                 
                 init(_ json: JSON) {
                     bf = Taxes(json["BF"])
@@ -578,11 +579,14 @@ struct IntMultiCityAndReturnWSResponse {
                     grossFare = Taxes(json["gross_fare"])
                     grandTotal = Taxes(json["grand_total"])
                     totalPayableNow = Taxes(json["total_payable_now"])
-                    notEffectiveFare = Taxes(json["net_effective_fare"])
+                    netEffectiveFare = Taxes(json["net_effective_fare"])
                     cancellationCharges = SubFares(json["cancellation_charges"])
                     reschedulingCharges = SubFares(json["rescheduling_charges"])
                     if json["addons"].dictionary != nil{
                         addons = Taxes(json["addons"])
+                    }
+                    if json["discounts"].dictionary != nil{
+                        discount = Taxes(json["discounts"])
                     }
                     
                 }

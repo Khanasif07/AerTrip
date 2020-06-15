@@ -8,16 +8,27 @@
 
 import Foundation
 
+
 struct FlightItineraryData{
     var itinerary:FlightItinerary
-    var changeResults:[String:ChangeResult]
-    
-        init(_ json:JSON = JSON()){
-            itinerary = FlightItinerary(json["itinerary"])
-            changeResults = Dictionary(uniqueKeysWithValues: json["change_results"].map{ ($0.0, ChangeResult($0.1)) })
+    var searchParam:FlightSearchParam?
+    var changeResults:[String:ChangeResult]?
+    //Coupon Appied
+    var isCouponAppied:Bool?
+    var couponCode:String?
+    var discountsBreakup:DiscountBreakUp?
+    init(_ json:JSON = JSON()){
+        itinerary = FlightItinerary(json["itinerary"])
+        changeResults = Dictionary(uniqueKeysWithValues: json["change_results"].map{ ($0.0, ChangeResult($0.1)) })
+        isCouponAppied = json["is_coupon_applied"].bool
+        couponCode = json["coupon_code"].string
+        if let dict = json["discounts_breakup"].dictionaryObject{
+          discountsBreakup = DiscountBreakUp(json: dict)
         }
-    
-    
+        if json["search_params"].dictionaryObject != nil{
+            searchParam = FlightSearchParam(json["search_params"])
+        }
+    }
 }
 
 struct FlightItinerary {
@@ -41,6 +52,13 @@ struct FlightItinerary {
     var travellerDetails:TravellerDetails
     var travellerMaster:[TravellerModel]
     var paymentModes:PaymentMode
+    var couponCode: String
+    var pointsBalance: Int
+    var partPaymentProcessingFee:Int
+    //part_payment_due_date: ""
+    //seatmap: ""
+    //selected_apf: {leg: ""}
+   
 
     
     init(_ json:JSON = JSON()){
@@ -64,6 +82,9 @@ struct FlightItinerary {
         travellerDetails = TravellerDetails(json["traveller_details"])
         travellerMaster = json["traveller_master"]["aertrip"].arrayValue.map{TravellerModel(json: $0)}
         paymentModes = PaymentMode(json: json["payment_modes"])
+        couponCode = json["coupon_code"].stringValue
+        pointsBalance = json["points_balance"].intValue
+        partPaymentProcessingFee = json["part_payment_processing_fee"].intValue
     }
 }
 
@@ -79,10 +100,12 @@ struct FlightSearchParam{
     var returnDate : String
     var tripType : String
     var sessionId : String
+    var paxTypes:String
     //For Multicity
-    var originArr : [String]
-    var dipartArr : [String]
-    var destinationArr : [String]
+    var originArr : [String]?
+    var paxTypesArr: [String]?
+    var dipartArr : [String]?
+    var destinationArr : [String]?
     
     
     init(_ json:JSON = JSON()){
@@ -95,10 +118,12 @@ struct FlightSearchParam{
         origin = json["origin"].stringValue
         returnDate = json["return"].stringValue
         tripType = json["trip_type"].stringValue
+        paxTypes = json["pax_types"].stringValue
         sessionId = json["session_id"].stringValue
-        originArr = json["origin"].arrayObject as? [String] ?? []
-        dipartArr = json["depart"].arrayObject as? [String] ?? []
-        destinationArr = json["destination"].arrayObject as? [String] ?? []
+        originArr = json["origin"].arrayObject as? [String]
+        dipartArr = json["depart"].arrayObject as? [String]
+        destinationArr = json["destination"].arrayObject as? [String]
+        paxTypesArr = json["pax_types"].arrayObject as? [String]
     }
     
 }

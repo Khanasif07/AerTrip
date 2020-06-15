@@ -221,6 +221,7 @@ class PassengerSelectionVM  {
     }
 
     private func login(){
+        self.delegate?.startFechingLoginData()
         let params:JSONDictionary = [APIKeys.loginid.rawValue : self.email.removeLeadingTrailingWhitespaces, APIKeys.password.rawValue : "" , APIKeys.isGuestUser.rawValue : "true"]
         APICaller.shared.loginForPaymentAPI(params: params) { [weak self] (success, logInId, isGuestUser, errors) in
             guard let self = self else { return }
@@ -233,6 +234,7 @@ class PassengerSelectionVM  {
             }else{
                 AppToast.default.showToastMessage(message: "Something went wrong")
             }
+            self.delegate?.getResponseFromLogin(success, error: nil)
         }
     }
     

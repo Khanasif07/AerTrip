@@ -31,6 +31,7 @@ class PassengerDetailsVM {
         let meal = GuestDetailsVM.shared.guests[0][index].mealPreference
         let ff = GuestDetailsVM.shared.guests[0][index].frequentFlyer
         let code = object.countryCode
+        GuestDetailsVM.shared.guests[0][index] = object
         if let country = GuestDetailsVM.shared.countries?[code]{
             GuestDetailsVM.shared.guests[0][index].nationality = country
         }else if let countryCode = GuestDetailsVM.shared.countries?.someKey(forValue: code){
@@ -40,7 +41,6 @@ class PassengerDetailsVM {
             GuestDetailsVM.shared.guests[0][index].nationality = ""
             GuestDetailsVM.shared.guests[0][index].countryCode = ""
         }
-        GuestDetailsVM.shared.guests[0][index] = object
         GuestDetailsVM.shared.guests[0][index].passengerType = type
         GuestDetailsVM.shared.guests[0][index].numberInRoom = numberInRoom
         GuestDetailsVM.shared.guests[0][index].mealPreference = meal
