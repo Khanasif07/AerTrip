@@ -51,21 +51,8 @@ class SelectPassengersVM {
 
     
     func resetFlightData(_ selectedPassenger: ATContact?) {
-        flightData.md.rows.forEach { (rowKey, row) in
-            var newRow = row
-            newRow.forEach { (columnKey, column) in
-                var newColumn = column
-                if newColumn.columnData.ssrCode == selectedSeatData.columnData.ssrCode {
-                    newColumn.columnData.passenger = selectedPassenger
-                } else {
-                    if newColumn.columnData.passenger?.id == selectedPassenger?.id {
-                        newColumn.columnData.passenger = nil
-                    }
-                }
-                newRow.updateValue(newColumn, forKey: columnKey)
-            }
-            flightData.md.rows.updateValue(newRow, forKey: rowKey)
-        }
+        resetFlightDataFor(&flightData.md, selectedPassenger)
+        resetFlightDataFor(&flightData.ud, selectedPassenger)
     }
     
     private func resetFlightDataFor(_ deckData: inout SeatMapModel.DeckData, _ selectedPassenger: ATContact?) {
@@ -90,13 +77,18 @@ class SelectPassengersVM {
     func getAllowedPassengerForParticularAdon() {
         
         guard let allPassengers = GuestDetailsVM.shared.guests.first else { return }
-                
+        
+        if setupFor == .seatSelection {
+            allowedPassengers = allPassengers.filter { $0.passengerType != .infant }
+            return
+        }
+        
         if adonsData.isAdult{
             allowedPassengers.append(contentsOf: allPassengers.filter { $0.passengerType == .Adult })
         }
         
         if adonsData.isChild{
-         allowedPassengers.append(contentsOf: allPassengers.filter { $0.passengerType == .child })
+            allowedPassengers.append(contentsOf: allPassengers.filter { $0.passengerType == .child })
         }
         
         if adonsData.isChild{

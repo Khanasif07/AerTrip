@@ -91,5 +91,6 @@ class SeatMapVC: UIViewController {
             viewModel.curSelectedDeck = .main
         }
         seatMapCollView.reloadData()
+        seatMapCollView.scrollRectToVisible(CGRect(origin: .zero, size: seatMapCollView.size), animated: true)
     }
 }
