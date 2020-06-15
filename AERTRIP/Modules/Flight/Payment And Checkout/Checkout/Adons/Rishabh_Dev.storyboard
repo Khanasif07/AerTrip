@@ -37,6 +37,9 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NnB-te-p6A">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
                                                 <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="body" translatesAutoresizingMaskIntoConstraints="NO" id="J8D-3O-e2V">
+                                                        <rect key="frame" x="122" y="9" width="137" height="66"/>
+                                                    </imageView>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nose" translatesAutoresizingMaskIntoConstraints="NO" id="J9K-GH-A3s">
                                                         <rect key="frame" x="0.0" y="9" width="145" height="66"/>
                                                         <constraints>
@@ -45,9 +48,6 @@
                                                     </imageView>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="topWing" translatesAutoresizingMaskIntoConstraints="NO" id="jEY-JP-2Py">
                                                         <rect key="frame" x="109" y="-16" width="163" height="26"/>
-                                                    </imageView>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="body" translatesAutoresizingMaskIntoConstraints="NO" id="J8D-3O-e2V">
-                                                        <rect key="frame" x="122" y="9" width="137" height="66"/>
                                                     </imageView>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bottomWing" translatesAutoresizingMaskIntoConstraints="NO" id="UXi-Rp-ukA">
                                                         <rect key="frame" x="109" y="74" width="163" height="26"/>
@@ -142,13 +142,18 @@
                         <viewLayoutGuide key="safeArea" id="Apj-dH-tZr"/>
                     </view>
                     <connections>
+                        <outlet property="bodyImgView" destination="J8D-3O-e2V" id="FDB-Ji-FcQ"/>
+                        <outlet property="bottomWingImgView" destination="UXi-Rp-ukA" id="2dB-tI-vkb"/>
+                        <outlet property="noseImgView" destination="J9K-GH-A3s" id="ccB-GY-VHq"/>
                         <outlet property="planeLayoutCollView" destination="5XG-iu-ZvF" id="syC-NY-Mez"/>
                         <outlet property="planeLayoutCollViewWidth" destination="zeB-N9-fha" id="4qh-bp-7C6"/>
                         <outlet property="planeLayoutScrollContentView" destination="NnB-te-p6A" id="KKb-t5-6FP"/>
                         <outlet property="planeLayoutScrollView" destination="0Oq-Vh-YC4" id="EkM-P9-rQv"/>
                         <outlet property="planeLayoutView" destination="eQb-HI-UxI" id="jmZ-59-KvV"/>
                         <outlet property="seatMapContainerView" destination="iIJ-2e-wR7" id="cPc-aH-Xib"/>
+                        <outlet property="tailImgView" destination="vRS-12-qI7" id="6Bv-jT-ioN"/>
                         <outlet property="topNavBarView" destination="ENW-SZ-iqs" id="hd6-PI-D4p"/>
+                        <outlet property="topWingImgView" destination="jEY-JP-2Py" id="yAT-QY-u2s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="32m-gA-KNr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

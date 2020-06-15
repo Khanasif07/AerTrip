@@ -23,9 +23,15 @@ class SeatMapContainerVC: UIViewController {
     
     @IBOutlet weak var topNavBarView: TopNavigationView!
     @IBOutlet weak var seatMapContainerView: UIView!
+    
     @IBOutlet weak var planeLayoutView: UIView!
     @IBOutlet weak var planeLayoutScrollView: UIScrollView!
     @IBOutlet weak var planeLayoutScrollContentView: UIView!
+    @IBOutlet weak var bodyImgView: UIImageView!
+    @IBOutlet weak var noseImgView: UIImageView!
+    @IBOutlet weak var topWingImgView: UIImageView!
+    @IBOutlet weak var bottomWingImgView: UIImageView!
+    @IBOutlet weak var tailImgView: UIImageView!
     @IBOutlet weak var planeLayoutCollView: UICollectionView!
     @IBOutlet weak var planeLayoutCollViewWidth: NSLayoutConstraint!
     
@@ -57,9 +63,11 @@ class SeatMapContainerVC: UIViewController {
     }
     
     private func setupPlaneLayoutCollView() {
+        bodyImgView.addShadow()
+        planeLayoutScrollContentView.backgroundColor = AppColors.themeGray04
+        
         planeLayoutCollView.showsHorizontalScrollIndicator = false
         planeLayoutCollView.register(UINib(nibName: "LayoutSeatCollCell", bundle: nil), forCellWithReuseIdentifier: "LayoutSeatCollCell")
-        planeLayoutScrollContentView.backgroundColor = AppColors.themeGray04
         planeLayoutCollView.backgroundColor = AppColors.themeGray10
         planeLayoutCollView.delegate = self
         planeLayoutCollView.dataSource = self

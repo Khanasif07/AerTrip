@@ -10,6 +10,11 @@ import Foundation
 
 class SeatMapVM {
     
+    enum DeckType {
+        case main
+        case upper
+    }
+    
     typealias amount = (minAmount: Int, maxAmount: Int)
     
     var flightData = SeatMapModel.SeatMapFlight() {
@@ -18,7 +23,8 @@ class SeatMapVM {
         }
     }
         
-    var seatLayout: SeatCollCellVM.PlaneSeatsLayout = .ten
+//    var seatLayout: SeatCollCellVM.PlaneSeatsLayout = .ten
+    var curSelectedDeck: DeckType = .main
     var hasUpperDeck = false
     var flightFares: amount = (0, 0)
     
@@ -35,5 +41,26 @@ class SeatMapVM {
             }
         }
         flightFares = (minAmount, maxAmount)
+    }
+    
+    var deckRowsCount: Int {
+        switch curSelectedDeck {
+        case .upper:    return flightData.ud.rowsArr.count
+        case .main:     return flightData.md.rowsArr.count
+        }
+    }
+    
+    var deckColumnsCount: Int {
+        switch curSelectedDeck {
+        case .upper:    return flightData.ud.columns.count
+        case .main:     return flightData.md.columns.count
+        }
+    }
+    
+    var deckData: SeatMapModel.DeckData {
+        switch curSelectedDeck {
+        case .upper:    return flightData.ud
+        case .main:     return flightData.md
+        }
     }
 }

@@ -46,7 +46,8 @@ struct SeatMapModel {
         let cc: String
         let al: String
         let ft: Int
-        var md: Md
+        var ud: DeckData
+        var md: DeckData
         
         init() {
             self.init(JSON())
@@ -61,11 +62,12 @@ struct SeatMapModel {
             cc = json["cc"].stringValue
             al = json["al"].stringValue
             ft = json["ft"].intValue
-            md = Md(json["md"])
+            ud = DeckData(json["ud"])
+            md = DeckData(json["md"])
         }
     }
     
-    struct Md {
+    struct DeckData {
         let columns: [String]
         var rows: [Int: [String: SeatMapRow]]
         
