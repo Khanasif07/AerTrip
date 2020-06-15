@@ -313,7 +313,7 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
         AppGlobals.shared.stopLoading()
         if success{
             let vc = FlightPaymentVC.instantiate(fromAppStoryboard: .FlightPayment)
-            vc.viewModel.itinerary = self.viewModel.itineraryData.itinerary
+            vc.viewModel.appliedCouponData = self.viewModel.itineraryData
             vc.viewModel.taxesResult = self.viewModel.taxesResult
             vc.viewModel.passengers = GuestDetailsVM.shared.guests.first ?? []
             vc.viewModel.gstDetail = self.viewModel.selectedGST
