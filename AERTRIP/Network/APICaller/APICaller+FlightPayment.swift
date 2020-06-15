@@ -120,4 +120,32 @@ extension APICaller{
         }
     }
     
+    
+    func flightBookingReceiptAPI(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ hotelReceiptData : HotelReceiptModel?)->Void) {
+        AppNetworking.GET(endPoint:APIEndPoint.bookingReceipt, parameters: params, loader: loader, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                printDebug(jsonData)
+                if sucess , let data = jsonData[APIKeys.data.rawValue].dictionaryObject , let receiptData = data[APIKeys.receipt.rawValue] as? JSONDictionary {
+                    let receiptModel = HotelReceiptModel(json: receiptData)
+                    completionBlock(true, [] , receiptModel)
+                } else {
+                    completionBlock(true, [], nil)
+                }
+            }, failure:  { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                completionBlock(false, errors, nil)
+            })
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [], nil)
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
+            }
+        }
+    }
+    
 }

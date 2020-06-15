@@ -66,7 +66,17 @@ extension AddOnVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        
+        let vc = FlightPaymentVC.instantiate(fromAppStoryboard: .FlightPayment)
+        vc.viewModel.appliedCouponData = AddonsDataStore.shared.appliedCouponData
+        vc.viewModel.taxesResult = AddonsDataStore.shared.taxesResult
+        vc.viewModel.passengers = GuestDetailsVM.shared.guests.first ?? []
+        vc.viewModel.gstDetail = AddonsDataStore.shared.gstDetail
+        vc.viewModel.email = AddonsDataStore.shared.email
+        vc.viewModel.mobile = AddonsDataStore.shared.mobile
+        vc.viewModel.isd = AddonsDataStore.shared.isd
+        vc.viewModel.isGSTOn = AddonsDataStore.shared.isGSTOn
+        vc.viewModel.addonsMaster = AddonsDataStore.shared.addonsMaster
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

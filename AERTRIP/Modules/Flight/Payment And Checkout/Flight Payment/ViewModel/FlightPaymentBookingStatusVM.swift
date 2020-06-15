@@ -18,6 +18,8 @@ class FlightPaymentBookingStatusVM{
     var tripName = "Trip to london"
     var whatNextString = ["Book your hotel in Amsterdam and get great deals","Book your hotel in Amsterdam and get great deals","Book your hotel in Amsterdam and get great deals"]
     var isSeatSettingAvailable = true
+    //Data For API And Details
+    var apiBookingId:String = ""
     
     /* TableViewCellType Enum contains all tableview cell for YouAreAllDoneVC tableview */
     enum TableViewCellType {
