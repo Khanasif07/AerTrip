@@ -144,6 +144,8 @@ enum APIEndPoint: String {
     case fareConfirmation = "flights/confirmation"
     case addonsMaster = "flights/addons-master"
     case gstValidation = "flights/validate-gst-number"
+    case applyFlightCouponCode = "flights/itinerary?action=coupons"
+    case flightReconfirmationApi = "flights/re-confirmation"
     
     //FlightAddOns
     case seatMap = "flights/seat-map-list"
