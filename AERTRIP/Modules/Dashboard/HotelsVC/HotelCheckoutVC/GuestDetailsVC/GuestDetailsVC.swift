@@ -197,11 +197,21 @@ class GuestDetailsVC: BaseVC {
     
     private func editedGuest(_ travellerIndexPath: IndexPath) {
         if let indexPath = self.indexPath, let object = self.viewModel.objectForIndexPath(indexPath: travellerIndexPath) {
+            var shouldAddContact = true
+            let allContact = GuestDetailsVM.shared.guests.flatMap({ $0})
+            for guest in allContact {
+                if guest.firstName.lowercased() == object.firstName.lowercased() && guest.lastName.lowercased() == object.lastName.lowercased() {
+                    shouldAddContact = false
+                    break
+                }
+            }
+            
             printDebug(" before updating guest : \(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
+            if shouldAddContact {
             GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = object.salutation
             GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].firstName = object.firstName
             GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].lastName = object.lastName
-            
+            }
             printDebug("after updating guest : \(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
             
             printDebug("=====guest \(indexPath.section) \(indexPath.row)\(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
@@ -347,14 +357,14 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
         if tableView === self.travellersTableView {
             self.guestDetailTableView.isScrollEnabled = true
             self.travellersTableView.isHidden = true
-            let object = self.viewModel.objectForIndexPath(indexPath: indexPath)
-            if let cellindexPath = self.indexPath, let obj = object {
-                if let cell = self.guestDetailTableView.cellForRow(at: cellindexPath) as? GuestDetailTableViewCell {
-                    //cell.salutationTextField.text = self.travellers[indexPath.row].salutation
-                    cell.firstNameTextField.text = obj.firstName
-                    cell.lastNameTextField.text = obj.lastName
-                }
-            }
+//            let object = self.viewModel.objectForIndexPath(indexPath: indexPath)
+//            if let cellindexPath = self.indexPath, let obj = object {
+//                if let cell = self.guestDetailTableView.cellForRow(at: cellindexPath) as? GuestDetailTableViewCell {
+//                    //cell.salutationTextField.text = self.travellers[indexPath.row].salutation
+//                    cell.firstNameTextField.text = obj.firstName
+//                    cell.lastNameTextField.text = obj.lastName
+//                }
+//            }
             self.editedGuest(indexPath)
             self.viewModel.resetData()
             self.viewModel.search(forText: "")
@@ -382,9 +392,9 @@ extension GuestDetailsVC: TopNavigationViewDelegate {
     }
 }
 
-extension GuestDetailsVC: GuestDetailTableViewCellDelegate {    
-    func textFieldWhileEditing(_ textField: UITextField) {
-        self.indexPath = self.guestDetailTableView.indexPath(forItem: textField)
+extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
+    
+    private func serachData(textField: UITextField) {
         self.searchText = textField.text ?? ""
         self.viewModel.search(forText: self.searchText)
         if self.searchText.isEmpty {
@@ -392,6 +402,11 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
         }
         self.travellersTableView.isHidden = self.viewModel.isDataEmpty
         self.travellersTableView.reloadData()
+    }
+    
+    func textFieldWhileEditing(_ textField: UITextField) {
+        self.indexPath = self.guestDetailTableView.indexPath(forItem: textField)
+        serachData(textField: textField)
         if let cell = self.guestDetailTableView.cell(forItem: textField) as? GuestDetailTableViewCell {
             switch textField {
             case cell.firstNameTextField:
@@ -433,15 +448,26 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
             if let index = self.indexPath {
                 yValue = index.row ==  GuestDetailsVM.shared.guests[index.section].count - 1 ? 81 : 83
             }
-            self.guestDetailTableView.setContentOffset(CGPoint(x: self.guestDetailTableView.origin.x, y: itemPosition.y - CGFloat(yValue)), animated: true)
-         
+            let offsetYValue = itemPosition.y - CGFloat(yValue)
+            
+            printDebug("self.guestDetailTableView.contentOffset: \(self.guestDetailTableView.contentOffset)")
+            printDebug("itemPosition.y - CGFloat(yValue): \(offsetYValue)")
+            if self.guestDetailTableView.contentOffset.y != offsetYValue {
+            self.guestDetailTableView.setContentOffset(CGPoint(x: self.guestDetailTableView.origin.x, y: offsetYValue), animated: true)
+            }
             self.guestDetailTableView.isScrollEnabled = self.viewModel.isDataEmpty
             //false            travellersTableView.reloadData()
-            printDebug("item position is \(itemPosition)")
+            //printDebug("item position is \(itemPosition)")
         } else {
             travellersTableView.isHidden = true
         }
  
+    }
+    
+    func textFieldEndEditing(_ textField: UITextField) {
+        self.viewModel.resetData()
+        self.travellersTableView.isHidden = self.viewModel.isDataEmpty
+        self.travellersTableView.reloadData()
     }
 }
 

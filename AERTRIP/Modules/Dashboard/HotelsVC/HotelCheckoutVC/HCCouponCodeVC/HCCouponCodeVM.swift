@@ -8,12 +8,17 @@
 
 import UIKit
 
+enum CouponFor:String{
+    case hotels
+    case flights
+}
+
 protocol HCCouponCodeVMDelegate: class {
     func getCouponsDataSuccessful()
     func getCouponsDataFailed()
     
     func applyCouponCodeSuccessful()
-    func applyCouponCodeFailed()
+    func applyCouponCodeFailed(errors: ErrorCodes)
 }
 
 class HCCouponCodeVM {
@@ -21,11 +26,13 @@ class HCCouponCodeVM {
     weak var delegate: HCCouponCodeVMDelegate?
     var couponsData: [HCCouponModel] = []
     var appliedCouponData: HCCouponAppliedModel?
+    var appliedDataForFlight:FlightItineraryData?
     var itineraryId: String = ""
     var couponCode: String = ""
+    var product = CouponFor.hotels
     
     func getCouponsDetailsApi() {
-        let params: [String : Any] = [ APIKeys.it_id.rawValue : self.itineraryId , APIKeys.product.rawValue : "hotels"]
+        let params: [String : Any] = [ APIKeys.it_id.rawValue : self.itineraryId , APIKeys.product.rawValue : self.product.rawValue]
         APICaller.shared.getCouponDetailsApi(params: params, loader: true ) { [weak self] (success, errors, couponsDetails) in
             guard let sSelf = self else { return }
             if success {
@@ -50,7 +57,23 @@ class HCCouponCodeVM {
             } else {
                 printDebug(errors)
                 //AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
-                sSelf.delegate?.applyCouponCodeFailed()
+                sSelf.delegate?.applyCouponCodeFailed(errors: errors)
+            }
+        }
+    }
+    
+    func applyFlightCouponCode() {
+        let params: [String : Any] = [APIKeys.action.rawValue : "coupons" , APIKeys.coupon_code.rawValue : self.couponCode , APIKeys.it_id.rawValue : self.itineraryId ]
+        APICaller.shared.applyFlightCoupnCodeApi(params: params, loader: true) { [weak self] (success, errors, appliedCouponData) in
+            guard let sSelf = self else { return }
+            if success {
+                printDebug(appliedCouponData)
+                sSelf.appliedDataForFlight = appliedCouponData
+                sSelf.delegate?.applyCouponCodeSuccessful()
+            } else {
+                printDebug(errors)
+                //AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+                sSelf.delegate?.applyCouponCodeFailed(errors: errors)
             }
         }
     }

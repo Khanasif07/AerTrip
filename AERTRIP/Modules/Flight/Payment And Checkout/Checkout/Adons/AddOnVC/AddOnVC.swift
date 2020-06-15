@@ -40,6 +40,7 @@ class AddOnVC : BaseVC {
 extension AddOnVC {
     
     private func initialSetups() {
+        self.adonsVm.setAdonsOptions()
         configureTableView()
     }
     
@@ -76,7 +77,7 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.adonsVm.addOnsData.count
+        return self.adonsVm.addonsData.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -86,23 +87,21 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "AdonsCell", for: indexPath) as? AdonsCell else { fatalError("AdonsCell not found") }
         
-        cell.populateData(type: AdonsVM.AdonsType(rawValue: indexPath.row) ?? AdonsVM.AdonsType.meals, data: self.adonsVm.addOnsData[indexPath.row])
+        cell.populateData(data: self.adonsVm.addonsData[indexPath.row])
+        
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let type = AdonsVM.AdonsType(rawValue: indexPath.row) ?? AdonsVM.AdonsType.meals
+        let type = self.adonsVm.addonsData[indexPath.row].addonsType
         
         switch type {
             
         case .meals:
-//            if AddonsDataStore.shared.adons.isEmpty {
-//               showAlert(title: <#T##String#>, message: <#T##String#>, buttonTitle: <#T##String#>, onCompletion: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>)
-//            }
+            
             let vc = MealsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-//            vc.mealsContainerVM.itinerary = AddonsDataStore.shared.itinerary
             vc.modalPresentationStyle = .overFullScreen
             present(vc, animated: true, completion: nil)
             

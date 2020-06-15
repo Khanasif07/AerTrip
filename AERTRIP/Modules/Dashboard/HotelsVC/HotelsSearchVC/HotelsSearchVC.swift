@@ -295,7 +295,12 @@ class HotelsSearchVC: BaseVC {
             if let model = self.viewModel.nearMeLocation, !model.dest_id.isEmpty {
                 didSelectedDestination(hotel: model)
             } else {
-                self.viewModel.hotelsNearByMe()
+                LocationManager.shared.startUpdatingLocationWithCompletionHandler { [weak self] (location, error) in
+                    LocationManager.shared.locationUpdate = nil
+                    self?.viewModel.hotelsNearByMe()
+                }
+                
+                
             }
         }
     }

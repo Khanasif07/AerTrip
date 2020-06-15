@@ -56,6 +56,11 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
             updateBottomConstraint()
         }
     }
+    var isFirstCellInSection: Bool = false {
+        didSet {
+            updateTopConstraint()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -195,9 +200,16 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
     }
     
     private func updateBottomConstraint() {
-        let valueToSet: CGFloat = isLastCellInSection ? 0 : 16
+        let valueToSet: CGFloat = isLastCellInSection ? 16 : 8
         if valueToSet != self.containerBottomConstraint.constant {
             self.containerBottomConstraint.constant = valueToSet
+            self.contentView.layoutIfNeeded()
+        }
+    }
+    private func updateTopConstraint() {
+        let valueToSet: CGFloat = isFirstCellInSection ? 16 : 8
+        if valueToSet != self.containerTopConstraint.constant {
+            self.containerTopConstraint.constant = valueToSet
             self.contentView.layoutIfNeeded()
         }
     }

@@ -41,6 +41,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     }
     @IBOutlet weak var dropDownStackView: UIStackView!
     @IBOutlet weak var shadowViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mainStackView: UIStackView!
     
     //Mark:- LifeCycle
     //================
@@ -54,19 +55,19 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     ///Configure UI
     private func configureUI() {
         //Color
-        self.backgroundColor = AppColors.screensBackground.color
-        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+        self.backgroundColor = .clear//AppColors.screensBackground.color
+        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
 
 //        self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize(width: 0.0, height: 5.0), opacity: 0.7, shadowRadius: 5.0)
-        layer.shouldRasterize = true
-        layer.rasterizationScale = UIScreen.main.scale
+//        layer.shouldRasterize = true
+//        layer.rasterizationScale = UIScreen.main.scale
         self.bedTypeLabel.textColor = AppColors.themeBlack
         self.bedDiscriptionLabel.textColor = AppColors.themeBlack
         self.bedsLabel.textColor = AppColors.themeBlack
         self.dropDownTextField.textColor = AppColors.themeGreen
         //Size
         self.bedTypeLabel.font = AppFonts.SemiBold.withSize(14.0)
-        self.bedsLabel.font = AppFonts.Regular.withSize(16.0)
+        self.bedsLabel.font = AppFonts.Regular.withSize(14.0)
         self.dropDownTextField.font = AppFonts.SemiBold.withSize(16.0)
         self.bedSelectionTitleImgSetUp()
         self.configurePickerView()
@@ -125,6 +126,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
             self.bedDiscriptionLabel.font = AppFonts.SemiBold.withSize(18.0)
             self.bedTypeLabel.font = AppFonts.SemiBold.withSize(18.0)
             self.deviderView.isHidden = false
+            self.mainStackView.spacing = 6
         } else {
             self.bedTypeLabel.text = "No. of rooms : \(numberOfRooms)"
             self.bedDiscriptionLabel.font = AppFonts.SemiBold.withSize(18.0)
@@ -132,6 +134,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
             self.bedDiscriptionLabel.isHidden = false
             self.bedDiscriptionLabel.text = roomData.name + " " + roomData.desc
             self.deviderView.isHidden = true
+            self.mainStackView.spacing = 3
         }
         if let roomBedsTypes = roomData.roomBedTypes {
             for bedType in roomBedsTypes {

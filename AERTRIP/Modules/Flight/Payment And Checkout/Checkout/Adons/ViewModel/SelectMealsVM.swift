@@ -9,49 +9,41 @@
 import Foundation
 
 protocol SelectMealVmDelegate : class {
-
     func contactAddedToMeal()
-    
 }
 
 class SelectMealsVM {
     
-    var vcIndex : Int = 0
-    var currentFlightKey : String = ""
-
-//    var itinerary = FlightItinerary()
-//    var adons : [String : AddonsData] = [:]
-//
-//    var currentAdonsData = AddonsData()
-//
+    var addonsDetails = AddonsDetails()
+    private var vcIndex : Int = 0
+    private var currentFlightKey : String = ""
     weak var delegate : SelectMealVmDelegate?
-//
-//    var flightKeys : [String] {
-//        return  Array(adons.keys)
-//    }
-//
-//    func extractUsefullData() {
-//        guard let adon = itinerary.details.addons else{
-//              return
-//            }
-//        adons = adon
-//        currentFlightKey = flightKeys[vcIndex]
-//        currentAdonsData = adons[flightKeys[vcIndex]] ?? AddonsData()
-//    }
+
     
     init(){
         
     }
     
-    init(vcIndex : Int, currentFlightKey : String){
+    init(vcIndex : Int, currentFlightKey : String, addonsDetails : AddonsDetails){
         self.vcIndex = vcIndex
         self.currentFlightKey = currentFlightKey
+        self.addonsDetails = addonsDetails
     }
     
+    func getMeals() -> [AddonsDataCustom] {
+        return addonsDetails.addonsArray
+    }
     
-    func getMealsDataForCurrentFlight() -> [Addons] {
-        guard let keyData = AddonsDataStore.shared.adons[self.currentFlightKey] else { return [] }
-        return keyData.meal
+    func getVcIndex() -> Int {
+        return vcIndex
+    }
+    
+    func getCurrentFlightKey() -> String {
+        return currentFlightKey
+    }
+     
+    func updateContactInMeal(mealIndex: Int, contacts : [ATContact]){
+        addonsDetails.addonsArray[mealIndex].mealsSelectedFor = contacts
     }
     
 }

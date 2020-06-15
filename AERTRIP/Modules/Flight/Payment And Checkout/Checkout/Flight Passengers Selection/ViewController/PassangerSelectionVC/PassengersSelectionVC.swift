@@ -111,17 +111,11 @@ class PassengersSelectionVC: UIViewController {
 extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, JourneyDetailsTapDelegate{
     
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
-
-
-//        let vc = FlightPaymentVC.instantiate(fromAppStoryboard: .FlightPayment)
-//        vc.viewModel.itinerary = self.viewModel.itineraryData.itinerary
-//        vc.viewModel.taxesResult = self.viewModel.taxesResult
-//
         
         let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
-        AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary)
+        AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary, addonsMaster: self.viewModel.addonsMaster)
         self.navigationController?.pushViewController(vc, animated: true)
-        
+
 //        let validation = self.viewModel.validateGuestData()
 //        if validation.success{
 //            self.viewModel.checkValidationForNextScreen()
@@ -318,9 +312,20 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
     func getResponseFromGSTValidation(_ success:Bool, error:Error?){
         AppGlobals.shared.stopLoading()
         if success{
-            let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
-            AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary)
+            let vc = FlightPaymentVC.instantiate(fromAppStoryboard: .FlightPayment)
+            vc.viewModel.appliedCouponData = self.viewModel.itineraryData
+            vc.viewModel.taxesResult = self.viewModel.taxesResult
+            vc.viewModel.passengers = GuestDetailsVM.shared.guests.first ?? []
+            vc.viewModel.gstDetail = self.viewModel.selectedGST
+            vc.viewModel.email = self.viewModel.email
+            vc.viewModel.mobile = self.viewModel.mobile
+            vc.viewModel.isd = self.viewModel.isdCode
+            vc.viewModel.isGSTOn = self.viewModel.isSwitchOn
+            vc.viewModel.addonsMaster = self.viewModel.addonsMaster
             self.navigationController?.pushViewController(vc, animated: true)
+//            let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
+//            AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary)
+//            self.navigationController?.pushViewController(vc, animated: true)
         }else{
             AppToast.default.showToastMessage(message: "Error while validating GST number")
         }

@@ -11,6 +11,7 @@ import Foundation
 struct AddonsMaster {
     var legs:[String:AddonsLeg]
     init(_ json:JSON = JSON()){
+        printDebug(json)
         legs = Dictionary(uniqueKeysWithValues: json["legs"].map { ($0.0, AddonsLeg($0.1)) })
     }
 }
@@ -31,42 +32,109 @@ struct AddonsLeg{
         freeMealSeat = json["free_meal_seat"].int
         freeSeat = json["free_seat"].int
     }
-    
 }
+
 struct AddonsFlight{
     var flightId:String
     var meal:AddonsDetails
     var bags:AddonsDetails
     var special:AddonsDetails
-    var ssrName:[String:addonsSsr]
+    var ssrName:[String:AddonsSsr]
     var frequenFlyer:[String:AddonsFFDetails]
     var isfrequentFlyer:Bool
     init(_ json:JSON = JSON()){
-        flightId = json["flight_id"].stringValue
-        meal = AddonsDetails(json["meal"])
-        bags = AddonsDetails(json["bags"])
-        special = AddonsDetails(json["special"])
-        ssrName = Dictionary(uniqueKeysWithValues: json["ssr_name"].map { ($0.0, addonsSsr($0.1)) })
+        ssrName = Dictionary(uniqueKeysWithValues: json["ssr_name"].map { ($0.0, AddonsSsr($0.1)) })
         frequenFlyer = Dictionary(uniqueKeysWithValues: json["frequent_flyer"].map { ($0.0, AddonsFFDetails($0.1)) })
         isfrequentFlyer = json["is_frequent_flyer"].boolValue
-    }
-    
-}
-struct AddonsDetails{
-    var adt:[String:Int]
-    var chd:[String:Int]
-    var inf:[String:Int]
-    init(_ json:JSON = JSON()){
-        adt = json["ADT"].dictionaryObject as? [String:Int] ?? [:]
-        chd = json["CHD"].dictionaryObject as? [String:Int] ?? [:]
-        inf = json["INF"].dictionaryObject as? [String:Int] ?? [:]
+        flightId = json["flight_id"].stringValue
+        meal = AddonsDetails(json["meals"], ssrName: ssrName)
+        bags = AddonsDetails(json["bags"], ssrName: ssrName)
+        special = AddonsDetails(json["special"], ssrName: ssrName)
     }
 }
 
-struct addonsSsr{
+struct AddonsDetails{
+//    var adt:[String:Int]
+//    var chd:[String:Int]
+//    var inf:[String:Int]
+    
+    var addonsArray : [AddonsDataCustom] = []
+    
+    init(){
+        
+    }
+    
+    init(_ json:JSON = JSON(), ssrName : [String:AddonsSsr]){
+//        adt = json["ADT"].dictionaryObject as? [String:Int] ?? [:]
+//        chd = json["CHD"].dictionaryObject as? [String:Int] ?? [:]
+//        inf = json["INF"].dictionaryObject as? [String:Int] ?? [:]
+//
+        let adt = json["ADT"].dictionaryObject as? [String:Int] ?? [:]
+        let chd = json["CHD"].dictionaryObject as? [String:Int] ?? [:]
+        let inf = json["INF"].dictionaryObject as? [String:Int] ?? [:]
+        
+        adt.forEach { (key,value) in
+            var adon = AddonsDataCustom(name: key, price: value, ssrName: ssrName[key])
+            adon.isAdult = true
+            addonsArray.append(adon)
+        }
+        
+        chd.forEach { (key,value) in
+            if let indx = addonsArray.firstIndex(where: { (adon) -> Bool in
+                adon.adonsName == key
+            }){
+                addonsArray[indx].isChild = true
+            }else{
+                var adon = AddonsDataCustom(name: key, price: value, ssrName: ssrName[key])
+                  adon.isChild = true
+                  addonsArray.append(adon)
+            }
+        }
+        
+        inf.forEach { (key,value) in
+               if let indx = addonsArray.firstIndex(where: { (adon) -> Bool in
+                   adon.adonsName == key
+               }){
+                   addonsArray[indx].isInfant = true
+               }else{
+                var adon = AddonsDataCustom(name: key, price: value, ssrName: ssrName[key])
+                     adon.isInfant = true
+                     addonsArray.append(adon)
+               }
+           }
+    }
+}
+
+struct AddonsDataCustom {
+    
+    var adonsName : String = ""
+    var price : Int = 0
+    var isAdult : Bool = false
+    var isChild : Bool = false
+    var isInfant : Bool = false
+    var ssrName : AddonsSsr?
+    var mealsSelectedFor : [ATContact] = []
+    var bagageSelectedFor : [ATContact] = []
+    var othersSelectedFor : [ATContact] = []
+    var autoSelectedFor : [String] = []
+
+    init() {
+        
+    }
+    
+    init(name : String, price : Int,ssrName : AddonsSsr?){
+        self.adonsName = name
+        self.price = price
+        self.ssrName = ssrName
+    }
+}
+
+
+struct AddonsSsr{
     var code:String
     var name:String
     var isReadOnly:Int
+ 
     init(_ json:JSON = JSON()){
         code = json["code"].stringValue
         name = json["name"].stringValue

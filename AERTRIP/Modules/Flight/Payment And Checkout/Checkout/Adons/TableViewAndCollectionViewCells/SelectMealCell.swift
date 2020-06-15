@@ -45,6 +45,46 @@ class SelectMealCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+     func populateData(data : AddonsDataCustom, index : Int){
+        let price = "₹ \(data.price)"
+        self.priceLabel.text = price
+        self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
+        self.mealTitleLabel.text = data.ssrName?.name
+        
+        if data.mealsSelectedFor.isEmpty {
+               self.mealForLabel.text = ""
+               self.mealForLabelTop.constant = 0
+               self.quantityLabel.isHidden = true
+           }else{
+               self.mealForLabelTop.constant = 2
+               let allNamesArray = data.mealsSelectedFor.map { (contact) -> String in
+                   return contact.firstName
+               }
+               let conaSaperatedNames = allNamesArray.joined(separator: ", ")
+               self.mealForLabel.text = "For \(conaSaperatedNames)"
+               self.quantityLabel.text = "X\(data.mealsSelectedFor.count)"
+               self.quantityLabel.isHidden = false
+           }
+        
+          if index == 3 {
+                 self.mealAutoSelectedForLabel.text = "Auto Selected for DEL → HYD"
+                    self.mealAutoSelectedTop.constant = 11
+                    autoSelectionBackView.isHidden = false
+                 }else if index == 4 {
+
+                                self.mealAutoSelectedForLabel.text = ""
+        
+                            self.mealAutoSelectedTop.constant = 0
+                            autoSelectionBackView.isHidden = true
+             }else {
+                 
+                          self.mealAutoSelectedForLabel.text = ""
+                           self.mealAutoSelectedTop.constant = 0
+                           autoSelectionBackView.isHidden = true
+             }
+        
+    }
+    
     func populateData(data : Addons, index : Int){
         let price = "₹ \(data.salePrice)"
         self.priceLabel.text = price
@@ -57,29 +97,16 @@ class SelectMealCell: UITableViewCell {
             self.quantityLabel.isHidden = true
         }else{
             self.mealForLabelTop.constant = 2
-//            self.mealForLabel.text = "For Julin and Clifford For Julin and Clifford"
-            
             let allNamesArray = data.mealsSelectedFor.map { (contact) -> String in
                 return contact.firstName
             }
             let conaSaperatedNames = allNamesArray.joined(separator: ", ")
             self.mealForLabel.text = "For \(conaSaperatedNames)"
-            
-//            if let lastIndex = conaSaperatedNames.lastIndex(where: { (char) -> Bool in
-//                return char == ","
-//            }){
-//                //conaSaperatedNames[lastIndex.encodedOffset] = ""
-//            }
-            
-            
             self.quantityLabel.text = "X\(data.mealsSelectedFor.count)"
             self.quantityLabel.isHidden = false
         }
         
-        
-        
         if index == 3 {
-
             self.mealAutoSelectedForLabel.text = "Auto Selected for DEL → HYD"
                self.mealAutoSelectedTop.constant = 11
                autoSelectionBackView.isHidden = false
@@ -91,88 +118,11 @@ class SelectMealCell: UITableViewCell {
                        autoSelectionBackView.isHidden = true
         }else {
             
-
-                    self.mealAutoSelectedForLabel.text = ""
-                          
+                     self.mealAutoSelectedForLabel.text = ""
                       self.mealAutoSelectedTop.constant = 0
                       autoSelectionBackView.isHidden = true
-
-            
         }
         
-    }
-    
-    
-    
-    func populateData(index : Int){
-        if index == 3{
-            
-            let price = "₹1,33554"
-            self.priceLabel.text = price
-            self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
-            
-                self.mealTitleLabel.text = "Hindu (Non- Vegetarian) Meal Specific Hindu (Non- Vegetarian) Meal Specific"
-                
-                self.mealForLabel.text = "For Julin and Clifford"
-
-                self.mealAutoSelectedForLabel.text = "Auto Selected for DEL → HYD"
-                
-                self.quantityLabel.text = "X5"
-                self.priceLabel.isHidden = false
-                 self.quantityLabel.isHidden = false
-
-            self.mealForLabelTop.constant = 2
-            self.mealAutoSelectedTop.constant = 11
-            autoSelectionBackView.isHidden = false
-            
-            }else if index == 4 {
-                
-            let price = "₹12"
-            self.priceLabel.text = price
-            self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
-            
-                self.mealTitleLabel.text = "Gluten Free Non-Veg Meal"
-                
-                self.mealForLabel.text = "For Julin and Clifford For Julin and Clifford"
-
-                self.mealAutoSelectedForLabel.text = ""
-     
-                self.quantityLabel.text = "X5"
-                self.priceLabel.isHidden = false
-                self.quantityLabel.isHidden = false
-                
-            self.mealForLabelTop.constant = 2
-            self.mealAutoSelectedTop.constant = 0
-            autoSelectionBackView.isHidden = true
-
-          
-        } else {
-                
-            let price = ""
-            self.priceLabel.text = price
-            self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
-            
-                self.mealTitleLabel.text = "Gluten Free Non-Veg Meal Free Non-Veg Meal Free Non-Veg Meal"
-                
-                self.mealForLabel.text = ""
-
-                self.mealAutoSelectedForLabel.text = ""
-                
-                self.quantityLabel.text = ""
-                self.priceLabel.isHidden = true
-                self.quantityLabel.isHidden = true
-           
-            self.mealForLabelTop.constant = 0
-            self.mealAutoSelectedTop.constant = 0
-            autoSelectionBackView.isHidden = true
-
-            }
-        
-//        self.priceLabel.setNeedsLayout()
-//        self.priceLabel.layoutIfNeeded()
-//
-//        self.setNeedsLayout()
-//        self.layoutIfNeeded()
     }
     
 }

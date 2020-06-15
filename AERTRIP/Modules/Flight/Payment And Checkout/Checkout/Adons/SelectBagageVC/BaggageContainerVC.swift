@@ -9,16 +9,22 @@
 import UIKit
 import Parchment
 
+protocol SelectBaggageDelegate : class {
+    func addContactButtonTapped()
+    func addPassengerToBaggage(forAdon : AddonsDataCustom, vcIndex : Int, currentFlightKey : String, baggageIndex: Int, selectedContacts : [ATContact])
+
+}
+
 
 class BaggageContainerVC : BaseVC {
 
     // MARK: Properties
        fileprivate var parchmentView : PagingViewController?
-       private let allTabsStr: [String] = ["BOM → LON", "LON → NYC", "NYC → DEL"]
+//       private let allTabsStr: [String] = ["BOM → LON", "LON → NYC", "NYC → DEL"]
        
-       var allChildVCs = [SelectBaggageVC]()
-       var currentIndex = 0
-       
+
+       let baggageContainerVM = BaggageContainerVM()
+    
        // MARK: IBOutlets
        @IBOutlet weak var topNavBarView: TopNavigationView!
        @IBOutlet weak var mealsContainerView: UIView!
@@ -64,12 +70,14 @@ class BaggageContainerVC : BaseVC {
            super.initialSetup()
            setupNavBar()
            setUpViewPager()
+            calculateTotalAmount()
        }
 
         @IBAction func addButtonTapped(_ sender: UIButton) {
-            let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-            vc.modalPresentationStyle = .overFullScreen
-            present(vc, animated: true, completion: nil)
+            for (index,item) in self.baggageContainerVM.allChildVCs.enumerated() {
+                AddonsDataStore.shared.flightsWithData[index].bags = item.selectBaggageVM.addonsDetails
+            }
+            self.dismiss(animated: true, completion: nil)
     }
     
     
@@ -87,10 +95,13 @@ extension BaggageContainerVC {
     }
     
     private func setUpViewPager() {
-        self.allChildVCs.removeAll()
-        for _ in 0..<allTabsStr.count {
+        self.baggageContainerVM.allChildVCs.removeAll()
+        for index in 0..<AddonsDataStore.shared.flightKeys.count {
             let vc = SelectBaggageVC.instantiate(fromAppStoryboard: .Adons)
-            self.allChildVCs.append(vc)
+            
+            vc.initializeVm(selectBaggageVM: SelectBaggageVM(vcIndex: index, currentFlightKey: AddonsDataStore.shared.flightKeys[index],addonsDetails: AddonsDataStore.shared.flightsWithData[index].bags))
+            vc.delegate = self
+            self.baggageContainerVM.allChildVCs.append(vc)
         }
         self.view.layoutIfNeeded()
         if let _ = self.parchmentView{
@@ -131,12 +142,34 @@ extension BaggageContainerVC {
         self.parchmentView?.collectionView.backgroundColor = UIColor.clear
     }
     
+    func calculateTotalAmount(){
+         var totalPrice = 0
+         for item in self.baggageContainerVM.allChildVCs {
+             let mealsArray = item.selectBaggageVM.getBaggage()
+             let selectedMeals = mealsArray.filter { !$0.bagageSelectedFor.isEmpty }
+             selectedMeals.forEach { (meal) in
+                 totalPrice += (meal.price * meal.bagageSelectedFor.count)
+             }
+         }
+         self.totalLabel.text = "₹ \(totalPrice)"
+     }
+    
 }
 
 
 extension BaggageContainerVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        
+        for (index,item) in self.baggageContainerVM.allChildVCs.enumerated() {
+            let mealsArray = item.selectBaggageVM.getBaggage()
+            mealsArray.enumerated().forEach { (addonIndex,_) in
+            item.selectBaggageVM.updateContactInBaggage(baggageIndex: addonIndex, contacts: [])
+        AddonsDataStore.shared.flightsWithData[index].bags.addonsArray[addonIndex].othersSelectedFor = []
+             }
+            
+             item.reloadData()
+             
+             calculateTotalAmount()
+         }
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
@@ -160,24 +193,71 @@ extension BaggageContainerVC: PagingViewControllerDataSource , PagingViewControl
     
     
     func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
-        self.allTabsStr.count
+        return AddonsDataStore.shared.flightKeys.count
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
-        return self.allChildVCs[index]
+        return self.baggageContainerVM.allChildVCs[index]
     }
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
         
-        return MenuItem(title: self.allTabsStr[index], index: index, isSelected:false)
+        let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.flightKeys[index] }
+          guard let firstFlight = flightAtINdex.first else {
+              return MenuItem(title: "", index: index, isSelected:false)
+          }
+          return MenuItem(title: "\(firstFlight.fr) → \(firstFlight.to)", index: index, isSelected:false)
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
-        
         if let pagingIndexItem = pagingItem as? MenuItem {
-            currentIndex = pagingIndexItem.index
+            self.baggageContainerVM.currentIndex = pagingIndexItem.index
         }
     }
 }
 
+extension BaggageContainerVC : SelectBaggageDelegate {
+
+    func addContactButtonTapped(){
+        
+    }
+    
+    func addPassengerToBaggage(forAdon : AddonsDataCustom, vcIndex : Int, currentFlightKey : String, baggageIndex: Int, selectedContacts : [ATContact]){
+    
+        let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+        vc.modalPresentationStyle = .overFullScreen
+        vc.selectPassengersVM.selectedContacts = selectedContacts
+        vc.selectPassengersVM.adonsData = forAdon
+        vc.selectPassengersVM.setupFor = .baggage
+
+        vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
+            guard let weakSelf = self else { return }
+            
+            weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM .addonsDetails.addonsArray.enumerated().forEach { (bagInd,bag) in
+            contacts.forEach { (contact) in
+                if let contIndex = bag.bagageSelectedFor.lastIndex(where: { (cont) -> Bool in
+                    return cont.id == contact.id
+                }){
+                    //weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM.addonsDetails.addonsArray[bagInd].bagageSelectedFor.remove(at: contIndex)
+
+                    
+                }
+              }
+            }
+            
+           
+            if let ind = weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM.addonsDetails.addonsArray.lastIndex(where: { (adon) -> Bool in
+                adon.adonsName == forAdon.adonsName
+            }){
+                weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM.updateContactInBaggage(baggageIndex: ind, contacts: contacts)
+            }
+            
+            weakSelf.baggageContainerVM.allChildVCs[vcIndex].reloadData()
+       
+            weakSelf.calculateTotalAmount()
+            
+        }
+            present(vc, animated: true, completion: nil)
+    }
+}
 

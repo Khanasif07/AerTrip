@@ -13,9 +13,8 @@ class SelectMealsdVC: UIViewController {
     
     @IBOutlet weak var mealsTableView: UITableView!
     
-    private var selectMealsVM : SelectMealsVM!
+    var selectMealsVM : SelectMealsVM!
     weak var delegate : SelectMealDelegate?
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,11 +56,17 @@ extension SelectMealsdVC {
             self.mealsTableView.reloadData()
         }
     
-    func reloadData(index : Int = 0){
-        
+    func reloadData(index : Int){
         self.mealsTableView.reloadRow(at: IndexPath(row: index, section: 0), with: UITableView.RowAnimation.none)
     }
     
+    func reloadData(){
+        self.mealsTableView.reloadData()
+    }
+    
+    func updateContactInMeal(mealIndex: Int, contacts : [ATContact]){
+        self.selectMealsVM.updateContactInMeal(mealIndex: mealIndex, contacts: contacts)
+    }
 }
 
 
@@ -73,7 +78,7 @@ extension SelectMealsdVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.selectMealsVM.getMealsDataForCurrentFlight().count
+        return self.selectMealsVM.getMeals().count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -82,20 +87,14 @@ extension SelectMealsdVC : UITableViewDelegate, UITableViewDataSource {
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SelectMealCell", for: indexPath) as? SelectMealCell else { fatalError("SelectMealCell not found") }
-             
-              // cell.populateData(type: AdonsVM.AdonsType(rawValue: indexPath.row) ?? AdonsVM.AdonsType.meals)
-               
-//            cell.populateData(index: indexPath.row)
-        
-        cell.populateData(data: self.selectMealsVM.getMealsDataForCurrentFlight()[indexPath.row], index: indexPath.row)
-        
-               return cell
+            cell.populateData(data: self.selectMealsVM.getMeals()[indexPath.row], index: indexPath.row)
+            return cell
         }
         
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        self.delegate?.addPassengerToMeal(vcIndex: self.selectMealsVM.vcIndex, currentFlightKey: self.selectMealsVM.currentFlightKey, mealIndex: indexPath.row)
+        self.delegate?.addPassengerToMeal(forAdon : self.selectMealsVM.getMeals()[indexPath.row] , vcIndex: self.selectMealsVM.getVcIndex(), currentFlightKey: self.selectMealsVM.getCurrentFlightKey(), mealIndex: indexPath.row, selectedContacts: self.selectMealsVM.getMeals()[indexPath.row].mealsSelectedFor)
+    
     }
     
 }

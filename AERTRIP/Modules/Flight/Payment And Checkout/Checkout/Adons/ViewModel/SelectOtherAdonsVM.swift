@@ -8,11 +8,39 @@
 
 import UIKit
 
-class SelectOtherAdonsVM: NSObject {
+class SelectOtherAdonsVM  {
 
-    let otherAdonsDataSource : [(title : String, price : Int, selectedForCount : Int)] = [("Priority Check-in & Priority baggage", 600, 0),
-    ("Golf Kit Golf Kit Golf Kit Golf Kit Golf Kit Golf Kit Golf Kit Golf Kit Golf Kit Golf Kit Golf Kit Golf Kit Golf Kit", 34534433, 2),
-    ("Ski Kit", 1355, 0),
-    ("Weapons Carriage", 647, 3)]
+    var addonsDetails = AddonsDetails()
+    private var vcIndex : Int = 0
+    private var currentFlightKey : String = ""
+    weak var delegate : SelectMealVmDelegate?
+
+    
+    init(){
+        
+    }
+    
+    init(vcIndex : Int, currentFlightKey : String, addonsDetails : AddonsDetails){
+        self.vcIndex = vcIndex
+        self.currentFlightKey = currentFlightKey
+        self.addonsDetails = addonsDetails
+    }
+    
+    func getOthers() -> [AddonsDataCustom] {
+        return addonsDetails.addonsArray
+    }
+    
+    func getVcIndex() -> Int {
+        return vcIndex
+    }
+    
+    func getCurrentFlightKey() -> String {
+        return currentFlightKey
+    }
+     
+    func updateContactInOthers(OthersIndex: Int, contacts : [ATContact]){
+        addonsDetails.addonsArray[OthersIndex].othersSelectedFor = contacts
+    }
+    
     
 }

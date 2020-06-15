@@ -86,6 +86,8 @@ class HotelDetailsVC: BaseVC {
         didSet {
             hotelTableView.delegate = self
             hotelTableView.dataSource = self
+            hotelTableView.backgroundColor = AppColors.themeGray04
+            
         }
     }
     @IBOutlet weak var headerView: TopNavigationView! {
@@ -239,7 +241,7 @@ class HotelDetailsVC: BaseVC {
     //==============
     private func getStickyFooter() -> HotelFilterResultFooterView {
         let stV = HotelFilterResultFooterView(reuseIdentifier: "temp")
-        stV.hotelFeesLabel.text = (self.viewModel.hotelInfo?.price ?? 0.0).amountInDelimeterWithSymbol
+        stV.hotelFeesLabel.attributedText = (self.viewModel.hotelInfo?.price ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
         stV.noRoomsAvailable.isHidden = true
         stV.addSelectRoomTarget(target: self, action: #selector(selectRoomAction))
         return stV
@@ -517,11 +519,11 @@ class HotelDetailsVC: BaseVC {
     }
     
     internal func heightForHeaderView(tableView: UITableView, section: Int) -> CGFloat {
-        return 0.0
+        return CGFloat.leastNormalMagnitude
     }
     
     internal func heightForFooterView(tableView: UITableView, section: Int) -> CGFloat {
-        return 0.0
+        return CGFloat.leastNormalMagnitude
     }
     
     private func getFirstSectionData( hotelData: HotelDetails) -> [TableCellType] {

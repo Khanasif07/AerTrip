@@ -134,6 +134,7 @@ class FlightCarriersTableViewCell: UITableViewCell {
         for code in codes{
             carriers.append(airLineDetail[code] ?? "")
         }
+        self.remainingCodesLabel.text = "+\(codes.count - 1) \(LocalizedString.More.localized)"
         self.setupImageWith(carrierCode: codes, carriers: carriers)
         
     }

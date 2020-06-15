@@ -40,6 +40,39 @@ class AdonsCell: UITableViewCell {
     }
     
     
+    
+    func populateData(data : AdonsVM.AddonsData){
+               self.complementLabel.text = data.shouldShowComp ? data.complementString : ""
+               self.complementBackView.isHidden = !data.shouldShowComp
+
+        
+        switch data.addonsType {
+               case .meals:
+                   self.addOnImageView.image = #imageLiteral(resourceName: "meals")
+                   
+//                   "\(data.heading) x\(AddonsDataStore.shared.)"
+                   
+                   self.headingLabel.text = data.heading
+                   self.descriptionLabel.text = data.description
+
+               case .baggage:
+                   self.addOnImageView.image = #imageLiteral(resourceName: "baggage")
+                   let heading = "\(LocalizedString.Baggage.localized) 25, 15, 10, 5, 16, 34, 20 kg"
+              
+                   self.headingLabel.attributedText = heading.attributeStringWithColors(subString: LocalizedString.Baggage.localized, strClr: AppColors.themeGreen, substrClr: UIColor.black, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
+
+               case .seat:
+                   self.addOnImageView.image = #imageLiteral(resourceName: "seats")
+                   self.headingLabel.text = data.heading
+                   self.descriptionLabel.text = data.description
+        
+               case .otheres:
+                   self.addOnImageView.image = #imageLiteral(resourceName: "others")
+                   self.headingLabel.text = data.heading
+                   self.descriptionLabel.text = data.description
+               }
+    }
+    
     func populateData(type : AdonsVM.AdonsType, data : (heading : String,desc : String,complement : String, shouldShowComp : Bool)){
         
         self.headingLabel.text = data.heading

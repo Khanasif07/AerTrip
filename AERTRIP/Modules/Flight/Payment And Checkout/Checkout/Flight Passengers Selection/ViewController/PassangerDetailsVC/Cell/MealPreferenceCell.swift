@@ -83,6 +83,7 @@ class MealPreferenceCell: UITableViewCell {
         self.programTextField.text = self.passenger.frequentFlyer[index].program
         self.airlineImage.setImageWithUrl(self.passenger.frequentFlyer[index].logoUrl, placeholder: UIImage(), showIndicator: false)
         self.numberTextField.text = self.passenger.frequentFlyer[index].number
+        self.numberTextField.addTarget(self, action: #selector(textFieldDidChanged), for: .editingChanged)
         self.cellTitleLabel.text = (index == 0) ? "Frequent Flyer" : ""
         self.titleTopConstraint.constant = (index == 0) ? 8.0 : 0.0
         self.titleBottomConstraint.constant = (index == 0) ? 6.0 : 0.0
@@ -125,7 +126,10 @@ extension MealPreferenceCell: UITextFieldDelegate{
     }
     
     @objc func textFieldDidChanged(_ textField: UITextField) {
-        
+        if (textField.text?.removeAllWhiteSpacesAndNewLines.isEmpty ?? true){
+            textField.text = ""
+        }
+        GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].frequentFlyer[self.index].number = textField.text ?? ""
     }
     
     

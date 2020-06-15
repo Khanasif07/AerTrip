@@ -11,7 +11,7 @@ import UIKit
 protocol HCDataSelectionVMDelegate: class {
     func willFetchConfirmItineraryData()
     func fetchConfirmItineraryDataSuccess()
-    func fetchConfirmItineraryDataFail()
+    func fetchConfirmItineraryDataFail(errors: ErrorCodes)
     func willCallForItenaryDataTraveller()
     func callForItenaryDataTravellerSuccess()
     func callForItenaryDataTravellerFail(errors: ErrorCodes)
@@ -72,7 +72,7 @@ class HCDataSelectionVM {
                 sSelf.delegate?.fetchConfirmItineraryDataSuccess()
             } else {
                 printDebug(errors)
-                sSelf.delegate?.fetchConfirmItineraryDataFail()
+                sSelf.delegate?.fetchConfirmItineraryDataFail(errors: errors)
             }
         }
     }

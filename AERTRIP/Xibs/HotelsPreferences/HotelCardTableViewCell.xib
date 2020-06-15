@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,7 +26,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PNM-tY-wc5">
-                        <rect key="frame" x="8" y="0.0" width="408" height="196"/>
+                        <rect key="frame" x="8" y="8" width="408" height="196"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="qla-r6-JHg">
                                 <rect key="frame" x="0.0" y="0.0" width="408" height="196"/>
@@ -62,16 +62,16 @@
                                     <constraint firstAttribute="height" constant="128" id="dJQ-Yw-pNi"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Residency Hotel, Fort" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QU2-8M-2gD">
-                                <rect key="frame" x="16" y="158" width="195" height="28"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Residency Hotel, Fort" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QU2-8M-2gD">
+                                <rect key="frame" x="16" y="158" width="350" height="28"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V7t-bC-oq4">
-                                <rect key="frame" x="242" y="186" width="150" height="0.0"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V7t-bC-oq4">
+                                <rect key="frame" x="392" y="186" width="0.0" height="0.0"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="Kak-Hn-z3T"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="150" id="Kak-Hn-z3T"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="22"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -108,7 +108,7 @@
                                         <rect key="frame" x="93" y="0.0" width="100" height="22"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviser" translatesAutoresizingMaskIntoConstraints="NO" id="1hw-PQ-deH">
-                                                <rect key="frame" x="0.0" y="-10" width="32" height="16"/>
+                                                <rect key="frame" x="0.0" y="-10" width="32" height="17"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="32" id="AHp-7v-Czr"/>
                                                 </constraints>
@@ -166,7 +166,7 @@
                             <constraint firstAttribute="trailing" secondItem="p2g-hd-d0X" secondAttribute="trailing" constant="150" id="Who-NH-9tm"/>
                             <constraint firstAttribute="trailing" secondItem="qla-r6-JHg" secondAttribute="trailing" id="Yky-17-b3f"/>
                             <constraint firstItem="qla-r6-JHg" firstAttribute="leading" secondItem="PNM-tY-wc5" secondAttribute="leading" id="el3-Pz-iOS"/>
-                            <constraint firstItem="V7t-bC-oq4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="QU2-8M-2gD" secondAttribute="trailing" constant="5" id="gTe-Tf-D68"/>
+                            <constraint firstItem="V7t-bC-oq4" firstAttribute="leading" secondItem="QU2-8M-2gD" secondAttribute="trailing" constant="26" id="gTe-Tf-D68"/>
                             <constraint firstItem="Zp6-al-xXf" firstAttribute="leading" secondItem="QU2-8M-2gD" secondAttribute="leading" id="hLA-ht-MRV"/>
                             <constraint firstItem="p2g-hd-d0X" firstAttribute="top" secondItem="PNM-tY-wc5" secondAttribute="top" constant="10" id="hXM-2F-f6h"/>
                             <constraint firstItem="QU2-8M-2gD" firstAttribute="leading" secondItem="PNM-tY-wc5" secondAttribute="leading" constant="16" id="iTM-BF-nO8"/>
@@ -179,9 +179,9 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="PNM-tY-wc5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="39H-PQ-p67"/>
+                    <constraint firstItem="PNM-tY-wc5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="39H-PQ-p67"/>
                     <constraint firstItem="PNM-tY-wc5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="gPs-2m-pkm"/>
-                    <constraint firstAttribute="bottom" secondItem="PNM-tY-wc5" secondAttribute="bottom" constant="16" id="kAL-EJ-W5M"/>
+                    <constraint firstAttribute="bottom" secondItem="PNM-tY-wc5" secondAttribute="bottom" constant="8" id="kAL-EJ-W5M"/>
                     <constraint firstAttribute="trailing" secondItem="PNM-tY-wc5" secondAttribute="trailing" constant="8" id="xsv-hH-yKe"/>
                 </constraints>
             </tableViewCellContentView>
@@ -213,6 +213,6 @@
         <image name="saveHotelsSelected" width="27" height="30"/>
         <image name="starRatingFilledShadow" width="15" height="20"/>
         <image name="starRatingUnfillShadow" width="15" height="20"/>
-        <image name="tripAdviser" width="20" height="16"/>
+        <image name="tripAdviser" width="31" height="17"/>
     </resources>
 </document>

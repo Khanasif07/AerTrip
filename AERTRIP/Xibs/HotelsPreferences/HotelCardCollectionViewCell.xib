@@ -65,10 +65,10 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cJV-J5-Avs">
-                                <rect key="frame" x="256" y="179" width="100" height="0.0"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cJV-J5-Avs">
+                                <rect key="frame" x="356" y="179" width="0.0" height="0.0"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="Yjl-ZH-xCY"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="150" id="Yjl-ZH-xCY"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="22"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -105,7 +105,7 @@
                                         <rect key="frame" x="99" y="0.0" width="94" height="22"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviser" translatesAutoresizingMaskIntoConstraints="NO" id="vgj-dQ-ok5">
-                                                <rect key="frame" x="0.0" y="-8" width="21" height="12"/>
+                                                <rect key="frame" x="0.0" y="-8" width="21" height="17"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="21" id="vQl-jt-LUV"/>
                                                 </constraints>
@@ -149,7 +149,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="cJV-J5-Avs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="JfG-uz-AxF" secondAttribute="trailing" constant="5" id="5g2-nF-1ot"/>
+                            <constraint firstItem="cJV-J5-Avs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="JfG-uz-AxF" secondAttribute="trailing" constant="26" id="5g2-nF-1ot"/>
                             <constraint firstItem="hfU-XL-9qt" firstAttribute="leading" secondItem="LMU-bo-fv2" secondAttribute="leading" id="BSD-Wl-O31"/>
                             <constraint firstItem="hfU-XL-9qt" firstAttribute="top" secondItem="LMU-bo-fv2" secondAttribute="top" id="CvV-UU-EGF"/>
                             <constraint firstAttribute="trailing" secondItem="j42-Hp-yYC" secondAttribute="trailing" id="GlO-oc-Io5"/>
@@ -216,6 +216,6 @@
         <image name="saveHotelsSelected" width="27" height="30"/>
         <image name="starRatingFilledShadow" width="15" height="20"/>
         <image name="starRatingUnfillShadow" width="15" height="20"/>
-        <image name="tripAdviser" width="21" height="12"/>
+        <image name="tripAdviser" width="31" height="17"/>
     </resources>
 </document>
