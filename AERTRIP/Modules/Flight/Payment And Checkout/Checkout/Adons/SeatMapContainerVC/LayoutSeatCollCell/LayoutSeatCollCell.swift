@@ -30,7 +30,18 @@ class LayoutSeatCollCell: UICollectionViewCell {
         seatView.addShadow(withColor: AppColors.themeGray10)
     }
     
-    func populateCell(_ seatData: SeatMapModel.SeatMapRow) {
-        
+    func populateCell(_ seatData: SeatMapModel.SeatMapRow,_ columnStr: String) {
+        if columnStr.contains("aisle") {
+            seatView.isHidden = true
+        } else {
+            seatView.isHidden = false
+            if seatData.columnData.availability != .available || seatData.columnData.postBooking {
+                seatView.backgroundColor = AppColors.themeGray20
+            } else if seatData.columnData.passenger != nil {
+                seatView.backgroundColor = AppColors.themeGreen
+            } else {
+                seatView.backgroundColor = AppColors.themeWhite
+            }
+        }
     }
 }

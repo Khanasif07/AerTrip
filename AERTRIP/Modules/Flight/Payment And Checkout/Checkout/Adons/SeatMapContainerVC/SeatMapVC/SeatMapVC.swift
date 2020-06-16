@@ -14,6 +14,9 @@ class SeatMapVC: UIViewController {
     
     internal let viewModel = SeatMapVM()
     
+    var onReloadPlaneLayoutCall: (() -> ())?
+    var onScrollViewScroll: (() -> ())?
+    
     // MARK: IBOutlets
     
     @IBOutlet weak var deckSelectionView: UIView!
@@ -92,5 +95,6 @@ class SeatMapVC: UIViewController {
         }
         seatMapCollView.reloadData()
         seatMapCollView.scrollRectToVisible(CGRect(origin: .zero, size: seatMapCollView.size), animated: true)
+        onReloadPlaneLayoutCall?()
     }
 }

@@ -15,6 +15,8 @@ class SeatMapContainerVC: UIViewController {
     
     internal var viewModel = SeatMapContainerVM()
     internal var allChildVCs = [SeatMapVC]()
+    private var hidePlaneLayoutWorkItem: DispatchWorkItem?
+    internal var didBeginDraggingPlaneLayout = false
     
     // Parchment View
     fileprivate var parchmentView : PagingViewController?
@@ -27,6 +29,7 @@ class SeatMapContainerVC: UIViewController {
     @IBOutlet weak var planeLayoutView: UIView!
     @IBOutlet weak var planeLayoutScrollView: UIScrollView!
     @IBOutlet weak var planeLayoutScrollContentView: UIView!
+    @IBOutlet weak var planeShadowView: UIView!
     @IBOutlet weak var bodyImgView: UIImageView!
     @IBOutlet weak var noseImgView: UIImageView!
     @IBOutlet weak var topWingImgView: UIImageView!
@@ -56,6 +59,7 @@ class SeatMapContainerVC: UIViewController {
         viewModel.delegate = self
         viewModel.fetchSeatMapData()
         setupPlaneLayoutCollView()
+        planeLayoutScrollView.delegate = self
     }
     
     func setViewModel(_ vm: SeatMapContainerVM) {
@@ -63,13 +67,15 @@ class SeatMapContainerVC: UIViewController {
     }
     
     private func setupPlaneLayoutCollView() {
-        planeLayoutScrollContentView.backgroundColor = AppColors.themeGray04
-        
+        planeLayoutScrollContentView.backgroundColor = AppColors.greyO4
+        planeLayoutScrollView.backgroundColor = AppColors.greyO4
         planeLayoutCollView.showsHorizontalScrollIndicator = false
         planeLayoutCollView.register(UINib(nibName: "LayoutSeatCollCell", bundle: nil), forCellWithReuseIdentifier: "LayoutSeatCollCell")
         planeLayoutCollView.backgroundColor = AppColors.themeGray10
         planeLayoutCollView.delegate = self
         planeLayoutCollView.dataSource = self
+        planeShadowView.addShadow(ofColor: .black, radius: 60, opacity: 0.5)
+        planeLayoutView.isHidden = true
     }
     
     private func setupNavBar() {
@@ -88,6 +94,17 @@ class SeatMapContainerVC: UIViewController {
         for index in 0..<viewModel.allTabsStr.count {
             let vc = SeatMapVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
             vc.setFlightData(viewModel.allFlightsData[index])
+            vc.onReloadPlaneLayoutCall = { [weak self] in
+                guard let self = self else { return }
+                self.planeLayoutCollView.reloadData()
+                DispatchQueue.delay(0.5) {
+                    self.setCurrentPlaneLayout()
+                }
+            }
+            vc.onScrollViewScroll = { [weak self] in
+                guard let self = self else { return }
+                self.showPlaneLayoutView()
+            }
             self.allChildVCs.append(vc)
         }
         self.view.layoutIfNeeded()
@@ -127,6 +144,8 @@ class SeatMapContainerVC: UIViewController {
         self.parchmentView?.reloadMenu()
         self.parchmentView?.menuBackgroundColor = UIColor.clear
         self.parchmentView?.collectionView.backgroundColor = UIColor.clear
+        self.parchmentView?.contentInteraction = .none
+        
     }
     
     private func createAttHeaderTitle(_ origin: String,_ destination: String) -> NSAttributedString {
@@ -151,15 +170,41 @@ class SeatMapContainerVC: UIViewController {
         return imageString
     }
     
-    private func setCurrentPlaneLayout(_ index: Int) {
-        planeLayoutCollView.reloadData()
-        planeLayoutCollViewWidth.constant = planeLayoutCollView.contentSize.width + 5
-        UIView.animate(withDuration: 0.33, animations: {
-            self.planeLayoutScrollView.layoutIfNeeded()
-        }) { (_) in
-            self.planeLayoutCollView.reloadData()
-            self.planeLayoutScrollView.layoutIfNeeded()
+    private func setCurrentPlaneLayout() {
+        if planeLayoutCollViewWidth.constant == planeLayoutCollView.contentSize.width + 5 {
+            return
         }
+        planeLayoutCollView.reloadData()
+        UIView.animate(withDuration: 0.3, animations: {
+            self.planeLayoutCollViewWidth.constant = self.planeLayoutCollView.contentSize.width + 5
+            self.planeLayoutScrollView.layoutIfNeeded()
+        })
+    }
+    
+    internal func showPlaneLayoutView(_ callHide: Bool = true) {
+        
+        hidePlaneLayoutWorkItem?.cancel()
+        hidePlaneLayoutWorkItem = DispatchWorkItem(block: {
+            hidePlaneLayoutView()
+        })
+        
+        func hidePlaneLayoutView() {
+            UIView.animate(withDuration: 0.33, animations:  {
+                self.planeLayoutView.alpha = 0
+            })
+            DispatchQueue.delay(0.34) {
+                self.planeLayoutView.isHidden = true
+            }
+        }
+        
+        UIView.animate(withDuration: 0.33, animations: {
+            self.planeLayoutView.isHidden = false
+            self.planeLayoutView.alpha = 1
+        }, completion:  { _ in
+            if callHide {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: self.hidePlaneLayoutWorkItem!)
+            }
+        })
     }
 }
 
@@ -208,7 +253,10 @@ extension SeatMapContainerVC: PagingViewControllerDataSource , PagingViewControl
         
         if let pagingIndexItem = pagingItem as? MenuItem {
             viewModel.currentIndex = pagingIndexItem.index
-            setCurrentPlaneLayout(viewModel.currentIndex)
+            self.planeLayoutCollView.reloadData()
+            DispatchQueue.delay(0.5) {
+                self.setCurrentPlaneLayout()
+            }
         }
     }
 }
@@ -243,7 +291,7 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
         setUpViewPager()
         planeLayoutCollView.reloadData()
         DispatchQueue.delay(0.5) {
-            self.setCurrentPlaneLayout(0)
+            self.setCurrentPlaneLayout()
         }
     }
 }

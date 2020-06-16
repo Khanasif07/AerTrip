@@ -65,7 +65,14 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
             guard let self = self else { return }
             self.viewModel.flightData = flightData
             self.seatMapCollView.reloadData()
+            self.onReloadPlaneLayoutCall?()
         }
         present(passengerVC, animated: true, completion: nil)
+    }
+}
+
+extension SeatMapVC: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        onScrollViewScroll?()
     }
 }

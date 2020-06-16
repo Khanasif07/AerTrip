@@ -40,7 +40,7 @@ extension SeatMapContainerVC: UICollectionViewDelegate, UICollectionViewDataSour
                 seatData = curSeatData
             }
         }
-        seatCell.populateCell(seatData)
+        seatCell.populateCell(seatData, columnStr)
         return seatCell
     }
     
@@ -58,4 +58,25 @@ extension SeatMapContainerVC: UICollectionViewDelegate, UICollectionViewDataSour
         return CGSize(width: maxHeight, height: maxHeight)
     }
     
+}
+
+extension SeatMapContainerVC: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView === planeLayoutScrollView {
+            showPlaneLayoutView(!didBeginDraggingPlaneLayout)
+        }
+    }
+        
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if scrollView === planeLayoutScrollView {
+            showPlaneLayoutView()
+            didBeginDraggingPlaneLayout = false
+        }
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if scrollView === planeLayoutScrollView {
+            didBeginDraggingPlaneLayout = true
+        }
+    }
 }
