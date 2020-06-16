@@ -60,13 +60,14 @@ class FlightPaymentVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.viewModel.taxesDataDisplay()
         self.checkOutTableView.separatorStyle = .none
         self.viewModel.taxesDataDisplay()
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
         self.viewModel.delegate = self
         self.viewModel.webServiceGetPaymentMethods()
-        self.viewModel.getItineraryData()
+//        self.viewModel.getItineraryData()
         self.addFooterView()
         self.payButton.addGredient(isVertical: false)
         self.setUpNavigationView()
@@ -92,10 +93,11 @@ class FlightPaymentVC: BaseVC {
 //        delay(seconds: 1) {
 //           self.loaderView.isHidden = true
 //        }
-//        let vc = FlightPaymentBookingStatusVC.instantiate(fromAppStoryboard: .FlightPayment)
-//        vc.viewModel.itinerary = self.viewModel.itinerary
-//        self.navigationController?.pushViewController(vc, animated: true)
-        self.viewModel.reconfirmationAPI()
+        let vc = FlightPaymentBookingStatusVC.instantiate(fromAppStoryboard: .FlightPayment)
+        vc.viewModel.itinerary = self.viewModel.itinerary
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+//        self.viewModel.reconfirmationAPI()
     }
     
     

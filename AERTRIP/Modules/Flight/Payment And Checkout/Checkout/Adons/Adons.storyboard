@@ -551,7 +551,7 @@ get upto 20% off </string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="Jf1-lq-BgG">
-                                    <rect key="frame" x="0.0" y="99.5" width="375" height="241"/>
+                                    <rect key="frame" x="0.0" y="99.5" width="375" height="179"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZcR-Q9-RV0">
@@ -575,6 +575,9 @@ get upto 20% off </string>
                                             <state key="normal" title="Clear">
                                                 <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
+                                            <connections>
+                                                <action selector="clearButtonTapped:" destination="vAy-rR-JOS" eventType="touchUpInside" id="Oo9-Hh-gge"/>
+                                            </connections>
                                         </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w6n-na-BjU">
                                             <rect key="frame" x="16" y="87" width="343" height="0.5"/>
@@ -629,7 +632,11 @@ get upto 20% off </string>
                         <viewLayoutGuide key="safeArea" id="ZSj-QA-KKx"/>
                     </view>
                     <connections>
+                        <outlet property="clearButton" destination="oAw-T7-3zw" id="Iy0-LQ-CaG"/>
                         <outlet property="otherAdonsTableView" destination="lQJ-64-elP" id="iiw-rA-kin"/>
+                        <outlet property="specialRequestInfoLabel" destination="Zc5-Vh-va4" id="3UN-j6-t8H"/>
+                        <outlet property="specialRequestLabel" destination="HjX-9e-u0h" id="Evw-OH-6pt"/>
+                        <outlet property="specialRequestTextView" destination="ZcR-Q9-RV0" id="mgr-xg-C6r"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cRn-ON-QIP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

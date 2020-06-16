@@ -8,10 +8,14 @@
 
 import UIKit
 
-
 class SelectOtherAdonsVC: UIViewController {
     
+    @IBOutlet weak var clearButton: UIButton!
+    @IBOutlet weak var specialRequestTextView: UITextView!
+    @IBOutlet weak var specialRequestLabel: UILabel!
+    @IBOutlet weak var specialRequestInfoLabel: UILabel!
     @IBOutlet weak var otherAdonsTableView: UITableView!
+    
     
     var otherAdonsVm : SelectOtherAdonsVM!
     weak var delegate : SelectOtherDelegate?
@@ -22,21 +26,33 @@ class SelectOtherAdonsVC: UIViewController {
     }
     
      func setupFonts() {
-          
+        self.specialRequestLabel.font = AppFonts.Regular.withSize(14)
+        self.clearButton.titleLabel?.font = AppFonts.Regular.withSize(14)
+        self.specialRequestTextView.font = AppFonts.Regular.withSize(18)
+        self.specialRequestInfoLabel.font = AppFonts.Regular.withSize(14)
     }
       
     func setupTexts() {
           
-      }
+    }
       
     func setupColors() {
-          
+        self.specialRequestLabel.textColor = AppColors.themeGray40
+        self.clearButton.setTitleColor(AppColors.themeGreen, for: UIControl.State.normal)
+        self.specialRequestInfoLabel.textColor = AppColors.themeGray40
     }
+    
+    @IBAction func clearButtonTapped(_ sender: UIButton) {
+        self.specialRequestTextView.text = ""
+    }
+    
 }
 
 extension SelectOtherAdonsVC {
     
     private func initialSetup() {
+        self.setupFonts()
+        self.setupColors()
         configureTableView()
     }
     

@@ -349,7 +349,7 @@ import UIKit
         lineView.frame = lineViewRectForBounds(bounds, editing: editingOrSelected,isEditing: isEditing)
         lineView.backgroundColor = self.lineColor
         
-        printDebug("lineView.frame: \(lineView.frame)")
+//        printDebug("lineView.frame: \(lineView.frame)")
     }
     
 
