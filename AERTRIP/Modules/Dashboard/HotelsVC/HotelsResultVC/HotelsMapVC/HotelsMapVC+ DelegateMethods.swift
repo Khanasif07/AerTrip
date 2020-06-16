@@ -8,13 +8,18 @@
 
 import Foundation
 import UIKit
+import IQKeyboardManager
 
 // MARK: - Search bar delegate methods
 
 extension HotelsMapVC: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
         return true //!((viewModel.fetchedResultsController.fetchedObjects ?? []).isEmpty)
+    }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+       IQKeyboardManager.shared().isEnableAutoToolbar = true
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {

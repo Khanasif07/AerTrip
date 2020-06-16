@@ -387,7 +387,7 @@ extension AppFlowManager {
            // mVC.add(childViewController: ob)
             ob.modalPresentationStyle = .overCurrentContext
             ob.modalPresentationCapturesStatusBarAppearance = true
-            mVC.present(ob, animated: true, completion: nil)
+            mVC.present(ob, animated: false, completion: nil)
         }
     }
     
@@ -459,7 +459,7 @@ extension AppFlowManager {
             if #available(iOS 13.0, *) {} else {
                 ob.modalPresentationStyle = .overCurrentContext
             }
-            (navigationController ?? mVC).present(ob, animated: true, completion: nil)
+            (navigationController ?? mVC).present(ob, animated: false, completion: nil)
         }
     }
     
@@ -667,14 +667,15 @@ extension AppFlowManager {
         UIApplication.topViewController()?.present(obj, animated: true, completion: nil)
     }
     
-    func presentYouAreAllDoneVC(forItId itId: String, bookingIds: [String], cid: [String], originLat: String, originLong: String) {
+    func presentYouAreAllDoneVC(forItId itId: String, bookingIds: [String], cid: [String], originLat: String, originLong: String, recieptData: HotelReceiptModel) {
         let obj = YouAreAllDoneVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.itId = itId
         obj.viewModel.bookingIds = bookingIds
         obj.viewModel.cId = cid
         obj.viewModel.originLat = originLat
         obj.viewModel.originLong = originLong
-        self.currentNavigation?.pushViewController(obj, animated: true)
+        obj.viewModel.hotelReceiptData = recieptData
+        self.currentNavigation?.pushViewController(obj, animated: false)
     }
     
     // Mail Composer

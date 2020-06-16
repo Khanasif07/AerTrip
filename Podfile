@@ -15,6 +15,7 @@ target 'AERTRIP' do
   #  pod 'FBSDKLoginKit', '~> 4.38.1'
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
+  pod  'FBSDKShareKit'
   pod 'GoogleSignIn'
 #  pod 'LinkedinSwift'
   pod 'Firebase/Core'

@@ -1761,14 +1761,36 @@ Incomplete</string>
                                     <constraint firstAttribute="height" constant="50" id="qt2-ez-h5O"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sID-zt-Cll">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ave-jp-B3b" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="1Ez-FP-pGx"/>
+                                            <constraint firstAttribute="width" constant="375" id="Z3y-Xa-cCR"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="ave-jp-B3b" secondAttribute="bottom" id="UHH-GM-BS2"/>
+                                    <constraint firstItem="ave-jp-B3b" firstAttribute="centerX" secondItem="sID-zt-Cll" secondAttribute="centerX" id="j8K-da-6zN"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="0gJ-kv-0J6" secondAttribute="bottom" id="0mL-0t-Y1Z"/>
                             <constraint firstItem="bnz-Xw-WEh" firstAttribute="top" secondItem="0gJ-kv-0J6" secondAttribute="top" id="2DJ-h8-DYB"/>
+                            <constraint firstItem="sID-zt-Cll" firstAttribute="leading" secondItem="Rmr-Sb-jvc" secondAttribute="leading" id="NHf-j2-bGI"/>
                             <constraint firstItem="fXs-l0-Xay" firstAttribute="bottom" secondItem="bnz-Xw-WEh" secondAttribute="bottom" id="OUu-VC-vOe"/>
                             <constraint firstItem="bnz-Xw-WEh" firstAttribute="trailing" secondItem="0gJ-kv-0J6" secondAttribute="trailing" id="Qc6-VE-0NV"/>
+                            <constraint firstItem="sID-zt-Cll" firstAttribute="trailing" secondItem="Rmr-Sb-jvc" secondAttribute="trailing" id="RQF-K7-B4g"/>
                             <constraint firstItem="fXs-l0-Xay" firstAttribute="trailing" secondItem="Rmr-Sb-jvc" secondAttribute="trailing" id="YM1-sB-5DJ"/>
+                            <constraint firstItem="sID-zt-Cll" firstAttribute="top" secondItem="Rmr-Sb-jvc" secondAttribute="top" id="YiX-zW-X8X"/>
+                            <constraint firstAttribute="bottom" secondItem="sID-zt-Cll" secondAttribute="bottom" id="kEj-e4-pQm"/>
                             <constraint firstItem="Rmr-Sb-jvc" firstAttribute="top" secondItem="fXs-l0-Xay" secondAttribute="top" id="kS5-Vo-nj9"/>
                             <constraint firstItem="bnz-Xw-WEh" firstAttribute="leading" secondItem="fXs-l0-Xay" secondAttribute="leading" id="lzt-sm-h4M"/>
                             <constraint firstItem="bnz-Xw-WEh" firstAttribute="trailing" secondItem="fXs-l0-Xay" secondAttribute="trailing" id="m1f-pB-iIr"/>
@@ -1782,6 +1804,10 @@ Incomplete</string>
                         <outlet property="allDoneTableView" destination="Rmr-Sb-jvc" id="yOn-t5-TlV"/>
                         <outlet property="gradientView" destination="0gJ-kv-0J6" id="pih-Sd-jUZ"/>
                         <outlet property="returnToHomeButton" destination="RJB-J1-47P" id="6Jk-Yk-uh8"/>
+                        <outlet property="tickMarckButton" destination="ave-jp-B3b" id="Jss-hO-gPG"/>
+                        <outlet property="tickMarkBtnHeightConstraint" destination="1Ez-FP-pGx" id="Te4-4Z-mcb"/>
+                        <outlet property="tickMarkBtnWidthConstraint" destination="Z3y-Xa-cCR" id="6rr-2y-fui"/>
+                        <outlet property="whiteBackgroundView" destination="sID-zt-Cll" id="sUr-dd-lS3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p1I-Jk-fpB" userLabel="First Responder" sceneMemberID="firstResponder"/>

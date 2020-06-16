@@ -98,10 +98,14 @@ extension HotelCheckoutDetailVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100.0
+        return self.heightForRow(tableView: tableView, indexPath: indexPath, isForEstimateHeight: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.heightForRow(tableView: tableView, indexPath: indexPath, isForEstimateHeight: false)
+    }
+    
+    internal func heightForRow(tableView: UITableView, indexPath: IndexPath, isForEstimateHeight: Bool) -> CGFloat {
         if let hotelData = self.viewModel {
             let sectionData = self.sectionData[indexPath.section]
             if sectionData[indexPath.row] == .paymentPolicyCell {
@@ -113,6 +117,9 @@ extension HotelCheckoutDetailVC: UITableViewDelegate, UITableViewDataSource {
                         + 21.0 + 2.0 // y of textview 46.5 + bottom space 14.0 + 7.0
             } else if sectionData[indexPath.row] == .overViewCell{
                 //overview cell
+                if !isForEstimateHeight {
+                    return UITableView.automaticDimension
+                }
                     let textView = UITextView()
                     textView.frame.size = CGSize(width: UIDevice.screenWidth - 32.0, height: 100.0)
                     textView.font = AppFonts.Regular.withSize(18)
@@ -130,7 +137,7 @@ extension HotelCheckoutDetailVC: UITableViewDelegate, UITableViewDataSource {
             }
             
         }
-        return UITableView.automaticDimension
+        return isForEstimateHeight ? 100 : UITableView.automaticDimension
     }
 }
 

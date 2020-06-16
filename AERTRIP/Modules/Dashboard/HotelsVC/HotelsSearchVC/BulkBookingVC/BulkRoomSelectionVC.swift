@@ -67,6 +67,11 @@ class BulkRoomSelectionVC: BaseVC {
         self.initialSetUp()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.show(animated: true)
+    }
+    
     override func setupFonts() {
         let regularFont17 = AppFonts.Regular.withSize(17.0)
         let regularFont14 = AppFonts.Regular.withSize(14.0)
@@ -122,14 +127,14 @@ class BulkRoomSelectionVC: BaseVC {
         let tapGest = UITapGestureRecognizer(target: self, action: #selector(tappedOnBackgroundView(_:)))
         self.backgroundView.addGestureRecognizer(tapGest)
         self.hide(animated: false)
-        delay(seconds: 0.05) { [weak self] in
-            self?.show(animated: true)
-        }
+//        delay(seconds: 0.05) { [weak self] in
+//            self?.show(animated: true)
+//        }
     }
     
     private func show(animated: Bool) {
         self.safeAreaBackView.isHidden = false
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, delay: 0, options: .curveEaseInOut, animations: {
             self.safeAreaBackView.alpha = 1.0
             self.headerView.isHidden = self.mainContainerView.size.height > 200.0
             self.mainContainerView.transform = .identity
@@ -141,7 +146,7 @@ class BulkRoomSelectionVC: BaseVC {
         self.headerView.isHidden = true
         self.safeAreaBackView.alpha = 0.0
         let heightToChange = self.mainContainerView.height + 100
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, delay: 0, options: .curveEaseIn, animations: { [weak self] in
             guard let _self = self else { return }
             _self.safeAreaBackView.alpha = 0.0
             _self.mainContainerView.transform = CGAffineTransform(translationX: 0, y: heightToChange)

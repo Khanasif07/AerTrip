@@ -28,6 +28,10 @@ protocol FinalCheckoutVMDelegate: class {
     func willGetPaymentResonse()
     func getPaymentResonseSuccess(bookingIds: [String] , cid: [String])
     func getPaymentResonseFail()
+    
+    func willGetBookingReceipt()
+    func getBookingReceiptSuccess(detail: HotelReceiptModel)
+    func getBookingReceiptFail()
 }
 
 class FinalCheckoutVM: NSObject {
@@ -40,6 +44,7 @@ class FinalCheckoutVM: NSObject {
     var originLong: String = ""
     var hotelFormData: HotelFormPreviosSearchData = HotelFormPreviosSearchData()
     var grossTotalPayableAmount : Double = 0.0 // without wallet amount
+    var bookingIds: [String] = [], cId: [String] = []
     
     func webServiceGetPaymentMethods() {
         let params: JSONDictionary = [APIKeys.it_id.rawValue:  self.itineraryData?.it_id ?? ""]
@@ -152,6 +157,22 @@ extension FinalCheckoutVM {
             } else {
                 sSelf.delegate?.getPaymentResonseFail()
                 //AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+            }
+        }
+    }
+    
+    func getBookingReceipt(bookingIds: [String], itId: String) {
+        
+        let params: JSONDictionary = [APIKeys.booking_id.rawValue: bookingIds.first ?? "", APIKeys.it_id.rawValue: itId]
+
+        self.delegate?.willGetBookingReceipt()
+        APICaller.shared.bookingReceiptAPI(params: params) { [weak self](success, errors, receiptData)  in
+            guard let sSelf = self else { return }
+            if success {
+                let hotelReceiptData = receiptData ?? HotelReceiptModel()
+                sSelf.delegate?.getBookingReceiptSuccess(detail: hotelReceiptData)
+            } else {
+                sSelf.delegate?.getBookingReceiptFail()
             }
         }
     }

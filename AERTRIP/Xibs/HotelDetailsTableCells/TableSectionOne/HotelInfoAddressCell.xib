@@ -41,7 +41,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cje-PF-AVP">
-                                <rect key="frame" x="283" y="96.5" width="76" height="22"/>
+                                <rect key="frame" x="283" y="99.5" width="76" height="22"/>
                                 <subviews>
                                     <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OwF-Et-57A">
                                         <rect key="frame" x="0.0" y="0.0" width="38" height="22"/>
@@ -95,7 +95,7 @@
                             <constraint firstItem="JR9-pa-wQ7" firstAttribute="leading" secondItem="ehA-12-5xn" secondAttribute="leading" constant="16" id="L4E-ct-3em"/>
                             <constraint firstAttribute="trailing" secondItem="NmD-Tk-S8D" secondAttribute="trailing" constant="16" id="Mz5-Ow-31t"/>
                             <constraint firstItem="NmD-Tk-S8D" firstAttribute="leading" secondItem="ehA-12-5xn" secondAttribute="leading" constant="16" id="UKK-uM-fkx"/>
-                            <constraint firstAttribute="bottom" secondItem="cje-PF-AVP" secondAttribute="bottom" constant="19" id="j9C-PK-uO2"/>
+                            <constraint firstAttribute="bottom" secondItem="cje-PF-AVP" secondAttribute="bottom" constant="16" id="j9C-PK-uO2"/>
                             <constraint firstItem="KCf-ml-acK" firstAttribute="trailing" secondItem="NmD-Tk-S8D" secondAttribute="trailing" id="n8C-35-Br4"/>
                             <constraint firstAttribute="trailing" secondItem="cje-PF-AVP" secondAttribute="trailing" constant="16" id="rMN-rL-2SZ"/>
                             <constraint firstAttribute="bottom" secondItem="KCf-ml-acK" secondAttribute="bottom" constant="16.5" id="tZS-Fx-6Cw"/>

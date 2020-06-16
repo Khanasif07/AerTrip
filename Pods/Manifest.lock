@@ -20,6 +20,10 @@ PODS:
     - FBSDKLoginKit/Login (= 7.0.0)
   - FBSDKLoginKit/Login (7.0.0):
     - FBSDKCoreKit (~> 7.0.0)
+  - FBSDKShareKit (7.0.0):
+    - FBSDKShareKit/Share (= 7.0.0)
+  - FBSDKShareKit/Share (7.0.0):
+    - FBSDKCoreKit (~> 7.0.0)
   - Firebase/Core (6.24.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 6.5.0)
@@ -142,6 +146,7 @@ DEPENDENCIES:
   - Fabric
   - FBSDKCoreKit
   - FBSDKLoginKit
+  - FBSDKShareKit
   - Firebase/Core
   - Firebase/DynamicLinks
   - FlexiblePageControl
@@ -172,6 +177,7 @@ SPEC REPOS:
     - Fabric
     - FBSDKCoreKit
     - FBSDKLoginKit
+    - FBSDKShareKit
     - Firebase
     - FirebaseAnalytics
     - FirebaseAnalyticsInterop
@@ -215,6 +221,7 @@ SPEC CHECKSUMS:
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   FBSDKCoreKit: 8ad31cd09f793d1d7e84cf20fd6cebfe80ad318d
   FBSDKLoginKit: 5d1e321dc45ab1fa09198b77fc17c32a06f008c0
+  FBSDKShareKit: 7ec93bf49516a91513d64863f54121155bbd7f78
   Firebase: b28e55c60efd98963cd9011fe2fac5a10c2ba124
   FirebaseAnalytics: 7386fc2176e3f93ad8ef34b5b1f2b33a891e4962
   FirebaseAnalyticsInterop: 3f86269c38ae41f47afeb43ebf32a001f58fcdae
@@ -249,6 +256,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
 
-PODFILE CHECKSUM: f7069b54201412f680845998a94f179a4650b25f
+PODFILE CHECKSUM: 75f92546c58c801f1f7d3ba71fa8250fb8d468fc
 
-COCOAPODS: 1.9.0
+COCOAPODS: 1.9.2

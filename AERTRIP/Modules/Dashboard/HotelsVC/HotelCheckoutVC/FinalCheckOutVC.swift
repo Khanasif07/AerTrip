@@ -224,7 +224,12 @@ class FinalCheckOutVC: BaseVC {
             if self.isConvenienceFeeApplied {
                 convenieneCell.aertripWalletTitleLabel.text = LocalizedString.ConvenienceFee.localized
                 convenieneCell.walletAmountLabel.attributedText = amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
-                convenieneCell.labelBottomConstraint.constant = self.isWallet ? 0.0 : 11
+                convenieneCell.labelBottomConstraint.constant = self.isWallet ? 0 : 11
+                if self.isCouponApplied, self.isCouponSectionExpanded {
+                    convenieneCell.labelTopConstraint.constant = 4
+                } else {
+                    convenieneCell.labelTopConstraint.constant = 11
+                }
                 return convenieneCell
             } else {
                 convenieneCell.clipsToBounds = true
@@ -254,6 +259,7 @@ class FinalCheckOutVC: BaseVC {
                 walletAmountCell.walletAmountLabel.attributedText = ("-" + abs(amountFromWallet).amountInDelimeterWithSymbol).asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
                 walletAmountCell.clipsToBounds = true
                 walletAmountCell.labelBottomConstraint.constant =  11
+                 walletAmountCell.labelTopConstraint.constant = self.isWallet ? 4 : 11
                 return walletAmountCell
             } else {
                 walletAmountCell.clipsToBounds = true
@@ -552,9 +558,9 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
             return 0
         } else {
             if self.isCouponApplied {
-                return 64.0
+                return 60.0
             } else {
-                return 30.0
+                return 28.0
             }
         }
     }
@@ -576,6 +582,7 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
             
             if self.isCouponApplied {
                 headerView.discountViewHeightConstraint.constant = 27
+                headerView.discountTitleLabelTopConstraint.constant = -1
             } else {
                 headerView.discountViewHeightConstraint.constant = 0
                 headerView.clipsToBounds = true
@@ -602,6 +609,31 @@ extension FinalCheckOutVC: TopNavigationViewDelegate {
 }
 
 extension FinalCheckOutVC: FinalCheckoutVMDelegate {
+    func willGetBookingReceipt() {
+        
+    }
+    
+    func getBookingReceiptSuccess(detail: HotelReceiptModel) {
+        self.manageLoader(shouldStart: false)
+        if let id = self.viewModel.itineraryData?.it_id {
+            AppFlowManager.default.presentYouAreAllDoneVC(forItId: id, bookingIds: self.viewModel.bookingIds, cid: self.viewModel.cId, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong, recieptData: detail)
+        }
+    }
+    
+    func getBookingReceiptFail() {
+        self.manageLoader(shouldStart: false)
+    }
+    func getPaymentResonseSuccess(bookingIds: [String], cid: [String]) {
+            // send to you are all donr screen
+    //        self.manageLoader(shouldStart: false)
+            if let id = self.viewModel.itineraryData?.it_id {
+                self.viewModel.bookingIds = bookingIds
+                self.viewModel.cId = cid
+                self.viewModel.getBookingReceipt(bookingIds: bookingIds, itId: id)
+                //AppFlowManager.default.presentYouAreAllDoneVC(forItId: id, bookingIds: bookingIds, cid: cid, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong)
+            }
+        }
+    
     func willCallGetPayementMethods() {
         //
     }
@@ -698,13 +730,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
         self.manageLoader(shouldStart: true)
     }
     
-    func getPaymentResonseSuccess(bookingIds: [String], cid: [String]) {
-        // send to you are all donr screen
-        self.manageLoader(shouldStart: false)
-        if let id = self.viewModel.itineraryData?.it_id {
-            AppFlowManager.default.presentYouAreAllDoneVC(forItId: id, bookingIds: bookingIds, cid: cid, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong)
-        }
-    }
+    
     
     func getPaymentResonseFail() {
         self.manageLoader(shouldStart: false)

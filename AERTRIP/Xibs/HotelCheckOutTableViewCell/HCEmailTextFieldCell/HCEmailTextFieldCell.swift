@@ -42,8 +42,8 @@ class HCEmailTextFieldCell: UITableViewCell {
     
     
     private func doInitialSetup() {
-        self.editableTextField.isHiddenBottomLine = false
-        self.separatorView.isHidden = true
+        self.editableTextField.isHiddenBottomLine = true
+        self.separatorView.isHidden = false
         self.editableTextField.titleYPadding = 12.0
         self.editableTextField.hintYPadding = 12.0
     }

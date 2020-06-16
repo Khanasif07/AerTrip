@@ -61,6 +61,11 @@ class RoomGuestSelectionVC: BaseVC {
         super.viewWillAppear(animated)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.show(animated: true)
+    }
+    
     override func setupFonts() {
         self.doneButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
         
@@ -136,9 +141,9 @@ class RoomGuestSelectionVC: BaseVC {
         
         self.setOldAges()
         self.hide(animated: false)
-        delay(seconds: 0.0) { [weak self] in
-            self?.show(animated: true)
-        }
+//        delay(seconds: 0.0) { [weak self] in
+//            self?.show(animated: true)
+//        }
         
         self.firstLineView.isHidden = true
         self.secondLineView.isHidden = true
@@ -168,7 +173,7 @@ class RoomGuestSelectionVC: BaseVC {
         }
         
         if animated {
-            UIView.animate(withDuration: animated ? 0.4 : 0.0, animations: {
+                UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, delay: 0, options: .curveEaseInOut, animations: {
                 setValue()
             }, completion: { (isDone) in
             })
@@ -187,7 +192,7 @@ class RoomGuestSelectionVC: BaseVC {
         }
         
         if animated {
-            UIView.animate(withDuration: animated ? AppConstants.kCloseAnimationDuration : 0.0, delay: 0, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, delay: 0, options: .curveEaseIn, animations: {
                 setValue()
             }, completion: { (isDone) in
                 if shouldRemove {

@@ -257,6 +257,7 @@ extension HotelDetailsVC {
             let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
             self.headerView.leftButton.setImage(selectedFevImage, for: .normal)
             self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "black_cross"), for: .normal)
+            self.headerView.firstRightButtonTrailingConstraint.constant = 0
         }
         else {
             //hide
@@ -265,6 +266,7 @@ extension HotelDetailsVC {
             let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
             self.headerView.leftButton.setImage(buttonImage, for: .normal)
             self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
+            self.headerView.firstRightButtonTrailingConstraint.constant = -3
         }
     }
     
@@ -288,7 +290,10 @@ extension HotelDetailsVC {
                 let bottomCons = (self.hotelTableView.contentOffset.y - (self.initialStickyPosition + self.footerView.height))
                 if (self.hotelTableView.contentSize.height - self.hotelTableView.height) <= self.hotelTableView.contentOffset.y {
                     //if table view scrolled till end then hide sticky view
+                    UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0, options: .curveEaseIn, animations: { [weak self] in
+                    guard let `self` = self else {return}
                     self.stickyBottomConstraint.constant = -(self.footerView.height)
+                    }, completion: nil)
                 }
                     //                               else if 0...self.footerView.height ~= bottomCons {
                     //                                   //hiding
@@ -299,25 +304,25 @@ extension HotelDetailsVC {
                     //                               }
                 else if self.initialStickyPosition <= 0.0 {
                     //shown
-                    UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+                    UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
                         guard let `self` = self else {return}
                         self.stickyBottomConstraint.constant = 0.0
-                    }.startAnimation()
+                    }, completion: nil)
                 }
                 else if (self.initialStickyPosition + self.footerView.height) < finalY {
                     //hidden
-                    UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+                    UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0, options: .curveEaseIn, animations: { [weak self] in
                         guard let `self` = self else {return}
                         self.stickyBottomConstraint.constant = -(self.footerView.height)
-                    }.startAnimation()
+                    }, completion: nil)
                 }
                 
             } else {
                 if (self.initialStickyPosition + self.footerView.height) > self.hotelTableView.contentOffset.y {
-                    UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+                    UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
                         guard let `self` = self else {return}
                         self.stickyBottomConstraint.constant = 0.0
-                    }.startAnimation()
+                    }, completion: nil)
                 }
                 self.initialStickyPosition = -1.0
                 
@@ -347,7 +352,7 @@ extension HotelDetailsVC {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.manageHeaderView()
         self.manageBottomRateView()
-        self.closeOnScroll(scrollView)
+      //  self.closeOnScroll(scrollView)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -359,7 +364,7 @@ extension HotelDetailsVC {
     //
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.closeOnScroll(scrollView)
+        //self.closeOnScroll(scrollView)
         self.manageHeaderView()
         self.manageBottomRateView()
     }

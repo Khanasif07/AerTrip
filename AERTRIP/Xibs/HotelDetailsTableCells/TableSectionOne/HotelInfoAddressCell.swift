@@ -84,7 +84,7 @@ class HotelInfoAddressCell: UITableViewCell {
         self.addGestureRecognizer(longPressGesture)
         self.addressInfoTextView.addGestureRecognizer(tapGesture)
         
-
+        addressInfoTextView.textContainer.lineBreakMode = .byTruncatingTail
     }
     
     /// AttributeLabelSetup

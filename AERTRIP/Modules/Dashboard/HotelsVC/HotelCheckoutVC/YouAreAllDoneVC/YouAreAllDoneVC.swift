@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import FBSDKLoginKit
+import FBSDKShareKit
 
 class YouAreAllDoneVC: BaseVC {
     
@@ -18,7 +18,7 @@ class YouAreAllDoneVC: BaseVC {
     //var tableFooterView: YouAreAllDoneFooterView?
     
     private var viewButton: ATButton?
-    
+    private var isSuccessAnimationShown = false
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var allDoneTableView: ATTableView! {
@@ -33,6 +33,10 @@ class YouAreAllDoneVC: BaseVC {
     }
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var returnToHomeButton: UIButton!
+    @IBOutlet weak var whiteBackgroundView: UIView!
+    @IBOutlet weak var tickMarckButton: ATButton!
+    @IBOutlet weak var tickMarkBtnHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tickMarkBtnWidthConstraint: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================
@@ -45,6 +49,14 @@ class YouAreAllDoneVC: BaseVC {
         self.statusBarStyle = .default
         
         AppFlowManager.default.mainNavigationController.interactivePopGestureRecognizer?.isEnabled = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !self.isSuccessAnimationShown {
+            self.isSuccessAnimationShown = true
+            setupViewForSuccessAnimation()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -63,12 +75,18 @@ class YouAreAllDoneVC: BaseVC {
     }
     
     override func initialSetup() {
-        
+        self.view.layoutIfNeeded()
         self.registerNibs()
         self.tableFooterViewSetUp()
-        self.viewModel.getBookingReceipt()
+        if self.viewModel.hotelReceiptData == nil {
+            self.viewModel.getBookingReceipt()
+            self.whiteBackgroundView.isHidden = true
+        } else {
+            getBookingReceiptSuccess()
+        }
         
-        
+        self.tickMarkBtnWidthConstraint.constant = self.view.width
+        self.tickMarckButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         
         //Text
         self.returnToHomeButton.setTitle(LocalizedString.ReturnHome.localized, for: .normal)
@@ -77,6 +95,37 @@ class YouAreAllDoneVC: BaseVC {
         //Color
         self.returnToHomeButton.setTitleColor(AppColors.themeWhite, for: .normal)
     }
+    
+    func setupViewForSuccessAnimation() {
+            
+            self.tickMarckButton.setTitle(nil, for: .normal)
+            self.tickMarckButton.setImage(#imageLiteral(resourceName: "Checkmark"), for: .normal)
+
+            UIView.animate(withDuration: AppConstants.kAnimationDuration / 4.0, animations: {
+                self.tickMarkBtnHeightConstraint.constant = 74
+                self.tickMarkBtnWidthConstraint.constant = 74
+                self.tickMarckButton.myCornerRadius = 74 / 2.0
+                self.whiteBackgroundView.alpha = 1.0
+                self.view.layoutIfNeeded()
+                
+            }) { (isCompleted) in
+                //self.letsStartedButton.layer.cornerRadius = reScaleFrame.height / 2.0
+
+                let tY = (self.whiteBackgroundView.height) - self.tickMarckButton.height/2 - 115
+                var t = CGAffineTransform.identity
+                t = t.translatedBy(x: 0.0, y: -tY)
+
+                UIView.animate(withDuration: ((AppConstants.kAnimationDuration / 4.0) * 3.0), animations: {
+                    self.tickMarckButton.transform = t
+                    self.whiteBackgroundView.alpha = 1.0
+                }) { (isCompleted) in
+                    if isCompleted {
+                        self.whiteBackgroundView.isHidden = true
+                        self.allDoneTableView.reloadData()
+                    }
+                }
+            }
+        }
     
     override func bindViewModel() {
         self.viewModel.delegate = self
@@ -337,15 +386,35 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
     
     func shareOnFaceBook() {
         printDebug("Share On FaceBook")
-//        FacebookController.shared.shareMessageOnFacebook(withViewController: self, "", success: { [weak self] (data) in
-//            AppToast.sha
-//        }) { (error) in
-//
-//        }
+        
+        guard let url = URL(string: AppConstants.kAppStoreLink) else { return }
+        let content = ShareLinkContent()
+        content.contentURL = url
+        let dialog = ShareDialog(
+            fromViewController: self,
+            content: content,
+            delegate: nil
+        )
+        dialog.mode = .automatic
+        dialog.show()
     }
     
     func shareOnTwitter() {
         printDebug("Share On Twitter")
+        let tweetText = "\(AppConstants.kAppName) Appstore Link: "
+        let tweetUrl = AppConstants.kAppStoreLink
+        let shareString = "https://twitter.com/intent/tweet?text=\(tweetText)&url=\(tweetUrl)"
+
+        // encode a space to %20 for example
+        let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+
+        if let url = URL(string: escapedShareString) {
+            if UIApplication.shared.canOpenURL(url ) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                AppFlowManager.default.showURLOnATWebView(url, screenTitle:  "")
+            }
+        }
     }
     
     func shareOnLinkdIn() {

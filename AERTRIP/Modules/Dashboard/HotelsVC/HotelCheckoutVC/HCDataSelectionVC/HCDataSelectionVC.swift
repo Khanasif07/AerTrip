@@ -759,11 +759,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: HCEmailTextFieldCell.reusableIdentifier) as? HCEmailTextFieldCell else {
                     return UITableViewCell()
                 }
-                
-                //                cell.downArrowImageView.isHidden = true
-                //                cell.titleLabel.font = AppFonts.Regular.withSize(18.0)
-                //                cell.titleLabel.textColor = AppColors.themeGray20
-                //                cell.titleLabel.text = LocalizedString.Email_ID.localized
+
                 cell.editableTextField.isEnabled = UserInfo.loggedInUserId == nil
                 cell.editableTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.Email_ID.localized,with: "")
                 cell.delegate = self
