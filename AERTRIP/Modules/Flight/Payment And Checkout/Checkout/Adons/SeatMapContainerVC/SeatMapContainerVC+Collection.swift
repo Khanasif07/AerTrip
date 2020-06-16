@@ -12,34 +12,50 @@ extension SeatMapContainerVC: UICollectionViewDelegate, UICollectionViewDataSour
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         if allChildVCs.indices.contains(viewModel.currentIndex) {
-            return allChildVCs[viewModel.currentIndex].viewModel.flightData.md.columns.count
+            return allChildVCs[viewModel.currentIndex].viewModel.deckColumnsCount
         }
         return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allChildVCs[viewModel.currentIndex].viewModel.flightData.md.rowsArr.count
+        return allChildVCs[viewModel.currentIndex].viewModel.deckRowsCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let seatCell = collectionView.dequeueReusableCell(withReuseIdentifier: "LayoutSeatCollCell", for: indexPath) as? LayoutSeatCollCell else {
             fatalError("Unable to dequeue LayoutSeatCollCell")
         }
+        let curDeckData = allChildVCs[viewModel.currentIndex].viewModel.deckData
+        var rowStr = ""
+        if curDeckData.rowsArr.indices.contains(indexPath.item) {
+            rowStr = curDeckData.rowsArr[indexPath.item]
+        }
+        var columnStr = ""
+        if curDeckData.columns.indices.contains(indexPath.section) {
+            columnStr = curDeckData.columns[indexPath.section]
+        }
+        var seatData = SeatMapModel.SeatMapRow()
+        if let curRowIntValue = Int(rowStr), let curRow = curDeckData.rows[curRowIntValue] {
+            if let curSeatData = curRow[columnStr] {
+                seatData = curSeatData
+            }
+        }
+        seatCell.populateCell(seatData)
         return seatCell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 2
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 1
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let heightForSection = CGFloat(allChildVCs[viewModel.currentIndex].viewModel.flightData.md.columns.count)
+        let heightForSection = CGFloat(allChildVCs[viewModel.currentIndex].viewModel.deckData.columns.count)// + 1
         let maxHeight = collectionView.height/heightForSection
-        return CGSize(width: maxHeight - 1, height: maxHeight - 1)
+        return CGSize(width: maxHeight, height: maxHeight)
     }
     
 }

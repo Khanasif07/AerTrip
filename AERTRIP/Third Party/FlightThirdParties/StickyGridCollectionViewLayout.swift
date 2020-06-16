@@ -80,7 +80,10 @@ class StickyGridCollectionViewLayout: UICollectionViewFlowLayout {
 				let itemSize = size(forRow: row, column: col)
 				let indexPath = IndexPath(row: row, column: col)
 				let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-				attributes.frame = CGRect(x: xOffset, y: yOffset, width: itemSize.width, height: itemSize.height).integral
+                
+                // Line replaced by Rishabh
+                attributes.frame = CGRect(x: xOffset, y: yOffset, width: itemSize.width, height: itemSize.height)
+//				attributes.frame = CGRect(x: xOffset, y: yOffset, width: itemSize.width, height: itemSize.height).integral
 
 				rowAttrs.append(attributes)
 
