@@ -316,6 +316,7 @@ extension FlightPaymentVM{
             params[APIKeys.wallet_id.rawValue] = useWallet ? (self.paymentDetails?.paymentModes.wallet.id ?? "") : ""
         } else {
             params[APIKeys.use_wallet.rawValue] = 0
+            params[APIKeys.wallet_id.rawValue] = ""
             printDebug("No wallet id required.")
         }
         

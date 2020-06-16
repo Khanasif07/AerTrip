@@ -32,10 +32,11 @@ class FlightPaymentBookingStatusVC: BaseVC {
     }
     override func initialSetup() {
         super.initialSetup()
-        self.viewModel.getSectionData()
+        self.viewModel.delegate = self
+        self.viewModel.getBookingReceipt()
         self.registerCell()
         self.statusTableView.separatorStyle = .none
-        self.setupPayButton()
+        self.setupReturnHomeButton()
         self.returnHomeButton.addGredient(isVertical: false)
     }
     
@@ -59,7 +60,7 @@ class FlightPaymentBookingStatusVC: BaseVC {
         self.statusTableView.registerCell(nibName: HCWhatNextTableViewCell.reusableIdentifier)
     }
 
-  private func setupPayButton() {
+  private func setupReturnHomeButton() {
       self.returnHomeButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
       self.returnHomeButton.setTitleColor(AppColors.themeWhite, for: .normal)
       self.returnHomeButton.setTitle("Return Home", for: .normal)
@@ -139,17 +140,39 @@ extension FlightPaymentBookingStatusVC: UITableViewDelegate, UITableViewDataSour
         case .whatNextCell:
             return self.getWhatNextCell(indexPath)
         }
-        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail,tripCities: self.viewModel.itinerary.city,legSectionTap: indexPath.section - self.viewModel.noOfLegCellAboveLeg)
     }
     
 }
 
-extension FlightPaymentBookingStatusVC : HCBookingDetailsTableViewHeaderFooterViewDelegate{
+extension FlightPaymentBookingStatusVC: FlightPaymentBookingStatusVMDelegate{
+    func willGetBookingDetail() {
+        
+    }
     
-    func emailIternaryButtonTapped(){
-        let obj = HCEmailItinerariesVC.instantiate(fromAppStoryboard: .HotelCheckout)
-        obj.viewModel.isForDummy = true
-        self.present(obj, animated: true, completion: nil)
+    func getBookingDetailSucces() {
+        AppGlobals.shared.stopLoading()
+    }
+    
+    func getBookingDetailFaiure(error: ErrorCodes) {
+        
+    }
+    
+    
+    func getBookingReceiptSuccess(){
+//        AppGlobals.shared.stopLoading()
+        self.viewModel.getBookingDetail()
+        self.viewModel.getSectionData()
+        self.statusTableView.reloadData()
+    }
+    func willGetBookingReceipt(){
+        AppGlobals.shared.startLoading()
+    }
+    func getBookingReceiptFail(){
+        AppGlobals.shared.stopLoading()
     }
     
 }

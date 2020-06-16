@@ -61,6 +61,7 @@ class FlightPaymentVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.checkOutTableView.separatorStyle = .none
+        self.viewModel.taxesDataDisplay()
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
         self.viewModel.delegate = self
@@ -390,7 +391,8 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
         self.loaderView.isHidden = true
         print(bookingIds)
         let vc = FlightPaymentBookingStatusVC.instantiate(fromAppStoryboard: .FlightPayment)
-        vc.viewModel.itinerary = self.viewModel.itinerary
+        vc.viewModel.apiBookingId = bookingIds.first ?? ""
+        vc.viewModel.itId = self.viewModel.itinerary.id
         self.navigationController?.pushViewController(vc, animated: true)
         
     }

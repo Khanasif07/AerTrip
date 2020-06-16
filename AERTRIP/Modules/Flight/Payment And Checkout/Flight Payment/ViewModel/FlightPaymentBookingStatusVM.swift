@@ -8,16 +8,23 @@
 
 import Foundation
 
+protocol FlightPaymentBookingStatusVMDelegate:NSObjectProtocol{
+    func getBookingReceiptSuccess()
+    func willGetBookingReceipt()
+    func getBookingReceiptFail()
+    func willGetBookingDetail()
+    func getBookingDetailSucces()
+    func getBookingDetailFaiure(error: ErrorCodes)
+}
+
 class FlightPaymentBookingStatusVM{
     
-    var itinerary = FlightItinerary()
+    var itinerary = FlightRecept()
+    var itId = ""
     var sectionData: [[TableViewCellType]] = []
-    var flightTicketCount = 3
-    var passengerCount = 4
-    var bookingId = "475892436"
-    var tripName = "Trip to london"
-    var whatNextString = ["Book your hotel in Amsterdam and get great deals","Book your hotel in Amsterdam and get great deals","Book your hotel in Amsterdam and get great deals"]
-    var isSeatSettingAvailable = true
+    var isSeatSettingAvailable = false
+    weak var delegate:FlightPaymentBookingStatusVMDelegate?
+    var bookingDetail: BookingDetailModel?
     //Data For API And Details
     var apiBookingId:String = ""
     
@@ -35,21 +42,56 @@ class FlightPaymentBookingStatusVM{
         for _ in self.itinerary.details.legsWithDetail{
             var data:[TableViewCellType] = [.carriersCell]
             data.append(contentsOf: [.legInfoCell,.BookingPaymentCell])
-            for _ in 0..<self.passengerCount{
+            for _ in 0..<self.itinerary.travellerDetails.t.count{
                 data.append(.pnrStatusCell)
             }
             self.sectionData.append(data)
         }
         var dataForLastSection = [TableViewCellType]()
-        if isSeatSettingAvailable{
-            //Add seat button cell
+//        if isSeatSettingAvailable{
+//            //Add seat button cell
+//        }
+        if self.itinerary.bookingStatus.status != "pending"{
+            dataForLastSection.append(contentsOf: [.totalChargeCell, .confirmationHeaderCell])
+            for _ in 0..<(self.itinerary.details.legsWithDetail.count){
+                dataForLastSection.append(.confirmationVoucherCell)
+            }
+        }else{
+            dataForLastSection.append(contentsOf: [.totalChargeCell])
         }
-        dataForLastSection.append(contentsOf: [.totalChargeCell, .confirmationHeaderCell])
-        for _ in 0..<flightTicketCount{
-            dataForLastSection.append(.confirmationVoucherCell)
-        }
+        
         dataForLastSection.append(.whatNextCell)
         self.sectionData.append(dataForLastSection)
     }
 
+    func getBookingReceipt() {
+        
+        let params: JSONDictionary = [APIKeys.booking_id.rawValue: self.apiBookingId, APIKeys.it_id.rawValue: itId]
+        
+        self.delegate?.willGetBookingReceipt()
+        APICaller.shared.flightBookingReceiptAPI(params: params) { [weak self](success, errors, receiptData)  in
+            guard let self = self else { return }
+            if success {
+                self.itinerary = receiptData?.receipt ?? FlightRecept()
+                self.delegate?.getBookingReceiptSuccess()
+            } else {
+                self.delegate?.getBookingReceiptFail()
+            }
+        }
+    }
+    
+    func getBookingDetail() {
+            let params: JSONDictionary = ["booking_id": apiBookingId]
+            delegate?.willGetBookingDetail()
+            APICaller.shared.getBookingDetail(params: params) { [weak self] success, errors, bookingDetail in
+                guard let self = self else { return }
+                if success {
+                    self.bookingDetail = bookingDetail
+                    self.delegate?.getBookingDetailSucces()
+                } else {
+                    self.delegate?.getBookingDetailFaiure(error: errors)
+                }
+            }
+        }
+    
 }
