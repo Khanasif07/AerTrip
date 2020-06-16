@@ -12,10 +12,8 @@ class AddonsDataStore {
     
      static let shared = AddonsDataStore()
      var itinerary = FlightItinerary()
-//     var adons : [String : AddonsData] = [:]
-//     var allFlightKeys : [String] {
-//         return  Array(adons.keys)
-//     }
+
+    
      var allFlights : [IntFlightDetail] = []
      var addonsMaster = AddonsMaster()
     // var addonsLeg = AddonsLeg()
@@ -65,9 +63,7 @@ class AddonsDataStore {
             return flights.flightId
         }
      }
-    
-
-    
+        
     func getMealsSelectionCount() -> Int {
         
         self.flightsWithData.forEach { (addon) in

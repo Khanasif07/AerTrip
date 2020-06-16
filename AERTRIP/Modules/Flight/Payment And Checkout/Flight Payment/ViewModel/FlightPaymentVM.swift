@@ -36,8 +36,7 @@ class FlightPaymentVM{
     var taxAndFeesData = [(name:String,value:Int)]()
     var addonsData = [(name:String,value:Int)]()
     var discountData = [(name:String,value:Int)]()
-    var passengers = [ATContact]()
-    var parmsForItinerary:JSONDictionary = [:]
+//    var parmsForItinerary:JSONDictionary = [:]
     var grossTotalPayableAmount : Double = 0.0 // without wallet amount
     var paymentDetails: PaymentModal? //Payment methods
     var delegate:FlightPaymentVMDelegate?
@@ -46,7 +45,6 @@ class FlightPaymentVM{
     var isd = ""
     var mobile = ""
     var email = ""
-    var afCount = 0
     //Setup for section header and cell
     var sectionTableCell = [[CellType]]()
     var sectionHeader = [sectionType]()
@@ -129,81 +127,6 @@ class FlightPaymentVM{
         }
     }
     
-    func createParamForItineraryApi(){
-        self.parmsForItinerary[APIKeys.mobile.rawValue] = self.mobile
-        self.parmsForItinerary[APIKeys.isd.rawValue] = self.isd
-        self.parmsForItinerary[APIKeys.email.rawValue] = self.email
-        self.parmsForItinerary[APIKeys.it_id.rawValue] = self.itinerary.id
-        self.afCount = 0
-        for i in 0..<self.passengers.count{
-            self.parmsForItinerary["t[\(i)][\(APIKeys.firstName.rawValue)]"] = self.passengers[i].firstName
-            self.parmsForItinerary["t[\(i)][\(APIKeys.lastName.rawValue)]"] = self.passengers[i].lastName
-            let type = self.passengers[i].passengerType
-            self.parmsForItinerary["t[\(i)][\(APIKeys.pax_type.rawValue)]"] = type.rawValue
-            self.parmsForItinerary["t[\(i)][\(APIKeys.salutation.rawValue)]"] = passengers[i].salutation
-            if type == .Adult{
-                self.parmsForItinerary["t[\(i)][\(APIKeys.mobile.rawValue)]"] = ""
-                self.parmsForItinerary["t[\(i)][\(APIKeys.isd.rawValue)]"] = ""
-                self.parmsForItinerary["t[\(i)][\(APIKeys.email.rawValue)]"] = ""
-            }
-            if self.itinerary.isInternational{
-                self.parmsForItinerary["t[\(i)][\(APIKeys.dob.rawValue)]"] = self.passengers[i].dob
-                self.parmsForItinerary["t[\(i)][\(APIKeys.passportNumber.rawValue)]"] = self.passengers[i].passportNumber
-                self.parmsForItinerary["t[\(i)][\(APIKeys.passportExpiryDate.rawValue)]"] = self.passengers[i].passportExpiryDate
-                self.parmsForItinerary["t[\(i)][\(APIKeys.passportCountry.rawValue)]"] = self.passengers[i].countryCode
-            }else{
-                if type == .infant || type == .child{
-                    self.parmsForItinerary["t[\(i)][\(APIKeys.dob.rawValue)]"] = self.passengers[i].dob
-                }
-            }
-            let id = (Int(passengers[i].id) != nil) ? self.passengers[i].id : self.generatePaasengerId(index: self.passengers[i].numberInRoom, type: type)
-            self.parmsForItinerary["t[\(i)][\(APIKeys.paxId.rawValue)]"] = id
-            self.parmsForItinerary["t[\(i)][upid]"] = id
-            self.checkForMeal(id: id, passenger: passengers[i])
-            self.checkForFrequentFlyer(id: id, passenger: passengers[i])
-        }
-        if self.isGSTOn{
-            self.parmsForItinerary["gst[number]"] = self.gstDetail.GSTInNo
-            self.parmsForItinerary["gst[company_name]"] = self.gstDetail.companyName
-            self.parmsForItinerary["gst[address_line1]"] = self.gstDetail.billingName
-        }
-
-    }
-    
-    private func generatePaasengerId(index:Int, type:PassengersType)-> String{
-        switch type{
-        case .Adult:
-            return "NT_a\(index - 1)"
-        case .child:
-            return "NT_c\(index - 1)"
-        case .infant:
-            return "NT_i\(index - 1)"
-        }
-    }
-    
-    private func checkForMeal(id:String, passenger:ATContact){
-        let meals = passenger.mealPreference.filter{!($0.preferenceCode.isEmpty)}
-        for meal in meals{
-            for ffk in meal.ffk{
-                self.parmsForItinerary["apf[\(self.afCount)]"] = "\(meal.lfk)|\(ffk)|\(id)|preference|meal|\(meal.preferenceCode)|null"
-                self.afCount += 1
-            }
-        }
-    }
-    private func checkForFrequentFlyer(id:String, passenger:ATContact){
-        let ffs = passenger.frequentFlyer.filter{!($0.number.isEmpty)}
-        for ff in ffs{
-            let code = ff.airlineCode.uppercased()
-            for legs in self.addonsMaster.legs.values{
-                for flight in legs.flight{
-                    if flight.frequenFlyer[code] != nil{
-                        self.parmsForItinerary["apf[\(self.afCount)]"] = "\(legs.legId)|\(flight.flightId)|\(id)|ff|\(code)|\(ff.number)|null"
-                        self.afCount += 1
-                    }
-                }
-            }
-        }
-    }
     private func getNumberOfSection(){
         self.sectionHeader = []
         self.sectionTableCell = []
@@ -246,21 +169,6 @@ class FlightPaymentVM{
 //MARK:- API Call
 extension FlightPaymentVM{
     
-    /// To get Itenerary Data from API
-    func getItineraryData(){
-         self.taxesDataDisplay()
-         self.delegate?.fetchingItineraryData()
-         self.createParamForItineraryApi()
-         APICaller.shared.getItineraryData(params: self.parmsForItinerary, itId: self.itinerary.id) { (success, error, itinerary) in
-             if success, let iteneraryData = itinerary{
-                 self.appliedCouponData = iteneraryData
-                 self.taxesDataDisplay()
-             }
-             self.delegate?.responseFromIteneraryData(success: success, error: nil)
-         }
-         
-     }
-     
      func webServiceGetPaymentMethods() {
          let params: JSONDictionary = [APIKeys.it_id.rawValue:  self.itinerary.id]
          printDebug(params)

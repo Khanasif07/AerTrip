@@ -26,7 +26,7 @@ struct AddonsLeg{
     
     init(_ json:JSON = JSON()){
         legId = json["leg_id"].stringValue
-        flight = json["flights"].arrayValue.map{AddonsFlight($0)}
+        flight = json["flights"].arrayValue.map{AddonsFlight($0, legId: json["leg_id"].stringValue)}
         preference = AddonsPreference(json["preferences"])
         iic = json["iic"].boolValue
         freeMealSeat = json["free_meal_seat"].int
@@ -35,6 +35,7 @@ struct AddonsLeg{
 }
 
 struct AddonsFlight{
+    var legId : String
     var flightId:String
     var meal:AddonsDetails
     var bags:AddonsDetails
@@ -42,7 +43,8 @@ struct AddonsFlight{
     var ssrName:[String:AddonsSsr]
     var frequenFlyer:[String:AddonsFFDetails]
     var isfrequentFlyer:Bool
-    init(_ json:JSON = JSON()){
+    init(_ json:JSON = JSON(), legId : String){
+        self.legId = legId
         ssrName = Dictionary(uniqueKeysWithValues: json["ssr_name"].map { ($0.0, AddonsSsr($0.1)) })
         frequenFlyer = Dictionary(uniqueKeysWithValues: json["frequent_flyer"].map { ($0.0, AddonsFFDetails($0.1)) })
         isfrequentFlyer = json["is_frequent_flyer"].boolValue

@@ -60,12 +60,13 @@ class FlightPaymentVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.viewModel.taxesDataDisplay()
         self.checkOutTableView.separatorStyle = .none
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
         self.viewModel.delegate = self
         self.viewModel.webServiceGetPaymentMethods()
-        self.viewModel.getItineraryData()
+//        self.viewModel.getItineraryData()
         self.addFooterView()
         self.payButton.addGredient(isVertical: false)
         self.setUpNavigationView()
