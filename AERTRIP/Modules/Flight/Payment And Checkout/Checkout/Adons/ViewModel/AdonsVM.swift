@@ -177,7 +177,7 @@ class AdonsVM  {
         dataStore.flightsWithData.forEach { (flight) in
             let baggages = flight.bags.addonsArray.filter { !$0.bagageSelectedFor.isEmpty }
             baggages.forEach { (baggage) in
-                baggage.mealsSelectedFor.forEach { (passenger) in
+                baggage.bagageSelectedFor.forEach { (passenger) in
                     self.parmsForItinerary["apf[\(self.afCount)]"] = "\(flight.legId)|\(flight.flightId)|\(passenger.id)|addon|baggage|\(baggage.ssrName?.code ?? "")|\(baggage.price)|\(baggage.ssrName?.isReadOnly ?? 0)"
                     self.afCount += 1
                 }
@@ -188,7 +188,7 @@ class AdonsVM  {
     func checkForOthers() {
         let dataStore = AddonsDataStore.shared
         dataStore.flightsWithData.forEach { (flight) in
-            let others = flight.bags.addonsArray.filter { !$0.othersSelectedFor.isEmpty }
+            let others = flight.special.addonsArray.filter { !$0.othersSelectedFor.isEmpty }
             others.forEach { (other) in
                 other.othersSelectedFor.forEach { (passenger) in
                     self.parmsForItinerary["apf[\(self.afCount)]"] = "\(flight.legId)|\(flight.flightId)|\(passenger.id)|addon|special|\(other.ssrName?.code ?? "")|\(other.price)|\(other.ssrName?.isReadOnly ?? 0)"
@@ -226,6 +226,8 @@ class AdonsVM  {
     
     /// To get Itenerary Data from API
        func bookFlight(){
+        self.parmsForItinerary.removeAll()
+        self.afCount = 0
         self.delegate?.willBookFlight()
             self.createParamForItineraryApi()
             APICaller.shared.getItineraryData(params: self.parmsForItinerary, itId: AddonsDataStore.shared.itinerary.id) { (success, error, itinerary) in
@@ -243,12 +245,14 @@ class AdonsVM  {
      /// To get Itenerary Data from API
            func bookFlightWithAddons(){
             self.delegate?.willBookFlight()
-//                self.createParamForItineraryApi()
+            self.parmsForItinerary.removeAll()
+            self.afCount = 0
+                self.createParamForItineraryApi()
                 self.checkForMeals()
                 self.checkForBaggage()
                 self.checkForOthers()
             
-                APICaller.shared.getItineraryData(params: self.parmsForItinerary, itId: AddonsDataStore.shared.itinerary.id) { (success, error, itinerary) in
+                APICaller.shared.getItineraryData(withAddons : true, params: self.parmsForItinerary, itId: AddonsDataStore.shared.itinerary.id) { (success, error, itinerary) in
                     if success, let iteneraryData = itinerary{
                         AddonsDataStore.shared.appliedCouponData = iteneraryData
                         self.delegate?.bookFlightSuccessFully()

@@ -99,7 +99,7 @@ class FlightPaymentVM{
                 newTaxVal += (dataArray?[i].taxVal ?? 0)
             }
             let newArr = (key,newTaxVal)
-            taxAndFeesData.append(newArr)
+            addonsData.append(newArr)
             
         }
     }
