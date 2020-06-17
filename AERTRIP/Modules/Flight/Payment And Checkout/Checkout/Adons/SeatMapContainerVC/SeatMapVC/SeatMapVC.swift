@@ -11,11 +11,13 @@ import UIKit
 class SeatMapVC: UIViewController {
 
     // MARK: Properties
+    
+    typealias visibleRectMultipliers = (xMul: CGFloat, yMul: CGFloat, widthMul: CGFloat, heightMul: CGFloat)
         
     internal let viewModel = SeatMapVM()
     
     var onReloadPlaneLayoutCall: ((SeatMapModel.SeatMapFlight?) -> ())?
-    var onScrollViewScroll: (() -> ())?
+    var onScrollViewScroll: ((visibleRectMultipliers) -> ())?
     
     // MARK: IBOutlets
     

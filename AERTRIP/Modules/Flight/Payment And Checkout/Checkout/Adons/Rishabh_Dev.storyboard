@@ -88,12 +88,18 @@
                                                             </collectionViewCell>
                                                         </cells>
                                                     </collectionView>
+                                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eMC-zJ-6jS">
+                                                        <rect key="frame" x="134" y="18" width="150" height="64"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <constraints>
                                                     <constraint firstItem="eel-Wq-lbk" firstAttribute="trailing" secondItem="vRS-12-qI7" secondAttribute="trailing" constant="-30" id="076-9b-Wdw"/>
+                                                    <constraint firstItem="eMC-zJ-6jS" firstAttribute="bottom" secondItem="5XG-iu-ZvF" secondAttribute="bottom" id="0l3-Ij-fto"/>
                                                     <constraint firstItem="UXi-Rp-ukA" firstAttribute="trailing" secondItem="jEY-JP-2Py" secondAttribute="trailing" id="3Bv-AK-7YD"/>
                                                     <constraint firstAttribute="bottom" secondItem="5XG-iu-ZvF" secondAttribute="bottom" constant="18" id="5Yr-rP-D0A"/>
+                                                    <constraint firstItem="eMC-zJ-6jS" firstAttribute="top" secondItem="5XG-iu-ZvF" secondAttribute="top" id="8WS-cd-QhF"/>
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vRS-12-qI7" secondAttribute="trailing" constant="15" id="Jx4-f2-n3P"/>
                                                     <constraint firstItem="eel-Wq-lbk" firstAttribute="centerY" secondItem="J8D-3O-e2V" secondAttribute="centerY" id="LTu-Os-rJx"/>
                                                     <constraint firstItem="J8D-3O-e2V" firstAttribute="top" secondItem="jEY-JP-2Py" secondAttribute="bottom" constant="-1" id="OZ6-kQ-Vw3"/>
@@ -106,6 +112,7 @@
                                                     <constraint firstItem="UXi-Rp-ukA" firstAttribute="top" secondItem="J8D-3O-e2V" secondAttribute="bottom" constant="-1" id="hU0-3a-UPQ"/>
                                                     <constraint firstItem="J9K-GH-A3s" firstAttribute="top" secondItem="NnB-te-p6A" secondAttribute="top" constant="9" id="ieD-ay-cb2"/>
                                                     <constraint firstItem="eel-Wq-lbk" firstAttribute="leading" secondItem="J9K-GH-A3s" secondAttribute="leading" constant="40" id="ivt-0T-V9n"/>
+                                                    <constraint firstItem="eMC-zJ-6jS" firstAttribute="trailing" secondItem="5XG-iu-ZvF" secondAttribute="trailing" id="nlr-2O-sO7"/>
                                                     <constraint firstItem="5XG-iu-ZvF" firstAttribute="top" secondItem="NnB-te-p6A" secondAttribute="top" constant="18" id="pSB-aD-AfL"/>
                                                     <constraint firstItem="vRS-12-qI7" firstAttribute="top" secondItem="NnB-te-p6A" secondAttribute="top" constant="4" id="riO-XN-d9u"/>
                                                     <constraint firstAttribute="bottom" secondItem="J8D-3O-e2V" secondAttribute="bottom" constant="9" id="tQt-ir-4UT"/>
@@ -113,6 +120,7 @@
                                                     <constraint firstItem="J8D-3O-e2V" firstAttribute="leading" secondItem="5XG-iu-ZvF" secondAttribute="leading" id="uhk-FJ-Wzn"/>
                                                     <constraint firstItem="jEY-JP-2Py" firstAttribute="centerX" secondItem="5XG-iu-ZvF" secondAttribute="centerX" id="x17-tJ-Uzt"/>
                                                     <constraint firstAttribute="bottom" secondItem="J9K-GH-A3s" secondAttribute="bottom" constant="9" id="yeI-fF-bCf"/>
+                                                    <constraint firstItem="eMC-zJ-6jS" firstAttribute="leading" secondItem="5XG-iu-ZvF" secondAttribute="leading" id="zTN-Xl-sDC"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -227,6 +235,7 @@
                         <outlet property="addBtn" destination="zDQ-8l-33X" id="OOR-Hn-4LM"/>
                         <outlet property="bodyImgView" destination="J8D-3O-e2V" id="FDB-Ji-FcQ"/>
                         <outlet property="bottomWingImgView" destination="UXi-Rp-ukA" id="2dB-tI-vkb"/>
+                        <outlet property="highlightContainerView" destination="eMC-zJ-6jS" id="zWb-w4-l6g"/>
                         <outlet property="noseImgView" destination="J9K-GH-A3s" id="ccB-GY-VHq"/>
                         <outlet property="planeLayoutBottomSeparatorView" destination="24K-SN-z1d" id="5ai-gN-Uz0"/>
                         <outlet property="planeLayoutCollView" destination="5XG-iu-ZvF" id="syC-NY-Mez"/>

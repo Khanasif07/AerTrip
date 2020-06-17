@@ -15,8 +15,10 @@ class SeatMapContainerVC: UIViewController {
     
     internal var viewModel = SeatMapContainerVM()
     internal var allChildVCs = [SeatMapVC]()
-    private var hidePlaneLayoutWorkItem: DispatchWorkItem?
     internal var didBeginDraggingPlaneLayout = false
+    
+    private var hidePlaneLayoutWorkItem: DispatchWorkItem?
+    private var highlightView: UIView?
     
     // Parchment View
     fileprivate var parchmentView : PagingViewController?
@@ -47,6 +49,8 @@ class SeatMapContainerVC: UIViewController {
     @IBOutlet weak var addBtn: UIButton!
     @IBOutlet weak var totalSeatAmountViewHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var highlightContainerView: UIView!
+    
     // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,10 +74,12 @@ class SeatMapContainerVC: UIViewController {
     private func initialSetup() {
         setupNavBar()
         setupViews()
+        addHighlightView()
         viewModel.delegate = self
         viewModel.fetchSeatMapData()
         setupPlaneLayoutCollView()
         planeLayoutScrollView.delegate = self
+        addPanToHighlightView()
     }
     
     func setViewModel(_ vm: SeatMapContainerVM) {
@@ -116,6 +122,12 @@ class SeatMapContainerVC: UIViewController {
         addBtn.setTitle(LocalizedString.Add.localized, for: .normal)
     }
     
+    private func addHighlightView() {
+        highlightView = UIView(frame: .zero)
+        highlightView?.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.1)
+        highlightContainerView.addSubview(highlightView!)
+    }
+    
     private func setUpViewPager() {
         self.allChildVCs.removeAll()
 
@@ -136,9 +148,10 @@ class SeatMapContainerVC: UIViewController {
                     self.setCurrentPlaneLayout()
                 }
             }
-            vc.onScrollViewScroll = { [weak self] in
+            vc.onScrollViewScroll = { [weak self] visibleRect in
                 guard let self = self else { return }
                 self.showPlaneLayoutView()
+                self.updateVisibleRectInLayout(visibleRect)
             }
             self.allChildVCs.append(vc)
         }
@@ -204,13 +217,13 @@ class SeatMapContainerVC: UIViewController {
         return imageString
     }
     
-    private func setCurrentPlaneLayout() {
-        if planeLayoutCollViewWidth.constant == planeLayoutCollView.contentSize.width + 5 {
+    internal func setCurrentPlaneLayout() {
+        if planeLayoutCollViewWidth.constant == planeLayoutCollView.contentSize.width {
             return
         }
         planeLayoutCollView.reloadData()
         UIView.animate(withDuration: 0.3, animations: {
-            self.planeLayoutCollViewWidth.constant = self.planeLayoutCollView.contentSize.width + 5
+            self.planeLayoutCollViewWidth.constant = self.planeLayoutCollView.contentSize.width
             self.planeLayoutScrollView.layoutIfNeeded()
         })
     }
@@ -242,6 +255,55 @@ class SeatMapContainerVC: UIViewController {
     }
 }
 
+// MARK: Highlight View Methods
+extension SeatMapContainerVC {
+    
+    /// updates highlighted view's frame
+    private func updateVisibleRectInLayout(_ visibleRect: SeatMapVC.visibleRectMultipliers) {
+        let rectForHighlightView = CGRect(x: highlightContainerView.width * visibleRect.xMul, y: highlightContainerView.height * visibleRect.yMul, width: highlightContainerView.width * visibleRect.widthMul, height: highlightContainerView.height * visibleRect.heightMul)
+        highlightView?.frame = rectForHighlightView
+    }
+    
+    /// adds pan gesture to highlighted view
+    private func addPanToHighlightView() {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(dragHighlightedView(_:)))
+        highlightView?.isUserInteractionEnabled = true
+        highlightView?.addGestureRecognizer(panGesture)
+    }
+    
+    @objc private func dragHighlightedView(_ sender: UIPanGestureRecognizer) {
+        guard let highlighterView = highlightView else { return }
+        let translation = sender.translation(in: highlightContainerView)
+        
+        highlightView?.center = CGPoint(x: highlighterView.center.x + translation.x, y: highlighterView.center.y + translation.y)
+        if highlighterView.origin.x < 0 {
+            highlightView?.origin.x = 0
+        }
+        if highlighterView.origin.y < 0 {
+            highlightView?.origin.y = 0
+        }
+        if highlighterView.frame.maxX > highlightContainerView.width {
+            highlightView?.origin.x = highlightContainerView.width - highlighterView.width
+        }
+        if highlighterView.frame.maxY > highlightContainerView.height {
+            highlightView?.origin.y = highlightContainerView.height - highlighterView.height
+        }
+        sender.setTranslation(.zero, in: highlightContainerView)
+        moveLegScrollViewToPoint(highlighterView.frame.origin.x, highlighterView.frame.origin.y > 0 ? highlighterView.frame.origin.y : 0)
+        showPlaneLayoutView()
+    }
+    
+    private func moveLegScrollViewToPoint(_ originX: CGFloat,_ originY: CGFloat) {
+        let xMul = originX / highlightContainerView.width
+        let yMul = originY / highlightContainerView.height
+        
+        if let seatMapCollView = allChildVCs[viewModel.currentIndex].seatMapCollView {
+            seatMapCollView.contentOffset = CGPoint(x: seatMapCollView.contentSize.width * xMul, y: seatMapCollView.contentSize.height * yMul)
+        }
+        
+    }
+}
+
 extension SeatMapContainerVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         allChildVCs.enumerated().forEach { (index, seatMapVC) in
@@ -256,43 +318,6 @@ extension SeatMapContainerVC: TopNavigationViewDelegate {
         dismiss(animated: true, completion: nil)
     }
     
-}
-
-extension SeatMapContainerVC: PagingViewControllerDataSource , PagingViewControllerDelegate ,PagingViewControllerSizeDelegate{
-    
-    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
-        
-        if let pagingIndexItem = pagingItem as? MenuItem{
-            let text = pagingIndexItem.attributedTitle
-            return (text?.size().width ?? 0) + 20
-        }
-        
-        return 100.0
-    }
-    
-    
-    func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
-        viewModel.allTabsStr.count
-    }
-    
-    func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
-        allChildVCs[index]
-    }
-    
-    func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
-        return MenuItem(title: "", index: index, isSelected:true, attributedTitle: viewModel.allTabsStr[index])
-    }
-    
-    func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
-        
-        if let pagingIndexItem = pagingItem as? MenuItem {
-            viewModel.currentIndex = pagingIndexItem.index
-            self.planeLayoutCollView.reloadData()
-            DispatchQueue.delay(0.5) {
-                self.setCurrentPlaneLayout()
-            }
-        }
-    }
 }
 
 extension SeatMapContainerVC: SeatMapContainerDelegate {
