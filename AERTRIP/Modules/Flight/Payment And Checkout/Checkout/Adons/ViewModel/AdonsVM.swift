@@ -24,7 +24,7 @@ class AdonsVM  {
     }
     
     struct AddonsData{
-        let heading : String
+        var heading : String
         var description : String
         var complementString : String
         var shouldShowComp : Bool
@@ -41,13 +41,8 @@ class AdonsVM  {
     }
     
     let adOnsTitles = [LocalizedString.Meals.localized, LocalizedString.Baggage.localized, LocalizedString.Seat.localized, LocalizedString.Others.localized]
-    
-   // let addOnsData : [(heading : String,desc : String,complement : String, shouldShowComp : Bool)] = [( LocalizedString.Meals.localized, "Choose a meal from the menu.","Complementary meal added Complementary meal added",true), ( LocalizedString.Baggage.localized, "Choose the extra baggage service and take everything you need Choose the extra baggage service and take everything you need Choose the extra baggage service and take everything you need.","Complementary meal added",false),( LocalizedString.Seat.localized, "Reserve a seat of your choice.","Free Seats Available",true),( LocalizedString.Others.localized, "Pre-book more services for a  convenient journey","Complementary meal added",false)]
-    
-//    var itineraryData = FlightItineraryData()
 
     var addonsData : [AddonsData] = []
-    
     var parmsForItinerary:JSONDictionary = [:]
     var afCount = 0
     weak var delegate : BookFlightDelegate?
@@ -65,8 +60,10 @@ class AdonsVM  {
             addonsData.append(AdonsVM.AddonsData(type: .meals, heading: LocalizedString.Meals.localized, description: LocalizedString.Choose_Meal.localized, complementString: "", shouldShowComp: false))
         }
            
-        if !flightsWithBaggage.isEmpty{
+        if !flightsWithBaggage.isEmpty {
+            
             addonsData.append(AdonsVM.AddonsData(type: .baggage, heading: LocalizedString.Baggage.localized, description: LocalizedString.Choose_Baggage.localized, complementString: "", shouldShowComp: false))
+            
         }
         
         addonsData.append(AdonsVM.AddonsData(type: .seat, heading: LocalizedString.Seat.localized, description: LocalizedString.Reserve_Seat.localized, complementString: "", shouldShowComp: false))
@@ -74,12 +71,13 @@ class AdonsVM  {
         if !flightsWithOthers.isEmpty{
             addonsData.append(AdonsVM.AddonsData(type: .otheres, heading: LocalizedString.Other.localized, description: LocalizedString.PreBook_Services.localized, complementString: "", shouldShowComp: false))
           }
+        
        }
     
     func getCellHeight(index : Int) -> CGFloat {
         
             let labelWidth = UIScreen.main.bounds.width - (16 + 104 + 19 + 46)
-                    
+        
              let headingHeight = addonsData[index].heading.getTextHeight(width: labelWidth,font: AppFonts.SemiBold.withSize(18),  numberOfLines: 1)
                      
              let descHeight = addonsData[index].description.getTextHeight(width: labelWidth,font: AppFonts.Regular.withSize(14),  numberOfLines: 2)
@@ -100,11 +98,63 @@ class AdonsVM  {
     }
     
     func getSeatMapContainerVM() -> SeatMapContainerVM {
-        
         let viewModel = SeatMapContainerVM(AddonsDataStore.shared.itinerary.sid, AddonsDataStore.shared.itinerary.id, AddonsDataStore.shared.itinerary.details.fk)
         return viewModel
     }
     
+    func isBaggageSelected() -> Bool {
+        let dataStore = AddonsDataStore.shared
+        
+        var isBaggageSelected = false
+       
+        dataStore.flightsWithData.forEach { (flight) in
+            let baggages = flight.bags.addonsArray.filter { !$0.bagageSelectedFor.isEmpty }
+            if !isBaggageSelected{
+                isBaggageSelected = !baggages.isEmpty
+            }
+        }
+        
+        return isBaggageSelected
+    }
+    
+    func setBaggageStrings()  {
+        
+        let dataStore = AddonsDataStore.shared
+        
+        var baggageStr = ""
+        var description = ""
+        
+        if self.isBaggageSelected() {
+            dataStore.flightsWithData.forEach { (flight) in
+                let baggages = flight.bags.addonsArray.filter { !$0.bagageSelectedFor.isEmpty }
+                 baggages.forEach { (bag) in
+                    bag.bagageSelectedFor.forEach { (passenger) in
+                        let saperatedArray = bag.ssrName?.name.components(separatedBy: "Kgs")
+                        guard let firstKg = saperatedArray?.first else { return }
+                        baggageStr += "\(firstKg), "
+                        guard let desc = bag.ssrName?.name else { return }
+                        description += "\(desc), "
+                    }
+                 }
+             }
+        }
+        
+        if baggageStr.isEmpty {
+           baggageStr = LocalizedString.Baggage.localized + " "
+        }
+        
+        if description.isEmpty {
+            description = LocalizedString.Choose_Baggage.localized
+        }
+        
+        if let ind = self.addonsData.firstIndex(where: { (addonsData) -> Bool in
+            return addonsData.addonsType == .baggage
+        }){
+            self.addonsData[ind].heading = baggageStr
+            self.addonsData[ind].description = description
+
+        }
+    }
     
     func createParamForItineraryApi(){
         let dataStore = AddonsDataStore.shared
@@ -158,7 +208,6 @@ class AdonsVM  {
 //         }
 //     }
      
-    
     func checkForMeals() {
         let dataStore = AddonsDataStore.shared
         dataStore.flightsWithData.forEach { (flight) in
@@ -197,7 +246,6 @@ class AdonsVM  {
             }
         }
     }
-    
     
      private func checkForMealPreferences(id:String, passenger:ATContact){
          let meals = passenger.mealPreference.filter{!($0.preferenceCode.isEmpty)}

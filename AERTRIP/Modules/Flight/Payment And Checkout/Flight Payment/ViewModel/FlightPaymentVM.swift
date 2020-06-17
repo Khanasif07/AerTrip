@@ -69,12 +69,11 @@ class FlightPaymentVM{
         for ( key , _ ) in newDict {
             let dataArray = newDict[key]
             var newTaxVal = 0
-            for i in 0..<dataArray!.count{
+            for i in 0..<dataArray!.count {
                 newTaxVal += (dataArray?[i].taxVal ?? 0)
             }
             let newArr = (key,newTaxVal)
             taxAndFeesData.append(newArr)
-            
         }
         self.addonsDataDisplay()
         self.discountDataDisplay()

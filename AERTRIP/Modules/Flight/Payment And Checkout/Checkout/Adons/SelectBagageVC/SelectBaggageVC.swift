@@ -25,9 +25,9 @@ class SelectBaggageVC: UIViewController {
           
     }
       
-    func setupTexts() {
+     func setupTexts() {
           
-      }
+     }
       
     func setupColors() {
           
@@ -63,7 +63,6 @@ extension SelectBaggageVC {
     
 }
 
-
 extension SelectBaggageVC : UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -98,13 +97,13 @@ extension SelectBaggageVC : UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SelectBagageCell", for: indexPath) as? SelectBagageCell else { fatalError("SelectBagageCell not found") }
         
         let cellData = self.selectBaggageVM.sagrigatedData[indexPath.section]
-        
         cell.populateData(data: cellData?[indexPath.row] ?? AddonsDataCustom(), index: indexPath.row)
             return cell
+        
         }
                 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       let cellData = self.selectBaggageVM.sagrigatedData[indexPath.section]
-        self.delegate?.addPassengerToBaggage(forAdon: cellData?[indexPath.row] ?? AddonsDataCustom(), vcIndex: self.selectBaggageVM.getVcIndex(), currentFlightKey: self.selectBaggageVM.getCurrentFlightKey(), baggageIndex: indexPath.row, selectedContacts: self.selectBaggageVM.getBaggage()[indexPath.row].bagageSelectedFor)
+        guard let cellData = self.selectBaggageVM.sagrigatedData[indexPath.section] else { return }
+        self.delegate?.addPassengerToBaggage(forAdon: cellData[indexPath.row], vcIndex: self.selectBaggageVM.getVcIndex(), currentFlightKey: self.selectBaggageVM.getCurrentFlightKey(), baggageIndex: indexPath.row, selectedContacts: cellData[indexPath.row].bagageSelectedFor)
     }
 }

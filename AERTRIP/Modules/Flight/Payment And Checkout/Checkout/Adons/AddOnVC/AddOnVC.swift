@@ -8,6 +8,13 @@
 
 import UIKit
 
+protocol AddonsUpdatedDelegate : class {
+    func baggageUpdated()
+    func mealsUpdated()
+    func othersUpdated()
+    func seatsUpdated()
+}
+
 class AddOnVC : BaseVC {
     
     @IBOutlet weak var topNavView: TopNavigationView!
@@ -156,6 +163,7 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
         case .baggage:
             let vc = BaggageContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
             vc.modalPresentationStyle = .overFullScreen
+            vc.delegate = self
             present(vc, animated: true, completion: nil)
             
         case .seat:
@@ -197,6 +205,28 @@ extension AddOnVC : BookFlightDelegate {
     
     func failedToBookBlight(){
         AppGlobals.shared.stopLoading()
+    }
+    
+}
+
+
+extension AddOnVC : AddonsUpdatedDelegate {
+    
+    func baggageUpdated() {
+        self.adonsVm.setBaggageStrings()
+        self.adonsTableView.reloadData()
+    }
+    
+    func mealsUpdated() {
+        
+    }
+    
+    func othersUpdated() {
+        
+    }
+    
+    func seatsUpdated() {
+        
     }
     
 }
