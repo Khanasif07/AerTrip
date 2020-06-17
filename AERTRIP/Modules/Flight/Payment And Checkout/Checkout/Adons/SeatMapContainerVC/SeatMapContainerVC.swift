@@ -27,6 +27,8 @@ class SeatMapContainerVC: UIViewController {
     @IBOutlet weak var seatMapContainerView: UIView!
     
     @IBOutlet weak var planeLayoutView: UIView!
+    @IBOutlet weak var planeLayoutTopSeparatorView: UIView!
+    @IBOutlet weak var planeLayoutBottomSeparatorView: UIView!
     @IBOutlet weak var planeLayoutScrollView: UIScrollView!
     @IBOutlet weak var planeLayoutScrollContentView: UIView!
     @IBOutlet weak var planeShadowView: UIView!
@@ -37,6 +39,13 @@ class SeatMapContainerVC: UIViewController {
     @IBOutlet weak var tailImgView: UIImageView!
     @IBOutlet weak var planeLayoutCollView: UICollectionView!
     @IBOutlet weak var planeLayoutCollViewWidth: NSLayoutConstraint!
+    
+    @IBOutlet weak var totalSeatAmountView: UIView!
+    @IBOutlet weak var totalSeatAmountTopSeparatorView: UIView!
+    @IBOutlet weak var seatTotalTitleLbl: UILabel!
+    @IBOutlet weak var seatTotalLbl: UILabel!
+    @IBOutlet weak var addBtn: UIButton!
+    @IBOutlet weak var totalSeatAmountViewHeight: NSLayoutConstraint!
     
     // MARK: View Life Cycle
     override func viewDidLoad() {
@@ -52,10 +61,15 @@ class SeatMapContainerVC: UIViewController {
     
     // MARK: IBActions
     
+    @IBAction func addBtnAction(_ sender: UIButton) {
+        
+    }
+    
     // MARK: Functions
     
     private func initialSetup() {
         setupNavBar()
+        setupViews()
         viewModel.delegate = self
         viewModel.fetchSeatMapData()
         setupPlaneLayoutCollView()
@@ -88,14 +102,35 @@ class SeatMapContainerVC: UIViewController {
         topNavBarView.delegate = self
     }
     
+    private func setupViews() {
+        planeLayoutTopSeparatorView.backgroundColor = AppColors.themeGray20
+        planeLayoutBottomSeparatorView.backgroundColor = AppColors.themeGray20
+        totalSeatAmountTopSeparatorView.backgroundColor = AppColors.themeGray20
+        seatTotalTitleLbl.text = LocalizedString.seatTotal.localized
+        seatTotalTitleLbl.font = AppFonts.Regular.withSize(12)
+        seatTotalTitleLbl.textColor = AppColors.themeGray60
+        seatTotalLbl.font = AppFonts.SemiBold.withSize(19)
+        seatTotalLbl.text = "₹ 0"
+        addBtn.titleLabel?.font = AppFonts.SemiBold.withSize(20)
+        addBtn.setTitleColor(AppColors.themeGreen, for: .normal)
+        addBtn.setTitle(LocalizedString.Add.localized, for: .normal)
+    }
+    
     private func setUpViewPager() {
         self.allChildVCs.removeAll()
 
         for index in 0..<viewModel.allTabsStr.count {
             let vc = SeatMapVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
             vc.setFlightData(viewModel.allFlightsData[index])
-            vc.onReloadPlaneLayoutCall = { [weak self] in
+            vc.onReloadPlaneLayoutCall = { [weak self] updatedFlightData in
                 guard let self = self else { return }
+                if let flightData = updatedFlightData {
+                    self.viewModel.allFlightsData[index] = flightData
+                    self.viewModel.getSeatTotal { [weak self] (seatTotal) in
+                        guard let self = self else { return }
+                        self.seatTotalLbl.text = "₹ \(seatTotal)"
+                    }
+                }
                 self.planeLayoutCollView.reloadData()
                 DispatchQueue.delay(0.5) {
                     self.setCurrentPlaneLayout()
@@ -145,7 +180,6 @@ class SeatMapContainerVC: UIViewController {
         self.parchmentView?.menuBackgroundColor = UIColor.clear
         self.parchmentView?.collectionView.backgroundColor = UIColor.clear
         self.parchmentView?.contentInteraction = .none
-        
     }
     
     private func createAttHeaderTitle(_ origin: String,_ destination: String) -> NSAttributedString {

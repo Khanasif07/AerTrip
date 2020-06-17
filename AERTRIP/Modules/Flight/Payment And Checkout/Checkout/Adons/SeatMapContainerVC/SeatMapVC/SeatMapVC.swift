@@ -11,10 +11,10 @@ import UIKit
 class SeatMapVC: UIViewController {
 
     // MARK: Properties
-    
+        
     internal let viewModel = SeatMapVM()
     
-    var onReloadPlaneLayoutCall: (() -> ())?
+    var onReloadPlaneLayoutCall: ((SeatMapModel.SeatMapFlight?) -> ())?
     var onScrollViewScroll: (() -> ())?
     
     // MARK: IBOutlets
@@ -95,6 +95,6 @@ class SeatMapVC: UIViewController {
         }
         seatMapCollView.reloadData()
         seatMapCollView.scrollRectToVisible(CGRect(origin: .zero, size: seatMapCollView.size), animated: true)
-        onReloadPlaneLayoutCall?()
+        onReloadPlaneLayoutCall?(nil)
     }
 }
