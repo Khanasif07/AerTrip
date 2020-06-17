@@ -134,7 +134,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
             self.bedDiscriptionLabel.isHidden = false
             self.bedDiscriptionLabel.text = roomData.name + " " + roomData.desc
             self.deviderView.isHidden = true
-            self.mainStackView.spacing = 3
+            self.mainStackView.spacing = 1
         }
         if let roomBedsTypes = roomData.roomBedTypes {
             for bedType in roomBedsTypes {

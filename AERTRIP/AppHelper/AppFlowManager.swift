@@ -995,7 +995,7 @@ extension AppFlowManager {
         let ob = BookingHotelDetailVC.instantiate(fromAppStoryboard: .Bookings)
         ob.viewModel.bookingDetail = bookingDetail
         ob.viewModel.hotelTitle = hotelTitle
-        self.mainNavigationController.pushViewController(ob, animated: true)
+        self.currentNavigation?.pushViewController(ob, animated: true)
     }
     
     func presentPolicyVC(_ usingForVC: VCUsingFor, bookingDetail: BookingDetailModel?) {

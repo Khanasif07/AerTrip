@@ -78,7 +78,7 @@
                                                     <constraint firstAttribute="width" secondItem="Vmz-jO-i7m" secondAttribute="height" multiplier="1:1" id="ply-RB-8vr"/>
                                                 </constraints>
                                                 <connections>
-                                                    <action selector="linkedInButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="uRx-JL-5Hs"/>
+                                                    <action selector="instagramButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="MJy-ee-OBE"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -178,7 +178,7 @@
                 <outlet property="containerView" destination="FlB-gh-hoz" id="hNK-bm-vNi"/>
                 <outlet property="dividerView" destination="Mo2-Zz-dI2" id="pL9-Na-0F5"/>
                 <outlet property="fbButton" destination="Err-8A-mDh" id="2X9-Pf-hqH"/>
-                <outlet property="linkdInButton" destination="Vmz-jO-i7m" id="ZQz-Ks-aIJ"/>
+                <outlet property="instagramButton" destination="Vmz-jO-i7m" id="isi-Sg-x3V"/>
                 <outlet property="pageControl" destination="5ub-hp-9qV" id="eZl-w2-PzB"/>
                 <outlet property="tellYourPlanLabel" destination="7Ur-1G-zdh" id="b5o-fj-7eu"/>
                 <outlet property="twitterButton" destination="JqO-wt-HYh" id="WKD-xE-sY2"/>

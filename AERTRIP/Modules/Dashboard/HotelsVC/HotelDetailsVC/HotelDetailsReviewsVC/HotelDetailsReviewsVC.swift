@@ -294,7 +294,7 @@ extension HotelDetailsReviewsVC {
     
     internal func getTripAdviserReviewsCell(_ tableView: UITableView, indexPath: IndexPath,tripAdviserDetails: HotelDetailsReviewsModel) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewTableViewCell", for: indexPath) as? ReviewTableViewCell else { return UITableViewCell() }
-        if let currentReview = tripAdviserDetails.reviewRatingCount[self.getReverseNumber(row: indexPath.row)] as? String {
+        if var currentReview = tripAdviserDetails.reviewRatingCount[self.getReverseNumber(row: indexPath.row)] as? String {
             cell.configCell(title: self.ratingNames[indexPath.row] ,totalNumbReviews: tripAdviserDetails.numReviews, currentReviews: currentReview)
             if indexPath.row == ratingNames.count - 1 {
                 cell.progressViewBottomConstraints.constant = 17
@@ -307,6 +307,17 @@ extension HotelDetailsReviewsVC {
             } else {
                 cell.progressViewTopConstraint.constant = 7
             }
+            var minWidth:CGFloat = 20
+            for (_, value) in tripAdviserDetails.reviewRatingCount {
+                if let review = value as? String {
+                    let size = AppGlobals.shared.getTextWidthAndHeight(text: (review.toDouble ?? 0.0).formatedCount(), fontName: AppFonts.Regular.withSize(18.0))
+                    if size.width > minWidth {
+                        minWidth = size.width
+                    }
+                }
+            }
+            cell.noOfReviewsWidthContraint.constant = minWidth
+            
         }
         return cell
     }

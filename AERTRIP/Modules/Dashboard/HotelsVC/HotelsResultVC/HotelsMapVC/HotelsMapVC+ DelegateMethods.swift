@@ -350,6 +350,11 @@ extension HotelsMapVC: SectionFooterDelegate {
 // MARK: - Hotel filter Delegate methods
 
 extension HotelsMapVC: HotelFilteVCDelegate {
+    
+    func collectionViewContentOffset(offsetX: CGFloat) {
+        
+    }
+    
     func clearAllButtonTapped() {
         self.viewModel.fetchRequestType = .normal
         self.filterButton.isSelected = false

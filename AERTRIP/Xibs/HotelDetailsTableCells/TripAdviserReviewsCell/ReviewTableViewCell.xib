@@ -34,10 +34,10 @@
                             <constraint firstAttribute="width" constant="200" id="l78-yH-KIV"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28732" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13U-pN-sHR">
-                        <rect key="frame" x="323" y="6" width="40" height="22"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="28732" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="13U-pN-sHR">
+                        <rect key="frame" x="319" y="6" width="40" height="22"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="40" id="mf5-S6-17N"/>
+                            <constraint firstAttribute="width" constant="60" id="mf5-S6-17N"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                         <nil key="textColor"/>
@@ -57,6 +57,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="noOfReviewsWidthContraint" destination="mf5-S6-17N" id="WEv-mD-E8J"/>
                 <outlet property="numbOfReviews" destination="13U-pN-sHR" id="cBY-rO-RfK"/>
                 <outlet property="progressBarView" destination="MN7-hV-eqM" id="Jee-a6-U7P"/>
                 <outlet property="progressViewBottomConstraints" destination="gej-jZ-JtC" id="1f3-ng-nfb"/>

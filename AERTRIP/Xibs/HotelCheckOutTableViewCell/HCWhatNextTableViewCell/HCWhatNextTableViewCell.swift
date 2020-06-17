@@ -11,7 +11,7 @@ import UIKit
 protocol HCWhatNextTableViewCellDelegate: class {
     func shareOnFaceBook()
     func shareOnTwitter()
-    func shareOnLinkdIn()
+    func shareOnInstagram()
 }
 
 class HCWhatNextTableViewCell: UITableViewCell {
@@ -33,7 +33,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
     @IBOutlet weak var tellYourPlanLabel: UILabel!
     @IBOutlet weak var fbButton: UIButton!
     @IBOutlet weak var twitterButton: UIButton!
-    @IBOutlet weak var linkdInButton: UIButton!
+    @IBOutlet weak var instagramButton: UIButton!
     @IBOutlet weak var whatNext: UILabel!
     @IBOutlet weak var whatNextCollectionView: UICollectionView! {
         didSet {
@@ -67,13 +67,15 @@ class HCWhatNextTableViewCell: UITableViewCell {
         self.containerView.backgroundColor = AppColors.screensBackground.color
         self.fbButton.addShadow(cornerRadius: self.fbButton.frame.size.height / 2.0, maskedCorners: [.layerMinXMaxYCorner,.layerMaxXMinYCorner,.layerMaxXMaxYCorner,.layerMinXMinYCorner], color: AppColors.fbButtonBackgroundColor.withAlphaComponent(0.3), offset: CGSize.init(width: 0.0, height: 3.0), opacity: 1.0, shadowRadius: 5.0)
         self.twitterButton.addShadow(cornerRadius: self.fbButton.frame.size.height / 2.0, maskedCorners: [.layerMinXMaxYCorner,.layerMaxXMinYCorner,.layerMaxXMaxYCorner,.layerMinXMinYCorner], color: AppColors.twitterBackgroundColor.withAlphaComponent(0.3), offset: CGSize.init(width: 0.0, height: 3.0), opacity: 1.0, shadowRadius: 5.0)
-        self.linkdInButton.addShadow(cornerRadius: self.fbButton.frame.size.height / 2.0, maskedCorners: [.layerMinXMaxYCorner,.layerMaxXMinYCorner,.layerMaxXMaxYCorner,.layerMinXMinYCorner], color: AppColors.linkedinButtonBackgroundColor.withAlphaComponent(0.3), offset: CGSize.init(width: 0.0, height: 3.0), opacity: 1.0, shadowRadius: 5.0)
+        self.instagramButton.addShadow(cornerRadius: self.fbButton.frame.size.height / 2.0, maskedCorners: [.layerMinXMaxYCorner,.layerMaxXMinYCorner,.layerMaxXMaxYCorner,.layerMinXMinYCorner], color: UIColor(red: 251/255, green: 57/255, blue: 88/255, alpha: 1.0).withAlphaComponent(0.3), offset: CGSize.init(width: 0.0, height: 3.0), opacity: 1.0, shadowRadius: 5.0)
         //Image
         self.fbButton.setImage(#imageLiteral(resourceName: "fbIconWhite").withRenderingMode(.alwaysTemplate), for: .normal)
         self.fbButton.tintColor = AppColors.themeWhite
         self.twitterButton.setImage(#imageLiteral(resourceName: "twiterIcon").withRenderingMode(.alwaysTemplate), for: .normal)
         self.twitterButton.tintColor = AppColors.themeWhite
-        self.linkdInButton.setImage(#imageLiteral(resourceName: "linkedInIcon"), for: .normal)
+        self.instagramButton.setImage(#imageLiteral(resourceName: "instagram"), for: .normal)
+        self.instagramButton.tintColor = AppColors.themeWhite
+
         //Font
         self.tellYourPlanLabel.font = AppFonts.Regular.withSize(16.0)
         self.whatNext.font = AppFonts.SemiBold.withSize(28.0)
@@ -85,10 +87,17 @@ class HCWhatNextTableViewCell: UITableViewCell {
         self.whatNext.textColor = AppColors.themeGray40
         self.fbButton.backgroundColor = AppColors.fbButtonBackgroundColor
         self.twitterButton.backgroundColor = AppColors.twitterBackgroundColor
-        self.linkdInButton.backgroundColor = AppColors.linkedinButtonBackgroundColor
+        self.instagramButton.backgroundColor = AppColors.linkedinButtonBackgroundColor
         self.whatNextCollectionView.registerCell(nibName: HCWhatNextCollectionViewCell.reusableIdentifier)
         self.flowLayOut()
     }
+//    [UIColor(red: 156/255, green: 39/255, blue: 176/255, alpha: 1.0),
+//    UIColor(red: 255/255, green: 64/255, blue: 129/255, alpha: 1.0),
+//    UIColor(red: 123/255, green: 31/255, blue: 162/255, alpha: 1.0),
+//    UIColor(red: 32/255, green: 76/255, blue: 255/255, alpha: 1.0),
+//    UIColor(red: 32/255, green: 158/255, blue: 255/255, alpha: 1.0),
+//    UIColor(red: 90/255, green: 120/255, blue: 127/255, alpha: 1.0),
+//    UIColor(red: 58/255, green: 255/255, blue: 217/255, alpha: 1.0)]
     
     ///COnfigure Cell
     internal func configCell(whatNextString: [String]) {
@@ -120,8 +129,8 @@ class HCWhatNextTableViewCell: UITableViewCell {
         self.delegate?.shareOnTwitter()
     }
     
-    @IBAction func linkedInButtonAction(_ sender: UIButton) {
-        self.delegate?.shareOnLinkdIn()
+    @IBAction func instagramButtonAction(_ sender: UIButton) {
+        self.delegate?.shareOnInstagram()
     }
 }
 

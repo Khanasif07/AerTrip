@@ -105,7 +105,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="45" height="50"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
-                                    <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HBR-m0-LGF">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HBR-m0-LGF" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="51.666666666666671" width="45" height="0.3333333333333357"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -228,16 +228,16 @@
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search Results Range" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mAo-am-rnj">
-                                                    <rect key="frame" x="16" y="12.000000000000002" width="158.33333333333334" height="18.666666666666671"/>
+                                                    <rect key="frame" x="16" y="11.999999999999998" width="142.33333333333334" height="20.333333333333329"/>
                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VZV-bc-qkk">
-                                                    <rect key="frame" x="270" y="45" width="128" height="31"/>
+                                                    <rect key="frame" x="279" y="45" width="119" height="31"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beyond 20km" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KKT-ia-9CU">
-                                                            <rect key="frame" x="8" y="0.0" width="112" height="31"/>
+                                                            <rect key="frame" x="8" y="0.0" width="103" height="31"/>
                                                             <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>

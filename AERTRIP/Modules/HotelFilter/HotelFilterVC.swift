@@ -12,7 +12,8 @@ import Parchment
 protocol HotelFilteVCDelegate: class {
     func doneButtonTapped()
     func clearAllButtonTapped()
-    
+    func collectionViewContentOffset(offsetX: CGFloat)
+
 }
 
 class HotelFilterVC: BaseVC {
@@ -228,6 +229,7 @@ class HotelFilterVC: BaseVC {
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
+        self.parchmentView?.borderColor = AppColors.divider.color
         self.dataContainerView.addSubview(self.parchmentView!.view)
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
@@ -248,7 +250,11 @@ class HotelFilterVC: BaseVC {
             
             switch tab.lowercased() {
             case LocalizedString.Sort.localized.lowercased():
-                filtersTabs[idx].isSelected = (HotelFilterVM.shared.sortUsing == HotelFilterVM.shared.defaultSortUsing) ? true : false
+                if HotelFilterVM.shared.isFilterAppliedForDestinetionFlow {
+                    filtersTabs[idx].isSelected = (HotelFilterVM.shared.sortUsing == .DistanceNearestFirst(ascending: true)) ? true : false
+                } else {
+                    filtersTabs[idx].isSelected = (HotelFilterVM.shared.sortUsing == HotelFilterVM.shared.defaultSortUsing) ? true : false
+                }
                 
             case LocalizedString.Range.localized.lowercased():
                 filtersTabs[idx].isSelected  = (HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange) ? true : false
@@ -314,11 +320,9 @@ class HotelFilterVC: BaseVC {
 //        if UserInfo.hotelFilter == nil {
 //            HotelFilterVM.shared.lastSelectedIndex = 0
 //        }
-//        if let indexPath = self.parchmentView?.collectionView.centerCellIndexPath {
-//            HotelFilterVM.shared.lastSelectedIndex = indexPath.item
-//        }
         HotelFilterVM.shared.saveDataToUserDefaults()
         delegate?.doneButtonTapped()
+        delegate?.collectionViewContentOffset(offsetX: self.parchmentView?.collectionView.contentOffset.x ?? 0)
     }
     
     // MARK: - IB Action
