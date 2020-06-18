@@ -19,7 +19,7 @@ class PostBookingFlightInfoVC: BaseVC {
     let headerViewIdentifier = "BookingInfoHeaderView"
     let footerViewIdentifier = "BookingInfoEmptyFooterView"
     //let fareInfoHeaderViewIdentifier = "FareInfoHeaderView"
-    let viewModel = BookingDetailVM()
+    let viewModel = PostBookingFlightDetailsVM()
     
     override func initialSetup() {
         self.view.layoutIfNeeded()

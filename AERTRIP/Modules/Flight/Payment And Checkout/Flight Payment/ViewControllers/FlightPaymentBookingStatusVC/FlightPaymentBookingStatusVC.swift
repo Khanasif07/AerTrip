@@ -143,7 +143,28 @@ extension FlightPaymentBookingStatusVC: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail,tripCities: self.viewModel.itinerary.city,legSectionTap: indexPath.section - self.viewModel.noOfLegCellAboveLeg)
+        if indexPath.section != 0 && (indexPath.section < (self.viewModel.sectionData.count - 1)){
+            let tripCities = (self.viewModel.bookingObject?.titleString.mutableCopy() as? NSMutableAttributedString) ?? NSMutableAttributedString(string: "")
+            var bookingModel:BookingDetailModel?
+            if (indexPath.section - 1) < self.viewModel.bookingDetail.count{
+                if let booking = self.viewModel.bookingDetail[indexPath.section - 1]{
+                    bookingModel = booking
+                }else{
+                    return
+                }
+            }else{
+                if let booking = self.viewModel.bookingDetail.first{
+                    bookingModel = booking
+                }else{
+                    return
+                }
+            }
+            let ob = PostBookingFlightDetailsVC.instantiate(fromAppStoryboard: .FlightPayment)
+            ob.viewModel.bookingDetail = bookingModel
+            ob.viewModel.tripStr = tripCities
+            ob.viewModel.legSectionTap = (indexPath.section - 1)
+            self.navigationController?.pushViewController(ob, animated: true)
+        }
     }
     
 }
@@ -158,7 +179,7 @@ extension FlightPaymentBookingStatusVC: FlightPaymentBookingStatusVMDelegate{
     }
     
     func getBookingDetailFaiure(error: ErrorCodes) {
-        
+        AppGlobals.shared.stopLoading()
     }
     
     

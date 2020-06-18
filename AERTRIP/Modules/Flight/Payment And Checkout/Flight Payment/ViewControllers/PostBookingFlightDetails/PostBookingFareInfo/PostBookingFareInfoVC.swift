@@ -18,7 +18,7 @@ class PostBookingFareInfoVC: BaseVC {
     let headerViewIdentifier = "BookingInfoHeaderView"
     let footerViewIdentifier = "BookingInfoEmptyFooterView"
     let fareInfoHeaderViewIdentifier = "FareInfoHeaderView"
-    let viewModel = BookingDetailVM()
+    let viewModel = PostBookingFlightDetailsVM()
     
     override func initialSetup() {
         self.view.layoutIfNeeded()
@@ -26,9 +26,11 @@ class PostBookingFareInfoVC: BaseVC {
         self.tableView.delegate = self
         self.registerXib()
         delay(seconds: 0.3) { [weak self] in
-            self?.tableView.scrollToRow(at: IndexPath(row: 0, section: self?.viewModel.legSectionTap ?? 0), at: .top, animated: false)
+            let sec = self?.viewModel.legSectionTap ?? 0
+            let row = (self?.tableView.numberOfRows(inSection: sec) ?? 0)
+            guard (sec < self?.tableView.numberOfSections ?? 0) && (row > 0) else {return}
+            self?.tableView.scrollToRow(at: IndexPath(row: 0, section: sec), at: .top, animated: false)
         }
-        //        self.tableView.backgroundColor = AppColors.themeWhite
         self.viewModel.getBookingFees()
     }
     
@@ -50,7 +52,7 @@ class PostBookingFareInfoVC: BaseVC {
         self.tableView.register(UINib(nibName: self.footerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.footerViewIdentifier)
         self.tableView.registerCell(nibName: FareInfoNoteTableViewCell.reusableIdentifier)
         self.tableView.registerCell(nibName: EmptyDividerViewCellTableViewCell.reusableIdentifier)
-        self.tableView.registerCell(nibName: BookingInfoCommonCell.reusableIdentifier)
+        self.tableView.registerCell(nibName: PostBookingShareCell.reusableIdentifier)
         self.tableView.registerCell(nibName: NightStateTableViewCell.reusableIdentifier)
         self.tableView.registerCell(nibName: FlightInfoTableViewCell.reusableIdentifier)
         
@@ -135,12 +137,11 @@ extension PostBookingFareInfoVC {
     }
     
     func getFeeDetailsCell(indexPath: IndexPath, type: String, aerlineFee: Int, aertripFee: Int) -> UITableViewCell {
-        guard let commonCell = self.tableView.dequeueReusableCell(withIdentifier: "BookingInfoCommonCell") as? BookingInfoCommonCell else {
-            fatalError("BookingInfoCommonCell not found")
+        guard let commonCell = self.tableView.dequeueReusableCell(withIdentifier: "PostBookingShareCell") as? PostBookingShareCell else {
+            fatalError("PostBookingShareCell not found")
         }
         
         commonCell.rightLabel.font = AppFonts.Regular.withSize(16.0)
-        
         commonCell.leftLabel.text = type
         let final = aerlineFee.toDouble.amountInDelimeterWithSymbol + " + " + aertripFee.toDouble.amountInDelimeterWithSymbol
         commonCell.rightLabel.attributedText = final.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
@@ -148,12 +149,11 @@ extension PostBookingFareInfoVC {
     }
     
     func getFeeTitleCell(indexPath: IndexPath, type: String, aerline: String, aertrip: String) -> UITableViewCell {
-        guard let commonCell = self.tableView.dequeueReusableCell(withIdentifier: "BookingInfoCommonCell") as? BookingInfoCommonCell else {
-            fatalError("BookingInfoCommonCell not found")
+        guard let commonCell = self.tableView.dequeueReusableCell(withIdentifier: "PostBookingShareCell") as? PostBookingShareCell else {
+            fatalError("PostBookingShareCell not found")
         }
 
         commonCell.rightLabel.font = AppFonts.SemiBold.withSize(16.0)
-
         commonCell.leftLabel.text = type
         commonCell.rightLabel.text =  aerline + " + " + aertrip
         return commonCell
@@ -345,12 +345,14 @@ extension PostBookingFareInfoVC {
             
         case 2:
             // cancelation
+            guard self.viewModel.bookingFee.count > indexPath.section else {return finalCell}
             finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Cancellation", aerlineFee: self.viewModel.bookingFee[indexPath.section].aerlineCanCharges?.adult?.reduce(0, { (result, object) -> Int in
                 return result + (object.value ?? 0)
             }) ?? 0, aertripFee: self.viewModel.bookingFee[indexPath.section].aertripCanCharges?.adult ?? 0)
             
         case 3:
             // reschdule
+            guard self.viewModel.bookingFee.count > indexPath.section else {return finalCell}
             finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Rescheduling", aerlineFee: self.viewModel.bookingFee[indexPath.section].aerlineResCharges?.adult?.reduce(0, { (result, object) -> Int in
                 return result + (object.value ?? 0)
             }) ?? 0, aertripFee: self.viewModel.bookingFee[indexPath.section].aertripResCharges?.adult ?? 0)
@@ -502,7 +504,12 @@ extension PostBookingFareInfoVC: RouteFareInfoTableViewCellDelegate {
     func viewDetailsButtonTapped(_ sender: UIButton) {
         printDebug("View Details Button Tapped")
         if let indexPath = self.tableView.indexPath(forItem: sender) {
-            AppFlowManager.default.presentBookingFareInfoDetailVC(usingFor: .both, forBookingId: self.viewModel.bookingDetail?.id ?? "", legDetails: self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section], bookingFee: self.viewModel.bookingFee[indexPath.section])
+            let obj = BookingFareInfoDetailVC.instantiate(fromAppStoryboard: .Bookings)
+            obj.currentlyUsingAs = .both
+            obj.viewModel.bookingId = self.viewModel.bookingDetail?.id ?? ""
+            obj.viewModel.legDetails = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section]
+            obj.viewModel.bookingFee = self.viewModel.bookingFee[indexPath.section]
+            self.present(obj, animated: true)
         }
     }
 }
@@ -512,7 +519,12 @@ extension PostBookingFareInfoVC: RouteFareInfoTableViewCellDelegate {
 extension PostBookingFareInfoVC: FareInfoHeaderViewDelegate {
     func fareButtonTapped(_ sender: UIButton) {
         printDebug("fare info butto n tapped")
-        AppFlowManager.default.presentBookingFareInfoDetailVC(usingFor: .fareRules, forBookingId: self.viewModel.bookingDetail?.id ?? "", legDetails: self.viewModel.bookingDetail?.bookingDetail?.leg.first, bookingFee: self.viewModel.bookingFee.first)
+        let obj = BookingFareInfoDetailVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.currentlyUsingAs = .fareRules
+        obj.viewModel.bookingId = self.viewModel.bookingDetail?.id ?? ""
+        obj.viewModel.legDetails = self.viewModel.bookingDetail?.bookingDetail?.leg.first
+        obj.viewModel.bookingFee = self.viewModel.bookingFee.first
+        self.present(obj, animated: true)
     }
 }
 

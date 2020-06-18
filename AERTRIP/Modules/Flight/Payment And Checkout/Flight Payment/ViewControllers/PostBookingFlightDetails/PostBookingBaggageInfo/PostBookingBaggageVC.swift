@@ -18,7 +18,7 @@ class PostBookingBaggageVC: BaseVC {
     let headerViewIdentifier = "BookingInfoHeaderView"
     let footerViewIdentifier = "BookingInfoEmptyFooterView"
     //let fareInfoHeaderViewIdentifier = "FareInfoHeaderView"
-    let viewModel = BookingDetailVM()
+    let viewModel = PostBookingFlightDetailsVM()
     
     override func initialSetup() {
         self.view.layoutIfNeeded()
@@ -283,7 +283,9 @@ extension PostBookingBaggageVC: BaggageAirlineInfoTableViewCellDelegate {
         }
         
         if let obj = detail?.dimension {
-            AppFlowManager.default.presentBaggageInfoVC(dimension: obj)
+            let ob = BaggageInfoVC.instantiate(fromAppStoryboard: .Bookings)
+            ob.dimension = obj
+            self.navigationController?.present(ob, animated: true)
         }
     }
 }

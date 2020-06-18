@@ -133,7 +133,7 @@ extension HCWhatNextTableViewCell: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCWhatNextCollectionViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextCollectionViewCell else { return UICollectionViewCell() }
-//        cell.nextPlanLabel.text = self.nextPlanString[indexPath.row]
+        cell.nextPlanLabel.text = self.nextPlanString[indexPath.row]
         return cell
     }
     

@@ -24,13 +24,24 @@ class FlightPaymentBookingStatusVM{
     var sectionData: [[TableViewCellType]] = []
     var isSeatSettingAvailable = false
     weak var delegate:FlightPaymentBookingStatusVMDelegate?
-    var bookingDetail: BookingDetailModel?
+    var bookingDetail: [BookingDetailModel?] = []
     //Data For API And Details
-    var apiBookingId:String = ""
+    var apiBookingIds:[String] = []
+    var bookingObject:BookFlightObject?
     
     /* TableViewCellType Enum contains all tableview cell for YouAreAllDoneVC tableview */
     enum TableViewCellType {
         case  allDoneCell, eventSharedCell, carriersCell, legInfoCell,BookingPaymentCell, pnrStatusCell, totalChargeCell, confirmationHeaderCell,confirmationVoucherCell, whatNextCell
+    }
+    
+    func getBookingDetail(){
+        for i in 0..<self.apiBookingIds.count{
+            self.bookingDetail.append(nil)
+            self.getBookingDetails(self.apiBookingIds[i], index:i)
+            
+        }
+        
+        
     }
     
      func getSectionData(){
@@ -66,7 +77,7 @@ class FlightPaymentBookingStatusVM{
 
     func getBookingReceipt() {
         
-        let params: JSONDictionary = [APIKeys.booking_id.rawValue: self.apiBookingId, APIKeys.it_id.rawValue: itId]
+        let params: JSONDictionary = [APIKeys.booking_id.rawValue: self.apiBookingIds.joined(separator: ","), APIKeys.it_id.rawValue: itId]
         
         self.delegate?.willGetBookingReceipt()
         APICaller.shared.flightBookingReceiptAPI(params: params) { [weak self](success, errors, receiptData)  in
@@ -80,16 +91,20 @@ class FlightPaymentBookingStatusVM{
         }
     }
     
-    func getBookingDetail() {
-            let params: JSONDictionary = ["booking_id": apiBookingId]
+    func getBookingDetails(_ bookingId: String, index: Int) {
+            let params: JSONDictionary = ["booking_id": bookingId]
             delegate?.willGetBookingDetail()
             APICaller.shared.getBookingDetail(params: params) { [weak self] success, errors, bookingDetail in
                 guard let self = self else { return }
                 if success {
-                    self.bookingDetail = bookingDetail
-                    self.delegate?.getBookingDetailSucces()
+                    self.bookingDetail[index] = bookingDetail
+                    if index == (self.bookingDetail.count - 1){
+                        self.delegate?.getBookingDetailSucces()
+                    }
                 } else {
-                    self.delegate?.getBookingDetailFaiure(error: errors)
+                    if index == (self.bookingDetail.count - 1){
+                        self.delegate?.getBookingDetailFaiure(error: errors)
+                    }
                 }
             }
         }
