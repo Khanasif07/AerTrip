@@ -155,9 +155,9 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
         switch type {
             
         case .meals:
-            
             let vc = MealsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
             vc.modalPresentationStyle = .overFullScreen
+            vc.delegate = self
             present(vc, animated: true, completion: nil)
             
         case .baggage:
@@ -175,6 +175,7 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
         case .otheres:
             let vc = SelectOtherAdonsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
             vc.modalPresentationStyle = .overFullScreen
+            vc.delegate = self
             present(vc, animated: true, completion: nil)
             
         }
@@ -218,11 +219,13 @@ extension AddOnVC : AddonsUpdatedDelegate {
     }
     
     func mealsUpdated() {
-        
+        self.adonsVm.setMealsString()
+        self.adonsTableView.reloadData()
     }
     
     func othersUpdated() {
-        
+        self.adonsVm.setOthersString()
+        self.adonsTableView.reloadData()
     }
     
     func seatsUpdated() {

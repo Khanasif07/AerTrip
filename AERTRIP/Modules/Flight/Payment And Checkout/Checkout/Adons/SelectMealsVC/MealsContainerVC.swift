@@ -18,7 +18,7 @@ class MealsContainerVC: BaseVC {
     
     // MARK: Properties
     fileprivate var parchmentView : PagingViewController?
-    
+    weak var delegate : AddonsUpdatedDelegate?
     let mealsContainerVM = MealsContainerVM()
     
     // MARK: IBOutlets
@@ -73,6 +73,7 @@ class MealsContainerVC: BaseVC {
         for (index,item) in self.mealsContainerVM.allChildVCs.enumerated() {
             AddonsDataStore.shared.flightsWithData[index].meal = item.selectMealsVM.addonsDetails
         }
+        self.delegate?.mealsUpdated()
         self.dismiss(animated: true, completion: nil)
     }
 }

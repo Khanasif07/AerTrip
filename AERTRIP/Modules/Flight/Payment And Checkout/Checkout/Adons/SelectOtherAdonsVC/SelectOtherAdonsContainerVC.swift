@@ -18,7 +18,7 @@ class SelectOtherAdonsContainerVC: BaseVC {
     
     // MARK: Properties
     fileprivate var parchmentView : PagingViewController?
-
+    weak var delegate : AddonsUpdatedDelegate?
     let othersContainerVM = SelectOtherAdonsContainerVM()
 
     // MARK: IBOutlets
@@ -73,6 +73,7 @@ class SelectOtherAdonsContainerVC: BaseVC {
        for (index,item) in self.othersContainerVM.allChildVCs.enumerated() {
         AddonsDataStore.shared.flightsWithData[index].special = item.otherAdonsVm.addonsDetails
        }
+        self.delegate?.othersUpdated()
        self.dismiss(animated: true, completion: nil)
     }
     
