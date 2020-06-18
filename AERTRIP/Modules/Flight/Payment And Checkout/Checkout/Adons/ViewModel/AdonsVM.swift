@@ -339,6 +339,27 @@ class AdonsVM  {
         }
     }
     
+    private func checkForSelectedSeats() {
+        let dataStore = AddonsDataStore.shared
+        dataStore.seatsArray.forEach { (seatData) in
+            let passengerId = seatData.columnData.passenger?.id ?? ""
+            let seatNumber = seatData.columnData.ssrCode.replacingOccurrences(of: "-", with: "")
+            let priceStr = "\(seatData.columnData.amount)"
+            parmsForItinerary["apf[\(self.afCount)]"] = "\(seatData.lfk)|\(seatData.ffk)|\(passengerId)|addon|seatmap_ex|\(seatNumber)|\(priceStr)"
+            afCount += 1
+            
+            let seatStr = seatData.columnData.ssrCode.components(separatedBy: "-")
+            let rowStr = seatStr.first ?? ""
+            let columnStr = seatStr.last ?? ""
+            
+            let seatParamBaseStr = "seatmap[\(seatData.lfk)][\(seatData.ffk)][\(passengerId)]"
+            parmsForItinerary[seatParamBaseStr+"[row]"] = rowStr
+            parmsForItinerary[seatParamBaseStr+"[column]"] = columnStr
+            parmsForItinerary[seatParamBaseStr+"[price]"] = priceStr
+            parmsForItinerary[seatParamBaseStr+"[isOverwing]"] = "\(seatData.isWindowSeat)"
+        }
+    }
+    
     private func checkForMealPreferences(id:String, passenger:ATContact){
         let meals = passenger.mealPreference.filter{!($0.preferenceCode.isEmpty)}
         for meal in meals{
@@ -391,6 +412,7 @@ class AdonsVM  {
         self.checkForMeals()
         self.checkForBaggage()
         self.checkForOthers()
+        self.checkForSelectedSeats()
         
         APICaller.shared.getItineraryData(withAddons : true, params: self.parmsForItinerary, itId: AddonsDataStore.shared.itinerary.id) { (success, error, itinerary) in
             if success, let iteneraryData = itinerary{
@@ -403,7 +425,4 @@ class AdonsVM  {
         }
         
     }
-    
-    
-    
 }

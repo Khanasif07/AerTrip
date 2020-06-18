@@ -66,7 +66,8 @@ class SeatMapContainerVC: UIViewController {
     // MARK: IBActions
     
     @IBAction func addBtnAction(_ sender: UIButton) {
-        
+        AddonsDataStore.shared.seatsArray = viewModel.selectedSeats
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: Functions
