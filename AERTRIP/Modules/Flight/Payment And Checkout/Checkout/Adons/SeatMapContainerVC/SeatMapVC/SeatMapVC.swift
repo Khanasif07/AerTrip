@@ -11,7 +11,7 @@ import UIKit
 class SeatMapVC: UIViewController {
 
     // MARK: Properties
-    
+    typealias seatRelatedInfo = (rowStr: String, columnStr: String, seatData: SeatMapModel.SeatMapRow)
     typealias visibleRectMultipliers = (xMul: CGFloat, yMul: CGFloat, widthMul: CGFloat, heightMul: CGFloat)
         
     internal let viewModel = SeatMapVM()

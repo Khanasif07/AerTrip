@@ -66,7 +66,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5XG-iu-ZvF">
-                                                        <rect key="frame" x="134" y="18" width="150" height="64"/>
+                                                        <rect key="frame" x="134" y="20" width="150" height="60"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="150" id="zeB-N9-fha"/>
@@ -79,7 +79,7 @@
                                                         </collectionViewFlowLayout>
                                                         <cells>
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="4jy-qG-p58">
-                                                                <rect key="frame" x="0.0" y="7" width="50" height="50"/>
+                                                                <rect key="frame" x="0.0" y="5" width="50" height="50"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="KHV-dJ-APb">
                                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -96,10 +96,10 @@
                                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <constraints>
                                                     <constraint firstItem="eel-Wq-lbk" firstAttribute="trailing" secondItem="vRS-12-qI7" secondAttribute="trailing" constant="-30" id="076-9b-Wdw"/>
-                                                    <constraint firstItem="eMC-zJ-6jS" firstAttribute="bottom" secondItem="5XG-iu-ZvF" secondAttribute="bottom" id="0l3-Ij-fto"/>
+                                                    <constraint firstItem="eMC-zJ-6jS" firstAttribute="bottom" secondItem="5XG-iu-ZvF" secondAttribute="bottom" constant="2" id="0l3-Ij-fto"/>
                                                     <constraint firstItem="UXi-Rp-ukA" firstAttribute="trailing" secondItem="jEY-JP-2Py" secondAttribute="trailing" id="3Bv-AK-7YD"/>
-                                                    <constraint firstAttribute="bottom" secondItem="5XG-iu-ZvF" secondAttribute="bottom" constant="18" id="5Yr-rP-D0A"/>
-                                                    <constraint firstItem="eMC-zJ-6jS" firstAttribute="top" secondItem="5XG-iu-ZvF" secondAttribute="top" id="8WS-cd-QhF"/>
+                                                    <constraint firstAttribute="bottom" secondItem="5XG-iu-ZvF" secondAttribute="bottom" constant="20" id="5Yr-rP-D0A"/>
+                                                    <constraint firstItem="eMC-zJ-6jS" firstAttribute="top" secondItem="5XG-iu-ZvF" secondAttribute="top" constant="-2" id="8WS-cd-QhF"/>
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vRS-12-qI7" secondAttribute="trailing" constant="15" id="Jx4-f2-n3P"/>
                                                     <constraint firstItem="eel-Wq-lbk" firstAttribute="centerY" secondItem="J8D-3O-e2V" secondAttribute="centerY" id="LTu-Os-rJx"/>
                                                     <constraint firstItem="J8D-3O-e2V" firstAttribute="top" secondItem="jEY-JP-2Py" secondAttribute="bottom" constant="-1" id="OZ6-kQ-Vw3"/>
@@ -113,7 +113,7 @@
                                                     <constraint firstItem="J9K-GH-A3s" firstAttribute="top" secondItem="NnB-te-p6A" secondAttribute="top" constant="9" id="ieD-ay-cb2"/>
                                                     <constraint firstItem="eel-Wq-lbk" firstAttribute="leading" secondItem="J9K-GH-A3s" secondAttribute="leading" constant="40" id="ivt-0T-V9n"/>
                                                     <constraint firstItem="eMC-zJ-6jS" firstAttribute="trailing" secondItem="5XG-iu-ZvF" secondAttribute="trailing" id="nlr-2O-sO7"/>
-                                                    <constraint firstItem="5XG-iu-ZvF" firstAttribute="top" secondItem="NnB-te-p6A" secondAttribute="top" constant="18" id="pSB-aD-AfL"/>
+                                                    <constraint firstItem="5XG-iu-ZvF" firstAttribute="top" secondItem="NnB-te-p6A" secondAttribute="top" constant="20" id="pSB-aD-AfL"/>
                                                     <constraint firstItem="vRS-12-qI7" firstAttribute="top" secondItem="NnB-te-p6A" secondAttribute="top" constant="4" id="riO-XN-d9u"/>
                                                     <constraint firstAttribute="bottom" secondItem="J8D-3O-e2V" secondAttribute="bottom" constant="9" id="tQt-ir-4UT"/>
                                                     <constraint firstItem="J9K-GH-A3s" firstAttribute="leading" secondItem="NnB-te-p6A" secondAttribute="leading" id="uEa-py-m0I"/>

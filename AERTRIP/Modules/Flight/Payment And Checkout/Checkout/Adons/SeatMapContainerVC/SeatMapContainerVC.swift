@@ -262,6 +262,27 @@ extension SeatMapContainerVC {
     private func updateVisibleRectInLayout(_ visibleRect: SeatMapVC.visibleRectMultipliers) {
         let rectForHighlightView = CGRect(x: highlightContainerView.width * visibleRect.xMul, y: highlightContainerView.height * visibleRect.yMul, width: highlightContainerView.width * visibleRect.widthMul, height: highlightContainerView.height * visibleRect.heightMul)
         highlightView?.frame = rectForHighlightView
+        
+        // To scroll main layout scrollview to visible area
+        let convertedRectForHighlightView = highlightContainerView.convert(highlightView?.frame ?? .zero, to: planeLayoutScrollView)
+        
+        let convertedRectMaxXOffset = convertedRectForHighlightView.origin.x + convertedRectForHighlightView.width
+        let scrollViewMaxXOffset = planeLayoutScrollView.contentOffset.x + planeLayoutScrollView.width
+        
+        if convertedRectMaxXOffset > scrollViewMaxXOffset {
+            UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseInOut, animations: {
+                self.planeLayoutScrollView.contentOffset.x += 20
+            }, completion: nil)
+        }
+        
+        let convertedRectXOffset = convertedRectForHighlightView.origin.x
+        let scrollViewXOffset = planeLayoutScrollView.contentOffset.x
+        if convertedRectXOffset < scrollViewXOffset {
+            UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseInOut, animations: {
+                self.planeLayoutScrollView.contentOffset.x -= 20
+            }, completion: nil)
+        }
+        
     }
     
     /// adds pan gesture to highlighted view
@@ -288,9 +309,33 @@ extension SeatMapContainerVC {
         if highlighterView.frame.maxY > highlightContainerView.height {
             highlightView?.origin.y = highlightContainerView.height - highlighterView.height
         }
+        showExtraScrollArea(translation.x)
         sender.setTranslation(.zero, in: highlightContainerView)
         moveLegScrollViewToPoint(highlighterView.frame.origin.x, highlighterView.frame.origin.y > 0 ? highlighterView.frame.origin.y : 0)
         showPlaneLayoutView()
+    }
+    
+    private func showExtraScrollArea(_ translationX: CGFloat) {
+        let convertedRectForHighlightView = highlightContainerView.convert(highlightView?.frame ?? .zero, to: planeLayoutScrollView)
+        if translationX > 0 {
+            let convertedRectMaxXOffset = convertedRectForHighlightView.origin.x + convertedRectForHighlightView.width
+            let scrollViewMaxXOffset = planeLayoutScrollView.contentOffset.x + planeLayoutScrollView.width
+            if convertedRectMaxXOffset > scrollViewMaxXOffset {
+                UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseInOut, animations: {
+                    self.planeLayoutScrollView.contentOffset.x += 5
+                    self.highlightView?.origin.x += 5
+                }, completion: nil)
+            }
+        } else {
+            let convertedRectXOffset = convertedRectForHighlightView.origin.x
+            let scrollViewXOffset = planeLayoutScrollView.contentOffset.x
+            if convertedRectXOffset < scrollViewXOffset {
+                UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseInOut, animations: {
+                    self.planeLayoutScrollView.contentOffset.x -= 5
+                    self.highlightView?.origin.x -= 5
+                }, completion: nil)
+            }
+        }
     }
     
     private func moveLegScrollViewToPoint(_ originX: CGFloat,_ originY: CGFloat) {
@@ -306,12 +351,16 @@ extension SeatMapContainerVC {
 
 extension SeatMapContainerVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+        viewModel.allFlightsData = viewModel.originalAllFlightsData
         allChildVCs.enumerated().forEach { (index, seatMapVC) in
             seatMapVC.setFlightData(viewModel.allFlightsData[index])
-            if seatMapVC.viewModel.flightData.md.rows.count > 0 {
-                seatMapVC.seatMapCollView.reloadData()
+            if seatMapVC.viewModel.deckData.rows.count > 0 {
+                if seatMapVC.seatMapCollView != nil {
+                    seatMapVC.seatMapCollView.reloadData()
+                }
             }
         }
+        seatTotalLbl.text = "₹ 0"
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
@@ -347,6 +396,7 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
             viewModel.allTabsStr.append(contentsOf: flightsStr)
         }
         viewModel.allFlightsData = totalFlightsData
+        viewModel.originalAllFlightsData = totalFlightsData
         setUpViewPager()
         planeLayoutCollView.reloadData()
         DispatchQueue.delay(0.5) {

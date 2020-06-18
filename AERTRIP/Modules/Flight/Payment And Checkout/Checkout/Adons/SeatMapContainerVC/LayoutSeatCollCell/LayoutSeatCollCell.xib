@@ -10,29 +10,32 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LayoutSeatCollCell" id="gTV-IL-0wX" customClass="LayoutSeatCollCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="50" height="46"/>
+            <rect key="frame" x="0.0" y="0.0" width="65" height="42"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="50" height="46"/>
+                <rect key="frame" x="0.0" y="0.0" width="65" height="42"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IK5-Y4-668">
-                        <rect key="frame" x="1" y="1" width="48" height="44"/>
+                        <rect key="frame" x="12.5" y="1" width="40" height="40"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="IK5-Y4-668" secondAttribute="height" multiplier="1:1" id="HBK-kn-6my"/>
+                        </constraints>
                     </view>
                 </subviews>
             </view>
             <constraints>
                 <constraint firstItem="IK5-Y4-668" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="DsN-h2-nKr"/>
                 <constraint firstItem="IK5-Y4-668" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="1" id="EaW-FK-37w"/>
-                <constraint firstAttribute="trailing" secondItem="IK5-Y4-668" secondAttribute="trailing" constant="1" id="RRv-1i-bgl"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="IK5-Y4-668" secondAttribute="trailing" constant="1" id="RRv-1i-bgl"/>
                 <constraint firstItem="IK5-Y4-668" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="zpx-CY-9SF"/>
             </constraints>
-            <size key="customSize" width="50" height="46"/>
+            <size key="customSize" width="65" height="42"/>
             <connections>
                 <outlet property="seatView" destination="IK5-Y4-668" id="jNJ-X4-hK2"/>
             </connections>
-            <point key="canvasLocation" x="137.68115942028987" y="88.392857142857139"/>
+            <point key="canvasLocation" x="126.81159420289856" y="87.053571428571431"/>
         </collectionViewCell>
     </objects>
 </document>

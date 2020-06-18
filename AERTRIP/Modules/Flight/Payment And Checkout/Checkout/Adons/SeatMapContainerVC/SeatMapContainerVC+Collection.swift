@@ -25,6 +25,13 @@ extension SeatMapContainerVC: UICollectionViewDelegate, UICollectionViewDataSour
         guard let seatCell = collectionView.dequeueReusableCell(withReuseIdentifier: "LayoutSeatCollCell", for: indexPath) as? LayoutSeatCollCell else {
             fatalError("Unable to dequeue LayoutSeatCollCell")
         }
+        let seatRelatedInfo = getSeatDataFor(indexPath)
+        let columnStr = seatRelatedInfo.columnStr, seatData = seatRelatedInfo.seatData
+        seatCell.populateCell(seatData, columnStr)
+        return seatCell
+    }
+    
+    private func getSeatDataFor(_ indexPath: IndexPath) -> SeatMapVC.seatRelatedInfo {
         let curDeckData = allChildVCs[viewModel.currentIndex].viewModel.deckData
         var rowStr = ""
         if curDeckData.rowsArr.indices.contains(indexPath.item) {
@@ -40,8 +47,7 @@ extension SeatMapContainerVC: UICollectionViewDelegate, UICollectionViewDataSour
                 seatData = curSeatData
             }
         }
-        seatCell.populateCell(seatData, columnStr)
-        return seatCell
+        return (rowStr, columnStr, seatData)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -53,9 +59,21 @@ extension SeatMapContainerVC: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let heightForSection = CGFloat(allChildVCs[viewModel.currentIndex].viewModel.deckData.columns.count)// + 1
-        let maxHeight = collectionView.height/heightForSection
-        return CGSize(width: maxHeight, height: maxHeight)
+        
+        let seatRelatedInfo = getSeatDataFor(indexPath)
+        if seatRelatedInfo.columnStr == "aisle" {
+            let numberForSections = CGFloat(allChildVCs[viewModel.currentIndex].viewModel.deckData.columns.count)
+            let maxHeight = collectionView.height/numberForSections
+            let aisleHeight = maxHeight - (0.6 * maxHeight)
+            return CGSize(width: maxHeight + (maxHeight * 0.27), height: aisleHeight)
+        }
+        
+        let numberOfSections = CGFloat(allChildVCs[viewModel.currentIndex].viewModel.deckData.columns.count)
+        let numberOfAisles = CGFloat(allChildVCs[viewModel.currentIndex].viewModel.deckData.columns.filter { $0.contains("aisle") }.count)
+        let maxHeight = collectionView.height/numberOfSections
+        let extraHeight = numberOfAisles * (maxHeight - (0.4 * maxHeight))
+        let extraHeightForCell = extraHeight/(numberOfSections - numberOfAisles)
+        return CGSize(width: maxHeight + (maxHeight * 0.27), height: maxHeight + extraHeightForCell)
     }
     
 }

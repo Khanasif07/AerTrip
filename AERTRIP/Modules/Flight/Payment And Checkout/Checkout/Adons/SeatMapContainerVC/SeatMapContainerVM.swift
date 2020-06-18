@@ -25,6 +25,7 @@ class SeatMapContainerVM {
     var allTabsStr = [NSAttributedString]()
     var currentIndex = 0
     var allFlightsData = [SeatMapModel.SeatMapFlight]()
+    var originalAllFlightsData = [SeatMapModel.SeatMapFlight]()
     
     var selectedSeats = [SeatMapModel.SeatMapRow]()
     

@@ -26,8 +26,8 @@ class LayoutSeatCollCell: UICollectionViewCell {
     // MARK: Functions
     
     private func intialSetup() {
-        seatView.roundedCorners(cornerRadius: 0.5)
-        seatView.addShadow(withColor: AppColors.themeGray10)
+        seatView.roundedCorners(cornerRadius: 1)
+//        seatView.addShadow(withColor: AppColors.themeGray10)
     }
     
     func populateCell(_ seatData: SeatMapModel.SeatMapRow,_ columnStr: String) {

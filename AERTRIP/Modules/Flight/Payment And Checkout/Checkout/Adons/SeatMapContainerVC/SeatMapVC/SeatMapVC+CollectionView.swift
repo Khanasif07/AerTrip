@@ -25,6 +25,15 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     private func dequeueSeatCell(_ collectionView: UICollectionView,_ indexPath: IndexPath) -> SeatCollCell {
         
         guard let seatCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SeatCollCell", for: indexPath) as? SeatCollCell else { return SeatCollCell() }
+        
+        let seatRelatedData = getSeatDataFor(indexPath)
+        let rowStr = seatRelatedData.rowStr, columnStr = seatRelatedData.columnStr, seatData = seatRelatedData.seatData
+        seatCell.setupViewModel(seatData, viewModel.flightFares)
+        seatCell.setupCellFor(indexPath, rowStr, columnStr)
+        return seatCell
+    }
+    
+    private func getSeatDataFor(_ indexPath: IndexPath) -> seatRelatedInfo {
         var rowStr = ""
         if viewModel.deckData.rowsArr.indices.contains(indexPath.item - 1) {
             rowStr = viewModel.deckData.rowsArr[indexPath.item - 1]
@@ -39,13 +48,15 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
                 seatData = curSeatData
             }
         }
-        seatCell.setupViewModel(seatData, viewModel.flightFares)
-        seatCell.setupCellFor(indexPath, rowStr, columnStr)
-        return seatCell
+        return (rowStr, columnStr, seatData)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: 40, height: 40)
+        let seatRelatedData = getSeatDataFor(indexPath)
+        if seatRelatedData.columnStr == "aisle" {
+            return CGSize(width: 40, height: 30)
+        }
+        return CGSize(width: 40, height: 40)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
