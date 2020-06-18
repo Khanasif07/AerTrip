@@ -45,21 +45,20 @@ class AdonsCell: UITableViewCell {
                self.complementLabel.text = data.shouldShowComp ? data.complementString : ""
                self.complementBackView.isHidden = !data.shouldShowComp
 
-        
         switch data.addonsType {
                case .meals:
                    self.addOnImageView.image = #imageLiteral(resourceName: "meals")
-                   
-//                   "\(data.heading) x\(AddonsDataStore.shared.)"
-                   
                    self.headingLabel.text = data.heading
                    self.descriptionLabel.text = data.description
 
                case .baggage:
                    self.addOnImageView.image = #imageLiteral(resourceName: "baggage")
-                   let heading = "\(LocalizedString.Baggage.localized) 25, 15, 10, 5, 16, 34, 20 kg"
-              
-                   self.headingLabel.attributedText = heading.attributeStringWithColors(subString: LocalizedString.Baggage.localized, strClr: AppColors.themeGreen, substrClr: UIColor.black, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
+//                   let heading = "\(LocalizedString.Baggage.localized) 25, 15, 10, 5, 16, 34, 20 kg"
+//
+//                   self.headingLabel.attributedText = heading.attributeStringWithColors(subString: LocalizedString.Baggage.localized, strClr: AppColors.themeGreen, substrClr: UIColor.black, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
+            
+            self.headingLabel.text = data.heading
+            self.descriptionLabel.text = data.description
 
                case .seat:
                    self.addOnImageView.image = #imageLiteral(resourceName: "seats")

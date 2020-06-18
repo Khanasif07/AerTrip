@@ -60,12 +60,13 @@ class FlightPaymentVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.viewModel.taxesDataDisplay()
         self.checkOutTableView.separatorStyle = .none
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
         self.viewModel.delegate = self
         self.viewModel.webServiceGetPaymentMethods()
-        self.viewModel.getItineraryData()
+//        self.viewModel.getItineraryData()
         self.addFooterView()
         self.payButton.addGredient(isVertical: false)
         self.setUpNavigationView()
@@ -91,10 +92,11 @@ class FlightPaymentVC: BaseVC {
 //        delay(seconds: 1) {
 //           self.loaderView.isHidden = true
 //        }
-//        let vc = FlightPaymentBookingStatusVC.instantiate(fromAppStoryboard: .FlightPayment)
-//        vc.viewModel.itinerary = self.viewModel.itinerary
-//        self.navigationController?.pushViewController(vc, animated: true)
-        self.viewModel.reconfirmationAPI()
+        let vc = FlightPaymentBookingStatusVC.instantiate(fromAppStoryboard: .FlightPayment)
+        vc.viewModel.itinerary = self.viewModel.itinerary
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+//        self.viewModel.reconfirmationAPI()
     }
     
     
@@ -389,8 +391,9 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
         // send to you are all donr screen
         self.loaderView.isHidden = true
         print(bookingIds)
-        let id = self.viewModel.itinerary.id
-//        AppFlowManager.default.presentYouAreAllDoneVC(forItId: id, bookingIds: bookingIds, cid: cid, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong)
+        let vc = FlightPaymentBookingStatusVC.instantiate(fromAppStoryboard: .FlightPayment)
+        vc.viewModel.itinerary = self.viewModel.itinerary
+        self.navigationController?.pushViewController(vc, animated: true)
         
     }
     

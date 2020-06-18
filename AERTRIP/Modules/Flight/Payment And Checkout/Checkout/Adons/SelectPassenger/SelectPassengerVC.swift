@@ -20,7 +20,7 @@ class SelectPassengerVC : BaseVC {
     @IBOutlet weak var popUpBackView: UIView!
     
     let selectPassengersVM = SelectPassengersVM()
-        
+    
     var updatedFlightData: ((SeatMapModel.SeatMapFlight) -> ())?
     
     override func viewDidLoad() {
@@ -84,20 +84,17 @@ extension SelectPassengerVC {
             selectPassengersVM.initalPassengerForSeat = selectPassengersVM.selectedSeatData.columnData.passenger
             
         case .meals:
-            
             self.selectPassengersLabel.text = LocalizedString.Select_Passengers_To_Assign_This_Meal.localized
             self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "") • ₹ \(self.selectPassengersVM.adonsData.price)"
       
         case .baggage:
-          
             self.selectPassengersLabel.text = LocalizedString.Select_Passengers_To_Assign_This_Meal.localized
             self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "") • ₹ \(self.selectPassengersVM.adonsData.price)"
             
         case .others:
-         
             self.selectPassengersLabel.text = LocalizedString.Select_Passengers.localized
             self.titleLabel.text = self.selectPassengersVM.adonsData.ssrName?.name
-
+        
         }
     }
 }
@@ -117,9 +114,7 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
        
         if let firstGuestArray = GuestDetailsVM.shared.guests.first{
             if selectPassengersVM.setupFor == .seatSelection {
-                
                 cell.setupCellFor(firstGuestArray[indexPath.item], selectPassengersVM.selectedSeatData, selectPassengersVM.seatDataArr)
-                
             }else{
                 
                 cell.populateData(data: self.selectPassengersVM.allowedPassengers[indexPath.item])
@@ -174,8 +169,8 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
         updatedFlightData?(selectPassengersVM.flightData)
         collectionView.reloadData()
         doneButton.setTitle(LocalizedString.Done.localized, for: .normal)
-//        let isPassengerModified = selectPassengersVM.seatModel.columnData.passenger?.id != selectPassengersVM.initalPassengerForSeat?.id
-//        doneButton.setTitle(isPassengerModified ? LocalizedString.Done.localized : LocalizedString.Cancel.localized, for: .normal)
+        //        let isPassengerModified = selectPassengersVM.seatModel.columnData.passenger?.id != selectPassengersVM.initalPassengerForSeat?.id
+        //        doneButton.setTitle(isPassengerModified ? LocalizedString.Done.localized : LocalizedString.Cancel.localized, for: .normal)
     }
     
     private func didSelect(_ indexPath: IndexPath,_ collectionView: UICollectionView) {
