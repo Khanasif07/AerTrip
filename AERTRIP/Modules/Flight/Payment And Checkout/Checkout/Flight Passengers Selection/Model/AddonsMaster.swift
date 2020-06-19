@@ -123,8 +123,10 @@ struct AddonsDataCustom {
     var mealsSelectedFor : [ATContact] = []
     var bagageSelectedFor : [ATContact] = []
     var othersSelectedFor : [ATContact] = []
-    var autoSelectedFor : [String] = []
-
+//    var autoSelectedFor : [String] = []
+    var autoSelectedFor : String = ""
+    
+    
     init() {
         
     }

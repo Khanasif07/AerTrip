@@ -38,8 +38,40 @@ class SelectOtherAdonsVM  {
         return currentFlightKey
     }
      
-    func updateContactInOthers(OthersIndex: Int, contacts : [ATContact]){
+    func updateContactInOthers(OthersIndex: Int, contacts : [ATContact], autoSelectedFor : [String]){
         addonsDetails.addonsArray[OthersIndex].othersSelectedFor = contacts
+        
+        if autoSelectedFor.isEmpty {
+            addonsDetails.addonsArray[OthersIndex].autoSelectedFor = ""
+            return }
+        
+        
+        
+        var autoSelectedForString = "Auto Selected for "
+        var flightName : [String] = []
+        
+        autoSelectedFor.forEach { (flightId) in
+            let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == flightId }
+            guard let firstFlight = flightAtINdex.first else { return }
+            flightName.append("\(firstFlight.fr) → \(firstFlight.to)")
+        }
+        
+        if flightName.count == 1 {
+            autoSelectedForString += flightName.first ?? ""
+        }else if flightName.count == 2 {
+            autoSelectedForString += flightName.joined(separator: ",").replacingLastOccurrenceOfString(" ,", with: " and ")
+        }else{
+           autoSelectedForString += flightName.joined(separator: ",").replacingLastOccurrenceOfString(",", with: " and ")
+        }
+        
+        if contacts.isEmpty {
+            addonsDetails.addonsArray[OthersIndex].autoSelectedFor = ""
+        }else{
+            addonsDetails.addonsArray[OthersIndex].autoSelectedFor = autoSelectedForString
+        }
+                
+        
+        
     }
     
     

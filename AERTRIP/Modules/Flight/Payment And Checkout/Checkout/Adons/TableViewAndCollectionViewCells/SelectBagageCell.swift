@@ -15,7 +15,9 @@ class SelectBagageCell: UITableViewCell {
     @IBOutlet weak var selectedForLabel: UILabel!
     @IBOutlet weak var priceLabelWidth: NSLayoutConstraint!
     @IBOutlet weak var quantityLabel: UILabel!
-    
+    @IBOutlet weak var autoSelectedForLabel: UILabel!
+    @IBOutlet weak var autoSelectedForBackView: UIView!
+    @IBOutlet weak var autoSelectedForTop: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -52,6 +54,18 @@ class SelectBagageCell: UITableViewCell {
             self.quantityLabel.text = "X\(data.bagageSelectedFor.count)"
             self.quantityLabel.isHidden = false
         }
+        
+        if data.autoSelectedFor.isEmpty {
+             self.autoSelectedForLabel.text = ""
+             self.autoSelectedForTop.constant = 0
+             self.autoSelectedForBackView.isHidden = true
+        }else{
+             self.autoSelectedForLabel.text = data.autoSelectedFor
+             self.autoSelectedForTop.constant = 11
+             self.autoSelectedForBackView.isHidden = false
+        }
+        
+        
     }
     
     func populateOtherAdonsData(data : AddonsDataCustom, index : Int){
@@ -73,6 +87,16 @@ class SelectBagageCell: UITableViewCell {
             self.selectedForLabel.text = "For \(conaSaperatedNames)"
             self.quantityLabel.text = "X\(data.othersSelectedFor.count)"
             self.quantityLabel.isHidden = false
+        }
+        
+        if data.autoSelectedFor.isEmpty {
+             self.autoSelectedForLabel.text = ""
+             self.autoSelectedForTop.constant = 0
+             self.autoSelectedForBackView.isHidden = true
+        }else{
+             self.autoSelectedForLabel.text = data.autoSelectedFor
+             self.autoSelectedForTop.constant = 11
+             self.autoSelectedForBackView.isHidden = false
         }
     }
 }
