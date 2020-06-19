@@ -292,6 +292,7 @@
 		18611788242B7CF800BE1306 /* HCDataHotelRatingInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18611787242B7CF800BE1306 /* HCDataHotelRatingInfoTableViewCell.xib */; };
 		18637D5E249B4EB6001325CD /* PostBookingShareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18637D5D249B4EB6001325CD /* PostBookingShareCell.swift */; };
 		18637D60249B50D5001325CD /* PostBookingShareCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18637D5F249B50D5001325CD /* PostBookingShareCell.xib */; };
+		18637D66249C98EA001325CD /* FlightPaymentPendingRequestSuccessVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18637D65249C98EA001325CD /* FlightPaymentPendingRequestSuccessVC.swift */; };
 		186FD6E92488FFCD00335353 /* FlightPaymentBookingStatusVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FD6E82488FFCD00335353 /* FlightPaymentBookingStatusVC.swift */; };
 		186FD6EB2489019B00335353 /* FlightPaymentBookingStatusVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FD6EA2489019B00335353 /* FlightPaymentBookingStatusVM.swift */; };
 		186FD6ED24890AD100335353 /* FlightPaymentBookingStatusVC + Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FD6EC24890AD000335353 /* FlightPaymentBookingStatusVC + Cells.swift */; };
@@ -1867,6 +1868,7 @@
 		18611787242B7CF800BE1306 /* HCDataHotelRatingInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HCDataHotelRatingInfoTableViewCell.xib; sourceTree = "<group>"; };
 		18637D5D249B4EB6001325CD /* PostBookingShareCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookingShareCell.swift; sourceTree = "<group>"; };
 		18637D5F249B50D5001325CD /* PostBookingShareCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostBookingShareCell.xib; sourceTree = "<group>"; };
+		18637D65249C98EA001325CD /* FlightPaymentPendingRequestSuccessVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPaymentPendingRequestSuccessVC.swift; sourceTree = "<group>"; };
 		186FD6E82488FFCD00335353 /* FlightPaymentBookingStatusVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPaymentBookingStatusVC.swift; sourceTree = "<group>"; };
 		186FD6EA2489019B00335353 /* FlightPaymentBookingStatusVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPaymentBookingStatusVM.swift; sourceTree = "<group>"; };
 		186FD6EC24890AD000335353 /* FlightPaymentBookingStatusVC + Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightPaymentBookingStatusVC + Cells.swift"; sourceTree = "<group>"; };
@@ -3875,6 +3877,7 @@
 		1827D480248690E600A0594F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				18637D64249C987B001325CD /* FlightPaymentPendingRequestSuccessVC */,
 				187CC6D0249B2662006C7F5A /* PostBookingAddonsPayment */,
 				18F5BA9E248F1E3B00E246C2 /* PostBookingFlightDetails */,
 				18E17B9D248DFF7B00CC9876 /* FlightPaymentPendingVC */,
@@ -4093,6 +4096,14 @@
 				18637D5F249B50D5001325CD /* PostBookingShareCell.xib */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		18637D64249C987B001325CD /* FlightPaymentPendingRequestSuccessVC */ = {
+			isa = PBXGroup;
+			children = (
+				18637D65249C98EA001325CD /* FlightPaymentPendingRequestSuccessVC.swift */,
+			);
+			path = FlightPaymentPendingRequestSuccessVC;
 			sourceTree = "<group>";
 		};
 		186FD6E72488FFA000335353 /* FlightPaymentBookingStatusVC */ = {
@@ -10053,6 +10064,7 @@
 				847C2240247BCBEE004F32D6 /* SeatMapVC.swift in Sources */,
 				843FF65D247409E3001F21B1 /* AirportSearch.m in Sources */,
 				843FF49C24740231001F21B1 /* FlightFilterTimesViewController.swift in Sources */,
+				18637D66249C98EA001325CD /* FlightPaymentPendingRequestSuccessVC.swift in Sources */,
 				8452D37221E6151500927287 /* CoreDataManager.swift in Sources */,
 				84534EAD2248E099009FF536 /* HCBedDetailsTableViewCell.swift in Sources */,
 				843FF4A324740231001F21B1 /* IntMCAndReturnFlightFiltersBaseVC.swift in Sources */,
