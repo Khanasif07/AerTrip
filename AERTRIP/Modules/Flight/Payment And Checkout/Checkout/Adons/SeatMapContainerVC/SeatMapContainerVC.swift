@@ -67,6 +67,8 @@ class SeatMapContainerVC: UIViewController {
     
     @IBAction func addBtnAction(_ sender: UIButton) {
         AddonsDataStore.shared.seatsArray = viewModel.selectedSeats
+        AddonsDataStore.shared.originalSeatMapModel = viewModel.seatMapModel
+        AddonsDataStore.shared.seatsAllFlightsData = viewModel.allFlightsData
         dismiss(animated: true, completion: nil)
     }
     
@@ -86,6 +88,7 @@ class SeatMapContainerVC: UIViewController {
     func setViewModel(_ vm: SeatMapContainerVM) {
         self.viewModel = vm
     }
+    
     
     private func setupPlaneLayoutCollView() {
         planeLayoutScrollContentView.backgroundColor = AppColors.greyO4
@@ -353,6 +356,7 @@ extension SeatMapContainerVC {
 extension SeatMapContainerVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         viewModel.allFlightsData = viewModel.originalAllFlightsData
+        AddonsDataStore.shared.seatsAllFlightsData = viewModel.originalAllFlightsData
         allChildVCs.enumerated().forEach { (index, seatMapVC) in
             seatMapVC.setFlightData(viewModel.allFlightsData[index])
             if seatMapVC.viewModel.deckData.rows.count > 0 {
@@ -362,6 +366,7 @@ extension SeatMapContainerVC: TopNavigationViewDelegate {
             }
         }
         seatTotalLbl.text = "₹ 0"
+        planeLayoutCollView.reloadData()
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
@@ -396,8 +401,16 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
             }
             viewModel.allTabsStr.append(contentsOf: flightsStr)
         }
-        viewModel.allFlightsData = totalFlightsData
         viewModel.originalAllFlightsData = totalFlightsData
+        if let allFlightsData = AddonsDataStore.shared.seatsAllFlightsData {
+            viewModel.allFlightsData = allFlightsData
+            viewModel.getSeatTotal { [weak self] (seatTotal) in
+                guard let self = self else { return }
+                self.seatTotalLbl.text = "₹ \(seatTotal)"
+            }
+        } else {
+            viewModel.allFlightsData = totalFlightsData
+        }
         setUpViewPager()
         planeLayoutCollView.reloadData()
         DispatchQueue.delay(0.5) {

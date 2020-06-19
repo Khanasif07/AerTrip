@@ -40,6 +40,11 @@ class SeatMapContainerVM {
     }
     
     func fetchSeatMapData() {
+        if let seatModel = AddonsDataStore.shared.originalSeatMapModel {
+            seatMapModel = seatModel
+            delegate?.didFetchSeatMapData()
+            return
+        }
         self.delegate?.willFetchSeatMapData()
         let params: JSONDictionary = [FlightSeatMapKeys.sid.rawValue: sid,
                                       FlightSeatMapKeys.itId.rawValue: itId,
@@ -47,6 +52,7 @@ class SeatMapContainerVM {
         APICaller.shared.callSeatMapAPI(params: params) { [weak self] (seatModel, error) in
             if let model = seatModel {
                 self?.seatMapModel = model
+                AddonsDataStore.shared.originalSeatMapModel = model
                 self?.delegate?.didFetchSeatMapData()
             }else {
                 self?.delegate?.failedToFetchSeatMapData()
