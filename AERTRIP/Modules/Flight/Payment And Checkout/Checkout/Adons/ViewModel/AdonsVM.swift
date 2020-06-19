@@ -348,15 +348,22 @@ class AdonsVM  {
         let dataStore = AddonsDataStore.shared
         dataStore.seatsArray.forEach { (seatData) in
             let passengerId = seatData.columnData.passenger?.apiId ?? ""
-            let seatNumber = seatData.columnData.ssrCode.replacingOccurrences(of: "-", with: "")
+            
+            var rowStr: String {
+                if let number = Int(seatData.columnData.ssrCode.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
+                    print(number)
+                    return "\(number)"
+                }
+                return ""
+            }
+            let columnStr = seatData.columnData.ssrCode.components(separatedBy: CharacterSet.letters.inverted).joined()
+        
+            let seatNumber = rowStr + columnStr
+            
             let priceStr = "\(seatData.columnData.amount)"
             parmsForItinerary["apf[\(self.afCount)]"] = "\(seatData.lfk)|\(seatData.ffk)|\(passengerId)|addon|seatmap_ex|\(seatNumber)|\(priceStr)"
             afCount += 1
-            
-            let seatStr = seatData.columnData.ssrCode.components(separatedBy: "-")
-            let rowStr = seatStr.first ?? ""
-            let columnStr = seatStr.last ?? ""
-            
+                        
             let seatParamBaseStr = "seatmap[\(seatData.lfk)][\(seatData.ffk)][\(passengerId)]"
             parmsForItinerary[seatParamBaseStr+"[row]"] = rowStr
             parmsForItinerary[seatParamBaseStr+"[column]"] = columnStr
