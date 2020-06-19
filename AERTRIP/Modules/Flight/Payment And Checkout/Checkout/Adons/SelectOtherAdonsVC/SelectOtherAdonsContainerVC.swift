@@ -18,7 +18,7 @@ class SelectOtherAdonsContainerVC: BaseVC {
     
     // MARK: Properties
     fileprivate var parchmentView : PagingViewController?
-
+    weak var delegate : AddonsUpdatedDelegate?
     let othersContainerVM = SelectOtherAdonsContainerVM()
 
     // MARK: IBOutlets
@@ -73,6 +73,7 @@ class SelectOtherAdonsContainerVC: BaseVC {
        for (index,item) in self.othersContainerVM.allChildVCs.enumerated() {
         AddonsDataStore.shared.flightsWithData[index].special = item.otherAdonsVm.addonsDetails
        }
+        self.delegate?.othersUpdated()
        self.dismiss(animated: true, completion: nil)
     }
     
@@ -223,10 +224,12 @@ extension SelectOtherAdonsContainerVC : SelectOtherDelegate {
             guard let weakSelf = self else { return }
         weakSelf.othersContainerVM.allChildVCs[vcIndex].otherAdonsVm.addonsDetails.addonsArray.enumerated().forEach { (otherIndex,otherAddon) in
                 contacts.forEach { (contact) in
-                    if let contIndex = otherAddon.othersSelectedFor.lastIndex(where: { (cont) -> Bool in
+                    if let contIndex = weakSelf.othersContainerVM.allChildVCs[vcIndex].otherAdonsVm.addonsDetails.addonsArray[otherIndex].othersSelectedFor.lastIndex(where: { (cont) -> Bool in
                         return cont.id == contact.id
                     }){
-                        weakSelf.othersContainerVM.allChildVCs[vcIndex].otherAdonsVm.addonsDetails.addonsArray[otherIndex].mealsSelectedFor.remove(at: contIndex)
+                        weakSelf.othersContainerVM.allChildVCs[vcIndex].otherAdonsVm.addonsDetails.addonsArray[otherIndex].othersSelectedFor.remove(at: contIndex)
+                        
+                        
                     }
                   }
                 }

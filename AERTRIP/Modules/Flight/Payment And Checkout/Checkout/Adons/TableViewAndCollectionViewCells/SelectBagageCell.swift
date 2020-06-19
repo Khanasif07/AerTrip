@@ -42,10 +42,8 @@ class SelectBagageCell: UITableViewCell {
         
         if data.bagageSelectedFor.isEmpty {
             self.selectedForLabel.text = ""
-            //  self.mealForLabelTop.constant = 0
             self.quantityLabel.isHidden = true
         }else{
-            // self.mealForLabelTop.constant = 2
             let allNamesArray = data.bagageSelectedFor.map { (contact) -> String in
                 return contact.firstName
             }

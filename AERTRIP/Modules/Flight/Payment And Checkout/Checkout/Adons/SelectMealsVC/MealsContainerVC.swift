@@ -18,7 +18,7 @@ class MealsContainerVC: BaseVC {
     
     // MARK: Properties
     fileprivate var parchmentView : PagingViewController?
-    
+    weak var delegate : AddonsUpdatedDelegate?
     let mealsContainerVM = MealsContainerVM()
     
     // MARK: IBOutlets
@@ -73,6 +73,7 @@ class MealsContainerVC: BaseVC {
         for (index,item) in self.mealsContainerVM.allChildVCs.enumerated() {
             AddonsDataStore.shared.flightsWithData[index].meal = item.selectMealsVM.addonsDetails
         }
+        self.delegate?.mealsUpdated()
         self.dismiss(animated: true, completion: nil)
     }
 }
@@ -154,7 +155,7 @@ extension MealsContainerVC: TopNavigationViewDelegate {
             let mealsArray = item.selectMealsVM.getMeals()
             mealsArray.enumerated().forEach { (addonIndex,_) in
                 item.selectMealsVM.updateContactInMeal(mealIndex: addonIndex, contacts: [])
-            AddonsDataStore.shared.flightsWithData[index].bags.addonsArray[addonIndex].mealsSelectedFor = []
+            AddonsDataStore.shared.flightsWithData[index].meal.addonsArray[addonIndex].mealsSelectedFor = []
             }
             item.reloadData()
             calculateTotalAmount()
@@ -218,7 +219,7 @@ extension MealsContainerVC : SelectMealDelegate {
             guard let weakSelf = self else { return }
         weakSelf.mealsContainerVM.allChildVCs[vcIndex].selectMealsVM.addonsDetails.addonsArray.enumerated().forEach { (mealIndex,meal) in
                 contacts.forEach { (contact) in
-                    if let contIndex = meal.mealsSelectedFor.lastIndex(where: { (cont) -> Bool in
+                    if let contIndex = weakSelf.mealsContainerVM.allChildVCs[vcIndex].selectMealsVM.addonsDetails.addonsArray[mealIndex].mealsSelectedFor.lastIndex(where: { (cont) -> Bool in
                         return cont.id == contact.id
                     }){
                         weakSelf.mealsContainerVM.allChildVCs[vcIndex].selectMealsVM.addonsDetails.addonsArray[mealIndex].mealsSelectedFor.remove(at: contIndex)

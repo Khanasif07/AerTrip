@@ -10,8 +10,9 @@ import Foundation
 
 extension APICaller{
     
-    func getItineraryData(params: JSONDictionary, itId:String, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ data: FlightItineraryData?)->Void ) {
-        let url = "\(APIEndPoint.baseUrlPath.rawValue)flights/itinerary?action=traveller&it_id=\(itId)"
+    func getItineraryData(withAddons : Bool = false, params: JSONDictionary, itId:String, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ data: FlightItineraryData?)->Void ) {
+        let action = withAddons ? "traveller_with_addons" : "traveller"
+        let url = "\(APIEndPoint.baseUrlPath.rawValue)flights/itinerary?action=\(action)&it_id=\(itId)"
         AppNetworking.POST(endPointPath: url, parameters: params, success: { [weak self] (json) in
             guard let sSelf = self else {return}
             

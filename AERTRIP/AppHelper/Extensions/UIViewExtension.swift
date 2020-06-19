@@ -164,6 +164,18 @@ extension UIView {
         self.layer.shadowRadius = shadowRadius
     }
     
+    /// adds shadow in the view
+    public func addShadow(ofColor color: UIColor = #colorLiteral(red: 0.01568627451, green: 0.01960784314, blue: 0.09803921569, alpha: 0.5), radius: CGFloat = 7, offset: CGSize = .zero, opacity: Float = 0.3, cornerRadius: CGFloat? = nil) {
+        layer.shadowColor = color.cgColor
+        layer.shadowOffset = offset
+        layer.shadowRadius = radius
+        layer.shadowOpacity = opacity
+        layer.masksToBounds = false
+        if let r = cornerRadius {
+            layer.shadowPath = UIBezierPath(roundedRect: layer.bounds, cornerRadius: r).cgPath
+        }
+    }
+    
     func setBorder(borderWidth: CGFloat = 0.0, borderColor: UIColor = .clear) {
         self.layer.borderWidth = borderWidth
         self.layer.borderColor = borderColor.cgColor

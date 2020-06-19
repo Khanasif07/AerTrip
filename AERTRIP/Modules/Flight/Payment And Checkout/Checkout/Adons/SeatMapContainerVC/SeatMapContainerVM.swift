@@ -22,6 +22,13 @@ class SeatMapContainerVM {
     private let fk: String
     var seatMapModel = SeatMapModel()
     
+    var allTabsStr = [NSAttributedString]()
+    var currentIndex = 0
+    var allFlightsData = [SeatMapModel.SeatMapFlight]()
+    var originalAllFlightsData = [SeatMapModel.SeatMapFlight]()
+    
+    var selectedSeats = [SeatMapModel.SeatMapRow]()
+    
     convenience init() {
         self.init("", "", "")
     }
@@ -43,6 +50,31 @@ class SeatMapContainerVM {
                 self?.delegate?.didFetchSeatMapData()
             }else {
                 self?.delegate?.failedToFetchSeatMapData()
+            }
+        }
+    }
+    
+    func getSeatTotal(_ seatTotal: @escaping ((Int) -> ())) {
+        
+        func calculateSeatTotal() -> Int {
+            var seatTotal = 0
+            selectedSeats.removeAll()
+            allFlightsData.forEach { (flight) in
+                let rows = flight.md.rows.flatMap { $0.value } + flight.ud.rows.flatMap { $0.value }
+                rows.forEach { (_, rowData) in
+                    if rowData.columnData.passenger != nil {
+                        seatTotal += rowData.columnData.amount
+                        selectedSeats.append(rowData)
+                    }
+                }
+            }
+            return seatTotal
+        }
+        
+        DispatchQueue.global(qos: .background).async {
+            let totalAmount = calculateSeatTotal()
+            DispatchQueue.main.async {
+                seatTotal(totalAmount)
             }
         }
     }
