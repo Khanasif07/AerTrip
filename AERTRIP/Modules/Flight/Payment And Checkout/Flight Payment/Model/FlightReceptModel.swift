@@ -147,4 +147,11 @@ struct TicketDetail {
     }
 }
 
+struct AvailableSeatMap{
+    
+    var bookingId:String
+    var name:String
+    var isSelectedForall:Bool = false
+    
+}
 

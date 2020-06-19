@@ -22,12 +22,15 @@ class FlightPaymentBookingStatusVM{
     var itinerary = FlightRecept()
     var itId = ""
     var sectionData: [[TableViewCellType]] = []
-    var isSeatSettingAvailable = false
+    var isSeatSettingAvailable:Bool{
+        return !(availableSeatMaps.isEmpty)
+    }
     weak var delegate:FlightPaymentBookingStatusVMDelegate?
     var bookingDetail: [BookingDetailModel?] = []
     //Data For API And Details
     var apiBookingIds:[String] = []
     var bookingObject:BookFlightObject?
+    var availableSeatMaps = [AvailableSeatMap]()
     
     /* TableViewCellType Enum contains all tableview cell for YouAreAllDoneVC tableview */
     enum TableViewCellType {
@@ -95,6 +98,7 @@ class FlightPaymentBookingStatusVM{
             guard let self = self else { return }
             if success {
                 self.bookingDetail[index] = bookingDetail
+                self.setSeatMapAvailability(bookingId, booking: bookingDetail)
                 if index == (self.bookingDetail.count - 1){
                     self.delegate?.getBookingDetailSucces()
                 }
@@ -103,6 +107,17 @@ class FlightPaymentBookingStatusVM{
                     self.delegate?.getBookingDetailFaiure(error: errors)
                 }
             }
+        }
+    }
+    
+    func setSeatMapAvailability(_ bookingId: String, booking: BookingDetailModel?){//→
+        guard let booking = booking, booking.displaySeatMap else {return}
+        var seatMap = AvailableSeatMap(bookingId: bookingId, name: "")
+        for leg in booking.bookingDetail?.leg ?? []{
+            guard (leg.pax.first?.status ?? "") == "booked" else {return}
+            let name = "\(leg.origin) → \(leg.destination)"
+            seatMap.name = name
+            self.availableSeatMaps.append(seatMap)
         }
     }
     

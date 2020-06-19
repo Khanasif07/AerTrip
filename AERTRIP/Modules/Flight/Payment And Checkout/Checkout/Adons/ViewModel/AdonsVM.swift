@@ -304,16 +304,6 @@ class AdonsVM  {
 //         }
 //     }
          
-    //     private func generatePaasengerId(index:Int, type:PassengersType)-> String{
-    //         switch type{
-    //         case .Adult:
-    //             return "NT_a\(index - 1)"
-    //         case .child:
-    //             return "NT_c\(index - 1)"
-    //         case .infant:
-    //             return "NT_i\(index - 1)"
-    //         }
-    //     }
     
     func checkForMeals() {
         let dataStore = AddonsDataStore.shared
