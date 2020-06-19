@@ -21,6 +21,7 @@ class QueryStatusCollectionCell: UICollectionViewCell {
     @IBOutlet weak var statusImageView: UIImageView!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var iconHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var iconTrailingConstraint: NSLayoutConstraint!
     
     var statusText: String = "" {
         didSet {
@@ -38,7 +39,7 @@ class QueryStatusCollectionCell: UICollectionViewCell {
     //MARK:- Functions
     //================
     private func configUI() {
-        self.statusLabel.textColor = AppColors.themeBlack
+        self.statusLabel.textColor = AppColors.themeGray40
         self.statusLabel.font = AppFonts.Regular.withSize(14.0)
         self.backgroundColor = AppColors.clear
         self.containerView.backgroundColor = AppColors.clear
@@ -49,23 +50,27 @@ class QueryStatusCollectionCell: UICollectionViewCell {
         self.statusLabel.text = self.statusText
         self.statusImageView.image = nil
         
-        self.statusLabel.textColor = AppColors.themeBlack
+        self.statusLabel.textColor = AppColors.themeGray40
         if self.statusText.lowercased().hasSuffix("successful") {
             self.iconHeightConstraint.constant = 22.0
+            self.iconTrailingConstraint.constant = 8
             self.statusImageView.image = #imageLiteral(resourceName: "checkIcon")
         }
         else if self.statusText.lowercased().hasSuffix("required") {
             self.iconHeightConstraint.constant = 8.0
+            self.iconTrailingConstraint.constant = 16
             self.statusImageView.image = #imageLiteral(resourceName: "ic_red_dot")
         }
         else if self.statusText.lowercased().hasSuffix("pending") {
             self.iconHeightConstraint.constant = 8.0
+            self.iconTrailingConstraint.constant = 16
             self.statusImageView.image = #imageLiteral(resourceName: "ic_red_dot")
         }
         else if self.statusText.lowercased().hasSuffix("aborted") {
             self.statusLabel.textColor = AppColors.themeGray20
             self.statusImageView.image = nil
             self.iconHeightConstraint.constant = 0.0
+            self.iconTrailingConstraint.constant = 8
         }
     }
     

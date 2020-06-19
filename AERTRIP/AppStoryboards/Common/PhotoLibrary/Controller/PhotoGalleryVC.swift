@@ -25,6 +25,7 @@ class PhotoGalleryVC: BaseVC {
         self.setupCloseButton()
         self.galleryCollection.delegate = self
         self.galleryCollection.dataSource = self
+        self.galleryCollection.backgroundColor = .black
     }
     
     override func viewDidAppear(_ animated: Bool) {

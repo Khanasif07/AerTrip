@@ -21,8 +21,8 @@ class MyBookingsVC: BaseVC {
     
     private var previousOffset = CGPoint.zero
     private var isBookingApiRunned = false
-    private var statusBarBlurView : UIVisualEffectView!
-    private var headerBlurView : UIVisualEffectView!
+//    private var statusBarBlurView : UIVisualEffectView!
+//    private var headerBlurView : UIVisualEffectView!
     private var statusBarHeight : CGFloat {
         return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
     }
@@ -48,7 +48,7 @@ class MyBookingsVC: BaseVC {
     @IBOutlet weak var emptyStateImageView: UIImageView!
     @IBOutlet weak var emptyStateTitleLabel: UILabel!
     @IBOutlet weak var emptyStateSubTitleLabel: UILabel!
-    @IBOutlet weak var blurBackgroundView: UIView!
+    @IBOutlet weak var blurBackgroundView: BlurView!
     
     // Mark:- LifeCycle
     
@@ -59,8 +59,7 @@ class MyBookingsVC: BaseVC {
         //        self.topNavBar.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "swipeArrow"), selectedImage: #imageLiteral(resourceName: "swipeArrow"))
         self.searchBar.cornerRadius = 10.0
         self.searchBar.clipsToBounds = true
-        self.hideAllData()
-        
+        self.hideAllData()        
     }
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
@@ -92,7 +91,7 @@ class MyBookingsVC: BaseVC {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        addCustomBackgroundBlurView()
+        //addCustomBackgroundBlurView()
         self.statusBarColor = AppColors.clear
         self.statusBarStyle = .default
     }
@@ -100,8 +99,8 @@ class MyBookingsVC: BaseVC {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.statusBarColor = AppColors.clear
-        self.headerBlurView.removeFromSuperview()
-        self.statusBarBlurView.removeFromSuperview()
+//        self.headerBlurView.removeFromSuperview()
+//        self.statusBarBlurView.removeFromSuperview()
     }
     
     override func setupTexts() {
@@ -217,6 +216,7 @@ class MyBookingsVC: BaseVC {
             self.emptyStateSubTitleLabel.isHidden = false
             self.childContainerView.isHidden = true
             self.searchBarContainerView.isHidden = true
+            self.blurBackgroundView.isHidden = true
         } else {
             self.emptyStateImageView.isHidden = true
             self.emptyStateTitleLabel.isHidden = true
@@ -225,6 +225,7 @@ class MyBookingsVC: BaseVC {
             self.searchBarContainerView.isHidden = false
             self.instantiateChildVC()
             self.setUpViewPager()
+            self.blurBackgroundView.isHidden = false
         }
     }
     
@@ -256,7 +257,7 @@ class MyBookingsVC: BaseVC {
         self.childContainerView.isHidden = true
         self.searchBarContainerView.isHidden = true
     }
-    
+    /*
     func addCustomBackgroundBlurView(){
             
             headerBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: blurBackgroundView.height))
@@ -272,6 +273,7 @@ class MyBookingsVC: BaseVC {
         statusBarBlurView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
             
         }
+ */
 }
 
 

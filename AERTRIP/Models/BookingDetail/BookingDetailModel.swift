@@ -541,7 +541,7 @@ struct BookingDetail {
     var eventStartDate: Date?
     var eventEndDate: Date?
     
-    
+    var amenities_group_order: [String : String] = [:]
     var bookingId: String = ""
     
     init() {
@@ -743,6 +743,10 @@ struct BookingDetail {
         
         if let obj = json["event_end_date"] {
             self.eventEndDate = "\(obj)".removeNull.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
+        }
+        
+        if let obj = json[APIKeys.amenities_group_order.rawValue] as? [String : String] {
+            self.amenities_group_order = obj
         }
     }
     

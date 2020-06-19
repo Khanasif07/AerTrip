@@ -229,7 +229,7 @@ class HotelFilterVC: BaseVC {
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
-        self.parchmentView?.borderColor = AppColors.divider.color
+       // self.parchmentView?.borderColor = AppColors.divider.color
         self.dataContainerView.addSubview(self.parchmentView!.view)
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self

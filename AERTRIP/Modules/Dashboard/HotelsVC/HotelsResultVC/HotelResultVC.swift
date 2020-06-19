@@ -107,6 +107,8 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var mapButtonIndicator: UIActivityIndicatorView!
     @IBOutlet weak var switchGradientView: UIView!
     @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var blurViewHeightConstraint: NSLayoutConstraint!
+    
     // MARK: - Properties
     
     //    var container: NSPersistentContainer!
@@ -131,8 +133,8 @@ class HotelResultVC: BaseVC {
     var oldOffset: CGPoint = .zero //used in colletion view scrolling for map re-focus
     let hotelResultCellIdentifier = "HotelSearchTableViewCell"
     
-    var statusBarBlurView : UIVisualEffectView!
-    var headerBlurView : UIVisualEffectView!
+    //var statusBarBlurView : UIVisualEffectView!
+    //var headerBlurView : UIVisualEffectView!
 
 //    override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
 //        return StatusBarAnimatableConfig(prefersHidden: false, animation: .slide)
@@ -251,6 +253,7 @@ class HotelResultVC: BaseVC {
         searchBar.setTextField(color: UIColor(displayP3Red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
         self.setUpLongPressOnFilterButton()
         //addCustomBackgroundBlurView()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -288,6 +291,7 @@ class HotelResultVC: BaseVC {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         //        self.configureCollectionViewLayoutItemSize()
+        self.blurViewHeightConstraint.constant = self.statusBarHeight
     }
     
     deinit {
@@ -323,29 +327,7 @@ class HotelResultVC: BaseVC {
         }
     }
     
-    func addCustomBackgroundBlurView(){
-        
-        headerBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: backContainerView.height))
-        headerBlurView.effect = UIBlurEffect(style: .prominent)
-        headerBlurView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
-        
-        backContainerView.backgroundColor = .clear//UIColor.white.withAlphaComponent(0.85)
-        backContainerView.addSubview(headerBlurView)
-        
-        
-//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-//        self.navigationController?.navigationBar.shadowImage = UIImage()
-//        self.navigationController?.view.backgroundColor = .clear
-//        //self.navigationController?.view.addSubview(backView)
-//        navigationItem.hidesBackButton = true
-//        self.navigationItem.leftBarButtonItem=nil
-        
-        statusBarBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: statusBarHeight))
-        statusBarBlurView.effect = UIBlurEffect(style: .prominent)
-        self.navigationController?.view.addSubview(statusBarBlurView)
-        statusBarBlurView.backgroundColor = .clear//UIColor.white.withAlphaComponent(0.85)
-        
-    }
+    
     // MARK: - Methods
     
     // MARK: - Private
@@ -412,6 +394,7 @@ class HotelResultVC: BaseVC {
         // self.switchGradientView.addGrayShadow(ofColor: AppColors.themeBlack.withAlphaComponent(0.2), radius: 18, offset: .zero, opacity: 2, cornerRadius: 100)
         self.manageFloatingView(isHidden: true)
         self.searchBarContainerView.isHidden = true
+        
     }
     
     override func setupFonts() {

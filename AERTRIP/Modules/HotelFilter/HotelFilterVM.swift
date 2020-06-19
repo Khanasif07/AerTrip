@@ -150,8 +150,11 @@ class HotelFilterVM {
         
         switch filterName.lowercased() {
         case LocalizedString.Sort.localized.lowercased():
+            if HotelFilterVM.shared.isFilterAppliedForDestinetionFlow {
+               return (appliedFilter.sortUsing == .DistanceNearestFirst(ascending: true)) ? false : true
+            } else {
             return (appliedFilter.sortUsing == HotelFilterVM.shared.defaultSortUsing) ? false : true
-            
+            }
         case LocalizedString.Range.localized.lowercased():
             return (appliedFilter.distanceRange == HotelFilterVM.shared.defaultDistanceRange) ? false : true
             

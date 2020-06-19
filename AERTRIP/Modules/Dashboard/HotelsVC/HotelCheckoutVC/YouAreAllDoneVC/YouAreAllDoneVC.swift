@@ -87,14 +87,16 @@ class YouAreAllDoneVC: BaseVC {
         self.tableFooterViewSetUp()
         if  let model = self.viewModel.hotelReceiptData {
             if model.booking_status == .booked {
-                // self.isSuccessAnimationShown = false
+                 self.isSuccessAnimationShown = false
             } else {
-                //  self.isSuccessAnimationShown = true
+                  self.isSuccessAnimationShown = true
+                self.whiteBackgroundView.isHidden = true
             }
             getBookingReceiptSuccess()
         } else {
             self.viewModel.getBookingReceipt()
             self.whiteBackgroundView.isHidden = true
+            self.isSuccessAnimationShown = true
         }
         
         self.tickMarkBtnWidthConstraint.constant = self.view.width
@@ -278,10 +280,10 @@ class YouAreAllDoneVC: BaseVC {
     
     @IBAction func returnHomeBtnAction(_ sender: Any) {
         GuestDetailsVM.shared.guests.removeAll()
-        AppFlowManager.default.mainNavigationController.dismiss(animated: false, completion: nil)
-        AppFlowManager.default.mainNavigationController.popToRootController(animated: false)
-        AppFlowManager.default.currentNavigation?.dismiss(animated: true, completion: nil)
-        
+//        AppFlowManager.default.mainNavigationController.popToRootController(animated: false)
+//        AppFlowManager.default.mainNavigationController.dismiss(animated: false, completion: nil)
+//        AppFlowManager.default.currentNavigation?.dismiss(animated: false, completion: nil)
+        AppFlowManager.default.goToDashboard()
     }
     
     
@@ -421,6 +423,14 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
             self.viewModel.getBookingDetail()
         }
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y < 10 {
+            self.allDoneTableView.backgroundColor = AppColors.themeWhite
+        } else {
+            self.allDoneTableView.backgroundColor = AppColors.screensBackground.color
+        }
+    }
 }
 
 //Mark:- GetFullInfoDelegate
@@ -520,6 +530,9 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
     
     func shareOnInstagram() {
         printDebug("Share On instagram")
+        
+        InstagramManager.sharedManager.postImageToInstagramWithCaption(imageInstagram: UIImage(named: "aertripGreenText")!, instagramCaption: "\(AppConstants.kAppName) Appstore Link: \(AppConstants.kAppStoreLink)", view: self.view)
+/*
         let image = UIImage(named: "aertripGreenText")
         let instagramURL = URL(string: "instagram://app")
         if UIApplication.shared.canOpenURL(instagramURL!) {
@@ -547,6 +560,7 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
         else {
             print("Instagram not found")
         }
+ */
     }
 }
 //Mark:- HCWhatNextTableViewCell Delegate

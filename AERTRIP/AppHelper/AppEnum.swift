@@ -423,7 +423,7 @@ enum ATCancellationPolicy: Int, CaseIterable {
     var title: String {
         switch self {
         case .Refundable:
-            return LocalizedString.Refundable.localized
+            return LocalizedString.FreeCancellation.localized
             
         case .PartRefundable:
             return LocalizedString.PartRefundable.localized

@@ -98,7 +98,10 @@ extension UpcomingBookingsVC {
             let paxArrStr = NSPredicate(format: "paxArrStr CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
             let stepsArrayStr = NSPredicate(format: "stepsArrayStr CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
             
-            return NSCompoundPredicate(orPredicateWithSubpredicates: [hotelName, tripType, destination, origin, product, serviceType, tripCitiesArrStr, routesArrStr, travelledCitiesArrStr, paxArrStr, stepsArrayStr])
+            let bookingNumberyStr = NSPredicate(format: "bookingNumber CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            let bookingIdStr = NSPredicate(format: "bookingId CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            
+            return NSCompoundPredicate(orPredicateWithSubpredicates: [hotelName, tripType, destination, origin, product, serviceType, tripCitiesArrStr, routesArrStr, travelledCitiesArrStr, paxArrStr, stepsArrayStr, bookingNumberyStr, bookingIdStr])
         }
         return nil
     }

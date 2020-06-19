@@ -65,7 +65,7 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
         if section >= 1, section <= self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0 {
             return UITableView.automaticDimension
         } else {
-            return 0
+            return CGFloat.leastNormalMagnitude
         }
     }
     
@@ -74,7 +74,7 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
         if section == ((self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0) + 1) {
             return 35.0
         } else {
-            return 0
+            return CGFloat.leastNormalMagnitude
         }
     }
     
@@ -169,10 +169,19 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
 extension BookingHotelDetailVC: HotelDetailsImgSlideCellDelegate {
     func hotelImageTapAction(at index: Int) {
         // open gallery with show image at index
-        let indexPath = IndexPath(row: 0, section: 0)
-        guard let cell = self.hotelDetailTableView.cellForRow(at: indexPath) as? HotelDetailsImgSlideCell else { return }
-        if let topVC = UIApplication.topViewController() {
-            ATGalleryViewController.show(onViewController: topVC, sourceView: cell.imageCollectionView, startShowingFrom: index, datasource: self, delegate: self)
+//        let indexPath = IndexPath(row: 0, section: 0)
+//        guard let cell = self.hotelDetailTableView.cellForRow(at: indexPath) as? HotelDetailsImgSlideCell else { return }
+//        if let topVC = UIApplication.topViewController() {
+//            ATGalleryViewController.show(onViewController: topVC, sourceView: cell.imageCollectionView, startShowingFrom: index, datasource: self, delegate: self)
+//        }
+        
+        
+        if let images = self.viewModel.bookingDetail?.bookingDetail?.completePhotos {
+            let gVC = PhotoGalleryVC.instantiate(fromAppStoryboard: .Dashboard)
+            gVC.parentVC = self
+            gVC.imageNames = images
+            gVC.startShowingFrom = index
+            self.present(gVC, animated: true, completion: nil)
         }
     }
     
@@ -219,7 +228,7 @@ extension BookingHotelDetailVC: TopNavigationViewDelegate {
 extension BookingHotelDetailVC: HotelDetailAmenitiesCellDelegate {
     // TODO: - Amentities data not coming
     func viewAllButtonAction() {
-        AppFlowManager.default.showHotelDetailAmenitiesVC(amenitiesGroups: self.viewModel.bookingDetail?.bookingDetail?.amenitiesGroups ?? [:], amentites: self.viewModel.bookingDetail?.bookingDetail?.amenities)
+        AppFlowManager.default.showHotelDetailAmenitiesVC(amenitiesGroups: self.viewModel.bookingDetail?.bookingDetail?.amenitiesGroups ?? [:], amentites: self.viewModel.bookingDetail?.bookingDetail?.amenities, amenitiesGroupOrder: self.viewModel.bookingDetail?.bookingDetail?.amenities_group_order ?? [:])
     }
 }
 

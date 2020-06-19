@@ -28,8 +28,9 @@ extension UpcomingBookingsVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
         let bookingData = fetchedResultsController.object(at: indexPath)
-        let stepsH: CGFloat = CGFloat(bookingData.stepsArray?.count ?? 0) * 40.0
-        return stepsH + 92.0
+        let totalSteps = bookingData.stepsArray?.count ?? 0
+        let stepsH: CGFloat = CGFloat(totalSteps) * 40.0
+        return stepsH + 98.0 + (totalSteps > 0 ? 1 : 0)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -55,6 +56,8 @@ extension UpcomingBookingsVC: UITableViewDataSource, UITableViewDelegate {
             headerText = date.toString(dateFormat: format)
         }
         headerView.configViewForBooking(date: headerText, isFirstHeaderView: section == 0)
+        headerView.topDividerView.isHidden = section == 0 ? true : false
+        headerView.bottomDividerView.isHidden = false
         return headerView
     }
     

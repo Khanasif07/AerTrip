@@ -176,29 +176,29 @@ extension BookingHotelDetailVC {
     }
     
     func getHeightForRoomSection(_ indexPath: IndexPath) -> CGFloat {
-        let inclusionCellHeight:CGFloat = (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.inclusionString == "-") ? 0.0 : 60.0
-        let otherInclusionCellHeight:CGFloat =  (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.otherInclsionString == "-"  ) ? 0.0 : 60.0
+        let inclusionCellHeight:CGFloat = (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.inclusionString == "-") ? CGFloat.leastNormalMagnitude : 60.0
+        let otherInclusionCellHeight:CGFloat =  (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.otherInclsionString == "-"  ) ? CGFloat.leastNormalMagnitude : 60.0
        
-        return [60, inclusionCellHeight, otherInclusionCellHeight, (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.notes ?? []).isEmpty ? 0 : UITableView.automaticDimension, 187][indexPath.row]
+        return [60, inclusionCellHeight, otherInclusionCellHeight, (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.notes ?? []).isEmpty ? CGFloat.leastNormalMagnitude : UITableView.automaticDimension, 187][indexPath.row]
     }
     
     func getHeightForLastSection(_ indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
             // Address Cell
-            return (self.viewModel.bookingDetail?.bookingDetail?.hotelAddressDetail ?? "").isEmpty ? 0 : UITableView.automaticDimension
+            return (self.viewModel.bookingDetail?.bookingDetail?.hotelAddressDetail ?? "").isEmpty ? CGFloat.leastNormalMagnitude : UITableView.automaticDimension
         case 1:
             // Phone detail cell
-             return (self.viewModel.bookingDetail?.bookingDetail?.phoneDetail ?? "").isEmpty ? 0 : UITableView.automaticDimension
+             return (self.viewModel.bookingDetail?.bookingDetail?.phoneDetail ?? "").isEmpty ? CGFloat.leastNormalMagnitude : UITableView.automaticDimension
             
         case 2: // Website
-             return (self.viewModel.bookingDetail?.bookingDetail?.websiteDetail ?? "").isEmpty ? 0 : UITableView.automaticDimension
+             return (self.viewModel.bookingDetail?.bookingDetail?.websiteDetail ?? "").isEmpty ? CGFloat.leastNormalMagnitude : UITableView.automaticDimension
         case 3:// overview
-            return (self.viewModel.bookingDetail?.bookingDetail?.overViewData ?? "").isEmpty ? 0 : UITableView.automaticDimension
+            return (self.viewModel.bookingDetail?.bookingDetail?.overViewData ?? "").isEmpty ? CGFloat.leastNormalMagnitude : UITableView.automaticDimension
         case 4: // amentities
-            return (self.viewModel.bookingDetail?.bookingDetail?.amenities == nil) ? 0 : 140.0
+            return (self.viewModel.bookingDetail?.bookingDetail?.amenities == nil) ? CGFloat.leastNormalMagnitude : 140.0
         case 5:
-            return (self.viewModel.bookingDetail?.bookingDetail?.taLocationID.isEmpty ?? false) ? 0 : 46.0
+            return (self.viewModel.bookingDetail?.bookingDetail?.taLocationID.isEmpty ?? false) ? CGFloat.leastNormalMagnitude : 46.0
         default:
             return UITableView.automaticDimension
         }

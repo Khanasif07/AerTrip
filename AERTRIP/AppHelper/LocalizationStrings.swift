@@ -670,6 +670,7 @@ enum LocalizedString: String {
     case Change
     case YourBookingIDIs
     case YourCaseIDIs
+    case YourBookingID 
     case AndAllDetailsWillBeSentToYourEmail
     case YouAreAllDoneLabel
     case AddToAppleWallet

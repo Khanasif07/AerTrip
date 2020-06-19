@@ -33,7 +33,7 @@ extension FinalCheckOutVC : HotelFareSectionHeaderDelegate {
             } else {
                 self.isCouponSectionExpanded = true
             }
-          self.checkOutTableView.reloadData()
+            self.checkOutTableView.reloadSections(IndexSet(arrayLiteral: 1), with: .fade)
         }
     }
 }

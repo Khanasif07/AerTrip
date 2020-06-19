@@ -125,6 +125,8 @@ class HotelDetailsVM {
                         return true
                     }else if ((rates.cancellation_penalty?.is_refundable ?? false) && ((tag.lowercased() == "free cancellation") || (tag.lowercased() == "free") || (tag.lowercased() == "part refundable"))){
                         return true
+                    }else if ((rates.cancellation_penalty?.is_refundable  ?? false) == false && ((tag.lowercased() == "non-refundable") || (tag.lowercased() == "non refundable"))){
+                        return true
                     }
                     return false
                 }

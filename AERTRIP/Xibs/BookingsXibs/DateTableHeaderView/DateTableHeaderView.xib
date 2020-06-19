@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,10 +15,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DateTableHeaderView" customModule="AERTRIP" customModuleProvider="target">
             <connections>
+                <outlet property="bottomDividerView" destination="hry-vx-G1J" id="vPc-wc-o88"/>
                 <outlet property="dataLabelBottomConstraint" destination="7gL-kQ-gDO" id="zcM-Jv-mGJ"/>
                 <outlet property="dateLabel" destination="vqI-ud-bKw" id="Ogr-9X-itO"/>
                 <outlet property="dateLabelTopConstraint" destination="oIz-Fe-cI0" id="zob-7v-5e4"/>
                 <outlet property="parentView" destination="FCB-It-Ot6" id="Hvc-qn-Ne7"/>
+                <outlet property="topDividerView" destination="z6v-pU-ptb" id="tVk-Ce-RRq"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -29,18 +31,38 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FCB-It-Ot6">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
                     <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z6v-pU-ptb" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="n2W-Kp-WS8"/>
+                            </constraints>
+                        </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vqI-ud-bKw">
                             <rect key="frame" x="16" y="6" width="343" height="76"/>
                             <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hry-vx-G1J" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="81.5" width="375" height="0.5"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="knu-wG-sEZ"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="vqI-ud-bKw" secondAttribute="bottom" id="7gL-kQ-gDO"/>
+                        <constraint firstAttribute="trailing" secondItem="z6v-pU-ptb" secondAttribute="trailing" id="HTu-el-SNq"/>
+                        <constraint firstItem="hry-vx-G1J" firstAttribute="leading" secondItem="FCB-It-Ot6" secondAttribute="leading" id="Lky-ix-M2h"/>
+                        <constraint firstAttribute="trailing" secondItem="hry-vx-G1J" secondAttribute="trailing" id="NWm-hm-890"/>
+                        <constraint firstItem="z6v-pU-ptb" firstAttribute="leading" secondItem="FCB-It-Ot6" secondAttribute="leading" id="SuW-7g-nIm"/>
+                        <constraint firstItem="z6v-pU-ptb" firstAttribute="top" secondItem="FCB-It-Ot6" secondAttribute="top" id="aSY-dp-ahi"/>
                         <constraint firstAttribute="trailing" secondItem="vqI-ud-bKw" secondAttribute="trailing" constant="16" id="bp1-4I-ASL"/>
                         <constraint firstItem="vqI-ud-bKw" firstAttribute="leading" secondItem="FCB-It-Ot6" secondAttribute="leading" constant="16" id="i2K-fB-6ss"/>
+                        <constraint firstAttribute="bottom" secondItem="hry-vx-G1J" secondAttribute="bottom" id="lhd-d3-ffa"/>
                         <constraint firstItem="vqI-ud-bKw" firstAttribute="top" secondItem="FCB-It-Ot6" secondAttribute="top" constant="6" id="oIz-Fe-cI0"/>
                     </constraints>
                 </view>

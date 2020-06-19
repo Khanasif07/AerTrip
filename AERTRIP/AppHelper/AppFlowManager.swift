@@ -156,7 +156,7 @@ class AppFlowManager: NSObject {
         self.mainNavigationController = nvc
         self.window.rootViewController = nvc
         self.window.becomeKey()
-        self.window.backgroundColor = .white
+        self.window.backgroundColor = .black
         self.window.makeKeyAndVisible()
     }
     
@@ -567,10 +567,11 @@ extension AppFlowManager {
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
-    func showHotelDetailAmenitiesVC(amenitiesGroups : [String : Any] = [:],amentites: Amenities? = nil ) {
+    func showHotelDetailAmenitiesVC(amenitiesGroups : [String : Any] = [:],amentites: Amenities? = nil, amenitiesGroupOrder: [String : String] ) {
         let ob = HotelDetailsAmenitiesVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.amenitiesGroups = amenitiesGroups
         ob.viewModel.amenities = amentites
+        ob.viewModel.amenitiesGroupOrder = amenitiesGroupOrder
         //        ob.modalPresentationStyle = .overFullScreen
         //        ob.modalPresentationCapturesStatusBarAppearance = true
         //        ob.statusBarColor = AppColors.themeWhite
@@ -1002,7 +1003,7 @@ extension AppFlowManager {
         let ob = BookingCancellationPolicyVC.instantiate(fromAppStoryboard: .Bookings)
         ob.viewModel.vcUsingType = usingForVC
         ob.viewModel.bookingDetail = bookingDetail
-        self.mainNavigationController.present(ob, animated: true)
+        UIApplication.topViewController()?.present(ob, animated: true)
     }
     
     // Move to  select Trip VC

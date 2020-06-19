@@ -253,6 +253,10 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
         cell.configCell(currentCoupon: model)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedCoupon(indexPath: indexPath)
+    }
 }
 
 extension HCCouponCodeVC {
@@ -264,9 +268,9 @@ extension HCCouponCodeVC {
        // self.couponValidationTextSetUp(isCouponValid: true)
         self.viewModel.couponCode = ""
         self.couponTableView.reloadData()
-        guard let text = textField.text else { return true }
-        let finalText = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        self.viewModel.searchCoupons(searchText: finalText)
+//        guard let text = textField.text else { return true }
+//        let finalText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.viewModel.searchCoupons(searchText: "")
         return true
     }
     

@@ -473,7 +473,7 @@ extension HotelResultVC {
                 rect.origin.y = -visualEffectViewHeight
                 
                 if scrollView.contentOffset.y < 100 {
-                    let zeroPoint = CGPoint(x: 0, y: 96.0)
+                    let zeroPoint = CGPoint(x: 0, y: self.topContentSpace)
                     scrollView.setContentOffset(zeroPoint, animated: true)
                 }
             }

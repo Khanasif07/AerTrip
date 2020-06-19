@@ -133,7 +133,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
             self.tickmarkButtonHeightConstraint.constant = 62
         } else {
             self.youAreAllDoneLabel.text = LocalizedString.BookingIsInProcess.localized
-            self.bookingIdAndDetailsLabel.attributedText = self.attributeLabelSetUp(prefixText: LocalizedString.YourCaseIDIs.localized, id: forBookingId , postfixText: LocalizedString.AndAllDetailsWillBeSentToYourEmail.localized)
+            self.bookingIdAndDetailsLabel.attributedText = self.attributeLabelSetUp(prefixText: LocalizedString.YourBookingID.localized, id: forBookingId , postfixText: LocalizedString.AndAllDetailsWillBeSentToYourEmail.localized)
            self.importantNoteLabel.attributedText = self.attributeLabelSetUp(prefixText: "", prefixTextColor: AppColors.themeRed, prefixFont: AppFonts.SemiBold.withSize(16.0)  , id: LocalizedString.YourBookingIdStmt.localized, middleTextColor: AppColors.themeBlack , middleFont: AppFonts.Regular.withSize(16.0), postfixText: LocalizedString.AertripEmailId.localized , postfixTextColor: AppColors.themeBlack , postfixFont: AppFonts.SemiBold.withSize(16.0), image: #imageLiteral(resourceName: "infoOrange"))
             self.importantNoteLabel.isHidden = false
             self.addToAppleWalletButton.isHidden = true

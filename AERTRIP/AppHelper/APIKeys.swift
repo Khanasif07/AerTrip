@@ -302,6 +302,7 @@ enum APIKeys: String {
     case special_requests
     case pan_required
     case is_price_change
+    case amenities_group_order
 
     
     case is_applied = "is_applied"

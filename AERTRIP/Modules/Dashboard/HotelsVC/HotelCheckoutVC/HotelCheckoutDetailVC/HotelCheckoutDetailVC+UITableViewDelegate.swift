@@ -171,7 +171,7 @@ extension HotelCheckoutDetailVC: TopNavigationViewDelegate {
 extension HotelCheckoutDetailVC: HotelDetailAmenitiesCellDelegate {
     func viewAllButtonAction() {
         if let hotelData = self.viewModel {
-            AppFlowManager.default.showHotelDetailAmenitiesVC(amenitiesGroups: hotelData.amenitiesGroups , amentites: hotelData.amenities)
+            AppFlowManager.default.showHotelDetailAmenitiesVC(amenitiesGroups: hotelData.amenitiesGroups , amentites: hotelData.amenities, amenitiesGroupOrder: hotelData.amenities_group_order)
         }
     }
 }
@@ -225,8 +225,8 @@ extension HotelCheckoutDetailVC: HotelDetailsImgSlideCellDelegate {
         let gVC = PhotoGalleryVC.instantiate(fromAppStoryboard: .Dashboard)
         gVC.parentVC = self
         if let images = self.viewModel?.photos {
-            gVC.imageNames = Array(images.dropFirst())
-            gVC.startShowingFrom = index > 0 ? index - 1 : index
+            gVC.imageNames = images
+            gVC.startShowingFrom = index
         }
         self.present(gVC, animated: true, completion: nil)
     }
