@@ -63,4 +63,27 @@ class SeatMapVM {
         case .main:     return flightData.md
         }
     }
+    
+    func resetFlightData(_ selectedPassenger: ATContact,_ seatData: SeatMapModel.SeatMapRow) {
+        resetFlightDataFor(&flightData.md, selectedPassenger, seatData)
+        resetFlightDataFor(&flightData.ud, selectedPassenger, seatData)
+    }
+    
+    private func resetFlightDataFor(_ deckData: inout SeatMapModel.DeckData, _ passenger: ATContact,_ seatData: SeatMapModel.SeatMapRow) {
+        deckData.rows.forEach { (row, rowData) in
+            var newRow = rowData
+            newRow.forEach { (columnKey, column) in
+                var newColumn = column
+                if newColumn.columnData.ssrCode == seatData.columnData.ssrCode {
+                    newColumn.columnData.passenger = passenger
+                } else {
+                    if newColumn.columnData.passenger?.id == passenger.id {
+                        newColumn.columnData.passenger = nil
+                    }
+                }
+                newRow.updateValue(newColumn, forKey: columnKey)
+            }
+            deckData.rows.updateValue(newRow, forKey: row)
+        }
+    }
 }

@@ -61,9 +61,30 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let curCell = collectionView.cellForItem(at: indexPath) as? SeatCollCell, curCell.viewModel.seatData.columnData.availability == .available && !curCell.viewModel.seatData.columnData.postBooking else { return }
+        guard !checkIfSinglePassenger(curCell.viewModel.seatData) else { return }
         if presentedViewController == nil {
             openPassengerSelectionVC(indexPath, curCell.viewModel.seatData)
         }
+    }
+    
+    private func checkIfSinglePassenger(_ seatData: SeatMapModel.SeatMapRow) -> Bool {
+        guard let passengersArr = GuestDetailsVM.shared.guests.first else { return false }
+        let adultPassengersArr = passengersArr.filter { $0.passengerType != .infant }
+        if adultPassengersArr.count == 1 {
+            if let passenger = adultPassengersArr.first {
+                setPassengerOnSeat(passenger, seatData)
+            }
+            return true
+        } else if adultPassengersArr.count > 1 {
+            return false
+        }
+        return false
+    }
+    
+    private func setPassengerOnSeat(_ passenger: ATContact,_ seatData: SeatMapModel.SeatMapRow) {
+        viewModel.resetFlightData(passenger, seatData)
+        self.seatMapCollView.reloadData()
+        self.onReloadPlaneLayoutCall?(viewModel.flightData)
     }
     
     private func openPassengerSelectionVC(_ indexPath: IndexPath,_ seatData: SeatMapModel.SeatMapRow) {
