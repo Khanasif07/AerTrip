@@ -17,8 +17,7 @@ extension FlightPaymentBookingStatusVC{
         }else{
             cell.configCell(forBookingId: self.viewModel.itinerary.bookingNumber, forCid: LocalizedString.na.localized)
         }
-        
-//        cell.delegate = self
+        cell.delegate = self
         return cell
     }
     
@@ -66,10 +65,10 @@ extension FlightPaymentBookingStatusVC{
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: TravellersPnrStatusTableViewCell.reusableIdentifier) as? TravellersPnrStatusTableViewCell else {return UITableViewCell()}
         let count = self.viewModel.itinerary.travellerDetails.t.count
         let traveller = self.viewModel.itinerary.travellerDetails.t[indexPath.row - 3]
-        var pnr = ""
-        if traveller.ticketDetails.count > (indexPath.section - 1){
-            pnr = traveller.ticketDetails[indexPath.section - 1].pnr
-        }
+        let pnr = self.viewModel.getPnrWith(indexPath)
+//        if traveller.ticketDetails.count > (indexPath.section - 1){
+//            pnr = traveller.ticketDetails[indexPath.section - 1].pnr
+//        }
         cell.configCell(travellersImage: traveller.profileImg, travellerName: "\(traveller.firstName) \(traveller.lastName)", travellerPnrStatus: pnr, firstName: (traveller.firstName), lastName: (traveller.lastName), isLastTraveller: (indexPath.row == (count + 2)),paxType: traveller.paxType, dob: traveller.dob, salutation: traveller.salutation)
         cell.clipsToBounds = true
         return cell
@@ -104,6 +103,8 @@ extension FlightPaymentBookingStatusVC{
         }else{
             cell.titleLabelBottomContraint.constant = 8.0
         }
+        cell.viewButton.addTarget(self, action: #selector(tapViewTicketViewButton), for: .touchUpInside)
+        cell.viewButton.tag = indexPath.row - 2
         cell.confirmationVoucherLabel.text = "\(source) - \(destination)"
         cell.configCell()
         return cell
@@ -112,15 +113,28 @@ extension FlightPaymentBookingStatusVC{
     internal func getWhatNextCell(_ indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: HCWhatNextTableViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextTableViewCell else { return UITableViewCell() }
         cell.delegate = self
-        let whtNext = self.viewModel.itinerary.hotelLinkParam.map{$0.destName}
+        let whtNext = self.viewModel.itinerary.hotelLinkParam.map{"Book your hotel in\n\($0.destName)"}
         if !whtNext.isEmpty {
             cell.configCell(whatNextString: whtNext)
             cell.whatNextStackView.isHidden = false
         } else {
             cell.whatNextStackView.isHidden = true
         }
+        cell.suggetionImage = #imageLiteral(resourceName: "hotel_green_icon")
         cell.whatNextCollectionView.reloadData()
         return cell
+    }
+    
+    @objc func tapViewTicketViewButton(_ sender: UIButton){
+        
+        let index = sender.tag
+        if self.viewModel.apiBookingIds.count > index{
+            let id = self.viewModel.apiBookingIds[index]
+            AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/booking-action?type=pdf&booking_id=\(id)&doc=voucher", screenTitle: "Booking Ticket")
+        }else{
+            let id = self.viewModel.apiBookingIds.first ?? ""
+            AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/booking-action?type=pdf&booking_id=\(id)&doc=voucher", screenTitle: "Booking Ticket")
+        }
     }
     
 }
@@ -168,6 +182,7 @@ extension FlightPaymentBookingStatusVC : HCBookingDetailsTableViewHeaderFooterVi
     func emailIternaryButtonTapped(){
         let obj = HCEmailItinerariesVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.isForFlight = true
+        obj.viewModel.bookingId = self.viewModel.apiBookingIds.first ?? ""
         obj.viewModel.flightTraveller = self.viewModel.itinerary.travellerDetails.t
         self.present(obj, animated: true, completion: nil)
     }

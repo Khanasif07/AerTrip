@@ -44,7 +44,7 @@ class FlightPaymentBookingStatusVM{
         
     }
     
-     func getSectionData(){
+    func getSectionData(){
         
         // AllDone Section Cells
         self.sectionData.append([.allDoneCell, .eventSharedCell])
@@ -59,9 +59,6 @@ class FlightPaymentBookingStatusVM{
             self.sectionData.append(data)
         }
         var dataForLastSection = [TableViewCellType]()
-//        if isSeatSettingAvailable{
-//            //Add seat button cell
-//        }
         if self.itinerary.bookingStatus.status != "pending"{
             dataForLastSection.append(contentsOf: [.totalChargeCell, .confirmationHeaderCell])
             for _ in 0..<(self.itinerary.details.legsWithDetail.count){
@@ -74,7 +71,7 @@ class FlightPaymentBookingStatusVM{
         dataForLastSection.append(.whatNextCell)
         self.sectionData.append(dataForLastSection)
     }
-
+    
     func getBookingReceipt() {
         
         let params: JSONDictionary = [APIKeys.booking_id.rawValue: self.apiBookingIds.joined(separator: ","), APIKeys.it_id.rawValue: itId]
@@ -92,21 +89,34 @@ class FlightPaymentBookingStatusVM{
     }
     
     func getBookingDetails(_ bookingId: String, index: Int) {
-            let params: JSONDictionary = ["booking_id": bookingId]
-            delegate?.willGetBookingDetail()
-            APICaller.shared.getBookingDetail(params: params) { [weak self] success, errors, bookingDetail in
-                guard let self = self else { return }
-                if success {
-                    self.bookingDetail[index] = bookingDetail
-                    if index == (self.bookingDetail.count - 1){
-                        self.delegate?.getBookingDetailSucces()
-                    }
-                } else {
-                    if index == (self.bookingDetail.count - 1){
-                        self.delegate?.getBookingDetailFaiure(error: errors)
-                    }
+        let params: JSONDictionary = ["booking_id": bookingId]
+        delegate?.willGetBookingDetail()
+        APICaller.shared.getBookingDetail(params: params) { [weak self] success, errors, bookingDetail in
+            guard let self = self else { return }
+            if success {
+                self.bookingDetail[index] = bookingDetail
+                if index == (self.bookingDetail.count - 1){
+                    self.delegate?.getBookingDetailSucces()
+                }
+            } else {
+                if index == (self.bookingDetail.count - 1){
+                    self.delegate?.getBookingDetailFaiure(error: errors)
                 }
             }
         }
+    }
     
+    func getPnrWith(_ indexPath:IndexPath)->String{
+        let sec = indexPath.section - 1
+        let row = indexPath.row - 3
+        if self.bookingDetail.count > sec, let booking = self.bookingDetail[sec]{
+            return booking.bookingDetail?.leg.first?.pax[row].pnr ?? ""
+        }else if let booking = self.bookingDetail.first, let pnr = booking?.bookingDetail?.leg.first?.pax[row].pnr{
+            let pnrArr = pnr.components(separatedBy: ",")
+            if pnrArr.count > sec{
+                return pnrArr[sec]
+            }
+        }
+        return ""
+    }
 }

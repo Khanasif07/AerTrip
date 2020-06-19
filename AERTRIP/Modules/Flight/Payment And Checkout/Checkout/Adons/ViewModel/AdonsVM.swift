@@ -140,11 +140,15 @@ class AdonsVM  {
             self.checkForMealPreferences(id: id, passenger: dataStore.passengers[i])
             self.checkForFrequentFlyer(id: id, passenger: dataStore.passengers[i])
          }
-         if dataStore.isGSTOn{
-             self.parmsForItinerary["gst[number]"] = dataStore.gstDetail.GSTInNo
-             self.parmsForItinerary["gst[company_name]"] = dataStore.gstDetail.companyName
-             self.parmsForItinerary["gst[address_line1]"] = dataStore.gstDetail.billingName
-         }
+        if dataStore.isGSTOn{
+            self.parmsForItinerary["gst[number]"] = dataStore.gstDetail.GSTInNo
+            self.parmsForItinerary["gst[company_name]"] = dataStore.gstDetail.companyName
+            self.parmsForItinerary["gst[address_line1]"] = dataStore.gstDetail.billingName
+            self.parmsForItinerary["gst[address_line2]"] = ""
+            self.parmsForItinerary["gst[city]"] = "maharastra"
+            self.parmsForItinerary["gst[postal_code]"] = "400001"
+            
+        }
      }
      
 //     private func generatePaasengerId(index:Int, type:PassengersType)-> String{
@@ -241,24 +245,23 @@ class AdonsVM  {
         }
     
      /// To get Itenerary Data from API
-           func bookFlightWithAddons(){
-            self.delegate?.willBookFlight()
-//                self.createParamForItineraryApi()
-                self.checkForMeals()
-                self.checkForBaggage()
-                self.checkForOthers()
-            
-                APICaller.shared.getItineraryData(params: self.parmsForItinerary, itId: AddonsDataStore.shared.itinerary.id) { (success, error, itinerary) in
-                    if success, let iteneraryData = itinerary{
-                        AddonsDataStore.shared.appliedCouponData = iteneraryData
-                        self.delegate?.bookFlightSuccessFully()
-    //                    AddonsDataStore.shared.taxesDataDisplay()
-                    }else{
-                        self.delegate?.failedToBookBlight()
-                    }
-                }
-                
+    func bookFlightWithAddons(){
+        self.delegate?.willBookFlight()
+        // self.createParamForItineraryApi()
+        self.checkForMeals()
+        self.checkForBaggage()
+        self.checkForOthers()
+        APICaller.shared.getItineraryData(params: self.parmsForItinerary, itId: AddonsDataStore.shared.itinerary.id) { (success, error, itinerary) in
+            if success, let iteneraryData = itinerary{
+                AddonsDataStore.shared.appliedCouponData = iteneraryData
+                self.delegate?.bookFlightSuccessFully()
+                //AddonsDataStore.shared.taxesDataDisplay()
+            }else{
+                self.delegate?.failedToBookBlight()
             }
+        }
+        
+    }
     
     
     

@@ -23,53 +23,5 @@
             </Actions>
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "655E7898-0B9B-4019-AA40-90FBBAA0CA2B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Flight/Payment And Checkout/Flight Payment/ViewControllers/PostBookingFlightDetails/PostBookingFareInfo/PostBookingFareInfoVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "356"
-            endingLineNumber = "356"
-            landmarkName = "getCellForFareInfoForMultiFlight(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "655E7898-0B9B-4019-AA40-90FBBAA0CA2B - 5a10fb2a635ab977"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AERTRIP.PostBookingFareInfoVC.getCellForFareInfoForMultiFlight(Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "Aertrip"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/apple/Desktop/Aertrip/AERTRIP/Modules/Flight/Payment%20And%20Checkout/Flight%20Payment/ViewControllers/PostBookingFlightDetails/PostBookingFareInfo/PostBookingFareInfoVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "356"
-                  endingLineNumber = "356"
-                  offsetFromSymbolStart = "4381">
-               </Location>
-               <Location
-                  uuid = "655E7898-0B9B-4019-AA40-90FBBAA0CA2B - eed41eb907b6211"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Swift.Int, AERTRIP.FEE) -&gt; Swift.Int in AERTRIP.PostBookingFareInfoVC.getCellForFareInfoForMultiFlight(Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "Aertrip"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/apple/Desktop/Aertrip/AERTRIP/Modules/Flight/Payment%20And%20Checkout/Flight%20Payment/ViewControllers/PostBookingFlightDetails/PostBookingFareInfo/PostBookingFareInfoVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "357"
-                  endingLineNumber = "357"
-                  offsetFromSymbolStart = "91">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

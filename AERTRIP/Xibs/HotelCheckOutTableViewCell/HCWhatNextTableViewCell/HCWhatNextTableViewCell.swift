@@ -27,6 +27,8 @@ class HCWhatNextTableViewCell: UITableViewCell {
     }
     private var itemWidth: CGFloat  = 0
     
+    var suggetionImage = #imageLiteral(resourceName: "flightIcon")//hotel_green_icon
+    
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var containerView: UIView!
@@ -134,6 +136,8 @@ extension HCWhatNextTableViewCell: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCWhatNextCollectionViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextCollectionViewCell else { return UICollectionViewCell() }
         cell.nextPlanLabel.text = self.nextPlanString[indexPath.row]
+        cell.flightImageView.image = self.suggetionImage
+        cell.flightImageView.isHidden = false
         return cell
     }
     

@@ -39,6 +39,7 @@ struct BookingDetailModel {
     var tripWeatherData: [WeatherInfo] = []
     var weatherDisplayedWithin16Info: Bool = false
     var frequentFlyerData: [FrequentFlyerData] = []
+    var displaySeatMap:Bool = false
     var jsonDict: JSONDictionary {
         return [:]
     }
@@ -94,6 +95,9 @@ struct BookingDetailModel {
             self.user = obj
         }
         
+        if let obj = json["display_seat_map"] as? Bool {
+            self.displaySeatMap = obj
+        }
         // M
         if let obj = json["receipt"] as? JSONDictionary {
             self.receipt = Receipt(json: obj, bookingId: self.id)

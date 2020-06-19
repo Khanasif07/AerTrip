@@ -59,6 +59,7 @@ struct TravellerModel {
         contact.passportNumber = self.passportNumber
         contact.passportExpiryDate = self.passportExpiryDate
         contact.ffp = self.ffp
+        contact.apiId = "\(self.id)"
         return contact
     }
     
