@@ -213,7 +213,7 @@ extension SelectOtherAdonsContainerVC: PagingViewControllerDataSource , PagingVi
 
 extension SelectOtherAdonsContainerVC : SelectOtherDelegate {
    
-    func addPassengerToMeal(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, othersIndex: Int, selectedContacts: [ATContact]) {
+    func addPassengerToMeal2(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, othersIndex: Int, selectedContacts: [ATContact]) {
         let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
         vc.modalPresentationStyle = .overFullScreen
         vc.selectPassengersVM.selectedContacts = selectedContacts
@@ -229,7 +229,6 @@ extension SelectOtherAdonsContainerVC : SelectOtherDelegate {
                     }){
                         weakSelf.othersContainerVM.allChildVCs[vcIndex].otherAdonsVm.addonsDetails.addonsArray[otherIndex].othersSelectedFor.remove(at: contIndex)
                         
-                        
                     }
                   }
                 }
@@ -242,9 +241,35 @@ extension SelectOtherAdonsContainerVC : SelectOtherDelegate {
         present(vc, animated: true, completion: nil)
     }
     
+    
+    
+    
+    func addPassengerToMeal(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, othersIndex: Int, selectedContacts: [ATContact]) {
+           let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+           vc.modalPresentationStyle = .overFullScreen
+           vc.selectPassengersVM.selectedContacts = selectedContacts
+           vc.selectPassengersVM.adonsData = forAdon
+           vc.selectPassengersVM.setupFor = .others
+           vc.selectPassengersVM.flightKys = [currentFlightKey]
+           vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
+               guard let weakSelf = self else { return }
+          
+            
+            weakSelf.othersContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, othersIndex: othersIndex, contacts: contacts)
+            
+            
+//            weakSelf.othersContainerVM.allChildVCs[vcIndex].otherAdonsVm.updateContactInOthers(OthersIndex: othersIndex, contacts: contacts)
+//
+//               weakSelf.othersContainerVM.allChildVCs[vcIndex].reloadData()
+//               weakSelf.calculateTotalAmount()
+           }
+           
+           present(vc, animated: true, completion: nil)
+       }
+       
+        
        func addContactButtonTapped() {
            
        }
-    
     
 }

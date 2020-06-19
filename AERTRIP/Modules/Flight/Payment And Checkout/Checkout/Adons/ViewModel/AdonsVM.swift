@@ -169,13 +169,13 @@ class AdonsVM  {
         }
         
         if description.isEmpty {
-            description = LocalizedString.Choose_Baggage.localized
+            description = LocalizedString.Choose_Meal.localized
         }
         
         if let ind = self.addonsData.firstIndex(where: { (addonsData) -> Bool in
             return addonsData.addonsType == .meals
         }){
-            self.addonsData[ind].heading = count != 0 ? LocalizedString.Other.localized + " " + "x\(count)" : LocalizedString.Other.localized
+            self.addonsData[ind].heading = count != 0 ? LocalizedString.Meals.localized + " " + "x\(count)" : LocalizedString.Meals.localized
             self.addonsData[ind].description = description.replacingLastOccurrenceOfString(", ", with: "")
         }
     }
@@ -236,7 +236,7 @@ class AdonsVM  {
         }
         
         if description.isEmpty {
-            description = LocalizedString.Choose_Baggage.localized
+            description = LocalizedString.PreBook_Services.localized.localized
         }
         
         if let ind = self.addonsData.firstIndex(where: { (addonsData) -> Bool in
@@ -392,11 +392,11 @@ class AdonsVM  {
         self.checkForBaggage()
         self.checkForOthers()
         
+        
         APICaller.shared.getItineraryData(withAddons : true, params: self.parmsForItinerary, itId: AddonsDataStore.shared.itinerary.id) { (success, error, itinerary) in
             if success, let iteneraryData = itinerary{
                 AddonsDataStore.shared.appliedCouponData = iteneraryData
                 self.delegate?.bookFlightSuccessFully()
-                //                    AddonsDataStore.shared.taxesDataDisplay()
             }else{
                 self.delegate?.failedToBookBlight()
             }

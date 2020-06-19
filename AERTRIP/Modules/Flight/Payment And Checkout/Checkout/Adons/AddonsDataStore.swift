@@ -62,6 +62,7 @@ class AddonsDataStore {
         flightKeys = flightsWithData.map { (flights) -> String in
             return flights.flightId
         }
+        
      }
         
     func getMealsSelectionCount() -> Int {

@@ -104,6 +104,11 @@ struct AddonsDetails{
                      addonsArray.append(adon)
                }
            }
+
+       addonsArray = addonsArray.sorted { (a, b) -> Bool in
+            return a.price < b.price
+        }
+        
     }
 }
 
