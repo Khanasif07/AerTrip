@@ -77,7 +77,7 @@ class FlightPaymentBookingStatusVC: BaseVC {
         
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: self.viewModel.availableSeatMaps.map{$0.name}, colors: self.viewModel.availableSeatMaps.map{$0.isSelectedForall ? AppColors.themeGray40 : AppColors.themeGreen})
         let cencelBtn = PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeDarkGreen,titleFont: AppFonts.SemiBold.withSize(20))
-        _ = PKAlertController.default.presentActionSheet(LocalizedString.FloatingButtonsTitle.localized,titleFont: AppFonts.SemiBold.withSize(14), titleColor: AppColors.themeGray40, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: cencelBtn) { [weak self] _, index in
+        _ = PKAlertController.default.presentActionSheet("Select Seats for…",titleFont: AppFonts.SemiBold.withSize(14), titleColor: AppColors.themeGray40, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: cencelBtn) { [weak self] _, index in
             guard let self = self else {return}
             let bookingId = self.viewModel.availableSeatMaps[index].bookingId
             
@@ -118,7 +118,7 @@ extension FlightPaymentBookingStatusVC: UITableViewDelegate, UITableViewDataSour
         if (section == (self.viewModel.sectionData.count - 2) && self.viewModel.isSeatSettingAvailable){
             guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SelectSeatButtonFooterVew") as? SelectSeatButtonFooterVew else { return nil }
             footerView.handeller = {
-                printDebug("Hello jdsk")
+                self.openActionSeat()
             }
             return footerView
         } else {
@@ -189,6 +189,7 @@ extension FlightPaymentBookingStatusVC: FlightPaymentBookingStatusVMDelegate{
     
     func getBookingDetailSucces() {
         AppGlobals.shared.stopLoading()
+        self.statusTableView.reloadData()
     }
     
     func getBookingDetailFaiure(error: ErrorCodes) {

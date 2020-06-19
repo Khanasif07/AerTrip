@@ -38,10 +38,13 @@ class FlightPaymentBookingStatusVM{
     }
     
     func getBookingDetail(){
+        guard !self.apiBookingIds.isEmpty else{
+            AppGlobals.shared.stopLoading()
+            return
+        }
         for i in 0..<self.apiBookingIds.count{
             self.bookingDetail.append(nil)
             self.getBookingDetails(self.apiBookingIds[i], index:i)
-            
         }
         
         
@@ -100,10 +103,12 @@ class FlightPaymentBookingStatusVM{
                 self.bookingDetail[index] = bookingDetail
                 self.setSeatMapAvailability(bookingId, booking: bookingDetail)
                 if index == (self.bookingDetail.count - 1){
+                    AppGlobals.shared.stopLoading()
                     self.delegate?.getBookingDetailSucces()
                 }
             } else {
                 if index == (self.bookingDetail.count - 1){
+                    AppGlobals.shared.stopLoading()
                     self.delegate?.getBookingDetailFaiure(error: errors)
                 }
             }
@@ -111,10 +116,10 @@ class FlightPaymentBookingStatusVM{
     }
     
     func setSeatMapAvailability(_ bookingId: String, booking: BookingDetailModel?){//→
-        guard let booking = booking, booking.displaySeatMap else {return}
+        guard let booking = booking else {return}//booking.displaySeatMap//Add conditions after check
         var seatMap = AvailableSeatMap(bookingId: bookingId, name: "")
         for leg in booking.bookingDetail?.leg ?? []{
-            guard (leg.pax.first?.status ?? "") == "booked" else {return}
+//            guard (leg.pax.first?.status ?? "") == "booked" else {return}
             let name = "\(leg.origin) → \(leg.destination)"
             seatMap.name = name
             self.availableSeatMaps.append(seatMap)
@@ -127,10 +132,12 @@ class FlightPaymentBookingStatusVM{
         if self.bookingDetail.count > sec, let booking = self.bookingDetail[sec]{
             return booking.bookingDetail?.leg.first?.pax[row].pnr ?? ""
         }else if let booking = self.bookingDetail.first, let pnr = booking?.bookingDetail?.leg.first?.pax[row].pnr{
-            let pnrArr = pnr.components(separatedBy: ",")
-            if pnrArr.count > sec{
-                return pnrArr[sec]
-            }
+            return pnr
+//-----------------Comment for showing pnr according to leg.----------------------
+//            let pnrArr = pnr.components(separatedBy: ",")
+//            if pnrArr.count > sec{
+//                return pnrArr[sec]
+//            }
         }
         return ""
     }

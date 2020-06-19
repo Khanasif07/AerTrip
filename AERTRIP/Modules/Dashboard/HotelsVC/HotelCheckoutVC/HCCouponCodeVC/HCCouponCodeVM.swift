@@ -35,8 +35,8 @@ class HCCouponCodeVM {
         AppGlobals.shared.startLoading()
         let params: [String : Any] = [ APIKeys.it_id.rawValue : self.itineraryId , APIKeys.product.rawValue : self.product.rawValue]
         APICaller.shared.getCouponDetailsApi(params: params, loader: true ) { [weak self] (success, errors, couponsDetails) in
-            guard let sSelf = self else { return }
             AppGlobals.shared.stopLoading()
+            guard let sSelf = self else { return }
             if success {
                 sSelf.couponsData = couponsDetails
                 sSelf.delegate?.getCouponsDataSuccessful()
