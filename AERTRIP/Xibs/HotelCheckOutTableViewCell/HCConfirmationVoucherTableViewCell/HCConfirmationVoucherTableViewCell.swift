@@ -39,7 +39,7 @@ class HCConfirmationVoucherTableViewCell: UITableViewCell {
         
         //Font
         self.confirmationVoucherLabel.font = AppFonts.SemiBold.withSize(18.0)
-        self.viewButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
+        self.viewButton.setTitleFont(font: AppFonts.SemiBold.withSize(18.0), for: .normal)
 
         //Text
         self.confirmationVoucherLabel.text = LocalizedString.ConfirmationVoucher.localized

@@ -1,31 +1,14 @@
 //
-//  FlightPaymentVM.swift
+//  PostBookingAddonsPaymentVM.swift
 //  AERTRIP
 //
-//  Created by Apple  on 03.06.20.
-//  Copyright © 2020 Aertrip. All rights reserved.
+//  Created by Apple  on 18.06.20.
+//  Copyright © 2020 Pramod Kumar. All rights reserved.
 //
 
 import Foundation
 
-protocol FlightPaymentVMDelegate:NSObjectProtocol {
-    func fetchingItineraryData()
-    func responseFromIteneraryData(success:Bool,error:Error?)
-    func getPaymentsMethodsSuccess()
-    func getPaymentMethodsFails(errors: ErrorCodes)
-    func removeCouponCodeSuccessful(_ appliedCouponData: FlightItineraryData)
-    func removeCouponCodeFailed()
-    func reconfirmationResponse(_ success:Bool)
-    
-    func willMakePayment()
-    func makePaymentSuccess(options: JSONDictionary, shouldGoForRazorPay: Bool)
-    func makePaymentFail()
-    
-    func getPaymentResonseSuccess(bookingIds: [String], cid: [String])
-    func getPaymentResonseFail()
-}
-
-class FlightPaymentVM{
+class PostBookingAddonsPaymentVM{
     // Save applied coupon data
     var appliedCouponData: FlightItineraryData = FlightItineraryData()
     var itinerary:FlightItinerary{
@@ -34,8 +17,6 @@ class FlightPaymentVM{
     var addonsMaster = AddonsMaster()
     var taxesResult = [String:String]()
     var taxAndFeesData = [(name:String,value:Int)]()
-    var addonsData = [(name:String,value:Int)]()
-    var discountData = [(name:String,value:Int)]()
 //    var parmsForItinerary:JSONDictionary = [:]
     var grossTotalPayableAmount : Double = 0.0 // without wallet amount
     var paymentDetails: PaymentModal? //Payment methods
@@ -51,10 +32,10 @@ class FlightPaymentVM{
     var sectionHeader = [sectionType]()
     
     enum CellType{
-        case CouponCell,WalletCell, TermsConditionCell,FareDetailsCell,EmptyCell,DiscountCell,WalletAmountCell,FinalAmountCell,FareBreakupCell,TotalPayableNowCell,ConvenienceCell
+        case WalletCell, TermsConditionCell,FareDetailsCell,EmptyCell,DiscountCell,WalletAmountCell,FareBreakupCell,TotalPayableNowCell
     }
     enum sectionType{
-        case CouponsAndWallet,Taxes,Discount,Addons,TotalPaybleAndTC
+        case CouponsAndWallet,Addons,TotalPaybleAndTC
     }
     
     func taxesDataDisplay(){
@@ -70,68 +51,21 @@ class FlightPaymentVM{
         for ( key , _ ) in newDict {
             let dataArray = newDict[key]
             var newTaxVal = 0
-            for i in 0..<dataArray!.count {
+            for i in 0..<dataArray!.count{
                 newTaxVal += (dataArray?[i].taxVal ?? 0)
             }
             let newArr = (key,newTaxVal)
             taxAndFeesData.append(newArr)
+            
         }
-        self.addonsDataDisplay()
-        self.discountDataDisplay()
         self.getNumberOfSection()
-    }
-    
-    private func addonsDataDisplay(){
-        addonsData.removeAll()
-        var taxesDetails : [String:Int] = [String:Int]()
-        var addonsDataDict = [taxStruct]()
-        guard let addons = self.itinerary.details.fare.addons else {return}
-        taxesDetails = addons.details
-        for (_, value) in taxesDetails.enumerated() {
-            let newObj = taxStruct.init(name: taxesResult[value.key] ?? "", taxVal: value.value)
-            addonsDataDict.append(newObj)
-        }
-        let newDict = Dictionary(grouping: addonsDataDict) { $0.name }
-        for ( key , _ ) in newDict {
-            let dataArray = newDict[key]
-            var newTaxVal = 0
-            for i in 0..<dataArray!.count{
-                newTaxVal += (dataArray?[i].taxVal ?? 0)
-            }
-            let newArr = (key,newTaxVal)
-            addonsData.append(newArr)
-            
-        }
-    }
-    
-    private func discountDataDisplay(){
-        discountData.removeAll()
-        var taxesDetails : [String:Int] = [String:Int]()
-        var addonsDataDict = [taxStruct]()
-        guard let discount = self.itinerary.details.fare.discount else {return}
-        taxesDetails = discount.details
-        for (_, value) in taxesDetails.enumerated() {
-            let newObj = taxStruct.init(name: taxesResult[value.key] ?? "", taxVal: value.value)
-            addonsDataDict.append(newObj)
-        }
-        let newDict = Dictionary(grouping: addonsDataDict) { $0.name }
-        for ( key , _ ) in newDict {
-            let dataArray = newDict[key]
-            var newTaxVal = 0
-            for i in 0..<dataArray!.count{
-                newTaxVal += (dataArray?[i].taxVal ?? 0)
-            }
-            let newArr = (key,newTaxVal)
-            discountData.append(newArr)
-            
-        }
     }
     
     private func getNumberOfSection(){
         self.sectionHeader = []
         self.sectionTableCell = []
         var firstSectionData = [CellType]()
-        firstSectionData.append(contentsOf: [.EmptyCell, .CouponCell,.EmptyCell,.WalletCell,.EmptyCell,.FareBreakupCell])
+        firstSectionData.append(contentsOf: [.EmptyCell,.WalletCell,.EmptyCell,.FareBreakupCell])
         self.sectionTableCell.append(firstSectionData)
         self.sectionHeader.append(.CouponsAndWallet)
         //For Taxes and other fee
@@ -140,34 +74,16 @@ class FlightPaymentVM{
             secondSectionCell.append(.DiscountCell)
         }
         self.sectionTableCell.append(secondSectionCell)
-        self.sectionHeader.append(.Taxes)
-        //Discount Cell
-        if !self.discountData.isEmpty{
-            var thirdSection = [CellType]()
-            for _ in self.discountData{
-                thirdSection.append(.DiscountCell)
-            }
-            self.sectionTableCell.append(thirdSection)
-            self.sectionHeader.append(.Discount)
-        }
-        //Addons Cell
-        if !self.addonsData.isEmpty{
-            var fourthSection = [CellType]()
-            for _ in self.addonsData{
-                fourthSection.append(.DiscountCell)
-            }
-            self.sectionTableCell.append(fourthSection)
-            self.sectionHeader.append(.Addons)
-        }
+        self.sectionHeader.append(.Addons)
        //Totalpayble and TC
-        self.sectionTableCell.append([.WalletAmountCell,.WalletAmountCell,.TotalPayableNowCell,.ConvenienceCell,.FinalAmountCell,.TermsConditionCell])
+        self.sectionTableCell.append([.WalletAmountCell,.WalletAmountCell,.TotalPayableNowCell,.TermsConditionCell])
         self.sectionHeader.append(.TotalPaybleAndTC)
         
     }
     
 }
 //MARK:- API Call
-extension FlightPaymentVM{
+extension PostBookingAddonsPaymentVM{
     
      func webServiceGetPaymentMethods() {
          let params: JSONDictionary = [APIKeys.it_id.rawValue:  self.itinerary.id]

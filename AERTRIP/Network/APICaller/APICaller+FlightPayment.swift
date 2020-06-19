@@ -122,13 +122,13 @@ extension APICaller{
     }
     
     
-    func flightBookingReceiptAPI(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ hotelReceiptData : HotelReceiptModel?)->Void) {
+    func flightBookingReceiptAPI(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ hotelReceiptData : FlightReceptModelData?)->Void) {
         AppNetworking.GET(endPoint:APIEndPoint.bookingReceipt, parameters: params, loader: loader, success: { [weak self] (json) in
             guard let sSelf = self else {return}
-            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+            sSelf.handleResponse(json, success: { (success, jsonData) in
                 printDebug(jsonData)
-                if sucess , let data = jsonData[APIKeys.data.rawValue].dictionaryObject , let receiptData = data[APIKeys.receipt.rawValue] as? JSONDictionary {
-                    let receiptModel = HotelReceiptModel(json: receiptData)
+                if success {
+                    let receiptModel = FlightReceptModelData(jsonData[APIKeys.data.rawValue])
                     completionBlock(true, [] , receiptModel)
                 } else {
                     completionBlock(true, [], nil)

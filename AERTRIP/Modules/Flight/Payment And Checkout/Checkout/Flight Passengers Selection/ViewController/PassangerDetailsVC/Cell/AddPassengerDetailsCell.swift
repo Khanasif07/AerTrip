@@ -90,6 +90,7 @@ class AddPassengerDetailsCell: UITableViewCell {
             txtFld?.font = AppFonts.Regular.withSize(18.0)
             txtFld?.textColor = AppColors.textFieldTextColor51
             txtFld?.titleActiveTextColour = AppColors.themeGreen
+            txtFld?.autocorrectionType = .no
         }
     }
     

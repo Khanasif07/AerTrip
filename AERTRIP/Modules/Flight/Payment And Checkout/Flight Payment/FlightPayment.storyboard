@@ -476,5 +476,118 @@
             </objects>
             <point key="canvasLocation" x="4678" y="100"/>
         </scene>
+        <!--Post Booking Addons PaymentVC-->
+        <scene sceneID="rGY-Vm-4gU">
+            <objects>
+                <viewController storyboardIdentifier="PostBookingAddonsPaymentVC" id="OkC-R5-VVb" customClass="PostBookingAddonsPaymentVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tbF-eI-Uqk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="er3-93-Emh">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="sah-ci-IJ4">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aew-4I-Op7">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="gtj-MR-EMn">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                            <vibrancyEffect>
+                                                <blurEffect style="regular"/>
+                                            </vibrancyEffect>
+                                        </visualEffectView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="Aew-4I-Op7" secondAttribute="bottom" id="BA8-UE-yuR"/>
+                                        <constraint firstItem="Aew-4I-Op7" firstAttribute="leading" secondItem="sah-ci-IJ4" secondAttribute="leading" id="O6u-eK-6fx"/>
+                                        <constraint firstItem="Aew-4I-Op7" firstAttribute="top" secondItem="sah-ci-IJ4" secondAttribute="top" id="Vqb-kG-tfZ"/>
+                                        <constraint firstAttribute="trailing" secondItem="Aew-4I-Op7" secondAttribute="trailing" id="w5S-Lm-DBC"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="prominent"/>
+                            </visualEffectView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gsi-TV-P3q" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="25K-Ld-Gdq"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Qvr-ib-g7g" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="414" height="724"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ael-45-570">
+                                <rect key="frame" x="0.0" y="812" width="414" height="84"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CgQ-pR-Vcm">
+                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="e16-sl-8Tw"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="payButtonTapped:" destination="OkC-R5-VVb" eventType="touchUpInside" id="M2Y-cX-10y"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="luC-QK-Fdi">
+                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
+                                <subviews>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="iw6-De-eNA">
+                                        <rect key="frame" x="197" y="15" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="iw6-De-eNA" firstAttribute="centerY" secondItem="luC-QK-Fdi" secondAttribute="centerY" id="flP-vC-3S8"/>
+                                    <constraint firstItem="iw6-De-eNA" firstAttribute="centerX" secondItem="luC-QK-Fdi" secondAttribute="centerX" id="gxv-JW-jEb"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="CgQ-pR-Vcm" firstAttribute="leading" secondItem="6My-Wa-bNl" secondAttribute="leading" id="6wB-he-5P1"/>
+                            <constraint firstItem="Ael-45-570" firstAttribute="leading" secondItem="6My-Wa-bNl" secondAttribute="leading" id="9Fy-ij-sg5"/>
+                            <constraint firstItem="er3-93-Emh" firstAttribute="leading" secondItem="gsi-TV-P3q" secondAttribute="leading" id="Aui-ln-Qko"/>
+                            <constraint firstItem="CgQ-pR-Vcm" firstAttribute="top" secondItem="Qvr-ib-g7g" secondAttribute="bottom" id="B5k-oN-KcW"/>
+                            <constraint firstItem="Qvr-ib-g7g" firstAttribute="leading" secondItem="6My-Wa-bNl" secondAttribute="leading" id="B9p-jg-Nnp"/>
+                            <constraint firstItem="Ael-45-570" firstAttribute="trailing" secondItem="6My-Wa-bNl" secondAttribute="trailing" id="BjO-pE-Qgc"/>
+                            <constraint firstItem="er3-93-Emh" firstAttribute="top" secondItem="tbF-eI-Uqk" secondAttribute="top" id="HiV-G4-Ojs"/>
+                            <constraint firstItem="6My-Wa-bNl" firstAttribute="trailing" secondItem="gsi-TV-P3q" secondAttribute="trailing" id="LfE-c4-aBy"/>
+                            <constraint firstItem="CgQ-pR-Vcm" firstAttribute="bottom" secondItem="6My-Wa-bNl" secondAttribute="bottom" id="MKA-94-Kun"/>
+                            <constraint firstItem="Qvr-ib-g7g" firstAttribute="top" secondItem="gsi-TV-P3q" secondAttribute="bottom" id="RyQ-aD-Wnf"/>
+                            <constraint firstItem="gsi-TV-P3q" firstAttribute="top" secondItem="6My-Wa-bNl" secondAttribute="top" id="Tdc-nb-HA2"/>
+                            <constraint firstItem="Qvr-ib-g7g" firstAttribute="trailing" secondItem="6My-Wa-bNl" secondAttribute="trailing" id="U4k-a1-Cst"/>
+                            <constraint firstItem="luC-QK-Fdi" firstAttribute="bottom" secondItem="CgQ-pR-Vcm" secondAttribute="bottom" id="agp-lG-TMm"/>
+                            <constraint firstItem="luC-QK-Fdi" firstAttribute="trailing" secondItem="CgQ-pR-Vcm" secondAttribute="trailing" id="hR3-F4-GQr"/>
+                            <constraint firstAttribute="bottom" secondItem="Ael-45-570" secondAttribute="bottom" id="jbz-z4-TMF"/>
+                            <constraint firstItem="luC-QK-Fdi" firstAttribute="leading" secondItem="CgQ-pR-Vcm" secondAttribute="leading" id="kHo-Z5-ZBo"/>
+                            <constraint firstItem="Ael-45-570" firstAttribute="top" secondItem="Qvr-ib-g7g" secondAttribute="bottom" id="nk9-Qz-0g1"/>
+                            <constraint firstItem="6My-Wa-bNl" firstAttribute="trailing" secondItem="CgQ-pR-Vcm" secondAttribute="trailing" id="pq1-cx-fzG"/>
+                            <constraint firstItem="luC-QK-Fdi" firstAttribute="top" secondItem="CgQ-pR-Vcm" secondAttribute="top" id="qOs-kp-Zdw"/>
+                            <constraint firstItem="er3-93-Emh" firstAttribute="bottom" secondItem="gsi-TV-P3q" secondAttribute="bottom" id="sC7-I0-loP"/>
+                            <constraint firstItem="gsi-TV-P3q" firstAttribute="leading" secondItem="6My-Wa-bNl" secondAttribute="leading" id="uat-wL-BwT"/>
+                            <constraint firstItem="er3-93-Emh" firstAttribute="trailing" secondItem="gsi-TV-P3q" secondAttribute="trailing" id="wkv-1x-ec2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6My-Wa-bNl"/>
+                    </view>
+                    <connections>
+                        <outlet property="activityLoader" destination="iw6-De-eNA" id="aps-PW-DbA"/>
+                        <outlet property="checkOutTableView" destination="Qvr-ib-g7g" id="Yv2-pV-qGF"/>
+                        <outlet property="gradientView" destination="Ael-45-570" id="T6L-HI-6Cx"/>
+                        <outlet property="loaderView" destination="luC-QK-Fdi" id="62f-wg-OcL"/>
+                        <outlet property="payButton" destination="CgQ-pR-Vcm" id="e6l-lV-2uZ"/>
+                        <outlet property="topNavView" destination="gsi-TV-P3q" id="j8t-Qf-knQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PSm-Y7-Chq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-865" y="816"/>
+        </scene>
     </scenes>
 </document>

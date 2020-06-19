@@ -32,9 +32,11 @@ class HCCouponCodeVM {
     var product = CouponFor.hotels
     
     func getCouponsDetailsApi() {
+        AppGlobals.shared.startLoading()
         let params: [String : Any] = [ APIKeys.it_id.rawValue : self.itineraryId , APIKeys.product.rawValue : self.product.rawValue]
         APICaller.shared.getCouponDetailsApi(params: params, loader: true ) { [weak self] (success, errors, couponsDetails) in
             guard let sSelf = self else { return }
+            AppGlobals.shared.stopLoading()
             if success {
                 sSelf.couponsData = couponsDetails
                 sSelf.delegate?.getCouponsDataSuccessful()
@@ -64,8 +66,10 @@ class HCCouponCodeVM {
     
     func applyFlightCouponCode() {
         let params: [String : Any] = [APIKeys.action.rawValue : "coupons" , APIKeys.coupon_code.rawValue : self.couponCode , APIKeys.it_id.rawValue : self.itineraryId ]
+        AppGlobals.shared.startLoading()
         APICaller.shared.applyFlightCoupnCodeApi(params: params, loader: true) { [weak self] (success, errors, appliedCouponData) in
             guard let sSelf = self else { return }
+            AppGlobals.shared.stopLoading()
             if success {
                 printDebug(appliedCouponData)
                 sSelf.appliedDataForFlight = appliedCouponData

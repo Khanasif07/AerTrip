@@ -26,6 +26,9 @@ class FlightFareInfoVC: BaseVC {
         self.tableView.delegate = self
         self.registerXib()
         delay(seconds: 0.3) { [weak self] in
+            let sec = self?.viewModel.legSectionTap ?? 0
+            let row = (self?.tableView.numberOfRows(inSection: sec) ?? 0)
+            guard (sec < self?.tableView.numberOfSections ?? 0) && (row > 0) else {return}
             self?.tableView.scrollToRow(at: IndexPath(row: 0, section: self?.viewModel.legSectionTap ?? 0), at: .top, animated: false)
         }
         //        self.tableView.backgroundColor = AppColors.themeWhite

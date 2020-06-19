@@ -32,10 +32,11 @@ class FlightPaymentBookingStatusVC: BaseVC {
     }
     override func initialSetup() {
         super.initialSetup()
-        self.viewModel.getSectionData()
+        self.viewModel.delegate = self
+        self.viewModel.getBookingReceipt()
         self.registerCell()
         self.statusTableView.separatorStyle = .none
-        self.setupPayButton()
+        self.setupReturnHomeButton()
         self.returnHomeButton.addGredient(isVertical: false)
     }
     
@@ -59,7 +60,7 @@ class FlightPaymentBookingStatusVC: BaseVC {
         self.statusTableView.registerCell(nibName: HCWhatNextTableViewCell.reusableIdentifier)
     }
 
-  private func setupPayButton() {
+  private func setupReturnHomeButton() {
       self.returnHomeButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
       self.returnHomeButton.setTitleColor(AppColors.themeWhite, for: .normal)
       self.returnHomeButton.setTitle("Return Home", for: .normal)
@@ -68,6 +69,19 @@ class FlightPaymentBookingStatusVC: BaseVC {
         let vc = FlightPaymentPendingVC.instantiate(fromAppStoryboard: .FlightPayment)
         self.navigationController?.pushViewController(vc, animated: true)
 //        self.navigationController?.popViewController(animated: true)
+        
+    }
+    
+    
+    func openActionSeat(){
+        
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: self.viewModel.availableSeatMaps.map{$0.name}, colors: self.viewModel.availableSeatMaps.map{$0.isSelectedForall ? AppColors.themeGray40 : AppColors.themeGreen})
+        let cencelBtn = PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeDarkGreen,titleFont: AppFonts.SemiBold.withSize(20))
+        _ = PKAlertController.default.presentActionSheet(LocalizedString.FloatingButtonsTitle.localized,titleFont: AppFonts.SemiBold.withSize(14), titleColor: AppColors.themeGray40, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: cencelBtn) { [weak self] _, index in
+            guard let self = self else {return}
+            let bookingId = self.viewModel.availableSeatMaps[index].bookingId
+            
+        }
         
     }
     
@@ -94,7 +108,7 @@ extension FlightPaymentBookingStatusVC: UITableViewDelegate, UITableViewDataSour
             headerView.delegate = self
             return headerView
         } else {
-            return UIView()
+            return nil
         }
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -139,17 +153,60 @@ extension FlightPaymentBookingStatusVC: UITableViewDelegate, UITableViewDataSour
         case .whatNextCell:
             return self.getWhatNextCell(indexPath)
         }
-        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section != 0 && (indexPath.section < (self.viewModel.sectionData.count - 1)){
+            let tripCities = (self.viewModel.bookingObject?.titleString.mutableCopy() as? NSMutableAttributedString) ?? NSMutableAttributedString(string: "")
+            var bookingModel:BookingDetailModel?
+            if (indexPath.section - 1) < self.viewModel.bookingDetail.count{
+                if let booking = self.viewModel.bookingDetail[indexPath.section - 1]{
+                    bookingModel = booking
+                }else{
+                    return
+                }
+            }else{
+                if let booking = self.viewModel.bookingDetail.first{
+                    bookingModel = booking
+                }else{
+                    return
+                }
+            }
+            let ob = PostBookingFlightDetailsVC.instantiate(fromAppStoryboard: .FlightPayment)
+            ob.viewModel.bookingDetail = bookingModel
+            ob.viewModel.tripStr = tripCities
+            ob.viewModel.legSectionTap = (indexPath.section - 1)
+            self.navigationController?.pushViewController(ob, animated: true)
+        }
     }
     
 }
 
-extension FlightPaymentBookingStatusVC : HCBookingDetailsTableViewHeaderFooterViewDelegate{
+extension FlightPaymentBookingStatusVC: FlightPaymentBookingStatusVMDelegate{
+    func willGetBookingDetail() {
+        
+    }
     
-    func emailIternaryButtonTapped(){
-        let obj = HCEmailItinerariesVC.instantiate(fromAppStoryboard: .HotelCheckout)
-        obj.viewModel.isForDummy = true
-        self.present(obj, animated: true, completion: nil)
+    func getBookingDetailSucces() {
+        AppGlobals.shared.stopLoading()
+    }
+    
+    func getBookingDetailFaiure(error: ErrorCodes) {
+        AppGlobals.shared.stopLoading()
+    }
+    
+    
+    func getBookingReceiptSuccess(){
+//        AppGlobals.shared.stopLoading()
+        self.viewModel.getBookingDetail()
+        self.viewModel.getSectionData()
+        self.statusTableView.reloadData()
+    }
+    func willGetBookingReceipt(){
+        AppGlobals.shared.startLoading()
+    }
+    func getBookingReceiptFail(){
+        AppGlobals.shared.stopLoading()
     }
     
 }
