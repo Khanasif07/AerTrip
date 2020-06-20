@@ -18,6 +18,11 @@ class BookingHotelDetailVM {
     
     var bookingDetail: BookingDetailModel?
     var hotelTitle: String = ""
+    var bookingId: String = ""
+    var hotelName: String = ""
+    var taRating: Double = 0.0
+    var hotelStarRating: Double = 0.0
+    
    // var hotelData: HotelDetails = HotelDetails()
     
     weak var delegate : BookingHotelDetailVMDelgate?
@@ -42,4 +47,20 @@ class BookingHotelDetailVM {
 //            }
 //        }
 //    }
+    
+    func getBookingDetail() {
+        let params: JSONDictionary = ["booking_id": self.bookingId]
+        
+        //delegate?.willGetBookingDetail()
+        APICaller.shared.getBookingDetail(params: params) { [weak self] success, errors, bookingDetail in
+            guard let sSelf = self else { return }
+            if success {
+                sSelf.bookingDetail = bookingDetail
+                sSelf.delegate?.getHotelDetailsSuccess()
+            } else {
+                sSelf.delegate?.getHotelDetailsFail()
+                printDebug(errors)
+            }
+        }
+    }
 }

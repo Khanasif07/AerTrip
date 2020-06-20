@@ -38,7 +38,6 @@ class BookingHotelsDetailsTravellerTableCell: UITableViewCell {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         self.collectionView.reloadData()
-        
     
     }
     
@@ -60,7 +59,11 @@ extension BookingHotelsDetailsTravellerTableCell: UICollectionViewDataSource,UIC
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return  CGSize(width: collectionView.frame.width / 4 - 10, height: 140 )
+        if isForBooking {
+            return  CGSize(width: collectionView.frame.width / 4 - 10, height: 124 )
+        } else {
+            return  CGSize(width: collectionView.frame.width / 4 - 10, height: 140 )
+        }
     }
 
     
@@ -72,6 +75,7 @@ extension BookingHotelsDetailsTravellerTableCell: UICollectionViewDataSource,UIC
             }
             travellerCollectionCell.guestData = self.guestDetails[indexPath.item] //TODO:- pass the original data
             travellerCollectionCell.bottomSlideView.isHidden = !isToShowBottomView
+            travellerCollectionCell.topConstraint.constant = 0.0
             return travellerCollectionCell
         } else {
             guard let travellerCollectionCell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "BookingTravellerCollectionViewCell", for: indexPath) as? BookingTravellerCollectionViewCell else {

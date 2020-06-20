@@ -13,26 +13,33 @@ import UIKit
 extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         // 2 is added here: one for hotelimages cell,checkInCheckOut,rating and other for Adress,phone,website,overview and amenities
-        return 2 + (self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0)
+        if self.viewModel.bookingDetail != nil {
+            //            self.hotelTableView.tableFooterView?.isHidden = self.viewModel.hotelDetailsTableSectionData.count <= 3
+            return 2 + (self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0)
+        }
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // hotelImages cell,checkInCeckOut,ratings etc
-        if section == 0 {
-            return 4
-            
-            // Room data details
-        } else if section >= 1, section <= self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0 {
-            return 5
-            // Adress,phone,website,overview and amenities
-        } else if section == ((self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0) + 1) {
-            return 6
+        if self.viewModel.bookingDetail != nil {
+            if section == 0 {
+                return 4
+                
+                // Room data details
+            } else if section >= 1, section <= self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0 {
+                return 6
+                // Adress,phone,website,overview and amenities
+            } else if section == ((self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0) + 1) {
+                return 6
+            }
         }
-        return 0
+        return 3
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // height for hotelImages cell,checkInCeckOut,ratings etc
+        if self.viewModel.bookingDetail != nil {
         if indexPath.section == 0 {
             return getHeightForRowFirstSection(indexPath)
             // height for room details cell
@@ -42,12 +49,19 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
         } else if indexPath.section == ((self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0) + 1) {
             return getHeightForLastSection(indexPath)
         }
+        } else {
+            return getHeightForRowFetchtHotelDetail(indexPath)
+        }
         
-        return 0
+        return CGFloat.leastNormalMagnitude
     }
+    
+    
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // height for hotelImages cell,checkInCeckOut,ratings etc
+        if self.viewModel.bookingDetail != nil {
         if indexPath.section == 0 {
             return getCellForFirstSection(indexPath)
             // height for room details cell
@@ -57,7 +71,9 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
         } else if indexPath.section == ((self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0) + 1) {
             return getCellForLastSection(indexPath)
         }
-        
+        } else {
+           return getCellForFetchtHotelDetail(indexPath)
+        }
         return UITableViewCell()
     }
     
@@ -116,13 +132,13 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == ((self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0) + 1) {
             if indexPath.row == 0 { // Address Cell {
-//                self.openMaps()
+                //                self.openMaps()
             } else if indexPath.row == 1 { // Phone cell
                 let phoneNumber = self.viewModel.bookingDetail?.bookingDetail?.phoneDetail ?? ""
                 self.makePhoneCall(phoneNumber: phoneNumber)
                 
             } else if indexPath.row == 2 { // Website
-                 var website = self.viewModel.bookingDetail?.bookingDetail?.websiteDetail ?? ""
+                var website = self.viewModel.bookingDetail?.bookingDetail?.websiteDetail ?? ""
                 if !website.isEmpty{
                     if !(website.hasPrefix("http://") || website.hasPrefix("https://")){
                         website = "http://\(website)"
@@ -131,7 +147,7 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
                     UIApplication.shared.open(url, options: [:])
                 }
             }
-            
+                
             else if indexPath.row == 3, (self.viewModel.bookingDetail?.bookingDetail?.overViewData ?? "") != LocalizedString.SpaceWithHiphen.localized { // Overview cell {
                 AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel.bookingDetail?.bookingDetail?.info ?? "")
             } else if indexPath.row == 5 {
@@ -145,20 +161,26 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
         if scrollView.contentOffset.y <= 54 {
             self.topNavigationView.animateBackView(isHidden: true) { [weak self] _ in
                 guard let sSelf = self else { return }
-                sSelf.topNavigationView.backView.backgroundColor = AppColors.clear
-                sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "whiteBackIcon"), for: .normal)
-                sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "whiteBackIcon"), for: .selected)
+                //sSelf.topNavigationView.backView.backgroundColor = AppColors.clear
+                sSelf.topNavigationView.animateBackView(isHidden: true, completion: nil)
+                //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "whiteBackIcon"), for: .normal)
+               // sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "whiteBackIcon"), for: .selected)
                 sSelf.topNavigationView.navTitleLabel.text = " "
                 sSelf.topNavigationView.dividerView.isHidden = true
+                sSelf.topNavigationView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
+                sSelf.topNavigationView.firstRightButtonTrailingConstraint.constant = -3
             }
         } else {
             self.topNavigationView.animateBackView(isHidden: false) { [weak self] _ in
                 guard let sSelf = self else { return }
-                sSelf.topNavigationView.backView.backgroundColor = AppColors.themeWhite
+                //sSelf.topNavigationView.backView.backgroundColor = AppColors.themeWhite
                 sSelf.topNavigationView.navTitleLabel.text = self?.viewModel.hotelTitle
-                sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "backGreen"), for: .normal)
-                  sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "backGreen"), for: .selected)
+                sSelf.topNavigationView.animateBackView(isHidden: false, completion: nil)
+                //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "backGreen"), for: .normal)
+                //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "backGreen"), for: .selected)
                 sSelf.topNavigationView.dividerView.isHidden = false
+                sSelf.topNavigationView.firstRightButton.setImage(#imageLiteral(resourceName: "black_cross"), for: .normal)
+                sSelf.topNavigationView.firstRightButtonTrailingConstraint.constant = 0
             }
         }
     }
@@ -169,11 +191,11 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
 extension BookingHotelDetailVC: HotelDetailsImgSlideCellDelegate {
     func hotelImageTapAction(at index: Int) {
         // open gallery with show image at index
-//        let indexPath = IndexPath(row: 0, section: 0)
-//        guard let cell = self.hotelDetailTableView.cellForRow(at: indexPath) as? HotelDetailsImgSlideCell else { return }
-//        if let topVC = UIApplication.topViewController() {
-//            ATGalleryViewController.show(onViewController: topVC, sourceView: cell.imageCollectionView, startShowingFrom: index, datasource: self, delegate: self)
-//        }
+        //        let indexPath = IndexPath(row: 0, section: 0)
+        //        guard let cell = self.hotelDetailTableView.cellForRow(at: indexPath) as? HotelDetailsImgSlideCell else { return }
+        //        if let topVC = UIApplication.topViewController() {
+        //            ATGalleryViewController.show(onViewController: topVC, sourceView: cell.imageCollectionView, startShowingFrom: index, datasource: self, delegate: self)
+        //        }
         
         
         if let images = self.viewModel.bookingDetail?.bookingDetail?.completePhotos {
@@ -220,6 +242,9 @@ extension BookingHotelDetailVC: ATGalleryViewDelegate, ATGalleryViewDatasource {
 extension BookingHotelDetailVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         AppFlowManager.default.popViewController(animated: true)
+    }
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

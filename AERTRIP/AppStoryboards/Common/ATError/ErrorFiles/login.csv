@@ -83,3 +83,5 @@
 ,,,,
 76,users/app-social-link,57,This Social Account is already linked with another Aertrip ID,The social account is already linked with other account
 ,,76,Unable to fetch Email id from Facebook,
+,,77,Facebook user not found,
+,,78,Unable to fetch Email id from Google,

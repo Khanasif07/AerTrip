@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="BookingCancellationPolicyTableViewCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="56" id="KGk-i7-Jjw" customClass="BookingCancellationPolicyTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="44.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ORO-SP-h39">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2N8-VS-lXp" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="16" y="0.0" width="288" height="0.5"/>
@@ -30,21 +28,27 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fVQ-DZ-ku5">
-                                <rect key="frame" x="16" y="7.5" width="46" height="30"/>
+                                <rect key="frame" x="16" y="11" width="46" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="pbn-V9-EXW"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="bookingPolicyButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="z8e-qk-w8j"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tj7-Qh-JwF">
-                                <rect key="frame" x="72" y="7.5" width="232" height="30"/>
+                                <rect key="frame" x="72" y="11" width="232" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="NaJ-7q-Jv1"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="bookingCancellationButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="piC-sC-xFe"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Ah-vN-nr3" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="44" width="288" height="0.5"/>
+                                <rect key="frame" x="16" y="43.5" width="288" height="0.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="T3s-XV-Zix"/>
@@ -53,15 +57,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fVQ-DZ-ku5" firstAttribute="centerY" secondItem="ORO-SP-h39" secondAttribute="centerY" id="03j-MQ-BVu"/>
                             <constraint firstAttribute="trailing" secondItem="tj7-Qh-JwF" secondAttribute="trailing" constant="16" id="2mT-ef-cpA"/>
+                            <constraint firstAttribute="bottom" secondItem="fVQ-DZ-ku5" secondAttribute="bottom" constant="13" id="6FK-MU-qrj"/>
+                            <constraint firstItem="tj7-Qh-JwF" firstAttribute="centerY" secondItem="fVQ-DZ-ku5" secondAttribute="centerY" id="6uT-7d-eyY"/>
                             <constraint firstAttribute="bottom" secondItem="4Ah-vN-nr3" secondAttribute="bottom" id="8Zn-aa-VO7"/>
                             <constraint firstItem="2N8-VS-lXp" firstAttribute="top" secondItem="ORO-SP-h39" secondAttribute="top" id="JUK-wf-1m7"/>
                             <constraint firstItem="4Ah-vN-nr3" firstAttribute="leading" secondItem="ORO-SP-h39" secondAttribute="leading" constant="16" id="NKW-lP-TRa"/>
                             <constraint firstItem="tj7-Qh-JwF" firstAttribute="leading" secondItem="fVQ-DZ-ku5" secondAttribute="trailing" constant="10" id="QxF-ug-MBf"/>
+                            <constraint firstItem="fVQ-DZ-ku5" firstAttribute="top" secondItem="ORO-SP-h39" secondAttribute="top" constant="11" id="Y1i-wc-irK"/>
                             <constraint firstAttribute="trailing" secondItem="2N8-VS-lXp" secondAttribute="trailing" constant="16" id="d9e-jL-s0v"/>
                             <constraint firstAttribute="trailing" secondItem="4Ah-vN-nr3" secondAttribute="trailing" constant="16" id="ixN-Cg-nuP"/>
-                            <constraint firstItem="tj7-Qh-JwF" firstAttribute="centerY" secondItem="ORO-SP-h39" secondAttribute="centerY" id="jP5-gw-2b9"/>
                             <constraint firstItem="2N8-VS-lXp" firstAttribute="leading" secondItem="ORO-SP-h39" secondAttribute="leading" constant="16" id="mXD-ni-Wdm"/>
                             <constraint firstItem="fVQ-DZ-ku5" firstAttribute="leading" secondItem="ORO-SP-h39" secondAttribute="leading" constant="16" id="pbc-8Y-kem"/>
                         </constraints>
@@ -70,7 +75,7 @@
                 <constraints>
                     <constraint firstItem="ORO-SP-h39" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="02q-bX-9uH"/>
                     <constraint firstAttribute="trailing" secondItem="ORO-SP-h39" secondAttribute="trailing" id="6Vi-Hf-w3V"/>
-                    <constraint firstAttribute="bottom" secondItem="ORO-SP-h39" secondAttribute="bottom" id="Z6W-zK-tnQ"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ORO-SP-h39" secondAttribute="bottom" id="Z6W-zK-tnQ"/>
                     <constraint firstItem="ORO-SP-h39" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="oRM-Vm-YhX"/>
                 </constraints>
             </tableViewCellContentView>
@@ -79,6 +84,7 @@
                 <outlet property="bookingPolicyButton" destination="fVQ-DZ-ku5" id="7Ij-3N-5Ki"/>
                 <outlet property="cancellationPolicyButton" destination="tj7-Qh-JwF" id="JV9-ab-rqo"/>
             </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="114.50892857142857"/>
         </tableViewCell>
     </objects>
 </document>

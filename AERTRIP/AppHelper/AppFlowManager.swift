@@ -668,7 +668,7 @@ extension AppFlowManager {
         UIApplication.topViewController()?.present(obj, animated: true, completion: nil)
     }
     
-    func presentYouAreAllDoneVC(forItId itId: String, bookingIds: [String], cid: [String], originLat: String, originLong: String, recieptData: HotelReceiptModel) {
+    func presentYouAreAllDoneVC(forItId itId: String, bookingIds: [String], cid: [String], originLat: String, originLong: String, recieptData: HotelReceiptModel?) {
         let obj = YouAreAllDoneVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.itId = itId
         obj.viewModel.bookingIds = bookingIds
@@ -992,11 +992,15 @@ extension AppFlowManager {
     }
     
     // Complete Hotel Booking Details VC
-    func moveToBookingHotelDetailVC(bookingDetail: BookingDetailModel?,hotelTitle: String) {
+    func moveToBookingHotelDetailVC(bookingDetail: BookingDetailModel?,hotelTitle: String,bookingId: String = "", hotelName: String = "", taRating: Double = 0, hotelStarRating: Double = 0) {
         let ob = BookingHotelDetailVC.instantiate(fromAppStoryboard: .Bookings)
         ob.viewModel.bookingDetail = bookingDetail
         ob.viewModel.hotelTitle = hotelTitle
-        self.currentNavigation?.pushViewController(ob, animated: true)
+        ob.viewModel.bookingId = bookingId
+        ob.viewModel.hotelName = hotelName
+        ob.viewModel.taRating = taRating
+        ob.viewModel.hotelStarRating = hotelStarRating
+        self.currentNavigation?.present(ob, animated: true)
     }
     
     func presentPolicyVC(_ usingForVC: VCUsingFor, bookingDetail: BookingDetailModel?) {

@@ -199,14 +199,19 @@ class AppGlobals {
     }
     
     // Use  it for creating an image with text .It will return NSMutableattributed string.
-    func getTextWithImage(startText: String, image: UIImage, endText: String, font: UIFont, isEndTextBold: Bool = false) -> NSMutableAttributedString {
+    func getTextWithImage(startText: String, image: UIImage, endText: String, font: UIFont, isEndTextBold: Bool = false, imageSize: CGFloat? = nil) -> NSMutableAttributedString {
         // create an NSMutableAttributedString that we'll append everything to
         let fullString = NSMutableAttributedString(string: startText)
         // create our NSTextAttachment
         let image1Attachment = NSTextAttachment()
         
         //        image1Attachment.bounds.origin = CGPoint(x: 0.0, y: 5.0)
+        if let size = imageSize {
+            image1Attachment.bounds = CGRect(x: 0, y: (font.capHeight - size).rounded() / 2, width: size, height: size)
+
+        } else {
         image1Attachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height).rounded() / 2, width: image.size.width, height: image.size.height)
+        }
         image1Attachment.image = image
         
         // wrap the attachment in its own attributed string so we can append it

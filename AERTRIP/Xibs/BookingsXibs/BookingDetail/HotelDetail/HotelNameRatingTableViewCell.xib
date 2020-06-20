@@ -1,41 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="HotelNameRatingTableViewCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="109"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="161" id="KGk-i7-Jjw" customClass="HotelNameRatingTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="161"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="109"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="161"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KPy-Mw-88Y">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="109"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="161"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="fKV-q2-Zcm">
-                                <rect key="frame" x="16" y="16" width="288" height="67"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="fKV-q2-Zcm">
+                                <rect key="frame" x="16" y="22" width="288" height="123"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xeZ-nS-7A8">
-                                        <rect key="frame" x="0.0" y="0.0" width="252.5" height="31"/>
-                                        <string key="text">Ramada Powai, Powai Saki Vihar Road Mumbai 400 087, Mumbai, India,
-Pin-code: 400 087</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="aFv-gN-7Ac">
-                                        <rect key="frame" x="0.0" y="45" width="240" height="22"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="18.100000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="aFv-gN-7Ac">
+                                        <rect key="frame" x="0.0" y="0.0" width="219.5" height="16"/>
                                         <subviews>
                                             <view userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="D3p-YX-RCR" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="4" y="0.0" width="95" height="16"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="95" height="16"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="16" id="Ill-Xz-emh"/>
@@ -50,27 +42,38 @@ Pin-code: 400 087</string>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
                                                         <integer key="value" value="5"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="size" keyPath="minImageSize">
-                                                        <size key="value" width="12" height="12"/>
-                                                    </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="3Fs-ti-sQA">
-                                                <rect key="frame" x="120" y="-4" width="120" height="20"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YiW-Sz-QPr">
+                                                <rect key="frame" x="113" y="0.0" width="106.5" height="16"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviserBig" translatesAutoresizingMaskIntoConstraints="NO" id="HYQ-dG-LW6">
-                                                        <rect key="frame" x="0.0" y="0.0" width="32" height="20"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kDl-hR-gEI">
+                                                        <rect key="frame" x="0.0" y="0.0" width="24" height="16"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviserBig" translatesAutoresizingMaskIntoConstraints="NO" id="HYQ-dG-LW6">
+                                                                <rect key="frame" x="0.0" y="-1" width="24" height="16"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="24" id="TYt-sO-S56"/>
+                                                                    <constraint firstAttribute="height" constant="16" id="nFd-ci-N1z"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="32" id="TYt-sO-S56"/>
+                                                            <constraint firstItem="HYQ-dG-LW6" firstAttribute="leading" secondItem="kDl-hR-gEI" secondAttribute="leading" id="8KO-vZ-d7n"/>
+                                                            <constraint firstAttribute="height" constant="16" id="Fv6-jT-XGR"/>
+                                                            <constraint firstItem="HYQ-dG-LW6" firstAttribute="centerY" secondItem="kDl-hR-gEI" secondAttribute="centerY" constant="-1" id="mhJ-wE-fBA"/>
+                                                            <constraint firstItem="HYQ-dG-LW6" firstAttribute="centerX" secondItem="kDl-hR-gEI" secondAttribute="centerX" id="vii-Bp-YVg"/>
+                                                            <constraint firstAttribute="trailing" secondItem="HYQ-dG-LW6" secondAttribute="trailing" id="wLF-3d-qcj"/>
                                                         </constraints>
-                                                    </imageView>
+                                                    </view>
                                                     <view userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="she-TM-6Ih" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                                        <rect key="frame" x="36" y="0.0" width="84" height="20"/>
+                                                        <rect key="frame" x="28.5" y="1" width="78" height="16"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="84" id="C4m-pL-CaV"/>
-                                                            <constraint firstAttribute="height" constant="20" id="u6R-pC-kgG"/>
+                                                            <constraint firstAttribute="width" constant="78" id="C4m-pL-CaV"/>
+                                                            <constraint firstAttribute="height" constant="16" id="u6R-pC-kgG"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilled"/>
@@ -81,31 +84,41 @@ Pin-code: 400 087</string>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
                                                                 <integer key="value" value="5"/>
                                                             </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="size" keyPath="minImageSize">
-                                                                <size key="value" width="12" height="12"/>
-                                                            </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="120" id="3Vx-Xt-wE4"/>
-                                                    <constraint firstItem="she-TM-6Ih" firstAttribute="centerY" secondItem="3Fs-ti-sQA" secondAttribute="centerY" id="HG7-fO-PUz"/>
-                                                    <constraint firstAttribute="trailing" secondItem="she-TM-6Ih" secondAttribute="trailing" id="XMb-Po-pXC"/>
+                                                    <constraint firstItem="she-TM-6Ih" firstAttribute="leading" secondItem="kDl-hR-gEI" secondAttribute="trailing" constant="4.5" id="1Ai-6S-3pc"/>
+                                                    <constraint firstItem="she-TM-6Ih" firstAttribute="centerY" secondItem="YiW-Sz-QPr" secondAttribute="centerY" constant="1" id="SEm-BB-KVI"/>
+                                                    <constraint firstAttribute="trailing" secondItem="she-TM-6Ih" secondAttribute="trailing" id="buk-Cc-yYs"/>
+                                                    <constraint firstAttribute="bottom" secondItem="kDl-hR-gEI" secondAttribute="bottom" id="ezJ-ed-Lq9"/>
+                                                    <constraint firstItem="kDl-hR-gEI" firstAttribute="top" secondItem="YiW-Sz-QPr" secondAttribute="top" id="ktQ-Li-T0m"/>
+                                                    <constraint firstItem="kDl-hR-gEI" firstAttribute="leading" secondItem="YiW-Sz-QPr" secondAttribute="leading" id="sqi-Hx-t7r"/>
                                                 </constraints>
-                                            </stackView>
+                                            </view>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="D3p-YX-RCR" firstAttribute="leading" secondItem="aFv-gN-7Ac" secondAttribute="leading" constant="4" id="FID-M5-pzt"/>
-                                            <constraint firstAttribute="height" constant="22" id="frA-aN-faa"/>
+                                            <constraint firstItem="D3p-YX-RCR" firstAttribute="leading" secondItem="aFv-gN-7Ac" secondAttribute="leading" id="FID-M5-pzt"/>
+                                            <constraint firstAttribute="height" constant="16" id="frA-aN-faa"/>
                                         </constraints>
                                     </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grand Hyatt Mumbai" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xeZ-nS-7A8">
+                                        <rect key="frame" x="0.0" y="28" width="158.5" height="95"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="GsQ-4f-8uR"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fKV-q2-Zcm" firstAttribute="top" secondItem="KPy-Mw-88Y" secondAttribute="top" constant="16" id="3yQ-zn-UIZ"/>
-                            <constraint firstAttribute="bottom" secondItem="fKV-q2-Zcm" secondAttribute="bottom" constant="26" id="T8q-5u-vKx"/>
+                            <constraint firstItem="fKV-q2-Zcm" firstAttribute="top" secondItem="KPy-Mw-88Y" secondAttribute="top" constant="22" id="3yQ-zn-UIZ"/>
+                            <constraint firstAttribute="bottom" secondItem="fKV-q2-Zcm" secondAttribute="bottom" constant="16" id="T8q-5u-vKx"/>
                             <constraint firstItem="fKV-q2-Zcm" firstAttribute="leading" secondItem="KPy-Mw-88Y" secondAttribute="leading" constant="16" id="dkk-NZ-pT9"/>
                             <constraint firstAttribute="trailing" secondItem="fKV-q2-Zcm" secondAttribute="trailing" constant="16" id="nk0-B6-QK3"/>
                         </constraints>
@@ -129,13 +142,13 @@ Pin-code: 400 087</string>
                 <outlet property="tripAdvisorImageView" destination="HYQ-dG-LW6" id="tnL-Wq-E5N"/>
                 <outlet property="tripRatingView" destination="she-TM-6Ih" id="iMN-Y3-TAP"/>
             </connections>
-            <point key="canvasLocation" x="9" y="3"/>
+            <point key="canvasLocation" x="8.6956521739130448" y="19.754464285714285"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="combinedShapeFill" width="14" height="14"/>
+        <image name="combinedShapeFill" width="15" height="14"/>
         <image name="combinedShapeUnfilled" width="14" height="14"/>
-        <image name="starRatingFilled" width="30" height="30"/>
+        <image name="starRatingFilled" width="31" height="30"/>
         <image name="starRatingUnfill" width="30" height="30"/>
         <image name="tripAdviserBig" width="32" height="18"/>
     </resources>

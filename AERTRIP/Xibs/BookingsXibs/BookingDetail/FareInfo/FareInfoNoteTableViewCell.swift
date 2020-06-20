@@ -59,21 +59,30 @@ class FareInfoNoteTableViewCell: UITableViewCell {
     
     
     ///Bulleted Notes Details
-    private func bulletedNotesDetails(notes: [String]) -> NSMutableAttributedString {
+    private func bulletedNotesDetails(notes: [String],hotelNotes: Bool) -> NSMutableAttributedString {
         let attributesDictionary = [NSAttributedString.Key.font : isForBookingPolicyCell ? AppFonts.Regular.withSize(18.0) : AppFonts.Regular.withSize(14.0) , NSAttributedString.Key.foregroundColor : isForBookingPolicyCell ? AppColors.themeBlack : AppColors.themeBlack]
         let fullAttributedString = NSMutableAttributedString()
-        let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore: 4.0, isForNotes: true,lineSpacing: 2.0)
+        //let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore: 4.0, isForNotes: true,lineSpacing: 2.0)
         for text in notes {
-            let bulletedString = NSMutableAttributedString()
-            let bulletedAttributedString: NSMutableAttributedString = NSMutableAttributedString(string: "•  ", attributes: attributesDictionary)
-
+//            let bulletedString = NSMutableAttributedString()
+//            let bulletedAttributedString: NSMutableAttributedString = NSMutableAttributedString(string: hotelNotes ? "●  " : "•  ", attributes: attributesDictionary)
+//
+//            let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "\(text)\n", attributes: attributesDictionary)
+//            bulletedAttributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, bulletedAttributedString.length))
+//            attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))
+//            bulletedString.append(bulletedAttributedString)
+//            bulletedString.append(attributedString)
+//            fullAttributedString.append(bulletedString)
             
-            let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "\(text)\n", attributes: attributesDictionary)
-            bulletedAttributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, bulletedAttributedString.length))
+            let dotText = hotelNotes ? "●  " : "•  "
+            let formattedString: String = "\(dotText)  \(text)\n"
+//            if text == notes.last ?? ""{
+//                formattedString = formattedString.replacingOccurrences(of: "\n", with: "")
+//            }
+            let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: formattedString, attributes: attributesDictionary)
+            let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore: 4.0, isForNotes: true,lineSpacing: 2.0)
             attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))
-            bulletedString.append(bulletedAttributedString)
-            bulletedString.append(attributedString)
-            fullAttributedString.append(bulletedString)
+            fullAttributedString.append(attributedString)
         }
         return fullAttributedString
     }
@@ -82,7 +91,11 @@ class FareInfoNoteTableViewCell: UITableViewCell {
         self.noteTextView.text = note
     }
     
-    func configCell(notes: [String]) {
-        self.noteTextView.attributedText = notes.isEmpty ? NSAttributedString(string: "-\n") : self.bulletedNotesDetails(notes: notes)
+    func configCell(notes: [String], hotelNotes: Bool = false) {
+        self.noteTextView.attributedText = notes.isEmpty ? NSAttributedString(string: "-\n") : self.bulletedNotesDetails(notes: notes, hotelNotes: hotelNotes )
+        if hotelNotes {
+           self.noteLabel.textColor = AppColors.themeGray40
+            self.noteLabel.font =  AppFonts.Regular.withSize(14.0)
+        }
     }
 }

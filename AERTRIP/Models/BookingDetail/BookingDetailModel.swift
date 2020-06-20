@@ -8,6 +8,12 @@
 import Foundation
 
 struct BookingDetailModel {
+    
+    enum BookingStatusType: String {
+        case pending
+        case booked
+    }
+    
     var id: String = ""
     var bookingNumber: String = ""
     var bookingDate: Date?
@@ -25,7 +31,7 @@ struct BookingDetailModel {
     
     var totalAmountPaid: Double = 0.0
     var vCode: String = ""
-    var bookingStatus: String = ""
+    //var bookingStatus: String = ""
     var documents: [DocumentDownloadingModel] = []
     var tripInfo: TripInfo?
     var additionalInformation: AdditionalInformation?
@@ -39,6 +45,8 @@ struct BookingDetailModel {
     var tripWeatherData: [WeatherInfo] = []
     var weatherDisplayedWithin16Info: Bool = false
     var frequentFlyerData: [FrequentFlyerData] = []
+    var bookingStatus: BookingStatusType = .pending
+    
     var jsonDict: JSONDictionary {
         return [:]
     }
@@ -243,6 +251,10 @@ struct BookingDetailModel {
                     break
                 }
             }
+        }
+        
+        if let bookingStatus = json[APIKeys.bstatus.rawValue]{
+            self.bookingStatus = BookingStatusType(rawValue: "\(bookingStatus)".removeNull) ?? .pending
         }
     }
     

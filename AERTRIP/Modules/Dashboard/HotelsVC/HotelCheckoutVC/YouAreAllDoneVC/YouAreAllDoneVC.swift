@@ -420,7 +420,8 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
             AppGlobals.shared.redirectToMap(sourceView: view, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong, destLat: self.viewModel.hotelReceiptData?.lat ?? "", destLong: self.viewModel.hotelReceiptData?.long ?? "")
         }
         else if (tableView.cellForRow(at: indexPath) as? HCHotelRatingTableViewCell) != nil {
-            self.viewModel.getBookingDetail()
+            //self.viewModel.getBookingDetail()
+            AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: nil, hotelTitle: getUpdatedTitle(), bookingId: self.viewModel.bookingIds.first ?? "", hotelName: self.viewModel.hotelReceiptData?.hname ?? "", taRating: self.viewModel.hotelReceiptData?.rating ?? 0.0, hotelStarRating: self.viewModel.hotelReceiptData?.star ?? 0.0)
         }
     }
     
@@ -475,7 +476,7 @@ extension YouAreAllDoneVC: YouAreAllDoneVMDelegate {
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
     }
     func getUpdatedTitle() -> String {
-        var updatedTitle = self.viewModel.bookingDetail?.bookingDetail?.hotelName ?? ""
+        var updatedTitle = self.viewModel.hotelReceiptData?.hname ?? ""
         if updatedTitle.count > 24 {
             updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.count)
         }

@@ -46,6 +46,11 @@ class BookingHDRoomDetailHeaderView: UITableViewHeaderFooterView {
         self.roomLabel.text = roomTitle
         self.roomTypeLabel.text =  roomType
         self.roomDetailLabel.text = roomDescription
+        
+        self.roomLabel.isHidden = roomTitle.isEmpty
+        self.roomTypeLabel.isHidden = roomType.isEmpty
+        self.roomDetailLabel.isHidden = roomDescription.isEmpty
+
     }
     
 
