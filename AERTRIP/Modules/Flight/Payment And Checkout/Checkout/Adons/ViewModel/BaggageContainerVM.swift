@@ -31,6 +31,18 @@ class BaggageContainerVM {
                     if let calculatedVcIndex = self.allChildVCs.firstIndex(where: { (vc) -> Bool in
                         vc.selectBaggageVM.getCurrentFlightKey() == flight.flightId
                     }) {
+                        
+                        
+                        allChildVCs[calculatedVcIndex].selectBaggageVM.addonsDetails.addonsArray.enumerated().forEach { (baggageIndex,bag) in
+                        contacts.forEach { (contact) in
+                            if let contIndex = allChildVCs[calculatedVcIndex].selectBaggageVM.addonsDetails.addonsArray[baggageIndex].bagageSelectedFor.lastIndex(where: { (cont) -> Bool in
+                                return cont.id == contact.id
+                            }){
+                                allChildVCs[calculatedVcIndex].selectBaggageVM.addonsDetails.addonsArray[baggageIndex].bagageSelectedFor.remove(at: contIndex)
+                            }
+                          }
+                        }
+                        
                         let otherFlightsExceptCurrentOne = flightsToModify.filter { $0.flightId != flight.flightId  }
                         allChildVCs[calculatedVcIndex].selectBaggageVM.updateContactInBaggage(baggageIndex: baggageIndex, contacts: contacts, autoSelectedFor: otherFlightsExceptCurrentOne.map { $0.flightId })
                             allChildVCs[calculatedVcIndex].reloadData()
