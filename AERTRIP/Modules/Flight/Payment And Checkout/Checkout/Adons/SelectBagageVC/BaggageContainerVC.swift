@@ -161,7 +161,7 @@ extension BaggageContainerVC: TopNavigationViewDelegate {
         for (index,item) in self.baggageContainerVM.allChildVCs.enumerated() {
             let mealsArray = item.selectBaggageVM.getBaggage()
             mealsArray.enumerated().forEach { (addonIndex,_) in
-            item.selectBaggageVM.updateContactInBaggage(baggageIndex: addonIndex, contacts: [])
+                item.selectBaggageVM.updateContactInBaggage(baggageIndex: addonIndex, contacts: [], autoSelectedFor: [])
         AddonsDataStore.shared.flightsWithData[index].bags.addonsArray[addonIndex].othersSelectedFor = []
              }
             
@@ -217,43 +217,62 @@ extension BaggageContainerVC: PagingViewControllerDataSource , PagingViewControl
 
 extension BaggageContainerVC : SelectBaggageDelegate {
 
+    
     func addContactButtonTapped(){
         
     }
     
-    func addPassengerToBaggage(forAdon : AddonsDataCustom, vcIndex : Int, currentFlightKey : String, baggageIndex: Int, selectedContacts : [ATContact]){
     
-        let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-        vc.modalPresentationStyle = .overFullScreen
-        vc.selectPassengersVM.selectedContacts = selectedContacts
-        vc.selectPassengersVM.adonsData = forAdon
-        vc.selectPassengersVM.setupFor = .baggage
-
-        vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
-            guard let weakSelf = self else { return }
-            
-            weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM .addonsDetails.addonsArray.enumerated().forEach { (bagInd,bag) in
-            contacts.forEach { (contact) in
-                if let contIndex = weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM.addonsDetails.addonsArray[bagInd].bagageSelectedFor.lastIndex(where: { (cont) -> Bool in
-                    return cont.id == contact.id
-                }){
-                    weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM.addonsDetails.addonsArray[bagInd].bagageSelectedFor.remove(at: contIndex)
-                }
-              }
-            }
-            
-            if let ind = weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM.addonsDetails.addonsArray.lastIndex(where: { (adon) -> Bool in
-                adon.adonsName == forAdon.adonsName
-            }){
-                weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM.updateContactInBaggage(baggageIndex: ind, contacts: contacts)
-            }
-            
-            weakSelf.baggageContainerVM.allChildVCs[vcIndex].reloadData()
-       
-            weakSelf.calculateTotalAmount()
-            
-        }
-            present(vc, animated: true, completion: nil)
-    }
+    func addPassengerToBaggage(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, baggageIndex: Int, selectedContacts: [ATContact]) {
+    
+             let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+             vc.modalPresentationStyle = .overFullScreen
+             vc.selectPassengersVM.selectedContacts = selectedContacts
+             vc.selectPassengersVM.adonsData = forAdon
+             vc.selectPassengersVM.setupFor = .baggage
+             vc.selectPassengersVM.flightKys = [currentFlightKey]
+             vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
+                 guard let weakSelf = self else { return }
+                
+                weakSelf.baggageContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, baggageIndex: baggageIndex, contacts: contacts)
+                
+             }
+             present(vc, animated: true, completion: nil)
+         }
+    
+//    func addPassengerToBaggage(forAdon : AddonsDataCustom, vcIndex : Int, currentFlightKey : String, baggageIndex: Int, selectedContacts : [ATContact]){
+//
+//        let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+//        vc.modalPresentationStyle = .overFullScreen
+//        vc.selectPassengersVM.selectedContacts = selectedContacts
+//        vc.selectPassengersVM.adonsData = forAdon
+//        vc.selectPassengersVM.setupFor = .baggage
+//
+//        vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
+//            guard let weakSelf = self else { return }
+//
+//            weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM .addonsDetails.addonsArray.enumerated().forEach { (bagInd,bag) in
+//            contacts.forEach { (contact) in
+//                if let contIndex = weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM.addonsDetails.addonsArray[bagInd].bagageSelectedFor.lastIndex(where: { (cont) -> Bool in
+//                    return cont.id == contact.id
+//                }){
+//                    weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM.addonsDetails.addonsArray[bagInd].bagageSelectedFor.remove(at: contIndex)
+//                }
+//              }
+//            }
+//
+//            if let ind = weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM.addonsDetails.addonsArray.lastIndex(where: { (adon) -> Bool in
+//                adon.adonsName == forAdon.adonsName
+//            }){
+//                weakSelf.baggageContainerVM.allChildVCs[vcIndex].selectBaggageVM.updateContactInBaggage(baggageIndex: ind, contacts: contacts)
+//            }
+//
+//            weakSelf.baggageContainerVM.allChildVCs[vcIndex].reloadData()
+//
+//            weakSelf.calculateTotalAmount()
+//
+//        }
+//            present(vc, animated: true, completion: nil)
+//    }
 }
 

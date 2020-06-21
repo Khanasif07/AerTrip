@@ -15,9 +15,7 @@ class SelectOtherAdonsContainerVM {
     
     
     func addPassengerToMeal(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, othersIndex: Int, contacts: [ATContact]) {
-        
-        //        AddonsDataStore.shared.flightsWithData[1].special.addonsArray[0].ssrName?.isReadOnly = 0
-        
+                
         let dataStore = AddonsDataStore.shared
         var flightsToModify :[AddonsFlight] = []
         
@@ -45,9 +43,9 @@ class SelectOtherAdonsContainerVM {
             }
 
         }else{
-            flightsToModify = [dataStore.flightsWithData[vcIndex]]
-            printDebug("false")
             
+            allChildVCs[vcIndex].otherAdonsVm.updateContactInOthers(OthersIndex: othersIndex, contacts: contacts, autoSelectedFor: [])
+            allChildVCs[vcIndex].reloadData()
             
         }
         

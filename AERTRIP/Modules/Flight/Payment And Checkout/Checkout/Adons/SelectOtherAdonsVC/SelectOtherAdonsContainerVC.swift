@@ -254,21 +254,11 @@ extension SelectOtherAdonsContainerVC : SelectOtherDelegate {
            vc.selectPassengersVM.flightKys = [currentFlightKey]
            vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
                guard let weakSelf = self else { return }
-          
-            
             weakSelf.othersContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, othersIndex: othersIndex, contacts: contacts)
-            
-            
-//            weakSelf.othersContainerVM.allChildVCs[vcIndex].otherAdonsVm.updateContactInOthers(OthersIndex: othersIndex, contacts: contacts)
-//
-//               weakSelf.othersContainerVM.allChildVCs[vcIndex].reloadData()
-//               weakSelf.calculateTotalAmount()
            }
-           
            present(vc, animated: true, completion: nil)
        }
        
-        
        func addContactButtonTapped() {
            
        }

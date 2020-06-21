@@ -46,7 +46,6 @@ class SelectOtherAdonsVM  {
             return }
         
         
-        
         var autoSelectedForString = "Auto Selected for "
         var flightName : [String] = []
         
@@ -69,8 +68,6 @@ class SelectOtherAdonsVM  {
         }else{
             addonsDetails.addonsArray[OthersIndex].autoSelectedFor = autoSelectedForString
         }
-                
-        
         
     }
     
