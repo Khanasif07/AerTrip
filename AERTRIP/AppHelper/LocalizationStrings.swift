@@ -1062,6 +1062,7 @@ enum LocalizedString: String {
     case mainDeck = "mainDeck"
     case upperDeck = "upperDeck"
     case seatTotal = "seatTotal"
+    case noSeatMapDataDesc = "noSeatMapDataDesc"
     
     case DomesticCheckIn = "DomesticCheckIn"
     case InternationalCheckIn = "InternationalCheckIn"

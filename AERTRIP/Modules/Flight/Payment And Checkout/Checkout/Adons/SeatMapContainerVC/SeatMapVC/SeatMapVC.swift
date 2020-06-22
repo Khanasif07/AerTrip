@@ -19,6 +19,12 @@ class SeatMapVC: UIViewController {
     var onReloadPlaneLayoutCall: ((SeatMapModel.SeatMapFlight?) -> ())?
     var onScrollViewScroll: ((visibleRectMultipliers) -> ())?
     
+    lazy var noResultsemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noSeatMapData
+        return newEmptyView
+    }()
+    
     // MARK: IBOutlets
     
     @IBOutlet weak var deckSelectionView: UIView!
@@ -102,5 +108,14 @@ class SeatMapVC: UIViewController {
         seatMapCollView.reloadData()
         seatMapCollView.scrollRectToVisible(CGRect(origin: .zero, size: seatMapCollView.size), animated: true)
         onReloadPlaneLayoutCall?(nil)
+        checkForNoData()
+    }
+    
+    private func checkForNoData() {
+        if viewModel.deckData.rowsArr.isEmpty {
+            seatMapCollView.backgroundView = noResultsemptyView
+        } else {
+            seatMapCollView.backgroundView = nil
+        }
     }
 }

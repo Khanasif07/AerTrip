@@ -980,6 +980,7 @@ Your booking ID is";
 "mainDeck" = "Main Deck";
 "upperDeck" = "Upper Deck";
 "seatTotal" = "Seat Total";
+"noSeatMapDataDesc" = "Seat map for this flight is unavailable at the moment";
 
 "DomesticCheckIn" = "Domestic Check-in";
 "InternationalCheckIn" = "International CheckIn";
