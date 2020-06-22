@@ -248,6 +248,47 @@ class AdonsVM  {
         
     }
     
+    func setSeatsString() {
+        let dataStore = AddonsDataStore.shared
+        var headingStr = ""
+        var descStr = ""
+        let selectedSeatsCount = dataStore.seatsArray.count
+        if selectedSeatsCount > 0 {
+            headingStr = "x\(selectedSeatsCount)"
+        }
+        let flightSequenceArr = dataStore.allFlights.map { $0.ffk }
+        
+        flightSequenceArr.forEach { (flightKey) in
+            var seats = dataStore.seatsArray.filter { $0.ffk == flightKey }
+            if seats.count > 0 {
+                seats.sort(by: { $0.columnData.ssrCode < $1.columnData.ssrCode })
+                seats.forEach { (seatData) in
+                    var rowStr: String {
+                        if let number = Int(seatData.columnData.ssrCode.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
+                            print(number)
+                            return "\(number)"
+                        }
+                        return ""
+                    }
+                    let columnStr = seatData.columnData.ssrCode.components(separatedBy: CharacterSet.letters.inverted).joined()
+                    
+                    let seatNumber = rowStr + columnStr
+                    
+                    if let passenger = seatData.columnData.passenger {
+                        descStr.append(seatNumber + " - " + passenger.firstName + ",")
+                    }
+                }
+                if descStr.lastCharacter == "," {
+                    descStr.removeLast()
+                }
+                descStr.append("\n")
+            }
+        }
+        if descStr.hasSuffix("\n") {
+            descStr = descStr.replacingLastOccurrenceOfString("\n", with: "")
+        }
+    }
+    
     func createParamForItineraryApi(){
         let dataStore = AddonsDataStore.shared
         self.parmsForItinerary[APIKeys.mobile.rawValue] = dataStore.mobile
