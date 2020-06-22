@@ -12,4 +12,7 @@ enum FlightSeatMapKeys: String {
     case sid = "sid"
     case fk = "fk[]"
     case itId = "it_id"
+    case bid = "bid"
+    case type = "type"
+    case bookingId = "booking_id"
 }

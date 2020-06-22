@@ -38,4 +38,58 @@ extension APICaller {
             }
         }
     }
+    
+    func callPostBookingSeatMapAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ mapModel: SeatMapModel?, _ errorCodes: ErrorCodes)->Void ) {
+        
+        AppNetworking.GET(endPoint: .postBookingAddOn , parameters: params,
+                          loader: loader, success: { [weak self] (data) in
+            guard let self = self else {return}
+            
+            self.handleResponse(data, success: { (sucess, jsonData) in
+                let seatMapModel = SeatMapModel(jsonData)
+                completionBlock(seatMapModel, [])
+                
+            }, failure: { (error) in
+                completionBlock(nil, [])
+
+            })
+            
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(nil, [])
+            }
+            else {
+                
+            }
+        }
+    }
+    
+    func hitSeatPostConfirmationAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ mapModel: SeatMapModel?, _ errorCodes: ErrorCodes)->Void ) {
+        
+        AppNetworking.POST(endPoint: .addOnConfirmation , parameters: params,
+                          loader: loader, success: { [weak self] (data) in
+            guard let self = self else {return}
+            
+            self.handleResponse(data, success: { (sucess, jsonData) in
+                
+                
+            }, failure: { (error) in
+
+            })
+            
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(nil, [])
+            }
+            else {
+                
+            }
+        }
+    }
+    
+    
 }

@@ -66,10 +66,14 @@ class SeatMapContainerVC: UIViewController {
     // MARK: IBActions
     
     @IBAction func addBtnAction(_ sender: UIButton) {
-        AddonsDataStore.shared.seatsArray = viewModel.selectedSeats
-        AddonsDataStore.shared.originalSeatMapModel = viewModel.seatMapModel
-        AddonsDataStore.shared.seatsAllFlightsData = viewModel.allFlightsData
-        dismiss(animated: true, completion: nil)
+        if viewModel.setupFor == .preSelection {
+            AddonsDataStore.shared.seatsArray = viewModel.selectedSeats
+            AddonsDataStore.shared.originalSeatMapModel = viewModel.seatMapModel
+            AddonsDataStore.shared.seatsAllFlightsData = viewModel.allFlightsData
+            dismiss(animated: true, completion: nil)
+        } else {
+            viewModel.hitPostSeatConfirmationAPI()
+        }
     }
     
     // MARK: Functions
@@ -89,6 +93,14 @@ class SeatMapContainerVC: UIViewController {
         self.viewModel = vm
     }
     
+    func setupFor(_ type: SeatMapContainerVM.SetupFor,_ bookingId: String) {
+        viewModel.setupFor = type
+        viewModel.bookingId = bookingId
+    }
+    
+    func setBookingFlightLegs(_ legs: [BookingLeg]) {
+        viewModel.bookingFlightLegs = legs
+    }
     
     private func setupPlaneLayoutCollView() {
         planeLayoutScrollContentView.backgroundColor = AppColors.greyO4
@@ -138,6 +150,9 @@ class SeatMapContainerVC: UIViewController {
         for index in 0..<viewModel.allTabsStr.count {
             let vc = SeatMapVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
             vc.setFlightData(viewModel.allFlightsData[index])
+            if viewModel.setupFor == .postSelection {
+                
+            }
             vc.onReloadPlaneLayoutCall = { [weak self] updatedFlightData in
                 guard let self = self else { return }
                 if let flightData = updatedFlightData {
@@ -356,7 +371,9 @@ extension SeatMapContainerVC {
 extension SeatMapContainerVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         viewModel.allFlightsData = viewModel.originalAllFlightsData
-        AddonsDataStore.shared.seatsAllFlightsData = viewModel.originalAllFlightsData
+        if viewModel.setupFor == .preSelection {
+            AddonsDataStore.shared.seatsAllFlightsData = viewModel.originalAllFlightsData
+        }
         allChildVCs.enumerated().forEach { (index, seatMapVC) in
             seatMapVC.setFlightData(viewModel.allFlightsData[index])
             if seatMapVC.viewModel.deckData.rows.count > 0 {
@@ -402,7 +419,7 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
             viewModel.allTabsStr.append(contentsOf: flightsStr)
         }
         viewModel.originalAllFlightsData = totalFlightsData
-        if let allFlightsData = AddonsDataStore.shared.seatsAllFlightsData {
+        if let allFlightsData = AddonsDataStore.shared.seatsAllFlightsData, viewModel.setupFor == .preSelection {
             viewModel.allFlightsData = allFlightsData
             viewModel.getSeatTotal { [weak self] (seatTotal) in
                 guard let self = self else { return }

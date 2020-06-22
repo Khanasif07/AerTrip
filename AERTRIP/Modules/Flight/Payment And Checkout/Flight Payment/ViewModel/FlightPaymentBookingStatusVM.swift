@@ -32,6 +32,8 @@ class FlightPaymentBookingStatusVM{
     var bookingObject:BookFlightObject?
     var availableSeatMaps = [AvailableSeatMap]()
     
+    var seatMapModels = [String: SeatMapModel]()
+    
     /* TableViewCellType Enum contains all tableview cell for YouAreAllDoneVC tableview */
     enum TableViewCellType {
         case  allDoneCell, eventSharedCell, carriersCell, legInfoCell,BookingPaymentCell, pnrStatusCell, totalChargeCell, confirmationHeaderCell,confirmationVoucherCell, whatNextCell

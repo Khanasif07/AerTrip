@@ -149,6 +149,8 @@ enum APIEndPoint: String {
     
     //FlightAddOns
     case seatMap = "flights/seat-map-list"
+    case postBookingAddOn = "addon/get-addon-availability"
+    case addOnConfirmation = "addon/addon-confirmation"
 }
 
 // MARK: - endpoint extension for url -

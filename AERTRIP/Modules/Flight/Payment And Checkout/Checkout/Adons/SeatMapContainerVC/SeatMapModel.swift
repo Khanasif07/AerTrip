@@ -23,7 +23,11 @@ struct SeatMapModel {
         let leg: [String: SeatMapLeg]
         
         init(_ json: JSON) {
-            leg = Dictionary(uniqueKeysWithValues: json["leg"].map { ($0.0, SeatMapLeg($0.1, $0.0)) })
+            if json["leg"] != nil {
+                leg = Dictionary(uniqueKeysWithValues: json["leg"].map { ($0.0, SeatMapLeg($0.1, $0.0)) })
+            } else {
+                leg = Dictionary(uniqueKeysWithValues: json["SEAT"].map { ($0.0, SeatMapLeg($0.1, $0.0)) })
+            }
         }
     }
     
@@ -153,5 +157,4 @@ struct SeatMapModel {
         case occupied = "occupied"
         case none
     }
-
 }
