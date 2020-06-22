@@ -96,6 +96,7 @@ extension MealsContainerVC {
             vc.delegate = self
             self.mealsContainerVM.allChildVCs.append(vc)
         }
+        
         self.view.layoutIfNeeded()
         if let _ = self.parchmentView{
             self.parchmentView?.view.removeFromSuperview()

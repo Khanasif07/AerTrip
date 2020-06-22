@@ -495,6 +495,5 @@ extension FlightSearchResultVM {
     
     fileprivate func workingOnReceived( flightsArray: [IntMultiCityAndReturnWSResponse.Flight] , displayGroup : Int) {
         intFlightLegs[(displayGroup - 1)].workingOnReceived(flightsArray: flightsArray ,searchType : bookFlightObject.flightSearchType)
-
     }
 }

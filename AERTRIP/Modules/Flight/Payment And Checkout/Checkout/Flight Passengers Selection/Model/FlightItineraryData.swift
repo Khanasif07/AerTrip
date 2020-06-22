@@ -38,7 +38,8 @@ struct FlightItinerary {
     var combo : Bool
     var displaySeatmapLink : Bool
     var freeMealSeat = true//: Bool
-    var freeMeal = true//: Bool
+    var freeMeal = false//: Bool
+    var freeSeats = false
     var iic : Bool
     var gstRequired : Bool
     var searchParams:FlightSearchParam
@@ -68,6 +69,8 @@ struct FlightItinerary {
         combo = json["combo"].boolValue
         displaySeatmapLink  = json["display_seatmap_link"].boolValue
         freeMealSeat = json["free_meal_seat"].boolValue
+        freeMealSeat = true
+
         freeMeal = json["free_meal"].boolValue
         iic = json["iic"].boolValue
         gstRequired = json["gst_required"].boolValue

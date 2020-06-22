@@ -13,7 +13,6 @@ class AddonsDataStore {
      static let shared = AddonsDataStore()
      var itinerary = FlightItinerary()
 
-    
      var allFlights : [IntFlightDetail] = []
      var addonsMaster = AddonsMaster()
     // var addonsLeg = AddonsLeg()
