@@ -151,7 +151,9 @@ class SeatMapContainerVC: UIViewController {
             let vc = SeatMapVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
             vc.setFlightData(viewModel.allFlightsData[index])
             if viewModel.setupFor == .postSelection {
-                
+                if let flightLeg = viewModel.bookingFlightLegs.first(where: { $0.legId == viewModel.allFlightsData[index].lfk }) {
+                    vc.setPassengersFromBooking(flightLeg.pax)
+                }
             }
             vc.onReloadPlaneLayoutCall = { [weak self] updatedFlightData in
                 guard let self = self else { return }

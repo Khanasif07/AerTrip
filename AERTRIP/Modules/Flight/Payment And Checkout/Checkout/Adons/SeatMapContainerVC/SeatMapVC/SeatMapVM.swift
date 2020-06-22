@@ -22,6 +22,8 @@ class SeatMapVM {
             getFares()
         }
     }
+    
+    var passengersFromBooking = [Pax]()
         
 //    var seatLayout: SeatCollCellVM.PlaneSeatsLayout = .ten
     var curSelectedDeck: DeckType = .main
