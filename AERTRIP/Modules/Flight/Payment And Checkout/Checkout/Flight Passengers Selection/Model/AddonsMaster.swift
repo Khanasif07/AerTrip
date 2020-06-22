@@ -104,6 +104,11 @@ struct AddonsDetails{
                      addonsArray.append(adon)
                }
            }
+
+       addonsArray = addonsArray.sorted { (a, b) -> Bool in
+            return a.price < b.price
+        }
+        
     }
 }
 
@@ -118,8 +123,10 @@ struct AddonsDataCustom {
     var mealsSelectedFor : [ATContact] = []
     var bagageSelectedFor : [ATContact] = []
     var othersSelectedFor : [ATContact] = []
-    var autoSelectedFor : [String] = []
-
+//    var autoSelectedFor : [String] = []
+    var autoSelectedFor : String = ""
+    
+    
     init() {
         
     }

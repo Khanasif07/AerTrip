@@ -106,6 +106,22 @@ class PassengersSelectionVC: UIViewController {
 extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, JourneyDetailsTapDelegate{
     
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
+        
+        
+        let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
+        vc.adonsVm.bookingObject = self.viewModel.bookingObject ?? BookFlightObject()
+        AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary, addonsMaster: self.viewModel.addonsMaster)
+        AddonsDataStore.shared.appliedCouponData = self.viewModel.itineraryData
+        AddonsDataStore.shared.taxesResult = self.viewModel.taxesResult
+        AddonsDataStore.shared.passengers = GuestDetailsVM.shared.guests.first ?? []
+        AddonsDataStore.shared.gstDetail = self.viewModel.selectedGST
+        AddonsDataStore.shared.email = self.viewModel.email
+        AddonsDataStore.shared.mobile = self.viewModel.mobile
+        AddonsDataStore.shared.isd = self.viewModel.isdCode
+        AddonsDataStore.shared.isGSTOn = self.viewModel.isSwitchOn
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+        
         let validation = self.viewModel.validateGuestData()
         if validation.success{
             self.viewModel.checkValidationForNextScreen()

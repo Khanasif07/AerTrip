@@ -48,8 +48,27 @@ class AdonsVM  {
     weak var delegate : BookFlightDelegate?
     var bookingObject = BookFlightObject()
     
-    func setAdonsOptions(){
+   
+    
+    var isComplementaryMealAdded : Bool {
+        let dataStore = AddonsDataStore.shared
+        return dataStore.itinerary.freeMeal || dataStore.itinerary.freeMealSeat
+    }
+    
+    var getComplementaryMealString : String {
+             return isComplementaryMealAdded ? LocalizedString.Complementary_Meal_Added.localized : ""
+         }
         
+    var isFreeSeatsAdded : Bool {
+          let dataStore = AddonsDataStore.shared
+          return dataStore.itinerary.freeSeats || dataStore.itinerary.freeMealSeat
+      }
+      
+       var getFreeSeatsString : String {
+        return isFreeSeatsAdded ? LocalizedString.Free_Seats_Available.localized : ""
+       }
+    
+    func setAdonsOptions(){
         let flightsWithData = AddonsDataStore.shared.flightsWithData
         
         let flightsWithMeals = flightsWithData.filter { !$0.meal.addonsArray.isEmpty }
@@ -57,7 +76,8 @@ class AdonsVM  {
         let flightsWithOthers = flightsWithData.filter {!$0.special.addonsArray.isEmpty }
         
         if !flightsWithMeals.isEmpty{
-            addonsData.append(AdonsVM.AddonsData(type: .meals, heading: LocalizedString.Meals.localized, description: LocalizedString.Choose_Meal.localized, complementString: "", shouldShowComp: false))
+            addonsData.append(AdonsVM.AddonsData(type: .meals, heading: LocalizedString.Meals.localized, description: LocalizedString.Choose_Meal.localized, complementString: getComplementaryMealString, shouldShowComp: isComplementaryMealAdded))
+            
         }
         
         if !flightsWithBaggage.isEmpty {
@@ -66,7 +86,7 @@ class AdonsVM  {
             
         }
         
-        addonsData.append(AdonsVM.AddonsData(type: .seat, heading: LocalizedString.Seat.localized, description: LocalizedString.Reserve_Seat.localized, complementString: "", shouldShowComp: false))
+        addonsData.append(AdonsVM.AddonsData(type: .seat, heading: LocalizedString.Seat.localized, description: LocalizedString.Reserve_Seat.localized, complementString: getFreeSeatsString, shouldShowComp: isFreeSeatsAdded))
         
         if !flightsWithOthers.isEmpty{
             addonsData.append(AdonsVM.AddonsData(type: .otheres, heading: LocalizedString.Other.localized, description: LocalizedString.PreBook_Services.localized, complementString: "", shouldShowComp: false))
@@ -169,13 +189,13 @@ class AdonsVM  {
         }
         
         if description.isEmpty {
-            description = LocalizedString.Choose_Baggage.localized
+            description = LocalizedString.Choose_Meal.localized
         }
         
         if let ind = self.addonsData.firstIndex(where: { (addonsData) -> Bool in
             return addonsData.addonsType == .meals
         }){
-            self.addonsData[ind].heading = count != 0 ? LocalizedString.Other.localized + " " + "x\(count)" : LocalizedString.Other.localized
+            self.addonsData[ind].heading = count != 0 ? LocalizedString.Meals.localized + " " + "x\(count)" : LocalizedString.Meals.localized
             self.addonsData[ind].description = description.replacingLastOccurrenceOfString(", ", with: "")
         }
     }
@@ -236,7 +256,7 @@ class AdonsVM  {
         }
         
         if description.isEmpty {
-            description = LocalizedString.Choose_Baggage.localized
+            description = LocalizedString.PreBook_Services.localized.localized
         }
         
         if let ind = self.addonsData.firstIndex(where: { (addonsData) -> Bool in
@@ -485,11 +505,11 @@ class AdonsVM  {
         self.checkForOthers()
         self.checkForSelectedSeats()
         
+        
         APICaller.shared.getItineraryData(withAddons : true, params: self.parmsForItinerary, itId: AddonsDataStore.shared.itinerary.id) { (success, error, itinerary) in
             if success, let iteneraryData = itinerary{
                 AddonsDataStore.shared.appliedCouponData = iteneraryData
                 self.delegate?.bookFlightSuccessFully()
-                //                    AddonsDataStore.shared.taxesDataDisplay()
             }else{
                 self.delegate?.failedToBookBlight()
             }

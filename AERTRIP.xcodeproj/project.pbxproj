@@ -450,6 +450,8 @@
 		18D88BFA22C39A700089755D /* BookingConfirmationMailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D88BF922C39A700089755D /* BookingConfirmationMailVM.swift */; };
 		18D88BFC22C39EF30089755D /* BookingConfirmationMailVC+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D88BFB22C39EF30089755D /* BookingConfirmationMailVC+DelegateMethods.swift */; };
 		18DE97D322CB689C0006C5E0 /* FrequentFlyerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DE97D222CB689C0006C5E0 /* FrequentFlyerData.swift */; };
+		18DEFE7A249D114700E64260 /* PostBookingAddonsPaymentStatusVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DEFE79249D114700E64260 /* PostBookingAddonsPaymentStatusVC.swift */; };
+		18DEFE7D249E7BB200E64260 /* IntFlightUpgradeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DEFE7C249E7BB200E64260 /* IntFlightUpgradeVC.swift */; };
 		18E09F9F22EB089E0065CEB2 /* PKCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E09F9E22EB089E0065CEB2 /* PKCategoryButton.swift */; };
 		18E17B9F248DFFE300CC9876 /* FlightPaymentPendingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E17B9E248DFFE300CC9876 /* FlightPaymentPendingVC.swift */; };
 		18E39E952404F78800A0E023 /* HotelMapVC+AppleMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E39E942404F78800A0E023 /* HotelMapVC+AppleMap.swift */; };
@@ -2024,6 +2026,8 @@
 		18D88BF922C39A700089755D /* BookingConfirmationMailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingConfirmationMailVM.swift; sourceTree = "<group>"; };
 		18D88BFB22C39EF30089755D /* BookingConfirmationMailVC+DelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookingConfirmationMailVC+DelegateMethods.swift"; sourceTree = "<group>"; };
 		18DE97D222CB689C0006C5E0 /* FrequentFlyerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequentFlyerData.swift; sourceTree = "<group>"; };
+		18DEFE79249D114700E64260 /* PostBookingAddonsPaymentStatusVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookingAddonsPaymentStatusVC.swift; sourceTree = "<group>"; };
+		18DEFE7C249E7BB200E64260 /* IntFlightUpgradeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntFlightUpgradeVC.swift; sourceTree = "<group>"; };
 		18E09F9E22EB089E0065CEB2 /* PKCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKCategoryButton.swift; sourceTree = "<group>"; };
 		18E17B9E248DFFE300CC9876 /* FlightPaymentPendingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPaymentPendingVC.swift; sourceTree = "<group>"; };
 		18E39E942404F78800A0E023 /* HotelMapVC+AppleMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HotelMapVC+AppleMap.swift"; sourceTree = "<group>"; };
@@ -3877,6 +3881,7 @@
 		1827D480248690E600A0594F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				18DEFE78249D0FF600E64260 /* PostBookingAddonsPaymentStatusVC */,
 				18637D64249C987B001325CD /* FlightPaymentPendingRequestSuccessVC */,
 				187CC6D0249B2662006C7F5A /* PostBookingAddonsPayment */,
 				18F5BA9E248F1E3B00E246C2 /* PostBookingFlightDetails */,
@@ -4534,6 +4539,22 @@
 				18D4C41C220ACD06005E1E37 /* RoomTableViewCell.xib */,
 			);
 			path = Room;
+			sourceTree = "<group>";
+		};
+		18DEFE78249D0FF600E64260 /* PostBookingAddonsPaymentStatusVC */ = {
+			isa = PBXGroup;
+			children = (
+				18DEFE79249D114700E64260 /* PostBookingAddonsPaymentStatusVC.swift */,
+			);
+			path = PostBookingAddonsPaymentStatusVC;
+			sourceTree = "<group>";
+		};
+		18DEFE7B249E7B7400E64260 /* IntFlightUpgradeVC */ = {
+			isa = PBXGroup;
+			children = (
+				18DEFE7C249E7BB200E64260 /* IntFlightUpgradeVC.swift */,
+			);
+			path = IntFlightUpgradeVC;
 			sourceTree = "<group>";
 		};
 		18E17B9D248DFF7B00CC9876 /* FlightPaymentPendingVC */ = {
@@ -6317,6 +6338,7 @@
 		843FF3BA24740230001F21B1 /* Viewcontrollers */ = {
 			isa = PBXGroup;
 			children = (
+				18DEFE7B249E7B7400E64260 /* IntFlightUpgradeVC */,
 				843FF3BB24740230001F21B1 /* IntFlightInfoVC */,
 				843FF3BD24740230001F21B1 /* IntFlightBaggageInfo */,
 				843FF3BF24740230001F21B1 /* IntFareBreakupVC */,
@@ -9542,6 +9564,7 @@
 				0C24D4F1242CAF7300CBFF92 /* CurrencyVC.swift in Sources */,
 				843FF52824740231001F21B1 /* DomesticMultiLegTemplateCell.swift in Sources */,
 				84D54F7D23E3FC620002B504 /* MenuItemCollectionCell.swift in Sources */,
+				18DEFE7D249E7BB200E64260 /* IntFlightUpgradeVC.swift in Sources */,
 				8438B440245AB1B600F7320B /* FlightBookingInfoVC.swift in Sources */,
 				84085CE521F59C0E00F1E844 /* CreateProfileVC.swift in Sources */,
 				84085D1421F59C0E00F1E844 /* ViewProfileDetailVM.swift in Sources */,
@@ -9846,6 +9869,7 @@
 				84085D0B21F59C0E00F1E844 /* AssignGroupVC.swift in Sources */,
 				842EDE94223931FD00E99409 /* HCCouponModel.swift in Sources */,
 				843FF4D324740231001F21B1 /* PassengersSelectionVC.swift in Sources */,
+				18DEFE7A249D114700E64260 /* PostBookingAddonsPaymentStatusVC.swift in Sources */,
 				842EDE812238E7D600E99409 /* SelectTripVM.swift in Sources */,
 				843FF4CA24740231001F21B1 /* FlightEmailFieldCell.swift in Sources */,
 				84BBEEAE2214261E00844034 /* HotelDetailsCancelPolicyTableCell.swift in Sources */,

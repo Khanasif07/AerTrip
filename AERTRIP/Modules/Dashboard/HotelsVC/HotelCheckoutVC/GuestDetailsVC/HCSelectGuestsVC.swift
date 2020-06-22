@@ -422,7 +422,10 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
             
             GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].age = oldValue.age
            //ApiId for flight.
-            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].apiId = oldValue.apiId
+            if usingFor != .travellers{
+                GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].apiId = oldValue.apiId
+            }
+            
             
             
             // self.selectNextGuest()
@@ -476,9 +479,11 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
             
             GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].age = oldValue.age
            //ApiId for flight.
-            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].apiId = oldValue.apiId
-            
-            
+           
+            if usingFor != .travellers{
+                GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].apiId = oldValue.apiId
+            }
+    
             self.selectNextGuest()
             //            self.selectedContactsCollectionView.performBatchUpdates({
             //                self.selectedContactsCollectionView.insertItems(at: [idx])

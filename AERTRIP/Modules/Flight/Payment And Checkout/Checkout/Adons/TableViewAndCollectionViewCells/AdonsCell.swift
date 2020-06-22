@@ -30,16 +30,12 @@ class AdonsCell: UITableViewCell {
         complementLabel.textColor = AppColors.themeGreen
         complementBackView.setBorder(borderWidth: 1, borderColor: AppColors.themeGreen)
         complementBackView.roundedCorners(cornerRadius: 3)
-
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
     }
-    
-    
     
     func populateData(data : AdonsVM.AddonsData){
                self.complementLabel.text = data.shouldShowComp ? data.complementString : ""
@@ -49,16 +45,13 @@ class AdonsCell: UITableViewCell {
                case .meals:
                    self.addOnImageView.image = #imageLiteral(resourceName: "meals")
                    self.headingLabel.text = data.heading
+                   self.headingLabel.attributedText = data.heading.attributeStringWithColors(subString: LocalizedString.Meals.localized, strClr: AppColors.themeGreen, substrClr: UIColor.black, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
                    self.descriptionLabel.text = data.description
 
                case .baggage:
                    self.addOnImageView.image = #imageLiteral(resourceName: "baggage")
-//                   let heading = "\(LocalizedString.Baggage.localized) 25, 15, 10, 5, 16, 34, 20 kg"
-//
-//                   self.headingLabel.attributedText = heading.attributeStringWithColors(subString: LocalizedString.Baggage.localized, strClr: AppColors.themeGreen, substrClr: UIColor.black, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
-            
-            self.headingLabel.text = data.heading
-            self.descriptionLabel.text = data.description
+                   self.headingLabel.attributedText = data.heading.attributeStringWithColors(subString: LocalizedString.Baggage.localized, strClr: AppColors.themeGreen, substrClr: UIColor.black, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
+                   self.descriptionLabel.text = data.description
 
                case .seat:
                    self.addOnImageView.image = #imageLiteral(resourceName: "seats")
@@ -67,7 +60,7 @@ class AdonsCell: UITableViewCell {
         
                case .otheres:
                    self.addOnImageView.image = #imageLiteral(resourceName: "others")
-                   self.headingLabel.text = data.heading
+                   self.headingLabel.attributedText = data.heading.attributeStringWithColors(subString: LocalizedString.Other.localized, strClr: AppColors.themeGreen, substrClr: UIColor.black, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
                    self.descriptionLabel.text = data.description
                }
     }

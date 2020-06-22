@@ -36,7 +36,6 @@ class IntFareBreakupVC: UIViewController {
     
     @IBOutlet weak var bookButton: UIButton!
 
-    
     @IBOutlet weak var strikeOutAmountLabel: UILabel!
     @IBOutlet weak var strikeOutAmountLabelTrailing: NSLayoutConstraint!
     @IBOutlet weak var bookingAmountLabel: UILabel!
@@ -57,6 +56,8 @@ class IntFareBreakupVC: UIViewController {
     @IBOutlet weak var BookingTitleStackTrailing: NSLayoutConstraint!
     @IBOutlet weak var bookingTitleStackTopContraint: NSLayoutConstraint!
     @IBOutlet weak var bookingTitleStackBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var upgradeButton: UIButton!
+    @IBOutlet weak var deviderView: UIView!
     
     
     
@@ -78,10 +79,15 @@ class IntFareBreakupVC: UIViewController {
     var isFewSeatsLeftViewVisible = false
     var isFromFlightDetails = false
     var bookFlightObject = BookFlightObject()
+    var intAirportDetailsResult : [String : IntAirportDetailsWS]!
+    var intAirlineDetailsResult : [String : IntAirlineMasterWS]!
+    var journeyTitle:NSAttributedString?
+    var journeyDate:String?
     var sid = ""
     var fromScreen = ""
     var isFareBreakupExpanded = false
     var isBackgroundVisible = false
+    var isHideUpgradeOption = true
     var selectedJourneyFK = [String]()
     var fewSeatsLeftViewHeightFromFlightDetails = 0
     var isForSelectionAndCheckout:Bool = false
@@ -117,7 +123,7 @@ class IntFareBreakupVC: UIViewController {
         remainingSeatsCountLabel.layer.cornerRadius = remainingSeatsCountLabel.frame.width/2
         initialDisplayView()
         taxesDataDisplay()
-        
+        self.setupUpgradeButton(isHidden: self.isHideUpgradeOption)
         //        setupSwipeDownGuesture()
         
         if fromScreen == "upgradePlan" {
@@ -129,9 +135,7 @@ class IntFareBreakupVC: UIViewController {
         }
     }
     
-    override func viewDidLayoutSubviews()
-    {
-        super.viewDidLayoutSubviews()
+    override func viewDidLayoutSubviews(){
         if fromScreen == "upgradePlanCollapse"
         {
             if let subLayers = bookingDataDisplayView.layer.sublayers{
@@ -226,8 +230,16 @@ class IntFareBreakupVC: UIViewController {
         }else{
             return ",\(date)"
         }
-            
-        
+    }
+    
+    func setupUpgradeButton(isHidden: Bool){
+        self.upgradeButton.isHidden = isHidden
+        self.deviderView.isHidden = isHidden
+        self.bookButtonTrailing.constant = (isHidden) ? 16 : 44
+    }
+    
+    func reloadData(){
+        self.taxesDataDisplay()
     }
     
     @IBAction func tapDetailsBtn(_ sender: UIButton) {
@@ -235,9 +247,23 @@ class IntFareBreakupVC: UIViewController {
         self.detailsDelegate?.tappedDetailsButton()
     }
     
+    @IBAction func tappedUpgradeButton(_ sender: UIButton) {
+        let vc = IntFlightUpgradeVC.instantiate(fromAppStoryboard:.InternationalReturnAndMulticityDetails)
+        vc.taxesResult = self.taxesResult
+        vc.selectedJourneyFK = selectedJourneyFK
+        vc.journey = self.journey
+        vc.sid = self.sid
+        vc.fare = bookingAmountLabel.text!
+        vc.bookFlightObject = self.bookFlightObject
+        vc.intAirportDetailsResult = self.intAirportDetailsResult
+        vc.intAirlineDetailsResult = self.intAirlineDetailsResult
+        vc.intFlights = self.intFlights
+        vc.journeyTitle = self.journeyTitle
+        vc.journeyDate = self.journeyDate
+        vc.fewSeatsLeftViewHeight = fewSeatsLeftViewHeightFromFlightDetails
+        self.present(vc, animated: true, completion: nil)
+    }
     func setPassengerCount(){
-        
-        
     }
     
     func taxesDataDisplay(){

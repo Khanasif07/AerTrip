@@ -678,6 +678,7 @@ extension FlightDetailsBaseVC{
     
     func setFareBreakupForInt(){
         let vc = IntFareBreakupVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
+        vc.isHideUpgradeOption = !(self.intJourney?.first?.otherFares ?? false)
         vc.isFewSeatsLeftViewVisible = true
         vc.taxesResult = taxesResult
         vc.journey = self.intJourney
@@ -693,6 +694,11 @@ extension FlightDetailsBaseVC{
         vc.selectedJourneyFK = selectedJourneyFK
         vc.bookFlightObject = bookFlightObject
         vc.journeyCombo = journeyCombo
+        vc.intAirportDetailsResult = self.intAirportDetailsResult
+        vc.intAirlineDetailsResult = self.intAirlineDetailsResult
+        vc.bookFlightObject = self.bookFlightObject
+        vc.journeyTitle = self.journeyTitle
+        vc.journeyDate = self.journeyDate
         vc.view.autoresizingMask = []
         self.view.addSubview(vc.view)
         self.addChild(vc)

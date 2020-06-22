@@ -56,12 +56,10 @@ class PassengerSelectionVM  {
     var delegate:PassengerSelectionVMDelegate?
     
     var freeServiceType:FreeServiveType?{
-        if self.itineraryData.itinerary.freeMeal && self.itineraryData.itinerary.freeMealSeat{
+        if self.itineraryData.itinerary.freeMealSeat{
             return .both
         }else if self.itineraryData.itinerary.freeMeal{
             return .meal
-        }else if self.itineraryData.itinerary.freeMealSeat{
-            return .seat
         }else{
             return nil
         }
