@@ -21,7 +21,7 @@ class SelectPassengerVC : BaseVC {
     
     let selectPassengersVM = SelectPassengersVM()
     
-    var selectedPassengerForSeat: ((ATContact?) -> ())?
+    var updatedFlightData: ((SeatMapModel.SeatMapFlight) -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +81,7 @@ extension SelectPassengerVC {
         case .seatSelection:
             selectPassengersLabel.isHidden = true
             emptyView.isHidden = true
-            selectPassengersVM.initalPassengerForSeat = selectPassengersVM.seatModel.columnData.passenger
+            selectPassengersVM.initalPassengerForSeat = selectPassengersVM.selectedSeatData.columnData.passenger
             
         case .meals:
             self.selectPassengersLabel.text = LocalizedString.Select_Passengers_To_Assign_This_Meal.localized
@@ -114,7 +114,7 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
        
         if let firstGuestArray = GuestDetailsVM.shared.guests.first{
             if selectPassengersVM.setupFor == .seatSelection {
-                cell.setupCellFor(firstGuestArray[indexPath.item], selectPassengersVM.seatModel)
+                cell.setupCellFor(firstGuestArray[indexPath.item], selectPassengersVM.selectedSeatData, selectPassengersVM.seatDataArr)
             }else{
                 
                 cell.populateData(data: self.selectPassengersVM.allowedPassengers[indexPath.item])
@@ -130,6 +130,9 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if selectPassengersVM.setupFor == .seatSelection {
+           return CGSize(width: 80, height: collectionView.frame.height)
+        }
         return CGSize(width: 80, height: collectionView.frame.height - 32)
     }
     
@@ -155,17 +158,19 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
         
         let passenger = allContacts[indexPath.item]
         
-        if selectPassengersVM.seatModel.columnData.passenger?.id == passenger.id {
-            selectedPassengerForSeat?(nil)
-            selectPassengersVM.seatModel.columnData.passenger = nil
+        if selectPassengersVM.selectedSeatData.columnData.passenger?.id == passenger.id {
+            selectPassengersVM.selectedSeatData.columnData.passenger = nil
+            selectPassengersVM.resetFlightData(nil)
         } else {
-            selectedPassengerForSeat?(passenger)
-            selectPassengersVM.seatModel.columnData.passenger = passenger
+            selectPassengersVM.selectedSeatData.columnData.passenger = passenger
+            selectPassengersVM.resetFlightData(passenger)
+            
         }
+        updatedFlightData?(selectPassengersVM.flightData)
         collectionView.reloadData()
         doneButton.setTitle(LocalizedString.Done.localized, for: .normal)
-//        let isPassengerModified = selectPassengersVM.seatModel.columnData.passenger?.id != selectPassengersVM.initalPassengerForSeat?.id
-//        doneButton.setTitle(isPassengerModified ? LocalizedString.Done.localized : LocalizedString.Cancel.localized, for: .normal)
+        //        let isPassengerModified = selectPassengersVM.seatModel.columnData.passenger?.id != selectPassengersVM.initalPassengerForSeat?.id
+        //        doneButton.setTitle(isPassengerModified ? LocalizedString.Done.localized : LocalizedString.Cancel.localized, for: .normal)
     }
     
     private func didSelect(_ indexPath: IndexPath,_ collectionView: UICollectionView) {

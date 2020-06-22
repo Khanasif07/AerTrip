@@ -38,8 +38,8 @@ class SelectSeatButtonFooterVew: UITableViewHeaderFooterView {
         self.selectSeatButton.setTitleColor(AppColors.themeGreen, for: .selected)
         self.selectSeatButton.layer.borderWidth = 1.0
         self.selectSeatButton.layer.borderColor = AppColors.themeGreen.cgColor
-        self.selectSeatButton.setTitle("Select Seat", for: .normal)
-        self.selectSeatButton.setTitle("Select Seat", for: .selected)
+        self.selectSeatButton.setTitle("Select Seats For...", for: .normal)
+        self.selectSeatButton.setTitle("Select Seats For...", for: .selected)
     }
 
     @IBAction func tapSelectSeatButton(_ sender: UIButton){

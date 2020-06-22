@@ -198,6 +198,7 @@ extension AddOnVC : BookFlightDelegate {
         vc.viewModel.gstDetail = AddonsDataStore.shared.gstDetail
         vc.viewModel.email = AddonsDataStore.shared.email
         vc.viewModel.mobile = AddonsDataStore.shared.mobile
+        vc.viewModel.bookingObject = self.adonsVm.bookingObject
         vc.viewModel.isd = AddonsDataStore.shared.isd
         vc.viewModel.isGSTOn = AddonsDataStore.shared.isGSTOn
         vc.viewModel.addonsMaster = AddonsDataStore.shared.addonsMaster

@@ -23,7 +23,7 @@ class PostBookingFlightDetailsVC: BaseVC {
     fileprivate var parchmentView : PagingViewController?
     private var allChildVCs :[UIViewController] = []
     
-    let viewModel = BookingDetailVM()
+    let viewModel = PostBookingFlightDetailsVM()
     
     override func initialSetup() {
         self.view.layoutIfNeeded()
@@ -62,15 +62,15 @@ class PostBookingFlightDetailsVC: BaseVC {
         self.allTabsStr.append(LocalizedString.Baggage.localized)
         self.allTabsStr.append(LocalizedString.FareInfo.localized)
         
-        let flightInfoVC = FlightBookingInfoVC.instantiate(fromAppStoryboard: .Bookings)
+        let flightInfoVC = PostBookingFlightInfoVC.instantiate(fromAppStoryboard: .FlightPayment)
         flightInfoVC.viewModel.bookingDetail = self.viewModel.bookingDetail
         self.allChildVCs.append(flightInfoVC)
         
-        let flightBaggageInfoVC = FlightBaggageInfoVC.instantiate(fromAppStoryboard: .Bookings)
+        let flightBaggageInfoVC = PostBookingBaggageVC.instantiate(fromAppStoryboard: .FlightPayment)
         flightBaggageInfoVC.viewModel.bookingDetail = self.viewModel.bookingDetail
         self.allChildVCs.append(flightBaggageInfoVC)
         
-        let flightFareInfoVC = FlightFareInfoVC.instantiate(fromAppStoryboard: .Bookings)
+        let flightFareInfoVC = PostBookingFareInfoVC.instantiate(fromAppStoryboard: .FlightPayment)
         flightFareInfoVC.viewModel.bookingDetail = self.viewModel.bookingDetail
         self.allChildVCs.append(flightFareInfoVC)
         
@@ -121,7 +121,7 @@ class PostBookingFlightDetailsVC: BaseVC {
 
 extension PostBookingFlightDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.mainNavigationController.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
 }
 

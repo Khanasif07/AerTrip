@@ -56,12 +56,10 @@ class PassengerSelectionVM  {
     var delegate:PassengerSelectionVMDelegate?
     
     var freeServiceType:FreeServiveType?{
-        if self.itineraryData.itinerary.freeMeal && self.itineraryData.itinerary.freeMealSeat{
+        if self.itineraryData.itinerary.freeMealSeat{
             return .both
         }else if self.itineraryData.itinerary.freeMeal{
             return .meal
-        }else if self.itineraryData.itinerary.freeMealSeat{
-            return .seat
         }else{
             return nil
         }
@@ -86,6 +84,7 @@ class PassengerSelectionVM  {
             guest.mealPreference = self.getMealPreference()
             guest.numberInRoom = (i + 1)
             guest.id = "NT_a\(i)"
+            guest.apiId = "NT_a\(i)"
             guest.age = 0
             temp.append(guest)
         }
@@ -98,6 +97,7 @@ class PassengerSelectionVM  {
             guest.mealPreference = self.getMealPreference()
             guest.numberInRoom = (i + 1)
             guest.id = "NT_c\(i)"
+            guest.apiId = "NT_c\(i)"
             guest.age = 0
             temp.append(guest)
         }
@@ -109,6 +109,7 @@ class PassengerSelectionVM  {
             guest.mealPreference = []//self.getMealPreference()
             guest.numberInRoom = (i + 1)
             guest.id = "NT_i\(i)"
+            guest.apiId = "NT_i\(i)"
             guest.age = 0
             temp.append(guest)
         }

@@ -276,29 +276,34 @@ class AdonsVM  {
                     self.parmsForItinerary["t[\(i)][\(APIKeys.dob.rawValue)]"] = dataStore.passengers[i].dob
                 }
             }
-            let id = dataStore.passengers[i].id
+            let id = dataStore.passengers[i].apiId
             self.parmsForItinerary["t[\(i)][\(APIKeys.paxId.rawValue)]"] = id
             self.parmsForItinerary["t[\(i)][upid]"] = id
             self.checkForMealPreferences(id: id, passenger: dataStore.passengers[i])
             self.checkForFrequentFlyer(id: id, passenger: dataStore.passengers[i])
-        }
+         }
         if dataStore.isGSTOn{
             self.parmsForItinerary["gst[number]"] = dataStore.gstDetail.GSTInNo
             self.parmsForItinerary["gst[company_name]"] = dataStore.gstDetail.companyName
             self.parmsForItinerary["gst[address_line1]"] = dataStore.gstDetail.billingName
+            self.parmsForItinerary["gst[address_line2]"] = ""
+            self.parmsForItinerary["gst[city]"] = "maharastra"
+            self.parmsForItinerary["gst[postal_code]"] = "400001"
+            
         }
-    }
-    
-    //     private func generatePaasengerId(index:Int, type:PassengersType)-> String{
-    //         switch type{
-    //         case .Adult:
-    //             return "NT_a\(index - 1)"
-    //         case .child:
-    //             return "NT_c\(index - 1)"
-    //         case .infant:
-    //             return "NT_i\(index - 1)"
-    //         }
-    //     }
+     }
+     
+//     private func generatePaasengerId(index:Int, type:PassengersType)-> String{
+//         switch type{
+//         case .Adult:
+//             return "NT_a\(index - 1)"
+//         case .child:
+//             return "NT_c\(index - 1)"
+//         case .infant:
+//             return "NT_i\(index - 1)"
+//         }
+//     }
+         
     
     func checkForMeals() {
         let dataStore = AddonsDataStore.shared
@@ -306,7 +311,7 @@ class AdonsVM  {
             let meals = flight.meal.addonsArray.filter { !$0.mealsSelectedFor.isEmpty }
             meals.forEach { (meal) in
                 meal.mealsSelectedFor.forEach { (passenger) in
-                    self.parmsForItinerary["apf[\(self.afCount)]"] = "\(flight.legId)|\(flight.flightId)|\(passenger.id)|addon|meal|\(meal.ssrName?.code ?? "")|\(meal.price)|\(meal.ssrName?.isReadOnly ?? 0)"
+                    self.parmsForItinerary["apf[\(self.afCount)]"] = "\(flight.legId)|\(flight.flightId)|\(passenger.apiId)|addon|meal|\(meal.ssrName?.code ?? "")|\(meal.price)|\(meal.ssrName?.isReadOnly ?? 0)"
                     self.afCount += 1
                 }
             }
@@ -319,7 +324,7 @@ class AdonsVM  {
             let baggages = flight.bags.addonsArray.filter { !$0.bagageSelectedFor.isEmpty }
             baggages.forEach { (baggage) in
                 baggage.bagageSelectedFor.forEach { (passenger) in
-                    self.parmsForItinerary["apf[\(self.afCount)]"] = "\(flight.legId)|\(flight.flightId)|\(passenger.id)|addon|baggage|\(baggage.ssrName?.code ?? "")|\(baggage.price)|\(baggage.ssrName?.isReadOnly ?? 0)"
+                    self.parmsForItinerary["apf[\(self.afCount)]"] = "\(flight.legId)|\(flight.flightId)|\(passenger.apiId)|addon|baggage|\(baggage.ssrName?.code ?? "")|\(baggage.price)|\(baggage.ssrName?.isReadOnly ?? 0)"
                     self.afCount += 1
                 }
             }
@@ -332,10 +337,38 @@ class AdonsVM  {
             let others = flight.special.addonsArray.filter { !$0.othersSelectedFor.isEmpty }
             others.forEach { (other) in
                 other.othersSelectedFor.forEach { (passenger) in
-                    self.parmsForItinerary["apf[\(self.afCount)]"] = "\(flight.legId)|\(flight.flightId)|\(passenger.id)|addon|special|\(other.ssrName?.code ?? "")|\(other.price)|\(other.ssrName?.isReadOnly ?? 0)"
+                    self.parmsForItinerary["apf[\(self.afCount)]"] = "\(flight.legId)|\(flight.flightId)|\(passenger.apiId)|addon|special|\(other.ssrName?.code ?? "")|\(other.price)|\(other.ssrName?.isReadOnly ?? 0)"
                     self.afCount += 1
                 }
             }
+        }
+    }
+    
+    private func checkForSelectedSeats() {
+        let dataStore = AddonsDataStore.shared
+        dataStore.seatsArray.forEach { (seatData) in
+            let passengerId = seatData.columnData.passenger?.apiId ?? ""
+            
+            var rowStr: String {
+                if let number = Int(seatData.columnData.ssrCode.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
+                    print(number)
+                    return "\(number)"
+                }
+                return ""
+            }
+            let columnStr = seatData.columnData.ssrCode.components(separatedBy: CharacterSet.letters.inverted).joined()
+        
+            let seatNumber = rowStr + columnStr
+            
+            let priceStr = "\(seatData.columnData.amount)"
+            parmsForItinerary["apf[\(self.afCount)]"] = "\(seatData.lfk)|\(seatData.ffk)|\(passengerId)|addon|seatmap_ex|\(seatNumber)|\(priceStr)"
+            afCount += 1
+                        
+            let seatParamBaseStr = "seatmap[\(seatData.lfk)][\(seatData.ffk)][\(passengerId)]"
+            parmsForItinerary[seatParamBaseStr+"[row]"] = rowStr
+            parmsForItinerary[seatParamBaseStr+"[column]"] = columnStr
+            parmsForItinerary[seatParamBaseStr+"[price]"] = priceStr
+            parmsForItinerary[seatParamBaseStr+"[isOverwing]"] = "\(seatData.isWindowSeat)"
         }
     }
     
@@ -348,6 +381,24 @@ class AdonsVM  {
             }
         }
     }
+    
+     /// To get Itenerary Data from API
+//    func bookFlightWithAddons(){
+//        self.delegate?.willBookFlight()
+//        // self.createParamForItineraryApi()
+//        self.checkForMeals()
+//        self.checkForBaggage()
+//        self.checkForOthers()
+//        APICaller.shared.getItineraryData(params: self.parmsForItinerary, itId: AddonsDataStore.shared.itinerary.id) { (success, error, itinerary) in
+//            if success, let iteneraryData = itinerary{
+//                AddonsDataStore.shared.appliedCouponData = iteneraryData
+//                self.delegate?.bookFlightSuccessFully()
+//                //AddonsDataStore.shared.taxesDataDisplay()
+//            }else{
+//                self.delegate?.failedToBookBlight()
+//            }
+//        }
+//    }
     
     private func checkForFrequentFlyer(id:String, passenger:ATContact){
         let ffs = passenger.frequentFlyer.filter{!($0.number.isEmpty)}
@@ -391,6 +442,7 @@ class AdonsVM  {
         self.checkForMeals()
         self.checkForBaggage()
         self.checkForOthers()
+        self.checkForSelectedSeats()
         
         
         APICaller.shared.getItineraryData(withAddons : true, params: self.parmsForItinerary, itId: AddonsDataStore.shared.itinerary.id) { (success, error, itinerary) in
@@ -401,9 +453,5 @@ class AdonsVM  {
                 self.delegate?.failedToBookBlight()
             }
         }
-        
     }
-    
-    
-    
 }

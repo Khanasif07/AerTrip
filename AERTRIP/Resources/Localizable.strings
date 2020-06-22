@@ -979,6 +979,7 @@ Your booking ID is";
 "seatMap" = "Seat Map";
 "mainDeck" = "Main Deck";
 "upperDeck" = "Upper Deck";
+"seatTotal" = "Seat Total";
 
 "DomesticCheckIn" = "Domestic Check-in";
 "InternationalCheckIn" = "International CheckIn";

@@ -29,6 +29,9 @@ class AddonsDataStore {
     var isd = ""
     var isGSTOn = false
     
+    var seatsArray = [SeatMapModel.SeatMapRow]()
+    var originalSeatMapModel: SeatMapModel?
+    var seatsAllFlightsData: [SeatMapModel.SeatMapFlight]?
     
     init(){
         

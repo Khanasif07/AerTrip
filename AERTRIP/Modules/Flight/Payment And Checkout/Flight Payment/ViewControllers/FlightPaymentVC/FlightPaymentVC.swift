@@ -62,6 +62,7 @@ class FlightPaymentVC: BaseVC {
         super.viewDidLoad()
         self.viewModel.taxesDataDisplay()
         self.checkOutTableView.separatorStyle = .none
+        self.viewModel.taxesDataDisplay()
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
         self.viewModel.delegate = self
@@ -92,11 +93,11 @@ class FlightPaymentVC: BaseVC {
 //        delay(seconds: 1) {
 //           self.loaderView.isHidden = true
 //        }
-        let vc = FlightPaymentBookingStatusVC.instantiate(fromAppStoryboard: .FlightPayment)
-        vc.viewModel.itinerary = self.viewModel.itinerary
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = FlightPaymentBookingStatusVC.instantiate(fromAppStoryboard: .FlightPayment)
+//        vc.viewModel.itinerary = self.viewModel.itinerary
+//        self.navigationController?.pushViewController(vc, animated: true)
         
-//        self.viewModel.reconfirmationAPI()
+        self.viewModel.reconfirmationAPI()
     }
     
     
@@ -392,7 +393,9 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
         self.loaderView.isHidden = true
         print(bookingIds)
         let vc = FlightPaymentBookingStatusVC.instantiate(fromAppStoryboard: .FlightPayment)
-        vc.viewModel.itinerary = self.viewModel.itinerary
+        vc.viewModel.apiBookingIds = bookingIds
+        vc.viewModel.itId = self.viewModel.itinerary.id
+        vc.viewModel.bookingObject = self.viewModel.bookingObject
         self.navigationController?.pushViewController(vc, animated: true)
         
     }

@@ -41,6 +41,7 @@ class FlightPaymentVM{
     var paymentDetails: PaymentModal? //Payment methods
     var delegate:FlightPaymentVMDelegate?
     var gstDetail = GSTINModel()
+    var bookingObject:BookFlightObject?
     var isGSTOn = false
     var isd = ""
     var mobile = ""
@@ -223,6 +224,7 @@ extension FlightPaymentVM{
             params[APIKeys.wallet_id.rawValue] = useWallet ? (self.paymentDetails?.paymentModes.wallet.id ?? "") : ""
         } else {
             params[APIKeys.use_wallet.rawValue] = 0
+            params[APIKeys.wallet_id.rawValue] = ""
             printDebug("No wallet id required.")
         }
         

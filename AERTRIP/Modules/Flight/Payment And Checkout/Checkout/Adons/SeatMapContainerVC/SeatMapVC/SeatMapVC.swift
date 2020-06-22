@@ -11,8 +11,13 @@ import UIKit
 class SeatMapVC: UIViewController {
 
     // MARK: Properties
-    
+    typealias seatRelatedInfo = (rowStr: String, columnStr: String, seatData: SeatMapModel.SeatMapRow)
+    typealias visibleRectMultipliers = (xMul: CGFloat, yMul: CGFloat, widthMul: CGFloat, heightMul: CGFloat)
+        
     internal let viewModel = SeatMapVM()
+    
+    var onReloadPlaneLayoutCall: ((SeatMapModel.SeatMapFlight?) -> ())?
+    var onScrollViewScroll: ((visibleRectMultipliers) -> ())?
     
     // MARK: IBOutlets
     
@@ -41,10 +46,12 @@ class SeatMapVC: UIViewController {
     // MARK: IBActions
     
     @IBAction func mainDeckBtnAction(_ sender: UIButton) {
+        if viewModel.curSelectedDeck == .main { return }
         toggleUpperDeck(false)
     }
 
     @IBAction func upperDeckBtnAction(_ sender: UIButton) {
+        if viewModel.curSelectedDeck == .upper { return }
         toggleUpperDeck(true)
     }
     
@@ -52,7 +59,7 @@ class SeatMapVC: UIViewController {
     
     private func initialSetup() {
         setupCollView()
-        deckSelectionView.isHidden = !viewModel.hasUpperDeck
+        deckSelectionView.isHidden = viewModel.flightData.ud.rows.isEmpty
         mainDeckBtn.layer.borderColor = AppColors.themeGreen.cgColor
         mainDeckBtn.setTitle(LocalizedString.mainDeck.localized, for: .normal)
         mainDeckBtn.titleLabel?.font = AppFonts.SemiBold.withSize(14)
@@ -78,6 +85,7 @@ class SeatMapVC: UIViewController {
             mainDeckBtn.backgroundColor = .white
             mainDeckBtn.setTitleColor(AppColors.themeGreen, for: .normal)
             mainDeckBtn.layer.borderWidth = 1
+            viewModel.curSelectedDeck = .upper
         } else {
             mainDeckBtn.backgroundColor = AppColors.themeGreen
             mainDeckBtn.setTitleColor(.white, for: .normal)
@@ -85,6 +93,10 @@ class SeatMapVC: UIViewController {
             upperDeckBtn.backgroundColor = .white
             upperDeckBtn.setTitleColor(AppColors.themeGreen, for: .normal)
             upperDeckBtn.layer.borderWidth = 1
+            viewModel.curSelectedDeck = .main
         }
+        seatMapCollView.reloadData()
+        seatMapCollView.scrollRectToVisible(CGRect(origin: .zero, size: seatMapCollView.size), animated: true)
+        onReloadPlaneLayoutCall?(nil)
     }
 }

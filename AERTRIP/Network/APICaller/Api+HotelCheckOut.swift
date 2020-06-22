@@ -207,6 +207,7 @@ extension APICaller {
         AppNetworking.POST(endPoint:APIEndPoint.paymentResponse, parameters: params, loader: loader, success: { [weak self] (json) in
             guard let sSelf = self else {return}
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                printDebug(json)
                 if sucess {
                     
                     completionBlock(true, [], jsonData[APIKeys.data.rawValue][APIKeys.booking_id.rawValue].arrayObject as? [String] ?? [], jsonData[APIKeys.data.rawValue][APIKeys.cid.rawValue].arrayObject as? [String] ?? [])
