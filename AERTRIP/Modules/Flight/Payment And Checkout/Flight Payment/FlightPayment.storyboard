@@ -703,7 +703,57 @@ been sent</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UQZ-6B-Oa9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="73.913043478260875" y="815.625"/>
+            <point key="canvasLocation" x="39" y="816"/>
+        </scene>
+        <!--Post Booking Addons Payment StatusVC-->
+        <scene sceneID="nKh-0C-bnX">
+            <objects>
+                <viewController storyboardIdentifier="PostBookingAddonsPaymentStatusVC" id="P1N-H3-Nst" customClass="PostBookingAddonsPaymentStatusVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MKa-6o-Kk9">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BfF-l4-Zu5">
+                                <rect key="frame" x="0.0" y="812" width="414" height="84"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WKJ-i8-SEP">
+                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="b9G-yd-0ZA"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aeR-NH-7QR" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="768"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="btn-Pe-zA8" firstAttribute="trailing" secondItem="aeR-NH-7QR" secondAttribute="trailing" id="2QK-ad-mBJ"/>
+                            <constraint firstItem="aeR-NH-7QR" firstAttribute="leading" secondItem="btn-Pe-zA8" secondAttribute="leading" id="90j-ZJ-7yR"/>
+                            <constraint firstItem="aeR-NH-7QR" firstAttribute="top" secondItem="btn-Pe-zA8" secondAttribute="top" id="CvQ-m7-oLG"/>
+                            <constraint firstItem="WKJ-i8-SEP" firstAttribute="leading" secondItem="btn-Pe-zA8" secondAttribute="leading" id="GkA-vb-1fz"/>
+                            <constraint firstItem="WKJ-i8-SEP" firstAttribute="trailing" secondItem="btn-Pe-zA8" secondAttribute="trailing" id="H15-j0-wkG"/>
+                            <constraint firstItem="BfF-l4-Zu5" firstAttribute="top" secondItem="aeR-NH-7QR" secondAttribute="bottom" id="JoO-vd-pnb"/>
+                            <constraint firstItem="btn-Pe-zA8" firstAttribute="bottom" secondItem="WKJ-i8-SEP" secondAttribute="bottom" id="Oya-5a-Lbh"/>
+                            <constraint firstItem="BfF-l4-Zu5" firstAttribute="top" secondItem="WKJ-i8-SEP" secondAttribute="top" id="PJ7-on-gdM"/>
+                            <constraint firstItem="BfF-l4-Zu5" firstAttribute="leading" secondItem="btn-Pe-zA8" secondAttribute="leading" id="YbU-YB-Q5M"/>
+                            <constraint firstAttribute="bottom" secondItem="BfF-l4-Zu5" secondAttribute="bottom" id="kbS-nb-MGp"/>
+                            <constraint firstAttribute="trailing" secondItem="BfF-l4-Zu5" secondAttribute="trailing" id="mah-Wt-Fri"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="btn-Pe-zA8"/>
+                    </view>
+                    <connections>
+                        <outlet property="gradientView" destination="BfF-l4-Zu5" id="bnM-LX-ZOW"/>
+                        <outlet property="paymentTable" destination="aeR-NH-7QR" id="zrS-Kr-d77"/>
+                        <outlet property="returnHomeButton" destination="WKJ-i8-SEP" id="w2w-W1-ibr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7qr-jj-15G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="738" y="816"/>
         </scene>
     </scenes>
 </document>
