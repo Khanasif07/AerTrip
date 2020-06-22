@@ -76,4 +76,10 @@ class AddonsDataStore {
         return 0
     }
     
+    func resetData() {
+        seatsArray.removeAll()
+        originalSeatMapModel = nil
+        seatsAllFlightsData = nil
+    }
+    
 }
