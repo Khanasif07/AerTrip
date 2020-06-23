@@ -66,22 +66,15 @@ class SelectMealCell: UITableViewCell {
                self.quantityLabel.isHidden = false
            }
         
-          if index == 3 {
-                 self.mealAutoSelectedForLabel.text = "Auto Selected for DEL → HYD"
-                    self.mealAutoSelectedTop.constant = 11
-                    autoSelectionBackView.isHidden = false
-                 }else if index == 4 {
-
-                                self.mealAutoSelectedForLabel.text = ""
-        
-                            self.mealAutoSelectedTop.constant = 0
-                            autoSelectionBackView.isHidden = true
-             }else {
-                 
-                          self.mealAutoSelectedForLabel.text = ""
-                           self.mealAutoSelectedTop.constant = 0
-                           autoSelectionBackView.isHidden = true
-             }
+        if data.autoSelectedFor.isEmpty {
+             self.mealAutoSelectedForLabel.text = ""
+             self.mealAutoSelectedTop.constant = 0
+             self.autoSelectionBackView.isHidden = true
+        }else{
+             self.mealAutoSelectedForLabel.text = data.autoSelectedFor
+             self.mealAutoSelectedTop.constant = 11
+             self.autoSelectionBackView.isHidden = false
+        }
         
     }
     

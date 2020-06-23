@@ -63,10 +63,7 @@ extension SelectMealsdVC {
     func reloadData(){
         self.mealsTableView.reloadData()
     }
-    
-    func updateContactInMeal(mealIndex: Int, contacts : [ATContact]){
-        self.selectMealsVM.updateContactInMeal(mealIndex: mealIndex, contacts: contacts)
-    }
+ 
 }
 
 

@@ -49,7 +49,6 @@ class AdonsVM  {
     var bookingObject = BookFlightObject()
     
    
-    
     var isComplementaryMealAdded : Bool {
         let dataStore = AddonsDataStore.shared
         return dataStore.itinerary.freeMeal || dataStore.itinerary.freeMealSeat
@@ -278,35 +277,46 @@ class AdonsVM  {
         }
         let flightSequenceArr = dataStore.allFlights.map { $0.ffk }
         
-        flightSequenceArr.forEach { (flightKey) in
-            var seats = dataStore.seatsArray.filter { $0.ffk == flightKey }
-            if seats.count > 0 {
-                seats.sort(by: { $0.columnData.ssrCode < $1.columnData.ssrCode })
-                seats.forEach { (seatData) in
-                    var rowStr: String {
-                        if let number = Int(seatData.columnData.ssrCode.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
-                            print(number)
-                            return "\(number)"
-                        }
-                        return ""
-                    }
-                    let columnStr = seatData.columnData.ssrCode.components(separatedBy: CharacterSet.letters.inverted).joined()
-                    
-                    let seatNumber = rowStr + columnStr
-                    
-                    if let passenger = seatData.columnData.passenger {
-                        descStr.append(seatNumber + " - " + passenger.firstName + ",")
-                    }
-                }
-                if descStr.lastCharacter == "," {
-                    descStr.removeLast()
-                }
-                descStr.append("\n")
+        if selectedSeatsCount > 0 {
+ 
+            flightSequenceArr.forEach { (flightKey) in
+                 var seats = dataStore.seatsArray.filter { $0.ffk == flightKey }
+                 if seats.count > 0 {
+                     seats.sort(by: { $0.columnData.ssrCode < $1.columnData.ssrCode })
+                     seats.forEach { (seatData) in
+                         var rowStr: String {
+                             if let number = Int(seatData.columnData.ssrCode.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
+                                 print(number)
+                                 return "\(number)"
+                             }
+                             return ""
+                         }
+                         let columnStr = seatData.columnData.ssrCode.components(separatedBy: CharacterSet.letters.inverted).joined()
+                         
+                         let seatNumber = rowStr + columnStr
+                         
+                         if let passenger = seatData.columnData.passenger {
+                             descStr.append(seatNumber + " - " + passenger.firstName + ", ")
+                         }
+                     }
+                 }
+             }
+            if descStr.hasSuffix(", ") {
+                descStr.removeLast(2)
             }
+
         }
-        if descStr.hasSuffix("\n") {
-            descStr = descStr.replacingLastOccurrenceOfString("\n", with: "")
+        
+        if descStr.isEmpty {
+            descStr = LocalizedString.Reserve_Seat.localized.localized
         }
+
+        if let ind = self.addonsData.firstIndex(where: { (addonsData) -> Bool in
+                  return addonsData.addonsType == .seat
+              }){
+                  self.addonsData[ind].heading = selectedSeatsCount > 0 ? LocalizedString.Seat.localized + " " + headingStr : LocalizedString.Seat.localized
+                  self.addonsData[ind].description = descStr
+              }
     }
     
     func createParamForItineraryApi(){

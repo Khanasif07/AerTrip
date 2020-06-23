@@ -16,7 +16,6 @@ class SelectOtherAdonsVC: UIViewController {
     @IBOutlet weak var specialRequestInfoLabel: UILabel!
     @IBOutlet weak var otherAdonsTableView: UITableView!
     
-    
     var otherAdonsVm : SelectOtherAdonsVM!
     weak var delegate : SelectOtherDelegate?
     
@@ -73,6 +72,7 @@ extension SelectOtherAdonsVC {
        }
     
     func reloadData(){
+        guard let _ = self.otherAdonsTableView else { return }
         self.otherAdonsTableView.reloadData()
     }
 }

@@ -170,6 +170,7 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
             let vc = SeatMapContainerVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
             vc.setViewModel(adonsVm.getSeatMapContainerVM())
             vc.modalPresentationStyle = .overFullScreen
+            vc.delegate = self
             present(vc, animated: true, completion: nil)
             
         case .otheres:
@@ -230,7 +231,8 @@ extension AddOnVC : AddonsUpdatedDelegate {
     }
     
     func seatsUpdated() {
-        
+        self.adonsVm.setSeatsString()
+        self.adonsTableView.reloadData()
     }
     
 }

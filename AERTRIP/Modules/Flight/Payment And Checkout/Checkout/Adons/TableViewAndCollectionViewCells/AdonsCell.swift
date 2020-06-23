@@ -56,6 +56,7 @@ class AdonsCell: UITableViewCell {
                case .seat:
                    self.addOnImageView.image = #imageLiteral(resourceName: "seats")
                    self.headingLabel.text = data.heading
+                    self.headingLabel.attributedText = data.heading.attributeStringWithColors(subString: LocalizedString.Seat.localized, strClr: AppColors.themeGreen, substrClr: UIColor.black, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
                    self.descriptionLabel.text = data.description
         
                case .otheres:
