@@ -208,6 +208,7 @@ extension APICaller {
             guard let sSelf = self else {return}
             printDebug(json)
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                printDebug(json)
                 if sucess {
                     
                     completionBlock(true, [], jsonData[APIKeys.data.rawValue][APIKeys.booking_id.rawValue].arrayObject as? [String] ?? [], jsonData[APIKeys.data.rawValue][APIKeys.cid.rawValue].arrayObject as? [String] ?? [])

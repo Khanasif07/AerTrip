@@ -50,16 +50,16 @@ class PassengerSelectionVM  {
     var email = ""
     var mobile = ""
     var isdCode = "+91"
+    var manimumContactLimit = 10
+    var maximumContactLimit = 10
     var itineraryData = FlightItineraryData()
     var delegate:PassengerSelectionVMDelegate?
     
     var freeServiceType:FreeServiveType?{
-        if self.itineraryData.itinerary.freeMeal && self.itineraryData.itinerary.freeMealSeat{
+        if self.itineraryData.itinerary.freeMealSeat{
             return .both
         }else if self.itineraryData.itinerary.freeMeal{
             return .meal
-        }else if self.itineraryData.itinerary.freeMealSeat{
-            return .seat
         }else{
             return nil
         }
@@ -83,29 +83,33 @@ class PassengerSelectionVM  {
             guest.frequentFlyer = self.getFrequentFlyer()
             guest.mealPreference = self.getMealPreference()
             guest.numberInRoom = (i + 1)
-            guest.id = "\(i + 1)"
+            guest.id = "NT_a\(i)"
+            guest.apiId = "NT_a\(i)"
             guest.age = 0
             temp.append(guest)
         }
+      
         for i in 0..<bookingObj.flightChildrenCount{
             var guest = ATContact()
-            let idx = bookingObj.flightChildrenCount + i + 1
+//            let idx = bookingObj.flightChildrenCount + i + 1
             guest.passengerType = PassengersType.child
             guest.frequentFlyer = self.getFrequentFlyer()
             guest.mealPreference = self.getMealPreference()
             guest.numberInRoom = (i + 1)
-            guest.id = "\(idx)"
+            guest.id = "NT_c\(i)"
+            guest.apiId = "NT_c\(i)"
             guest.age = 0
             temp.append(guest)
         }
         for i in 0..<bookingObj.flightInfantCount{
             var guest = ATContact()
-            let idx = bookingObj.flightAdultCount + bookingObj.flightChildrenCount + i + 1
+//            let idx = bookingObj.flightAdultCount + bookingObj.flightChildrenCount + i + 1
             guest.passengerType = PassengersType.infant
             guest.frequentFlyer = self.getFrequentFlyer()
-            guest.mealPreference = self.getMealPreference()
+            guest.mealPreference = []//self.getMealPreference()
             guest.numberInRoom = (i + 1)
-            guest.id = "\(idx)"
+            guest.id = "NT_i\(i)"
+            guest.apiId = "NT_i\(i)"
             guest.age = 0
             temp.append(guest)
         }
@@ -219,11 +223,12 @@ class PassengerSelectionVM  {
     }
 
     private func login(){
+        self.delegate?.startFechingLoginData()
         let params:JSONDictionary = [APIKeys.loginid.rawValue : self.email.removeLeadingTrailingWhitespaces, APIKeys.password.rawValue : "" , APIKeys.isGuestUser.rawValue : "true"]
         APICaller.shared.loginForPaymentAPI(params: params) { [weak self] (success, logInId, isGuestUser, errors) in
             guard let self = self else { return }
             if success {
-                if self.isLogin{
+                if self.isSwitchOn{
                     self.validateGST()
                 }else{
                     self.delegate?.getResponseFromGSTValidation(success, error: nil)
@@ -231,6 +236,7 @@ class PassengerSelectionVM  {
             }else{
                 AppToast.default.showToastMessage(message: "Something went wrong")
             }
+            self.delegate?.getResponseFromLogin(success, error: nil)
         }
     }
     
@@ -244,6 +250,8 @@ class PassengerSelectionVM  {
                 let al = leg.flightsWithDetails.first?.al ?? ""
                 meal.airlineLogo = "\(logoUrl)\(al.uppercased()).png"
                 meal.preference = addonsdata.preference.meal
+                meal.lfk = leg.lfk
+                meal.ffk = addonsdata.flight.map{$0.flightId}
                 mealPreference.append(meal)
             }
         }
@@ -294,7 +302,7 @@ class PassengerSelectionVM  {
         }
         if self.isdCode.isEmpty{
             return (false, "Please enter ISD code")
-        }else if !(self.mobile.checkValidity(.MobileNumber)){
+        }else if (self.mobile.isEmpty || self.mobile.count < self.manimumContactLimit || self.mobile.count > self.maximumContactLimit){
             return (false, "Please enter valid mobile number")
         }else if !(self.email.checkValidity(.Email)){
             return (false, "Not a valid email address")

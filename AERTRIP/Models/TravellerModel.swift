@@ -54,10 +54,12 @@ struct TravellerModel {
         contact.lastName = self.lastName
         contact.dob = self.dob
         contact.profilePicture = self.profileImage
-        contact.nationality = self.nationality
+        contact.nationality = ""
+        contact.countryCode = self.nationality
         contact.passportNumber = self.passportNumber
         contact.passportExpiryDate = self.passportExpiryDate
         contact.ffp = self.ffp
+        contact.apiId = "\(self.id)"
         return contact
     }
     

@@ -40,6 +40,7 @@ class EmptyScreenView: UIView {
         case noUpCommingBookingFilter
         case noCompletedBookingFilter
         case noCanceledBookingFilter
+        case noSeatMapData
     }
     
     //MARK:- properties -
@@ -201,6 +202,9 @@ extension EmptyScreenView {
             
         case .noCanceledBookingFilter:
             self.setUpNoCanceledBookingFilter()
+            
+        case .noSeatMapData:
+            setupForNoSeatMapData()
         }
         
     }
@@ -561,6 +565,22 @@ extension EmptyScreenView {
         self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .selected)
         self.bottomButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.bottomButton.setTitleColor(AppColors.themeGreen, for: .selected)
+    }
+    
+    private func setupForNoSeatMapData() {
+        self.hideFirstButton(isHidden: true)
+        self.mainImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
+        self.containerView.center = self.contentView.center
+        self.mainImageViewTopConstraint.constant = -25
+        self.messageLabelTopConstraint.constant = 39
+        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+        self.messageLabel.textColor = AppColors.themeBlack
+        self.messageLabel.text = LocalizedString.Oops.localized
+        
+        self.searchTextLabel.isHidden = false
+        self.searchTextLabel.font = AppFonts.Regular.withSize(18.0)
+        self.searchTextLabel.textColor = AppColors.themeGray60
+        self.searchTextLabel.text = LocalizedString.noSeatMapDataDesc.localized
     }
 }
 

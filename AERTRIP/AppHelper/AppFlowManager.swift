@@ -640,11 +640,22 @@ extension AppFlowManager {
         }
     }
     
-    func presentHCCouponCodeVC(itineraryId: String, vc: FinalCheckOutVC, couponCode: String) {
+    func presentHCCouponCodeVC(itineraryId: String, vc: HCCouponCodeVCDelegate, couponCode: String, product:CouponFor = .hotels) {
         let obj = HCCouponCodeVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.delegate = vc
         obj.viewModel.itineraryId = itineraryId
         obj.viewModel.couponCode = couponCode
+        obj.viewModel.product = product
+        obj.modalPresentationStyle = .overFullScreen
+        self.currentNavigation?.present(obj, animated: true)
+    }
+    
+    func presentFlightCouponCodeVC(itineraryId: String, vc: FlightCouponCodeVCDelegate, couponCode: String, product:CouponFor = .hotels) {
+        let obj = HCCouponCodeVC.instantiate(fromAppStoryboard: .HotelCheckout)
+        obj.flightDelegate = vc
+        obj.viewModel.itineraryId = itineraryId
+        obj.viewModel.couponCode = couponCode
+        obj.viewModel.product = product
         obj.modalPresentationStyle = .overFullScreen
         self.currentNavigation?.present(obj, animated: true)
     }

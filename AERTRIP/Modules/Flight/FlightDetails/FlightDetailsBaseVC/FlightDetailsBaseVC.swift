@@ -643,6 +643,23 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         }
         
     }
+    
+    func tapUpgradeButton(){
+        let vc = IndUpgradeFlightVC.instantiate(fromAppStoryboard:.InternationalReturnAndMulticityDetails)
+        vc.taxesResult = self.taxesResult
+        vc.selectedJourneyFK = selectedJourneyFK
+        vc.journey = self.intJourney
+        vc.sid = self.sid
+        vc.fare = "\(self.intJourney?.first?.farepr ?? 0)"
+        vc.bookFlightObject = self.bookFlightObject
+        vc.intAirportDetailsResult = self.intAirportDetailsResult
+        vc.intAirlineDetailsResult = self.intAirlineDetailsResult
+        vc.intFlights = self.intFlights
+        vc.journeyTitle = self.journeyTitle
+        vc.journeyDate = self.journeyDate
+        vc.fewSeatsLeftViewHeight = isFSRVisible ? 40 : 0
+        self.present(vc, animated: true, completion: nil)
+    }
 }
 
 //Marks:- customs functions to make resulable for international return.
@@ -678,6 +695,7 @@ extension FlightDetailsBaseVC{
     
     func setFareBreakupForInt(){
         let vc = IntFareBreakupVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
+        vc.isHideUpgradeOption = !(self.intJourney?.first?.otherFares ?? false)
         vc.isFewSeatsLeftViewVisible = true
         vc.taxesResult = taxesResult
         vc.journey = self.intJourney
@@ -693,6 +711,11 @@ extension FlightDetailsBaseVC{
         vc.selectedJourneyFK = selectedJourneyFK
         vc.bookFlightObject = bookFlightObject
         vc.journeyCombo = journeyCombo
+        vc.intAirportDetailsResult = self.intAirportDetailsResult
+        vc.intAirlineDetailsResult = self.intAirlineDetailsResult
+        vc.bookFlightObject = self.bookFlightObject
+        vc.journeyTitle = self.journeyTitle
+        vc.journeyDate = self.journeyDate
         vc.view.autoresizingMask = []
         self.view.addSubview(vc.view)
         self.addChild(vc)

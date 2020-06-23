@@ -1063,11 +1063,32 @@ enum LocalizedString: String {
     case seatMap = "seatMap"
     case mainDeck = "mainDeck"
     case upperDeck = "upperDeck"
+    case seatTotal = "seatTotal"
+    case noSeatMapDataDesc = "noSeatMapDataDesc"
     
     case DomesticCheckIn = "DomesticCheckIn"
     case InternationalCheckIn = "InternationalCheckIn"
     
     case MealTotal = "MealTotal"
+
+    case Select_Passengers_To_Assign_This_Meal = "Select_Passengers_To_Assign_This_Meal"
     
+    case Select_Passengers_To_Assign_This_Baggage = "Select_Passengers_To_Assign_This_Baggage"
+
+    case Select_Passengers = "Select_Passengers"
+    
+    case Choose_Meal = "Choose_Meal"
+    
+    case Choose_Baggage = "Choose_Baggage"
+    
+    case Reserve_Seat = "Reserve_Seat"
+
+    case PreBook_Services = "PreBook_Services"
+ 
+    case Complementary_Meal_Added = "Complementary_Meal_Added"
+    
+    case Free_Seats_Available = "Free_Seats_Available"
+        
 }
+
 

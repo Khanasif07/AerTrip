@@ -13,11 +13,19 @@ protocol HCCouponCodeVCDelegate: class {
     func appliedCouponData(_ appliedCouponData: HCCouponAppliedModel)
 }
 
+protocol FlightCouponCodeVCDelegate: class {
+    func appliedCouponData(_ appliedCouponData: FlightItineraryData)
+}
 class HCCouponCodeVC: BaseVC {
     
     let viewModel = HCCouponCodeVM()
     weak var delegate: HCCouponCodeVCDelegate?
+
+    weak var flightDelegate:FlightCouponCodeVCDelegate?
+//    var selectedIndexPath: IndexPath?
+
     //var selectedIndexPath: IndexPath?
+
     var currentIndexPath: IndexPath?
     var viewTranslation = CGPoint(x: 0, y: 0)
     
@@ -204,7 +212,10 @@ class HCCouponCodeVC: BaseVC {
         }
         if !self.viewModel.couponCode.isEmpty {
             printDebug("\(self.viewModel.couponCode) Applied")
-            self.viewModel.applyCouponCode()
+            switch self.viewModel.product{
+            case .hotels: self.viewModel.applyCouponCode()
+            case .flights: self.viewModel.applyFlightCouponCode()
+            }
         } else {
             //            self.enterCouponLabel.isHidden = false
             //self.couponValidationTextSetUp(isCouponValid: false)
@@ -221,7 +232,10 @@ class HCCouponCodeVC: BaseVC {
         self.couponTableView.reloadData()
         if let indexPath = self.currentIndexPath {
             self.viewModel.couponCode = self.viewModel.searcedCouponsData[indexPath.row].couponCode
-            self.viewModel.applyCouponCode()
+            switch self.viewModel.product{
+            case .hotels: self.viewModel.applyCouponCode()
+            case .flights: self.viewModel.applyFlightCouponCode()
+            }
         }
     }
     
@@ -385,10 +399,19 @@ extension HCCouponCodeVC: HCCouponCodeVMDelegate {
     
     func applyCouponCodeSuccessful() {
         printDebug("Coupon Applied Successful")
-        if let safeDelegate = self.delegate , let appliedCouponData = self.viewModel.appliedCouponData {
-            safeDelegate.appliedCouponData(appliedCouponData)
-            self.dismiss(animated: true, completion: nil)
+        switch self.viewModel.product{
+        case .hotels:
+            if let safeDelegate = self.delegate , let appliedCouponData = self.viewModel.appliedCouponData {
+                safeDelegate.appliedCouponData(appliedCouponData)
+                self.dismiss(animated: true, completion: nil)
+            }
+        case .flights:
+            if let safeDelegate = self.flightDelegate , let appliedCouponData = self.viewModel.appliedDataForFlight {
+                safeDelegate.appliedCouponData(appliedCouponData)
+                self.dismiss(animated: true, completion: nil)
+            }
         }
+        
     }
     
     func applyCouponCodeFailed(errors: ErrorCodes) {

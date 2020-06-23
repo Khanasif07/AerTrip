@@ -16,6 +16,13 @@ struct taxStruct {
 protocol FareBreakupVCDelegate : AnyObject  {
     func bookButtonTapped(journeyCombo:[CombinationJourney]?)
     func infoButtonTapped(isViewExpanded:Bool)
+    func tapUpgradeButton()
+}
+
+extension FareBreakupVCDelegate{
+    func tapUpgradeButton(){
+        
+    }
 }
 
 class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
@@ -896,6 +903,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     @IBAction func bookButtonClicked(_ sender: Any) {
+        AddonsDataStore.shared.resetData()
         self.delegate?.bookButtonTapped(journeyCombo:journeyCombo)
     }
     

@@ -90,6 +90,7 @@ class AddPassengerDetailsCell: UITableViewCell {
             txtFld?.font = AppFonts.Regular.withSize(18.0)
             txtFld?.textColor = AppColors.textFieldTextColor51
             txtFld?.titleActiveTextColour = AppColors.themeGreen
+            txtFld?.autocorrectionType = .no
         }
     }
     
@@ -167,7 +168,7 @@ class AddPassengerDetailsCell: UITableViewCell {
         self.passportStack.isHidden = true
         guard let passenger = self.guestDetail else {return}
         switch passenger.passengerType{
-        case .Adult, .child:
+        case .Adult:
             self.dobAndNationalityStack.isHidden = true
             if passenger.isMoreOptionTapped{
                 self.firstNameTextField.lineViewBottomSpace = 0
@@ -176,14 +177,14 @@ class AddPassengerDetailsCell: UITableViewCell {
                 self.firstNameTextField.lineViewBottomSpace = -3
                 self.lastNameTextField.lineViewBottomSpace = -3
             }
-//        case .child:
-//            self.dobAndNationalityStack.isHidden = false
-//            self.nataionalityView.isHidden = true
-//            if self.passenger.isMoreOptionTapped{
-//                self.dobTextField.lineViewBottomSpace = 0
-//            }else{
-//                self.dobTextField.lineViewBottomSpace = -3
-//            }
+        case .child:
+            self.dobAndNationalityStack.isHidden = false
+            self.nataionalityView.isHidden = true
+            if passenger.isMoreOptionTapped{
+                self.dobTextField.lineViewBottomSpace = 0
+            }else{
+                self.dobTextField.lineViewBottomSpace = -3
+            }
         case .infant:
             self.dobAndNationalityStack.isHidden = false
             self.nataionalityView.isHidden = true
@@ -327,10 +328,10 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
             var minimumDate:Date? = Date()
             if let passenger = self.guestDetail{
                 switch passenger.passengerType {
-                case .Adult,.child:
+                case .Adult:
                     minimumDate = nil
-//                case .child:
-//                    minimumDate = Date().add(years: -12, days: -1)
+                case .child:
+                    minimumDate = Date().add(years: -12, days: 1)
                 case .infant:
                     minimumDate = Date().add(years: -2, days: 1)
                     
@@ -351,6 +352,7 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
             PKMultiPicker.noOfComponent = 1
             PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: countries, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
                 GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].nationality = firstSelect
+                GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].countryCode = GuestDetailsVM.shared.countries?.someKey(forValue: firstSelect) ?? ""
                 textField.text = firstSelect
             }
             textField.tintColor = AppColors.clear

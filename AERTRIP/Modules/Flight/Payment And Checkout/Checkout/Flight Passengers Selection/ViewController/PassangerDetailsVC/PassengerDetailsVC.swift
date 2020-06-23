@@ -97,15 +97,16 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     
     private func editedGuest(_ travellerIndexPath: IndexPath) {
         if let indexPath = self.viewModel.editinIndexPath, let object = GuestDetailsVM.shared.contactForIndexPath(indexPath: travellerIndexPath) {
-            let numberInRoom = GuestDetailsVM.shared.guests[0][indexPath.section].numberInRoom
-            let type = GuestDetailsVM.shared.guests[0][indexPath.section].passengerType
-            let meal = GuestDetailsVM.shared.guests[0][indexPath.section].mealPreference
-            let ff = GuestDetailsVM.shared.guests[0][indexPath.section].frequentFlyer
-            GuestDetailsVM.shared.guests[0][indexPath.section] = object
-            GuestDetailsVM.shared.guests[0][indexPath.section].passengerType = type
-            GuestDetailsVM.shared.guests[0][indexPath.section].numberInRoom = numberInRoom
-            GuestDetailsVM.shared.guests[0][indexPath.section].mealPreference = meal
-            GuestDetailsVM.shared.guests[0][indexPath.section].frequentFlyer = ff
+            self.viewModel.updatePassengerInfoWith(object, at: indexPath.section)
+//            let numberInRoom = GuestDetailsVM.shared.guests[0][indexPath.section].numberInRoom
+//            let type = GuestDetailsVM.shared.guests[0][indexPath.section].passengerType
+//            let meal = GuestDetailsVM.shared.guests[0][indexPath.section].mealPreference
+//            let ff = GuestDetailsVM.shared.guests[0][indexPath.section].frequentFlyer
+//            GuestDetailsVM.shared.guests[0][indexPath.section] = object
+//            GuestDetailsVM.shared.guests[0][indexPath.section].passengerType = type
+//            GuestDetailsVM.shared.guests[0][indexPath.section].numberInRoom = numberInRoom
+//            GuestDetailsVM.shared.guests[0][indexPath.section].mealPreference = meal
+//            GuestDetailsVM.shared.guests[0][indexPath.section].frequentFlyer = ff
             self.setFFForSelected(object.ffp, index: indexPath.section)
             self.updateDob(at : indexPath.section)
             self.passengerTable.reloadData()

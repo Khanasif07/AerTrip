@@ -448,13 +448,20 @@ struct PaymentDetails {
     var mode: String = ""
     var info: PaymentInfo?
     
-    init() {
-        self.init(json: [:])
-    }
+//    init() {
+//        self.init(json: [:])
+//    }
     
     var jsonDict: JSONDictionary {
         return [APIKeys.mode.rawValue: self.mode,
                 APIKeys.info.rawValue: self.info ?? PaymentInfo()]
+    }
+    
+    init(_ json:JSON = JSON()){
+        
+        self.mode = json[APIKeys.mode.rawValue].stringValue
+        self.info = PaymentInfo(json[APIKeys.info.rawValue])
+        
     }
     
     init(json: JSONDictionary) {
@@ -471,8 +478,14 @@ struct PaymentInfo {
     var transaction_id: String = ""
     var payment_amount: Double = 0.0
     
-    init() {
-        self.init(json: [:])
+//    init() {
+//        self.init(json: [:])
+//    }
+    
+    init(_ json:JSON = JSON()){
+        
+        transaction_id = json[APIKeys.transaction_id.rawValue].stringValue
+        self.payment_amount = json[APIKeys.payment_amount.rawValue].doubleValue
     }
     
     var jsonDict: JSONDictionary {

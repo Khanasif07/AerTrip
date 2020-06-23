@@ -23,21 +23,29 @@ struct SeatMapModel {
         let leg: [String: SeatMapLeg]
         
         init(_ json: JSON) {
-            leg = Dictionary(uniqueKeysWithValues: json["leg"].map { ($0.0, SeatMapLeg($0.1)) })
+            if json["leg"] != nil {
+                leg = Dictionary(uniqueKeysWithValues: json["leg"].map { ($0.0, SeatMapLeg($0.1, $0.0)) })
+            } else {
+                leg = Dictionary(uniqueKeysWithValues: json["SEAT"].map { ($0.0, SeatMapLeg($0.1, $0.0)) })
+            }
         }
     }
     
     struct SeatMapLeg {
+        let lfk: String
         let ttl: [String]
         let flights: [String: SeatMapFlight]
         
-        init(_ json: JSON) {
+        init(_ json: JSON,_ lfk: String) {
+            self.lfk = lfk
             ttl = json["ttl"].arrayValue.map { $0.stringValue }
-            flights = Dictionary(uniqueKeysWithValues: json["flights"].map { ($0.0, SeatMapFlight($0.1)) })
+            flights = Dictionary(uniqueKeysWithValues: json["flights"].map { ($0.0, SeatMapFlight($0.1, lfk, $0.0)) })
         }
     }
     
     struct SeatMapFlight {
+        let lfk: String
+        let ffk: String
         let ttl: String
         let fr: String
         let to: String
@@ -46,13 +54,16 @@ struct SeatMapModel {
         let cc: String
         let al: String
         let ft: Int
-        var md: Md
+        var ud: DeckData
+        var md: DeckData
         
         init() {
-            self.init(JSON())
+            self.init(JSON(), "", "")
         }
         
-        init(_ json: JSON) {
+        init(_ json: JSON,_ lfk: String,_ ffk: String) {
+            self.lfk = lfk
+            self.ffk = ffk
             ttl = json["ttl"].stringValue
             fr = json["fr"].stringValue
             to = json["to"].stringValue
@@ -61,11 +72,14 @@ struct SeatMapModel {
             cc = json["cc"].stringValue
             al = json["al"].stringValue
             ft = json["ft"].intValue
-            md = Md(json["md"])
+            ud = DeckData(json["ud"], lfk, ffk)
+            md = DeckData(json["md"], lfk, ffk)
         }
     }
     
-    struct Md {
+    struct DeckData {
+        let lfk: String
+        let ffk: String
         let columns: [String]
         var rows: [Int: [String: SeatMapRow]]
         
@@ -74,22 +88,28 @@ struct SeatMapModel {
             return rowsStrArr.map { $0.toString }
         }
         
-        init(_ json: JSON) {
+        init(_ json: JSON,_ lfk: String,_ ffk: String) {
+            self.lfk = lfk
+            self.ffk = ffk
             columns = json["columns"].arrayValue.map { $0.stringValue }
-            rows = Dictionary(uniqueKeysWithValues: json["rows"].map { (($0.0.toInt ?? 0), Dictionary(uniqueKeysWithValues: $0.1.map { ($0.0, SeatMapRow($0.1)) }))})
+            rows = Dictionary(uniqueKeysWithValues: json["rows"].map { (($0.0.toInt ?? 0), Dictionary(uniqueKeysWithValues: $0.1.map { ($0.0, SeatMapRow($0.1, lfk, ffk)) }))})
         }
     }
     
     struct SeatMapRow {
+        let lfk: String
+        let ffk: String
         var columnData: ColumnData
         let aisleValue: Bool
         let isWindowSeat: Bool
         
         init() {
-            self.init(JSON())
+            self.init(JSON(), "", "")
         }
         
-        init(_ json: JSON) {
+        init(_ json: JSON,_ lfk: String,_ ffk: String) {
+            self.lfk = lfk
+            self.ffk = ffk
             columnData = ColumnData(json)
             aisleValue = json.boolValue
             isWindowSeat = columnData.characteristic.contains("Window")
@@ -137,5 +157,4 @@ struct SeatMapModel {
         case occupied = "occupied"
         case none
     }
-
 }

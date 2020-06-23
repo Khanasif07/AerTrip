@@ -9,89 +9,94 @@
 import UIKit
 
 class SelectBagageCell: UITableViewCell {
-
+    
     @IBOutlet weak var bagageTitleLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var selectedForLabel: UILabel!
     @IBOutlet weak var priceLabelWidth: NSLayoutConstraint!
     @IBOutlet weak var quantityLabel: UILabel!
-    
+    @IBOutlet weak var autoSelectedForLabel: UILabel!
+    @IBOutlet weak var autoSelectedForBackView: UIView!
+    @IBOutlet weak var autoSelectedForTop: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.bagageTitleLabel.font = AppFonts.Regular.withSize(18)
-       selectedForLabel.font = AppFonts.Regular.withSize(14)
-
+        selectedForLabel.font = AppFonts.Regular.withSize(14)
         self.priceLabel.font = AppFonts.Regular.withSize(18)
-     quantityLabel.font = AppFonts.SemiBold.withSize(16)
-
-        
+        quantityLabel.font = AppFonts.SemiBold.withSize(16)
         self.bagageTitleLabel.textColor = UIColor.black
-       selectedForLabel.textColor = AppColors.themeGray40
-
+        selectedForLabel.textColor = AppColors.themeGray40
         self.priceLabel.textColor = AppColors.themeGray40
         quantityLabel.textColor = AppColors.themeGreen
-
         self.selectionStyle = .none
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
     }
-
     
-     func populateData(data : Addons, index : Int){
-        
-        let price = "₹ \(data.salePrice)"
+    func populateData(data : AddonsDataCustom, index : Int){
+        let price = "₹ \(data.price)"
         self.priceLabel.text = price
         self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
-        self.bagageTitleLabel.text = data.serviceName
+        self.bagageTitleLabel.text = data.ssrName?.name
         
         if data.bagageSelectedFor.isEmpty {
             self.selectedForLabel.text = ""
-          //  self.mealForLabelTop.constant = 0
             self.quantityLabel.isHidden = true
         }else{
-           // self.mealForLabelTop.constant = 2
-            let allNamesArray = data.mealsSelectedFor.map { (contact) -> String in
+            let allNamesArray = data.bagageSelectedFor.map { (contact) -> String in
                 return contact.firstName
             }
             let conaSaperatedNames = allNamesArray.joined(separator: ", ")
             self.selectedForLabel.text = "For \(conaSaperatedNames)"
-            self.quantityLabel.text = "X\(data.mealsSelectedFor.count)"
+            self.quantityLabel.text = "X\(data.bagageSelectedFor.count)"
             self.quantityLabel.isHidden = false
         }
         
-    }
-    
-    func populateData(index : Int){
-        
-        if index == 3{
-            let price = "₹ 8,550"
-            self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
-            self.priceLabel.text = price
-            self.bagageTitleLabel.text = "10 Kgs - Pre Purchased Excess Baggage"
+        if data.autoSelectedFor.isEmpty {
+             self.autoSelectedForLabel.text = ""
+             self.autoSelectedForTop.constant = 0
+             self.autoSelectedForBackView.isHidden = true
         }else{
-            let price = "₹ 807565"
-            self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
-            self.priceLabel.text = price
-            self.bagageTitleLabel.text = "10 Kgs - Pre Purchased Excess Baggage 10 Kgs - Pre Purchased Excess Baggage"
+             self.autoSelectedForLabel.text = data.autoSelectedFor
+             self.autoSelectedForTop.constant = 11
+             self.autoSelectedForBackView.isHidden = false
         }
         
-        self.layoutIfNeeded()
+        
     }
     
-    func populateOtherAdonsData(data : (title : String, price : Int, selectedForCount : Int)){
-          let price = "₹ \(data.price)"
+    func populateOtherAdonsData(data : AddonsDataCustom, index : Int){
+        let price = "₹ \(data.price)"
+        self.priceLabel.text = price
         self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
-         self.priceLabel.text = price
-        self.bagageTitleLabel.text = data.title
-       
-        self.quantityLabel.text = data.selectedForCount > 0 ? "x\(data.selectedForCount)" : ""
-        self.selectedForLabel.text = data.selectedForCount > 0 ? "For Julin and Clifford For Julin and Clifford For Julin and Clifford" : ""
-        self.layoutIfNeeded()
-
+        self.bagageTitleLabel.text = data.ssrName?.name
+        
+        if data.othersSelectedFor.isEmpty {
+            self.selectedForLabel.text = ""
+            //  self.mealForLabelTop.constant = 0
+            self.quantityLabel.isHidden = true
+        }else{
+            // self.mealForLabelTop.constant = 2
+            let allNamesArray = data.othersSelectedFor.map { (contact) -> String in
+                return contact.firstName
+            }
+            let conaSaperatedNames = allNamesArray.joined(separator: ", ")
+            self.selectedForLabel.text = "For \(conaSaperatedNames)"
+            self.quantityLabel.text = "X\(data.othersSelectedFor.count)"
+            self.quantityLabel.isHidden = false
+        }
+        
+        if data.autoSelectedFor.isEmpty {
+             self.autoSelectedForLabel.text = ""
+             self.autoSelectedForTop.constant = 0
+             self.autoSelectedForBackView.isHidden = true
+        }else{
+             self.autoSelectedForLabel.text = data.autoSelectedFor
+             self.autoSelectedForTop.constant = 11
+             self.autoSelectedForBackView.isHidden = false
+        }
     }
-    
 }

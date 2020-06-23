@@ -7,31 +7,33 @@
 //
 
 import Foundation
+//import FBSDKShareKit
 
 extension FlightPaymentBookingStatusVC{
     
     func getAllDoneCell(_ indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: YouAreAllDoneTableViewCell.reusableIdentifier, for: indexPath) as? YouAreAllDoneTableViewCell else { return UITableViewCell() }
-        cell.configCell(forBookingId: self.viewModel.bookingId, forCid: LocalizedString.na.localized, isBookingPending: self.viewModel.bookingId.isEmpty)
-//        cell.delegate = self
+        cell.configCell(forBookingId: self.viewModel.itinerary.bookingNumber, forCid: LocalizedString.na.localized, isBookingPending: (self.viewModel.itinerary.bookingStatus.status.lowercased() == "pending"))
+        cell.delegate = self
+
         return cell
     }
     
     func getEventSharedCell(_ indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: EventAdddedTripTableViewCell.reusableIdentifier, for: indexPath) as? EventAdddedTripTableViewCell else { return UITableViewCell() }
         
-        cell.configCell(tripName: self.viewModel.tripName)
-//        cell.changeBtnHandler = {[weak self] in
-//            guard let strongSelf = self else {return}
-//            AppFlowManager.default.selectTrip(strongSelf.viewModel.hotelReceiptData?.trip_details, tripType: .bookingTripChange) { [weak self] (tripModel, tripDetail) in
-//                guard let strongSelf = self else {return}
-//                printDebug(tripDetail)
-//                if let detail = tripDetail {
-//                    strongSelf.viewModel.hotelReceiptData?.trip_details = detail
-//                    strongSelf.allDoneTableView.reloadData()
-//                }
-//            }
-//        }
+        cell.configCell(tripName: self.viewModel.itinerary.tripDetails.name)
+        cell.changeBtnHandler = {[weak self] in
+            guard let self = self else {return}
+            AppFlowManager.default.selectTrip(self.viewModel.itinerary.tripDetails, tripType: .bookingTripChange) { [weak self] (tripModel, tripDetail) in
+                guard let self = self else {return}
+                printDebug(tripDetail)
+                if let detail = tripDetail {
+                    self.viewModel.itinerary.tripDetails = detail
+                    self.statusTableView.reloadData()
+                }
+            }
+        }
         return cell
     }
     
@@ -52,14 +54,20 @@ extension FlightPaymentBookingStatusVC{
         cell.titleTopConstraint.constant = 12.0
         cell.titleBottomConstraint.constant = 8.0
         
-        cell.configCell(title: self.viewModel.passengerCount > 1 ? LocalizedString.Travellers.localized : LocalizedString.Traveller.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, isFirstCell: false, price: "PNR/Status", isLastCell: false, cellHeight: 38.0)
+        cell.configCell(title: self.viewModel.itinerary.travellerDetails.t.count > 1 ? LocalizedString.Travellers.localized : LocalizedString.Traveller.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, isFirstCell: false, price: "PNR/Status", isLastCell: false, cellHeight: 38.0)
         cell.clipsToBounds = true
         return cell
     }
     
     func getTravellerCell(_ indexPath: IndexPath)-> UITableViewCell{
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: TravellersPnrStatusTableViewCell.reusableIdentifier) as? TravellersPnrStatusTableViewCell else {return UITableViewCell()}
-        cell.configCell(travellersImage: "", travellerName: "Test User", travellerPnrStatus:"43543", firstName: "Test", lastName: "User", isLastTraveller: (indexPath.row == 6),paxType: "adult", dob: "1995-01-01", salutation: "Mr")
+        let count = self.viewModel.itinerary.travellerDetails.t.count
+        let traveller = self.viewModel.itinerary.travellerDetails.t[indexPath.row - 3]
+        let pnr = self.viewModel.getPnrWith(indexPath)
+//        if traveller.ticketDetails.count > (indexPath.section - 1){
+//            pnr = traveller.ticketDetails[indexPath.section - 1].pnr
+//        }
+        cell.configCell(travellersImage: traveller.profileImg, travellerName: "\(traveller.firstName) \(traveller.lastName)", travellerPnrStatus: pnr, firstName: (traveller.firstName), lastName: (traveller.lastName), isLastTraveller: (indexPath.row == (count + 2)),paxType: traveller.paxType, dob: traveller.dob, salutation: traveller.salutation)
         cell.clipsToBounds = true
         return cell
     }
@@ -69,7 +77,7 @@ extension FlightPaymentBookingStatusVC{
     func getTotalChargeCell(_ indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: HCTotalChargeTableViewCell.reusableIdentifier, for: indexPath) as? HCTotalChargeTableViewCell else { return UITableViewCell() }
         cell.dividerView.isHidden = self.viewModel.sectionData[indexPath.section].contains(.confirmationVoucherCell) ? false : true
-        cell.configCell(mode: "Net Banking", totalCharge: (133434.0).amountInDelimeterWithSymbol)
+        cell.configCell(mode: self.viewModel.itinerary.paymentDetails.mode, totalCharge: (self.viewModel.itinerary.paymentDetails.info?.payment_amount ?? 0.0).amountInDelimeterWithSymbol)
         return cell
     }
     
@@ -85,23 +93,126 @@ extension FlightPaymentBookingStatusVC{
      func getConfirmationVoucherCell(_ indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: HCConfirmationVoucherTableViewCell.reusableIdentifier, for: indexPath) as? HCConfirmationVoucherTableViewCell else { return UITableViewCell() }
         cell.titleLabelTopConstraint.constant = 8.0
-        cell.titleLabelBottomContraint.constant = 8.0
         cell.viewButton.isHidden = false
-        cell.confirmationVoucherLabel.text = "BOM - DEL"
+        let source = self.viewModel.itinerary.details.legsWithDetail[indexPath.row - 2].originIATACode
+        let destination = self.viewModel.itinerary.details.legsWithDetail[indexPath.row - 2].destinationIATACode
+        if (indexPath.row - 1)  == self.viewModel.itinerary.details.legsWithDetail.count{
+            cell.titleLabelBottomContraint.constant = 16.0
+        }else{
+            cell.titleLabelBottomContraint.constant = 8.0
+        }
+        cell.viewButton.addTarget(self, action: #selector(tapViewTicketViewButton), for: .touchUpInside)
+        cell.viewButton.tag = indexPath.row - 2
+        cell.confirmationVoucherLabel.text = "\(source) - \(destination)"
         cell.configCell()
         return cell
     }
     
     internal func getWhatNextCell(_ indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: HCWhatNextTableViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextTableViewCell else { return UITableViewCell() }
-//        cell.delegate = self
-        if !self.viewModel.whatNextString.isEmpty {
-            cell.configCell(whatNextString: self.viewModel.whatNextString)
+        cell.delegate = self
+        let whtNext = self.viewModel.itinerary.hotelLinkParam.map{"Book your hotel in\n\($0.destName)"}
+        if !whtNext.isEmpty {
+            cell.configCell(whatNextString: whtNext)
+            cell.whatNextStackView.isHidden = false
         } else {
             cell.whatNextStackView.isHidden = true
         }
-        //        cell.whatNextStackView.isHidden = false
+        cell.suggetionImage = #imageLiteral(resourceName: "hotel_green_icon")
+        cell.whatNextCollectionView.reloadData()
         return cell
+    }
+    
+    @objc func tapViewTicketViewButton(_ sender: UIButton){
+        
+        let index = sender.tag
+        if self.viewModel.apiBookingIds.count > index{
+            let id = self.viewModel.apiBookingIds[index]
+            AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/booking-action?type=pdf&booking_id=\(id)&doc=voucher", screenTitle: "Booking Ticket")
+        }else{
+            let id = self.viewModel.apiBookingIds.first ?? ""
+            AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/booking-action?type=pdf&booking_id=\(id)&doc=voucher", screenTitle: "Booking Ticket")
+        }
+    }
+    
+}
+
+
+extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate{
+    func shareOnInstagram() {
+        
+    }
+    
+    func shareOnFaceBook() {
+        printDebug("Share On FaceBook")
+//        guard let url = URL(string: AppConstants.kAppStoreLink) else { return }
+//        let content = ShareLinkContent()
+//        content.contentURL = url
+//        let dialog = ShareDialog(
+//            fromViewController: self,
+//            content: content,
+//            delegate: nil
+//        )
+//        dialog.mode = .automatic
+//        dialog.show()
+    }
+    
+    func shareOnTwitter() {
+        printDebug("Share On Twitter")
+        let tweetText = "\(AppConstants.kAppName) Appstore Link: "
+        let tweetUrl = AppConstants.kAppStoreLink
+        let shareString = "https://twitter.com/intent/tweet?text=\(tweetText)&url=\(tweetUrl)"
+        
+        // encode a space to %20 for example
+        let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+        
+        if let url = URL(string: escapedShareString) {
+            if UIApplication.shared.canOpenURL(url ) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                AppFlowManager.default.showURLOnATWebView(url, screenTitle:  "")
+            }
+        }
+    }
+
+    
+    func shareOnLinkdIn() {
+        
+    }
+}
+
+extension FlightPaymentBookingStatusVC : YouAreAllDoneTableViewCellDelegate{
+    
+    func addToAppleWalletTapped() {
+        
+    }
+    
+    func addToCallendarTapped() {
+        
+        for legs in self.viewModel.itinerary.details.legsWithDetail{
+            guard let start = "\(legs.dd) \(legs.dt)".toDate(dateFormat: "yyyy-MM-dd HH:MM"),
+                let end = "\(legs.ad) \(legs.at)".toDate(dateFormat: "yyyy-MM-dd HH:MM") else {
+                    return
+            }
+            let bid = self.viewModel.itinerary.bookingNumber
+            let title = "Flight: \(legs.originIATACode) → \(legs.destinationIATACode)"
+            let location = self.viewModel.itinerary.details.apdet?[legs.originIATACode]?.c ?? ""
+            let bookingId = "Booking Id: \(self.viewModel.itinerary.bookingNumber)"
+            let notes = bookingId //+ "\n \(confirmationCode)"
+            AppGlobals.shared.addEventToCalender(title: title, startDate: start, endDate: end, location: location,  notes: notes, uniqueId: bid)
+        }
+    }
+}
+
+
+extension FlightPaymentBookingStatusVC : HCBookingDetailsTableViewHeaderFooterViewDelegate{
+    
+    func emailIternaryButtonTapped(){
+        let obj = HCEmailItinerariesVC.instantiate(fromAppStoryboard: .HotelCheckout)
+        obj.viewModel.isForFlight = true
+        obj.viewModel.bookingId = self.viewModel.apiBookingIds.first ?? ""
+        obj.viewModel.flightTraveller = self.viewModel.itinerary.travellerDetails.t
+        self.present(obj, animated: true, completion: nil)
     }
     
 }

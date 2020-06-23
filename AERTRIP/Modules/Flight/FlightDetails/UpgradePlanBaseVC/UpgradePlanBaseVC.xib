@@ -16,7 +16,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UpgradePlanBaseVC" customModule="Aertrip" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UpgradePlanBaseVC" customModule="AERTRIP" customModuleProvider="target">
             <connections>
                 <outlet property="blurView" destination="fHH-TJ-qwX" id="C8m-19-cAS"/>
                 <outlet property="blurViewBottom" destination="ntI-Oa-vRb" id="95z-jB-c45"/>
