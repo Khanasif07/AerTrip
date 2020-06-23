@@ -7,6 +7,7 @@
 //
 
 import Foundation
+//import FBSDKShareKit
 
 extension FlightPaymentBookingStatusVC{
     
@@ -142,12 +143,37 @@ extension FlightPaymentBookingStatusVC{
 
 extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate{
     func shareOnFaceBook() {
-        
+        printDebug("Share On FaceBook")
+//        guard let url = URL(string: AppConstants.kAppStoreLink) else { return }
+//        let content = ShareLinkContent()
+//        content.contentURL = url
+//        let dialog = ShareDialog(
+//            fromViewController: self,
+//            content: content,
+//            delegate: nil
+//        )
+//        dialog.mode = .automatic
+//        dialog.show()
     }
     
     func shareOnTwitter() {
+        printDebug("Share On Twitter")
+        let tweetText = "\(AppConstants.kAppName) Appstore Link: "
+        let tweetUrl = AppConstants.kAppStoreLink
+        let shareString = "https://twitter.com/intent/tweet?text=\(tweetText)&url=\(tweetUrl)"
         
+        // encode a space to %20 for example
+        let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+        
+        if let url = URL(string: escapedShareString) {
+            if UIApplication.shared.canOpenURL(url ) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                AppFlowManager.default.showURLOnATWebView(url, screenTitle:  "")
+            }
+        }
     }
+
     
     func shareOnLinkdIn() {
         
@@ -161,18 +187,19 @@ extension FlightPaymentBookingStatusVC : YouAreAllDoneTableViewCellDelegate{
     }
     
     func addToCallendarTapped() {
-//        if let start = self.viewModel.hotelReceiptData?.eventStartDate, let end = self.viewModel.hotelReceiptData?.eventEndDate {
-//            let bId = self.viewModel.bookingIds.first ?? ""
-//
-//            let title = "Hotel: \(self.viewModel.hotelReceiptData?.hname ?? ""), \(self.viewModel.hotelReceiptData?.city ?? "")"
-//            let location = self.viewModel.hotelReceiptData?.address ?? ""
-//            let bookingId = "Booking Id: \(bId)"
-//            let confirmationCode = "Confirmation Code: \(bId)"
-//            // confirmation code pending to append
-//            let notes = bookingId //+ "\n \(confirmationCode)"
-//
-//            AppGlobals.shared.addEventToCalender(title: title, startDate: start, endDate: end, location: location,  notes: notes, uniqueId: bId)
-//        }
+        
+        for legs in self.viewModel.itinerary.details.legsWithDetail{
+            guard let start = "\(legs.dd) \(legs.dt)".toDate(dateFormat: "yyyy-MM-dd HH:MM"),
+                let end = "\(legs.ad) \(legs.at)".toDate(dateFormat: "yyyy-MM-dd HH:MM") else {
+                    return
+            }
+            let bid = self.viewModel.itinerary.bookingNumber
+            let title = "Flight: \(legs.originIATACode) → \(legs.destinationIATACode)"
+            let location = self.viewModel.itinerary.details.apdet?[legs.originIATACode]?.c ?? ""
+            let bookingId = "Booking Id: \(self.viewModel.itinerary.bookingNumber)"
+            let notes = bookingId //+ "\n \(confirmationCode)"
+            AppGlobals.shared.addEventToCalender(title: title, startDate: start, endDate: end, location: location,  notes: notes, uniqueId: bid)
+        }
     }
 }
 

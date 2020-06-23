@@ -148,6 +148,24 @@ extension PostBookingFareInfoVC {
         return commonCell
     }
     
+    
+    func newGetFeeDetailsCell(indexPath: IndexPath, type: String, aerlineFee: String, aertripFee: Int) -> UITableViewCell {
+        guard let commonCell = self.tableView.dequeueReusableCell(withIdentifier: "PostBookingShareCell") as? PostBookingShareCell else {
+            fatalError("PostBookingShareCell not found")
+        }
+        
+        commonCell.rightLabel.font = AppFonts.Regular.withSize(16.0)
+        commonCell.leftLabel.text = type
+        if let charge = Int(aerlineFee){
+            let final = charge.toDouble.amountInDelimeterWithSymbol + " + " + aertripFee.toDouble.amountInDelimeterWithSymbol
+            commonCell.rightLabel.attributedText = final.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+            
+        }else{
+            commonCell.rightLabel.text = aerlineFee
+        }
+        return commonCell
+    }
+    
     func getFeeTitleCell(indexPath: IndexPath, type: String, aerline: String, aertrip: String) -> UITableViewCell {
         guard let commonCell = self.tableView.dequeueReusableCell(withIdentifier: "PostBookingShareCell") as? PostBookingShareCell else {
             fatalError("PostBookingShareCell not found")
@@ -346,16 +364,47 @@ extension PostBookingFareInfoVC {
         case 2:
             // cancelation
             guard self.viewModel.bookingFee.count > indexPath.section else {return finalCell}
-            finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Cancellation", aerlineFee: self.viewModel.bookingFee[indexPath.section].aerlineCanCharges?.adult?.reduce(0, { (result, object) -> Int in
-                return result + (object.value ?? 0)
-            }) ?? 0, aertripFee: self.viewModel.bookingFee[indexPath.section].aertripCanCharges?.adult ?? 0)
+            let charge = self.viewModel.bookingFee[indexPath.section].aerlineCanCharges?.adult?.reduce(0, { (result, object) -> Int in
+                           return result + (object.value ?? 0)
+                       }) ?? 0
+            var txt = ""
+            if charge == 1 {
+                txt = "Refundable"
+            }
+            else if charge == -9 {
+                txt = LocalizedString.na.localized
+            }
+            else if charge == 0{
+                txt = "free refundable"
+            }else{
+                txt = "\(charge)"
+            }
+            
+            finalCell = self.newGetFeeDetailsCell(indexPath: indexPath, type: "Rescheduling", aerlineFee: txt, aertripFee: self.viewModel.bookingFee[indexPath.section].aertripResCharges?.adult ?? 0)
+//            finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Cancellation", aerlineFee: self.viewModel.bookingFee[indexPath.section].aerlineCanCharges?.adult?.reduce(0, { (result, object) -> Int in
+//                return result + (object.value ?? 0)
+//            }) ?? 0, aertripFee: self.viewModel.bookingFee[indexPath.section].aertripCanCharges?.adult ?? 0)
             
         case 3:
             // reschdule
             guard self.viewModel.bookingFee.count > indexPath.section else {return finalCell}
-            finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Rescheduling", aerlineFee: self.viewModel.bookingFee[indexPath.section].aerlineResCharges?.adult?.reduce(0, { (result, object) -> Int in
-                return result + (object.value ?? 0)
-            }) ?? 0, aertripFee: self.viewModel.bookingFee[indexPath.section].aertripResCharges?.adult ?? 0)
+            let charge = self.viewModel.bookingFee[indexPath.section].aerlineResCharges?.adult?.reduce(0, { (result, object) -> Int in
+                           return result + (object.value ?? 0)
+                       }) ?? 0
+            var txt = ""
+            if charge == 1 {
+                txt = "Refundable"
+            }
+            else if charge == -9 {
+                txt = LocalizedString.na.localized
+            }
+            else if charge == 0{
+                txt = "free refundable"
+            }else{
+                txt = "\(charge)"
+            }
+            
+            finalCell = self.newGetFeeDetailsCell(indexPath: indexPath, type: "Rescheduling", aerlineFee: txt, aertripFee: self.viewModel.bookingFee[indexPath.section].aertripResCharges?.adult ?? 0)
             
         default:
             return finalCell
