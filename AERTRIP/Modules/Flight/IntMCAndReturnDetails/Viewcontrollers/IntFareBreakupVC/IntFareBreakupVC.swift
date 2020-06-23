@@ -248,20 +248,7 @@ class IntFareBreakupVC: UIViewController {
     }
     
     @IBAction func tappedUpgradeButton(_ sender: UIButton) {
-        let vc = IntFlightUpgradeVC.instantiate(fromAppStoryboard:.InternationalReturnAndMulticityDetails)
-        vc.taxesResult = self.taxesResult
-        vc.selectedJourneyFK = selectedJourneyFK
-        vc.journey = self.journey
-        vc.sid = self.sid
-        vc.fare = bookingAmountLabel.text!
-        vc.bookFlightObject = self.bookFlightObject
-        vc.intAirportDetailsResult = self.intAirportDetailsResult
-        vc.intAirlineDetailsResult = self.intAirlineDetailsResult
-        vc.intFlights = self.intFlights
-        vc.journeyTitle = self.journeyTitle
-        vc.journeyDate = self.journeyDate
-        vc.fewSeatsLeftViewHeight = fewSeatsLeftViewHeightFromFlightDetails
-        self.present(vc, animated: true, completion: nil)
+        self.delegate?.tapUpgradeButton()
     }
     func setPassengerCount(){
     }
