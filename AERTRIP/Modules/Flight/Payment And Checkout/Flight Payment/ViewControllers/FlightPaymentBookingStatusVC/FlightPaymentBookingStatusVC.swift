@@ -25,6 +25,7 @@ class FlightPaymentBookingStatusVC: BaseVC {
     @IBOutlet weak var returnHomeButton: UIButton!
     
     var viewModel = FlightPaymentBookingStatusVM()
+    var backView:RetryView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,7 @@ class FlightPaymentBookingStatusVC: BaseVC {
         self.statusTableView.separatorStyle = .none
         self.setupReturnHomeButton()
         self.returnHomeButton.addGredient(isVertical: false)
+        self.setBackgroundView()
     }
     
     override func viewDidLayoutSubviews() {
@@ -72,6 +74,13 @@ class FlightPaymentBookingStatusVC: BaseVC {
         
     }
     
+    func setBackgroundView(){
+        
+        let backView = Bundle.main.loadNibNamed("RetryView", owner: self, options: nil)?.first as? RetryView
+        self.backView = backView
+        self.backView?.retryButton.addTarget(self, action: #selector(tapRetry), for: .touchUpInside)
+        
+    }
     
     func openActionSeat(){
         
@@ -193,6 +202,7 @@ extension FlightPaymentBookingStatusVC: FlightPaymentBookingStatusVMDelegate{
     }
     
     func getBookingDetailFaiure(error: ErrorCodes) {
+        
         AppGlobals.shared.stopLoading()
     }
     
@@ -201,13 +211,23 @@ extension FlightPaymentBookingStatusVC: FlightPaymentBookingStatusVMDelegate{
 //        AppGlobals.shared.stopLoading()
         self.viewModel.getBookingDetail()
         self.viewModel.getSectionData()
+        self.statusTableView.backgroundView = nil
         self.statusTableView.reloadData()
     }
     func willGetBookingReceipt(){
         AppGlobals.shared.startLoading()
     }
     func getBookingReceiptFail(){
+
+        self.statusTableView.backgroundView = self.backView
         AppGlobals.shared.stopLoading()
+    }
+    
+    @objc func tapRetry(_ sender: UIButton){
+        self.statusTableView.backgroundColor = nil
+        AppGlobals.shared.startLoading()
+        self.viewModel.getBookingReceipt()
+        
     }
     
 }
