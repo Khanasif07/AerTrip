@@ -228,9 +228,8 @@ class AdonsVM  {
         if let ind = self.addonsData.firstIndex(where: { (addonsData) -> Bool in
             return addonsData.addonsType == .baggage
         }){
-            self.addonsData[ind].heading = LocalizedString.Baggage.localized + " " + headingStr.replacingLastOccurrenceOfString(", ", with: "")
+            self.addonsData[ind].heading = LocalizedString.Baggage.localized + " " + headingStr.replacingLastOccurrenceOfString(", ", with: "") + "Kg"
             self.addonsData[ind].description = description.replacingLastOccurrenceOfString(", ", with: "")
-            
         }
     }
     

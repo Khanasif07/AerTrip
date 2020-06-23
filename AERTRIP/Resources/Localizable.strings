@@ -982,6 +982,14 @@ Your booking ID is";
 "seatTotal" = "Seat Total";
 "noSeatMapDataDesc" = "Seat map for this flight is unavailable at the moment";
 
+"noMealsDataDesc" = "Meals for this flight is unavailable at the moment";
+
+"noBaggageDataDesc" = "Baggage for this flight is unavailable at the moment";
+
+"noOtherseDataDesc" = "There are no other addons for this flight at the moment";
+
+
+
 "DomesticCheckIn" = "Domestic Check-in";
 "InternationalCheckIn" = "International CheckIn";
 "MealTotal" = "Meal Total";
@@ -998,3 +1006,5 @@ Your booking ID is";
 
 "Complementary_Meal_Added" = "Complementary meal added";
 "Free_Seats_Available" = "Free Seats Available";
+
+

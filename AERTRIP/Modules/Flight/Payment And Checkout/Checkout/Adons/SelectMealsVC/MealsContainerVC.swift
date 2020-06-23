@@ -139,7 +139,7 @@ extension MealsContainerVC {
         var totalPrice = 0
         for item in self.mealsContainerVM.allChildVCs {
             let mealsArray = item.selectMealsVM.getMeals()
-            let selectedMeals = mealsArray.filter { !$0.mealsSelectedFor.isEmpty }
+            let selectedMeals = mealsArray.filter { !$0.mealsSelectedFor.isEmpty && $0.ssrName?.isReadOnly == 0 }
             selectedMeals.forEach { (meal) in
                 totalPrice += (meal.price * meal.mealsSelectedFor.count)
             }
@@ -159,8 +159,9 @@ extension MealsContainerVC: TopNavigationViewDelegate {
             AddonsDataStore.shared.flightsWithData[index].meal.addonsArray[addonIndex].mealsSelectedFor = []
             }
             item.reloadData()
-            calculateTotalAmount()
         }
+        calculateTotalAmount()
+        self.delegate?.mealsUpdated()
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
@@ -220,7 +221,7 @@ extension MealsContainerVC : SelectMealDelegate {
                     guard let weakSelf = self else { return }
                    
                     weakSelf.mealsContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: contacts)
-                   
+                    weakSelf.calculateTotalAmount()
                 }
                 present(vc, animated: true, completion: nil)
             }

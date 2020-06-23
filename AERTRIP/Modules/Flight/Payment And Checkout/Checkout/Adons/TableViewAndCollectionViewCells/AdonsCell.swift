@@ -25,7 +25,6 @@ class AdonsCell: UITableViewCell {
         complementLabel.font = AppFonts.Regular.withSize(12)
         headingLabel.textColor = UIColor.black
         descriptionLabel.textColor = AppColors.themeGray60
-        
         headingLabel.lineBreakMode = .byTruncatingMiddle
         complementLabel.textColor = AppColors.themeGreen
         complementBackView.setBorder(borderWidth: 1, borderColor: AppColors.themeGreen)

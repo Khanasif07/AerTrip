@@ -16,6 +16,12 @@ class SelectBaggageVC: UIViewController {
     var selectBaggageVM : SelectBaggageVM!
     weak var delegate : SelectBaggageDelegate?
     
+    lazy var noResultsemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noBaggageData
+        return newEmptyView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
@@ -35,7 +41,7 @@ class SelectBaggageVC: UIViewController {
       
     func initialSetup() {
           configureTableView()
-         
+         checkForNoData()
       }
     
     func initializeVm(selectBaggageVM : SelectBaggageVM){
@@ -43,10 +49,19 @@ class SelectBaggageVC: UIViewController {
        }
     
     func reloadData(index : Int = 0){
+        guard let _ = self.bagageTableView else { return }
         self.bagageTableView.reloadData()
-//          self.bagageTableView.reloadRow(at: IndexPath(row: index, section: 0), with: UITableView.RowAnimation.none)
     }
     
+    
+      private func checkForNoData() {
+          guard let _ = self.bagageTableView else { return }
+          if selectBaggageVM.getBaggage().isEmpty {
+               bagageTableView.backgroundView = noResultsemptyView
+           } else {
+               bagageTableView.backgroundView = nil
+           }
+       }
 }
 
 extension SelectBaggageVC {

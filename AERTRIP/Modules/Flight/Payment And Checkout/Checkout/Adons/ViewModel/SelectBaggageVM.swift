@@ -65,9 +65,9 @@ class SelectBaggageVM {
         var autoSelectedForString = "Auto Selected for "
         var flightName : [String] = []
         
-        if autoSelectedFor.isEmpty {
-                 addonsDetails.addonsArray[baggageIndex].autoSelectedFor = ""
-                 return }
+//        if autoSelectedFor.isEmpty {
+//                 addonsDetails.addonsArray[baggageIndex].autoSelectedFor = ""
+//                 return }
         
         autoSelectedFor.forEach { (flightId) in
               let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == flightId }

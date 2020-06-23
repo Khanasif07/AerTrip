@@ -140,7 +140,7 @@ extension SelectOtherAdonsContainerVC {
         var totalPrice = 0
         for item in self.othersContainerVM.allChildVCs {
             let mealsArray = item.otherAdonsVm.getOthers()
-            let selectedMeals = mealsArray.filter { !$0.othersSelectedFor.isEmpty }
+            let selectedMeals = mealsArray.filter { !$0.othersSelectedFor.isEmpty && $0.ssrName?.isReadOnly == 0 }
             selectedMeals.forEach { (meal) in
                 totalPrice += (meal.price * meal.othersSelectedFor.count)
             }
@@ -161,9 +161,9 @@ extension SelectOtherAdonsContainerVC: TopNavigationViewDelegate {
                 AddonsDataStore.shared.flightsWithData[index].special.addonsArray[addonIndex].othersSelectedFor = []
                }
                item.reloadData()
-               calculateTotalAmount()
            }
-        
+        calculateTotalAmount()
+        self.delegate?.othersUpdated()
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
@@ -255,6 +255,7 @@ extension SelectOtherAdonsContainerVC : SelectOtherDelegate {
            vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
                guard let weakSelf = self else { return }
             weakSelf.othersContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, othersIndex: othersIndex, contacts: contacts)
+            weakSelf.calculateTotalAmount()
            }
            present(vc, animated: true, completion: nil)
        }

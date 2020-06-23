@@ -16,6 +16,12 @@ class SelectMealsdVC: UIViewController {
     var selectMealsVM : SelectMealsVM!
     weak var delegate : SelectMealDelegate?
     
+   lazy var noResultsemptyView: EmptyScreenView = {
+       let newEmptyView = EmptyScreenView()
+       newEmptyView.vType = .noMealsData
+       return newEmptyView
+   }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetup()
@@ -36,11 +42,22 @@ class SelectMealsdVC: UIViewController {
     func initialSetup() {
 //        self.selectMealsVM.extractUsefullData()
         self.configureTableView()
+        self.checkForNoData()
       }
     
     func initializeVm(selectMealsVM : SelectMealsVM){
         self.selectMealsVM = selectMealsVM
+        
     }
+    
+    private func checkForNoData() {
+        guard let _ = self.mealsTableView else { return }
+        if selectMealsVM.getMeals().isEmpty {
+             mealsTableView.backgroundView = noResultsemptyView
+         } else {
+             mealsTableView.backgroundView = nil
+         }
+     }
     
 }
 
@@ -61,6 +78,7 @@ extension SelectMealsdVC {
     }
     
     func reloadData(){
+        guard let _ = self.mealsTableView else { return }
         self.mealsTableView.reloadData()
     }
  
@@ -74,7 +92,7 @@ extension SelectMealsdVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.selectMealsVM.getMeals().count
+         return self.selectMealsVM.getMeals().count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

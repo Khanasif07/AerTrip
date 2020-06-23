@@ -145,7 +145,7 @@ extension BaggageContainerVC {
          var totalPrice = 0
          for item in self.baggageContainerVM.allChildVCs {
              let mealsArray = item.selectBaggageVM.getBaggage()
-             let selectedMeals = mealsArray.filter { !$0.bagageSelectedFor.isEmpty }
+             let selectedMeals = mealsArray.filter { !$0.bagageSelectedFor.isEmpty && $0.ssrName?.isReadOnly == 0 }
              selectedMeals.forEach { (meal) in
                  totalPrice += (meal.price * meal.bagageSelectedFor.count)
              }
@@ -162,13 +162,13 @@ extension BaggageContainerVC: TopNavigationViewDelegate {
             let mealsArray = item.selectBaggageVM.getBaggage()
             mealsArray.enumerated().forEach { (addonIndex,_) in
                 item.selectBaggageVM.updateContactInBaggage(baggageIndex: addonIndex, contacts: [], autoSelectedFor: [])
-        AddonsDataStore.shared.flightsWithData[index].bags.addonsArray[addonIndex].othersSelectedFor = []
+        AddonsDataStore.shared.flightsWithData[index].bags.addonsArray[addonIndex].bagageSelectedFor = []
              }
             
              item.reloadData()
-             
-             calculateTotalAmount()
          }
+        calculateTotalAmount()
+        self.delegate?.baggageUpdated()
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
@@ -235,7 +235,7 @@ extension BaggageContainerVC : SelectBaggageDelegate {
                  guard let weakSelf = self else { return }
                 
                 weakSelf.baggageContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, baggageIndex: baggageIndex, contacts: contacts)
-                
+                weakSelf.calculateTotalAmount()
              }
              present(vc, animated: true, completion: nil)
          }

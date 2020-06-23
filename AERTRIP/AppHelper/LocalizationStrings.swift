@@ -1064,6 +1064,12 @@ enum LocalizedString: String {
     case seatTotal = "seatTotal"
     case noSeatMapDataDesc = "noSeatMapDataDesc"
     
+    case noMealsDataDesc = "noMealsDataDesc"
+    
+    case noBaggageDataDesc = "noBaggageDataDesc"
+    
+    case noOtherseDataDesc = "noOtherseDataDesc"
+    
     case DomesticCheckIn = "DomesticCheckIn"
     case InternationalCheckIn = "InternationalCheckIn"
     
@@ -1086,7 +1092,11 @@ enum LocalizedString: String {
     case Complementary_Meal_Added = "Complementary_Meal_Added"
     
     case Free_Seats_Available = "Free_Seats_Available"
-        
+
+    
+    
+   
+    
 }
 
 
