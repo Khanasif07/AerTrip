@@ -15,9 +15,9 @@ class BookingHotelDetailVC: BaseVC {
     @IBOutlet weak var topNavigationView: TopNavigationView!
     
     // MARK: - Variables
-    @IBOutlet weak var topNavBarHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var navigationHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var navigationHeaderTopConstraint: NSLayoutConstraint!
     let viewModel = BookingHotelDetailVM()
     let headerIdentifier = "BookingHDRoomDetailHeaderView"
     let footerViewIdentifier = "BookingInfoEmptyFooterView"
@@ -25,12 +25,13 @@ class BookingHotelDetailVC: BaseVC {
         return AppFlowManager.default.mainNavigationController.navigationBar.bounds.height + AppFlowManager.default.safeAreaInsets.top
     }
     internal var completion: (() -> Void)? = nil
+    internal let hotelImageHeight: CGFloat = 211.0
     
     // MARK: - Override methods
     
     override func initialSetup() {
         
-        self.tableViewTopConstraint.constant = -navBarHeight
+        //self.tableViewTopConstraint.constant = -navBarHeight
         self.registerXib()
         self.hotelDetailTableView.dataSource = self
         self.hotelDetailTableView.delegate = self
@@ -45,6 +46,9 @@ class BookingHotelDetailVC: BaseVC {
         self.completion = { [weak self] in
             self?.hotelDetailTableView.reloadData()
             self?.viewModel.getBookingDetail()
+        }
+        if #available(iOS 13.0, *) {} else {
+            self.navigationHeightConstraint.constant = 64
         }
     }
     
@@ -80,8 +84,9 @@ class BookingHotelDetailVC: BaseVC {
     
     // configure nav bar
     private func configureNavBar() {
-        self.topNavBarHeightConstraint.constant = navBarHeight
-        self.topNavigationView.configureNavBar(title: "", isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false,isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
+        //self.topNavBarHeightConstraint.constant = navBarHeight
+        //self.topNavigationView.configureNavBar(title: "", isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false,isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
+        self.topNavigationView.configureNavBar(title: nil , isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
         
         self.topNavigationView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "CancelButtonWhite"), selectedImage: #imageLiteral(resourceName: "black_cross"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.topNavigationView.firstRightButton.imageEdgeInsets = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)

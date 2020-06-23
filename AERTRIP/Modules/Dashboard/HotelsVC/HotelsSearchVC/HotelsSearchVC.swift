@@ -596,7 +596,7 @@ class HotelsSearchVC: BaseVC {
     //    }
     
     @IBAction func whereButtonAction(_ sender: UIButton) {
-//        AppFlowManager.default.presentYouAreAllDoneVC(forItId: "5eec8ed9b3561a54a336a626", bookingIds: ["12442"], cid: [], originLat: "1.4605111451913", originLong: "103.76455485821", recieptData: nil)
+       // AppFlowManager.default.presentYouAreAllDoneVC(forItId: "5ef046d3b3561a59175cb321", bookingIds: ["12506"], cid: [], originLat: "1.4605111451913", originLong: "103.76455485821", recieptData: nil)
         AppFlowManager.default.showSelectDestinationVC(delegate: self,currentlyUsingFor: .hotelForm)
     }
     

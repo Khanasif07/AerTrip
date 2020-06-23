@@ -60,7 +60,7 @@ extension BookingHotelsDetailsTravellerTableCell: UICollectionViewDataSource,UIC
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if isForBooking {
-            return  CGSize(width: collectionView.frame.width / 4 - 10, height: 124 )
+            return  CGSize(width: collectionView.frame.width / 4 - 10, height: 122 )
         } else {
             return  CGSize(width: collectionView.frame.width / 4 - 10, height: 140 )
         }

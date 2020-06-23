@@ -16,6 +16,8 @@ class BookingCancellationPolicyVC: BaseVC {
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var bookingPolicyTableView: ATTableView!
     
+    @IBOutlet weak var headerContainerView: UIView!
+    @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
     // MARK: - Variables
     let viewModel = BookingCancellationPolicyVM()
     
@@ -23,10 +25,16 @@ class BookingCancellationPolicyVC: BaseVC {
     // MARK: - Override methods
     
     override func initialSetup() {
+        self.bookingPolicyTableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         self.bookingPolicyTableView.dataSource = self
         self.bookingPolicyTableView.delegate = self
         self.registerXib()
-        self.bookingPolicyTableView.reloadData()
+        self.bookingPolicyTableView.reloadData()        
+        if #available(iOS 13.0, *) {
+            headerViewHeightConstraint.constant = 56
+        }
+        headerContainerView.backgroundColor = .clear
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         
         if self.viewModel.vcUsingType == .bookingPolicy {
             self.viewModel.getBookingPolicy()
@@ -34,7 +42,7 @@ class BookingCancellationPolicyVC: BaseVC {
     }
     
     override func setupFonts() {
-        self.navTitleLabel.font = AppFonts.SemiBold.withSize(22.0)
+        self.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)//AppFonts.SemiBold.withSize(22.0)
     }
     
     override func setupTexts() {

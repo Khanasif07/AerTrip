@@ -38,7 +38,8 @@ class HotelDetailAmenitiesCell: UITableViewCell {
     }
     @IBOutlet weak var dividerViewLeadingCons: NSLayoutConstraint!
     @IBOutlet weak var dividerViewTrailingCons: NSLayoutConstraint!
-    
+    @IBOutlet weak var amenitiesTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerHeightConstraint: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================

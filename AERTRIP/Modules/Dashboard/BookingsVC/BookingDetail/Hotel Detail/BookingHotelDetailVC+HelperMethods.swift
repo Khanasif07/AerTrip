@@ -138,9 +138,11 @@ extension BookingHotelDetailVC {
             }
             
             fareInfoNoteCell.isForBookingPolicyCell = false
-            fareInfoNoteCell.noteTextViewTopConstraint.constant = 0
+            fareInfoNoteCell.noteTextViewTopConstraint.constant = 7
             fareInfoNoteCell.noteLabel.text = LocalizedString.Notes.localized
             fareInfoNoteCell.configCell(notes: self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.notes ?? [],hotelNotes: true)
+            fareInfoNoteCell.noteTextView.lineBreakMode = .byWordWrapping
+            fareInfoNoteCell.noteTextViewBottomConstraint.constant = 16
             return fareInfoNoteCell
             
         case 5: // Guest Cell
@@ -164,13 +166,21 @@ extension BookingHotelDetailVC {
         case 0:
             // Address Cell
             guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell else { return UITableViewCell() }
+            if !(self.viewModel.bookingDetail?.bookingDetail?.phoneDetail ?? "").isEmpty  && !(self.viewModel.bookingDetail?.bookingDetail?.overViewData ?? "").isEmpty {
+                cell.deviderView.isHidden = true
+            } else if !(self.viewModel.bookingDetail?.bookingDetail?.phoneDetail ?? "").isEmpty {
+                cell.deviderView.isHidden = true
+            }
             //cell.deviderView.isHidden = true
-            cell.addressLblTopConst.constant = 10.5
+            cell.addressLblTopConst.constant = 16
             cell.configureAddressCell(isForBooking: true, address: self.viewModel.bookingDetail?.bookingDetail?.hotelAddressDetail ?? "")
             return cell
             
         case 1: // Phone Detail Cell
             phoneWebCommonCell.configureCell(title: "Phone", text: self.viewModel.bookingDetail?.bookingDetail?.phoneDetail ?? "")
+            if (self.viewModel.bookingDetail?.bookingDetail?.websiteDetail ?? "").isEmpty {
+               phoneWebCommonCell.deviderBottomConstraint.constant = 10
+            }
             return phoneWebCommonCell
             
         // Website Detail Cell
@@ -188,6 +198,8 @@ extension BookingHotelDetailVC {
             cell.delegate = self
             cell.amenitiesDetails = self.viewModel.bookingDetail?.bookingDetail?.amenities
             cell.dividerView.isHidden = (self.viewModel.bookingDetail?.bookingDetail?.taLocationID.isEmpty ?? false)
+            cell.amenitiesTopConstraint.constant = 7
+            cell.containerHeightConstraint.constant = 123
             return cell
             
         case 5: // Trip Advisor Cell
@@ -203,11 +215,11 @@ extension BookingHotelDetailVC {
     }
     
     func getHeightForRowFetchtHotelDetail(_ indexPath: IndexPath) -> CGFloat {
-        return [211, UITableView.automaticDimension,200][indexPath.row]
+        return [UITableView.automaticDimension, UITableView.automaticDimension,200][indexPath.row]
     }
     
     func getHeightForRowFirstSection(_ indexPath: IndexPath) -> CGFloat {
-        return [211, UITableView.automaticDimension, UITableView.automaticDimension, 104.0][indexPath.row]
+        return [UITableView.automaticDimension, UITableView.automaticDimension, UITableView.automaticDimension, 104.0][indexPath.row]
     }
     
     func getHeightForRoomSection(_ indexPath: IndexPath) -> CGFloat {
@@ -221,7 +233,15 @@ extension BookingHotelDetailVC {
         switch indexPath.row {
         case 0:
             // Address Cell
-            return (self.viewModel.bookingDetail?.bookingDetail?.hotelAddressDetail ?? "").isEmpty ? CGFloat.leastNormalMagnitude : UITableView.automaticDimension
+            //return (self.viewModel.bookingDetail?.bookingDetail?.hotelAddressDetail ?? "").isEmpty ? CGFloat.leastNormalMagnitude : UITableView.automaticDimension
+            
+            if let address = self.viewModel.bookingDetail?.bookingDetail?.hotelAddressDetail, !address.isEmpty {
+                let text = address + "Maps    "
+                let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
+                return size.height + 46.5
+                    + 13  + 2.0//y of textview 46.5 + bottom space 14.0 + 7.0
+            }
+            return CGFloat.leastNormalMagnitude
         case 1:
             // Phone detail cell
             return (self.viewModel.bookingDetail?.bookingDetail?.phoneDetail ?? "").isEmpty ? CGFloat.leastNormalMagnitude : UITableView.automaticDimension
@@ -229,9 +249,26 @@ extension BookingHotelDetailVC {
         case 2: // Website
             return (self.viewModel.bookingDetail?.bookingDetail?.websiteDetail ?? "").isEmpty ? CGFloat.leastNormalMagnitude : UITableView.automaticDimension
         case 3:// overview
-            return (self.viewModel.bookingDetail?.bookingDetail?.overViewData ?? "").isEmpty ? CGFloat.leastNormalMagnitude : UITableView.automaticDimension
+            //            return (self.viewModel.bookingDetail?.bookingDetail?.overViewData ?? "").isEmpty ? CGFloat.leastNormalMagnitude : UITableView.automaticDimension
+            if let info = self.viewModel.bookingDetail?.bookingDetail?.overViewData, !info.isEmpty {
+                let textView = UITextView()
+                textView.frame.size = CGSize(width: UIDevice.screenWidth - 32.0, height: 100.0)
+                textView.font = AppFonts.Regular.withSize(18)
+                textView.text = info
+                if textView.numberOfLines >= 3{
+                    if let lineHeight = textView.font?.lineHeight{
+                        return ((3 * lineHeight) + 62)
+                    }
+                }else{
+                    let text = (self.viewModel.bookingDetail?.bookingDetail?.hotelAddressDetail ?? "") + "Maps    "
+                    let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
+                    return size.height + 46.5
+                        + 13.0  + 2.0//y of textview 46.5 + bottom space 14.0 + 7.0
+                }
+            }
+            return CGFloat.leastNormalMagnitude
         case 4: // amentities
-            return (self.viewModel.bookingDetail?.bookingDetail?.amenities == nil) ? CGFloat.leastNormalMagnitude : 140.0
+            return (self.viewModel.bookingDetail?.bookingDetail?.amenities == nil) ? CGFloat.leastNormalMagnitude : UITableView.automaticDimension
         case 5:
             return (self.viewModel.bookingDetail?.bookingDetail?.taLocationID.isEmpty ?? false) ? CGFloat.leastNormalMagnitude : 46.0
         default:

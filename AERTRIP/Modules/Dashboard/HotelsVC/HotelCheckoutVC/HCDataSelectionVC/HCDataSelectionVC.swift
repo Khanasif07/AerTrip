@@ -350,6 +350,9 @@ class HCDataSelectionVC: BaseVC {
             } else {
                 self.viewModel.logInUserApi()
             }
+        } else {
+            viewModel.canShowErrorForEmailPhone = true
+            self.tableView.reloadData()
         }
     }
     
@@ -750,7 +753,11 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                     return UITableViewCell()
                 }
                 cell.contactTitleLabel.isHidden = true
+                cell.minContactLimit = self.viewModel.minContactLimit
                 cell.contactNumberTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.Mobile.localized,with: "")
+                if viewModel.canShowErrorForEmailPhone {
+                    cell.checkForErrorStateOfTextfield()
+                }
                 cell.delegate = self
                 return cell
                 
@@ -768,6 +775,9 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 cell.editableTextField.textColor = UserInfo.loggedInUserId == nil ? AppColors.themeBlack : AppColors.themeGray40
                 cell.editableTextField.keyboardType = .emailAddress
                 
+                if viewModel.canShowErrorForEmailPhone {
+                    cell.checkForErrorStateOfTextfield()
+                }
                 
                 return cell
                 
@@ -796,6 +806,9 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 cell.editableTextField.textColor = AppColors.themeBlack
                 cell.editableTextField.keyboardType = .default
                 cell.editableTextField.autocapitalizationType = .allCharacters
+                if viewModel.canShowErrorForEmailPhone {
+                    cell.checkForErrorStateOfTextfield()
+                }
                 return cell
                 
             default:
@@ -864,6 +877,8 @@ extension HCDataSelectionVC: HotelCheckOutDetailsVIewDelegate {
 extension HCDataSelectionVC: ContactTableCellDelegate {
     func setIsdCode(_ country: PKCountryModel,_ sender: UIButton) {
         viewModel.mobileIsd = country.countryCode
+        viewModel.minContactLimit = country.minNSN
+        viewModel.maxContactLimit = country.minNSN
         guard  let cell = sender.tableViewCell as? ContactTableCell  else {
             return
         }

@@ -120,7 +120,6 @@ class AppGlobals {
         let (_, message, _) = ATErrorManager.default.error(forCodes: errors, module: module)
         if !message.isEmpty {
             AppToast.default.showToastMessage(message: message)
-            
         }
     }
     
@@ -335,7 +334,7 @@ class AppGlobals {
         return blurEffectView
     }
     
-    func createParagraphAttribute(paragraphSpacingBefore: CGFloat = -2.5,isForNotes: Bool,lineSpacing : CGFloat =  0.0) -> NSParagraphStyle {
+    func createParagraphAttribute(paragraphSpacingBefore: CGFloat = -2.5,isForNotes: Bool,lineSpacing : CGFloat =  0.0, headIndent: CGFloat = 11) -> NSParagraphStyle {
         var paragraphStyle: NSMutableParagraphStyle
         paragraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         paragraphStyle.tabStops = [NSTextTab(textAlignment: .left, location: 15, options: NSDictionary() as! [NSTextTab.OptionKey: Any])]
@@ -343,7 +342,7 @@ class AppGlobals {
         paragraphStyle.maximumLineHeight = 0
         paragraphStyle.defaultTabInterval = 5
         paragraphStyle.firstLineHeadIndent = 0
-        paragraphStyle.headIndent = isForNotes ? 11 : 0
+        paragraphStyle.headIndent = isForNotes ? headIndent : 0
         paragraphStyle.alignment = .left
         paragraphStyle.lineSpacing = lineSpacing
         paragraphStyle.paragraphSpacingBefore = paragraphSpacingBefore

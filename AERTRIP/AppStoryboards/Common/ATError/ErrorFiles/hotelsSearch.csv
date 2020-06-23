@@ -92,7 +92,7 @@
 92,,72,"Provisional booking failed, Please try again",
 93,,73,Something went wrong in itinerary,
 94,,74,Itinerary not found,
-95,,75,Coupon is Invalid or Expeired,
+95,,75,Coupon is Invalid or Expeired,Coupon Code is invalid Or Expired
 96,,76,Invalid Coupon. Coupon Rules not found,
 97,,77,Search Replacement Parameters not found,
 98,,78,Flight or Hotel Coupon Policy class not found,

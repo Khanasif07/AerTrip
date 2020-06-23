@@ -14,12 +14,12 @@ class FareInfoNoteTableViewCell: UITableViewCell {
     // MARK: - IBOutlets
     
     @IBOutlet weak var noteLabel: UILabel!
-    @IBOutlet weak var noteTextView: UITextView!  {
+    @IBOutlet weak var noteTextView: UILabel!  {
         didSet {
-            self.noteTextView.isEditable = false
-            self.noteTextView.textContainerInset = UIEdgeInsets.zero
-            self.noteTextView.textContainer.lineFragmentPadding = 0.0
-            self.noteTextView.isUserInteractionEnabled = false
+//            self.noteTextView.isEditable = false
+//            self.noteTextView.textContainerInset = UIEdgeInsets.zero
+//           // self.noteTextView.textContainer.lineFragmentPadding = 0.0
+//            self.noteTextView.isUserInteractionEnabled = false
         }
     }
     @IBOutlet weak var noteTextViewTopConstraint: NSLayoutConstraint!
@@ -39,7 +39,11 @@ class FareInfoNoteTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
     }
-    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.noteTextView.attributedText = nil
+        self.noteTextView.text = ""
+    }
     
     private func doInitialSetup() {
         self.noteTextViewTopConstraint.constant = self.isForBookingPolicyCell ? 10 : 0
@@ -60,7 +64,7 @@ class FareInfoNoteTableViewCell: UITableViewCell {
     
     ///Bulleted Notes Details
     private func bulletedNotesDetails(notes: [String],hotelNotes: Bool) -> NSMutableAttributedString {
-        let attributesDictionary = [NSAttributedString.Key.font : isForBookingPolicyCell ? AppFonts.Regular.withSize(18.0) : AppFonts.Regular.withSize(14.0) , NSAttributedString.Key.foregroundColor : isForBookingPolicyCell ? AppColors.themeBlack : AppColors.themeBlack]
+        let attributesDictionary = [NSAttributedString.Key.font :  AppFonts.Regular.withSize(14.0) , NSAttributedString.Key.foregroundColor : isForBookingPolicyCell ? AppColors.themeBlack : AppColors.themeBlack]
         let fullAttributedString = NSMutableAttributedString()
         //let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore: 4.0, isForNotes: true,lineSpacing: 2.0)
         for text in notes {
@@ -75,12 +79,12 @@ class FareInfoNoteTableViewCell: UITableViewCell {
 //            fullAttributedString.append(bulletedString)
             
             let dotText = hotelNotes ? "●  " : "•  "
-            let formattedString: String = "\(dotText)  \(text)\n"
-//            if text == notes.last ?? ""{
-//                formattedString = formattedString.replacingOccurrences(of: "\n", with: "")
-//            }
+            var formattedString: String = "\(dotText)  \(text)\n"
+            if text == notes.last ?? "", hotelNotes{
+                formattedString = formattedString.replacingOccurrences(of: "\n", with: "")
+            }
             let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: formattedString, attributes: attributesDictionary)
-            let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore: 4.0, isForNotes: true,lineSpacing: 2.0)
+            let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore: 4.0,isForNotes: true,lineSpacing :2.0, headIndent: hotelNotes ? 20 : 11)
             attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))
             fullAttributedString.append(attributedString)
         }

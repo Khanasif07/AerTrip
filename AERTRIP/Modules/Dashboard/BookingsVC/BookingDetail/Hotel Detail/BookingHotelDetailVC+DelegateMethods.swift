@@ -95,7 +95,7 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        return 93.0
+        return 200
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -157,6 +157,28 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let yOffset = self.hotelDetailTableView.contentOffset.y
+        printDebug("yOffset \(yOffset)")
+        printDebug("headerView.height \(topNavigationView.height)")
+        
+        if (hotelImageHeight - topNavigationView.height) < yOffset {
+            self.topNavigationView.navTitleLabel.text = self.viewModel.hotelTitle
+            self.topNavigationView.animateBackView(isHidden: false, completion: nil)
+            //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "backGreen"), for: .normal)
+            //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "backGreen"), for: .selected)
+            self.topNavigationView.dividerView.isHidden = false
+            self.topNavigationView.firstRightButton.setImage(#imageLiteral(resourceName: "black_cross"), for: .normal)
+            self.topNavigationView.firstRightButtonTrailingConstraint.constant = 0
+        } else {
+            self.topNavigationView.animateBackView(isHidden: true, completion: nil)
+             //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "whiteBackIcon"), for: .normal)
+            // sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "whiteBackIcon"), for: .selected)
+             self.topNavigationView.navTitleLabel.text = " "
+             self.topNavigationView.dividerView.isHidden = true
+             self.topNavigationView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
+             self.topNavigationView.firstRightButtonTrailingConstraint.constant = -3
+        }
+            /*
         printDebug("scroll inset \(scrollView.contentOffset.y)")
         if scrollView.contentOffset.y <= 54 {
             self.topNavigationView.animateBackView(isHidden: true) { [weak self] _ in
@@ -183,6 +205,7 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
                 sSelf.topNavigationView.firstRightButtonTrailingConstraint.constant = 0
             }
         }
+ */
     }
 }
 

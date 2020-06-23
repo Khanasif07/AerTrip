@@ -167,6 +167,18 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
 //MARK:- HotelDetailDelegate
 //==========================
 extension HotelDetailsVC: HotelDetailDelegate {
+    func willGetPinnedTemplate() {
+        AppGlobals.shared.startLoading()
+    }
+    
+    func getPinnedTemplateSuccess() {
+        AppGlobals.shared.stopLoading()
+    }
+    
+    func getPinnedTemplateFail() {
+        AppGlobals.shared.stopLoading()
+    }
+    
     
     func willSaveHotelWithTrip() {
         
@@ -477,9 +489,20 @@ extension HotelDetailsVC: HotelDetailAmenitiesCellDelegate {
 
 extension HotelDetailsVC: HotelRatingInfoCellDelegate {
     func shareButtonAction(_ sender: UIButton) {
-        if let url = self.viewModel.hotelData?.ta_web_url, !url.isEmpty {
-            AppGlobals.shared.shareWithActivityViewController(VC: self , shareData: url)
+        if !self.viewModel.shareLinkURL.isEmpty{
+            AppGlobals.shared.shareWithActivityViewController(VC: self , shareData: self.viewModel.shareLinkURL)
+        } else {
+            self.viewModel.getShareLinkAPI {[weak self] (sucess) in
+                guard let strongSelf = self else {return}
+                if sucess {
+                    if !strongSelf.viewModel.shareLinkURL.isEmpty{
+                        AppGlobals.shared.shareWithActivityViewController(VC: strongSelf , shareData: strongSelf.viewModel.shareLinkURL)
+                    }
+                }
+            }
         }
+        
+        
     }
     
 }

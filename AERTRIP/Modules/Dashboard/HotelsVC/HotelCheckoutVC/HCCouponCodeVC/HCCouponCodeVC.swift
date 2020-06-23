@@ -38,11 +38,12 @@ class HCCouponCodeVC: BaseVC {
     @IBOutlet weak var couponTextField: PKFloatLabelTextField! {
         didSet {
             self.couponTextField.delegate = self
-            self.couponTextField.rightViewMode = .whileEditing
+            //self.couponTextField.rightViewMode = .whileEditing
             self.couponTextField.autocorrectionType = .no
             self.couponTextField.autocapitalizationType = .allCharacters
             self.couponTextField.adjustsFontSizeToFitWidth = true
             self.couponTextField.textFieldClearBtnSetUp()
+            self.couponTextField.clearButtonMode = .always
         }
     }
     @IBOutlet weak var emptyStateView: UIView!

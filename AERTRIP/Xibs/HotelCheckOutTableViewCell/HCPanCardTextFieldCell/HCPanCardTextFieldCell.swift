@@ -57,6 +57,15 @@ class HCPanCardTextFieldCell: UITableViewCell {
         self.editableTextField.font = AppFonts.Regular.withSize(18.0)
     }
 
+    internal func checkForErrorStateOfTextfield() {
+        let finalTxt = (editableTextField.text ?? "").removeAllWhitespaces
+        self.editableTextField.isError = finalTxt.checkInvalidity(.PanCard)
+        
+        let isValidEmail = !finalTxt.checkInvalidity(.PanCard)
+        self.editableTextField.isError = !isValidEmail
+        let firstName = self.editableTextField.placeholder ?? ""
+        self.editableTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray40 :  AppColors.themeRed])
+    }
 }
 
 
@@ -65,7 +74,7 @@ extension HCPanCardTextFieldCell: UITextFieldDelegate {
         printDebug("text field text \(textField.text ?? " ")")
         textField.text = textField.text?.uppercased()
         let finalTxt = (textField.text ?? "").removeAllWhitespaces
-        if let idxPath = indexPath, !finalTxt.isEmpty {
+        if let idxPath = indexPath {
             delegate?.textEditableTableViewCellTextFieldText(idxPath, finalTxt)
         }
     }
