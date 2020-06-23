@@ -477,7 +477,7 @@
             <objects>
                 <viewController storyboardIdentifier="AerinVC" id="bYL-Ms-OZy" customClass="AerinVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kAo-x2-gd7">
-                        <rect key="frame" x="0.0" y="0.0" width="408" height="494.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="408" height="190"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHU-LR-LWt">
@@ -649,7 +649,7 @@ on Christmas”</string>
             <objects>
                 <viewController storyboardIdentifier="FlightsVC" id="qif-Xc-JfX" customClass="FlightsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZF0-0c-QWp">
-                        <rect key="frame" x="0.0" y="0.0" width="408" height="494.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="408" height="190"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flights " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="McH-7D-g5Y">
@@ -1087,7 +1087,7 @@ on Christmas”</string>
             <objects>
                 <viewController storyboardIdentifier="TripsVC" id="PTU-br-IAu" customClass="TripsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8aR-r3-Nn6">
-                        <rect key="frame" x="0.0" y="0.0" width="408" height="494.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="408" height="190"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLz-uM-NAJ">
