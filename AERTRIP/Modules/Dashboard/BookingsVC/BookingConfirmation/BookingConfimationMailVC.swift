@@ -9,6 +9,7 @@
 import Contacts
 import ContactsUI
 import UIKit
+import IQKeyboardManager
 
 class BookingConfimationMailVC: BaseVC {
     // MARK: - IB Outlet
@@ -31,13 +32,24 @@ class BookingConfimationMailVC: BaseVC {
     
     
     // MARK: - Override methods
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
+    }
     
     override func initialSetup() {
         self.topNavigationView.delegate = self
         self.toMailTextView.delegate = self
         self.toMailTextView.textContainerInset = .zero
         self.viewModel.getTravellerMail()
-        
+        setupColors()
+        self.toMailTextView.text = UserInfo.loggedInUser?.email ?? ""
+        self.updateSendButton()
     }
     
     override func setupFonts() {
@@ -56,6 +68,11 @@ class BookingConfimationMailVC: BaseVC {
         self.toLabel.textColor = AppColors.themeGray40
         self.toMailTextView.textColor = AppColors.themeGray40
         self.infoLabel.textColor = AppColors.themeGray40
+        
+        self.toMailTextView.activeTagBackgroundColor = AppColors.clear
+        self.toMailTextView.inactiveTagFontColor = AppColors.themeGreen
+        self.toMailTextView.activeTagFontColor = AppColors.themeGreen
+        self.toMailTextView.tagSeparatorColor = AppColors.themeGreen
         if #available(iOS 13, *) {
         }else{
             self.toMailTextView.placeholderTextColor = AppColors.themeGray40
@@ -184,6 +201,8 @@ extension BookingConfimationMailVC {
         return true
     }
     func textViewDidChange(_ textView: UITextView) {
-        self.updateSendButton()
+        delay(seconds: 0.2) {[weak self] in
+            self?.updateSendButton()
+        }
     }
 }
