@@ -336,10 +336,10 @@ extension DashboardVC  {
             var transform : CGFloat = 0.0
             
             let offset = scrollView.contentOffset
-            guard offset.y <= UIApplication.shared.statusBarFrame.height + 44 else {
-                scrollView.contentOffset.y = UIApplication.shared.statusBarFrame.height + 44
-                return
-            }
+//            guard offset.y <= UIApplication.shared.statusBarFrame.height + 44 else {
+//                scrollView.contentOffset.y = UIApplication.shared.statusBarFrame.height + 44
+//                return
+//            }
             
             let upperBound = scrollView.contentSize.height - scrollView.bounds.height
             guard 0...upperBound ~= offset.y else {
@@ -441,7 +441,7 @@ extension DashboardVC  {
     }
     
     private func updateSegmentYPosition(for scrolledY: CGFloat) {
-        let valueToBe: CGFloat = 20.0
+        let valueToBe: CGFloat = UIApplication.shared.statusBarFrame.height > 20 ? 30 : 20
         
         let ratio = valueToBe / (headerTopConstraint.constant + headerView.height)
         
