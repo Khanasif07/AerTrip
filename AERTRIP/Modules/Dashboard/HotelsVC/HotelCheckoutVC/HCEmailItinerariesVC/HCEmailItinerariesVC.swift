@@ -27,6 +27,7 @@ class HCEmailItinerariesVC: BaseVC {
             self.tableView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 10.0)
         }
     }
+    @IBOutlet weak var headerHeightConstraint: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================
@@ -41,6 +42,14 @@ class HCEmailItinerariesVC: BaseVC {
     }
     
     override func initialSetup() {
+        headerView.backgroundColor = .clear
+//        tableView.backgroundColor = .clear
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        if #available(iOS 13.0, *) {
+            headerHeightConstraint.constant = 56
+        } else {
+            self.view.backgroundColor = .white
+        }
         self.headerViewSetUp()
         self.registerNibs()
     }
@@ -64,6 +73,9 @@ class HCEmailItinerariesVC: BaseVC {
         self.headerView.configureNavBar(title: LocalizedString.EmailItineraries.localized , isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
         self.headerView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.localized, selectedTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         self.headerView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.SendToAll.localized, selectedTitle: LocalizedString.Done.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
+        self.headerView.leftButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 8)
+        self.headerView.firstRightButton.isEnabled = false
+        self.headerView.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
     }
     
     private func registerNibs() {
@@ -136,6 +148,8 @@ extension HCEmailItinerariesVC: HCEmailItinerariesTableViewCellDelegate {
             if emailId.isEmail {
                 cell.sendButton.setTitleColor(AppColors.themeGreen, for: .normal)
                 cell.emailTextField.textColor = AppColors.textFieldTextColor51
+                self.headerView.firstRightButton.isEnabled = true
+                self.headerView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
             } else {
                 cell.sendButton.setTitleColor(AppColors.themeGray20, for: .normal)
                 cell.emailTextField.textColor = AppColors.textFieldTextColor51

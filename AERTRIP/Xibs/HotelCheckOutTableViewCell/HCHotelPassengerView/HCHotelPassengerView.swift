@@ -56,33 +56,23 @@ class HCHotelPassengerView: UIView {
             self.travellerProfileImage.setImageWithUrl(travellersImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
             self.travellerProfileImage.contentMode = .scaleAspectFit
         } else {
-            //self.travellerProfileImage.image = AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName, font: AppFonts.Regular.withSize(35.0))
-//            if congigureForHotelDetail {
-                self.travellerProfileImage.image = AppGlobals.shared.getEmojiIconFromAge(ageString: age, salutation: salutation)
-//            } else {
-//                self.travellerProfileImage.image = AppGlobals.shared.getEmojiIcon(dob: dob, salutation: salutation, dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
-//            }
+            
+            self.travellerProfileImage.image = AppGlobals.shared.getEmojiIconFromAge(ageString: age, salutation: salutation)
             
             self.travellerProfileImage.contentMode = .center
         }
         var ageString = ""
-//        if congigureForHotelDetail {
-            if !age.isEmpty, let intAge = Int(age), (intAge > 0 && intAge <= 12) {
-                ageString = " (\(age)y)"
-                //travelName += age
-            }
-//        } else {
-//            if !dob.isEmpty {
-//                ageString = AppGlobals.shared.getAgeLastString(dob: dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
-//            }
-//        }
-        // self.travellerNameLabel.text = travelName
+        //        if congigureForHotelDetail {
+        if !age.isEmpty, let intAge = Int(age), (intAge > 0 && intAge <= 12) {
+            ageString = " (\(age)y)"
+            //travelName += age
+        }
         self.travellerName.appendFixedText(text: travellerName, fixedText: ageString)
         if !age.isEmpty {
-            self.travellerName.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
+            self.travellerName.AttributedFontColorForText(text: ageString, textColor: AppColors.themeGray40)
         }
         
     }
     
-
+    
 }

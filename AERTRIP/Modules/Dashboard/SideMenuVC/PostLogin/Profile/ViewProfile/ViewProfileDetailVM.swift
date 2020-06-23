@@ -40,7 +40,8 @@ class ViewProfileDetailVM {
                     UserInfo.loggedInUser?.firstName = trav.firstName
                     UserInfo.loggedInUser?.lastName = trav.lastName
                     UserInfo.loggedInUser?.profileImage = trav.profileImage
-                    
+                    UserInfo.loggedInUser?.hasPassword = trav.has_password
+
                     for email in trav.contact.email {
                         if email.label.lowercased() == LocalizedString.Default.localized.lowercased() {
                             UserInfo.loggedInUser?.email = email.value

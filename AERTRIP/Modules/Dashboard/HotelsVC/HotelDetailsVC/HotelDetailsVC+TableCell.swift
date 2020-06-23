@@ -113,7 +113,10 @@ extension HotelDetailsVC {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsBedsTableViewCell", for: indexPath) as? HotelDetailsBedsTableViewCell  else { return nil }
         
         cell.delegate = self
-        let key = Array(roomData.keys)[indexPath.row]
+        let array = Array(roomData.keys).sorted {
+            $0.name < $1.name
+        }
+        let key = array[indexPath.row]
         let value = roomData[key]
         var isOnlyOneRoom: Bool = false
         if roomData.count == 1 && value == 1 {

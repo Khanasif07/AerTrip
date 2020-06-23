@@ -123,6 +123,8 @@ class FinalCheckOutVC: BaseVC {
         
         self.checkOutTableView.registerCell(nibName: TotalPayableNowCell.reusableIdentifier)
         self.checkOutTableView.registerCell(nibName: ConvenienceFeeTableViewCell.reusableIdentifier)
+        self.checkOutTableView.registerCell(nibName: HotelFareTableViewCell.reusableIdentifier)
+
     }
     
     private func addFooterView() {
@@ -197,7 +199,28 @@ class FinalCheckOutVC: BaseVC {
     
     private func getCellForSecondSection(_ indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
-        case 0: // Coupon dicount Cell
+        case 0:
+            
+            guard let hotelFareTableViewCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: HotelFareTableViewCell.reusableIdentifier, for: indexPath) as? HotelFareTableViewCell else {
+                printDebug("DiscountCell not found")
+                return UITableViewCell()
+            }
+            hotelFareTableViewCell.delegate = self
+            self.handleDiscountArrowAnimation(hotelFareTableViewCell)
+            if let discountbreak = self.appliedCouponData.discountsBreakup {
+                hotelFareTableViewCell.discountPriceLabel.attributedText = ("-" + "\(Double(discountbreak.CPD).amountInDelimeterWithSymbol)").asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+            }
+            
+            if self.isCouponApplied {
+                hotelFareTableViewCell.discountViewHeightConstraint.constant = 27
+                hotelFareTableViewCell.discountTitleLabelTopConstraint.constant = -1
+            } else {
+                hotelFareTableViewCell.discountViewHeightConstraint.constant = 0
+                hotelFareTableViewCell.clipsToBounds = true
+            }
+            hotelFareTableViewCell.grossPriceLabel.attributedText = "\(self.getGrossAmount().amountInDelimeterWithSymbol)".asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+            return hotelFareTableViewCell
+        case 1: // Coupon dicount Cell
             guard let couponDiscountCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: DiscountCell.reusableIdentifier, for: indexPath) as? DiscountCell else {
                 printDebug("DiscountCell not found")
                 return UITableViewCell()
@@ -213,7 +236,7 @@ class FinalCheckOutVC: BaseVC {
                 return UITableViewCell()
             }
             return couponDiscountCell
-        case 1: // Convenience Fee Cell
+        case 2: // Convenience Fee Cell
             guard let convenieneCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: WallletAmountCellTableViewCell.reusableIdentifier, for: indexPath) as? WallletAmountCellTableViewCell else {
                 printDebug("WallletAmountCellTableViewCell not found")
                 return UITableViewCell()
@@ -224,6 +247,12 @@ class FinalCheckOutVC: BaseVC {
             if self.isConvenienceFeeApplied {
                 convenieneCell.aertripWalletTitleLabel.text = LocalizedString.ConvenienceFee.localized
                 convenieneCell.walletAmountLabel.attributedText = amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+                convenieneCell.labelBottomConstraint.constant = self.isWallet ? 0 : 11
+                if self.isCouponApplied, self.isCouponSectionExpanded {
+                    convenieneCell.labelTopConstraint.constant = 4
+                } else {
+                    convenieneCell.labelTopConstraint.constant = 11
+                }
                 return convenieneCell
             } else {
                 convenieneCell.clipsToBounds = true
@@ -232,7 +261,7 @@ class FinalCheckOutVC: BaseVC {
             
             // return
             
-        case 2: // Aertip Wallet Cell
+        case 3: // Aertip Wallet Cell
             
             guard let walletAmountCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: WallletAmountCellTableViewCell.reusableIdentifier, for: indexPath) as? WallletAmountCellTableViewCell else {
                 printDebug("WallletAmountCellTableViewCell not found")
@@ -252,13 +281,15 @@ class FinalCheckOutVC: BaseVC {
                 }
                 walletAmountCell.walletAmountLabel.attributedText = ("-" + abs(amountFromWallet).amountInDelimeterWithSymbol).asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
                 walletAmountCell.clipsToBounds = true
+                walletAmountCell.labelBottomConstraint.constant =  11
+                 walletAmountCell.labelTopConstraint.constant = self.isWallet ? 4 : 11
                 return walletAmountCell
             } else {
                 walletAmountCell.clipsToBounds = true
                 return UITableViewCell()
             }
             
-        case 3: // Total pay now Cell
+        case 4: // Total pay now Cell
             guard let totalPayableNowCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: TotalPayableNowCell.reusableIdentifier, for: indexPath) as? TotalPayableNowCell else {
                 printDebug("TotalPayableNowCell not found")
                 return UITableViewCell()
@@ -267,9 +298,10 @@ class FinalCheckOutVC: BaseVC {
             totalPayableNowCell.bottomDeviderView.isHidden = false
             totalPayableNowCell.totalPriceLabel.attributedText = self.getTotalPayableAmount().amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(((totalPayableNowCell.currentUsingFor == .totalPayableAmout) ? 20.0 : 16.0)))
             totalPayableNowCell.setupFotFinalCheckoutScreen()
+            totalPayableNowCell.bottomDeviderView.isHidden =  !self.isCouponApplied
             return totalPayableNowCell
             
-        case 4: // Convenience Fee message Cell
+        case 5: // Convenience Fee message Cell
             guard let conveninceCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: ConvenienceFeeTableViewCell.reusableIdentifier, for: indexPath) as? ConvenienceFeeTableViewCell else {
                 printDebug("ConvenienceFeeTableViewCell not found")
                 return UITableViewCell()
@@ -285,7 +317,7 @@ class FinalCheckOutVC: BaseVC {
                 return UITableViewCell()
             }
             
-        case 5: // Final Amount Message cell
+        case 6: // Final Amount Message cell
             guard let finalAmountCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: FinalAmountTableViewCell.reusableIdentifier, for: indexPath) as? FinalAmountTableViewCell else {
                 printDebug("FinalAmountTableViewCell not found")
                 return UITableViewCell()
@@ -307,7 +339,7 @@ class FinalCheckOutVC: BaseVC {
                 return UITableViewCell()
             }
             
-        case 6: // Term and privacy Cell
+        case 7: // Term and privacy Cell
             guard let termAndPrivacCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: TermAndPrivacyTableViewCell.reusableIdentifier, for: indexPath) as? TermAndPrivacyTableViewCell else {
                 return UITableViewCell()
             }
@@ -344,42 +376,48 @@ class FinalCheckOutVC: BaseVC {
     
     private func getHeightOfRowForSecondSection(_ indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
-        case 0: // coupond discount cell
+        case 0:
+            if self.isCouponApplied {
+                return 60.0
+            } else {
+                return 28.0
+            }
+        case 1: // coupond discount cell
             if self.isCouponApplied, self.isCouponSectionExpanded {
                 return 20.0
             } else {
                 return CGFloat.leastNormalMagnitude
             }
-        case 1: // Convenince Fee Cell
+        case 2: // Convenince Fee Cell
             if self.isConvenienceFeeApplied {
-                return 36.0
+                return UITableView.automaticDimension//36.0
             } else {
                 return CGFloat.leastNormalMagnitude
             }
             
-        case 2: // Wallet amount Cell
+        case 3: // Wallet amount Cell
             if self.isWallet {
-                return 40.0
+                return UITableView.automaticDimension//40.0
             } else {
                 return CGFloat.leastNormalMagnitude
             }
-        case 3: // total amount Cell
+        case 4: // total amount Cell
             return 46.0
             
-        case 4: // Convenience Cell Message
+        case 5: // Convenience Cell Message
             if self.isConvenienceFeeApplied {
                 return CGFloat.leastNormalMagnitude//46.0
             } else {
                 return CGFloat.leastNormalMagnitude
             }
-        case 5: // Final amount message table view Cell
+        case 6: // Final amount message table view Cell
             if self.isCouponApplied {
                 return 87.0
             } else {
                 return CGFloat.leastNormalMagnitude
             }
             
-        case 6: // term and privacy cell
+        case 7: // term and privacy cell
             return 115.0
         default:
             return 44
@@ -487,6 +525,7 @@ class FinalCheckOutVC: BaseVC {
         self.indicatorView.startAnimating()
         
         self.loaderContainer.isHidden = !shouldStart
+        self.view.isUserInteractionEnabled = !shouldStart
     }
     
     // Set Boolean convenience fee to applied or Not
@@ -524,7 +563,7 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             return 6
         } else {
-            return 7
+            return 8
         }
     }
     
@@ -545,17 +584,18 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 0
-        } else {
-            if self.isCouponApplied {
-                return 64.0
-            } else {
-                return 30.0
-            }
-        }
+//        if section == 0 {
+//            return 0
+//        } else {
+//            if self.isCouponApplied {
+//                return 60.0
+//            } else {
+//                return 28.0
+//            }
+//        }
+        CGFloat.leastNormalMagnitude
     }
-    
+    /*
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             return nil
@@ -573,6 +613,7 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
             
             if self.isCouponApplied {
                 headerView.discountViewHeightConstraint.constant = 27
+                headerView.discountTitleLabelTopConstraint.constant = -1
             } else {
                 headerView.discountViewHeightConstraint.constant = 0
                 headerView.clipsToBounds = true
@@ -581,7 +622,7 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
             return headerView
         }
     }
-    
+    */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 1, indexPath.section == 0 {
             AppFlowManager.default.presentHCCouponCodeVC(itineraryId: self.viewModel.itineraryData?.it_id ?? "", vc: self, couponCode: self.appliedCouponData.couponCode)
@@ -599,6 +640,31 @@ extension FinalCheckOutVC: TopNavigationViewDelegate {
 }
 
 extension FinalCheckOutVC: FinalCheckoutVMDelegate {
+    func willGetBookingReceipt() {
+        
+    }
+    
+    func getBookingReceiptSuccess(detail: HotelReceiptModel) {
+        self.manageLoader(shouldStart: false)
+        if let id = self.viewModel.itineraryData?.it_id {
+            AppFlowManager.default.presentYouAreAllDoneVC(forItId: id, bookingIds: self.viewModel.bookingIds, cid: self.viewModel.cId, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong, recieptData: detail)
+        }
+    }
+    
+    func getBookingReceiptFail() {
+        self.manageLoader(shouldStart: false)
+    }
+    func getPaymentResonseSuccess(bookingIds: [String], cid: [String]) {
+            // send to you are all donr screen
+    //        self.manageLoader(shouldStart: false)
+            if let id = self.viewModel.itineraryData?.it_id {
+                self.viewModel.bookingIds = bookingIds
+                self.viewModel.cId = cid
+                self.viewModel.getBookingReceipt(bookingIds: bookingIds, itId: id)
+                //AppFlowManager.default.presentYouAreAllDoneVC(forItId: id, bookingIds: bookingIds, cid: cid, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong)
+            }
+        }
+    
     func willCallGetPayementMethods() {
         //
     }
@@ -695,19 +761,13 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
         self.manageLoader(shouldStart: true)
     }
     
-    func getPaymentResonseSuccess(bookingIds: [String], cid: [String]) {
-        // send to you are all donr screen
-        self.manageLoader(shouldStart: false)
-        if let id = self.viewModel.itineraryData?.it_id {
-            AppFlowManager.default.presentYouAreAllDoneVC(forItId: id, bookingIds: bookingIds, cid: cid, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong)
-        }
-    }
+    
     
     func getPaymentResonseFail() {
         self.manageLoader(shouldStart: false)
     }
     
-    private func handleDiscountArrowAnimation(_ headerView: HotelFareSectionHeader) {
+    private func handleDiscountArrowAnimation(_ headerView: HotelFareTableViewCell) {
         let rotateTrans = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         if self.isCouponSectionExpanded {
             headerView.arrowButton.transform = .identity

@@ -50,6 +50,10 @@ class HCDataSelectionVM {
     var sId = "", hId = "", qId = ""
     var locid = ""
     var panCard: String = "CEQPK4956K"
+    var detailPageRoomRate: Rates?
+    var minContactLimit = 10
+    var maxContactLimit = 10
+    var canShowErrorForEmailPhone = false
     
     // MARK: - Private
     
@@ -108,21 +112,34 @@ class HCDataSelectionVM {
                 }
             }
         }
-        // check if mobile number is valid or Not
-        if self.mobileNumber.isEmpty {
-            AppToast.default.showToastMessage(message: LocalizedString.EnterMobileNumberMessage.localized)
-            return false
-        }
+        
         // check if mobile isd is valid or Not
         if self.mobileIsd.isEmpty {
             AppToast.default.showToastMessage(message: LocalizedString.EnterIsdMessage.localized)
             return false
         }
+        
+        
+        // check if mobile number is valid or Not
+        if self.mobileNumber.isEmpty {
+            AppToast.default.showToastMessage(message: LocalizedString.EnterMobileNumberMessage.localized)
+            return false
+        }
+        
+        if self.mobileNumber.count < self.minContactLimit {
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterValidMobileNumber.localized)
+            return false
+        }
+        
+        
         // check if email is empty or Not
         if self.email.isEmpty || !self.email.checkValidity(.Email) {
             AppToast.default.showToastMessage(message: LocalizedString.EnterEmailAddressMessage.localized)
             return false
         }
+        
+        
+        
         
         if (self.itineraryData?.hotelDetails?.pan_required ?? false) {
             // check if panCard is empty or Not

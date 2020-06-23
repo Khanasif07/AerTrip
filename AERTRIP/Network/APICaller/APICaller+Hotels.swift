@@ -249,6 +249,34 @@ extension APICaller {
         }
     }
     
+    func getShareLinkAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ shortTemplateUrl: String)->Void ) {
+            
+            AppNetworking.POST(endPoint: APIEndPoint.getShareLink, parameters: params, success: { [weak self] (json) in
+                guard let sSelf = self else {return}
+                
+                printDebug(json)
+                sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                    if sucess, let response = jsonData[APIKeys.response.rawValue].dictionaryObject {
+                        let shortUrl = response[APIKeys.shortUrl.rawValue] as? String
+                        completionBlock(true, [],shortUrl ?? "")
+                    } else {
+                        completionBlock(false, [],"")
+                    }
+                }, failure: { (errors) in
+                    ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                    completionBlock(false, errors, "")
+                })
+            }) { (error) in
+    //            if error.code == AppNetworking.noInternetError.code {
+    //                AppGlobals.shared.stopLoading()
+    //                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+    //                completionBlock(false, [], "")
+    //            }
+    //            else {
+                    completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], "")
+    //            }
+            }
+        }
 }
 
 
@@ -265,3 +293,4 @@ extension APICaller {
         }
     }
 }
+

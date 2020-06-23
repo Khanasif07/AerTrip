@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "tripAdviser.png",
+      "filename" : "TA OWL@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "tripAdviser@2x.png",
+      "filename" : "TA OWL@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "tripAdviser@3x.png",
+      "filename" : "TA OWL@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

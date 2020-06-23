@@ -39,20 +39,32 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Premier King Bed Ocean View" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJ2-oO-o6s">
-                                        <rect key="frame" x="0.0" y="22.5" width="311" height="23"/>
+                                        <rect key="frame" x="0.0" y="22.5" width="311" height="14.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Avd-ZX-0Rb">
-                                        <rect key="frame" x="0.0" y="47.5" width="311" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="39" width="311" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="YyL-rV-lGt">
-                                        <rect key="frame" x="0.0" y="49.5" width="311" height="41.5"/>
-                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iBG-ro-16F">
+                                        <rect key="frame" x="0.0" y="41" width="311" height="50"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="YyL-rV-lGt">
+                                                <rect key="frame" x="0.0" y="6" width="311" height="44"/>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="YyL-rV-lGt" secondAttribute="trailing" id="NCt-0f-KuO"/>
+                                            <constraint firstAttribute="bottom" secondItem="YyL-rV-lGt" secondAttribute="bottom" id="XhW-Ie-p8J"/>
+                                            <constraint firstItem="YyL-rV-lGt" firstAttribute="top" secondItem="iBG-ro-16F" secondAttribute="top" constant="6" id="lAc-nI-cc7"/>
+                                            <constraint firstItem="YyL-rV-lGt" firstAttribute="leading" secondItem="iBG-ro-16F" secondAttribute="leading" id="utn-9U-RjJ"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                             </stackView>
                         </subviews>

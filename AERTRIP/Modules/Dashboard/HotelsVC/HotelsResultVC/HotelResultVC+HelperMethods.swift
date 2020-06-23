@@ -417,6 +417,15 @@ extension HotelResultVC {
                     rect.origin.y = yCordinate
                     //printDebug("hideHeaderBlurView.frame : \(self.headerContainerView.frame )")
                     self.headerContainerViewTopConstraint.constant = yCordinate
+                    var value = self.topContentSpace - abs(yCordinate)
+                    printDebug("hideHeaderBlurView: \(value)")
+                    if value < 0 {
+                        value = 16
+                    } else {
+                        value += 16
+                    }
+                    self.tableViewVertical.contentInset = UIEdgeInsets(top: value, left: 0, bottom: 0, right: 0)
+                    
                 }
                 
             } ,completion: nil)
@@ -435,6 +444,15 @@ extension HotelResultVC {
                 rect.origin.y = yCordinate
                 //printDebug("revealBlurredHeaderView.frame : \(self.headerContainerView.frame )")
                 self.headerContainerViewTopConstraint.constant = yCordinate
+                var value = self.topContentSpace - abs(yCordinate)
+                printDebug("revealBlurredHeaderView: \(value)")
+                if value >= 0 {
+                    value = self.topContentSpace + 16
+                }
+                if self.tableViewVertical.contentOffset.y < 100 {
+                    value = self.topContentSpace 
+                }
+                self.tableViewVertical.contentInset = UIEdgeInsets(top: value, left: 0, bottom: 0, right: 0)
                 
             } ,completion: nil)
         }
@@ -455,7 +473,7 @@ extension HotelResultVC {
                 rect.origin.y = -visualEffectViewHeight
                 
                 if scrollView.contentOffset.y < 100 {
-                    let zeroPoint = CGPoint(x: 0, y: 96.0)
+                    let zeroPoint = CGPoint(x: 0, y: self.topContentSpace)
                     scrollView.setContentOffset(zeroPoint, animated: true)
                 }
             }
@@ -466,6 +484,18 @@ extension HotelResultVC {
             // Animatioon to move the blurEffectView
             UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseOut], animations: {
                 self.headerContainerViewTopConstraint.constant = rect.origin.y
+                var value = self.topContentSpace - abs(rect.origin.y)
+                if value >= 0 {
+                    value = self.topContentSpace + 16
+                }
+                if value < 0 {
+                    value = 16
+                }
+                if self.tableViewVertical.contentOffset.y < 100 {
+                    value = self.topContentSpace
+                }
+                
+                self.tableViewVertical.contentInset = UIEdgeInsets(top: value, left: 0, bottom: 0, right: 0)
             } ,completion: nil)
     }
     
@@ -474,6 +504,7 @@ extension HotelResultVC {
             
             UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseInOut], animations: {
                 self.headerContainerViewTopConstraint.constant = 0
+                self.tableViewVertical.contentInset = UIEdgeInsets(top: self.topContentSpace, left: 0, bottom: 0, right: 0)
             } ,completion: nil)
         }
     }

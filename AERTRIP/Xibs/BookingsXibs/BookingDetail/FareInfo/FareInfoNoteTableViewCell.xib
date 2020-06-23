@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,11 +14,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="87.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4rB-s0-Thr">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="87.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A0T-KR-aeV">
                                 <rect key="frame" x="15" y="4" width="305" height="21"/>
@@ -28,23 +26,22 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yem-P5-1vz">
-                                <rect key="frame" x="16" y="25" width="288" height="62.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ka-0i-c10">
+                                <rect key="frame" x="16" y="25" width="288" height="63"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="A0T-KR-aeV" firstAttribute="top" secondItem="4rB-s0-Thr" secondAttribute="top" constant="4" id="3F1-Tr-5fN"/>
-                            <constraint firstItem="yem-P5-1vz" firstAttribute="leading" secondItem="4rB-s0-Thr" secondAttribute="leading" constant="16" id="YCt-NK-3IX"/>
+                            <constraint firstItem="6ka-0i-c10" firstAttribute="top" secondItem="A0T-KR-aeV" secondAttribute="bottom" id="5AC-W1-Qqf"/>
+                            <constraint firstAttribute="bottom" secondItem="6ka-0i-c10" secondAttribute="bottom" id="Cya-Bd-LxX"/>
+                            <constraint firstItem="6ka-0i-c10" firstAttribute="leading" secondItem="4rB-s0-Thr" secondAttribute="leading" constant="16" id="aIZ-eA-usX"/>
                             <constraint firstAttribute="trailing" secondItem="A0T-KR-aeV" secondAttribute="trailing" id="ain-Pj-9UY"/>
-                            <constraint firstAttribute="bottom" secondItem="yem-P5-1vz" secondAttribute="bottom" id="g5T-Pj-cgT"/>
-                            <constraint firstAttribute="trailing" secondItem="yem-P5-1vz" secondAttribute="trailing" constant="16" id="mn3-Nd-0mP"/>
-                            <constraint firstItem="yem-P5-1vz" firstAttribute="top" secondItem="A0T-KR-aeV" secondAttribute="bottom" id="qvn-AS-MBY"/>
                             <constraint firstItem="A0T-KR-aeV" firstAttribute="leading" secondItem="4rB-s0-Thr" secondAttribute="leading" constant="15" id="vbM-Wa-Zk6"/>
+                            <constraint firstAttribute="trailing" secondItem="6ka-0i-c10" secondAttribute="trailing" constant="16" id="zzd-1i-AxY"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -59,9 +56,9 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="noteLabel" destination="A0T-KR-aeV" id="1iU-hj-VRz"/>
-                <outlet property="noteTextView" destination="yem-P5-1vz" id="AjJ-10-AOR"/>
-                <outlet property="noteTextViewBottomConstraint" destination="g5T-Pj-cgT" id="c92-QX-r8K"/>
-                <outlet property="noteTextViewTopConstraint" destination="qvn-AS-MBY" id="DHi-9D-ckX"/>
+                <outlet property="noteTextView" destination="6ka-0i-c10" id="9fn-dQ-win"/>
+                <outlet property="noteTextViewBottomConstraint" destination="Cya-Bd-LxX" id="WUx-I4-Tfv"/>
+                <outlet property="noteTextViewTopConstraint" destination="5AC-W1-Qqf" id="ojt-mS-kNx"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="155.35714285714286"/>
         </tableViewCell>

@@ -99,6 +99,7 @@ class HCGuestListVC: BaseVC {
         if !self.viewModel.searchText.isEmpty {
             self.noResultemptyView.messageLabel.text = "\(LocalizedString.noResults.localized + " " + LocalizedString.For.localized) '\(self.viewModel.searchText)'"
         }
+        self.noResultemptyView.layoutSubviews()
     }
     
     override func setupColors() {
@@ -169,16 +170,32 @@ class HCGuestListVC: BaseVC {
             self.noResultemptyView.messageLabelTopConstraint.constant = 30
         }
         
-        self.tableView.backgroundView = self.allowEmptyView
+//        self.tableView.backgroundView = self.allowEmptyView
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
         noResultemptyView.mainImageViewTopConstraint.constant = 200
         
+//        if self.currentlyUsingFor == .contacts {
+//            if self.viewModel.phoneContacts.isEmpty, CNContactStore.authorizationStatus(for: .contacts) == .authorized {
+//                self.viewModel.fetchPhoneContacts(forVC: self)
+//            }
+//        }
         if self.currentlyUsingFor == .contacts {
-            if self.viewModel.phoneContacts.isEmpty, CNContactStore.authorizationStatus(for: .contacts) == .authorized {
-                self.viewModel.fetchPhoneContacts(forVC: self)
+            if self.viewModel.phoneContacts.isEmpty {
+                if CNContactStore.authorizationStatus(for: .contacts) == .authorized {
+                    delay(seconds: 0.4) { [weak self] in
+                        guard let strongSelf = self else {return}
+                        strongSelf.viewModel.fetchPhoneContacts(forVC: strongSelf)
+                    }
+                } else {
+                    self.tableView.backgroundView = self.allowEmptyView
+                }
+            } else {
+                tableView.backgroundView = nil
             }
+        } else {
+            self.tableView.backgroundView = self.allowEmptyView
         }
     }
     

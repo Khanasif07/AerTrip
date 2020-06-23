@@ -301,7 +301,10 @@ enum APIKeys: String {
     case traveller_master
     case special_requests
     case pan_required
+    case is_price_change
+    case amenities_group_order
 
+    
     case is_applied = "is_applied"
     case coupon_title = "coupon_title"
     case description = "description"

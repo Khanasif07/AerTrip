@@ -8,13 +8,18 @@
 
 import Foundation
 import UIKit
+import IQKeyboardManager
 
 // MARK: - Search bar delegate methods
 
 extension HotelResultVC: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
         return true//!((viewModel.fetchedResultsController.fetchedObjects ?? []).isEmpty)
+    }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+       IQKeyboardManager.shared().isEnableAutoToolbar = true
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -37,7 +42,7 @@ extension HotelResultVC: UISearchBarDelegate {
             self.searchForText("", shouldPerformAction: false) //cancel all the previous operation
             self.reloadHotelList()
             noResultemptyView.searchTextLabel.text = ""
-        } else if searchText.count >= AppConstants.kSearchTextLimit {
+        } else { //else if searchText.count >= AppConstants.kSearchTextLimit {
             noResultemptyView.searchTextLabel.isHidden = false
             noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
             self.viewModel.searchTextStr = searchBar.text ?? ""
@@ -180,7 +185,10 @@ extension HotelResultVC: HotelResultDelegate {
             self.viewModel.fetchRequestType = .FilterApplied
             self.viewModel.filterApplied.sortUsing = .DistanceNearestFirst(ascending: true)
             HotelFilterVM.shared.sortUsing = .DistanceNearestFirst(ascending: true)
+            HotelFilterVM.shared.isFilterAppliedForDestinetionFlow = true
             ignorePreviousFilter = true
+        } else {
+            HotelFilterVM.shared.isFilterAppliedForDestinetionFlow = false
         }
         
         if let isUse = UserDefaults.getObject(forKey: "shouldApplyFormStars") as? Bool, isUse {
@@ -345,6 +353,10 @@ extension HotelResultVC: SectionFooterDelegate {
 // MARK: - Hotel filter Delegate methods
 
 extension HotelResultVC: HotelFilteVCDelegate {
+    func collectionViewContentOffset(offsetX: CGFloat) {
+        self.filterCollectionView.setContentOffset(CGPoint(x: offsetX + abs(self.filterCollectionView.contentInset.left), y: 0), animated: true)
+    }
+    
     func clearAllButtonTapped() {
         self.filterCollectionView.scrollToItem(at: IndexPath(item: HotelFilterVM.shared.lastSelectedIndex, section: 0), at: .centeredHorizontally, animated: false)
         self.viewModel.fetchRequestType = .normal
@@ -358,7 +370,6 @@ extension HotelResultVC: HotelFilteVCDelegate {
         self.filterCollectionView.reloadData()
         //manage switch button when clear all filters
         // nitin self.getFavouriteHotels(shouldReloadData: false)
-        
         
     }
     

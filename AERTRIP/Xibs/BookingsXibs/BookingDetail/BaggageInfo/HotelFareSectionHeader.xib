@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -29,7 +29,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L8I-8Q-cKd">
+                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L8I-8Q-cKd">
                             <rect key="frame" x="0.0" y="40" width="375" height="27"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K6q-3f-aq6">
@@ -59,12 +59,10 @@
                                 <constraint firstItem="3vR-7f-6bF" firstAttribute="centerY" secondItem="K6q-3f-aq6" secondAttribute="centerY" id="7VP-ba-j5Q"/>
                                 <constraint firstAttribute="bottom" secondItem="K6q-3f-aq6" secondAttribute="bottom" constant="3" id="Lwg-2i-Q0j"/>
                                 <constraint firstItem="3vR-7f-6bF" firstAttribute="leading" secondItem="K6q-3f-aq6" secondAttribute="trailing" constant="2" id="MMU-42-71w"/>
-                                <constraint firstAttribute="bottom" secondItem="6y9-eP-ASc" secondAttribute="bottom" constant="3" id="WS4-rv-36q"/>
                                 <constraint firstAttribute="trailing" secondItem="6y9-eP-ASc" secondAttribute="trailing" constant="16" id="ZeP-Cq-YvR"/>
                                 <constraint firstItem="K6q-3f-aq6" firstAttribute="top" secondItem="L8I-8Q-cKd" secondAttribute="top" constant="3" id="eOD-Lw-rmd"/>
                                 <constraint firstItem="6y9-eP-ASc" firstAttribute="centerY" secondItem="K6q-3f-aq6" secondAttribute="centerY" id="fmy-vb-JCl"/>
                                 <constraint firstItem="K6q-3f-aq6" firstAttribute="leading" secondItem="L8I-8Q-cKd" secondAttribute="leading" constant="16" id="otG-mx-OYz"/>
-                                <constraint firstItem="6y9-eP-ASc" firstAttribute="top" secondItem="L8I-8Q-cKd" secondAttribute="top" constant="3" id="sOg-3S-CMw"/>
                                 <constraint firstAttribute="height" constant="27" id="x0U-o7-vfv"/>
                             </constraints>
                         </view>
@@ -93,6 +91,7 @@
             <connections>
                 <outlet property="arrowButton" destination="3vR-7f-6bF" id="KuI-eF-OH3"/>
                 <outlet property="discountPriceLabel" destination="6y9-eP-ASc" id="uAa-WN-TcC"/>
+                <outlet property="discountTitleLabelTopConstraint" destination="eOD-Lw-rmd" id="cAB-mk-jng"/>
                 <outlet property="discountViewHeightConstraint" destination="x0U-o7-vfv" id="ZGy-Ws-ERq"/>
                 <outlet property="discountsTitleLabel" destination="K6q-3f-aq6" id="CFW-YO-RZA"/>
                 <outlet property="grossFareTitleLabel" destination="fx7-L8-x4N" id="nlh-yx-Ki3"/>

@@ -8,13 +8,18 @@
 
 import Foundation
 import UIKit
+import IQKeyboardManager
 
 // MARK: - Search bar delegate methods
 
 extension HotelsMapVC: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
         return true //!((viewModel.fetchedResultsController.fetchedObjects ?? []).isEmpty)
+    }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+       IQKeyboardManager.shared().isEnableAutoToolbar = true
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -35,7 +40,7 @@ extension HotelsMapVC: UISearchBarDelegate {
             self.searchForText("", shouldPerformAction: false) //cancel all the previous operation
             self.reloadHotelList()
             noResultemptyView.searchTextLabel.text = ""
-        } else if searchText.count >= AppConstants.kSearchTextLimit {
+        } else { //if searchText.count >= AppConstants.kSearchTextLimit {
             noResultemptyView.searchTextLabel.isHidden = false
             noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
             self.viewModel.searchTextStr = searchBar.text ?? ""
@@ -345,6 +350,11 @@ extension HotelsMapVC: SectionFooterDelegate {
 // MARK: - Hotel filter Delegate methods
 
 extension HotelsMapVC: HotelFilteVCDelegate {
+    
+    func collectionViewContentOffset(offsetX: CGFloat) {
+        
+    }
+    
     func clearAllButtonTapped() {
         self.viewModel.fetchRequestType = .normal
         self.filterButton.isSelected = false

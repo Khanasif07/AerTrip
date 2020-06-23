@@ -9,8 +9,11 @@
 import UIKit
 
 class WallletAmountCellTableViewCell: UITableViewCell {
+    
     @IBOutlet weak var aertripWalletTitleLabel: UILabel!
     @IBOutlet weak var walletAmountLabel: UILabel!
+    @IBOutlet weak var labelBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var labelTopConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()

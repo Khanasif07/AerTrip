@@ -42,8 +42,8 @@ class HCEmailTextFieldCell: UITableViewCell {
     
     
     private func doInitialSetup() {
-        self.editableTextField.isHiddenBottomLine = false
-        self.separatorView.isHidden = true
+        self.editableTextField.isHiddenBottomLine = true
+        self.separatorView.isHidden = false
         self.editableTextField.titleYPadding = 12.0
         self.editableTextField.hintYPadding = 12.0
     }
@@ -57,7 +57,16 @@ class HCEmailTextFieldCell: UITableViewCell {
     private func setUpFont() {
         self.editableTextField.font = AppFonts.Regular.withSize(18.0)
     }
-
+    
+    internal func checkForErrorStateOfTextfield() {
+        let finalTxt = (editableTextField.text ?? "").removeAllWhitespaces
+        self.editableTextField.isError = finalTxt.checkInvalidity(.Email)
+        
+        let isValidEmail = !finalTxt.checkInvalidity(.Email)
+        self.editableTextField.isError = !isValidEmail
+        let firstName = self.editableTextField.placeholder ?? ""
+        self.editableTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray40 :  AppColors.themeRed])
+    }
 }
 
 
@@ -66,7 +75,7 @@ extension HCEmailTextFieldCell: UITextFieldDelegate {
         printDebug("text field text \(textField.text ?? " ")")
         
         let finalTxt = (textField.text ?? "").removeAllWhitespaces
-        if let idxPath = indexPath, !finalTxt.isEmpty {
+        if let idxPath = indexPath {
             delegate?.textEditableTableViewCellTextFieldText(idxPath, finalTxt)
         }
     }
@@ -74,7 +83,6 @@ extension HCEmailTextFieldCell: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         //for verify the data
-        let finalTxt = (textField.text ?? "").removeAllWhitespaces
-        self.editableTextField.isError = finalTxt.checkInvalidity(.Email)
+        checkForErrorStateOfTextfield()
     }
 }

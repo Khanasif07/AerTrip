@@ -17,7 +17,7 @@ class EventTypeVC: BaseVC {
     //Mark:- Variables
     //================
     // var eventType
-    let eventType: [ProductType] = ProductType.allCases
+    var eventType: [ProductType] = []//ProductType.allCases
     
     var selectedIndexPath: IndexPath?
     var oldSelection: [Int] = []
@@ -38,6 +38,12 @@ class EventTypeVC: BaseVC {
     //================
     override func viewDidLoad() {
         super.viewDidLoad()
+        for type in MyBookingFilterVM.shared.bookigEventAvailableType {
+            if let product = ProductType(rawValue: type) {
+                eventType.append(product)
+            }
+        }
+        self.eventTypeTableView.reloadData()
     }
     
     override func initialSetup() {

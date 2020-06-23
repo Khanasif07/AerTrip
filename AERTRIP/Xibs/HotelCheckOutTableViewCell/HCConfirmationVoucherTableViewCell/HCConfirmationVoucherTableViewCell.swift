@@ -19,6 +19,7 @@ class HCConfirmationVoucherTableViewCell: UITableViewCell {
     @IBOutlet weak var viewButton: ATButton!
     @IBOutlet weak var titleLabelTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleLabelBottomContraint: NSLayoutConstraint!
+    @IBOutlet weak var dividerView: ATDividerView!
     
     //Mark:- LifeCycle
     //================
@@ -41,6 +42,9 @@ class HCConfirmationVoucherTableViewCell: UITableViewCell {
         self.confirmationVoucherLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.viewButton.setTitleFont(font: AppFonts.SemiBold.withSize(18.0), for: .normal)
 
+        self.viewButton.setTitleFont(font: AppFonts.SemiBold.withSize(18.0), for: .selected)
+        self.viewButton.setTitleFont(font: AppFonts.SemiBold.withSize(18.0), for: .highlighted)
+
         //Text
         self.confirmationVoucherLabel.text = LocalizedString.ConfirmationVoucher.localized
         self.viewButton.setTitle(LocalizedString.View.localized, for: .normal)
@@ -48,7 +52,8 @@ class HCConfirmationVoucherTableViewCell: UITableViewCell {
         //Color
         self.confirmationVoucherLabel.textColor = AppColors.themeBlack
         self.viewButton.setTitleColor(AppColors.themeGreen, for: .normal)
-
+        
+        self.dividerView.isHidden = true
     }
     
     ///COnfigure Cell

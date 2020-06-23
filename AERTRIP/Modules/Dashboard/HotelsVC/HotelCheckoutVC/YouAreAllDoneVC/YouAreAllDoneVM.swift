@@ -90,7 +90,7 @@ class YouAreAllDoneVM: NSObject {
         }
         
         // TotalCharge Section Cells
-        if self.bookingIds.isEmpty && !self.cId.isEmpty {
+        if (self.hotelReceiptData?.booking_status ?? .pending) == .pending {
             self.sectionData.append([.totalChargeCell , .whatNextCell])
         } else {
             self.sectionData.append([.totalChargeCell, .confirmationVoucherCell, .whatNextCell])

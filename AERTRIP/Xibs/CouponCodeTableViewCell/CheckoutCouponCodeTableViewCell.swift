@@ -62,7 +62,7 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
         self.checkMarkImageView.image = #imageLiteral(resourceName: "untick")
         
         self.discountLabel.font = AppFonts.Regular.withSize(18.0)
-        
+        self.offerTermsButton.isHidden = true
     }
     
     ///AttributeLabelSetup
@@ -97,8 +97,8 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
             fullAttributedString.append(bulletedString)
  */
             let asStylizedPrice = (index == 0) ? instantCashBack.amountInDelimeterWithSymbol : walletCashBack.amountInDelimeterWithSymbol
-
-            let formattedString: String = "•  \(asStylizedPrice) \(text)\n"
+            var nextLine = (index == discountDetails.count - 1) ? "" : "\n"
+            let formattedString: String = "•  \(asStylizedPrice) \(text)\(nextLine)"
                            let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: formattedString, attributes: attributesDictionary)
                            let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore: 4.0,isForNotes: true,lineSpacing :2.0)
                            attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))

@@ -63,6 +63,7 @@ class HotelFilterVM {
     let allTabsStr: [String] = [LocalizedString.Sort.localized, LocalizedString.Range.localized, LocalizedString.Price.localized, LocalizedString.Ratings.localized, LocalizedString.Amenities.localized,LocalizedString.Room.localized]
 
     weak var delegate: HotelFilterVMDelegate?
+    var isFilterAppliedForDestinetionFlow = false
     
     var isFilterApplied: Bool {
         return !( HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange && HotelFilterVM.shared.leftRangePrice == HotelFilterVM.shared.defaultLeftRangePrice && HotelFilterVM.shared.rightRangePrice == HotelFilterVM.shared.defaultRightRangePrice && HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount).isEmpty &&  HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty && HotelFilterVM.shared.isIncludeUnrated == HotelFilterVM.shared.defaultIsIncludeUnrated && HotelFilterVM.shared.priceType == HotelFilterVM.shared.defaultPriceType && HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty && HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty && HotelFilterVM.shared.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty && HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty)
@@ -87,9 +88,7 @@ class HotelFilterVM {
         delay(seconds: 0.3) { [weak self] in 
             self?.delegate?.updateFiltersTabs()
         }
-        
-        
-        
+                
     }
     
     func saveDataToUserDefaults() {
@@ -140,6 +139,7 @@ class HotelFilterVM {
         self.roomOther = defaultRoomOther
         self.sortUsing = defaultSortUsing
         self.priceType = defaultPriceType
+        self.isFilterAppliedForDestinetionFlow = false
     }
     
     private init() {
@@ -150,8 +150,11 @@ class HotelFilterVM {
         
         switch filterName.lowercased() {
         case LocalizedString.Sort.localized.lowercased():
+            if HotelFilterVM.shared.isFilterAppliedForDestinetionFlow {
+               return (appliedFilter.sortUsing == .DistanceNearestFirst(ascending: true)) ? false : true
+            } else {
             return (appliedFilter.sortUsing == HotelFilterVM.shared.defaultSortUsing) ? false : true
-            
+            }
         case LocalizedString.Range.localized.lowercased():
             return (appliedFilter.distanceRange == HotelFilterVM.shared.defaultDistanceRange) ? false : true
             

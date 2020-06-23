@@ -20,6 +20,13 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
                    availableTagsForFilterartion.remove(object: value)
                 }
                 self.availableTagsForFilterartion.insert(contentsOf: initialTagsForFiltration, at: 0)
+            } else {
+                for value in initialTagsForFiltration.reversed() {
+                    if availableTagsForFilterartion.contains(value) {
+                        availableTagsForFilterartion.remove(object: value)
+                        self.availableTagsForFilterartion.insert(value, at: 0)
+                    }
+                }
             }
         }
     }

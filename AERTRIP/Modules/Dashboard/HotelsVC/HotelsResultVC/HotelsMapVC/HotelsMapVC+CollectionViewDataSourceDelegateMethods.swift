@@ -30,7 +30,8 @@ extension HotelsMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UIC
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotelGroupCardCollectionViewCell.reusableIdentifier, for: indexPath) as? HotelGroupCardCollectionViewCell else {
                 fatalError("HotelGroupCardCollectionViewCell not found")
             }
-            
+            cell.layer.shouldRasterize = true
+            cell.layer.rasterizationScale = UIScreen.main.scale
             cell.hotelListData = hData.first
             cell.delegate = self
             cell.shouldShowMultiPhotos = false
@@ -40,6 +41,8 @@ extension HotelsMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UIC
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotelCardCollectionViewCell.reusableIdentifier, for: indexPath) as? HotelCardCollectionViewCell else {
                 fatalError("HotelCardCollectionViewCell not found")
             }
+            cell.layer.shouldRasterize = true
+            cell.layer.rasterizationScale = UIScreen.main.scale
             cell.hotelListData = hData.first
             cell.delegate = self
             cell.shouldShowMultiPhotos = false

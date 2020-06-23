@@ -15,7 +15,7 @@ extension YouAreAllDoneVC {
     /* AllDone Section Cells */
     internal func getAllDoneCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: YouAreAllDoneTableViewCell.reusableIdentifier, for: indexPath) as? YouAreAllDoneTableViewCell else { return nil }
-        cell.configCell(forBookingId: self.viewModel.bookingIds.first ?? "", forCid: self.viewModel.cId.first ?? LocalizedString.na.localized)
+        cell.configCell(forBookingId: self.viewModel.bookingIds.first ?? "", forCid: self.viewModel.cId.first ?? LocalizedString.na.localized, isBookingPending: (self.viewModel.hotelReceiptData?.booking_status ?? .pending) == .pending)
         cell.delegate = self
         return cell
     }

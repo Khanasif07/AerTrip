@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import FBSDKLoginKit
+import FBSDKShareKit
 
 class YouAreAllDoneVC: BaseVC {
     
@@ -18,6 +18,13 @@ class YouAreAllDoneVC: BaseVC {
     //var tableFooterView: YouAreAllDoneFooterView?
     
     private var viewButton: ATButton?
+    private var isSuccessAnimationShown = false
+    private var tickLayer: CAShapeLayer!
+    private var tickImageSize: CGSize {
+        let tickImageWidth: CGFloat = 25.0
+        return CGSize(width: tickImageWidth, height: tickImageWidth*0.8)
+    }
+    private var tickLineWidth: CGFloat = 4.0
     
     //Mark:- IBOutlets
     //================
@@ -33,6 +40,10 @@ class YouAreAllDoneVC: BaseVC {
     }
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var returnToHomeButton: UIButton!
+    @IBOutlet weak var whiteBackgroundView: UIView!
+    @IBOutlet weak var tickMarckButton: ATButton!
+    @IBOutlet weak var tickMarkBtnHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tickMarkBtnWidthConstraint: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================
@@ -45,6 +56,14 @@ class YouAreAllDoneVC: BaseVC {
         self.statusBarStyle = .default
         
         AppFlowManager.default.mainNavigationController.interactivePopGestureRecognizer?.isEnabled = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !self.isSuccessAnimationShown {
+            self.isSuccessAnimationShown = true
+            self.setupViewForSuccessAnimation()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -63,21 +82,154 @@ class YouAreAllDoneVC: BaseVC {
     }
     
     override func initialSetup() {
-        
+        self.view.layoutIfNeeded()
         self.registerNibs()
         self.tableFooterViewSetUp()
-        self.viewModel.getBookingReceipt()
+        if  let model = self.viewModel.hotelReceiptData {
+            if model.booking_status == .booked {
+                 self.isSuccessAnimationShown = false
+            } else {
+                  self.isSuccessAnimationShown = true
+                self.whiteBackgroundView.isHidden = true
+            }
+            getBookingReceiptSuccess()
+        } else {
+            self.viewModel.getBookingReceipt()
+            self.whiteBackgroundView.isHidden = true
+            self.isSuccessAnimationShown = true
+        }
         
-        
-        
+        self.tickMarkBtnWidthConstraint.constant = self.view.width
+        self.tickMarckButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+        self.view.layoutIfNeeded()
         //Text
         self.returnToHomeButton.setTitle(LocalizedString.ReturnHome.localized, for: .normal)
         //Font
         self.returnToHomeButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
         //Color
         self.returnToHomeButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        
+        self.tickMarckButton.setTitle("", for: .normal)
+        
+        let y = self.whiteBackgroundView.height - 32 - self.tickMarckButton.y - self.tickMarckButton.height
+        self.tickMarckButton.transform = CGAffineTransform(translationX:  0, y: y)
     }
     
+    //    func setupViewForSuccessAnimation() {
+    //
+    //            self.tickMarckButton.setTitle(nil, for: .normal)
+    //            self.tickMarckButton.setImage(#imageLiteral(resourceName: "Checkmark"), for: .normal)
+    //            self.tickMarkBtnWidthConstraint.constant = 74
+    //            self.view.layoutIfNeeded()
+    //            UIView.animate(withDuration: AppConstants.kAnimationDuration / 4.0, animations: {
+    //                self.tickMarkBtnWidthConstraint.constant = 74
+    //                self.tickMarkBtnHeightConstraint.constant = 74
+    //                self.tickMarckButton.myCornerRadius = 74 / 2.0
+    //                self.whiteBackgroundView.alpha = 1.0
+    //                self.view.layoutIfNeeded()
+    //
+    //            }) { (isCompleted) in
+    //                //self.letsStartedButton.layer.cornerRadius = reScaleFrame.height / 2.0
+    //
+    //                let tY = (self.whiteBackgroundView.height) - self.tickMarckButton.height/2 - 115
+    //                var t = CGAffineTransform.identity
+    //                t = t.translatedBy(x: 0.0, y: -tY)
+    //
+    //                UIView.animate(withDuration: ((AppConstants.kAnimationDuration / 4.0) * 3.0), animations: {
+    //                    self.tickMarckButton.transform = t
+    //                    self.whiteBackgroundView.alpha = 1.0
+    //                }) { (isCompleted) in
+    //                    if isCompleted {
+    //                        self.whiteBackgroundView.isHidden = true
+    //                        self.allDoneTableView.reloadData()
+    //                    }
+    //                }
+    //            }
+    //        }
+    
+    private func setupViewForSuccessAnimation() {
+        self.tickMarckButton.setTitle(nil, for: .normal)
+        self.tickMarckButton.setImage(nil, for: .normal)
+        self.tickMarkBtnWidthConstraint.constant = 62
+        self.view.layoutIfNeeded()
+        
+        // self.searchBtnOutlet.translatesAutoresizingMaskIntoConstraints = true
+        UIView.animate(withDuration: AppConstants.kAnimationDuration / 4.0, animations: {
+            self.tickMarkBtnWidthConstraint.constant = 62
+            self.tickMarkBtnHeightConstraint.constant = 62
+            self.tickMarckButton.myCornerRadius = 62 / 2.0
+            self.view.layoutIfNeeded()
+            
+        }) { (isCompleted) in
+            
+            let tY: CGFloat
+            tY = ((self.whiteBackgroundView.height) / 2.0) - self.tickMarckButton.height/2 - 115
+            var t = CGAffineTransform.identity
+            t = t.translatedBy(x: 0.0, y: tY )
+            UIView.animate(withDuration: ((AppConstants.kAnimationDuration / 4.0) * 3.0), animations: {
+                self.tickMarckButton.transform = t
+            }) { (isCompleted) in
+                self.animatingCheckMark()
+                delay(seconds: AppConstants.kAnimationDuration + 0.1, completion: {
+                    self.finalTransFormation()
+                })
+            }
+        }
+    }
+    
+    private func finalTransFormation() {
+        UIView.animate(withDuration: ((AppConstants.kAnimationDuration / 4.0) * 3.0), animations: {
+            self.updateTickPath()
+            // self.tickMarckButton.myCornerRadius = self.tickMarckButton.width / 2.0
+             self.tickMarckButton.transform = .identity
+            
+            //                        self.allDoneTableView.reloadData()
+            //               self.view.layoutIfNeeded()
+        }, completion: { (isCompleted) in
+            // self.tickLayer.frame = CGRect(x: (self.tickMarckButton.frame.width - self.tickImageSize.width) / 2.0, y: ((self.tickMarckButton.frame.height - self.tickImageSize.height) / 2.0) + 2, width: self.tickImageSize.width, height: self.tickImageSize.height)
+            self.whiteBackgroundView.isHidden = true
+            self.allDoneTableView.reloadData()
+        })
+    }
+    
+    func updateTickPath() {
+        self.tickLayer.frame = CGRect(x: (self.tickMarckButton.frame.width - tickImageSize.width) / 2.0, y: ((self.tickMarckButton.frame.height - tickImageSize.height) / 2.0) + 2, width: tickImageSize.width, height: tickImageSize.height)
+    }
+    
+    ///CheckMark
+    private func animatingCheckMark() {
+        
+        // Shape layer for Check mark path
+        let shapeLayer = CAShapeLayer()
+        self.tickLayer = shapeLayer
+        shapeLayer.frame = CGRect(x: (self.tickMarckButton.frame.width - tickImageSize.width) / 2.0, y: ((self.tickMarckButton.frame.height - tickImageSize.height) / 2.0), width: tickImageSize.width, height: tickImageSize.height)
+        shapeLayer.fillColor = AppColors.clear.cgColor
+        shapeLayer.strokeColor = AppColors.themeWhite.cgColor
+        shapeLayer.lineWidth = tickLineWidth
+        shapeLayer.lineCap = CAShapeLayerLineCap.round
+        shapeLayer.lineJoin = CAShapeLayerLineJoin.round
+        shapeLayer.path = self.getTickMarkPath()
+        
+        // Animation
+        self.tickMarckButton.layer.addSublayer(shapeLayer)
+        
+        // Animation
+        self.tickMarckButton.layer.addSublayer(shapeLayer)
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.fromValue = 0
+        animation.duration = AppConstants.kAnimationDuration
+        shapeLayer.add(animation, forKey: "MyAnimation")
+    }
+    
+    private func getTickMarkPath() -> CGPath {
+        
+        let size: CGSize = tickImageSize
+        let path = CGMutablePath()
+        path.move(to: CGPoint(x: tickLineWidth / 2.0, y: size.height / 2.0), transform: .identity)
+        path.addLine(to: CGPoint(x: CGFloat(ceilf(Float(size.width * 0.3))), y: size.height - tickLineWidth / 1.0), transform: .identity)
+        path.addLine(to: CGPoint(x: size.width - tickLineWidth / 3.0, y: tickLineWidth / 3.0), transform: .identity)
+        return UIBezierPath(cgPath: path).cgPath
+    }
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
@@ -108,11 +260,11 @@ class YouAreAllDoneVC: BaseVC {
     
     ///Table FooterView SetUp
     private func tableFooterViewSetUp() {
-//        self.allDoneTableView.tableFooterView?.size = CGSize(width: self.allDoneTableView.frame.width, height: 50.0)
-//        self.tableFooterView = YouAreAllDoneFooterView(frame: CGRect(x: 0.0, y: self.allDoneTableView.frame.height - 50.0, width: self.allDoneTableView.frame.width, height: 50.0))
-//        if let tableFooterView = self.tableFooterView {
-//            self.allDoneTableView.tableFooterView = tableFooterView
-//        }
+        //        self.allDoneTableView.tableFooterView?.size = CGSize(width: self.allDoneTableView.frame.width, height: 50.0)
+        //        self.tableFooterView = YouAreAllDoneFooterView(frame: CGRect(x: 0.0, y: self.allDoneTableView.frame.height - 50.0, width: self.allDoneTableView.frame.width, height: 50.0))
+        //        if let tableFooterView = self.tableFooterView {
+        //            self.allDoneTableView.tableFooterView = tableFooterView
+        //        }
     }
     
     //Mark:- IBActions
@@ -127,20 +279,14 @@ class YouAreAllDoneVC: BaseVC {
     }
     
     @IBAction func returnHomeBtnAction(_ sender: Any) {
-            GuestDetailsVM.shared.guests.removeAll()
-        AppFlowManager.default.mainNavigationController.dismiss(animated: false, completion: nil)
-        AppFlowManager.default.mainNavigationController.popToRootController(animated: false)
-        AppFlowManager.default.currentNavigation?.dismiss(animated: true, completion: {
-            
-//            AppFlowManager.default.currentNavigation?.dismiss(animated: true, completion: {
-//                AppFlowManager.default.mainNavigationController.popToRootController(animated: false)
-//            })
-        })
-        //AppFlowManager.default.mainNavigationController.popToRootController(animated: false)
-        
+        GuestDetailsVM.shared.guests.removeAll()
+//        AppFlowManager.default.mainNavigationController.popToRootController(animated: false)
+//        AppFlowManager.default.mainNavigationController.dismiss(animated: false, completion: nil)
+//        AppFlowManager.default.currentNavigation?.dismiss(animated: false, completion: nil)
+        AppFlowManager.default.goToDashboard()
     }
     
-
+    
 }
 
 //Mark:- UITableView Delegate DataSource
@@ -250,14 +396,14 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if indexPath.section == 1, indexPath.row == 1 , self.viewModel.sectionData[1].contains(.addressCell) {
-//            if let hotelData = self.viewModel.hotelReceiptData {
-//                let text = hotelData.address + "Maps    "
-//                let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
-//                return size.height + 46.5
-//                    + 21.0  + 2.0//y of textview 46.5 + bottom space 21.0
-//            }
-//        }
+        //        if indexPath.section == 1, indexPath.row == 1 , self.viewModel.sectionData[1].contains(.addressCell) {
+        //            if let hotelData = self.viewModel.hotelReceiptData {
+        //                let text = hotelData.address + "Maps    "
+        //                let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
+        //                return size.height + 46.5
+        //                    + 21.0  + 2.0//y of textview 46.5 + bottom space 21.0
+        //            }
+        //        }
         return UITableView.automaticDimension
     }
     
@@ -274,7 +420,16 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
             AppGlobals.shared.redirectToMap(sourceView: view, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong, destLat: self.viewModel.hotelReceiptData?.lat ?? "", destLong: self.viewModel.hotelReceiptData?.long ?? "")
         }
         else if (tableView.cellForRow(at: indexPath) as? HCHotelRatingTableViewCell) != nil {
-            self.viewModel.getBookingDetail()
+            //self.viewModel.getBookingDetail()
+            AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: nil, hotelTitle: getUpdatedTitle(), bookingId: self.viewModel.bookingIds.first ?? "", hotelName: self.viewModel.hotelReceiptData?.hname ?? "", taRating: self.viewModel.hotelReceiptData?.rating ?? 0.0, hotelStarRating: self.viewModel.hotelReceiptData?.star ?? 0.0)
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y < 10 {
+            self.allDoneTableView.backgroundColor = AppColors.themeWhite
+        } else {
+            self.allDoneTableView.backgroundColor = AppColors.screensBackground.color
         }
     }
 }
@@ -321,7 +476,7 @@ extension YouAreAllDoneVC: YouAreAllDoneVMDelegate {
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
     }
     func getUpdatedTitle() -> String {
-        var updatedTitle = self.viewModel.bookingDetail?.bookingDetail?.hotelName ?? ""
+        var updatedTitle = self.viewModel.hotelReceiptData?.hname ?? ""
         if updatedTitle.count > 24 {
             updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.count)
         }
@@ -343,19 +498,70 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
     
     func shareOnFaceBook() {
         printDebug("Share On FaceBook")
-//        FacebookController.shared.shareMessageOnFacebook(withViewController: self, "", success: { [weak self] (data) in
-//            AppToast.sha
-//        }) { (error) in
-//
-//        }
+        
+        guard let url = URL(string: AppConstants.kAppStoreLink) else { return }
+        let content = ShareLinkContent()
+        content.contentURL = url
+        let dialog = ShareDialog(
+            fromViewController: self,
+            content: content,
+            delegate: nil
+        )
+        dialog.mode = .automatic
+        dialog.show()
     }
     
     func shareOnTwitter() {
         printDebug("Share On Twitter")
+        let tweetText = "\(AppConstants.kAppName) Appstore Link: "
+        let tweetUrl = AppConstants.kAppStoreLink
+        let shareString = "https://twitter.com/intent/tweet?text=\(tweetText)&url=\(tweetUrl)"
+        
+        // encode a space to %20 for example
+        let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+        
+        if let url = URL(string: escapedShareString) {
+            if UIApplication.shared.canOpenURL(url ) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                AppFlowManager.default.showURLOnATWebView(url, screenTitle:  "")
+            }
+        }
     }
     
-    func shareOnLinkdIn() {
-        printDebug("Share On LinkdIn")
+    func shareOnInstagram() {
+        printDebug("Share On instagram")
+        
+        InstagramManager.sharedManager.postImageToInstagramWithCaption(imageInstagram: UIImage(named: "aertripGreenText")!, instagramCaption: "\(AppConstants.kAppName) Appstore Link: \(AppConstants.kAppStoreLink)", view: self.view)
+/*
+        let image = UIImage(named: "aertripGreenText")
+        let instagramURL = URL(string: "instagram://app")
+        if UIApplication.shared.canOpenURL(instagramURL!) {
+            let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+            let saveImagePath = documentsPath + "Image.igo"
+            let imageData = image!.pngData()
+            do {
+                try imageData?.write(to: URL(string: saveImagePath)! , options: Data.WritingOptions(rawValue: 0))
+                //try imageData?.writeToFile(saveImagePath, options: NSData.WritingOptions(rawValue: 0))
+            } catch {
+                print("Instagram sharing error")
+            }
+            let imageURL = URL(fileURLWithPath: saveImagePath)
+            let documentInteractionController = UIDocumentInteractionController()
+            documentInteractionController.url = imageURL
+            documentInteractionController.annotation = ["InstagramCaption" : "\(AppConstants.kAppName) Appstore Link: \(AppConstants.kAppStoreLink)"]
+            documentInteractionController.uti = "com.instagram.exclusivegram"
+            
+            
+            if !documentInteractionController.presentPreview(animated: true) {
+                print("Instagram not found")
+            }
+            
+        }
+        else {
+            print("Instagram not found")
+        }
+ */
     }
 }
 //Mark:- HCWhatNextTableViewCell Delegate
@@ -372,7 +578,7 @@ extension YouAreAllDoneVC: YouAreAllDoneTableViewCellDelegate {
             let title = "Hotel: \(self.viewModel.hotelReceiptData?.hname ?? ""), \(self.viewModel.hotelReceiptData?.city ?? "")"
             let location = self.viewModel.hotelReceiptData?.address ?? ""
             let bookingId = "Booking Id: \(bId)"
-            let confirmationCode = "Confirmation Code: \(bId)"
+            _ = "Confirmation Code: \(bId)"
             // confirmation code pending to append
             let notes = bookingId //+ "\n \(confirmationCode)"
             

@@ -61,6 +61,7 @@ open class ATDividerView: UIView {
         self.addSubview(dividerView)
         self.updatedFrame()
         self.updatedBackgroundColor()
+        self.dividerView.clipsToBounds = true
     }
     
     private func updatedBackgroundColor() {

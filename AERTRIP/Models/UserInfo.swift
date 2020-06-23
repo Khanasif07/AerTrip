@@ -320,7 +320,16 @@ class UserInfo {
     
     var hasPassword: Bool {
         get{
-            return (userData?["has_password"] as? Bool ?? true)
+            if let value = userData?["has_password"] as? Bool {
+                return value
+            } else if let value = userData?["has_password"] as? String {
+                if value.lowercased() == "false" || value.lowercased() == "0" {
+                   return false
+                } else {
+                    return true
+                }
+            }
+            return true
         }
         set{
             updateInfo(withData: ["has_password":newValue])

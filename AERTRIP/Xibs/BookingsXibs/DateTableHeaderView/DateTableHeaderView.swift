@@ -19,6 +19,8 @@ class DateTableHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var dateLabelTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var dataLabelBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topDividerView: ATDividerView!
+    @IBOutlet weak var bottomDividerView: ATDividerView!
     
     //Mark:- LifeCycle
     //================
@@ -44,6 +46,8 @@ class DateTableHeaderView: UITableViewHeaderFooterView {
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.addSubview(view)
         self.configUI()
+        self.topDividerView.isHidden = true
+        self.bottomDividerView.isHidden = true
     }
     
     ///ConfigureUI

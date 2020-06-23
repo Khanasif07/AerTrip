@@ -31,6 +31,8 @@ extension Notification.Name {
     static let sessionExpired = Notification.Name("sessionExpired")
     static let bulkEnquirySent = Notification.Name("bulkEnquirySent")
     static let bookingFilterApplied = Notification.Name("bookingFilterApplied")
+    static let checkoutSessionExpired = Notification.Name("checkoutSessionExpired")
+    
 }
 
 // MARK: - Applicaion Response Code From Server
@@ -90,7 +92,7 @@ enum AppErrorCodeFor: Int {
     case passowrdHasAlreadyBeenResetUsingThisLink = 45
     case failedToResetPassword = 46
     case modeIsRequired = 58
-//    case failedToRegisterEmailChangeRequest = 59
+    //    case failedToRegisterEmailChangeRequest = 59
     case thePreviousEnquiryForThisEmailIdWasREJECTEDBYCSR = 88
     case failedToUpdateStatusOfCorpEnquiry = 89
     case SomethingWentWrong = 90
@@ -421,7 +423,7 @@ enum ATCancellationPolicy: Int, CaseIterable {
     var title: String {
         switch self {
         case .Refundable:
-            return LocalizedString.Refundable.localized
+            return LocalizedString.FreeCancellation.localized
             
         case .PartRefundable:
             return LocalizedString.PartRefundable.localized
@@ -651,7 +653,20 @@ enum ResolutionStatus: RawRepresentable {
     case canceled
     case none(title: String)
     case resolved
+    case inProcess
+    case terminated
+    case onHold
     
+    /*
+     In Progress: Orange
+     In Process: Orange
+     Action Required: Red
+     Payment Pending: Red
+     Successful: Green
+     Terminated: Grey
+     Aborted: Grey
+     On Hold: Black
+     */
     init?(rawValue: String) {
         switch rawValue {
         case "Payment Pending": self = .paymentPending
@@ -664,8 +679,12 @@ enum ResolutionStatus: RawRepresentable {
         case "Open": self = .open
         case "Cancelled": self = .canceled //earlier it was "Canceled"
         case "resolved": self = .resolved
+        case "In Process": self = .inProcess
+        case "Terminated": self = .terminated
+        case "On Hold": self = .onHold
+            
         default:
-           self = .none(title: rawValue)
+            self = .none(title: rawValue)
         }
     }
     
@@ -681,15 +700,18 @@ enum ResolutionStatus: RawRepresentable {
         case .open: return "Open"
         case .canceled: return "Cancelled"
         case .resolved: return "Resolved"
+        case .inProcess: return "In Process"
+        case .terminated: return "Terminated"
+        case .onHold: return "On Hold"
         case .none(let ttl): return ttl
-     }
+        }
     }
     
     var textColor: UIColor {
         switch self {
         case .paymentPending: return AppColors.themeRed
         case .actionRequired: return AppColors.themeRed
-        case .inProgress: return AppColors.themeYellow
+        case .inProgress: return AppColors.themeOrange
         case .successfull: return AppColors.themeGreen
         case .aborted: return AppColors.themeGray20
         case .closed: return AppColors.themeBlack
@@ -697,9 +719,12 @@ enum ResolutionStatus: RawRepresentable {
         case .confirmationPending: return AppColors.themeRed
         case .canceled: return AppColors.themeBlack
         case .resolved: return AppColors.themeGreen
-
+        case .inProcess: return AppColors.themeOrange
+        case .terminated: return AppColors.themeGray20
+        case .onHold: return AppColors.themeBlack
+            
         default:
-           return  AppColors.themeBlack
+            return  AppColors.themeBlack
         }
     }
 }

@@ -29,6 +29,7 @@ struct TravelDetailModel {
     var notes: String = ""
     var passportCountryName: String = ""
     var frequestFlyer : [FrequentFlyer]
+    var has_password: Bool = false
     
     init() {
         let json = JSON()
@@ -56,6 +57,7 @@ struct TravelDetailModel {
         let cntryName = json["passport_country_name"].stringValue.removeNull
         self.passportCountryName = cntryName.isEmpty ? self.passportCountry : cntryName
         self.frequestFlyer = FrequentFlyer.retunsFrequentFlyerArray(jsonArr: json["ff"].arrayValue)
+        self.has_password = json["has_password"].boolValue
     }
 }
 
