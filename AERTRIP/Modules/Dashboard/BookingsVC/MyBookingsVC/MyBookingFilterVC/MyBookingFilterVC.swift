@@ -38,15 +38,15 @@ class MyBookingFilterVC: BaseVC {
     @IBOutlet weak var navigationViewTopConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var mainBackView: UIView!
+    @IBOutlet weak var mainContainerHeightConstraint: NSLayoutConstraint!
     
- 
     //MARK:- LifeCycle
     override func initialSetup() {
-        
+        self.mainContainerHeightConstraint.constant = 498 + UIApplication.shared.statusBarFrame.height
         self.fetchMinDateFromCoreData()
         self.setCounts()
         
-        self.topNavBar.configureNavBar(title: "\(MyBookingFilterVM.shared.filteredResultCount) of \(MyBookingFilterVM.shared.totalResultCount) Results", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .clear)
+        self.topNavBar.configureNavBar(title: "\(MyBookingFilterVM.shared.filteredResultCount) of \(MyBookingFilterVM.shared.totalResultCount) Results", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .clear)
         self.topNavBar.firstRightBtnTrailingConst.constant = 0.0
         let clearStr = "  \(LocalizedString.ClearAll.localized)"
         let doneStr = "\(LocalizedString.Done.localized)  "
@@ -89,6 +89,8 @@ class MyBookingFilterVC: BaseVC {
     private func setCounts() {
         
         self.topNavBar.navTitleLabel.text = "\(MyBookingFilterVM.shared.filteredResultCount) of \(MyBookingFilterVM.shared.totalResultCount) Results"
+        
+        
     }
     private func notifyToFilterApplied() {
         
@@ -104,6 +106,16 @@ class MyBookingFilterVC: BaseVC {
         
         delay(seconds: 0.5) { [weak self] in
             self?.setCounts()
+        }
+    }
+    
+    private func checkDoneBtnState() {
+        if  MyBookingFilterVM.shared.isFilterAplied() {
+            self.topNavBar.firstRightButton.isEnabled = true
+            self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        } else {
+            self.topNavBar.firstRightButton.isEnabled = false
+            self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
         }
     }
     
@@ -173,7 +185,7 @@ class MyBookingFilterVC: BaseVC {
         self.parchmentView?.menuItemSpacing = (UIDevice.screenWidth - 335.5) / 2
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 13.0, bottom: 0.0, right: 11.0)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets(top: 0, left: 10.0, bottom: 0, right: 10.0), insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
-        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 50)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 52)
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
             zIndex: Int.max - 1,
@@ -209,7 +221,7 @@ extension MyBookingFilterVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //clear all
         self.sendDataChangedNotification(data: ATNotification.myBookingFilterCleared)
-        self.hide(animated: true, shouldRemove: true)
+       // self.hide(animated: true, shouldRemove: true)
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
@@ -228,7 +240,7 @@ extension MyBookingFilterVC: EventTypeVCDelegate {
 }
 
 extension MyBookingFilterVC: TravelDateVCDelegate {
-    func didSelect(fromDate: Date, forType: TravelDateVC.UsingFor) {
+    func didSelect(fromDate: Date?, forType: TravelDateVC.UsingFor) {
         if forType == .bookingDate {
             MyBookingFilterVM.shared.bookingFromDate = fromDate
         }
@@ -238,7 +250,7 @@ extension MyBookingFilterVC: TravelDateVCDelegate {
         self.notifyToFilterApplied()
     }
     
-    func didSelect(toDate: Date, forType: TravelDateVC.UsingFor) {
+    func didSelect(toDate: Date?, forType: TravelDateVC.UsingFor) {
         if forType == .bookingDate {
             MyBookingFilterVM.shared.bookingToDate = toDate
         }
@@ -300,6 +312,7 @@ extension MyBookingFilterVC {
             }
         }
           self.parchmentView?.reloadMenu()
+        self.checkDoneBtnState()
     }
 }
 

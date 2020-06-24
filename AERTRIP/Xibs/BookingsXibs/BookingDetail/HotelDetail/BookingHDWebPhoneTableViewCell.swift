@@ -14,7 +14,7 @@ class BookingHDWebPhoneTableViewCell: ATTableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var titleValueLabel: UILabel!
     
-    @IBOutlet weak var dividerView: UIView!
+    @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var deviderBottomConstraint: NSLayoutConstraint!
     
     

@@ -79,7 +79,7 @@ class BookingCheckinCheckOutTableViewCell: ATTableViewCell {
         self.checkOutDayLabel.text = checkOutDate?.toString(dateFormat: "EEEE") ?? LocalizedString.na.localized
         
         if let image = UIImage(named: "darkNights") {
-             self.numberOfNightsLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: image, endText: (totalNights == 1) ? "  \(totalNights) Night" : "  \(totalNights) Nights", font: AppFonts.SemiBold.withSize(14.0))
+            self.numberOfNightsLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: image, endText: (totalNights == 1) ? "  \(totalNights) Night" : "  \(totalNights) Nights", font: AppFonts.SemiBold.withSize(14.0),imageSize: 16)
         }
         
         self.checkInDayLabel.text = checkInDate?.toString(dateFormat: "EEEE") ?? LocalizedString.na.localized

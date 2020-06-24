@@ -15,9 +15,14 @@ extension HotelsMapVC : MKMapViewDelegate{
         
         guard let annatation = annotation as? MyAnnotation else {return nil}
         let annotationView = ResistantAnnotationView(annotation: annatation, reuseIdentifier: "route")
-        annotationView.image = returnImageForMarker(annotation: annatation)
+        let image = returnImageForMarker(annotation: annatation)
+        annotationView.image = image
         annotationView.canShowCallout = true
         annotationView.isUserInteractionEnabled = true
+        annotationView.centerOffset = CGPoint(x: 0, y: -image.size.height / 2);
+        if annatation.markerType == .city {
+            annotationView.centerOffset = CGPoint(x: 0, y: 0);
+        }
         return annotationView
         
     }
@@ -64,11 +69,16 @@ extension HotelsMapVC : MKMapViewDelegate{
             let legalLabel: UIView = self.appleMap.subviews[2]
             let mapLogoY = self.appleMap.height - mapLogoView.height - 7
             let legalLabelY = self.appleMap.height - legalLabel.height - 11
-
+            let nextLegalLabeYPosition = self.isMapInFullView ? legalLabelY + 30 : legalLabelY - 30
+            if self.appleMap.height < nextLegalLabeYPosition {
+                return
+            }
+            printDebug("self.appleMap: \(self.appleMap.frame)")
+            printDebug("legalLabel: \(legalLabel.frame)")
             UIView.animateKeyframes(withDuration: 0.6, delay: 0.0, options: .calculationModeLinear, animations: {
                 UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3) {
                     legalLabel.frame.origin.x = UIScreen.main.bounds.width/2 + 26
-                    legalLabel.frame.origin.y = self.isMapInFullView ? legalLabelY + 30 : legalLabelY - 30
+                    legalLabel.frame.origin.y = nextLegalLabeYPosition
                     
                 }
                 UIView.addKeyframe(withRelativeStartTime: 0.3, relativeDuration: 0.3) {
@@ -81,6 +91,10 @@ extension HotelsMapVC : MKMapViewDelegate{
         }else if self.appleMap.subviews.count > 1{// IOS12 and lower devices.// && !isMapInFullView
             let legalLabel: UIView = self.appleMap.subviews[1]
             let legalLabelY = self.appleMap.height - legalLabel.height - 7
+//            let nextLegalLabeYPosition = self.isMapInFullView ? legalLabelY + 30 : legalLabelY - 30
+//            if self.appleMap.height < nextLegalLabeYPosition {
+//                return
+//            }
             UIView.animateKeyframes(withDuration: 0.3, delay: 0.0, options: .calculationModeLinear, animations: {
                 UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3) {
                     legalLabel.frame.origin.x = UIScreen.main.bounds.width/2 - 14
@@ -94,12 +108,22 @@ extension HotelsMapVC : MKMapViewDelegate{
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
 //        guard gestureRecognizer
+        var legalLabel: UIView = UIView()
+        if self.appleMap.subviews.count > 2{
+             legalLabel = self.appleMap.subviews[2]
+        } else if self.appleMap.subviews.count > 1{ // IOS12 and lower devices.//
+             legalLabel = self.appleMap.subviews[1]
+        }
+        
         if (touch.view?.isKind(of: MKAnnotationView.self) ?? false){
+            return false
+        } else if (touch.view === legalLabel) {
             return false
         }else{
             return true
         }
     }
+    
     
     @objc func tapOnMAp(_ gesture: UITapGestureRecognizer){
         if (gesture.state != .ended){

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -35,8 +35,8 @@
                                             <constraint firstAttribute="width" secondItem="Vnh-M9-I15" secondAttribute="height" multiplier="1:1" id="c0W-j6-dSk"/>
                                         </constraints>
                                     </imageView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ER8-yh-LDO">
-                                        <rect key="frame" x="70" y="9.5" width="268" height="63.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="ER8-yh-LDO">
+                                        <rect key="frame" x="70" y="8.5" width="268" height="65.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KKx-eO-RBL">
                                                 <rect key="frame" x="0.0" y="0.0" width="268" height="45.5"/>
@@ -46,7 +46,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label sdg asdg jasgdkj asgdjkas gdjhgas jdghas gdjas ghdjgakjsdg jashgd jkashgd jahsg djasg djgask d" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DtD-ig-vT8">
-                                                <rect key="frame" x="0.0" y="45.5" width="268" height="18"/>
+                                                <rect key="frame" x="0.0" y="47.5" width="268" height="18"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -65,7 +65,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="fqr-hg-R5g">
-                                <rect key="frame" x="0.0" y="82" width="343" height="125"/>
+                                <rect key="frame" x="0.0" y="82" width="343" height="124"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="o9y-q2-MVE">
                                     <size key="itemSize" width="50" height="50"/>
@@ -80,7 +80,7 @@
                             <constraint firstItem="fP2-dV-8J0" firstAttribute="top" secondItem="xsc-lo-qk7" secondAttribute="top" id="0Sl-Zu-ANu"/>
                             <constraint firstAttribute="trailing" secondItem="fqr-hg-R5g" secondAttribute="trailing" id="J48-q3-z4B"/>
                             <constraint firstItem="fqr-hg-R5g" firstAttribute="top" secondItem="fP2-dV-8J0" secondAttribute="bottom" id="J71-wD-1rL"/>
-                            <constraint firstAttribute="bottom" secondItem="fqr-hg-R5g" secondAttribute="bottom" id="R9V-HQ-dzN"/>
+                            <constraint firstAttribute="bottom" secondItem="fqr-hg-R5g" secondAttribute="bottom" constant="1" id="R9V-HQ-dzN"/>
                             <constraint firstItem="fqr-hg-R5g" firstAttribute="leading" secondItem="xsc-lo-qk7" secondAttribute="leading" id="Xsn-lm-40S"/>
                             <constraint firstItem="fP2-dV-8J0" firstAttribute="leading" secondItem="xsc-lo-qk7" secondAttribute="leading" id="fET-0H-iSG"/>
                             <constraint firstAttribute="trailing" secondItem="fP2-dV-8J0" secondAttribute="trailing" id="kwD-GG-MU9"/>

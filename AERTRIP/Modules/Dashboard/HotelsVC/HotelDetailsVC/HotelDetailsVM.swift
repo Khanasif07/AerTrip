@@ -20,6 +20,10 @@ protocol HotelDetailDelegate: class {
     
     func willSaveHotelWithTrip()
     func saveHotelWithTripSuccess(trip: TripModel, isAllreadyAdded: Bool)
+    
+    func willGetPinnedTemplate()
+    func getPinnedTemplateSuccess()
+    func getPinnedTemplateFail()
 }
 
 class HotelDetailsVM {
@@ -49,6 +53,7 @@ class HotelDetailsVM {
     var mode: MapMode = .walking
     var isFooterViewHidden: Bool = false
     var filterAppliedData: UserInfo.HotelFilter = UserInfo.HotelFilter()
+    var shareLinkURL = ""
     
     private let defaultCheckInTime = "07:00"
     private let defaultCheckOutTime = "07:00"
@@ -104,27 +109,65 @@ class HotelDetailsVM {
         var filteredRates: [Rates] = []
         var tempRatesData = rates
         if !selectedTag.isEmpty{
-            for tag in selectedTag{
-                if (tag != selectedTag.first ?? ""){//To Apply AND filter on rates.
-                    tempRatesData = filteredRates
-                    filteredRates = []
-                }
+//            for tag in selectedTag{
+//                if (tag != selectedTag.first ?? ""){//To Apply AND filter on rates.
+//                    tempRatesData = filteredRates
+//                    filteredRates = []
+//                }
                 let filteredArray = tempRatesData.filter{ rates in
+                    
+                    for tag in selectedTag{
                     let roomRate = rates.roomsRates ?? []
                     if roomRate.map({$0.name.lowercased()}).joined(separator: ",").contains(tag.lowercased()){
                         return true
-                    }else if roomRate.map({$0.desc.lowercased()}).joined(separator: ",").contains(tag.lowercased()){
+                    }
+                    if roomRate.map({$0.desc.lowercased()}).joined(separator: ",").contains(tag.lowercased()){
                         return true
-                    } else if (rates.inclusion_array[APIKeys.boardType.rawValue] as? [String] ?? []).joined(separator: ",").contains(tag){
+                    }
+                    if (rates.inclusion_array[APIKeys.boardType.rawValue] as? [String] ?? []).joined(separator: ",").contains(tag){
                         return true
-                    }else if (rates.inclusion_array[APIKeys.other_inclusions.rawValue] as? [String] ?? []).joined(separator: ",").contains(tag){
+                    }
+                    if (rates.inclusion_array[APIKeys.other_inclusions.rawValue] as? [String] ?? []).joined(separator: ",").contains(tag){
                         return true
-                    }else if (rates.inclusion_array[APIKeys.inclusions.rawValue] as? [String] ?? []).joined(separator: ",").contains(tag){
+                    }
+                    if (rates.inclusion_array[APIKeys.inclusions.rawValue] as? [String] ?? []).joined(separator: ",").contains(tag){
                         return true
-                    }else if (rates.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [String] ?? []).joined(separator: ",").contains(tag){
+                    }
+                    if (rates.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [String] ?? []).joined(separator: ",").contains(tag){
                         return true
-                    }else if ((rates.cancellation_penalty?.is_refundable ?? false) && ((tag.lowercased() == "free cancellation") || (tag.lowercased() == "free"))){
+                    }
+                    if (rates.cancellation_penalty?.is_refundable ?? false){
+                        
+                        if let firstRefundableData = rates.penalty_array?.first {
+                            let roomPrice: Double = rates.price
+                            let toDate: String = firstRefundableData.to
+                            let fromDate: String = firstRefundableData.from
+                            let penalty: Int = firstRefundableData.penalty
+                            
+                            if !toDate.isEmpty && fromDate.isEmpty && penalty == 0 {
+                                // free cancelation
+                                if  (tag.lowercased() == "free cancellation") || (tag.lowercased() == "free") {
+                                    return true
+                                }
+                            }
+                            if !toDate.isEmpty && !fromDate.isEmpty && penalty != 0 {
+                                // Part Refundable
+                                if (tag.lowercased() == "part refundable") {
+                                    return true
+                                }
+                            }
+                            if toDate.isEmpty && !fromDate.isEmpty && penalty != 0 {
+                                // Part Refundable
+                                if  (tag.lowercased() == "part refundable") {
+                                    return true
+                                }
+                            }
+                        }
+                        //return false
+                    }
+                    if ((rates.cancellation_penalty?.is_refundable  ?? false) == false && ((tag.lowercased() == "non-refundable") || (tag.lowercased() == "non refundable"))){
                         return true
+                    }
                     }
                     return false
                 }
@@ -133,7 +176,7 @@ class HotelDetailsVM {
                         filteredRates.append(rt)
                     }
                 }
-            }
+//            }
             return filteredRates
         }else{
             return rates
@@ -210,7 +253,7 @@ class HotelDetailsVM {
     
     ///Get Hotel Info Api
     func getHotelInfoApi() {
-
+        
         APICaller.shared.getHotelDetails(params: self.getHotelInfoParams) { [weak self] (success, errors, hotelData, currencyPref) in
             guard let sSelf = self else {return}
             if success {
@@ -263,7 +306,7 @@ class HotelDetailsVM {
                         sSelf.hotelInfo?.fav = sSelf.hotelInfo?.fav == "0" ? "1" : "0"
                         _ = sSelf.hotelInfo?.afterUpdate
                     }
-            
+                    
                     sSelf.delegate?.updateFavouriteFail(errors:errors)
                 }
             }
@@ -348,4 +391,25 @@ class HotelDetailsVM {
             }
         }
     }
+    
+    func getShareLinkAPI(completionBlock: @escaping(_ success: Bool)->Void ) {
+        var param = JSONDictionary()
+        param["hid[]"] = self.hotelInfo?.hid ?? ""
+        param[APIKeys.sid.rawValue] = self.hotelSearchRequest?.sid
+        param["u"] = ""
+        
+        self.delegate?.willGetPinnedTemplate()
+        APICaller.shared.getShareLinkAPI(params: param) { [weak self] isSuccess, _, shareLinkUrl in
+            if isSuccess {
+                self?.delegate?.getPinnedTemplateSuccess()
+                
+                self?.shareLinkURL = shareLinkUrl
+                completionBlock(true)
+            } else {
+                self?.delegate?.getPinnedTemplateFail()
+                completionBlock(false)
+            }
+        }
+    }
 }
+

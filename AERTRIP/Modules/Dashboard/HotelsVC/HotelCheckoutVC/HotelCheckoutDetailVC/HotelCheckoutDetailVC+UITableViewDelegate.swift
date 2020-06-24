@@ -98,25 +98,46 @@ extension HotelCheckoutDetailVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100.0
+        return self.heightForRow(tableView: tableView, indexPath: indexPath, isForEstimateHeight: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.heightForRow(tableView: tableView, indexPath: indexPath, isForEstimateHeight: false)
+    }
+    
+    internal func heightForRow(tableView: UITableView, indexPath: IndexPath, isForEstimateHeight: Bool) -> CGFloat {
         if let hotelData = self.viewModel {
             let sectionData = self.sectionData[indexPath.section]
             if sectionData[indexPath.row] == .paymentPolicyCell {
                 return CGFloat.leastNormalMagnitude
-            } else {
-                if indexPath.section == 0, indexPath.row == 2 {
+            } else if indexPath.section == 0, indexPath.row == 2 {
                     let text = hotelData.address + "Maps   "
                     let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
                     return size.height + 46.5
                         + 21.0 + 2.0 // y of textview 46.5 + bottom space 14.0 + 7.0
+            } else if sectionData[indexPath.row] == .overViewCell{
+                //overview cell
+                if !isForEstimateHeight {
+                    return UITableView.automaticDimension
                 }
+                    let textView = UITextView()
+                    textView.frame.size = CGSize(width: UIDevice.screenWidth - 32.0, height: 100.0)
+                    textView.font = AppFonts.Regular.withSize(18)
+                    textView.text = hotelData.info
+                    if textView.numberOfLines >= 3{
+                        if let lineHeight = textView.font?.lineHeight{
+                            return ((3 * lineHeight) + 62)
+                        }
+                    }else{
+                    let text = hotelData.address + "Maps    "
+                    let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
+                    return size.height + 46.5
+                        + 13.0  + 2.0//y of textview 46.5 + bottom space 14.0 + 7.0
+                    }
             }
             
         }
-        return UITableView.automaticDimension
+        return isForEstimateHeight ? 100 : UITableView.automaticDimension
     }
 }
 
@@ -150,7 +171,7 @@ extension HotelCheckoutDetailVC: TopNavigationViewDelegate {
 extension HotelCheckoutDetailVC: HotelDetailAmenitiesCellDelegate {
     func viewAllButtonAction() {
         if let hotelData = self.viewModel {
-            AppFlowManager.default.showHotelDetailAmenitiesVC(amenitiesGroups: hotelData.amenitiesGroups , amentites: hotelData.amenities)
+            AppFlowManager.default.showHotelDetailAmenitiesVC(amenitiesGroups: hotelData.amenitiesGroups , amentites: hotelData.amenities, amenitiesGroupOrder: hotelData.amenities_group_order)
         }
     }
 }
@@ -167,6 +188,7 @@ extension HotelCheckoutDetailVC {
             let selectedFevImage: UIImage = self.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
             self.headerView.leftButton.setImage(selectedFevImage, for: .normal)
             self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "black_cross"), for: .normal)
+            self.headerView.firstRightButtonTrailingConstraint.constant = 0
             self.headerView.dividerView.isHidden = false
         } else {
             // hide
@@ -175,6 +197,7 @@ extension HotelCheckoutDetailVC {
             let buttonImage: UIImage = self.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
             self.headerView.leftButton.setImage(buttonImage, for: .normal)
             self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
+            self.headerView.firstRightButtonTrailingConstraint.constant = -3
             self.headerView.dividerView.isHidden = true
         }
     }
@@ -202,8 +225,8 @@ extension HotelCheckoutDetailVC: HotelDetailsImgSlideCellDelegate {
         let gVC = PhotoGalleryVC.instantiate(fromAppStoryboard: .Dashboard)
         gVC.parentVC = self
         if let images = self.viewModel?.photos {
-            gVC.imageNames = Array(images.dropFirst())
-            gVC.startShowingFrom = index > 0 ? index - 1 : index
+            gVC.imageNames = images
+            gVC.startShowingFrom = index
         }
         self.present(gVC, animated: true, completion: nil)
     }

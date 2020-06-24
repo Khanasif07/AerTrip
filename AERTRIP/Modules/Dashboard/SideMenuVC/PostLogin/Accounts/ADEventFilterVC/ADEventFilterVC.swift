@@ -302,11 +302,11 @@ extension ADEventFilterVC: ADVoucherTypeVCDelegate, TravelDateVCDelegate {
         }
     }
     
-    func didSelect(toDate: Date, forType: TravelDateVC.UsingFor) {
+    func didSelect(toDate: Date?, forType: TravelDateVC.UsingFor) {
         self.selectedFilter.toDate = toDate
     }
     
-    func didSelect(fromDate: Date, forType: TravelDateVC.UsingFor) {
+    func didSelect(fromDate: Date?, forType: TravelDateVC.UsingFor) {
         self.selectedFilter.fromDate = fromDate
     }
 }

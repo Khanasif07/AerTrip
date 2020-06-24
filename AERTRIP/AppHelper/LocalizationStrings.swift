@@ -538,6 +538,7 @@ enum LocalizedString: String {
     case Choose_App
     case GMap
     case TripRating
+    case ResultUnavailable = "Result unavailable"
 
     // MARK: - Hotel Result VC
     
@@ -669,6 +670,7 @@ enum LocalizedString: String {
     case Change
     case YourBookingIDIs
     case YourCaseIDIs
+    case YourBookingID 
     case AndAllDetailsWillBeSentToYourEmail
     case YouAreAllDoneLabel
     case AddToAppleWallet

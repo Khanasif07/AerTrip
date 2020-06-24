@@ -206,6 +206,7 @@ extension APICaller {
     func paymentResponseAPI(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ bookingIds: [String] , _ cid: [String])->Void) {
         AppNetworking.POST(endPoint:APIEndPoint.paymentResponse, parameters: params, loader: loader, success: { [weak self] (json) in
             guard let sSelf = self else {return}
+            printDebug(json)
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
                 printDebug(json)
                 if sucess {

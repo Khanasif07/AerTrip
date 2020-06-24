@@ -90,9 +90,11 @@ class HotelCheckoutDetailVC: BaseVC {
         self.headerView.configureLeftButton(normalImage: buttonImage, selectedImage: selectedFevImage, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.headerView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "CancelButtonWhite"), selectedImage: #imageLiteral(resourceName: "black_cross"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.headerView.firstRightButton.imageEdgeInsets = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
+        self.headerView.firstLeftButtonLeadingConst.constant = 4.5
         self.headerView.firstRightButtonTrailingConstraint.constant = -3
         self.hotelDetailsTableView.roundTopCorners(cornerRadius: 10.0)
         self.smallLineView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        self.headerView.navTitleLabel.numberOfLines = 1
     }
     
     private func registerXibs() {

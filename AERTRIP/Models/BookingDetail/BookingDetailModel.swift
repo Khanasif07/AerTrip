@@ -8,6 +8,12 @@
 import Foundation
 
 struct BookingDetailModel {
+    
+    enum BookingStatusType: String {
+        case pending
+        case booked
+    }
+    
     var id: String = ""
     var bookingNumber: String = ""
     var bookingDate: Date?
@@ -25,7 +31,7 @@ struct BookingDetailModel {
     
     var totalAmountPaid: Double = 0.0
     var vCode: String = ""
-    var bookingStatus: String = ""
+    //var bookingStatus: String = ""
     var documents: [DocumentDownloadingModel] = []
     var tripInfo: TripInfo?
     var additionalInformation: AdditionalInformation?
@@ -40,6 +46,8 @@ struct BookingDetailModel {
     var weatherDisplayedWithin16Info: Bool = false
     var frequentFlyerData: [FrequentFlyerData] = []
     var displaySeatMap:Bool = false
+    var bookingStatus: BookingStatusType = .pending
+
     var jsonDict: JSONDictionary {
         return [:]
     }
@@ -247,6 +255,10 @@ struct BookingDetailModel {
                     break
                 }
             }
+        }
+        
+        if let bookingStatus = json[APIKeys.bstatus.rawValue]{
+            self.bookingStatus = BookingStatusType(rawValue: "\(bookingStatus)".removeNull) ?? .pending
         }
     }
     
@@ -545,7 +557,7 @@ struct BookingDetail {
     var eventStartDate: Date?
     var eventEndDate: Date?
     
-    
+    var amenities_group_order: [String : String] = [:]
     var bookingId: String = ""
     
     init() {
@@ -747,6 +759,10 @@ struct BookingDetail {
         
         if let obj = json["event_end_date"] {
             self.eventEndDate = "\(obj)".removeNull.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
+        }
+        
+        if let obj = json[APIKeys.amenities_group_order.rawValue] as? [String : String] {
+            self.amenities_group_order = obj
         }
     }
     

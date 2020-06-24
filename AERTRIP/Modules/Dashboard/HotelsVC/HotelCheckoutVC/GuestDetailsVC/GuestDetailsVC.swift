@@ -83,7 +83,7 @@ class GuestDetailsVC: BaseVC {
     
     private func registerXib() {
         self.travellersTableView.registerCell(nibName: TravellerListTableViewCell.reusableIdentifier)
-        self.guestDetailTableView.registerCell(nibName: GuestDetailTableViewCell.reusableIdentifier)
+        self.guestDetailTableView.registerCell(nibName: GuestHotelDetailTableViewCell.reusableIdentifier)
         self.guestDetailTableView.register(UINib(nibName: AppConstants.ktableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: AppConstants.ktableViewHeaderViewIdentifier)
     }
     
@@ -159,7 +159,7 @@ class GuestDetailsVC: BaseVC {
     // Make table view particular index selectable or Editable
     private func makeTableViewIndexSelectable() {
         self.guestDetailTableView.scrollToRow(at: self.viewModel.selectedIndexPath, at: .top, animated: false)
-        if let cell = guestDetailTableView.cellForRow(at: viewModel.selectedIndexPath) as? GuestDetailTableViewCell {
+        if let cell = guestDetailTableView.cellForRow(at: viewModel.selectedIndexPath) as? GuestHotelDetailTableViewCell {
             let guest = GuestDetailsVM.shared.guests[self.viewModel.selectedIndexPath.section][self.viewModel.selectedIndexPath.row]
             if self.viewModel.isDataEmpty {
                  self.travellersTableView.isHidden = true
@@ -181,7 +181,7 @@ class GuestDetailsVC: BaseVC {
     
     
     private func makeTextFieldResponder() {
-        if let cell = guestDetailTableView.cellForRow(at: viewModel.selectedIndexPath) as? GuestDetailTableViewCell {
+        if let cell = guestDetailTableView.cellForRow(at: viewModel.selectedIndexPath) as? GuestHotelDetailTableViewCell {
             let guest = GuestDetailsVM.shared.guests[self.viewModel.selectedIndexPath.section][self.viewModel.selectedIndexPath.row]
             if self.viewModel.isDataEmpty {
                 self.travellersTableView.isHidden = true
@@ -241,7 +241,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView === self.guestDetailTableView {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: GuestDetailTableViewCell.reusableIdentifier, for: indexPath) as? GuestDetailTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: GuestHotelDetailTableViewCell.reusableIdentifier, for: indexPath) as? GuestHotelDetailTableViewCell else {
                 printDebug("cell not found")
                 return UITableViewCell()
             }
@@ -407,7 +407,7 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
     func textFieldWhileEditing(_ textField: UITextField) {
         self.indexPath = self.guestDetailTableView.indexPath(forItem: textField)
         serachData(textField: textField)
-        if let cell = self.guestDetailTableView.cell(forItem: textField) as? GuestDetailTableViewCell {
+        if let cell = self.guestDetailTableView.cell(forItem: textField) as? GuestHotelDetailTableViewCell {
             switch textField {
             case cell.firstNameTextField:
                 if let indexPath = self.indexPath {
@@ -441,7 +441,7 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
         self.travellersTableView.isHidden = self.viewModel.isDataEmpty
         self.travellersTableView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
         self.indexPath = self.guestDetailTableView.indexPath(forItem: textField)
-        if let _ = self.guestDetailTableView.cell(forItem: textField) as? GuestDetailTableViewCell {
+        if let _ = self.guestDetailTableView.cell(forItem: textField) as? GuestHotelDetailTableViewCell {
            //  get item position
             let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: guestDetailTableView)
             var  yValue = 80

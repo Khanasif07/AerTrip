@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol HCDataSelectionVCDelegate: class {
+    func updateFarePrice()
+}
+
 class HCDataSelectionVC: BaseVC {
     // MARK: - IBOutlets
     
@@ -60,6 +64,9 @@ class HCDataSelectionVC: BaseVC {
     
     var apiCount: Int = 0
     var isGrossValueZero: Bool = false
+    weak var delegate: HCDataSelectionVCDelegate?
+    internal var checkoutSessionExpireCompletionHandler: (() -> Void)? = nil
+    
     // MARK: - Private
     
     let hotelFormData = HotelsSearchVM.hotelFormData
@@ -89,6 +96,18 @@ class HCDataSelectionVC: BaseVC {
         
         setupGuestArray()
         registerXIBs()
+        
+        self.checkoutSessionExpireCompletionHandler = { [weak self] in
+            guard let strongSelf = self else {return}
+            //AppFlowManager.default.mainNavigationController.popToRootController(animated: true)
+            AppFlowManager.default.mainNavigationController.dismiss(animated: false, completion: nil)
+            AppFlowManager.default.mainNavigationController.popToRootController(animated: false)
+            //AppFlowManager.default.currentNavigation?.dismiss(animated: true, completion: nil)
+            strongSelf.topNavBarLeftButtonAction(strongSelf.topNavView.leftButton)
+            delay(seconds: 0.2) {
+                NotificationCenter.default.post(name: .checkoutSessionExpired, object: nil)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -331,6 +350,9 @@ class HCDataSelectionVC: BaseVC {
             } else {
                 self.viewModel.logInUserApi()
             }
+        } else {
+            viewModel.canShowErrorForEmailPhone = true
+            self.tableView.reloadData()
         }
     }
     
@@ -398,11 +420,17 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
             viewModel.webserviceForItenaryDataTraveller()
             apiCount += 1
         }
+        
+        
     }
     
     func callForItenaryDataTravellerFail(errors: ErrorCodes) {
         self.isGrossValueZero = true
-        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+        if errors.contains(55) {
+            AppToast.default.showToastMessage(message: LocalizedString.ResultUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonAction: self.checkoutSessionExpireCompletionHandler)
+        } else {
+            AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+        }
     }
     
     func willFetchConfirmItineraryData() {
@@ -424,6 +452,33 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
             self.viewModel.getHotelDetailsSectionData()
         }
         self.tableView.reloadData()
+        if (self.viewModel.itineraryData?.hotelDetails?.is_price_change ?? false) {
+                    
+                    if let newAmount = viewModel.itineraryData?.total_fare, let oldAmount = self.viewModel.detailPageRoomRate?.price  {
+                        
+                        let diff = newAmount - oldAmount
+                        if diff > 0 {
+                            // increased
+                            FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: diff, totalUpdatedAmount: newAmount, continueButtonAction: { [weak self] in
+                                guard let sSelf = self else { return }
+        //                        sSelf.sendToFinalCheckoutVC()
+                                }, goBackButtonAction: { [weak self] in
+                                    guard let sSelf = self else { return }
+                                    sSelf.delegate?.updateFarePrice()
+                                    sSelf.topNavBarLeftButtonAction(sSelf.topNavView.leftButton)
+                            })
+                        }
+                        else if diff < 0 {
+                            // dipped
+        //                    FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: -diff, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
+        //                    delay(seconds: 2.0) { [weak self] in
+        //                        guard let sSelf = self else { return }
+        //                        sSelf.sendToFinalCheckoutVC()
+        //                    }
+                        }
+                        
+                    }
+                }
     }
     
     func fetchConfirmItineraryDataFail(errors: ErrorCodes) {
@@ -434,7 +489,11 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
             confirmationCall += 1
             viewModel.fetchConfirmItineraryData()
         } else {
-            AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+            if errors.contains(55) {
+                AppToast.default.showToastMessage(message: LocalizedString.ResultUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonAction: self.checkoutSessionExpireCompletionHandler)
+            } else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+            }
         }
     }
     
@@ -467,7 +526,9 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
                     AppFlowManager.default.popViewController(animated: true)
                 }
             }
-        } else {
+        } else if errors.contains(55) {
+            AppToast.default.showToastMessage(message: LocalizedString.ResultUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonAction: self.checkoutSessionExpireCompletionHandler)
+        }else {
             AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
         }
         //        manageLoader(shouldStart: false)
@@ -692,7 +753,11 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                     return UITableViewCell()
                 }
                 cell.contactTitleLabel.isHidden = true
+                cell.minContactLimit = self.viewModel.minContactLimit
                 cell.contactNumberTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.Mobile.localized,with: "")
+                if viewModel.canShowErrorForEmailPhone {
+                    cell.checkForErrorStateOfTextfield()
+                }
                 cell.delegate = self
                 return cell
                 
@@ -701,11 +766,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: HCEmailTextFieldCell.reusableIdentifier) as? HCEmailTextFieldCell else {
                     return UITableViewCell()
                 }
-                
-                //                cell.downArrowImageView.isHidden = true
-                //                cell.titleLabel.font = AppFonts.Regular.withSize(18.0)
-                //                cell.titleLabel.textColor = AppColors.themeGray20
-                //                cell.titleLabel.text = LocalizedString.Email_ID.localized
+
                 cell.editableTextField.isEnabled = UserInfo.loggedInUserId == nil
                 cell.editableTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.Email_ID.localized,with: "")
                 cell.delegate = self
@@ -714,6 +775,9 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 cell.editableTextField.textColor = UserInfo.loggedInUserId == nil ? AppColors.themeBlack : AppColors.themeGray40
                 cell.editableTextField.keyboardType = .emailAddress
                 
+                if viewModel.canShowErrorForEmailPhone {
+                    cell.checkForErrorStateOfTextfield()
+                }
                 
                 return cell
                 
@@ -742,6 +806,9 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 cell.editableTextField.textColor = AppColors.themeBlack
                 cell.editableTextField.keyboardType = .default
                 cell.editableTextField.autocapitalizationType = .allCharacters
+                if viewModel.canShowErrorForEmailPhone {
+                    cell.checkForErrorStateOfTextfield()
+                }
                 return cell
                 
             default:
@@ -810,6 +877,8 @@ extension HCDataSelectionVC: HotelCheckOutDetailsVIewDelegate {
 extension HCDataSelectionVC: ContactTableCellDelegate {
     func setIsdCode(_ country: PKCountryModel,_ sender: UIButton) {
         viewModel.mobileIsd = country.countryCode
+        viewModel.minContactLimit = country.minNSN
+        viewModel.maxContactLimit = country.minNSN
         guard  let cell = sender.tableViewCell as? ContactTableCell  else {
             return
         }

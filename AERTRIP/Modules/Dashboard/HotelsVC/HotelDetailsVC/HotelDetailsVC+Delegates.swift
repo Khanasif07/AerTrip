@@ -131,7 +131,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                     //                if let vc = sSelf.parent {
                     //                    AppFlowManager.default.popToViewController(vc, animated: true)
                     //                }
-                    AppFlowManager.default.moveToHCDataSelectionVC(sid: sSelf.viewModel.hotelSearchRequest?.sid ?? "", hid: sSelf.viewModel.hotelInfo?.hid ?? "", qid: sSelf.viewModel.ratesData[indexPath.section-2].qid, placeModel: sSelf.viewModel.placeModel ?? PlaceModel(), hotelSearchRequest: sSelf.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), hotelInfo: sSelf.viewModel.hotelInfo ?? HotelSearched(), locid: sSelf.viewModel.hotelInfo?.locid ?? "",presentViewController: presentSelectionVC)
+                    AppFlowManager.default.moveToHCDataSelectionVC(sid: sSelf.viewModel.hotelSearchRequest?.sid ?? "", hid: sSelf.viewModel.hotelInfo?.hid ?? "", qid: sSelf.viewModel.ratesData[indexPath.section-2].qid, placeModel: sSelf.viewModel.placeModel ?? PlaceModel(), hotelSearchRequest: sSelf.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), hotelInfo: sSelf.viewModel.hotelInfo ?? HotelSearched(), locid: sSelf.viewModel.hotelInfo?.locid ?? "", roomRate: sSelf.viewModel.ratesData[indexPath.section - 2], delegate: self as! HCDataSelectionVCDelegate, presentViewController: presentSelectionVC)
                     AppFlowManager.default.removeLoginConfirmationScreenFromStack()
                     AppGlobals.shared.stopLoading()
                 }
@@ -140,11 +140,11 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100//self.heightForRow(tableView: tableView, indexPath: indexPath)
+        return self.heightForRow(tableView: tableView, indexPath: indexPath, isForEstimateHeight: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.heightForRow(tableView: tableView, indexPath: indexPath)
+        return self.heightForRow(tableView: tableView, indexPath: indexPath, isForEstimateHeight: false)
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
@@ -167,6 +167,18 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
 //MARK:- HotelDetailDelegate
 //==========================
 extension HotelDetailsVC: HotelDetailDelegate {
+    func willGetPinnedTemplate() {
+        AppGlobals.shared.startLoading()
+    }
+    
+    func getPinnedTemplateSuccess() {
+        AppGlobals.shared.stopLoading()
+    }
+    
+    func getPinnedTemplateFail() {
+        AppGlobals.shared.stopLoading()
+    }
+    
     
     func willSaveHotelWithTrip() {
         
@@ -257,6 +269,7 @@ extension HotelDetailsVC {
             let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
             self.headerView.leftButton.setImage(selectedFevImage, for: .normal)
             self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "black_cross"), for: .normal)
+            self.headerView.firstRightButtonTrailingConstraint.constant = 0
         }
         else {
             //hide
@@ -265,6 +278,7 @@ extension HotelDetailsVC {
             let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
             self.headerView.leftButton.setImage(buttonImage, for: .normal)
             self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
+            self.headerView.firstRightButtonTrailingConstraint.constant = -3
         }
     }
     
@@ -275,19 +289,78 @@ extension HotelDetailsVC {
             var finalY: CGFloat = 0.0
             if let cell = hotelTableView.cellForRow(at: indexPath) as? HotelDetailsCheckOutTableViewCell {
                 
-                finalY = self.view.convert(cell.contentView.frame, to: hotelTableView).origin.y + UIApplication.shared.statusBarFrame.height + 10.0
+                finalY = self.view.convert(cell.contentView.frame, to: hotelTableView).origin.y //+ UIApplication.shared.statusBarFrame.height + 10.0
                 if self.initialStickyPosition <= 0.0 {
                     self.initialStickyPosition = finalY
                 }
                 
-                UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
-                    guard let `self` = self else {return}
-                    self.stickyBottomConstraint.constant = (self.hotelTableView.contentOffset.y >= self.initialStickyPosition) ? -(self.footerView.height + AppFlowManager.default.safeAreaInsets.bottom) : 0.0
-                }.startAnimation()
+                //                UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+                //                    guard let `self` = self else {return}
+                //                    self.stickyBottomConstraint.constant = (self.hotelTableView.contentOffset.y >= self.initialStickyPosition) ? -(self.footerView.height + AppFlowManager.default.safeAreaInsets.bottom) : 0.0
+                //                }.startAnimation()
+                
+                let bottomCons = (self.hotelTableView.contentOffset.y - (self.initialStickyPosition + self.footerView.height))
+                if (self.hotelTableView.contentSize.height - self.hotelTableView.height) <= self.hotelTableView.contentOffset.y {
+                    //if table view scrolled till end then hide sticky view
+                    if self.stickyBottomConstraint.constant != -(self.footerView.height) {
+                        UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0, options: .curveEaseIn, animations: { [weak self] in
+                            guard let `self` = self else {return}
+                            self.stickyBottomConstraint.constant = -(self.footerView.height)
+                            self.view.layoutIfNeeded()
+                            }, completion: nil)
+                    }
+                }
+                    //                               else if 0...self.footerView.height ~= bottomCons {
+                    //                                   //hiding
+                    //                                   UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+                    //                                       guard let `self` = self else {return}
+                    //                                       self.stickyBottomConstraint.constant = -(bottomCons)
+                    //                                   }.startAnimation()
+                    //                               }
+                else if self.initialStickyPosition <= 0.0 {
+                    //shown
+                    if self.stickyBottomConstraint.constant != 0.0 {
+                        UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
+                            guard let `self` = self else {return}
+                            self.stickyBottomConstraint.constant = 0.0
+                            self.view.layoutIfNeeded()
+                            }, completion: nil)
+                    }
+                }
+                else if (self.initialStickyPosition + self.footerView.height) < finalY {
+                    //hidden
+                    if self.stickyBottomConstraint.constant != -(self.footerView.height) {
+                        UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0, options: .curveEaseIn, animations: { [weak self] in
+                            guard let `self` = self else {return}
+                            self.stickyBottomConstraint.constant = -(self.footerView.height)
+                            self.view.layoutIfNeeded()
+                            }, completion: nil)
+                    }
+                }
+                
+            } else {
+                if (self.initialStickyPosition + self.footerView.height) > self.hotelTableView.contentOffset.y {
+                    if self.stickyBottomConstraint.constant != 0.0 {
+                        UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
+                            guard let `self` = self else {return}
+                            self.stickyBottomConstraint.constant = 0.0
+                            self.view.layoutIfNeeded()
+                            }, completion: nil)
+                    }
+                }
+                self.initialStickyPosition = -1.0
+                
             }
         }
         else {
-            self.stickyBottomConstraint.constant = 0.0
+            if self.stickyBottomConstraint.constant != 0.0 {
+                UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
+                    guard let `self` = self else {return}
+                    self.stickyBottomConstraint.constant = 0.0
+                    self.view.layoutIfNeeded()
+                    }, completion: nil)
+            }
+            
         }
     }
     
@@ -310,19 +383,19 @@ extension HotelDetailsVC {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.manageHeaderView()
         self.manageBottomRateView()
-        self.closeOnScroll(scrollView)
+        //  self.closeOnScroll(scrollView)
     }
     
-    //    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-    //        if decelerate {
-    //            self.closeOnScroll(scrollView)
-    //            self.manageBottomRateView()
-    //        }
-    //    }
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if decelerate {
+            //self.closeOnScroll(scrollView)
+            self.manageBottomRateView()
+        }
+    }
     //
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.closeOnScroll(scrollView)
+        //self.closeOnScroll(scrollView)
         self.manageHeaderView()
         self.manageBottomRateView()
     }
@@ -338,8 +411,8 @@ extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
         let gVC = PhotoGalleryVC.instantiate(fromAppStoryboard: .Dashboard)
         gVC.parentVC = self
         if let images = self.viewModel.hotelData?.photos {
-            gVC.imageNames = Array(images.dropFirst())
-            gVC.startShowingFrom = index > 0 ? index - 1 : index
+            gVC.imageNames = images
+            gVC.startShowingFrom = index
         }
         self.present(gVC, animated: true, completion: nil)
         
@@ -409,15 +482,33 @@ extension HotelDetailsVC: GetFullInfoDelegate {
 extension HotelDetailsVC: HotelDetailAmenitiesCellDelegate {
     func viewAllButtonAction() {
         if let hotelData = self.viewModel.hotelData {
-            AppFlowManager.default.showHotelDetailAmenitiesVC(amenitiesGroups: hotelData.amenitiesGroups,amentites: hotelData.amenities)
+            AppFlowManager.default.showHotelDetailAmenitiesVC(amenitiesGroups: hotelData.amenitiesGroups,amentites: hotelData.amenities, amenitiesGroupOrder: hotelData.amenities_group_order)
         }
     }
 }
 
 extension HotelDetailsVC: HotelRatingInfoCellDelegate {
     func shareButtonAction(_ sender: UIButton) {
-        AppGlobals.shared.shareWithActivityViewController(VC: self , shareData: "https://beta.aertrip.com")
+        if !self.viewModel.shareLinkURL.isEmpty{
+            AppGlobals.shared.shareWithActivityViewController(VC: self , shareData: self.viewModel.shareLinkURL)
+        } else {
+            self.viewModel.getShareLinkAPI {[weak self] (sucess) in
+                guard let strongSelf = self else {return}
+                if sucess {
+                    if !strongSelf.viewModel.shareLinkURL.isEmpty{
+                        AppGlobals.shared.shareWithActivityViewController(VC: strongSelf , shareData: strongSelf.viewModel.shareLinkURL)
+                    }
+                }
+            }
+        }
+        
+        
     }
     
+}
+extension HotelDetailsVC: HCDataSelectionVCDelegate {
+    func updateFarePrice() {
+        self.viewModel.getHotelInfoApi()
+    }
 }
 

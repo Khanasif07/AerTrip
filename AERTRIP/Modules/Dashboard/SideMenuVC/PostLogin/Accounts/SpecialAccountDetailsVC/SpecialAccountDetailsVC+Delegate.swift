@@ -523,9 +523,13 @@ class AccountDepositCell: UITableViewCell {
         self.dateLabel.textColor = AppColors.themeRed
         self.dateLabel.text = dateStr
         
-        self.depositButton.titleLabel?.font = AppFonts.SemiBold.withSize(17.0)
+//        self.depositButton.titleLabel?.font = AppFonts.SemiBold.withSize(17.0)
+        self.depositButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+        self.depositButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
+        self.depositButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
         self.depositButton.setTitle("Deposit", for: .normal)
         self.depositButton.setTitle("Deposit", for: .selected)
+        self.depositButton.shadowColor = AppColors.themeBlack
         self.depositButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.depositButton.setTitleColor(AppColors.themeWhite, for: .selected)
     }

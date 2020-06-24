@@ -409,7 +409,7 @@
 "NonRefundable" = "Non-refundable";
 "NonRefundableExplanation" = "This booking is non-refundable. If this booking is cancelled, or modified, or in the case of no-show, the total price of the reservation will be charged.";
 "FullPaymentExplanation" = "You wil be charged the prepayment of the total price of the reservation immediately or at any time after confirming the booking.";
-"FreeCancellation" = "Free cancellation";
+"FreeCancellation" = "Free Cancellation";
 "FullPaymentNow" = "Full Payment Now";
 "Book" = "Book";
 "Whoops" = "Whoops!";
@@ -453,6 +453,7 @@
 "ApplyPreviousFilter" = "Apply previous filters \n ";
 "Within" = "within";
 "Kms" = "kms";
+"Result unavailable" = "Result unavailable";
 
 // Hotel Results
 "ShowHotelsBeyond" = "Show hotels beyond 20km";
@@ -596,6 +597,7 @@
 "YourBookingIDIs" = "Congratulations, your booking is successful.
 Your booking ID is";
 "YourCaseIDIs" = "Your case ID is";
+"YourBookingID" = "Your booking ID is";
 "AndAllDetailsWillBeSentToYourEmail" = "and all details have been sent to your email.";
 "YouAreAllDoneLabel" = "You’re all done!";
 "AddToAppleWallet" = "Add to Apple Wallet";
@@ -796,7 +798,7 @@ Your booking ID is";
 "ClearFilters" = "Clear Filters";
 "BookingID" = "Booking ID";
 "OpeningBalance" = "Opening Balance";
-"NoBookingAvailable" = "No Bookings Available. We couldn’t find bookings to match your filters. Try changing the filters, or reset them.";
+"NoBookingAvailable" = "No Bookings found.\nWe couldn’t find bookings matching your filters. Try changing the filters, or reset them";
 
 //MARK:- OutStanding Ladger
 "Summary" = "Summary";

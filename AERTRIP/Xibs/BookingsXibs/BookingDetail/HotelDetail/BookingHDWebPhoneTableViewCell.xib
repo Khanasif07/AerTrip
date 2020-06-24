@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -32,26 +32,38 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P52-SE-3Lc" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fGD-Br-pgJ">
                                 <rect key="frame" x="16" y="70.5" width="288" height="0.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <subviews>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P52-SE-3Lc" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="0.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="H13-xA-TCV"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="H13-xA-TCV"/>
+                                    <constraint firstAttribute="bottom" secondItem="P52-SE-3Lc" secondAttribute="bottom" id="Bow-ks-Tee"/>
+                                    <constraint firstAttribute="height" constant="0.5" id="koq-3J-nwR"/>
+                                    <constraint firstItem="P52-SE-3Lc" firstAttribute="leading" secondItem="fGD-Br-pgJ" secondAttribute="leading" id="oq8-5K-aZY"/>
+                                    <constraint firstAttribute="trailing" secondItem="P52-SE-3Lc" secondAttribute="trailing" id="qaT-iU-x8p"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="P52-SE-3Lc" secondAttribute="trailing" constant="16" id="5kt-jb-56K"/>
-                            <constraint firstItem="P52-SE-3Lc" firstAttribute="top" secondItem="n5a-33-cFd" secondAttribute="bottom" constant="21" id="6Mp-6n-ED3"/>
+                            <constraint firstItem="fGD-Br-pgJ" firstAttribute="top" secondItem="n5a-33-cFd" secondAttribute="bottom" constant="21" id="2tJ-Qc-zdm"/>
                             <constraint firstItem="3oC-3r-D6B" firstAttribute="top" secondItem="ux8-d9-Fri" secondAttribute="top" id="A4H-a4-TNG"/>
+                            <constraint firstItem="fGD-Br-pgJ" firstAttribute="leading" secondItem="ux8-d9-Fri" secondAttribute="leading" constant="16" id="E0n-HG-HSI"/>
                             <constraint firstItem="n5a-33-cFd" firstAttribute="top" secondItem="3oC-3r-D6B" secondAttribute="bottom" constant="6" id="F2N-zn-OPn"/>
                             <constraint firstItem="3oC-3r-D6B" firstAttribute="leading" secondItem="ux8-d9-Fri" secondAttribute="leading" constant="16" id="FhT-gt-v4F"/>
                             <constraint firstAttribute="trailing" secondItem="n5a-33-cFd" secondAttribute="trailing" id="FuR-6I-AK1"/>
-                            <constraint firstAttribute="bottom" secondItem="P52-SE-3Lc" secondAttribute="bottom" constant="21" id="Lah-5m-ojb"/>
-                            <constraint firstItem="P52-SE-3Lc" firstAttribute="leading" secondItem="ux8-d9-Fri" secondAttribute="leading" constant="16" id="XmG-Pn-yVm"/>
+                            <constraint firstAttribute="bottom" secondItem="fGD-Br-pgJ" secondAttribute="bottom" constant="21" id="GLX-sS-ocA"/>
                             <constraint firstAttribute="trailing" secondItem="3oC-3r-D6B" secondAttribute="trailing" id="Y1t-Ug-Cxn"/>
                             <constraint firstItem="3oC-3r-D6B" firstAttribute="leading" secondItem="n5a-33-cFd" secondAttribute="leading" id="fe2-sN-9Af"/>
+                            <constraint firstAttribute="trailing" secondItem="fGD-Br-pgJ" secondAttribute="trailing" constant="16" id="ywN-5e-bBX"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -64,7 +76,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="deviderBottomConstraint" destination="Lah-5m-ojb" id="mNN-Zm-zAQ"/>
+                <outlet property="deviderBottomConstraint" destination="GLX-sS-ocA" id="QYI-3K-tGR"/>
                 <outlet property="dividerView" destination="P52-SE-3Lc" id="nZB-Ba-kXb"/>
                 <outlet property="titleLabel" destination="3oC-3r-D6B" id="O5N-uL-y9B"/>
                 <outlet property="titleValueLabel" destination="n5a-33-cFd" id="pQQ-De-Xc1"/>

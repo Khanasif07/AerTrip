@@ -34,6 +34,8 @@ class MyBookingFilterVM {
     // let event Type filter
     var eventType: [Int] = []
     
+    // types of event are present in database
+    var bookigEventAvailableType: [Int] = []
     var isFirstTime: Bool = true
     
     var totalResultCount: Int {
@@ -71,6 +73,26 @@ class MyBookingFilterVM {
         self.bookingToDate = nil
         self.isFirstTime = true
         self.eventType = []
+    }
+    
+    
+    func isFilterAplied() -> Bool{
+        if self.travelFromDate != nil {
+            return true
+        }
+        if self.travelToDate != nil {
+            return true
+        }
+        if !self.eventType.isEmpty {
+            return true
+        }
+        if self.bookingFromDate != nil {
+            return true
+        }
+        if self.bookingToDate != nil {
+            return true
+        }
+        return false
     }
 }
 

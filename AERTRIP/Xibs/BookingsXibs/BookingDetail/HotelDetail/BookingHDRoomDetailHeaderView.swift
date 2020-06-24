@@ -44,8 +44,14 @@ class BookingHDRoomDetailHeaderView: UITableViewHeaderFooterView {
     
     func configureHeader(roomTitle: String,roomType: String,roomDescription: String) {
         self.roomLabel.text = roomTitle
-        self.roomTypeLabel.text =  roomType
+        self.roomTypeLabel.text = roomType
         self.roomDetailLabel.text = roomDescription
+        
+        self.roomLabel.isHidden = roomTitle.isEmpty
+        self.roomTypeLabel.isHidden = roomType.isEmpty
+        self.roomDetailLabel.isHidden = roomDescription.isEmpty
+        
+        self.contentView.layoutIfNeeded()
     }
     
 

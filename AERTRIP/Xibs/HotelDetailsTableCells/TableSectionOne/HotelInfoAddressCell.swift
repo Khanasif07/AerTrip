@@ -66,7 +66,7 @@ class HotelInfoAddressCell: UITableViewCell {
         
         // Color
         self.addressLabel.textColor = AppColors.themeBlack
-        self.deviderView.backgroundColor = AppColors.divider.color
+        //self.deviderView.backgroundColor = AppColors.divider.color
         self.moreBtnOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
         
         // Size
@@ -84,7 +84,7 @@ class HotelInfoAddressCell: UITableViewCell {
         self.addGestureRecognizer(longPressGesture)
         self.addressInfoTextView.addGestureRecognizer(tapGesture)
         
-
+        addressInfoTextView.textContainer.lineBreakMode = .byTruncatingTail
     }
     
     /// AttributeLabelSetup

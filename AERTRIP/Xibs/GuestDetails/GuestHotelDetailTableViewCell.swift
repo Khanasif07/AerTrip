@@ -15,7 +15,7 @@ protocol GuestDetailTableViewCellDelegate: class {
 
 }
 
-class GuestDetailTableViewCell: UITableViewCell {
+class GuestHotelDetailTableViewCell: UITableViewCell {
     // MARK: - IB Outlets
     
     @IBOutlet weak var titleBottomConst: NSLayoutConstraint!
@@ -222,7 +222,7 @@ class GuestDetailTableViewCell: UITableViewCell {
     }
 }
 
-extension GuestDetailTableViewCell: UITextFieldDelegate {
+extension GuestHotelDetailTableViewCell: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField {

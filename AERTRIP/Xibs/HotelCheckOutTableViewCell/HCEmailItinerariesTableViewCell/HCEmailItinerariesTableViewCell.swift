@@ -8,11 +8,14 @@
 
 import UIKit
 
-class EmailItinerariesTextField: UITextField {
-    open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        return false
-    }
-}
+//class EmailItinerariesTextField: UITextField {
+//    open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+//        if action == #selector(copy(_:)) || action == #selector(paste(_:)){
+//            return true
+//        }
+//        return false
+//    }
+//}
 
 protocol HCEmailItinerariesTableViewCellDelegate: class {
     func sendToEmailId(indexPath: IndexPath, emailId: String)
@@ -30,7 +33,7 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
     //================
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var emailTextField: EmailItinerariesTextField! {
+    @IBOutlet weak var emailTextField: UITextField! {
         didSet {
             self.emailTextField.delegate = self
             self.emailTextField.rightViewMode = .whileEditing

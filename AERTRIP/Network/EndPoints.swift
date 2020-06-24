@@ -71,7 +71,10 @@ enum APIEndPoint: String {
     case confirmation = "hotels/confirmation"
     case recheckRates = "hotels/recheck-rates"
     case resutlFallBack = "hotels/result-fallback"
-    
+    case getShareLink = "hotels/get-share-link"
+
+
+
     // Email Itineraries
     case emailItineraries = ""
     //    case emailItineraries              = "dashboard/booking-action?booking_id=9035&type=email"

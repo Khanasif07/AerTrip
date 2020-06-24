@@ -13,12 +13,9 @@ extension FlightPaymentBookingStatusVC{
     
     func getAllDoneCell(_ indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: YouAreAllDoneTableViewCell.reusableIdentifier, for: indexPath) as? YouAreAllDoneTableViewCell else { return UITableViewCell() }
-        if self.viewModel.itinerary.bookingStatus.status.lowercased() == "pending"{
-            cell.configCell(forBookingId: "", forCid: self.viewModel.itinerary.bookingNumber)
-        }else{
-            cell.configCell(forBookingId: self.viewModel.itinerary.bookingNumber, forCid: LocalizedString.na.localized)
-        }
+        cell.configCell(forBookingId: self.viewModel.itinerary.bookingNumber, forCid: LocalizedString.na.localized, isBookingPending: (self.viewModel.itinerary.bookingStatus.status.lowercased() == "pending"))
         cell.delegate = self
+
         return cell
     }
     
@@ -142,6 +139,10 @@ extension FlightPaymentBookingStatusVC{
 
 
 extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate{
+    func shareOnInstagram() {
+        
+    }
+    
     func shareOnFaceBook() {
         printDebug("Share On FaceBook")
 //        guard let url = URL(string: AppConstants.kAppStoreLink) else { return }

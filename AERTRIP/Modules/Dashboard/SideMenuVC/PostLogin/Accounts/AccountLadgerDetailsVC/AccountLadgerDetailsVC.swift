@@ -279,10 +279,20 @@ extension AccountLadgerDetailsVC: MXParallaxHeaderDelegate {
                     sSelf.topNavView.leftButton.isSelected = true
                     sSelf.topNavView.leftButton.tintColor = AppColors.themeGreen
                     if let event = sSelf.viewModel.ladgerEvent, let img = event.iconImage {
-                        sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: img, endText: "  \(event.title)", font: AppFonts.SemiBold.withSize(18.0))
+                        if let abtTxt = event.attributedString{
+                            sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImageAttributedTxt(image: img, attributedText: abtTxt)
+                        }else{
+                            sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: img, endText: "  \(event.title)", font: AppFonts.SemiBold.withSize(18.0))
+                        }
+                        
                     }
                     else {
-                        sSelf.topNavView.navTitleLabel.text = sSelf.viewModel.ladgerEvent?.title ?? ""
+                        if let abtTxt = sSelf.viewModel.ladgerEvent?.attributedString{
+                            sSelf.topNavView.navTitleLabel.attributedText = abtTxt
+                        }else{
+                            sSelf.topNavView.navTitleLabel.text = sSelf.viewModel.ladgerEvent?.title ?? ""
+                        }
+                        
                     }
                     sSelf.headerView?.titleLabel.alpha = 0
                     sSelf.headerView?.bookingIdKeyLabel.alpha = 0

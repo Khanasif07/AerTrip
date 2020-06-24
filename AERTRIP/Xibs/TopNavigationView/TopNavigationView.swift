@@ -20,7 +20,7 @@ extension TopNavigationViewDelegate {
 }
 
 
-class TopNavigationView: UIView {
+class TopNavigationView: PassthroughView {
     
     enum BackgroundType {
         case clear
@@ -45,7 +45,7 @@ class TopNavigationView: UIView {
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var firstRightBtnTrailingConst: NSLayoutConstraint!
-    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var containerView: PassthroughView!
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var navTitleLabel: UILabel!
     @IBOutlet weak var firstRightButton: UIButton!
@@ -53,7 +53,7 @@ class TopNavigationView: UIView {
     @IBOutlet weak var titleLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var dividerView: ATDividerView!
-    @IBOutlet weak var backView: UIView!
+    @IBOutlet weak var backView: PassthroughView!
     @IBOutlet weak var backViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var firstRightButtonTrailingConstraint: NSLayoutConstraint!

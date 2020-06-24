@@ -31,6 +31,7 @@ class ContactTableCell: UITableViewCell {
     
     private var preSelectedCountry: PKCountryModel?
     weak var delegate: ContactTableCellDelegate?
+    var minContactLimit = 10
     
     //MARK:- Life Cycle
     //MARK:-
@@ -72,6 +73,7 @@ class ContactTableCell: UITableViewCell {
             preSelectedCountry = current
             flagImageView.image = current.flagImage
             countryCodeLabel.text = current.countryCode
+            minContactLimit = current.minNSN
         }
         
         contactNumberTextField.delegate = self
@@ -88,10 +90,27 @@ class ContactTableCell: UITableViewCell {
                 sSelf.flagImageView.image = selectedCountry.flagImage
                 sSelf.countryCodeLabel.text = selectedCountry.countryCode
                 sSelf.contactNumberTextField.defaultRegion = selectedCountry.ISOCode
+                sSelf.minContactLimit = selectedCountry.minNSN
                 sSelf.contactNumberTextField.text = sSelf.contactNumberTextField.nationalNumber
                 sSelf.delegate?.setIsdCode(selectedCountry,sender)
             }
         }
+    }
+    
+    internal func checkForErrorStateOfTextfield() {
+        let finalTxt = (contactNumberTextField.text ?? "").removeAllWhitespaces
+
+        titleLabel.textColor = AppColors.themeGray40
+        
+        
+//        self.editableTextField.isError = finalTxt.checkInvalidity(.Email)
+        
+        let isValidEmail = !(finalTxt.alphanumeric.count < self.minContactLimit)
+        if !isValidEmail, !finalTxt.isEmpty {
+           titleLabel.textColor = AppColors.themeRed
+        }
+        let firstName = self.contactNumberTextField.placeholder ?? ""
+        self.contactNumberTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray40 :  AppColors.themeRed])
     }
 }
 
@@ -102,6 +121,21 @@ extension ContactTableCell : UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         PKCountryPicker.default.closePicker()
+        titleLabel.textColor = AppColors.themeGray40
         return true
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let currentString: NSString = textField.text! as NSString
+        let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+        
+        return (newString as String).alphanumeric.count <= self.minContactLimit
+       
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        checkForErrorStateOfTextfield()
+    }
+
 }

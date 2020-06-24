@@ -9,8 +9,8 @@
 import UIKit
 
 protocol TravelDateVCDelegate: class {
-    func didSelect(fromDate: Date, forType: TravelDateVC.UsingFor)
-    func didSelect(toDate: Date, forType: TravelDateVC.UsingFor)
+    func didSelect(fromDate: Date?, forType: TravelDateVC.UsingFor)
+    func didSelect(toDate: Date?, forType: TravelDateVC.UsingFor)
 }
 
 class TravelDateVC: BaseVC {
@@ -42,6 +42,8 @@ class TravelDateVC: BaseVC {
     @IBOutlet weak var fromViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var toViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var toDateCloseBtn: UIButton!
+    @IBOutlet weak var fromDateCloseBtn: UIButton!
     var fromDatePicker: UIDatePicker!
     var toDatePicker: UIDatePicker!
     
@@ -159,10 +161,14 @@ class TravelDateVC: BaseVC {
             self.toDateLabel.text = date.toString(dateFormat: self.dateFormate)
         }
         
+        
         self.fromDateLabel.text = "-"
         if let date = fromDate {
             self.fromDateLabel.text = date.toString(dateFormat: self.dateFormate)
         }
+        
+            self.toDateCloseBtn.isHidden = self.toDateLabel.text == "-" ? true : false
+            self.fromDateCloseBtn.isHidden = self.fromDateLabel.text == "-" ? true : false
     }
     
     private func setupDateSpan() {
@@ -330,5 +336,17 @@ class TravelDateVC: BaseVC {
         }
         
         self.delegate?.didSelect(toDate: datePicker.date, forType: self.currentlyUsingAs)
+    }
+    
+    @IBAction func fromDateCloseBtnAction(_ sender: Any) {
+        self.oldFromDate = nil
+        self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.oldToDate)
+        self.delegate?.didSelect(fromDate: nil, forType: self.currentlyUsingAs)
+    }
+    
+    @IBAction func toDateCloseBtnAction(_ sender: Any) {
+        self.oldToDate = nil
+        self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.oldToDate)
+        self.delegate?.didSelect(toDate: nil, forType: self.currentlyUsingAs)
     }
 }

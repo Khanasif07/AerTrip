@@ -24,8 +24,8 @@ extension FinalCheckOutVC : ApplyCouponTableViewCellDelegate {
     }
 }
 
-extension FinalCheckOutVC : HotelFareSectionHeaderDelegate {
-    func headerViewTapped(_ view: UITableViewHeaderFooterView) {
+extension FinalCheckOutVC : HotelFareTableViewCellDelegate {
+    func headerViewTapped(_ view: HotelFareTableViewCell) {
         printDebug("Header View Tapped")
         if self.isCouponApplied {
             if self.isCouponSectionExpanded {
@@ -33,7 +33,7 @@ extension FinalCheckOutVC : HotelFareSectionHeaderDelegate {
             } else {
                 self.isCouponSectionExpanded = true
             }
-          self.checkOutTableView.reloadData()
+            self.checkOutTableView.reloadRow(at: IndexPath(row: 0, section: 1), with: .automatic)
         }
     }
 }

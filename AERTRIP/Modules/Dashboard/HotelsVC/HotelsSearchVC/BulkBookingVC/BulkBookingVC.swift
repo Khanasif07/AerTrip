@@ -225,6 +225,7 @@ class BulkBookingVC: BaseVC {
         let specTapGest = UITapGestureRecognizer(target: self, action: #selector(specialReqAction))
         self.specialTextContainer.addGestureRecognizer(specTapGest)
         
+        self.navigationController?.presentationController?.delegate = self
     }
     
     private func setSearchFormData() {
@@ -442,7 +443,7 @@ class BulkBookingVC: BaseVC {
     @IBAction func bulkBookingPopUpAction(_ sender: Any) {
         //        dismissKeyboard()
         self.view.endEditing(true)
-        AppFlowManager.default.showBulkRoomSelectionVC(rooms: self.viewModel.roomCounts, adults:  self.viewModel.adultsCount, children:  self.viewModel.childrenCounts, delegate: self)
+        AppFlowManager.default.showBulkRoomSelectionVC(rooms: self.viewModel.roomCounts, adults:  self.viewModel.adultsCount, children:  self.viewModel.childrenCounts, delegate: self, navigationController: self.navigationController)
     }
     
     @IBAction func whereButtonAction(_ sender: UIButton) {
@@ -578,6 +579,7 @@ extension BulkBookingVC: BulkRoomSelectionVCDelegate {
 extension BulkBookingVC: BulkBookingVMDelegate {
     func bulkBookingEnquirySuccess(enquiryId: String) {
         printDebug(enquiryId)
+        self.applyBulkBookingChanges()
         self.searchButtonOutlet.isLoading = false
         //self.hide(animated: true, shouldRemove: true)
         
@@ -739,3 +741,10 @@ extension BulkBookingVC: BulkEnquirySuccessfulVCDelegate {
         self.hide(animated: true, shouldRemove: true)
     }
 }
+extension BulkBookingVC: UIAdaptivePresentationControllerDelegate {
+    
+    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        self.applyBulkBookingChanges()
+    }
+}
+

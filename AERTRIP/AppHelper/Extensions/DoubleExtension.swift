@@ -35,31 +35,25 @@ extension Double {
     func formatedCount() ->String{
         var thousandNum = self/1000
         var millionNum = self/1000000
-        if self > 9999 && self < 1000000{
+        if self >= 1000 && self < 1000000{
             if(floor(thousandNum) == thousandNum){
-                return("\(Int(thousandNum))k").replacingOccurrences(of: ".0", with: "")
+                return("\(Int(thousandNum))k")
             }
-            return("\(thousandNum.roundToPlaces(places: 1))k").replacingOccurrences(of: ".0", with: "")
+            return("\(thousandNum.roundToPlaces(places: 1))k")
         }
-        
-        if self > 1000000000 {
+        if self >= 1000000{
             if(floor(millionNum) == millionNum){
-                return("\(Int(thousandNum))M").replacingOccurrences(of: ".0", with: "")
+                return("\(Int(thousandNum))k")
             }
-            return ("\(millionNum.roundToPlaces(places: 1))B").replacingOccurrences(of: ".0", with: "")
-        } else if self > 1000000 {
-            if(floor(millionNum) == millionNum){
-                return("\(Int(thousandNum))k").replacingOccurrences(of: ".0", with: "")
-            }
-            return ("\(millionNum.roundToPlaces(places: 1))M").replacingOccurrences(of: ".0", with: "")
+            return ("\(millionNum.roundToPlaces(places: 1))M")
         }
         else{
             if(floor(self) == self){
-                return ("\(Int(self))").replacingOccurrences(of: ".0", with: "")
+                return ("\(Int(self))")
             }
-            return ("\(self)").replacingOccurrences(of: ".0", with: "")
+            return ("\(self)")
         }
-
+                
     }
     
     mutating func roundToPlaces(places:Int) -> Double {
