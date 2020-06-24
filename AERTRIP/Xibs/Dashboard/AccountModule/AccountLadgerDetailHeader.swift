@@ -87,7 +87,14 @@ class AccountLadgerDetailHeader: UIView {
             self.bottomContainerBottomConstraint.constant = 0.0
         }
         else {
-            self.titleLabel.text = event.title
+            if let atbTxt = event.attributedString{
+                self.titleLabel.text = nil
+                self.titleLabel.attributedText = atbTxt
+            }else{
+                self.titleLabel.attributedText = nil
+                self.titleLabel.text = event.title
+            }
+//            self.titleLabel.text = event.title
             self.bookingIdKeyLabel.text = LocalizedString.BookingID.localized
             self.bookingIdValueLabel.text = event.bookingId
             self.bottomDetailContainer.isHidden = false

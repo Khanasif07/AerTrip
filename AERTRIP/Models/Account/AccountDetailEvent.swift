@@ -41,6 +41,7 @@ struct AccountDetailEvent {
     
     var id : String = ""
     var title : String = ""
+    var attributedString:NSAttributedString?
     
     private var _creationDate: Date?
     var creationDateStr: String? {
@@ -332,14 +333,17 @@ struct AccountDetailEvent {
                 self.title += ( (self.title.isEmpty ? "" : " → ") + obj.joined(separator: " → "))
             }
         }
-        
+        self.getAttributedText()
         if self.voucherNo.lowercased().contains("srjv") {
             self.title = "\(LocalizedString.CancellationFor.localized)\n\(self.title)"
+            self.attributedString = nil
         } else if self.voucherNo.lowercased().contains("rsrjv") {
             self.title = "\(LocalizedString.ReschedulingFor.localized)\n\(self.title)"
+            self.attributedString = nil
             self.iconImage = #imageLiteral(resourceName: "ic_acc_flightReScheduling")
         }else if self.voucherNo.lowercased().contains("sa/") {
             self.title = "Add-ons"
+            self.attributedString = nil
             self.iconImage = #imageLiteral(resourceName: "ic_acc_addOns")
         }
         
@@ -392,6 +396,23 @@ struct AccountDetailEvent {
                 }
             }
         }
+    }
+    
+    private mutating func getAttributedText(){
+        
+        let ttls = self.title.components(separatedBy: " → ")
+        guard ttls.count > 1 else {return}
+        let attributedString = NSMutableAttributedString(string: "")
+        for (index, element) in ttls.enumerated(){
+            let text = NSAttributedString(string: element, attributes: [.font:AppFonts.Regular.withSize(18), .foregroundColor: AppColors.themeBlack])
+            attributedString.append(text)
+            if index != (ttls.count - 1){
+                attributedString.append(AppGlobals.shared.getStringFromImage(name : "oneway"))
+            }
+            
+        }
+        self.attributedString = attributedString
+        
     }
     
     private mutating func parseForHotelSales(details: JSONDictionary) {

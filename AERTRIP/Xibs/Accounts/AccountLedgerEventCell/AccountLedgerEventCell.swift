@@ -102,7 +102,14 @@ class AccountLedgerEventCell: UITableViewCell {
     
     private func setData() {
         self.iconImageView.image = self.event?.iconImage
-        self.titleLabel.text = self.event?.title
+        if let atbTxt = self.event?.attributedString{
+            self.titleLabel.text = nil
+            self.titleLabel.attributedText = atbTxt
+        }else{
+            self.titleLabel.attributedText = nil
+            self.titleLabel.text = self.event?.title
+        }
+        
         
         self.voucherValueLabel.text = self.event?.voucherName ?? ""
         self.amountValueLabel.attributedText = (self.event?.amount ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(18.0))

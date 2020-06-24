@@ -114,7 +114,14 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         }
         
         self.iconImageView.image = event.iconImage
-        self.titleLabel.text = event.title
+//        self.titleLabel.text = event.title
+        if let atbTxt = event.attributedString{
+            self.titleLabel.text = nil
+            self.titleLabel.attributedText = atbTxt
+        }else{
+            self.titleLabel.attributedText = nil
+            self.titleLabel.text = event.title
+        }
         
         self.titleLabel.AttributedFontAndColorForText(atributedText: LocalizedString.CancellationFor.localized, textFont: AppFonts.Regular.withSize(14), textColor: AppColors.themeRed)
         self.titleLabel.AttributedFontAndColorForText(atributedText: LocalizedString.ReschedulingFor.localized, textFont: AppFonts.Regular.withSize(14), textColor: AppColors.themeRed)
