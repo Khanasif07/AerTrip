@@ -225,7 +225,6 @@ class AdonsVM  {
             description = LocalizedString.Choose_Baggage.localized
         }
         
-        
         if let ind = self.addonsData.firstIndex(where: { (addonsData) -> Bool in
             return addonsData.addonsType == .baggage
         }){
