@@ -60,7 +60,6 @@ struct FlightItinerary {
     //seatmap: ""
     //selected_apf: {leg: ""}
    
-
     
     init(_ json:JSON = JSON()){
         id = json["id"].stringValue

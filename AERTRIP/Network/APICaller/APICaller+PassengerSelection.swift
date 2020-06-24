@@ -47,10 +47,10 @@ extension APICaller{
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                
                 if sucess {
                     completionBlock(true, [], FlightItineraryData(json[APIKeys.data.rawValue]))
-                }
-                else {
+                } else {
                     completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
                 }
                 

@@ -40,7 +40,6 @@ class PassengersSelectionVC: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
     }
     
-    
     func apiCall(){
         GuestDetailsVM.shared.guests.removeAll()
         self.viewModel.setupGuestArray()
@@ -48,7 +47,6 @@ class PassengersSelectionVC: UIViewController {
         self.viewModel.setupLoginData()
         self.viewModel.fetchConfirmationData()
     }
-    
     
     private func registerCell(){
         self.passengerTableview.register(UINib(nibName: "FlightEmptyCell", bundle: nil), forCellReuseIdentifier: "FlightEmptyCell")
@@ -58,8 +56,7 @@ class PassengersSelectionVC: UIViewController {
         self.passengerTableview.register(UINib(nibName: "UseGSTINCell", bundle: nil), forCellReuseIdentifier: "UseGSTINCell")
         self.passengerTableview.register(UINib(nibName: "CommunicationTextCell", bundle: nil), forCellReuseIdentifier: "CommunicarionCell")
     }
-    
-    
+        
     private func setupFont(){
         self.navigationController?.navigationBar.tintColor = AppColors.themeGreen
         self.titleLabel.font = AppFonts.SemiBold.withSize(18)

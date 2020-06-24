@@ -37,7 +37,6 @@ class AdonsVM  {
             self.complementString = complementString
             self.shouldShowComp = shouldShowComp
         }
-        
     }
     
     let adOnsTitles = [LocalizedString.Meals.localized, LocalizedString.Baggage.localized, LocalizedString.Seat.localized, LocalizedString.Others.localized]
