@@ -74,6 +74,7 @@ class PassengerSelectionVM  {
     }
     
     func setupGuestArray() {
+        AddonsDataStore.shared.resetData()
         GuestDetailsVM.shared.guests.removeAll()
         var temp: [ATContact] = []
         guard let bookingObj = self.bookingObject else {return}

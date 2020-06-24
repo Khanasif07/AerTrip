@@ -903,7 +903,6 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     @IBAction func bookButtonClicked(_ sender: Any) {
-        AddonsDataStore.shared.resetData()
         self.delegate?.bookButtonTapped(journeyCombo:journeyCombo)
     }
     

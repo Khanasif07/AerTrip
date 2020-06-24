@@ -579,7 +579,6 @@ class IntFareBreakupVC: UIViewController {
     //MARK:- Button Action
     
     @IBAction func bookButtonClicked(_ sender: Any) {
-        AddonsDataStore.shared.resetData()
         self.delegate?.bookButtonTapped(journeyCombo:journeyCombo)
     }
     
