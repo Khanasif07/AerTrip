@@ -542,6 +542,7 @@ with us!</string>
                             <constraint firstItem="690-M3-wZS" firstAttribute="top" secondItem="DXk-Of-kSW" secondAttribute="top" id="gjB-j5-Cee"/>
                             <constraint firstItem="690-M3-wZS" firstAttribute="leading" secondItem="DXk-Of-kSW" secondAttribute="leading" id="rXs-Fg-xuc"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="Iae-zJ-fki"/>
                     </view>
                     <connections>
                         <outlet property="hotelDetailTableView" destination="690-M3-wZS" id="KqU-ET-D4X"/>
@@ -1824,7 +1825,7 @@ with us!</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XFI-IG-ufI">
-                                <rect key="frame" x="0.0" y="131.5" width="414" height="730.5"/>
+                                <rect key="frame" x="0.0" y="131.5" width="414" height="764.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t8O-qf-ZFP" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
@@ -1855,7 +1856,7 @@ with us!</string>
                         <constraints>
                             <constraint firstItem="XFI-IG-ufI" firstAttribute="leading" secondItem="rKf-G2-n9x" secondAttribute="leading" id="2nt-fa-AO6"/>
                             <constraint firstItem="XFI-IG-ufI" firstAttribute="top" secondItem="F7d-bq-YSK" secondAttribute="bottom" id="UFk-6B-ijX"/>
-                            <constraint firstItem="rKf-G2-n9x" firstAttribute="bottom" secondItem="XFI-IG-ufI" secondAttribute="bottom" id="iQy-Ci-EmJ"/>
+                            <constraint firstAttribute="bottom" secondItem="XFI-IG-ufI" secondAttribute="bottom" id="iQy-Ci-EmJ"/>
                             <constraint firstItem="F7d-bq-YSK" firstAttribute="leading" secondItem="rKf-G2-n9x" secondAttribute="leading" id="kR4-VL-r5u"/>
                             <constraint firstItem="aKq-04-O9H" firstAttribute="top" secondItem="rKf-G2-n9x" secondAttribute="top" id="lRe-h5-YYO"/>
                             <constraint firstItem="aKq-04-O9H" firstAttribute="leading" secondItem="rKf-G2-n9x" secondAttribute="leading" id="lXS-4s-ib9"/>
@@ -2400,13 +2401,13 @@ with us!</string>
                                                 <rect key="frame" x="16" y="11.5" width="382" height="21"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Net Refund" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXo-Ws-P9t">
-                                                        <rect key="frame" x="0.0" y="0.0" width="126" height="21"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="126.5" height="21"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYS-pr-Met">
-                                                        <rect key="frame" x="126" y="0.0" width="256" height="21"/>
+                                                        <rect key="frame" x="126.5" y="0.0" width="255.5" height="21"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>

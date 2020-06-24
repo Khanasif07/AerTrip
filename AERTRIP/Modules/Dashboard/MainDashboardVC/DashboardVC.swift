@@ -336,12 +336,17 @@ extension DashboardVC  {
             var transform : CGFloat = 0.0
             
             let offset = scrollView.contentOffset
-            guard offset.y <= UIApplication.shared.statusBarFrame.height + 44 else {
-                scrollView.contentOffset.y = UIApplication.shared.statusBarFrame.height + 44
-                return
-            }
+            
+            // MARK: Commented by Rishabh for vertical rubberband effect
+//            guard offset.y <= UIApplication.shared.statusBarFrame.height + 44 else {
+//                scrollView.contentOffset.y = UIApplication.shared.statusBarFrame.height + 44
+//                return
+//            }
             
             let upperBound = scrollView.contentSize.height - scrollView.bounds.height
+            
+            print("offset: \(offset.y), uppderBound: \(upperBound)")
+            
             guard 0...upperBound ~= offset.y else {
                 return
             }
@@ -441,7 +446,9 @@ extension DashboardVC  {
     }
     
     private func updateSegmentYPosition(for scrolledY: CGFloat) {
-        let valueToBe: CGFloat = 20.0
+        // MARK: Commented by Rishabh for vertical rubberband effect and top spacing
+        //        let valueToBe: CGFloat = 20
+        let valueToBe: CGFloat = UIApplication.shared.statusBarFrame.height > 20 ? 30 : 25
         
         let ratio = valueToBe / (headerTopConstraint.constant + headerView.height)
         
@@ -450,7 +457,9 @@ extension DashboardVC  {
     }
     
     private func updateInnerScrollTop(for scrolledY: CGFloat) {
-        let valueToDecrease: CGFloat = 18.0
+        // MARK: Commented by Rishabh as dashboard icons were getting cut
+        //        let valueToDecrease: CGFloat = 18.0
+        let valueToDecrease: CGFloat = UIApplication.shared.statusBarFrame.height > 20 ? 6 : 18
         let ratio = valueToDecrease / (headerTopConstraint.constant + headerView.height)
         let final = (ratio * scrolledY)
         if final == 0 {
