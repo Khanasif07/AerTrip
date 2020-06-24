@@ -1501,8 +1501,8 @@ struct BillingDetail {
         }
         
         if let obj = json["gst"] {
-            self.gst = !"\(obj)".removeNull.isEmpty ? "\(obj)" : "-"
-            self.gst = self.gst.isEmpty ? LocalizedString.dash.localized : self.gst
+            self.gst = !"\(obj)".removeNull.isEmpty ? "\(obj)" : ""
+            //self.gst = self.gst.isEmpty ? LocalizedString.dash.localized : self.gst
         }
         
         if let obj = json["address"] as? JSONDictionary {

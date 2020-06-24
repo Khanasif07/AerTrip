@@ -28,6 +28,11 @@ class BookingPaymentDetailsTableViewCell: UITableViewCell {
         self.configUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.costLabel.attributedText = nil
+    }
+    
     // Mark:- Functions
     //================
     private func configUI() {
@@ -52,7 +57,7 @@ class BookingPaymentDetailsTableViewCell: UITableViewCell {
         
         self.costLabel.text = price
         if let prc = price, let prcD = prc.toDouble {
-            self.costLabel.text = prcD.delimiterWithSymbol
+            self.costLabel.attributedText = prcD.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
         }
     }
     

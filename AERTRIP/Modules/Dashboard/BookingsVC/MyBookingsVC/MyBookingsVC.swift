@@ -291,6 +291,10 @@ extension MyBookingsVC: TopNavigationViewDelegate {
         printDebug("topNavBarFirstRightButtonAction")
         self.dismissKeyboard()
         AppFlowManager.default.showBookingFilterVC(self)
+        topNavBar.firstRightButton.isEnabled = false
+        delay(seconds: 0.2) { [weak self] in
+            self?.topNavBar.firstRightButton.isEnabled = true
+        }
     }
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {

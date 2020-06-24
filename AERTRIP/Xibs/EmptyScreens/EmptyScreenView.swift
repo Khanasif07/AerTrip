@@ -510,12 +510,12 @@ extension EmptyScreenView {
         self.messageLabelTopConstraint.constant = 0
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
         self.messageLabel.textColor = AppColors.themeBlack
-        self.messageLabel.text = LocalizedString.Oops.localized
+        self.messageLabel.text = LocalizedString.NoBookingAvailable.localized
         
         self.searchTextLabel.isHidden = false
         self.searchTextLabel.font = AppFonts.Regular.withSize(18.0)
         self.searchTextLabel.textColor = AppColors.themeGray60
-        self.searchTextLabel.text = LocalizedString.NoBookingAvailable.localized
+        self.searchTextLabel.text = LocalizedString.NoBookingAvailableMessage.localized
         
         self.hideBottomButton(isHidden: false)
         self.bottomButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
@@ -531,12 +531,12 @@ extension EmptyScreenView {
         self.messageLabelTopConstraint.constant = 0
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
         self.messageLabel.textColor = AppColors.themeBlack
-        self.messageLabel.text = LocalizedString.Oops.localized
+        self.messageLabel.text = LocalizedString.NoBookingAvailable.localized
         
         self.searchTextLabel.isHidden = false
         self.searchTextLabel.font = AppFonts.Regular.withSize(18.0)
         self.searchTextLabel.textColor = AppColors.themeGray60
-        self.searchTextLabel.text = LocalizedString.NoBookingAvailable.localized
+        self.searchTextLabel.text = LocalizedString.NoBookingAvailableMessage.localized
         
         self.hideBottomButton(isHidden: false)
         self.bottomButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
@@ -552,12 +552,12 @@ extension EmptyScreenView {
         self.messageLabelTopConstraint.constant = 0
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
         self.messageLabel.textColor = AppColors.themeBlack
-        self.messageLabel.text = LocalizedString.Oops.localized
+        self.messageLabel.text = LocalizedString.NoBookingAvailable.localized
         
         self.searchTextLabel.isHidden = false
         self.searchTextLabel.font = AppFonts.Regular.withSize(18.0)
         self.searchTextLabel.textColor = AppColors.themeGray60
-        self.searchTextLabel.text = LocalizedString.NoBookingAvailable.localized
+        self.searchTextLabel.text = LocalizedString.NoBookingAvailableMessage.localized
         
         self.hideBottomButton(isHidden: false)
         self.bottomButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)

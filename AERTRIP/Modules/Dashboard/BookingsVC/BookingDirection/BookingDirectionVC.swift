@@ -31,7 +31,7 @@ class BookingDirectionVC: BaseVC {
         self.topNavigationView.delegate = self
         self.topNavigationView.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.topNavigationView.navTitleLabel.textColor = AppColors.textFieldTextColor51
-        self.topNavigationView.configureNavBar(title: LocalizedString.Directions.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
+        self.topNavigationView.configureNavBar(title: LocalizedString.Directions.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true)
     }
     
     private func registerXib() {
@@ -75,8 +75,10 @@ extension BookingDirectionVC: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ViewProfileDetailTableViewSectionView") as? ViewProfileDetailTableViewSectionView else {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
-        
+        headerView.headerLabel.textColor = AppColors.themeGray60
+        headerView.headerLabel.font = AppFonts.Regular.withSize(14)
         headerView.headerLabel.text = self.viewModel.sectionData[section]
+        headerView.topSeparatorView.isHidden = section == 0
         return headerView
     }
     

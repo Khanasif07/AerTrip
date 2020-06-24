@@ -28,6 +28,8 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         switch currentSection[indexPath.row] {
         case .weatherHeaderCell, .weatherInfoCell, .weatherFooterCell:
             return (self.viewModel.bookingDetail?.tripWeatherData.isEmpty ?? true) ? CGFloat.leastNonzeroMagnitude : UITableView.automaticDimension
+        case .gstCell:
+            return self.viewModel.bookingDetail?.billingInfo?.gst.isEmpty ?? true ? CGFloat.leastNonzeroMagnitude : UITableView.automaticDimension
          default: return UITableView.automaticDimension
         }
     }
@@ -471,6 +473,8 @@ extension FlightBookingsDetailsVC: SelectTripVCDelegate {
     func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel, tripDetails: TripDetails?) {
         printDebug("\(trip)")
         self.updatedTripDetail = trip
+        self.viewModel.bookingDetail?.tripInfo?.tripId = trip.id
+        self.viewModel.bookingDetail?.tripInfo?.name = trip.name
         AppToast.default.showToastMessage(message: LocalizedString.FlightTripChangeMessage.localized + "\(trip.name)")
         if let indexPath = self.tripChangeIndexPath {
             self.bookingDetailsTableView.reloadRow(at: indexPath, with: .none)

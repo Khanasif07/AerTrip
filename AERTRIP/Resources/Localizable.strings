@@ -798,7 +798,8 @@ Your booking ID is";
 "ClearFilters" = "Clear Filters";
 "BookingID" = "Booking ID";
 "OpeningBalance" = "Opening Balance";
-"NoBookingAvailable" = "No Bookings found.\nWe couldn’t find bookings matching your filters. Try changing the filters, or reset them";
+"NoBookingAvailable" = "No Bookings Found";
+"NoBookingAvailableMessage" = "We couldn’t find bookings matching your filters. Try changing the filters, or reset them";
 
 //MARK:- OutStanding Ladger
 "Summary" = "Summary";

@@ -69,7 +69,7 @@ class FlightCarriersTableViewCell: UITableViewCell {
         self.remainingCodesLabel.text = "+\(flightNumbers.count - 1) \(LocalizedString.More.localized)"
         let firstCarrierCode = carrierCode.first ?? ""
         let firstFlightNumber = flightNumbers.first ?? ""
-        self.flightCode.text = (firstCarrierCode + firstFlightNumber)
+        self.flightCode.text = (firstCarrierCode + " " + firstFlightNumber)
         self.remainingCodesLabel.isHidden = false
         self.setupImageWith(carrierCode: carrierCode, carriers: carriers)
         
@@ -127,7 +127,7 @@ class FlightCarriersTableViewCell: UITableViewCell {
     func configureCellWith(_ leg: IntLeg, airLineDetail:[String:String]){
         let firstCarrierCode = leg.al.first ?? ""
         let firstFlightNumber = leg.flightsWithDetails.first?.fn ?? ""
-        self.flightCode.text = (firstCarrierCode + firstFlightNumber)
+        self.flightCode.text = (firstCarrierCode + " " + firstFlightNumber)
         self.remainingCodesLabel.isHidden = false
         let codes = leg.flightsWithDetails.map{$0.al}
         var carriers = [String]()

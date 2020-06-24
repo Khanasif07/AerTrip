@@ -38,12 +38,7 @@ class EventTypeVC: BaseVC {
     //================
     override func viewDidLoad() {
         super.viewDidLoad()
-        for type in MyBookingFilterVM.shared.bookigEventAvailableType {
-            if let product = ProductType(rawValue: type) {
-                eventType.append(product)
-            }
-        }
-        self.eventTypeTableView.reloadData()
+        setFilterValues()
     }
     
     override func initialSetup() {
@@ -55,7 +50,17 @@ class EventTypeVC: BaseVC {
     private func registerNibs() {
         self.eventTypeTableView.registerCell(nibName: AmenitiesTableViewCell.reusableIdentifier)
     }
-    
+    internal func setFilterValues() {
+        eventType.removeAll()
+        selectedIndexPath = nil
+        oldSelection.removeAll()
+        for type in MyBookingFilterVM.shared.bookigEventAvailableType {
+            if let product = ProductType(rawValue: type) {
+                eventType.append(product)
+            }
+        }
+        self.eventTypeTableView?.reloadData()
+    }
 }
 
 //Mark:- Extensions

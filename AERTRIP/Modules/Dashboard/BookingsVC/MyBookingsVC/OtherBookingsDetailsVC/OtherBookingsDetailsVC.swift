@@ -48,6 +48,7 @@ class OtherBookingsDetailsVC: BaseVC {
             self.dataTableView.contentInset = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.dataTableView.estimatedSectionHeaderHeight = 0
             self.dataTableView.sectionHeaderHeight = 0
+            self.dataTableView.backgroundColor = AppColors.screensBackground.color
         }
     }
     

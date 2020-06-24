@@ -75,7 +75,7 @@ class WeatherInfoTableViewCell: UITableViewCell {
         whetherLabel.attributedText = weatherData?.maxTemperature == 0 ||
             weatherData?.minTemperature == 0 ? NSAttributedString(string: "              -") : iconWithText
         
-        self.containerViewBottomConstraint.constant = self.isLastCell ? 28.0 : 0.0
+        self.containerViewBottomConstraint.constant = self.isLastCell ? 26.0 : 0.0
     }
     
     // get city name with date attributes

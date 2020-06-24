@@ -89,7 +89,7 @@ class BookingCallVC: BaseVC {
             let title = self.viewModel.airportData[indexPath.row].city + "," + self.viewModel.airportData[indexPath.row].countryCode
             bookingCell.configureCell(code: self.viewModel.airportData[indexPath.row].ataCode, title: title, phoneLabel: self.viewModel.airportData[indexPath.row].phone, cellType: .airports)
             bookingCell.dividerView.isHidden = false//self.viewModel.airportData.count - 1 == indexPath.row
-            bookingCell.dividerViewLeadingConst.constant = self.viewModel.airportData.count - 1 == indexPath.row ? 0.0 : 43.0
+            bookingCell.dividerViewLeadingConst.constant = self.viewModel.airportData.count - 1 == indexPath.row ? 0.0 : 59.0
             
             return bookingCell
         }
@@ -113,7 +113,7 @@ class BookingCallVC: BaseVC {
             bookingCell.configureCell(code: "", title: self.viewModel.hotelName, phoneLabel: self.viewModel.hotelData[indexPath.row].phone, cellType: .none)
             bookingCell.dividerView.isHidden = self.viewModel.hotelData.count - 1 == indexPath.row
             bookingCell.dividerView.isHidden = indexPath.section == self.viewModel.section.count - 1 ? false : true
-            bookingCell.dividerViewLeadingConst.constant = indexPath.section == self.viewModel.section.count - 1 ? 0.0 : 43.0
+            bookingCell.dividerViewLeadingConst.constant = indexPath.section == self.viewModel.section.count - 1 ? 0.0 : 59.0
             return bookingCell
         }
     }

@@ -64,7 +64,7 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         case .mobileCell:
             return UITableView.automaticDimension
         case .gstCell:
-            return UITableView.automaticDimension
+            return self.viewModel.bookingDetail?.billingInfo?.gst.isEmpty ?? true ? CGFloat.leastNonzeroMagnitude : UITableView.automaticDimension
         case .billingAddressCell:
             return UITableView.automaticDimension
         case .flightsOptionsCell:

@@ -59,13 +59,16 @@ class MyBookingFilterVC: BaseVC {
         let height = UIApplication.shared.statusBarFrame.height
         self.navigationViewTopConstraint.constant = CGFloat(height)
         
-        self.hide(animated: false)
-        delay(seconds: 0.01) { [weak self] in
-            self?.show(animated: true)
+        delay(seconds: 1.0) { [weak self] in
+           self?.setupGesture()
         }
-        self.setupGesture()
+        
         self.setUpViewPager()
         self.setBadge()
+        self.hide(animated: false)
+//        delay(seconds: 0.01) { [weak self] in
+            self.show(animated: true)
+//        }
     }
     
     override func setupTexts() {
@@ -113,9 +116,13 @@ class MyBookingFilterVC: BaseVC {
         if  MyBookingFilterVM.shared.isFilterAplied() {
             self.topNavBar.firstRightButton.isEnabled = true
             self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
+            self.topNavBar.leftButton.isEnabled = true
+            self.topNavBar.leftButton.setTitleColor(AppColors.themeGreen, for: .normal)
         } else {
             self.topNavBar.firstRightButton.isEnabled = false
             self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+            self.topNavBar.leftButton.isEnabled = false
+            self.topNavBar.leftButton.setTitleColor(AppColors.themeGray40, for: .normal)
         }
     }
     
@@ -210,7 +217,7 @@ class MyBookingFilterVC: BaseVC {
     
     //MARK:- IBActions
     @objc func  outsideAreaTapped() {
-        self.cancelAllOperation()
+        //self.cancelAllOperation()
         self.hide(animated: true, shouldRemove: true)
     }
 }
@@ -220,8 +227,20 @@ extension MyBookingFilterVC: TopNavigationViewDelegate {
     
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //clear all
+        MyBookingFilterVM.shared.setToDefault()
         self.sendDataChangedNotification(data: ATNotification.myBookingFilterCleared)
        // self.hide(animated: true, shouldRemove: true)
+        
+        self.allChildVCs.forEach { (viewController) in
+            if let vc = viewController as? TravelDateVC {
+                vc.setFilterValues()
+            }
+            else if let vc = viewController as? EventTypeVC {
+                vc.setFilterValues()
+            }
+            
+        }
+        setBadge()
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {

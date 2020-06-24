@@ -27,6 +27,8 @@ extension OtherBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         switch currentSection[indexPath.row] {
         case .policyDetailCell:
             return 28.0
+        case .gstCell:
+            return self.viewModel.bookingDetail?.billingInfo?.gst.isEmpty ?? true ? CGFloat.leastNonzeroMagnitude : UITableView.automaticDimension
         default:
             return UITableView.automaticDimension
         }

@@ -49,13 +49,18 @@ class PaymentPendingTableViewCell: UITableViewCell {
     internal func configCell(price: Double) {
         let attributedString = NSMutableAttributedString()
         let textAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(20.0), NSAttributedString.Key.foregroundColor: AppColors.themeWhite] as [NSAttributedString.Key : Any]
-        let priceAttribute = [NSAttributedString.Key.font: AppFonts.SemiBold.withSize(20.0), NSAttributedString.Key.foregroundColor: AppColors.themeWhite]
+        //let priceAttribute = [NSAttributedString.Key.font: AppFonts.SemiBold.withSize(20.0), NSAttributedString.Key.foregroundColor: AppColors.themeWhite]
         let text = price > 0 ? LocalizedString.PaymentPending.localized :LocalizedString.AmountToBeRefunded.localized
         let textAttributedString = NSAttributedString(string: text, attributes: textAttribute)
-        let priceAttributedString = NSAttributedString(string: price.delimiterWithSymbol, attributes: priceAttribute)
+        //let priceAttributedString = NSAttributedString(string: price.delimiterWithSymbol, attributes: priceAttribute)
+        
+        let priceAttributedString = price.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+        
         attributedString.append(textAttributedString)
         attributedString.append(priceAttributedString)
         self.priceLabel.attributedText = attributedString
+        
+        
     }
     
     
