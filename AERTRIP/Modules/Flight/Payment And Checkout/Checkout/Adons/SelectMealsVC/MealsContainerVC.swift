@@ -67,6 +67,7 @@ class MealsContainerVC: BaseVC {
         setupNavBar()
         setUpViewPager()
         calculateTotalAmount()
+        self.delegate?.mealsUpdated()
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
@@ -157,11 +158,14 @@ extension MealsContainerVC: TopNavigationViewDelegate {
             mealsArray.enumerated().forEach { (addonIndex,_) in
                 item.selectMealsVM.updateContactInMeal(mealIndex: addonIndex, contacts: [], autoSelectedFor: [])
             AddonsDataStore.shared.flightsWithData[index].meal.addonsArray[addonIndex].mealsSelectedFor = []
+             
+                item.selectMealsVM.initializeFreeMealsToPassengers()
             }
             item.reloadData()
         }
         calculateTotalAmount()
         self.delegate?.mealsUpdated()
+        self.delegate?.resetMeals()
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
@@ -217,10 +221,10 @@ extension MealsContainerVC : SelectMealDelegate {
                 vc.selectPassengersVM.adonsData = forAdon
                 vc.selectPassengersVM.setupFor = .baggage
                 vc.selectPassengersVM.flightKys = [currentFlightKey]
+                vc.selectPassengersVM.freeMeal = self.mealsContainerVM.allChildVCs[vcIndex].selectMealsVM.freeMeal
                 vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
-                    guard let weakSelf = self else { return }
-                   
-                    weakSelf.mealsContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: contacts)
+                guard let weakSelf = self else { return }
+                weakSelf.mealsContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: contacts)
                     weakSelf.calculateTotalAmount()
                 }
                 present(vc, animated: true, completion: nil)

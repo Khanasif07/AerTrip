@@ -20,7 +20,6 @@ class SelectMealsVM {
     weak var delegate : SelectMealVmDelegate?
     var freeMeal : Bool = false
     
-    
     init(){
         
     }
@@ -30,7 +29,8 @@ class SelectMealsVM {
         self.currentFlightKey = currentFlightKey
         self.addonsDetails = addonsDetails
         self.freeMeal = freeMeal
-        initializeFreeMealsToPassengers()
+//        self.freeMeal = true
+//        initializeFreeMealsToPassengers()
     }
     
     func getMeals() -> [AddonsDataCustom] {
@@ -105,6 +105,7 @@ class SelectMealsVM {
                 }
             }
             addonsDetails.addonsArray[firstMeal].mealsSelectedFor = mealsSelectedFor
+            AddonsDataStore.shared.flightsWithData[vcIndex].meal.addonsArray[firstMeal].mealsSelectedFor = mealsSelectedFor
         }
     }
     

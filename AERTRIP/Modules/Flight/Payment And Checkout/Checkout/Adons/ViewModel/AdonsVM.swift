@@ -47,10 +47,10 @@ class AdonsVM  {
     weak var delegate : BookFlightDelegate?
     var bookingObject = BookFlightObject()
     
-   
     var isComplementaryMealAdded : Bool {
         let dataStore = AddonsDataStore.shared
-        return dataStore.itinerary.freeMeal || dataStore.itinerary.freeMealSeat
+        return dataStore.isFreeMeal
+//        return dataStore.itinerary.freeMeal || dataStore.itinerary.freeMealSeat
     }
     
     var getComplementaryMealString : String {
@@ -59,7 +59,8 @@ class AdonsVM  {
         
     var isFreeSeatsAdded : Bool {
           let dataStore = AddonsDataStore.shared
-          return dataStore.itinerary.freeSeats || dataStore.itinerary.freeMealSeat
+            return dataStore.isFreeSeat
+         // return dataStore.itinerary.freeSeats || dataStore.itinerary.freeMealSeat
       }
       
        var getFreeSeatsString : String {
@@ -79,9 +80,7 @@ class AdonsVM  {
         }
         
         if !flightsWithBaggage.isEmpty {
-            
             addonsData.append(AdonsVM.AddonsData(type: .baggage, heading: LocalizedString.Baggage.localized, description: LocalizedString.Choose_Baggage.localized, complementString: "", shouldShowComp: false))
-            
         }
         
         addonsData.append(AdonsVM.AddonsData(type: .seat, heading: LocalizedString.Seat.localized, description: LocalizedString.Reserve_Seat.localized, complementString: getFreeSeatsString, shouldShowComp: isFreeSeatsAdded))
@@ -316,6 +315,48 @@ class AdonsVM  {
                   self.addonsData[ind].description = descStr
               }
     }
+    
+    
+    func initializeFreeMealsToPassengers(){
+         
+        let dataStore = AddonsDataStore.shared
+        
+        dataStore.flightsWithData.enumerated().forEach { (flightINdex, flight) in
+            
+            if !flight.freeMeal { return }
+            var mealsSelectedFor : [ATContact] = []
+            
+            if let firstMeal = flight.meal.addonsArray.firstIndex(where: { (meal) -> Bool in
+                return meal.price == 0
+            }){
+                guard let allPassengers = GuestDetailsVM.shared.guests.first else { return }
+                
+                allPassengers.forEach { (contact) in
+                    
+                    if contact.passengerType == .Adult && flight.meal.addonsArray[firstMeal].isAdult {
+                        mealsSelectedFor.append(contact)
+                    }
+                    
+                    if contact.passengerType == .child && flight.meal.addonsArray[firstMeal].isChild {
+                        mealsSelectedFor.append(contact)
+                    }
+                    
+                    if contact.passengerType == .infant && flight.meal.addonsArray[firstMeal].isInfant {
+                        mealsSelectedFor.append(contact)
+                    }
+                }
+//                addonsDetails.addonsArray[firstMeal].mealsSelectedFor = mealsSelectedFor
+                AddonsDataStore.shared.flightsWithData[flightINdex].meal.addonsArray[firstMeal].mealsSelectedFor = mealsSelectedFor
+            }
+            
+            
+        }
+        
+         
+          
+          
+      }
+    
     
     func createParamForItineraryApi(){
         let dataStore = AddonsDataStore.shared

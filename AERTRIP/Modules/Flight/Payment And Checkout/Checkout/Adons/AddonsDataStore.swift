@@ -32,6 +32,9 @@ class AddonsDataStore {
     var originalSeatMapModel: SeatMapModel?
     var seatsAllFlightsData: [SeatMapModel.SeatMapFlight]?
     
+    var isFreeMeal = false
+    var isFreeSeat = false
+    
     init(){
         
     }
@@ -65,9 +68,31 @@ class AddonsDataStore {
             guard let firstLeg = leg.first else { return }
             flightsWithData[index].freeMeal = firstLeg.freeMeal
             flightsWithData[index].freeSeat = firstLeg.freeSeat
+            
+            if !self.isFreeMeal{
+                self.isFreeMeal = firstLeg.freeMeal
+            }
+            
+            if !self.isFreeSeat{
+                self.isFreeSeat = firstLeg.freeSeat
+            }
+            
         }
         
+       //setUpForCheckingMeal()
+        
      }
+    
+    func setUpForCheckingMeal() {
+        if flightsWithData.isEmpty { return }
+        isFreeMeal = true
+        flightsWithData[0].freeMeal = true
+        flightsWithData[0].meal.addonsArray.enumerated().forEach { (ind, mealInd) in
+            if ind % 3 == 0 {
+                flightsWithData[0].meal.addonsArray[ind].price = 0
+            }
+        }
+    }
         
     func getMealsSelectionCount() -> Int {
         

@@ -13,6 +13,7 @@ protocol AddonsUpdatedDelegate : class {
     func mealsUpdated()
     func othersUpdated()
     func seatsUpdated()
+    func resetMeals()
 }
 
 class AddOnVC : BaseVC {
@@ -55,6 +56,8 @@ extension AddOnVC {
     
     private func initialSetups() {
         self.adonsVm.setAdonsOptions()
+        self.adonsVm.initializeFreeMealsToPassengers()
+        self.mealsUpdated()
         configureTableView()
         setupBottomView()
     }
@@ -234,5 +237,11 @@ extension AddOnVC : AddonsUpdatedDelegate {
         self.adonsVm.setSeatsString()
         self.adonsTableView.reloadData()
     }
+    
+    func resetMeals() {
+//        self.adonsVm.initializeFreeMealsToPassengers()
+//        self.adonsTableView.reloadData()
+     }
+     
     
 }

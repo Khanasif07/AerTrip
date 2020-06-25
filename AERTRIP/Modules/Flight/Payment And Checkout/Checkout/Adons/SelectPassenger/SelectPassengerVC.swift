@@ -45,7 +45,9 @@ class SelectPassengerVC : BaseVC {
     
     override func setupTexts() {
         super.setupTexts()
-     self.doneButton.setTitle(self.selectPassengersVM.selectedContacts.isEmpty ? LocalizedString.Cancel.localized : LocalizedString.Done.localized, for: UIControl.State.normal)
+        self.doneButton.setTitle(LocalizedString.Cancel.localized, for: UIControl.State.normal)
+        
+//     self.doneButton.setTitle(self.selectPassengersVM.selectedContacts.isEmpty ? LocalizedString.Cancel.localized : LocalizedString.Done.localized, for: UIControl.State.normal)
     }
     
     @IBAction func doneButtonTapped(_ sender: UIButton) {
@@ -58,11 +60,17 @@ class SelectPassengerVC : BaseVC {
 extension SelectPassengerVC {
     
     func setUpSubView(){
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(backViewTapped))
+//        transparentBackView.addGestureRecognizer(tap)
         self.doneButton.roundedCorners(cornerRadius: 13)
         self.popUpBackView.roundedCorners(cornerRadius: 13)
         self.selectPassengersVM.getAllowedPassengerForParticularAdon()
         configureCollectionView()
         setupForView()
+    }
+    
+    @objc func backViewTapped(){
+        dismiss(animated: true, completion: nil)
     }
     
     func configureCollectionView(){
@@ -180,13 +188,18 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
         if let index = self.selectPassengersVM.selectedContacts.firstIndex(where: { (cont) -> Bool in
             cont.id == self.selectPassengersVM.allowedPassengers[indexPath.item].id
         }){
+            if self.selectPassengersVM.freeMeal {
+                AppToast.default.showToastMessage(message: LocalizedString.Passenger_Cannot_Be_Deselected_For_Meal.localized)
+                return }
+            self.doneButton.setTitle(LocalizedString.Done.localized, for: UIControl.State.normal)
+
             self.selectPassengersVM.selectedContacts.remove(at: index)
         }else{
-        self.selectPassengersVM.selectedContacts.append(self.selectPassengersVM.allowedPassengers[indexPath.item])
+            self.doneButton.setTitle(LocalizedString.Done.localized, for: UIControl.State.normal)
+            self.selectPassengersVM.selectedContacts.append(self.selectPassengersVM.allowedPassengers[indexPath.item])
         }
         
         collectionView.reloadItems(at: [IndexPath(item: indexPath.item, section: 0)])
-        self.doneButton.setTitle(self.selectPassengersVM.selectedContacts.isEmpty ? LocalizedString.Cancel.localized : LocalizedString.Done.localized, for: UIControl.State.normal)
     }
     
 }

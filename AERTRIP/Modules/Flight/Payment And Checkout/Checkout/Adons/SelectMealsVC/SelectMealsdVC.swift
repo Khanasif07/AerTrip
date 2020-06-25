@@ -106,10 +106,9 @@ extension SelectMealsdVC : UITableViewDelegate, UITableViewDataSource {
         }
         
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if self.selectMealsVM.freeMeal { return }
+        if self.selectMealsVM.freeMeal && self.selectMealsVM.addonsDetails.addonsArray.count < 2 { return }
+        
         self.delegate?.addPassengerToMeal(forAdon : self.selectMealsVM.getMeals()[indexPath.row] , vcIndex: self.selectMealsVM.getVcIndex(), currentFlightKey: self.selectMealsVM.getCurrentFlightKey(), mealIndex: indexPath.row, selectedContacts: self.selectMealsVM.getMeals()[indexPath.row].mealsSelectedFor)
-    
     }
-    
 }
 

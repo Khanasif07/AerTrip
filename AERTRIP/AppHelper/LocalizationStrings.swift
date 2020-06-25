@@ -1095,7 +1095,7 @@ enum LocalizedString: String {
     
     case Free_Seats_Available = "Free_Seats_Available"
 
-    
+    case Passenger_Cannot_Be_Deselected_For_Meal = "Passenger_Cannot_Be_Deselected_For_Meal"
     
    
     

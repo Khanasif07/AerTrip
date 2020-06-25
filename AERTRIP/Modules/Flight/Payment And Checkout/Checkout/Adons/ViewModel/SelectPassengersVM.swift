@@ -49,6 +49,7 @@ class SelectPassengersVM {
         }
     }
 
+    var freeMeal = false
     
     func resetFlightData(_ selectedPassenger: ATContact?) {
         resetFlightDataFor(&flightData.md, selectedPassenger)

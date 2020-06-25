@@ -55,7 +55,6 @@ class MealsContainerVM {
                     }){
                         allChildVCs[vcIndex].selectMealsVM.addonsDetails.addonsArray[mealInd].mealsSelectedFor.remove(at: contIndex)
                         allChildVCs[vcIndex].selectMealsVM.addonsDetails.addonsArray[mealInd].autoSelectedFor = ""
-
                     }
                 }
                 
