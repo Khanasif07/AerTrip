@@ -23,7 +23,7 @@ class SeatMapVM {
         }
     }
     
-    var passengersFromBooking = [Pax]()
+    var passengersFromBooking = [ATContact]()
         
 //    var seatLayout: SeatCollCellVM.PlaneSeatsLayout = .ten
     var curSelectedDeck: DeckType = .main

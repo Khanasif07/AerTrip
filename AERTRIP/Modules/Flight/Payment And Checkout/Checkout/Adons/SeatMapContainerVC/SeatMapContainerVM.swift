@@ -12,9 +12,26 @@ protocol SeatMapContainerDelegate: AnyObject {
     func willFetchSeatMapData()
     func didFetchSeatMapData()
     func failedToFetchSeatMapData()
+    
+    func willHitPostConfAPI()
+    func didHitPostConfAPI()
 }
 
 class SeatMapContainerVM {
+    
+    struct AddOnPassengersToSeatModel {
+        let passenger: ATContact
+        let flightId: String
+        let rowNum: Int
+        let columnStr: String
+        
+        init(_ pass: ATContact,_ flightId: String,_ rowNum: Int,_ columnStr: String) {
+            self.passenger = pass
+            self.flightId = flightId
+            self.rowNum = rowNum
+            self.columnStr = columnStr
+        }
+    }
     
     enum SetupFor {
         case preSelection
@@ -39,6 +56,9 @@ class SeatMapContainerVM {
     
     //MARK: Variables for post booking
     var bookingFlightLegs = [BookingLeg]()
+    var bookingAddOns = [BookingAddons]()
+    var bookedPassengersArr = [ATContact]()
+    var originalBookedAddOnSeats = [SeatMapModel.SeatMapRow]()
     
     convenience init() {
         self.init("", "", "")
@@ -94,6 +114,8 @@ class SeatMapContainerVM {
     
     func getSeatTotal(_ seatTotal: @escaping ((Int) -> ())) {
         
+        let previouslySelectedSeats = originalBookedAddOnSeats.map { $0.columnData.ssrCode }
+        
         func calculateSeatTotal() -> Int {
             var seatTotal = 0
             selectedSeats.removeAll()
@@ -101,7 +123,9 @@ class SeatMapContainerVM {
                 let rows = flight.md.rows.flatMap { $0.value } + flight.ud.rows.flatMap { $0.value }
                 rows.forEach { (_, rowData) in
                     if rowData.columnData.passenger != nil {
-                        seatTotal += rowData.columnData.amount
+                        if !previouslySelectedSeats.contains(rowData.columnData.ssrCode) {
+                            seatTotal += rowData.columnData.amount
+                        }
                         selectedSeats.append(rowData)
                     }
                 }
@@ -118,9 +142,13 @@ class SeatMapContainerVM {
     }
     
     func hitPostSeatConfirmationAPI() {
+        delegate?.willHitPostConfAPI()
         let params = createParamsForPostConfirmation()
-        APICaller.shared.hitSeatPostConfirmationAPI(params: params) { (_, _) in
-            
+        APICaller.shared.hitSeatPostConfirmationAPI(params: params) {[weak self] (addOnModel, err) in
+            self?.delegate?.didHitPostConfAPI()
+            if let model = addOnModel {
+                let itId = model.itinerary.id
+            }
         }
     }
     

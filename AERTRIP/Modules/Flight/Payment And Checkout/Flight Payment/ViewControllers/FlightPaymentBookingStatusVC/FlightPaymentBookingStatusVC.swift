@@ -97,12 +97,16 @@ class FlightPaymentBookingStatusVC: BaseVC {
     private func instantiateSeatMapVC(_ bookingId: String) {
         let vc = SeatMapContainerVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
         var flightLegs = [BookingLeg]()
+        var addOnsArr = [BookingAddons]()
         viewModel.bookingDetail.forEach { (bookingModel) in
             if let bookingMod = bookingModel, let bookingDet = bookingMod.bookingDetail {
                 flightLegs.append(contentsOf: bookingDet.leg)
             }
+            if let addOns = bookingModel?.bookinAddons {
+                addOnsArr.append(contentsOf: addOns)
+            }
         }
-        vc.setBookingFlightLegs(flightLegs)
+        vc.setBookingFlightLegsAndAddOns(flightLegs, addOnsArr)
         vc.setupFor(.postSelection, bookingId)
         vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: true, completion: nil)
