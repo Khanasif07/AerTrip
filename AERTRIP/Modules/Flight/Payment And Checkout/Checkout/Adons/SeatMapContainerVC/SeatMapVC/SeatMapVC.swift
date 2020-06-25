@@ -49,9 +49,9 @@ class SeatMapVC: UIViewController {
         viewModel.flightData = model
     }
     
-    func setPassengersFromBooking(_ passengersArr: [Pax]) {
-        viewModel.passengersFromBooking = passengersArr
-    }
+//    func setPassengersFromBooking(_ passengersArr: [ATContact]) {
+//        viewModel.passengersFromBooking = passengersArr
+//    }
     
     // MARK: IBActions
     

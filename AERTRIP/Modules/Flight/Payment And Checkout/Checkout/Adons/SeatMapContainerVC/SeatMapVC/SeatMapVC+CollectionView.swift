@@ -89,6 +89,7 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     
     private func openPassengerSelectionVC(_ indexPath: IndexPath,_ seatData: SeatMapModel.SeatMapRow) {
         let passengerVC = SelectPassengerVC.instantiate(fromAppStoryboard: .Adons)
+//        passengerVC.setPassengersFromBooking(viewModel.passengersFromBooking)
         passengerVC.selectPassengersVM.selectedSeatData = seatData
         passengerVC.selectPassengersVM.flightData = viewModel.flightData
         passengerVC.selectPassengersVM.setupFor = .seatSelection
