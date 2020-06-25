@@ -1377,6 +1377,8 @@ extension IntMultiCityAndReturnWSResponse.Results.Ldet{
         al = jsonData["al"].arrayValue.map { $0.stringValue }
         ttl = jsonData["ttl"].arrayValue.map { $0.stringValue }
         flightsWithDetails = jsonData["flights"].arrayValue.map{IntFlightDetail($0)}
+        freeMeal = jsonData["free_meal"].boolValue
+        freeSeat = jsonData["free_seat"].boolValue
     }
     
     

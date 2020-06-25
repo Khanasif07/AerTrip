@@ -47,11 +47,6 @@ class AddonsDataStore {
     }
     
      func extractUsefullData() {
-//
-//        guard let adon = itinerary.details.addons else{
-//             return }
-//
-//        adons = adon
         
         allFlights = itinerary.details.legsWithDetail.flatMap {
                return $0.flightsWithDetails
@@ -63,6 +58,13 @@ class AddonsDataStore {
                 
         flightKeys = flightsWithData.map { (flights) -> String in
             return flights.flightId
+        }
+        
+        flightsWithData.enumerated().forEach { (index,flight) in
+            let leg = self.itinerary.details.legsWithDetail.filter { $0.lfk == flight.legId }
+            guard let firstLeg = leg.first else { return }
+            flightsWithData[index].freeMeal = firstLeg.freeMeal
+            flightsWithData[index].freeSeat = firstLeg.freeSeat
         }
         
      }

@@ -91,7 +91,7 @@ class SelectPassengersVM {
             allowedPassengers.append(contentsOf: allPassengers.filter { $0.passengerType == .child })
         }
         
-        if adonsData.isChild{
+        if adonsData.isInfant{
             allowedPassengers.append(contentsOf: allPassengers.filter { $0.passengerType == .infant })
         }
     }

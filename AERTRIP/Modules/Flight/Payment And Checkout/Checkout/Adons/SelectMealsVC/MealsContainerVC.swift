@@ -91,7 +91,7 @@ extension MealsContainerVC {
         self.mealsContainerVM.allChildVCs.removeAll()
         for index in 0..<AddonsDataStore.shared.flightKeys.count {
             let vc = SelectMealsdVC.instantiate(fromAppStoryboard: .Adons)
-            let initData = SelectMealsVM(vcIndex: index, currentFlightKey: AddonsDataStore.shared.flightKeys[index],addonsDetails: AddonsDataStore.shared.flightsWithData[index].meal)
+            let initData = SelectMealsVM(vcIndex: index, currentFlightKey: AddonsDataStore.shared.flightKeys[index],addonsDetails: AddonsDataStore.shared.flightsWithData[index].meal, freeMeal : AddonsDataStore.shared.flightsWithData[index].freeMeal)
             vc.initializeVm(selectMealsVM : initData)
             vc.delegate = self
             self.mealsContainerVM.allChildVCs.append(vc)
