@@ -1235,6 +1235,7 @@
 		846CF558248FEFAA00932906 /* SeatMapContainerVC+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CF557248FEFAA00932906 /* SeatMapContainerVC+Collection.swift */; };
 		846CF55E248FF34600932906 /* LayoutSeatCollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CF55C248FF34600932906 /* LayoutSeatCollCell.swift */; };
 		846CF55F248FF34600932906 /* LayoutSeatCollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846CF55D248FF34600932906 /* LayoutSeatCollCell.xib */; };
+		846EADA324A4794D00BF5E40 /* PostBookingAddOnConfModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846EADA224A4794D00BF5E40 /* PostBookingAddOnConfModel.swift */; };
 		846FB584222509D3007F70F9 /* Common.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846FB583222509D3007F70F9 /* Common.storyboard */; };
 		846FB58D22250AFA007F70F9 /* PKBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846FB58B22250AFA007F70F9 /* PKBottomSheet.swift */; };
 		846FB58E22250AFA007F70F9 /* PKBottomSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846FB58C22250AFA007F70F9 /* PKBottomSheet.xib */; };
@@ -2957,6 +2958,7 @@
 		846CF557248FEFAA00932906 /* SeatMapContainerVC+Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SeatMapContainerVC+Collection.swift"; sourceTree = "<group>"; };
 		846CF55C248FF34600932906 /* LayoutSeatCollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSeatCollCell.swift; sourceTree = "<group>"; };
 		846CF55D248FF34600932906 /* LayoutSeatCollCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayoutSeatCollCell.xib; sourceTree = "<group>"; };
+		846EADA224A4794D00BF5E40 /* PostBookingAddOnConfModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookingAddOnConfModel.swift; sourceTree = "<group>"; };
 		846FB583222509D3007F70F9 /* Common.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Common.storyboard; sourceTree = "<group>"; };
 		846FB58B22250AFA007F70F9 /* PKBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKBottomSheet.swift; sourceTree = "<group>"; };
 		846FB58C22250AFA007F70F9 /* PKBottomSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PKBottomSheet.xib; sourceTree = "<group>"; };
@@ -7747,6 +7749,7 @@
 				8472F101247C25D200A1CCD3 /* SeatMapContainerVM.swift */,
 				8472F103247CDF0B00A1CCD3 /* SeatMapModel.swift */,
 				848D381C24865A0800925B7D /* FlightSeatMapKeys.swift */,
+				846EADA224A4794D00BF5E40 /* PostBookingAddOnConfModel.swift */,
 			);
 			path = SeatMapContainerVC;
 			sourceTree = "<group>";
@@ -9774,6 +9777,7 @@
 				84F983D121B51A070018DFED /* UIColorExtension.swift in Sources */,
 				1879C4A12293CADF00897CED /* BookingDirectionVM.swift in Sources */,
 				84F983C921B51A070018DFED /* AppColors.swift in Sources */,
+				846EADA324A4794D00BF5E40 /* PostBookingAddOnConfModel.swift in Sources */,
 				18D284AD2499EEC1000457F6 /* PostBookingFlightDetailsVM.swift in Sources */,
 				84DD2489226715530013F77E /* BookingTravellersDetailsTableViewCell.swift in Sources */,
 				843FF51924740231001F21B1 /* IntMCAndReturnVC+ScrollView.swift in Sources */,

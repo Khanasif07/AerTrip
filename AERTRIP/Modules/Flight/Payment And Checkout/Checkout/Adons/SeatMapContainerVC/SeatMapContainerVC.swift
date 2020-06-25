@@ -100,8 +100,9 @@ class SeatMapContainerVC: UIViewController {
         viewModel.bookingId = bookingId
     }
     
-    func setBookingFlightLegs(_ legs: [BookingLeg]) {
+    func setBookingFlightLegsAndAddOns(_ legs: [BookingLeg],_ addOns: [BookingAddons]) {
         viewModel.bookingFlightLegs = legs
+        viewModel.bookingAddOns = addOns.filter { $0.addonType == "seat" }
     }
     
     private func setupPlaneLayoutCollView() {
@@ -152,11 +153,9 @@ class SeatMapContainerVC: UIViewController {
         for index in 0..<viewModel.allTabsStr.count {
             let vc = SeatMapVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
             vc.setFlightData(viewModel.allFlightsData[index])
-            if viewModel.setupFor == .postSelection {
-                if let flightLeg = viewModel.bookingFlightLegs.first(where: { $0.legId == viewModel.allFlightsData[index].lfk }) {
-                    vc.setPassengersFromBooking(flightLeg.pax)
-                }
-            }
+//            if viewModel.setupFor == .postSelection {
+//                vc.setPassengersFromBooking(viewModel.bookedPassengersArr)
+//            }
             vc.onReloadPlaneLayoutCall = { [weak self] updatedFlightData in
                 guard let self = self else { return }
                 if let flightData = updatedFlightData {
@@ -425,19 +424,107 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
             viewModel.allTabsStr.append(contentsOf: flightsStr)
         }
         viewModel.originalAllFlightsData = totalFlightsData
+        viewModel.allFlightsData = totalFlightsData
         if let allFlightsData = AddonsDataStore.shared.seatsAllFlightsData, viewModel.setupFor == .preSelection {
             viewModel.allFlightsData = allFlightsData
             viewModel.getSeatTotal { [weak self] (seatTotal) in
                 guard let self = self else { return }
                 self.seatTotalLbl.text = "₹ \(seatTotal)"
             }
-        } else {
-            viewModel.allFlightsData = totalFlightsData
+        } else if viewModel.setupFor == .postSelection {
+            createPassengerContactsArr()
+            // Resetting after setting passengers on seat
+            viewModel.originalAllFlightsData = viewModel.allFlightsData
+            viewModel.getSeatTotal { [weak self] (seatTotal) in
+                guard let self = self else { return }
+                self.seatTotalLbl.text = "₹ \(seatTotal)"
+            }
         }
         setUpViewPager()
         planeLayoutCollView.reloadData()
         DispatchQueue.delay(0.5) {
             self.setCurrentPlaneLayout()
+        }
+    }
+}
+
+//MARK: Methods for Post Booking
+extension SeatMapContainerVC {
+    
+    private func createPassengerContactsArr() {
+        let passengers = viewModel.bookingFlightLegs.flatMap { $0.pax }
+        
+        var localPassengers: [ATContact] {
+            var passArr = [ATContact]()
+            passengers.forEach { (passenger) in
+                var newContact = ATContact()
+                newContact.id = passenger.paxId
+                newContact.apiId = passenger.paxId
+                newContact.firstName = passenger.firstName
+                newContact.lastName = passenger.lastName
+                newContact.image = passenger.profileImage
+                passArr.append(newContact)
+            }
+            return passArr
+        }
+        
+        viewModel.bookedPassengersArr = localPassengers
+        GuestDetailsVM.shared.guests[0] = viewModel.bookedPassengersArr
+        createPassengerToSeatArray()
+    }
+    
+    private func createPassengerToSeatArray() {
+        var passengersToSeat: [SeatMapContainerVM.AddOnPassengersToSeatModel] {
+            var passArr = [SeatMapContainerVM.AddOnPassengersToSeatModel]()
+            viewModel.bookingAddOns.forEach { (addOn) in
+                if let localPass = viewModel.bookedPassengersArr.first(where: { $0.apiId == addOn.paxId }) {
+                    let seatStrComponents = addOn.extraDetails.components(separatedBy: ",")
+                    var seatDict = JSONDictionary()
+                    seatStrComponents.forEach { (component) in
+                        let pair = component.components(separatedBy: "=")
+                        if pair.count == 2 {
+                            seatDict[pair[0]] = pair[1]
+                        }
+                    }
+                    let seatJson = JSON(seatDict)
+                    
+                    let addOnFlightId = addOn.flightId
+                    let rowNum = seatJson["Row"].intValue
+                    let columnStr = seatJson["Column"].stringValue
+                    
+                    let passToSeat = SeatMapContainerVM.AddOnPassengersToSeatModel(localPass, addOnFlightId, rowNum, columnStr)
+                    
+                    passArr.append(passToSeat)
+                }
+            }
+            return passArr
+        }
+        
+        passengersToSeat.forEach { (passModel) in
+            setPassengerOnSeat(passModel)
+        }
+    }
+    
+    private func setPassengerOnSeat(_ passengerModel: SeatMapContainerVM.AddOnPassengersToSeatModel) {
+        
+        viewModel.allFlightsData = viewModel.allFlightsData.map { (flightData) in
+            var newFlightData = flightData
+            if newFlightData.ffk == passengerModel.flightId {
+                let mainDeckData = newFlightData.md
+                let upperDeckData = newFlightData.ud
+                if mainDeckData.rowsArr.contains("\(passengerModel.rowNum)"), mainDeckData.columns.contains(passengerModel.columnStr) {
+                    newFlightData.md.rows[passengerModel.rowNum]?[passengerModel.columnStr]?.columnData.passenger = passengerModel.passenger
+                    
+                    viewModel.originalBookedAddOnSeats.append(newFlightData.md.rows[passengerModel.rowNum]![passengerModel.columnStr]!)
+                    
+                } else if upperDeckData.rowsArr.contains("\(passengerModel.rowNum)"), mainDeckData.columns.contains(passengerModel.columnStr) {
+                    newFlightData.ud.rows[passengerModel.rowNum]?[passengerModel.columnStr]?.columnData.passenger = passengerModel.passenger
+                    
+                    viewModel.originalBookedAddOnSeats.append(newFlightData.ud.rows[passengerModel.rowNum]![passengerModel.columnStr]!)
+                }
+            }
+            
+            return newFlightData
         }
     }
 }

@@ -16,6 +16,20 @@ protocol SeatMapContainerDelegate: AnyObject {
 
 class SeatMapContainerVM {
     
+    struct AddOnPassengersToSeatModel {
+        let passenger: ATContact
+        let flightId: String
+        let rowNum: Int
+        let columnStr: String
+        
+        init(_ pass: ATContact,_ flightId: String,_ rowNum: Int,_ columnStr: String) {
+            self.passenger = pass
+            self.flightId = flightId
+            self.rowNum = rowNum
+            self.columnStr = columnStr
+        }
+    }
+    
     enum SetupFor {
         case preSelection
         case postSelection
@@ -39,6 +53,9 @@ class SeatMapContainerVM {
     
     //MARK: Variables for post booking
     var bookingFlightLegs = [BookingLeg]()
+    var bookingAddOns = [BookingAddons]()
+    var bookedPassengersArr = [ATContact]()
+    var originalBookedAddOnSeats = [SeatMapModel.SeatMapRow]()
     
     convenience init() {
         self.init("", "", "")
@@ -80,7 +97,7 @@ class SeatMapContainerVM {
     }
     
     private func fetchPostSelectionSeatMapData() {
-        self.delegate?.willFetchSeatMapData()
+//        self.delegate?.willFetchSeatMapData()
         let params: JSONDictionary = [FlightSeatMapKeys.type.rawValue: "seat", FlightSeatMapKeys.bid.rawValue: bookingId]
         APICaller.shared.callPostBookingSeatMapAPI(params: params) { [weak self] (seatModel, error) in
             if let model = seatModel {
@@ -119,8 +136,11 @@ class SeatMapContainerVM {
     
     func hitPostSeatConfirmationAPI() {
         let params = createParamsForPostConfirmation()
-        APICaller.shared.hitSeatPostConfirmationAPI(params: params) { (_, _) in
-            
+
+        APICaller.shared.hitSeatPostConfirmationAPI(params: params) { (addOnModel, err) in
+            if let model = addOnModel {
+                let itId = model.itinerary.id
+            }
         }
     }
     
