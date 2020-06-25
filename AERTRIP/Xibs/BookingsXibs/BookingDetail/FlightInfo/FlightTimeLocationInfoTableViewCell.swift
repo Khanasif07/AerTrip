@@ -63,7 +63,7 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        self.dottedView.makeDottedLine()
+        self.dottedView.makeDottedLine(dashColor: AppColors.themeGray20)
         self.manageNameHeight()
     }
     

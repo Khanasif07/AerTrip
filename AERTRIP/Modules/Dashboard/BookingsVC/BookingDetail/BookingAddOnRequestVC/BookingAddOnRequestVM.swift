@@ -53,19 +53,30 @@ class BookingAddOnRequestVM {
         }
 
         temp["00Case Status"] = caseD.resolutionStatus.rawValue
-        temp["01Agent"] = caseD.csrName.isEmpty ? LocalizedString.dash.localized : "🎧 \(caseD.csrName)"
+        if !caseD.csrName.isEmpty {
+            temp["01Agent"] = caseD.csrName.isEmpty ? LocalizedString.dash.localized : "🎧 \(caseD.csrName)"
+        }
         
         let dateStr = caseD.requestDate?.toString(dateFormat: "d MMM yyyy | HH:mm") ?? ""
+        if !dateStr.isEmpty {
         temp["02Requested on"] = dateStr.isEmpty ? LocalizedString.dash.localized : dateStr
+        }
+        if !history.associatedBid.isEmpty {
         temp["03Associate Booking ID"] = history.associatedBid.isEmpty ? LocalizedString.dash.localized : history.associatedBid
+        }
+        if !history.referenceCaseId.isEmpty {
         temp["04Reference Case ID"] = history.referenceCaseId.isEmpty ? LocalizedString.dash.localized : history.referenceCaseId
-        
+        }
+        var index = 0
         for (idx,val) in history.associatedVouchersArr.enumerated() {
+            if !val.isEmpty {
             if idx == 0 {
-                temp["1\(idx)Associate Voucher No."] = val.isEmpty ? LocalizedString.dash.localized : val
+                temp["1\(index)Associate Voucher No."] = val.isEmpty ? LocalizedString.dash.localized : val
             }
             else {
-                temp["1\(idx)"] = val
+                temp["1\(index)"] = val
+            }
+                index += 1
             }
         }
         

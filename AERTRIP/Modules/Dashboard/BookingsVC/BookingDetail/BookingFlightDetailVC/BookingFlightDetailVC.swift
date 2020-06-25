@@ -20,6 +20,7 @@ class BookingFlightDetailVC: BaseVC {
     
     // MARK: - IBOutlet
     
+    @IBOutlet weak var navigationViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var topNavigationView: TopNavigationView!
     @IBOutlet weak var containerView: UIView!
     
@@ -37,12 +38,19 @@ class BookingFlightDetailVC: BaseVC {
         //self.viewModel.getBookingFees()
         configureNavBar()
         delay(seconds: 0.1) {[weak self] in
-        
-        guard let self = self else  {return}
+            
+            guard let self = self else  {return}
             self.setUpViewPager()
         }
+        topNavigationView.backgroundColor = .clear
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        if #available(iOS 13.0, *) {
+            navigationViewHeightConstraint.constant = 56
+        } else {
+            self.view.backgroundColor = .white
+        }
     }
-        
+    
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
@@ -54,10 +62,11 @@ class BookingFlightDetailVC: BaseVC {
     
     private func configureNavBar() {
         
-        self.topNavigationView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
+        self.topNavigationView.configureNavBar(title: "", isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         self.topNavigationView.navTitleLabel.attributedText = self.viewModel.tripStr
         self.topNavigationView.delegate = self
         self.topNavigationView.dividerView.isHidden = true
+        topNavigationView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"), selectedImage: #imageLiteral(resourceName: "black_cross"))
     }
     
     // Asif Change
@@ -93,7 +102,7 @@ class BookingFlightDetailVC: BaseVC {
     private func setupParchmentPageController(){
         
         self.parchmentView = PagingViewController()
-        self.parchmentView?.menuItemSpacing =  (UIDevice.screenWidth - 273.0)/2
+        self.parchmentView?.menuItemSpacing =  (UIDevice.screenWidth - 251.0)/2
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left:  35.0, bottom: 0.0, right:   35)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 50)
@@ -120,6 +129,7 @@ class BookingFlightDetailVC: BaseVC {
         
         self.parchmentView?.menuBackgroundColor = UIColor.clear
         self.parchmentView?.collectionView.backgroundColor = UIColor.clear
+        
     }
 }
 
@@ -128,7 +138,10 @@ class BookingFlightDetailVC: BaseVC {
 
 extension BookingFlightDetailVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.mainNavigationController.popViewController(animated: true)
+        //AppFlowManager.default.mainNavigationController.popViewController(animated: true)
+    }
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -171,9 +184,9 @@ extension BookingFlightDetailVC : PagingViewControllerDataSource , PagingViewCon
 }
 extension BookingFlightDetailVC: BookingDetailVMDelegate {
     func willGetBookingFees() {}
-
+    
     func getBookingFeesSuccess() {
     }
-
+    
     func getBookingFeesFail() {}
 }

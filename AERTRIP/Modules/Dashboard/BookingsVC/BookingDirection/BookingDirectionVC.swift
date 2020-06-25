@@ -13,6 +13,7 @@ class BookingDirectionVC: BaseVC {
     
     @IBOutlet weak var topNavigationView: TopNavigationView!
     @IBOutlet weak var directionTableView: ATTableView!
+    @IBOutlet weak var navigationHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Variables
     
@@ -21,7 +22,13 @@ class BookingDirectionVC: BaseVC {
     override func initialSetup() {
         self.setupNavBar()
         self.registerXib()
-        
+        topNavigationView.backgroundColor = .clear
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        if #available(iOS 13.0, *) {
+            navigationHeightConstraint.constant = 56
+        } else {
+            self.view.backgroundColor = AppColors.themeWhite
+        }
         self.directionTableView.dataSource = self
         self.directionTableView.delegate = self
         self.directionTableView.reloadData()
@@ -29,9 +36,10 @@ class BookingDirectionVC: BaseVC {
     
     override func setupNavBar() {
         self.topNavigationView.delegate = self
-        self.topNavigationView.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
-        self.topNavigationView.navTitleLabel.textColor = AppColors.textFieldTextColor51
-        self.topNavigationView.configureNavBar(title: LocalizedString.Directions.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true)
+        //self.topNavigationView.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
+        //self.topNavigationView.navTitleLabel.textColor = AppColors.textFieldTextColor51
+        self.topNavigationView.configureNavBar(title: LocalizedString.Directions.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
+         topNavigationView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"), selectedImage: #imageLiteral(resourceName: "black_cross"))
     }
     
     private func registerXib() {
@@ -91,6 +99,9 @@ extension BookingDirectionVC: UITableViewDataSource, UITableViewDelegate {
 
 extension BookingDirectionVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.popViewController(animated: true)
+        //AppFlowManager.default.popViewController(animated: true)
     }
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+           self.dismiss(animated: true, completion: nil)
+       }
 }

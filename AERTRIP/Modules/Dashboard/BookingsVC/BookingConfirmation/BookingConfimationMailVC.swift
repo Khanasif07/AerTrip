@@ -23,7 +23,7 @@ class BookingConfimationMailVC: BaseVC {
     @IBOutlet weak var toEmailTextViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var toEmailViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var emailTextViewBottomConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var navigationViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomView: UIView!
     
     // MARK: - Properties
@@ -34,11 +34,13 @@ class BookingConfimationMailVC: BaseVC {
     // MARK: - Override methods
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        IQKeyboardManager.shared().isEnabled = false
         IQKeyboardManager.shared().isEnableAutoToolbar = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().isEnableAutoToolbar = true
     }
     
@@ -49,7 +51,11 @@ class BookingConfimationMailVC: BaseVC {
         self.viewModel.getTravellerMail()
         setupColors()
         self.toMailTextView.text = UserInfo.loggedInUser?.email ?? ""
+        self.toMailTextView.keyboardType = .emailAddress
         self.updateSendButton()
+        if #available(iOS 13.0, *) {
+            navigationViewHeightConstraint.constant = 56
+        }
     }
     
     override func setupFonts() {

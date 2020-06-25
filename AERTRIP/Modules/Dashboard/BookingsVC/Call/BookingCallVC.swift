@@ -15,6 +15,7 @@ class BookingCallVC: BaseVC {
     @IBOutlet weak var topNavBar: TopNavigationView!
     @IBOutlet weak var topDeviderView: ATDividerView!
     @IBOutlet weak var callTableView: ATTableView!
+    @IBOutlet weak var navBarHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Varibles
     
@@ -27,7 +28,13 @@ class BookingCallVC: BaseVC {
         self.callTableView.dataSource = self
         self.callTableView.delegate = self
         self.callTableView.reloadData()
-        
+        topNavBar.backgroundColor = .clear
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        if #available(iOS 13.0, *) {
+            navBarHeightConstraint.constant = 56
+        } else {
+            self.view.backgroundColor = AppColors.themeWhite
+        }
         self.viewModel.getIntialData()
         
         self.setupNavBar()
@@ -36,7 +43,8 @@ class BookingCallVC: BaseVC {
     
     override func setupNavBar() {
         self.topNavBar.delegate = self
-        self.topNavBar.configureNavBar(title: LocalizedString.Call.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
+        self.topNavBar.configureNavBar(title: LocalizedString.Call.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"), selectedImage: #imageLiteral(resourceName: "black_cross"))
     }
     
     // MARK: - Helper methods
@@ -253,6 +261,9 @@ extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
 
 extension BookingCallVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.popViewController(animated: true)
+    }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
     }
 }

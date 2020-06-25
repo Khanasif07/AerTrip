@@ -173,7 +173,7 @@ extension FlightBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
         let isCellLast = (self.viewModel.bookingDetail?.totalOutStanding == 0)
         cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.paid ?? 0)", isLastCell: isCellLast)
-        cell.containerViewBottomConstraint.constant = (isCellLast) ? 26.0 : 0.0
+        cell.containerViewBottomConstraint.constant = (isCellLast) ? 21.0 : 0.0
         cell.clipsToBounds = isCellLast
         cell.dividerView.isHidden = false
         return cell

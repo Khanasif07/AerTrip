@@ -12,6 +12,7 @@ class AmentityTableViewCell: UITableViewCell {
     
     //MARK: - IBOutlets
     
+    @IBOutlet weak var collectionViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var collectionView: UICollectionView!
     
     var flightDetail: BookingFlightDetail? {
@@ -20,7 +21,7 @@ class AmentityTableViewCell: UITableViewCell {
         }
     }
 
-    private let numberOfItemInRow: Double = 4.0
+    private let numberOfItemInRow: Double = 3.0
     
     // MARK: - View Lifecycle
     

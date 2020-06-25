@@ -282,10 +282,10 @@ extension FlightFareInfoVC {
             
         case 2:
             // cancelation
-            finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Cancellation", aerlineFee: self.viewModel.bookingFee[indexPath.section].aerlineCanCharges?.adult?.reduce(0, { (result, object) -> Int in
-                return result + (object.value ?? 0)
-            }) ?? 0, aertripFee: self.viewModel.bookingFee[indexPath.section].aertripCanCharges?.adult ?? 0)
-            
+//            finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Cancellation", aerlineFee: self.viewModel.bookingFee[indexPath.section].aerlineCanCharges?.adult?.reduce(0, { (result, object) -> Int in
+//                return result + (object.value ?? 0)
+//            }) ?? 0, aertripFee: self.viewModel.bookingFee[indexPath.section].aertripCanCharges?.adult ?? 0)
+            finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Cancellation", aerlineFee:  0, aertripFee: self.viewModel.bookingFee[indexPath.section].aertripCanCharges?.adult ?? 0)
         case 3:
             // reschdule
             finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Rescheduling", aerlineFee: self.viewModel.bookingFee[indexPath.section].aerlineResCharges?.adult?.reduce(0, { (result, object) -> Int in

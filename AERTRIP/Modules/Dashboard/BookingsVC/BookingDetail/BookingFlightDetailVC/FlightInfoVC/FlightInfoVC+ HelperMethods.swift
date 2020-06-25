@@ -89,7 +89,12 @@ extension FlightBookingInfoVC {
             }
             
             cell.flightDetail = flight
-            
+            cell.collectionViewBottomConstraint.constant = self.viewModel.allFlightInfoCells[indexPath.section].contains(where: { (type) -> Bool in
+                switch type {
+                case .layover: return true
+                default: return false
+                }
+                }) ? 5 : 16
             return cell
         }
         

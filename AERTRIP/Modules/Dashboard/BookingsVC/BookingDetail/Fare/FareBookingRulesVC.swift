@@ -12,10 +12,13 @@ class FareBookingRulesVC: BaseVC {
     
     // MARK: - IBOutlet
     @IBOutlet weak var fareRuleTableView: ATTableView!
-
+    @IBOutlet weak var navBarView: TopNavigationView!
+    @IBOutlet weak var navBarHeightConstraint: NSLayoutConstraint!
+    
     // MARK: - Override methods
     private var fareRules: String = LocalizedString.na.localized
     private var ruteString: String = LocalizedString.na.localized
+    let viewModel = BookingFareInfoDetailVM()
     
     override func initialSetup() {
         registerXib()
@@ -23,8 +26,26 @@ class FareBookingRulesVC: BaseVC {
         self.fareRuleTableView.delegate = self
 //        self.fareRuleTableView.isScrollEnabled = false
         self.fareRuleTableView.reloadData()
+        
+        navBarView.backgroundColor = .clear
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        if #available(iOS 13.0, *) {
+            navBarHeightConstraint.constant = 56
+        } else {
+            self.view.backgroundColor = AppColors.themeWhite
+        }
+        self.viewModel.getFareRules()
     }
-
+    
+    override func bindViewModel() {
+        self.viewModel.delegate = self
+    }
+    
+    override func setupNavBar() {
+        self.navBarView.delegate = self
+        self.navBarView.configureNavBar(title: LocalizedString.Call.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
+        navBarView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"), selectedImage: #imageLiteral(resourceName: "black_cross"))
+    }
     
     // MARK: - Helper methods
     
@@ -60,5 +81,26 @@ extension FareBookingRulesVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-
-
+extension FareBookingRulesVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+    }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+extension FareBookingRulesVC: BookingFareInfoDetailVMDelegate{
+    func willGetFareRules() {
+    }
+    
+    func getFareRulesSuccess(fareRules: String, ruteString: String) {
+        
+        DispatchQueue.mainAsync {
+            self.set(fareRules: fareRules, ruteString: ruteString)
+        }
+    }
+    
+    func getFareRulesFail() {
+        
+    }
+}

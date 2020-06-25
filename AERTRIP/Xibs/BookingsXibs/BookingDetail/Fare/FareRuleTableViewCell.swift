@@ -47,7 +47,7 @@ class FareRuleTableViewCell: UITableViewCell {
             self.routeLabelTopConstraint.constant = 0
             self.routeLabelBottomConstraint.constant = 0
         }
-        let cssStr = fareRules.htmlCSSCodeString(withFont: AppFonts.Regular.withSize(28.0), isCustomFont: true, fontFileName: "SourceSansPro-Regular", fontColor: isForBookingPolicy ? AppColors.themeBlack : AppColors.themeGray60)
+        let cssStr = fareRules.htmlCSSCodeString(withFont: AppFonts.Regular.withSize(28.0), isCustomFont: true, fontFileName: "SourceSansPro-Regular", fontColor: isForBookingPolicy ? AppColors.themeBlack : AppColors.themeBlack)
         
         var url = Bundle.main.url(forResource: "SourceSansPro-Regular", withExtension: "ttf")
         url?.deleteLastPathComponent()
@@ -68,7 +68,7 @@ extension FareRuleTableViewCell: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         webView.frame.size.height = 1
         webView.frame.size = webView.sizeThatFits(.zero)
-        webView.scrollView.isScrollEnabled = false
+        webView.scrollView.isScrollEnabled = true
         webView.evaluateJavaScript("document.body.scrollHeight") { (height, error) in
             if error != nil {
                 if let height = height {

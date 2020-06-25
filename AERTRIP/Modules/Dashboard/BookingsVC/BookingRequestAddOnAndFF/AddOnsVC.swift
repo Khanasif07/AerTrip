@@ -212,7 +212,7 @@ extension AddOnsVC: BookingFFMealTableViewCellDelegate {
         // meal Booking
         case 2:
             PKMultiPicker.noOfComponent = 1
-            PKMultiPicker.openMultiPickerIn(cell?.selectedMealPreferenceTextField, firstComponentArray: Array(BookingRequestAddOnsFFVM.shared.mealPreferences.values), secondComponentArray: [], firstComponent: cell?.selectedMealPreferenceTextField.text ?? "", secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [weak cell] firstSelect, _ in
+            PKMultiPicker.openMultiPickerIn(cell?.selectedMealPreferenceTextField, firstComponentArray: Array(BookingRequestAddOnsFFVM.shared.mealPreferences.values.sorted()), secondComponentArray: [], firstComponent: cell?.selectedMealPreferenceTextField.text ?? "", secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [weak cell] firstSelect, _ in
                 cell?.selectedMealPreferenceTextField.text = firstSelect
                 BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].mealPreferenes = firstSelect
             }

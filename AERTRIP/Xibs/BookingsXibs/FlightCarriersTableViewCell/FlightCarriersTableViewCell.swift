@@ -85,6 +85,8 @@ class FlightCarriersTableViewCell: UITableViewCell {
          else more than 3 carrier then show two carrier and third carrier(blurred) and count above it
          
          */
+        let carrierCode = carrierCode.removeDuplicates()
+        let carriers = carriers.removeDuplicates()
         switch carriers.count {
         case 1:
             if !carrierCode[0].isEmpty {
