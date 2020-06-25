@@ -81,6 +81,8 @@ extension SelectPassengerVC {
         case .seatSelection:
             selectPassengersLabel.isHidden = true
             emptyView.isHidden = true
+            titleLabel.text = selectPassengersVM.selectedSeatData.columnData.seatNumber + " • ₹\(selectPassengersVM.selectedSeatData.columnData.amount)"
+            legsLabel.text = selectPassengersVM.selectedSeatData.columnData.getCharactericstic()
             selectPassengersVM.initalPassengerForSeat = selectPassengersVM.selectedSeatData.columnData.passenger
             
         case .meals:

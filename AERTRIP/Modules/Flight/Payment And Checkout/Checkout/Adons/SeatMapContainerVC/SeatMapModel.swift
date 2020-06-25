@@ -129,6 +129,21 @@ struct SeatMapModel {
         
         var passenger: ATContact?
         
+        var rowStr: String {
+            if let number = Int(ssrCode.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
+                print(number)
+                return "\(number)"
+            }
+            return ""
+        }
+        var columnStr: String {
+            ssrCode.components(separatedBy: CharacterSet.letters.inverted).joined()
+        }
+        
+        var seatNumber: String {
+            rowStr + columnStr
+        }
+        
         func getCharactericstic() -> String {
             var characteristicString = ""
             characteristic.forEach { (str) in
