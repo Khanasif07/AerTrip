@@ -25,6 +25,7 @@ extension FlightPaymentVC: UITableViewDelegate, UITableViewDataSource {
             headerView.tag = section
             headerView.delegate = self
             self.handleDiscountArrowAnimation(headerView)
+            headerView.arrowButton.isUserInteractionEnabled = false
             headerView.grossFareTitleTopConstraint.constant = 0
             headerView.grossFareTitleLabel.text = "Base Fare"
             headerView.discountsTitleLabel.text = "Taxes and Fees"
@@ -35,6 +36,7 @@ extension FlightPaymentVC: UITableViewDelegate, UITableViewDataSource {
             guard let headerView = self.checkOutTableView.dequeueReusableHeaderFooterView(withIdentifier: self.cellIdentifier) as? HotelFareSectionHeader, !self.viewModel.discountData.isEmpty else {
                 return nil
             }
+            headerView.arrowButton.isUserInteractionEnabled = false
             headerView.grossFareTitleLabel.text = ""
             headerView.grossPriceLabel.text = ""
             headerView.tag = section
@@ -111,6 +113,7 @@ extension FlightPaymentVC{
         guard let headerView = self.checkOutTableView.dequeueReusableHeaderFooterView(withIdentifier: self.cellIdentifier) as? HotelFareSectionHeader, !self.viewModel.addonsData.isEmpty else {
             return nil
         }
+        headerView.arrowButton.isUserInteractionEnabled = false
         headerView.grossFareTitleLabel.text = ""
         headerView.grossPriceLabel.text = ""
         headerView.tag = section

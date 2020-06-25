@@ -64,9 +64,6 @@ extension FlightPaymentBookingStatusVC{
         let count = self.viewModel.itinerary.travellerDetails.t.count
         let traveller = self.viewModel.itinerary.travellerDetails.t[indexPath.row - 3]
         let pnr = self.viewModel.getPnrWith(indexPath)
-//        if traveller.ticketDetails.count > (indexPath.section - 1){
-//            pnr = traveller.ticketDetails[indexPath.section - 1].pnr
-//        }
         cell.configCell(travellersImage: traveller.profileImg, travellerName: "\(traveller.firstName) \(traveller.lastName)", travellerPnrStatus: pnr, firstName: (traveller.firstName), lastName: (traveller.lastName), isLastTraveller: (indexPath.row == (count + 2)),paxType: traveller.paxType, dob: traveller.dob, salutation: traveller.salutation)
         cell.clipsToBounds = true
         return cell

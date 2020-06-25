@@ -48,6 +48,9 @@ class AccountOnlineDepositVC: BaseVC {
         self.payButton.backgroundColor = AppColors.clear
         self.loaderContainer.backgroundColor = AppColors.clear
         self.manageLoader(shouldStart: false)
+        //for header blur
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        topNavView.backgroundColor = AppColors.clear
     }
     
     override func setupFonts() {

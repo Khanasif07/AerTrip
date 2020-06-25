@@ -52,7 +52,8 @@ class SpecialAccountDetailsVC: BaseVC {
         self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_account_info"), selectedImage: #imageLiteral(resourceName: "ic_account_info"))
         
         self.viewModel.fetchScreenDetails()
-        
+        topNavView.backgroundColor = AppColors.clear
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.tableView.tableFooterView = self.tableFooterView
     }
     

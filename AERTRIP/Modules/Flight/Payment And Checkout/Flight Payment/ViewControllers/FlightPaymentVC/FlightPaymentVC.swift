@@ -89,7 +89,7 @@ class FlightPaymentVC: BaseVC {
     }
 
     @IBAction func payButtonTapped(_ sender: UIButton) {
-        self.loaderView.isHidden = false
+        self.hideShowLoader(isHidden:false)
 //        delay(seconds: 1) {
 //           self.loaderView.isHidden = true
 //        }
@@ -144,16 +144,23 @@ class FlightPaymentVC: BaseVC {
         self.payButton.setTitle(title, for: .highlighted)
     }
     
-    private func loader(shouldShow: Bool) {
-        self.loaderView.isHidden = shouldShow
-    }
-    
     private func manageLoader() {
         self.activityLoader.style = .white
         self.activityLoader.color = AppColors.themeWhite
         self.activityLoader.startAnimating()
         self.loaderView.addGredient(isVertical: false)
-        self.loaderView.isHidden = true
+        self.hideShowLoader(isHidden:true)
+    }
+    
+    func hideShowLoader(isHidden:Bool){
+        DispatchQueue.main.async {
+            if isHidden{
+                self.activityLoader.stopAnimating()
+            }else{
+                self.activityLoader.startAnimating()
+            }
+            self.loaderView.isHidden = isHidden
+        }
     }
     
     private func addFooterView() {
@@ -362,11 +369,11 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
     }
     
     func willMakePayment() {
-        self.loaderView.isHidden = false
+        self.hideShowLoader(isHidden:false)
     }
     
     func makePaymentSuccess(options: JSONDictionary, shouldGoForRazorPay: Bool) {
-        self.loaderView.isHidden = false
+        self.hideShowLoader(isHidden:false)
         if shouldGoForRazorPay {
             self.initializePayment(withOptions: options)
         } else {
@@ -380,17 +387,17 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
     }
     
     func makePaymentFail() {
-        self.loaderView.isHidden = true
+        self.hideShowLoader(isHidden:true)
         AppToast.default.showToastMessage(message: "Make Payment Failed")
     }
     
     func willGetPaymentResonse() {
-        self.loaderView.isHidden = false
+        self.hideShowLoader(isHidden:false)
     }
     
     func getPaymentResonseSuccess(bookingIds: [String], cid: [String]) {
         // send to you are all donr screen
-        self.loaderView.isHidden = true
+       self.hideShowLoader(isHidden:true)
         print(bookingIds)
         let vc = FlightPaymentBookingStatusVC.instantiate(fromAppStoryboard: .FlightPayment)
         vc.viewModel.apiBookingIds = bookingIds
@@ -401,7 +408,7 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
     }
     
     func getPaymentResonseFail() {
-        self.loaderView.isHidden = true
+        self.hideShowLoader(isHidden:true)
     }
       
     
@@ -430,6 +437,7 @@ extension FlightPaymentVC : RazorpayPaymentCompletionProtocolWithData {
         razorpay.open(options, displayController: self)
     }
     func onPaymentError(_ code: Int32, description str: String, andData response: [AnyHashable : Any]?) {
+        self.hideShowLoader(isHidden: true)
         AppToast.default.showToastMessage(message: "Sorry! payment was faild.\nPlease try again.")
     }
     
