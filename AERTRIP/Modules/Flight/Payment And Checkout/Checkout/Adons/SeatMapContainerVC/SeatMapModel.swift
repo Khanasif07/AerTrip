@@ -97,6 +97,7 @@ struct SeatMapModel {
     }
     
     struct SeatMapRow {
+        var isPreselected = false
         let lfk: String
         let ffk: String
         var columnData: ColumnData

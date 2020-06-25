@@ -80,6 +80,9 @@ class SeatCollCell: UICollectionViewCell {
             seatView.backgroundColor = AppColors.themeGreen
             seatNumberLbl.textColor = AppColors.themeWhite
             return
+        } else if viewModel.seatData.isPreselected {
+            seatView.backgroundColor = AppColors.lightYellow
+            seatNumberLbl.textColor = AppColors.themeGray40
         }
         if viewModel.seatData.columnData.amount < viewModel.flightFares.minAmount {
             seatNumberLbl.text?.removeAll()

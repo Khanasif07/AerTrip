@@ -400,15 +400,27 @@ extension SeatMapContainerVC: TopNavigationViewDelegate {
 extension SeatMapContainerVC: SeatMapContainerDelegate {
     
     func willFetchSeatMapData() {
-        
-        delay(seconds: 0.2) {
+        DispatchQueue.main.async {
             AppGlobals.shared.startLoading()
-            
         }
     }
     
     func failedToFetchSeatMapData() {
-        AppGlobals.shared.stopLoading()
+        DispatchQueue.main.async {
+            AppGlobals.shared.stopLoading()
+        }
+    }
+    
+    func willHitPostConfAPI() {
+        DispatchQueue.main.async {
+            AppGlobals.shared.startLoading()
+        }
+    }
+    
+    func didHitPostConfAPI() {
+        DispatchQueue.main.async {
+            AppGlobals.shared.stopLoading()
+        }
     }
     
     func didFetchSeatMapData() {
@@ -513,11 +525,14 @@ extension SeatMapContainerVC {
                 let mainDeckData = newFlightData.md
                 let upperDeckData = newFlightData.ud
                 if mainDeckData.rowsArr.contains("\(passengerModel.rowNum)"), mainDeckData.columns.contains(passengerModel.columnStr) {
+                    newFlightData.md.rows[passengerModel.rowNum]?[passengerModel.columnStr]?.isPreselected = true
                     newFlightData.md.rows[passengerModel.rowNum]?[passengerModel.columnStr]?.columnData.passenger = passengerModel.passenger
                     
                     viewModel.originalBookedAddOnSeats.append(newFlightData.md.rows[passengerModel.rowNum]![passengerModel.columnStr]!)
                     
                 } else if upperDeckData.rowsArr.contains("\(passengerModel.rowNum)"), mainDeckData.columns.contains(passengerModel.columnStr) {
+                    
+                    newFlightData.ud.rows[passengerModel.rowNum]?[passengerModel.columnStr]?.isPreselected = true
                     newFlightData.ud.rows[passengerModel.rowNum]?[passengerModel.columnStr]?.columnData.passenger = passengerModel.passenger
                     
                     viewModel.originalBookedAddOnSeats.append(newFlightData.ud.rows[passengerModel.rowNum]![passengerModel.columnStr]!)
