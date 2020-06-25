@@ -48,6 +48,9 @@ class AccountOfflineDepositVC: BaseVC {
         
         self.loaderContainer.addGredient(isVertical: false)
         self.manageLoader(shouldStart: false)
+        //for header blur
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        topNavView.backgroundColor = AppColors.clear
         
         self.viewModel.userEnteredDetails.isForFundTransfer = self.currentUsingAs == .fundTransfer
     }

@@ -119,6 +119,11 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.reloadList()
         self.manageLoader(shouldStart: false)
         
+        //for header blur
+        self.searchDataContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        topNavView.backgroundColor = AppColors.clear
+        
         self.searchModeSearchBarTopConstraint.constant = ((self.subHeaderContainer.height + self.topNavView.height) - self.mainSearchBar.height)
     }
     
@@ -196,6 +201,7 @@ class AccountOutstandingLadgerVC: BaseVC {
             
             self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.localized, selectedTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         }
+        topNavView.backgroundColor = AppColors.clear
     }
     
     private func manageHeader(animated: Bool) {

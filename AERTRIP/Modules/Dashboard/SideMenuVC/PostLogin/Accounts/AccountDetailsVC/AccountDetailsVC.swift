@@ -127,7 +127,9 @@ class AccountDetailsVC: BaseVC {
         self.searchTableView.registerCell(nibName: AccountDetailEventDescriptionCell.reusableIdentifier)
         
         self.manageHeader(animated: false)
-        
+        //Chnage for blur header
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        topNavView.backgroundColor = AppColors.clear
 //        delay(seconds: 0.4) { [weak self] in
 //            self?.getAccountDetailsSuccess()
 //        }
