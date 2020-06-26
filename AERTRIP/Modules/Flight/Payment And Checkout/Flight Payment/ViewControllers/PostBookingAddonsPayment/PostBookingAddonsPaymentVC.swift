@@ -47,20 +47,21 @@ class PostBookingAddonsPaymentVC: BaseVC{
     var convenienceFeesWallet: Double = 0
     // Boolean to check if convenienceFeeToAppliedOrNot
     var isConvenienceFeeApplied: Bool = false
-    var isAddonsExpended = true
+    var isSeatExpended = true
+    var isMealExpended = true
+    var isOtherExpended = true
+    var isBaggageExpended = true
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.taxesDataDisplay()
+        self.getPaymentsMethodsSuccess()
         self.checkOutTableView.separatorStyle = .none
-        self.viewModel.taxesDataDisplay()
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
         self.viewModel.delegate = self
-        self.viewModel.webServiceGetPaymentMethods()
-        //        self.viewModel.getItineraryData()
         self.addFooterView()
         self.payButton.addGredient(isVertical: false)
         self.setUpNavigationView()
@@ -81,8 +82,8 @@ class PostBookingAddonsPaymentVC: BaseVC{
     }
     
     @IBAction func payButtonTapped(_ sender: UIButton) {
-        self.loaderView.isHidden = false
-        self.viewModel.reconfirmationAPI()
+        hideShowLoader(isHidden: false)
+        self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
     }
     
     
@@ -129,16 +130,23 @@ class PostBookingAddonsPaymentVC: BaseVC{
         self.payButton.setTitle(title, for: .highlighted)
     }
     
-    private func loader(shouldShow: Bool) {
-        self.loaderView.isHidden = shouldShow
-    }
-    
     private func manageLoader() {
         self.activityLoader.style = .white
         self.activityLoader.color = AppColors.themeWhite
         self.activityLoader.startAnimating()
         self.loaderView.addGredient(isVertical: false)
         self.loaderView.isHidden = true
+    }
+    
+    func hideShowLoader(isHidden:Bool){
+        DispatchQueue.main.async {
+            if isHidden{
+                self.activityLoader.stopAnimating()
+            }else{
+                self.activityLoader.startAnimating()
+            }
+            self.loaderView.isHidden = isHidden
+        }
     }
     
     private func addFooterView() {
@@ -154,29 +162,7 @@ class PostBookingAddonsPaymentVC: BaseVC{
         self.setupPayButtonTitle()
     }
     
-    func showFareUpdatePopup(){
-        let diff = self.viewModel.itinerary.priceChange
-        let amount = self.viewModel.itinerary.details.farepr
-        if diff > 0 {
-            // increased
-            FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: Double(diff), totalUpdatedAmount: Double(amount), continueButtonAction: { [weak self] in
-                guard let self = self else { return }
-                self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
-                }, goBackButtonAction: { [weak self] in
-                    guard let self = self else { return }
-                    self.getListingController()
-            })
-        }
-        else if diff < 0{
-            // dipped
-            FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: Double(-diff), increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
-            //            delay(seconds: 5.0) { [weak self] in
-            //                guard let self = self else { return }
-            //            }
-        }else{
-            self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
-        }
-    }
+    
     func getListingController(){
         if let nav = self.navigationController?.presentingViewController?.presentingViewController as? UINavigationController{
             nav.dismiss(animated: true) {
@@ -209,16 +195,16 @@ class PostBookingAddonsPaymentVC: BaseVC{
     
     // Get Available Wallet Amount
     func getWalletAmount() -> Double {
-        if let walletAmount = self.viewModel.paymentDetails?.paymentDetails.wallet {
-            return walletAmount
-        } else {
-            return 0
-        }
+//        if let walletAmount = Double(self.viewModel.addonsDetails.walletBalance) {
+            return Double(self.viewModel.addonsDetails.walletBalance)
+//        } else {
+//            return 0
+//        }
     }
     
     // Get Total Payable Amount based on conditions
     private func getTotalPayableAmount() -> Double {
-        var payableAmount: Double = Double(self.viewModel.itinerary.details.fare.totalPayableNow.value)
+        var payableAmount: Double = Double(self.viewModel.addonsDetails.netAmount)
         if payableAmount > 0.0 {
             let amount = self.isWallet ? self.convenienceFeesWallet : self.convenienceRate
             if self.isConvenienceFeeApplied {
@@ -253,7 +239,10 @@ extension PostBookingAddonsPaymentVC : TopNavigationViewDelegate, HotelFareSecti
     func headerViewTapped(_ view:UITableViewHeaderFooterView){
         checkOutTableView.beginUpdates()
         switch self.viewModel.sectionHeader[view.tag]{
-        case .Addons: self.isAddonsExpended = !self.isAddonsExpended
+        case .Meal: self.isMealExpended = !self.isMealExpended
+        case .Seat: self.isSeatExpended = !self.isSeatExpended
+        case .Baggage: self.isBaggageExpended = !self.isBaggageExpended
+        case .Other: self.isOtherExpended = !self.isOtherExpended
         default: break;
         }
         self.checkOutTableView.reloadSections([view.tag], with: .automatic)
@@ -262,30 +251,19 @@ extension PostBookingAddonsPaymentVC : TopNavigationViewDelegate, HotelFareSecti
 }
 
 
-extension PostBookingAddonsPaymentVC:FlightPaymentVMDelegate{
-    func removeCouponCodeSuccessful(_ appliedCouponData: FlightItineraryData) {
-        
-    }
+extension PostBookingAddonsPaymentVC:PostBookingAddonsPaymentVMDelegate{
     
-    
-    func fetchingItineraryData() {
-        AppGlobals.shared.startLoading()
-        self.updateAllData()
-    }
-    
-    func responseFromIteneraryData(success: Bool, error: Error?) {
-        AppGlobals.shared.stopLoading()
-        if success{
-            self.updateAllData()
-        }
+    func willMakePayment() {
+        hideShowLoader(isHidden: false)
     }
     
     func getPaymentsMethodsSuccess(){
-        if let razorPay = self.viewModel.paymentDetails?.paymentModes.razorPay {
+//        if
+        let razorPay = self.viewModel.addonsDetails.paymentModes.razorPay //{
             self.convenienceRate = razorPay.convenienceFees
             self.convenienceFeesWallet = razorPay.convenienceFeesWallet > 0 ? razorPay.convenienceFeesWallet : 0
             self.setConvenienceFeeToBeApplied()
-        }
+//        }
         self.isWallet = self.getWalletAmount() > 0
         
         self.updateAllData()
@@ -294,24 +272,8 @@ extension PostBookingAddonsPaymentVC:FlightPaymentVMDelegate{
         
     }
     
-    func removeCouponCodeFailed() {
-        printDebug("Unable to remove Coupon Code")
-    }
-    
-    func reconfirmationResponse(_ success:Bool){
-        if success{
-            self.viewModel.taxesDataDisplay()
-            self.updateAllData()
-            self.showFareUpdatePopup()
-        }
-    }
-    
-    func willMakePayment() {
-        self.loaderView.isHidden = false
-    }
-    
     func makePaymentSuccess(options: JSONDictionary, shouldGoForRazorPay: Bool) {
-        self.loaderView.isHidden = false
+        hideShowLoader(isHidden: false)
         if shouldGoForRazorPay {
             self.initializePayment(withOptions: options)
         } else {
@@ -325,28 +287,27 @@ extension PostBookingAddonsPaymentVC:FlightPaymentVMDelegate{
     }
     
     func makePaymentFail() {
-        self.loaderView.isHidden = true
+        hideShowLoader(isHidden: true)
         AppToast.default.showToastMessage(message: "Make Payment Failed")
     }
     
     func willGetPaymentResonse() {
-        self.loaderView.isHidden = false
+        hideShowLoader(isHidden: false)
     }
     
     func getPaymentResonseSuccess(bookingIds: [String], cid: [String]) {
-        // send to you are all donr screen
-        self.loaderView.isHidden = true
-        print(bookingIds)
-        let vc = FlightPaymentBookingStatusVC.instantiate(fromAppStoryboard: .FlightPayment)
-        vc.viewModel.apiBookingIds = bookingIds
-        vc.viewModel.itId = self.viewModel.itinerary.id
-        vc.viewModel.bookingObject = self.viewModel.bookingObject
+        // send to you are all done screen
+//        hideShowLoader(isHidden: true)
+//        print(bookingIds)
+        let vc = PostBookingAddonsPaymentStatusVC.instantiate(fromAppStoryboard: .FlightPayment)
+        vc.viewModel.bookingIds = self.viewModel.bookingIds
+        vc.viewModel.itId = self.viewModel.addonsDetails.id
         self.navigationController?.pushViewController(vc, animated: true)
         
     }
     
     func getPaymentResonseFail() {
-        self.loaderView.isHidden = true
+        hideShowLoader(isHidden: true)
     }
     
     
@@ -363,7 +324,7 @@ extension PostBookingAddonsPaymentVC : WalletTableViewCellDelegate {
 extension PostBookingAddonsPaymentVC : ApplyCouponTableViewCellDelegate {
     func removeCouponTapped() {
         printDebug("Remove coupon tapped")
-        self.viewModel.removeCouponCode()
+//        self.viewModel.removeCouponCode()
     }
 }
 
@@ -399,20 +360,25 @@ extension PostBookingAddonsPaymentVC: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch self.viewModel.sectionHeader[section]{
         case .CouponsAndWallet, .TotalPaybleAndTC: return nil
-        case .Addons:return self.getHeaderAddons(section)
-            
+        default: return self.getHeaderAddons(section)
         }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch self.viewModel.sectionHeader[section]{
         case .CouponsAndWallet, .TotalPaybleAndTC: return CGFloat.leastNonzeroMagnitude
-        case .Addons: return self.viewModel.taxAndFeesData.isEmpty ? CGFloat.leastNonzeroMagnitude : 27
+        case .Meal: return self.viewModel.mealData.isEmpty ? CGFloat.leastNonzeroMagnitude : 27
+        case .Seat: return self.viewModel.seatData.isEmpty ? CGFloat.leastNonzeroMagnitude : 27
+        case .Baggage: return self.viewModel.baggageData.isEmpty ? CGFloat.leastNonzeroMagnitude : 27
+        case .Other: return self.viewModel.otherData.isEmpty ? CGFloat.leastNonzeroMagnitude : 27
         }
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch self.viewModel.sectionHeader[section]{
-        case .Addons: return isAddonsExpended ? self.viewModel.sectionTableCell[section].count : 0
+        case .Meal: return isMealExpended ? self.viewModel.sectionTableCell[section].count : 0
+        case .Seat: return isSeatExpended ? self.viewModel.sectionTableCell[section].count : 0
+        case .Baggage: return isBaggageExpended ? self.viewModel.sectionTableCell[section].count : 0
+        case .Other: return isOtherExpended ? self.viewModel.sectionTableCell[section].count : 0
         default: return self.viewModel.sectionTableCell[section].count
         }
     }
@@ -421,23 +387,29 @@ extension PostBookingAddonsPaymentVC: UITableViewDelegate, UITableViewDataSource
         switch self.viewModel.sectionHeader[indexPath.section]{
         case .CouponsAndWallet: return self.getHeightOfRowForFirstSection(indexPath)
         case .TotalPaybleAndTC: return self.getHeightOfRowForThirdSection(indexPath)
-        case .Addons:return 20
+        default: return 20
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch self.viewModel.sectionHeader[indexPath.section] {
         case .CouponsAndWallet:return self.getCellForCouponAndWalletSection(indexPath)
-        case .Addons: return self.getCellAddonsSection(indexPath)
         case .TotalPaybleAndTC: return self.getCellForTotalPaybleAndTCSection(indexPath)
+        default: return self.getCellAddonsSection(indexPath)
         }
     }
     
     func handleDiscountArrowAnimation(_ headerView: HotelFareSectionHeader) {
         let rotateTrans = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         switch self.viewModel.sectionHeader[headerView.tag]{
-        case .Addons:
-            headerView.arrowButton.transform = (self.isAddonsExpended) ? .identity : rotateTrans
+        case .Seat:
+            headerView.arrowButton.transform = (self.isSeatExpended) ? .identity : rotateTrans
+        case .Meal:
+            headerView.arrowButton.transform = (self.isMealExpended) ? .identity : rotateTrans
+        case .Baggage:
+            headerView.arrowButton.transform = (self.isBaggageExpended) ? .identity : rotateTrans
+        case .Other:
+            headerView.arrowButton.transform = (self.isOtherExpended) ? .identity : rotateTrans
         default:break
         }
     }
@@ -447,7 +419,7 @@ extension PostBookingAddonsPaymentVC: UITableViewDelegate, UITableViewDataSource
 extension PostBookingAddonsPaymentVC{
     
     func getHeaderAddons(_ section:Int)-> UITableViewHeaderFooterView?{
-        guard let headerView = self.checkOutTableView.dequeueReusableHeaderFooterView(withIdentifier: self.cellIdentifier) as? HotelFareSectionHeader, !self.viewModel.taxAndFeesData.isEmpty else {
+        guard let headerView = self.checkOutTableView.dequeueReusableHeaderFooterView(withIdentifier: self.cellIdentifier) as? HotelFareSectionHeader else {
             return nil
         }
         headerView.grossFareTitleLabel.text = ""
@@ -456,28 +428,67 @@ extension PostBookingAddonsPaymentVC{
         headerView.delegate = self
         headerView.grossFareTitleTopConstraint.constant = 0
         self.handleDiscountArrowAnimation(headerView)
-        headerView.discountsTitleLabel.text = "Addons"
-        headerView.discountPriceLabel.text = "\(Double(self.viewModel.itinerary.details.fare.addons?.value ?? 0).amountInDelimeterWithSymbol)"
+        
+        switch self.viewModel.sectionHeader[section] {
+        case .Seat:
+            if !self.viewModel.seatData.isEmpty{
+                headerView.discountsTitleLabel.text = "Seat"
+                headerView.discountPriceLabel.text = "\(Double(self.viewModel.addonsDetails.details.addonsSum["seat"] ?? 0).amountInDelimeterWithSymbol)"
+            }else{
+                return nil
+            }
+        case .Meal:
+            if !self.viewModel.mealData.isEmpty{
+                headerView.discountsTitleLabel.text = "Meal"
+                headerView.discountPriceLabel.text = "\(Double(self.viewModel.addonsDetails.details.addonsSum["meal"] ?? 0).amountInDelimeterWithSymbol)"
+            }else{
+                return nil
+            }
+        case .Baggage:
+            if !self.viewModel.baggageData.isEmpty{
+                headerView.discountsTitleLabel.text = "Baggage"
+                headerView.discountPriceLabel.text = "\(Double(self.viewModel.addonsDetails.details.addonsSum["baggage"] ?? 0).amountInDelimeterWithSymbol)"
+            }else{
+                return nil
+            }
+        case .Other:
+            if !self.viewModel.otherData.isEmpty{
+                headerView.discountsTitleLabel.text = "Other"
+                headerView.discountPriceLabel.text = "\(Double(self.viewModel.addonsDetails.details.addonsSum["special"] ?? 0).amountInDelimeterWithSymbol)"
+            }else{
+                return nil
+            }
+        default:return nil
+        }
         return headerView
     }
     
     
     
     func getHeightOfRowForFirstSection(_ indexPath: IndexPath) -> CGFloat {
-        switch indexPath.row {
-        case 0, 2: // Empty Cell
+//        switch indexPath.row {
+//        case 0: // Empty Cell
+//            return 35.0
+//        case 1: // Pay by Wallet Cell
+//            return (UserInfo.loggedInUser != nil) ? 75.0 : 0.0
+//        case 2: // Empty Cell
+//            return (UserInfo.loggedInUser != nil) ? 35.0 : 0.0
+//        default:
+//            return 44 // Default Height Cell
+//        }
+        
+        
+        switch self.viewModel.sectionTableCell[indexPath.section][indexPath.row] {
+        case .EmptyCell:
             return 35.0
-        case 4: // Empty Cell
-            return (UserInfo.loggedInUser != nil) ? 35.0 : 0.0
-        case 1: // Apply Coupon Cell
+        case .WalletCell:
+            return 75.0
+        case .FareBreakupCell:
             return 44.0
-        case 3: // Pay by Wallet Cell
-            return (UserInfo.loggedInUser != nil) ? 75.0 : 0.0
-            //        case 5: // Fare Detail Cell
-        //            return 80.0
-        default:
-            return 44 // Default Height Cell
+        default: return UITableView.automaticDimension
         }
+        
+        
     }
     
     func getHeightOfRowForThirdSection(_ indexPath: IndexPath) -> CGFloat {
@@ -544,17 +555,29 @@ extension PostBookingAddonsPaymentVC{
             return UITableViewCell()
         }
     }
-    
-    
-    
-    
-    
+
     func getCellAddonsSection(_ indexPath: IndexPath)->UITableViewCell{
-        
         guard let cell = self.checkOutTableView.dequeueReusableCell(withIdentifier: DiscountCell.reusableIdentifier, for: indexPath) as? DiscountCell else { return UITableViewCell()}
-        let title = self.viewModel.taxAndFeesData[indexPath.row].name
-        let amount = Double(self.viewModel.taxAndFeesData[indexPath.row].value).amountInDelimeterWithSymbol
-        cell.configureCell(title: title, amount: amount)
+        let title:NSAttributedString
+        let amount:String
+        switch self.viewModel.sectionHeader[indexPath.section] {
+        case .Seat:
+            title = self.viewModel.seatData[indexPath.row].fligtRoute
+            amount = (Double(self.viewModel.seatData[indexPath.row].addonsDetails.price) ?? 0.0).amountInDelimeterWithSymbol
+        case .Meal:
+            title = self.viewModel.mealData[indexPath.row].fligtRoute
+            amount = (Double(self.viewModel.mealData[indexPath.row].addonsDetails.price) ?? 0.0).amountInDelimeterWithSymbol
+        case .Baggage:
+            title = self.viewModel.baggageData[indexPath.row].fligtRoute
+            amount = (Double(self.viewModel.baggageData[indexPath.row].addonsDetails.price) ?? 0.0).amountInDelimeterWithSymbol
+        case .Other:
+            title = self.viewModel.otherData[indexPath.row].fligtRoute
+            amount = (Double(self.viewModel.otherData[indexPath.row].addonsDetails.price) ?? 0.0).amountInDelimeterWithSymbol
+        default:
+            title = NSAttributedString(string: "")
+            amount = ""
+        }
+        cell.configureForAddons(title: title, amount: amount)
         return cell
     }
     
@@ -585,7 +608,7 @@ extension PostBookingAddonsPaymentVC{
             }
             walletAmountCell.callForReuse()
             if self.isWallet {
-                let amount = Double(self.viewModel.itinerary.details.farepr)
+                let amount = Double(self.viewModel.addonsDetails.netAmount)
                 var amountFromWallet: Double = 0.0
                 if amount > self.getWalletAmount() {
                     amountFromWallet = self.getWalletAmount()
@@ -607,7 +630,7 @@ extension PostBookingAddonsPaymentVC{
             }
             totalPayableNowCell.topDeviderView.isHidden = false
             totalPayableNowCell.bottomDeviderView.isHidden = false
-            totalPayableNowCell.totalPriceLabel.text = Double(self.viewModel.itinerary.details.fare.totalPayableNow.value).amountInDelimeterWithSymbol
+            totalPayableNowCell.totalPriceLabel.text = Double(self.viewModel.addonsDetails.netAmount).amountInDelimeterWithSymbol
             return totalPayableNowCell
         case 3:
             guard let termAndPrivacCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: TermAndPrivacyTableViewCell.reusableIdentifier, for: indexPath) as? TermAndPrivacyTableViewCell else {

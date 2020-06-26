@@ -48,8 +48,6 @@ class FlightPaymentBookingStatusVM{
             self.bookingDetail.append(nil)
             self.getBookingDetails(self.apiBookingIds[i], index:i)
         }
-        
-        
     }
     
     func getSectionData(){

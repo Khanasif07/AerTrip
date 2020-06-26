@@ -12,9 +12,11 @@ protocol SeatMapContainerDelegate: AnyObject {
     func willFetchSeatMapData()
     func didFetchSeatMapData()
     func failedToFetchSeatMapData()
-    
     func willHitPostConfAPI()
     func didHitPostConfAPI()
+    func willFetchQuotationData()
+    func didFetchQuotationData(_ quotationModel: AddonsQuotationsModel)
+    func faildToFetchQuotationData()
 }
 
 class SeatMapContainerVM {
@@ -59,6 +61,7 @@ class SeatMapContainerVM {
     var bookingAddOns = [BookingAddons]()
     var bookedPassengersArr = [ATContact]()
     var originalBookedAddOnSeats = [SeatMapModel.SeatMapRow]()
+    var bookingIds = [String]()
     
     convenience init() {
         self.init("", "", "")
@@ -142,15 +145,36 @@ class SeatMapContainerVM {
     }
     
     func hitPostSeatConfirmationAPI() {
-        delegate?.willHitPostConfAPI()
+     //   delegate?.willHitPostConfAPI()
         let params = createParamsForPostConfirmation()
+        self.delegate?.willFetchQuotationData()
         APICaller.shared.hitSeatPostConfirmationAPI(params: params) {[weak self] (addOnModel, err) in
-            self?.delegate?.didHitPostConfAPI()
             if let model = addOnModel {
                 let itId = model.itinerary.id
+                self?.getQuatationDataAPI(with: itId)
+            }else{
+                self?.delegate?.faildToFetchQuotationData()
             }
         }
     }
+    
+    
+    func getQuatationDataAPI(with itId:String){
+        let param = [APIKeys.it_id.rawValue:itId]
+        APICaller.shared.getAddonsQuatationApi(params: param) {[weak self] (quotationModel, err) in
+            printDebug(quotationModel)
+            if let quotataion = quotationModel{
+                self?.delegate?.didFetchQuotationData(quotataion)
+            }else{
+                self?.delegate?.faildToFetchQuotationData()
+            }
+            
+            
+        }
+        
+        
+    }
+    
     
     private func createParamsForPostConfirmation() -> JSONDictionary {
         var dict = JSONDictionary()

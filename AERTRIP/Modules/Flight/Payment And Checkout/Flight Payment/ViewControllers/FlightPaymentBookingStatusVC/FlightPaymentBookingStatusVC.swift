@@ -108,8 +108,11 @@ class FlightPaymentBookingStatusVC: BaseVC {
         }
         vc.setBookingFlightLegsAndAddOns(flightLegs, addOnsArr)
         vc.setupFor(.postSelection, bookingId)
-        vc.modalPresentationStyle = .overFullScreen
-        present(vc, animated: true, completion: nil)
+        vc.viewModel.bookingIds = self.viewModel.availableSeatMaps.map{$0.bookingId}
+        let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)
+        nav.modalPresentationStyle = .overFullScreen
+//        vc.modalPresentationStyle = .overFullScreen
+        present(nav, animated: true, completion: nil)
     }
 }
 
@@ -226,7 +229,6 @@ extension FlightPaymentBookingStatusVC: FlightPaymentBookingStatusVMDelegate{
     
     
     func getBookingReceiptSuccess(){
-//        AppGlobals.shared.stopLoading()
         self.viewModel.getBookingDetail()
         self.viewModel.getSectionData()
         self.statusTableView.backgroundView = nil
