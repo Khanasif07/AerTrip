@@ -110,6 +110,7 @@ class FlightPaymentBookingStatusVC: BaseVC {
         vc.setupFor(.postSelection, bookingId)
         vc.viewModel.bookingIds = self.viewModel.availableSeatMaps.map{$0.bookingId}
         let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)
+        nav.setNavigationBarHidden(true, animated: false)
         nav.modalPresentationStyle = .overFullScreen
 //        vc.modalPresentationStyle = .overFullScreen
         present(nav, animated: true, completion: nil)

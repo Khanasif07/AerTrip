@@ -83,6 +83,7 @@ class PostBookingAddonsPaymentStatusVC: BaseVC {
         vc.setBookingFlightLegsAndAddOns(flightLegs, addOnsArr)
         vc.setupFor(.postSelection, bookingId)
         let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)
+        nav.setNavigationBarHidden(true, animated: false)
         nav.modalPresentationStyle = .overFullScreen
         //        vc.modalPresentationStyle = .overFullScreen
         present(nav, animated: true, completion: nil)

@@ -58,6 +58,8 @@ class SeatMapContainerVC: UIViewController {
         initialSetup()
     }
     
+    
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.parchmentView?.view.frame = self.seatMapContainerView.bounds
@@ -85,10 +87,16 @@ class SeatMapContainerVC: UIViewController {
         setupViews()
         addHighlightView()
         viewModel.delegate = self
-        viewModel.fetchSeatMapData()
-        setupPlaneLayoutCollView()
         planeLayoutScrollView.delegate = self
-        addPanToHighlightView()
+        self.planeLayoutView.isHidden = true
+        self.planeShadowView.isHidden = true
+        delay(seconds: 0.2) {
+            self.viewModel.fetchSeatMapData()
+            self.setupPlaneLayoutCollView()
+            self.addPanToHighlightView()
+//            self.planeLayoutView.isHidden = false
+//            self.planeShadowView.isHidden = false
+        }
     }
     
     func setViewModel(_ vm: SeatMapContainerVM) {
@@ -115,6 +123,7 @@ class SeatMapContainerVC: UIViewController {
         planeLayoutCollView.dataSource = self
         planeShadowView.addShadow(ofColor: .black, radius: 60, opacity: 0.5)
         planeLayoutView.isHidden = true
+        self.planeShadowView.isHidden = true
     }
     
     private func setupNavBar() {
@@ -268,6 +277,7 @@ class SeatMapContainerVC: UIViewController {
         
         UIView.animate(withDuration: 0.33, animations: {
             self.planeLayoutView.isHidden = false
+            self.planeShadowView.isHidden = false
             self.planeLayoutView.alpha = 1
         }, completion:  { _ in
             if callHide {

@@ -56,7 +56,7 @@ import UIKit
         
         self.reachability = Reachability.networkReachabilityForInternetConnection()
         let _ = self.reachability?.startNotifier()
-        window?.backgroundColor = UIColor.black
+        window?.backgroundColor = UIColor.white
         return true
     }
     
