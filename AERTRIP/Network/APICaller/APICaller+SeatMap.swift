@@ -94,4 +94,31 @@ extension APICaller {
     }
     
     
+    func getAddonsQuatationApi(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ mapModel: AddonsQuotationsModel?, _ errorCodes: ErrorCodes)->Void ) {
+        
+        AppNetworking.GET(endPoint: .getAddonsQuatation , parameters: params,
+                          loader: loader, success: { [weak self] (data) in
+                            guard let self = self else {return}
+                            
+                            self.handleResponse(data, success: { (sucess, jsonData) in
+                                
+                                let addOnConfModel = AddonsQuotationsModel(jsonData[APIKeys.data.rawValue]["itinerary"])
+                                completionBlock(addOnConfModel, [])
+                                
+                            }, failure: { (error) in
+                                completionBlock(nil, [])
+                            })
+                            
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(nil, [])
+            }
+            else {
+                
+            }
+        }
+    }
+    
 }

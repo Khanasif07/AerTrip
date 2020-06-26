@@ -149,4 +149,32 @@ extension APICaller{
         }
     }
     
+    
+    func getAddonsReceipt(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ addonsRecept : AddonsReceiptModel?)->Void) {
+        AppNetworking.GET(endPoint:APIEndPoint.getAddonsReceipt, parameters: params, loader: loader, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            sSelf.handleResponse(json, success: { (success, jsonData) in
+                printDebug(jsonData)
+                if success {
+                    let receiptModel = AddonsReceiptModel(jsonData[APIKeys.data.rawValue])
+                    completionBlock(true, [] , receiptModel)
+                } else {
+                    completionBlock(true, [], nil)
+                }
+            }, failure:  { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                completionBlock(false, errors, nil)
+            })
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [], nil)
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
+            }
+        }
+    }
+    
 }

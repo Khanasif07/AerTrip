@@ -446,6 +446,25 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
             self.setCurrentPlaneLayout()
         }
     }
+    
+    
+    func willFetchQuotationData(){
+        AppGlobals.shared.startLoading()
+    }
+    func didFetchQuotationData(_ quotationModel: AddonsQuotationsModel){
+        AppGlobals.shared.stopLoading()
+        let vc = PostBookingAddonsPaymentVC.instantiate(fromAppStoryboard: .FlightPayment)
+        vc.viewModel.addonsDetails = quotationModel
+        vc.viewModel.bookingIds = self.viewModel.bookingIds
+        self.navigationController?.pushViewController(vc, animated:true)
+    }
+    func faildToFetchQuotationData(){
+        AppGlobals.shared.stopLoading()
+        AppToast.default.showToastMessage(message: "Something went worng!")
+        
+    }
+    
+    
 }
 
 //MARK: Methods for Post Booking
