@@ -1208,6 +1208,15 @@ extension AppFlowManager {
         nav.isNavigationBarHidden = true
         self.currentNavigation?.present(nav, animated: true, completion: nil)
     }
+    
+    func presentBookingNotesVC(overViewInfo: String) {
+        let ob = BookingNotesVC.instantiate(fromAppStoryboard: .Bookings)
+        ob.viewModel.noteInfo = overViewInfo
+        //        ob.modalPresentationStyle = .overFullScreen
+        //        ob.modalPresentationCapturesStatusBarAppearance = true
+        //        ob.statusBarColor = AppColors.themeWhite
+        UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
+    }
 }
 
 // MARK: - Select Trip Flow Methods

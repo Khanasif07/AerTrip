@@ -16,8 +16,9 @@ class BookingAddCommonInputTableViewCell: ATTableViewCell {
     
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var inputTextField: ATTextField!
+    @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var characterCountLabel: UILabel!
     
     
     override func prepareForReuse() {
@@ -25,17 +26,22 @@ class BookingAddCommonInputTableViewCell: ATTableViewCell {
         
         self.inputTextField.text = ""
         self.titleLabel.text = ""
+        self.characterCountLabel.isHidden = true
     }
     
     override func doInitialSetup() {
       inputTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
+        self.characterCountLabel.isHidden = true
     }
     
     weak var delegate: BookingAddCommonInputTableViewCellDelegate?
     
+    
+    
     override func setupFonts() {
         self.titleLabel.font = AppFonts.Regular.withSize(14.0)
         self.inputTextField.font = AppFonts.Regular.withSize(18.0)
+        self.characterCountLabel.font = AppFonts.Regular.withSize(14.0)
     }
     
     
@@ -43,7 +49,8 @@ class BookingAddCommonInputTableViewCell: ATTableViewCell {
     override func setupColors() {
         self.titleLabel.textColor = AppColors.themeGray40
         self.inputTextField.textColor = AppColors.themeTextColor
-       
+       self.characterCountLabel.textColor = AppColors.themeGray40
+
     }
     
 
@@ -52,12 +59,18 @@ class BookingAddCommonInputTableViewCell: ATTableViewCell {
         self.inputTextField.delegate = self
             self.titleLabel.text = title
         self.inputTextField.text = text
-        
+        updateCharacterCount()
         }
+    
+    func updateCharacterCount() {
+        var textCount = (inputTextField.text ?? "").count
+        self.characterCountLabel.text = "\(AppConstants.AddOnRequestTextLimit - textCount) \(LocalizedString.CharactersRemaining.localized)"
+    }
 }
 
 extension BookingAddCommonInputTableViewCell: UITextFieldDelegate {
     @objc func textFieldDidChanged(_ textField: UITextField) {
+        updateCharacterCount()
         delegate?.textFieldText(textField: textField)
     }
     

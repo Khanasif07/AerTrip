@@ -14,13 +14,13 @@ extension FlightBookingInfoVC {
     func getHeightForFlightInfo(_ indexPath: IndexPath) -> CGFloat {
         
         switch self.viewModel.allFlightInfoCells[indexPath.section][indexPath.row] {
-        case .aerlineDetail: return 82.0
-        case .flightInfo: return 140.0
+        case .aerlineDetail: return 77.0
+        case .flightInfo: return 132.0
         case .amenities(let totalRowsForAmenities):
-            let heightForOneRow: CGFloat = 55.0
-            let lineSpace = (CGFloat(totalRowsForAmenities) * 5.0)
+            let heightForOneRow: CGFloat = 62.0
+            let lineSpace = (CGFloat(totalRowsForAmenities) * 7.0)
             // 10 id collection view top & bottom in xib
-            return (CGFloat(totalRowsForAmenities) * heightForOneRow) + lineSpace + 25.0
+            return (CGFloat(totalRowsForAmenities) * heightForOneRow) + lineSpace + 15.0
             
         case .layover: return 40.0
         case .paxData:
@@ -94,7 +94,7 @@ extension FlightBookingInfoVC {
                 case .layover: return true
                 default: return false
                 }
-                }) ? 5 : 16
+                }) ? 5 : 20
             return cell
         }
         

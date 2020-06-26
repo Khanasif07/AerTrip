@@ -13,6 +13,7 @@ enum BookingCommonActionUsingFor {
     case addToAppleWallet
     case addToTrips
     case bookSameFlight
+    case bookAnotherRoom
 }
 
 class BookingCommonActionTableViewCell: ATTableViewCell {

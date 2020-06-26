@@ -728,6 +728,8 @@ Your booking ID is";
 "NoBaggage" = "No Baggage";
 "NoInfo" = "No Info";
 "BaggageDetailsMessage" = "Baggage details are indicative and subject to change without prior notice.";
+"CharactersRemaining" = "characters remaining";
+"BookAnotherRoom" = "Book another room";
 
 // Booking Action sheet option
 "RequestAddOnAndFrequentFlyer" = "Request Add-ons & Freq. Flyer";

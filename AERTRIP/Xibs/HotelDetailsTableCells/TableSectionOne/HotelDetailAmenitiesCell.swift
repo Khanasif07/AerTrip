@@ -27,6 +27,7 @@ class HotelDetailAmenitiesCell: UITableViewCell {
         didSet {
             self.amenitiesCollectionView.delegate = self
             self.amenitiesCollectionView.dataSource = self
+            self.amenitiesCollectionView.isUserInteractionEnabled = false
         }
     }
     @IBOutlet weak var amenitiesLabel: UILabel!

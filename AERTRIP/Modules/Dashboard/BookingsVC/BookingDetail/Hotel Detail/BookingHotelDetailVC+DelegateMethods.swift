@@ -152,6 +152,8 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
                 AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel.bookingDetail?.bookingDetail?.info ?? "")
             } else if indexPath.row == 5 {
                 AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel.bookingDetail?.bookingDetail?.hotelId ?? "")
+            } else if indexPath.row == 4 {
+                AppFlowManager.default.showHotelDetailAmenitiesVC(amenitiesGroups: self.viewModel.bookingDetail?.bookingDetail?.amenitiesGroups ?? [:], amentites: self.viewModel.bookingDetail?.bookingDetail?.amenities, amenitiesGroupOrder: self.viewModel.bookingDetail?.bookingDetail?.amenities_group_order ?? [:])
             }
         }
     }

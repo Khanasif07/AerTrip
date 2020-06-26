@@ -34,6 +34,10 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currentSection = self.viewModel.sectionDataForFlightProductType[indexPath.section]
         switch currentSection[indexPath.row] {
@@ -137,12 +141,19 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 AppGlobals.shared.showUnderDevelopment()
             case .addToAppleWallet:
                 AppGlobals.shared.showUnderDevelopment()
+            case .bookAnotherRoom:
+                AppGlobals.shared.showUnderDevelopment()
             }
         }
         else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? PaymentInfoTableViewCell, let rcpt = self.viewModel.bookingDetail?.receipt {
             //move to voucher vc
             AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, caseId: "")
+        } else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? HotelInfoAddressCell {
+            // notes section
+            AppFlowManager.default.presentBookingNotesVC(overViewInfo: self.viewModel.bookingDetail?.bookingDetail?.note ?? "")
         }
+        
+        
     }
 }
 
@@ -459,6 +470,15 @@ extension FlightBookingsDetailsVC: BookingProductDetailVMDelegate {
         self.headerView?.stopProgress()
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
         //AppGlobals.shared.stopLoading()
+    }
+    func willGetTripOwner() {
+        
+    }
+    func getBTripOwnerSucces() {
+       self.bookingDetailsTableView.reloadData()
+    }
+    func getTripOwnerFaiure(error: ErrorCodes) {
+        self.bookingDetailsTableView.reloadData()
     }
 }
 

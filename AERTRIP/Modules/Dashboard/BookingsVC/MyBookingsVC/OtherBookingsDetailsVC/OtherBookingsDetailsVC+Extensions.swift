@@ -274,4 +274,14 @@ extension OtherBookingsDetailsVC: BookingProductDetailVMDelegate {
         self.headerView?.stopProgress()
         //AppGlobals.shared.stopLoading()
     }
+    
+    func willGetTripOwner() {
+        
+    }
+    func getBTripOwnerSucces() {
+       self.dataTableView.reloadData()
+    }
+    func getTripOwnerFaiure(error: ErrorCodes) {
+        self.dataTableView.reloadData()
+    }
 }

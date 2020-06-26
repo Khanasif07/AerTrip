@@ -56,13 +56,13 @@ extension AmentityTableViewCell : UICollectionViewDataSource,UICollectionViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 5
+        return 7
     }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let newW: CGFloat = collectionView.width / CGFloat(numberOfItemInRow) - 10.0
-        let newH: CGFloat = collectionView.height / CGFloat(self.flightDetail?.totalRowsForAmenities ?? 1)
+        let newH: CGFloat = 62//collectionView.height / CGFloat(self.flightDetail?.totalRowsForAmenities ?? 1)
         return  CGSize(width: newW, height: newH)
     }
     

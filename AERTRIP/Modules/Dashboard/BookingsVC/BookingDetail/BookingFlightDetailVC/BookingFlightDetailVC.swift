@@ -62,10 +62,9 @@ class BookingFlightDetailVC: BaseVC {
     
     private func configureNavBar() {
         
-        self.topNavigationView.configureNavBar(title: "", isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        self.topNavigationView.configureNavBar(title: "", isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
         self.topNavigationView.navTitleLabel.attributedText = self.viewModel.tripStr
         self.topNavigationView.delegate = self
-        self.topNavigationView.dividerView.isHidden = true
         topNavigationView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"), selectedImage: #imageLiteral(resourceName: "black_cross"))
     }
     

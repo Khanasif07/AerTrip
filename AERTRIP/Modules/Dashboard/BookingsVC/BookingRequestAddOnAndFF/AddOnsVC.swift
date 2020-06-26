@@ -90,6 +90,7 @@ class AddOnsVC: BaseVC {
         // Extra baggage Cell
         case 3:
             commontInputTableViewCell.configureCell(title: LocalizedString.ExtraBaggageTitle.localized, placeholderText: LocalizedString.ExtraBaggagePlacheholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].baggage ?? "")
+            commontInputTableViewCell.characterCountLabel.isHidden = false
             return commontInputTableViewCell
             
         // Other Cell

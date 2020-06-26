@@ -77,6 +77,8 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return UITableView.automaticDimension
         case .tripChangeCell:
             return UITableView.automaticDimension
+        case .bookAnotherRoomCell:
+            return UITableView.automaticDimension
         }
     }
     
@@ -139,13 +141,35 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return self.getAddToWalletCell(tableView, indexPath: indexPath)
         case .tripChangeCell:
             return self.getTripChangeCell(tableView, indexPath: indexPath)
+        case .bookAnotherRoomCell:
+            return self.getBookAnotherRoomCell(tableView, indexPath: indexPath)
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printDebug("\(indexPath.section)")
-        
-        
+        let currentSection = self.viewModel.sectionDataForHotelDetail[indexPath.section]
+        switch currentSection[indexPath.row] {
+        case .hotelBookingInfoCell, .roomNameAndTypeCell, .travellersCell :
+            AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: self.viewModel.bookingDetail,hotelTitle: self.navigationTitleText)
+        case .cancellationsReqCell, .addOnRequestCell, .reschedulingRequestCell :
+            if let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
+            AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row - 1], receipt: rcpt)
+            }
+        case .tripChangeCell:
+            self.tripChangeIndexPath = indexPath
+            AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips,tripInfo: self.viewModel.bookingDetail?.tripInfo ?? TripInfo())
+        case .addToAppleWallet, .bookAnotherRoomCell :
+            AppGlobals.shared.showUnderDevelopment()
+        case .addToCalenderCell:
+            self.addToCalender()
+        case .paymentInfoCell:
+            if let rcpt = self.viewModel.bookingDetail?.receipt {
+            AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, caseId: "")
+            }
+        default:  break
+        }
+        /*
         if self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false, indexPath.section == 0, let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
             // cases
             AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row - 1], receipt: rcpt)
@@ -163,16 +187,24 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips,tripInfo: self.viewModel.bookingDetail?.tripInfo ?? TripInfo())
         }
         else if let cell = self.bookingDetailsTableView.cellForRow(at: indexPath) as? BookingCommonActionTableViewCell {
-            if cell.usingFor == .addToCalender {
+            switch cell.usingFor {
+            case .addToCalender:
                 self.addToCalender()
-            } else {
-                self.addToAppleWallet()
+            case .addToTrips:
+                AppGlobals.shared.showUnderDevelopment()
+            case .bookSameFlight:
+                AppGlobals.shared.showUnderDevelopment()
+            case .addToAppleWallet:
+                AppGlobals.shared.showUnderDevelopment()
+            case .bookAnotherRoom:
+                AppGlobals.shared.showUnderDevelopment()
             }
         }
         else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? PaymentInfoTableViewCell, let rcpt = self.viewModel.bookingDetail?.receipt {
             //move to voucher vc
             AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, caseId: "")
         }
+ */
     }
 }
 

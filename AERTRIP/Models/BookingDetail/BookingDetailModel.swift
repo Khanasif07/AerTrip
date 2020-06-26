@@ -1252,7 +1252,7 @@ struct BookingFlightDetail {
             finalStr += "\n\(self.equipmentLayout)"
         }
         
-        return finalStr + " >"
+        return finalStr //+ " >"
     }
 }
 

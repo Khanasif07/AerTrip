@@ -40,7 +40,8 @@ class PaymentPendingTableViewCell: UITableViewCell {
         
         //Color
         self.priceLabel.textColor = AppColors.themeWhite
-        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
+        //self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
+        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
         self.gradiyentView.addGredientWithScreenWidth(isVertical: true, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue], spacing: 16.0)
         self.gradiyentView.roundBottomCorners(cornerRadius: 10.0)
         

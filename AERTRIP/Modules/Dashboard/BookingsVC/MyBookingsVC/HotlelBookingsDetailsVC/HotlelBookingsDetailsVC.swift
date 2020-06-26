@@ -188,4 +188,14 @@ extension HotlelBookingsDetailsVC: BookingProductDetailVMDelegate {
         self.headerView?.stopProgress()
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
     }
+    
+    func willGetTripOwner() {
+        
+    }
+    func getBTripOwnerSucces() {
+       self.bookingDetailsTableView.reloadData()
+    }
+    func getTripOwnerFaiure(error: ErrorCodes) {
+        self.bookingDetailsTableView.reloadData()
+    }
 }

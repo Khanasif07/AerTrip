@@ -11,7 +11,10 @@ import UIKit
 extension FlightBookingsDetailsVC {
     func getNotesCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelInfoAddressCell.reusableIdentifier, for: indexPath) as? HotelInfoAddressCell else { return UITableViewCell() }
+        cell.layoutSubviews()
         cell.configureNotesCell(notes: self.viewModel.bookingDetail?.bookingDetail?.note ?? "")
+        cell.addressInfoTextView.isUserInteractionEnabled = false
+        cell.containerViewBottomConstraint.constant = (self.viewModel.bookingDetail?.cases.isEmpty ?? true) ? 14 : 0
         cell.clipsToBounds = true
         return cell
     }

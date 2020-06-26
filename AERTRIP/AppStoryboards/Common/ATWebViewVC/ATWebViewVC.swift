@@ -41,6 +41,8 @@ class ATWebViewVC: BaseVC {
     //MARK:-
     override func initialSetup() {
         topNavView.configureNavBar(title: navTitle, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .clear)
+        topNavView.navTitleLabel.numberOfLines = 1
+        topNavView.navTitleLabel.lineBreakMode = .byTruncatingTail
         topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"), selectedImage: #imageLiteral(resourceName: "black_cross"))
         topNavView.delegate = self
         topNavView.backView.backgroundColor = .clear
