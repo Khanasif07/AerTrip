@@ -26,6 +26,7 @@ extension APICaller{
                 
             }, failure: { (errors) in
                 ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                printDebug(json)
                 completionBlock(false, errors, nil)
             })
         }) { (error) in
@@ -33,12 +34,10 @@ extension APICaller{
                 AppGlobals.shared.stopLoading()
                 AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
                 completionBlock(false, [], nil)
-            }
-            else {
+            } else {
                 completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
             }
         }
-        
     }
     
     

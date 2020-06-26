@@ -409,6 +409,7 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
         DispatchQueue.main.async {
             AppGlobals.shared.stopLoading()
         }
+        AppToast.default.showToastMessage(message: LocalizedString.Will_Be_Available_Soon.localized)
     }
     
     func willHitPostConfAPI() {
@@ -452,6 +453,7 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
                 self.seatTotalLbl.text = "₹ \(seatTotal)"
             }
         }
+        guard !viewModel.allTabsStr.isEmpty else { return }
         setUpViewPager()
         planeLayoutCollView.reloadData()
         DispatchQueue.delay(0.5) {

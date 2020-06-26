@@ -10,6 +10,8 @@ import UIKit
 
 class PassengersSelectionVC: UIViewController {
 
+    @IBOutlet weak var progressViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var backNavigationView: UIView!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
@@ -33,6 +35,7 @@ class PassengersSelectionVC: UIViewController {
         self.passengerTableview.separatorStyle = .none
         self.passengerTableview.delegate = self
         self.passengerTableview.dataSource = self
+        hideProgressView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,6 +92,19 @@ class PassengersSelectionVC: UIViewController {
         self.intFareBreakupVC = vc
     }
     
+    func showProgressView(){
+        UIView.animate(withDuration: 2) {
+            self.progressView.isHidden = false
+        }
+    }
+    
+    func hideProgressView(){
+        UIView.animate(withDuration: 2) {
+            self.progressViewHeight.constant = 0
+            self.progressView.isHidden = true
+        }
+    }
+    
     @IBAction func tapBackButton(_ sender: UIButton) {
         self.dismissAsPopAnimation()
     }
@@ -105,26 +121,25 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
         
         
-        let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
-        vc.adonsVm.bookingObject = self.viewModel.bookingObject ?? BookFlightObject()
-        AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary, addonsMaster: self.viewModel.addonsMaster)
-        AddonsDataStore.shared.appliedCouponData = self.viewModel.itineraryData
-        AddonsDataStore.shared.taxesResult = self.viewModel.taxesResult
-        AddonsDataStore.shared.passengers = GuestDetailsVM.shared.guests.first ?? []
-        AddonsDataStore.shared.gstDetail = self.viewModel.selectedGST
-        AddonsDataStore.shared.email = self.viewModel.email
-        AddonsDataStore.shared.mobile = self.viewModel.mobile
-        AddonsDataStore.shared.isd = self.viewModel.isdCode
-        AddonsDataStore.shared.isGSTOn = self.viewModel.isSwitchOn
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
+//        vc.adonsVm.bookingObject = self.viewModel.bookingObject ?? BookFlightObject()
+//        AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary, addonsMaster: self.viewModel.addonsMaster)
+//        AddonsDataStore.shared.appliedCouponData = self.viewModel.itineraryData
+//        AddonsDataStore.shared.taxesResult = self.viewModel.taxesResult
+//        AddonsDataStore.shared.passengers = GuestDetailsVM.shared.guests.first ?? []
+//        AddonsDataStore.shared.gstDetail = self.viewModel.selectedGST
+//        AddonsDataStore.shared.email = self.viewModel.email
+//        AddonsDataStore.shared.mobile = self.viewModel.mobile
+//        AddonsDataStore.shared.isd = self.viewModel.isdCode
+//        AddonsDataStore.shared.isGSTOn = self.viewModel.isSwitchOn
+//        self.navigationController?.pushViewController(vc, animated: true)
         
-//        
-//        let validation = self.viewModel.validateGuestData()
-//        if validation.success{
-//            self.viewModel.checkValidationForNextScreen()
-//        }else{
-//            AppToast.default.showToastMessage(message: validation.msg)
-//        }
+        let validation = self.viewModel.validateGuestData()
+        if validation.success{
+            self.viewModel.checkValidationForNextScreen()
+        }else{
+            AppToast.default.showToastMessage(message: validation.msg)
+        }
     }
     
     func infoButtonTapped(isViewExpanded: Bool) {

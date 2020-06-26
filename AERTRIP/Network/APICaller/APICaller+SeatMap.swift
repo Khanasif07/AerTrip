@@ -47,7 +47,12 @@ extension APICaller {
             
             self.handleResponse(data, success: { (sucess, jsonData) in
                 let seatMapModel = SeatMapModel(jsonData)
-                completionBlock(seatMapModel, [])
+                
+                if seatMapModel.data.leg.isEmpty{
+                    completionBlock(nil, [])
+                }else{
+                    completionBlock(seatMapModel, [])
+                }
                 
             }, failure: { (error) in
                 completionBlock(nil, [])

@@ -1011,3 +1011,5 @@ Your booking ID is";
 
 
 "Passenger_Cannot_Be_Deselected_For_Meal" = " One or more meals are available freely for this particular flight so passengers can not be deselected if you want to select some other meal then tap on it and proceed further.";
+
+"Will_Be_Available_Soon" = "Will be available soon.";

@@ -21,7 +21,6 @@ extension SeatMapContainerVC: PagingViewControllerDataSource , PagingViewControl
         return 100.0
     }
     
-    
     func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
         viewModel.allTabsStr.count
     }
