@@ -60,7 +60,7 @@ class TravellersDetailsTableViewCell: UITableViewCell {
         }
         if !travellersImage.isEmpty {
             self.travellerProfileImage.setImageWithUrl(travellersImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
-            self.travellerProfileImage.contentMode = .scaleAspectFit
+            self.travellerProfileImage.contentMode = .scaleAspectFill
         } else {
             //self.travellerProfileImage.image = AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName, font: AppFonts.Regular.withSize(35.0))
             if congigureForHotelDetail {

@@ -18,7 +18,7 @@ class FlightBookingsDetailsVC: BaseVC {
     let viewModel = BookingProductDetailVM()
     var headerView: OtherBookingDetailsHeaderView?
     var eventTypeImage: UIImage {
-        return #imageLiteral(resourceName: "flightIcon")
+        return #imageLiteral(resourceName: "flightIconDetailPage")
     }
     var eventTypeNavigationBarImage: UIImage {
         return #imageLiteral(resourceName: "BookingDetailFlightNavIcon")

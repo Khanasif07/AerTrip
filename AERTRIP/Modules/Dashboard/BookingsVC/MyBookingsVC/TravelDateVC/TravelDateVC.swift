@@ -279,6 +279,7 @@ class TravelDateVC: BaseVC {
             self.toViewHeightConstraint.constant = self.openedHeight
             self.fromDatePickerContainer.alpha = 0.0
             self.toDatePickerContainer.alpha = 1.0
+            self.firstDividerView.alpha = 0.0
             self.view.layoutIfNeeded()
         }) { _ in
         }
@@ -296,6 +297,7 @@ class TravelDateVC: BaseVC {
             self.toViewHeightConstraint.constant = self.closedHeight
             self.fromDatePickerContainer.alpha = 1.0
             self.toDatePickerContainer.alpha = 0.0
+            self.firstDividerView.alpha = 1.0
             self.view.layoutIfNeeded()
         }) { _ in
         }
@@ -309,16 +311,16 @@ class TravelDateVC: BaseVC {
     @objc func fromDatePickerValueChanged(_ datePicker: UIDatePicker) {
         if self.oldToDate == nil {
             if self.currentlyUsingAs == .bookingDate {
-                self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
+                self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.oldToDate)
             }
             else {
-                self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
+                self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.oldToDate)
             }
             self.oldFromDate = self.fromDatePicker.date
         }
         else {
             self.oldFromDate = self.fromDatePicker.date
-            self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
+            self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.oldToDate)
         }
         
         if self.toDatePicker.date.timeIntervalSince1970 < self.fromDatePicker.date.timeIntervalSince1970 {
@@ -332,17 +334,17 @@ class TravelDateVC: BaseVC {
     @objc func toDatePickerValueChanged(_ datePicker: UIDatePicker) {
         if self.oldFromDate == nil {
             if self.currentlyUsingAs == .bookingDate {
-                self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
+                self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.toDatePicker.date)
             }
             else {
-                self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate:  self.toDatePicker.date)
+                self.setDateOnLabels(fromDate: self.oldFromDate, toDate:  self.toDatePicker.date)
             }
             
             self.oldToDate = self.toDatePicker.date
         }
         else {
             self.oldToDate = self.toDatePicker.date
-            self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
+            self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.toDatePicker.date)
         }
         
         if self.toDatePicker.date.timeIntervalSince1970 < self.fromDatePicker.date.timeIntervalSince1970 {
@@ -373,6 +375,7 @@ class TravelDateVC: BaseVC {
             // close from picker
             self.fromViewHeightConstraint.constant = self.closedHeight
             self.fromDatePickerContainer.alpha = 0.0
+            self.firstDividerView.alpha = 0.0
             self.view.layoutIfNeeded()
         }) { _ in
         }

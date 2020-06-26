@@ -18,7 +18,7 @@ struct BookingCaseHistory {
         var commHash: String = ""
         var commDate: Date?
         var templateId: String = ""
-        
+        var isEmailLoading: Bool = false
         
         init(json: JSONDictionary) {
             if let obj = json["subject"] {

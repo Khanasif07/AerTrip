@@ -578,7 +578,7 @@ enum ATFileType: RawRepresentable {
         switch self {
         case .pdf: return #imageLiteral(resourceName: "ic_file_pdf")
         case .text: return #imageLiteral(resourceName: "ic_file_text")
-        case .word: return #imageLiteral(resourceName: "ic_file_others")
+        case .word: return #imageLiteral(resourceName: "ic_file_word")
         case .powerPoint: return #imageLiteral(resourceName: "ic_file_powerpoint")
         case .excel: return #imageLiteral(resourceName: "ic_file_excel")
         case .zip: return #imageLiteral(resourceName: "ic_file_zip")

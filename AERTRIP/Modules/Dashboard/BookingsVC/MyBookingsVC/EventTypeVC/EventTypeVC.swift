@@ -54,6 +54,7 @@ class EventTypeVC: BaseVC {
         eventType.removeAll()
         selectedIndexPath = nil
         oldSelection.removeAll()
+        oldSelection = MyBookingFilterVM.shared.eventType
         for type in MyBookingFilterVM.shared.bookigEventAvailableType {
             if let product = ProductType(rawValue: type) {
                 eventType.append(product)

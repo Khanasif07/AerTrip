@@ -255,20 +255,23 @@ extension OtherBookingsDetailsVC: MXParallaxHeaderDelegate {
 
 extension OtherBookingsDetailsVC: BookingProductDetailVMDelegate {
     func willGetBookingDetail() {
-        AppGlobals.shared.startLoading()
+        self.headerView?.startProgress()
+        //AppGlobals.shared.startLoading()
     }
     
     func getBookingDetailSucces() {
+        self.headerView?.stopProgress()
         self.configureTableHeaderView()
         self.dataTableView.delegate = self
         self.dataTableView.dataSource = self
         self.viewModel.getSectionDataForOtherProductType()
         self.dataTableView.reloadData()
-        AppGlobals.shared.stopLoading()
+        //AppGlobals.shared.stopLoading()
     }
     
     func getBookingDetailFaiure(error: ErrorCodes) {
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
-        AppGlobals.shared.stopLoading()
+        self.headerView?.stopProgress()
+        //AppGlobals.shared.stopLoading()
     }
 }

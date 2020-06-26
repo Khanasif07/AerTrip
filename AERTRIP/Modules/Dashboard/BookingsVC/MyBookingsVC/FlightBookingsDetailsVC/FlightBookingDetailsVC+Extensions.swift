@@ -439,11 +439,13 @@ extension FlightBookingsDetailsVC: WeatherHeaderTableViewCellDelegate {
 
 extension FlightBookingsDetailsVC: BookingProductDetailVMDelegate {
     func willGetBookingDetail() {
-        AppGlobals.shared.startLoading()
+        //AppGlobals.shared.startLoading()
+        self.headerView?.startProgress()
     }
     
     func getBookingDetailSucces() {
-        AppGlobals.shared.stopLoading()
+        //AppGlobals.shared.stopLoading()
+        self.headerView?.stopProgress()
         self.configureTableHeaderView()
         self.bookingDetailsTableView.delegate = self
         self.bookingDetailsTableView.dataSource = self
@@ -454,8 +456,9 @@ extension FlightBookingsDetailsVC: BookingProductDetailVMDelegate {
     }
     
     func getBookingDetailFaiure(error: ErrorCodes) {
+        self.headerView?.stopProgress()
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
-        AppGlobals.shared.stopLoading()
+        //AppGlobals.shared.stopLoading()
     }
 }
 

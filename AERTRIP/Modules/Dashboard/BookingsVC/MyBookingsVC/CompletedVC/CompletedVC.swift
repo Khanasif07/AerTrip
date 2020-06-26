@@ -15,6 +15,7 @@ class CompletedVC: BaseVC {
     //================
     let viewModel = UpcomingBookingsVM()
     var isComingFromFilter: Bool = false
+    var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
     
     //Mark:- IBOutlets
     //================
@@ -141,6 +142,7 @@ class CompletedVC: BaseVC {
         self.completedBookingsTableView.registerCell(nibName: OthersBookingTableViewCell.reusableIdentifier)
         self.completedBookingsTableView.registerCell(nibName: SpaceTableViewCell.reusableIdentifier)
         self.completedBookingsTableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
+        self.completedBookingsTableView.register(UINib(nibName: tableViewHeaderCellIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderCellIdentifier)
     }
     
     private func emptyStateSetUp() {

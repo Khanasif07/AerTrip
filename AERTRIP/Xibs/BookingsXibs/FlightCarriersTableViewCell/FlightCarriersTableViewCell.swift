@@ -86,12 +86,14 @@ class FlightCarriersTableViewCell: UITableViewCell {
          
          */
         let carrierCode = carrierCode.removeDuplicates()
-        let carriers = carriers.removeDuplicates()
+        //let carriers = carriers.removeDuplicates()
         switch carriers.count {
         case 1:
-            if !carrierCode[0].isEmpty {
+            if carrierCode.indices.contains(0),!carrierCode[0].isEmpty {
                 let imageUrl = AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[0])
                 self.firstFlightCarriersImgVw.setImageWithUrl(imageUrl, placeholder: AppPlaceholderImage.default, showIndicator: true)
+            } else {
+                self.firstFlightCarriersContView.isHidden = true
             }
             self.secondFlightCarriersContView.isHidden = true
             self.moreFlightCarriersContView.isHidden = true
@@ -102,8 +104,16 @@ class FlightCarriersTableViewCell: UITableViewCell {
             self.moreFlightCarriersLabel.isHidden = true
             self.moreFlightCarriersContView.isHidden = true
             self.totalCarriersOrFlNameLabel.isHidden = true
+            if carrierCode.indices.contains(0),!carrierCode[0].isEmpty {
             self.firstFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[0]), placeholder: AppPlaceholderImage.default, showIndicator: true)
-            self.secondFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[1]), placeholder: AppPlaceholderImage.default, showIndicator: true)
+            }else {
+                self.firstFlightCarriersContView.isHidden = true
+            }
+            if carrierCode.indices.contains(1),!carrierCode[1].isEmpty {
+                self.secondFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[1]), placeholder: AppPlaceholderImage.default, showIndicator: true)
+            }else {
+                self.secondFlightCarriersContView.isHidden = true
+            }
             
         case 3:
             self.secondFlightCarriersContView.isHidden = false
@@ -111,14 +121,30 @@ class FlightCarriersTableViewCell: UITableViewCell {
             self.moreFlightCarriersContView.isHidden = false
             self.moreFlightBlurOverlayView.isHidden = true
             self.totalCarriersOrFlNameLabel.isHidden = true
+            if carrierCode.indices.contains(0),!carrierCode[0].isEmpty {
             self.firstFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[0]), placeholder: AppPlaceholderImage.default, showIndicator: true)
+            }else {
+                self.firstFlightCarriersContView.isHidden = true
+            }
+            if carrierCode.indices.contains(1),!carrierCode[1].isEmpty {
             self.secondFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[1]), placeholder: AppPlaceholderImage.default, showIndicator: true)
+            }else {
+                self.secondFlightCarriersContView.isHidden = true
+            }
+            if carrierCode.indices.contains(2),!carrierCode[2].isEmpty {
             self.moreFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[2]), placeholder: AppPlaceholderImage.default, showIndicator: true)
+            }else {
+                self.moreFlightCarriersLabel.isHidden = true
+            }
             
         default:
             self.secondFlightCarriersContView.isHidden = false
-            self.moreFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[2]), placeholder: AppPlaceholderImage.default, showIndicator: true)
             self.moreFlightCarriersContView.isHidden = false
+            if carrierCode.indices.contains(2),!carrierCode[2].isEmpty {
+            self.moreFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[2]), placeholder: AppPlaceholderImage.default, showIndicator: true)
+            }else {
+                self.moreFlightCarriersContView.isHidden = true
+            }
             self.moreFlightCarriersLabel.text = "+ \(carriers.count - 3)"
             self.totalCarriersOrFlNameLabel.text = "\(carriers.count) \(LocalizedString.Carriers.localized)"
         }

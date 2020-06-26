@@ -42,7 +42,8 @@ class UpcomingBookingsVC: BaseVC {
     var isOnlyPendingAction: Bool = false
     var isComingFromFilter: Bool = false
     var fetchRequest: NSFetchRequest<BookingData> = BookingData.fetchRequest()
-    
+    var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
+
     // fetch result controller
     lazy var fetchedResultsController: NSFetchedResultsController<BookingData> = {
         // booking will be in ascending order by date
@@ -136,6 +137,8 @@ class UpcomingBookingsVC: BaseVC {
         self.upcomingBookingsTableView.registerCell(nibName: SpaceTableViewCell.reusableIdentifier)
         self.upcomingBookingsTableView.registerCell(nibName: HotelTableViewCell.reusableIdentifier)
         self.upcomingBookingsTableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
+        self.upcomingBookingsTableView.register(UINib(nibName: tableViewHeaderCellIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderCellIdentifier)
+
     }
     
     func emptyStateSetUp() {

@@ -114,13 +114,13 @@ class MyBookingFilterVC: BaseVC {
     
     private func checkDoneBtnState() {
         if  MyBookingFilterVM.shared.isFilterAplied() {
-            self.topNavBar.firstRightButton.isEnabled = true
-            self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
+            //self.topNavBar.firstRightButton.isEnabled = true
+            //self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
             self.topNavBar.leftButton.isEnabled = true
             self.topNavBar.leftButton.setTitleColor(AppColors.themeGreen, for: .normal)
         } else {
-            self.topNavBar.firstRightButton.isEnabled = false
-            self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+            //self.topNavBar.firstRightButton.isEnabled = false
+            //self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
             self.topNavBar.leftButton.isEnabled = false
             self.topNavBar.leftButton.setTitleColor(AppColors.themeGray40, for: .normal)
         }
@@ -205,11 +205,10 @@ class MyBookingFilterVC: BaseVC {
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
         self.childContainerView.addSubview(self.parchmentView!.view)
-        
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
         self.parchmentView?.sizeDelegate = self
-        self.parchmentView?.select(index: 0)
+        self.parchmentView?.select(index: MyBookingFilterVM.shared.lastSelectedIndex)
         
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
@@ -360,11 +359,12 @@ extension MyBookingFilterVC: PagingViewControllerDataSource , PagingViewControll
         return MenuItem(title: self.allTabsStr[index], index: index, isSelected: isFilterArray[index] )
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
         
-        let pagingIndexItem = pagingItem as! MenuItem
-        self.currentIndex = pagingIndexItem.index
-        MyBookingFilterVM.shared.lastSelectedIndex =  self.currentIndex
+        if let pagingIndexItem = pagingItem as? MenuItem {
+            self.currentIndex = pagingIndexItem.index
+            MyBookingFilterVM.shared.lastSelectedIndex =  self.currentIndex
+        }
     }
 }
 

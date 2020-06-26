@@ -228,16 +228,24 @@ class BookingAddOnRequestVC: BaseVC {
 
 extension BookingAddOnRequestVC: BookingAddOnRequestVMDelegate {
     func willGetCommunicationDetail() {
-        AppGlobals.shared.startLoading()
+        //AppGlobals.shared.startLoading()
     }
     
-    func getCommunicationDetailSuccess(htmlString: String, title: String) {
-        AppGlobals.shared.stopLoading()
+    func getCommunicationDetailSuccess(htmlString: String, title: String, indexPath: IndexPath) {
+        //AppGlobals.shared.stopLoading()
+        self.viewModel.caseHistory?.communications[indexPath.row].isEmailLoading = false
+        if let cell = self.requestTableView.cellForRow(at: indexPath) as? BookingRequestAddOnTableViewCell {
+            cell.showLoader = false
+        }
         AppFlowManager.default.showHTMLOnATWebView(htmlString, screenTitle: title)
     }
     
-    func getCommunicationDetailFail() {
-        AppGlobals.shared.stopLoading()
+    func getCommunicationDetailFail(indexPath: IndexPath) {
+        self.viewModel.caseHistory?.communications[indexPath.row].isEmailLoading = false
+        if let cell = self.requestTableView.cellForRow(at: indexPath) as? BookingRequestAddOnTableViewCell {
+            cell.showLoader = false
+        }
+        //AppGlobals.shared.stopLoading()
     }
     
     func makeRequestConfirmSuccess() {
@@ -478,8 +486,12 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         else if let caseD = self.viewModel.caseHistory, !caseD.communications.isEmpty {
             let commonHash = self.viewModel.caseHistory?.communications[indexPath.row].commHash ?? ""
             let templateId = self.viewModel.caseHistory?.communications[indexPath.row].templateId ?? ""
-            let title = self.viewModel.caseHistory?.communications[indexPath.row].commDate?.toString(dateFormat: "hh:mm aa") ?? ""
-            self.viewModel.getCommunicationDetail(commonHash: commonHash, templateId: templateId, title: title)
+            let title = self.viewModel.caseHistory?.communications[indexPath.row].subject ?? ""//self.viewModel.caseHistory?.communications[indexPath.row].commDate?.toString(dateFormat: "hh:mm aa") ?? ""
+            self.viewModel.caseHistory?.communications[indexPath.row].isEmailLoading = true
+            if let cell = self.requestTableView.cellForRow(at: indexPath) as? BookingRequestAddOnTableViewCell {
+                cell.showLoader = true
+            }
+            self.viewModel.getCommunicationDetail(commonHash: commonHash, templateId: templateId, title: title, indexPath: indexPath)
         }
         
     }

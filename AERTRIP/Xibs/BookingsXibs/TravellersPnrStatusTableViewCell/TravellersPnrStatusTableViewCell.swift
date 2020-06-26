@@ -72,7 +72,7 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
         let travelName = travellerName
         if !travellersImage.isEmpty {
             self.travellerImageView.setImageWithUrl(travellersImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
-            self.travellerImageView.contentMode = .scaleAspectFit
+            self.travellerImageView.contentMode = .scaleAspectFill
         } else {
             self.travellerImageView.makeCircular(borderWidth: 1.0, borderColor: AppColors.themeGray20)
             //self.travellerImageView.image = AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName, font: AppFonts.Regular.withSize(35.0))
