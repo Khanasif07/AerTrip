@@ -344,9 +344,7 @@ extension DashboardVC  {
 //            }
             
             let upperBound = scrollView.contentSize.height - scrollView.bounds.height
-            
-            print("offset: \(offset.y), uppderBound: \(upperBound)")
-            
+                        
             guard 0...upperBound ~= offset.y else {
                 return
             }

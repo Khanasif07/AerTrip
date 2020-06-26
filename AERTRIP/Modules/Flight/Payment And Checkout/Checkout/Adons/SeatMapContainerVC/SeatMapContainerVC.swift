@@ -472,12 +472,18 @@ extension SeatMapContainerVC {
             var passArr = [ATContact]()
             passengers.forEach { (passenger) in
                 var newContact = ATContact()
-                newContact.id = passenger.paxId
+                newContact.id = passenger.uPid
                 newContact.apiId = passenger.paxId
                 newContact.firstName = passenger.firstName
                 newContact.lastName = passenger.lastName
                 newContact.image = passenger.profileImage
-                passArr.append(newContact)
+                if passArr.contains(where: { $0.id == newContact.id }) {
+                    
+                } else {
+                    if passenger.paxType != "INF" {
+                        passArr.append(newContact)
+                    }
+                }
             }
             return passArr
         }
