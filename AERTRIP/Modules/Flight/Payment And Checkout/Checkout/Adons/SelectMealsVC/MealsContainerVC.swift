@@ -219,7 +219,7 @@ extension MealsContainerVC : SelectMealDelegate {
                 vc.modalPresentationStyle = .overFullScreen
                 vc.selectPassengersVM.selectedContacts = selectedContacts
                 vc.selectPassengersVM.adonsData = forAdon
-                vc.selectPassengersVM.setupFor = .baggage
+                vc.selectPassengersVM.setupFor = .meals
                 vc.selectPassengersVM.flightKys = [currentFlightKey]
                 vc.selectPassengersVM.freeMeal = self.mealsContainerVM.allChildVCs[vcIndex].selectMealsVM.freeMeal
                 vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in

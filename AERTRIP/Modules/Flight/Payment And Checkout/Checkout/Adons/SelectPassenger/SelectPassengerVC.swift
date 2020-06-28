@@ -190,9 +190,9 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
         if let index = self.selectPassengersVM.selectedContacts.firstIndex(where: { (cont) -> Bool in
             cont.id == self.selectPassengersVM.allowedPassengers[indexPath.item].id
         }){
-            if self.selectPassengersVM.freeMeal {
-                AppToast.default.showToastMessage(message: LocalizedString.Passenger_Cannot_Be_Deselected_For_Meal.localized)
-                return }
+//            if self.selectPassengersVM.freeMeal {
+//                AppToast.default.showToastMessage(message: LocalizedString.Passenger_Cannot_Be_Deselected_For_Meal.localized)
+//                return }
             self.doneButton.setTitle(LocalizedString.Done.localized, for: UIControl.State.normal)
 
             self.selectPassengersVM.selectedContacts.remove(at: index)
