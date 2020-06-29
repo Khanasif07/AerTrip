@@ -131,7 +131,7 @@ class SeatMapContainerVC: UIViewController {
         
         topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen)
         
-        topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Bold.withSize(18))
+        topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18))
         
         topNavBarView.delegate = self
     }
@@ -147,7 +147,8 @@ class SeatMapContainerVC: UIViewController {
         seatTotalLbl.text = "₹ 0"
         addBtn.titleLabel?.font = AppFonts.SemiBold.withSize(20)
         addBtn.setTitleColor(AppColors.themeGreen, for: .normal)
-        addBtn.setTitle(LocalizedString.Add.localized, for: .normal)
+        let addBtnTitle = viewModel.setupFor == .postSelection ? LocalizedString.CheckoutTitle.localized : LocalizedString.Add.localized
+        addBtn.setTitle(addBtnTitle, for: .normal)
     }
     
     private func addHighlightView() {
