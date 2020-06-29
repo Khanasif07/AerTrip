@@ -303,7 +303,7 @@ extension SeatMapContainerVC {
         
         if convertedRectMaxXOffset > scrollViewMaxXOffset {
             UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseInOut, animations: {
-                self.planeLayoutScrollView.contentOffset.x += 20
+                self.planeLayoutScrollView.contentOffset.x += 50
             }, completion: nil)
         }
         
@@ -311,7 +311,7 @@ extension SeatMapContainerVC {
         let scrollViewXOffset = planeLayoutScrollView.contentOffset.x
         if convertedRectXOffset < scrollViewXOffset {
             UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseInOut, animations: {
-                self.planeLayoutScrollView.contentOffset.x -= 20
+                self.planeLayoutScrollView.contentOffset.x -= 50
             }, completion: nil)
         }
         
