@@ -149,6 +149,7 @@ class SeatMapContainerVC: UIViewController {
         addBtn.setTitleColor(AppColors.themeGreen, for: .normal)
         let addBtnTitle = viewModel.setupFor == .postSelection ? LocalizedString.CheckoutTitle.localized : LocalizedString.Add.localized
         addBtn.setTitle(addBtnTitle, for: .normal)
+        totalSeatAmountView.addShadow(ofColor: .black, radius: 20, opacity: 0.05)
     }
     
     private func addHighlightView() {

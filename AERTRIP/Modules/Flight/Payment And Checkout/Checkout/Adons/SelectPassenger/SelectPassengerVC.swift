@@ -19,6 +19,8 @@ class SelectPassengerVC : BaseVC {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var popUpBackView: UIView!
     
+    @IBOutlet weak var headerDetailsStackBottom: NSLayoutConstraint!
+    
     let selectPassengersVM = SelectPassengersVM()
     
     var updatedFlightData: ((SeatMapModel.SeatMapFlight) -> ())?
@@ -91,6 +93,9 @@ extension SelectPassengerVC {
             emptyView.isHidden = true
             titleLabel.text = selectPassengersVM.selectedSeatData.columnData.seatNumber + " • ₹\(selectPassengersVM.selectedSeatData.columnData.amount)"
             legsLabel.text = selectPassengersVM.selectedSeatData.columnData.getCharactericstic()
+            legsLabel.textColor = AppColors.themeGray40
+            legsLabel.font = AppFonts.Regular.withSize(14)
+            headerDetailsStackBottom.constant = 21
             selectPassengersVM.initalPassengerForSeat = selectPassengersVM.selectedSeatData.columnData.passenger
             
         case .meals:
