@@ -50,7 +50,6 @@ class AdonsVM  {
     var isComplementaryMealAdded : Bool {
         let dataStore = AddonsDataStore.shared
         return dataStore.isFreeMeal
-//        return dataStore.itinerary.freeMeal || dataStore.itinerary.freeMealSeat
     }
     
     var getComplementaryMealString : String {
@@ -82,9 +81,10 @@ class AdonsVM  {
         return isFreeSeatsAdded ? LocalizedString.Free_Seats_Available.localized : ""
        }
     
+    private var priseDict : JSONDictionary = [:]
+    
     func setAdonsOptions(){
         let flightsWithData = AddonsDataStore.shared.flightsWithData
-        
         let flightsWithMeals = flightsWithData.filter { !$0.meal.addonsArray.isEmpty }
         let flightsWithBaggage = flightsWithData.filter {!$0.bags.addonsArray.isEmpty }
         let flightsWithOthers = flightsWithData.filter {!$0.special.addonsArray.isEmpty }
@@ -104,6 +104,10 @@ class AdonsVM  {
             addonsData.append(AdonsVM.AddonsData(type: .otheres, heading: LocalizedString.Other.localized, description: LocalizedString.PreBook_Services.localized, complementString: "", shouldShowComp: false))
         }
         
+    }
+    
+    func updatePriceDict(key : String, value : String){
+        priseDict[key] = value
     }
     
     func getCellHeight(index : Int) -> CGFloat {

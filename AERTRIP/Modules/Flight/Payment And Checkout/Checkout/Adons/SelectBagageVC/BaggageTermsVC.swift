@@ -36,6 +36,8 @@ class BaggageTermsVC : BaseVC {
         super.setupFonts()
         self.headingLabel.font = AppFonts.SemiBold.withSize(22)
         self.descriptionLabel.font = AppFonts.Regular.withSize(16)
+        agreeButton.titleLabel?.font = AppFonts.SemiBold.withSize(18)
+        declineButton.titleLabel?.font = AppFonts.SemiBold.withSize(18)
     }
     
     override func setupTexts() {
