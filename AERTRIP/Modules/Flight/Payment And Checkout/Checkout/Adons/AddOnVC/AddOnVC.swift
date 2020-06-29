@@ -12,7 +12,7 @@ protocol AddonsUpdatedDelegate : class {
     func baggageUpdated(amount : Int)
     func mealsUpdated(amount : Int)
     func othersUpdated(amount : Int)
-    func seatsUpdated()
+    func seatsUpdated(amount: Int)
     func resetMeals()
 }
 
@@ -242,10 +242,11 @@ extension AddOnVC : AddonsUpdatedDelegate {
         self.setSkipButton()
     }
     
-    func seatsUpdated() {
+    func seatsUpdated(amount: Int) {
         self.adonsVm.setSeatsString()
         self.adonsTableView.reloadData()
         self.setSkipButton()
+        self.adonsVm.updatePriceDict(key: "seat", value: "\(amount)")
     }
     
     func resetMeals() {

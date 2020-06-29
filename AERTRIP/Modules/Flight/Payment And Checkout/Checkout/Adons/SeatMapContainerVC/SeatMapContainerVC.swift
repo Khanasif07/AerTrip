@@ -68,7 +68,9 @@ class SeatMapContainerVC: UIViewController {
             AddonsDataStore.shared.seatsArray = viewModel.selectedSeats
             AddonsDataStore.shared.originalSeatMapModel = viewModel.seatMapModel
             AddonsDataStore.shared.seatsAllFlightsData = viewModel.allFlightsData
-            self.delegate?.seatsUpdated()
+            viewModel.getSeatTotal { [weak self] (seatTotal) in
+                self?.delegate?.seatsUpdated(amount: seatTotal)
+            }
             dismiss(animated: true, completion: nil)
         } else {
             viewModel.hitPostSeatConfirmationAPI()
@@ -400,7 +402,9 @@ extension SeatMapContainerVC: TopNavigationViewDelegate {
         if viewModel.setupFor == .preSelection {
             AddonsDataStore.shared.seatsAllFlightsData = viewModel.originalAllFlightsData
             AddonsDataStore.shared.seatsArray.removeAll()
-            self.delegate?.seatsUpdated()
+            viewModel.getSeatTotal { [weak self] (seatTotal) in
+                self?.delegate?.seatsUpdated(amount: seatTotal)
+            }
         }
         allChildVCs.enumerated().forEach { (index, seatMapVC) in
             seatMapVC.setFlightData(viewModel.allFlightsData[index])
