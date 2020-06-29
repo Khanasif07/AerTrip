@@ -228,7 +228,7 @@ extension BaggageContainerVC : SelectBaggageDelegate {
         
             let baggageTermsVC = BaggageTermsVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
                baggageTermsVC.modalPresentationStyle = .overFullScreen
-            baggageTermsVC.baggageTermsVM.agreeComplition = {[weak self] (agree) in
+            baggageTermsVC.baggageTermsVM.agreeCompletion = {[weak self] (agree) in
                 guard let weakSelf = self else { return }
 
                 if !agree {

@@ -1025,3 +1025,15 @@ Your booking ID is";
 "Baggage_Terms_Point2" = "Customers need to display their original Boarding pass and other relevant international travel documents at the time of check in.";
 "Baggage_Terms_Point3" = "In case the customer fails to produce the necessary documents as mentioned, excess baggage rates as per airport will be applicable.";
 "Baggage_Terms_Point4" = "Other baggage terms and conditions apply to this booking as listed on goair.in";
+
+"emergencySeatDesc" = "You have selected the emergency exit row seat. Kindly understand and accept the following instructions:";
+
+"emergencySeatTerms1" = "You are able bodied, above the age of 16 and have no medical concerns.";
+"emergencySeatTerms2" = "You are not travelling with infant or children below the age of 16 years or with anyone who requires special assistance in case of a emergency evacuation.";
+"emergencySeatTerms3" = "You understand that the exit weighs 15 kgs and are willing to open the exit in an emergency when advised by crew.";
+"emergencySeatTerms4" = "You understand communication in English and Hindi.";
+"emergencySeatTerms5" = "You do not require an extension seat belt.";
+"emergencySeatTerms6" = "You do not have any permanent or temporary impairment like sensory impairment, strength or mobility limitation, intellectual impairment, or travelling with service dogs.";
+"emergencySeatTerms7" = "You do not require to use Portable Oxygen Concentrators on board the aircraft.";
+"emergencySeatTerms8" = "You are not pregnant or travelling with someone who is pregnant.";
+"emergencySeatTerms9" = "You confirm and agree to all the above and also understand that the airline reserves all rights to change your seat(s) keeping in mind the overall safety or if you refuse to accept opening the exit during the crew briefing or if you do not adhere to the requirements of the seating row criteria as specified by the crew. (No Refund for change of seat on the aircraft.)";
