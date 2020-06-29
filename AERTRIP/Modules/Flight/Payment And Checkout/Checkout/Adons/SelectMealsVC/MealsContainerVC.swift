@@ -108,9 +108,9 @@ extension MealsContainerVC {
     
     private func setupParchmentPageController(){
         self.parchmentView = PagingViewController()
-        self.parchmentView?.menuItemSpacing = (self.view.width - 251.5) / 2
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 33.0, bottom: 0.0, right: 38.0)
-        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 40)
+        self.parchmentView?.menuItemSpacing = 34
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 15, bottom: 0.0, right: 15)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 56)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
