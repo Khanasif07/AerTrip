@@ -26,6 +26,9 @@ class BaggageTermsVC : BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if baggageTermsVM.setupFor == .seats {
+            descriptionLabel.text = LocalizedString.emergencySeatDesc.localized
+        }
         configureTableView()
     }
     
@@ -45,14 +48,14 @@ class BaggageTermsVC : BaseVC {
     @IBAction func agreeButtonTapped(_ sender: UIButton) {
 //        self.delegate?.isAccepted(value: true)
         self.dismiss(animated: true) {
-            self.baggageTermsVM.agreeComplition(true)
+            self.baggageTermsVM.agreeCompletion(true)
         }
     }
     
     @IBAction func declineButtonTapped(_ sender: Any) {
 //        self.delegate?.isAccepted(value: false)
         self.dismiss(animated: true) {
-                   self.baggageTermsVM.agreeComplition(false)
+                   self.baggageTermsVM.agreeCompletion(false)
                }    }
     
 }
@@ -81,7 +84,7 @@ extension BaggageTermsVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.baggageTermsVM.baggageTermsPoints.count
+        return self.baggageTermsVM.conditionPointers.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -90,7 +93,7 @@ extension BaggageTermsVC : UITableViewDelegate, UITableViewDataSource {
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "LabelWithBulletCell", for: indexPath) as? LabelWithBulletCell else { fatalError("LabelWithBulletCell not found") }
-        cell.descriptionLabel.text = self.baggageTermsVM.baggageTermsPoints[indexPath.row]
+        cell.descriptionLabel.text = self.baggageTermsVM.conditionPointers[indexPath.row]
         return cell
         }
         

@@ -75,7 +75,9 @@ class SelectBaggageVM {
               flightName.append("\(firstFlight.fr) → \(firstFlight.to)")
           }
           
-             if flightName.count == 1 {
+            if flightName.isEmpty {
+                autoSelectedForString = ""
+            } else if flightName.count == 1 {
                   autoSelectedForString += flightName.first ?? ""
               }else if flightName.count == 2 {
                   autoSelectedForString += flightName.joined(separator: ",").replacingLastOccurrenceOfString(" ,", with: " and ")
