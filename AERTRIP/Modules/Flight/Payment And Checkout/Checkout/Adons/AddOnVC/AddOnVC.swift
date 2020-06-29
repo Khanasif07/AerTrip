@@ -32,7 +32,8 @@ class AddOnVC : BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        configureNavigation()
+//        configureNavigation()
+        self.setSkipButton()
     }
     
     override func setupColors() {
@@ -62,9 +63,9 @@ extension AddOnVC {
         setupBottomView()
     }
     
-    func configureNavigation(){
+    func configureNavigation(showSkip : Bool = true){
         self.topNavView.delegate = self
-        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : false)
+        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: showSkip, isSecondRightButton: false,isDivider : false)
         self.topNavView.configureFirstRightButton(normalTitle: LocalizedString.Skip.localized, normalColor: AppColors.themeGreen, font: AppFonts.Bold.withSize(18))
     }
     
@@ -104,6 +105,11 @@ extension AddOnVC {
            vc.didMove(toParent: self)
            self.fareBreakupVC = vc
      }
+    
+    func setSkipButton() {
+        self.configureNavigation(showSkip: !(self.adonsVm.isMealSelected() || self.adonsVm.isOthersSelected() || self.adonsVm.isBaggageSelected()))
+        
+    }
 }
 
 extension AddOnVC : FareBreakupVCDelegate {
@@ -221,26 +227,31 @@ extension AddOnVC : AddonsUpdatedDelegate {
     func baggageUpdated() {
         self.adonsVm.setBaggageStrings()
         self.adonsTableView.reloadData()
+        self.setSkipButton()
     }
     
     func mealsUpdated() {
         self.adonsVm.setMealsString()
         self.adonsTableView.reloadData()
+        self.setSkipButton()
     }
     
     func othersUpdated() {
         self.adonsVm.setOthersString()
         self.adonsTableView.reloadData()
+        self.setSkipButton()
     }
     
     func seatsUpdated() {
         self.adonsVm.setSeatsString()
         self.adonsTableView.reloadData()
+        self.setSkipButton()
     }
     
     func resetMeals() {
 //        self.adonsVm.initializeFreeMealsToPassengers()
 //        self.adonsTableView.reloadData()
+        
      }
      
     

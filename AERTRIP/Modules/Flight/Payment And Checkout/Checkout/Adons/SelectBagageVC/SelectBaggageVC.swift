@@ -41,7 +41,7 @@ class SelectBaggageVC: UIViewController {
       
     func initialSetup() {
           configureTableView()
-         checkForNoData()
+        // checkForNoData()
       }
     
     func initializeVm(selectBaggageVM : SelectBaggageVM){

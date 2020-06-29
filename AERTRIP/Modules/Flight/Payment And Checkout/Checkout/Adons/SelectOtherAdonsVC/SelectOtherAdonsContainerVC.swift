@@ -257,7 +257,7 @@ extension SelectOtherAdonsContainerVC : SelectOtherDelegate {
             weakSelf.othersContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, othersIndex: othersIndex, contacts: contacts)
             weakSelf.calculateTotalAmount()
            }
-           present(vc, animated: true, completion: nil)
+           present(vc, animated: false, completion: nil)
        }
        
        func addContactButtonTapped() {

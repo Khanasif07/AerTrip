@@ -25,10 +25,8 @@ class SeatMapContainerVC: UIViewController {
     weak var delegate : AddonsUpdatedDelegate?
 
     // MARK: IBOutlets
-    
     @IBOutlet weak var topNavBarView: TopNavigationView!
     @IBOutlet weak var seatMapContainerView: UIView!
-    
     @IBOutlet weak var planeLayoutView: UIView!
     @IBOutlet weak var planeLayoutTopSeparatorView: UIView!
     @IBOutlet weak var planeLayoutBottomSeparatorView: UIView!
@@ -42,23 +40,20 @@ class SeatMapContainerVC: UIViewController {
     @IBOutlet weak var tailImgView: UIImageView!
     @IBOutlet weak var planeLayoutCollView: UICollectionView!
     @IBOutlet weak var planeLayoutCollViewWidth: NSLayoutConstraint!
-    
     @IBOutlet weak var totalSeatAmountView: UIView!
     @IBOutlet weak var totalSeatAmountTopSeparatorView: UIView!
     @IBOutlet weak var seatTotalTitleLbl: UILabel!
     @IBOutlet weak var seatTotalLbl: UILabel!
     @IBOutlet weak var addBtn: UIButton!
     @IBOutlet weak var totalSeatAmountViewHeight: NSLayoutConstraint!
-    
     @IBOutlet weak var highlightContainerView: UIView!
+    
     
     // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
     }
-    
-    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

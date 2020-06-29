@@ -1093,11 +1093,27 @@ enum LocalizedString: String {
  
     case Complementary_Meal_Added = "Complementary_Meal_Added"
     
+    case Complementary_Meal_Available = "Complementary_Meal_Available"
+    
     case Free_Seats_Available = "Free_Seats_Available"
 
     case Passenger_Cannot_Be_Deselected_For_Meal = "Passenger_Cannot_Be_Deselected_For_Meal"
     
    case Will_Be_Available_Soon = "Will_Be_Available_Soon"
+    
+    case Important = "Important"
+    
+    case Baggage_Terms_Desc = "Baggage_Terms_Desc"
+    
+    case Baggage_Terms_Point1 = "Baggage_Terms_Point1"
+    
+    case Baggage_Terms_Point2 = "Baggage_Terms_Point2"
+    
+    case Baggage_Terms_Point3 = "Baggage_Terms_Point3"
+    
+    case Baggage_Terms_Point4 = "Baggage_Terms_Point4"
+
+    
     
 }
 

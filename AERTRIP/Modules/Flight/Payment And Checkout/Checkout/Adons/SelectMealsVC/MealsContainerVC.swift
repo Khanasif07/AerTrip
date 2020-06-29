@@ -219,7 +219,7 @@ extension MealsContainerVC : SelectMealDelegate {
                 vc.modalPresentationStyle = .overFullScreen
                 vc.selectPassengersVM.selectedContacts = selectedContacts
                 vc.selectPassengersVM.adonsData = forAdon
-                vc.selectPassengersVM.setupFor = .baggage
+                vc.selectPassengersVM.setupFor = .meals
                 vc.selectPassengersVM.flightKys = [currentFlightKey]
                 vc.selectPassengersVM.freeMeal = self.mealsContainerVM.allChildVCs[vcIndex].selectMealsVM.freeMeal
                 vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
@@ -227,7 +227,7 @@ extension MealsContainerVC : SelectMealDelegate {
                 weakSelf.mealsContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: contacts)
                     weakSelf.calculateTotalAmount()
                 }
-                present(vc, animated: true, completion: nil)
+                present(vc, animated: false, completion: nil)
             }
 //
 //     func addPassengerToMeal(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, mealIndex: Int, selectedContacts: [ATContact]) {

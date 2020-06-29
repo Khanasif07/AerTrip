@@ -54,8 +54,23 @@ class AdonsVM  {
     }
     
     var getComplementaryMealString : String {
-             return isComplementaryMealAdded ? LocalizedString.Complementary_Meal_Added.localized : ""
-         }
+        
+        if isComplementaryMealAdded {
+            var isMealGreaterThenOne = false
+            
+            AddonsDataStore.shared.flightsWithData.forEach { (flight) in
+                if flight.meal.addonsArray.count > 1 && !isMealGreaterThenOne {
+                    isMealGreaterThenOne = true
+                }
+            }
+            
+            return isMealGreaterThenOne ? LocalizedString.Complementary_Meal_Available.localized : LocalizedString.Complementary_Meal_Added.localized
+            
+        }else{
+            return ""
+        }
+        
+      }
         
     var isFreeSeatsAdded : Bool {
           let dataStore = AddonsDataStore.shared
@@ -323,7 +338,8 @@ class AdonsVM  {
         
         dataStore.flightsWithData.enumerated().forEach { (flightINdex, flight) in
             
-            if !flight.freeMeal { return }
+            if !flight.freeMeal || flight.meal.addonsArray.count > 1 { return }
+            
             var mealsSelectedFor : [ATContact] = []
             
             if let firstMeal = flight.meal.addonsArray.firstIndex(where: { (meal) -> Bool in

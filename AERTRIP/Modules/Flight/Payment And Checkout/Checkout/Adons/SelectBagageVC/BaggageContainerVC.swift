@@ -225,19 +225,34 @@ extension BaggageContainerVC : SelectBaggageDelegate {
     
     func addPassengerToBaggage(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, baggageIndex: Int, selectedContacts: [ATContact]) {
     
-             let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-             vc.modalPresentationStyle = .overFullScreen
-             vc.selectPassengersVM.selectedContacts = selectedContacts
-             vc.selectPassengersVM.adonsData = forAdon
-             vc.selectPassengersVM.setupFor = .baggage
-             vc.selectPassengersVM.flightKys = [currentFlightKey]
-             vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
-                 guard let weakSelf = self else { return }
-                
-                weakSelf.baggageContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, baggageIndex: baggageIndex, contacts: contacts)
-                weakSelf.calculateTotalAmount()
-             }
-             present(vc, animated: true, completion: nil)
+        
+            let baggageTermsVC = BaggageTermsVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+               baggageTermsVC.modalPresentationStyle = .overFullScreen
+            baggageTermsVC.baggageTermsVM.agreeComplition = {[weak self] (agree) in
+                guard let weakSelf = self else { return }
+
+                if !agree {
+                    return
+                }
+                let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+                vc.modalPresentationStyle = .overFullScreen
+                vc.selectPassengersVM.selectedContacts = selectedContacts
+                vc.selectPassengersVM.adonsData = forAdon
+                vc.selectPassengersVM.setupFor = .baggage
+                vc.selectPassengersVM.flightKys = [currentFlightKey]
+                vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
+                    guard let weakSelf = self else { return }
+                   
+                   weakSelf.baggageContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, baggageIndex: baggageIndex, contacts: contacts)
+                   weakSelf.calculateTotalAmount()
+                }
+                weakSelf.present(vc, animated: false, completion: nil)
+            }
+        
+               self.present(baggageTermsVC, animated: true, completion: nil)
+        
+        
+
          }
     
 //    func addPassengerToBaggage(forAdon : AddonsDataCustom, vcIndex : Int, currentFlightKey : String, baggageIndex: Int, selectedContacts : [ATContact]){

@@ -67,6 +67,10 @@
 		0C26ECFE243386E700C058D0 /* SettingsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C26ECFD243386E700C058D0 /* SettingsHeaderView.xib */; };
 		0C272E292422601300133B50 /* SenderChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C272E272422601300133B50 /* SenderChatCell.swift */; };
 		0C272E2A2422601300133B50 /* SenderChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C272E282422601300133B50 /* SenderChatCell.xib */; };
+		0C30BC1124A9F7B4004BF7E0 /* BaggageTermsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C30BC1024A9F7B4004BF7E0 /* BaggageTermsVC.swift */; };
+		0C30BC1424A9F92A004BF7E0 /* LabelWithBulletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C30BC1224A9F92A004BF7E0 /* LabelWithBulletCell.swift */; };
+		0C30BC1524A9F92A004BF7E0 /* LabelWithBulletCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C30BC1324A9F92A004BF7E0 /* LabelWithBulletCell.xib */; };
+		0C30BC1724AA0112004BF7E0 /* BaggageTermsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C30BC1624AA0112004BF7E0 /* BaggageTermsVM.swift */; };
 		0C32DC06232F70FC008033B5 /* QuickPayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C32DC05232F70FC008033B5 /* QuickPayVC.swift */; };
 		0C6666AE22D472F0009DFACD /* TripChangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6666AC22D472F0009DFACD /* TripChangeTableViewCell.swift */; };
 		0C6666AF22D472F1009DFACD /* TripChangeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6666AD22D472F0009DFACD /* TripChangeTableViewCell.xib */; };
@@ -1645,6 +1649,10 @@
 		0C26ECFD243386E700C058D0 /* SettingsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsHeaderView.xib; sourceTree = "<group>"; };
 		0C272E272422601300133B50 /* SenderChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderChatCell.swift; sourceTree = "<group>"; };
 		0C272E282422601300133B50 /* SenderChatCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SenderChatCell.xib; sourceTree = "<group>"; };
+		0C30BC1024A9F7B4004BF7E0 /* BaggageTermsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaggageTermsVC.swift; sourceTree = "<group>"; };
+		0C30BC1224A9F92A004BF7E0 /* LabelWithBulletCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithBulletCell.swift; sourceTree = "<group>"; };
+		0C30BC1324A9F92A004BF7E0 /* LabelWithBulletCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelWithBulletCell.xib; sourceTree = "<group>"; };
+		0C30BC1624AA0112004BF7E0 /* BaggageTermsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaggageTermsVM.swift; sourceTree = "<group>"; };
 		0C32DC05232F70FC008033B5 /* QuickPayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickPayVC.swift; sourceTree = "<group>"; };
 		0C6666AC22D472F0009DFACD /* TripChangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripChangeTableViewCell.swift; sourceTree = "<group>"; };
 		0C6666AD22D472F0009DFACD /* TripChangeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripChangeTableViewCell.xib; sourceTree = "<group>"; };
@@ -3387,6 +3395,7 @@
 				0C07664E248E768400519276 /* BaggageContainerVM.swift */,
 				0C91D188248E94A100D91658 /* SelectBaggageVM.swift */,
 				0C14B8FA249343EA00C2D19A /* SelectOtherAdonsContainerVM.swift */,
+				0C30BC1624AA0112004BF7E0 /* BaggageTermsVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3396,6 +3405,7 @@
 			children = (
 				0C0AB1FC247C3CD5005E5E99 /* BaggageContainerVC.swift */,
 				0C0AB1FE247C3D6D005E5E99 /* SelectBaggageVC.swift */,
+				0C30BC1024A9F7B4004BF7E0 /* BaggageTermsVC.swift */,
 			);
 			path = SelectBagageVC;
 			sourceTree = "<group>";
@@ -3616,6 +3626,8 @@
 				0C00EDDC247D23E800DDFD10 /* BagageSectionHeaderView.xib */,
 				0C024044248044C200B06AEC /* SelectPassengerCell.swift */,
 				0C024045248044C200B06AEC /* SelectPassengerCell.xib */,
+				0C30BC1224A9F92A004BF7E0 /* LabelWithBulletCell.swift */,
+				0C30BC1324A9F92A004BF7E0 /* LabelWithBulletCell.xib */,
 			);
 			path = TableViewAndCollectionViewCells;
 			sourceTree = "<group>";
@@ -9415,6 +9427,7 @@
 				843FF4FD24740231001F21B1 /* IntJourneyHeaderView.xib in Resources */,
 				840A84202229B9B70040EB99 /* HotelTagCollectionCell.xib in Resources */,
 				843FF653247409E3001F21B1 /* PassengerCollectionViewCell.xib in Resources */,
+				0C30BC1524A9F92A004BF7E0 /* LabelWithBulletCell.xib in Resources */,
 				843FF50624740231001F21B1 /* IntCombineFareInfoCell.xib in Resources */,
 				847716292283F2FF000E1BB6 /* AccountOutstandingEventDescriptionCell.xib in Resources */,
 			);
@@ -9656,6 +9669,7 @@
 				843FF47A24740230001F21B1 /* DIYCalendarCell.m in Sources */,
 				843FF53C24740232001F21B1 /* SingleJourneyGroupedResultsCell.swift in Sources */,
 				182D4869228BDD0A004796A2 /* BookingCancellationPolicyVM.swift in Sources */,
+				0C30BC1424A9F92A004BF7E0 /* LabelWithBulletCell.swift in Sources */,
 				843C48052248E9CB00E71887 /* HCBookingIncompleteVC.swift in Sources */,
 				84247F9322A53D6D00A0FEB7 /* CancelledVC+Delegates.swift in Sources */,
 				843FF66E247409E3001F21B1 /* Flight.m in Sources */,
@@ -9809,6 +9823,7 @@
 				843FF4D724740231001F21B1 /* AddPassengerDetailsCell.swift in Sources */,
 				84247F8B22A5308200A0FEB7 /* CompletedVC.swift in Sources */,
 				844728FE24867DFC00AFAF1B /* HCHotelAddreesCell.swift in Sources */,
+				0C30BC1124A9F7B4004BF7E0 /* BaggageTermsVC.swift in Sources */,
 				843A26E222B8EABF00651D8E /* FareInfoVM.swift in Sources */,
 				8438B446245AB43500F7320B /* FlightInfoVC+ HelperMethods.swift in Sources */,
 				843FF50524740231001F21B1 /* IntFareInfoCell.swift in Sources */,
@@ -10477,6 +10492,7 @@
 				84085D0821F59C0E00F1E844 /* ViewProfileDetailVC.swift in Sources */,
 				188A4DB8242DEA5A00F871ED /* DimmingPresentationController.swift in Sources */,
 				84534EBB2248F4E0009FF536 /* HCGuestsDetailsCollectionViewCell.swift in Sources */,
+				0C30BC1724AA0112004BF7E0 /* BaggageTermsVM.swift in Sources */,
 				84B5089F229528DB00D4D371 /* PeriodicStatementEvent.swift in Sources */,
 				841DD1E32202DC690055FEBB /* RoomGuestSelectionVC.swift in Sources */,
 				8438B44E245AB5A400F7320B /* FlightBaggageInfoVC+Delegatemethods.swift in Sources */,

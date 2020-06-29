@@ -1007,9 +1007,21 @@ Your booking ID is";
 "PreBook_Services" = "Pre-book more services for a  convenient journey";
 
 "Complementary_Meal_Added" = "Complementary meal added";
+
+"Complementary_Meal_Available" = "Complementary meal available";
+
+
 "Free_Seats_Available" = "Free Seats Available";
 
 
 "Passenger_Cannot_Be_Deselected_For_Meal" = " One or more meals are available freely for this particular flight so passengers can not be deselected if you want to select some other meal then tap on it and proceed further.";
 
 "Will_Be_Available_Soon" = "Will be available soon.";
+
+
+"Important" = "Important";
+"Baggage_Terms_Desc" = "You have selected International Pre-Purchased Excess Baggage for below passengers. Kindly understand and accept the following instructions:";
+"Baggage_Terms_Point1" = "You have selected International Pre-Purchased Excess Baggage. International Pre-Purchased Excess Baggage rates can be booked by customers flying from / to international destinations within 24 hours.";
+"Baggage_Terms_Point2" = "Customers need to display their original Boarding pass and other relevant international travel documents at the time of check in.";
+"Baggage_Terms_Point3" = "In case the customer fails to produce the necessary documents as mentioned, excess baggage rates as per airport will be applicable.";
+"Baggage_Terms_Point4" = "Other baggage terms and conditions apply to this booking as listed on goair.in";

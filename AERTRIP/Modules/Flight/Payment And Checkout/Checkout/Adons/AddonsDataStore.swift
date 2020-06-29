@@ -79,7 +79,7 @@ class AddonsDataStore {
             
         }
         
-       //setUpForCheckingMeal()
+//       setUpForCheckingMeal()
         
      }
     
