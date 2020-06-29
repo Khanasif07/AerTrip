@@ -9,9 +9,9 @@
 import UIKit
 
 protocol AddonsUpdatedDelegate : class {
-    func baggageUpdated()
-    func mealsUpdated()
-    func othersUpdated()
+    func baggageUpdated(amount : Int)
+    func mealsUpdated(amount : Int)
+    func othersUpdated(amount : Int)
     func seatsUpdated()
     func resetMeals()
 }
@@ -58,7 +58,7 @@ extension AddOnVC {
     private func initialSetups() {
         self.adonsVm.setAdonsOptions()
         self.adonsVm.initializeFreeMealsToPassengers()
-        self.mealsUpdated()
+        self.mealsUpdated(amount: 0)
         configureTableView()
         setupBottomView()
     }
@@ -108,8 +108,8 @@ extension AddOnVC {
     
     func setSkipButton() {
         self.configureNavigation(showSkip: !(self.adonsVm.isMealSelected() || self.adonsVm.isOthersSelected() || self.adonsVm.isBaggageSelected()))
-        
     }
+    
 }
 
 extension AddOnVC : FareBreakupVCDelegate {
@@ -133,9 +133,8 @@ extension AddOnVC: TopNavigationViewDelegate {
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         self.adonsVm.bookFlight()
     }
+    
 }
-
-
 
 extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
     
@@ -224,19 +223,20 @@ extension AddOnVC : BookFlightDelegate {
 
 extension AddOnVC : AddonsUpdatedDelegate {
     
-    func baggageUpdated() {
+    func baggageUpdated(amount : Int) {
         self.adonsVm.setBaggageStrings()
         self.adonsTableView.reloadData()
         self.setSkipButton()
+        self.adonsVm.updatePriceDict(key: "baggage", value: "\(amount)")
     }
     
-    func mealsUpdated() {
+    func mealsUpdated(amount : Int) {
         self.adonsVm.setMealsString()
         self.adonsTableView.reloadData()
         self.setSkipButton()
     }
     
-    func othersUpdated() {
+    func othersUpdated(amount : Int) {
         self.adonsVm.setOthersString()
         self.adonsTableView.reloadData()
         self.setSkipButton()

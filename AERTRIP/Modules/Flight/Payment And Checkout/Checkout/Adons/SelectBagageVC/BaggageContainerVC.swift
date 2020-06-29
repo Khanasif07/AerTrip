@@ -231,9 +231,7 @@ extension BaggageContainerVC : SelectBaggageDelegate {
             baggageTermsVC.baggageTermsVM.agreeComplition = {[weak self] (agree) in
                 guard let weakSelf = self else { return }
 
-                if !agree {
-                    return
-                }
+                if !agree { return }
                 let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
                 vc.modalPresentationStyle = .overFullScreen
                 vc.selectPassengersVM.selectedContacts = selectedContacts
