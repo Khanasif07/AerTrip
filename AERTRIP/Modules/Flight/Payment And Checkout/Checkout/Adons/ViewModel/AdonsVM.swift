@@ -106,7 +106,7 @@ class AdonsVM  {
         
     }
     
-    func updatePriceDict(key : String, value : String){
+    func updatePriceDict(key : String, value : String?){
         priseDict[key] = value
     }
     

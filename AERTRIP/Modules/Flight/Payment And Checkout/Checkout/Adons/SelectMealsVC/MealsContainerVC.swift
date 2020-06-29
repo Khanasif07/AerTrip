@@ -67,14 +67,16 @@ class MealsContainerVC: BaseVC {
         setupNavBar()
         setUpViewPager()
         calculateTotalAmount()
-        self.delegate?.mealsUpdated()
+              let price = self.totalLabel.text ?? ""
+        self.delegate?.mealsUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
         for (index,item) in self.mealsContainerVM.allChildVCs.enumerated() {
             AddonsDataStore.shared.flightsWithData[index].meal = item.selectMealsVM.addonsDetails
         }
-        self.delegate?.mealsUpdated()
+        let price = self.totalLabel.text ?? ""
+        self.delegate?.mealsUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
         self.dismiss(animated: true, completion: nil)
     }
 }
@@ -164,7 +166,8 @@ extension MealsContainerVC: TopNavigationViewDelegate {
             item.reloadData()
         }
         calculateTotalAmount()
-        self.delegate?.mealsUpdated()
+        let price = self.totalLabel.text ?? ""
+        self.delegate?.mealsUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
         self.delegate?.resetMeals()
     }
     

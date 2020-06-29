@@ -9,9 +9,9 @@
 import UIKit
 
 protocol AddonsUpdatedDelegate : class {
-    func baggageUpdated(amount : Int)
-    func mealsUpdated(amount : Int)
-    func othersUpdated(amount : Int)
+    func baggageUpdated(amount : String)
+    func mealsUpdated(amount : String)
+    func othersUpdated(amount : String)
     func seatsUpdated()
     func resetMeals()
 }
@@ -58,7 +58,7 @@ extension AddOnVC {
     private func initialSetups() {
         self.adonsVm.setAdonsOptions()
         self.adonsVm.initializeFreeMealsToPassengers()
-        self.mealsUpdated(amount: 0)
+        self.mealsUpdated(amount: "")
         configureTableView()
         setupBottomView()
     }
@@ -223,23 +223,28 @@ extension AddOnVC : BookFlightDelegate {
 
 extension AddOnVC : AddonsUpdatedDelegate {
     
-    func baggageUpdated(amount : Int) {
+    func baggageUpdated(amount : String) {
         self.adonsVm.setBaggageStrings()
         self.adonsTableView.reloadData()
         self.setSkipButton()
-        self.adonsVm.updatePriceDict(key: "baggage", value: "\(amount)")
+        let amountValue = amount.isEmpty || amount == "0" ? nil : amount
+        self.adonsVm.updatePriceDict(key: "baggage", value: amountValue)
     }
     
-    func mealsUpdated(amount : Int) {
+    func mealsUpdated(amount : String) {
         self.adonsVm.setMealsString()
         self.adonsTableView.reloadData()
         self.setSkipButton()
+        let amountValue = amount.isEmpty || amount == "0" ? nil : amount
+        self.adonsVm.updatePriceDict(key: "meals", value: amountValue)
     }
     
-    func othersUpdated(amount : Int) {
+    func othersUpdated(amount : String) {
         self.adonsVm.setOthersString()
         self.adonsTableView.reloadData()
         self.setSkipButton()
+        let amountValue = amount.isEmpty || amount == "0" ? nil : amount
+        self.adonsVm.updatePriceDict(key: "others", value: amountValue)
     }
     
     func seatsUpdated() {

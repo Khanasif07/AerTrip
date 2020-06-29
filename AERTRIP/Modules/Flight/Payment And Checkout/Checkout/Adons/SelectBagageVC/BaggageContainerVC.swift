@@ -77,7 +77,8 @@ class BaggageContainerVC : BaseVC {
                 AddonsDataStore.shared.flightsWithData[index].bags = item.selectBaggageVM.addonsDetails
             }
             
-            self.delegate?.baggageUpdated()
+            let price = self.totalLabel.text ?? ""
+            self.delegate?.baggageUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
             self.dismiss(animated: true, completion: nil)
     }
 }
@@ -168,8 +169,8 @@ extension BaggageContainerVC: TopNavigationViewDelegate {
              item.reloadData()
          }
         calculateTotalAmount()
-        self.delegate?.baggageUpdated()
-    }
+        let price = self.totalLabel.text ?? ""
+        self.delegate?.baggageUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))    }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)

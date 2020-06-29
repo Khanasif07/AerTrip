@@ -73,7 +73,8 @@ class SelectOtherAdonsContainerVC: BaseVC {
        for (index,item) in self.othersContainerVM.allChildVCs.enumerated() {
         AddonsDataStore.shared.flightsWithData[index].special = item.otherAdonsVm.addonsDetails
        }
-        self.delegate?.othersUpdated()
+        let price = self.totalLabel.text ?? ""
+        self.delegate?.othersUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
        self.dismiss(animated: true, completion: nil)
     }
     
@@ -163,8 +164,8 @@ extension SelectOtherAdonsContainerVC: TopNavigationViewDelegate {
                item.reloadData()
            }
         calculateTotalAmount()
-        self.delegate?.othersUpdated()
-    }
+        let price = self.totalLabel.text ?? ""
+        self.delegate?.othersUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))    }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
