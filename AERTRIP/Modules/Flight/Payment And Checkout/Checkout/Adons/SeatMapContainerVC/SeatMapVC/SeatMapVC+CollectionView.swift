@@ -100,7 +100,7 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
             self.seatMapCollView.reloadData()
             self.onReloadPlaneLayoutCall?(flightData)
         }
-        present(passengerVC, animated: true, completion: nil)
+        present(passengerVC, animated: false, completion: nil)
     }
 }
 

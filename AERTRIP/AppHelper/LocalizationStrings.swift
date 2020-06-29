@@ -1101,6 +1101,20 @@ enum LocalizedString: String {
     
    case Will_Be_Available_Soon = "Will_Be_Available_Soon"
     
+    case Important = "Important"
+    
+    case Baggage_Terms_Desc = "Baggage_Terms_Desc"
+    
+    case Baggage_Terms_Point1 = "Baggage_Terms_Point1"
+    
+    case Baggage_Terms_Point2 = "Baggage_Terms_Point2"
+    
+    case Baggage_Terms_Point3 = "Baggage_Terms_Point3"
+    
+    case Baggage_Terms_Point4 = "Baggage_Terms_Point4"
+
+    
+    
 }
 
 

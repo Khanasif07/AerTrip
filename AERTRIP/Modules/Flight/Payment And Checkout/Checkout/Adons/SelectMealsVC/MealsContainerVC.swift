@@ -227,7 +227,7 @@ extension MealsContainerVC : SelectMealDelegate {
                 weakSelf.mealsContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: contacts)
                     weakSelf.calculateTotalAmount()
                 }
-                present(vc, animated: true, completion: nil)
+                present(vc, animated: false, completion: nil)
             }
 //
 //     func addPassengerToMeal(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, mealIndex: Int, selectedContacts: [ATContact]) {

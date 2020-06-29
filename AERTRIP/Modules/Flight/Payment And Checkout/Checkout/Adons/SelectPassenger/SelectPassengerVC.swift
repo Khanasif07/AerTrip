@@ -19,9 +19,10 @@ class SelectPassengerVC : BaseVC {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var popUpBackView: UIView!
     
-    let selectPassengersVM = SelectPassengersVM()
     
+    let selectPassengersVM = SelectPassengersVM()
     var updatedFlightData: ((SeatMapModel.SeatMapFlight) -> ())?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,13 +47,24 @@ class SelectPassengerVC : BaseVC {
     override func setupTexts() {
         super.setupTexts()
         self.doneButton.setTitle(LocalizedString.Cancel.localized, for: UIControl.State.normal)
-        
-//     self.doneButton.setTitle(self.selectPassengersVM.selectedContacts.isEmpty ? LocalizedString.Cancel.localized : LocalizedString.Done.localized, for: UIControl.State.normal)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 0.3, animations: {
+            self.transparentBackView.transform = CGAffineTransform.identity
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        })
     }
     
     @IBAction func doneButtonTapped(_ sender: UIButton) {
         self.selectPassengersVM.contactsComplition(self.selectPassengersVM.selectedContacts)
-        dismiss(animated: true, completion: nil)
+        UIView.animate(withDuration: 0.3, animations: {
+            self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: self.transparentBackView.height)
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
+        }) { (success) in
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
 }
@@ -60,13 +72,17 @@ class SelectPassengerVC : BaseVC {
 extension SelectPassengerVC {
     
     func setUpSubView(){
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(backViewTapped))
-//        transparentBackView.addGestureRecognizer(tap)
         self.doneButton.roundedCorners(cornerRadius: 13)
         self.popUpBackView.roundedCorners(cornerRadius: 13)
         self.selectPassengersVM.getAllowedPassengerForParticularAdon()
         configureCollectionView()
         setupForView()
+        transparentBackView.backgroundColor = UIColor.clear
+        
+        transparentBackView.transform = CGAffineTransform(translationX: 0, y: transparentBackView.height)
+        
+        self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
+        
     }
     
     @objc func backViewTapped(){
@@ -85,7 +101,7 @@ extension SelectPassengerVC {
     func setupForView() {
         
         switch self.selectPassengersVM.setupFor {
-      
+            
         case .seatSelection:
             selectPassengersLabel.isHidden = true
             emptyView.isHidden = true
@@ -194,11 +210,10 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
 //                AppToast.default.showToastMessage(message: LocalizedString.Passenger_Cannot_Be_Deselected_For_Meal.localized)
 //                return }
             self.doneButton.setTitle(LocalizedString.Done.localized, for: UIControl.State.normal)
-
             self.selectPassengersVM.selectedContacts.remove(at: index)
         }else{
             self.doneButton.setTitle(LocalizedString.Done.localized, for: UIControl.State.normal)
-            self.selectPassengersVM.selectedContacts.append(self.selectPassengersVM.allowedPassengers[indexPath.item])
+        self.selectPassengersVM.selectedContacts.append(self.selectPassengersVM.allowedPassengers[indexPath.item])
         }
         
         collectionView.reloadItems(at: [IndexPath(item: indexPath.item, section: 0)])
