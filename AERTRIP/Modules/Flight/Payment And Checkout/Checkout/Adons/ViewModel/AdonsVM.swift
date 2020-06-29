@@ -108,6 +108,7 @@ class AdonsVM  {
     
     func updatePriceDict(key : String, value : String?){
         priseDict[key] = value
+        printDebug(priseDict)
     }
     
     func getCellHeight(index : Int) -> CGFloat {
