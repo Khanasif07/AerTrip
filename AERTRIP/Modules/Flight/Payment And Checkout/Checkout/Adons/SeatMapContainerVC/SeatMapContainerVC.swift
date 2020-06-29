@@ -299,19 +299,35 @@ extension SeatMapContainerVC {
         let convertedRectForHighlightView = highlightContainerView.convert(highlightView?.frame ?? .zero, to: planeLayoutScrollView)
         
         let convertedRectMaxXOffset = convertedRectForHighlightView.origin.x + convertedRectForHighlightView.width
-        let scrollViewMaxXOffset = planeLayoutScrollView.contentOffset.x + planeLayoutScrollView.width
+        let scrollViewMaxXOffset = planeLayoutScrollView.contentOffset.x + planeLayoutScrollView.width - 16
         
         if convertedRectMaxXOffset > scrollViewMaxXOffset {
-            UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseInOut, animations: {
-                self.planeLayoutScrollView.contentOffset.x += 50
+            
+            if ((highlightView?.frame.maxX ?? 0) >= highlightContainerView.width - 30) && (highlightContainerView.frame.maxX >= scrollViewMaxXOffset) {
+                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+                    self.planeLayoutScrollView.contentOffset.x += 100
+                }, completion: nil)
+                return
+            }
+            
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+                self.planeLayoutScrollView.contentOffset.x += 20
             }, completion: nil)
         }
         
         let convertedRectXOffset = convertedRectForHighlightView.origin.x
-        let scrollViewXOffset = planeLayoutScrollView.contentOffset.x
+        let scrollViewXOffset = planeLayoutScrollView.contentOffset.x + 16
         if convertedRectXOffset < scrollViewXOffset {
-            UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseInOut, animations: {
-                self.planeLayoutScrollView.contentOffset.x -= 50
+            
+            if ((highlightView?.frame.minX ?? 0) <= 30) && (highlightContainerView.frame.minX <= scrollViewXOffset) {
+                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+                    self.planeLayoutScrollView.contentOffset.x -= 100
+                }, completion: nil)
+                return
+            }
+            
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+                self.planeLayoutScrollView.contentOffset.x -= 20
             }, completion: nil)
         }
         
@@ -351,7 +367,7 @@ extension SeatMapContainerVC {
         let convertedRectForHighlightView = highlightContainerView.convert(highlightView?.frame ?? .zero, to: planeLayoutScrollView)
         if translationX > 0 {
             let convertedRectMaxXOffset = convertedRectForHighlightView.origin.x + convertedRectForHighlightView.width
-            let scrollViewMaxXOffset = planeLayoutScrollView.contentOffset.x + planeLayoutScrollView.width
+            let scrollViewMaxXOffset = planeLayoutScrollView.contentOffset.x + planeLayoutScrollView.width - 16
             if convertedRectMaxXOffset > scrollViewMaxXOffset {
                 UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseInOut, animations: {
                     self.planeLayoutScrollView.contentOffset.x += 5
@@ -360,7 +376,7 @@ extension SeatMapContainerVC {
             }
         } else {
             let convertedRectXOffset = convertedRectForHighlightView.origin.x
-            let scrollViewXOffset = planeLayoutScrollView.contentOffset.x
+            let scrollViewXOffset = planeLayoutScrollView.contentOffset.x + 16
             if convertedRectXOffset < scrollViewXOffset {
                 UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseInOut, animations: {
                     self.planeLayoutScrollView.contentOffset.x -= 5
