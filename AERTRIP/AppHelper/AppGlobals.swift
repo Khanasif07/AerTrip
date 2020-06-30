@@ -642,16 +642,18 @@ extension AppGlobals {
         }
     }
     
-    func viewPdf(urlPath: String, screenTitle: String, showLoader: Bool = true) {
+    func viewPdf(urlPath: String, screenTitle: String, showLoader: Bool = true, complition: ((Bool) -> Void)? = nil) {
         //open pdf for booking id
         
         guard AppNetworking.isConnectedToNetwork else {
             AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+            complition?(true)
             return
         }
         
         guard let url = urlPath.toUrl else {
             printDebug("Please pass valid url")
+            complition?(true)
             return
         }
         if showLoader {
@@ -665,6 +667,7 @@ extension AppGlobals {
                     AppGlobals.shared.stopLoading()
                     }
                     AppFlowManager.default.openDocument(atURL: url, screenTitle: screenTitle)
+                    complition?(true)
                 }
             }
         }

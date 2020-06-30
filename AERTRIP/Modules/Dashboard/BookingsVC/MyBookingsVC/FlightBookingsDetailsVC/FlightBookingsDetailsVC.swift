@@ -18,7 +18,7 @@ class FlightBookingsDetailsVC: BaseVC {
     let viewModel = BookingProductDetailVM()
     var headerView: OtherBookingDetailsHeaderView?
     var eventTypeImage: UIImage {
-        return #imageLiteral(resourceName: "flightIcon")
+        return #imageLiteral(resourceName: "flightIconDetailPage")
     }
     var eventTypeNavigationBarImage: UIImage {
         return #imageLiteral(resourceName: "BookingDetailFlightNavIcon")
@@ -55,6 +55,7 @@ class FlightBookingsDetailsVC: BaseVC {
             self.bookingDetailsTableView.rowHeight = UITableView.automaticDimension
             self.bookingDetailsTableView.estimatedSectionHeaderHeight = 0
             self.bookingDetailsTableView.sectionHeaderHeight = 0
+            self.bookingDetailsTableView.backgroundColor = AppColors.screensBackground.color
         }
     }
     

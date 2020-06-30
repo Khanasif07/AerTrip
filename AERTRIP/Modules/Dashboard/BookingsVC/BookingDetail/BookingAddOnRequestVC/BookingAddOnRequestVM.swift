@@ -19,8 +19,8 @@ protocol BookingAddOnRequestVMDelegate: class {
     func getAddonPaymentItineraryFail()
     
     func willGetCommunicationDetail()
-    func getCommunicationDetailSuccess(htmlString: String, title: String)
-    func getCommunicationDetailFail()
+    func getCommunicationDetailSuccess(htmlString: String, title: String,indexPath: IndexPath)
+    func getCommunicationDetailFail(indexPath: IndexPath)
 }
 
 class BookingAddOnRequestVM {
@@ -53,19 +53,36 @@ class BookingAddOnRequestVM {
         }
 
         temp["00Case Status"] = caseD.resolutionStatus.rawValue
-        temp["01Agent"] = caseD.csrName.isEmpty ? LocalizedString.dash.localized : "🎧 \(caseD.csrName)"
+        if !caseD.csrName.isEmpty {
+            temp["01Agent"] = caseD.csrName.isEmpty ? LocalizedString.dash.localized : "🎧 \(caseD.csrName)"
+        }
         
         let dateStr = caseD.requestDate?.toString(dateFormat: "d MMM yyyy | HH:mm") ?? ""
+        if !dateStr.isEmpty {
         temp["02Requested on"] = dateStr.isEmpty ? LocalizedString.dash.localized : dateStr
-        temp["03Associate Booking ID"] = history.associatedBid.isEmpty ? LocalizedString.dash.localized : history.associatedBid
-        temp["04Reference Case ID"] = history.referenceCaseId.isEmpty ? LocalizedString.dash.localized : history.referenceCaseId
+        }
         
+        let closeDateStr = history.closedDate?.toString(dateFormat: "d MMM yyyy | HH:mm") ?? ""
+        if !closeDateStr.isEmpty {
+        temp["02Closed on"] = closeDateStr.isEmpty ? LocalizedString.dash.localized : closeDateStr
+        }
+        
+        if !history.associatedBid.isEmpty {
+        temp["03Associate Booking ID"] = history.associatedBid.isEmpty ? LocalizedString.dash.localized : history.associatedBid
+        }
+        if !history.referenceCaseId.isEmpty {
+        temp["04Reference Case ID"] = history.referenceCaseId.isEmpty ? LocalizedString.dash.localized : history.referenceCaseId
+        }
+        var index = 0
         for (idx,val) in history.associatedVouchersArr.enumerated() {
+            if !val.isEmpty {
             if idx == 0 {
-                temp["1\(idx)Associate Voucher No."] = val.isEmpty ? LocalizedString.dash.localized : val
+                temp["1\(index)Associate Voucher No."] = val.isEmpty ? LocalizedString.dash.localized : val
             }
             else {
-                temp["1\(idx)"] = val
+                temp["1\(index)"] = val
+            }
+                index += 1
             }
         }
         
@@ -122,15 +139,15 @@ class BookingAddOnRequestVM {
         }
     }
     
-    func getCommunicationDetail(commonHash: String, templateId: String, title: String) {
+    func getCommunicationDetail(commonHash: String, templateId: String, title: String, indexPath: IndexPath) {
         self.delegate?.willGetCommunicationDetail()
         let params = ["comm_hash": commonHash,"template_id": templateId]
         APICaller.shared.getcommunicationDetailAPI(params: params) {[weak self] (success, errors, htmlString) in
             if success {
-                self?.delegate?.getCommunicationDetailSuccess(htmlString: htmlString, title: title)
+                self?.delegate?.getCommunicationDetailSuccess(htmlString: htmlString, title: title, indexPath: indexPath)
             }
             else {
-                self?.delegate?.getCommunicationDetailFail()
+                self?.delegate?.getCommunicationDetailFail(indexPath: indexPath)
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
                 
             }

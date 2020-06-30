@@ -728,6 +728,8 @@ Your booking ID is";
 "NoBaggage" = "No Baggage";
 "NoInfo" = "No Info";
 "BaggageDetailsMessage" = "Baggage details are indicative and subject to change without prior notice.";
+"CharactersRemaining" = "characters remaining";
+"BookAnotherRoom" = "Book another room";
 
 // Booking Action sheet option
 "RequestAddOnAndFrequentFlyer" = "Request Add-ons & Freq. Flyer";
@@ -798,7 +800,8 @@ Your booking ID is";
 "ClearFilters" = "Clear Filters";
 "BookingID" = "Booking ID";
 "OpeningBalance" = "Opening Balance";
-"NoBookingAvailable" = "No Bookings found.\nWe couldn’t find bookings matching your filters. Try changing the filters, or reset them";
+"NoBookingAvailable" = "No Bookings Found";
+"NoBookingAvailableMessage" = "We couldn’t find bookings matching your filters. Try changing the filters, or reset them";
 
 //MARK:- OutStanding Ladger
 "Summary" = "Summary";

@@ -55,6 +55,7 @@ class TripChangeTableViewCell: ATTableViewCell {
         let bottomConstant: CGFloat = hideBottomSpace ? 0 : 21
         if viewBottomContraint.constant != bottomConstant {
             viewBottomContraint.constant = bottomConstant
+            self.contentView.layoutIfNeeded()
         }
     }
 }

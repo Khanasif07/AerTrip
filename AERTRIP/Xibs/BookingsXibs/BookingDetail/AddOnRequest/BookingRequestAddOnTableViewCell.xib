@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -48,13 +48,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label f ds f sdf sd f sdf s f sdf sfdsmfmasfmas" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YXP-a5-3y4">
-                                <rect key="frame" x="41" y="10" width="175" height="61"/>
+                                <rect key="frame" x="41" y="10" width="169" height="61"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label  fsdf]]s f" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ezP-3P-9VP">
-                                <rect key="frame" x="232" y="12" width="78" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label  fsdf]]s f" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ezP-3P-9VP">
+                                <rect key="frame" x="226" y="12" width="65" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -72,24 +72,39 @@
                                     <constraint firstAttribute="height" constant="0.5" id="KKh-05-PKP"/>
                                 </constraints>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotelCheckoutForwardArrow" translatesAutoresizingMaskIntoConstraints="NO" id="pYO-LC-p6O">
+                                <rect key="frame" x="296" y="16" width="8" height="13"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="13" id="RUb-pD-TKm"/>
+                                    <constraint firstAttribute="width" constant="8" id="a2f-Zi-QPY"/>
+                                </constraints>
+                            </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="siU-rJ-5Mz">
+                                <rect key="frame" x="290" y="12.5" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="YXP-a5-3y4" firstAttribute="leading" secondItem="w2U-aR-aCU" secondAttribute="trailing" constant="12" id="6OW-N8-M2G"/>
                             <constraint firstAttribute="bottom" secondItem="w2U-aR-aCU" secondAttribute="bottom" constant="33" id="CZu-Y1-eHv"/>
                             <constraint firstAttribute="bottom" secondItem="qAf-ss-LoZ" secondAttribute="bottom" constant="10" id="CoC-JR-41A"/>
+                            <constraint firstItem="siU-rJ-5Mz" firstAttribute="centerX" secondItem="pYO-LC-p6O" secondAttribute="centerX" id="DMx-Pz-Q6i"/>
                             <constraint firstAttribute="trailing" secondItem="qAf-ss-LoZ" secondAttribute="trailing" constant="16" id="HDv-Jz-Nwn"/>
                             <constraint firstItem="zAP-Rc-8KB" firstAttribute="leading" secondItem="GAT-7Q-Rkt" secondAttribute="leading" constant="37" id="KMq-2f-Mve"/>
+                            <constraint firstItem="pYO-LC-p6O" firstAttribute="centerY" secondItem="siU-rJ-5Mz" secondAttribute="centerY" id="KWa-DX-0KN"/>
+                            <constraint firstAttribute="trailing" secondItem="pYO-LC-p6O" secondAttribute="trailing" constant="16" id="LZ9-oY-5ws"/>
+                            <constraint firstItem="pYO-LC-p6O" firstAttribute="centerX" secondItem="siU-rJ-5Mz" secondAttribute="centerX" id="MXo-dO-0UP"/>
                             <constraint firstItem="qAf-ss-LoZ" firstAttribute="leading" secondItem="YXP-a5-3y4" secondAttribute="leading" id="TSa-ml-VHq"/>
                             <constraint firstItem="w2U-aR-aCU" firstAttribute="top" secondItem="GAT-7Q-Rkt" secondAttribute="top" constant="12" id="aKD-1Q-MaT"/>
-                            <constraint firstAttribute="trailing" secondItem="YXP-a5-3y4" secondAttribute="trailing" constant="104" id="bmC-Vc-dPv"/>
+                            <constraint firstAttribute="trailing" secondItem="YXP-a5-3y4" secondAttribute="trailing" constant="110" id="bmC-Vc-dPv"/>
+                            <constraint firstItem="pYO-LC-p6O" firstAttribute="leading" secondItem="ezP-3P-9VP" secondAttribute="trailing" constant="5" id="ceA-NZ-uKR"/>
                             <constraint firstItem="w2U-aR-aCU" firstAttribute="leading" secondItem="GAT-7Q-Rkt" secondAttribute="leading" constant="9" id="glB-pW-6hl"/>
                             <constraint firstAttribute="trailing" secondItem="zAP-Rc-8KB" secondAttribute="trailing" id="iB1-HO-jWS"/>
                             <constraint firstAttribute="bottom" secondItem="zAP-Rc-8KB" secondAttribute="bottom" id="juB-5w-xT8"/>
                             <constraint firstItem="YXP-a5-3y4" firstAttribute="top" secondItem="w2U-aR-aCU" secondAttribute="top" constant="-2" id="nrr-aS-LqM"/>
                             <constraint firstItem="qAf-ss-LoZ" firstAttribute="top" secondItem="YXP-a5-3y4" secondAttribute="bottom" id="qqh-JS-F4z"/>
                             <constraint firstItem="ezP-3P-9VP" firstAttribute="top" secondItem="YXP-a5-3y4" secondAttribute="top" constant="2" id="rr7-az-da7"/>
-                            <constraint firstAttribute="trailing" secondItem="ezP-3P-9VP" secondAttribute="trailing" constant="10" id="utX-f1-ZIz"/>
+                            <constraint firstItem="pYO-LC-p6O" firstAttribute="centerY" secondItem="ezP-3P-9VP" secondAttribute="centerY" id="uCX-Q6-bwo"/>
                             <constraint firstItem="ezP-3P-9VP" firstAttribute="leading" secondItem="YXP-a5-3y4" secondAttribute="trailing" constant="16" id="v3W-Qb-2q9"/>
                         </constraints>
                     </view>
@@ -103,9 +118,11 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="arrowImageView" destination="pYO-LC-p6O" id="PTf-xw-Mmr"/>
                 <outlet property="devideLeadingConstraint" destination="KMq-2f-Mve" id="6A0-Dn-K77"/>
                 <outlet property="dividerView" destination="zAP-Rc-8KB" id="DHv-CR-QnG"/>
                 <outlet property="dotImageView" destination="2AJ-0U-Cbg" id="dHa-Ya-ebP"/>
+                <outlet property="loader" destination="siU-rJ-5Mz" id="KaH-Yd-Den"/>
                 <outlet property="messageImageView" destination="08G-qm-Wxa" id="msX-PK-XU3"/>
                 <outlet property="messageLabel" destination="qAf-ss-LoZ" id="9bT-md-v7b"/>
                 <outlet property="timeStampLabel" destination="ezP-3P-9VP" id="ore-jL-eKq"/>
@@ -114,4 +131,7 @@
             <point key="canvasLocation" x="137.68115942028987" y="155.69196428571428"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="hotelCheckoutForwardArrow" width="8" height="14"/>
+    </resources>
 </document>

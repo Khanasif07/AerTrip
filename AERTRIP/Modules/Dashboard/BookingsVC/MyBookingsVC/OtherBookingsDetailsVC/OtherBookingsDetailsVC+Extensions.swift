@@ -27,6 +27,8 @@ extension OtherBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         switch currentSection[indexPath.row] {
         case .policyDetailCell:
             return 28.0
+        case .gstCell:
+            return self.viewModel.bookingDetail?.billingInfo?.gst.isEmpty ?? true ? CGFloat.leastNonzeroMagnitude : UITableView.automaticDimension
         default:
             return UITableView.automaticDimension
         }
@@ -253,20 +255,33 @@ extension OtherBookingsDetailsVC: MXParallaxHeaderDelegate {
 
 extension OtherBookingsDetailsVC: BookingProductDetailVMDelegate {
     func willGetBookingDetail() {
-        AppGlobals.shared.startLoading()
+        self.headerView?.startProgress()
+        //AppGlobals.shared.startLoading()
     }
     
     func getBookingDetailSucces() {
+        self.headerView?.stopProgress()
         self.configureTableHeaderView()
         self.dataTableView.delegate = self
         self.dataTableView.dataSource = self
         self.viewModel.getSectionDataForOtherProductType()
         self.dataTableView.reloadData()
-        AppGlobals.shared.stopLoading()
+        //AppGlobals.shared.stopLoading()
     }
     
     func getBookingDetailFaiure(error: ErrorCodes) {
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
-        AppGlobals.shared.stopLoading()
+        self.headerView?.stopProgress()
+        //AppGlobals.shared.stopLoading()
+    }
+    
+    func willGetTripOwner() {
+        
+    }
+    func getBTripOwnerSucces() {
+       self.dataTableView.reloadData()
+    }
+    func getTripOwnerFaiure(error: ErrorCodes) {
+        self.dataTableView.reloadData()
     }
 }

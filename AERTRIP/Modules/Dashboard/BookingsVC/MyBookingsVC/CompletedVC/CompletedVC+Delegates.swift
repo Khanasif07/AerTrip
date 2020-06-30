@@ -31,16 +31,29 @@ extension CompletedVC: UITableViewDelegate , UITableViewDataSource {
         let bookingData = fetchedResultsController.object(at: indexPath)
         let totalSteps = bookingData.stepsArray?.count ?? 0
         let stepsH: CGFloat = CGFloat(totalSteps) * 40.0
-        return stepsH + 98.0 + (totalSteps > 0 ? 1 : 0)
+        var cellHeight: CGFloat = stepsH + 98.0 + (totalSteps > 0 ? 1 : 0)
+        if indexPath.row == 0 {
+            cellHeight += 8.0
+        }
+        if  let sections = self.fetchedResultsController.sections {
+            let sectionInfo = sections[indexPath.section]
+            if indexPath.row ==  (sectionInfo.numberOfObjects - 1) {
+                cellHeight += 8.0
+            }
+        }
+        return cellHeight
+        //        return stepsH + 98.0 + (totalSteps > 0 ? 1 : 0)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 44.0 : 36
+        return 30//section == 0 ? 44.0 : 36
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: DateTableHeaderView.className) as? DateTableHeaderView else { return nil }
-        
+        //guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: DateTableHeaderView.className) as? DateTableHeaderView else { return nil }
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: tableViewHeaderCellIdentifier) as? TravellerListTableViewSectionView else {
+            return nil
+        }
         guard let sections = self.fetchedResultsController.sections else {
             fatalError("No sections in fetchedResultsController")
         }
@@ -56,9 +69,13 @@ extension CompletedVC: UITableViewDelegate , UITableViewDataSource {
             let format = date.isCurrentYear ? "E, d MMM" : "d MMM yyyy"
             headerText = date.toString(dateFormat: format)
         }
-        headerView.configViewForBooking(date: headerText, isFirstHeaderView: section == 0)
-        headerView.topDividerView.isHidden = section == 0 ? true : false
-        headerView.bottomDividerView.isHidden = false
+        headerView.headerLabel.text = headerText
+        //        headerView.configViewForBooking(date: headerText, isFirstHeaderView: section == 0)
+        headerView.topSepratorView.isHidden = section == 0 ? true : false
+        if showFirstDivider {
+            headerView.topSepratorView.isHidden = false
+        }
+        //        headerView.bottomDividerView.isHidden = false
         return headerView
     }
     
@@ -66,7 +83,13 @@ extension CompletedVC: UITableViewDelegate , UITableViewDataSource {
         let bookingData = fetchedResultsController.object(at: indexPath)
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: OthersBookingTableViewCell.reusableIdentifier, for: indexPath) as? OthersBookingTableViewCell else { return UITableViewCell() }
-        
+        if  let sections = self.fetchedResultsController.sections {
+            let sectionInfo = sections[indexPath.section]
+            cell.isLastCellInSection =  indexPath.row ==  (sectionInfo.numberOfObjects - 1)
+        } else {
+            cell.isLastCellInSection = false
+        }
+        cell.isFirstCellInSection = indexPath.row == 0
         cell.bookingData = bookingData
         return cell
     }
@@ -82,7 +105,7 @@ extension CompletedVC: UITableViewDelegate , UITableViewDataSource {
             }
             else {
                 //open hotel details
-                 AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: bookingData.bookingId ?? "")
+                AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: bookingData.bookingId ?? "")
             }
             
         }
@@ -91,7 +114,7 @@ extension CompletedVC: UITableViewDelegate , UITableViewDataSource {
 }
 
 extension CompletedVC {
-
+    
     internal func getSpaceCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SpaceTableViewCell.reusableIdentifier, for: indexPath) as? SpaceTableViewCell else { return UITableViewCell() }
         cell.backgroundColor = AppColors.themeWhite

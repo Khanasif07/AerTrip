@@ -98,6 +98,8 @@
             <connections>
                 <outlet property="bookingTypeImgView" destination="Vnh-M9-I15" id="wOm-TU-9EQ"/>
                 <outlet property="collectionView" destination="fqr-hg-R5g" id="AjX-Uo-4V7"/>
+                <outlet property="containerBottomConstraint" destination="YcE-tJ-oom" id="5se-79-Ipr"/>
+                <outlet property="containerTopConstraint" destination="fWs-gO-UZK" id="Qwi-Tl-XmN"/>
                 <outlet property="containerView" destination="xsc-lo-qk7" id="GSd-Hg-1CS"/>
                 <outlet property="plcaeNameLabel" destination="KKx-eO-RBL" id="T2q-Tw-h6C"/>
                 <outlet property="travellersNameLabel" destination="DtD-ig-vT8" id="rKe-NP-FX4"/>

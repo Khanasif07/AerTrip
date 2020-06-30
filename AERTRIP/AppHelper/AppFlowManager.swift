@@ -826,7 +826,16 @@ extension AppFlowManager {
         obj.viewModel.bookingId = forBookingId
         obj.viewModel.legDetails = legDetails
         obj.viewModel.bookingFee = bookingFee
-        self.mainNavigationController.present(obj, animated: true)
+        UIApplication.topViewController()?.present(obj, animated: true)
+    }
+    
+    func presentFareBookingRulesVC(forBookingId: String, legDetails: BookingLeg?, bookingFee: BookingFeeDetail?) {
+        let obj = FareBookingRulesVC.instantiate(fromAppStoryboard: .Bookings)
+        //obj.currentlyUsingAs = usingFor
+        obj.viewModel.bookingId = forBookingId
+        obj.viewModel.legDetails = legDetails
+        obj.viewModel.bookingFee = bookingFee
+        UIApplication.topViewController()?.present(obj, animated: true)
     }
     
     func moveToAbortRequestVC(forCase: Case) {
@@ -993,13 +1002,13 @@ extension AppFlowManager {
         ob.viewModel.bookingDetail = bookingDetail
         ob.viewModel.tripStr = tripCities
         ob.viewModel.legSectionTap = legSectionTap
-        self.mainNavigationController.pushViewController(ob, animated: true)
+        self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
     func presentBaggageInfoVC(dimension: Dimension) {
         let ob = BaggageInfoVC.instantiate(fromAppStoryboard: .Bookings)
         ob.dimension = dimension
-        self.mainNavigationController.present(ob, animated: true)
+        UIApplication.topViewController()?.present(ob, animated: true)
     }
     
     // Complete Hotel Booking Details VC
@@ -1055,7 +1064,7 @@ extension AppFlowManager {
         obj.viewModel.contactInfo = contactInfo
         obj.viewModel.usingFor = usingFor
         obj.viewModel.hotelName = hotel
-        self.mainNavigationController.pushViewController(obj, animated: true)
+        self.mainNavigationController.present(obj, animated: true, completion: nil)
     }
     
     // Move To Booking Invoice VC
@@ -1069,7 +1078,7 @@ extension AppFlowManager {
     func moveToBookingDirectionVC(directions: [Direction]) {
         let obj = BookingDirectionVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.directionData = directions
-        self.mainNavigationController.pushViewController(obj, animated: true)
+        self.mainNavigationController.present(obj, animated: true, completion: nil)
     }
     
     // Present BookingRequestAddOnsAndFFC
@@ -1198,6 +1207,15 @@ extension AppFlowManager {
         let nav = UINavigationController(rootViewController: ob)
         nav.isNavigationBarHidden = true
         self.currentNavigation?.present(nav, animated: true, completion: nil)
+    }
+    
+    func presentBookingNotesVC(overViewInfo: String) {
+        let ob = BookingNotesVC.instantiate(fromAppStoryboard: .Bookings)
+        ob.viewModel.noteInfo = overViewInfo
+        //        ob.modalPresentationStyle = .overFullScreen
+        //        ob.modalPresentationCapturesStatusBarAppearance = true
+        //        ob.statusBarColor = AppColors.themeWhite
+        UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
 }
 

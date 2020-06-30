@@ -13,6 +13,7 @@ enum BookingCommonActionUsingFor {
     case addToAppleWallet
     case addToTrips
     case bookSameFlight
+    case bookAnotherRoom
 }
 
 class BookingCommonActionTableViewCell: ATTableViewCell {
@@ -45,6 +46,7 @@ class BookingCommonActionTableViewCell: ATTableViewCell {
     
     func configureCell(buttonImage: UIImage, buttonTitle: String) {
         if buttonTitle == LocalizedString.AddToAppleWallet.localized {
+            self.actionButton.titleLabel?.font = AppFonts.Regular.withSize(16.0)
             self.topBackgroundView.backgroundColor = AppColors.themeBlack
             self.actionButton.setTitleColor(AppColors.themeWhite, for: .normal)
             self.actionButton.setTitleColor(AppColors.themeWhite, for: .selected)
@@ -53,6 +55,7 @@ class BookingCommonActionTableViewCell: ATTableViewCell {
             self.topBackgroundView.layer.borderColor = AppColors.clear.cgColor
             
         } else {
+            self.actionButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
             self.topBackgroundView.backgroundColor = AppColors.themeWhite
             self.actionButton.setTitleColor(AppColors.themeGreen, for: .normal)
             self.actionButton.setTitleColor(AppColors.themeGreen, for: .selected)
