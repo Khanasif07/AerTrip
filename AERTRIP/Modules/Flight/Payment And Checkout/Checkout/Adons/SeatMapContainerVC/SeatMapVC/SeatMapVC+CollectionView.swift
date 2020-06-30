@@ -63,7 +63,12 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
         guard let curCell = collectionView.cellForItem(at: indexPath) as? SeatCollCell, curCell.viewModel.seatData.columnData.availability == .available && !curCell.viewModel.seatData.columnData.postBooking else { return }
         guard !checkIfSinglePassenger(curCell.viewModel.seatData) else { return }
         if presentedViewController == nil {
-            openPassengerSelectionVC(indexPath, curCell.viewModel.seatData)
+            let seatData = curCell.viewModel.seatData
+            if curCell.viewModel.seatData.columnData.characteristic.contains("Exitrow") {
+                openEmergencySeatPopup(indexPath, seatData)
+            } else {
+                openPassengerSelectionVC(indexPath, seatData)
+            }
         }
     }
     
@@ -100,7 +105,23 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
             self.seatMapCollView.reloadData()
             self.onReloadPlaneLayoutCall?(flightData)
         }
-        present(passengerVC, animated: true, completion: nil)
+        present(passengerVC, animated: false, completion: nil)
+    }
+    
+    private func openEmergencySeatPopup(_ indexPath: IndexPath,_ seatData: SeatMapModel.SeatMapRow) {
+        let baggageTermsVC = BaggageTermsVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+        baggageTermsVC.baggageTermsVM.setupFor = .seats
+        baggageTermsVC.modalPresentationStyle = .overFullScreen
+        baggageTermsVC.baggageTermsVM.agreeCompletion = {[weak self] (agree) in
+            guard let self = self else { return }
+            
+            if !agree {
+                return
+            }
+            self.openPassengerSelectionVC(indexPath, seatData)
+        }
+        
+        self.present(baggageTermsVC, animated: true, completion: nil)
     }
 }
 

@@ -73,7 +73,8 @@ class SelectOtherAdonsContainerVC: BaseVC {
        for (index,item) in self.othersContainerVM.allChildVCs.enumerated() {
         AddonsDataStore.shared.flightsWithData[index].special = item.otherAdonsVm.addonsDetails
        }
-        self.delegate?.othersUpdated()
+        let price = self.totalLabel.text ?? ""
+        self.delegate?.othersUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
        self.dismiss(animated: true, completion: nil)
     }
     
@@ -108,9 +109,9 @@ extension SelectOtherAdonsContainerVC {
     private func setupParchmentPageController(){
         
         self.parchmentView = PagingViewController()
-        self.parchmentView?.menuItemSpacing = (self.view.width - 251.5) / 2
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 33.0, bottom: 0.0, right: 38.0)
-        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 40)
+        self.parchmentView?.menuItemSpacing = 36
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 15, bottom: 0.0, right: 15)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 56)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
@@ -163,8 +164,8 @@ extension SelectOtherAdonsContainerVC: TopNavigationViewDelegate {
                item.reloadData()
            }
         calculateTotalAmount()
-        self.delegate?.othersUpdated()
-    }
+        let price = self.totalLabel.text ?? ""
+        self.delegate?.othersUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))    }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
@@ -257,7 +258,7 @@ extension SelectOtherAdonsContainerVC : SelectOtherDelegate {
             weakSelf.othersContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, othersIndex: othersIndex, contacts: contacts)
             weakSelf.calculateTotalAmount()
            }
-           present(vc, animated: true, completion: nil)
+           present(vc, animated: false, completion: nil)
        }
        
        func addContactButtonTapped() {

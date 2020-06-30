@@ -9,10 +9,10 @@
 import UIKit
 
 protocol AddonsUpdatedDelegate : class {
-    func baggageUpdated()
-    func mealsUpdated()
-    func othersUpdated()
-    func seatsUpdated()
+    func baggageUpdated(amount : String)
+    func mealsUpdated(amount : String)
+    func othersUpdated(amount : String)
+    func seatsUpdated(amount: Int)
     func resetMeals()
 }
 
@@ -32,7 +32,8 @@ class AddOnVC : BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        configureNavigation()
+//        configureNavigation()
+        self.setSkipButton()
     }
     
     override func setupColors() {
@@ -57,14 +58,14 @@ extension AddOnVC {
     private func initialSetups() {
         self.adonsVm.setAdonsOptions()
         self.adonsVm.initializeFreeMealsToPassengers()
-        self.mealsUpdated()
+        self.mealsUpdated(amount: "")
         configureTableView()
         setupBottomView()
     }
     
-    func configureNavigation(){
+    func configureNavigation(showSkip : Bool = true){
         self.topNavView.delegate = self
-        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : false)
+        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: showSkip, isSecondRightButton: false,isDivider : false)
         self.topNavView.configureFirstRightButton(normalTitle: LocalizedString.Skip.localized, normalColor: AppColors.themeGreen, font: AppFonts.Bold.withSize(18))
     }
     
@@ -104,6 +105,11 @@ extension AddOnVC {
            vc.didMove(toParent: self)
            self.fareBreakupVC = vc
      }
+    
+    func setSkipButton() {
+        self.configureNavigation(showSkip: !(self.adonsVm.isMealSelected() || self.adonsVm.isOthersSelected() || self.adonsVm.isBaggageSelected()))
+    }
+    
 }
 
 extension AddOnVC : FareBreakupVCDelegate {
@@ -127,9 +133,8 @@ extension AddOnVC: TopNavigationViewDelegate {
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         self.adonsVm.bookFlight()
     }
+    
 }
-
-
 
 extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
     
@@ -218,29 +223,41 @@ extension AddOnVC : BookFlightDelegate {
 
 extension AddOnVC : AddonsUpdatedDelegate {
     
-    func baggageUpdated() {
+    func baggageUpdated(amount : String) {
         self.adonsVm.setBaggageStrings()
         self.adonsTableView.reloadData()
+        self.setSkipButton()
+        let amountValue = amount.isEmpty || amount == "0" ? nil : amount
+        self.adonsVm.updatePriceDict(key: "baggage", value: amountValue)
     }
     
-    func mealsUpdated() {
+    func mealsUpdated(amount : String) {
         self.adonsVm.setMealsString()
         self.adonsTableView.reloadData()
+        self.setSkipButton()
+        let amountValue = amount.isEmpty || amount == "0" ? nil : amount
+        self.adonsVm.updatePriceDict(key: "meals", value: amountValue)
     }
     
-    func othersUpdated() {
+    func othersUpdated(amount : String) {
         self.adonsVm.setOthersString()
         self.adonsTableView.reloadData()
+        self.setSkipButton()
+        let amountValue = amount.isEmpty || amount == "0" ? nil : amount
+        self.adonsVm.updatePriceDict(key: "others", value: amountValue)
     }
     
-    func seatsUpdated() {
+    func seatsUpdated(amount: Int) {
         self.adonsVm.setSeatsString()
         self.adonsTableView.reloadData()
+        self.setSkipButton()
+        self.adonsVm.updatePriceDict(key: "seat", value: "\(amount)")
     }
     
     func resetMeals() {
 //        self.adonsVm.initializeFreeMealsToPassengers()
 //        self.adonsTableView.reloadData()
+        
      }
      
     

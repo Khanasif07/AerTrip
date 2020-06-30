@@ -50,12 +50,26 @@ class AdonsVM  {
     var isComplementaryMealAdded : Bool {
         let dataStore = AddonsDataStore.shared
         return dataStore.isFreeMeal
-//        return dataStore.itinerary.freeMeal || dataStore.itinerary.freeMealSeat
     }
     
     var getComplementaryMealString : String {
-             return isComplementaryMealAdded ? LocalizedString.Complementary_Meal_Added.localized : ""
-         }
+        
+        if isComplementaryMealAdded {
+            var isMealGreaterThenOne = false
+            
+            AddonsDataStore.shared.flightsWithData.forEach { (flight) in
+                if flight.meal.addonsArray.count > 1 && !isMealGreaterThenOne {
+                    isMealGreaterThenOne = true
+                }
+            }
+            
+            return isMealGreaterThenOne ? LocalizedString.Complementary_Meal_Available.localized : LocalizedString.Complementary_Meal_Added.localized
+            
+        }else{
+            return ""
+        }
+        
+      }
         
     var isFreeSeatsAdded : Bool {
           let dataStore = AddonsDataStore.shared
@@ -67,9 +81,10 @@ class AdonsVM  {
         return isFreeSeatsAdded ? LocalizedString.Free_Seats_Available.localized : ""
        }
     
+    private var priseDict : JSONDictionary = [:]
+    
     func setAdonsOptions(){
         let flightsWithData = AddonsDataStore.shared.flightsWithData
-        
         let flightsWithMeals = flightsWithData.filter { !$0.meal.addonsArray.isEmpty }
         let flightsWithBaggage = flightsWithData.filter {!$0.bags.addonsArray.isEmpty }
         let flightsWithOthers = flightsWithData.filter {!$0.special.addonsArray.isEmpty }
@@ -89,6 +104,11 @@ class AdonsVM  {
             addonsData.append(AdonsVM.AddonsData(type: .otheres, heading: LocalizedString.Other.localized, description: LocalizedString.PreBook_Services.localized, complementString: "", shouldShowComp: false))
         }
         
+    }
+    
+    func updatePriceDict(key : String, value : String?){
+        priseDict[key] = value
+        printDebug(priseDict)
     }
     
     func getCellHeight(index : Int) -> CGFloat {
@@ -223,10 +243,12 @@ class AdonsVM  {
             description = LocalizedString.Choose_Baggage.localized
         }
         
+        
         if let ind = self.addonsData.firstIndex(where: { (addonsData) -> Bool in
             return addonsData.addonsType == .baggage
         }){
-            self.addonsData[ind].heading = LocalizedString.Baggage.localized + " " + headingStr.replacingLastOccurrenceOfString(", ", with: "") + "Kg"
+            let kgStr = headingStr.isEmpty ? "" : "Kg"
+            self.addonsData[ind].heading = LocalizedString.Baggage.localized + " " + headingStr.replacingLastOccurrenceOfString(", ", with: "") + kgStr
             self.addonsData[ind].description = description.replacingLastOccurrenceOfString(", ", with: "")
         }
     }
@@ -323,7 +345,8 @@ class AdonsVM  {
         
         dataStore.flightsWithData.enumerated().forEach { (flightINdex, flight) in
             
-            if !flight.freeMeal { return }
+            if !flight.freeMeal || flight.meal.addonsArray.count > 1 { return }
+            
             var mealsSelectedFor : [ATContact] = []
             
             if let firstMeal = flight.meal.addonsArray.firstIndex(where: { (meal) -> Bool in

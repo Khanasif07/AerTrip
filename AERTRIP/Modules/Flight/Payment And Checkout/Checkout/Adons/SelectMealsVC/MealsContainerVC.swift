@@ -67,14 +67,16 @@ class MealsContainerVC: BaseVC {
         setupNavBar()
         setUpViewPager()
         calculateTotalAmount()
-        self.delegate?.mealsUpdated()
+              let price = self.totalLabel.text ?? ""
+        self.delegate?.mealsUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
         for (index,item) in self.mealsContainerVM.allChildVCs.enumerated() {
             AddonsDataStore.shared.flightsWithData[index].meal = item.selectMealsVM.addonsDetails
         }
-        self.delegate?.mealsUpdated()
+        let price = self.totalLabel.text ?? ""
+        self.delegate?.mealsUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
         self.dismiss(animated: true, completion: nil)
     }
 }
@@ -108,9 +110,9 @@ extension MealsContainerVC {
     
     private func setupParchmentPageController(){
         self.parchmentView = PagingViewController()
-        self.parchmentView?.menuItemSpacing = (self.view.width - 251.5) / 2
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 33.0, bottom: 0.0, right: 38.0)
-        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 40)
+        self.parchmentView?.menuItemSpacing = 36
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 15, bottom: 0.0, right: 15)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 56)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
@@ -164,7 +166,8 @@ extension MealsContainerVC: TopNavigationViewDelegate {
             item.reloadData()
         }
         calculateTotalAmount()
-        self.delegate?.mealsUpdated()
+        let price = self.totalLabel.text ?? ""
+        self.delegate?.mealsUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
         self.delegate?.resetMeals()
     }
     
@@ -219,7 +222,7 @@ extension MealsContainerVC : SelectMealDelegate {
                 vc.modalPresentationStyle = .overFullScreen
                 vc.selectPassengersVM.selectedContacts = selectedContacts
                 vc.selectPassengersVM.adonsData = forAdon
-                vc.selectPassengersVM.setupFor = .baggage
+                vc.selectPassengersVM.setupFor = .meals
                 vc.selectPassengersVM.flightKys = [currentFlightKey]
                 vc.selectPassengersVM.freeMeal = self.mealsContainerVM.allChildVCs[vcIndex].selectMealsVM.freeMeal
                 vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
@@ -227,7 +230,7 @@ extension MealsContainerVC : SelectMealDelegate {
                 weakSelf.mealsContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: contacts)
                     weakSelf.calculateTotalAmount()
                 }
-                present(vc, animated: true, completion: nil)
+                present(vc, animated: false, completion: nil)
             }
 //
 //     func addPassengerToMeal(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, mealIndex: Int, selectedContacts: [ATContact]) {

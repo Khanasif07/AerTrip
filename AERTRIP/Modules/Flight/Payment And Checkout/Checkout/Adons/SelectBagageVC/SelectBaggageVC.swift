@@ -41,7 +41,7 @@ class SelectBaggageVC: UIViewController {
       
     func initialSetup() {
           configureTableView()
-         checkForNoData()
+        // checkForNoData()
       }
     
     func initializeVm(selectBaggageVM : SelectBaggageVM){
@@ -119,6 +119,12 @@ extension SelectBaggageVC : UITableViewDelegate, UITableViewDataSource {
                 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cellData = self.selectBaggageVM.sagrigatedData[indexPath.section] else { return }
-        self.delegate?.addPassengerToBaggage(forAdon: cellData[indexPath.row], vcIndex: self.selectBaggageVM.getVcIndex(), currentFlightKey: self.selectBaggageVM.getCurrentFlightKey(), baggageIndex: indexPath.row, selectedContacts: cellData[indexPath.row].bagageSelectedFor)
+        
+        if let bagIndex = self.selectBaggageVM.addonsDetails.addonsArray.lastIndex(where: { (bag) -> Bool in
+            cellData[indexPath.row].adonsName == bag.adonsName
+        }) {
+            self.delegate?.addPassengerToBaggage(forAdon: cellData[indexPath.row], vcIndex: self.selectBaggageVM.getVcIndex(), currentFlightKey: self.selectBaggageVM.getCurrentFlightKey(), baggageIndex: bagIndex, selectedContacts: cellData[indexPath.row].bagageSelectedFor)
+        }
+        
     }
 }
