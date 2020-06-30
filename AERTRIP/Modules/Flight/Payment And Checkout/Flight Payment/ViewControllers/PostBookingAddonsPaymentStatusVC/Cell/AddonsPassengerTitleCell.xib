@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AddonsPassengerTitleCell" id="N4D-nX-8bR" customClass="AddonsPassengerTitleCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="38.5"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N4D-nX-8bR" id="EWs-T7-0xZ">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="38.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8NR-tQ-Csc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="38.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mast. Kevin Gilbert (Child)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vac-tX-AlS">
+                                <rect key="frame" x="16" y="6" width="246" height="24.5"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rescheduled" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wor-7l-b72">
+                                <rect key="frame" x="272" y="8" width="87" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="87" id="KqU-Lh-3Ga"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="vac-tX-AlS" firstAttribute="top" secondItem="8NR-tQ-Csc" secondAttribute="top" constant="6" id="DSc-0W-pVc"/>
+                            <constraint firstItem="Wor-7l-b72" firstAttribute="leading" secondItem="vac-tX-AlS" secondAttribute="trailing" constant="10" id="GBE-aK-1dW"/>
+                            <constraint firstItem="Wor-7l-b72" firstAttribute="centerY" secondItem="vac-tX-AlS" secondAttribute="centerY" id="Jmd-pg-pHc"/>
+                            <constraint firstAttribute="bottom" secondItem="vac-tX-AlS" secondAttribute="bottom" constant="8" id="Kl9-QC-lfv"/>
+                            <constraint firstAttribute="trailing" secondItem="Wor-7l-b72" secondAttribute="trailing" constant="16" id="ONu-wM-ZrR"/>
+                            <constraint firstItem="vac-tX-AlS" firstAttribute="leading" secondItem="8NR-tQ-Csc" secondAttribute="leading" constant="16" id="igA-jm-wzr"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="8NR-tQ-Csc" firstAttribute="top" secondItem="EWs-T7-0xZ" secondAttribute="top" id="11f-eK-SOG"/>
+                    <constraint firstAttribute="bottom" secondItem="8NR-tQ-Csc" secondAttribute="bottom" id="GPh-Zn-Tue"/>
+                    <constraint firstItem="8NR-tQ-Csc" firstAttribute="leading" secondItem="EWs-T7-0xZ" secondAttribute="leading" id="dpi-Gw-ubf"/>
+                    <constraint firstAttribute="trailing" secondItem="8NR-tQ-Csc" secondAttribute="trailing" id="xcm-KD-pBi"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="e0d-xz-pUM"/>
+            <connections>
+                <outlet property="containerView" destination="8NR-tQ-Csc" id="tnt-Uf-VLI"/>
+                <outlet property="containerViewBottomConstraint" destination="GPh-Zn-Tue" id="1PI-F7-X1Z"/>
+                <outlet property="travellerNameLabel" destination="vac-tX-AlS" id="pTw-OK-nG5"/>
+                <outlet property="travellerPnrStatusLabel" destination="Wor-7l-b72" id="3WY-d1-lrK"/>
+            </connections>
+            <point key="canvasLocation" x="-8" y="-20"/>
+        </tableViewCell>
+    </objects>
+</document>

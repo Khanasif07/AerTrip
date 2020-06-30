@@ -68,8 +68,9 @@ class FlightPaymentBookingStatusVC: BaseVC {
       self.returnHomeButton.setTitle("Return Home", for: .normal)
   }
     @IBAction func returnHomeButtonTapped(_ sender: UIButton) {
-        let vc = FlightPaymentPendingVC.instantiate(fromAppStoryboard: .FlightPayment)
-        self.navigationController?.pushViewController(vc, animated: true)
+        AppFlowManager.default.flightReturnToHomefrom(self)
+//        let vc = FlightPaymentPendingVC.instantiate(fromAppStoryboard: .FlightPayment)
+//        self.navigationController?.pushViewController(vc, animated: true)
 //        self.navigationController?.popViewController(animated: true)
         
     }

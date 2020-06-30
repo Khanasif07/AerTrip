@@ -145,6 +145,7 @@ class PostBookingAddonsPaymentVC: BaseVC{
             }else{
                 self.activityLoader.startAnimating()
             }
+            self.view.isUserInteractionEnabled = isHidden
             self.loaderView.isHidden = isHidden
         }
     }
@@ -269,7 +270,7 @@ extension PostBookingAddonsPaymentVC:PostBookingAddonsPaymentVMDelegate{
         self.updateAllData()
     }
     func getPaymentMethodsFails(errors: ErrorCodes){
-        
+        hideShowLoader(isHidden: true)
     }
     
     func makePaymentSuccess(options: JSONDictionary, shouldGoForRazorPay: Bool) {
@@ -278,8 +279,8 @@ extension PostBookingAddonsPaymentVC:PostBookingAddonsPaymentVMDelegate{
             self.initializePayment(withOptions: options)
         } else {
             // payment successfully made through wallet, send to the You are all done
-            if let bIds = options[APIKeys.booking_id.rawValue] as? [String] {
-                self.getPaymentResonseSuccess(bookingIds: bIds, cid: [])
+            if let bIds = options[APIKeys.id.rawValue] as? String {
+                self.getPaymentResonseSuccess(bookingIds: [bIds], cid: [])
             } else if let cIds = options[APIKeys.cid.rawValue] as? [String] {
                 self.getPaymentResonseSuccess(bookingIds: [], cid: cIds)
             }

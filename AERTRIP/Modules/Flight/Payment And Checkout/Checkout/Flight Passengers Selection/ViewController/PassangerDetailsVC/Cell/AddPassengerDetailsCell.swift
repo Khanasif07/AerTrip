@@ -155,9 +155,9 @@ class AddPassengerDetailsCell: UITableViewCell {
             case .Adult:
                 self.guestTitleLabel.text = "\(LocalizedString.Adult.localized) \(number)"
             case .child:
-                self.guestTitleLabel.text = "\(LocalizedString.Child.localized) \(number) \(ageText)"
+                self.guestTitleLabel.text = "\(LocalizedString.Child.localized) \(number)"// \(ageText)"
             case .infant:
-                self.guestTitleLabel.text = "\(LocalizedString.Infant.localized) \(number) \(ageText)"
+                self.guestTitleLabel.text = "\(LocalizedString.Infant.localized) \(number)"// \(ageText)"
             }
             self.guestTitleLabel.AttributedFontColorForText(text: ageText, textColor: AppColors.themeGray40)
         }

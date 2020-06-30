@@ -22,6 +22,7 @@ protocol FlightPaymentVMDelegate:NSObjectProtocol {
     func makePaymentFail()
     
     func getPaymentResonseSuccess(bookingIds: [String], cid: [String])
+    func getPaymentResponseWithPendingPayment(_ p:String, id:String)
     func getPaymentResonseFail()
 }
 
@@ -268,10 +269,18 @@ extension FlightPaymentVM{
         }
         
 //        self.delegate?.willGetPaymentResonse()
-        APICaller.shared.paymentResponseAPI(params: params) { [weak self](success, errors, bookingIds , cid)  in
+        APICaller.shared.flightPaymentResponseAPI(params: params) { [weak self](success, errors, jsonData)  in
             guard let self = self else { return }
-            if success {
-                self.delegate?.getPaymentResonseSuccess(bookingIds: bookingIds, cid: cid)
+            if success, let json = jsonData {
+                let bIds = json[APIKeys.booking_id.rawValue].arrayValue.map{$0.stringValue}
+                let cid = json[APIKeys.cid.rawValue].arrayValue.map{$0.stringValue}
+                if !bIds.isEmpty || !cid.isEmpty{
+                    self.delegate?.getPaymentResonseSuccess(bookingIds: bIds, cid: cid)
+                }else{
+                    let p = json["p"].stringValue
+                    let id = json[APIKeys.id.rawValue].stringValue
+                    self.delegate?.getPaymentResponseWithPendingPayment(p, id: id)
+                }
             } else {
                 self.delegate?.getPaymentResonseFail()
                 //AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)

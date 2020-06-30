@@ -48,6 +48,8 @@ class PostBookingAddonsPaymentStatusVC: BaseVC {
         self.paymentTable.registerCell(nibName: TravellersPnrStatusTableViewCell.reusableIdentifier)
         self.paymentTable.registerCell(nibName: ApplyCouponTableViewCell.reusableIdentifier)
         self.paymentTable.registerCell(nibName: EmptyTableViewCell.reusableIdentifier)
+        self.paymentTable.registerCell(nibName: AddonsPassangerCell.reusableIdentifier)
+        self.paymentTable.registerCell(nibName: AddonsPassengerTitleCell.reusableIdentifier)
     }
     
     private func setupReturnHomeButton() {
@@ -67,6 +69,11 @@ class PostBookingAddonsPaymentStatusVC: BaseVC {
         }
         
     }
+    
+    @IBAction func tapReturnToHomeButton(_ sender: UIButton) {
+        AppFlowManager.default.flightReturnToHomefrom(self)
+    }
+    
     
     private func instantiateSeatMapVC(_ bookingId: String) {
         let vc = SeatMapContainerVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
@@ -125,6 +132,10 @@ extension PostBookingAddonsPaymentStatusVC: UITableViewDelegate, UITableViewData
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat.leastNonzeroMagnitude
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch self.viewModel.sectionData[indexPath.section][indexPath.row]{
@@ -143,7 +154,19 @@ extension PostBookingAddonsPaymentStatusVC: UITableViewDelegate, UITableViewData
     }
     
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch self.viewModel.sectionData[indexPath.section][indexPath.row]{
+        case .accessBooking:
+            guard let vc = (self.presentingViewController as? UINavigationController)?.children.first(where: {$0.isKind(of: FlightPaymentBookingStatusVC.self)}) as? FlightPaymentBookingStatusVC else{return}
+            DispatchQueue.main.async {
+                vc.viewModel.bookingDetail = self.viewModel.bookingDetails
+                vc.statusTableView.reloadData()
+                self.navigationController?.dismiss(animated: true, completion: nil)
+            }
+        default: break
+            
+        }
+    }
     
     
     func getCellForSeatBooked(_ indexPath: IndexPath)-> UITableViewCell{
@@ -164,34 +187,30 @@ extension PostBookingAddonsPaymentStatusVC: UITableViewDelegate, UITableViewData
     
     
     func getCellForPassenger(_ indexPath: IndexPath)-> UITableViewCell{
-        guard let cell = self.paymentTable.dequeueReusableCell(withIdentifier: TravellersPnrStatusTableViewCell.reusableIdentifier) as? TravellersPnrStatusTableViewCell else {return UITableViewCell()}
+        guard let cell = self.paymentTable.dequeueReusableCell(withIdentifier: AddonsPassangerCell.reusableIdentifier) as? AddonsPassangerCell else {return UITableViewCell()}
         let pnr = self.viewModel.cellDataToShow[indexPath.section - 1][indexPath.row].addonPax.addon.seat.name
-        
+        let islast = (indexPath.row == (self.viewModel.cellDataToShow[indexPath.section - 1].count - 1))
         if let pax = self.viewModel.cellDataToShow[indexPath.section - 1][indexPath.row].pax{
             
-            cell.configCell(travellersImage: pax.profileImage, travellerName: "\(pax.firstName) \(pax.lastName)", travellerPnrStatus: pnr, firstName: (pax.firstName), lastName: (pax.lastName), isLastTraveller: false,paxType: "", dob: pax.dob, salutation: pax.salutation)
+            cell.configCell(travellersImage: pax.profileImage, travellerName: "\(pax.firstName) \(pax.lastName)", travellerPnrStatus: pnr, firstName: (pax.firstName), lastName: (pax.lastName), isLastTraveller: islast,paxType: "", dob: pax.dob, salutation: pax.salutation)
             
         }else{
             
             let pax = self.viewModel.cellDataToShow[indexPath.section - 1][indexPath.row].addonPax
-            cell.configCell(travellersImage: "", travellerName: "\(pax.salutation) \(pax.firstName) \(pax.lastName)", travellerPnrStatus: pnr, firstName: (pax.firstName), lastName: (pax.lastName), isLastTraveller: false,paxType: "", dob: "", salutation: pax.salutation)
+            cell.configCell(travellersImage: "", travellerName: "\(pax.salutation) \(pax.firstName) \(pax.lastName)", travellerPnrStatus: pnr, firstName: (pax.firstName), lastName: (pax.lastName), isLastTraveller: islast,paxType: "", dob: "", salutation: pax.salutation)
             
         }
         
-//
         cell.clipsToBounds = true
         return cell
     }
     
     
     func getCellForFlightTitle(_ indexPath: IndexPath)-> UITableViewCell{
-        guard let cell = self.paymentTable.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier) as? BookingPaymentDetailsTableViewCell else {return UITableViewCell()}
-        cell.titleTopConstraint.constant = 12.0
-        cell.titleBottomConstraint.constant = 8.0
-        //AppColors.themeGray40
-        cell.configCell(title: "", titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, isFirstCell: false, price: "Seat", isLastCell: false, cellHeight: 38.0)
-        cell.titleLabel.attributedText = self.viewModel.cellDataToShow[indexPath.section - 1][indexPath.row].flight.route
-        cell.clipsToBounds = true
+        guard let cell = self.paymentTable.dequeueReusableCell(withIdentifier: AddonsPassengerTitleCell.reusableIdentifier) as? AddonsPassengerTitleCell else {return UITableViewCell()}
+        
+        let title = self.viewModel.cellDataToShow[indexPath.section - 1][indexPath.row].flight.route
+        cell.configCell(title: title, type: "Seat")
         return cell
     }
     

@@ -129,16 +129,17 @@ class FlightPaymentBookingStatusVM{
     func getPnrWith(_ indexPath:IndexPath)->String{
         let sec = indexPath.section - 1
         let row = indexPath.row - 3
+        var finalPNR = ""
         if self.bookingDetail.count > sec, let booking = self.bookingDetail[sec]{
-            return booking.bookingDetail?.leg.first?.pax[row].pnr ?? ""
+            finalPNR = booking.bookingDetail?.leg.first?.pax[row].pnr ?? ""
         }else if let booking = self.bookingDetail.first, let pnr = booking?.bookingDetail?.leg.first?.pax[row].pnr{
-            return pnr
+            finalPNR = pnr
 //-----------------Comment for showing pnr according to leg.----------------------
 //            let pnrArr = pnr.components(separatedBy: ",")
 //            if pnrArr.count > sec{
 //                return pnrArr[sec]
 //            }
         }
-        return ""
+        return finalPNR.isEmpty ? "Pending" : finalPNR
     }
 }
