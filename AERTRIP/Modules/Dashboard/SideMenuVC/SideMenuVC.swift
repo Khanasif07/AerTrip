@@ -278,6 +278,9 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 
                 cell.populateData()
+                if (UserInfo.loggedInUser?.userCreditType ?? .statement  == .topup){
+                    cell.totalDueAmountLabel.text = "Amount Due"
+                }
                 return cell
                 
             } else {

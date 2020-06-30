@@ -88,7 +88,7 @@ extension PeriodicStatementListVC: UITableViewDataSource, UITableViewDelegate {
             dateStr.removeFirst(3)
         }
         
-        headerView.headerLabel.text = dateStr
+        headerView.headerLabel.text = dateStr.uppercased()
         headerView.backgroundColor = AppColors.themeGray04
         headerView.containerView.backgroundColor = AppColors.themeGray04
         return headerView

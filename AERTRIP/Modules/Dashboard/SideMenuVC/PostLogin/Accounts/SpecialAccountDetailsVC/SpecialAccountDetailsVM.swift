@@ -78,7 +78,7 @@ class SpecialAccountDetailsVM {
     
     //MARK:- Private
     private func getStatementSummery(accountData: AccountModel) {
-        let stmtSummery = ["Statement Summery", "Opening Balance", "Recent Payments & Credits", "Recent Charges", "Total Outstanding"]
+        let stmtSummery = ["Statement Summary", "Opening Balance", "Recent Payments & Credits", "Recent Charges", "Total Outstanding"]
         let stmtSummeryHeight: [CGFloat] = [titleH, detailWithDescH, detailH, detailWithDescH, grandTotalH]
         
         self.statementSummery.removeAll()
@@ -227,7 +227,7 @@ class SpecialAccountDetailsVM {
         var otrAction = ["Account Ledger", "Outstanding Ledger"]
         
         if let usr = UserInfo.loggedInUser, usr.userCreditType == UserCreditType.statement {
-            otrAction.append("Periodic statement")
+            otrAction.append("Periodic Statement")
         }
         
         self.otherAction.removeAll()

@@ -81,7 +81,7 @@ class AdonsVM  {
         return isFreeSeatsAdded ? LocalizedString.Free_Seats_Available.localized : ""
        }
     
-    private var priseDict : JSONDictionary = [:]
+    var priceDict : JSONDictionary = [:]
     
     func setAdonsOptions(){
         let flightsWithData = AddonsDataStore.shared.flightsWithData
@@ -107,8 +107,8 @@ class AdonsVM  {
     }
     
     func updatePriceDict(key : String, value : String?){
-        priseDict[key] = value
-        printDebug(priseDict)
+        priceDict[key] = value
+        printDebug(priceDict)
     }
     
     func getCellHeight(index : Int) -> CGFloat {

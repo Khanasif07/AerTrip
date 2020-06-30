@@ -136,7 +136,7 @@ extension FlightPaymentVC{
         case 1: // Apply Coupon Cell
             return 44.0
         case 3: // Pay by Wallet Cell
-            return (UserInfo.loggedInUser != nil && (self.getWalletAmount() > 0)) ? 35.0 : 0.0//(UserInfo.loggedInUser != nil) ? 75.0 : 0.0
+            return (UserInfo.loggedInUser != nil && (self.getWalletAmount() > 0)) ? 75.0 : 0.0//(UserInfo.loggedInUser != nil) ? 75.0 : 0.0
             //        case 5: // Fare Detail Cell
         //            return 80.0
         default:

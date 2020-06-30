@@ -34,55 +34,8 @@ extension APICaller {
                         accLadgerVchrs = vchr
                     }
                     
-                    //***************//
-                    let periodicDict: [JSONDictionary] = [
-                        [
-                            "id": "37",
-                            "statement_date": "2018-03-08 00:00:00",
-                            "period_from": "2018-03-01",
-                            "period_to": "2018-03-07",
-                            "due_date": "2018-03-12 00:00:00"
-                        ],
-                        [
-                            "id": "25",
-                            "statement_date": "2018-03-01 00:00:00",
-                            "period_from": "2018-02-22",
-                            "period_to": "2018-02-28",
-                            "due_date": "2018-03-05 00:00:00"
-                        ],
-                        [
-                            "id": "16",
-                            "statement_date": "2018-02-22 00:00:00",
-                            "period_from": "2018-02-15",
-                            "period_to": "2018-02-21",
-                            "due_date": "2018-02-26 00:00:00"
-                        ],
-                        [
-                            "id": "1",
-                            "statement_date": "2018-02-15 00:00:00",
-                            "period_from": "2018-02-08",
-                            "period_to": "2018-02-14",
-                            "due_date": "2018-02-19 00:00:00"
-                        ],
-                        [
-                            "id": "3",
-                            "statement_date": "2018-01-15 00:00:00",
-                            "period_from": "2018-01-25",
-                            "period_to": "2018-02-07",
-                            "due_date": "2018-02-19 00:00:00"
-                        ],
-                        [
-                            "id": "5",
-                            "statement_date": "2019-01-15 00:00:00",
-                            "period_from": "2019-01-25",
-                            "period_to": "2019-02-07",
-                            "due_date": "2019-02-19 00:00:00"
-                        ]
-                    ]
-                    
+                    let periodicDict: [JSONDictionary] = data["statement_list"].arrayObject as? [JSONDictionary] ?? []
                     let periodicData = PeriodicStatementEvent.modelsDict(data: periodicDict)
-
-                    //****************//
                     
 
                     if let accData = ledger["summary"].dictionaryObject {

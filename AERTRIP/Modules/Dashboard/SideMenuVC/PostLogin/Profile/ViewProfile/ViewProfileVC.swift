@@ -535,7 +535,9 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
     func getFail(errors: ErrorCodes) {
         self.profileImageHeaderView?.stopLoading()
         if AppGlobals.shared.isNetworkRechable() {
-            AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+            if !((UserInfo.loggedInUser?.userCreditType ?? UserCreditType.statement) == .topup){
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+            }
         } else {
             AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
         }

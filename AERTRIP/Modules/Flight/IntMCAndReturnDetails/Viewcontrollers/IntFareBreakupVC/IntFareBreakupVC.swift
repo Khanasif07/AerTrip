@@ -261,6 +261,11 @@ class IntFareBreakupVC: UIViewController {
     func setPassengerCount(){
     }
     
+    func reloadDataForAddons(){
+        self.taxesDataDisplay()
+        self.baseFareTableview.reloadData()
+    }
+    
     func taxesDataDisplay(){
         if journey != nil{
             taxAndFeesData.removeAll()
