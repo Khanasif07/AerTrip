@@ -21,7 +21,10 @@ class PassengerGridCell: UITableViewCell{
     private var lineSpacing: CGFloat = 5
     var totalPassenger:Int = 0
     var journeyType:JourneyType = .domestic
+    var isAllPaxInfoRequired = false
     weak var delegate: PassengerGridSelectionDelegate?
+    var minMNS = 10
+    var maxMNS = 10
     // Mark:- LifeCycles
     // Mark:-
     override func awakeFromNib() {
@@ -87,6 +90,9 @@ extension PassengerGridCell: UICollectionViewDataSource, UICollectionViewDelegat
         if GuestDetailsVM.shared.guests.count > forIdx.row, GuestDetailsVM.shared.guests[forIdx.row].count > indexPath.item {
             cell.contact = GuestDetailsVM.shared.guests[forIdx.row][indexPath.item]
         }
+        cell.isAllPaxInfoRequired = self.isAllPaxInfoRequired
+        cell.minMNS = self.minMNS
+        cell.maxMNS = self.maxMNS
         return cell
     }
     

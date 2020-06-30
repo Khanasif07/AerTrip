@@ -305,6 +305,16 @@ class PassengerSelectionVM  {
                     return (false, "Please fill all the passenger details")
                 }
             }
+            if self.itineraryData.itinerary.isAllPaxInfoRequired && contact.passengerType == .Adult{
+                if contact.isd.isEmpty{
+                    return (false, "Please fill all the passenger details")
+                }else if (contact.contact.isEmpty || contact.contact.count < self.manimumContactLimit || contact.contact.count > self.maximumContactLimit){
+                    return (false, "Please fill all the passenger details")
+                }else if !(contact.emailLabel.checkValidity(.Email)){
+                    return (false, "Please fill all the passenger details")
+                }
+                
+            }
         }
         if self.isdCode.isEmpty{
             return (false, "Please enter ISD code")

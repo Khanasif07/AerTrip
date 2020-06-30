@@ -154,13 +154,13 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     
    @objc func keyboardWillShow(notification: Notification) {
         if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
-//            self.passengerTable.setBottomInset(to: keyboardHeight + 10)
+            self.passengerTable.setBottomInset(to: keyboardHeight + 10)
             self.viewModel.keyboardHeight = keyboardHeight
         }
     }
 
     @objc func keyboardWillHide(notification: Notification) {
-//        self.passengerTable.setBottomInset(to: 0.0)
+        self.passengerTable.setBottomInset(to: 0.0)
         self.passengerTable.isScrollEnabled = true
         GuestDetailsVM.shared.resetData()
         self.travellersTableView.reloadData()
@@ -281,6 +281,7 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
         cell.canShowSalutationError = GuestDetailsVM.shared.canShowSalutationError
         cell.delegate = self
         cell.txtFldEditDelegate = self
+        cell.allPaxInfoRequired = self.viewModel.isAllPaxInfoRequired
         cell.guestDetail = self.viewModel.passengerList[indexPath.section]
         return cell
     }
@@ -386,6 +387,9 @@ extension PassengerDetailsVC: GuestDetailTableViewCellDelegate {
             var  yValue = 62
             if let index = self.viewModel.editinIndexPath {
                 yValue = index.section ==  GuestDetailsVM.shared.guests[0].count - 1 ? 63 : 65
+                if self.viewModel.isAllPaxInfoRequired{
+                    yValue += 3
+                }
             }
             let offsetYValue = itemPosition.y - CGFloat(yValue)
 

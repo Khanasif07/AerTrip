@@ -408,9 +408,9 @@ class AdonsVM  {
             self.parmsForItinerary["t[\(i)][\(APIKeys.pax_type.rawValue)]"] = type.rawValue
             self.parmsForItinerary["t[\(i)][\(APIKeys.salutation.rawValue)]"] = dataStore.passengers[i].salutation
             if type == .Adult{
-                self.parmsForItinerary["t[\(i)][\(APIKeys.mobile.rawValue)]"] = ""
-                self.parmsForItinerary["t[\(i)][\(APIKeys.isd.rawValue)]"] = ""
-                self.parmsForItinerary["t[\(i)][\(APIKeys.email.rawValue)]"] = ""
+                self.parmsForItinerary["t[\(i)][\(APIKeys.mobile.rawValue)]"] = dataStore.passengers[i].contact
+                self.parmsForItinerary["t[\(i)][\(APIKeys.isd.rawValue)]"] = dataStore.passengers[i].isd
+                self.parmsForItinerary["t[\(i)][\(APIKeys.email.rawValue)]"] = dataStore.passengers[i].emailLabel
             }
             if dataStore.itinerary.isInternational{
                 self.parmsForItinerary["t[\(i)][\(APIKeys.dob.rawValue)]"] = dataStore.passengers[i].dob
