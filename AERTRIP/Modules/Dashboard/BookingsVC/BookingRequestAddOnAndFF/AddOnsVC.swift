@@ -90,6 +90,7 @@ class AddOnsVC: BaseVC {
         // Extra baggage Cell
         case 3:
             commontInputTableViewCell.configureCell(title: LocalizedString.ExtraBaggageTitle.localized, placeholderText: LocalizedString.ExtraBaggagePlacheholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].baggage ?? "")
+            commontInputTableViewCell.characterCountLabel.isHidden = false
             return commontInputTableViewCell
             
         // Other Cell
@@ -203,18 +204,32 @@ extension AddOnsVC: BookingFFMealTableViewCellDelegate {
         // Seat Booking
         case 1:
             PKMultiPicker.noOfComponent = 1
-            PKMultiPicker.openMultiPickerIn(cell?.selectedMealPreferenceTextField, firstComponentArray: Array(BookingRequestAddOnsFFVM.shared.seatPreferences.values), secondComponentArray: [], firstComponent: cell?.selectedMealPreferenceTextField.text ?? "", secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [weak cell] firstSelect, _ in
+            var seatPreferences = Array(BookingRequestAddOnsFFVM.shared.seatPreferences.values)
+            seatPreferences.insert(LocalizedString.Select.localized, at: 0)
+            PKMultiPicker.openMultiPickerIn(cell?.selectedMealPreferenceTextField, firstComponentArray: seatPreferences, secondComponentArray: [], firstComponent: cell?.selectedMealPreferenceTextField.text ?? "", secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [weak cell] firstSelect, _ in
+                if LocalizedString.Select.localized != firstSelect {
                 BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].seatPreferences = firstSelect
                 cell?.selectedMealPreferenceTextField.text = firstSelect
                 BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].seatPreferences = firstSelect
+                } else {
+                    cell?.selectedMealPreferenceTextField.text = firstSelect
+                    BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].seatPreferences = ""
+                }
             }
             
         // meal Booking
         case 2:
             PKMultiPicker.noOfComponent = 1
-            PKMultiPicker.openMultiPickerIn(cell?.selectedMealPreferenceTextField, firstComponentArray: Array(BookingRequestAddOnsFFVM.shared.mealPreferences.values), secondComponentArray: [], firstComponent: cell?.selectedMealPreferenceTextField.text ?? "", secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [weak cell] firstSelect, _ in
+            var mealPreferences = Array(BookingRequestAddOnsFFVM.shared.mealPreferences.values.sorted())
+            mealPreferences.insert(LocalizedString.Select.localized, at: 0)
+            PKMultiPicker.openMultiPickerIn(cell?.selectedMealPreferenceTextField, firstComponentArray: mealPreferences, secondComponentArray: [], firstComponent: cell?.selectedMealPreferenceTextField.text ?? "", secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [weak cell] firstSelect, _ in
+                if LocalizedString.Select.localized != firstSelect {
                 cell?.selectedMealPreferenceTextField.text = firstSelect
                 BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].mealPreferenes = firstSelect
+                } else {
+                    cell?.selectedMealPreferenceTextField.text = firstSelect
+                    BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].mealPreferenes = ""
+                }
             }
         default:
             break

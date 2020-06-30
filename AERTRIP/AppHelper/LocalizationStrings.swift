@@ -801,6 +801,9 @@ enum LocalizedString: String {
     case NoBaggage
     case NoInfo
     case BaggageDetailsMessage
+    case CharactersRemaining
+    case BookAnotherRoom
+
     
     // Booking Action sheet text
     case RequestAddOnAndFrequentFlyer
@@ -870,6 +873,7 @@ enum LocalizedString: String {
     case BookingID
     case OpeningBalance
     case NoBookingAvailable
+    case NoBookingAvailableMessage
 
     
     // MARK: - OutStanding Ladger

@@ -212,6 +212,7 @@ open class PKSideMenuController: UIViewController {
     private func addEdgeSwipeGesture() {
         edgePanGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(panGestureRecognized(_:)))
         edgePanGestureRecognizer?.edges = (PKSideMenuOptions.currentOpeningSide == .left) ? .right : .left
+        
         self.mainContainer?.addGestureRecognizer(edgePanGestureRecognizer!)
     }
     

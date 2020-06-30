@@ -28,8 +28,14 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         switch currentSection[indexPath.row] {
         case .weatherHeaderCell, .weatherInfoCell, .weatherFooterCell:
             return (self.viewModel.bookingDetail?.tripWeatherData.isEmpty ?? true) ? CGFloat.leastNonzeroMagnitude : UITableView.automaticDimension
+        case .gstCell:
+            return self.viewModel.bookingDetail?.billingInfo?.gst.isEmpty ?? true ? CGFloat.leastNonzeroMagnitude : UITableView.automaticDimension
          default: return UITableView.automaticDimension
         }
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -115,6 +121,7 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
       
         else if indexPath.section >= self.viewModel.noOfLegCellAboveLeg, indexPath.section <= (self.viewModel.noOfLegCellAboveLeg +  legCount - 1) {
+            
             AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail,tripCities: self.viewModel.tripCitiesStr,legSectionTap: indexPath.section - self.viewModel.noOfLegCellAboveLeg)
         }
         
@@ -135,12 +142,19 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 AppGlobals.shared.showUnderDevelopment()
             case .addToAppleWallet:
                 AppGlobals.shared.showUnderDevelopment()
+            case .bookAnotherRoom:
+                AppGlobals.shared.showUnderDevelopment()
             }
         }
         else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? PaymentInfoTableViewCell, let rcpt = self.viewModel.bookingDetail?.receipt {
             //move to voucher vc
             AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, caseId: "")
+        } else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? HotelInfoAddressCell {
+            // notes section
+            AppFlowManager.default.presentBookingNotesVC(overViewInfo: self.viewModel.bookingDetail?.bookingDetail?.note ?? "")
         }
+        
+        
     }
 }
 
@@ -437,11 +451,13 @@ extension FlightBookingsDetailsVC: WeatherHeaderTableViewCellDelegate {
 
 extension FlightBookingsDetailsVC: BookingProductDetailVMDelegate {
     func willGetBookingDetail() {
-        AppGlobals.shared.startLoading()
+        //AppGlobals.shared.startLoading()
+        self.headerView?.startProgress()
     }
     
     func getBookingDetailSucces() {
-        AppGlobals.shared.stopLoading()
+        //AppGlobals.shared.stopLoading()
+        self.headerView?.stopProgress()
         self.configureTableHeaderView()
         self.bookingDetailsTableView.delegate = self
         self.bookingDetailsTableView.dataSource = self
@@ -452,8 +468,18 @@ extension FlightBookingsDetailsVC: BookingProductDetailVMDelegate {
     }
     
     func getBookingDetailFaiure(error: ErrorCodes) {
+        self.headerView?.stopProgress()
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
-        AppGlobals.shared.stopLoading()
+        //AppGlobals.shared.stopLoading()
+    }
+    func willGetTripOwner() {
+        
+    }
+    func getBTripOwnerSucces() {
+       self.bookingDetailsTableView.reloadData()
+    }
+    func getTripOwnerFaiure(error: ErrorCodes) {
+        self.bookingDetailsTableView.reloadData()
     }
 }
 
@@ -469,12 +495,17 @@ extension FlightBookingsDetailsVC: SFSafariViewControllerDelegate {
 
 extension FlightBookingsDetailsVC: SelectTripVCDelegate {
     func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel, tripDetails: TripDetails?) {
-        printDebug("\(trip)")
+        printDebug("trip: \(trip)")
+        printDebug("tripDetails: \(tripDetails)")
         self.updatedTripDetail = trip
+        self.viewModel.bookingDetail?.tripInfo?.eventId = tripDetails?.event_id ?? ""
+        self.viewModel.bookingDetail?.tripInfo?.tripId = tripDetails?.trip_id ?? ""
+        self.viewModel.bookingDetail?.tripInfo?.name = tripDetails?.name ?? ""
         AppToast.default.showToastMessage(message: LocalizedString.FlightTripChangeMessage.localized + "\(trip.name)")
         if let indexPath = self.tripChangeIndexPath {
             self.bookingDetailsTableView.reloadRow(at: indexPath, with: .none)
         }
+        self.viewModel.getTripOwnerApi()
     }
 }
 

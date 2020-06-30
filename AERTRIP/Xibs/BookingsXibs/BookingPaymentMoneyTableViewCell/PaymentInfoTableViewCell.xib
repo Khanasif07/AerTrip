@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -32,7 +32,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotelCheckoutForwardArrow" translatesAutoresizingMaskIntoConstraints="NO" id="pZe-ht-lCw">
-                                <rect key="frame" x="319" y="17.5" width="8" height="13"/>
+                                <rect key="frame" x="319" y="15" width="8" height="13"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="13" id="T7o-9T-GRT"/>
                                     <constraint firstAttribute="width" constant="8" id="acL-Uc-ORF"/>
@@ -41,11 +41,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="pZe-ht-lCw" firstAttribute="centerY" secondItem="zCE-m0-2pT" secondAttribute="centerY" id="1ZP-gq-Xk2"/>
                             <constraint firstAttribute="trailing" secondItem="pZe-ht-lCw" secondAttribute="trailing" constant="16" id="9iT-dD-jAV"/>
                             <constraint firstItem="zCE-m0-2pT" firstAttribute="top" secondItem="tA2-fO-V4D" secondAttribute="top" constant="12" id="M0v-xI-pvH"/>
                             <constraint firstItem="zCE-m0-2pT" firstAttribute="leading" secondItem="tA2-fO-V4D" secondAttribute="leading" constant="16" id="fvq-jl-RR0"/>
                             <constraint firstAttribute="bottom" secondItem="zCE-m0-2pT" secondAttribute="bottom" id="fzr-KY-AlI"/>
-                            <constraint firstAttribute="bottom" secondItem="pZe-ht-lCw" secondAttribute="bottom" id="p4A-yz-fgu"/>
                         </constraints>
                     </view>
                 </subviews>

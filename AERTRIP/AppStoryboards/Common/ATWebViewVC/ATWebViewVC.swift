@@ -26,7 +26,19 @@ class ATWebViewVC: BaseVC {
     @IBOutlet weak var blurViewContainer: BlurView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if #available(iOS 13.0, *) {
+            self.statusBarStyle = .lightContent
+        }
+    }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if #available(iOS 13.0, *) {
+            self.statusBarStyle = .default
+        }
+    }
     
     //MARK:- Properties
     //MARK:- Public
@@ -41,6 +53,8 @@ class ATWebViewVC: BaseVC {
     //MARK:-
     override func initialSetup() {
         topNavView.configureNavBar(title: navTitle, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .clear)
+        topNavView.navTitleLabel.numberOfLines = 1
+        topNavView.navTitleLabel.lineBreakMode = .byTruncatingTail
         topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"), selectedImage: #imageLiteral(resourceName: "black_cross"))
         topNavView.delegate = self
         topNavView.backView.backgroundColor = .clear

@@ -28,6 +28,11 @@ class BookingPaymentDetailsTableViewCell: UITableViewCell {
         self.configUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.costLabel.attributedText = nil
+    }
+    
     // Mark:- Functions
     //================
     private func configUI() {
@@ -39,7 +44,8 @@ class BookingPaymentDetailsTableViewCell: UITableViewCell {
         self.dividerView.isHidden = true
         self.cellHeight.constant = 41.5
         self.containerViewBottomConstraint.constant = 0.0
-        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
+        //self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
+        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
     }
     
     internal func configCell(title: String, titleFont: UIFont = AppFonts.Regular.withSize(16.0), titleColor: UIColor = AppColors.themeBlack, isFirstCell: Bool, price: String? = nil, isLastCell: Bool, cellHeight: CGFloat = 41.0) {
@@ -52,7 +58,7 @@ class BookingPaymentDetailsTableViewCell: UITableViewCell {
         
         self.costLabel.text = price
         if let prc = price, let prcD = prc.toDouble {
-            self.costLabel.text = prcD.delimiterWithSymbol
+            self.costLabel.attributedText = prcD.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
         }
     }
     

@@ -17,6 +17,7 @@ class BookingInvoiceVC: BaseVC {
     // MARK: - Variables
     let viewModel = BookingInvoiceVM()
     let cellIdentifier = "FareSectionHeader"
+    var isDownloadingRecipt = false
     //    var isBaseFareSectionExpanded: Bool = true
     //    var isGrossFareSectionExpanded: Bool = true
     
@@ -195,7 +196,7 @@ class BookingInvoiceVC: BaseVC {
                 fatalError("DownloadInvoiceTableViewCell not found")
             }
             downloadInvoiceCell.topDividerView.isHidden = true
-            
+            downloadInvoiceCell.showLoader = self.isDownloadingRecipt
             downloadInvoiceCell.titleLabel.text = self.viewModel.isForReceipt ? LocalizedString.DownloadReceipt.localized : LocalizedString.DownloadInvoice.localized
             
             return downloadInvoiceCell
@@ -432,14 +433,28 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
             if indexPath.section == 2, indexPath.row == 2 {
                 //download receipt
                 if let bID = self.viewModel.voucher?.basic?.transactionId, !bID.isEmpty {
-                    AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Receipt Voucher")
+                    self.isDownloadingRecipt = true
+                    if let cell = self.invoiceTableView.cellForRow(at: indexPath) as? DownloadInvoiceTableViewCell{
+                        cell.showLoader = true
+                    }
+                    AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Receipt Voucher", showLoader: false, complition: { [weak self] (status) in
+                        self?.isDownloadingRecipt = false
+                        self?.invoiceTableView.reloadData()
+                    })
                 }
             }
         } else {
             if self.viewModel.sectionHeader[indexPath.section].section == .total, indexPath.row == 2 {
                 //download invoice
                 if let bID = self.viewModel.voucher?.basic?.transactionId, !bID.isEmpty {
-                    AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Booking Invoice")
+                    self.isDownloadingRecipt = true
+                    if let cell = self.invoiceTableView.cellForRow(at: indexPath) as? DownloadInvoiceTableViewCell{
+                        cell.showLoader = true
+                    }
+                    AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Booking Invoice", showLoader: false, complition: { [weak self] (status) in
+                        self?.isDownloadingRecipt = false
+                        self?.invoiceTableView.reloadData()
+                    })
                 }
             }
         }

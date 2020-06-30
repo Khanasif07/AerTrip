@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManager
 
 class PassengerDetailsVC: UIViewController, UITextViewDelegate {
 
@@ -32,13 +33,16 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        IQKeyboardManager.shared().isEnabled = false
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
+        IQKeyboardManager.shared().isEnabled = true
     }
+
     
     
     private func registerCells(){
@@ -379,12 +383,15 @@ extension PassengerDetailsVC: GuestDetailTableViewCellDelegate {
         if let _ = self.passengerTable.cell(forItem: textField) as? AddPassengerDetailsCell {
             //  get item position
             let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: passengerTable)
-            var  yValue = 33
+            var  yValue = 62
             if let index = self.viewModel.editinIndexPath {
-                yValue = index.section ==  GuestDetailsVM.shared.guests[0].count - 1 ? 34 : 36
+                yValue = index.section ==  GuestDetailsVM.shared.guests[0].count - 1 ? 63 : 65
             }
-            self.passengerTable.setContentOffset(CGPoint(x: self.passengerTable.origin.x, y: itemPosition.y - CGFloat(yValue)), animated: true)
-            
+            let offsetYValue = itemPosition.y - CGFloat(yValue)
+
+            if self.passengerTable.contentOffset.y != offsetYValue {
+            self.passengerTable.setContentOffset(CGPoint(x: self.passengerTable.origin.x, y: offsetYValue), animated: true)
+            }
             self.passengerTable.isScrollEnabled = GuestDetailsVM.shared.isDataEmpty
             travellersTableView.reloadData()
             printDebug("item position is \(itemPosition)")

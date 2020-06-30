@@ -103,8 +103,10 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
         let placeImage = AppGlobals.shared.getImageFor(firstName: self.paxData?.firstName, lastName: self.paxData?.lastName, font: AppFonts.Regular.withSize(35.0),backGroundColor: AppColors.blueGray)
         if self.paxData?.profileImage.isEmpty ?? false {
             self.profileImageView.image = placeImage
+            self.profileImageView.contentMode = .scaleAspectFit
         } else {
             self.profileImageView.setImageWithUrl(self.paxData?.profileImage ?? "", placeholder: placeImage, showIndicator: false)
+            self.profileImageView.contentMode = .scaleAspectFill
         }
     }
     
@@ -133,8 +135,10 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
         let placeImage = AppGlobals.shared.getImageFor(firstName: self.guestData?.firstName, lastName: self.guestData?.lastname, font: AppFonts.Regular.withSize(35.0),backGroundColor: AppColors.blueGray)
         if self.guestData?.profileImage.isEmpty ?? false {
             self.profileImageView.image = placeImage
+            self.profileImageView.contentMode = .scaleAspectFit
         } else {
             self.profileImageView.setImageWithUrl(self.guestData?.profileImage ?? "", placeholder: placeImage, showIndicator: false)
+            self.profileImageView.contentMode = .scaleAspectFill
         }
     }
 }

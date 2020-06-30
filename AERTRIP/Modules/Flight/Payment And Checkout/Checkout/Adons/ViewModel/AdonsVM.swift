@@ -105,6 +105,16 @@ class AdonsVM  {
         }
     }
     
+    func getAddonsPriceDict()-> [String : Int]{
+        var newDict = [String:Int]()
+        for (key, value) in self.priceDict{
+            if value != 0{
+                newDict[key] = value
+            }
+        }
+        return newDict
+    }
+    
     func updatePriceDict(key : String, value : String?){
         guard let val = value else {
             priceDict[key] = nil

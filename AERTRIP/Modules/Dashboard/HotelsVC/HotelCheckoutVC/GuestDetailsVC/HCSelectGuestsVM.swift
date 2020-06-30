@@ -83,6 +83,9 @@ class HCSelectGuestsVM: NSObject {
             }
         }
     }
+    //Added to check total count in case of flight and hotel
+    var totalGuestCount:Int = 0
+    var productType:ProductType = .hotel
     
     var isPhoneContactsAllowed: Bool = false
     var isFacebookContactsAllowed: Bool = false
@@ -119,6 +122,7 @@ class HCSelectGuestsVM: NSObject {
         self.selectedPhoneContacts.removeAll()
         self.selectedFacebookContacts.removeAll()
         self.selectedGoogleContacts.removeAll()
+        self.totalGuestCount = 0
     }
     
     func add(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {

@@ -12,6 +12,10 @@ protocol BookingProductDetailVMDelegate: class {
     func willGetBookingDetail()
     func getBookingDetailSucces()
     func getBookingDetailFaiure(error: ErrorCodes)
+    
+    func willGetTripOwner()
+    func getBTripOwnerSucces()
+    func getTripOwnerFaiure(error: ErrorCodes)
 }
 
 class BookingProductDetailVM {
@@ -19,7 +23,7 @@ class BookingProductDetailVM {
     
     // hotel details related
     enum TableViewCellForHotel {
-        case notesCell, requestCell, cancellationsReqCell, addOnRequestCell, reschedulingRequestCell, hotelBookingInfoCell, roomNameAndTypeCell, travellersCell, documentCell, paymentInfoCell, bookingCell, addOnsCell, cancellationCell, paidCell, refundCell, paymentPendingCell, nameCell, emailCell, mobileCell, gstCell, billingAddressCell, flightsOptionsCell, weatherHeaderCell, weatherInfoCell, weatherFooterCell, tripChangeCell, addToCalenderCell, addToAppleWallet
+        case notesCell, requestCell, cancellationsReqCell, addOnRequestCell, reschedulingRequestCell, hotelBookingInfoCell, roomNameAndTypeCell, travellersCell, documentCell, paymentInfoCell, bookingCell, addOnsCell, cancellationCell, paidCell, refundCell, paymentPendingCell, nameCell, emailCell, mobileCell, gstCell, billingAddressCell, flightsOptionsCell, weatherHeaderCell, weatherInfoCell, weatherFooterCell, tripChangeCell, addToCalenderCell, addToAppleWallet, bookAnotherRoomCell
     }
     
     var sectionDataForHotelDetail: [[TableViewCellForHotel]] = []
@@ -116,6 +120,7 @@ class BookingProductDetailVM {
         self.sectionDataForHotelDetail.append([.flightsOptionsCell])
         
         self.sectionDataForHotelDetail.append([.addToCalenderCell])
+        self.sectionDataForHotelDetail.append([.bookAnotherRoomCell])
         self.sectionDataForHotelDetail.append([.addToAppleWallet])
         
         // logic for add trip change cell
@@ -347,12 +352,16 @@ class BookingProductDetailVM {
     }
     
     func getTripOwnerApi() {
-        APICaller.shared.getOwnedTripsAPI(params: ["trip_id": self.bookingDetail?.tripInfo?.tripId ?? ""]) { success, error, trips, _ in
+        delegate?.willGetTripOwner()
+        APICaller.shared.getOwnedTripsAPI(params: ["trip_id": self.bookingDetail?.tripInfo?.tripId ?? ""]) {[weak self] success, error, trips, _ in
+            guard let sSelf = self else { return }
             if success {
                 printDebug("trips are \(trips), default trip ")
-                self.allTrips = trips
+                sSelf.allTrips = trips
+                sSelf.delegate?.getBTripOwnerSucces()
             } else {
                 printDebug("error are \(error)")
+                sSelf.delegate?.getTripOwnerFaiure(error: error)
             }
         }
     }

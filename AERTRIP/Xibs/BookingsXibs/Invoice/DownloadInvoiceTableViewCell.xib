@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,11 +14,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AmQ-ag-Uo9">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="one-B3-hC3" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="0.5"/>
@@ -36,15 +34,19 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zKD-wH-hmj" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="43" width="320" height="0.5"/>
+                                <rect key="frame" x="0.0" y="43.5" width="320" height="0.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="U8o-O3-iMU"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="802-rJ-a7n">
+                                <rect key="frame" x="284" y="12" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="802-rJ-a7n" secondAttribute="trailing" constant="16" id="Ewj-jE-UZG"/>
                             <constraint firstItem="one-B3-hC3" firstAttribute="leading" secondItem="AmQ-ag-Uo9" secondAttribute="leading" id="GwZ-ZB-dFb"/>
                             <constraint firstItem="TVc-qq-rMs" firstAttribute="leading" secondItem="AmQ-ag-Uo9" secondAttribute="leading" constant="16" id="Qc8-sK-x3v"/>
                             <constraint firstItem="one-B3-hC3" firstAttribute="top" secondItem="AmQ-ag-Uo9" secondAttribute="top" id="Suq-zF-gtS"/>
@@ -52,6 +54,7 @@
                             <constraint firstAttribute="bottom" secondItem="zKD-wH-hmj" secondAttribute="bottom" id="giS-eM-dBr"/>
                             <constraint firstAttribute="trailing" secondItem="one-B3-hC3" secondAttribute="trailing" id="hbz-rM-Hhp"/>
                             <constraint firstAttribute="trailing" secondItem="TVc-qq-rMs" secondAttribute="trailing" constant="16" id="j7R-o9-rOd"/>
+                            <constraint firstItem="802-rJ-a7n" firstAttribute="centerY" secondItem="AmQ-ag-Uo9" secondAttribute="centerY" id="mCG-Ii-7QL"/>
                             <constraint firstItem="zKD-wH-hmj" firstAttribute="leading" secondItem="AmQ-ag-Uo9" secondAttribute="leading" id="tsz-TG-Wzy"/>
                             <constraint firstAttribute="trailing" secondItem="zKD-wH-hmj" secondAttribute="trailing" id="xQw-Tf-gcb"/>
                         </constraints>
@@ -67,9 +70,11 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="bottomDividerView" destination="zKD-wH-hmj" id="8hc-GH-cVC"/>
+                <outlet property="loader" destination="802-rJ-a7n" id="1jQ-MV-HgS"/>
                 <outlet property="titleLabel" destination="TVc-qq-rMs" id="DMv-Al-Xao"/>
                 <outlet property="topDividerView" destination="one-B3-hC3" id="MaC-mo-cBC"/>
             </connections>
+            <point key="canvasLocation" x="139" y="111"/>
         </tableViewCell>
     </objects>
 </document>

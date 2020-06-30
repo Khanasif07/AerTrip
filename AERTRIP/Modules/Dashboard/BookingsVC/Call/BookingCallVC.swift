@@ -15,6 +15,7 @@ class BookingCallVC: BaseVC {
     @IBOutlet weak var topNavBar: TopNavigationView!
     @IBOutlet weak var topDeviderView: ATDividerView!
     @IBOutlet weak var callTableView: ATTableView!
+    @IBOutlet weak var navBarHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Varibles
     
@@ -27,7 +28,13 @@ class BookingCallVC: BaseVC {
         self.callTableView.dataSource = self
         self.callTableView.delegate = self
         self.callTableView.reloadData()
-        
+        topNavBar.backgroundColor = .clear
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        if #available(iOS 13.0, *) {
+            navBarHeightConstraint.constant = 56
+        } else {
+            self.view.backgroundColor = AppColors.themeWhite
+        }
         self.viewModel.getIntialData()
         
         self.setupNavBar()
@@ -36,7 +43,8 @@ class BookingCallVC: BaseVC {
     
     override func setupNavBar() {
         self.topNavBar.delegate = self
-        self.topNavBar.configureNavBar(title: LocalizedString.Call.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
+        self.topNavBar.configureNavBar(title: LocalizedString.Call.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"), selectedImage: #imageLiteral(resourceName: "black_cross"))
     }
     
     // MARK: - Helper methods
@@ -89,7 +97,7 @@ class BookingCallVC: BaseVC {
             let title = self.viewModel.airportData[indexPath.row].city + "," + self.viewModel.airportData[indexPath.row].countryCode
             bookingCell.configureCell(code: self.viewModel.airportData[indexPath.row].ataCode, title: title, phoneLabel: self.viewModel.airportData[indexPath.row].phone, cellType: .airports)
             bookingCell.dividerView.isHidden = false//self.viewModel.airportData.count - 1 == indexPath.row
-            bookingCell.dividerViewLeadingConst.constant = self.viewModel.airportData.count - 1 == indexPath.row ? 0.0 : 43.0
+            bookingCell.dividerViewLeadingConst.constant = self.viewModel.airportData.count - 1 == indexPath.row ? 0.0 : 59.0
             
             return bookingCell
         }
@@ -113,7 +121,7 @@ class BookingCallVC: BaseVC {
             bookingCell.configureCell(code: "", title: self.viewModel.hotelName, phoneLabel: self.viewModel.hotelData[indexPath.row].phone, cellType: .none)
             bookingCell.dividerView.isHidden = self.viewModel.hotelData.count - 1 == indexPath.row
             bookingCell.dividerView.isHidden = indexPath.section == self.viewModel.section.count - 1 ? false : true
-            bookingCell.dividerViewLeadingConst.constant = indexPath.section == self.viewModel.section.count - 1 ? 0.0 : 43.0
+            bookingCell.dividerViewLeadingConst.constant = indexPath.section == self.viewModel.section.count - 1 ? 0.0 : 59.0
             return bookingCell
         }
     }
@@ -253,6 +261,9 @@ extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
 
 extension BookingCallVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.popViewController(animated: true)
+    }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
     }
 }

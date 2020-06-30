@@ -49,7 +49,7 @@ class FlightBoardingAndDestinationTableViewCell: UITableViewCell {
         super.layoutSubviews()
         
         // Dotted View
-        self.dottedView.makeDottedLine(isInCenter: true)
+        self.dottedView.makeDottedLine(dashLength:  2, gapLength: 2, dashColor: AppColors.themeGray40, isInCenter: true)
     }
     
     // MARK: - Functions
@@ -88,7 +88,8 @@ class FlightBoardingAndDestinationTableViewCell: UITableViewCell {
         self.noOfStoppageCollectionView.dataSource = self
         
         // Shadow
-        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
+        //self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
+        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
     }
     
     internal func configCell(boardingCity: String, destinationCity: String, boardingCode: String, destinationCode: String, legDuration: String, boardingTime: String, destinationTime: String, boardingDate: String, destinationDate: String, economyClass: String) {

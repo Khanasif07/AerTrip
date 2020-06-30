@@ -59,13 +59,16 @@ class MyBookingFilterVC: BaseVC {
         let height = UIApplication.shared.statusBarFrame.height
         self.navigationViewTopConstraint.constant = CGFloat(height)
         
-        self.hide(animated: false)
-        delay(seconds: 0.01) { [weak self] in
-            self?.show(animated: true)
+        delay(seconds: 1.0) { [weak self] in
+           self?.setupGesture()
         }
-        self.setupGesture()
+        
         self.setUpViewPager()
         self.setBadge()
+        self.hide(animated: false)
+//        delay(seconds: 0.01) { [weak self] in
+            self.show(animated: true)
+//        }
     }
     
     override func setupTexts() {
@@ -80,9 +83,11 @@ class MyBookingFilterVC: BaseVC {
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        printDebug("viewDidLayoutSubviews")
+        if !self.childContainerView.bounds.equalTo(self.parchmentView?.view.frame ?? .zero){
+            printDebug("viewDidLayoutSubviews")
         self.parchmentView?.view.frame = self.childContainerView.bounds
         self.parchmentView?.loadViewIfNeeded()
+        }
     }
     
     //MARK:- Functions
@@ -104,18 +109,22 @@ class MyBookingFilterVC: BaseVC {
     @objc private func sendNotification() {
         self.sendDataChangedNotification(data: ATNotification.myBookingFilterApplied)
         
-        delay(seconds: 0.5) { [weak self] in
+        delay(seconds: 0.2) { [weak self] in
             self?.setCounts()
         }
     }
     
     private func checkDoneBtnState() {
         if  MyBookingFilterVM.shared.isFilterAplied() {
-            self.topNavBar.firstRightButton.isEnabled = true
-            self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
+            //self.topNavBar.firstRightButton.isEnabled = true
+            //self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
+            self.topNavBar.leftButton.isEnabled = true
+            self.topNavBar.leftButton.setTitleColor(AppColors.themeGreen, for: .normal)
         } else {
-            self.topNavBar.firstRightButton.isEnabled = false
-            self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+            //self.topNavBar.firstRightButton.isEnabled = false
+            //self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+            self.topNavBar.leftButton.isEnabled = false
+            self.topNavBar.leftButton.setTitleColor(AppColors.themeGray40, for: .normal)
         }
     }
     
@@ -198,19 +207,17 @@ class MyBookingFilterVC: BaseVC {
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
         self.childContainerView.addSubview(self.parchmentView!.view)
-        
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
         self.parchmentView?.sizeDelegate = self
-        self.parchmentView?.select(index: 0)
-        
+        self.parchmentView?.select(index: MyBookingFilterVM.shared.lastSelectedIndex)
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
     }
     
     //MARK:- IBActions
     @objc func  outsideAreaTapped() {
-        self.cancelAllOperation()
+        //self.cancelAllOperation()
         self.hide(animated: true, shouldRemove: true)
     }
 }
@@ -220,8 +227,20 @@ extension MyBookingFilterVC: TopNavigationViewDelegate {
     
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //clear all
+        MyBookingFilterVM.shared.setToDefault()
         self.sendDataChangedNotification(data: ATNotification.myBookingFilterCleared)
        // self.hide(animated: true, shouldRemove: true)
+        
+        self.allChildVCs.forEach { (viewController) in
+            if let vc = viewController as? TravelDateVC {
+                vc.setFilterValues()
+            }
+            else if let vc = viewController as? EventTypeVC {
+                vc.setFilterValues()
+            }
+            
+        }
+        setBadge()
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
@@ -341,11 +360,12 @@ extension MyBookingFilterVC: PagingViewControllerDataSource , PagingViewControll
         return MenuItem(title: self.allTabsStr[index], index: index, isSelected: isFilterArray[index] )
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
         
-        let pagingIndexItem = pagingItem as! MenuItem
-        self.currentIndex = pagingIndexItem.index
-        MyBookingFilterVM.shared.lastSelectedIndex =  self.currentIndex
+        if let pagingIndexItem = pagingItem as? MenuItem {
+            self.currentIndex = pagingIndexItem.index
+            MyBookingFilterVM.shared.lastSelectedIndex =  self.currentIndex
+        }
     }
 }
 

@@ -37,8 +37,8 @@ class BookingDateVoucherTableViewCell: ATTableViewCell {
     override func setupColors() {
         self.dateLabel.textColor = AppColors.themeBlack
         self.voucherLabel.textColor = AppColors.themeBlack
-        self.dateValueLabel.textColor = AppColors.textFieldTextColor51
-        self.voucherValueLabel.textColor = AppColors.textFieldTextColor51
+        self.dateValueLabel.textColor = AppColors.themeBlack
+        self.voucherValueLabel.textColor = AppColors.themeBlack
     }
     
     func configureCell(date: String, voucher: String) {

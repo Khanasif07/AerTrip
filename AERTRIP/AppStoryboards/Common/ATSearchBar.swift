@@ -47,6 +47,15 @@ class ATSearchBar: UISearchBar {
         
         self.initialSetup()
     }
+    
+    deinit {
+        printDebug("ATSearchBar deinit")
+        NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UITextField.textDidEndEditingNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UITextField.textDidBeginEditingNotification, object: nil)
+
+    }
+    
 
     var mDelegate: ATSearchBarDelegate? {
         didSet {
@@ -107,7 +116,10 @@ class ATSearchBar: UISearchBar {
         
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: UITextField.textDidChangeNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(textDidEndEditing), name: UITextField.textDidEndEditingNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(textDidEndEditing), name: UITextField.textDidBeginEditingNotification, object: nil)
+
         self.layoutIfNeeded()
+        
     }
     
     
@@ -145,6 +157,8 @@ class ATSearchBar: UISearchBar {
     
     @objc private func textDidEndEditing() {
         if !(self.text ?? "").isEmpty {
+            self.hideMiceButton(isHidden: false)
+        } else {
             self.hideMiceButton(isHidden: true)
         }
     }

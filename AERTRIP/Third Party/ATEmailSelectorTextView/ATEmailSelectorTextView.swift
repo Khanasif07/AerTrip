@@ -23,8 +23,13 @@ class ATEmailSelectorTextView: IQTextView {
     }
     
     private var allTags: [String] {
+//        var arr = textRemovingWhitespacesAndNewlines.components(separatedBy: _tagSeparator).reduce(into: [""]) { (unique, element) in
+//            if !element.isEmpty, !unique.contains(element), element.checkValidity(.Email) {
+//                unique.append(element)
+//            }
+//        }
         var arr = textRemovingWhitespacesAndNewlines.components(separatedBy: _tagSeparator).reduce(into: [""]) { (unique, element) in
-            if !element.isEmpty, !unique.contains(element), element.checkValidity(.Email) {
+            if !element.isEmpty, !unique.contains(element) {
                 unique.append(element)
             }
         }

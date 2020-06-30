@@ -14,6 +14,7 @@ class BaggageInfoVC: BaseVC {
     
     @IBOutlet weak var topNavigationView: TopNavigationView!
     @IBOutlet weak var tableView: ATTableView!
+    @IBOutlet weak var navigationBarHeightConstraint: NSLayoutConstraint!
     
     var dimension: Dimension?
     
@@ -22,6 +23,13 @@ class BaggageInfoVC: BaseVC {
         self.configureNavBar()
         self.doIntialSetUp()
         self.registerXib()
+        topNavigationView.backgroundColor = .clear
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        if #available(iOS 13.0, *) {
+            navigationBarHeightConstraint.constant = 56
+        } else {
+            self.view.backgroundColor = AppColors.themeWhite
+        }
     }
     
     
@@ -34,7 +42,7 @@ class BaggageInfoVC: BaseVC {
     }
     
     func configureNavBar() {
-      self.topNavigationView.configureNavBar(title: LocalizedString.HandBaggageDimensions.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+      self.topNavigationView.configureNavBar(title: LocalizedString.HandBaggageDimensions.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
           self.topNavigationView.configureFirstRightButton(normalImage: UIImage(named: "aerinBlackIcon"), selectedImage: UIImage(named: "aerinBlackIcon"))
         self.topNavigationView.delegate = self
     }

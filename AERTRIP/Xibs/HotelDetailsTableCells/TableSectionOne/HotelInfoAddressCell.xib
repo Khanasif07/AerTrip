@@ -119,6 +119,7 @@
                 <outlet property="containerLeadingConstraint" destination="Djo-IP-cpD" id="Ouy-Mh-iR9"/>
                 <outlet property="containerTrailingConstraint" destination="oSa-cO-YcO" id="aSi-ab-OCz"/>
                 <outlet property="containerView" destination="ehA-12-5xn" id="OKf-oi-y3m"/>
+                <outlet property="containerViewBottomConstraint" destination="Zg3-vV-PYg" id="VVc-cH-PnM"/>
                 <outlet property="deviderView" destination="JR9-pa-wQ7" id="Ea0-DW-ffs"/>
                 <outlet property="gradientView" destination="OwF-Et-57A" id="YL0-Pb-Dxf"/>
                 <outlet property="infoTextViewTrailingConstraint" destination="n8C-35-Br4" id="ocA-jQ-QHF"/>

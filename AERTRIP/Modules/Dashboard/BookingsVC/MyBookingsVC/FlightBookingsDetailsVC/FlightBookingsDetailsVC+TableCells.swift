@@ -11,7 +11,10 @@ import UIKit
 extension FlightBookingsDetailsVC {
     func getNotesCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelInfoAddressCell.reusableIdentifier, for: indexPath) as? HotelInfoAddressCell else { return UITableViewCell() }
+        cell.layoutSubviews()
         cell.configureNotesCell(notes: self.viewModel.bookingDetail?.bookingDetail?.note ?? "")
+        cell.addressInfoTextView.isUserInteractionEnabled = false
+        cell.containerViewBottomConstraint.constant = (self.viewModel.bookingDetail?.cases.isEmpty ?? true) ? 14 : 0
         cell.clipsToBounds = true
         return cell
     }
@@ -164,7 +167,7 @@ extension FlightBookingsDetailsVC {
     func getBookingCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
         cell.containerViewBottomConstraint.constant = 0.0
-        cell.configCell(title: LocalizedString.Booking.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.bookingPrice.delimiterWithSymbol ?? "")", isLastCell: false)
+        cell.configCell(title: LocalizedString.Booking.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.bookingPrice ?? 0)", isLastCell: false)
         cell.clipsToBounds = true
         return cell
     }
@@ -172,8 +175,8 @@ extension FlightBookingsDetailsVC {
     func getPaidCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
         let isCellLast = (self.viewModel.bookingDetail?.totalOutStanding == 0)
-        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.paid.delimiterWithSymbol, isLastCell: isCellLast)
-        cell.containerViewBottomConstraint.constant = (isCellLast) ? 26.0 : 0.0
+        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.paid ?? 0)", isLastCell: isCellLast)
+        cell.containerViewBottomConstraint.constant = (isCellLast) ? 21.0 : 0.0
         cell.clipsToBounds = isCellLast
         cell.dividerView.isHidden = false
         return cell
@@ -185,7 +188,7 @@ extension FlightBookingsDetailsVC {
         cell.titleTopConstraint.constant = 5.0
         cell.titleBottomConstraint.constant = 5.0
         cell.containerViewBottomConstraint.constant = 0.0
-        cell.configCell(title: LocalizedString.AddOns.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.addOnAmount.delimiterWithSymbol, isLastCell: false, cellHeight: 30.0)
+        cell.configCell(title: LocalizedString.AddOns.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.addOnAmount ?? 0)", isLastCell: false, cellHeight: 30.0)
         cell.clipsToBounds = true
         return cell
     }
@@ -195,7 +198,7 @@ extension FlightBookingsDetailsVC {
         cell.titleTopConstraint.constant = 5.0
         cell.titleBottomConstraint.constant = 12.0
         cell.containerViewBottomConstraint.constant = 0.0
-        cell.configCell(title: LocalizedString.Cancellation.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.cancellationAmount.delimiterWithSymbol, isLastCell: false, cellHeight: 37.0)
+        cell.configCell(title: LocalizedString.Cancellation.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.cancellationAmount ?? 0)", isLastCell: false, cellHeight: 37.0)
         cell.clipsToBounds = true
         return cell
     }
@@ -213,7 +216,7 @@ extension FlightBookingsDetailsVC {
         cell.titleTopConstraint.constant = 5.0
         cell.titleBottomConstraint.constant = 13.0
         cell.containerViewBottomConstraint.constant = 0.0
-        cell.configCell(title: LocalizedString.Refund.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.refundAmount.delimiterWithSymbol, isLastCell: false, cellHeight: 38.0)
+        cell.configCell(title: LocalizedString.Refund.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.refundAmount ?? 0)", isLastCell: false, cellHeight: 38.0)
         cell.clipsToBounds = true
         return cell
     }
@@ -308,45 +311,47 @@ extension FlightBookingsDetailsVC {
     func getNameCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleWithSubTitleTableViewCell.reusableIdentifier, for: indexPath) as? TitleWithSubTitleTableViewCell else { return UITableViewCell() }
         cell.titleLabelTopConstraint.constant = 18.0
-        cell.dividerView.isHidden = false
-        cell.configCell(title: LocalizedString.BillingName.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.billingName ?? "", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
+        cell.dividerView.isHidden = self.viewModel.bookingDetail?.tripWeatherData.isEmpty ?? true
+        cell.configCell(title: LocalizedString.BillingName.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.billingName ?? "", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.themeBlack)
         cell.containerView.backgroundColor = AppColors.screensBackground.color
         cell.titleLabelBottomConstraint.constant = 2.0
         cell.subtitleLabelBottomConstraint.constant = 9.0
+        cell.dividerViewLeadingConstraint.constant = 0.0
+        cell.dividerViewTrailingConstraint.constant = 0.0
         cell.clipsToBounds = true
         return cell
     }
     
     func getEmailCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleWithSubTitleTableViewCell.reusableIdentifier, for: indexPath) as? TitleWithSubTitleTableViewCell else { return UITableViewCell() }
-        cell.configCell(title: LocalizedString.Email.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.email ?? "", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
+        cell.configCell(title: LocalizedString.Email.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.email ?? "", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.themeBlack)
         cell.containerView.backgroundColor = AppColors.screensBackground.color
         cell.subtitleLabelBottomConstraint.constant = 9.0
         cell.titleLabelBottomConstraint.constant = 2.0
         cell.clipsToBounds = true
-        cell.dividerView.isHidden = true
+        cell.dividerView.isHidden = false
         return cell
     }
     
     func getMobileCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleWithSubTitleTableViewCell.reusableIdentifier, for: indexPath) as? TitleWithSubTitleTableViewCell else { return UITableViewCell() }
-        cell.configCell(title: LocalizedString.Mobile.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.communicationNumber ?? "", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
+        cell.configCell(title: LocalizedString.Mobile.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.communicationNumber ?? "", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.themeBlack)
         cell.containerView.backgroundColor = AppColors.screensBackground.color
         cell.titleLabelBottomConstraint.constant = 2.0
         cell.subtitleLabelBottomConstraint.constant = 9.0
         cell.clipsToBounds = true
-        cell.dividerView.isHidden = true
+        cell.dividerView.isHidden = false
         return cell
     }
     
     func getGstCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleWithSubTitleTableViewCell.reusableIdentifier, for: indexPath) as? TitleWithSubTitleTableViewCell else { return UITableViewCell() }
-        cell.configCell(title: LocalizedString.GSTIN.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.gst.isEmpty ?? false ? LocalizedString.dash.localized : self.viewModel.bookingDetail?.billingInfo?.gst ?? "", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
+        cell.configCell(title: LocalizedString.GSTIN.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.gst.isEmpty ?? false ? LocalizedString.dash.localized : self.viewModel.bookingDetail?.billingInfo?.gst ?? "", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.themeBlack)
         cell.titleLabelBottomConstraint.constant = 2.0
         cell.subtitleLabelBottomConstraint.constant = 9.0
         cell.containerView.backgroundColor = AppColors.screensBackground.color
         cell.clipsToBounds = true
-        cell.dividerView.isHidden = true
+        cell.dividerView.isHidden = false
         return cell
     }
     
@@ -354,10 +359,10 @@ extension FlightBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleWithSubTitleTableViewCell.reusableIdentifier, for: indexPath) as? TitleWithSubTitleTableViewCell else { return UITableViewCell() }
         cell.titleLabelBottomConstraint.constant = 2.0
         cell.subtitleLabelBottomConstraint.constant = 18.0
-        cell.configCell(title: LocalizedString.BillingAddress.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.address?.completeAddress ?? "", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
+        cell.configCell(title: LocalizedString.BillingAddress.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.address?.completeAddress ?? "", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.themeBlack)
         cell.containerView.backgroundColor = AppColors.screensBackground.color
         cell.clipsToBounds = true
-        cell.dividerView.isHidden = true
+        cell.dividerView.isHidden = false
         return cell
     }
 }

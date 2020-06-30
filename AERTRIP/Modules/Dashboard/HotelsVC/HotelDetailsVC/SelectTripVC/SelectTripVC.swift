@@ -185,6 +185,13 @@ extension SelectTripVC: TopNavigationViewDelegate {
             if let handler = self.selectionComplition {
                 handler(viewModel.allTrips[indexPath.row], viewModel.tripDetails)
             }
+            if viewModel.tripDetails == nil {
+                var trip = TripDetails()
+                trip.event_id = viewModel.eventId
+                trip.trip_id = viewModel.allTrips[indexPath.row].id
+                trip.name = viewModel.allTrips[indexPath.row].name
+                viewModel.tripDetails = trip
+            }
             delegate?.selectTripVC(sender: self, didSelect: viewModel.allTrips[indexPath.row], tripDetails: viewModel.tripDetails)
         }
         dismiss(animated: true, completion: nil)

@@ -32,6 +32,7 @@ class AddOnVC : BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.reloadFareBreakup()
 //        configureNavigation()
         self.setSkipButton()
     }
@@ -89,7 +90,7 @@ extension AddOnVC {
         vc.sid = dataStore.itinerary.sid
         vc.bookFlightObject = self.adonsVm.bookingObject
         vc.view.autoresizingMask = []
-//        vc.addonsData = self.adonsVm.priceDict
+        vc.addonsData = self.adonsVm.getAddonsPriceDict()
         vc.delegate = self
         vc.view.tag = 2500
         vc.modalPresentationStyle = .overCurrentContext
@@ -105,6 +106,12 @@ extension AddOnVC {
         self.addChild(vc)
         vc.didMove(toParent: self)
         self.fareBreakupVC = vc
+    }
+    
+    func reloadFareBreakup(){
+        if let fareBreakup = self.fareBreakupVC{
+            fareBreakup.reloadDataForAddons()
+        }
     }
     
     func setSkipButton() {
