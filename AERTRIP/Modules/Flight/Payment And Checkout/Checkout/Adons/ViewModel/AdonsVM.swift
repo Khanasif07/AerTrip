@@ -81,7 +81,7 @@ class AdonsVM  {
         return isFreeSeatsAdded ? LocalizedString.Free_Seats_Available.localized : ""
        }
     
-    private var priseDict : JSONDictionary = [:]
+    private var priseDict : [String : Int] = [:]
     
     func setAdonsOptions(){
         let flightsWithData = AddonsDataStore.shared.flightsWithData
@@ -107,7 +107,12 @@ class AdonsVM  {
     }
     
     func updatePriceDict(key : String, value : String?){
-        priseDict[key] = value
+        guard let val = value else {
+            priseDict[key] = nil
+            return
+        }
+        priseDict[key] = Int(val)
+        
         printDebug(priseDict)
     }
     
