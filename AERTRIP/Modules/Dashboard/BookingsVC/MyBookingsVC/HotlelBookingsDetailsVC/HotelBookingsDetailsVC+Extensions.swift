@@ -81,6 +81,9 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return UITableView.automaticDimension
         }
     }
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currentSection = self.viewModel.sectionDataForHotelDetail[indexPath.section]
@@ -475,10 +478,14 @@ extension HotlelBookingsDetailsVC: WeatherHeaderTableViewCellDelegate {
 extension HotlelBookingsDetailsVC: SelectTripVCDelegate {
     func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel, tripDetails: TripDetails?) {
         printDebug("\(trip)")
-        AppToast.default.showToastMessage(message: LocalizedString.HotelTripChangeMessage.localized + "\(trip.name)")
         self.updatedTripDetail = trip
+        self.viewModel.bookingDetail?.tripInfo?.eventId = tripDetails?.event_id ?? ""
+        self.viewModel.bookingDetail?.tripInfo?.tripId = tripDetails?.trip_id ?? ""
+        self.viewModel.bookingDetail?.tripInfo?.name = tripDetails?.name ?? ""
+        AppToast.default.showToastMessage(message: LocalizedString.HotelTripChangeMessage.localized + "\(trip.name)")
         if let indexPath = self.tripChangeIndexPath {
             self.bookingDetailsTableView.reloadRow(at: indexPath, with: .none)
         }
+        self.viewModel.getTripOwnerApi()
     }
 }

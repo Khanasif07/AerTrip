@@ -56,7 +56,8 @@ struct BookingCaseHistory {
     var referenceCaseId: String = ""
     var note: String = ""
     var communications: [Communication] = []
-    
+    var closedDate: Date? 
+
     var associatedVouchersArr: [String] {
         return associatedVouchersStr.components(separatedBy: ",")
     }
@@ -92,6 +93,10 @@ struct BookingCaseHistory {
         self.csrName = LocalizedString.dash.localized
         if let obj = json["csr_name"] {
             self.csrName = "\(obj)"
+        }
+        
+        if let obj = json["closed_date"] {
+            self.closedDate = "\(obj)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         
         if let obj = json["communications"] as? [JSONDictionary] {

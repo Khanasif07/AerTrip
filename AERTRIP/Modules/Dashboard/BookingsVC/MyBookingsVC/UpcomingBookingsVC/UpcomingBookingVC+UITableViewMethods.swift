@@ -26,22 +26,22 @@ extension UpcomingBookingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
+        
         let bookingData = fetchedResultsController.object(at: indexPath)
         let totalSteps = bookingData.stepsArray?.count ?? 0
         let stepsH: CGFloat = CGFloat(totalSteps) * 40.0
         var cellHeight: CGFloat = stepsH + 98.0 + (totalSteps > 0 ? 1 : 0)
         if indexPath.row == 0 {
-             cellHeight += 8.0
+            cellHeight += 8.0
         }
         if  let sections = self.fetchedResultsController.sections {
             let sectionInfo = sections[indexPath.section]
             if indexPath.row ==  (sectionInfo.numberOfObjects - 1) {
-                 cellHeight += 8.0
+                cellHeight += 8.0
             }
         }
         return cellHeight
-//        return stepsH + 98.0 + (totalSteps > 0 ? 1 : 0)
+        //        return stepsH + 98.0 + (totalSteps > 0 ? 1 : 0)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -69,9 +69,12 @@ extension UpcomingBookingsVC: UITableViewDataSource, UITableViewDelegate {
             headerText = date.toString(dateFormat: format)
         }
         headerView.headerLabel.text = headerText
-//        headerView.configViewForBooking(date: headerText, isFirstHeaderView: section == 0)
+        //        headerView.configViewForBooking(date: headerText, isFirstHeaderView: section == 0)
         headerView.topSepratorView.isHidden = section == 0 ? true : false
-//        headerView.bottomDividerView.isHidden = false
+        if showFirstDivider {
+            headerView.topSepratorView.isHidden = false
+        }
+        //        headerView.bottomDividerView.isHidden = false
         return headerView
     }
     
@@ -95,7 +98,7 @@ extension UpcomingBookingsVC: UITableViewDataSource, UITableViewDelegate {
         let bookingData = fetchedResultsController.object(at: indexPath)
         if let bookingId = bookingData.bookingId, !bookingId.isEmpty {
             if bookingData.productType == .flight {
-               AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: bookingData.bookingId ?? "",tripCitiesStr: bookingData.flightBookingTitle)
+                AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: bookingData.bookingId ?? "",tripCitiesStr: bookingData.flightBookingTitle)
                 
             }
             else if bookingData.productType == .other {
@@ -103,7 +106,7 @@ extension UpcomingBookingsVC: UITableViewDataSource, UITableViewDelegate {
             }
             else {
                 //open hotel details
-                 AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: bookingData.bookingId ?? "")
+                AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: bookingData.bookingId ?? "")
             }
             
         }

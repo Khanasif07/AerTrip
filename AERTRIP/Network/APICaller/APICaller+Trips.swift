@@ -95,7 +95,7 @@ extension APICaller {
         
         AppNetworking.POST(endPoint: APIEndPoint.tripsEventMove, parameters: params, success: { [weak self] (json) in
             guard let sSelf = self else {return}
-            
+            printDebug(json)
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
                 if let ids = jsonData[APIKeys.data.rawValue]["event_id"].arrayObject, let id = ids.first,let tripIds =  jsonData[APIKeys.data.rawValue]["trip_id"].arrayObject, let tripId = tripIds.first {
                     completionBlock(true, [], "\(id)", "\(tripId)")

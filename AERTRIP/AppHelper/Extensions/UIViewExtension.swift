@@ -435,7 +435,7 @@ extension UIView {
         let shapeLayer = CAShapeLayer()
         shapeLayer.name = "dottedLine"
         shapeLayer.strokeColor = dashColor.cgColor
-        shapeLayer.lineWidth = 1
+        shapeLayer.lineWidth = 0.5
         shapeLayer.lineDashPattern = [dashLength, gapLength] as [NSNumber] // 3 is the length of dash, 2 is length of the gap.
         
         let path = CGMutablePath()

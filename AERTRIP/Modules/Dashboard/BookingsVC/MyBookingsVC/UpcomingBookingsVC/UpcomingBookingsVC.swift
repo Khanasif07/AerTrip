@@ -43,7 +43,8 @@ class UpcomingBookingsVC: BaseVC {
     var isComingFromFilter: Bool = false
     var fetchRequest: NSFetchRequest<BookingData> = BookingData.fetchRequest()
     var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
-
+    var showFirstDivider: Bool = false
+    
     // fetch result controller
     lazy var fetchedResultsController: NSFetchedResultsController<BookingData> = {
         // booking will be in ascending order by date

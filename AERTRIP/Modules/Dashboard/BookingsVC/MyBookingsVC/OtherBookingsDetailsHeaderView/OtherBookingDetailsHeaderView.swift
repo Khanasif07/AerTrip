@@ -24,6 +24,7 @@ class OtherBookingDetailsHeaderView: UIView {
     @IBOutlet weak var bookingIdAndDateLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var backgroundView: UIView!
     
     //MARK:- LifeCycle
     //MARK:===========
@@ -97,7 +98,7 @@ class OtherBookingDetailsHeaderView: UIView {
         self.progressView?.isHidden = false
         self.time = 0.0
         self.progressView.setProgress(0.0, animated: false)
-        
+        self.backgroundView.backgroundColor = AppColors.screensBackground.color
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
     }
     
@@ -120,6 +121,7 @@ class OtherBookingDetailsHeaderView: UIView {
             self.timer!.invalidate()
             delay(seconds: 0.5) {
                 self.progressView?.isHidden = true
+                self.backgroundView.backgroundColor = .white
             }
         }
     }

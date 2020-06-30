@@ -79,14 +79,17 @@ class BookingFlightDetailVC: BaseVC {
         
         let flightInfoVC = FlightBookingInfoVC.instantiate(fromAppStoryboard: .Bookings)
         flightInfoVC.viewModel.bookingDetail = self.viewModel.bookingDetail
+        flightInfoVC.viewModel.legSectionTap = self.viewModel.legSectionTap
         self.allChildVCs.append(flightInfoVC)
         
         let flightBaggageInfoVC = FlightBaggageInfoVC.instantiate(fromAppStoryboard: .Bookings)
         flightBaggageInfoVC.viewModel.bookingDetail = self.viewModel.bookingDetail
+        flightBaggageInfoVC.viewModel.legSectionTap = self.viewModel.legSectionTap
         self.allChildVCs.append(flightBaggageInfoVC)
         
         let flightFareInfoVC = FlightFareInfoVC.instantiate(fromAppStoryboard: .Bookings)
         flightFareInfoVC.viewModel.bookingDetail = self.viewModel.bookingDetail
+        flightFareInfoVC.viewModel.legSectionTap = self.viewModel.legSectionTap
         self.allChildVCs.append(flightFareInfoVC)
         
         self.view.layoutIfNeeded()

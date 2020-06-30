@@ -121,6 +121,7 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
       
         else if indexPath.section >= self.viewModel.noOfLegCellAboveLeg, indexPath.section <= (self.viewModel.noOfLegCellAboveLeg +  legCount - 1) {
+            
             AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail,tripCities: self.viewModel.tripCitiesStr,legSectionTap: indexPath.section - self.viewModel.noOfLegCellAboveLeg)
         }
         
@@ -494,14 +495,17 @@ extension FlightBookingsDetailsVC: SFSafariViewControllerDelegate {
 
 extension FlightBookingsDetailsVC: SelectTripVCDelegate {
     func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel, tripDetails: TripDetails?) {
-        printDebug("\(trip)")
+        printDebug("trip: \(trip)")
+        printDebug("tripDetails: \(tripDetails)")
         self.updatedTripDetail = trip
-        self.viewModel.bookingDetail?.tripInfo?.tripId = trip.id
-        self.viewModel.bookingDetail?.tripInfo?.name = trip.name
+        self.viewModel.bookingDetail?.tripInfo?.eventId = tripDetails?.event_id ?? ""
+        self.viewModel.bookingDetail?.tripInfo?.tripId = tripDetails?.trip_id ?? ""
+        self.viewModel.bookingDetail?.tripInfo?.name = tripDetails?.name ?? ""
         AppToast.default.showToastMessage(message: LocalizedString.FlightTripChangeMessage.localized + "\(trip.name)")
         if let indexPath = self.tripChangeIndexPath {
             self.bookingDetailsTableView.reloadRow(at: indexPath, with: .none)
         }
+        self.viewModel.getTripOwnerApi()
     }
 }
 

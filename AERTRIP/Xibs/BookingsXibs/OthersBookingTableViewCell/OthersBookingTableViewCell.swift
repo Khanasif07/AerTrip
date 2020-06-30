@@ -31,6 +31,12 @@ class OthersBookingTableViewCell: UITableViewCell {
         }
     }
     
+    var bookingData: BookingData? {
+        didSet {
+            self.configCell()
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
@@ -42,13 +48,6 @@ class OthersBookingTableViewCell: UITableViewCell {
         //        self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner ,.layerMinXMaxYCorner ,.layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize.zero, opacity: 0.7, shadowRadius: 1.5)
         //
         self.containerView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
-    }
-    
-    
-    var bookingData: BookingData? {
-        didSet {
-            self.configCell()
-        }
     }
     
     private func configUI() {

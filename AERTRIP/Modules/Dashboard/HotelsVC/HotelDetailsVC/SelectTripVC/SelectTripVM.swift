@@ -89,6 +89,8 @@ class SelectTripVM {
                 sSelf.eventId = id
                 sSelf.tripDetails?.trip_id = selectedTrip.id
                 sSelf.tripDetails?.name = selectedTrip.name
+                sSelf.tripInfo?.tripId = selectedTrip.id
+                sSelf.tripInfo?.name = selectedTrip.name
                 sSelf.newTripId = tripId ?? ""
                 sSelf.saveMovedTrip()
             }
@@ -112,6 +114,7 @@ class SelectTripVM {
             guard let sSelf = self else { return }
             if success {
                 sSelf.tripDetails?.event_id = sSelf.eventId
+                sSelf.tripInfo?.eventId = sSelf.eventId
                 sSelf.delegate?.moveAndUpdateTripAPISuccess()
             }
             else {

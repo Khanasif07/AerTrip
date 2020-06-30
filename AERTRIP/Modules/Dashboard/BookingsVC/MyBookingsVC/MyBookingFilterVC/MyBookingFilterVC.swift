@@ -83,9 +83,11 @@ class MyBookingFilterVC: BaseVC {
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        printDebug("viewDidLayoutSubviews")
+        if !self.childContainerView.bounds.equalTo(self.parchmentView?.view.frame ?? .zero){
+            printDebug("viewDidLayoutSubviews")
         self.parchmentView?.view.frame = self.childContainerView.bounds
         self.parchmentView?.loadViewIfNeeded()
+        }
     }
     
     //MARK:- Functions
@@ -107,7 +109,7 @@ class MyBookingFilterVC: BaseVC {
     @objc private func sendNotification() {
         self.sendDataChangedNotification(data: ATNotification.myBookingFilterApplied)
         
-        delay(seconds: 0.5) { [weak self] in
+        delay(seconds: 0.2) { [weak self] in
             self?.setCounts()
         }
     }
@@ -209,7 +211,6 @@ class MyBookingFilterVC: BaseVC {
         self.parchmentView?.delegate = self
         self.parchmentView?.sizeDelegate = self
         self.parchmentView?.select(index: MyBookingFilterVM.shared.lastSelectedIndex)
-        
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
     }

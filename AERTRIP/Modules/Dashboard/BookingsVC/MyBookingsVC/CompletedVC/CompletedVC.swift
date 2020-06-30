@@ -16,7 +16,8 @@ class CompletedVC: BaseVC {
     let viewModel = UpcomingBookingsVM()
     var isComingFromFilter: Bool = false
     var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
-    
+    var showFirstDivider: Bool = false
+
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var completedBookingsTableView: UITableView! {

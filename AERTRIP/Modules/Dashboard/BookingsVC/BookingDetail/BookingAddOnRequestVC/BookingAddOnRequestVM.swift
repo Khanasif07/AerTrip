@@ -61,6 +61,12 @@ class BookingAddOnRequestVM {
         if !dateStr.isEmpty {
         temp["02Requested on"] = dateStr.isEmpty ? LocalizedString.dash.localized : dateStr
         }
+        
+        let closeDateStr = history.closedDate?.toString(dateFormat: "d MMM yyyy | HH:mm") ?? ""
+        if !closeDateStr.isEmpty {
+        temp["02Closed on"] = closeDateStr.isEmpty ? LocalizedString.dash.localized : closeDateStr
+        }
+        
         if !history.associatedBid.isEmpty {
         temp["03Associate Booking ID"] = history.associatedBid.isEmpty ? LocalizedString.dash.localized : history.associatedBid
         }

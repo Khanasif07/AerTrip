@@ -672,7 +672,7 @@ with us!</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZrN-2k-eZQ">
                                 <rect key="frame" x="0.0" y="44" width="414" height="306"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xzg-Rm-kCl">
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xzg-Rm-kCl">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="262"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jpb-Ck-MO9">
@@ -743,7 +743,7 @@ with us!</string>
                                             <constraint firstAttribute="height" constant="262" id="w7a-4B-B8Q"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xtl-t8-XgQ">
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xtl-t8-XgQ">
                                         <rect key="frame" x="0.0" y="262" width="414" height="44"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8MY-08-GKK">

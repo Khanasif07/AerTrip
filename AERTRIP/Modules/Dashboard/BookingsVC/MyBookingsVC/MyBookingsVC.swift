@@ -65,8 +65,13 @@ class MyBookingsVC: BaseVC {
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
             if noti == .myBookingFilterApplied {
-                self.topNavBar.firstRightButton.isSelected = true
-                self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIconSelected"), selectedImage: #imageLiteral(resourceName: "bookingFilterIconSelected"))
+                if  MyBookingFilterVM.shared.isFilterAplied() {
+                    self.topNavBar.firstRightButton.isSelected = true
+                    self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIconSelected"), selectedImage: #imageLiteral(resourceName: "bookingFilterIconSelected"))
+                } else {
+                    self.topNavBar.firstRightButton.isSelected = false
+                    self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIcon"))
+                }
             }
             else if noti == .myBookingFilterCleared {
                 self.topNavBar.firstRightButton.isSelected = false
@@ -143,14 +148,17 @@ class MyBookingsVC: BaseVC {
         self.allChildVCs.removeAll()
         if allTabsStr.contains("Upcoming"){
             let upcomingVC = UpcomingBookingsVC.instantiate(fromAppStoryboard: .Bookings)
+            upcomingVC.showFirstDivider = allTabsStr.count ==  1
             self.allChildVCs.append(upcomingVC)
         }
         if  allTabsStr.contains("Completed"){
             let completedVC = CompletedVC.instantiate(fromAppStoryboard: .Bookings)
+            completedVC.showFirstDivider = allTabsStr.count ==  1
             self.allChildVCs.append(completedVC)
         }
         if  allTabsStr.contains("Cancelled"){
             let cancelledVC = CancelledVC.instantiate(fromAppStoryboard: .Bookings)
+            cancelledVC.showFirstDivider = allTabsStr.count ==  1
             self.allChildVCs.append(cancelledVC)
         }
         self.view.layoutIfNeeded()
