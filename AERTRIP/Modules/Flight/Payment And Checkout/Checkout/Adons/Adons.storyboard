@@ -136,7 +136,7 @@ get upto 20% off </string>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹ 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gwm-kP-ylh">
-                                        <rect key="frame" x="16" y="25.5" width="25.5" height="20.5"/>
+                                        <rect key="frame" x="16" y="23.5" width="25.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -157,7 +157,7 @@ get upto 20% off </string>
                                     <constraint firstItem="4bv-F4-7gA" firstAttribute="top" secondItem="LgN-Mq-e2q" secondAttribute="top" constant="7" id="Wgh-Th-rfQ"/>
                                     <constraint firstAttribute="trailing" secondItem="IQf-YE-BrO" secondAttribute="trailing" id="WwD-xd-y3v"/>
                                     <constraint firstAttribute="height" constant="50" id="cD0-SS-3Cd"/>
-                                    <constraint firstItem="gwm-kP-ylh" firstAttribute="top" secondItem="4bv-F4-7gA" secondAttribute="bottom" constant="4" id="cm4-TY-WfM"/>
+                                    <constraint firstItem="gwm-kP-ylh" firstAttribute="top" secondItem="4bv-F4-7gA" secondAttribute="bottom" constant="2" id="cm4-TY-WfM"/>
                                     <constraint firstAttribute="bottom" secondItem="5k1-lY-bl9" secondAttribute="bottom" id="i9y-gA-TPv"/>
                                     <constraint firstItem="gwm-kP-ylh" firstAttribute="leading" secondItem="LgN-Mq-e2q" secondAttribute="leading" constant="16" id="qJT-uq-dJX"/>
                                     <constraint firstItem="IQf-YE-BrO" firstAttribute="top" secondItem="LgN-Mq-e2q" secondAttribute="top" id="ycf-1R-MRO"/>
@@ -184,6 +184,7 @@ get upto 20% off </string>
                         <outlet property="addButton" destination="5k1-lY-bl9" id="D1j-0K-Jan"/>
                         <outlet property="mealsContainerView" destination="MsC-te-KqM" id="QqN-vB-pLD"/>
                         <outlet property="topNavBarView" destination="cPt-Li-nGC" id="7Hc-0x-h6h"/>
+                        <outlet property="totalContainerView" destination="LgN-Mq-e2q" id="Yji-l8-3Md"/>
                         <outlet property="totalLabel" destination="gwm-kP-ylh" id="gio-bg-ALt"/>
                     </connections>
                 </viewController>
@@ -390,7 +391,7 @@ get upto 20% off </string>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹ 1,425" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIx-sk-7Gh">
-                                        <rect key="frame" x="16" y="25.5" width="57" height="20.5"/>
+                                        <rect key="frame" x="16" y="23.5" width="57" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -409,7 +410,7 @@ get upto 20% off </string>
                                     <constraint firstAttribute="trailing" secondItem="xC1-by-wPD" secondAttribute="trailing" id="DhC-ke-70m"/>
                                     <constraint firstItem="xC1-by-wPD" firstAttribute="leading" secondItem="Giu-ht-SKe" secondAttribute="leading" id="GPi-dN-iTc"/>
                                     <constraint firstItem="Bta-j1-z51" firstAttribute="top" secondItem="Giu-ht-SKe" secondAttribute="top" id="YNB-Kd-b9e"/>
-                                    <constraint firstItem="RIx-sk-7Gh" firstAttribute="top" secondItem="uXu-nE-Cx2" secondAttribute="bottom" constant="4" id="cMv-mY-B33"/>
+                                    <constraint firstItem="RIx-sk-7Gh" firstAttribute="top" secondItem="uXu-nE-Cx2" secondAttribute="bottom" constant="2" id="cMv-mY-B33"/>
                                     <constraint firstAttribute="height" constant="50" id="g6j-MO-7Yl"/>
                                     <constraint firstItem="uXu-nE-Cx2" firstAttribute="leading" secondItem="Giu-ht-SKe" secondAttribute="leading" constant="16" id="ghg-Pw-4nm"/>
                                     <constraint firstItem="xC1-by-wPD" firstAttribute="top" secondItem="Giu-ht-SKe" secondAttribute="top" id="icb-dh-QgL"/>
@@ -438,6 +439,7 @@ get upto 20% off </string>
                         <outlet property="addButton" destination="Bta-j1-z51" id="xDq-Gw-02i"/>
                         <outlet property="mealsContainerView" destination="xgj-ke-c0v" id="4W5-8c-sn1"/>
                         <outlet property="topNavBarView" destination="gJW-Ng-LPl" id="deZ-dW-RPM"/>
+                        <outlet property="totalContainerView" destination="Giu-ht-SKe" id="ivv-WK-faJ"/>
                         <outlet property="totalLabel" destination="RIx-sk-7Gh" id="hEe-xs-oKt"/>
                     </connections>
                 </viewController>
@@ -515,7 +517,7 @@ get upto 20% off </string>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹ 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5IW-e7-i9p">
-                                        <rect key="frame" x="16" y="25.5" width="25.5" height="20.5"/>
+                                        <rect key="frame" x="16" y="23.5" width="25.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -535,7 +537,7 @@ get upto 20% off </string>
                                     <constraint firstItem="5IW-e7-i9p" firstAttribute="leading" secondItem="NWW-jW-zXS" secondAttribute="leading" constant="16" id="NXr-8h-fo7"/>
                                     <constraint firstAttribute="height" constant="50" id="PN6-R8-w4W"/>
                                     <constraint firstItem="wlN-Wr-yjZ" firstAttribute="leading" secondItem="NWW-jW-zXS" secondAttribute="leading" id="R6s-DB-v61"/>
-                                    <constraint firstItem="5IW-e7-i9p" firstAttribute="top" secondItem="HOB-HN-7f3" secondAttribute="bottom" constant="4" id="Vjh-om-Xi6"/>
+                                    <constraint firstItem="5IW-e7-i9p" firstAttribute="top" secondItem="HOB-HN-7f3" secondAttribute="bottom" constant="2" id="Vjh-om-Xi6"/>
                                     <constraint firstItem="0Jc-tb-z7V" firstAttribute="top" secondItem="NWW-jW-zXS" secondAttribute="top" id="YYI-XN-gS3"/>
                                     <constraint firstItem="HOB-HN-7f3" firstAttribute="top" secondItem="NWW-jW-zXS" secondAttribute="top" constant="7" id="cAi-h8-dFE"/>
                                     <constraint firstAttribute="bottom" secondItem="0Jc-tb-z7V" secondAttribute="bottom" id="gfD-2i-BsP"/>
@@ -563,6 +565,7 @@ get upto 20% off </string>
                         <outlet property="addButton" destination="0Jc-tb-z7V" id="bzv-he-h7t"/>
                         <outlet property="mealsContainerView" destination="BqJ-5h-moK" id="Yjx-BL-UjV"/>
                         <outlet property="topNavBarView" destination="yX8-Dl-t3M" id="ObX-vR-Srl"/>
+                        <outlet property="totalContainerView" destination="NWW-jW-zXS" id="v4g-It-j5E"/>
                         <outlet property="totalLabel" destination="5IW-e7-i9p" id="vH1-Li-a67"/>
                     </connections>
                 </viewController>

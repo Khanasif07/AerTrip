@@ -21,6 +21,7 @@ class BaggageTermsVC : BaseVC {
     @IBOutlet weak var agreeButton: UIButton!
     @IBOutlet weak var tableHeaderView: UIView!
     
+    
     let baggageTermsVM = BaggageTermsVM()
     weak var delegate : AcceptOrDeclineTerms?
     

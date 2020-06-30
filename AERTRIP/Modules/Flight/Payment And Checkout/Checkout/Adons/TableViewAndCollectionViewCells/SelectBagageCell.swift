@@ -45,12 +45,25 @@ class SelectBagageCell: UITableViewCell {
         if data.bagageSelectedFor.isEmpty {
             self.selectedForLabel.text = ""
             self.quantityLabel.isHidden = true
+        } else if data.bagageSelectedFor.count == 2{
+            
+            let allNamesArray = data.bagageSelectedFor.map { (contact) -> String in
+                       return contact.firstName
+                   }
+                   let conaSaperatedNames = allNamesArray.joined(separator: " and ")
+                   self.selectedForLabel.text = "For \(conaSaperatedNames)"
+            self.selectedForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.themeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
+
+                   self.quantityLabel.text = "X\(data.bagageSelectedFor.count)"
+                   self.quantityLabel.isHidden = false
+            
         }else{
             let allNamesArray = data.bagageSelectedFor.map { (contact) -> String in
                 return contact.firstName
             }
-            let conaSaperatedNames = allNamesArray.joined(separator: ", ")
+            let conaSaperatedNames = allNamesArray.joined(separator: ", ").replacingLastOccurrenceOfString(", ", with: " and ", caseInsensitive: true)
             self.selectedForLabel.text = "For \(conaSaperatedNames)"
+            self.selectedForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.themeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
             self.quantityLabel.text = "X\(data.bagageSelectedFor.count)"
             self.quantityLabel.isHidden = false
         }
