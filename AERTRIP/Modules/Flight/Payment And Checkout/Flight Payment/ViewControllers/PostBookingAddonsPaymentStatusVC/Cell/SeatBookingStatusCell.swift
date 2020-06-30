@@ -10,11 +10,6 @@ import UIKit
 
 class SeatBookingStatusCell: UITableViewCell {
     
-    //Mark:- Variables
-    //================
-    weak var delegate: YouAreAllDoneTableViewCellDelegate?
-    
-    
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var youAreAllDoneLabel: UILabel!
@@ -44,6 +39,7 @@ class SeatBookingStatusCell: UITableViewCell {
         //Text
         self.youAreAllDoneLabel.text = "Seats Booked"
         self.tickMarKButton.myCornerRadius = self.tickMarKButton.height/2
+        self.tickMarKButton.setImage(#imageLiteral(resourceName: "Checkmark"), for: .normal)
         
         
     }
@@ -84,10 +80,11 @@ class SeatBookingStatusCell: UITableViewCell {
         if !isBookingPending {
             self.youAreAllDoneLabel.text = "Seats Booked"
             self.bookingIdAndDetailsLabel.attributedText = self.attributeLabelSetUp(prefixText: "Congratulations, your seat booking is successful.\nYour booking ID is ", id: forBookingId , postfixText: LocalizedString.AndAllDetailsWillBeSentToYourEmail.localized)
+            self.tickMarKButton.setImage(#imageLiteral(resourceName: "Checkmark"), for: .normal)
             self.importantNoteLabel.isHidden = true
             self.tickMarKButton.isHidden = false
-            self.stackViewTopConstraint.constant = 46
-            self.stackViewBottomConstraint.constant = 26
+            self.stackViewTopConstraint.constant = 0
+            self.stackViewBottomConstraint.constant = 22
             self.youareAllDoneTopConstraint.constant = 28
             self.tickmarkButtonHeightConstraint.constant = 62
         } else {
@@ -97,7 +94,7 @@ class SeatBookingStatusCell: UITableViewCell {
             self.importantNoteLabel.isHidden = false
             self.tickMarKButton.isHidden = true
             self.stackViewTopConstraint.constant = 16
-            self.stackViewBottomConstraint.constant = 46
+            self.stackViewBottomConstraint.constant = 0
             self.youareAllDoneTopConstraint.constant = 0
             self.tickmarkButtonHeightConstraint.constant = 0
             

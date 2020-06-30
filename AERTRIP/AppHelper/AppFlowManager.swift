@@ -1369,3 +1369,32 @@ extension AppFlowManager {
     }
     
 }
+
+
+//Flight return to home VC
+extension AppFlowManager {
+    
+    func flightReturnToHomefrom(_ vc: UIViewController){
+        var newVC:FlightDetailsBaseVC?
+        if let controller = vc.presentingViewController as? FlightDetailsBaseVC{
+            newVC = controller
+        } else if let controller = vc.presentingViewController?.presentingViewController as? FlightDetailsBaseVC{
+             newVC = controller
+        }else if let controller = vc.presentingViewController?.presentingViewController?.presentingViewController as? FlightDetailsBaseVC{
+             newVC = controller
+        }
+        guard newVC != nil else {return}
+        newVC?.presentingViewController?.dismiss(animated: false, completion: {
+            delay(seconds: 0.0) {
+                let nav = (newVC?.presentingViewController as?  UINavigationController)
+                if let intVC = nav?.children.first(where: {$0.isKind(of: HomeDummyViewController.self)}){
+                    nav?.popToViewController(intVC, animated: true)
+                }else{
+                    nav?.popToRootViewController(animated: true)
+                }
+            }
+        })
+        
+    }
+    
+}

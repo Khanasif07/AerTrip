@@ -46,7 +46,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking Confirmed" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tXc-Rs-gAi">
-                        <rect key="frame" x="16" y="136" width="343" height="48"/>
+                        <rect key="frame" x="16" y="136" width="343" height="47"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="47" id="vox-pf-rmQ"/>
                         </constraints>
@@ -55,7 +55,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e5B-FZ-4oH">
-                        <rect key="frame" x="16" y="200" width="343" height="68"/>
+                        <rect key="frame" x="16" y="199" width="343" height="84"/>
                         <string key="text">Congratulations, your booking is successful.
 Your booking ID is 2324354657 and all details have been sent to your email.</string>
                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
@@ -63,7 +63,7 @@ Your booking ID is 2324354657 and all details have been sent to your email.</str
                         <nil key="highlightedColor"/>
                     </label>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="f6g-bh-DCI">
-                        <rect key="frame" x="16" y="314" width="343" height="0.0"/>
+                        <rect key="frame" x="16" y="329" width="343" height="0.0"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5r-Ea-XW2">
                                 <rect key="frame" x="0.0" y="0.0" width="343" height="0.0"/>
@@ -74,7 +74,7 @@ Your booking ID is 2324354657 and all details have been sent to your email.</str
                         </subviews>
                     </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wcB-wV-x7N" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="340" width="375" height="0.5"/>
+                        <rect key="frame" x="0.0" y="355" width="375" height="0.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="VZR-Tw-mvD"/>
@@ -112,7 +112,7 @@ Your booking ID is 2324354657 and all details have been sent to your email.</str
                 <outlet property="youAreAllDoneLabel" destination="tXc-Rs-gAi" id="YYL-nE-rHY"/>
                 <outlet property="youareAllDoneTopConstraint" destination="CeF-Fm-ykU" id="C9i-3B-Tfo"/>
             </connections>
-            <point key="canvasLocation" x="136.80000000000001" y="172.26386806596702"/>
+            <point key="canvasLocation" x="-36750" y="-270"/>
         </tableViewCell>
     </objects>
     <resources>

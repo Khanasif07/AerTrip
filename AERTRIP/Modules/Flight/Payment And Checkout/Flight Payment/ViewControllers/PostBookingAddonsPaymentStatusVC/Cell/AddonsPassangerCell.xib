@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AddonsPassangerCell" id="gIb-z3-xgb" customClass="AddonsPassangerCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="38.5"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="gIb-z3-xgb" id="Gz6-rd-GFl">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="38.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CSs-T2-EgI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="38"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boy" translatesAutoresizingMaskIntoConstraints="NO" id="F1Z-Mk-4TV">
+                                <rect key="frame" x="16" y="4" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="F1Z-Mk-4TV" secondAttribute="height" multiplier="1:1" id="Qir-ti-eUo"/>
+                                    <constraint firstAttribute="height" constant="30" id="g1r-5b-dT1"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wmg-Aq-Bpf">
+                                <rect key="frame" x="16" y="4" width="30" height="30"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mast. Kevin Gilbert (Child)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fsC-5P-SqF">
+                                <rect key="frame" x="56" y="8.5" width="206" height="21"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pb4-Gq-xc2">
+                                <rect key="frame" x="56" y="20" width="206" height="0.5"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="Xlq-2h-X99"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rescheduled" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eui-sv-q6f">
+                                <rect key="frame" x="272" y="8.5" width="87" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="87" id="eHx-KA-B0w"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Eui-sv-q6f" secondAttribute="trailing" constant="16" id="0lN-SI-Nox"/>
+                            <constraint firstItem="F1Z-Mk-4TV" firstAttribute="leading" secondItem="CSs-T2-EgI" secondAttribute="leading" constant="16" id="6Fq-E9-woh"/>
+                            <constraint firstItem="Wmg-Aq-Bpf" firstAttribute="trailing" secondItem="F1Z-Mk-4TV" secondAttribute="trailing" id="7n9-k0-qph"/>
+                            <constraint firstItem="pb4-Gq-xc2" firstAttribute="leading" secondItem="fsC-5P-SqF" secondAttribute="leading" id="9R5-Zg-oSI"/>
+                            <constraint firstItem="Wmg-Aq-Bpf" firstAttribute="leading" secondItem="F1Z-Mk-4TV" secondAttribute="leading" id="AfU-z8-c2g"/>
+                            <constraint firstItem="fsC-5P-SqF" firstAttribute="centerY" secondItem="F1Z-Mk-4TV" secondAttribute="centerY" id="DHU-jL-Edv"/>
+                            <constraint firstItem="pb4-Gq-xc2" firstAttribute="width" secondItem="fsC-5P-SqF" secondAttribute="width" id="EMG-UN-q8n"/>
+                            <constraint firstItem="Eui-sv-q6f" firstAttribute="centerY" secondItem="fsC-5P-SqF" secondAttribute="centerY" id="FMe-jd-bz8"/>
+                            <constraint firstItem="Wmg-Aq-Bpf" firstAttribute="top" secondItem="F1Z-Mk-4TV" secondAttribute="top" id="NG2-Uz-u7a"/>
+                            <constraint firstItem="Wmg-Aq-Bpf" firstAttribute="bottom" secondItem="F1Z-Mk-4TV" secondAttribute="bottom" id="Nnb-oH-bdH"/>
+                            <constraint firstItem="pb4-Gq-xc2" firstAttribute="centerY" secondItem="F1Z-Mk-4TV" secondAttribute="centerY" multiplier="1.065" id="XzD-j9-keY"/>
+                            <constraint firstItem="pb4-Gq-xc2" firstAttribute="trailing" secondItem="fsC-5P-SqF" secondAttribute="trailing" id="Zkq-5w-0rQ"/>
+                            <constraint firstAttribute="bottom" secondItem="F1Z-Mk-4TV" secondAttribute="bottom" constant="4" id="bxQ-xv-OIC"/>
+                            <constraint firstItem="Eui-sv-q6f" firstAttribute="leading" secondItem="fsC-5P-SqF" secondAttribute="trailing" constant="10" id="jB8-sy-X4b"/>
+                            <constraint firstItem="F1Z-Mk-4TV" firstAttribute="top" secondItem="CSs-T2-EgI" secondAttribute="top" constant="4" id="mHq-bT-0DB"/>
+                            <constraint firstItem="fsC-5P-SqF" firstAttribute="leading" secondItem="F1Z-Mk-4TV" secondAttribute="trailing" constant="10" id="uBd-WN-sLx"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="CSs-T2-EgI" secondAttribute="bottom" id="BBM-cu-lan"/>
+                    <constraint firstAttribute="trailing" secondItem="CSs-T2-EgI" secondAttribute="trailing" id="cM9-zM-AZG"/>
+                    <constraint firstItem="CSs-T2-EgI" firstAttribute="leading" secondItem="Gz6-rd-GFl" secondAttribute="leading" id="nAE-xA-a81"/>
+                    <constraint firstItem="CSs-T2-EgI" firstAttribute="top" secondItem="Gz6-rd-GFl" secondAttribute="top" id="vq4-Ow-S8h"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="gzH-42-hlJ"/>
+            <connections>
+                <outlet property="containerView" destination="CSs-T2-EgI" id="R2f-NI-wFK"/>
+                <outlet property="containerViewBottomConstraint" destination="BBM-cu-lan" id="WR1-94-D2v"/>
+                <outlet property="nameDividerView" destination="pb4-Gq-xc2" id="eMH-ry-R2Q"/>
+                <outlet property="tavellerImageBlurView" destination="Wmg-Aq-Bpf" id="ehU-Jp-swO"/>
+                <outlet property="travellerImageView" destination="F1Z-Mk-4TV" id="Mdj-wD-xcX"/>
+                <outlet property="travellerImgViewBottomConstraint" destination="bxQ-xv-OIC" id="wSa-Vc-HCt"/>
+                <outlet property="travellerNameLabel" destination="fsC-5P-SqF" id="9as-JS-ino"/>
+                <outlet property="travellerPnrStatusLabel" destination="Eui-sv-q6f" id="dCf-h5-s9R"/>
+            </connections>
+            <point key="canvasLocation" x="-196.37681159420291" y="-4.3526785714285712"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="boy" width="20" height="20"/>
+    </resources>
+</document>

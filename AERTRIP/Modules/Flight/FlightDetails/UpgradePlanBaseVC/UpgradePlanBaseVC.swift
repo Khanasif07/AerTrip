@@ -525,7 +525,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                         
                                         var checkMarkImgName = ""
                                         
-                                        let farepr = (upgardeResult[indexPath.row] as AnyObject).value(forKey: "farepr") as! Int
+                                        let farepr = (upgardeResult[indexPath.row] as AnyObject).value(forKey: "farepr") as? Int ?? 0
                                         cell.selectButtonClick.tag = indexPath.row
                                         cell.selectButtonClick.addTarget(self, action: #selector(selectPlanButtonClicked), for: .touchUpInside)
                                         

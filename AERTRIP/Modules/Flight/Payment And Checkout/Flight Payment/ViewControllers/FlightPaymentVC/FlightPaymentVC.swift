@@ -28,7 +28,7 @@ class FlightPaymentVC: BaseVC {
     @IBOutlet weak var activityLoader: UIActivityIndicatorView!
     
     let cellIdentifier = "HotelFareSectionHeader"
-    var isWallet: Bool = true // To check if using wallet or Not
+    var isWallet: Bool = false // To check if using wallet or Not
     var gradientColors: [UIColor] = [AppColors.shadowBlue, AppColors.themeGreen] {
         didSet {
             self.viewDidLayoutSubviews()
@@ -150,6 +150,7 @@ class FlightPaymentVC: BaseVC {
         self.activityLoader.startAnimating()
         self.loaderView.addGredient(isVertical: false)
         self.hideShowLoader(isHidden:true)
+        
     }
     
     func hideShowLoader(isHidden:Bool){
@@ -159,6 +160,7 @@ class FlightPaymentVC: BaseVC {
             }else{
                 self.activityLoader.startAnimating()
             }
+            self.view.isUserInteractionEnabled = isHidden
             self.loaderView.isHidden = isHidden
         }
     }
@@ -256,7 +258,7 @@ class FlightPaymentVC: BaseVC {
     }
     
     // Get Total Payable Amount based on conditions
-    private func getTotalPayableAmount() -> Double {
+    func getTotalPayableAmount() -> Double {
         var payableAmount: Double = Double(self.viewModel.itinerary.details.fare.totalPayableNow.value)
         if payableAmount > 0.0 {
             if self.isCouponApplied, let discountBreakUp = self.viewModel.appliedCouponData.discountsBreakup {
@@ -365,6 +367,8 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
             self.viewModel.taxesDataDisplay()
             self.updateAllData()
             self.showFareUpdatePopup()
+        }else{
+            self.hideShowLoader(isHidden:true)
         }
     }
     
@@ -405,6 +409,13 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
         vc.viewModel.bookingObject = self.viewModel.bookingObject
         self.navigationController?.pushViewController(vc, animated: true)
         
+    }
+    
+    func getPaymentResponseWithPendingPayment(_ p: String, id: String) {
+        let vc = FlightPaymentPendingVC.instantiate(fromAppStoryboard: .FlightPayment)
+        vc.viewModel.itId = id
+        vc.viewModel.product = .flight
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func getPaymentResonseFail() {

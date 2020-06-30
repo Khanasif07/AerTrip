@@ -50,7 +50,7 @@ class PostBookingAddonsPaymentVM{
         self.sectionTableCell = []
         var firstSectionData = [CellType]()
         firstSectionData.append(.EmptyCell)
-        if (UserInfo.loggedInUser != nil){
+        if (UserInfo.loggedInUser != nil && self.addonsDetails.walletBalance > 0){
             firstSectionData.append(contentsOf: [.WalletCell,.EmptyCell])
         }
         firstSectionData.append(.FareBreakupCell)

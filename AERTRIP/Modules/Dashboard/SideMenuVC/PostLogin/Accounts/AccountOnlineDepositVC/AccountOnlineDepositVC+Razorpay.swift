@@ -21,6 +21,9 @@ extension AccountOnlineDepositVC: RazorpayPaymentCompletionProtocolWithData {
     
     func onPaymentSuccess(_ payment_id: String, andData response: [AnyHashable : Any]?) {
         //payment success by razorpay
-        self.showPaymentSuccessMessage()
+        if let res = response as? JSONDictionary {
+            self.viewModel.getPaymentResonse(forData: res)
+        }
+//        self.showPaymentSuccessMessage()
     }
 }

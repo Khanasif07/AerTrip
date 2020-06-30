@@ -62,11 +62,18 @@ struct PeriodicStatementEvent {
         return nil
     }
     
+    var statementMonthToMatch:String?{
+        if let date = statementDate {
+            return date.toString(dateFormat: "MMM YYYY")
+        }
+        return nil
+    }
+    
     var statementYear: String? {
         
-        if let date = statementDate, let monthWithYear = self.statementMonth {
+        if let date = statementDate, let monthWithYear = self.statementMonth,let newMonth =  statementMonthToMatch{
             
-            if date.monthsForFinancialYear.contains(monthWithYear) {
+            if date.monthsForFinancialYear.contains(monthWithYear) || date.monthsForFinancialYear.contains(newMonth){
                 //srart with current year
                 let start = date.toString(dateFormat: "YYYY")
                 

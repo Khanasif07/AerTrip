@@ -98,15 +98,6 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     private func editedGuest(_ travellerIndexPath: IndexPath) {
         if let indexPath = self.viewModel.editinIndexPath, let object = GuestDetailsVM.shared.contactForIndexPath(indexPath: travellerIndexPath) {
             self.viewModel.updatePassengerInfoWith(object, at: indexPath.section)
-//            let numberInRoom = GuestDetailsVM.shared.guests[0][indexPath.section].numberInRoom
-//            let type = GuestDetailsVM.shared.guests[0][indexPath.section].passengerType
-//            let meal = GuestDetailsVM.shared.guests[0][indexPath.section].mealPreference
-//            let ff = GuestDetailsVM.shared.guests[0][indexPath.section].frequentFlyer
-//            GuestDetailsVM.shared.guests[0][indexPath.section] = object
-//            GuestDetailsVM.shared.guests[0][indexPath.section].passengerType = type
-//            GuestDetailsVM.shared.guests[0][indexPath.section].numberInRoom = numberInRoom
-//            GuestDetailsVM.shared.guests[0][indexPath.section].mealPreference = meal
-//            GuestDetailsVM.shared.guests[0][indexPath.section].frequentFlyer = ff
             self.setFFForSelected(object.ffp, index: indexPath.section)
             self.updateDob(at : indexPath.section)
             self.passengerTable.reloadData()
@@ -159,15 +150,13 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     
    @objc func keyboardWillShow(notification: Notification) {
         if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
-            print("Notification: Keyboard will show")
-            self.passengerTable.setBottomInset(to: keyboardHeight + 10)
+//            self.passengerTable.setBottomInset(to: keyboardHeight + 10)
             self.viewModel.keyboardHeight = keyboardHeight
         }
     }
 
     @objc func keyboardWillHide(notification: Notification) {
-        print("Notification: Keyboard will hide")
-        self.passengerTable.setBottomInset(to: 0.0)
+//        self.passengerTable.setBottomInset(to: 0.0)
         self.passengerTable.isScrollEnabled = true
         GuestDetailsVM.shared.resetData()
         self.travellersTableView.reloadData()
@@ -390,9 +379,9 @@ extension PassengerDetailsVC: GuestDetailTableViewCellDelegate {
         if let _ = self.passengerTable.cell(forItem: textField) as? AddPassengerDetailsCell {
             //  get item position
             let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: passengerTable)
-            var  yValue = 80
+            var  yValue = 33
             if let index = self.viewModel.editinIndexPath {
-                yValue = index.section ==  GuestDetailsVM.shared.guests[0].count - 1 ? 81 : 83
+                yValue = index.section ==  GuestDetailsVM.shared.guests[0].count - 1 ? 34 : 36
             }
             self.passengerTable.setContentOffset(CGPoint(x: self.passengerTable.origin.x, y: itemPosition.y - CGFloat(yValue)), animated: true)
             

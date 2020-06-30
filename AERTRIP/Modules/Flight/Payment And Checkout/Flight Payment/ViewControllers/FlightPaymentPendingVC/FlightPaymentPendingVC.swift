@@ -23,12 +23,27 @@ class FlightPaymentPendingVC: UIViewController {
     @IBOutlet weak var autoRefunddescriptionLabel: UILabel!
     
     
+    var viewModel = FlightPaymentPendingVM()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupFont()
         self.setFontColor()
         self.setTitle()
     }
+    
+    @IBAction func tappedPaybutton(_ sender: UIButton) {
+    }
+    
+    @IBAction func tappedRefundButton(_ sender: UIButton) {
+        FareUpdatedPopUpVC.showRefundAmountPopUp(refundAmount: 4354, paymentMode: "netbanking", confirmButtonAction: {
+            printDebug("confirm button tapped")
+        }) {
+            printDebug("cancel button tapped")
+        }
+    }
+    
+    
     
     private func setupFont(){
         self.titleLabel.font = AppFonts.c.withSize(38.0)
@@ -73,8 +88,7 @@ class FlightPaymentPendingVC: UIViewController {
         self.balanceAmountValueLabel.text = "₹ 2,000"
         self.payButton.setTitle("Pay", for: .normal)
         self.requestRefaundButton.setTitle("Request refund", for: .normal)
-        self.autoRefunddescriptionLabel.text = "If you don’t take any action now, your amount will be auto-refunded to your {Mode of Payment}."
-
+        self.autoRefunddescriptionLabel.text = "If you don’t take any action now, your amount will be auto-refunded to your {Mode of Payment}."//Need to add value for payment mode
     }
     
 }
