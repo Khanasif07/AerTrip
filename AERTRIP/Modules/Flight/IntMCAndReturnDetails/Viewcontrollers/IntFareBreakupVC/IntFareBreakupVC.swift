@@ -112,8 +112,7 @@ class IntFareBreakupVC: UIViewController {
     var isAddonsExpend = true
     
     //MARK:- Initialise Views
-    override func viewDidLoad()
-    {
+    override func viewDidLoad(){
         super.viewDidLoad()
         self.baseFareTableview.delegate = self
         self.baseFareTableview.dataSource = self
@@ -211,7 +210,7 @@ class IntFareBreakupVC: UIViewController {
             self.detailsButton.setTitle("Details", for: .normal)
             self.detailsButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
             self.detailsButton.setTitleColor(AppColors.themeGreen, for: .normal)
-            self.bookingTitleLabel.attributedText = self.bookFlightObject.titleString
+            self.bookingTitleLabel.attributedText = self.getTitleToshow()//self.bookFlightObject.titleString
             self.bookingDateLabel.textColor = AppColors.themeGray60
             self.bookingDateLabel.font = AppFonts.Regular.withSize(18.0)
             self.bookingDateLabel.text = self.creaateDateTitle()
@@ -231,13 +230,24 @@ class IntFareBreakupVC: UIViewController {
         }
     }
     
-    func creaateDateTitle()-> String{
+    private func creaateDateTitle()-> String{
         guard let date = self.bookFlightObject.subTitleString.components(separatedBy: " •").first else{return ""}
-        if self.bookFlightObject.flightSearchType == MULTI_CITY{
             return date
+    }
+    
+    private func getTitleToshow()-> NSAttributedString{
+        if let mutableStr = self.bookFlightObject.titleString.mutableCopy() as? NSMutableAttributedString{
+            let comma = NSAttributedString.init(string: ", ", attributes: [.font:AppFonts.Regular.withSize(18), .foregroundColor: AppColors.themeBlack])
+            if self.bookFlightObject.flightSearchType == MULTI_CITY{
+                return mutableStr
+            }else{
+                mutableStr.append(comma)
+                return mutableStr
+            }
         }else{
-            return ", \(date)"
+            return self.bookFlightObject.titleString
         }
+        
     }
     
     func setupUpgradeButton(isHidden: Bool){

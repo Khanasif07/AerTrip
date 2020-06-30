@@ -21,6 +21,9 @@ class PassengerDetailsCell: UICollectionViewCell {
     
     private(set) var isForAdult: Bool = false
     var journeyType:JourneyType = .domestic
+    var isAllPaxInfoRequired = false
+    var minMNS = 10
+    var maxMNS = 10
     
     var contact: ATContact? {
         didSet {
@@ -138,6 +141,7 @@ class PassengerDetailsCell: UICollectionViewCell {
             }else{
                 self.checkForInternational()
             }
+            self.validatationForEmailAndMobile()
         }
         else {
             setupForAdd()
@@ -184,6 +188,18 @@ class PassengerDetailsCell: UICollectionViewCell {
                         self.infoImageView.isHidden = false
                     }
                 }
+            }
+        }
+    }
+    
+    func validatationForEmailAndMobile(){
+        guard ((self.contact?.passengerType ?? .Adult) == .Adult) else {return}
+        if self.isAllPaxInfoRequired{
+            let mobileText = self.contact?.contact ?? ""
+            let isValidMobile = !(!(mobileText.isEmpty) && (mobileText.count >= minMNS)  && (mobileText.count <= maxMNS))
+            let isValidMail = !(self.contact?.emailLabel.isEmail ?? true)
+            if isValidMail || isValidMobile{
+                self.infoImageView.isHidden = false
             }
         }
     }

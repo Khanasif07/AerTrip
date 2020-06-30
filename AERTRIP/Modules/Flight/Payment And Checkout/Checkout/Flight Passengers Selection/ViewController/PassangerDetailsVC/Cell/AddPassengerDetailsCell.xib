@@ -7,18 +7,23 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AddPassengerDetailsCell" rowHeight="342" id="D7s-yM-bMU" customClass="AddPassengerDetailsCell" customModule="Aertrip" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="451" height="304"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AddPassengerDetailsCell" rowHeight="440" id="D7s-yM-bMU" customClass="AddPassengerDetailsCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="465" height="402"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D7s-yM-bMU" id="yx7-un-uIZ">
-                <rect key="frame" x="0.0" y="0.0" width="451" height="304"/>
+                <rect key="frame" x="0.0" y="0.0" width="465" height="402"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0x4-iJ-oMJ">
-                        <rect key="frame" x="0.0" y="0.0" width="451" height="259"/>
+                        <rect key="frame" x="0.0" y="0.0" width="465" height="337.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cM6-UL-p2l">
                                 <rect key="frame" x="16" y="16" width="42" height="20"/>
@@ -30,16 +35,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="GOK-5W-coh">
-                                <rect key="frame" x="16" y="33" width="419" height="224"/>
+                                <rect key="frame" x="16" y="33" width="433" height="302.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="sI9-d1-7NT">
-                                        <rect key="frame" x="0.0" y="0.0" width="419" height="60"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="433" height="60"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="bMj-kE-CcB">
-                                                <rect key="frame" x="0.0" y="0.0" width="341" height="60"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="355" height="60"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="goI-Ui-vra" customClass="PKFloatLabelTextField" customModule="Aertrip" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="162.5" height="60"/>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="goI-Ui-vra" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="169.5" height="60"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
@@ -47,8 +52,8 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="First Name"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aC0-ry-3Xg" customClass="PKFloatLabelTextField" customModule="Aertrip" customModuleProvider="target">
-                                                        <rect key="frame" x="178.5" y="0.0" width="162.5" height="60"/>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aC0-ry-3Xg" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
+                                                        <rect key="frame" x="185.5" y="0.0" width="169.5" height="60"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
@@ -59,7 +64,7 @@
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LTA-1Z-u40">
-                                                <rect key="frame" x="342" y="0.0" width="77" height="60"/>
+                                                <rect key="frame" x="356" y="0.0" width="77" height="60"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IOT-td-qlA">
                                                         <rect key="frame" x="0.0" y="22" width="77" height="38"/>
@@ -68,7 +73,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="77" height="38"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ktj-XD-T0G" customClass="ATUnicodeSwitch" customModule="Aertrip" customModuleProvider="target">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ktj-XD-T0G" customClass="ATUnicodeSwitch" customModule="AERTRIP" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="77" height="38"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ooH-oD-UT4">
@@ -149,11 +154,133 @@
                                             <constraint firstAttribute="height" constant="60" id="L6R-Ln-zQg"/>
                                         </constraints>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Em9-M7-sjE">
-                                        <rect key="frame" x="0.0" y="60" width="419" height="60"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="fqX-Wi-ZoM">
+                                        <rect key="frame" x="0.0" y="60" width="433" height="60"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Date Of Birth" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h6i-j5-UG1" customClass="PKFloatLabelTextField" customModule="Aertrip" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="201.5" height="60"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c7N-5W-txS">
+                                                <rect key="frame" x="0.0" y="0.0" width="433" height="60"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EPY-qX-PWK" userLabel="MiddleView">
+                                                        <rect key="frame" x="0.0" y="0.0" width="82" height="60"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ju2-y3-Iyd">
+                                                                <rect key="frame" x="0.0" y="7" width="35.5" height="18"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="18" id="gwL-hQ-5Ma"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rqb-dW-CVV">
+                                                                <rect key="frame" x="0.0" y="33" width="20" height="15"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" secondItem="Rqb-dW-CVV" secondAttribute="height" multiplier="4:3" id="gmL-0H-vOK"/>
+                                                                    <constraint firstAttribute="height" constant="15" id="qPN-Kw-WLu"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Khh-VN-0cL">
+                                                                <rect key="frame" x="25" y="29" width="18" height="23"/>
+                                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="aak-Zl-IA1">
+                                                                <rect key="frame" x="73" y="37.5" width="9" height="6"/>
+                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ge5-IG-E8L">
+                                                                <rect key="frame" x="0.0" y="0.0" width="82" height="60"/>
+                                                                <connections>
+                                                                    <action selector="tappedISDButton:" destination="D7s-yM-bMU" eventType="touchUpInside" id="PtI-QH-HBc"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="Ge5-IG-E8L" secondAttribute="bottom" id="1Hs-yF-8jf"/>
+                                                            <constraint firstItem="ju2-y3-Iyd" firstAttribute="top" secondItem="EPY-qX-PWK" secondAttribute="top" constant="7" id="2oE-Na-dc9"/>
+                                                            <constraint firstItem="ju2-y3-Iyd" firstAttribute="leading" secondItem="EPY-qX-PWK" secondAttribute="leading" id="7Rn-5Z-lE7"/>
+                                                            <constraint firstAttribute="trailing" secondItem="aak-Zl-IA1" secondAttribute="trailing" id="FKY-RW-1M9"/>
+                                                            <constraint firstItem="aak-Zl-IA1" firstAttribute="centerY" secondItem="Khh-VN-0cL" secondAttribute="centerY" id="KU2-W3-rGf"/>
+                                                            <constraint firstItem="Ge5-IG-E8L" firstAttribute="top" secondItem="EPY-qX-PWK" secondAttribute="top" id="Lrh-t0-U9X"/>
+                                                            <constraint firstItem="Khh-VN-0cL" firstAttribute="leading" secondItem="Rqb-dW-CVV" secondAttribute="trailing" constant="5" id="NXf-Ze-4c5"/>
+                                                            <constraint firstAttribute="bottom" secondItem="Rqb-dW-CVV" secondAttribute="bottom" constant="12" id="db5-FI-lkS"/>
+                                                            <constraint firstAttribute="width" constant="82" id="ls1-0V-GNr"/>
+                                                            <constraint firstItem="Rqb-dW-CVV" firstAttribute="leading" secondItem="ju2-y3-Iyd" secondAttribute="leading" id="ntz-1h-rhl"/>
+                                                            <constraint firstItem="Ge5-IG-E8L" firstAttribute="leading" secondItem="EPY-qX-PWK" secondAttribute="leading" id="q7K-dr-9uu"/>
+                                                            <constraint firstItem="Khh-VN-0cL" firstAttribute="centerY" secondItem="Rqb-dW-CVV" secondAttribute="centerY" id="reV-dx-wtf"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Ge5-IG-E8L" secondAttribute="trailing" id="slL-YQ-TYI"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z8e-qM-2Wm">
+                                                        <rect key="frame" x="98" y="0.0" width="335" height="60"/>
+                                                        <subviews>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ANb-Vc-71C" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="335" height="60"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Mobile"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </textField>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="ANb-Vc-71C" secondAttribute="bottom" id="9Eb-EA-Jqx"/>
+                                                            <constraint firstItem="ANb-Vc-71C" firstAttribute="leading" secondItem="z8e-qM-2Wm" secondAttribute="leading" id="gis-CW-GSZ"/>
+                                                            <constraint firstItem="ANb-Vc-71C" firstAttribute="top" secondItem="z8e-qM-2Wm" secondAttribute="top" id="pja-C4-Q1Q"/>
+                                                            <constraint firstAttribute="trailing" secondItem="ANb-Vc-71C" secondAttribute="trailing" id="wbu-AW-OPv"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SMz-gp-Klz" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="59.5" width="433" height="0.5"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="0.5" id="DCc-6D-VcN"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="EPY-qX-PWK" firstAttribute="leading" secondItem="c7N-5W-txS" secondAttribute="leading" id="H8x-8K-RUn"/>
+                                                    <constraint firstItem="z8e-qM-2Wm" firstAttribute="leading" secondItem="EPY-qX-PWK" secondAttribute="trailing" constant="16" id="LHE-bN-Asi"/>
+                                                    <constraint firstItem="SMz-gp-Klz" firstAttribute="leading" secondItem="c7N-5W-txS" secondAttribute="leading" id="RfR-Fd-Rzm"/>
+                                                    <constraint firstAttribute="trailing" secondItem="z8e-qM-2Wm" secondAttribute="trailing" id="bN6-yc-JB1"/>
+                                                    <constraint firstItem="z8e-qM-2Wm" firstAttribute="top" secondItem="c7N-5W-txS" secondAttribute="top" id="enP-TF-krd"/>
+                                                    <constraint firstAttribute="bottom" secondItem="z8e-qM-2Wm" secondAttribute="bottom" id="f30-Zc-4nU"/>
+                                                    <constraint firstItem="EPY-qX-PWK" firstAttribute="top" secondItem="c7N-5W-txS" secondAttribute="top" id="hYk-et-azm"/>
+                                                    <constraint firstAttribute="bottom" secondItem="SMz-gp-Klz" secondAttribute="bottom" id="mGG-Ef-4T7"/>
+                                                    <constraint firstAttribute="trailing" secondItem="SMz-gp-Klz" secondAttribute="trailing" id="qqP-kH-wfW"/>
+                                                    <constraint firstAttribute="bottom" secondItem="EPY-qX-PWK" secondAttribute="bottom" id="u1B-gG-iHI"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="mLG-E1-Qu8"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="j8X-sa-Ie0">
+                                        <rect key="frame" x="0.0" y="120" width="433" height="60"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Date Of Birth" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6P1-wk-8zn" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="433" height="60"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Email"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="FRU-Op-3Nx"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Em9-M7-sjE">
+                                        <rect key="frame" x="0.0" y="180" width="433" height="60"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Date Of Birth" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h6i-j5-UG1" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="208.5" height="60"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
@@ -162,10 +289,10 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7WH-cb-Lmv">
-                                                <rect key="frame" x="217.5" y="0.0" width="201.5" height="60"/>
+                                                <rect key="frame" x="224.5" y="0.0" width="208.5" height="60"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nationality" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HXg-eY-TV2" customClass="PKFloatLabelTextField" customModule="Aertrip" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="201.5" height="60"/>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nationality" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HXg-eY-TV2" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="208.5" height="60"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
@@ -174,7 +301,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="c84-MC-Edm">
-                                                        <rect key="frame" x="192.5" y="38" width="9" height="6"/>
+                                                        <rect key="frame" x="199.5" y="38" width="9" height="6"/>
                                                     </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -193,10 +320,10 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="fIx-QV-ee1">
-                                        <rect key="frame" x="0.0" y="120" width="419" height="60"/>
+                                        <rect key="frame" x="0.0" y="240" width="433" height="18.5"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Passport Number" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0uU-lR-nQp" customClass="PKFloatLabelTextField" customModule="Aertrip" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="201.5" height="60"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Passport Number" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0uU-lR-nQp" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="208.5" height="18.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
@@ -204,8 +331,8 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Passport Number"/>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="91t-3a-hAk" customClass="PKFloatLabelTextField" customModule="Aertrip" customModuleProvider="target">
-                                                <rect key="frame" x="217.5" y="0.0" width="201.5" height="60"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="91t-3a-hAk" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
+                                                <rect key="frame" x="224.5" y="0.0" width="208.5" height="18.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
@@ -219,7 +346,7 @@
                                         </constraints>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZMq-VL-u9s">
-                                        <rect key="frame" x="0.0" y="180" width="419" height="44"/>
+                                        <rect key="frame" x="0.0" y="258.5" width="433" height="44"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9O-Oe-7fx">
                                                 <rect key="frame" x="0.0" y="0.0" width="109" height="44"/>
@@ -262,11 +389,20 @@
             <viewLayoutGuide key="safeArea" id="Y1D-a1-C88"/>
             <connections>
                 <outlet property="containerView" destination="xQ0-83-6xP" id="dVb-YY-xKt"/>
+                <outlet property="countryLabel" destination="ju2-y3-Iyd" id="sTC-Eo-Ib7"/>
+                <outlet property="deviderView" destination="SMz-gp-Klz" id="SJC-TZ-56h"/>
                 <outlet property="dobAndNationalityStack" destination="Em9-M7-sjE" id="xiX-4f-lKD"/>
                 <outlet property="dobTextField" destination="h6i-j5-UG1" id="apz-6L-kgl"/>
+                <outlet property="emailStack" destination="j8X-sa-Ie0" id="ycC-Gx-52z"/>
+                <outlet property="emailTextField" destination="6P1-wk-8zn" id="HE5-L9-Alx"/>
                 <outlet property="firstNameTextField" destination="goI-Ui-vra" id="67R-cf-gQ9"/>
+                <outlet property="flagImage" destination="Rqb-dW-CVV" id="asI-bL-Q5I"/>
                 <outlet property="guestTitleLabel" destination="cM6-UL-p2l" id="pZW-b8-L2u"/>
+                <outlet property="isdButton" destination="Ge5-IG-E8L" id="dnD-cl-Vsi"/>
+                <outlet property="isdLabel" destination="Khh-VN-0cL" id="BbA-ZA-aJE"/>
                 <outlet property="lastNameTextField" destination="aC0-ry-3Xg" id="RCh-vg-xGW"/>
+                <outlet property="mobileAndIsdStack" destination="fqX-Wi-ZoM" id="pbc-oc-CPA"/>
+                <outlet property="mobileTextField" destination="ANb-Vc-71C" id="chR-in-ofN"/>
                 <outlet property="nameAndGenderStack" destination="sI9-d1-7NT" id="NO0-Oo-6nB"/>
                 <outlet property="nataionalityView" destination="7WH-cb-Lmv" id="dfO-FZ-p2o"/>
                 <outlet property="nationalityTextField" destination="HXg-eY-TV2" id="dSD-IS-tOq"/>
@@ -280,7 +416,7 @@
                 <outlet property="unicodeSwitch" destination="ktj-XD-T0G" id="sgU-c4-K0c"/>
                 <outlet property="verticalDividerView" destination="Y3J-PE-NEX" id="mTO-Nx-RWd"/>
             </connections>
-            <point key="canvasLocation" x="-86.231884057971016" y="8.0357142857142847"/>
+            <point key="canvasLocation" x="-76.08695652173914" y="40.848214285714285"/>
         </tableViewCell>
     </objects>
     <resources>
