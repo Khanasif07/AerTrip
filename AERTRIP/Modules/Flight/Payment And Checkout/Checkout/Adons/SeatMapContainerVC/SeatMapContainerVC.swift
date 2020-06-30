@@ -402,9 +402,7 @@ extension SeatMapContainerVC: TopNavigationViewDelegate {
         if viewModel.setupFor == .preSelection {
             AddonsDataStore.shared.seatsAllFlightsData = viewModel.originalAllFlightsData
             AddonsDataStore.shared.seatsArray.removeAll()
-            viewModel.getSeatTotal { [weak self] (seatTotal) in
-                self?.delegate?.seatsUpdated(amount: seatTotal)
-            }
+            delegate?.seatsUpdated(amount: 0)
         }
         allChildVCs.enumerated().forEach { (index, seatMapVC) in
             seatMapVC.setFlightData(viewModel.allFlightsData[index])

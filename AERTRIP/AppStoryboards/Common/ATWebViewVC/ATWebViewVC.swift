@@ -26,7 +26,19 @@ class ATWebViewVC: BaseVC {
     @IBOutlet weak var blurViewContainer: BlurView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if #available(iOS 13.0, *) {
+            self.statusBarStyle = .lightContent
+        }
+    }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if #available(iOS 13.0, *) {
+            self.statusBarStyle = .default
+        }
+    }
     
     //MARK:- Properties
     //MARK:- Public

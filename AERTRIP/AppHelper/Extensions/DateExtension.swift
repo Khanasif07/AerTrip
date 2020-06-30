@@ -94,11 +94,11 @@ extension Date {
     var morningOrEvening : String{
          let hour = Calendar.current.component(.hour, from: self)
          switch hour {
-            case 6..<12 : return "Morning"
+            case 0..<12 : return "Morning"
             case 12 : return "Afternoon"
             case 13..<17 : return "Afternoon"
-            case 17..<22 : return "Evening"
-            default: return "Night"
+            case 17..<24 : return "Evening"
+            default: return "Evening"
          }
      }
     

@@ -362,18 +362,28 @@
                                                     <outlet property="delegate" destination="LpR-ft-Vpd" id="vDZ-HP-X37"/>
                                                 </connections>
                                             </scrollView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T3U-dP-lJb" userLabel="ViewOverScrollForEdgeGesture">
+                                                <rect key="frame" x="404" y="149" width="10" height="504.5"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="10" id="0A3-Vx-HzE"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="7M1-zd-tJX" firstAttribute="top" secondItem="Ghj-w4-cj0" secondAttribute="bottom" id="3Zf-va-Kbb"/>
+                                            <constraint firstItem="T3U-dP-lJb" firstAttribute="top" secondItem="7M1-zd-tJX" secondAttribute="top" id="HfK-eJ-t8G"/>
                                             <constraint firstAttribute="trailing" secondItem="Ghj-w4-cj0" secondAttribute="trailing" id="VVX-2u-6lK"/>
                                             <constraint firstItem="x1e-WT-TPs" firstAttribute="top" secondItem="F4Y-5a-ItW" secondAttribute="top" id="Ymh-y5-rUR"/>
                                             <constraint firstAttribute="bottom" secondItem="7M1-zd-tJX" secondAttribute="bottom" id="a4D-4b-qBn"/>
                                             <constraint firstAttribute="trailing" secondItem="7M1-zd-tJX" secondAttribute="trailing" constant="3" id="af5-4L-wgB"/>
                                             <constraint firstItem="7M1-zd-tJX" firstAttribute="leading" secondItem="F4Y-5a-ItW" secondAttribute="leading" constant="3" id="baO-dQ-C8o"/>
                                             <constraint firstItem="Ghj-w4-cj0" firstAttribute="leading" secondItem="F4Y-5a-ItW" secondAttribute="leading" id="dl6-H9-3a4"/>
+                                            <constraint firstItem="T3U-dP-lJb" firstAttribute="bottom" secondItem="7M1-zd-tJX" secondAttribute="bottom" id="fCa-Eg-yK1"/>
                                             <constraint firstAttribute="trailing" secondItem="x1e-WT-TPs" secondAttribute="trailing" id="fsh-rv-a6U"/>
                                             <constraint firstItem="Ghj-w4-cj0" firstAttribute="top" secondItem="x1e-WT-TPs" secondAttribute="bottom" id="imO-ZP-QYK"/>
+                                            <constraint firstAttribute="trailing" secondItem="T3U-dP-lJb" secondAttribute="trailing" id="kiz-3C-qp1"/>
                                             <constraint firstItem="x1e-WT-TPs" firstAttribute="leading" secondItem="F4Y-5a-ItW" secondAttribute="leading" id="mcS-eX-Afg"/>
                                         </constraints>
                                     </view>
@@ -477,7 +487,7 @@
             <objects>
                 <viewController storyboardIdentifier="AerinVC" id="bYL-Ms-OZy" customClass="AerinVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kAo-x2-gd7">
-                        <rect key="frame" x="0.0" y="0.0" width="408" height="190"/>
+                        <rect key="frame" x="0.0" y="0.0" width="408" height="494.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHU-LR-LWt">
@@ -649,7 +659,7 @@ on Christmas”</string>
             <objects>
                 <viewController storyboardIdentifier="FlightsVC" id="qif-Xc-JfX" customClass="FlightsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZF0-0c-QWp">
-                        <rect key="frame" x="0.0" y="0.0" width="408" height="190"/>
+                        <rect key="frame" x="0.0" y="0.0" width="408" height="494.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flights " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="McH-7D-g5Y">
@@ -1087,7 +1097,7 @@ on Christmas”</string>
             <objects>
                 <viewController storyboardIdentifier="TripsVC" id="PTU-br-IAu" customClass="TripsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8aR-r3-Nn6">
-                        <rect key="frame" x="0.0" y="0.0" width="408" height="190"/>
+                        <rect key="frame" x="0.0" y="0.0" width="408" height="494.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLz-uM-NAJ">
