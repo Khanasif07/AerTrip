@@ -82,7 +82,6 @@ class PassengersSelectionVC: UIViewController {
         }else{
             vc.fewSeatsLeftViewHeightFromFlightDetails = 0
         }
-        vc.addonsData = ["Seat": 500, "Baggage":500]
         vc.isFromFlightDetails = false
         vc.isForSelectionAndCheckout = true
         vc.bookFlightObject = self.viewModel.bookingObject ?? BookFlightObject()
