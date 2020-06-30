@@ -38,7 +38,7 @@ class HCSelectGuestsVC: BaseVC {
     // Parchment View
     fileprivate var parchmentView : PagingViewController?
     
-    private(set) var viewModel = HCSelectGuestsVM.shared
+    var viewModel = HCSelectGuestsVM.shared
     private var currentIndex: Int = 0 {
         didSet {
         }
@@ -125,7 +125,11 @@ class HCSelectGuestsVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         self.viewModel.clearAllSelection()
-        
+        if self.viewModel.productType == .hotel{
+            self.viewModel.totalGuestCount =  HotelsSearchVM.hotelFormData.totalGuestCount
+        }else{
+            self.viewModel.totalGuestCount =  GuestDetailsVM.shared.guests.first?.count ?? 0
+        }
         selectedContactsCollectionView.setCollectionViewLayout(self.collectionLayout, animated: false)
         
         self.topNavView.delegate = self

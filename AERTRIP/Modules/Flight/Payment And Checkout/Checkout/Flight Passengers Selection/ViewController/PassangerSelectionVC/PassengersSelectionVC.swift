@@ -110,7 +110,7 @@ class PassengersSelectionVC: UIViewController {
     }
     
     @IBAction func tapAddButton(_ sender: UIButton) {
-        AppFlowManager.default.presentHCSelectGuestsVC(delegate: self)
+        AppFlowManager.default.presentHCSelectGuestsVC(delegate: self, productType: .flight)
         
     }
     

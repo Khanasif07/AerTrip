@@ -549,10 +549,11 @@ extension AppFlowManager {
         }
     }
     
-    func presentHCSelectGuestsVC(delegate: HCSelectGuestsVCDelegate) {
+    func presentHCSelectGuestsVC(delegate: HCSelectGuestsVCDelegate, productType:ProductType = .hotel) {
         if let topVC = UIApplication.topViewController() {
             let ob = HCSelectGuestsVC.instantiate(fromAppStoryboard: .HotelCheckout)
             ob.delegate = delegate
+            ob.viewModel.productType = productType
             ob.modalPresentationStyle = .overFullScreen
             topVC.present(ob, animated: true, completion: nil)
         }
