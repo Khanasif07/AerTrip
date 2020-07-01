@@ -188,6 +188,11 @@ class AerinVC: BaseVC {
         self.previousOffSet = scrollView.contentOffset
     }
     
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard let parent = parent as? DashboardVC else { return }
+        parent.innerScrollDidEndDragging(scrollView)
+    }
+    
     // MARK: - Methods
     
     // MARK: - Private

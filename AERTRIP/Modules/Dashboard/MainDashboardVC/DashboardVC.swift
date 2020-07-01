@@ -330,6 +330,11 @@ extension DashboardVC  {
         previousSelected = selectedOption
     }
     
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        innerScrollDidEndDragging(scrollView)
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         if scrollView == mainScrollView {            
@@ -344,7 +349,6 @@ extension DashboardVC  {
 //            }
             
             let upperBound = scrollView.contentSize.height - scrollView.bounds.height
-                        
             guard 0...upperBound ~= offset.y else {
                 return
             }
@@ -632,6 +636,52 @@ extension DashboardVC  {
                 }
             case .trips: break
             }
+        }
+    }
+}
+
+// MARK: Child scroll view methods
+// added by Rishabh
+extension DashboardVC {
+    
+    func innerScrollDidEndDragging(_ scrollView: UIScrollView) {
+        self.scrollToTopOrBottom()
+        DispatchQueue.delay(0.1) {
+            self.scrollToTopOrBottom()
+        }
+    }
+    
+    private func scrollToTopOrBottom() {
+        let mainScrollYOffset = mainScrollView.contentOffset.y
+        let maxYOffsetForMainScroll = self.mainScrollView.contentSize.height - self.mainScrollView.height
+        let midConstant: CGFloat = (maxYOffsetForMainScroll/2) + 3
+        
+        if mainScrollYOffset <= midConstant {
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+                for offset in stride(from: mainScrollYOffset, through: 0, by: -0.1) {
+                    self.mainScrollView.contentOffset.y = offset
+                }
+                switch self.selectedOption {
+                case .aerin:
+                    self.aerinView.transform = .identity
+                    self.aerinView.alpha = 1
+                case .flight:
+                    self.flightsView.transform = .identity
+                    self.flightsView.alpha = 1
+                case .hotels:
+                    self.hotelsView.transform = .identity
+                    self.hotelsView.alpha = 1
+                case .trips:
+                    self.tripsView.transform = .identity
+                    self.tripsView.alpha = 1
+                }
+            }, completion: nil)
+        } else {
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+                for offset in stride(from: mainScrollYOffset, through: maxYOffsetForMainScroll, by: 0.1) {
+                    self.mainScrollView.contentOffset.y = offset
+                }
+            }, completion: nil)
         }
     }
 }
