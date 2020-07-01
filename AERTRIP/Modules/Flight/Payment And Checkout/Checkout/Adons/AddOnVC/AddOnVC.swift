@@ -20,6 +20,7 @@ class AddOnVC : BaseVC {
     
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var adonsTableView: UITableView!
+    @IBOutlet weak var bookNowLabel: UILabel!
     
     let adonsVm = AdonsVM()
     var fareBreakupVC:IntFareBreakupVC?
@@ -44,7 +45,7 @@ class AddOnVC : BaseVC {
     
     override func setupTexts() {
         super.setupTexts()
-        
+        self.bookNowLabel.attributedText = LocalizedString.Book_Now_And_Get_Off.localized.attributeStringWithColors(subString: "20% off", strClr: UIColor.black, substrClr: UIColor.black, strFont: AppFonts.c.withSize(38), subStrFont: AppFonts.c.withSize(38), backgroundColor: AppColors.greenBackground)
     }
     
     override func bindViewModel() {
@@ -62,6 +63,7 @@ extension AddOnVC {
         self.mealsUpdated(amount: "")
         configureTableView()
         setupBottomView()
+        
     }
     
     func configureNavigation(showSkip : Bool = true){

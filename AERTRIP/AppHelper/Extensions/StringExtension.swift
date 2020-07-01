@@ -844,7 +844,7 @@ extension String {
                                    strClr: UIColor,
                                    substrClr: UIColor,
                                    strFont: UIFont = AppFonts.Regular.withSize(12),
-                                   subStrFont: UIFont = AppFonts.SemiBold.withSize(12)) -> NSAttributedString{
+                                   subStrFont: UIFont = AppFonts.SemiBold.withSize(12), backgroundColor : UIColor = UIColor.clear) -> NSAttributedString{
 
         let attributedString = NSMutableAttributedString(string:self)
 
@@ -855,9 +855,10 @@ extension String {
         //if main_string.contains("(should be 18 years or above from curent date)"){
         let range2 = (self as NSString).range(of: subString)
 
-
         attributedString.addAttributes([NSAttributedString.Key.font: subStrFont ,NSAttributedString.Key.foregroundColor : substrClr], range: range2)
-
+        
+        attributedString.addAttributes([NSAttributedString.Key.backgroundColor : backgroundColor], range: range2)
+        
         return attributedString
     }
     

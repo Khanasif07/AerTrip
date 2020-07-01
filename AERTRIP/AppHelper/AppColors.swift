@@ -155,6 +155,8 @@ enum AppColors {
     /// RGB - 255, 255, 255, 0.85
     static let themeWhite85  = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.85)
 
+    static let greenBackground  = UIColor(displayP3Red: 146/255, green: 255/255, blue: 228/255, alpha: 1)
+
     
     case headlines
     case body

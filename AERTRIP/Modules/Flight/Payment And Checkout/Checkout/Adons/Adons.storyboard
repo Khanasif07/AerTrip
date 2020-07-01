@@ -90,6 +90,7 @@ get upto 20% off </string>
                     </view>
                     <connections>
                         <outlet property="adonsTableView" destination="MMv-5k-dtX" id="oju-fo-U3s"/>
+                        <outlet property="bookNowLabel" destination="UqO-lJ-uV1" id="BLk-AU-oLy"/>
                         <outlet property="topNavView" destination="4VS-iD-FFh" id="GfR-ip-7VT"/>
                     </connections>
                 </viewController>
