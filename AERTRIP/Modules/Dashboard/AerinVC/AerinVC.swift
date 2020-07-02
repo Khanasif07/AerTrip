@@ -43,6 +43,7 @@ class AerinVC: BaseVC {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         containerScrollView.alwaysBounceVertical = true
+        containerScrollView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {

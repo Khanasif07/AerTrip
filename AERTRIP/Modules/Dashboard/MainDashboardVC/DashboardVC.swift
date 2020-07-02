@@ -503,11 +503,15 @@ extension DashboardVC  {
             //            if transformedBounds.size.width >= identitySize.width && !scrolledUp{
             //                view.transform = CGAffineTransform.identity
             //            }else
-            if transformedBounds.size.width < smallerSize.width && scrolledUp{
-                view.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-            }else{
-                view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
-            }
+            
+            // MARK: Commented by Rishabh as it is causing jerk in small devices
+//            if transformedBounds.size.width < smallerSize.width && scrolledUp{
+//                view.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+//            }else{
+//                view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
+//            }
+            view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
+
         }
     }
     
@@ -646,9 +650,6 @@ extension DashboardVC {
     
     func innerScrollDidEndDragging(_ scrollView: UIScrollView) {
         self.scrollToTopOrBottom()
-        DispatchQueue.delay(0.1) {
-            self.scrollToTopOrBottom()
-        }
     }
     
     private func scrollToTopOrBottom() {
@@ -656,10 +657,11 @@ extension DashboardVC {
         let maxYOffsetForMainScroll = self.mainScrollView.contentSize.height - self.mainScrollView.height
         let midConstant: CGFloat = (maxYOffsetForMainScroll/2) + 3
         
-        if mainScrollYOffset <= midConstant {
-            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+        if mainScrollYOffset < midConstant {
+            UIView.animate(withDuration: 0.3, animations: {
                 for offset in stride(from: mainScrollYOffset, through: 0, by: -0.1) {
                     self.mainScrollView.contentOffset.y = offset
+                    self.mainScrollView.layoutIfNeeded()
                 }
                 switch self.selectedOption {
                 case .aerin:
@@ -675,13 +677,22 @@ extension DashboardVC {
                     self.tripsView.transform = .identity
                     self.tripsView.alpha = 1
                 }
-            }, completion: nil)
+            }, completion: { _ in
+                if self.mainScrollView.contentOffset.y != 0 {
+                    self.scrollToTopOrBottom()
+                }
+            })
         } else {
-            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+            UIView.animate(withDuration: 0.3, animations: {
                 for offset in stride(from: mainScrollYOffset, through: maxYOffsetForMainScroll, by: 0.1) {
                     self.mainScrollView.contentOffset.y = offset
+                    self.mainScrollView.layoutIfNeeded()
                 }
-            }, completion: nil)
+            }, completion: { _ in
+                if self.mainScrollView.contentOffset.y < maxYOffsetForMainScroll {
+                    self.scrollToTopOrBottom()
+                }
+            })
         }
     }
 }
