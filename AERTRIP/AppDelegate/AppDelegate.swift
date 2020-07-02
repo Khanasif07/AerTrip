@@ -40,9 +40,11 @@ import UIKit
         // CHECK FOR LAUNCH OF FLIGHT OR HOTEL MODULE
         if isApplicationForFlight{
             setupFlightsVC()
+            window?.backgroundColor = UIColor.white
         } else {
             FirebaseApp.configure()
             AppFlowManager.default.setupInitialFlow()
+            window?.backgroundColor = UIColor.black
         }
 
         GoogleLoginController.shared.configure()
@@ -56,7 +58,6 @@ import UIKit
         
         self.reachability = Reachability.networkReachabilityForInternetConnection()
         let _ = self.reachability?.startNotifier()
-        window?.backgroundColor = UIColor.white
         return true
     }
     

@@ -67,22 +67,20 @@ class BaggageContainerVC : BaseVC {
        }
        
        override func initialSetup() {
-           super.initialSetup()
-           setupNavBar()
-           setUpViewPager()
+            super.initialSetup()
+            setupNavBar()
+            setUpViewPager()
             calculateTotalAmount()
-        totalContainerView.addShadow(ofColor: .black, radius: 20, opacity: 0.05)
+            totalContainerView.addShadow(ofColor: .black, radius: 20, opacity: 0.05)
        }
 
         @IBAction func addButtonTapped(_ sender: UIButton) {
-            for (index,item) in self.baggageContainerVM.allChildVCs.enumerated() {
-                AddonsDataStore.shared.flightsWithData[index].bags = item.selectBaggageVM.addonsDetails
-            }
-            
+            self.baggageContainerVM.updateBaggageToDataStore()
             let price = self.totalLabel.text ?? ""
             self.delegate?.baggageUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
             self.dismiss(animated: true, completion: nil)
     }
+    
 }
 
 extension BaggageContainerVC {
@@ -90,9 +88,7 @@ extension BaggageContainerVC {
     private func configureNavigation(){
         self.topNavBarView.delegate = self
         self.topNavBarView.configureNavBar(title: LocalizedString.Baggage.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : false)
-        
         self.topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18))
-        
         self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18))
     }
     
@@ -145,15 +141,7 @@ extension BaggageContainerVC {
     }
     
     func calculateTotalAmount(){
-         var totalPrice = 0
-         for item in self.baggageContainerVM.allChildVCs {
-             let mealsArray = item.selectBaggageVM.getBaggage()
-             let selectedMeals = mealsArray.filter { !$0.bagageSelectedFor.isEmpty && $0.ssrName?.isReadOnly == 0 }
-             selectedMeals.forEach { (meal) in
-                 totalPrice += (meal.price * meal.bagageSelectedFor.count)
-             }
-         }
-         self.totalLabel.text = "₹ \(totalPrice)"
+        self.totalLabel.text = "₹ \(self.baggageContainerVM.calculateTotalAmount())"
      }
     
 }
@@ -161,17 +149,7 @@ extension BaggageContainerVC {
 
 extension BaggageContainerVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        for (index,item) in self.baggageContainerVM.allChildVCs.enumerated() {
-            let mealsArray = item.selectBaggageVM.getBaggage()
-            mealsArray.enumerated().forEach { (addonIndex,_) in
-                item.selectBaggageVM.updateContactInBaggage(baggageIndex: addonIndex, contacts: [], autoSelectedFor: [])
-        AddonsDataStore.shared.flightsWithData[index].bags.addonsArray[addonIndex].bagageSelectedFor = []
-          AddonsDataStore.shared.flightsWithData[index].bags.addonsArray[addonIndex].autoSelectedFor = ""
-           
-            }
-            
-             item.reloadData()
-         }
+        self.baggageContainerVM.clearAll()
         calculateTotalAmount()
         let price = self.totalLabel.text ?? ""
         self.delegate?.baggageUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))    }

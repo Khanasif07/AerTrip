@@ -148,7 +148,11 @@ class AdonsVM  {
     }
     
     func getSeatMapContainerVM() -> SeatMapContainerVM {
-        let viewModel = SeatMapContainerVM(AddonsDataStore.shared.itinerary.sid, AddonsDataStore.shared.itinerary.id, AddonsDataStore.shared.itinerary.details.fk)
+        var legFKs = [String]()
+        if !AddonsDataStore.shared.itinerary.isInternational {
+            legFKs = AddonsDataStore.shared.itinerary.details.leg
+        }
+        let viewModel = SeatMapContainerVM(AddonsDataStore.shared.itinerary.sid, AddonsDataStore.shared.itinerary.id, AddonsDataStore.shared.itinerary.details.fk, legFKs)
         return viewModel
     }
     

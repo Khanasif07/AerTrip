@@ -112,7 +112,6 @@ struct DomesticMultilegJourneyResultsArray {
     }
     
     var aboveHumanScoreCount : Int {
-        
         let count = journeyArray.filter() { $0.isAboveHumanScore == true }.count
         return count
     }
@@ -208,11 +207,10 @@ struct InternationalJourneyResultsArray {
         return journeyArray.count - aboveHumanScoreCount
     }
     
-    
     mutating func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int){
   
             var sortArray = self.suggestedJourneyArray
-
+        
             if excludeExpensiveFlights {
                     sortArray = journeyArray
             }
