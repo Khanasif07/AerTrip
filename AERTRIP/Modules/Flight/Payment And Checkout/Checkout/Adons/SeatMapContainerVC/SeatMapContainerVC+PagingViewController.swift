@@ -15,12 +15,11 @@ extension SeatMapContainerVC: PagingViewControllerDataSource , PagingViewControl
         
         if let pagingIndexItem = pagingItem as? MenuItem{
             let text = pagingIndexItem.attributedTitle
-            return (text?.size().width ?? 0) + 20
+            return (text?.size().width ?? 0) + 10
         }
         
         return 100.0
     }
-    
     
     func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
         viewModel.allTabsStr.count

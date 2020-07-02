@@ -15,9 +15,16 @@ class SelectOtherAdonsVC: UIViewController {
     @IBOutlet weak var specialRequestLabel: UILabel!
     @IBOutlet weak var specialRequestInfoLabel: UILabel!
     @IBOutlet weak var otherAdonsTableView: UITableView!
+
     
     var otherAdonsVm : SelectOtherAdonsVM!
     weak var delegate : SelectOtherDelegate?
+    
+    lazy var noResultsemptyView: EmptyScreenView = {
+         let newEmptyView = EmptyScreenView()
+         newEmptyView.vType = .noOthersData
+         return newEmptyView
+     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +60,17 @@ extension SelectOtherAdonsVC {
         self.setupFonts()
         self.setupColors()
         configureTableView()
+        checkForNoData()
     }
+    
+    private func checkForNoData() {
+            guard let _ = self.otherAdonsTableView else { return }
+            if otherAdonsVm.getOthers().isEmpty {
+                 otherAdonsTableView.backgroundView = noResultsemptyView
+             } else {
+                 otherAdonsTableView.backgroundView = nil
+             }
+         }
     
         private func configureTableView(){
             self.otherAdonsTableView.register(UINib(nibName: "SelectBagageCell", bundle: nil), forCellReuseIdentifier: "SelectBagageCell")
@@ -75,6 +92,7 @@ extension SelectOtherAdonsVC {
         guard let _ = self.otherAdonsTableView else { return }
         self.otherAdonsTableView.reloadData()
     }
+    
 }
 
 extension SelectOtherAdonsVC : UITableViewDelegate, UITableViewDataSource {

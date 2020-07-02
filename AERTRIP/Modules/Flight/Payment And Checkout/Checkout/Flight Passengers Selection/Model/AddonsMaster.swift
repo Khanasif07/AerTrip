@@ -43,6 +43,8 @@ struct AddonsFlight{
     var ssrName:[String:AddonsSsr]
     var frequenFlyer:[String:AddonsFFDetails]
     var isfrequentFlyer:Bool
+    var freeMeal : Bool = false
+    var freeSeat : Bool = false
     init(_ json:JSON = JSON(), legId : String){
         self.legId = legId
         ssrName = Dictionary(uniqueKeysWithValues: json["ssr_name"].map { ($0.0, AddonsSsr($0.1)) })

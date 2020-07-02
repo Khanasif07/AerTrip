@@ -775,6 +775,8 @@ struct IntMultiCityAndReturnWSResponse {
         }
         
         struct Ldet {
+            var freeMeal : Bool
+            var freeSeat : Bool
             var fcp: Int
             var allAp: [String]
             var ap: [String]
@@ -966,6 +968,8 @@ struct IntMultiCityAndReturnWSResponse {
                 at = json["at"].stringValue
                 al = json["al"].arrayValue.map { $0.stringValue }
                 ttl = json["ttl"].arrayValue.map { $0.stringValue }
+                freeMeal = json["free_meal"].boolValue
+                freeSeat = json["free_seat"].boolValue
             }
             
             var totalLayOver : Int {
@@ -1373,6 +1377,8 @@ extension IntMultiCityAndReturnWSResponse.Results.Ldet{
         al = jsonData["al"].arrayValue.map { $0.stringValue }
         ttl = jsonData["ttl"].arrayValue.map { $0.stringValue }
         flightsWithDetails = jsonData["flights"].arrayValue.map{IntFlightDetail($0)}
+        freeMeal = jsonData["free_meal"].boolValue
+        freeSeat = jsonData["free_seat"].boolValue
     }
     
     

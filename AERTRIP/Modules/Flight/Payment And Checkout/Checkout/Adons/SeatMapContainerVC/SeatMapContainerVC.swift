@@ -25,10 +25,8 @@ class SeatMapContainerVC: UIViewController {
     weak var delegate : AddonsUpdatedDelegate?
 
     // MARK: IBOutlets
-    
     @IBOutlet weak var topNavBarView: TopNavigationView!
     @IBOutlet weak var seatMapContainerView: UIView!
-    
     @IBOutlet weak var planeLayoutView: UIView!
     @IBOutlet weak var planeLayoutTopSeparatorView: UIView!
     @IBOutlet weak var planeLayoutBottomSeparatorView: UIView!
@@ -42,15 +40,14 @@ class SeatMapContainerVC: UIViewController {
     @IBOutlet weak var tailImgView: UIImageView!
     @IBOutlet weak var planeLayoutCollView: UICollectionView!
     @IBOutlet weak var planeLayoutCollViewWidth: NSLayoutConstraint!
-    
     @IBOutlet weak var totalSeatAmountView: UIView!
     @IBOutlet weak var totalSeatAmountTopSeparatorView: UIView!
     @IBOutlet weak var seatTotalTitleLbl: UILabel!
     @IBOutlet weak var seatTotalLbl: UILabel!
     @IBOutlet weak var addBtn: UIButton!
     @IBOutlet weak var totalSeatAmountViewHeight: NSLayoutConstraint!
-    
     @IBOutlet weak var highlightContainerView: UIView!
+    
     
     // MARK: View Life Cycle
     override func viewDidLoad() {
@@ -71,7 +68,9 @@ class SeatMapContainerVC: UIViewController {
             AddonsDataStore.shared.seatsArray = viewModel.selectedSeats
             AddonsDataStore.shared.originalSeatMapModel = viewModel.seatMapModel
             AddonsDataStore.shared.seatsAllFlightsData = viewModel.allFlightsData
-            self.delegate?.seatsUpdated()
+            viewModel.getSeatTotal { [weak self] (seatTotal) in
+                self?.delegate?.seatsUpdated(amount: seatTotal)
+            }
             dismiss(animated: true, completion: nil)
         } else {
             viewModel.hitPostSeatConfirmationAPI()
@@ -85,10 +84,16 @@ class SeatMapContainerVC: UIViewController {
         setupViews()
         addHighlightView()
         viewModel.delegate = self
-        viewModel.fetchSeatMapData()
-        setupPlaneLayoutCollView()
         planeLayoutScrollView.delegate = self
-        addPanToHighlightView()
+        self.planeLayoutView.isHidden = true
+        self.planeShadowView.isHidden = true
+        delay(seconds: 0.2) {
+            self.viewModel.fetchSeatMapData()
+            self.setupPlaneLayoutCollView()
+            self.addPanToHighlightView()
+//            self.planeLayoutView.isHidden = false
+//            self.planeShadowView.isHidden = false
+        }
     }
     
     func setViewModel(_ vm: SeatMapContainerVM) {
@@ -100,8 +105,9 @@ class SeatMapContainerVC: UIViewController {
         viewModel.bookingId = bookingId
     }
     
-    func setBookingFlightLegs(_ legs: [BookingLeg]) {
+    func setBookingFlightLegsAndAddOns(_ legs: [BookingLeg],_ addOns: [BookingAddons]) {
         viewModel.bookingFlightLegs = legs
+        viewModel.bookingAddOns = addOns.filter { $0.addonType == "seat" }
     }
     
     private func setupPlaneLayoutCollView() {
@@ -114,6 +120,7 @@ class SeatMapContainerVC: UIViewController {
         planeLayoutCollView.dataSource = self
         planeShadowView.addShadow(ofColor: .black, radius: 60, opacity: 0.5)
         planeLayoutView.isHidden = true
+        self.planeShadowView.isHidden = true
     }
     
     private func setupNavBar() {
@@ -121,7 +128,7 @@ class SeatMapContainerVC: UIViewController {
         
         topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen)
         
-        topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Bold.withSize(18))
+        topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18))
         
         topNavBarView.delegate = self
     }
@@ -137,7 +144,9 @@ class SeatMapContainerVC: UIViewController {
         seatTotalLbl.text = "₹ 0"
         addBtn.titleLabel?.font = AppFonts.SemiBold.withSize(20)
         addBtn.setTitleColor(AppColors.themeGreen, for: .normal)
-        addBtn.setTitle(LocalizedString.Add.localized, for: .normal)
+        let addBtnTitle = viewModel.setupFor == .postSelection ? LocalizedString.CheckoutTitle.localized : LocalizedString.Add.localized
+        addBtn.setTitle(addBtnTitle, for: .normal)
+        totalSeatAmountView.addShadow(ofColor: .black, radius: 20, opacity: 0.05)
     }
     
     private func addHighlightView() {
@@ -152,11 +161,9 @@ class SeatMapContainerVC: UIViewController {
         for index in 0..<viewModel.allTabsStr.count {
             let vc = SeatMapVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
             vc.setFlightData(viewModel.allFlightsData[index])
-            if viewModel.setupFor == .postSelection {
-                if let flightLeg = viewModel.bookingFlightLegs.first(where: { $0.legId == viewModel.allFlightsData[index].lfk }) {
-                    vc.setPassengersFromBooking(flightLeg.pax)
-                }
-            }
+//            if viewModel.setupFor == .postSelection {
+//                vc.setPassengersFromBooking(viewModel.bookedPassengersArr)
+//            }
             vc.onReloadPlaneLayoutCall = { [weak self] updatedFlightData in
                 guard let self = self else { return }
                 if let flightData = updatedFlightData {
@@ -189,8 +196,8 @@ class SeatMapContainerVC: UIViewController {
     private func setupParchmentPageController(){
         
         self.parchmentView = PagingViewController()
-        self.parchmentView?.menuItemSpacing = (self.view.width - 251.5) / 2
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 33.0, bottom: 0.0, right: 38.0)
+        self.parchmentView?.menuItemSpacing = 34
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 15, bottom: 0.0, right: 15)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 56)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
@@ -269,6 +276,7 @@ class SeatMapContainerVC: UIViewController {
         
         UIView.animate(withDuration: 0.33, animations: {
             self.planeLayoutView.isHidden = false
+            self.planeShadowView.isHidden = false
             self.planeLayoutView.alpha = 1
         }, completion:  { _ in
             if callHide {
@@ -290,18 +298,34 @@ extension SeatMapContainerVC {
         let convertedRectForHighlightView = highlightContainerView.convert(highlightView?.frame ?? .zero, to: planeLayoutScrollView)
         
         let convertedRectMaxXOffset = convertedRectForHighlightView.origin.x + convertedRectForHighlightView.width
-        let scrollViewMaxXOffset = planeLayoutScrollView.contentOffset.x + planeLayoutScrollView.width
+        let scrollViewMaxXOffset = planeLayoutScrollView.contentOffset.x + planeLayoutScrollView.width - 16
         
         if convertedRectMaxXOffset > scrollViewMaxXOffset {
-            UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseInOut, animations: {
+            
+            if ((highlightView?.frame.maxX ?? 0) >= highlightContainerView.width - 30) && (highlightContainerView.frame.maxX >= scrollViewMaxXOffset) {
+                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+                    self.planeLayoutScrollView.contentOffset.x += 100
+                }, completion: nil)
+                return
+            }
+            
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
                 self.planeLayoutScrollView.contentOffset.x += 20
             }, completion: nil)
         }
         
         let convertedRectXOffset = convertedRectForHighlightView.origin.x
-        let scrollViewXOffset = planeLayoutScrollView.contentOffset.x
+        let scrollViewXOffset = planeLayoutScrollView.contentOffset.x + 16
         if convertedRectXOffset < scrollViewXOffset {
-            UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseInOut, animations: {
+            
+            if ((highlightView?.frame.minX ?? 0) <= 30) && (highlightContainerView.frame.minX <= scrollViewXOffset) {
+                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+                    self.planeLayoutScrollView.contentOffset.x -= 100
+                }, completion: nil)
+                return
+            }
+            
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
                 self.planeLayoutScrollView.contentOffset.x -= 20
             }, completion: nil)
         }
@@ -342,7 +366,7 @@ extension SeatMapContainerVC {
         let convertedRectForHighlightView = highlightContainerView.convert(highlightView?.frame ?? .zero, to: planeLayoutScrollView)
         if translationX > 0 {
             let convertedRectMaxXOffset = convertedRectForHighlightView.origin.x + convertedRectForHighlightView.width
-            let scrollViewMaxXOffset = planeLayoutScrollView.contentOffset.x + planeLayoutScrollView.width
+            let scrollViewMaxXOffset = planeLayoutScrollView.contentOffset.x + planeLayoutScrollView.width - 16
             if convertedRectMaxXOffset > scrollViewMaxXOffset {
                 UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseInOut, animations: {
                     self.planeLayoutScrollView.contentOffset.x += 5
@@ -351,7 +375,7 @@ extension SeatMapContainerVC {
             }
         } else {
             let convertedRectXOffset = convertedRectForHighlightView.origin.x
-            let scrollViewXOffset = planeLayoutScrollView.contentOffset.x
+            let scrollViewXOffset = planeLayoutScrollView.contentOffset.x + 16
             if convertedRectXOffset < scrollViewXOffset {
                 UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseInOut, animations: {
                     self.planeLayoutScrollView.contentOffset.x -= 5
@@ -378,7 +402,7 @@ extension SeatMapContainerVC: TopNavigationViewDelegate {
         if viewModel.setupFor == .preSelection {
             AddonsDataStore.shared.seatsAllFlightsData = viewModel.originalAllFlightsData
             AddonsDataStore.shared.seatsArray.removeAll()
-            self.delegate?.seatsUpdated()
+            delegate?.seatsUpdated(amount: 0)
         }
         allChildVCs.enumerated().forEach { (index, seatMapVC) in
             seatMapVC.setFlightData(viewModel.allFlightsData[index])
@@ -401,15 +425,28 @@ extension SeatMapContainerVC: TopNavigationViewDelegate {
 extension SeatMapContainerVC: SeatMapContainerDelegate {
     
     func willFetchSeatMapData() {
-        
-        delay(seconds: 0.2) {
+        DispatchQueue.main.async {
             AppGlobals.shared.startLoading()
-            
         }
     }
     
     func failedToFetchSeatMapData() {
-        AppGlobals.shared.stopLoading()
+        DispatchQueue.main.async {
+            AppGlobals.shared.stopLoading()
+        }
+        AppToast.default.showToastMessage(message: LocalizedString.Will_Be_Available_Soon.localized)
+    }
+    
+    func willHitPostConfAPI() {
+        DispatchQueue.main.async {
+            AppGlobals.shared.startLoading()
+        }
+    }
+    
+    func didHitPostConfAPI() {
+        DispatchQueue.main.async {
+            AppGlobals.shared.stopLoading()
+        }
     }
     
     func didFetchSeatMapData() {
@@ -425,19 +462,136 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
             viewModel.allTabsStr.append(contentsOf: flightsStr)
         }
         viewModel.originalAllFlightsData = totalFlightsData
+        viewModel.allFlightsData = totalFlightsData
         if let allFlightsData = AddonsDataStore.shared.seatsAllFlightsData, viewModel.setupFor == .preSelection {
             viewModel.allFlightsData = allFlightsData
             viewModel.getSeatTotal { [weak self] (seatTotal) in
                 guard let self = self else { return }
                 self.seatTotalLbl.text = "₹ \(seatTotal)"
             }
-        } else {
-            viewModel.allFlightsData = totalFlightsData
+        } else if viewModel.setupFor == .postSelection {
+            createPassengerContactsArr()
+            // Resetting after setting passengers on seat
+            viewModel.originalAllFlightsData = viewModel.allFlightsData
+            viewModel.getSeatTotal { [weak self] (seatTotal) in
+                guard let self = self else { return }
+                self.seatTotalLbl.text = "₹ \(seatTotal)"
+            }
         }
+        guard !viewModel.allTabsStr.isEmpty else { return }
         setUpViewPager()
         planeLayoutCollView.reloadData()
         DispatchQueue.delay(0.5) {
             self.setCurrentPlaneLayout()
+        }
+    }
+    
+    
+    func willFetchQuotationData(){
+        AppGlobals.shared.startLoading()
+    }
+    func didFetchQuotationData(_ quotationModel: AddonsQuotationsModel){
+        AppGlobals.shared.stopLoading()
+        let vc = PostBookingAddonsPaymentVC.instantiate(fromAppStoryboard: .FlightPayment)
+        vc.viewModel.addonsDetails = quotationModel
+        vc.viewModel.bookingIds = self.viewModel.bookingIds
+        self.navigationController?.pushViewController(vc, animated:true)
+    }
+    func faildToFetchQuotationData(){
+        AppGlobals.shared.stopLoading()
+        AppToast.default.showToastMessage(message: "Something went worng!")
+        
+    }
+    
+    
+}
+
+//MARK: Methods for Post Booking
+extension SeatMapContainerVC {
+    
+    private func createPassengerContactsArr() {
+        let passengers = viewModel.bookingFlightLegs.flatMap { $0.pax }
+        
+        var localPassengers: [ATContact] {
+            var passArr = [ATContact]()
+            passengers.forEach { (passenger) in
+                var newContact = ATContact()
+                newContact.id = passenger.uPid
+                newContact.apiId = passenger.paxId
+                newContact.firstName = passenger.firstName
+                newContact.lastName = passenger.lastName
+                newContact.image = passenger.profileImage
+                if passArr.contains(where: { $0.id == newContact.id }) {
+                    
+                } else {
+                    if passenger.paxType != "INF" {
+                        passArr.append(newContact)
+                    }
+                }
+            }
+            return passArr
+        }
+        
+        viewModel.bookedPassengersArr = localPassengers
+        GuestDetailsVM.shared.guests[0] = viewModel.bookedPassengersArr
+        createPassengerToSeatArray()
+    }
+    
+    private func createPassengerToSeatArray() {
+        var passengersToSeat: [SeatMapContainerVM.AddOnPassengersToSeatModel] {
+            var passArr = [SeatMapContainerVM.AddOnPassengersToSeatModel]()
+            viewModel.bookingAddOns.forEach { (addOn) in
+                if let localPass = viewModel.bookedPassengersArr.first(where: { $0.apiId == addOn.paxId }) {
+                    let seatStrComponents = addOn.extraDetails.components(separatedBy: ",")
+                    var seatDict = JSONDictionary()
+                    seatStrComponents.forEach { (component) in
+                        let pair = component.components(separatedBy: "=")
+                        if pair.count == 2 {
+                            seatDict[pair[0]] = pair[1]
+                        }
+                    }
+                    let seatJson = JSON(seatDict)
+                    
+                    let addOnFlightId = addOn.flightId
+                    let rowNum = seatJson["Row"].intValue
+                    let columnStr = seatJson["Column"].stringValue
+                    
+                    let passToSeat = SeatMapContainerVM.AddOnPassengersToSeatModel(localPass, addOnFlightId, rowNum, columnStr)
+                    
+                    passArr.append(passToSeat)
+                }
+            }
+            return passArr
+        }
+        
+        passengersToSeat.forEach { (passModel) in
+            setPassengerOnSeat(passModel)
+        }
+    }
+    
+    private func setPassengerOnSeat(_ passengerModel: SeatMapContainerVM.AddOnPassengersToSeatModel) {
+        
+        viewModel.allFlightsData = viewModel.allFlightsData.map { (flightData) in
+            var newFlightData = flightData
+            if newFlightData.ffk == passengerModel.flightId {
+                let mainDeckData = newFlightData.md
+                let upperDeckData = newFlightData.ud
+                if mainDeckData.rowsArr.contains("\(passengerModel.rowNum)"), mainDeckData.columns.contains(passengerModel.columnStr) {
+                    newFlightData.md.rows[passengerModel.rowNum]?[passengerModel.columnStr]?.isPreselected = true
+                    newFlightData.md.rows[passengerModel.rowNum]?[passengerModel.columnStr]?.columnData.passenger = passengerModel.passenger
+                    
+                    viewModel.originalBookedAddOnSeats.append(newFlightData.md.rows[passengerModel.rowNum]![passengerModel.columnStr]!)
+                    
+                } else if upperDeckData.rowsArr.contains("\(passengerModel.rowNum)"), mainDeckData.columns.contains(passengerModel.columnStr) {
+                    
+                    newFlightData.ud.rows[passengerModel.rowNum]?[passengerModel.columnStr]?.isPreselected = true
+                    newFlightData.ud.rows[passengerModel.rowNum]?[passengerModel.columnStr]?.columnData.passenger = passengerModel.passenger
+                    
+                    viewModel.originalBookedAddOnSeats.append(newFlightData.ud.rows[passengerModel.rowNum]![passengerModel.columnStr]!)
+                }
+            }
+            
+            return newFlightData
         }
     }
 }

@@ -59,11 +59,17 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
     var selectedFareName = ""
     var isFirstJourneyHasFareResp = false
     
+    var selectedFks = [String]()//To check upgrade fare flow
+    var selectedFarepr = [Int]()//To check upgrade fare flow
+    
     //MARK:- Initialise Views
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
+        //-------------------------To check coperate flow---------------------------------------
+        self.selectedFks = self.journey?.map{$0.fk} ?? []
+        self.selectedFarepr = self.journey?.map{$0.farepr} ?? []
+        //--------------------------------------------------------------------------------------
         clearCache.checkTimeAndClearUpgradeDataCache()
         
         self.planDisplayView.isHidden = true
@@ -519,7 +525,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                         
                                         var checkMarkImgName = ""
                                         
-                                        let farepr = (upgardeResult[indexPath.row] as AnyObject).value(forKey: "farepr") as! Int
+                                        let farepr = (upgardeResult[indexPath.row] as AnyObject).value(forKey: "farepr") as? Int ?? 0
                                         cell.selectButtonClick.tag = indexPath.row
                                         cell.selectButtonClick.addTarget(self, action: #selector(selectPlanButtonClicked), for: .touchUpInside)
                                         
@@ -768,7 +774,10 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
     {
         let fareTypeName = (upgardeResult[sender.tag] as AnyObject).value(forKey: "FareTypeName") as? NSArray
         selectedFareName = ((fareTypeName?[0] as? NSArray)?.firstObject as! String).lowercased()
-        
+        //-------------------------To check coperate flow---------------------------------------
+        self.selectedFks[self.selectedLocationIndex] = (upgardeResult[sender.tag] as AnyObject).value(forKey:"fk") as? String ?? ""
+        self.selectedFarepr[self.selectedLocationIndex] = (upgardeResult[sender.tag] as AnyObject).value(forKey:"farepr") as? Int ?? 0
+        //-------------------------To check coperate flow---------------------------------------
         selectedPlanIndex = sender.tag
         if let farepr = (upgardeResult[sender.tag] as AnyObject).value(forKey: "farepr") as? Int
         {
@@ -808,8 +817,13 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
         //    }
     }
     
-    @IBAction func closeButtonClicked(_ sender: Any)
-    {
+    @IBAction func closeButtonClicked(_ sender: Any){
+        //-------------------------To check coperate flow---------------------------------------
+        for (index, fk) in self.selectedFks.enumerated(){
+            self.journey?[index].fk = fk
+            self.journey?[index].farepr = self.selectedFarepr[index]
+        }
+        //---------------------------------------------------------------------------------------
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {
             self.blurView.alpha = 0
             self.dataDisplayViewBottom.constant = -(self.dataDisplayView.bounds.size.height);

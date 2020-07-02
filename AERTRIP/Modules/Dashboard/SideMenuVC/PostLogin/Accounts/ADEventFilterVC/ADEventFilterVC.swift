@@ -117,6 +117,10 @@ class ADEventFilterVC: BaseVC {
         delay(seconds: 0.01) { [weak self] in
             self?.setUpViewPager()
         }
+        //for header blur
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        topNavBar.backgroundColor = AppColors.clear
+        
         self.setupGesture()
     }
     

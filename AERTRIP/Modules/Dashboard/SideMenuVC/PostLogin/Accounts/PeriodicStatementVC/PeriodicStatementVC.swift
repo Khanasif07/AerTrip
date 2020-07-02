@@ -53,6 +53,9 @@ class PeriodicStatementVC: BaseVC {
         self.topNavView.configureNavBar(title: LocalizedString.PeriodicStatement.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
         
         self.setupPagerView()
+        //for header blur
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        topNavView.backgroundColor = AppColors.clear
     }
     
     private func setupPagerView() {

@@ -231,6 +231,28 @@ class AppGlobals {
         return fullString
     }
     
+    
+    // Use  it for creating an image with text .It will return NSMutableattributed string.
+    func getTextWithImageAttributedTxt(image: UIImage, attributedText: NSAttributedString) -> NSMutableAttributedString {
+        // create an NSMutableAttributedString that we'll append everything to
+        let fullString = NSMutableAttributedString(string: "")
+        let attributedMutableCopy = attributedText.mutableCopy() as? NSMutableAttributedString ?? NSMutableAttributedString(string: "")
+        
+        let range:NSRange = NSRange(location: 0, length: attributedMutableCopy.length)
+        
+        attributedMutableCopy.addAttributes([.font:AppFonts.SemiBold.withSize(18)], range: range)
+        // create our NSTextAttachment
+        let image1Attachment = NSTextAttachment()
+        let font = AppFonts.SemiBold.withSize(18)
+            image1Attachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height).rounded() / 2, width: image.size.width, height: image.size.height)
+        image1Attachment.image = image
+        let image1String = NSAttributedString(attachment: image1Attachment)
+        fullString.append(image1String)
+        fullString.append(NSAttributedString(string: "  "))
+        fullString.append(attributedMutableCopy)
+        return fullString
+    }
+    
     // Use  it for creating an image with text(attributed string )  .It will return NSMutableattributed string.
     func getTextWithImage(startText: String, image: UIImage, endText: NSMutableAttributedString, font: UIFont) -> NSMutableAttributedString {
         // create an NSMutableAttributedString that we'll append everything to
@@ -523,6 +545,21 @@ class AppGlobals {
         }
         return updatedTitle
     }
+    
+    
+    func getStringFromImage(name : String) -> NSAttributedString {
+        
+        let imageAttachment = NSTextAttachment()
+        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
+        let iconImage = UIImage(named: name )!
+        imageAttachment.image = iconImage
+        
+        let yCordinate  = roundf(Float(sourceSansPro18.capHeight - iconImage.size.height) / 2.0)
+        imageAttachment.bounds = CGRect(x: CGFloat(0.0), y: CGFloat(yCordinate) , width: iconImage.size.width, height: iconImage.size.height )
+        let imageString = NSAttributedString(attachment: imageAttachment)
+        return imageString
+    }
+    
 }
 
 //MARK: - Project Used Extensions

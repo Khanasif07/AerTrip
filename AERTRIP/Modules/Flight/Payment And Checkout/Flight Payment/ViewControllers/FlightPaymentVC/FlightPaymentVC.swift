@@ -28,7 +28,7 @@ class FlightPaymentVC: BaseVC {
     @IBOutlet weak var activityLoader: UIActivityIndicatorView!
     
     let cellIdentifier = "HotelFareSectionHeader"
-    var isWallet: Bool = true // To check if using wallet or Not
+    var isWallet: Bool = false // To check if using wallet or Not
     var gradientColors: [UIColor] = [AppColors.shadowBlue, AppColors.themeGreen] {
         didSet {
             self.viewDidLayoutSubviews()
@@ -89,7 +89,7 @@ class FlightPaymentVC: BaseVC {
     }
 
     @IBAction func payButtonTapped(_ sender: UIButton) {
-        self.loaderView.isHidden = false
+        self.hideShowLoader(isHidden:false)
 //        delay(seconds: 1) {
 //           self.loaderView.isHidden = true
 //        }
@@ -144,16 +144,25 @@ class FlightPaymentVC: BaseVC {
         self.payButton.setTitle(title, for: .highlighted)
     }
     
-    private func loader(shouldShow: Bool) {
-        self.loaderView.isHidden = shouldShow
-    }
-    
     private func manageLoader() {
         self.activityLoader.style = .white
         self.activityLoader.color = AppColors.themeWhite
         self.activityLoader.startAnimating()
         self.loaderView.addGredient(isVertical: false)
-        self.loaderView.isHidden = true
+        self.hideShowLoader(isHidden:true)
+        
+    }
+    
+    func hideShowLoader(isHidden:Bool){
+        DispatchQueue.main.async {
+            if isHidden{
+                self.activityLoader.stopAnimating()
+            }else{
+                self.activityLoader.startAnimating()
+            }
+            self.view.isUserInteractionEnabled = isHidden
+            self.loaderView.isHidden = isHidden
+        }
     }
     
     private func addFooterView() {
@@ -249,7 +258,7 @@ class FlightPaymentVC: BaseVC {
     }
     
     // Get Total Payable Amount based on conditions
-    private func getTotalPayableAmount() -> Double {
+    func getTotalPayableAmount() -> Double {
         var payableAmount: Double = Double(self.viewModel.itinerary.details.fare.totalPayableNow.value)
         if payableAmount > 0.0 {
             if self.isCouponApplied, let discountBreakUp = self.viewModel.appliedCouponData.discountsBreakup {
@@ -358,15 +367,17 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
             self.viewModel.taxesDataDisplay()
             self.updateAllData()
             self.showFareUpdatePopup()
+        }else{
+            self.hideShowLoader(isHidden:true)
         }
     }
     
     func willMakePayment() {
-        self.loaderView.isHidden = false
+        self.hideShowLoader(isHidden:false)
     }
     
     func makePaymentSuccess(options: JSONDictionary, shouldGoForRazorPay: Bool) {
-        self.loaderView.isHidden = false
+        self.hideShowLoader(isHidden:false)
         if shouldGoForRazorPay {
             self.initializePayment(withOptions: options)
         } else {
@@ -380,17 +391,17 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
     }
     
     func makePaymentFail() {
-        self.loaderView.isHidden = true
+        self.hideShowLoader(isHidden:true)
         AppToast.default.showToastMessage(message: "Make Payment Failed")
     }
     
     func willGetPaymentResonse() {
-        self.loaderView.isHidden = false
+        self.hideShowLoader(isHidden:false)
     }
     
     func getPaymentResonseSuccess(bookingIds: [String], cid: [String]) {
         // send to you are all donr screen
-        self.loaderView.isHidden = true
+       self.hideShowLoader(isHidden:true)
         print(bookingIds)
         let vc = FlightPaymentBookingStatusVC.instantiate(fromAppStoryboard: .FlightPayment)
         vc.viewModel.apiBookingIds = bookingIds
@@ -400,8 +411,15 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
         
     }
     
+    func getPaymentResponseWithPendingPayment(_ p: String, id: String) {
+        let vc = FlightPaymentPendingVC.instantiate(fromAppStoryboard: .FlightPayment)
+        vc.viewModel.itId = id
+        vc.viewModel.product = .flight
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func getPaymentResonseFail() {
-        self.loaderView.isHidden = true
+        self.hideShowLoader(isHidden:true)
     }
       
     
@@ -430,6 +448,7 @@ extension FlightPaymentVC : RazorpayPaymentCompletionProtocolWithData {
         razorpay.open(options, displayController: self)
     }
     func onPaymentError(_ code: Int32, description str: String, andData response: [AnyHashable : Any]?) {
+        self.hideShowLoader(isHidden: true)
         AppToast.default.showToastMessage(message: "Sorry! payment was faild.\nPlease try again.")
     }
     

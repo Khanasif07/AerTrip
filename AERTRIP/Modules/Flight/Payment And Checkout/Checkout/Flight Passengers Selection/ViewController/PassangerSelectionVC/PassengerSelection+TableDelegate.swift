@@ -14,6 +14,7 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -94,6 +95,9 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
             cell.configData(forIndexPath: indexPath, passengers: self.viewModel.passengerList)
             cell.journeyType = self.viewModel.journeyType
             cell.delegate = self
+            cell.isAllPaxInfoRequired = self.viewModel.itineraryData.itinerary.isAllPaxInfoRequired
+            cell.minMNS = self.viewModel.manimumContactLimit
+            cell.maxMNS = self.viewModel.maximumContactLimit
             return cell
         case 1:
             guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "FlightEmptyCell") as? FlightEmptyCell else {return UITableViewCell()}
@@ -158,6 +162,7 @@ extension PassengersSelectionVC: PassengerGridSelectionDelegate{
         let vc = PassengerDetailsVC.instantiate(fromAppStoryboard: .PassengersSelection)
         vc.viewModel.journeyType = self.viewModel.journeyType
         vc.delegate = self
+        vc.viewModel.isAllPaxInfoRequired = self.viewModel.itineraryData.itinerary.isAllPaxInfoRequired
         vc.viewModel.currentIndex = indexPath.row
         self.navigationController?.pushViewController(vc, animated: true)
     }

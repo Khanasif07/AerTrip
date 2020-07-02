@@ -65,9 +65,9 @@ class SelectBaggageVM {
         var autoSelectedForString = "Auto Selected for "
         var flightName : [String] = []
         
-        if autoSelectedFor.isEmpty {
-                 addonsDetails.addonsArray[baggageIndex].autoSelectedFor = ""
-                 return }
+//        if autoSelectedFor.isEmpty {
+//                 addonsDetails.addonsArray[baggageIndex].autoSelectedFor = ""
+//                 return }
         
         autoSelectedFor.forEach { (flightId) in
               let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == flightId }
@@ -75,7 +75,9 @@ class SelectBaggageVM {
               flightName.append("\(firstFlight.fr) → \(firstFlight.to)")
           }
           
-             if flightName.count == 1 {
+            if flightName.isEmpty {
+                autoSelectedForString = ""
+            } else if flightName.count == 1 {
                   autoSelectedForString += flightName.first ?? ""
               }else if flightName.count == 2 {
                   autoSelectedForString += flightName.joined(separator: ",").replacingLastOccurrenceOfString(" ,", with: " and ")

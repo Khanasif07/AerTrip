@@ -1021,6 +1021,7 @@ enum LocalizedString: String {
     case No
     case SendingEmail
     case LedgerSentToYourEmail
+    case OutstandingSentToYourEmail
     
     // MARK: - Common
     case Other
@@ -1070,6 +1071,12 @@ enum LocalizedString: String {
     case seatTotal = "seatTotal"
     case noSeatMapDataDesc = "noSeatMapDataDesc"
     
+    case noMealsDataDesc = "noMealsDataDesc"
+    
+    case noBaggageDataDesc = "noBaggageDataDesc"
+    
+    case noOtherseDataDesc = "noOtherseDataDesc"
+    
     case DomesticCheckIn = "DomesticCheckIn"
     case InternationalCheckIn = "InternationalCheckIn"
     
@@ -1091,8 +1098,37 @@ enum LocalizedString: String {
  
     case Complementary_Meal_Added = "Complementary_Meal_Added"
     
+    case Complementary_Meal_Available = "Complementary_Meal_Available"
+    
     case Free_Seats_Available = "Free_Seats_Available"
-        
+
+    case Passenger_Cannot_Be_Deselected_For_Meal = "Passenger_Cannot_Be_Deselected_For_Meal"
+    
+   case Will_Be_Available_Soon = "Will_Be_Available_Soon"
+    
+    case Important = "Important"
+    
+    case Baggage_Terms_Desc = "Baggage_Terms_Desc"
+    
+    case Baggage_Terms_Point1 = "Baggage_Terms_Point1"
+    
+    case Baggage_Terms_Point2 = "Baggage_Terms_Point2"
+    
+    case Baggage_Terms_Point3 = "Baggage_Terms_Point3"
+    
+    case Baggage_Terms_Point4 = "Baggage_Terms_Point4"
+
+    case emergencySeatDesc = "emergencySeatDesc"
+    
+    case emergencySeatTerms1 = "emergencySeatTerms1"
+    case emergencySeatTerms2 = "emergencySeatTerms2"
+    case emergencySeatTerms3 = "emergencySeatTerms3"
+    case emergencySeatTerms4 = "emergencySeatTerms4"
+    case emergencySeatTerms5 = "emergencySeatTerms5"
+    case emergencySeatTerms6 = "emergencySeatTerms6"
+    case emergencySeatTerms7 = "emergencySeatTerms7"
+    case emergencySeatTerms8 = "emergencySeatTerms8"
+    case emergencySeatTerms9 = "emergencySeatTerms9"
 }
 
 

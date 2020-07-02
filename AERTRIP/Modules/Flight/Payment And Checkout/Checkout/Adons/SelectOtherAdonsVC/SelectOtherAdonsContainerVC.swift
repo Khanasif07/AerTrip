@@ -27,6 +27,8 @@ class SelectOtherAdonsContainerVC: BaseVC {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var MealTotalLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var totalContainerView: UIView!
+
     
     // MARK: View Life Cycle
     override func viewDidLoad() {
@@ -67,13 +69,15 @@ class SelectOtherAdonsContainerVC: BaseVC {
         setupNavBar()
         setUpViewPager()
         calculateTotalAmount()
+        totalContainerView.addShadow(ofColor: .black, radius: 20, opacity: 0.05)
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
        for (index,item) in self.othersContainerVM.allChildVCs.enumerated() {
         AddonsDataStore.shared.flightsWithData[index].special = item.otherAdonsVm.addonsDetails
        }
-        self.delegate?.othersUpdated()
+        let price = self.totalLabel.text ?? ""
+        self.delegate?.othersUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
        self.dismiss(animated: true, completion: nil)
     }
     
@@ -84,8 +88,8 @@ extension SelectOtherAdonsContainerVC {
     private func configureNavigation(){
         self.topNavBarView.delegate = self
         self.topNavBarView.configureNavBar(title: LocalizedString.Others.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : false)
-        self.topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen)
-        self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Bold.withSize(18))
+        self.topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18))
+        self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18))
     }
     
     private func setUpViewPager() {
@@ -108,9 +112,9 @@ extension SelectOtherAdonsContainerVC {
     private func setupParchmentPageController(){
         
         self.parchmentView = PagingViewController()
-        self.parchmentView?.menuItemSpacing = (self.view.width - 251.5) / 2
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 33.0, bottom: 0.0, right: 38.0)
-        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 40)
+        self.parchmentView?.menuItemSpacing = 36
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 15, bottom: 0.0, right: 15)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 53)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
@@ -140,7 +144,7 @@ extension SelectOtherAdonsContainerVC {
         var totalPrice = 0
         for item in self.othersContainerVM.allChildVCs {
             let mealsArray = item.otherAdonsVm.getOthers()
-            let selectedMeals = mealsArray.filter { !$0.othersSelectedFor.isEmpty }
+            let selectedMeals = mealsArray.filter { !$0.othersSelectedFor.isEmpty && $0.ssrName?.isReadOnly == 0 }
             selectedMeals.forEach { (meal) in
                 totalPrice += (meal.price * meal.othersSelectedFor.count)
             }
@@ -161,10 +165,10 @@ extension SelectOtherAdonsContainerVC: TopNavigationViewDelegate {
                 AddonsDataStore.shared.flightsWithData[index].special.addonsArray[addonIndex].othersSelectedFor = []
                }
                item.reloadData()
-               calculateTotalAmount()
            }
-        
-    }
+        calculateTotalAmount()
+        let price = self.totalLabel.text ?? ""
+        self.delegate?.othersUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))    }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
@@ -255,8 +259,9 @@ extension SelectOtherAdonsContainerVC : SelectOtherDelegate {
            vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
                guard let weakSelf = self else { return }
             weakSelf.othersContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, othersIndex: othersIndex, contacts: contacts)
+            weakSelf.calculateTotalAmount()
            }
-           present(vc, animated: true, completion: nil)
+           present(vc, animated: false, completion: nil)
        }
        
        func addContactButtonTapped() {

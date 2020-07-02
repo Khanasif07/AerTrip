@@ -10,6 +10,8 @@ import UIKit
 
 class PassengersSelectionVC: UIViewController {
 
+    @IBOutlet weak var progressViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var backNavigationView: UIView!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
@@ -33,13 +35,14 @@ class PassengersSelectionVC: UIViewController {
         self.passengerTableview.separatorStyle = .none
         self.passengerTableview.delegate = self
         self.passengerTableview.dataSource = self
+        self.progressView.progressTintColor = UIColor.AertripColor
+        self.progressView.trackTintColor = .clear
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
     }
-    
     
     func apiCall(){
         GuestDetailsVM.shared.guests.removeAll()
@@ -49,7 +52,6 @@ class PassengersSelectionVC: UIViewController {
         self.viewModel.fetchConfirmationData()
     }
     
-    
     private func registerCell(){
         self.passengerTableview.register(UINib(nibName: "FlightEmptyCell", bundle: nil), forCellReuseIdentifier: "FlightEmptyCell")
         self.passengerTableview.register(UINib(nibName: "FlightContactCell", bundle: nil), forCellReuseIdentifier: "FlightContactCell")
@@ -58,8 +60,7 @@ class PassengersSelectionVC: UIViewController {
         self.passengerTableview.register(UINib(nibName: "UseGSTINCell", bundle: nil), forCellReuseIdentifier: "UseGSTINCell")
         self.passengerTableview.register(UINib(nibName: "CommunicationTextCell", bundle: nil), forCellReuseIdentifier: "CommunicarionCell")
     }
-    
-    
+        
     private func setupFont(){
         self.navigationController?.navigationBar.tintColor = AppColors.themeGreen
         self.titleLabel.font = AppFonts.SemiBold.withSize(18)
@@ -92,36 +93,32 @@ class PassengersSelectionVC: UIViewController {
         self.intFareBreakupVC = vc
     }
     
+    func showProgressView(){
+        UIView.animate(withDuration: 2) {
+            self.progressView.isHidden = false
+            self.progressViewHeight.constant = 1
+        }
+    }
+    
+    func hideProgressView(){
+        UIView.animate(withDuration: 2) {
+            self.progressViewHeight.constant = 0
+            self.progressView.isHidden = true
+        }
+    }
+    
     @IBAction func tapBackButton(_ sender: UIButton) {
         self.dismissAsPopAnimation()
     }
     
     @IBAction func tapAddButton(_ sender: UIButton) {
-        AppFlowManager.default.presentHCSelectGuestsVC(delegate: self)
-        
+        AppFlowManager.default.presentHCSelectGuestsVC(delegate: self, productType: .flight)
     }
-    
 }
 
 extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, JourneyDetailsTapDelegate{
     
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
-        
-        
-//        let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
-//        vc.adonsVm.bookingObject = self.viewModel.bookingObject ?? BookFlightObject()
-//        AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary, addonsMaster: self.viewModel.addonsMaster)
-//        AddonsDataStore.shared.appliedCouponData = self.viewModel.itineraryData
-//        AddonsDataStore.shared.taxesResult = self.viewModel.taxesResult
-//        AddonsDataStore.shared.passengers = GuestDetailsVM.shared.guests.first ?? []
-//        AddonsDataStore.shared.gstDetail = self.viewModel.selectedGST
-//        AddonsDataStore.shared.email = self.viewModel.email
-//        AddonsDataStore.shared.mobile = self.viewModel.mobile
-//        AddonsDataStore.shared.isd = self.viewModel.isdCode
-//        AddonsDataStore.shared.isGSTOn = self.viewModel.isSwitchOn
-//        self.navigationController?.pushViewController(vc, animated: true)
-        
-        
         let validation = self.viewModel.validateGuestData()
         if validation.success{
             self.viewModel.checkValidationForNextScreen()
@@ -136,7 +133,12 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
     
     
     func changeSwitchValue(isOn: Bool) {
-        self.viewModel.isSwitchOn = isOn
+        if self.viewModel.itineraryData.itinerary.gstRequired{
+            self.viewModel.isSwitchOn = true
+            AppToast.default.showToastMessage(message: "GSTIN is mandatory for this booking.")
+        }else{
+           self.viewModel.isSwitchOn = isOn
+        }
         self.passengerTableview.beginUpdates()
         self.passengerTableview.reloadRows(at: [IndexPath(row: 4, section: 1)], with: .automatic)
         self.passengerTableview.endUpdates()
@@ -261,13 +263,25 @@ extension PassengersSelectionVC: HCSelectGuestsVCDelegate{
 extension PassengersSelectionVC:PassengerSelectionVMDelegate{
     
     func startFechingConfirmationData(){
-        delay(seconds: 0.2){
-            AppGlobals.shared.startLoading()
-        }
+//        delay(seconds: 0.2){
+//            AppGlobals.shared.startLoading()
+//        }
+        
+        self.progressView.setProgress(0, animated: false)
+
+               self.showProgressView()
+               delay(seconds: 0.5){
+                UIView.animate(withDuration: 2) {
+                    self.progressView.setProgress(0.25, animated: true)
+                }
+               }
     }
     
     func startFechingAddnsMasterData(){
-        AppGlobals.shared.startLoading()
+        UIView.animate(withDuration: 2) {
+        self.progressView.setProgress(0.75, animated: true)
+        }
+//        AppGlobals.shared.startLoading()
     }
     
     func startFechingGSTValidationData(){
@@ -279,16 +293,32 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
     }
     
     func getResponseFromConfirmation(_ success:Bool, error:Error?){
-        AppGlobals.shared.stopLoading()
-        if success{
-            self.addButtomView()
-        }
+       // AppGlobals.shared.stopLoading()
+         if success{
+            UIView.animate(withDuration: 2) {
+                   self.progressView.setProgress(0.5, animated: true)
+            }
+                   self.addButtomView()
+               }else{
+                   self.hideProgressView()
+               }
     }
     
     func getResponseFromAddnsMaster(_ success:Bool, error:Error?){
-        AppGlobals.shared.stopLoading()
-        self.showFareUpdatePopup()
-        self.passengerTableview.reloadData()
+        if success {
+            
+            UIView.animate(withDuration: 2, animations: {
+                self.progressView.setProgress(1, animated: true)
+            }) { (success) in
+                self.hideProgressView()
+
+            }
+     
+              self.showFareUpdatePopup()
+              self.passengerTableview.reloadData()
+         } else {
+             self.hideProgressView()
+         }
     }
     
     func getResponseFromGSTValidation(_ success:Bool, error:Error?){

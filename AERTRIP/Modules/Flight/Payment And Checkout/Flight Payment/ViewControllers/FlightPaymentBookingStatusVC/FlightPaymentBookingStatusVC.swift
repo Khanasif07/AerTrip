@@ -68,8 +68,9 @@ class FlightPaymentBookingStatusVC: BaseVC {
       self.returnHomeButton.setTitle("Return Home", for: .normal)
   }
     @IBAction func returnHomeButtonTapped(_ sender: UIButton) {
-        let vc = FlightPaymentPendingVC.instantiate(fromAppStoryboard: .FlightPayment)
-        self.navigationController?.pushViewController(vc, animated: true)
+        AppFlowManager.default.flightReturnToHomefrom(self)
+//        let vc = FlightPaymentPendingVC.instantiate(fromAppStoryboard: .FlightPayment)
+//        self.navigationController?.pushViewController(vc, animated: true)
 //        self.navigationController?.popViewController(animated: true)
         
     }
@@ -97,15 +98,23 @@ class FlightPaymentBookingStatusVC: BaseVC {
     private func instantiateSeatMapVC(_ bookingId: String) {
         let vc = SeatMapContainerVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
         var flightLegs = [BookingLeg]()
+        var addOnsArr = [BookingAddons]()
         viewModel.bookingDetail.forEach { (bookingModel) in
             if let bookingMod = bookingModel, let bookingDet = bookingMod.bookingDetail {
                 flightLegs.append(contentsOf: bookingDet.leg)
             }
+            if let addOns = bookingModel?.bookinAddons {
+                addOnsArr.append(contentsOf: addOns)
+            }
         }
-        vc.setBookingFlightLegs(flightLegs)
+        vc.setBookingFlightLegsAndAddOns(flightLegs, addOnsArr)
         vc.setupFor(.postSelection, bookingId)
-        vc.modalPresentationStyle = .overFullScreen
-        present(vc, animated: true, completion: nil)
+        vc.viewModel.bookingIds = self.viewModel.availableSeatMaps.map{$0.bookingId}
+        let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)
+        nav.setNavigationBarHidden(true, animated: false)
+        nav.modalPresentationStyle = .overFullScreen
+//        vc.modalPresentationStyle = .overFullScreen
+        present(nav, animated: true, completion: nil)
     }
 }
 
@@ -222,7 +231,6 @@ extension FlightPaymentBookingStatusVC: FlightPaymentBookingStatusVMDelegate{
     
     
     func getBookingReceiptSuccess(){
-//        AppGlobals.shared.stopLoading()
         self.viewModel.getBookingDetail()
         self.viewModel.getSectionData()
         self.statusTableView.backgroundView = nil

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol AccountLadgerDetailHeaderDelegate:NSObjectProtocol{
+    func tapBookingButton()
+}
+
 class AccountLadgerDetailHeader: UIView {
     //MARK:- IBOutlet
     //MARK:-
@@ -21,6 +25,7 @@ class AccountLadgerDetailHeader: UIView {
     @IBOutlet weak var bottomContainerBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var bookingIdButton: UIButton!
     //MARK:- Properties
     //MARK:- Private
     
@@ -30,7 +35,7 @@ class AccountLadgerDetailHeader: UIView {
             self.configureData()
         }
     }
-
+    weak var delegate:AccountLadgerDetailHeaderDelegate?
     //MARK:- Life Cycle
     //MARK:-
     class func instanceFromNib(isFamily: Bool = false) -> AccountLadgerDetailHeader {
@@ -40,7 +45,7 @@ class AccountLadgerDetailHeader: UIView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        self.bookingIdButton.isHidden = true
         self.setupSubView()
         self.configureData()
     }
@@ -65,6 +70,9 @@ class AccountLadgerDetailHeader: UIView {
         self.bookingIdValueLabel.text = ""
     }
     
+    @IBAction func tapBookingIdButton(_ sender: UIButton) {
+        self.delegate?.tapBookingButton()
+    }
     private func configureData() {
         self.layoutIfNeeded()
         guard let event = self.ladgerEvent else {
@@ -87,7 +95,14 @@ class AccountLadgerDetailHeader: UIView {
             self.bottomContainerBottomConstraint.constant = 0.0
         }
         else {
-            self.titleLabel.text = event.title
+            if let atbTxt = event.attributedString{
+                self.titleLabel.text = nil
+                self.titleLabel.attributedText = atbTxt
+            }else{
+                self.titleLabel.attributedText = nil
+                self.titleLabel.text = event.title
+            }
+//            self.titleLabel.text = event.title
             self.bookingIdKeyLabel.text = LocalizedString.BookingID.localized
             self.bookingIdValueLabel.text = event.bookingId
             self.bottomDetailContainer.isHidden = false

@@ -33,12 +33,13 @@ class BaggageContainerVM {
                     }) {
                         
                         
-                        allChildVCs[calculatedVcIndex].selectBaggageVM.addonsDetails.addonsArray.enumerated().forEach { (baggageIndex,bag) in
+                        allChildVCs[calculatedVcIndex].selectBaggageVM.addonsDetails.addonsArray.enumerated().forEach { (baggageInd,bag) in
                         contacts.forEach { (contact) in
-                            if let contIndex = allChildVCs[calculatedVcIndex].selectBaggageVM.addonsDetails.addonsArray[baggageIndex].bagageSelectedFor.lastIndex(where: { (cont) -> Bool in
+                            if let contIndex = allChildVCs[calculatedVcIndex].selectBaggageVM.addonsDetails.addonsArray[baggageInd].bagageSelectedFor.lastIndex(where: { (cont) -> Bool in
                                 return cont.id == contact.id
                             }){
-                                allChildVCs[calculatedVcIndex].selectBaggageVM.addonsDetails.addonsArray[baggageIndex].bagageSelectedFor.remove(at: contIndex)
+                                allChildVCs[calculatedVcIndex].selectBaggageVM.addonsDetails.addonsArray[baggageInd].bagageSelectedFor.remove(at: contIndex)
+                                allChildVCs[calculatedVcIndex].selectBaggageVM.addonsDetails.addonsArray[baggageInd].autoSelectedFor = ""
                             }
                           }
                         }
@@ -49,6 +50,17 @@ class BaggageContainerVM {
                     }
                 }
         } else {
+            
+            allChildVCs[vcIndex].selectBaggageVM.addonsDetails.addonsArray.enumerated().forEach { (baggageInd,bag) in
+            contacts.forEach { (contact) in
+                if let contIndex = allChildVCs[vcIndex].selectBaggageVM.addonsDetails.addonsArray[baggageInd].bagageSelectedFor.lastIndex(where: { (cont) -> Bool in
+                    return cont.id == contact.id
+                }){
+                    allChildVCs[vcIndex].selectBaggageVM.addonsDetails.addonsArray[baggageInd].bagageSelectedFor.remove(at: contIndex)
+                    allChildVCs[vcIndex].selectBaggageVM.addonsDetails.addonsArray[baggageInd].autoSelectedFor = ""
+                }
+              }
+            }
             
             allChildVCs[vcIndex].selectBaggageVM.updateContactInBaggage(baggageIndex: baggageIndex, contacts: contacts, autoSelectedFor: [])
             allChildVCs[vcIndex].reloadData()

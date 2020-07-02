@@ -18,10 +18,11 @@ class SelectPassengerVC : BaseVC {
     @IBOutlet weak var legsLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var popUpBackView: UIView!
-    
+    @IBOutlet weak var headerDetailsStackBottom: NSLayoutConstraint!
+        
     let selectPassengersVM = SelectPassengersVM()
-    
     var updatedFlightData: ((SeatMapModel.SeatMapFlight) -> ())?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,12 +46,25 @@ class SelectPassengerVC : BaseVC {
     
     override func setupTexts() {
         super.setupTexts()
-     self.doneButton.setTitle(self.selectPassengersVM.selectedContacts.isEmpty ? LocalizedString.Cancel.localized : LocalizedString.Done.localized, for: UIControl.State.normal)
+        self.doneButton.setTitle(LocalizedString.Cancel.localized, for: UIControl.State.normal)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 0.3, animations: {
+            self.transparentBackView.transform = CGAffineTransform.identity
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        })
     }
     
     @IBAction func doneButtonTapped(_ sender: UIButton) {
         self.selectPassengersVM.contactsComplition(self.selectPassengersVM.selectedContacts)
-        dismiss(animated: true, completion: nil)
+        UIView.animate(withDuration: 0.3, animations: {
+            self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: self.transparentBackView.height)
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
+        }) { (success) in
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
 }
@@ -63,6 +77,16 @@ extension SelectPassengerVC {
         self.selectPassengersVM.getAllowedPassengerForParticularAdon()
         configureCollectionView()
         setupForView()
+        transparentBackView.backgroundColor = UIColor.clear
+        
+        transparentBackView.transform = CGAffineTransform(translationX: 0, y: transparentBackView.height)
+        
+        self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
+        
+    }
+    
+    @objc func backViewTapped(){
+        dismiss(animated: true, completion: nil)
     }
     
     func configureCollectionView(){
@@ -77,10 +101,15 @@ extension SelectPassengerVC {
     func setupForView() {
         
         switch self.selectPassengersVM.setupFor {
-      
+            
         case .seatSelection:
             selectPassengersLabel.isHidden = true
             emptyView.isHidden = true
+            titleLabel.text = selectPassengersVM.selectedSeatData.columnData.seatNumber + " • ₹\(selectPassengersVM.selectedSeatData.columnData.amount)"
+            legsLabel.text = selectPassengersVM.selectedSeatData.columnData.getCharactericstic()
+            legsLabel.textColor = AppColors.themeGray40
+            legsLabel.font = AppFonts.Regular.withSize(14)
+            headerDetailsStackBottom.constant = 21
             selectPassengersVM.initalPassengerForSeat = selectPassengersVM.selectedSeatData.columnData.passenger
             
         case .meals:
@@ -180,13 +209,17 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
         if let index = self.selectPassengersVM.selectedContacts.firstIndex(where: { (cont) -> Bool in
             cont.id == self.selectPassengersVM.allowedPassengers[indexPath.item].id
         }){
+//            if self.selectPassengersVM.freeMeal {
+//                AppToast.default.showToastMessage(message: LocalizedString.Passenger_Cannot_Be_Deselected_For_Meal.localized)
+//                return }
+            self.doneButton.setTitle(LocalizedString.Done.localized, for: UIControl.State.normal)
             self.selectPassengersVM.selectedContacts.remove(at: index)
         }else{
+            self.doneButton.setTitle(LocalizedString.Done.localized, for: UIControl.State.normal)
         self.selectPassengersVM.selectedContacts.append(self.selectPassengersVM.allowedPassengers[indexPath.item])
         }
         
         collectionView.reloadItems(at: [IndexPath(item: indexPath.item, section: 0)])
-        self.doneButton.setTitle(self.selectPassengersVM.selectedContacts.isEmpty ? LocalizedString.Cancel.localized : LocalizedString.Done.localized, for: UIControl.State.normal)
     }
     
 }

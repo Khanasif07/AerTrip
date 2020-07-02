@@ -47,6 +47,7 @@ struct BookingDetailModel {
     var frequentFlyerData: [FrequentFlyerData] = []
     var displaySeatMap:Bool = false
     var bookingStatus: BookingStatusType = .pending
+    var bookinAddons:[BookingAddons]?
 
     var jsonDict: JSONDictionary {
         return [:]
@@ -259,6 +260,9 @@ struct BookingDetailModel {
         
         if let bookingStatus = json[APIKeys.bstatus.rawValue]{
             self.bookingStatus = BookingStatusType(rawValue: "\(bookingStatus)".removeNull) ?? .pending
+        }
+        if let addons = json["booking_addons"]{
+            self.bookinAddons = JSON(addons).arrayValue.map({BookingAddons($0, leg: self.bookingDetail?.leg.first)})
         }
     }
     
@@ -2464,4 +2468,36 @@ struct FF {
         }
         return ff
     }
+}
+
+struct BookingAddons{
+    var serviceName:String = ""
+    var paxId:String = ""
+    var addonType:String = ""
+    var legId:String = ""
+    var flightId:String = ""
+    var ssrCode:String = ""
+    var addonId:String = ""
+    var extraDetails:String = ""
+    var bookingId:String = ""
+    var price:String = ""
+    var status:String = ""
+    var pax:Pax?
+    init(_ json:JSON = JSON(), leg:BookingLeg? = nil) {
+        serviceName = json["service_name"].stringValue
+        paxId = json["pax_id"].stringValue
+        addonType = json["addon_type"].stringValue
+        legId = json["leg_id"].stringValue
+        flightId = json["flight_id"].stringValue
+        ssrCode = json["ssr_code"].stringValue
+        addonId = json["addon_id"].stringValue
+        extraDetails = json["extra_details"].stringValue
+        bookingId = json["booking_id"].stringValue
+        price = json["price"].stringValue
+        status = json["status"].stringValue
+        if let leg = leg{
+            self.pax = leg.pax.first(where: {$0.paxId == self.paxId})
+        }
+    }
+    
 }

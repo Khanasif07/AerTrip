@@ -106,8 +106,8 @@ class AccountDetailsVC: BaseVC {
         
         self.searchBar.isMicEnabled = true
         
-        self.topNavView.firstRightButton.isEnabled = false
-        self.topNavView.secondRightButton.isEnabled = false
+        self.topNavView.firstRightButton.isUserInteractionEnabled = false
+        self.topNavView.secondRightButton.isUserInteractionEnabled = false
         
         if let usr = UserInfo.loggedInUser, usr.userCreditType == .regular {
             self.viewModel.getAccountDetails()
@@ -127,7 +127,9 @@ class AccountDetailsVC: BaseVC {
         self.searchTableView.registerCell(nibName: AccountDetailEventDescriptionCell.reusableIdentifier)
         
         self.manageHeader(animated: false)
-        
+        //Chnage for blur header
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        topNavView.backgroundColor = AppColors.clear
 //        delay(seconds: 0.4) { [weak self] in
 //            self?.getAccountDetailsSuccess()
 //        }
@@ -284,8 +286,8 @@ class AccountDetailsVC: BaseVC {
     
         
         if (self.currentViewState != .filterApplied) {
-            self.topNavView.firstRightButton.isEnabled = !isAllDatesEmpty
-            self.topNavView.secondRightButton.isEnabled = !isAllDatesEmpty
+            self.topNavView.firstRightButton.isUserInteractionEnabled = !isAllDatesEmpty
+            self.topNavView.secondRightButton.isUserInteractionEnabled = !isAllDatesEmpty
         }
         
         self.tableView.reloadData()

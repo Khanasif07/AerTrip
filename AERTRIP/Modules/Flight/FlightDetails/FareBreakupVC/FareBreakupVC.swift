@@ -222,7 +222,6 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             let price1 = displayPriceInFormat(price: Double(totalFare), fromOption : "BookingAmount")
             bookingAmountLabel.attributedText = price1
             
-            
             let journey_totalFare = journey.reduce(0) { $0 + $1.farepr }
             let journey_price = displayPriceInFormat(price: Double(journey_totalFare), fromOption : "strikeOutPrice")
                 
@@ -903,7 +902,6 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     @IBAction func bookButtonClicked(_ sender: Any) {
-        AddonsDataStore.shared.resetData()
         self.delegate?.bookButtonTapped(journeyCombo:journeyCombo)
     }
     

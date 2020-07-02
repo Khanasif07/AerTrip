@@ -41,6 +41,9 @@ class EmptyScreenView: UIView {
         case noCompletedBookingFilter
         case noCanceledBookingFilter
         case noSeatMapData
+        case noMealsData
+        case noBaggageData
+        case noOthersData
     }
     
     //MARK:- properties -
@@ -205,6 +208,16 @@ extension EmptyScreenView {
             
         case .noSeatMapData:
             setupForNoSeatMapData()
+            
+        case .noMealsData:
+            self.setupForNoMealsData()
+            
+        case .noBaggageData:
+            self.setupForNoBaggageData()
+            
+        case .noOthersData:
+            self.setupForNoOthersData()
+            
         }
         
     }
@@ -582,6 +595,55 @@ extension EmptyScreenView {
         self.searchTextLabel.textColor = AppColors.themeGray60
         self.searchTextLabel.text = LocalizedString.noSeatMapDataDesc.localized
     }
+    
+    private func setupForNoMealsData() {
+        self.hideFirstButton(isHidden: true)
+        self.mainImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
+        self.containerView.center = self.contentView.center
+        self.mainImageViewTopConstraint.constant = -25
+        self.messageLabelTopConstraint.constant = 39
+        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+        self.messageLabel.textColor = AppColors.themeBlack
+        self.messageLabel.text = LocalizedString.Oops.localized
+        
+        self.searchTextLabel.isHidden = false
+        self.searchTextLabel.font = AppFonts.Regular.withSize(18.0)
+        self.searchTextLabel.textColor = AppColors.themeGray60
+        self.searchTextLabel.text = LocalizedString.noMealsDataDesc.localized
+    }
+    
+    private func setupForNoBaggageData() {
+          self.hideFirstButton(isHidden: true)
+          self.mainImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
+          self.containerView.center = self.contentView.center
+          self.mainImageViewTopConstraint.constant = -25
+          self.messageLabelTopConstraint.constant = 39
+          self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+          self.messageLabel.textColor = AppColors.themeBlack
+          self.messageLabel.text = LocalizedString.Oops.localized
+          
+          self.searchTextLabel.isHidden = false
+          self.searchTextLabel.font = AppFonts.Regular.withSize(18.0)
+          self.searchTextLabel.textColor = AppColors.themeGray60
+          self.searchTextLabel.text = LocalizedString.noBaggageDataDesc.localized
+      }
+    
+    private func setupForNoOthersData() {
+          self.hideFirstButton(isHidden: true)
+          self.mainImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
+          self.containerView.center = self.contentView.center
+          self.mainImageViewTopConstraint.constant = -25
+          self.messageLabelTopConstraint.constant = 39
+          self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+          self.messageLabel.textColor = AppColors.themeBlack
+          self.messageLabel.text = LocalizedString.Oops.localized
+          
+          self.searchTextLabel.isHidden = false
+          self.searchTextLabel.font = AppFonts.Regular.withSize(18.0)
+          self.searchTextLabel.textColor = AppColors.themeGray60
+          self.searchTextLabel.text = LocalizedString.noOtherseDataDesc.localized
+      }
+    
 }
 
 

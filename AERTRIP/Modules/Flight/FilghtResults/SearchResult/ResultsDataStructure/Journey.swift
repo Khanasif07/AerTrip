@@ -20,12 +20,12 @@ import UIKit
 public class Journey: Codable , Equatable {
     let vendor : String
     let id : String
-    let fk : String
+    var fk : String
     let ofk : String?
     //    let invfk : Bool
     //    let pricingsolutionKey: String
     let otherfares : Bool?
-    let farepr : Int
+    var farepr : Int
     let iic : Bool
     let displaySeat : Bool
     var fare : Taxes

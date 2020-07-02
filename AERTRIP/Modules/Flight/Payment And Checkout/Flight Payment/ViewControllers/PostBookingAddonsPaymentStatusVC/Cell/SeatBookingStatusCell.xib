@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Bold.ttf">
+            <string>SourceSansPro-Bold</string>
+        </array>
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SeatBookingStatusCell" rowHeight="437.5" id="qyw-YT-YYO" customClass="SeatBookingStatusCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="493"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qyw-YT-YYO" id="oq0-JM-M2a">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="493"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgB-3v-5sV">
+                        <rect key="frame" x="0.0" y="46" width="375" height="62"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IrY-DT-FLg" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="156.5" y="0.0" width="62" height="62"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="62" id="kK2-lN-GNo"/>
+                                    <constraint firstAttribute="width" constant="62" id="ocq-n6-dJI"/>
+                                </constraints>
+                                <state key="normal" image="Checkmark"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="IrY-DT-FLg" firstAttribute="top" secondItem="vgB-3v-5sV" secondAttribute="top" id="BVA-qg-gm8"/>
+                            <constraint firstItem="IrY-DT-FLg" firstAttribute="centerY" secondItem="vgB-3v-5sV" secondAttribute="centerY" id="GBu-nK-8Xy"/>
+                            <constraint firstItem="IrY-DT-FLg" firstAttribute="centerX" secondItem="vgB-3v-5sV" secondAttribute="centerX" id="acm-yL-pz5"/>
+                            <constraint firstAttribute="bottom" secondItem="IrY-DT-FLg" secondAttribute="bottom" id="pJ3-03-pxD"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking Confirmed" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tXc-Rs-gAi">
+                        <rect key="frame" x="16" y="136" width="343" height="47"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="47" id="vox-pf-rmQ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="SourceSansPro-Bold" family="Source Sans Pro" pointSize="38"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e5B-FZ-4oH">
+                        <rect key="frame" x="16" y="199" width="343" height="84"/>
+                        <string key="text">Congratulations, your booking is successful.
+Your booking ID is 2324354657 and all details have been sent to your email.</string>
+                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="f6g-bh-DCI">
+                        <rect key="frame" x="16" y="329" width="343" height="0.0"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5r-Ea-XW2">
+                                <rect key="frame" x="0.0" y="0.0" width="343" height="0.0"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wcB-wV-x7N" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="355" width="375" height="0.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="VZR-Tw-mvD"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="e5B-FZ-4oH" firstAttribute="trailing" secondItem="tXc-Rs-gAi" secondAttribute="trailing" id="0jL-kg-Xlh"/>
+                    <constraint firstItem="e5B-FZ-4oH" firstAttribute="leading" secondItem="tXc-Rs-gAi" secondAttribute="leading" id="4zn-bR-0ya"/>
+                    <constraint firstItem="f6g-bh-DCI" firstAttribute="leading" secondItem="tXc-Rs-gAi" secondAttribute="leading" id="5U6-LF-4pM"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="wcB-wV-x7N" secondAttribute="bottom" constant="0.5" id="8q8-YI-Dgv"/>
+                    <constraint firstItem="e5B-FZ-4oH" firstAttribute="top" secondItem="tXc-Rs-gAi" secondAttribute="bottom" constant="16" id="8rS-QJ-RVi"/>
+                    <constraint firstItem="tXc-Rs-gAi" firstAttribute="top" secondItem="vgB-3v-5sV" secondAttribute="bottom" constant="28" id="CeF-Fm-ykU"/>
+                    <constraint firstItem="f6g-bh-DCI" firstAttribute="top" secondItem="e5B-FZ-4oH" secondAttribute="bottom" constant="46" id="E8I-KX-b4W"/>
+                    <constraint firstAttribute="trailing" secondItem="vgB-3v-5sV" secondAttribute="trailing" id="FKn-S3-rDJ"/>
+                    <constraint firstItem="tXc-Rs-gAi" firstAttribute="leading" secondItem="oq0-JM-M2a" secondAttribute="leading" constant="16" id="Tbw-J8-otO"/>
+                    <constraint firstAttribute="trailing" secondItem="wcB-wV-x7N" secondAttribute="trailing" id="WCL-ms-EWP"/>
+                    <constraint firstItem="wcB-wV-x7N" firstAttribute="top" secondItem="f6g-bh-DCI" secondAttribute="bottom" constant="26" id="ZtZ-7a-tCZ"/>
+                    <constraint firstItem="wcB-wV-x7N" firstAttribute="leading" secondItem="oq0-JM-M2a" secondAttribute="leading" id="aEK-qh-glm"/>
+                    <constraint firstAttribute="trailing" secondItem="tXc-Rs-gAi" secondAttribute="trailing" constant="16" id="an1-m8-rHU"/>
+                    <constraint firstItem="vgB-3v-5sV" firstAttribute="top" secondItem="oq0-JM-M2a" secondAttribute="top" constant="46" id="eb8-cN-Vx1"/>
+                    <constraint firstItem="vgB-3v-5sV" firstAttribute="leading" secondItem="oq0-JM-M2a" secondAttribute="leading" id="fBw-Xj-bEL"/>
+                    <constraint firstItem="f6g-bh-DCI" firstAttribute="trailing" secondItem="tXc-Rs-gAi" secondAttribute="trailing" id="s6Z-RC-Imm"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="fRG-YR-ttq"/>
+            <connections>
+                <outlet property="bookingIdAndDetailsLabel" destination="e5B-FZ-4oH" id="E1r-jG-yvF"/>
+                <outlet property="dividerView" destination="wcB-wV-x7N" id="czA-dl-1zA"/>
+                <outlet property="importantNoteLabel" destination="G5r-Ea-XW2" id="EJs-4J-kUl"/>
+                <outlet property="stackViewBottomConstraint" destination="ZtZ-7a-tCZ" id="d6j-4B-I6J"/>
+                <outlet property="stackViewTopConstraint" destination="E8I-KX-b4W" id="vsG-9T-0pd"/>
+                <outlet property="tickMarKButton" destination="IrY-DT-FLg" id="WGS-Ab-zRu"/>
+                <outlet property="tickmarkButtonHeightConstraint" destination="kK2-lN-GNo" id="1Hq-eU-yc1"/>
+                <outlet property="youAreAllDoneLabel" destination="tXc-Rs-gAi" id="YYL-nE-rHY"/>
+                <outlet property="youareAllDoneTopConstraint" destination="CeF-Fm-ykU" id="C9i-3B-Tfo"/>
+            </connections>
+            <point key="canvasLocation" x="-36750" y="-270"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Checkmark" width="23" height="18.5"/>
+    </resources>
+</document>

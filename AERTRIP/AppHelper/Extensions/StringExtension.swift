@@ -861,6 +861,25 @@ extension String {
         return attributedString
     }
     
+    func attributeStringWithColors(subString : [String],
+                                     strClr: UIColor,
+                                     substrClr: UIColor,
+                                     strFont: UIFont = AppFonts.Regular.withSize(12),
+                                     subStrFont: UIFont = AppFonts.SemiBold.withSize(12)) -> NSAttributedString{
+
+          let attributedString = NSMutableAttributedString(string:self)
+
+          let range1 = (self as NSString).range(of: self)
+          // attributedString.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 14), range: range1)
+          attributedString.addAttributes([NSAttributedString.Key.foregroundColor : strClr, NSAttributedString.Key.font: strFont], range: range1)
+
+        subString.forEach { (str) in
+            let range2 = (self as NSString).range(of: str)
+             attributedString.addAttributes([NSAttributedString.Key.font: subStrFont ,NSAttributedString.Key.foregroundColor : substrClr], range: range2)
+        }
+        
+          return attributedString
+      }
     
 }
 

@@ -8,26 +8,27 @@
 
 import Foundation
 
+protocol  PostBookingAddonsPaymentVMDelegate:NSObjectProtocol {
+    func willMakePayment()
+    func makePaymentSuccess(options: JSONDictionary, shouldGoForRazorPay: Bool)
+    func makePaymentFail()
+    func getPaymentResonseSuccess(bookingIds: [String], cid: [String])
+    func getPaymentResonseFail()
+    
+}
+
+
 class PostBookingAddonsPaymentVM{
-    // Save applied coupon data
-    var appliedCouponData: FlightItineraryData = FlightItineraryData()
-    var itinerary:FlightItinerary{
-        return appliedCouponData.itinerary
-    }
-    var addonsMaster = AddonsMaster()
-    var taxesResult = [String:String]()
-    var taxAndFeesData = [(name:String,value:Int)]()
-//    var parmsForItinerary:JSONDictionary = [:]
+
+    var addonsDetails = AddonsQuotationsModel()
+    var seatData = [CustomAddonsModel]()
+    var mealData = [CustomAddonsModel]()
+    var baggageData = [CustomAddonsModel]()
+    var otherData = [CustomAddonsModel]()
     var grossTotalPayableAmount : Double = 0.0 // without wallet amount
-    var paymentDetails: PaymentModal? //Payment methods
-    var delegate:FlightPaymentVMDelegate?
-    var gstDetail = GSTINModel()
-    var bookingObject:BookFlightObject?
-    var isGSTOn = false
-    var isd = ""
-    var mobile = ""
-    var email = ""
-    //Setup for section header and cell
+//    var paymentDetails: PaymentMode? //Payment methods
+    var bookingIds = [String]()
+    var delegate:PostBookingAddonsPaymentVMDelegate?
     var sectionTableCell = [[CellType]]()
     var sectionHeader = [sectionType]()
     
@@ -35,109 +36,114 @@ class PostBookingAddonsPaymentVM{
         case WalletCell, TermsConditionCell,FareDetailsCell,EmptyCell,DiscountCell,WalletAmountCell,FareBreakupCell,TotalPayableNowCell
     }
     enum sectionType{
-        case CouponsAndWallet,Addons,TotalPaybleAndTC
+        case CouponsAndWallet, Seat, Meal, Baggage, Other, TotalPaybleAndTC
     }
     
     func taxesDataDisplay(){
-        taxAndFeesData.removeAll()
-        var taxesDetails : [String:Int] = [String:Int]()
-        var taxAndFeesDataDict = [taxStruct]()
-        taxesDetails = self.itinerary.details.fare.taxes.details
-        for (_, value) in taxesDetails.enumerated() {
-            let newObj = taxStruct.init(name: taxesResult[value.key] ?? "", taxVal: value.value)
-            taxAndFeesDataDict.append(newObj)
-        }
-        let newDict = Dictionary(grouping: taxAndFeesDataDict) { $0.name }
-        for ( key , _ ) in newDict {
-            let dataArray = newDict[key]
-            var newTaxVal = 0
-            for i in 0..<dataArray!.count{
-                newTaxVal += (dataArray?[i].taxVal ?? 0)
-            }
-            let newArr = (key,newTaxVal)
-            taxAndFeesData.append(newArr)
-            
-        }
+        self.setSectionDataForAddons()
         self.getNumberOfSection()
     }
     
     private func getNumberOfSection(){
+        
         self.sectionHeader = []
         self.sectionTableCell = []
         var firstSectionData = [CellType]()
-        firstSectionData.append(contentsOf: [.EmptyCell,.WalletCell,.EmptyCell,.FareBreakupCell])
+        firstSectionData.append(.EmptyCell)
+        if (UserInfo.loggedInUser != nil && self.addonsDetails.walletBalance > 0){
+            firstSectionData.append(contentsOf: [.WalletCell,.EmptyCell])
+        }
+        firstSectionData.append(.FareBreakupCell)
+//        firstSectionData.append(contentsOf: [.EmptyCell,.WalletCell,.EmptyCell,.FareBreakupCell])
         self.sectionTableCell.append(firstSectionData)
         self.sectionHeader.append(.CouponsAndWallet)
-        //For Taxes and other fee
-        var secondSectionCell = [CellType]()
-        for _ in self.taxAndFeesData{
-            secondSectionCell.append(.DiscountCell)
+
+        //Seat data
+        if !self.seatData.isEmpty{
+            var sectionCell = [CellType]()
+            for _ in self.seatData{
+                sectionCell.append(.DiscountCell)
+            }
+            self.sectionTableCell.append(sectionCell)
+            self.sectionHeader.append(.Seat)
         }
-        self.sectionTableCell.append(secondSectionCell)
-        self.sectionHeader.append(.Addons)
-       //Totalpayble and TC
+        
+        //Meal data
+        if !self.mealData.isEmpty{
+            var sectionCell = [CellType]()
+            for _ in self.mealData{
+                sectionCell.append(.DiscountCell)
+            }
+            self.sectionTableCell.append(sectionCell)
+            self.sectionHeader.append(.Meal)
+        }
+        
+        //Baggage data
+        if !self.baggageData.isEmpty{
+            var sectionCell = [CellType]()
+            for _ in self.baggageData{
+                sectionCell.append(.DiscountCell)
+            }
+            self.sectionTableCell.append(sectionCell)
+            self.sectionHeader.append(.Baggage)
+        }
+        
+        //Other data
+        if !self.otherData.isEmpty{
+            var sectionCell = [CellType]()
+            for _ in self.otherData{
+                sectionCell.append(.DiscountCell)
+            }
+            self.sectionTableCell.append(sectionCell)
+            self.sectionHeader.append(.Other)
+        }
+        
+        //Totalpayble and TC
         self.sectionTableCell.append([.WalletAmountCell,.WalletAmountCell,.TotalPayableNowCell,.TermsConditionCell])
         self.sectionHeader.append(.TotalPaybleAndTC)
         
     }
     
+    func setSectionDataForAddons(){
+        seatData = []
+        mealData = []
+        baggageData = []
+        otherData = []
+        for leg in self.addonsDetails.details.leg{
+            for flight in leg.flights{
+                for pax in flight.pax{
+                    if !pax.addon.seat.name.isEmpty{
+                        seatData.append(CustomAddonsModel(legId: "\(leg.legID)", flight:flight, pax:pax, addonsType: .seat))
+                    }
+                    if !pax.addon.meal.name.isEmpty{
+                        seatData.append(CustomAddonsModel(legId: "\(leg.legID)", flight:flight, pax:pax, addonsType: .meal))
+                    }
+                    if !pax.addon.baggage.name.isEmpty{
+                        seatData.append(CustomAddonsModel(legId: "\(leg.legID)", flight:flight, pax:pax, addonsType: .baggage))
+                    }
+                    if !pax.addon.other.name.isEmpty{
+                        seatData.append(CustomAddonsModel(legId: "\(leg.legID)", flight:flight, pax:pax, addonsType: .other))
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
 }
 //MARK:- API Call
 extension PostBookingAddonsPaymentVM{
     
-     func webServiceGetPaymentMethods() {
-         let params: JSONDictionary = [APIKeys.it_id.rawValue:  self.itinerary.id]
-         printDebug(params)
-         APICaller.shared.getPaymentMethods(params: params) { [weak self] success, errors,paymentDetails in
-             guard let sSelf = self else { return }
-             if success {
-                 sSelf.paymentDetails = paymentDetails
-                 sSelf.delegate?.getPaymentsMethodsSuccess()
-             } else {
-                 printDebug(errors)
-                 sSelf.delegate?.getPaymentMethodsFails(errors: errors)
-             }
-         }
-     }
-    
-    func removeCouponCode() {
-        let params: [String : Any] = [ APIKeys.it_id.rawValue : self.itinerary.id ]
-        APICaller.shared.removeFlightCouponApi(params: params, loader: true) { [weak self] (success, errors, appliedCouponData) in
-            guard let sSelf = self else { return }
-            if success {
-                if let appliedCouponDetails = appliedCouponData {
-                    sSelf.delegate?.removeCouponCodeSuccessful(appliedCouponDetails)
-                }
-            } else {
-                sSelf.delegate?.removeCouponCodeFailed()
-            }
-        }
-    }
-    
-    
-    func reconfirmationAPI() {
-        let params: [String : Any] = [ APIKeys.it_id.rawValue : self.itinerary.id ]
-        APICaller.shared.flightReconfirmationApi(params: params, loader: true) { [weak self] (success, errors, appliedCouponData) in
-            guard let self = self else { return }
-            if success {
-//                printDebug(appliedCouponData)
-                if let appliedCouponDetails = appliedCouponData {
-                    self.appliedCouponData.itinerary = appliedCouponDetails.itinerary
-                }
-            }
-            self.delegate?.reconfirmationResponse(success)
-        }
-    }
-    
     func makePayment(forAmount: Double, useWallet: Bool) {
         //forAmount used to decide that razor pay will use or not
-        var params: [String : Any] = [ APIKeys.it_id.rawValue : self.itinerary.id]
+        var params: [String : Any] = [ APIKeys.it_id.rawValue : self.addonsDetails.id]
         params[APIKeys.total_amount.rawValue] = grossTotalPayableAmount
         params[APIKeys.currency_code.rawValue] = "INR"//self.itineraryData?.booking_currency ?? ""
-        params[APIKeys.use_points.rawValue] = self.itinerary.userPoints
+        params[APIKeys.use_points.rawValue] = self.addonsDetails.userPoints
         if UserInfo.loggedInUser != nil {
             params[APIKeys.use_wallet.rawValue] = useWallet ? 1 : 0
-            params[APIKeys.wallet_id.rawValue] = useWallet ? (self.paymentDetails?.paymentModes.wallet.id ?? "") : ""
+            params[APIKeys.wallet_id.rawValue] = useWallet ? (self.addonsDetails.paymentModes.wallet.id) : ""
         } else {
             params[APIKeys.use_wallet.rawValue] = 0
             params[APIKeys.wallet_id.rawValue] = ""
@@ -147,10 +153,10 @@ extension PostBookingAddonsPaymentVM{
         
         var paymentMethod = ""
         if (useWallet && forAmount <= 0) {
-            paymentMethod = self.paymentDetails?.paymentModes.wallet.id ?? ""
+            paymentMethod = self.addonsDetails.paymentModes.wallet.id
         }
         else {
-            paymentMethod = self.paymentDetails?.paymentModes.razorPay.id ?? ""
+            paymentMethod = self.addonsDetails.paymentModes.razorPay.id
             params[APIKeys.ret.rawValue] = "json"
         }
         params[APIKeys.part_payment_amount.rawValue] = 0
@@ -173,7 +179,7 @@ extension PostBookingAddonsPaymentVM{
         var params: JSONDictionary = [:]
         
         if isRazorPayUsed {
-            params[APIKeys.id.rawValue] = self.itinerary.id
+            params[APIKeys.id.rawValue] = self.addonsDetails.id
             params[APIKeys.pid.rawValue] = forData[APIKeys.razorpay_payment_id.rawValue] as? String ?? ""
             params[APIKeys.oid.rawValue] = forData[APIKeys.razorpay_order_id.rawValue] as? String ?? ""
             params[APIKeys.sig.rawValue] = forData[APIKeys.razorpay_signature.rawValue] as? String ?? ""
@@ -183,7 +189,7 @@ extension PostBookingAddonsPaymentVM{
             params = forData
         }
         
-//        self.delegate?.willGetPaymentResonse()
+        //        self.delegate?.willGetPaymentResonse()
         APICaller.shared.paymentResponseAPI(params: params) { [weak self](success, errors, bookingIds , cid)  in
             guard let self = self else { return }
             if success {

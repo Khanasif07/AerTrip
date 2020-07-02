@@ -27,6 +27,8 @@ class MealsContainerVC: BaseVC {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var MealTotalLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var totalContainerView: UIView!
+    
     
     // MARK: View Life Cycle
     override func viewDidLoad() {
@@ -67,13 +69,17 @@ class MealsContainerVC: BaseVC {
         setupNavBar()
         setUpViewPager()
         calculateTotalAmount()
+              let price = self.totalLabel.text ?? ""
+        self.delegate?.mealsUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
+        totalContainerView.addShadow(ofColor: .black, radius: 20, opacity: 0.05)
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
         for (index,item) in self.mealsContainerVM.allChildVCs.enumerated() {
             AddonsDataStore.shared.flightsWithData[index].meal = item.selectMealsVM.addonsDetails
         }
-        self.delegate?.mealsUpdated()
+        let price = self.totalLabel.text ?? ""
+        self.delegate?.mealsUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
         self.dismiss(animated: true, completion: nil)
     }
 }
@@ -83,15 +89,15 @@ extension MealsContainerVC {
     private func configureNavigation(){
         self.topNavBarView.delegate = self
         self.topNavBarView.configureNavBar(title: LocalizedString.Meals.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : false)
-        self.topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen)
-        self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Bold.withSize(18))
+        self.topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen, font : AppFonts.Regular.withSize(18))
+        self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18))
     }
     
     private func setUpViewPager() {
         self.mealsContainerVM.allChildVCs.removeAll()
         for index in 0..<AddonsDataStore.shared.flightKeys.count {
             let vc = SelectMealsdVC.instantiate(fromAppStoryboard: .Adons)
-            let initData = SelectMealsVM(vcIndex: index, currentFlightKey: AddonsDataStore.shared.flightKeys[index],addonsDetails: AddonsDataStore.shared.flightsWithData[index].meal)
+            let initData = SelectMealsVM(vcIndex: index, currentFlightKey: AddonsDataStore.shared.flightKeys[index],addonsDetails: AddonsDataStore.shared.flightsWithData[index].meal, freeMeal : AddonsDataStore.shared.flightsWithData[index].freeMeal)
             vc.initializeVm(selectMealsVM : initData)
             vc.delegate = self
             self.mealsContainerVM.allChildVCs.append(vc)
@@ -107,9 +113,9 @@ extension MealsContainerVC {
     
     private func setupParchmentPageController(){
         self.parchmentView = PagingViewController()
-        self.parchmentView?.menuItemSpacing = (self.view.width - 251.5) / 2
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 33.0, bottom: 0.0, right: 38.0)
-        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 40)
+        self.parchmentView?.menuItemSpacing = 36
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 15, bottom: 0.0, right: 15)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 53)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
@@ -139,7 +145,7 @@ extension MealsContainerVC {
         var totalPrice = 0
         for item in self.mealsContainerVM.allChildVCs {
             let mealsArray = item.selectMealsVM.getMeals()
-            let selectedMeals = mealsArray.filter { !$0.mealsSelectedFor.isEmpty }
+            let selectedMeals = mealsArray.filter { !$0.mealsSelectedFor.isEmpty && $0.ssrName?.isReadOnly == 0 }
             selectedMeals.forEach { (meal) in
                 totalPrice += (meal.price * meal.mealsSelectedFor.count)
             }
@@ -157,10 +163,15 @@ extension MealsContainerVC: TopNavigationViewDelegate {
             mealsArray.enumerated().forEach { (addonIndex,_) in
                 item.selectMealsVM.updateContactInMeal(mealIndex: addonIndex, contacts: [], autoSelectedFor: [])
             AddonsDataStore.shared.flightsWithData[index].meal.addonsArray[addonIndex].mealsSelectedFor = []
+             
+                item.selectMealsVM.initializeFreeMealsToPassengers()
             }
             item.reloadData()
-            calculateTotalAmount()
         }
+        calculateTotalAmount()
+        let price = self.totalLabel.text ?? ""
+        self.delegate?.mealsUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
+        self.delegate?.resetMeals()
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
@@ -214,15 +225,15 @@ extension MealsContainerVC : SelectMealDelegate {
                 vc.modalPresentationStyle = .overFullScreen
                 vc.selectPassengersVM.selectedContacts = selectedContacts
                 vc.selectPassengersVM.adonsData = forAdon
-                vc.selectPassengersVM.setupFor = .baggage
+                vc.selectPassengersVM.setupFor = .meals
                 vc.selectPassengersVM.flightKys = [currentFlightKey]
+                vc.selectPassengersVM.freeMeal = self.mealsContainerVM.allChildVCs[vcIndex].selectMealsVM.freeMeal
                 vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
-                    guard let weakSelf = self else { return }
-                   
-                    weakSelf.mealsContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: contacts)
-                   
+                guard let weakSelf = self else { return }
+                weakSelf.mealsContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: contacts)
+                    weakSelf.calculateTotalAmount()
                 }
-                present(vc, animated: true, completion: nil)
+                present(vc, animated: false, completion: nil)
             }
 //
 //     func addPassengerToMeal(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, mealIndex: Int, selectedContacts: [ATContact]) {

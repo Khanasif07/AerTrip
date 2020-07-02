@@ -18,16 +18,19 @@ class SelectMealsVM {
     private var vcIndex : Int = 0
     private var currentFlightKey : String = ""
     weak var delegate : SelectMealVmDelegate?
-
+    var freeMeal : Bool = false
     
     init(){
         
     }
     
-    init(vcIndex : Int, currentFlightKey : String, addonsDetails : AddonsDetails){
+    init(vcIndex : Int, currentFlightKey : String, addonsDetails : AddonsDetails, freeMeal : Bool){
         self.vcIndex = vcIndex
         self.currentFlightKey = currentFlightKey
         self.addonsDetails = addonsDetails
+        self.freeMeal = freeMeal
+//        self.freeMeal = true
+//        initializeFreeMealsToPassengers()
     }
     
     func getMeals() -> [AddonsDataCustom] {
@@ -71,7 +74,39 @@ class SelectMealsVM {
                     addonsDetails.addonsArray[mealIndex].autoSelectedFor = ""
                 }else{
                     addonsDetails.addonsArray[mealIndex].autoSelectedFor = autoSelectedForString
-                }
-                         
+        }
       }
+    
+    
+    
+    func initializeFreeMealsToPassengers(){
+       
+        if !freeMeal { return }
+        
+        var mealsSelectedFor : [ATContact] = []
+
+        if let firstMeal = addonsDetails.addonsArray.firstIndex(where: { (meal) -> Bool in
+            return meal.price == 0
+        }){
+            guard let allPassengers = GuestDetailsVM.shared.guests.first else { return }
+            
+            allPassengers.forEach { (contact) in
+                
+                if contact.passengerType == .Adult && addonsDetails.addonsArray[firstMeal].isAdult {
+                    mealsSelectedFor.append(contact)
+                }
+                
+                if contact.passengerType == .child && addonsDetails.addonsArray[firstMeal].isChild {
+                    mealsSelectedFor.append(contact)
+                }
+                
+                if contact.passengerType == .infant && addonsDetails.addonsArray[firstMeal].isInfant {
+                    mealsSelectedFor.append(contact)
+                }
+            }
+            addonsDetails.addonsArray[firstMeal].mealsSelectedFor = mealsSelectedFor
+            AddonsDataStore.shared.flightsWithData[vcIndex].meal.addonsArray[firstMeal].mealsSelectedFor = mealsSelectedFor
+        }
+    }
+    
 }

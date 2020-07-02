@@ -27,17 +27,24 @@ class AddPassengerDetailsCell: UITableViewCell {
     @IBOutlet weak var switchParentContainerView: UIView!
     @IBOutlet weak var nameAndGenderStack: UIStackView!
     @IBOutlet weak var dobAndNationalityStack: UIStackView!
-     @IBOutlet weak var passportStack: UIStackView!
+    @IBOutlet weak var passportStack: UIStackView!
     @IBOutlet weak var dobTextField: PKFloatLabelTextField!
-    
     @IBOutlet weak var nataionalityView: UIView!
     @IBOutlet weak var nationalityTextField: PKFloatLabelTextField!
-    
     @IBOutlet weak var passportNumberTextField: PKFloatLabelTextField!
     @IBOutlet weak var passportExpiryTextField: PKFloatLabelTextField!
-    
+    @IBOutlet weak var mobileAndIsdStack: UIStackView!
+    @IBOutlet weak var countryLabel: UILabel!
+    @IBOutlet weak var flagImage: UIImageView!
+    @IBOutlet weak var isdLabel: UILabel!
+    @IBOutlet weak var isdButton: UIButton!
+    @IBOutlet weak var deviderView: ATDividerView!
+    @IBOutlet weak var mobileTextField: PKFloatLabelTextField!
+    @IBOutlet weak var emailStack: UIStackView!
+    @IBOutlet weak var emailTextField: PKFloatLabelTextField!
     @IBOutlet weak var optionalDetailsView: UIView!
     @IBOutlet weak var optionalDetailsButton: UIButton!
+    
     
     // MARK: - Properties
 //    weak var delegate: GuestDetailTableViewCellDelegate?
@@ -48,6 +55,8 @@ class AddPassengerDetailsCell: UITableViewCell {
     weak var txtFldEditDelegate:GuestDetailTableViewCellDelegate?
     var cellIndexPath = IndexPath()
     var journeyType: JourneyType = .domestic
+    private var preSelectedCountry: PKCountryModel?
+    var allPaxInfoRequired = true
     var guestDetail: ATContact? {
         didSet {
             configureCell()
@@ -79,8 +88,8 @@ class AddPassengerDetailsCell: UITableViewCell {
         self.optionalDetailsButton.setTitle("Optional Details", for: .normal)
         self.optionalDetailsButton.titleLabel?.font = AppFonts.Regular.withSize(14.0)
         self.guestTitleLabel.textColor = AppColors.themeBlack
-        let titleArray = ["First Name", "Last Name", "Date of Birth", "Nationality", "Passport Number", "Passport Expiry"]
-        for (index, txtFld) in [firstNameTextField, lastNameTextField, dobTextField, nationalityTextField,passportNumberTextField, passportExpiryTextField].enumerated(){
+        let titleArray = ["First Name", "Last Name", "Mobile", "Email", "Date of Birth", "Nationality", "Passport Number", "Passport Expiry"]
+        for (index, txtFld) in [firstNameTextField, lastNameTextField, mobileTextField, emailTextField, dobTextField, nationalityTextField,passportNumberTextField, passportExpiryTextField].enumerated(){
             txtFld?.titleYPadding = 12.0
             txtFld?.hintYPadding = 12.0
             txtFld?.addTarget(self, action: #selector(self.textFieldDidChanged(_:)), for: .editingChanged)
@@ -92,15 +101,30 @@ class AddPassengerDetailsCell: UITableViewCell {
             txtFld?.titleActiveTextColour = AppColors.themeGreen
             txtFld?.autocorrectionType = .no
         }
+        countryLabel.font = AppFonts.Regular.withSize(14.0)
+        countryLabel.textColor = AppColors.themeGray40
+        countryLabel.text = "Country"
+        
     }
-    
-    
+
     @IBAction func tapOptionalDetailsBtn(_ sender: UIButton) {
         
         self.delegate?.tapOptionalDetailsBtn(at: self.cellIndexPath)
         
     }
 
+    @IBAction func tappedISDButton(_ sender: UIButton) {
+        if let vc = self.viewContainingController {
+            let prevSectdContry = preSelectedCountry
+            PKCountryPicker.default.chooseCountry(onViewController: vc, preSelectedCountry: prevSectdContry) { [weak self] (selectedCountry,closePicker) in
+                guard let self = self else {return}
+                self.preSelectedCountry = selectedCountry
+                self.flagImage.image = selectedCountry.flagImage
+                self.isdLabel.text = selectedCountry.countryCode
+                GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].isd = selectedCountry.countryCode
+            }
+        }
+    }
     
     
     private  func configureCell() {
@@ -155,12 +179,13 @@ class AddPassengerDetailsCell: UITableViewCell {
             case .Adult:
                 self.guestTitleLabel.text = "\(LocalizedString.Adult.localized) \(number)"
             case .child:
-                self.guestTitleLabel.text = "\(LocalizedString.Child.localized) \(number) \(ageText)"
+                self.guestTitleLabel.text = "\(LocalizedString.Child.localized) \(number)"// \(ageText)"
             case .infant:
-                self.guestTitleLabel.text = "\(LocalizedString.Infant.localized) \(number) \(ageText)"
+                self.guestTitleLabel.text = "\(LocalizedString.Infant.localized) \(number)"// \(ageText)"
             }
             self.guestTitleLabel.AttributedFontColorForText(text: ageText, textColor: AppColors.themeGray40)
         }
+        self.showEmailAndContact()
         showErrorForFirstLastName()
     }
     
@@ -196,6 +221,42 @@ class AddPassengerDetailsCell: UITableViewCell {
         }
     }
     
+    private func showEmailAndContact(){
+        if allPaxInfoRequired && ((self.guestDetail?.passengerType ?? .Adult) == .Adult){
+            self.mobileAndIsdStack.isHidden = false
+            self.emailStack.isHidden = false
+            self.mobileTextField.lineColor = AppColors.clear
+            self.mobileTextField.keyboardType = .phonePad
+            self.firstNameTextField.lineViewBottomSpace = 0
+            self.lastNameTextField.lineViewBottomSpace = 0
+            self.setDataForCountryCode()
+            self.mobileTextField.text = self.guestDetail?.contact
+            self.emailTextField.text = self.guestDetail?.emailLabel
+            if (journeyType == .domestic) && (self.guestDetail?.isMoreOptionTapped ?? false){
+                self.emailTextField.lineViewBottomSpace = 0
+            }else{
+                self.emailTextField.lineViewBottomSpace = -3
+            }
+        }else{
+            self.mobileAndIsdStack.isHidden = true
+            self.emailStack.isHidden = true
+        }
+    }
+    
+    private func setDataForCountryCode(){
+        var isd = GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].isd
+        if isd.isEmpty{
+            GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].isd = "+91"
+            isd = "+91"
+        }
+        if let current = PKCountryPicker.default.getCountryData(forISDCode: isd) {
+            preSelectedCountry = current
+            flagImage.image = current.flagImage
+            isdLabel.text = current.countryCode
+        }
+         self.mobileTextField.text = GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].contact
+    }
+    
     
     func showErrorForFirstLastName() {
         guard  self.canShowSalutationError else {return}
@@ -213,6 +274,10 @@ class AddPassengerDetailsCell: UITableViewCell {
             self.domesticValidations()
         }else{
             self.internationalValidations()
+        }
+        
+        if (self.guestDetail?.passengerType ?? .Adult == .Adult){
+            self.validatationForEmailAndMobile()
         }
         
     }
@@ -250,6 +315,19 @@ class AddPassengerDetailsCell: UITableViewCell {
         
     }
     
+    func validatationForEmailAndMobile(){
+        if self.allPaxInfoRequired{
+            let minNumb = self.preSelectedCountry?.minNSN ?? 0
+            let maxNumb = self.preSelectedCountry?.maxNSN ?? 0
+            let mobileText = self.mobileTextField.text ?? ""
+            let isValidMobile = (!(mobileText.isEmpty) && (mobileText.count >= minNumb)  && (mobileText.count <= maxNumb))
+            let isValidMail = self.emailTextField.text?.isEmail ?? true
+            mobileTextField.attributedPlaceholder = NSAttributedString(string: "Mobile", attributes: [NSAttributedString.Key.foregroundColor: isValidMobile ? AppColors.themeGray40 :  AppColors.themeRed])
+            self.mobileTextField.isError = !isValidMobile
+            emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: isValidMail ? AppColors.themeGray40 :  AppColors.themeRed])
+            self.emailTextField.isError = !isValidMail
+        }
+    }
     
     
     func setUpUnicodeSwitch() {
@@ -322,6 +400,7 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
     
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        PKCountryPicker.default.closePicker()
         switch textField {
         case self.dobTextField:
             let selected = (textField.text ?? "").toDate(dateFormat: "dd MMM YYYY")
@@ -402,6 +481,10 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
             self.txtFldEditDelegate?.textFieldWhileEditing(lastNameTextField)
         case self.passportNumberTextField:
             GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].passportNumber = (textField.text ?? "").removeAllWhitespaces
+        case self.mobileTextField:
+            GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].contact = (textField.text ?? "").removeAllWhitespaces
+        case self.emailTextField:
+            GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].emailLabel = (textField.text ?? "").removeAllWhitespaces
         default:
             break
         }

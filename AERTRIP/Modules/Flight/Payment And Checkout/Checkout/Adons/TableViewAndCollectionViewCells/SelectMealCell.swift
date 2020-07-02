@@ -55,15 +55,31 @@ class SelectMealCell: UITableViewCell {
                self.mealForLabel.text = ""
                self.mealForLabelTop.constant = 0
                self.quantityLabel.isHidden = true
-           }else{
+        } else if data.mealsSelectedFor.count == 2 {
+            
+            self.mealForLabelTop.constant = 2
+            let allNamesArray = data.mealsSelectedFor.map { (contact) -> String in
+                return contact.firstName
+             }
+            let conaSaperatedNames = allNamesArray.joined(separator: " and ")
+            self.quantityLabel.text = "X\(data.mealsSelectedFor.count)"
+            self.quantityLabel.isHidden = false
+            self.mealForLabel.text = "For \(conaSaperatedNames)"
+                      
+            self.mealForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.themeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
+            
+        }else{
                self.mealForLabelTop.constant = 2
                let allNamesArray = data.mealsSelectedFor.map { (contact) -> String in
                    return contact.firstName
                }
-               let conaSaperatedNames = allNamesArray.joined(separator: ", ")
-               self.mealForLabel.text = "For \(conaSaperatedNames)"
+               let conaSaperatedNames = allNamesArray.joined(separator: ", ").replacingLastOccurrenceOfString(", ", with: " and ", caseInsensitive: true)
                self.quantityLabel.text = "X\(data.mealsSelectedFor.count)"
                self.quantityLabel.isHidden = false
+            self.mealForLabel.text = "For \(conaSaperatedNames)"
+            
+            self.mealForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.themeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
+            
            }
         
         if data.autoSelectedFor.isEmpty {

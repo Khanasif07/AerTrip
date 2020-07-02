@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="o1S-BR-1QM">
-                                <rect key="frame" x="0.0" y="88" width="414" height="713"/>
+                                <rect key="frame" x="0.0" y="89" width="414" height="712"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="147" id="yIw-Bh-Dmn" customClass="PassengerGridCell" customModule="AERTRIP" customModuleProvider="target">
@@ -220,22 +220,31 @@
                                     <constraint firstAttribute="height" constant="44" id="pxL-gz-yxo"/>
                                 </constraints>
                             </view>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="LQH-g6-sid">
+                                <rect key="frame" x="0.0" y="88" width="414" height="1"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="pcb-Bp-ls1"/>
+                                </constraints>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="LQH-g6-sid" firstAttribute="leading" secondItem="qUF-e8-642" secondAttribute="leading" id="9Po-xw-UOk"/>
                             <constraint firstItem="DzE-15-L9R" firstAttribute="trailing" secondItem="NgK-m2-Bz1" secondAttribute="trailing" id="9pC-Iz-0D5"/>
-                            <constraint firstItem="o1S-BR-1QM" firstAttribute="top" secondItem="NgK-m2-Bz1" secondAttribute="bottom" id="AJf-NG-DP6"/>
+                            <constraint firstItem="o1S-BR-1QM" firstAttribute="top" secondItem="LQH-g6-sid" secondAttribute="bottom" id="GI1-BP-KTb"/>
                             <constraint firstAttribute="bottom" secondItem="o1S-BR-1QM" secondAttribute="bottom" constant="95" id="JMH-V7-OJa"/>
                             <constraint firstItem="NgK-m2-Bz1" firstAttribute="leading" secondItem="DzE-15-L9R" secondAttribute="leading" id="PoW-wm-qNq"/>
                             <constraint firstItem="NgK-m2-Bz1" firstAttribute="top" secondItem="DzE-15-L9R" secondAttribute="top" id="UJc-Bd-0U9"/>
                             <constraint firstItem="oO9-k6-JDv" firstAttribute="leading" secondItem="DzE-15-L9R" secondAttribute="leading" id="Who-io-BpC"/>
                             <constraint firstItem="o1S-BR-1QM" firstAttribute="leading" secondItem="DzE-15-L9R" secondAttribute="leading" id="Xl6-f2-F9n"/>
+                            <constraint firstAttribute="trailing" secondItem="LQH-g6-sid" secondAttribute="trailing" id="a9v-Sk-6OI"/>
                             <constraint firstItem="oO9-k6-JDv" firstAttribute="trailing" secondItem="DzE-15-L9R" secondAttribute="trailing" id="fbT-A1-dSC"/>
                             <constraint firstItem="oO9-k6-JDv" firstAttribute="bottom" secondItem="NgK-m2-Bz1" secondAttribute="bottom" id="fpe-Cl-hZn"/>
                             <constraint firstItem="oO9-k6-JDv" firstAttribute="top" secondItem="qUF-e8-642" secondAttribute="top" id="nK6-5j-SW7"/>
                             <constraint firstItem="NgK-m2-Bz1" firstAttribute="leading" secondItem="DzE-15-L9R" secondAttribute="leading" id="pm1-zp-9ed"/>
                             <constraint firstItem="NgK-m2-Bz1" firstAttribute="trailing" secondItem="DzE-15-L9R" secondAttribute="trailing" id="tWA-Vv-sqA"/>
                             <constraint firstItem="o1S-BR-1QM" firstAttribute="trailing" secondItem="DzE-15-L9R" secondAttribute="trailing" id="wgv-m0-ngl"/>
+                            <constraint firstItem="LQH-g6-sid" firstAttribute="top" secondItem="oO9-k6-JDv" secondAttribute="bottom" id="xGR-Qt-QMY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DzE-15-L9R"/>
                     </view>
@@ -245,6 +254,8 @@
                         <outlet property="backNavigationView" destination="NgK-m2-Bz1" id="HrY-32-0a8"/>
                         <outlet property="blurView" destination="oO9-k6-JDv" id="P93-Jl-mWc"/>
                         <outlet property="passengerTableview" destination="o1S-BR-1QM" id="bQb-ii-O3P"/>
+                        <outlet property="progressView" destination="LQH-g6-sid" id="H3Z-xo-x4h"/>
+                        <outlet property="progressViewHeight" destination="pcb-Bp-ls1" id="6TC-A6-MtN"/>
                         <outlet property="tableViewBottomConsctraint" destination="JMH-V7-OJa" id="xM6-B5-VQP"/>
                         <outlet property="titleLabel" destination="goS-ai-7w2" id="P7Z-FW-1Rk"/>
                     </connections>

@@ -549,10 +549,11 @@ extension AppFlowManager {
         }
     }
     
-    func presentHCSelectGuestsVC(delegate: HCSelectGuestsVCDelegate) {
+    func presentHCSelectGuestsVC(delegate: HCSelectGuestsVCDelegate, productType:ProductType = .hotel) {
         if let topVC = UIApplication.topViewController() {
             let ob = HCSelectGuestsVC.instantiate(fromAppStoryboard: .HotelCheckout)
             ob.delegate = delegate
+            ob.viewModel.productType = productType
             ob.modalPresentationStyle = .overFullScreen
             topVC.present(ob, animated: true, completion: nil)
         }
@@ -1384,6 +1385,35 @@ extension AppFlowManager {
     func moveToAddOnVC(){
         let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
         self.mainNavigationController.pushViewController(vc, animated: true)
+    }
+    
+}
+
+
+//Flight return to home VC
+extension AppFlowManager {
+    
+    func flightReturnToHomefrom(_ vc: UIViewController){
+        var newVC:FlightDetailsBaseVC?
+        if let controller = vc.presentingViewController as? FlightDetailsBaseVC{
+            newVC = controller
+        } else if let controller = vc.presentingViewController?.presentingViewController as? FlightDetailsBaseVC{
+             newVC = controller
+        }else if let controller = vc.presentingViewController?.presentingViewController?.presentingViewController as? FlightDetailsBaseVC{
+             newVC = controller
+        }
+        guard newVC != nil else {return}
+        newVC?.presentingViewController?.dismiss(animated: false, completion: {
+            delay(seconds: 0.0) {
+                let nav = (newVC?.presentingViewController as?  UINavigationController)
+                if let intVC = nav?.children.first(where: {$0.isKind(of: HomeDummyViewController.self)}){
+                    nav?.popToViewController(intVC, animated: true)
+                }else{
+                    nav?.popToRootViewController(animated: true)
+                }
+            }
+        })
+        
     }
     
 }

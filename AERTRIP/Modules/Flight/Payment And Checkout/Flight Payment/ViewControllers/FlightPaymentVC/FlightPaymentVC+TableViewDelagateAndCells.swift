@@ -25,6 +25,7 @@ extension FlightPaymentVC: UITableViewDelegate, UITableViewDataSource {
             headerView.tag = section
             headerView.delegate = self
             self.handleDiscountArrowAnimation(headerView)
+            headerView.arrowButton.isUserInteractionEnabled = false
             headerView.grossFareTitleTopConstraint.constant = 0
             headerView.grossFareTitleLabel.text = "Base Fare"
             headerView.discountsTitleLabel.text = "Taxes and Fees"
@@ -35,6 +36,7 @@ extension FlightPaymentVC: UITableViewDelegate, UITableViewDataSource {
             guard let headerView = self.checkOutTableView.dequeueReusableHeaderFooterView(withIdentifier: self.cellIdentifier) as? HotelFareSectionHeader, !self.viewModel.discountData.isEmpty else {
                 return nil
             }
+            headerView.arrowButton.isUserInteractionEnabled = false
             headerView.grossFareTitleLabel.text = ""
             headerView.grossPriceLabel.text = ""
             headerView.tag = section
@@ -111,6 +113,7 @@ extension FlightPaymentVC{
         guard let headerView = self.checkOutTableView.dequeueReusableHeaderFooterView(withIdentifier: self.cellIdentifier) as? HotelFareSectionHeader, !self.viewModel.addonsData.isEmpty else {
             return nil
         }
+        headerView.arrowButton.isUserInteractionEnabled = false
         headerView.grossFareTitleLabel.text = ""
         headerView.grossPriceLabel.text = ""
         headerView.tag = section
@@ -129,11 +132,11 @@ extension FlightPaymentVC{
         case 0, 2: // Empty Cell
             return 35.0
         case 4: // Empty Cell
-            return (UserInfo.loggedInUser != nil) ? 35.0 : 0.0
+            return (UserInfo.loggedInUser != nil && (self.getWalletAmount() > 0)) ? 35.0 : 0.0//(UserInfo.loggedInUser != nil) ? 35.0 : 0.0
         case 1: // Apply Coupon Cell
             return 44.0
         case 3: // Pay by Wallet Cell
-            return (UserInfo.loggedInUser != nil) ? 75.0 : 0.0
+            return (UserInfo.loggedInUser != nil && (self.getWalletAmount() > 0)) ? 75.0 : 0.0//(UserInfo.loggedInUser != nil) ? 75.0 : 0.0
             //        case 5: // Fare Detail Cell
         //            return 80.0
         default:
@@ -160,11 +163,11 @@ extension FlightPaymentVC{
             return 46.0
             
         case 3: // Convenience Cell Message
-            if self.isConvenienceFeeApplied {
-                return 46.0
-            } else {
+//            if self.isConvenienceFeeApplied {
+//                return 46.0
+//            } else {
                 return 0.0
-            }
+//            }
         case 4: // Final amount message table view Cell
             if self.isCouponApplied {
                 return 87.0
@@ -324,7 +327,7 @@ extension FlightPaymentVC{
             }
             totalPayableNowCell.topDeviderView.isHidden = false
             totalPayableNowCell.bottomDeviderView.isHidden = false
-            totalPayableNowCell.totalPriceLabel.text = Double(self.viewModel.itinerary.details.fare.totalPayableNow.value).amountInDelimeterWithSymbol
+            totalPayableNowCell.totalPriceLabel.text = self.getTotalPayableAmount().amountInDelimeterWithSymbol
             return totalPayableNowCell
         case 3: // Convenience Fee message Cell
             guard let conveninceCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: ConvenienceFeeTableViewCell.reusableIdentifier, for: indexPath) as? ConvenienceFeeTableViewCell else {

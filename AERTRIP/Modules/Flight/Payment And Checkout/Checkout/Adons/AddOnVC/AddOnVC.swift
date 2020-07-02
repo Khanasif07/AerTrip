@@ -9,10 +9,11 @@
 import UIKit
 
 protocol AddonsUpdatedDelegate : class {
-    func baggageUpdated()
-    func mealsUpdated()
-    func othersUpdated()
-    func seatsUpdated()
+    func baggageUpdated(amount : String)
+    func mealsUpdated(amount : String)
+    func othersUpdated(amount : String)
+    func seatsUpdated(amount: Int)
+    func resetMeals()
 }
 
 class AddOnVC : BaseVC {
@@ -31,7 +32,9 @@ class AddOnVC : BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        configureNavigation()
+        self.reloadFareBreakup()
+//        configureNavigation()
+        self.setSkipButton()
     }
     
     override func setupColors() {
@@ -55,13 +58,15 @@ extension AddOnVC {
     
     private func initialSetups() {
         self.adonsVm.setAdonsOptions()
+        self.adonsVm.initializeFreeMealsToPassengers()
+        self.mealsUpdated(amount: "")
         configureTableView()
         setupBottomView()
     }
     
-    func configureNavigation(){
+    func configureNavigation(showSkip : Bool = true){
         self.topNavView.delegate = self
-        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : false)
+        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: showSkip, isSecondRightButton: false,isDivider : false)
         self.topNavView.configureFirstRightButton(normalTitle: LocalizedString.Skip.localized, normalColor: AppColors.themeGreen, font: AppFonts.Bold.withSize(18))
     }
     
@@ -75,32 +80,45 @@ extension AddOnVC {
     }
     
     func setupBottomView() {
-//           viewForFare.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-//           viewForFare.tag = 5100
-//           self.view.addSubview(viewForFare)
+        //           viewForFare.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        //           viewForFare.tag = 5100
+        //           self.view.addSubview(viewForFare)
         let dataStore = AddonsDataStore.shared
-           let vc = IntFareBreakupVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
-           vc.taxesResult = dataStore.taxesResult
-            vc.journey = [dataStore.itinerary.details]
-            vc.sid = dataStore.itinerary.sid
-            vc.bookFlightObject = self.adonsVm.bookingObject
-           vc.view.autoresizingMask = []
-           vc.delegate = self
-           vc.view.tag = 2500
-           vc.modalPresentationStyle = .overCurrentContext
-           vc.selectedJourneyFK = [dataStore.itinerary.details.fk]
-            vc.fewSeatsLeftViewHeightFromFlightDetails = 0
-           let ts = CATransition()
-           ts.type = .moveIn
-           ts.subtype = .fromTop
-           ts.duration = 0.4
-           ts.timingFunction = .init(name: CAMediaTimingFunctionName.easeOut)
-           vc.view.layer.add(ts, forKey: nil)
-           self.view.addSubview(vc.view)
-           self.addChild(vc)
-           vc.didMove(toParent: self)
-           self.fareBreakupVC = vc
-     }
+        let vc = IntFareBreakupVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
+        vc.taxesResult = dataStore.taxesResult
+        vc.journey = [dataStore.itinerary.details]
+        vc.sid = dataStore.itinerary.sid
+        vc.bookFlightObject = self.adonsVm.bookingObject
+        vc.view.autoresizingMask = []
+        vc.addonsData = self.adonsVm.getAddonsPriceDict()
+        vc.delegate = self
+        vc.view.tag = 2500
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.selectedJourneyFK = [dataStore.itinerary.details.fk]
+        vc.fewSeatsLeftViewHeightFromFlightDetails = 0
+        let ts = CATransition()
+        ts.type = .moveIn
+        ts.subtype = .fromTop
+        ts.duration = 0.4
+        ts.timingFunction = .init(name: CAMediaTimingFunctionName.easeOut)
+        vc.view.layer.add(ts, forKey: nil)
+        self.view.addSubview(vc.view)
+        self.addChild(vc)
+        vc.didMove(toParent: self)
+        self.fareBreakupVC = vc
+    }
+    
+    func reloadFareBreakup(){
+        if let fareBreakup = self.fareBreakupVC{
+            fareBreakup.reloadDataForAddons()
+        }
+    }
+    
+    func setSkipButton() {
+        self.reloadFareBreakup()
+        self.configureNavigation(showSkip: !(self.adonsVm.isMealSelected() || self.adonsVm.isOthersSelected() || self.adonsVm.isBaggageSelected()))
+    }
+    
 }
 
 extension AddOnVC : FareBreakupVCDelegate {
@@ -124,9 +142,8 @@ extension AddOnVC: TopNavigationViewDelegate {
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         self.adonsVm.bookFlight()
     }
+    
 }
-
-
 
 extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
     
@@ -215,24 +232,42 @@ extension AddOnVC : BookFlightDelegate {
 
 extension AddOnVC : AddonsUpdatedDelegate {
     
-    func baggageUpdated() {
+    func baggageUpdated(amount : String) {
         self.adonsVm.setBaggageStrings()
         self.adonsTableView.reloadData()
+        self.setSkipButton()
+        let amountValue = amount.isEmpty || amount == "0" ? nil : amount
+        self.adonsVm.updatePriceDict(key: "baggage", value: amountValue)
     }
     
-    func mealsUpdated() {
+    func mealsUpdated(amount : String) {
         self.adonsVm.setMealsString()
         self.adonsTableView.reloadData()
+        self.setSkipButton()
+        let amountValue = amount.isEmpty || amount == "0" ? nil : amount
+        self.adonsVm.updatePriceDict(key: "meals", value: amountValue)
     }
     
-    func othersUpdated() {
+    func othersUpdated(amount : String) {
         self.adonsVm.setOthersString()
         self.adonsTableView.reloadData()
+        self.setSkipButton()
+        let amountValue = amount.isEmpty || amount == "0" ? nil : amount
+        self.adonsVm.updatePriceDict(key: "others", value: amountValue)
     }
     
-    func seatsUpdated() {
+    func seatsUpdated(amount: Int) {
         self.adonsVm.setSeatsString()
         self.adonsTableView.reloadData()
+        self.setSkipButton()
+        self.adonsVm.updatePriceDict(key: "seat", value: "\(amount)")
     }
+    
+    func resetMeals() {
+//        self.adonsVm.initializeFreeMealsToPassengers()
+//        self.adonsTableView.reloadData()
+        
+     }
+     
     
 }
