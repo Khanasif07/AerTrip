@@ -8,6 +8,9 @@
 
 import UIKit
 
+protocol OthersBookingTableViewCellDelegate: class {
+    func didSelectRequest(index: Int, data: BookingData)
+}
 class OthersBookingTableViewCell: UITableViewCell {
     
     @IBOutlet weak var containerView: UIView!
@@ -20,6 +23,7 @@ class OthersBookingTableViewCell: UITableViewCell {
     @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
     private var allSteps: [String] = []
     
+    weak var delegate: OthersBookingTableViewCellDelegate?
     var isLastCellInSection: Bool = false {
         didSet {
             updateBottomConstraint()
@@ -51,7 +55,7 @@ class OthersBookingTableViewCell: UITableViewCell {
     }
     
     private func configUI() {
-        self.collectionView.isUserInteractionEnabled = false
+        //self.collectionView.isUserInteractionEnabled = false
         self.bookingTypeImgView.image = #imageLiteral(resourceName: "others")
         self.plcaeNameLabel.textColor = AppColors.themeBlack
         self.travellersNameLabel.textColor = AppColors.themeGray40
@@ -104,6 +108,12 @@ extension OthersBookingTableViewCell: UICollectionViewDataSource, UICollectionVi
         cell.statusText = self.allSteps[indexPath.item]
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let data = bookingData {
+            delegate?.didSelectRequest(index: indexPath.item, data: data)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

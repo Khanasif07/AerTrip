@@ -629,7 +629,7 @@ with us!</string>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5dH-N9-T8X" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
@@ -637,7 +637,7 @@ with us!</string>
                         <constraints>
                             <constraint firstItem="5dH-N9-T8X" firstAttribute="leading" secondItem="GRd-dR-2oX" secondAttribute="leading" id="0jO-lS-CJH"/>
                             <constraint firstItem="Csy-94-hWi" firstAttribute="leading" secondItem="GRd-dR-2oX" secondAttribute="leading" id="1nD-Kp-PWV"/>
-                            <constraint firstItem="GRd-dR-2oX" firstAttribute="bottom" secondItem="5dH-N9-T8X" secondAttribute="bottom" id="K5N-B3-dbe"/>
+                            <constraint firstAttribute="bottom" secondItem="5dH-N9-T8X" secondAttribute="bottom" id="K5N-B3-dbe"/>
                             <constraint firstItem="Csy-94-hWi" firstAttribute="top" secondItem="GRd-dR-2oX" secondAttribute="top" id="QMv-wI-Ekz"/>
                             <constraint firstItem="Vir-db-N3x" firstAttribute="trailing" secondItem="GRd-dR-2oX" secondAttribute="trailing" id="Xv6-b9-uMV"/>
                             <constraint firstItem="GRd-dR-2oX" firstAttribute="trailing" secondItem="5dH-N9-T8X" secondAttribute="trailing" id="ae7-fc-Voa"/>
@@ -1260,7 +1260,7 @@ with us!</string>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="sTn-3c-QGW" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                             </tableView>
                         </subviews>
@@ -1270,7 +1270,7 @@ with us!</string>
                             <constraint firstItem="5D0-XR-qi0" firstAttribute="trailing" secondItem="sTn-3c-QGW" secondAttribute="trailing" id="COQ-Dw-oM8"/>
                             <constraint firstItem="J80-Nz-GmH" firstAttribute="leading" secondItem="5D0-XR-qi0" secondAttribute="leading" id="SFf-qh-wgS"/>
                             <constraint firstItem="5D0-XR-qi0" firstAttribute="trailing" secondItem="J80-Nz-GmH" secondAttribute="trailing" id="SnE-Z2-VWV"/>
-                            <constraint firstItem="5D0-XR-qi0" firstAttribute="bottom" secondItem="sTn-3c-QGW" secondAttribute="bottom" id="ioO-bQ-DKu"/>
+                            <constraint firstAttribute="bottom" secondItem="sTn-3c-QGW" secondAttribute="bottom" id="ioO-bQ-DKu"/>
                             <constraint firstItem="sTn-3c-QGW" firstAttribute="top" secondItem="J80-Nz-GmH" secondAttribute="bottom" id="vBV-2s-Gja"/>
                             <constraint firstItem="J80-Nz-GmH" firstAttribute="top" secondItem="5D0-XR-qi0" secondAttribute="top" id="yRi-Nu-uPG"/>
                         </constraints>
@@ -1309,14 +1309,17 @@ with us!</string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="h5j-Hg-SqJ" customClass="IQTextView">
-                                <rect key="frame" x="12" y="116" width="386" height="208"/>
+                            <textView multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="h5j-Hg-SqJ" customClass="IQTextView">
+                                <rect key="frame" x="12" y="116" width="386" height="33"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="23" id="GTC-9P-AkS"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h48-BB-m8z">
-                                <rect key="frame" x="0.0" y="330" width="414" height="516"/>
+                                <rect key="frame" x="0.0" y="158" width="414" height="688"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oJE-8h-zgy">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
@@ -1328,7 +1331,6 @@ with us!</string>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="516" id="6g8-QJ-deE"/>
                                     <constraint firstAttribute="trailing" secondItem="oJE-8h-zgy" secondAttribute="trailing" id="78h-od-n6d"/>
                                     <constraint firstItem="oJE-8h-zgy" firstAttribute="leading" secondItem="h48-BB-m8z" secondAttribute="leading" id="d5U-s7-9Wb"/>
                                     <constraint firstItem="oJE-8h-zgy" firstAttribute="top" secondItem="h48-BB-m8z" secondAttribute="top" id="vTB-U6-Bqi"/>
@@ -1354,7 +1356,7 @@ with us!</string>
                             <constraint firstItem="c0N-Ia-BmZ" firstAttribute="trailing" secondItem="DiR-MH-Bvn" secondAttribute="trailing" id="6Fy-Av-g1b"/>
                             <constraint firstItem="h5j-Hg-SqJ" firstAttribute="top" secondItem="Uw2-Ag-4P5" secondAttribute="bottom" constant="2" id="77X-WZ-18J"/>
                             <constraint firstItem="c0N-Ia-BmZ" firstAttribute="trailing" secondItem="h5j-Hg-SqJ" secondAttribute="trailing" constant="16" id="9cN-0A-rev"/>
-                            <constraint firstItem="h48-BB-m8z" firstAttribute="top" secondItem="h5j-Hg-SqJ" secondAttribute="bottom" constant="6" id="FRD-eI-hog"/>
+                            <constraint firstItem="h48-BB-m8z" firstAttribute="top" secondItem="h5j-Hg-SqJ" secondAttribute="bottom" constant="9" id="FRD-eI-hog"/>
                             <constraint firstItem="Uw2-Ag-4P5" firstAttribute="leading" secondItem="c0N-Ia-BmZ" secondAttribute="leading" constant="16" id="Fb8-5W-xMD"/>
                             <constraint firstItem="DiR-MH-Bvn" firstAttribute="top" secondItem="Cv8-4e-ZZK" secondAttribute="top" id="Fsm-ux-aR9"/>
                             <constraint firstItem="npd-h4-fHh" firstAttribute="top" secondItem="c0N-Ia-BmZ" secondAttribute="top" id="PnD-Sr-aJp"/>
@@ -1378,7 +1380,6 @@ with us!</string>
                         <outlet property="addCommentTextView" destination="h5j-Hg-SqJ" id="bma-70-qYn"/>
                         <outlet property="bottomDivider" destination="oJE-8h-zgy" id="VAe-SX-OCo"/>
                         <outlet property="bottomView" destination="h48-BB-m8z" id="IcB-Xv-8Xc"/>
-                        <outlet property="bottomViewHeightConstraint" destination="6g8-QJ-deE" id="3ex-da-cTY"/>
                         <outlet property="confirmAbortButton" destination="DiR-MH-Bvn" id="kdz-7n-6M7"/>
                         <outlet property="confirmBtnBottomConstraint" destination="o2r-ar-oRp" id="X8y-CX-Fiw"/>
                         <outlet property="gradientView" destination="Cv8-4e-ZZK" id="eRV-Wr-KcB"/>
@@ -1466,7 +1467,7 @@ with us!</string>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nVN-KD-R9K" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
@@ -1477,7 +1478,7 @@ with us!</string>
                             <constraint firstItem="oxA-MX-1Cb" firstAttribute="trailing" secondItem="nVN-KD-R9K" secondAttribute="trailing" id="4UG-Vu-rd0"/>
                             <constraint firstItem="nVN-KD-R9K" firstAttribute="leading" secondItem="oxA-MX-1Cb" secondAttribute="leading" id="8am-P1-PwV"/>
                             <constraint firstItem="CFv-Rw-eJl" firstAttribute="top" secondItem="oxA-MX-1Cb" secondAttribute="top" id="S0X-vS-9tU"/>
-                            <constraint firstItem="oxA-MX-1Cb" firstAttribute="bottom" secondItem="nVN-KD-R9K" secondAttribute="bottom" id="S9A-7D-qoo"/>
+                            <constraint firstAttribute="bottom" secondItem="nVN-KD-R9K" secondAttribute="bottom" id="S9A-7D-qoo"/>
                             <constraint firstItem="oxA-MX-1Cb" firstAttribute="trailing" secondItem="CFv-Rw-eJl" secondAttribute="trailing" id="m6F-kj-R4m"/>
                             <constraint firstItem="nVN-KD-R9K" firstAttribute="top" secondItem="CFv-Rw-eJl" secondAttribute="bottom" id="vSR-WK-qNn"/>
                         </constraints>

@@ -89,6 +89,7 @@ extension CancelledVC: UITableViewDelegate , UITableViewDataSource {
         } else {
             cell.isLastCellInSection = false
         }
+        cell.delegate = self
         cell.isFirstCellInSection = indexPath.row == 0
         cell.bookingData = bookingData
         return cell
@@ -126,5 +127,16 @@ extension CancelledVC: MyBookingFooterViewDelegate {
         self.isOnlyPendingAction = isOn
         self.loadSaveData()
         self.reloadTable()
+    }
+}
+extension CancelledVC: OthersBookingTableViewCellDelegate {
+    
+    func didSelectRequest(index: Int, data: BookingData) {
+        if let cases = data.cases as? [String], cases.indices.contains(index) {
+            var object = Case()
+            object.casedId = cases[index]
+            object.bookingId = data.bookingId ?? ""
+            AppFlowManager.default.moveToAddOnRequestVC(caseData: object, receipt: nil)
+        }
     }
 }

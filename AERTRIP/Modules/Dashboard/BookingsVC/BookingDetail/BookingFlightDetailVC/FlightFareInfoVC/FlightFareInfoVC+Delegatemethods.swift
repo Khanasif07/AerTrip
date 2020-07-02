@@ -127,6 +127,11 @@ extension FlightFareInfoVC: UITableViewDataSource, UITableViewDelegate {
         else {
             return getCellForFareInfoForNormalFlight(indexPath)
         }
+//        guard  let cell = tableView.dequeueReusableCell(withIdentifier: FareInfoCommonCell.reusableIdentifier, for: indexPath) as? FareInfoCommonCell else {
+//            return UITableViewCell()
+//        }
+//        cell.configureForCancelation(model: self.viewModel.bookingFee[indexPath.row], indexPath: indexPath)
+//        return cell
     }
 }
 
@@ -153,6 +158,8 @@ extension FlightFareInfoVC: BookingDetailVMDelegate {
     func willGetBookingFees() {}
     
     func getBookingFeesSuccess() {
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
         self.tableView.reloadData()
     }
     

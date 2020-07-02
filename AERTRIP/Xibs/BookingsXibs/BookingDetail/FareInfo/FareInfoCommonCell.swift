@@ -42,8 +42,29 @@ class FareInfoCommonCell: ATTableViewCell {
         
     }
     
-    func configureView() {
-        
+    func configureView(indexPath: IndexPath) {
+//        if indexPath.section == 0 && indexPath.row == 0{
+//            self.topSeperatorLabelTop.constant = 0
+//            self.topSeperatorLabelBottom.constant = 10
+//            self.topSeperatorLabel.isHidden = false
+//            self.titleLabel.text = "Cancellation Fee"
+//            self.titleView.isHidden = false
+//            self.titleViewHeight.constant = 40
+//        }else if indexPath.section == 1 && indexPath.row == 0{
+//            self.topSeperatorLabelTop.constant = 12
+//            self.topSeperatorLabelBottom.constant = 8
+//            self.topSeperatorLabel.isHidden = false
+//            self.titleLabel.text = "Rescheduling Fee"
+//            self.titleView.isHidden = false
+//            self.titleViewHeight.constant = 40
+//        }else{
+//            self.topSeperatorLabelBottom.constant = 0
+//            self.topSeperatorLabelTop.constant = 0
+//            self.topSeperatorLabel.isHidden = true
+//            self.titleLabel.text = ""
+//            self.titleView.isHidden = true
+//            self.titleViewHeight.constant = 0
+//        }
     }
     
     

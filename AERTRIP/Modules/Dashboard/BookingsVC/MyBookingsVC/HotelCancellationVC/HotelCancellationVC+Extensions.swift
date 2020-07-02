@@ -61,8 +61,8 @@ extension HotelCancellationVC: UITableViewDelegate , UITableViewDataSource {
         
         cell.configureCell(roomNumber: "\(LocalizedString.Room.localized) \(indexPath.row+1)", roomDetails: roomD, isRoomSelected: isRoomSelected, isExpanded: isExpanded)
         
-        cell.topDividerViewLeadingConstraint.constant = (indexPath.row == (rooms.count - 1)) ? 0.0 : 63.0
-        cell.bottomDividerViewLeadingConstraint.constant = (indexPath.row == (rooms.count - 1)) ? 0.0 : 63.0
+        cell.topDividerViewLeadingConstraint.constant = (indexPath.row == (rooms.count - 1)) ? 0.0 : 56.0
+        cell.bottomDividerViewLeadingConstraint.constant = (indexPath.row == (rooms.count - 1)) ? 0.0 : 56.0
         cell.clipsToBounds = true
         return cell
     }

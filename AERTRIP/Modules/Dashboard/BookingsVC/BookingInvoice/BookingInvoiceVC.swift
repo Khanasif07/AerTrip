@@ -127,9 +127,10 @@ class BookingInvoiceVC: BaseVC {
         }
         discountCell.titleLabelLeadingConstraint.constant = 30
         discountCell.titleLabelBottomConstraint.constant = 1
+        discountCell.titleLabelTopConstraint.constant = 5
         discountCell.backgroundColor = .red
         let code = self.viewModel.transectionCodes[indexPath.row]
-        discountCell.configureCellForInvoice(title: code.ledgerName, amount:self.getSuscriptDecimal(code.amount,fontSize: 14.0))
+        discountCell.configureCellForInvoice(title: code.ledgerName, amount: code.amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(14.0)))
         return discountCell
     }
     
@@ -139,9 +140,10 @@ class BookingInvoiceVC: BaseVC {
             fatalError("DiscountCell not found")
         }
         discountCell.titleLabelLeadingConstraint.constant = 30
-        
+        discountCell.titleLabelBottomConstraint.constant = 6
+
         let code = self.viewModel.discountCodes[indexPath.row]
-        discountCell.configureCellForInvoice(title: code.ledgerName, amount:self.getSuscriptDecimal(code.amount,fontSize: 14.0))
+        discountCell.configureCellForInvoice(title: code.ledgerName, amount:code.amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(14.0)))
         return discountCell
     }
     
@@ -298,13 +300,13 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
             
             func showDataOnTopHeader() {
                 headerView.grossFareTitleLabel.text = sectionHeader.title
-                headerView.grossPriceLabel.attributedText = self.getSuscriptDecimal(sectionHeader.amount)
+                headerView.grossPriceLabel.attributedText = sectionHeader.amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
             }
             func showDataOnBottomHeader() {
                 headerView.topStackView.isHidden = true
                 headerView.discountContainer.isHidden = false
                 headerView.discountsTitleLabel.text = sectionHeader.title
-                headerView.discountPriceLabel.attributedText = self.getSuscriptDecimal(sectionHeader.amount)
+                headerView.discountPriceLabel.attributedText = sectionHeader.amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
             }
             
             switch sectionHeader.section {

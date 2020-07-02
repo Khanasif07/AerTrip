@@ -22,8 +22,7 @@ class FlightFareInfoVC: BaseVC {
     
     override func initialSetup() {
         self.view.layoutIfNeeded()
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
+        
         self.registerXib()
         delay(seconds: 0.3) { [weak self] in
             let sec = self?.viewModel.legSectionTap ?? 0
@@ -69,6 +68,10 @@ class FlightFareInfoVC: BaseVC {
         
         // Traveller Addon TableViewCell
         self.tableView.registerCell(nibName: BookingTravellerAddOnsTableViewCell.reusableIdentifier)
+        
+        self.tableView.registerCell(nibName: FareInfoCommonCell.reusableIdentifier)
+
+        
     }
     
 }

@@ -342,7 +342,7 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
             let value = self.viewModel.caseDetailData[title] as? String ?? ""
             if !(value.isEmpty) && !(value == LocalizedString.dash.localized){
                 if indexPath.row == 0 || self.viewModel.caseDetailData.count - 1 == indexPath.row   {
-                  return 40.0
+                  return 46.0
                 }
                 return 30.0
             }else{
@@ -391,8 +391,8 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         guard let requestStatusCell = self.requestTableView.dequeueReusableCell(withIdentifier: "BookingRequestStateTableViewCell") as? BookingRequestStateTableViewCell else {
             fatalError("BookingRequestStateTableViewCell not found ")
         }
-        requestStatusCell.containerTopConstraint.constant = indexPath.row == 0 ? 10 : 0
-        requestStatusCell.containerBottomContraint.constant = self.viewModel.caseDetailData.count - 1 == indexPath.row ? 10 : 0
+        requestStatusCell.containerTopConstraint.constant = indexPath.row == 0 ? 16 : 0
+        requestStatusCell.containerBottomContraint.constant = self.viewModel.caseDetailData.count - 1 == indexPath.row ? 16 : 0
         var title = self.viewModel.caseDetailTitle[indexPath.row]
         let value = (self.viewModel.caseDetailData[title] as? String) ?? LocalizedString.dash.localized
         

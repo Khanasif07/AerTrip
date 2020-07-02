@@ -39,6 +39,10 @@ class BookingRequestStateTableViewCell: ATTableViewCell {
     @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var containerBottomContraint: NSLayoutConstraint!
     
+    override func prepareForReuse() {
+        self.titleLabel.attributedText = nil
+        self.titleLabel.text = ""
+    }
     override func setupFonts() {
         self.titleLabel.font = AppFonts.Regular.withSize(16.0)
         self.descriptorLabel.font = AppFonts.Regular.withSize(16.0)
@@ -62,6 +66,9 @@ class BookingRequestStateTableViewCell: ATTableViewCell {
              self.descriptorLabel.textColor = AppColors.themeRed
         case .none:
             self.descriptorLabel.text = descriptor
+        }
+        if title.contains("Agent") {
+            self.descriptorLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: #imageLiteral(resourceName: "telex"), endText: "  \(descriptor)", font: AppFonts.Regular.withSize(16.0))
         }
     }
   
