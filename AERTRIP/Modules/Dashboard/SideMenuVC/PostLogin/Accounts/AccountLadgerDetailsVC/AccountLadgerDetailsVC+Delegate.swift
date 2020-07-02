@@ -11,7 +11,7 @@ import UIKit
 extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.viewModel.ladgerDetails.count + 1
+        return self.viewModel.ladgerDetails.count + 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -19,6 +19,9 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         guard section > 0 else {
             //first section's first cell
             return 1
+        }
+        if section == self.viewModel.ladgerDetails.count + 1{
+            return 2
         }
         
         guard let dict = self.viewModel.ladgerDetails["\(section - 1)"] as? JSONDictionary else {
@@ -52,6 +55,14 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         
+        if indexPath.section == self.viewModel.ladgerDetails.count + 1{
+            if indexPath.row == 0{
+                return 28
+            }else{
+                return 44
+            }
+        }
+        
         guard let dict = self.viewModel.ladgerDetails["\(indexPath.section - 1)"] as? JSONDictionary else {
             return 0.0
         }
@@ -62,7 +73,24 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
         else {
             //details
-            return 30.0
+            var isForVouchre = false
+            if let type = self.viewModel.ladgerEvent?.productType{
+                switch type{
+                case .hotel, .flight: isForVouchre = false
+                default: isForVouchre = true
+                }
+            }
+            
+            if indexPath.row == 0 && (indexPath.section - 1) != 0{
+                return 36.0
+            }else if indexPath.row == 0 && isForVouchre{
+                return 36.0
+            }else if indexPath.row == dict.keys.count-1{
+                return 36.0
+            }else{
+               return 30.0
+            }
+            
         }
     }
     
@@ -73,6 +101,34 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             let cell = UITableViewCell()
             cell.backgroundColor = AppColors.themeWhite
             return cell
+        }
+        
+        if indexPath.section == self.viewModel.ladgerDetails.count + 1{
+            if indexPath.row == 0{
+
+                    guard let emptyCell = self.tableView.dequeueReusableCell(withIdentifier: "EmptyTableViewCell") as? EmptyTableViewCell else {
+                        fatalError("EmptyTableViewCell not found")
+                    }
+                return emptyCell
+                
+            }else{
+                    guard let downloadInvoiceCell = self.tableView.dequeueReusableCell(withIdentifier: "DownloadInvoiceTableViewCell") as? DownloadInvoiceTableViewCell else {
+                        fatalError("DownloadInvoiceTableViewCell not found")
+                    }
+                var isForVouchre = false
+                if let type = self.viewModel.ladgerEvent?.productType{
+                    switch type{
+                    case .hotel, .flight: isForVouchre = false
+                    default: isForVouchre = true
+                    }
+                }
+                    downloadInvoiceCell.topDividerView.isHidden = true
+                downloadInvoiceCell.showLoader = self.viewModel.isDownloadingRecipt
+                    downloadInvoiceCell.titleLabel.text = isForVouchre ? LocalizedString.DownloadReceipt.localized : LocalizedString.DownloadInvoice.localized
+                    
+                    return downloadInvoiceCell
+                
+            }
         }
         
         let section = indexPath.section - 1
@@ -159,9 +215,44 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             }
             
             value = value.isEmpty ? LocalizedString.dash.localized : value
-            return self.getDetailCell(title: key, description: value, descriptionColor: descColor, age: age)
+            return self.getDetailCell(title: key, description: value, descriptionColor: descColor, age: age, at: indexPath)
 
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if (indexPath.section == self.viewModel.ladgerDetails.count + 1) && (indexPath.row == 1){
+          
+            if let type = self.viewModel.ladgerEvent?.productType{
+                switch type{
+                case .hotel, .flight:
+                    if let bID = self.viewModel.ladgerEvent?.transactionId, !bID.isEmpty {
+                        self.viewModel.isDownloadingRecipt = true
+                        if let cell = self.tableView.cellForRow(at: indexPath) as? DownloadInvoiceTableViewCell{
+                            cell.showLoader = true
+                        }
+                        AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Booking Invoice", showLoader: false, complition: { [weak self] (status) in
+                            self?.viewModel.isDownloadingRecipt = false
+                            self?.tableView.reloadRow(at: indexPath, with: .automatic)
+                        })
+                    }
+                    
+                default:
+                    if let bID = self.viewModel.ladgerEvent?.transactionId, !bID.isEmpty {
+                        self.viewModel.isDownloadingRecipt = true
+                        if let cell = self.tableView.cellForRow(at: indexPath) as? DownloadInvoiceTableViewCell{
+                            cell.showLoader = true
+                        }
+                        AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Receipt Voucher", showLoader: false, complition: { [weak self] (status) in
+                            self?.viewModel.isDownloadingRecipt = false
+                            self?.tableView.reloadRow(at: indexPath, with: .automatic)
+                        })
+                    }
+                }
+            }
+        }
+        
     }
     
     func getDeviderCell(indexPath: IndexPath) -> UITableViewCell {
@@ -174,7 +265,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func getDetailCell(title: String, description: String, descriptionColor: UIColor? = nil, age: String) -> UITableViewCell {
+    func getDetailCell(title: String, description: String, descriptionColor: UIColor? = nil, age: String, at indexPath:IndexPath) -> UITableViewCell {
         guard let cell = self.tableView.dequeueReusableCell(withIdentifier: AccountLadgerDetailCell.reusableIdentifier) as? AccountLadgerDetailCell else {
             return UITableViewCell()
         }
@@ -183,7 +274,31 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         if let color = descriptionColor {
             cell.descLabel.textColor = color
         }
-        
+        let section = indexPath.section - 1
+        guard let dict = self.viewModel.ladgerDetails["\(section)"] as? JSONDictionary else {
+            return cell
+        }
+        var isForVouchre = false
+        if let type = self.viewModel.ladgerEvent?.productType{
+            switch type{
+            case .hotel, .flight: isForVouchre = false
+            default: isForVouchre = true
+            }
+        }
+        if indexPath.row == 0 && section != 0{
+            cell.stackTopConstraint.constant = 6
+            cell.stackBottomConstraint.constant = 0
+        }else if indexPath.row == 0 && isForVouchre{
+            cell.stackTopConstraint.constant = 6
+            cell.stackBottomConstraint.constant = 0
+        }
+        else if indexPath.row == dict.keys.count-1{
+            cell.stackTopConstraint.constant = 0
+            cell.stackBottomConstraint.constant = 6
+        }else{
+            cell.stackTopConstraint.constant = 0
+            cell.stackBottomConstraint.constant = 0
+        }
         return cell
     }
 }
@@ -196,6 +311,8 @@ class AccountLadgerDetailCell: UITableViewCell {
     //MARK:-
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
+    @IBOutlet weak var stackTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var stackBottomConstraint: NSLayoutConstraint!
     
     
     //MARK:- Life Cycle
@@ -228,7 +345,7 @@ class AccountLadgerDetailCell: UITableViewCell {
         
         self.descLabel.isHidden = false
         self.descLabel.font = AppFonts.Regular.withSize(16.0)
-        self.descLabel.textColor = AppColors.textFieldTextColor51
+        self.descLabel.textColor = AppColors.themeBlack//textFieldTextColor51
         self.descLabel.text = description
         if !age.isEmpty {
             self.descLabel.appendFixedText(text: description, fixedText: age)

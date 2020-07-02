@@ -119,6 +119,8 @@ struct AccountDetailEvent {
     var sector: String = ""
     var pnr: String = ""
     var ticketNo: String = ""
+    var hotelAddress = ""
+    var flightNumber = ""
     
     var numOfRows: Int {
         return 2
@@ -364,8 +366,12 @@ struct AccountDetailEvent {
                     self.sector = obj.joined(separator: " → ")
                 }
             }
+            self.flightNumber = ""
             
             for row in rows {
+                if let num = row["flight_no"] as? String{
+                    self.flightNumber += (self.flightNumber.isEmpty) ? num : ",\(num)"
+                }
                 if let pnrs = row["pnrs"] as? [JSONDictionary], !pnrs.isEmpty {
                     if let first = rows.first {
                         if let obj = first["pnr"] {
@@ -426,6 +432,7 @@ struct AccountDetailEvent {
         }
         if let hotelAddress = details["hotel_address"] as? String, !hotelAddress.isEmpty {
             tStr = tStr.isEmpty ? hotelAddress : "\(tStr), \(hotelAddress)"
+            self.hotelAddress = hotelAddress
         }
         self.title = tStr
         
