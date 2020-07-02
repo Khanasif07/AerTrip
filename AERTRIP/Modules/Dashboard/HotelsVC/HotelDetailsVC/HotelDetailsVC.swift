@@ -128,6 +128,8 @@ class HotelDetailsVC: BaseVC {
         //------------------------ End --------------------
     }
     
+
+    
     @objc func panHandler(_ sender: UIPanGestureRecognizer) {
         
         
@@ -172,6 +174,9 @@ class HotelDetailsVC: BaseVC {
                 self.isModalInPresentation = false
             }
         }
+        if #available(iOS 13.0, *) {
+            self.statusBarStyle = .lightContent
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -183,9 +188,9 @@ class HotelDetailsVC: BaseVC {
 //        self.navigationController?.view.setNeedsDisplay()
         if #available(iOS 13.0, *) {
             self.isModalInPresentation = true
+            self.statusBarStyle = .default
         }
         self.needToChnageNavigationY = true
-        
     }
     
     override func initialSetup() {

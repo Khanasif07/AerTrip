@@ -594,6 +594,9 @@ extension HCDataSelectionVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         // back button action
         //AppFlowManager.default.popViewController(animated: true)
+        if #available(iOS 13.0, *) {
+            statusBarStyle = .lightContent
+        }
         self.dismissAsPopAnimation()
         delay(seconds: 0.1) {
             GuestDetailsVM.shared.guests.removeAll()
