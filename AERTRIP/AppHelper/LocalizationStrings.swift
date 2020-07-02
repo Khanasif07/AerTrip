@@ -1021,6 +1021,7 @@ enum LocalizedString: String {
     case No
     case SendingEmail
     case LedgerSentToYourEmail
+    case OutstandingSentToYourEmail
     
     // MARK: - Common
     case Other

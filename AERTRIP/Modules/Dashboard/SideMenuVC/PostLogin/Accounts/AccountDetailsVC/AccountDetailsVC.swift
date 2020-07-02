@@ -106,8 +106,8 @@ class AccountDetailsVC: BaseVC {
         
         self.searchBar.isMicEnabled = true
         
-        self.topNavView.firstRightButton.isEnabled = false
-        self.topNavView.secondRightButton.isEnabled = false
+        self.topNavView.firstRightButton.isUserInteractionEnabled = false
+        self.topNavView.secondRightButton.isUserInteractionEnabled = false
         
         if let usr = UserInfo.loggedInUser, usr.userCreditType == .regular {
             self.viewModel.getAccountDetails()
@@ -286,8 +286,8 @@ class AccountDetailsVC: BaseVC {
     
         
         if (self.currentViewState != .filterApplied) {
-            self.topNavView.firstRightButton.isEnabled = !isAllDatesEmpty
-            self.topNavView.secondRightButton.isEnabled = !isAllDatesEmpty
+            self.topNavView.firstRightButton.isUserInteractionEnabled = !isAllDatesEmpty
+            self.topNavView.secondRightButton.isUserInteractionEnabled = !isAllDatesEmpty
         }
         
         self.tableView.reloadData()
