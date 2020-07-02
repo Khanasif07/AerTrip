@@ -9,12 +9,11 @@
 import UIKit
 
 class AddOnsVC: BaseVC {
-    // MARK: - IBOutlet
     
+    // MARK: - IBOutlet
     @IBOutlet weak var addOnTableView: ATTableView!
     
     // MARK: - Variables
-    
     let footerViewIdentifier = "BookingInfoEmptyFooterView"
     let headerViewIdentifier = "BookingAddOnHeaderView"
     
@@ -35,22 +34,24 @@ class AddOnsVC: BaseVC {
     }
     
     // MARK: - Get Cell for First section
-    
     func getCellForSection(_ indexPath: IndexPath) -> UITableViewCell {
         guard let mealOrPreferencesCell = self.addOnTableView.dequeueReusableCell(withIdentifier: "BookingFFMealTableViewCell") as? BookingFFMealTableViewCell else {
             fatalError("BookingFFMealTableViewCell not found")
         }
+        
         mealOrPreferencesCell.delegate = self
         
         guard let commontInputTableViewCell = self.addOnTableView.dequeueReusableCell(withIdentifier: "BookingAddCommonInputTableViewCell") as? BookingAddCommonInputTableViewCell else {
             fatalError("BookingAddCommonInputTableViewCell not found")
         }
+        
         commontInputTableViewCell.delegate = self
         switch indexPath.row % 5 {
-        case 0:
-            guard let cell = self.addOnTableView.dequeueReusableCell(withIdentifier: "BookingAddOnPassengerTableViewCell") as? BookingAddOnPassengerTableViewCell else {
+       
+            case 0:
+                guard let cell = self.addOnTableView.dequeueReusableCell(withIdentifier: "BookingAddOnPassengerTableViewCell") as? BookingAddOnPassengerTableViewCell else {
                 fatalError("BookingAddOnPassengerTableViewCell not found")
-            }
+                }
             if indexPath.row == 0 {
                 cell.topConstraint.constant = 0
             } else {
@@ -161,9 +162,11 @@ extension AddOnsVC: UITableViewDataSource, UITableViewDelegate {
         footerView.bottomDividerView.isHidden = (totalSection - 1) == section
         return footerView
     }
+    
 }
 
 extension AddOnsVC: BookingAddCommonInputTableViewCellDelegate {
+    
     func textFieldText(textField: UITextField) {
         guard let indexPath = self.addOnTableView.indexPath(forItem: textField) else {
             fatalError("indexPath not found")
@@ -195,6 +198,7 @@ extension AddOnsVC: BookingAddCommonInputTableViewCellDelegate {
 }
 
 extension AddOnsVC: BookingFFMealTableViewCellDelegate {
+    
     func textFieldEditing(textfield: UITextField) {
         guard let indexPath = self.addOnTableView.indexPath(forItem: textfield) else {
             fatalError("indexPath not found")
@@ -228,7 +232,7 @@ extension AddOnsVC: BookingFFMealTableViewCellDelegate {
                 BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].mealPreferenes = firstSelect
                 } else {
                     cell?.selectedMealPreferenceTextField.text = firstSelect
-                    BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].mealPreferenes = ""
+                BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].mealPreferenes = ""
                 }
             }
         default:

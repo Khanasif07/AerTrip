@@ -75,13 +75,12 @@ class MealsContainerVC: BaseVC {
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
-        for (index,item) in self.mealsContainerVM.allChildVCs.enumerated() {
-            AddonsDataStore.shared.flightsWithData[index].meal = item.selectMealsVM.addonsDetails
-        }
+        self.mealsContainerVM.updateMealsToDataStore()
         let price = self.totalLabel.text ?? ""
         self.delegate?.mealsUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
         self.dismiss(animated: true, completion: nil)
     }
+    
 }
 
 extension MealsContainerVC {
@@ -110,6 +109,7 @@ extension MealsContainerVC {
         }
         setupParchmentPageController()
     }
+    
     
     private func setupParchmentPageController(){
         self.parchmentView = PagingViewController()
@@ -142,15 +142,9 @@ extension MealsContainerVC {
     }
     
     func calculateTotalAmount(){
-        var totalPrice = 0
-        for item in self.mealsContainerVM.allChildVCs {
-            let mealsArray = item.selectMealsVM.getMeals()
-            let selectedMeals = mealsArray.filter { !$0.mealsSelectedFor.isEmpty && $0.ssrName?.isReadOnly == 0 }
-            selectedMeals.forEach { (meal) in
-                totalPrice += (meal.price * meal.mealsSelectedFor.count)
-            }
-        }
-        self.totalLabel.text = "₹ \(totalPrice)"
+    
+        self.totalLabel.text = "₹ \(self.totalLabel.text = "₹ \(self.mealsContainerVM.calculateTotalAmount())")"
+        
     }
 }
 
@@ -158,16 +152,7 @@ extension MealsContainerVC {
 extension MealsContainerVC: TopNavigationViewDelegate {
   
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        for (index,item) in self.mealsContainerVM.allChildVCs.enumerated() {
-            let mealsArray = item.selectMealsVM.getMeals()
-            mealsArray.enumerated().forEach { (addonIndex,_) in
-                item.selectMealsVM.updateContactInMeal(mealIndex: addonIndex, contacts: [], autoSelectedFor: [])
-            AddonsDataStore.shared.flightsWithData[index].meal.addonsArray[addonIndex].mealsSelectedFor = []
-             
-                item.selectMealsVM.initializeFreeMealsToPassengers()
-            }
-            item.reloadData()
-        }
+        self.mealsContainerVM.clearAll()
         calculateTotalAmount()
         let price = self.totalLabel.text ?? ""
         self.delegate?.mealsUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
@@ -235,34 +220,9 @@ extension MealsContainerVC : SelectMealDelegate {
                 }
                 present(vc, animated: false, completion: nil)
             }
-//
-//     func addPassengerToMeal(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, mealIndex: Int, selectedContacts: [ATContact]) {
-//        let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-//        vc.modalPresentationStyle = .overFullScreen
-//        vc.selectPassengersVM.selectedContacts = selectedContacts
-//        vc.selectPassengersVM.adonsData = forAdon
-//        vc.selectPassengersVM.setupFor = .meals
-//
-//        vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
-//            guard let weakSelf = self else { return }
-//        weakSelf.mealsContainerVM.allChildVCs[vcIndex].selectMealsVM.addonsDetails.addonsArray.enumerated().forEach { (mealIndex,meal) in
-//                contacts.forEach { (contact) in
-//                    if let contIndex = weakSelf.mealsContainerVM.allChildVCs[vcIndex].selectMealsVM.addonsDetails.addonsArray[mealIndex].mealsSelectedFor.lastIndex(where: { (cont) -> Bool in
-//                        return cont.id == contact.id
-//                    }){
-//                        weakSelf.mealsContainerVM.allChildVCs[vcIndex].selectMealsVM.addonsDetails.addonsArray[mealIndex].mealsSelectedFor.remove(at: contIndex)
-//                    }
-//                  }
-//                }
-//        weakSelf.mealsContainerVM.allChildVCs[vcIndex].updateContactInMeal(mealIndex: mealIndex, contacts: contacts)
-//            weakSelf.mealsContainerVM.allChildVCs[vcIndex].reloadData()
-//            weakSelf.calculateTotalAmount()
-//        }
-//
-//        present(vc, animated: true, completion: nil)
-//    }
     
     func addContactButtonTapped() {
         
     }
+    
 }

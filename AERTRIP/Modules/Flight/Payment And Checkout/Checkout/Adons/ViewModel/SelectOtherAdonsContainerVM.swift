@@ -13,6 +13,28 @@ class SelectOtherAdonsContainerVM {
     var currentIndex = 0
     var allChildVCs = [SelectOtherAdonsVC]()
     
+    func clearAll() {
+        for (index,item) in self.allChildVCs.enumerated() {
+            let othersArray = item.otherAdonsVm.getOthers()
+                othersArray.enumerated().forEach { (addonIndex,_) in
+                 item.otherAdonsVm.updateContactInOthers(OthersIndex: addonIndex, contacts: [], autoSelectedFor: [])
+                 AddonsDataStore.shared.flightsWithData[index].special.addonsArray[addonIndex].othersSelectedFor = []
+                }
+                item.reloadData()
+            }
+    }
+    
+    func calculateTotalAmount() -> Int {
+          var totalPrice = 0
+          for item in self.allChildVCs {
+              let mealsArray = item.otherAdonsVm.getOthers()
+              let selectedMeals = mealsArray.filter { !$0.othersSelectedFor.isEmpty && $0.ssrName?.isReadOnly == 0 }
+              selectedMeals.forEach { (meal) in
+                  totalPrice += (meal.price * meal.othersSelectedFor.count)
+              }
+          }
+        return totalPrice
+    }
     
     func addPassengerToMeal(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, othersIndex: Int, contacts: [ATContact]) {
                 
