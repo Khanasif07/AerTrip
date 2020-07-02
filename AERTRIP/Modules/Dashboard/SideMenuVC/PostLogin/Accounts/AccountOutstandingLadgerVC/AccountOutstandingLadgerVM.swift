@@ -93,7 +93,13 @@ class AccountOutstandingLadgerVM: NSObject {
             
             for date in Array(onData.keys) {
                 if let events = onData[date] as? [AccountDetailEvent] {
-                    let fltrd = events.filter({ $0.title.lowercased().contains(forText.lowercased())})
+//                    let fltrd = events.filter({ $0.title.lowercased().contains(forText.lowercased())})
+                    let fltrd = events.filter { event in
+                        return ((event.title.lowercased().contains(forText.lowercased())) || (event.voucherNo.lowercased().contains(forText.lowercased())) ||
+                            (event.airline.lowercased().contains(forText.lowercased())) ||
+                            (event.flightNumber.lowercased().contains(forText.lowercased())))
+                        
+                    }
                     if !fltrd.isEmpty {
                         newData[date] = fltrd
                     }

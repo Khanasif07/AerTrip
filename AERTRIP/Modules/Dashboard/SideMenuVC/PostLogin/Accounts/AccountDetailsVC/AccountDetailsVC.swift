@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import IQKeyboardManager
 class AccountDetailsVC: BaseVC {
     
     enum ViewState {
@@ -142,6 +142,11 @@ class AccountDetailsVC: BaseVC {
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
+    }
+    
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
@@ -179,6 +184,10 @@ class AccountDetailsVC: BaseVC {
         self.openingBalanceDateLabel.textColor = AppColors.themeGray40
     }
     
+    @IBAction func tapSearchContainerView(_ sender: UIButton) {
+        self.currentViewState = .normal
+        self.clearSearchData()
+    }
     //MARK:- Methods
     //MARK:- Private
     private func setupHeaderFooterText() {
@@ -325,12 +334,14 @@ extension AccountDetailsVC: UISearchBarDelegate {
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        
         if searchBar === self.mainSearchBar, (searchBar.text ?? "").isEmpty {
            // self.searchBarCancelButtonClicked(searchBar)
         }
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
         if (searchBar === self.searchBar) || (searchBar === self.ladgerDummySearchBar) {
             self.currentViewState = .searching
             return false
@@ -339,9 +350,14 @@ extension AccountDetailsVC: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.preserveSearchData()
-        self.currentViewState = .normal
-        self.view.endEditing(true)
+        if (searchBar.text?.isEmpty ?? false){
+            self.searchBarCancelButtonClicked(searchBar)
+        }else{
+            self.preserveSearchData()
+            self.currentViewState = .searching
+            self.view.endEditing(true)
+        }
+        
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
