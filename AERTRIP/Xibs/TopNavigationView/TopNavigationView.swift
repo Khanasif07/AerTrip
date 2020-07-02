@@ -278,11 +278,12 @@ class TopNavigationView: PassthroughView {
     }
     
     func startActivityIndicaorLoading() {
+        self.isToShowIndicatorView = true
         self.activityIndicatorView.startAnimating()
     }
     
     func stopActivityIndicaorLoading() {
         self.activityIndicatorView.stopAnimating()
-
+        self.isToShowIndicatorView = false
     }
 }

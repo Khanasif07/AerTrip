@@ -27,6 +27,8 @@ class SelectOtherAdonsContainerVC: BaseVC {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var MealTotalLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var totalContainerView: UIView!
+
     
     // MARK: View Life Cycle
     override func viewDidLoad() {
@@ -67,6 +69,7 @@ class SelectOtherAdonsContainerVC: BaseVC {
         setupNavBar()
         setUpViewPager()
         calculateTotalAmount()
+        totalContainerView.addShadow(ofColor: .black, radius: 20, opacity: 0.05)
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
@@ -85,8 +88,8 @@ extension SelectOtherAdonsContainerVC {
     private func configureNavigation(){
         self.topNavBarView.delegate = self
         self.topNavBarView.configureNavBar(title: LocalizedString.Others.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : false)
-        self.topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen)
-        self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Bold.withSize(18))
+        self.topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18))
+        self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18))
     }
     
     private func setUpViewPager() {
@@ -111,7 +114,7 @@ extension SelectOtherAdonsContainerVC {
         self.parchmentView = PagingViewController()
         self.parchmentView?.menuItemSpacing = 36
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 15, bottom: 0.0, right: 15)
-        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 56)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 53)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
@@ -138,15 +141,7 @@ extension SelectOtherAdonsContainerVC {
     }
     
     func calculateTotalAmount(){
-        var totalPrice = 0
-        for item in self.othersContainerVM.allChildVCs {
-            let mealsArray = item.otherAdonsVm.getOthers()
-            let selectedMeals = mealsArray.filter { !$0.othersSelectedFor.isEmpty && $0.ssrName?.isReadOnly == 0 }
-            selectedMeals.forEach { (meal) in
-                totalPrice += (meal.price * meal.othersSelectedFor.count)
-            }
-        }
-        self.totalLabel.text = "₹ \(totalPrice)"
+        self.totalLabel.text = "₹ \(self.othersContainerVM.calculateTotalAmount())"
     }
     
 }
@@ -154,15 +149,7 @@ extension SelectOtherAdonsContainerVC {
 extension SelectOtherAdonsContainerVC: TopNavigationViewDelegate {
     
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-    
-        for (index,item) in self.othersContainerVM.allChildVCs.enumerated() {
-               let othersArray = item.otherAdonsVm.getOthers()
-               othersArray.enumerated().forEach { (addonIndex,_) in
-                item.otherAdonsVm.updateContactInOthers(OthersIndex: addonIndex, contacts: [], autoSelectedFor: [])
-                AddonsDataStore.shared.flightsWithData[index].special.addonsArray[addonIndex].othersSelectedFor = []
-               }
-               item.reloadData()
-           }
+        self.othersContainerVM.clearAll()
         calculateTotalAmount()
         let price = self.totalLabel.text ?? ""
         self.delegate?.othersUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))    }
@@ -214,38 +201,7 @@ extension SelectOtherAdonsContainerVC: PagingViewControllerDataSource , PagingVi
 
 
 extension SelectOtherAdonsContainerVC : SelectOtherDelegate {
-   
-//    func addPassengerToMeal2(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, othersIndex: Int, selectedContacts: [ATContact]) {
-//        let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-//        vc.modalPresentationStyle = .overFullScreen
-//        vc.selectPassengersVM.selectedContacts = selectedContacts
-//        vc.selectPassengersVM.adonsData = forAdon
-//        vc.selectPassengersVM.setupFor = .others
-//        vc.selectPassengersVM.flightKys = [currentFlightKey]
-//        vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
-//            guard let weakSelf = self else { return }
-//        weakSelf.othersContainerVM.allChildVCs[vcIndex].otherAdonsVm.addonsDetails.addonsArray.enumerated().forEach { (otherIndex,otherAddon) in
-//                contacts.forEach { (contact) in
-//                    if let contIndex = weakSelf.othersContainerVM.allChildVCs[vcIndex].otherAdonsVm.addonsDetails.addonsArray[otherIndex].othersSelectedFor.lastIndex(where: { (cont) -> Bool in
-//                        return cont.id == contact.id
-//                    }){
-//                        weakSelf.othersContainerVM.allChildVCs[vcIndex].otherAdonsVm.addonsDetails.addonsArray[otherIndex].othersSelectedFor.remove(at: contIndex)
-//
-//                    }
-//                  }
-//                }
-//            weakSelf.othersContainerVM.allChildVCs[vcIndex].otherAdonsVm.updateContactInOthers(OthersIndex: othersIndex, contacts: contacts)
-//
-//            weakSelf.othersContainerVM.allChildVCs[vcIndex].reloadData()
-//            weakSelf.calculateTotalAmount()
-//        }
-//
-//        present(vc, animated: true, completion: nil)
-//    }
-    
-    
-    
-    
+       
     func addPassengerToMeal(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, othersIndex: Int, selectedContacts: [ATContact]) {
            let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
            vc.modalPresentationStyle = .overFullScreen

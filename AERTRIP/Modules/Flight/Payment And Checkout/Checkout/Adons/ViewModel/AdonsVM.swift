@@ -81,17 +81,17 @@ class AdonsVM  {
         return isFreeSeatsAdded ? LocalizedString.Free_Seats_Available.localized : ""
        }
     
-    private var priseDict : JSONDictionary = [:]
+    private var priceDict : [String : Int] = [:]
+
     
     func setAdonsOptions(){
         let flightsWithData = AddonsDataStore.shared.flightsWithData
         let flightsWithMeals = flightsWithData.filter { !$0.meal.addonsArray.isEmpty }
         let flightsWithBaggage = flightsWithData.filter {!$0.bags.addonsArray.isEmpty }
-        let flightsWithOthers = flightsWithData.filter {!$0.special.addonsArray.isEmpty }
+        let flightsWithOthers = flightsWithData.filter { !$0.special.addonsArray.isEmpty }
         
-        if !flightsWithMeals.isEmpty{
+        if !flightsWithMeals.isEmpty {
             addonsData.append(AdonsVM.AddonsData(type: .meals, heading: LocalizedString.Meals.localized, description: LocalizedString.Choose_Meal.localized, complementString: getComplementaryMealString, shouldShowComp: isComplementaryMealAdded))
-            
         }
         
         if !flightsWithBaggage.isEmpty {
@@ -103,12 +103,25 @@ class AdonsVM  {
         if !flightsWithOthers.isEmpty{
             addonsData.append(AdonsVM.AddonsData(type: .otheres, heading: LocalizedString.Other.localized, description: LocalizedString.PreBook_Services.localized, complementString: "", shouldShowComp: false))
         }
-        
+    }
+    
+    func getAddonsPriceDict()-> [String : Int]{
+        var newDict = [String:Int]()
+        for (key, value) in self.priceDict{
+            if value != 0{
+                newDict[key] = value
+            }
+        }
+        return newDict
     }
     
     func updatePriceDict(key : String, value : String?){
-        priseDict[key] = value
-        printDebug(priseDict)
+        guard let val = value else {
+            priceDict[key] = nil
+            return
+        }
+        priceDict[key] = Int(val)
+
     }
     
     func getCellHeight(index : Int) -> CGFloat {
@@ -399,9 +412,9 @@ class AdonsVM  {
             self.parmsForItinerary["t[\(i)][\(APIKeys.pax_type.rawValue)]"] = type.rawValue
             self.parmsForItinerary["t[\(i)][\(APIKeys.salutation.rawValue)]"] = dataStore.passengers[i].salutation
             if type == .Adult{
-                self.parmsForItinerary["t[\(i)][\(APIKeys.mobile.rawValue)]"] = ""
-                self.parmsForItinerary["t[\(i)][\(APIKeys.isd.rawValue)]"] = ""
-                self.parmsForItinerary["t[\(i)][\(APIKeys.email.rawValue)]"] = ""
+                self.parmsForItinerary["t[\(i)][\(APIKeys.mobile.rawValue)]"] = dataStore.passengers[i].contact
+                self.parmsForItinerary["t[\(i)][\(APIKeys.isd.rawValue)]"] = dataStore.passengers[i].isd
+                self.parmsForItinerary["t[\(i)][\(APIKeys.email.rawValue)]"] = dataStore.passengers[i].emailLabel
             }
             if dataStore.itinerary.isInternational{
                 self.parmsForItinerary["t[\(i)][\(APIKeys.dob.rawValue)]"] = dataStore.passengers[i].dob

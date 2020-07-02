@@ -176,6 +176,20 @@ extension AccountOnlineDepositVC: TopNavigationViewDelegate {
 }
 
 extension AccountOnlineDepositVC: AccountOnlineDepositVMDelegate {
+    func willFetchPaymentResponse() {
+        self.manageLoader(shouldStart: true)
+    }
+    
+    func paymentResponseSuccess(_ with: JSON) {
+        self.manageLoader(shouldStart: false)
+        self.showPaymentSuccessMessage()
+    }
+    
+    func paymentResponseFail() {
+        self.manageLoader(shouldStart: false)
+         AppToast.default.showToastMessage(message: "Sorry! payment was faild.\nPlease try again.")
+    }
+    
     func willMakePayment() {
         self.manageLoader(shouldStart: true)
     }

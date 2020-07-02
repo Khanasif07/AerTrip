@@ -61,6 +61,8 @@ class TitleWithSubTitleTableViewCell: UITableViewCell {
         self.subTitleLabel.textColor = subTitleColor
         self.containerViewLeadingConstraint.constant = 0.0
         self.containerViewTrailingConstraint.constant = 0.0
+        self.dividerViewLeadingConstraint.constant = 16.0
+        self.dividerViewTrailingConstraint.constant = 16.0
     }
     
     internal func configHotelBookingDetailsCell(title: String , titleFont: UIFont = AppFonts.Regular.withSize(14.0) , titleColor: UIColor = AppColors.themeBlack , subTitle: String , subTitleFont: UIFont = AppFonts.Regular.withSize(14.0) , subTitleColor: UIColor = AppColors.themeBlack) {

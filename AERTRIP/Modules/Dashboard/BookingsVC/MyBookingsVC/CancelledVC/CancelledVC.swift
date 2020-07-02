@@ -14,8 +14,9 @@ class CancelledVC: BaseVC {
     //================
     let viewModel = UpcomingBookingsVM()
     var isComingFromFilter:Bool = false
-    
-    
+    var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
+    var showFirstDivider: Bool = false
+
     // Mark:- IBOutlets
     //================
     @IBOutlet weak var cancelledBookingsTableView: UITableView! {
@@ -145,6 +146,7 @@ class CancelledVC: BaseVC {
         self.cancelledBookingsTableView.registerCell(nibName: OthersBookingTableViewCell.reusableIdentifier)
         self.cancelledBookingsTableView.registerCell(nibName: SpaceTableViewCell.reusableIdentifier)
         self.cancelledBookingsTableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
+        self.cancelledBookingsTableView.register(UINib(nibName: tableViewHeaderCellIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderCellIdentifier)
     }
     
     private func emptyStateSetUp() {

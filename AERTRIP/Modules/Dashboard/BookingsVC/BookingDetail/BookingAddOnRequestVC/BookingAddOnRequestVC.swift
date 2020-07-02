@@ -228,16 +228,24 @@ class BookingAddOnRequestVC: BaseVC {
 
 extension BookingAddOnRequestVC: BookingAddOnRequestVMDelegate {
     func willGetCommunicationDetail() {
-        AppGlobals.shared.startLoading()
+        //AppGlobals.shared.startLoading()
     }
     
-    func getCommunicationDetailSuccess(htmlString: String, title: String) {
-        AppGlobals.shared.stopLoading()
+    func getCommunicationDetailSuccess(htmlString: String, title: String, indexPath: IndexPath) {
+        //AppGlobals.shared.stopLoading()
+        self.viewModel.caseHistory?.communications[indexPath.row].isEmailLoading = false
+        if let cell = self.requestTableView.cellForRow(at: indexPath) as? BookingRequestAddOnTableViewCell {
+            cell.showLoader = false
+        }
         AppFlowManager.default.showHTMLOnATWebView(htmlString, screenTitle: title)
     }
     
-    func getCommunicationDetailFail() {
-        AppGlobals.shared.stopLoading()
+    func getCommunicationDetailFail(indexPath: IndexPath) {
+        self.viewModel.caseHistory?.communications[indexPath.row].isEmailLoading = false
+        if let cell = self.requestTableView.cellForRow(at: indexPath) as? BookingRequestAddOnTableViewCell {
+            cell.showLoader = false
+        }
+        //AppGlobals.shared.stopLoading()
     }
     
     func makeRequestConfirmSuccess() {
@@ -333,6 +341,9 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
             let title = self.viewModel.caseDetailTitle[indexPath.row]
             let value = self.viewModel.caseDetailData[title] as? String ?? ""
             if !(value.isEmpty) && !(value == LocalizedString.dash.localized){
+                if indexPath.row == 0 || self.viewModel.caseDetailData.count - 1 == indexPath.row   {
+                  return 40.0
+                }
                 return 30.0
             }else{
                 return 0.0
@@ -380,7 +391,8 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         guard let requestStatusCell = self.requestTableView.dequeueReusableCell(withIdentifier: "BookingRequestStateTableViewCell") as? BookingRequestStateTableViewCell else {
             fatalError("BookingRequestStateTableViewCell not found ")
         }
-        
+        requestStatusCell.containerTopConstraint.constant = indexPath.row == 0 ? 10 : 0
+        requestStatusCell.containerBottomContraint.constant = self.viewModel.caseDetailData.count - 1 == indexPath.row ? 10 : 0
         var title = self.viewModel.caseDetailTitle[indexPath.row]
         let value = (self.viewModel.caseDetailData[title] as? String) ?? LocalizedString.dash.localized
         
@@ -474,8 +486,12 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         else if let caseD = self.viewModel.caseHistory, !caseD.communications.isEmpty {
             let commonHash = self.viewModel.caseHistory?.communications[indexPath.row].commHash ?? ""
             let templateId = self.viewModel.caseHistory?.communications[indexPath.row].templateId ?? ""
-            let title = self.viewModel.caseHistory?.communications[indexPath.row].commDate?.toString(dateFormat: "hh:mm aa") ?? ""
-            self.viewModel.getCommunicationDetail(commonHash: commonHash, templateId: templateId, title: title)
+            let title = self.viewModel.caseHistory?.communications[indexPath.row].subject ?? ""//self.viewModel.caseHistory?.communications[indexPath.row].commDate?.toString(dateFormat: "hh:mm aa") ?? ""
+            self.viewModel.caseHistory?.communications[indexPath.row].isEmailLoading = true
+            if let cell = self.requestTableView.cellForRow(at: indexPath) as? BookingRequestAddOnTableViewCell {
+                cell.showLoader = true
+            }
+            self.viewModel.getCommunicationDetail(commonHash: commonHash, templateId: templateId, title: title, indexPath: indexPath)
         }
         
     }

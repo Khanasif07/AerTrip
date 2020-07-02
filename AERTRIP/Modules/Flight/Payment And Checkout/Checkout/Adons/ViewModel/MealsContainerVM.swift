@@ -14,6 +14,44 @@ class MealsContainerVM {
     var allChildVCs = [SelectMealsdVC]()
     
     
+    func clearAll() {
+        
+        for (index,item) in self.allChildVCs.enumerated() {
+            
+            let mealsArray = item.selectMealsVM.getMeals()
+            mealsArray.enumerated().forEach { (addonIndex,_) in
+                item.selectMealsVM.updateContactInMeal(mealIndex: addonIndex, contacts: [], autoSelectedFor: [])
+                AddonsDataStore.shared.flightsWithData[index].meal.addonsArray[addonIndex].mealsSelectedFor = []
+                item.selectMealsVM.initializeFreeMealsToPassengers()
+            }
+            item.reloadData()
+            
+        }
+        
+    }
+    
+    func updateMealsToDataStore() {
+        for (index,item) in self.allChildVCs.enumerated() {
+            AddonsDataStore.shared.flightsWithData[index].meal = item.selectMealsVM.addonsDetails
+        }
+    }
+    
+    
+    func calculateTotalAmount() -> Int {
+        
+        var totalPrice = 0
+        
+        for item in self.allChildVCs {
+            let mealsArray = item.selectMealsVM.getMeals()
+            let selectedMeals = mealsArray.filter { !$0.mealsSelectedFor.isEmpty && $0.ssrName?.isReadOnly == 0 }
+            selectedMeals.forEach { (meal) in
+                totalPrice += (meal.price * meal.mealsSelectedFor.count)
+            }
+        }
+        return totalPrice
+    }
+    
+    
     func addPassengerToMeal(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, mealIndex: Int, contacts: [ATContact]) {
         
         let dataStore = AddonsDataStore.shared

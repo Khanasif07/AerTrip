@@ -38,7 +38,7 @@ class HCSelectGuestsVC: BaseVC {
     // Parchment View
     fileprivate var parchmentView : PagingViewController?
     
-    private(set) var viewModel = HCSelectGuestsVM.shared
+    var viewModel = HCSelectGuestsVM.shared
     private var currentIndex: Int = 0 {
         didSet {
         }
@@ -125,7 +125,11 @@ class HCSelectGuestsVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         self.viewModel.clearAllSelection()
-        
+        if self.viewModel.productType == .hotel{
+            self.viewModel.totalGuestCount =  HotelsSearchVM.hotelFormData.totalGuestCount
+        }else{
+            self.viewModel.totalGuestCount =  GuestDetailsVM.shared.guests.first?.count ?? 0
+        }
         selectedContactsCollectionView.setCollectionViewLayout(self.collectionLayout, animated: false)
         
         self.topNavView.delegate = self
@@ -214,8 +218,13 @@ class HCSelectGuestsVC: BaseVC {
     
     private func selectedContactsSetHidden(isHidden: Bool, animated: Bool) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
-            self?.selectedContactsContainerHeightConstraint.constant = isHidden ? 0.0 : 120.0
-            self?.view.layoutIfNeeded()
+            guard let self = self else{return}
+            if self.viewModel.productType == .hotel{
+                self.selectedContactsContainerHeightConstraint.constant = isHidden ? 0.0 : 120.0
+            }else{
+                self.selectedContactsContainerHeightConstraint.constant = isHidden ? 0.0 : 100.0
+            }
+            self.view.layoutIfNeeded()
         }) { (isCompleted) in
         }
     }
@@ -594,7 +603,9 @@ extension HCSelectGuestsVC: UICollectionViewDataSource, UICollectionViewDelegate
         if (indexPath.section == currentSelectedGuestIndex.section) && (indexPath.item == currentSelectedGuestIndex.item){
             cell.isSelectedForGuest = true
         }
-        
+        if !(self.viewModel.productType == .hotel){
+            cell.roomLabel.text = ""
+        }
         return cell
     }
     

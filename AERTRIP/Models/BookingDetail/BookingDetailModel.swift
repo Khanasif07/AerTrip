@@ -499,7 +499,15 @@ extension BookingDetailModel {
         
         for leg in self.bookingDetail?.leg ?? [] {
             for pax in leg.pax {
-                temp.append(FrequentFlyerData(passenger: pax, flights: leg.flight))
+                // need to remove duplicates
+                if !temp.contains(where: { (object) -> Bool in
+                    if  pax.paxId == object.passenger?.paxId {
+                        return true
+                    }
+                    return false
+                }) {
+                    temp.append(FrequentFlyerData(passenger: pax, flights: leg.flight))
+                }
             }
         }
         
@@ -1256,7 +1264,7 @@ struct BookingFlightDetail {
             finalStr += "\n\(self.equipmentLayout)"
         }
         
-        return finalStr + " >"
+        return finalStr //+ " >"
     }
 }
 
@@ -1505,8 +1513,8 @@ struct BillingDetail {
         }
         
         if let obj = json["gst"] {
-            self.gst = !"\(obj)".removeNull.isEmpty ? "\(obj)" : "-"
-            self.gst = self.gst.isEmpty ? LocalizedString.dash.localized : self.gst
+            self.gst = !"\(obj)".removeNull.isEmpty ? "\(obj)" : ""
+            //self.gst = self.gst.isEmpty ? LocalizedString.dash.localized : self.gst
         }
         
         if let obj = json["address"] as? JSONDictionary {

@@ -31,7 +31,7 @@ import UIKit
     private var reachability: Reachability?
     
     // PROPERTY FOR APPLICATION LAUNCH TYPE
-    var isApplicationForFlight = true
+    var isApplicationForFlight = false
 
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -56,7 +56,7 @@ import UIKit
         
         self.reachability = Reachability.networkReachabilityForInternetConnection()
         let _ = self.reachability?.startNotifier()
-        window?.backgroundColor = UIColor.black
+        window?.backgroundColor = UIColor.white
         return true
     }
     

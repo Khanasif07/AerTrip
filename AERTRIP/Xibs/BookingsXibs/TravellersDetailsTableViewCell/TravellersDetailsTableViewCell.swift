@@ -60,7 +60,7 @@ class TravellersDetailsTableViewCell: UITableViewCell {
         }
         if !travellersImage.isEmpty {
             self.travellerProfileImage.setImageWithUrl(travellersImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
-            self.travellerProfileImage.contentMode = .scaleAspectFit
+            self.travellerProfileImage.contentMode = .scaleAspectFill
         } else {
             //self.travellerProfileImage.image = AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName, font: AppFonts.Regular.withSize(35.0))
             if congigureForHotelDetail {
@@ -85,7 +85,7 @@ class TravellersDetailsTableViewCell: UITableViewCell {
         // self.travellerNameLabel.text = travelName
         self.travellerName.appendFixedText(text: travellerName, fixedText: ageString)
         if !age.isEmpty {
-            self.travellerName.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
+            self.travellerName.AttributedFontColorForText(text: ageString, textColor: AppColors.themeGray40)
         }
         
     }

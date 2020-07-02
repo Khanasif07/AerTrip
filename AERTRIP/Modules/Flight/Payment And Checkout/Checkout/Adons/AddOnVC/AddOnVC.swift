@@ -20,6 +20,7 @@ class AddOnVC : BaseVC {
     
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var adonsTableView: UITableView!
+    @IBOutlet weak var bookNowLabel: UILabel!
     
     let adonsVm = AdonsVM()
     var fareBreakupVC:IntFareBreakupVC?
@@ -32,6 +33,7 @@ class AddOnVC : BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.reloadFareBreakup()
 //        configureNavigation()
         self.setSkipButton()
     }
@@ -43,7 +45,7 @@ class AddOnVC : BaseVC {
     
     override func setupTexts() {
         super.setupTexts()
-        
+        self.bookNowLabel.attributedText = LocalizedString.Book_Now_And_Get_Off.localized.attributeStringWithColors(subString: "20% off", strClr: UIColor.black, substrClr: UIColor.black, strFont: AppFonts.c.withSize(38), subStrFont: AppFonts.c.withSize(38), backgroundColor: AppColors.greenBackground)
     }
     
     override func bindViewModel() {
@@ -61,6 +63,7 @@ extension AddOnVC {
         self.mealsUpdated(amount: "")
         configureTableView()
         setupBottomView()
+        
     }
     
     func configureNavigation(showSkip : Bool = true){
@@ -79,32 +82,39 @@ extension AddOnVC {
     }
     
     func setupBottomView() {
-//           viewForFare.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-//           viewForFare.tag = 5100
-//           self.view.addSubview(viewForFare)
+        //           viewForFare.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        //           viewForFare.tag = 5100
+        //           self.view.addSubview(viewForFare)
         let dataStore = AddonsDataStore.shared
-           let vc = IntFareBreakupVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
-           vc.taxesResult = dataStore.taxesResult
-            vc.journey = [dataStore.itinerary.details]
-            vc.sid = dataStore.itinerary.sid
-            vc.bookFlightObject = self.adonsVm.bookingObject
-           vc.view.autoresizingMask = []
-           vc.delegate = self
-           vc.view.tag = 2500
-           vc.modalPresentationStyle = .overCurrentContext
-           vc.selectedJourneyFK = [dataStore.itinerary.details.fk]
-            vc.fewSeatsLeftViewHeightFromFlightDetails = 0
-           let ts = CATransition()
-           ts.type = .moveIn
-           ts.subtype = .fromTop
-           ts.duration = 0.4
-           ts.timingFunction = .init(name: CAMediaTimingFunctionName.easeOut)
-           vc.view.layer.add(ts, forKey: nil)
-           self.view.addSubview(vc.view)
-           self.addChild(vc)
-           vc.didMove(toParent: self)
-           self.fareBreakupVC = vc
-     }
+        let vc = IntFareBreakupVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
+        vc.taxesResult = dataStore.taxesResult
+        vc.journey = [dataStore.itinerary.details]
+        vc.sid = dataStore.itinerary.sid
+        vc.bookFlightObject = self.adonsVm.bookingObject
+        vc.view.autoresizingMask = []
+        vc.addonsData = self.adonsVm.getAddonsPriceDict()
+        vc.delegate = self
+        vc.view.tag = 2500
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.selectedJourneyFK = [dataStore.itinerary.details.fk]
+        vc.fewSeatsLeftViewHeightFromFlightDetails = 0
+        let ts = CATransition()
+        ts.type = .moveIn
+        ts.subtype = .fromTop
+        ts.duration = 0.4
+        ts.timingFunction = .init(name: CAMediaTimingFunctionName.easeOut)
+        vc.view.layer.add(ts, forKey: nil)
+        self.view.addSubview(vc.view)
+        self.addChild(vc)
+        vc.didMove(toParent: self)
+        self.fareBreakupVC = vc
+    }
+    
+    func reloadFareBreakup(){
+        if let fareBreakup = self.fareBreakupVC{
+            fareBreakup.reloadDataForAddons()
+        }
+    }
     
     func setSkipButton() {
         self.configureNavigation(showSkip: !(self.adonsVm.isMealSelected() || self.adonsVm.isOthersSelected() || self.adonsVm.isBaggageSelected()))

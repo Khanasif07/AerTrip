@@ -23,6 +23,7 @@ class HotelInfoAddressCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var containerViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var deviderView: ATDividerView!
     @IBOutlet weak var moreBtnOutlet: UIButton!
     @IBOutlet weak var moreBtnContainerView: UIView!
@@ -159,17 +160,26 @@ class HotelInfoAddressCell: UITableViewCell {
     }
     
     internal func configureNotesCell(notes: String, isHiddenDivider: Bool = false) {
-        self.moreBtnOutlet.isHidden = self.isMoreButtonTapped
+        self.containerView.layoutIfNeeded()
+        self.moreBtnOutlet.isHidden = false
+        self.addressInfoTextView.textContainer.maximumNumberOfLines = 3
+        self.addressLabel.text = LocalizedString.Overview.localized
+        self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText:  notes, startTextColor: AppColors.themeBlack, middleText: " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+         self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3) ? false : true
+        self.attributeLabelSetUp(overview: notes)
+        self.moreBtnOutlet.isUserInteractionEnabled = false
+        
+//        self.moreBtnOutlet.isHidden = self.isMoreButtonTapped
         self.addressLabel.font = AppFonts.Regular.withSize(14.0)
-        self.addressInfoTextView.font = AppFonts.Regular.withSize(18.0)
+//        self.addressInfoTextView.font = AppFonts.Regular.withSize(18.0)
         self.addressLabel.textColor = AppColors.themeGray40
-        self.addressInfoTextView.textColor = AppColors.themeBlack
+//        self.addressInfoTextView.textColor = AppColors.themeBlack
         self.addressLabel.text = LocalizedString.capNotes.localized
-        self.addressInfoTextView.textContainer.maximumNumberOfLines = self.isMoreButtonTapped ? 0 : 3
-        self.addressInfoTextView.isScrollEnabled = false
-        let attrText = notes.htmlToAttributedString(withFontSize: 18.0, fontFamily: AppFonts.Regular.withSize(18.0).familyName, fontColor: AppColors.themeBlack)
-        self.addressInfoTextView.attributedText = attrText
-        self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3) && !self.isMoreButtonTapped ? false : true
+//        self.addressInfoTextView.textContainer.maximumNumberOfLines = self.isMoreButtonTapped ? 0 : 3
+//        self.addressInfoTextView.isScrollEnabled = false
+//        let attrText = notes.htmlToAttributedString(withFontSize: 18.0, fontFamily: AppFonts.Regular.withSize(18.0).familyName, fontColor: AppColors.themeBlack)
+//        self.addressInfoTextView.attributedText = attrText
+//        self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3) && !self.isMoreButtonTapped ? false : true
         self.deviderView.isHidden = isHiddenDivider
     }
     
@@ -192,10 +202,11 @@ class HotelInfoAddressCell: UITableViewCell {
             AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: parentVC.viewModel.hotelData?.info ?? "")
         }
         else if let parentVC = self.parentViewController as? FlightBookingsDetailsVC {
-            self.moreBtnContainerView.isHidden = true
-            self.addressInfoTextView.textContainer.maximumNumberOfLines = 0
-            self.isMoreButtonTapped = true
-            parentVC.bookingDetailsTableView.reloadData()
+//            self.moreBtnContainerView.isHidden = true
+//            self.addressInfoTextView.textContainer.maximumNumberOfLines = 0
+//            self.isMoreButtonTapped = true
+//            parentVC.bookingDetailsTableView.reloadData()
+            AppFlowManager.default.presentBookingNotesVC(overViewInfo: parentVC.viewModel.bookingDetail?.bookingDetail?.note ?? "")
         }
         else if let parentVC = self.parentViewController as? HotlelBookingsDetailsVC {
             self.moreBtnContainerView.isHidden = true

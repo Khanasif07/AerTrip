@@ -145,7 +145,7 @@ extension FlightFareInfoVC: RouteFareInfoTableViewCellDelegate {
 extension FlightFareInfoVC: FareInfoHeaderViewDelegate {
     func fareButtonTapped(_ sender: UIButton) {
         printDebug("fare info butto n tapped")
-        AppFlowManager.default.presentBookingFareInfoDetailVC(usingFor: .fareRules, forBookingId: self.viewModel.bookingDetail?.id ?? "", legDetails: self.viewModel.bookingDetail?.bookingDetail?.leg.first, bookingFee: self.viewModel.bookingFee.first)
+        AppFlowManager.default.presentFareBookingRulesVC(forBookingId: self.viewModel.bookingDetail?.id ?? "", legDetails: self.viewModel.bookingDetail?.bookingDetail?.leg.first, bookingFee: self.viewModel.bookingFee.first)
     }
 }
 

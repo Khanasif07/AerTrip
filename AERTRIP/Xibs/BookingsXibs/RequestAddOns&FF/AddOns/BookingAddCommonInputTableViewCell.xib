@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,7 +26,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LDq-ZJ-MoE" customClass="ATTextField" customModule="AERTRIP" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7cV-rh-grM">
+                                <rect key="frame" x="210" y="8" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LDq-ZJ-MoE">
                                 <rect key="frame" x="0.0" y="31" width="252" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -42,6 +48,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="LDq-ZJ-MoE" secondAttribute="bottom" constant="9" id="3QZ-tB-Ez6"/>
+                            <constraint firstItem="7cV-rh-grM" firstAttribute="bottom" secondItem="3T4-Lq-hM2" secondAttribute="bottom" id="4HQ-aS-gAh"/>
                             <constraint firstAttribute="bottom" secondItem="LcJ-cB-Y6l" secondAttribute="bottom" id="I6d-hZ-7Kd"/>
                             <constraint firstItem="3T4-Lq-hM2" firstAttribute="top" secondItem="3Y6-eI-FpD" secondAttribute="top" constant="8" id="MsA-OB-Ore"/>
                             <constraint firstItem="3T4-Lq-hM2" firstAttribute="leading" secondItem="3Y6-eI-FpD" secondAttribute="leading" id="Tun-3Q-WqJ"/>
@@ -49,8 +56,10 @@
                             <constraint firstAttribute="trailing" secondItem="LcJ-cB-Y6l" secondAttribute="trailing" id="bZj-g8-ydw"/>
                             <constraint firstItem="LcJ-cB-Y6l" firstAttribute="leading" secondItem="3Y6-eI-FpD" secondAttribute="leading" id="eiT-96-MIJ"/>
                             <constraint firstItem="LDq-ZJ-MoE" firstAttribute="top" secondItem="3T4-Lq-hM2" secondAttribute="bottom" constant="2" id="g4y-h4-iqK"/>
+                            <constraint firstAttribute="trailing" secondItem="7cV-rh-grM" secondAttribute="trailing" constant="16" id="gdF-Mb-Ded"/>
                             <constraint firstItem="LDq-ZJ-MoE" firstAttribute="leading" secondItem="3T4-Lq-hM2" secondAttribute="leading" id="p87-Ta-qzl"/>
                             <constraint firstAttribute="trailing" secondItem="3T4-Lq-hM2" secondAttribute="trailing" constant="4" id="pex-ZT-p1W"/>
+                            <constraint firstItem="7cV-rh-grM" firstAttribute="top" secondItem="3T4-Lq-hM2" secondAttribute="top" id="tyC-ep-oUi"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -63,11 +72,12 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="characterCountLabel" destination="7cV-rh-grM" id="buI-Qa-FKS"/>
                 <outlet property="dividerView" destination="LcJ-cB-Y6l" id="ceu-gG-Ha8"/>
                 <outlet property="inputTextField" destination="LDq-ZJ-MoE" id="lK0-IO-BMt"/>
                 <outlet property="titleLabel" destination="3T4-Lq-hM2" id="sMD-G4-Y2R"/>
             </connections>
-            <point key="canvasLocation" x="139" y="111"/>
+            <point key="canvasLocation" x="137.68115942028987" y="110.49107142857143"/>
         </tableViewCell>
     </objects>
 </document>

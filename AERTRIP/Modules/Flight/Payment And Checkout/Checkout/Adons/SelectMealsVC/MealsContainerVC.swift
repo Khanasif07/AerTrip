@@ -27,6 +27,8 @@ class MealsContainerVC: BaseVC {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var MealTotalLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var totalContainerView: UIView!
+    
     
     // MARK: View Life Cycle
     override func viewDidLoad() {
@@ -69,16 +71,16 @@ class MealsContainerVC: BaseVC {
         calculateTotalAmount()
               let price = self.totalLabel.text ?? ""
         self.delegate?.mealsUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
+        totalContainerView.addShadow(ofColor: .black, radius: 20, opacity: 0.05)
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
-        for (index,item) in self.mealsContainerVM.allChildVCs.enumerated() {
-            AddonsDataStore.shared.flightsWithData[index].meal = item.selectMealsVM.addonsDetails
-        }
+        self.mealsContainerVM.updateMealsToDataStore()
         let price = self.totalLabel.text ?? ""
         self.delegate?.mealsUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
         self.dismiss(animated: true, completion: nil)
     }
+    
 }
 
 extension MealsContainerVC {
@@ -86,8 +88,8 @@ extension MealsContainerVC {
     private func configureNavigation(){
         self.topNavBarView.delegate = self
         self.topNavBarView.configureNavBar(title: LocalizedString.Meals.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : false)
-        self.topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen)
-        self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Bold.withSize(18))
+        self.topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen, font : AppFonts.Regular.withSize(18))
+        self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18))
     }
     
     private func setUpViewPager() {
@@ -108,11 +110,12 @@ extension MealsContainerVC {
         setupParchmentPageController()
     }
     
+    
     private func setupParchmentPageController(){
         self.parchmentView = PagingViewController()
         self.parchmentView?.menuItemSpacing = 36
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 15, bottom: 0.0, right: 15)
-        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 56)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 53)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
@@ -139,15 +142,9 @@ extension MealsContainerVC {
     }
     
     func calculateTotalAmount(){
-        var totalPrice = 0
-        for item in self.mealsContainerVM.allChildVCs {
-            let mealsArray = item.selectMealsVM.getMeals()
-            let selectedMeals = mealsArray.filter { !$0.mealsSelectedFor.isEmpty && $0.ssrName?.isReadOnly == 0 }
-            selectedMeals.forEach { (meal) in
-                totalPrice += (meal.price * meal.mealsSelectedFor.count)
-            }
-        }
-        self.totalLabel.text = "₹ \(totalPrice)"
+    
+        self.totalLabel.text = "₹ \(self.totalLabel.text = "₹ \(self.mealsContainerVM.calculateTotalAmount())")"
+        
     }
 }
 
@@ -155,16 +152,7 @@ extension MealsContainerVC {
 extension MealsContainerVC: TopNavigationViewDelegate {
   
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        for (index,item) in self.mealsContainerVM.allChildVCs.enumerated() {
-            let mealsArray = item.selectMealsVM.getMeals()
-            mealsArray.enumerated().forEach { (addonIndex,_) in
-                item.selectMealsVM.updateContactInMeal(mealIndex: addonIndex, contacts: [], autoSelectedFor: [])
-            AddonsDataStore.shared.flightsWithData[index].meal.addonsArray[addonIndex].mealsSelectedFor = []
-             
-                item.selectMealsVM.initializeFreeMealsToPassengers()
-            }
-            item.reloadData()
-        }
+        self.mealsContainerVM.clearAll()
         calculateTotalAmount()
         let price = self.totalLabel.text ?? ""
         self.delegate?.mealsUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
@@ -232,34 +220,9 @@ extension MealsContainerVC : SelectMealDelegate {
                 }
                 present(vc, animated: false, completion: nil)
             }
-//
-//     func addPassengerToMeal(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, mealIndex: Int, selectedContacts: [ATContact]) {
-//        let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-//        vc.modalPresentationStyle = .overFullScreen
-//        vc.selectPassengersVM.selectedContacts = selectedContacts
-//        vc.selectPassengersVM.adonsData = forAdon
-//        vc.selectPassengersVM.setupFor = .meals
-//
-//        vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
-//            guard let weakSelf = self else { return }
-//        weakSelf.mealsContainerVM.allChildVCs[vcIndex].selectMealsVM.addonsDetails.addonsArray.enumerated().forEach { (mealIndex,meal) in
-//                contacts.forEach { (contact) in
-//                    if let contIndex = weakSelf.mealsContainerVM.allChildVCs[vcIndex].selectMealsVM.addonsDetails.addonsArray[mealIndex].mealsSelectedFor.lastIndex(where: { (cont) -> Bool in
-//                        return cont.id == contact.id
-//                    }){
-//                        weakSelf.mealsContainerVM.allChildVCs[vcIndex].selectMealsVM.addonsDetails.addonsArray[mealIndex].mealsSelectedFor.remove(at: contIndex)
-//                    }
-//                  }
-//                }
-//        weakSelf.mealsContainerVM.allChildVCs[vcIndex].updateContactInMeal(mealIndex: mealIndex, contacts: contacts)
-//            weakSelf.mealsContainerVM.allChildVCs[vcIndex].reloadData()
-//            weakSelf.calculateTotalAmount()
-//        }
-//
-//        present(vc, animated: true, completion: nil)
-//    }
     
     func addContactButtonTapped() {
         
     }
+    
 }

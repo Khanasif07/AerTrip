@@ -17,6 +17,42 @@ class BaggageContainerVM {
         
     }
  
+    func clearAll() {
+        
+        for (index,item) in self.allChildVCs.enumerated() {
+            let mealsArray = item.selectBaggageVM.getBaggage()
+            mealsArray.enumerated().forEach { (addonIndex,_) in
+                item.selectBaggageVM.updateContactInBaggage(baggageIndex: addonIndex, contacts: [], autoSelectedFor: [])
+        AddonsDataStore.shared.flightsWithData[index].bags.addonsArray[addonIndex].bagageSelectedFor = []
+          AddonsDataStore.shared.flightsWithData[index].bags.addonsArray[addonIndex].autoSelectedFor = ""
+        }
+             item.reloadData()
+         }
+        
+    }
+    
+    func calculateTotalAmount() -> Int {
+        
+        var totalPrice = 0
+          for item in self.allChildVCs {
+              let mealsArray = item.selectBaggageVM.getBaggage()
+              let selectedMeals = mealsArray.filter { !$0.bagageSelectedFor.isEmpty && $0.ssrName?.isReadOnly == 0 }
+              selectedMeals.forEach { (meal) in
+                  totalPrice += (meal.price * meal.bagageSelectedFor.count)
+              }
+          }
+        
+        return totalPrice
+    }
+    
+    func updateBaggageToDataStore(){
+       
+        for (index,item) in self.allChildVCs.enumerated() {
+            AddonsDataStore.shared.flightsWithData[index].bags = item.selectBaggageVM.addonsDetails
+        }
+           
+    }
+    
     func addPassengerToMeal(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, baggageIndex: Int, contacts: [ATContact]) {
         
         let dataStore = AddonsDataStore.shared

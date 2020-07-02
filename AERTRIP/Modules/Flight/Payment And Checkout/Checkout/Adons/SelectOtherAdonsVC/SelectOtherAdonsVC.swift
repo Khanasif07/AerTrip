@@ -15,6 +15,7 @@ class SelectOtherAdonsVC: UIViewController {
     @IBOutlet weak var specialRequestLabel: UILabel!
     @IBOutlet weak var specialRequestInfoLabel: UILabel!
     @IBOutlet weak var otherAdonsTableView: UITableView!
+
     
     var otherAdonsVm : SelectOtherAdonsVM!
     weak var delegate : SelectOtherDelegate?

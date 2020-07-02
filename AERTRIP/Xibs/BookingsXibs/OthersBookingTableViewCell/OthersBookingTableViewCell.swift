@@ -9,14 +9,33 @@
 import UIKit
 
 class OthersBookingTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var bookingTypeImgView: UIImageView!
     @IBOutlet weak var plcaeNameLabel: UILabel!
     @IBOutlet weak var travellersNameLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
     private var allSteps: [String] = []
+    
+    var isLastCellInSection: Bool = false {
+        didSet {
+            updateBottomConstraint()
+        }
+    }
+    var isFirstCellInSection: Bool = false {
+        didSet {
+            updateTopConstraint()
+        }
+    }
+    
+    var bookingData: BookingData? {
+        didSet {
+            self.configCell()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,18 +45,11 @@ class OthersBookingTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-//        self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner ,.layerMinXMaxYCorner ,.layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize.zero, opacity: 0.7, shadowRadius: 1.5)
-//
-         self.containerView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        //        self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner ,.layerMinXMaxYCorner ,.layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize.zero, opacity: 0.7, shadowRadius: 1.5)
+        //
+        self.containerView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
     }
     
-    
-    var bookingData: BookingData? {
-        didSet {
-            self.configCell()
-        }
-    }
-
     private func configUI() {
         self.collectionView.isUserInteractionEnabled = false
         self.bookingTypeImgView.image = #imageLiteral(resourceName: "others")
@@ -60,6 +72,22 @@ class OthersBookingTableViewCell: UITableViewCell {
         self.bookingTypeImgView.image = bookingData?.productType.icon
         self.allSteps = bookingData?.stepsArray ?? []
         self.collectionView.reloadData()
+    }
+    
+    func updateTopConstraint() {
+        let constant: CGFloat = self.isFirstCellInSection ? 16 : 8
+        if self.containerTopConstraint.constant != constant {
+            self.containerTopConstraint.constant = constant
+            self.contentView.layoutIfNeeded()
+        }
+    }
+    
+    func updateBottomConstraint() {
+        let constant: CGFloat = self.isLastCellInSection ? 16 : 8
+        if self.containerBottomConstraint.constant != constant {
+            self.containerBottomConstraint.constant = constant
+            self.contentView.layoutIfNeeded()
+        }
     }
 }
 

@@ -728,6 +728,8 @@ Your booking ID is";
 "NoBaggage" = "No Baggage";
 "NoInfo" = "No Info";
 "BaggageDetailsMessage" = "Baggage details are indicative and subject to change without prior notice.";
+"CharactersRemaining" = "characters remaining";
+"BookAnotherRoom" = "Book another room";
 
 // Booking Action sheet option
 "RequestAddOnAndFrequentFlyer" = "Request Add-ons & Freq. Flyer";
@@ -798,7 +800,8 @@ Your booking ID is";
 "ClearFilters" = "Clear Filters";
 "BookingID" = "Booking ID";
 "OpeningBalance" = "Opening Balance";
-"NoBookingAvailable" = "No Bookings found.\nWe couldn’t find bookings matching your filters. Try changing the filters, or reset them";
+"NoBookingAvailable" = "No Bookings Found";
+"NoBookingAvailableMessage" = "We couldn’t find bookings matching your filters. Try changing the filters, or reset them";
 
 //MARK:- OutStanding Ladger
 "Summary" = "Summary";
@@ -1037,3 +1040,5 @@ Your booking ID is";
 "emergencySeatTerms7" = "You do not require to use Portable Oxygen Concentrators on board the aircraft.";
 "emergencySeatTerms8" = "You are not pregnant or travelling with someone who is pregnant.";
 "emergencySeatTerms9" = "You confirm and agree to all the above and also understand that the airline reserves all rights to change your seat(s) keeping in mind the overall safety or if you refuse to accept opening the exit during the crew briefing or if you do not adhere to the requirements of the seating row criteria as specified by the crew. (No Refund for change of seat on the aircraft.)";
+
+"Book_Now_And_Get_Off" = "Book Now &\nget upto 20% off";

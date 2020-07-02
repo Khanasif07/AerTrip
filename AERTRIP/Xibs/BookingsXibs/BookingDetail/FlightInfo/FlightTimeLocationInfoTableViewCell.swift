@@ -60,10 +60,14 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
         self.setUpTextColor()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.wingNameLabel.attributedText = nil
+    }
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        self.dottedView.makeDottedLine()
+        self.dottedView.makeDottedLine(dashColor: AppColors.themeGray20)
         self.manageNameHeight()
     }
     
@@ -124,7 +128,7 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
         
         // Travel
         self.travelTimeLabel.text = details.flightTime.asString(units: [.hour, .minute], style: .abbreviated)
-        self.wingNameLabel.text = details.equipmentDetails
+        self.wingNameLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "\(details.equipmentDetails) ", image: #imageLiteral(resourceName: "flightInfoarrow"), endText: "", font: AppFonts.Regular.withSize(12.0))
         
         self.manageNameHeight()
     }

@@ -26,7 +26,7 @@ class BookingDirectionTableViewCell: ATTableViewCell {
     }
     
     override func setupColors() {
-        self.airportCodeLabel.textColor = AppColors.themeGreen
+        self.airportCodeLabel.textColor = AppColors.themeDarkGreen
         self.airportNameLabel.textColor = AppColors.themeBlack
         self.aiportAddressLabel.textColor = AppColors.themeGray40
     }
