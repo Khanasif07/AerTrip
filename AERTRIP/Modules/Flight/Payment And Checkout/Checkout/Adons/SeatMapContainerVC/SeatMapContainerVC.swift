@@ -452,6 +452,7 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
     func didFetchSeatMapData() {
         AppGlobals.shared.stopLoading()
         var totalFlightsData = [SeatMapModel.SeatMapFlight]()
+        viewModel.allTabsStr.removeAll()
         viewModel.seatMapModel.data.leg.forEach {
             let flightsArr = $0.value.flights.map { $0.value }
             totalFlightsData.append(contentsOf: flightsArr)

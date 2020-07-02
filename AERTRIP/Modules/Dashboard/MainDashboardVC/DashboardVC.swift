@@ -652,13 +652,13 @@ extension DashboardVC {
         self.scrollToTopOrBottom()
     }
     
-    private func scrollToTopOrBottom() {
+    private func scrollToTopOrBottom(_ duration: TimeInterval = 0.3) {
         let mainScrollYOffset = mainScrollView.contentOffset.y
         let maxYOffsetForMainScroll = self.mainScrollView.contentSize.height - self.mainScrollView.height
         let midConstant: CGFloat = (maxYOffsetForMainScroll/2) + 3
         
         if mainScrollYOffset < midConstant {
-            UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate(withDuration: duration, animations: {
                 for offset in stride(from: mainScrollYOffset, through: 0, by: -0.1) {
                     self.mainScrollView.contentOffset.y = offset
                     self.mainScrollView.layoutIfNeeded()
@@ -679,18 +679,18 @@ extension DashboardVC {
                 }
             }, completion: { _ in
                 if self.mainScrollView.contentOffset.y != 0 {
-                    self.scrollToTopOrBottom()
+                    self.scrollToTopOrBottom(0.15)
                 }
             })
         } else {
-            UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate(withDuration: duration, animations: {
                 for offset in stride(from: mainScrollYOffset, through: maxYOffsetForMainScroll, by: 0.1) {
                     self.mainScrollView.contentOffset.y = offset
                     self.mainScrollView.layoutIfNeeded()
                 }
             }, completion: { _ in
                 if self.mainScrollView.contentOffset.y < maxYOffsetForMainScroll {
-                    self.scrollToTopOrBottom()
+                    self.scrollToTopOrBottom(0.15)
                 }
             })
         }

@@ -9,7 +9,7 @@
 import Foundation
 
 struct SeatMapModel {
-    let data: SeatMapData
+    var data: SeatMapData
     
     init() {
         self.init(JSON())
@@ -20,7 +20,7 @@ struct SeatMapModel {
     }
     
     struct SeatMapData {
-        let leg: [String: SeatMapLeg]
+        var leg: [String: SeatMapLeg]
         
         init(_ json: JSON) {
             if json["leg"] != nil {
