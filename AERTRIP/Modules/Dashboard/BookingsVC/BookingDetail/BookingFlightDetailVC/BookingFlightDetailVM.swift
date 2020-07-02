@@ -58,6 +58,9 @@ class BookingDetailVM {
     var legSectionTap: Int = 0
     var bookingFee: [BookingFeeDetail] = []
 
+    var flightAdultCount = 0
+    var flightChildrenCount = 0
+    var flightInfantCount = 0
     
     func getBookingFees() {
 
@@ -146,6 +149,41 @@ class BookingDetailVM {
             
             self.allBaggageCells.append(temp)
             temp.removeAll()
+        }
+    }
+    
+    func fecthTableCellsForFareInfo() {
+        
+       // var temp: [BaggageInfoCell] = []
+        flightAdultCount = 0
+        flightChildrenCount = 0
+        flightInfantCount = 0
+        
+        for leg in self.legDetails {
+            
+            for flight in leg.flight {
+                
+                
+                if let bg = flight.baggage?.cabinBg {
+                    
+                    if let _ = bg.adult {
+                        let isLast = ((bg.child == nil) && (bg.infant == nil) && (flight.layoverTime <= 0) && ((flight.baggage?.checkInBg?.notes ?? "").isEmpty))
+                        flightAdultCount += 1 //adult details cell
+                    }
+                    
+                    if let _ = bg.child {
+                        let isLast = ((bg.infant == nil) && (flight.layoverTime <= 0) && ((flight.baggage?.checkInBg?.notes ?? "").isEmpty))
+                        flightChildrenCount += 1 //child details cell
+                    }
+                    
+                    if let _ = bg.infant {
+                        let isLast = ((flight.layoverTime <= 0) && ((flight.baggage?.checkInBg?.notes ?? "").isEmpty))
+                        flightInfantCount += 1 //adult details cell
+                    }
+                }
+                
+            }
+            
         }
     }
 }

@@ -135,6 +135,17 @@ extension FlightFareInfoVC {
         }
     }
     
+    func getNotesCell() -> UITableViewCell {
+        guard let fareInfoNoteCell = self.tableView.dequeueReusableCell(withIdentifier: "FareInfoNoteTableViewCell") as? FareInfoNoteTableViewCell else {
+            fatalError("FareInfoNoteTableViewCell not found")
+        }
+        fareInfoNoteCell.isForBookingPolicyCell = false
+        fareInfoNoteCell.noteTextViewTopConstraint.constant = 10
+        fareInfoNoteCell.noteLabel.text = LocalizedString.Notes.localized
+        fareInfoNoteCell.configCell(notes: AppConstants.kfareInfoNotes)
+        return fareInfoNoteCell
+    }
+    
     func getCellForFareInfoForNormalFlight(_ indexPath: IndexPath) -> UITableViewCell {
         func getNotesCell() -> UITableViewCell {
             guard let fareInfoNoteCell = self.tableView.dequeueReusableCell(withIdentifier: "FareInfoNoteTableViewCell") as? FareInfoNoteTableViewCell else {

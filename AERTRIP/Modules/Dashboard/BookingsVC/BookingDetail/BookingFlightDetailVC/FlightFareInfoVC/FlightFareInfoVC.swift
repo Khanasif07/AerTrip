@@ -22,7 +22,7 @@ class FlightFareInfoVC: BaseVC {
     
     override func initialSetup() {
         self.view.layoutIfNeeded()
-        
+        self.viewModel.fecthTableCellsForFareInfo()
         self.registerXib()
         delay(seconds: 0.3) { [weak self] in
             let sec = self?.viewModel.legSectionTap ?? 0

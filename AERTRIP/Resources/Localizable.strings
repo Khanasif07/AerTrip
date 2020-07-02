@@ -561,6 +561,9 @@
 "AertripWallet" = "Aertrip Wallet";
 "CurrencyOptions" = "Currency options";
 "CheckOutCurrencyOptionInfoMessage" = "Your card provider / bank may charge you foreign transaction fee.";
+"PerAdult" = "Per Adult";
+"PerChild" = "Per Child";
+"PerInfant" = "Per Infant";
 
 //Select Guest
 "SelectGuests" = "Select Guests";
@@ -1041,3 +1044,4 @@ Your booking ID is";
 "emergencySeatTerms7" = "You do not require to use Portable Oxygen Concentrators on board the aircraft.";
 "emergencySeatTerms8" = "You are not pregnant or travelling with someone who is pregnant.";
 "emergencySeatTerms9" = "You confirm and agree to all the above and also understand that the airline reserves all rights to change your seat(s) keeping in mind the overall safety or if you refuse to accept opening the exit during the crew briefing or if you do not adhere to the requirements of the seating row criteria as specified by the crew. (No Refund for change of seat on the aircraft.)";
+

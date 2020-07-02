@@ -129,7 +129,10 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="SKw-4G-SO0"/>
             <connections>
+                <outlet property="adultView" destination="ff6-YV-iIR" id="crG-Tl-Wn3"/>
+                <outlet property="childView" destination="1T1-Zv-AJB" id="ptZ-zq-IGt"/>
                 <outlet property="feeLabel" destination="TbZ-nj-SkD" id="BNj-4m-lvZ"/>
+                <outlet property="infrantView" destination="lr0-KA-lgD" id="id6-dt-S1K"/>
                 <outlet property="perAdultAmountLabel" destination="SFt-SV-Ujc" id="caw-hP-jKq"/>
                 <outlet property="perAdultLabel" destination="PlX-QL-U2r" id="fWT-9y-gbV"/>
                 <outlet property="perChildAmountLabel" destination="Q9X-uv-Kak" id="MCW-Va-yZY"/>

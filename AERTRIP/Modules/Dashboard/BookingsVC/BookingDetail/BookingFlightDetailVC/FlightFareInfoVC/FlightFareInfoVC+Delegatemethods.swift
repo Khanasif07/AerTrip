@@ -11,20 +11,19 @@ import UIKit
 extension FlightFareInfoVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        if self.viewModel.bookingDetail?.isMultipleFlight() ?? false {
-            return self.viewModel.legDetails.count
-        }
-        else {
-            return 1
+        if self.viewModel.bookingDetail?.isMultipleFlight() ?? false{
+            return self.viewModel.legDetails.count + 1
+        }else{
+            return 2
         }
         
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if let booking = self.viewModel.bookingDetail, !booking.isMultipleFlight(), let _ = self.viewModel.legDetails[section].flight.first?.fbn {
-            return UITableView.automaticDimension //!fbn.isEmpty ? 114.0 : 74.0
-        }
-        return 0.0
+        //        if let booking = self.viewModel.bookingDetail, !booking.isMultipleFlight(), let _ = self.viewModel.legDetails[section].flight.first?.fbn {
+        //            return UITableView.automaticDimension //!fbn.isEmpty ? 114.0 : 74.0
+        //        }
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
@@ -32,8 +31,11 @@ extension FlightFareInfoVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
+        if section == self.viewModel.legDetails.count{
+            return nil
+        }
         if let booking = self.viewModel.bookingDetail, !booking.isMultipleFlight(), let flight = self.viewModel.legDetails[section].flight.first {
+            
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.fareInfoHeaderViewIdentifier) as? FareInfoHeaderView else { return nil }
             
             let cc = flight.cc
@@ -62,30 +64,30 @@ extension FlightFareInfoVC: UITableViewDataSource, UITableViewDelegate {
             }
             
             
-//            var infoText = "We do not have information regarding refundability/reschedulability"
-//            if let leg = self.viewModel.legDetails.first {
-//                if leg.refundable == 1 {
-//                    infoText = "Refundable"
-//                }
-//                else if leg.refundable == -9 {
-//                    infoText = LocalizedString.na.localized
-//                }
-//                else {
-//                    infoText = "Non-refundable"
-//                }
-//
-//                if leg.reschedulable == 1 {
-//                    infoText += infoText.isEmpty ? "Reschedulable" : " • Reschedulable"
-//                }
-//                else if leg.refundable == -9 {
-//                    infoText += infoText.isEmpty ? LocalizedString.na.localized : " • \(LocalizedString.na.localized)"
-//                }
-//                else {
-//                    infoText += infoText.isEmpty ? "Non-reschedulable" : " • Non-reschedulable"
-//                }
-//            }
+            //            var infoText = "We do not have information regarding refundability/reschedulability"
+            //            if let leg = self.viewModel.legDetails.first {
+            //                if leg.refundable == 1 {
+            //                    infoText = "Refundable"
+            //                }
+            //                else if leg.refundable == -9 {
+            //                    infoText = LocalizedString.na.localized
+            //                }
+            //                else {
+            //                    infoText = "Non-refundable"
+            //                }
+            //
+            //                if leg.reschedulable == 1 {
+            //                    infoText += infoText.isEmpty ? "Reschedulable" : " • Reschedulable"
+            //                }
+            //                else if leg.refundable == -9 {
+            //                    infoText += infoText.isEmpty ? LocalizedString.na.localized : " • \(LocalizedString.na.localized)"
+            //                }
+            //                else {
+            //                    infoText += infoText.isEmpty ? "Non-reschedulable" : " • Non-reschedulable"
+            //                }
+            //            }
             
-//            headerView.infoLabel.text = infoText
+            //            headerView.infoLabel.text = infoText
             
             return headerView
         }
@@ -108,30 +110,87 @@ extension FlightFareInfoVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //        if let booking = self.viewModel.bookingDetail, booking.isMultipleFlight() {
+        //            return self.getNumberOfCellsInFareInfoForMultiFlight()
+        //        }
+        //        else {
+        //            return self.getNumberOfCellsInFareInfoForNormalFlight(forData: self.viewModel.bookingFee.first)
+        //        }
+        
         if let booking = self.viewModel.bookingDetail, booking.isMultipleFlight() {
-            return self.getNumberOfCellsInFareInfoForMultiFlight()
-        }
-        else {
-            return self.getNumberOfCellsInFareInfoForNormalFlight(forData: self.viewModel.bookingFee.first)
+            if section == self.viewModel.legDetails.count{
+                return 1
+            }else{
+                return 2
+            }
+        }else{
+            if section == 1{
+                return 1
+            }else{
+                return 2
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return getHeightForFareInfo(indexPath)
+        return UITableView.automaticDimension//getHeightForFareInfo(indexPath)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let booking = self.viewModel.bookingDetail, booking.isMultipleFlight() {
-            return getCellForFareInfoForMultiFlight(indexPath)
+        //        if let booking = self.viewModel.bookingDetail, booking.isMultipleFlight() {
+        //            return getCellForFareInfoForMultiFlight(indexPath)
+        //        }
+        //        else {
+        //            return getCellForFareInfoForNormalFlight(indexPath)
+        //        }
+        
+        
+        if let booking = self.viewModel.bookingDetail, booking.isMultipleFlight(){
+            if indexPath.section == self.viewModel.legDetails.count{
+                return getNotesCell()
+            }else{
+                //                if indexPath.row == 0{
+                //                    return self.getFareInfoWithLegs(at: indexPath)
+                //                }else{
+                //                    return getCombineFareWithLegs(at: indexPath)
+                //                }
+                guard  let cell = tableView.dequeueReusableCell(withIdentifier: FareInfoCommonCell.reusableIdentifier, for: indexPath) as? FareInfoCommonCell else {
+                    return UITableViewCell()
+                }
+                cell.flightAdultCount = self.viewModel.flightAdultCount
+                cell.flightChildrenCount = self.viewModel.flightChildrenCount
+                cell.flightInfantCount = self.viewModel.flightInfantCount
+                cell.configureView(model: self.viewModel.bookingFee[indexPath.section], indexPath: indexPath)
+                return cell
+            }
+        }else{
+            if indexPath.section == 1{
+                return getNotesCell()
+            }else{
+                //                if indexPath.row == 0{
+                //                    return self.getFareInfoCellWithJourney(with: indexPath)
+                //                }else if indexPath.row == 2 {
+                //                    return self.getChangeAirportCell()
+                //                }else{
+                //                    return getCombineFareInfoWithJourney(with: indexPath)
+                //                }
+                guard  let cell = tableView.dequeueReusableCell(withIdentifier: FareInfoCommonCell.reusableIdentifier, for: indexPath) as? FareInfoCommonCell else {
+                    return UITableViewCell()
+                }
+                cell.flightAdultCount = self.viewModel.flightAdultCount
+                cell.flightChildrenCount = self.viewModel.flightChildrenCount
+                cell.flightInfantCount = self.viewModel.flightInfantCount
+                
+                cell.configureView(model: self.viewModel.bookingFee[indexPath.section], indexPath: indexPath)
+                return cell
+            }
         }
-        else {
-            return getCellForFareInfoForNormalFlight(indexPath)
-        }
-//        guard  let cell = tableView.dequeueReusableCell(withIdentifier: FareInfoCommonCell.reusableIdentifier, for: indexPath) as? FareInfoCommonCell else {
-//            return UITableViewCell()
-//        }
-//        cell.configureForCancelation(model: self.viewModel.bookingFee[indexPath.row], indexPath: indexPath)
-//        return cell
+        
+        //        guard  let cell = tableView.dequeueReusableCell(withIdentifier: FareInfoCommonCell.reusableIdentifier, for: indexPath) as? FareInfoCommonCell else {
+        //            return UITableViewCell()
+        //        }
+        //        cell.configureForCancelation(model: self.viewModel.bookingFee[indexPath.row], indexPath: indexPath)
+        //        return cell
     }
 }
 

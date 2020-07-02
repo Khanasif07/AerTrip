@@ -643,6 +643,10 @@ enum LocalizedString: String {
     case CurrencyOptions
     case CheckOutCurrencyOptionInfoMessage
     case Rating
+    case PerAdult
+    case PerChild
+    case PerInfant
+
     
     // Select Guests
     case SelectGuests
