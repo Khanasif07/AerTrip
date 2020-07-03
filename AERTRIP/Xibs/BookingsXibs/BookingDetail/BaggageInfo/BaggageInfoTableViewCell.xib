@@ -165,7 +165,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="34l-nJ-iAG">
-                                <rect key="frame" x="16" y="358" width="345" height="0.0"/>
+                                <rect key="frame" x="16" y="358" width="329" height="0.0"/>
                                 <string key="text">The sum of the 3 dimensions (length + breadth + height) of each piece must not exceed 62 inches or 158 centimeters for each piece.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -204,7 +204,7 @@
                             <constraint firstAttribute="trailing" secondItem="vbJ-aq-ziJ" secondAttribute="trailing" constant="20" id="bHX-C0-kQH"/>
                             <constraint firstItem="svI-tk-Efz" firstAttribute="top" secondItem="34l-nJ-iAG" secondAttribute="bottom" constant="16.5" id="dWI-PI-w79"/>
                             <constraint firstItem="5Vm-yw-uX8" firstAttribute="bottom" secondItem="vbJ-aq-ziJ" secondAttribute="bottom" constant="-19" id="fO4-tH-jeT"/>
-                            <constraint firstAttribute="trailing" secondItem="34l-nJ-iAG" secondAttribute="trailing" id="feR-9Y-bTm"/>
+                            <constraint firstAttribute="trailing" secondItem="34l-nJ-iAG" secondAttribute="trailing" constant="16" id="feR-9Y-bTm"/>
                             <constraint firstItem="54P-iy-TbU" firstAttribute="top" secondItem="svI-tk-Efz" secondAttribute="bottom" constant="16" id="h8O-W0-c5j"/>
                             <constraint firstItem="svI-tk-Efz" firstAttribute="leading" secondItem="eK4-w1-utq" secondAttribute="leading" constant="16" id="hqC-oo-wXO"/>
                             <constraint firstAttribute="trailing" secondItem="u0B-Sl-dTe" secondAttribute="trailing" constant="16" id="sbx-rO-4T8"/>
