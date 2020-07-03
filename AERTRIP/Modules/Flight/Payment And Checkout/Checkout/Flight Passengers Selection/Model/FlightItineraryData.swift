@@ -57,6 +57,7 @@ struct FlightItinerary {
     var couponCode: String
     var pointsBalance: Int
     var partPaymentProcessingFee:Int
+    var walletAlreadyUsed:WalletAlreadyUsed?
     //part_payment_due_date: ""
     //seatmap: ""
     //selected_apf: {leg: ""}
@@ -87,6 +88,9 @@ struct FlightItinerary {
         couponCode = json["coupon_code"].stringValue
         pointsBalance = json["points_balance"].intValue
         partPaymentProcessingFee = json["part_payment_processing_fee"].intValue
+        if json["wallet_already_used"].dictionary != nil{
+            self.walletAlreadyUsed = WalletAlreadyUsed(json["wallet_already_used"])
+        }
     }
 }
 
@@ -173,4 +177,18 @@ struct ChangeResult{
         farepr = json["farepr"].intValue
         fare = IntTaxes(json["fare"])
     }
+}
+
+struct WalletAlreadyUsed{
+    
+    var paymentMode:String
+    var refundAmount:Double
+    var remainingAmount:Double
+    
+    init(_ json: JSON = JSON()) {
+        paymentMode = json["payment_mode"].stringValue
+        refundAmount = json["refund_amount"].doubleValue
+        remainingAmount = json["remaining_amount"].doubleValue
+    }
+    
 }

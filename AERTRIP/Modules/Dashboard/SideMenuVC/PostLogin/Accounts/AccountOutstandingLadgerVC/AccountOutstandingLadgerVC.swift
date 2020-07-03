@@ -110,6 +110,10 @@ class AccountOutstandingLadgerVC: BaseVC {
         
         self.searchDataContainerView.backgroundColor = AppColors.clear
         self.mainSearchBar.showsCancelButton = true
+        self.mainSearchBar.showsCancelButton = true
+        if let cancelButton = mainSearchBar.value(forKey: "cancelButton") as? UIButton{
+            cancelButton.titleLabel?.font = AppFonts.Regular.withSize(18)
+        }
         self.searchBar.delegate = self
         self.mainSearchBar.delegate = self
         

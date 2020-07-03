@@ -102,7 +102,10 @@ class PostBookingAddonsPaymentStatusVM{
     }
     
     func getBookingDetails(_ bookingId: String, index: Int) {
-        let params: JSONDictionary = ["booking_id": bookingId]
+        var params: JSONDictionary = ["booking_id": bookingId]
+        if UserInfo.loggedInUserId == nil{
+            params["is_guest_user"] = true
+        }
         delegate?.willGetBookingDetail()
         APICaller.shared.getBookingDetail(params: params) { [weak self] success, errors, bookingDetail in
             guard let self = self else { return }
