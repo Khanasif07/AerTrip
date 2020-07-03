@@ -1585,6 +1585,8 @@
 		84F9EADE226EDCD7005A1B8B /* AppBeautifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9EADD226EDCD7005A1B8B /* AppBeautifier.swift */; };
 		84FABD67228569520066CEB0 /* AccountDepositAmountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FABD65228569520066CEB0 /* AccountDepositAmountCell.swift */; };
 		84FABD68228569520066CEB0 /* AccountDepositAmountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FABD66228569520066CEB0 /* AccountDepositAmountCell.xib */; };
+		84FCB83A24AF210800DAAB13 /* FareInfoCombineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FCB83824AF210800DAAB13 /* FareInfoCombineCell.swift */; };
+		84FCB83B24AF210800DAAB13 /* FareInfoCombineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FCB83924AF210800DAAB13 /* FareInfoCombineCell.xib */; };
 		84FD0DCB228A8E4800915A09 /* AccountDetailEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD0DC7228A8E4800915A09 /* AccountDetailEvent.swift */; };
 		84FD0DCC228A8E4800915A09 /* BankAccountDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD0DC8228A8E4800915A09 /* BankAccountDetail.swift */; };
 		84FD0DCD228A8E4800915A09 /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD0DC9228A8E4800915A09 /* AccountModel.swift */; };
@@ -3330,6 +3332,8 @@
 		84F9EADD226EDCD7005A1B8B /* AppBeautifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBeautifier.swift; sourceTree = "<group>"; };
 		84FABD65228569520066CEB0 /* AccountDepositAmountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDepositAmountCell.swift; sourceTree = "<group>"; };
 		84FABD66228569520066CEB0 /* AccountDepositAmountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountDepositAmountCell.xib; sourceTree = "<group>"; };
+		84FCB83824AF210800DAAB13 /* FareInfoCombineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FareInfoCombineCell.swift; sourceTree = "<group>"; };
+		84FCB83924AF210800DAAB13 /* FareInfoCombineCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FareInfoCombineCell.xib; sourceTree = "<group>"; };
 		84FD0DC7228A8E4800915A09 /* AccountDetailEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailEvent.swift; sourceTree = "<group>"; };
 		84FD0DC8228A8E4800915A09 /* BankAccountDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankAccountDetail.swift; sourceTree = "<group>"; };
 		84FD0DC9228A8E4800915A09 /* AccountModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
@@ -3994,6 +3998,8 @@
 				182EB21B2285817F001BFB20 /* FareInfoNoteTableViewCell.xib */,
 				8411E17524699D4600F8D4AE /* FareInfoCommonCell.swift */,
 				8411E17624699D4600F8D4AE /* FareInfoCommonCell.xib */,
+				84FCB83824AF210800DAAB13 /* FareInfoCombineCell.swift */,
+				84FCB83924AF210800DAAB13 /* FareInfoCombineCell.xib */,
 			);
 			path = FareInfo;
 			sourceTree = "<group>";
@@ -9041,6 +9047,7 @@
 				843FF52624740231001F21B1 /* DomesticMultiLegTemplateCell.xib in Resources */,
 				183B71AB2289901700A75B7F /* BookingAmenityCollectionViewCell.xib in Resources */,
 				183B71AF2289968400A75B7F /* BookingTravellerDetailTableViewCell.xib in Resources */,
+				84FCB83B24AF210800DAAB13 /* FareInfoCombineCell.xib in Resources */,
 				843FF50424740231001F21B1 /* IntFareInfoCell.xib in Resources */,
 				843FF69B247409E4001F21B1 /* LoginRegisterComplete copy.storyboard in Resources */,
 				18038CF0226D90C000A4D1DD /* Aerin.storyboard in Resources */,
@@ -10055,6 +10062,7 @@
 				842EDE7F2238E7D600E99409 /* HotelDetailsVM.swift in Sources */,
 				18EF5E88221D2E1F00EFFA6E /* HotelSearchRequestModel.swift in Sources */,
 				183B71AE2289968400A75B7F /* BookingTravellerDetailTableViewCell.swift in Sources */,
+				84FCB83A24AF210800DAAB13 /* FareInfoCombineCell.swift in Sources */,
 				84D54F8023E427AA0002B504 /* HotelFilterVC + Parchment.swift in Sources */,
 				841AA50E247448FC00B66720 /* Data+PrettyPrint.swift in Sources */,
 				84085CEF21F59C0E00F1E844 /* ThankYouRegistrationVC.swift in Sources */,
@@ -10815,7 +10823,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 94;
+				CURRENT_PROJECT_VERSION = 95;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11023,7 +11031,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 94;
+				CURRENT_PROJECT_VERSION = 95;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;

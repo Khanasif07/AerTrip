@@ -142,6 +142,7 @@
                 <outlet property="slabTimeLabel" destination="9JN-0b-f1F" id="hC2-u6-yBr"/>
                 <outlet property="statusLabel" destination="QOg-Op-Zgj" id="d8z-jy-ATi"/>
                 <outlet property="titleLabel" destination="YjV-ws-Gw3" id="uze-1R-bWp"/>
+                <outlet property="titleView" destination="TRj-s5-cPA" id="aF0-ui-TTw"/>
                 <outlet property="viewTopConstraint" destination="GWR-MR-cxv" id="3gq-l3-tDI"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="152.67857142857142"/>

@@ -23,6 +23,9 @@ extension FlightFareInfoVC: UITableViewDataSource, UITableViewDelegate {
         //        if let booking = self.viewModel.bookingDetail, !booking.isMultipleFlight(), let _ = self.viewModel.legDetails[section].flight.first?.fbn {
         //            return UITableView.automaticDimension //!fbn.isEmpty ? 114.0 : 74.0
         //        }
+        if section == self.viewModel.legDetails.count{
+          return  CGFloat.leastNormalMagnitude
+        }
         return UITableView.automaticDimension
     }
     
@@ -31,10 +34,10 @@ extension FlightFareInfoVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == self.viewModel.legDetails.count{
-            return nil
-        }
-        if let booking = self.viewModel.bookingDetail, !booking.isMultipleFlight(), let flight = self.viewModel.legDetails[section].flight.first {
+//        if section == self.viewModel.legDetails.count{
+//            return nil
+//        }
+        if  self.viewModel.legDetails.indices.contains(section), let flight = self.viewModel.legDetails[section].flight.first {
             
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.fareInfoHeaderViewIdentifier) as? FareInfoHeaderView else { return nil }
             
@@ -54,14 +57,14 @@ extension FlightFareInfoVC: UITableViewDataSource, UITableViewDelegate {
             headerView.dividerView.isHidden = false
             headerView.delegate = self
             headerView.fareRulesButton.setTitle(LocalizedString.FareRules.localized, for: .normal)
-            if self.viewModel.legDetails.count == 1 {
-                headerView.refundPolicyLabel.text = displayTitle
-                headerView.infoLabel.isHidden = true
-            } else {
+//            if self.viewModel.legDetails.count == 1 {
+//                headerView.refundPolicyLabel.text = displayTitle
+//                headerView.infoLabel.isHidden = true
+//            } else {
                 headerView.refundPolicyLabel.text = (flight.departure) + " → " + (flight.arrival)
                 headerView.infoLabel.text = displayTitle
                 headerView.infoLabel.isHidden = false
-            }
+//            }
             
             
             //            var infoText = "We do not have information regarding refundability/reschedulability"
@@ -121,13 +124,13 @@ extension FlightFareInfoVC: UITableViewDataSource, UITableViewDelegate {
             if section == self.viewModel.legDetails.count{
                 return 1
             }else{
-                return 2
+                return 1
             }
         }else{
             if section == 1{
                 return 1
             }else{
-                return 2
+                return 1
             }
         }
     }
@@ -149,18 +152,28 @@ extension FlightFareInfoVC: UITableViewDataSource, UITableViewDelegate {
             if indexPath.section == self.viewModel.legDetails.count{
                 return getNotesCell()
             }else{
+                
                 //                if indexPath.row == 0{
                 //                    return self.getFareInfoWithLegs(at: indexPath)
                 //                }else{
                 //                    return getCombineFareWithLegs(at: indexPath)
                 //                }
-                guard  let cell = tableView.dequeueReusableCell(withIdentifier: FareInfoCommonCell.reusableIdentifier, for: indexPath) as? FareInfoCommonCell else {
+                guard  let cell = tableView.dequeueReusableCell(withIdentifier: FareInfoCombineCell.reusableIdentifier, for: indexPath) as? FareInfoCombineCell else {
                     return UITableViewCell()
                 }
                 cell.flightAdultCount = self.viewModel.flightAdultCount
                 cell.flightChildrenCount = self.viewModel.flightChildrenCount
                 cell.flightInfantCount = self.viewModel.flightInfantCount
-                cell.configureView(model: self.viewModel.bookingFee[indexPath.section], indexPath: indexPath)
+                cell.configureView(model: self.viewModel.bookingFee[indexPath.section])
+                cell.combineFareTableView.reloadData()
+                //cell.cellHeightDelegate = self
+                cell.layoutSubviews()
+                cell.layoutIfNeeded()
+                let height = cell.combineFareTableView.contentSize.height
+                cell.tableViewHeight.constant = (height < 30) ? 30 : height
+                cell.layoutSubviews()
+                cell.layoutIfNeeded()
+                cell.combineFareTableView.reloadData()
                 return cell
             }
         }else{
@@ -174,14 +187,23 @@ extension FlightFareInfoVC: UITableViewDataSource, UITableViewDelegate {
                 //                }else{
                 //                    return getCombineFareInfoWithJourney(with: indexPath)
                 //                }
-                guard  let cell = tableView.dequeueReusableCell(withIdentifier: FareInfoCommonCell.reusableIdentifier, for: indexPath) as? FareInfoCommonCell else {
+                guard  let cell = tableView.dequeueReusableCell(withIdentifier: FareInfoCombineCell.reusableIdentifier, for: indexPath) as? FareInfoCombineCell else {
                     return UITableViewCell()
                 }
                 cell.flightAdultCount = self.viewModel.flightAdultCount
                 cell.flightChildrenCount = self.viewModel.flightChildrenCount
                 cell.flightInfantCount = self.viewModel.flightInfantCount
                 
-                cell.configureView(model: self.viewModel.bookingFee[indexPath.section], indexPath: indexPath)
+                cell.configureView(model: self.viewModel.bookingFee[indexPath.section])
+                cell.combineFareTableView.reloadData()
+                //cell.cellHeightDelegate = self
+                cell.layoutSubviews()
+                cell.layoutIfNeeded()
+                let height = cell.combineFareTableView.contentSize.height
+                cell.tableViewHeight.constant = (height < 30) ? 30 : height
+                cell.layoutSubviews()
+                cell.layoutIfNeeded()
+                cell.combineFareTableView.reloadData()
                 return cell
             }
         }

@@ -143,6 +143,7 @@ extension FlightFareInfoVC {
         fareInfoNoteCell.noteTextViewTopConstraint.constant = 10
         fareInfoNoteCell.noteLabel.text = LocalizedString.Notes.localized
         fareInfoNoteCell.configCell(notes: AppConstants.kfareInfoNotes)
+        fareInfoNoteCell.layoutIfNeeded()
         return fareInfoNoteCell
     }
     

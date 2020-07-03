@@ -70,6 +70,7 @@ class FlightFareInfoVC: BaseVC {
         self.tableView.registerCell(nibName: BookingTravellerAddOnsTableViewCell.reusableIdentifier)
         
         self.tableView.registerCell(nibName: FareInfoCommonCell.reusableIdentifier)
+        self.tableView.registerCell(nibName: FareInfoCombineCell.reusableIdentifier)
 
         
     }
