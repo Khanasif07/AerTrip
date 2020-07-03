@@ -160,7 +160,7 @@ class SeatMapContainerVC: UIViewController {
 
         for index in 0..<viewModel.allTabsStr.count {
             let vc = SeatMapVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
-            vc.setFlightData(viewModel.allFlightsData[index])
+            vc.setFlightData(viewModel.allFlightsData[index], viewModel.setupFor)
 //            if viewModel.setupFor == .postSelection {
 //                vc.setPassengersFromBooking(viewModel.bookedPassengersArr)
 //            }
@@ -405,7 +405,7 @@ extension SeatMapContainerVC: TopNavigationViewDelegate {
             delegate?.seatsUpdated(amount: 0)
         }
         allChildVCs.enumerated().forEach { (index, seatMapVC) in
-            seatMapVC.setFlightData(viewModel.allFlightsData[index])
+            seatMapVC.setFlightData(viewModel.allFlightsData[index], viewModel.setupFor)
             if seatMapVC.viewModel.deckData.rows.count > 0 {
                 if seatMapVC.seatMapCollView != nil {
                     seatMapVC.seatMapCollView.reloadData()

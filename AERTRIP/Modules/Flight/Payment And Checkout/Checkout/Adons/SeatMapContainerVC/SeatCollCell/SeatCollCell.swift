@@ -18,6 +18,7 @@ class SeatCollCell: UICollectionViewCell {
     
     @IBOutlet weak var seatView: UIView!
     @IBOutlet weak var seatNumberLbl: UILabel!
+    @IBOutlet weak var unAvailableImgView: UIImageView!
     
     // MARK: View Life Cycle
     override func awakeFromNib() {
@@ -33,54 +34,37 @@ class SeatCollCell: UICollectionViewCell {
         seatView.layer.borderColor = AppColors.themeGray20.cgColor
     }
     
-//    func setupCellFor(_ indexPath: IndexPath) {
-//        seatView.isHidden = false
-//        switch (indexPath.section, indexPath.item) {
-//        case (0, 0):
-//            seatNumberLbl.isHidden = true
-//            seatView.layer.borderWidth = 0
-//        case (0, let item):
-//            seatNumberLbl.font = AppFonts.Regular.withSize(18)
-//            seatNumberLbl.isHidden = false
-//            seatView.layer.borderWidth = 0
-//            seatNumberLbl.text = "\(item - 1)"
-//        case (let sec, 0):
-//            seatNumberLbl.font = AppFonts.Regular.withSize(18)
-//            seatNumberLbl.isHidden = false
-//            seatView.layer.borderWidth = 0
-//            seatNumberLbl.text = viewModel.getUnicodeScalarStringFor(viewModel.seatLayout.getSeatSectionArr()[sec - 1])
-//        case (let sec, _):
-//            let curSectionType = viewModel.seatLayout.getSeatSectionArr()[sec - 1]
-//            switch curSectionType {
-//            case .blank:
-//                seatView.isHidden = true
-//            case .number(_):
-//                seatNumberLbl.font = AppFonts.Regular.withSize(14)
-//                seatNumberLbl.isHidden = true
-//                seatView.layer.borderWidth = 0.5
-//            }
-//        }
-//    }
-    
-    func setupViewModel(_ seatData: SeatMapModel.SeatMapRow,_ flightFares: (Int, Int)) {
-        viewModel = SeatCollCellVM(seatData, flightFares)
+    func setupViewModel(_ seatData: SeatMapModel.SeatMapRow,_ flightFares: (Int, Int),_ setupFor: SeatMapContainerVM.SetupFor) {
+        viewModel = SeatCollCellVM(seatData, flightFares, setupFor)
     }
     
     private func setupSeatPriceLbl() {
-        if viewModel.seatData.columnData.availability != .available || viewModel.seatData.columnData.postBooking {
+        seatNumberLbl.isHidden = true
+        switch viewModel.seatData.columnData.availability {
+        case .occupied:
             seatView.backgroundColor = AppColors.themeGray20
-            seatNumberLbl.text?.removeAll()
-            seatNumberLbl.isHidden = true
             return
+        case .blocked, .none:
+            seatView.backgroundColor = AppColors.themeGray20
+            toggleUnavailableImgView(false)
+            return
+        default:    break
         }
+        
         seatView.backgroundColor = AppColors.themeWhite
+        seatNumberLbl.isHidden = false
+        seatView.layer.borderColor = AppColors.themeGray20.cgColor
         if let passenger = viewModel.seatData.columnData.passenger {
-            seatNumberLbl.isHidden = false
             seatNumberLbl.text = passenger.firstName.firstCharacter.uppercased() + passenger.lastName.firstCharacter.uppercased()
             seatView.backgroundColor = AppColors.themeGreen
             seatNumberLbl.textColor = AppColors.themeWhite
             return
         } else if viewModel.seatData.isPreselected {
+            seatView.layer.borderColor = AppColors.themeGreen.cgColor
+            seatView.layer.borderWidth = 1
+            seatNumberLbl.textColor = AppColors.themeGray40
+            
+        } else if viewModel.seatData.columnData.postBooking && viewModel.setupFor == .preSelection {
             seatView.backgroundColor = AppColors.lightYellow
             seatNumberLbl.textColor = AppColors.themeGray40
         }
@@ -109,6 +93,7 @@ class SeatCollCell: UICollectionViewCell {
         seatView.isHidden = false
         seatView.backgroundColor = AppColors.themeWhite
         seatNumberLbl.textColor = AppColors.themeGray40
+        toggleUnavailableImgView(true)
         switch (indexPath.section, indexPath.item) {
         case (0, 0):
             seatNumberLbl.isHidden = true
@@ -132,6 +117,14 @@ class SeatCollCell: UICollectionViewCell {
                 setupSeatPriceLbl()
                 seatView.layer.borderWidth = 0.5
             }
+        }
+    }
+    
+    private func toggleUnavailableImgView(_ hidden: Bool) {
+        if hidden {
+            unAvailableImgView.isHidden = true
+        } else {
+            unAvailableImgView.isHidden = false
         }
     }
     

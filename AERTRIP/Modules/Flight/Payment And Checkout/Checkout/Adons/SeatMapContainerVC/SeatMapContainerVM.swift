@@ -144,9 +144,7 @@ class SeatMapContainerVM {
     }
     
     func getSeatTotal(_ seatTotal: @escaping ((Int) -> ())) {
-        
-        let previouslySelectedSeats = originalBookedAddOnSeats.map { $0.columnData.ssrCode }
-        
+                
         func calculateSeatTotal() -> Int {
             var seatTotal = 0
             selectedSeats.removeAll()
@@ -154,9 +152,17 @@ class SeatMapContainerVM {
                 let rows = flight.md.rows.flatMap { $0.value } + flight.ud.rows.flatMap { $0.value }
                 rows.forEach { (_, rowData) in
                     if rowData.columnData.passenger != nil {
-                        if !previouslySelectedSeats.contains(rowData.columnData.ssrCode) {
-                            seatTotal += rowData.columnData.amount
+                        
+                        if originalBookedAddOnSeats.contains(where: { $0.columnData.passenger?.id == rowData.columnData.passenger?.id && $0.columnData.amount >= rowData.columnData.amount }) {
+                            
+                        } else {
+                            if let seatData = originalBookedAddOnSeats.first(where: { $0.columnData.passenger?.id == rowData.columnData.passenger?.id }) {
+                                seatTotal += rowData.columnData.amount - seatData.columnData.amount
+                            } else {
+                                seatTotal += rowData.columnData.amount
+                            }
                         }
+                        
                         selectedSeats.append(rowData)
                     }
                 }

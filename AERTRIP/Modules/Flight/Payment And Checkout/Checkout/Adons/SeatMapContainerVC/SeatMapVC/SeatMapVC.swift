@@ -45,8 +45,9 @@ class SeatMapVC: UIViewController {
         initialSetup()
     }
     
-    func setFlightData(_ model: SeatMapModel.SeatMapFlight) {
+    func setFlightData(_ model: SeatMapModel.SeatMapFlight,_ setupFor: SeatMapContainerVM.SetupFor) {
         viewModel.flightData = model
+        viewModel.setupFor = setupFor
     }
     
 //    func setPassengersFromBooking(_ passengersArr: [ATContact]) {
