@@ -255,8 +255,8 @@ extension MailComposerVC: EmailComposeerHeaderViewDelegate {
         let maxHeight = textView.font!.lineHeight * 5.0
         //for email textView (screenW-62)
         //for message textView (screenW-32)
-        
         var emailHeight = headerView.toEmailTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 62.0), height: 10000.0)).height
+        
         
         var msgHeight = headerView.messageSubjectTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 22.0), height: 10000.0)).height
         

@@ -642,6 +642,8 @@ extension String {
     func sizeCount(withFont font: UIFont, bundingSize size: CGSize) -> CGSize {
         let mutableParagraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
         mutableParagraphStyle.lineBreakMode = NSLineBreakMode.byWordWrapping
+//        mutableParagraphStyle.lineSpacing = 10
+//        mutableParagraphStyle.maximumLineHeight = 18
         let attributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font, NSAttributedString.Key.paragraphStyle: mutableParagraphStyle]
         let tempStr = NSString(string: self)
         
