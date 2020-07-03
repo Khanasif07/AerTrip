@@ -315,6 +315,7 @@ enum APIKeys: String {
     case currencyPref = "currency_pref"
     case booking_id = "booking_id"
     case cid
+    case cases
     
     case trip_id
     case sdate

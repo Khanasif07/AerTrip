@@ -133,6 +133,8 @@ class BookingReschedulingVC: BaseVC {
     
     private func expandCell(_ cell: BookingReschedulingPassengerAccordionTableViewCell, animated: Bool) {
         if let indexPath = reschedulingTableView.indexPath(for: cell) {
+            let legD = self.viewModel.legsData[indexPath.section]
+            let index = indexPath.row -  legD.flight.count
             if !animated {
                 self.addToExpandedIndexPaths(indexPath)
                 cell.setExpanded(true, animated: false)
@@ -155,7 +157,7 @@ class BookingReschedulingVC: BaseVC {
                 CATransaction.commit()
             }
             cell.headerDividerView.isHidden = true
-            cell.bottomDividerView.isHidden = false
+            cell.bottomDividerView.isHidden = (index == legD.pax.count - 1)//true
         }
     }
     
@@ -254,7 +256,7 @@ class BookingReschedulingVC: BaseVC {
             if !paxD.dob.isEmpty {
                 age = AppGlobals.shared.getAgeLastString(dob: paxD.dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
             }
-            bookingAccordionCell.configureCell(passengerName: paxD.paxName, pnrNo: pnrNoStr, saleValue: paxD.amountPaid.delimiterWithSymbol, cancellationCharge:self.viewModel.usingFor == .rescheduling ? paxD.rescheduleCharge.delimiterWithSymbol : paxD.cancellationCharge.delimiterWithSymbol, refundValue: self.viewModel.usingFor == .rescheduling ? paxD.netRefundForReschedule.delimiterWithSymbol : paxD.netRefundForCancellation.delimiterWithSymbol, age: age)
+            bookingAccordionCell.configureCell(passengerName: paxD.paxName, pnrNo: pnrNoStr, saleValue: paxD.amountPaid.amountInDelimeterWithSymbol, cancellationCharge:self.viewModel.usingFor == .rescheduling ? paxD.rescheduleCharge.amountInDelimeterWithSymbol : paxD.cancellationCharge.amountInDelimeterWithSymbol, refundValue: self.viewModel.usingFor == .rescheduling ? paxD.netRefundForReschedule.amountInDelimeterWithSymbol : paxD.netRefundForCancellation.amountInDelimeterWithSymbol, age: age)
             bookingAccordionCell.delegate = self
             bookingAccordionCell.headerDividerView.isHidden = (legD.pax.count - 1) == (indexPath.row - (legD.flight.count))
             

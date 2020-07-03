@@ -11,8 +11,8 @@ import Foundation
 class PostBookingAddonsPaymentStatusVM{
     var bookingIds:[String] = []
     var itId = ""
-    var bookingDetails:[BookingDetailModel?] = []
-    var addonsReceipt = AddonsReceiptModel()
+    private(set) var bookingDetails:[BookingDetailModel?] = []
+    private(set) var addonsReceipt = AddonsReceiptModel()
     var availableSeatMaps = [AvailableSeatMap]()
     weak var delegate:FlightPaymentBookingStatusVMDelegate?
     var pax = [Pax]()

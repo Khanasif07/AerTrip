@@ -935,7 +935,8 @@ Your booking ID is";
  "No" = "No";
 
 "SendingEmail" = "Sending...";
-"LedgerSentToYourEmail" = "Ledger has been sent to your registered email-id.";
+"LedgerSentToYourEmail" = "Ledger has been emailed";//"Ledger has been sent to your registered email-id.";
+"OutstandingSentToYourEmail" = "Outstanding Ledger has been emailed";
 
 // MARK: - Common
 "Other" = "Other";

@@ -322,7 +322,7 @@ struct AccountDetailEvent {
         }
         
         //booking id
-        if let obj = details["booking_number"] {
+        if let obj = details["booking_id"] {
             self.bookingId = "\(obj)"
         }
         
@@ -491,7 +491,7 @@ struct AccountDetailEvent {
         }
         
         //booking id
-        if let obj = details["booking_number"] {
+        if let obj = details["booking_id"] {
             self.bookingId = "\(obj)"
         }
     }

@@ -195,6 +195,9 @@ public class BookingData: NSManagedObject {
         }
         //manage the header date
         
+        if let obj = dataDict[APIKeys.cases.rawValue] as? [String] {
+            booking?.cases = obj
+        }
         
         CoreDataManager.shared.saveContext()
         

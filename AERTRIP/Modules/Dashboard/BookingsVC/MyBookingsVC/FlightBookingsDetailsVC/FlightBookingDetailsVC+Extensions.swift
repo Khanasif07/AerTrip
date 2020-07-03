@@ -30,12 +30,12 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return (self.viewModel.bookingDetail?.tripWeatherData.isEmpty ?? true) ? CGFloat.leastNonzeroMagnitude : UITableView.automaticDimension
         case .gstCell:
             return self.viewModel.bookingDetail?.billingInfo?.gst.isEmpty ?? true ? CGFloat.leastNonzeroMagnitude : UITableView.automaticDimension
-         default: return UITableView.automaticDimension
+        default: return UITableView.automaticDimension
         }
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        return 50
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -109,52 +109,77 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printDebug("\(indexPath.section)")
         let legCount = (self.viewModel.bookingDetail?.bookingDetail?.leg.count ?? 0)
-        if self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false, indexPath.section == 0, let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
-            // cases
-            AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row - 1], receipt: rcpt)
-        }
         
-        else if !(self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false), indexPath.section == 1, let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
-            // cases
-            
-            AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row - 1], receipt: rcpt)
-        }
-      
-        else if indexPath.section >= self.viewModel.noOfLegCellAboveLeg, indexPath.section <= (self.viewModel.noOfLegCellAboveLeg +  legCount - 1) {
-            
+        let currentSection = self.viewModel.sectionDataForFlightProductType[indexPath.section]
+        switch currentSection[indexPath.row] {
+        case .notesCell:
+            AppFlowManager.default.presentBookingNotesVC(overViewInfo: self.viewModel.bookingDetail?.bookingDetail?.note ?? "")
+        case .cancellationsReqCell, .addOnRequestCell, .reschedulingRequestCell :
+            if let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
+                AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row - 1], receipt: rcpt)
+            }
+        case .flightCarriersCell, .flightBoardingAndDestinationCell, .travellersPnrStatusTitleCell, .travellersPnrStatusCell:
             AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail,tripCities: self.viewModel.tripCitiesStr,legSectionTap: indexPath.section - self.viewModel.noOfLegCellAboveLeg)
-        }
-        
-        else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? TripChangeTableViewCell {
-            printDebug("Trip change table view Cell tapped")
+        case .tripChangeCell:
             AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips,tripInfo: self.viewModel.bookingDetail?.tripInfo ?? TripInfo())
             self.tripChangeIndexPath = indexPath
-        }
-        
-        // Manage Button action here.
-        else if let cell = self.bookingDetailsTableView.cellForRow(at: indexPath) as? BookingCommonActionTableViewCell {
-            switch cell.usingFor {
-            case .addToCalender:
-                self.addToCalender()
-            case .addToTrips:
-                AppGlobals.shared.showUnderDevelopment()
-            case .bookSameFlight:
-                AppGlobals.shared.showUnderDevelopment()
-            case .addToAppleWallet:
-                AppGlobals.shared.showUnderDevelopment()
-            case .bookAnotherRoom:
-                AppGlobals.shared.showUnderDevelopment()
+        case .addToAppleWallet, .bookSameFlightCell :
+            AppGlobals.shared.showUnderDevelopment()
+        case .addToCalenderCell:
+            self.addToCalender()
+        case .paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .refundCell,.paymentPendingCell, .paidCell:
+            if let rcpt = self.viewModel.bookingDetail?.receipt {
+                AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, caseId: "")
             }
+        default:  break
         }
-        else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? PaymentInfoTableViewCell, let rcpt = self.viewModel.bookingDetail?.receipt {
-            //move to voucher vc
-            AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, caseId: "")
-        } else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? HotelInfoAddressCell {
-            // notes section
-            AppFlowManager.default.presentBookingNotesVC(overViewInfo: self.viewModel.bookingDetail?.bookingDetail?.note ?? "")
-        }
-        
-        
+        /*
+         if self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false, indexPath.section == 0, let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
+         // cases
+         AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row - 1], receipt: rcpt)
+         }
+         
+         else if !(self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false), indexPath.section == 1, let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
+         // cases
+         
+         AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row - 1], receipt: rcpt)
+         }
+         
+         else if indexPath.section >= self.viewModel.noOfLegCellAboveLeg, indexPath.section <= (self.viewModel.noOfLegCellAboveLeg +  legCount - 1) {
+         
+         AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail,tripCities: self.viewModel.tripCitiesStr,legSectionTap: indexPath.section - self.viewModel.noOfLegCellAboveLeg)
+         }
+         
+         else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? TripChangeTableViewCell {
+         printDebug("Trip change table view Cell tapped")
+         AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips,tripInfo: self.viewModel.bookingDetail?.tripInfo ?? TripInfo())
+         self.tripChangeIndexPath = indexPath
+         }
+         
+         // Manage Button action here.
+         else if let cell = self.bookingDetailsTableView.cellForRow(at: indexPath) as? BookingCommonActionTableViewCell {
+         switch cell.usingFor {
+         case .addToCalender:
+         self.addToCalender()
+         case .addToTrips:
+         AppGlobals.shared.showUnderDevelopment()
+         case .bookSameFlight:
+         AppGlobals.shared.showUnderDevelopment()
+         case .addToAppleWallet:
+         AppGlobals.shared.showUnderDevelopment()
+         case .bookAnotherRoom:
+         AppGlobals.shared.showUnderDevelopment()
+         }
+         }
+         else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? PaymentInfoTableViewCell, let rcpt = self.viewModel.bookingDetail?.receipt {
+         //move to voucher vc
+         AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, caseId: "")
+         } else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? HotelInfoAddressCell {
+         // notes section
+         AppFlowManager.default.presentBookingNotesVC(overViewInfo: self.viewModel.bookingDetail?.bookingDetail?.note ?? "")
+         }
+         
+         */
     }
 }
 
@@ -237,62 +262,62 @@ extension FlightBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
 
 //==========================
 extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
-//    func updateForParallexProgress() {
-//        let prallexProgress = self.bookingDetailsTableView.parallaxHeader.progress
-//
-//        printDebug("progress %f \(prallexProgress)")
-//
-//        if prallexProgress <= 0.5 {
-//            self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
-//                guard let sSelf = self else { return }
-//                sSelf.topNavBar.firstRightButton.isSelected = true
-//                sSelf.topNavBar.leftButton.isSelected = true
-//                sSelf.topNavBar.leftButton.tintColor = AppColors.themeGreen
-//                sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeNavigationBarImage, endText: self?.viewModel.tripCitiesStr ?? NSMutableAttributedString(string: ""), font: AppFonts.SemiBold.withSize(18.0))
-//                sSelf.headerView?.bookingIdAndDateLabel.alpha = 0
-//                sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 0
-//                sSelf.topNavBar.dividerView.isHidden = false
-//            }
-//        } else {
-//            self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
-//                guard let sSelf = self else { return }
-//                sSelf.topNavBar.firstRightButton.isSelected = false
-//                sSelf.topNavBar.leftButton.isSelected = false
-//                sSelf.topNavBar.leftButton.tintColor = AppColors.themeWhite
-//                sSelf.topNavBar.navTitleLabel.text = ""
-//                sSelf.topNavBar.dividerView.isHidden = true
-//                sSelf.headerView?.bookingIdAndDateLabel.alpha = 1
-//                sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 1
-//            }
-//        }
-//
-////
-////        if prallexProgress <= 0.65 {
-////            self.topNavBar.backgroundType = .blurMainView(isDark: false)
-////            self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
-////                guard let sSelf = self else { return }
-////                sSelf.topNavBar.firstRightButton.isSelected = true
-////                sSelf.topNavBar.leftButton.isSelected = true
-////                sSelf.topNavBar.leftButton.tintColor = AppColors.themeGreen
-////                if let tripCities = self?.viewModel.tripCitiesStr {
-////                     sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image:  sSelf.eventTypeImage, endText: tripCities, font: AppFonts.SemiBold.withSize(18.0))
-////                }
-////
-////                sSelf.topNavBar.dividerView.isHidden = false
-////            }
-////        } else {
-////            self.topNavBar.backgroundType = .blurMainView(isDark: false)
-////            self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
-////                guard let sSelf = self else { return }
-////                sSelf.topNavBar.firstRightButton.isSelected = false
-////                sSelf.topNavBar.leftButton.isSelected = false
-////                sSelf.topNavBar.leftButton.tintColor = AppColors.themeWhite
-////                sSelf.topNavBar.navTitleLabel.text = ""
-////                sSelf.topNavBar.dividerView.isHidden = true
-////            }
-////        }
-//        self.headerView?.layoutIfNeeded()
-//    }
+    //    func updateForParallexProgress() {
+    //        let prallexProgress = self.bookingDetailsTableView.parallaxHeader.progress
+    //
+    //        printDebug("progress %f \(prallexProgress)")
+    //
+    //        if prallexProgress <= 0.5 {
+    //            self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
+    //                guard let sSelf = self else { return }
+    //                sSelf.topNavBar.firstRightButton.isSelected = true
+    //                sSelf.topNavBar.leftButton.isSelected = true
+    //                sSelf.topNavBar.leftButton.tintColor = AppColors.themeGreen
+    //                sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeNavigationBarImage, endText: self?.viewModel.tripCitiesStr ?? NSMutableAttributedString(string: ""), font: AppFonts.SemiBold.withSize(18.0))
+    //                sSelf.headerView?.bookingIdAndDateLabel.alpha = 0
+    //                sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 0
+    //                sSelf.topNavBar.dividerView.isHidden = false
+    //            }
+    //        } else {
+    //            self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
+    //                guard let sSelf = self else { return }
+    //                sSelf.topNavBar.firstRightButton.isSelected = false
+    //                sSelf.topNavBar.leftButton.isSelected = false
+    //                sSelf.topNavBar.leftButton.tintColor = AppColors.themeWhite
+    //                sSelf.topNavBar.navTitleLabel.text = ""
+    //                sSelf.topNavBar.dividerView.isHidden = true
+    //                sSelf.headerView?.bookingIdAndDateLabel.alpha = 1
+    //                sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 1
+    //            }
+    //        }
+    //
+    ////
+    ////        if prallexProgress <= 0.65 {
+    ////            self.topNavBar.backgroundType = .blurMainView(isDark: false)
+    ////            self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
+    ////                guard let sSelf = self else { return }
+    ////                sSelf.topNavBar.firstRightButton.isSelected = true
+    ////                sSelf.topNavBar.leftButton.isSelected = true
+    ////                sSelf.topNavBar.leftButton.tintColor = AppColors.themeGreen
+    ////                if let tripCities = self?.viewModel.tripCitiesStr {
+    ////                     sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image:  sSelf.eventTypeImage, endText: tripCities, font: AppFonts.SemiBold.withSize(18.0))
+    ////                }
+    ////
+    ////                sSelf.topNavBar.dividerView.isHidden = false
+    ////            }
+    ////        } else {
+    ////            self.topNavBar.backgroundType = .blurMainView(isDark: false)
+    ////            self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
+    ////                guard let sSelf = self else { return }
+    ////                sSelf.topNavBar.firstRightButton.isSelected = false
+    ////                sSelf.topNavBar.leftButton.isSelected = false
+    ////                sSelf.topNavBar.leftButton.tintColor = AppColors.themeWhite
+    ////                sSelf.topNavBar.navTitleLabel.text = ""
+    ////                sSelf.topNavBar.dividerView.isHidden = true
+    ////            }
+    ////        }
+    //        self.headerView?.layoutIfNeeded()
+    //    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.updateForParallexProgress()
@@ -400,10 +425,10 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     }
     
     func addToCalender() {
-//        if let start = self.viewModel.bookingDetail?.bookingDetail?.eventStartingDate, let end = self.viewModel.bookingDetail?.bookingDetail?.evenEndingDate {
-//            let bId = self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""
-//            AppGlobals.shared.addEventToCalender(title: "\(self.viewModel.tripCitiesStr.string)", startDate: start, endDate: end, notes: "You've a flight booked for '\(self.viewModel.tripCitiesStr.string)'\nFor reference you booking id is '\(self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? "")'", uniqueId: bId)
-//        }
+        //        if let start = self.viewModel.bookingDetail?.bookingDetail?.eventStartingDate, let end = self.viewModel.bookingDetail?.bookingDetail?.evenEndingDate {
+        //            let bId = self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""
+        //            AppGlobals.shared.addEventToCalender(title: "\(self.viewModel.tripCitiesStr.string)", startDate: start, endDate: end, notes: "You've a flight booked for '\(self.viewModel.tripCitiesStr.string)'\nFor reference you booking id is '\(self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? "")'", uniqueId: bId)
+        //        }
         let bId = self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""
         self.viewModel.bookingDetail?.bookingDetail?.leg.forEach({ (leg) in
             leg.flight.forEach { (flightDetail) in
@@ -423,7 +448,7 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
                     }
                     let notes = bookingId + pnr
                     
-                     AppGlobals.shared.addEventToCalender(title: title, startDate: start, endDate: end,location: locaction, notes: notes, uniqueId: bId)
+                    AppGlobals.shared.addEventToCalender(title: title, startDate: start, endDate: end,location: locaction, notes: notes, uniqueId: bId)
                 }
             }
         })
@@ -476,7 +501,7 @@ extension FlightBookingsDetailsVC: BookingProductDetailVMDelegate {
         
     }
     func getBTripOwnerSucces() {
-       self.bookingDetailsTableView.reloadData()
+        self.bookingDetailsTableView.reloadData()
     }
     func getTripOwnerFaiure(error: ErrorCodes) {
         self.bookingDetailsTableView.reloadData()
