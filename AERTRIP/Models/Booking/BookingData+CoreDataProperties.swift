@@ -63,6 +63,8 @@ extension BookingData {
     @NSManaged public var bookingProductType: Int16
     @NSManaged public var eventType: Int16
     @NSManaged public var serviceType: String?
+    @NSManaged public var cases: Array<Any>?
+
     
     //Requests
     @NSManaged public var stepsArray: Array<String>?

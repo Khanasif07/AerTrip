@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="fWL-b3-VSY">
-                        <rect key="frame" x="0.0" y="15" width="375" height="79"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="79"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="79.099999999999994" id="NI4-ZB-f37"/>
@@ -33,9 +33,9 @@
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="fWL-b3-VSY" secondAttribute="bottom" constant="18" id="0MF-nt-0lK"/>
+                    <constraint firstAttribute="bottom" secondItem="fWL-b3-VSY" secondAttribute="bottom" constant="15" id="0MF-nt-0lK"/>
                     <constraint firstItem="fWL-b3-VSY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="C9e-3s-gf4"/>
-                    <constraint firstItem="fWL-b3-VSY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="C9p-Vp-rlu"/>
+                    <constraint firstItem="fWL-b3-VSY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="C9p-Vp-rlu"/>
                     <constraint firstAttribute="trailing" secondItem="fWL-b3-VSY" secondAttribute="trailing" id="te4-7D-vPl"/>
                 </constraints>
             </tableViewCellContentView>

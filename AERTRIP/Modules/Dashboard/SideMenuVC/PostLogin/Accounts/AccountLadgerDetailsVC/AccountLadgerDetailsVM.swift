@@ -20,6 +20,7 @@ class AccountLadgerDetailsVM {
     weak var delegate:AccountLadgerDetailsVMDelegate?
     var ladgerEvent: AccountDetailEvent?
     var ladgerDetails: JSONDictionary = [:]
+    var isDownloadingRecipt = false
     
     let amountDetailKeys = ["Date", "Voucher", "Voucher No.", "Amount", "Balance"]
     private(set) var bookingDetailKeys = ["Check-in", "Check-out", "Room", "Inclusion", "Confirmation ID"]

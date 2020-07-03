@@ -31,7 +31,8 @@ extension OnAccountDetailVC: UITableViewDataSource, UITableViewDelegate {
         if let event = self.getEvent(forIndexPath: IndexPath(row: 0, section: section), forTableView: tableView).event {
             dateStr = event.onAccountDate?.toString(dateFormat: "dd MMM YYYY") ?? ""
         }
-        headerView.headerLabel.text = dateStr
+        headerView.headerLabel.text = dateStr.uppercased()
+        headerView.headerLabel.textColor = AppColors.themeGray60
         headerView.backgroundColor = AppColors.themeGray04
         headerView.containerView.backgroundColor = AppColors.themeGray04
         return headerView
@@ -68,6 +69,10 @@ extension OnAccountDetailVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
     
     func getEvent(forIndexPath indexPath: IndexPath, forTableView: UITableView) -> (event: OnAccountLedgerEvent?, allCount: Int){
@@ -124,9 +129,9 @@ class OnAccountEventCell: UITableViewCell {
         self.descriptionLabel.font = AppFonts.Regular.withSize(16.0)
         self.amountLabel.font = AppFonts.Regular.withSize(16.0)
         
-        self.titleLabel.textColor = AppColors.themeTextColor
+        self.titleLabel.textColor = AppColors.themeBlack//themeTextColor
         self.descriptionLabel.textColor = AppColors.themeGray40
-        self.amountLabel.textColor = AppColors.themeTextColor
+        self.amountLabel.textColor = AppColors.themeBlack//themeTextColor
     }
     
     private func resetAllText() {

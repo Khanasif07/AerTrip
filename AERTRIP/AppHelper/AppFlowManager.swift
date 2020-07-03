@@ -1043,7 +1043,7 @@ extension AppFlowManager {
     
     // Move to Add on Request Clel
     
-    func moveToAddOnRequestVC(caseData: Case, receipt: Receipt) {
+    func moveToAddOnRequestVC(caseData: Case, receipt: Receipt?) {
         let obj = BookingAddOnRequestVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.caseData = caseData
         obj.viewModel.receipt = receipt

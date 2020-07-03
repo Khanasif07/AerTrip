@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="113.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0sF-VC-3Yq">
-                                <rect key="frame" x="0.0" y="26" width="320" height="66.5"/>
+                                <rect key="frame" x="0.0" y="18" width="320" height="74.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="esy-qj-I71" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="0.5"/>
@@ -48,7 +48,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xBz-PV-tqw" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="66" width="320" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="74" width="320" height="0.5"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="4LB-W5-U2T"/>
@@ -93,7 +93,7 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="0sF-VC-3Yq" secondAttribute="trailing" id="49R-qy-ZrH"/>
                             <constraint firstAttribute="bottom" secondItem="0sF-VC-3Yq" secondAttribute="bottom" constant="21" id="70z-7a-7iS"/>
-                            <constraint firstItem="0sF-VC-3Yq" firstAttribute="top" secondItem="7jT-nw-WgT" secondAttribute="top" constant="26" id="7N6-3Z-YG4"/>
+                            <constraint firstItem="0sF-VC-3Yq" firstAttribute="top" secondItem="7jT-nw-WgT" secondAttribute="top" constant="18" id="7N6-3Z-YG4"/>
                             <constraint firstAttribute="height" constant="113.5" id="HTf-yg-oBS"/>
                             <constraint firstItem="0sF-VC-3Yq" firstAttribute="leading" secondItem="7jT-nw-WgT" secondAttribute="leading" id="pmf-24-aNB"/>
                         </constraints>

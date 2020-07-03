@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManager
 
 class AccountOutstandingLadgerVC: BaseVC {
     
@@ -84,6 +85,10 @@ class AccountOutstandingLadgerVC: BaseVC {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.gradientView.addGredient(isVertical: false)
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
     }
     
     override func initialSetup() {
@@ -386,6 +391,7 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
         if (searchBar === self.searchBar) {
             self.currentViewState = .searching
             return false
@@ -394,9 +400,14 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.preserveSearchData()
-        self.currentViewState = .normal
-        self.view.endEditing(true)
+        if (searchBar.text?.isEmpty ?? false){
+            self.searchBarCancelButtonClicked(searchBar)
+        }else{
+            self.preserveSearchData()
+//        self.currentViewState = .normal
+            self.view.endEditing(true)
+            
+        }
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {

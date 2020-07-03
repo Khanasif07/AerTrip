@@ -117,6 +117,7 @@ extension AddOnVC {
     }
     
     func setSkipButton() {
+        self.reloadFareBreakup()
         self.configureNavigation(showSkip: !(self.adonsVm.isMealSelected() || self.adonsVm.isOthersSelected() || self.adonsVm.isBaggageSelected()))
     }
     

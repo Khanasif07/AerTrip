@@ -14,6 +14,7 @@ class AccountLadgerDetailsVC: BaseVC {
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet weak var blurView: BlurView!
     @IBOutlet weak var tableView: ATTableView! {
         didSet {
             tableView.delegate = self
@@ -54,7 +55,7 @@ class AccountLadgerDetailsVC: BaseVC {
     private var headerViewHeight: CGFloat {
         return UIDevice.isIPhoneX ? 88.0 : 64.0
     }
-    
+    private var setupHeader = false
     var maxValue: CGFloat = 1.0
     var minValue: CGFloat = 0.0
     var finalMaxValue: Int = 0
@@ -76,6 +77,7 @@ class AccountLadgerDetailsVC: BaseVC {
         self.topNavView.delegate = self
         self.topNavView.backgroundColor = AppColors.clear
         self.navBarHeight.constant = headerViewHeight
+        self.topNavView.navTitleLabel.numberOfLines = 1
 //        self.topNavView.containerView.backgroundColor = AppColors.clear
         
 //        if let event = self.viewModel.ladgerEvent, let img = event.iconImage {
@@ -84,9 +86,12 @@ class AccountLadgerDetailsVC: BaseVC {
 //        else {
 //            self.topNavView.navTitleLabel.text = self.viewModel.ladgerEvent?.title ?? ""
 //        }
+        self.tableView.registerCell(nibName: EmptyTableViewCell.reusableIdentifier)
+        self.tableView.registerCell(nibName: DownloadInvoiceTableViewCell.reusableIdentifier)
         //for header blur
         self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         topNavView.backgroundColor = AppColors.clear
+        self.blurView.isHidden = true
         
         self.setupParallexHeaderView()
         self.viewModel.fetchLadgerDetails()
@@ -107,6 +112,10 @@ class AccountLadgerDetailsVC: BaseVC {
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        if !self.setupHeader{
+            self.setupHeader = true
+            self.setupParallexHeaderView()
+        }
         if let view = self.headerView {
             view.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: self.parallexHeaderMaxHeight)
             view.layoutIfNeeded()
@@ -117,10 +126,18 @@ class AccountLadgerDetailsVC: BaseVC {
     //MARK:- Private
     private func setupParallexHeaderView() {
         self.headerView = AccountLadgerDetailHeader.instanceFromNib()
+        
+        if let event = self.viewModel.ladgerEvent{
+           switch event.productType {
+            case .flight, .hotel:  headerView.bookingIdButton.isHidden = false
+            default:  headerView.bookingIdButton.isHidden = true
+            }
+        }
+        headerView.delegate = self
         self.headerView.ladgerEvent = self.viewModel.ladgerEvent
         self.headerView.backgroundColor = AppColors.themeWhite
         self.headerView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: self.parallexHeaderMaxHeight)
-        self.headerView?.translatesAutoresizingMaskIntoConstraints = false
+//        self.headerView?.translatesAutoresizingMaskIntoConstraints = false
         self.headerView?.widthAnchor.constraint(equalToConstant: tableView?.width ?? 0.0).isActive = true
         self.tableView.parallaxHeader.view = self.headerView
         self.tableView.parallaxHeader.minimumHeight = self.parallexHeaderMinHeight
@@ -274,6 +291,7 @@ extension AccountLadgerDetailsVC: MXParallaxHeaderDelegate {
                     sSelf.headerView?.bookingIdKeyLabel.alpha = 1
                     sSelf.headerView?.bookingIdValueLabel.alpha = 1
                     sSelf.topNavView.dividerView.isHidden = true
+                    sSelf.blurView.isHidden = true
                 }
                 
             } else {
@@ -284,7 +302,7 @@ extension AccountLadgerDetailsVC: MXParallaxHeaderDelegate {
                     sSelf.topNavView.leftButton.tintColor = AppColors.themeGreen
                     if let event = sSelf.viewModel.ladgerEvent, let img = event.iconImage {
                         if let abtTxt = event.attributedString{
-                            sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImageAttributedTxt(image: img, attributedText: abtTxt)
+                            sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImageAttributedTxt(image: #imageLiteral(resourceName: "BookingDetailFlightNavIcon"), attributedText: abtTxt)
                         }else{
                             sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: img, endText: "  \(event.title)", font: AppFonts.SemiBold.withSize(18.0))
                         }
@@ -298,6 +316,7 @@ extension AccountLadgerDetailsVC: MXParallaxHeaderDelegate {
                         }
                         
                     }
+                    sSelf.blurView.isHidden = false
                     sSelf.headerView?.titleLabel.alpha = 0
                     sSelf.headerView?.bookingIdKeyLabel.alpha = 0
                     sSelf.headerView?.bookingIdValueLabel.alpha = 0
@@ -315,10 +334,31 @@ extension AccountLadgerDetailsVC: MXParallaxHeaderDelegate {
                 sSelf.headerView?.bookingIdKeyLabel.alpha = 1
                 sSelf.headerView?.bookingIdValueLabel.alpha = 1
                 sSelf.topNavView.dividerView.isHidden = true
+                sSelf.blurView.isHidden = true
             }
             
         }
         self.isNavBarHidden = false
         
     }
+}
+
+extension AccountLadgerDetailsVC: AccountLadgerDetailHeaderDelegate{
+    
+    func tapBookingButton(){
+        if let event = self.viewModel.ladgerEvent, event.voucher == .sales {
+            switch event.productType {
+            case .flight:
+                let title = NSMutableAttributedString(string: event.title)
+                AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: event.bookingId,tripCitiesStr: title)
+                
+            case .hotel:
+                AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: event.bookingId)
+            default: break
+            }
+            
+            
+        }
+    }
+    
 }

@@ -26,6 +26,10 @@ class HotleCancellationChargesCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         self.configureUI()
     }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.chargeAmountLabel.attributedText = nil
+    }
     
     //MARK:- Functions
     //MARK:===========
@@ -41,7 +45,7 @@ class HotleCancellationChargesCollectionViewCell: UICollectionViewCell {
     
     internal func configureCell(chargeName: String, chargeAmount: String) {
         self.chargeNameLabel.text = chargeName
-        self.chargeAmountLabel.text = chargeAmount
+        self.chargeAmountLabel.attributedText = chargeAmount.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
     }
     
 }

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import IQKeyboardManager
 class AccountDetailsVC: BaseVC {
     
     enum ViewState {
@@ -106,8 +106,8 @@ class AccountDetailsVC: BaseVC {
         
         self.searchBar.isMicEnabled = true
         
-        self.topNavView.firstRightButton.isEnabled = false
-        self.topNavView.secondRightButton.isEnabled = false
+        self.topNavView.firstRightButton.isUserInteractionEnabled = false
+        self.topNavView.secondRightButton.isUserInteractionEnabled = false
         
         if let usr = UserInfo.loggedInUser, usr.userCreditType == .regular {
             self.viewModel.getAccountDetails()
@@ -140,6 +140,11 @@ class AccountDetailsVC: BaseVC {
             //re-hit the details API
             self.viewModel.getAccountDetails()
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
     }
     
     override func bindViewModel() {
@@ -179,6 +184,10 @@ class AccountDetailsVC: BaseVC {
         self.openingBalanceDateLabel.textColor = AppColors.themeGray40
     }
     
+    @IBAction func tapSearchContainerView(_ sender: UIButton) {
+        self.currentViewState = .normal
+        self.clearSearchData()
+    }
     //MARK:- Methods
     //MARK:- Private
     private func setupHeaderFooterText() {
@@ -286,8 +295,8 @@ class AccountDetailsVC: BaseVC {
     
         
         if (self.currentViewState != .filterApplied) {
-            self.topNavView.firstRightButton.isEnabled = !isAllDatesEmpty
-            self.topNavView.secondRightButton.isEnabled = !isAllDatesEmpty
+            self.topNavView.firstRightButton.isUserInteractionEnabled = !isAllDatesEmpty
+            self.topNavView.secondRightButton.isUserInteractionEnabled = !isAllDatesEmpty
         }
         
         self.tableView.reloadData()
@@ -325,12 +334,14 @@ extension AccountDetailsVC: UISearchBarDelegate {
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        
         if searchBar === self.mainSearchBar, (searchBar.text ?? "").isEmpty {
            // self.searchBarCancelButtonClicked(searchBar)
         }
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
         if (searchBar === self.searchBar) || (searchBar === self.ladgerDummySearchBar) {
             self.currentViewState = .searching
             return false
@@ -339,9 +350,14 @@ extension AccountDetailsVC: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.preserveSearchData()
-        self.currentViewState = .normal
-        self.view.endEditing(true)
+        if (searchBar.text?.isEmpty ?? false){
+            self.searchBarCancelButtonClicked(searchBar)
+        }else{
+            self.preserveSearchData()
+            self.currentViewState = .searching
+            self.view.endEditing(true)
+        }
+        
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

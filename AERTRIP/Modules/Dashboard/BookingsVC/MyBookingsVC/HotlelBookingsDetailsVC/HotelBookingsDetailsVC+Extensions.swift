@@ -82,7 +82,7 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
     }
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        return 50
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -166,12 +166,13 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             AppGlobals.shared.showUnderDevelopment()
         case .addToCalenderCell:
             self.addToCalender()
-        case .paymentInfoCell:
+        case .paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .refundCell,.paymentPendingCell, .paidCell:
             if let rcpt = self.viewModel.bookingDetail?.receipt {
             AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, caseId: "")
             }
         default:  break
         }
+        
         /*
         if self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false, indexPath.section == 0, let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
             // cases

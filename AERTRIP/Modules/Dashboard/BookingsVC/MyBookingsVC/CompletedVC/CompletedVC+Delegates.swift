@@ -89,6 +89,7 @@ extension CompletedVC: UITableViewDelegate , UITableViewDataSource {
         } else {
             cell.isLastCellInSection = false
         }
+        cell.delegate = self
         cell.isFirstCellInSection = indexPath.row == 0
         cell.bookingData = bookingData
         return cell
@@ -128,5 +129,17 @@ extension CompletedVC: MyBookingFooterViewDelegate {
         self.isComingFromFilter = true
         self.loadSaveData()
         self.reloadTable()
+    }
+}
+extension CompletedVC: OthersBookingTableViewCellDelegate {
+    
+    func didSelectRequest(index: Int, data: BookingData) {
+        if let cases = data.cases as? [String], cases.indices.contains(index) {
+            var object = Case()
+            object.id = cases[index]
+            object.bookingId = data.bookingId ?? ""
+//            self.viewModel.caseData?.caseName ?? LocalizedString.dash.localized, detail: self.viewModel.caseData?.casedId
+            AppFlowManager.default.moveToAddOnRequestVC(caseData: object, receipt: nil)
+        }
     }
 }

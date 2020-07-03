@@ -17,7 +17,7 @@ class AbortRequestVC: BaseVC {
     @IBOutlet weak var confirmAbortButton: UIButton!
     @IBOutlet weak var addCommentTextView: IQTextView!
     @IBOutlet weak var abortRequestTitleLabel: UILabel!
-    @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
+    //@IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var bottomDivider: UIView!
     @IBOutlet weak var gradientView: UIView!
@@ -138,12 +138,20 @@ class AbortRequestVC: BaseVC {
         if calculatedBlank < self.keyboardHeight {
             calculatedBlank = self.keyboardHeight
         }
-        
+/*
         UIView.animate(withDuration: 0.2) { [weak self] in
             self?.bottomViewHeightConstraint.constant = calculatedBlank
             self?.view.layoutIfNeeded()
         }
-        printDebug("textHeight: \(textHeight)")
+ */
+        
+        if addCommentTextView.height < calculatedBlank {
+            addCommentTextView.isScrollEnabled = false
+        } else {
+            addCommentTextView.isScrollEnabled = true
+        }
+        self.view.layoutIfNeeded()
+        //printDebug("textHeight: \(textHeight)")
     }
     
     @IBAction func confirmAbortButtonTapped(_ sender: Any) {
@@ -194,5 +202,18 @@ extension AbortRequestVC {
 //            self?.addCommentTextViewHeightConstraint.constant = calculatedH
 //            self?.view.layoutIfNeeded()
 //        }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let currentString: NSString = textView.text! as NSString
+        let newString: NSString = currentString.replacingCharacters(in: range, with: text) as NSString
+        
+        return newString.length <= 500
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        addCommentTextView.isScrollEnabled = false
+        self.view.layoutIfNeeded()
+        addCommentTextView.isScrollEnabled = true
     }
 }
