@@ -67,6 +67,8 @@ class EmailComposerHeaderView: UIView {
         self.setUpText()
         self.setUpColor()
         self.setUpFont()
+        
+        emailTextField.isHidden = true
     }
     
     override func layoutSubviews() {
@@ -89,7 +91,7 @@ class EmailComposerHeaderView: UIView {
         self.seeRatesButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         self.seeRatesButton.isUserInteractionEnabled = false
         
-//        self.toEmailTextView.delegate = self
+        self.toEmailTextView.delegate = self
         self.toEmailTextView.keyboardType = .emailAddress
         self.toEmailTextView.textContainerInset = UIEdgeInsets.zero
 //        self.toEmailTextView.textContainer.lineFragmentPadding = 0
@@ -242,7 +244,7 @@ extension EmailComposerHeaderView : ZFTokenFieldDataSource, ZFTokenFieldDelegate
     }
     
     func tokenField(_ tokenField: ZFTokenField!, didRemoveTokenAt index: UInt) {
-        return emails.remove(at: Int(index))
+      //  return emails.remove(at: Int(index))
     }
     
 }
