@@ -396,6 +396,7 @@
 		188E930C221A8F9A008FE50A /* CustomMarker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188E930B221A8F9A008FE50A /* CustomMarker.xib */; };
 		188E930E221A957A008FE50A /* CustomMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E930D221A957A008FE50A /* CustomMarker.swift */; };
 		18922E7B2204722200939F72 /* RangeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18922E7A2204722200939F72 /* RangeVC.swift */; };
+		1892EE8D24AF568400C7FCFB /* APICaller+FlightPending.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1892EE8C24AF568400C7FCFB /* APICaller+FlightPending.swift */; };
 		18930A1C21D2B831005442C8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18930A1A21D2B831005442C8 /* SearchTableViewCell.swift */; };
 		18930A1D21D2B831005442C8 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18930A1B21D2B831005442C8 /* SearchTableViewCell.xib */; };
 		18930A1F21D33EFF005442C8 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18930A1E21D33EFF005442C8 /* SearchTextField.swift */; };
@@ -1994,6 +1995,7 @@
 		188E930B221A8F9A008FE50A /* CustomMarker.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomMarker.xib; sourceTree = "<group>"; };
 		188E930D221A957A008FE50A /* CustomMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMarker.swift; sourceTree = "<group>"; };
 		18922E7A2204722200939F72 /* RangeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeVC.swift; sourceTree = "<group>"; };
+		1892EE8C24AF568400C7FCFB /* APICaller+FlightPending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+FlightPending.swift"; sourceTree = "<group>"; };
 		18930A1A21D2B831005442C8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		18930A1B21D2B831005442C8 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
 		18930A1E21D33EFF005442C8 /* SearchTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
@@ -8899,6 +8901,7 @@
 				847C224B247C1664004F32D6 /* APICaller+SeatMap.swift */,
 				182E2107247E2157007B6501 /* APICaller+PassengerSelection.swift */,
 				182456B42491273A0095B6DC /* APICaller+FlightPayment.swift */,
+				1892EE8C24AF568400C7FCFB /* APICaller+FlightPending.swift */,
 			);
 			path = APICaller;
 			sourceTree = "<group>";
@@ -10553,6 +10556,7 @@
 				84A03EE2247FA2F900CD3743 /* PriceSliderCell.swift in Sources */,
 				84085D0821F59C0E00F1E844 /* ViewProfileDetailVC.swift in Sources */,
 				188A4DB8242DEA5A00F871ED /* DimmingPresentationController.swift in Sources */,
+				1892EE8D24AF568400C7FCFB /* APICaller+FlightPending.swift in Sources */,
 				84534EBB2248F4E0009FF536 /* HCGuestsDetailsCollectionViewCell.swift in Sources */,
 				0C30BC1724AA0112004BF7E0 /* BaggageTermsVM.swift in Sources */,
 				84B5089F229528DB00D4D371 /* PeriodicStatementEvent.swift in Sources */,

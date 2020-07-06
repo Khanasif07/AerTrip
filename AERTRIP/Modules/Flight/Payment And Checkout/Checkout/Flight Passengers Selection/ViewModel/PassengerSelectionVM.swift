@@ -87,6 +87,7 @@ class PassengerSelectionVM  {
             guest.id = "NT_a\(i)"
             guest.apiId = "NT_a\(i)"
             guest.age = 0
+            guest.nationality = "India"
             temp.append(guest)
         }
       
@@ -100,6 +101,7 @@ class PassengerSelectionVM  {
             guest.id = "NT_c\(i)"
             guest.apiId = "NT_c\(i)"
             guest.age = 0
+            guest.nationality = "India"
             temp.append(guest)
         }
         for i in 0..<bookingObj.flightInfantCount{
@@ -112,6 +114,7 @@ class PassengerSelectionVM  {
             guest.id = "NT_i\(i)"
             guest.apiId = "NT_i\(i)"
             guest.age = 0
+            guest.nationality = "India"
             temp.append(guest)
         }
         GuestDetailsVM.shared.guests.append(temp)
@@ -279,10 +282,10 @@ class PassengerSelectionVM  {
     
     private func setupGST(){
         if let gst = self.itineraryData.itinerary.travellerDetails.gstDetails, isLogin{
-            self.isSwitchOn = true
             self.selectedGST.billingName = gst.gstCompanyName
             self.selectedGST.companyName = gst.gstCompanyName
             self.selectedGST.GSTInNo = gst.gstNumber
+            self.isSwitchOn = !(gst.gstNumber.isEmpty)
         }
         if !self.isSwitchOn{
             self.isSwitchOn = self.itineraryData.itinerary.gstRequired
@@ -328,7 +331,7 @@ class PassengerSelectionVM  {
             }else if (self.selectedGST.billingName.isEmpty){
                 return (false, "Please enter GSTIN billing name")
             }else if !(self.selectedGST.GSTInNo.checkValidity(.gst)){
-                return (false, "Not a valid GSTIN Number")
+                return (false, "Kindly enter a valid GSTIN")
             }
         }
         return (true, "")

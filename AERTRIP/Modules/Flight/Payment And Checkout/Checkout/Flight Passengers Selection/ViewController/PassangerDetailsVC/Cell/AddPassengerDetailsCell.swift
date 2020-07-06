@@ -285,8 +285,13 @@ class AddPassengerDetailsCell: UITableViewCell {
     func domesticValidations(){
         guard let type = self.guestDetail?.passengerType else {return}
         switch type {
-        case .Adult,.child:
+        case .Adult:
             break;
+        case .child:
+            let isValidDob = !((self.dobTextField.text ?? "").isEmpty)
+            self.dobTextField.isError = !isValidDob
+            let dob = self.dobTextField.placeholder ?? ""
+            self.dobTextField.attributedPlaceholder = NSAttributedString(string: dob, attributes: [NSAttributedString.Key.foregroundColor: isValidDob ? AppColors.themeGray40 :  AppColors.themeRed])
         case .infant:
             let isValidDob = !((self.dobTextField.text ?? "").isEmpty)
             self.dobTextField.isError = !isValidDob
