@@ -1251,6 +1251,7 @@
 		846CF55E248FF34600932906 /* LayoutSeatCollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CF55C248FF34600932906 /* LayoutSeatCollCell.swift */; };
 		846CF55F248FF34600932906 /* LayoutSeatCollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846CF55D248FF34600932906 /* LayoutSeatCollCell.xib */; };
 		846EADA324A4794D00BF5E40 /* PostBookingAddOnConfModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846EADA224A4794D00BF5E40 /* PostBookingAddOnConfModel.swift */; };
+		846EADAA24B344BF00BF5E40 /* PostSelectionSeatPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846EADA924B344BF00BF5E40 /* PostSelectionSeatPopupVC.swift */; };
 		846FB584222509D3007F70F9 /* Common.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846FB583222509D3007F70F9 /* Common.storyboard */; };
 		846FB58D22250AFA007F70F9 /* PKBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846FB58B22250AFA007F70F9 /* PKBottomSheet.swift */; };
 		846FB58E22250AFA007F70F9 /* PKBottomSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846FB58C22250AFA007F70F9 /* PKBottomSheet.xib */; };
@@ -2989,6 +2990,7 @@
 		846CF55C248FF34600932906 /* LayoutSeatCollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSeatCollCell.swift; sourceTree = "<group>"; };
 		846CF55D248FF34600932906 /* LayoutSeatCollCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayoutSeatCollCell.xib; sourceTree = "<group>"; };
 		846EADA224A4794D00BF5E40 /* PostBookingAddOnConfModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookingAddOnConfModel.swift; sourceTree = "<group>"; };
+		846EADA924B344BF00BF5E40 /* PostSelectionSeatPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSelectionSeatPopupVC.swift; sourceTree = "<group>"; };
 		846FB583222509D3007F70F9 /* Common.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Common.storyboard; sourceTree = "<group>"; };
 		846FB58B22250AFA007F70F9 /* PKBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKBottomSheet.swift; sourceTree = "<group>"; };
 		846FB58C22250AFA007F70F9 /* PKBottomSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PKBottomSheet.xib; sourceTree = "<group>"; };
@@ -7810,6 +7812,7 @@
 				8472F103247CDF0B00A1CCD3 /* SeatMapModel.swift */,
 				848D381C24865A0800925B7D /* FlightSeatMapKeys.swift */,
 				846EADA224A4794D00BF5E40 /* PostBookingAddOnConfModel.swift */,
+				846EADA924B344BF00BF5E40 /* PostSelectionSeatPopupVC.swift */,
 			);
 			path = SeatMapContainerVC;
 			sourceTree = "<group>";
@@ -10199,6 +10202,7 @@
 				843FF4CE24740231001F21B1 /* FlightContactCell.swift in Sources */,
 				0CBADF812473DC6F00086EA7 /* AFURLRequestSerialization.m in Sources */,
 				843FF4BB24740231001F21B1 /* NoResultsScreenViewController.swift in Sources */,
+				846EADAA24B344BF00BF5E40 /* PostSelectionSeatPopupVC.swift in Sources */,
 				8438C17D22045E4C001D510B /* TopNavigationView.swift in Sources */,
 				842EDE762238E7D600E99409 /* HotelDetailsVC.swift in Sources */,
 				84534ED32249E594009FF536 /* YouAreAllDoneVC+TableCells.swift in Sources */,

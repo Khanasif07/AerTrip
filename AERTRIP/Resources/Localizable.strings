@@ -987,6 +987,7 @@ Your booking ID is";
 "upperDeck" = "Upper Deck";
 "seatTotal" = "Seat Total";
 "noSeatMapDataDesc" = "Seat map for this flight is unavailable at the moment";
+"seatAvailablePostBooking" = "This seat is available post booking";
 
 "noMealsDataDesc" = "Meals for this flight is unavailable at the moment";
 

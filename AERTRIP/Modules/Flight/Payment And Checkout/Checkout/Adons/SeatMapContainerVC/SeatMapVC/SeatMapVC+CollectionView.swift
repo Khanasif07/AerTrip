@@ -60,11 +60,13 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let curCell = collectionView.cellForItem(at: indexPath) as? SeatCollCell, curCell.viewModel.seatData.columnData.availability == .available && !curCell.viewModel.seatData.columnData.postBooking else { return }
-        guard !checkIfSinglePassenger(curCell.viewModel.seatData) else { return }
+        guard let curCell = collectionView.cellForItem(at: indexPath) as? SeatCollCell, curCell.viewModel.seatData.columnData.availability == .available else { return }
+//        guard !checkIfSinglePassenger(curCell.viewModel.seatData) else { return }
         if presentedViewController == nil {
             let seatData = curCell.viewModel.seatData
-            if curCell.viewModel.seatData.columnData.characteristic.contains("Exitrow") {
+            if seatData.columnData.postBooking {
+                openPostSelectionSeatPopup(indexPath, seatData)
+            } else if curCell.viewModel.seatData.columnData.characteristic.contains("Exitrow") {
                 openEmergencySeatPopup(indexPath, seatData)
             } else {
                 openPassengerSelectionVC(indexPath, seatData)
@@ -72,19 +74,19 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
         }
     }
     
-    private func checkIfSinglePassenger(_ seatData: SeatMapModel.SeatMapRow) -> Bool {
-        guard let passengersArr = GuestDetailsVM.shared.guests.first else { return false }
-        let adultPassengersArr = passengersArr.filter { $0.passengerType != .infant }
-        if adultPassengersArr.count == 1 {
-            if let passenger = adultPassengersArr.first {
-                setPassengerOnSeat(passenger, seatData)
-            }
-            return true
-        } else if adultPassengersArr.count > 1 {
-            return false
-        }
-        return false
-    }
+//    private func checkIfSinglePassenger(_ seatData: SeatMapModel.SeatMapRow) -> Bool {
+//        guard let passengersArr = GuestDetailsVM.shared.guests.first else { return false }
+//        let adultPassengersArr = passengersArr.filter { $0.passengerType != .infant }
+//        if adultPassengersArr.count == 1 {
+//            if let passenger = adultPassengersArr.first {
+//                setPassengerOnSeat(passenger, seatData)
+//            }
+//            return true
+//        } else if adultPassengersArr.count > 1 {
+//            return false
+//        }
+//        return false
+//    }
     
     private func setPassengerOnSeat(_ passenger: ATContact,_ seatData: SeatMapModel.SeatMapRow) {
         viewModel.resetFlightData(passenger, seatData)
@@ -93,8 +95,12 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     }
     
     private func openPassengerSelectionVC(_ indexPath: IndexPath,_ seatData: SeatMapModel.SeatMapRow) {
+        guard let curCell = seatMapCollView.cellForItem(at: indexPath) as? SeatCollCell else { return }
+        curCell.seatView.backgroundColor = AppColors.themeGreen
         let passengerVC = SelectPassengerVC.instantiate(fromAppStoryboard: .Adons)
-//        passengerVC.setPassengersFromBooking(viewModel.passengersFromBooking)
+        passengerVC.onDismissTap = { [weak self] in
+            self?.seatMapCollView.reloadItems(at: [indexPath])
+        }
         passengerVC.selectPassengersVM.selectedSeatData = seatData
         passengerVC.selectPassengersVM.flightData = viewModel.flightData
         passengerVC.selectPassengersVM.setupFor = .seatSelection
@@ -122,6 +128,19 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
         }
         
         self.present(baggageTermsVC, animated: true, completion: nil)
+    }
+    
+    private func openPostSelectionSeatPopup(_ indexPath: IndexPath,_ seatData: SeatMapModel.SeatMapRow) {
+        guard let curCell = seatMapCollView.cellForItem(at: indexPath) as? SeatCollCell else { return }
+        curCell.seatView.backgroundColor = AppColors.themeGreen
+        let postSeatSelectionPopupVC = PostSelectionSeatPopupVC.instantiate(fromAppStoryboard: AppStoryboard.Rishabh_Dev)
+        postSeatSelectionPopupVC.onDismissTap = { [weak self] in
+            self?.seatMapCollView.reloadItems(at: [indexPath])
+        }
+        let seatTitle = seatData.columnData.seatNumber + " • ₹\(seatData.columnData.amount)"
+        postSeatSelectionPopupVC.setTexts(seatTitle, seatData.columnData.getCharactericstic())
+        postSeatSelectionPopupVC.modalPresentationStyle = .overFullScreen
+        present(postSeatSelectionPopupVC, animated: false, completion: nil)
     }
 }
 
