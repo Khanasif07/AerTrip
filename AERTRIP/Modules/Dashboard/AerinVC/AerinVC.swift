@@ -43,6 +43,7 @@ class AerinVC: BaseVC {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         containerScrollView.alwaysBounceVertical = true
+        containerScrollView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -186,6 +187,11 @@ class AerinVC: BaseVC {
         }
         
         self.previousOffSet = scrollView.contentOffset
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard let parent = parent as? DashboardVC else { return }
+        parent.innerScrollDidEndDragging(scrollView)
     }
     
     // MARK: - Methods

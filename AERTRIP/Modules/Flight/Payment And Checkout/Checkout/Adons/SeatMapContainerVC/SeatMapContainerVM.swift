@@ -44,6 +44,8 @@ class SeatMapContainerVM {
     private let sid: String
     private let itId: String
     private let fk: String
+    private let domesticLegFKs: [String]
+    private let isInternational: Bool
     var bookingId = ""
     var seatMapModel = SeatMapModel()
     
@@ -64,13 +66,15 @@ class SeatMapContainerVM {
     var bookingIds = [String]()
     
     convenience init() {
-        self.init("", "", "")
+        self.init("", "", "", [])
     }
     
-    init(_ sid: String,_ itId: String,_ fk: String) {
+    init(_ sid: String,_ itId: String,_ fk: String,_ legFKs: [String]) {
         self.sid = sid
         self.itId = itId
         self.fk = fk
+        self.domesticLegFKs = legFKs
+        self.isInternational = legFKs.isEmpty
     }
     
     func fetchSeatMapData() {
@@ -87,18 +91,42 @@ class SeatMapContainerVM {
             delegate?.didFetchSeatMapData()
             return
         }
-        self.delegate?.willFetchSeatMapData()
-        let params: JSONDictionary = [FlightSeatMapKeys.sid.rawValue: sid,
-                                      FlightSeatMapKeys.itId.rawValue: itId,
-                                      FlightSeatMapKeys.fk.rawValue: fk]
-        APICaller.shared.callSeatMapAPI(params: params) { [weak self] (seatModel, error) in
-            if let model = seatModel {
-                self?.seatMapModel = model
-                AddonsDataStore.shared.originalSeatMapModel = model
-                self?.delegate?.didFetchSeatMapData()
-            }else {
-                self?.delegate?.failedToFetchSeatMapData()
+        
+        func fetchSeatMapDataForFK(_ key: String) {
+            let params: JSONDictionary = [FlightSeatMapKeys.sid.rawValue: sid,
+                                          FlightSeatMapKeys.itId.rawValue: itId,
+                                          FlightSeatMapKeys.fk.rawValue: key]
+            APICaller.shared.callSeatMapAPI(params: params) { [weak self] (seatModel, error) in
+                guard let self = self else { return }
+                if let model = seatModel {
+                    if self.seatMapModel.data.leg.count == 0 {
+                       self.seatMapModel = model
+                    } else {
+                        self.addLegsToSeatMapModel(from: model)
+                    }
+                    AddonsDataStore.shared.originalSeatMapModel = self.seatMapModel
+                    self.delegate?.didFetchSeatMapData()
+                }else {
+                    self.delegate?.failedToFetchSeatMapData()
+                }
             }
+        }
+        
+        self.delegate?.willFetchSeatMapData()
+        
+        if isInternational {
+            fetchSeatMapDataForFK(fk)
+        } else {
+            domesticLegFKs.forEach { (fk) in
+                fetchSeatMapDataForFK(fk)
+            }
+        }
+    }
+    
+    private func addLegsToSeatMapModel(from model: SeatMapModel) {
+                
+        model.data.leg.forEach { (lfk, legData) in
+            seatMapModel.data.leg[lfk] = legData
         }
     }
     
@@ -116,9 +144,7 @@ class SeatMapContainerVM {
     }
     
     func getSeatTotal(_ seatTotal: @escaping ((Int) -> ())) {
-        
-        let previouslySelectedSeats = originalBookedAddOnSeats.map { $0.columnData.ssrCode }
-        
+                
         func calculateSeatTotal() -> Int {
             var seatTotal = 0
             selectedSeats.removeAll()
@@ -126,9 +152,17 @@ class SeatMapContainerVM {
                 let rows = flight.md.rows.flatMap { $0.value } + flight.ud.rows.flatMap { $0.value }
                 rows.forEach { (_, rowData) in
                     if rowData.columnData.passenger != nil {
-                        if !previouslySelectedSeats.contains(rowData.columnData.ssrCode) {
-                            seatTotal += rowData.columnData.amount
+                        
+                        if originalBookedAddOnSeats.contains(where: { $0.columnData.passenger?.id == rowData.columnData.passenger?.id && $0.columnData.amount >= rowData.columnData.amount }) {
+                            
+                        } else {
+                            if let seatData = originalBookedAddOnSeats.first(where: { $0.columnData.passenger?.id == rowData.columnData.passenger?.id }) {
+                                seatTotal += rowData.columnData.amount - seatData.columnData.amount
+                            } else {
+                                seatTotal += rowData.columnData.amount
+                            }
                         }
+                        
                         selectedSeats.append(rowData)
                     }
                 }

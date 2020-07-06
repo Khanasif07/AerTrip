@@ -330,6 +330,11 @@ extension DashboardVC  {
         previousSelected = selectedOption
     }
     
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        innerScrollDidEndDragging(scrollView)
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         if scrollView == mainScrollView {            
@@ -344,7 +349,6 @@ extension DashboardVC  {
 //            }
             
             let upperBound = scrollView.contentSize.height - scrollView.bounds.height
-                        
             guard 0...upperBound ~= offset.y else {
                 return
             }
@@ -499,11 +503,15 @@ extension DashboardVC  {
             //            if transformedBounds.size.width >= identitySize.width && !scrolledUp{
             //                view.transform = CGAffineTransform.identity
             //            }else
-            if transformedBounds.size.width < smallerSize.width && scrolledUp{
-                view.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-            }else{
-                view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
-            }
+            
+            // MARK: Commented by Rishabh as it is causing jerk in small devices
+//            if transformedBounds.size.width < smallerSize.width && scrolledUp{
+//                view.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+//            }else{
+//                view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
+//            }
+            view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
+
         }
     }
     
@@ -632,6 +640,59 @@ extension DashboardVC  {
                 }
             case .trips: break
             }
+        }
+    }
+}
+
+// MARK: Child scroll view methods
+// added by Rishabh
+extension DashboardVC {
+    
+    func innerScrollDidEndDragging(_ scrollView: UIScrollView) {
+        self.scrollToTopOrBottom()
+    }
+    
+    private func scrollToTopOrBottom(_ duration: TimeInterval = 0.3) {
+        let mainScrollYOffset = mainScrollView.contentOffset.y
+        let maxYOffsetForMainScroll = self.mainScrollView.contentSize.height - self.mainScrollView.height
+        let midConstant: CGFloat = (maxYOffsetForMainScroll/2) + 3
+        
+        if mainScrollYOffset < midConstant {
+            UIView.animate(withDuration: duration, animations: {
+                for offset in stride(from: mainScrollYOffset, through: 0, by: -0.1) {
+                    self.mainScrollView.contentOffset.y = offset
+                    self.mainScrollView.layoutIfNeeded()
+                }
+                switch self.selectedOption {
+                case .aerin:
+                    self.aerinView.transform = .identity
+                    self.aerinView.alpha = 1
+                case .flight:
+                    self.flightsView.transform = .identity
+                    self.flightsView.alpha = 1
+                case .hotels:
+                    self.hotelsView.transform = .identity
+                    self.hotelsView.alpha = 1
+                case .trips:
+                    self.tripsView.transform = .identity
+                    self.tripsView.alpha = 1
+                }
+            }, completion: { _ in
+                if self.mainScrollView.contentOffset.y != 0 {
+                    self.scrollToTopOrBottom(0.15)
+                }
+            })
+        } else {
+            UIView.animate(withDuration: duration, animations: {
+                for offset in stride(from: mainScrollYOffset, through: maxYOffsetForMainScroll, by: 0.1) {
+                    self.mainScrollView.contentOffset.y = offset
+                    self.mainScrollView.layoutIfNeeded()
+                }
+            }, completion: { _ in
+                if self.mainScrollView.contentOffset.y < maxYOffsetForMainScroll {
+                    self.scrollToTopOrBottom(0.15)
+                }
+            })
         }
     }
 }

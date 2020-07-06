@@ -30,6 +30,8 @@ class SeatMapVM {
     var hasUpperDeck = false
     var flightFares: amount = (0, 0)
     
+    var setupFor: SeatMapContainerVM.SetupFor = .preSelection
+    
     private func getFares() {
         var minAmount = Int.max, maxAmount = 0
         flightData.md.rows.forEach { (_, rowData) in

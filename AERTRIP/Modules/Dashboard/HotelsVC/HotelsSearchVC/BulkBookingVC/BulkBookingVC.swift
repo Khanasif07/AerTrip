@@ -496,7 +496,11 @@ extension BulkBookingVC: PKTextFieldDelegate {
     
     func pkTextFieldDidBeginEditing(_ pkTextField: PKTextField) {
         printDebug(pkTextField)
-        self.statusBarStyle = .default
+        if pkTextField === specialReqTextView {
+            
+        } else {
+            self.statusBarStyle = .default
+        }
     }
     
     func pkTextFieldShouldReturn(_ pkTextField: PKTextField) -> Bool {

@@ -26,12 +26,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_white_cross" translatesAutoresizingMaskIntoConstraints="NO" id="ut5-YI-XRv">
+                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="ut5-YI-XRv" firstAttribute="leading" secondItem="ot9-tU-OuR" secondAttribute="leading" id="8ju-9B-tGy"/>
                             <constraint firstItem="gfG-vx-44s" firstAttribute="leading" secondItem="ot9-tU-OuR" secondAttribute="leading" id="9jZ-kU-0bs"/>
+                            <constraint firstAttribute="bottom" secondItem="ut5-YI-XRv" secondAttribute="bottom" id="KG5-sX-XjS"/>
                             <constraint firstAttribute="trailing" secondItem="gfG-vx-44s" secondAttribute="trailing" id="Qii-9f-q1g"/>
                             <constraint firstAttribute="bottom" secondItem="gfG-vx-44s" secondAttribute="bottom" id="iBv-Fw-UPU"/>
+                            <constraint firstItem="ut5-YI-XRv" firstAttribute="top" secondItem="ot9-tU-OuR" secondAttribute="top" id="lha-L3-PJq"/>
+                            <constraint firstAttribute="trailing" secondItem="ut5-YI-XRv" secondAttribute="trailing" id="s39-Oh-Hpc"/>
                             <constraint firstItem="gfG-vx-44s" firstAttribute="top" secondItem="ot9-tU-OuR" secondAttribute="top" id="vux-mF-Plf"/>
                         </constraints>
                     </view>
@@ -48,8 +55,12 @@
             <connections>
                 <outlet property="seatNumberLbl" destination="gfG-vx-44s" id="pdh-D4-cIO"/>
                 <outlet property="seatView" destination="ot9-tU-OuR" id="9dZ-qH-Gm3"/>
+                <outlet property="unAvailableImgView" destination="ut5-YI-XRv" id="dl3-3t-PXL"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="89.732142857142847"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="ic_white_cross" width="24" height="24"/>
+    </resources>
 </document>

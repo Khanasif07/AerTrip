@@ -86,6 +86,8 @@ class AccountLadgerDetailsVC: BaseVC {
 //        else {
 //            self.topNavView.navTitleLabel.text = self.viewModel.ladgerEvent?.title ?? ""
 //        }
+        self.tableView.registerCell(nibName: EmptyTableViewCell.reusableIdentifier)
+        self.tableView.registerCell(nibName: DownloadInvoiceTableViewCell.reusableIdentifier)
         //for header blur
         self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         topNavView.backgroundColor = AppColors.clear

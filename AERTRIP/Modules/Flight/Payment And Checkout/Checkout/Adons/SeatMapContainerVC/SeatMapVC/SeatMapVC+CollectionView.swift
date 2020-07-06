@@ -28,7 +28,7 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
         
         let seatRelatedData = getSeatDataFor(indexPath)
         let rowStr = seatRelatedData.rowStr, columnStr = seatRelatedData.columnStr, seatData = seatRelatedData.seatData
-        seatCell.setupViewModel(seatData, viewModel.flightFares)
+        seatCell.setupViewModel(seatData, viewModel.flightFares, viewModel.setupFor)
         seatCell.setupCellFor(indexPath, rowStr, columnStr)
         return seatCell
     }

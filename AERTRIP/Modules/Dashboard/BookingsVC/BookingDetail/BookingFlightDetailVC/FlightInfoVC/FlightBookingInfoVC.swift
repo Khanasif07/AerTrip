@@ -21,6 +21,20 @@ class FlightBookingInfoVC: BaseVC {
     //let fareInfoHeaderViewIdentifier = "FareInfoHeaderView"
     let viewModel = BookingDetailVM()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if #available(iOS 13.0, *) {
+            self.statusBarStyle = .lightContent
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if #available(iOS 13.0, *) {
+            self.statusBarStyle = .default
+        }
+    }
+    
     override func initialSetup() {
         self.view.layoutIfNeeded()
         self.tableView.dataSource = self

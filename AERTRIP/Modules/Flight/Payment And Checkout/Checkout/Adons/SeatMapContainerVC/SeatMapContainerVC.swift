@@ -41,6 +41,7 @@ class SeatMapContainerVC: UIViewController {
     @IBOutlet weak var planeLayoutCollView: UICollectionView!
     @IBOutlet weak var planeLayoutCollViewWidth: NSLayoutConstraint!
     @IBOutlet weak var totalSeatAmountView: UIView!
+    @IBOutlet weak var bottomWhiteView: UIView!
     @IBOutlet weak var totalSeatAmountTopSeparatorView: UIView!
     @IBOutlet weak var seatTotalTitleLbl: UILabel!
     @IBOutlet weak var seatTotalLbl: UILabel!
@@ -160,7 +161,7 @@ class SeatMapContainerVC: UIViewController {
 
         for index in 0..<viewModel.allTabsStr.count {
             let vc = SeatMapVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
-            vc.setFlightData(viewModel.allFlightsData[index])
+            vc.setFlightData(viewModel.allFlightsData[index], viewModel.setupFor)
 //            if viewModel.setupFor == .postSelection {
 //                vc.setPassengersFromBooking(viewModel.bookedPassengersArr)
 //            }
@@ -405,7 +406,7 @@ extension SeatMapContainerVC: TopNavigationViewDelegate {
             delegate?.seatsUpdated(amount: 0)
         }
         allChildVCs.enumerated().forEach { (index, seatMapVC) in
-            seatMapVC.setFlightData(viewModel.allFlightsData[index])
+            seatMapVC.setFlightData(viewModel.allFlightsData[index], viewModel.setupFor)
             if seatMapVC.viewModel.deckData.rows.count > 0 {
                 if seatMapVC.seatMapCollView != nil {
                     seatMapVC.seatMapCollView.reloadData()
@@ -452,6 +453,7 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
     func didFetchSeatMapData() {
         AppGlobals.shared.stopLoading()
         var totalFlightsData = [SeatMapModel.SeatMapFlight]()
+        viewModel.allTabsStr.removeAll()
         viewModel.seatMapModel.data.leg.forEach {
             let flightsArr = $0.value.flights.map { $0.value }
             totalFlightsData.append(contentsOf: flightsArr)
