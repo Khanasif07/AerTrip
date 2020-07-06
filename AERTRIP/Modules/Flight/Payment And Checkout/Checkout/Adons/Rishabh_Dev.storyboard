@@ -211,20 +211,28 @@
                                     <constraint firstItem="GQZ-d6-8Pg" firstAttribute="top" secondItem="ZGb-d8-d3r" secondAttribute="top" id="cn7-o1-Xb0"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PpY-Bs-ewN">
+                                <rect key="frame" x="0.0" y="862" width="414" height="34"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Apj-dH-tZr" firstAttribute="bottom" secondItem="ZGb-d8-d3r" secondAttribute="bottom" id="4qS-bE-hCg"/>
                             <constraint firstItem="iIJ-2e-wR7" firstAttribute="top" secondItem="ENW-SZ-iqs" secondAttribute="bottom" id="5uq-pg-Zre"/>
                             <constraint firstItem="ENW-SZ-iqs" firstAttribute="leading" secondItem="Apj-dH-tZr" secondAttribute="leading" id="GWX-bV-SeZ"/>
+                            <constraint firstItem="PpY-Bs-ewN" firstAttribute="leading" secondItem="Ar2-Qm-4XY" secondAttribute="leading" id="Iin-0C-oTc"/>
+                            <constraint firstItem="PpY-Bs-ewN" firstAttribute="top" secondItem="ZGb-d8-d3r" secondAttribute="bottom" id="Loy-zu-sTc"/>
                             <constraint firstItem="eQb-HI-UxI" firstAttribute="top" secondItem="ENW-SZ-iqs" secondAttribute="top" id="Mra-oa-YbY"/>
                             <constraint firstItem="Apj-dH-tZr" firstAttribute="trailing" secondItem="ZGb-d8-d3r" secondAttribute="trailing" id="Nlk-2A-JeZ"/>
+                            <constraint firstAttribute="trailing" secondItem="PpY-Bs-ewN" secondAttribute="trailing" id="W7e-Ai-Kzv"/>
                             <constraint firstItem="ENW-SZ-iqs" firstAttribute="top" secondItem="Apj-dH-tZr" secondAttribute="top" id="hyI-xn-e8e"/>
                             <constraint firstItem="eQb-HI-UxI" firstAttribute="bottom" secondItem="ENW-SZ-iqs" secondAttribute="bottom" constant="56" id="iEG-hn-P0I"/>
                             <constraint firstItem="iIJ-2e-wR7" firstAttribute="leading" secondItem="Apj-dH-tZr" secondAttribute="leading" id="jNj-V8-DWO"/>
                             <constraint firstItem="eQb-HI-UxI" firstAttribute="leading" secondItem="ENW-SZ-iqs" secondAttribute="leading" id="jqg-VN-elq"/>
                             <constraint firstItem="eQb-HI-UxI" firstAttribute="trailing" secondItem="ENW-SZ-iqs" secondAttribute="trailing" id="lWQ-pp-L3y"/>
                             <constraint firstItem="ZGb-d8-d3r" firstAttribute="leading" secondItem="Apj-dH-tZr" secondAttribute="leading" id="nwt-6I-eTa"/>
+                            <constraint firstAttribute="bottom" secondItem="PpY-Bs-ewN" secondAttribute="bottom" id="o5K-Sf-HCf"/>
                             <constraint firstItem="Apj-dH-tZr" firstAttribute="trailing" secondItem="ENW-SZ-iqs" secondAttribute="trailing" id="t4c-fz-B3G"/>
                             <constraint firstItem="Apj-dH-tZr" firstAttribute="trailing" secondItem="iIJ-2e-wR7" secondAttribute="trailing" id="u7L-Ji-dwg"/>
                             <constraint firstItem="ZGb-d8-d3r" firstAttribute="top" secondItem="iIJ-2e-wR7" secondAttribute="bottom" id="xgh-rF-K6h"/>
@@ -234,6 +242,7 @@
                     <connections>
                         <outlet property="addBtn" destination="zDQ-8l-33X" id="OOR-Hn-4LM"/>
                         <outlet property="bodyImgView" destination="J8D-3O-e2V" id="FDB-Ji-FcQ"/>
+                        <outlet property="bottomWhiteView" destination="PpY-Bs-ewN" id="RfQ-Du-Mvi"/>
                         <outlet property="bottomWingImgView" destination="UXi-Rp-ukA" id="2dB-tI-vkb"/>
                         <outlet property="highlightContainerView" destination="eMC-zJ-6jS" id="zWb-w4-l6g"/>
                         <outlet property="noseImgView" destination="J9K-GH-A3s" id="ccB-GY-VHq"/>

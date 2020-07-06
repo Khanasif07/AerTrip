@@ -72,6 +72,7 @@ class SeatCollCell: UICollectionViewCell {
             seatNumberLbl.text?.removeAll()
             seatNumberLbl.isHidden = true
         } else {
+            seatNumberLbl.textColor = AppColors.blackWith15PerAlpha
             seatNumberLbl.isHidden = false
             let seatAmount = viewModel.seatData.columnData.amount
             let fareDiff: Float = Float(viewModel.flightFares.maxAmount - viewModel.flightFares.minAmount)

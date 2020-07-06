@@ -41,6 +41,7 @@ class SeatMapContainerVC: UIViewController {
     @IBOutlet weak var planeLayoutCollView: UICollectionView!
     @IBOutlet weak var planeLayoutCollViewWidth: NSLayoutConstraint!
     @IBOutlet weak var totalSeatAmountView: UIView!
+    @IBOutlet weak var bottomWhiteView: UIView!
     @IBOutlet weak var totalSeatAmountTopSeparatorView: UIView!
     @IBOutlet weak var seatTotalTitleLbl: UILabel!
     @IBOutlet weak var seatTotalLbl: UILabel!
