@@ -37,7 +37,7 @@ class SelectBagageCell: UITableViewCell {
     }
     
     func populateData(data : AddonsDataCustom, index : Int){
-        let price = "₹ \(data.price)"
+        let price = "₹ \(data.price.commaSeprated)"
         self.priceLabel.text = price
         self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
         self.bagageTitleLabel.text = data.ssrName?.name
@@ -82,7 +82,7 @@ class SelectBagageCell: UITableViewCell {
     }
     
     func populateOtherAdonsData(data : AddonsDataCustom, index : Int){
-        let price = "₹ \(data.price)"
+        let price = "₹ \(data.price.commaSeprated)"
         self.priceLabel.text = price
         self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
         self.bagageTitleLabel.text = data.ssrName?.name
