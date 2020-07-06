@@ -66,8 +66,6 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
             let seatData = curCell.viewModel.seatData
             if seatData.columnData.postBooking {
                 openPostSelectionSeatPopup(indexPath, seatData)
-            } else if curCell.viewModel.seatData.columnData.characteristic.contains("Exitrow") {
-                openEmergencySeatPopup(indexPath, seatData)
             } else {
                 openPassengerSelectionVC(indexPath, seatData)
             }
@@ -96,13 +94,26 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     
     private func openPassengerSelectionVC(_ indexPath: IndexPath,_ seatData: SeatMapModel.SeatMapRow) {
         guard let curCell = seatMapCollView.cellForItem(at: indexPath) as? SeatCollCell else { return }
+        var changesMade = false
+        let originalFlightData = viewModel.flightData
         curCell.seatView.backgroundColor = AppColors.themeGreen
         let passengerVC = SelectPassengerVC.instantiate(fromAppStoryboard: .Adons)
         passengerVC.onDismissTap = { [weak self] in
-            self?.seatMapCollView.reloadItems(at: [indexPath])
+            guard let self = self else { return }
+            if changesMade && seatData.columnData.characteristic.contains("Exitrow"){
+                self.openEmergencySeatPopup {[weak self] (agree) in
+                    guard let self = self else { return }
+                    if !agree {
+                        self.viewModel.flightData = originalFlightData
+                        self.seatMapCollView.reloadData()
+                        self.onReloadPlaneLayoutCall?(originalFlightData)
+                    }
+                }
+            }
+            self.seatMapCollView.reloadItems(at: [indexPath])
         }
         passengerVC.selectPassengersVM.selectedSeatData = seatData
-        passengerVC.selectPassengersVM.flightData = viewModel.flightData
+        passengerVC.selectPassengersVM.flightData = originalFlightData
         passengerVC.selectPassengersVM.setupFor = .seatSelection
         passengerVC.modalPresentationStyle = .overFullScreen
         passengerVC.updatedFlightData = { [weak self] flightData in
@@ -110,24 +121,19 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
             self.viewModel.flightData = flightData
             self.seatMapCollView.reloadData()
             self.onReloadPlaneLayoutCall?(flightData)
+            changesMade = true
         }
         present(passengerVC, animated: false, completion: nil)
     }
     
-    private func openEmergencySeatPopup(_ indexPath: IndexPath,_ seatData: SeatMapModel.SeatMapRow) {
+    private func openEmergencySeatPopup(agreed: @escaping ((Bool) -> ())) {
         let baggageTermsVC = BaggageTermsVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
         baggageTermsVC.baggageTermsVM.setupFor = .seats
         baggageTermsVC.modalPresentationStyle = .overFullScreen
-        baggageTermsVC.baggageTermsVM.agreeCompletion = {[weak self] (agree) in
-            guard let self = self else { return }
-            
-            if !agree {
-                return
-            }
-            self.openPassengerSelectionVC(indexPath, seatData)
+        baggageTermsVC.baggageTermsVM.agreeCompletion = agreed
+        DispatchQueue.delay(0.5) {
+            self.present(baggageTermsVC, animated: true, completion: nil)
         }
-        
-        self.present(baggageTermsVC, animated: true, completion: nil)
     }
     
     private func openPostSelectionSeatPopup(_ indexPath: IndexPath,_ seatData: SeatMapModel.SeatMapRow) {
