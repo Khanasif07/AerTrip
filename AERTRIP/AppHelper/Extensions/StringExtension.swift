@@ -1006,6 +1006,11 @@ extension String {
 }
 
 extension String {
+    
+    var removingLeadingZeros : String {
+        return self.replacingOccurrences(of: "^0+", with: "", options: .regularExpression)
+    }
+    
     func replacingLastOccurrenceOfString(_ searchString: String,
             with replacementString: String,
             caseInsensitive: Bool = true) -> String {
