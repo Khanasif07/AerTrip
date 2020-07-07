@@ -98,7 +98,7 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
         let originalFlightData = viewModel.flightData
         curCell.seatView.backgroundColor = AppColors.themeGreen
         let passengerVC = SelectPassengerVC.instantiate(fromAppStoryboard: .Adons)
-        passengerVC.onDismissTap = { [weak self] in
+        passengerVC.onDismissCompletion = { [weak self] in
             guard let self = self else { return }
             if changesMade && seatData.columnData.characteristic.contains("Exitrow"){
                 self.openEmergencySeatPopup {[weak self] (agree) in
@@ -131,9 +131,9 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
         baggageTermsVC.baggageTermsVM.setupFor = .seats
         baggageTermsVC.modalPresentationStyle = .overFullScreen
         baggageTermsVC.baggageTermsVM.agreeCompletion = agreed
-        DispatchQueue.delay(0.5) {
+//        DispatchQueue.delay(0.5) {
             self.present(baggageTermsVC, animated: true, completion: nil)
-        }
+//        }
     }
     
     private func openPostSelectionSeatPopup(_ indexPath: IndexPath,_ seatData: SeatMapModel.SeatMapRow) {

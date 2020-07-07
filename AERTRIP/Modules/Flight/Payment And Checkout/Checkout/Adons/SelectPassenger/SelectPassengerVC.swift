@@ -22,7 +22,7 @@ class SelectPassengerVC : BaseVC {
         
     let selectPassengersVM = SelectPassengersVM()
     var updatedFlightData: ((SeatMapModel.SeatMapFlight) -> ())?
-    var onDismissTap: (() -> ())?
+    var onDismissCompletion: (() -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,13 +58,14 @@ class SelectPassengerVC : BaseVC {
     }
     
     @IBAction func doneButtonTapped(_ sender: UIButton) {
-        onDismissTap?()
         self.selectPassengersVM.contactsComplition(self.selectPassengersVM.selectedContacts)
         UIView.animate(withDuration: 0.3, animations: {
             self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: self.transparentBackView.height)
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
         }) { (success) in
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: {
+                self.onDismissCompletion?()
+            })
         }
     }
     
