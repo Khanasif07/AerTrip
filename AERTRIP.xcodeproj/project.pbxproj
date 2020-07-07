@@ -41,6 +41,7 @@
 		0C162ACC24233AC5001C2B10 /* ChatVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */; };
 		0C162ACD24233AC5001C2B10 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162ACB24233AC5001C2B10 /* ChatVC.swift */; };
 		0C162ACF24233B24001C2B10 /* ChatVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162ACE24233B24001C2B10 /* ChatVM.swift */; };
+		0C1671D324B36C99001BAD22 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1671D224B36C99001BAD22 /* Int+Extension.swift */; };
 		0C1AA59424AF0DDB0082FE7D /* ZFTokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1AA59224AF0DDB0082FE7D /* ZFTokenField.m */; };
 		0C1AA59624AF0FCD0082FE7D /* TokenView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C1AA59524AF0FCD0082FE7D /* TokenView.xib */; };
 		0C1B945C248789F600CA6B49 /* AddonsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1B945B248789F600CA6B49 /* AddonsDataStore.swift */; };
@@ -1635,6 +1636,7 @@
 		0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatVC+TableView.swift"; sourceTree = "<group>"; };
 		0C162ACB24233AC5001C2B10 /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
 		0C162ACE24233B24001C2B10 /* ChatVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVM.swift; sourceTree = "<group>"; };
+		0C1671D224B36C99001BAD22 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		0C181FBE22FABDAD0088E64A /* Bolts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Bolts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C1AA59224AF0DDB0082FE7D /* ZFTokenField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFTokenField.m; sourceTree = "<group>"; };
 		0C1AA59324AF0DDB0082FE7D /* ZFTokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFTokenField.h; sourceTree = "<group>"; };
@@ -8870,6 +8872,7 @@
 				0CC8546C2350956500544F10 /* UISearchBar+extension.swift */,
 				84795B36241B7254004CCA36 /* UISegmentedControlExtension.swift */,
 				84432AE92420F7B100E7A387 /* UIPanGestureRecognizerExtension.swift */,
+				0C1671D224B36C99001BAD22 /* Int+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -9841,6 +9844,7 @@
 				84AB8FC822129B49002C0A66 /* ATGalleryCell.swift in Sources */,
 				182E2104247E0784007B6501 /* AddonsMaster.swift in Sources */,
 				8402009322C1EEB7002E5977 /* BookingAddOnRequestVM.swift in Sources */,
+				0C1671D324B36C99001BAD22 /* Int+Extension.swift in Sources */,
 				841DD1EB2202DC690055FEBB /* BulkBookingVC.swift in Sources */,
 				84AD5F23222D51C60095EA5D /* SearchFavouriteHotelsVM.swift in Sources */,
 				8477163722843546000E1BB6 /* OnAccountDetailVC.swift in Sources */,

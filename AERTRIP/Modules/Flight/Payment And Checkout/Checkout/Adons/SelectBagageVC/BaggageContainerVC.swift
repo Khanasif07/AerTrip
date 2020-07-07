@@ -29,7 +29,7 @@ class BaggageContainerVC : BaseVC {
        @IBOutlet weak var addButton: UIButton!
        @IBOutlet weak var MealTotalLabel: UILabel!
        @IBOutlet weak var totalLabel: UILabel!
-    @IBOutlet weak var totalContainerView: UIView!
+       @IBOutlet weak var totalContainerView: UIView!
 
     
        // MARK: View Life Cycle
@@ -141,7 +141,7 @@ extension BaggageContainerVC {
     }
     
     func calculateTotalAmount(){
-        self.totalLabel.text = "₹ \(self.baggageContainerVM.calculateTotalAmount())"
+        self.totalLabel.text = "₹ \(self.baggageContainerVM.calculateTotalAmount().commaSeprated)"
      }
     
 }

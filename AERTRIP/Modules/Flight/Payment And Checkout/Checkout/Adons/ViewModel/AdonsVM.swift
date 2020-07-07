@@ -248,7 +248,7 @@ class AdonsVM  {
                     bag.bagageSelectedFor.forEach { (passenger) in
                         let saperatedArray = bag.ssrName?.name.components(separatedBy: "Kgs")
                         guard let firstKg = saperatedArray?.first else { return }
-                        headingStr += "\(firstKg), "
+                        headingStr += "\(firstKg.removingLeadingZeros), "
                         guard let desc = bag.ssrName?.name else { return }
                         description += "\(desc), "
                     }
