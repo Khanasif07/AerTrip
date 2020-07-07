@@ -81,9 +81,9 @@ class SeatCollCell: UICollectionViewCell {
             switch farePercent {
             case 0..<33.33:
                 seatNumberLbl.text = "₹"
-            case 33.34..<66.66:
+            case 33.33..<66.66:
                 seatNumberLbl.text = "₹₹"
-            case 66.67...100:
+            case 66.66...100:
                 seatNumberLbl.text = "₹₹₹"
             default: break
             }

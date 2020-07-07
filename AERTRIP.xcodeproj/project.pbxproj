@@ -431,6 +431,8 @@
 		18A90192229FB29D004EAEC3 /* BlurLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A90191229FB29D004EAEC3 /* BlurLoader.swift */; };
 		18A96B9621B661F900EA9B3A /* FacebookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9421B661F900EA9B3A /* FacebookController.swift */; };
 		18A96B9721B661F900EA9B3A /* GoogleLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */; };
+		18AAAC1B24B37D0700025ABF /* SeeExampleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AAAC1A24B37D0700025ABF /* SeeExampleHeaderView.swift */; };
+		18AAAC1D24B37E7800025ABF /* SeeExampleHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18AAAC1C24B37E7800025ABF /* SeeExampleHeaderView.xib */; };
 		18AC309124878382004CB0B8 /* FlightPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC309024878382004CB0B8 /* FlightPaymentVC.swift */; };
 		18AC30942487CEC1004CB0B8 /* FlightPaymentVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC30932487CEC1004CB0B8 /* FlightPaymentVM.swift */; };
 		18AE8F5A22A4F4E8009D625E /* BookingReviewCancellationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AE8F5922A4F4E8009D625E /* BookingReviewCancellationVC.swift */; };
@@ -1255,6 +1257,7 @@
 		846CF55E248FF34600932906 /* LayoutSeatCollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CF55C248FF34600932906 /* LayoutSeatCollCell.swift */; };
 		846CF55F248FF34600932906 /* LayoutSeatCollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846CF55D248FF34600932906 /* LayoutSeatCollCell.xib */; };
 		846EADA324A4794D00BF5E40 /* PostBookingAddOnConfModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846EADA224A4794D00BF5E40 /* PostBookingAddOnConfModel.swift */; };
+		846EADAA24B344BF00BF5E40 /* PostSelectionSeatPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846EADA924B344BF00BF5E40 /* PostSelectionSeatPopupVC.swift */; };
 		846FB584222509D3007F70F9 /* Common.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846FB583222509D3007F70F9 /* Common.storyboard */; };
 		846FB58D22250AFA007F70F9 /* PKBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846FB58B22250AFA007F70F9 /* PKBottomSheet.swift */; };
 		846FB58E22250AFA007F70F9 /* PKBottomSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846FB58C22250AFA007F70F9 /* PKBottomSheet.xib */; };
@@ -2032,6 +2035,8 @@
 		18A90191229FB29D004EAEC3 /* BlurLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurLoader.swift; sourceTree = "<group>"; };
 		18A96B9421B661F900EA9B3A /* FacebookController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookController.swift; sourceTree = "<group>"; };
 		18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleLoginController.swift; sourceTree = "<group>"; };
+		18AAAC1A24B37D0700025ABF /* SeeExampleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeExampleHeaderView.swift; sourceTree = "<group>"; };
+		18AAAC1C24B37E7800025ABF /* SeeExampleHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeeExampleHeaderView.xib; sourceTree = "<group>"; };
 		18AC309024878382004CB0B8 /* FlightPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPaymentVC.swift; sourceTree = "<group>"; };
 		18AC30932487CEC1004CB0B8 /* FlightPaymentVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPaymentVM.swift; sourceTree = "<group>"; };
 		18AE8F5922A4F4E8009D625E /* BookingReviewCancellationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingReviewCancellationVC.swift; sourceTree = "<group>"; };
@@ -2998,6 +3003,7 @@
 		846CF55C248FF34600932906 /* LayoutSeatCollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSeatCollCell.swift; sourceTree = "<group>"; };
 		846CF55D248FF34600932906 /* LayoutSeatCollCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayoutSeatCollCell.xib; sourceTree = "<group>"; };
 		846EADA224A4794D00BF5E40 /* PostBookingAddOnConfModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookingAddOnConfModel.swift; sourceTree = "<group>"; };
+		846EADA924B344BF00BF5E40 /* PostSelectionSeatPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSelectionSeatPopupVC.swift; sourceTree = "<group>"; };
 		846FB583222509D3007F70F9 /* Common.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Common.storyboard; sourceTree = "<group>"; };
 		846FB58B22250AFA007F70F9 /* PKBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKBottomSheet.swift; sourceTree = "<group>"; };
 		846FB58C22250AFA007F70F9 /* PKBottomSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PKBottomSheet.xib; sourceTree = "<group>"; };
@@ -6327,6 +6333,8 @@
 				843FF38A2474022F001F21B1 /* MealPreferenceCell.xib */,
 				843FF38B2474022F001F21B1 /* MealPreferenceCell.swift */,
 				843FF38C2474022F001F21B1 /* AddPassengerDetailsCell.xib */,
+				18AAAC1A24B37D0700025ABF /* SeeExampleHeaderView.swift */,
+				18AAAC1C24B37E7800025ABF /* SeeExampleHeaderView.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -7837,6 +7845,7 @@
 				8472F103247CDF0B00A1CCD3 /* SeatMapModel.swift */,
 				848D381C24865A0800925B7D /* FlightSeatMapKeys.swift */,
 				846EADA224A4794D00BF5E40 /* PostBookingAddOnConfModel.swift */,
+				846EADA924B344BF00BF5E40 /* PostSelectionSeatPopupVC.swift */,
 			);
 			path = SeatMapContainerVC;
 			sourceTree = "<group>";
@@ -9388,6 +9397,7 @@
 				1820F0F1228D6BB80019B8BB /* BookingRequestStateTableViewCell.xib in Resources */,
 				8455A683223295FF00CEE2B3 /* PoweredByTableViewCell.xib in Resources */,
 				843FF4AB24740231001F21B1 /* FlightFilter.storyboard in Resources */,
+				18AAAC1D24B37E7800025ABF /* SeeExampleHeaderView.xib in Resources */,
 				18B57A1A22AF546800269410 /* BookingTravellerAddOnsCollectionViewCell.xib in Resources */,
 				18F9E2F42255BA8E00CD0B42 /* ConvenienceFeeTableViewCell.xib in Resources */,
 				188785A721DF7D990061869E /* TravellerListTableViewCell.xib in Resources */,
@@ -10231,6 +10241,7 @@
 				843FF4CE24740231001F21B1 /* FlightContactCell.swift in Sources */,
 				0CBADF812473DC6F00086EA7 /* AFURLRequestSerialization.m in Sources */,
 				843FF4BB24740231001F21B1 /* NoResultsScreenViewController.swift in Sources */,
+				846EADAA24B344BF00BF5E40 /* PostSelectionSeatPopupVC.swift in Sources */,
 				8438C17D22045E4C001D510B /* TopNavigationView.swift in Sources */,
 				842EDE762238E7D600E99409 /* HotelDetailsVC.swift in Sources */,
 				84534ED32249E594009FF536 /* YouAreAllDoneVC+TableCells.swift in Sources */,
@@ -10456,6 +10467,7 @@
 				8477755D2265C51400EAB8B0 /* AccountDetailsVC.swift in Sources */,
 				8410421D21DE33B7002B4C1F /* ATSearchBar.swift in Sources */,
 				1807F003223F9E160092E127 /* HotelResultVC+animations.swift in Sources */,
+				18AAAC1B24B37D0700025ABF /* SeeExampleHeaderView.swift in Sources */,
 				84504D542212E436002C1374 /* TripAdvisorTableViewCell.swift in Sources */,
 				0C0AB1F6247BEC7E005E5E99 /* SelectMealsVM.swift in Sources */,
 				8402009622C1EF64002E5977 /* BookingCaseHistory.swift in Sources */,
