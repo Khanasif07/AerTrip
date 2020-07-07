@@ -47,12 +47,15 @@ class FlightEmailFieldCell: UITableViewCell {
         self.editableTextField.titleYPadding = 12.0
         self.editableTextField.hintYPadding = 12.0
         self.editableTextField.isHiddenBottomLine = false
+        self.editableTextField.lineView.isHidden = true
+        self.editableTextField.lineColor = AppColors.clear
+        self.separatorView.backgroundColor = AppColors.divider.color
     }
     
     
     private func setUpColor() {
         self.editableTextField.titleActiveTextColour = AppColors.themeGreen
-        self.editableTextField.textColor =  AppColors.textFieldTextColor51
+        self.editableTextField.textColor = AppColors.textFieldTextColor51
         self.editableTextField.setUpAttributedPlaceholder(placeholderString: "Email ID",with: "")
     }
     
@@ -79,6 +82,7 @@ class FlightEmailFieldCell: UITableViewCell {
 extension FlightEmailFieldCell: UITextFieldDelegate {
     @objc func textFieldDidChanged(_ textField: UITextField) {
 //        printDebug("text field text \(textField.text ?? " ")")
+        self.editableTextField.lineView.backgroundColor = AppColors.clear
         let finalTxt = (textField.text ?? "").removeAllWhitespaces
         if let idxPath = indexPath, !finalTxt.isEmpty {
             delegate?.textEditableTableViewCellTextFieldText(idxPath, finalTxt)
@@ -88,6 +92,7 @@ extension FlightEmailFieldCell: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         //for verify the data
+        self.editableTextField.lineView.backgroundColor = AppColors.clear
         let finalTxt = textField.text?.replacingOccurrences(of: " ", with: "")
         textField.text = finalTxt
         delegate?.textEditableTableViewCellTextFieldText(idxPath, finalTxt!)

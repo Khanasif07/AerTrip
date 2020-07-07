@@ -92,7 +92,7 @@ class AccountDetailsVM: NSObject {
                     let fltrd = events.filter { event in
                         return ((event.title.lowercased().contains(forText.lowercased())) || (event.voucherNo.lowercased().contains(forText.lowercased())) ||
                             (event.airline.lowercased().contains(forText.lowercased())) ||
-                            (event.flightNumber.lowercased().contains(forText.lowercased())))
+                            (self.removeSpecialChar(from:event.flightNumber).contains(self.removeSpecialChar(from: forText))))
                         
                     }
                     if !fltrd.isEmpty {
@@ -102,6 +102,12 @@ class AccountDetailsVM: NSObject {
             }
             return newData
         }
+    }
+    
+    private func removeSpecialChar(from str: String)->String{
+        let newStr = str.lowercased()
+        let okayChars = Set("abcdefghijklmnopqrstuvwxyz1234567890")
+        return newStr.filter {okayChars.contains($0) }
     }
     
     private func filterForVoucher(voucher: String, onData: JSONDictionary) -> JSONDictionary? {

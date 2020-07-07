@@ -30,6 +30,7 @@ class FlightPaymentPendingVC: UIViewController {
         self.setupFont()
         self.setFontColor()
         self.setTitle()
+        self.viewModel.getItineraryDetails()
     }
     
     @IBAction func tappedPaybutton(_ sender: UIButton) {

@@ -180,8 +180,18 @@ class ATEmailSelectorTextView: IQTextView {
         
         let attString: NSMutableAttributedString = NSMutableAttributedString(string: tagsString, attributes: [NSAttributedString.Key.foregroundColor : tagSeparatorColor, NSAttributedString.Key.font: tagSeparatorFont])
         
+//        let paragraphStyle = NSMutableParagraphStyle()
+//
+//        paragraphStyle.lineSpacing = 10
+//
+//        paragraphStyle.maximumLineHeight = 18
+        
+//        attString.addAttributes([NSAttributedString.Key.paragraphStyle : paragraphStyle], range: (text as NSString).range(of: text))
+        
         for tag in allTags {
             attString.addAttributes([NSAttributedString.Key.font: inactiveTagFont, NSAttributedString.Key.foregroundColor : activeTagFontColor, NSAttributedString.Key.backgroundColor: activeTagBackgroundColor], range: (text as NSString).range(of: tag))
+            
+            
         }
         attributedText = attString
         isLastTagSelected = false
@@ -195,6 +205,9 @@ class ATEmailSelectorTextView: IQTextView {
         
         if let lastTag = allTags.last {
             attString.addAttributes([NSAttributedString.Key.font: activeTagFont, NSAttributedString.Key.foregroundColor : activeTagFontColor, NSAttributedString.Key.backgroundColor: activeTagBackgroundColor], range: (text as NSString).range(of: lastTag))
+//            let paragraphStyle = NSMutableParagraphStyle()
+//            paragraphStyle.lineSpacing = 2
+//            attString.addAttributes([NSAttributedString.Key.paragraphStyle : paragraphStyle], range: (text as NSString).range(of: text))
             isLastTagSelected = true
         }
         

@@ -45,7 +45,7 @@ class AddOnVC : BaseVC {
     
     override func setupTexts() {
         super.setupTexts()
-        self.bookNowLabel.attributedText = LocalizedString.Book_Now_And_Get_Off.localized.attributeStringWithColors(subString: "20% off", strClr: UIColor.black, substrClr: UIColor.black, strFont: AppFonts.c.withSize(38), subStrFont: AppFonts.c.withSize(38), backgroundColor: AppColors.greenBackground)
+        self.bookNowLabel.attributedText = LocalizedString.Book_Now_And_Get_Off.localized.attributeStringWithColors(subString: " 20% off ", strClr: UIColor.black, substrClr: UIColor.black, strFont: AppFonts.c.withSize(38), subStrFont: AppFonts.c.withSize(38), backgroundColor: AppColors.greenBackground)
     }
     
     override func bindViewModel() {
@@ -63,7 +63,6 @@ extension AddOnVC {
         self.mealsUpdated(amount: "")
         configureTableView()
         setupBottomView()
-        
     }
     
     func configureNavigation(showSkip : Bool = true){
@@ -112,6 +111,7 @@ extension AddOnVC {
     
     func reloadFareBreakup(){
         if let fareBreakup = self.fareBreakupVC{
+            fareBreakup.addonsData = self.adonsVm.getAddonsPriceDict()
             fareBreakup.reloadDataForAddons()
         }
     }
@@ -237,32 +237,32 @@ extension AddOnVC : AddonsUpdatedDelegate {
     func baggageUpdated(amount : String) {
         self.adonsVm.setBaggageStrings()
         self.adonsTableView.reloadData()
-        self.setSkipButton()
         let amountValue = amount.isEmpty || amount == "0" ? nil : amount
         self.adonsVm.updatePriceDict(key: "baggage", value: amountValue)
+        self.setSkipButton()
     }
     
     func mealsUpdated(amount : String) {
         self.adonsVm.setMealsString()
         self.adonsTableView.reloadData()
-        self.setSkipButton()
         let amountValue = amount.isEmpty || amount == "0" ? nil : amount
         self.adonsVm.updatePriceDict(key: "meals", value: amountValue)
+        self.setSkipButton()
     }
     
     func othersUpdated(amount : String) {
         self.adonsVm.setOthersString()
         self.adonsTableView.reloadData()
-        self.setSkipButton()
         let amountValue = amount.isEmpty || amount == "0" ? nil : amount
         self.adonsVm.updatePriceDict(key: "others", value: amountValue)
+        self.setSkipButton()
     }
     
     func seatsUpdated(amount: Int) {
         self.adonsVm.setSeatsString()
         self.adonsTableView.reloadData()
-        self.setSkipButton()
         self.adonsVm.updatePriceDict(key: "seat", value: "\(amount)")
+        self.setSkipButton()
     }
     
     func resetMeals() {
