@@ -40,7 +40,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqO-lJ-uV1">
-                                            <rect key="frame" x="2" y="0.0" width="371" height="89"/>
+                                            <rect key="frame" x="2" y="0.0" width="371" height="96"/>
                                             <string key="text">Book Now &amp;
 get upto 20% off </string>
                                             <fontDescription key="fontDescription" name="SourceSansPro-Bold" family="Source Sans Pro" pointSize="38"/>
@@ -48,7 +48,7 @@ get upto 20% off </string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="compared to onboard prices" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQi-Xb-5yA">
-                                            <rect key="frame" x="2" y="89" width="371" height="21"/>
+                                            <rect key="frame" x="2" y="96" width="371" height="23"/>
                                             <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -234,6 +234,12 @@ get upto 20% off </string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VkO-GU-MSo">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BjM-Tr-wIw" userLabel="DismissBtn">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <connections>
+                                            <action selector="doneButtonTapped:" destination="kq5-sh-YrP" eventType="touchUpInside" id="nRe-83-6RX"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfu-FW-2eL">
                                         <rect key="frame" x="8" y="600" width="359" height="57"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -320,9 +326,13 @@ get upto 20% off </string>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="gfu-FW-2eL" secondAttribute="trailing" constant="8" id="4Jc-xR-6QX"/>
                                     <constraint firstAttribute="bottom" secondItem="gfu-FW-2eL" secondAttribute="bottom" constant="10" id="5f4-75-IUK"/>
+                                    <constraint firstItem="BjM-Tr-wIw" firstAttribute="leading" secondItem="VkO-GU-MSo" secondAttribute="leading" id="MyL-z7-Loa"/>
                                     <constraint firstItem="gfu-FW-2eL" firstAttribute="leading" secondItem="VkO-GU-MSo" secondAttribute="leading" constant="8" id="Spf-8N-5Mq"/>
+                                    <constraint firstAttribute="trailing" secondItem="BjM-Tr-wIw" secondAttribute="trailing" id="TuJ-ox-aNO"/>
                                     <constraint firstAttribute="trailing" secondItem="IQD-C4-Qs3" secondAttribute="trailing" constant="10" id="Vth-MS-66s"/>
+                                    <constraint firstAttribute="bottom" secondItem="BjM-Tr-wIw" secondAttribute="bottom" id="Whm-Lu-sol"/>
                                     <constraint firstItem="gfu-FW-2eL" firstAttribute="top" secondItem="IQD-C4-Qs3" secondAttribute="bottom" constant="8" id="eW4-gp-7yY"/>
+                                    <constraint firstItem="BjM-Tr-wIw" firstAttribute="top" secondItem="VkO-GU-MSo" secondAttribute="top" id="rY7-Fj-2Kl"/>
                                     <constraint firstItem="IQD-C4-Qs3" firstAttribute="leading" secondItem="VkO-GU-MSo" secondAttribute="leading" constant="10" id="uKJ-Vs-Li1"/>
                                 </constraints>
                             </view>
