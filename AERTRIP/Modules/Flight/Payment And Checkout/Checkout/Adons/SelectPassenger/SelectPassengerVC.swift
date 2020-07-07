@@ -41,7 +41,7 @@ class SelectPassengerVC : BaseVC {
         super.setupColors()
         self.selectPassengersLabel.textColor = AppColors.themeGray40
         self.legsLabel.textColor = AppColors.themeGray60
-        doneButton.titleLabel?.textColor = AppColors.themeGreen
+        doneButton.titleLabel?.textColor = AppColors.themeDarkGreen
     }
     
     override func setupTexts() {
