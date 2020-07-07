@@ -603,3 +603,11 @@ extension UIView {
     }
 }
 
+extension UIView {
+    func roundParticularCorners(_ radius: CGFloat, _ corners: CACornerMask) {
+        self.clipsToBounds = true
+        self.layer.cornerRadius = radius
+        self.layer.maskedCorners = corners
+    }
+}
+

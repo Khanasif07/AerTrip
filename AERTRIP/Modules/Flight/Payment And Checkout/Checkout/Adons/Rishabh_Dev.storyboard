@@ -24,8 +24,14 @@
                                     <constraint firstAttribute="height" constant="44" id="ntI-3S-90t"/>
                                 </constraints>
                             </view>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="VKB-Oe-oXo">
+                                <rect key="frame" x="0.0" y="88" width="414" height="1"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Uur-NE-BIy"/>
+                                </constraints>
+                            </progressView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iIJ-2e-wR7">
-                                <rect key="frame" x="0.0" y="88" width="414" height="724"/>
+                                <rect key="frame" x="0.0" y="89" width="414" height="723"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eQb-HI-UxI">
@@ -219,13 +225,16 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Apj-dH-tZr" firstAttribute="bottom" secondItem="ZGb-d8-d3r" secondAttribute="bottom" id="4qS-bE-hCg"/>
-                            <constraint firstItem="iIJ-2e-wR7" firstAttribute="top" secondItem="ENW-SZ-iqs" secondAttribute="bottom" id="5uq-pg-Zre"/>
+                            <constraint firstItem="VKB-Oe-oXo" firstAttribute="top" secondItem="ENW-SZ-iqs" secondAttribute="bottom" id="6rs-lR-2MV"/>
+                            <constraint firstItem="VKB-Oe-oXo" firstAttribute="leading" secondItem="ENW-SZ-iqs" secondAttribute="leading" id="7gJ-Oq-qP1"/>
                             <constraint firstItem="ENW-SZ-iqs" firstAttribute="leading" secondItem="Apj-dH-tZr" secondAttribute="leading" id="GWX-bV-SeZ"/>
+                            <constraint firstItem="iIJ-2e-wR7" firstAttribute="top" secondItem="VKB-Oe-oXo" secondAttribute="bottom" id="HwB-FE-Gaj"/>
                             <constraint firstItem="PpY-Bs-ewN" firstAttribute="leading" secondItem="Ar2-Qm-4XY" secondAttribute="leading" id="Iin-0C-oTc"/>
                             <constraint firstItem="PpY-Bs-ewN" firstAttribute="top" secondItem="ZGb-d8-d3r" secondAttribute="bottom" id="Loy-zu-sTc"/>
                             <constraint firstItem="eQb-HI-UxI" firstAttribute="top" secondItem="ENW-SZ-iqs" secondAttribute="top" id="Mra-oa-YbY"/>
                             <constraint firstItem="Apj-dH-tZr" firstAttribute="trailing" secondItem="ZGb-d8-d3r" secondAttribute="trailing" id="Nlk-2A-JeZ"/>
                             <constraint firstAttribute="trailing" secondItem="PpY-Bs-ewN" secondAttribute="trailing" id="W7e-Ai-Kzv"/>
+                            <constraint firstItem="VKB-Oe-oXo" firstAttribute="trailing" secondItem="ENW-SZ-iqs" secondAttribute="trailing" id="cG4-rr-ztq"/>
                             <constraint firstItem="ENW-SZ-iqs" firstAttribute="top" secondItem="Apj-dH-tZr" secondAttribute="top" id="hyI-xn-e8e"/>
                             <constraint firstItem="eQb-HI-UxI" firstAttribute="bottom" secondItem="ENW-SZ-iqs" secondAttribute="bottom" constant="56" id="iEG-hn-P0I"/>
                             <constraint firstItem="iIJ-2e-wR7" firstAttribute="leading" secondItem="Apj-dH-tZr" secondAttribute="leading" id="jNj-V8-DWO"/>
@@ -241,6 +250,7 @@
                     </view>
                     <connections>
                         <outlet property="addBtn" destination="zDQ-8l-33X" id="OOR-Hn-4LM"/>
+                        <outlet property="apiProgressView" destination="VKB-Oe-oXo" id="ofR-Yl-YHK"/>
                         <outlet property="bodyImgView" destination="J8D-3O-e2V" id="FDB-Ji-FcQ"/>
                         <outlet property="bottomWhiteView" destination="PpY-Bs-ewN" id="RfQ-Du-Mvi"/>
                         <outlet property="bottomWingImgView" destination="UXi-Rp-ukA" id="2dB-tI-vkb"/>

@@ -94,6 +94,7 @@ class SeatCollCell: UICollectionViewCell {
         seatView.isHidden = false
         seatView.backgroundColor = AppColors.themeWhite
         seatNumberLbl.textColor = AppColors.themeGray40
+        seatNumberLbl.text?.removeAll()
         toggleUnavailableImgView(true)
         switch (indexPath.section, indexPath.item) {
         case (0, 0):

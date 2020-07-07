@@ -122,8 +122,27 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
             self.seatMapCollView.reloadData()
             self.onReloadPlaneLayoutCall?(flightData)
             changesMade = true
+            self.resetSeatColorToGreen(indexPath)
         }
         present(passengerVC, animated: false, completion: nil)
+    }
+    
+    private func resetSeatColorToGreen(_ indexPath: IndexPath) {
+        var isColorSet = false
+        func setSeatColorToGreen() {
+            guard let curCell = self.seatMapCollView.cellForItem(at: indexPath) as? SeatCollCell, presentedViewController != nil else { return }
+            isColorSet = true
+            curCell.seatView.backgroundColor = AppColors.themeGreen
+        }
+        
+        for fraction in stride(from: 0.25, through: 0.5, by: 0.04) {
+            if isColorSet {
+                break
+            }
+            DispatchQueue.delay(fraction) {
+                setSeatColorToGreen()
+            }
+        }
     }
     
     private func openEmergencySeatPopup(agreed: @escaping ((Bool) -> ())) {
