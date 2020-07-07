@@ -35,7 +35,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
     //MARK:- Initialise Views
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.baggageTableView.backgroundColor = AppColors.themeGray04
         baggageTableView.register(UINib(nibName: "BaggageDetailsPerFlightTableViewCell", bundle: nil), forCellReuseIdentifier: "BaggageDetailsPerFlightCell")
         baggageTableView.register(UINib(nibName: "ChangeAirportTableViewCell", bundle: nil), forCellReuseIdentifier: "ChangeAirportCell")
         

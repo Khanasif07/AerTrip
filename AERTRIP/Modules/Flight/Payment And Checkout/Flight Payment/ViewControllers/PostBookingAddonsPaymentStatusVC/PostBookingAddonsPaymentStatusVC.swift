@@ -182,6 +182,9 @@ extension PostBookingAddonsPaymentStatusVC: UITableViewDelegate, UITableViewData
             return UITableViewCell()
         }
         emptyCell.clipsToBounds = true
+        if ((self.viewModel.sectionData.count - 1) == indexPath.section) && (self.viewModel.sectionData[indexPath.section].count-1 == indexPath.row){
+            emptyCell.bottomDividerView.isHidden = true
+        }
         return emptyCell
     }
     

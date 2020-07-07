@@ -88,6 +88,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     var isBackgroundVisible = false
     var selectedJourneyFK = [String]()
     var fewSeatsLeftViewHeightFromFlightDetails = 0
+    var indicator = UIActivityIndicatorView()
     
     weak var delegate: FareBreakupVCDelegate?
     
@@ -95,7 +96,10 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
+        indicator.frame.size.height = 25
+        indicator.frame.size.width = 25
+        self.bookingView.addSubview(indicator)
+        self.manageLoader()
         self.parent?.view.isUserInteractionEnabled = false
         baseFareTableview.register(UINib(nibName: "FareBreakupTableViewCell", bundle: nil), forCellReuseIdentifier: "FareBreakupCell")
         baseFareTableview.register(UINib(nibName: "BaseFareTableViewCell", bundle: nil), forCellReuseIdentifier: "BaseFareCell")
@@ -118,6 +122,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     override func viewDidLayoutSubviews()
     {
+        self.indicator.center = self.bookButton.center
         if fromScreen == "upgradePlanCollapse"
         {
             if let subLayers = bookingDataDisplayView.layer.sublayers{
@@ -288,6 +293,26 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             upgradeButton.isHidden = true
             upgradeButtonWidth.constant = 0
             bookButtonTrailing.constant = 16
+        }
+    }
+    
+    
+    private func manageLoader() {
+        self.indicator.style = .white
+        self.indicator.color = AppColors.themeWhite
+        self.indicator.startAnimating()
+        self.hideShowLoader(isHidden:true)
+    }
+    
+    func hideShowLoader(isHidden:Bool){
+        DispatchQueue.main.async {
+            if isHidden{
+                self.indicator.stopAnimating()
+                self.bookButton.setTitle("Book", for: .normal)
+            }else{
+                self.bookButton.setTitle("", for: .normal)
+                self.indicator.startAnimating()
+            }
         }
     }
     

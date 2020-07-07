@@ -479,7 +479,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="6sV-R9-85e" firstAttribute="centerX" secondItem="Gjm-FG-gus" secondAttribute="centerX" id="QFN-Ob-2KK"/>
                             <constraint firstItem="6sV-R9-85e" firstAttribute="centerY" secondItem="Gjm-FG-gus" secondAttribute="centerY" id="RCf-cQ-nF1"/>
@@ -497,6 +497,7 @@
                         <outlet property="crossButton" destination="dKE-Bt-WTF" id="ew0-gG-Nc4"/>
                         <outlet property="exampleLabel" destination="TRO-de-4fa" id="D4v-SH-OKc"/>
                         <outlet property="passportImage" destination="exf-Be-RiZ" id="pLn-mZ-HFF"/>
+                        <outlet property="transperentButton" destination="9EF-kh-Ni0" id="1Yh-SU-bLJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rHX-OP-ey9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

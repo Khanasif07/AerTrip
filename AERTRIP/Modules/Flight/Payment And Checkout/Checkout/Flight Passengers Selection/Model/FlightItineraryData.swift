@@ -112,6 +112,15 @@ struct FlightSearchParam{
     var paxTypesArr: [String]?
     var dipartArr : [String]?
     var destinationArr : [String]?
+    var lastJourneyDate:Date{
+        if !self.depart.isEmpty, let date = self.depart.toDate(dateFormat: "dd-MM-yyyy"){
+            return date
+        }else if let dateStr = self.dipartArr?.last, let date = dateStr.toDate(dateFormat: "dd-MM-yyyy"){
+            return date
+        }
+        return Date()
+        
+    }
     
     
     init(_ json:JSON = JSON()){
