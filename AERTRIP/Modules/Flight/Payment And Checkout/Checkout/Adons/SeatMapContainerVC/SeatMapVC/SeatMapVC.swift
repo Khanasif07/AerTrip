@@ -74,12 +74,16 @@ class SeatMapVC: UIViewController {
         mainDeckBtn.layer.borderColor = AppColors.themeGreen.cgColor
         mainDeckBtn.setTitle(LocalizedString.mainDeck.localized, for: .normal)
         mainDeckBtn.titleLabel?.font = AppFonts.SemiBold.withSize(14)
-        mainDeckBtn.roundCorners(corners: [.topLeft, .bottomLeft], radius: 4)
+        mainDeckBtn.roundParticularCorners(4, [.layerMinXMinYCorner, .layerMinXMaxYCorner])
         upperDeckBtn.layer.borderColor = AppColors.themeGreen.cgColor
         upperDeckBtn.setTitle(LocalizedString.upperDeck.localized, for: .normal)
         upperDeckBtn.titleLabel?.font = AppFonts.SemiBold.withSize(14)
-        mainDeckBtn.roundCorners(corners: [.topRight, .bottomRight], radius: 4)
-        toggleUpperDeck(false)
+        upperDeckBtn.roundParticularCorners(4, [.layerMaxXMinYCorner, .layerMaxXMaxYCorner])
+        if viewModel.flightData.md.rows.isEmpty && !viewModel.flightData.ud.rows.isEmpty {
+            toggleUpperDeck(true)
+        } else {
+            toggleUpperDeck(false)
+        }
     }
     
     private func setupCollView() {

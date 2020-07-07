@@ -194,9 +194,6 @@ class SeatMapContainerVC: UIViewController {
         for index in 0..<viewModel.allTabsStr.count {
             let vc = SeatMapVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
             vc.setFlightData(viewModel.allFlightsData[index], viewModel.setupFor)
-//            if viewModel.setupFor == .postSelection {
-//                vc.setPassengersFromBooking(viewModel.bookedPassengersArr)
-//            }
             vc.onReloadPlaneLayoutCall = { [weak self] updatedFlightData in
                 guard let self = self else { return }
                 if let flightData = updatedFlightData {
@@ -331,38 +328,19 @@ extension SeatMapContainerVC {
         let convertedRectForHighlightView = highlightContainerView.convert(highlightView?.frame ?? .zero, to: planeLayoutScrollView)
         
         let convertedRectMaxXOffset = convertedRectForHighlightView.origin.x + convertedRectForHighlightView.width
-        let scrollViewMaxXOffset = planeLayoutScrollView.contentOffset.x + planeLayoutScrollView.width - 50
+        let scrollViewMaxXOffset = planeLayoutScrollView.contentOffset.x + planeLayoutScrollView.width - 100
         
         if convertedRectMaxXOffset > scrollViewMaxXOffset {
             
-//            if ((highlightView?.frame.maxX ?? 0) >= highlightContainerView.width - 30) && (highlightContainerView.frame.maxX >= scrollViewMaxXOffset) {
-//                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-//                    self.planeLayoutScrollView.contentOffset.x += 100
-//                }, completion: nil)
-//                return
-//            }
-            
-//            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
-                self.planeLayoutScrollView.contentOffset.x += convertedRectMaxXOffset - scrollViewMaxXOffset
-//            }, completion: nil)
+            self.planeLayoutScrollView.contentOffset.x += convertedRectMaxXOffset - scrollViewMaxXOffset
         }
         
         let convertedRectXOffset = convertedRectForHighlightView.origin.x
-        let scrollViewXOffset = planeLayoutScrollView.contentOffset.x + 50
+        let scrollViewXOffset = planeLayoutScrollView.contentOffset.x + 100
         if convertedRectXOffset < scrollViewXOffset {
             
-//            if ((highlightView?.frame.minX ?? 0) <= 30) && (highlightContainerView.frame.minX <= scrollViewXOffset) {
-//                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-//                    self.planeLayoutScrollView.contentOffset.x -= 100
-//                }, completion: nil)
-//                return
-//            }
-            
-//            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
             self.planeLayoutScrollView.contentOffset.x -= (scrollViewXOffset - convertedRectXOffset)
-//            }, completion: nil)
         }
-        
     }
     
     /// adds pan gesture to highlighted view
@@ -399,21 +377,18 @@ extension SeatMapContainerVC {
         let convertedRectForHighlightView = highlightContainerView.convert(highlightView?.frame ?? .zero, to: planeLayoutScrollView)
         if translationX > 0 {
             let convertedRectMaxXOffset = convertedRectForHighlightView.origin.x + convertedRectForHighlightView.width
-            let scrollViewMaxXOffset = planeLayoutScrollView.contentOffset.x + planeLayoutScrollView.width - 50
+            let scrollViewMaxXOffset = planeLayoutScrollView.contentOffset.x + planeLayoutScrollView.width - 100
             if convertedRectMaxXOffset > scrollViewMaxXOffset {
-//                UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
-                    self.planeLayoutScrollView.contentOffset.x += 1
-                    self.highlightView?.origin.x += 1
-//                }, completion: nil)
+                
+                self.planeLayoutScrollView.contentOffset.x += 1
+                self.highlightView?.origin.x += 1
             }
         } else {
             let convertedRectXOffset = convertedRectForHighlightView.origin.x
-            let scrollViewXOffset = planeLayoutScrollView.contentOffset.x + 50
+            let scrollViewXOffset = planeLayoutScrollView.contentOffset.x + 100
             if convertedRectXOffset < scrollViewXOffset {
-//                UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
-                    self.planeLayoutScrollView.contentOffset.x -= 1
-                    self.highlightView?.origin.x -= 1
-//                }, completion: nil)
+                self.planeLayoutScrollView.contentOffset.x -= 1
+                self.highlightView?.origin.x -= 1
             }
         }
     }
