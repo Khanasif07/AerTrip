@@ -48,6 +48,7 @@ class SeatMapContainerVC: UIViewController {
     @IBOutlet weak var addBtn: UIButton!
     @IBOutlet weak var totalSeatAmountViewHeight: NSLayoutConstraint!
     @IBOutlet weak var highlightContainerView: UIView!
+    @IBOutlet weak var apiProgressView: UIProgressView!
     
     
     // MARK: View Life Cycle
@@ -60,6 +61,23 @@ class SeatMapContainerVC: UIViewController {
         super.viewDidLayoutSubviews()
         self.parchmentView?.view.frame = self.seatMapContainerView.bounds
         self.parchmentView?.loadViewIfNeeded()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if viewModel.setupFor == .preSelection {
+            if AddonsDataStore.shared.originalSeatMapModel == nil {
+                animateProgressView(duration: 3, progress: 0.25, completion: nil)
+            } else {
+                animateProgressView(duration: 1, progress: 1, completion: {
+                    DispatchQueue.delay(1) { [weak self] in
+                        self?.apiProgressView.setProgress(0, animated: false)
+                    }
+                })
+            }
+        } else {
+            animateProgressView(duration: 1, progress: 0.25, completion: nil)
+        }
     }
     
     // MARK: IBActions
@@ -88,13 +106,16 @@ class SeatMapContainerVC: UIViewController {
         planeLayoutScrollView.delegate = self
         self.planeLayoutView.isHidden = true
         self.planeShadowView.isHidden = true
-        delay(seconds: 0.2) {
+//        delay(seconds: 0.2) {
+        delay(seconds: 1) {
             self.viewModel.fetchSeatMapData()
+        }
+            
             self.setupPlaneLayoutCollView()
             self.addPanToHighlightView()
 //            self.planeLayoutView.isHidden = false
 //            self.planeShadowView.isHidden = false
-        }
+//        }
     }
     
     func setViewModel(_ vm: SeatMapContainerVM) {
@@ -148,12 +169,23 @@ class SeatMapContainerVC: UIViewController {
         let addBtnTitle = viewModel.setupFor == .postSelection ? LocalizedString.CheckoutTitle.localized : LocalizedString.Add.localized
         addBtn.setTitle(addBtnTitle, for: .normal)
         totalSeatAmountView.addShadow(ofColor: .black, radius: 20, opacity: 0.05)
+        apiProgressView.progressTintColor = UIColor.AertripColor
+        apiProgressView.trackTintColor = .clear
+        apiProgressView.setProgress(0, animated: false)
     }
     
     private func addHighlightView() {
         highlightView = UIView(frame: .zero)
         highlightView?.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.1)
         highlightContainerView.addSubview(highlightView!)
+    }
+    
+    private func animateProgressView(duration: TimeInterval = 1, progress: Float, completion: (() -> ())?) {
+        UIView.animate(withDuration: duration, animations: {
+            self.apiProgressView.setProgress(progress, animated: true)
+        }, completion: { _ in
+            completion?()
+        })
     }
     
     private func setUpViewPager() {
@@ -199,7 +231,7 @@ class SeatMapContainerVC: UIViewController {
         self.parchmentView = PagingViewController()
         self.parchmentView?.menuItemSpacing = 34
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 15, bottom: 0.0, right: 15)
-        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 56)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 55)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
@@ -423,35 +455,49 @@ extension SeatMapContainerVC: TopNavigationViewDelegate {
     
 }
 
-extension SeatMapContainerVC: SeatMapContainerDelegate {
+extension SeatMapContainerVC: SeatMapContainerDelegate {    
+    
+    func updateProgress(_ progress: Float) {
+        if viewModel.isInternational {
+            animateProgressView(progress: progress) {
+                DispatchQueue.delay(1) { [ weak self] in
+                    self?.apiProgressView.setProgress(0, animated: false)
+                }
+            }
+        } else {
+            let totalProgress = apiProgressView.progress
+            animateProgressView(progress: progress + totalProgress) { [weak self] in
+                guard let self = self else { return }
+                if self.apiProgressView.progress >= 1 {
+                    DispatchQueue.delay(1) { [ weak self] in
+                        self?.apiProgressView.setProgress(0, animated: false)
+                    }
+                }
+            }
+        }
+    }
     
     func willFetchSeatMapData() {
-        DispatchQueue.main.async {
-            AppGlobals.shared.startLoading()
-        }
+        
     }
     
     func failedToFetchSeatMapData() {
-        DispatchQueue.main.async {
-            AppGlobals.shared.stopLoading()
-        }
-        AppToast.default.showToastMessage(message: LocalizedString.Will_Be_Available_Soon.localized)
+        
     }
     
     func willHitPostConfAPI() {
-        DispatchQueue.main.async {
-            AppGlobals.shared.startLoading()
-        }
+        animateProgressView(progress: 0.25, completion: nil)
     }
     
     func didHitPostConfAPI() {
-        DispatchQueue.main.async {
-            AppGlobals.shared.stopLoading()
-        }
+        animateProgressView(progress: 1, completion: {
+            DispatchQueue.delay(1) { [weak self] in
+                self?.apiProgressView.setProgress(0, animated: false)
+            }
+        })
     }
     
     func didFetchSeatMapData() {
-        AppGlobals.shared.stopLoading()
         var totalFlightsData = [SeatMapModel.SeatMapFlight]()
         viewModel.allTabsStr.removeAll()
         viewModel.seatMapModel.data.leg.forEach {
