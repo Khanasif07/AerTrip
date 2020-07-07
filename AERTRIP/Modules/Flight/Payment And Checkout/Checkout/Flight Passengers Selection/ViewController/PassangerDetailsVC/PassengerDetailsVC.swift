@@ -21,6 +21,7 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     
     weak var delegate : HCSelectGuestsVCDelegate?
     var viewModel = PassengerDetailsVM()
+    var isNeedToshowBottom = false
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerCells()
@@ -157,13 +158,17 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     
    @objc func keyboardWillShow(notification: Notification) {
         if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
-            self.passengerTable.setBottomInset(to: keyboardHeight + 10)
+            if self.isNeedToshowBottom{
+                self.passengerTable.setBottomInset(to: keyboardHeight + 10)
+            }
             self.viewModel.keyboardHeight = keyboardHeight
         }
     }
 
     @objc func keyboardWillHide(notification: Notification) {
-        self.passengerTable.setBottomInset(to: 0.0)
+        if self.isNeedToshowBottom{
+            self.passengerTable.setBottomInset(to: 0.0)
+        }
         self.passengerTable.isScrollEnabled = true
         GuestDetailsVM.shared.resetData()
         self.travellersTableView.reloadData()
@@ -177,6 +182,12 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
 ////        self.present(vc, animated: true, completion: nil)
 //        return false
 //    }
+    
+    func presentPassportView(){
+        let vc  = PassportExampleVC.instantiate(fromAppStoryboard: .PassengersSelection)
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
     
     
 }
@@ -244,8 +255,8 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
         if tableView === self.passengerTable {
             if section == 0{
                 let header = self.passengerTable.dequeueReusableHeaderFooterView(withIdentifier: "SeeExampleHeaderView") as? SeeExampleHeaderView
-                header?.hanler = {
-                    PassportExampleVC.showMe()
+                header?.hanler = {[weak self] in
+                    self?.presentPassportView()
                 }
                 return header
             }else{
@@ -306,6 +317,7 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
         cell.txtFldEditDelegate = self
         cell.allPaxInfoRequired = self.viewModel.isAllPaxInfoRequired
         cell.guestDetail = self.viewModel.passengerList[indexPath.section]
+        cell.lastJourneyDate = self.viewModel.lastJourneyDate
         return cell
     }
     
@@ -352,6 +364,10 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
 }
 
 extension PassengerDetailsVC : UpdatePassengerDetailsDelegate{
+    func shouldSetupBottom(isNeedToSetUp: Bool) {
+        self.isNeedToshowBottom = isNeedToSetUp
+    }
+    
     
     func tapOptionalDetailsBtn(at indexPath:IndexPath){
         GuestDetailsVM.shared.guests[0][indexPath.section].isMoreOptionTapped = true
@@ -412,9 +428,9 @@ extension PassengerDetailsVC: GuestDetailTableViewCellDelegate {
         if let _ = self.passengerTable.cell(forItem: textField) as? AddPassengerDetailsCell {
             //  get item position
             let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: passengerTable)
-            var  yValue = 62
+            var  yValue = 134
             if let index = self.viewModel.editinIndexPath {
-                yValue = index.section ==  GuestDetailsVM.shared.guests[0].count - 1 ? 63 : 65
+                yValue = index.section ==  GuestDetailsVM.shared.guests[0].count - 1 ? 135 : 137
                 if self.viewModel.isAllPaxInfoRequired{
                     yValue += 3
                 }

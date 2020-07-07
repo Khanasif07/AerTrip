@@ -13,10 +13,10 @@ protocol PassengerSelectionVMDelegate:NSObjectProtocol {
     func startFechingAddnsMasterData()
     func startFechingGSTValidationData()
     func startFechingLoginData()
-    func getResponseFromConfirmation(_ success:Bool, error:Error?)
-    func getResponseFromAddnsMaster(_ success:Bool, error:Error?)
-    func getResponseFromGSTValidation(_ success:Bool, error:Error?)
-    func getResponseFromLogin(_ success:Bool, error:Error?)
+    func getResponseFromConfirmation(_ success:Bool, error: ErrorCodes)
+    func getResponseFromAddnsMaster(_ success:Bool, error:ErrorCodes)
+    func getResponseFromGSTValidation(_ success:Bool, error:ErrorCodes)
+    func getResponseFromLogin(_ success:Bool, error:ErrorCodes)
 }
 
 var logoUrl = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/"
@@ -53,9 +53,11 @@ class PassengerSelectionVM  {
     var manimumContactLimit = 10
     var maximumContactLimit = 10
     var itineraryData = FlightItineraryData()
+    var newItineraryData = FlightItineraryData()
     var delegate:PassengerSelectionVMDelegate?
     
     var freeServiceType:FreeServiveType?{
+        guard itineraryData.itinerary.iic else { return nil }
         if self.itineraryData.itinerary.freeMealSeat{
             return .both
         }else if self.itineraryData.itinerary.freeMeal{
@@ -153,12 +155,26 @@ class PassengerSelectionVM  {
             }
         }else{
             if self.isLogin{
-                self.delegate?.getResponseFromGSTValidation(true, error: nil)
+                self.delegate?.getResponseFromGSTValidation(true, error: [])
             }else{
                 self.login()
             }
             
         }
+    }
+    
+    
+    func setupItineraryData(){
+        self.itineraryData = newItineraryData
+        self.id = self.itineraryData.itinerary.id
+        self.sid = self.itineraryData.itinerary.sid
+        GuestDetailsVM.shared.travellerList = self.itineraryData.itinerary.travellerMaster
+        if let artpt = self.itineraryData.itinerary.details.apdet{
+            self.intAirportDetailsResult = artpt
+        }
+        self.setupGST()
+        self.fetchAddonsData()
+        
     }
     
     func fetchAddonsData(){
@@ -167,7 +183,7 @@ class PassengerSelectionVM  {
         self.delegate?.startFechingAddnsMasterData()
         APICaller.shared.getAddonsMaster(params: param) {[weak self] (success, errorCode, addonsMaster) in
             guard let self = self else {return}
-            self.delegate?.getResponseFromAddnsMaster(success, error: nil)
+            self.delegate?.getResponseFromAddnsMaster(success, error: errorCode)
             if success{
                 self.addonsMaster = addonsMaster
                 self.setupGuestArray()
@@ -179,53 +195,53 @@ class PassengerSelectionVM  {
     }
     
     func fetchConfirmationData(){
-        var param:JSONDictionary = ["sid": sid]
-        
-        if journeyType == .international{
-            if self.intJourney == nil{
-                param["old_farepr[]"] = self.journey?.first?.farepr ?? 0
-                param["fk[]"] = self.journey?.first?.fk ?? ""
-            }else{
-                param["old_farepr[]"] = self.intJourney?.first?.farepr ?? 0
-                param["fk[]"] = self.intJourney?.first?.fk ?? ""
-                param["combo"] = true
-            }
-        }else{
-            guard let journey = journey else{return}
-            for i in 0..<journey.count{
-                param["old_farepr[\(i)]"] = journey[i].farepr
-                param["fk[\(i)]"] = journey[i].fk
-            }
-        }
-        self.delegate?.startFechingConfirmationData()
-        APICaller.shared.getConfirmation(params: param) {[weak self](success, errorCode, itineraryData) in
-            guard let self = self else{return}
-            if success{
-                if let itinerary = itineraryData{
-                    self.itineraryData = itinerary
-                    self.id = self.itineraryData.itinerary.id
-                    self.sid = self.itineraryData.itinerary.sid
-                    GuestDetailsVM.shared.travellerList = self.itineraryData.itinerary.travellerMaster
-                    if let artpt = self.itineraryData.itinerary.details.apdet{
-                        self.intAirportDetailsResult = artpt
-                    }
-                    self.setupGST()
-                }
-            }else{
-                debugPrint(errorCode)
-            }
-            self.delegate?.getResponseFromConfirmation(success, error: nil)
-            if success{
-                self.fetchAddonsData()
-            }
-        }
+//        var param:JSONDictionary = ["sid": sid]
+//        
+//        if journeyType == .international{
+//            if self.intJourney == nil{
+//                param["old_farepr[]"] = self.journey?.first?.farepr ?? 0
+//                param["fk[]"] = self.journey?.first?.fk ?? ""
+//            }else{
+//                param["old_farepr[]"] = self.intJourney?.first?.farepr ?? 0
+//                param["fk[]"] = self.intJourney?.first?.fk ?? ""
+//                param["combo"] = true
+//            }
+//        }else{
+//            guard let journey = journey else{return}
+//            for i in 0..<journey.count{
+//                param["old_farepr[\(i)]"] = journey[i].farepr
+//                param["fk[\(i)]"] = journey[i].fk
+//            }
+//        }
+//        self.delegate?.startFechingConfirmationData()
+//        APICaller.shared.getConfirmation(params: param) {[weak self](success, errorCode, itineraryData) in
+//            guard let self = self else{return}
+//            if success{
+//                if let itinerary = itineraryData{
+//                    self.itineraryData = itinerary
+//                    self.id = self.itineraryData.itinerary.id
+//                    self.sid = self.itineraryData.itinerary.sid
+//                    GuestDetailsVM.shared.travellerList = self.itineraryData.itinerary.travellerMaster
+//                    if let artpt = self.itineraryData.itinerary.details.apdet{
+//                        self.intAirportDetailsResult = artpt
+//                    }
+//                    self.setupGST()
+//                }
+//            }else{
+//                debugPrint(errorCode)
+//            }
+//            self.delegate?.getResponseFromConfirmation(success, error: nil)
+//            if success{
+//                self.fetchAddonsData()
+//            }
+//        }
     }
     
     private func validateGST(){
         self.delegate?.startFechingGSTValidationData()
         let param = ["number":self.selectedGST.GSTInNo]
         APICaller.shared.validateGSTIN(params: param) { (success, error, data) in
-            self.delegate?.getResponseFromGSTValidation(success, error: nil)
+            self.delegate?.getResponseFromGSTValidation(success, error: error)
         }
     }
 
@@ -238,12 +254,12 @@ class PassengerSelectionVM  {
                 if self.isSwitchOn{
                     self.validateGST()
                 }else{
-                    self.delegate?.getResponseFromGSTValidation(success, error: nil)
+                    self.delegate?.getResponseFromGSTValidation(success, error: errors)
                 }
             }else{
                 AppToast.default.showToastMessage(message: "Something went wrong")
             }
-            self.delegate?.getResponseFromLogin(success, error: nil)
+            self.delegate?.getResponseFromLogin(success, error: errors)
         }
     }
     

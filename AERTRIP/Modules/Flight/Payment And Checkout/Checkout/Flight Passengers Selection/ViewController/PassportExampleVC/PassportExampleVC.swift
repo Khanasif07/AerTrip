@@ -14,10 +14,20 @@ class PassportExampleVC: UIViewController {
     @IBOutlet weak var exampleLabel: UILabel!
     @IBOutlet weak var crossButton: UIButton!
     @IBOutlet weak var passportImage: UIImageView!
-
+    @IBOutlet weak var transperentButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupFont()
+        self.setUpSubView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 0.3, animations: {
+            self.transperentButton.transform = CGAffineTransform.identity
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        })
     }
     
     func setupFont(){
@@ -44,11 +54,26 @@ class PassportExampleVC: UIViewController {
     
     @IBAction func tappedCrossButton(_ sender: UIButton) {
         
+        
         UIView.animate(withDuration: 0.3, animations: {
-            self.view.frame.origin.y = UIScreen.height
-        }) { _ in
-           self.removeFromParentVC
+            self.transperentButton.transform = CGAffineTransform(translationX: 0, y: self.transperentButton.height)
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
+        }) { (success) in
+            self.dismiss(animated: true, completion: nil)
         }
+        
+//        UIView.animate(withDuration: 0.3, animations: {
+//            self.view.frame.origin.y = UIScreen.height
+//        }) { _ in
+//           self.removeFromParentVC
+//        }
+        
+    }
+    
+    func setUpSubView(){
+        self.transperentButton.backgroundColor = UIColor.clear
+        self.transperentButton.transform = CGAffineTransform(translationX: 0, y: transperentButton.height)
+        self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
         
     }
     

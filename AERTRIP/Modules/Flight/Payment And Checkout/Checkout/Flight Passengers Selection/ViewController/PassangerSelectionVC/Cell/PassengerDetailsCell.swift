@@ -21,9 +21,11 @@ class PassengerDetailsCell: UICollectionViewCell {
     
     private(set) var isForAdult: Bool = false
     var journeyType:JourneyType = .domestic
+    var lastJourneyDate = Date()
     var isAllPaxInfoRequired = false
     var minMNS = 10
     var maxMNS = 10
+    var innerCellIndex:IndexPath?
     
     var contact: ATContact? {
         didSet {
@@ -169,27 +171,30 @@ class PassengerDetailsCell: UICollectionViewCell {
     }
     
     private func ageValidation(){
-        if self.journeyType == .domestic{
-            if let type = self.contact?.passengerType, type == .infant{
-                if !self.calculateAge(with: 2){
-                    self.infoImageView.isHidden = false
-                }
-            }
-        }else{
+//        if self.journeyType == .domestic{
+//            if let type = self.contact?.passengerType, type == .infant{
+//                if !self.calculateAge(with: 2){
+//                    self.infoImageView.isHidden = false
+//                }
+//            }
+//        }else{
             if let type = self.contact?.passengerType{
+                guard let indx = self.innerCellIndex else {return}
                 switch type{
                 case .Adult:break
                 case .child:
                     if !self.calculateAge(with: 12){
+                        GuestDetailsVM.shared.guests[0][indx.row].dob = ""
                         self.infoImageView.isHidden = false
                     }
                 case .infant:
                     if !self.calculateAge(with: 2){
+                        GuestDetailsVM.shared.guests[0][indx.row].dob = ""
                         self.infoImageView.isHidden = false
                     }
                 }
             }
-        }
+//        }
     }
     
     func validatationForEmailAndMobile(){
@@ -207,7 +212,7 @@ class PassengerDetailsCell: UICollectionViewCell {
     private func calculateAge(with year:Int)-> Bool{
         guard let dob = self.contact?.displayDob,
             let date = dob.toDate(dateFormat: "dd MMM yyyy") else {return false}
-        let component = Calendar.current.dateComponents([.year], from: date, to: Date())
+        let component = Calendar.current.dateComponents([.year], from: date, to: lastJourneyDate)
         return (component.year ?? 0) < year
     }
     

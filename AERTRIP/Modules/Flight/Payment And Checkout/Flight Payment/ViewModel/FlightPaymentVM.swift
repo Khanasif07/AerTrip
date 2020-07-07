@@ -10,20 +10,20 @@ import Foundation
 
 protocol FlightPaymentVMDelegate:NSObjectProtocol {
     func fetchingItineraryData()
-    func responseFromIteneraryData(success:Bool,error:Error?)
+    func responseFromIteneraryData(success:Bool, error: ErrorCodes)
     func getPaymentsMethodsSuccess()
-    func getPaymentMethodsFails(errors: ErrorCodes)
+    func getPaymentMethodsFails(error: ErrorCodes)
     func removeCouponCodeSuccessful(_ appliedCouponData: FlightItineraryData)
-    func removeCouponCodeFailed()
-    func reconfirmationResponse(_ success:Bool)
+    func removeCouponCodeFailed(error: ErrorCodes)
+    func reconfirmationResponse(_ success:Bool, error: ErrorCodes)
     
     func willMakePayment()
     func makePaymentSuccess(options: JSONDictionary, shouldGoForRazorPay: Bool)
-    func makePaymentFail()
+    func makePaymentFail(error: ErrorCodes)
     
     func getPaymentResonseSuccess(bookingIds: [String], cid: [String])
     func getPaymentResponseWithPendingPayment(_ p:String, id:String)
-    func getPaymentResonseFail()
+    func getPaymentResonseFail(error: ErrorCodes)
 }
 
 class FlightPaymentVM{
@@ -180,7 +180,7 @@ extension FlightPaymentVM{
                  sSelf.delegate?.getPaymentsMethodsSuccess()
              } else {
                  printDebug(errors)
-                 sSelf.delegate?.getPaymentMethodsFails(errors: errors)
+                sSelf.delegate?.getPaymentMethodsFails(error: errors)
              }
          }
      }
@@ -194,7 +194,7 @@ extension FlightPaymentVM{
                     sSelf.delegate?.removeCouponCodeSuccessful(appliedCouponDetails)
                 }
             } else {
-                sSelf.delegate?.removeCouponCodeFailed()
+                sSelf.delegate?.removeCouponCodeFailed(error: errors)
             }
         }
     }
@@ -210,7 +210,7 @@ extension FlightPaymentVM{
                     self.appliedCouponData.itinerary = appliedCouponDetails.itinerary
                 }
             }
-            self.delegate?.reconfirmationResponse(success)
+            self.delegate?.reconfirmationResponse(success, error: errors)
         }
     }
     
@@ -247,7 +247,7 @@ extension FlightPaymentVM{
             if success {
                 self.delegate?.makePaymentSuccess(options: options, shouldGoForRazorPay: !(useWallet && forAmount <= 0))
             } else {
-                self.delegate?.makePaymentFail()
+                self.delegate?.makePaymentFail(error: errors)
                 //AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
             }
         }
@@ -282,8 +282,7 @@ extension FlightPaymentVM{
                     self.delegate?.getPaymentResponseWithPendingPayment(p, id: id)
                 }
             } else {
-                self.delegate?.getPaymentResonseFail()
-                //AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+                self.delegate?.getPaymentResonseFail(error: errors)
             }
         }
     }

@@ -10,6 +10,7 @@ import UIKit
 
 protocol  UpdatePassengerDetailsDelegate: NSObjectProtocol {
     func tapOptionalDetailsBtn(at indexPath:IndexPath)
+    func shouldSetupBottom(isNeedToSetUp:Bool)
 }
 
 class AddPassengerDetailsCell: UITableViewCell {
@@ -56,6 +57,7 @@ class AddPassengerDetailsCell: UITableViewCell {
     var cellIndexPath = IndexPath()
     var journeyType: JourneyType = .domestic
     private var preSelectedCountry: PKCountryModel?
+    var lastJourneyDate:Date = Date()
     var allPaxInfoRequired = true
     var guestDetail: ATContact? {
         didSet {
@@ -408,6 +410,7 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
         PKCountryPicker.default.closePicker()
         switch textField {
         case self.dobTextField:
+            self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
             let selected = (textField.text ?? "").toDate(dateFormat: "dd MMM YYYY")
             var minimumDate:Date? = Date()
             if let passenger = self.guestDetail{
@@ -415,9 +418,9 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
                 case .Adult:
                     minimumDate = nil
                 case .child:
-                    minimumDate = Date().add(years: -12, days: 1)
+                    minimumDate = self.lastJourneyDate.add(years: -12, days: 1)
                 case .infant:
-                    minimumDate = Date().add(years: -2, days: 1)
+                    minimumDate = self.lastJourneyDate.add(years: -2, days: 1)
                     
                 }
             }
@@ -429,6 +432,7 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
             }
             textField.tintColor = AppColors.clear
         case self.nationalityTextField:
+            self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
             var countries = [String]()
             if let country = GuestDetailsVM.shared.countries{
                 countries = Array(country.values).sorted()
@@ -441,6 +445,7 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
             }
             textField.tintColor = AppColors.clear
         case self.passportExpiryTextField:
+            self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
             let selected = (textField.text ?? "").toDate(dateFormat: "dd MMM YYYY")
             PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd MMM YYYY", mode: .date, minimumDate: Date(), maximumDate: nil, selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { (dateStr) in
                 textField.text = dateStr
@@ -449,7 +454,10 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
                 }
             }
             textField.tintColor = AppColors.clear
+        case self.passportNumberTextField, self.mobileTextField, self.emailTextField:
+            self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
         default:
+            self.delegate?.shouldSetupBottom(isNeedToSetUp: false)
             return true
         }
         return true

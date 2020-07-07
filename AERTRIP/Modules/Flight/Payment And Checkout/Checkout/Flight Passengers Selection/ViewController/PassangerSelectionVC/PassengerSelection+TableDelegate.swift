@@ -95,6 +95,7 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
             cell.configData(forIndexPath: indexPath, passengers: self.viewModel.passengerList)
             cell.journeyType = self.viewModel.journeyType
             cell.delegate = self
+            cell.lastJourneyDate = self.viewModel.itineraryData.itinerary.searchParams.lastJourneyDate
             cell.isAllPaxInfoRequired = self.viewModel.itineraryData.itinerary.isAllPaxInfoRequired
             cell.minMNS = self.viewModel.manimumContactLimit
             cell.maxMNS = self.viewModel.maximumContactLimit
@@ -166,6 +167,7 @@ extension PassengersSelectionVC: PassengerGridSelectionDelegate{
         vc.delegate = self
         vc.viewModel.isAllPaxInfoRequired = self.viewModel.itineraryData.itinerary.isAllPaxInfoRequired
         vc.viewModel.currentIndex = indexPath.row
+        vc.viewModel.lastJourneyDate = self.viewModel.itineraryData.itinerary.searchParams.lastJourneyDate
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

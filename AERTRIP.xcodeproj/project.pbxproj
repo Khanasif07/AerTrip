@@ -433,6 +433,8 @@
 		18A96B9721B661F900EA9B3A /* GoogleLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */; };
 		18AAAC1B24B37D0700025ABF /* SeeExampleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AAAC1A24B37D0700025ABF /* SeeExampleHeaderView.swift */; };
 		18AAAC1D24B37E7800025ABF /* SeeExampleHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18AAAC1C24B37E7800025ABF /* SeeExampleHeaderView.xib */; };
+		18AAAC1F24B4979000025ABF /* FlightDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AAAC1E24B4978F00025ABF /* FlightDetailsVM.swift */; };
+		18AAAC2124B4CE3B00025ABF /* flights.csv in Resources */ = {isa = PBXBuildFile; fileRef = 18AAAC2024B4CE3A00025ABF /* flights.csv */; };
 		18AC309124878382004CB0B8 /* FlightPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC309024878382004CB0B8 /* FlightPaymentVC.swift */; };
 		18AC30942487CEC1004CB0B8 /* FlightPaymentVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC30932487CEC1004CB0B8 /* FlightPaymentVM.swift */; };
 		18AE8F5A22A4F4E8009D625E /* BookingReviewCancellationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AE8F5922A4F4E8009D625E /* BookingReviewCancellationVC.swift */; };
@@ -2037,6 +2039,8 @@
 		18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleLoginController.swift; sourceTree = "<group>"; };
 		18AAAC1A24B37D0700025ABF /* SeeExampleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeExampleHeaderView.swift; sourceTree = "<group>"; };
 		18AAAC1C24B37E7800025ABF /* SeeExampleHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeeExampleHeaderView.xib; sourceTree = "<group>"; };
+		18AAAC1E24B4978F00025ABF /* FlightDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailsVM.swift; sourceTree = "<group>"; };
+		18AAAC2024B4CE3A00025ABF /* flights.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flights.csv; sourceTree = "<group>"; };
 		18AC309024878382004CB0B8 /* FlightPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPaymentVC.swift; sourceTree = "<group>"; };
 		18AC30932487CEC1004CB0B8 /* FlightPaymentVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPaymentVM.swift; sourceTree = "<group>"; };
 		18AE8F5922A4F4E8009D625E /* BookingReviewCancellationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingReviewCancellationVC.swift; sourceTree = "<group>"; };
@@ -6433,6 +6437,7 @@
 			isa = PBXGroup;
 			children = (
 				843FF3B924740230001F21B1 /* IntMCAndReturnDetailsVM.swift */,
+				18AAAC1E24B4978F00025ABF /* FlightDetailsVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -8017,6 +8022,7 @@
 			children = (
 				8417772B223F6DF600DAC087 /* hotelsSearch.csv */,
 				849F31ED21FF1AC60076BB3D /* profile.csv */,
+				18AAAC2024B4CE3A00025ABF /* flights.csv */,
 				849F31EE21FF1AC60076BB3D /* login.csv */,
 			);
 			path = ErrorFiles;
@@ -9433,6 +9439,7 @@
 				843FF648247409E3001F21B1 /* GuestDetailTableViewCell.xib in Resources */,
 				843FF57924740232001F21B1 /* FareBreakupTableViewCell.xib in Resources */,
 				18F181D9223BC8C900323775 /* ApplyCouponTableViewCell.xib in Resources */,
+				18AAAC2124B4CE3B00025ABF /* flights.csv in Resources */,
 				84E4BC7C22A1414100B72306 /* WeatherHeaderTableViewCell.xib in Resources */,
 				843FF57624740232001F21B1 /* BaseFareTableViewCell.xib in Resources */,
 				843FF49D24740231001F21B1 /* FlightFilterTimesViewController.xib in Resources */,
@@ -10149,6 +10156,7 @@
 				8438B457245B21EE00F7320B /* BookingFequentFlyerCollectionViewCell.swift in Sources */,
 				84534ECF22491991009FF536 /* HCWhatNextCollectionViewCell.swift in Sources */,
 				18038D13226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.swift in Sources */,
+				18AAAC1F24B4979000025ABF /* FlightDetailsVM.swift in Sources */,
 				180E7C0C223205B8005FAEA9 /* EmailComposerFooterView.swift in Sources */,
 				849DA81C23E2B6F800C2E9D8 /* ATCategoryNavBarStyle.swift in Sources */,
 				84791ED92281A04900472E54 /* AccountLadgerDetailsVC+Delegate.swift in Sources */,
