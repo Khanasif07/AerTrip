@@ -34,7 +34,6 @@ class AddOnVC : BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.reloadFareBreakup()
-//        configureNavigation()
         self.setSkipButton()
     }
     

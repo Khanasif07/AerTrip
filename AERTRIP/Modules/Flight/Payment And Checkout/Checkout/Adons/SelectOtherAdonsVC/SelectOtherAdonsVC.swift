@@ -50,6 +50,8 @@ class SelectOtherAdonsVC: UIViewController {
     
     @IBAction func clearButtonTapped(_ sender: UIButton) {
         self.specialRequestTextView.text = ""
+        self.clearButton.isHidden = true
+        self.delegate?.specialRequestUpdated()
     }
 }
 
@@ -150,6 +152,7 @@ extension SelectOtherAdonsVC : UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let txt = textView.text else { return }
         self.otherAdonsVm.specialRequest = txt
+        self.delegate?.specialRequestUpdated()
     }
     
 }

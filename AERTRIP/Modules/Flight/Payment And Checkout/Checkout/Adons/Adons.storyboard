@@ -527,8 +527,8 @@ get upto 20% off </string>
                                             <action selector="addButtonTapped:" destination="QKF-04-bse" eventType="touchUpInside" id="Xw0-Nc-LUj"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹ 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5IW-e7-i9p">
-                                        <rect key="frame" x="16" y="23.5" width="25.5" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹ 034534" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5IW-e7-i9p">
+                                        <rect key="frame" x="16" y="23.5" width="77.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -539,18 +539,26 @@ get upto 20% off </string>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" + Special Request" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ggm-Oe-DKt">
+                                        <rect key="frame" x="93.5" y="23.5" width="142.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="wlN-Wr-yjZ" secondAttribute="trailing" id="7GL-ZI-I42"/>
                                     <constraint firstItem="wlN-Wr-yjZ" firstAttribute="top" secondItem="NWW-jW-zXS" secondAttribute="top" id="CAD-f6-Ozs"/>
                                     <constraint firstItem="HOB-HN-7f3" firstAttribute="leading" secondItem="NWW-jW-zXS" secondAttribute="leading" constant="16" id="EsU-5h-cIf"/>
+                                    <constraint firstItem="Ggm-Oe-DKt" firstAttribute="leading" secondItem="5IW-e7-i9p" secondAttribute="trailing" id="Faz-Bk-OyT"/>
                                     <constraint firstItem="5IW-e7-i9p" firstAttribute="leading" secondItem="NWW-jW-zXS" secondAttribute="leading" constant="16" id="NXr-8h-fo7"/>
                                     <constraint firstAttribute="height" constant="50" id="PN6-R8-w4W"/>
                                     <constraint firstItem="wlN-Wr-yjZ" firstAttribute="leading" secondItem="NWW-jW-zXS" secondAttribute="leading" id="R6s-DB-v61"/>
                                     <constraint firstItem="5IW-e7-i9p" firstAttribute="top" secondItem="HOB-HN-7f3" secondAttribute="bottom" constant="2" id="Vjh-om-Xi6"/>
                                     <constraint firstItem="0Jc-tb-z7V" firstAttribute="top" secondItem="NWW-jW-zXS" secondAttribute="top" id="YYI-XN-gS3"/>
                                     <constraint firstItem="HOB-HN-7f3" firstAttribute="top" secondItem="NWW-jW-zXS" secondAttribute="top" constant="7" id="cAi-h8-dFE"/>
+                                    <constraint firstItem="Ggm-Oe-DKt" firstAttribute="centerY" secondItem="5IW-e7-i9p" secondAttribute="centerY" id="fq7-Dr-xFN"/>
                                     <constraint firstAttribute="bottom" secondItem="0Jc-tb-z7V" secondAttribute="bottom" id="gfD-2i-BsP"/>
                                     <constraint firstAttribute="trailing" secondItem="0Jc-tb-z7V" secondAttribute="trailing" constant="16" id="keO-nO-X4V"/>
                                 </constraints>
@@ -575,6 +583,7 @@ get upto 20% off </string>
                         <outlet property="MealTotalLabel" destination="HOB-HN-7f3" id="2yU-HL-kRU"/>
                         <outlet property="addButton" destination="0Jc-tb-z7V" id="bzv-he-h7t"/>
                         <outlet property="mealsContainerView" destination="BqJ-5h-moK" id="Yjx-BL-UjV"/>
+                        <outlet property="specialRequestLabel" destination="Ggm-Oe-DKt" id="AQG-aq-nG9"/>
                         <outlet property="topNavBarView" destination="yX8-Dl-t3M" id="ObX-vR-Srl"/>
                         <outlet property="totalContainerView" destination="NWW-jW-zXS" id="v4g-It-j5E"/>
                         <outlet property="totalLabel" destination="5IW-e7-i9p" id="vH1-Li-a67"/>
