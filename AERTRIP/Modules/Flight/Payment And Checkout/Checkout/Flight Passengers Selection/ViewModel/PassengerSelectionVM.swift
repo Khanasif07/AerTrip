@@ -88,6 +88,7 @@ class PassengerSelectionVM  {
             guest.apiId = "NT_a\(i)"
             guest.age = 0
             guest.nationality = "India"
+            guest.countryCode = "IN"
             temp.append(guest)
         }
       
@@ -102,6 +103,7 @@ class PassengerSelectionVM  {
             guest.apiId = "NT_c\(i)"
             guest.age = 0
             guest.nationality = "India"
+            guest.countryCode = "IN"
             temp.append(guest)
         }
         for i in 0..<bookingObj.flightInfantCount{
@@ -115,6 +117,7 @@ class PassengerSelectionVM  {
             guest.apiId = "NT_i\(i)"
             guest.age = 0
             guest.nationality = "India"
+            guest.countryCode = "IN"
             temp.append(guest)
         }
         GuestDetailsVM.shared.guests.append(temp)

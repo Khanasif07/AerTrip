@@ -13,4 +13,9 @@ class FlightEmptyCell: UITableViewCell {
        @IBOutlet weak var topDividerView: UIView!
        @IBOutlet weak var bottomDividerView: UIView!
     
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.backgroundColor = AppColors.themeGray04
+    }
 }

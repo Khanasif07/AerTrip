@@ -46,7 +46,10 @@ class FreeMealAndSeatVC: UIViewController {
             }
         }
     }
-
+    @IBAction func tapBackgroundButton(_ sender: UIButton) {
+        self.tapContinueBtn(sender)
+    }
+    
     @objc func tapContinueBtn(_ sender: UIButton){
         UIView.animate(withDuration: 0.3, animations: {
             self.view.frame.origin.y = UIScreen.height
