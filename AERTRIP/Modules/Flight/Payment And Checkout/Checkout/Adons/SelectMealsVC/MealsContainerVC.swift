@@ -204,20 +204,31 @@ extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControlle
 extension MealsContainerVC : SelectMealDelegate {
 
     func addPassengerToMeal(forAdon : AddonsDataCustom, vcIndex : Int, currentFlightKey : String, mealIndex: Int, selectedContacts : [ATContact]) {
-                let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-                vc.modalPresentationStyle = .overFullScreen
-                vc.selectPassengersVM.selectedContacts = selectedContacts
-                vc.selectPassengersVM.adonsData = forAdon
-                vc.selectPassengersVM.setupFor = .meals
-                vc.selectPassengersVM.currentFlightKey = currentFlightKey
-                vc.selectPassengersVM.freeMeal = self.mealsContainerVM.allChildVCs[vcIndex].selectMealsVM.freeMeal
-                vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
-                guard let weakSelf = self else { return }
-                weakSelf.mealsContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: contacts)
-                    weakSelf.calculateTotalAmount()
-                }
-                present(vc, animated: false, completion: nil)
+        
+        let allowedPassengers = self.mealsContainerVM.getAllowedPassengerForParticularAdon(forAdon: forAdon)
+        
+        if allowedPassengers.count == 0 { return }
+        
+        if allowedPassengers.count == 1{
+            self.mealsContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: allowedPassengers)
+            self.calculateTotalAmount()
+            
+        } else {
+            let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+                    vc.modalPresentationStyle = .overFullScreen
+                    vc.selectPassengersVM.selectedContacts = selectedContacts
+                    vc.selectPassengersVM.adonsData = forAdon
+                    vc.selectPassengersVM.setupFor = .meals
+                    vc.selectPassengersVM.currentFlightKey = currentFlightKey
+                    vc.selectPassengersVM.freeMeal = self.mealsContainerVM.allChildVCs[vcIndex].selectMealsVM.freeMeal
+                    vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
+                    guard let weakSelf = self else { return }
+                    weakSelf.mealsContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: contacts)
+                        weakSelf.calculateTotalAmount()
+                    }
+                    present(vc, animated: false, completion: nil)
             }
+        }
     
     func addContactButtonTapped() {
         
