@@ -16,12 +16,6 @@ protocol SelectBaggageDelegate : class {
 
 
 class BaggageContainerVC : BaseVC {
-
-    // MARK: Properties
-       fileprivate var parchmentView : PagingViewController?
-       
-        let baggageContainerVM = BaggageContainerVM()
-        weak var delegate : AddonsUpdatedDelegate?
     
        // MARK: IBOutlets
        @IBOutlet weak var topNavBarView: TopNavigationView!
@@ -31,6 +25,16 @@ class BaggageContainerVC : BaseVC {
        @IBOutlet weak var totalLabel: UILabel!
        @IBOutlet weak var totalContainerView: UIView!
 
+    // MARK: Properties
+       fileprivate var parchmentView : PagingViewController?
+        let baggageContainerVM = BaggageContainerVM()
+        weak var delegate : AddonsUpdatedDelegate?
+    
+        lazy var noResultsemptyView: EmptyScreenView = {
+            let newEmptyView = EmptyScreenView()
+            newEmptyView.vType = .noBaggageData
+            return newEmptyView
+        }()
     
        // MARK: View Life Cycle
        override func viewDidLoad() {
@@ -220,7 +224,7 @@ extension BaggageContainerVC : SelectBaggageDelegate {
                 vc.selectPassengersVM.selectedContacts = selectedContacts
                 vc.selectPassengersVM.adonsData = forAdon
                 vc.selectPassengersVM.setupFor = .baggage
-                vc.selectPassengersVM.flightKys = [currentFlightKey]
+                vc.selectPassengersVM.currentFlightKey = currentFlightKey
                 vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
                     guard let weakSelf = self else { return }
                    

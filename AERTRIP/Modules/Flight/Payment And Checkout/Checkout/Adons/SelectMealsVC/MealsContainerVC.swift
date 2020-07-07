@@ -209,7 +209,7 @@ extension MealsContainerVC : SelectMealDelegate {
                 vc.selectPassengersVM.selectedContacts = selectedContacts
                 vc.selectPassengersVM.adonsData = forAdon
                 vc.selectPassengersVM.setupFor = .meals
-                vc.selectPassengersVM.flightKys = [currentFlightKey]
+                vc.selectPassengersVM.currentFlightKey = currentFlightKey
                 vc.selectPassengersVM.freeMeal = self.mealsContainerVM.allChildVCs[vcIndex].selectMealsVM.freeMeal
                 vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
                 guard let weakSelf = self else { return }

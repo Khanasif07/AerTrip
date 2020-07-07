@@ -23,6 +23,7 @@ class SelectPassengerCell: UICollectionViewCell {
         seatLabel.text = ""
         seatLabel.font = AppFonts.Regular.withSize(14)
         seatLabel.textColor = AppColors.themeGray40
+        selectionImageView.backgroundColor = AppColors.themeGreen.withAlphaComponent(0.6)
         //self.setNeedsLayout()
         //self.layoutIfNeeded()
     }

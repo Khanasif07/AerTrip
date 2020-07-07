@@ -600,10 +600,10 @@ get upto 20% off </string>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZcR-Q9-RV0">
-                                            <rect key="frame" x="16" y="31" width="343" height="46"/>
+                                            <rect key="frame" x="16" y="31" width="343" height="56"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="46" id="i2o-rA-rP8"/>
+                                                <constraint firstAttribute="height" constant="56" id="i2o-rA-rP8"/>
                                             </constraints>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -649,7 +649,7 @@ get upto 20% off </string>
                                         <constraint firstItem="HjX-9e-u0h" firstAttribute="top" secondItem="Jf1-lq-BgG" secondAttribute="top" constant="8" id="Urr-sc-e7U"/>
                                         <constraint firstAttribute="trailing" secondItem="w6n-na-BjU" secondAttribute="trailing" constant="16" id="efg-sb-N7S"/>
                                         <constraint firstAttribute="trailing" secondItem="oAw-T7-3zw" secondAttribute="trailing" constant="16" id="iBF-Oo-Pv5"/>
-                                        <constraint firstItem="w6n-na-BjU" firstAttribute="top" secondItem="ZcR-Q9-RV0" secondAttribute="bottom" constant="10" id="lHg-8z-DxV"/>
+                                        <constraint firstItem="w6n-na-BjU" firstAttribute="top" secondItem="ZcR-Q9-RV0" secondAttribute="bottom" id="lHg-8z-DxV"/>
                                         <constraint firstItem="w6n-na-BjU" firstAttribute="leading" secondItem="Jf1-lq-BgG" secondAttribute="leading" constant="16" id="nwq-7h-t2y"/>
                                         <constraint firstItem="Zc5-Vh-va4" firstAttribute="leading" secondItem="Jf1-lq-BgG" secondAttribute="leading" constant="16" id="odn-Dw-a5l"/>
                                         <constraint firstAttribute="trailing" secondItem="ZcR-Q9-RV0" secondAttribute="trailing" constant="16" id="r5Q-VB-d3p"/>

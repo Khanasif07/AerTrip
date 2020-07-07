@@ -22,7 +22,8 @@ class SelectPassengersVM {
     var allowedPassengers : [ATContact] = []
     var selectedContacts : [ATContact] = []
     var adonsData = AddonsDataCustom()
-    var flightKys : [String] = []
+//    var flightKys : [String] = []
+    var currentFlightKey : String = ""
     
     var setupFor: SetupFor = .others
     var selectedSeatData = SeatMapModel.SeatMapRow()
@@ -50,6 +51,12 @@ class SelectPassengersVM {
     }
 
     var freeMeal = false
+    
+    var currentFlightName : String {
+           let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == self.currentFlightKey }
+           guard let firstFlight = flightAtINdex.first else { return "" }
+        return "\(firstFlight.fr) → \(firstFlight.to)"
+    }
     
     func resetFlightData(_ selectedPassenger: ATContact?) {
         resetFlightDataFor(&flightData.md, selectedPassenger)

@@ -75,9 +75,12 @@ class SelectOtherAdonsContainerVC: BaseVC {
     @IBAction func addButtonTapped(_ sender: UIButton) {
        for (index,item) in self.othersContainerVM.allChildVCs.enumerated() {
         AddonsDataStore.shared.flightsWithData[index].special = item.otherAdonsVm.addonsDetails
+        AddonsDataStore.shared.flightsWithData[index].specialRequest = item.otherAdonsVm.specialRequest
+
        }
         let price = self.totalLabel.text ?? ""
         self.delegate?.othersUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
+    
        self.dismiss(animated: true, completion: nil)
     }
     
@@ -96,7 +99,7 @@ extension SelectOtherAdonsContainerVC {
         self.othersContainerVM.allChildVCs.removeAll()
         for index in 0..<AddonsDataStore.shared.flightKeys.count {
             let vc = SelectOtherAdonsVC.instantiate(fromAppStoryboard: .Adons)
-            let initData = SelectOtherAdonsVM(vcIndex: index, currentFlightKey: AddonsDataStore.shared.flightKeys[index],addonsDetails: AddonsDataStore.shared.flightsWithData[index].special)
+            let initData = SelectOtherAdonsVM(vcIndex: index, currentFlightKey: AddonsDataStore.shared.flightKeys[index],addonsDetails: AddonsDataStore.shared.flightsWithData[index].special, specialRequest : AddonsDataStore.shared.flightsWithData[index].specialRequest)
             vc.initializeVm(otherAdonsVm: initData)
             vc.delegate = self
             self.othersContainerVM.allChildVCs.append(vc)
@@ -208,7 +211,7 @@ extension SelectOtherAdonsContainerVC : SelectOtherDelegate {
            vc.selectPassengersVM.selectedContacts = selectedContacts
            vc.selectPassengersVM.adonsData = forAdon
            vc.selectPassengersVM.setupFor = .others
-           vc.selectPassengersVM.flightKys = [currentFlightKey]
+           vc.selectPassengersVM.currentFlightKey = currentFlightKey
            vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
                guard let weakSelf = self else { return }
             weakSelf.othersContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, othersIndex: othersIndex, contacts: contacts)

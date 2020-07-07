@@ -51,7 +51,6 @@ class SelectOtherAdonsVC: UIViewController {
     @IBAction func clearButtonTapped(_ sender: UIButton) {
         self.specialRequestTextView.text = ""
     }
-    
 }
 
 extension SelectOtherAdonsVC {
@@ -59,8 +58,10 @@ extension SelectOtherAdonsVC {
     private func initialSetup() {
         self.setupFonts()
         self.setupColors()
-        configureTableView()
-        checkForNoData()
+        self.configureTableView()
+        self.showHideClearButton()
+        self.configureTextView()
+        self.showHideClearButton()
     }
     
     private func checkForNoData() {
@@ -71,6 +72,11 @@ extension SelectOtherAdonsVC {
                  otherAdonsTableView.backgroundView = nil
              }
          }
+    
+    private func configureTextView() {
+        self.specialRequestTextView.delegate = self
+        self.specialRequestTextView.text = self.otherAdonsVm.specialRequest
+    }
     
         private func configureTableView(){
             self.otherAdonsTableView.register(UINib(nibName: "SelectBagageCell", bundle: nil), forCellReuseIdentifier: "SelectBagageCell")
@@ -92,6 +98,11 @@ extension SelectOtherAdonsVC {
         guard let _ = self.otherAdonsTableView else { return }
         self.otherAdonsTableView.reloadData()
     }
+    
+    private func showHideClearButton(){
+         guard let txt = specialRequestTextView.text else { return  }
+         self.clearButton.isHidden = txt.isEmpty
+     }
     
 }
 
@@ -122,6 +133,23 @@ extension SelectOtherAdonsVC : UITableViewDelegate, UITableViewDataSource {
         
         self.delegate?.addPassengerToMeal(forAdon: self.otherAdonsVm.getOthers()[indexPath.row], vcIndex: self.otherAdonsVm.getVcIndex(), currentFlightKey: self.otherAdonsVm.getCurrentFlightKey(), othersIndex: indexPath.row, selectedContacts: self.otherAdonsVm.getOthers()[indexPath.row].othersSelectedFor )
         
+    }
+    
+}
+
+extension SelectOtherAdonsVC : UITextViewDelegate {
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        return true
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        self.showHideClearButton()
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        guard let txt = textView.text else { return }
+        self.otherAdonsVm.specialRequest = txt
     }
     
 }

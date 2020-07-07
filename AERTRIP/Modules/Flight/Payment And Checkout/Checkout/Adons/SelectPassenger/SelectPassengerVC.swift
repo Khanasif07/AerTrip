@@ -117,15 +117,18 @@ extension SelectPassengerVC {
         case .meals:
             self.selectPassengersLabel.text = LocalizedString.Select_Passengers_To_Assign_This_Meal.localized
             self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "") • ₹ \(self.selectPassengersVM.adonsData.price)"
+            self.legsLabel.text = self.selectPassengersVM.currentFlightName
       
         case .baggage:
             self.selectPassengersLabel.text = LocalizedString.Select_Passengers_To_Assign_This_Meal.localized
             self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "") • ₹ \(self.selectPassengersVM.adonsData.price)"
-            
+            self.legsLabel.text = self.selectPassengersVM.currentFlightName
+
         case .others:
             self.selectPassengersLabel.text = LocalizedString.Select_Passengers.localized
             self.titleLabel.text = self.selectPassengersVM.adonsData.ssrName?.name
-        
+        self.legsLabel.text = self.selectPassengersVM.currentFlightName
+
         }
     }
 }
