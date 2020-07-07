@@ -107,7 +107,7 @@ extension SelectPassengerVC {
         case .seatSelection:
             selectPassengersLabel.isHidden = true
             emptyView.isHidden = true
-            titleLabel.text = selectPassengersVM.selectedSeatData.columnData.seatNumber + " • ₹\(selectPassengersVM.selectedSeatData.columnData.amount)"
+            titleLabel.text = selectPassengersVM.selectedSeatData.columnData.seatNumber + " • ₹\(selectPassengersVM.selectedSeatData.columnData.amount.formattedWithCommaSeparator)"
             legsLabel.text = selectPassengersVM.selectedSeatData.columnData.getCharactericstic()
             legsLabel.textColor = AppColors.themeGray40
             legsLabel.font = AppFonts.Regular.withSize(14)

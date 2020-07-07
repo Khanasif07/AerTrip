@@ -203,7 +203,7 @@ class SeatMapContainerVC: UIViewController {
                     self.viewModel.allFlightsData[index] = flightData
                     self.viewModel.getSeatTotal { [weak self] (seatTotal) in
                         guard let self = self else { return }
-                        self.seatTotalLbl.text = "₹ \(seatTotal)"
+                        self.seatTotalLbl.text = "₹ \(seatTotal.formattedWithCommaSeparator)"
                     }
                 }
                 self.planeLayoutCollView.reloadData()
@@ -641,5 +641,20 @@ extension SeatMapContainerVC {
             
             return newFlightData
         }
+    }
+}
+
+
+extension Formatter {
+    static let withSeparator: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
+}
+
+extension Int {
+    var formattedWithCommaSeparator: String {
+        return Formatter.withSeparator.string(for: self) ?? ""
     }
 }
