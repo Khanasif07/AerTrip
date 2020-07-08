@@ -40,7 +40,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqO-lJ-uV1">
-                                            <rect key="frame" x="2" y="0.0" width="371" height="96"/>
+                                            <rect key="frame" x="18" y="0.0" width="357" height="96"/>
                                             <string key="text">Book Now &amp;
 get upto 20% off </string>
                                             <fontDescription key="fontDescription" name="SourceSansPro-Bold" family="Source Sans Pro" pointSize="38"/>
@@ -48,7 +48,7 @@ get upto 20% off </string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="compared to onboard prices" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQi-Xb-5yA">
-                                            <rect key="frame" x="2" y="96" width="371" height="23"/>
+                                            <rect key="frame" x="0.0" y="96" width="375" height="23"/>
                                             <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -56,11 +56,11 @@ get upto 20% off </string>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <constraints>
-                                        <constraint firstItem="XQi-Xb-5yA" firstAttribute="leading" secondItem="wec-DQ-fvU" secondAttribute="leading" constant="2" id="FQF-ut-IuQ"/>
-                                        <constraint firstAttribute="trailing" secondItem="XQi-Xb-5yA" secondAttribute="trailing" constant="2" id="awU-Eh-dkx"/>
-                                        <constraint firstAttribute="trailing" secondItem="UqO-lJ-uV1" secondAttribute="trailing" constant="2" id="gvq-oE-qMX"/>
+                                        <constraint firstItem="XQi-Xb-5yA" firstAttribute="leading" secondItem="wec-DQ-fvU" secondAttribute="leading" id="FQF-ut-IuQ"/>
+                                        <constraint firstAttribute="trailing" secondItem="XQi-Xb-5yA" secondAttribute="trailing" id="awU-Eh-dkx"/>
+                                        <constraint firstAttribute="trailing" secondItem="UqO-lJ-uV1" secondAttribute="trailing" id="gvq-oE-qMX"/>
                                         <constraint firstItem="XQi-Xb-5yA" firstAttribute="top" secondItem="UqO-lJ-uV1" secondAttribute="bottom" id="p3r-ye-ssX"/>
-                                        <constraint firstItem="UqO-lJ-uV1" firstAttribute="leading" secondItem="wec-DQ-fvU" secondAttribute="leading" constant="2" id="rZH-E0-sQ6"/>
+                                        <constraint firstItem="UqO-lJ-uV1" firstAttribute="leading" secondItem="wec-DQ-fvU" secondAttribute="leading" constant="18" id="rZH-E0-sQ6"/>
                                         <constraint firstItem="UqO-lJ-uV1" firstAttribute="top" secondItem="wec-DQ-fvU" secondAttribute="top" id="ybf-B5-xFV"/>
                                     </constraints>
                                 </view>

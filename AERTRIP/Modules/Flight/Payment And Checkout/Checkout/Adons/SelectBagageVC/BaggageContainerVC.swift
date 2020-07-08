@@ -209,7 +209,6 @@ extension BaggageContainerVC : SelectBaggageDelegate {
         
     }
     
-    
     func addPassengerToBaggage(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, baggageIndex: Int, selectedContacts: [ATContact]) {
         
         var currentSelectedCountForAddon = selectedContacts.count
