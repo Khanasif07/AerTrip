@@ -54,10 +54,11 @@ class BaggageTermsVC : BaseVC {
     }
     
     @IBAction func declineButtonTapped(_ sender: Any) {
-//        self.delegate?.isAccepted(value: false)
+//      self.delegate?.isAccepted(value: false)
         self.dismiss(animated: true) {
-                   self.baggageTermsVM.agreeCompletion(false)
-               }    }
+        self.baggageTermsVM.agreeCompletion(false)
+       }
+    }
     
 }
 

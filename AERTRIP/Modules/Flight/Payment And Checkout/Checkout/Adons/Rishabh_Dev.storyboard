@@ -180,6 +180,9 @@
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zDQ-8l-33X" userLabel="Add">
                                         <rect key="frame" x="365" y="8" width="33" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="33" id="lq9-XY-eYu"/>
+                                        </constraints>
                                         <state key="normal" title="Add">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -204,6 +207,9 @@
                                             </label>
                                         </subviews>
                                     </stackView>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="vzJ-mY-C29">
+                                        <rect key="frame" x="371.5" y="15" width="20" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
@@ -215,6 +221,8 @@
                                     <constraint firstItem="YoK-bK-Xum" firstAttribute="centerY" secondItem="ZGb-d8-d3r" secondAttribute="centerY" id="YZj-om-rMc"/>
                                     <constraint firstAttribute="trailing" secondItem="GQZ-d6-8Pg" secondAttribute="trailing" id="ZHT-6Z-P70"/>
                                     <constraint firstItem="GQZ-d6-8Pg" firstAttribute="top" secondItem="ZGb-d8-d3r" secondAttribute="top" id="cn7-o1-Xb0"/>
+                                    <constraint firstItem="vzJ-mY-C29" firstAttribute="centerX" secondItem="zDQ-8l-33X" secondAttribute="centerX" id="gra-Cs-RYX"/>
+                                    <constraint firstItem="vzJ-mY-C29" firstAttribute="centerY" secondItem="zDQ-8l-33X" secondAttribute="centerY" id="vR7-ZE-zmu"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PpY-Bs-ewN">
@@ -250,6 +258,7 @@
                     </view>
                     <connections>
                         <outlet property="addBtn" destination="zDQ-8l-33X" id="OOR-Hn-4LM"/>
+                        <outlet property="apiIndicatorView" destination="vzJ-mY-C29" id="Pj9-5Z-DFv"/>
                         <outlet property="apiProgressView" destination="VKB-Oe-oXo" id="ofR-Yl-YHK"/>
                         <outlet property="bodyImgView" destination="J8D-3O-e2V" id="FDB-Ji-FcQ"/>
                         <outlet property="bottomWhiteView" destination="PpY-Bs-ewN" id="RfQ-Du-Mvi"/>

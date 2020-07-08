@@ -14,7 +14,11 @@ class SelectOtherAdonsVM  {
     private var vcIndex : Int = 0
     private var currentFlightKey : String = ""
     weak var delegate : SelectMealVmDelegate?
-    var specialRequest : String = ""
+    var specialRequest : String = "" {
+        didSet {
+            AddonsDataStore.shared.flightsWithData[vcIndex].specialRequest = specialRequest
+        }
+    }
     
     init(){
         

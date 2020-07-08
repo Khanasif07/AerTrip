@@ -17,6 +17,28 @@ class BaggageContainerVM {
         
     }
  
+    func getAllowedPassengerForParticularAdon(forAdon : AddonsDataCustom) -> [ATContact] {
+         
+        var allowedPassengers : [ATContact] = []
+
+        guard let allPassengers = GuestDetailsVM.shared.guests.first else { return allowedPassengers }
+
+         
+         if forAdon.isAdult{
+             allowedPassengers.append(contentsOf: allPassengers.filter { $0.passengerType == .Adult })
+         }
+         
+         if forAdon.isChild{
+             allowedPassengers.append(contentsOf: allPassengers.filter { $0.passengerType == .child })
+         }
+         
+         if forAdon.isInfant{
+             allowedPassengers.append(contentsOf: allPassengers.filter { $0.passengerType == .infant })
+         }
+        
+        return allowedPassengers
+     }
+    
     func clearAll() {
         
         for (index,item) in self.allChildVCs.enumerated() {
