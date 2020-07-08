@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PassengersSelectionVC: UIViewController {
+class PassengersSelectionVC: BaseVC {
 
     @IBOutlet weak var progressViewHeight: NSLayoutConstraint!
     @IBOutlet weak var progressView: UIProgressView!
@@ -42,6 +42,8 @@ class PassengersSelectionVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
+        
+        self.statusBarStyle = .default
     }
     
     func apiCall(){
@@ -109,6 +111,9 @@ class PassengersSelectionVC: UIViewController {
     }
     
     @IBAction func tapBackButton(_ sender: UIButton) {
+        if #available(iOS 13, *) {
+            self.statusBarStyle = .lightContent
+        }
         self.dismissAsPopAnimation()
     }
     

@@ -186,7 +186,7 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     func presentPassportView(){
         let vc  = PassportExampleVC.instantiate(fromAppStoryboard: .PassengersSelection)
         vc.modalPresentationStyle = .overFullScreen
-        self.present(vc, animated: true, completion: nil)
+        self.present(vc, animated: false, completion: nil)
     }
     
     
