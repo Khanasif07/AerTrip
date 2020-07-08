@@ -22,6 +22,8 @@ class PostBookingAddonsPaymentStatusVC: BaseVC {
     }
     @IBOutlet weak var returnHomeButton: UIButton!
     @IBOutlet weak var gradientView: UIView!
+    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressViewHeight: NSLayoutConstraint!
     
     var viewModel = PostBookingAddonsPaymentStatusVM()
     
@@ -32,6 +34,8 @@ class PostBookingAddonsPaymentStatusVC: BaseVC {
         self.viewModel.delegate = self
         self.viewModel.getBookingReceipt()
         self.returnHomeButton.addGredient(isVertical: false)
+        self.progressView.progressTintColor = UIColor.AertripColor
+        self.progressView.trackTintColor = .clear
         
     }
     
@@ -50,6 +54,20 @@ class PostBookingAddonsPaymentStatusVC: BaseVC {
         self.paymentTable.registerCell(nibName: EmptyTableViewCell.reusableIdentifier)
         self.paymentTable.registerCell(nibName: AddonsPassangerCell.reusableIdentifier)
         self.paymentTable.registerCell(nibName: AddonsPassengerTitleCell.reusableIdentifier)
+    }
+    
+    func showProgressView(){
+        UIView.animate(withDuration: 2) {
+            self.progressView.isHidden = false
+            self.progressViewHeight.constant = 1
+        }
+    }
+    
+    func hideProgressView(){
+        UIView.animate(withDuration: 2) {
+            self.progressViewHeight.constant = 0
+            self.progressView.isHidden = true
+        }
     }
     
     private func setupReturnHomeButton() {
@@ -231,20 +249,40 @@ extension PostBookingAddonsPaymentStatusVC: UITableViewDelegate, UITableViewData
 }
 extension PostBookingAddonsPaymentStatusVC : FlightPaymentBookingStatusVMDelegate{
     
+    func getBookingResponseWithIndex(success: Bool) {
+        let val = Double(self.progressView.progress) + self.viewModel.perAPIPersentage
+        UIView.animate(withDuration: 0.5) {
+            self.progressView.setProgress(Float(val), animated: true)
+        }
+
+    }
+    
+    
     func willGetBookingReceipt() {
+        self.view.isUserInteractionEnabled = false
+        self.progressView.setProgress(0, animated: false)
+        self.showProgressView()
         delay(seconds: 0.2) {
-            AppGlobals.shared.startLoading()
+            UIView.animate(withDuration: 0.5) {
+                self.progressView.setProgress(0.20, animated: true)
+            }
         }
     }
     
     func getBookingReceiptSuccess() {
+        let val = Double(self.progressView.progress) + self.viewModel.perAPIPersentage
+        UIView.animate(withDuration: 0.5) {
+            self.progressView.setProgress(Float(val), animated: true)
+        }
         self.viewModel.getBookingDetail()
         self.viewModel.getSectionData()
         self.paymentTable.reloadData()
     }
     
-    func getBookingReceiptFail() {
-        AppGlobals.shared.stopLoading()
+    func getBookingReceiptFail(error: ErrorCodes) {
+        self.view.isUserInteractionEnabled = true
+        self.hideProgressView()
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
     }
     
     func willGetBookingDetail() {
@@ -252,12 +290,15 @@ extension PostBookingAddonsPaymentStatusVC : FlightPaymentBookingStatusVMDelegat
     }
     
     func getBookingDetailSucces() {
-        AppGlobals.shared.stopLoading()
+        self.view.isUserInteractionEnabled = true
         self.viewModel.getSectionData()
         self.paymentTable.reloadData()
+        self.hideProgressView()
     }
     
     func getBookingDetailFaiure(error: ErrorCodes) {
-        AppGlobals.shared.stopLoading()
+        self.view.isUserInteractionEnabled = true
+        self.hideProgressView()
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
     }
 }

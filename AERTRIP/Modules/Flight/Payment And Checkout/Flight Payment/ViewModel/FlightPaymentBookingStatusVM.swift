@@ -11,10 +11,11 @@ import Foundation
 protocol FlightPaymentBookingStatusVMDelegate:NSObjectProtocol{
     func getBookingReceiptSuccess()
     func willGetBookingReceipt()
-    func getBookingReceiptFail()
+    func getBookingReceiptFail(error:ErrorCodes)
     func willGetBookingDetail()
     func getBookingDetailSucces()
     func getBookingDetailFaiure(error: ErrorCodes)
+    func getBookingResponseWithIndex(success:Bool)
 }
 
 class FlightPaymentBookingStatusVM{
@@ -33,6 +34,10 @@ class FlightPaymentBookingStatusVM{
     var availableSeatMaps = [AvailableSeatMap]()
     
     var seatMapModels = [String: SeatMapModel]()
+    var perAPIPersentage:Double{
+        0.8/Double(self.apiBookingIds.count + 1)
+    }
+    var bookingAPIGroup = DispatchGroup()
     
     /* TableViewCellType Enum contains all tableview cell for YouAreAllDoneVC tableview */
     enum TableViewCellType {
@@ -89,7 +94,7 @@ class FlightPaymentBookingStatusVM{
                 self.itinerary = receiptData?.receipt ?? FlightRecept()
                 self.delegate?.getBookingReceiptSuccess()
             } else {
-                self.delegate?.getBookingReceiptFail()
+                self.delegate?.getBookingReceiptFail(error: errors)
             }
         }
     }
@@ -99,20 +104,23 @@ class FlightPaymentBookingStatusVM{
         if UserInfo.loggedInUserId == nil{
             params["is_guest_user"] = true
         }
+        self.bookingAPIGroup.enter()
         delegate?.willGetBookingDetail()
         APICaller.shared.getBookingDetail(params: params) { [weak self] success, errors, bookingDetail in
             guard let self = self else { return }
+            self.delegate?.getBookingResponseWithIndex(success: success)
+            self.bookingAPIGroup.leave()
             if success {
                 self.bookingDetail[index] = bookingDetail
                 self.setSeatMapAvailability(bookingId, booking: bookingDetail)
-                if index == (self.bookingDetail.count - 1){
-                    AppGlobals.shared.stopLoading()
-                    self.delegate?.getBookingDetailSucces()
-                }
-            } else {
-                if index == (self.bookingDetail.count - 1){
-                    AppGlobals.shared.stopLoading()
-                    self.delegate?.getBookingDetailFaiure(error: errors)
+            }
+            self.bookingAPIGroup.notify(queue: .main) {
+                delay(seconds: 0.2) {
+                    if success {
+                        self.delegate?.getBookingDetailSucces()
+                    }else{
+                        self.delegate?.getBookingDetailFaiure(error: errors)
+                    }
                 }
             }
         }

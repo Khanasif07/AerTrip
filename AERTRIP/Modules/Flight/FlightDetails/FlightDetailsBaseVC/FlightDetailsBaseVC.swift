@@ -615,12 +615,16 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     }
     
     func bookButtonTapped(journeyCombo: [CombinationJourney]?){
+        if #available(iOS 13.0, *) {
+            self.isModalInPresentation = true
+        }
         guard !self.isForCheckOut else {
             self.dismiss(animated: true, completion: nil)
             return
         }
         if self.viewModel.journeyType == .domestic || self.intJourney == nil{
             self.fareBreakup?.hideShowLoader(isHidden: false)
+            self.setupViewModel()
         }else{
             self.intFareBreakup?.hideShowLoader(isHidden: false)
         }
@@ -647,9 +651,6 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
 
 
     func pushToPassenserSelectionVC(_ vc: PassengersSelectionVC){
-//        if let nav = AppFlowManager.default.currentNavigation{
-//            nav.pushViewController(vc, animated: true)
-//        }else{
         self.presentedViewController?.dismiss(animated: false, completion: nil)
         self.view.isUserInteractionEnabled = false
         self.viewModel.fetchConfirmationData(){[weak self] success, errorCodes in
@@ -661,13 +662,16 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
                 self.intFareBreakup?.hideShowLoader(isHidden: true)
             }
             if success{
+                if #available(iOS 13.0, *) {
+                    self.isModalInPresentation = false
+                }
                 DispatchQueue.main.async{
                     vc.viewModel.newItineraryData = self.viewModel.itineraryData
                     if let nav = AppFlowManager.default.currentNavigation{
                         nav.pushViewController(vc, animated: true)
                     }else{
                         let nav = UINavigationController(rootViewController: vc)
-                        nav.modalPresentationStyle = .fullScreen
+                        nav.modalPresentationStyle = .overFullScreen
                         nav.modalPresentationCapturesStatusBarAppearance = true
                         self.present(nav, animated: true, completion: nil)
                     }
@@ -675,11 +679,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
             }else{
                 AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .flights)
             }
-            
         }
-            
-//        }
-        
     }
     
     func tapUpgradeButton(){

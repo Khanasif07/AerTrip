@@ -24,17 +24,23 @@ class AddOnVC : BaseVC {
     
     let adonsVm = AdonsVM()
     var fareBreakupVC:IntFareBreakupVC?
+    var indicator = UIActivityIndicatorView()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetups()
+        self.manageLoader()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.reloadFareBreakup()
         self.setSkipButton()
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.indicator.center = self.topNavView.firstRightButton.center
     }
     
     override func setupColors() {
@@ -77,6 +83,34 @@ extension AddOnVC {
         self.adonsTableView.rowHeight = UITableView.automaticDimension
         self.adonsTableView.dataSource = self
         self.adonsTableView.delegate = self
+    }
+    
+    private func manageLoader() {
+        indicator.frame.size = CGSize(width: 25, height: 25)
+        self.topNavView.addSubview(indicator)
+        self.topNavView.bringSubviewToFront(indicator)
+        self.indicator.style = .gray
+        self.indicator.tintColor = AppColors.themeGreen
+        self.indicator.color = AppColors.themeGreen
+        self.indicator.stopAnimating()
+       self.hideShowLoader(isHidden:true)
+    }
+   
+    func hideShowLoader(isHidden:Bool){
+        DispatchQueue.main.async {
+            if self.adonsVm.isSkipButtonTap{
+                if isHidden{
+                    self.indicator.stopAnimating()
+                    self.topNavView.firstRightButton.setTitle("Skip", for: .normal)
+                }else{
+                    self.topNavView.firstRightButton.setTitle("", for: .normal)
+                    self.indicator.startAnimating()
+                }
+            }else{
+                self.fareBreakupVC?.hideShowLoader(isHidden: isHidden)
+            }
+ 
+        }
     }
     
     func setupBottomView() {
@@ -125,6 +159,7 @@ extension AddOnVC {
 extension AddOnVC : FareBreakupVCDelegate {
     
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
+        self.adonsVm.isSkipButtonTap = false
         self.adonsVm.bookFlightWithAddons()
     }
  
@@ -141,6 +176,7 @@ extension AddOnVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        self.adonsVm.isSkipButtonTap = true
         self.adonsVm.bookFlight()
     }
     
@@ -205,11 +241,13 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
 extension AddOnVC : BookFlightDelegate {
     
     func willBookFlight(){
-            AppGlobals.shared.startLoading()
+        self.hideShowLoader(isHidden: false)
+        self.view.isUserInteractionEnabled = false
     }
     
     func bookFlightSuccessFully(){
-        AppGlobals.shared.stopLoading()
+        self.hideShowLoader(isHidden: true)
+        self.view.isUserInteractionEnabled = true
         let vc = FlightPaymentVC.instantiate(fromAppStoryboard: .FlightPayment)
         vc.viewModel.appliedCouponData = AddonsDataStore.shared.appliedCouponData
         vc.viewModel.taxesResult = AddonsDataStore.shared.taxesResult
@@ -224,8 +262,10 @@ extension AddOnVC : BookFlightDelegate {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    func failedToBookBlight(){
-        AppGlobals.shared.stopLoading()
+    func failedToBookBlight(error: ErrorCodes){
+        self.hideShowLoader(isHidden: true)
+        self.view.isUserInteractionEnabled = true
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
     }
     
 }

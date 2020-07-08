@@ -11,9 +11,9 @@ import Foundation
 protocol  PostBookingAddonsPaymentVMDelegate:NSObjectProtocol {
     func willMakePayment()
     func makePaymentSuccess(options: JSONDictionary, shouldGoForRazorPay: Bool)
-    func makePaymentFail()
+    func makePaymentFail(error:ErrorCodes)
     func getPaymentResonseSuccess(bookingIds: [String], cid: [String])
-    func getPaymentResonseFail()
+    func getPaymentResonseFail(error:ErrorCodes)
     
 }
 
@@ -168,7 +168,7 @@ extension PostBookingAddonsPaymentVM{
             if success {
                 self.delegate?.makePaymentSuccess(options: options, shouldGoForRazorPay: !(useWallet && forAmount <= 0))
             } else {
-                self.delegate?.makePaymentFail()
+                self.delegate?.makePaymentFail(error: errors)
                 //AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
             }
         }
@@ -195,7 +195,7 @@ extension PostBookingAddonsPaymentVM{
             if success {
                 self.delegate?.getPaymentResonseSuccess(bookingIds: bookingIds, cid: cid)
             } else {
-                self.delegate?.getPaymentResonseFail()
+                self.delegate?.getPaymentResonseFail(error: errors)
                 //AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
             }
         }

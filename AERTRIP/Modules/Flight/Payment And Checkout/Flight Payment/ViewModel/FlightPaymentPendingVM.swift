@@ -8,26 +8,30 @@
 
 import Foundation
 
+
+protocol FlightPaymentPendingVMDelegate:NSObjectProtocol{
+    func willRequestForRefund()
+    func refundRequestResponse(_ success: Bool, error:ErrorCodes)
+    
+}
+
 class FlightPaymentPendingVM{
     
     var itId = ""
     var product:ProductType = .flight
     var itinerary = FlightItinerary()
     //flightItinerary
+    weak var delegate: FlightPaymentPendingVMDelegate?
     
-    func getItineraryDetails(){
-        
+    
+    func requestForRefund(){
+        self.delegate?.willRequestForRefund()
         let param = [APIKeys.it_id.rawValue: itId]
-        
-        APICaller.shared.getItinerayDataForPendingPayment(params: param) {[weak self] (success, error, data) in
+        APICaller.shared.refundAPIForPendingPayment(params: param) {[weak self] (success, error, msg) in
             guard let self = self else {return}
-            if success, let itinerary = data {
-                self.itinerary = itinerary
-            }else{
-                
-            }
+            self.delegate?.refundRequestResponse(success, error:error)
+            
         }
-        
     }
     
 }

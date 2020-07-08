@@ -415,10 +415,20 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
     }
     
     func getPaymentResponseWithPendingPayment(_ p: String, id: String) {
-        let vc = FlightPaymentPendingVC.instantiate(fromAppStoryboard: .FlightPayment)
-        vc.viewModel.itId = id
-        vc.viewModel.product = .flight
-        self.navigationController?.pushViewController(vc, animated: true)
+        self.viewModel.getItineraryDetails(with: id){[weak self] (success, data, error) in
+            guard let self = self else {return}
+            if let data = data{
+                let vc = FlightPaymentPendingVC.instantiate(fromAppStoryboard: .FlightPayment)
+                vc.viewModel.itId = id
+                vc.viewModel.itinerary = data
+                vc.viewModel.product = .flight
+                self.navigationController?.pushViewController(vc, animated: true)
+            }else{
+                self.hideShowLoader(isHidden: true)
+                self.view.isUserInteractionEnabled = true
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
+            }
+        }
     }
     
     func getPaymentResonseFail(error: ErrorCodes) {

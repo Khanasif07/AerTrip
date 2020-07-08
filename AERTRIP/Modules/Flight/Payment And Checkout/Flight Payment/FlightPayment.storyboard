@@ -138,6 +138,12 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="768"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KKM-zA-Px9">
+                                <rect key="frame" x="0.0" y="44" width="414" height="1"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="qbo-Tg-6ZV"/>
+                                </constraints>
+                            </progressView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fXr-hy-gYK">
                                 <rect key="frame" x="0.0" y="812" width="414" height="84"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -157,8 +163,10 @@
                         <constraints>
                             <constraint firstItem="ELy-X1-1gr" firstAttribute="leading" secondItem="71J-Xp-QZ0" secondAttribute="leading" id="8WV-Hi-LuA"/>
                             <constraint firstItem="fXr-hy-gYK" firstAttribute="leading" secondItem="ELy-X1-1gr" secondAttribute="leading" id="9LF-ml-8zg"/>
+                            <constraint firstItem="KKM-zA-Px9" firstAttribute="top" secondItem="71J-Xp-QZ0" secondAttribute="top" id="9Mt-Mm-xHr"/>
                             <constraint firstItem="ELy-X1-1gr" firstAttribute="trailing" secondItem="71J-Xp-QZ0" secondAttribute="trailing" id="CcO-Eu-XeE"/>
                             <constraint firstItem="fXr-hy-gYK" firstAttribute="top" secondItem="ELy-X1-1gr" secondAttribute="top" id="Nmd-IQ-ADD"/>
+                            <constraint firstItem="KKM-zA-Px9" firstAttribute="leading" secondItem="ge7-SO-b9i" secondAttribute="leading" id="Vx0-y2-iBv"/>
                             <constraint firstItem="fXr-hy-gYK" firstAttribute="top" secondItem="SJn-CW-zfX" secondAttribute="bottom" id="Yp1-80-SOI"/>
                             <constraint firstItem="71J-Xp-QZ0" firstAttribute="bottom" secondItem="ELy-X1-1gr" secondAttribute="bottom" id="cDT-lp-rUv"/>
                             <constraint firstItem="SJn-CW-zfX" firstAttribute="top" secondItem="71J-Xp-QZ0" secondAttribute="top" id="jdZ-ok-83d"/>
@@ -166,11 +174,14 @@
                             <constraint firstAttribute="bottom" secondItem="fXr-hy-gYK" secondAttribute="bottom" id="pTj-bJ-1mO"/>
                             <constraint firstItem="fXr-hy-gYK" firstAttribute="trailing" secondItem="ELy-X1-1gr" secondAttribute="trailing" id="vSv-yc-3US"/>
                             <constraint firstItem="71J-Xp-QZ0" firstAttribute="trailing" secondItem="SJn-CW-zfX" secondAttribute="trailing" id="wj7-OQ-b2X"/>
+                            <constraint firstAttribute="trailing" secondItem="KKM-zA-Px9" secondAttribute="trailing" id="xVi-f7-K8f"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="71J-Xp-QZ0"/>
                     </view>
                     <connections>
                         <outlet property="gradientView" destination="fXr-hy-gYK" id="t2h-MG-qLK"/>
+                        <outlet property="progressView" destination="KKM-zA-Px9" id="ECH-bM-Z1S"/>
+                        <outlet property="progressViewHeight" destination="qbo-Tg-6ZV" id="E2f-H0-49N"/>
                         <outlet property="returnHomeButton" destination="ELy-X1-1gr" id="wr3-Q0-aOu"/>
                         <outlet property="statusTableView" destination="SJn-CW-zfX" id="kpK-g8-btN"/>
                     </connections>
@@ -348,6 +359,7 @@
                         <outlet property="paidAmountValueLabel" destination="3SR-PK-h7j" id="p2E-Bl-aqr"/>
                         <outlet property="payButton" destination="CKE-zt-0LI" id="qKB-1l-14h"/>
                         <outlet property="requestRefaundButton" destination="aak-QZ-rY3" id="TyU-H4-AUx"/>
+                        <outlet property="scrollView" destination="s6P-TS-EXO" id="VDa-b9-qSa"/>
                         <outlet property="titleLabel" destination="zek-Fe-TwE" id="TUv-Wj-irA"/>
                         <outlet property="walletMoneyUseLabel" destination="npi-Ua-GkR" id="pzM-mf-SPt"/>
                     </connections>
@@ -612,7 +624,7 @@
                                 <rect key="frame" x="0.0" y="212" width="414" height="600"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v3P-Nt-pJ6">
-                                        <rect key="frame" x="34" y="203" width="346" height="74"/>
+                                        <rect key="frame" x="34" y="250" width="346" height="74"/>
                                         <string key="text">Bulk enquiry has
 been sent</string>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="31"/>
@@ -620,13 +632,13 @@ been sent</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Our Customer service team shall contact you soon regarding this enquiry." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3e5-5X-0X9">
-                                        <rect key="frame" x="34" y="291" width="346" height="36"/>
+                                        <rect key="frame" x="34" y="338" width="346" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MSS-yE-jjb">
-                                        <rect key="frame" x="182" y="440" width="50" height="36"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MSS-yE-jjb">
+                                        <rect key="frame" x="182" y="487" width="50" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="Baz-KA-ORx"/>
                                             <constraint firstAttribute="width" constant="50" id="g2m-fY-Y8e"/>
@@ -638,14 +650,14 @@ been sent</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ewC-xe-08s" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="132" y="115" width="150" height="50"/>
+                                        <rect key="frame" x="132" y="162" width="150" height="50"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="eOC-te-vCO"/>
                                             <constraint firstAttribute="height" constant="50" id="hXK-YF-vz8"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
-                                        <state key="normal" title="Search"/>
+                                        <state key="normal" title="        "/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -654,11 +666,11 @@ been sent</string>
                                     <constraint firstItem="ewC-xe-08s" firstAttribute="centerX" secondItem="7iq-9x-oM9" secondAttribute="centerX" id="5WN-gg-v13"/>
                                     <constraint firstAttribute="trailing" secondItem="3e5-5X-0X9" secondAttribute="trailing" constant="34" id="8Cx-ZJ-OIj"/>
                                     <constraint firstAttribute="height" constant="600" id="Cgz-2J-eWJ"/>
-                                    <constraint firstItem="ewC-xe-08s" firstAttribute="top" secondItem="7iq-9x-oM9" secondAttribute="top" constant="115" id="Ocq-Yw-hSu"/>
+                                    <constraint firstItem="ewC-xe-08s" firstAttribute="top" secondItem="7iq-9x-oM9" secondAttribute="top" constant="162" id="Ocq-Yw-hSu"/>
                                     <constraint firstItem="MSS-yE-jjb" firstAttribute="centerX" secondItem="3e5-5X-0X9" secondAttribute="centerX" id="TUn-Sp-2ZV"/>
                                     <constraint firstItem="3e5-5X-0X9" firstAttribute="leading" secondItem="7iq-9x-oM9" secondAttribute="leading" constant="34" id="kNH-8W-9zr"/>
                                     <constraint firstItem="v3P-Nt-pJ6" firstAttribute="leading" secondItem="7iq-9x-oM9" secondAttribute="leading" constant="34" id="lOP-8u-NAo"/>
-                                    <constraint firstItem="v3P-Nt-pJ6" firstAttribute="top" secondItem="7iq-9x-oM9" secondAttribute="top" constant="203" id="pRo-DA-U7Q"/>
+                                    <constraint firstItem="v3P-Nt-pJ6" firstAttribute="top" secondItem="7iq-9x-oM9" secondAttribute="top" constant="250" id="pRo-DA-U7Q"/>
                                     <constraint firstItem="MSS-yE-jjb" firstAttribute="top" secondItem="3e5-5X-0X9" secondAttribute="bottom" constant="113" id="qZR-qF-4Z5"/>
                                     <constraint firstAttribute="trailing" secondItem="v3P-Nt-pJ6" secondAttribute="trailing" constant="34" id="zcF-ju-Avd"/>
                                 </constraints>
@@ -737,12 +749,21 @@ been sent</string>
                                 <rect key="frame" x="0.0" y="44" width="414" height="768"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Zse-vG-HEt">
+                                <rect key="frame" x="0.0" y="44" width="414" height="1"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="H66-el-igG"/>
+                                </constraints>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="btn-Pe-zA8" firstAttribute="trailing" secondItem="aeR-NH-7QR" secondAttribute="trailing" id="2QK-ad-mBJ"/>
+                            <constraint firstAttribute="trailing" secondItem="Zse-vG-HEt" secondAttribute="trailing" id="6gT-RJ-L0o"/>
+                            <constraint firstItem="Zse-vG-HEt" firstAttribute="top" secondItem="btn-Pe-zA8" secondAttribute="top" id="73x-dI-diz"/>
                             <constraint firstItem="aeR-NH-7QR" firstAttribute="leading" secondItem="btn-Pe-zA8" secondAttribute="leading" id="90j-ZJ-7yR"/>
                             <constraint firstItem="aeR-NH-7QR" firstAttribute="top" secondItem="btn-Pe-zA8" secondAttribute="top" id="CvQ-m7-oLG"/>
+                            <constraint firstItem="Zse-vG-HEt" firstAttribute="leading" secondItem="MKa-6o-Kk9" secondAttribute="leading" id="Fui-15-mHj"/>
                             <constraint firstItem="WKJ-i8-SEP" firstAttribute="leading" secondItem="btn-Pe-zA8" secondAttribute="leading" id="GkA-vb-1fz"/>
                             <constraint firstItem="WKJ-i8-SEP" firstAttribute="trailing" secondItem="btn-Pe-zA8" secondAttribute="trailing" id="H15-j0-wkG"/>
                             <constraint firstItem="BfF-l4-Zu5" firstAttribute="top" secondItem="aeR-NH-7QR" secondAttribute="bottom" id="JoO-vd-pnb"/>
@@ -757,6 +778,8 @@ been sent</string>
                     <connections>
                         <outlet property="gradientView" destination="BfF-l4-Zu5" id="bnM-LX-ZOW"/>
                         <outlet property="paymentTable" destination="aeR-NH-7QR" id="zrS-Kr-d77"/>
+                        <outlet property="progressView" destination="Zse-vG-HEt" id="8Ya-0R-GTf"/>
+                        <outlet property="progressViewHeight" destination="H66-el-igG" id="fkA-7N-nF2"/>
                         <outlet property="returnHomeButton" destination="WKJ-i8-SEP" id="w2w-W1-ibr"/>
                     </connections>
                 </viewController>

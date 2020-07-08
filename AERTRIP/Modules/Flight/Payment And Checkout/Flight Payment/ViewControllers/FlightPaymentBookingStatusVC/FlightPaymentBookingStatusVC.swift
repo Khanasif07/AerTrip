@@ -23,6 +23,8 @@ class FlightPaymentBookingStatusVC: BaseVC {
     }
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var returnHomeButton: UIButton!
+    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressViewHeight: NSLayoutConstraint!
     
     var viewModel = FlightPaymentBookingStatusVM()
     var backView:RetryView?
@@ -40,6 +42,8 @@ class FlightPaymentBookingStatusVC: BaseVC {
         self.setupReturnHomeButton()
         self.returnHomeButton.addGredient(isVertical: false)
         self.setBackgroundView()
+        self.progressView.progressTintColor = UIColor.AertripColor
+        self.progressView.trackTintColor = .clear
     }
     
     override func viewDidLayoutSubviews() {
@@ -81,6 +85,20 @@ class FlightPaymentBookingStatusVC: BaseVC {
         self.backView = backView
         self.backView?.retryButton.addTarget(self, action: #selector(tapRetry), for: .touchUpInside)
         
+    }
+    
+    func showProgressView(){
+        UIView.animate(withDuration: 2) {
+            self.progressView.isHidden = false
+            self.progressViewHeight.constant = 1
+        }
+    }
+    
+    func hideProgressView(){
+        UIView.animate(withDuration: 2) {
+            self.progressViewHeight.constant = 0
+            self.progressView.isHidden = true
+        }
     }
     
     func openActionSeat(){
@@ -220,34 +238,54 @@ extension FlightPaymentBookingStatusVC: FlightPaymentBookingStatusVMDelegate{
     }
     
     func getBookingDetailSucces() {
-        AppGlobals.shared.stopLoading()
+        self.view.isUserInteractionEnabled = true
         self.statusTableView.reloadData()
+        self.hideProgressView()
     }
     
     func getBookingDetailFaiure(error: ErrorCodes) {
-        
-        AppGlobals.shared.stopLoading()
+        self.view.isUserInteractionEnabled = true
+        self.hideProgressView()
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
     }
     
     
     func getBookingReceiptSuccess(){
+        let val = Double(self.progressView.progress) + self.viewModel.perAPIPersentage
+        UIView.animate(withDuration: 0.5) {
+            self.progressView.setProgress(Float(val), animated: true)
+        }
         self.viewModel.getBookingDetail()
         self.viewModel.getSectionData()
         self.statusTableView.backgroundView = nil
         self.statusTableView.reloadData()
     }
+    
     func willGetBookingReceipt(){
-        AppGlobals.shared.startLoading()
+        self.view.isUserInteractionEnabled = false
+        self.progressView.setProgress(0, animated: false)
+        self.showProgressView()
+        UIView.animate(withDuration: 0.5) {
+             self.progressView.setProgress(0.20, animated: true)
+         }
     }
-    func getBookingReceiptFail(){
-
+    func getBookingReceiptFail(error:ErrorCodes){
+        self.view.isUserInteractionEnabled = true
+        self.hideProgressView()
         self.statusTableView.backgroundView = self.backView
-        AppGlobals.shared.stopLoading()
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
+    }
+    
+    func getBookingResponseWithIndex(success: Bool){
+        let val = Double(self.progressView.progress) + self.viewModel.perAPIPersentage
+        UIView.animate(withDuration: 0.5) {
+            self.progressView.setProgress(Float(val), animated: true)
+        }
+
     }
     
     @objc func tapRetry(_ sender: UIButton){
         self.statusTableView.backgroundColor = nil
-        AppGlobals.shared.startLoading()
         self.viewModel.getBookingReceipt()
         
     }

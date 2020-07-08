@@ -230,12 +230,12 @@ class IntFareBreakupVC: UIViewController {
                 self.bookingTitleStackBottomConstraint.constant = 0
             }
         }else{
+            self.bookingTitleAndDateView.isHidden = true
+            bookButtonTitle = "Book"
             if self.isCheckoutDetails{
                 self.bookButton.setTitle("Continue", for: .normal)
                 bookButtonTitle = "Continue"
             }
-            self.bookingTitleAndDateView.isHidden = true
-            bookButtonTitle = "Book"
         }
     }
     

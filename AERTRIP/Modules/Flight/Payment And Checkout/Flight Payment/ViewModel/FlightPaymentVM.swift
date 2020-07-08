@@ -287,4 +287,12 @@ extension FlightPaymentVM{
         }
     }
     
+    func getItineraryDetails(with id: String, completionBlock: @escaping((_ success:Bool, _ data:FlightItinerary?, _ error: ErrorCodes)->())){
+        let param = [APIKeys.it_id.rawValue: id]
+        APICaller.shared.getItinerayDataForPendingPayment(params: param) {[weak self] (success, error, data) in
+            completionBlock(success, data, error)
+        }
+    }
+    
+    
 }

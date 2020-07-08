@@ -1403,9 +1403,9 @@ extension AppFlowManager {
              newVC = controller
         }
         guard newVC != nil else {return}
+        let nav = (newVC?.presentingViewController as?  UINavigationController)
         newVC?.presentingViewController?.dismiss(animated: false, completion: {
             delay(seconds: 0.0) {
-                let nav = (newVC?.presentingViewController as?  UINavigationController)
                 if let intVC = nav?.children.first(where: {$0.isKind(of: HomeDummyViewController.self)}){
                     nav?.popToViewController(intVC, animated: true)
                 }else{
