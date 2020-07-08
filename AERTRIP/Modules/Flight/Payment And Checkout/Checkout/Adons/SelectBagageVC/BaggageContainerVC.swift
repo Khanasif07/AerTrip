@@ -17,72 +17,72 @@ protocol SelectBaggageDelegate : class {
 
 class BaggageContainerVC : BaseVC {
     
-       // MARK: IBOutlets
-       @IBOutlet weak var topNavBarView: TopNavigationView!
-       @IBOutlet weak var mealsContainerView: UIView!
-       @IBOutlet weak var addButton: UIButton!
-       @IBOutlet weak var MealTotalLabel: UILabel!
-       @IBOutlet weak var totalLabel: UILabel!
-       @IBOutlet weak var totalContainerView: UIView!
-
+    // MARK: IBOutlets
+    @IBOutlet weak var topNavBarView: TopNavigationView!
+    @IBOutlet weak var mealsContainerView: UIView!
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var MealTotalLabel: UILabel!
+    @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var totalContainerView: UIView!
+    
     // MARK: Properties
-       fileprivate var parchmentView : PagingViewController?
-        let baggageContainerVM = BaggageContainerVM()
-        weak var delegate : AddonsUpdatedDelegate?
+    fileprivate var parchmentView : PagingViewController?
+    let baggageContainerVM = BaggageContainerVM()
+    weak var delegate : AddonsUpdatedDelegate?
     
-        lazy var noResultsemptyView: EmptyScreenView = {
-            let newEmptyView = EmptyScreenView()
-            newEmptyView.vType = .noBaggageData
-            return newEmptyView
-        }()
+    lazy var noResultsemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noBaggageData
+        return newEmptyView
+    }()
     
-       // MARK: View Life Cycle
-       override func viewDidLoad() {
-           super.viewDidLoad()
-           self.initialSetup()
-       }
-       
-       override func viewWillAppear(_ animated: Bool) {
-           super.viewWillAppear(animated)
-           self.configureNavigation()
-       }
-       
-       override func viewDidLayoutSubviews() {
-           super.viewDidLayoutSubviews()
-           self.parchmentView?.view.frame = self.mealsContainerView.bounds
-           self.parchmentView?.loadViewIfNeeded()
-       }
-       
-       override func setupFonts() {
-           super.setupFonts()
-           self.addButton.titleLabel?.font = AppFonts.SemiBold.withSize(20)
-           self.MealTotalLabel.font = AppFonts.Regular.withSize(12)
-           self.totalLabel.font = AppFonts.SemiBold.withSize(18)
-       }
-       
-       override func setupTexts() {
-           super.setupTexts()
-           
-       }
-       
-       override func setupColors() {
-           super.setupColors()
-           
-       }
-       
-       override func initialSetup() {
-            super.initialSetup()
-            setupNavBar()
-            setUpViewPager()
-            calculateTotalAmount()
-            totalContainerView.addShadow(ofColor: .black, radius: 20, opacity: 0.05)
-       }
-
-        @IBAction func addButtonTapped(_ sender: UIButton) {
-            self.baggageContainerVM.updateBaggageToDataStore()
-            let price = self.totalLabel.text ?? ""
-            self.delegate?.baggageUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
-            self.dismiss(animated: true, completion: nil)
+    // MARK: View Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.initialSetup()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.configureNavigation()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.parchmentView?.view.frame = self.mealsContainerView.bounds
+        self.parchmentView?.loadViewIfNeeded()
+    }
+    
+    override func setupFonts() {
+        super.setupFonts()
+        self.addButton.titleLabel?.font = AppFonts.SemiBold.withSize(20)
+        self.MealTotalLabel.font = AppFonts.Regular.withSize(12)
+        self.totalLabel.font = AppFonts.SemiBold.withSize(18)
+    }
+    
+    override func setupTexts() {
+        super.setupTexts()
+        
+    }
+    
+    override func setupColors() {
+        super.setupColors()
+        
+    }
+    
+    override func initialSetup() {
+        super.initialSetup()
+        setupNavBar()
+        setUpViewPager()
+        calculateTotalAmount()
+        totalContainerView.addShadow(ofColor: .black, radius: 20, opacity: 0.05)
+    }
+    
+    @IBAction func addButtonTapped(_ sender: UIButton) {
+        self.baggageContainerVM.updateBaggageToDataStore()
+        let price = self.totalLabel.text ?? ""
+        self.delegate?.baggageUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
+        self.dismiss(animated: true, completion: nil)
     }
     
 }
@@ -146,7 +146,7 @@ extension BaggageContainerVC {
     
     func calculateTotalAmount(){
         self.totalLabel.text = "₹ \(self.baggageContainerVM.calculateTotalAmount().commaSeprated)"
-     }
+    }
     
 }
 
@@ -189,10 +189,10 @@ extension BaggageContainerVC: PagingViewControllerDataSource , PagingViewControl
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
         
         let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.flightKeys[index] }
-          guard let firstFlight = flightAtINdex.first else {
-              return MenuItem(title: "", index: index, isSelected:false)
-          }
-          return MenuItem(title: "\(firstFlight.fr) → \(firstFlight.to)", index: index, isSelected:false)
+        guard let firstFlight = flightAtINdex.first else {
+            return MenuItem(title: "", index: index, isSelected:false)
+        }
+        return MenuItem(title: "\(firstFlight.fr) → \(firstFlight.to)", index: index, isSelected:false)
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
@@ -203,7 +203,7 @@ extension BaggageContainerVC: PagingViewControllerDataSource , PagingViewControl
 }
 
 extension BaggageContainerVC : SelectBaggageDelegate {
-
+    
     
     func addContactButtonTapped(){
         
@@ -211,8 +211,35 @@ extension BaggageContainerVC : SelectBaggageDelegate {
     
     
     func addPassengerToBaggage(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, baggageIndex: Int, selectedContacts: [ATContact]) {
-    
-        let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+        
+        var currentSelectedCountForAddon = selectedContacts.count
+        
+        let allowedPassengers = self.baggageContainerVM.getAllowedPassengerForParticularAdon(forAdon: forAdon)
+        if allowedPassengers.count == 0 { return }
+        
+        if allowedPassengers.count == 1 {
+            
+            let passengersToBeAdded = !selectedContacts.isEmpty ? [] : allowedPassengers
+            
+            self.baggageContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, baggageIndex: baggageIndex, contacts: passengersToBeAdded)
+            self.calculateTotalAmount()
+            
+            if !passengersToBeAdded.isEmpty {
+                
+                let baggageTermsVC = BaggageTermsVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+                baggageTermsVC.modalPresentationStyle = .overFullScreen
+                baggageTermsVC.baggageTermsVM.agreeCompletion = {[weak self] (agree) in
+                    guard let weakSelf = self else { return }
+                    if !agree {
+                        weakSelf.baggageContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, baggageIndex: baggageIndex, contacts: [])
+                        weakSelf.calculateTotalAmount()
+                        return }
+                }
+                self.present(baggageTermsVC, animated: true, completion: nil)
+            }
+            
+        } else {
+            let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
             vc.modalPresentationStyle = .overFullScreen
             vc.selectPassengersVM.selectedContacts = selectedContacts
             vc.selectPassengersVM.adonsData = forAdon
@@ -220,27 +247,29 @@ extension BaggageContainerVC : SelectBaggageDelegate {
             vc.selectPassengersVM.currentFlightKey = currentFlightKey
             vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
                 guard let weakSelf = self else { return }
-               
-                
+                currentSelectedCountForAddon = contacts.count
                 weakSelf.baggageContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, baggageIndex: baggageIndex, contacts: contacts)
                 weakSelf.calculateTotalAmount()
-                
-                
-//                    let baggageTermsVC = BaggageTermsVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-//                    baggageTermsVC.modalPresentationStyle = .overFullScreen
-//                    baggageTermsVC.baggageTermsVM.agreeCompletion = {[weak self] (agree) in
-//                    guard let innerWeakSelf = self else { return }
-//                    if !agree { return }
-//
-//                        innerWeakSelf.baggageContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, baggageIndex: baggageIndex, contacts: contacts)
-//                              innerWeakSelf.calculateTotalAmount()
-//                    }
-//
-//                    weakSelf.present(baggageTermsVC, animated: true, completion: nil)
+            }
             
-        }
-        
+            vc.onDismissCompletion = {[weak self] in
+                if currentSelectedCountForAddon == 0 { return }
+                let baggageTermsVC = BaggageTermsVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+                baggageTermsVC.modalPresentationStyle = .overFullScreen
+                baggageTermsVC.baggageTermsVM.agreeCompletion = {[weak self] (agree) in
+                    guard let weakSelf = self else { return }
+                    if !agree {
+                        weakSelf.baggageContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, baggageIndex: baggageIndex, contacts: [])
+                        weakSelf.calculateTotalAmount()
+                        return }
+                }
+                self?.present(baggageTermsVC, animated: true, completion: nil)
+            }
             self.present(vc, animated: false, completion: nil)
+        }
+    }
+    
+    func openBaggageTerms(){
         
     }
     

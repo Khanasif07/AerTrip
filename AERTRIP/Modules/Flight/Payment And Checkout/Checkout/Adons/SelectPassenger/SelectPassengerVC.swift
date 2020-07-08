@@ -82,15 +82,17 @@ extension SelectPassengerVC {
     }
     
     private func performDoneBtnAction(_ animationDuration: TimeInterval = 0.3) {
-        self.selectPassengersVM.contactsComplition(self.selectPassengersVM.selectedContacts)
-        UIView.animate(withDuration: animationDuration, animations: {
-            self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: self.transparentBackView.height)
-            self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
-        }) { (success) in
-            self.dismiss(animated: true, completion: {
-                self.onDismissCompletion?()
-            })
-        }
+//        self.selectPassengersVM.contactsComplition(self.selectPassengersVM.selectedContacts)
+   
+            UIView.animate(withDuration: animationDuration, animations: {
+                self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: self.transparentBackView.height)
+                self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
+            }) { (success) in
+                self.dismiss(animated: true, completion: {
+                    self.onDismissCompletion?()
+                })
+            }
+        
     }
     
     @objc func backViewTapped(){
