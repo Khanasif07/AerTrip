@@ -83,9 +83,9 @@ extension SelectPassengerVC {
         })
     }
     
-    private func performDoneBtnAction() {
+    private func performDoneBtnAction(_ animationDuration: TimeInterval = 0.3) {
         self.selectPassengersVM.contactsComplition(self.selectPassengersVM.selectedContacts)
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: animationDuration, animations: {
             self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: self.transparentBackView.height)
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
         }) { (success) in
@@ -255,7 +255,7 @@ extension SelectPassengerVC {
             if (yVelocity > 500) && (yTranslation > popopverMaxHeight/4) && (yTranslation < popopverMaxHeight) {
                 performDoneBtnAction()
             } else if yTranslation >= popopverMaxHeight {
-                performDoneBtnAction()
+                performDoneBtnAction(0.0)
             } else {
                 transformViewToOriginalState()
             }
