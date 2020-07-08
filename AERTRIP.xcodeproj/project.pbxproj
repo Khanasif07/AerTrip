@@ -685,6 +685,8 @@
 		84247F9222A53D6D00A0FEB7 /* CancelledVC+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247F8F22A53D6D00A0FEB7 /* CancelledVC+CoreData.swift */; };
 		84247F9322A53D6D00A0FEB7 /* CancelledVC+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247F9022A53D6D00A0FEB7 /* CancelledVC+Delegates.swift */; };
 		84247F9422A53D6D00A0FEB7 /* CancelledVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247F9122A53D6D00A0FEB7 /* CancelledVC.swift */; };
+		8425049424B4B1A7003B00BE /* AbortRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8425049224B4B1A7003B00BE /* AbortRequestTableViewCell.swift */; };
+		8425049524B4B1A7003B00BE /* AbortRequestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8425049324B4B1A7003B00BE /* AbortRequestTableViewCell.xib */; };
 		84254F48223A917400E3D120 /* HCEmailItinerariesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84254F47223A917400E3D120 /* HCEmailItinerariesVM.swift */; };
 		84254F4A223B8BDF00E3D120 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84254F49223B8BDF00E3D120 /* UITextFieldExtension.swift */; };
 		84254F4C223B97FD00E3D120 /* Api+HotelCheckOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84254F4B223B97FD00E3D120 /* Api+HotelCheckOut.swift */; };
@@ -2290,6 +2292,8 @@
 		84247F8F22A53D6D00A0FEB7 /* CancelledVC+CoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CancelledVC+CoreData.swift"; sourceTree = "<group>"; };
 		84247F9022A53D6D00A0FEB7 /* CancelledVC+Delegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CancelledVC+Delegates.swift"; sourceTree = "<group>"; };
 		84247F9122A53D6D00A0FEB7 /* CancelledVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelledVC.swift; sourceTree = "<group>"; };
+		8425049224B4B1A7003B00BE /* AbortRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbortRequestTableViewCell.swift; sourceTree = "<group>"; };
+		8425049324B4B1A7003B00BE /* AbortRequestTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AbortRequestTableViewCell.xib; sourceTree = "<group>"; };
 		84254F47223A917400E3D120 /* HCEmailItinerariesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEmailItinerariesVM.swift; sourceTree = "<group>"; };
 		84254F49223B8BDF00E3D120 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
 		84254F4B223B97FD00E3D120 /* Api+HotelCheckOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+HotelCheckOut.swift"; sourceTree = "<group>"; };
@@ -5469,6 +5473,16 @@
 			path = CancelledVC;
 			sourceTree = "<group>";
 		};
+		8425049124B4B195003B00BE /* AbortRequestTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				8425049224B4B1A7003B00BE /* AbortRequestTableViewCell.swift */,
+				8425049324B4B1A7003B00BE /* AbortRequestTableViewCell.xib */,
+			);
+			name = AbortRequestTableViewCell;
+			path = AERTRIP/Xibs/AbortRequestTableViewCell;
+			sourceTree = SOURCE_ROOT;
+		};
 		84269060228E9EF700CFCBFC /* PKMultiPicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -8307,6 +8321,7 @@
 		84DD245C2265A9630013F77E /* BookingsXibs */ = {
 			isa = PBXGroup;
 			children = (
+				8425049124B4B195003B00BE /* AbortRequestTableViewCell */,
 				0C6666B022D48571009DFACD /* CommonAction */,
 				0C6666AB22D472C9009DFACD /* TripChange */,
 				1873DD8322C9F3D800DC8206 /* WeatherFooterTableViewCell */,
@@ -9230,6 +9245,7 @@
 				18B435612202C59F000C5E31 /* Filter.storyboard in Resources */,
 				84D54F7E23E3FC620002B504 /* MenuItemCollectionCell.xib in Resources */,
 				18020B0E2282E1F200DE5FE0 /* AerinChatTableViewCell.xib in Resources */,
+				8425049524B4B1A7003B00BE /* AbortRequestTableViewCell.xib in Resources */,
 				1851A75721C3B01A008DF03F /* SideMenuProfileImageCell.xib in Resources */,
 				84BF46CA2212A762000AA6E3 /* HotelDetailsLoaderTableViewCell.xib in Resources */,
 				8455A67F2232920900CEE2B3 /* ReviewsOptionTableViewCell.xib in Resources */,
@@ -9916,6 +9932,7 @@
 				843FF658247409E3001F21B1 /* Amenities.m in Sources */,
 				84085CE721F59C0E00F1E844 /* CreateProfileSuccessVC.swift in Sources */,
 				84085CF521F59C0E00F1E844 /* LinkedAccountsTableCell.swift in Sources */,
+				8425049424B4B1A7003B00BE /* AbortRequestTableViewCell.swift in Sources */,
 				1879C4B12293E16900897CED /* FrequentFlyerVC.swift in Sources */,
 				84695413245C402A00461CFA /* BookingInfoNotesCellTableViewCell.swift in Sources */,
 				187684A822844D40009637D6 /* BaggageAirlineInfoTableViewCell.swift in Sources */,
@@ -10827,7 +10844,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 95;
+				CURRENT_PROJECT_VERSION = 98;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11013,7 +11030,7 @@
 					"-debug-time-function-bodies",
 					"-Xfrontend",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.flightmodule.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aertrip.app;
 				PRODUCT_MODULE_NAME = AERTRIP;
 				PRODUCT_NAME = Aertrip;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -11035,7 +11052,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 95;
+				CURRENT_PROJECT_VERSION = 98;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11222,7 +11239,7 @@
 					"-debug-time-function-bodies",
 					"-Xfrontend",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.flightmodule.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aertrip.app;
 				PRODUCT_MODULE_NAME = AERTRIP;
 				PRODUCT_NAME = Aertrip;
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -57,7 +57,8 @@ enum AppConstants {
     
     static var isStatusBarBlured = true
     static let AddOnRequestTextLimit = 60
-    
+    static let AbortRequestTextLimit = 500
+
     static let profileViewBackgroundNameIntialsFont = AppFonts.Regular.withSize(40.0)
     
     static let kGoogleAPIKey = "AIzaSyD_W5hNOfKdR3xbEEkbX1rI2sJ3nDv1E64" // "AIzaSyBR5AMB7FJUqlRBZv93B4aVhY-Xt13weaU"

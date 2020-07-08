@@ -29,15 +29,18 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 44 : 46
+        return 30//section == 0 ? 44 : 46
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "DateTableHeaderView") as? DateTableHeaderView else {
+//        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "DateTableHeaderView") as? DateTableHeaderView else {
+//            return nil
+//        }
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: tableViewHeaderCellIdentifier) as? TravellerListTableViewSectionView else {
             return nil
         }
         
-        headerView.dateLabel.font = AppFonts.SemiBold.withSize(16.0)
+        //headerView.headerLabel.font = AppFonts.SemiBold.withSize(16.0)
         var titleStr = ""
         if tableView === self.tableView {
             titleStr = self.viewModel.allDates[section]
@@ -52,11 +55,11 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
                 titleStr = date.toString(dateFormat: "dd MMM YYYY")
             }
         }
-        headerView.dateLabel.text = titleStr
-        headerView.parentView.backgroundColor = AppColors.themeWhite
-        headerView.dateLabelTopConstraint.constant = section == 0 ? 16 : 18
-        headerView.dataLabelBottomConstraint.constant = 8
-            
+        headerView.headerLabel.text = titleStr
+//        headerView.parentView.backgroundColor = AppColors.themeWhite
+//        headerView.dateLabelTopConstraint.constant = section == 0 ? 16 : 18
+//        headerView.dataLabelBottomConstraint.constant = 8
+            headerView.topSepratorView.isHidden = section == 0 ? true : false
         return headerView
     }
     

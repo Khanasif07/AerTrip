@@ -147,10 +147,11 @@ class AppFlowManager: NSObject {
         self.addBlurToStatusBar()
     }
     
-    func goToDashboard(launchThroughSplash: Bool = false) {
+    func goToDashboard(launchThroughSplash: Bool = false, toBeSelect: DashboardVC.SelectedOption = .aerin) {
         let mainHome = MainHomeVC.instantiate(fromAppStoryboard: .Dashboard)
         self.mainHomeVC = mainHome
         self.mainHomeVC?.isLaunchThroughSplash = launchThroughSplash
+        self.mainHomeVC?.toBeSelect = toBeSelect
         let nvc = SwipeNavigationController(rootViewController: mainHome)
         nvc.delegate = AppDelegate.shared.transitionCoordinator
         self.mainNavigationController = nvc

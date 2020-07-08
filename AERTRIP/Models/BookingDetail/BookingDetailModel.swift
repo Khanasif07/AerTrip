@@ -545,7 +545,7 @@ struct BookingDetail {
     var photos: [String] = []
     var amenitiesGroups: [String: Any] = [:]
     var amenities: Amenities?
-    var info: String = ""
+    var overview: String = ""
     var taLocationID: String = ""
     var website: String = ""
     var city: String = ""
@@ -660,8 +660,8 @@ struct BookingDetail {
             self.amenities = Amenities.getAmenitiesData(response: obj)
         }
         
-        if let obj = json["info"] {
-            self.info = "\(obj)".removeNull
+        if let obj = json["overview"] {
+            self.overview = "\(obj)".removeNull
         }
         
         if let obj = json["ta_location_id"] {
@@ -810,8 +810,8 @@ struct BookingDetail {
     // Over view Details
     
     var overViewData: String {
-//        return self.info.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.info
-         return self.info
+//        return self.overview.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.info
+         return self.overview
     }
     
     // hotel Address

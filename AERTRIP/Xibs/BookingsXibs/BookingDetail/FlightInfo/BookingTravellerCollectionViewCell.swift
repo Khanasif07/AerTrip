@@ -46,7 +46,7 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
         self.setUpTextColor()
         self.setUpFont()
         self.doInitialSetup()
-        self.profileImageView.cornerRadius = self.profileImageView.height / 2.0
+        //self.profileImageView.cornerRadius = self.profileImageView.height / 2.0
     }
     
     override func prepareForReuse() {
@@ -104,9 +104,11 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
         if self.paxData?.profileImage.isEmpty ?? false {
             self.profileImageView.image = placeImage
             self.profileImageView.contentMode = .scaleAspectFit
+            self.profileImageView.makeCircular(borderWidth: 0.5, borderColor: AppColors.clear)
         } else {
             self.profileImageView.setImageWithUrl(self.paxData?.profileImage ?? "", placeholder: placeImage, showIndicator: false)
             self.profileImageView.contentMode = .scaleAspectFill
+            self.profileImageView.makeCircular(borderWidth: 0.5, borderColor: AppColors.themeGray20)
         }
     }
     
@@ -136,9 +138,11 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
         if self.guestData?.profileImage.isEmpty ?? false {
             self.profileImageView.image = placeImage
             self.profileImageView.contentMode = .scaleAspectFit
+            self.profileImageView.makeCircular(borderWidth: 0.5, borderColor: AppColors.clear)
         } else {
             self.profileImageView.setImageWithUrl(self.guestData?.profileImage ?? "", placeholder: placeImage, showIndicator: false)
             self.profileImageView.contentMode = .scaleAspectFill
+            self.profileImageView.makeCircular(borderWidth: 0.5, borderColor: AppColors.themeGray20)
         }
     }
 }

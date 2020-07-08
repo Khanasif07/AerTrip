@@ -53,7 +53,7 @@ class AccountDetailsVC: BaseVC {
     //MARK:- Public
     let viewModel = AccountDetailsVM()
     var currentUsingAs = UsingFor.account
-    
+    var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
     //MARK:- Private
     var currentViewState = ViewState.normal {
         didSet {
@@ -101,6 +101,7 @@ class AccountDetailsVC: BaseVC {
         self.tableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
         self.tableView.registerCell(nibName: AccountDetailEventHeaderCell.reusableIdentifier)
         self.tableView.registerCell(nibName: AccountDetailEventDescriptionCell.reusableIdentifier)
+        self.tableView.register(UINib(nibName: tableViewHeaderCellIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderCellIdentifier)
         
         self.tableView.registerCell(nibName: AccountLedgerEventCell.reusableIdentifier)
         

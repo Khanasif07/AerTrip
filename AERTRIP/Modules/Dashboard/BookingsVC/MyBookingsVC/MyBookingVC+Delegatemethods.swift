@@ -30,20 +30,22 @@ extension MyBookingsVC: MyBookingsVMDelegate {
     
    
     func getBookingDetailFail(error: ErrorCodes) {
-        AppGlobals.shared.stopLoading()
+        //AppGlobals.shared.stopLoading()
+        stopProgress()
         self.emptyStateSetUp()
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
         self.sendDataChangedNotification(data: ATNotification.myBookingSearching)
     }
     
     func willGetBookings() {
-        AppGlobals.shared.startLoading()
+        //AppGlobals.shared.startLoading()
         printDebug("Will get bookings ")
+        startProgress()
     }
     
     func getBookingsDetailSuccess() {
 
-        AppGlobals.shared.stopLoading()
+        //AppGlobals.shared.stopLoading()
         MyBookingsVM.shared.allTabTypes = CoreDataManager.shared.fetchData(fromEntity: "BookingData", forAttribute: "bookingTabType", usingFunction: "count").map({ ($0["bookingTabType"] as? Int16) ?? -1})
         
         let allEvents = [1,2,3]
@@ -56,6 +58,6 @@ extension MyBookingsVC: MyBookingsVMDelegate {
                }
         self.emptyStateSetUp()
         self.sendDataChangedNotification(data: ATNotification.myBookingSearching)
-      
+        stopProgress()
     }
 }

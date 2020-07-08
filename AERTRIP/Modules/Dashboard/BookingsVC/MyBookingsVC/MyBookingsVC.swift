@@ -26,6 +26,8 @@ class MyBookingsVC: BaseVC {
     private var statusBarHeight : CGFloat {
         return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
     }
+    private var time: Float = 0.0
+    private var timer: Timer?
     
     // Mark:- IBOutlets
     //================
@@ -49,6 +51,7 @@ class MyBookingsVC: BaseVC {
     @IBOutlet weak var emptyStateTitleLabel: UILabel!
     @IBOutlet weak var emptyStateSubTitleLabel: UILabel!
     @IBOutlet weak var blurBackgroundView: BlurView!
+    @IBOutlet weak var progressView: UIProgressView!
     
     // Mark:- LifeCycle
     
@@ -187,13 +190,15 @@ class MyBookingsVC: BaseVC {
         }
         var menuItemSpacing: CGFloat = 0
         if self.allTabsStr.count > 2 {
-            menuItemSpacing = (UIDevice.screenWidth - (textWidth + 28.0 + 28.0))/2 // (screen width - textspace + leading and trailing constant space) / number of tabs - 1
+            menuItemSpacing = (UIDevice.screenWidth - (textWidth))/4 //(textWidth + 28 + 28)/2 (screen width - textspace + leading and trailing constant space) / number of tabs - 1
         } else {
-            menuItemSpacing = UIDevice.screenWidth - (textWidth + 59.0 + 59.0)
+            menuItemSpacing = (UIDevice.screenWidth - (textWidth))/3 //(textWidth + 59.0 + 59.0)
         }
         
         self.parchmentView?.menuItemSpacing = menuItemSpacing // self.allTabsStr.count == 2 ? (UIDevice.screenWidth - 273.0) : (UIDevice.screenWidth - 270.0)/2
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: self.allTabsStr.count == 2 ? 59.0 : 28.0, bottom: 0.0, right:  self.allTabsStr.count == 2 ? 59.0 : 28.0)
+       // self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: self.allTabsStr.count == 2 ? 59.0 : 28.0, bottom: 0.0, right:  self.allTabsStr.count == 2 ? 59.0 : 28.0)
+
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: menuItemSpacing, bottom: 0.0, right:  menuItemSpacing)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 52)
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
@@ -314,6 +319,44 @@ class MyBookingsVC: BaseVC {
             
         }
  */
+    
+    func startProgress() {
+        // Invalid timer if it is valid
+        if self.timer?.isValid == true {
+            self.timer?.invalidate()
+        }
+        self.progressView?.isHidden = false
+        self.time = 0.0
+        self.progressView.setProgress(0.0, animated: false)
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
+    
+    @objc func setProgress() {
+        self.time += 1.0
+        self.progressView?.setProgress(self.time / 10, animated: true)
+        
+        if self.time == 8 {
+            self.timer?.invalidate()
+            return
+        }
+        if self.time == 2 {
+            self.timer!.invalidate()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+            }
+        }
+        
+        if self.time >= 10 {
+            self.timer!.invalidate()
+            delay(seconds: 0.5) {
+                self.progressView?.isHidden = true
+            }
+        }
+    }
+    func stopProgress() {
+        self.time += 1
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
 }
 
 

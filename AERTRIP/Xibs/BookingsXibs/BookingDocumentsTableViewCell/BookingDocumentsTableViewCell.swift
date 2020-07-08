@@ -30,6 +30,7 @@ class BookingDocumentsTableViewCell: UITableViewCell {
             self.documentsCollectionView.reloadData()
         }
     }
+    var actionSheetVisible = false
     
     //MARK:- IBOutlets
     //MARK:===========
@@ -158,8 +159,12 @@ extension BookingDocumentsTableViewCell: UICollectionViewDelegate , UICollection
         let url = URL(fileURLWithPath: self.documentsData[indexPath.item].sourceUrl)
         if self.checkIsFileExist(nameOfFile: url.lastPathComponent, path: currentDocumentFolder) || self.documentsData[indexPath.item].downloadingStatus != .notDownloaded {
             cell.downloadingIcon.image = nil
+            cell.containerView.removeGestureRecognizer(cell.longPressGesture!)
+            cell.containerView.addGestureRecognizer(cell.longPressGesture!)
         } else {
             cell.downloadingIcon.image = #imageLiteral(resourceName: "downloadingImage")
+            cell.containerView.removeGestureRecognizer(cell.longPressGesture!)
+
         }
         return cell
     }
@@ -208,5 +213,38 @@ extension BookingDocumentsTableViewCell: BookingDocumentsCollectionViewCellDeleg
         self.delegate?.cancelDownloadDocument(itemIndexPath: indexPath)
         self.documentsData[indexPath.item].downloadingStatus = .notDownloaded
         self.documentsCollectionView.reloadItems(at: indexPath)
+    }
+    
+    func longPressButtonAction(forIndex indexPath: IndexPath) {
+        guard !self.actionSheetVisible else {
+            self.actionSheetVisible = false
+            return
+        }
+        self.actionSheetVisible = true
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Delete.localized], colors: [AppColors.themeRed])
+        
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.contentView, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
+            guard let strongSelf = self else {return}
+            strongSelf.actionSheetVisible = false
+            if index == 0 {
+                printDebug("Email")
+                let currentDirecotry = strongSelf.checkCreateAndReturnDocumentFolder()
+                let url = URL(fileURLWithPath: strongSelf.documentsData[indexPath.item].sourceUrl)
+                let path = currentDirecotry + "/\(url.lastPathComponent)"
+                if FileManager.default.fileExists(atPath: path) {
+                    printDebug("File exist at path: \(path)")
+                    do {
+                        try FileManager.default.removeItem(atPath: path)
+                        printDebug("File deleted")
+                        strongSelf.documentsCollectionView.reloadItems(at: indexPath)
+                    }
+                    catch {
+                        printDebug("Error")
+                    }
+                }
+                
+            }
+            
+        }
     }
 }
