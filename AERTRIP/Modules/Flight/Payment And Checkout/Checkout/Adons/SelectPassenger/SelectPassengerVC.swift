@@ -51,24 +51,11 @@ class SelectPassengerVC : BaseVC {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        UIView.animate(withDuration: 0.3, animations: {
-            self.transparentBackView.transform = CGAffineTransform.identity
-            self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        })
+        transformViewToOriginalState()
     }
     
     @IBAction func doneButtonTapped(_ sender: UIButton) {
-//        self.selectPassengersVM.contactsComplition(self.selectPassengersVM.selectedContacts)
-        
-        
-        UIView.animate(withDuration: 0.3, animations: {
-            self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: self.transparentBackView.height)
-            self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
-        }) { (success) in
-            self.dismiss(animated: true, completion: {
-                self.onDismissCompletion?()
-            })
-        }
+        performDoneBtnAction()
     }
 }
 
@@ -84,6 +71,26 @@ extension SelectPassengerVC {
         self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: transparentBackView.height)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
         self.doneButton.setTitle(LocalizedString.Done.localized, for: .normal)
+        addDismissGesture()
+    }
+    
+    private func transformViewToOriginalState() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.transparentBackView.transform = CGAffineTransform.identity
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        })
+    }
+    
+    private func performDoneBtnAction(_ animationDuration: TimeInterval = 0.3) {
+        self.selectPassengersVM.contactsComplition(self.selectPassengersVM.selectedContacts)
+        UIView.animate(withDuration: animationDuration, animations: {
+            self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: self.transparentBackView.height)
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
+        }) { (success) in
+            self.dismiss(animated: true, completion: {
+                self.onDismissCompletion?()
+            })
+        }
     }
     
     @objc func backViewTapped(){
@@ -223,3 +230,40 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
     
 }
 
+// MARK: Popver dismiss animation
+extension SelectPassengerVC {
+    
+    private func addDismissGesture() {
+        let dismissGesture = UIPanGestureRecognizer(target: self, action: #selector(didPanViewToDismiss(_:)))
+        view.addGestureRecognizer(dismissGesture)
+    }
+    
+    @objc private func didPanViewToDismiss(_ sender: UIPanGestureRecognizer) {
+        let yTranslation = sender.translation(in: view).y
+                
+        switch sender.state {
+        case .ended:
+            let popopverMaxHeight = view.height - popUpBackView.origin.y
+            let yVelocity = sender.velocity(in: view).y
+            if (yVelocity > 500) && (yTranslation > popopverMaxHeight/4) && (yTranslation < popopverMaxHeight) {
+                performDoneBtnAction()
+            } else if yTranslation >= popopverMaxHeight {
+                performDoneBtnAction(0.0)
+            } else {
+                transformViewToOriginalState()
+            }
+        default:
+            transformViewBy(yTranslation)
+        }
+    }
+    
+    private func transformViewBy(_ yTranslation: CGFloat) {
+        guard yTranslation >= 0 else { return }
+        transparentBackView.transform = CGAffineTransform(translationX: 0, y: yTranslation)
+        let maxViewColorAlpha: CGFloat = 0.5,
+        popopverMaxHeight = view.height - popUpBackView.origin.y
+        
+        let fractionForAlpha = maxViewColorAlpha - ((yTranslation/popopverMaxHeight) * maxViewColorAlpha)
+        view.backgroundColor = UIColor.black.withAlphaComponent(fractionForAlpha)
+    }
+}
