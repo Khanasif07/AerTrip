@@ -17,7 +17,6 @@ class SelectOtherAdonsVM  {
     var specialRequest : String = "" {
         didSet {
             AddonsDataStore.shared.flightsWithData[vcIndex].specialRequest = specialRequest
-
         }
     }
     
