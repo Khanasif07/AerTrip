@@ -102,6 +102,24 @@ class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDelegate
                 }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if #available(iOS 13, *) {
+            UIApplication.shared.statusBarStyle = .lightContent
+            setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if #available(iOS 13, *) {
+            UIApplication.shared.statusBarStyle = .default
+            setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+    
     //MARK:- Get Flight Info
     
     func getFlightsInfo()
