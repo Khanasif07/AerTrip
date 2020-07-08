@@ -24,9 +24,9 @@ class PassportExampleVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        UIView.animate(withDuration: 0.3, animations: {
-            self.transperentButton.transform = CGAffineTransform.identity
+        UIView.animate(withDuration: 0.33, animations: {
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+            self.containerView.transform = CGAffineTransform.identity
         })
     }
     
@@ -55,8 +55,8 @@ class PassportExampleVC: UIViewController {
     @IBAction func tappedCrossButton(_ sender: UIButton) {
         
         
-        UIView.animate(withDuration: 0.3, animations: {
-            self.transperentButton.transform = CGAffineTransform(translationX: 0, y: self.transperentButton.height)
+        UIView.animate(withDuration: 0.33, animations: {
+            self.containerView.transform = CGAffineTransform(translationX: 0, y: self.transperentButton.height)
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
         }) { (success) in
             self.dismiss(animated: true, completion: nil)
@@ -72,7 +72,7 @@ class PassportExampleVC: UIViewController {
     
     func setUpSubView(){
         self.transperentButton.backgroundColor = UIColor.clear
-        self.transperentButton.transform = CGAffineTransform(translationX: 0, y: transperentButton.height)
+        self.containerView.transform = CGAffineTransform(translationX: 0, y: transperentButton.height)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
         
     }
