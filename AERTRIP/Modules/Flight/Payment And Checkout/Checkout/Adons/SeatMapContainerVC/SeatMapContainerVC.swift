@@ -19,6 +19,7 @@ class SeatMapContainerVC: UIViewController {
     
     private var hidePlaneLayoutWorkItem: DispatchWorkItem?
     private var highlightView: UIView?
+    private var hasDisplayedInitialLoader = false
     
     // Parchment View
     fileprivate var parchmentView : PagingViewController?
@@ -65,6 +66,8 @@ class SeatMapContainerVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        guard !hasDisplayedInitialLoader else { return }
+        hasDisplayedInitialLoader = true
         if viewModel.setupFor == .preSelection {
             if AddonsDataStore.shared.originalSeatMapModel == nil {
                 animateProgressView(duration: 3, progress: 0.25, completion: nil)
@@ -461,15 +464,11 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
     }
     
     func willHitPostConfAPI() {
-        animateProgressView(progress: 0.25, completion: nil)
+        
     }
     
     func didHitPostConfAPI() {
-        animateProgressView(progress: 1, completion: {
-            DispatchQueue.delay(1) { [weak self] in
-                self?.apiProgressView.setProgress(0, animated: false)
-            }
-        })
+        
     }
     
     func didFetchSeatMapData() {
