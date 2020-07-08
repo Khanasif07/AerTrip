@@ -164,6 +164,11 @@ class PassengerDetailsCell: UICollectionViewCell {
     
     private func checkForInternational(){
         guard let guest = self.contact else {return}
+        if guest.nationality.isEmpty{
+            let indx = self.innerCellIndex ?? [0,0]
+            GuestDetailsVM.shared.guests[0][indx.row].nationality = "India"
+            GuestDetailsVM.shared.guests[0][indx.row].countryCode = "In"
+        }
         if infoImageView.isHidden{
             infoImageView.isHidden = !(guest.displayDob.isEmpty || guest.nationality.isEmpty || guest.passportNumber.isEmpty || guest.displayPsprtExpDate.isEmpty)
         }

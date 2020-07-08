@@ -55,13 +55,21 @@ class FlightPaymentPendingRequestSuccessVC: BaseVC {
     }
     private var tickLineWidth: CGFloat = 4.0
     var searchButtonConfiguration: ButtonConfiguration = ButtonConfiguration()
+    var paymentMode:String = ""
   
     //Mark:- LifeCycle
     //================
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupReturnHomeButton()
         self.returnHomeButton.addGredient(isVertical: false)
         
+    }
+    
+    private func setupReturnHomeButton() {
+        self.returnHomeButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
+        self.returnHomeButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.returnHomeButton.setTitle("Return Home", for: .normal)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -93,7 +101,7 @@ class FlightPaymentPendingRequestSuccessVC: BaseVC {
     override func initialSetup() {
         self.setupSearchButton()
         self.mainTitleLabel.text = "Requested"
-        self.subTitleLabel.text = "We’ve noted your request to refund Sh.so. 10,000,000 to your {Payment Mode}."
+        self.subTitleLabel.text = "We’ve noted your request to refund to your \(paymentMode)."
         self.searchButtonWidthConstraint.constant = 150.0
         self.mainContainerViewHeightConstraint.constant = self.view.height
         self.containerView.roundTopCorners(cornerRadius: 15.0)
@@ -190,7 +198,7 @@ class FlightPaymentPendingRequestSuccessVC: BaseVC {
 
         self.mainTitleLabel.isHidden = false
         self.subTitleLabel.isHidden = false
-        self.doneBtnOutlet.isHidden = false
+        self.doneBtnOutlet.isHidden = true
         UIView.animate(withDuration: ((AppConstants.kAnimationDuration / 4.0) * 3.0), animations: {
             self.updateTickPath()
             self.searchBtnOutlet.myCornerRadius = self.searchBtnOutlet.width / 2.0
@@ -247,6 +255,7 @@ class FlightPaymentPendingRequestSuccessVC: BaseVC {
     //================
     
     @IBAction func tappedReturnHomeButton(_ sender: UIButton) {
+        AppFlowManager.default.flightReturnToHomefrom(self)
     }
     @IBAction func doneBtnAction(_ sender: Any) {
         self.hide(animated: true, shouldRemove: true)

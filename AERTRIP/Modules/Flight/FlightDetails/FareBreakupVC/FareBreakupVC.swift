@@ -96,9 +96,6 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        indicator.frame.size.height = 25
-        indicator.frame.size.width = 25
-        self.bookingView.addSubview(indicator)
         self.manageLoader()
         self.parent?.view.isUserInteractionEnabled = false
         baseFareTableview.register(UINib(nibName: "FareBreakupTableViewCell", bundle: nil), forCellReuseIdentifier: "FareBreakupCell")
@@ -298,6 +295,9 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     
     private func manageLoader() {
+        indicator.frame.size.height = 25
+        indicator.frame.size.width = 25
+        self.bookingView.addSubview(indicator)
         self.indicator.style = .white
         self.indicator.color = AppColors.themeWhite
         self.indicator.startAnimating()

@@ -327,7 +327,7 @@ class AddPassengerDetailsCell: UITableViewCell {
             let minNumb = self.preSelectedCountry?.minNSN ?? 0
             let maxNumb = self.preSelectedCountry?.maxNSN ?? 0
             let mobileText = self.mobileTextField.text ?? ""
-            let isValidMobile = (!(mobileText.isEmpty) && (mobileText.count >= minNumb)  && (mobileText.count <= maxNumb))
+            let isValidMobile = (!(mobileText.isEmpty) && (self.getOnlyIntiger(mobileText).count >= minNumb)  && (self.getOnlyIntiger(mobileText).count <= maxNumb))
             let isValidMail = self.emailTextField.text?.isEmail ?? true
             mobileTextField.attributedPlaceholder = NSAttributedString(string: "Mobile", attributes: [NSAttributedString.Key.foregroundColor: isValidMobile ? AppColors.themeGray40 :  AppColors.themeRed])
             self.mobileTextField.isError = !isValidMobile
@@ -495,7 +495,7 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
         case self.passportNumberTextField:
             GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].passportNumber = (textField.text ?? "").removeAllWhitespaces
         case self.mobileTextField:
-            GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].contact = (textField.text ?? "").removeAllWhitespaces
+            GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].contact = getOnlyIntiger(textField.text ?? "").removeAllWhitespaces
         case self.emailTextField:
             GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].emailLabel = (textField.text ?? "").removeAllWhitespaces
         default:
@@ -508,5 +508,10 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    func getOnlyIntiger(_ str: String)->String{
+        let newStr = str.lowercased()
+        let okayChars = Set("1234567890")
+        return newStr.filter {okayChars.contains($0) }
     }
 }

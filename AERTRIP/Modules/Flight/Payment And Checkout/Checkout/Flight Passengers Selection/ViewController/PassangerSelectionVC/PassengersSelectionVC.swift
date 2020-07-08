@@ -297,10 +297,10 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
     }
     
     func startFechingAddnsMasterData(){
+        self.view.isUserInteractionEnabled = false
         UIView.animate(withDuration: 2) {
         self.progressView.setProgress(0.75, animated: true)
         }
-//        AppGlobals.shared.startLoading()
     }
     
     func startFechingGSTValidationData(){
@@ -326,6 +326,7 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
     }
     
     func getResponseFromAddnsMaster(_ success:Bool, error:ErrorCodes){
+        self.view.isUserInteractionEnabled = true
         if success {
             
             UIView.animate(withDuration: 2, animations: {

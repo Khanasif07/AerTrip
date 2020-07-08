@@ -26,7 +26,7 @@ extension APICaller{
                 }
                 
             }, failure: { (errors) in
-                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .flights)
                 completionBlock(false, errors, AddonsMaster())
             })
         }) { (error) in
@@ -55,7 +55,7 @@ extension APICaller{
                 }
                 
             }, failure: { (errors) in
-                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .flights)
                 completionBlock(false, errors, nil)
             })
         }) { (error) in
@@ -86,7 +86,7 @@ extension APICaller{
                 }
                 
             }, failure: { (errors) in
-                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .flights)
                 completionBlock(false, errors, nil)
             })
         }) { (error) in

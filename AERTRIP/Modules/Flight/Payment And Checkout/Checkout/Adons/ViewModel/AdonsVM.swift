@@ -11,7 +11,7 @@ import UIKit
 protocol BookFlightDelegate : class {
     func willBookFlight()
     func bookFlightSuccessFully()
-    func failedToBookBlight()
+    func failedToBookBlight(error:ErrorCodes)
 }
 
 class AdonsVM  {
@@ -46,7 +46,7 @@ class AdonsVM  {
     var afCount = 0
     weak var delegate : BookFlightDelegate?
     var bookingObject = BookFlightObject()
-    
+    var isSkipButtonTap = false
     var isComplementaryMealAdded : Bool {
         let dataStore = AddonsDataStore.shared
         return dataStore.isFreeMeal
@@ -611,7 +611,7 @@ class AdonsVM  {
                 self.delegate?.bookFlightSuccessFully()
                 //                    AddonsDataStore.shared.taxesDataDisplay()
             }else{
-                self.delegate?.failedToBookBlight()
+                self.delegate?.failedToBookBlight(error: error)
             }
         }
         
@@ -634,7 +634,7 @@ class AdonsVM  {
                 AddonsDataStore.shared.appliedCouponData = iteneraryData
                 self.delegate?.bookFlightSuccessFully()
             }else{
-                self.delegate?.failedToBookBlight()
+                self.delegate?.failedToBookBlight(error:error)
             }
         }
     }
