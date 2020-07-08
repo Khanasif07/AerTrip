@@ -43,7 +43,19 @@
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cdk-AO-cdW">
                         <rect key="frame" x="22" y="0.0" width="67" height="67"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="zAD-HY-xHI">
+                                <rect key="frame" x="0.0" y="0.0" width="67" height="67"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="zAD-HY-xHI" firstAttribute="leading" secondItem="cdk-AO-cdW" secondAttribute="leading" id="kDg-dE-06j"/>
+                            <constraint firstAttribute="trailing" secondItem="zAD-HY-xHI" secondAttribute="trailing" id="mAQ-OO-KbU"/>
+                            <constraint firstAttribute="bottom" secondItem="zAD-HY-xHI" secondAttribute="bottom" id="nWo-C5-fMl"/>
+                            <constraint firstItem="zAD-HY-xHI" firstAttribute="top" secondItem="cdk-AO-cdW" secondAttribute="top" id="y9c-RR-NbD"/>
+                        </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kMY-QI-2Ne" userLabel="Seat label">
                         <rect key="frame" x="34.5" y="110" width="42" height="21"/>
@@ -74,10 +86,11 @@
                 <outlet property="seatLabel" destination="kMY-QI-2Ne" id="DKd-hr-EAd"/>
                 <outlet property="selectionImageView" destination="cdk-AO-cdW" id="jY9-96-tZe"/>
             </connections>
-            <point key="canvasLocation" x="180.43478260869566" y="147.32142857142856"/>
+            <point key="canvasLocation" x="180.43478260869566" y="145.98214285714286"/>
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="Checkmark" width="23" height="18.5"/>
         <image name="meals" width="104" height="104"/>
     </resources>
 </document>

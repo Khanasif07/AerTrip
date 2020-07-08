@@ -17,6 +17,7 @@ protocol SeatMapContainerDelegate: AnyObject {
     func willFetchQuotationData()
     func didFetchQuotationData(_ quotationModel: AddonsQuotationsModel)
     func faildToFetchQuotationData()
+    func updateProgress(_ progress: Float)
 }
 
 class SeatMapContainerVM {
@@ -45,7 +46,7 @@ class SeatMapContainerVM {
     private let itId: String
     private let fk: String
     private let domesticLegFKs: [String]
-    private let isInternational: Bool
+    let isInternational: Bool
     var bookingId = ""
     var seatMapModel = SeatMapModel()
     
@@ -91,13 +92,17 @@ class SeatMapContainerVM {
             delegate?.didFetchSeatMapData()
             return
         }
-        
         func fetchSeatMapDataForFK(_ key: String) {
             let params: JSONDictionary = [FlightSeatMapKeys.sid.rawValue: sid,
                                           FlightSeatMapKeys.itId.rawValue: itId,
                                           FlightSeatMapKeys.fk.rawValue: key]
             APICaller.shared.callSeatMapAPI(params: params) { [weak self] (seatModel, error) in
                 guard let self = self else { return }
+                if self.isInternational {
+                    self.delegate?.updateProgress(1)
+                } else {
+                    self.delegate?.updateProgress(0.75/Float(self.domesticLegFKs.count))
+                }
                 if let model = seatModel {
                     if self.seatMapModel.data.leg.count == 0 {
                        self.seatMapModel = model
@@ -134,6 +139,7 @@ class SeatMapContainerVM {
         self.delegate?.willFetchSeatMapData()
         let params: JSONDictionary = [FlightSeatMapKeys.type.rawValue: "seat", FlightSeatMapKeys.bid.rawValue: bookingId]
         APICaller.shared.callPostBookingSeatMapAPI(params: params) { [weak self] (seatModel, error) in
+            self?.delegate?.updateProgress(1)
             if let model = seatModel {
                 self?.seatMapModel = model
                 self?.delegate?.didFetchSeatMapData()
@@ -144,9 +150,7 @@ class SeatMapContainerVM {
     }
     
     func getSeatTotal(_ seatTotal: @escaping ((Int) -> ())) {
-        
-        let previouslySelectedSeats = originalBookedAddOnSeats.map { $0.columnData.ssrCode }
-        
+                
         func calculateSeatTotal() -> Int {
             var seatTotal = 0
             selectedSeats.removeAll()
@@ -154,9 +158,17 @@ class SeatMapContainerVM {
                 let rows = flight.md.rows.flatMap { $0.value } + flight.ud.rows.flatMap { $0.value }
                 rows.forEach { (_, rowData) in
                     if rowData.columnData.passenger != nil {
-                        if !previouslySelectedSeats.contains(rowData.columnData.ssrCode) {
-                            seatTotal += rowData.columnData.amount
+                        
+                        if originalBookedAddOnSeats.contains(where: { $0.columnData.passenger?.id == rowData.columnData.passenger?.id && $0.columnData.amount >= rowData.columnData.amount }) {
+                            
+                        } else {
+                            if let seatData = originalBookedAddOnSeats.first(where: { $0.columnData.passenger?.id == rowData.columnData.passenger?.id }) {
+                                seatTotal += rowData.columnData.amount - seatData.columnData.amount
+                            } else {
+                                seatTotal += rowData.columnData.amount
+                            }
                         }
+                        
                         selectedSeats.append(rowData)
                     }
                 }

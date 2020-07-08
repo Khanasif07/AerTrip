@@ -22,7 +22,7 @@ extension APICaller{
                     completionBlock(true, [], nil)
                 }
             }, failure:  { (errors) in
-                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .flights)
                 completionBlock(false, errors, nil)
             })
         }) { (error) in
@@ -50,7 +50,7 @@ extension APICaller{
                     completionBlock(true, [], nil)
                 }
             }, failure:  { (errors) in
-                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .flights)
                 completionBlock(false, errors, nil)
             })
         }) { (error) in

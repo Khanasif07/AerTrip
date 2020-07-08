@@ -11,7 +11,7 @@ import UIKit
 protocol BookFlightDelegate : class {
     func willBookFlight()
     func bookFlightSuccessFully()
-    func failedToBookBlight()
+    func failedToBookBlight(error:ErrorCodes)
 }
 
 class AdonsVM  {
@@ -46,7 +46,7 @@ class AdonsVM  {
     var afCount = 0
     weak var delegate : BookFlightDelegate?
     var bookingObject = BookFlightObject()
-    
+    var isSkipButtonTap = false
     var isComplementaryMealAdded : Bool {
         let dataStore = AddonsDataStore.shared
         return dataStore.isFreeMeal
@@ -234,7 +234,41 @@ class AdonsVM  {
         }
     }
     
-    func setBaggageStrings()  {
+    
+    func setBaggageStrings() {
+        
+        let dataStore = AddonsDataStore.shared
+        
+        var description = ""
+        var count = 0
+        
+        if self.isBaggageSelected(){
+            dataStore.flightsWithData.forEach { (flight) in
+                let baggage = flight.bags.addonsArray.filter { !$0.bagageSelectedFor.isEmpty }
+                baggage.forEach { (bag) in
+                    bag.bagageSelectedFor.forEach { (passenger) in
+                        count += 1
+                        guard let desc = bag.ssrName?.name else { return }
+                        description += "\(desc), "
+                    }
+                }
+            }
+        }
+        
+        if description.isEmpty {
+            description = LocalizedString.Choose_Baggage.localized
+        }
+        
+        if let ind = self.addonsData.firstIndex(where: { (addonsData) -> Bool in
+            return addonsData.addonsType == .baggage
+        }){
+            self.addonsData[ind].heading = count != 0 ? LocalizedString.Baggage.localized + " " + "x\(count)" : LocalizedString.Baggage.localized
+            self.addonsData[ind].description = description.replacingLastOccurrenceOfString(", ", with: "")
+        }
+    }
+    
+    
+    func setBaggageStringsOld()  {
         
         let dataStore = AddonsDataStore.shared
         
@@ -248,7 +282,7 @@ class AdonsVM  {
                     bag.bagageSelectedFor.forEach { (passenger) in
                         let saperatedArray = bag.ssrName?.name.components(separatedBy: "Kgs")
                         guard let firstKg = saperatedArray?.first else { return }
-                        headingStr += "\(firstKg), "
+                        headingStr += "\(firstKg.removingLeadingZeros), "
                         guard let desc = bag.ssrName?.name else { return }
                         description += "\(desc), "
                     }
@@ -577,7 +611,7 @@ class AdonsVM  {
                 self.delegate?.bookFlightSuccessFully()
                 //                    AddonsDataStore.shared.taxesDataDisplay()
             }else{
-                self.delegate?.failedToBookBlight()
+                self.delegate?.failedToBookBlight(error: error)
             }
         }
         
@@ -600,7 +634,7 @@ class AdonsVM  {
                 AddonsDataStore.shared.appliedCouponData = iteneraryData
                 self.delegate?.bookFlightSuccessFully()
             }else{
-                self.delegate?.failedToBookBlight()
+                self.delegate?.failedToBookBlight(error:error)
             }
         }
     }

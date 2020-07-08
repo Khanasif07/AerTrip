@@ -287,9 +287,10 @@ extension PostBookingAddonsPaymentVC:PostBookingAddonsPaymentVMDelegate{
         }
     }
     
-    func makePaymentFail() {
+    func makePaymentFail(error: ErrorCodes) {
         hideShowLoader(isHidden: true)
-        AppToast.default.showToastMessage(message: "Make Payment Failed")
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
+//        AppToast.default.showToastMessage(message: "Make Payment Failed")
     }
     
     func willGetPaymentResonse() {
@@ -307,7 +308,8 @@ extension PostBookingAddonsPaymentVC:PostBookingAddonsPaymentVMDelegate{
         
     }
     
-    func getPaymentResonseFail() {
+    func getPaymentResonseFail(error: ErrorCodes) {
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
         hideShowLoader(isHidden: true)
     }
     
@@ -467,18 +469,6 @@ extension PostBookingAddonsPaymentVC{
     
     
     func getHeightOfRowForFirstSection(_ indexPath: IndexPath) -> CGFloat {
-//        switch indexPath.row {
-//        case 0: // Empty Cell
-//            return 35.0
-//        case 1: // Pay by Wallet Cell
-//            return (UserInfo.loggedInUser != nil) ? 75.0 : 0.0
-//        case 2: // Empty Cell
-//            return (UserInfo.loggedInUser != nil) ? 35.0 : 0.0
-//        default:
-//            return 44 // Default Height Cell
-//        }
-        
-        
         switch self.viewModel.sectionTableCell[indexPath.section][indexPath.row] {
         case .EmptyCell:
             return 35.0

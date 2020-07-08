@@ -281,6 +281,10 @@
                                                             <action selector="bookButtonClicked:" destination="cso-qc-T0p" eventType="touchUpInside" id="0f4-LT-Zwm"/>
                                                         </connections>
                                                     </button>
+                                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Gnr-rS-YMH">
+                                                        <rect key="frame" x="337.5" y="17.5" width="20" height="20"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </activityIndicatorView>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vPM-KF-4XR">
                                                         <rect key="frame" x="0.0" y="0.0" width="67" height="55"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -301,9 +305,11 @@
                                                     <constraint firstAttribute="trailing" secondItem="TGZ-i9-C3O" secondAttribute="trailing" constant="44" id="WVv-p8-bEW"/>
                                                     <constraint firstItem="9c5-QN-hXB" firstAttribute="leading" secondItem="ZMa-ic-aeE" secondAttribute="leading" constant="16" id="bGZ-CI-dNJ"/>
                                                     <constraint firstItem="9c5-QN-hXB" firstAttribute="centerY" secondItem="ZMa-ic-aeE" secondAttribute="centerY" id="evv-Ed-923"/>
+                                                    <constraint firstItem="Gnr-rS-YMH" firstAttribute="centerX" secondItem="TGZ-i9-C3O" secondAttribute="centerX" id="jNl-lz-4Ha"/>
                                                     <constraint firstItem="pC9-lf-fyp" firstAttribute="centerY" secondItem="ZMa-ic-aeE" secondAttribute="centerY" id="lLo-aB-09M"/>
                                                     <constraint firstItem="O6S-zv-cOJ" firstAttribute="centerY" secondItem="ZMa-ic-aeE" secondAttribute="centerY" id="sn8-vw-DhW"/>
                                                     <constraint firstItem="TGZ-i9-C3O" firstAttribute="centerY" secondItem="ZMa-ic-aeE" secondAttribute="centerY" id="tJe-O4-13P"/>
+                                                    <constraint firstItem="Gnr-rS-YMH" firstAttribute="centerY" secondItem="TGZ-i9-C3O" secondAttribute="centerY" id="uwh-sF-r4W"/>
                                                     <constraint firstItem="TXO-e4-Q4x" firstAttribute="leading" secondItem="O6S-zv-cOJ" secondAttribute="trailing" constant="10" id="xrX-K9-8sf"/>
                                                 </constraints>
                                             </view>
@@ -454,6 +460,7 @@
                         <outlet property="fewSeatsLeftLabel" destination="Wh6-6v-4pq" id="uOB-Sd-eAt"/>
                         <outlet property="fewSeatsLeftView" destination="U7M-xw-XFP" id="1r8-2B-nJB"/>
                         <outlet property="fewSeatsLeftViewHeight" destination="sdh-87-uXR" id="Gfo-Ho-YQT"/>
+                        <outlet property="indicator" destination="Gnr-rS-YMH" id="7LG-Ie-SzA"/>
                         <outlet property="infoLabel" destination="TXO-e4-Q4x" id="Dkj-IN-ZUK"/>
                         <outlet property="remainingSeatsCountLabel" destination="8HE-kk-nok" id="tio-M4-GWr"/>
                         <outlet property="strikeOutAmountLabel" destination="9c5-QN-hXB" id="AFY-7r-v3W"/>

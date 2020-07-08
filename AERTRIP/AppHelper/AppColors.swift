@@ -156,6 +156,12 @@ enum AppColors {
     static let themeWhite85  = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.85)
 
     static let greenBackground  = UIColor(displayP3Red: 146/255, green: 255/255, blue: 228/255, alpha: 1)
+    
+    // RGB - 0,0,0 , 0.15
+    static let blackWith15PerAlpha =  UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.15)
+    
+    // RGB - 0,0,0 , 0.4
+    static let blackWith40PerAlpha =  UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.4)
 
     
     case headlines

@@ -21,7 +21,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return 1
         }
         if section == self.viewModel.ladgerDetails.count + 1{
-            return 2
+            return 3
         }
         
         guard let dict = self.viewModel.ladgerDetails["\(section - 1)"] as? JSONDictionary else {
@@ -56,10 +56,11 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         if indexPath.section == self.viewModel.ladgerDetails.count + 1{
-            if indexPath.row == 0{
-                return 28
-            }else{
-                return 44
+            switch indexPath.row {
+            case 0: return 28
+            case 1: return 44
+            case 2: return 35
+            default: return 0
             }
         }
         
@@ -104,17 +105,19 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         if indexPath.section == self.viewModel.ladgerDetails.count + 1{
-            if indexPath.row == 0{
-
-                    guard let emptyCell = self.tableView.dequeueReusableCell(withIdentifier: "EmptyTableViewCell") as? EmptyTableViewCell else {
-                        fatalError("EmptyTableViewCell not found")
-                    }
+            
+            switch indexPath.row {
+            case 0,2:
+                guard let emptyCell = self.tableView.dequeueReusableCell(withIdentifier: "EmptyTableViewCell") as? EmptyTableViewCell else {
+                    fatalError("EmptyTableViewCell not found")
+                }
+                emptyCell.bottomDividerView.isHidden = true//(indexPath.row == 2)
+                emptyCell.topDividerView.isHidden = (indexPath.row == 2)
                 return emptyCell
-                
-            }else{
-                    guard let downloadInvoiceCell = self.tableView.dequeueReusableCell(withIdentifier: "DownloadInvoiceTableViewCell") as? DownloadInvoiceTableViewCell else {
-                        fatalError("DownloadInvoiceTableViewCell not found")
-                    }
+            case 1:
+                guard let downloadInvoiceCell = self.tableView.dequeueReusableCell(withIdentifier: "DownloadInvoiceTableViewCell") as? DownloadInvoiceTableViewCell else {
+                    fatalError("DownloadInvoiceTableViewCell not found")
+                }
                 var isForVouchre = false
                 if let type = self.viewModel.ladgerEvent?.productType{
                     switch type{
@@ -122,13 +125,14 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                     default: isForVouchre = true
                     }
                 }
-                    downloadInvoiceCell.topDividerView.isHidden = true
+                downloadInvoiceCell.topDividerView.isHidden = true
                 downloadInvoiceCell.showLoader = self.viewModel.isDownloadingRecipt
-                    downloadInvoiceCell.titleLabel.text = isForVouchre ? LocalizedString.DownloadReceipt.localized : LocalizedString.DownloadInvoice.localized
-                    
-                    return downloadInvoiceCell
+                downloadInvoiceCell.titleLabel.text = isForVouchre ? LocalizedString.DownloadReceipt.localized : LocalizedString.DownloadInvoice.localized
                 
+                return downloadInvoiceCell
+            default: return UITableViewCell()
             }
+            
         }
         
         let section = indexPath.section - 1
@@ -261,7 +265,10 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
         let value:CGFloat = (self.numberOfSections(in: self.tableView) - 1 ) == indexPath.section ? 0 : 16
         cell.dividerLeadingConstraint.constant = value
-            cell.dividerTrailingConstraint.constant = value
+        cell.dividerTrailingConstraint.constant = value
+//        if indexPath.section == self.viewModel.ladgerDetails.count{
+            cell.isHidden = (indexPath.section == self.viewModel.ladgerDetails.count)
+//        }
         return cell
     }
     
@@ -270,7 +277,13 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        cell.configure(title: title, description: description, age: age)
+        if title == "Balance" || title == "Amount" || title == "Total Amount"  || title == "Pending Amount"{
+            let val = (description.toDouble ?? 0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
+            cell.configureCellWithAttributedText(title: title, description: val)
+        }else{
+            cell.configure(title: title, description: description, age: age)
+        }
+        
         if let color = descriptionColor {
             cell.descLabel.textColor = color
         }
@@ -352,6 +365,25 @@ class AccountLadgerDetailCell: UITableViewCell {
             self.descLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
         }
     }
+    
+    
+    func configureCellWithAttributedText(title: String, description: NSAttributedString){
+        self.titleLabel.isHidden = false
+        self.titleLabel.font = AppFonts.Regular.withSize(16.0)
+        self.titleLabel.textColor = AppColors.themeBlack
+        self.titleLabel.text = title
+        
+        self.descLabel.isHidden = false
+        self.descLabel.font = AppFonts.Regular.withSize(16.0)
+        self.descLabel.textColor = AppColors.themeBlack//textFieldTextColor51
+        self.descLabel.attributedText = description
+    }
+    
+    func setTitleFor(key: String, value: String){
+        
+//        attributedText = (self.event?.amount ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
+    }
+    
 }
 
 

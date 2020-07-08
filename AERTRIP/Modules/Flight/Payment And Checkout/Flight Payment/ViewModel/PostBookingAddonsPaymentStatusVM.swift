@@ -18,6 +18,10 @@ class PostBookingAddonsPaymentStatusVM{
     var pax = [Pax]()
     var sectionData = [[CellType]]()
     var cellDataToShow = [[CustomDetail]]()
+    var perAPIPersentage:Double{
+        0.8/Double(self.bookingIds.count + 1)
+    }
+    var bookingAPIGroup = DispatchGroup()
     
     enum CellType{
         case seatBooked, empty, passenger, flightTitle, accessBooking
@@ -85,7 +89,7 @@ class PostBookingAddonsPaymentStatusVM{
                 self.addonsReceipt = receiptData ?? AddonsReceiptModel()
                 self.delegate?.getBookingReceiptSuccess()
             } else {
-                self.delegate?.getBookingReceiptFail()
+                self.delegate?.getBookingReceiptFail(error: errors)
             }
         }
     }
@@ -106,21 +110,24 @@ class PostBookingAddonsPaymentStatusVM{
         if UserInfo.loggedInUserId == nil{
             params["is_guest_user"] = true
         }
+        self.bookingAPIGroup.enter()
         delegate?.willGetBookingDetail()
         APICaller.shared.getBookingDetail(params: params) { [weak self] success, errors, bookingDetail in
             guard let self = self else { return }
+            self.delegate?.getBookingResponseWithIndex(success: success)
+            self.bookingAPIGroup.leave()
             if success {
                 self.bookingDetails[index] = bookingDetail
                 self.setSeatMapAvailability(bookingId, booking: bookingDetail)
                 self.getPax()
-                if index == (self.bookingDetails.count - 1){
-                    AppGlobals.shared.stopLoading()
-                    self.delegate?.getBookingDetailSucces()
-                }
-            } else {
-                if index == (self.bookingDetails.count - 1){
-                    AppGlobals.shared.stopLoading()
-                    self.delegate?.getBookingDetailFaiure(error: errors)
+            }
+            self.bookingAPIGroup.notify(queue: .main) {
+                delay(seconds: 0.2) {
+                    if success {
+                        self.delegate?.getBookingDetailSucces()
+                    }else{
+                        self.delegate?.getBookingDetailFaiure(error: errors)
+                    }
                 }
             }
         }

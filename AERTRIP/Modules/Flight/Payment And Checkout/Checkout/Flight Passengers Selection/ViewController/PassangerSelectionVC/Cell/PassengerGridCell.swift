@@ -21,6 +21,7 @@ class PassengerGridCell: UITableViewCell{
     private var lineSpacing: CGFloat = 5
     var totalPassenger:Int = 0
     var journeyType:JourneyType = .domestic
+    var lastJourneyDate = Date()
     var isAllPaxInfoRequired = false
     weak var delegate: PassengerGridSelectionDelegate?
     var minMNS = 10
@@ -88,8 +89,10 @@ extension PassengerGridCell: UICollectionViewDataSource, UICollectionViewDelegat
         }
         cell.journeyType = self.journeyType
         if GuestDetailsVM.shared.guests.count > forIdx.row, GuestDetailsVM.shared.guests[forIdx.row].count > indexPath.item {
+            cell.innerCellIndex = indexPath
             cell.contact = GuestDetailsVM.shared.guests[forIdx.row][indexPath.item]
         }
+        cell.lastJourneyDate = self.lastJourneyDate
         cell.isAllPaxInfoRequired = self.isAllPaxInfoRequired
         cell.minMNS = self.minMNS
         cell.maxMNS = self.maxMNS

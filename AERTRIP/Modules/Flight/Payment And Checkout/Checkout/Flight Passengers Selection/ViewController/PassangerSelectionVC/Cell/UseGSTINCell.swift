@@ -60,8 +60,16 @@ class UseGSTINCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.setSeperatorColor()
         self.selectGSTDetailView.isHidden = true
         self.enterGSTView.isHidden = true
+    }
+    
+    func setSeperatorColor(){
+        [companyNameSeparatorView, billingNameSeperatorView, selectGSTFieldSeparatorView].forEach { view in
+            view?.backgroundColor = AppColors.divider.color
+        }
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -98,6 +106,9 @@ class UseGSTINCell: UITableViewCell {
             txt?.textColor =  AppColors.textFieldTextColor51
             txt?.font = AppFonts.Regular.withSize(18.0)
             txt?.titleFont = AppFonts.Regular.withSize(14.0)
+            txt?.lineHeight = 0.33
+            txt?.lineColor = AppColors.clear
+            txt?.lineView.isHidden = true
             txt?.addTarget(self, action: #selector(changeTextFiledValue), for: .editingDidEnd)
         }
         self.useGSTTopConstraint.constant = 10

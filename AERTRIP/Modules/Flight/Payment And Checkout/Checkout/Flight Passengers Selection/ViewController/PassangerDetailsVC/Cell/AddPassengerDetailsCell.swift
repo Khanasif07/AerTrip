@@ -10,6 +10,7 @@ import UIKit
 
 protocol  UpdatePassengerDetailsDelegate: NSObjectProtocol {
     func tapOptionalDetailsBtn(at indexPath:IndexPath)
+    func shouldSetupBottom(isNeedToSetUp:Bool)
 }
 
 class AddPassengerDetailsCell: UITableViewCell {
@@ -56,6 +57,7 @@ class AddPassengerDetailsCell: UITableViewCell {
     var cellIndexPath = IndexPath()
     var journeyType: JourneyType = .domestic
     private var preSelectedCountry: PKCountryModel?
+    var lastJourneyDate:Date = Date()
     var allPaxInfoRequired = true
     var guestDetail: ATContact? {
         didSet {
@@ -285,8 +287,13 @@ class AddPassengerDetailsCell: UITableViewCell {
     func domesticValidations(){
         guard let type = self.guestDetail?.passengerType else {return}
         switch type {
-        case .Adult,.child:
+        case .Adult:
             break;
+        case .child:
+            let isValidDob = !((self.dobTextField.text ?? "").isEmpty)
+            self.dobTextField.isError = !isValidDob
+            let dob = self.dobTextField.placeholder ?? ""
+            self.dobTextField.attributedPlaceholder = NSAttributedString(string: dob, attributes: [NSAttributedString.Key.foregroundColor: isValidDob ? AppColors.themeGray40 :  AppColors.themeRed])
         case .infant:
             let isValidDob = !((self.dobTextField.text ?? "").isEmpty)
             self.dobTextField.isError = !isValidDob
@@ -320,7 +327,7 @@ class AddPassengerDetailsCell: UITableViewCell {
             let minNumb = self.preSelectedCountry?.minNSN ?? 0
             let maxNumb = self.preSelectedCountry?.maxNSN ?? 0
             let mobileText = self.mobileTextField.text ?? ""
-            let isValidMobile = (!(mobileText.isEmpty) && (mobileText.count >= minNumb)  && (mobileText.count <= maxNumb))
+            let isValidMobile = (!(mobileText.isEmpty) && (self.getOnlyIntiger(mobileText).count >= minNumb)  && (self.getOnlyIntiger(mobileText).count <= maxNumb))
             let isValidMail = self.emailTextField.text?.isEmail ?? true
             mobileTextField.attributedPlaceholder = NSAttributedString(string: "Mobile", attributes: [NSAttributedString.Key.foregroundColor: isValidMobile ? AppColors.themeGray40 :  AppColors.themeRed])
             self.mobileTextField.isError = !isValidMobile
@@ -403,6 +410,7 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
         PKCountryPicker.default.closePicker()
         switch textField {
         case self.dobTextField:
+            self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
             let selected = (textField.text ?? "").toDate(dateFormat: "dd MMM YYYY")
             var minimumDate:Date? = Date()
             if let passenger = self.guestDetail{
@@ -410,9 +418,9 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
                 case .Adult:
                     minimumDate = nil
                 case .child:
-                    minimumDate = Date().add(years: -12, days: 1)
+                    minimumDate = self.lastJourneyDate.add(years: -12, days: 1)
                 case .infant:
-                    minimumDate = Date().add(years: -2, days: 1)
+                    minimumDate = self.lastJourneyDate.add(years: -2, days: 1)
                     
                 }
             }
@@ -424,6 +432,7 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
             }
             textField.tintColor = AppColors.clear
         case self.nationalityTextField:
+            self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
             var countries = [String]()
             if let country = GuestDetailsVM.shared.countries{
                 countries = Array(country.values).sorted()
@@ -436,6 +445,7 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
             }
             textField.tintColor = AppColors.clear
         case self.passportExpiryTextField:
+            self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
             let selected = (textField.text ?? "").toDate(dateFormat: "dd MMM YYYY")
             PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd MMM YYYY", mode: .date, minimumDate: Date(), maximumDate: nil, selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { (dateStr) in
                 textField.text = dateStr
@@ -444,7 +454,10 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
                 }
             }
             textField.tintColor = AppColors.clear
+        case self.passportNumberTextField, self.mobileTextField, self.emailTextField:
+            self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
         default:
+            self.delegate?.shouldSetupBottom(isNeedToSetUp: false)
             return true
         }
         return true
@@ -482,7 +495,7 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
         case self.passportNumberTextField:
             GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].passportNumber = (textField.text ?? "").removeAllWhitespaces
         case self.mobileTextField:
-            GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].contact = (textField.text ?? "").removeAllWhitespaces
+            GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].contact = getOnlyIntiger(textField.text ?? "").removeAllWhitespaces
         case self.emailTextField:
             GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].emailLabel = (textField.text ?? "").removeAllWhitespaces
         default:
@@ -495,5 +508,10 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    func getOnlyIntiger(_ str: String)->String{
+        let newStr = str.lowercased()
+        let okayChars = Set("1234567890")
+        return newStr.filter {okayChars.contains($0) }
     }
 }

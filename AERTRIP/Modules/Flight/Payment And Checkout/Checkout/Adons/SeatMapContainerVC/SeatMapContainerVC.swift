@@ -41,12 +41,14 @@ class SeatMapContainerVC: UIViewController {
     @IBOutlet weak var planeLayoutCollView: UICollectionView!
     @IBOutlet weak var planeLayoutCollViewWidth: NSLayoutConstraint!
     @IBOutlet weak var totalSeatAmountView: UIView!
+    @IBOutlet weak var bottomWhiteView: UIView!
     @IBOutlet weak var totalSeatAmountTopSeparatorView: UIView!
     @IBOutlet weak var seatTotalTitleLbl: UILabel!
     @IBOutlet weak var seatTotalLbl: UILabel!
     @IBOutlet weak var addBtn: UIButton!
     @IBOutlet weak var totalSeatAmountViewHeight: NSLayoutConstraint!
     @IBOutlet weak var highlightContainerView: UIView!
+    @IBOutlet weak var apiProgressView: UIProgressView!
     
     
     // MARK: View Life Cycle
@@ -59,6 +61,23 @@ class SeatMapContainerVC: UIViewController {
         super.viewDidLayoutSubviews()
         self.parchmentView?.view.frame = self.seatMapContainerView.bounds
         self.parchmentView?.loadViewIfNeeded()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if viewModel.setupFor == .preSelection {
+            if AddonsDataStore.shared.originalSeatMapModel == nil {
+                animateProgressView(duration: 3, progress: 0.25, completion: nil)
+            } else {
+                animateProgressView(duration: 1, progress: 1, completion: {
+                    DispatchQueue.delay(1) { [weak self] in
+                        self?.apiProgressView.setProgress(0, animated: false)
+                    }
+                })
+            }
+        } else {
+            animateProgressView(duration: 1, progress: 0.25, completion: nil)
+        }
     }
     
     // MARK: IBActions
@@ -87,13 +106,16 @@ class SeatMapContainerVC: UIViewController {
         planeLayoutScrollView.delegate = self
         self.planeLayoutView.isHidden = true
         self.planeShadowView.isHidden = true
-        delay(seconds: 0.2) {
+//        delay(seconds: 0.2) {
+        delay(seconds: 1) {
             self.viewModel.fetchSeatMapData()
+        }
+            
             self.setupPlaneLayoutCollView()
             self.addPanToHighlightView()
 //            self.planeLayoutView.isHidden = false
 //            self.planeShadowView.isHidden = false
-        }
+//        }
     }
     
     func setViewModel(_ vm: SeatMapContainerVM) {
@@ -147,6 +169,9 @@ class SeatMapContainerVC: UIViewController {
         let addBtnTitle = viewModel.setupFor == .postSelection ? LocalizedString.CheckoutTitle.localized : LocalizedString.Add.localized
         addBtn.setTitle(addBtnTitle, for: .normal)
         totalSeatAmountView.addShadow(ofColor: .black, radius: 20, opacity: 0.05)
+        apiProgressView.progressTintColor = UIColor.AertripColor
+        apiProgressView.trackTintColor = .clear
+        apiProgressView.setProgress(0, animated: false)
     }
     
     private func addHighlightView() {
@@ -155,22 +180,27 @@ class SeatMapContainerVC: UIViewController {
         highlightContainerView.addSubview(highlightView!)
     }
     
+    private func animateProgressView(duration: TimeInterval = 1, progress: Float, completion: (() -> ())?) {
+        UIView.animate(withDuration: duration, animations: {
+            self.apiProgressView.setProgress(progress, animated: true)
+        }, completion: { _ in
+            completion?()
+        })
+    }
+    
     private func setUpViewPager() {
         self.allChildVCs.removeAll()
 
         for index in 0..<viewModel.allTabsStr.count {
             let vc = SeatMapVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
-            vc.setFlightData(viewModel.allFlightsData[index])
-//            if viewModel.setupFor == .postSelection {
-//                vc.setPassengersFromBooking(viewModel.bookedPassengersArr)
-//            }
+            vc.setFlightData(viewModel.allFlightsData[index], viewModel.setupFor)
             vc.onReloadPlaneLayoutCall = { [weak self] updatedFlightData in
                 guard let self = self else { return }
                 if let flightData = updatedFlightData {
                     self.viewModel.allFlightsData[index] = flightData
                     self.viewModel.getSeatTotal { [weak self] (seatTotal) in
                         guard let self = self else { return }
-                        self.seatTotalLbl.text = "₹ \(seatTotal)"
+                        self.seatTotalLbl.text = "₹ \(seatTotal.formattedWithCommaSeparator)"
                     }
                 }
                 self.planeLayoutCollView.reloadData()
@@ -198,7 +228,7 @@ class SeatMapContainerVC: UIViewController {
         self.parchmentView = PagingViewController()
         self.parchmentView?.menuItemSpacing = 34
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 15, bottom: 0.0, right: 15)
-        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 56)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 55)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
@@ -280,7 +310,7 @@ class SeatMapContainerVC: UIViewController {
             self.planeLayoutView.alpha = 1
         }, completion:  { _ in
             if callHide {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: self.hidePlaneLayoutWorkItem!)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.77, execute: self.hidePlaneLayoutWorkItem!)
             }
         })
     }
@@ -298,38 +328,19 @@ extension SeatMapContainerVC {
         let convertedRectForHighlightView = highlightContainerView.convert(highlightView?.frame ?? .zero, to: planeLayoutScrollView)
         
         let convertedRectMaxXOffset = convertedRectForHighlightView.origin.x + convertedRectForHighlightView.width
-        let scrollViewMaxXOffset = planeLayoutScrollView.contentOffset.x + planeLayoutScrollView.width - 16
+        let scrollViewMaxXOffset = planeLayoutScrollView.contentOffset.x + planeLayoutScrollView.width - 100
         
         if convertedRectMaxXOffset > scrollViewMaxXOffset {
             
-            if ((highlightView?.frame.maxX ?? 0) >= highlightContainerView.width - 30) && (highlightContainerView.frame.maxX >= scrollViewMaxXOffset) {
-                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-                    self.planeLayoutScrollView.contentOffset.x += 100
-                }, completion: nil)
-                return
-            }
-            
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-                self.planeLayoutScrollView.contentOffset.x += 20
-            }, completion: nil)
+            self.planeLayoutScrollView.contentOffset.x += convertedRectMaxXOffset - scrollViewMaxXOffset
         }
         
         let convertedRectXOffset = convertedRectForHighlightView.origin.x
-        let scrollViewXOffset = planeLayoutScrollView.contentOffset.x + 16
+        let scrollViewXOffset = planeLayoutScrollView.contentOffset.x + 100
         if convertedRectXOffset < scrollViewXOffset {
             
-            if ((highlightView?.frame.minX ?? 0) <= 30) && (highlightContainerView.frame.minX <= scrollViewXOffset) {
-                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-                    self.planeLayoutScrollView.contentOffset.x -= 100
-                }, completion: nil)
-                return
-            }
-            
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-                self.planeLayoutScrollView.contentOffset.x -= 20
-            }, completion: nil)
+            self.planeLayoutScrollView.contentOffset.x -= (scrollViewXOffset - convertedRectXOffset)
         }
-        
     }
     
     /// adds pan gesture to highlighted view
@@ -366,21 +377,18 @@ extension SeatMapContainerVC {
         let convertedRectForHighlightView = highlightContainerView.convert(highlightView?.frame ?? .zero, to: planeLayoutScrollView)
         if translationX > 0 {
             let convertedRectMaxXOffset = convertedRectForHighlightView.origin.x + convertedRectForHighlightView.width
-            let scrollViewMaxXOffset = planeLayoutScrollView.contentOffset.x + planeLayoutScrollView.width - 16
+            let scrollViewMaxXOffset = planeLayoutScrollView.contentOffset.x + planeLayoutScrollView.width - 100
             if convertedRectMaxXOffset > scrollViewMaxXOffset {
-                UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseInOut, animations: {
-                    self.planeLayoutScrollView.contentOffset.x += 5
-                    self.highlightView?.origin.x += 5
-                }, completion: nil)
+                
+                self.planeLayoutScrollView.contentOffset.x += 1
+                self.highlightView?.origin.x += 1
             }
         } else {
             let convertedRectXOffset = convertedRectForHighlightView.origin.x
-            let scrollViewXOffset = planeLayoutScrollView.contentOffset.x + 16
+            let scrollViewXOffset = planeLayoutScrollView.contentOffset.x + 100
             if convertedRectXOffset < scrollViewXOffset {
-                UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseInOut, animations: {
-                    self.planeLayoutScrollView.contentOffset.x -= 5
-                    self.highlightView?.origin.x -= 5
-                }, completion: nil)
+                self.planeLayoutScrollView.contentOffset.x -= 1
+                self.highlightView?.origin.x -= 1
             }
         }
     }
@@ -405,7 +413,7 @@ extension SeatMapContainerVC: TopNavigationViewDelegate {
             delegate?.seatsUpdated(amount: 0)
         }
         allChildVCs.enumerated().forEach { (index, seatMapVC) in
-            seatMapVC.setFlightData(viewModel.allFlightsData[index])
+            seatMapVC.setFlightData(viewModel.allFlightsData[index], viewModel.setupFor)
             if seatMapVC.viewModel.deckData.rows.count > 0 {
                 if seatMapVC.seatMapCollView != nil {
                     seatMapVC.seatMapCollView.reloadData()
@@ -422,35 +430,49 @@ extension SeatMapContainerVC: TopNavigationViewDelegate {
     
 }
 
-extension SeatMapContainerVC: SeatMapContainerDelegate {
+extension SeatMapContainerVC: SeatMapContainerDelegate {    
+    
+    func updateProgress(_ progress: Float) {
+        if viewModel.isInternational {
+            animateProgressView(progress: progress) {
+                DispatchQueue.delay(1) { [ weak self] in
+                    self?.apiProgressView.setProgress(0, animated: false)
+                }
+            }
+        } else {
+            let totalProgress = apiProgressView.progress
+            animateProgressView(progress: progress + totalProgress) { [weak self] in
+                guard let self = self else { return }
+                if self.apiProgressView.progress >= 1 {
+                    DispatchQueue.delay(1) { [ weak self] in
+                        self?.apiProgressView.setProgress(0, animated: false)
+                    }
+                }
+            }
+        }
+    }
     
     func willFetchSeatMapData() {
-        DispatchQueue.main.async {
-            AppGlobals.shared.startLoading()
-        }
+        
     }
     
     func failedToFetchSeatMapData() {
-        DispatchQueue.main.async {
-            AppGlobals.shared.stopLoading()
-        }
-        AppToast.default.showToastMessage(message: LocalizedString.Will_Be_Available_Soon.localized)
+        
     }
     
     func willHitPostConfAPI() {
-        DispatchQueue.main.async {
-            AppGlobals.shared.startLoading()
-        }
+        animateProgressView(progress: 0.25, completion: nil)
     }
     
     func didHitPostConfAPI() {
-        DispatchQueue.main.async {
-            AppGlobals.shared.stopLoading()
-        }
+        animateProgressView(progress: 1, completion: {
+            DispatchQueue.delay(1) { [weak self] in
+                self?.apiProgressView.setProgress(0, animated: false)
+            }
+        })
     }
     
     func didFetchSeatMapData() {
-        AppGlobals.shared.stopLoading()
         var totalFlightsData = [SeatMapModel.SeatMapFlight]()
         viewModel.allTabsStr.removeAll()
         viewModel.seatMapModel.data.leg.forEach {
@@ -594,5 +616,20 @@ extension SeatMapContainerVC {
             
             return newFlightData
         }
+    }
+}
+
+
+extension Formatter {
+    static let withSeparator: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
+}
+
+extension Int {
+    var formattedWithCommaSeparator: String {
+        return Formatter.withSeparator.string(for: self) ?? ""
     }
 }

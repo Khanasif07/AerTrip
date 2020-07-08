@@ -17,18 +17,20 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var showPassportView: UIView!
     @IBOutlet weak var travellersTableView: ATTableView!
-    @IBOutlet weak var passengerTable: UITableView!
+    @IBOutlet weak var passengerTable: ATTableView!
     
     weak var delegate : HCSelectGuestsVCDelegate?
     var viewModel = PassengerDetailsVM()
+    var isNeedToshowBottom = false
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerCells()
-        self.setupTextView()
+//        self.setupTextView()
         self.doInitialSetup()
         GuestDetailsVM.shared.delegate = self
         titleLabel.text = "Passenger Details"
         titleLabel.font = AppFonts.SemiBold.withSize(18)
+        self.doneButton.titleLabel?.font = AppFonts.SemiBold.withSize(18)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,6 +53,7 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
         self.passengerTable.register(UINib(nibName: "MealPreferenceCell", bundle: nil), forCellReuseIdentifier: "MealPreferenceCell")
         self.passengerTable.register(UINib(nibName: "FlightEmptyCell", bundle: nil), forCellReuseIdentifier: "FlightEmptyCell")
         self.travellersTableView.registerCell(nibName: TravellerListTableViewCell.reusableIdentifier)
+        self.passengerTable.register(UINib(nibName: "SeeExampleHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "SeeExampleHeaderView")
         self.travellersTableView.register(UINib(nibName: AppConstants.ktableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: AppConstants.ktableViewHeaderViewIdentifier)
     }
     
@@ -67,6 +70,7 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
         self.passengerTable.backgroundColor = AppColors.themeGray04
         DispatchQueue.main.async {
             self.passengerTable.scrollToRow(at: self.viewModel.indexPath, at: .middle, animated: true)
+            self.passengerTable.reloadData()
         }
         addFooterViewToTravellerTableView()
     }
@@ -78,25 +82,25 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
         travellersTableView.tableFooterView = customView
     }
     
-    private func setupTextView(){
-        let passportTextView = UITextView()
-        let txt = "Enter names and info as they appear on your Passport/Government issued ID. See Example"
-        let attributedText = NSMutableAttributedString(string: "")
-        let attributedString = NSAttributedString(string: txt, attributes: [NSAttributedString.Key.font : AppFonts.Regular.withSize(14), .foregroundColor: AppColors.themeGray40])
-        attributedText.append(attributedString)
-        attributedText.addAttributes([.link: "hgf", .foregroundColor: AppColors.themeGreen], range: NSString(string: txt).range(of: "See Example"))
-        passportTextView.attributedText = attributedText
-        passportTextView.linkTextAttributes = [.font: AppFonts.Regular.withSize(14), .foregroundColor: AppColors.themeGreen]
-        passportTextView.isEditable = false
-        passportTextView.isScrollEnabled = false
-        passportTextView.delegate = self
-        passportTextView.sizeToFit()
-        passportTextView.frame.size.width = UIScreen.width - 22
-        passportTextView.frame.origin = CGPoint(x: 11.0, y: 0)
-        passportTextView.sizeToFit()
-        self.showPassportView.addSubview(passportTextView)
-        
-    }
+//    private func setupTextView(){
+//        let passportTextView = UITextView()
+//        let txt = "Enter names and info as they appear on your Passport/Government issued ID. See Example"
+//        let attributedText = NSMutableAttributedString(string: "")
+//        let attributedString = NSAttributedString(string: txt, attributes: [NSAttributedString.Key.font : AppFonts.Regular.withSize(14), .foregroundColor: AppColors.themeGray40])
+//        attributedText.append(attributedString)
+//        attributedText.addAttributes([.link: "hgf", .foregroundColor: AppColors.themeGreen], range: NSString(string: txt).range(of: "See Example"))
+//        passportTextView.attributedText = attributedText
+//        passportTextView.linkTextAttributes = [.font: AppFonts.Regular.withSize(14), .foregroundColor: AppColors.themeGreen]
+//        passportTextView.isEditable = false
+//        passportTextView.isScrollEnabled = false
+//        passportTextView.delegate = self
+//        passportTextView.sizeToFit()
+//        passportTextView.frame.size.width = UIScreen.width - 22
+//        passportTextView.frame.origin = CGPoint(x: 11.0, y: 0)
+//        passportTextView.sizeToFit()
+//        self.showPassportView.addSubview(passportTextView)
+//
+//    }
     
     
     private func editedGuest(_ travellerIndexPath: IndexPath) {
@@ -154,13 +158,17 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     
    @objc func keyboardWillShow(notification: Notification) {
         if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
-            self.passengerTable.setBottomInset(to: keyboardHeight + 10)
+            if self.isNeedToshowBottom{
+                self.passengerTable.setBottomInset(to: keyboardHeight + 10)
+            }
             self.viewModel.keyboardHeight = keyboardHeight
         }
     }
 
     @objc func keyboardWillHide(notification: Notification) {
-        self.passengerTable.setBottomInset(to: 0.0)
+        if self.isNeedToshowBottom{
+            self.passengerTable.setBottomInset(to: 0.0)
+        }
         self.passengerTable.isScrollEnabled = true
         GuestDetailsVM.shared.resetData()
         self.travellersTableView.reloadData()
@@ -168,11 +176,17 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     }
     
     
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        PassportExampleVC.showMe()
-//        let vc  = PassportExampleVC.instantiate(fromAppStoryboard: .PassengersSelection)
-//        self.present(vc, animated: true, completion: nil)
-        return false
+//    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+//        PassportExampleVC.showMe()
+////        let vc  = PassportExampleVC.instantiate(fromAppStoryboard: .PassengersSelection)
+////        self.present(vc, animated: true, completion: nil)
+//        return false
+//    }
+    
+    func presentPassportView(){
+        let vc  = PassportExampleVC.instantiate(fromAppStoryboard: .PassengersSelection)
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: true, completion: nil)
     }
     
     
@@ -218,16 +232,36 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if tableView === self.passengerTable {
-            return CGFloat.leastNormalMagnitude
+//            if section == 0{
+                return (section == 0) ? 62.0 : CGFloat.leastNonzeroMagnitude
+//            }else{
+//                return CGFloat.leastNonzeroMagnitude
+//            }
         } else {
-            return GuestDetailsVM.shared.numberOfRowsInSection(section: section) > 0 ? 28.0 : CGFloat.leastNormalMagnitude
+            return GuestDetailsVM.shared.numberOfRowsInSection(section: section) > 0 ? 28.0 : CGFloat.leastNonzeroMagnitude
         }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.leastNonzeroMagnitude
     }
     
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if tableView === self.passengerTable {
-            return nil
+            if section == 0{
+                let header = self.passengerTable.dequeueReusableHeaderFooterView(withIdentifier: "SeeExampleHeaderView") as? SeeExampleHeaderView
+                header?.hanler = {[weak self] in
+                    self?.presentPassportView()
+                }
+                return header
+            }else{
+                return nil
+            }
         } else {
             guard let headerView = travellersTableView.dequeueReusableHeaderFooterView(withIdentifier: AppConstants.ktableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
                 fatalError("ViewProfileDetailTableViewSectionView not found")
@@ -249,14 +283,14 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
             }else {
                 if self.viewModel.passengerList[indexPath.section].isMoreOptionTapped{
                     if indexPath.row == ((self.viewModel.passengerList[indexPath.section].frequentFlyer.count + self.viewModel.passengerList[indexPath.section].mealPreference.count) + 1){
-                        return getEmptyCell()
+                        return getEmptyCell(with: indexPath)
                     }else if indexPath.row <=  self.viewModel.passengerList[indexPath.section].mealPreference.count{
                         return getCellForMealPreference(with: indexPath)
                     }else{
                         return getCellForFrequentFlyer(with: indexPath)
                     }
                 }else{
-                    return getEmptyCell()
+                    return getEmptyCell(with: indexPath)
                 }
             }
             
@@ -283,6 +317,7 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
         cell.txtFldEditDelegate = self
         cell.allPaxInfoRequired = self.viewModel.isAllPaxInfoRequired
         cell.guestDetail = self.viewModel.passengerList[indexPath.section]
+        cell.lastJourneyDate = self.viewModel.lastJourneyDate
         return cell
     }
     
@@ -318,8 +353,10 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
         return cell
     }
     
-    func getEmptyCell()-> UITableViewCell{
+    func getEmptyCell(with indexPath: IndexPath)-> UITableViewCell{
         guard let cell = self.passengerTable.dequeueReusableCell(withIdentifier: "FlightEmptyCell") as? FlightEmptyCell else { return UITableViewCell() }
+        cell.bottomDividerView.isHidden = ((self.viewModel.passengerList.count-1) == indexPath.section)
+        cell.backgroundColor = AppColors.themeGray04
         return cell
         
     }
@@ -327,12 +364,19 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
 }
 
 extension PassengerDetailsVC : UpdatePassengerDetailsDelegate{
+    func shouldSetupBottom(isNeedToSetUp: Bool) {
+        self.isNeedToshowBottom = isNeedToSetUp
+    }
+    
     
     func tapOptionalDetailsBtn(at indexPath:IndexPath){
         GuestDetailsVM.shared.guests[0][indexPath.section].isMoreOptionTapped = true
         self.passengerTable.beginUpdates()
         self.passengerTable.reloadSections([indexPath.section], with: .automatic)
         self.passengerTable.endUpdates()
+        if (GuestDetailsVM.shared.guests[0].filter{$0.isMoreOptionTapped}).count < 2{
+            self.passengerTable.reloadData()
+        }
         
     }
     
@@ -384,9 +428,9 @@ extension PassengerDetailsVC: GuestDetailTableViewCellDelegate {
         if let _ = self.passengerTable.cell(forItem: textField) as? AddPassengerDetailsCell {
             //  get item position
             let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: passengerTable)
-            var  yValue = 62
+            var  yValue = 134
             if let index = self.viewModel.editinIndexPath {
-                yValue = index.section ==  GuestDetailsVM.shared.guests[0].count - 1 ? 63 : 65
+                yValue = index.section ==  GuestDetailsVM.shared.guests[0].count - 1 ? 135 : 137
                 if self.viewModel.isAllPaxInfoRequired{
                     yValue += 3
                 }

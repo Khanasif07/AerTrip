@@ -23,6 +23,7 @@ class SelectPassengerCell: UICollectionViewCell {
         seatLabel.text = ""
         seatLabel.font = AppFonts.Regular.withSize(14)
         seatLabel.textColor = AppColors.themeGray40
+        selectionImageView.backgroundColor = AppColors.themeGreen.withAlphaComponent(0.6)
         //self.setNeedsLayout()
         //self.layoutIfNeeded()
     }
@@ -47,12 +48,12 @@ class SelectPassengerCell: UICollectionViewCell {
         populateData(data: passengerData)
         if passengerData.id == selectedSeatData.columnData.passenger?.id {
             selectionImageView.isHidden = false
-            seatLabel.text = selectedSeatData.columnData.ssrCode.replacingOccurrences(of: "-", with: "") + "・" + "₹\(selectedSeatData.columnData.amount)"
+            seatLabel.text = selectedSeatData.columnData.ssrCode.replacingOccurrences(of: "-", with: "") + "・" + "₹\(selectedSeatData.columnData.amount.formattedWithCommaSeparator)"
         } else {
             selectionImageView.isHidden = true
             if let seat = seatDataArr.first(where: { $0.columnData.passenger?.id == passengerData.id }) {
                 if seat.columnData.ssrCode != selectedSeatData.columnData.ssrCode {
-                    seatLabel.text = seat.columnData.ssrCode.replacingOccurrences(of: "-", with: "") + "・" + "₹\(seat.columnData.amount)"
+                    seatLabel.text = seat.columnData.ssrCode.replacingOccurrences(of: "-", with: "") + "・" + "₹\(seat.columnData.amount.formattedWithCommaSeparator)"
                 } else {
                     seatLabel.text?.removeAll()
                 }

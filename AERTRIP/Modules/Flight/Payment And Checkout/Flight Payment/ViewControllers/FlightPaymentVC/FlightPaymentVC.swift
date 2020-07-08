@@ -150,7 +150,6 @@ class FlightPaymentVC: BaseVC {
         self.activityLoader.startAnimating()
         self.loaderView.addGredient(isVertical: false)
         self.hideShowLoader(isHidden:true)
-        
     }
     
     func hideShowLoader(isHidden:Bool){
@@ -324,15 +323,18 @@ extension FlightPaymentVC: FlightCouponCodeVCDelegate {
 
 extension FlightPaymentVC:FlightPaymentVMDelegate{
     
+    
     func fetchingItineraryData() {
         AppGlobals.shared.startLoading()
         self.updateAllData()
     }
     
-    func responseFromIteneraryData(success: Bool, error: Error?) {
+    func responseFromIteneraryData(success: Bool, error: ErrorCodes) {
         AppGlobals.shared.stopLoading()
         if success{
             self.updateAllData()
+        }else{
+            AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
         }
     }
     
@@ -346,8 +348,8 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
         
         self.updateAllData()
     }
-    func getPaymentMethodsFails(errors: ErrorCodes){
-        
+    func getPaymentMethodsFails(error: ErrorCodes){
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
     }
     
     func removeCouponCodeSuccessful(_ appliedCouponData: FlightItineraryData){
@@ -358,17 +360,18 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
         printDebug(appliedCouponData)
     }
     
-    func removeCouponCodeFailed() {
-        printDebug("Unable to remove Coupon Code")
+    func removeCouponCodeFailed(error: ErrorCodes) {
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
     }
     
-    func reconfirmationResponse(_ success:Bool){
+    func reconfirmationResponse(_ success:Bool, error: ErrorCodes){
         if success{
             self.viewModel.taxesDataDisplay()
             self.updateAllData()
             self.showFareUpdatePopup()
         }else{
             self.hideShowLoader(isHidden:true)
+            AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
         }
     }
     
@@ -390,9 +393,9 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
         }
     }
     
-    func makePaymentFail() {
+    func makePaymentFail(error: ErrorCodes) {
         self.hideShowLoader(isHidden:true)
-        AppToast.default.showToastMessage(message: "Make Payment Failed")
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
     }
     
     func willGetPaymentResonse() {
@@ -412,14 +415,25 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
     }
     
     func getPaymentResponseWithPendingPayment(_ p: String, id: String) {
-        let vc = FlightPaymentPendingVC.instantiate(fromAppStoryboard: .FlightPayment)
-        vc.viewModel.itId = id
-        vc.viewModel.product = .flight
-        self.navigationController?.pushViewController(vc, animated: true)
+        self.viewModel.getItineraryDetails(with: id){[weak self] (success, data, error) in
+            guard let self = self else {return}
+            if let data = data{
+                let vc = FlightPaymentPendingVC.instantiate(fromAppStoryboard: .FlightPayment)
+                vc.viewModel.itId = id
+                vc.viewModel.itinerary = data
+                vc.viewModel.product = .flight
+                self.navigationController?.pushViewController(vc, animated: true)
+            }else{
+                self.hideShowLoader(isHidden: true)
+                self.view.isUserInteractionEnabled = true
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
+            }
+        }
     }
     
-    func getPaymentResonseFail() {
+    func getPaymentResonseFail(error: ErrorCodes) {
         self.hideShowLoader(isHidden:true)
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
     }
       
     

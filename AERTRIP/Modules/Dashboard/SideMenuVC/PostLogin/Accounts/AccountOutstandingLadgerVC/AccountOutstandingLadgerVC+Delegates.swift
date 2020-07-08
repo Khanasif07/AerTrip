@@ -61,6 +61,7 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
         //headerView.dateLabelTopConstraint.constant = section == 0 ? 16 : 18
         //headerView.dataLabelBottomConstraint.constant = 8
         headerView.topSepratorView.isHidden = section == 0 ? true : false
+
         return headerView
     }
     

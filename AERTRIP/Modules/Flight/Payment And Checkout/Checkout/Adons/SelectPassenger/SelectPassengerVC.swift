@@ -22,7 +22,7 @@ class SelectPassengerVC : BaseVC {
         
     let selectPassengersVM = SelectPassengersVM()
     var updatedFlightData: ((SeatMapModel.SeatMapFlight) -> ())?
-    
+    var onDismissCompletion: (() -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +41,7 @@ class SelectPassengerVC : BaseVC {
         super.setupColors()
         self.selectPassengersLabel.textColor = AppColors.themeGray40
         self.legsLabel.textColor = AppColors.themeGray60
-        doneButton.titleLabel?.textColor = AppColors.themeGreen
+        doneButton.titleLabel?.textColor = AppColors.themeDarkGreen
     }
     
     override func setupTexts() {
@@ -63,7 +63,9 @@ class SelectPassengerVC : BaseVC {
             self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: self.transparentBackView.height)
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
         }) { (success) in
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: {
+                self.onDismissCompletion?()
+            })
         }
     }
     
@@ -105,7 +107,7 @@ extension SelectPassengerVC {
         case .seatSelection:
             selectPassengersLabel.isHidden = true
             emptyView.isHidden = true
-            titleLabel.text = selectPassengersVM.selectedSeatData.columnData.seatNumber + " • ₹\(selectPassengersVM.selectedSeatData.columnData.amount)"
+            titleLabel.text = selectPassengersVM.selectedSeatData.columnData.seatNumber + " • ₹\(selectPassengersVM.selectedSeatData.columnData.amount.formattedWithCommaSeparator)"
             legsLabel.text = selectPassengersVM.selectedSeatData.columnData.getCharactericstic()
             legsLabel.textColor = AppColors.themeGray40
             legsLabel.font = AppFonts.Regular.withSize(14)
@@ -115,15 +117,18 @@ extension SelectPassengerVC {
         case .meals:
             self.selectPassengersLabel.text = LocalizedString.Select_Passengers_To_Assign_This_Meal.localized
             self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "") • ₹ \(self.selectPassengersVM.adonsData.price)"
+            self.legsLabel.text = self.selectPassengersVM.currentFlightName
       
         case .baggage:
             self.selectPassengersLabel.text = LocalizedString.Select_Passengers_To_Assign_This_Meal.localized
             self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "") • ₹ \(self.selectPassengersVM.adonsData.price)"
-            
+            self.legsLabel.text = self.selectPassengersVM.currentFlightName
+
         case .others:
             self.selectPassengersLabel.text = LocalizedString.Select_Passengers.localized
             self.titleLabel.text = self.selectPassengersVM.adonsData.ssrName?.name
-        
+        self.legsLabel.text = self.selectPassengersVM.currentFlightName
+
         }
     }
 }

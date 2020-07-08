@@ -19,6 +19,7 @@ class PassengerDetailsVM {
     var searchText = ""
     var keyboardHeight: CGFloat = 0.0
     var isAllPaxInfoRequired = false
+    var lastJourneyDate = Date()
     var currentIndex = 0{
         didSet{
             self.indexPath = IndexPath(row: 0, section: currentIndex)

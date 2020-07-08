@@ -36,6 +36,18 @@ class SelectOtherAdonsContainerVM {
         return totalPrice
     }
     
+    func containsSpecialRequest() -> Bool {
+        
+        var containsSpecialRequest = false
+        
+        for item in self.allChildVCs {
+            if !containsSpecialRequest {
+                containsSpecialRequest = !item.otherAdonsVm.specialRequest.isEmpty
+            }
+        }
+        return containsSpecialRequest
+    }
+    
     func addPassengerToMeal(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, othersIndex: Int, contacts: [ATContact]) {
                 
         let dataStore = AddonsDataStore.shared

@@ -40,7 +40,7 @@ import UIKit
         // CHECK FOR LAUNCH OF FLIGHT OR HOTEL MODULE
         if isApplicationForFlight{
             setupFlightsVC()
-            window?.backgroundColor = UIColor.white
+            window?.backgroundColor = UIColor.black
         } else {
             FirebaseApp.configure()
             AppFlowManager.default.setupInitialFlow()

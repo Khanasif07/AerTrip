@@ -64,6 +64,10 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     var intFlights : [IntFlightDetail]?
     var needToAddFareBreakup = true
     weak var refundDelegate:UpdateRefundStatusDelegate?
+    var isForCheckOut = false
+    var viewModel = FlightDetailsVM()
+    var intFareBreakup:IntFareBreakupVC?
+    var fareBreakup:FareBreakupVC?
     
     //MARK:- Initial Display
     
@@ -84,6 +88,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         }
         setupInitialViews()
         setupSegmentView()
+        self.setupViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -160,6 +165,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         self.view.addSubview(fareBreakupVC.view)
         self.addChild(fareBreakupVC)
         fareBreakupVC.didMove(toParent: self)
+        self.fareBreakup = fareBreakupVC
     }
     
     func setupSwipeDownGuesture(){
@@ -609,7 +615,19 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     }
     
     func bookButtonTapped(journeyCombo: [CombinationJourney]?){
-        
+        if #available(iOS 13.0, *) {
+            self.isModalInPresentation = true
+        }
+        guard !self.isForCheckOut else {
+            self.dismiss(animated: true, completion: nil)
+            return
+        }
+        if self.viewModel.journeyType == .domestic || self.intJourney == nil{
+            self.fareBreakup?.hideShowLoader(isHidden: false)
+            self.setupViewModel()
+        }else{
+            self.intFareBreakup?.hideShowLoader(isHidden: false)
+        }
         AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
             guard let self = self else {return}
             let vc = PassengersSelectionVC.instantiate(fromAppStoryboard: .PassengersSelection)
@@ -624,24 +642,44 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
             vc.viewModel.journeyTitle = self.journeyTitle
             vc.viewModel.journeyDate = self.journeyDate
             vc.viewModel.journey = self.journey
-            self.pushToPassenserSelectionVC(vc)
+//            self.pushToPassenserSelectionVC(vc)
             AppFlowManager.default.removeLoginConfirmationScreenFromStack()
-            AppGlobals.shared.stopLoading()
+            self.pushToPassenserSelectionVC(vc)
+//            AppGlobals.shared.stopLoading()
         }
     }
 
 
     func pushToPassenserSelectionVC(_ vc: PassengersSelectionVC){
-        
-        if let nav = AppFlowManager.default.currentNavigation{
-            nav.pushViewController(vc, animated: true)
-        }else{
-            let nav = UINavigationController(rootViewController: vc)
-            nav.modalPresentationStyle = .fullScreen
-            nav.modalPresentationCapturesStatusBarAppearance = true
-            self.present(nav, animated: true, completion: nil)
+        self.presentedViewController?.dismiss(animated: false, completion: nil)
+        self.view.isUserInteractionEnabled = false
+        self.viewModel.fetchConfirmationData(){[weak self] success, errorCodes in
+            guard let self = self else {return}
+            self.view.isUserInteractionEnabled = true
+            if self.viewModel.journeyType == .domestic || self.intJourney == nil{
+                self.fareBreakup?.hideShowLoader(isHidden: true)
+            }else{
+                self.intFareBreakup?.hideShowLoader(isHidden: true)
+            }
+            if success{
+                if #available(iOS 13.0, *) {
+                    self.isModalInPresentation = false
+                }
+                DispatchQueue.main.async{
+                    vc.viewModel.newItineraryData = self.viewModel.itineraryData
+                    if let nav = AppFlowManager.default.currentNavigation{
+                        nav.pushViewController(vc, animated: true)
+                    }else{
+                        let nav = UINavigationController(rootViewController: vc)
+                        nav.modalPresentationStyle = .overFullScreen
+                        nav.modalPresentationCapturesStatusBarAppearance = true
+                        self.present(nav, animated: true, completion: nil)
+                    }
+                }
+            }else{
+                AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .flights)
+            }
         }
-        
     }
     
     func tapUpgradeButton(){
@@ -695,7 +733,12 @@ extension FlightDetailsBaseVC{
     
     func setFareBreakupForInt(){
         let vc = IntFareBreakupVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
-        vc.isHideUpgradeOption = !(self.intJourney?.first?.otherFares ?? false)
+        if isForCheckOut{
+            vc.isHideUpgradeOption = true
+            vc.isCheckoutDetails = true
+        }else{
+            vc.isHideUpgradeOption = !(self.intJourney?.first?.otherFares ?? false)
+        }
         vc.isFewSeatsLeftViewVisible = true
         vc.taxesResult = taxesResult
         vc.journey = self.intJourney
@@ -720,7 +763,7 @@ extension FlightDetailsBaseVC{
         self.view.addSubview(vc.view)
         self.addChild(vc)
         vc.didMove(toParent: self)
-        
+        self.intFareBreakup = vc
     }
     
     func addIntFlightInfoVC(){
@@ -792,5 +835,12 @@ extension FlightDetailsBaseVC{
         self.displayScrollView.addSubview(vc.view)
         self.addChild(vc)
         vc.didMove(toParent: self)
+    }
+    
+    func setupViewModel(){
+        self.viewModel.sid = self.sid
+        self.viewModel.journey = self.journey
+        self.viewModel.intJourney = self.intJourney
+        self.viewModel.journeyType = (self.bookFlightObject.isDomestic) ? .domestic : .international
     }
 }

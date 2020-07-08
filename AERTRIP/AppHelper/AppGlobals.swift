@@ -661,12 +661,14 @@ extension AppGlobals {
         }
         self.downloadPdf(fileURL: url, screenTitle: screenTitle) { localPdf in
             if let url = localPdf {
-                
                 DispatchQueue.mainSync {
-                    if showLoader {
-                    AppGlobals.shared.stopLoading()
-                    }
+                    
                     AppFlowManager.default.openDocument(atURL: url, screenTitle: screenTitle)
+                    if showLoader {
+                        delay(seconds: 5) {
+                            AppGlobals.shared.stopLoading()
+                        }
+                    }
                     complition?(true)
                 }
             }

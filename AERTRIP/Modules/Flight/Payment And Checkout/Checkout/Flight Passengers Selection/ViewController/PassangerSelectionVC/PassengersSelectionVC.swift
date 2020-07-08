@@ -49,7 +49,8 @@ class PassengersSelectionVC: UIViewController {
         self.viewModel.setupGuestArray()
         self.viewModel.webserviceForGetCountryList()
         self.viewModel.setupLoginData()
-        self.viewModel.fetchConfirmationData()
+        self.viewModel.setupItineraryData()
+        self.addButtomView()
     }
     
     private func registerCell(){
@@ -166,32 +167,50 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
     }
     
     func tappedDetailsButton(){
-        guard self.detailsBaseVC == nil else { return }
+        self.openDetailsButton()
+//        guard self.detailsBaseVC == nil else { return }
+//        let vc = FlightDetailsBaseVC.instantiate(fromAppStoryboard: .FlightDetailsBaseVC)
+//        vc.isInternational = true
+//        vc.bookFlightObject = self.viewModel.bookingObject ?? BookFlightObject()
+//        vc.taxesResult = self.viewModel.taxesResult
+//        vc.sid = self.viewModel.sid
+//        vc.intJourney = [self.viewModel.itineraryData.itinerary.details]
+//        vc.intAirportDetailsResult = self.viewModel.intAirportDetailsResult
+//        vc.selectedJourneyFK = [self.viewModel.itineraryData.itinerary.details.fk]
+//        vc.airlineData = self.viewModel.itineraryData.itinerary.details.aldet
+//        vc.needToAddFareBreakup = false
+//        vc.journey = self.viewModel.journey ?? []
+//        vc.view.autoresizingMask = []
+//        self.view.addSubview(vc.view)
+//        self.addChild(vc)
+//        vc.didMove(toParent: self)
+//        self.detailsBaseVC = vc
+//        if let newView = self.intFareBreakupVC?.view{
+//            vc.view.frame = CGRect(x: 0, y: UIScreen.height, width: UIScreen.main.bounds.width, height: UIScreen.height - newView.frame.height)
+//            self.view.bringSubviewToFront(newView)
+//            UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseOut], animations: {
+//                vc.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.height - newView.frame.height)
+//                vc.view.layoutSubviews()
+//                vc.view.setNeedsLayout()
+//            })
+//        }
+    }
+    
+    func openDetailsButton(){
         let vc = FlightDetailsBaseVC.instantiate(fromAppStoryboard: .FlightDetailsBaseVC)
-        vc.isInternational = true
+        vc.isInternational = true//self.viewModel.itineraryData.itinerary.isInternational
         vc.bookFlightObject = self.viewModel.bookingObject ?? BookFlightObject()
         vc.taxesResult = self.viewModel.taxesResult
+        vc.isForCheckOut = true
         vc.sid = self.viewModel.sid
         vc.intJourney = [self.viewModel.itineraryData.itinerary.details]
         vc.intAirportDetailsResult = self.viewModel.intAirportDetailsResult
+        vc.intAirlineDetailsResult = self.viewModel.intAirlineDetailsResult
         vc.selectedJourneyFK = [self.viewModel.itineraryData.itinerary.details.fk]
-        vc.airlineData = self.viewModel.itineraryData.itinerary.details.aldet
-        vc.needToAddFareBreakup = false
-        vc.journey = self.viewModel.journey ?? []
-        vc.view.autoresizingMask = []
-        self.view.addSubview(vc.view)
-        self.addChild(vc)
-        vc.didMove(toParent: self)
-        self.detailsBaseVC = vc
-        if let newView = self.intFareBreakupVC?.view{
-            vc.view.frame = CGRect(x: 0, y: UIScreen.height, width: UIScreen.main.bounds.width, height: UIScreen.height - newView.frame.height)
-            self.view.bringSubviewToFront(newView)
-            UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseOut], animations: {
-                vc.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.height - newView.frame.height)
-                vc.view.layoutSubviews()
-                vc.view.setNeedsLayout()
-            })
-        }
+        vc.journeyTitle = self.viewModel.bookingTitle
+        vc.journeyDate = self.viewModel.journeyDate
+        self.present(vc, animated: true, completion: nil)
+        
     }
     
     func updateHeight(to height: CGFloat) {
@@ -278,10 +297,10 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
     }
     
     func startFechingAddnsMasterData(){
+        self.view.isUserInteractionEnabled = false
         UIView.animate(withDuration: 2) {
         self.progressView.setProgress(0.75, animated: true)
         }
-//        AppGlobals.shared.startLoading()
     }
     
     func startFechingGSTValidationData(){
@@ -292,19 +311,22 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
         AppGlobals.shared.startLoading()
     }
     
-    func getResponseFromConfirmation(_ success:Bool, error:Error?){
-       // AppGlobals.shared.stopLoading()
-         if success{
+    func getResponseFromConfirmation(_ success:Bool, error:ErrorCodes){
+        // AppGlobals.shared.stopLoading()
+        if success{
             UIView.animate(withDuration: 2) {
-                   self.progressView.setProgress(0.5, animated: true)
+                self.progressView.setProgress(0.5, animated: true)
             }
-                   self.addButtomView()
-               }else{
-                   self.hideProgressView()
-               }
+            self.addButtomView()
+        }else{
+            
+            self.hideProgressView()
+            AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
+        }
     }
     
-    func getResponseFromAddnsMaster(_ success:Bool, error:Error?){
+    func getResponseFromAddnsMaster(_ success:Bool, error:ErrorCodes){
+        self.view.isUserInteractionEnabled = true
         if success {
             
             UIView.animate(withDuration: 2, animations: {
@@ -317,11 +339,12 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
               self.showFareUpdatePopup()
               self.passengerTableview.reloadData()
          } else {
-             self.hideProgressView()
+            self.hideProgressView()
+            AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
          }
     }
     
-    func getResponseFromGSTValidation(_ success:Bool, error:Error?){
+    func getResponseFromGSTValidation(_ success:Bool, error:ErrorCodes){
         AppGlobals.shared.stopLoading()
         if success{
             let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
@@ -337,11 +360,14 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
             AddonsDataStore.shared.isGSTOn = self.viewModel.isSwitchOn
             self.navigationController?.pushViewController(vc, animated: true)
         }else{
-            AppToast.default.showToastMessage(message: "Error while validating GST number")
+            AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
         }
     }
     
-    func getResponseFromLogin(_ success:Bool, error:Error?){
+    func getResponseFromLogin(_ success:Bool, error: ErrorCodes){
         AppGlobals.shared.stopLoading()
+        if !success{
+            AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
+        }
     }
 }

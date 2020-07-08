@@ -14,16 +14,17 @@ class SelectOtherAdonsVM  {
     private var vcIndex : Int = 0
     private var currentFlightKey : String = ""
     weak var delegate : SelectMealVmDelegate?
-
+    var specialRequest : String = ""
     
     init(){
         
     }
     
-    init(vcIndex : Int, currentFlightKey : String, addonsDetails : AddonsDetails){
+    init(vcIndex : Int, currentFlightKey : String, addonsDetails : AddonsDetails, specialRequest : String){
         self.vcIndex = vcIndex
         self.currentFlightKey = currentFlightKey
         self.addonsDetails = addonsDetails
+        self.specialRequest = specialRequest
     }
     
     func getOthers() -> [AddonsDataCustom] {

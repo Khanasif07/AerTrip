@@ -22,6 +22,7 @@ class IndUpgradeFlightVC: BaseVC, UICollectionViewDataSource, UICollectionViewDe
     //MARK:- Variable Declaration
     var journey: [IntJourney]!
     //    var journeyCombo: [CombinationJourney]!
+    var viewModel = FlightDetailsVM()
     
     var taxesResult : [String : String]!
     var sid = ""
@@ -58,13 +59,14 @@ class IndUpgradeFlightVC: BaseVC, UICollectionViewDataSource, UICollectionViewDe
     //MARK:- Initialise Views
     override func viewDidLoad(){
         super.viewDidLoad()
+        self.setupViewModel()
         self.planCollectionView.delegate = self
         self.planCollectionView.dataSource = self
         clearCache.checkTimeAndClearUpgradeDataCache()
         
         self.planCollectionView.isHidden = true
         self.noDataFoundView.isHidden = true
-        
+        self.setupViewModel()
         grabberView.layer.cornerRadius = 2
         
         planCollectionView.register( UINib(nibName: "PlansCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "plansCell")
@@ -228,60 +230,54 @@ class IndUpgradeFlightVC: BaseVC, UICollectionViewDataSource, UICollectionViewDe
             }
             
             var titleVal = ""
-            
-            if let title = (upgardeResult[indexPath.row] as AnyObject).value(forKey: "title") as? NSArray{
-                if title.count > 0{
-                    if let ttl = title[0] as? NSArray{
-                        if ttl.count > 0{
-                            titleVal = (ttl[0] as! String)
-                        }else{
-                            titleVal = ""
-                        }
-                    }else if title[0] as? String != nil{
-                        titleVal = (title[0] as! String)
+            let bc = ((upgardeResult[indexPath.row] as AnyObject).value(forKey: "bc") as? [[String]] ?? []).flatMap{$0}
+            let title = ((upgardeResult[indexPath.row] as AnyObject).value(forKey: "title") as? [[String]] ?? []).flatMap{$0}
+            if title.count != 0{
+                for (index, name) in title.enumerated(){
+                    var newbc = ""
+                    if bc.count < index{
+                        newbc = bc.first ?? ""
                     }else{
-                        titleVal = ""
+                        newbc = bc[index]
                     }
-                }else{
-                    titleVal = ""
+                    let val = name + " (\(newbc))"
+                    if !titleVal.contains(val){
+                        if index == title.count - 1{
+                            titleVal += " \(val)"
+                        }else if index == 0{
+                            titleVal += "\(val),"
+                        }else{
+                             titleVal += " \(val),"
+                        }
+                    }
                 }
             }else{
-                titleVal = ""
-            }
-            
-            if titleVal == ""{
-                if let className = (upgardeResult[indexPath.row] as AnyObject).value(forKey: "class") as? NSArray{
-                    if className.count > 0{
-                        if let name = className[0] as? NSArray{
-                            if name.count > 0{
-                                titleVal = name[0] as! String
-                            }
-                        }
-                    }
-                }
-            }
-            
-            if let bc = (upgardeResult[indexPath.row] as AnyObject).value(forKey: "bc") as? NSArray{
-                if bc.count > 0{
-                    if let bc1 = bc[0] as? NSArray{
-                        if bc1.count > 0 {
-                            titleVal = titleVal + " (" + (bc1[0] as? String ?? "") + ")"
-                        }else{
-                            titleVal = "\(titleVal)"
-                        }
-                    }else if bc[0] as? String != nil{
-                        titleVal = titleVal + " (" + (bc[0] as? String ?? "") + ")"
+                let className = ((upgardeResult[indexPath.row] as AnyObject).value(forKey: "class") as? [[String]] ?? []).flatMap{$0}
+                for (index, name) in className.enumerated(){
+                    var newbc = ""
+                    if bc.count < index{
+                        newbc = bc.first ?? ""
                     }else{
-                        titleVal = "\(titleVal)"
+                        newbc = bc[index]
                     }
-                }else{
-                    titleVal = "\(titleVal)"
+                    let val = name + " (\(newbc))"
+                    if !titleVal.contains(val){
+                        if index == className.count - 1{
+                            titleVal += " \(val)"
+                        }else if index == 0{
+                            titleVal += "\(val),"
+                        }else{
+                            titleVal += " \(val),"
+                        }
+                    }
                 }
-            }else{
-                titleVal = "\(titleVal)"
+                
             }
-            
+            if titleVal.last == ","{
+                titleVal.removeLast()
+            }
             cell.titleLabel.text = titleVal
+            cell.titleLabel.numberOfLines = 2
             
             if let description = (upgardeResult[indexPath.row] as AnyObject).value(forKey: "description") as? NSArray{
                 if description.count > 0{
@@ -484,8 +480,8 @@ class IndUpgradeFlightVC: BaseVC, UICollectionViewDataSource, UICollectionViewDe
     //MARK:- Call API
     func callAPIForUpgrade(sid: String, fk: String, fare: String){
         let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .upgradeAPIResult(sid: sid, fk: fk, oldFare: fare), completionHandler: { (data) in
-            
+        webservice.executeAPI(apiServive: .upgradeAPIResult(sid: sid, fk: fk, oldFare: fare), completionHandler: {[weak self] (data) in
+            guard let self = self else {return}
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             
@@ -602,7 +598,6 @@ class IndUpgradeFlightVC: BaseVC, UICollectionViewDataSource, UICollectionViewDe
                         self.planCollectionView.contentSize = .zero
                         viewSlideInFromRight(toLeft: self.planCollectionView)
                         self.planCollectionView.reloadData()
-                        //                        journeyNameCollectionView.reloadData()
                     }
                 }
             }
@@ -627,9 +622,13 @@ class IndUpgradeFlightVC: BaseVC, UICollectionViewDataSource, UICollectionViewDe
 
     extension IndUpgradeFlightVC : FareBreakupVCDelegate{
         func bookButtonTapped(journeyCombo: [CombinationJourney]?){
-            
+            self.setupViewModel()
+            if #available(iOS 13.0, *) {
+                self.isModalInPresentation = true
+            }
             AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
                 guard let self = self else {return}
+                self.fareBreakupVC?.hideShowLoader(isHidden: false)
                 let vc = PassengersSelectionVC.instantiate(fromAppStoryboard: .PassengersSelection)
                 vc.viewModel.taxesResult = self.taxesResult
                 vc.viewModel.intJourney = [self.selectedJourney]
@@ -641,24 +640,39 @@ class IndUpgradeFlightVC: BaseVC, UICollectionViewDataSource, UICollectionViewDe
                 vc.viewModel.bookingObject = self.bookFlightObject
                 vc.viewModel.journeyTitle = self.journeyTitle
                 vc.viewModel.journeyDate = self.journeyDate
-                self.pushToPassenserSelectionVC(vc)
                 AppFlowManager.default.removeLoginConfirmationScreenFromStack()
-                AppGlobals.shared.stopLoading()
+                self.pushToPassenserSelectionVC(vc)
             }
         }
 
 
         func pushToPassenserSelectionVC(_ vc: PassengersSelectionVC){
-            
-            if let nav = AppFlowManager.default.currentNavigation{
-                nav.pushViewController(vc, animated: true)
-            }else{
-                let nav = UINavigationController(rootViewController: vc)
-                nav.modalPresentationStyle = .fullScreen
-                nav.modalPresentationCapturesStatusBarAppearance = true
-                self.present(nav, animated: true, completion: nil)
+            self.presentedViewController?.dismiss(animated: false, completion: nil)
+            self.view.isUserInteractionEnabled = false
+            self.viewModel.fetchConfirmationData(){[weak self] success, errorCodes in
+                guard let self = self else {return}
+                self.view.isUserInteractionEnabled = true
+                self.fareBreakupVC?.hideShowLoader(isHidden: true)
+                if success{
+                    DispatchQueue.main.async{
+                        if #available(iOS 13.0, *) {
+                            self.isModalInPresentation = false
+                        }
+                        vc.viewModel.newItineraryData = self.viewModel.itineraryData
+                        if let nav = AppFlowManager.default.currentNavigation{
+                            nav.pushViewController(vc, animated: true)
+                        }else{
+                            let nav = UINavigationController(rootViewController: vc)
+                            nav.modalPresentationStyle = .fullScreen
+                            nav.modalPresentationCapturesStatusBarAppearance = true
+                            self.present(nav, animated: true, completion: nil)
+                        }
+                    }
+                }else{
+                    AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .flights)
+                }
+                
             }
-            
         }
 
         
@@ -667,7 +681,12 @@ class IndUpgradeFlightVC: BaseVC, UICollectionViewDataSource, UICollectionViewDe
         }
         
         
-        
+        func setupViewModel(){
+            self.viewModel.sid = self.sid
+            self.viewModel.journey = []
+            self.viewModel.intJourney = self.journey
+            self.viewModel.journeyType = (self.bookFlightObject.isDomestic) ? .domestic : .international
+        }
         
         
         

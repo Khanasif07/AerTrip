@@ -37,7 +37,7 @@ class SelectBagageCell: UITableViewCell {
     }
     
     func populateData(data : AddonsDataCustom, index : Int){
-        let price = "₹ \(data.price)"
+        let price = "₹ \(data.price.commaSeprated)"
         self.priceLabel.text = price
         self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
         self.bagageTitleLabel.text = data.ssrName?.name
@@ -82,7 +82,7 @@ class SelectBagageCell: UITableViewCell {
     }
     
     func populateOtherAdonsData(data : AddonsDataCustom, index : Int){
-        let price = "₹ \(data.price)"
+        let price = "₹ \(data.price.commaSeprated)"
         self.priceLabel.text = price
         self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
         self.bagageTitleLabel.text = data.ssrName?.name
@@ -91,13 +91,26 @@ class SelectBagageCell: UITableViewCell {
             self.selectedForLabel.text = ""
             //  self.mealForLabelTop.constant = 0
             self.quantityLabel.isHidden = true
-        }else{
-            // self.mealForLabelTop.constant = 2
+        } else if data.bagageSelectedFor.count == 2{
+         
             let allNamesArray = data.othersSelectedFor.map { (contact) -> String in
                 return contact.firstName
             }
-            let conaSaperatedNames = allNamesArray.joined(separator: ", ")
+            let conaSaperatedNames = allNamesArray.joined(separator: " and ")
+                   self.selectedForLabel.text = "For \(conaSaperatedNames)"
+            self.selectedForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.themeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
+
+            self.quantityLabel.text = "X\(data.othersSelectedFor.count)"
+            self.quantityLabel.isHidden = false
+            
+        }else{
+            let allNamesArray = data.othersSelectedFor.map { (contact) -> String in
+                return contact.firstName
+            }
+            let conaSaperatedNames = allNamesArray.joined(separator: ", ").replacingLastOccurrenceOfString(", ", with: " and ", caseInsensitive: true)
             self.selectedForLabel.text = "For \(conaSaperatedNames)"
+            self.selectedForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.themeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
+
             self.quantityLabel.text = "X\(data.othersSelectedFor.count)"
             self.quantityLabel.isHidden = false
         }

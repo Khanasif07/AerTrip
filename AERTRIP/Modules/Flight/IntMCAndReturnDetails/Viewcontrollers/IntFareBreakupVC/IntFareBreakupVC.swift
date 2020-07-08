@@ -58,6 +58,7 @@ class IntFareBreakupVC: UIViewController {
     @IBOutlet weak var bookingTitleStackBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var upgradeButton: UIButton!
     @IBOutlet weak var deviderView: UIView!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     
     
@@ -78,6 +79,7 @@ class IntFareBreakupVC: UIViewController {
     var isUpgradePlanScreenVisible = false
     var isFewSeatsLeftViewVisible = false
     var isFromFlightDetails = false
+    var isCheckoutDetails = true
     var bookFlightObject = BookFlightObject()
     var intAirportDetailsResult : [String : IntAirportDetailsWS]!
     var intAirlineDetailsResult : [String : IntAirlineMasterWS]!
@@ -110,6 +112,7 @@ class IntFareBreakupVC: UIViewController {
     //Added for addons
     var addonsData = [String:Int]()
     var isAddonsExpend = true
+    var bookButtonTitle = "Book"
     
     //MARK:- Initialise Views
     override func viewDidLoad(){
@@ -129,7 +132,7 @@ class IntFareBreakupVC: UIViewController {
         taxesDataDisplay()
         self.setupUpgradeButton(isHidden: self.isHideUpgradeOption)
         //        setupSwipeDownGuesture()
-        
+        self.manageLoader()
         if fromScreen == "upgradePlan" {
             infoLabel.isHidden = true
             bookingInfoArrowImg.isHidden = true
@@ -206,6 +209,7 @@ class IntFareBreakupVC: UIViewController {
         self.bookingtitleAndDateViewHeight.constant = self.heightForBookingTitleView
         if self.isForSelectionAndCheckout{
             self.bookButton.setTitle("Continue", for: .normal)
+            self.bookButtonTitle = "Continue"
             self.bookingTitleAndDateView.isHidden = false
             self.detailsButton.setTitle("Details", for: .normal)
             self.detailsButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
@@ -227,6 +231,11 @@ class IntFareBreakupVC: UIViewController {
             }
         }else{
             self.bookingTitleAndDateView.isHidden = true
+            bookButtonTitle = "Book"
+            if self.isCheckoutDetails{
+                self.bookButton.setTitle("Continue", for: .normal)
+                bookButtonTitle = "Continue"
+            }
         }
     }
     
@@ -254,6 +263,25 @@ class IntFareBreakupVC: UIViewController {
         self.upgradeButton.isHidden = isHidden
         self.deviderView.isHidden = isHidden
         self.bookButtonTrailing.constant = (isHidden) ? 16 : 44
+    }
+    
+    private func manageLoader() {
+        self.indicator.style = .white
+        self.indicator.color = AppColors.themeWhite
+        self.indicator.startAnimating()
+        self.hideShowLoader(isHidden:true)
+    }
+    
+    func hideShowLoader(isHidden:Bool){
+        DispatchQueue.main.async {
+            if isHidden{
+                self.indicator.stopAnimating()
+                self.bookButton.setTitle(self.bookButtonTitle, for: .normal)
+            }else{
+                self.bookButton.setTitle("", for: .normal)
+                self.indicator.startAnimating()
+            }
+        }
     }
     
     func reloadData(){
