@@ -54,7 +54,7 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
         }
         
         headerView.dateLabel.text = titleStr
-        headerView.parentView.backgroundColor = AppColors.themeWhite
+        headerView.parentView.backgroundColor = AppColors.themeGray04
         headerView.dateLabelTopConstraint.constant = section == 0 ? 16 : 18
         headerView.dataLabelBottomConstraint.constant = 8
         

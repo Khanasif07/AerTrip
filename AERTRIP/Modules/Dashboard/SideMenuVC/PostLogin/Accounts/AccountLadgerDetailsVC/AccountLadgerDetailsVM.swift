@@ -41,8 +41,8 @@ class AccountLadgerDetailsVM {
         amountDetails["Date"] = self.ladgerEvent!.date?.toString(dateFormat: "dd-MM-YYYY")
         amountDetails["Voucher"] = self.ladgerEvent!.voucherName
         amountDetails["Voucher No."] = self.ladgerEvent!.voucherNo
-        amountDetails["Amount"] = self.ladgerEvent!.amount.amountInDelimeterWithSymbol
-        amountDetails["Balance"] = self.ladgerEvent!.balance.amountInDelimeterWithSymbol
+        amountDetails["Amount"] = "\(self.ladgerEvent!.amount)"//.amountInDelimeterWithSymbol
+        amountDetails["Balance"] = "\(self.ladgerEvent!.balance)"//.amountInDelimeterWithSymbol
         
         self.ladgerDetails["0"] = amountDetails
     }
@@ -52,8 +52,8 @@ class AccountLadgerDetailsVM {
         var fAmountDetails = JSONDictionary()
         fAmountDetails["Date"] = self.ladgerEvent!.date?.toString(dateFormat: "dd-MM-YYYY")
         fAmountDetails["Bill Number"] = self.ladgerEvent!.billNumber
-        fAmountDetails["Total Amount"] = self.ladgerEvent!.totalAmount.amountInDelimeterWithSymbol
-        fAmountDetails["Pending Amount"] = self.ladgerEvent!.pendingAmount.amountInDelimeterWithSymbol
+        fAmountDetails["Total Amount"] = "\(self.ladgerEvent!.totalAmount)"//.amountInDelimeterWithSymbol
+        fAmountDetails["Pending Amount"] = "\(self.ladgerEvent!.pendingAmount)"//.amountInDelimeterWithSymbol
         fAmountDetails["Due Date"] = self.ladgerEvent!.dueDate?.toString(dateFormat: "dd-MM-YYYY")
         
         let days = self.ladgerEvent!.overDueDays
@@ -68,7 +68,7 @@ class AccountLadgerDetailsVM {
         voucherDetails["Voucher Date"] = self.ladgerEvent!.voucherDate?.toString(dateFormat: "dd-MM-YYYY")
         voucherDetails["Voucher"] = self.ladgerEvent!.voucherName
         voucherDetails["Voucher Number"] = self.ladgerEvent!.voucherNo
-        voucherDetails["Amount"] = self.ladgerEvent!.amount.amountInDelimeterWithSymbol
+        voucherDetails["Amount"] = "\(self.ladgerEvent!.amount)"//.amountInDelimeterWithSymbol
         
         self.ladgerDetails["1"] = voucherDetails
         
@@ -101,8 +101,8 @@ class AccountLadgerDetailsVM {
         amountDetails["Date"] = self.ladgerEvent!.date?.toString(dateFormat: "dd-MM-YYYY")
         amountDetails["Voucher"] = self.ladgerEvent!.voucherName
         amountDetails["Voucher No."] = self.ladgerEvent!.voucherNo
-        amountDetails["Amount"] = self.ladgerEvent!.amount.amountInDelimeterWithSymbol
-        amountDetails["Balance"] = self.ladgerEvent!.balance.amountInDelimeterWithSymbol
+        amountDetails["Amount"] = "\(self.ladgerEvent!.amount)"//.amountInDelimeterWithSymbol
+        amountDetails["Balance"] = "\(self.ladgerEvent!.balance)"//.amountInDelimeterWithSymbol
         
         self.ladgerDetails["0"] = amountDetails
         

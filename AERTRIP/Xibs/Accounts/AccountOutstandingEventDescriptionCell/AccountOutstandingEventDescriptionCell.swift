@@ -147,7 +147,7 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         
         var dateStr = ""
         if let date = event.dueDate {
-            dateStr = date.toString(dateFormat: "dd-MM-YYYY") + " |"
+            dateStr = date.toString(dateFormat: "dd-MM-YYYY") + "  • "//" |"
         }
         
         let finalText = "\(dueText) \(dateStr) \(overDueText)"
