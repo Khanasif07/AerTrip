@@ -46,7 +46,7 @@ class SelectPassengerVC : BaseVC {
     
     override func setupTexts() {
         super.setupTexts()
-        self.doneButton.setTitle(LocalizedString.Cancel.localized, for: UIControl.State.normal)
+//        self.doneButton.setTitle(LocalizedString.Cancel.localized, for: UIControl.State.normal)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -58,7 +58,9 @@ class SelectPassengerVC : BaseVC {
     }
     
     @IBAction func doneButtonTapped(_ sender: UIButton) {
-        self.selectPassengersVM.contactsComplition(self.selectPassengersVM.selectedContacts)
+//        self.selectPassengersVM.contactsComplition(self.selectPassengersVM.selectedContacts)
+        
+        
         UIView.animate(withDuration: 0.3, animations: {
             self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: self.transparentBackView.height)
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
@@ -68,7 +70,6 @@ class SelectPassengerVC : BaseVC {
             })
         }
     }
-    
 }
 
 extension SelectPassengerVC {
@@ -77,14 +78,12 @@ extension SelectPassengerVC {
         self.doneButton.roundedCorners(cornerRadius: 13)
         self.popUpBackView.roundedCorners(cornerRadius: 13)
         self.selectPassengersVM.getAllowedPassengerForParticularAdon()
-        configureCollectionView()
-        setupForView()
-        transparentBackView.backgroundColor = UIColor.clear
-        
-        transparentBackView.transform = CGAffineTransform(translationX: 0, y: transparentBackView.height)
-        
+        self.configureCollectionView()
+        self.setupForView()
+        self.transparentBackView.backgroundColor = UIColor.clear
+        self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: transparentBackView.height)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
-        
+        self.doneButton.setTitle(LocalizedString.Done.localized, for: .normal)
     }
     
     @objc func backViewTapped(){
@@ -198,25 +197,18 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
         } else {
             selectPassengersVM.selectedSeatData.columnData.passenger = passenger
             selectPassengersVM.resetFlightData(passenger)
-            
         }
         updatedFlightData?(selectPassengersVM.flightData)
         collectionView.reloadData()
         doneButton.setTitle(LocalizedString.Done.localized, for: .normal)
-        //        let isPassengerModified = selectPassengersVM.seatModel.columnData.passenger?.id != selectPassengersVM.initalPassengerForSeat?.id
-        //        doneButton.setTitle(isPassengerModified ? LocalizedString.Done.localized : LocalizedString.Cancel.localized, for: .normal)
     }
     
     private func didSelect(_ indexPath: IndexPath,_ collectionView: UICollectionView) {
         
-//        guard let allContacts = GuestDetailsVM.shared.guests.first else { return }
         
         if let index = self.selectPassengersVM.selectedContacts.firstIndex(where: { (cont) -> Bool in
             cont.id == self.selectPassengersVM.allowedPassengers[indexPath.item].id
         }){
-//            if self.selectPassengersVM.freeMeal {
-//                AppToast.default.showToastMessage(message: LocalizedString.Passenger_Cannot_Be_Deselected_For_Meal.localized)
-//                return }
             self.doneButton.setTitle(LocalizedString.Done.localized, for: UIControl.State.normal)
             self.selectPassengersVM.selectedContacts.remove(at: index)
         }else{
@@ -225,6 +217,8 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
         }
         
         collectionView.reloadItems(at: [IndexPath(item: indexPath.item, section: 0)])
+        self.selectPassengersVM.contactsComplition(self.selectPassengersVM.selectedContacts)
+
     }
     
 }
