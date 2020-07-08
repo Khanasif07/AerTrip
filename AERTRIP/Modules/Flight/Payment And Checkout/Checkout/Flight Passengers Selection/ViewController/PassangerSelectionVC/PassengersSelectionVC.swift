@@ -41,6 +41,7 @@ class PassengersSelectionVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
         self.navigationController?.navigationBar.isHidden = true
     }
     
