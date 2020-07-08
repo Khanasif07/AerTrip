@@ -70,7 +70,7 @@ class PostSelectionSeatPopupVC: UIViewController {
         descLbl.text = descText
         
         view.backgroundColor = UIColor.black.withAlphaComponent(0)
-        containerView.transform = CGAffineTransform(translationX: 0, y: containerView.height + view.safeAreaInsets.bottom)
+        containerView.transform = CGAffineTransform(translationX: 0, y: containerView.height + view.height)
         addDismissGesture()
     }
     
@@ -81,11 +81,11 @@ class PostSelectionSeatPopupVC: UIViewController {
         }
     }
     
-    private func startDismissAnimation(_ animationDuration: TimeInterval = 0.33) {
+    private func startDismissAnimation(_ animationDuration: TimeInterval = 0.3) {
         onDismissTap?()
         UIView.animate(withDuration: animationDuration, animations:  {
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
-            self.containerView.transform = CGAffineTransform(scaleX: 0, y: self.containerView.height + self.view.safeAreaInsets.bottom)
+            self.containerView.transform = CGAffineTransform(translationX: 0, y: self.containerView.height + self.view.height)
         }, completion: { _ in
             self.dismiss(animated: false, completion: nil)
         })
