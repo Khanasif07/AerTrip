@@ -223,7 +223,7 @@ extension BaggageContainerVC : SelectBaggageDelegate {
             self.baggageContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, baggageIndex: baggageIndex, contacts: passengersToBeAdded)
             self.calculateTotalAmount()
             
-            if !passengersToBeAdded.isEmpty {
+            if !passengersToBeAdded.isEmpty && forAdon.isInternational {
                 
                 let baggageTermsVC = BaggageTermsVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
                 baggageTermsVC.modalPresentationStyle = .overFullScreen
@@ -252,7 +252,7 @@ extension BaggageContainerVC : SelectBaggageDelegate {
             }
             
             vc.onDismissCompletion = {[weak self] in
-                if currentSelectedCountForAddon == 0 { return }
+                if currentSelectedCountForAddon == 0 || !forAdon.isInternational { return }
                 let baggageTermsVC = BaggageTermsVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
                 baggageTermsVC.modalPresentationStyle = .overFullScreen
                 baggageTermsVC.baggageTermsVM.agreeCompletion = {[weak self] (agree) in
