@@ -242,6 +242,10 @@ extension FlightFareInfoVC: BookingDetailVMDelegate {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.reloadData()
+        
+        delay(seconds: 0.5) {
+            self.tableView.reloadData()
+        }
     }
     
     func getBookingFeesFail() {}

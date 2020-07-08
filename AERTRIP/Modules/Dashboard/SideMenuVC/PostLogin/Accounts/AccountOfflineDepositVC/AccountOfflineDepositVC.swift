@@ -35,18 +35,20 @@ class AccountOfflineDepositVC: BaseVC {
     let viewModel = AccountOfflineDepositVM()
     
     // MARK: - View Life cycle
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.paymentButtonContainerView.addGredient(isVertical: false)
+    }
     
     override func initialSetup() {
         
         self.view.backgroundColor = AppColors.themeWhite
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
-        self.addFooterView()
-        self.payButton.addGredient(isVertical: false)
         self.setUpNavigationView()
         self.registerXib()
         
-        self.loaderContainer.addGredient(isVertical: false)
+        self.loaderContainer.backgroundColor = .clear
         self.manageLoader(shouldStart: false)
         //for header blur
         self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
@@ -94,10 +96,6 @@ class AccountOfflineDepositVC: BaseVC {
         self.checkOutTableView.registerCell(nibName: OfflineDepositeSlipUoloadCell.reusableIdentifier)
     }
     
-    private func addFooterView() {
-        self.paymentButtonContainerView.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 50.0)
-        self.checkOutTableView.tableFooterView = self.paymentButtonContainerView
-    }
 
     // Upadate All Data on Table View
     func updateAllData() {

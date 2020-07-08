@@ -23,10 +23,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w68-MI-yEr">
-                        <rect key="frame" x="0.0" y="0.0" width="374" height="275"/>
+                        <rect key="frame" x="0.0" y="0.0" width="374" height="265"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Information Available" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zjs-to-yWH">
-                                <rect key="frame" x="16" y="127" width="342" height="21.5"/>
+                                <rect key="frame" x="16" y="122" width="342" height="21.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -41,7 +41,7 @@
                         </constraints>
                     </view>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gbL-mf-to6">
-                        <rect key="frame" x="0.0" y="0.0" width="374" height="275"/>
+                        <rect key="frame" x="0.0" y="0.0" width="374" height="265"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="height" priority="988" constant="265" id="xQL-4o-yf0"/>
@@ -52,12 +52,13 @@
                         </connections>
                     </tableView>
                 </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="gbL-mf-to6" firstAttribute="leading" secondItem="8aq-KC-lIt" secondAttribute="leading" id="0OQ-4m-mIU"/>
                     <constraint firstItem="w68-MI-yEr" firstAttribute="bottom" secondItem="gbL-mf-to6" secondAttribute="bottom" id="3tw-ci-FOw"/>
                     <constraint firstItem="w68-MI-yEr" firstAttribute="leading" secondItem="gbL-mf-to6" secondAttribute="leading" id="IVL-Ny-Bur"/>
                     <constraint firstItem="w68-MI-yEr" firstAttribute="top" secondItem="gbL-mf-to6" secondAttribute="top" id="K02-uX-Fg7"/>
-                    <constraint firstAttribute="bottom" secondItem="gbL-mf-to6" secondAttribute="bottom" id="YV2-MJ-KOl"/>
+                    <constraint firstAttribute="bottom" secondItem="gbL-mf-to6" secondAttribute="bottom" constant="10" id="YV2-MJ-KOl"/>
                     <constraint firstAttribute="trailing" secondItem="gbL-mf-to6" secondAttribute="trailing" id="tUP-fO-AFm"/>
                     <constraint firstItem="gbL-mf-to6" firstAttribute="top" secondItem="8aq-KC-lIt" secondAttribute="top" id="wf6-ad-yRi"/>
                     <constraint firstItem="w68-MI-yEr" firstAttribute="trailing" secondItem="gbL-mf-to6" secondAttribute="trailing" id="y6z-kg-kWk"/>

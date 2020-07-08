@@ -216,10 +216,10 @@ extension BookingDocumentsTableViewCell: BookingDocumentsCollectionViewCellDeleg
     }
     
     func longPressButtonAction(forIndex indexPath: IndexPath) {
-        guard !self.actionSheetVisible else {
-            self.actionSheetVisible = false
-            return
-        }
+//        guard !self.actionSheetVisible else {
+//            self.actionSheetVisible = false
+//            return
+//        }
         self.actionSheetVisible = true
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Delete.localized], colors: [AppColors.themeRed])
         
@@ -236,6 +236,7 @@ extension BookingDocumentsTableViewCell: BookingDocumentsCollectionViewCellDeleg
                     do {
                         try FileManager.default.removeItem(atPath: path)
                         printDebug("File deleted")
+                        strongSelf.documentsData[indexPath.item].downloadingStatus = .notDownloaded
                         strongSelf.documentsCollectionView.reloadItems(at: indexPath)
                     }
                     catch {

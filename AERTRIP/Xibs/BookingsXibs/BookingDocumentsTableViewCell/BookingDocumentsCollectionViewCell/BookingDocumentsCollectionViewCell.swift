@@ -82,7 +82,8 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
         self.dowloadingPlaceHolderImgView.image = nil
         self.loaderSetUp()
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture(recognizer:)))
-        longPressGesture?.minimumPressDuration = 2.0 // 1 second press
+        longPressGesture?.minimumPressDuration = 1.0 // 1 second press
+        //longPressGesture?.delaysTouchesEnded = true
     }
     
     internal func configCell(name: String , documentsSize: String , request: DocumentDownloadingModel, type:String = "") {
@@ -185,9 +186,10 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
     }
     
     @objc func longPressGesture(recognizer: UILongPressGestureRecognizer) {
+        if recognizer.state == .began{
         if let superVw = self.superview as? UICollectionView , let indexPath = superVw.indexPath(for: self), let safeDelegate = self.delegate {
         safeDelegate.longPressButtonAction(forIndex: indexPath)
         }
-        
+        }
     }
 }

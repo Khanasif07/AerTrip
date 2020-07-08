@@ -59,6 +59,7 @@
                 <outlet property="noteTextView" destination="6ka-0i-c10" id="9fn-dQ-win"/>
                 <outlet property="noteTextViewBottomConstraint" destination="Cya-Bd-LxX" id="WUx-I4-Tfv"/>
                 <outlet property="noteTextViewTopConstraint" destination="5AC-W1-Qqf" id="ojt-mS-kNx"/>
+                <outlet property="notesTopConstraint" destination="3F1-Tr-5fN" id="uz4-91-iym"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="155.35714285714286"/>
         </tableViewCell>

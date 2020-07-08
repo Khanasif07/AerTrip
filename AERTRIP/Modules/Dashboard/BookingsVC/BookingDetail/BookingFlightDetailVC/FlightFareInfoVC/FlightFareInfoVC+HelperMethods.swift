@@ -140,6 +140,7 @@ extension FlightFareInfoVC {
             fatalError("FareInfoNoteTableViewCell not found")
         }
         fareInfoNoteCell.isForBookingPolicyCell = false
+        fareInfoNoteCell.notesTopConstraint.constant = 26
         fareInfoNoteCell.noteTextViewTopConstraint.constant = 10
         fareInfoNoteCell.noteLabel.text = LocalizedString.Notes.localized
         fareInfoNoteCell.configCell(notes: AppConstants.kfareInfoNotes)

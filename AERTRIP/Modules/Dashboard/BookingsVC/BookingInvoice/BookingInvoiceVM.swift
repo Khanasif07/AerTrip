@@ -99,22 +99,29 @@ class BookingInvoiceVM {
             let transC = self.isBaseFareSectionExpanded ? self.transectionCodes.count : 0
             let disC = self.isGrossFareSectionExpanded ? self.discountCodes.count : 0
             
+            if baseFare > 0 {
             sectionHeader.append((section: .baseFare, rowCount: 0, amount: baseFare, title: "Base Fare"))
+            }
             if transC > 0 {
                 sectionHeader.append((section: .taxes, rowCount: transC, amount: taxes, title: "Taxes and Fees"))
             }
             
+            if grossFare > 0 {
             sectionHeader.append((section: .grossFare, rowCount: 0, amount: grossFare, title: "Gross Fare"))
+            }
             if disC > 0 {
                 sectionHeader.append((section: .discount, rowCount: disC, amount: discount, title: "Discounts"))
             }
+            if grossFare != netFare && grossFare != grandTotal {
             
-            if grossFare != netFare {
+            if grossFare != netFare, netFare > 0 {
                 sectionHeader.append((section: .netFare, rowCount: 0, amount: netFare, title: "Net Fare"))
             }
-            sectionHeader.append((section: .grandTotal, rowCount: 0, amount: grandTotal, title: "Grand Total"))
-            
-            if grandTotal != totalPayableNow {
+            if netFare != grandTotal, grandTotal > 0 {
+                sectionHeader.append((section: .grandTotal, rowCount: 0, amount: grandTotal, title: "Grand Total"))
+            }
+            }
+            if grandTotal != totalPayableNow, totalPayableNow > 0 {
                 sectionHeader.append((section: .totalPayableNow, rowCount: 0, amount: totalPayableNow, title: "Total Payable"))
             }
             sectionHeader.append((section: .total, rowCount: 3, amount: total, title: "Total"))

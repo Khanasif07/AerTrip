@@ -165,7 +165,7 @@ extension BookingVoucherVC: UITableViewDataSource,UITableViewDelegate {
         }
         
         voucherCell.payButtonAction = { button in
-            AppGlobals.shared.showUnderDevelopment()
+            //AppGlobals.shared.showUnderDevelopment()
             if !self.viewModel.caseId.isEmpty {
                 button.isLoading = true
                 self.payButtonRef = button

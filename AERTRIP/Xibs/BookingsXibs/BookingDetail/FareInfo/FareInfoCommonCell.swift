@@ -26,6 +26,8 @@ class FareInfoCommonCell: ATTableViewCell {
     @IBOutlet weak var infrantView: UIStackView!
     @IBOutlet weak var titleView: UIStackView!
     @IBOutlet weak var viewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var viewBottomConstraint: NSLayoutConstraint!
     
     // MARK: - Variables
     var isForPassenger : Bool = false
@@ -86,6 +88,7 @@ class FareInfoCommonCell: ATTableViewCell {
         childView.isHidden = true
         infrantView.isHidden = true
         statusLabel.text = ""
+        dividerView.isHidden = true
     }
     
     func configureView(model: BookingFeeDetail, indexPath: IndexPath) {
@@ -218,7 +221,7 @@ class FareInfoCommonCell: ATTableViewCell {
             var aertripValue = 0
             
             //            if indexPath.row < chdAertripCancellationSlab!.count{
-            aertripValue = model.aertripCanCharges?.adult ?? 0
+            aertripValue = model.aertripCanCharges?.child ?? 0
             //            }
             
             if indexPath.row < chdAirlineCancellationSlab.count{

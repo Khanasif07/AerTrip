@@ -82,6 +82,27 @@ extension FareInfoCombineCell:UITableViewDataSource, UITableViewDelegate
         cell.configureView(model: object, indexPath: indexPath)
         }
         self.combineFareTableView.layoutIfNeeded()
+        if indexPath.section == 0 {
+            let noOfRows = self.tableView(self.combineFareTableView, numberOfRowsInSection: indexPath.section)
+            if (noOfRows - 1) == indexPath.row {
+               cell.dividerView.isHidden = false
+                cell.viewBottomConstraint.constant = 16
+            } else {
+                cell.dividerView.isHidden = true
+                cell.viewBottomConstraint.constant = 0
+            }
+            cell.viewTopConstraint.constant = 16
+        } else {
+            let noOfRows = self.tableView(self.combineFareTableView, numberOfRowsInSection: indexPath.section)
+            if (noOfRows - 1) == indexPath.row {
+                cell.viewBottomConstraint.constant = 16
+            } else {
+                cell.viewBottomConstraint.constant = 0
+            }
+            //cell.viewTopConstraint.constant = indexPath.row == 0 ? 0 : 16
+           cell.dividerView.isHidden = true
+        }
+        
         return cell
     }
     

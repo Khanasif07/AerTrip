@@ -22,6 +22,7 @@ class FareInfoNoteTableViewCell: UITableViewCell {
 //            self.noteTextView.isUserInteractionEnabled = false
         }
     }
+    @IBOutlet weak var notesTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var noteTextViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var noteTextViewBottomConstraint: NSLayoutConstraint!
     
@@ -84,7 +85,7 @@ class FareInfoNoteTableViewCell: UITableViewCell {
                 formattedString = formattedString.replacingOccurrences(of: "\n", with: "")
             }
             let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: formattedString, attributes: attributesDictionary)
-            let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore: 4.0,isForNotes: true,lineSpacing :2.0, headIndent: hotelNotes ? 20 : 11)
+            let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore: 4.0,isForNotes: true,lineSpacing :2.0, headIndent: hotelNotes ? 20 : 15)
             attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))
             fullAttributedString.append(attributedString)
         }

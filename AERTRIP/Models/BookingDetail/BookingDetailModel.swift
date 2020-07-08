@@ -203,13 +203,25 @@ struct BookingDetailModel {
                         departureWeather.date = flight.departDate
                         departureWeather.city = flight.departCity
                         departureWeather.countryCode = flight.departureCountryCode
-                        self.tripWeatherData.append(departureWeather)
+                        if let lastWeather = self.tripWeatherData.last {
+                            if lastWeather.city != departureWeather.city || !(lastWeather.date ?? Date()).isEqualTo((departureWeather.date ?? Date())) {
+                                self.tripWeatherData.append(departureWeather)
+                            }
+                        } else {
+                            self.tripWeatherData.append(departureWeather)
+                        }
                         
                         var arrivalWeather = WeatherInfo()
                         arrivalWeather.date = flight.arrivalDate
                         arrivalWeather.city = flight.arrivalCity
                         arrivalWeather.countryCode = flight.arrivalCountryCode
-                        self.tripWeatherData.append(arrivalWeather)
+                        if let lastWeather = self.tripWeatherData.last {
+                            if lastWeather.city != arrivalWeather.city || !(lastWeather.date ?? Date()).isEqualTo((arrivalWeather.date ?? Date())) {
+                                self.tripWeatherData.append(arrivalWeather)
+                            }
+                        } else {
+                            self.tripWeatherData.append(arrivalWeather)
+                        }
                     }
                 }
                 
