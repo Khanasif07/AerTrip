@@ -59,7 +59,7 @@ class PassportExampleVC: UIViewController {
             self.containerView.transform = CGAffineTransform(translationX: 0, y: self.transperentButton.height)
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
         }) { (success) in
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: false, completion: nil)
         }
         
 //        UIView.animate(withDuration: 0.3, animations: {
