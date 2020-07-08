@@ -20,7 +20,7 @@ class SeatMapContainerVC: UIViewController {
     private var hidePlaneLayoutWorkItem: DispatchWorkItem?
     private var highlightView: UIView?
     private var hasDisplayedInitialLoader = false
-    
+        
     // Parchment View
     fileprivate var parchmentView : PagingViewController?
     weak var delegate : AddonsUpdatedDelegate?
@@ -50,7 +50,7 @@ class SeatMapContainerVC: UIViewController {
     @IBOutlet weak var totalSeatAmountViewHeight: NSLayoutConstraint!
     @IBOutlet weak var highlightContainerView: UIView!
     @IBOutlet weak var apiProgressView: UIProgressView!
-    
+    @IBOutlet weak var apiIndicatorView: UIActivityIndicatorView!
     
     // MARK: View Life Cycle
     override func viewDidLoad() {
@@ -159,6 +159,7 @@ class SeatMapContainerVC: UIViewController {
     }
     
     private func setupViews() {
+        setupApiIndicatorView()
         planeLayoutTopSeparatorView.backgroundColor = AppColors.themeGray20
         planeLayoutBottomSeparatorView.backgroundColor = AppColors.themeGray20
         totalSeatAmountTopSeparatorView.backgroundColor = AppColors.themeGray20
@@ -175,6 +176,11 @@ class SeatMapContainerVC: UIViewController {
         apiProgressView.progressTintColor = UIColor.AertripColor
         apiProgressView.trackTintColor = .clear
         apiProgressView.setProgress(0, animated: false)
+    }
+    
+    private func setupApiIndicatorView() {
+        apiIndicatorView.color = AppColors.themeGreen
+        apiIndicatorView.isHidden = true
     }
     
     private func addHighlightView() {
@@ -510,17 +516,24 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
     
     
     func willFetchQuotationData(){
-        AppGlobals.shared.startLoading()
+        apiIndicatorView.isHidden = false
+        apiIndicatorView.startAnimating()
+        addBtn.setTitleColor(.clear, for: .normal)
     }
     func didFetchQuotationData(_ quotationModel: AddonsQuotationsModel){
-        AppGlobals.shared.stopLoading()
+        apiIndicatorView.stopAnimating()
+        apiIndicatorView.isHidden = true
+        addBtn.setTitleColor(AppColors.themeGreen, for: .normal)
         let vc = PostBookingAddonsPaymentVC.instantiate(fromAppStoryboard: .FlightPayment)
         vc.viewModel.addonsDetails = quotationModel
         vc.viewModel.bookingIds = self.viewModel.bookingIds
         self.navigationController?.pushViewController(vc, animated:true)
     }
     func faildToFetchQuotationData(){
-        AppGlobals.shared.stopLoading()
+        apiIndicatorView.stopAnimating()
+        apiIndicatorView.isHidden = true
+        addBtn.setTitleColor(AppColors.themeGreen, for: .normal)
+        
         AppToast.default.showToastMessage(message: "Something went worng!")
         
     }
