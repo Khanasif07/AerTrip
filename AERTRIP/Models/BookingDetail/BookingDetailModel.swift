@@ -1630,11 +1630,11 @@ struct Pax {
 
     
     var netRefundForReschedule: Double {
-        return self.amountPaid - self.rescheduleCharge
+        return self.amountPaid - (self.rescheduleCharge > 0 ? self.rescheduleCharge : 0)
     }
     
     var netRefundForCancellation: Double {
-        return self.amountPaid - self.cancellationCharge
+        return self.amountPaid - (self.cancellationCharge > 0 ? self.cancellationCharge : 0 )
     }
     
     var fullNameWithSalutation: String {

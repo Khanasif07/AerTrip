@@ -60,7 +60,7 @@ class AbortRequestTableViewCell: ATTableViewCell {
     
     func updateCharacterCount() {
         let textCount = (addCommentTextView.text ?? "").count
-        self.characterCountLabel.text = "\(AppConstants.AbortRequestTextLimit - textCount) \(LocalizedString.CharactersRemaining.localized)"
+        self.characterCountLabel.text = "\(AppConstants.AbortRequestTextLimit - textCount)/\(AppConstants.AbortRequestTextLimit)"
     }
 }
 // MARK: - UITextViewDelegate methods

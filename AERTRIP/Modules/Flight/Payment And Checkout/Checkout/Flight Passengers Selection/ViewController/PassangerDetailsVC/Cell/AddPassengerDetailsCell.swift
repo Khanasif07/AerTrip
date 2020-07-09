@@ -424,7 +424,7 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
                     
                 }
             }
-            PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd MMM YYYY", mode: .date, minimumDate: minimumDate, maximumDate: Date(), selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { (dateStr) in
+            PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd MMM YYYY", mode: .date, minimumDate: minimumDate, maximumDate: Date(), selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { [unowned self] (dateStr) in
                 textField.text = dateStr
                 if let date = dateStr.toDate(dateFormat: "dd MMM yyyy"){
                     GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].dob = date.toString(dateFormat: "yyyy-MM-dd")
@@ -438,7 +438,7 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
                 countries = Array(country.values).sorted()
             }
             PKMultiPicker.noOfComponent = 1
-            PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: countries, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+            PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: countries, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self]  (firstSelect, secondSelect) in
                 GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].nationality = firstSelect
                 GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].countryCode = GuestDetailsVM.shared.countries?.someKey(forValue: firstSelect) ?? ""
                 textField.text = firstSelect
@@ -447,7 +447,7 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
         case self.passportExpiryTextField:
             self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
             let selected = (textField.text ?? "").toDate(dateFormat: "dd MMM YYYY")
-            PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd MMM YYYY", mode: .date, minimumDate: Date(), maximumDate: nil, selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { (dateStr) in
+            PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd MMM YYYY", mode: .date, minimumDate: Date(), maximumDate: nil, selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { [unowned self] (dateStr) in
                 textField.text = dateStr
                 if let date = dateStr.toDate(dateFormat: "dd MMM yyyy"){
                     GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].passportExpiryDate = date.toString(dateFormat: "yyyy-MM-dd")

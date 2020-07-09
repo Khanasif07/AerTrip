@@ -256,7 +256,17 @@ class BookingReschedulingVC: BaseVC {
             if !paxD.dob.isEmpty {
                 age = AppGlobals.shared.getAgeLastString(dob: paxD.dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
             }
-            bookingAccordionCell.configureCell(passengerName: paxD.paxName, pnrNo: pnrNoStr, saleValue: paxD.amountPaid.amountInDelimeterWithSymbol, cancellationCharge:self.viewModel.usingFor == .rescheduling ? paxD.rescheduleCharge.amountInDelimeterWithSymbol : paxD.cancellationCharge.amountInDelimeterWithSymbol, refundValue: self.viewModel.usingFor == .rescheduling ? paxD.netRefundForReschedule.amountInDelimeterWithSymbol : paxD.netRefundForCancellation.amountInDelimeterWithSymbol, age: age)
+            var cancelationValue = self.viewModel.usingFor == .rescheduling ? paxD.rescheduleCharge : paxD.cancellationCharge
+            var cancelationValueText = self.viewModel.usingFor == .rescheduling ? paxD.rescheduleCharge.amountInDelimeterWithSymbol : paxD.cancellationCharge.amountInDelimeterWithSymbol
+            if cancelationValue == -9{
+                cancelationValueText = "NA"
+            }else if cancelationValue == -1{
+                cancelationValueText = self.viewModel.usingFor == .rescheduling ? "Not Permitted" : "Non-refundable"
+            }else if cancelationValue == 0{
+                cancelationValueText = self.viewModel.usingFor == .rescheduling ? "Free Rescheduling" : "Free Cancellation"
+            }
+            
+            bookingAccordionCell.configureCell(passengerName: paxD.paxName, pnrNo: pnrNoStr, saleValue: paxD.amountPaid.amountInDelimeterWithSymbol, cancellationCharge: cancelationValueText, refundValue: self.viewModel.usingFor == .rescheduling ? paxD.netRefundForReschedule.amountInDelimeterWithSymbol : paxD.netRefundForCancellation.amountInDelimeterWithSymbol, age: age)
             bookingAccordionCell.delegate = self
             bookingAccordionCell.headerDividerView.isHidden = (legD.pax.count - 1) == (indexPath.row - (legD.flight.count))
             
@@ -334,6 +344,9 @@ extension BookingReschedulingVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
         return 35.0
     }
     

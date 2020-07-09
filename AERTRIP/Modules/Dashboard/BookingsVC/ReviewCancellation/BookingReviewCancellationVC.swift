@@ -307,7 +307,7 @@ extension BookingReviewCancellationVC {
                     AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
                     return false
                 } else {
-                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.specialRequests, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.specialRequests, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self]  (firstSelect, secondSelect) in
                         textField.text = firstSelect
                         self.viewModel.selectedSpecialRequest = firstSelect
                 self.manageContinueButton()
@@ -324,7 +324,7 @@ extension BookingReviewCancellationVC {
                          AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
                          return false
                     } else {
-                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.refundModes, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.refundModes, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self]  (firstSelect, secondSelect) in
                             textField.text = firstSelect
                             self.viewModel.selectedMode = firstSelect
                             self.manageContinueButton()
@@ -340,7 +340,7 @@ extension BookingReviewCancellationVC {
                      AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
                      return false
                     } else {
-                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.cancellationReasons, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.cancellationReasons, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self]  (firstSelect, secondSelect) in
                             textField.text = firstSelect
                             self.viewModel.selectedReason = firstSelect
                     self.manageContinueButton()

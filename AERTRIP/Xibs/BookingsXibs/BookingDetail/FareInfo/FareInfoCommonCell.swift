@@ -128,10 +128,10 @@ class FareInfoCommonCell: ATTableViewCell {
         {
             let adtAertripCancellationSlab = model.aertripCanCharges?.adult
             
-            var aertripValue = 0
+            var aertripValue: Double = 0
             
             //            if indexPath.row < adtAertripCancellationSlab!.count{
-            aertripValue = model.aertripCanCharges?.adult ?? 0
+            aertripValue = Double(model.aertripCanCharges?.adult ?? 0)
             //            }
             
             if indexPath.row < adtAirlineCancellationSlab.count{
@@ -189,7 +189,7 @@ class FareInfoCommonCell: ATTableViewCell {
                         let displayValue = Double(airlineValue + adtRafVal)
                         
                         
-                        self.statusLabel.text = String(displayValue) + " + ₹ " + String(aertripValue)
+                        self.statusLabel.text = displayValue.amountInDelimeterWithSymbol + " + " + aertripValue.amountInDelimeterWithSymbol
                     }
                 }else{
                     if airlineValue == -9{
@@ -206,7 +206,7 @@ class FareInfoCommonCell: ATTableViewCell {
                         let adtRafVal = model.aertripCanCharges?.adult ?? 0 //rafFees["ADT"]
                         let displayValue = Double(airlineValue + adtRafVal)
                         self.adultView.isHidden = false
-                        self.perAdultAmountLabel.text = String(displayValue) + " + ₹ " + String(aertripValue)
+                        self.perAdultAmountLabel.text = displayValue.amountInDelimeterWithSymbol + " + " + aertripValue.amountInDelimeterWithSymbol
                     }
                 }
             }else{
@@ -218,10 +218,10 @@ class FareInfoCommonCell: ATTableViewCell {
         {
             let chdAertripCancellationSlab = model.aertripCanCharges?.child
             
-            var aertripValue = 0
+            var aertripValue: Double = 0
             
             //            if indexPath.row < chdAertripCancellationSlab!.count{
-            aertripValue = model.aertripCanCharges?.child ?? 0
+            aertripValue = Double(model.aertripCanCharges?.child ?? 0)
             //            }
             
             if indexPath.row < chdAirlineCancellationSlab.count{
@@ -241,7 +241,7 @@ class FareInfoCommonCell: ATTableViewCell {
                     let chdRafVal = model.aertripCanCharges?.child ?? 0 //rafFees["CHD"]
                     let displayValue = Double(value! + chdRafVal)
                     self.childView.isHidden = false
-                    self.perChildAmountLabel.text = String(displayValue) + " + ₹ " +  String(aertripValue)
+                    self.perChildAmountLabel.text = displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
                 }
             }else{
                 self.perChildAmountLabel.text = "NA"
@@ -252,10 +252,10 @@ class FareInfoCommonCell: ATTableViewCell {
         {
             let infAertripCancellationSlab = model.aertripCanCharges?.infant
             
-            var aertripValue = 0
+            var aertripValue: Double = 0
             
             //            if indexPath.row < infAertripCancellationSlab!.count{
-            aertripValue = model.aertripCanCharges?.infant ?? 0
+            aertripValue = Double(model.aertripCanCharges?.infant ?? 0)
             //            }
             
             if indexPath.row < infAirlineCancellationSlab.count{
@@ -275,7 +275,7 @@ class FareInfoCommonCell: ATTableViewCell {
                     let chdRafVal = model.aertripCanCharges?.infant ?? 0 //rafFees["INF"]
                     let displayValue = Double(value! + chdRafVal)
                     self.infrantView.isHidden = false
-                    self.perInfantAmountLabel.text = String(displayValue) + " + ₹ " +  String(aertripValue)
+                    self.perInfantAmountLabel.text = displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
                 }
             }else{
                 self.perInfantAmountLabel.text = "NA"
@@ -295,10 +295,10 @@ class FareInfoCommonCell: ATTableViewCell {
         {
             let adtAertripReschedulingSlab = model.aertripResCharges?.adult
             
-            var aertripValue = 0
+            var aertripValue: Double = 0
             
             //            if indexPath.row < adtAertripReschedulingSlab!.count{
-            aertripValue = model.aertripResCharges?.adult ?? 0
+            aertripValue = Double(model.aertripResCharges?.adult ?? 0)
             //            }
             
             if indexPath.row < adtAirlineReschedulingSlab.count{
@@ -354,7 +354,7 @@ class FareInfoCommonCell: ATTableViewCell {
                         self.statusLabel.textColor = .black
                         
                         let displayValue = Double(value!)
-                        self.statusLabel.text = String(displayValue) + " + ₹ " +  String(aertripValue)
+                        self.statusLabel.text = displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
                     }
                 }else{
                     if value == -9{
@@ -371,7 +371,7 @@ class FareInfoCommonCell: ATTableViewCell {
                         
                         let displayValue = Double(value!)
                         
-                        self.perAdultAmountLabel.text = String(displayValue) + " + ₹ " +  String(aertripValue)
+                        self.perAdultAmountLabel.text = displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
                     }
                 }
             }else{
@@ -383,10 +383,10 @@ class FareInfoCommonCell: ATTableViewCell {
         {
             let chdAertripReschedulingSlab = model.aertripResCharges?.child
             
-            var aertripValue = 0
+            var aertripValue: Double = 0
             
             //            if indexPath.row < chdAertripReschedulingSlab!.count{
-            aertripValue = model.aertripResCharges?.child ?? 0
+            aertripValue = Double(model.aertripResCharges?.child ?? 0)
             //            }
             
             if indexPath.row < chdAirlineReschedulingSlab.count{
@@ -406,7 +406,7 @@ class FareInfoCommonCell: ATTableViewCell {
                     
                     let displayValue = Double(value!)
                     
-                    self.perChildAmountLabel.text = String(displayValue) + " + ₹ " +  String(aertripValue)
+                    self.perChildAmountLabel.text = displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
                 }
             }else{
                 self.perChildAmountLabel.text = "NA"
@@ -417,10 +417,10 @@ class FareInfoCommonCell: ATTableViewCell {
         {
             let infAertripReschedulingSlab = model.aertripResCharges?.infant
             
-            var aertripValue = 0
+            var aertripValue: Double = 0
             
             //            if indexPath.row < infAertripReschedulingSlab!.count{
-            aertripValue = model.aertripResCharges?.infant ?? 0
+            aertripValue = Double(model.aertripResCharges?.infant ?? 0)
             
             //            }
             if indexPath.row < infAirlineReschedulingSlab.count{
@@ -439,7 +439,7 @@ class FareInfoCommonCell: ATTableViewCell {
                     self.perInfantAmountLabel.textColor = .black
                     let displayValue = Double(value!)
                     
-                    self.perInfantAmountLabel.text = String(displayValue) + " + ₹ " +  String(aertripValue)
+                    self.perInfantAmountLabel.text = displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
                 }
             }else{
                 self.perInfantAmountLabel.text = "NA"

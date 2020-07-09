@@ -474,11 +474,12 @@ extension AppFlowManager {
         }
     }
     
-    func showAddonRequestSent(buttonTitle: String, delegate: BulkEnquirySuccessfulVCDelegate) {
+    func showAddonRequestSent(buttonConfig: BulkEnquirySuccessfulVC.ButtonConfiguration, delegate: BulkEnquirySuccessfulVCDelegate) {
         if let mVC = UIApplication.topViewController() {
             let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
             ob.delegate = delegate
             ob.currentUsingAs = .addOnRequest
+            ob.searchButtonConfiguration = buttonConfig
             mVC.add(childViewController: ob)
         }
     }
@@ -1052,10 +1053,10 @@ extension AppFlowManager {
     }
     
     // Move to Booking Voucher VC
-    func moveToBookingVoucherVC(receipt: Receipt, caseId: String) {
+    func moveToBookingVoucherVC(receipt: Receipt, bookingId: String) {
         let obj = BookingVoucherVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.receipt = receipt
-        obj.viewModel.caseId = caseId
+        obj.viewModel.bookingId = bookingId
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     

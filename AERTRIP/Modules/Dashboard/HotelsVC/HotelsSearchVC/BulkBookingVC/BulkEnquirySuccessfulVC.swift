@@ -25,7 +25,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
         var isGradient: Bool = true
         var cornerRadius: CGFloat = 0.0
         var spaceFromBottom: CGFloat = 22.5
-        let buttonHeight: CGFloat = 62.0
+        var buttonHeight: CGFloat = 50.0
     }
     
     enum UsingFor {
@@ -182,7 +182,8 @@ class BulkEnquirySuccessfulVC: BaseVC {
         self.searchBtnOutlet.titleLabel?.font = searchButtonConfiguration.textFont
         
         self.searchButtonWidthConstraint.constant = searchButtonConfiguration.width
-        
+        self.searchButtonHeightConstraint.constant = searchButtonConfiguration.buttonHeight
+
         print(self.containerView.height - searchButtonConfiguration.spaceFromBottom - self.searchBtnOutlet.y)
         let y = self.view.height - searchButtonConfiguration.spaceFromBottom - self.searchBtnOutlet.y - self.searchBtnOutlet.height
         self.searchBtnOutlet.transform = CGAffineTransform(translationX:  0, y: y)

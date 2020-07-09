@@ -195,6 +195,7 @@ extension BookingHotelDetailVC {
             guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell else { return UITableViewCell() }
             cell.configureOverviewCell(isForBooking: true, overview: self.viewModel.bookingDetail?.bookingDetail?.overViewData ?? "")
             cell.addressInfoTextView.isUserInteractionEnabled = false
+            cell.moreViewBottomConstraint.constant = 20
             //cell.clipsToBounds = true
             return cell
         case 4: // Amentities Cell

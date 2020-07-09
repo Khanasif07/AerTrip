@@ -33,3 +33,4 @@ class BookingReschedulingVM {
     
     var usingFor: BookingReschedulingVCUsingFor = .rescheduling
 }
+

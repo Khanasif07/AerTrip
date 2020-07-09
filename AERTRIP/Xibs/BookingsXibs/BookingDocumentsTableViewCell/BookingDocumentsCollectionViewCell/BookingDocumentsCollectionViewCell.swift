@@ -82,7 +82,7 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
         self.dowloadingPlaceHolderImgView.image = nil
         self.loaderSetUp()
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture(recognizer:)))
-        longPressGesture?.minimumPressDuration = 1.0 // 1 second press
+        longPressGesture?.minimumPressDuration = 0.5 // 1 second press
         //longPressGesture?.delaysTouchesEnded = true
     }
     

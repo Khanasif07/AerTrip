@@ -112,13 +112,20 @@ class AccountOfflineDepositVC: BaseVC {
         self.indicatorView.style = .white
         self.indicatorView.color = AppColors.themeWhite
         self.indicatorView.startAnimating()
-        
+        self.payButton.isHidden = shouldStart
         self.loaderContainer.isHidden = !shouldStart
     }
     
     func showPaymentSuccessMessage() {
         if self.currentUsingFor == .addOns {
-            AppFlowManager.default.showAddonRequestSent(buttonTitle:LocalizedString.Done.localized, delegate: self)
+            var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
+            config.text = "\(LocalizedString.Register.localized) \(LocalizedString.Payment.localized)"
+            config.textFont = AppFonts.SemiBold.withSize(20.0)
+            config.cornerRadius = 0.0
+            config.width = self.payButton.width
+            config.buttonHeight = self.paymentButtonContainerView.height
+            config.spaceFromBottom = AppFlowManager.default.safeAreaInsets.bottom
+            AppFlowManager.default.showAddonRequestSent(buttonConfig: config, delegate: self)
         }
         else {
             var config = BulkEnquirySuccessfulVC.ButtonConfiguration()

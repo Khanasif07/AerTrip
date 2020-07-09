@@ -108,7 +108,16 @@ class AccountOnlineDepositVC: BaseVC {
 
     // Get Update Pay Button Text
     func updatePayButtonText() {
-        self.payButton.setTitle(" " + LocalizedString.Pay.localized + " " + self.viewModel.totalPayableAmount.amountInDelimeterWithSymbol, for: .normal)
+       // self.payButton.setTitle(" " + LocalizedString.Pay.localized + " " + self.viewModel.totalPayableAmount.amountInDelimeterWithSymbol, for: .normal)
+        
+        let title = (" " + LocalizedString.Pay.localized + " " + self.viewModel.totalPayableAmount.amountInDelimeterWithSymbol).asStylizedPrice(using: AppFonts.Regular.withSize(22.0))
+        self.payButton.setTitle(title.string, for: .normal)
+        self.payButton.setTitle(title.string, for: .highlighted)
+
+        self.payButton.setAttributedTitle(title, for: .normal)
+        self.payButton.setAttributedTitle(title, for: .highlighted)
+        self.payButton.AttributedFontColorForText(text: title.string, textColor: .white, state: .normal)
+        self.payButton.AttributedFontColorForText(text: title.string, textColor: .white, state: .highlighted)
     }
 
     func manageLoader(shouldStart: Bool) {
@@ -121,7 +130,17 @@ class AccountOnlineDepositVC: BaseVC {
     
     func showPaymentSuccessMessage() {
         if self.currentUsingFor == .addOns {
-            AppFlowManager.default.showAddonRequestSent(buttonTitle:LocalizedString.Done.localized, delegate: self)
+//            AppFlowManager.default.showAddonRequestSent(buttonTitle:LocalizedString.Done.localized, delegate: self)
+            
+            var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
+            config.text = self.payButton.titleLabel?.text ?? ""
+            config.image = #imageLiteral(resourceName: "whiteBlackLockIcon")
+            config.cornerRadius = 0.0
+            config.textFont = AppFonts.SemiBold.withSize(20.0)
+            config.width = self.payButton.width
+            config.buttonHeight = self.gradientView.height
+            config.spaceFromBottom = AppFlowManager.default.safeAreaInsets.bottom
+              AppFlowManager.default.showAddonRequestSent(buttonConfig: config, delegate: self)
         }
         else {
             var config = BulkEnquirySuccessfulVC.ButtonConfiguration()

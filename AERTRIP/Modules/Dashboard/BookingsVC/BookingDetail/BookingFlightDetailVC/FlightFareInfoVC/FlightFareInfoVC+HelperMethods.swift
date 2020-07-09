@@ -141,9 +141,11 @@ extension FlightFareInfoVC {
         }
         fareInfoNoteCell.isForBookingPolicyCell = false
         fareInfoNoteCell.notesTopConstraint.constant = 26
-        fareInfoNoteCell.noteTextViewTopConstraint.constant = 10
-        fareInfoNoteCell.noteLabel.text = LocalizedString.Notes.localized
-        fareInfoNoteCell.configCell(notes: AppConstants.kfareInfoNotes)
+        fareInfoNoteCell.noteTextViewTopConstraint.constant = 0
+        fareInfoNoteCell.noteTextViewBottomConstraint.constant = 16
+        fareInfoNoteCell.noteLabel.text = nil //LocalizedString.Notes.localized
+        //fareInfoNoteCell.configCell(notes: AppConstants.kfareInfoNotes)
+        fareInfoNoteCell.noteTextView.attributedText = fareInfoNoteCell.getFareInfoAttributedNote()
         fareInfoNoteCell.layoutIfNeeded()
         return fareInfoNoteCell
     }

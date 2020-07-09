@@ -57,14 +57,14 @@ extension FlightFareInfoVC: UITableViewDataSource, UITableViewDelegate {
             headerView.dividerView.isHidden = false
             headerView.delegate = self
             headerView.fareRulesButton.setTitle(LocalizedString.FareRules.localized, for: .normal)
-//            if self.viewModel.legDetails.count == 1 {
-//                headerView.refundPolicyLabel.text = displayTitle
-//                headerView.infoLabel.isHidden = true
-//            } else {
-                headerView.refundPolicyLabel.text = (flight.departure) + " → " + (flight.arrival)
+            if self.viewModel.legDetails.count == 1 {
+                headerView.refundPolicyLabel.text = displayTitle
+                headerView.infoLabel.isHidden = true
+            } else {
+                headerView.refundPolicyLabel.text = (flight.departCity) + " → " + (flight.arrivalCity)
                 headerView.infoLabel.text = displayTitle
                 headerView.infoLabel.isHidden = false
-//            }
+            }
             
             
             //            var infoText = "We do not have information regarding refundability/reschedulability"
@@ -242,8 +242,10 @@ extension FlightFareInfoVC: BookingDetailVMDelegate {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.reloadData()
-        
         delay(seconds: 0.5) {
+            self.tableView.reloadData()
+        }
+        delay(seconds: 0.8) {
             self.tableView.reloadData()
         }
     }

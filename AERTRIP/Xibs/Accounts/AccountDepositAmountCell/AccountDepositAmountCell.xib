@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,15 +24,15 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8f-8h-9Je">
-                        <rect key="frame" x="16" y="49.5" width="11" height="21"/>
+                        <rect key="frame" x="16" y="50.5" width="11" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uKv-8X-jE2">
-                        <rect key="frame" x="29" y="42" width="275" height="36"/>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uKv-8X-jE2">
+                        <rect key="frame" x="29" y="41" width="275" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="36" id="Auj-y3-uNg"/>
+                            <constraint firstAttribute="height" constant="40" id="Auj-y3-uNg"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="28"/>
                         <textInputTraits key="textInputTraits"/>
@@ -45,7 +45,7 @@
                     <constraint firstItem="HMu-I8-sMZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="L7S-fb-ZmB"/>
                     <constraint firstItem="c8f-8h-9Je" firstAttribute="leading" secondItem="HMu-I8-sMZ" secondAttribute="leading" id="bpD-ib-s7n"/>
                     <constraint firstItem="HMu-I8-sMZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="dpX-IL-3Cf"/>
-                    <constraint firstItem="uKv-8X-jE2" firstAttribute="top" secondItem="HMu-I8-sMZ" secondAttribute="bottom" constant="13" id="gMS-7W-AJS"/>
+                    <constraint firstItem="uKv-8X-jE2" firstAttribute="top" secondItem="HMu-I8-sMZ" secondAttribute="bottom" constant="12" id="gMS-7W-AJS"/>
                     <constraint firstAttribute="trailing" secondItem="HMu-I8-sMZ" secondAttribute="trailing" constant="16" id="vHR-Gk-g84"/>
                 </constraints>
             </tableViewCellContentView>
