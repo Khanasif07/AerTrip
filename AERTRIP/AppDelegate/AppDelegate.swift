@@ -31,7 +31,7 @@ import UIKit
     private var reachability: Reachability?
     
     // PROPERTY FOR APPLICATION LAUNCH TYPE
-    var isApplicationForFlight = true
+    var isApplicationForFlight = false
 
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -55,7 +55,6 @@ import UIKit
         UITextField.appearance().tintColor = AppColors.themeGreen
         
         NotificationCenter.default.addObserver(self, selector: #selector(checkForReachability(_:)), name: Notification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
-        
         self.reachability = Reachability.networkReachabilityForInternetConnection()
         let _ = self.reachability?.startNotifier()
         return true

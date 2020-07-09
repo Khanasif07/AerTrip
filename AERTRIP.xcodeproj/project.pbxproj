@@ -380,6 +380,8 @@
 		188785A321DF79A30061869E /* TravellerListTableViewSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188785A221DF79A30061869E /* TravellerListTableViewSectionView.xib */; };
 		188785A621DF7D990061869E /* TravellerListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188785A421DF7D990061869E /* TravellerListTableViewCell.swift */; };
 		188785A721DF7D990061869E /* TravellerListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188785A521DF7D990061869E /* TravellerListTableViewCell.xib */; };
+		18889C9424B706CB001C01D6 /* NewAccountLedgerEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18889C9324B706CB001C01D6 /* NewAccountLedgerEventCell.swift */; };
+		18889C9724B70707001C01D6 /* NewAccountLedgerEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18889C9624B70707001C01D6 /* NewAccountLedgerEventCell.xib */; };
 		188A4DB1242DE96D00F871ED /* PanDirectionGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188A4DB0242DE96D00F871ED /* PanDirectionGestureRecognizer.swift */; };
 		188A4DB3242DE9B800F871ED /* SwiftPhotoGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188A4DB2242DE9B800F871ED /* SwiftPhotoGallery.swift */; };
 		188A4DB5242DE9F800F871ED /* SwiftPhotoGalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188A4DB4242DE9F800F871ED /* SwiftPhotoGalleryCell.swift */; };
@@ -1986,6 +1988,8 @@
 		188785A221DF79A30061869E /* TravellerListTableViewSectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TravellerListTableViewSectionView.xib; sourceTree = "<group>"; };
 		188785A421DF7D990061869E /* TravellerListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravellerListTableViewCell.swift; sourceTree = "<group>"; };
 		188785A521DF7D990061869E /* TravellerListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TravellerListTableViewCell.xib; sourceTree = "<group>"; };
+		18889C9324B706CB001C01D6 /* NewAccountLedgerEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountLedgerEventCell.swift; sourceTree = "<group>"; };
+		18889C9624B70707001C01D6 /* NewAccountLedgerEventCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewAccountLedgerEventCell.xib; sourceTree = "<group>"; };
 		188A4DB0242DE96D00F871ED /* PanDirectionGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanDirectionGestureRecognizer.swift; sourceTree = "<group>"; };
 		188A4DB2242DE9B800F871ED /* SwiftPhotoGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPhotoGallery.swift; sourceTree = "<group>"; };
 		188A4DB4242DE9F800F871ED /* SwiftPhotoGalleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPhotoGalleryCell.swift; sourceTree = "<group>"; };
@@ -4404,6 +4408,15 @@
 				188785A521DF7D990061869E /* TravellerListTableViewCell.xib */,
 			);
 			path = TravellerList;
+			sourceTree = "<group>";
+		};
+		18889C9224B70648001C01D6 /* NewAccountLedgerEventCell */ = {
+			isa = PBXGroup;
+			children = (
+				18889C9324B706CB001C01D6 /* NewAccountLedgerEventCell.swift */,
+				18889C9624B70707001C01D6 /* NewAccountLedgerEventCell.xib */,
+			);
+			path = NewAccountLedgerEventCell;
 			sourceTree = "<group>";
 		};
 		188A4DA8242DE8C000F871ED /* PhotoLibrary */ = {
@@ -8219,6 +8232,7 @@
 		84D157FA22660B1400393528 /* Accounts */ = {
 			isa = PBXGroup;
 			children = (
+				18889C9224B70648001C01D6 /* NewAccountLedgerEventCell */,
 				84E9FEF922A008DB0059F911 /* AccountLedgerEventCell */,
 				842A56B82289A0BC004FD51F /* OfflineDepositeSlipUoloadCell */,
 				842A56A822897C70004FD51F /* OfflineDepositeTextImageCell */,
@@ -9402,6 +9416,7 @@
 				188785A321DF79A30061869E /* TravellerListTableViewSectionView.xib in Resources */,
 				1820F0F1228D6BB80019B8BB /* BookingRequestStateTableViewCell.xib in Resources */,
 				8455A683223295FF00CEE2B3 /* PoweredByTableViewCell.xib in Resources */,
+				18889C9724B70707001C01D6 /* NewAccountLedgerEventCell.xib in Resources */,
 				843FF4AB24740231001F21B1 /* FlightFilter.storyboard in Resources */,
 				18AAAC1D24B37E7800025ABF /* SeeExampleHeaderView.xib in Resources */,
 				18B57A1A22AF546800269410 /* BookingTravellerAddOnsCollectionViewCell.xib in Resources */,
@@ -10222,6 +10237,7 @@
 				841DD1E82202DC690055FEBB /* DestinationSearchedTableCell.swift in Sources */,
 				1879C48F22927AA700897CED /* BookingCallTableViewCell.swift in Sources */,
 				84534E9F2248AB8F009FF536 /* HCHotelRatingTableViewCell.swift in Sources */,
+				18889C9424B706CB001C01D6 /* NewAccountLedgerEventCell.swift in Sources */,
 				84D1580322660B4F00393528 /* AccountDetailEventHeaderCell.swift in Sources */,
 				843FF54924740232001F21B1 /* FlightSearchResultVM + FilterDelegate.swift in Sources */,
 				1804888D21CA6BAA00437C81 /* ViewProfileDetailTableViewCell.swift in Sources */,

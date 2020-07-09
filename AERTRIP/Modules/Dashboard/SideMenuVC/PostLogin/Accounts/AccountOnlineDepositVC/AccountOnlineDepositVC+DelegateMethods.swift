@@ -43,6 +43,7 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
             }
             fareDetailCell.fareDetailTitleLabel.text = LocalizedString.Breakup.localized
             fareDetailCell.numberOfRoomAndLabel.text = ""
+            fareDetailCell.numberOfRoomAndLabel.isHidden = true
             fareDetailCell.dividerView.isHidden = true
             return fareDetailCell
             

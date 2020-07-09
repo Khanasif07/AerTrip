@@ -103,6 +103,7 @@ class AccountDetailsVC: BaseVC {
         self.tableView.registerCell(nibName: AccountDetailEventDescriptionCell.reusableIdentifier)
         
         self.tableView.registerCell(nibName: AccountLedgerEventCell.reusableIdentifier)
+        self.tableView.registerCell(nibName: NewAccountLedgerEventCell.reusableIdentifier)
         
         self.searchBar.isMicEnabled = true
         
@@ -357,7 +358,7 @@ extension AccountDetailsVC: UISearchBarDelegate {
             self.searchBarCancelButtonClicked(searchBar)
         }else{
             self.preserveSearchData()
-            self.currentViewState = .searching
+//            self.currentViewState = .filterApplied
             self.view.endEditing(true)
         }
         

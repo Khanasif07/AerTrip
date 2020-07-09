@@ -1341,6 +1341,14 @@ extension AppFlowManager: UIDocumentInteractionControllerDelegate {
         return navVC
     }
     
+    func setupForDummy(){
+        self.documentInteractionController.url = URL(string: "")
+        self.documentInteractionController.name = ""
+        self.documentInteractionController.delegate = self
+        self.documentInteractionController.presentPreview(animated: true)
+        self.documentInteractionController.dismissPreview(animated: true)
+    }
+    
     func openDocument(atURL url: URL, screenTitle: String) {
         self.documentInteractionController.url = url
         self.documentInteractionController.name = screenTitle

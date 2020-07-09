@@ -215,6 +215,7 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
         vc.selectedJourneyFK = [self.viewModel.itineraryData.itinerary.details.fk]
         vc.journeyTitle = self.viewModel.bookingTitle
         vc.journeyDate = self.viewModel.journeyDate
+        vc.modalPresentationStyle = .popover
         self.present(vc, animated: true, completion: nil)
         
     }
