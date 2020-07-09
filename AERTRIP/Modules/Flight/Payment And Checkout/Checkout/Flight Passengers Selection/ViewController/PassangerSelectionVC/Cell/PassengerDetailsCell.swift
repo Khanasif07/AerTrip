@@ -206,7 +206,7 @@ class PassengerDetailsCell: UICollectionViewCell {
         guard ((self.contact?.passengerType ?? .Adult) == .Adult) else {return}
         if self.isAllPaxInfoRequired{
             let mobileText = self.contact?.contact ?? ""
-            let isValidMobile = !(!(mobileText.isEmpty) && (mobileText.count >= minMNS)  && (mobileText.count <= maxMNS))
+            let isValidMobile = !(!(mobileText.isEmpty) && (getOnlyIntiger(mobileText).count >= minMNS)  && (getOnlyIntiger(mobileText).count <= maxMNS))
             let isValidMail = !(self.contact?.emailLabel.isEmail ?? true)
             if isValidMail || isValidMobile{
                 self.infoImageView.isHidden = false
@@ -232,5 +232,11 @@ class PassengerDetailsCell: UICollectionViewCell {
         ])
         attributedString.addAttribute(.foregroundColor, value: AppColors.themeGray40, range: (text as NSString).range(of: ageText))
         return attributedString
+    }
+    
+    func getOnlyIntiger(_ str: String)->String{
+        let newStr = str.lowercased()
+        let okayChars = Set("1234567890")
+        return newStr.filter {okayChars.contains($0) }
     }
 }

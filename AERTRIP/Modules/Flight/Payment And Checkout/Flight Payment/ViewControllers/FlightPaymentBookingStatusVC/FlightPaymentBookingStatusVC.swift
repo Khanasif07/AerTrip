@@ -51,6 +51,11 @@ class FlightPaymentBookingStatusVC: BaseVC {
         self.gradientView.addGredient(isVertical: false)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+    }
+    
     private func registerCell(){
         
         self.statusTableView.registerCell(nibName: YouAreAllDoneTableViewCell.reusableIdentifier)

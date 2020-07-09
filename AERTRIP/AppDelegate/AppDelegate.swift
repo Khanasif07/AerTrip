@@ -55,7 +55,6 @@ import UIKit
         UITextField.appearance().tintColor = AppColors.themeGreen
         
         NotificationCenter.default.addObserver(self, selector: #selector(checkForReachability(_:)), name: Notification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
-        
         self.reachability = Reachability.networkReachabilityForInternetConnection()
         let _ = self.reachability?.startNotifier()
         return true

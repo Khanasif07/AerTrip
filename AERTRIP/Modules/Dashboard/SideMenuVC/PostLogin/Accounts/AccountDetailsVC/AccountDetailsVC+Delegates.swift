@@ -82,7 +82,7 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-        return 141.0
+        return 149.0
 //        let allCount = 2
 //        if (indexPath.row % allCount) == 0 {
 //            //event header cell + (for top space)
@@ -127,7 +127,7 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func getEventCell(forData: AccountDetailEvent) -> UITableViewCell {
-        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: AccountLedgerEventCell.reusableIdentifier) as? AccountLedgerEventCell else {
+        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: NewAccountLedgerEventCell.reusableIdentifier) as? NewAccountLedgerEventCell else {
             return UITableViewCell()
         }
         

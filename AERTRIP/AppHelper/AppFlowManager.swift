@@ -1343,6 +1343,14 @@ extension AppFlowManager: UIDocumentInteractionControllerDelegate {
         return navVC
     }
     
+    func setupForDummy(){
+        self.documentInteractionController.url = URL(string: "")
+        self.documentInteractionController.name = ""
+        self.documentInteractionController.delegate = self
+        self.documentInteractionController.presentPreview(animated: true)
+        self.documentInteractionController.dismissPreview(animated: true)
+    }
+    
     func openDocument(atURL url: URL, screenTitle: String) {
         self.documentInteractionController.url = url
         self.documentInteractionController.name = screenTitle
@@ -1406,13 +1414,12 @@ extension AppFlowManager {
         }
         guard newVC != nil else {return}
         let nav = (newVC?.presentingViewController as?  UINavigationController)
-        newVC?.presentingViewController?.dismiss(animated: false, completion: {
+        newVC?.presentingViewController?.dismiss(animated: true, completion: {
             delay(seconds: 0.0) {
-                if let intVC = nav?.children.first(where: {$0.isKind(of: HomeDummyViewController.self)}){
-                    nav?.popToViewController(intVC, animated: true)
-                }else{
-                    nav?.popToRootViewController(animated: true)
+                if let baseVC = nav?.children.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
+                    baseVC.popToPreviousScreen(sender: UIButton())
                 }
+                nav?.popToRootViewController(animated: true)
             }
         })
         

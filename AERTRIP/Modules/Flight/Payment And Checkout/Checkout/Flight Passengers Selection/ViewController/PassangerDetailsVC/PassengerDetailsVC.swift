@@ -22,6 +22,7 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     weak var delegate : HCSelectGuestsVCDelegate?
     var viewModel = PassengerDetailsVM()
     var isNeedToshowBottom = false
+    var offsetPoint = CGPoint(x: 0, y: 0)
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerCells()
@@ -186,7 +187,7 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     func presentPassportView(){
         let vc  = PassportExampleVC.instantiate(fromAppStoryboard: .PassengersSelection)
         vc.modalPresentationStyle = .overFullScreen
-        self.present(vc, animated: true, completion: nil)
+        self.present(vc, animated: false, completion: nil)
     }
     
     
@@ -424,6 +425,7 @@ extension PassengerDetailsVC: GuestDetailTableViewCellDelegate {
         
         self.travellersTableView.isHidden = GuestDetailsVM.shared.isDataEmpty
         self.travellersTableView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+        self.offsetPoint = self.passengerTable.contentOffset
         self.viewModel.editinIndexPath = self.passengerTable.indexPath(forItem: textField)
         if let _ = self.passengerTable.cell(forItem: textField) as? AddPassengerDetailsCell {
             //  get item position
@@ -431,6 +433,9 @@ extension PassengerDetailsVC: GuestDetailTableViewCellDelegate {
             var  yValue = 134
             if let index = self.viewModel.editinIndexPath {
                 yValue = index.section ==  GuestDetailsVM.shared.guests[0].count - 1 ? 135 : 137
+                if index.section == 0{
+                    yValue = 80
+                }
                 if self.viewModel.isAllPaxInfoRequired{
                     yValue += 3
                 }
@@ -450,7 +455,7 @@ extension PassengerDetailsVC: GuestDetailTableViewCellDelegate {
     }
     
     func textFieldEndEditing(_ textField: UITextField) {
-        
+        self.passengerTable.setContentOffset(self.offsetPoint, animated: true)
     }
 }
 

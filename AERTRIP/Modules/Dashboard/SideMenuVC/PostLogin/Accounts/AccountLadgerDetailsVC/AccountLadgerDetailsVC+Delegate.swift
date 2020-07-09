@@ -125,7 +125,6 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                     default: isForVouchre = true
                     }
                 }
-                downloadInvoiceCell.topDividerView.isHidden = true
                 downloadInvoiceCell.showLoader = self.viewModel.isDownloadingRecipt
                 downloadInvoiceCell.titleLabel.text = isForVouchre ? LocalizedString.DownloadReceipt.localized : LocalizedString.DownloadInvoice.localized
                 

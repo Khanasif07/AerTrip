@@ -129,7 +129,7 @@ struct AddonsDataCustom {
     var othersSelectedFor : [ATContact] = []
 //    var autoSelectedFor : [String] = []
     var autoSelectedFor : String = ""
-    
+    var isInternational : Bool = false
     
     init() {
         

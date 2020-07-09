@@ -78,6 +78,7 @@ extension AddOnVC {
     
     private func configureTableView(){
         self.adonsTableView.register(UINib(nibName: "AdonsCell", bundle: nil), forCellReuseIdentifier: "AdonsCell")
+        self.adonsTableView.contentInset = UIEdgeInsets(top: -12, left: 0, bottom: 0, right: 0)
         self.adonsTableView.separatorStyle = .none
         //        self.adonsTableView.estimatedRowHeight = 104
         self.adonsTableView.rowHeight = UITableView.automaticDimension
@@ -277,7 +278,7 @@ extension AddOnVC : AddonsUpdatedDelegate {
         self.adonsVm.setBaggageStrings()
         self.adonsTableView.reloadData()
         let amountValue = amount.isEmpty || amount == "0" ? nil : amount
-        self.adonsVm.updatePriceDict(key: "baggage", value: amountValue)
+        self.adonsVm.updatePriceDict(key: "Baggage", value: amountValue?.replacingLastOccurrenceOfString(",", with: ""))
         self.setSkipButton()
     }
     
@@ -285,7 +286,7 @@ extension AddOnVC : AddonsUpdatedDelegate {
         self.adonsVm.setMealsString()
         self.adonsTableView.reloadData()
         let amountValue = amount.isEmpty || amount == "0" ? nil : amount
-        self.adonsVm.updatePriceDict(key: "meals", value: amountValue)
+        self.adonsVm.updatePriceDict(key: "Meals", value: amountValue?.replacingLastOccurrenceOfString(",", with: ""))
         self.setSkipButton()
     }
     
@@ -293,14 +294,14 @@ extension AddOnVC : AddonsUpdatedDelegate {
         self.adonsVm.setOthersString()
         self.adonsTableView.reloadData()
         let amountValue = amount.isEmpty || amount == "0" ? nil : amount
-        self.adonsVm.updatePriceDict(key: "others", value: amountValue)
+        self.adonsVm.updatePriceDict(key: "Others", value: amountValue?.replacingLastOccurrenceOfString(",", with: ""))
         self.setSkipButton()
     }
     
     func seatsUpdated(amount: Int) {
         self.adonsVm.setSeatsString()
         self.adonsTableView.reloadData()
-        self.adonsVm.updatePriceDict(key: "seat", value: "\(amount)")
+        self.adonsVm.updatePriceDict(key: "Seat", value: "\(amount)")
         self.setSkipButton()
     }
     

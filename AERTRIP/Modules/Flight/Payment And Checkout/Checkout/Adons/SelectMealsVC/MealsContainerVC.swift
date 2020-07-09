@@ -210,7 +210,10 @@ extension MealsContainerVC : SelectMealDelegate {
         if allowedPassengers.count == 0 { return }
         
         if allowedPassengers.count == 1{
-            self.mealsContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: allowedPassengers)
+            
+            let passengersToBeAdded = !selectedContacts.isEmpty ? [] : allowedPassengers
+            
+            self.mealsContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: passengersToBeAdded)
             self.calculateTotalAmount()
             
         } else {

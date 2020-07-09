@@ -16,7 +16,7 @@ class LabelWithBulletCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        self.selectionStyle = .none
         self.descriptionLabel.font = AppFonts.Regular.withSize(16)
         self.dotLabel.font = AppFonts.SemiBold.withSize(16)
         

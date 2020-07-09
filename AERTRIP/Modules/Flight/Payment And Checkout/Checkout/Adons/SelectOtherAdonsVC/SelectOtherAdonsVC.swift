@@ -51,6 +51,7 @@ class SelectOtherAdonsVC: UIViewController {
     @IBAction func clearButtonTapped(_ sender: UIButton) {
         self.specialRequestTextView.text = ""
         self.clearButton.isHidden = true
+        self.otherAdonsVm.specialRequest = ""
         self.delegate?.specialRequestUpdated()
     }
 }

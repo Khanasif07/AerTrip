@@ -476,6 +476,19 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
         }
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+               case self.firstNameTextField:
+                   self.txtFldEditDelegate?.textFieldEndEditing(self.firstNameTextField)
+                   break
+               case self.lastNameTextField:
+                   self.txtFldEditDelegate?.textFieldEndEditing(self.lastNameTextField)
+                   break
+               default:
+                   break
+               }
+    }
+    
     @objc func textFieldDidChanged(_ textField: UITextField) {
         
         let txtStr = textField.text ?? ""
