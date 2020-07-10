@@ -63,6 +63,14 @@ struct FlightItinerary {
     //selected_apf: {leg: ""}
    
     
+    var journeyEndDate:Date{
+        if let ad = self.details.legsWithDetail.last?.ad,!ad.isEmpty, let date = ad.toDate(dateFormat: "yyyy-MM-dd"){
+            return date
+        }
+        return Date()
+    }
+    
+    
     init(_ json:JSON = JSON()){
         id = json["id"].stringValue
         sid = json["sid"].stringValue

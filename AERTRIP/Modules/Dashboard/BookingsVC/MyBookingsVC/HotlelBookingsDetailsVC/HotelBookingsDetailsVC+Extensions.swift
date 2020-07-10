@@ -162,13 +162,15 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         case .tripChangeCell:
             self.tripChangeIndexPath = indexPath
             AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips,tripInfo: self.viewModel.bookingDetail?.tripInfo ?? TripInfo())
-        case .addToAppleWallet, .bookAnotherRoomCell :
+        case .addToAppleWallet :
             AppGlobals.shared.showUnderDevelopment()
         case .addToCalenderCell:
             self.addToCalender()
+        case .bookAnotherRoomCell:
+            self.bookAnotherRoom()
         case .paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .refundCell,.paymentPendingCell, .paidCell:
             if let rcpt = self.viewModel.bookingDetail?.receipt {
-            AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, caseId: "")
+                AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, bookingId: self.viewModel.bookingId)
             }
         default:  break
         }
@@ -455,6 +457,33 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
         AppGlobals.shared.showUnderDevelopment()
     }
     
+    func bookAnotherRoom() {
+        let booking = self.viewModel.bookingDetail?.bookingDetail
+        if let hotelName = booking?.hotelName, let address = booking?.hotelAddress, let lat =  booking?.latitude, let long = booking?.longitude, let city = booking?.city, let hotelId = booking?.hotelId, let checkIn = booking?.checkIn, let checkOut = booking?.checkOut {
+            var hotelData = HotelFormPreviosSearchData()
+            hotelData.cityName = city
+            hotelData.lat = lat
+            hotelData.lng = long
+            var splittedStringArray = address.components(separatedBy: ",")
+            splittedStringArray.removeFirst()
+            let stateName = splittedStringArray.joined(separator: ",")
+            hotelData.stateName = stateName
+            
+            hotelData.destType = "hotel"
+            hotelData.destName = hotelName
+            hotelData.destId = hotelId
+            
+            if checkIn.isGreaterThan(Date()) {
+                hotelData.checkInDate = checkIn.toString(dateFormat: "yyyy-MM-dd")
+                hotelData.checkOutDate = checkOut.toString(dateFormat: "yyyy-MM-dd")
+            }
+            
+            hotelData.roomNumber     =  1
+            hotelData.adultsCount    = [2]
+            HotelsSearchVM.hotelFormData = hotelData
+            AppFlowManager.default.goToDashboard(toBeSelect: .hotels)
+        }
+    }
     func webCheckinServices(url: String) {
         // TODO: - Need to be synced with backend Api key
         guard let url = url.toUrl else { return }

@@ -288,7 +288,7 @@ extension HotlelBookingsDetailsVC {
         cell.subtitleLabelBottomConstraint.constant = 9.0
         cell.titleLabelBottomConstraint.constant = 2.0
         cell.clipsToBounds = true
-         cell.dividerView.isHidden = false
+         cell.dividerView.isHidden = true
         return cell
     }
     
@@ -304,7 +304,7 @@ extension HotlelBookingsDetailsVC {
         cell.titleLabelBottomConstraint.constant = 2.0
         cell.subtitleLabelBottomConstraint.constant = 9.0
         cell.clipsToBounds = true
-        cell.dividerView.isHidden = false
+        cell.dividerView.isHidden = true
         return cell
     }
     
@@ -315,7 +315,7 @@ extension HotlelBookingsDetailsVC {
         cell.subtitleLabelBottomConstraint.constant = 9.0
         cell.containerView.backgroundColor = AppColors.screensBackground.color
         cell.clipsToBounds = true
-        cell.dividerView.isHidden = false
+        cell.dividerView.isHidden = true
         return cell
     }
     
@@ -326,7 +326,7 @@ extension HotlelBookingsDetailsVC {
         cell.configCell(title: "Billing Address", titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.address?.completeAddress ?? LocalizedString.na.localized, subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.themeBlack)
         cell.containerView.backgroundColor = AppColors.screensBackground.color
         cell.clipsToBounds = true
-        cell.dividerView.isHidden = false
+        cell.dividerView.isHidden = true
         return cell
     }
 }

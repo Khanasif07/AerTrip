@@ -49,7 +49,7 @@ class BookingVoucherTableViewCell: ATTableViewCell {
     // MARK: - Override methods
     override func doInitialSetup() {
         self.payNowButton.addGredient(isVertical: false)
-        self.payNowButton.layer.cornerRadius = 14.0
+        self.payNowButton.layer.cornerRadius = 25.0
         self.payNowButton.layer.masksToBounds = true
         
     }
@@ -58,7 +58,10 @@ class BookingVoucherTableViewCell: ATTableViewCell {
         self.titleLabel.font = AppFonts.Regular.withSize(18.0)
         self.dateLabel.font = AppFonts.Regular.withSize(16.0)
         self.priceLabel.font = AppFonts.SemiBold.withSize(22.0)
-        self.payNowButton.titleLabel?.font = AppFonts.SemiBold.withSize(16.0)
+        self.payNowButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+        self.payNowButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+        self.payNowButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
+
     }
     
     override func setupTexts() {

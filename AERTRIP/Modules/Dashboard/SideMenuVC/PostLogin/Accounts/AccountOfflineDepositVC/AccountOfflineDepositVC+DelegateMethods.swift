@@ -439,7 +439,7 @@ extension AccountOfflineDepositVC {
                 case 2:
                     //select bank name
                     PKMultiPicker.noOfComponent = 1
-                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.paymentModeDetails?.allBanksName ?? [], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.paymentModeDetails?.allBanksName ?? [], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self] (firstSelect, secondSelect) in
                         textField.text = firstSelect
                         self.viewModel.userEnteredDetails.aertripBank = firstSelect
                     }
@@ -447,7 +447,7 @@ extension AccountOfflineDepositVC {
                 case 5:
                     //deposit date
                     let selected = (textField.text ?? "").toDate(dateFormat: "dd-MM-YYYY")
-                    PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd-MM-YYYY", mode: .date, minimumDate: nil, maximumDate: Date(), selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { (dateStr) in
+                    PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd-MM-YYYY", mode: .date, minimumDate: nil, maximumDate: Date(), selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { [unowned self] (dateStr) in
                         textField.text = dateStr
                         self.viewModel.userEnteredDetails.depositDate = dateStr.toDate(dateFormat: "dd-MM-YYYY")
                     }
@@ -457,7 +457,7 @@ extension AccountOfflineDepositVC {
                     if self.currentUsingAs == .fundTransfer {
                         //transfer type
                         PKMultiPicker.noOfComponent = 1
-                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: ["NEFT", "IMPS"], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: ["NEFT", "IMPS"], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self] (firstSelect, secondSelect) in
                             textField.text = firstSelect
                             self.viewModel.userEnteredDetails.transferType = firstSelect
                         }
@@ -467,7 +467,7 @@ extension AccountOfflineDepositVC {
                 case 8:
                     //select your bank name
                     PKMultiPicker.noOfComponent = 1
-                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.bankMaster, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.bankMaster, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self] (firstSelect, secondSelect) in
                         textField.text = firstSelect
                         self.viewModel.userEnteredDetails.userBank = firstSelect
                     }

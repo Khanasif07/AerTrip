@@ -108,7 +108,7 @@ extension FlightPaymentBookingStatusVC{
     internal func getWhatNextCell(_ indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: HCWhatNextTableViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextTableViewCell else { return UITableViewCell() }
         cell.delegate = self
-        let whtNext = self.viewModel.itinerary.hotelLinkParam.map{"Book your hotel in\n\($0.destName)"}
+        let whtNext = self.viewModel.itinerary.whatNext.map{"Book your hotel in\n\($0.city) & get the best deals!"}
         if !whtNext.isEmpty {
             cell.configCell(whatNextString: whtNext)
             cell.whatNextStackView.isHidden = false

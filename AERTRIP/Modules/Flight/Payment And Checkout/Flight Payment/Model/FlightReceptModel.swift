@@ -30,6 +30,7 @@ struct FlightRecept {
     var paymentDetails: PaymentDetails
     var tripDetails: TripDetails
     var tk, currency: String
+    var whatNext:[WhatNext]
 
     init(_ json:JSON = JSON()) {
         id = json["id"].stringValue
@@ -49,6 +50,7 @@ struct FlightRecept {
         tripDetails = TripDetails(json: json["trip_details"].dictionaryValue)
         tk = json["tk"].stringValue
         currency = json["currency"].stringValue
+        whatNext =  json["whatsNext"].arrayValue.map{WhatNext($0)}
     }
 }
 
@@ -79,6 +81,44 @@ struct HotelLinkParam {
         country = json["country"].stringValue
         star = json["tar "].stringValue
     }
+}
+
+
+struct  WhatNext {
+    var star, destType, checkout, prodcut: String
+    var destID, city, country: String
+    var rooms: [RoomPassengerData]
+    var checkin, destName: String
+    
+    init(_ json:JSON = JSON()){
+        star = json["star"].stringValue
+        destType = json["dest_type"].stringValue
+        checkout = json["checkout"].stringValue
+        prodcut = json["prodcut"].stringValue
+        destID = json["dest_id"].stringValue
+        city = json["city"].stringValue
+        country = json["country"].stringValue
+        rooms = json["rooms"].arrayValue.map{RoomPassengerData($0)}
+        checkin = json["checkin"].stringValue
+        destName = json["destName"].stringValue
+        
+    }
+
+}
+
+struct RoomPassengerData{
+    
+    var adult:Int
+    var child:Int
+    var infant:Int
+    
+    init(_ json:JSON = JSON()){
+        adult = json["adult"].intValue
+        child = json["child"].intValue
+        infant = json["infant"].intValue
+        
+    }
+    
 }
 
 // MARK: - PartPayment

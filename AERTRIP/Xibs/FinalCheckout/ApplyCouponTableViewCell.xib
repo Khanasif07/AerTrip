@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -52,11 +52,16 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="XQX-Jd-uO7">
+                                        <rect key="frame" x="211" y="12" width="20" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="XQX-Jd-uO7" firstAttribute="centerX" secondItem="oer-a4-UpG" secondAttribute="centerX" id="5sj-p7-tF9"/>
                                     <constraint firstItem="oer-a4-UpG" firstAttribute="top" secondItem="rzc-sW-1DK" secondAttribute="top" id="G9a-cJ-Gr7"/>
                                     <constraint firstItem="oer-a4-UpG" firstAttribute="leading" secondItem="lIz-We-ETg" secondAttribute="trailing" id="JOf-to-VMZ"/>
+                                    <constraint firstItem="XQX-Jd-uO7" firstAttribute="centerY" secondItem="oer-a4-UpG" secondAttribute="centerY" id="N1o-XI-UbV"/>
                                     <constraint firstAttribute="trailing" secondItem="oer-a4-UpG" secondAttribute="trailing" id="W5n-kR-n7g"/>
                                     <constraint firstAttribute="bottom" secondItem="lIz-We-ETg" secondAttribute="bottom" id="drF-ds-Wgq"/>
                                     <constraint firstItem="lIz-We-ETg" firstAttribute="leading" secondItem="rzc-sW-1DK" secondAttribute="leading" id="htG-o0-BnC"/>
@@ -92,6 +97,7 @@
                 <outlet property="closeButton" destination="oer-a4-UpG" id="PMB-EG-4hq"/>
                 <outlet property="couponLabel" destination="rEm-yC-qcw" id="byt-Xx-rmr"/>
                 <outlet property="couponView" destination="rzc-sW-1DK" id="uy6-rl-s59"/>
+                <outlet property="indicator" destination="XQX-Jd-uO7" id="sJa-xS-9aT"/>
             </connections>
             <point key="canvasLocation" x="137.59999999999999" y="153.82308845577214"/>
         </tableViewCell>

@@ -369,7 +369,7 @@ extension IntMCAndReturnDetailsVC : FareBreakupVCDelegate{
     
     func infoButtonTapped(isViewExpanded: Bool) {
         
-        if isViewExpanded == true{
+        if isViewExpanded{
             viewForFare.frame = CGRect(x: 0, y: 0, width: UIScreen.width, height: UIScreen.height)
             UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
                 self.viewForFare.backgroundColor = AppColors.blackWith20PerAlpha

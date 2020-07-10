@@ -68,6 +68,7 @@ class HotlelBookingsDetailsVC: BaseVC {
         self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isDivider: false, backgroundType:.color(color: .white))
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
+        self.topNavBar.navTitleLabel.numberOfLines = 1
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
         self.configureTableHeaderView()
         self.setupParallaxHeader()
@@ -105,9 +106,9 @@ class HotlelBookingsDetailsVC: BaseVC {
     
     func getUpdatedTitle() -> String {
         var updatedTitle = self.viewModel.bookingDetail?.bookingDetail?.hotelName ?? ""
-        if updatedTitle.count > 24 {
-            updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.count)
-        }
+//        if updatedTitle.count > 24 {
+//            updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.count)
+//        }
         return updatedTitle
     }
     

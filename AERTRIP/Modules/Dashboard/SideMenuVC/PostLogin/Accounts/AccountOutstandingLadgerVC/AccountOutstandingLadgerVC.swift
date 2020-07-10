@@ -55,6 +55,7 @@ class AccountOutstandingLadgerVC: BaseVC {
     let viewModel = AccountOutstandingLadgerVM()
     
     //MARK:- Private
+    var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
     private var searchModeSearchBarTopCurrent: CGFloat = 0.0
     private var oldOffset: CGPoint = CGPoint.zero
     private(set) var currentViewState = ViewState.normal {
@@ -105,7 +106,8 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.tableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
         self.tableView.registerCell(nibName: AccountDetailEventHeaderCell.reusableIdentifier)
         self.tableView.registerCell(nibName: AccountOutstandingEventDescriptionCell.reusableIdentifier)
-        
+        self.tableView.register(UINib(nibName: tableViewHeaderCellIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderCellIdentifier)
+
         self.searchBar.isMicEnabled = true
         
         self.searchDataContainerView.backgroundColor = AppColors.clear

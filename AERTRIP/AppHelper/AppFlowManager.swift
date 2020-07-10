@@ -147,10 +147,11 @@ class AppFlowManager: NSObject {
         self.addBlurToStatusBar()
     }
     
-    func goToDashboard(launchThroughSplash: Bool = false) {
+    func goToDashboard(launchThroughSplash: Bool = false, toBeSelect: DashboardVC.SelectedOption = .aerin) {
         let mainHome = MainHomeVC.instantiate(fromAppStoryboard: .Dashboard)
         self.mainHomeVC = mainHome
         self.mainHomeVC?.isLaunchThroughSplash = launchThroughSplash
+        self.mainHomeVC?.toBeSelect = toBeSelect
         let nvc = SwipeNavigationController(rootViewController: mainHome)
         nvc.delegate = AppDelegate.shared.transitionCoordinator
         self.mainNavigationController = nvc
@@ -473,11 +474,12 @@ extension AppFlowManager {
         }
     }
     
-    func showAddonRequestSent(buttonTitle: String, delegate: BulkEnquirySuccessfulVCDelegate) {
+    func showAddonRequestSent(buttonConfig: BulkEnquirySuccessfulVC.ButtonConfiguration, delegate: BulkEnquirySuccessfulVCDelegate) {
         if let mVC = UIApplication.topViewController() {
             let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
             ob.delegate = delegate
             ob.currentUsingAs = .addOnRequest
+            ob.searchButtonConfiguration = buttonConfig
             mVC.add(childViewController: ob)
         }
     }
@@ -1051,10 +1053,10 @@ extension AppFlowManager {
     }
     
     // Move to Booking Voucher VC
-    func moveToBookingVoucherVC(receipt: Receipt, caseId: String) {
+    func moveToBookingVoucherVC(receipt: Receipt, bookingId: String) {
         let obj = BookingVoucherVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.receipt = receipt
-        obj.viewModel.caseId = caseId
+        obj.viewModel.bookingId = bookingId
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -1341,6 +1343,14 @@ extension AppFlowManager: UIDocumentInteractionControllerDelegate {
         return navVC
     }
     
+    func setupForDummy(){
+        self.documentInteractionController.url = URL(string: "")
+        self.documentInteractionController.name = ""
+        self.documentInteractionController.delegate = self
+        self.documentInteractionController.presentPreview(animated: true)
+        self.documentInteractionController.dismissPreview(animated: true)
+    }
+    
     func openDocument(atURL url: URL, screenTitle: String) {
         self.documentInteractionController.url = url
         self.documentInteractionController.name = screenTitle
@@ -1404,14 +1414,13 @@ extension AppFlowManager {
         }
         guard newVC != nil else {return}
         let nav = (newVC?.presentingViewController as?  UINavigationController)
-        newVC?.presentingViewController?.dismiss(animated: true, completion: {
-            delay(seconds: 0.0) {
-                if let baseVC = nav?.children.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
-                    baseVC.popToPreviousScreen(sender: UIButton())
-                }
-                nav?.popToRootViewController(animated: true)
+        delay(seconds: 0.0) {
+            if let baseVC = nav?.children.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
+                baseVC.popToPreviousScreen(sender: UIButton())
             }
-        })
+            nav?.popToRootViewController(animated: false)
+        }
+        newVC?.presentingViewController?.dismiss(animated: false, completion: nil)
         
     }
     

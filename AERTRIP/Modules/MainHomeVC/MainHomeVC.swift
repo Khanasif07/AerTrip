@@ -34,7 +34,7 @@ class MainHomeVC: BaseVC {
         return !(self.scrollView.contentOffset.x < UIDevice.screenWidth)
     }
     var isLaunchThroughSplash = false
-    
+    var toBeSelect: DashboardVC.SelectedOption = .aerin
     private var logoViewOriginalFrame: CGRect?
     private var profileImgViewOriginalFrame: CGRect?
     
@@ -47,6 +47,9 @@ class MainHomeVC: BaseVC {
         self.initialSetups()
     }
     
+    deinit {
+        printDebug("deinit MainHomeVC")
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -185,6 +188,7 @@ class MainHomeVC: BaseVC {
     
         let dashBoardScene = DashboardVC.instantiate(fromAppStoryboard: .Dashboard)
         dashBoardScene.isLaunchThroughSplash = self.isLaunchThroughSplash
+        dashBoardScene.toBeSelect = self.toBeSelect
         sideMenuVC.mainViewController(dashBoardScene)
         
         let sideMenu = SideMenuVC.instantiate(fromAppStoryboard: .Dashboard)

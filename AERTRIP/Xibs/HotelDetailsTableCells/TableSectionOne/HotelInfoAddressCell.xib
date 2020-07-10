@@ -125,6 +125,7 @@
                 <outlet property="infoTextViewTrailingConstraint" destination="n8C-35-Br4" id="ocA-jQ-QHF"/>
                 <outlet property="moreBtnContainerView" destination="cje-PF-AVP" id="CC9-yD-HwU"/>
                 <outlet property="moreBtnOutlet" destination="Mco-ua-tSk" id="GH9-V6-CFA"/>
+                <outlet property="moreViewBottomConstraint" destination="j9C-PK-uO2" id="PMZ-kv-NIY"/>
             </connections>
             <point key="canvasLocation" x="296.80000000000001" y="80.059970014992516"/>
         </tableViewCell>

@@ -23,6 +23,7 @@ class HotelInfoAddressCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var moreViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var containerViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var deviderView: ATDividerView!
     @IBOutlet weak var moreBtnOutlet: UIButton!
@@ -144,6 +145,7 @@ class HotelInfoAddressCell: UITableViewCell {
             self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText:  hotelData.info, startTextColor: AppColors.themeBlack, middleText: " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
             self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3) ? false : true
             self.attributeLabelSetUp(overview: overview)
+            self.moreBtnOutlet.isUserInteractionEnabled = false
         }
         else {
             self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText:  hotelData.info, startTextColor: AppColors.themeBlack, middleText: " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))

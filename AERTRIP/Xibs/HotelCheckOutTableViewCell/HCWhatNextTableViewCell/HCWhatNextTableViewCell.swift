@@ -23,7 +23,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
     private let collectionMargin: CGFloat  = 11.0
     private let itemSpacing : CGFloat = 0.0
     private var itemHeight: CGFloat {
-        return 154//self.whatNextCollectionView.bounds.height
+        return 172//self.whatNextCollectionView.bounds.height
     }
     private var itemWidth: CGFloat  = 0
     

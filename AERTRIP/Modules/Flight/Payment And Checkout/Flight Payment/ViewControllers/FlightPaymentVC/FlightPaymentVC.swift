@@ -139,10 +139,18 @@ class FlightPaymentVC: BaseVC {
     }
 
     func setupPayButtonTitle(){
-        let amount = self.getTotalPayableAmount().amountInDelimeterWithSymbol
-        let title = " \(LocalizedString.Pay.localized)  \(amount)"
-        self.payButton.setTitle(title , for: .normal)
-        self.payButton.setTitle(title, for: .highlighted)
+        let ttl = self.getTotalPayableAmount().amountInDelimeterWithSymbol
+        let amount = ttl.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+        amount.addAttributes([.foregroundColor : AppColors.themeWhite], range: NSString(string: ttl).range(of: ttl))
+        let attributedTitle = NSMutableAttributedString(string: "\(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: AppColors.themeWhite])
+        attributedTitle.append(amount)
+        self.payButton.setAttributedTitle(attributedTitle, for: .normal)
+        self.payButton.setAttributedTitle(attributedTitle, for: .highlighted)
+        
+//        let amount = self.getTotalPayableAmount().amountInDelimeterWithSymbol
+//        let title = " \(LocalizedString.Pay.localized)  \(amount)"
+//        self.payButton.setTitle(title , for: .normal)
+//        self.payButton.setTitle(title, for: .highlighted)
     }
     
     private func manageLoader() {
@@ -261,9 +269,9 @@ class FlightPaymentVC: BaseVC {
     func getTotalPayableAmount() -> Double {
         var payableAmount: Double = Double(self.viewModel.itinerary.details.fare.totalPayableNow.value)
         if payableAmount > 0.0 {
-            if self.isCouponApplied, let discountBreakUp = self.viewModel.appliedCouponData.discountsBreakup {
-                payableAmount -= discountBreakUp.CPD
-            }
+//            if self.isCouponApplied, let discountBreakUp = self.viewModel.appliedCouponData.discountsBreakup {
+//                payableAmount -= discountBreakUp.CPD
+//            }
             let amount = self.isWallet ? self.convenienceFeesWallet : self.convenienceRate
             if self.isConvenienceFeeApplied {
                 payableAmount += amount
@@ -354,6 +362,8 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
     }
     
     func removeCouponCodeSuccessful(_ appliedCouponData: FlightItineraryData){
+        self.viewModel.isApplyingCoupon = false
+        self.view.isUserInteractionEnabled = true
         self.viewModel.appliedCouponData = appliedCouponData
         self.isCouponApplied = false
         self.viewModel.taxesDataDisplay()
@@ -362,6 +372,9 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
     }
     
     func removeCouponCodeFailed(error: ErrorCodes) {
+        self.viewModel.isApplyingCoupon = false
+        self.view.isUserInteractionEnabled = true
+        self.checkOutTableView.reloadData()
         AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
     }
     
@@ -451,6 +464,9 @@ extension FlightPaymentVC : WalletTableViewCellDelegate {
 extension FlightPaymentVC : ApplyCouponTableViewCellDelegate {
     func removeCouponTapped() {
         printDebug("Remove coupon tapped")
+        self.viewModel.isApplyingCoupon = true
+        self.view.isUserInteractionEnabled = false
+        self.checkOutTableView.reloadData()
         self.viewModel.removeCouponCode()
     }
 }

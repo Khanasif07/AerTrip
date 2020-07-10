@@ -20,7 +20,7 @@ class ApplyCouponTableViewCell: UITableViewCell {
     @IBOutlet weak var couponView: UIView!
     @IBOutlet weak var appliedCouponLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
-    
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     // MARK: - Properties
     weak var delegate : ApplyCouponTableViewCellDelegate?
     
@@ -28,7 +28,7 @@ class ApplyCouponTableViewCell: UITableViewCell {
     // MARK: - View life cycle
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        self.manageLoader()
         self.setupFonts()
         self.setUpColors()
         self.setUpText()
@@ -61,5 +61,25 @@ class ApplyCouponTableViewCell: UITableViewCell {
         delegate?.removeCouponTapped()
     }
     
+    
+    private func manageLoader() {
+        self.indicator.style = .gray
+        self.indicator.tintColor = AppColors.themeGreen
+        self.indicator.color = AppColors.themeGreen
+        self.indicator.startAnimating()
+        self.hideShowLoader(isHidden:true)
+    }
+    
+    func hideShowLoader(isHidden:Bool){
+        DispatchQueue.main.async {
+            if isHidden{
+                self.indicator.stopAnimating()
+                
+            }else{
+                self.indicator.startAnimating()
+            }
+            self.closeButton.isHidden = !isHidden
+        }
+    }
    
 }

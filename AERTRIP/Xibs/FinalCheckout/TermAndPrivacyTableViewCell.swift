@@ -17,6 +17,7 @@ class TermAndPrivacyTableViewCell: UITableViewCell {
         case accountCheckout
     }
     
+    @IBOutlet weak var deviderView: ATDividerView!
     @IBOutlet weak var termAndPrivacyLabel: ActiveLabel!
 
     var currentUsingFrom = UsingFrom.hotelCheckout {

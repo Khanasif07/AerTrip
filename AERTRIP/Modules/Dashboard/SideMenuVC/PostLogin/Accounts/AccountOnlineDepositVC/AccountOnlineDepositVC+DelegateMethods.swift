@@ -43,6 +43,7 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
             }
             fareDetailCell.fareDetailTitleLabel.text = LocalizedString.Breakup.localized
             fareDetailCell.numberOfRoomAndLabel.text = ""
+            fareDetailCell.numberOfRoomAndLabel.isHidden = true
             fareDetailCell.dividerView.isHidden = true
             return fareDetailCell
             
@@ -60,7 +61,7 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
             
             totalPayableNowCell.topDeviderView.isHidden = true
             totalPayableNowCell.bottomDeviderView.isHidden = true
-            totalPayableNowCell.totalPayableTextTopConstraint.constant = -4.0
+            totalPayableNowCell.totalPayableTextTopConstraint.constant = -2.0
             totalPayableNowCell.totalPayableTextBottomConstraint.constant = 12.0
             return totalPayableNowCell
             
@@ -78,7 +79,7 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
             
             totalPayableNowCell.topDeviderView.isHidden = true
             totalPayableNowCell.bottomDeviderView.isHidden = true
-            totalPayableNowCell.totalPayableTextTopConstraint.constant = -4.0
+            totalPayableNowCell.totalPayableTextTopConstraint.constant = -2.0
             totalPayableNowCell.totalPayableTextBottomConstraint.constant = 12.0
             return totalPayableNowCell
             

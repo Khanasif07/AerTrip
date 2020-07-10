@@ -174,6 +174,9 @@ extension BookingHotelDetailVC {
             //cell.deviderView.isHidden = true
             cell.addressLblTopConst.constant = 16
             cell.configureAddressCell(isForBooking: true, address: self.viewModel.bookingDetail?.bookingDetail?.hotelAddressDetail ?? "")
+            cell.addressInfoTextView.isUserInteractionEnabled = true
+            cell.addressInfoTextView.isSelectable = false
+            cell.addressInfoTextView.isEditable = false
             return cell
             
         case 1: // Phone Detail Cell
@@ -191,6 +194,8 @@ extension BookingHotelDetailVC {
         case 3: // Overview Cell
             guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell else { return UITableViewCell() }
             cell.configureOverviewCell(isForBooking: true, overview: self.viewModel.bookingDetail?.bookingDetail?.overViewData ?? "")
+            cell.addressInfoTextView.isUserInteractionEnabled = false
+            cell.moreViewBottomConstraint.constant = 20
             //cell.clipsToBounds = true
             return cell
         case 4: // Amentities Cell

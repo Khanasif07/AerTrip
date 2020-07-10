@@ -58,10 +58,11 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
         // Color
         self.travellerNameLabel.textColor = AppColors.themeBlack
         self.travellerPnrStatusLabel.textColor = AppColors.themeBlack
-        self.travellerImageView.makeCircular()
+        //self.travellerImageView.makeCircular()
         self.tavellerImageBlurView.makeCircular()
         self.nameDividerView.isHidden = true
         self.nameDividerView.backgroundColor = AppColors.themeGray40
+        self.travellerImageView.makeCircular(borderWidth: 1.0, borderColor: AppColors.themeGray20)
         
 //        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize.zero, opacity: 0.7, shadowRadius: 1.5)
         //self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
