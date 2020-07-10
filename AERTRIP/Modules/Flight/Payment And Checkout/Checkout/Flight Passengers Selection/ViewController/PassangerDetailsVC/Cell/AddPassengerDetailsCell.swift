@@ -58,6 +58,7 @@ class AddPassengerDetailsCell: UITableViewCell {
     var journeyType: JourneyType = .domestic
     private var preSelectedCountry: PKCountryModel?
     var lastJourneyDate:Date = Date()
+    var journeyEndDate = Date()
     var allPaxInfoRequired = true
     var guestDetail: ATContact? {
         didSet {
@@ -263,10 +264,26 @@ class AddPassengerDetailsCell: UITableViewCell {
     
     func showErrorForFirstLastName() {
         guard  self.canShowSalutationError else {return}
-        let isValidFirstName = !((self.firstNameTextField.text ?? "").count < 3)
-        self.firstNameTextField.isError = !isValidFirstName
-        let firstName = self.firstNameTextField.placeholder ?? ""
-        self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidFirstName ? AppColors.themeGray40 :  AppColors.themeRed])
+        if !((self.firstNameTextField.text ?? "").count < 3){
+            self.firstNameTextField.isError = true
+            let firstName = "First Name"
+            self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeRed])
+            
+        }
+//        else if (self.firstNameTextField.text ?? ""){
+//            self.firstNameTextField.isError = true
+//            let firstName = "Invalid First Name"
+//            self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeRed])
+//
+//        }
+        else{
+            self.firstNameTextField.isError = false
+            let firstName = "First Name"
+            self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray40])
+        }
+//
+//        let firstName = self.firstNameTextField.placeholder ?? ""
+//        self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidFirstName ? AppColors.themeGray40 :  AppColors.themeRed])
         
         let isValidLastName = !((self.lastNameTextField.text ?? "").count < 3)
         self.lastNameTextField.isError = !isValidLastName
@@ -448,7 +465,8 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
         case self.passportExpiryTextField:
             self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
             let selected = (textField.text ?? "").toDate(dateFormat: "dd MMM YYYY")
-            PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd MMM YYYY", mode: .date, minimumDate: Date(), maximumDate: nil, selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { [unowned self] (dateStr) in
+            let minDate = self.journeyEndDate.add(days: 1)
+            PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd MMM YYYY", mode: .date, minimumDate: minDate, maximumDate: nil, selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { [unowned self] (dateStr) in
                 textField.text = dateStr
                 if let date = dateStr.toDate(dateFormat: "dd MMM yyyy"){
                     GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].passportExpiryDate = date.toString(dateFormat: "yyyy-MM-dd")
@@ -465,29 +483,30 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        switch textField {
-        case self.firstNameTextField:
-            self.txtFldEditDelegate?.textField(self.firstNameTextField)
-            break
-        case self.lastNameTextField:
-            self.txtFldEditDelegate?.textField(self.lastNameTextField)
-            break
-        default:
-            break
-        }
+//        switch textField {
+//        case self.firstNameTextField:
+//            self.txtFldEditDelegate?.textField(self.firstNameTextField)
+//            break
+//        case self.lastNameTextField:
+//            self.txtFldEditDelegate?.textField(self.lastNameTextField)
+//            break
+//        default:
+//            break
+//        }
+        self.txtFldEditDelegate?.textField(textField)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField {
-               case self.firstNameTextField:
-                   self.txtFldEditDelegate?.textFieldEndEditing(self.firstNameTextField)
-                   break
-               case self.lastNameTextField:
-                   self.txtFldEditDelegate?.textFieldEndEditing(self.lastNameTextField)
-                   break
-               default:
-                   break
-               }
+        case self.firstNameTextField:
+            self.txtFldEditDelegate?.textFieldEndEditing(self.firstNameTextField)
+            break
+        case self.lastNameTextField:
+            self.txtFldEditDelegate?.textFieldEndEditing(self.lastNameTextField)
+            break
+        default:
+            break
+        }
     }
     
     @objc func textFieldDidChanged(_ textField: UITextField) {

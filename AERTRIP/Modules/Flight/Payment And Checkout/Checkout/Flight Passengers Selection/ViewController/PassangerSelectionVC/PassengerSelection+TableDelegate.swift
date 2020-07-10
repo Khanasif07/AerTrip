@@ -168,6 +168,7 @@ extension PassengersSelectionVC: PassengerGridSelectionDelegate{
         vc.viewModel.isAllPaxInfoRequired = self.viewModel.itineraryData.itinerary.isAllPaxInfoRequired
         vc.viewModel.currentIndex = indexPath.row
         vc.viewModel.lastJourneyDate = self.viewModel.itineraryData.itinerary.searchParams.lastJourneyDate
+        vc.viewModel.journeyEndDate = self.viewModel.itineraryData.itinerary.journeyEndDate
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

@@ -288,6 +288,10 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
         return self.viewModel.searcedCouponsData.count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard  let cell = tableView.dequeueReusableCell(withIdentifier: CheckoutCouponCodeTableViewCell.reusableIdentifier, for: indexPath) as? CheckoutCouponCodeTableViewCell else { return UITableViewCell() }
         cell.delegate = self
