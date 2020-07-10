@@ -319,7 +319,7 @@ class SeatMapContainerVC: UIViewController {
             self.planeLayoutView.alpha = 1
         }, completion:  { _ in
             if callHide {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.77, execute: self.hidePlaneLayoutWorkItem!)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: self.hidePlaneLayoutWorkItem!)
             }
         })
     }
