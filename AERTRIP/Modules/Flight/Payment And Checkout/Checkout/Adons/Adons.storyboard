@@ -40,7 +40,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqO-lJ-uV1">
-                                            <rect key="frame" x="18" y="0.0" width="396" height="96"/>
+                                            <rect key="frame" x="18" y="0.0" width="396" height="89"/>
                                             <string key="text">Book Now &amp;
 get upto 20% off </string>
                                             <fontDescription key="fontDescription" name="SourceSansPro-Bold" family="Source Sans Pro" pointSize="38"/>
@@ -48,7 +48,7 @@ get upto 20% off </string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="compared to onboard prices" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQi-Xb-5yA">
-                                            <rect key="frame" x="0.0" y="96" width="414" height="23"/>
+                                            <rect key="frame" x="0.0" y="89" width="414" height="21"/>
                                             <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -165,11 +165,8 @@ get upto 20% off </string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B3Y-Pn-xkD">
-                                <rect key="frame" x="0.0" y="856" width="414" height="40"/>
+                                <rect key="frame" x="0.0" y="862" width="414" height="34"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="gIF-pI-Q91"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -186,6 +183,7 @@ get upto 20% off </string>
                             <constraint firstItem="vn5-ki-PPF" firstAttribute="bottom" secondItem="LgN-Mq-e2q" secondAttribute="bottom" id="cfR-mc-JK8"/>
                             <constraint firstItem="LgN-Mq-e2q" firstAttribute="top" secondItem="MsC-te-KqM" secondAttribute="bottom" id="fce-VS-svm"/>
                             <constraint firstItem="vn5-ki-PPF" firstAttribute="trailing" secondItem="B3Y-Pn-xkD" secondAttribute="trailing" id="iB6-cS-TXD"/>
+                            <constraint firstItem="B3Y-Pn-xkD" firstAttribute="top" secondItem="LgN-Mq-e2q" secondAttribute="bottom" id="oNz-Dp-5kQ"/>
                             <constraint firstItem="cPt-Li-nGC" firstAttribute="top" secondItem="vn5-ki-PPF" secondAttribute="top" id="qF8-gs-aTz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vn5-ki-PPF"/>
@@ -440,11 +438,8 @@ get upto 20% off </string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j0X-dL-q0J">
-                                <rect key="frame" x="0.0" y="856" width="414" height="40"/>
+                                <rect key="frame" x="0.0" y="862" width="414" height="34"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="0Nn-ia-BA4"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -460,6 +455,7 @@ get upto 20% off </string>
                             <constraint firstItem="UQG-dr-eC1" firstAttribute="bottom" secondItem="Giu-ht-SKe" secondAttribute="bottom" id="bV6-3A-Sko"/>
                             <constraint firstItem="xgj-ke-c0v" firstAttribute="top" secondItem="gJW-Ng-LPl" secondAttribute="bottom" id="gjE-Eg-76v"/>
                             <constraint firstItem="Giu-ht-SKe" firstAttribute="top" secondItem="xgj-ke-c0v" secondAttribute="bottom" id="htc-au-948"/>
+                            <constraint firstItem="j0X-dL-q0J" firstAttribute="top" secondItem="Giu-ht-SKe" secondAttribute="bottom" id="l41-xI-3Aw"/>
                             <constraint firstItem="UQG-dr-eC1" firstAttribute="trailing" secondItem="xgj-ke-c0v" secondAttribute="trailing" id="vLV-KF-JPg"/>
                             <constraint firstItem="xgj-ke-c0v" firstAttribute="leading" secondItem="UQG-dr-eC1" secondAttribute="leading" id="zmQ-Bl-0kT"/>
                         </constraints>
@@ -584,11 +580,8 @@ get upto 20% off </string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nq6-Og-HPF">
-                                <rect key="frame" x="0.0" y="856" width="414" height="40"/>
+                                <rect key="frame" x="0.0" y="862" width="414" height="34"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="McO-Z1-Wrd"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -606,6 +599,7 @@ get upto 20% off </string>
                             <constraint firstItem="oV3-wK-Qxm" firstAttribute="trailing" secondItem="yX8-Dl-t3M" secondAttribute="trailing" id="kjE-JS-bD2"/>
                             <constraint firstItem="Nq6-Og-HPF" firstAttribute="leading" secondItem="oV3-wK-Qxm" secondAttribute="leading" id="m8r-v2-SRh"/>
                             <constraint firstItem="oV3-wK-Qxm" firstAttribute="bottom" secondItem="NWW-jW-zXS" secondAttribute="bottom" id="xH7-RG-d3q"/>
+                            <constraint firstItem="Nq6-Og-HPF" firstAttribute="top" secondItem="NWW-jW-zXS" secondAttribute="bottom" id="yfo-5T-XFg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="oV3-wK-Qxm"/>
                     </view>
