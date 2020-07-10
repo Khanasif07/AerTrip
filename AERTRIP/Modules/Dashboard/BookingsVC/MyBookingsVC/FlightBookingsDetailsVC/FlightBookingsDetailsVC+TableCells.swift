@@ -120,7 +120,7 @@ extension FlightBookingsDetailsVC {
         } else if traveller?.status.lowercased() == "pending" {
             cell.pnrStatus = .pending
         }
-        cell.configCell(travellersImage: "", travellerName: traveller?.paxName ?? "", travellerPnrStatus: traveller?.status == "booked" ? traveller?.pnr ?? "" : traveller?.status.capitalizedFirst() ?? "", firstName: traveller?.firstName ?? "", lastName: traveller?.lastName ?? "", isLastTraveller: indexPath.row - 2 == leg?.pax.count,paxType: traveller?.paxType ?? "", dob: traveller?.dob ?? "", salutation: traveller?.salutation ?? "")
+        cell.configCell(travellersImage: traveller?.profileImage ?? "", travellerName: traveller?.paxName ?? "", travellerPnrStatus: traveller?.status == "booked" ? traveller?.pnr ?? "" : traveller?.status.capitalizedFirst() ?? "", firstName: traveller?.firstName ?? "", lastName: traveller?.lastName ?? "", isLastTraveller: indexPath.row - 2 == leg?.pax.count,paxType: traveller?.paxType ?? "", dob: traveller?.dob ?? "", salutation: traveller?.salutation ?? "")
         cell.clipsToBounds = true
         return cell
     }
@@ -329,7 +329,7 @@ extension FlightBookingsDetailsVC {
         cell.subtitleLabelBottomConstraint.constant = 9.0
         cell.titleLabelBottomConstraint.constant = 2.0
         cell.clipsToBounds = true
-        cell.dividerView.isHidden = false
+        cell.dividerView.isHidden = true
         return cell
     }
     
@@ -340,7 +340,7 @@ extension FlightBookingsDetailsVC {
         cell.titleLabelBottomConstraint.constant = 2.0
         cell.subtitleLabelBottomConstraint.constant = 9.0
         cell.clipsToBounds = true
-        cell.dividerView.isHidden = false
+        cell.dividerView.isHidden = true
         return cell
     }
     
@@ -351,7 +351,7 @@ extension FlightBookingsDetailsVC {
         cell.subtitleLabelBottomConstraint.constant = 9.0
         cell.containerView.backgroundColor = AppColors.screensBackground.color
         cell.clipsToBounds = true
-        cell.dividerView.isHidden = false
+        cell.dividerView.isHidden = true
         return cell
     }
     
@@ -362,7 +362,7 @@ extension FlightBookingsDetailsVC {
         cell.configCell(title: LocalizedString.BillingAddress.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.address?.completeAddress ?? "", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.themeBlack)
         cell.containerView.backgroundColor = AppColors.screensBackground.color
         cell.clipsToBounds = true
-        cell.dividerView.isHidden = false
+        cell.dividerView.isHidden = true
         return cell
     }
 }

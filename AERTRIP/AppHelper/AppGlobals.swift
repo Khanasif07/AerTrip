@@ -120,6 +120,8 @@ class AppGlobals {
         let (_, message, _) = ATErrorManager.default.error(forCodes: errors, module: module)
         if !message.isEmpty {
             AppToast.default.showToastMessage(message: message)
+        }else{
+            AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
         }
     }
     

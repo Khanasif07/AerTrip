@@ -73,7 +73,7 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
             self.passengerTable.scrollToRow(at: self.viewModel.indexPath, at: .middle, animated: true)
             self.passengerTable.reloadData()
         }
-        addFooterViewToTravellerTableView()
+//        addFooterViewToTravellerTableView()
     }
     
     private func addFooterViewToTravellerTableView() {
@@ -319,6 +319,7 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
         cell.allPaxInfoRequired = self.viewModel.isAllPaxInfoRequired
         cell.guestDetail = self.viewModel.passengerList[indexPath.section]
         cell.lastJourneyDate = self.viewModel.lastJourneyDate
+        cell.journeyEndDate = self.viewModel.journeyEndDate
         return cell
     }
     

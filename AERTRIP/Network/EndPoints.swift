@@ -122,6 +122,8 @@ enum APIEndPoint: String {
     case accountReportAction = "user-accounts/report-action"
     case outstandingPayment = "user-accounts/outstanding-payment"
     case registerPayment = "payment/register-payment"
+    case bookingOutstandingPayment = "user-accounts/booking-outstanding-payment"
+
     
     //my booking
     case addonPayment = "quotation/addon-payment"

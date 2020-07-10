@@ -203,13 +203,25 @@ struct BookingDetailModel {
                         departureWeather.date = flight.departDate
                         departureWeather.city = flight.departCity
                         departureWeather.countryCode = flight.departureCountryCode
-                        self.tripWeatherData.append(departureWeather)
+                        if let lastWeather = self.tripWeatherData.last {
+                            if lastWeather.city != departureWeather.city || !(lastWeather.date ?? Date()).isEqualTo((departureWeather.date ?? Date())) {
+                                self.tripWeatherData.append(departureWeather)
+                            }
+                        } else {
+                            self.tripWeatherData.append(departureWeather)
+                        }
                         
                         var arrivalWeather = WeatherInfo()
                         arrivalWeather.date = flight.arrivalDate
                         arrivalWeather.city = flight.arrivalCity
                         arrivalWeather.countryCode = flight.arrivalCountryCode
-                        self.tripWeatherData.append(arrivalWeather)
+                        if let lastWeather = self.tripWeatherData.last {
+                            if lastWeather.city != arrivalWeather.city || !(lastWeather.date ?? Date()).isEqualTo((arrivalWeather.date ?? Date())) {
+                                self.tripWeatherData.append(arrivalWeather)
+                            }
+                        } else {
+                            self.tripWeatherData.append(arrivalWeather)
+                        }
                     }
                 }
                 
@@ -545,7 +557,7 @@ struct BookingDetail {
     var photos: [String] = []
     var amenitiesGroups: [String: Any] = [:]
     var amenities: Amenities?
-    var info: String = ""
+    var overview: String = ""
     var taLocationID: String = ""
     var website: String = ""
     var city: String = ""
@@ -660,8 +672,8 @@ struct BookingDetail {
             self.amenities = Amenities.getAmenitiesData(response: obj)
         }
         
-        if let obj = json["info"] {
-            self.info = "\(obj)".removeNull
+        if let obj = json["overview"] {
+            self.overview = "\(obj)".removeNull
         }
         
         if let obj = json["ta_location_id"] {
@@ -810,8 +822,8 @@ struct BookingDetail {
     // Over view Details
     
     var overViewData: String {
-//        return self.info.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.info
-         return self.info
+//        return self.overview.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.info
+         return self.overview
     }
     
     // hotel Address
@@ -1618,11 +1630,11 @@ struct Pax {
 
     
     var netRefundForReschedule: Double {
-        return self.amountPaid - self.rescheduleCharge
+        return self.amountPaid - (self.rescheduleCharge > 0 ? self.rescheduleCharge : 0)
     }
     
     var netRefundForCancellation: Double {
-        return self.amountPaid - self.cancellationCharge
+        return self.amountPaid - (self.cancellationCharge > 0 ? self.cancellationCharge : 0 )
     }
     
     var fullNameWithSalutation: String {

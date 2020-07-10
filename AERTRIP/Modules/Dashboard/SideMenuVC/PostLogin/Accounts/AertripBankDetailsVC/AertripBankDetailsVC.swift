@@ -13,8 +13,8 @@ class AertripBankDetailsVC: BaseVC {
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var tableView: ATTableView!
-    @IBOutlet weak var crossButton: UIButton!
-    
+    @IBOutlet weak var topNavBar: TopNavigationView!
+    @IBOutlet weak var topNavBarHeightConstraint: NSLayoutConstraint!
     
     //MARK:- Properties
     //MARK:- Public
@@ -26,6 +26,17 @@ class AertripBankDetailsVC: BaseVC {
     //MARK:- ViewLifeCycle
     //MARK:-
     override func initialSetup() {
+        topNavBar.configureNavBar(title: "Bank Detail", isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .clear)
+        topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"), selectedImage: #imageLiteral(resourceName: "black_cross"))
+        topNavBar.delegate = self
+        topNavBar.backView.backgroundColor = .clear
+        topNavBar.backgroundColor = .clear
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        if #available(iOS 13.0, *) {
+            topNavBarHeightConstraint.constant = 56
+        } else {
+            self.view.backgroundColor = AppColors.themeWhite
+        }
         self.tableView.registerCell(nibName: OfflineDepositeTextImageCell.reusableIdentifier)
         self.tableView.registerCell(nibName: EmptyTableViewCell.reusableIdentifier)
         
@@ -68,5 +79,13 @@ extension AertripBankDetailsVC: AertripBankDetailsVMDelegate {
     
     func getBankAccountDetailsFail() {
         self.tableView.reloadData()
+    }
+}
+extension AertripBankDetailsVC: TopNavigationViewDelegate {
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+    }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
     }
 }

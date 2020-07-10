@@ -35,18 +35,20 @@ class AccountOfflineDepositVC: BaseVC {
     let viewModel = AccountOfflineDepositVM()
     
     // MARK: - View Life cycle
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.paymentButtonContainerView.addGredient(isVertical: false)
+    }
     
     override func initialSetup() {
         
         self.view.backgroundColor = AppColors.themeWhite
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
-        self.addFooterView()
-        self.payButton.addGredient(isVertical: false)
         self.setUpNavigationView()
         self.registerXib()
         
-        self.loaderContainer.addGredient(isVertical: false)
+        self.loaderContainer.backgroundColor = .clear
         self.manageLoader(shouldStart: false)
         //for header blur
         self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
@@ -94,10 +96,6 @@ class AccountOfflineDepositVC: BaseVC {
         self.checkOutTableView.registerCell(nibName: OfflineDepositeSlipUoloadCell.reusableIdentifier)
     }
     
-    private func addFooterView() {
-        self.paymentButtonContainerView.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 50.0)
-        self.checkOutTableView.tableFooterView = self.paymentButtonContainerView
-    }
 
     // Upadate All Data on Table View
     func updateAllData() {
@@ -114,13 +112,20 @@ class AccountOfflineDepositVC: BaseVC {
         self.indicatorView.style = .white
         self.indicatorView.color = AppColors.themeWhite
         self.indicatorView.startAnimating()
-        
+        self.payButton.isHidden = shouldStart
         self.loaderContainer.isHidden = !shouldStart
     }
     
     func showPaymentSuccessMessage() {
         if self.currentUsingFor == .addOns {
-            AppFlowManager.default.showAddonRequestSent(buttonTitle:LocalizedString.Done.localized, delegate: self)
+            var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
+            config.text = "\(LocalizedString.Register.localized) \(LocalizedString.Payment.localized)"
+            config.textFont = AppFonts.SemiBold.withSize(20.0)
+            config.cornerRadius = 0.0
+            config.width = self.payButton.width
+            config.buttonHeight = self.paymentButtonContainerView.height
+            config.spaceFromBottom = AppFlowManager.default.safeAreaInsets.bottom
+            AppFlowManager.default.showAddonRequestSent(buttonConfig: config, delegate: self)
         }
         else {
             var config = BulkEnquirySuccessfulVC.ButtonConfiguration()

@@ -164,13 +164,11 @@ extension BookingVoucherVC: UITableViewDataSource,UITableViewDelegate {
             voucherCell.amount = self.viewModel.receipt?.totalAmountDue ?? 0.0
         }
         
-        voucherCell.payButtonAction = { button in
-            AppGlobals.shared.showUnderDevelopment()
-            if !self.viewModel.caseId.isEmpty {
+        voucherCell.payButtonAction = { [weak self] button in
+            //AppGlobals.shared.showUnderDevelopment()
                 button.isLoading = true
-                self.payButtonRef = button
-                self.viewModel.getAddonPaymentItinerary()
-            }
+                self?.payButtonRef = button
+                self?.viewModel.getBookingOutstandingPayment()
         }
         
         return voucherCell
@@ -202,6 +200,15 @@ extension BookingVoucherVC: BookingVoucherVMDelegate {
     }
     
     func getAddonPaymentItineraryFail() {
+        self.payButtonRef?.isLoading = false
+    }
+    
+    func getBookingOutstandingPaymentSuccess() {
+        self.payButtonRef?.isLoading = false
+        self.showDepositOptions()
+    }
+    
+    func getBookingOutstandingPaymentFail() {
         self.payButtonRef?.isLoading = false
     }
 }

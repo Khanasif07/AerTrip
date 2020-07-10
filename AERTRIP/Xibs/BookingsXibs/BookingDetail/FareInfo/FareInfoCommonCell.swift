@@ -21,8 +21,13 @@ class FareInfoCommonCell: ATTableViewCell {
     @IBOutlet weak var perChildAmountLabel: UILabel!
     @IBOutlet weak var perInfantLabel: UILabel!
     @IBOutlet weak var perInfantAmountLabel: UILabel!
-    
+    @IBOutlet weak var adultView: UIStackView!
+    @IBOutlet weak var childView: UIStackView!
+    @IBOutlet weak var infrantView: UIStackView!
+    @IBOutlet weak var titleView: UIStackView!
     @IBOutlet weak var viewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var viewBottomConstraint: NSLayoutConstraint!
     
     // MARK: - Variables
     var isForPassenger : Bool = false
@@ -33,38 +38,87 @@ class FareInfoCommonCell: ATTableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
-        
+        resetView()
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
     }
+    /// Setup Fonts
+    override func setupFonts() {
+        titleLabel.font = AppFonts.SemiBold.withSize(18)
+        feeLabel.font = AppFonts.Regular.withSize(16)
+        slabTimeLabel.font = AppFonts.SemiBold.withSize(16)
+        statusLabel.font = AppFonts.SemiBold.withSize(16)
+        perAdultLabel.font = AppFonts.Regular.withSize(16)
+        perAdultAmountLabel.font = AppFonts.SemiBold.withSize(16)
+        perChildLabel.font = AppFonts.Regular.withSize(16)
+        perChildAmountLabel.font = AppFonts.SemiBold.withSize(16)
+        perInfantLabel.font = AppFonts.Regular.withSize(16)
+        perInfantAmountLabel.font = AppFonts.SemiBold.withSize(16)
+    }
     
-    func configureView(indexPath: IndexPath) {
-//        if indexPath.section == 0 && indexPath.row == 0{
-//            self.topSeperatorLabelTop.constant = 0
-//            self.topSeperatorLabelBottom.constant = 10
-//            self.topSeperatorLabel.isHidden = false
-//            self.titleLabel.text = "Cancellation Fee"
-//            self.titleView.isHidden = false
-//            self.titleViewHeight.constant = 40
-//        }else if indexPath.section == 1 && indexPath.row == 0{
-//            self.topSeperatorLabelTop.constant = 12
-//            self.topSeperatorLabelBottom.constant = 8
-//            self.topSeperatorLabel.isHidden = false
-//            self.titleLabel.text = "Rescheduling Fee"
-//            self.titleView.isHidden = false
-//            self.titleViewHeight.constant = 40
-//        }else{
-//            self.topSeperatorLabelBottom.constant = 0
-//            self.topSeperatorLabelTop.constant = 0
-//            self.topSeperatorLabel.isHidden = true
-//            self.titleLabel.text = ""
-//            self.titleView.isHidden = true
-//            self.titleViewHeight.constant = 0
-//        }
+    
+    /// Setup Colors
+    override func setupColors() {
+        titleLabel.textColor = AppColors.themeBlack
+        feeLabel.textColor = AppColors.themeBlack
+        slabTimeLabel.textColor = AppColors.themeBlack
+        statusLabel.textColor = AppColors.themeBlack
+        perAdultLabel.textColor = AppColors.themeBlack
+        perAdultAmountLabel.textColor = AppColors.themeBlack
+        perChildLabel.textColor = AppColors.themeBlack
+        perChildAmountLabel.textColor = AppColors.themeBlack
+        perInfantLabel.textColor = AppColors.themeBlack
+        perInfantAmountLabel.textColor = AppColors.themeBlack
+    }
+    
+    override func setupTexts() {
+        perAdultLabel.text = LocalizedString.PerAdult.localized
+        perChildLabel.text = LocalizedString.PerChild.localized
+        perInfantLabel.text = LocalizedString.PerInfant.localized
+        
+        feeLabel.text = "Airline fee + Aertrip Fee"
+        statusLabel.text = ""
+    }
+    
+    private func resetView() {
+        adultView.isHidden = true
+        childView.isHidden = true
+        infrantView.isHidden = true
+        statusLabel.text = ""
+        dividerView.isHidden = true
+    }
+    
+    func configureView(model: BookingFeeDetail, indexPath: IndexPath) {
+        resetView()
+        if indexPath.section == 0 && indexPath.row == 0{
+            //            self.topSeperatorLabelTop.constant = 0
+            //            self.topSeperatorLabelBottom.constant = 10
+            //            self.topSeperatorLabel.isHidden = false
+            self.titleLabel.text = "Cancellation Fee"
+            self.titleView.isHidden = false
+        }else if indexPath.section == 1 && indexPath.row == 0{
+            //            self.topSeperatorLabelTop.constant = 12
+            //            self.topSeperatorLabelBottom.constant = 8
+            //            self.topSeperatorLabel.isHidden = false
+            self.titleLabel.text = "Rescheduling Fee"
+            self.titleView.isHidden = false
+        }else{
+            //            self.topSeperatorLabelBottom.constant = 0
+            //            self.topSeperatorLabelTop.constant = 0
+            //            self.topSeperatorLabel.isHidden = true
+            self.titleLabel.text = ""
+            self.titleView.isHidden = true
+        }
+        
+        if indexPath.section == 0 {
+            configureForCancelation(model: model, indexPath: indexPath)
+        } else {
+            configureForRescheduling(model: model, indexPath: indexPath)
+        }
+        
     }
     
     
@@ -74,17 +128,17 @@ class FareInfoCommonCell: ATTableViewCell {
         {
             let adtAertripCancellationSlab = model.aertripCanCharges?.adult
             
-            var aertripValue = 0
+            var aertripValue: Double = 0
             
             //            if indexPath.row < adtAertripCancellationSlab!.count{
-            aertripValue = model.aertripCanCharges?.adult ?? 0
+            aertripValue = Double(model.aertripCanCharges?.adult ?? 0)
             //            }
             
             if indexPath.row < adtAirlineCancellationSlab.count{
                 let airlineValue = adtAirlineCancellationSlab[indexPath.row].value!
                 
                 if let sla = adtAirlineCancellationSlab[indexPath.row].from, let slab = adtAirlineCancellationSlab[indexPath.row].to{
-                    
+                    /*
                     let slaInHours = sla.hoursFrom(slab)
                     
                     let totalSlab = slaInHours //slaInHours + slab
@@ -99,9 +153,9 @@ class FareInfoCommonCell: ATTableViewCell {
                             let strPrevTotalSlab = String(prevTotalSlab).replacingOccurrences(of: "-", with: "")
                             
                             if prevTotalSlab == 0 && totalSlab == 0{
-                                 self.slabTimeLabel.text = "\(strTotalSlab) hour"
+                                self.slabTimeLabel.text = "\(strTotalSlab) hour"
                             }else{
-                                 self.slabTimeLabel.text = "\(strTotalSlab) - \(strPrevTotalSlab) hours"
+                                self.slabTimeLabel.text = "\(strTotalSlab) - \(strPrevTotalSlab) hours"
                             }
                         }
                     }else{
@@ -113,6 +167,9 @@ class FareInfoCommonCell: ATTableViewCell {
                             self.slabTimeLabel.text = "\(strTotalSlab) hours or earlier"
                         }
                     }
+ */
+                    self.slabTimeLabel.text = "\(sla.toString(dateFormat: "d MMM, HH:mm")) - \(slab.toString(dateFormat: "d MMM, HH:mm"))"
+
                 }
                 
                 if flightAdultCount > 0 && flightChildrenCount == 0 && flightInfantCount == 0{
@@ -132,7 +189,7 @@ class FareInfoCommonCell: ATTableViewCell {
                         let displayValue = Double(airlineValue + adtRafVal)
                         
                         
-                        self.statusLabel.text = String(displayValue) + " + ₹ " + String(aertripValue)
+                        self.statusLabel.text = displayValue.amountInDelimeterWithSymbol + " + " + aertripValue.amountInDelimeterWithSymbol
                     }
                 }else{
                     if airlineValue == -9{
@@ -148,8 +205,8 @@ class FareInfoCommonCell: ATTableViewCell {
                         self.perAdultAmountLabel.textColor = .black
                         let adtRafVal = model.aertripCanCharges?.adult ?? 0 //rafFees["ADT"]
                         let displayValue = Double(airlineValue + adtRafVal)
-                        
-                        self.perAdultAmountLabel.text = String(displayValue) + " + ₹ " + String(aertripValue)
+                        self.adultView.isHidden = false
+                        self.perAdultAmountLabel.text = displayValue.amountInDelimeterWithSymbol + " + " + aertripValue.amountInDelimeterWithSymbol
                     }
                 }
             }else{
@@ -161,11 +218,11 @@ class FareInfoCommonCell: ATTableViewCell {
         {
             let chdAertripCancellationSlab = model.aertripCanCharges?.child
             
-            var aertripValue = 0
+            var aertripValue: Double = 0
             
-//            if indexPath.row < chdAertripCancellationSlab!.count{
-                aertripValue = model.aertripCanCharges?.adult ?? 0
-//            }
+            //            if indexPath.row < chdAertripCancellationSlab!.count{
+            aertripValue = Double(model.aertripCanCharges?.child ?? 0)
+            //            }
             
             if indexPath.row < chdAirlineCancellationSlab.count{
                 let value = chdAirlineCancellationSlab[indexPath.row].value
@@ -183,8 +240,8 @@ class FareInfoCommonCell: ATTableViewCell {
                     self.perChildAmountLabel.textColor = .black
                     let chdRafVal = model.aertripCanCharges?.child ?? 0 //rafFees["CHD"]
                     let displayValue = Double(value! + chdRafVal)
-                    
-                    self.perChildAmountLabel.text = String(displayValue) + " + ₹ " +  String(aertripValue)
+                    self.childView.isHidden = false
+                    self.perChildAmountLabel.text = displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
                 }
             }else{
                 self.perChildAmountLabel.text = "NA"
@@ -195,11 +252,11 @@ class FareInfoCommonCell: ATTableViewCell {
         {
             let infAertripCancellationSlab = model.aertripCanCharges?.infant
             
-            var aertripValue = 0
+            var aertripValue: Double = 0
             
-//            if indexPath.row < infAertripCancellationSlab!.count{
-                aertripValue = model.aertripCanCharges?.infant ?? 0
-//            }
+            //            if indexPath.row < infAertripCancellationSlab!.count{
+            aertripValue = Double(model.aertripCanCharges?.infant ?? 0)
+            //            }
             
             if indexPath.row < infAirlineCancellationSlab.count{
                 let value = infAirlineCancellationSlab[indexPath.row].value
@@ -217,13 +274,20 @@ class FareInfoCommonCell: ATTableViewCell {
                     self.perInfantAmountLabel.textColor = .black
                     let chdRafVal = model.aertripCanCharges?.infant ?? 0 //rafFees["INF"]
                     let displayValue = Double(value! + chdRafVal)
-                    self.perInfantAmountLabel.text = String(displayValue) + " + ₹ " +  String(aertripValue)
+                    self.infrantView.isHidden = false
+                    self.perInfantAmountLabel.text = displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
                 }
             }else{
                 self.perInfantAmountLabel.text = "NA"
             }
         }
+        
+        
+        finalSetupOfCell()
+        
     }
+    
+    
     
     
     func configureForRescheduling(model: BookingFeeDetail, indexPath: IndexPath) {
@@ -231,15 +295,15 @@ class FareInfoCommonCell: ATTableViewCell {
         {
             let adtAertripReschedulingSlab = model.aertripResCharges?.adult
             
-            var aertripValue = 0
+            var aertripValue: Double = 0
             
-//            if indexPath.row < adtAertripReschedulingSlab!.count{
-                aertripValue = model.aertripResCharges?.adult ?? 0
-//            }
+            //            if indexPath.row < adtAertripReschedulingSlab!.count{
+            aertripValue = Double(model.aertripResCharges?.adult ?? 0)
+            //            }
             
             if indexPath.row < adtAirlineReschedulingSlab.count{
                 if let sla = adtAirlineReschedulingSlab[indexPath.row].from, let slab = adtAirlineReschedulingSlab[indexPath.row].to{
-                    
+                    /*
                     let slaInHours = sla.hoursFrom(slab)
                     
                     let totalSlab = slaInHours //slaInHours + slab
@@ -248,17 +312,17 @@ class FareInfoCommonCell: ATTableViewCell {
                     
                     if indexPath.row > 0{
                         if let prevSla = adtAirlineReschedulingSlab[indexPath.row-1].from, let prevSlab = adtAirlineReschedulingSlab[indexPath.row-1].to {
-                        
-                        let prevSlaInHours = prevSla.hoursFrom(prevSlab) //minutesToHoursMinutes(seconds: prevSla!)
-                        let prevTotalSlab = prevSlaInHours //prevSlab! + prevSlaInHours
-                        
-                        let strPrevTotalSlab = String(prevTotalSlab).replacingOccurrences(of: "-", with: "")
-                        
-                        if prevTotalSlab == 0 && totalSlab == 0{
-                            self.slabTimeLabel.text = "\(strTotalSlab) hour"
-                        }else{
-                            self.slabTimeLabel.text = "\(strTotalSlab) - \(strPrevTotalSlab) hours"
-                        }
+                            
+                            let prevSlaInHours = prevSla.hoursFrom(prevSlab) //minutesToHoursMinutes(seconds: prevSla!)
+                            let prevTotalSlab = prevSlaInHours //prevSlab! + prevSlaInHours
+                            
+                            let strPrevTotalSlab = String(prevTotalSlab).replacingOccurrences(of: "-", with: "")
+                            
+                            if prevTotalSlab == 0 && totalSlab == 0{
+                                self.slabTimeLabel.text = "\(strTotalSlab) hour"
+                            }else{
+                                self.slabTimeLabel.text = "\(strTotalSlab) - \(strPrevTotalSlab) hours"
+                            }
                         }
                     }else{
                         if strTotalSlab == "0"{
@@ -269,6 +333,8 @@ class FareInfoCommonCell: ATTableViewCell {
                             self.slabTimeLabel.text = "\(strTotalSlab) hours or earlier"
                         }
                     }
+                    */
+                    self.slabTimeLabel.text = "\(sla.toString(dateFormat: "d MMM, HH:mm")) - \(slab.toString(dateFormat: "d MMM, HH:mm"))"
                 }
                 
                 let value = adtAirlineReschedulingSlab[indexPath.row].value
@@ -288,7 +354,7 @@ class FareInfoCommonCell: ATTableViewCell {
                         self.statusLabel.textColor = .black
                         
                         let displayValue = Double(value!)
-                        self.statusLabel.text = String(displayValue) + " + ₹ " +  String(aertripValue)
+                        self.statusLabel.text = displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
                     }
                 }else{
                     if value == -9{
@@ -305,7 +371,7 @@ class FareInfoCommonCell: ATTableViewCell {
                         
                         let displayValue = Double(value!)
                         
-                        self.perAdultAmountLabel.text = String(displayValue) + " + ₹ " +  String(aertripValue)
+                        self.perAdultAmountLabel.text = displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
                     }
                 }
             }else{
@@ -317,11 +383,11 @@ class FareInfoCommonCell: ATTableViewCell {
         {
             let chdAertripReschedulingSlab = model.aertripResCharges?.child
             
-            var aertripValue = 0
+            var aertripValue: Double = 0
             
-//            if indexPath.row < chdAertripReschedulingSlab!.count{
-                aertripValue = model.aertripResCharges?.child ?? 0
-//            }
+            //            if indexPath.row < chdAertripReschedulingSlab!.count{
+            aertripValue = Double(model.aertripResCharges?.child ?? 0)
+            //            }
             
             if indexPath.row < chdAirlineReschedulingSlab.count{
                 let value = chdAirlineReschedulingSlab[indexPath.row].value
@@ -340,7 +406,7 @@ class FareInfoCommonCell: ATTableViewCell {
                     
                     let displayValue = Double(value!)
                     
-                    self.perChildAmountLabel.text = String(displayValue) + " + ₹ " +  String(aertripValue)
+                    self.perChildAmountLabel.text = displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
                 }
             }else{
                 self.perChildAmountLabel.text = "NA"
@@ -351,12 +417,12 @@ class FareInfoCommonCell: ATTableViewCell {
         {
             let infAertripReschedulingSlab = model.aertripResCharges?.infant
             
-            var aertripValue = 0
+            var aertripValue: Double = 0
             
-//            if indexPath.row < infAertripReschedulingSlab!.count{
-                aertripValue = model.aertripResCharges?.infant ?? 0
-                
-//            }
+            //            if indexPath.row < infAertripReschedulingSlab!.count{
+            aertripValue = Double(model.aertripResCharges?.infant ?? 0)
+            
+            //            }
             if indexPath.row < infAirlineReschedulingSlab.count{
                 let value = infAirlineReschedulingSlab[indexPath.row].value
                 
@@ -373,11 +439,101 @@ class FareInfoCommonCell: ATTableViewCell {
                     self.perInfantAmountLabel.textColor = .black
                     let displayValue = Double(value!)
                     
-                    self.perInfantAmountLabel.text = String(displayValue) + " + ₹ " +  String(aertripValue)
+                    self.perInfantAmountLabel.text = displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
                 }
             }else{
                 self.perInfantAmountLabel.text = "NA"
             }
+        }
+        finalSetupOfCell()
+    }
+    
+    func finalSetupOfCell() {
+        
+        if flightAdultCount > 0 && flightChildrenCount > 0 && flightInfantCount > 0{
+            if self.perAdultAmountLabel.text == self.perChildAmountLabel.text && self.perAdultAmountLabel.text == self.perInfantAmountLabel.text{
+                //                self.slabDataDisplayViewHeight.constant = 40
+                self.adultView.isHidden = true
+                
+                self.childView.isHidden = true
+                
+                self.infrantView.isHidden = true
+                
+                self.statusLabel.isHidden = false
+                self.statusLabel.textColor = .black
+                self.statusLabel.text = self.perAdultAmountLabel.text
+            }else{
+                //                self.slabDataDisplayViewHeight.constant = 140
+                //                self.perAdultDataDisplayViewHeight.constant = 31
+                self.adultView.isHidden = false
+                
+                self.childView.isHidden = false
+                
+                self.infrantView.isHidden = false
+            }
+        }else if flightAdultCount > 0 && flightChildrenCount > 0{
+            //            self.slabDataDisplayViewHeight.constant = 96
+            self.adultView.isHidden = false
+            
+            self.childView.isHidden = false
+            
+            self.infrantView.isHidden = true
+        }else if flightAdultCount > 0 && flightInfantCount > 0{
+            //            self.slabDataDisplayViewHeight.constant = 96
+            self.adultView.isHidden = false
+            
+            self.childView.isHidden = true
+            
+            self.infrantView.isHidden = false
+        }else if self.perAdultAmountLabel.text == "Non-refundable" &&
+            self.perChildAmountLabel.text == "Non-refundable" &&
+            self.perInfantAmountLabel.text == "Non-refundable" ||
+            self.perAdultAmountLabel.text == "Free Cancellation" &&
+            self.perChildAmountLabel.text == "Free Cancellation" &&
+            self.perInfantAmountLabel.text == "Free Cancellation" ||
+            self.perAdultAmountLabel.text == "Not Permitted" &&
+            self.perChildAmountLabel.text == "Not Permitted" &&
+            self.perInfantAmountLabel.text == "Not Permitted" ||
+            self.perAdultAmountLabel.text == "Free Rescheduling" &&
+            self.perChildAmountLabel.text == "Free Rescheduling" &&
+            self.perInfantAmountLabel.text == "Free Rescheduling"
+        {
+            //            self.slabDataDisplayViewHeight.constant = 0
+            self.adultView.isHidden = true
+            
+            self.childView.isHidden = true
+            
+            self.infrantView.isHidden = true
+            
+            if self.perAdultAmountLabel.text == "Non-refundable"{
+                self.statusLabel.textColor = .black
+                self.statusLabel.text = "Non-refundable"
+            }else if self.perAdultAmountLabel.text == "Not Permitted"{
+                self.statusLabel.textColor = .black
+                self.statusLabel.text = "Not Permitted"
+            }else if self.perAdultAmountLabel.text == "Free Cancellation"{
+                self.statusLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+                self.statusLabel.text = "Free Cancellation"
+            }else if self.perAdultAmountLabel.text == "Free Rescheduling"{
+                self.statusLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+                self.statusLabel.text = "Free Rescheduling"
+            }else{
+                self.statusLabel.text = ""
+            }
+        }else if flightAdultCount > 0 && flightChildrenCount == 0 && flightInfantCount == 0{
+            //            self.slabDataDisplayViewHeight.constant = 33
+            self.adultView.isHidden = true
+            
+            self.childView.isHidden = true
+            
+            self.infrantView.isHidden = true
+        }else{
+            //            self.slabDataDisplayViewHeight.constant = 0
+            self.adultView.isHidden = true
+            
+            self.childView.isHidden = true
+            
+            self.infrantView.isHidden = true
         }
     }
 }

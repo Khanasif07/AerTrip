@@ -161,14 +161,15 @@ class ATSearchBar: UISearchBar {
         } else {
             self.hideMiceButton(isHidden: true)
         }
+        (self.value(forKey: "cancelButton") as? UIButton)?.isEnabled = true
     }
     
     @objc private func textDidChange() {
         if self.isMicEnabled, (self.text ?? "").isEmpty {
-            self.hideMiceButton(isHidden: false)
+            self.hideMiceButton(isHidden: true)
         }
         else {
-            self.hideMiceButton(isHidden: true)
+            self.hideMiceButton(isHidden: false)
         }
     }
 }

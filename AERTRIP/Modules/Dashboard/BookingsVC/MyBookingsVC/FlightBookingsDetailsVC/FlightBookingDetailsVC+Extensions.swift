@@ -129,7 +129,7 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             self.addToCalender()
         case .paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .refundCell,.paymentPendingCell, .paidCell:
             if let rcpt = self.viewModel.bookingDetail?.receipt {
-                AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, caseId: "")
+                AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, bookingId: self.viewModel.bookingId)
             }
         default:  break
         }

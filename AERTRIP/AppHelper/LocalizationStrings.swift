@@ -643,6 +643,10 @@ enum LocalizedString: String {
     case CurrencyOptions
     case CheckOutCurrencyOptionInfoMessage
     case Rating
+    case PerAdult
+    case PerChild
+    case PerInfant
+
     
     // Select Guests
     case SelectGuests
@@ -685,7 +689,7 @@ enum LocalizedString: String {
     case WhatNext
     case InstantCashBackAppliedText
     case WalletCashBackAppliedText
-    case CouponApplied = "Coupon Applied:"
+    case CouponApplied = "Coupon Applied: "
     case convenienceFee1
     case convenienceFee2
     case ConfirmBooking

@@ -79,6 +79,7 @@ class BookingAddOnRequestVC: BaseVC {
     private func setUpNavBar() {
         
         self.topNavigationView.configureNavBar(title: self.viewModel.caseHistory?.caseType ?? LocalizedString.dash.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
+        self.topNavigationView.navTitleLabel.numberOfLines = 1
         self.seupMakePaymentButton()
         
         self.topNavigationView.delegate = self
@@ -199,10 +200,10 @@ class BookingAddOnRequestVC: BaseVC {
     }
     
     func getUpdatedTitle(text: String ) -> String {
-        var updatedTitle = text
-        if updatedTitle.count > 24 {
-            updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.count)
-        }
+        let updatedTitle = text
+//        if updatedTitle.count > 24 {
+//            updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.count)
+//        }
         return updatedTitle
     }
     
@@ -497,7 +498,7 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-extension BookingAddOnRequestVC: BookingVoucherVMDelegate {
+extension BookingAddOnRequestVC {
     
     private func showDepositOptions() {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.PayOnline.localized, LocalizedString.PayOfflineNRegister.localized, LocalizedString.ChequeDemandDraft.localized, LocalizedString.FundTransfer.localized], colors: [AppColors.themeDarkGreen, AppColors.themeGray40, AppColors.themeDarkGreen, AppColors.themeDarkGreen])

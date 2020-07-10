@@ -554,13 +554,16 @@
 "CheckOutPrivacyAndPolicyTerms" = "By proceeding you agree to the Privacy Policy and Terms of Use of Aertrip. \n \nYou will be re-directed to a Payment Gateway website and returned back on completing the payment transaction.";
 "CheckOutFareRulesPrivacyAndPolicyTerms" = "By proceeding you agree to the Fare Rules, Privacy Policy and Terms of Use of Aertrip. \n \nYou will be re-directed to a Payment Gateway website and returned back on completing the payment transaction.";
 "PayableWalletMessage" = " will be credited to Aertrip wallet within 24 hours of successful payment / travel date";
-"NetEffectiveFare" = "Net Effective Fare:";
+"NetEffectiveFare" = "Net Effective Fare: ";
 "GrossFare" = "Gross Fare";
 "Discounts"  = "Discounts";
 "CouponDiscount" = "Coupon-Discount";
 "AertripWallet" = "Aertrip Wallet";
 "CurrencyOptions" = "Currency options";
 "CheckOutCurrencyOptionInfoMessage" = "Your card provider / bank may charge you foreign transaction fee.";
+"PerAdult" = "Per Adult";
+"PerChild" = "Per Child";
+"PerInfant" = "Per Infant";
 
 //Select Guest
 "SelectGuests" = "Select Guests";

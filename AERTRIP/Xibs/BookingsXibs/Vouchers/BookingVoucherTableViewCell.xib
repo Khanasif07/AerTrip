@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -48,10 +48,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jEU-yg-4kz" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="215" y="23.5" width="89" height="28"/>
+                                <rect key="frame" x="190" y="12.5" width="114" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="89" id="Bko-1C-Wzc"/>
-                                    <constraint firstAttribute="height" constant="28" id="Jzn-CH-lcZ"/>
+                                    <constraint firstAttribute="width" constant="114" id="Bko-1C-Wzc"/>
+                                    <constraint firstAttribute="height" constant="50" id="Jzn-CH-lcZ"/>
                                 </constraints>
                                 <connections>
                                     <action selector="payNowButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="FlP-9v-Zc7"/>

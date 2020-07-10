@@ -125,10 +125,13 @@ class PostBookingAddonsPaymentVC: BaseVC{
     }
     
     func setupPayButtonTitle(){
-        let amount = self.getTotalPayableAmount().amountInDelimeterWithSymbol
-        let title = " \(LocalizedString.Pay.localized)  \(amount)"
-        self.payButton.setTitle(title , for: .normal)
-        self.payButton.setTitle(title, for: .highlighted)
+        let ttl = self.getTotalPayableAmount().amountInDelimeterWithSymbol
+        let amount = ttl.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+        amount.addAttributes([.foregroundColor : AppColors.themeWhite], range: NSString(string: ttl).range(of: ttl))
+        let attributedTitle = NSMutableAttributedString(string: "\(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: AppColors.themeWhite])
+        attributedTitle.append(amount)
+        self.payButton.setAttributedTitle(attributedTitle, for: .normal)
+        self.payButton.setAttributedTitle(attributedTitle, for: .highlighted)
     }
     
     private func manageLoader() {
@@ -271,6 +274,7 @@ extension PostBookingAddonsPaymentVC:PostBookingAddonsPaymentVMDelegate{
         self.updateAllData()
     }
     func getPaymentMethodsFails(errors: ErrorCodes){
+        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .flights)
         hideShowLoader(isHidden: true)
     }
     
@@ -290,8 +294,8 @@ extension PostBookingAddonsPaymentVC:PostBookingAddonsPaymentVMDelegate{
     
     func makePaymentFail(error: ErrorCodes) {
         hideShowLoader(isHidden: true)
-        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
-//        AppToast.default.showToastMessage(message: "Make Payment Failed")
+//        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
+        AppToast.default.showToastMessage(message: "Make Payment Failed")
     }
     
     func willGetPaymentResonse() {
@@ -325,12 +329,6 @@ extension PostBookingAddonsPaymentVC : WalletTableViewCellDelegate {
     }
 }
 
-extension PostBookingAddonsPaymentVC : ApplyCouponTableViewCellDelegate {
-    func removeCouponTapped() {
-        printDebug("Remove coupon tapped")
-//        self.viewModel.removeCouponCode()
-    }
-}
 
 extension PostBookingAddonsPaymentVC : RazorpayPaymentCompletionProtocolWithData {
     
@@ -340,6 +338,7 @@ extension PostBookingAddonsPaymentVC : RazorpayPaymentCompletionProtocolWithData
         razorpay.open(options, displayController: self)
     }
     func onPaymentError(_ code: Int32, description str: String, andData response: [AnyHashable : Any]?) {
+        hideShowLoader(isHidden: true)
         AppToast.default.showToastMessage(message: "Sorry! payment was faild.\nPlease try again.")
     }
     
@@ -533,6 +532,7 @@ extension PostBookingAddonsPaymentVC{
         case .FareBreakupCell:
             
             guard let cell = self.checkOutTableView.dequeueReusableCell(withIdentifier: "FareBreakupCell") as? FareBreakupTableViewCell else {return UITableViewCell()}
+            cell.titleLabel.text = "Add-ons Breakup"
             cell.selectionStyle = .none
             cell.adultCountDisplayView.isHidden = true
             cell.adultCountDisplayViewWidth.constant =  0
@@ -622,8 +622,10 @@ extension PostBookingAddonsPaymentVC{
                 return UITableViewCell()
             }
             totalPayableNowCell.topDeviderView.isHidden = false
-            totalPayableNowCell.bottomDeviderView.isHidden = false
-            totalPayableNowCell.totalPriceLabel.text = Double(self.viewModel.addonsDetails.netAmount).amountInDelimeterWithSymbol
+            totalPayableNowCell.bottomDeviderView.isHidden = true
+            totalPayableNowCell.totalPayableTextTopConstraint.constant = 12.0
+            totalPayableNowCell.totalPayableTextBottomConstraint.constant = 12.0
+            totalPayableNowCell.totalPriceLabel.attributedText = self.getTotalPayableAmount().amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
             return totalPayableNowCell
         case 3:
             guard let termAndPrivacCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: TermAndPrivacyTableViewCell.reusableIdentifier, for: indexPath) as? TermAndPrivacyTableViewCell else {

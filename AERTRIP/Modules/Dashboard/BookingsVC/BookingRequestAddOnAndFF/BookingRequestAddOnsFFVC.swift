@@ -193,7 +193,16 @@ extension BookingRequestAddOnsFFVC: BookingRequestAddOnsFFVMDelegate {
     }
     
     func sendAddOnFFRequestSuccess() {
-        AppFlowManager.default.showAddonRequestSent(buttonTitle: "", delegate: self)
+       // AppFlowManager.default.showAddonRequestSent(buttonTitle: "", delegate: self)
+        
+        var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
+        config.text = self.requestButton.title(for: .normal) ?? ""
+          config.textFont = AppFonts.SemiBold.withSize(20.0)
+          config.cornerRadius = 0.0
+          config.width = self.requestButton.width
+            config.buttonHeight = self.gradientView.height
+          config.spaceFromBottom = AppFlowManager.default.safeAreaInsets.bottom
+          AppFlowManager.default.showAddonRequestSent(buttonConfig: config, delegate: self)
         AppGlobals.shared.stopLoading()
     }
     

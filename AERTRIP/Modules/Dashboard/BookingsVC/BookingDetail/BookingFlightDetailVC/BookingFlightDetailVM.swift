@@ -57,10 +57,13 @@ class BookingDetailVM {
     var tripStr: NSMutableAttributedString = NSMutableAttributedString(string: "")
     var legSectionTap: Int = 0
     var bookingFee: [BookingFeeDetail] = []
-
+    
+    var flightAdultCount = 0
+    var flightChildrenCount = 0
+    var flightInfantCount = 0
     
     func getBookingFees() {
-
+        
         let params: JSONDictionary = ["booking_id": bookingId]
         delegate?.willGetBookingFees()
         APICaller.shared.getBookingFees(params: params) { [weak self] success, errors, bookingFee in
@@ -101,11 +104,11 @@ class BookingDetailVM {
             }
         }
     }
-        
+    
     func fecthTableCellsForBaggageInfo() {
         
         var temp: [BaggageInfoCell] = []
-
+        
         for leg in self.legDetails {
             
             for flight in leg.flight {
@@ -146,6 +149,35 @@ class BookingDetailVM {
             
             self.allBaggageCells.append(temp)
             temp.removeAll()
+        }
+    }
+    
+    func fecthTableCellsForFareInfo() {
+        
+        // var temp: [BaggageInfoCell] = []
+        flightAdultCount = 0
+        flightChildrenCount = 0
+        flightInfantCount = 0
+        
+        
+        if let leg = self.legDetails.first{
+            
+            for pax in leg.pax {
+                                
+                if pax.paxType == "ADT" {
+                    flightAdultCount += 1 //adult details cell
+                }
+                
+                if pax.paxType == "CHD" {
+                    flightChildrenCount += 1 //child details cell
+                }
+                
+                if pax.paxType == "INF" {
+                    flightInfantCount += 1 //adult details cell
+                }
+                
+            }
+            
         }
     }
 }

@@ -28,14 +28,14 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RwT-o5-Mnv" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="10" y="24" width="161.5" height="0.5"/>
+                                <rect key="frame" x="10" y="24" width="100" height="0.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="dPk-4U-cbs"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuS-Yd-Ih7">
-                                <rect key="frame" x="60" y="12.5" width="110.5" height="21.5"/>
+                                <rect key="frame" x="60" y="12.5" width="44" height="21.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -43,15 +43,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="RwT-o5-Mnv" secondAttribute="trailing" constant="16" id="7bX-ds-Mkm"/>
                             <constraint firstAttribute="bottom" secondItem="meA-D5-heo" secondAttribute="bottom" constant="11" id="HFv-Ke-hzV"/>
                             <constraint firstItem="meA-D5-heo" firstAttribute="leading" secondItem="4YJ-en-OhD" secondAttribute="leading" constant="16" id="IC8-Zj-nOO"/>
-                            <constraint firstAttribute="trailing" secondItem="wuS-Yd-Ih7" secondAttribute="trailing" constant="17" id="KUb-34-w3d"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wuS-Yd-Ih7" secondAttribute="trailing" constant="17" id="KUb-34-w3d"/>
                             <constraint firstItem="RwT-o5-Mnv" firstAttribute="leading" secondItem="4YJ-en-OhD" secondAttribute="leading" constant="10" id="Ps6-dN-g76"/>
                             <constraint firstItem="wuS-Yd-Ih7" firstAttribute="leading" secondItem="meA-D5-heo" secondAttribute="trailing" constant="20" id="V0k-g9-0Xu"/>
                             <constraint firstItem="meA-D5-heo" firstAttribute="top" secondItem="4YJ-en-OhD" secondAttribute="top" constant="11" id="a9V-0d-NgX"/>
                             <constraint firstItem="RwT-o5-Mnv" firstAttribute="centerY" secondItem="meA-D5-heo" secondAttribute="centerY" multiplier="1.05" id="cyz-7G-nNK"/>
                             <constraint firstItem="wuS-Yd-Ih7" firstAttribute="centerY" secondItem="meA-D5-heo" secondAttribute="centerY" id="iCk-5t-MrS"/>
+                            <constraint firstItem="wuS-Yd-Ih7" firstAttribute="trailing" secondItem="RwT-o5-Mnv" secondAttribute="trailing" constant="-6" id="tqo-QI-iNc"/>
                         </constraints>
                     </view>
                 </subviews>

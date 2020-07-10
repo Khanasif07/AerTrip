@@ -59,6 +59,7 @@ class MyBookingFilterVC: BaseVC {
         let height = UIApplication.shared.statusBarFrame.height
         self.navigationViewTopConstraint.constant = CGFloat(height)
         
+        self.mainBackView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
         delay(seconds: 1.0) { [weak self] in
            self?.setupGesture()
         }
@@ -139,6 +140,7 @@ class MyBookingFilterVC: BaseVC {
     private func show(animated: Bool) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerViewTopConstraint.constant = 0.0
+            self.mainBackView.alpha = 1.0
             self.view.layoutIfNeeded()
         }) { (isDone) in
             //            self.allTabDetailConatinerView.delegate = self
@@ -156,6 +158,7 @@ class MyBookingFilterVC: BaseVC {
     private func hide(animated: Bool, shouldRemove: Bool = false) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerViewTopConstraint.constant = -(self.mainContainerView.height)
+            self.mainBackView.alpha = 0.0
             self.view.layoutIfNeeded()
         }, completion: { _ in
             if shouldRemove {

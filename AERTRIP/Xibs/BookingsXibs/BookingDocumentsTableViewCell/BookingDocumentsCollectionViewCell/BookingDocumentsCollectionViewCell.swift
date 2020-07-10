@@ -10,6 +10,7 @@ import UIKit
 
 protocol BookingDocumentsCollectionViewCellDelegate: class {
     func cancelButtonAction(forIndex indexPath: IndexPath)
+    func longPressButtonAction(forIndex indexPath: IndexPath)
 }
 
 class BookingDocumentsCollectionViewCell: UICollectionViewCell {
@@ -42,7 +43,7 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
     private var bottomConstraintForDownloading: CGFloat {
         return 9.0
     }
-    
+    var longPressGesture:UILongPressGestureRecognizer?
     
     //MARK:- IBOutlets
     //MARK:===========
@@ -80,6 +81,9 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
         self.imageContainerViewBottomConstraint.constant = self.normalBottomConstraint
         self.dowloadingPlaceHolderImgView.image = nil
         self.loaderSetUp()
+        longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture(recognizer:)))
+        longPressGesture?.minimumPressDuration = 0.5 // 1 second press
+        //longPressGesture?.delaysTouchesEnded = true
     }
     
     internal func configCell(name: String , documentsSize: String , request: DocumentDownloadingModel, type:String = "") {
@@ -178,6 +182,14 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
         if let superVw = self.superview as? UICollectionView , let indexPath = superVw.indexPath(for: self), let safeDelegate = self.delegate {
             safeDelegate.cancelButtonAction(forIndex: indexPath)
             self.progressView.setProgressWithAnimation(duration: 0.0, toValue: 0.0)
+        }
+    }
+    
+    @objc func longPressGesture(recognizer: UILongPressGestureRecognizer) {
+        if recognizer.state == .began{
+        if let superVw = self.superview as? UICollectionView , let indexPath = superVw.indexPath(for: self), let safeDelegate = self.delegate {
+        safeDelegate.longPressButtonAction(forIndex: indexPath)
+        }
         }
     }
 }

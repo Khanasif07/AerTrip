@@ -10,12 +10,16 @@ import UIKit
 class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     internal typealias PickerDone = (_ firstValue: String, _ secondValue: String) -> Void
-    private var doneBlock : PickerDone!
+    private var doneBlock : PickerDone?
     
     private var firstValueArray : [String]?
     private var secondValueArray = [String]()
     static var noOfComponent = 2
     
+    deinit {
+        printDebug("deinit PKMultiPicker")
+        doneBlock = nil
+    }
     
     class func openMultiPickerIn(_ textField: UITextField? , firstComponentArray: [String], secondComponentArray: [String], firstComponent: String?, secondComponent: String?, titles: [String]?, toolBarTint: UIColor = UIColor.black, doneBlock: @escaping PickerDone) {
         
@@ -113,7 +117,7 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
             index2 = self.selectedRow(inComponent: 1)
             secondValue = secondValueArray[index2]
         }
-        self.doneBlock((firstValue ?? ""), (secondValue ?? ""))
+        self.doneBlock?((firstValue ?? ""), (secondValue ?? ""))
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -156,7 +160,7 @@ class PKDatePicker: UIDatePicker {
     }
     
     internal typealias PickerDone = (_ selection: String) -> Void
-    private var doneBlock: PickerDone!
+    private var doneBlock: PickerDone?
     private var datePickerFormat: String = ""
     private var dateFormatter: DateFormatter {
         let dateFormatter = DateFormatter()
@@ -167,6 +171,10 @@ class PKDatePicker: UIDatePicker {
         return dateFormatter
     }
     
+    deinit {
+        printDebug("deinit PKDatePicker")
+        doneBlock = nil
+    }
     
     class func openDatePickerIn(_ textField: UITextField?, outPutFormate: String, mode: UIDatePicker.Mode, minimumDate: Date? = nil, maximumDate: Date? = nil, minuteInterval: Int = 1, selectedDate: Date?, appearance: Appearance = .light, toolBarTint: UIColor? = nil, doneBlock: @escaping PickerDone) {
         
@@ -253,7 +261,7 @@ class PKDatePicker: UIDatePicker {
     @IBAction func datePickerChanged(_ sender: UIDatePicker) {
         let selected = self.dateFormatter.string(from: sender.date)
 
-        self.doneBlock(selected)
+        self.doneBlock?(selected)
     }
     
     @IBAction private func pickerCancelButtonTapped(){
@@ -265,6 +273,6 @@ class PKDatePicker: UIDatePicker {
         
         let selected = self.dateFormatter.string(from: self.date)
         
-        self.doneBlock(selected)
+        self.doneBlock?(selected)
     }
 }

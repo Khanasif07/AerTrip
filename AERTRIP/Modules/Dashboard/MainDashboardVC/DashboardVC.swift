@@ -47,7 +47,7 @@ class DashboardVC: BaseVC {
     private var firstTime = true
     private var userDidScrollUp = false
     private var isSelectingFromTabs = false
-    private var toBeSelect : SelectedOption = .aerin
+    var toBeSelect : SelectedOption = .aerin
     private var previousSelected : SelectedOption = .aerin
     private var alreadyTransformedValue : CGFloat = 0.0
     private var identitySize = CGSize.zero
@@ -96,6 +96,20 @@ class DashboardVC: BaseVC {
         self.profileButton.imageView?.contentMode = .scaleAspectFill
         //addViewOnTop()
         updateProfileButton()
+        
+        delay(seconds: 0.2) {
+            switch self.toBeSelect {
+            case .aerin: self.aerinAction(UIButton())
+            case .flight: self.flightsAction(UIButton())
+            case .hotels: self.hotelsAction(UIButton())
+            case .trips: self.aerinAction(UIButton())
+            }
+        }
+        
+    }
+    
+    deinit {
+        printDebug("deinit DashboardVC")
     }
     
     private func addViewOnTop() {
@@ -170,7 +184,7 @@ class DashboardVC: BaseVC {
     }
     
     //MARK:- IBAction
-    @IBAction func aerinAction(_ sender: UIButton) {
+    @IBAction func aerinAction(_ ff: UIButton) {
         if selectedOption == .aerin || isAnimatingButtons {return}
         toBeSelect = .aerin
         isSelectingFromTabs = true
@@ -330,7 +344,7 @@ extension DashboardVC  {
         previousSelected = selectedOption
     }
     
-
+    
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         innerScrollDidEndDragging(scrollView)
     }
@@ -343,10 +357,10 @@ extension DashboardVC  {
             let offset = scrollView.contentOffset
             
             // MARK: Commented by Rishabh for vertical rubberband effect
-//            guard offset.y <= UIApplication.shared.statusBarFrame.height + 44 else {
-//                scrollView.contentOffset.y = UIApplication.shared.statusBarFrame.height + 44
-//                return
-//            }
+            //            guard offset.y <= UIApplication.shared.statusBarFrame.height + 44 else {
+            //                scrollView.contentOffset.y = UIApplication.shared.statusBarFrame.height + 44
+            //                return
+            //            }
             
             let upperBound = scrollView.contentSize.height - scrollView.bounds.height
             guard 0...upperBound ~= offset.y else {
@@ -505,13 +519,13 @@ extension DashboardVC  {
             //            }else
             
             // MARK: Commented by Rishabh as it is causing jerk in small devices
-//            if transformedBounds.size.width < smallerSize.width && scrolledUp{
-//                view.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-//            }else{
-//                view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
-//            }
+            //            if transformedBounds.size.width < smallerSize.width && scrolledUp{
+            //                view.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+            //            }else{
+            //                view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
+            //            }
             view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
-
+            
         }
     }
     

@@ -64,6 +64,8 @@ class BookingHotelDetailVC: BaseVC {
         if #available(iOS 13.0, *) {} else {
             self.navigationHeightConstraint.constant = 64
         }
+        
+        
     }
     
     override func bindViewModel() {
