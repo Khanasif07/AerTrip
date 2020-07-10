@@ -324,10 +324,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vN-fD-rFm">
-                                        <rect key="frame" x="336" y="8.5" width="70" height="27"/>
+                                        <rect key="frame" x="363" y="8.5" width="43" height="27"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="27" id="1Ks-Ys-O1V"/>
-                                            <constraint firstAttribute="width" constant="70" id="L4B-06-3WM"/>
                                         </constraints>
                                         <state key="normal" title="Done">
                                             <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>

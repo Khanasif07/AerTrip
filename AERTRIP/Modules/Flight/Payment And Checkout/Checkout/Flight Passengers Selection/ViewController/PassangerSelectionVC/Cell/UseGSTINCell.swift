@@ -68,7 +68,6 @@ class UseGSTINCell: UITableViewCell {
         [companyNameSeparatorView, billingNameSeperatorView, selectGSTFieldSeparatorView].forEach { view in
             view?.backgroundColor = AppColors.divider.color
         }
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
