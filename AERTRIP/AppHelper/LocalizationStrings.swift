@@ -1132,7 +1132,7 @@ enum LocalizedString: String {
     case emergencySeatTerms9 = "emergencySeatTerms9"
     case Book_Now_And_Get_Off = "Book_Now_And_Get_Off"
     case Special_Request = "Special_Request"
-    
+    case Special_Request_If_Any = "Special_Request_If_Any"
 }
 
 

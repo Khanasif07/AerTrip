@@ -67,7 +67,6 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
             default:
                 return 35
             }
-            
         }
     }
     

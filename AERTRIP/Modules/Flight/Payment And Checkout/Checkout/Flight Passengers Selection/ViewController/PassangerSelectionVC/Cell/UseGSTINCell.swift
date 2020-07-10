@@ -55,7 +55,6 @@ class UseGSTINCell: UITableViewCell {
         self.selectionStyle = .none
         self.selectGSTDetailView.isHidden = true
         self.enterGSTView.isHidden = true
-        
     }
     
     override func prepareForReuse() {
@@ -109,6 +108,7 @@ class UseGSTINCell: UITableViewCell {
             txt?.lineHeight = 0.33
             txt?.lineColor = AppColors.clear
             txt?.lineView.isHidden = true
+            txt?.delegate = self
             txt?.addTarget(self, action: #selector(changeTextFiledValue), for: .editingDidEnd)
         }
         self.useGSTTopConstraint.constant = 10
@@ -161,4 +161,25 @@ extension UseGSTINCell: UITextFieldDelegate{
         default:break
         }
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        guard let txt = textField.text else { return false }
+        
+        if (range.location == 0 && string == " ") || string.containsEmoji {return false}
+
+        if string.isBackSpace { return true }
+
+        switch textField {
+        case self.gSTNumberTextField:
+
+            if txt.count > 14 { return false }
+
+        default:
+         return true
+        }
+        
+        return true
+    }
+    
 }

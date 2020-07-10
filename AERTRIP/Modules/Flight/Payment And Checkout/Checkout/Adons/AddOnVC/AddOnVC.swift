@@ -25,7 +25,8 @@ class AddOnVC : BaseVC {
     let adonsVm = AdonsVM()
     var fareBreakupVC:IntFareBreakupVC?
     var indicator = UIActivityIndicatorView()
-
+    var viewForFare = UIView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetups()
@@ -68,6 +69,7 @@ extension AddOnVC {
         self.mealsUpdated(amount: "")
         configureTableView()
         setupBottomView()
+        
     }
     
     func configureNavigation(showSkip : Bool = true){
@@ -94,9 +96,9 @@ extension AddOnVC {
         self.indicator.tintColor = AppColors.themeGreen
         self.indicator.color = AppColors.themeGreen
         self.indicator.stopAnimating()
-       self.hideShowLoader(isHidden:true)
+        self.hideShowLoader(isHidden:true)
     }
-   
+    
     func hideShowLoader(isHidden:Bool){
         DispatchQueue.main.async {
             if self.adonsVm.isSkipButtonTap{
@@ -110,14 +112,16 @@ extension AddOnVC {
             }else{
                 self.fareBreakupVC?.hideShowLoader(isHidden: isHidden)
             }
- 
+            
         }
     }
     
     func setupBottomView() {
-        //           viewForFare.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-        //           viewForFare.tag = 5100
-        //           self.view.addSubview(viewForFare)
+        viewForFare.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        viewForFare.tag = 5100
+        self.view.addSubview(viewForFare)
+        
+        self.view.addSubview(viewForFare)
         let dataStore = AddonsDataStore.shared
         let vc = IntFareBreakupVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
         vc.taxesResult = dataStore.taxesResult
@@ -155,6 +159,8 @@ extension AddOnVC {
         self.configureNavigation(showSkip: !(self.adonsVm.isMealSelected() || self.adonsVm.isOthersSelected() || self.adonsVm.isBaggageSelected()))
     }
     
+    
+    
 }
 
 extension AddOnVC : FareBreakupVCDelegate {
@@ -163,9 +169,22 @@ extension AddOnVC : FareBreakupVCDelegate {
         self.adonsVm.isSkipButtonTap = false
         self.adonsVm.bookFlightWithAddons()
     }
- 
+    
     func infoButtonTapped(isViewExpanded: Bool) {
-
+        
+        if isViewExpanded == true{
+            viewForFare.frame = CGRect(x: 0, y: 0, width: UIScreen.width, height: UIScreen.height)
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
+                self.viewForFare.backgroundColor = AppColors.blackWith20PerAlpha
+            })
+        }else{
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
+                self.viewForFare.backgroundColor = AppColors.clear
+            },completion: { _ in
+                self.viewForFare.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+            })
+        }
+        
     }
     
 }
@@ -306,10 +325,10 @@ extension AddOnVC : AddonsUpdatedDelegate {
     }
     
     func resetMeals() {
-//        self.adonsVm.initializeFreeMealsToPassengers()
-//        self.adonsTableView.reloadData()
+        //        self.adonsVm.initializeFreeMealsToPassengers()
+        //        self.adonsTableView.reloadData()
         
-     }
-     
+    }
+    
     
 }

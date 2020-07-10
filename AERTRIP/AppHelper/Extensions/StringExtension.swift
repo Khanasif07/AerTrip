@@ -126,6 +126,11 @@ extension String {
         return !unicodeScalars.filter { $0.isEmoji }.isEmpty
     }
     
+    var isBackSpace : Bool {
+        let char = self.cString(using: String.Encoding.utf8)!
+        return strcmp(char, "\\b") == -92
+    }
+    
     var containsOnlyEmoji: Bool {
         return unicodeScalars.first(where: { !$0.isEmoji && !$0.isZeroWidthJoiner }) == nil
     }
