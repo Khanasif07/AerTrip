@@ -36,14 +36,14 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        IQKeyboardManager.shared().isEnabled = false
+//        IQKeyboardManager.shared().isEnabled = false
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
-        IQKeyboardManager.shared().isEnabled = true
+//        IQKeyboardManager.shared().isEnabled = true
     }
 
     
@@ -160,20 +160,22 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
    @objc func keyboardWillShow(notification: Notification) {
         if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
             if self.isNeedToshowBottom{
-                self.passengerTable.setBottomInset(to: keyboardHeight + 10)
+//                self.passengerTable.setBottomInset(to: keyboardHeight + 10)
             }
             self.viewModel.keyboardHeight = keyboardHeight
+            self.viewModel.isKeyboardVisible = true
         }
     }
 
     @objc func keyboardWillHide(notification: Notification) {
         if self.isNeedToshowBottom{
-            self.passengerTable.setBottomInset(to: 0.0)
+//            self.passengerTable.setBottomInset(to: 0.0)
         }
         self.passengerTable.isScrollEnabled = true
         GuestDetailsVM.shared.resetData()
         self.travellersTableView.reloadData()
         self.travellersTableView.isHidden = GuestDetailsVM.shared.isDataEmpty
+        self.viewModel.isKeyboardVisible = false
     }
     
     
@@ -424,6 +426,16 @@ extension PassengerDetailsVC: GuestDetailTableViewCellDelegate {
     }
     func textField(_ textField: UITextField){
         
+        if let cell = self.passengerTable.cell(forItem: textField) as? AddPassengerDetailsCell {
+        switch textField {
+        case cell.firstNameTextField, cell.lastNameTextField:
+            IQKeyboardManager.shared().isEnabled = false
+        default:
+            IQKeyboardManager.shared().isEnabled = true
+            return
+            }
+        }
+        
         self.travellersTableView.isHidden = GuestDetailsVM.shared.isDataEmpty
         self.travellersTableView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
         self.offsetPoint = self.passengerTable.contentOffset
@@ -456,7 +468,17 @@ extension PassengerDetailsVC: GuestDetailTableViewCellDelegate {
     }
     
     func textFieldEndEditing(_ textField: UITextField) {
-        self.passengerTable.setContentOffset(self.offsetPoint, animated: true)
+//        DispatchQueue.delay(0.3) {
+        if self.viewModel.isKeyboardVisible {
+            return
+        }
+//        self.passengerTable.setContentOffset(self.offsetPoint, animated: true)
+        
+//        }
+        let contentPoint = passengerTable.contentSize.height - passengerTable.frame.size.height
+        if passengerTable.contentOffset.y >= contentPoint {
+            passengerTable.setContentOffset(CGPoint(x: 0, y: contentPoint < 0 ? 0 : contentPoint), animated: true)
+        }
     }
 }
 

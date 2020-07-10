@@ -26,6 +26,7 @@ class PassengerDetailsVM {
             self.indexPath = IndexPath(row: 0, section: currentIndex)
         }
     }
+    var isKeyboardVisible = false
     
     func updatePassengerInfoWith(_ object:ATContact, at index:Int){
         
