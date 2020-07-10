@@ -90,6 +90,9 @@ class SeatMapVC: UIViewController {
         seatMapCollView.register(UINib(nibName: "SeatCollCell", bundle: nil), forCellWithReuseIdentifier: "SeatCollCell")
         seatMapCollView.delegate = self
         seatMapCollView.dataSource = self
+        seatMapCollView.showsVerticalScrollIndicator = false
+        seatMapCollView.showsHorizontalScrollIndicator = false
+        seatMapCollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
     }
     
     private func toggleUpperDeck(_ selected: Bool) {
