@@ -92,7 +92,8 @@ extension SelectOtherAdonsContainerVC {
     
     private func configureNavigation(){
         self.topNavBarView.delegate = self
-        self.topNavBarView.configureNavBar(title: LocalizedString.Others.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : false)
+        let isDivider = othersContainerVM.allChildVCs.count > 1 ? false : true
+        self.topNavBarView.configureNavBar(title: LocalizedString.Others.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : isDivider)
         self.topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18))
         self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18))
     }
@@ -119,12 +120,21 @@ extension SelectOtherAdonsContainerVC {
         self.parchmentView = PagingViewController()
         self.parchmentView?.menuItemSpacing = 36
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 15, bottom: 0.0, right: 15)
-        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 53)
-        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
-        self.parchmentView?.borderOptions = PagingBorderOptions.visible(
-            height: 0.5,
-            zIndex: Int.max - 1,
-            insets: UIEdgeInsets.zero)
+        
+        if self.othersContainerVM.allChildVCs.count < 2 {
+            self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 0, height: 0)
+            self.parchmentView?.indicatorOptions = PagingIndicatorOptions.hidden
+            self.parchmentView?.borderOptions = PagingBorderOptions.hidden
+        } else {
+            
+            self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 53)
+            self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
+            self.parchmentView?.borderOptions = PagingBorderOptions.visible(
+                height: 0.5,
+                zIndex: Int.max - 1,
+                insets: UIEdgeInsets.zero)
+        }
+        
         let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
         self.parchmentView?.register(nib, for: MenuItem.self)
         self.parchmentView?.borderColor = AppColors.themeBlack.withAlphaComponent(0.16)
