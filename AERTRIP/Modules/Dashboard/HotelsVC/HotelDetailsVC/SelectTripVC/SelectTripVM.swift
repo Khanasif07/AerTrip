@@ -53,11 +53,24 @@ class SelectTripVM {
     // MARK: - Public
     
     func setSelectedTripIndexPath() {
+        if usingFor == .bookingTripChange {
+            if let selectedTripId = tripInfo?.tripId {
+            for (index, trip) in allTrips.enumerated() {
+                if trip.id == selectedTripId {
+                   selectedIndexPath = IndexPath(row: index, section: 0)
+                    break
+                }
+            }
+            }
+        } else {
         for (index, trip) in allTrips.enumerated() {
             if trip.isDefault {
                selectedIndexPath = IndexPath(row: index, section: 0)
+                break
             }
         }
+        }
+        
     }
     
     func fetchAllTrips() {

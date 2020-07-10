@@ -17,8 +17,8 @@ extension FlightBookingInfoVC {
         case .aerlineDetail: return 77.0
         case .flightInfo: return 132.0
         case .amenities(let totalRowsForAmenities):
-            let heightForOneRow: CGFloat = 62.0
-            let lineSpace = (CGFloat(totalRowsForAmenities) * 7.0)
+            let heightForOneRow: CGFloat = 64.0
+            let lineSpace = (CGFloat(totalRowsForAmenities) * 5.0)
             // 10 id collection view top & bottom in xib
             return (CGFloat(totalRowsForAmenities) * heightForOneRow) + lineSpace + 15.0
             
@@ -88,13 +88,13 @@ extension FlightBookingInfoVC {
                 fatalError("AmentityTableViewCell not found")
             }
             
-            cell.flightDetail = flight
+            cell.amenities = self.viewModel.getAmenities(flightDetail: flight)
             cell.collectionViewBottomConstraint.constant = self.viewModel.allFlightInfoCells[indexPath.section].contains(where: { (type) -> Bool in
                 switch type {
                 case .layover: return true
                 default: return false
                 }
-                }) ? 5 : 20
+                }) ? 3 : 18
             return cell
         }
         

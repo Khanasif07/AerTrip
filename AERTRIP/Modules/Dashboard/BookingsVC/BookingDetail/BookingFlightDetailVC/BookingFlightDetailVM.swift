@@ -87,8 +87,12 @@ class BookingDetailVM {
                     temp.append(.aerlineDetail)
                     temp.append(.flightInfo)
                     
-                    if !flight.amenities.isEmpty {
-                        temp.append(.amenities(totalRows: flight.totalRowsForAmenities))
+//                    if !flight.amenities.isEmpty {
+//                        temp.append(.amenities(totalRows: flight.totalRowsForAmenities))
+//                    }
+                    let result = self.getAmenities(flightDetail: flight)
+                    if !result.isEmpty {
+                        temp.append(.amenities(totalRows: 1))
                     }
                     
                     if flight.layoverTime > 0 {
@@ -179,5 +183,46 @@ class BookingDetailVM {
             }
             
         }
+    }
+    
+    func getAmenities(flightDetail: BookingFlightDetail) -> [String] {
+        var amenitiesData = [String]()
+        
+        if let baggage = flightDetail.baggage {
+            if let adtBaggage = baggage.checkInBg?.adult{
+                let weight = adtBaggage.weight
+                let pieces = adtBaggage.piece
+                if pieces != "" && pieces != "-9" && pieces != "-1" && pieces != "0 pc" && pieces != "0"{
+                    amenitiesData.append("Check-in Baggage \n(\(pieces))")
+                }else{
+                    if weight != "" && weight != "-9" && weight != "-1" && weight != "0 kg"{
+                        amenitiesData.append("Check-in Baggage \n(\(weight))")
+                    }
+                }
+                
+            }
+            
+            if let adtCabinBaggage = baggage.cabinBg?.adult{
+                
+                let weight = adtCabinBaggage.weight
+                let pieces = adtCabinBaggage.piece
+                
+                if weight != "" && weight != "-9" && weight != "-1" && weight != "0 kg"{
+                    amenitiesData.append("Cabbin Baggage \n(\(weight))")
+                }else{
+                    if pieces != "" && pieces != "-9" && pieces != "-1" && pieces != "0 pc" && pieces != "0"{
+                        
+                        if pieces.containsIgnoringCase(find: "pc"){
+                            amenitiesData.append("Cabbin Baggage \n(\(pieces))")
+                        }else{
+                            amenitiesData.append("Cabbin Baggage \n(\(pieces) pc)")
+                        }
+                    }
+                }
+                
+            }
+            
+        }
+        return amenitiesData
     }
 }

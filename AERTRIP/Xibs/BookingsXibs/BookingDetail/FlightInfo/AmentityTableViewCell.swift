@@ -15,12 +15,18 @@ class AmentityTableViewCell: UITableViewCell {
     @IBOutlet weak var collectionViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var flightDetail: BookingFlightDetail? {
+    //    var flightDetail: BookingFlightDetail? {
+    //        didSet {
+    //            self.collectionView.reloadData()
+    //        }
+    //    }
+    
+    var amenities = [String]() {
         didSet {
             self.collectionView.reloadData()
         }
     }
-
+    
     private let numberOfItemInRow: Double = 3.0
     
     // MARK: - View Lifecycle
@@ -40,6 +46,8 @@ class AmentityTableViewCell: UITableViewCell {
         self.collectionView.isScrollEnabled = false
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
+        
+        
     }
     
     private func registerXib()  {
@@ -52,17 +60,17 @@ class AmentityTableViewCell: UITableViewCell {
 
 extension AmentityTableViewCell : UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.flightDetail?.amenities.count ?? 0
+        return amenities.count //self.flightDetail?.amenities.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 7
+        return 5
     }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let newW: CGFloat = collectionView.width / CGFloat(numberOfItemInRow) - 10.0
-        let newH: CGFloat = 62//collectionView.height / CGFloat(self.flightDetail?.totalRowsForAmenities ?? 1)
+        let newH: CGFloat = 64//collectionView.height / CGFloat(self.flightDetail?.totalRowsForAmenities ?? 1)
         return  CGSize(width: newW, height: newH)
     }
     
@@ -71,9 +79,20 @@ extension AmentityTableViewCell : UICollectionViewDataSource,UICollectionViewDel
             fatalError("BookingAmenityCollectionViewCell not found ")
         }
         
-        cell.amenity = self.flightDetail?.amenities[indexPath.item]
-        
+        // cell.amenity = self.flightDetail?.amenities[indexPath.item]
+        cell.amenityTitle.text = amenities[indexPath.item]
+        if amenities[indexPath.row].contains(find: "Cabbin"){
+            cell.amenityImageView.image = UIImage(named: "cabinBaggage")
+        }else if amenities[indexPath.row].contains(find: "Check-in"){
+            cell.amenityImageView.image = UIImage(named: "checkingBaggageKg")
+        }else{
+            cell.amenityImageView.image = nil
+        }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
     
 }

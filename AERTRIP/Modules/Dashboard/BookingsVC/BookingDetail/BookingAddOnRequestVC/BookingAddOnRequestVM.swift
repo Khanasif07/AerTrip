@@ -56,7 +56,7 @@ class BookingAddOnRequestVM {
         if !caseD.csrName.isEmpty {
             temp["01Agent"] = caseD.csrName.isEmpty ? LocalizedString.dash.localized : caseD.csrName//"🎧 \(caseD.csrName)"
         }
-        temp["01Agent"] = "test user"
+        
         let dateStr = caseD.requestDate?.toString(dateFormat: "d MMM yyyy | HH:mm") ?? ""
         if !dateStr.isEmpty {
         temp["02Requested on"] = dateStr.isEmpty ? LocalizedString.dash.localized : dateStr

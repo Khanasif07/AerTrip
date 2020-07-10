@@ -453,7 +453,7 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
                     if let cell = self.invoiceTableView.cellForRow(at: indexPath) as? DownloadInvoiceTableViewCell{
                         cell.showLoader = true
                     }
-                    AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Booking Invoice", showLoader: false, complition: { [weak self] (status) in
+                    AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/booking-action?booking_id=\(bID)&doc=invoice&type=pdf", screenTitle: "Booking Invoice", showLoader: false, complition: { [weak self] (status) in
                         self?.isDownloadingRecipt = false
                         self?.invoiceTableView.reloadData()
                     })

@@ -383,7 +383,7 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("BookingRequestRouteTableViewCell not found")
         }
         
-        bookingRouteCell.configure(title: self.viewModel.caseData?.caseName ?? LocalizedString.dash.localized, detail: self.viewModel.caseData?.casedId ?? LocalizedString.dash.localized)
+        bookingRouteCell.configure(title: self.viewModel.caseHistory?.caseName ?? LocalizedString.dash.localized, detail: self.viewModel.caseHistory?.caseNumber ?? LocalizedString.dash.localized)
         
         return bookingRouteCell
     }

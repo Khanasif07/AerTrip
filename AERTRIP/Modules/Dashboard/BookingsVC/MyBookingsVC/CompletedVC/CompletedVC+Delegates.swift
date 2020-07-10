@@ -138,7 +138,6 @@ extension CompletedVC: OthersBookingTableViewCellDelegate {
             var object = Case()
             object.id = cases[index]
             object.bookingId = data.bookingId ?? ""
-//            self.viewModel.caseData?.caseName ?? LocalizedString.dash.localized, detail: self.viewModel.caseData?.casedId
             AppFlowManager.default.moveToAddOnRequestVC(caseData: object, receipt: nil)
         }
     }

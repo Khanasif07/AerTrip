@@ -66,6 +66,7 @@ public class BookingData: NSManagedObject {
         
         
         //for seting the steps array anf pending status
+        /*
         func setStepsArrayAndPendingStatus(forData: JSONDictionary) {
             
             var steps: [String] = []
@@ -112,14 +113,17 @@ public class BookingData: NSManagedObject {
             booking?.stepsArray = steps
             booking?.stepsArrayStr = (booking?.stepsArray ?? [String]()).joined(separator: ",")
         }
+    */
         
         if let obj = dataDict[APIKeys.requests.rawValue] as? JSONDictionary {
             booking?.requests = obj
-            setStepsArrayAndPendingStatus(forData: obj)
+           // setStepsArrayAndPendingStatus(forData: obj)
         }
         
         if let obj = dataDict[APIKeys.description.rawValue] as? [String] {
             booking?.descriptions = obj
+            booking?.stepsArray = obj
+            booking?.stepsArrayStr = (booking?.stepsArray ?? [String]()).joined(separator: ",")
         }
         
         if let obj = dataDict[APIKeys.action_required.rawValue] as? Int {
