@@ -114,7 +114,7 @@ extension SelectPassengerVC {
         case .seatSelection:
             selectPassengersLabel.isHidden = true
             emptyView.isHidden = true
-            titleLabel.text = selectPassengersVM.selectedSeatData.columnData.seatNumber + " • ₹ \(selectPassengersVM.selectedSeatData.columnData.amount.formattedWithCommaSeparator)"
+            titleLabel.text = selectPassengersVM.selectedSeatData.columnData.seatNumber + "  •  ₹ \(selectPassengersVM.selectedSeatData.columnData.amount.formattedWithCommaSeparator)"
             legsLabel.text = selectPassengersVM.selectedSeatData.columnData.getCharactericstic()
             legsLabel.textColor = AppColors.themeGray40
             legsLabel.font = AppFonts.Regular.withSize(14)
@@ -123,12 +123,12 @@ extension SelectPassengerVC {
             
         case .meals:
             self.selectPassengersLabel.text = LocalizedString.Select_Passengers_To_Assign_This_Meal.localized
-            self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "") • ₹ \(self.selectPassengersVM.adonsData.price)"
+            self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "")  •  ₹ \(self.selectPassengersVM.adonsData.price)"
             self.legsLabel.text = self.selectPassengersVM.currentFlightName
       
         case .baggage:
             self.selectPassengersLabel.text = LocalizedString.Select_Passengers_To_Assign_This_Meal.localized
-            self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "") • ₹ \(self.selectPassengersVM.adonsData.price)"
+            self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "")  •  ₹ \(self.selectPassengersVM.adonsData.price)"
             self.legsLabel.text = self.selectPassengersVM.currentFlightName
 
         case .others:
