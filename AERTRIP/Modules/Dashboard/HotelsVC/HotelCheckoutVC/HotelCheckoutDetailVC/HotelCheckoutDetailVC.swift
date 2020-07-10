@@ -76,7 +76,9 @@ class HotelCheckoutDetailVC: BaseVC {
             self.view.addGestureRecognizer(swipeGesture)
             self.view.backgroundColor = AppColors.clear
         }
-        self.configureUI()
+        DispatchQueue.main.async {
+            self.configureUI()
+        }
     }
     
     ///ConfigureUI
