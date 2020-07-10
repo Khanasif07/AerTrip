@@ -71,7 +71,7 @@ class SelectOtherAdonsContainerVC: BaseVC {
         setupNavBar()
         setUpViewPager()
         calculateTotalAmount()
-        totalContainerView.addShadow(ofColor: .black, radius: 20, opacity: 0.05)
+        totalContainerView.addShadow(ofColor: .black, radius: 20, opacity: 0.1)
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
@@ -157,7 +157,8 @@ extension SelectOtherAdonsContainerVC: TopNavigationViewDelegate {
         self.othersContainerVM.clearAll()
         calculateTotalAmount()
         let price = self.totalLabel.text ?? ""
-        self.delegate?.othersUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))    }
+        self.delegate?.othersUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
+    }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
@@ -167,17 +168,15 @@ extension SelectOtherAdonsContainerVC: TopNavigationViewDelegate {
 
 extension SelectOtherAdonsContainerVC: PagingViewControllerDataSource , PagingViewControllerDelegate ,PagingViewControllerSizeDelegate{
     
-    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
-        
-        if let pagingIndexItem = pagingItem as? MenuItem{
-            let text = pagingIndexItem.title
+        func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
             
-            let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
-            return text.widthOfString(usingFont: font)
+           if let pagingIndexItem = pagingItem as? MenuItem{
+                  let text = pagingIndexItem.attributedTitle
+                  return (text?.size().width ?? 0) + 10
+              }
+            
+              return 100.0
         }
-        
-        return 100.0
-    }
     
     func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
         return AddonsDataStore.shared.flightKeys.count
@@ -194,7 +193,8 @@ extension SelectOtherAdonsContainerVC: PagingViewControllerDataSource , PagingVi
         guard let firstFlight = flightAtINdex.first else {
             return MenuItem(title: "", index: index, isSelected:false)
         }
-        return MenuItem(title: "\(firstFlight.fr) → \(firstFlight.to)", index: index, isSelected:false)
+        
+        return MenuItem(title: "", index: index, isSelected: false, attributedTitle: self.othersContainerVM.createAttHeaderTitle(firstFlight.fr, firstFlight.to))
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {

@@ -75,7 +75,7 @@ class BaggageContainerVC : BaseVC {
         setupNavBar()
         setUpViewPager()
         calculateTotalAmount()
-        totalContainerView.addShadow(ofColor: .black, radius: 20, opacity: 0.05)
+        totalContainerView.addShadow(ofColor: .black, radius: 20, opacity: 0.1)
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
@@ -165,13 +165,12 @@ extension BaggageContainerVC: TopNavigationViewDelegate {
 }
 
 extension BaggageContainerVC: PagingViewControllerDataSource , PagingViewControllerDelegate ,PagingViewControllerSizeDelegate{
+    
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         
         if let pagingIndexItem = pagingItem as? MenuItem{
-            let text = pagingIndexItem.title
-            
-            let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
-            return text.widthOfString(usingFont: font)
+            let text = pagingIndexItem.attributedTitle
+            return (text?.size().width ?? 0) + 10
         }
         
         return 100.0
@@ -192,7 +191,8 @@ extension BaggageContainerVC: PagingViewControllerDataSource , PagingViewControl
         guard let firstFlight = flightAtINdex.first else {
             return MenuItem(title: "", index: index, isSelected:false)
         }
-        return MenuItem(title: "\(firstFlight.fr) → \(firstFlight.to)", index: index, isSelected:false)
+        
+        return MenuItem(title: "", index: index, isSelected: false, attributedTitle: self.baggageContainerVM.createAttHeaderTitle(firstFlight.fr, firstFlight.to))
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {

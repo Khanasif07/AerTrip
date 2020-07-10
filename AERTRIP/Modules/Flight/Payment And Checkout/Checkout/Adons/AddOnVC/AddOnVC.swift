@@ -26,7 +26,6 @@ class AddOnVC : BaseVC {
     var fareBreakupVC:IntFareBreakupVC?
     var indicator = UIActivityIndicatorView()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetups()
@@ -38,6 +37,7 @@ class AddOnVC : BaseVC {
         self.reloadFareBreakup()
         self.setSkipButton()
     }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.indicator.center = self.topNavView.firstRightButton.center

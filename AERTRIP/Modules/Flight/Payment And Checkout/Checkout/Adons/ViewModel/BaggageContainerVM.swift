@@ -143,5 +143,25 @@ class BaggageContainerVM {
         
     }
     
+     func createAttHeaderTitle(_ origin: String,_ destination: String) -> NSAttributedString {
+        let fullString = NSMutableAttributedString(string: origin + "" )
+        let desinationAtrributedString = NSAttributedString(string: "" + destination)
+        let imageString = getStringFromImage(name : "oneway")
+        fullString.append(imageString)
+        fullString.append(desinationAtrributedString)
+        return fullString
+    }
+    
+    private func getStringFromImage(name : String) -> NSAttributedString {
+        let imageAttachment = NSTextAttachment()
+        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
+        let iconImage = UIImage(named: name )!
+        imageAttachment.image = iconImage
+        let yCordinate  = roundf(Float(sourceSansPro18.capHeight - iconImage.size.height) / 2.0)
+        imageAttachment.bounds = CGRect(x: CGFloat(0.0), y: CGFloat(yCordinate) , width: iconImage.size.width, height: iconImage.size.height )
+        let imageString = NSAttributedString(attachment: imageAttachment)
+        return imageString
+    }
+    
     
 }
