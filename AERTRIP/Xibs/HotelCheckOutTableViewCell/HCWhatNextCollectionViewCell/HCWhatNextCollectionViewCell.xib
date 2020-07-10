@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -36,7 +36,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Book your flight to Amsterdam to get upto 10% discount" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMp-h1-jIO">
-                                        <rect key="frame" x="16" y="51" width="301" height="65.5"/>
+                                        <rect key="frame" x="16" y="51" width="301" height="55.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -45,7 +45,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="fMp-h1-jIO" firstAttribute="leading" secondItem="XqS-g6-CRW" secondAttribute="leading" constant="16" id="7qI-1L-jgg"/>
-                                    <constraint firstAttribute="bottom" secondItem="fMp-h1-jIO" secondAttribute="bottom" constant="37.5" id="96i-QY-9G1"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fMp-h1-jIO" secondAttribute="bottom" constant="9" id="96i-QY-9G1"/>
                                     <constraint firstAttribute="trailing" secondItem="fMp-h1-jIO" secondAttribute="trailing" constant="16" id="CIn-nP-PC9"/>
                                     <constraint firstItem="uEm-64-0dj" firstAttribute="leading" secondItem="XqS-g6-CRW" secondAttribute="leading" constant="16" id="Dvp-kS-ca4"/>
                                     <constraint firstItem="fMp-h1-jIO" firstAttribute="top" secondItem="uEm-64-0dj" secondAttribute="bottom" constant="9" id="eeC-ry-gdD"/>
@@ -80,6 +80,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="flightIcon" width="26" height="26"/>
+        <image name="flightIcon" width="45" height="45"/>
     </resources>
 </document>

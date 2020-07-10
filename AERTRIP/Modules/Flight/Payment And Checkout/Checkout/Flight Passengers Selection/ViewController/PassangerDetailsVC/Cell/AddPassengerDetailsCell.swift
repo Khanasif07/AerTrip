@@ -97,6 +97,7 @@ class AddPassengerDetailsCell: UITableViewCell {
             txtFld?.addTarget(self, action: #selector(self.textFieldDidChanged(_:)), for: .editingChanged)
             txtFld?.isSingleTextField = false
             txtFld?.delegate = self
+            txtFld?.titleFont = AppFonts.Regular.withSize(12)
             txtFld?.setUpAttributedPlaceholder(placeholderString: titleArray[index],with: "", foregroundColor: AppColors.themeGray20)
             txtFld?.font = AppFonts.Regular.withSize(18.0)
             txtFld?.textColor = AppColors.textFieldTextColor51

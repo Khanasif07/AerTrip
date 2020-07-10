@@ -73,7 +73,7 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
             self.passengerTable.scrollToRow(at: self.viewModel.indexPath, at: .middle, animated: true)
             self.passengerTable.reloadData()
         }
-        addFooterViewToTravellerTableView()
+//        addFooterViewToTravellerTableView()
     }
     
     private func addFooterViewToTravellerTableView() {

@@ -311,11 +311,11 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
     }
     
     func startFechingGSTValidationData(){
-        AppGlobals.shared.startLoading()
+        self.intFareBreakupVC?.hideShowLoader(isHidden: false)
     }
     
     func startFechingLoginData(){
-        AppGlobals.shared.startLoading()
+        self.intFareBreakupVC?.hideShowLoader(isHidden: false)
     }
     
     func getResponseFromConfirmation(_ success:Bool, error:ErrorCodes){
@@ -352,7 +352,7 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
     }
     
     func getResponseFromGSTValidation(_ success:Bool, error:ErrorCodes){
-        AppGlobals.shared.stopLoading()
+        self.intFareBreakupVC?.hideShowLoader(isHidden: true)
         if success{
             let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
             vc.adonsVm.bookingObject = self.viewModel.bookingObject ?? BookFlightObject()
@@ -372,7 +372,7 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
     }
     
     func getResponseFromLogin(_ success:Bool, error: ErrorCodes){
-        AppGlobals.shared.stopLoading()
+        self.intFareBreakupVC?.hideShowLoader(isHidden: true)
         if !success{
             AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
         }

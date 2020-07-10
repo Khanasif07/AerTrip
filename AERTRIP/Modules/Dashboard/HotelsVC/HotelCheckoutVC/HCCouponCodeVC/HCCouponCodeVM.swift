@@ -26,7 +26,7 @@ protocol HCCouponCodeVMDelegate: class {
 class HCCouponCodeVM {
     
     weak var delegate: HCCouponCodeVMDelegate?
-    private var couponsData: [HCCouponModel] = [] {
+    var couponsData: [HCCouponModel] = [] {
         didSet{
             searcedCouponsData = couponsData
         }
@@ -63,7 +63,6 @@ class HCCouponCodeVM {
                 sSelf.delegate?.getCouponsDataSuccessful()
             } else {
                 printDebug(errors)
-//                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
                 sSelf.delegate?.getCouponsDataFailed()
             }
         }
@@ -87,10 +86,10 @@ class HCCouponCodeVM {
     
     func applyFlightCouponCode() {
         let params: [String : Any] = [APIKeys.action.rawValue : "coupons" , APIKeys.coupon_code.rawValue : self.couponCode , APIKeys.it_id.rawValue : self.itineraryId ]
-        AppGlobals.shared.startLoading()
+//        AppGlobals.shared.startLoading()
         APICaller.shared.applyFlightCoupnCodeApi(params: params, loader: true) { [weak self] (success, errors, appliedCouponData) in
             guard let sSelf = self else { return }
-            AppGlobals.shared.stopLoading()
+//            AppGlobals.shared.stopLoading()
             if success {
                 printDebug(appliedCouponData)
                 sSelf.appliedDataForFlight = appliedCouponData

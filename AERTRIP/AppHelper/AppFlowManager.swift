@@ -1414,14 +1414,13 @@ extension AppFlowManager {
         }
         guard newVC != nil else {return}
         let nav = (newVC?.presentingViewController as?  UINavigationController)
-        newVC?.presentingViewController?.dismiss(animated: true, completion: {
-            delay(seconds: 0.0) {
-                if let baseVC = nav?.children.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
-                    baseVC.popToPreviousScreen(sender: UIButton())
-                }
-                nav?.popToRootViewController(animated: true)
+        delay(seconds: 0.0) {
+            if let baseVC = nav?.children.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
+                baseVC.popToPreviousScreen(sender: UIButton())
             }
-        })
+            nav?.popToRootViewController(animated: false)
+        }
+        newVC?.presentingViewController?.dismiss(animated: false, completion: nil)
         
     }
     

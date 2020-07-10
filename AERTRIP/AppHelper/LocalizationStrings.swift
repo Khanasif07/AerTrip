@@ -689,7 +689,7 @@ enum LocalizedString: String {
     case WhatNext
     case InstantCashBackAppliedText
     case WalletCashBackAppliedText
-    case CouponApplied = "Coupon Applied:"
+    case CouponApplied = "Coupon Applied: "
     case convenienceFee1
     case convenienceFee2
     case ConfirmBooking
