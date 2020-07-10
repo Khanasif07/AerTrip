@@ -48,15 +48,17 @@ class BaggageTermsVC : BaseVC {
     
     @IBAction func agreeButtonTapped(_ sender: UIButton) {
 //        self.delegate?.isAccepted(value: true)
+        self.baggageTermsVM.agreeCompletion(true)
         self.dismiss(animated: true) {
-            self.baggageTermsVM.agreeCompletion(true)
+            
         }
     }
     
     @IBAction func declineButtonTapped(_ sender: Any) {
 //      self.delegate?.isAccepted(value: false)
-        self.dismiss(animated: true) {
         self.baggageTermsVM.agreeCompletion(false)
+        self.dismiss(animated: true) {
+        
        }
     }
     
@@ -74,6 +76,7 @@ extension BaggageTermsVC {
               let spacing : CGFloat = 22 + 20
               self.tableHeaderView.frame.size.height = self.headingLabel.height + self.descriptionLabel.height + spacing
         
+        baggageTermsTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 25, right: 0)
 //              self.tableHeaderView.backgroundColor = UIColor.yellow
           }
     

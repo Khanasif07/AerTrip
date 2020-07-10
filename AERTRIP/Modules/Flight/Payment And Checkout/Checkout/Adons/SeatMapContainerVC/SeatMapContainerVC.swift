@@ -172,7 +172,7 @@ class SeatMapContainerVC: UIViewController {
         addBtn.setTitleColor(AppColors.themeGreen, for: .normal)
         let addBtnTitle = viewModel.setupFor == .postSelection ? LocalizedString.CheckoutTitle.localized : LocalizedString.Add.localized
         addBtn.setTitle(addBtnTitle, for: .normal)
-        totalSeatAmountView.addShadow(ofColor: .black, radius: 20, opacity: 0.05)
+        totalSeatAmountView.addShadow(ofColor: .black, radius: 20, opacity: 0.1)
         apiProgressView.progressTintColor = UIColor.AertripColor
         apiProgressView.trackTintColor = .clear
         apiProgressView.setProgress(0, animated: false)
@@ -319,7 +319,7 @@ class SeatMapContainerVC: UIViewController {
             self.planeLayoutView.alpha = 1
         }, completion:  { _ in
             if callHide {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: self.hidePlaneLayoutWorkItem!)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: self.hidePlaneLayoutWorkItem!)
             }
         })
     }
