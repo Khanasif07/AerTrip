@@ -264,31 +264,49 @@ class AddPassengerDetailsCell: UITableViewCell {
     
     func showErrorForFirstLastName() {
         guard  self.canShowSalutationError else {return}
-        if !((self.firstNameTextField.text ?? "").count < 3){
+        if ((self.firstNameTextField.text ?? "").count < 3){
             self.firstNameTextField.isError = true
             let firstName = "First Name"
             self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeRed])
             
+        }else if !(self.firstNameTextField.text ?? "").isName{
+            self.firstNameTextField.isError = true
+            let firstName = "Invalid First Name"
+            self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeRed])
+
         }
-//        else if (self.firstNameTextField.text ?? ""){
-//            self.firstNameTextField.isError = true
-//            let firstName = "Invalid First Name"
-//            self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeRed])
-//
-//        }
         else{
             self.firstNameTextField.isError = false
             let firstName = "First Name"
             self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray40])
         }
+        
+        if ((self.lastNameTextField.text ?? "").count < 3){
+            self.lastNameTextField.isError = true
+            let lastName = "last Name"
+            self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: lastName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeRed])
+            
+        }else if !(self.lastNameTextField.text ?? "").isName{
+            self.lastNameTextField.isError = true
+            let lastName = "Invalid Last Name"
+            self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: lastName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeRed])
+
+        }
+        else{
+            self.lastNameTextField.isError = false
+            let last = "Last Name"
+            self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: last, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray40])
+        }
+        
+        
 //
 //        let firstName = self.firstNameTextField.placeholder ?? ""
 //        self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidFirstName ? AppColors.themeGray40 :  AppColors.themeRed])
         
-        let isValidLastName = !((self.lastNameTextField.text ?? "").count < 3)
-        self.lastNameTextField.isError = !isValidLastName
-        let lastName = self.lastNameTextField.placeholder ?? ""
-        self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: lastName, attributes: [NSAttributedString.Key.foregroundColor: isValidLastName ? AppColors.themeGray40 :  AppColors.themeRed])
+//        let isValidLastName = !((self.lastNameTextField.text ?? "").count < 3)
+//        self.lastNameTextField.isError = !isValidLastName
+//        let lastName = self.lastNameTextField.placeholder ?? ""
+//        self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: lastName, attributes: [NSAttributedString.Key.foregroundColor: isValidLastName ? AppColors.themeGray40 :  AppColors.themeRed])
         
         if self.journeyType == .domestic{
             self.domesticValidations()
