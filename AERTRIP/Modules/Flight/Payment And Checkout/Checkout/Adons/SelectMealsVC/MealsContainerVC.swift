@@ -133,7 +133,7 @@ extension MealsContainerVC {
         
         let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
         self.parchmentView?.register(nib, for: MenuItem.self)
-        self.parchmentView?.borderColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.parchmentView?.borderColor = AppColors.themeGray20
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
@@ -197,10 +197,10 @@ extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControlle
         let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.flightKeys[index] }
      
         guard let firstFlight = flightAtINdex.first else {
-            return MenuItem(title: "", index: index, isSelected:false)
+            return MenuItem(title: "", index: index, isSelected:true)
         }
 
-        return MenuItem(title: "", index: index, isSelected: false, attributedTitle: self.mealsContainerVM.createAttHeaderTitle(firstFlight.fr, firstFlight.to))
+        return MenuItem(title: "", index: index, isSelected: true, attributedTitle: self.mealsContainerVM.createAttHeaderTitle(firstFlight.fr, firstFlight.to))
         
     }
     
