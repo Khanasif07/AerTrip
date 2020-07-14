@@ -689,7 +689,7 @@ enum LocalizedString: String {
     case WhatNext
     case InstantCashBackAppliedText
     case WalletCashBackAppliedText
-    case CouponApplied = "Coupon Applied:"
+    case CouponApplied = "Coupon Applied: "
     case convenienceFee1
     case convenienceFee2
     case ConfirmBooking
@@ -1140,7 +1140,7 @@ enum LocalizedString: String {
     case emergencySeatTerms9 = "emergencySeatTerms9"
     case Book_Now_And_Get_Off = "Book_Now_And_Get_Off"
     case Special_Request = "Special_Request"
-    
+    case Special_Request_If_Any = "Special_Request_If_Any"
 }
 
 

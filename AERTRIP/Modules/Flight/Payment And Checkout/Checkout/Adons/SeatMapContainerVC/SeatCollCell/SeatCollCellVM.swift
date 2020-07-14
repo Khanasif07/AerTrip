@@ -26,5 +26,9 @@ class SeatCollCellVM {
         self.seatData = seatData
         self.flightFares = flightFares
         self.setupFor = setupFor
+        
+        if self.flightFares.minAmount == self.flightFares.maxAmount {
+            self.flightFares.minAmount = 1
+        }
     }
 }

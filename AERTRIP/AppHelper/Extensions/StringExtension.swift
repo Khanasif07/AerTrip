@@ -126,6 +126,11 @@ extension String {
         return !unicodeScalars.filter { $0.isEmoji }.isEmpty
     }
     
+    var isBackSpace : Bool {
+        let char = self.cString(using: String.Encoding.utf8)!
+        return strcmp(char, "\\b") == -92
+    }
+    
     var containsOnlyEmoji: Bool {
         return unicodeScalars.first(where: { !$0.isEmoji && !$0.isZeroWidthJoiner }) == nil
     }
@@ -206,6 +211,13 @@ extension String {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: self)
+    }
+    
+    var isName:Bool{
+        let name = "[A-Z a-z]{3,}"
+        let nameTest = NSPredicate(format: "SELF MATCHES %@", name)
+        return nameTest.evaluate(with: self)
+       
     }
     
     var isPhoneNumber: Bool {
@@ -814,7 +826,7 @@ extension String {
             return stylizedPrice
         }
         let result = self.components(separatedBy: ".").last?.components(separatedBy: " ").first?.count
-        print("result: \(result)")
+//        print("result: \(result)")
         changeRange.length = self.count - changeRange.location
         
         guard let font = UIFont(name: font.fontName, size: (font.pointSize * 0.75)) else {

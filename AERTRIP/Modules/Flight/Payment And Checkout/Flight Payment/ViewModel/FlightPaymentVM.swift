@@ -47,6 +47,7 @@ class FlightPaymentVM{
     var isd = ""
     var mobile = ""
     var email = ""
+    var isApplyingCoupon = false
     //Setup for section header and cell
     var sectionTableCell = [[CellType]]()
     var sectionHeader = [sectionType]()
@@ -291,6 +292,17 @@ extension FlightPaymentVM{
         let param = [APIKeys.it_id.rawValue: id]
         APICaller.shared.getItinerayDataForPendingPayment(params: param) {[weak self] (success, error, data) in
             completionBlock(success, data, error)
+        }
+    }
+    
+    
+    
+    func getCouponsDetailsApi(completion: @escaping((_ success:Bool, _ couponData: [HCCouponModel], _ error:ErrorCodes)->())) {
+
+        let params: [String : Any] = [ APIKeys.it_id.rawValue : self.itinerary.id , APIKeys.product.rawValue : CouponFor.flights.rawValue]
+        APICaller.shared.getCouponDetailsApi(params: params, loader: true ) { (success, errors, couponsDetails) in
+            completion(success, couponsDetails, errors)
+            
         }
     }
     

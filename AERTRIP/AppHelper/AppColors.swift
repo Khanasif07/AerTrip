@@ -162,7 +162,13 @@ enum AppColors {
     
     // RGB - 0,0,0 , 0.4
     static let blackWith40PerAlpha =  UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.4)
-
+    
+    // RGB - 43, 74, 244, 1.0
+    static let instaButtonTopColor =  UIColor(displayP3Red: 0.168627451, green: 0.2901960784, blue: 0.9568627451, alpha: 0.4)
+    // RGB - 201, 40, 221, 1.0
+    static let instaButtonMiddleColor =  UIColor(displayP3Red: 0.7882352941, green: 0.1568627451, blue: 0.8666666667, alpha: 0.4)
+    // RGB - 246, 19, 114, 1.0
+    static let instaButtonBottomColor =  UIColor(displayP3Red: 0.9647058824, green: 0.07450980392, blue: 0.4470588235, alpha: 0.4)
     
     
     case headlines

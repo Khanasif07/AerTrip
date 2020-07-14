@@ -15,7 +15,7 @@ class SelectOtherAdonsVC: UIViewController {
     @IBOutlet weak var specialRequestLabel: UILabel!
     @IBOutlet weak var specialRequestInfoLabel: UILabel!
     @IBOutlet weak var otherAdonsTableView: UITableView!
-
+    @IBOutlet weak var specialRequestPlaceHolderLabel: UILabel!
     
     var otherAdonsVm : SelectOtherAdonsVM!
     weak var delegate : SelectOtherDelegate?
@@ -36,16 +36,18 @@ class SelectOtherAdonsVC: UIViewController {
         self.clearButton.titleLabel?.font = AppFonts.Regular.withSize(14)
         self.specialRequestTextView.font = AppFonts.Regular.withSize(18)
         self.specialRequestInfoLabel.font = AppFonts.Regular.withSize(14)
+        self.specialRequestPlaceHolderLabel.font = AppFonts.Regular.withSize(18)
     }
       
     func setupTexts() {
-          
+        self.specialRequestPlaceHolderLabel.text = LocalizedString.Special_Request_If_Any.localized
     }
       
     func setupColors() {
         self.specialRequestLabel.textColor = AppColors.themeGray40
         self.clearButton.setTitleColor(AppColors.themeGreen, for: UIControl.State.normal)
         self.specialRequestInfoLabel.textColor = AppColors.themeGray40
+        self.specialRequestPlaceHolderLabel.textColor = AppColors.themeGray20
     }
     
     @IBAction func clearButtonTapped(_ sender: UIButton) {
@@ -59,6 +61,7 @@ class SelectOtherAdonsVC: UIViewController {
 extension SelectOtherAdonsVC {
     
     private func initialSetup() {
+        self.setupTexts()
         self.setupFonts()
         self.setupColors()
         self.configureTableView()
@@ -105,6 +108,21 @@ extension SelectOtherAdonsVC {
     private func showHideClearButton(){
          guard let txt = specialRequestTextView.text else { return  }
          self.clearButton.isHidden = txt.isEmpty
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            
+            if txt.isEmpty{
+                self.specialRequestPlaceHolderLabel.alpha = 1
+                self.specialRequestLabel.alpha = 0
+            }else{
+                self.specialRequestPlaceHolderLabel.alpha = 0
+                self.specialRequestLabel.alpha = 1
+            }
+            
+        }) { (success) in
+        
+        }
+        
      }
     
 }

@@ -554,7 +554,7 @@
 "CheckOutPrivacyAndPolicyTerms" = "By proceeding you agree to the Privacy Policy and Terms of Use of Aertrip. \n \nYou will be re-directed to a Payment Gateway website and returned back on completing the payment transaction.";
 "CheckOutFareRulesPrivacyAndPolicyTerms" = "By proceeding you agree to the Fare Rules, Privacy Policy and Terms of Use of Aertrip. \n \nYou will be re-directed to a Payment Gateway website and returned back on completing the payment transaction.";
 "PayableWalletMessage" = " will be credited to Aertrip wallet within 24 hours of successful payment / travel date";
-"NetEffectiveFare" = "Net Effective Fare:";
+"NetEffectiveFare" = "Net Effective Fare: ";
 "GrossFare" = "Gross Fare";
 "Discounts"  = "Discounts";
 "CouponDiscount" = "Coupon-Discount";
@@ -1007,7 +1007,7 @@ Your booking ID is";
 "noOtherseDataDesc" = "There are no other addons for this flight at the moment";
 
 "DomesticCheckIn" = "Domestic Check-in";
-"InternationalCheckIn" = "International CheckIn";
+"InternationalCheckIn" = "International Check-in";
 "MealTotal" = "Meal Total";
 
 "Select_Passengers_To_Assign_This_Meal" = "Select passengers to assign this meal";
@@ -1051,6 +1051,6 @@ Your booking ID is";
 "emergencySeatTerms7" = "You do not require to use Portable Oxygen Concentrators on board the aircraft.";
 "emergencySeatTerms8" = "You are not pregnant or travelling with someone who is pregnant.";
 "emergencySeatTerms9" = "You confirm and agree to all the above and also understand that the airline reserves all rights to change your seat(s) keeping in mind the overall safety or if you refuse to accept opening the exit during the crew briefing or if you do not adhere to the requirements of the seating row criteria as specified by the crew. (No Refund for change of seat on the aircraft.)";
-"Book_Now_And_Get_Off" = "Book Now &\nget upto  20% off ";
-
+"Book_Now_And_Get_Off" = "Book Now &\nget up to  20% off ";
 "Special_Request" = "Special Request";
+"Special_Request_If_Any" = "Special request if any...";

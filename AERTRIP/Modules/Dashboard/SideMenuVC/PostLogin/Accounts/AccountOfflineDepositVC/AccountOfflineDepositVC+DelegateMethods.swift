@@ -55,13 +55,13 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             
             if indexPath.row < self.viewModel.userEnteredDetails.uploadedSlips.count {
                 //uploaded document type
-                return 55.0
+                return 61.0
             }
             else {
                 let newIndex = indexPath.row - self.viewModel.userEnteredDetails.uploadedSlips.count
                 if newIndex == 0 {
                     //uploaded deposit slip
-                    return (self.currentUsingAs == .chequeOrDD) ? 81.0 : 84.0
+                    return (self.currentUsingAs == .chequeOrDD) ? 78.0 : 81.0
                 }
                 else if newIndex == 1 {
                     //terms of use
@@ -279,6 +279,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         cell.isHiddenButton = false
+//        cell.containerTopConstraint.constant = 8.0
         cell.titleLabel.font = AppFonts.SemiBold.withSize(18.0)
         cell.titleLabel.textColor = AppColors.themeGreen
         cell.titleLabel.text = LocalizedString.UploadDepositConfirmationSlip.localized
@@ -297,7 +298,6 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         cell.isHiddenButton = false
         cell.selectionButton.setImage(self.viewModel.userEnteredDetails.isAgreeToTerms ? #imageLiteral(resourceName: "tick") : #imageLiteral(resourceName: "untick"), for: .normal)
         cell.selectButtonTopConstraint.constant = 26.0
-        
         let termsOfUse = ActiveType.custom(pattern: "\\s\(LocalizedString.terms_of_use.localized)\\b")
         
         let allTypes = [termsOfUse]
@@ -356,6 +356,8 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         
         cell.textFieldTopConstraint.constant = 8.0
         cell.textFiledBottomConstraint.constant = 0.0
+        cell.editableTextField.titleYPadding = 0
+        cell.editableTextField.hintYPadding = 0
         cell.editableTextField.isHiddenBottomLine = true
         cell.editableTextField.text = value
         cell.editableTextField.setUpAttributedPlaceholder(placeholderString: placeholder)

@@ -28,14 +28,13 @@ class HCCouponCodeVC: BaseVC {
 
     var currentIndexPath: IndexPath?
     var viewTranslation = CGPoint(x: 0, y: 0)
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var couponTableView: UITableView! {
         didSet {
             self.couponTableView.contentInset = UIEdgeInsets(top: 0, left: 0.0, bottom: 10.0, right: 0.0)
-            self.couponTableView.delegate = self
-            self.couponTableView.dataSource = self
             self.couponTableView.estimatedRowHeight = UITableView.automaticDimension
             self.couponTableView.rowHeight = UITableView.automaticDimension
         }
@@ -83,8 +82,14 @@ class HCCouponCodeVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.manageLoader()
+        self.registerNibs()
+        self.couponTableView.delegate = self
+        self.couponTableView.dataSource = self
         self.statusBarStyle = .default
-        self.viewModel.getCouponsDetailsApi()
+        if self.viewModel.product != .flights{
+            self.viewModel.getCouponsDetailsApi()
+        }
         self.emptyStateImageView.image = #imageLiteral(resourceName: "emptyStateCoupon")
         self.offerTermsView.roundTopCorners(cornerRadius: 10.0)
         self.offerTermsViewSetUp()
@@ -135,6 +140,29 @@ class HCCouponCodeVC: BaseVC {
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
+    
+    
+    private func manageLoader() {
+        self.indicator.style = .gray
+        self.indicator.tintColor = AppColors.themeGreen
+        self.indicator.color = AppColors.themeGreen
+        self.indicator.stopAnimating()
+        self.hideShowLoader(isHidden:true)
+    }
+      
+       func hideShowLoader(isHidden:Bool){
+        DispatchQueue.main.async {
+            
+            if isHidden{
+                self.indicator.stopAnimating()
+                self.applyButton.setTitle("Apply", for: .normal)
+            }else{
+                self.applyButton.setTitle("", for: .normal)
+                self.indicator.startAnimating()
+            }
+            
+        }
+       }
     
     //Mark:- Functions
     //================
@@ -216,6 +244,9 @@ class HCCouponCodeVC: BaseVC {
             case .hotels: self.viewModel.applyCouponCode()
             case .flights: self.viewModel.applyFlightCouponCode()
             }
+            if self.viewModel.product == .flights{
+                self.hideShowLoader(isHidden: false)
+            }
         } else {
             //            self.enterCouponLabel.isHidden = false
             //self.couponValidationTextSetUp(isCouponValid: false)
@@ -251,7 +282,7 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.searcedCouponsData.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard  let cell = tableView.dequeueReusableCell(withIdentifier: CheckoutCouponCodeTableViewCell.reusableIdentifier, for: indexPath) as? CheckoutCouponCodeTableViewCell else { return UITableViewCell() }
         cell.delegate = self
@@ -409,6 +440,7 @@ extension HCCouponCodeVC: HCCouponCodeVMDelegate {
             if let safeDelegate = self.flightDelegate , let appliedCouponData = self.viewModel.appliedDataForFlight {
                 safeDelegate.appliedCouponData(appliedCouponData)
                 self.dismiss(animated: true, completion: nil)
+                self.hideShowLoader(isHidden: true)
             }
         }
         
@@ -417,6 +449,7 @@ extension HCCouponCodeVC: HCCouponCodeVMDelegate {
     func applyCouponCodeFailed(errors: ErrorCodes) {
         self.couponTextField.titleTextColour = AppColors.themeRed
         printDebug("Coupon Not Applied")
+        self.hideShowLoader(isHidden: true)
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
     }
 }

@@ -88,7 +88,8 @@ extension FlightPaymentVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 1, indexPath.section == 0 {
-            AppFlowManager.default.presentFlightCouponCodeVC(itineraryId: self.viewModel.itinerary.id, vc: self, couponCode: self.viewModel.appliedCouponData.couponCode ?? "", product: .flights)
+            self.moveToCouponVC(indexPath:indexPath)
+//            AppFlowManager.default.presentFlightCouponCodeVC(itineraryId: self.viewModel.itinerary.id, vc: self, couponCode: self.viewModel.appliedCouponData.couponCode ?? "", product: .flights)
         }
     }
     
@@ -103,6 +104,32 @@ extension FlightPaymentVC: UITableViewDelegate, UITableViewDataSource {
             headerView.arrowButton.transform = (self.isAddonsExpended) ? .identity : rotateTrans
         default:break
         }
+    }
+    
+    func moveToCouponVC(indexPath:IndexPath){
+        self.viewModel.isApplyingCoupon = true
+        self.view.isUserInteractionEnabled = false
+        self.checkOutTableView.reloadRow(at: indexPath, with: .automatic)
+        self.viewModel.getCouponsDetailsApi(){[weak self] (success, data, error) in
+            guard let self = self else {return}
+            self.viewModel.isApplyingCoupon = false
+            self.view.isUserInteractionEnabled = true
+            self.checkOutTableView.reloadRow(at: indexPath, with: .automatic)
+            if success{
+                let obj = HCCouponCodeVC.instantiate(fromAppStoryboard: .HotelCheckout)
+                obj.flightDelegate = self
+                obj.viewModel.itineraryId = self.viewModel.itinerary.id
+                obj.viewModel.couponCode = self.viewModel.appliedCouponData.couponCode ?? ""
+                obj.viewModel.product = .flights
+                obj.viewModel.couponsData = data
+                obj.modalPresentationStyle = .overFullScreen
+                self.present(obj, animated: true)
+            }else{
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
+            }
+            
+        }
+        
     }
     
 }
@@ -213,6 +240,7 @@ extension FlightPaymentVC{
                 applyCouponCell.couponView.isHidden = true
                 applyCouponCell.couponLabel.text = LocalizedString.ApplyCoupon.localized
             }
+            applyCouponCell.hideShowLoader(isHidden: !self.viewModel.isApplyingCoupon)
             applyCouponCell.delegate = self
             return applyCouponCell
         case .WalletCell:
@@ -223,7 +251,7 @@ extension FlightPaymentVC{
             walletCell.clipsToBounds = true
             walletCell.delegate = self
             walletCell.walletSwitch.isOn = isWallet
-            walletCell.amountLabel.text = self.getWalletAmount().amountInDelimeterWithSymbol
+            walletCell.amountLabel.attributedText = self.getWalletAmount().amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(16.0))
             return walletCell
         case .FareBreakupCell:
             
@@ -251,8 +279,8 @@ extension FlightPaymentVC{
         
         guard let cell = self.checkOutTableView.dequeueReusableCell(withIdentifier: DiscountCell.reusableIdentifier, for: indexPath) as? DiscountCell else { return UITableViewCell()}
         let title = self.viewModel.taxAndFeesData[indexPath.row].name
-        let amount = Double(self.viewModel.taxAndFeesData[indexPath.row].value).amountInDelimeterWithSymbol
-        cell.configureCell(title: title, amount: amount)
+        let amount = Double(self.viewModel.taxAndFeesData[indexPath.row].value).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(14.0))
+        cell.configureCellForInvoice(title: title, amount: amount)
         return cell
     }
     func getCellForDiscountSection(_ indexPath: IndexPath)->UITableViewCell{
@@ -260,8 +288,8 @@ extension FlightPaymentVC{
         
         guard let cell = self.checkOutTableView.dequeueReusableCell(withIdentifier: DiscountCell.reusableIdentifier, for: indexPath) as? DiscountCell else { return UITableViewCell()}
         let title = self.viewModel.discountData[indexPath.row].name
-        let amount = Double(self.viewModel.discountData[indexPath.row].value).amountInDelimeterWithSymbol
-        cell.configureCell(title: title, amount: amount)
+        let amount = Double(self.viewModel.discountData[indexPath.row].value).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(14.0))
+        cell.configureCellForInvoice(title: title, amount: amount)
         return cell
     }
     
@@ -270,8 +298,8 @@ extension FlightPaymentVC{
         
         guard let cell = self.checkOutTableView.dequeueReusableCell(withIdentifier: DiscountCell.reusableIdentifier, for: indexPath) as? DiscountCell else { return UITableViewCell()}
         let title = self.viewModel.addonsData[indexPath.row].name
-        let amount = Double(self.viewModel.addonsData[indexPath.row].value).amountInDelimeterWithSymbol
-        cell.configureCell(title: title, amount: amount)
+        let amount = Double(self.viewModel.addonsData[indexPath.row].value).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(14.0))
+        cell.configureCellForInvoice(title: title, amount: amount)
         return cell
     }
     
@@ -288,7 +316,7 @@ extension FlightPaymentVC{
             let amount = isWallet ? self.convenienceFeesWallet : self.convenienceRate
             if self.isConvenienceFeeApplied {
                 convenieneCell.aertripWalletTitleLabel.text = LocalizedString.ConvenienceFee.localized
-                convenieneCell.walletAmountLabel.text = amount.amountInDelimeterWithSymbol
+                convenieneCell.walletAmountLabel.attributedText = amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
                 return convenieneCell
             } else {
                 convenieneCell.clipsToBounds = true
@@ -325,9 +353,11 @@ extension FlightPaymentVC{
                 printDebug("TotalPayableNowCell not found")
                 return UITableViewCell()
             }
+            totalPayableNowCell.totalPayableTextTopConstraint.constant = 12.0
+            totalPayableNowCell.totalPayableTextBottomConstraint.constant = 12.0
             totalPayableNowCell.topDeviderView.isHidden = false
-            totalPayableNowCell.bottomDeviderView.isHidden = false
-            totalPayableNowCell.totalPriceLabel.text = self.getTotalPayableAmount().amountInDelimeterWithSymbol
+            totalPayableNowCell.bottomDeviderView.isHidden = !isCouponApplied
+            totalPayableNowCell.totalPriceLabel.attributedText = self.getTotalPayableAmount().amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
             return totalPayableNowCell
         case 3: // Convenience Fee message Cell
             guard let conveninceCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: ConvenienceFeeTableViewCell.reusableIdentifier, for: indexPath) as? ConvenienceFeeTableViewCell else {
@@ -349,13 +379,21 @@ extension FlightPaymentVC{
                 printDebug("FinalAmountTableViewCell not found")
                 return UITableViewCell()
             }
+            finalAmountCell.dividerView.isHidden = true
             if self.isCouponApplied {
                 if let discountBreakUp = self.viewModel.appliedCouponData.discountsBreakup {
                     // Net Effective fare
-                    let netAmount = "\(self.viewModel.itinerary.details.fare.netEffectiveFare.value)"
-                    let effectiveFare = abs(netAmount.toDouble ?? 0.0 - discountBreakUp.CPD)
+                    let netAmount = self.viewModel.itinerary.details.fare.netEffectiveFare.value
+                    let convinceFee = isWallet ? self.convenienceFeesWallet : self.convenienceRate
+                    let effectiveFare = Double(netAmount) + convinceFee
                     finalAmountCell.payableWalletMessageLabel.text = Double(discountBreakUp.CACB).amountInDelimeterWithSymbol + LocalizedString.PayableWalletMessage.localized
-                    finalAmountCell.netEffectiveFareLabel.text = LocalizedString.NetEffectiveFare.localized + "\(effectiveFare.amountInDelimeterWithSymbol)"
+                    
+                    let ttl = effectiveFare.amountInDelimeterWithSymbol
+                    let amount = ttl.asStylizedPrice(using: AppFonts.SemiBold.withSize(14.0))
+                    let attributedTitle = NSMutableAttributedString(string: "\(LocalizedString.NetEffectiveFare.localized)", attributes: [.font: AppFonts.SemiBold.withSize(14)])
+                    attributedTitle.append(amount)
+                    
+                    finalAmountCell.netEffectiveFareLabel.attributedText = attributedTitle//LocalizedString.NetEffectiveFare.localized + "\(effectiveFare.amountInDelimeterWithSymbol)"
                 }
                 finalAmountCell.clipsToBounds = true
                 return finalAmountCell

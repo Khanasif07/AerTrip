@@ -57,7 +57,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.section == self.viewModel.ladgerDetails.count + 1{
             switch indexPath.row {
-            case 0: return 28
+            case 0: return 27
             case 1: return 44
             case 2: return 35
             default: return 0
@@ -154,7 +154,14 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                     if event.productType == .hotel {
                         switch section {
                         case 0:
-                            key = self.viewModel.amountDetailKeys[indexPath.row]
+                            if self.viewModel.ladgerEvent?.dueDate == nil{
+                                key = self.viewModel.amountDetailKeys[indexPath.row]
+                            }else{
+                                key = self.viewModel.flightAmountDetailKeys[indexPath.row]
+                            }
+                            if key.lowercased() == "Over Due by days".lowercased() {
+                                descColor = AppColors.themeRed
+                            }
                             value = (dict[key] as? String) ?? ""
                             
                         case 1:
@@ -178,7 +185,11 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                     else if event.productType == .flight {
                         switch section {
                         case 0:
-                            key = self.viewModel.flightAmountDetailKeys[indexPath.row]
+                            if self.viewModel.ladgerEvent?.dueDate == nil{
+                                key = self.viewModel.amountDetailKeys[indexPath.row]
+                            }else{
+                                key = self.viewModel.flightAmountDetailKeys[indexPath.row]
+                            }
                             value = (dict[key] as? String) ?? ""
                             
                             if key.lowercased() == "Over Due by days".lowercased() {

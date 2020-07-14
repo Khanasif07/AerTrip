@@ -53,7 +53,6 @@ class SelectBaggageVC: UIViewController {
         self.bagageTableView.reloadData()
     }
     
-    
       private func checkForNoData() {
           guard let _ = self.bagageTableView else { return }
           if selectBaggageVM.getBaggage().isEmpty {
@@ -93,19 +92,21 @@ extension SelectBaggageVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-         return 28
+        return self.selectBaggageVM.sagrigatedData.count < 2 ? 0 : 28
     }
         
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-                    
-          guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "BagageSectionHeaderView") as? BagageSectionHeaderView else {
-              fatalError("BagageSectionHeaderView not found")
-          }
-        headerView.headingLabel.font = AppFonts.Regular.withSize(14)
-        headerView.headingLabel.text = section == 0 ? LocalizedString.DomesticCheckIn.localized : LocalizedString.InternationalCheckIn.localized
-        headerView.contentView.backgroundColor = AppColors.greyO4
-        headerView.headingLabel.textColor = AppColors.themeGray60
-        return headerView
+       
+        if self.selectBaggageVM.sagrigatedData.count < 2 { return nil }
+        
+            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "BagageSectionHeaderView") as? BagageSectionHeaderView else {
+                       fatalError("BagageSectionHeaderView not found")
+                   }
+                 headerView.headingLabel.font = AppFonts.Regular.withSize(14)
+                 headerView.headingLabel.text = section == 0 ? LocalizedString.DomesticCheckIn.localized.uppercased() : LocalizedString.InternationalCheckIn.localized.uppercased()
+                 headerView.contentView.backgroundColor = AppColors.greyO4
+                 headerView.headingLabel.textColor = AppColors.themeGray60
+                 return  headerView
       }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

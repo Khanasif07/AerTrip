@@ -32,6 +32,7 @@ class SelectOtherAdonsContainerVC: BaseVC {
     @IBOutlet weak var specialRequestLabel: UILabel!
     
     
+    
     // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +72,7 @@ class SelectOtherAdonsContainerVC: BaseVC {
         setupNavBar()
         setUpViewPager()
         calculateTotalAmount()
-        totalContainerView.addShadow(ofColor: .black, radius: 20, opacity: 0.05)
+        totalContainerView.addShadow(ofColor: .black, radius: 20, opacity: 0.1)
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
@@ -92,7 +93,8 @@ extension SelectOtherAdonsContainerVC {
     
     private func configureNavigation(){
         self.topNavBarView.delegate = self
-        self.topNavBarView.configureNavBar(title: LocalizedString.Others.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : false)
+        let isDivider = othersContainerVM.allChildVCs.count > 1 ? false : true
+        self.topNavBarView.configureNavBar(title: LocalizedString.Others.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : isDivider)
         self.topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18))
         self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18))
     }
@@ -117,17 +119,26 @@ extension SelectOtherAdonsContainerVC {
     private func setupParchmentPageController(){
         
         self.parchmentView = PagingViewController()
-        self.parchmentView?.menuItemSpacing = 36
+        self.parchmentView?.menuItemSpacing = 30
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 15, bottom: 0.0, right: 15)
-        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 53)
-        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
-        self.parchmentView?.borderOptions = PagingBorderOptions.visible(
-            height: 0.5,
-            zIndex: Int.max - 1,
-            insets: UIEdgeInsets.zero)
+        
+        if self.othersContainerVM.allChildVCs.count < 2 {
+            self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 0, height: 0)
+            self.parchmentView?.indicatorOptions = PagingIndicatorOptions.hidden
+            self.parchmentView?.borderOptions = PagingBorderOptions.hidden
+        } else {
+            
+            self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 53)
+            self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
+            self.parchmentView?.borderOptions = PagingBorderOptions.visible(
+                height: 0.5,
+                zIndex: Int.max - 1,
+                insets: UIEdgeInsets.zero)
+        }
+        
         let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
         self.parchmentView?.register(nib, for: MenuItem.self)
-        self.parchmentView?.borderColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.parchmentView?.borderColor = AppColors.themeGray20
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
@@ -157,7 +168,8 @@ extension SelectOtherAdonsContainerVC: TopNavigationViewDelegate {
         self.othersContainerVM.clearAll()
         calculateTotalAmount()
         let price = self.totalLabel.text ?? ""
-        self.delegate?.othersUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))    }
+        self.delegate?.othersUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
+    }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
@@ -167,17 +179,15 @@ extension SelectOtherAdonsContainerVC: TopNavigationViewDelegate {
 
 extension SelectOtherAdonsContainerVC: PagingViewControllerDataSource , PagingViewControllerDelegate ,PagingViewControllerSizeDelegate{
     
-    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
-        
-        if let pagingIndexItem = pagingItem as? MenuItem{
-            let text = pagingIndexItem.title
+        func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
             
-            let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
-            return text.widthOfString(usingFont: font)
+           if let pagingIndexItem = pagingItem as? MenuItem{
+                  let text = pagingIndexItem.attributedTitle
+                  return (text?.size().width ?? 0) + 10
+              }
+            
+              return 100.0
         }
-        
-        return 100.0
-    }
     
     func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
         return AddonsDataStore.shared.flightKeys.count
@@ -192,9 +202,10 @@ extension SelectOtherAdonsContainerVC: PagingViewControllerDataSource , PagingVi
         let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.flightKeys[index] }
         
         guard let firstFlight = flightAtINdex.first else {
-            return MenuItem(title: "", index: index, isSelected:false)
+            return MenuItem(title: "", index: index, isSelected:true)
         }
-        return MenuItem(title: "\(firstFlight.fr) → \(firstFlight.to)", index: index, isSelected:false)
+        
+        return MenuItem(title: "", index: index, isSelected: true, attributedTitle: self.othersContainerVM.createAttHeaderTitle(firstFlight.fr, firstFlight.to))
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {

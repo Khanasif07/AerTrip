@@ -116,7 +116,7 @@ class PassengerDetailsCell: UICollectionViewCell {
                 setupForAdd()
             }
             else {
-                infoImageView.isHidden = !((fName.isEmpty || fName.count < 3) || (lName.isEmpty || lName.count < 3) || saltn.isEmpty)
+                infoImageView.isHidden = !((fName.removeAllWhitespaces.isEmpty || fName.count < 3 || !fName.isName) || (lName.removeAllWhitespaces.isEmpty || lName.count < 3 || !lName.isName) || saltn.isEmpty)
                 firstNameLabel.text = fName
                 lastNameLabel.text = lName
                 if !lName.isEmpty {
@@ -153,9 +153,9 @@ class PassengerDetailsCell: UICollectionViewCell {
     private func checkForDomestic(){
         guard let guest = self.contact else {return}
         switch guest.passengerType{
-        case .Adult, .child:
+        case .Adult:
             break;
-        case .infant:
+        case .infant, .child:
             if guest.displayDob.isEmpty{
                 infoImageView.isHidden = false
             }
@@ -170,7 +170,7 @@ class PassengerDetailsCell: UICollectionViewCell {
             GuestDetailsVM.shared.guests[0][indx.row].countryCode = "In"
         }
         if infoImageView.isHidden{
-            infoImageView.isHidden = !(guest.displayDob.isEmpty || guest.nationality.isEmpty || guest.passportNumber.isEmpty || guest.displayPsprtExpDate.isEmpty)
+            infoImageView.isHidden = !(guest.displayDob.isEmpty || guest.passportNumber.isEmpty || guest.displayPsprtExpDate.isEmpty)//|| guest.nationality.isEmpty
         }
         
     }

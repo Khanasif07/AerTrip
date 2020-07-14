@@ -23,7 +23,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
     private let collectionMargin: CGFloat  = 11.0
     private let itemSpacing : CGFloat = 0.0
     private var itemHeight: CGFloat {
-        return 154//self.whatNextCollectionView.bounds.height
+        return 172//self.whatNextCollectionView.bounds.height
     }
     private var itemWidth: CGFloat  = 0
     
@@ -75,8 +75,8 @@ class HCWhatNextTableViewCell: UITableViewCell {
         self.fbButton.tintColor = AppColors.themeWhite
         self.twitterButton.setImage(#imageLiteral(resourceName: "twiterIcon").withRenderingMode(.alwaysTemplate), for: .normal)
         self.twitterButton.tintColor = AppColors.themeWhite
-        self.instagramButton.setImage(#imageLiteral(resourceName: "instagram"), for: .normal)
-        self.instagramButton.tintColor = AppColors.themeWhite
+        self.instagramButton.setImage(#imageLiteral(resourceName: "instagramNew"), for: .normal)
+//        self.instagramButton.tintColor = AppColors.themeWhite
 
         //Font
         self.tellYourPlanLabel.font = AppFonts.Regular.withSize(16.0)
@@ -89,7 +89,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
         self.whatNext.textColor = AppColors.themeGray40
         self.fbButton.backgroundColor = AppColors.fbButtonBackgroundColor
         self.twitterButton.backgroundColor = AppColors.twitterBackgroundColor
-        self.instagramButton.backgroundColor = AppColors.linkedinButtonBackgroundColor
+//        self.instagramButton.backgroundColor = AppColors.clear
         self.whatNextCollectionView.registerCell(nibName: HCWhatNextCollectionViewCell.reusableIdentifier)
         self.flowLayOut()
     }

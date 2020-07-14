@@ -82,16 +82,16 @@ extension SelectPassengerVC {
     }
     
     private func performDoneBtnAction(_ animationDuration: TimeInterval = 0.3) {
-//        self.selectPassengersVM.contactsComplition(self.selectPassengersVM.selectedContacts)
-   
-            UIView.animate(withDuration: animationDuration, animations: {
-                self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: self.transparentBackView.height)
-                self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
-            }) { (success) in
-                self.dismiss(animated: true, completion: {
-                    self.onDismissCompletion?()
-                })
-            }
+        //        self.selectPassengersVM.contactsComplition(self.selectPassengersVM.selectedContacts)
+        
+        UIView.animate(withDuration: animationDuration, animations: {
+            self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: self.transparentBackView.height)
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
+        }) { (success) in
+            self.dismiss(animated: false, completion: {
+                self.onDismissCompletion?()
+            })
+        }
         
     }
     
@@ -115,7 +115,7 @@ extension SelectPassengerVC {
         case .seatSelection:
             selectPassengersLabel.isHidden = true
             emptyView.isHidden = true
-            titleLabel.text = selectPassengersVM.selectedSeatData.columnData.seatNumber + " • ₹\(selectPassengersVM.selectedSeatData.columnData.amount.formattedWithCommaSeparator)"
+            titleLabel.text = selectPassengersVM.selectedSeatData.columnData.seatNumber + "  •  ₹ \(selectPassengersVM.selectedSeatData.columnData.amount.formattedWithCommaSeparator)"
             legsLabel.text = selectPassengersVM.selectedSeatData.columnData.getCharactericstic()
             legsLabel.textColor = AppColors.themeGray40
             legsLabel.font = AppFonts.Regular.withSize(14)
@@ -124,12 +124,12 @@ extension SelectPassengerVC {
             
         case .meals:
             self.selectPassengersLabel.text = LocalizedString.Select_Passengers_To_Assign_This_Meal.localized
-            self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "") • ₹ \(self.selectPassengersVM.adonsData.price)"
+            self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "")  •  ₹ \(self.selectPassengersVM.adonsData.price)"
             self.legsLabel.text = self.selectPassengersVM.currentFlightName
       
         case .baggage:
             self.selectPassengersLabel.text = LocalizedString.Select_Passengers_To_Assign_This_Meal.localized
-            self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "") • ₹ \(self.selectPassengersVM.adonsData.price)"
+            self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "")  •  ₹ \(self.selectPassengersVM.adonsData.price)"
             self.legsLabel.text = self.selectPassengersVM.currentFlightName
 
         case .others:

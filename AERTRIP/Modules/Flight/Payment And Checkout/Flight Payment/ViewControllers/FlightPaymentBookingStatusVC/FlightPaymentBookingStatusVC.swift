@@ -107,13 +107,18 @@ class FlightPaymentBookingStatusVC: BaseVC {
     }
     
     func openActionSeat(){
-        
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: self.viewModel.availableSeatMaps.map{$0.name}, colors: self.viewModel.availableSeatMaps.map{$0.isSelectedForall ? AppColors.themeGray40 : AppColors.themeGreen})
-        let cencelBtn = PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeDarkGreen,titleFont: AppFonts.SemiBold.withSize(20))
-        _ = PKAlertController.default.presentActionSheet("Select Seats for…",titleFont: AppFonts.SemiBold.withSize(14), titleColor: AppColors.themeGray40, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: cencelBtn) { [weak self] _, index in
-            guard let self = self else {return}
-            let bookingId = self.viewModel.availableSeatMaps[index].bookingId
-            self.instantiateSeatMapVC(bookingId)
+        if self.viewModel.apiBookingIds.count > 1{
+            let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: self.viewModel.availableSeatMaps.map{$0.name}, colors: self.viewModel.availableSeatMaps.map{$0.isSelectedForall ? AppColors.themeGray40 : AppColors.themeGreen})
+            let cencelBtn = PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeDarkGreen,titleFont: AppFonts.SemiBold.withSize(20))
+            _ = PKAlertController.default.presentActionSheet("Select Seats for…",titleFont: AppFonts.SemiBold.withSize(14), titleColor: AppColors.themeGray40, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: cencelBtn) { [weak self] _, index in
+                guard let self = self else {return}
+                let bookingId = self.viewModel.availableSeatMaps[index].bookingId
+                self.instantiateSeatMapVC(bookingId)
+            }
+        }else{
+            if let bookingId = self.viewModel.apiBookingIds.first{
+                self.instantiateSeatMapVC(bookingId)
+            }
         }
         
     }
@@ -153,7 +158,7 @@ extension FlightPaymentBookingStatusVC: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return (section == 1) ? 59 : CGFloat.leastNonzeroMagnitude
+        return (section == 1) ? 54 : CGFloat.leastNonzeroMagnitude
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -171,6 +176,11 @@ extension FlightPaymentBookingStatusVC: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if (section == (self.viewModel.sectionData.count - 2) && self.viewModel.isSeatSettingAvailable){
             guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SelectSeatButtonFooterVew") as? SelectSeatButtonFooterVew else { return nil }
+            if self.viewModel.apiBookingIds.count > 1{
+                footerView.selectSeatButton.setTitle("Select Seats for...", for: .normal)
+            }else{
+                 footerView.selectSeatButton.setTitle("Select Seats for", for: .normal)
+            }
             footerView.handeller = {
                 self.openActionSeat()
             }
@@ -226,11 +236,12 @@ extension FlightPaymentBookingStatusVC: UITableViewDelegate, UITableViewDataSour
                     return
                 }
             }
-            let ob = PostBookingFlightDetailsVC.instantiate(fromAppStoryboard: .FlightPayment)
-            ob.viewModel.bookingDetail = bookingModel
-            ob.viewModel.tripStr = tripCities
-            ob.viewModel.legSectionTap = (indexPath.section - 1)
-            self.navigationController?.pushViewController(ob, animated: true)
+            AppFlowManager.default.moveToBookingDetail(bookingDetail: bookingModel, tripCities: tripCities, legSectionTap: (indexPath.section - 1))
+//            let ob = PostBookingFlightDetailsVC.instantiate(fromAppStoryboard: .FlightPayment)
+//            ob.viewModel.bookingDetail = bookingModel
+//            ob.viewModel.tripStr = tripCities
+//            ob.viewModel.legSectionTap = (indexPath.section - 1)
+//            self.navigationController?.pushViewController(ob, animated: true)
         }
     }
     

@@ -17,16 +17,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="35"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="diO-8x-peb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="0.5"/>
-                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="diO-8x-peb" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.5" width="320" height="0.5"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="Mgr-Ww-h4q"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zBI-56-cXR">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zBI-56-cXR" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="34.5" width="320" height="0.5"/>
-                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="VYP-oo-aDB"/>
                         </constraints>
@@ -34,7 +32,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="zBI-56-cXR" secondAttribute="bottom" id="9h7-Ld-AZt"/>
-                    <constraint firstItem="diO-8x-peb" firstAttribute="top" secondItem="G3Q-2e-U0a" secondAttribute="top" id="Gkz-mO-DwP"/>
+                    <constraint firstItem="diO-8x-peb" firstAttribute="top" secondItem="G3Q-2e-U0a" secondAttribute="top" constant="0.5" id="Gkz-mO-DwP"/>
                     <constraint firstAttribute="trailing" secondItem="zBI-56-cXR" secondAttribute="trailing" id="eqb-0H-o7s"/>
                     <constraint firstItem="diO-8x-peb" firstAttribute="leading" secondItem="G3Q-2e-U0a" secondAttribute="leading" id="pEn-E2-sji"/>
                     <constraint firstItem="zBI-56-cXR" firstAttribute="leading" secondItem="G3Q-2e-U0a" secondAttribute="leading" id="qob-Pd-ZqC"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -22,25 +22,25 @@
             <objects>
                 <viewController storyboardIdentifier="AddOnVC" id="viJ-TM-lyS" customClass="AddOnVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f1r-Ym-ZkH">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4VS-iD-FFh" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="zvt-BT-j5d"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MMv-5k-dtX">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="wec-DQ-fvU">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="138"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="138"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqO-lJ-uV1">
-                                            <rect key="frame" x="18" y="0.0" width="396" height="96"/>
+                                            <rect key="frame" x="18" y="0.0" width="357" height="96"/>
                                             <string key="text">Book Now &amp;
 get upto 20% off </string>
                                             <fontDescription key="fontDescription" name="SourceSansPro-Bold" family="Source Sans Pro" pointSize="38"/>
@@ -48,7 +48,7 @@ get upto 20% off </string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="compared to onboard prices" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQi-Xb-5yA">
-                                            <rect key="frame" x="0.0" y="96" width="414" height="23"/>
+                                            <rect key="frame" x="0.0" y="103" width="375" height="23"/>
                                             <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -59,17 +59,17 @@ get upto 20% off </string>
                                         <constraint firstItem="XQi-Xb-5yA" firstAttribute="leading" secondItem="wec-DQ-fvU" secondAttribute="leading" id="FQF-ut-IuQ"/>
                                         <constraint firstAttribute="trailing" secondItem="XQi-Xb-5yA" secondAttribute="trailing" id="awU-Eh-dkx"/>
                                         <constraint firstAttribute="trailing" secondItem="UqO-lJ-uV1" secondAttribute="trailing" id="gvq-oE-qMX"/>
-                                        <constraint firstItem="XQi-Xb-5yA" firstAttribute="top" secondItem="UqO-lJ-uV1" secondAttribute="bottom" id="p3r-ye-ssX"/>
+                                        <constraint firstItem="XQi-Xb-5yA" firstAttribute="top" secondItem="UqO-lJ-uV1" secondAttribute="bottom" constant="7" id="p3r-ye-ssX"/>
                                         <constraint firstItem="UqO-lJ-uV1" firstAttribute="leading" secondItem="wec-DQ-fvU" secondAttribute="leading" constant="18" id="rZH-E0-sQ6"/>
                                         <constraint firstItem="UqO-lJ-uV1" firstAttribute="top" secondItem="wec-DQ-fvU" secondAttribute="top" id="ybf-B5-xFV"/>
                                     </constraints>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="RBB-Ug-K2P">
-                                        <rect key="frame" x="0.0" y="166" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="166" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RBB-Ug-K2P" id="Gi7-MI-GpE">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -103,32 +103,32 @@ get upto 20% off </string>
             <objects>
                 <viewController storyboardIdentifier="MealsContainerVC" id="QKF-04-bse" customClass="MealsContainerVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qth-Uy-jue">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cPt-Li-nGC" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="2yc-YW-2o7"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MsC-te-KqM">
-                                <rect key="frame" x="0.0" y="88" width="414" height="724"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="573"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LgN-Mq-e2q">
-                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IQf-YE-BrO">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
-                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
+                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="61W-Lz-NFt"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5k1-lY-bl9">
-                                        <rect key="frame" x="365" y="0.0" width="33" height="50"/>
+                                        <rect key="frame" x="326" y="0.0" width="33" height="50"/>
                                         <state key="normal" title="Add">
                                             <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -165,11 +165,8 @@ get upto 20% off </string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B3Y-Pn-xkD">
-                                <rect key="frame" x="0.0" y="856" width="414" height="40"/>
+                                <rect key="frame" x="0.0" y="667" width="375" height="0.0"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="gIF-pI-Q91"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -186,6 +183,7 @@ get upto 20% off </string>
                             <constraint firstItem="vn5-ki-PPF" firstAttribute="bottom" secondItem="LgN-Mq-e2q" secondAttribute="bottom" id="cfR-mc-JK8"/>
                             <constraint firstItem="LgN-Mq-e2q" firstAttribute="top" secondItem="MsC-te-KqM" secondAttribute="bottom" id="fce-VS-svm"/>
                             <constraint firstItem="vn5-ki-PPF" firstAttribute="trailing" secondItem="B3Y-Pn-xkD" secondAttribute="trailing" id="iB6-cS-TXD"/>
+                            <constraint firstItem="B3Y-Pn-xkD" firstAttribute="top" secondItem="LgN-Mq-e2q" secondAttribute="bottom" id="oNz-Dp-5kQ"/>
                             <constraint firstItem="cPt-Li-nGC" firstAttribute="top" secondItem="vn5-ki-PPF" secondAttribute="top" id="qF8-gs-aTz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vn5-ki-PPF"/>
@@ -208,11 +206,11 @@ get upto 20% off </string>
             <objects>
                 <viewController storyboardIdentifier="SelectMealsdVC" id="i8Q-Ce-Pu3" customClass="SelectMealsdVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AK5-DN-qjw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ik1-L7-daa">
-                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                         </subviews>
@@ -238,20 +236,20 @@ get upto 20% off </string>
             <objects>
                 <viewController storyboardIdentifier="SelectPassengerVC" id="kq5-sh-YrP" customClass="SelectPassengerVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NG4-ki-6uG">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VkO-GU-MSo">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BjM-Tr-wIw" userLabel="DismissBtn">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <connections>
                                             <action selector="doneButtonTapped:" destination="kq5-sh-YrP" eventType="touchUpInside" id="nRe-83-6RX"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfu-FW-2eL">
-                                        <rect key="frame" x="8" y="751" width="398" height="57"/>
+                                        <rect key="frame" x="8" y="600" width="359" height="57"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="57" id="j0e-h1-tTA"/>
@@ -264,10 +262,10 @@ get upto 20% off </string>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IQD-C4-Qs3">
-                                        <rect key="frame" x="10" y="523.5" width="394" height="219.5"/>
+                                        <rect key="frame" x="10" y="372.5" width="355" height="219.5"/>
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0h1-XC-4s6">
-                                                <rect key="frame" x="0.0" y="79.5" width="394" height="140"/>
+                                                <rect key="frame" x="0.0" y="79.5" width="355" height="140"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="140" id="S80-WR-ZsW"/>
@@ -290,29 +288,29 @@ get upto 20% off </string>
                                                 </cells>
                                             </collectionView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="TJD-kY-x5n">
-                                                <rect key="frame" x="6" y="11" width="382" height="67.5"/>
+                                                <rect key="frame" x="6" y="11" width="343" height="67.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select passengers to assign this meal" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ugi-KM-8a9">
-                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eAq-kY-wz1">
-                                                        <rect key="frame" x="0.0" y="20.5" width="382" height="6"/>
+                                                        <rect key="frame" x="0.0" y="20.5" width="343" height="6"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="6" id="FU5-Im-xts"/>
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hindu (Non-vegeterian) Meal Specific • $ 15" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gk3-bm-AMb">
-                                                        <rect key="frame" x="0.0" y="26.5" width="382" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="26.5" width="343" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BOM → DEL, DEL → HYD" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xe8-j4-3gS">
-                                                        <rect key="frame" x="0.0" y="47" width="382" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="47" width="343" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -377,32 +375,32 @@ get upto 20% off </string>
             <objects>
                 <viewController storyboardIdentifier="BaggageContainerVC" id="0FH-y2-Rd7" customClass="BaggageContainerVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QBp-5M-H9w">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJW-Ng-LPl" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="cWc-LF-vbP"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xgj-ke-c0v">
-                                <rect key="frame" x="0.0" y="88" width="414" height="724"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="573"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Giu-ht-SKe">
-                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xC1-by-wPD">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
-                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
+                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="C6d-hX-vMB"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bta-j1-z51">
-                                        <rect key="frame" x="365" y="0.0" width="33" height="50"/>
+                                        <rect key="frame" x="326" y="0.0" width="33" height="50"/>
                                         <state key="normal" title="Add">
                                             <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -440,11 +438,8 @@ get upto 20% off </string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j0X-dL-q0J">
-                                <rect key="frame" x="0.0" y="856" width="414" height="40"/>
+                                <rect key="frame" x="0.0" y="667" width="375" height="0.0"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="0Nn-ia-BA4"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -460,6 +455,7 @@ get upto 20% off </string>
                             <constraint firstItem="UQG-dr-eC1" firstAttribute="bottom" secondItem="Giu-ht-SKe" secondAttribute="bottom" id="bV6-3A-Sko"/>
                             <constraint firstItem="xgj-ke-c0v" firstAttribute="top" secondItem="gJW-Ng-LPl" secondAttribute="bottom" id="gjE-Eg-76v"/>
                             <constraint firstItem="Giu-ht-SKe" firstAttribute="top" secondItem="xgj-ke-c0v" secondAttribute="bottom" id="htc-au-948"/>
+                            <constraint firstItem="j0X-dL-q0J" firstAttribute="top" secondItem="Giu-ht-SKe" secondAttribute="bottom" id="l41-xI-3Aw"/>
                             <constraint firstItem="UQG-dr-eC1" firstAttribute="trailing" secondItem="xgj-ke-c0v" secondAttribute="trailing" id="vLV-KF-JPg"/>
                             <constraint firstItem="xgj-ke-c0v" firstAttribute="leading" secondItem="UQG-dr-eC1" secondAttribute="leading" id="zmQ-Bl-0kT"/>
                         </constraints>
@@ -483,11 +479,11 @@ get upto 20% off </string>
             <objects>
                 <viewController storyboardIdentifier="SelectBaggageVC" id="4rT-oR-DOa" customClass="SelectBaggageVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pU5-Nz-2sB">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yXU-ui-NKd">
-                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                         </subviews>
@@ -513,32 +509,32 @@ get upto 20% off </string>
             <objects>
                 <viewController storyboardIdentifier="SelectOtherAdonsContainerVC" id="x0p-aS-Cmo" customClass="SelectOtherAdonsContainerVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jnQ-kZ-2h7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yX8-Dl-t3M" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Myw-Cw-9ub"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BqJ-5h-moK">
-                                <rect key="frame" x="0.0" y="88" width="414" height="724"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="573"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NWW-jW-zXS">
-                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wlN-Wr-yjZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
-                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
+                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="i6X-ht-yOk"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Jc-tb-z7V">
-                                        <rect key="frame" x="365" y="0.0" width="33" height="50"/>
+                                        <rect key="frame" x="326" y="0.0" width="33" height="50"/>
                                         <state key="normal" title="Add">
                                             <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -584,11 +580,8 @@ get upto 20% off </string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nq6-Og-HPF">
-                                <rect key="frame" x="0.0" y="856" width="414" height="40"/>
+                                <rect key="frame" x="0.0" y="667" width="375" height="0.0"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="McO-Z1-Wrd"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -606,6 +599,7 @@ get upto 20% off </string>
                             <constraint firstItem="oV3-wK-Qxm" firstAttribute="trailing" secondItem="yX8-Dl-t3M" secondAttribute="trailing" id="kjE-JS-bD2"/>
                             <constraint firstItem="Nq6-Og-HPF" firstAttribute="leading" secondItem="oV3-wK-Qxm" secondAttribute="leading" id="m8r-v2-SRh"/>
                             <constraint firstItem="oV3-wK-Qxm" firstAttribute="bottom" secondItem="NWW-jW-zXS" secondAttribute="bottom" id="xH7-RG-d3q"/>
+                            <constraint firstItem="Nq6-Og-HPF" firstAttribute="top" secondItem="NWW-jW-zXS" secondAttribute="bottom" id="yfo-5T-XFg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="oV3-wK-Qxm"/>
                     </view>
@@ -628,19 +622,25 @@ get upto 20% off </string>
             <objects>
                 <viewController storyboardIdentifier="SelectOtherAdonsVC" id="vAy-rR-JOS" customClass="SelectOtherAdonsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gax-Ur-UDD">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lQJ-64-elP">
-                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="Jf1-lq-BgG">
-                                    <rect key="frame" x="0.0" y="99.5" width="414" height="179"/>
+                                    <rect key="frame" x="0.0" y="99.5" width="375" height="179"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQU-qF-dBb">
+                                            <rect key="frame" x="32" y="55" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZcR-Q9-RV0">
-                                            <rect key="frame" x="16" y="31" width="382" height="56"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <rect key="frame" x="16" y="29" width="343" height="56"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="56" id="i2o-rA-rP8"/>
                                             </constraints>
@@ -655,7 +655,7 @@ get upto 20% off </string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oAw-T7-3zw">
-                                            <rect key="frame" x="355" y="1.5" width="43" height="34"/>
+                                            <rect key="frame" x="316" y="1.5" width="43" height="34"/>
                                             <state key="normal" title="Clear">
                                                 <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
@@ -664,14 +664,14 @@ get upto 20% off </string>
                                             </connections>
                                         </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w6n-na-BjU">
-                                            <rect key="frame" x="16" y="87" width="382" height="0.5"/>
+                                            <rect key="frame" x="16" y="85" width="343" height="0.5"/>
                                             <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="0.5" id="c91-PX-bMC"/>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Heads up! Your request will be personally handled by one of our agents and may be subject to additional costs." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zc5-Vh-va4">
-                                            <rect key="frame" x="16" y="97.5" width="382" height="61"/>
+                                            <rect key="frame" x="16" y="95.5" width="343" height="61"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -679,27 +679,29 @@ get upto 20% off </string>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <constraints>
-                                        <constraint firstItem="ZcR-Q9-RV0" firstAttribute="top" secondItem="HjX-9e-u0h" secondAttribute="bottom" constant="2" id="8ft-Th-tl5"/>
+                                        <constraint firstItem="ZcR-Q9-RV0" firstAttribute="top" secondItem="HjX-9e-u0h" secondAttribute="bottom" id="8ft-Th-tl5"/>
                                         <constraint firstItem="HjX-9e-u0h" firstAttribute="leading" secondItem="Jf1-lq-BgG" secondAttribute="leading" constant="16" id="APP-1V-HX1"/>
                                         <constraint firstItem="oAw-T7-3zw" firstAttribute="centerY" secondItem="HjX-9e-u0h" secondAttribute="centerY" id="Eig-TN-Ua4"/>
                                         <constraint firstItem="ZcR-Q9-RV0" firstAttribute="leading" secondItem="Jf1-lq-BgG" secondAttribute="leading" constant="16" id="FBN-Fi-a30"/>
                                         <constraint firstItem="Zc5-Vh-va4" firstAttribute="top" secondItem="w6n-na-BjU" secondAttribute="bottom" constant="10" id="HTg-oL-geD"/>
                                         <constraint firstAttribute="trailing" secondItem="Zc5-Vh-va4" secondAttribute="trailing" constant="16" id="Ihe-zJ-46E"/>
+                                        <constraint firstItem="FQU-qF-dBb" firstAttribute="bottom" secondItem="ZcR-Q9-RV0" secondAttribute="bottom" constant="-9" id="Jds-W2-0mw"/>
                                         <constraint firstItem="HjX-9e-u0h" firstAttribute="top" secondItem="Jf1-lq-BgG" secondAttribute="top" constant="8" id="Urr-sc-e7U"/>
                                         <constraint firstAttribute="trailing" secondItem="w6n-na-BjU" secondAttribute="trailing" constant="16" id="efg-sb-N7S"/>
                                         <constraint firstAttribute="trailing" secondItem="oAw-T7-3zw" secondAttribute="trailing" constant="16" id="iBF-Oo-Pv5"/>
                                         <constraint firstItem="w6n-na-BjU" firstAttribute="top" secondItem="ZcR-Q9-RV0" secondAttribute="bottom" id="lHg-8z-DxV"/>
                                         <constraint firstItem="w6n-na-BjU" firstAttribute="leading" secondItem="Jf1-lq-BgG" secondAttribute="leading" constant="16" id="nwq-7h-t2y"/>
                                         <constraint firstItem="Zc5-Vh-va4" firstAttribute="leading" secondItem="Jf1-lq-BgG" secondAttribute="leading" constant="16" id="odn-Dw-a5l"/>
+                                        <constraint firstItem="FQU-qF-dBb" firstAttribute="leading" secondItem="ZcR-Q9-RV0" secondAttribute="leading" constant="16" id="oqX-t2-zmi"/>
                                         <constraint firstAttribute="trailing" secondItem="ZcR-Q9-RV0" secondAttribute="trailing" constant="16" id="r5Q-VB-d3p"/>
                                     </constraints>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="UuW-Vn-TQQ">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UuW-Vn-TQQ" id="vnW-eO-ZRM">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -720,6 +722,7 @@ get upto 20% off </string>
                         <outlet property="otherAdonsTableView" destination="lQJ-64-elP" id="iiw-rA-kin"/>
                         <outlet property="specialRequestInfoLabel" destination="Zc5-Vh-va4" id="3UN-j6-t8H"/>
                         <outlet property="specialRequestLabel" destination="HjX-9e-u0h" id="Evw-OH-6pt"/>
+                        <outlet property="specialRequestPlaceHolderLabel" destination="FQU-qF-dBb" id="Wob-5p-dpk"/>
                         <outlet property="specialRequestTextView" destination="ZcR-Q9-RV0" id="mgr-xg-C6r"/>
                     </connections>
                 </viewController>
@@ -732,21 +735,21 @@ get upto 20% off </string>
             <objects>
                 <viewController storyboardIdentifier="BaggageTermsVC" id="Kyq-1o-KZ7" customClass="BaggageTermsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="soy-VQ-EEP">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sRS-PF-csH">
-                                <rect key="frame" x="0.0" y="818.5" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="623.5" width="375" height="43.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bSm-xQ-HG7">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="qvb-tj-8mc"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R4B-c1-aXs">
-                                        <rect key="frame" x="350" y="5" width="48" height="34"/>
+                                        <rect key="frame" x="311" y="5" width="48" height="34"/>
                                         <state key="normal" title="Agree">
                                             <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -766,7 +769,7 @@ get upto 20% off </string>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufn-6L-dnD">
-                                <rect key="frame" x="16" y="823.5" width="61" height="34"/>
+                                <rect key="frame" x="16" y="628.5" width="61" height="34"/>
                                 <state key="normal" title="Decline">
                                     <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -775,20 +778,20 @@ get upto 20% off </string>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IAb-ZG-vPF">
-                                <rect key="frame" x="0.0" y="44" width="414" height="774.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="o7A-ND-1du">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="184"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="184"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Important" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GB1-nF-hV6">
-                                            <rect key="frame" x="16" y="20.5" width="382" height="21"/>
+                                            <rect key="frame" x="16" y="20.5" width="343" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dDn-bT-m6s">
-                                            <rect key="frame" x="16" y="63.5" width="382" height="61"/>
+                                            <rect key="frame" x="16" y="63.5" width="343" height="81.5"/>
                                             <string key="text">You have selected International Pre-Purchased Excess Baggage for below passengers. Kindly understand and accept the following instructions:</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -807,10 +810,10 @@ get upto 20% off </string>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="unt-lL-Xqw">
-                                        <rect key="frame" x="0.0" y="212" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="212" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="unt-lL-Xqw" id="Zwf-Nf-I20">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>

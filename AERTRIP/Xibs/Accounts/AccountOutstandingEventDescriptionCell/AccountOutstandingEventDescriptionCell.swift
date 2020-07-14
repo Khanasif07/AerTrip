@@ -25,6 +25,7 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
     @IBOutlet weak var selectionButton: UIButton!
     @IBOutlet weak var selectButtonHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var selectButtonLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
     
     var event: AccountDetailEvent? {
         didSet {

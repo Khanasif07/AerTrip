@@ -45,9 +45,6 @@ class EmailComposerHeaderView: UIView {
     
     @IBOutlet weak var checkOutMessageLabelHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var emailTextField: ZFTokenField!
-    
-    
     // MARK: - Properties
     
     weak var delegate: EmailComposeerHeaderViewDelegate?
@@ -55,8 +52,6 @@ class EmailComposerHeaderView: UIView {
     class func instanceFromNib() -> EmailComposerHeaderView {
         return UINib(nibName: "EmailComposerHeaderView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! EmailComposerHeaderView
     }
-    
-    var emails : [String] = []
     
     // MARK: - View LifeCycel
     
@@ -67,8 +62,6 @@ class EmailComposerHeaderView: UIView {
         self.setUpText()
         self.setUpColor()
         self.setUpFont()
-        
-        emailTextField.isHidden = true
     }
     
     override func layoutSubviews() {
@@ -144,9 +137,9 @@ class EmailComposerHeaderView: UIView {
         self.hotelResultLabel.textColor = AppColors.themeGray60
         self.messageSubjectTextView.textColor = AppColors.textFieldTextColor51
         // toEmail Text View Color
-        self.toEmailTextView.activeTagBackgroundColor = AppColors.themeGreen
+        self.toEmailTextView.activeTagBackgroundColor = AppColors.clear
         self.toEmailTextView.inactiveTagFontColor = AppColors.themeGreen
-        self.toEmailTextView.activeTagFontColor = UIColor.white
+        self.toEmailTextView.activeTagFontColor = AppColors.themeGreen
         self.toEmailTextView.tagSeparatorColor = AppColors.themeGreen
         if #available(iOS 13, *) {
         }else{
@@ -168,7 +161,6 @@ class EmailComposerHeaderView: UIView {
         view.layer.addSublayer(shapeLayer)
     }
     
-
     // MARK: - IB Actions
     
     @IBAction func openContactScreenTapped(_ sender: Any) {
@@ -190,62 +182,15 @@ extension EmailComposerHeaderView: UITextViewDelegate {
         }
         self.delegate?.updateHeightOfHeader(self, textView)
     }
-
-
+    
+    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if textView.text == " " {
             return false
         }
         return true
     }
-
-
-}
-
-
-extension EmailComposerHeaderView : ZFTokenFieldDataSource, ZFTokenFieldDelegate {
-    
-    
-    func configureEmailField(){
-        self.emailTextField.dataSource = self;
-        self.emailTextField.delegate = self;
-        self.emailTextField.textField.placeholder = "Enter here";
-        self.emailTextField.reloadData()
-        
-//        [self.tokenField.textField becomeFirstResponder];
-    }
-    
-    func lineHeightForToken(in tokenField: ZFTokenField!) -> CGFloat {
-        return 30
-    }
-    
-    func numberOfToken(in tokenField: ZFTokenField!) -> UInt {
-        return UInt(self.emails.count)
-    }
-    
-    func tokenField(_ tokenField: ZFTokenField!, viewForTokenAt index: UInt) -> UIView! {
-        let nibContents = Bundle.main.loadNibNamed("TokenView", owner: nil, options: nil)
-        guard let tokenView = nibContents?.first else { return UIView() }
-        guard let tokView = tokenView as? UIView else { return UIView() }
-        let label = UILabel()
-        label.text = self.emails[Int(index)]
-        let size = label.sizeThatFits(CGSize(width: 1000,height: 30))
-        tokView.frame = CGRect(x: 0, y: 0, width: size.width + 32, height: 30);
-        return tokView
-    }
-    
-    func tokenMarginInToken(in tokenField: ZFTokenField!) -> CGFloat {
-        return 5
-    }
-    
-    func tokenField(_ tokenField: ZFTokenField!, didReturnWithText text: String!) {
-        self.emails.append(text)
-        self.emailTextField.reloadData()
-    }
-    
-    func tokenField(_ tokenField: ZFTokenField!, didRemoveTokenAt index: UInt) {
-      //  return emails.remove(at: Int(index))
-    }
+  
     
 }
 

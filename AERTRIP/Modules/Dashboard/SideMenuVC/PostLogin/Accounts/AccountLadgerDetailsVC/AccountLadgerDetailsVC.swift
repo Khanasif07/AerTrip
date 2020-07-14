@@ -90,7 +90,7 @@ class AccountLadgerDetailsVC: BaseVC {
         self.tableView.registerCell(nibName: DownloadInvoiceTableViewCell.reusableIdentifier)
         //for header blur
         self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
-        topNavView.backgroundColor = AppColors.clear
+//        topNavView.backgroundColor = AppColors.clear
         self.blurView.isHidden = true
         
         self.setupParallexHeaderView()

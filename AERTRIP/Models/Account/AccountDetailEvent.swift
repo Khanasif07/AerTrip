@@ -102,6 +102,7 @@ struct AccountDetailEvent {
     var names: [AccountUser] = []
     
     var bookingId: String = ""
+    var bookingNumber:String = ""
     
     var creditCardNo: String = ""
     
@@ -327,6 +328,9 @@ struct AccountDetailEvent {
         if let obj = details["booking_id"] {
             self.bookingId = "\(obj)"
         }
+        if let obj = details["booking_number"] {
+            self.bookingNumber = "\(obj)"
+        }
         
         //title
         self.title = ""
@@ -500,6 +504,9 @@ struct AccountDetailEvent {
         //booking id
         if let obj = details["booking_id"] {
             self.bookingId = "\(obj)"
+        }
+        if let obj = details["booking_number"] {
+            self.bookingNumber = "\(obj)"
         }
     }
     

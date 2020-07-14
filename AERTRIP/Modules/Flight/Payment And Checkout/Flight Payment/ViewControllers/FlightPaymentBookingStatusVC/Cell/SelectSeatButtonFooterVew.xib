@@ -15,7 +15,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PIP-7X-Ri7">
-                    <rect key="frame" x="15" y="10" width="433" height="45"/>
+                    <rect key="frame" x="15" y="5" width="433" height="45"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="ylc-tZ-2L9"/>
@@ -28,7 +28,7 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJK-6e-nbQ" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                    <rect key="frame" x="15" y="81" width="433" height="0.5"/>
+                    <rect key="frame" x="15" y="76" width="433" height="0.5"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="0.5" id="tUc-b1-s0d"/>
@@ -38,7 +38,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="eJK-6e-nbQ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="0nN-Ho-71P"/>
-                <constraint firstItem="PIP-7X-Ri7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="660-Fr-N7b"/>
+                <constraint firstItem="PIP-7X-Ri7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="660-Fr-N7b"/>
                 <constraint firstItem="PIP-7X-Ri7" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="PFc-hz-tNu"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="eJK-6e-nbQ" secondAttribute="trailing" constant="15" id="QC7-9I-65A"/>
                 <constraint firstAttribute="bottom" secondItem="eJK-6e-nbQ" secondAttribute="bottom" id="lM2-5b-rgw"/>

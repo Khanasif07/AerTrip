@@ -172,7 +172,7 @@ class SeatMapContainerVC: UIViewController {
         addBtn.setTitleColor(AppColors.themeGreen, for: .normal)
         let addBtnTitle = viewModel.setupFor == .postSelection ? LocalizedString.CheckoutTitle.localized : LocalizedString.Add.localized
         addBtn.setTitle(addBtnTitle, for: .normal)
-        totalSeatAmountView.addShadow(ofColor: .black, radius: 20, opacity: 0.05)
+        totalSeatAmountView.addShadow(ofColor: .black, radius: 20, opacity: 0.1)
         apiProgressView.progressTintColor = UIColor.AertripColor
         apiProgressView.trackTintColor = .clear
         apiProgressView.setProgress(0, animated: false)
@@ -235,7 +235,7 @@ class SeatMapContainerVC: UIViewController {
     private func setupParchmentPageController(){
         
         self.parchmentView = PagingViewController()
-        self.parchmentView?.menuItemSpacing = 34
+        self.parchmentView?.menuItemSpacing = 30
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 15, bottom: 0.0, right: 15)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 55)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
@@ -245,7 +245,7 @@ class SeatMapContainerVC: UIViewController {
             insets: UIEdgeInsets.zero)
         let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
         self.parchmentView?.register(nib, for: MenuItem.self)
-        self.parchmentView?.borderColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.parchmentView?.borderColor = AppColors.themeGray20
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
@@ -265,8 +265,8 @@ class SeatMapContainerVC: UIViewController {
     }
     
     private func createAttHeaderTitle(_ origin: String,_ destination: String) -> NSAttributedString {
-        let fullString = NSMutableAttributedString(string: origin + " " )
-        let desinationAtrributedString = NSAttributedString(string: " " + destination)
+        let fullString = NSMutableAttributedString(string: origin + "" )
+        let desinationAtrributedString = NSAttributedString(string: "" + destination)
         let imageString = getStringFromImage(name : "oneway")
         fullString.append(imageString)
         fullString.append(desinationAtrributedString)
@@ -274,7 +274,6 @@ class SeatMapContainerVC: UIViewController {
     }
     
     private func getStringFromImage(name : String) -> NSAttributedString {
-        
         let imageAttachment = NSTextAttachment()
         let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
         let iconImage = UIImage(named: name )!
@@ -319,7 +318,7 @@ class SeatMapContainerVC: UIViewController {
             self.planeLayoutView.alpha = 1
         }, completion:  { _ in
             if callHide {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.77, execute: self.hidePlaneLayoutWorkItem!)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: self.hidePlaneLayoutWorkItem!)
             }
         })
     }
@@ -495,7 +494,7 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
             viewModel.allFlightsData = allFlightsData
             viewModel.getSeatTotal { [weak self] (seatTotal) in
                 guard let self = self else { return }
-                self.seatTotalLbl.text = "₹ \(seatTotal)"
+                self.seatTotalLbl.text = "₹ \(seatTotal.formattedWithCommaSeparator)"
             }
         } else if viewModel.setupFor == .postSelection {
             createPassengerContactsArr()
@@ -503,7 +502,7 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
             viewModel.originalAllFlightsData = viewModel.allFlightsData
             viewModel.getSeatTotal { [weak self] (seatTotal) in
                 guard let self = self else { return }
-                self.seatTotalLbl.text = "₹ \(seatTotal)"
+                self.seatTotalLbl.text = "₹ \(seatTotal.formattedWithCommaSeparator)"
             }
         }
         guard !viewModel.allTabsStr.isEmpty else { return }
@@ -520,6 +519,7 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
         apiIndicatorView.startAnimating()
         addBtn.setTitleColor(.clear, for: .normal)
     }
+    
     func didFetchQuotationData(_ quotationModel: AddonsQuotationsModel){
         apiIndicatorView.stopAnimating()
         apiIndicatorView.isHidden = true
@@ -529,15 +529,13 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
         vc.viewModel.bookingIds = self.viewModel.bookingIds
         self.navigationController?.pushViewController(vc, animated:true)
     }
+    
     func faildToFetchQuotationData(){
         apiIndicatorView.stopAnimating()
         apiIndicatorView.isHidden = true
         addBtn.setTitleColor(AppColors.themeGreen, for: .normal)
-        
         AppToast.default.showToastMessage(message: "Something went worng!")
-        
     }
-    
     
 }
 

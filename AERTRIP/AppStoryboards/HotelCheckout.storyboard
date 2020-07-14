@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1349,6 +1349,9 @@ Incomplete</string>
                                             <action selector="applyButtonAction:" destination="a00-0y-1V4" eventType="touchUpInside" id="DWH-Fu-Jhw"/>
                                         </connections>
                                     </button>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="kK5-Mb-EKH">
+                                        <rect key="frame" x="319" y="12" width="20" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="dN2-Ht-qoz" firstAttribute="top" secondItem="VFj-MD-RgZ" secondAttribute="top" constant="5" id="EeB-7W-scp"/>
@@ -1356,9 +1359,11 @@ Incomplete</string>
                                     <constraint firstAttribute="bottom" secondItem="dN2-Ht-qoz" secondAttribute="bottom" constant="5" id="cC0-OM-GCv"/>
                                     <constraint firstItem="U23-fz-joJ" firstAttribute="top" secondItem="VFj-MD-RgZ" secondAttribute="top" constant="5" id="dSg-Ld-ilP"/>
                                     <constraint firstAttribute="height" constant="44" id="hYh-yZ-LSx"/>
+                                    <constraint firstItem="kK5-Mb-EKH" firstAttribute="centerY" secondItem="U23-fz-joJ" secondAttribute="centerY" id="l1J-kf-pOC"/>
                                     <constraint firstAttribute="bottom" secondItem="U23-fz-joJ" secondAttribute="bottom" constant="5" id="lhy-PZ-3zi"/>
                                     <constraint firstItem="r6P-mU-234" firstAttribute="centerY" secondItem="VFj-MD-RgZ" secondAttribute="centerY" id="nbu-as-LhG"/>
                                     <constraint firstItem="r6P-mU-234" firstAttribute="leading" secondItem="dN2-Ht-qoz" secondAttribute="trailing" constant="50" id="p9d-ug-NtI"/>
+                                    <constraint firstItem="kK5-Mb-EKH" firstAttribute="centerX" secondItem="U23-fz-joJ" secondAttribute="centerX" id="q8Z-IZ-Jke"/>
                                     <constraint firstAttribute="trailing" secondItem="U23-fz-joJ" secondAttribute="trailing" constant="16" id="t41-Uv-9rW"/>
                                     <constraint firstItem="U23-fz-joJ" firstAttribute="leading" secondItem="r6P-mU-234" secondAttribute="trailing" constant="50" id="ue7-7v-CPR"/>
                                 </constraints>
@@ -1544,6 +1549,7 @@ Incomplete</string>
                         <outlet property="dividerView" destination="y9i-B2-tEL" id="d8t-UD-gvZ"/>
                         <outlet property="emptyStateImageView" destination="ude-fc-wVN" id="I4s-K6-hCa"/>
                         <outlet property="emptyStateView" destination="ZMg-6h-E0A" id="eAh-jb-hba"/>
+                        <outlet property="indicator" destination="kK5-Mb-EKH" id="YfH-T6-pRY"/>
                         <outlet property="noCouponsReqLabel" destination="lld-jP-V4u" id="6bL-z0-rZm"/>
                         <outlet property="offerTermsView" destination="Dlw-EG-3em" id="8Za-4r-XLZ"/>
                         <outlet property="offerTermsViewHeightConstraints" destination="bXs-rX-n45" id="7RX-7m-aKD"/>
