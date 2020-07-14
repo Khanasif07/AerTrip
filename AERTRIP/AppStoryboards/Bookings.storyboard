@@ -919,6 +919,15 @@ with us!</string>
                                 <rect key="frame" x="0.0" y="118" width="414" height="728"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="W9P-10-Q6e">
+                                <rect key="frame" x="0.0" y="88" width="414" height="2"/>
+                                <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="jCL-Yi-GHd"/>
+                                </constraints>
+                                <color key="progressTintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </progressView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f1Y-yS-mTy">
                                 <rect key="frame" x="0.0" y="846" width="414" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -971,12 +980,15 @@ with us!</string>
                             <constraint firstItem="got-SJ-hpU" firstAttribute="leading" secondItem="VHX-sa-ouH" secondAttribute="leading" id="JJn-cT-EwR"/>
                             <constraint firstItem="M3B-FY-Udb" firstAttribute="trailing" secondItem="f1Y-yS-mTy" secondAttribute="trailing" id="Jar-I0-c13"/>
                             <constraint firstItem="M3B-FY-Udb" firstAttribute="top" secondItem="f1Y-yS-mTy" secondAttribute="top" id="JdT-LQ-MLd"/>
+                            <constraint firstAttribute="trailing" secondItem="W9P-10-Q6e" secondAttribute="trailing" id="LI2-1a-CIo"/>
                             <constraint firstItem="M3B-FY-Udb" firstAttribute="leading" secondItem="VHX-sa-ouH" secondAttribute="leading" id="OJl-kL-AkD"/>
                             <constraint firstItem="M3B-FY-Udb" firstAttribute="trailing" secondItem="VHX-sa-ouH" secondAttribute="trailing" id="RVf-va-Tdp"/>
                             <constraint firstItem="M3B-FY-Udb" firstAttribute="top" secondItem="got-SJ-hpU" secondAttribute="bottom" id="S8H-pK-X8O"/>
                             <constraint firstItem="gmJ-gX-dhB" firstAttribute="trailing" secondItem="VHX-sa-ouH" secondAttribute="trailing" id="V6h-18-QbA"/>
+                            <constraint firstItem="W9P-10-Q6e" firstAttribute="top" secondItem="8a9-js-Ay6" secondAttribute="bottom" id="VSb-iZ-dnu"/>
                             <constraint firstItem="got-SJ-hpU" firstAttribute="top" secondItem="gmJ-gX-dhB" secondAttribute="bottom" id="cjA-oJ-oU7"/>
                             <constraint firstItem="VHX-sa-ouH" firstAttribute="trailing" secondItem="8a9-js-Ay6" secondAttribute="trailing" id="clD-d2-yLs"/>
+                            <constraint firstItem="W9P-10-Q6e" firstAttribute="leading" secondItem="Tzy-KJ-qp9" secondAttribute="leading" id="i24-gq-g9S"/>
                             <constraint firstItem="gmJ-gX-dhB" firstAttribute="leading" secondItem="VHX-sa-ouH" secondAttribute="leading" id="qtF-1P-MUe"/>
                             <constraint firstItem="M3B-FY-Udb" firstAttribute="leading" secondItem="f1Y-yS-mTy" secondAttribute="leading" id="sbF-yz-flM"/>
                             <constraint firstAttribute="bottom" secondItem="f1Y-yS-mTy" secondAttribute="bottom" id="w5g-V7-jg2"/>
@@ -996,6 +1008,7 @@ with us!</string>
                         <outlet property="priceView" destination="M3B-FY-Udb" id="s52-f5-ues"/>
                         <outlet property="priceViewBottomConstraint" destination="G1F-TQ-Fhs" id="dyi-nr-3Tf"/>
                         <outlet property="priceViewHieghtConstraint" destination="f01-TB-OUY" id="zBG-1e-omh"/>
+                        <outlet property="progressView" destination="W9P-10-Q6e" id="ugf-0r-Ozq"/>
                         <outlet property="requestTableView" destination="got-SJ-hpU" id="HDu-Zb-R9n"/>
                         <outlet property="topNavigationView" destination="8a9-js-Ay6" id="eRR-9b-sVt"/>
                     </connections>

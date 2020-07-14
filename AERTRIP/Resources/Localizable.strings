@@ -733,6 +733,12 @@ Your booking ID is";
 "BaggageDetailsMessage" = "Baggage details are indicative and subject to change without prior notice.";
 "CharactersRemaining" = "characters remaining";
 "BookAnotherRoom" = "Book another room";
+"AddOnRequestPayment" = "Payment Successful";
+"AddOnRequestPaymentMessage" = "Thank you for your payment. We will book your add-ons and send you a confirmation shortly.";
+"BookingPayment" = "Payment Successful";
+"BookingPaymentMessage" = "Thank you for your payment.";
+
+
 
 // Booking Action sheet option
 "RequestAddOnAndFrequentFlyer" = "Request Add-ons & Freq. Flyer";
@@ -823,7 +829,7 @@ Your booking ID is";
 "PeriodicStatement" = "Periodic Statement";
 "NoStatementGenerated" = "No statement generated";
 "PayOnline" = "Pay Online";
-"PayOfflineNRegister" = "Pay offline and register";
+"PayOfflineNRegister" = "Pay Offline and Register";
 "ChequeDemandDraft" = "Cheque / Demand Draft";
 "FundTransfer" = "Fund Transfer";
 
@@ -850,6 +856,8 @@ Your booking ID is";
 "TransferType" = "Transfer Type";
 "EnterUTRSwiftCode" = "Enter UTR/Swift Code";
 "DepositAmountErrorMessage" = "Deposit amount must be grater then 0";
+"ModeOfPayment" = "ModeOfPayment";
+
 
 "Camera" = "Camera";
 "PhotoLibrary" = "Photo Library";

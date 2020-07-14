@@ -267,31 +267,33 @@ extension BookingData {
         func getStringForOthers(arr: [String]) -> String {
             
             var nameStr = ""
-            var verbStr = (self.bookingTabType == 1) ? "are" : "were"
+            //var verbStr = (self.bookingTabType == 1) ? "are" : "were"
             
-            var actionStr = "staying"
-            if (self.productType == .flight) {
-                actionStr = (self.bookingTabType == 1) ? "flying" : "flown"
-            }
+           // var actionStr = "staying"
+//            if (self.productType == .flight) {
+//                actionStr = (self.bookingTabType == 1) ? "flying" : "flown"
+//            }
             
             switch arr.count {
             case 1:
                 nameStr = arr.first ?? ""
-                if nameStr.lowercased() != "you" {
-                    verbStr = (self.bookingTabType == 1) ? "is" : "was"
-                }
+//                if nameStr.lowercased() != "you" {
+//                    verbStr = (self.bookingTabType == 1) ? "is" : "was"
+//                }
                 
             case 2: nameStr = arr.joined(separator: " and ")
-            case 3:
-                nameStr = arr.first ?? ""
-                nameStr += ", \(arr[1...2].joined(separator: " and "))"
+//            case 3:
+//                nameStr = arr.first ?? ""
+//                nameStr += ", \(arr[1...2].joined(separator: " and "))"
                 
             default:
                 nameStr = arr.first ?? ""
                 nameStr += " and \(arr.count-1) others"
+                let last = arr.last ?? ""
+                nameStr = arr.joined(separator: ", ") + " and \(last)"
             }
             
-            return nameStr.isEmpty ? "N/A" : "\(nameStr) \(verbStr) \(actionStr)"
+            return nameStr.isEmpty ? "N/A" : "For \(nameStr)" // \(verbStr) \(actionStr)
         }
         
         if let pax = self.pax as? [String] {

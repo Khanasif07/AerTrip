@@ -23,23 +23,25 @@ class BookingAddOnRequestVC: BaseVC {
     @IBOutlet weak var bookingRequestStatusView: UIView!
     @IBOutlet weak var bookingRequestStatusLabel: UILabel!
     @IBOutlet weak var bookingStatusViewHeight: NSLayoutConstraint!
-    
+    @IBOutlet weak var progressView: UIProgressView!
     // MARK: - Variables
     let viewModel = BookingAddOnRequestVM()
     
     var shouldShowMakePayment: Bool {
-        if let caseData = self.viewModel.caseData, ((caseData.resolutionStatus == .paymentPending) || (caseData.resolutionStatus == .confirmationPending)) {
+        if let caseData = self.viewModel.caseHistory, ((caseData.resolutionStatus == .paymentPending) || (caseData.resolutionStatus == .confirmationPending)) {
             return true
         }
         return false
     }
     
     var shouldShowAbort: Bool {
-        if let caseData = self.viewModel.caseData, ((caseData.resolutionStatus == .paymentPending) || (caseData.resolutionStatus == .actionRequired) || (caseData.resolutionStatus == .inProgress)) {
+        if let caseData = self.viewModel.caseHistory, ((caseData.resolutionStatus == .paymentPending) || (caseData.resolutionStatus == .actionRequired) || (caseData.resolutionStatus == .inProgress)) {
             return true
         }
         return false
     }
+    private var time: Float = 0.0
+    private var timer: Timer?
     
     // MARK: - View Life Cyle
     
@@ -49,7 +51,8 @@ class BookingAddOnRequestVC: BaseVC {
     }
     
     override func initialSetup() {
-        
+        self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
+        self.progressView?.isHidden = true
         self.requestTableView.backgroundColor = AppColors.themeGray04
         self.priceView.backgroundColor = AppColors.clear
         self.registerXib()
@@ -59,11 +62,12 @@ class BookingAddOnRequestVC: BaseVC {
         self.addFooterView()
         
         self.reloadList()
-        AppGlobals.shared.startLoading()
-        self.viewModel.getCaseHistory()
+//        AppGlobals.shared.startLoading()
         self.setUpNavBar()
         self.setupBookingStatusView()
         self.view.layoutIfNeeded()
+        self.viewModel.getCaseHistory()
+
     }
     
     override func bindViewModel() {
@@ -116,6 +120,7 @@ class BookingAddOnRequestVC: BaseVC {
     }
     
     func reloadList() {
+        self.setupBookingStatusView()
         self.seupMakePaymentButton()
         self.requestTableView.reloadData()
     }
@@ -128,20 +133,22 @@ class BookingAddOnRequestVC: BaseVC {
             self.bookingRequestStatusLabel.textColor = AppColors.themeWhite
             self.bookingRequestStatusLabel.font = AppFonts.SemiBold.withSize(16.0)
             var titleText = "Review the quotation and make payment"
-            if let caseData = self.viewModel.caseData, caseData.resolutionStatus == .confirmationPending {
+            if let caseData = self.viewModel.caseHistory, caseData.resolutionStatus == .confirmationPending {
                 titleText = "Kindly review and confirm"
             }
             self.bookingRequestStatusLabel.text = titleText
+            bookingRequestStatusView.isHidden = false
+            bookingStatusViewHeight.constant = 30
         }else{
             bookingRequestStatusView.isHidden = true
             bookingStatusViewHeight.constant = 0
         }
-        
+        self.view.layoutIfNeeded()
     }
     func seupMakePaymentButton() {
         
         func setupForPayment() {
-            self.priceLabel.text = (self.viewModel.caseData?.amount ?? 0.0).delimiterWithSymbol
+            self.priceLabel.attributedText = (self.viewModel.caseHistory?.amount ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
             self.makePaymentLabel.text = LocalizedString.MakePayment.localized
             self.makePaymentButton.setTitle(nil, for: .normal)
             self.priceView.isHidden = false
@@ -168,7 +175,7 @@ class BookingAddOnRequestVC: BaseVC {
             self.view.layoutIfNeeded()
         }
         
-        if let caseData = self.viewModel.caseData {
+        if let caseData = self.viewModel.caseHistory {
             if caseData.resolutionStatus == .paymentPending {
                 //setup for payment
                 setupForPayment()
@@ -208,7 +215,7 @@ class BookingAddOnRequestVC: BaseVC {
     }
     
     @IBAction func makePaymentAction(_ sender: Any) {
-        if let caseData = self.viewModel.caseData {
+        if let caseData = self.viewModel.caseHistory {
             if caseData.resolutionStatus == .paymentPending {
                 self.showLoaderOnView(view: self.priceView, show: true)
                 self.viewModel.getAddonPaymentItinerary()
@@ -224,6 +231,44 @@ class BookingAddOnRequestVC: BaseVC {
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 50))
         customView.backgroundColor = AppColors.themeGray04
         self.requestTableView.tableFooterView = customView
+    }
+    
+    func startProgress() {
+        // Invalid timer if it is valid
+        if self.timer?.isValid == true {
+            self.timer?.invalidate()
+        }
+        self.progressView?.isHidden = false
+        self.time = 0.0
+        self.progressView.setProgress(0.0, animated: false)
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
+    
+    @objc func setProgress() {
+        self.time += 1.0
+        self.progressView?.setProgress(self.time / 10, animated: true)
+        
+        if self.time == 8 {
+            self.timer?.invalidate()
+            return
+        }
+        if self.time == 2 {
+            self.timer!.invalidate()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+            }
+        }
+        
+        if self.time >= 10 {
+            self.timer!.invalidate()
+            delay(seconds: 0.5) {
+                self.progressView?.isHidden = true
+            }
+        }
+    }
+    func stopProgress() {
+        self.time += 1
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
     }
 }
 
@@ -258,13 +303,17 @@ extension BookingAddOnRequestVC: BookingAddOnRequestVMDelegate {
         AppGlobals.shared.stopLoading()
     }
     
+    func willGetCaseHistory() {
+        self.startProgress()
+    }
+    
     func getCaseHistorySuccess() {
-        AppGlobals.shared.stopLoading()
+        self.stopProgress()
         self.reloadList()
     }
     
     func getCaseHistoryFail() {
-        AppGlobals.shared.stopLoading()
+        self.stopProgress()
     }
 }
 
@@ -401,8 +450,8 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         requestStatusCell.configureCell(title: title, descriptor: value, status: .none)
         
         if indexPath.row == 0 {
-            if !(self.viewModel.caseData?.resolutionStatus ?? .closed == .canceled){
-                requestStatusCell.descriptorLabel.textColor = self.viewModel.caseData?.resolutionStatus.textColor
+            if !(self.viewModel.caseHistory?.resolutionStatus ?? .closed == .canceled){
+                requestStatusCell.descriptorLabel.textColor = self.viewModel.caseHistory?.resolutionStatus.textColor
             }else{
                 requestStatusCell.descriptorLabel.textColor = AppColors.themeRed
             }
@@ -443,7 +492,7 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         var titleText = "Review the quotation and make payment"
-        if let caseData = self.viewModel.caseData, caseData.resolutionStatus == .confirmationPending {
+        if let caseData = self.viewModel.caseHistory, caseData.resolutionStatus == .confirmationPending {
             titleText = "Kindly review and confirm"
         }
         
@@ -501,7 +550,7 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
 extension BookingAddOnRequestVC {
     
     private func showDepositOptions() {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.PayOnline.localized, LocalizedString.PayOfflineNRegister.localized, LocalizedString.ChequeDemandDraft.localized, LocalizedString.FundTransfer.localized], colors: [AppColors.themeDarkGreen, AppColors.themeGray40, AppColors.themeDarkGreen, AppColors.themeDarkGreen])
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.PayOnline.localized, LocalizedString.PayOfflineNRegister.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
         
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             
@@ -510,15 +559,10 @@ extension BookingAddOnRequestVC {
                 //PayOnline
                 AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .addOns)
                 
-            case 2:
-                //ChequeDemandDraft
-                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .chequeOrDD, usingToPaymentFor: .addOns, paymentModeDetail: self.viewModel.itineraryData?.chequeOrDD, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
-                printDebug("ChequeDemandDraft")
-                
-            case 3:
-                //FundTransfer
-                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .addOns, paymentModeDetail: self.viewModel.itineraryData?.fundTransfer, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
-                printDebug("FundTransfer")
+            case 1:
+                //PayOfflineNRegister
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .addOns, paymentModeDetail: self.viewModel.itineraryData?.chequeOrDD, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
+                printDebug("PayOfflineNRegister")
                 
             default:
                 printDebug("no need to implement")

@@ -111,10 +111,10 @@ extension HotelCheckoutDetailVC: UITableViewDelegate, UITableViewDataSource {
             if sectionData[indexPath.row] == .paymentPolicyCell {
                 return CGFloat.leastNormalMagnitude
             } else if indexPath.section == 0, indexPath.row == 2 {
-                    let text = hotelData.address + "Maps   "
+                    let text = hotelData.address + "Maps 1234"
                     let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
                     return size.height + 46.5
-                        + 21.0 + 2.0 // y of textview 46.5 + bottom space 14.0 + 7.0
+                        + 13  + 2.0 // y of textview 46.5 + bottom space 14.0 + 7.0
             } else if sectionData[indexPath.row] == .overViewCell{
                 //overview cell
                 if !isForEstimateHeight {

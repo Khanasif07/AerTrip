@@ -17,10 +17,24 @@ extension FlightBookingInfoVC {
         case .aerlineDetail: return 77.0
         case .flightInfo: return 132.0
         case .amenities(let totalRowsForAmenities):
+            var extraPadding: CGFloat = 18
+            if self.viewModel.allFlightInfoCells[indexPath.section].indices.contains(indexPath.row + 1) {
+                if self.viewModel.allFlightInfoCells[indexPath.section][indexPath.row + 1] == .layover {
+                    extraPadding = 3.0
+                }
+            }
+            
+//            let extraPadding: CGFloat = self.viewModel.allFlightInfoCells[indexPath.section].contains(where: { (type) -> Bool in
+//            switch type {
+//            case .layover: return true
+//            default: return false
+//            }
+//            }) ? 3.0 : 15.0
+            
             let heightForOneRow: CGFloat = 64.0
             let lineSpace = (CGFloat(totalRowsForAmenities) * 5.0)
             // 10 id collection view top & bottom in xib
-            return (CGFloat(totalRowsForAmenities) * heightForOneRow) + lineSpace + 15.0
+            return (CGFloat(totalRowsForAmenities) * heightForOneRow) + lineSpace + extraPadding
             
         case .layover: return 40.0
         case .paxData:

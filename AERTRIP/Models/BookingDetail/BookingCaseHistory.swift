@@ -59,7 +59,9 @@ struct BookingCaseHistory {
     var closedDate: Date? 
     var caseName: String = ""
     var caseNumber: String = ""
-
+    var amount: Double = 0.0
+    var requestDate: Date?
+    
     var associatedVouchersArr: [String] {
         return associatedVouchersStr.components(separatedBy: ",")
     }
@@ -111,6 +113,15 @@ struct BookingCaseHistory {
         
         if let obj = json["case_number"] {
             self.caseNumber = "\(obj)"
+        }
+        
+        if let obj = json["payment_required"] {
+            self.amount = "\(obj)".toDouble ?? 0.0
+        }
+        
+        if let obj = json["request_date"] {
+            // "2019-06-07 18:36:38"
+            self.requestDate = "\(obj)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
     }
 }

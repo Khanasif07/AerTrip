@@ -1024,9 +1024,9 @@ struct BookingFlightDetail {
         }
         
         if self.layoverTime > 0 {
-            if ovgtlo {
+//            if ovgtlo {
             temp += 1
-            }
+//            }
         }
         return temp
     }

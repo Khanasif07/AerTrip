@@ -27,7 +27,7 @@ class BookingDetailVM {
         case note
     }
     
-    enum FlightInfoCell {
+    enum FlightInfoCell: Equatable {
         case aerlineDetail
         case flightInfo
         case amenities(totalRows: Int)
@@ -96,9 +96,9 @@ class BookingDetailVM {
                     }
                     
                     if flight.layoverTime > 0 {
-                        if flight.ovgtlo {
+//                        if flight.ovgtlo {
                             temp.append(.layover)
-                        }
+//                        }
                     }
                 }
                 temp.append(.paxData)

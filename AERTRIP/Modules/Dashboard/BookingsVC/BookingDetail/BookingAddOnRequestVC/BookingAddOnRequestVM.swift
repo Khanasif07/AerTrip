@@ -9,6 +9,7 @@
 import UIKit
 
 protocol BookingAddOnRequestVMDelegate: class {
+    func willGetCaseHistory()
     func getCaseHistorySuccess()
     func getCaseHistoryFail()
     
@@ -47,17 +48,17 @@ class BookingAddOnRequestVM {
     private func fetchCaseDetailData() {
         var temp: JSONDictionary = [:]
         
-        guard let caseD = caseData, let history = caseHistory else {
+        guard let history = caseHistory else {
             self.caseDetailData = temp
             return
         }
 
-        temp["00Case Status"] = caseD.resolutionStatus.rawValue
-        if !caseD.csrName.isEmpty {
-            temp["01Agent"] = caseD.csrName.isEmpty ? LocalizedString.dash.localized : caseD.csrName//"🎧 \(caseD.csrName)"
+        temp["00Case Status"] = history.resolutionStatus.rawValue
+        if !history.csrName.isEmpty {
+            temp["01Agent"] = history.csrName.isEmpty ? LocalizedString.dash.localized : history.csrName//"🎧 \(caseD.csrName)"
         }
         
-        let dateStr = caseD.requestDate?.toString(dateFormat: "d MMM yyyy | HH:mm") ?? ""
+        let dateStr = history.requestDate?.toString(dateFormat: "d MMM yyyy | HH:mm") ?? ""
         if !dateStr.isEmpty {
         temp["02Requested on"] = dateStr.isEmpty ? LocalizedString.dash.localized : dateStr
         }
@@ -90,6 +91,7 @@ class BookingAddOnRequestVM {
     }
     
     func getCaseHistory() {
+        self.delegate?.willGetCaseHistory()
         let param: JSONDictionary = ["case_id": caseData?.id ?? ""]
         APICaller.shared.getCaseHistory(params: param) { [weak self](success, errore, history) in
             guard let sSelf = self else {return}
