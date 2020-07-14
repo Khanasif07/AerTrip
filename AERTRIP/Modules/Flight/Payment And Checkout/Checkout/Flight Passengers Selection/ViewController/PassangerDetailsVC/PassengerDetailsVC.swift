@@ -151,9 +151,17 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func tapDoneBtn(_ sender: UIButton) {
-        GuestDetailsVM.shared.canShowSalutationError = true
-        self.delegate?.didAddedContacts()
-        self.navigationController?.popViewController(animated: true)
+        let validation = self.viewModel.validationForPassenger()
+        if validation.success{
+            GuestDetailsVM.shared.canShowSalutationError = true
+            self.delegate?.didAddedContacts()
+            self.navigationController?.popViewController(animated: true)
+        }else{
+            GuestDetailsVM.shared.canShowSalutationError = true
+            self.passengerTable.reloadData()
+            AppToast.default.showToastMessage(message: validation.msg)
+        }
+        
     }
     
     

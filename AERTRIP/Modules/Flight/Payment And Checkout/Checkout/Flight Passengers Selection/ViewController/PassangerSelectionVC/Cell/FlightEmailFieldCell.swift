@@ -24,7 +24,7 @@ class FlightEmailFieldCell: UITableViewCell {
             editableTextField.delegate = self
         }
     }
-    @IBOutlet weak var separatorView: UIView!
+    @IBOutlet weak var separatorView: ATDividerView!
     @IBOutlet weak var textFiledBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var textFieldTopConstraint: NSLayoutConstraint!
     

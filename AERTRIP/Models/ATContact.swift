@@ -53,6 +53,8 @@ struct ATContact {
     var numberInRoom: Int
     var age: Int
     //-------------Added for flight passengers details---------------------
+    var maxContactLimit = 10
+    var minContactLimit = 10
     var nationality = ""
     var countryCode = ""
     var passportNumber = ""

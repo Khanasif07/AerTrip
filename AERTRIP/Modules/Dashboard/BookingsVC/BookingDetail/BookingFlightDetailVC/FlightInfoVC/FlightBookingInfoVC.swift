@@ -41,7 +41,9 @@ class FlightBookingInfoVC: BaseVC {
         self.tableView.delegate = self
         self.registerXib()
         delay(seconds: 0.3) { [weak self] in
-            self?.tableView.scrollToRow(at: IndexPath(row: 0, section: self?.viewModel.legSectionTap ?? 0), at: .top, animated: false)
+            guard let self = self else {return}
+            guard (self.viewModel.legSectionTap < self.tableView.numberOfSections) else {return}
+            self.tableView.scrollToRow(at: IndexPath(row: 0, section: self.viewModel.legSectionTap), at: .top, animated: false)
         }
         //        self.tableView.backgroundColor = AppColors.themeWhite
 //        self.viewModel.getBookingFees()

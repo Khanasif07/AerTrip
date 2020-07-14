@@ -826,7 +826,7 @@ extension String {
             return stylizedPrice
         }
         let result = self.components(separatedBy: ".").last?.components(separatedBy: " ").first?.count
-        print("result: \(result)")
+//        print("result: \(result)")
         changeRange.length = self.count - changeRange.location
         
         guard let font = UIFont(name: font.fontName, size: (font.pointSize * 0.75)) else {
