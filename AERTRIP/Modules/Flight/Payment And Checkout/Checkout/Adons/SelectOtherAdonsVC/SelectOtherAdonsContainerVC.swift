@@ -79,7 +79,6 @@ class SelectOtherAdonsContainerVC: BaseVC {
         for (index,item) in self.othersContainerVM.allChildVCs.enumerated() {
             AddonsDataStore.shared.flightsWithData[index].special = item.otherAdonsVm.addonsDetails
             AddonsDataStore.shared.flightsWithData[index].specialRequest = item.otherAdonsVm.specialRequest
-            
         }
         let price = self.totalLabel.text ?? ""
         self.delegate?.othersUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))

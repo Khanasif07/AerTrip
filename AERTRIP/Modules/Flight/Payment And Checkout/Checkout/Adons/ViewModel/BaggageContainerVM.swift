@@ -45,8 +45,8 @@ class BaggageContainerVM {
             let mealsArray = item.selectBaggageVM.getBaggage()
             mealsArray.enumerated().forEach { (addonIndex,_) in
                 item.selectBaggageVM.updateContactInBaggage(baggageIndex: addonIndex, contacts: [], autoSelectedFor: [])
-        AddonsDataStore.shared.flightsWithData[index].bags.addonsArray[addonIndex].bagageSelectedFor = []
-          AddonsDataStore.shared.flightsWithData[index].bags.addonsArray[addonIndex].autoSelectedFor = ""
+        AddonsDataStore.shared.flightsWithDataForBaggage[index].bags.addonsArray[addonIndex].bagageSelectedFor = []
+          AddonsDataStore.shared.flightsWithDataForBaggage[index].bags.addonsArray[addonIndex].autoSelectedFor = ""
         }
              item.reloadData()
          }
@@ -70,7 +70,7 @@ class BaggageContainerVM {
     func updateBaggageToDataStore(){
        
         for (index,item) in self.allChildVCs.enumerated() {
-            AddonsDataStore.shared.flightsWithData[index].bags = item.selectBaggageVM.addonsDetails
+            AddonsDataStore.shared.flightsWithDataForBaggage[index].bags = item.selectBaggageVM.addonsDetails
         }
            
     }
@@ -79,8 +79,8 @@ class BaggageContainerVM {
         
         let dataStore = AddonsDataStore.shared
                var flightsToModify :[AddonsFlight] = []
-               let currentLegId = dataStore.flightsWithData[vcIndex].legId
-               let flightsWithSameLegId = dataStore.flightsWithData.filter { $0.legId == currentLegId }
+               let currentLegId = dataStore.flightsWithDataForBaggage[vcIndex].legId
+               let flightsWithSameLegId = dataStore.flightsWithDataForBaggage.filter { $0.legId == currentLegId }
                let flightsWithCurrentAddon = flightsWithSameLegId.filter { $0.bags.addonsArray.contains { $0.adonsName == forAdon.adonsName } }
         
         if self.checkIfReadOnlyValuesAreDifferent(flights: flightsWithCurrentAddon, forAdon: forAdon) {

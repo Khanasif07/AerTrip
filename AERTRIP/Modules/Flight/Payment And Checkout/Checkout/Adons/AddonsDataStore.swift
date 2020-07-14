@@ -15,9 +15,17 @@ class AddonsDataStore {
 
      var allFlights : [IntFlightDetail] = []
      var addonsMaster = AddonsMaster()
-    // var addonsLeg = AddonsLeg()
-     var flightsWithData :[AddonsFlight] = []
-     var flightKeys : [String] = []
+    
+    var flightKeys : [String] = []
+    
+    var flightsWithData :[AddonsFlight] = []
+    var flightsWithDataForMeals :[AddonsFlight] = []
+    var flightsWithDataForBaggage :[AddonsFlight] = []
+//    var flightsWithDataForOthers :[AddonsFlight] = []
+    
+    var isFreeMeal = false
+    var isFreeSeat = false
+    
     
     var appliedCouponData = FlightItineraryData()
     var taxesResult:[String:String] = [:]
@@ -32,8 +40,7 @@ class AddonsDataStore {
     var originalSeatMapModel: SeatMapModel?
     var seatsAllFlightsData: [SeatMapModel.SeatMapFlight]?
     
-    var isFreeMeal = false
-    var isFreeSeat = false
+
     
     init(){
         
@@ -59,9 +66,10 @@ class AddonsDataStore {
             return $0.value.flight
         }
                 
-        flightKeys = flightsWithData.map { (flights) -> String in
-            return flights.flightId
-        }
+//        flightsWithData[0].meal.addonsArray.removeAll()
+//        flightsWithData[1].bags.addonsArray.removeAll()
+//        flightsWithData[0].bags.addonsArray.removeAll()
+
         
         flightsWithData.enumerated().forEach { (index,flight) in
             let leg = self.itinerary.details.legsWithDetail.filter { $0.lfk == flight.legId }
@@ -76,9 +84,18 @@ class AddonsDataStore {
             if !self.isFreeSeat{
                 self.isFreeSeat = firstLeg.freeSeat
             }
-            
         }
         
+        flightKeys = flightsWithData.map { (flights) -> String in
+            return flights.flightId
+        }
+        
+       flightsWithDataForMeals = flightsWithData.filter { !$0.meal.addonsArray.isEmpty }
+        
+        flightsWithDataForBaggage = flightsWithData.filter { !$0.bags.addonsArray.isEmpty }
+
+//        flightsWithDataForOthers = flightsWithData.filter { !$0.special.addonsArray.isEmpty }
+
 //       setUpForCheckingMeal()
         
      }
