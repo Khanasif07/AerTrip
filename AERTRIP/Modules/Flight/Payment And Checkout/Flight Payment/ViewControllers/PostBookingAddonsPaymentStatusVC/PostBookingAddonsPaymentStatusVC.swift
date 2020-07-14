@@ -177,9 +177,9 @@ extension PostBookingAddonsPaymentStatusVC: UITableViewDelegate, UITableViewData
         if (section == (self.viewModel.sectionData.count - 2)){
             guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SelectSeatButtonFooterVew") as? SelectSeatButtonFooterVew else { return nil }
             if self.viewModel.bookingIds.count > 1{
-                footerView.selectSeatButton.setTitle("Select Seat", for: .normal)
+                footerView.selectSeatButton.setTitle("Select Seats for...", for: .normal)
             }else{
-                 footerView.selectSeatButton.setTitle("Select Seats for...", for: .normal)
+                 footerView.selectSeatButton.setTitle("Select Seats for", for: .normal)
             }
             footerView.handeller = {
                 self.openActionSeat()

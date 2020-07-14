@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -71,12 +71,13 @@
                                                     <action selector="twitterButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="vwN-LR-QNZ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vmz-jO-i7m">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vmz-jO-i7m">
                                                 <rect key="frame" x="152" y="0.0" width="60" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="PK8-f9-rR7"/>
                                                     <constraint firstAttribute="width" secondItem="Vmz-jO-i7m" secondAttribute="height" multiplier="1:1" id="ply-RB-8vr"/>
                                                 </constraints>
+                                                <state key="normal" image="instagram"/>
                                                 <connections>
                                                     <action selector="instagramButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="MJy-ee-OBE"/>
                                                 </connections>
@@ -191,5 +192,6 @@
     </objects>
     <resources>
         <image name="ic_ticket_up" width="640" height="7"/>
+        <image name="instagram" width="60" height="60"/>
     </resources>
 </document>

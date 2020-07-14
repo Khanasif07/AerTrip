@@ -89,7 +89,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
         self.whatNext.textColor = AppColors.themeGray40
         self.fbButton.backgroundColor = AppColors.fbButtonBackgroundColor
         self.twitterButton.backgroundColor = AppColors.twitterBackgroundColor
-        self.instagramButton.backgroundColor = AppColors.clear
+//        self.instagramButton.backgroundColor = AppColors.clear
         self.whatNextCollectionView.registerCell(nibName: HCWhatNextCollectionViewCell.reusableIdentifier)
         self.flowLayOut()
     }
