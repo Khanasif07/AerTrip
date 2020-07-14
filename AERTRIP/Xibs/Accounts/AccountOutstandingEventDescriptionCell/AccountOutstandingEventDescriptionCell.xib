@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -163,6 +163,7 @@
             <connections>
                 <outlet property="amountTitleLabel" destination="2oS-Sg-xCb" id="pPt-vb-dV5"/>
                 <outlet property="amountValueLabel" destination="Lw9-6r-lXf" id="9TM-hO-Lzo"/>
+                <outlet property="containerTopConstraint" destination="Kvs-z6-TZk" id="omK-M5-32G"/>
                 <outlet property="dateLabel" destination="vBp-5g-uvS" id="pWf-tP-fLz"/>
                 <outlet property="dividerView" destination="HBA-mH-iCF" id="sMX-4Y-Q24"/>
                 <outlet property="iconImageView" destination="uxC-NT-rQ9" id="tCv-gK-1XP"/>

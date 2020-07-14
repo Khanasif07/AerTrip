@@ -31,7 +31,7 @@ import UIKit
     private var reachability: Reachability?
     
     // PROPERTY FOR APPLICATION LAUNCH TYPE
-    var isApplicationForFlight = true
+    var isApplicationForFlight = false
 
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
