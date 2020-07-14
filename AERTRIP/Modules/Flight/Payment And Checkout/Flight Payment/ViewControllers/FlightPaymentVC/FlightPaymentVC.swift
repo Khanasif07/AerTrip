@@ -142,7 +142,7 @@ class FlightPaymentVC: BaseVC {
         let ttl = self.getTotalPayableAmount().amountInDelimeterWithSymbol
         let amount = ttl.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
         amount.addAttributes([.foregroundColor : AppColors.themeWhite], range: NSString(string: ttl).range(of: ttl))
-        let attributedTitle = NSMutableAttributedString(string: "\(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: AppColors.themeWhite])
+        let attributedTitle = NSMutableAttributedString(string: "  \(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: AppColors.themeWhite])
         attributedTitle.append(amount)
         self.payButton.setAttributedTitle(attributedTitle, for: .normal)
         self.payButton.setAttributedTitle(attributedTitle, for: .highlighted)
@@ -206,6 +206,10 @@ class FlightPaymentVC: BaseVC {
     func showFareUpdatePopup(){
         let diff = self.viewModel.itinerary.priceChange
         let amount = self.viewModel.itinerary.details.farepr
+        if diff != 0{
+            self.viewModel.taxesDataDisplay()
+            self.updateAllData()
+        }
         if diff > 0 {
             // increased
             FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: Double(diff), totalUpdatedAmount: Double(amount), continueButtonAction: { [weak self] in
@@ -380,8 +384,8 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
     
     func reconfirmationResponse(_ success:Bool, error: ErrorCodes){
         if success{
-            self.viewModel.taxesDataDisplay()
-            self.updateAllData()
+//            self.viewModel.taxesDataDisplay()
+//            self.updateAllData()
             self.showFareUpdatePopup()
         }else{
             self.hideShowLoader(isHidden:true)

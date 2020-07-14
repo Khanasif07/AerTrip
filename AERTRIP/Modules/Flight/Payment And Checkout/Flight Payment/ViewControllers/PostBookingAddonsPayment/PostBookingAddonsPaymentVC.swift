@@ -128,7 +128,7 @@ class PostBookingAddonsPaymentVC: BaseVC{
         let ttl = self.getTotalPayableAmount().amountInDelimeterWithSymbol
         let amount = ttl.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
         amount.addAttributes([.foregroundColor : AppColors.themeWhite], range: NSString(string: ttl).range(of: ttl))
-        let attributedTitle = NSMutableAttributedString(string: "\(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: AppColors.themeWhite])
+        let attributedTitle = NSMutableAttributedString(string: "  \(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: AppColors.themeWhite])
         attributedTitle.append(amount)
         self.payButton.setAttributedTitle(attributedTitle, for: .normal)
         self.payButton.setAttributedTitle(attributedTitle, for: .highlighted)

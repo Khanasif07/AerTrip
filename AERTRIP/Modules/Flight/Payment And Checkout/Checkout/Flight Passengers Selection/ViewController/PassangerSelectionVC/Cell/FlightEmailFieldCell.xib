@@ -22,9 +22,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="323" height="61"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RbE-wl-wUe">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RbE-wl-wUe" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="16" y="60.5" width="307" height="0.5"/>
-                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="d1B-Lz-Zeh"/>
                         </constraints>
@@ -65,7 +64,7 @@
                 <outlet property="textFieldTopConstraint" destination="WKT-FR-33s" id="t8l-kV-VhE"/>
                 <outlet property="textFiledBottomConstraint" destination="LoC-EK-CPR" id="7wm-7c-dts"/>
             </connections>
-            <point key="canvasLocation" x="135.19999999999999" y="176.31184407796104"/>
+            <point key="canvasLocation" x="-62" y="-70"/>
         </tableViewCell>
     </objects>
 </document>

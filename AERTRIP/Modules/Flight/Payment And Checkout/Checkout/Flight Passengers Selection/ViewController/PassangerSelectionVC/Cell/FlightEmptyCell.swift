@@ -10,12 +10,14 @@ import UIKit
 
 class FlightEmptyCell: UITableViewCell {
 
-       @IBOutlet weak var topDividerView: UIView!
-       @IBOutlet weak var bottomDividerView: UIView!
+       @IBOutlet weak var topDividerView: ATDividerView!
+       @IBOutlet weak var bottomDividerView: ATDividerView!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.topDividerView.backgroundColor = AppColors.divider.color
+        self.bottomDividerView.backgroundColor = AppColors.divider.color
         self.backgroundColor = AppColors.themeGray04
     }
 }

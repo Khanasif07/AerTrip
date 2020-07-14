@@ -89,12 +89,7 @@ class HCCouponCodeVC: BaseVC {
         self.statusBarStyle = .default
         if self.viewModel.product != .flights{
             self.viewModel.getCouponsDetailsApi()
-        }else{
-            delay(seconds: 0.2) {
-                self.couponTableView.reloadData()
-            }
         }
-        
         self.emptyStateImageView.image = #imageLiteral(resourceName: "emptyStateCoupon")
         self.offerTermsView.roundTopCorners(cornerRadius: 10.0)
         self.offerTermsViewSetUp()
@@ -287,11 +282,7 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.searcedCouponsData.count
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 153.0
-    }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard  let cell = tableView.dequeueReusableCell(withIdentifier: CheckoutCouponCodeTableViewCell.reusableIdentifier, for: indexPath) as? CheckoutCouponCodeTableViewCell else { return UITableViewCell() }
         cell.delegate = self
