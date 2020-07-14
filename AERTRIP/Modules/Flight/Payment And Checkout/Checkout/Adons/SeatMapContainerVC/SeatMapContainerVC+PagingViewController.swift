@@ -13,9 +13,14 @@ extension SeatMapContainerVC: PagingViewControllerDataSource , PagingViewControl
     
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         
-        if let pagingIndexItem = pagingItem as? MenuItem{
-            let text = pagingIndexItem.attributedTitle
-            return (text?.size().width ?? 0) + 10
+        if let pagingIndexItem = pagingItem as? MenuItem, let text = pagingIndexItem.attributedTitle {
+            
+            
+            let attText = NSMutableAttributedString(attributedString: text)
+            attText.addAttribute(.font, value: AppFonts.SemiBold.withSize(16), range: NSRange(location: 0, length: attText.length))
+            let width = attText.widthOfText(50, font: AppFonts.SemiBold.withSize(16))
+            return 85//(width) + 10
+            
         }
         
         return 100.0
@@ -42,5 +47,16 @@ extension SeatMapContainerVC: PagingViewControllerDataSource , PagingViewControl
                 self.setCurrentPlaneLayout()
             }
         }
+    }
+}
+
+extension NSMutableAttributedString {
+    func widthOfText(_ height: CGFloat, font: UIFont) -> CGFloat {
+        
+        let constraintRect = CGSize(width: CGFloat.greatestFiniteMagnitude, height: height)
+        
+        let boundingBox = self.boundingRect(with: constraintRect, options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
+        
+        return boundingBox.width
     }
 }
