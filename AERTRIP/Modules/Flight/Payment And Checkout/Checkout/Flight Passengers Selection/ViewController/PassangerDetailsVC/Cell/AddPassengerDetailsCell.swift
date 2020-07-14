@@ -11,6 +11,11 @@ import UIKit
 protocol  UpdatePassengerDetailsDelegate: NSObjectProtocol {
     func tapOptionalDetailsBtn(at indexPath:IndexPath)
     func shouldSetupBottom(isNeedToSetUp:Bool)
+    func countryCodeBtnTapped(_ sender: UIButton)
+}
+
+extension UpdatePassengerDetailsDelegate {
+    func countryCodeBtnTapped(_ sender: UIButton) { }
 }
 
 class AddPassengerDetailsCell: UITableViewCell {
@@ -130,6 +135,7 @@ class AddPassengerDetailsCell: UITableViewCell {
     }
 
     @IBAction func tappedISDButton(_ sender: UIButton) {
+        delegate?.countryCodeBtnTapped(sender)
         if let vc = self.viewContainingController {
             let prevSectdContry = preSelectedCountry
             PKCountryPicker.default.chooseCountry(onViewController: vc, preSelectedCountry: prevSectdContry) { [weak self] (selectedCountry,closePicker) in
