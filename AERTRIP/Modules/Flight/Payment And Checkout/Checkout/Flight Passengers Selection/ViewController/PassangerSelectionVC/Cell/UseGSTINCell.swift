@@ -31,9 +31,9 @@ class UseGSTINCell: UITableViewCell {
     @IBOutlet weak var gSTDetailsLabel: UILabel!
     @IBOutlet weak var enterGSTView: UIView!
     @IBOutlet weak var companyNameTextField: PKFloatLabelTextField!
-    @IBOutlet weak var companyNameSeparatorView: UIView!
+    @IBOutlet weak var companyNameSeparatorView: ATDividerView!
     @IBOutlet weak var billingNameTextField: PKFloatLabelTextField!
-    @IBOutlet weak var billingNameSeperatorView: UIView!
+    @IBOutlet weak var billingNameSeperatorView: ATDividerView!
     @IBOutlet weak var gSTNumberTextField: PKFloatLabelTextField!
     
     var delegate:UseGSTINCellDelegate?

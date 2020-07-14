@@ -41,34 +41,43 @@ class AccountLadgerDetailsVM {
         amountDetails["Date"] = self.ladgerEvent!.date?.toString(dateFormat: "dd-MM-YYYY")
         amountDetails["Voucher"] = self.ladgerEvent!.voucherName
         amountDetails["Voucher No."] = self.ladgerEvent!.voucherNo
-        amountDetails["Amount"] = "\(self.ladgerEvent!.amount)"//.amountInDelimeterWithSymbol
-        amountDetails["Balance"] = "\(self.ladgerEvent!.balance)"//.amountInDelimeterWithSymbol
+        amountDetails["Amount"] = "\(self.ladgerEvent!.amount)"
+        amountDetails["Balance"] = "\(self.ladgerEvent!.balance)"
         
         self.ladgerDetails["0"] = amountDetails
     }
     
     private func parseDataForFlightSales() {
         //flight amount details
-        var fAmountDetails = JSONDictionary()
-        fAmountDetails["Date"] = self.ladgerEvent!.date?.toString(dateFormat: "dd-MM-YYYY")
-        fAmountDetails["Bill Number"] = self.ladgerEvent!.billNumber
-        fAmountDetails["Total Amount"] = "\(self.ladgerEvent!.totalAmount)"//.amountInDelimeterWithSymbol
-        fAmountDetails["Pending Amount"] = "\(self.ladgerEvent!.pendingAmount)"//.amountInDelimeterWithSymbol
-        fAmountDetails["Due Date"] = self.ladgerEvent!.dueDate?.toString(dateFormat: "dd-MM-YYYY")
-        
-        let days = self.ladgerEvent!.overDueDays
-        let daysStr = (days > 1) ? "days" : "day"
-        fAmountDetails["Over Due by days"] = "\(days) \(daysStr)"
-        
-        self.ladgerDetails["0"] = fAmountDetails
-        
+        if self.ladgerEvent!.dueDate != nil{
+            var fAmountDetails = JSONDictionary()
+            fAmountDetails["Date"] = self.ladgerEvent!.date?.toString(dateFormat: "dd-MM-YYYY")
+            fAmountDetails["Bill Number"] = self.ladgerEvent!.billNumber
+            fAmountDetails["Total Amount"] = "\(self.ladgerEvent!.totalAmount)"
+            fAmountDetails["Pending Amount"] = "\(self.ladgerEvent!.pendingAmount)"
+            fAmountDetails["Due Date"] = self.ladgerEvent!.dueDate?.toString(dateFormat: "dd-MM-YYYY")
+            
+            let days = self.ladgerEvent!.overDueDays
+            let daysStr = (days > 1) ? "days" : "day"
+            fAmountDetails["Over Due by days"] = "\(days) \(daysStr)"
+            
+            self.ladgerDetails["0"] = fAmountDetails
+        }else{
+            var amountDetails = JSONDictionary()
+            amountDetails["Date"] = self.ladgerEvent!.date?.toString(dateFormat: "dd-MM-YYYY")
+            amountDetails["Voucher"] = self.ladgerEvent!.voucherName
+            amountDetails["Voucher No."] = self.ladgerEvent!.voucherNo
+            amountDetails["Amount"] = "\(self.ladgerEvent!.amount)"
+            amountDetails["Balance"] = "\(self.ladgerEvent!.balance)"
+            self.ladgerDetails["0"] = amountDetails
+        }
         
         //voucher details
         var voucherDetails = JSONDictionary()
         voucherDetails["Voucher Date"] = self.ladgerEvent!.voucherDate?.toString(dateFormat: "dd-MM-YYYY")
         voucherDetails["Voucher"] = self.ladgerEvent!.voucherName
         voucherDetails["Voucher Number"] = self.ladgerEvent!.voucherNo
-        voucherDetails["Amount"] = "\(self.ladgerEvent!.amount)"//.amountInDelimeterWithSymbol
+        voucherDetails["Amount"] = "\(self.ladgerEvent!.amount)"
         
         self.ladgerDetails["1"] = voucherDetails
         
@@ -97,15 +106,26 @@ class AccountLadgerDetailsVM {
         self.ladgerDetails.removeAll()
 
         //amount details
-        var amountDetails = JSONDictionary()
-        amountDetails["Date"] = self.ladgerEvent!.date?.toString(dateFormat: "dd-MM-YYYY")
-        amountDetails["Voucher"] = self.ladgerEvent!.voucherName
-        amountDetails["Voucher No."] = self.ladgerEvent!.voucherNo
-        amountDetails["Amount"] = "\(self.ladgerEvent!.amount)"//.amountInDelimeterWithSymbol
-        amountDetails["Balance"] = "\(self.ladgerEvent!.balance)"//.amountInDelimeterWithSymbol
-        
-        self.ladgerDetails["0"] = amountDetails
-        
+        if self.ladgerEvent!.dueDate == nil{
+            var amountDetails = JSONDictionary()
+            amountDetails["Date"] = self.ladgerEvent!.date?.toString(dateFormat: "dd-MM-YYYY")
+            amountDetails["Voucher"] = self.ladgerEvent!.voucherName
+            amountDetails["Voucher No."] = self.ladgerEvent!.voucherNo
+            amountDetails["Amount"] = "\(self.ladgerEvent!.amount)"
+            amountDetails["Balance"] = "\(self.ladgerEvent!.balance)"
+            self.ladgerDetails["0"] = amountDetails
+        }else{
+            var hAmountDetails = JSONDictionary()
+            hAmountDetails["Date"] = self.ladgerEvent!.date?.toString(dateFormat: "dd-MM-YYYY")
+            hAmountDetails["Bill Number"] = self.ladgerEvent!.billNumber
+            hAmountDetails["Total Amount"] = "\(self.ladgerEvent!.totalAmount)"
+            hAmountDetails["Pending Amount"] = "\(self.ladgerEvent!.pendingAmount)"
+            hAmountDetails["Due Date"] = self.ladgerEvent!.dueDate?.toString(dateFormat: "dd-MM-YYYY")
+            let days = self.ladgerEvent!.overDueDays
+            let daysStr = (days > 1) ? "days" : "day"
+            hAmountDetails["Over Due by days"] = "\(days) \(daysStr)"
+            self.ladgerDetails["0"] = hAmountDetails
+        }
         //booking details
         var bookingDetails = JSONDictionary()
         bookingDetails["Check-in"] = self.ladgerEvent!.checkIn?.toString(dateFormat: "dd-MM-YYYY") ?? ""

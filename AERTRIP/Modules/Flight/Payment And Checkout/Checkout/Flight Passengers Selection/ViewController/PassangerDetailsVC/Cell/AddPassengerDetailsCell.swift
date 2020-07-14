@@ -98,13 +98,25 @@ class AddPassengerDetailsCell: UITableViewCell {
             txtFld?.addTarget(self, action: #selector(self.textFieldDidChanged(_:)), for: .editingChanged)
             txtFld?.isSingleTextField = false
             txtFld?.delegate = self
-            txtFld?.titleFont = AppFonts.Regular.withSize(12)
+            txtFld?.titleFont = AppFonts.Regular.withSize(14)
             txtFld?.setUpAttributedPlaceholder(placeholderString: titleArray[index],with: "", foregroundColor: AppColors.themeGray20)
             txtFld?.font = AppFonts.Regular.withSize(18.0)
             txtFld?.textColor = AppColors.textFieldTextColor51
+            txtFld?.lineViewBottomSpace = 0.5
             txtFld?.titleActiveTextColour = AppColors.themeGreen
+            if txtFld != emailTextField || txtFld != mobileTextField{
+                txtFld?.selectedLineColor = AppColors.divider.color
+                txtFld?.lineColor = AppColors.divider.color
+                txtFld?.lineErrorColor = AppColors.divider.color
+            }else{
+                txtFld?.selectedLineColor = AppColors.clear
+                txtFld?.lineColor = AppColors.clear
+                txtFld?.lineErrorColor = AppColors.clear
+                mobileTextField.lineView.isHidden = true
+            }
             txtFld?.autocorrectionType = .no
         }
+        deviderView.backgroundColor = AppColors.divider.color
         countryLabel.font = AppFonts.Regular.withSize(14.0)
         countryLabel.textColor = AppColors.themeGray40
         countryLabel.text = "Country"
@@ -125,6 +137,8 @@ class AddPassengerDetailsCell: UITableViewCell {
                 self.preSelectedCountry = selectedCountry
                 self.flagImage.image = selectedCountry.flagImage
                 self.isdLabel.text = selectedCountry.countryCode
+                GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].maxContactLimit = selectedCountry.maxNSN
+                GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].minContactLimit = selectedCountry.minNSN
                 GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].isd = selectedCountry.countryCode
             }
         }
@@ -149,11 +163,11 @@ class AddPassengerDetailsCell: UITableViewCell {
             self.setupforDomestic()
         }else{
             if (self.guestDetail?.isMoreOptionTapped ?? true){
-                self.passportExpiryTextField.lineViewBottomSpace = 0
-                self.passportNumberTextField.lineViewBottomSpace = 0
+                self.passportExpiryTextField.lineViewBottomSpace = 0.5
+                self.passportNumberTextField.lineViewBottomSpace = 0.5
             }else{
-                self.passportExpiryTextField.lineViewBottomSpace = -3
-                self.passportNumberTextField.lineViewBottomSpace = -3
+                self.passportExpiryTextField.lineViewBottomSpace = -2.5
+                self.passportNumberTextField.lineViewBottomSpace = -2.5
             }
         }
         self.lastNameTextField.text = ""
@@ -200,27 +214,27 @@ class AddPassengerDetailsCell: UITableViewCell {
         case .Adult:
             self.dobAndNationalityStack.isHidden = true
             if passenger.isMoreOptionTapped{
-                self.firstNameTextField.lineViewBottomSpace = 0
-                self.lastNameTextField.lineViewBottomSpace = 0
+                self.firstNameTextField.lineViewBottomSpace = 0.5
+                self.lastNameTextField.lineViewBottomSpace = 0.5
             }else{
-                self.firstNameTextField.lineViewBottomSpace = -3
-                self.lastNameTextField.lineViewBottomSpace = -3
+                self.firstNameTextField.lineViewBottomSpace = -2.5
+                self.lastNameTextField.lineViewBottomSpace = -2.5
             }
         case .child:
             self.dobAndNationalityStack.isHidden = false
             self.nataionalityView.isHidden = true
             if passenger.isMoreOptionTapped{
-                self.dobTextField.lineViewBottomSpace = 0
+                self.dobTextField.lineViewBottomSpace = 0.5
             }else{
-                self.dobTextField.lineViewBottomSpace = -3
+                self.dobTextField.lineViewBottomSpace = -2.5
             }
         case .infant:
             self.dobAndNationalityStack.isHidden = false
             self.nataionalityView.isHidden = true
             if passenger.isMoreOptionTapped{
-                self.dobTextField.lineViewBottomSpace = 0
+                self.dobTextField.lineViewBottomSpace = 0.5
             }else{
-                self.dobTextField.lineViewBottomSpace = -3
+                self.dobTextField.lineViewBottomSpace = -2.5
             }
         }
     }
@@ -230,16 +244,18 @@ class AddPassengerDetailsCell: UITableViewCell {
             self.mobileAndIsdStack.isHidden = false
             self.emailStack.isHidden = false
             self.mobileTextField.lineColor = AppColors.clear
+            mobileTextField.selectedLineColor = AppColors.clear
+            mobileTextField.lineErrorColor = AppColors.clear
             self.mobileTextField.keyboardType = .phonePad
-            self.firstNameTextField.lineViewBottomSpace = 0
-            self.lastNameTextField.lineViewBottomSpace = 0
+            self.firstNameTextField.lineViewBottomSpace = 0.5
+            self.lastNameTextField.lineViewBottomSpace = 0.5
             self.setDataForCountryCode()
             self.mobileTextField.text = self.guestDetail?.contact
             self.emailTextField.text = self.guestDetail?.emailLabel
             if (journeyType == .domestic) && (self.guestDetail?.isMoreOptionTapped ?? false){
-                self.emailTextField.lineViewBottomSpace = 0
+                self.emailTextField.lineViewBottomSpace = 0.5
             }else{
-                self.emailTextField.lineViewBottomSpace = -3
+                self.emailTextField.lineViewBottomSpace = -2.5
             }
         }else{
             self.mobileAndIsdStack.isHidden = true
@@ -257,6 +273,9 @@ class AddPassengerDetailsCell: UITableViewCell {
             preSelectedCountry = current
             flagImage.image = current.flagImage
             isdLabel.text = current.countryCode
+            GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].maxContactLimit = current.maxNSN
+            GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].minContactLimit = current.minNSN
+            
         }
          self.mobileTextField.text = GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].contact
     }
@@ -268,14 +287,11 @@ class AddPassengerDetailsCell: UITableViewCell {
             self.firstNameTextField.isError = true
             let firstName = "First Name"
             self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeRed])
-            
         }else if !(self.firstNameTextField.text ?? "").isName{
             self.firstNameTextField.isError = true
-            let firstName = "Invalid First Name"
+            let firstName = "First Name"
             self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeRed])
-
-        }
-        else{
+        }else{
             self.firstNameTextField.isError = false
             let firstName = "First Name"
             self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray40])
@@ -285,12 +301,10 @@ class AddPassengerDetailsCell: UITableViewCell {
             self.lastNameTextField.isError = true
             let lastName = "last Name"
             self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: lastName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeRed])
-            
         }else if !(self.lastNameTextField.text ?? "").isName{
             self.lastNameTextField.isError = true
-            let lastName = "Invalid Last Name"
+            let lastName = "Last Name"
             self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: lastName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeRed])
-
         }
         else{
             self.lastNameTextField.isError = false
@@ -483,7 +497,7 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
         case self.passportExpiryTextField:
             self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
             let selected = (textField.text ?? "").toDate(dateFormat: "dd MMM YYYY")
-            let minDate = self.journeyEndDate.add(days: 1)
+            let minDate = self.journeyEndDate//.add(days: 1)
             PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd MMM YYYY", mode: .date, minimumDate: minDate, maximumDate: nil, selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { [unowned self] (dateStr) in
                 textField.text = dateStr
                 if let date = dateStr.toDate(dateFormat: "dd MMM yyyy"){

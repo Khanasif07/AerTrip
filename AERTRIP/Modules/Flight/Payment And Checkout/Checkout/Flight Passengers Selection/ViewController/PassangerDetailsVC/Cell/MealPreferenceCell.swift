@@ -16,7 +16,7 @@ class MealPreferenceCell: UITableViewCell {
     @IBOutlet weak var numberView: UIView!
     @IBOutlet weak var programTextField: UITextField!
     @IBOutlet weak var numberTextField: UITextField!
-    @IBOutlet weak var bottomSeparatorView: UIView!
+    @IBOutlet weak var bottomSeparatorView: ATDividerView!
     @IBOutlet weak var leadingOfSeparatorView: NSLayoutConstraint!
     @IBOutlet weak var trailingOfSeparatorView: NSLayoutConstraint!
     @IBOutlet weak var titleTopConstraint: NSLayoutConstraint!
@@ -46,6 +46,7 @@ class MealPreferenceCell: UITableViewCell {
         programTextField.font = AppFonts.Regular.withSize(18)
         numberTextField.font = AppFonts.Regular.withSize(18)
         numberTextField.setUpAttributedPlaceholder(placeholderString: "Number", with: "", foregroundColor: AppColors.themeBlack)
+        self.bottomSeparatorView.backgroundColor = AppColors.divider.color
         numberTextField.delegate = self
         programTextField.delegate = self
         

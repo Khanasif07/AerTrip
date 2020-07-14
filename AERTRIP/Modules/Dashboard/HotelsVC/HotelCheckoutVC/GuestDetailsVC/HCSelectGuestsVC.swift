@@ -435,7 +435,9 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
                 GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].apiId = oldValue.apiId
             }
             
-            
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].mealPreference = oldValue.mealPreference
+
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].frequentFlyer = oldValue.frequentFlyer
             
             // self.selectNextGuest()
             //            self.selectedContactsCollectionView.performBatchUpdates({
@@ -493,6 +495,9 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
                 GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].apiId = oldValue.apiId
             }
     
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].mealPreference = oldValue.mealPreference
+
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].frequentFlyer = oldValue.frequentFlyer
             self.selectNextGuest()
             //            self.selectedContactsCollectionView.performBatchUpdates({
             //                self.selectedContactsCollectionView.insertItems(at: [idx])

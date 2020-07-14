@@ -23,6 +23,7 @@ class OfflineDepositeTextImageCell: UITableViewCell {
     @IBOutlet weak var titleTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
     var isHiddenButton: Bool = false {
         didSet {
             self.manageButton()

@@ -379,6 +379,7 @@ extension FlightPaymentVC{
                 printDebug("FinalAmountTableViewCell not found")
                 return UITableViewCell()
             }
+            finalAmountCell.dividerView.isHidden = true
             if self.isCouponApplied {
                 if let discountBreakUp = self.viewModel.appliedCouponData.discountsBreakup {
                     // Net Effective fare

@@ -24,10 +24,10 @@ class NewAccountLedgerEventCell: UITableViewCell {
     @IBOutlet weak var detailContainerView: UIView!
     @IBOutlet weak var voucherTitleLabel: UILabel!
     @IBOutlet weak var voucherValueLabel: UILabel!
-//    @IBOutlet weak var amountTitleLabel: UILabel!
-//    @IBOutlet weak var amountValueLabel: UILabel!
     @IBOutlet weak var balanceTitleLabel: UILabel!
     @IBOutlet weak var balanceValueLabel: UILabel!
+    @IBOutlet weak var containerTopConstrain: NSLayoutConstraint!
+    @IBOutlet weak var containerBottomConstaint: NSLayoutConstraint!
     
     var event: AccountDetailEvent? {
         didSet {
@@ -65,9 +65,7 @@ class NewAccountLedgerEventCell: UITableViewCell {
         self.mainContainerView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize(width: 0, height: -1), opacity: 1, shadowRadius: 8.0)
 
         self.backgroundColor = AppColors.themeWhite
-        
-        //self.dividerView.defaultHeight = 0.5
-        
+
         self.titleLabel.font = AppFonts.Regular.withSize(18.0)
         
         self.titleLabel.textColor = AppColors.themeBlack
@@ -75,24 +73,17 @@ class NewAccountLedgerEventCell: UITableViewCell {
         self.isSelectable = false
         self.voucherValueLabel.text = ""
         self.voucherTitleLabel.font = AppFonts.Regular.withSize(18.0)
-//        self.amountTitleLabel.font = AppFonts.Regular.withSize(14.0)
         self.balanceTitleLabel.font = AppFonts.Regular.withSize(18.0)
         
         self.voucherValueLabel.font = AppFonts.Regular.withSize(14.0)
-//        self.amountValueLabel.font = AppFonts.Regular.withSize(18.0)
         self.balanceValueLabel.font = AppFonts.Regular.withSize(14.0)
         
         self.voucherTitleLabel.textColor = AppColors.themeBlack
-//        self.amountTitleLabel.textColor = AppColors.themeGray40
         self.balanceTitleLabel.textColor = AppColors.themeBlack
-        
-         
         self.voucherValueLabel.textColor = AppColors.themeGray40
-//        self.amountValueLabel.font = AppFonts.Regular.withSize(18.0)
         self.balanceValueLabel.textColor = AppColors.themeGray40
         
         self.voucherTitleLabel.text = LocalizedString.Voucher.localized
-//        self.amountTitleLabel.text = LocalizedString.Amount.localized
         self.balanceTitleLabel.text = LocalizedString.Balance.localized
     }
     
@@ -118,8 +109,6 @@ class NewAccountLedgerEventCell: UITableViewCell {
         
         self.voucherTitleLabel.text = self.event?.voucherName ?? ""
         self.balanceTitleLabel.attributedText = (self.event?.amount ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
-//        self.amountValueLabel.attributedText = (self.event?.amount ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
-        
         let mutableText = NSMutableAttributedString(string: "Closing Balance : -", attributes: [.font: AppFonts.Regular.withSize(12), .foregroundColor: AppColors.themeGray40])
         mutableText.append((self.event?.balance ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(12.0)))
         self.balanceValueLabel.attributedText = mutableText//(self.event?.balance ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(12.0))

@@ -142,6 +142,8 @@
             <connections>
                 <outlet property="balanceTitleLabel" destination="tzy-op-FT4" id="q6X-A5-l8T"/>
                 <outlet property="balanceValueLabel" destination="8G1-Tg-U2o" id="hPA-tW-7tH"/>
+                <outlet property="containerBottomConstaint" destination="kTk-fv-Qtt" id="QTQ-Gl-iCE"/>
+                <outlet property="containerTopConstrain" destination="xPy-lR-bWR" id="RH7-xl-bU1"/>
                 <outlet property="detailContainerView" destination="wIz-5X-9du" id="IZM-7w-dBV"/>
                 <outlet property="dividerView" destination="31c-MX-IhA" id="vii-8z-PKx"/>
                 <outlet property="headerContainerView" destination="r4e-90-qaI" id="bWo-be-ugE"/>

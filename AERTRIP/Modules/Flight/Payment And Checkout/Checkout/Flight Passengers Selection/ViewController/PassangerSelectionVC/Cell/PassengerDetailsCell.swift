@@ -153,9 +153,9 @@ class PassengerDetailsCell: UICollectionViewCell {
     private func checkForDomestic(){
         guard let guest = self.contact else {return}
         switch guest.passengerType{
-        case .Adult, .child:
+        case .Adult:
             break;
-        case .infant:
+        case .infant, .child:
             if guest.displayDob.isEmpty{
                 infoImageView.isHidden = false
             }
@@ -170,7 +170,7 @@ class PassengerDetailsCell: UICollectionViewCell {
             GuestDetailsVM.shared.guests[0][indx.row].countryCode = "In"
         }
         if infoImageView.isHidden{
-            infoImageView.isHidden = !(guest.displayDob.isEmpty || guest.nationality.isEmpty || guest.passportNumber.isEmpty || guest.displayPsprtExpDate.isEmpty)
+            infoImageView.isHidden = !(guest.displayDob.isEmpty || guest.passportNumber.isEmpty || guest.displayPsprtExpDate.isEmpty)//|| guest.nationality.isEmpty
         }
         
     }

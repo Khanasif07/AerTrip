@@ -1005,7 +1005,7 @@ extension AppFlowManager {
         ob.viewModel.bookingDetail = bookingDetail
         ob.viewModel.tripStr = tripCities
         ob.viewModel.legSectionTap = legSectionTap
-        self.mainNavigationController.present(ob, animated: true, completion: nil)
+        self.currentNavigation?.present(ob, animated: true, completion: nil)
     }
     
     func presentBaggageInfoVC(dimension: Dimension) {
@@ -1414,14 +1414,16 @@ extension AppFlowManager {
         }
         guard newVC != nil else {return}
         let nav = (newVC?.presentingViewController as?  UINavigationController)
+//        newVC?.view.isHidden = true
         delay(seconds: 0.0) {
             if let baseVC = nav?.children.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
                 baseVC.popToPreviousScreen(sender: UIButton())
             }
-            nav?.popToRootViewController(animated: false)
+            nav?.popToRootViewController(animated: true)
         }
-        newVC?.presentingViewController?.dismiss(animated: false, completion: nil)
-        
+        delay(seconds: 0.2) {
+            newVC?.presentingViewController?.dismiss(animated: false, completion: nil)
+        }
     }
     
 }

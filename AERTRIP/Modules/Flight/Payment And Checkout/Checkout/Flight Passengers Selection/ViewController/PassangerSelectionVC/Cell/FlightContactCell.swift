@@ -23,7 +23,7 @@ class FlightContactCell: UITableViewCell {
     @IBOutlet weak var flagImageView: UIImageView!
     @IBOutlet weak var countryCodeLabel: UILabel!
     @IBOutlet weak var contactNumberTextField: PhoneNumberTextField!
-    @IBOutlet weak var dividerView: UIView!
+    @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var contactTitleLabel: UILabel!
     @IBOutlet weak var dividerViewBottomConstraint: NSLayoutConstraint!
     
@@ -63,7 +63,7 @@ class FlightContactCell: UITableViewCell {
         contactTitleLabel.font = AppFonts.Regular.withSize(14.0)
         contactTitleLabel.textColor = AppColors.themeGray40
         contactTitleLabel.text = "Mobile"
-        
+        dividerView.backgroundColor = AppColors.divider.color
          contactNumberTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
         contactNumberTextField.font = AppFonts.Regular.withSize(18.0)
         contactNumberTextField.textColor = AppColors.themeBlack

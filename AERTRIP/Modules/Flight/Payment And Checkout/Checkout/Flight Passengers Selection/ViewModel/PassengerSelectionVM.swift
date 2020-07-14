@@ -335,7 +335,6 @@ class PassengerSelectionVM  {
                 }else if !(contact.emailLabel.checkValidity(.Email)){
                     return (false, "Please fill all the passenger details")
                 }
-                
             }
         }
         if self.isdCode.isEmpty{

@@ -62,7 +62,7 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
         self.checkMarkImageView.image = #imageLiteral(resourceName: "untick")
         
         self.discountLabel.font = AppFonts.Regular.withSize(18.0)
-        self.offerTermsButton.isHidden = true
+//        self.offerTermsButton.isHidden = true
     }
     
     ///AttributeLabelSetup
