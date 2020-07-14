@@ -50,6 +50,10 @@ class AccountOnlineDepositVM: NSObject {
         if depositAmount < 1 {
             AppToast.default.showToastMessage(message: LocalizedString.DepositAmountErrorMessage.localized)
             return false
+        }else if depositAmount > self.depositItinerary?.razorpay?.validation?.maxAmount ?? 0{
+            let maxAmount = (self.depositItinerary?.razorpay?.validation?.maxAmount ?? 0.0).amountInDelimeterWithSymbol
+            AppToast.default.showToastMessage(message: "Deposit amount must be less than \(maxAmount)")
+            return false
         }
         return true
     }

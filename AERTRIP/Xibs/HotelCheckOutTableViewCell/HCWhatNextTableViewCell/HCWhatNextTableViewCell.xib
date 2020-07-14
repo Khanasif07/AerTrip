@@ -77,7 +77,7 @@
                                                     <constraint firstAttribute="height" constant="60" id="PK8-f9-rR7"/>
                                                     <constraint firstAttribute="width" secondItem="Vmz-jO-i7m" secondAttribute="height" multiplier="1:1" id="ply-RB-8vr"/>
                                                 </constraints>
-                                                <state key="normal" image="instagram"/>
+                                                <state key="normal" image="instagramNew"/>
                                                 <connections>
                                                     <action selector="instagramButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="MJy-ee-OBE"/>
                                                 </connections>
@@ -192,6 +192,6 @@
     </objects>
     <resources>
         <image name="ic_ticket_up" width="640" height="7"/>
-        <image name="instagram" width="60" height="60"/>
+        <image name="instagramNew" width="60" height="60"/>
     </resources>
 </document>

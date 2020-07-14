@@ -81,8 +81,17 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        
+        if indexPath.row == 0{
+            return 157
+        }else if indexPath.row == self.tableView.numberOfRows(inSection: indexPath.section) - 1{
+             return 157
+        }else{
+             return 149
+        }
 
-        return 149.0
+//        return 149.0
 //        let allCount = 2
 //        if (indexPath.row % allCount) == 0 {
 //            //event header cell + (for top space)
@@ -104,29 +113,13 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
         else {
             allEvent = (self.viewModel.searchedAccountDetails[self.viewModel.searchedAllDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
         }
-        
         guard !allEvent.isEmpty else {
             return UITableViewCell()
         }
-        
-        return self.getEventCell(forData: allEvent[indexPath.row])
-//        let allCount = 2
-//        if (indexPath.row % allCount) == 0 {
-//            //event header cell
-//            return self.getEventHeaderCell(forData: allEvent[Int(indexPath.row/allCount)])
-//        }
-//        else if (indexPath.row % allCount) == 1 {
-//            //event description cell
-//            let idx = Int(indexPath.row/allCount)
-//            let cell = self.getEventDescriptionCell(forData: allEvent[idx]) as! AccountDetailEventDescriptionCell
-//            cell.mainContainerBottomConstraint.constant = (idx == (allEvent.count-1)) ? 5.0 : 10.0
-//            return cell
-//        }
-//
-//        return UITableViewCell()
+        return self.getEventCell(forData: allEvent[indexPath.row], indexPath: indexPath)
     }
     
-    func getEventCell(forData: AccountDetailEvent) -> UITableViewCell {
+    func getEventCell(forData: AccountDetailEvent, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.tableView.dequeueReusableCell(withIdentifier: NewAccountLedgerEventCell.reusableIdentifier) as? NewAccountLedgerEventCell else {
             return UITableViewCell()
         }
@@ -134,6 +127,17 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
         cell.event = forData
         //cell.clipsToBounds = true
         cell.backgroundColor = AppColors.themeWhite
+        
+        if indexPath.row == 0{
+            cell.containerTopConstrain.constant = 16
+            cell.containerBottomConstaint.constant = 8
+        }else if indexPath.row == self.tableView.numberOfRows(inSection: indexPath.section) - 1{
+            cell.containerTopConstrain.constant = 8
+            cell.containerBottomConstaint.constant = 16
+        }else{
+            cell.containerTopConstrain.constant = 8
+            cell.containerBottomConstaint.constant = 8
+        }
         
         return cell
     }

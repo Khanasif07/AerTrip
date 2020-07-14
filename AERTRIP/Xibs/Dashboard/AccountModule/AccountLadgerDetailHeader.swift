@@ -104,7 +104,7 @@ class AccountLadgerDetailHeader: UIView {
             }
 //            self.titleLabel.text = event.title
             self.bookingIdKeyLabel.text = LocalizedString.BookingID.localized
-            self.bookingIdValueLabel.text = event.bookingId
+            self.bookingIdValueLabel.text = event.bookingNumber
             self.bottomDetailContainer.isHidden = false
             self.bottomDetailContainerHeightConstraint.constant = 38.0
             self.bottomContainerBottomConstraint.constant = 22.0

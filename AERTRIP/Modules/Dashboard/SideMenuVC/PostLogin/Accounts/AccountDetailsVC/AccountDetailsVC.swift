@@ -351,6 +351,7 @@ extension AccountDetailsVC: UISearchBarDelegate {
             self.currentViewState = .searching
             return false
         }
+     
         return true
     }
     
