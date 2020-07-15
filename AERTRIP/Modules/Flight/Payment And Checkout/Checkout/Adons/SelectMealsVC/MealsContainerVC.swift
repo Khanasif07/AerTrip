@@ -95,9 +95,12 @@ extension MealsContainerVC {
     
     private func setUpViewPager() {
         self.mealsContainerVM.allChildVCs.removeAll()
-        for index in 0..<AddonsDataStore.shared.flightKeys.count {
+        for index in 0..<AddonsDataStore.shared.flightsWithDataForMeals.count {
             let vc = SelectMealsdVC.instantiate(fromAppStoryboard: .Adons)
-            let initData = SelectMealsVM(vcIndex: index, currentFlightKey: AddonsDataStore.shared.flightKeys[index],addonsDetails: AddonsDataStore.shared.flightsWithData[index].meal, freeMeal : AddonsDataStore.shared.flightsWithData[index].freeMeal)
+         
+            let currentFlight = AddonsDataStore.shared.flightsWithDataForMeals[index]
+            
+            let initData = SelectMealsVM(vcIndex: index, currentFlightKey: currentFlight.flightId,addonsDetails: currentFlight.meal, freeMeal : currentFlight.freeMeal)
             vc.initializeVm(selectMealsVM : initData)
             vc.delegate = self
             self.mealsContainerVM.allChildVCs.append(vc)
@@ -176,16 +179,21 @@ extension MealsContainerVC: TopNavigationViewDelegate {
 extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControllerDelegate ,PagingViewControllerSizeDelegate{
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         
-       if let pagingIndexItem = pagingItem as? MenuItem{
-              let text = pagingIndexItem.attributedTitle
-              return (text?.size().width ?? 0) + 10
-          }
+       if let pagingIndexItem = pagingItem as? MenuItem, let text = pagingIndexItem.attributedTitle {
+           
+           
+           let attText = NSMutableAttributedString(attributedString: text)
+           attText.addAttribute(.font, value: AppFonts.SemiBold.withSize(16), range: NSRange(location: 0, length: attText.length))
+           let width = attText.widthOfText(50, font: AppFonts.SemiBold.withSize(16))
+           return 85//(width) + 10
+           
+       }
           
           return 100.0
     }
     
     func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
-        return AddonsDataStore.shared.flightKeys.count
+        return AddonsDataStore.shared.flightsWithDataForMeals.count
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
@@ -194,7 +202,7 @@ extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControlle
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
         
-        let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.flightKeys[index] }
+        let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.flightsWithDataForMeals[index].flightId }
      
         guard let firstFlight = flightAtINdex.first else {
             return MenuItem(title: "", index: index, isSelected:true)

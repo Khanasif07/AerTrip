@@ -99,10 +99,11 @@ extension BaggageContainerVC {
     
     private func setUpViewPager() {
         self.baggageContainerVM.allChildVCs.removeAll()
-        for index in 0..<AddonsDataStore.shared.flightKeys.count {
+        for index in 0..<AddonsDataStore.shared.flightsWithDataForBaggage.count {
             let vc = SelectBaggageVC.instantiate(fromAppStoryboard: .Adons)
             
-            vc.initializeVm(selectBaggageVM: SelectBaggageVM(vcIndex: index, currentFlightKey: AddonsDataStore.shared.flightKeys[index],addonsDetails: AddonsDataStore.shared.flightsWithData[index].bags))
+            let currentData = AddonsDataStore.shared.flightsWithDataForBaggage[index]
+            vc.initializeVm(selectBaggageVM: SelectBaggageVM(vcIndex: index, currentFlightKey: currentData.flightId,addonsDetails: currentData.bags))
             vc.delegate = self
             self.baggageContainerVM.allChildVCs.append(vc)
         }
@@ -178,9 +179,14 @@ extension BaggageContainerVC: PagingViewControllerDataSource , PagingViewControl
     
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         
-        if let pagingIndexItem = pagingItem as? MenuItem{
-            let text = pagingIndexItem.attributedTitle
-            return (text?.size().width ?? 0) + 10
+        if let pagingIndexItem = pagingItem as? MenuItem, let text = pagingIndexItem.attributedTitle {
+            
+            
+            let attText = NSMutableAttributedString(attributedString: text)
+            attText.addAttribute(.font, value: AppFonts.SemiBold.withSize(16), range: NSRange(location: 0, length: attText.length))
+            let width = attText.widthOfText(50, font: AppFonts.SemiBold.withSize(16))
+            return 85//(width) + 10
+            
         }
         
         return 100.0
@@ -188,7 +194,7 @@ extension BaggageContainerVC: PagingViewControllerDataSource , PagingViewControl
     
     
     func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
-        return AddonsDataStore.shared.flightKeys.count
+        return AddonsDataStore.shared.flightsWithDataForBaggage.count
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
@@ -197,7 +203,7 @@ extension BaggageContainerVC: PagingViewControllerDataSource , PagingViewControl
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
         
-        let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.flightKeys[index] }
+        let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.flightsWithDataForBaggage[index].flightId }
         guard let firstFlight = flightAtINdex.first else {
             return MenuItem(title: "", index: index, isSelected:true)
         }
