@@ -153,7 +153,7 @@ class SeatMapContainerVC: UIViewController {
         
         topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen)
         
-        topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18))
+        topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen)
         
         topNavBarView.delegate = self
     }
