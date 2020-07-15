@@ -160,9 +160,9 @@ class SeatMapContainerVC: UIViewController {
     
     private func setupViews() {
         setupApiIndicatorView()
-        planeLayoutTopSeparatorView.backgroundColor = AppColors.themeGray20
-        planeLayoutBottomSeparatorView.backgroundColor = AppColors.themeGray20
-        totalSeatAmountTopSeparatorView.backgroundColor = AppColors.themeGray20
+        planeLayoutTopSeparatorView.backgroundColor = AppColors.themeGray214
+        planeLayoutBottomSeparatorView.backgroundColor = AppColors.themeGray214
+        totalSeatAmountTopSeparatorView.backgroundColor = AppColors.themeGray214
         seatTotalTitleLbl.text = LocalizedString.seatTotal.localized
         seatTotalTitleLbl.font = AppFonts.Regular.withSize(12)
         seatTotalTitleLbl.textColor = AppColors.themeGray60
@@ -242,10 +242,10 @@ class SeatMapContainerVC: UIViewController {
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
             zIndex: Int.max - 1,
-            insets: UIEdgeInsets.zero)
+            insets: UIEdgeInsets(top: 0, left: -400, bottom: 0, right: -400))
         let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
         self.parchmentView?.register(nib, for: MenuItem.self)
-        self.parchmentView?.borderColor = AppColors.themeGray20
+        self.parchmentView?.borderColor = AppColors.themeGray214
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen

@@ -57,6 +57,9 @@ enum AppColors {
     /// RGB - 204, 204, 204
     static let themeGray20  = UIColor(displayP3Red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
     
+    /// RGB - 214, 214, 214
+    static let themeGray214  = UIColor(displayP3Red: 0.839, green: 0.839, blue: 0.839, alpha: 1)
+    
     /// RGB - 138, 138, 143, with alpha 0.22
     static let imageBackGroundColor = UIColor(displayP3Red: 0.5411764706, green: 0.5411764706, blue: 0.5607843137, alpha: 1).withAlphaComponent(0.22)
     
