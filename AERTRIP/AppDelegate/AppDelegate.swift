@@ -31,7 +31,7 @@ import UIKit
     private var reachability: Reachability?
     
     // PROPERTY FOR APPLICATION LAUNCH TYPE
-    var isApplicationForFlight = false
+    var isApplicationForFlight = true
 
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -78,7 +78,7 @@ import UIKit
         }
     }
     
-    private func setupFlightsVC() {
+    func setupFlightsVC() {
         window = UIWindow(frame: UIScreen.main.bounds)
         let homeDummyViewController = HomeDummyViewController()
         let navigationViewController = UINavigationController(rootViewController: homeDummyViewController)

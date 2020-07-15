@@ -194,49 +194,6 @@ class PassengerSelectionVM  {
         
     }
     
-    func fetchConfirmationData(){
-//        var param:JSONDictionary = ["sid": sid]
-//        
-//        if journeyType == .international{
-//            if self.intJourney == nil{
-//                param["old_farepr[]"] = self.journey?.first?.farepr ?? 0
-//                param["fk[]"] = self.journey?.first?.fk ?? ""
-//            }else{
-//                param["old_farepr[]"] = self.intJourney?.first?.farepr ?? 0
-//                param["fk[]"] = self.intJourney?.first?.fk ?? ""
-//                param["combo"] = true
-//            }
-//        }else{
-//            guard let journey = journey else{return}
-//            for i in 0..<journey.count{
-//                param["old_farepr[\(i)]"] = journey[i].farepr
-//                param["fk[\(i)]"] = journey[i].fk
-//            }
-//        }
-//        self.delegate?.startFechingConfirmationData()
-//        APICaller.shared.getConfirmation(params: param) {[weak self](success, errorCode, itineraryData) in
-//            guard let self = self else{return}
-//            if success{
-//                if let itinerary = itineraryData{
-//                    self.itineraryData = itinerary
-//                    self.id = self.itineraryData.itinerary.id
-//                    self.sid = self.itineraryData.itinerary.sid
-//                    GuestDetailsVM.shared.travellerList = self.itineraryData.itinerary.travellerMaster
-//                    if let artpt = self.itineraryData.itinerary.details.apdet{
-//                        self.intAirportDetailsResult = artpt
-//                    }
-//                    self.setupGST()
-//                }
-//            }else{
-//                debugPrint(errorCode)
-//            }
-//            self.delegate?.getResponseFromConfirmation(success, error: nil)
-//            if success{
-//                self.fetchAddonsData()
-//            }
-//        }
-    }
-    
     private func validateGST(){
         self.delegate?.startFechingGSTValidationData()
         let param = ["number":self.selectedGST.GSTInNo]

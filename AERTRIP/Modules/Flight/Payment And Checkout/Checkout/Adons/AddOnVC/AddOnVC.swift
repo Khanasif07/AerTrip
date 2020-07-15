@@ -120,8 +120,6 @@ extension AddOnVC {
         viewForFare.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         viewForFare.tag = 5100
         self.view.addSubview(viewForFare)
-        
-        self.view.addSubview(viewForFare)
         let dataStore = AddonsDataStore.shared
         let vc = IntFareBreakupVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
         vc.taxesResult = dataStore.taxesResult

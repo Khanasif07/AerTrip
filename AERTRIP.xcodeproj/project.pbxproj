@@ -1914,6 +1914,7 @@
 		1846EFD324A5AEC1001D93A2 /* PostBookingAddonsPaymentStatusVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookingAddonsPaymentStatusVM.swift; sourceTree = "<group>"; };
 		1848B86B229E8CB800310953 /* UpcomingBookingVC+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UpcomingBookingVC+CoreData.swift"; sourceTree = "<group>"; };
 		1848B86D229E8F5B00310953 /* UpcomingBookingVC+UITableViewMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UpcomingBookingVC+UITableViewMethods.swift"; sourceTree = "<group>"; };
+		184A1CF524BEFD59002F4447 /* ReciptJson.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ReciptJson.json; sourceTree = "<group>"; };
 		1851A75421C3B01A008DF03F /* SideMenuProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuProfileImageCell.swift; sourceTree = "<group>"; };
 		1851A75521C3B01A008DF03F /* SideMenuProfileImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuProfileImageCell.xib; sourceTree = "<group>"; };
 		1851A75B21C3E051008DF03F /* AppUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUserDefaults.swift; sourceTree = "<group>"; };
@@ -7718,6 +7719,7 @@
 			children = (
 				18A01E4521CA765D0071E772 /* AERTRIP.entitlements */,
 				1806329E224E2793008B1F32 /* ResponseForTesting.swift */,
+				184A1CF524BEFD59002F4447 /* ReciptJson.json */,
 				84F9837021B51A070018DFED /* AppDelegate */,
 				84F9838421B51A070018DFED /* AppHelper */,
 				84F983B821B51A070018DFED /* AppStoryboards */,

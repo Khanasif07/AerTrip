@@ -25,7 +25,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="450" height="390"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14u-Xc-BDK">
-                                <rect key="frame" x="0.0" y="0.0" width="450" height="105"/>
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="104.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use GSTIN for this booking" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbr-r2-eag">
                                         <rect key="frame" x="16" y="8" width="220.5" height="21"/>
@@ -37,7 +37,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="GSTIN cannot be updated once booking is completed" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Hb-hG-1k1">
-                                        <rect key="frame" x="16" y="31" width="327" height="58"/>
+                                        <rect key="frame" x="16" y="31" width="327" height="57.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -66,7 +66,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r6k-7O-OWj">
-                                <rect key="frame" x="0.0" y="105" width="450" height="111"/>
+                                <rect key="frame" x="0.0" y="104.5" width="450" height="111"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="duS-n6-X4W" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="16" y="0.0" width="401" height="52"/>
@@ -125,7 +125,7 @@ GSTIN - 27AAPCA3454J1Z4</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6js-92-Sum">
-                                <rect key="frame" x="0.0" y="216" width="450" height="174"/>
+                                <rect key="frame" x="0.0" y="215.5" width="450" height="174.5"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jK4-uB-dey" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="16" y="0.0" width="418" height="51"/>
@@ -153,7 +153,7 @@ GSTIN - 27AAPCA3454J1Z4</string>
                                         </constraints>
                                     </view>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1W3-vK-PKa" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="61.5" width="418" height="51"/>
+                                        <rect key="frame" x="16" y="62" width="418" height="51"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="51" id="THY-VT-Lnc"/>
                                         </constraints>
@@ -172,13 +172,13 @@ GSTIN - 27AAPCA3454J1Z4</string>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uyL-qi-2Bv" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="114.5" width="418" height="0.5"/>
+                                        <rect key="frame" x="16" y="115" width="418" height="0.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="HER-TD-pGg"/>
                                         </constraints>
                                     </view>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aqg-Xr-EIw" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="123" width="418" height="51"/>
+                                        <rect key="frame" x="16" y="123.5" width="418" height="51"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="51" id="mvj-e9-o9t"/>
                                         </constraints>
@@ -191,7 +191,7 @@ GSTIN - 27AAPCA3454J1Z4</string>
                                     <constraint firstItem="aqg-Xr-EIw" firstAttribute="leading" secondItem="6js-92-Sum" secondAttribute="leading" constant="16" id="0fa-ps-pXe"/>
                                     <constraint firstAttribute="trailing" secondItem="1W3-vK-PKa" secondAttribute="trailing" constant="16" id="97g-rb-j5a"/>
                                     <constraint firstItem="aqg-Xr-EIw" firstAttribute="top" secondItem="uyL-qi-2Bv" secondAttribute="bottom" constant="8" id="Eqg-8B-36R"/>
-                                    <constraint firstItem="1W3-vK-PKa" firstAttribute="top" secondItem="Q8Z-M6-2UH" secondAttribute="bottom" constant="8" id="FHX-HU-OiO"/>
+                                    <constraint firstItem="1W3-vK-PKa" firstAttribute="top" secondItem="Q8Z-M6-2UH" secondAttribute="bottom" constant="8.5" id="FHX-HU-OiO"/>
                                     <constraint firstAttribute="trailing" secondItem="jK4-uB-dey" secondAttribute="trailing" constant="16" id="Jhc-Xq-CeE"/>
                                     <constraint firstItem="Q8Z-M6-2UH" firstAttribute="trailing" secondItem="jK4-uB-dey" secondAttribute="trailing" id="NGA-Ry-cIx"/>
                                     <constraint firstItem="Q8Z-M6-2UH" firstAttribute="top" secondItem="jK4-uB-dey" secondAttribute="bottom" constant="2" id="OV5-Ps-5y8"/>

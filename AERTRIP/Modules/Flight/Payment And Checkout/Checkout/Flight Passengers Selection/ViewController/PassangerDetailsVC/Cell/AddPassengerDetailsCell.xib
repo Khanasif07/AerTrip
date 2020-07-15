@@ -188,7 +188,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="82" height="60"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ju2-y3-Iyd">
-                                                                <rect key="frame" x="0.0" y="7" width="35.5" height="18"/>
+                                                                <rect key="frame" x="0.0" y="11.5" width="35.5" height="18"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="18" id="gwL-hQ-5Ma"/>
                                                                 </constraints>
@@ -222,7 +222,7 @@
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="Ge5-IG-E8L" secondAttribute="bottom" id="1Hs-yF-8jf"/>
-                                                            <constraint firstItem="ju2-y3-Iyd" firstAttribute="top" secondItem="EPY-qX-PWK" secondAttribute="top" constant="7" id="2oE-Na-dc9"/>
+                                                            <constraint firstItem="ju2-y3-Iyd" firstAttribute="top" secondItem="EPY-qX-PWK" secondAttribute="top" constant="11.5" id="2oE-Na-dc9"/>
                                                             <constraint firstItem="ju2-y3-Iyd" firstAttribute="leading" secondItem="EPY-qX-PWK" secondAttribute="leading" id="7Rn-5Z-lE7"/>
                                                             <constraint firstAttribute="trailing" secondItem="aak-Zl-IA1" secondAttribute="trailing" id="FKY-RW-1M9"/>
                                                             <constraint firstItem="aak-Zl-IA1" firstAttribute="centerY" secondItem="Khh-VN-0cL" secondAttribute="centerY" id="KU2-W3-rGf"/>

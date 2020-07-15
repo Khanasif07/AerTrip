@@ -17,6 +17,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="35"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="him-BO-BJo">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="0.5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="Oa6-HJ-pEB"/>
+                        </constraints>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="diO-8x-peb" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.5" width="320" height="0.5"/>
                         <constraints>
@@ -33,6 +40,9 @@
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="zBI-56-cXR" secondAttribute="bottom" id="9h7-Ld-AZt"/>
                     <constraint firstItem="diO-8x-peb" firstAttribute="top" secondItem="G3Q-2e-U0a" secondAttribute="top" constant="0.5" id="Gkz-mO-DwP"/>
+                    <constraint firstItem="him-BO-BJo" firstAttribute="leading" secondItem="G3Q-2e-U0a" secondAttribute="leading" id="MzG-FX-ON2"/>
+                    <constraint firstAttribute="trailing" secondItem="him-BO-BJo" secondAttribute="trailing" id="Wjt-W3-hcc"/>
+                    <constraint firstItem="him-BO-BJo" firstAttribute="top" secondItem="G3Q-2e-U0a" secondAttribute="top" id="ahN-cI-ZwA"/>
                     <constraint firstAttribute="trailing" secondItem="zBI-56-cXR" secondAttribute="trailing" id="eqb-0H-o7s"/>
                     <constraint firstItem="diO-8x-peb" firstAttribute="leading" secondItem="G3Q-2e-U0a" secondAttribute="leading" id="pEn-E2-sji"/>
                     <constraint firstItem="zBI-56-cXR" firstAttribute="leading" secondItem="G3Q-2e-U0a" secondAttribute="leading" id="qob-Pd-ZqC"/>
@@ -44,7 +54,7 @@
                 <outlet property="bottomDividerView" destination="zBI-56-cXR" id="Je5-Aq-ze8"/>
                 <outlet property="topDividerView" destination="diO-8x-peb" id="f94-ON-E5W"/>
             </connections>
-            <point key="canvasLocation" x="-286" y="-110"/>
+            <point key="canvasLocation" x="-26" y="-114"/>
         </tableViewCell>
     </objects>
 </document>
