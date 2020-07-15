@@ -62,7 +62,7 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
         self.checkMarkImageView.image = #imageLiteral(resourceName: "untick")
         
         self.discountLabel.font = AppFonts.Regular.withSize(18.0)
-//        self.offerTermsButton.isHidden = true
+        self.offerTermsButton.isHidden = true
     }
     
     ///AttributeLabelSetup
@@ -127,7 +127,14 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
         self.couponInfoTextView.attributedText = self.bulletedCouponsDetails(discountDetails: discountText, instantCashBack: currentCoupon.discountBreakUp?.CPD ?? 0.0, walletCashBack: (currentCoupon.discountBreakUp?.CACB ?? 0))
         self.couponInfoTextView.asStylizedPrice(text: Double(currentCoupon.discountBreakUp?.CPD ?? 0.0).amountInDelimeterWithSymbol, using: AppFonts.Regular.withSize(18.0))
         self.couponInfoTextView.asStylizedPrice(text: Double(currentCoupon.discountBreakUp?.CACB ?? 0).amountInDelimeterWithSymbol, using: AppFonts.Regular.withSize(18.0))
-
+        if discountText.count < 3{
+            self.offerTermsButton.setTitle("", for: .normal)
+            offerTermsButton.isHidden = true
+        }else{
+            self.offerTermsButton.setTitle(LocalizedString.OfferTerms.localized, for: .normal)
+             offerTermsButton.isHidden = false
+        }
+       
 
        // self.couponInfoTextView.AttributedParagraphSpacing(paragraphSpacing: 10)
     }

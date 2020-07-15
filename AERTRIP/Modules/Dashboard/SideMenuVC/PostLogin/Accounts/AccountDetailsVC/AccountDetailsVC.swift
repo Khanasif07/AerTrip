@@ -134,7 +134,7 @@ class AccountDetailsVC: BaseVC {
         self.manageHeader(animated: false)
         //Chnage for blur header
         self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
-        topNavView.backgroundColor = AppColors.clear
+//        topNavView.backgroundColor = AppColors.clear
 //        delay(seconds: 0.4) { [weak self] in
 //            self?.getAccountDetailsSuccess()
 //        }
@@ -270,6 +270,7 @@ class AccountDetailsVC: BaseVC {
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             if index == 0 {
                 //email tapped
+                AppToast.default.showToastMessage(message: "Sending email")
                 self.viewModel.sendEmailForLedger(onVC: self)
             } else {
                 //download pdf tapped

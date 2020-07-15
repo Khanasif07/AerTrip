@@ -104,10 +104,11 @@ class AddPassengerDetailsCell: UITableViewCell {
             txtFld?.isSingleTextField = false
             txtFld?.delegate = self
             txtFld?.titleFont = AppFonts.Regular.withSize(14)
-            txtFld?.setUpAttributedPlaceholder(placeholderString: titleArray[index],with: "", foregroundColor: AppColors.themeGray20)
+            txtFld?.setUpAttributedPlaceholder(placeholderString: titleArray[index],with: "", foregroundColor: AppColors.themeGray40)
             txtFld?.font = AppFonts.Regular.withSize(18.0)
             txtFld?.textColor = AppColors.textFieldTextColor51
             txtFld?.lineViewBottomSpace = 0.5
+            txtFld?.titleTextColour = AppColors.themeGray40
             txtFld?.titleActiveTextColour = AppColors.themeGreen
             if txtFld != emailTextField || txtFld != mobileTextField{
                 txtFld?.selectedLineColor = AppColors.divider.color

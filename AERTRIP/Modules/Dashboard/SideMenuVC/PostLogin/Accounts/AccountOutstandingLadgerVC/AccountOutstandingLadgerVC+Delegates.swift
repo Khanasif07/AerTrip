@@ -29,7 +29,12 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30//section == 0 ? 44 : 46
+        if tableView == self.tableView{
+           return 30//section == 0 ? 44 : 46
+        }else{
+            return CGFloat.leastNonzeroMagnitude
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -103,14 +108,14 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
         }
         
         if let event = event {
-            let cell = self.getEventDescriptionCell(forData: event) as! AccountOutstandingEventDescriptionCell
+            let cell = self.getEventDescriptionCell(forData: event, index: indexPath, table: tableView) as! AccountOutstandingEventDescriptionCell
             return cell
         }
         
         return UITableViewCell()
     }
     
-    func getEventDescriptionCell(forData: AccountDetailEvent) -> UITableViewCell {
+    func getEventDescriptionCell(forData: AccountDetailEvent,  index: IndexPath, table: UITableView) -> UITableViewCell {
         guard let cell = self.tableView.dequeueReusableCell(withIdentifier: AccountOutstandingEventDescriptionCell.reusableIdentifier) as? AccountOutstandingEventDescriptionCell else {
             return UITableViewCell()
         }
@@ -126,6 +131,22 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
         //        cell.clipsToBounds = true
         //        cell.backgroundColor = AppColors.themeWhite
         cell.mainContainerView.backgroundColor = AppColors.themeWhite
+        
+        if table === self.tableView{
+            if index.row == 0 &&  index.row == self.tableView.numberOfRows(inSection: index.section) - 1{
+                cell.containerTopConstraint.constant = 16
+                cell.mainContainerBottomConstraint.constant = 16
+            }else if index.row == 0{
+                cell.containerTopConstraint.constant = 16
+                cell.mainContainerBottomConstraint.constant = 8
+            }else if index.row == self.tableView.numberOfRows(inSection: index.section) - 1{
+                cell.containerTopConstraint.constant = 8
+                cell.mainContainerBottomConstraint.constant = 16
+            }else{
+                cell.containerTopConstraint.constant = 8
+                cell.mainContainerBottomConstraint.constant = 8
+            }
+        }
         
         return cell
     }

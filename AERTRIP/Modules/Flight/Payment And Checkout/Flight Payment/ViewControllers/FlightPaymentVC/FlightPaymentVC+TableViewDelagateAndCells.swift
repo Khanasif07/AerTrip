@@ -202,7 +202,7 @@ extension FlightPaymentVC{
                 return 0
             }
         case 5: // term and privacy cell
-            return 115.0
+            return 80//115
         default:
             return 44
         }
@@ -406,6 +406,7 @@ extension FlightPaymentVC{
             guard let termAndPrivacCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: TermAndPrivacyTableViewCell.reusableIdentifier, for: indexPath) as? TermAndPrivacyTableViewCell else {
                 return UITableViewCell()
             }
+            termAndPrivacCell.currentUsingFrom = .flightCheckOut
             return termAndPrivacCell
         default:
             return UITableViewCell()

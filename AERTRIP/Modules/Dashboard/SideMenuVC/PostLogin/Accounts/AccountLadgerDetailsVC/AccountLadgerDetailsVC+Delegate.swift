@@ -57,7 +57,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.section == self.viewModel.ladgerDetails.count + 1{
             switch indexPath.row {
-            case 0: return 28
+            case 0: return 27
             case 1: return 44
             case 2: return 35
             default: return 0

@@ -290,6 +290,7 @@ class AccountOutstandingLadgerVC: BaseVC {
             }
             else if index == 1 {
                 //email tapped
+                AppToast.default.showToastMessage(message: "Sending email")
                 self.viewModel.sendEmailForLedger(onVC: self)
             }
             else {

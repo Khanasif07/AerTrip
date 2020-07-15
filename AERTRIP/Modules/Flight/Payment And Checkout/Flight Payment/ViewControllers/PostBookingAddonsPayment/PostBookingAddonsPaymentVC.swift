@@ -501,7 +501,7 @@ extension PostBookingAddonsPaymentVC{
         case 2: // total amount Cell
             return 46.0
         case 3: // term and privacy cell
-            return 115.0
+            return 80//115.0
         default:
             return 44
         }
@@ -631,6 +631,7 @@ extension PostBookingAddonsPaymentVC{
             guard let termAndPrivacCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: TermAndPrivacyTableViewCell.reusableIdentifier, for: indexPath) as? TermAndPrivacyTableViewCell else {
                 return UITableViewCell()
             }
+             termAndPrivacCell.currentUsingFrom = .flightCheckOut
             return termAndPrivacCell
         default:
             return UITableViewCell()
