@@ -39,7 +39,7 @@ extension APICaller {
                 completionBlock(nil, [])
             }
             else {
-                
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.default.message)
             }
         }
     }
@@ -71,7 +71,7 @@ extension APICaller {
                 completionBlock(nil, [])
             }
             else {
-                
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.default.message)
             }
         }
     }
