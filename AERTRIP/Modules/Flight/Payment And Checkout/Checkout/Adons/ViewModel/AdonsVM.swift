@@ -68,7 +68,6 @@ class AdonsVM  {
         }else{
             return ""
         }
-        
       }
         
     var isFreeSeatsAdded : Bool {

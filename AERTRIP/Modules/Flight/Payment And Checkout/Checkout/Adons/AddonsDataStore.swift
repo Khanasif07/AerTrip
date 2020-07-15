@@ -13,7 +13,7 @@ class AddonsDataStore {
      static let shared = AddonsDataStore()
      var itinerary = FlightItinerary()
 
-     var allFlights : [IntFlightDetail] = []
+    var allFlights : [IntFlightDetail] = []
      var addonsMaster = AddonsMaster()
     
     var flightKeys : [String] = []
@@ -40,7 +40,6 @@ class AddonsDataStore {
     var originalSeatMapModel: SeatMapModel?
     var seatsAllFlightsData: [SeatMapModel.SeatMapFlight]?
     
-
     
     init(){
         
@@ -61,11 +60,15 @@ class AddonsDataStore {
         allFlights = itinerary.details.legsWithDetail.flatMap {
                return $0.flightsWithDetails
          }
+
+        
         
         flightsWithData = addonsMaster.legs.flatMap {
             return $0.value.flight
         }
-                
+        
+        self.sortFlightsData()
+        
 //        flightsWithData[0].meal.addonsArray.removeAll()
 //        flightsWithData[1].bags.addonsArray.removeAll()
 //        flightsWithData[0].bags.addonsArray.removeAll()
@@ -99,6 +102,20 @@ class AddonsDataStore {
 //       setUpForCheckingMeal()
         
      }
+    
+    func sortFlightsData(){
+        var flightsWithAddonsData :[AddonsFlight] = []
+
+        allFlights.forEach { (fli) in
+            if let flightInd = flightsWithData.firstIndex(where: { (flight) -> Bool in
+                flight.flightId == fli.ffk
+            }) {
+                flightsWithAddonsData.append(flightsWithData[flightInd])
+            }
+        }
+        
+        flightsWithData = flightsWithAddonsData
+    }
     
     func setUpForCheckingMeal() {
         if flightsWithData.isEmpty { return }
