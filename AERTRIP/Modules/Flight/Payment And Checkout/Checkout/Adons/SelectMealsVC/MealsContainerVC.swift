@@ -129,14 +129,12 @@ extension MealsContainerVC {
             self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 53)
             self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
            self.parchmentView?.borderOptions = PagingBorderOptions.visible(
-            height: 0.5,
-            zIndex: Int.max - 1,
-            insets: UIEdgeInsets(top: 0, left: -400, bottom: 0, right: -400))
+            height: 0.5, zIndex: Int.max - 1, insets: UIEdgeInsets(top: 0, left: -400, bottom: 0, right: -400))
         }
         
         let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
         self.parchmentView?.register(nib, for: MenuItem.self)
-        self.parchmentView?.borderColor = AppColors.themeGray20
+        self.parchmentView?.borderColor = AppColors.themeGray214
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen

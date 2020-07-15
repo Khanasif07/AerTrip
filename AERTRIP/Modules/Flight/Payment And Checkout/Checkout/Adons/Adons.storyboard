@@ -483,14 +483,14 @@ get upto 20% off </string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yXU-ui-NKd">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="-1" width="375" height="668"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="yXU-ui-NKd" firstAttribute="leading" secondItem="69b-aS-LoE" secondAttribute="leading" id="Lfd-pl-M2G"/>
-                            <constraint firstItem="yXU-ui-NKd" firstAttribute="top" secondItem="69b-aS-LoE" secondAttribute="top" id="VUl-mu-HT3"/>
+                            <constraint firstItem="yXU-ui-NKd" firstAttribute="top" secondItem="69b-aS-LoE" secondAttribute="top" constant="-1" id="VUl-mu-HT3"/>
                             <constraint firstItem="yXU-ui-NKd" firstAttribute="trailing" secondItem="69b-aS-LoE" secondAttribute="trailing" id="i3T-bo-lYn"/>
                             <constraint firstAttribute="bottom" secondItem="yXU-ui-NKd" secondAttribute="bottom" id="ulN-1H-ybu"/>
                         </constraints>
@@ -633,7 +633,7 @@ get upto 20% off </string>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQU-qF-dBb">
-                                            <rect key="frame" x="32" y="38" width="42" height="21"/>
+                                            <rect key="frame" x="21" y="38" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -692,7 +692,7 @@ get upto 20% off </string>
                                         <constraint firstItem="w6n-na-BjU" firstAttribute="top" secondItem="ZcR-Q9-RV0" secondAttribute="bottom" id="lHg-8z-DxV"/>
                                         <constraint firstItem="w6n-na-BjU" firstAttribute="leading" secondItem="Jf1-lq-BgG" secondAttribute="leading" constant="16" id="nwq-7h-t2y"/>
                                         <constraint firstItem="Zc5-Vh-va4" firstAttribute="leading" secondItem="Jf1-lq-BgG" secondAttribute="leading" constant="16" id="odn-Dw-a5l"/>
-                                        <constraint firstItem="FQU-qF-dBb" firstAttribute="leading" secondItem="ZcR-Q9-RV0" secondAttribute="leading" constant="16" id="oqX-t2-zmi"/>
+                                        <constraint firstItem="FQU-qF-dBb" firstAttribute="leading" secondItem="ZcR-Q9-RV0" secondAttribute="leading" constant="5" id="oqX-t2-zmi"/>
                                         <constraint firstAttribute="trailing" secondItem="ZcR-Q9-RV0" secondAttribute="trailing" constant="16" id="r5Q-VB-d3p"/>
                                     </constraints>
                                 </view>

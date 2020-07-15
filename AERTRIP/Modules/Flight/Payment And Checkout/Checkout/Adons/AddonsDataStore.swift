@@ -105,7 +105,7 @@ class AddonsDataStore {
     
     func sortFlightsData(){
         var flightsWithAddonsData :[AddonsFlight] = []
-
+        
         allFlights.forEach { (fli) in
             if let flightInd = flightsWithData.firstIndex(where: { (flight) -> Bool in
                 flight.flightId == fli.ffk
