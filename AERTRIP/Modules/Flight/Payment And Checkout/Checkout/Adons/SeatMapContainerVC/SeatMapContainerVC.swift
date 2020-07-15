@@ -479,11 +479,14 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
     func didFetchSeatMapData() {
         var totalFlightsData = [SeatMapModel.SeatMapFlight]()
         viewModel.allTabsStr.removeAll()
-        viewModel.seatMapModel.data.leg.forEach {
-            let flightsArr = $0.value.flights.map { $0.value }
+        let legs = viewModel.seatMapModel.data.leg.values
+        let legValues = legs.sorted(by: { ($0.sortOrder ?? 0) < ($1.sortOrder ?? 0) })
+    
+        legValues.forEach {
+            let flightsArr = $0.flights.map { $0.value }
             totalFlightsData.append(contentsOf: flightsArr)
             
-            let flightsStr = $0.value.flights.map {
+            let flightsStr = $0.flights.map {
                 createAttHeaderTitle($0.value.fr, $0.value.to)
             }
             viewModel.allTabsStr.append(contentsOf: flightsStr)

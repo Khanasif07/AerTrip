@@ -133,6 +133,16 @@ class SeatMapContainerVM {
         model.data.leg.forEach { (lfk, legData) in
             seatMapModel.data.leg[lfk] = legData
         }
+        addSortOrderToDomesticFlights()
+    }
+    
+    private func addSortOrderToDomesticFlights() {
+        let curLegs = seatMapModel.data.leg
+        domesticLegFKs.enumerated().forEach { (index, lfk) in
+            if let _ = curLegs[lfk] {
+                seatMapModel.data.leg[lfk]?.sortOrder = index
+            }
+        }
     }
     
     private func fetchPostSelectionSeatMapData() {
