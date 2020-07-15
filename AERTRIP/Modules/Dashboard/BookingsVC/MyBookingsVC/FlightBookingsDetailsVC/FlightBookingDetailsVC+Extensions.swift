@@ -414,7 +414,13 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     
     func openWebCheckin() {
         // TODO: - Need to test with when web url is present
-        self.webCheckinServices(url: self.viewModel.bookingDetail?.webCheckinUrl ?? "")
+        if (self.viewModel.bookingDetail?.additionalInformation?.webCheckins.count ?? 0) > 1 {
+          AppFlowManager.default.moveToBookingWebCheckinVC(contactInfo: self.viewModel.bookingDetail?.additionalInformation?.contactInfo, webCheckins: self.viewModel.bookingDetail?.additionalInformation?.webCheckins ?? [])
+        } else {
+            self.webCheckinServices(url: self.viewModel.bookingDetail?.webCheckinUrl ?? "")
+        }
+        
+        
     }
     
     func openDirections() {

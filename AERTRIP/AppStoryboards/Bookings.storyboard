@@ -1434,7 +1434,7 @@ with us!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VFV-74-SYD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1220" y="958"/>
+            <point key="canvasLocation" x="1238" y="956"/>
         </scene>
         <!--Booking InvoiceVC-->
         <scene sceneID="IFP-by-mAe">
@@ -1713,7 +1713,7 @@ with us!</string>
                                     <constraint firstItem="Rz5-CJ-M9I" firstAttribute="top" secondItem="3gf-7P-PE4" secondAttribute="bottom" constant="3" id="gnl-of-ID0"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="B6p-KS-kHc" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="35" translatesAutoresizingMaskIntoConstraints="NO" id="B6p-KS-kHc" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="132" width="414" height="636"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </tableView>
@@ -2822,6 +2822,67 @@ with us!</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gML-do-s60" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2251" y="-546"/>
+        </scene>
+        <!--Web CheckinVC-->
+        <scene sceneID="8Ds-Ct-ZpK">
+            <objects>
+                <viewController storyboardIdentifier="WebCheckinVC" id="iAZ-DO-tQN" customClass="WebCheckinVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="41G-Ed-7WT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HMM-pG-g2c" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aWx-Zi-Cjw" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="YXn-wh-tkj"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cdN-nF-cPw" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2jv-2g-KyQ" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="414" height="0.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="6a4-b9-e25"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="cdN-nF-cPw" firstAttribute="leading" secondItem="r8J-gx-Hes" secondAttribute="leading" id="5id-cj-rhv"/>
+                            <constraint firstItem="aWx-Zi-Cjw" firstAttribute="bottom" secondItem="HMM-pG-g2c" secondAttribute="bottom" id="Gpn-1W-FS9"/>
+                            <constraint firstAttribute="bottom" secondItem="cdN-nF-cPw" secondAttribute="bottom" id="JdA-n2-RGy"/>
+                            <constraint firstItem="2jv-2g-KyQ" firstAttribute="leading" secondItem="r8J-gx-Hes" secondAttribute="leading" id="K2w-uZ-XNZ"/>
+                            <constraint firstItem="aWx-Zi-Cjw" firstAttribute="top" secondItem="r8J-gx-Hes" secondAttribute="top" id="Mpm-Lr-uE9"/>
+                            <constraint firstItem="2jv-2g-KyQ" firstAttribute="top" secondItem="aWx-Zi-Cjw" secondAttribute="bottom" id="Oce-VY-AZl"/>
+                            <constraint firstItem="cdN-nF-cPw" firstAttribute="top" secondItem="aWx-Zi-Cjw" secondAttribute="bottom" id="Qeh-di-vyy"/>
+                            <constraint firstItem="HMM-pG-g2c" firstAttribute="top" secondItem="41G-Ed-7WT" secondAttribute="top" id="cMS-HW-Qb3"/>
+                            <constraint firstItem="r8J-gx-Hes" firstAttribute="trailing" secondItem="cdN-nF-cPw" secondAttribute="trailing" id="coa-bt-HF5"/>
+                            <constraint firstItem="r8J-gx-Hes" firstAttribute="trailing" secondItem="2jv-2g-KyQ" secondAttribute="trailing" id="dMA-hp-Lda"/>
+                            <constraint firstItem="r8J-gx-Hes" firstAttribute="trailing" secondItem="aWx-Zi-Cjw" secondAttribute="trailing" id="e7Y-tz-vim"/>
+                            <constraint firstItem="aWx-Zi-Cjw" firstAttribute="leading" secondItem="r8J-gx-Hes" secondAttribute="leading" id="eUr-vR-f51"/>
+                            <constraint firstItem="HMM-pG-g2c" firstAttribute="leading" secondItem="r8J-gx-Hes" secondAttribute="leading" id="qhO-yJ-YP5"/>
+                            <constraint firstItem="HMM-pG-g2c" firstAttribute="trailing" secondItem="r8J-gx-Hes" secondAttribute="trailing" id="x0p-m0-DLy"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="r8J-gx-Hes"/>
+                    </view>
+                    <connections>
+                        <outlet property="navBarHeightConstraint" destination="YXn-wh-tkj" id="bxv-8E-Zea"/>
+                        <outlet property="topDeviderView" destination="2jv-2g-KyQ" id="plf-e5-orM"/>
+                        <outlet property="topNavBar" destination="aWx-Zi-Cjw" id="fyB-dh-AEE"/>
+                        <outlet property="webCheckinTableView" destination="cdN-nF-cPw" id="HWg-RJ-160"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sXK-h1-i7r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1872" y="956"/>
         </scene>
     </scenes>
     <resources>

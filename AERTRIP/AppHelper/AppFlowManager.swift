@@ -1072,6 +1072,15 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated: true, completion: nil)
     }
     
+    // Move To Booking Call VC
+    
+    func moveToBookingWebCheckinVC(contactInfo: ContactInfo?, webCheckins: [String] ) {
+        let obj = WebCheckinVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.viewModel.contactInfo = contactInfo
+        obj.viewModel.webCheckins = webCheckins
+        self.mainNavigationController.present(obj, animated: true, completion: nil)
+    }
+    
     // Move To Booking Invoice VC
     func moveToBookingInvoiceVC(forVoucher: Voucher) {
         let obj = BookingInvoiceVC.instantiate(fromAppStoryboard: .Bookings)

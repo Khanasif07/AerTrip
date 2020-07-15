@@ -1499,6 +1499,8 @@
 		84DD249B226734D80013F77E /* BookingPaymentDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DD2499226734D80013F77E /* BookingPaymentDetailsTableViewCell.xib */; };
 		84DD249F2267A6030013F77E /* PaymentInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD249D2267A6030013F77E /* PaymentInfoTableViewCell.swift */; };
 		84DD24A02267A6030013F77E /* PaymentInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DD249E2267A6030013F77E /* PaymentInfoTableViewCell.xib */; };
+		84E05BD824BED0EA005F6027 /* WebCheckinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E05BD724BED0EA005F6027 /* WebCheckinVC.swift */; };
+		84E05BDA24BED10D005F6027 /* WebCheckinVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E05BD924BED10D005F6027 /* WebCheckinVM.swift */; };
 		84E4BC22229BA21100B72306 /* FlightBookingsDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4BC21229BA21100B72306 /* FlightBookingsDetailsVC.swift */; };
 		84E4BC27229C622700B72306 /* DownloadingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4BC26229C622700B72306 /* DownloadingModel.swift */; };
 		84E4BC4C229E67CC00B72306 /* FlightCarriersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4BC4A229E67CC00B72306 /* FlightCarriersTableViewCell.swift */; };
@@ -3258,6 +3260,8 @@
 		84DD2499226734D80013F77E /* BookingPaymentDetailsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingPaymentDetailsTableViewCell.xib; sourceTree = "<group>"; };
 		84DD249D2267A6030013F77E /* PaymentInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentInfoTableViewCell.swift; sourceTree = "<group>"; };
 		84DD249E2267A6030013F77E /* PaymentInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentInfoTableViewCell.xib; sourceTree = "<group>"; };
+		84E05BD724BED0EA005F6027 /* WebCheckinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebCheckinVC.swift; sourceTree = "<group>"; };
+		84E05BD924BED10D005F6027 /* WebCheckinVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebCheckinVM.swift; sourceTree = "<group>"; };
 		84E4BC21229BA21100B72306 /* FlightBookingsDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightBookingsDetailsVC.swift; sourceTree = "<group>"; };
 		84E4BC26229C622700B72306 /* DownloadingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadingModel.swift; sourceTree = "<group>"; };
 		84E4BC4A229E67CC00B72306 /* FlightCarriersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightCarriersTableViewCell.swift; sourceTree = "<group>"; };
@@ -8511,6 +8515,15 @@
 			path = BookingPaymentMoneyTableViewCell;
 			sourceTree = "<group>";
 		};
+		84E05BD624BED0D3005F6027 /* WebCheckin */ = {
+			isa = PBXGroup;
+			children = (
+				84E05BD724BED0EA005F6027 /* WebCheckinVC.swift */,
+				84E05BD924BED10D005F6027 /* WebCheckinVM.swift */,
+			);
+			path = WebCheckin;
+			sourceTree = "<group>";
+		};
 		84E4BC1F229BA1D500B72306 /* OtherBookingsDetailsVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -8691,6 +8704,7 @@
 		84F2DC9122644C4300212F05 /* BookingsVC */ = {
 			isa = PBXGroup;
 			children = (
+				84E05BD624BED0D3005F6027 /* WebCheckin */,
 				18FFD1AD22A672FB0010C7DB /* BookingConfirmation */,
 				18AE8F5822A4F491009D625E /* ReviewCancellation */,
 				18FD91632296690F00D005E9 /* BookingRescheduling */,
@@ -10051,6 +10065,7 @@
 				842EDE94223931FD00E99409 /* HCCouponModel.swift in Sources */,
 				843FF4D324740231001F21B1 /* PassengersSelectionVC.swift in Sources */,
 				18DEFE7A249D114700E64260 /* PostBookingAddonsPaymentStatusVC.swift in Sources */,
+				84E05BDA24BED10D005F6027 /* WebCheckinVM.swift in Sources */,
 				842EDE812238E7D600E99409 /* SelectTripVM.swift in Sources */,
 				843FF4CA24740231001F21B1 /* FlightEmailFieldCell.swift in Sources */,
 				84BBEEAE2214261E00844034 /* HotelDetailsCancelPolicyTableCell.swift in Sources */,
@@ -10148,6 +10163,7 @@
 				841AA50E247448FC00B66720 /* Data+PrettyPrint.swift in Sources */,
 				84085CEF21F59C0E00F1E844 /* ThankYouRegistrationVC.swift in Sources */,
 				180692B82295203C00177487 /* BookingFrequentFlyerHeaderView.swift in Sources */,
+				84E05BD824BED0EA005F6027 /* WebCheckinVC.swift in Sources */,
 				84409E5E2266F969005A5487 /* CustomDotMarker.swift in Sources */,
 				8463A5682456C7B200C70D8C /* GMUGeometryCollection.m in Sources */,
 				84C0BE1E224E22850034E9EA /* HCSelectGuestsVM.swift in Sources */,
@@ -10910,7 +10926,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 102;
+				CURRENT_PROJECT_VERSION = 103;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11118,7 +11134,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 102;
+				CURRENT_PROJECT_VERSION = 103;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;

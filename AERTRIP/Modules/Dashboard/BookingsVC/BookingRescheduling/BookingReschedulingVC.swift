@@ -256,7 +256,7 @@ class BookingReschedulingVC: BaseVC {
             if !paxD.dob.isEmpty {
                 age = AppGlobals.shared.getAgeLastString(dob: paxD.dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
             }
-            var cancelationValue = self.viewModel.usingFor == .rescheduling ? paxD.rescheduleCharge : paxD.cancellationCharge
+            let cancelationValue = self.viewModel.usingFor == .rescheduling ? paxD.rescheduleCharge : paxD.cancellationCharge
             var cancelationValueText = self.viewModel.usingFor == .rescheduling ? paxD.rescheduleCharge.amountInDelimeterWithSymbol : paxD.cancellationCharge.amountInDelimeterWithSymbol
             if cancelationValue == -9{
                 cancelationValueText = "NA"
