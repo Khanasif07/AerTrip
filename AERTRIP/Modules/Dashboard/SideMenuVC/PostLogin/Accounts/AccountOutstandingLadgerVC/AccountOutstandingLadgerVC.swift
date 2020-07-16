@@ -606,13 +606,42 @@ extension AccountOutstandingLadgerVC {
 //MARK:- View model delegate methods
 //MARK:-
 extension AccountOutstandingLadgerVC: AccountOutstandingLadgerVMDelegate {
+    
+    private func showDepositOptions() {
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.PayOnline.localized, LocalizedString.PayOfflineNRegister.localized, LocalizedString.ChequeDemandDraft.localized, LocalizedString.FundTransfer.localized], colors: [AppColors.themeDarkGreen, AppColors.themeGray40, AppColors.themeDarkGreen, AppColors.themeDarkGreen])
+        
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+            
+            switch index {
+            case 0:
+                //PayOnline
+                AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .accountDeposit)
+                
+            case 2:
+                //ChequeDemandDraft
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .chequeOrDD, usingToPaymentFor: .accountDeposit, paymentModeDetail: self.viewModel.itineraryData?.chequeOrDD, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
+                printDebug("ChequeDemandDraft")
+                
+            case 3:
+                //FundTransfer
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .accountDeposit, paymentModeDetail: self.viewModel.itineraryData?.fundTransfer, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
+                printDebug("FundTransfer")
+                
+            default:
+                printDebug("no need to implement")
+            }
+        }
+    }
+    
+    
     func willGetOutstandingPayment() {
         self.manageLoader(shouldStart: true)
     }
     
     func getOutstandingPaymentSuccess() {
         self.manageLoader(shouldStart: false)
-        AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .accountDeposit)
+        showDepositOptions()
+//        AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .accountDeposit)
     }
     
     func getOutstandingPaymentFail() {

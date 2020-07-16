@@ -197,9 +197,22 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                             }
                             
                         case 1:
-                            key = self.viewModel.voucherDetailKeys[indexPath.row]
-                            value = (dict[key] as? String) ?? ""
-                            
+                            if self.viewModel.ladgerEvent?.dueDate != nil{
+                                key = self.viewModel.voucherDetailKeys[indexPath.row]
+                                value = (dict[key] as? String) ?? ""
+                            }else{
+                                key = self.viewModel.flightDetailKeys[indexPath.row]
+                                value = (dict[key] as? String) ?? ""
+                                if let model = dict[key] as? AccountUser {
+                                    value = model.name
+                                    if !model.dob.isEmpty {
+                                        age = AppGlobals.shared.getAgeLastString(dob: model.dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+                                    }
+                                }
+                                if key.contains("Names"), (key != "Names") {
+                                    key = ""
+                                }
+                            }
                         case 2:
                             key = self.viewModel.flightDetailKeys[indexPath.row]
                             value = (dict[key] as? String) ?? ""
