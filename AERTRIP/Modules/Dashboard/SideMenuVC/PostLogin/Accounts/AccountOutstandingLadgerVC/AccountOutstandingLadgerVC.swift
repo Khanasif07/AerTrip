@@ -336,7 +336,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.indicatorView.style = .white
         self.indicatorView.color = AppColors.themeWhite
         self.indicatorView.startAnimating()
-        
+        self.makePaymentTitleLabel.text = shouldStart ? "" : "Make Payment"
         self.loaderContainer.isHidden = !shouldStart
     }
     

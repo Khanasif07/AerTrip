@@ -64,7 +64,6 @@ class HCWhatNextTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.instagramButton.cornerRadius = self.instagramButton.frame.height/2
-        self.instagramButton.clipsToBounds = true
     }
     
     //Mark:- Methods

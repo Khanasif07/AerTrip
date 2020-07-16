@@ -96,6 +96,8 @@ class AddPassengerDetailsCell: UITableViewCell {
         self.optionalDetailsButton.setTitle("Optional Details", for: .normal)
         self.optionalDetailsButton.titleLabel?.font = AppFonts.Regular.withSize(14.0)
         self.guestTitleLabel.textColor = AppColors.themeBlack
+        self.isdLabel.font = AppFonts.Regular.withSize(18.0)
+        self.isdLabel.textColor = AppColors.themeBlack
         let titleArray = ["First Name", "Last Name", "Mobile", "Email", "Date of Birth", "Nationality", "Passport Number", "Passport Expiry"]
         for (index, txtFld) in [firstNameTextField, lastNameTextField, mobileTextField, emailTextField, dobTextField, nationalityTextField,passportNumberTextField, passportExpiryTextField].enumerated(){
             txtFld?.titleYPadding = 12.0
@@ -106,7 +108,7 @@ class AddPassengerDetailsCell: UITableViewCell {
             txtFld?.titleFont = AppFonts.Regular.withSize(14)
             txtFld?.setUpAttributedPlaceholder(placeholderString: titleArray[index],with: "", foregroundColor: AppColors.themeGray40)
             txtFld?.font = AppFonts.Regular.withSize(18.0)
-            txtFld?.textColor = AppColors.textFieldTextColor51
+            txtFld?.textColor = AppColors.themeBlack
             txtFld?.lineViewBottomSpace = 0.5
             txtFld?.titleTextColour = AppColors.themeGray40
             txtFld?.titleActiveTextColour = AppColors.themeGreen

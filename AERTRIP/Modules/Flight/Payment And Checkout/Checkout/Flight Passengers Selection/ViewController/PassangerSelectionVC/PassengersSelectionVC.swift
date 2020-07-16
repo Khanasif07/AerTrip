@@ -29,7 +29,6 @@ class PassengersSelectionVC: BaseVC {
         super.viewDidLoad()
         self.registerCell()
         self.viewModel.delegate = self
-//        self.viewModel.setupGuestArray()
         self.apiCall()
         self.setupFont()
         self.navigationController?.navigationBar.isHidden = true

@@ -60,7 +60,7 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         self.mainContainerView.backgroundColor = AppColors.themeWhite
 //        self.mainContainerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner ,.layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize(width: 0.0, height: 1.0), opacity: 0.7, shadowRadius: 3.0)
         
-        self.mainContainerView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+        self.mainContainerView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.3), offset: CGSize.zero, opacity: 0.5, shadowRadius: 4.0)
 
         self.amountTitleLabel.font = AppFonts.Regular.withSize(14.0)
         self.pendingTitleLabel.font = AppFonts.Regular.withSize(14.0)
