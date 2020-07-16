@@ -10,11 +10,10 @@ import UIKit
 
 class FlightsVC: BaseVC {
     // MARK: - Properties
-    var subView = HotelCheckOutDetailsVIew()
+    private var homeFlightsVC: UIViewController!
+
     // MARK: -
-    
-    @IBOutlet weak var myButton: UIButton!
-    
+        
     // MARK: - IBOutlets
     
     // MARK: -
@@ -31,17 +30,35 @@ class FlightsVC: BaseVC {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        homeFlightsVC.view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
+    }
+    
     // MARK: - Methods
     
     // MARK: - Private
     
-    private func initialSetups() {}
+    private func initialSetups() {
+        addFlightsModuleView()
+    }
+    
+    private func addFlightsModuleView() {
+        let homeFlightStoryBoard = UIStoryboard(name: "FlightForm", bundle: nil)
+        homeFlightsVC = homeFlightStoryBoard.instantiateViewController(withIdentifier: "FlightFormViewController")
+        
+        homeFlightsVC.view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
+        self.addChild(homeFlightsVC)
+        view.addSubview(homeFlightsVC.view)
+        homeFlightsVC.didMove(toParent: self)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        DispatchQueue.main.async {
+            self.navigationController?.setNavigationBarHidden(true, animated: false)
+        }
+    }
     
     // MARK: - Public
     
     // MARK: - Action
     
-    @IBAction func myButtonAction(_ sender: UIButton) {
-//        AppFlowManager.default.moveToAbortRequestVC(forCase: Case(json: [:], bookindId: ""))
-    }
 }
