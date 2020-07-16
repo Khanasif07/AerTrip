@@ -73,16 +73,16 @@ class SpecialAccountDetailsVC: BaseVC {
     private func showDepositOptions() {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.PayOnline.localized, LocalizedString.PayOfflineNRegister.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
         
-        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
-            
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] (_, index) in
+            guard let strongSelf = self else {return}
             switch index {
             case 0:
                 //PayOnline
-                AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .accountDeposit)
+                AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: strongSelf.viewModel.itineraryData, usingToPaymentFor: .accountDeposit)
                 
             case 1:
                 //PayOfflineNRegister
-                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .accountDeposit, paymentModeDetail: self.viewModel.itineraryData?.chequeOrDD, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .accountDeposit, paymentModeDetail: strongSelf.viewModel.itineraryData?.chequeOrDD, netAmount: strongSelf.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: strongSelf.viewModel.itineraryData?.bankMaster ?? [])
                 printDebug("PayOfflineNRegister")
                 
             default:

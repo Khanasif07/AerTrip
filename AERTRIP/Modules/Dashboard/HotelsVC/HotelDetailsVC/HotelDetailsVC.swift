@@ -285,49 +285,49 @@ class HotelDetailsVC: BaseVC {
         }
     }
     
-    func show(onViewController: UIViewController, sourceView: UIView, animated: Bool) {
-        self.isAddingChild = true
-        self.parentVC = onViewController
-        self.sourceView = sourceView
-        onViewController.add(childViewController: self)
-        self.setupBeforeAnimation()
-        let newY = UIApplication.shared.statusBarFrame.height + 8.0
-        self.headerTopConstraint.constant = 8.0
-        let newImageFrame = CGRect(x: 0.0, y: newY, width: self.view.width, height: hotelImageHeight)
-        let newTableFrame = CGRect(x: 0.0, y: newY, width: self.view.width, height: (self.view.height-(newY+AppFlowManager.default.safeAreaInsets.bottom)))
-        
-        self.footerView.isHidden = true
-        self.headerView.isHidden = true
-        
-        func setValue() {
-            self.imageView.frame = newImageFrame
-            self.hotelTableView.frame = newTableFrame
-            self.hotelTableView.alpha = 1.0
-            self.mainView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
-            self.view.layoutIfNeeded()
-        }
-        
-        func manageOnComplition() {
-            self.imageView.isHidden = true
-            self.footerView.isHidden = false
-            self.headerView.isHidden = false
-            self.smallLineView?.alpha = 1
-        }
-        
-        if animated {
-            let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
-                setValue()
-            }
-            animator.addCompletion { (position) in
-                manageOnComplition()
-            }
-            animator.startAnimation()
-        }
-        else {
-            setValue()
-            manageOnComplition()
-        }
-    }
+//    func show(onViewController: UIViewController, sourceView: UIView, animated: Bool) {
+//        self.isAddingChild = true
+//        self.parentVC = onViewController
+//        self.sourceView = sourceView
+//        onViewController.add(childViewController: self)
+//        self.setupBeforeAnimation()
+//        let newY = UIApplication.shared.statusBarFrame.height + 8.0
+//        self.headerTopConstraint.constant = 8.0
+//        let newImageFrame = CGRect(x: 0.0, y: newY, width: self.view.width, height: hotelImageHeight)
+//        let newTableFrame = CGRect(x: 0.0, y: newY, width: self.view.width, height: (self.view.height-(newY+AppFlowManager.default.safeAreaInsets.bottom)))
+//
+//        self.footerView.isHidden = true
+//        self.headerView.isHidden = true
+//
+//        func setValue() {
+//            self.imageView.frame = newImageFrame
+//            self.hotelTableView.frame = newTableFrame
+//            self.hotelTableView.alpha = 1.0
+//            self.mainView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+//            self.view.layoutIfNeeded()
+//        }
+//
+//        func manageOnComplition() {
+//            self.imageView.isHidden = true
+//            self.footerView.isHidden = false
+//            self.headerView.isHidden = false
+//            self.smallLineView?.alpha = 1
+//        }
+//
+//        if animated {
+//            let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+//                setValue()
+//            }
+//            animator.addCompletion { (position) in
+//                manageOnComplition()
+//            }
+//            animator.startAnimation()
+//        }
+//        else {
+//            setValue()
+//            manageOnComplition()
+//        }
+//    }
     
     func hideOnScroll() {
         self.imageView.frame = CGRect(x: 0.0, y: didsmissOnScrollPosition, width: self.imageView.frame.size.width, height: self.imageView.frame.size.height)
@@ -336,10 +336,10 @@ class HotelDetailsVC: BaseVC {
     
     func hide(animated: Bool) {
         self.imageView.isHidden = false
-        
+
         self.footerView.isHidden = true
         self.headerView.isHidden = true
-        
+
         func setValue() {
             self.imageView.frame = self.sourceFrame
             self.hotelTableView.alpha = 0.0
@@ -347,13 +347,13 @@ class HotelDetailsVC: BaseVC {
             self.mainView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
             self.view.layoutIfNeeded()
         }
-        
+
         func manageOnComplition() {
             self.removeFromParentVC
             self.headerView.isHidden = false
             self.onCloseHandler?()
         }
-        
+
         if animated {
             let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
                 setValue()
@@ -367,7 +367,7 @@ class HotelDetailsVC: BaseVC {
             setValue()
             manageOnComplition()
         }
-        
+
     }
     
      func footerViewSetUp() {
@@ -590,7 +590,7 @@ class HotelDetailsVC: BaseVC {
         if self.isAddingChild{
             self.headerView.isHidden = true
             self.smallLineView.alpha = 0
-            self.hide(animated: isHideWithAnimation)
+            //self.hide(animated: isHideWithAnimation)
         }else{
             if let cell = self.hotelTableView.cellForRow(at: [0,0]) as? HotelDetailsImgSlideCell{
                 cell.imageCollectionView.scrollToItem(at: [0,0], at: .left, animated: true)
@@ -614,7 +614,7 @@ class HotelDetailsVC: BaseVC {
             self.initialPanPoint = touchPoint
         }
         else  if (initialPanPoint.y + 10) < touchPoint.y {
-            self.hide(animated: isHideWithAnimation)
+           // self.hide(animated: isHideWithAnimation)
             initialPanPoint = touchPoint
         }
     }

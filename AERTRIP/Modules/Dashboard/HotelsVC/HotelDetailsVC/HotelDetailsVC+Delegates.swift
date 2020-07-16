@@ -446,7 +446,7 @@ extension HotelDetailsVC: HotelDetailsBedsTableViewCellDelegate {
             }else {
                 AppFlowManager.default.popToViewController(sSelf, animated: true)
             }
-            AppFlowManager.default.selectTrip(nil, tripType: .hotel) { (trip, details)  in
+            AppFlowManager.default.selectTrip(nil, tripType: .hotel) { [weak self] (trip, details)  in
                 delay(seconds: 0.3, completion: { [weak self] in
                     guard let sSelf = self else {return}
                     

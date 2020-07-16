@@ -28,7 +28,7 @@ open class PKAlertController {
         return presentedVC
     }
     
-    private var alertController: UIAlertController!
+    private var alertController: UIAlertController?
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -55,14 +55,14 @@ open class PKAlertController {
         
         // Change Title With Color and Font:
         guard let str = title else {return}
-        alertController.setValue(self.getAttributedString(string: str, font: font, color: color), forKey: "attributedTitle")
+        alertController?.setValue(self.getAttributedString(string: str, font: font, color: color), forKey: "attributedTitle")
     }
     
     private func changeControllerMessage(message: String?, font: UIFont?, color: UIColor?) {
         
         // Change Message With Color and Font:
         guard let str = message else {return}
-        alertController.setValue(self.getAttributedString(string: str, font: font, color: color), forKey: "attributedMessage")
+        alertController?.setValue(self.getAttributedString(string: str, font: font, color: color), forKey: "attributedMessage")
     }
     
     private func configureAlertAction(action: UIAlertAction, withData data: PKAlertButton) {
@@ -70,11 +70,11 @@ open class PKAlertController {
     }
     
     //MARK:- Public
-    func presentActionSheet(_ title: String?, titleFont: UIFont? = nil, titleColor: UIColor? = nil, message: String?, messageFont: UIFont? = AppFonts.Regular.withSize(14.0), messageColor: UIColor? = AppColors.themeGray40, sourceView: UIView, alertButtons: [PKAlertButton], cancelButton: PKAlertButton, tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController {
+    func presentActionSheet(_ title: String?, titleFont: UIFont? = nil, titleColor: UIColor? = nil, message: String?, messageFont: UIFont? = AppFonts.Regular.withSize(14.0), messageColor: UIColor? = AppColors.themeGray40, sourceView: UIView, alertButtons: [PKAlertButton], cancelButton: PKAlertButton, tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController? {
         
         alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         if let title = title  {
-            alertController.setValue(self.getAttributedString(string:  title, font: titleFont, color: titleColor), forKey: "attributedTitle")
+            alertController?.setValue(self.getAttributedString(string:  title, font: titleFont, color: titleColor), forKey: "attributedTitle")
         } else {
             self.changeControllerTitle(title: title, font: titleFont, color: titleColor)
         }
@@ -89,12 +89,13 @@ open class PKAlertController {
             }) {
                 handel(alert, idx)
             }
+            self.alertController = nil
         }
         
         for button in alertButtons {
             let alertAction = UIAlertAction(title: button.title, style: .default, handler: closure)
             self.configureAlertAction(action: alertAction, withData: button)
-            alertController.addAction(alertAction)
+            alertController?.addAction(alertAction)
         }
         
         //add cancel button
@@ -102,16 +103,18 @@ open class PKAlertController {
             self.dismissActionSheet()
         }
         self.configureAlertAction(action: cancelAction, withData: cancelButton)
-        alertController.addAction(cancelAction)
+        alertController?.addAction(cancelAction)
         
-        alertController.popoverPresentationController?.sourceView = sourceView
-        alertController.popoverPresentationController?.sourceRect = sourceView.bounds
-        self.topMostController?.present(alertController, animated: true, completion: nil)
+        alertController?.popoverPresentationController?.sourceView = sourceView
+        alertController?.popoverPresentationController?.sourceRect = sourceView.bounds
+        if let controller  = alertController {
+        self.topMostController?.present(controller, animated: true, completion: nil)
+        }
         return alertController
     }
     
     //MARK:- Public
-    func presentActionSheetWithTextAllignMentAndImage(_ title: String?, message: String?, sourceView: UIView, alertButtons: [PKAlertButton], cancelButton: PKAlertButton, textAlignment: CATextLayerAlignmentMode = CATextLayerAlignmentMode.center , selectedButtonIndex: Int? = 0 , tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController {
+    func presentActionSheetWithTextAllignMentAndImage(_ title: String?, message: String?, sourceView: UIView, alertButtons: [PKAlertButton], cancelButton: PKAlertButton, textAlignment: CATextLayerAlignmentMode = CATextLayerAlignmentMode.center , selectedButtonIndex: Int? = 0 , tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController? {
         
         alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         
@@ -123,6 +126,7 @@ open class PKAlertController {
             }) {
                 handel(alert, idx)
             }
+            self.alertController = nil
         }
         
         for (index,button) in alertButtons.enumerated() {
@@ -134,26 +138,28 @@ open class PKAlertController {
             } else {
                 alertAction.setValue(nil, forKey: "image")
             }
-            alertController.addAction(alertAction)
+            alertController?.addAction(alertAction)
         }
         
         //add cancel button
-        let cancelAction = UIAlertAction(title: cancelButton.title, style: .cancel) { (alert) in
-            self.dismissActionSheet()
+        let cancelAction = UIAlertAction(title: cancelButton.title, style: .cancel) { [weak self] (alert) in
+            self?.dismissActionSheet()
         }
         cancelAction.setValue(cancelButton.titleColor, forKey: "titleTextColor")
-        alertController.addAction(cancelAction)
+        alertController?.addAction(cancelAction)
         
-        alertController.popoverPresentationController?.sourceView = sourceView
-        alertController.popoverPresentationController?.sourceRect = sourceView.bounds
-        self.topMostController?.present(alertController, animated: true, completion: nil)
+        alertController?.popoverPresentationController?.sourceView = sourceView
+        alertController?.popoverPresentationController?.sourceRect = sourceView.bounds
+        if let controller  = alertController {
+            self.topMostController?.present(controller, animated: true, completion: nil)
+        }
         return alertController
     }
     
-    func presentActionSheetWithAttributed(_ title: NSMutableAttributedString?, message: NSMutableAttributedString?, sourceView: UIView, alertButtons: [PKAlertButton], cancelButton: PKAlertButton, tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController {
+    func presentActionSheetWithAttributed(_ title: NSMutableAttributedString?, message: NSMutableAttributedString?, sourceView: UIView, alertButtons: [PKAlertButton], cancelButton: PKAlertButton, tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController? {
         alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
-        alertController.setValue(title, forKey: "attributedTitle")
-        alertController.setValue(message, forKey: "attributedMessage")
+        alertController?.setValue(title, forKey: "attributedTitle")
+        alertController?.setValue(message, forKey: "attributedMessage")
         //add all alert buttons
         let closure: (UIAlertAction) -> Void = { (alert) in
             printDebug(alert.title ?? "")
@@ -162,28 +168,32 @@ open class PKAlertController {
             }) {
                 handel(alert, idx)
             }
+            self.alertController = nil
         }
         for button in alertButtons {
             let alertAction = UIAlertAction(title: button.title, style: .default, handler: closure)
             alertAction.setValue(button.titleColor, forKey: "titleTextColor")
-            alertController.addAction(alertAction)
+            alertController?.addAction(alertAction)
         }
         
         //add cancel button
-        let cancelAction = UIAlertAction(title: cancelButton.title, style: .cancel) { (alert) in
-            self.dismissActionSheet()
+        let cancelAction = UIAlertAction(title: cancelButton.title, style: .cancel) { [weak self] (alert) in
+            self?.dismissActionSheet()
         }
         cancelAction.setValue(cancelButton.titleColor, forKey: "titleTextColor")
-        alertController.addAction(cancelAction)
+        alertController?.addAction(cancelAction)
         
-        alertController.popoverPresentationController?.sourceView = sourceView
-        alertController.popoverPresentationController?.sourceRect = sourceView.bounds
-        self.topMostController?.present(alertController, animated: true, completion: nil)
+        alertController?.popoverPresentationController?.sourceView = sourceView
+        alertController?.popoverPresentationController?.sourceRect = sourceView.bounds
+        if let controller  = alertController {
+            self.topMostController?.present(controller, animated: true, completion: nil)
+        }
         return alertController
     }
     
     public func dismissActionSheet() {
-        self.alertController.dismiss(animated: true, completion: nil)
+        self.alertController?.dismiss(animated: true, completion: nil)
+        self.alertController = nil
     }
     
     //MARK:- Action

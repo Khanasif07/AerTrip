@@ -418,6 +418,7 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
           AppFlowManager.default.moveToBookingWebCheckinVC(contactInfo: self.viewModel.bookingDetail?.additionalInformation?.contactInfo, webCheckins: self.viewModel.bookingDetail?.additionalInformation?.webCheckins ?? [])
         } else {
             self.webCheckinServices(url: self.viewModel.bookingDetail?.webCheckinUrl ?? "")
+            
         }
         
         

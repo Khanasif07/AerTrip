@@ -58,7 +58,7 @@ class WebCheckinVC: BaseVC {
         guard let bookingCell = self.webCheckinTableView.dequeueReusableCell(withIdentifier: "BookingCallTableViewCell") as? BookingCallTableViewCell else {
             fatalError("BookingCallTableViewCell not found")
         }
-        bookingCell.configureCell(code: self.viewModel.airlineData[indexPath.row].airlineCode, title: self.viewModel.airlineData[indexPath.row].airlineName, phoneLabel: "", cellType: .airlines)
+        bookingCell.configureCell(code: self.viewModel.airlineData[indexPath.row].airlineCode, title: self.viewModel.airlineData[indexPath.row].airlineName, phoneLabel: "", cellType: .webcheckin)
         bookingCell.dividerView.isHidden = self.viewModel.airlineData.count - 1 == indexPath.row
         return bookingCell
     }
@@ -97,8 +97,9 @@ extension WebCheckinVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let url = self.viewModel.webCheckins[indexPath.row].toUrl else { return }
-        AppFlowManager.default.showURLOnATWebView(url, screenTitle: LocalizedString.WebCheckin.localized)
+      //  guard let url = self.viewModel.webCheckins[indexPath.row].toUrl else { return }
+      //  AppFlowManager.default.showURLOnATWebView(url, screenTitle: LocalizedString.WebCheckin.localized)
+        self.openUrl( self.viewModel.webCheckins[indexPath.row])
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
