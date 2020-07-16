@@ -134,7 +134,7 @@ extension CancelledVC: OthersBookingTableViewCellDelegate {
     func didSelectRequest(index: Int, data: BookingData) {
         if let cases = data.cases as? [String], cases.indices.contains(index) {
             var object = Case()
-            object.casedId = cases[index]
+            object.id = cases[index]
             object.bookingId = data.bookingId ?? ""
             AppFlowManager.default.moveToAddOnRequestVC(caseData: object, receipt: nil)
         }

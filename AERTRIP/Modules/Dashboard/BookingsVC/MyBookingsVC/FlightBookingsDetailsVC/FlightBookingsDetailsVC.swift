@@ -157,8 +157,9 @@ class FlightBookingsDetailsVC: BaseVC {
     
     func webCheckinServices(url: String) {
         // TODO: - Need to be synced with backend Api key
-        guard let url = url.toUrl else { return }
-        AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Web Checkin")
+        //guard let url = url.toUrl else { return }
+        //AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Web Checkin")
+        self.openUrl( url)
     }
     
     // Present Request Add on Frequent Flyer VC

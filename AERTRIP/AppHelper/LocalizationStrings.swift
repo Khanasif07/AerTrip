@@ -808,7 +808,10 @@ enum LocalizedString: String {
     case BaggageDetailsMessage
     case CharactersRemaining
     case BookAnotherRoom
-
+    case AddOnRequestPayment
+    case AddOnRequestPaymentMessage
+    case BookingPayment
+    case BookingPaymentMessage
     
     // Booking Action sheet text
     case RequestAddOnAndFrequentFlyer
@@ -926,7 +929,8 @@ enum LocalizedString: String {
     case TransferType
     case EnterUTRSwiftCode
     case DepositAmountErrorMessage
-    
+    case ModeOfPayment
+
     case Camera
     case PhotoLibrary
     case Document

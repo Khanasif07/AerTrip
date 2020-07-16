@@ -49,6 +49,7 @@ class HotelInfoAddressCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.moreBtnOutlet.isUserInteractionEnabled = true
+        addressInfoTextView.textContainer.lineBreakMode = .byTruncatingTail
     }
     // Mark:- Methods
     //==============
@@ -122,6 +123,7 @@ class HotelInfoAddressCell: UITableViewCell {
  
     
     internal func configureAddressCell(hotelData: HotelDetails = HotelDetails(),isForBooking: Bool = false,address: String = "") {
+        addressInfoTextView.textContainer.lineBreakMode = .byWordWrapping
         self.moreBtnOutlet.isHidden = true
         self.addressLabel.text = LocalizedString.AddressSmallLaters.localized
         if isForBooking {

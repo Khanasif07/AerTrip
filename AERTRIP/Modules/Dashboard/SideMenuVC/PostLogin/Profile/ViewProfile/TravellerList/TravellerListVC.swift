@@ -285,7 +285,7 @@ class TravellerListVC: BaseVC {
                     self.viewModel.callDeleteTravellerAPI()
                 }
             }
-            alertView.view.backgroundColor = UIColor.clear
+            alertView?.view.backgroundColor = UIColor.clear
         }
     }
     
