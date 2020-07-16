@@ -552,6 +552,7 @@
 "Pay" = "Pay";
 "FareRules" = "Fare Rules";
 "CheckOutPrivacyAndPolicyTerms" = "By proceeding you agree to the Privacy Policy and Terms of Use of Aertrip. \n \nYou will be re-directed to a Payment Gateway website and returned back on completing the payment transaction.";
+"CheckOutPrivacyAndPolicyTermsFlight" = "By proceeding you agree to the Privacy Policy and Terms of Use of Aertrip.";
 "CheckOutFareRulesPrivacyAndPolicyTerms" = "By proceeding you agree to the Fare Rules, Privacy Policy and Terms of Use of Aertrip. \n \nYou will be re-directed to a Payment Gateway website and returned back on completing the payment transaction.";
 "PayableWalletMessage" = " will be credited to Aertrip wallet within 24 hours of successful payment / travel date";
 "NetEffectiveFare" = "Net Effective Fare: ";

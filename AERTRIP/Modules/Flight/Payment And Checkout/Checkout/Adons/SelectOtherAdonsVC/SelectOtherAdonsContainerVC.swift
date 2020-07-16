@@ -79,7 +79,6 @@ class SelectOtherAdonsContainerVC: BaseVC {
         for (index,item) in self.othersContainerVM.allChildVCs.enumerated() {
             AddonsDataStore.shared.flightsWithData[index].special = item.otherAdonsVm.addonsDetails
             AddonsDataStore.shared.flightsWithData[index].specialRequest = item.otherAdonsVm.specialRequest
-            
         }
         let price = self.totalLabel.text ?? ""
         self.delegate?.othersUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
@@ -181,10 +180,15 @@ extension SelectOtherAdonsContainerVC: PagingViewControllerDataSource , PagingVi
     
         func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
             
-           if let pagingIndexItem = pagingItem as? MenuItem{
-                  let text = pagingIndexItem.attributedTitle
-                  return (text?.size().width ?? 0) + 10
-              }
+           if let pagingIndexItem = pagingItem as? MenuItem, let text = pagingIndexItem.attributedTitle {
+               
+               
+               let attText = NSMutableAttributedString(attributedString: text)
+               attText.addAttribute(.font, value: AppFonts.SemiBold.withSize(16), range: NSRange(location: 0, length: attText.length))
+               let width = attText.widthOfText(50, font: AppFonts.SemiBold.withSize(16))
+               return 85//(width) + 10
+               
+           }
             
               return 100.0
         }

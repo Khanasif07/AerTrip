@@ -78,7 +78,7 @@ import UIKit
         }
     }
     
-    private func setupFlightsVC() {
+    func setupFlightsVC() {
         window = UIWindow(frame: UIScreen.main.bounds)
         let homeDummyViewController = HomeDummyViewController()
         let navigationViewController = UINavigationController(rootViewController: homeDummyViewController)

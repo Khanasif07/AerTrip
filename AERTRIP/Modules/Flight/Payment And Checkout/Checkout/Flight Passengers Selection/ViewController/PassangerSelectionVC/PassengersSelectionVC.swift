@@ -23,12 +23,12 @@ class PassengersSelectionVC: BaseVC {
     var viewModel = PassengerSelectionVM()
     var intFareBreakupVC:IntFareBreakupVC?
     var detailsBaseVC:FlightDetailsBaseVC?
+    var viewForFare = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerCell()
         self.viewModel.delegate = self
-//        self.viewModel.setupGuestArray()
         self.apiCall()
         self.setupFont()
         self.navigationController?.navigationBar.isHidden = true
@@ -75,6 +75,9 @@ class PassengersSelectionVC: BaseVC {
     }
     
     private func addButtomView(){
+        viewForFare.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        viewForFare.tag = 5100
+        self.view.addSubview(viewForFare)
         let vc = IntFareBreakupVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
         vc.isFewSeatsLeftViewVisible = true
         vc.taxesResult = self.viewModel.taxesResult
@@ -94,6 +97,9 @@ class PassengersSelectionVC: BaseVC {
         self.view.addSubview(vc.view)
         self.addChild(vc)
         vc.didMove(toParent: self)
+        let bottomSpecing = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+        self.tableViewBottomConsctraint.constant = (vc.view.frame.height - bottomSpecing)
+        
         self.intFareBreakupVC = vc
     }
     
@@ -135,6 +141,19 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
     }
     
     func infoButtonTapped(isViewExpanded: Bool) {
+        
+        if isViewExpanded == true{
+            viewForFare.frame = CGRect(x: 0, y: 0, width: UIScreen.width, height: UIScreen.height)
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
+                self.viewForFare.backgroundColor = AppColors.blackWith20PerAlpha
+            })
+        }else{
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
+                self.viewForFare.backgroundColor = AppColors.clear
+            },completion: { _ in
+                self.viewForFare.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+            })
+        }
         
     }
     

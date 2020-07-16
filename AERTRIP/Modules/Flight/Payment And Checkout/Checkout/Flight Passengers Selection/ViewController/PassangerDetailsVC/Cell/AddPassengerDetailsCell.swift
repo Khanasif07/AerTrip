@@ -11,6 +11,11 @@ import UIKit
 protocol  UpdatePassengerDetailsDelegate: NSObjectProtocol {
     func tapOptionalDetailsBtn(at indexPath:IndexPath)
     func shouldSetupBottom(isNeedToSetUp:Bool)
+    func countryCodeBtnTapped(_ sender: UIButton)
+}
+
+extension UpdatePassengerDetailsDelegate {
+    func countryCodeBtnTapped(_ sender: UIButton) { }
 }
 
 class AddPassengerDetailsCell: UITableViewCell {
@@ -91,6 +96,8 @@ class AddPassengerDetailsCell: UITableViewCell {
         self.optionalDetailsButton.setTitle("Optional Details", for: .normal)
         self.optionalDetailsButton.titleLabel?.font = AppFonts.Regular.withSize(14.0)
         self.guestTitleLabel.textColor = AppColors.themeBlack
+        self.isdLabel.font = AppFonts.Regular.withSize(18.0)
+        self.isdLabel.textColor = AppColors.themeBlack
         let titleArray = ["First Name", "Last Name", "Mobile", "Email", "Date of Birth", "Nationality", "Passport Number", "Passport Expiry"]
         for (index, txtFld) in [firstNameTextField, lastNameTextField, mobileTextField, emailTextField, dobTextField, nationalityTextField,passportNumberTextField, passportExpiryTextField].enumerated(){
             txtFld?.titleYPadding = 12.0
@@ -99,10 +106,11 @@ class AddPassengerDetailsCell: UITableViewCell {
             txtFld?.isSingleTextField = false
             txtFld?.delegate = self
             txtFld?.titleFont = AppFonts.Regular.withSize(14)
-            txtFld?.setUpAttributedPlaceholder(placeholderString: titleArray[index],with: "", foregroundColor: AppColors.themeGray20)
+            txtFld?.setUpAttributedPlaceholder(placeholderString: titleArray[index],with: "", foregroundColor: AppColors.themeGray40)
             txtFld?.font = AppFonts.Regular.withSize(18.0)
-            txtFld?.textColor = AppColors.textFieldTextColor51
+            txtFld?.textColor = AppColors.themeBlack
             txtFld?.lineViewBottomSpace = 0.5
+            txtFld?.titleTextColour = AppColors.themeGray40
             txtFld?.titleActiveTextColour = AppColors.themeGreen
             if txtFld != emailTextField || txtFld != mobileTextField{
                 txtFld?.selectedLineColor = AppColors.divider.color
@@ -130,6 +138,7 @@ class AddPassengerDetailsCell: UITableViewCell {
     }
 
     @IBAction func tappedISDButton(_ sender: UIButton) {
+        delegate?.countryCodeBtnTapped(sender)
         if let vc = self.viewContainingController {
             let prevSectdContry = preSelectedCountry
             PKCountryPicker.default.chooseCountry(onViewController: vc, preSelectedCountry: prevSectdContry) { [weak self] (selectedCountry,closePicker) in

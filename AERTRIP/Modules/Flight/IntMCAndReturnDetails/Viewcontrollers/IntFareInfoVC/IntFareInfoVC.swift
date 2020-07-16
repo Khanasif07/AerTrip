@@ -37,9 +37,13 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     var isTableViewReloaded = false
     var fewSeatsLeftViewHeight = 0
     var selectedIndex : IndexPath?
+    var isAPIFailed = false
+    //Indicator:---
+    var indicator = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setLoader()
         self.fareInfoTableView.backgroundColor = AppColors.themeGray04
         fareInfoTableView.register(UINib(nibName: "IntFareInfoCell", bundle: nil), forCellReuseIdentifier: "IntFareInfoCell")
         fareInfoTableView.register(UINib(nibName: "ChangeAirportTableViewCell", bundle: nil), forCellReuseIdentifier: "ChangeAirportCell")
@@ -94,6 +98,35 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.fareInfoTableView.layoutIfNeeded()
+    }
+    
+    
+    private func setLoader(){
+        if #available(iOS 13.0, *) {
+            indicator.style = .large
+        } else {
+             indicator.style = .whiteLarge
+        }
+        indicator.hidesWhenStopped = true
+        indicator.tintColor = AppColors.themeGreen
+        indicator.color = AppColors.themeGreen
+    }
+    
+    private func addIndicator(){
+        indicator.frame = CGRect(x: 0, y: 200, width: 40, height: 40)
+        indicator.center.x = self.view.center.x
+        indicator.center.y = 80
+        if !self.view.contains(indicator){
+            self.view.addSubview(indicator)
+        }
+        indicator.startAnimating()
+    }
+    
+    func removeIndicator(){
+        DispatchQueue.main.async {
+            self.indicator.removeFromSuperview()
+            self.indicator.stopAnimating()
+        }
     }
     
     //MARK:- Tableview Methods
@@ -186,9 +219,18 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     //MARK:- API Call
     func getFareInfoAPICall(sid: String, fk: String, count:Int = 3){
+        guard count > 0 else {
+            isAPIFailed = true
+            DispatchQueue.main.async {
+                self.fareInfoTableView.reloadData()
+            }
+            return
+        }
         let webservice = WebAPIService()
+        self.addIndicator()
         webservice.executeAPI(apiServive: .fareInfoResult(sid: sid, fk: fk), completionHandler: {[weak self](data) in
             guard let self = self else {return}
+            self.removeIndicator()
             guard let json = try? JSON(data: data) else {return}
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -212,7 +254,10 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             }
         } , failureHandler : {[weak self](error ) in
             guard let self = self else {return}
-            self.getFareInfoAPICall(sid: sid, fk: fk, count:count-1)
+            DispatchQueue.main.async {
+                self.removeIndicator()
+                self.getFareInfoAPICall(sid: sid, fk: fk, count:count-1)
+            }
             print(error)
         })
     }

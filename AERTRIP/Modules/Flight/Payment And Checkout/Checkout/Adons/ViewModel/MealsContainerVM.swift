@@ -23,7 +23,7 @@ class MealsContainerVM {
             let mealsArray = item.selectMealsVM.getMeals()
             mealsArray.enumerated().forEach { (addonIndex,_) in
                 item.selectMealsVM.updateContactInMeal(mealIndex: addonIndex, contacts: [], autoSelectedFor: [])
-                AddonsDataStore.shared.flightsWithData[index].meal.addonsArray[addonIndex].mealsSelectedFor = []
+                AddonsDataStore.shared.flightsWithDataForMeals[index].meal.addonsArray[addonIndex].mealsSelectedFor = []
                 item.selectMealsVM.initializeFreeMealsToPassengers()
             }
             item.reloadData()
@@ -34,7 +34,7 @@ class MealsContainerVM {
     
     func updateMealsToDataStore() {
         for (index,item) in self.allChildVCs.enumerated() {
-            AddonsDataStore.shared.flightsWithData[index].meal = item.selectMealsVM.addonsDetails
+            AddonsDataStore.shared.flightsWithDataForMeals[index].meal = item.selectMealsVM.addonsDetails
         }
     }
     
@@ -58,8 +58,8 @@ class MealsContainerVM {
         
         let dataStore = AddonsDataStore.shared
         var flightsToModify :[AddonsFlight] = []
-        let currentLegId = dataStore.flightsWithData[vcIndex].legId
-        let flightsWithSameLegId = dataStore.flightsWithData.filter { $0.legId == currentLegId }
+        let currentLegId = dataStore.flightsWithDataForMeals[vcIndex].legId
+        let flightsWithSameLegId = dataStore.flightsWithDataForMeals.filter { $0.legId == currentLegId }
         let flightsWithCurrentAddon = flightsWithSameLegId.filter { $0.meal.addonsArray.contains { $0.adonsName == forAdon.adonsName } }
         
         if self.checkIfReadOnlyValuesAreDifferent(flights: flightsWithCurrentAddon, forAdon: forAdon) {

@@ -634,6 +634,7 @@ enum LocalizedString: String {
     case FareRules
     case CheckOutPrivacyAndPolicyTerms
     case CheckOutFareRulesPrivacyAndPolicyTerms
+    case CheckOutPrivacyAndPolicyTermsFlight
     case PayableWalletMessage
     case NetEffectiveFare
     case GrossFare

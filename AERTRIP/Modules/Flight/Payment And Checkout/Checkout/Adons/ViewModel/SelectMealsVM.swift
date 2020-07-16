@@ -105,7 +105,7 @@ class SelectMealsVM {
                 }
             }
             addonsDetails.addonsArray[firstMeal].mealsSelectedFor = mealsSelectedFor
-            AddonsDataStore.shared.flightsWithData[vcIndex].meal.addonsArray[firstMeal].mealsSelectedFor = mealsSelectedFor
+            AddonsDataStore.shared.flightsWithDataForMeals[vcIndex].meal.addonsArray[firstMeal].mealsSelectedFor = mealsSelectedFor
         }
     }
     

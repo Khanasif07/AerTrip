@@ -79,7 +79,7 @@ class IntFareBreakupVC: UIViewController {
     var isUpgradePlanScreenVisible = false
     var isFewSeatsLeftViewVisible = false
     var isFromFlightDetails = false
-    var isCheckoutDetails = true
+    var isCheckoutDetails = false
     var bookFlightObject = BookFlightObject()
     var intAirportDetailsResult : [String : IntAirportDetailsWS]!
     var intAirlineDetailsResult : [String : IntAirlineMasterWS]!

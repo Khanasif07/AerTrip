@@ -107,6 +107,9 @@ class UseGSTINCell: UITableViewCell {
             txt?.lineHeight = 0.33
             txt?.lineColor = AppColors.clear
             txt?.lineView.isHidden = true
+            txt?.lineErrorColor = AppColors.clear
+            txt?.selectedLineColor = AppColors.clear
+            txt?.lineView.isHidden = true
             txt?.delegate = self
             txt?.addTarget(self, action: #selector(changeTextFiledValue), for: .editingDidEnd)
         }

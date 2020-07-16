@@ -22,4 +22,5 @@
 #import "HMSegmentedControl.h"
 #import "ShadowButton.h"
 #import "ZFTokenField.h"
+#import "AFNetworkReachabilityManager.h"
 #endif /* Bridging_Header_h */

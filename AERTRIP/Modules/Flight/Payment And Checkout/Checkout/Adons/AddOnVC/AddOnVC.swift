@@ -120,8 +120,6 @@ extension AddOnVC {
         viewForFare.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         viewForFare.tag = 5100
         self.view.addSubview(viewForFare)
-        
-        self.view.addSubview(viewForFare)
         let dataStore = AddonsDataStore.shared
         let vc = IntFareBreakupVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
         vc.taxesResult = dataStore.taxesResult
@@ -294,6 +292,7 @@ extension AddOnVC : BookFlightDelegate {
 extension AddOnVC : AddonsUpdatedDelegate {
     
     func baggageUpdated(amount : String) {
+        self.adonsVm.updateBaggageSelectionInMainArray()
         self.adonsVm.setBaggageStrings()
         self.adonsTableView.reloadData()
         let amountValue = amount.isEmpty || amount == "0" ? nil : amount
@@ -302,6 +301,7 @@ extension AddOnVC : AddonsUpdatedDelegate {
     }
     
     func mealsUpdated(amount : String) {
+        self.adonsVm.updateMealsSelectionInMainArray()
         self.adonsVm.setMealsString()
         self.adonsTableView.reloadData()
         let amountValue = amount.isEmpty || amount == "0" ? nil : amount
@@ -310,6 +310,7 @@ extension AddOnVC : AddonsUpdatedDelegate {
     }
     
     func othersUpdated(amount : String) {
+//        self.adonsVm.updateOthersSelectionInMainArray()
         self.adonsVm.setOthersString()
         self.adonsTableView.reloadData()
         let amountValue = amount.isEmpty || amount == "0" ? nil : amount

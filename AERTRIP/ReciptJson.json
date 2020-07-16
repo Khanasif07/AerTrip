@@ -1,0 +1,753 @@
+request params: ["_": 1594803487, "it_id": "5f0ec1e9b3561a19f642eea4", "booking_id": "13123,13124,13125"]
+request url: https://beta.aertrip.com/api/v1/booking/receipt
+method: HTTPMethod(rawValue: "GET")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+
+{
+  "success" : true,
+  "data" : {
+    "receipt" : {
+      "details" : {
+        "apdet" : {
+          "DEL" : {
+            "long" : "77.100789",
+            "cname" : "India",
+            "n" : "Indira Gandhi International Airport",
+            "cn" : "IN",
+            "lat" : "28.556555",
+            "c" : "Delhi"
+          },
+          "BOM" : {
+            "long" : "72.868047",
+            "cname" : "India",
+            "n" : "Chhatrapati Shivaji International Airport",
+            "cn" : "IN",
+            "lat" : "19.089891",
+            "c" : "Mumbai"
+          },
+          "BLR" : {
+            "long" : "77.710228",
+            "cname" : "India",
+            "n" : "Kempegowda International Airport",
+            "cn" : "IN",
+            "lat" : "13.200771",
+            "c" : "Bengaluru"
+          }
+        },
+        "cityap" : {
+          "Bengaluru" : "BLR",
+          "Mumbai" : "BOM",
+          "Delhi" : "DEL"
+        },
+        "combo" : "0",
+        "farepr" : 8828,
+        "children" : "0",
+        "leg" : [
+          {
+            "all_ap" : [
+              "BOM",
+              "DEL"
+            ],
+            "flights" : [
+              {
+                "at" : "13:10",
+                "atm" : "T-1",
+                "lo" : "0",
+                "cc" : "Economy",
+                "fr" : "BOM",
+                "ft" : "7500",
+                "halt" : "",
+                "fbn" : "Regular Fare",
+                "dd" : "2020-11-04",
+                "bg" : {
+                  "ADT" : {
+                    "dimension" : {
+
+                    },
+                    "max_weight" : "",
+                    "note" : "",
+                    "weight" : "15 kg",
+                    "max_pieces" : "",
+                    "pieces" : "0 pc"
+                  }
+                },
+                "cbg" : {
+                  "ADT" : {
+                    "dimension" : {
+                      "cm" : {
+                        "width" : "35.00",
+                        "depth" : "25.00",
+                        "height" : "55.00"
+                      },
+                      "in" : {
+                        "depth" : "8.00",
+                        "height" : "21.60",
+                        "width" : "14.00"
+                      }
+                    },
+                    "pieces" : "1 pc",
+                    "weight" : "7 kg"
+                  }
+                },
+                "oc" : "6E",
+                "halt_time" : "",
+                "eq_quality" : 3,
+                "dtm" : "T-1",
+                "eq" : "Airbus A320",
+                "fn" : "298",
+                "al" : "6E",
+                "flight_id" : "13640",
+                "dt" : "11:05",
+                "to" : "DEL",
+                "bc" : "X",
+                "ad" : "2020-11-04"
+              }
+            ],
+            "ap" : [
+              "BOM",
+              "DEL"
+            ],
+            "booking_id" : "13123",
+            "apc" : "",
+            "stp" : 0,
+            "lott" : [
+
+            ],
+            "dd" : "2020-11-04",
+            "al" : [
+              "6E"
+            ],
+            "leg_id" : "9530",
+            "ttl" : [
+              "Mumbai",
+              "Delhi"
+            ],
+            "ad" : "2020-11-04",
+            "tt" : 7500,
+            "at" : "13:10:00",
+            "loap" : [
+
+            ],
+            "dt" : "11:05"
+          },
+          {
+            "all_ap" : [
+              "DEL",
+              "BOM"
+            ],
+            "flights" : [
+              {
+                "to" : "BOM",
+                "halt_time" : "",
+                "al" : "G8",
+                "atm" : "T-1",
+                "bg" : {
+                  "ADT" : {
+                    "max_weight" : "",
+                    "note" : "",
+                    "max_pieces" : "",
+                    "weight" : "15 kg",
+                    "pieces" : "0 pc",
+                    "dimension" : {
+
+                    }
+                  }
+                },
+                "dt" : "14:20",
+                "ad" : "2020-11-11",
+                "cbg" : {
+                  "ADT" : {
+                    "weight" : "7 kg",
+                    "pieces" : "1 pc",
+                    "dimension" : {
+                      "cm" : {
+                        "width" : "35.00",
+                        "height" : "55.00",
+                        "depth" : "25.00"
+                      },
+                      "in" : {
+                        "height" : "21.60",
+                        "width" : "14.00",
+                        "depth" : "8.00"
+                      }
+                    }
+                  }
+                },
+                "cc" : "Economy",
+                "fn" : "336",
+                "eq" : "Airbus A320",
+                "flight_id" : "13641",
+                "dd" : "2020-11-11",
+                "halt" : "",
+                "eq_quality" : 3,
+                "at" : "16:35",
+                "bc" : "K",
+                "oc" : "G8",
+                "fbn" : "GoSmart",
+                "lo" : "0",
+                "fr" : "DEL",
+                "dtm" : "T-2",
+                "ft" : "8100"
+              }
+            ],
+            "ap" : [
+              "DEL",
+              "BOM"
+            ],
+            "booking_id" : "13124",
+            "apc" : "",
+            "stp" : 0,
+            "lott" : [
+
+            ],
+            "dd" : "2020-11-11",
+            "al" : [
+              "G8"
+            ],
+            "leg_id" : "9531",
+            "ttl" : [
+              "Delhi",
+              "Mumbai"
+            ],
+            "ad" : "2020-11-11",
+            "tt" : 8100,
+            "at" : "16:35:00",
+            "loap" : [
+
+            ],
+            "dt" : "14:20"
+          },
+          {
+            "all_ap" : [
+              "BOM",
+              "BLR"
+            ],
+            "flights" : [
+              {
+                "dd" : "2020-11-18",
+                "fn" : "398",
+                "oc" : "G8",
+                "al" : "G8",
+                "flight_id" : "13642",
+                "cc" : "Economy",
+                "bg" : {
+                  "ADT" : {
+                    "weight" : "15 kg",
+                    "max_weight" : "",
+                    "note" : "",
+                    "dimension" : {
+
+                    },
+                    "max_pieces" : "",
+                    "pieces" : "0 pc"
+                  }
+                },
+                "halt_time" : "",
+                "ad" : "2020-11-18",
+                "dtm" : "T-1",
+                "atm" : "",
+                "eq_quality" : 3,
+                "eq" : "Airbus A320",
+                "dt" : "21:00",
+                "to" : "BLR",
+                "at" : "22:45",
+                "lo" : "0",
+                "cbg" : {
+                  "ADT" : {
+                    "dimension" : {
+                      "cm" : {
+                        "height" : "55.00",
+                        "depth" : "25.00",
+                        "width" : "35.00"
+                      },
+                      "in" : {
+                        "width" : "14.00",
+                        "depth" : "8.00",
+                        "height" : "21.60"
+                      }
+                    },
+                    "weight" : "7 kg",
+                    "pieces" : "1 pc"
+                  }
+                },
+                "fr" : "BOM",
+                "ft" : "6300",
+                "fbn" : "GoSmart",
+                "halt" : "",
+                "bc" : "P"
+              }
+            ],
+            "ap" : [
+              "BOM",
+              "BLR"
+            ],
+            "booking_id" : "13125",
+            "apc" : "",
+            "stp" : 0,
+            "lott" : [
+
+            ],
+            "dd" : "2020-11-18",
+            "al" : [
+              "G8"
+            ],
+            "leg_id" : "9532",
+            "ttl" : [
+              "Mumbai",
+              "Bengaluru"
+            ],
+            "ad" : "2020-11-18",
+            "tt" : 6300,
+            "at" : "22:45:00",
+            "loap" : [
+
+            ],
+            "dt" : "21:00"
+          }
+        ],
+        "fare" : {
+          "BF" : {
+            "name" : "Base Fare",
+            "value" : 6187
+          },
+          "net_fare" : {
+            "name" : "Net Fare",
+            "value" : 8828
+          },
+          "tds_on_pay_later_commisions" : {
+            "name" : "TDS on Pay Later Commissions (Indirect Tax)",
+            "value" : 0
+          },
+          "cut_n_pay_commissions" : {
+            "name" : "Cut and Pay Commissions",
+            "value" : 0
+          },
+          "convenience_fee" : 0,
+          "taxes" : {
+            "name" : "Taxes and Fees",
+            "value" : 2730,
+            "details" : {
+              "OT" : 622,
+              "SGST" : 191,
+              "CUTE" : 192,
+              "YM" : "142.00",
+              "RCS" : 100,
+              "RCF" : "50.00",
+              "YQ" : 1100,
+              "CGST" : 191,
+              "ADF" : "142.00"
+            }
+          },
+          "refund" : 0,
+          "pay_later_commisions" : {
+            "name" : "Pay Later Commissions",
+            "value" : 0
+          },
+          "total_payable_now" : {
+            "name" : "Total Payable Now",
+            "value" : 8828
+          },
+          "tds_cut_n_pay_commissions" : {
+            "name" : "TDS on Cut and Pay Commissions (Indirect Tax)",
+            "value" : 0
+          },
+          "addons" : {
+            "name" : "Add-ons",
+            "value" : 0
+          },
+          "points" : {
+            "name" : "Points",
+            "value" : 0
+          },
+          "cashbacks" : {
+            "name" : "Cashbacks",
+            "value" : -891,
+            "details" : {
+              "CACB" : -891
+            }
+          },
+          "grand_total" : {
+            "name" : "Grand Total",
+            "value" : 8828
+          },
+          "gross_fare" : {
+            "name" : "Gross Fare",
+            "value" : 8917
+          },
+          "insurance_fee" : 0,
+          "net_effective_fare" : {
+            "name" : "Net Effective Fare",
+            "value" : 7937
+          },
+          "discounts" : {
+            "name" : "Discounts",
+            "value" : -89,
+            "details" : {
+              "CPD" : -89,
+              "FDIS" : 0
+            }
+          }
+        },
+        "taxes" : {
+          "YM" : "Development Fees",
+          "OT" : "Other Taxes & Fees",
+          "YQ" : "Fuel Surcharge",
+          "BF" : "Base Fare",
+          "CPD" : "Discount",
+          "ADF" : "Airport Development Fee",
+          "CGST" : "Service Provider Central GST",
+          "CUTE" : "CUTE Fee",
+          "SGST" : "Service Provider State GST",
+          "RCS" : "RCS Fee",
+          "CACB" : "Coupon - Aertrip Wallet Cashback",
+          "FDIS" : "Airline Discount",
+          "RCF" : "RCS Provision"
+        },
+        "aldet" : {
+          "6E" : "IndiGo Airlines",
+          "G8" : "Go Air"
+        },
+        "infants" : "0",
+        "adults" : "1",
+        "rfd_plcy" : [
+          {
+            "rfd" : 1,
+            "leg_id" : [
+              9530
+            ],
+            "cp" : {
+              "RAF" : {
+                "ADT" : 0
+              },
+              "SPCFEE" : {
+                "ADT" : [
+                  {
+                    "from" : "2020-07-15 14:28:00",
+                    "to" : "2020-11-01 09:05:00",
+                    "value" : 3000
+                  },
+                  {
+                    "from" : "2020-11-01 09:06:00",
+                    "to" : "2020-11-04 07:05:00",
+                    "value" : 3500
+                  },
+                  {
+                    "from" : "2020-11-04 07:06:00",
+                    "to" : "2020-11-04 11:05:00",
+                    "value" : -1
+                  }
+                ]
+              },
+              "SUCFEE" : {
+                "ADT" : 0
+              }
+            },
+            "rscp" : {
+              "SPRFEE" : {
+                "ADT" : [
+                  {
+                    "from" : "2020-07-15 14:28:00",
+                    "to" : "2020-11-01 09:05:00",
+                    "value" : 2500
+                  },
+                  {
+                    "from" : "2020-11-01 09:06:00",
+                    "to" : "2020-11-04 07:05:00",
+                    "value" : 3000
+                  },
+                  {
+                    "from" : "2020-11-04 07:06:00",
+                    "to" : "2020-11-04 11:05:00",
+                    "value" : -1
+                  }
+                ]
+              },
+              "SURFEE" : {
+                "ADT" : 0
+              }
+            },
+            "rsc" : 1
+          },
+          {
+            "rfd" : 1,
+            "leg_id" : [
+              9531
+            ],
+            "cp" : {
+              "RAF" : {
+                "ADT" : 0
+              },
+              "SPCFEE" : {
+                "ADT" : [
+                  {
+                    "from" : "2020-07-15 14:28:00",
+                    "value" : 3000,
+                    "to" : "2020-11-08 12:20:00"
+                  },
+                  {
+                    "from" : "2020-11-08 12:21:00",
+                    "value" : 3500,
+                    "to" : "2020-11-11 10:20:00"
+                  },
+                  {
+                    "from" : "2020-11-11 10:21:00",
+                    "value" : -1,
+                    "to" : "2020-11-11 14:20:00"
+                  }
+                ]
+              },
+              "SUCFEE" : {
+                "ADT" : 0
+              }
+            },
+            "rscp" : {
+              "SPRFEE" : {
+                "ADT" : [
+                  {
+                    "from" : "2020-07-15 14:28:00",
+                    "value" : 2500,
+                    "to" : "2020-11-08 12:20:00"
+                  },
+                  {
+                    "from" : "2020-11-08 12:21:00",
+                    "value" : 3000,
+                    "to" : "2020-11-11 10:20:00"
+                  },
+                  {
+                    "from" : "2020-11-11 10:21:00",
+                    "value" : -1,
+                    "to" : "2020-11-11 14:20:00"
+                  }
+                ]
+              },
+              "SURFEE" : {
+                "ADT" : 0
+              }
+            },
+            "rsc" : 1
+          },
+          {
+            "rfd" : 1,
+            "leg_id" : [
+              9532
+            ],
+            "cp" : {
+              "RAF" : {
+                "ADT" : 0
+              },
+              "SPCFEE" : {
+                "ADT" : [
+                  {
+                    "from" : "2020-07-15 14:28:00",
+                    "value" : 3000,
+                    "to" : "2020-11-15 19:00:00"
+                  },
+                  {
+                    "from" : "2020-11-15 19:01:00",
+                    "value" : 3500,
+                    "to" : "2020-11-18 17:00:00"
+                  },
+                  {
+                    "from" : "2020-11-18 17:01:00",
+                    "value" : -1,
+                    "to" : "2020-11-18 21:00:00"
+                  }
+                ]
+              },
+              "SUCFEE" : {
+                "ADT" : 0
+              }
+            },
+            "rscp" : {
+              "SPRFEE" : {
+                "ADT" : [
+                  {
+                    "from" : "2020-07-15 14:28:00",
+                    "value" : 2500,
+                    "to" : "2020-11-15 19:00:00"
+                  },
+                  {
+                    "from" : "2020-11-15 19:01:00",
+                    "value" : 3000,
+                    "to" : "2020-11-18 17:00:00"
+                  },
+                  {
+                    "from" : "2020-11-18 17:01:00",
+                    "value" : -1,
+                    "to" : "2020-11-18 21:00:00"
+                  }
+                ]
+              },
+              "SURFEE" : {
+                "ADT" : 0
+              }
+            },
+            "rsc" : 1
+          }
+        ]
+      },
+      "whatsNext" : [
+        {
+          "rooms" : [
+            {
+              "adult" : 1
+            }
+          ],
+          "country" : "India",
+          "star" : "0star,1star,2star,3star,4star,5star",
+          "checkin" : "Wed, 04 Nov 20",
+          "checkout" : "Wed, 11 Nov 20",
+          "dest_name" : "New Delhi, Delhi, India",
+          "dest_id" : "433564",
+          "dest_type" : "City",
+          "city" : "New Delhi",
+          "prodcut" : "hotel"
+        },
+        {
+          "rooms" : [
+            {
+              "adult" : 1
+            }
+          ],
+          "country" : "India",
+          "star" : "0star,1star,2star,3star,4star,5star",
+          "checkin" : "Wed, 11 Nov 20",
+          "checkout" : "Wed, 18 Nov 20",
+          "dest_name" : "Mumbai, Maharashtra, India",
+          "dest_id" : "433576",
+          "dest_type" : "City",
+          "city" : "Mumbai",
+          "prodcut" : "hotel"
+        },
+        {
+          "rooms" : [
+            {
+              "adult" : 1
+            }
+          ],
+          "country" : "India",
+          "star" : "0star,1star,2star,3star,4star,5star",
+          "checkin" : "Wed, 18 Nov 20",
+          "checkout" : "Thu, 19 Nov 20",
+          "dest_name" : "Bengaluru, Karnataka, India",
+          "dest_id" : "433557",
+          "dest_type" : "City",
+          "city" : "Bengaluru",
+          "prodcut" : "hotel"
+        }
+      ],
+      "addons" : [
+
+      ],
+      "part_payment" : {
+        "amount_paid" : 0,
+        "date" : "",
+        "amount_remaining" : 0
+      },
+      "id" : "5f0ec1e9b3561a19f642eea4",
+      "booking_number" : "B\/20-21\/1486,B\/20-21\/1487,B\/20-21\/1488",
+      "selected_apf" : [
+
+      ],
+      "booking_status" : {
+        "B\/20-21\/1487" : "pending",
+        "B\/20-21\/1488" : "pending",
+        "B\/20-21\/1486" : "pending"
+      },
+      "currency" : "INR",
+      "seatmap_request" : [
+
+      ],
+      "tk" : "fec0d11fad941aeae50c8f0ab0114a1ad9a48147",
+      "trip_details" : {
+        "booking_id" : "13123",
+        "event_id" : [
+          "11987",
+          "11988",
+          "11989"
+        ],
+        "name" : "Trips1s(1)",
+        "is_updated" : "0",
+        "trip_id" : "586",
+        "trip_key" : "eu4Pu"
+      },
+      "sid" : "cedc47054921354626876ad032255383",
+      "payment_details" : {
+        "mode" : "wallet",
+        "info" : {
+          "payment_amount" : 8828
+        }
+      },
+      "booking_actions" : {
+        "13124" : {
+          "special_request_allowed" : false,
+          "reschedule_request_allowed" : true,
+          "addon_request_allowed" : true,
+          "display_seat_map" : false,
+          "display_addons_options" : false,
+          "cancellation_request_allowed" : true
+        },
+        "13123" : {
+          "addon_request_allowed" : true,
+          "reschedule_request_allowed" : true,
+          "display_seat_map" : false,
+          "display_addons_options" : false,
+          "cancellation_request_allowed" : true,
+          "special_request_allowed" : false
+        },
+        "13125" : {
+          "addon_request_allowed" : true,
+          "reschedule_request_allowed" : true,
+          "display_seat_map" : false,
+          "display_addons_options" : false,
+          "cancellation_request_allowed" : true,
+          "special_request_allowed" : false
+        }
+      },
+      "traveller_details" : {
+        "mobile" : "+91",
+        "t" : [
+          {
+            "passport_expiry_date" : "2023-07-03",
+            "pax_type" : "ADT",
+            "first_name" : "New",
+            "age" : null,
+            "pax_id" : "30747",
+            "last_name" : "User",
+            "profile_img" : "",
+            "passport_number" : "Q2srqs",
+            "ticket_details" : {
+              "9530" : {
+                "pnr" : "",
+                "ticket_no" : ""
+              },
+              "9532" : {
+                "pnr" : "",
+                "ticket_no" : ""
+              },
+              "9531" : {
+                "pnr" : "",
+                "ticket_no" : ""
+              }
+            },
+            "passport_country" : "IN",
+            "added_while_booking" : "0",
+            "dob" : null,
+            "salutation" : "Mr",
+            "email" : [
+              {
+                "value" : "Dsa@mail.com",
+                "type" : "home"
+              }
+            ]
+          }
+        ],
+        "isd" : "8447788872"
+      },
+      "shareUrl" : "https:\/\/beta.aertrip.com\/flights?referrer=5f0ec1e9b3561a19f642eea4"
+    }
+  },
+  "errors" : [
+
+  ]
+}

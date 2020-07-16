@@ -633,7 +633,7 @@ get upto 20% off </string>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQU-qF-dBb">
-                                            <rect key="frame" x="32" y="55" width="42" height="21"/>
+                                            <rect key="frame" x="32" y="38" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -685,8 +685,8 @@ get upto 20% off </string>
                                         <constraint firstItem="ZcR-Q9-RV0" firstAttribute="leading" secondItem="Jf1-lq-BgG" secondAttribute="leading" constant="16" id="FBN-Fi-a30"/>
                                         <constraint firstItem="Zc5-Vh-va4" firstAttribute="top" secondItem="w6n-na-BjU" secondAttribute="bottom" constant="10" id="HTg-oL-geD"/>
                                         <constraint firstAttribute="trailing" secondItem="Zc5-Vh-va4" secondAttribute="trailing" constant="16" id="Ihe-zJ-46E"/>
-                                        <constraint firstItem="FQU-qF-dBb" firstAttribute="bottom" secondItem="ZcR-Q9-RV0" secondAttribute="bottom" constant="-9" id="Jds-W2-0mw"/>
                                         <constraint firstItem="HjX-9e-u0h" firstAttribute="top" secondItem="Jf1-lq-BgG" secondAttribute="top" constant="8" id="Urr-sc-e7U"/>
+                                        <constraint firstItem="FQU-qF-dBb" firstAttribute="top" secondItem="HjX-9e-u0h" secondAttribute="bottom" constant="9" id="Zz2-zK-4o6"/>
                                         <constraint firstAttribute="trailing" secondItem="w6n-na-BjU" secondAttribute="trailing" constant="16" id="efg-sb-N7S"/>
                                         <constraint firstAttribute="trailing" secondItem="oAw-T7-3zw" secondAttribute="trailing" constant="16" id="iBF-Oo-Pv5"/>
                                         <constraint firstItem="w6n-na-BjU" firstAttribute="top" secondItem="ZcR-Q9-RV0" secondAttribute="bottom" id="lHg-8z-DxV"/>

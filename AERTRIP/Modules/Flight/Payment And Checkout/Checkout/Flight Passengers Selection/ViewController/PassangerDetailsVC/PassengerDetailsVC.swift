@@ -10,7 +10,7 @@ import UIKit
 import IQKeyboardManager
 
 class PassengerDetailsVC: UIViewController, UITextViewDelegate {
-
+    
     @IBOutlet weak var topNavigationView: UIView!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
@@ -26,7 +26,7 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerCells()
-//        self.setupTextView()
+        //        self.setupTextView()
         self.doInitialSetup()
         GuestDetailsVM.shared.delegate = self
         titleLabel.text = "Passenger Details"
@@ -36,16 +36,15 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        IQKeyboardManager.shared().isEnabled = false
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
-//        IQKeyboardManager.shared().isEnabled = true
-    }
 
+    }
+    
     
     
     private func registerCells(){
@@ -73,7 +72,7 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
             self.passengerTable.scrollToRow(at: self.viewModel.indexPath, at: .middle, animated: true)
             self.passengerTable.reloadData()
         }
-//        addFooterViewToTravellerTableView()
+        //        addFooterViewToTravellerTableView()
     }
     
     private func addFooterViewToTravellerTableView() {
@@ -83,25 +82,25 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
         travellersTableView.tableFooterView = customView
     }
     
-//    private func setupTextView(){
-//        let passportTextView = UITextView()
-//        let txt = "Enter names and info as they appear on your Passport/Government issued ID. See Example"
-//        let attributedText = NSMutableAttributedString(string: "")
-//        let attributedString = NSAttributedString(string: txt, attributes: [NSAttributedString.Key.font : AppFonts.Regular.withSize(14), .foregroundColor: AppColors.themeGray40])
-//        attributedText.append(attributedString)
-//        attributedText.addAttributes([.link: "hgf", .foregroundColor: AppColors.themeGreen], range: NSString(string: txt).range(of: "See Example"))
-//        passportTextView.attributedText = attributedText
-//        passportTextView.linkTextAttributes = [.font: AppFonts.Regular.withSize(14), .foregroundColor: AppColors.themeGreen]
-//        passportTextView.isEditable = false
-//        passportTextView.isScrollEnabled = false
-//        passportTextView.delegate = self
-//        passportTextView.sizeToFit()
-//        passportTextView.frame.size.width = UIScreen.width - 22
-//        passportTextView.frame.origin = CGPoint(x: 11.0, y: 0)
-//        passportTextView.sizeToFit()
-//        self.showPassportView.addSubview(passportTextView)
-//
-//    }
+    //    private func setupTextView(){
+    //        let passportTextView = UITextView()
+    //        let txt = "Enter names and info as they appear on your Passport/Government issued ID. See Example"
+    //        let attributedText = NSMutableAttributedString(string: "")
+    //        let attributedString = NSAttributedString(string: txt, attributes: [NSAttributedString.Key.font : AppFonts.Regular.withSize(14), .foregroundColor: AppColors.themeGray40])
+    //        attributedText.append(attributedString)
+    //        attributedText.addAttributes([.link: "hgf", .foregroundColor: AppColors.themeGreen], range: NSString(string: txt).range(of: "See Example"))
+    //        passportTextView.attributedText = attributedText
+    //        passportTextView.linkTextAttributes = [.font: AppFonts.Regular.withSize(14), .foregroundColor: AppColors.themeGreen]
+    //        passportTextView.isEditable = false
+    //        passportTextView.isScrollEnabled = false
+    //        passportTextView.delegate = self
+    //        passportTextView.sizeToFit()
+    //        passportTextView.frame.size.width = UIScreen.width - 22
+    //        passportTextView.frame.origin = CGPoint(x: 11.0, y: 0)
+    //        passportTextView.sizeToFit()
+    //        self.showPassportView.addSubview(passportTextView)
+    //
+    //    }
     
     
     private func editedGuest(_ travellerIndexPath: IndexPath) {
@@ -165,19 +164,19 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     }
     
     
-   @objc func keyboardWillShow(notification: Notification) {
+    @objc func keyboardWillShow(notification: Notification) {
         if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
             if self.isNeedToshowBottom{
-//                self.passengerTable.setBottomInset(to: keyboardHeight + 10)
+                //                self.passengerTable.setBottomInset(to: keyboardHeight + 10)
             }
             self.viewModel.keyboardHeight = keyboardHeight
             self.viewModel.isKeyboardVisible = true
         }
     }
-
+    
     @objc func keyboardWillHide(notification: Notification) {
         if self.isNeedToshowBottom{
-//            self.passengerTable.setBottomInset(to: 0.0)
+            //            self.passengerTable.setBottomInset(to: 0.0)
         }
         self.passengerTable.isScrollEnabled = true
         GuestDetailsVM.shared.resetData()
@@ -187,12 +186,12 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     }
     
     
-//    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-//        PassportExampleVC.showMe()
-////        let vc  = PassportExampleVC.instantiate(fromAppStoryboard: .PassengersSelection)
-////        self.present(vc, animated: true, completion: nil)
-//        return false
-//    }
+    //    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+    //        PassportExampleVC.showMe()
+    ////        let vc  = PassportExampleVC.instantiate(fromAppStoryboard: .PassengersSelection)
+    ////        self.present(vc, animated: true, completion: nil)
+    //        return false
+    //    }
     
     func presentPassportView(){
         let vc  = PassportExampleVC.instantiate(fromAppStoryboard: .PassengersSelection)
@@ -243,11 +242,11 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if tableView === self.passengerTable {
-//            if section == 0{
-                return (section == 0) ? 62.0 : CGFloat.leastNonzeroMagnitude
-//            }else{
-//                return CGFloat.leastNonzeroMagnitude
-//            }
+            //            if section == 0{
+            return (section == 0) ? 62.0 : CGFloat.leastNonzeroMagnitude
+            //            }else{
+            //                return CGFloat.leastNonzeroMagnitude
+            //            }
         } else {
             return GuestDetailsVM.shared.numberOfRowsInSection(section: section) > 0 ? 28.0 : CGFloat.leastNonzeroMagnitude
         }
@@ -356,7 +355,7 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
             GuestDetailsVM.shared.search(forText: "")
         }
     }
-
+    
     
     func getCellForFrequentFlyer(with indexPath: IndexPath)-> UITableViewCell{
         
@@ -376,6 +375,29 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
 }
 
 extension PassengerDetailsVC : UpdatePassengerDetailsDelegate{
+    
+    func countryCodeBtnTapped(_ sender: UIButton) {
+        let pickerHeight = UIPickerView.pickerSize.height
+        let itemPosition: CGPoint = sender.convert(CGPoint.zero, to: passengerTable)
+        
+        let itemPosInView = sender.convert(CGPoint.zero, to: view)
+        
+        if pickerHeight > passengerTable.size.height - itemPosInView.y {
+            let pointToScroll = CGPoint(x: 0, y: itemPosition.y - ((passengerTable.size.height - 80) - pickerHeight))
+
+            DispatchQueue.delay(0.3) { [weak self] in
+                self?.passengerTable.setContentOffset(pointToScroll, animated: true)
+            }
+            
+            DispatchQueue.delay(0.6) { [weak self] in
+                if self?.passengerTable.contentOffset != pointToScroll {
+                    self?.passengerTable.setContentOffset(pointToScroll, animated: true)
+                }
+            }
+            
+        }
+    }
+    
     func shouldSetupBottom(isNeedToSetUp: Bool) {
         self.isNeedToshowBottom = isNeedToSetUp
     }
@@ -433,56 +455,43 @@ extension PassengerDetailsVC: GuestDetailTableViewCellDelegate {
         }
     }
     func textField(_ textField: UITextField){
-        
-        if let cell = self.passengerTable.cell(forItem: textField) as? AddPassengerDetailsCell {
-        switch textField {
-        case cell.firstNameTextField, cell.lastNameTextField:
-            IQKeyboardManager.shared().isEnabled = false
-        default:
-            IQKeyboardManager.shared().isEnabled = true
+                
+        guard let cell = passengerTable.cell(forItem: textField) as? AddPassengerDetailsCell, textField == cell.firstNameTextField || textField == cell.lastNameTextField else {
+            self.travellersTableView.isHidden = true
             return
-            }
         }
         
         self.travellersTableView.isHidden = GuestDetailsVM.shared.isDataEmpty
         self.travellersTableView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
         self.offsetPoint = self.passengerTable.contentOffset
         self.viewModel.editinIndexPath = self.passengerTable.indexPath(forItem: textField)
-        if let _ = self.passengerTable.cell(forItem: textField) as? AddPassengerDetailsCell {
-            //  get item position
-            let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: passengerTable)
-            var  yValue = 134
-            if let index = self.viewModel.editinIndexPath {
-                yValue = index.section ==  GuestDetailsVM.shared.guests[0].count - 1 ? 135 : 137
-                if index.section == 0{
-                    yValue = 80
-                }
-                if self.viewModel.isAllPaxInfoRequired{
-                    yValue += 3
+        
+        //  get item position
+        let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: passengerTable)
+        
+        let pointToScroll = CGPoint(x: 0, y: itemPosition.y - 125)
+        if passengerTable.contentOffset.y < pointToScroll.y {
+            
+            DispatchQueue.delay(0.3) { [weak self] in
+                self?.passengerTable.setContentOffset(pointToScroll, animated: true)
+            }
+            DispatchQueue.delay(0.6) { [weak self] in
+                if self?.passengerTable.contentOffset != pointToScroll {
+                    self?.passengerTable.setContentOffset(pointToScroll, animated: true)
                 }
             }
-            let offsetYValue = itemPosition.y - CGFloat(yValue)
-
-            if self.passengerTable.contentOffset.y != offsetYValue {
-            self.passengerTable.setContentOffset(CGPoint(x: self.passengerTable.origin.x, y: offsetYValue), animated: true)
-            }
-            self.passengerTable.isScrollEnabled = GuestDetailsVM.shared.isDataEmpty
-            travellersTableView.reloadData()
-            printDebug("item position is \(itemPosition)")
-        } else {
-            travellersTableView.isHidden = true
         }
+        
+        travellersTableView.reloadData()
+        printDebug("item position is \(itemPosition)")
         
     }
     
     func textFieldEndEditing(_ textField: UITextField) {
-//        DispatchQueue.delay(0.3) {
         if self.viewModel.isKeyboardVisible {
             return
         }
-//        self.passengerTable.setContentOffset(self.offsetPoint, animated: true)
-        
-//        }
+
         let contentPoint = passengerTable.contentSize.height - passengerTable.frame.size.height
         if passengerTable.contentOffset.y >= contentPoint {
             passengerTable.setContentOffset(CGPoint(x: 0, y: contentPoint < 0 ? 0 : contentPoint), animated: true)
