@@ -55,7 +55,8 @@ class SelectOtherAdonsVC: UIViewController {
         self.clearButton.isHidden = true
         self.otherAdonsVm.specialRequest = ""
         self.delegate?.specialRequestUpdated()
-        self.specialRequestPlaceHolderLabel.isHidden = false
+//        self.specialRequestPlaceHolderLabel.isHidden = false
+        self.showHideClearButton()
     }
 }
 
