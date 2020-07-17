@@ -14,7 +14,7 @@ class SpecialAccountDetailsVC: BaseVC {
     //MARK:-
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var tableView: ATTableView!
-    
+    @IBOutlet weak var progressView: UIProgressView!
     
     //MARK:- Properties
     //MARK:- Public
@@ -32,10 +32,14 @@ class SpecialAccountDetailsVC: BaseVC {
         
         return bView
     }
+    private var time: Float = 0.0
+    private var timer: Timer?
     
     //MARK:- ViewLifeCycle
     //MARK:-
     override func initialSetup() {
+        self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
+        self.progressView?.isHidden = true
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.backgroundColor = AppColors.screensBackground.color
@@ -91,6 +95,44 @@ class SpecialAccountDetailsVC: BaseVC {
         }
     }
     
+    func startProgress() {
+        // Invalid timer if it is valid
+        if self.timer?.isValid == true {
+            self.timer?.invalidate()
+        }
+        self.progressView?.isHidden = false
+        self.time = 0.0
+        self.progressView.setProgress(0.0, animated: false)
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
+    
+    @objc func setProgress() {
+        self.time += 1.0
+        self.progressView?.setProgress(self.time / 10, animated: true)
+        
+        if self.time == 8 {
+            self.timer?.invalidate()
+            return
+        }
+        if self.time == 2 {
+            self.timer!.invalidate()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+            }
+        }
+        
+        if self.time >= 10 {
+            self.timer!.invalidate()
+            delay(seconds: 0.5) {
+                self.progressView?.isHidden = true
+            }
+        }
+    }
+    func stopProgress() {
+        self.time += 1
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
+    
     //MARK:- Public
     
     
@@ -117,16 +159,23 @@ extension SpecialAccountDetailsVC: SpecialAccountDetailsVMDelegate {
     }
     
     func willFetchScreenDetails() {
-        AppGlobals.shared.startLoading()
+        //AppGlobals.shared.startLoading()
+        startProgress()
+        self.tableView.isUserInteractionEnabled = false
+        
     }
     
     func fetchScreenDetailsSuccess() {
-        AppGlobals.shared.stopLoading()
+        //AppGlobals.shared.stopLoading()
+        stopProgress()
         self.tableView.reloadData()
+        self.tableView.isUserInteractionEnabled = true
     }
     
     func fetchScreenDetailsFail() {
-        AppGlobals.shared.stopLoading()
+        //AppGlobals.shared.stopLoading()
+        stopProgress()
+        self.tableView.isUserInteractionEnabled = true
     }
 }
 

@@ -108,8 +108,6 @@ class AccountDetailsVC: BaseVC {
         
         self.searchBar.isMicEnabled = true
         
-        self.topNavView.firstRightButton.isUserInteractionEnabled = false
-        self.topNavView.secondRightButton.isUserInteractionEnabled = false
         
         if let usr = UserInfo.loggedInUser, usr.userCreditType == .regular {
             self.viewModel.getAccountDetails()
@@ -469,12 +467,14 @@ extension AccountDetailsVC: AccountDetailsVMDelegate {
 
     func willGetAccountDetails() {
         AppGlobals.shared.startLoading()
+        self.topNavView.firstRightButton.isUserInteractionEnabled = false
+        self.topNavView.secondRightButton.isUserInteractionEnabled = false
     }
     
     func getAccountDetailsSuccess() {
         AppGlobals.shared.stopLoading()
-        self.topNavView.firstRightButton.isEnabled = true
-        self.topNavView.secondRightButton.isEnabled = true
+        self.topNavView.firstRightButton.isUserInteractionEnabled = true
+        self.topNavView.secondRightButton.isUserInteractionEnabled = true
         self.reloadList()
     }
     

@@ -857,7 +857,7 @@ Your booking ID is";
 "TransferType" = "Transfer Type";
 "EnterUTRSwiftCode" = "Enter UTR/Swift Code";
 "DepositAmountErrorMessage" = "Deposit amount must be grater then 0";
-"ModeOfPayment" = "ModeOfPayment";
+"ModeOfPayment" = "Mode of payment";
 
 
 "Camera" = "Camera";

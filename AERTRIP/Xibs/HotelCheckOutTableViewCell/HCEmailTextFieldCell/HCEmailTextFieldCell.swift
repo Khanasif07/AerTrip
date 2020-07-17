@@ -50,6 +50,7 @@ class HCEmailTextFieldCell: UITableViewCell {
     
     
     private func setUpColor() {
+        self.editableTextField.titleTextColour = AppColors.themeGray40
         self.editableTextField.titleActiveTextColour = AppColors.themeGreen
         self.editableTextField.textColor =  AppColors.textFieldTextColor51
     }
