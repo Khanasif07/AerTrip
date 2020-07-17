@@ -36,17 +36,10 @@ class UseGSTINCell: UITableViewCell {
     @IBOutlet weak var billingNameSeperatorView: ATDividerView!
     @IBOutlet weak var gSTNumberTextField: PKFloatLabelTextField!
     
-    var delegate:UseGSTINCellDelegate?
+    weak var delegate:UseGSTINCellDelegate?
     var gstModel = GSTINModel(){
         didSet{
             self.configureCell()
-//            self.selectGSTTextField.text = self.gstModel.billingName
-//            if !self.gstModel.companyName.isEmpty{
-//                self.gSTDetailsLabel.text = "\(self.gstModel.companyName)\nGSTIN - \(self.gstModel.GSTInNo)"
-//            }else{
-//                self.gSTDetailsLabel.text = ""
-//            }
-            
         }
     }
     override func awakeFromNib() {
@@ -65,7 +58,8 @@ class UseGSTINCell: UITableViewCell {
     }
     
     func setSeperatorColor(){
-        [companyNameSeparatorView, billingNameSeperatorView, selectGSTFieldSeparatorView].forEach { view in
+        [companyNameSeparatorView, billingNameSeperatorView, selectGSTFieldSeparatorView].forEach {[weak self] view in
+            guard let _ = self else {return}
             view?.backgroundColor = AppColors.divider.color
         }
     }
@@ -99,7 +93,8 @@ class UseGSTINCell: UITableViewCell {
         selectGSTTextField.selectedLineColor = AppColors.clear
         selectGSTTextField.hintYPadding = -6
         selectGSTTextField.titleYPadding = 1.5
-        [selectGSTTextField, companyNameTextField, gSTNumberTextField, billingNameTextField].forEach{ txt in
+        [selectGSTTextField, companyNameTextField, gSTNumberTextField, billingNameTextField].forEach{[weak self] txt in
+            guard let _ = self else {return}
             txt?.titleActiveTextColour = AppColors.themeGreen
             txt?.textColor =  AppColors.textFieldTextColor51
             txt?.font = AppFonts.Regular.withSize(18.0)

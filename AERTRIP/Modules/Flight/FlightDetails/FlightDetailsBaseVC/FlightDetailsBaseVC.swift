@@ -68,6 +68,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     var viewModel = FlightDetailsVM()
     var intFareBreakup:IntFareBreakupVC?
     var fareBreakup:FareBreakupVC?
+    var navigationContronller: UINavigationController?
     
     //MARK:- Initial Display
     
@@ -347,7 +348,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
                         UIView.animate(withDuration: 0.2, animations: {
                             self.view.frame.origin.y = UIScreen.height
                         }) { _ in
-                            (self.parent as? PassengersSelectionVC)?.detailsBaseVC = nil
+//                            (self.parent as? PassengersSelectionVC)?.detailsBaseVC = nil
                             self.willMove(toParent: nil)
                             self.view.removeFromSuperview()
                             self.removeFromParent()
@@ -375,7 +376,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
             UIView.animate(withDuration: 0.5, animations: {
                 self.view.frame.origin.y = UIScreen.height
             }) { _ in
-                (self.parent as? PassengersSelectionVC)?.detailsBaseVC = nil
+//                (self.parent as? PassengersSelectionVC)?.detailsBaseVC = nil
                 self.willMove(toParent: nil)
                 self.view.removeFromSuperview()
                 self.removeFromParent()
@@ -665,14 +666,19 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
                 if #available(iOS 13.0, *) {
                     self.isModalInPresentation = false
                 }
-                DispatchQueue.main.async{
+                DispatchQueue.main.async{[weak self] in
+                    guard let self = self else {return}
                     vc.viewModel.newItineraryData = self.viewModel.itineraryData
                     if let nav = AppFlowManager.default.currentNavigation{
                         nav.pushViewController(vc, animated: true)
                     }else{
-                        let nav = UINavigationController(rootViewController: vc)
-                        nav.modalPresentationStyle = .overFullScreen
-                        nav.modalPresentationCapturesStatusBarAppearance = true
+                        self.navigationContronller = UINavigationController(rootViewController: vc)
+                        self.navigationContronller?.modalPresentationStyle = .overFullScreen
+                        self.navigationContronller?.modalPresentationCapturesStatusBarAppearance = true
+                        vc.dismissController = {[weak self] in
+                            self?.navigationContronller = nil
+                        }
+                        guard let nav = self.navigationContronller else {return}
                         self.present(nav, animated: true, completion: nil)
                     }
                 }

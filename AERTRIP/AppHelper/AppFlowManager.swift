@@ -1415,29 +1415,8 @@ extension AppFlowManager {
 extension AppFlowManager {
     
     func flightReturnToHomefrom(_ vc: UIViewController){
-//        var newVC:FlightDetailsBaseVC?
-//        if let controller = vc.presentingViewController as? FlightDetailsBaseVC{
-//            newVC = controller
-//        } else if let controller = vc.presentingViewController?.presentingViewController as? FlightDetailsBaseVC{
-//             newVC = controller
-//        }else if let controller = vc.presentingViewController?.presentingViewController?.presentingViewController as? FlightDetailsBaseVC{
-//             newVC = controller
-//        }
-//        guard newVC != nil else {return}
-//        let nav = (newVC?.presentingViewController as?  UINavigationController)
-////        newVC?.view.isHidden = true
-//        DispatchQueue.main.async {
-//            if let baseVC = nav?.children.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
-//                baseVC.popToPreviousScreen(sender: UIButton())
-//            }
-//            nav?.popToRootViewController(animated: true)
-//        }
-//        delay(seconds: 0.3) {
-//            newVC?.presentingViewController?.dismiss(animated: false, completion: nil)
-//        }
-        
-        setupInitialFlow()
 //        AppDelegate.shared.setupFlightsVC()
+        self.goToDashboard(launchThroughSplash: true)
         
     }
     
