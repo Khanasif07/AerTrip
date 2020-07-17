@@ -62,6 +62,36 @@ class AccountLadgerDetailsVM {
             fAmountDetails["Over Due by days"] = "\(days) \(daysStr)"
             
             self.ladgerDetails["0"] = fAmountDetails
+            
+            //voucher details
+            var voucherDetails = JSONDictionary()
+            voucherDetails["Voucher Date"] = self.ladgerEvent!.voucherDate?.toString(dateFormat: "dd-MM-YYYY")
+            voucherDetails["Voucher"] = self.ladgerEvent!.voucherName
+            voucherDetails["Voucher Number"] = self.ladgerEvent!.voucherNo
+            voucherDetails["Amount"] = "\(self.ladgerEvent!.amount)"
+            
+            self.ladgerDetails["1"] = voucherDetails
+            
+            //flight details
+            var flightDetails = JSONDictionary()
+            flightDetails["Travel Date"] = self.ladgerEvent!.travelDate?.toString(dateFormat: "dd-MM-YYYY")
+            flightDetails["Airline"] = self.ladgerEvent!.airline
+            flightDetails["Sector"] = self.ladgerEvent!.sector
+            flightDetails["PNR"] = self.ladgerEvent!.pnr
+            flightDetails["Ticket No."] = self.ladgerEvent!.ticketNo
+            for (idx, name) in self.ladgerEvent!.names.enumerated() {
+                if idx == 0 {
+                    flightDetails["Names"] = name
+                    self.flightDetailKeys.append("Names")
+                }
+                else {
+                    flightDetails["Names\(idx)"] = name
+                    self.flightDetailKeys.append("Names\(idx)")
+                }
+            }
+            
+            self.ladgerDetails["2"] = flightDetails
+            
         }else{
             var amountDetails = JSONDictionary()
             amountDetails["Date"] = self.ladgerEvent!.date?.toString(dateFormat: "dd-MM-YYYY")
@@ -70,36 +100,29 @@ class AccountLadgerDetailsVM {
             amountDetails["Amount"] = "\(self.ladgerEvent!.amount)"
             amountDetails["Balance"] = "\(self.ladgerEvent!.balance)"
             self.ladgerDetails["0"] = amountDetails
+            
+            //flight details
+            var flightDetails = JSONDictionary()
+            flightDetails["Travel Date"] = self.ladgerEvent!.travelDate?.toString(dateFormat: "dd-MM-YYYY")
+            flightDetails["Airline"] = self.ladgerEvent!.airline
+            flightDetails["Sector"] = self.ladgerEvent!.sector
+            flightDetails["PNR"] = self.ladgerEvent!.pnr
+            flightDetails["Ticket No."] = self.ladgerEvent!.ticketNo
+            for (idx, name) in self.ladgerEvent!.names.enumerated() {
+                if idx == 0 {
+                    flightDetails["Names"] = name
+                    self.flightDetailKeys.append("Names")
+                }
+                else {
+                    flightDetails["Names\(idx)"] = name
+                    self.flightDetailKeys.append("Names\(idx)")
+                }
+            }
+            
+            self.ladgerDetails["1"] = flightDetails
         }
         
-        //voucher details
-        var voucherDetails = JSONDictionary()
-        voucherDetails["Voucher Date"] = self.ladgerEvent!.voucherDate?.toString(dateFormat: "dd-MM-YYYY")
-        voucherDetails["Voucher"] = self.ladgerEvent!.voucherName
-        voucherDetails["Voucher Number"] = self.ladgerEvent!.voucherNo
-        voucherDetails["Amount"] = "\(self.ladgerEvent!.amount)"
         
-        self.ladgerDetails["1"] = voucherDetails
-        
-        //flight details
-        var flightDetails = JSONDictionary()
-        flightDetails["Travel Date"] = self.ladgerEvent!.travelDate?.toString(dateFormat: "dd-MM-YYYY")
-        flightDetails["Airline"] = self.ladgerEvent!.airline
-        flightDetails["Sector"] = self.ladgerEvent!.sector
-        flightDetails["PNR"] = self.ladgerEvent!.pnr
-        flightDetails["Ticket No."] = self.ladgerEvent!.ticketNo
-        for (idx, name) in self.ladgerEvent!.names.enumerated() {
-            if idx == 0 {
-                flightDetails["Names"] = name
-                self.flightDetailKeys.append("Names")
-            }
-            else {
-                flightDetails["Names\(idx)"] = name
-                self.flightDetailKeys.append("Names\(idx)")
-            }
-        }
-        
-        self.ladgerDetails["2"] = flightDetails
     }
     
     private func parseDataForHotelSales() {
