@@ -51,6 +51,16 @@ class AddPassengerDetailsCell: UITableViewCell {
     @IBOutlet weak var optionalDetailsView: UIView!
     @IBOutlet weak var optionalDetailsButton: UIButton!
     
+    //Divider view points:---
+    
+    @IBOutlet weak var fNameDivider: ATDividerView!
+    @IBOutlet weak var lNameDivider: ATDividerView!
+    @IBOutlet weak var emailDivider: ATDividerView!
+    @IBOutlet weak var dobDivider: ATDividerView!
+    @IBOutlet weak var nationalityDivider: ATDividerView!
+    @IBOutlet weak var pNumberDivider: ATDividerView!
+    @IBOutlet weak var pDateDivider: ATDividerView!
+    
     
     // MARK: - Properties
 //    weak var delegate: GuestDetailTableViewCellDelegate?
@@ -103,31 +113,29 @@ class AddPassengerDetailsCell: UITableViewCell {
             txtFld?.titleYPadding = 12.0
             txtFld?.hintYPadding = 12.0
             txtFld?.addTarget(self, action: #selector(self.textFieldDidChanged(_:)), for: .editingChanged)
-            txtFld?.isSingleTextField = false
             txtFld?.delegate = self
             txtFld?.titleFont = AppFonts.Regular.withSize(14)
             txtFld?.setUpAttributedPlaceholder(placeholderString: titleArray[index],with: "", foregroundColor: AppColors.themeGray40)
             txtFld?.font = AppFonts.Regular.withSize(18.0)
             txtFld?.textColor = AppColors.themeBlack
-            txtFld?.lineViewBottomSpace = 0.5
             txtFld?.titleTextColour = AppColors.themeGray40
+            txtFld?.isHiddenBottomLine = false
+            txtFld?.lineView.isHidden = true
             txtFld?.titleActiveTextColour = AppColors.themeGreen
-            if txtFld != emailTextField || txtFld != mobileTextField{
-                txtFld?.selectedLineColor = AppColors.divider.color
-                txtFld?.lineColor = AppColors.divider.color
-                txtFld?.lineErrorColor = AppColors.divider.color
-            }else{
-                txtFld?.selectedLineColor = AppColors.clear
-                txtFld?.lineColor = AppColors.clear
-                txtFld?.lineErrorColor = AppColors.clear
-                mobileTextField.lineView.isHidden = true
-            }
+            txtFld?.selectedLineColor = AppColors.clear
+            txtFld?.lineColor = AppColors.clear
+            txtFld?.lineErrorColor = AppColors.clear
             txtFld?.autocorrectionType = .no
         }
         deviderView.backgroundColor = AppColors.divider.color
         countryLabel.font = AppFonts.Regular.withSize(14.0)
         countryLabel.textColor = AppColors.themeGray40
         countryLabel.text = "Country"
+        
+        [fNameDivider,lNameDivider, emailDivider, dobDivider, nationalityDivider, pNumberDivider, pDateDivider].forEach { dView in
+            dView?.backgroundColor = AppColors.divider.color
+        }
+        
         
     }
 
@@ -170,14 +178,6 @@ class AddPassengerDetailsCell: UITableViewCell {
         }
         if journeyType == .domestic{
             self.setupforDomestic()
-        }else{
-            if (self.guestDetail?.isMoreOptionTapped ?? true){
-                self.passportExpiryTextField.lineViewBottomSpace = 0.5
-                self.passportNumberTextField.lineViewBottomSpace = 0.5
-            }else{
-                self.passportExpiryTextField.lineViewBottomSpace = -2.5
-                self.passportNumberTextField.lineViewBottomSpace = -2.5
-            }
         }
         self.lastNameTextField.text = ""
         if let lName = self.guestDetail?.lastName, !lName.isEmpty {
@@ -222,29 +222,12 @@ class AddPassengerDetailsCell: UITableViewCell {
         switch passenger.passengerType{
         case .Adult:
             self.dobAndNationalityStack.isHidden = true
-            if passenger.isMoreOptionTapped{
-                self.firstNameTextField.lineViewBottomSpace = 0.5
-                self.lastNameTextField.lineViewBottomSpace = 0.5
-            }else{
-                self.firstNameTextField.lineViewBottomSpace = -2.5
-                self.lastNameTextField.lineViewBottomSpace = -2.5
-            }
         case .child:
             self.dobAndNationalityStack.isHidden = false
             self.nataionalityView.isHidden = true
-            if passenger.isMoreOptionTapped{
-                self.dobTextField.lineViewBottomSpace = 0.5
-            }else{
-                self.dobTextField.lineViewBottomSpace = -2.5
-            }
         case .infant:
             self.dobAndNationalityStack.isHidden = false
             self.nataionalityView.isHidden = true
-            if passenger.isMoreOptionTapped{
-                self.dobTextField.lineViewBottomSpace = 0.5
-            }else{
-                self.dobTextField.lineViewBottomSpace = -2.5
-            }
         }
     }
     
@@ -256,16 +239,9 @@ class AddPassengerDetailsCell: UITableViewCell {
             mobileTextField.selectedLineColor = AppColors.clear
             mobileTextField.lineErrorColor = AppColors.clear
             self.mobileTextField.keyboardType = .phonePad
-            self.firstNameTextField.lineViewBottomSpace = 0.5
-            self.lastNameTextField.lineViewBottomSpace = 0.5
             self.setDataForCountryCode()
             self.mobileTextField.text = self.guestDetail?.contact
             self.emailTextField.text = self.guestDetail?.emailLabel
-            if (journeyType == .domestic) && (self.guestDetail?.isMoreOptionTapped ?? false){
-                self.emailTextField.lineViewBottomSpace = 0.5
-            }else{
-                self.emailTextField.lineViewBottomSpace = -2.5
-            }
         }else{
             self.mobileAndIsdStack.isHidden = true
             self.emailStack.isHidden = true
@@ -308,7 +284,7 @@ class AddPassengerDetailsCell: UITableViewCell {
         
         if ((self.lastNameTextField.text ?? "").count < 3){
             self.lastNameTextField.isError = true
-            let lastName = "last Name"
+            let lastName = "Last Name"
             self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: lastName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeRed])
         }else if !(self.lastNameTextField.text ?? "").isName{
             self.lastNameTextField.isError = true
