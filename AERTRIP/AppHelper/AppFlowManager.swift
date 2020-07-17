@@ -539,17 +539,17 @@ extension AppFlowManager {
     }
     
     // presentHotelDetailsVCOverExpendCard
-    func presentHotelDetailsVCOverExpendCard(_ vc: HotelsGroupExpendedVC, hotelInfo: HotelSearched, sourceView: UIView, sid: String, hotelSearchRequest: HotelSearchRequestModel?, onCloseHandler: (() -> Void)? = nil) {
-        if let topVC = UIApplication.topViewController() {
-            let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
-            ob.viewModel.hotelInfo = hotelInfo
-            ob.delegate = vc
-            ob.isHideWithAnimation = false
-            ob.viewModel.hotelSearchRequest = hotelSearchRequest
-            ob.onCloseHandler = onCloseHandler
-            ob.show(onViewController: topVC, sourceView: sourceView, animated: false)
-        }
-    }
+//    func presentHotelDetailsVCOverExpendCard(_ vc: HotelsGroupExpendedVC, hotelInfo: HotelSearched, sourceView: UIView, sid: String, hotelSearchRequest: HotelSearchRequestModel?, onCloseHandler: (() -> Void)? = nil) {
+//        if let topVC = UIApplication.topViewController() {
+//            let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
+//            ob.viewModel.hotelInfo = hotelInfo
+//            ob.delegate = vc
+//            ob.isHideWithAnimation = false
+//            ob.viewModel.hotelSearchRequest = hotelSearchRequest
+//            ob.onCloseHandler = onCloseHandler
+//            ob.show(onViewController: topVC, sourceView: sourceView, animated: false)
+//        }
+//    }
     
     func presentHCSelectGuestsVC(delegate: HCSelectGuestsVCDelegate, productType:ProductType = .hotel) {
         if let topVC = UIApplication.topViewController() {
@@ -934,15 +934,17 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func showAccountDepositSuccessVC(buttonConfig: BulkEnquirySuccessfulVC.ButtonConfiguration, delegate: BulkEnquirySuccessfulVCDelegate) {
+    func showAccountDepositSuccessVC(buttonConfig: BulkEnquirySuccessfulVC.ButtonConfiguration, delegate: BulkEnquirySuccessfulVCDelegate, flow: BulkEnquirySuccessfulVC.UsingFor) {
         if let mVC = UIApplication.topViewController() {
             let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
             ob.delegate = delegate
             ob.searchButtonConfiguration = buttonConfig
-            ob.currentUsingAs = .accountDeposit
+            ob.currentUsingAs = flow
             mVC.add(childViewController: ob)
         }
     }
+    
+    
     
     func moveHotelCalenderVC(isHotelCalendar: Bool = false, isReturn: Bool = false, isMultiCity: Bool = false, checkInDate: Date? = nil, checkOutDate: Date? = nil, delegate: CalendarDataHandler, isStartDateSelection: Bool, navigationController: UINavigationController? = nil) {
         if let ob = UIStoryboard(name: "AertripCalendar", bundle: Bundle(for: AertripCalendarViewController.self)).instantiateViewController(withIdentifier: "AertripCalendarViewController") as? AertripCalendarViewController {
@@ -1067,6 +1069,15 @@ extension AppFlowManager {
         obj.viewModel.contactInfo = contactInfo
         obj.viewModel.usingFor = usingFor
         obj.viewModel.hotelName = hotel
+        self.mainNavigationController.present(obj, animated: true, completion: nil)
+    }
+    
+    // Move To Booking Call VC
+    
+    func moveToBookingWebCheckinVC(contactInfo: ContactInfo?, webCheckins: [String] ) {
+        let obj = WebCheckinVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.viewModel.contactInfo = contactInfo
+        obj.viewModel.webCheckins = webCheckins
         self.mainNavigationController.present(obj, animated: true, completion: nil)
     }
     
@@ -1425,7 +1436,8 @@ extension AppFlowManager {
 //            newVC?.presentingViewController?.dismiss(animated: false, completion: nil)
 //        }
         
-        AppDelegate.shared.setupFlightsVC()
+        setupInitialFlow()
+//        AppDelegate.shared.setupFlightsVC()
         
     }
     

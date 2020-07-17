@@ -13,6 +13,7 @@ class DestinationSearchedTableCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var dividerLeadingConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,7 +28,12 @@ class DestinationSearchedTableCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.dividerLeadingConstraint.constant = 16
+    }
+    
     private func setupFontAndColor() {
         
         self.titleLabel.font = AppFonts.Regular.withSize(18.0)

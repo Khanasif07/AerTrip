@@ -36,6 +36,8 @@ class BulkEnquirySuccessfulVC: BaseVC {
         case cancellationProcessed
         case reschedulingRequest
         case specialRequest
+        case addOnRequestPayment
+        case bookingPayment
     }
     
     //Mark:- Variables
@@ -68,7 +70,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
     
     var currentUsingAs = UsingFor.bulkBooking
     var searchButtonConfiguration: ButtonConfiguration = ButtonConfiguration()
-  
+    
     //Mark:- LifeCycle
     //================
     override func viewDidLoad() {
@@ -153,7 +155,20 @@ class BulkEnquirySuccessfulVC: BaseVC {
             self.searchButtonWidthConstraint.constant = UIDevice.screenWidth
             self.mainContainerViewHeightConstraint.constant = self.view.height
             self.containerView.roundTopCorners(cornerRadius: 0.0)
+        case .addOnRequestPayment:
+            self.mainTitleLabel.text = LocalizedString.AddOnRequestPayment.localized
+            self.subTitleLabel.text = LocalizedString.AddOnRequestPaymentMessage.localized
+            self.searchButtonWidthConstraint.constant = UIDevice.screenWidth
+            self.mainContainerViewHeightConstraint.constant = self.view.height
+            self.containerView.roundTopCorners(cornerRadius: 0.0)
+        case .bookingPayment:
+            self.mainTitleLabel.text = LocalizedString.BookingPayment.localized
+            self.subTitleLabel.text = LocalizedString.BookingPaymentMessage.localized
+            self.searchButtonWidthConstraint.constant = UIDevice.screenWidth
+            self.mainContainerViewHeightConstraint.constant = self.view.height
+            self.containerView.roundTopCorners(cornerRadius: 0.0)
         }
+        
         self.searchBtnOutlet.isUserInteractionEnabled = false
         self.searchBtnOutlet.layer.cornerRadius = 25.0
         self.backgroundView.alpha = 1.0
@@ -165,7 +180,10 @@ class BulkEnquirySuccessfulVC: BaseVC {
         self.subTitleLabel.isHidden = true
         self.doneBtnOutlet.isHidden = true
     }
-    
+    //    "AddOnRequestPayment" = "Payment Successful";
+    //    "AddOnRequestPaymentMessage" = "Thank you for your payment. We will book your add-ons and send you a confirmation shortly.";
+    //    "BookingPayment" = "Payment Successful";
+    //    "BookingPaymentMessage" = "Thank you for your payment.";
     private func setupSearchButton() {
         
         self.searchBtnOutlet.setTitle(searchButtonConfiguration.text, for: .normal)
@@ -183,7 +201,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
         
         self.searchButtonWidthConstraint.constant = searchButtonConfiguration.width
         self.searchButtonHeightConstraint.constant = searchButtonConfiguration.buttonHeight
-
+        
         print(self.containerView.height - searchButtonConfiguration.spaceFromBottom - self.searchBtnOutlet.y)
         let y = self.view.height - searchButtonConfiguration.spaceFromBottom - self.searchBtnOutlet.y - self.searchBtnOutlet.height
         self.searchBtnOutlet.transform = CGAffineTransform(translationX:  0, y: y)
@@ -199,7 +217,9 @@ class BulkEnquirySuccessfulVC: BaseVC {
         }, completion: { (isDone) in
             if shouldRemove {
                 self.removeFromParentVC
-                NotificationCenter.default.post(name: .bulkEnquirySent, object: nil)
+                if self.currentUsingAs == .bulkBooking {
+                    NotificationCenter.default.post(name: .bulkEnquirySent, object: nil)
+                }
             }
         })
     }
@@ -209,7 +229,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
         self.searchBtnOutlet.setTitle(nil, for: .normal)
         self.searchBtnOutlet.setImage(nil, for: .normal)
         
-       // self.searchBtnOutlet.translatesAutoresizingMaskIntoConstraints = true
+        // self.searchBtnOutlet.translatesAutoresizingMaskIntoConstraints = true
         UIView.animate(withDuration: AppConstants.kAnimationDuration / 4.0, animations: {
             self.searchButtonHeightConstraint.constant = 62
             self.searchButtonWidthConstraint.constant = 62
@@ -217,7 +237,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
             self.view.layoutIfNeeded()
             
         }) { (isCompleted) in
-        
+            
             let tY: CGFloat
             tY = ((self.containerView.height) / 2.0) - self.searchBtnOutlet.height/2 - 115
             var t = CGAffineTransform.identity
@@ -235,7 +255,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
     }
     
     private func finalTransFormation() {
-
+        
         self.mainTitleLabel.isHidden = false
         self.subTitleLabel.isHidden = false
         self.doneBtnOutlet.isHidden = false

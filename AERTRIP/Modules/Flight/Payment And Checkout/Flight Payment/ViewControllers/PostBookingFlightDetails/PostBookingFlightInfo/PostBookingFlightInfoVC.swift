@@ -150,7 +150,7 @@ extension PostBookingFlightInfoVC {
                 fatalError("AmentityTableViewCell not found")
             }
             
-            cell.flightDetail = flight
+           // cell.amenities = flight
             
             return cell
         }

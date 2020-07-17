@@ -37,7 +37,13 @@ class BookingInvoiceVC: BaseVC {
         self.topNavBar.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.topNavBar.navTitleLabel.textColor = AppColors.textFieldTextColor51
         
-        let navTitle = self.viewModel.isForReceipt ? LocalizedString.Receipt.localized : LocalizedString.Booking.localized
+        var navTitle = ""
+        if self.viewModel.isForReceipt {
+            navTitle = LocalizedString.Receipt.localized
+        } else {
+            navTitle = self.viewModel.voucher?.basic?.event ?? LocalizedString.Booking.localized
+        }
+//        let navTitle = self.viewModel.isForReceipt ? LocalizedString.Receipt.localized : LocalizedString.Booking.localized
         self.topNavBar.configureNavBar(title: navTitle, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true)
         self.invoiceTableView.backgroundColor = AppColors.themeGray04
     }
@@ -141,7 +147,7 @@ class BookingInvoiceVC: BaseVC {
         }
         discountCell.titleLabelLeadingConstraint.constant = 30
         discountCell.titleLabelBottomConstraint.constant = 6
-
+        
         let code = self.viewModel.discountCodes[indexPath.row]
         discountCell.configureCellForInvoice(title: code.ledgerName, amount:code.amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(14.0)))
         return discountCell
@@ -168,11 +174,11 @@ class BookingInvoiceVC: BaseVC {
                 }
             }
             else {
-//                if let trans = self.viewModel.voucher?.transactions.filter({ $0.ledgerName.lowercased().contains("total")}).first {
-//
-//                    amount = trans.amount
-//                    ladName = trans.ledgerName
-//                }
+                //                if let trans = self.viewModel.voucher?.transactions.filter({ $0.ledgerName.lowercased().contains("total")}).first {
+                //
+                //                    amount = trans.amount
+                //                    ladName = trans.ledgerName
+                //                }
                 let sectionHeader = self.viewModel.sectionHeader[indexPath.section]
                 amount = sectionHeader.amount
                 ladName = sectionHeader.title
@@ -187,6 +193,9 @@ class BookingInvoiceVC: BaseVC {
             totalPayableCell.totalPayableNowLabel.font = AppFonts.Regular.withSize(20.0)
             totalPayableCell.topDeviderView.isHidden = false
             totalPayableCell.bottomDeviderView.isHidden = true
+            if self.numberOfSections(in: self.invoiceTableView) == 2 {
+                totalPayableCell.topDeviderView.isHidden = true
+            }
             return totalPayableCell
         case 1:
             guard let emptyCell = self.invoiceTableView.dequeueReusableCell(withIdentifier: "EmptyTableViewCell") as? EmptyTableViewCell else {
@@ -293,7 +302,7 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
             headerView.isDownArrow = false
             headerView.discountContainer.isHidden = true
             headerView.topStackView.isHidden = false
-
+            
             //headerView.stackViewTopConstriant.constant = 5.5
             headerView.topBackgroundView.backgroundColor = AppColors.themeWhite
             headerView.tag = section
@@ -448,12 +457,22 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
         } else {
             if self.viewModel.sectionHeader[indexPath.section].section == .total, indexPath.row == 2 {
                 //download invoice
-                if let bID = self.viewModel.voucher?.basic?.transactionId, !bID.isEmpty {
+                if let bID = self.viewModel.voucher?.bookingId, !bID.isEmpty, let voucherType =  self.viewModel.voucher?.basic?.voucherType, let transactionId = self.viewModel.voucher?.basic?.transactionId, let eventName = self.viewModel.voucher?.basic?.event {
+                    var documentURL = ""
                     self.isDownloadingRecipt = true
                     if let cell = self.invoiceTableView.cellForRow(at: indexPath) as? DownloadInvoiceTableViewCell{
                         cell.showLoader = true
                     }
-                    AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Booking Invoice", showLoader: false, complition: { [weak self] (status) in
+                    switch voucherType {
+                    case "reschedule_sales_return_jv", "sales_return_jv":
+                        documentURL = "\(APIEndPoint.baseUrlPath.path)dashboard/credit-note-download?transaction_id=\(transactionId)&booking_id=\(bID)"
+                    case "sales_addon":
+                        documentURL = "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(transactionId)"
+                    default:
+                        documentURL = "\(APIEndPoint.baseUrlPath.path)dashboard/booking-action?booking_id=\(bID)&doc=invoice&type=pdf"
+                    }
+                    
+                    AppGlobals.shared.viewPdf(urlPath: documentURL, screenTitle: "\(eventName) Invoice", showLoader: false, complition: { [weak self] (status) in
                         self?.isDownloadingRecipt = false
                         self?.invoiceTableView.reloadData()
                     })
@@ -461,6 +480,18 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
             }
         }
         
+        /*
+         check for event key for name
+         
+         voucher_type = reschedule_sales_return_jv || sales_return_jv
+         
+         for cancelation
+         https://beta.aertrip.com/api/v1/dashboard/credit-note-download?transaction_id=21205&booking_id=12816
+         
+         voucher_type = sales_addon
+         for addon
+         https://beta.aertrip.com/api/v1/dashboard/download-voucher?id=21828
+         */
     }
     
     

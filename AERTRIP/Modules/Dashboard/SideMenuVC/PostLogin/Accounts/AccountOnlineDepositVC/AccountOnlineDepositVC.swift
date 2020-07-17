@@ -14,6 +14,7 @@ class AccountOnlineDepositVC: BaseVC {
     enum UsingToPaymentFor {
         case accountDeposit
         case addOns
+        case booking
     }
     
     // MARK: - IB Outlet
@@ -125,12 +126,12 @@ class AccountOnlineDepositVC: BaseVC {
         self.indicatorView.style = .white
         self.indicatorView.color = AppColors.themeWhite
         self.indicatorView.startAnimating()
-        
+        self.payButton.isHidden = shouldStart
         self.loaderContainer.isHidden = !shouldStart
     }
     
     func showPaymentSuccessMessage() {
-        if self.currentUsingFor == .addOns {
+        if self.currentUsingFor == .addOns || self.currentUsingFor == .booking {
 //            AppFlowManager.default.showAddonRequestSent(buttonTitle:LocalizedString.Done.localized, delegate: self)
             
             var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
@@ -141,7 +142,7 @@ class AccountOnlineDepositVC: BaseVC {
             config.width = self.payButton.width
             config.buttonHeight = self.gradientView.height
             config.spaceFromBottom = AppFlowManager.default.safeAreaInsets.bottom
-              AppFlowManager.default.showAddonRequestSent(buttonConfig: config, delegate: self)
+            AppFlowManager.default.showAccountDepositSuccessVC(buttonConfig: config, delegate: self, flow: self.currentUsingFor == .addOns ?  .addOnRequestPayment : .bookingPayment)
         }
         else {
             var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
@@ -152,7 +153,7 @@ class AccountOnlineDepositVC: BaseVC {
             config.width = self.payButton.width
             config.spaceFromBottom = AppFlowManager.default.safeAreaInsets.bottom
             
-            AppFlowManager.default.showAccountDepositSuccessVC(buttonConfig: config, delegate: self)
+            AppFlowManager.default.showAccountDepositSuccessVC(buttonConfig: config, delegate: self, flow: .accountDeposit)
         }
     }
 
@@ -166,12 +167,22 @@ class AccountOnlineDepositVC: BaseVC {
 
 extension AccountOnlineDepositVC: BulkEnquirySuccessfulVCDelegate {
     func doneButtonAction() {
-        if self.currentUsingFor == .addOns {
+        if self.currentUsingFor == .addOns || self.currentUsingFor == .booking{
+            self.sendDataChangedNotification(data: ATNotification.myBookingCasesRequestStatusChanged)
+            var vcFound = false
             for vc in AppFlowManager.default.mainNavigationController.viewControllers {
                 if vc.isKind(of: FlightBookingsDetailsVC.self) {
                     AppFlowManager.default.popToViewController(vc, animated: true)
+                    vcFound = true
+                    break
+                }else if vc.isKind(of: HotlelBookingsDetailsVC.self) {
+                    AppFlowManager.default.popToViewController(vc, animated: true)
+                    vcFound = true
                     break
                 }
+            }
+            if !vcFound {
+               AppFlowManager.default.popViewController(animated: true)
             }
         }
         else {

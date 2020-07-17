@@ -74,6 +74,7 @@ class SelectTripVC: BaseVC {
         if viewModel.allTrips.isEmpty {
             viewModel.fetchAllTrips()
         }
+        viewModel.setSelectedTripIndexPath()
     }
     
     override func setupColors() {

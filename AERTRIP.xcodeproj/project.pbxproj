@@ -1217,6 +1217,8 @@
 		8455A682223295FF00CEE2B3 /* PoweredByTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455A680223295FF00CEE2B3 /* PoweredByTableViewCell.swift */; };
 		8455A683223295FF00CEE2B3 /* PoweredByTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8455A681223295FF00CEE2B3 /* PoweredByTableViewCell.xib */; };
 		8455A6A52232D01B00CEE2B3 /* PKProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455A6A42232D01B00CEE2B3 /* PKProgressView.swift */; };
+		845B619224C0226C00369CC1 /* WebCheckinVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B619024C0226C00369CC1 /* WebCheckinVM.swift */; };
+		845B619324C0226C00369CC1 /* WebCheckinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B619124C0226C00369CC1 /* WebCheckinVC.swift */; };
 		845D3A1A228D724500062EE5 /* AccountOutstanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D3A19228D724500062EE5 /* AccountOutstanding.swift */; };
 		8460C0C421F34A38007768CC /* ATTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460C0C321F34A38007768CC /* ATTableView.swift */; };
 		8460C0C621F34D56007768CC /* ATCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460C0C521F34D56007768CC /* ATCollectionView.swift */; };
@@ -2932,6 +2934,8 @@
 		8455A680223295FF00CEE2B3 /* PoweredByTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoweredByTableViewCell.swift; sourceTree = "<group>"; };
 		8455A681223295FF00CEE2B3 /* PoweredByTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PoweredByTableViewCell.xib; sourceTree = "<group>"; };
 		8455A6A42232D01B00CEE2B3 /* PKProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKProgressView.swift; sourceTree = "<group>"; };
+		845B619024C0226C00369CC1 /* WebCheckinVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebCheckinVM.swift; sourceTree = "<group>"; };
+		845B619124C0226C00369CC1 /* WebCheckinVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebCheckinVC.swift; sourceTree = "<group>"; };
 		845D3A19228D724500062EE5 /* AccountOutstanding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOutstanding.swift; sourceTree = "<group>"; };
 		8460C0C321F34A38007768CC /* ATTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATTableView.swift; sourceTree = "<group>"; };
 		8460C0C521F34D56007768CC /* ATCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATCollectionView.swift; sourceTree = "<group>"; };
@@ -7535,6 +7539,15 @@
 			path = YouAreAllDoneFooterView;
 			sourceTree = "<group>";
 		};
+		845B618F24C0226C00369CC1 /* WebCheckin */ = {
+			isa = PBXGroup;
+			children = (
+				845B619024C0226C00369CC1 /* WebCheckinVM.swift */,
+				845B619124C0226C00369CC1 /* WebCheckinVC.swift */,
+			);
+			path = WebCheckin;
+			sourceTree = "<group>";
+		};
 		8463A5112456C7B200C70D8C /* GooleMapCluster */ = {
 			isa = PBXGroup;
 			children = (
@@ -8693,6 +8706,7 @@
 		84F2DC9122644C4300212F05 /* BookingsVC */ = {
 			isa = PBXGroup;
 			children = (
+				845B618F24C0226C00369CC1 /* WebCheckin */,
 				18FFD1AD22A672FB0010C7DB /* BookingConfirmation */,
 				18AE8F5822A4F491009D625E /* ReviewCancellation */,
 				18FD91632296690F00D005E9 /* BookingRescheduling */,
@@ -9934,6 +9948,7 @@
 				84F983D121B51A070018DFED /* UIColorExtension.swift in Sources */,
 				1879C4A12293CADF00897CED /* BookingDirectionVM.swift in Sources */,
 				84F983C921B51A070018DFED /* AppColors.swift in Sources */,
+				845B619224C0226C00369CC1 /* WebCheckinVM.swift in Sources */,
 				846EADA324A4794D00BF5E40 /* PostBookingAddOnConfModel.swift in Sources */,
 				18D284AD2499EEC1000457F6 /* PostBookingFlightDetailsVM.swift in Sources */,
 				84DD2489226715530013F77E /* BookingTravellersDetailsTableViewCell.swift in Sources */,
@@ -10202,6 +10217,7 @@
 				180E7C0C223205B8005FAEA9 /* EmailComposerFooterView.swift in Sources */,
 				849DA81C23E2B6F800C2E9D8 /* ATCategoryNavBarStyle.swift in Sources */,
 				84791ED92281A04900472E54 /* AccountLadgerDetailsVC+Delegate.swift in Sources */,
+				845B619324C0226C00369CC1 /* WebCheckinVC.swift in Sources */,
 				843FF4CF24740231001F21B1 /* UseGSTINCell.swift in Sources */,
 				84B6DEA722805D680042D902 /* AccountChargeInfoVM.swift in Sources */,
 				18D4C417220AC515005E1E37 /* RoomVC.swift in Sources */,
@@ -11107,6 +11123,7 @@
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/lib";
 			};
 			name = Debug;
 		};
@@ -11316,6 +11333,7 @@
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/lib";
 			};
 			name = Release;
 		};

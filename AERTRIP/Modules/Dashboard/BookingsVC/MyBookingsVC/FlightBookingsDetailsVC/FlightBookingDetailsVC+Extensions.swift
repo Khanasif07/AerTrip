@@ -189,6 +189,10 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        if self.viewModel.bookingDetail == nil {
+            return
+        }
+        
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.RequestAddOnAndFrequentFlyer.localized, LocalizedString.RequestRescheduling.localized, LocalizedString.RequestCancellation.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationMail.localized], colors: [self.viewModel.bookingDetail?.addOnRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.rescheduleRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.cancellationRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, AppColors.themeDarkGreen, AppColors.themeDarkGreen])
         
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
@@ -410,7 +414,14 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     
     func openWebCheckin() {
         // TODO: - Need to test with when web url is present
-        self.webCheckinServices(url: self.viewModel.bookingDetail?.webCheckinUrl ?? "")
+        if (self.viewModel.bookingDetail?.additionalInformation?.webCheckins.count ?? 0) > 1 {
+          AppFlowManager.default.moveToBookingWebCheckinVC(contactInfo: self.viewModel.bookingDetail?.additionalInformation?.contactInfo, webCheckins: self.viewModel.bookingDetail?.additionalInformation?.webCheckins ?? [])
+        } else {
+            self.webCheckinServices(url: self.viewModel.bookingDetail?.webCheckinUrl ?? "")
+            
+        }
+        
+        
     }
     
     func openDirections() {

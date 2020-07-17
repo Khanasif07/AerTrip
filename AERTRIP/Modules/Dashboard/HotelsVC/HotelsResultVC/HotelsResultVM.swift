@@ -383,9 +383,11 @@ extension HotelsResultVM {
         params[APIKeys.dest_name.rawValue] = self.searchedFormData.destName
         params[APIKeys.isPageRefereshed.rawValue] = true
         
-        params[APIKeys.lat.rawValue] = self.searchedFormData.lat
-        params[APIKeys.lng.rawValue] = self.searchedFormData.lng
+        params[APIKeys.latitude.rawValue] = self.searchedFormData.lat
+        params[APIKeys.longitude.rawValue] = self.searchedFormData.lng
+        params[APIKeys.search_nearby.rawValue] = self.searchedFormData.isHotelNearMeSelected
 
+        
         for (_ , data ) in _starRating.enumerated() {
             //            params["filter[star][\(idx)star]"] = true
             params["filter[star][\(data)star]"] = true
