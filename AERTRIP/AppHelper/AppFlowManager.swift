@@ -1436,7 +1436,8 @@ extension AppFlowManager {
 //            newVC?.presentingViewController?.dismiss(animated: false, completion: nil)
 //        }
         
-        AppDelegate.shared.setupFlightsVC()
+        setupInitialFlow()
+//        AppDelegate.shared.setupFlightsVC()
         
     }
     
