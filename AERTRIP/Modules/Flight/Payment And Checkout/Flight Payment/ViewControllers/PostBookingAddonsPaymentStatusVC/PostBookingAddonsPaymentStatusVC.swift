@@ -179,7 +179,7 @@ extension PostBookingAddonsPaymentStatusVC: UITableViewDelegate, UITableViewData
             if self.viewModel.bookingIds.count > 1{
                 footerView.selectSeatButton.setTitle("Select Seats for...", for: .normal)
             }else{
-                 footerView.selectSeatButton.setTitle("Select Seats for", for: .normal)
+                 footerView.selectSeatButton.setTitle("Select Seats", for: .normal)
             }
             footerView.handeller = {
                 self.openActionSeat()

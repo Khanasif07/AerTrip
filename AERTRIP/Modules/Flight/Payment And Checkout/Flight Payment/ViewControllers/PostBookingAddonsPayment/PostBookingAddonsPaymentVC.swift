@@ -155,7 +155,7 @@ class PostBookingAddonsPaymentVC: BaseVC{
     }
     
     private func addFooterView() {
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 50))
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 23))
         customView.backgroundColor = AppColors.themeGray04
         self.checkOutTableView.tableFooterView = customView
     }
@@ -501,7 +501,7 @@ extension PostBookingAddonsPaymentVC{
         case 2: // total amount Cell
             return 46.0
         case 3: // term and privacy cell
-            return 80//115.0
+            return 60.0//115.0
         default:
             return 44
         }

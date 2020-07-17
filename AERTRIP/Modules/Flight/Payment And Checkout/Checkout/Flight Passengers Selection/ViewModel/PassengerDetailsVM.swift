@@ -54,49 +54,80 @@ class PassengerDetailsVM {
     
     
     
+//    func validationForPassenger()->(success:Bool, msg:String){
+//
+//        for contact in GuestDetailsVM.shared.guests[0]{
+//            if contact.firstName.removeAllWhitespaces.isEmpty{
+//                return (false, "Please fill passenger first name")
+//            } else if contact.firstName.count < 3 {
+//                return (false, "Passenger first name should have atleast 3 character")
+//            } else if !contact.firstName.isName {
+//                return (false, "Passenger first name should not have any numeric or special character")
+//            }else if contact.lastName.removeAllWhitespaces.isEmpty {
+//                return (false, "Please fill passenger last name")
+//            }else if  contact.lastName.count < 3 {
+//                return (false, "Passenger first last should have atleast 3 character")
+//            }else if !contact.lastName.isName {
+//                return (false, "Passenger last name should not have any numeric or special character")
+//            }else if contact.salutation.isEmpty{
+//                return (false, "Please fill all passenger gender details")
+//            }
+//            if isAllPaxInfoRequired && contact.passengerType == .Adult{
+//                if contact.isd.isEmpty{
+//                    return (false, "Please fill the passenger contact details")
+//                }else if (contact.contact.isEmpty || self.getOnlyIntiger(contact.contact).count < contact.minContactLimit || self.getOnlyIntiger(contact.contact).count > contact.maxContactLimit){
+//                    return (false, "Please fill the passenger contact details")
+//                }else if !(contact.emailLabel.checkValidity(.Email)){
+//                    return (false, "Please fill the passenger contact details")
+//                }
+//            }
+//            if self.journeyType == .domestic{
+//                if contact.passengerType == .infant{
+//                    return (!(contact.dob.isEmpty), "Please fill passenger Date of birth detail")
+//                }
+//            }else{
+//                if contact.dob.isEmpty {
+//                    return (false, "Please fill the passenger Date of birth detail")
+//                }else if contact.nationality.isEmpty  {
+//                    return (false, "Please fill the passenger nationality details")
+//                }else if  contact.passportNumber.isEmpty || contact.passportExpiryDate.isEmpty{
+//                    return (false, "Please fill all the passenger passport details")
+//                }
+//            }
+//        }
+//        return (true, "")
+//    }
+    
+    
     func validationForPassenger()->(success:Bool, msg:String){
         
         for contact in GuestDetailsVM.shared.guests[0]{
-            if contact.firstName.removeAllWhitespaces.isEmpty{
-                return (false, "Please fill passenger first name")
-            } else if contact.firstName.count < 3 {
-                return (false, "Passenger first name should have atleast 3 character")
-            } else if !contact.firstName.isName {
-                return (false, "Passenger first name should not have any numeric or special character")
-            }else if contact.lastName.removeAllWhitespaces.isEmpty {
-                return (false, "Please fill passenger last name")
-            }else if  contact.lastName.count < 3 {
-                return (false, "Passenger first last should have atleast 3 character")
-            }else if !contact.lastName.isName {
-                return (false, "Passenger last name should not have any numeric or special character")
-            }else if contact.salutation.isEmpty{
-                return (false, "Please fill all passenger gender details")
+            if !contact.firstName.removeAllWhitespaces.isEmpty{
+                if contact.firstName.count < 3 {
+                    return (false, "Passenger first name should have atleast 3 character")
+                } else if !contact.firstName.isName {
+                    return (false, "Passenger first name should not have any numeric or special character")
+                }
+            }else if !contact.lastName.removeAllWhitespaces.isEmpty {
+                if  contact.lastName.count < 3 {
+                    return (false, "Passenger first last should have atleast 3 character")
+                }else if !contact.lastName.isName {
+                    return (false, "Passenger last name should not have any numeric or special character")
+                }
             }
             if isAllPaxInfoRequired && contact.passengerType == .Adult{
                 if contact.isd.isEmpty{
                     return (false, "Please fill the passenger contact details")
-                }else if (contact.contact.isEmpty || self.getOnlyIntiger(contact.contact).count < contact.minContactLimit || self.getOnlyIntiger(contact.contact).count > contact.maxContactLimit){
+                }else if ((!contact.contact.isEmpty) && self.getOnlyIntiger(contact.contact).count < contact.minContactLimit || self.getOnlyIntiger(contact.contact).count > contact.maxContactLimit){
                     return (false, "Please fill the passenger contact details")
-                }else if !(contact.emailLabel.checkValidity(.Email)){
+                }else if ((!contact.emailLabel.isEmpty) && !(contact.emailLabel.checkValidity(.Email))){
                     return (false, "Please fill the passenger contact details")
-                }
-            }
-            if self.journeyType == .domestic{
-                if contact.passengerType == .infant{
-                    return (!(contact.dob.isEmpty), "Please fill passenger Date of birth detail")
-                }
-            }else{
-                if contact.dob.isEmpty {
-                    return (false, "Please fill the passenger Date of birth detail")
-                }else if contact.nationality.isEmpty  {
-                    return (false, "Please fill the passenger nationality details")
-                }else if  contact.passportNumber.isEmpty || contact.passportExpiryDate.isEmpty{
-                    return (false, "Please fill all the passenger passport details")
                 }
             }
         }
         return (true, "")
     }
+    
     
     private func getOnlyIntiger(_ str: String)->String{
         let newStr = str.lowercased()

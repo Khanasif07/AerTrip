@@ -174,7 +174,7 @@ class FlightPaymentVC: BaseVC {
     }
     
     private func addFooterView() {
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 50))
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 23))
         customView.backgroundColor = AppColors.themeGray04
         self.checkOutTableView.tableFooterView = customView
     }

@@ -7,6 +7,9 @@
 //
 
 import UIKit
+protocol ShowTostDelegate:NSObjectProtocol {
+    func showTost(msg: String, isLoaded:Bool)
+}
 
 class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate{
     //MARK:- Outlets
@@ -31,10 +34,14 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
     var fewSeatsLeftViewHeight = 0
     var dataResp = [NSDictionary]()
     var isForDomestic:Bool = false
+    weak var tostDelegate:ShowTostDelegate?
+    //Indicator:---
+    var indicator = UIActivityIndicatorView()
 
     //MARK:- Initialise Views
     override func viewDidLoad() {
         super.viewDidLoad()
+        setLoader()
         self.baggageTableView.backgroundColor = AppColors.themeGray04
         baggageTableView.register(UINib(nibName: "BaggageDetailsPerFlightTableViewCell", bundle: nil), forCellReuseIdentifier: "BaggageDetailsPerFlightCell")
         baggageTableView.register(UINib(nibName: "ChangeAirportTableViewCell", bundle: nil), forCellReuseIdentifier: "ChangeAirportCell")
@@ -80,6 +87,34 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                 }
                 
             }
+        }
+    }
+    
+    private func setLoader(){
+        if #available(iOS 13.0, *) {
+            indicator.style = .large
+        } else {
+             indicator.style = .whiteLarge
+        }
+        indicator.hidesWhenStopped = true
+        indicator.tintColor = AppColors.themeGreen
+        indicator.color = AppColors.themeGreen
+    }
+    
+    private func addIndicator(){
+        indicator.frame = CGRect(x: 0, y: 200, width: 40, height: 40)
+        indicator.center.x = self.view.center.x
+        indicator.center.y = (UIScreen.height/2 - 88)
+        if !self.view.contains(indicator){
+            self.view.addSubview(indicator)
+        }
+        indicator.startAnimating()
+    }
+    
+    func removeIndicator(){
+        DispatchQueue.main.async {
+            self.indicator.removeFromSuperview()
+            self.indicator.stopAnimating()
         }
     }
     
@@ -874,10 +909,17 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
     
     //MARK:- API Call
     func callAPIforBaggageInfo(sid:String, fk:String, journeyObj:IntJourney, count:Int = 3){
+        let reachability = AFNetworkReachabilityManager.shared()
+        guard reachability.isReachable || reachability.isReachableViaWiFi || reachability.isReachableViaWWAN else{
+            self.tostDelegate?.showTost(msg: "Internet connection is not availble.", isLoaded: false)
+            return
+        }
+        guard count > 0 else { return }
+        self.addIndicator()
         let webservice = WebAPIService()
         webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {[weak self](data) in
             guard let self = self else {return}
-            
+            self.removeIndicator()
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             
@@ -906,7 +948,11 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
             }
         }, failureHandler : {[weak self] (error ) in
             guard let self = self else {return}
-            self.callAPIforBaggageInfo(sid:sid, fk:fk, journeyObj:journeyObj, count:count-1)
+            DispatchQueue.main.async {
+                self.tostDelegate?.showTost(msg: error.localizedDescription, isLoaded: true)
+                self.removeIndicator()
+                self.callAPIforBaggageInfo(sid:sid, fk:fk, journeyObj:journeyObj, count:count-1)
+            }
             print(error)
         })
     }
