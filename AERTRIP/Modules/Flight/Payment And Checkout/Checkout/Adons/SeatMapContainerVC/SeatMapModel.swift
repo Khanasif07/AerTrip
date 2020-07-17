@@ -32,6 +32,7 @@ struct SeatMapModel {
     }
     
     struct SeatMapLeg {
+        var sortOrder: Int?
         let lfk: String
         let ttl: [String]
         let flights: [String: SeatMapFlight]

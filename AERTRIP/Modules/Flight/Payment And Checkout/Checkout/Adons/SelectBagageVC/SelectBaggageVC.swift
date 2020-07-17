@@ -110,10 +110,17 @@ extension SelectBaggageVC : UITableViewDelegate, UITableViewDataSource {
       }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SelectBagageCell", for: indexPath) as? SelectBagageCell else { fatalError("SelectBagageCell not found") }
         
-        let cellData = self.selectBaggageVM.sagrigatedData[indexPath.section]
-        cell.populateData(data: cellData?[indexPath.row] ?? AddonsDataCustom(), index: indexPath.row)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SelectBagageCell", for: indexPath) as? SelectBagageCell else { fatalError("SelectBagageCell not found") }
+        
+        guard let cellData = self.selectBaggageVM.sagrigatedData[indexPath.section] else {
+            do { fatalError("cellData not found") }
+        }
+       
+        cell.populateData(data: cellData[indexPath.row], index: indexPath.row)
+        
+        cell.bottomSeprator.isHidden = self.selectBaggageVM.sagrigatedData.count > 1 && indexPath.section == 0 && indexPath.row == cellData.count - 1
+        
             return cell
         
         }
