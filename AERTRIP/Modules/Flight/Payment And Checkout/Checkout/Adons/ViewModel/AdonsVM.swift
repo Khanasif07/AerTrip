@@ -84,6 +84,7 @@ class AdonsVM  {
 
     
     func setAdonsOptions(){
+        
         let flightsWithData = AddonsDataStore.shared.flightsWithData
         let flightsWithMeals = flightsWithData.filter { !$0.meal.addonsArray.isEmpty }
         let flightsWithBaggage = flightsWithData.filter {!$0.bags.addonsArray.isEmpty }
@@ -99,9 +100,10 @@ class AdonsVM  {
         
         addonsData.append(AdonsVM.AddonsData(type: .seat, heading: LocalizedString.Seat.localized, description: LocalizedString.Reserve_Seat.localized, complementString: getFreeSeatsString, shouldShowComp: isFreeSeatsAdded))
         
-        if !flightsWithOthers.isEmpty{
+     //   if !flightsWithOthers.isEmpty{
             addonsData.append(AdonsVM.AddonsData(type: .otheres, heading: LocalizedString.Other.localized, description: LocalizedString.PreBook_Services.localized, complementString: "", shouldShowComp: false))
-        }
+      //  }
+        
     }
     
     func getAddonsPriceDict()-> [String : Int]{

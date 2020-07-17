@@ -35,6 +35,7 @@ class AccountOnlineDepositVC: BaseVC {
     // MARK: - View Life cycle
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        self.loaderContainer.addGredient(isVertical: false)
         self.gradientView.addGredient(isVertical: false)
     }
     

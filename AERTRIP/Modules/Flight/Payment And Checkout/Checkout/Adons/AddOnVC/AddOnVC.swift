@@ -133,6 +133,7 @@ extension AddOnVC {
         vc.modalPresentationStyle = .overCurrentContext
         vc.selectedJourneyFK = [dataStore.itinerary.details.fk]
         vc.fewSeatsLeftViewHeightFromFlightDetails = 0
+        vc.isCheckoutDetails = true
         let ts = CATransition()
         ts.type = .moveIn
         ts.subtype = .fromTop

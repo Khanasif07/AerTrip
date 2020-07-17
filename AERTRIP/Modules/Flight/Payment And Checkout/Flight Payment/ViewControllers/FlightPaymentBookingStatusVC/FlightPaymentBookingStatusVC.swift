@@ -179,7 +179,7 @@ extension FlightPaymentBookingStatusVC: UITableViewDelegate, UITableViewDataSour
             if self.viewModel.apiBookingIds.count > 1{
                 footerView.selectSeatButton.setTitle("Select Seats for...", for: .normal)
             }else{
-                 footerView.selectSeatButton.setTitle("Select Seats for", for: .normal)
+                 footerView.selectSeatButton.setTitle("Select Seats", for: .normal)
             }
             footerView.handeller = {
                 self.openActionSeat()

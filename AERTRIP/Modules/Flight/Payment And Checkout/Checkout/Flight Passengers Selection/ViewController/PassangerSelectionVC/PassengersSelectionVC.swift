@@ -29,7 +29,6 @@ class PassengersSelectionVC: BaseVC {
         super.viewDidLoad()
         self.registerCell()
         self.viewModel.delegate = self
-//        self.viewModel.setupGuestArray()
         self.apiCall()
         self.setupFont()
         self.navigationController?.navigationBar.isHidden = true
@@ -344,7 +343,7 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
             UIView.animate(withDuration: 2) {
                 self.progressView.setProgress(0.5, animated: true)
             }
-            self.addButtomView()
+//            self.addButtomView()
         }else{
             
             self.hideProgressView()

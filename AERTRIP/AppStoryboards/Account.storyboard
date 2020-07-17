@@ -577,21 +577,19 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                         <subviews>
                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="h6X-6J-jKa">
-                                                <rect key="frame" x="197" y="15" width="20" height="20"/>
+                                                <rect key="frame" x="312.5" y="15" width="20" height="20"/>
                                             </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstItem="h6X-6J-jKa" firstAttribute="centerY" secondItem="3dc-TL-Iqf" secondAttribute="centerY" id="UGK-lD-zko"/>
-                                            <constraint firstItem="h6X-6J-jKa" firstAttribute="centerX" secondItem="3dc-TL-Iqf" secondAttribute="centerX" id="YoS-ou-2DT"/>
-                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="h6X-6J-jKa" firstAttribute="centerX" secondItem="pfg-ku-SMb" secondAttribute="centerX" constant="20" id="4bM-LT-1XT"/>
                                     <constraint firstAttribute="trailing" secondItem="L5M-AI-5rE" secondAttribute="trailing" id="4ob-o6-lgw"/>
                                     <constraint firstAttribute="trailing" secondItem="hDd-pZ-ytu" secondAttribute="trailing" constant="16" id="8l2-AK-uxh"/>
                                     <constraint firstAttribute="bottom" secondItem="L5M-AI-5rE" secondAttribute="bottom" constant="10" id="F6T-dj-v9Z"/>
+                                    <constraint firstItem="h6X-6J-jKa" firstAttribute="centerY" secondItem="pfg-ku-SMb" secondAttribute="centerY" id="I3i-fS-19S"/>
                                     <constraint firstItem="hDd-pZ-ytu" firstAttribute="leading" secondItem="0DU-y2-6RT" secondAttribute="leading" constant="16" id="O2J-Qs-H7F"/>
                                     <constraint firstAttribute="trailing" secondItem="3dc-TL-Iqf" secondAttribute="trailing" id="UoN-wL-X21"/>
                                     <constraint firstItem="hDd-pZ-ytu" firstAttribute="top" secondItem="0DU-y2-6RT" secondAttribute="top" id="asB-fW-3Ed"/>

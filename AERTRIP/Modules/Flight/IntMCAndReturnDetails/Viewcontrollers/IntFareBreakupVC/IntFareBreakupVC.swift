@@ -120,9 +120,6 @@ class IntFareBreakupVC: UIViewController {
         self.baseFareTableview.delegate = self
         self.baseFareTableview.dataSource = self
         setupBookingTitleDateView()
-        if !isForSelectionAndCheckout{
-            self.parent?.view.isUserInteractionEnabled = false
-        }
         baseFareTableview.register(UINib(nibName: "FareBreakupTableViewCell", bundle: nil), forCellReuseIdentifier: "FareBreakupCell")
         baseFareTableview.register(UINib(nibName: "BaseFareTableViewCell", bundle: nil), forCellReuseIdentifier: "BaseFareCell")
         
@@ -614,7 +611,7 @@ class IntFareBreakupVC: UIViewController {
             self.view.backgroundColor = .clear
             self.isBackgroundVisible = true
         }
-        let hightOfView = (!isForSelectionAndCheckout) ? UIScreen.main.bounds.height : self.fareDataDisplayViewHeight.constant
+        let hightOfView = UIScreen.main.bounds.height//(!isForSelectionAndCheckout) ? UIScreen.main.bounds.height : self.fareDataDisplayViewHeight.constant
         let y = UIScreen.main.bounds.height - hightOfView
         self.detailsDelegate?.updateHeight(to: hightOfView)
         UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {

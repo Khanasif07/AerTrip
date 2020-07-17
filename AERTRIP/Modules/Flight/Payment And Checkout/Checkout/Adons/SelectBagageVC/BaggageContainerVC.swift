@@ -122,7 +122,8 @@ extension BaggageContainerVC {
         self.parchmentView?.menuItemSpacing = 30
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 15, bottom: 0.0, right: 15)
         
-        if self.baggageContainerVM.allChildVCs.count < 2 {
+        if self.baggageContainerVM.allChildVCs.count < 2 && AddonsDataStore.shared.itinerary.details.legsWithDetail.count < 2  {
+            
             self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 0, height: 0)
             self.parchmentView?.indicatorOptions = PagingIndicatorOptions.hidden
             self.parchmentView?.borderOptions = PagingBorderOptions.hidden
