@@ -63,7 +63,7 @@ class FlightCarriersTableViewCell: UITableViewCell {
         self.moreFlightCarriersContView.isHidden = true
         
         //self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
-        self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.3), offset: CGSize.zero, opacity: 0.5, shadowRadius: 4.0)
+        self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 4.0)
     }
     
     internal func configCell(carriers: [String], carrierCode: [String], flightNumbers: [String]) {

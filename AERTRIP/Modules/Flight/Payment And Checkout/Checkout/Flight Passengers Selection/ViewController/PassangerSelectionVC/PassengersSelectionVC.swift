@@ -343,7 +343,7 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
             UIView.animate(withDuration: 2) {
                 self.progressView.setProgress(0.5, animated: true)
             }
-            self.addButtomView()
+//            self.addButtomView()
         }else{
             
             self.hideProgressView()

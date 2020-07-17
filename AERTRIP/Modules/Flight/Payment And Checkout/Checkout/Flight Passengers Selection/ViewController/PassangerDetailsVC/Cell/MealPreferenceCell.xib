@@ -67,7 +67,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="194.5" height="44"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h9i-uD-Oma">
-                                                        <rect key="frame" x="36" y="0.0" width="147.5" height="44"/>
+                                                        <rect key="frame" x="37" y="0.0" width="146.5" height="44"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
@@ -79,7 +79,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="h9i-uD-Oma" secondAttribute="bottom" id="Hik-Yh-ahK"/>
                                                     <constraint firstAttribute="height" constant="44" id="Huq-G2-HVh"/>
-                                                    <constraint firstItem="h9i-uD-Oma" firstAttribute="leading" secondItem="e6F-P4-3gX" secondAttribute="leading" constant="36" id="HxY-Xf-YQR"/>
+                                                    <constraint firstItem="h9i-uD-Oma" firstAttribute="leading" secondItem="e6F-P4-3gX" secondAttribute="leading" constant="37" id="HxY-Xf-YQR"/>
                                                     <constraint firstItem="h9i-uD-Oma" firstAttribute="top" secondItem="e6F-P4-3gX" secondAttribute="top" id="OR9-Tm-iac"/>
                                                     <constraint firstAttribute="trailing" secondItem="Ceh-5H-tsj" secondAttribute="trailing" id="S8z-dp-Sf7"/>
                                                     <constraint firstItem="Ceh-5H-tsj" firstAttribute="centerY" secondItem="h9i-uD-Oma" secondAttribute="centerY" constant="2" id="qKl-jq-bTO"/>
@@ -90,7 +90,7 @@
                                                 <rect key="frame" x="202.5" y="0.0" width="194.5" height="44"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hTf-yB-And">
-                                                        <rect key="frame" x="29" y="0.0" width="165.5" height="44"/>
+                                                        <rect key="frame" x="37" y="0.0" width="157.5" height="44"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
@@ -99,7 +99,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="hTf-yB-And" secondAttribute="bottom" id="0Q7-W7-dH0"/>
                                                     <constraint firstItem="hTf-yB-And" firstAttribute="top" secondItem="Kay-co-CW8" secondAttribute="top" id="14c-8U-6B2"/>
-                                                    <constraint firstItem="hTf-yB-And" firstAttribute="leading" secondItem="Kay-co-CW8" secondAttribute="leading" constant="29" id="BRs-85-SAr"/>
+                                                    <constraint firstItem="hTf-yB-And" firstAttribute="leading" secondItem="Kay-co-CW8" secondAttribute="leading" constant="37" id="BRs-85-SAr"/>
                                                     <constraint firstAttribute="height" constant="44" id="bqT-PQ-5SD"/>
                                                     <constraint firstAttribute="trailing" secondItem="hTf-yB-And" secondAttribute="trailing" id="mak-Fb-C6q"/>
                                                 </constraints>
