@@ -53,6 +53,7 @@ class SeatMapContainerVC: UIViewController {
     @IBOutlet weak var apiIndicatorView: UIActivityIndicatorView!
     
     // MARK: View Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
@@ -213,8 +214,8 @@ class SeatMapContainerVC: UIViewController {
                     }
                 }
                 self.planeLayoutCollView.reloadData()
-                DispatchQueue.delay(0.5) {
-                    self.setCurrentPlaneLayout()
+                DispatchQueue.delay(0.5) { [weak self] in
+                    self?.setCurrentPlaneLayout()
                 }
             }
             vc.onScrollViewScroll = { [weak self] visibleRect in
@@ -290,7 +291,8 @@ class SeatMapContainerVC: UIViewController {
             return
         }
         planeLayoutCollView.reloadData()
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
+            guard let self = self else { return }
             self.planeLayoutCollViewWidth.constant = self.planeLayoutCollView.contentSize.width
             self.planeLayoutScrollView.layoutIfNeeded()
         })
@@ -299,28 +301,30 @@ class SeatMapContainerVC: UIViewController {
     internal func showPlaneLayoutView(_ callHide: Bool = true) {
         
         hidePlaneLayoutWorkItem?.cancel()
-        hidePlaneLayoutWorkItem = DispatchWorkItem(block: {
-            hidePlaneLayoutView()
+        hidePlaneLayoutWorkItem = DispatchWorkItem(block: { [weak self] in
+            self?.hidePlaneLayoutView()
         })
         
-        func hidePlaneLayoutView() {
-            UIView.animate(withDuration: 0.33, animations:  {
-                self.planeLayoutView.alpha = 0
-            })
-            DispatchQueue.delay(0.34) {
-                self.planeLayoutView.isHidden = true
-            }
-        }
-        
-        UIView.animate(withDuration: 0.33, animations: {
+        UIView.animate(withDuration: 0.33, animations: { [weak self] in
+            guard let self = self else { return }
             self.planeLayoutView.isHidden = false
             self.planeShadowView.isHidden = false
             self.planeLayoutView.alpha = 1
-        }, completion:  { _ in
+        }, completion:  {[weak self] _ in
+            guard let self = self else { return }
             if callHide {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: self.hidePlaneLayoutWorkItem!)
             }
         })
+    }
+    
+    private func hidePlaneLayoutView() {
+        UIView.animate(withDuration: 0.33, animations:  { [weak self] in
+            self?.planeLayoutView.alpha = 0
+        })
+        DispatchQueue.delay(0.34) { [weak self] in
+            self?.planeLayoutView.isHidden = true
+        }
     }
 }
 
