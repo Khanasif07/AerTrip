@@ -176,9 +176,13 @@ class AddPassengerDetailsCell: UITableViewCell {
         if let fName = self.guestDetail?.firstName, !fName.isEmpty {
             self.firstNameTextField.text = fName
         }
+        
         if journeyType == .domestic{
             self.setupforDomestic()
+        } else {
+            self.setupForInternational()
         }
+        
         self.lastNameTextField.text = ""
         if let lName = self.guestDetail?.lastName, !lName.isEmpty {
             self.lastNameTextField.text = lName
@@ -219,16 +223,38 @@ class AddPassengerDetailsCell: UITableViewCell {
     private func setupforDomestic(){
         self.passportStack.isHidden = true
         guard let passenger = self.guestDetail else {return}
+        let isNoOption = ((self.guestDetail?.mealPreference.count ?? 0) + (self.guestDetail?.frequentFlyer.count ?? 0) == 0)
         switch passenger.passengerType{
         case .Adult:
             self.dobAndNationalityStack.isHidden = true
-        case .child:
+            if isNoOption{
+                if self.allPaxInfoRequired{
+                    self.emailDivider.isHidden = true
+                    self.fNameDivider.isHidden = false
+                    self.lNameDivider.isHidden = false
+                }else{
+                    self.fNameDivider.isHidden = true
+                    self.lNameDivider.isHidden = true
+                    self.emailDivider.isHidden = false
+                }
+            }else{
+                self.fNameDivider.isHidden = false
+                self.lNameDivider.isHidden = false
+                self.emailDivider.isHidden = false
+            }
+        case .child, .infant:
             self.dobAndNationalityStack.isHidden = false
             self.nataionalityView.isHidden = true
-        case .infant:
-            self.dobAndNationalityStack.isHidden = false
-            self.nataionalityView.isHidden = true
+            self.dobDivider.isHidden = isNoOption
         }
+    }
+    
+    func setupForInternational(){
+        
+        let isNoOption = ((self.guestDetail?.mealPreference.count ?? 0) + (self.guestDetail?.frequentFlyer.count ?? 0) == 0)
+        self.pNumberDivider.isHidden = isNoOption
+        self.pDateDivider.isHidden = isNoOption
+        
     }
     
     private func showEmailAndContact(){
