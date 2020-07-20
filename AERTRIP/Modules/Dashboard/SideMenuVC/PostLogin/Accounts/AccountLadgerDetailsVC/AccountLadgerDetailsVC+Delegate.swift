@@ -65,7 +65,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         guard let dict = self.viewModel.ladgerDetails["\(indexPath.section - 1)"] as? JSONDictionary else {
-            return 0.0
+            return CGFloat.leastNormalMagnitude
         }
         
         if indexPath.row == dict.keys.count {

@@ -706,6 +706,16 @@ extension AppGlobals {
         attString.addAttribute(.font, value: AppFonts.Regular.withSize(16.0), range: (text as NSString).range(of: boldText))
         return attString
     }
+    
+    func AttributedBackgroundColorForText(text : String, textColor : UIColor) -> NSMutableAttributedString {
+        let main_string = text as NSString
+        let range = main_string.range(of: text)
+        var  attribute = NSMutableAttributedString.init(string: main_string as String)
+        
+        attribute.addAttribute(NSAttributedString.Key.backgroundColor, value: textColor , range: range)
+        // attribute.addAttribute(NSBaselineOffsetAttributeName, value: 0, range: range)
+        return attribute
+    }
 }
 
 /*extension AppGlobals {

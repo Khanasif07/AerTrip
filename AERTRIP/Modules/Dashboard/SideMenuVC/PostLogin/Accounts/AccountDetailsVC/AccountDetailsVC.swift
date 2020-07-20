@@ -131,7 +131,7 @@ class AccountDetailsVC: BaseVC {
         
         self.manageHeader(animated: false)
         //Chnage for blur header
-        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
 //        topNavView.backgroundColor = AppColors.clear
 //        delay(seconds: 0.4) { [weak self] in
 //            self?.getAccountDetailsSuccess()
@@ -272,7 +272,17 @@ class AccountDetailsVC: BaseVC {
                 self.viewModel.sendEmailForLedger(onVC: self)
             } else {
                 //download pdf tapped
-                AppGlobals.shared.viewPdf(urlPath: "https://beta.aertrip.com/api/v1/user-accounts/report-action?action=pdf&type=ledger", screenTitle: LocalizedString.AccountsLegder.localized)
+//                AppGlobals.shared.viewPdf(urlPath: "https://beta.aertrip.com/api/v1/user-accounts/report-action?action=pdf&type=ledger", screenTitle: LocalizedString.AccountsLegder.localized)
+                self.topNavView.isToShowIndicatorView = true
+                self.topNavView.startActivityIndicaorLoading()
+                self.topNavView.firstRightButton.isHidden = true
+                self.topNavView.secondRightButton.isHidden = true
+                AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)user-accounts/report-action?action=pdf&type=ledger", screenTitle: LocalizedString.AccountsLegder.localized, showLoader: false, complition: { [weak self] (status) in
+                    self?.topNavView.isToShowIndicatorView = false
+                    self?.topNavView.stopActivityIndicaorLoading()
+                    self?.topNavView.firstRightButton.isHidden = false
+                    self?.topNavView.secondRightButton.isHidden = false
+                })
                 printDebug("download pdf tapped")
             }
         }
@@ -298,10 +308,10 @@ class AccountDetailsVC: BaseVC {
         }
     
         
-        if (self.currentViewState != .filterApplied) {
-            self.topNavView.firstRightButton.isUserInteractionEnabled = !isAllDatesEmpty
-            self.topNavView.secondRightButton.isUserInteractionEnabled = !isAllDatesEmpty
-        }
+//        if (self.currentViewState != .filterApplied) {
+//            self.topNavView.firstRightButton.isUserInteractionEnabled = !isAllDatesEmpty
+//            self.topNavView.secondRightButton.isUserInteractionEnabled = !isAllDatesEmpty
+//        }
         
         self.tableView.reloadData()
         self.searchTableView.reloadData()
@@ -415,24 +425,28 @@ extension AccountDetailsVC: ADEventFilterVCDelegate {
     func adEventFilterVC(filterVC: ADEventFilterVC, didChangedFilter filter: AccountSelectedFilter?) {
         
         if let fltr = filter {
-            if let fromDate = fltr.fromDate, let toDate = fltr.toDate, ((Date().timeIntervalSince1970 != toDate.timeIntervalSince1970) || (self.viewModel.ledgerStartDate.timeIntervalSince1970 != fromDate.timeIntervalSince1970)) {
-                //apply filter
-                if self.currentViewState == .searching {
-                }
-                else {
-                    self.currentViewState = .filterApplied
-                }
+//            if let fromDate = fltr.fromDate, let toDate = fltr.toDate, ((Date().timeIntervalSince1970 != toDate.timeIntervalSince1970) || (self.viewModel.ledgerStartDate.timeIntervalSince1970 != fromDate.timeIntervalSince1970)) {
+//                //apply filter
+//                if self.currentViewState == .searching {
+//                }
+//                else {
+//                    self.currentViewState = .filterApplied
+//                }
+//            }
+//            else if !fltr.voucherType.isEmpty {
+//                //apply filter
+//                if self.currentViewState == .searching {
+//                }
+//                else {
+//                    self.currentViewState = .filterApplied
+//                }
+//            }
+            if fltr.isFilterAplied  {
+                self.currentViewState = .filterApplied
+            } else {
+                self.currentViewState = .normal
             }
-            else if !fltr.voucherType.isEmpty {
-                //apply filter
-                if self.currentViewState == .searching {
-                }
-                else {
-                    self.currentViewState = .filterApplied
-                }
-            }
-            
-            self.viewModel.applyFilter(filter: filter, searchText: self.mainSearchBar.text ?? "")
+            self.viewModel.applyFilter(filter: fltr, searchText: self.mainSearchBar.text ?? "")
         }
         else {
             //clear all filter

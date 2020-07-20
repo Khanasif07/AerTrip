@@ -1321,12 +1321,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t6Q-xd-zRQ">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bZN-Wm-3tB" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uk7-P8-JEa">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="696"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uk7-P8-JEa">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="518"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="51D-9d-wXE" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
@@ -1345,6 +1349,7 @@
                                 <constraints>
                                     <constraint firstItem="51D-9d-wXE" firstAttribute="leading" secondItem="uk7-P8-JEa" secondAttribute="leading" id="LCR-G3-jaf"/>
                                     <constraint firstItem="51D-9d-wXE" firstAttribute="top" secondItem="uk7-P8-JEa" secondAttribute="top" constant="20" id="dRd-hK-Kfk"/>
+                                    <constraint firstAttribute="height" constant="518" id="e5t-nx-fMe"/>
                                     <constraint firstAttribute="trailing" secondItem="JuE-aX-6WW" secondAttribute="trailing" id="iQV-u0-qNn"/>
                                     <constraint firstItem="JuE-aX-6WW" firstAttribute="leading" secondItem="uk7-P8-JEa" secondAttribute="leading" id="m2U-jf-UFm"/>
                                     <constraint firstAttribute="trailing" secondItem="51D-9d-wXE" secondAttribute="trailing" id="pcx-5M-nsA"/>
@@ -1352,23 +1357,27 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="JuE-aX-6WW" firstAttribute="height" secondItem="I7K-Ik-68U" secondAttribute="height" multiplier="356:667" id="9Ud-0i-ZtA"/>
                             <constraint firstItem="bZN-Wm-3tB" firstAttribute="bottom" secondItem="51D-9d-wXE" secondAttribute="bottom" id="EoQ-qN-wQA"/>
                             <constraint firstItem="uk7-P8-JEa" firstAttribute="leading" secondItem="XF3-qq-fOP" secondAttribute="leading" id="GVy-R6-p1k"/>
+                            <constraint firstItem="t6Q-xd-zRQ" firstAttribute="leading" secondItem="XF3-qq-fOP" secondAttribute="leading" id="HNt-5a-bDU"/>
+                            <constraint firstAttribute="bottom" secondItem="t6Q-xd-zRQ" secondAttribute="bottom" id="L6z-nF-6HP"/>
                             <constraint firstItem="uk7-P8-JEa" firstAttribute="top" secondItem="I7K-Ik-68U" secondAttribute="top" id="OQV-Wh-Qp1"/>
-                            <constraint firstItem="uk7-P8-JEa" firstAttribute="height" secondItem="I7K-Ik-68U" secondAttribute="height" multiplier="518:667" id="Xzq-2A-fbG"/>
                             <constraint firstItem="XF3-qq-fOP" firstAttribute="trailing" secondItem="uk7-P8-JEa" secondAttribute="trailing" id="c7z-xO-3Es"/>
                             <constraint firstItem="bZN-Wm-3tB" firstAttribute="trailing" secondItem="51D-9d-wXE" secondAttribute="trailing" id="dbo-af-dec"/>
                             <constraint firstItem="bZN-Wm-3tB" firstAttribute="leading" secondItem="51D-9d-wXE" secondAttribute="leading" id="ddc-iv-XJh"/>
+                            <constraint firstItem="t6Q-xd-zRQ" firstAttribute="top" secondItem="I7K-Ik-68U" secondAttribute="top" id="gum-KE-Ias"/>
                             <constraint firstItem="bZN-Wm-3tB" firstAttribute="top" secondItem="I7K-Ik-68U" secondAttribute="top" id="pmm-wO-0Mo"/>
+                            <constraint firstItem="t6Q-xd-zRQ" firstAttribute="trailing" secondItem="XF3-qq-fOP" secondAttribute="trailing" id="yZp-hB-128"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XF3-qq-fOP"/>
                     </view>
                     <connections>
                         <outlet property="childContainerView" destination="JuE-aX-6WW" id="OeG-h6-IYz"/>
+                        <outlet property="mainBackView" destination="t6Q-xd-zRQ" id="GVs-S0-qEd"/>
                         <outlet property="mainContainerView" destination="uk7-P8-JEa" id="CL7-2y-hCX"/>
                         <outlet property="mainContainerViewTopConstraint" destination="OQV-Wh-Qp1" id="Scj-0C-gc7"/>
                         <outlet property="navigationViewTopConstraint" destination="dRd-hK-Kfk" id="eVO-gU-6bU"/>

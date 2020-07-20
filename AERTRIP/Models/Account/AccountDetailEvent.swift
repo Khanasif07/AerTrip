@@ -43,7 +43,7 @@ struct AccountDetailEvent {
     var title : String = ""
     var attributedString:NSAttributedString?
     
-    private var _creationDate: Date?
+    var _creationDate: Date?
     var creationDateStr: String? {
         return _creationDate?.toString(dateFormat: "YYYY-MM-dd")
     }

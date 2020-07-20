@@ -51,7 +51,7 @@ class AccountOfflineDepositVC: BaseVC {
         self.loaderContainer.backgroundColor = .clear
         self.manageLoader(shouldStart: false)
         //for header blur
-        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         topNavView.backgroundColor = AppColors.clear
         
        

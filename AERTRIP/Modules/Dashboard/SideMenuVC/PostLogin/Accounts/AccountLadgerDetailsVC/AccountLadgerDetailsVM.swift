@@ -59,7 +59,7 @@ class AccountLadgerDetailsVM {
             
             let days = self.ladgerEvent!.overDueDays
             let daysStr = (days > 1) ? "days" : "day"
-            fAmountDetails["Over Due by days"] = "\(days) \(daysStr)"
+            fAmountDetails["Over Due by days"] = "\(abs(days)) \(daysStr)"
             
             self.ladgerDetails["0"] = fAmountDetails
             
@@ -146,7 +146,7 @@ class AccountLadgerDetailsVM {
             hAmountDetails["Due Date"] = self.ladgerEvent!.dueDate?.toString(dateFormat: "dd-MM-YYYY")
             let days = self.ladgerEvent!.overDueDays
             let daysStr = (days > 1) ? "days" : "day"
-            hAmountDetails["Over Due by days"] = "\(days) \(daysStr)"
+            hAmountDetails["Over Due by days"] = "\(abs(days)) \(daysStr)"
             self.ladgerDetails["0"] = hAmountDetails
         }
         //booking details

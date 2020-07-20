@@ -132,7 +132,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         
         //for header blur
         self.searchDataContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
-        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         topNavView.backgroundColor = AppColors.clear
         
         self.searchModeSearchBarTopConstraint.constant = ((self.subHeaderContainer.height + self.topNavView.height) - self.mainSearchBar.height)
@@ -295,7 +295,17 @@ class AccountOutstandingLadgerVC: BaseVC {
             }
             else {
                 //download pdf tapped
-                AppGlobals.shared.viewPdf(urlPath: "https://beta.aertrip.com/api/v1/user-accounts/report-action?action=pdf&type=ledger&limit=20", screenTitle: LocalizedString.OutstandingLedger.localized)
+                self.topNavView.isToShowIndicatorView = true
+                self.topNavView.startActivityIndicaorLoading()
+                self.topNavView.firstRightButton.isHidden = true
+                self.topNavView.secondRightButton.isHidden = true
+                AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)user-accounts/report-action?action=pdf&type=ledger&limit=20", screenTitle: LocalizedString.OutstandingLedger.localized, showLoader: false, complition: { [weak self] (status) in
+                    self?.topNavView.isToShowIndicatorView = false
+                    self?.topNavView.stopActivityIndicaorLoading()
+                    self?.topNavView.firstRightButton.isHidden = false
+                    self?.topNavView.secondRightButton.isHidden = false
+                })
+                
                 printDebug("download pdf tapped")
             }
         }
@@ -608,24 +618,20 @@ extension AccountOutstandingLadgerVC {
 extension AccountOutstandingLadgerVC: AccountOutstandingLadgerVMDelegate {
     
     private func showDepositOptions() {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.PayOnline.localized, LocalizedString.PayOfflineNRegister.localized, LocalizedString.ChequeDemandDraft.localized, LocalizedString.FundTransfer.localized], colors: [AppColors.themeDarkGreen, AppColors.themeGray40, AppColors.themeDarkGreen, AppColors.themeDarkGreen])
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.PayOnline.localized, LocalizedString.PayOfflineNRegister.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
         
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             
             switch index {
             case 0:
                 //PayOnline
-                AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .accountDeposit)
+                AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .outstandingLedger)
                 
-            case 2:
-                //ChequeDemandDraft
-                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .chequeOrDD, usingToPaymentFor: .accountDeposit, paymentModeDetail: self.viewModel.itineraryData?.chequeOrDD, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
-                printDebug("ChequeDemandDraft")
-                
-            case 3:
-                //FundTransfer
-                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .accountDeposit, paymentModeDetail: self.viewModel.itineraryData?.fundTransfer, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
-                printDebug("FundTransfer")
+            case 1:
+                //PayOfflineNRegister
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .accountDeposit, paymentModeDetail: self.viewModel.itineraryData?.chequeOrDD, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
+                printDebug("PayOfflineNRegister")
+                                
                 
             default:
                 printDebug("no need to implement")

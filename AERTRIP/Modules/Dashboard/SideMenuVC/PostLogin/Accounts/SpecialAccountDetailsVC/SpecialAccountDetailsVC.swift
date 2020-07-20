@@ -57,7 +57,7 @@ class SpecialAccountDetailsVC: BaseVC {
         
         self.viewModel.fetchScreenDetails()
         topNavView.backgroundColor = AppColors.clear
-        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.tableView.tableFooterView = self.tableFooterView
     }
     

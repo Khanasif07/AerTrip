@@ -15,6 +15,7 @@ class AccountOnlineDepositVC: BaseVC {
         case accountDeposit
         case addOns
         case booking
+        case outstandingLedger
     }
     
     // MARK: - IB Outlet
@@ -51,7 +52,7 @@ class AccountOnlineDepositVC: BaseVC {
         self.loaderContainer.backgroundColor = AppColors.clear
         self.manageLoader(shouldStart: false)
         //for header blur
-        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         topNavView.backgroundColor = AppColors.clear
     }
     
@@ -131,7 +132,7 @@ class AccountOnlineDepositVC: BaseVC {
     }
     
     func showPaymentSuccessMessage() {
-        if self.currentUsingFor == .addOns || self.currentUsingFor == .booking {
+        if self.currentUsingFor == .addOns || self.currentUsingFor == .booking || self.currentUsingFor == .outstandingLedger{
 //            AppFlowManager.default.showAddonRequestSent(buttonTitle:LocalizedString.Done.localized, delegate: self)
             
             var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
@@ -162,6 +163,7 @@ class AccountOnlineDepositVC: BaseVC {
         if self.viewModel.isValidAmount() {
             self.viewModel.makePayment()
         }
+        
     }
 }
 

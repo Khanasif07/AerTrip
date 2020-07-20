@@ -153,10 +153,10 @@ class AppFlowManager: NSObject {
         self.mainHomeVC?.isLaunchThroughSplash = launchThroughSplash
         self.mainHomeVC?.toBeSelect = toBeSelect
         let nvc = SwipeNavigationController(rootViewController: mainHome)
-        nvc.delegate = AppDelegate.shared.transitionCoordinator
+       // nvc.delegate = AppDelegate.shared.transitionCoordinator
         self.mainNavigationController = nvc
         self.window.rootViewController = nvc
-        self.window.becomeKey()
+        //self.window.becomeKey()
         self.window.backgroundColor = .black
         self.window.makeKeyAndVisible()
     }

@@ -23,7 +23,7 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
             
             depositCell.delegate = self
             depositCell.amount = self.viewModel.depositAmount
-            if self.currentUsingFor == .addOns || self.currentUsingFor == .booking{
+            if self.currentUsingFor == .addOns || self.currentUsingFor == .booking || self.currentUsingFor == .outstandingLedger {
                 depositCell.amountTextField.backgroundColor = AppColors.clear
                 depositCell.isUserInteractionEnabled = false
             }
