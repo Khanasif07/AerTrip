@@ -100,6 +100,7 @@
                 <outlet property="autoSelectedForLabel" destination="G8J-ab-po5" id="0aS-mZ-VTO"/>
                 <outlet property="autoSelectedForTop" destination="L0v-C4-RbO" id="iOB-eF-FVZ"/>
                 <outlet property="bagageTitleLabel" destination="PUo-bt-RrG" id="KOf-Y1-oBp"/>
+                <outlet property="bottomSeprator" destination="Z8A-G2-w2K" id="0d9-Xt-wwu"/>
                 <outlet property="priceLabel" destination="YPX-4A-aP2" id="fda-Be-w7U"/>
                 <outlet property="priceLabelWidth" destination="bKL-su-o0I" id="Vjp-TC-QdH"/>
                 <outlet property="quantityLabel" destination="L2K-Pp-Lc5" id="Zf0-L7-LHS"/>

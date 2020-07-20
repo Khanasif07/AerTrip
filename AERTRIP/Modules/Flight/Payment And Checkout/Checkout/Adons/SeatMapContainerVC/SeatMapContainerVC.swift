@@ -53,6 +53,7 @@ class SeatMapContainerVC: UIViewController {
     @IBOutlet weak var apiIndicatorView: UIActivityIndicatorView!
     
     // MARK: View Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
@@ -153,16 +154,16 @@ class SeatMapContainerVC: UIViewController {
         
         topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen)
         
-        topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18))
+        topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen)
         
         topNavBarView.delegate = self
     }
     
     private func setupViews() {
         setupApiIndicatorView()
-        planeLayoutTopSeparatorView.backgroundColor = AppColors.themeGray20
-        planeLayoutBottomSeparatorView.backgroundColor = AppColors.themeGray20
-        totalSeatAmountTopSeparatorView.backgroundColor = AppColors.themeGray20
+        planeLayoutTopSeparatorView.backgroundColor = AppColors.themeGray214
+        planeLayoutBottomSeparatorView.backgroundColor = AppColors.themeGray214
+        totalSeatAmountTopSeparatorView.backgroundColor = AppColors.themeGray214
         seatTotalTitleLbl.text = LocalizedString.seatTotal.localized
         seatTotalTitleLbl.font = AppFonts.Regular.withSize(12)
         seatTotalTitleLbl.textColor = AppColors.themeGray60
@@ -213,8 +214,8 @@ class SeatMapContainerVC: UIViewController {
                     }
                 }
                 self.planeLayoutCollView.reloadData()
-                DispatchQueue.delay(0.5) {
-                    self.setCurrentPlaneLayout()
+                DispatchQueue.delay(0.5) { [weak self] in
+                    self?.setCurrentPlaneLayout()
                 }
             }
             vc.onScrollViewScroll = { [weak self] visibleRect in
@@ -242,10 +243,10 @@ class SeatMapContainerVC: UIViewController {
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
             zIndex: Int.max - 1,
-            insets: UIEdgeInsets.zero)
+            insets: UIEdgeInsets(top: 0, left: -400, bottom: 0, right: -400))
         let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
         self.parchmentView?.register(nib, for: MenuItem.self)
-        self.parchmentView?.borderColor = AppColors.themeGray20
+        self.parchmentView?.borderColor = AppColors.themeGray214
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
@@ -290,7 +291,8 @@ class SeatMapContainerVC: UIViewController {
             return
         }
         planeLayoutCollView.reloadData()
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
+            guard let self = self else { return }
             self.planeLayoutCollViewWidth.constant = self.planeLayoutCollView.contentSize.width
             self.planeLayoutScrollView.layoutIfNeeded()
         })
@@ -299,28 +301,30 @@ class SeatMapContainerVC: UIViewController {
     internal func showPlaneLayoutView(_ callHide: Bool = true) {
         
         hidePlaneLayoutWorkItem?.cancel()
-        hidePlaneLayoutWorkItem = DispatchWorkItem(block: {
-            hidePlaneLayoutView()
+        hidePlaneLayoutWorkItem = DispatchWorkItem(block: { [weak self] in
+            self?.hidePlaneLayoutView()
         })
         
-        func hidePlaneLayoutView() {
-            UIView.animate(withDuration: 0.33, animations:  {
-                self.planeLayoutView.alpha = 0
-            })
-            DispatchQueue.delay(0.34) {
-                self.planeLayoutView.isHidden = true
-            }
-        }
-        
-        UIView.animate(withDuration: 0.33, animations: {
+        UIView.animate(withDuration: 0.33, animations: { [weak self] in
+            guard let self = self else { return }
             self.planeLayoutView.isHidden = false
             self.planeShadowView.isHidden = false
             self.planeLayoutView.alpha = 1
-        }, completion:  { _ in
+        }, completion:  {[weak self] _ in
+            guard let self = self else { return }
             if callHide {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: self.hidePlaneLayoutWorkItem!)
             }
         })
+    }
+    
+    private func hidePlaneLayoutView() {
+        UIView.animate(withDuration: 0.33, animations:  { [weak self] in
+            self?.planeLayoutView.alpha = 0
+        })
+        DispatchQueue.delay(0.34) { [weak self] in
+            self?.planeLayoutView.isHidden = true
+        }
     }
 }
 
@@ -479,11 +483,14 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
     func didFetchSeatMapData() {
         var totalFlightsData = [SeatMapModel.SeatMapFlight]()
         viewModel.allTabsStr.removeAll()
-        viewModel.seatMapModel.data.leg.forEach {
-            let flightsArr = $0.value.flights.map { $0.value }
+        let legs = viewModel.seatMapModel.data.leg.values
+        let legValues = legs.sorted(by: { ($0.sortOrder ?? 0) < ($1.sortOrder ?? 0) })
+    
+        legValues.forEach {
+            let flightsArr = $0.flights.map { $0.value }
             totalFlightsData.append(contentsOf: flightsArr)
             
-            let flightsStr = $0.value.flights.map {
+            let flightsStr = $0.flights.map {
                 createAttHeaderTitle($0.value.fr, $0.value.to)
             }
             viewModel.allTabsStr.append(contentsOf: flightsStr)

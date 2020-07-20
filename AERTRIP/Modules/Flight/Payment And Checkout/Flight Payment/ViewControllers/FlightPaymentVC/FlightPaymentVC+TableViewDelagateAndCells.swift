@@ -202,7 +202,7 @@ extension FlightPaymentVC{
                 return 0
             }
         case 5: // term and privacy cell
-            return 80//115
+            return 60//115
         default:
             return 44
         }

@@ -32,7 +32,7 @@ import UIKit
     
     // PROPERTY FOR APPLICATION LAUNCH TYPE
     var isApplicationForFlight = false
-
+    //com.aertrip.app
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
