@@ -18,11 +18,11 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="BookingCallTableViewCell" customModule="AERTRIP" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="322" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="322" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zsE-L5-3En">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zsE-L5-3En">
                         <rect key="frame" x="0.0" y="0.0" width="322" height="43.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnO-jj-ewc">
@@ -42,7 +42,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jhq-qH-khY" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jhq-qH-khY" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="59" y="43" width="263" height="0.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -56,17 +56,25 @@
                                     <constraint firstAttribute="width" constant="27" id="IuF-IW-GJ9"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="VIE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OPc-yT-nwj">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VIE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OPc-yT-nwj">
                                 <rect key="frame" x="16" y="10.5" width="42" height="23"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="afo-SG-DH4">
+                                <rect key="frame" x="286" y="12" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="Eu9-lM-URP"/>
+                                    <constraint firstAttribute="height" constant="20" id="Wrg-jy-Uvc"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="0dO-Rk-d4s" firstAttribute="centerY" secondItem="nnO-jj-ewc" secondAttribute="centerY" id="0dY-aM-0zn"/>
                             <constraint firstItem="nnO-jj-ewc" firstAttribute="leading" secondItem="OPc-yT-nwj" secondAttribute="trailing" constant="1" id="38S-43-Uu3"/>
+                            <constraint firstItem="afo-SG-DH4" firstAttribute="centerY" secondItem="zsE-L5-3En" secondAttribute="centerY" id="DYa-41-lWc"/>
                             <constraint firstItem="nnO-jj-ewc" firstAttribute="leading" secondItem="NWX-9P-rvo" secondAttribute="trailing" constant="16" id="HSP-RR-ZZk"/>
                             <constraint firstItem="OPc-yT-nwj" firstAttribute="leading" secondItem="zsE-L5-3En" secondAttribute="leading" constant="16" id="K5p-4X-SDf"/>
                             <constraint firstItem="nnO-jj-ewc" firstAttribute="centerY" secondItem="NWX-9P-rvo" secondAttribute="centerY" id="Mhc-uY-RlO"/>
@@ -77,6 +85,7 @@
                             <constraint firstAttribute="trailing" secondItem="0dO-Rk-d4s" secondAttribute="trailing" constant="16" id="e8d-iQ-EVB"/>
                             <constraint firstItem="jhq-qH-khY" firstAttribute="leading" secondItem="zsE-L5-3En" secondAttribute="leading" constant="59" id="if1-7f-2jT"/>
                             <constraint firstItem="NWX-9P-rvo" firstAttribute="top" secondItem="zsE-L5-3En" secondAttribute="top" constant="9" id="lFa-Sy-fHZ"/>
+                            <constraint firstAttribute="trailing" secondItem="afo-SG-DH4" secondAttribute="trailing" constant="16" id="sCA-tJ-Uih"/>
                             <constraint firstItem="OPc-yT-nwj" firstAttribute="centerY" secondItem="zsE-L5-3En" secondAttribute="centerY" id="u7F-La-P07"/>
                             <constraint firstAttribute="bottom" secondItem="jhq-qH-khY" secondAttribute="bottom" id="xEY-nX-FOa"/>
                         </constraints>
@@ -85,7 +94,7 @@
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="zsE-L5-3En" secondAttribute="trailing" id="Ash-Bz-aHS"/>
                     <constraint firstItem="zsE-L5-3En" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="awL-pP-ski"/>
-                    <constraint firstAttribute="bottom" secondItem="zsE-L5-3En" secondAttribute="bottom" id="ijM-ie-6qM"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zsE-L5-3En" secondAttribute="bottom" id="ijM-ie-6qM"/>
                     <constraint firstItem="zsE-L5-3En" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="z01-yI-bDy"/>
                 </constraints>
             </tableViewCellContentView>
@@ -101,6 +110,7 @@
                 <outlet property="imageViewTrailingConstraing" destination="HSP-RR-ZZk" id="e6R-W0-Fue"/>
                 <outlet property="imageViewWidthConstraint" destination="IuF-IW-GJ9" id="IsX-vQ-Yn5"/>
                 <outlet property="phoneLabel" destination="0dO-Rk-d4s" id="xna-ux-XrK"/>
+                <outlet property="rightImageView" destination="afo-SG-DH4" id="LAf-gR-CwI"/>
                 <outlet property="titleLabel" destination="nnO-jj-ewc" id="EtN-TG-Vbe"/>
             </connections>
             <point key="canvasLocation" x="34.782608695652179" y="34.821428571428569"/>

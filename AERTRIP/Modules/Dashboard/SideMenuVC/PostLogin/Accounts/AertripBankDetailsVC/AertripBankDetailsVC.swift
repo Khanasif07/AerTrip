@@ -48,6 +48,7 @@ class AertripBankDetailsVC: BaseVC {
             self.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
         }
 //        self.viewModel.getBankAccountDetails()
+        self.tableView.backgroundColor = AppColors.themeGray04
     }
     
     override func bindViewModel() {

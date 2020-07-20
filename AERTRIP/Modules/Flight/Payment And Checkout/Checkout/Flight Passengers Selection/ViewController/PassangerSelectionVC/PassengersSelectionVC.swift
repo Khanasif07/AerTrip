@@ -21,9 +21,10 @@ class PassengersSelectionVC: BaseVC {
     @IBOutlet weak var tableViewBottomConsctraint: NSLayoutConstraint!
     
     var viewModel = PassengerSelectionVM()
-    var intFareBreakupVC:IntFareBreakupVC?
-    var detailsBaseVC:FlightDetailsBaseVC?
+    weak var intFareBreakupVC:IntFareBreakupVC?
+//    var detailsBaseVC:FlightDetailsBaseVC?
     var viewForFare = UIView()
+    var dismissController:(()->())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,14 +105,16 @@ class PassengersSelectionVC: BaseVC {
     }
     
     func showProgressView(){
-        UIView.animate(withDuration: 2) {
+        UIView.animate(withDuration: 2) {[weak self] in
+            guard let self = self else {return}
             self.progressView.isHidden = false
             self.progressViewHeight.constant = 1
         }
     }
     
     func hideProgressView(){
-        UIView.animate(withDuration: 2) {
+        UIView.animate(withDuration: 2) {[weak self] in
+        guard let self = self else {return}
             self.progressViewHeight.constant = 0
             self.progressView.isHidden = true
         }
@@ -121,7 +124,10 @@ class PassengersSelectionVC: BaseVC {
         if #available(iOS 13, *) {
             self.statusBarStyle = .lightContent
         }
-        self.dismissAsPopAnimation()
+        self.dismissAsPopAnimation(){[weak self] in
+            self?.dismissController?()
+        }
+        
     }
     
     @IBAction func tapAddButton(_ sender: UIButton) {
@@ -144,14 +150,14 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
         
         if isViewExpanded == true{
             viewForFare.frame = CGRect(x: 0, y: 0, width: UIScreen.width, height: UIScreen.height)
-            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
-                self.viewForFare.backgroundColor = AppColors.blackWith20PerAlpha
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {[weak self] in
+                self?.viewForFare.backgroundColor = AppColors.blackWith20PerAlpha
             })
         }else{
-            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
-                self.viewForFare.backgroundColor = AppColors.clear
-            },completion: { _ in
-                self.viewForFare.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {[weak self] in
+                self?.viewForFare.backgroundColor = AppColors.clear
+            },completion: {[weak self] _ in
+                self?.viewForFare.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
             })
         }
         
@@ -240,9 +246,7 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
     }
     
     func updateHeight(to height: CGFloat) {
-            self.detailsBaseVC?.view.frame.size.height = UIScreen.height - height
-            self.detailsBaseVC?.view.layoutSubviews()
-            self.detailsBaseVC?.view.setNeedsLayout()
+            
     }
     
 }
@@ -284,8 +288,10 @@ extension PassengersSelectionVC{
     
     func getListingController(){
       if let nav = self.navigationController?.presentingViewController?.presentingViewController as? UINavigationController{
-          nav.dismiss(animated: true) {
-              delay(seconds: 0.0) {
+          nav.dismiss(animated: true) {[weak self] in
+          guard let _ = self else {return}
+              delay(seconds: 0.0) {[weak self] in
+                guard let _ = self else {return}
                 if let vc = nav.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
                     nav.popToViewController(vc, animated: true)
                     vc.searchApiResult()
@@ -315,8 +321,10 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
         self.progressView.setProgress(0, animated: false)
 
                self.showProgressView()
-               delay(seconds: 0.5){
-                UIView.animate(withDuration: 2) {
+               delay(seconds: 0.5){[weak self] in
+               guard let self = self else {return}
+                UIView.animate(withDuration: 2){[weak self] in
+                guard let self = self else {return}
                     self.progressView.setProgress(0.25, animated: true)
                 }
                }
@@ -324,7 +332,8 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
     
     func startFechingAddnsMasterData(){
         self.view.isUserInteractionEnabled = false
-        UIView.animate(withDuration: 2) {
+        UIView.animate(withDuration: 2) {[weak self] in
+        guard let self = self else {return}
         self.progressView.setProgress(0.75, animated: true)
         }
     }
@@ -340,7 +349,8 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
     func getResponseFromConfirmation(_ success:Bool, error:ErrorCodes){
         // AppGlobals.shared.stopLoading()
         if success{
-            UIView.animate(withDuration: 2) {
+            UIView.animate(withDuration: 2) {[weak self] in
+            guard let self = self else {return}
                 self.progressView.setProgress(0.5, animated: true)
             }
 //            self.addButtomView()
@@ -355,7 +365,8 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
         self.view.isUserInteractionEnabled = true
         if success {
             
-            UIView.animate(withDuration: 2, animations: {
+            UIView.animate(withDuration: 2, animations: {[weak self] in
+            guard let self = self else {return}
                 self.progressView.setProgress(1, animated: true)
             }) { (success) in
                 self.hideProgressView()

@@ -31,19 +31,26 @@ class BookingCallVM {
     func getIntialData() {
         if let contactInfo = self.contactInfo {
             if usingFor == .flight {
+                
+                
+                self.aertripData = contactInfo.aertrip
+                self.airlineData = contactInfo.airlines
+                self.airportData.removeAll()
+                contactInfo.airport.forEach { (airport) in
+                    if !airport.phone.isEmpty {
+                        self.airportData.append(airport)
+                    }
+                }
+                //self.airportData = contactInfo.airport
                 if !contactInfo.aertrip.isEmpty {
                     self.section.append(LocalizedString.Aertip.localized)
                 }
                 if !contactInfo.airlines.isEmpty {
                     self.section.append(LocalizedString.Airlines.localized)
                 }
-                if !contactInfo.airport.isEmpty {
+                if !airportData.isEmpty {
                     self.section.append(LocalizedString.Airports.localized)
                 }
-                
-                self.aertripData = contactInfo.aertrip
-                self.airlineData = contactInfo.airlines
-                self.airportData = contactInfo.airport
             } else {
                 if !contactInfo.aertrip.isEmpty {
                     self.section.append(LocalizedString.Aertip.localized)

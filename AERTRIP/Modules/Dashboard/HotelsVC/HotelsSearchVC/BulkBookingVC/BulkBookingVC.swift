@@ -154,6 +154,7 @@ class BulkBookingVC: BaseVC {
         self.preferredHotelsLabel.text = LocalizedString.MyDatesAre.localized
         self.specialReqLabel.text = LocalizedString.SpecialRequest.localized
         self.dateFlexibleLabel.text = LocalizedString.Fixed.localized
+        self.viewModel.preferred = self.dateFlexibleLabel.text ?? ""
     }
     
     override func setupColors() {
@@ -483,6 +484,7 @@ class BulkBookingVC: BaseVC {
     
     @objc func preferredButtonAction() {
         self.dateFlexibleLabel.text = self.dateFlexibleLabel.text == LocalizedString.Fixed.localized ? LocalizedString.Flexible.localized : LocalizedString.Fixed.localized
+        self.viewModel.preferred = self.dateFlexibleLabel.text ?? ""
     }
     
     @objc func specialReqAction() {

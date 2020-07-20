@@ -54,7 +54,7 @@ class PassengerSelectionVM  {
     var maximumContactLimit = 10
     var itineraryData = FlightItineraryData()
     var newItineraryData = FlightItineraryData()
-    var delegate:PassengerSelectionVMDelegate?
+    weak var delegate:PassengerSelectionVMDelegate?
     
     var freeServiceType:FreeServiveType?{
         guard itineraryData.itinerary.iic else { return nil }
@@ -137,7 +137,8 @@ class PassengerSelectionVM  {
     }
     
     func webserviceForGetCountryList() {
-        APICaller.shared.callGetCountriesListApi { success, countries, errorCode in
+        APICaller.shared.callGetCountriesListApi {[weak self] success, countries, errorCode in
+            guard let _ = self else {return}
             if success {
                 GuestDetailsVM.shared.countries = countries
             } else {
@@ -197,8 +198,8 @@ class PassengerSelectionVM  {
     private func validateGST(){
         self.delegate?.startFechingGSTValidationData()
         let param = ["number":self.selectedGST.GSTInNo]
-        APICaller.shared.validateGSTIN(params: param) { (success, error, data) in
-            self.delegate?.getResponseFromGSTValidation(success, error: error)
+        APICaller.shared.validateGSTIN(params: param) {[weak self] (success, error, data) in
+            self?.delegate?.getResponseFromGSTValidation(success, error: error)
         }
     }
 

@@ -54,7 +54,7 @@ class AccountOfflineDepositVC: BaseVC {
         self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         topNavView.backgroundColor = AppColors.clear
         
-        self.viewModel.userEnteredDetails.isForFundTransfer = self.currentUsingAs == .fundTransfer
+       
     }
     
     override func setupFonts() {
@@ -79,7 +79,7 @@ class AccountOfflineDepositVC: BaseVC {
     private func setUpNavigationView() {
         self.topNavView.delegate = self
         
-        let navTitle = (self.currentUsingAs == .chequeOrDD) ? LocalizedString.ChequeDemandDraft.localized : LocalizedString.FundTransfer.localized
+        let navTitle = LocalizedString.PayOfflineNRegister.localized //(self.currentUsingAs == .chequeOrDD) ? LocalizedString.ChequeDemandDraft.localized : LocalizedString.FundTransfer.localized
         
         self.topNavView.configureNavBar(title: navTitle, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
         self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_account_info"), selectedImage: #imageLiteral(resourceName: "ic_account_info"))
@@ -125,7 +125,8 @@ class AccountOfflineDepositVC: BaseVC {
             config.width = self.payButton.width
             config.buttonHeight = self.paymentButtonContainerView.height
             config.spaceFromBottom = AppFlowManager.default.safeAreaInsets.bottom
-            AppFlowManager.default.showAddonRequestSent(buttonConfig: config, delegate: self)
+            //AppFlowManager.default.showAddonRequestSent(buttonConfig: config, delegate: self)
+            AppFlowManager.default.showAccountDepositSuccessVC(buttonConfig: config, delegate: self, flow: .accountDeposit)
         }
         else {
             var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
@@ -135,12 +136,13 @@ class AccountOfflineDepositVC: BaseVC {
             config.width = self.payButton.width
             config.spaceFromBottom = AppFlowManager.default.safeAreaInsets.bottom
             
-            AppFlowManager.default.showAccountDepositSuccessVC(buttonConfig: config, delegate: self)
+            AppFlowManager.default.showAccountDepositSuccessVC(buttonConfig: config, delegate: self, flow: .accountDeposit)
         }
     }
 
     //MARK: - Action
     @IBAction func payButtonAction(_ sender: UIButton) {
+         self.viewModel.userEnteredDetails.isForFundTransfer = self.currentUsingAs == .fundTransfer
         if self.viewModel.userEnteredDetails.isDataVarified {
             self.viewModel.registerPayment(currentUsingAs: self.currentUsingAs)
         }
@@ -165,19 +167,24 @@ class AccountOfflineDepositVC: BaseVC {
 
 extension AccountOfflineDepositVC: BulkEnquirySuccessfulVCDelegate {
     func doneButtonAction() {
-        if self.currentUsingFor == .addOns {
+//        if self.currentUsingFor == .addOns {
+            /*
             for vc in AppFlowManager.default.mainNavigationController.viewControllers {
                 if vc.isKind(of: FlightBookingsDetailsVC.self) {
                     AppFlowManager.default.popToViewController(vc, animated: true)
                     break
+                } else if vc.isKind(of: HotlelBookingsDetailsVC.self) {
+                    AppFlowManager.default.popToViewController(vc, animated: true)
                 }
             }
-        }
-        else {
-            self.sendDataChangedNotification(data: ATNotification.accountPaymentRegister)
-            if let vc = AppFlowManager.default.mainNavigationController.viewController(atIndex: 1) {
-                AppFlowManager.default.popToViewController(vc, animated: true)
-            }
-        }
+            */
+            AppFlowManager.default.goToDashboard()
+//        }
+//        else {
+//            self.sendDataChangedNotification(data: ATNotification.accountPaymentRegister)
+//            if let vc = AppFlowManager.default.mainNavigationController.viewController(atIndex: 1) {
+//                AppFlowManager.default.popToViewController(vc, animated: true)
+//            }
+//        }
     }
 }

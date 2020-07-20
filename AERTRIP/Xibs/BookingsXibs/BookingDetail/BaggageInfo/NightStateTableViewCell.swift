@@ -36,10 +36,18 @@ class NightStateTableViewCell: UITableViewCell {
     }
     
     private func configureCell() {
+        if flightDetail?.ovgtlo ?? false {
         self.imageview.image = #imageLiteral(resourceName: "overnightIcon")
         let timeStr = self.flightDetail?.layoverTime.asString(units: [.hour, .minute], style: .abbreviated) ?? LocalizedString.na.localized
         let finalText = "Overnight Layover in \(flightDetail?.arrivalCity ?? LocalizedString.dash.localized) \(timeStr)"
         self.titleLabel.attributedText = self.getAttributedBoldText(text: finalText, boldText: timeStr)
+        } else {
+            self.imageview.image = nil
+            let timeStr = self.flightDetail?.layoverTime.asString(units: [.hour, .minute], style: .abbreviated) ?? LocalizedString.na.localized
+            let finalText = "Layover in \(flightDetail?.arrivalCity ?? LocalizedString.dash.localized) \(timeStr)"
+            self.titleLabel.attributedText = self.getAttributedBoldText(text: finalText, boldText: timeStr)
+        }
+        
     }
     
     // MARK: - Helper methods

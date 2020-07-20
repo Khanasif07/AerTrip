@@ -25,7 +25,7 @@ struct AccountOfflineDepositDetails {
     var utrCode: String = ""
     
     var depositDateStr: String {
-        return depositDate?.toString(dateFormat: "YYYY-MM-dd") ?? ""
+        return depositDate?.toString(dateFormat: "yyyy-MM-dd") ?? ""
     }
     
     var isForFundTransfer: Bool = false

@@ -160,7 +160,8 @@ class IntFareBreakupVC: UIViewController {
             
             if isFareBreakupExpanded == false{
                 
-                UIView.animate(withDuration: 0.2, delay: 0.1, options: [.curveEaseOut], animations: {
+                UIView.animate(withDuration: 0.2, delay: 0.1, options: [.curveEaseOut], animations: {[weak self] in
+                    guard let self = self else {return}
                     let gradient = CAGradientLayer()
                     gradient.frame = self.fareDataDisplayView.bounds
                     let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
@@ -270,7 +271,8 @@ class IntFareBreakupVC: UIViewController {
     }
     
     func hideShowLoader(isHidden:Bool){
-        DispatchQueue.main.async {
+        DispatchQueue.main.async {[weak self] in
+            guard let self = self else {return}
             if isHidden{
                 self.indicator.stopAnimating()
                 self.bookButton.setTitle(self.bookButtonTitle, for: .normal)
@@ -357,7 +359,8 @@ class IntFareBreakupVC: UIViewController {
             fromScreen = "upgradePlanCollapse"
         }
         
-        UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseOut], animations: {
+        UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseOut], animations: {[weak self] in
+            guard let self = self else {return}
             
             if self.journey != nil{
                 // Display few seats left view if fsr != 0
@@ -614,7 +617,8 @@ class IntFareBreakupVC: UIViewController {
         let hightOfView = UIScreen.main.bounds.height//(!isForSelectionAndCheckout) ? UIScreen.main.bounds.height : self.fareDataDisplayViewHeight.constant
         let y = UIScreen.main.bounds.height - hightOfView
         self.detailsDelegate?.updateHeight(to: hightOfView)
-        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
+        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {[weak self] in
+            guard let self = self else {return}
             self.view.frame = CGRect(x: 0, y: y, width: UIScreen.main.bounds.width, height: hightOfView)
 
             self.view.layoutSubviews()

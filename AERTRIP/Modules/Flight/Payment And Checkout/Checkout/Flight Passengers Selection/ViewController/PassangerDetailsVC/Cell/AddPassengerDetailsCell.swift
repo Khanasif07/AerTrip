@@ -176,13 +176,11 @@ class AddPassengerDetailsCell: UITableViewCell {
         if let fName = self.guestDetail?.firstName, !fName.isEmpty {
             self.firstNameTextField.text = fName
         }
-        
         if journeyType == .domestic{
             self.setupforDomestic()
-        } else {
+        }else{
             self.setupForInternational()
         }
-        
         self.lastNameTextField.text = ""
         if let lName = self.guestDetail?.lastName, !lName.isEmpty {
             self.lastNameTextField.text = lName
@@ -248,6 +246,7 @@ class AddPassengerDetailsCell: UITableViewCell {
             self.dobDivider.isHidden = isNoOption
         }
     }
+    
     
     func setupForInternational(){
         

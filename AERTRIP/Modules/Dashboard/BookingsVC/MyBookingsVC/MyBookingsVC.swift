@@ -63,7 +63,8 @@ class MyBookingsVC: BaseVC {
         self.topNavBar.firstRightButton.isHidden = true
         self.searchBar.cornerRadius = 10.0
         self.searchBar.clipsToBounds = true
-        self.hideAllData()        
+        self.hideAllData()
+        MyBookingFilterVM.shared.searchText = ""
     }
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {

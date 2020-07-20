@@ -14,6 +14,7 @@ enum CallCellType {
     case airports
     case none
     case email
+    case webcheckin
 }
 
 class BookingCallTableViewCell: ATTableViewCell {
@@ -33,7 +34,7 @@ class BookingCallTableViewCell: ATTableViewCell {
     // MARK: - Override methods
     @IBOutlet weak var imageViewTrailingConstraing: NSLayoutConstraint!
     @IBOutlet weak var airportCodeLabelLeadingConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var rightImageView: UIImageView!
     
     override func setupFonts() {
         self.airportCodeLabel.font = AppFonts.SemiBold.withSize(18.0)
@@ -48,6 +49,7 @@ class BookingCallTableViewCell: ATTableViewCell {
     }
     
     func configureCell(code: String = "", title: String, phoneLabel: String, cellType: CallCellType = .none, email: String = "") {
+        self.rightImageView.image = nil
         self.airportCodeLabel.isHidden = true
         switch cellType {
         case .none:
@@ -73,6 +75,17 @@ class BookingCallTableViewCell: ATTableViewCell {
             self.airportCodeLabel.text = code
             self.titleLabel.text = title
             self.phoneLabel.text = phoneLabel.count == 14 ?  phoneLabel.prefix(9) + " " + phoneLabel.suffix(5) : phoneLabel
+            
+        case .webcheckin:
+            if !code.isEmpty {
+                let imageUrl = AppGlobals.shared.getAirlineCodeImageUrl(code: code)
+                self.cellImageView.setImageWithUrl(imageUrl, placeholder: AppPlaceholderImage.default, showIndicator: true)
+            }
+            self.titleLabel.text = title
+            self.phoneLabel.text = ""
+            
+            self.rightImageView.image = UIImage(named: "send_icon")?.withRenderingMode(.alwaysTemplate)
+            self.rightImageView.tintColor = AppColors.themeGray60
         default:
             break
         }
