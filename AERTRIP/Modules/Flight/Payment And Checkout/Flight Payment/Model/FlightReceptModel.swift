@@ -87,7 +87,7 @@ struct HotelLinkParam {
 struct  WhatNext {
     var star, destType, checkout, prodcut: String
     var destID, city, country: String
-    var rooms: RoomPassengerData
+    var rooms: [RoomPassengerData]
     var checkin, destName: String
     var origin, totalLegs, adult, infant, depart, destination,tripType, cabinclass,child : String
     var productType:ProductType
@@ -100,9 +100,9 @@ struct  WhatNext {
         destID = json["dest_id"].stringValue
         city = json["city"].stringValue
         country = json["country"].stringValue
-        rooms = RoomPassengerData(json["rooms"])
+        rooms = json["rooms"].arrayValue.map{RoomPassengerData($0)}
         checkin = json["checkin"].stringValue
-        destName = json["destName"].stringValue
+        destName = json["dest_name"].stringValue
         origin = json["origin"].stringValue
         totalLegs = json["totalLegs"].stringValue
         adult = json["adult"].stringValue
@@ -119,22 +119,13 @@ struct  WhatNext {
 
 struct RoomPassengerData{
     
-    var room = [Rooms]()
-    var city = String()
-    
-    init(_ json:JSON = JSON()){
-        room = json["rooms"].arrayValue.map{Rooms($0)}
-        city = json["city"].stringValue
-    }
-}
-
-struct Rooms {
     var adult:Int
     var child:Int
     init(_ json:JSON = JSON()){
         adult = json["adult"].intValue
         child = json["child"].intValue
     }
+    
 }
 
 // MARK: - PartPayment

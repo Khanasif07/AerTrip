@@ -157,13 +157,13 @@ extension FlightPaymentBookingStatusVC{
         
         if let checkIn = whatNext.checkin.toDate(dateFormat: "E, dd MMM yy")?.toString(dateFormat: "yyyy-MM-dd"), let checkOut = whatNext.checkout.toDate(dateFormat: "E, dd MMM yy")?.toString(dateFormat: "yyyy-MM-dd"){
             var hotelData = HotelFormPreviosSearchData()
-            hotelData.cityName = whatNext.rooms.city
-            hotelData.adultsCount = whatNext.rooms.room.map{$0.adult}
-            hotelData.childrenCounts = whatNext.rooms.room.map{$0.child}
+            hotelData.cityName = whatNext.city
+            hotelData.adultsCount = whatNext.rooms.map{$0.adult}
+            hotelData.childrenCounts = whatNext.rooms.map{$0.child}
             hotelData.destId = whatNext.destID
             hotelData.destType = whatNext.destType
             hotelData.destName = whatNext.destName
-            hotelData.roomNumber =  whatNext.rooms.room.count
+            hotelData.roomNumber =  whatNext.rooms.count
             hotelData.checkInDate = checkIn
             hotelData.checkOutDate = checkOut
             var splittedStringArray = whatNext.destName.components(separatedBy: ",")
