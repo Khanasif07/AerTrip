@@ -66,22 +66,6 @@ class AppFlowManager: NSObject {
         return UIApplication.topViewController()?.navigationController
     }
     
-    private var currentTabbarNavigationController = UINavigationController() {
-        didSet {
-            self.currentTabbarNavigationController.isNavigationBarHidden = true
-        }
-    }
-    
-    func setCurrentTabbarNavigationController(navigation: UINavigationController) {
-        self.currentTabbarNavigationController = navigation
-    }
-    
-    private var tabBarController: BaseTabBarController!
-    
-    func setTabbarController(controller: BaseTabBarController) {
-        self.tabBarController = controller
-    }
-    
     func getNavigationController(forPresentVC: UIViewController) -> UINavigationController {
         let nav = UINavigationController(rootViewController: forPresentVC)
         let textAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(17.0),

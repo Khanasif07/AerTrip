@@ -13,7 +13,8 @@ extension FlightPaymentBookingStatusVC{
     
     func getAllDoneCell(_ indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: YouAreAllDoneTableViewCell.reusableIdentifier, for: indexPath) as? YouAreAllDoneTableViewCell else { return UITableViewCell() }
-        cell.configCell(forBookingId: self.viewModel.itinerary.bookingNumber, forCid: LocalizedString.na.localized, isBookingPending: (self.viewModel.itinerary.bookingStatus.status.lowercased() == "pending"))
+        
+        cell.configCell(forBookingId: self.viewModel.itinerary.bookingNumber, forCid: LocalizedString.na.localized, isBookingPending: (self.viewModel.itinerary.bookingStatus.status.lowercased() != "booked"))
         cell.delegate = self
 
         return cell
@@ -108,14 +109,25 @@ extension FlightPaymentBookingStatusVC{
     internal func getWhatNextCell(_ indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: HCWhatNextTableViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextTableViewCell else { return UITableViewCell() }
         cell.delegate = self
-        let whtNext = self.viewModel.itinerary.whatNext.map{"Book your hotel in\n\($0.city) & get the best deals!"}
-        if !whtNext.isEmpty {
-            cell.configCell(whatNextString: whtNext)
+        let whtNextNew = self.viewModel.itinerary.whatNext.map { whtNext -> String in
+            if whtNext.productType == .flight{
+                return "Book your return flight for\n\(whtNext.origin) to \(whtNext.destination)"
+            }else if whtNext.productType == .hotel{
+                return "Book your hotel in\n\(whtNext.city) & get the best deals!"
+            }else{
+                return "Book your hotel in\n\(whtNext.city) & get the best deals!"
+            }
+        }
+        cell.suggetionImage = #imageLiteral(resourceName: "hotel_green_icon")
+        if !whtNextNew.isEmpty {
+            cell.configCell(whatNextString: whtNextNew)
             cell.whatNextStackView.isHidden = false
         } else {
             cell.whatNextStackView.isHidden = true
         }
-        cell.suggetionImage = #imageLiteral(resourceName: "hotel_green_icon")
+        cell.selectedWhatNext = {[weak self] index in
+            self?.tapOnSeletedWhatNext(index: index)
+        }
         cell.whatNextCollectionView.reloadData()
         return cell
     }
@@ -132,6 +144,38 @@ extension FlightPaymentBookingStatusVC{
         }
     }
     
+    private func tapOnSeletedWhatNext(index: Int){
+        switch self.viewModel.itinerary.whatNext[index].productType{
+        case .flight: break;
+        case .hotel: self.bookAnotherRoom(self.viewModel.itinerary.whatNext[index])
+        default: break;
+        }
+    }
+    
+    
+    func bookAnotherRoom(_ whatNext: WhatNext) {
+        
+        if let checkIn = whatNext.checkin.toDate(dateFormat: "E, dd MMM yy")?.toString(dateFormat: "yyyy-MM-dd"), let checkOut = whatNext.checkout.toDate(dateFormat: "E, dd MMM yy")?.toString(dateFormat: "yyyy-MM-dd"){
+            var hotelData = HotelFormPreviosSearchData()
+            hotelData.cityName = whatNext.rooms.city
+            hotelData.adultsCount = whatNext.rooms.room.map{$0.adult}
+            hotelData.childrenCounts = whatNext.rooms.room.map{$0.child}
+            hotelData.destId = whatNext.destID
+            hotelData.destType = whatNext.destType
+            hotelData.destName = whatNext.destName
+            hotelData.roomNumber =  whatNext.rooms.room.count
+            hotelData.checkInDate = checkIn
+            hotelData.checkOutDate = checkOut
+            var splittedStringArray = whatNext.destName.components(separatedBy: ",")
+            splittedStringArray.removeFirst()
+            let stateName = splittedStringArray.joined(separator: ",")
+            hotelData.stateName = stateName
+            HotelsSearchVM.hotelFormData = hotelData
+            AppFlowManager.default.goToDashboard(toBeSelect: .hotels)
+        }
+    }
+    
+    
 }
 
 
@@ -142,16 +186,6 @@ extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate{
     
     func shareOnFaceBook() {
         printDebug("Share On FaceBook")
-//        guard let url = URL(string: AppConstants.kAppStoreLink) else { return }
-//        let content = ShareLinkContent()
-//        content.contentURL = url
-//        let dialog = ShareDialog(
-//            fromViewController: self,
-//            content: content,
-//            delegate: nil
-//        )
-//        dialog.mode = .automatic
-//        dialog.show()
     }
     
     func shareOnTwitter() {

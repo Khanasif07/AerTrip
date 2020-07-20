@@ -68,6 +68,17 @@ class GuestDetailsVM: NSObject {
         return false
     }
     
+    static func clearData(){
+        GuestDetailsVM.shared.guests.removeAll()
+        GuestDetailsVM.shared.delegate = nil
+        GuestDetailsVM.shared.selectedIndexPath = IndexPath()
+        GuestDetailsVM.shared.salutation.removeAll()
+        GuestDetailsVM.shared.canShowSalutationError = false
+        GuestDetailsVM.shared.guests.removeAll()
+        GuestDetailsVM.shared.travellerList.removeAll()
+        GuestDetailsVM.shared.travellerContacts.removeAll()
+    }
+    
     private override init() {}
     
     func checkForDoneValidation() -> Bool {

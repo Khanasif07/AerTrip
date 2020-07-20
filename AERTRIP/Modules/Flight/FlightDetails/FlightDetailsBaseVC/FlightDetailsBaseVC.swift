@@ -633,20 +633,14 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
             guard let self = self else {return}
             let vc = PassengersSelectionVC.instantiate(fromAppStoryboard: .PassengersSelection)
             vc.viewModel.taxesResult = self.taxesResult
-            vc.viewModel.intJourney = self.intJourney
-            vc.viewModel.intFlights = self.intFlights
-            vc.viewModel.selectedJourneyFK = self.selectedJourneyFK
             vc.viewModel.sid = self.sid
             vc.viewModel.intAirportDetailsResult = self.intAirportDetailsResult
             vc.viewModel.intAirlineDetailsResult = self.intAirlineDetailsResult
             vc.viewModel.bookingObject = self.bookFlightObject
             vc.viewModel.journeyTitle = self.journeyTitle
             vc.viewModel.journeyDate = self.journeyDate
-            vc.viewModel.journey = self.journey
-//            self.pushToPassenserSelectionVC(vc)
             AppFlowManager.default.removeLoginConfirmationScreenFromStack()
             self.pushToPassenserSelectionVC(vc)
-//            AppGlobals.shared.stopLoading()
         }
     }
 
@@ -676,6 +670,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
                         self.navigationContronller?.modalPresentationStyle = .overFullScreen
                         self.navigationContronller?.modalPresentationCapturesStatusBarAppearance = true
                         vc.dismissController = {[weak self] in
+                            GuestDetailsVM.clearData()
                             self?.navigationContronller = nil
                         }
                         guard let nav = self.navigationContronller else {return}

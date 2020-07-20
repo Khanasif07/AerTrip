@@ -237,11 +237,6 @@ extension FlightPaymentBookingStatusVC: UITableViewDelegate, UITableViewDataSour
                 }
             }
             AppFlowManager.default.moveToBookingDetail(bookingDetail: bookingModel, tripCities: tripCities, legSectionTap: (indexPath.section - 1))
-//            let ob = PostBookingFlightDetailsVC.instantiate(fromAppStoryboard: .FlightPayment)
-//            ob.viewModel.bookingDetail = bookingModel
-//            ob.viewModel.tripStr = tripCities
-//            ob.viewModel.legSectionTap = (indexPath.section - 1)
-//            self.navigationController?.pushViewController(ob, animated: true)
         }
     }
     
@@ -271,7 +266,12 @@ extension FlightPaymentBookingStatusVC: FlightPaymentBookingStatusVMDelegate{
         UIView.animate(withDuration: 0.5) {
             self.progressView.setProgress(Float(val), animated: true)
         }
-        self.viewModel.getBookingDetail()
+        if !self.viewModel.apiBookingIds.isEmpty{
+            self.viewModel.getBookingDetail()
+        }else{
+            self.view.isUserInteractionEnabled = true
+            self.hideProgressView()
+        }
         self.viewModel.getSectionData()
         self.statusTableView.backgroundView = nil
         self.statusTableView.reloadData()

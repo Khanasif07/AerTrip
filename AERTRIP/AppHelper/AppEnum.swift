@@ -493,6 +493,15 @@ enum ProductType: Int, CaseIterable {
             return #imageLiteral(resourceName: "others")
         }
     }
+    
+    static func getTypeFrom(_ str:String)-> ProductType{
+        let newStr = str.lowercased()
+        switch newStr{
+        case "flight": return .flight
+        case "hotel": return .hotel
+        default: return .other
+        }
+    }
 }
 
 enum ATVoucherType: String {
