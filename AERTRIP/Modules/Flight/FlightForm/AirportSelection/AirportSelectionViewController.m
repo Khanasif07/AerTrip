@@ -1535,7 +1535,6 @@
 
 - (IBAction)InvertAirportSelection:(UIButton*)sender {
     
-    
     if ( self.viewModel.fromFlightArray.count == 0 &  self.viewModel.toFlightArray.count == 0 ) {
         return;
     }
@@ -1633,8 +1632,13 @@
 
     [UIView animateWithDuration:0.3 animations:^{
         
-        originAnimationLabel.frame = leftLabelTargetFrame;
-        destinationAnimationLabel.frame = rightLabelTargetFrame;
+        originAnimationLabel.frame = CGRectMake(leftLabelTargetFrame.origin.x, originAnimationLabel.frame.origin.y, originAnimationLabel.frame.size.width, originAnimationLabel.frame.size.height);
+        
+        destinationAnimationLabel.frame = CGRectMake(rightLabelTargetFrame.origin.x, destinationAnimationLabel.frame.origin.y, destinationAnimationLabel.frame.size.width, destinationAnimationLabel.frame.size.height);
+
+        
+//        originAnimationLabel.frame.origin.x = leftLabelTargetFrame.origin.x;
+//        destinationAnimationLabel.frame.origin.x = rightLabelTargetFrame.origin.x;
         
 
     } completion:^(BOOL finished) {

@@ -68,7 +68,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *flightSearchOuterView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *flightSearchActivityIndicator;
-@property (weak, nonatomic) IBOutlet UIButton *flightSearchButton;
+@property (weak, nonatomic) IBOutlet ATButton *flightSearchButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *bulkFlightTravellingLabel;
 
@@ -517,8 +517,19 @@
   [AertripToastView toastInView:self.parentViewController.view withText:errorMessage];
 }
 - (IBAction)searchFlightAction:(id)sender {
+//    double delayInSeconds = 0.1;
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+
+
+    //self.flightSearchButton.isLoading = YES;
     
-    [self.viewModel performFlightSearch];
+  //  dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+      [self.viewModel performFlightSearch];
+//        self.flightSearchButton.isLoading = YES;
+//    });
+    
+    
+    
     
 }
 
