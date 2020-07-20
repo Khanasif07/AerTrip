@@ -716,6 +716,32 @@ extension AppGlobals {
         // attribute.addAttribute(NSBaselineOffsetAttributeName, value: 0, range: range)
         return attribute
     }
+    
+    func AttributedFontAndColorForText(text: String, atributedText : String, textFont : UIFont, textColor : UIColor) -> NSAttributedString {
+        
+         let labelString = text
+        
+        let main_string = labelString as NSString
+        //let range = main_string.range(of: atributedText)
+        
+        let  attribute = NSMutableAttributedString.init(string: main_string as String)
+        
+        
+        
+        if let regularExpression = try? NSRegularExpression(pattern: atributedText, options: .caseInsensitive) {
+            let matchedResults = regularExpression.matches(in: labelString, options: [], range: NSRange(location: 0, length: labelString.count))
+            for matched in matchedResults {
+                attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: textColor , range: matched.range)
+                
+                attribute.addAttribute(NSAttributedString.Key.font, value: textFont , range: matched.range)
+                
+            }
+        }
+        
+        
+        // attribute.addAttribute(NSBaselineOffsetAttributeName, value: 0, range: range)
+        return attribute
+    }
 }
 
 /*extension AppGlobals {

@@ -381,6 +381,10 @@ extension SelectDestinationVC: UISearchBarDelegate {
         
         self.reloadData()
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.resignFirstResponder()
+    }
 }
 
 //MARK:- Table view datasource and delegate methods
