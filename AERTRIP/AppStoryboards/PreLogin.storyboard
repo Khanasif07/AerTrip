@@ -62,14 +62,14 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pm1-2w-crw" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="148" width="343" height="50"/>
-                                                <color key="backgroundColor" red="0.0" green="0.4431372549" blue="0.73725490199999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="4" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="10" maxY="0.0"/>
-                                                <state key="normal" title="Continue with Linkedin" image="linkedInIcon">
+                                                <state key="normal" title="Continue with Apple" image="linkedInIcon">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="linkedInLoginButtonAction:" destination="qt3-bg-yqI" eventType="touchUpInside" id="MxU-Se-c5h"/>
+                                                    <action selector="appleLoginButtonAction:" destination="qt3-bg-yqI" eventType="touchUpInside" id="frr-RD-0Tp"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -190,10 +190,10 @@
                         <viewLayoutGuide key="safeArea" id="QL8-ug-Kiz"/>
                     </view>
                     <connections>
+                        <outlet property="appleButton" destination="Pm1-2w-crw" id="Fd4-Cs-dmQ"/>
                         <outlet property="existingUserLabel" destination="joQ-u7-ebo" id="Vvs-WU-ujG"/>
                         <outlet property="fbButton" destination="OFp-Yf-Sii" id="nXa-Yc-Jwu"/>
                         <outlet property="googleButton" destination="zqA-K7-akV" id="r6r-aL-gjs"/>
-                        <outlet property="linkedInButton" destination="Pm1-2w-crw" id="YFW-ET-tuA"/>
                         <outlet property="logoContainerView" destination="VH1-Zd-UoS" id="ZQv-ZN-Q3i"/>
                         <outlet property="newRegisterLabel" destination="Bvt-bN-fe0" id="DN8-S4-SZI"/>
                         <outlet property="newRegistrationContainerView" destination="moM-Cd-hz7" id="PTk-4A-6lX"/>

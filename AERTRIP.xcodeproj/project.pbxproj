@@ -1380,6 +1380,7 @@
 		84A03EE3247FA2F900CD3743 /* PriceSliderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A03EE1247FA2F900CD3743 /* PriceSliderCell.xib */; };
 		84A03EE6247FA86F00CD3743 /* RangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A03EE4247FA86F00CD3743 /* RangeTableViewCell.swift */; };
 		84A03EE7247FA86F00CD3743 /* RangeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A03EE5247FA86F00CD3743 /* RangeTableViewCell.xib */; };
+		84A414DD24C72ADA00E46EB4 /* AppleLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A414DC24C72ADA00E46EB4 /* AppleLoginController.swift */; };
 		84A9447B24812A140024B828 /* HotelCheckoutDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9447A24812A130024B828 /* HotelCheckoutDetailVC.swift */; };
 		84A9447D24812B170024B828 /* HotelCheckoutDetailVC+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9447C24812B170024B828 /* HotelCheckoutDetailVC+UITableViewDelegate.swift */; };
 		84A9447F24812BB30024B828 /* HotelCheckoutDetailVC+TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9447E24812BB30024B828 /* HotelCheckoutDetailVC+TableCell.swift */; };
@@ -3134,6 +3135,7 @@
 		84A03EE1247FA2F900CD3743 /* PriceSliderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PriceSliderCell.xib; sourceTree = "<group>"; };
 		84A03EE4247FA86F00CD3743 /* RangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeTableViewCell.swift; sourceTree = "<group>"; };
 		84A03EE5247FA86F00CD3743 /* RangeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RangeTableViewCell.xib; sourceTree = "<group>"; };
+		84A414DC24C72ADA00E46EB4 /* AppleLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginController.swift; sourceTree = "<group>"; };
 		84A9447A24812A130024B828 /* HotelCheckoutDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelCheckoutDetailVC.swift; sourceTree = "<group>"; };
 		84A9447C24812B170024B828 /* HotelCheckoutDetailVC+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HotelCheckoutDetailVC+UITableViewDelegate.swift"; sourceTree = "<group>"; };
 		84A9447E24812BB30024B828 /* HotelCheckoutDetailVC+TableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HotelCheckoutDetailVC+TableCell.swift"; sourceTree = "<group>"; };
@@ -4542,6 +4544,7 @@
 				8452D36C21E614BA00927287 /* CoreData */,
 				18A96B9421B661F900EA9B3A /* FacebookController.swift */,
 				18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */,
+				84A414DC24C72ADA00E46EB4 /* AppleLoginController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -9877,6 +9880,7 @@
 				843FF48724740230001F21B1 /* FlightFormDataModel.m in Sources */,
 				843FF4FB24740231001F21B1 /* IntMCAndReturnDetailsVC+TableViewSetups.swift in Sources */,
 				843FF4DB24740231001F21B1 /* PassengerDetailsVC.swift in Sources */,
+				84A414DD24C72ADA00E46EB4 /* AppleLoginController.swift in Sources */,
 				8422727722115DEC00D4F065 /* ATGalleryViewConfiguration.swift in Sources */,
 				84B23F74222FA39B00C952ED /* CityMarkerView.swift in Sources */,
 				8438B44C245AB58E00F7320B /* FlightInfoVC+Delegatemethods.swift in Sources */,
@@ -10868,7 +10872,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 104;
+				CURRENT_PROJECT_VERSION = 105;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11077,7 +11081,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 104;
+				CURRENT_PROJECT_VERSION = 105;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;

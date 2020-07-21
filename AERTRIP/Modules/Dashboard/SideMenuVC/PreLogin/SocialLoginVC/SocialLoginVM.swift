@@ -9,6 +9,7 @@
 import UIKit
 //import LinkedinSwift
 
+
 protocol SocialLoginVMDelegate: class {
     
     func willLogin()
@@ -138,6 +139,15 @@ class SocialLoginVM {
 //            completionBlock?(false)
         })
  */
+    }
+    func appleLogin(vc: UIViewController, completionBlock: ((_ success: Bool)->())? )  {
+        AppleLoginController.shared.login(success: { (model :  AppleUser) in
+            let message = "Apple Login Succes.\nUser Name: \(model.fullName)\nEmail: \(model.email)\nUser id: \(model.id)"
+            AppToast.default.showToastMessage(message: message)
+            completionBlock?(true)
+        }) { (error) in
+            completionBlock?(false)
+        }
     }
 }
 

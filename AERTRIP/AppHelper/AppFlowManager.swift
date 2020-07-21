@@ -71,7 +71,7 @@ class AppFlowManager: NSObject {
             self.currentTabbarNavigationController.isNavigationBarHidden = true
         }
     }
-    
+
     func setCurrentTabbarNavigationController(navigation: UINavigationController) {
         self.currentTabbarNavigationController = navigation
     }

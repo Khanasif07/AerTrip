@@ -141,7 +141,10 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             //deposit cell
             case 2:
                 
-                let amount = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.amount ?? 0.0
+                var amount = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.amount ?? 0.0
+                if amount < 0 {
+                    amount = 0.0
+                }
                 
                 var dateStr = ""
                 if let date = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.dates.first {
@@ -180,8 +183,10 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             //deposit cell
             case 1:
                 
-                let amount = UserInfo.loggedInUser?.accountData?.topup?.beforeAmountDue?.amount ?? 0.0
-                
+                var amount = UserInfo.loggedInUser?.accountData?.topup?.beforeAmountDue?.amount ?? 0.0
+                if amount < 0 {
+                    amount = 0.0
+                }
                 var dateStr = ""
                 if let date = UserInfo.loggedInUser?.accountData?.topup?.beforeAmountDue?.dates.first {
                     let str = date.toString(dateFormat: "EE, dd MMM YYYY")
@@ -220,8 +225,10 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             //deposit cell
             case 2:
                 
-                let amount = UserInfo.loggedInUser?.accountData?.billwise?.totalOutstanding ?? 0.0
-                
+                var amount = UserInfo.loggedInUser?.accountData?.billwise?.totalOutstanding ?? 0.0
+                if amount < 0 {
+                    amount = 0.0
+                }
                 return getDepositCell(amount: amount, dateStr: "")
                 
             //other action

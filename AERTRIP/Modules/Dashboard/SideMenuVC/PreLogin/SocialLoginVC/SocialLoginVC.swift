@@ -28,7 +28,7 @@ class SocialLoginVC: BaseVC {
     //MARK:-
     @IBOutlet weak var fbButton: ATButton!
     @IBOutlet weak var googleButton: ATButton!
-    @IBOutlet weak var linkedInButton: ATButton!
+    @IBOutlet weak var appleButton: ATButton!
     @IBOutlet weak var newRegisterLabel: UILabel!
     @IBOutlet weak var existingUserLabel: UILabel!
     @IBOutlet weak var sepratorLineImage: UIImageView!
@@ -84,22 +84,22 @@ class SocialLoginVC: BaseVC {
         
         self.fbButton.layer.cornerRadius = self.fbButton.height / 2
         self.googleButton.layer.cornerRadius = self.googleButton.height / 2
-        self.linkedInButton.layer.cornerRadius = self.linkedInButton.height / 2
+        self.appleButton.layer.cornerRadius = self.appleButton.height / 2
         //        self.fbButton.layer.masksToBounds = true
         //        self.googleButton.layer.masksToBounds = true
-        //        self.linkedInButton.layer.masksToBounds = true
+        //        self.appleButton.layer.masksToBounds = true
     }
     
     override func setupFonts() {
-        self.fbButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .highlighted)
-        self.googleButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .highlighted)
-        self.linkedInButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .highlighted)
-        self.fbButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .normal)
-        self.googleButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .normal)
-        self.linkedInButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .normal)
-        self.fbButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .selected)
-        self.googleButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .selected)
-        self.linkedInButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .selected)
+        self.fbButton.setTitleFont(font: AppFonts.SemiBold.withSize(16), for: .highlighted)
+        self.googleButton.setTitleFont(font: AppFonts.SemiBold.withSize(16), for: .highlighted)
+        self.appleButton.setTitleFont(font: AppFonts.SemiBold.withSize(16), for: .highlighted)
+        self.fbButton.setTitleFont(font: AppFonts.SemiBold.withSize(16), for: .normal)
+        self.googleButton.setTitleFont(font: AppFonts.SemiBold.withSize(16), for: .normal)
+        self.appleButton.setTitleFont(font: AppFonts.SemiBold.withSize(16), for: .normal)
+        self.fbButton.setTitleFont(font: AppFonts.SemiBold.withSize(16), for: .selected)
+        self.googleButton.setTitleFont(font: AppFonts.SemiBold.withSize(16), for: .selected)
+        self.appleButton.setTitleFont(font: AppFonts.SemiBold.withSize(16), for: .selected)
         
     }
     
@@ -107,7 +107,7 @@ class SocialLoginVC: BaseVC {
         
         self.fbButton.gradientColors = [AppColors.fbButtonBackgroundColor, AppColors.fbButtonBackgroundColor]
         self.googleButton.gradientColors = [AppColors.themeWhite, AppColors.themeWhite]
-        self.linkedInButton.gradientColors = [AppColors.linkedinButtonBackgroundColor, AppColors.linkedinButtonBackgroundColor]
+        self.appleButton.gradientColors = [AppColors.appleButtonBackgroundColor, AppColors.appleButtonBackgroundColor]
         
         self.fbButton.isSocial = true
         
@@ -120,40 +120,40 @@ class SocialLoginVC: BaseVC {
         
         self.googleButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         //
-        self.linkedInButton.isSocial = true
+        self.appleButton.isSocial = true
         
-        self.linkedInButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+        self.appleButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         
-        //   self.linkedInButton.shadowColor = AppColors.themeBlack
+        //   self.appleButton.shadowColor = AppColors.themeBlack
     }
     
     override func setupTexts() {
         self.fbButton.setTitle(LocalizedString.Continue_with_Facebook.localized, for: .normal)
         self.googleButton.setTitle(LocalizedString.Continue_with_Google.localized, for: .normal)
-        self.linkedInButton.setTitle(LocalizedString.Continue_with_Linkedin.localized, for: .normal)
+        self.appleButton.setTitle(LocalizedString.Continue_with_Apple.localized, for: .normal)
         
         //        self.fbButton.shadowColor = AppColors.themeBlack
         //        self.view.backgroundColor = AppColors.clear
         self.fbButton.isSocial = false
         self.googleButton.isSocial = false
-        self.linkedInButton.isSocial = false
+        self.appleButton.isSocial = false
         self.googleButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
         self.fbButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
-        self.linkedInButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.appleButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
         
         delay(seconds: 0.4) {
             self.fbButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
             self.googleButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
-            self.linkedInButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+            self.appleButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
             
         }
         
         self.fbButton.setImage(AppImage.facebookLogoImage, for: .normal)
         self.googleButton.setImage(AppImage.googleLogoImage, for: .normal)
-        self.linkedInButton.setImage(AppImage.linkedInLogoImage, for: .normal)
+        self.appleButton.setImage(AppImage.appleLogoImage, for: .normal)
         self.setUpSocialBtnInset(button: fbButton)
         self.setUpSocialBtnInset(button: googleButton)
-        self.setUpSocialBtnInset(button: linkedInButton)
+        self.setUpSocialBtnInset(button: appleButton)
     }
     
     func setUpSocialBtnInset(button: UIButton) {
@@ -181,8 +181,8 @@ class SocialLoginVC: BaseVC {
         self.viewModel.googleLogin(vc: self, completionBlock: nil)
     }
     
-    @IBAction func linkedInLoginButtonAction(_ sender: UIButton) {
-        self.viewModel.linkedLogin(vc: self)
+    @IBAction func appleLoginButtonAction(_ sender: UIButton) {
+        self.viewModel.appleLogin(vc: self, completionBlock: nil)
     }
     
     @IBAction func newRegistrationButtonAction(_ sender: UIButton) {
@@ -221,10 +221,10 @@ private extension SocialLoginVC {
         self.setupsFonts()
         self.fbButton.isSocial = true
         self.googleButton.isSocial = true
-        self.linkedInButton.isSocial = true
+        self.appleButton.isSocial = true
         self.fbButton.addRequiredActionToShowAnimation()
         self.googleButton.addRequiredActionToShowAnimation()
-        self.linkedInButton.addRequiredActionToShowAnimation()
+        self.appleButton.addRequiredActionToShowAnimation()
         
         self.addAppLogoView()
         self.kickContentOutToScreen()
@@ -335,7 +335,7 @@ extension SocialLoginVC: SocialLoginVMDelegate {
         } else if self.viewModel.userData.service == APIKeys.google.rawValue {
             self.googleButton.isLoading = true
         } else {
-            self.linkedInButton.isLoading = true
+            self.appleButton.isLoading = true
         }
     }
     
@@ -345,7 +345,7 @@ extension SocialLoginVC: SocialLoginVMDelegate {
         } else if self.viewModel.userData.service == APIKeys.google.rawValue {
             self.googleButton.isLoading = false
         } else {
-            self.linkedInButton.isLoading = false
+            self.appleButton.isLoading = false
         }
         
         if self.currentlyUsingFrom == .loginProcess {
@@ -362,7 +362,7 @@ extension SocialLoginVC: SocialLoginVMDelegate {
         } else if self.viewModel.userData.service == APIKeys.google.rawValue {
             self.googleButton.isLoading = false
         } else {
-            self.linkedInButton.isLoading = false
+            self.appleButton.isLoading = false
         }
     }
 }
@@ -376,13 +376,13 @@ extension SocialLoginVC {
     func kickContentOutToScreen() {
         self.fbButton.transform          = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
         self.googleButton.transform      = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
-        self.linkedInButton.transform    = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.appleButton.transform    = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
         self.newRegistrationContainerView.transform   = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
         self.sepratorLineImage.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
         
         self.fbButton.alpha = 0
         self.googleButton.alpha = 0
-        self.linkedInButton.alpha = 0
+        self.appleButton.alpha = 0
     }
     func animateContentOnLoad() {
         self.kickContentOutToScreen()
@@ -410,9 +410,9 @@ extension SocialLoginVC {
             })
             UIView.addKeyframe(withRelativeStartTime: (rDuration * 3.0), relativeDuration: (rDuration * 4.0), animations: {
                 
-                self.linkedInButton.transform     = .identity
+                self.appleButton.transform     = .identity
                 
-                self.linkedInButton.alpha = 1.0
+                self.appleButton.alpha = 1.0
                 
             })
         }) { (success) in
@@ -431,8 +431,8 @@ extension SocialLoginVC {
             
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
                 self.newRegistrationContainerView.transform    = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.height)
-                self.linkedInButton.transform     = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
-                self.linkedInButton.alpha = 0.0
+                self.appleButton.transform     = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+                self.appleButton.alpha = 0.0
             })
             
             UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0)) {

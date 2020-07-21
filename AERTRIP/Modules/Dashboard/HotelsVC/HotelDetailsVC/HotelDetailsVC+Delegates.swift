@@ -114,10 +114,14 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                     // self.openMap()
                 } else if indexPath.row == 3 {
                     AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel.hotelData?.info ?? "")
-                }
+                } 
             } else if (tableView.cellForRow(at: indexPath) as? TripAdvisorTableViewCell) != nil , let locid = self.viewModel.hotelData?.locid {
                 !locid.isEmpty ? AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel.hotelData?.hid ?? "") : printDebug(locid + "location id is empty")
+            } else if (tableView.cellForRow(at: indexPath) as? HotelDetailAmenitiesCell) != nil {
+                self.viewAllButtonAction()
             }
+            
+            
         }
         else if let _ = tableView.cellForRow(at: indexPath) as? HotelDetailsCheckOutTableViewCell {
             AppGlobals.shared.startLoading(loaderBgColor: .clear)

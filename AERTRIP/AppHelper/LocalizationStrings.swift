@@ -55,7 +55,8 @@ enum LocalizedString: String {
     case AllowEmailInFacebook
     case AllowEmailInLinkedIn
     case PleaseLoginByEmailId
-    
+    case Continue_with_Apple
+
     // MARK: - LoginVC
     
     // MARK: -

@@ -65,7 +65,7 @@ class AddRoomPictureCell: UICollectionViewCell {
     ///Configure UI
     private func configureUI() {
         self.stackViewLeadingConstraint.constant = 16.5
-//        self.lineView.backgroundColor = AppColors.divider.color
+        //        self.lineView.backgroundColor = AppColors.divider.color
         self.lineView.isHidden = true
         let regularFontSize16 = AppFonts.Regular.withSize(16.0)
         self.roomCountLabel.font = regularFontSize16
@@ -78,52 +78,99 @@ class AddRoomPictureCell: UICollectionViewCell {
         self.childPopUpBtn.setTitleColor(AppColors.textFieldTextColor51, for: .normal)
         self.adultPopUpBtn.isUserInteractionEnabled = false
         self.childPopUpBtn.isUserInteractionEnabled = false
-
+        
     }
     
     ///Configure Cell
     func hideCrossButton(isHidden: Bool, animated: Bool) {
         if animated {
-        UIViewPropertyAnimator(duration: animated ? 0.2 : 0.0, curve: .easeIn) { [weak self] in
-            self?.cancelBtnOutlet.isHidden = isHidden
+            UIViewPropertyAnimator(duration: animated ? 0.2 : 0.0, curve: .easeIn) { [weak self] in
+                self?.cancelBtnOutlet.isHidden = isHidden
             }.startAnimation()
         }
     }
     
-    internal func configureCell(for indexPath: IndexPath, viewModel: HotelsSearchVM) {
+    internal func configureCell(for indexPath: IndexPath, viewModel: HotelsSearchVM, animate: Bool = false) {
         let idxPath = indexPath
-            //?? IndexPath(item: 0, section: 0)
-//        self.lineView.backgroundColor = AppColors.divider.color
+        //?? IndexPath(item: 0, section: 0)
+        //        self.lineView.backgroundColor = AppColors.divider.color
         self.roomCountLabel.text = "\(LocalizedString.Room.localized) \(idxPath.item + 1)"
         if viewModel.searchedFormData.adultsCount.count == 1 {
             self.hideCrossButton(isHidden: true, animated: false)
             self.cancelBtnOutlet.isHidden = true
             self.lineView.isHidden = true
-            self.stackViewLeadingConstraint.constant = 16.5
+            if animate {
+                UIView.animate(withDuration: 0.4) {  [weak self] in
+                    self?.stackViewLeadingConstraint.constant = 16.5
+                    self?.contentView.layoutIfNeeded()
+                }
+            } else {
+                self.stackViewLeadingConstraint.constant = 16.5
+            }
             //self.stackViewTrailingConstraint.constant = 22.5
         } else{
             if idxPath.item % 2 == 0 {
-                self.stackViewTrailingConstraint.constant = 25.5
-                self.stackViewLeadingConstraint.constant = 20.0
-
+                if animate {
+                    UIView.animate(withDuration: 0.4) {  [weak self] in
+                        self?.stackViewTrailingConstraint.constant = 25.5
+                        self?.stackViewLeadingConstraint.constant = 20.0
+                        self?.contentView.layoutIfNeeded()
+                    }
+                } else {
+                    self.stackViewTrailingConstraint.constant = 25.5
+                    self.stackViewLeadingConstraint.constant = 20.0
+                }
+                
             } else {
-                self.stackViewLeadingConstraint.constant = 28.0
-                self.stackViewTrailingConstraint.constant = 14.5
+                if animate {
+                    UIView.animate(withDuration: 0.4) {  [weak self] in
+                        self?.stackViewLeadingConstraint.constant = 28.0
+                        self?.stackViewTrailingConstraint.constant = 14.5
+                        self?.contentView.layoutIfNeeded()
+                    }
+                } else {
+                    self.stackViewLeadingConstraint.constant = 28.0
+                    self.stackViewTrailingConstraint.constant = 14.5
+                }
             }
             if idxPath.item == 0 || idxPath.item == 1 {
                 self.lineView.isHidden = false
                 if idxPath.item == 0 {
-                    self.lineViewLeadingConstraint.constant = 16.0
-                    self.lineViewTrailingConstraint.constant = 0.0
+                    if animate {
+                        UIView.animate(withDuration: 0.4) {  [weak self] in
+                            self?.lineViewLeadingConstraint.constant = 16.0
+                            self?.lineViewTrailingConstraint.constant = 0.0
+                            self?.contentView.layoutIfNeeded()
+                        }
+                    } else {
+                        self.lineViewLeadingConstraint.constant = 16.0
+                        self.lineViewTrailingConstraint.constant = 0.0
+                    }
                 } else {
-                    self.lineViewLeadingConstraint.constant = 0.0
-                    self.lineViewTrailingConstraint.constant = 16.0
+                    if animate {
+                        UIView.animate(withDuration: 0.4) {  [weak self] in
+                            self?.lineViewLeadingConstraint.constant = 0.0
+                            self?.lineViewTrailingConstraint.constant = 16.0
+                            self?.contentView.layoutIfNeeded()
+                        }
+                    } else {
+                        self.lineViewLeadingConstraint.constant = 0.0
+                        self.lineViewTrailingConstraint.constant = 16.0
+                    }
                 }
             } else {
-                self.lineView.isHidden = true
-                self.lineViewLeadingConstraint.constant = 0.0
+                if animate {
+                    UIView.animate(withDuration: 0.4) {  [weak self] in
+                        self?.lineView.isHidden = true
+                        self?.lineViewLeadingConstraint.constant = 0.0
+                        self?.contentView.layoutIfNeeded()
+                    }
+                } else {
+                    self.lineView.isHidden = true
+                    self.lineViewLeadingConstraint.constant = 0.0
+                }
             }
-
+            
             //            self.cancelBtnOutlet.isHidden = false
             self.hideCrossButton(isHidden: false, animated: true)
         }
