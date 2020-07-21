@@ -42,7 +42,7 @@ class PassengerGridCell: UITableViewCell{
         collectionView.dataSource = self
     }
     
-    func configData(forIndexPath indexPath: IndexPath, passengers:[Passenger]) {
+    func configData(forIndexPath indexPath: IndexPath) {
         forIdx = indexPath
         collectionView.reloadData()
     }

@@ -97,16 +97,19 @@
 -(void)setupDateForSingleLegJourney{
     
     NSString *departDateString = [self.quary objectForKey:@"depart"];
-    NSMutableString * outputString = [NSMutableString stringWithString:[self formatDateString:departDateString]];
-    
-    NSString * returnDateString = [self.quary objectForKey:@"return"];
-    
-    if ( returnDateString != nil) {
-        NSString * returnOutputString = [self formatDateString:returnDateString];
-        [outputString appendFormat:@" - %@",returnOutputString];
+    if (departDateString == nil) {
+        NSMutableString * outputString = [NSMutableString stringWithString:[self formatDateString:departDateString]];
+        
+        NSString * returnDateString = [self.quary objectForKey:@"return"];
+        
+        if ( returnDateString != nil) {
+            NSString * returnOutputString = [self formatDateString:returnDateString];
+            [outputString appendFormat:@" - %@",returnOutputString];
+        }
+        
+        self.travelDate = outputString;
+        
     }
-    
-    self.travelDate = outputString;
 }
 
 -(void)setupDate{

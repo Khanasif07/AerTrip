@@ -284,6 +284,7 @@ enum AppNetworking {
             if let headers = response.response?.allHeaderFields, let xToken = headers["X-Auth-Token"] {
                 UserDefaults.setObject("\(xToken)", forKey: UserDefaults.Key.xAuthToken.rawValue)
             }
+//            printDebug("Cookies:--\(HTTPCookieStorage.shared.cookies(for: request.request!.url!))")
             
             AppNetworking.saveCookies(fromUrl: response.response?.url)
             

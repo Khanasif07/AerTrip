@@ -38,6 +38,8 @@ class HotelDetailsVC: BaseVC {
     // manage wheter to hide with animate or note
     var isHideWithAnimation: Bool = true
     
+    var needToShowLoaderOnShare:Bool = false
+    
     //------------------------ Golu Change --------------------
     var interactiveStartingPoint: CGPoint?
     var dismissalAnimator: UIViewPropertyAnimator?

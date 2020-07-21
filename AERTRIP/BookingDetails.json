@@ -1,0 +1,2931 @@
+request params: ["sid": "3740f35d508140f78f72d510d2d16008", "old_farepr[1]": 2996, "fk[1]": "056511eabd8e0d292e3f70be4c676e42", "old_farepr[0]": 3983, "_": 1595253488, "fk[0]": "d1584e963a830bba9420119b30e0f357"]
+request url: https://beta.aertrip.com/api/v1/flights/confirmation
+method: HTTPMethod(rawValue: "GET")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+data changed notfication received
+deinit
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:4k3682hdvjh8h0qdljf8cstcn5
+    expiresDate:'2020-08-19 13:58:20 +0000'
+    created:'2020-07-20 13:58:20 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 100125 bytes
+response url: https://beta.aertrip.com/api/v1/flights/confirmation
+{
+
+}
+request params: ["_": 1595253500]
+request url: https://beta.aertrip.com/api/v1/country/list
+method: HTTPMethod(rawValue: "GET")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+request params: ["_": 1595253500]
+request url: https://beta.aertrip.com/api/v1/flights/addons-master?it_id=5f15a2fcb3561a2c4e7e7bee
+method: HTTPMethod(rawValue: "GET")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:4k3682hdvjh8h0qdljf8cstcn5
+    expiresDate:'2020-08-19 13:58:22 +0000'
+    created:'2020-07-20 13:58:22 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 4494 bytes
+response url: https://beta.aertrip.com/api/v1/country/list
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:4k3682hdvjh8h0qdljf8cstcn5
+    expiresDate:'2020-08-19 13:58:22 +0000'
+    created:'2020-07-20 13:58:22 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 3830 bytes
+response url: https://beta.aertrip.com/api/v1/flights/addons-master?it_id=5f15a2fcb3561a2c4e7e7bee
+{
+  "errors" : [
+
+  ],
+  "success" : true,
+  "data" : {
+    "legs" : {
+      "056511eabd8e0d292e3f70be4c676e42" : {
+        "free_meal" : null,
+        "iic" : false,
+        "leg_id" : "056511eabd8e0d292e3f70be4c676e42",
+        "flights" : [
+          {
+            "ssr_name" : {
+              "WPNN" : {
+                "is_readonly" : 0,
+                "name" : "Weapons Carriage",
+                "code" : "WPNN"
+              },
+              "OLSC" : {
+                "is_readonly" : 0,
+                "name" : "Samosa And Chai",
+                "code" : "OLSC"
+              },
+              "XC10" : {
+                "is_readonly" : 0,
+                "name" : "10 Kgs - Excess Check-in Baggage",
+                "code" : "XC10"
+              },
+              "PMVG" : {
+                "is_readonly" : 0,
+                "name" : "Premium Tortilla Wrap Veg + Coke",
+                "code" : "PMVG"
+              },
+              "JNML" : {
+                "is_readonly" : 0,
+                "name" : "Jain Sandwich",
+                "code" : "JNML"
+              },
+              "SWVG" : {
+                "is_readonly" : 0,
+                "name" : "Veg Sandwich",
+                "code" : "SWVG"
+              },
+              "SSNV" : {
+                "is_readonly" : 0,
+                "name" : "Smart Snack Nv",
+                "code" : "SSNV"
+              },
+              "GOLF" : {
+                "is_readonly" : 0,
+                "name" : "Golf Kit",
+                "code" : "GOLF"
+              },
+              "SSVG" : {
+                "is_readonly" : 0,
+                "name" : "Smart Snack Veg",
+                "code" : "SSVG"
+              },
+              "OLVS" : {
+                "is_readonly" : 0,
+                "name" : "Veg Sandwich And Coke",
+                "code" : "OLVS"
+              },
+              "SKII" : {
+                "is_readonly" : 0,
+                "name" : "Ski Kit",
+                "code" : "SKII"
+              },
+              "OLVB" : {
+                "is_readonly" : 0,
+                "name" : "Veg Sub And Coke",
+                "code" : "OLVB"
+              },
+              "SWNV" : {
+                "is_readonly" : 0,
+                "name" : "Non Veg Sandwich",
+                "code" : "SWNV"
+              },
+              "OLNS" : {
+                "is_readonly" : 0,
+                "name" : "Non Veg Sandwich And Coke",
+                "code" : "OLNS"
+              },
+              "PMNV" : {
+                "is_readonly" : 0,
+                "name" : "Premium Meal Tortilla Wrap Non-veg + Coke",
+                "code" : "PMNV"
+              },
+              "XC05" : {
+                "is_readonly" : 0,
+                "name" : "5 Kgs - Excess Check-in Baggage",
+                "code" : "XC05"
+              },
+              "KDML" : {
+                "is_readonly" : 0,
+                "name" : "Smart Kid Bag & Meal Combo",
+                "code" : "KDML"
+              },
+              "PRIO" : {
+                "is_readonly" : 0,
+                "name" : "Priority Check-in & Priority Baggage",
+                "code" : "PRIO"
+              },
+              "OLNB" : {
+                "is_readonly" : 0,
+                "name" : "Non Veg Sub And Coke",
+                "code" : "OLNB"
+              }
+            },
+            "frequent_flyer" : {
+              "G8" : {
+                "Go Air" : [
+
+                ]
+              }
+            },
+            "meals" : {
+              "ADT" : {
+                "OLSC" : 230,
+                "PMVG" : 400,
+                "JNML" : 230,
+                "SWVG" : 230,
+                "SSNV" : 169,
+                "SSVG" : 149,
+                "OLVS" : 320,
+                "OLVB" : 320,
+                "SWNV" : 230,
+                "OLNS" : 320,
+                "PMNV" : 400,
+                "KDML" : 450,
+                "OLNB" : 320
+              }
+            },
+            "flight_id" : "056511eabd8e0d292e3f70be4c676e42",
+            "is_frequent_flyer" : false,
+            "pp" : {
+
+            },
+            "special" : {
+              "ADT" : {
+                "GOLF" : 1000,
+                "SKII" : 1000,
+                "PRIO" : 400,
+                "WPNN" : 5250
+              }
+            },
+            "bags" : {
+              "ADT" : {
+                "XC10" : 3800,
+                "XC05" : 1900
+              }
+            }
+          }
+        ],
+        "preferences" : {
+
+        },
+        "free_meal_seat" : false
+      },
+      "d1584e963a830bba9420119b30e0f357" : {
+        "free_meal" : null,
+        "iic" : false,
+        "leg_id" : "d1584e963a830bba9420119b30e0f357",
+        "flights" : [
+          {
+            "special" : {
+              "ADT" : {
+                "WPNN" : 5250,
+                "SKII" : 1000,
+                "GOLF" : 1000,
+                "PRIO" : 400
+              }
+            },
+            "meals" : {
+              "ADT" : {
+                "OLSC" : 230,
+                "PMVG" : 400,
+                "JNML" : 230,
+                "SWVG" : 230,
+                "SSNV" : 169,
+                "SSVG" : 149,
+                "OLVS" : 320,
+                "OLVB" : 320,
+                "SWNV" : 230,
+                "OLNS" : 320,
+                "PMNV" : 400,
+                "KDML" : 450,
+                "OLNB" : 320
+              }
+            },
+            "pp" : {
+
+            },
+            "ssr_name" : {
+              "WPNN" : {
+                "name" : "Weapons Carriage",
+                "is_readonly" : 0,
+                "code" : "WPNN"
+              },
+              "OLSC" : {
+                "name" : "Samosa And Chai",
+                "is_readonly" : 0,
+                "code" : "OLSC"
+              },
+              "XC10" : {
+                "name" : "10 Kgs - Excess Check-in Baggage",
+                "is_readonly" : 0,
+                "code" : "XC10"
+              },
+              "PMVG" : {
+                "name" : "Premium Tortilla Wrap Veg + Coke",
+                "is_readonly" : 0,
+                "code" : "PMVG"
+              },
+              "JNML" : {
+                "name" : "Jain Sandwich",
+                "is_readonly" : 0,
+                "code" : "JNML"
+              },
+              "SWVG" : {
+                "name" : "Veg Sandwich",
+                "is_readonly" : 0,
+                "code" : "SWVG"
+              },
+              "SSNV" : {
+                "is_readonly" : 0,
+                "code" : "SSNV",
+                "name" : "Smart Snack Nv"
+              },
+              "GOLF" : {
+                "is_readonly" : 0,
+                "code" : "GOLF",
+                "name" : "Golf Kit"
+              },
+              "SSVG" : {
+                "is_readonly" : 0,
+                "code" : "SSVG",
+                "name" : "Smart Snack Veg"
+              },
+              "OLVS" : {
+                "is_readonly" : 0,
+                "code" : "OLVS",
+                "name" : "Veg Sandwich And Coke"
+              },
+              "SKII" : {
+                "code" : "SKII",
+                "is_readonly" : 0,
+                "name" : "Ski Kit"
+              },
+              "OLVB" : {
+                "code" : "OLVB",
+                "is_readonly" : 0,
+                "name" : "Veg Sub And Coke"
+              },
+              "SWNV" : {
+                "code" : "SWNV",
+                "is_readonly" : 0,
+                "name" : "Non Veg Sandwich"
+              },
+              "OLNS" : {
+                "code" : "OLNS",
+                "is_readonly" : 0,
+                "name" : "Non Veg Sandwich And Coke"
+              },
+              "PMNV" : {
+                "code" : "PMNV",
+                "is_readonly" : 0,
+                "name" : "Premium Meal Tortilla Wrap Non-veg + Coke"
+              },
+              "XC05" : {
+                "code" : "XC05",
+                "is_readonly" : 0,
+                "name" : "5 Kgs - Excess Check-in Baggage"
+              },
+              "KDML" : {
+                "code" : "KDML",
+                "is_readonly" : 0,
+                "name" : "Smart Kid Bag & Meal Combo"
+              },
+              "PRIO" : {
+                "code" : "PRIO",
+                "is_readonly" : 0,
+                "name" : "Priority Check-in & Priority Baggage"
+              },
+              "OLNB" : {
+                "code" : "OLNB",
+                "is_readonly" : 0,
+                "name" : "Non Veg Sub And Coke"
+              }
+            },
+            "frequent_flyer" : {
+              "G8" : {
+                "Go Air" : [
+
+                ]
+              }
+            },
+            "is_frequent_flyer" : false,
+            "bags" : {
+              "ADT" : {
+                "XC10" : 3800,
+                "XC05" : 1900
+              }
+            },
+            "flight_id" : "d1584e963a830bba9420119b30e0f357"
+          }
+        ],
+        "preferences" : {
+
+        },
+        "free_meal_seat" : false
+      }
+    }
+  }
+}
+{
+  "legs" : {
+    "056511eabd8e0d292e3f70be4c676e42" : {
+      "free_meal" : null,
+      "iic" : false,
+      "leg_id" : "056511eabd8e0d292e3f70be4c676e42",
+      "flights" : [
+        {
+          "ssr_name" : {
+            "WPNN" : {
+              "is_readonly" : 0,
+              "name" : "Weapons Carriage",
+              "code" : "WPNN"
+            },
+            "OLSC" : {
+              "is_readonly" : 0,
+              "name" : "Samosa And Chai",
+              "code" : "OLSC"
+            },
+            "XC10" : {
+              "is_readonly" : 0,
+              "name" : "10 Kgs - Excess Check-in Baggage",
+              "code" : "XC10"
+            },
+            "PMVG" : {
+              "is_readonly" : 0,
+              "name" : "Premium Tortilla Wrap Veg + Coke",
+              "code" : "PMVG"
+            },
+            "JNML" : {
+              "is_readonly" : 0,
+              "name" : "Jain Sandwich",
+              "code" : "JNML"
+            },
+            "SWVG" : {
+              "is_readonly" : 0,
+              "name" : "Veg Sandwich",
+              "code" : "SWVG"
+            },
+            "SSNV" : {
+              "is_readonly" : 0,
+              "name" : "Smart Snack Nv",
+              "code" : "SSNV"
+            },
+            "GOLF" : {
+              "is_readonly" : 0,
+              "name" : "Golf Kit",
+              "code" : "GOLF"
+            },
+            "SSVG" : {
+              "is_readonly" : 0,
+              "name" : "Smart Snack Veg",
+              "code" : "SSVG"
+            },
+            "OLVS" : {
+              "is_readonly" : 0,
+              "name" : "Veg Sandwich And Coke",
+              "code" : "OLVS"
+            },
+            "SKII" : {
+              "is_readonly" : 0,
+              "name" : "Ski Kit",
+              "code" : "SKII"
+            },
+            "OLVB" : {
+              "is_readonly" : 0,
+              "name" : "Veg Sub And Coke",
+              "code" : "OLVB"
+            },
+            "SWNV" : {
+              "is_readonly" : 0,
+              "name" : "Non Veg Sandwich",
+              "code" : "SWNV"
+            },
+            "OLNS" : {
+              "is_readonly" : 0,
+              "name" : "Non Veg Sandwich And Coke",
+              "code" : "OLNS"
+            },
+            "PMNV" : {
+              "is_readonly" : 0,
+              "name" : "Premium Meal Tortilla Wrap Non-veg + Coke",
+              "code" : "PMNV"
+            },
+            "XC05" : {
+              "is_readonly" : 0,
+              "name" : "5 Kgs - Excess Check-in Baggage",
+              "code" : "XC05"
+            },
+            "KDML" : {
+              "is_readonly" : 0,
+              "name" : "Smart Kid Bag & Meal Combo",
+              "code" : "KDML"
+            },
+            "PRIO" : {
+              "is_readonly" : 0,
+              "name" : "Priority Check-in & Priority Baggage",
+              "code" : "PRIO"
+            },
+            "OLNB" : {
+              "is_readonly" : 0,
+              "name" : "Non Veg Sub And Coke",
+              "code" : "OLNB"
+            }
+          },
+          "frequent_flyer" : {
+            "G8" : {
+              "Go Air" : [
+
+              ]
+            }
+          },
+          "meals" : {
+            "ADT" : {
+              "OLSC" : 230,
+              "PMVG" : 400,
+              "JNML" : 230,
+              "SWVG" : 230,
+              "SSNV" : 169,
+              "SSVG" : 149,
+              "OLVS" : 320,
+              "OLVB" : 320,
+              "SWNV" : 230,
+              "OLNS" : 320,
+              "PMNV" : 400,
+              "KDML" : 450,
+              "OLNB" : 320
+            }
+          },
+          "flight_id" : "056511eabd8e0d292e3f70be4c676e42",
+          "is_frequent_flyer" : false,
+          "pp" : {
+
+          },
+          "special" : {
+            "ADT" : {
+              "GOLF" : 1000,
+              "SKII" : 1000,
+              "PRIO" : 400,
+              "WPNN" : 5250
+            }
+          },
+          "bags" : {
+            "ADT" : {
+              "XC10" : 3800,
+              "XC05" : 1900
+            }
+          }
+        }
+      ],
+      "preferences" : {
+
+      },
+      "free_meal_seat" : false
+    },
+    "d1584e963a830bba9420119b30e0f357" : {
+      "free_meal" : null,
+      "iic" : false,
+      "leg_id" : "d1584e963a830bba9420119b30e0f357",
+      "flights" : [
+        {
+          "special" : {
+            "ADT" : {
+              "WPNN" : 5250,
+              "SKII" : 1000,
+              "GOLF" : 1000,
+              "PRIO" : 400
+            }
+          },
+          "meals" : {
+            "ADT" : {
+              "OLSC" : 230,
+              "PMVG" : 400,
+              "JNML" : 230,
+              "SWVG" : 230,
+              "SSNV" : 169,
+              "SSVG" : 149,
+              "OLVS" : 320,
+              "OLVB" : 320,
+              "SWNV" : 230,
+              "OLNS" : 320,
+              "PMNV" : 400,
+              "KDML" : 450,
+              "OLNB" : 320
+            }
+          },
+          "pp" : {
+
+          },
+          "ssr_name" : {
+            "WPNN" : {
+              "name" : "Weapons Carriage",
+              "is_readonly" : 0,
+              "code" : "WPNN"
+            },
+            "OLSC" : {
+              "name" : "Samosa And Chai",
+              "is_readonly" : 0,
+              "code" : "OLSC"
+            },
+            "XC10" : {
+              "name" : "10 Kgs - Excess Check-in Baggage",
+              "is_readonly" : 0,
+              "code" : "XC10"
+            },
+            "PMVG" : {
+              "name" : "Premium Tortilla Wrap Veg + Coke",
+              "is_readonly" : 0,
+              "code" : "PMVG"
+            },
+            "JNML" : {
+              "name" : "Jain Sandwich",
+              "is_readonly" : 0,
+              "code" : "JNML"
+            },
+            "SWVG" : {
+              "name" : "Veg Sandwich",
+              "is_readonly" : 0,
+              "code" : "SWVG"
+            },
+            "SSNV" : {
+              "is_readonly" : 0,
+              "code" : "SSNV",
+              "name" : "Smart Snack Nv"
+            },
+            "GOLF" : {
+              "is_readonly" : 0,
+              "code" : "GOLF",
+              "name" : "Golf Kit"
+            },
+            "SSVG" : {
+              "is_readonly" : 0,
+              "code" : "SSVG",
+              "name" : "Smart Snack Veg"
+            },
+            "OLVS" : {
+              "is_readonly" : 0,
+              "code" : "OLVS",
+              "name" : "Veg Sandwich And Coke"
+            },
+            "SKII" : {
+              "code" : "SKII",
+              "is_readonly" : 0,
+              "name" : "Ski Kit"
+            },
+            "OLVB" : {
+              "code" : "OLVB",
+              "is_readonly" : 0,
+              "name" : "Veg Sub And Coke"
+            },
+            "SWNV" : {
+              "code" : "SWNV",
+              "is_readonly" : 0,
+              "name" : "Non Veg Sandwich"
+            },
+            "OLNS" : {
+              "code" : "OLNS",
+              "is_readonly" : 0,
+              "name" : "Non Veg Sandwich And Coke"
+            },
+            "PMNV" : {
+              "code" : "PMNV",
+              "is_readonly" : 0,
+              "name" : "Premium Meal Tortilla Wrap Non-veg + Coke"
+            },
+            "XC05" : {
+              "code" : "XC05",
+              "is_readonly" : 0,
+              "name" : "5 Kgs - Excess Check-in Baggage"
+            },
+            "KDML" : {
+              "code" : "KDML",
+              "is_readonly" : 0,
+              "name" : "Smart Kid Bag & Meal Combo"
+            },
+            "PRIO" : {
+              "code" : "PRIO",
+              "is_readonly" : 0,
+              "name" : "Priority Check-in & Priority Baggage"
+            },
+            "OLNB" : {
+              "code" : "OLNB",
+              "is_readonly" : 0,
+              "name" : "Non Veg Sub And Coke"
+            }
+          },
+          "frequent_flyer" : {
+            "G8" : {
+              "Go Air" : [
+
+              ]
+            }
+          },
+          "is_frequent_flyer" : false,
+          "bags" : {
+            "ADT" : {
+              "XC10" : 3800,
+              "XC05" : 1900
+            }
+          },
+          "flight_id" : "d1584e963a830bba9420119b30e0f357"
+        }
+      ],
+      "preferences" : {
+
+      },
+      "free_meal_seat" : false
+    }
+  }
+}
+item position is (16.0, 95.0)
+search text: User
+item position is (156.5, 95.0)
+search text: Adult
+request params: ["loginid": "Wqe@mailinator.com", "password": "", "_": 1595253523, "isGuestUser": "true"]
+request url: https://beta.aertrip.com/api/v1/users/login
+method: HTTPMethod(rawValue: "POST")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:1oj8nkuhpg9f48oh1d70h3ej09
+    expiresDate:'2020-08-19 13:58:44 +0000'
+    created:'2020-07-20 13:58:44 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 179 bytes
+response url: https://beta.aertrip.com/api/v1/users/login
+request params: ["sid": "3740f35d508140f78f72d510d2d16008", "fk[]": "d1584e963a830bba9420119b30e0f357", "_": 1595253527, "it_id": "5f15a2fcb3561a2c4e7e7bee"]
+request url: https://beta.aertrip.com/api/v1/flights/seat-map-list
+method: HTTPMethod(rawValue: "GET")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+request params: ["it_id": "5f15a2fcb3561a2c4e7e7bee", "sid": "3740f35d508140f78f72d510d2d16008", "_": 1595253527, "fk[]": "056511eabd8e0d292e3f70be4c676e42"]
+request url: https://beta.aertrip.com/api/v1/flights/seat-map-list
+method: HTTPMethod(rawValue: "GET")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:1oj8nkuhpg9f48oh1d70h3ej09
+    expiresDate:'2020-08-19 13:58:52 +0000'
+    created:'2020-07-20 13:58:52 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 30008 bytes
+response url: https://beta.aertrip.com/api/v1/flights/seat-map-list
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:1oj8nkuhpg9f48oh1d70h3ej09
+    expiresDate:'2020-08-19 13:58:53 +0000'
+    created:'2020-07-20 13:58:53 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 30008 bytes
+response url: https://beta.aertrip.com/api/v1/flights/seat-map-list
+3
+deinit
+3
+3
+3
+request params: ["seatmap[d1584e963a830bba9420119b30e0f357][d1584e963a830bba9420119b30e0f357][NT_a0][column]": "E", "seatmap[d1584e963a830bba9420119b30e0f357][d1584e963a830bba9420119b30e0f357][NT_a0][price]": "700", "_": 1595253541, "apf[0]": "d1584e963a830bba9420119b30e0f357|d1584e963a830bba9420119b30e0f357|NT_a0|addon|seatmap_ex|3E|700", "seatmap[d1584e963a830bba9420119b30e0f357][d1584e963a830bba9420119b30e0f357][NT_a0][row]": "3", "t[0][pax_id]": "NT_a0", "t[0][last_name]": "Adult", "t[0][mobile]": "", "email": "Wqe@mailinator.com", "t[0][email]": "", "t[0][isd]": "", "mobile": "5245235232", "isd": "+91", "seatmap[d1584e963a830bba9420119b30e0f357][d1584e963a830bba9420119b30e0f357][NT_a0][isOverwing]": "false", "t[0][pax_type]": "ADT", "t[0][upid]": "NT_a0", "it_id": "5f15a2fcb3561a2c4e7e7bee", "t[0][salutation]": "Mr", "t[0][first_name]": "User"]
+request url: https://beta.aertrip.com/api/v1/flights/itinerary?action=traveller_with_addons&it_id=5f15a2fcb3561a2c4e7e7bee
+method: HTTPMethod(rawValue: "POST")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:1oj8nkuhpg9f48oh1d70h3ej09
+    expiresDate:'2020-08-19 13:59:02 +0000'
+    created:'2020-07-20 13:59:02 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 7172 bytes
+response url: https://beta.aertrip.com/api/v1/flights/itinerary?action=traveller_with_addons&it_id=5f15a2fcb3561a2c4e7e7bee
+{
+
+}
+["it_id": "5f15a2fcb3561a2c4e7e7bee"]
+request params: ["it_id": "5f15a2fcb3561a2c4e7e7bee", "_": 1595253542]
+request url: https://beta.aertrip.com/api/v1/itinerary/get-payment-methods
+method: HTTPMethod(rawValue: "GET")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:1oj8nkuhpg9f48oh1d70h3ej09
+    expiresDate:'2020-08-19 13:59:02 +0000'
+    created:'2020-07-20 13:59:02 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 6036 bytes
+response url: https://beta.aertrip.com/api/v1/itinerary/get-payment-methods
+{
+  "data" : {
+    "bank_master" : [
+      "Au Small Finance Bank",
+      "Aditya Birla Idea Payments Bank",
+      "Bank Of Bahrein And Kuwait",
+      "Bank Of Baroda - Corporate Banking",
+      "Bank Of Baroda - Retail Banking",
+      "Cosmos Co-operative Bank",
+      "Development Bank Of Singapore",
+      "Icici Bank - Corporate Banking",
+      "Idbi",
+      "Idfc First Bank",
+      "Jana Small Finance Bank",
+      "Janata Sahakari Bank (pune)",
+      "Lakshmi Vilas Bank - Retail Banking",
+      "Pnb (erstwhile-oriental Bank Of Commerce)",
+      "Pnb (erstwhile-united Bank Of India)",
+      "Punjab & Sind Bank",
+      "Punjab National Bank - Retail Banking",
+      "State Bank Of Bikaner And Jaipur",
+      "State Bank Of Hyderabad",
+      "State Bank Of Mysore",
+      "State Bank Of Patiala",
+      "State Bank Of Travancore",
+      "Tamilnadu Mercantile Bank",
+      "Tamilnadu State Apex Co-operative Bank",
+      "Union Bank Of India (erstwhile Corporation Bank)",
+      "American Express",
+      "Allahabad Bank",
+      "Andhra Bank",
+      "Axis Bank",
+      "Bandhan Bank",
+      "Bank of Baroda",
+      "Bank of India",
+      "Bank of Maharashtra",
+      "Canara Bank",
+      "Catholic Syrian Bank",
+      "Central Bank of India",
+      "Citi Bank",
+      "City Union Bank",
+      "Corporation Bank",
+      "DBS Bank",
+      "DCB Bank",
+      "Dena Bank",
+      "Deutsche Bank",
+      "Dhanlaxmi Bank",
+      "Federal Bank",
+      "HDFC Bank",
+      "HSBC Bank",
+      "ICICI Bank",
+      "IDBI Bank",
+      "IDFC Bank",
+      "Indian Bank",
+      "Indian Overseas Bank",
+      "IndusInd Bank",
+      "Jammu and Kashmir Bank",
+      "Karnataka Bank",
+      "Karur Vysya Bank",
+      "Kotak Mahindra Bank",
+      "Lakshmi Vilas Bank",
+      "Nainital Bank",
+      "Oriental Bank of Commerce",
+      "Punjab & Sindh Bank",
+      "Punjab National Bank",
+      "RBL Bank",
+      "South Indian Bank",
+      "Standard Chartered Bank",
+      "State Bank of India",
+      "Syndicate Bank",
+      "Tamilnad Mercantile Bank",
+      "UCO Bank",
+      "Union Bank of India",
+      "United Bank of India",
+      "Vijaya Bank",
+      "YES Bank",
+      "Airtel Payments Bank",
+      "Fino Payment Bank",
+      "India Post Payments Bank",
+      "Paytm Payments Bank",
+      "A U Small Finance Bank",
+      "Capital Small Finance Bank",
+      "Coastal Local Area Bank Limited",
+      "Equitas Small Finance Bank",
+      "ESAF Small Finance Bank",
+      "Fincare Small Finance Bank",
+      "Janalakshmi Small Finance Bank",
+      "Krishna Bhima Samruddhi Local Area Bank Limited",
+      "Subhadra Local Area Bank Limited",
+      "Suryoday Small Finance Bank",
+      "Ujjivan Small Finance Bank",
+      "Utkarsh Small Finance Bank",
+      "Abhyudaya Co-Operative Bank",
+      "Adhyapaka Urban Co-Operative Bank",
+      "Ahmedabad Mercantile Co-Operative Bank",
+      "Akhand Anand Co-Operative Bank",
+      "Akola Janata Commercial Co-Operative Bank",
+      "Akola Urban Co-Operative Bank",
+      "Andhra Pradesh Mahesh Co-Operative Urban Bank",
+      "Apna Sahakari Co-Operative Bank Limited",
+      "Bassein Catholic Co-Operative Bank",
+      "Bharat Co-Operative Bank (Mumbai)",
+      "Bharati Sahakari Bank",
+      "Bombay Mercantile Co-Operative Bank",
+      "Chartered Mercantile M.B. Limited",
+      "Citizencredit Co-Operative Bank",
+      "Dakshin Barasat Service Co-Operative Society Private Limited",
+      "Dombivli Nagari Sahakari Bank Limited",
+      "Eenadu Urban Co-Operative Bank",
+      "Goa Urban Co-Operative Bank",
+      "Gopinath Patil Parsik Janata Sahakari Bank",
+      "Greater Bombay Co-Operative Bank",
+      "Indian Mercantile Co-Operative Bank",
+      "Jalgaon Janata Sahakari Bank",
+      "Janakalyan Sahakari Bank",
+      "Janalaxmi Co-Operative Bank",
+      "Janata Sahakari Bank",
+      "Junagadh Commercial Co-Operative Bank",
+      "Kallappanna Awade Ichalkaranji Janata Sahakari Bank",
+      "Kalupur Commercial Coop Bank",
+      "Kalyan Janata Sahakari Bank",
+      "Karad Urban Co-Operative Bank",
+      "Khamgaon Urban Co-Operative Bank",
+      "LIC Of India Staff Co-Operative Bank H.O. Pattom Thiruvananthapuram",
+      "Mahanagar Co-Operative Bank",
+      "Mapusa Urban Co-Operative Bankof Goa",
+      "Mehsana Urban Co-Operative Bank",
+      "Muneshwraswamy Bank",
+      "Nagar Urban Co-Operative Bank",
+      "Nagpur Nagrik Sahakari Bank",
+      "Nasik Merchant's Co-Operative Bank",
+      "New India Co-Operative Bank",
+      "NKGSB Co-Operative Bank",
+      "Nutan Nagarik Sahakari Bank",
+      "Pravara Sahakari Bank",
+      "Punjab & Maharashtra Co-Operative Bank",
+      "Rajdhani Nagar Sahkari Bank",
+      "Rajkot Nagrik Sahakari Bank",
+      "Rohit Kataria Co-Operative Bank",
+      "Rupee Co-Operative Bank",
+      "Sangli District Primary Teachers Bank Limited",
+      "Sangli Urban Co-Operative Bank",
+      "Saraswat Co-Operative Bank",
+      "Sardar Bhiladwala Pardi Peoples Coop Bank",
+      "Shamrao Vithal Co-Operative Bank",
+      "Shikshak Sahakari Bank",
+      "Shivalik Mercantile Co-Operative Bank",
+      "Solapur Janata Sahakari Bank",
+      "Surat Peoples Coop Bank",
+      "Thane Bharat Sahakari Bank",
+      "The Bardoli Nagarik Sahakari Bank Limited",
+      "The City Co-Operative Bank Limited",
+      "The Kapole Co-Operative Bank",
+      "The Surat District Co-Operative Bank Limited",
+      "The Surtex Co-Operative Bank Limited",
+      "TJSB Sahakari Bank",
+      "Varchha Co-op Bank",
+      "Zoroastrian Co-Operative Bank",
+      "Andamanand Nicobar State Co-Operative Bank",
+      "Andhra Pradesh State Co-Operative Bank",
+      "Arunachal Pradesh State Co-Operative Apex Bank",
+      "Assam Co-Operative Apex Bank",
+      "Bihar State Co-Operative Bank",
+      "Chandigarh State Co-Operative Bank",
+      "Chhattisgarh Rajya Sahakari Bank Maryadit",
+      "Delhi State Co-Operative Bank",
+      "Goa State Co-Operative Bank",
+      "Gujarat State Co-Operative Bank",
+      "Haryana State Co-Operative Apex Bank",
+      "Himachal Pradesh State Co-Operative Bank",
+      "Jammuand Kashmir State Co-Operative Bank",
+      "Jharkhand State Co-Operative Bank",
+      "Karnataka State Co-Operative Apex Bank Bangalore",
+      "Kerala State Co-Operative Bank",
+      "Madhya Pradesh Rajya Sahakari Bank Maryadit",
+      "Maharashtra State Co-Operative Bank",
+      "Manipur State Co-Operative Bank",
+      "Meghalaya Co-Operative Apex Bank",
+      "Mizoram Co-Operative Apex Bank",
+      "Nagaland State Co-Operative Bank",
+      "Odisha State Co-Operative Bank",
+      "Pondichery State Co-Operative Bank",
+      "Punjab State Co-Operative Bank",
+      "Rajasthan State Co-Operative Bank",
+      "Sikkim State Co-Operative Bank",
+      "Telangana State Co-Operative Apex Bank Limited",
+      "The Tamil Nadu State Apex Co-Operative Bank",
+      "Tripura State Co-Operative Bank",
+      "Uttar Pradesh Co-Operative Bank",
+      "Uttarakhand State Co-Operative Bank",
+      "West Bengal State Co-Operative Bank"
+    ],
+    "payment_details" : {
+      "allow_part_payment" : 0,
+      "points" : 0,
+      "net_amount" : 7679,
+      "allow_point_usage" : 0,
+      "min_amount" : 0,
+      "wallet" : 0
+    },
+    "payment_modes" : {
+      "razorpay" : {
+        "id" : "979",
+        "is_display" : true,
+        "convenience_fees_wallet" : 0,
+        "convenience_fees" : 153.58000000000001,
+        "label" : "Razorpay",
+        "method_type" : "",
+        "pg_id" : "4",
+        "validation" : {
+          "max_amt" : 500000
+        },
+        "category" : "online",
+        "types" : [
+
+        ]
+      }
+    },
+    "hb" : {
+
+    }
+  },
+  "errors" : [
+
+  ],
+  "success" : true
+}
+request params: ["it_id": "5f15a2fcb3561a2c4e7e7bee", "_": 1595253544]
+request url: https://beta.aertrip.com/api/v1/flights/re-confirmation
+method: HTTPMethod(rawValue: "GET")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:1oj8nkuhpg9f48oh1d70h3ej09
+    expiresDate:'2020-08-19 13:59:16 +0000'
+    created:'2020-07-20 13:59:16 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 7961 bytes
+response url: https://beta.aertrip.com/api/v1/flights/re-confirmation
+No wallet id required.
+request params: ["it_id": "5f15a2fcb3561a2c4e7e7bee", "_": 1595253556, "currency_code": "INR", "total_amount": 7832.58, "wallet_id": "", "part_payment_amount": 0, "use_wallet": 0, "use_points": 0, "ret": "json", "payment_method_id": "979"]
+request url: https://beta.aertrip.com/api/v1/payment/make-payment
+method: HTTPMethod(rawValue: "POST")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:1oj8nkuhpg9f48oh1d70h3ej09
+    expiresDate:'2020-08-19 13:59:17 +0000'
+    created:'2020-07-20 13:59:17 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 514 bytes
+response url: https://beta.aertrip.com/api/v1/payment/make-payment
+request params: ["id": "5f15a2fcb3561a2c4e7e7bee", "oid": "order_FGm6gR4pSalfy7", "_": 1595253573, "pid": "pay_FGm6uDI6MqBRGi", "sig": "55476535b4ca482233a20befff75da68084ecfee5db78d9384c6777599274213"]
+request url: https://beta.aertrip.com/api/v1/payment/response
+method: HTTPMethod(rawValue: "POST")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+/Users/sachinnautiyal/Documents/Razorpay/razorpay-ios/RazorpayIOS/CheckoutOtpelf/Classes/RazorpayCheckoutVC.swift deinitialized
+/Users/sachinnautiyal/Documents/Razorpay/razorpay-ios/RazorpayIOS/CheckoutOtpelf/Classes/RazorpayCheckoutWebView.swift:["/Users/sachinnautiyal/Documents/Razorpay/razorpay-ios/RazorpayIOS/CheckoutOtpelf/Classes/RazorpayCheckoutWebView.swift deinitialized"]
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:1oj8nkuhpg9f48oh1d70h3ej09
+    expiresDate:'2020-08-19 13:59:42 +0000'
+    created:'2020-07-20 13:59:42 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 113 bytes
+response url: https://beta.aertrip.com/api/v1/payment/response
+{
+  "data" : {
+    "p" : "flight",
+    "booking_id" : [
+      "13244",
+      "13245"
+    ],
+    "id" : "5f15a2fcb3561a2c4e7e7bee"
+  },
+  "errors" : [
+
+  ],
+  "success" : true
+}
+{
+  "data" : {
+    "p" : "flight",
+    "booking_id" : [
+      "13244",
+      "13245"
+    ],
+    "id" : "5f15a2fcb3561a2c4e7e7bee"
+  },
+  "errors" : [
+
+  ],
+  "success" : true
+}
+["13244", "13245"]
+request params: ["it_id": "5f15a2fcb3561a2c4e7e7bee", "_": 1595253582, "booking_id": "13244,13245"]
+request url: https://beta.aertrip.com/api/v1/booking/receipt
+method: HTTPMethod(rawValue: "GET")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:1oj8nkuhpg9f48oh1d70h3ej09
+    expiresDate:'2020-08-19 13:59:43 +0000'
+    created:'2020-07-20 13:59:43 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 8067 bytes
+response url: https://beta.aertrip.com/api/v1/booking/receipt
+{
+  "errors" : [
+
+  ],
+  "data" : {
+    "receipt" : {
+      "trip_details" : {
+        "event_id" : [
+          null,
+          "12144"
+        ]
+      },
+      "part_payment" : {
+        "date" : "",
+        "amount_paid" : 0,
+        "amount_remaining" : 0
+      },
+      "id" : "5f15a2fcb3561a2c4e7e7bee",
+      "currency" : "INR",
+      "booking_number" : "B\/20-21\/1600,B\/20-21\/1601",
+      "sid" : "3740f35d508140f78f72d510d2d16008",
+      "addons" : {
+        "9658" : {
+          "destination_iata" : "BOM",
+          "flights" : {
+            "flight_ids" : [
+              13792
+            ],
+            "13792" : {
+              "pax" : {
+                "33109" : {
+                  "dob" : "",
+                  "seatmap" : {
+                    "column" : "E",
+                    "isOverwing" : "false",
+                    "price" : "700",
+                    "row" : "3",
+                    "pax_id" : "33109"
+                  },
+                  "last_name" : "Adult",
+                  "salutation" : "Mr",
+                  "upid" : "33109",
+                  "pax_id" : "33109",
+                  "addon" : {
+                    "seatmap_exReadonly" : 0,
+                    "seatmap_exName" : null,
+                    "seatmap_exPrice" : "700",
+                    "seatmap_exType" : "3E"
+                  },
+                  "first_name" : "User"
+                }
+              },
+              "airline_code" : "G8",
+              "airline_name" : "Go Air",
+              "destination" : "Delhi",
+              "flight_number" : "391",
+              "flight_id" : "13792",
+              "origin" : "Mumbai",
+              "stops" : 0
+            }
+          },
+          "stops" : 0,
+          "origin_iata" : "BOM",
+          "leg_id" : 9658,
+          "leg_total" : 700,
+          "dd" : "2020-08-11",
+          "origin" : "Mumbai",
+          "flight_ids" : [
+            13792
+          ],
+          "destination" : "Delhi",
+          "type_total" : {
+            "seatmap" : 700
+          }
+        }
+      },
+      "payment_details" : {
+        "mode" : "netbanking",
+        "info" : {
+          "transaction_id" : "order_FGm6gR4pSalfy7",
+          "payment_amount" : 7832.5799999999999
+        }
+      },
+      "booking_status" : {
+        "B\/20-21\/1601" : "pending",
+        "B\/20-21\/1600" : "pending"
+      },
+      "tk" : "50039fe2823a724010380e24b46901d3a2ab94ce",
+      "whatsNext" : [
+        {
+          "rooms" : [
+            {
+              "adult" : 1
+            }
+          ],
+          "star" : "0star,1star,2star,3star,4star,5star",
+          "dest_id" : "433564",
+          "dest_name" : "New Delhi, Delhi, India",
+          "country" : "India",
+          "dest_type" : "City",
+          "city" : "New Delhi",
+          "product" : "hotel",
+          "checkout" : "Mon, 31 Aug 20",
+          "checkin" : "Tue, 11 Aug 20"
+        }
+      ],
+      "details" : {
+        "children" : "0",
+        "aldet" : {
+          "G8" : "Go Air"
+        },
+        "adults" : "1",
+        "apdet" : {
+          "DEL" : {
+            "n" : "Indira Gandhi International Airport",
+            "cn" : "IN",
+            "lat" : "28.556555",
+            "cname" : "India",
+            "c" : "Delhi",
+            "long" : "77.100789"
+          },
+          "BOM" : {
+            "n" : "Chhatrapati Shivaji International Airport",
+            "cn" : "IN",
+            "lat" : "19.089891",
+            "cname" : "India",
+            "c" : "Mumbai",
+            "long" : "72.868047"
+          }
+        },
+        "leg" : [
+          {
+            "lott" : [
+
+            ],
+            "al" : [
+              "G8"
+            ],
+            "at" : "15:55",
+            "leg_id" : "9658",
+            "ttl" : [
+              "Mumbai",
+              "Delhi"
+            ],
+            "apc" : "",
+            "dt" : "13:50",
+            "all_ap" : [
+              "BOM",
+              "DEL"
+            ],
+            "booking_id" : "13244",
+            "ap" : [
+              "BOM",
+              "DEL"
+            ],
+            "stp" : 0,
+            "loap" : [
+
+            ],
+            "tt" : 7500,
+            "flights" : [
+              {
+                "eq" : "Airbus A320",
+                "at" : "15:55",
+                "fr" : "BOM",
+                "al" : "G8",
+                "flight_id" : "13792",
+                "dtm" : "T-1",
+                "bc" : "P",
+                "dd" : "2020-08-11",
+                "to" : "DEL",
+                "cbg" : {
+                  "ADT" : {
+                    "dimension" : {
+                      "cm" : {
+                        "height" : "55.00",
+                        "depth" : "25.00",
+                        "width" : "35.00"
+                      },
+                      "in" : {
+                        "height" : "21.60",
+                        "width" : "14.00",
+                        "depth" : "8.00"
+                      }
+                    },
+                    "weight" : "7 kg",
+                    "pieces" : "1 pc"
+                  }
+                },
+                "oc" : "G8",
+                "halt" : "",
+                "dt" : "13:50",
+                "ft" : "7500",
+                "lo" : "0",
+                "halt_time" : "",
+                "atm" : "T-2",
+                "cc" : "Economy",
+                "ad" : "2020-08-11",
+                "eq_quality" : 3,
+                "fn" : "391",
+                "bg" : {
+                  "ADT" : {
+                    "weight" : "15 kg",
+                    "max_weight" : "",
+                    "pieces" : "0 pc",
+                    "dimension" : {
+
+                    },
+                    "note" : "",
+                    "max_pieces" : ""
+                  }
+                },
+                "fbn" : "GoSmart"
+              }
+            ],
+            "ad" : "2020-08-11",
+            "dd" : "2020-08-11"
+          },
+          {
+            "lott" : [
+
+            ],
+            "al" : [
+              "G8"
+            ],
+            "at" : "09:10",
+            "leg_id" : "9659",
+            "ttl" : [
+              "Delhi",
+              "Mumbai"
+            ],
+            "apc" : "",
+            "dt" : "07:00",
+            "all_ap" : [
+              "DEL",
+              "BOM"
+            ],
+            "booking_id" : "13245",
+            "ap" : [
+              "DEL",
+              "BOM"
+            ],
+            "stp" : 0,
+            "loap" : [
+
+            ],
+            "tt" : 7800,
+            "flights" : [
+              {
+                "al" : "G8",
+                "eq" : "Airbus A320",
+                "ad" : "2020-08-31",
+                "atm" : "T-1",
+                "to" : "BOM",
+                "bc" : "Z",
+                "bg" : {
+                  "ADT" : {
+                    "weight" : "15 kg",
+                    "max_weight" : "",
+                    "pieces" : "0 pc",
+                    "dimension" : {
+
+                    },
+                    "note" : "",
+                    "max_pieces" : ""
+                  }
+                },
+                "halt" : "",
+                "dt" : "07:00",
+                "halt_time" : "",
+                "lo" : "0",
+                "flight_id" : "13793",
+                "at" : "09:10",
+                "dd" : "2020-08-31",
+                "fn" : "530",
+                "fbn" : "GoSmart",
+                "cbg" : {
+                  "ADT" : {
+                    "dimension" : {
+                      "cm" : {
+                        "height" : "55.00",
+                        "width" : "35.00",
+                        "depth" : "25.00"
+                      },
+                      "in" : {
+                        "depth" : "8.00",
+                        "width" : "14.00",
+                        "height" : "21.60"
+                      }
+                    },
+                    "weight" : "7 kg",
+                    "pieces" : "1 pc"
+                  }
+                },
+                "fr" : "DEL",
+                "cc" : "Economy",
+                "dtm" : "T-2",
+                "eq_quality" : 3,
+                "oc" : "G8",
+                "ft" : "7800"
+              }
+            ],
+            "ad" : "2020-08-31",
+            "dd" : "2020-08-31"
+          }
+        ],
+        "taxes" : {
+          "BF" : "Base Fare",
+          "YQ" : "Fuel Surcharge",
+          "CUTE" : "CUTE Fee",
+          "SEAT" : "Seat Charges",
+          "FDIS" : "Airline Discount",
+          "RCS" : "RCS Fee",
+          "OT" : "Other Taxes & Fees",
+          "CGST" : "Service Provider Central GST",
+          "SGST" : "Service Provider State GST",
+          "ADF" : "Airport Development Fee"
+        },
+        "farepr" : 7679,
+        "combo" : "0",
+        "cityap" : {
+          "Delhi" : "DEL",
+          "Mumbai" : "BOM"
+        },
+        "rfd_plcy" : [
+          {
+            "rsc" : 1,
+            "rfd" : 1,
+            "cp" : {
+              "RAF" : {
+                "ADT" : 0
+              },
+              "SUCFEE" : {
+                "ADT" : 0
+              },
+              "SPCFEE" : {
+                "ADT" : [
+                  {
+                    "from" : "2020-07-20 19:29:00",
+                    "value" : 3000,
+                    "to" : "2020-08-08 11:50:00"
+                  },
+                  {
+                    "from" : "2020-08-08 11:51:00",
+                    "value" : 3500,
+                    "to" : "2020-08-11 09:50:00"
+                  },
+                  {
+                    "from" : "2020-08-11 09:51:00",
+                    "value" : -1,
+                    "to" : "2020-08-11 13:50:00"
+                  }
+                ]
+              }
+            },
+            "leg_id" : [
+              9658
+            ],
+            "rscp" : {
+              "SURFEE" : {
+                "ADT" : 0
+              },
+              "SPRFEE" : {
+                "ADT" : [
+                  {
+                    "to" : "2020-08-08 11:50:00",
+                    "from" : "2020-07-20 19:29:00",
+                    "value" : 2500
+                  },
+                  {
+                    "to" : "2020-08-11 09:50:00",
+                    "from" : "2020-08-08 11:51:00",
+                    "value" : 3000
+                  },
+                  {
+                    "to" : "2020-08-11 13:50:00",
+                    "from" : "2020-08-11 09:51:00",
+                    "value" : -1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "rsc" : 1,
+            "rfd" : 1,
+            "cp" : {
+              "RAF" : {
+                "ADT" : 0
+              },
+              "SUCFEE" : {
+                "ADT" : 0
+              },
+              "SPCFEE" : {
+                "ADT" : [
+                  {
+                    "value" : 3000,
+                    "from" : "2020-07-20 19:29:00",
+                    "to" : "2020-08-28 05:00:00"
+                  },
+                  {
+                    "value" : 3500,
+                    "from" : "2020-08-28 05:01:00",
+                    "to" : "2020-08-31 03:00:00"
+                  },
+                  {
+                    "value" : -1,
+                    "from" : "2020-08-31 03:01:00",
+                    "to" : "2020-08-31 07:00:00"
+                  }
+                ]
+              }
+            },
+            "leg_id" : [
+              9659
+            ],
+            "rscp" : {
+              "SURFEE" : {
+                "ADT" : 0
+              },
+              "SPRFEE" : {
+                "ADT" : [
+                  {
+                    "from" : "2020-07-20 19:29:00",
+                    "to" : "2020-08-28 05:00:00",
+                    "value" : 2500
+                  },
+                  {
+                    "from" : "2020-08-28 05:01:00",
+                    "to" : "2020-08-31 03:00:00",
+                    "value" : 3000
+                  },
+                  {
+                    "from" : "2020-08-31 03:01:00",
+                    "to" : "2020-08-31 07:00:00",
+                    "value" : -1
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "infants" : "0",
+        "fare" : {
+          "grand_total" : {
+            "name" : "Grand Total",
+            "value" : 7679
+          },
+          "tds_cut_n_pay_commissions" : {
+            "name" : "TDS on Cut and Pay Commissions (Indirect Tax)",
+            "value" : 0
+          },
+          "refund" : 0,
+          "points" : {
+            "name" : "Points",
+            "value" : 0
+          },
+          "net_fare" : {
+            "name" : "Net Fare",
+            "value" : 6979
+          },
+          "cashbacks" : {
+            "name" : "Cashbacks",
+            "value" : 0
+          },
+          "BF" : {
+            "name" : "Base Fare",
+            "value" : 4346
+          },
+          "pay_later_commisions" : {
+            "name" : "Pay Later Commissions",
+            "value" : 0
+          },
+          "insurance_fee" : 0,
+          "tds_on_pay_later_commisions" : {
+            "name" : "TDS on Pay Later Commissions (Indirect Tax)",
+            "value" : 0
+          },
+          "gross_fare" : {
+            "name" : "Gross Fare",
+            "value" : 6979
+          },
+          "convenience_fee" : 307.16000000000003,
+          "total_payable_now" : {
+            "name" : "Total Payable Now",
+            "value" : 7679
+          },
+          "cut_n_pay_commissions" : {
+            "name" : "Cut and Pay Commissions",
+            "value" : 0
+          },
+          "taxes" : {
+            "name" : "Taxes and Fees",
+            "details" : {
+              "SGST" : 152,
+              "CGST" : 152,
+              "RCS" : 100,
+              "YQ" : 1500,
+              "ADF" : "142.00",
+              "CUTE" : 142,
+              "OT" : 445
+            },
+            "value" : 2633
+          },
+          "discounts" : {
+            "name" : "Discounts",
+            "details" : {
+              "FDIS" : 0
+            },
+            "value" : 0
+          },
+          "net_effective_fare" : {
+            "name" : "Net Effective Fare",
+            "value" : 7679
+          },
+          "addons" : {
+            "name" : "Add-ons",
+            "details" : {
+              "SEAT" : "700.00"
+            },
+            "value" : 700
+          }
+        }
+      },
+      "shareUrl" : "https:\/\/beta.aertrip.com\/flights?referrer=5f15a2fcb3561a2c4e7e7bee",
+      "seatmap_request" : {
+        "9658" : {
+          "destination_iata" : "BOM",
+          "flights" : {
+            "13792" : {
+              "origin" : "Mumbai",
+              "flight_number" : "391",
+              "airline_name" : "Go Air",
+              "destination" : "Delhi",
+              "flight_id" : "13792",
+              "stops" : 0,
+              "pax" : {
+                "33109" : {
+                  "salutation" : "Mr",
+                  "dob" : "",
+                  "first_name" : "User",
+                  "seatmap" : {
+                    "pax_id" : "33109",
+                    "price" : "700",
+                    "column" : "E",
+                    "isOverwing" : "false",
+                    "row" : "3"
+                  },
+                  "upid" : "33109",
+                  "last_name" : "Adult",
+                  "pax_id" : "33109"
+                }
+              },
+              "airline_code" : "G8"
+            }
+          },
+          "stops" : 0,
+          "origin_iata" : "BOM",
+          "leg_id" : 9658,
+          "leg_total" : 700,
+          "dd" : "2020-08-11",
+          "origin" : "Mumbai",
+          "flight_ids" : [
+            "13792"
+          ],
+          "destination" : "Delhi",
+          "type_total" : {
+            "seatmap" : 700
+          }
+        }
+      },
+      "selected_apf" : {
+        "9658" : {
+          "destination_iata" : "BOM",
+          "flights" : {
+            "13792" : {
+              "destination" : "Delhi",
+              "flight_number" : "391",
+              "stops" : 0,
+              "pax" : {
+                "33109" : {
+                  "salutation" : "Mr",
+                  "dob" : "",
+                  "addon" : {
+                    "seatmap_exType" : "3E",
+                    "seatmap_exName" : null,
+                    "seatmap_exReadonly" : 0,
+                    "seatmap_exPrice" : "700"
+                  },
+                  "pax_id" : "33109",
+                  "upid" : "33109",
+                  "last_name" : "Adult",
+                  "first_name" : "User"
+                }
+              },
+              "airline_name" : "Go Air",
+              "origin" : "Mumbai",
+              "flight_id" : "13792",
+              "airline_code" : "G8"
+            }
+          },
+          "stops" : 0,
+          "origin_iata" : "BOM",
+          "leg_id" : 9658,
+          "leg_total" : null,
+          "dd" : "2020-08-11",
+          "origin" : "Mumbai",
+          "flight_ids" : [
+            13792
+          ],
+          "destination" : "Delhi",
+          "type_total" : null
+        }
+      },
+      "booking_actions" : {
+        "13244" : {
+          "addon_request_allowed" : true,
+          "reschedule_request_allowed" : true,
+          "display_seat_map" : false,
+          "display_addons_options" : false,
+          "special_request_allowed" : false,
+          "cancellation_request_allowed" : true
+        },
+        "13245" : {
+          "addon_request_allowed" : true,
+          "reschedule_request_allowed" : true,
+          "display_seat_map" : false,
+          "display_addons_options" : false,
+          "special_request_allowed" : false,
+          "cancellation_request_allowed" : true
+        }
+      },
+      "traveller_details" : {
+        "mobile" : "+91",
+        "t" : [
+          {
+            "age" : null,
+            "salutation" : "Mr",
+            "passport_country" : "",
+            "pax_type" : "ADT",
+            "email" : [
+              {
+                "type" : "default_email",
+                "value" : "Wqe@mailinator.com"
+              }
+            ],
+            "passport_expiry_date" : null,
+            "first_name" : "User",
+            "pax_id" : "33109",
+            "dob" : null,
+            "added_while_booking" : "1",
+            "last_name" : "Adult",
+            "profile_img" : "",
+            "ticket_details" : {
+              "9658" : {
+                "ticket_no" : "",
+                "pnr" : ""
+              },
+              "9659" : {
+                "ticket_no" : "",
+                "pnr" : ""
+              }
+            },
+            "passport_number" : ""
+          }
+        ],
+        "isd" : "5245235232"
+      }
+    }
+  },
+  "success" : true
+}
+request params: ["_": 1595253583, "is_guest_user": true, "booking_id": "13244"]
+request url: https://beta.aertrip.com/api/v1/dashboard/get-booking-details
+method: HTTPMethod(rawValue: "GET")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+request params: ["is_guest_user": true, "_": 1595253583, "booking_id": "13245"]
+request url: https://beta.aertrip.com/api/v1/dashboard/get-booking-details
+method: HTTPMethod(rawValue: "GET")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:1oj8nkuhpg9f48oh1d70h3ej09
+    expiresDate:'2020-08-19 13:59:44 +0000'
+    created:'2020-07-20 13:59:44 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 5486 bytes
+response url: https://beta.aertrip.com/api/v1/dashboard/get-booking-details
+{
+  "success" : true,
+  "data" : {
+    "depart" : "",
+    "weather_info" : [
+
+    ],
+    "user" : {
+      "mobile" : null,
+      "pax_id" : null,
+      "email" : "Wqe@mailinator.com",
+      "profile_img" : null,
+      "account_data" : [
+        0
+      ],
+      "points" : null,
+      "credit_type" : null,
+      "profile_name" : " ",
+      "billing_name" : "User Adult",
+      "isd" : null
+    },
+    "communication_number" : "+91 5245235232",
+    "special_request_allowed" : false,
+    "id" : "13244",
+    "booking_addons" : [
+      {
+        "service_name" : "Seatmap",
+        "extra_details" : "Row=3,Column=E",
+        "price" : "700.00",
+        "ssr_code" : "seatmap",
+        "flight_id" : "13792",
+        "addon_type" : "seat",
+        "leg_id" : "9658",
+        "booking_id" : "13244",
+        "addon_id" : "87",
+        "pax_id" : "24385",
+        "status" : "Failed"
+      }
+    ],
+    "booking_number" : "B\/20-21\/1600",
+    "billing_info" : {
+      "gst" : null,
+      "communication_number" : "+91 5245235232",
+      "email" : "Wqe@mailinator.com",
+      "address" : {
+        "country" : "IN",
+        "state" : "Maharashtra",
+        "address_line1" : "Mumbai",
+        "address_line2" : "",
+        "postal_code" : "",
+        "city" : "Mumbai"
+      },
+      "billing_name" : "User Adult"
+    },
+    "additional_informations" : {
+      "contact_info" : {
+        "hotel" : [
+          {
+            "email" : "",
+            "country_code" : "",
+            "phone" : "",
+            "web" : ""
+          }
+        ],
+        "aertrip" : [
+          {
+            "key" : "Customer Care",
+            "value" : "+91 98216 98747"
+          }
+        ],
+        "airlines" : [
+          {
+            "email" : "",
+            "al_name" : "Go Air",
+            "website" : "www.goair.in",
+            "al_code" : "G8",
+            "phone" : "18602 100 999 \/ +91 22 6273 2111"
+          }
+        ],
+        "airports" : [
+          {
+            "email" : "",
+            "iata_code" : "BOM",
+            "website" : "",
+            "city" : "Mumbai",
+            "country_code" : "IN",
+            "phone" : ""
+          },
+          {
+            "email" : "",
+            "iata_code" : "DEL",
+            "website" : "",
+            "city" : "Delhi",
+            "country_code" : "IN",
+            "phone" : ""
+          }
+        ]
+      },
+      "directions" : [
+        {
+          "airport_name" : "Chhatrapati Shivaji International Airport",
+          "iata_code" : "BOM",
+          "latitude" : "19.089891",
+          "city" : "Mumbai",
+          "country_code" : "IN",
+          "longitude" : "72.868047"
+        },
+        {
+          "airport_name" : "Indira Gandhi International Airport",
+          "iata_code" : "DEL",
+          "latitude" : "28.556555",
+          "city" : "Delhi",
+          "country_code" : "IN",
+          "longitude" : "77.100789"
+        }
+      ],
+      "web_checkin" : [
+        "https:\/\/www.goair.in\/#checkin"
+      ]
+    },
+    "total_amount_paid" : 4683,
+    "addon_request_allowed" : true,
+    "product" : "flight",
+    "display_addons_options" : false,
+    "bstatus" : "pending",
+    "documents" : [
+
+    ],
+    "trip_type" : "single",
+    "bdetails" : {
+      "trip_cities" : [
+        "Mumbai",
+        "Delhi"
+      ],
+      "journey_completed" : 0,
+      "note" : "",
+      "event_end_date" : "2020-08-11 15:55:00",
+      "event_start_date" : "2020-08-11 13:50:00",
+      "disconnected" : null,
+      "routes" : null,
+      "pax" : [
+        "You::User Adult"
+      ],
+      "travelled_cities" : [
+
+      ],
+      "leg" : [
+        {
+          "flights" : [
+            {
+              "change_of_plane" : 0,
+              "arrival_terminal" : "T-2",
+              "arrival" : "DEL",
+              "lcc" : 1,
+              "cabin_class" : "Economy",
+              "carrier" : "Go Air",
+              "departure_country" : "India",
+              "booking_class" : "P",
+              "carrier_code" : "G8",
+              "baggage" : {
+                "pieces" : true,
+                "cbg" : {
+                  "ADT" : {
+                    "weight" : "7 kg",
+                    "pieces" : "1 pc",
+                    "dimension" : {
+                      "cm" : {
+                        "depth" : "25.00",
+                        "width" : "35.00",
+                        "height" : "55.00"
+                      },
+                      "in" : {
+                        "width" : "14.00",
+                        "depth" : "8.00",
+                        "height" : "21.60"
+                      }
+                    }
+                  }
+                },
+                "bg" : {
+                  "ADT" : {
+                    "dimension" : {
+
+                    },
+                    "max_weight" : "",
+                    "max_pieces" : "",
+                    "pieces" : "0 pc",
+                    "weight" : "15 kg",
+                    "note" : ""
+                  }
+                }
+              },
+              "equipment" : "Airbus A320",
+              "departure_terminal" : "T-1",
+              "arrival_city" : "Delhi",
+              "flight_time" : "7500",
+              "flight_number" : "391",
+              "departure_country_code" : "IN",
+              "fbn" : "GoSmart",
+              "arrival_time" : "15:55",
+              "origin_weather" : [
+
+              ],
+              "arrival_country_code" : "IN",
+              "operated_by" : "G8",
+              "arrival_country" : "India",
+              "quality" : 3,
+              "departure_time" : "13:50",
+              "departure_airport" : "Chhatrapati Shivaji International Airport",
+              "dest_weather" : [
+
+              ],
+              "arrival_date" : "2020-08-11",
+              "departure" : "BOM",
+              "layover_time" : "0",
+              "depart_city" : "Mumbai",
+              "depart_date" : "2020-08-11",
+              "arrival_airport" : "Indira Gandhi International Airport",
+              "flight_id" : "13792"
+            }
+          ],
+          "refundable" : 1,
+          "leg_status" : "",
+          "origin" : "BOM",
+          "fare_name" : "",
+          "apc" : "",
+          "halts" : "",
+          "completed" : 0,
+          "ttl" : "Mumbai - Delhi",
+          "reschedulable" : 1,
+          "leg_id" : "9658",
+          "stops" : 0,
+          "pax" : [
+            {
+              "profile_image" : "",
+              "salutation" : "Mr",
+              "pnr" : "",
+              "cancellation_charge" : 3000,
+              "reschedule_charge" : 2500,
+              "upid" : "33109",
+              "first_name" : "User",
+              "pax_name" : "User Adult",
+              "last_name" : "Adult",
+              "pax_id" : "24385",
+              "in_process" : false,
+              "amount_paid" : 4683,
+              "ticket" : null,
+              "status" : "pending",
+              "addons" : {
+                "addon" : {
+                  "amount" : 700,
+                  "seat" : "3E (Failed) "
+                }
+              },
+              "pax_type" : "ADT",
+              "dob" : ""
+            }
+          ],
+          "destination" : "DEL"
+        }
+      ]
+    },
+    "cancellation_request_allowed" : true,
+    "special_fares" : "0",
+    "booking_date" : "2020-07-20 19:29:36",
+    "receipt" : {
+      "total_amount_due" : 0,
+      "vouchers" : [
+        {
+          "paymentinfo" : {
+            "payment_id" : "pay_FGm6uDI6MqBRGi",
+            "pg_fee" : "15250",
+            "method" : "netbanking",
+            "pg_tax" : "2326",
+            "order_id" : "order_FGm6gR4pSalfy7",
+            "bank_name" : "ICIC",
+            "trans_date" : "2020-07-20 19:29:29"
+          },
+          "transactions" : [
+            {
+              "ledger_name" : "RazorPay",
+              "amount" : "-4683.00"
+            }
+          ],
+          "basic" : {
+            "type" : "Receipt",
+            "transaction_id" : 22363,
+            "type_slug" : "receipt",
+            "event" : "Receipt",
+            "transaction_datetime" : "2020-07-20 19:29:35",
+            "voucher_no" : "RT\/20-21\/1125"
+          }
+        },
+        {
+          "basic" : {
+            "name" : "Sales",
+            "pattern" : "S\/{fyear}\/",
+            "transaction_datetime" : "2020-07-20 19:29:36",
+            "type_slug" : "sales",
+            "is_active" : "1",
+            "voucher_type" : "sales",
+            "event" : "Booking",
+            "transaction_id" : "22364",
+            "last_number" : "9183",
+            "id" : "2",
+            "voucher_no" : "S\/20-21\/1543",
+            "type" : "Sales"
+          },
+          "transactions" : [
+            {
+              "Taxes and Fees" : {
+                "total" : 1374,
+                "codes" : {
+                  "12" : {
+                    "ledger_name" : "Service Provider Central GST",
+                    "amount" : 87
+                  },
+                  "9" : {
+                    "ledger_name" : "Airport Development Fee",
+                    "amount" : 142
+                  },
+                  "14" : {
+                    "ledger_name" : "Other Taxes & Fees",
+                    "amount" : 177
+                  },
+                  "73" : {
+                    "ledger_name" : "RCS Fee",
+                    "amount" : 50
+                  },
+                  "13" : {
+                    "ledger_name" : "Service Provider State GST",
+                    "amount" : 87
+                  },
+                  "7" : {
+                    "ledger_name" : "CUTE Fee",
+                    "amount" : 81
+                  },
+                  "2" : {
+                    "ledger_name" : "Fuel Surcharge",
+                    "amount" : 750
+                  }
+                }
+              },
+              "Total Payable Now" : {
+                "amount" : 4683
+              },
+              "Add-ons" : {
+                "total" : 700,
+                "codes" : {
+                  "32" : {
+                    "ledger_name" : "Seat Charges",
+                    "amount" : 700
+                  }
+                }
+              },
+              "Gross Fare" : {
+                "amount" : 3983
+              },
+              "Grand Total" : {
+                "amount" : 4683
+              },
+              "Base Fare" : {
+                "amount" : 2609
+              },
+              "Total" : {
+                "amount" : 4683
+              },
+              "Net Fare" : {
+                "amount" : 3983
+              }
+            }
+          ]
+        }
+      ],
+      "total_amount_paid" : 4683
+    },
+    "vcode" : "g8rc",
+    "trip_info" : {
+
+    },
+    "cases" : [
+
+    ],
+    "itinerary_id" : "",
+    "category" : "domestic",
+    "display_seat_map" : false,
+    "reschedule_request_allowed" : true
+  },
+  "errors" : [
+
+  ]
+}
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:1oj8nkuhpg9f48oh1d70h3ej09
+    expiresDate:'2020-08-19 13:59:44 +0000'
+    created:'2020-07-20 13:59:44 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 5169 bytes
+response url: https://beta.aertrip.com/api/v1/dashboard/get-booking-details
+{
+  "success" : true,
+  "data" : {
+    "receipt" : {
+      "total_amount_due" : 0,
+      "total_amount_paid" : 2996,
+      "vouchers" : [
+        {
+          "basic" : {
+            "type_slug" : "receipt",
+            "type" : "Receipt",
+            "event" : "Receipt",
+            "transaction_id" : 22363,
+            "transaction_datetime" : "2020-07-20 19:29:35",
+            "voucher_no" : "RT\/20-21\/1125"
+          },
+          "paymentinfo" : {
+            "bank_name" : "ICIC",
+            "pg_fee" : "15250",
+            "method" : "netbanking",
+            "order_id" : "order_FGm6gR4pSalfy7",
+            "pg_tax" : "2326",
+            "trans_date" : "2020-07-20 19:29:29",
+            "payment_id" : "pay_FGm6uDI6MqBRGi"
+          },
+          "transactions" : [
+            {
+              "ledger_name" : "RazorPay",
+              "amount" : "-2996.00"
+            }
+          ]
+        },
+        {
+          "basic" : {
+            "transaction_datetime" : "2020-07-20 19:29:37",
+            "event" : "Booking",
+            "last_number" : "9183",
+            "type" : "Sales",
+            "voucher_type" : "sales",
+            "pattern" : "S\/{fyear}\/",
+            "id" : "2",
+            "name" : "Sales",
+            "voucher_no" : "S\/20-21\/1544",
+            "type_slug" : "sales",
+            "transaction_id" : "22365",
+            "is_active" : "1"
+          },
+          "transactions" : [
+            {
+              "Total Payable Now" : {
+                "amount" : 2996
+              },
+              "Total" : {
+                "amount" : 2996
+              },
+              "Net Fare" : {
+                "amount" : 2996
+              },
+              "Gross Fare" : {
+                "amount" : 2996
+              },
+              "Taxes and Fees" : {
+                "total" : 1259,
+                "codes" : {
+                  "14" : {
+                    "ledger_name" : "Other Taxes & Fees",
+                    "amount" : 268
+                  },
+                  "2" : {
+                    "ledger_name" : "Fuel Surcharge",
+                    "amount" : 750
+                  },
+                  "13" : {
+                    "ledger_name" : "Service Provider State GST",
+                    "amount" : 65
+                  },
+                  "73" : {
+                    "ledger_name" : "RCS Fee",
+                    "amount" : 50
+                  },
+                  "7" : {
+                    "ledger_name" : "CUTE Fee",
+                    "amount" : 61
+                  },
+                  "12" : {
+                    "ledger_name" : "Service Provider Central GST",
+                    "amount" : 65
+                  }
+                }
+              },
+              "Grand Total" : {
+                "amount" : 2996
+              },
+              "Base Fare" : {
+                "amount" : 1737
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "vcode" : "g8rc",
+    "display_addons_options" : false,
+    "billing_info" : {
+      "address" : {
+        "country" : "IN",
+        "state" : "Maharashtra",
+        "address_line1" : "Mumbai",
+        "address_line2" : "",
+        "postal_code" : "",
+        "city" : "Mumbai"
+      },
+      "communication_number" : "+91 5245235232",
+      "email" : "Wqe@mailinator.com",
+      "billing_name" : "User Adult",
+      "gst" : null
+    },
+    "depart" : "",
+    "bstatus" : "pending",
+    "special_request_allowed" : false,
+    "cancellation_request_allowed" : true,
+    "user" : {
+      "isd" : null,
+      "account_data" : [
+        0
+      ],
+      "billing_name" : "User Adult",
+      "pax_id" : null,
+      "email" : "Wqe@mailinator.com",
+      "profile_img" : null,
+      "profile_name" : " ",
+      "credit_type" : null,
+      "points" : null,
+      "mobile" : null
+    },
+    "booking_number" : "B\/20-21\/1601",
+    "addon_request_allowed" : true,
+    "total_amount_paid" : 2996,
+    "trip_type" : "single",
+    "communication_number" : "+91 5245235232",
+    "display_seat_map" : false,
+    "documents" : [
+
+    ],
+    "trip_info" : {
+      "event_id" : "12144",
+      "name" : "Default Trip",
+      "trip_id" : "999",
+      "booking_id" : "13245",
+      "is_updated" : "0"
+    },
+    "product" : "flight",
+    "special_fares" : "0",
+    "cases" : [
+
+    ],
+    "booking_addons" : [
+
+    ],
+    "category" : "domestic",
+    "additional_informations" : {
+      "directions" : [
+        {
+          "iata_code" : "DEL",
+          "country_code" : "IN",
+          "longitude" : "77.100789",
+          "airport_name" : "Indira Gandhi International Airport",
+          "latitude" : "28.556555",
+          "city" : "Delhi"
+        },
+        {
+          "iata_code" : "BOM",
+          "country_code" : "IN",
+          "longitude" : "72.868047",
+          "airport_name" : "Chhatrapati Shivaji International Airport",
+          "latitude" : "19.089891",
+          "city" : "Mumbai"
+        }
+      ],
+      "web_checkin" : [
+        "https:\/\/www.goair.in\/#checkin"
+      ],
+      "contact_info" : {
+        "aertrip" : [
+          {
+            "value" : "+91 98216 98747",
+            "key" : "Customer Care"
+          }
+        ],
+        "airports" : [
+          {
+            "email" : "",
+            "website" : "",
+            "city" : "Delhi",
+            "country_code" : "IN",
+            "iata_code" : "DEL",
+            "phone" : ""
+          },
+          {
+            "email" : "",
+            "website" : "",
+            "city" : "Mumbai",
+            "country_code" : "IN",
+            "iata_code" : "BOM",
+            "phone" : ""
+          }
+        ],
+        "airlines" : [
+          {
+            "email" : "",
+            "website" : "www.goair.in",
+            "al_name" : "Go Air",
+            "phone" : "18602 100 999 \/ +91 22 6273 2111",
+            "al_code" : "G8"
+          }
+        ],
+        "hotel" : [
+          {
+            "email" : "",
+            "web" : "",
+            "country_code" : "",
+            "phone" : ""
+          }
+        ]
+      }
+    },
+    "bdetails" : {
+      "event_start_date" : "2020-08-31 07:00:00",
+      "journey_completed" : 0,
+      "travelled_cities" : [
+
+      ],
+      "note" : "",
+      "leg" : [
+        {
+          "leg_status" : "",
+          "pax" : [
+            {
+              "pnr" : "",
+              "dob" : "",
+              "pax_type" : "ADT",
+              "cancellation_charge" : 3000,
+              "ticket" : null,
+              "profile_image" : "",
+              "reschedule_charge" : 2500,
+              "pax_id" : "24386",
+              "salutation" : "Mr",
+              "first_name" : "User",
+              "last_name" : "Adult",
+              "amount_paid" : 2996,
+              "in_process" : false,
+              "addons" : {
+
+              },
+              "status" : "pending",
+              "upid" : "33109",
+              "pax_name" : "User Adult"
+            }
+          ],
+          "fare_name" : "",
+          "halts" : "",
+          "destination" : "BOM",
+          "apc" : "",
+          "ttl" : "Delhi - Mumbai",
+          "stops" : 0,
+          "leg_id" : "9659",
+          "refundable" : 1,
+          "reschedulable" : 1,
+          "origin" : "DEL",
+          "flights" : [
+            {
+              "arrival_airport" : "Chhatrapati Shivaji International Airport",
+              "dest_weather" : [
+
+              ],
+              "origin_weather" : [
+
+              ],
+              "booking_class" : "Z",
+              "arrival_terminal" : "T-1",
+              "arrival_country_code" : "IN",
+              "carrier" : "Go Air",
+              "cabin_class" : "Economy",
+              "layover_time" : "0",
+              "arrival" : "BOM",
+              "quality" : 3,
+              "flight_id" : "13793",
+              "depart_date" : "2020-08-31",
+              "lcc" : 1,
+              "arrival_date" : "2020-08-31",
+              "flight_number" : "530",
+              "operated_by" : "G8",
+              "depart_city" : "Delhi",
+              "change_of_plane" : 0,
+              "departure_terminal" : "T-2",
+              "arrival_city" : "Mumbai",
+              "flight_time" : "7800",
+              "departure_airport" : "Indira Gandhi International Airport",
+              "baggage" : {
+                "cbg" : {
+                  "ADT" : {
+                    "pieces" : "1 pc",
+                    "dimension" : {
+                      "cm" : {
+                        "depth" : "25.00",
+                        "width" : "35.00",
+                        "height" : "55.00"
+                      },
+                      "in" : {
+                        "depth" : "8.00",
+                        "height" : "21.60",
+                        "width" : "14.00"
+                      }
+                    },
+                    "weight" : "7 kg"
+                  }
+                },
+                "bg" : {
+                  "ADT" : {
+                    "note" : "",
+                    "max_pieces" : "",
+                    "pieces" : "0 pc",
+                    "weight" : "15 kg",
+                    "dimension" : {
+
+                    },
+                    "max_weight" : ""
+                  }
+                },
+                "pieces" : true
+              },
+              "departure_country" : "India",
+              "fbn" : "GoSmart",
+              "equipment" : "Airbus A320",
+              "departure" : "DEL",
+              "departure_country_code" : "IN",
+              "arrival_time" : "09:10",
+              "departure_time" : "07:00",
+              "carrier_code" : "G8",
+              "arrival_country" : "India"
+            }
+          ],
+          "completed" : 0
+        }
+      ],
+      "disconnected" : null,
+      "event_end_date" : "2020-08-31 09:10:00",
+      "routes" : null,
+      "trip_cities" : [
+        "Delhi",
+        "Mumbai"
+      ],
+      "pax" : [
+        "You::User Adult"
+      ]
+    },
+    "weather_info" : [
+
+    ],
+    "reschedule_request_allowed" : true,
+    "booking_date" : "2020-07-20 19:29:37",
+    "id" : "13245",
+    "itinerary_id" : ""
+  },
+  "errors" : [
+
+  ]
+}
+BOM → DEL
+request params: ["_": 1595253593, "type": "seat", "bid": "13244"]
+request url: https://beta.aertrip.com/api/v1/addon/get-addon-availability
+method: HTTPMethod(rawValue: "GET")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:1oj8nkuhpg9f48oh1d70h3ej09
+    expiresDate:'2020-08-19 13:59:53 +0000'
+    created:'2020-07-20 13:59:53 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 26234 bytes
+response url: https://beta.aertrip.com/api/v1/addon/get-addon-availability
+2
+deinit
+2
+request params: ["addons[9658][13792][24385][seat][row]": "2", "addons[9658][13792][24385][seat][isOverwing]": "false", "addons[9658][13792][24385][seat][column]": "E", "booking_id": "13244", "addons[9658][13792][24385][seat][price]": "550", "_": 1595253601]
+request url: https://beta.aertrip.com/api/v1/addon/addon-confirmation
+method: HTTPMethod(rawValue: "POST")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:1oj8nkuhpg9f48oh1d70h3ej09
+    expiresDate:'2020-08-19 14:00:01 +0000'
+    created:'2020-07-20 14:00:01 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 6683 bytes
+response url: https://beta.aertrip.com/api/v1/addon/addon-confirmation
+request params: ["it_id": "5f15a361b3561a2c5b6f3c63", "_": 1595253601]
+request url: https://beta.aertrip.com/api/v1/itinerary/get-quotation
+method: HTTPMethod(rawValue: "GET")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:1oj8nkuhpg9f48oh1d70h3ej09
+    expiresDate:'2020-08-19 14:00:02 +0000'
+    created:'2020-07-20 14:00:02 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 6683 bytes
+response url: https://beta.aertrip.com/api/v1/itinerary/get-quotation
+Optional(AERTRIP.AddonsQuotationsModel(id: "5f15a361b3561a2c5b6f3c63", netAmount: 550, details: AERTRIP.QTDetails(leg: [AERTRIP.QTLeg(legID: 9658, flights: [AERTRIP.QTFlights(flightID: 13792, airlineCode: "G8", airlineName: "Go Air", flightNumber: "391", origin: "BOM", destination: "DEL", std: "2020-08-11T13:50:00", pax: [AERTRIP.QTPax(paxId: 24385, salutation: "Mr", firstName: "User", lastName: "Adult", paxType: "ADT", addon: AERTRIP.QTPaxAddon(seat: AERTRIP.QTPaxAddonDetails(type: "2E", name: "2E", price: "550", pPrice: "550"), meal: AERTRIP.QTPaxAddonDetails(type: "", name: "", price: "", pPrice: ""), baggage: AERTRIP.QTPaxAddonDetails(type: "", name: "", price: "", pPrice: ""), other: AERTRIP.QTPaxAddonDetails(type: "", name: "", price: "", pPrice: "")))])], flightIDS: [13792], legTotal: 550, typeTotal: AERTRIP.TypeTotal(seat: 550, baggage: 0, meal: 0, other: 0))], addonsSum: ["seat": 550, "seat_pax_count": 1], addons: AERTRIP.QTAddons(details: AERTRIP.QTAddonsDetails(seat: AERTRIP.AddonDetails(paxCount: 1, total: 550), baggage: AERTRIP.AddonDetails(paxCount: 0, total: 0), meal: AERTRIP.AddonDetails(paxCount: 0, total: 0), other: AERTRIP.AddonDetails(paxCount: 0, total: 0)), total: 550), addonsTotal: 550, grandTotal: 550), paymentModes: AERTRIP.PaymentMode(razorPay: AERTRIP.RazorPay(id: "979", idDisplay: true, label: "Razorpay", category: "online", methodType: "", types: [], validation: AERTRIP.MaxAmount(maxAmount: 500000.0), convenienceFees: 11.0, convenienceFeesWallet: 0.0, pgId: "4"), wallet: AERTRIP.Wallet(id: "", idDisplay: false, label: "", category: "", methodType: "", types: [], validation: [], convenienceFees: 0.0, convenienceFeesWallet: 0.0, pgId: "")), bankMaster: ["Au Small Finance Bank", "Aditya Birla Idea Payments Bank", "Bank Of Bahrein And Kuwait", "Bank Of Baroda - Corporate Banking", "Bank Of Baroda - Retail Banking", "Cosmos Co-operative Bank", "Development Bank Of Singapore", "Icici Bank - Corporate Banking", "Idbi", "Idfc First Bank", "Jana Small Finance Bank", "Janata Sahakari Bank (pune)", "Lakshmi Vilas Bank - Retail Banking", "Pnb (erstwhile-oriental Bank Of Commerce)", "Pnb (erstwhile-united Bank Of India)", "Punjab & Sind Bank", "Punjab National Bank - Retail Banking", "State Bank Of Bikaner And Jaipur", "State Bank Of Hyderabad", "State Bank Of Mysore", "State Bank Of Patiala", "State Bank Of Travancore", "Tamilnadu Mercantile Bank", "Tamilnadu State Apex Co-operative Bank", "Union Bank Of India (erstwhile Corporation Bank)", "American Express", "Allahabad Bank", "Andhra Bank", "Axis Bank", "Bandhan Bank", "Bank of Baroda", "Bank of India", "Bank of Maharashtra", "Canara Bank", "Catholic Syrian Bank", "Central Bank of India", "Citi Bank", "City Union Bank", "Corporation Bank", "DBS Bank", "DCB Bank", "Dena Bank", "Deutsche Bank", "Dhanlaxmi Bank", "Federal Bank", "HDFC Bank", "HSBC Bank", "ICICI Bank", "IDBI Bank", "IDFC Bank", "Indian Bank", "Indian Overseas Bank", "IndusInd Bank", "Jammu and Kashmir Bank", "Karnataka Bank", "Karur Vysya Bank", "Kotak Mahindra Bank", "Lakshmi Vilas Bank", "Nainital Bank", "Oriental Bank of Commerce", "Punjab & Sindh Bank", "Punjab National Bank", "RBL Bank", "South Indian Bank", "Standard Chartered Bank", "State Bank of India", "Syndicate Bank", "Tamilnad Mercantile Bank", "UCO Bank", "Union Bank of India", "United Bank of India", "Vijaya Bank", "YES Bank", "Airtel Payments Bank", "Fino Payment Bank", "India Post Payments Bank", "Paytm Payments Bank", "A U Small Finance Bank", "Capital Small Finance Bank", "Coastal Local Area Bank Limited", "Equitas Small Finance Bank", "ESAF Small Finance Bank", "Fincare Small Finance Bank", "Janalakshmi Small Finance Bank", "Krishna Bhima Samruddhi Local Area Bank Limited", "Subhadra Local Area Bank Limited", "Suryoday Small Finance Bank", "Ujjivan Small Finance Bank", "Utkarsh Small Finance Bank", "Abhyudaya Co-Operative Bank", "Adhyapaka Urban Co-Operative Bank", "Ahmedabad Mercantile Co-Operative Bank", "Akhand Anand Co-Operative Bank", "Akola Janata Commercial Co-Operative Bank", "Akola Urban Co-Operative Bank", "Andhra Pradesh Mahesh Co-Operative Urban Bank", "Apna Sahakari Co-Operative Bank Limited", "Bassein Catholic Co-Operative Bank", "Bharat Co-Operative Bank (Mumbai)", "Bharati Sahakari Bank", "Bombay Mercantile Co-Operative Bank", "Chartered Mercantile M.B. Limited", "Citizencredit Co-Operative Bank", "Dakshin Barasat Service Co-Operative Society Private Limited", "Dombivli Nagari Sahakari Bank Limited", "Eenadu Urban Co-Operative Bank", "Goa Urban Co-Operative Bank", "Gopinath Patil Parsik Janata Sahakari Bank", "Greater Bombay Co-Operative Bank", "Indian Mercantile Co-Operative Bank", "Jalgaon Janata Sahakari Bank", "Janakalyan Sahakari Bank", "Janalaxmi Co-Operative Bank", "Janata Sahakari Bank", "Junagadh Commercial Co-Operative Bank", "Kallappanna Awade Ichalkaranji Janata Sahakari Bank", "Kalupur Commercial Coop Bank", "Kalyan Janata Sahakari Bank", "Karad Urban Co-Operative Bank", "Khamgaon Urban Co-Operative Bank", "LIC Of India Staff Co-Operative Bank H.O. Pattom Thiruvananthapuram", "Mahanagar Co-Operative Bank", "Mapusa Urban Co-Operative Bankof Goa", "Mehsana Urban Co-Operative Bank", "Muneshwraswamy Bank", "Nagar Urban Co-Operative Bank", "Nagpur Nagrik Sahakari Bank", "Nasik Merchant\'s Co-Operative Bank", "New India Co-Operative Bank", "NKGSB Co-Operative Bank", "Nutan Nagarik Sahakari Bank", "Pravara Sahakari Bank", "Punjab & Maharashtra Co-Operative Bank", "Rajdhani Nagar Sahkari Bank", "Rajkot Nagrik Sahakari Bank", "Rohit Kataria Co-Operative Bank", "Rupee Co-Operative Bank", "Sangli District Primary Teachers Bank Limited", "Sangli Urban Co-Operative Bank", "Saraswat Co-Operative Bank", "Sardar Bhiladwala Pardi Peoples Coop Bank", "Shamrao Vithal Co-Operative Bank", "Shikshak Sahakari Bank", "Shivalik Mercantile Co-Operative Bank", "Solapur Janata Sahakari Bank", "Surat Peoples Coop Bank", "Thane Bharat Sahakari Bank", "The Bardoli Nagarik Sahakari Bank Limited", "The City Co-Operative Bank Limited", "The Kapole Co-Operative Bank", "The Surat District Co-Operative Bank Limited", "The Surtex Co-Operative Bank Limited", "TJSB Sahakari Bank", "Varchha Co-op Bank", "Zoroastrian Co-Operative Bank", "Andamanand Nicobar State Co-Operative Bank", "Andhra Pradesh State Co-Operative Bank", "Arunachal Pradesh State Co-Operative Apex Bank", "Assam Co-Operative Apex Bank", "Bihar State Co-Operative Bank", "Chandigarh State Co-Operative Bank", "Chhattisgarh Rajya Sahakari Bank Maryadit", "Delhi State Co-Operative Bank", "Goa State Co-Operative Bank", "Gujarat State Co-Operative Bank", "Haryana State Co-Operative Apex Bank", "Himachal Pradesh State Co-Operative Bank", "Jammuand Kashmir State Co-Operative Bank", "Jharkhand State Co-Operative Bank", "Karnataka State Co-Operative Apex Bank Bangalore", "Kerala State Co-Operative Bank", "Madhya Pradesh Rajya Sahakari Bank Maryadit", "Maharashtra State Co-Operative Bank", "Manipur State Co-Operative Bank", "Meghalaya Co-Operative Apex Bank", "Mizoram Co-Operative Apex Bank", "Nagaland State Co-Operative Bank", "Odisha State Co-Operative Bank", "Pondichery State Co-Operative Bank", "Punjab State Co-Operative Bank", "Rajasthan State Co-Operative Bank", "Sikkim State Co-Operative Bank", "Telangana State Co-Operative Apex Bank Limited", "The Tamil Nadu State Apex Co-Operative Bank", "Tripura State Co-Operative Bank", "Uttar Pradesh Co-Operative Bank", "Uttarakhand State Co-Operative Bank", "West Bengal State Co-Operative Bank"], walletBalance: 0, userPoints: 0, pointsBalance: 0, currency: "INR"))
+No wallet id required.
+request params: ["use_wallet": 0, "payment_method_id": "979", "it_id": "5f15a361b3561a2c5b6f3c63", "total_amount": 561.0, "use_points": 0, "part_payment_amount": 0, "_": 1595253604, "wallet_id": "", "currency_code": "INR", "ret": "json"]
+request url: https://beta.aertrip.com/api/v1/payment/make-payment
+method: HTTPMethod(rawValue: "POST")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:1oj8nkuhpg9f48oh1d70h3ej09
+    expiresDate:'2020-08-19 14:00:04 +0000'
+    created:'2020-07-20 14:00:04 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 482 bytes
+response url: https://beta.aertrip.com/api/v1/payment/make-payment
+request params: ["pid": "pay_FGm7vPTr3SAwZG", "oid": "order_FGm7WJ44LNUa2C", "_": 1595253630, "id": "5f15a361b3561a2c5b6f3c63", "sig": "8e1c9aa3a7d78f67f56bc4994eeaf2d1bb261fff28c93756f2d7858c28b95293"]
+request url: https://beta.aertrip.com/api/v1/payment/response
+method: HTTPMethod(rawValue: "POST")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+/Users/sachinnautiyal/Documents/Razorpay/razorpay-ios/RazorpayIOS/CheckoutOtpelf/Classes/RazorpayCheckoutVC.swift deinitialized
+/Users/sachinnautiyal/Documents/Razorpay/razorpay-ios/RazorpayIOS/CheckoutOtpelf/Classes/RazorpayCheckoutWebView.swift:["/Users/sachinnautiyal/Documents/Razorpay/razorpay-ios/RazorpayIOS/CheckoutOtpelf/Classes/RazorpayCheckoutWebView.swift deinitialized"]
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:1oj8nkuhpg9f48oh1d70h3ej09
+    expiresDate:'2020-08-19 14:00:33 +0000'
+    created:'2020-07-20 14:00:33 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 69 bytes
+response url: https://beta.aertrip.com/api/v1/payment/response
+{
+  "success" : true,
+  "data" : {
+    "id" : "5f15a361b3561a2c5b6f3c63"
+  },
+  "errors" : [
+
+  ]
+}
+{
+  "success" : true,
+  "data" : {
+    "id" : "5f15a361b3561a2c5b6f3c63"
+  },
+  "errors" : [
+
+  ]
+}
+request params: ["it_id": "5f15a361b3561a2c5b6f3c63", "_": 1595253633]
+request url: https://beta.aertrip.com/api/v1/receipt/get
+method: HTTPMethod(rawValue: "GET")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:1oj8nkuhpg9f48oh1d70h3ej09
+    expiresDate:'2020-08-19 14:00:33 +0000'
+    created:'2020-07-20 14:00:33 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 772 bytes
+response url: https://beta.aertrip.com/api/v1/receipt/get
+{
+  "success" : true,
+  "errors" : [
+
+  ],
+  "data" : {
+    "details" : {
+      "info" : {
+        "transaction_id" : "order_FGm7WJ44LNUa2C",
+        "payment_amount" : 561
+      },
+      "mode" : "netbanking"
+    },
+    "grand_total" : 550,
+    "addons" : {
+      "details" : {
+        "seat" : {
+          "total" : 550,
+          "pax_count" : 1
+        }
+      },
+      "total" : 550
+    },
+    "addons_sum" : {
+      "seat_pax_count" : 1,
+      "seat" : 550
+    },
+    "addons_total" : 550,
+    "leg" : {
+      "9658" : {
+        "flight_ids" : [
+          13792
+        ],
+        "flights" : {
+          "13792" : {
+            "destination" : "DEL",
+            "pax" : {
+              "24385" : {
+                "first_name" : "User",
+                "salutation" : "Mr",
+                "last_name" : "Adult",
+                "pax_type" : "ADT",
+                "addon" : {
+                  "seatName" : "2E",
+                  "seatRow" : "2",
+                  "seatType" : "2E",
+                  "seatPrice" : "550",
+                  "seatPPrice" : "550",
+                  "seatColumn" : "E"
+                },
+                "pax_id" : 24385
+              }
+            },
+            "origin" : "BOM",
+            "flight_number" : "391",
+            "airline_name" : "Go Air",
+            "std" : "2020-08-11T13:50:00",
+            "flight_id" : 13792,
+            "airline_code" : "G8"
+          }
+        },
+        "leg_id" : 9658,
+        "leg_total" : 550,
+        "type_total" : {
+          "seat" : 550
+        }
+      }
+    }
+  }
+}
+request params: ["_": 1595253633, "booking_id": "13244", "is_guest_user": true]
+request url: https://beta.aertrip.com/api/v1/dashboard/get-booking-details
+method: HTTPMethod(rawValue: "GET")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+request params: ["_": 1595253633, "booking_id": "13245", "is_guest_user": true]
+request url: https://beta.aertrip.com/api/v1/dashboard/get-booking-details
+method: HTTPMethod(rawValue: "GET")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:1oj8nkuhpg9f48oh1d70h3ej09
+    expiresDate:'2020-08-19 14:00:34 +0000'
+    created:'2020-07-20 14:00:34 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 92 bytes
+response url: https://beta.aertrip.com/api/v1/dashboard/get-booking-details
+{
+  "errors" : [
+    "User is not a guest. Error getting booking details."
+  ],
+  "data" : {
+
+  },
+  "success" : false
+}
+******************************************************************
+                              ATError
+                              =======
+                          Message to show:
+
+------------------------------------------------------------------
+                           Developer hint:
+
+******************************************************************
+
+
+Cookies:--Optional([<NSHTTPCookie
+    version:0
+    name:AT_R_STAGE_SESSID
+    value:1oj8nkuhpg9f48oh1d70h3ej09
+    expiresDate:'2020-08-19 14:00:34 +0000'
+    created:'2020-07-20 14:00:34 +0000'
+    sessionOnly:FALSE
+    domain:.aertrip.com
+    partition:none
+    sameSite:none
+    path:/
+    isSecure:TRUE
+    isHTTPOnly: YES
+ path:"/" isSecure:TRUE isHTTPOnly: YES>])
+response: 92 bytes
+response url: https://beta.aertrip.com/api/v1/dashboard/get-booking-details
+{
+  "data" : {
+
+  },
+  "errors" : [
+    "User is not a guest. Error getting booking details."
+  ],
+  "success" : false
+}
+******************************************************************
+                              ATError
+                              =======
+                          Message to show:
+
+------------------------------------------------------------------
+                           Developer hint:
+
+******************************************************************
+

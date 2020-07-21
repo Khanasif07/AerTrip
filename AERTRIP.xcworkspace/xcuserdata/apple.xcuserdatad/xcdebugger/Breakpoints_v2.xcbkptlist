@@ -26,16 +26,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D13AE052-7CF8-4375-8C04-B8D8E4FF802A"
+            uuid = "8DC90994-C13C-4C6A-9296-2B0A14419C45"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Flight/FlightDetails/FlightDetailsBaseVC/FlightDetailsBaseVC.swift"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsSearchVC/HotelsSearchVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "679"
-            endingLineNumber = "679"
-            landmarkName = "pushToPassenserSelectionVC(_:)"
+            startingLineNumber = "340"
+            endingLineNumber = "340"
+            landmarkName = "setDataFromPreviousSearch(olddata:isSettingForFirstTime:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AFFB7E1C-76F1-4C6C-B1B2-C7792DF44F62"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsSearchVC/HotelsSearchVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "337"
+            endingLineNumber = "337"
+            landmarkName = "setDataFromPreviousSearch(olddata:isSettingForFirstTime:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

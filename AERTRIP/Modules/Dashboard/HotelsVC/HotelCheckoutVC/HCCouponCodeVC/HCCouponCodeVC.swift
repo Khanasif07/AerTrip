@@ -160,7 +160,6 @@ class HCCouponCodeVC: BaseVC {
                 self.applyButton.setTitle("", for: .normal)
                 self.indicator.startAnimating()
             }
-            
         }
        }
     

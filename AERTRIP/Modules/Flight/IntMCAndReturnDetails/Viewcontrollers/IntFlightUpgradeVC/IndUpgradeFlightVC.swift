@@ -631,12 +631,9 @@ class IndUpgradeFlightVC: BaseVC, UICollectionViewDataSource, UICollectionViewDe
                 self.fareBreakupVC?.hideShowLoader(isHidden: false)
                 let vc = PassengersSelectionVC.instantiate(fromAppStoryboard: .PassengersSelection)
                 vc.viewModel.taxesResult = self.taxesResult
-                vc.viewModel.intJourney = [self.selectedJourney]
-                vc.viewModel.selectedJourneyFK = [self.selectedJourney.fk]
                 vc.viewModel.sid = self.sid
                 vc.viewModel.intAirportDetailsResult = self.intAirportDetailsResult
                 vc.viewModel.intAirlineDetailsResult = self.intAirlineDetailsResult
-                vc.viewModel.intFlights = self.intFlights
                 vc.viewModel.bookingObject = self.bookFlightObject
                 vc.viewModel.journeyTitle = self.journeyTitle
                 vc.viewModel.journeyDate = self.journeyDate

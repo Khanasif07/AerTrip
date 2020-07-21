@@ -97,6 +97,10 @@ extension HotelDetailAmenitiesCell: UICollectionViewDelegate, UICollectionViewDa
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let itemSize = CGSize(width: ((collectionView.frame.width)/5 - 7) , height: (collectionView.frame.height)/2.5)
         return itemSize

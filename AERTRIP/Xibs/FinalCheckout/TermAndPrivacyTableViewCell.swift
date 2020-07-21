@@ -68,8 +68,6 @@ extension TermAndPrivacyTableViewCell {
         withLabel.customize { [unowned self] label in
             label.font = AppFonts.Regular.withSize(14.0)
             label.text = textToDisplay
-           // label.customColor[fareDetails] = AppColors.themeGreen
-           // label.customSelectedColor[fareDetails] = AppColors.themeGreen
 
             for item in allTypes {
                 label.customColor[item] = AppColors.themeGreen
@@ -79,41 +77,21 @@ extension TermAndPrivacyTableViewCell {
             label.highlightFontName = AppFonts.SemiBold.rawValue
             label.highlightFontSize = 14.0
             
-//            label.handleCustomTap(for: fareDetails) { _ in
-//
-//                guard let url = URL(string: AppConstants.termsOfUse) else { return }
-//                let safariVC = SFSafariViewController(url: url)
-//                AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
-//                safariVC.delegate = self
-//            }
-            
             label.handleCustomTap(for: fareRules) { _ in
                 
                 guard let url = URL(string: AppConstants.fareRules) else { return }
-//                let safariVC = SFSafariViewController(url: url)
-//                safariVC.modalPresentationStyle = .overFullScreen
-//                AppFlowManager.default.currentNavigation?.present(safariVC, animated: true, completion: nil)
-//                safariVC.delegate = self
                 AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Fare Rules")
             }
             
             label.handleCustomTap(for: privacyPolicy) { _ in
                 
                 guard let url = URL(string: AppConstants.privacyPolicy) else { return }
-//                let safariVC = SFSafariViewController(url: url)
-//                safariVC.modalPresentationStyle = .overFullScreen
-//                AppFlowManager.default.currentNavigation?.present(safariVC, animated: true, completion: nil)
-//                safariVC.delegate = self
                  AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Privacy Policy")
             }
             
             label.handleCustomTap(for: termsOfUse) { _ in
                 
                 guard let url = URL(string: AppConstants.termsOfUse) else { return }
-//                let safariVC = SFSafariViewController(url: url)
-//                safariVC.modalPresentationStyle = .overFullScreen
-//                AppFlowManager.default.currentNavigation?.present(safariVC, animated: true, completion: nil)
-//                safariVC.delegate = self
                  AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Trems of Use")
             }
         }

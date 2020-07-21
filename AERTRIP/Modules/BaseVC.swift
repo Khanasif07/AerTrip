@@ -111,7 +111,6 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         UIView.appearance().semanticContentAttribute = LanguageEnum.isLanguageEnglish ? .forceLeftToRight : .forceRightToLeft
 
         if let nav = self.navigationController {
-           // AppFlowManager.default.setCurrentTabbarNavigationController(navigation: nav)
             nav.isNavigationBarHidden = true
         }
     }

@@ -29,24 +29,20 @@ class PassengerSelectionVM  {
     var journeyType: JourneyType = .international
     var taxesResult = [String:String]()
     var sid = ""
-    var selectedJourneyFK = [String]()
     var journeyTitle:NSAttributedString?
     var journeyDate:String?
     var id = ""
     var addonsMaster = AddonsMaster()
     //Varialbles for domestic and oneway
-    var journey:[Journey]?
     //Varialbles for international return and multicity
     var intAirportDetailsResult : [String : IntAirportDetailsWS]!
     var intAirlineDetailsResult : [String : IntAirlineMasterWS]!
-    var intJourney: [IntJourney]!
-    var intFlights : [IntFlightDetail]?
+//    var intJourney: [IntJourney]?
     var isSwitchOn = false
     var isLogin:Bool{
         return (UserInfo.loggedInUser != nil)
     }
     var selectedGST = GSTINModel()
-    var passengerList = [Passenger]()
     var email = ""
     var mobile = ""
     var isdCode = "+91"

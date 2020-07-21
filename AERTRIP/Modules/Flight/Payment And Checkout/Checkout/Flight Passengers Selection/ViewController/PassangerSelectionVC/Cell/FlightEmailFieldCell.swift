@@ -31,7 +31,7 @@ class FlightEmailFieldCell: UITableViewCell {
     
     // MARK: - Variables
     weak var delegate : FlightEmailTextFieldCellDelegate?
-    var idxPath = IndexPath()
+    var idxPath:IndexPath?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -81,7 +81,6 @@ class FlightEmailFieldCell: UITableViewCell {
 
 extension FlightEmailFieldCell: UITextFieldDelegate {
     @objc func textFieldDidChanged(_ textField: UITextField) {
-//        printDebug("text field text \(textField.text ?? " ")")
         self.editableTextField.lineView.backgroundColor = AppColors.clear
         let finalTxt = (textField.text ?? "").removeAllWhitespaces
         if let idxPath = indexPath, !finalTxt.isEmpty {
@@ -95,7 +94,8 @@ extension FlightEmailFieldCell: UITextFieldDelegate {
         self.editableTextField.lineView.backgroundColor = AppColors.clear
         let finalTxt = textField.text?.replacingOccurrences(of: " ", with: "")
         textField.text = finalTxt
-        delegate?.textEditableTableViewCellTextFieldText(idxPath, finalTxt!)
+        guard let indexPath = idxPath else {return}
+        delegate?.textEditableTableViewCellTextFieldText(indexPath, finalTxt!)
         self.editableTextField.isError = finalTxt?.checkInvalidity(.Email) ?? false
     }
 }
