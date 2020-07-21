@@ -34,6 +34,7 @@ class BaggageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     var combineString = ""
     var fewSeatsLeftViewHeight = 0
     var dataResp = [NSDictionary]()
+    var dimensionDelegate : getBaggageDimentionsDelegate?
 
     //MARK:- Initialise Views
     override func viewDidLoad() {
@@ -121,28 +122,31 @@ class BaggageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
             style.paragraphSpacingBefore = 16
             
             var displayTxt = ""
-            
+
             if combineString != ""{
-                
                 displayTxt = displayTxt + "*   " + combineString + "\n"
                 
                 displayTxt = displayTxt + "•   Baggage details are indicative and subject to change without prior notice."
                 
-                let inx = combineString.range(of: ":")
-                let index: Int = combineString.distance(from: combineString.startIndex, to: inx!.lowerBound)
+                var strArray = [String]()
+                let attArray = displayTxt.components(separatedBy: "\n")
+                for i in 0..<attArray.count-1{
+                    let str = attArray[i].components(separatedBy: ":")
+                    strArray.append(str[0]+":")
+                }
                 
-                let font:UIFont = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(14))!
-                
-                let title = NSMutableAttributedString(string: displayTxt, attributes: [NSAttributedString.Key.paragraphStyle: style,NSAttributedString.Key.foregroundColor:UIColor.black])
-                title.addAttributes([.font:font], range: NSRange(location: 0, length: index+6))
-                
-                changeAirportCell.dataLabel.attributedText = title
+                let attributedWithTextColor: NSAttributedString = displayTxt.attributedStringWithColor(strArray, color: UIColor.clear)
+
+                changeAirportCell.dataLabel.attributedText = attributedWithTextColor
             }else{
                 displayTxt = displayTxt + "•   Baggage details are indicative and subject to change without prior notice."
                 
                 let title = NSMutableAttributedString(string: displayTxt, attributes: [NSAttributedString.Key.paragraphStyle: style,NSAttributedString.Key.foregroundColor:UIColor.black])
                 changeAirportCell.dataLabel.attributedText = title
-            }                        
+            }
+            
+            changeAirportCell.seperatorBottom.constant = 65
+
             return changeAirportCell
         }else{
             let baggageCell = tableView.dequeueReusableCell(withIdentifier: "BaggageDetailsPerFlightCell") as! BaggageDetailsPerFlightTableViewCell
@@ -170,7 +174,7 @@ class BaggageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
                         if let adtBaggage = bgData.value(forKey: "ADT") as? NSDictionary{
                             if let weight = adtBaggage.value(forKey: "weight") as? String, let pieces = adtBaggage.value(forKey: "pieces") as? String, let max_pieces = adtBaggage.value(forKey: "max_pieces") as? String, let max_weight = adtBaggage.value(forKey: "max_weight") as? String
                             {
-                                if weight == "0 Kg"{
+                                if weight == "0 Kg" || weight == "0 kg"{
                                     baggageCell.perAdultCheckinLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
                                     baggageCell.perAdultCheckinLabel.textColor = .red
                                     baggageCell.perAdultCheckinLabel.text = "No Baggage"
@@ -185,6 +189,10 @@ class BaggageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
                                             baggageCell.perAdultCheckinLabel.textColor = .red
                                             baggageCell.perAdultCheckinLabel.text = "No Baggage"
                                         }
+                                    }
+                                    
+                                    if weight != "0 Kg" || weight != "" || weight != "0 kg"{
+                                        baggageCell.perAdultCheckinLabel.text = weight
                                     }
                                     
                                     if weight == "" && max_pieces == "" && max_weight == ""{
@@ -267,6 +275,8 @@ class BaggageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
                                     baggageCell.perAdultCheckinLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
                                     baggageCell.perAdultCheckinLabel.textColor = .black
                                     baggageCell.perAdultCheckinLabel.text = "No Info"
+                                }else{
+                                    baggageCell.perAdultCheckinLabel.text = "\(weight)"
                                 }
                             }else if let weight = adtBaggage.value(forKey: "weight") as? String{
                                 if weight == "0"{
@@ -293,7 +303,7 @@ class BaggageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
                         if let chdBaggage = bgData.value(forKey: "CHD") as? NSDictionary{
                             if let weight = chdBaggage.value(forKey: "weight") as? String, let pieces = chdBaggage.value(forKey: "pieces") as? String, let max_pieces = chdBaggage.value(forKey: "max_pieces") as? String, let max_weight = chdBaggage.value(forKey: "max_weight") as? String{
                                 
-                                if weight == "0 Kg"{
+                                if weight == "0 Kg" || weight == "0 kg"{
                                     baggageCell.perChildCheckInLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
                                     baggageCell.perChildCheckInLabel.textColor = .red
                                     baggageCell.perChildCheckInLabel.text = "No Baggage"
@@ -310,6 +320,9 @@ class BaggageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
                                         }
                                     }
                                     
+                                    if weight != "0 Kg" || weight != ""{
+                                        baggageCell.perChildCheckInLabel.text = weight
+                                    }
                                     if weight == "" && max_pieces == "" && max_weight == ""{
                                         if pieces == "0 pc"{
                                             baggageCell.perChildCheckInLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
@@ -384,7 +397,7 @@ class BaggageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
                                 }
                             }else if let weight = chdBaggage.value(forKey: "weight") as? String, let pieces = chdBaggage.value(forKey: "pieces") as? String, let max_pieces = chdBaggage.value(forKey: "max_pieces") as? String{
                                 
-                                if weight == "0 Kg"{
+                                if weight == "0 Kg" || weight == "0 kg"{
                                     baggageCell.perChildCheckInLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
                                     baggageCell.perChildCheckInLabel.textColor = .red
                                     baggageCell.perChildCheckInLabel.text = "No Baggage"
@@ -477,7 +490,7 @@ class BaggageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
                         
                         if let infBaggage = bgData.value(forKey: "INF") as? NSDictionary{
                             if let weight = infBaggage.value(forKey: "weight") as? String, let pieces = infBaggage.value(forKey: "pieces") as? String, let max_pieces = infBaggage.value(forKey: "max_pieces") as? String, let max_weight = infBaggage.value(forKey: "max_weight") as? String{
-                                if weight == "0 Kg"{
+                                if weight == "0 Kg" || weight == "0 kg"{
                                     baggageCell.perInfantCheckInLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
                                     baggageCell.perInfantCheckInLabel.textColor = .red
                                     baggageCell.perInfantCheckInLabel.text = "No Baggage"
@@ -495,6 +508,10 @@ class BaggageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
                                         }
                                     }
                                     
+                                    if weight != "0 Kg" || weight != "" || weight != "0 kg"{
+                                        baggageCell.perInfantCheckInLabel.text = weight
+                                    }
+
                                     if weight == "" && max_pieces == "" && max_weight == ""{
                                         if pieces == "0 pc"{
                                             baggageCell.perInfantCheckInLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
@@ -585,6 +602,8 @@ class BaggageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
                                     baggageCell.perInfantCheckInLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
                                     baggageCell.perInfantCheckInLabel.textColor = .black
                                     baggageCell.perInfantCheckInLabel.text = "No Info"
+                                }else{
+                                    baggageCell.perInfantCheckInLabel.text = "\(weight)"
                                 }
                             }
                             
@@ -836,36 +855,7 @@ class BaggageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
     //MARK:- Button Actions
     @objc func dimensionsButtonClicked(_ sender:UIButton)
     {
-        let baggageDimensionVC = BaggageDimensionsVC(nibName: "BaggageDimensionsVC", bundle: nil)
-        
-        let section = sender.tag / 100
-        let row = sender.tag % 100
-        if let baggageData = evaluatedBaggageResp[section][row].value(forKey: "baggageData") as? NSDictionary{
-            if let cbgData = baggageData.value(forKey: "cbg") as? NSDictionary{
-                if let adtCabinBaggage = cbgData.value(forKey: "ADT") as? NSDictionary{
-                    if let weight = adtCabinBaggage.value(forKey: "weight") as? String{
-                        baggageDimensionVC.weight = weight
-                    }
-                    if let dimension = adtCabinBaggage.value(forKey: "dimension") as? NSDictionary{
-                        if let cm = dimension.value(forKey: "cm") as? NSDictionary{
-                            baggageDimensionVC.dimensions = cm
-                        }
-                        
-                        if let inch = dimension.value(forKey: "in") as? NSDictionary{
-                            baggageDimensionVC.dimensions_inch = inch
-                        }
-                    }
-                    
-                    if let note = adtCabinBaggage.value(forKey: "note") as? String{
-                        baggageDimensionVC.note = note
-                    }
-                }
-            }
-        }
-        
-        baggageDimensionVC.view.frame = self.parent!.view.bounds
-        baggageDimensionVC.modalPresentationStyle = .overCurrentContext
-        self.present(baggageDimensionVC, animated: true, completion: nil)
+        self.dimensionDelegate?.getBaggageDimentions(baggage: evaluatedBaggageResp, sender: sender)
     }
     
     //MARK:- API Call
@@ -954,5 +944,34 @@ class BaggageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
             }
         }
         self.baggageTableView.reloadData()
+    }
+}
+
+
+extension String {
+    func attributedStringWithColor(_ strings: [String], color: UIColor, characterSpacing: UInt? = nil) -> NSAttributedString {
+        let attributedString = NSMutableAttributedString(string: self)
+
+        let style = NSMutableParagraphStyle()
+        style.alignment = .left
+        style.headIndent = 15
+        style.paragraphSpacingBefore = 16
+
+        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: NSRange(location: 0, length: attributedString.length))
+        let font:UIFont = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))!
+        attributedString.addAttribute(NSAttributedString.Key.font, value: font, range: NSRange(location: 0, length: attributedString.length))
+
+        for string in strings {
+            let range = (self as NSString).range(of: string)
+            let font:UIFont = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(14))!
+            attributedString.addAttribute(NSAttributedString.Key.font, value: font, range: range)
+        }
+
+        guard let characterSpacing = characterSpacing else {return attributedString}
+
+
+        attributedString.addAttribute(NSAttributedString.Key.kern, value: characterSpacing, range: NSRange(location: 0, length: attributedString.length))
+
+        return attributedString
     }
 }

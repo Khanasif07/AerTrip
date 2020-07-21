@@ -278,24 +278,82 @@ class GroupedFlightsDetailsViewController: UIViewController, UITableViewDataSour
     
     
     
-    fileprivate func hidePinnedFlightOptions( _ hide : Bool) {
-        
-        let opacity : CGFloat =  hide ? 0.0 : 1.0
-        UIView.animate(withDuration: 0.5, delay: 0.0 ,
-                       options: UIView.AnimationOptions.curveEaseOut
-            , animations: {
-                
-                self.emailPinnedFlights.alpha = opacity
-                self.unpinnedAllButton.alpha = opacity
-                self.sharePinnedFilghts.alpha = opacity
-                
-        }) { (onCompletion) in
+    fileprivate func hidePinnedFlightOptions( _ hide : Bool)
+    {
+        //*******************Haptic Feedback code********************
+           let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+           selectionFeedbackGenerator.selectionChanged()
+        //*******************Haptic Feedback code********************
+
+        print("hide=\(hide)")
+        if hide{
             
-            self.emailPinnedFlights.isHidden = hide
-            self.unpinnedAllButton.isHidden = hide
-            self.sharePinnedFilghts.isHidden = hide
+            //true - hideOption
+            
+            UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: .curveEaseOut, animations: { [weak self] in
+                self?.showPinnedSwitch.isUserInteractionEnabled = false
+
+                   self?.unpinnedAllButton.alpha = 0.0
+                   self?.emailPinnedFlights.alpha = 0.0
+                   self?.sharePinnedFilghts.alpha = 0.0
+                   self?.unpinnedAllButton.transform = CGAffineTransform(translationX: 0, y: 0)
+                   self?.emailPinnedFlights.transform = CGAffineTransform(translationX: 0, y: 0)
+                   self?.sharePinnedFilghts.transform = CGAffineTransform(translationX: 0, y: 0)
+                   }, completion: { [weak self] (success)
+            in
+                       self?.unpinnedAllButton.isHidden = true
+                       self?.emailPinnedFlights.isHidden = true
+                       self?.sharePinnedFilghts.isHidden = true
+                       self?.unpinnedAllButton.alpha = 1.0
+                       self?.emailPinnedFlights.alpha = 1.0
+                       self?.sharePinnedFilghts.alpha = 1.0
+                    self?.showPinnedSwitch.isUserInteractionEnabled = true
+               })
+        }else{
+            //false - showOption
+            self.unpinnedAllButton.alpha = 0.0
+            self.emailPinnedFlights.alpha = 0.0
+            self.sharePinnedFilghts.alpha = 0.0
+            UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: [.curveEaseOut, ], animations: { [weak self] in
+                self?.showPinnedSwitch.isUserInteractionEnabled = false
+
+                self?.unpinnedAllButton.isHidden = false
+                self?.emailPinnedFlights.isHidden = false
+                self?.sharePinnedFilghts.isHidden = false
+
+                self?.unpinnedAllButton.alpha = 1.0
+                self?.emailPinnedFlights.alpha = 1.0
+                self?.sharePinnedFilghts.alpha = 1.0
+                self?.unpinnedAllButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                self?.emailPinnedFlights.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                self?.sharePinnedFilghts.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                self?.emailPinnedFlights.transform = CGAffineTransform(translationX: 60, y: 0)
+                self?.sharePinnedFilghts.transform = CGAffineTransform(translationX: 114, y: 0)
+                self?.unpinnedAllButton.transform = CGAffineTransform(translationX: 168, y: 0)
+                }, completion: { [weak self] (success)
+                    in
+                    self?.showPinnedSwitch.isUserInteractionEnabled = true
+            })
         }
     }
+//    {
+//
+//        let opacity : CGFloat =  hide ? 0.0 : 1.0
+//        UIView.animate(withDuration: 0.5, delay: 0.0 ,
+//                       options: UIView.AnimationOptions.curveEaseOut
+//            , animations: {
+//
+//                self.emailPinnedFlights.alpha = opacity
+//                self.unpinnedAllButton.alpha = opacity
+//                self.sharePinnedFilghts.alpha = opacity
+//
+//        }) { (onCompletion) in
+//
+//            self.emailPinnedFlights.isHidden = hide
+//            self.unpinnedAllButton.isHidden = hide
+//            self.sharePinnedFilghts.isHidden = hide
+//        }
+//    }
     
     //MARK:- Image download methods
     func setImageto( imageView : UIImageView , url : String , index : Int ) {

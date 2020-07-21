@@ -16,6 +16,6 @@
 
 
 @protocol AirportSelctionHandler
-@optional - (void)flightFromSource:(NSMutableArray * _Nullable)fromArray toDestination:(NSMutableArray * _Nullable)toArray;
+@optional - (void)flightFromSource:(NSMutableArray * _Nullable)fromArray toDestination:(NSMutableArray * _Nullable)toArray airlineNum:(NSString * _Nullable)airlineNum;
 @end
 

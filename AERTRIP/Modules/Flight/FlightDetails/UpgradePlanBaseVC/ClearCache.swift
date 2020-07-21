@@ -87,53 +87,6 @@ class ClearCache: NSObject
                 }
             }
         }
-        
-    }
-            ///For clear cache for international return and multicity.
-    func checkTimeAndClearIntFlightPerformanceResultCache(journey: IntJourney?)-> IntJourney?{
-        if appdelegate.flightPerformanceMutableArray != nil{
-            let date = Date()
-            let calendar = Calendar.current
-            let hour = calendar.component(.hour, from: date)
-            let minutes = calendar.component(.minute, from: date)
-            let seconds = calendar.component(.second, from: date)
-            
-            
-            if var newJourney = journey{
-                
-                for j in 0..<newJourney.legsWithDetail.count{
-                    let allFlights = newJourney.legsWithDetail[j].flightsWithDetails
-                    for k in 0..<allFlights.count{
-                        let storedTime = newJourney.legsWithDetail[j].flightsWithDetails[k].ontimePerformanceDataStoringTime
-                        
-                        if storedTime != nil{
-                            let currTime = "\(hour):\(minutes):\(seconds)"
-                            
-                            let dateFormatter = DateFormatter()
-                            dateFormatter.dateFormat = "HH:mm:ss"
-                            let formatedStoredTime = dateFormatter.date(from:storedTime!)!
-                            let formatedCurrTime = dateFormatter.date(from:currTime)!
-                            
-                            let calendarFormat = NSCalendar.current
-                            let next3MinutesTime = calendarFormat.date(byAdding: .minute, value: 3, to: formatedStoredTime)
-                            
-                            if formatedCurrTime > next3MinutesTime!{
-                                newJourney.legsWithDetail[j].flightsWithDetails[k].ontimePerformance = nil
-                                newJourney.legsWithDetail[j].flightsWithDetails[k].latePerformance = nil
-                                newJourney.legsWithDetail[j].flightsWithDetails[k].cancelledPerformance = nil
-                                newJourney.legsWithDetail[j].flightsWithDetails[k].observationCount = nil
-                                newJourney.legsWithDetail[j].flightsWithDetails[k].averageDelay = nil
-                                newJourney.legsWithDetail[j].flightsWithDetails[k].ontimePerformanceDataStoringTime = nil
-                                
-                            }
-                        }
-                    }
-                }
-                return newJourney
-            }
-            
-        }
-        return journey
     }
     
     func checkTimeAndClearFlightBaggageResultCache(){
@@ -168,4 +121,52 @@ class ClearCache: NSObject
             }
         }
     }
+    
+    ///For clear cache for international return and multicity.
+       func checkTimeAndClearIntFlightPerformanceResultCache(journey: IntJourney?)-> IntJourney?{
+           if appdelegate.flightPerformanceMutableArray != nil{
+               let date = Date()
+               let calendar = Calendar.current
+               let hour = calendar.component(.hour, from: date)
+               let minutes = calendar.component(.minute, from: date)
+               let seconds = calendar.component(.second, from: date)
+               
+               
+               if var newJourney = journey{
+                   
+                   for j in 0..<newJourney.legsWithDetail.count{
+                       let allFlights = newJourney.legsWithDetail[j].flightsWithDetails
+                       for k in 0..<allFlights.count{
+                           let storedTime = newJourney.legsWithDetail[j].flightsWithDetails[k].ontimePerformanceDataStoringTime
+                           
+                           if storedTime != nil{
+                               let currTime = "\(hour):\(minutes):\(seconds)"
+                               
+                               let dateFormatter = DateFormatter()
+                               dateFormatter.dateFormat = "HH:mm:ss"
+                               let formatedStoredTime = dateFormatter.date(from:storedTime!)!
+                               let formatedCurrTime = dateFormatter.date(from:currTime)!
+                               
+                               let calendarFormat = NSCalendar.current
+                               let next3MinutesTime = calendarFormat.date(byAdding: .minute, value: 3, to: formatedStoredTime)
+                               
+                               if formatedCurrTime > next3MinutesTime!{
+                                   newJourney.legsWithDetail[j].flightsWithDetails[k].ontimePerformance = nil
+                                   newJourney.legsWithDetail[j].flightsWithDetails[k].latePerformance = nil
+                                   newJourney.legsWithDetail[j].flightsWithDetails[k].cancelledPerformance = nil
+                                   newJourney.legsWithDetail[j].flightsWithDetails[k].observationCount = nil
+                                   newJourney.legsWithDetail[j].flightsWithDetails[k].averageDelay = nil
+                                   newJourney.legsWithDetail[j].flightsWithDetails[k].ontimePerformanceDataStoringTime = nil
+                                   
+                               }
+                           }
+                       }
+                   }
+                   return newJourney
+               }
+               
+           }
+           return journey
+       }
+
 }

@@ -6,6 +6,10 @@
 //  Copyright © 2019 Aertrip. All rights reserved.
 //
 
+protocol updateFilterSubtitleProtocol : class {
+    func updateFilterTitle()
+}
+
 import UIKit
 //import HMSegmentedControl
 import SnapKit
@@ -41,6 +45,9 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     var clearAllFiltersButton : UIButton?
     var doneButton : UIButton!
     var filterTitle : UILabel!
+    var updatedApiProgress : Float = 0
+    var isSearchByAirline = false
+    var airlineCode = ""
     let separatorView = UIView()
     private var numberOfLegs = 0 {
         didSet {
@@ -57,13 +64,14 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     private var showDepartReturnSame = false
     
     //MARK:- Initializers
-    @objc convenience init(flightSearchResultVM : FlightSearchResultVM , flightSearchParameters: NSDictionary, isIntReturnOrMCJourney: Bool) {
+    @objc convenience init(flightSearchResultVM : FlightSearchResultVM , flightSearchParameters: NSDictionary, isIntReturnOrMCJourney: Bool, airlineCode:String) {
         self.init(nibName:nil, bundle:nil)
         self.flightSearchResultVM = flightSearchResultVM
         flightSearchResultVM.delegate = self
         flightSearchResultVM.initiateResultWebService()
         self.flightSearchParameters = flightSearchParameters
         self.isIntReturnOrMCJourney = isIntReturnOrMCJourney
+        self.airlineCode = airlineCode
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -83,14 +91,31 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         setupSegmentView()
         self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex)
         self.filterSegmentView.selectedSegmentIndex = HMSegmentedControlNoSegment
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateFilterScreenText), name: NSNotification.Name("updateFilterScreenText"), object: nil)
         setupResultView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         addCustomBackgroundBlurView()
-        
+        addSwipeLeftGuesture()
+    }
+    
+    func addSwipeLeftGuesture(){
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+        swipeRight.direction = .right
+        self.view.addGestureRecognizer(swipeRight)
+    }
+    
+    @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void
+    {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.navigationController?.view.viewWithTag(500)?.removeFromSuperview()
+            self.navigationController?.view.viewWithTag(2500)?.removeFromSuperview()
+            self.statusBarBlurView.removeFromSuperview()
+            self.navigationController?.viewControllers.removeLast()
+            self.navigationController?.popViewController(animated: true)
+        })
     }
     
     func addCustomBackgroundBlurView()
@@ -109,7 +134,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         backButton.setImage(buttonImage, for: .normal)
         backButton.setImage(buttonImage, for: .selected)
         
-        backButton.frame = CGRect(x: 8, y: statusBarHeight, width: 44, height: 44)
+        backButton.frame = CGRect(x: 6, y: statusBarHeight, width: 44, height: 44)
         
         backButton.addTarget(self, action: #selector(self.popToPreviousScreen(sender:)), for: .touchUpInside)
         visualEffectView.contentView.addSubview(backButton)
@@ -135,7 +160,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         visualEffectView.contentView.addSubview(self.filterSegmentView)
         filterSegmentView.snp.makeConstraints { (make) in
             make.left.equalTo(visualEffectView.contentView).offset(44.0)
-            make.bottom.equalTo(visualEffectView.contentView).offset(0)
+            make.bottom.equalTo(visualEffectView.contentView).offset(-1.7)
             make.trailing.equalTo(visualEffectView.contentView).offset(0)
             make.height.equalTo(51)
         }
@@ -157,14 +182,36 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             make.left.equalToSuperview()
         }
         
-        
+        ApiProgress.backgroundColor = UIColor.white
         separatorView.backgroundColor = UIColor.TWO_ZERO_FOUR_COLOR
         visualEffectView.contentView.addSubview(separatorView)
-        separatorView.snp.makeConstraints { (make) in
-            make.left.equalTo(visualEffectView.contentView).offset(0.0)
-            make.bottom.equalTo(visualEffectView.contentView).offset(-2.0)
-            make.width.equalToSuperview()
-            make.height.equalTo(0.5)
+                //        separatorView.snp.makeConstraints { (make) in
+        //            make.left.equalTo(visualEffectView.contentView).offset(0.0)
+        //            make.bottom.equalTo(visualEffectView.contentView).offset(-2.0)
+        //            make.width.equalToSuperview()
+        //            make.height.equalTo(0.5)
+        //        }
+        
+        
+        let flightType = flightSearchResultVM.flightSearchType
+        if flightType == SINGLE_JOURNEY || isIntReturnOrMCJourney{
+            ApiProgress.isHidden = false
+            
+            separatorView.snp.makeConstraints { (make) in
+                make.left.equalTo(visualEffectView.contentView).offset(0.0)
+                make.bottom.equalTo(visualEffectView.contentView).offset(-2.0)
+                make.width.equalToSuperview()
+                make.height.equalTo(0.5)
+            }
+        }else{
+            ApiProgress.isHidden = true
+            
+            separatorView.snp.makeConstraints { (make) in
+                make.left.equalTo(visualEffectView.contentView).offset(0.0)
+                make.bottom.equalTo(visualEffectView.contentView).offset(0.0)
+                make.width.equalToSuperview()
+                make.height.equalTo(0.5)
+            }
         }
         
         navigationItem.hidesBackButton = true
@@ -338,6 +385,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         resultBaseVC.sid = flightSearchResultVM.sid
         resultBaseVC.bookFlightObject = flightSearchResultVM.bookFlightObject
         resultBaseVC.flightSearchType = flightSearchResultVM.flightSearchType
+        resultBaseVC.flightSearchResultVM = flightSearchResultVM
         domesticMultiLegResultVC = resultBaseVC
         addChildView(resultBaseVC)
     }
@@ -380,6 +428,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         resultBaseVC.subtitleString = flightSearchResultVM.subTitleString
         resultBaseVC.sid = flightSearchResultVM.sid
         resultBaseVC.bookFlightObject = flightSearchResultVM.bookFlightObject
+        resultBaseVC.flightSearchResultVM = flightSearchResultVM
         addChildView(resultBaseVC)
         singleJourneyResultVC = resultBaseVC
     }
@@ -703,14 +752,30 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         
         resultTitle = UILabel(frame: CGRect(x: 50 , y: statusBarHeight + 1.0 , width: UIScreen.main.bounds.size.width  - 100.0 , height: 23))
         resultTitle.font = UIFont(name: "SourceSansPro-semibold", size: 18)!
-        resultTitle.attributedText = flightSearchResultVM.titleString
+//        resultTitle.attributedText = flightSearchResultVM.titleString
         resultTitle.textAlignment = .center
         resultTitle.lineBreakMode = NSLineBreakMode.byTruncatingMiddle
+        
+        if((Int(flightSearchResultVM.titleString.size().width)) > (Int(UIScreen.main.bounds.size.width  - 100))){
+            let flightType = flightSearchResultVM.flightSearchType
+            
+            if flightType == SINGLE_JOURNEY{
+                resultTitle.text = "Oneway"
+            }else if flightType == RETURN_JOURNEY{
+                resultTitle.text = "Return Flight"
+            }else{
+                resultTitle.text = "Multi-City"
+            }
+        }else{
+            resultTitle.attributedText = flightSearchResultVM.titleString
+        }
     }
     
     
     //MARK:- Target Methods
     @IBAction func clearAllFilterTapped(_ sender: Any) {
+        self.singleJourneyResultVC?.userSelectedFilters.removeAll()
+        self.singleJourneyResultVC?.updatedApiProgress = 0.0
         flightSearchResultVM.clearAllFilters()
         flightFilterVC?.resetAllFilters()
         intMCAndReturnFilterVC?.resetAllFilters()
@@ -799,9 +864,23 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     
     func openFiltersWith( index : Int) {
         
+        let flightType = flightSearchResultVM.flightSearchType
+        if flightType != SINGLE_JOURNEY{
+            if updatedApiProgress >= 0.97 {
+                self.ApiProgress.isHidden = true
+            }else{
+                self.separatorView.snp.updateConstraints { (make) in
+                    make.bottom.equalTo(self.visualEffectView.contentView).offset(-2.0)
+                }
+                
+                ApiProgress.isHidden = false
+            }
+        }
+        
+        
         // Creating Filters Base View Controller
         if isIntReturnOrMCJourney {
-            if intMCAndReturnFilterVC == nil {
+            if intMCAndReturnFilterVC == nil && flightType != SINGLE_JOURNEY {
                 createFiltersBaseView(index: index)
             }
         } else {
@@ -849,6 +928,14 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     }
     
     func removedFilterUIFromParent() {
+        let flightType = flightSearchResultVM.flightSearchType
+        if flightType != SINGLE_JOURNEY{
+            self.ApiProgress.isHidden = true
+            
+            self.separatorView.snp.updateConstraints { (make) in
+                make.bottom.equalTo(self.visualEffectView.contentView).offset(0.0)
+            }
+        }
         self.removeFilterHeader()
         self.filterSegmentView.selectionIndicatorColor = .clear
         self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex)
@@ -964,11 +1051,19 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)
         }
         
+        if resultVM.flightLegs.first!.appliedFilters.contains(.Airlines){
+            self.flightFilterVC?.flightResultArray = self.flightSearchResultVM.flightResultArray
+            self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
+
+        }
+        
         let flightType = flightSearchResultVM.flightSearchType
         
         switch flightType {
         case SINGLE_JOURNEY:
             if let singleJourneyVC = self.singleJourneyResultVC {
+                singleJourneyVC.updatedApiProgress = updatedApiProgress
+                singleJourneyVC.airlineCode = airlineCode
                 singleJourneyVC.updateWithArray( resultVM.getOnewayJourneyDisplayArray(), sortOrder: resultVM.getSortOrder())
                 singleJourneyVC.updateAirportDetailsArray(resultVM.getOnewayAirportArray())
                 singleJourneyVC.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
@@ -978,9 +1073,10 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             }
             
         case RETURN_JOURNEY:
+            domesticMultiLegResultVC?.updatedApiProgress = updatedApiProgress
+            domesticMultiLegResultVC?.airlineCode = airlineCode
             if flightSearchResultVM.isDomestic {
                 let journeyArray = resultVM.getJourneyDisplayArrayFor(index:  index)
-                //print(journeyArray[0].originIATACode)
                 domesticMultiLegResultVC?.updateReceivedAt(index: index , updatedArray: journeyArray, sortOrder: resultVM.getSortOrder())
                 domesticMultiLegResultVC?.updateAirportDetailsArray(resultVM.getAllAirportsArray())
                 domesticMultiLegResultVC?.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
@@ -995,6 +1091,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             filterUpdateWorkItem = DispatchWorkItem {
                 let journeyArray = resultVM.getIntJourneyDisplayArrayFor(index: index)
                 guard let intMCAndReturnVC = self.intMultiLegResultVC else { return }
+                intMCAndReturnVC.airlineCode = self.airlineCode
                 intMCAndReturnVC.updateWithArray( journeyArray, sortOrder: resultVM.getSortOrder())
                 intMCAndReturnVC.updateAirportDetailsArray(resultVM.getAllIntAirportsArray())
                 intMCAndReturnVC.updateAirlinesDetailsArray(resultVM.getIntAirlineDetailsArray())
@@ -1005,6 +1102,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             }
             
         case  MULTI_CITY:
+            domesticMultiLegResultVC?.updatedApiProgress = updatedApiProgress
             if flightSearchResultVM.isDomestic {
                 
                 let journeyArray = self.flightSearchResultVM.getJourneyDisplayArrayFor(index: index )
@@ -1012,6 +1110,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                 domesticMultiLegResultVC?.updateAirportDetailsArray(resultVM.getAllAirportsArray())
                 domesticMultiLegResultVC?.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
                 domesticMultiLegResultVC?.updateTaxesArray(resultVM.getTaxesDetailsArray())
+                domesticMultiLegResultVC?.airlineCode = airlineCode
                 
             }
             else {
@@ -1024,6 +1123,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                     intMCAndReturnVC.updateAirlinesDetailsArray(resultVM.getIntAirlineDetailsArray())
                     intMCAndReturnVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
                     intMCAndReturnVC.addPlaceholderTableHeaderView()
+                    intMCAndReturnVC.airlineCode = self.airlineCode
                 })
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem!)
             }
@@ -1042,21 +1142,42 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         if progress > 0.25 {
             DispatchQueue.main.async {
                 
+                self.updatedApiProgress = progress
+                self.domesticMultiLegResultVC?.updateApiProcess(progress: progress)
                 
                 if self.ApiProgress.progress < progress {
                     self.ApiProgress.setProgress(progress, animated: true)
                 }
                 
-                if progress == 1.0 {
+                if progress >= 0.97 {
                     self.ApiProgress.isHidden = true
                     self.singleJourneyResultVC?.addPlaceholderTableHeaderView()
                     
                     self.separatorView.snp.updateConstraints { (make) in
                         make.bottom.equalTo(self.visualEffectView.contentView).offset(0.0)
                     }
+                    
+                    self.filterSegmentView.snp.updateConstraints{ (make) in
+                        make.bottom.equalTo(self.visualEffectView.contentView).offset(0)
+                    }
                 }
             }
         }
+    }
+    
+    @objc private func updateFilterScreenText(){
+        var filterArrayCount = 0
+        var totalCount = 0
+        for flightLeg in self.flightSearchResultVM.flightLegs {
+            if flightLeg.updatedFilterResultCount > 0{
+                filterArrayCount += flightLeg.updatedFilterResultCount
+            }else{
+                filterArrayCount += flightLeg.filteredJourneyArray.count
+            }
+            totalCount += flightLeg.processedJourneyArray.count
+            
+        }
+        self.filterTitle.text = String(filterArrayCount) + " of " + String(totalCount) + " Results"
     }
 }
 

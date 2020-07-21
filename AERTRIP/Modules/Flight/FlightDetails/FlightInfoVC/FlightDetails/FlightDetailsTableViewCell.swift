@@ -80,7 +80,15 @@ class FlightDetailsTableViewCell: UITableViewCell
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        dashedView.setupDashedView()
+        let caShapeLayer = CAShapeLayer()
+        caShapeLayer.strokeColor = UIColor.ONE_ZORE_TWO_COLOR.cgColor
+        caShapeLayer.lineWidth = 0.5
+        caShapeLayer.lineDashPattern = [2,3]
+        let cgPath = CGMutablePath()
+        let cgPoint = [CGPoint(x: 0, y: 0), CGPoint(x: self.frame.width, y: 0)]
+        cgPath.addLines(between: cgPoint)
+        caShapeLayer.path = cgPath
+        dashedView.layer.addSublayer(caShapeLayer)
         
         amenitiesCollectionView.delegate = self
         amenitiesCollectionView.dataSource = self
@@ -91,6 +99,15 @@ class FlightDetailsTableViewCell: UITableViewCell
         self.amenitiesCollectionView.register(UINib.init(nibName: "FlightAmenitiesCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "FlightAmenitiesCell")
         
         airlineImageView.layer.cornerRadius = 3
+
+        arrivalDateLabel.layer.cornerRadius = 3
+        arrivalAirportLabel.layer.cornerRadius = 3
+        arrivalTerminalLabel.layer.cornerRadius = 3
+
+        departureDateLabel.layer.cornerRadius = 3
+        departureAirportLabel.layer.cornerRadius = 3
+        departureTerminalLabel.layer.cornerRadius = 3
+        
     }
     
     override func prepareForReuse() {

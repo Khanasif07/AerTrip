@@ -83,11 +83,14 @@
 
 
 
+@property (weak, nonatomic) IBOutlet UILabel *recentSearchTitleLabel;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *recentSearchCollectionView;
+
 @end
 
 @implementation FlightFormViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -126,8 +129,6 @@
     [self setupMainView];
     [self setupCollectionView];
     [self setupFlightSection];
-    
-
 }
 
 - (void)hideLoaderIndicator {
@@ -154,7 +155,7 @@
             self.flightSegmentedControl.selectedSegmentIndex = 0;
         }
     [self setupDatesInOnwardsReturnView];
-    
+
 }
 
 
@@ -170,8 +171,10 @@
     [self setupFlightViews];
     [self setupFlightSearchButton];
     [self setupMultiCityTableView];
-}
 
+
+
+}
 - (void)setupSegmentControl {
     if (self.viewModel.segmentTitleSectionArray.count == 0) self.viewModel.segmentTitleSectionArray = [@[@"Oneway"] mutableCopy];
     
@@ -212,7 +215,9 @@
 
 - (void)setupFlightViews {
     
-    self.flightSegmentedControl.selectedSegmentIndex = self.viewModel.flightSearchType;
+//    self.flightSegmentedControl.selectedSegmentIndex = self.viewModel.flightSearchType;
+    
+    [self.flightSegmentedControl setSelectedSegmentIndex:self.viewModel.flightSearchType animated:YES];
     
     if (self.viewModel.flightSearchType == MULTI_CITY ) {
         self.fromToViewHeightConstraint.constant = 0.0;
@@ -339,10 +344,11 @@
     
     [self setupFromLabel:self.viewModel.fromFlightArray];
     [self setupToLabel: self.viewModel.toFlightArray];
+    
     if ( self.viewModel.fromFlightArray.count == 0 && self.viewModel.toFlightArray.count == 0) {
         self.switcherButton.enabled = NO;
     }else {
-        self.switcherButton.enabled = YES; 
+        self.switcherButton.enabled = YES;
     }
     
 }
@@ -465,14 +471,20 @@
     [self.flightSearchButton addTarget:self action:@selector(flightSearchButtonReleased) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
 }
 
-- (void)flightSearchButtonPressed {
+- (void)flightSearchButtonPressed
+{
 
-    [self customButtonViewPressed:self.flightSearchOuterView];
+    self.flightSearchButton.transform = CGAffineTransformMakeScale(0.9, 0.9);
+
+//    [self customButtonViewPressed:self.flightSearchOuterView];
 
 }
+
 - (void)flightSearchButtonReleased {
 
-    [self customButtonViewReleased:self.flightSearchOuterView];
+    self.flightSearchButton.transform = CGAffineTransformMakeScale(1.0, 1.0);
+
+    //[self customButtonViewReleased:self.flightSearchOuterView];
 
 }
 
@@ -529,7 +541,6 @@
     NSMutableArray *values= [NSMutableArray array];
     
     if (bookflightObject.flightSearchType == MULTI_CITY && !self.isInternationalJourney) {
-        
         NSArray * allKeys = bookflightObject.displayGroups.allKeys;
         
         for (int i = 0 ; i < [allKeys count] ; i++  ) {
@@ -538,17 +549,17 @@
             [values addObject:number];
         }
         
+        
     }else {
         values = [NSMutableArray arrayWithArray:bookflightObject.displayGroups.allValues];
     }
     
     // Converting to set and back to array to avoid duplicates in displaygroup
-
     NSSet *displayGroupSet = [NSSet setWithArray:values];
     values = [NSMutableArray arrayWithArray:[displayGroupSet allObjects]];
     
     NSString * sid = bookflightObject.sid;
-    
+
     int64_t numberOfLegs = 1;
     if (bookflightObject.flightSearchType == RETURN_JOURNEY) {
         numberOfLegs = 2;
@@ -556,13 +567,20 @@
         numberOfLegs = self.viewModel.multiCityArray.count;
     }
     
+    if(self.isInternationalJourney){
+        bookflightObject.isDomestic = false;
+    }else{
+        bookflightObject.isDomestic = true;
+    }
+    
     FlightSearchResultVM * flightSearchResponse = [[FlightSearchResultVM alloc] initWithDisplayGroups:values sid:sid bookFlightObject:bookflightObject isInternationalJourney:self.isInternationalJourney numberOfLegs: numberOfLegs];
         
-    FlightResultBaseViewController * flightResultView = [[FlightResultBaseViewController alloc] initWithFlightSearchResultVM:flightSearchResponse flightSearchParameters:flightSearchParameters isIntReturnOrMCJourney:self.isInternationalJourney];
+    FlightResultBaseViewController * flightResultView = [[FlightResultBaseViewController alloc] initWithFlightSearchResultVM:flightSearchResponse flightSearchParameters:flightSearchParameters isIntReturnOrMCJourney:self.isInternationalJourney airlineCode:self.viewModel.airlineCode];
+
+
     [self.navigationController pushViewController:flightResultView animated:true];
 
 }
-
 
 //MARK:- Target Action Methods
 
@@ -570,6 +588,7 @@
     AirportSelectionViewController *controller = (AirportSelectionViewController *)[self getControllerForModule:AIRPORT_SELECTION_CONTROLLER];
 
     AirportSelectionVM * viewModel = [self.viewModel prepareForAirportSelection:true airportSelectionMode:AirportSelectionModeSingleLegJournery];
+    viewModel.isFrom = true;
     controller.viewModel = viewModel;
 
     
@@ -580,9 +599,11 @@
          [self presentViewController:controller animated:NO completion:nil];
      }
 }
+
 - (IBAction)toAction:(id)sender {
     AirportSelectionViewController *controller = (AirportSelectionViewController *)[self getControllerForModule:AIRPORT_SELECTION_CONTROLLER];
     AirportSelectionVM * viewModel = [self.viewModel prepareForAirportSelection:false airportSelectionMode:AirportSelectionModeSingleLegJournery ];
+    viewModel.isFrom = false;
     controller.viewModel = viewModel;
     
     if (@available(iOS 13.0, *)) {
@@ -592,8 +613,6 @@
         [self presentViewController:controller animated:NO completion:nil];
     }
 }
-
-
 
 - (IBAction)onwardsAction:(id)sender {
 
@@ -636,8 +655,6 @@
         [self presentViewController:controller animated:NO completion:nil];
     }
 }
-
-
 
 - (IBAction)passengersAction:(id)sender {
 
@@ -685,6 +702,12 @@
 
 -(void)updateRecentSearch
 {
+    if(self.viewModel.recentSearchArray.count > 0){
+        self.recentSearchTitleLabel.hidden = false;
+    }else{
+        self.recentSearchTitleLabel.hidden = true;
+    }
+
     [self.recentSearchCollectionView reloadData];
 }
 
@@ -769,8 +792,14 @@
 - (void)didFetchCountryCodes:(NSMutableArray *)countryCodes
 {
     NSArray *uniqueArray = [[NSOrderedSet orderedSetWithArray:countryCodes] array];
-    self.isInternationalJourney = (uniqueArray.count > 1);
+    if((uniqueArray.count > 1)){
+        self.isInternationalJourney = true;
+    }else{
+        self.isInternationalJourney = false;
+    }
+//    self.isInternationalJourney = (uniqueArray.count > 1);
 }
+
 
 -(void)shakeAnimation:(PlaceholderLabels)label {
     
@@ -871,18 +900,21 @@
 
 -(void)swapMultiCityAirportsFor:(NSIndexPath*)indexPath{
     
+    
     NSMutableArray * fromArray = [NSMutableArray array];
     NSMutableArray *toArray = [NSMutableArray array];
     
     MulticityFlightLeg * currentLeg = [self.viewModel.multiCityArray objectAtIndex:indexPath.row];
     
     AirportSearch * origin = currentLeg.destination;
+    AirportSearch * destination = currentLeg.origin;
+
     if ( origin != nil ){
         [fromArray addObject:origin];
     }
 
-    AirportSearch * destination = currentLeg.origin;
-    if ( destination != nil) {
+//    AirportSearch * destination = currentLeg.origin;
+    if ( destination != nil ){//&& ![origin.iata isEqual: destination.iata]) {
         [toArray addObject:destination];
     }
 
@@ -1056,9 +1088,7 @@
     }else {
         [label setFont:[UIFont fontWithName:@"SourceSansPro-Regular" size:20.0]];
 
-    }    
+    }
 }
-
-
 
 @end

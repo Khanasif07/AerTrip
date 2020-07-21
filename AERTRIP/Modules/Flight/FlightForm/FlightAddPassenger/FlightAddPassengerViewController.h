@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
-#import "AERTRIP-Swift.h"
+#import "Aertrip-Swift.h"
 
 @protocol AddFlightPassengerHandler
 @optional -(void)addFlightPassengerAction:(TravellerCount*)travellerCount;
@@ -31,5 +31,6 @@
 @property (weak, nonatomic) id<AddFlightPassengerHandler> delegate;
 @property (strong, nonatomic) TravellerCount* travellerCount;
 @property ( assign, nonatomic) BOOL isForBulking;
+@property ( assign, nonatomic) BOOL isToastVisible;
 
 @end

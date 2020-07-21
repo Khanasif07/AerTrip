@@ -658,7 +658,6 @@
 		841AA52F24744F0700B66720 /* HMSegmentedControl-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 841AA52924744F0600B66720 /* HMSegmentedControl-dummy.m */; };
 		841AA53024744F0700B66720 /* HMSegmentedControl.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 841AA52A24744F0700B66720 /* HMSegmentedControl.xcconfig */; };
 		841AA5342475124000B66720 /* ShadowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 841AA5332475124000B66720 /* ShadowButton.m */; };
-		841AA63F24754FB100B66720 /* SnappingCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AA63E24754FB100B66720 /* SnappingCollectionViewLayout.swift */; };
 		841C8DAF225742BA009B9A54 /* YouAreAllDoneModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841C8DAE225742BA009B9A54 /* YouAreAllDoneModel.swift */; };
 		841DD1E32202DC690055FEBB /* RoomGuestSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841DD1D52202DC680055FEBB /* RoomGuestSelectionVC.swift */; };
 		841DD1E42202DC690055FEBB /* RoomGuestSelectionVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841DD1D62202DC680055FEBB /* RoomGuestSelectionVM.swift */; };
@@ -1147,6 +1146,7 @@
 		843FF9D0240D216300CBE5EC /* ViewProfileDetailFrequentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF9CE240D216300CBE5EC /* ViewProfileDetailFrequentCell.xib */; };
 		84409E5E2266F969005A5487 /* CustomDotMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84409E5C2266F969005A5487 /* CustomDotMarker.swift */; };
 		84409E5F2266F969005A5487 /* CustomDotMarker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84409E5D2266F969005A5487 /* CustomDotMarker.xib */; };
+		8441B24224C6B3D9001A465F /* SnappingCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441B24124C6B3D8001A465F /* SnappingCollectionViewLayout.swift */; };
 		8441BFAC22AA6E7A0046830B /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441BFAB22AA6E7A0046830B /* MyViewController.swift */; };
 		84432AEA2420F7B100E7A387 /* UIPanGestureRecognizerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84432AE92420F7B100E7A387 /* UIPanGestureRecognizerExtension.swift */; };
 		8445B51A22A50F2700DDBC7F /* RequestReschedulingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445B51922A50F2700DDBC7F /* RequestReschedulingVC.swift */; };
@@ -2273,7 +2273,6 @@
 		841AA52A24744F0700B66720 /* HMSegmentedControl.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = HMSegmentedControl.xcconfig; sourceTree = "<group>"; };
 		841AA5322475122A00B66720 /* ShadowButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShadowButton.h; sourceTree = "<group>"; };
 		841AA5332475124000B66720 /* ShadowButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShadowButton.m; sourceTree = "<group>"; };
-		841AA63E24754FB100B66720 /* SnappingCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnappingCollectionViewLayout.swift; sourceTree = "<group>"; };
 		841C8DAE225742BA009B9A54 /* YouAreAllDoneModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouAreAllDoneModel.swift; sourceTree = "<group>"; };
 		841DD1D52202DC680055FEBB /* RoomGuestSelectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomGuestSelectionVC.swift; sourceTree = "<group>"; };
 		841DD1D62202DC680055FEBB /* RoomGuestSelectionVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomGuestSelectionVM.swift; sourceTree = "<group>"; };
@@ -2858,6 +2857,7 @@
 		843FF9CE240D216300CBE5EC /* ViewProfileDetailFrequentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewProfileDetailFrequentCell.xib; sourceTree = "<group>"; };
 		84409E5C2266F969005A5487 /* CustomDotMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDotMarker.swift; sourceTree = "<group>"; };
 		84409E5D2266F969005A5487 /* CustomDotMarker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomDotMarker.xib; sourceTree = "<group>"; };
+		8441B24124C6B3D8001A465F /* SnappingCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnappingCollectionViewLayout.swift; sourceTree = "<group>"; };
 		8441BFAB22AA6E7A0046830B /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 		84432AE92420F7B100E7A387 /* UIPanGestureRecognizerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPanGestureRecognizerExtension.swift; sourceTree = "<group>"; };
 		8445B51922A50F2700DDBC7F /* RequestReschedulingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReschedulingVC.swift; sourceTree = "<group>"; };
@@ -5924,7 +5924,6 @@
 		843FF3092474022F001F21B1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				841AA63E24754FB100B66720 /* SnappingCollectionViewLayout.swift */,
 				843FF30A2474022F001F21B1 /* RecentSearchDataModel.m */,
 				843FF30B2474022F001F21B1 /* RecentSearchDisplayModel.m */,
 				843FF30C2474022F001F21B1 /* FlightFormDataModel.m */,
@@ -5934,6 +5933,7 @@
 				843FF3102474022F001F21B1 /* flightSearchType.h */,
 				843FF3112474022F001F21B1 /* FlightFormDataModel.h */,
 				843FF3122474022F001F21B1 /* MulticityFlightLeg.h */,
+				8441B24124C6B3D8001A465F /* SnappingCollectionViewLayout.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -10524,7 +10524,6 @@
 				843FF54B24740232001F21B1 /* Structures.swift in Sources */,
 				843FF4E324740231001F21B1 /* AirportTableViewCell.m in Sources */,
 				843FF649247409E3001F21B1 /* GuestDetailsTableViewCell.m in Sources */,
-				841AA63F24754FB100B66720 /* SnappingCollectionViewLayout.swift in Sources */,
 				1879C4972292B44F00897CED /* BookingDateVoucherTableViewCell.swift in Sources */,
 				1879C49F2293CA7500897CED /* BookingDirectionVC.swift in Sources */,
 				8480703A22295A1B0061C642 /* HotelGroupCardCollectionViewCell.swift in Sources */,
@@ -10631,6 +10630,7 @@
 				842BE085249A471F005B604E /* InstagramManager.swift in Sources */,
 				84085D1021F59C0E00F1E844 /* ContactListVC.swift in Sources */,
 				843FF65E247409E3001F21B1 /* Model.m in Sources */,
+				8441B24224C6B3D9001A465F /* SnappingCollectionViewLayout.swift in Sources */,
 				843FF667247409E3001F21B1 /* Airport.m in Sources */,
 				84534EA22248B306009FF536 /* YouAreAllDoneVM.swift in Sources */,
 				843FF695247409E4001F21B1 /* Parser.m in Sources */,

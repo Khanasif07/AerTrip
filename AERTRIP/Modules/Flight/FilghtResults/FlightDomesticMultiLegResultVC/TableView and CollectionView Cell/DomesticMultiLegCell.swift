@@ -9,9 +9,9 @@
 import UIKit
 
 class DomesticMultiLegCell: UITableViewCell {
-
+    
     //MARK:- Outlets
-
+    
     @IBOutlet weak var iconOne: UIImageView!
     @IBOutlet weak var iconTwo: UIImageView!
     @IBOutlet weak var iconThree: UIImageView!
@@ -39,7 +39,7 @@ class DomesticMultiLegCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         
         let selectedStateBGColor = UIColor(displayP3Red: (236.0/255.0), green: (253.0/255.0), blue: (244.0/255.0), alpha: 1.0)
-         
+        
         let backgroundColor = selected ? selectedStateBGColor : .white
         if ( duration.isHidden == false) {
             self.backgroundColor = backgroundColor
@@ -49,14 +49,14 @@ class DomesticMultiLegCell: UITableViewCell {
         }
     }
     
-
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         dashedView.setupDashedView()
         setupCollectionView()
         setupGradientView()
-
+        
     }
     
     func setupCollectionView() {
@@ -68,7 +68,7 @@ class DomesticMultiLegCell: UITableViewCell {
         smartIconCollectionView.delegate = self
     }
     
-   //MARK:- Methods
+    //MARK:- Methods
     
     
     fileprivate func setupGradientView( selectedColor : UIColor = UIColor.white) {
@@ -87,36 +87,36 @@ class DomesticMultiLegCell: UITableViewCell {
         gradientView.layer.insertSublayer(gradient, at: 0)
     }
     
-     func setPinnedFlight() {
+    func setPinnedFlight() {
         
         guard let isPinned = currentJourney?.isPinned else { return }
         
         if isPinned {
-        if pinnedTriangleLayer == nil {
+            if pinnedTriangleLayer == nil {
+                
+                let pinnedRoundedLayer = CAShapeLayer()
+                
+                pinnedRoundedLayer.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+                pinnedRoundedLayer.fillColor = UIColor.AertripColor.cgColor
+                
+                let path = CGMutablePath()
+                path.move(to: CGPoint(x: 0, y: 0))
+                path.addLine(to: CGPoint(x: 20, y: 0))
+                path.addLine(to: CGPoint(x: 0, y: 20))
+                path.addLine(to: CGPoint(x: 0, y: 0))
+                pinnedRoundedLayer.path = path
+                
+                self.pinnedTriangleLayer = pinnedRoundedLayer
+            }
             
-            let pinnedRoundedLayer = CAShapeLayer()
-            
-            pinnedRoundedLayer.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-            pinnedRoundedLayer.fillColor = UIColor.AertripColor.cgColor
-            
-            let path = CGMutablePath()
-            path.move(to: CGPoint(x: 0, y: 0))
-            path.addLine(to: CGPoint(x: 20, y: 0))
-            path.addLine(to: CGPoint(x: 0, y: 20))
-            path.addLine(to: CGPoint(x: 0, y: 0))
-            pinnedRoundedLayer.path = path
-            
-            self.pinnedTriangleLayer = pinnedRoundedLayer
-        }
-        
-        if let triangleLayer = pinnedTriangleLayer {
-            self.layer.addSublayer(triangleLayer)
-        }
+            if let triangleLayer = pinnedTriangleLayer {
+                self.layer.addSublayer(triangleLayer)
+            }
             
             self.layer.borderColor = UIColor.AertripColor.cgColor
             self.layer.borderWidth = 0.5
             
-
+            
         }
         else {
             pinnedTriangleLayer?.removeFromSuperlayer()
@@ -132,7 +132,7 @@ class DomesticMultiLegCell: UITableViewCell {
         stopCountLabel.isHidden = true
         self.addShimmerEffect(to: [iconOne ,flightCode ,departureTime , arrivalTime ,departureAirportCode , arrivalAirportCode , price ] )
     }
-
+    
     
     fileprivate func setStopsUI(_ journey: Journey) {
         let stopsCount = journey.loap.count
@@ -162,8 +162,8 @@ class DomesticMultiLegCell: UITableViewCell {
     func addStopsRoundedView(count : Int ) {
         
         stopsBackgroundView.subviews.forEach { $0.removeFromSuperview() }
-
-    
+        
+        
         if count == 1 {
             
             let view1 = UIView(frame: CGRect(x: 6, y: 0, width: 6 , height: 6))
@@ -171,7 +171,7 @@ class DomesticMultiLegCell: UITableViewCell {
             view1.layer.cornerRadius = 3.0
             stopBackgroundViewWidth.constant = 18
             stopsBackgroundView.addSubview(view1)
-
+            
         }
         
         if count == 2 {
@@ -192,7 +192,7 @@ class DomesticMultiLegCell: UITableViewCell {
     }
     
     func showDetailsFrom(journey : Journey) {
-                
+        
         currentJourney = journey
         if journey.isPinned ?? false {
             setPinnedFlight()
@@ -212,7 +212,14 @@ class DomesticMultiLegCell: UITableViewCell {
         
         arrivalAirportCode.text = journey.destinationIATACode
         departureAirportCode.text = journey.originIATACode
-        self.price.text = journey.priceAsString
+        //        self.price.text = journey.priceAsString
+        
+        let amountText = NSMutableAttributedString.init(string: journey.priceAsString)
+        
+        amountText.setAttributes([NSAttributedString.Key.font: UIFont(name: "SourceSansPro-Regular", size: 14)!], range: NSMakeRange(0, 1))
+        self.price.attributedText = amountText
+        
+        
         self.priceWidth.constant =  self.price.intrinsicContentSize.width
         self.duration.text = journey.durationTitle
         
@@ -225,11 +232,11 @@ class DomesticMultiLegCell: UITableViewCell {
         }
         
         
-
+        
         baggageSuperScript = journey.baggageSuperScript
         smartIconsArray = journey.smartIconArray
         smartIconCollectionView.reloadData()
-
+        
         setStopsUI(journey)
     }
     
@@ -237,7 +244,7 @@ class DomesticMultiLegCell: UITableViewCell {
     override func prepareForReuse() {
         
         self.layer.borderWidth = 0
-
+        
         pinnedTriangleLayer?.removeFromSuperlayer()
         duration.textColor = .black
         price.textColor = .black
@@ -253,33 +260,33 @@ class DomesticMultiLegCell: UITableViewCell {
     
     
     func textToImage(drawText text: String, diameter: CGFloat, color: UIColor ) -> UIImage {
-       let textColor = UIColor.white
-       let textFont = UIFont(name: "SourceSansPro-Semibold", size: 16)!
-
-       let scale = UIScreen.main.scale
-       UIGraphicsBeginImageContextWithOptions(CGSize(width: diameter, height: diameter), false, scale)
+        let textColor = UIColor.white
+        let textFont = UIFont(name: "SourceSansPro-Semibold", size: 16)!
+        
+        let scale = UIScreen.main.scale
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: diameter, height: diameter), false, scale)
         let ctx = UIGraphicsGetCurrentContext()!
-       
+        
         var rect = CGRect(x: 0, y: 0, width: diameter, height: diameter)
         ctx.setFillColor(color.cgColor)
         ctx.fillEllipse(in: rect)
-
+        
         
         let titleParagraphStyle = NSMutableParagraphStyle()
         titleParagraphStyle.alignment = .center
         let textFontAttributes = [
-        NSAttributedString.Key.font: textFont,
-        NSAttributedString.Key.foregroundColor: textColor,
-        NSAttributedString.Key.paragraphStyle : titleParagraphStyle
-        ] as [NSAttributedString.Key : Any]
+            NSAttributedString.Key.font: textFont,
+            NSAttributedString.Key.foregroundColor: textColor,
+            NSAttributedString.Key.paragraphStyle : titleParagraphStyle
+            ] as [NSAttributedString.Key : Any]
         rect = CGRect(x: 0, y: -1, width: diameter, height: 16)
-
-       text.draw(in: rect, withAttributes: textFontAttributes)
-
-       let newImage = UIGraphicsGetImageFromCurrentImageContext()
-       UIGraphicsEndImageContext()
-
-       return newImage!
+        
+        text.draw(in: rect, withAttributes: textFontAttributes)
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
     }
 }
 
@@ -307,9 +314,10 @@ extension DomesticMultiLegCell : UICollectionViewDataSource , UICollectionViewDe
         if indexPath.section == 0 {
             cell.imageView.image = UIImage(named: "checkingBaggageKg")
             cell.superScript.attributedText = baggageSuperScript
+            cell.superScriptWidth.constant = 14
+            cell.imageViewLeading.constant = 0
         }
         else {
-            
             guard let imageName = smartIconsArray?[indexPath.row] else { return UICollectionViewCell() }
             
             if  imageName == "fsr" {
@@ -317,18 +325,30 @@ extension DomesticMultiLegCell : UICollectionViewDataSource , UICollectionViewDe
                 if let seats = currentJourney?.seats {
                     let tempImage = textToImage(drawText: seats, diameter:20.0 , color: color)
                     cell.imageView.image = tempImage
+                    cell.superScriptWidth.constant = 0
+                    cell.imageViewLeading.constant = 3
+                    
                 }
             }else{
                 cell.imageView.image = UIImage(named: imageName)
+                cell.superScriptWidth.constant = 0
+                cell.imageViewLeading.constant = 3
             }
             
             if imageName == "refundStatusPending" {
                 cell.superScript.text = "?"
                 cell.superScript.textColor = UIColor.AERTRIP_RED_COLOR
                 cell.superScript.font = UIFont(name: "SourceSansPro-Bold", size: 10.0)
+                cell.superScriptWidth.constant = 10
+                if indexPath.row == 0{
+                    cell.imageViewLeading.constant = 0
+                }else{
+                    cell.imageViewLeading.constant = 3
+                }
             }
             else {
                 cell.superScript.text = ""
+                cell.superScriptWidth.constant = 0
             }
         }
         return cell
@@ -338,29 +358,27 @@ extension DomesticMultiLegCell : UICollectionViewDataSource , UICollectionViewDe
         return 2
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-
-
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView
+    {
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                               withReuseIdentifier: "smartIconHeaderView",
-                               for: indexPath)
+                                                                         withReuseIdentifier: "smartIconHeaderView",
+                                                                         for: indexPath)
+        headerView.frame = CGRect(x: 33, y: 5, width: 1.0, height: collectionView.frame.height)
+        headerView.backgroundColor = UIColor(displayP3Red: ( 204.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 204 / 255.0), alpha: 1.0)
 
+        
         return headerView
     }
-
-    @objc func collectionView(_ collectionView: UICollectionView,
-                          layout collectionViewLayout: UICollectionViewLayout,
-                          referenceSizeForHeaderInSection section: Int) -> CGSize {
-
-    if section == 0 {
-        return .zero
-    }
-    else {
-        if smartIconsArray?.count == 0  || baggageSuperScript?.string == "0P" {
-            return .zero
-        }
-        return CGSize(width: 20.0, height:  23.0)
-    }
-    }
     
+    @objc func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize
+    {
+        if section == 0 {
+            return .zero
+        }else {
+            if smartIconsArray?.count == 0  || baggageSuperScript?.string == "0P" {
+                return .zero
+            }
+            return CGSize(width: 16.0, height:  23.0)
+        }
+    }
 }

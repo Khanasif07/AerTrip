@@ -16,11 +16,15 @@
 @property ( assign , nonatomic) CGFloat primaryDuration;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewHeight;
 @property (weak, nonatomic) IBOutlet UIView *WarningView;
+@property (weak, nonatomic) IBOutlet UILabel *warningLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeight;
+
 
 @end
 
 @implementation FlightAddPassengerViewController
+
+int alreadySelectedComponent = 0;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -56,6 +60,10 @@
     [self setupBackgroundView];
     [self setupCustomPickerView];
     
+    [self.doneButton setTitleColor:[UIColor AertripColor] forState:UIControlStateNormal];
+    [self.doneButton setTitleColor:[UIColor TWO_ZERO_FOUR_COLOR] forState:UIControlStateDisabled];
+    self.warningLabel.textColor = [UIColor colorWithDisplayP3Red:255.0/255.0 green:144.0/255.0 blue:0.0/255.0 alpha:1.0];
+
 }
 
 -(void)setupBackgroundView{
@@ -71,6 +79,8 @@
 }
 
 -(void)dismiss {
+    [self.delegate addFlightPassengerAction:self.travellerCount];
+
       [self animateBottomViewOut];
 }
 
@@ -78,7 +88,7 @@
 - (void)applyShadowToDoneView {
     
     self.doneView.clipsToBounds = NO;
-    self.doneView.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.05].CGColor;
+    self.doneView.layer.shadowColor = [UIColor colorWithDisplayP3Red:0 green:0 blue:0 alpha:0.05].CGColor;
     self.doneView.layer.shadowOpacity = 1.0;
     self.doneView.layer.shadowRadius = 10;
     self.doneView.layer.shadowOffset = CGSizeMake(0.0, -6.0);
@@ -210,6 +220,9 @@
          else {
             self.viewHeight.constant = 358 + self.view.safeAreaInsets.bottom;
          }
+        
+//        self.viewHeight.constant = 358 + self.view.safeAreaInsets.bottom;
+
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
         
@@ -291,18 +304,23 @@
 
         NSUInteger adultCount = tempTravellerCount.flightAdultCount ;
         [self.pickerView selectRow:adultCount inComponent:2 animated:YES];
-        [AertripToastView toastInView:self.view withText:@"Infants should not exceed adults"];
+//        [AertripToastView toastInView:self.view withText:@"Infants should not exceed adults"];
+        [self displayToastWithMessage:@"Infants should not exceed adults" component:2];
+
 
         self.travellerCount.flightAdultCount = adultCount;
         self.travellerCount.flightInfantCount = adultCount;
-        
+
         return;
     }
-
     
     if ( tempTravellerCount.flightAdultCount + tempTravellerCount.flightChildrenCount > 9 ) {
-        NSString * message = [NSString stringWithFormat:@"Total passengers cannot be more than 9"];
-        [AertripToastView toastInView:self.view withText:message];
+//        NSString * message = [NSString stringWithFormat:@"Total passengers cannot be more than 9"];
+        
+//        [AertripToastView toastInView:self.view withText:message];
+        
+        [self displayToastWithMessage:@"Total passengers cannot be more than 9" component:1];
+
         
         NSUInteger selection;
         
@@ -349,6 +367,7 @@
         
         NSUInteger adultCount = tempTravellerCount.flightAdultCount ;
         [self.pickerView selectRow:adultCount inComponent:2 animated:YES];
+//        [AertripToastView hideToast];
         [AertripToastView toastInView:self.view withText:@"Infats should not exceed adults"];
         
         self.travellerCount.flightAdultCount = adultCount;
@@ -358,6 +377,115 @@
     
     self.travellerCount = tempTravellerCount;
     
+}
+
+-(void)displayToastWithMessage:(NSString *)toastMessage component:(int)component
+{
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+        UIView *toastView = [[UIView alloc] init];
+        toastView.frame = CGRectMake(16.0, self.view.frame.size.height, self.view.frame.size.width-32, 50.0);
+        toastView.backgroundColor = [UIColor clearColor];
+        toastView.tag = 1112;
+
+        UIVisualEffect *blurEffect;
+        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+
+        UIVisualEffectView *visualEffectView;
+        visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+
+        visualEffectView.frame = toastView.bounds;
+        visualEffectView.layer.cornerRadius = 10;
+        visualEffectView.clipsToBounds = YES;
+        [toastView addSubview:visualEffectView];
+        
+        CGFloat bottom = self.view.safeAreaInsets.bottom + 50.0;
+        
+        UILabel *toastLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, 0, self.view.frame.size.width-32, 50)];
+        toastLabel.backgroundColor = [UIColor clearColor];
+        toastLabel.font = [UIFont fontWithName:@"SourceSansPro-Regular" size:16];
+        toastLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        toastLabel.adjustsFontSizeToFitWidth = NO;
+        toastLabel.textColor = [UIColor whiteColor];
+        toastLabel.numberOfLines = 0;
+        toastLabel.tag = toastMessage.length;
+        toastLabel.text = toastMessage;
+        [toastView addSubview:toastLabel];
+        
+        if(alreadySelectedComponent == component){
+            if(self.isToastVisible == true){
+                [self fadeOut:toastView toastMessage:toastMessage component:component];
+            }else{
+                self.isToastVisible = true;
+                [self.view addSubview:toastView];
+                [UIView animateWithDuration:.5  delay:0 options:UIViewAnimationOptionCurveEaseIn
+                                 animations:^{
+                    
+                    CGRect rect = toastView.frame;
+                    rect.origin.y = self.view.frame.size.height - bottom;
+                    toastView.frame = rect;
+                    toastView.alpha = 1.0;
+                } completion:^(BOOL finished){
+                      [self fadeOut:toastView toastMessage:toastMessage component:component];
+                    
+                }];
+            }
+        }else{
+            NSLog(@"not visible");
+            NSLog(@"self.isToastVisible=%u",self.isToastVisible);
+            if(self.isToastVisible == false){
+            self.isToastVisible = true;
+            [self.view addSubview:toastView];
+            [UIView animateWithDuration:.5  delay:0 options:UIViewAnimationOptionCurveEaseIn
+                             animations:^{
+                
+                CGRect rect = toastView.frame;
+                rect.origin.y = self.view.frame.size.height - bottom;
+                toastView.frame = rect;
+                toastView.alpha = 1.0;
+            } completion:^(BOOL finished){
+                  [self fadeOut:toastView toastMessage:toastMessage component:component];
+            }];
+            }else if(self.isToastVisible == true && alreadySelectedComponent != component){
+
+                [self.view addSubview:toastView];
+                [UIView animateWithDuration:.5  delay:0 options:UIViewAnimationOptionCurveEaseIn
+                                 animations:^{
+                    
+                    CGRect rect = toastView.frame;
+                    rect.origin.y = self.view.frame.size.height - bottom;
+                    toastView.frame = rect;
+                    toastView.alpha = 1.0;
+                } completion:^(BOOL finished){
+                      [self fadeOut:toastView toastMessage:toastMessage component:component];
+                }];
+            }
+            
+        }
+    }];
+}
+
+-(void)fadeOut:(UIView*)toastView toastMessage:(NSString*)toastMessage component:(int)component{
+    int delay = 5;
+    
+    if(alreadySelectedComponent == component){
+        delay = 10;
+    }else{
+//        delay = 0;
+    }
+    [UIView animateWithDuration:.5  delay:delay options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+        
+        CGRect rect = toastView.frame;
+        rect.origin.y = self.view.frame.size.height;
+        toastView.frame = rect;
+        toastView.alpha = 0.0;
+    }
+                     completion: ^(BOOL finished) {
+        [toastView removeFromSuperview];
+        self.isToastVisible = false;
+        alreadySelectedComponent = component;
+    }
+     ];
 }
 
 

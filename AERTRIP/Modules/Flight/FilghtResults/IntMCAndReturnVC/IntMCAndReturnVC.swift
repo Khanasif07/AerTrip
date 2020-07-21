@@ -23,7 +23,7 @@ class IntMCAndReturnVC : UIViewController {
     @IBOutlet weak var emailPinnedLeading: NSLayoutConstraint!
     @IBOutlet weak var sharePinnedFlightLeading: NSLayoutConstraint!
     
-    
+    var airlineCode = ""
     var bannerView : ResultHeaderView?
     var titleString : NSAttributedString!
     var subtitleString : String!
@@ -285,6 +285,23 @@ extension IntMCAndReturnVC {
         
         var modifiedResult = results
         
+        for i in 0..<modifiedResult.count {
+            var isFlightCodeSame = false
+            for leg in modifiedResult[i].legsWithDetail{
+                for flight in leg.flightsWithDetails{
+                    let flightNum = flight.al + flight.fn
+                    if flightNum.uppercased() == airlineCode.uppercased(){
+                        isFlightCodeSame = true
+                    }
+                }
+            }
+            
+            if isFlightCodeSame == true{
+                modifiedResult[i].isPinned = true
+
+            }
+        }
+        
         DispatchQueue.global(qos: .userInteractive).async {
             self.viewModel.sortOrder = sortOrder
             self.viewModel.results.sort = sortOrder
@@ -376,7 +393,7 @@ extension IntMCAndReturnVC : flightDetailsPinFlightDelegate, UpdateRefundStatusD
         print(fk, rfd, rsc)
     }
     
-    func reloadRowFromFlightDetails(fk: String, isPinned: Bool) {
+    func reloadRowFromFlightDetails(fk: String, isPinned: Bool, isPinnedButtonClicked: Bool) {
         if #available(iOS 13.0, *) {
             self.setPinnedFlightAt(fk, isPinned: isPinned)
         } else {

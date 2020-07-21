@@ -13,7 +13,10 @@ class FlightSectorHeaderCell: UICollectionViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var subtitle: UILabel!
     @IBOutlet weak var veticalSeparator: UIView!
-    
+    @IBOutlet weak var veticalSeparatorWidth: NSLayoutConstraint!
+    @IBOutlet weak var veticalSeparatorTrailing: NSLayoutConstraint!
+
+
     var headerValue : MultiLegHeader?
     var textColor  = UIColor.black
     

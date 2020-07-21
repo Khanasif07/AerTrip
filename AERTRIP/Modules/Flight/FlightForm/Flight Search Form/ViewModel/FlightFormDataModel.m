@@ -277,7 +277,7 @@
 {
     if (date != nil) {
         NSDateFormatter *inputDateFormatter = [[NSDateFormatter alloc] init];
-        [inputDateFormatter setDateFormat:@"dd MMM"];
+        [inputDateFormatter setDateFormat:@"d MMM"];
         NSString *dateString = [inputDateFormatter stringFromDate:date];
         return dateString;
     }else {
@@ -388,24 +388,28 @@
     }
     
     if (!self.onwardsDate) {
-        [self.delegate showErrorMessage:@"Please select a departure date"];
+        [self.delegate  showErrorMessage:@"Please select a departure date"];
         [self.delegate shakeAnimation:DepartureDateLabel];
         return NO;
     }
     if (self.flightSearchType == RETURN_JOURNEY) {
-        
         NSMutableArray *countryCodeArr = [[NSMutableArray alloc] init];
         
         AirportSearch *fromCountry = self.fromFlightArray.firstObject;
         AirportSearch *toCountry = self.toFlightArray.firstObject;
                 
         if (fromCountry != nil && toCountry != nil) {
+            if(![fromCountry.countryCode  isEqual: @""]){
+                [countryCodeArr addObject: [fromCountry countryCode]];
+            }
             
-            [countryCodeArr addObject: [fromCountry countryCode]];
-            [countryCodeArr addObject: [toCountry countryCode]];
+            if(![toCountry.countryCode  isEqual: @""]){
+                [countryCodeArr addObject: [toCountry countryCode]];
+            }
         }
         
         [self.delegate didFetchCountryCodes: countryCodeArr];
+
         
         if (!self.returnDate) {
             [self.delegate  showErrorMessage:@"Please select a return date"];
@@ -419,7 +423,7 @@
 -(BOOL)validateMultiCityJourney {
     
     NSMutableArray *countryCodeArr = [[NSMutableArray alloc] init];
-    
+
     for (int i = 0 ; i  < self.multiCityArray.count ; i++ ){
         
         MulticityFlightLeg * flightLeg = [self.multiCityArray objectAtIndex:i];
@@ -430,7 +434,7 @@
         if (i == self.multiCityArray.count - 1) {
             [self.delegate didFetchCountryCodes: countryCodeArr];
         }
-        
+
         NSString * origin = flightLeg.origin.iata;
         
         if ( origin == nil) {
@@ -455,6 +459,12 @@
             NSIndexPath * index = [NSIndexPath indexPathForRow:i inSection:0];
             [self.delegate shakeAnimation:MulticityDateLabel atIndex:index];
              return NO;
+        }
+        
+        if(origin == destination){
+            [self.delegate  showErrorMessage:@"Origin and destination cannot be same"];
+            return NO;
+
         }
     }
     return YES;
@@ -528,14 +538,14 @@
               [dateFormatter setDateFormat:@"dd-MM-yyyy"];
               NSDate * departDate = [dateFormatter dateFromString:departDateString];
             bookFlightObject.onwardDate = departDate;
-              [dateFormatter setDateFormat:@"dd MMM"];
+              [dateFormatter setDateFormat:@"d MMM"];
             
             date = [dateFormatter stringFromDate:departDate];
             NSString * returnDateString = [flightSearchParameters valueForKey:@"return"];
             
             [dateFormatter setDateFormat:@"dd-MM-yyyy"];
             NSDate * returnDate = [dateFormatter dateFromString:returnDateString];
-            [dateFormatter setDateFormat:@"dd MMM"];
+            [dateFormatter setDateFormat:@"d MMM"];
             
             NSString * returnString = [dateFormatter stringFromDate:returnDate];
             
@@ -548,7 +558,7 @@
               NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
               [dateFormatter setDateFormat:@"dd-MM-yyyy"];
               NSDate * departDate = [dateFormatter dateFromString:departDateString];
-              [dateFormatter setDateFormat:@"dd MMM"];
+              [dateFormatter setDateFormat:@"d MMM"];
 
             date = [dateFormatter stringFromDate:departDate];
             bookFlightObject.onwardDate = departDate;
@@ -557,7 +567,7 @@
         
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"dd MMM"];
+        [dateFormatter setDateFormat:@"d MMM"];
 
         NSString * firstDateString = [flightSearchParameters valueForKey:@"depart[0]"];
         NSString * lastDateKey = [NSString stringWithFormat:@"%@%lu%@",@"depart[",(bookFlightObject.displayGroups.allKeys.count - 1),@"]" ];
@@ -565,16 +575,34 @@
         [dateFormatter setDateFormat:@"dd-MM-yyyy"];
         NSDate * firstDate = [dateFormatter dateFromString:firstDateString];
         NSDate * lastDate = [dateFormatter dateFromString:lastDateString];
-        [dateFormatter setDateFormat:@"dd MMM"];
+        [dateFormatter setDateFormat:@"d MMM"];
 
         NSString * formattedFirstDate = [dateFormatter stringFromDate:firstDate];
         NSString * formattedLastDate = [dateFormatter stringFromDate:lastDate];
         
-        date = [NSString stringWithFormat:@"%@ ... %@",formattedFirstDate,formattedLastDate];
+        NSMutableArray *storedDates = [[NSMutableArray alloc] init];
+        for (int i=0; i<_multiCityArray.count; i++) {
+            
+            NSString * lastDateKey = [NSString stringWithFormat:@"%@%d%@",@"depart[",(i),@"]" ];
+            NSString * lastDateString = [flightSearchParameters valueForKey:lastDateKey];
+
+            if(lastDateString != nil){
+                if(![storedDates containsObject:lastDateString]){
+                    [storedDates addObject:lastDateString];
+                }
+            }
+        }
+        
+        if(storedDates.count > 2){
+            date = [NSString stringWithFormat:@"%@ ... %@",formattedFirstDate,formattedLastDate];
+        }else{
+            date = [NSString stringWithFormat:@"%@ - %@",formattedFirstDate,formattedLastDate];
+        }
     }
+    
     bookFlightObject.isDomestic = [[dictionary valueForKey:@"is_domestic"] boolValue];
     
-    bookFlightObject.subTitleString = [NSString stringWithFormat:@"%@ • %ld Pax • %@", date,  (long)count, [flightSearchParameters valueForKey:@"cabinclass"]];
+    bookFlightObject.subTitleString = [NSString stringWithFormat:@"%@  •  %ld Pax  •  %@", date,  (long)count, [flightSearchParameters valueForKey:@"cabinclass"]];
     
    if ( [tripType isEqualToString:@"return"]) {
        bookFlightObject.flightSearchType = RETURN_JOURNEY;
@@ -704,7 +732,6 @@
         
         bookFlightObject.titleString =  outputAttributedString;
     }
-
     return bookFlightObject;
 
 }
@@ -785,16 +812,22 @@
         
         MulticityFlightLeg * previousRow = [self.multiCityArray objectAtIndex:previousIndex];
         if ( previousRow.destination == nil){
-            previousRow.destination = [fromArray firstObject];
-            NSIndexPath * previousIndexPath = [NSIndexPath indexPathForRow:previousIndex inSection:indexPath.section];
+            if(previousRow.origin.iata != currentSelected.origin.iata){
+                previousRow.destination = [fromArray firstObject];
+                NSIndexPath * previousIndexPath = [NSIndexPath indexPathForRow:previousIndex inSection:indexPath.section];
 
-            [self.multiCityArray replaceObjectAtIndex:previousIndexPath.row  withObject:previousRow];
-            [self.delegate reloadMultiCityTableViewAtIndex:previousIndexPath];
+                [self.multiCityArray replaceObjectAtIndex:previousIndexPath.row  withObject:previousRow];
+                [self.delegate reloadMultiCityTableViewAtIndex:previousIndexPath];
+            }
+            
         }
     }
 }
 
-- (void)flightFromSource:(NSMutableArray *)fromArray toDestination:(NSMutableArray *)toArray {
+- (void)flightFromSource:(NSMutableArray *)fromArray toDestination:(NSMutableArray *)toArray airlineNum:(NSString *)airlineNum
+{
+    self.airlineCode = airlineNum;
+
         if (self.flightSearchType == MULTI_CITY) {
             
             [self setMulticityAirports:fromArray toArray:toArray atIndexPath:self.selectedMultiCityArrayIndex];
@@ -914,11 +947,13 @@
         return NSOrderedSame;
     }];
     
-    AirportSearch * nearestAirport = [nearbyAirports firstObject];
-    
-    [self.fromFlightArray removeAllObjects];
-    [self.fromFlightArray addObject:nearestAirport];
-    [self.delegate setupFromAndToView];
+    if(self.fromFlightArray.count == 0){
+        AirportSearch * nearestAirport = [nearbyAirports firstObject];
+        
+        [self.fromFlightArray removeAllObjects];
+        [self.fromFlightArray addObject:nearestAirport];
+        [self.delegate setupFromAndToView];
+    }
     
 }
 
@@ -1331,8 +1366,9 @@
                 newMultiLegJourney.travelDate = travelDate;
                 [self.multiCityArray addObject:newMultiLegJourney];
             }
-            [self.delegate setupFlightViews];
+            //[self.delegate setupFlightViews];
         }
+        [self.delegate setupFlightViews];
         [self.delegate updateRecentSearch];
     }
 
@@ -1411,10 +1447,8 @@
     }];
 }
 
-
 - (void)HandleAirportSearchResult:(NSDictionary*)dictionary forOrigin:(BOOL)forOrigin
 {
-    
     NSArray * airports =  [Parser parseAirportSearchArray:[dictionary objectForKey:@"results"]];
     
     if (forOrigin) {
@@ -1423,9 +1457,7 @@
     else {
         self.toFlightArray = [NSMutableArray arrayWithObject:airports[0]];
     }
-    
 }
-
 
 //MARK:- Recent Searches CollectionView Methods
 - (NSString *)formateDateForAPI:(NSDate *) date {
@@ -1453,26 +1485,82 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    if (section == 0 )
-        return self.recentSearchArray.count;
-    
-    return 0;
+    if (section == 0 ){
+        if(self.recentSearchArray.count > 5){
+            return 5;
+        }else{
+            return self.recentSearchArray.count;
+        }
+    }else{
+        return 0;
+    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     RecentSearchCellCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"RecentSearchCell" forIndexPath:indexPath];
     
     NSDictionary * dictionary = self.recentSearchArray[indexPath.row];
     RecentSearchDisplayModel * recentModel = [[RecentSearchDisplayModel alloc] initWithDictionary:dictionary];
     [cell setPropertiesWithRecentSearch:recentModel];
+    
     return cell;
 }
 
 
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return CGSizeMake(278.0, 124.0);
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary * dictionary = self.recentSearchArray[indexPath.row];
+
+    RecentSearchDisplayModel * recentModel = [[RecentSearchDisplayModel alloc] initWithDictionary:dictionary];
+    
+    UIFont *font = [UIFont fontWithName:@"SourceSansPro-SemiBold" size:18];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil];
+    
+    
+    CGFloat width = [[[NSAttributedString alloc] initWithString:recentModel.TravelPlan.string attributes:attributes] size].width;
+
+    NSDictionary *qr = recentModel.quary;
+    if(qr != nil){
+        if ( ![[qr objectForKey:@"trip_type"] isEqualToString:@"multi"])
+        {
+            width = width + 105;
+        }else{
+            if(recentModel.TravelPlan.string.length==43){
+                width = 325;
+            }else if(recentModel.TravelPlan.string.length==34){
+                    width = 325;
+            }else if(recentModel.TravelPlan.string.length==33){
+                    width = 325;
+            }else if(recentModel.TravelPlan.string.length==25){
+                    width = 325;
+            }else if(recentModel.TravelPlan.string.length==16){
+                    width = 255;
+            }else if(recentModel.TravelPlan.string.length==23){
+                    width = 327;
+            }else if(recentModel.TravelPlan.string.length==24){
+                    width = 327;
+            }else if(recentModel.TravelPlan.string.length==28){
+                    width = 327;
+            }else if(recentModel.TravelPlan.string.length==38){
+                    width = 325;
+            }else if(recentModel.TravelPlan.string.length==19){
+                    width = 327;
+            }else if(recentModel.TravelPlan.string.length==20){
+                    width = 313;
+            }else if(recentModel.TravelPlan.string.length==11){
+                    width = 220;
+            }else{
+                width = 275;
+            }
+        }
+    }
+    
+    if(width > 275){
+        width = 275;
+    }
+
+    return CGSizeMake(width, 75.0);
 }
 
 @end

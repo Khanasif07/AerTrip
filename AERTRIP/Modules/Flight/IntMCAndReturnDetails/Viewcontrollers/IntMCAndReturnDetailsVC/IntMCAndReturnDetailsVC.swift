@@ -232,14 +232,14 @@ extension IntMCAndReturnDetailsVC{
 }
 
 extension IntMCAndReturnDetailsVC : flightDetailsPinFlightDelegate{
-    func reloadRowFromFlightDetails(fk: String, isPinned: Bool) {
+    func reloadRowFromFlightDetails(fk: String, isPinned: Bool, isPinnedButtonClicked: Bool) {
         guard self.viewModel.internationalDataArray != nil else {return}
         if let index = self.viewModel.internationalDataArray!.firstIndex(where: {$0.fk == fk}){
             
             var journey = self.viewModel.internationalDataArray![index]
             journey.isPinned = !journey.isPinned
             self.viewModel.internationalDataArray![index] = journey
-            self.pinnedDelegate?.reloadRowFromFlightDetails(fk: fk, isPinned: isPinned)
+            self.pinnedDelegate?.reloadRowFromFlightDetails(fk: fk, isPinned: isPinned, isPinnedButtonClicked: false)
             
             
         }

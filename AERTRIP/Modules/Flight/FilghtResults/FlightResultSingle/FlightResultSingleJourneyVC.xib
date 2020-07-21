@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -49,7 +49,7 @@
                     <rect key="frame" x="16" y="896" width="212" height="44"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qsb-Na-xBr">
-                            <rect key="frame" x="60" y="0.0" width="44" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="5Gc-aH-lci"/>
                                 <constraint firstAttribute="width" constant="44" id="g1j-CH-G8x"/>
@@ -60,7 +60,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t9v-Pt-IIC">
-                            <rect key="frame" x="114" y="0.0" width="44" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="44" id="HTN-KX-JtR"/>
                                 <constraint firstAttribute="height" constant="44" id="WpS-dc-w7Z"/>
@@ -71,7 +71,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m1z-Bz-6DC">
-                            <rect key="frame" x="168" y="0.0" width="44" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="SD2-sx-yog"/>
                                 <constraint firstAttribute="width" constant="44" id="mTo-SZ-3lD"/>
@@ -96,15 +96,15 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="212" id="71E-Ro-ach"/>
-                        <constraint firstItem="m1z-Bz-6DC" firstAttribute="leading" secondItem="x5s-Rr-XyM" secondAttribute="leading" constant="168" id="9fa-TL-fqh"/>
+                        <constraint firstItem="m1z-Bz-6DC" firstAttribute="leading" secondItem="x5s-Rr-XyM" secondAttribute="leading" id="9fa-TL-fqh"/>
                         <constraint firstItem="XeA-bU-Lkv" firstAttribute="centerY" secondItem="x5s-Rr-XyM" secondAttribute="centerY" id="B67-h1-BTf"/>
                         <constraint firstItem="XeA-bU-Lkv" firstAttribute="leading" secondItem="x5s-Rr-XyM" secondAttribute="leading" id="FGU-7c-Zks"/>
                         <constraint firstAttribute="height" constant="44" id="Khj-aO-Fja"/>
                         <constraint firstItem="t9v-Pt-IIC" firstAttribute="top" secondItem="x5s-Rr-XyM" secondAttribute="top" id="R0a-yB-lWE"/>
                         <constraint firstItem="qsb-Na-xBr" firstAttribute="top" secondItem="x5s-Rr-XyM" secondAttribute="top" id="dSn-9L-0oa"/>
-                        <constraint firstItem="t9v-Pt-IIC" firstAttribute="leading" secondItem="x5s-Rr-XyM" secondAttribute="leading" constant="114" id="i2B-R2-Oi3"/>
+                        <constraint firstItem="t9v-Pt-IIC" firstAttribute="leading" secondItem="x5s-Rr-XyM" secondAttribute="leading" id="i2B-R2-Oi3"/>
                         <constraint firstItem="m1z-Bz-6DC" firstAttribute="top" secondItem="x5s-Rr-XyM" secondAttribute="top" id="jXH-4B-Hdy"/>
-                        <constraint firstItem="qsb-Na-xBr" firstAttribute="leading" secondItem="x5s-Rr-XyM" secondAttribute="leading" constant="60" id="tom-oe-r89"/>
+                        <constraint firstItem="qsb-Na-xBr" firstAttribute="leading" secondItem="x5s-Rr-XyM" secondAttribute="leading" id="tom-oe-r89"/>
                     </constraints>
                 </view>
             </subviews>

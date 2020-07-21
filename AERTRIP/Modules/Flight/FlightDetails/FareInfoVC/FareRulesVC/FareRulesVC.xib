@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina3_5" orientation="portrait" appearance="light"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -15,6 +15,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FareRulesVC" customModule="Aertrip" customModuleProvider="target">
             <connections>
+                <outlet property="backgroundView" destination="Bc5-ZW-4wB" id="GiY-cY-Ce5"/>
                 <outlet property="dividerLabel" destination="bpQ-mS-X1K" id="blU-xL-pLx"/>
                 <outlet property="fareRulesLabel" destination="5aS-4j-VcT" id="qYU-Nt-nA7"/>
                 <outlet property="fareRulesScrollView" destination="J0g-Rz-0Yj" id="rcj-Vk-kWS"/>
@@ -27,17 +28,21 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="850"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view alpha="0.84999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bc5-ZW-4wB">
+                    <rect key="frame" x="0.0" y="44" width="320" height="55"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iFI-dZ-FG8">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                    <rect key="frame" x="0.0" y="44" width="320" height="55"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fare Rules" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="omm-Ac-qBr">
-                            <rect key="frame" x="16" y="16" width="97.5" height="28"/>
-                            <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="22"/>
+                            <rect key="frame" x="120.33333333333331" y="16.333333333333336" width="79.666666666666686" height="22.666666666666664"/>
+                            <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QMy-vW-1An">
-                            <rect key="frame" x="269" y="8" width="44" height="44"/>
+                            <rect key="frame" x="269" y="5.6666666666666643" width="44" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="aRv-tJ-zJX"/>
                                 <constraint firstAttribute="width" constant="44" id="l51-A5-MOP"/>
@@ -48,40 +53,40 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpQ-mS-X1K">
-                            <rect key="frame" x="0.0" y="59" width="320" height="1"/>
-                            <color key="backgroundColor" red="0.79607843140000001" green="0.79607843140000001" blue="0.79607843140000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="0.0" y="54.666666666666671" width="320" height="0.3333333333333357"/>
+                            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="1" id="Aqn-V7-Zpq"/>
+                                <constraint firstAttribute="height" constant="0.5" id="Aqn-V7-Zpq"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="bpQ-mS-X1K" secondAttribute="trailing" id="20q-9l-AEQ"/>
                         <constraint firstItem="QMy-vW-1An" firstAttribute="centerY" secondItem="iFI-dZ-FG8" secondAttribute="centerY" id="2FM-hu-s9C"/>
                         <constraint firstAttribute="bottom" secondItem="bpQ-mS-X1K" secondAttribute="bottom" id="JnU-5k-YZC"/>
                         <constraint firstItem="bpQ-mS-X1K" firstAttribute="leading" secondItem="iFI-dZ-FG8" secondAttribute="leading" id="MCr-J8-9oI"/>
-                        <constraint firstItem="omm-Ac-qBr" firstAttribute="leading" secondItem="iFI-dZ-FG8" secondAttribute="leading" constant="16" id="z1w-55-axo"/>
+                        <constraint firstItem="omm-Ac-qBr" firstAttribute="centerX" secondItem="iFI-dZ-FG8" secondAttribute="centerX" id="vtb-dw-taB"/>
                         <constraint firstItem="omm-Ac-qBr" firstAttribute="centerY" secondItem="QMy-vW-1An" secondAttribute="centerY" id="zG2-TH-eS5"/>
-                        <constraint firstAttribute="height" constant="60" id="zfb-GF-7xD"/>
+                        <constraint firstAttribute="height" constant="55" id="zfb-GF-7xD"/>
                         <constraint firstAttribute="trailing" secondItem="QMy-vW-1An" secondAttribute="trailing" constant="7" id="zgO-T4-Am1"/>
                     </constraints>
                 </view>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J0g-Rz-0Yj">
-                    <rect key="frame" x="0.0" y="60" width="320" height="790"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J0g-Rz-0Yj">
+                    <rect key="frame" x="0.0" y="99" width="320" height="751"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dm7-A4-Caw">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="527"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="561.33333333333337"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7U-Ic-D8Q">
-                                    <rect key="frame" x="16" y="0.0" width="288" height="23"/>
+                                    <rect key="frame" x="16" y="16" width="288" height="21.666666666666671"/>
                                     <attributedString key="attributedText">
                                         <fragment content="BOM → NYC | GOI → DXB">
                                             <attributes>
-                                                <font key="NSFont" size="18" name="SourceSansPro-SemiBold"/>
+                                                <font key="NSFont" metaFont="system" size="18"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                             </attributes>
                                         </fragment>
@@ -89,18 +94,13 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5aS-4j-VcT">
-                                    <rect key="frame" x="16" y="39" width="288" height="453"/>
+                                    <rect key="frame" x="16" y="53.666666666666657" width="288" height="472.66666666666674"/>
                                     <attributedString key="attributedText">
-                                        <fragment content="APPLICATION AND OTHER CONDITIONS">
-                                            <attributes>
-                                                <font key="NSFont" size="18" name="SourceSansPro-SemiBold"/>
-                                            </attributes>
-                                        </fragment>
                                         <fragment>
-                                            <string key="content">
+                                            <string key="content">APPLICATION AND OTHER CONDITIONS
 Rule - 003/5021 unless otherwise specified north/central pacific normal premium economy/economy fares application area these fares apply between the united states and area 3. Class of service these fares apply for premium economy/economy class service. Types of transportation this rule governs one-way and round-trip fares. Fares governed by this rule can be used to create one-way/round-trip/circle-trip/open-jaw journeys. The non-air portion //e.g.buses or ferries or limousines or trains etc// of the itinerary is operated and provided by the operator of such non-air services. Cx and/or ka are acting as an agent on behalf of such operator.</string>
                                             <attributes>
-                                                <font key="NSFont" size="18" name="SourceSansPro-Regular"/>
+                                                <font key="NSFont" metaFont="system" size="18"/>
                                             </attributes>
                                         </fragment>
                                     </attributedString>
@@ -113,7 +113,7 @@ Rule - 003/5021 unless otherwise specified north/central pacific normal premium 
                                 <constraint firstAttribute="bottom" secondItem="5aS-4j-VcT" secondAttribute="bottom" constant="35" id="EGB-Dw-Rf6"/>
                                 <constraint firstItem="5aS-4j-VcT" firstAttribute="top" secondItem="h7U-Ic-D8Q" secondAttribute="bottom" constant="16" id="EsS-zx-I76"/>
                                 <constraint firstItem="h7U-Ic-D8Q" firstAttribute="leading" secondItem="dm7-A4-Caw" secondAttribute="leading" constant="16" id="HIB-b8-RnA"/>
-                                <constraint firstItem="h7U-Ic-D8Q" firstAttribute="top" secondItem="dm7-A4-Caw" secondAttribute="top" id="VcK-Ky-r9B"/>
+                                <constraint firstItem="h7U-Ic-D8Q" firstAttribute="top" secondItem="dm7-A4-Caw" secondAttribute="top" constant="16" id="VcK-Ky-r9B"/>
                                 <constraint firstAttribute="trailing" secondItem="h7U-Ic-D8Q" secondAttribute="trailing" constant="16" id="dCE-c2-Vfu"/>
                                 <constraint firstAttribute="trailing" secondItem="5aS-4j-VcT" secondAttribute="trailing" constant="16" id="jW8-PH-cGI"/>
                             </constraints>
@@ -131,16 +131,20 @@ Rule - 003/5021 unless otherwise specified north/central pacific normal premium 
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="iFI-dZ-FG8" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="1cI-VE-vgd"/>
+                <constraint firstItem="Bc5-ZW-4wB" firstAttribute="top" secondItem="iFI-dZ-FG8" secondAttribute="top" id="4rw-ts-az1"/>
+                <constraint firstItem="Bc5-ZW-4wB" firstAttribute="leading" secondItem="iFI-dZ-FG8" secondAttribute="leading" id="8dj-hW-hCD"/>
+                <constraint firstItem="Bc5-ZW-4wB" firstAttribute="trailing" secondItem="iFI-dZ-FG8" secondAttribute="trailing" id="CWt-RR-30W"/>
                 <constraint firstItem="iFI-dZ-FG8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Y9E-dm-UjH"/>
                 <constraint firstItem="J0g-Rz-0Yj" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Z8G-kB-FLZ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="iFI-dZ-FG8" secondAttribute="trailing" id="ZXv-lG-4JH"/>
                 <constraint firstItem="J0g-Rz-0Yj" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="arF-wu-fF1"/>
                 <constraint firstItem="J0g-Rz-0Yj" firstAttribute="top" secondItem="iFI-dZ-FG8" secondAttribute="bottom" id="e2B-qR-ZMB"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="J0g-Rz-0Yj" secondAttribute="bottom" id="gWt-ii-a5K"/>
+                <constraint firstItem="Bc5-ZW-4wB" firstAttribute="bottom" secondItem="iFI-dZ-FG8" secondAttribute="bottom" id="hxq-s2-i0Y"/>
+                <constraint firstAttribute="bottom" secondItem="J0g-Rz-0Yj" secondAttribute="bottom" id="tfL-13-mM6"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="-13.125" y="231.25"/>
+            <point key="canvasLocation" x="-14.492753623188406" y="231.02678571428569"/>
         </view>
     </objects>
     <resources>

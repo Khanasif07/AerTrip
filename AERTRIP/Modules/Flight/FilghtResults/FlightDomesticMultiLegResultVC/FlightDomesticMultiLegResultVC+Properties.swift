@@ -6,6 +6,8 @@
 //  Copyright © 2019 Aertrip. All rights reserved.
 //
 
+
+
 import UIKit
 import SnapKit
 import MessageUI
@@ -47,27 +49,36 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
     var taxesResult : [String : String]!
     var airportDetailsResult : [String : AirportDetailsWS]!
     var airlineDetailsResult : [String : AirlineMasterWS]!
+    var airlineCode = ""
+
 
     var flightsResults  =  FlightsResults()
     var sid : String = ""
     var bookFlightObject = BookFlightObject()
+    
 
     var titleString : NSAttributedString!
     var subtitleString : String!
     
     var testView = UIView()
+    var apiProgress : Float = 0
+    var ApiProgress: UIProgressView!
+    var flightSearchResultVM  : FlightSearchResultVM!
 
     var flightSearchType : FlightSearchType
     var fareBreakupVC : FareBreakupVC?
     let journeyCompactViewHeight : CGFloat = 44.0
     var scrollviewInitialYOffset = CGFloat(0.0)
-//    var debugVisibilityView = UIView()
-//    var firstVisibleRectView = UIView()
+    //    var debugVisibilityView = UIView()
+    //    var firstVisibleRectView = UIView()
     var statusBarHeight : CGFloat {
         return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
     }
-        
+    
     var lastTargetContentOffsetX: CGFloat = 0
+    var userSelectedFilters = [FiltersWS]()
+    var updatedApiProgress : Float = 0
+
     //MARK:-  Initializers
     
     convenience init(numberOfLegs  : Int , headerArray : [MultiLegHeader] ) {
@@ -88,6 +99,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         results = Array(repeating: DomesticMultilegJourneyResultsArray(sort: .Smart), count: 0)
         sortedJourneyArray = Array(repeating: [Journey](), count: 0)
         resultsTableViewStates =  Array(repeating: .showTemplateResults , count: 0)
+        
 
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
@@ -100,6 +112,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         results = Array(repeating: DomesticMultilegJourneyResultsArray(sort: .Smart), count: 0)
         sortedJourneyArray = Array(repeating: [Journey](), count: 0)
         resultsTableViewStates =  Array(repeating: .showTemplateResults , count: 0)
+        
 
         super.init(coder: aDecoder)
     }
@@ -108,13 +121,21 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
     //MARK:- View Controller Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
         setupCollectionView()
         setupHeaderView()
         setupScrollView()
         setupPinnedFlightsOptionsView()
         showHintAnimation()
-
+        
+        ApiProgress = UIProgressView()
+        ApiProgress.progressTintColor = UIColor.AertripColor
+        ApiProgress.trackTintColor = .clear
+        ApiProgress.progress = 0.25
+        
+        ApiProgress.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 10.0)
+        self.headerCollectionView.addSubview(ApiProgress)
     }
     
     override func viewDidLayoutSubviews() {
@@ -122,6 +143,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         let width =  UIScreen.main.bounds.size.width / 2.0
         let height = self.baseScrollView.frame.height + statusBarHeight + 88.0
         baseScrollView.contentSize = CGSize( width: (CGFloat(numberOfLegs) * width ), height:height)
+        
 
         for view in self.baseScrollView.subviews
         {
@@ -134,10 +156,10 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
             view.frame = frame
         }
     }
-
+    
     //MARK:- Additional UI Methods
-
-     func updateUIForTableviewAt(_ index: Int) {
+    
+    func updateUIForTableviewAt(_ index: Int) {
         DispatchQueue.main.async {
             if let tableView = self.baseScrollView.viewWithTag( 1000 + index) as? UITableView {
                 let selectedIndex = tableView.indexPathForSelectedRow
@@ -160,13 +182,13 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
                     self.hideHeaderCellAt(index: index)
                 }
                 else  {
-                         if (self.results[index].expensiveJourneyArray.count > 0 ){
+                    if (self.results[index].expensiveJourneyArray.count > 0 ){
                         indexPath = IndexPath(row: 0, section: 1)
                         tableView.selectRow(at: indexPath , animated: false, scrollPosition: .none)
                         self.hideHeaderCellAt(index: index)
                     }
-                         else {
-                            print("Into Else else")
+                    else {
+                        print("Into Else else")
                     }
                 }
                 tableView.isScrollEnabled = true
@@ -176,9 +198,22 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
             if self.resultsTableViewStates[index] == .showExpensiveFlights {
                 self.setExpandedStateFooterAt(index: index)
             }
-            else {
-                self.setGroupedFooterViewAt(index: index)
+            else if self.resultsTableViewStates[index] != .showPinnedFlights{
+                if self.results[index].suggestedJourneyArray.count == 0{
+                    let invisibleView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+                    invisibleView.tag = index
+                    let tap = UITapGestureRecognizer()
+                    invisibleView.addGestureRecognizer(tap)
+                    self.tappedOnGroupedFooterView(tap)
+                    
+                    if let tableView = self.baseScrollView.viewWithTag( 1000 + index) as? UITableView {
+                        tableView.tableFooterView = nil
+                    }
+                }else{
+                    self.setGroupedFooterViewAt(index: index)
+                }
             }
+            
             self.setTotalFare()
         }
     }
@@ -188,7 +223,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         results[index].journeyArray = updatedArray
         results[index].sort = sortOrder
         self.sortOrder = sortOrder
-        sortedJourneyArray[index] = Array(results[index].sortedArray)
+//        sortedJourneyArray[index] = Array(results[index].sortedArray)
         
         let currentState =  resultsTableViewStates[index]
         if currentState == .showTemplateResults || currentState == .showNoResults {
@@ -226,8 +261,67 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
     }
     
     func updateReceivedAt(index : Int , updatedArray : [Journey] , sortOrder : Sort) {
-        animateTableBanner(index: index , updatedArray: updatedArray, sortOrder: sortOrder)
+        
+        for j in updatedArray{
+            let flightNum = j.leg.first!.flights.first!.al + j.leg.first!.flights.first!.fn
+//            print("flightNum= ", flightNum)
+//            print("airlineCode= ", airlineCode)
+            if flightNum.uppercased() == airlineCode.uppercased(){
+                j.isPinned = true
+            }
+        }
+        
+        let appliedFilters = (self.flightSearchResultVM.flightLegs[index].appliedFilters.count)
+
+        if appliedFilters > 0{
+            if self.userSelectedFilters.count != self.flightSearchResultVM.flightLegs.count && self.updatedApiProgress < 0.95{
+                if index < self.userSelectedFilters.count{
+                    if self.userSelectedFilters[index].al == []{
+                        self.userSelectedFilters.insert(self.flightSearchResultVM.flightLegs[index].userSelectedFilters, at: index)
+                    }
+                    }else{
+                    self.userSelectedFilters.insert(self.flightSearchResultVM.flightLegs[index].userSelectedFilters, at: index)
+                }
+            }
+        }else{
+            self.userSelectedFilters.removeAll()
+        }
+        
+        if appliedFilters > 0 && userSelectedFilters.count > 0{
+            var journeyArray = [Journey]()
+            if (self.userSelectedFilters[index]).al != []{
+                self.flightSearchResultVM.flightLegs[index].userSelectedFilters = self.userSelectedFilters[index]
+            }
+            
+            journeyArray = self.flightSearchResultVM.flightLegs[index].applyStopsFilter(updatedArray)
+            journeyArray = self.flightSearchResultVM.flightLegs[index].applyPriceFilter(journeyArray)
+            journeyArray = self.flightSearchResultVM.flightLegs[index].applyOriginFilter(journeyArray)
+            journeyArray = self.flightSearchResultVM.flightLegs[index].applyAirlineFilter(journeyArray)
+            journeyArray = self.flightSearchResultVM.flightLegs[index].applyLayoverFilter(journeyArray)
+            journeyArray = self.flightSearchResultVM.flightLegs[index].applyDurationFilter(journeyArray)
+            journeyArray = self.flightSearchResultVM.flightLegs[index].applyArrivalTimeFilter(journeyArray)
+            journeyArray = self.flightSearchResultVM.flightLegs[index].applyDestinationFilter(journeyArray)
+            journeyArray = self.flightSearchResultVM.flightLegs[index].applyDepartureTimeFilter(journeyArray)
+            journeyArray = self.flightSearchResultVM.flightLegs[index].applyMultiItinaryAirlineFilter(journeyArray)
+                        
+            
+//            self.flightSearchResultVM.flightLegs[index].filteredJourneyArray = journeyArray
+
+            self.flightSearchResultVM.flightLegs[index].updatedFilterResultCount = journeyArray.count
+
+            if journeyArray.count == 0{
+                showNoFilteredResults(index: index)
+            }else{
+                animateTableBanner(index: index , updatedArray: journeyArray, sortOrder: sortOrder)
+            }
+        }else{
+            self.flightSearchResultVM.flightLegs[index].updatedFilterResultCount = 0
+            animateTableBanner(index: index , updatedArray: updatedArray, sortOrder: sortOrder)
+        }
+        
+        NotificationCenter.default.post(name:NSNotification.Name("updateFilterScreenText"), object: nil)
     }
+    
     
 
     func showNoResultScreenAt(index: Int) {
@@ -239,10 +333,10 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         addErrorScreenAtIndex(index: index, forFilteredResults: true)
     }
     
-   
-     //MARK:- Logical methods
     
-     func  getSelectedJourneyForAllLegs() -> [Journey]? {
+    //MARK:- Logical methods
+    
+    func  getSelectedJourneyForAllLegs() -> [Journey]? {
         
         var selectedJourneys = [Journey]()
         
@@ -273,14 +367,17 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
                     else {
                         return nil
                     }
-                case .showPinnedFlights :   
+                case .showPinnedFlights :
                     
                     if selectedIndex.row > results[index].pinnedFlights.count {
                         return nil
                     }
                     
-                    currentJourney = results[index].pinnedFlights[selectedIndex.row]
-                    selectedJourneys.append(currentJourney)
+                    if results[index].pinnedFlights.count > 0{
+                        currentJourney = results[index].pinnedFlights[selectedIndex.row]
+                        selectedJourneys.append(currentJourney)
+                    }
+                    
 
                 case .showRegularResults :
                     
@@ -301,7 +398,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         if selectedJourneys.count == numberOfLegs {
             return selectedJourneys
         }
-        print("getSelectedJourneyForAllLegs return five")
+//        print("getSelectedJourneyForAllLegs return five")
         return nil
     }
     
@@ -311,14 +408,23 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         let index = IndexPath(item: indexPath, section: 0)
         if let headerCell =  headerCollectionView.cellForItem(at: index) as? FlightSectorHeaderCell
         {
-                if color == .black {
-                    headerCell.setBlackColoredTitles()
-                }
-                else {
-                    headerCell.setRedColoredTitles()
-                }
+            if indexPath == 0{
+                headerCell.veticalSeparatorWidth.constant = 0.3
+                headerCell.veticalSeparatorTrailing.constant = 0.8
+            }else{
+                headerCell.veticalSeparatorWidth.constant = 0.4
+                headerCell.veticalSeparatorTrailing.constant = 0.7
+            }
+ 
+            if color == .black {
+                headerCell.setBlackColoredTitles()
+            }
+            else {
+                headerCell.setRedColoredTitles()
+            }
         }
     }
+    
 
     
     
@@ -330,6 +436,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         
         formatter.locale = Locale.init(identifier: "en_IN")
         return formatter.string(from: NSNumber(value: fare)) ?? ""
+        
 
     }
     
@@ -352,19 +459,21 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
     {
         fareBreakupVC?.bookButton.isEnabled = true
         for i in 0 ..< numberOfLegs {
-              setTextColorToHeader(.black, indexPath: i)
+            setTextColorToHeader(.black, indexPath: i)
         }
+        
 
         if let selectedJourneys = getSelectedJourneyForAllLegs() {
             
             if selectedJourneys.count >= 2 {
-            
+                
                 for i in 0 ..< (selectedJourneys.count - 1) {
                     
                     let currentLegJourney = selectedJourneys[i]
                     let nextLegJourney = selectedJourneys[(i + 1)]
                     
                     let fsr = currentLegJourney.fsr + nextLegJourney.fsr
+                    
 
                     guard let currentLegArrival = currentLegJourney.arrivalDate else { return }
                     guard let nextLegDeparture = nextLegJourney.departureDate else { return }
@@ -374,7 +483,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
                             
                             var frame = parentVC.view.frame
                             let bottomInset = self.view.safeAreaInsets.bottom
-                            let height = 50 + bottomInset
+                            let height = 36 + bottomInset
                             frame.size.height = frame.size.height - height
                             
                             if fsr > 0 {
@@ -382,6 +491,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
                             }
                             
                             AertripToastView.toast(in: parentVC.view , withText: "Flight timings are not compatible. Select a different flight." , parentRect: frame)
+                            
                             setTextColorToHeader(.AERTRIP_RED_COLOR, indexPath: i)
                             setTextColorToHeader(.AERTRIP_RED_COLOR, indexPath: (i + 1 ))
                             fareBreakupVC?.bookButton.isEnabled = false
@@ -390,23 +500,29 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
                     }
                     else if nextLegDeparture.timeIntervalSince(currentLegArrival) <= 7200 {
                         if let parentVC = self.parent {
+                            
 
                             var frame = parentVC.view.frame
                             let bottomInset = self.view.safeAreaInsets.bottom
-                            let height = 50 + bottomInset
+                            let height = 36 + bottomInset
                             frame.size.height = frame.size.height - height
+                            
 
                             if fsr > 0 {
                                 frame.size.height = frame.size.height - 16
                             }
+                            
                             AertripToastView.toast(in: parentVC.view , withText: "Selected flights have less than 2 hrs of gap." , parentRect: frame)
+                            
+                            fareBreakupVC?.bookButton.isEnabled = true
                         }
                     }
                     else {
-                        setTextColorToHeader(.black, indexPath: i)
-                        setTextColorToHeader(.black, indexPath: (i + 1 ))
+//                        setTextColorToHeader(.black, indexPath: i)
+//                        setTextColorToHeader(.black, indexPath: (i + 1 ))
+                        
+//                        AertripToastView.hideToast()
                     }
-                    
                 }
             }
         }
@@ -430,6 +546,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
                     if count > 0 {
                         tableview.reloadData()
                         tableview.tableFooterView = nil
+                        
 
                         let indexPath = IndexPath(row: 0, section: 0)
                         tableview.scrollToRow(at: indexPath, at: .top, animated: true)
@@ -448,7 +565,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
             resultsTableViewStates = stateBeforePinnedFlight
             for index in 0 ..< numberOfLegs {
                 if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
-                        errorView.removeFromSuperview()
+                    errorView.removeFromSuperview()
                 }
                 self.updateUIForTableviewAt(index)
             }
@@ -459,12 +576,14 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         let containsPinnedFlight = results.reduce(false) { $0 || $1.containsPinnedFlight }
         showPinnedFlightSwitch(containsPinnedFlight)
         self.checkForOverlappingFlights()
+        
 
     }
     
     @IBAction func unpinnedAllTapped(_ sender: Any) {
         
         let alert = UIAlertController(title: "Unpin All?", message: "This action will unpin all the pinned flights and cannot be undone.", preferredStyle: .alert)
+        
 
         alert.view.tintColor = UIColor.AertripColor
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { action in
@@ -476,6 +595,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
 
         self.present(alert, animated: true, completion: nil)
     }
+    
 
     
     func performUnpinnedAllAction() {
@@ -529,6 +649,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
             self.present(composeVC, animated: true, completion: nil)
         }
     }
+    
 
     @IBAction func emailPinnedFlights(_ sender: Any) {
 
@@ -541,6 +662,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
             }
         })
     }
+    
 
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
@@ -551,21 +673,21 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         
         
         let flightAdultCount = bookFlightObject.flightAdultCount
-         let flightChildrenCount = bookFlightObject.flightChildrenCount
-         let flightInfantCount = bookFlightObject.flightInfantCount
-         let isDomestic = bookFlightObject.isDomestic
-         
+        let flightChildrenCount = bookFlightObject.flightChildrenCount
+        let flightInfantCount = bookFlightObject.flightInfantCount
+        let isDomestic = bookFlightObject.isDomestic
+        
         guard let firstJourney = journey.first else { return nil}
         
-         let cc = firstJourney.cc
-         let ap = firstJourney.ap
-         
-         let trip_type = "single"
-         
+        let cc = firstJourney.cc
+        let ap = firstJourney.ap
+        
+        let trip_type = "single"
+        
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "dd-MM-yyyy"
         let departDate = inputFormatter.string(from: bookFlightObject.onwardDate)
-         
+        
         var valueString = "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(flightAdultCount)&child=\(flightChildrenCount)&infant=\(flightInfantCount)&origin=\(ap[0])&destination=\(ap[1])&depart=\(departDate)&cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)"
         
         
@@ -573,6 +695,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
             let tempJourney = journey[i]
             valueString = valueString + "&PF[\(i)]=\(tempJourney.fk)"
         }
+        
 
         var parameters = [ "u": valueString , "sid": bookFlightObject.sid ]
      
@@ -586,10 +709,10 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         
         
         let parameterArray = parameters.map { (arg) -> String in
-          let (key, value) = arg
-         
-        let percentEscapeString = self.percentEscapeString(value!)
-          return "\(key)=\(percentEscapeString)"
+            let (key, value) = arg
+            
+            let percentEscapeString = self.percentEscapeString(value!)
+            return "\(key)=\(percentEscapeString)"
         }
         
         let data = parameterArray.joined(separator: "&").data(using: String.Encoding.utf8)
@@ -598,39 +721,40 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
     
     
     func percentEscapeString(_ string: String) -> String {
-      var characterSet = CharacterSet.alphanumerics
-      characterSet.insert(charactersIn: "-._* ")
-      
-      return string
-        .addingPercentEncoding(withAllowedCharacters: characterSet)!
-        .replacingOccurrences(of: " ", with: "+")
-        .replacingOccurrences(of: " ", with: "+", options: [], range: nil)
+        var characterSet = CharacterSet.alphanumerics
+        characterSet.insert(charactersIn: "-._* ")
+        
+        return string
+            .addingPercentEncoding(withAllowedCharacters: characterSet)!
+            .replacingOccurrences(of: " ", with: "+")
+            .replacingOccurrences(of: " ", with: "+", options: [], range: nil)
     }
     
-      fileprivate func executeWebServiceForEmail(with postData: Data , onCompletion:@escaping (String) -> ()) {
-          let webservice = WebAPIService()
-          
-          webservice.executeAPI(apiServive: .getEmailUrl(postData: postData ) , completionHandler: {    (receivedData) in
-    
+    fileprivate func executeWebServiceForEmail(with postData: Data , onCompletion:@escaping (String) -> ()) {
+        let webservice = WebAPIService()
+        
+        webservice.executeAPI(apiServive: .getEmailUrl(postData: postData ) , completionHandler: {    (receivedData) in
+            
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
+            
 
             if let currentParsedResponse = parse(data: receivedData, into: getPinnedURLResponse.self, with:decoder) {
                 let data = currentParsedResponse.data
                 if let view = data["view"] {
-                  onCompletion(view)
+                    onCompletion(view)
                 }
             }
-          } , failureHandler : { (error ) in
-              print(error)
-          })
-      }
+        } , failureHandler : { (error ) in
+            print(error)
+        })
+    }
     
     func addToTrip(journey : Journey) {
-            let tripListVC = TripListVC(nibName: "TripListVC", bundle: nil)
-            tripListVC.journey = [journey]
-            tripListVC.modalPresentationStyle = .overCurrentContext
-            self.present(tripListVC, animated: true, completion: nil)
+        let tripListVC = TripListVC(nibName: "TripListVC", bundle: nil)
+        tripListVC.journey = [journey]
+        tripListVC.modalPresentationStyle = .overCurrentContext
+        self.present(tripListVC, animated: true, completion: nil)
     }
     
     
@@ -644,7 +768,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         
         guard let postData = generatePostData(for: journeyArray ) else { return }
         executeWebServiceForShare(with: postData as Data, onCompletion:{ (link)  in
-                        
+            
             DispatchQueue.main.async {
                 let textToShare = [ link ]
                 let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
@@ -658,27 +782,47 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
     
     func generatePostData( for journey : [Journey]) -> NSData? {
         
-        var valueString = "https://beta.aertrip.com/flights?trip_type=return"
-
+        var valueString = "https://beta.aertrip.com/flights?trip_type=single&"
+        
         // Adding Passanger Count
         let flightAdultCount = bookFlightObject.flightAdultCount
         let flightChildrenCount = bookFlightObject.flightChildrenCount
         let flightInfantCount = bookFlightObject.flightInfantCount
         valueString = valueString + "adult=\(flightAdultCount)&child=\(flightChildrenCount)&infant=\(flightInfantCount)"
         
-
+        
         guard let firstJourney = journey.first else { return nil}
+        
 
         let ap = firstJourney.ap
         valueString = valueString + "&origin=\(ap[0])&destination=\(ap[1])"
         
         
         // Flight Date
-        let inputFormatter = DateFormatter()
-        inputFormatter.dateFormat = "dd-MM-yyyy"
-        let departDate = inputFormatter.string(from: bookFlightObject.onwardDate)
-        let returnDate = inputFormatter.string(from: bookFlightObject.returnDate)
-        valueString = valueString + "&depart=\(departDate)&return=\(returnDate)"
+
+        if journey.count == 1{
+
+            let inputFormatter = DateFormatter()
+            inputFormatter.dateFormat = "yyyy-MM-dd"
+            let showDate = inputFormatter.date(from: journey[0].ad)
+            inputFormatter.dateFormat = "dd-MM-yyyy"
+            let newAd = inputFormatter.string(from: showDate!)
+
+//            inputFormatter.dateFormat = "yyyy-MM-dd"
+//            let showDate1 = inputFormatter.date(from: journey[0].dd)
+//            inputFormatter.dateFormat = "dd-MM-yyyy"
+//            let newDd = inputFormatter.string(from: showDate1!)
+            
+            valueString = valueString + "&depart=\(newAd)&return="
+
+        }else{
+            let inputFormatter = DateFormatter()
+            inputFormatter.dateFormat = "dd-MM-yyyy"
+
+            let departDate = inputFormatter.string(from: bookFlightObject.onwardDate)
+            let returnDate = inputFormatter.string(from: bookFlightObject.returnDate)
+            valueString = valueString + "&depart=\(departDate)&return=\(returnDate)"
+        }
         
         // Flight Class and Types
         let isDomestic = bookFlightObject.isDomestic
@@ -687,6 +831,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         
         
         let postData = NSMutableData()
+        
 
         
         for i in 0 ..< journey.count {
@@ -720,7 +865,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
             }
         }
         
-        
         guard let bodyData = body.data(using: String.Encoding.utf8) else { return nil }
         postData.append(bodyData)
         
@@ -735,7 +879,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
             
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
-  
+            
             if let currentParsedResponse = parse(data: data, into: getPinnedURLResponse.self, with:decoder) {
                 
                 let data = currentParsedResponse.data
@@ -812,11 +956,12 @@ extension FlightDomesticMultiLegResultVC : UICollectionViewDataSource , UICollec
             else {
                 cell.veticalSeparator.isHidden = false
             }
-             return cell
+            return cell
         }
         return UICollectionViewCell()
         
     }
+    
     
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -825,7 +970,7 @@ extension FlightDomesticMultiLegResultVC : UICollectionViewDataSource , UICollec
         size.height = 50
         
         if numberOfLegs > 2 {
-        
+            
             if indexPath.row == 1 {
                 size.width = size.width * 0.4
             }else {
@@ -833,15 +978,16 @@ extension FlightDomesticMultiLegResultVC : UICollectionViewDataSource , UICollec
             }
         }
         else {
-           size.width = size.width * 0.5
+            size.width = size.width * 0.5
         }
         return size
     }
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+        
         let visibleRect = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 50)
+        
 
         guard let theAttributes = collectionView.layoutAttributesForItem(at: indexPath) else { return }
         var cellFrameInSuperview = collectionView.convert(theAttributes.frame, to: self.view)
@@ -875,10 +1021,11 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
         
         let index = tableView.tag - 1000
         let tableState = resultsTableViewStates[index]
+        
 
         switch tableState {
         case .showExpensiveFlights :
-        if sortOrder == .Smart  {
+            if sortOrder == .Smart  {
                 return 2
             }
             else {
@@ -894,12 +1041,13 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         let index = tableView.tag - 1000
+        
 
         let tableState = resultsTableViewStates[index]
         
         switch tableState {
         case .showTemplateResults:
-                return 10
+            return 10
         case .showPinnedFlights:
             return results[index].pinnedFlights.count
         case .showExpensiveFlights:
@@ -919,7 +1067,7 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
             if sortOrder == .Smart  {
                 return results[index].suggestedJourneyArray.count
             }
-              else {
+            else {
                 return results[index].belowThresholdHumanScore
             }
         case .showNoResults:
@@ -931,45 +1079,48 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
     }
     
     fileprivate func setPropertiesToCellAt( index: Int, _ indexPath: IndexPath,  cell: DomesticMultiLegCell, _ tableView: UITableView) {
-      
+        
         let tableState = resultsTableViewStates[index]
         var arrayForDisplay = results[index].suggestedJourneyArray
-     
+        
         if tableState == .showPinnedFlights {
             arrayForDisplay = results[index].pinnedFlights
         }
         else
-            {
-                if sortOrder == .Smart {
-                    
-                    if tableState == .showExpensiveFlights && indexPath.section == 1 {
-                        arrayForDisplay = results[index].expensiveJourneyArray
-                    }
-                }
-                else {
-                    arrayForDisplay =  self.sortedJourneyArray[index]
-                }
-        }
-        if let journey = arrayForDisplay?[indexPath.row] {
-            cell.showDetailsFrom(journey:  journey)
-            if let logoArray = journey.airlineLogoArray {
+        {
+            if sortOrder == .Smart {
                 
-                switch logoArray.count {
-                case 1 :
-                    cell.iconTwo.isHidden = true
-                    cell.iconThree.isHidden = true
-                    setImageto(tableView: tableView, imageView: cell.iconOne, url:logoArray[0] , index:  indexPath.row)
-                case 2 :
-                    cell.iconThree.isHidden = true
-                    setImageto(tableView: tableView, imageView: cell.iconOne, url:logoArray[0] , index:  indexPath.row)
-                    setImageto(tableView: tableView, imageView: cell.iconTwo, url:logoArray[1] , index:  indexPath.row)
+                if tableState == .showExpensiveFlights && indexPath.section == 1 {
+                    arrayForDisplay = results[index].expensiveJourneyArray
+                }
+            }
+            else {
+                arrayForDisplay =  self.sortedJourneyArray[index]
+            }
+        }
+        
+        if arrayForDisplay!.count > 0 && indexPath.row < arrayForDisplay!.count{
+            if let journey = arrayForDisplay?[indexPath.row] {
+                cell.showDetailsFrom(journey:  journey)
+                if let logoArray = journey.airlineLogoArray {
                     
-                case 3 :
-                    setImageto(tableView: tableView, imageView: cell.iconOne, url:logoArray[0] , index:  indexPath.row)
-                    setImageto(tableView: tableView, imageView: cell.iconTwo, url:logoArray[1] , index:  indexPath.row)
-                    setImageto(tableView: tableView, imageView: cell.iconThree, url:logoArray[2] , index:  indexPath.row)
-                default:
-                    break
+                    switch logoArray.count {
+                    case 1 :
+                        cell.iconTwo.isHidden = true
+                        cell.iconThree.isHidden = true
+                        setImageto(tableView: tableView, imageView: cell.iconOne, url:logoArray[0] , index:  indexPath.row)
+                    case 2 :
+                        cell.iconThree.isHidden = true
+                        setImageto(tableView: tableView, imageView: cell.iconOne, url:logoArray[0] , index:  indexPath.row)
+                        setImageto(tableView: tableView, imageView: cell.iconTwo, url:logoArray[1] , index:  indexPath.row)
+                        
+                    case 3 :
+                        setImageto(tableView: tableView, imageView: cell.iconOne, url:logoArray[0] , index:  indexPath.row)
+                        setImageto(tableView: tableView, imageView: cell.iconTwo, url:logoArray[1] , index:  indexPath.row)
+                        setImageto(tableView: tableView, imageView: cell.iconThree, url:logoArray[2] , index:  indexPath.row)
+                    default:
+                        break
+                    }
                 }
             }
         }
@@ -979,15 +1130,16 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
         
         let index = tableView.tag - 1000
         let tableState = resultsTableViewStates[index]
+        
 
         if tableState == .showTemplateResults {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "DomesticMultiLegTemplateCell") as? DomesticMultiLegTemplateCell{
-            cell.selectionStyle = .none
-            return cell
+                cell.selectionStyle = .none
+                return cell
             }
         }
         else {
-        
+            
             if let cell = tableView.dequeueReusableCell(withIdentifier: "DomesticMultiLegCell") as? DomesticMultiLegCell{
                 cell.selectionStyle = .none
                 setPropertiesToCellAt(index:index, indexPath, cell: cell, tableView)
@@ -997,13 +1149,13 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
                     cell.addInteraction(interaction)
                 }
                 return cell
-                }
             }
+        }
         return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 123.0
+        return 130.0
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -1015,8 +1167,8 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
         }
         checkForOverlappingFlights()
         setTotalFare()
-//        let containsPinnedFlight = results.reduce(false) { $0 || $1.containsPinnedFlight }
-//        showPinnedFlightSwitch(containsPinnedFlight)
+        //        let containsPinnedFlight = results.reduce(false) { $0 || $1.containsPinnedFlight }
+        //        showPinnedFlightSwitch(containsPinnedFlight)
         setTableViewHeaderAfterSelection(tableView: tableView )
     }
     
@@ -1026,6 +1178,22 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
             let resizedImage = image.resizeImage(24.0, opaque: false)
             imageView.contentMode = .scaleAspectFit
             imageView.image = UIImage.roundedRectImageFromImage(image: resizedImage, imageSize: CGSize(width: 24.0, height: 24.0), cornerRadius: 2.0)
+        }
+    }
+    
+    
+    func updateApiProcess(progress:Float) {
+        if progress > 0.25 {
+            DispatchQueue.main.async {
+                
+                if self.ApiProgress.progress < progress {
+                    self.ApiProgress.setProgress(progress, animated: true)
+                }
+                
+                if progress >= 0.97 {
+                    self.ApiProgress.isHidden = true
+                }
+            }
         }
     }
 }

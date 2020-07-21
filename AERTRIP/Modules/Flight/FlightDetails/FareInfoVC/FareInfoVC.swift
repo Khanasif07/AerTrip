@@ -24,7 +24,8 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     //MARK:- Variable Declaration
     weak var delegate : flightDetailsSmartIconsDelegate?
-
+    var fareRulesDelegate : getFareRulesDelegate?
+    
     var journey: [Journey]!
     var flights : [FlightDetail]?
     var airportDetailsResult : [String : AirportDetailsWS]!
@@ -41,7 +42,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var combineAirlineCancellationFees = [[[String:[String:[cancellationSlabStruct]]]]]()
     var combineAirlineReschedulingFees = [[[String:[String:[cancellationSlabStruct]]]]]()
     
-    var rafFees = [[String:Int]]()
+    var rafFees = [[String:[String:Int]]]()
     
     var updatedFareInfo = [updatedFareInfoDataStruct]()
     
@@ -152,7 +153,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             changeAirportCell.dataLabelTop.constant = 0
             
             changeAirportCell.dataLabel.attributedText = getAttributedNote()
-            changeAirportCell.seperatorBottom.constant = 45
+            changeAirportCell.seperatorBottom.constant = 65
             changeAirportCell.bottomStrokeHeight.constant = 0.7
             return changeAirportCell
         }else{
@@ -256,7 +257,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     changeAirportCell.dataLabel.attributedText = getAttributedNote()
                     changeAirportCell.topSeperatorLabelLeading.constant = 16
                     changeAirportCell.topSeperatorLabelTop.constant = 12
-                    changeAirportCell.seperatorBottom.constant = 45
+                    changeAirportCell.seperatorBottom.constant = 65
                     return changeAirportCell
                 }else{
                     let fareInfoCell = tableView.dequeueReusableCell(withIdentifier: "CombineFareInfoCell") as! CombineFareInfoTableViewCell
@@ -642,13 +643,17 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     //MARK:- Button Action
     @objc func fareRulesButtonClicked(_ sender:UIButton)
     {
-        let fareRulesVC = FareRulesVC(nibName: "FareRulesVC", bundle: nil)
+//        let fareRulesVC = FareRulesVC(nibName: "FareRulesVC", bundle: nil)
+//        if self.fareRulesData.count > 0{
+//            fareRulesVC.fareRulesData = [self.fareRulesData[sender.tag]]
+//        }
+//        self.present(fareRulesVC, animated: true, completion: nil)
+        
+        
+
         if self.fareRulesData.count > 0{
-            fareRulesVC.fareRulesData = [self.fareRulesData[sender.tag]]
+            self.fareRulesDelegate?.getFareRulesData(fareRules: [self.fareRulesData[sender.tag]])
         }
-        fareRulesVC.view.frame = self.parent!.view.bounds
-        fareRulesVC.modalPresentationStyle = .overCurrentContext
-        self.present(fareRulesVC, animated: true, completion: nil)
     }
     
     func getAttributedNote() -> NSMutableAttributedString

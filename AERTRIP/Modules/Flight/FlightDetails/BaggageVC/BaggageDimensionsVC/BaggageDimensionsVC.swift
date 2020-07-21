@@ -10,6 +10,8 @@ import UIKit
 
 class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
 {
+    @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet weak var pageTitleView: UIView!
     @IBOutlet weak var dividerView: UILabel!
     @IBOutlet weak var baggageScrollView: UIScrollView!
     @IBOutlet weak var dimensionInfoLabel: UILabel!
@@ -42,9 +44,17 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+  
+        let blurEffect = UIBlurEffect(style: .prominent)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.backgroundView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        backgroundView.addSubview(blurEffectView)
+
         
         baggageScrollView.delegate = self
-        dividerView.isHidden = true
+//        dividerView.isHidden = true
         
         if note == ""{
             dividerLabel.isHidden = true
@@ -121,9 +131,9 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
         if scrollView.contentOffset.y > 0{
-            dividerView.isHidden = false
+//            dividerView.isHidden = false
         }else{
-            dividerView.isHidden = true
+//            dividerView.isHidden = true
         }
     }
 

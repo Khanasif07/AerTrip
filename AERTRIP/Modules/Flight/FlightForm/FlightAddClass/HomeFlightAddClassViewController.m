@@ -12,6 +12,7 @@
 @property (strong, nonatomic) NSMutableArray *classArray;
 @property (strong, nonatomic) FlightClass *selectedFlightClass;
 @property (assign, nonatomic) CGFloat primaryDuration;
+@property (weak, nonatomic) IBOutlet UIButton *doneButton;
 
 @end
 
@@ -68,8 +69,8 @@
     [self.classArray addObject:flightClassFour];
 }
 
-- (void)setupInitials {
-    
+- (void)setupInitials
+{
     self.selectedFlightClass = self.flightClass;
     self.primaryDuration = 0.4;
     [self createFlightClasses];
@@ -77,7 +78,9 @@
     [self setupBackgroundView];
     [self makeTopCornersRounded:self.bottomView withRadius:10.0];
     [self applyShadowToDoneView];
-
+    
+    [self.doneButton setTitleColor:[UIColor AertripColor] forState:UIControlStateNormal];
+    [self.doneButton setTitleColor:[UIColor TWO_ZERO_FOUR_COLOR] forState:UIControlStateDisabled];
 }
 
 -(void)setupBackgroundView
@@ -90,12 +93,7 @@
     self.view.userInteractionEnabled = YES;
     swipeGesture.direction = UISwipeGestureRecognizerDirectionDown;
     [self.view addGestureRecognizer:swipeGesture];
-    
-    
 }
-
-
-
 
 - (void)setupTableView {
     
@@ -108,7 +106,7 @@
 - (void)applyShadowToDoneView {
     
     self.doneView.clipsToBounds = NO;
-    self.doneView.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.05].CGColor;
+    self.doneView.layer.shadowColor = [UIColor colorWithDisplayP3Red:0 green:0 blue:0 alpha:0.05].CGColor;
     self.doneView.layer.shadowOpacity = 1.0;
     self.doneView.layer.shadowRadius = 10.0;
     self.doneView.layer.shadowOffset = CGSizeMake(0.0, -6.0);
@@ -230,19 +228,13 @@
     }];
 }
 
-
-
-
 - (IBAction)doneAction:(id)sender {
         [self animateBottomViewOut];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
 
 @end
