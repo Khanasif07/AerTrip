@@ -47,15 +47,15 @@ class AccountDetailsVM: NSObject {
     //MARK:- Public
     func setAccountDetails(data: JSONDictionary) {
         self.accountDetails = data
-            var arr = Array(data.keys)
-            arr.sort { ($0.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0)}
+        var arr = Array(data.keys)
+        arr.sort { ($0.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0)}
         self.allDates =  arr
     }
     
     func setSearchedAccountDetails(data: JSONDictionary) {
         self.searchedAccountDetails = data
-            var arr = Array(data.keys)
-            arr.sort { ($0.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0)}
+        var arr = Array(data.keys)
+        arr.sort { ($0.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0)}
         self.searchedAllDates =  arr
     }
     func searchEvent(forText: String) {
@@ -88,7 +88,7 @@ class AccountDetailsVM: NSObject {
             
             for date in Array(onData.keys) {
                 if let events = onData[date] as? [AccountDetailEvent] {
-//                    let fltrd = events.filter({ $0.title.lowercased().contains(forText.lowercased())})
+                    //                    let fltrd = events.filter({ $0.title.lowercased().contains(forText.lowercased())})
                     let fltrd = events.filter { event in
                         return ((event.title.lowercased().contains(forText.lowercased())) || (event.voucherNo.lowercased().contains(forText.lowercased())) ||
                             (event.airline.lowercased().contains(forText.lowercased())) ||
@@ -165,39 +165,103 @@ class AccountDetailsVM: NSObject {
     }
     
     func applyFilter(filter: AccountSelectedFilter?, searchText: String) {
-        
-        //filters are changed filter according dates and voucher
-        var param = JSONDictionary()
-        param["type"] = "ledger"
-        
-        if let fromDate = filter?.fromDate, let toDate = filter?.toDate {
-            param["start_date"] = fromDate.toString(dateFormat: "YYYY-MM-dd")
-            param["end_date"] = toDate.toString(dateFormat: "YYYY-MM-dd")
-        }
-
         self.oldFilter = filter
-        //hit api to update the saved data and show it on screen
-        APICaller.shared.getAccountDetailsAPI(params: param) { [weak self](success, accLad, accVchrs, outLad, periodic, errors) in
+        
+        
+        if let filtr = self.oldFilter {
             
-            guard let sSelf = self else {return}
-            if success {
-                if let searched = sSelf.getDataApplySearch(forText: searchText, onData: accLad) {
-                    
-                    if let vchr = filter?.voucherType, let data = sSelf.filterForVoucher(voucher: vchr, onData: searched) {
-                        sSelf.setAccountDetails(data: data)
-                        sSelf.delegate?.applyFilterSuccess()
-                    }
-                    else {
-                        sSelf.setAccountDetails(data: searched)
-                        sSelf.delegate?.applyFilterSuccess()
+            if !filtr.isFilterAplied {
+                setAccountDetails(data: _accountDetails)
+            } else {
+                var newData = JSONDictionary()
+                for date in Array(_accountDetails.keys) {
+                    if let events = _accountDetails[date] as? [AccountDetailEvent] {
+                        var fltrd = [AccountDetailEvent]()
+                         if filtr.fromDate == nil && filtr.toDate == nil {
+                             fltrd = events
+                         } else {
+                        fltrd = events.filter { event in
+                            
+                            var status = false
+                            if let frmDate = filtr.fromDate, let toDate = filtr.toDate, let creationDate = event._creationDate {
+                                if (frmDate...toDate).contains(creationDate) {
+                                    status = true
+                                }
+                            } else if let frmDate = filtr.fromDate, let creationDate = event._creationDate {
+                                if creationDate >= frmDate {
+                                    status = true
+                                }
+                            }else if let toDate = filtr.toDate, let creationDate = event._creationDate {
+                                if creationDate <= toDate {
+                                    status = true
+                                }
+                            }
+                                                        
+                            return status
+                        }
+                        }
+                        fltrd = fltrd.filter { event in
+                            var status = false
+                            if !filtr.voucherType.isEmpty {
+                                if filtr.voucherType.lowercased() == "all" {
+                                    status = true
+                                } else if filtr.voucherType.lowercased() == event.voucherName.lowercased() {
+                                    status = true
+                                } else {
+                                    status = false
+                                }
+                            } else {
+                                status = true
+                            }
+                            return status
+                        }
+                        
+                        if !fltrd.isEmpty {
+                            newData[date] = fltrd
+                        }
                     }
                 }
+                
+                setAccountDetails(data: newData)
             }
-            else {
-                sSelf.delegate?.applyFilterFail()
-                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
-            }
+        } else {
+            setAccountDetails(data: _accountDetails)
         }
+        self.delegate?.applyFilterSuccess()
+        /*
+         //filters are changed filter according dates and voucher
+         var param = JSONDictionary()
+         param["type"] = "ledger"
+         
+         if let fromDate = filter?.fromDate, let toDate = filter?.toDate {
+         param["start_date"] = fromDate.toString(dateFormat: "YYYY-MM-dd")
+         param["end_date"] = toDate.toString(dateFormat: "YYYY-MM-dd")
+         }
+         
+         self.oldFilter = filter
+         //hit api to update the saved data and show it on screen
+         APICaller.shared.getAccountDetailsAPI(params: param) { [weak self](success, accLad, accVchrs, outLad, periodic, errors) in
+         
+         guard let sSelf = self else {return}
+         if success {
+         if let searched = sSelf.getDataApplySearch(forText: searchText, onData: accLad) {
+         
+         if let vchr = filter?.voucherType, let data = sSelf.filterForVoucher(voucher: vchr, onData: searched) {
+         sSelf.setAccountDetails(data: data)
+         sSelf.delegate?.applyFilterSuccess()
+         }
+         else {
+         sSelf.setAccountDetails(data: searched)
+         sSelf.delegate?.applyFilterSuccess()
+         }
+         }
+         }
+         else {
+         sSelf.delegate?.applyFilterFail()
+         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+         }
+         }
+         */
     }
     
     func sendEmailForLedger(onVC: UIViewController) {

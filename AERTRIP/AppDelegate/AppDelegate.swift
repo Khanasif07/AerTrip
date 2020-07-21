@@ -18,7 +18,7 @@ import FirebaseDynamicLinks
 import UIKit
 
 @UIApplicationMain
-  class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     let transitionCoordinator = TransitionCoordinator()
@@ -30,23 +30,17 @@ import UIKit
     
     private var reachability: Reachability?
     
-    // PROPERTY FOR APPLICATION LAUNCH TYPE
-    var isApplicationForFlight = false
-
+    //com.aertrip.app
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         // CHECK FOR LAUNCH OF FLIGHT OR HOTEL MODULE
-        if isApplicationForFlight{
-            setupFlightsVC()
-            window?.backgroundColor = UIColor.black
-        } else {
-            FirebaseApp.configure()
-            AppFlowManager.default.setupInitialFlow()
-            window?.backgroundColor = UIColor.black
-        }
-
+        
+        FirebaseApp.configure()
+        AppFlowManager.default.setupInitialFlow()
+        window?.backgroundColor = UIColor.black
+        
         GoogleLoginController.shared.configure()
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         Fabric.with([Crashlytics.self])
@@ -130,23 +124,23 @@ import UIKit
         }
         
         return true
-//        let handled = DynamicLinks.dynamicLinks().handleUniversalLink(userActivity.webpageURL!) { dynamiclink, _ in
-//            // ...
-//            guard let url = dynamiclink?.url else { return }
-//
-//            if url.absoluteString.contains("email="), url.absoluteString.contains("&ref") {
-//                guard let email = url.absoluteString.slice(from: "email=", to: "&ref") else { return }
-//                guard let ref = url.absoluteString.components(separatedBy: "&ref=").last else { return }
-//                AppFlowManager.default.deeplinkToRegistrationSuccefullyVC(type: .deeplinkSetPassword, email: email, refId: ref)
-//            }
-//            else if url.absoluteString.contains("&key="), url.absoluteString.contains("&token="), url.absoluteString.contains("&email=") {
-//                guard let ref = url.absoluteString.slice(from: "&key=", to: "&token=") else { return }
-//                guard let token = url.absoluteString.slice(from: "&token=", to: "&email=") else { return }
-//                guard let email = url.absoluteString.components(separatedBy: "&email=").last else { return }
-//                AppFlowManager.default.deeplinkToRegistrationSuccefullyVC(type: .deeplinkResetPassword, email: email, refId: ref, token: token)
-//            }
-//        }
-//        return handled
+        //        let handled = DynamicLinks.dynamicLinks().handleUniversalLink(userActivity.webpageURL!) { dynamiclink, _ in
+        //            // ...
+        //            guard let url = dynamiclink?.url else { return }
+        //
+        //            if url.absoluteString.contains("email="), url.absoluteString.contains("&ref") {
+        //                guard let email = url.absoluteString.slice(from: "email=", to: "&ref") else { return }
+        //                guard let ref = url.absoluteString.components(separatedBy: "&ref=").last else { return }
+        //                AppFlowManager.default.deeplinkToRegistrationSuccefullyVC(type: .deeplinkSetPassword, email: email, refId: ref)
+        //            }
+        //            else if url.absoluteString.contains("&key="), url.absoluteString.contains("&token="), url.absoluteString.contains("&email=") {
+        //                guard let ref = url.absoluteString.slice(from: "&key=", to: "&token=") else { return }
+        //                guard let token = url.absoluteString.slice(from: "&token=", to: "&email=") else { return }
+        //                guard let email = url.absoluteString.components(separatedBy: "&email=").last else { return }
+        //                AppFlowManager.default.deeplinkToRegistrationSuccefullyVC(type: .deeplinkResetPassword, email: email, refId: ref, token: token)
+        //            }
+        //        }
+        //        return handled
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
@@ -156,11 +150,11 @@ import UIKit
         else if url.scheme?.lowercased() == AppConstants.googleUrl {
             return GIDSignIn.sharedInstance().handle(url)
         }
-            /*
-        else if LinkedinSwiftHelper.shouldHandle(url) {
-            return LinkedinSwiftHelper.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
-        }
-        */
+        /*
+         else if LinkedinSwiftHelper.shouldHandle(url) {
+         return LinkedinSwiftHelper.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+         }
+         */
         return true
     }
 }

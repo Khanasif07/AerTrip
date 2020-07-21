@@ -381,6 +381,10 @@ extension SelectDestinationVC: UISearchBarDelegate {
         
         self.reloadData()
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.resignFirstResponder()
+    }
 }
 
 //MARK:- Table view datasource and delegate methods
@@ -509,7 +513,6 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
             let numOfRow = self.tableView(self.tableView, numberOfRowsInSection: indexPath.section)
             if (section - 1) == indexPath.section  && (numOfRow - 1) == indexPath.row {
                cell.dividerView.isHidden = false
-                cell.dividerLeadingConstraint.constant = 0
             }
             return cell
         }

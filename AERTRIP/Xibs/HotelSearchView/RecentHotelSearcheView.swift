@@ -93,6 +93,21 @@ extension RecentHotelSearcheView: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        /*
+        let recentSearchesData = self.recentSearchesData?[indexPath.row] ?? RecentSearchesModel()
+        let cityName = recentSearchesData.dest_name.split(separator: ",").first ?? ""
+                let countryCode = recentSearchesData.dest_name.split(separator: ",").last ?? ""
+        //        self.cityNameLabel.text = "\(cityName)"
+                let prefix: String = cityName.isEmpty ? "" : "\(cityName),"
+                let suffix: String = countryCode.isEmpty ? "" : ",\(countryCode)"
+
+                var stateText = recentSearchesData.dest_name.deletingPrefix(prefix: prefix).removeSpaceAsSentence
+                stateText = stateText.deletingSuffix(suffix: suffix).removeSpaceAsSentence
+                
+        let title = "\(cityName) " + stateText
+        let width = AppGlobals.shared.AttributedFontAndColorForText(text: title, atributedText: "\(cityName)", textFont: AppFonts.SemiBold.withSize(18.0), textColor: AppColors.themeBlack).width(withConstrainedHeight: collectionView.frame.height)
+ */
+        // 259.0  width + 93
         let itemSize = CGSize(width: 259.0 , height: collectionView.frame.height)
         return itemSize
     }

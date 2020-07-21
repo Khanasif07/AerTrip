@@ -11,28 +11,29 @@ import UIKit
 extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.viewModel.ladgerDetails.count + 2
+        return self.viewModel.sectionArray.count + 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         guard section > 0 else {
             //first section's first cell
             return 1
         }
-        if section == self.viewModel.ladgerDetails.count + 1{
+        if section == self.viewModel.sectionArray.count + 1{
             return 3
         }
-        
-        guard let dict = self.viewModel.ladgerDetails["\(section - 1)"] as? JSONDictionary else {
-            return 0
-        }
-        
-        if !dict.isEmpty {
-            //extra 1 is for divider
-            return dict.keys.count + 1
-        }
-        return 0
+        return self.viewModel.sectionArray[section - 1].count
+
+//
+//        guard let dict = self.viewModel.ladgerDetails["\(section - 1)"] as? JSONDictionary else {
+//            return 0
+//        }
+//
+//        if !dict.isEmpty {
+//            //extra 1 is for divider
+//            return dict.keys.count + 1
+//        }
+//        return 0
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return CGFloat.leastNormalMagnitude
@@ -55,7 +56,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         
-        if indexPath.section == self.viewModel.ladgerDetails.count + 1{
+        if indexPath.section == self.viewModel.sectionArray.count + 1{
             switch indexPath.row {
             case 0: return 27
             case 1: return 44
@@ -64,11 +65,11 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         
-        guard let dict = self.viewModel.ladgerDetails["\(indexPath.section - 1)"] as? JSONDictionary else {
-            return 0.0
-        }
+//        guard let dict = self.viewModel.ladgerDetails["\(indexPath.section - 1)"] as? JSONDictionary else {
+//            return CGFloat.leastNormalMagnitude
+//        }
         
-        if indexPath.row == dict.keys.count {
+        if indexPath.row == self.viewModel.sectionArray[indexPath.section - 1].count - 1 {
             //devider
             return 1
         }
@@ -86,7 +87,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 return 36.0
             }else if indexPath.row == 0 && isForVouchre{
                 return 36.0
-            }else if indexPath.row == dict.keys.count-1{
+            }else if indexPath.row == self.viewModel.sectionArray[indexPath.section - 1].count-1{
                 return 36.0
             }else{
                return 30.0
@@ -104,7 +105,10 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         
-        if indexPath.section == self.viewModel.ladgerDetails.count + 1{
+        
+        
+        
+        if indexPath.section == self.viewModel.sectionArray.count + 1{
             
             switch indexPath.row {
             case 0,2:
@@ -132,9 +136,27 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             default: return UITableViewCell()
             }
             
+        } else {
+            let section = indexPath.section - 1
+            let model = self.viewModel.sectionArray[section][indexPath.row]
+            if model.isEmptyCell {
+                //devider
+                return self.getDeviderCell(indexPath: indexPath)
+            } else {
+                let key = model.title
+                var value = model.value
+                var descColor: UIColor? = nil
+                let age = model.age
+                if key.lowercased() == "Over Due by days".lowercased() {
+                    descColor = AppColors.themeRed
+                }
+                value = value.isEmpty ? LocalizedString.dash.localized : value
+                return self.getDetailCell(title: key, description: value, descriptionColor: descColor, age: age, at: indexPath)
+                
+            }
+            
         }
-        
-        let section = indexPath.section - 1
+        /*
         guard let dict = self.viewModel.ladgerDetails["\(section)"] as? JSONDictionary else {
             return UITableViewCell()
         }
@@ -245,11 +267,12 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return self.getDetailCell(title: key, description: value, descriptionColor: descColor, age: age, at: indexPath)
 
         }
+ */
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if (indexPath.section == self.viewModel.ladgerDetails.count + 1) && (indexPath.row == 1){
+        if (indexPath.section == self.viewModel.sectionArray.count + 1) && (indexPath.row == 1){
           
             if let type = self.viewModel.ladgerEvent?.productType{
                 switch type{
@@ -290,7 +313,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         cell.dividerLeadingConstraint.constant = value
         cell.dividerTrailingConstraint.constant = value
 //        if indexPath.section == self.viewModel.ladgerDetails.count{
-            cell.isHidden = (indexPath.section == self.viewModel.ladgerDetails.count)
+        cell.isHidden = (indexPath.section == self.viewModel.sectionArray.count)
 //        }
         return cell
     }
@@ -311,9 +334,9 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             cell.descLabel.textColor = color
         }
         let section = indexPath.section - 1
-        guard let dict = self.viewModel.ladgerDetails["\(section)"] as? JSONDictionary else {
-            return cell
-        }
+//        guard let dict = self.viewModel.ladgerDetails["\(section)"] as? JSONDictionary else {
+//            return cell
+//        }
         var isForVouchre = false
         if let type = self.viewModel.ladgerEvent?.productType{
             switch type{
@@ -328,7 +351,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             cell.stackTopConstraint.constant = 6
             cell.stackBottomConstraint.constant = 0
         }
-        else if indexPath.row == dict.keys.count-1{
+        else if indexPath.row == self.viewModel.sectionArray[section].count-1{
             cell.stackTopConstraint.constant = 0
             cell.stackBottomConstraint.constant = 6
         }else{

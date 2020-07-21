@@ -65,7 +65,7 @@ extension TermAndPrivacyTableViewCell {
       //  withLabel.enabledTypes = [fareDetails, privacyPolicy, termsOfUse]
         
         withLabel.enabledTypes = allTypes
-        withLabel.customize { label in
+        withLabel.customize { [unowned self] label in
             label.font = AppFonts.Regular.withSize(14.0)
             label.text = textToDisplay
 

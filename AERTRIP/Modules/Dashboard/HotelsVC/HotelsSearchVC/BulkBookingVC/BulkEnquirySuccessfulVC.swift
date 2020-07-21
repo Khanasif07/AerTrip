@@ -211,13 +211,14 @@ class BulkEnquirySuccessfulVC: BaseVC {
     //==============
     //Private
     private func hide(animated: Bool, shouldRemove: Bool = false) {
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
-            self.mainContainerBottomConstraint.constant = -(self.containerView.height + 100)
-            self.view.layoutIfNeeded()
-        }, completion: { (isDone) in
+        let height = self.containerView.height
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
+            self?.mainContainerBottomConstraint.constant = -(height + 100)
+            self?.view.layoutIfNeeded()
+        }, completion: { [weak self] (isDone) in
             if shouldRemove {
-                self.removeFromParentVC
-                if self.currentUsingAs == .bulkBooking {
+                self?.removeFromParentVC
+                if self?.currentUsingAs == .bulkBooking {
                     NotificationCenter.default.post(name: .bulkEnquirySent, object: nil)
                 }
             }

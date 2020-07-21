@@ -13,6 +13,13 @@ struct AccountSelectedFilter {
     var fromDate: Date? = nil
     var toDate: Date? = nil
     var voucherType: String = ""
+    
+    var isFilterAplied: Bool {
+        if self.fromDate == nil && self.toDate == nil && self.voucherType.isEmpty {
+            return false
+        }
+        return true
+    }
 }
 
 protocol ADEventFilterVCDelegate: class {
@@ -33,6 +40,7 @@ class ADEventFilterVC: BaseVC {
     @IBOutlet weak var mainContainerView: UIView!
     @IBOutlet weak var navigationViewTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var mainBackView: UIView!
     //MARK:- Properties
     //MARK:- Public
     var voucherTypes: [String] = []
@@ -84,8 +92,8 @@ class ADEventFilterVC: BaseVC {
         }
         else {
             self.selectedFilter = AccountSelectedFilter()
-            self.selectedFilter.fromDate = self.minFromDate
-            self.selectedFilter.toDate = Date()
+            //self.selectedFilter.fromDate = self.minFromDate
+           // self.selectedFilter.toDate = Date()
         }
     
         travelDateVC.oldToDate = self.oldFilter?.toDate
@@ -99,9 +107,9 @@ class ADEventFilterVC: BaseVC {
         adVoucherTypeVC.viewModel.allTypes = self.voucherTypes
         
         
-        if self.selectedFilter.voucherType.isEmpty {
-            self.didSelect(voucher: self.voucherTypes.first ?? "")
-        }
+//        if self.selectedFilter.voucherType.isEmpty {
+//            self.didSelect(voucher: self.voucherTypes.first ?? "")
+//        }
         
         if let vchr = self.oldFilter?.voucherType, let indx = self.voucherTypes.firstIndex(of: vchr) {
             adVoucherTypeVC.viewModel.selectedIndexPath = IndexPath(row: indx, section: 0)
@@ -118,9 +126,9 @@ class ADEventFilterVC: BaseVC {
             self?.setUpViewPager()
         }
         //for header blur
-        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+       // self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         topNavBar.backgroundColor = AppColors.clear
-        
+        mainBackView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
         self.setupGesture()
     }
     
@@ -152,6 +160,7 @@ class ADEventFilterVC: BaseVC {
     private func show(animated: Bool) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerViewTopConstraint.constant = 0.0
+            self.mainBackView.alpha = 1.0
             self.view.layoutIfNeeded()
         })
     }
@@ -159,6 +168,7 @@ class ADEventFilterVC: BaseVC {
     private func hide(animated: Bool, shouldRemove: Bool = false) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerViewTopConstraint.constant = -(self.mainContainerView.height)
+            self.mainBackView.alpha = 0.0
             self.view.layoutIfNeeded()
         }, completion: { _ in
             if shouldRemove {
@@ -252,7 +262,7 @@ class ADEventFilterVC: BaseVC {
         gestureRecognizer.numberOfTapsRequired = 1
         gestureRecognizer.numberOfTouchesRequired = 1
         gestureRecognizer.delegate = self
-        view.addGestureRecognizer(gestureRecognizer)
+        self.mainBackView.addGestureRecognizer(gestureRecognizer)
     }
 
     //MARK:- Public
@@ -271,7 +281,20 @@ extension ADEventFilterVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //clear all
         self.delegate?.adEventFilterVC(filterVC: self, didChangedFilter: nil)
-        self.hide(animated: true, shouldRemove: true)
+        self.selectedFilter = AccountSelectedFilter()
+        self.allChildVCs.forEach { (viewController) in
+            if let vc = viewController as? TravelDateVC {
+                vc.oldToDate = self.oldFilter?.toDate
+                vc.oldFromDate = self.oldFilter?.fromDate
+                vc.minFromDate = self.minFromDate
+                vc.setFilterValues()
+            }
+            else if let vc = viewController as? ADVoucherTypeVC {
+                vc.viewModel.selectedIndexPath = IndexPath(row: 0, section: 0)
+                vc.tableView.reloadData()
+            }
+        }
+       // self.hide(animated: true, shouldRemove: true)
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
@@ -291,27 +314,30 @@ extension ADEventFilterVC: ATCategoryNavBarDelegate {
 //MARK:- UIGestureRecognizerDelegate Method
 extension ADEventFilterVC {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        return (touch.view === self.view)
+        return (touch.view === self.mainBackView)
     }
 }
 
 extension ADEventFilterVC: ADVoucherTypeVCDelegate, TravelDateVCDelegate {
 
     func didSelect(voucher: String) {
-        if !voucher.isEmpty, voucher.lowercased() != "all" {
+//        if !voucher.isEmpty, voucher.lowercased() != "all" {
             self.selectedFilter.voucherType = voucher
-        }
-        else {
-            self.selectedFilter.voucherType = ""
-        }
+//        }
+//        else {
+//            self.selectedFilter.voucherType = ""
+//        }
+        self.delegate?.adEventFilterVC(filterVC: self, didChangedFilter: self.selectedFilter)
     }
     
     func didSelect(toDate: Date?, forType: TravelDateVC.UsingFor) {
         self.selectedFilter.toDate = toDate
+        self.delegate?.adEventFilterVC(filterVC: self, didChangedFilter: self.selectedFilter)
     }
     
     func didSelect(fromDate: Date?, forType: TravelDateVC.UsingFor) {
         self.selectedFilter.fromDate = fromDate
+        self.delegate?.adEventFilterVC(filterVC: self, didChangedFilter: self.selectedFilter)
     }
 }
 

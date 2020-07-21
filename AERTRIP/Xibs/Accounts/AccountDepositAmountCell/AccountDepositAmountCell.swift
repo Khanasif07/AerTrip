@@ -41,13 +41,16 @@ class AccountDepositAmountCell: UITableViewCell {
 
         self.setFontAndColor()
         self.amountTextField.addTarget(self, action: #selector(self.textFieldDidEndEditing(_:)), for: .editingDidEnd)
-        self.amountTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        //self.amountTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
 
+    }
+    deinit {
+        printDebug("deinit AccountDepositAmountCell")
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+        self.amountTextField.attributedText = nil
         self.amountTextField.font = AppFonts.SemiBold.withSize(40.0)
         self.amountTextField.keyboardType = .numberPad
     }
@@ -73,10 +76,10 @@ class AccountDepositAmountCell: UITableViewCell {
     private func setData() {
         let value = amount.delimiterWithoutSymbol
         self.amountTextField.text = value
-        if !amountTextSetOnce {
-            amountTextSetOnce = true
-        self.amountTextField.AttributedBackgroundColorForText(text: value, textColor: AppColors.themeBlue.withAlphaComponent(0.26))
-        }
+//        if !amountTextSetOnce {
+//            amountTextSetOnce = true
+//        self.amountTextField.AttributedBackgroundColorForText(text: value, textColor: AppColors.themeBlue.withAlphaComponent(0.26))
+//        }
         
     }
     
