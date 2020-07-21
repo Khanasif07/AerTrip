@@ -538,6 +538,8 @@
 {
     [self hideLoaderIndicatorForFilghtSearch];
     
+    self.isInternationalJourney = !bookflightObject.isDomestic;
+    
     NSMutableArray *values= [NSMutableArray array];
     
     if (bookflightObject.flightSearchType == MULTI_CITY && !self.isInternationalJourney) {

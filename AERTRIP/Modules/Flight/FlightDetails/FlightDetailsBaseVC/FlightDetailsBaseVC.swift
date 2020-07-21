@@ -141,18 +141,17 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
 //            addIntFlightInfoVC()
 //            addIntBaggageVC()
 //            addIntFareInfo()
-            allChildVCs.append(addFlightInfoVC())
-            allChildVCs.append(addBaggageVC())
-            allChildVCs.append(addFareInfoVC())
+            allChildVCs.append(addIntFlightInfoVC())
+            allChildVCs.append(addIntBaggageVC())
+            allChildVCs.append(addIntFareInfo())
         }else{
                         //            addIntFlightInfoVC()
             //            addIntBaggageVC()
             //            addIntFareInfo()
             
-            
-            allChildVCs.append(addIntFlightInfoVC())
-            allChildVCs.append(addIntBaggageVC())
-            allChildVCs.append(addIntFareInfo())
+            allChildVCs.append(addFlightInfoVC())
+            allChildVCs.append(addBaggageVC())
+            allChildVCs.append(addFareInfoVC())
         }
         
     }
@@ -199,6 +198,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         self.parchmentView?.indicatorColor = UIColor.AertripColor
         self.parchmentView?.selectedTextColor = .black
         self.parchmentView?.menuBackgroundColor = .white
+        self.parchmentView?.view.frame = self.testView.bounds
         self.testView.addSubview(self.parchmentView!.view)
         
         self.parchmentView?.collectionView.isScrollEnabled = false
@@ -238,7 +238,6 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     }
     
     func addBaggageVC() -> UIViewController{
-        let bottomInset = ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!)
         
         let baggageVC = BaggageVC(nibName: "BaggageVC", bundle: nil)
         baggageVC.journey = journey
@@ -677,15 +676,15 @@ extension FlightDetailsBaseVC: PagingViewControllerDataSource , PagingViewContro
 {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        self.parchmentView?.view.frame = self.testView.bounds
-        self.parchmentView?.loadViewIfNeeded()
+//        self.parchmentView?.view.frame = self.testView.bounds
+//        self.parchmentView?.loadViewIfNeeded()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        self.parchmentView?.view.frame = self.testView.bounds
-        self.parchmentView?.loadViewIfNeeded()
+//        self.parchmentView?.view.frame = self.testView.bounds
+//        self.parchmentView?.loadViewIfNeeded()
     }
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {

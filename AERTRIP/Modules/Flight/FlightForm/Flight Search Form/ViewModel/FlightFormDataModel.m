@@ -599,9 +599,13 @@
             date = [NSString stringWithFormat:@"%@ - %@",formattedFirstDate,formattedLastDate];
         }
     }
-    
-    bookFlightObject.isDomestic = [[dictionary valueForKey:@"is_domestic"] boolValue];
-    
+        
+    if ([[dictionary valueForKey:@"is_domestic"] boolValue]) {
+        bookFlightObject.isDomestic = YES;
+    } else {
+        bookFlightObject.isDomestic = NO;
+    }
+        
     bookFlightObject.subTitleString = [NSString stringWithFormat:@"%@  •  %ld Pax  •  %@", date,  (long)count, [flightSearchParameters valueForKey:@"cabinclass"]];
     
    if ( [tripType isEqualToString:@"return"]) {
