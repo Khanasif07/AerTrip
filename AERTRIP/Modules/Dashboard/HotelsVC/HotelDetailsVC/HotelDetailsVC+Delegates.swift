@@ -108,6 +108,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let tableViewRowCell = self.viewModel.hotelDetailsTableSectionData[indexPath.section]
         if indexPath.section == 0 {
             if (tableView.cellForRow(at: indexPath) as? HotelInfoAddressCell) != nil {
                 if indexPath.row == 2 {
@@ -136,6 +137,9 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                     AppGlobals.shared.stopLoading()
                 }
             }
+        }
+        if tableViewRowCell[indexPath.row] == .amenitiesCell{
+            self.viewAllButtonAction()
         }
     }
     
@@ -168,15 +172,21 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
 //==========================
 extension HotelDetailsVC: HotelDetailDelegate {
     func willGetPinnedTemplate() {
-        AppGlobals.shared.startLoading()
+//        AppGlobals.shared.startLoading()
+         self.needToShowLoaderOnShare = true
+        self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
     }
     
     func getPinnedTemplateSuccess() {
-        AppGlobals.shared.stopLoading()
+        self.needToShowLoaderOnShare = false
+        self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
+//        AppGlobals.shared.stopLoading()
     }
     
     func getPinnedTemplateFail() {
-        AppGlobals.shared.stopLoading()
+        self.needToShowLoaderOnShare = false
+        self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
+//        AppGlobals.shared.stopLoading()
     }
     
     

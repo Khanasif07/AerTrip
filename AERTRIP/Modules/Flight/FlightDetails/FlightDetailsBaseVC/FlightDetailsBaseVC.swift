@@ -813,7 +813,7 @@ extension FlightDetailsBaseVC{
     }
     
     func addIntFareInfo(){
-        let bottomInset = ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!)
+        let bottomInset = ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom) ?? 0.0)
         
         let vc = IntFareInfoVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
         vc.journey = [self.intJourney.first!]

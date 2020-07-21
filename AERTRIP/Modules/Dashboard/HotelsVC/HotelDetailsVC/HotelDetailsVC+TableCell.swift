@@ -49,6 +49,7 @@ extension HotelDetailsVC {
         if let hotelDetails = self.viewModel.hotelInfo, let placeData = self.viewModel.placeModel {
             cell.configureCell(hotelData: hotelDetails, placeData: placeData)
         }
+        cell.hideShowLoader(isHidden: !self.needToShowLoaderOnShare)
         return cell
     }
     
