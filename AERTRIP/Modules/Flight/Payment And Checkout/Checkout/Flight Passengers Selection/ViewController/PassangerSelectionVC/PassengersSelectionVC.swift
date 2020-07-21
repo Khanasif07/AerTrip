@@ -58,12 +58,12 @@ class PassengersSelectionVC: BaseVC {
     }
     
     private func registerCell(){
-        self.passengerTableview.register(UINib(nibName: "FlightEmptyCell", bundle: nil), forCellReuseIdentifier: "FlightEmptyCell")
-        self.passengerTableview.register(UINib(nibName: "FlightContactCell", bundle: nil), forCellReuseIdentifier: "FlightContactCell")
-        self.passengerTableview.register(UINib(nibName: "PassengerGridCell", bundle: nil), forCellReuseIdentifier: "PassengerGridCell")
-        self.passengerTableview.register(UINib(nibName: "FlightEmailFieldCell", bundle: nil), forCellReuseIdentifier: "FlightEmailFieldCell")
-        self.passengerTableview.register(UINib(nibName: "UseGSTINCell", bundle: nil), forCellReuseIdentifier: "UseGSTINCell")
-        self.passengerTableview.register(UINib(nibName: "CommunicationTextCell", bundle: nil), forCellReuseIdentifier: "CommunicarionCell")
+        self.passengerTableview.registerCell(nibName: FlightEmptyCell.reusableIdentifier)
+        self.passengerTableview.registerCell(nibName: FlightContactCell.reusableIdentifier)
+        self.passengerTableview.registerCell(nibName: PassengerGridCell.reusableIdentifier)
+        self.passengerTableview.registerCell(nibName: FlightEmailFieldCell.reusableIdentifier)
+        self.passengerTableview.registerCell(nibName: UseGSTINCell.reusableIdentifier)
+        self.passengerTableview.registerCell(nibName: CommunicationTextCell.reusableIdentifier)
     }
         
     private func setupFont(){
