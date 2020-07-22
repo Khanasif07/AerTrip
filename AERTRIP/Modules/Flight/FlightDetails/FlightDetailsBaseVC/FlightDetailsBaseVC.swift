@@ -199,6 +199,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         self.parchmentView?.selectedTextColor = .black
         self.parchmentView?.menuBackgroundColor = .white
         self.parchmentView?.view.frame = self.testView.bounds
+        self.parchmentView?.view.height += 50
         self.testView.addSubview(self.parchmentView!.view)
         
         self.parchmentView?.collectionView.isScrollEnabled = false
