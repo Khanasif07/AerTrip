@@ -21,7 +21,6 @@ protocol AccountDetailsVMDelegate: class {
 class AccountDetailsVM: NSObject {
     //MARK:- Properties
     //MARK:- Public
-    var oldFilter: AccountSelectedFilter?
     var walletAmount: Double = 0.0
     private(set) var _accountDetails: JSONDictionary = JSONDictionary() {
         didSet {
@@ -164,13 +163,9 @@ class AccountDetailsVM: NSObject {
         }
     }
     
-    func applyFilter(filter: AccountSelectedFilter?, searchText: String) {
-        self.oldFilter = filter
-        
-        
-        if let filtr = self.oldFilter {
-            
-            if !filtr.isFilterAplied {
+    func applyFilter(searchText: String) {
+            let filtr = ADEventFilterVM.shared
+            if !ADEventFilterVM.shared.isFilterAplied {
                 setAccountDetails(data: _accountDetails)
             } else {
                 var newData = JSONDictionary()
@@ -202,12 +197,17 @@ class AccountDetailsVM: NSObject {
                         }
                         fltrd = fltrd.filter { event in
                             var status = false
-                            if !filtr.voucherType.isEmpty {
-                                if filtr.voucherType.lowercased() == "all" {
+                            if !filtr.selectedVoucherType.isEmpty {
+                                if filtr.selectedVoucherType.contains(where: { (voucher) -> Bool in
+                                    return voucher.lowercased() == "all"
+                                }) {
                                     status = true
-                                } else if filtr.voucherType.lowercased() == event.voucherName.lowercased() {
+                                }
+                                else if filtr.selectedVoucherType.contains(where: { (voucher) -> Bool in
+                                    return voucher.lowercased() == event.voucherName.lowercased()
+                                }) {
                                     status = true
-                                } else {
+                                }else {
                                     status = false
                                 }
                             } else {
@@ -224,9 +224,7 @@ class AccountDetailsVM: NSObject {
                 
                 setAccountDetails(data: newData)
             }
-        } else {
-            setAccountDetails(data: _accountDetails)
-        }
+        
         self.delegate?.applyFilterSuccess()
         /*
          //filters are changed filter according dates and voucher

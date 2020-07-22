@@ -485,9 +485,13 @@ extension AccountOfflineDepositVC {
                 case 8:
                     
                     if self.currentUsingAs == .fundTransfer {
+                        var pickerValue = ["NEFT", "IMPS"]
+                        if self.viewModel.userEnteredDetails.depositAmount >= 200000{
+                            pickerValue.append("RTGS")
+                        }
                         //transfer type
                         PKMultiPicker.noOfComponent = 1
-                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: ["NEFT", "IMPS"], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self] (firstSelect, secondSelect) in
+                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: pickerValue, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self] (firstSelect, secondSelect) in
                             textField.text = firstSelect
                             self.viewModel.userEnteredDetails.transferType = firstSelect
                         }
@@ -574,6 +578,10 @@ extension AccountOfflineDepositVC {
 extension AccountOfflineDepositVC: AccountDepositAmountCellDelegate {
     func amountDidChanged(amount: Double, amountString: String) {
         self.viewModel.userEnteredDetails.depositAmount = amount
+        if self.viewModel.userEnteredDetails.depositAmount < 200000, self.viewModel.userEnteredDetails.transferType == "RTGS"{
+            self.viewModel.userEnteredDetails.transferType = ""
+            self.checkOutTableView.reloadData()
+        }
     }
 }
 

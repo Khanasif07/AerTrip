@@ -97,6 +97,7 @@ class TravelDateVC: BaseVC {
     }
     
     private func setupDatePickers() {
+        
        // self.showLoaderOnView(view: self.mainContainerView, show: true)
         
         self.setDateOnLabels(fromDate: nil, toDate: nil)
@@ -183,14 +184,14 @@ class TravelDateVC: BaseVC {
         }
         if self.toDateLabel?.text == "-" {
             self.toDateCloseBtn?.isHidden = true
-            self.closeToDatePicker()
+            self.closeToDatePicker(animated: false)
         } else {
             self.toDateCloseBtn?.isHidden = false
         }
         
         if self.fromDateLabel?.text == "-" {
             self.fromDateCloseBtn?.isHidden = true
-            self.closeFromDatePicker()
+            self.closeFromDatePicker(animated: false)
         } else {
             self.fromDateCloseBtn?.isHidden = false
         }
@@ -380,7 +381,8 @@ class TravelDateVC: BaseVC {
         closeToDatePicker()
     }
     
-    func closeFromDatePicker() {
+    func closeFromDatePicker(animated: Bool = true) {
+        if animated {
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             // close from picker
             self.fromViewHeightConstraint.constant = self.closedHeight
@@ -389,15 +391,27 @@ class TravelDateVC: BaseVC {
             self.view.layoutIfNeeded()
         }) { _ in
         }
+        } else {
+            self.fromViewHeightConstraint.constant = self.closedHeight
+            self.fromDatePickerContainer.alpha = 0.0
+            self.firstDividerView.alpha = 0.0
+            self.view.layoutIfNeeded()
+        }
     }
     
-    func closeToDatePicker() {
+    func closeToDatePicker(animated: Bool = true) {
+        if animated {
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             // close to picker
             self.toViewHeightConstraint.constant = self.closedHeight
             self.toDatePickerContainer.alpha = 0.0
             self.view.layoutIfNeeded()
         }) { _ in
+        }
+        } else {
+            self.toViewHeightConstraint.constant = self.closedHeight
+            self.toDatePickerContainer.alpha = 0.0
+            self.view.layoutIfNeeded()
         }
     }
 }

@@ -44,6 +44,17 @@ class AccountLadgerDetailsVM {
 //        amountDetails["Voucher No."] = self.ladgerEvent!.voucherNo
 //        amountDetails["Amount"] = "\(self.ladgerEvent!.amount)"
 //        amountDetails["Balance"] = "\(self.ladgerEvent!.balance)"
+        if self.ladgerEvent!.dueDate != nil{
+            let days = self.ladgerEvent!.overDueDays
+            let daysStr = (days > 1) ? "days" : "day"
+            //fAmountDetails["Over Due by days"] = "\(abs(days)) \(daysStr)"
+            var section1 = [(title: String, value: String, age: String, isEmptyCell: Bool)]()
+            section1.append((title: "Pending Amount", value: "\(self.ladgerEvent!.pendingAmount)", age: "", isEmptyCell: false))
+            section1.append((title: "Due Date", value: self.ladgerEvent!.dueDate?.toString(dateFormat: "dd-MM-YYYY") ?? "", age: "", isEmptyCell: false))
+            section1.append((title: "Over Due by days", value: "\(abs(days)) \(daysStr)", age: "", isEmptyCell: false))
+            section1.append((title: "", value: "", age: "", isEmptyCell: true))
+            self.sectionArray.append(section1)
+        }
         
         var section1 = [(title: String, value: String, age: String, isEmptyCell: Bool)]()
         section1.append((title: "Date", value: self.ladgerEvent!.date?.toString(dateFormat: "dd-MM-YYYY") ?? "", age: "",  isEmptyCell: false))
@@ -51,6 +62,7 @@ class AccountLadgerDetailsVM {
         section1.append((title: "Voucher No.", value: self.ladgerEvent!.voucherNo, age: "",  isEmptyCell: false))
         section1.append((title: "Amount", value: "\(abs(self.ladgerEvent!.amount))", age: "", isEmptyCell: false))
         section1.append((title: "Balance", value: "\(self.ladgerEvent!.balance)", age: "", isEmptyCell: false))
+        section1.append((title: "", value: "", age: "", isEmptyCell: true))
         self.sectionArray.append(section1)
 
        // self.ladgerDetails["0"] = amountDetails
@@ -88,7 +100,7 @@ class AccountLadgerDetailsVM {
 //            fAmountDetails["Over Due by days"] = "\(abs(days)) \(daysStr)"
             
             section2.append((title: "Date", value: self.ladgerEvent!.date?.toString(dateFormat: "dd-MM-YYYY") ?? "", age: "", isEmptyCell: false))
-            section2.append((title: "Bill Number", value: self.ladgerEvent!.billNumber, age: "", isEmptyCell: false))
+            section2.append((title: "Bill Number", value: self.ladgerEvent!.voucherNo, age: "", isEmptyCell: false))
             section2.append((title: "Total Amount", value: "\(self.ladgerEvent!.totalAmount)", age: "", isEmptyCell: false))
             section2.append((title: "", value: "", age: "", isEmptyCell: true))
             self.sectionArray.append(section2)
@@ -104,6 +116,7 @@ class AccountLadgerDetailsVM {
 //            voucherDetails["Amount"] = "\(self.ladgerEvent!.amount)"
 //
 //            self.ladgerDetails["1"] = voucherDetails
+            /*
             var section3 = [(title: String, value: String, age: String, isEmptyCell: Bool)]()
             section3.append((title: "Voucher Date", value: self.ladgerEvent!.date?.toString(dateFormat: "dd-MM-YYYY") ?? "", age: "", isEmptyCell: false))
             section3.append((title: "Voucher", value: self.ladgerEvent!.voucherName, age: "", isEmptyCell: false))
@@ -111,7 +124,7 @@ class AccountLadgerDetailsVM {
             section3.append((title: "Amount", value: "\(abs(self.ladgerEvent!.amount))", age: "", isEmptyCell: false))
             section3.append((title: "", value: "", age: "", isEmptyCell: true))
             self.sectionArray.append(section3)
-            
+            */
             
             //flight details
            // var flightDetails = JSONDictionary()
@@ -159,7 +172,7 @@ class AccountLadgerDetailsVM {
             }
             
             //self.ladgerDetails["1"] = flightDetails
-            //section4.append((title: "", value: "", age: "", isEmptyCell: true))
+            section4.append((title: "", value: "", age: "", isEmptyCell: true))
             self.sectionArray.append(section4)
             
            // self.ladgerDetails["2"] = flightDetails
@@ -219,7 +232,7 @@ class AccountLadgerDetailsVM {
             }
             
             //self.ladgerDetails["1"] = flightDetails
-            //section2.append((title: "", value: "", age: "", isEmptyCell: true))
+            section2.append((title: "", value: "", age: "", isEmptyCell: true))
             self.sectionArray.append(section2)
 
         }
@@ -273,7 +286,7 @@ class AccountLadgerDetailsVM {
             
             var section2 = [(title: String, value: String, age: String, isEmptyCell: Bool)]()
             section2.append((title: "Date", value: self.ladgerEvent!.date?.toString(dateFormat: "dd-MM-YYYY") ?? "", age: "", isEmptyCell: false))
-            section2.append((title: "Bill Number", value: self.ladgerEvent!.billNumber, age: "", isEmptyCell: false))
+            section2.append((title: "Bill Number", value: self.ladgerEvent!.voucherNo, age: "", isEmptyCell: false))
             section2.append((title: "Total Amount", value: "\(self.ladgerEvent!.totalAmount)", age: "", isEmptyCell: false))
             section2.append((title: "", value: "", age: "", isEmptyCell: true))
             self.sectionArray.append(section2)
@@ -314,7 +327,7 @@ class AccountLadgerDetailsVM {
         }
         
         //self.ladgerDetails["1"] = bookingDetails
-        //section3.append((title: "", value: "", age: "", isEmptyCell: true))
+        section3.append((title: "", value: "", age: "", isEmptyCell: true))
         self.sectionArray.append(section3)
 
     }

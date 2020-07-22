@@ -160,18 +160,30 @@
                                     <constraint firstItem="kNn-Ad-ZBZ" firstAttribute="leading" secondItem="TN6-u3-v8D" secondAttribute="leading" id="y1y-gM-ksf"/>
                                 </constraints>
                             </view>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JfE-Y0-1gq">
+                                <rect key="frame" x="0.0" y="165" width="414" height="2"/>
+                                <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="iiP-8c-DGw"/>
+                                </constraints>
+                                <color key="progressTintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="JfE-Y0-1gq" firstAttribute="leading" secondItem="t5T-XB-FFI" secondAttribute="leading" id="5hQ-ok-Ytx"/>
                             <constraint firstItem="Jht-mn-azk" firstAttribute="leading" secondItem="eOR-Sa-j4l" secondAttribute="leading" id="92k-Jq-LNC"/>
                             <constraint firstItem="Jht-mn-azk" firstAttribute="trailing" secondItem="ziz-Lg-1eA" secondAttribute="trailing" id="A81-Zt-pFR"/>
                             <constraint firstAttribute="bottom" secondItem="PGS-5S-Bgb" secondAttribute="bottom" id="CKa-Uy-d6E"/>
+                            <constraint firstAttribute="trailing" secondItem="JfE-Y0-1gq" secondAttribute="trailing" id="IKI-eJ-RET"/>
                             <constraint firstItem="lRS-hF-bsl" firstAttribute="top" secondItem="t5T-XB-FFI" secondAttribute="top" id="K4R-Y5-Wox"/>
                             <constraint firstItem="PGS-5S-Bgb" firstAttribute="top" secondItem="Jht-mn-azk" secondAttribute="top" id="Pku-V1-qb8"/>
                             <constraint firstItem="ziz-Lg-1eA" firstAttribute="top" secondItem="eOR-Sa-j4l" secondAttribute="bottom" constant="-1" id="QZe-Be-6X8"/>
                             <constraint firstItem="lRS-hF-bsl" firstAttribute="leading" secondItem="aoE-5V-ZMQ" secondAttribute="leading" id="S7w-Ou-Fns"/>
                             <constraint firstItem="eOR-Sa-j4l" firstAttribute="trailing" secondItem="Jht-mn-azk" secondAttribute="trailing" id="SAt-bv-XlH"/>
                             <constraint firstItem="Jht-mn-azk" firstAttribute="trailing" secondItem="aoE-5V-ZMQ" secondAttribute="trailing" id="T9E-xt-o7v"/>
+                            <constraint firstItem="JfE-Y0-1gq" firstAttribute="top" secondItem="lRS-hF-bsl" secondAttribute="bottom" id="TFj-aX-gEl"/>
                             <constraint firstItem="lRS-hF-bsl" firstAttribute="bottom" secondItem="eOR-Sa-j4l" secondAttribute="bottom" id="TTc-Hw-fBE"/>
                             <constraint firstItem="lRS-hF-bsl" firstAttribute="trailing" secondItem="aoE-5V-ZMQ" secondAttribute="trailing" id="TVr-wT-qW3"/>
                             <constraint firstItem="aoE-5V-ZMQ" firstAttribute="top" secondItem="Jht-mn-azk" secondAttribute="top" id="UGr-TO-ah9"/>
@@ -196,6 +208,7 @@
                         <outlet property="openingBalanceDateLabel" destination="BKQ-fo-hsw" id="2xz-ME-Zz0"/>
                         <outlet property="openingBalanceTitleLabel" destination="77e-Yz-bFY" id="9lV-bF-Mgy"/>
                         <outlet property="openingDetailContainerView" destination="qsh-4H-Ggd" id="2mZ-8e-dEq"/>
+                        <outlet property="progressView" destination="JfE-Y0-1gq" id="6Za-p8-Fba"/>
                         <outlet property="searchBar" destination="AMg-KB-Rja" id="1Cb-Bf-LOr"/>
                         <outlet property="searchBarContainerView" destination="ETc-M1-MdA" id="jly-ao-CLH"/>
                         <outlet property="searchContainerView" destination="OhW-km-KdJ" id="ZcA-ux-lHw"/>
@@ -577,15 +590,17 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                         <subviews>
                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="h6X-6J-jKa">
-                                                <rect key="frame" x="312.5" y="15" width="20" height="20"/>
+                                                <rect key="frame" x="378" y="15" width="20" height="20"/>
                                             </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="h6X-6J-jKa" secondAttribute="trailing" constant="16" id="6Pe-Ac-TWg"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="h6X-6J-jKa" firstAttribute="centerX" secondItem="pfg-ku-SMb" secondAttribute="centerX" constant="20" id="4bM-LT-1XT"/>
                                     <constraint firstAttribute="trailing" secondItem="L5M-AI-5rE" secondAttribute="trailing" id="4ob-o6-lgw"/>
                                     <constraint firstAttribute="trailing" secondItem="hDd-pZ-ytu" secondAttribute="trailing" constant="16" id="8l2-AK-uxh"/>
                                     <constraint firstAttribute="bottom" secondItem="L5M-AI-5rE" secondAttribute="bottom" constant="10" id="F6T-dj-v9Z"/>

@@ -1350,6 +1350,7 @@
 		8491D1FB222D3FC2001D0313 /* SourceSansPro-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8491D1E8222D3FC1001D0313 /* SourceSansPro-ExtraLightItalic.ttf */; };
 		8491D1FC222D3FC2001D0313 /* SourceSansPro-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8491D1E9222D3FC1001D0313 /* SourceSansPro-Italic.ttf */; };
 		8491D1FD222D3FC2001D0313 /* AERTRIP.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8491D1EA222D3FC1001D0313 /* AERTRIP.xcdatamodeld */; };
+		8492748224C85FCD00ACC997 /* ADEventFilterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8492748124C85FCB00ACC997 /* ADEventFilterVM.swift */; };
 		8493CD4D2240E0A30073A679 /* YouAreAllDoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8493CD4C2240E0A30073A679 /* YouAreAllDoneVC.swift */; };
 		8495132622BA74B800938CB0 /* SourceSansPro-Regular.woff in Resources */ = {isa = PBXBuildFile; fileRef = 8495132322BA74B400938CB0 /* SourceSansPro-Regular.woff */; };
 		8495132722BA74B800938CB0 /* SourceSansPro-Regular.eot in Resources */ = {isa = PBXBuildFile; fileRef = 8495132422BA74B600938CB0 /* SourceSansPro-Regular.eot */; };
@@ -3105,6 +3106,7 @@
 		8491D1E8222D3FC1001D0313 /* SourceSansPro-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		8491D1E9222D3FC1001D0313 /* SourceSansPro-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Italic.ttf"; sourceTree = "<group>"; };
 		8491D1EB222D3FC1001D0313 /* AERTRIP.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AERTRIP.xcdatamodel; sourceTree = "<group>"; };
+		8492748124C85FCB00ACC997 /* ADEventFilterVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADEventFilterVM.swift; sourceTree = "<group>"; };
 		8493CD4C2240E0A30073A679 /* YouAreAllDoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouAreAllDoneVC.swift; sourceTree = "<group>"; };
 		8495132322BA74B400938CB0 /* SourceSansPro-Regular.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.woff"; sourceTree = "<group>"; };
 		8495132422BA74B600938CB0 /* SourceSansPro-Regular.eot */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.eot"; sourceTree = "<group>"; };
@@ -8733,6 +8735,7 @@
 			children = (
 				84F4DB90226DDE9600B68171 /* ADVoucherTypeVC */,
 				84F4DB8E226DCC0500B68171 /* ADEventFilterVC.swift */,
+				8492748124C85FCB00ACC997 /* ADEventFilterVM.swift */,
 			);
 			path = ADEventFilterVC;
 			sourceTree = "<group>";
@@ -9897,6 +9900,7 @@
 				84F983C921B51A070018DFED /* AppColors.swift in Sources */,
 				845B619224C0226C00369CC1 /* WebCheckinVM.swift in Sources */,
 				846EADA324A4794D00BF5E40 /* PostBookingAddOnConfModel.swift in Sources */,
+				8492748224C85FCD00ACC997 /* ADEventFilterVM.swift in Sources */,
 				18D284AD2499EEC1000457F6 /* PostBookingFlightDetailsVM.swift in Sources */,
 				84DD2489226715530013F77E /* BookingTravellersDetailsTableViewCell.swift in Sources */,
 				843FF51924740231001F21B1 /* IntMCAndReturnVC+ScrollView.swift in Sources */,
@@ -10872,7 +10876,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 105;
+				CURRENT_PROJECT_VERSION = 106;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11081,7 +11085,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 105;
+				CURRENT_PROJECT_VERSION = 106;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;

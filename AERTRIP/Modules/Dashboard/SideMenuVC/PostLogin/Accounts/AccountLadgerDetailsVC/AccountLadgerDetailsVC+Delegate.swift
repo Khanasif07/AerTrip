@@ -351,9 +351,10 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             cell.stackTopConstraint.constant = 6
             cell.stackBottomConstraint.constant = 0
         }
-        else if indexPath.row == self.viewModel.sectionArray[section].count-1{
+        else if indexPath.row == self.viewModel.sectionArray[section].count-2{
             cell.stackTopConstraint.constant = 0
             cell.stackBottomConstraint.constant = 6
+            printDebug("indexPath: \(indexPath)")
         }else{
             cell.stackTopConstraint.constant = 0
             cell.stackBottomConstraint.constant = 0

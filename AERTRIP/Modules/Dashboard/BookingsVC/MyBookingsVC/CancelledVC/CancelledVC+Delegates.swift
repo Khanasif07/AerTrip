@@ -46,14 +46,12 @@ extension CancelledVC: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30//section == 0 ? 44.0 : 36
+        return section == 0 ? 45 : 35
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        //guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: DateTableHeaderView.className) as? DateTableHeaderView else { return nil }
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: tableViewHeaderCellIdentifier) as? TravellerListTableViewSectionView else {
-            return nil
-        }
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: DateTableHeaderView.className) as? DateTableHeaderView else { return nil }
+
         guard let sections = self.fetchedResultsController.sections else {
             fatalError("No sections in fetchedResultsController")
         }
@@ -69,13 +67,7 @@ extension CancelledVC: UITableViewDelegate , UITableViewDataSource {
             let format = date.isCurrentYear ? "E, d MMM" : "d MMM yyyy"
             headerText = date.toString(dateFormat: format)
         }
-        headerView.headerLabel.text = headerText
-        //        headerView.configViewForBooking(date: headerText, isFirstHeaderView: section == 0)
-        headerView.topSepratorView.isHidden = section == 0 ? true : false
-        if showFirstDivider {
-            headerView.topSepratorView.isHidden = false
-        }
-        //        headerView.bottomDividerView.isHidden = false
+        headerView.configViewForBooking(date: headerText, isFirstHeaderView: section == 0 ? true : false)
         return headerView
     }
     
