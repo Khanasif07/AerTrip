@@ -321,16 +321,12 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
     }
 
     
-    
     func formatted(fare : Int ) -> String {
-        
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.maximumFractionDigits = 0
-        
         formatter.locale = Locale.init(identifier: "en_IN")
         return formatter.string(from: NSNumber(value: fare)) ?? ""
-
     }
     
     func checkForComboFares() {
@@ -381,7 +377,16 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
                                 frame.size.height = frame.size.height - 16
                             }
                             
+                            //Gurpreet
+                        AppToast.default.hideToast(parentVC, animated: false)
+                            
+                        delay(seconds: 0.3) {
                             AertripToastView.toast(in: parentVC.view , withText: "Flight timings are not compatible. Select a different flight." , parentRect: frame)
+                            }
+                            
+//                            AppToast.default.showToastMessage(message: "Flight timings are not compatible. Select a different flight.", onViewController: parentVC, spaceFromBottom : bottomInset)
+
+                            
                             setTextColorToHeader(.AERTRIP_RED_COLOR, indexPath: i)
                             setTextColorToHeader(.AERTRIP_RED_COLOR, indexPath: (i + 1 ))
                             fareBreakupVC?.bookButton.isEnabled = false
@@ -399,7 +404,16 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
                             if fsr > 0 {
                                 frame.size.height = frame.size.height - 16
                             }
-                            AertripToastView.toast(in: parentVC.view , withText: "Selected flights have less than 2 hrs of gap." , parentRect: frame)
+                            
+                             //Gurpreet
+                            AppToast.default.hideToast(parentVC, animated: false)
+
+                            delay(seconds: 0.3) {
+                                AertripToastView.toast(in: parentVC.view , withText: "Selected flights have less than 2 hrs of gap." , parentRect: frame)
+                            }
+                            
+//                            AppToast.default.showToastMessage(message: "Selected flights have less than 2 hrs of gap.", onViewController: parentVC, spaceFromBottom : bottomInset)
+                            
                         }
                     }
                     else {

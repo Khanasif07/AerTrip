@@ -335,7 +335,7 @@ static NSMutableArray *toasts;
     
     
     // Fade in parent view
-    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseIn
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseIn
      
                      animations:^{
         self.alpha = 0.f;

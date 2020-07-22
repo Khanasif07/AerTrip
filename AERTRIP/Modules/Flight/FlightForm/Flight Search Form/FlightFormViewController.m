@@ -830,7 +830,6 @@
     if (cell == nil) {
         NSArray *customCell = [[NSBundle mainBundle] loadNibNamed:@"MultiCityFlightTableViewCell" owner:self options:nil];
         cell = [customCell objectAtIndex:0];
-
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.delegate = self;
@@ -937,9 +936,13 @@
     
     
     [UIView animateWithDuration:0.3 animations:^{
-        
-        originAnimationLabel.frame = leftLabelTargetFrame;
-        destinationAnimationLabel.frame = rightLabelTargetFrame;
+        //Gurpreet
+        originAnimationLabel.frame = CGRectMake(leftLabelTargetFrame.origin.x, originAnimationLabel.frame.origin.y, originAnimationLabel.frame.size.width, originAnimationLabel.frame.size.height);
+              
+              destinationAnimationLabel.frame = CGRectMake(rightLabelTargetFrame.origin.x, destinationAnimationLabel.frame.origin.y, destinationAnimationLabel.frame.size.width, destinationAnimationLabel.frame.size.height);
+    
+//        originAnimationLabel.frame = leftLabelTargetFrame;
+//        destinationAnimationLabel.frame = rightLabelTargetFrame;
         
     } completion:^(BOOL finished) {
         

@@ -45,7 +45,12 @@ class AppToast: NSObject {
             self.buttonAction = buttonAction
             if let view = onViewController?.view {
                 if buttonTitle.isEmpty {
-                AertripToastView.toast(in: view, withText: message)
+                    self.hideToast(onViewController, animated: true)
+                    delay(seconds: 0.3) {
+                        AertripToastView.toast(in: view, withText: message)
+                        
+                    
+                    }
                 } else {
                     self.parentViewController = onViewController
                     AertripToastView.toast(in: view, withText: message, buttonTitle: buttonTitle, delegate: self)
