@@ -77,10 +77,10 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         var startingDate: String = ""
         var endingDate: String = ""
         if !toDate.isEmpty {
-            endingDate = Date.getDateFromString(stringDate: toDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "E, d MMM yyyy hh.mm aa") ?? ""
+            endingDate = Date.getDateFromString(stringDate: toDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "E, d MMM yyyy hh:mm aa") ?? ""
         }
         if !fromDate.isEmpty {
-            startingDate = Date.getDateFromString(stringDate: fromDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "E, d MMM yyyy hh.mm aa") ?? ""
+            startingDate = Date.getDateFromString(stringDate: fromDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "E, d MMM yyyy hh:mm aa") ?? ""
         }
         if !toDate.isEmpty && fromDate.isEmpty && penalty == 0 {
             let cancelDesc: String = Date.getDateFromString(stringDate: toDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "d MMM’ yy") ?? ""
@@ -152,10 +152,10 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         var startingDate: String = ""
         var endingDate: String = ""
         if !toDate.isEmpty {
-            endingDate = Date.getDateFromString(stringDate: toDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "E, d MMM yyyy hh.mm aa") ?? ""
+            endingDate = Date.getDateFromString(stringDate: toDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "E, d MMM yyyy hh:mm aa") ?? ""
         }
         if !fromDate.isEmpty {
-            startingDate = Date.getDateFromString(stringDate: fromDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "E, d MMM yyyy hh.mm aa") ?? ""
+            startingDate = Date.getDateFromString(stringDate: fromDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "E, d MMM yyyy hh:mm aa") ?? ""
         }
         var penaltyString: String = ""
         if isRefundable {

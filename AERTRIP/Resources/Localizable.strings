@@ -395,6 +395,7 @@
 // MARK: - RoomVC
 
 // Meal
+"RoomOnly" = "Room Only";
 "NoMeal" = "No Meal";
 "Breakfast" = "Breakfast";
 "HalfBoard" = "Half Board";

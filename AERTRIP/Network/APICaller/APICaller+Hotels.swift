@@ -256,8 +256,8 @@ extension APICaller {
                 
                 printDebug(json)
                 sSelf.handleResponse(json, success: { (sucess, jsonData) in
-                    if sucess, let response = jsonData[APIKeys.response.rawValue].dictionaryObject {
-                        let shortUrl = response[APIKeys.shortUrl.rawValue] as? String
+                    if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject {
+                        let shortUrl = response[APIKeys.url.rawValue] as? String
                         completionBlock(true, [],shortUrl ?? "")
                     } else {
                         completionBlock(false, [],"")
@@ -267,14 +267,7 @@ extension APICaller {
                     completionBlock(false, errors, "")
                 })
             }) { (error) in
-    //            if error.code == AppNetworking.noInternetError.code {
-    //                AppGlobals.shared.stopLoading()
-    //                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
-    //                completionBlock(false, [], "")
-    //            }
-    //            else {
                     completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], "")
-    //            }
             }
         }
 }
