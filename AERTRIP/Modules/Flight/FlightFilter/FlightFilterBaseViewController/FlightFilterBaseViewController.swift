@@ -390,7 +390,7 @@ class FlightFilterBaseViewController: UIViewController{
             let layoverMax = CGFloat( round(duration / 3600.0))
             
             let leg = legList[index]
-            let durationFilter = DurationFilter(leg: leg, tripMin: trimMinDuration, tripMax: tripMaxDuration, layoverMin: layoverMin, layoverMax: layoverMax)
+            let durationFilter = DurationFilter(leg: leg, tripMin: trimMinDuration, tripMax: tripMaxDuration, layoverMin: layoverMin, layoverMax: layoverMax, layoverMinTimeFormat:"")
             
             durationFilters.append(durationFilter)
         }
@@ -459,7 +459,7 @@ class FlightFilterBaseViewController: UIViewController{
         }
 
         
-        let durationFilter = DurationFilter(leg: legList[0], tripMin: tripDurationMin, tripMax: tripDurationMax, layoverMin: layoverDurationMin, layoverMax: layoverMaxDuration)
+        let durationFilter = DurationFilter(leg: legList[0], tripMin: tripDurationMin, tripMax: tripDurationMax, layoverMin: layoverDurationMin, layoverMax: layoverMaxDuration, layoverMinTimeFormat:"")
         
         return durationFilter
         
