@@ -533,7 +533,6 @@
     NSDate *maximumDate = [theCalendar dateByAddingComponents:dayComponent toDate:[NSDate date] options:0];
     self.maximumDate = maximumDate;
     
-    
     [self.customCalenderView setScrollDirection:FSCalendarScrollDirectionVertical];
     self.customCalenderView.dataSource = self;
     self.customCalenderView.delegate = self;

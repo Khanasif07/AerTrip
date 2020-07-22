@@ -298,6 +298,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
                 
             }
         }
+        
         if selectedJourneys.count == numberOfLegs {
             return selectedJourneys
         }

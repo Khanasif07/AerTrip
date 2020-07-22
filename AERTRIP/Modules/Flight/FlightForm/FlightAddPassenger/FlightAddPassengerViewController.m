@@ -176,25 +176,39 @@
     self.doneButton.enabled = YES;
 }
 
-
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
     
     NSString * stringForTitle;
-    if (component == 0) {
-                stringForTitle = [self.numberOfAdultArray objectAtIndex:row];
-    }else if (component == 1) {
-               stringForTitle =  [self.numberOfChildArray objectAtIndex:row];
-    }else if (component == 2) {
-                stringForTitle = [self.numberOfInfantArray objectAtIndex:row];
-    }
+     if (component == 0) {
+                 stringForTitle = [self.numberOfAdultArray objectAtIndex:row];
+     }else if (component == 1) {
+                stringForTitle =  [self.numberOfChildArray objectAtIndex:row];
+     }else if (component == 2) {
+                 stringForTitle = [self.numberOfInfantArray objectAtIndex:row];
+     }
     
-    UILabel * label = [[UILabel alloc] init];
-    label.font = [UIFont fontWithName:@"SourceSansPro-Regular" size:23.0];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.text = stringForTitle;
-    return label;
-    
+    return stringForTitle;
 }
+
+
+//- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+//
+//    NSString * stringForTitle;
+//    if (component == 0) {
+//                stringForTitle = [self.numberOfAdultArray objectAtIndex:row];
+//    }else if (component == 1) {
+//               stringForTitle =  [self.numberOfChildArray objectAtIndex:row];
+//    }else if (component == 2) {
+//                stringForTitle = [self.numberOfInfantArray objectAtIndex:row];
+//    }
+//
+//    UILabel * label = [[UILabel alloc] init];
+//    label.font = [UIFont fontWithName:@"SourceSansPro-Regular" size:23.0];
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.text = stringForTitle;
+//    return label;
+//
+//}
 
 //MARK:- BOTTOM ANIMATIONS
 
