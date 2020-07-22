@@ -669,6 +669,8 @@ class IntMCAndReturnFlightFiltersBaseVC: UIViewController{
                                       userSelectedFareMaxValue: CGFloat(priceWS.maxPrice) )
         
         priceFilters.append(priceFilter)
+        priceViewController.intFlightResultArray = flightResultArray
+        priceViewController.isInternational = true
         priceViewController.legsArray = legList
         priceViewController.allPriceFilters = priceFilters
         priceViewController.currentPriceFilter = priceFilters[0]

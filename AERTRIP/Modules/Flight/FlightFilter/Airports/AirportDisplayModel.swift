@@ -91,6 +91,15 @@ struct AirportLegFilter {
     var layoverCities : [LayoverDisplayModel]
     var sameDepartReturnSelected = false
     
+    var originCitiesSortedArray : [AirportsGroupedByCity]{
+        return originCities.sorted(by: { $0.name < $1.name })
+    }
+    
+    
+    var destinationCitiesSortedArray : [AirportsGroupedByCity]{
+        return destinationCities.sorted(by: { $0.name < $1.name })
+    }
+    
     var originAirportsCount : Int {
         return originCities.reduce( 0 ) { $0 + $1.airportsCount }
     }
