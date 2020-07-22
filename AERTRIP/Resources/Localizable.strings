@@ -43,6 +43,7 @@
 "Continue_with_Linkedin"  = "Continue with Linkedin";
 "AllowEmailInFacebook" = "Please allow the access for email in Facebook";
 "AllowEmailInLinkedIn" = "Please allow the access for email in LinkedIn";
+"Continue_with_Apple"  = "Continue with Apple";
 
 // MARK:- LoginVC
 //MARK:-

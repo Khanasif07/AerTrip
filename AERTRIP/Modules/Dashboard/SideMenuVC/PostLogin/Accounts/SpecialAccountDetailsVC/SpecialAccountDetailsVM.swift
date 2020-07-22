@@ -78,8 +78,8 @@ class SpecialAccountDetailsVM {
     
     //MARK:- Private
     private func getStatementSummery(accountData: AccountModel) {
-        let stmtSummery = ["Statement Summary", "Opening Balance", "Recent Payments & Credits", "Recent Charges", "Total Outstanding"]
-        let stmtSummeryHeight: [CGFloat] = [titleH, detailWithDescH, detailH, detailWithDescH, grandTotalH]
+        let stmtSummery = ["Statement Summary", "Opening Balance", "Recent Transactions", "Total Outstanding"]
+        let stmtSummeryHeight: [CGFloat] = [titleH, detailWithDescH, detailWithDescH, grandTotalH]
         
         self.statementSummery.removeAll()
         for (idx, str) in stmtSummery.enumerated() {
@@ -99,25 +99,25 @@ class SpecialAccountDetailsVM {
                     obj.amount = abs(event.amount).amountInDelimeterWithSymbol
                 }
             }
-            else if idx == 2 {
-                if let amount = accountData.statements?.recentCredit {
-                    obj.symbol = (amount < 0) ? "-" : "+"
-                    obj.amount = abs(amount).amountInDelimeterWithSymbol
-                }
-            }
-            else if idx == 3 {
+//            else if idx == 2 {
+//                if let amount = accountData.statements?.recentCredit {
+//                    obj.symbol = (amount < 0) ? "-" : "+"
+//                    obj.amount = abs(amount).amountInDelimeterWithSymbol
+//                }
+//            }
+            else if idx == 2 {//3 {
                 
                 if let event = accountData.statements?.recentDebit {
                     if let start = event.dates.first, let end = event.dates.last {
                         obj.description = "\(start.toString(dateFormat: "dd MMM")) - \(end.toString(dateFormat: "dd MMM"))"
                     }
                     
-                    obj.symbol = (event.amount < 0) ? "-" : "+"
-                    obj.amount = abs(event.amount).amountInDelimeterWithSymbol
+                    obj.symbol = "+" //(event.amount < 0) ? "-" : "+"
+                    obj.amount = event.amount.amountInDelimeterWithSymbol
                 }
                 obj.isDevider = true
             }
-            else if idx == 4 {
+            else if idx == 3 {//4 {
                 obj.symbol = "="
                 obj.amount = (accountData.statements?.amountDue ?? 0.0).amountInDelimeterWithSymbol
             }
@@ -159,7 +159,7 @@ class SpecialAccountDetailsVM {
     }
     
     private func getBilwiseSummery(accountData: AccountModel) {
-        let bwSummery = ["Billwise Statement", "Total Over Due", "Recent Charges", "Total Outstanding"]
+        let bwSummery = ["Billwise Statement", "Total Over Due", "Recent Transactions", "Total Outstanding"]
         let bwSummeryHeight: [CGFloat] = [titleH, detailH, detailH, grandTotalH]
         
         self.bilWiseSummery.removeAll()
@@ -176,7 +176,7 @@ class SpecialAccountDetailsVM {
                 obj.height = bwSummeryHeight[idx] - 13.0
             }
             else if idx == 2 {
-                obj.symbol = "-"
+                obj.symbol = "+"//"-"
                 obj.amount = (accountData.billwise?.recentCharges ?? 0.0).amountInDelimeterWithSymbol
                 obj.isDevider = true
             }
@@ -190,7 +190,7 @@ class SpecialAccountDetailsVM {
     }
     
     private func getCreditSummery(accountData: AccountModel) {
-        let crdSummery = ["Credit Summery", "Credit Limit", "Current Balance", "Available Credits"]
+        let crdSummery = ["Credit Summary", "Credit Limit", "Current Balance", "Available Credits"]
         let crdSummeryHeight: [CGFloat] = [titleH, detailH, detailH, grandTotalH]
         
         self.creditSummery.removeAll()
@@ -210,7 +210,7 @@ class SpecialAccountDetailsVM {
             else if idx == 2 {
                 let amount = (accountData.credit?.currentBalance ?? 0.0)
                 obj.symbol = "-"
-                obj.amount = abs(amount).amountInDelimeterWithSymbol
+                obj.amount = amount.amountInDelimeterWithSymbol
                 obj.height = crdSummeryHeight[idx]
                 obj.isDevider = true
             }

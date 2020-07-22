@@ -87,6 +87,9 @@ enum AppColors {
     /// RGB - 0, 120, 186
     static let linkedinButtonBackgroundColor  = UIColor(displayP3Red: 0, green: 0.4705882353, blue: 0.7294117647, alpha: 1)
 
+    static let appleButtonBackgroundColor  = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 1)
+
+    
     /// RGB - 50, 58, 69
     static let themeTextColor  = UIColor(displayP3Red: 0.1960784314, green: 0.2274509804, blue: 0.2705882353, alpha: 1)
     
