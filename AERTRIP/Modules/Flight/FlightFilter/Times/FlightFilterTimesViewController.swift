@@ -114,8 +114,10 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         departureRangeSlider.addTarget(self, action: #selector(departureRangeChanged), for: .valueChanged)
         departureRangeSlider.addTarget(self, action: #selector(departurnRangeUpdated), for: .touchUpInside)
         departureRangeSlider.createMarkersAt(positions: [0.25 , 0.5 , 0.75] )
-        setDepartureSliderValues()
         
+        if currentTimerFilter != nil{
+            setDepartureSliderValues()
+        }
     }
     
     fileprivate func setupDeparatureRangeButtons() {
@@ -274,6 +276,11 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             default:
                 print("unknown state")
             }
+            
+            //*******************Haptic Feedback code********************
+            let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+            selectionFeedbackGenerator.selectionChanged()
+            //*******************Haptic Feedback code********************
 
             updateDepartureUIValues()
             var message = String()
@@ -304,6 +311,15 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         departureStartTime.text = stringFromTimeInterval(interval: startTime)
         departureEndTime.text = stringFromTimeInterval(interval: endTime)
         
+        if departureStartTime.text == "00:00" || departureStartTime.text == "06:00" || departureStartTime.text == "12:00" || departureStartTime.text == "18:00" || departureStartTime.text == "24:00" || departureEndTime.text == "00:00" || departureEndTime.text == "06:00" || departureEndTime.text == "12:00" || departureEndTime.text == "18:00" || departureEndTime.text == "24:00"
+        {
+            //*******************Haptic Feedback code********************
+               let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+               selectionFeedbackGenerator.selectionChanged()
+            //*******************Haptic Feedback code********************
+
+        }
+        
     }
     
     fileprivate func updateDepartureUIValues() {
@@ -315,6 +331,15 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         departureStartTime.text = stringFromTimeInterval(interval: departureStartTimeInterval)
         departureEndTime.text = stringFromTimeInterval(interval: departureEndTimeInterval)
         setDepartureLabel()
+        
+        if departureStartTime.text == "00:00" || departureStartTime.text == "06:00" || departureStartTime.text == "12:00" || departureStartTime.text == "18:00" || departureStartTime.text == "24:00" || departureEndTime.text == "00:00" || departureEndTime.text == "06:00" || departureEndTime.text == "12:00" || departureEndTime.text == "18:00" || departureEndTime.text == "24:00"
+        {
+            //*******************Haptic Feedback code********************
+               let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+               selectionFeedbackGenerator.selectionChanged()
+            //*******************Haptic Feedback code********************
+
+        }
     }
     
     func showToastMessageForAvailableDepartureRange(_ message : String) {
@@ -322,6 +347,22 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         if let view = self.parent?.view {
             AertripToastView.toast(in: view, withText: message)
         }
+        
+//        if multiLegTimerFilter.count > 1{
+//            var frame = UIApplication.shared.windows.last!.frame
+//            let bottomInset = self.view.safeAreaInsets.bottom
+//            let height = 70 + bottomInset
+//            frame.size.height = frame.size.height - height
+//
+//            AertripToastView.toast(in: UIApplication.shared.windows.last! , withText: message , parentRect: frame)
+//        }else{
+//            var frame = UIApplication.shared.windows.last!.frame
+//            let bottomInset = self.view.safeAreaInsets.bottom
+//            let height = 16 + bottomInset
+//            frame.size.height = frame.size.height - height
+//
+//            AertripToastView.toast(in: UIApplication.shared.windows.last! , withText: message , parentRect: frame)
+//        }
         
     }
     
@@ -480,6 +521,11 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         setmultiLegSubviews()
         delegate?.departureSelectionChangedAt(currentActiveIndex , minDuration:departureStartTimeInterval , maxDuration: departureEndTimeInterval)
         
+        //*******************Haptic Feedback code********************
+        let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        selectionFeedbackGenerator.selectionChanged()
+        //*******************Haptic Feedback code********************
+        
     }
     
 
@@ -496,74 +542,76 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
         let numberOfStops = multiLegTimerFilter.count
         
-        for  i in 1...numberOfStops  {
-            
-            let segmentViewWidth = UIScreen.main.bounds.size.width - 32
-            let width = segmentViewWidth / CGFloat(numberOfStops)
-            let xcordinate = CGFloat( i - 1 ) * width
-            let height = self.multiSegmentView.frame.size.height
-            var rect = CGRect(x: xcordinate, y: 0, width: width, height: height)
-            let stopButton = UIButton(frame: rect)
-            stopButton.tag = (i - 1)
-            
-            var normalStateTitle : NSMutableAttributedString
-            let currentFilter = multiLegTimerFilter[(i - 1)]
-            let isCurrentIndexActive = (i == (currentActiveIndex + 1 )) ? true : false
-            let isFilterApplied = currentFilter.filterApplied()
-           
-            if isCurrentIndexActive {
-                stopButton.backgroundColor = UIColor.AertripColor
-            }
-            
-            if numberOfStops > 3 {
+        if numberOfStops > 0 {
+            for  i in 1...numberOfStops  {
                 
-                let dot = "\u{2022}"
-                let font = UIFont(name: "SourceSansPro-Semibold", size: 14.0)!
-                let aertripColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
-                let whiteColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor :  UIColor.white]
-                let clearColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.clear]
-
-                 
-                 if isCurrentIndexActive {
-                     normalStateTitle = NSMutableAttributedString(string: "\(i) " , attributes: whiteColorAttributes)
-                     
-                     let dotString : NSAttributedString
-                     if isFilterApplied {
-                       dotString = NSMutableAttributedString(string: dot , attributes: whiteColorAttributes)
-                     }
-                     else {
-                         dotString = NSMutableAttributedString(string: dot , attributes: clearColorAttributes)
-                     }
-                     normalStateTitle.append(dotString)
-                 }
-                 else {
-                     normalStateTitle = NSMutableAttributedString(string: "\(i) " , attributes: aertripColorAttributes)
-                     let dotString : NSAttributedString
-
-                     if isFilterApplied {
-                         dotString = NSMutableAttributedString(string: dot , attributes: aertripColorAttributes)
-                     }
-                     else {
-                         dotString = NSMutableAttributedString(string: dot , attributes: clearColorAttributes)
-                     }
-                     normalStateTitle.append(dotString)
-                 }
-            }
-            else {
-                let leg = multiLegTimerFilter[(i - 1)].leg
-                normalStateTitle = leg.getTitle(isCurrentlySelected: isCurrentIndexActive, isFilterApplied: isFilterApplied)
-            }
-            
-            stopButton.setAttributedTitle(normalStateTitle, for: .normal)
-            stopButton.addTarget(self, action: #selector(tappedOnMulticityButton(sender:)), for: .touchDown)
-            
-            multiSegmentView.addSubview(stopButton)
-            
-            if i != numberOfStops {
-                rect  = CGRect(x: xcordinate + width - 1 , y: 0, width: 1, height: 30)
-                let verticalSeparator = UIView(frame: rect)
-                verticalSeparator.backgroundColor = UIColor.AertripColor
-                multiSegmentView.addSubview(verticalSeparator)
+                let segmentViewWidth = UIScreen.main.bounds.size.width - 32
+                let width = segmentViewWidth / CGFloat(numberOfStops)
+                let xcordinate = CGFloat( i - 1 ) * width
+                let height = self.multiSegmentView.frame.size.height
+                var rect = CGRect(x: xcordinate, y: 0, width: width, height: height)
+                let stopButton = UIButton(frame: rect)
+                stopButton.tag = (i - 1)
+                
+                var normalStateTitle : NSMutableAttributedString
+                let currentFilter = multiLegTimerFilter[(i - 1)]
+                let isCurrentIndexActive = (i == (currentActiveIndex + 1 )) ? true : false
+                let isFilterApplied = currentFilter.filterApplied()
+                
+                if isCurrentIndexActive {
+                    stopButton.backgroundColor = UIColor.AertripColor
+                }
+                
+                if numberOfStops > 3 {
+                    
+                    let dot = "\u{2022}"
+                    let font = UIFont(name: "SourceSansPro-Semibold", size: 14.0)!
+                    let aertripColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
+                    let whiteColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor :  UIColor.white]
+                    let clearColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.clear]
+                    
+                    
+                    if isCurrentIndexActive {
+                        normalStateTitle = NSMutableAttributedString(string: "\(i) " , attributes: whiteColorAttributes)
+                        
+                        let dotString : NSAttributedString
+                        if isFilterApplied {
+                            dotString = NSMutableAttributedString(string: dot , attributes: whiteColorAttributes)
+                        }
+                        else {
+                            dotString = NSMutableAttributedString(string: dot , attributes: clearColorAttributes)
+                        }
+                        normalStateTitle.append(dotString)
+                    }
+                    else {
+                        normalStateTitle = NSMutableAttributedString(string: "\(i) " , attributes: aertripColorAttributes)
+                        let dotString : NSAttributedString
+                        
+                        if isFilterApplied {
+                            dotString = NSMutableAttributedString(string: dot , attributes: aertripColorAttributes)
+                        }
+                        else {
+                            dotString = NSMutableAttributedString(string: dot , attributes: clearColorAttributes)
+                        }
+                        normalStateTitle.append(dotString)
+                    }
+                }
+                else {
+                    let leg = multiLegTimerFilter[(i - 1)].leg
+                    normalStateTitle = leg.getTitle(isCurrentlySelected: isCurrentIndexActive, isFilterApplied: isFilterApplied)
+                }
+                
+                stopButton.setAttributedTitle(normalStateTitle, for: .normal)
+                stopButton.addTarget(self, action: #selector(tappedOnMulticityButton(sender:)), for: .touchDown)
+                
+                multiSegmentView.addSubview(stopButton)
+                
+                if i != numberOfStops {
+                    rect  = CGRect(x: xcordinate + width - 1 , y: 0, width: 1, height: 30)
+                    let verticalSeparator = UIView(frame: rect)
+                    verticalSeparator.backgroundColor = UIColor.AertripColor
+                    multiSegmentView.addSubview(verticalSeparator)
+                }
             }
         }
     }
@@ -581,10 +629,14 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         }
         
         currentTimerFilter = multiLegTimerFilter[currentActiveIndex]
-        setDepartureSliderValues()
+        if currentTimerFilter != nil {
+            setDepartureSliderValues()
+        }
         setmultiLegSubviews()
         setDepartureLabel()
-        setArrivalSliderValues(userSelected: true)
+        if currentTimerFilter != nil{
+            setArrivalSliderValues(userSelected: true)
+        }
         setupDeparatureRangeButtons()
     }
     
@@ -623,7 +675,9 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
         arrivalRangeSlider.addTarget(self, action: #selector(arrivalRangeChanged), for: .valueChanged)
         arrivalRangeSlider.addTarget(self, action: #selector(arrivalRangeUpdated), for: .touchUpInside)
-        setArrivalSliderValues(userSelected: true)
+        if currentTimerFilter != nil{
+            setArrivalSliderValues(userSelected: true)
+        }
         addDaysSeparatorInArrivalRangeSlider()
 
     }
@@ -698,6 +752,15 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         arrivalStartTimeWidth.constant = arrivalStartTime.intrinsicContentSize.width + 16.0
         arrivalEndTime.text = dateStringFromTime(date: endDate)
         arrivalEndTimeWidth.constant = arrivalEndTime.intrinsicContentSize.width + 16.0
+        
+        if arrivalEndTime.text!.contains(find: "00:00") || arrivalStartTime.text!.contains(find: "00:00")
+         {
+             //*******************Haptic Feedback code********************
+             let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+             selectionFeedbackGenerator.selectionChanged()
+             //*******************Haptic Feedback code********************
+             
+         }
     }
         
     @objc fileprivate func arrivalRangeUpdated() {
@@ -748,11 +811,67 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             setmultiLegSubviews()
         }
         
-        currentTimerFilter = multiLegTimerFilter[0]
+        if multiLegTimerFilter.count > 0 {
+            currentTimerFilter = multiLegTimerFilter[0]
+        }
         initialSetupDepartureRangeSlider()
         setDepartureLabel()
         setupDeparatureRangeButtons()
         setupArrivalRangeSlider()
+        
+        earlyMorningButton.addTarget(self, action: #selector(buttonPressed), for: .touchDown)
+        earlyMorningButton.addTarget(self, action: #selector(buttonReleased), for: .touchUpInside)
+        
+        noonButton.addTarget(self, action: #selector(buttonPressed), for: .touchDown)
+        noonButton.addTarget(self, action: #selector(buttonReleased), for: .touchUpInside)
+        
+        eveningButton.addTarget(self, action: #selector(buttonPressed), for: .touchDown)
+        eveningButton.addTarget(self, action: #selector(buttonReleased), for: .touchUpInside)
+        
+        lateEveningButton.addTarget(self, action: #selector(buttonPressed), for: .touchDown)
+        lateEveningButton.addTarget(self, action: #selector(buttonReleased), for: .touchUpInside)
+    }
+    
+    @objc func buttonPressed(sender:UIButton)
+    {
+        switch sender.tag
+        {
+        case 1 :
+            
+            earlyMorningButton.backgroundColor = UIColor(displayP3Red: 236.0/255.0 , green:253.0/255.0 , blue:244.0/255.0 , alpha:1)
+            noonButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            eveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            lateEveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            
+        case 2 :
+            earlyMorningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            noonButton.backgroundColor = UIColor(displayP3Red: 236.0/255.0 , green:253.0/255.0 , blue:244.0/255.0 , alpha:1)
+            eveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            lateEveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            
+        case 3 :
+            earlyMorningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            noonButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            eveningButton.backgroundColor = UIColor(displayP3Red: 236.0/255.0 , green:253.0/255.0 , blue:244.0/255.0 , alpha:1)
+            lateEveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            
+        case 4 :
+            earlyMorningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            noonButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            eveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            lateEveningButton.backgroundColor = UIColor(displayP3Red: 236.0/255.0 , green:253.0/255.0 , blue:244.0/255.0 , alpha:1)
+            
+        default:
+            print("unknown state")
+        }
+    }
+    
+    @objc func buttonReleased(sender:UIButton)
+    {
+        earlyMorningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+        noonButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+        eveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+        lateEveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
     }
         
     func setUIValues(){
@@ -769,7 +888,9 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
           updateDepartureUIValues()
           
           
-          setArrivalSliderValues(userSelected: false)
+        if currentTimerFilter != nil {
+            setArrivalSliderValues(userSelected: false)
+        }
           
         if multiLegTimerFilter.count == 1 {
               multiLegViewHeight.constant = 0   
