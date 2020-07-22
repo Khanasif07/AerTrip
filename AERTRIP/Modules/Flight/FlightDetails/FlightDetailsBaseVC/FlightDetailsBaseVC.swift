@@ -36,13 +36,11 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     @IBOutlet weak var newTitleDisplayView: UIView!
     @IBOutlet weak var displayViewTop: NSLayoutConstraint!
     @IBOutlet weak var grabberView: UIView!
-    @IBOutlet weak var displayScrollView: UIScrollView!
     @IBOutlet weak var dataDisplayView: UIView!
     
     @IBOutlet weak var pinButton: UIButton!
     @IBOutlet weak var addToTripButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
-    @IBOutlet weak var testView: UIView!
     @IBOutlet weak var backgroundButton: UIButton!
     
     //MARK:- Variable Declaration
@@ -198,9 +196,9 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         self.parchmentView?.indicatorColor = UIColor.AertripColor
         self.parchmentView?.selectedTextColor = .black
         self.parchmentView?.menuBackgroundColor = .white
-        self.parchmentView?.view.frame = self.testView.bounds
+        self.parchmentView?.view.frame = self.dataDisplayView.bounds
         self.parchmentView?.view.height += 50
-        self.testView.addSubview(self.parchmentView!.view)
+        self.dataDisplayView.addSubview(self.parchmentView!.view)
         
         self.parchmentView?.collectionView.isScrollEnabled = false
         self.parchmentView?.collectionView.clipsToBounds = true
@@ -234,7 +232,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         flightInfoVC.airportDetailsResult = airportDetailsResult
         flightInfoVC.airlineDetailsResult = airlineDetailsResult
         flightInfoVC.selectedJourneyFK = selectedJourneyFK
-        flightInfoVC.view.frame = testView.frame
+        flightInfoVC.view.frame = dataDisplayView.frame
         return flightInfoVC
     }
     
@@ -251,7 +249,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         }
         
         baggageVC.airportDetailsResult = airportDetailsResult
-        baggageVC.view.frame = self.testView.frame
+        baggageVC.view.frame = self.dataDisplayView.frame
         return baggageVC
     }
     
@@ -273,7 +271,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         fareInfoVc.flightChildrenCount = bookFlightObject.flightChildrenCount
         fareInfoVc.flightInfantCount = bookFlightObject.flightInfantCount
         fareInfoVc.airportDetailsResult = airportDetailsResult
-        fareInfoVc.view.frame = self.testView.frame
+        fareInfoVc.view.frame = self.dataDisplayView.frame
         return fareInfoVc
     }
     
@@ -675,19 +673,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
 
 extension FlightDetailsBaseVC: PagingViewControllerDataSource , PagingViewControllerDelegate, PagingViewControllerSizeDelegate
 {
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-//        self.parchmentView?.view.frame = self.testView.bounds
-//        self.parchmentView?.loadViewIfNeeded()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-//        self.parchmentView?.view.frame = self.testView.bounds
-//        self.parchmentView?.loadViewIfNeeded()
-    }
-    
+
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
         return PagingIndexItem(index: index, title:  self.allTabsStr[index])
     }
@@ -796,7 +782,7 @@ extension FlightDetailsBaseVC{
         vc.airportDetailsResult = intAirportDetailsResult
         vc.airlineDetailsResult = intAirlineDetailsResult
         vc.selectedJourneyFK = selectedJourneyFK
-        vc.view.frame = CGRect(x: 0 , y: 0, width: UIScreen.main.bounds.size.width, height :self.displayScrollView.frame.height-CGFloat(bottomInset))
+        vc.view.frame = CGRect(x: 0 , y: 0, width: UIScreen.main.bounds.size.width, height :self.dataDisplayView.frame.height-CGFloat(bottomInset))
         return vc
     }
     
@@ -813,7 +799,7 @@ extension FlightDetailsBaseVC{
         }
         vc.isForDomestic = (self.bookFlightObject.isDomestic)
         vc.airportDetailsResult = intAirportDetailsResult
-        vc.view.frame = CGRect(x: UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width, height :self.displayScrollView.frame.height-CGFloat(bottomInset))
+        vc.view.frame = CGRect(x: UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width, height :self.dataDisplayView.frame.height-CGFloat(bottomInset))
         return vc
     }
     
@@ -836,7 +822,7 @@ extension FlightDetailsBaseVC{
         vc.flightChildrenCount = bookFlightObject.flightChildrenCount
         vc.flightInfantCount = bookFlightObject.flightInfantCount
         vc.airportDetailsResult = self.intAirportDetailsResult
-        vc.view.frame = CGRect(x: UIScreen.main.bounds.size.width * 2, y: 0, width: UIScreen.main.bounds.size.width, height :self.displayScrollView.frame.height-CGFloat(bottomInset))
+        vc.view.frame = CGRect(x: UIScreen.main.bounds.size.width * 2, y: 0, width: UIScreen.main.bounds.size.width, height :self.dataDisplayView.frame.height-CGFloat(bottomInset))
         return vc
     }
     
