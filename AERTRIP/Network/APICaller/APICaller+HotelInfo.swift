@@ -24,13 +24,13 @@ extension APICaller {
                     completionBlock(false, [], nil, "")
                 }
             }, failure: { errors in
-                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+//                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
                 completionBlock(false, errors, nil, "" )
             })
         }) { (error) in
             if error.code == AppNetworking.noInternetError.code {
                 AppGlobals.shared.stopLoading()
-                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+//                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
                 completionBlock(false, [], nil, "")
             }
             else {

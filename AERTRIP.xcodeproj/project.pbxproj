@@ -307,6 +307,7 @@
 		18611786242B7CC600BE1306 /* HCDataHotelRatingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18611785242B7CC600BE1306 /* HCDataHotelRatingInfoTableViewCell.swift */; };
 		18611788242B7CF800BE1306 /* HCDataHotelRatingInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18611787242B7CF800BE1306 /* HCDataHotelRatingInfoTableViewCell.xib */; };
 		18637D66249C98EA001325CD /* FlightPaymentPendingRequestSuccessVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18637D65249C98EA001325CD /* FlightPaymentPendingRequestSuccessVC.swift */; };
+		1865E94024C84ED9003FA62D /* ReloadResultPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1865E93F24C84ED9003FA62D /* ReloadResultPopupVC.swift */; };
 		186FD6E92488FFCD00335353 /* FlightPaymentBookingStatusVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FD6E82488FFCD00335353 /* FlightPaymentBookingStatusVC.swift */; };
 		186FD6EB2489019B00335353 /* FlightPaymentBookingStatusVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FD6EA2489019B00335353 /* FlightPaymentBookingStatusVM.swift */; };
 		186FD6ED24890AD100335353 /* FlightPaymentBookingStatusVC + Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FD6EC24890AD000335353 /* FlightPaymentBookingStatusVC + Cells.swift */; };
@@ -1922,6 +1923,7 @@
 		18611785242B7CC600BE1306 /* HCDataHotelRatingInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCDataHotelRatingInfoTableViewCell.swift; sourceTree = "<group>"; };
 		18611787242B7CF800BE1306 /* HCDataHotelRatingInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HCDataHotelRatingInfoTableViewCell.xib; sourceTree = "<group>"; };
 		18637D65249C98EA001325CD /* FlightPaymentPendingRequestSuccessVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPaymentPendingRequestSuccessVC.swift; sourceTree = "<group>"; };
+		1865E93F24C84ED9003FA62D /* ReloadResultPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadResultPopupVC.swift; sourceTree = "<group>"; };
 		186FD6E82488FFCD00335353 /* FlightPaymentBookingStatusVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPaymentBookingStatusVC.swift; sourceTree = "<group>"; };
 		186FD6EA2489019B00335353 /* FlightPaymentBookingStatusVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPaymentBookingStatusVM.swift; sourceTree = "<group>"; };
 		186FD6EC24890AD000335353 /* FlightPaymentBookingStatusVC + Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightPaymentBookingStatusVC + Cells.swift"; sourceTree = "<group>"; };
@@ -4215,6 +4217,14 @@
 			path = FlightPaymentPendingRequestSuccessVC;
 			sourceTree = "<group>";
 		};
+		1865E93E24C84DF0003FA62D /* ReloadResultPopupVC */ = {
+			isa = PBXGroup;
+			children = (
+				1865E93F24C84ED9003FA62D /* ReloadResultPopupVC.swift */,
+			);
+			path = ReloadResultPopupVC;
+			sourceTree = "<group>";
+		};
 		186FD6E72488FFA000335353 /* FlightPaymentBookingStatusVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -5332,6 +5342,7 @@
 		841DD1CF2202DC680055FEBB /* HotelsVC */ = {
 			isa = PBXGroup;
 			children = (
+				1865E93E24C84DF0003FA62D /* ReloadResultPopupVC */,
 				842EDE5C2238E7D600E99409 /* HotelDetailsVC */,
 				84271E812237A08200C1A70D /* HotelCheckoutVC */,
 				841DD1EC2202DCBD0055FEBB /* HotelsResultVC */,
@@ -10668,6 +10679,7 @@
 				84534ED52249E8FD009FF536 /* YouAreAllDoneFooterView.swift in Sources */,
 				843C3E3723E29E4900648F65 /* FavouriteHotelsVC+Parchment.swift in Sources */,
 				84100A8C2238E13E006A05EC /* HCDataSelectionVC+Cells.swift in Sources */,
+				1865E94024C84ED9003FA62D /* ReloadResultPopupVC.swift in Sources */,
 				841DD1E92202DC690055FEBB /* SelectDestinationVC.swift in Sources */,
 				188785A121DF79650061869E /* TravellerListTableViewSectionView.swift in Sources */,
 				182456B72493A7890095B6DC /* FlightPaymentVC+TableViewDelagateAndCells.swift in Sources */,

@@ -400,7 +400,7 @@ enum ATMeal: Int, CaseIterable {
     var title: String {
         switch self {
         case .NoMeal:
-            return LocalizedString.NoMeal.localized
+            return LocalizedString.RoomOnly.localized
             
         case .Breakfast:
             return LocalizedString.Breakfast.localized

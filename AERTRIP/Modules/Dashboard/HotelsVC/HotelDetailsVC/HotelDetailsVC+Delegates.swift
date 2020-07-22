@@ -227,7 +227,8 @@ extension HotelDetailsVC: HotelDetailDelegate {
                 cell.activityIndicator.isHidden = true
             }
         }
-        AppToast.default.showToastMessage(message: LocalizedString.InformationUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonAction: self.completion)
+//        AppToast.default.showToastMessage(message: LocalizedString.InformationUnavailable.localized, onViewController: self, duration: 120.0,buttonTitle: LocalizedString.ReloadResults.localized, buttonAction: self.completion)
+         ReloadResultPopupVC.showPopUp(message: LocalizedString.InformationUnavailable.localized, isButtonHidden: false, buttonTitle: "Reload results", reloadButtonAction: completion)
         printDebug("API Parsing Failed")
     }
     
@@ -284,6 +285,7 @@ extension HotelDetailsVC {
             self.headerView.leftButton.setImage(selectedFevImage, for: .normal)
             self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "black_cross"), for: .normal)
             self.headerView.firstRightButtonTrailingConstraint.constant = 0
+            self.headerView.dividerView.isHidden = false
         }
         else {
             //hide
@@ -293,6 +295,7 @@ extension HotelDetailsVC {
             self.headerView.leftButton.setImage(buttonImage, for: .normal)
             self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
             self.headerView.firstRightButtonTrailingConstraint.constant = -3
+            self.headerView.dividerView.isHidden = true
         }
     }
     

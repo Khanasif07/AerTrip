@@ -500,6 +500,7 @@ enum LocalizedString: String {
     // MARK: - RoomVC
     
     // Meal
+    case RoomOnly
     case NoMeal
     case Breakfast
     case HalfBoard

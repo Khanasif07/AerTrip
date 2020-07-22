@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -263,7 +263,7 @@
                                                 </constraints>
                                             </view>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3PJ-0G-3hV">
-                                                <rect key="frame" x="124" y="45" width="250" height="18.5"/>
+                                                <rect key="frame" x="124" y="45.5" width="250" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -839,6 +839,62 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Aa1-AE-RTq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-638" y="99"/>
+        </scene>
+        <!--Reload Result PopupVC-->
+        <scene sceneID="7ru-Jd-khw">
+            <objects>
+                <viewController storyboardIdentifier="ReloadResultPopupVC" id="Mh3-IO-qfm" customClass="ReloadResultPopupVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5l9-Zq-9Ch">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2DJ-dT-Q5w">
+                                <rect key="frame" x="8" y="802" width="398" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OTQ-ud-cMb">
+                                        <rect key="frame" x="16" y="0.0" width="320" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXb-au-2SY">
+                                        <rect key="frame" x="352" y="10" width="30" height="30"/>
+                                        <connections>
+                                            <action selector="reloadButtonAction:" destination="Mh3-IO-qfm" eventType="touchUpInside" id="gdX-NJ-Dq5"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="OTQ-ud-cMb" firstAttribute="top" secondItem="2DJ-dT-Q5w" secondAttribute="top" id="4aA-Pv-DKu"/>
+                                    <constraint firstItem="PXb-au-2SY" firstAttribute="centerY" secondItem="OTQ-ud-cMb" secondAttribute="centerY" id="8rf-c7-idq"/>
+                                    <constraint firstAttribute="height" constant="50" id="Dbd-zy-Zi8"/>
+                                    <constraint firstItem="PXb-au-2SY" firstAttribute="leading" secondItem="OTQ-ud-cMb" secondAttribute="trailing" constant="16" id="YU9-PI-ujQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="OTQ-ud-cMb" secondAttribute="bottom" id="geS-Qe-yON"/>
+                                    <constraint firstItem="OTQ-ud-cMb" firstAttribute="leading" secondItem="2DJ-dT-Q5w" secondAttribute="leading" constant="16" id="ran-e7-1U7"/>
+                                    <constraint firstAttribute="trailing" secondItem="PXb-au-2SY" secondAttribute="trailing" constant="16" id="rsm-xN-i8d"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2DJ-dT-Q5w" firstAttribute="leading" secondItem="3vx-f8-d7R" secondAttribute="leading" constant="8" id="HjK-EH-WcR"/>
+                            <constraint firstItem="3vx-f8-d7R" firstAttribute="trailing" secondItem="2DJ-dT-Q5w" secondAttribute="trailing" constant="8" id="anr-km-Wev"/>
+                            <constraint firstItem="3vx-f8-d7R" firstAttribute="bottom" secondItem="2DJ-dT-Q5w" secondAttribute="bottom" constant="10" id="hB1-fl-xwt"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3vx-f8-d7R"/>
+                    </view>
+                    <connections>
+                        <outlet property="decreaseBottomConstraint" destination="hB1-fl-xwt" id="QFt-dp-L75"/>
+                        <outlet property="decreaseContainerView" destination="2DJ-dT-Q5w" id="QXB-2r-cde"/>
+                        <outlet property="decreaseLabel" destination="OTQ-ud-cMb" id="AmP-4b-Ita"/>
+                        <outlet property="reloadButton" destination="PXb-au-2SY" id="Ju3-lo-XMG"/>
+                        <outlet property="reloadButtonTrailing" destination="rsm-xN-i8d" id="C4o-XR-5tU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ApG-aK-kYz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1239" y="771"/>
         </scene>
     </scenes>
     <resources>

@@ -124,16 +124,16 @@ class HotelDetailsVM {
                     if roomRate.map({$0.desc.lowercased()}).joined(separator: ",").contains(tag.lowercased()){
                         return true
                     }
-                    if (rates.inclusion_array[APIKeys.boardType.rawValue] as? [String] ?? []).joined(separator: ",").contains(tag){
+                        if (rates.inclusion_array[APIKeys.boardType.rawValue] as? [String] ?? []).joined(separator: ",").lowercased().contains(tag.lowercased()){
                         return true
                     }
-                    if (rates.inclusion_array[APIKeys.other_inclusions.rawValue] as? [String] ?? []).joined(separator: ",").contains(tag){
+                    if (rates.inclusion_array[APIKeys.other_inclusions.rawValue] as? [String] ?? []).joined(separator: ",").lowercased().contains(tag.lowercased()){
                         return true
                     }
-                    if (rates.inclusion_array[APIKeys.inclusions.rawValue] as? [String] ?? []).joined(separator: ",").contains(tag){
+                    if (rates.inclusion_array[APIKeys.inclusions.rawValue] as? [String] ?? []).joined(separator: ",").lowercased().contains(tag.lowercased()){
                         return true
                     }
-                    if (rates.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [String] ?? []).joined(separator: ",").contains(tag){
+                    if (rates.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [String] ?? []).joined(separator: ",").lowercased().contains(tag.lowercased()){
                         return true
                     }
                     if (rates.cancellation_penalty?.is_refundable ?? false){
@@ -260,7 +260,8 @@ class HotelDetailsVM {
                 if let safeHotelData = hotelData {
                     sSelf.hotelData = safeHotelData
                     sSelf.currencyPreference = currencyPref
-                    sSelf.delegate?.getHotelDetailsSuccess()
+//                    sSelf.delegate?.getHotelDetailsSuccess()
+                    sSelf.delegate?.getHotelDetailsFail()
                 }
             } else {
                 printDebug(errors)
