@@ -345,6 +345,7 @@ class HCDataSelectionVC: BaseVC {
     @IBAction func continueButtonAction(_ sender: UIButton) {
         isFromFinalCheckout = false
         if viewModel.isValidateData(vc: self) {
+            apiCount = 0
             if UserInfo.loggedInUser != nil {
                 self.viewModel.fetchRecheckRatesData()
             } else {
@@ -412,6 +413,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     
     func willCallForItenaryDataTraveller() {
         //
+        self.startLoading()
     }
     
     func callForItenaryDataTravellerSuccess() {
@@ -419,12 +421,18 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
         if apiCount <= 5, viewModel.itineraryPriceDetail.grossAmount.toDouble ?? 0 <= 0 {
             viewModel.webserviceForItenaryDataTraveller()
             apiCount += 1
+        } else {
+            self.stopLoading()
         }
         
+        if viewModel.itineraryPriceDetail.grossAmount.toDouble ?? 0 > 0 {
+            self.sendToFinalCheckoutVC()
+        }
         
     }
     
     func callForItenaryDataTravellerFail(errors: ErrorCodes) {
+        self.stopLoading()
         self.isGrossValueZero = true
         if errors.contains(55) {
             AppToast.default.showToastMessage(message: LocalizedString.ResultUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonAction: self.checkoutSessionExpireCompletionHandler)
@@ -445,6 +453,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
             viewModel.fetchConfirmItineraryData()
         }
         else {
+            HCSelectGuestsVM.shared.clearAllSelectedData()
             GuestDetailsVM.shared.travellerList = viewModel.itineraryData?.traveller_master ?? []
             //            manageLoader(shouldStart: false)
             //            AppGlobals.shared.stopLoading()
@@ -543,9 +552,13 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
         self.stopLoading()
         //        self.mainIndicatorView.stopAnimating()
         //        self.mainIndicatorView.isHidden = true
+        
+        func fetchIternaryData() {
         if viewModel.isValidateData(vc: self) {
             viewModel.webserviceForItenaryDataTraveller()
         }
+        }
+        
         if let oldAmount = viewModel.itineraryData?.total_fare {
             let newAmount = recheckedData.total_fare
             
@@ -556,7 +569,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
                 // increased
                 FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: diff, totalUpdatedAmount: newAmount, continueButtonAction: { [weak self] in
                     guard let sSelf = self else { return }
-                    sSelf.sendToFinalCheckoutVC()
+                    fetchIternaryData()
                     }, goBackButtonAction: { [weak self] in
                         guard let sSelf = self else { return }
                         sSelf.topNavBarLeftButtonAction(sSelf.topNavView.leftButton)
@@ -565,13 +578,15 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
             else if diff < 0 {
                 // dipped
                 FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: -diff, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
+                self.startLoading()
                 delay(seconds: 2.0) { [weak self] in
                     guard let sSelf = self else { return }
-                    sSelf.sendToFinalCheckoutVC()
+                    fetchIternaryData()
                 }
             }
             else {
-                sendToFinalCheckoutVC()
+                fetchIternaryData()
+                //sendToFinalCheckoutVC()
             }
         }
     }

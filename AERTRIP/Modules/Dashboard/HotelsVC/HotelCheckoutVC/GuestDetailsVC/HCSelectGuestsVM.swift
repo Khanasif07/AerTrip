@@ -118,6 +118,11 @@ class HCSelectGuestsVM: NSObject {
         self.phoneContacts = self._phoneContacts
         self.facebookContacts = self._facebookContacts
         self.googleContacts = self._googleContacts
+        
+       // self.totalGuestCount = 0
+    }
+    
+    func clearAllSelectedData() {
         self.selectedTravellerContacts.removeAll()
         self.selectedPhoneContacts.removeAll()
         self.selectedFacebookContacts.removeAll()

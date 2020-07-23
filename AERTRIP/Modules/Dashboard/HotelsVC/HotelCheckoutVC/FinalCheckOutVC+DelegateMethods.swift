@@ -12,7 +12,7 @@ extension FinalCheckOutVC : WalletTableViewCellDelegate {
     func valueForSwitch(isOn: Bool) {
         self.isWallet = (getWalletAmount() <= 0) ? false : isOn
         self.setConvenienceFeeToBeApplied()
-        
+        self.updatePayButtonText()
     }
 }
 

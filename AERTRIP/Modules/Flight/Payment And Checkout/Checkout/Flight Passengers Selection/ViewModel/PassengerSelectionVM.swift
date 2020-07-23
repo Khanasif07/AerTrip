@@ -165,6 +165,7 @@ class PassengerSelectionVM  {
         self.itineraryData = newItineraryData
         self.id = self.itineraryData.itinerary.id
         self.sid = self.itineraryData.itinerary.sid
+        HCSelectGuestsVM.shared.clearAllSelectedData()
         GuestDetailsVM.shared.travellerList = self.itineraryData.itinerary.travellerMaster
         if let artpt = self.itineraryData.itinerary.details.apdet{
             self.intAirportDetailsResult = artpt
