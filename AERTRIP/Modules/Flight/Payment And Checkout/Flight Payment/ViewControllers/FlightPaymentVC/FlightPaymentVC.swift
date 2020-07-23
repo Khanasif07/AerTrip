@@ -90,13 +90,6 @@ class FlightPaymentVC: BaseVC {
 
     @IBAction func payButtonTapped(_ sender: UIButton) {
         self.hideShowLoader(isHidden:false)
-//        delay(seconds: 1) {
-//           self.loaderView.isHidden = true
-//        }
-//        let vc = FlightPaymentBookingStatusVC.instantiate(fromAppStoryboard: .FlightPayment)
-//        vc.viewModel.itinerary = self.viewModel.itinerary
-//        self.navigationController?.pushViewController(vc, animated: true)
-        
         self.viewModel.reconfirmationAPI()
     }
     
@@ -273,9 +266,6 @@ class FlightPaymentVC: BaseVC {
     func getTotalPayableAmount() -> Double {
         var payableAmount: Double = Double(self.viewModel.itinerary.details.fare.totalPayableNow.value)
         if payableAmount > 0.0 {
-//            if self.isCouponApplied, let discountBreakUp = self.viewModel.appliedCouponData.discountsBreakup {
-//                payableAmount -= discountBreakUp.CPD
-//            }
             let amount = self.isWallet ? self.convenienceFeesWallet : self.convenienceRate
             if self.isConvenienceFeeApplied {
                 payableAmount += amount
@@ -384,8 +374,6 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
     
     func reconfirmationResponse(_ success:Bool, error: ErrorCodes){
         if success{
-//            self.viewModel.taxesDataDisplay()
-//            self.updateAllData()
             self.showFareUpdatePopup()
         }else{
             self.hideShowLoader(isHidden:true)

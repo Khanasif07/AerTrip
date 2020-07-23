@@ -87,9 +87,9 @@ class HCCouponCodeVC: BaseVC {
         self.couponTableView.delegate = self
         self.couponTableView.dataSource = self
         self.statusBarStyle = .default
-        if self.viewModel.product != .flights{
-            self.viewModel.getCouponsDetailsApi()
-        }
+//        if self.viewModel.product != .flights{
+//            self.viewModel.getCouponsDetailsApi()
+//        }
         self.emptyStateImageView.image = #imageLiteral(resourceName: "emptyStateCoupon")
         self.offerTermsView.roundTopCorners(cornerRadius: 10.0)
         self.offerTermsViewSetUp()
@@ -243,12 +243,8 @@ class HCCouponCodeVC: BaseVC {
             case .hotels: self.viewModel.applyCouponCode()
             case .flights: self.viewModel.applyFlightCouponCode()
             }
-            if self.viewModel.product == .flights{
-                self.hideShowLoader(isHidden: false)
-            }
+            self.hideShowLoader(isHidden: false)
         } else {
-            //            self.enterCouponLabel.isHidden = false
-            //self.couponValidationTextSetUp(isCouponValid: false)
             self.view.endEditing(true)
             AppToast.default.showToastMessage(message: LocalizedString.InvalidCouponCodeText.localized)
             printDebug("Enter a Valid code")
@@ -256,7 +252,6 @@ class HCCouponCodeVC: BaseVC {
     }
     
     @IBAction func applyCouponButtonAction(_ sender: UIButton) {
-        //self.selectedIndexPath = self.currentIndexPath
         self.hideOfferTermsView(animated: true)
         self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.couponTableView.reloadData()
@@ -329,31 +324,12 @@ extension HCCouponCodeVC {
         printDebug(finalText)
         if finalText.isEmpty {
             self.viewModel.couponCode = ""
-            //            self.enterCouponLabel.isHidden = true
             if self.viewModel.couponCode.isEmpty {
                 self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
             }
             
         } else {
-            //            self.enterCouponLabel.isHidden = false
             self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
-//            for (index,coupon) in self.viewModel.couponsData.enumerated() {
-//                if coupon.couponTitle == finalText {
-//                    let indexPath = IndexPath(row: index, section: 0)
-//                    //self.couponValidationTextSetUp(isCouponValid: true)
-//                    if !(self.selectedIndexPath ?? IndexPath() == indexPath) {
-//                        self.selectedIndexPath = indexPath
-//                        self.viewModel.couponCode = coupon.couponCode
-//                        self.couponTableView.reloadData()
-//                        return true
-//                    }
-//                } else {
-//                    self.selectedIndexPath = nil
-//                    //self.couponValidationTextSetUp(isCouponValid: false)
-//                    self.viewModel.couponCode = finalText
-//                    self.couponTableView.reloadData()
-//                }
-//            }
         }
         self.viewModel.couponCode = finalText
         self.viewModel.searchCoupons(searchText: finalText)
@@ -434,6 +410,7 @@ extension HCCouponCodeVC: HCCouponCodeVMDelegate {
             if let safeDelegate = self.delegate , let appliedCouponData = self.viewModel.appliedCouponData {
                 safeDelegate.appliedCouponData(appliedCouponData)
                 self.dismiss(animated: true, completion: nil)
+                self.hideShowLoader(isHidden: true)
             }
         case .flights:
             if let safeDelegate = self.flightDelegate , let appliedCouponData = self.viewModel.appliedDataForFlight {

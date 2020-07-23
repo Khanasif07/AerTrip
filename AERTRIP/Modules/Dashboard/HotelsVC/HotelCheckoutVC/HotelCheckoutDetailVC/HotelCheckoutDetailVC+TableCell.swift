@@ -144,27 +144,12 @@ extension HotelCheckoutDetailVC {
                 cell.allDetailsLabel.attributedText = nil
             }
             cell.clipsToBounds = true
+            cell.shadowViewBottomConstraints.constant = 0.0
+            cell.containerView.layer.cornerRadius = 0
+            cell.containerView.layer.maskedCorners = []
             return cell
         }
         return nil
-    }
-    
-    internal func getPaymentInfoCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
-        guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
-        cell.delegate = self
-        cell.configurePaymentCell(ratesData: ratesData, isHotelDetailsScreen: true)
-        if self.allIndexPath.contains(indexPath) {
-            cell.allDetailsLabel.isHidden = false
-            cell.allDetailsLabel.attributedText = cell.fullPaymentDetails()?.trimWhiteSpace()
-            cell.infoBtnOutlet.isHidden = true
-        }
-        else {
-            cell.allDetailsLabel.isHidden = true
-            cell.allDetailsLabel.attributedText = nil
-            cell.infoBtnOutlet.isHidden = false
-        }
-        cell.clipsToBounds = true
-        return cell
     }
     
     internal func getNotesCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
@@ -176,17 +161,12 @@ extension HotelCheckoutDetailVC {
             cell.descriptionLabel.lineBreakMode = .byWordWrapping
             cell.descriptionLabel.attributedText = cell.fullNotesDetails(ratesData: ratesData)?.trimWhiteSpace()
             if self.allIndexPath.contains(indexPath) {
-               // cell.moreInfoContainerView.isHidden = true
                 cell.descriptionLabel.numberOfLines = 0
-               // cell.moreBtnOutlet.isHidden = true
             }
             else {
-               // cell.moreInfoContainerView.isHidden = false
                 cell.descriptionLabel.numberOfLines = 0
-               // cell.moreBtnOutlet.isHidden = false
             }
             cell.shadowViewBottomConstraints.constant = 26.0
-            //cell.containerView.roundBottomCorners(cornerRadius: 10.0)
             cell.containerView.layer.cornerRadius = 10
             cell.containerView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
             cell.clipsToBounds = true

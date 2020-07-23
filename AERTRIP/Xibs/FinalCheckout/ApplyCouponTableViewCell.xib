@@ -52,16 +52,11 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="XQX-Jd-uO7">
-                                        <rect key="frame" x="211" y="12" width="20" height="20"/>
-                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="XQX-Jd-uO7" firstAttribute="centerX" secondItem="oer-a4-UpG" secondAttribute="centerX" id="5sj-p7-tF9"/>
                                     <constraint firstItem="oer-a4-UpG" firstAttribute="top" secondItem="rzc-sW-1DK" secondAttribute="top" id="G9a-cJ-Gr7"/>
                                     <constraint firstItem="oer-a4-UpG" firstAttribute="leading" secondItem="lIz-We-ETg" secondAttribute="trailing" id="JOf-to-VMZ"/>
-                                    <constraint firstItem="XQX-Jd-uO7" firstAttribute="centerY" secondItem="oer-a4-UpG" secondAttribute="centerY" id="N1o-XI-UbV"/>
                                     <constraint firstAttribute="trailing" secondItem="oer-a4-UpG" secondAttribute="trailing" id="W5n-kR-n7g"/>
                                     <constraint firstAttribute="bottom" secondItem="lIz-We-ETg" secondAttribute="bottom" id="drF-ds-Wgq"/>
                                     <constraint firstItem="lIz-We-ETg" firstAttribute="leading" secondItem="rzc-sW-1DK" secondAttribute="leading" id="htG-o0-BnC"/>
@@ -69,14 +64,19 @@
                                     <constraint firstAttribute="bottom" secondItem="oer-a4-UpG" secondAttribute="bottom" id="ymL-31-h9s"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="XQX-Jd-uO7">
+                                <rect key="frame" x="288" y="12" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="xLQ-Vn-h21" secondAttribute="trailing" constant="16" id="0Ea-FI-IUh"/>
                             <constraint firstItem="rEm-yC-qcw" firstAttribute="leading" secondItem="kw2-RJ-Itx" secondAttribute="leading" constant="16" id="0xc-jM-Zfg"/>
                             <constraint firstItem="xLQ-Vn-h21" firstAttribute="centerY" secondItem="rEm-yC-qcw" secondAttribute="centerY" id="9Dc-jv-OOJ"/>
+                            <constraint firstItem="XQX-Jd-uO7" firstAttribute="centerY" secondItem="oer-a4-UpG" secondAttribute="centerY" id="Q6D-pn-cvq"/>
                             <constraint firstItem="rzc-sW-1DK" firstAttribute="leading" secondItem="rEm-yC-qcw" secondAttribute="trailing" constant="16" id="cj3-zs-PmG"/>
                             <constraint firstItem="rzc-sW-1DK" firstAttribute="top" secondItem="kw2-RJ-Itx" secondAttribute="top" id="czL-ca-el2"/>
+                            <constraint firstItem="XQX-Jd-uO7" firstAttribute="centerX" secondItem="oer-a4-UpG" secondAttribute="centerX" id="glz-Zy-5Va"/>
                             <constraint firstItem="rEm-yC-qcw" firstAttribute="top" secondItem="kw2-RJ-Itx" secondAttribute="top" constant="12" id="hwc-Ty-K01"/>
                             <constraint firstItem="rEm-yC-qcw" firstAttribute="centerY" secondItem="kw2-RJ-Itx" secondAttribute="centerY" id="smu-Co-m6a"/>
                             <constraint firstAttribute="bottom" secondItem="rzc-sW-1DK" secondAttribute="bottom" id="tUq-u2-wCt"/>
@@ -94,6 +94,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="appliedCouponLabel" destination="lIz-We-ETg" id="Z5t-p5-I6W"/>
+                <outlet property="arrowImage" destination="xLQ-Vn-h21" id="cqd-TN-CHX"/>
                 <outlet property="closeButton" destination="oer-a4-UpG" id="PMB-EG-4hq"/>
                 <outlet property="couponLabel" destination="rEm-yC-qcw" id="byt-Xx-rmr"/>
                 <outlet property="couponView" destination="rzc-sW-1DK" id="uy6-rl-s59"/>

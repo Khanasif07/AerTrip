@@ -844,7 +844,7 @@
         <scene sceneID="7ru-Jd-khw">
             <objects>
                 <viewController storyboardIdentifier="ReloadResultPopupVC" id="Mh3-IO-qfm" customClass="ReloadResultPopupVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5l9-Zq-9Ch">
+                    <view key="view" contentMode="scaleToFill" id="5l9-Zq-9Ch" customClass="PassthroughView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

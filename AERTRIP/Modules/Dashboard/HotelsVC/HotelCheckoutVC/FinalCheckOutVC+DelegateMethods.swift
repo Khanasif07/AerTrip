@@ -19,6 +19,7 @@ extension FinalCheckOutVC : WalletTableViewCellDelegate {
 
 extension FinalCheckOutVC : ApplyCouponTableViewCellDelegate {
     func removeCouponTapped() {
+         self.manageCouponLoader(isApplying: true)// Golu Chnages
         printDebug("Remove coupon tapped")
         self.viewModel.removeCouponCode()
     }

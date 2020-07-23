@@ -28,17 +28,17 @@ class FinalCheckOutVC: BaseVC {
     let viewModel = FinalCheckoutVM()
     let cellIdentifier = "HotelFareSectionHeader"
     var isWallet: Bool = true // To check if using wallet or Not
-    //    var gradientColors: [UIColor] = [AppColors.shadowBlue, AppColors.themeGreen] {
-    //        didSet {
-    //            self.viewDidLayoutSubviews()
-    //        }
-    //    }
-    //
-    //    var disabledGradientColors: [UIColor] = [AppColors.themeGray20, AppColors.themeGray20] {
-    //        didSet {
-    //            self.viewDidLayoutSubviews()
-    //        }
-    //    }
+//    var gradientColors: [UIColor] = [AppColors.shadowBlue, AppColors.themeGreen] {
+//        didSet {
+//            self.viewDidLayoutSubviews()
+//        }
+//    }
+//
+//    var disabledGradientColors: [UIColor] = [AppColors.themeGray20, AppColors.themeGray20] {
+//        didSet {
+//            self.viewDidLayoutSubviews()
+//        }
+//    }
     
     private var isReloadingAfterFareDipOrIncrease: Bool = false
     
@@ -91,7 +91,7 @@ class FinalCheckOutVC: BaseVC {
     override func setupColors() {
         self.payButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.payButton.setTitleColor(AppColors.themeWhite, for: .highlighted)
-        
+
     }
     
     override func bindViewModel() {
@@ -124,7 +124,7 @@ class FinalCheckOutVC: BaseVC {
         self.checkOutTableView.registerCell(nibName: TotalPayableNowCell.reusableIdentifier)
         self.checkOutTableView.registerCell(nibName: ConvenienceFeeTableViewCell.reusableIdentifier)
         self.checkOutTableView.registerCell(nibName: HotelFareTableViewCell.reusableIdentifier)
-        
+
     }
     
     private func addFooterView() {
@@ -172,6 +172,7 @@ class FinalCheckOutVC: BaseVC {
                 applyCouponCell.couponView.isHidden = true
                 applyCouponCell.couponLabel.text = LocalizedString.ApplyCoupon.localized
             }
+            applyCouponCell.hideShowLoader(isHidden: !self.viewModel.isApplyingCoupon)//Golu change
             applyCouponCell.delegate = self
             return applyCouponCell
         case 3:
@@ -282,7 +283,7 @@ class FinalCheckOutVC: BaseVC {
                 walletAmountCell.walletAmountLabel.attributedText = ("-" + abs(amountFromWallet).amountInDelimeterWithSymbol).asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
                 walletAmountCell.clipsToBounds = true
                 walletAmountCell.labelBottomConstraint.constant =  11
-                walletAmountCell.labelTopConstraint.constant = self.isWallet ? 4 : 11
+                 walletAmountCell.labelTopConstraint.constant = self.isWallet ? 4 : 11
                 return walletAmountCell
             } else {
                 walletAmountCell.clipsToBounds = true
@@ -359,12 +360,12 @@ class FinalCheckOutVC: BaseVC {
             return 44.0
         case 2:
             if let _ = UserInfo.loggedInUser {
-                return  self.getWalletAmount() > 0 ? 35.0 : CGFloat.leastNormalMagnitude
+              return  self.getWalletAmount() > 0 ? 35.0 : CGFloat.leastNormalMagnitude
             }
             return CGFloat.leastNormalMagnitude
         case 3: // Pay by Wallet Cell
             if let _ = UserInfo.loggedInUser {
-                return  self.getWalletAmount() > 0 ? 75.0 : CGFloat.leastNormalMagnitude
+              return  self.getWalletAmount() > 0 ? 75.0 : CGFloat.leastNormalMagnitude
             }
             return CGFloat.leastNormalMagnitude
         case 5: // Fare Detail Cell
@@ -427,8 +428,8 @@ class FinalCheckOutVC: BaseVC {
     // Setup Image for Pay Button
     private func setUpImage(showImage: Bool = true) {
         if showImage {
-            self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
-            self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
+            self.payButton.setImage( #imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
+            self.payButton.setImage( #imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
             self.payButton.bringSubviewToFront(self.payButton.imageView!)
             self.payButton.spaceInTextAndImageOfButton(spacing: 2)
         } else {
@@ -594,50 +595,75 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        //        if section == 0 {
-        //            return 0
-        //        } else {
-        //            if self.isCouponApplied {
-        //                return 60.0
-        //            } else {
-        //                return 28.0
-        //            }
-        //        }
+//        if section == 0 {
+//            return 0
+//        } else {
+//            if self.isCouponApplied {
+//                return 60.0
+//            } else {
+//                return 28.0
+//            }
+//        }
         CGFloat.leastNormalMagnitude
     }
     /*
-     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-     if section == 0 {
-     return nil
-     
-     } else {
-     guard let headerView = self.checkOutTableView.dequeueReusableHeaderFooterView(withIdentifier: self.cellIdentifier) as? HotelFareSectionHeader else {
-     fatalError("FareSectionHeader not found")
-     }
-     
-     headerView.delegate = self
-     self.handleDiscountArrowAnimation(headerView)
-     if let discountbreak = self.appliedCouponData.discountsBreakup {
-     headerView.discountPriceLabel.attributedText = ("-" + "\(Double(discountbreak.CPD).amountInDelimeterWithSymbol)").asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
-     }
-     
-     if self.isCouponApplied {
-     headerView.discountViewHeightConstraint.constant = 27
-     headerView.discountTitleLabelTopConstraint.constant = -1
-     } else {
-     headerView.discountViewHeightConstraint.constant = 0
-     headerView.clipsToBounds = true
-     }
-     headerView.grossPriceLabel.attributedText = "\(self.getGrossAmount().amountInDelimeterWithSymbol)".asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
-     return headerView
-     }
-     }
-     */
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 1, indexPath.section == 0 {
-            AppFlowManager.default.presentHCCouponCodeVC(itineraryId: self.viewModel.itineraryData?.it_id ?? "", vc: self, couponCode: self.appliedCouponData.couponCode)
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            return nil
+            
+        } else {
+            guard let headerView = self.checkOutTableView.dequeueReusableHeaderFooterView(withIdentifier: self.cellIdentifier) as? HotelFareSectionHeader else {
+                fatalError("FareSectionHeader not found")
+            }
+            
+            headerView.delegate = self
+            self.handleDiscountArrowAnimation(headerView)
+            if let discountbreak = self.appliedCouponData.discountsBreakup {
+                headerView.discountPriceLabel.attributedText = ("-" + "\(Double(discountbreak.CPD).amountInDelimeterWithSymbol)").asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+            }
+            
+            if self.isCouponApplied {
+                headerView.discountViewHeightConstraint.constant = 27
+                headerView.discountTitleLabelTopConstraint.constant = -1
+            } else {
+                headerView.discountViewHeightConstraint.constant = 0
+                headerView.clipsToBounds = true
+            }
+            headerView.grossPriceLabel.attributedText = "\(self.getGrossAmount().amountInDelimeterWithSymbol)".asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+            return headerView
         }
     }
+    */
+    
+    // Golu changes for  coupon code
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 1, indexPath.section == 0 {
+            self.moveToCouponVC(indexPath: indexPath)
+        }
+    }
+    
+    func moveToCouponVC(indexPath:IndexPath){
+        self.manageCouponLoader(isApplying:true)
+        self.viewModel.getCouponsDetailsApi {[weak self] (success, couponDetails, error) in
+            guard let self = self else {return}
+            self.manageCouponLoader(isApplying:false)
+            if success{
+                AppFlowManager.default.presentHCCouponCodeVC(itineraryId: self.viewModel.itineraryData?.it_id ?? "", vc: self, couponData: couponDetails, couponCode: self.appliedCouponData.couponCode)
+            }else{
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
+            }
+        }
+        
+    }
+
+    
+    func manageCouponLoader(isApplying:Bool){
+        self.viewModel.isApplyingCoupon = isApplying
+        self.view.isUserInteractionEnabled = !isApplying
+        self.checkOutTableView.reloadData()
+    }
+    
+     // End
 }
 
 // MARK: - TopNavigationView Delegate methods
@@ -665,15 +691,15 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
         self.manageLoader(shouldStart: false)
     }
     func getPaymentResonseSuccess(bookingIds: [String], cid: [String]) {
-        // send to you are all donr screen
-        //        self.manageLoader(shouldStart: false)
-        if let id = self.viewModel.itineraryData?.it_id {
-            self.viewModel.bookingIds = bookingIds
-            self.viewModel.cId = cid
-            self.viewModel.getBookingReceipt(bookingIds: bookingIds, itId: id)
-            //AppFlowManager.default.presentYouAreAllDoneVC(forItId: id, bookingIds: bookingIds, cid: cid, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong)
+            // send to you are all donr screen
+    //        self.manageLoader(shouldStart: false)
+            if let id = self.viewModel.itineraryData?.it_id {
+                self.viewModel.bookingIds = bookingIds
+                self.viewModel.cId = cid
+                self.viewModel.getBookingReceipt(bookingIds: bookingIds, itId: id)
+                //AppFlowManager.default.presentYouAreAllDoneVC(forItId: id, bookingIds: bookingIds, cid: cid, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong)
+            }
         }
-    }
     
     func willCallGetPayementMethods() {
         //
@@ -697,6 +723,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     }
     
     func removeCouponCodeSuccessful(_ appliedCouponData: HCCouponAppliedModel) {
+        self.manageCouponLoader(isApplying: false)//Golu Chnages
         self.viewModel.itineraryData = appliedCouponData.itinerary
         self.appliedCouponData = appliedCouponData
         self.isCouponApplied = false
@@ -705,6 +732,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     }
     
     func removeCouponCodeFailed() {
+        self.manageCouponLoader(isApplying: false) //Golu Chnages
         printDebug("Unable to remove Coupon Code")
     }
     
@@ -730,9 +758,9 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
                 FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: diff, totalUpdatedAmount: newAmount, continueButtonAction: { [weak self] in
                     guard let sSelf = self else { return }
                     sSelf.viewModel.makePayment(forAmount: sSelf.getTotalPayableAmount(), useWallet: sSelf.isWallet)
-                    }, goBackButtonAction: { [weak self] in
-                        guard let sSelf = self else { return }
-                        sSelf.topNavBarLeftButtonAction(sSelf.topNavView.leftButton)
+                }, goBackButtonAction: { [weak self] in
+                    guard let sSelf = self else { return }
+                    sSelf.topNavBarLeftButtonAction(sSelf.topNavView.leftButton)
                 })
             } else if diff < 0 {
                 // dipped
