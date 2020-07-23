@@ -127,6 +127,12 @@ extension IntMCAndReturnVC {
     }
     
     func hidePinnedFlightOptions( _ hide : Bool) {
+        
+        //*******************Haptic Feedback code********************
+        let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        selectionFeedbackGenerator.selectionChanged()
+        //*******************Haptic Feedback code********************
+        
         let optionViewWidth : CGFloat =  hide ? 50.0 : 212.0
         let unpinButtonLeading : CGFloat = hide ? 0.0 : 60.0
         let emailButton : CGFloat = hide ? 0.0 : 114.0
