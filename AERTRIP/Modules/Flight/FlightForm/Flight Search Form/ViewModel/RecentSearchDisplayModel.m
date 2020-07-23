@@ -97,7 +97,7 @@
 -(void)setupDateForSingleLegJourney{
     
     NSString *departDateString = [self.quary objectForKey:@"depart"];
-    if (departDateString == nil) {
+    if (departDateString != nil) {
         NSMutableString * outputString = [NSMutableString stringWithString:[self formatDateString:departDateString]];
         
         NSString * returnDateString = [self.quary objectForKey:@"return"];
