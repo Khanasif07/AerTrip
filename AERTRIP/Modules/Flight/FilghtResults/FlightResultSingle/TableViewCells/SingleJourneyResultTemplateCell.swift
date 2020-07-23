@@ -10,6 +10,7 @@ import UIKit
 //import SkeletonView
 
 class SingleJourneyResultTemplateCell: UITableViewCell {
+
     
     @IBOutlet weak var singleairlineLogo: UIImageView!
     @IBOutlet weak var airlineTitle: UILabel!
@@ -27,12 +28,11 @@ class SingleJourneyResultTemplateCell: UITableViewCell {
        
         backgroundColor = .clear
         layer.masksToBounds = false
-        layer.shadowOpacity = 0.5
+        layer.shadowOpacity = 0.4
         layer.shadowRadius = 4
         layer.shadowOffset = CGSize(width: 0, height: 0)
         layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
         baseView.layer.cornerRadius = 10.0
-
         
     }
     
@@ -40,6 +40,7 @@ class SingleJourneyResultTemplateCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        dashedView.setupDashedView()
         setupBaseView()
         addShimmerEffect(to: [singleairlineLogo,airlineTitle , DepartureTime , departureAirports ])
         

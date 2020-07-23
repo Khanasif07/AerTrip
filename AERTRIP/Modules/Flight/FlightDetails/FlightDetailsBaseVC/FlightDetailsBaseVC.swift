@@ -7,13 +7,27 @@
 //
 
 protocol flightDetailsPinFlightDelegate : AnyObject {
-    func reloadRowFromFlightDetails(fk:String,isPinned:Bool)
+    func reloadRowFromFlightDetails(fk:String,isPinned:Bool,isPinnedButtonClicked:Bool)
 }
+
+protocol flightInfoViewDisplayDelegate:AnyObject {
+    func updateView()
+}
+
+protocol getBaggageDimentionsDelegate :AnyObject{
+    func getBaggageDimentions(baggage:[[NSDictionary]],sender:UIButton)
+}
+
+protocol getFareRulesDelegate:AnyObject {
+    func getFareRulesData(fareRules:[NSDictionary])
+}
+
 
 import UIKit
 //import HMSegmentedControl
+import Parchment
 
-class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetailsSmartIconsDelegate, FareBreakupVCDelegate
+class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetailsSmartIconsDelegate, FareBreakupVCDelegate, flightDetailsBaggageDelegate, flightInfoViewDisplayDelegate, getBaggageDimentionsDelegate, getFareRulesDelegate
 {
     //MARK:- Outlets
     @IBOutlet weak var blurView: UIView!
@@ -22,12 +36,12 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     @IBOutlet weak var newTitleDisplayView: UIView!
     @IBOutlet weak var displayViewTop: NSLayoutConstraint!
     @IBOutlet weak var grabberView: UIView!
-    @IBOutlet weak var displayScrollView: UIScrollView!
     @IBOutlet weak var dataDisplayView: UIView!
     
     @IBOutlet weak var pinButton: UIButton!
     @IBOutlet weak var addToTripButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var backgroundButton: UIButton!
     
     //MARK:- Variable Declaration
     var journeyGroup: JourneyOnewayDisplay!
@@ -49,8 +63,6 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     var selectedIndex : IndexPath?
     var isJourneyPinned = false
     var isFSRVisible = false
-    var labelPositionisLeft = true
-    var headerSegmentView: HMSegmentedControl!
     var selectedJourneyFK = [String]()
     let clearCache = ClearCache()
     var backgroundViewForFareBreakup = UIView()
@@ -64,6 +76,12 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     var intFlights : [IntFlightDetail]?
     var needToAddFareBreakup = true
     weak var refundDelegate:UpdateRefundStatusDelegate?
+    
+    fileprivate var parchmentView : PagingViewController?
+    var allTabsStr = ["Flight Info", "Baggage", "Fare Info"]
+    private var currentIndex: Int = 0
+    var allChildVCs = [UIViewController]()
+    
     var isForCheckOut = false
     var viewModel = FlightDetailsVM()
     var intFareBreakup:IntFareBreakupVC?
@@ -75,8 +93,9 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     override func viewDidLoad()
     {
         super.viewDidLoad()
-                
+        NotificationCenter.default.addObserver(self, selector: #selector(arrivalPerformanceBackgroundButtonClicked), name: NSNotification.Name("arrivalPerformanceBackgroundButtonClicked"), object: nil)
         backgroundViewForFareBreakup.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        backgroundViewForFareBreakup.tag = 1002
         self.view.addSubview(backgroundViewForFareBreakup)
         grabberView.layer.cornerRadius = 2
         
@@ -88,7 +107,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
            self.setFlightDetailsForDomestic()
         }
         setupInitialViews()
-        setupSegmentView()
+        setupParchmentPageController()
         self.setupViewModel()
     }
     
@@ -103,7 +122,6 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     //MARK:- Initialise Views
     func setupInitialViews()
     {
-        setupScrollView()
         initialDisplayView()
         if needToAddFareBreakup{
             if !(self.isInternational){
@@ -114,31 +132,24 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         }else{
             self.displayViewBottom.constant = 0
         }
-        setupSwipeDownGuesture()
-    }
-    
-    func setupScrollView()
-    {
-        displayScrollView.delegate = self
-        displayScrollView.bounces = false
-        displayScrollView.isPagingEnabled = true
-        displayScrollView.alwaysBounceHorizontal = false
-        displayScrollView.alwaysBounceVertical = false
-        displayScrollView.showsVerticalScrollIndicator = false
-        displayScrollView.showsHorizontalScrollIndicator = false
-        displayScrollView.contentSize = CGSize( width: (3 * UIScreen.main.bounds.size.width), height:0)
-        self.displayScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
     
     func initialDisplayView(){
         if isInternational || !(needToAddFareBreakup){
-            addIntFlightInfoVC()
-            addIntBaggageVC()
-            addIntFareInfo()
+//            addIntFlightInfoVC()
+//            addIntBaggageVC()
+//            addIntFareInfo()
+            allChildVCs.append(addIntFlightInfoVC())
+            allChildVCs.append(addIntBaggageVC())
+            allChildVCs.append(addIntFareInfo())
         }else{
-            addFlightInfoVC()
-            addBaggageVC()
-            addFareInfoVC()
+                        //            addIntFlightInfoVC()
+            //            addIntBaggageVC()
+            //            addIntFareInfo()
+            
+            allChildVCs.append(addFlightInfoVC())
+            allChildVCs.append(addBaggageVC())
+            allChildVCs.append(addFareInfoVC())
         }
         
     }
@@ -169,23 +180,47 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         self.fareBreakup = fareBreakupVC
     }
     
-    func setupSwipeDownGuesture(){
-        let gestureRecognizer = UIPanGestureRecognizer(target: self,
-                                                       action: #selector(panGestureRecognizerHandler(_:)))
-        view.addGestureRecognizer(gestureRecognizer)
+    private func setupParchmentPageController(){
+        
+        self.parchmentView = PagingViewController()
+        self.parchmentView?.menuItemSpacing = (self.view.frame.width - 340) / 3
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 100, height: 49)
+        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
+        self.parchmentView?.borderOptions = PagingBorderOptions.visible(
+            height: 0.5,
+            zIndex: Int.max - 1,
+            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        self.parchmentView?.font = UIFont(name: "SourceSansPro-Regular", size: 16.0)!
+        self.parchmentView?.selectedFont = UIFont(name: "SourceSansPro-Semibold", size: 16.0)!
+        self.parchmentView?.indicatorColor = UIColor.AertripColor
+        self.parchmentView?.selectedTextColor = .black
+        self.parchmentView?.menuBackgroundColor = .white
+        self.parchmentView?.view.frame = self.dataDisplayView.bounds
+        self.parchmentView?.view.height += 50
+        self.dataDisplayView.addSubview(self.parchmentView!.view)
+        
+        self.parchmentView?.collectionView.isScrollEnabled = false
+        self.parchmentView?.collectionView.clipsToBounds = true
+        self.parchmentView?.dataSource = self
+        self.parchmentView?.delegate = self
+        self.parchmentView?.sizeDelegate = self
+        self.parchmentView?.select(index: 0)
+        self.parchmentView?.reloadData()
+        self.parchmentView?.reloadMenu()
     }
     
     
     //MARK:- initialDisplayViews
     
-    func addFlightInfoVC(){
-        let bottomInset = ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!)
+    func addFlightInfoVC() -> UIViewController {
         
         let storyboard = UIStoryboard(name: "FlightInfoVC", bundle: nil)
         let flightInfoVC:FlightInfoVC =
             storyboard.instantiateViewController(withIdentifier: "FlightInfoVC") as!
         FlightInfoVC
         flightInfoVC.sid = sid
+        flightInfoVC.flightInfoDelegate = self
         flightInfoVC.titleString = titleString
         flightInfoVC.journey = journey
         if isFSRVisible == true{
@@ -197,18 +232,15 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         flightInfoVC.airportDetailsResult = airportDetailsResult
         flightInfoVC.airlineDetailsResult = airlineDetailsResult
         flightInfoVC.selectedJourneyFK = selectedJourneyFK
-        flightInfoVC.view.frame = CGRect(x: 0 , y: 0, width: UIScreen.main.bounds.size.width, height :self.displayScrollView.frame.height-CGFloat(bottomInset))
-        flightInfoVC.view.autoresizingMask = []
-        self.displayScrollView.addSubview(flightInfoVC.view)
-        self.addChild(flightInfoVC)
-        flightInfoVC.didMove(toParent: self)
+        flightInfoVC.view.frame = dataDisplayView.frame
+        return flightInfoVC
     }
     
-    func addBaggageVC(){
-        let bottomInset = ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!)
+    func addBaggageVC() -> UIViewController{
         
         let baggageVC = BaggageVC(nibName: "BaggageVC", bundle: nil)
         baggageVC.journey = journey
+        baggageVC.dimensionDelegate = self
         baggageVC.sid = sid
         if isFSRVisible == true{
             baggageVC.fewSeatsLeftViewHeight = 40
@@ -217,17 +249,14 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         }
         
         baggageVC.airportDetailsResult = airportDetailsResult
-        baggageVC.view.frame = CGRect(x: UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width, height :self.displayScrollView.frame.height-CGFloat(bottomInset))
-        baggageVC.view.autoresizingMask = []
-        self.displayScrollView.addSubview(baggageVC.view)
-        self.addChild(baggageVC)
-        baggageVC.didMove(toParent: self)
+        baggageVC.view.frame = self.dataDisplayView.frame
+        return baggageVC
     }
     
-    func addFareInfoVC(){
-        let bottomInset = ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!)
+    func addFareInfoVC() -> UIViewController{
         
         let fareInfoVc = FareInfoVC(nibName: "FareInfoVC", bundle: nil)
+        fareInfoVc.fareRulesDelegate = self
         fareInfoVc.journey = journey
         fareInfoVc.flights = flights
         fareInfoVc.sid = sid
@@ -242,147 +271,27 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         fareInfoVc.flightChildrenCount = bookFlightObject.flightChildrenCount
         fareInfoVc.flightInfantCount = bookFlightObject.flightInfantCount
         fareInfoVc.airportDetailsResult = airportDetailsResult
-        fareInfoVc.view.frame = CGRect(x: UIScreen.main.bounds.size.width * 2, y: 0, width: UIScreen.main.bounds.size.width, height :self.displayScrollView.frame.height-CGFloat(bottomInset))
-        fareInfoVc.view.autoresizingMask = []
-        self.displayScrollView.addSubview(fareInfoVc.view)
-        self.addChild(fareInfoVc)
-        fareInfoVc.didMove(toParent: self)
+        fareInfoVc.view.frame = self.dataDisplayView.frame
+        return fareInfoVc
     }
     
     
-    // MARK:- Scrollview Delegate
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let pageNum = Int(scrollView.contentOffset.x / scrollView.bounds.size.width)
-        headerSegmentView.setSelectedSegmentIndex(UInt(pageNum), animated: true)
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let pageNum = Int(scrollView.contentOffset.x / scrollView.bounds.size.width)
-        headerSegmentView.setSelectedSegmentIndex(UInt(pageNum), animated: true)
-    }
-    
-    //MARK:- DisplaySelectedSegmentData
-    
-    func displaySelectedSegmentData(selectedSegment:Int)
-    {
-        switch selectedSegment
-        {
-        case 0:
-            self.displayScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-            break
-            
-        case 1:
-            self.displayScrollView.setContentOffset(CGPoint(x: UIScreen.main.bounds.size.width, y: 0), animated: true)
-            break
-            
-        case 2:
-            self.displayScrollView.setContentOffset(CGPoint(x: UIScreen.main.bounds.size.width*2, y: 0), animated: true)
-            break
-            
-        case 3:
-            self.displayScrollView.setContentOffset(CGPoint(x: UIScreen.main.bounds.size.width*3, y: 0), animated: true)
-            break
-            
-        default:
-            self.displayScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-            break
-        }
-    }
-    
-    //MARK:- HMSegmentedControl SegmentView UI Methods
-    
-    func setupSegmentView(){
-        
-        self.headerSegmentView = HMSegmentedControl()
-        
-        self.headerSegmentView.sectionTitles = ["Flight Info", "Baggage", "Fare Info"]
-        self.headerSegmentView.selectedSegmentIndex = 0
-        
-        self.headerSegmentView.selectionIndicatorLocation = .down;
-        self.headerSegmentView.selectionIndicatorHeight = 2
-        self.headerSegmentView.selectionIndicatorColor = .AertripColor
-        self.headerSegmentView.shouldAnimateUserSelection = true
-        //self.headerSegmentView.dec
-        
-        self.headerSegmentView.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black , NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Regular" , size: 16)! ]
-        self.headerSegmentView.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.black , NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Semibold" , size: 16)!]
-        self.headerSegmentView.addTarget(self, action: #selector(headerSegmentChanged), for: .valueChanged)
-        
-        self.newTitleDisplayView.addSubview(self.headerSegmentView)
-        headerSegmentView.snp.makeConstraints { (make) in
-            make.left.equalTo(self.newTitleDisplayView).offset(0)
-            make.bottom.equalTo(self.newTitleDisplayView).offset(0)
-            make.trailing.equalTo(self.newTitleDisplayView).offset(0)
-            make.top.equalTo(self.newTitleDisplayView).offset(0)
-        }
-    }
-    
-    @IBAction func headerSegmentChanged(_ sender: HMSegmentedControl) {
-        displaySelectedSegmentData(selectedSegment: self.headerSegmentView.selectedSegmentIndex)
-    }
+
     
     
     func reloadSmartIconsAtIndexPath() {
-        self.delegate?.reloadRowFromFlightDetails(fk: journey.first!.fk, isPinned: false)
+        self.delegate?.reloadRowFromFlightDetails(fk: journey.first!.fk, isPinned: false, isPinnedButtonClicked:false)
+    }
+    
+    func reloadBaggageSuperScriptAtIndexPath() {
+        self.delegate?.reloadRowFromFlightDetails(fk: journey.first!.fk, isPinned: false,isPinnedButtonClicked:false)
     }
 
     //MARK:- Button Actions
-    @IBAction func panGestureRecognizerHandler(_ sender: UIPanGestureRecognizer) {
-        guard !self.needToAddFareBreakup else {
-            return
-        }
-                let touchPoint = sender.location(in: view?.window)
-                var initialTouchPoint = CGPoint.zero
-        
-                switch sender.state {
-                case .began:
-                    initialTouchPoint = touchPoint
-                case .changed:
-                    if touchPoint.y > (initialTouchPoint.y + 20) {
-                        view.frame.origin.y = (touchPoint.y - initialTouchPoint.y) - 20
-                    }
-                case .ended, .cancelled:
-                    if touchPoint.y - initialTouchPoint.y > 200 {
-//                        dismiss(animated: true, completion: nil)
-                        UIView.animate(withDuration: 0.2, animations: {
-                            self.view.frame.origin.y = UIScreen.height
-                        }) { _ in
-//                            (self.parent as? PassengersSelectionVC)?.detailsBaseVC = nil
-                            self.willMove(toParent: nil)
-                            self.view.removeFromSuperview()
-                            self.removeFromParent()
-                        }
-                    } else {
-                        UIView.animate(withDuration: 0.2, animations: {
-                            self.view.frame = CGRect(x: 0,
-                                                     y: 0,
-                                                     width: self.view.frame.size.width,
-                                                     height: self.view.frame.size.height)
-                        })
-                    }
-                case .failed, .possible:
-                    break
-        
-                default:break
-                }
-    }
     
     @IBAction func closeButtonClicked(_ sender: Any)
     {
-        if needToAddFareBreakup{
-            self.dismiss(animated: true, completion: nil)
-        }else{
-            UIView.animate(withDuration: 0.5, animations: {
-                self.view.frame.origin.y = UIScreen.height
-            }) { _ in
-//                (self.parent as? PassengersSelectionVC)?.detailsBaseVC = nil
-                self.willMove(toParent: nil)
-                self.view.removeFromSuperview()
-                self.removeFromParent()
-            }
-        }
-        
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func pinButtonClicked(_ sender: Any)
@@ -414,7 +323,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
                 }
             }
             
-            self.delegate?.reloadRowFromFlightDetails(fk: journey.first!.fk, isPinned: isPinned)
+            self.delegate?.reloadRowFromFlightDetails(fk: journey.first!.fk, isPinned: isPinned, isPinnedButtonClicked: true)
         }else{
             if let journey = self.intJourney?.first{
                 if journey.isPinned{
@@ -425,7 +334,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
                 var newJourney = journey
                 newJourney.isPinned = !journey.isPinned
                 self.intJourney[0] = newJourney
-                self.delegate?.reloadRowFromFlightDetails(fk: journey.fk, isPinned: !journey.isPinned)
+                self.delegate?.reloadRowFromFlightDetails(fk: journey.fk, isPinned: !journey.isPinned, isPinnedButtonClicked: true)
             }
         }
     }
@@ -639,8 +548,10 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
             vc.viewModel.bookingObject = self.bookFlightObject
             vc.viewModel.journeyTitle = self.journeyTitle
             vc.viewModel.journeyDate = self.journeyDate
+//            self.pushToPassenserSelectionVC(vc)
             AppFlowManager.default.removeLoginConfirmationScreenFromStack()
             self.pushToPassenserSelectionVC(vc)
+//            AppGlobals.shared.stopLoading()
         }
     }
 
@@ -670,7 +581,6 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
                         self.navigationContronller?.modalPresentationStyle = .overFullScreen
                         self.navigationContronller?.modalPresentationCapturesStatusBarAppearance = true
                         vc.dismissController = {[weak self] in
-                            GuestDetailsVM.clearData()
                             self?.navigationContronller = nil
                         }
                         guard let nav = self.navigationContronller else {return}
@@ -698,6 +608,90 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         vc.journeyDate = self.journeyDate
         vc.fewSeatsLeftViewHeight = isFSRVisible ? 40 : 0
         self.present(vc, animated: true, completion: nil)
+    }
+    
+    //Arrival Performance view hide & show
+    func updateView() {
+        backgroundButton.isHidden = false
+    }
+    
+    @IBAction func backgroundButtonClicked(_ sender: Any)
+    {
+        backgroundButton.isHidden = true
+        NotificationCenter.default.post(name:NSNotification.Name("backgroundButtonClicked"), object: nil)
+
+    }
+    @objc private func arrivalPerformanceBackgroundButtonClicked(){
+        backgroundButton.isHidden = true
+    }
+    
+    //Present Baggage Dimensions screen
+    func getBaggageDimentions(baggage: [[NSDictionary]], sender: UIButton) {
+            let baggageDimensionVC = BaggageDimensionsVC(nibName: "BaggageDimensionsVC", bundle: nil)
+            
+            let section = sender.tag / 100
+            let row = sender.tag % 100
+            if let baggageData = baggage[section][row].value(forKey: "baggageData") as? NSDictionary{
+                if let cbgData = baggageData.value(forKey: "cbg") as? NSDictionary{
+                    if let adtCabinBaggage = cbgData.value(forKey: "ADT") as? NSDictionary{
+                        if let weight = adtCabinBaggage.value(forKey: "weight") as? String{
+                            baggageDimensionVC.weight = weight
+                        }
+                        if let dimension = adtCabinBaggage.value(forKey: "dimension") as? NSDictionary{
+                            if let cm = dimension.value(forKey: "cm") as? NSDictionary{
+                                baggageDimensionVC.dimensions = cm
+                            }
+                            
+                            if let inch = dimension.value(forKey: "in") as? NSDictionary{
+                                baggageDimensionVC.dimensions_inch = inch
+                            }
+                        }
+                        
+                        if let note = adtCabinBaggage.value(forKey: "note") as? String{
+                            baggageDimensionVC.note = note
+                        }
+                    }
+                }
+            }
+            
+            self.present(baggageDimensionVC, animated: true, completion: nil)
+        }
+    
+    //Present Fare Rules Screen
+    func getFareRulesData(fareRules: [NSDictionary]) {
+        let fareRulesVC = FareRulesVC(nibName: "FareRulesVC", bundle: nil)
+        fareRulesVC.fareRulesData = fareRules
+        self.present(fareRulesVC, animated: true, completion: nil)
+    }
+    
+
+}
+
+extension FlightDetailsBaseVC: PagingViewControllerDataSource , PagingViewControllerDelegate, PagingViewControllerSizeDelegate
+{
+
+    func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
+        return PagingIndexItem(index: index, title:  self.allTabsStr[index])
+    }
+    
+    func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
+        return self.allTabsStr.count
+    }
+    
+    func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController
+    {
+        return self.allChildVCs[index]
+    }
+    
+    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat
+    {
+        return 120.0
+    }
+    
+    func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool){
+        
+        let pagingIndexItem = pagingItem as! PagingIndexItem
+        self.currentIndex = pagingIndexItem.index
     }
 }
 
@@ -767,9 +761,8 @@ extension FlightDetailsBaseVC{
         self.intFareBreakup = vc
     }
     
-    func addIntFlightInfoVC(){
+    func addIntFlightInfoVC() -> UIViewController {
         let bottomInset = ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!)
-        
         let vc =
             IntFlightInfoVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
         vc.sid = sid
@@ -785,14 +778,11 @@ extension FlightDetailsBaseVC{
         vc.airportDetailsResult = intAirportDetailsResult
         vc.airlineDetailsResult = intAirlineDetailsResult
         vc.selectedJourneyFK = selectedJourneyFK
-        vc.view.frame = CGRect(x: 0 , y: 0, width: UIScreen.main.bounds.size.width, height :self.displayScrollView.frame.height-CGFloat(bottomInset))
-        vc.view.autoresizingMask = []
-        self.displayScrollView.addSubview(vc.view)
-        self.addChild(vc)
-        vc.didMove(toParent: self)
+        vc.view.frame = CGRect(x: 0 , y: 0, width: UIScreen.main.bounds.size.width, height :self.dataDisplayView.frame.height-CGFloat(bottomInset))
+        return vc
     }
     
-    func addIntBaggageVC(){
+    func addIntBaggageVC() -> UIViewController {
         let bottomInset = ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!)
         
         let vc = IntFlightBaggageInfoVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
@@ -805,15 +795,12 @@ extension FlightDetailsBaseVC{
         }
         vc.isForDomestic = (self.bookFlightObject.isDomestic)
         vc.airportDetailsResult = intAirportDetailsResult
-        vc.view.frame = CGRect(x: UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width, height :self.displayScrollView.frame.height-CGFloat(bottomInset))
-        vc.view.autoresizingMask = []
-        self.displayScrollView.addSubview(vc.view)
-        self.addChild(vc)
-        vc.didMove(toParent: self)
+        vc.view.frame = CGRect(x: UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width, height :self.dataDisplayView.frame.height-CGFloat(bottomInset))
+        return vc
     }
     
-    func addIntFareInfo(){
-        let bottomInset = ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom) ?? 0.0)
+    func addIntFareInfo() -> UIViewController {
+        let bottomInset = ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!)
         
         let vc = IntFareInfoVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
         vc.journey = [self.intJourney.first!]
@@ -831,11 +818,8 @@ extension FlightDetailsBaseVC{
         vc.flightChildrenCount = bookFlightObject.flightChildrenCount
         vc.flightInfantCount = bookFlightObject.flightInfantCount
         vc.airportDetailsResult = self.intAirportDetailsResult
-        vc.view.frame = CGRect(x: UIScreen.main.bounds.size.width * 2, y: 0, width: UIScreen.main.bounds.size.width, height :self.displayScrollView.frame.height-CGFloat(bottomInset))
-        vc.view.autoresizingMask = []
-        self.displayScrollView.addSubview(vc.view)
-        self.addChild(vc)
-        vc.didMove(toParent: self)
+        vc.view.frame = CGRect(x: UIScreen.main.bounds.size.width * 2, y: 0, width: UIScreen.main.bounds.size.width, height :self.dataDisplayView.frame.height-CGFloat(bottomInset))
+        return vc
     }
     
     func setupViewModel(){

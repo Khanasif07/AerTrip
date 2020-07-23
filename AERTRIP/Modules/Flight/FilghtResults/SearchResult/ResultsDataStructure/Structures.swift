@@ -209,7 +209,7 @@ public struct FlightDetail : Codable {
     let slo : Int
     let llo : Int
 
-    let bg : [ String : baggageStruct]?
+    var bg : [ String : baggageStruct]?
     let cbg : [ String : cbgStruct]?
 //    let cbg : String?
     let isLcc : Int

@@ -8,12 +8,17 @@
 
 import UIKit
 
+//protocol resetSortDelegate {
+//    func resetSort()
+//}
 
 protocol SortFilterDelegate : FilterDelegate {
 
+    func resetSort()
     func sortFilterChanged(sort : Sort )
     func departSortFilterChanged( departMode  : Bool )
     func arrivalSortFilterChanged( arrivalMode : Bool)
+    func durationSortFilterChanged( longestFirst : Bool)
     
     func priceFilterChangedWith(_ highToLow: Bool)
     func durationFilterChangedWith(_ longestFirst: Bool)
@@ -41,14 +46,21 @@ class FlightSortFilterViewController: UIViewController {
     
     var  departModeLatestFirst : Bool = false
     var  arrivalModeLatestFirst : Bool = false
+    var  priceHighToLow : Bool = false
+    var  durationLogestFirst : Bool = false
+
     weak var delegate : SortFilterDelegate?
     var selectedSorting = Sort.Smart
+    var isInitialSetup = true
+    var isFirstIndexSelected = true
+    var selectedIndex = 0
     
     //MARK:- View Controller Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
     }
+    
 
     //MARK:- Additional setup methods
     fileprivate func setupTableView ()
@@ -57,6 +69,18 @@ class FlightSortFilterViewController: UIViewController {
         sortTableview.bounces = false
         sortTableview.isScrollEnabled = false
     }
+    
+    func resetSort()
+    {
+        departModeLatestFirst = false
+        arrivalModeLatestFirst = false
+        priceHighToLow = false
+        durationLogestFirst = false
+        selectedSorting = Sort.Smart
+        delegate?.sortFilterChanged(sort: selectedSorting)
+        self.sortTableview.reloadData()
+    }
+    
     
     fileprivate func getAttributedStringFor(index : Int) ->NSAttributedString? {
         
@@ -76,12 +100,19 @@ class FlightSortFilterViewController: UIViewController {
             
             var substring = "  " + sortFilter.subTitle
             
-            if index == 2  && departModeLatestFirst {
-                substring = "  "  + "Latest first"
+            if index == 1 && priceHighToLow {
+                substring = "  " + "High to low"
             }
-            if index == 3 && arrivalModeLatestFirst {
+            if index == 2  && durationLogestFirst {
+                substring = "  "  + "Longest first"
+            }
+            if index == 3 && departModeLatestFirst{
                 substring = "  " + "Latest first"
             }
+            if index == 4 && arrivalModeLatestFirst  {
+                substring = "  " + "Latest first"
+            }
+
             let substringAttributedString = NSAttributedString(string: substring, attributes: [NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Regular" , size:14 )!, NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR  ])
             attributedString.append(substringAttributedString)
          
@@ -128,9 +159,7 @@ class FlightSortFilterViewController: UIViewController {
         setupSortDescription()
         selectedSorting = Sort.Smart
     }
-
 }
-
 
 extension FlightSortFilterViewController : UITableViewDataSource , UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -146,7 +175,23 @@ extension FlightSortFilterViewController : UITableViewDataSource , UITableViewDe
         if  let sortFilter = Sort(rawValue: indexPath.row) {
             
             if sortFilter == selectedSorting {
-                cell.accessoryView = UIImageView(image: UIImage(named: "greenTick"))
+//                cell.accessoryView = UIImageView(image: UIImage(named: "greenTick"))
+                
+                if isInitialSetup == false
+                {
+                    let indicator = UIActivityIndicatorView(style: .gray)
+                    indicator.color = .AertripColor
+                    indicator.startAnimating()
+                    indicator.hidesWhenStopped = true
+                    cell.accessoryView = indicator
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        indicator.stopAnimating()
+                        cell.accessoryView = UIImageView(image: UIImage(named: "greenTick"))
+                    }
+                }else{
+                    cell.accessoryView = UIImageView(image: UIImage(named: "greenTick"))
+                }
             }
         }
         
@@ -157,35 +202,69 @@ extension FlightSortFilterViewController : UITableViewDataSource , UITableViewDe
     
     func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
         
+        if indexPath.row == 1 {
+            priceHighToLow = false
+        }
+        
         if indexPath.row == 2 {
-            departModeLatestFirst = false
+            durationLogestFirst = false
         }
         
         if indexPath.row == 3 {
-            arrivalModeLatestFirst = false
-        }
-        return indexPath
-    }
-
-    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        
-        
-        if indexPath.row != 2 {
             departModeLatestFirst = false
         }
         
+        if indexPath.row == 4{
+            arrivalModeLatestFirst = false
+        }
+
+        return indexPath
+    }
+
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath?
+    {
+
+        if indexPath.row == 0{
+            if selectedIndex == indexPath.row{
+                return indexPath
+            }
+        }
+        selectedIndex = indexPath.row
+
+        isInitialSetup = false
+        
+        if indexPath.row != 1 {
+            priceHighToLow = false
+        }
+        
+        if indexPath.row != 2 {
+            durationLogestFirst = false
+        }
+        
         if indexPath.row != 3 {
+            departModeLatestFirst = false
+        }
+        
+        if indexPath.row != 4{
             arrivalModeLatestFirst = false
         }
         
         
         if tableView.indexPathForSelectedRow == indexPath {
             
+            if indexPath.row == 1{
+                priceHighToLow.toggle()
+            }
+            
             if indexPath.row == 2 {
-                departModeLatestFirst.toggle()
+                durationLogestFirst.toggle()
             }
             
             if indexPath.row == 3 {
+                departModeLatestFirst.toggle()
+            }
+            
+            if indexPath.row == 4{
                 arrivalModeLatestFirst.toggle()
             }
         }
@@ -194,17 +273,22 @@ extension FlightSortFilterViewController : UITableViewDataSource , UITableViewDe
            
             self.selectedSorting = sortFilter
             
-            switch  indexPath.row {
+            switch  indexPath.row
+            {
             case 2 :
-                delegate?.departSortFilterChanged(departMode: departModeLatestFirst )
+                delegate?.durationSortFilterChanged(longestFirst: durationLogestFirst)
             case 3 :
+                delegate?.departSortFilterChanged(departMode: departModeLatestFirst )
+            case 4 :
                 delegate?.arrivalSortFilterChanged(arrivalMode: arrivalModeLatestFirst)
-
+                
             default :
-                delegate?.sortFilterChanged(sort: sortFilter)
+                if indexPath.row == 1 && priceHighToLow == true{
+                    delegate?.sortFilterChanged(sort: Sort(rawValue: 7)!)
+                }else{
+                    delegate?.sortFilterChanged(sort: sortFilter)
+                }
             }
-            
-
         }
         self.sortTableview.reloadData()
         

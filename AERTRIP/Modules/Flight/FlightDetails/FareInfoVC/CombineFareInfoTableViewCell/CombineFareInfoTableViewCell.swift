@@ -168,8 +168,8 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                             slabCell.statusLabel.text = "Free Cancellation"
                         }else{
                             slabCell.statusLabel.textColor = .black
-                            let adtRafVal = rafFees["ADT"]?.values.first ?? 0
-                            let displayValue = getPrice(price: Double(airlineValue + adtRafVal))
+                            let adtRafVal = rafFees["ADT"]?.values.first
+                            let displayValue = getPrice(price: Double(airlineValue + adtRafVal!))
                             
                             
                             slabCell.statusLabel.text = displayValue + " + ₹ " + String(aertripValue)
@@ -186,8 +186,8 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                             slabCell.perAdultAmountLabel.text = "Free Cancellation"
                         }else{
                             slabCell.perAdultAmountLabel.textColor = .black
-                            let adtRafVal = rafFees["ADT"]?.values.first ?? 0
-                            let displayValue = getPrice(price: Double(airlineValue + adtRafVal))
+                            let adtRafVal = rafFees["ADT"]?.values.first
+                            let displayValue = getPrice(price: Double(airlineValue + adtRafVal!))
                             
                             slabCell.perAdultAmountLabel.text = displayValue + " + ₹ " + String(aertripValue)
                         }
@@ -221,8 +221,8 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         slabCell.perChildAmountLabel.text = "Free Cancellation"
                     }else{
                         slabCell.perChildAmountLabel.textColor = .black
-                        let chdRafVal = rafFees["CHD"]?.values.first ?? 0
-                        let displayValue = getPrice(price: Double(value! + chdRafVal))
+                        let chdRafVal = rafFees["CHD"]?.values.first
+                        let displayValue = getPrice(price: Double(value! + chdRafVal!))
                         
                         slabCell.perChildAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
                     }
@@ -255,8 +255,8 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         slabCell.perInfantAmountLabel.text = "Free Cancellation"
                     }else{
                         slabCell.perInfantAmountLabel.textColor = .black
-                        let chdRafVal = rafFees["INF"]?.values.first ?? 0
-                        let displayValue = getPrice(price: Double(value! + chdRafVal))
+                        let chdRafVal = rafFees["INF"]?.values.first
+                        let displayValue = getPrice(price: Double(value! + chdRafVal!))
                         slabCell.perInfantAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
                     }
                 }else{

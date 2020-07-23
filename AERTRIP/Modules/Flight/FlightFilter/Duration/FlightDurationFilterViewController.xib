@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,17 +13,21 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FlightDurationFilterViewController" customModule="Aertrip" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FlightDurationFilterViewController" customModule="AERTRIP" customModuleProvider="target">
             <connections>
                 <outlet property="layoverDurationMaxLabel" destination="uPO-L1-LNA" id="PLq-W8-asf"/>
+                <outlet property="layoverDurationMaxLabelWidth" destination="Oif-78-PXP" id="6WD-yl-qbp"/>
                 <outlet property="layoverDurationMinLabel" destination="tbF-za-o29" id="yoq-xJ-MuM"/>
+                <outlet property="layoverDurationMinLabelWidth" destination="5MP-j0-bfT" id="Fa4-4L-sK2"/>
                 <outlet property="layoverDurationSlider" destination="xWh-ei-QaR" id="ywc-hp-NJ1"/>
                 <outlet property="multiLegSegmentView" destination="mVL-pa-1Gg" id="RQC-ev-IWl"/>
                 <outlet property="multiLegView" destination="ojm-Bf-ycX" id="6ru-0r-NMo"/>
                 <outlet property="multiLegViewHeight" destination="AJ9-R4-Akg" id="eqM-ZU-SNY"/>
                 <outlet property="multicityViewHeight" destination="AJ9-R4-Akg" id="Twd-5N-AB6"/>
                 <outlet property="tripDurationMaxLabel" destination="C4A-n2-4Bx" id="2OK-iZ-8jn"/>
+                <outlet property="tripDurationMaxLabelWidth" destination="tBW-tn-WcZ" id="Qql-U2-ifk"/>
                 <outlet property="tripDurationMinLabel" destination="IRl-w4-cM2" id="ryG-yX-NtP"/>
+                <outlet property="tripDurationMinLabelWidth" destination="fTy-mo-fUj" id="mO1-Ne-r6v"/>
                 <outlet property="tripDurationSlider" destination="8kD-f4-BI3" id="vJn-TZ-baL"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -36,7 +38,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ojm-Bf-ycX">
-                    <rect key="frame" x="0.0" y="20" width="375" height="50"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mVL-pa-1Gg">
                             <rect key="frame" x="16" y="16" width="343" height="28"/>
@@ -55,7 +57,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fc4-3G-DTW">
-                    <rect key="frame" x="0.0" y="70" width="375" height="260"/>
+                    <rect key="frame" x="0.0" y="50" width="375" height="260"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip Duration" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oYo-S4-Rhz">
                             <rect key="frame" x="16" y="10" width="343" height="20"/>

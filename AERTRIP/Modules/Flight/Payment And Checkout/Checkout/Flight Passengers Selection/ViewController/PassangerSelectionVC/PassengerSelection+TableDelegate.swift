@@ -85,6 +85,22 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+//        if indexPath.row == 0 {
+//            printDebug("0")
+////            AppToast.default.hideToast(self, animated: false)
+//            AppToast.default.showToastMessage(message: "didSelectRowAt 0")
+//
+//        }else{
+//            printDebug("1")
+//        AppToast.default.showToastMessage(message: "didSelectRowAt 1")
+//
+//        }
+        
+    }
+    
+    
     func getCellForFirstSection(with indexPath: IndexPath)-> UITableViewCell{
         
         switch indexPath.row {

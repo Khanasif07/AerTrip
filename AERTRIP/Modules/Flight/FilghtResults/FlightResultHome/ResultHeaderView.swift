@@ -12,6 +12,7 @@ class ResultHeaderView: UIView {
     @IBOutlet var contentView: UIView!
     @IBOutlet var grayView: UIView!
     @IBOutlet var yellowView: UIView!
+    @IBOutlet weak var lineView: UIView!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

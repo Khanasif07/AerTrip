@@ -30,8 +30,10 @@
 @property (strong , nonatomic) NSMutableArray * selectedDates;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UIView *weekdaysBaseView;
+@property (weak, nonatomic) IBOutlet UIView *tempView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewWidth;
+@property (weak, nonatomic) IBOutlet UIView *backgroundView;
 
 @end
 
@@ -52,7 +54,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupInitials];
+    [self showDatesSelection];
+    self.backgroundView.backgroundColor = [UIColor colorWithDisplayP3Red: 236/255.0 green:253/255.0 blue:244/255.0 alpha:1];
 }
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
@@ -87,17 +92,17 @@
 }
 
 -(UIColor*)ONE_FIVE_THREE_COLOR {
-    return  [UIColor  colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
+    return  [UIColor colorWithDisplayP3Red:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
 }
 
 -(UIColor*)AertripColor
 {
-    return  [UIColor  colorWithRed:0/255.0 green:204/255.0 blue:153/255.0 alpha:1.0];
+    return  [UIColor  colorWithDisplayP3Red:0/255.0 green:204/255.0 blue:153/255.0 alpha:1.0];
 }
 
 -(UIColor*)TWO_ZERO_FOUR_COLOR
 {
-    return [UIColor colorWithRed: 204/255.0  green:204/255.0  blue:204/255.0 alpha:1];
+    return [UIColor colorWithDisplayP3Red: 204/255.0  green:204/255.0  blue:204/255.0 alpha:1];
 }
 
 - (NSString *)dayOfDate:(NSDate *)date {
@@ -145,15 +150,17 @@
     }
     self.cancelButton.imageView.image = cancelImage;
     [self setSwipeGesture];
-    
-//    if(self.viewModel.isReturn == NO)
-//    {
-//        self.customCalenderViewLeading.constant = 2;
-//        self.customCalenderViewTrailing.constant = 2;
-//    }else{
-//        self.customCalenderViewTrailing.constant = 0;
-//        self.customCalenderViewLeading.constant = 0;
-//    }
+
+    if(self.selectedDates.count > 7){
+        self.customCalenderViewTrailing.constant = 0;
+        self.customCalenderViewLeading.constant = 0;
+    }else{
+        self.customCalenderViewLeading.constant = 2;
+        self.customCalenderViewTrailing.constant = 2;
+    }
+
+    [self.view layoutIfNeeded];
+    [self.view setNeedsDisplay];
 }
 
 -(void)setupWeekdays {
@@ -165,6 +172,10 @@
 //    self.weekdaysBaseView.layer.shadowColor = UIColor.blackColor.CGColor;
 //    self.weekdaysBaseView.layer.shadowOpacity = 0.1;
 //    self.weekdaysBaseView.layer.shadowRadius = 10;
+    
+    self.tempView.layer.shadowColor = [UIColor colorWithDisplayP3Red:0 green:0 blue:0 alpha:0.05].CGColor;
+    self.tempView.layer.shadowOpacity = 1;
+    self.tempView.layer.shadowRadius = 10;    
 }
 
 - (void) loadFont:(NSString*)fontName {
@@ -193,7 +204,7 @@
 {
     if (date != nil) {
         NSDateFormatter *inputDateFormatter = [[NSDateFormatter alloc] init];
-        [inputDateFormatter setDateFormat:@"d MMM"]; // Nitin Change
+        [inputDateFormatter setDateFormat:@"d MMM"];
         NSString *dateString = [inputDateFormatter stringFromDate:date];
         return dateString;
     }else {
@@ -512,7 +523,7 @@
 - (void)applyShadowToDoneView {
     
     self.doneOutterView.clipsToBounds = NO;
-    self.doneOutterView.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.05].CGColor;
+    self.doneOutterView.layer.shadowColor = [UIColor colorWithDisplayP3Red:0 green:0 blue:0 alpha:0.05].CGColor;
     self.doneOutterView.layer.shadowOpacity = 1.0;
     self.doneOutterView.layer.shadowRadius = 10.0;
     self.doneOutterView.layer.shadowOffset = CGSizeMake(0.0, -6.0);
@@ -532,7 +543,6 @@
     NSCalendar *theCalendar = [NSCalendar currentCalendar];
     NSDate *maximumDate = [theCalendar dateByAddingComponents:dayComponent toDate:[NSDate date] options:0];
     self.maximumDate = maximumDate;
-    
     
     [self.customCalenderView setScrollDirection:FSCalendarScrollDirectionVertical];
     self.customCalenderView.dataSource = self;
@@ -556,9 +566,9 @@
     //HEADER
     self.customCalenderView.appearance.headerTitleColor = [UIColor blackColor];
     self.customCalenderView.appearance.headerTitleFont = [UIFont fontWithName:@"SourceSansPro-Semibold" size:20.0];
-    self.customCalenderView.headerHeight = 65.0;
+    self.customCalenderView.headerHeight = 68.0;
     self.customCalenderView.calendarWeekdayView.hidden = true;
-    self.customCalenderView.weekdayHeight = 0;              // Nitin Change hide weekday section
+    self.customCalenderView.weekdayHeight = 8;              //hide weekday section
     
     // HeaderView
     //    FSCalendarHeaderView * headerView = [[FSCalendarHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
@@ -573,6 +583,7 @@
     self.customCalenderView.today = nil;
     
     //COLOR SETUP
+    
 }
 
 
@@ -641,20 +652,15 @@
     [self doneAction:nil];
 }
 
-// Nitin Change
--(void)applyCalendarChanges {
+//MARK:- Target Action methods
+- (IBAction)doneAction:(id)sender {
+    
     if (self.multicityViewModel != nil ) {
         [self.multicityViewModel onDoneButtonTapped];
     }
     else if ( self.viewModel != nil){
         [self.viewModel onDoneButtonTapped];
     }
-}
-
-//MARK:- Target Action methods
-- (IBAction)doneAction:(id)sender {
-    
-    [self applyCalendarChanges]; // Nitin Change
     if(sender != nil){
         [self animateBottomViewOut];
     }
@@ -717,16 +723,17 @@
         [self.startDateLabel setTextColor:[self ONE_FIVE_THREE_COLOR]];
     }
     
-    if(self.viewModel.isReturn == NO)
-        {
-            self.customCalenderViewLeading.constant = 2;
-            self.customCalenderViewTrailing.constant = 2;
-//            self.customCalenderViewWidth.constant = self.bottomView.bounds.size.width-4;
-        }else{
-            self.customCalenderViewTrailing.constant = 0;
-            self.customCalenderViewLeading.constant = 0;
-//            self.customCalenderViewWidth.constant = self.bottomView.bounds.size.width;
-        }
+    if(self.selectedDates.count > 7){
+        self.customCalenderViewTrailing.constant = 0;
+        self.customCalenderViewLeading.constant = 0;
+    }else{
+        self.customCalenderViewLeading.constant = 2;
+        self.customCalenderViewTrailing.constant = 2;
+    }
+    
+    [self.view layoutIfNeeded];
+    [self.view setNeedsDisplay];
+
 }
 
 //MARK:- BOTTOM ANIMATIONS
@@ -747,7 +754,6 @@
 - (void)animateBottomViewOut {
     
     if (@available(iOS 13.0, *)) {
-        [self applyCalendarChanges]; // Nitin Change
         [self dismissViewControllerAnimated:YES completion:nil];
     }
     else {
@@ -756,7 +762,6 @@
             self.topConstraintMainView.constant = (self.view.bounds.size.height);
             [self.view layoutIfNeeded];
         } completion:^(BOOL finished) {
-            [self applyCalendarChanges]; // Nitin Change
             [self dismissViewControllerAnimated:NO completion:nil];
         }];
     }
@@ -904,7 +909,7 @@
         
         [self showDatesSelection];
         
-        if (self.viewModel.isReturn || self.viewModel.isHotelCalendar) { // Nitin Change
+        if (self.viewModel.isReturn) {
             self.viewModel.isStartDateSelection = NO;
             [self SwitchTapOfSingleLegTypeJourney];
         }
@@ -1076,11 +1081,11 @@
         cell.titleLabel.textColor = [UIColor blackColor];
     }
     else {
-        cell.titleLabel.textColor = [UIColor colorWithRed:0.66 green:0.66 blue:0.66 alpha:1.0];
+        cell.titleLabel.textColor = [UIColor colorWithDisplayP3Red:0.66 green:0.66 blue:0.66 alpha:1.0];
     }
     
     if( [date timeIntervalSinceDate:self.maximumDate] > 0 ){
-        cell.titleLabel.textColor = [UIColor colorWithRed:0.66 green:0.66 blue:0.66 alpha:1.0];
+        cell.titleLabel.textColor = [UIColor colorWithDisplayP3Red:0.66 green:0.66 blue:0.66 alpha:1.0];
     }
     
     // Custom today circle
@@ -1170,11 +1175,17 @@
 - (void)selectOnlyDates
 {
     if (self.viewModel.date1 != nil) {
-        [self.customCalenderView selectDate:self.viewModel.date1];
+//        [self.customCalenderView selectDate:self.viewModel.date1];
+        self.customCalenderView.currentPage = self.viewModel.date1;
+        [self.customCalenderView selectDate:self.viewModel.date1 scrollToDate:false];
+
     }
     
     if (self.viewModel.date2 != nil) {
-        [self.customCalenderView selectDate:self.viewModel.date2];
+//        [self.customCalenderView selectDate:self.viewModel.date2];
+        [self.customCalenderView selectDate:self.viewModel.date2 scrollToDate:false];
+        self.customCalenderView.currentPage = self.viewModel.date2;
+
     }
     
     [self configureVisibleCells];
@@ -1182,9 +1193,20 @@
 
 - (void)selectRange {
     if (self.viewModel.date1 != nil && self.viewModel.date2 != nil) {
-        [self.customCalenderView selectDate:self.viewModel.date1];
-        [self.customCalenderView selectDate:self.viewModel.date2];
+
+//        [self.customCalenderView selectDate:self.viewModel.date1];
+//        [self.customCalenderView selectDate:self.viewModel.date2];
+
+        [self.customCalenderView selectDate:self.viewModel.date1 scrollToDate:NO];
+        [self.customCalenderView selectDate:self.viewModel.date2 scrollToDate:NO];
         [self selectDatesInRange:self.viewModel.date1 endDate:self.viewModel.date2];
+        if(self.viewModel.isStartDateSelection){
+            self.customCalenderView.currentPage = self.viewModel.date1;
+        }else{
+            self.customCalenderView.currentPage = self.viewModel.date2;
+        }
+
+
         
         if (!self.viewModel.isReturn) {
             [self.customCalenderView selectDate:self.viewModel.date1];

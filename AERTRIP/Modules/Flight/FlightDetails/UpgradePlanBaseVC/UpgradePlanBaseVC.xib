@@ -16,7 +16,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UpgradePlanBaseVC" customModule="AERTRIP" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UpgradePlanBaseVC" customModule="Aertrip" customModuleProvider="target">
             <connections>
                 <outlet property="blurView" destination="fHH-TJ-qwX" id="C8m-19-cAS"/>
                 <outlet property="blurViewBottom" destination="ntI-Oa-vRb" id="95z-jB-c45"/>
@@ -25,9 +25,9 @@
                 <outlet property="dataDisplayViewBottom" destination="tTt-bj-N7h" id="x0E-km-b0I"/>
                 <outlet property="dataDisplayViewTop" destination="S3D-z8-udS" id="P4R-QB-DIw"/>
                 <outlet property="grabberView" destination="39Q-pM-5Yp" id="015-uH-pbm"/>
-                <outlet property="journeyNameCollectionView" destination="73v-Ln-L0k" id="feh-qX-eGN"/>
                 <outlet property="journeyNameDisplayView" destination="6Pj-jK-MPD" id="CJT-MB-LRg"/>
                 <outlet property="journeyNameDisplayViewHeight" destination="ixl-OX-tj8" id="BeH-kE-dri"/>
+                <outlet property="journeyNameView" destination="drF-et-8fZ" id="KrD-Qe-F8A"/>
                 <outlet property="journeyPageControl" destination="dpp-DL-m7K" id="1Qx-CH-MEA"/>
                 <outlet property="noDataFoundLabel" destination="gBq-Mk-Kai" id="9ck-g7-K8K"/>
                 <outlet property="noDataFoundView" destination="Lcf-5s-ngU" id="aZr-Vr-l6N"/>
@@ -59,13 +59,13 @@
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upgrade your flight" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BEi-9i-aYY">
-                            <rect key="frame" x="129.5" y="26" width="155" height="21"/>
+                            <rect key="frame" x="132" y="26" width="150" height="23"/>
                             <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3H-Fz-kVI">
-                            <rect key="frame" x="364" y="14.5" width="44" height="44"/>
+                            <rect key="frame" x="364" y="15.5" width="44" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="C4g-L7-nwl"/>
                                 <constraint firstAttribute="width" constant="44" id="RNJ-mu-MyJ"/>
@@ -76,47 +76,21 @@
                             </connections>
                         </button>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PIs-V8-anE">
-                            <rect key="frame" x="0.0" y="58.5" width="414" height="793.5"/>
+                            <rect key="frame" x="0.0" y="59.5" width="414" height="792.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Pj-jK-MPD">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
-                                    <subviews>
-                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="73v-Ln-L0k">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="54.5"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="hhe-nr-QXC">
-                                                <size key="itemSize" width="100" height="50"/>
-                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                            </collectionViewFlowLayout>
-                                            <connections>
-                                                <outlet property="dataSource" destination="-1" id="CQn-b3-DrF"/>
-                                                <outlet property="delegate" destination="-1" id="ntf-gf-Jb8"/>
-                                            </connections>
-                                        </collectionView>
-                                        <view clipsSubviews="YES" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdf-m7-v1l">
-                                            <rect key="frame" x="0.0" y="54.5" width="414" height="0.5"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="0.5" id="8c9-rW-oSJ"/>
-                                            </constraints>
-                                        </view>
-                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstItem="gdf-m7-v1l" firstAttribute="leading" secondItem="6Pj-jK-MPD" secondAttribute="leading" id="Bku-b4-hl9"/>
-                                        <constraint firstItem="73v-Ln-L0k" firstAttribute="top" secondItem="6Pj-jK-MPD" secondAttribute="top" id="Dph-cU-ECq"/>
-                                        <constraint firstAttribute="trailing" secondItem="73v-Ln-L0k" secondAttribute="trailing" id="Hbv-Gq-UR3"/>
-                                        <constraint firstAttribute="bottom" secondItem="gdf-m7-v1l" secondAttribute="bottom" id="Pwh-oh-VNJ"/>
-                                        <constraint firstItem="gdf-m7-v1l" firstAttribute="top" secondItem="73v-Ln-L0k" secondAttribute="bottom" id="i5e-pQ-Xfn"/>
-                                        <constraint firstAttribute="trailing" secondItem="gdf-m7-v1l" secondAttribute="trailing" id="iXR-qf-Mxm"/>
                                         <constraint firstAttribute="height" constant="55" id="ixl-OX-tj8"/>
-                                        <constraint firstItem="73v-Ln-L0k" firstAttribute="leading" secondItem="6Pj-jK-MPD" secondAttribute="leading" id="o4i-D3-98w"/>
                                     </constraints>
                                 </view>
-                                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="dpp-DL-m7K">
-                                    <rect key="frame" x="187.5" y="65" width="39" height="7"/>
+                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="drF-et-8fZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="dpp-DL-m7K">
+                                    <rect key="frame" x="207" y="65" width="0.0" height="7"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="7" id="aqn-1S-tOT"/>
@@ -125,10 +99,10 @@
                                     <color key="currentPageIndicatorTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </pageControl>
                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ivi-rU-hfo">
-                                    <rect key="frame" x="0.0" y="82" width="414" height="711.5"/>
+                                    <rect key="frame" x="0.0" y="82" width="414" height="710.5"/>
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Qjj-Ea-Ptc">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="691.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="690.5"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="4" minimumInteritemSpacing="4" id="t1D-oU-eob">
                                                 <size key="itemSize" width="50" height="500"/>
@@ -154,12 +128,16 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="Ivi-rU-hfo" secondAttribute="bottom" id="43H-io-MAM"/>
+                                <constraint firstItem="drF-et-8fZ" firstAttribute="leading" secondItem="6Pj-jK-MPD" secondAttribute="leading" id="5kD-nG-CAJ"/>
                                 <constraint firstItem="6Pj-jK-MPD" firstAttribute="leading" secondItem="PIs-V8-anE" secondAttribute="leading" id="EOA-iD-SQZ"/>
                                 <constraint firstAttribute="trailing" secondItem="6Pj-jK-MPD" secondAttribute="trailing" id="Jgz-lW-NUn"/>
                                 <constraint firstItem="dpp-DL-m7K" firstAttribute="centerX" secondItem="PIs-V8-anE" secondAttribute="centerX" id="S3h-FT-YsU"/>
                                 <constraint firstItem="Ivi-rU-hfo" firstAttribute="leading" secondItem="PIs-V8-anE" secondAttribute="leading" id="Wwf-Wg-PG2"/>
+                                <constraint firstItem="drF-et-8fZ" firstAttribute="bottom" secondItem="6Pj-jK-MPD" secondAttribute="bottom" id="XKc-24-NQo"/>
                                 <constraint firstItem="Ivi-rU-hfo" firstAttribute="top" secondItem="dpp-DL-m7K" secondAttribute="bottom" constant="10" id="XXe-MI-TyZ"/>
                                 <constraint firstItem="6Pj-jK-MPD" firstAttribute="top" secondItem="PIs-V8-anE" secondAttribute="top" id="as7-GV-LeT"/>
+                                <constraint firstItem="drF-et-8fZ" firstAttribute="top" secondItem="6Pj-jK-MPD" secondAttribute="top" id="iAS-uA-OcL"/>
+                                <constraint firstItem="drF-et-8fZ" firstAttribute="trailing" secondItem="6Pj-jK-MPD" secondAttribute="trailing" id="m7x-Rf-Quw"/>
                                 <constraint firstAttribute="trailing" secondItem="Ivi-rU-hfo" secondAttribute="trailing" id="oov-DC-2H6"/>
                                 <constraint firstItem="dpp-DL-m7K" firstAttribute="top" secondItem="6Pj-jK-MPD" secondAttribute="bottom" constant="10" id="sKB-lt-loZ"/>
                             </constraints>
@@ -175,7 +153,7 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops!\nOther Fares not found for this flight" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBq-Mk-Kai">
-                                    <rect key="frame" x="0.0" y="135" width="302" height="42"/>
+                                    <rect key="frame" x="0.0" y="135" width="302" height="45.5"/>
                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -234,6 +212,6 @@
     </objects>
     <resources>
         <image name="closewhite" width="24" height="24"/>
-        <image name="group3" width="107" height="95"/>
+        <image name="group3" width="359" height="92"/>
     </resources>
 </document>

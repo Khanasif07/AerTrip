@@ -175,21 +175,12 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
                 return newCity
             }
             currentAirportFilter.destinationCities.sort(by: { $0.name < $1.name })
+            
+        } else {
+            currentAirportFilter.originCities = currentAirportFilter.originCitiesSortedArray
+            currentAirportFilter.destinationCities = currentAirportFilter.destinationCitiesSortedArray
+            currentAirportFilter.layoverCities = currentAirportFilter.layoverCities.sorted(by: {$0.country < $1.country})
         }
-        
-//        if let allAirportsSelected = allOriginDestSelectedAtIndex[currentActiveIndex] {
-//            originDestinationBtn.isSelected = allAirportsSelected
-//            currentAirportFilter.originCities = currentAirportFilter.originCities.map {
-//                var newAirport = $0
-//                newAirport.selectAll(allAirportsSelected)
-//                return newAirport
-//            }
-//            currentAirportFilter.destinationCities = currentAirportFilter.destinationCities.map {
-//                var newAirport = $0
-//                newAirport.selectAll(allAirportsSelected)
-//                return newAirport
-//            }
-//        }
         
         // Setup Origin Table
         let zeroRectView = UIView(frame: .zero)

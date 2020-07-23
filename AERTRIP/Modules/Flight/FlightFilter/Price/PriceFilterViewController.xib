@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,6 +23,8 @@
                 <outlet property="multicityViewHeight" destination="RNo-AW-wNm" id="3gB-QF-Twt"/>
                 <outlet property="priceRangeSlider" destination="iQq-G5-KUi" id="3lg-tf-Gdc"/>
                 <outlet property="refundableFaresButton" destination="6E3-gN-P76" id="lV1-El-0sE"/>
+                <outlet property="refundableFaresOnlyLabel" destination="u3z-gj-ekL" id="4fK-81-YIj"/>
+                <outlet property="seperatorView" destination="cwW-JK-pry" id="RR9-zd-7cg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -67,7 +69,7 @@
                     <rect key="frame" x="0.0" y="90" width="375" height="162"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 8657.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ol6-p2-zEZ">
-                            <rect key="frame" x="16" y="16" width="90" height="31"/>
+                            <rect key="frame" x="16" y="12" width="90" height="31"/>
                             <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="Pks-9H-vhh"/>
@@ -84,7 +86,7 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 8657.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SX5-5k-dvP">
-                            <rect key="frame" x="269" y="16" width="90" height="31"/>
+                            <rect key="frame" x="269" y="12" width="90" height="31"/>
                             <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="31" id="6JN-Y4-eU8"/>
@@ -107,10 +109,6 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="28" id="oYt-vn-CSu"/>
                             </constraints>
-                            <connections>
-                                <action selector="priceRangeChanged:" destination="-1" eventType="valueChanged" id="Phi-qh-4xj"/>
-                                <action selector="priceRangeUpdated:" destination="-1" eventType="touchUpInside" id="BPU-Au-J4H"/>
-                            </connections>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cwW-JK-pry">
                             <rect key="frame" x="16" y="118" width="343" height="0.5"/>
@@ -147,7 +145,6 @@
                         <constraint firstItem="cwW-JK-pry" firstAttribute="leading" secondItem="R8a-VA-Hvl" secondAttribute="leading" constant="16" id="2la-a4-J6o"/>
                         <constraint firstItem="u3z-gj-ekL" firstAttribute="leading" secondItem="R8a-VA-Hvl" secondAttribute="leading" constant="16" id="6Tc-Fp-S3R"/>
                         <constraint firstItem="cwW-JK-pry" firstAttribute="top" secondItem="R8a-VA-Hvl" secondAttribute="top" constant="118" id="A0z-3x-znn"/>
-                        <constraint firstItem="SX5-5k-dvP" firstAttribute="centerY" secondItem="Ol6-p2-zEZ" secondAttribute="centerY" id="Ghh-tT-r7g"/>
                         <constraint firstAttribute="trailing" secondItem="6E3-gN-P76" secondAttribute="trailing" constant="5" id="GuL-wB-YcW"/>
                         <constraint firstItem="Ol6-p2-zEZ" firstAttribute="leading" secondItem="R8a-VA-Hvl" secondAttribute="leading" constant="16" id="H0A-pN-ho4"/>
                         <constraint firstAttribute="trailing" secondItem="cwW-JK-pry" secondAttribute="trailing" constant="16" id="Klw-z4-Wt5"/>
@@ -158,7 +155,8 @@
                         <constraint firstAttribute="bottom" secondItem="6E3-gN-P76" secondAttribute="bottom" id="lEE-4l-5Na"/>
                         <constraint firstItem="iQq-G5-KUi" firstAttribute="top" secondItem="R8a-VA-Hvl" secondAttribute="top" constant="64" id="n3Z-DY-e5a"/>
                         <constraint firstAttribute="bottom" secondItem="u3z-gj-ekL" secondAttribute="bottom" id="peM-8Y-xR8"/>
-                        <constraint firstItem="Ol6-p2-zEZ" firstAttribute="top" secondItem="R8a-VA-Hvl" secondAttribute="top" constant="16" id="sbu-8S-HDP"/>
+                        <constraint firstItem="Ol6-p2-zEZ" firstAttribute="top" secondItem="R8a-VA-Hvl" secondAttribute="top" constant="12" id="sbu-8S-HDP"/>
+                        <constraint firstItem="SX5-5k-dvP" firstAttribute="top" secondItem="R8a-VA-Hvl" secondAttribute="top" constant="12" id="t5k-Q8-UOi"/>
                     </constraints>
                 </view>
             </subviews>

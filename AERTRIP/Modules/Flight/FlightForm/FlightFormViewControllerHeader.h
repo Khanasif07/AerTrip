@@ -15,7 +15,7 @@
 #import "FlightBulkBookingViewController.h"
 #import "MultiCityFlightTableViewCell.h"
 #import "AertripCalendarViewController.h"
-#import "AERTRIP-Swift.h"
+#import "Aertrip-Swift.h"
 
 
 #endif /* FlightFormViewControllerHeader_h */

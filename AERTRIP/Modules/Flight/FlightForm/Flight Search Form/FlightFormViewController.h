@@ -15,3 +15,8 @@
 @property (strong , nonatomic) FlightFormDataModel* viewModel;
 @property (nonatomic, assign) BOOL isInternationalJourney;
 @end
+
+
+@protocol AirportSelctionOnAirportSelectionClassHandler
+@optional - (void)flightFromSource:(NSMutableArray * _Nullable)fromArray toDestination:(NSMutableArray * _Nullable)toArray;
+@end

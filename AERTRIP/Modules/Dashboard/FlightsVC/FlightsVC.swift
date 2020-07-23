@@ -41,6 +41,7 @@ class FlightsVC: BaseVC {
     // MARK: - Private
     
     private func initialSetups() {
+        
         addFlightsModuleView()
     }
     
@@ -60,6 +61,7 @@ class FlightsVC: BaseVC {
     
     private func setHomeFlightsVCScrollDelegate() {
         if let scrollView = homeFlightsVC.view.subviews.first as? UIScrollView {
+            scrollView.showsVerticalScrollIndicator = false
             scrollView.delegate = self
         }
     }

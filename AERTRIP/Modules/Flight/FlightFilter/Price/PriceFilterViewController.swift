@@ -55,6 +55,9 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     var allPriceFilters : [PriceFilter]!
     var currentPriceFilter : PriceFilter!
     var legsArray = [Leg]()
+    var flightResultArray : [FlightsResults]!
+    var intFlightResultArray : [IntMultiCityAndReturnWSResponse.Results]!
+    var isInternational = false
 
     //MARK:- Outlets
     @IBOutlet weak var multiLegView: UIView!
@@ -65,6 +68,8 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     @IBOutlet weak var fareMinValue: UILabel!
     @IBOutlet weak var fareMaxValue: UILabel!
     @IBOutlet weak var refundableFaresButton: UIButton!
+    @IBOutlet weak var refundableFaresOnlyLabel: UILabel!
+    @IBOutlet weak var seperatorView: UIView!
     
     //MARK:- View Controller Methods
     override func viewDidLoad() {
@@ -74,6 +79,14 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         initialSetup()
         setupPriceSlider()
         setupPriceLabels()
+        
+        refundableFaresOnlyLabel.isHidden = true
+
+        checkRefundableFlights(index: 0)
+        
+        priceRangeSlider.addTarget(self, action: #selector(priceRangeChanged), for: .valueChanged)
+        priceRangeSlider.addTarget(self, action: #selector(priceRangeUpdated), for: .touchUpInside)
+
     }
 
     //MARK:- Additional UI Methods
@@ -284,7 +297,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     }
  
     //MARK:- IBAction Methods
-    @IBAction func priceRangeChanged(_ sender: MARKRangeSlider) {
+    @objc fileprivate func priceRangeChanged() {
         
         currentPriceFilter.userSelectedFareMinValue = priceRangeSlider.leftValue.rounded(.down)
         currentPriceFilter.userSelectedFareMaxValue = priceRangeSlider.rightValue.rounded(.up)
@@ -292,7 +305,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         setupPriceLabels()
     }
     
-    @IBAction func priceRangeUpdated(_ sender: MARKRangeSlider) {
+    @objc fileprivate func priceRangeUpdated() {
         
         currentPriceFilter.userSelectedFareMinValue = priceRangeSlider.leftValue.rounded(.down)
         currentPriceFilter.userSelectedFareMaxValue = priceRangeSlider.rightValue.rounded(.up)
@@ -334,9 +347,59 @@ class PriceFilterViewController: UIViewController , FilterViewController {
             JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
         }
         
+        checkRefundableFlights(index: sender.tag-1)
+        
         setmultiLegSubviews()
         setupPriceSlider()
         setupPriceLabels()
         
     }
+    
+    func checkRefundableFlights(index:Int){
+         if isInternational{
+             if intFlightResultArray.count > 0{
+                 var isRefundable = true
+                 let journey = intFlightResultArray[index].j
+                 for j in journey{
+                     if j.smartIconArray.contains("refundStatusPending") || j.smartIconArray.contains("noRefund") {
+                         isRefundable = false
+                     }
+                 }
+                 
+                 if isRefundable{
+                     seperatorView.isHidden = false
+                     refundableFaresOnlyLabel.isHidden = false
+                     refundableFaresButton.isHidden = false
+                     refundableFaresButton.isUserInteractionEnabled = true
+                 }else{
+                     seperatorView.isHidden = true
+                     refundableFaresOnlyLabel.isHidden = true
+                     refundableFaresButton.isHidden = true
+                     refundableFaresButton.isUserInteractionEnabled = false
+                 }
+             }
+         } else {
+             if flightResultArray.count > 0{
+                 var isRefundable = true
+                 let journey = flightResultArray[index].j
+                 for j in journey{
+                     if j.smartIconArray.contains("refundStatusPending") || j.smartIconArray.contains("noRefund") {
+                         isRefundable = false
+                     }
+                 }
+                 
+                 if isRefundable{
+                     seperatorView.isHidden = false
+                     refundableFaresOnlyLabel.isHidden = false
+                     refundableFaresButton.isHidden = false
+                     refundableFaresButton.isUserInteractionEnabled = true
+                 }else{
+                     seperatorView.isHidden = true
+                     refundableFaresOnlyLabel.isHidden = true
+                     refundableFaresButton.isHidden = true
+                     refundableFaresButton.isUserInteractionEnabled = false
+                 }
+             }
+         }
+     }
 }

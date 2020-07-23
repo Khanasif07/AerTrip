@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -29,19 +29,10 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vha-uw-B4q" userLabel="BottomView">
-                                <rect key="frame" x="0.0" y="309" width="375" height="358"/>
+                                <rect key="frame" x="0.0" y="304" width="375" height="363"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Passengers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vFs-pa-oav">
-                                        <rect key="frame" x="0.0" y="11" width="375" height="23"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="23" id="dDd-GJ-11B"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UPe-ic-mT9" userLabel="TopView">
-                                        <rect key="frame" x="47.5" y="34" width="280" height="124"/>
+                                        <rect key="frame" x="47.5" y="39" width="280" height="124"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="wo2-Y8-k2b">
                                                 <rect key="frame" x="0.0" y="16" width="280" height="108"/>
@@ -175,8 +166,17 @@
                                             <constraint firstAttribute="bottom" secondItem="wo2-Y8-k2b" secondAttribute="bottom" id="kjH-Ka-vXu"/>
                                         </constraints>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Passengers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vFs-pa-oav">
+                                        <rect key="frame" x="0.0" y="16" width="375" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="23" id="dDd-GJ-11B"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1U9-5e-AOr">
-                                        <rect key="frame" x="0.0" y="34" width="375" height="52"/>
+                                        <rect key="frame" x="0.0" y="39" width="375" height="52"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some airlines do not allow searching for more than 6 passengers at once" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iFa-eg-4aU">
                                                 <rect key="frame" x="16" y="16" width="343" height="36"/>
@@ -197,7 +197,7 @@
                                         </constraints>
                                     </view>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rkS-Cc-xvy" userLabel="CustomPickerView">
-                                        <rect key="frame" x="0.0" y="158" width="375" height="150"/>
+                                        <rect key="frame" x="0.0" y="163" width="375" height="150"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="otR-Uj-OD9">
                                                 <rect key="frame" x="0.0" y="56" width="375" height="0.5"/>
@@ -207,10 +207,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aIo-y0-mQ5">
-                                                <rect key="frame" x="0.0" y="93.5" width="375" height="0.5"/>
+                                                <rect key="frame" x="0.0" y="93.5" width="375" height="1"/>
                                                 <color key="backgroundColor" red="0.80392156862745101" green="0.80392156862745101" blue="0.80392156862745101" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="0.5" id="CsN-Fa-ldf"/>
+                                                    <constraint firstAttribute="height" constant="0.80000000000000004" id="CsN-Fa-ldf"/>
                                                 </constraints>
                                             </view>
                                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jM9-7f-snp">
@@ -236,16 +236,24 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mpd-oB-lZP" userLabel="BottomButtonView">
-                                        <rect key="frame" x="0.0" y="308" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="313" width="375" height="50"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e8d-Cu-jyz">
+                                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QpV-km-G8W">
+                                                <rect key="frame" x="-0.5" y="0.0" width="376" height="50"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="BOK-BJ-8O1">
+                                                    <rect key="frame" x="0.0" y="0.0" width="376" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </view>
+                                                <blurEffect style="light"/>
+                                            </visualEffectView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e8d-Cu-jyz">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="WPD-Rv-aPB"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
                                                 <state key="normal" title="Done">
-                                                    <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="doneAction:" destination="fzL-S5-UQY" eventType="touchUpInside" id="cF7-ej-RR8"/>
@@ -262,18 +270,22 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="L9u-PN-r4j" firstAttribute="width" secondItem="mpd-oB-lZP" secondAttribute="width" id="3m2-Vf-UtH"/>
+                                            <constraint firstItem="QpV-km-G8W" firstAttribute="width" secondItem="mpd-oB-lZP" secondAttribute="width" multiplier="1.00267" id="764-oI-hey"/>
                                             <constraint firstItem="L9u-PN-r4j" firstAttribute="top" secondItem="mpd-oB-lZP" secondAttribute="top" id="7ov-gD-2DM"/>
                                             <constraint firstAttribute="height" constant="50" id="AuC-64-xgV"/>
                                             <constraint firstItem="L9u-PN-r4j" firstAttribute="leading" secondItem="mpd-oB-lZP" secondAttribute="leading" constant="1" id="Ca0-Wf-apq"/>
+                                            <constraint firstItem="QpV-km-G8W" firstAttribute="height" secondItem="mpd-oB-lZP" secondAttribute="height" id="HGV-n0-5wn"/>
                                             <constraint firstItem="e8d-Cu-jyz" firstAttribute="centerX" secondItem="mpd-oB-lZP" secondAttribute="centerX" id="QS9-9b-2tB"/>
                                             <constraint firstItem="e8d-Cu-jyz" firstAttribute="top" secondItem="mpd-oB-lZP" secondAttribute="top" id="czo-oD-9hf"/>
+                                            <constraint firstItem="QpV-km-G8W" firstAttribute="centerX" secondItem="mpd-oB-lZP" secondAttribute="centerX" id="fbu-zR-ci6"/>
+                                            <constraint firstItem="QpV-km-G8W" firstAttribute="top" secondItem="mpd-oB-lZP" secondAttribute="top" id="lsa-Pj-prx"/>
                                             <constraint firstItem="e8d-Cu-jyz" firstAttribute="width" secondItem="mpd-oB-lZP" secondAttribute="width" id="wtH-aj-IuO"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="vFs-pa-oav" firstAttribute="top" secondItem="vha-uw-B4q" secondAttribute="top" constant="11" id="1Ry-j0-5ob"/>
+                                    <constraint firstItem="vFs-pa-oav" firstAttribute="top" secondItem="vha-uw-B4q" secondAttribute="top" constant="16" id="1Ry-j0-5ob"/>
                                     <constraint firstItem="1U9-5e-AOr" firstAttribute="top" secondItem="vFs-pa-oav" secondAttribute="bottom" id="38c-6O-CbI"/>
                                     <constraint firstItem="mpd-oB-lZP" firstAttribute="width" secondItem="vha-uw-B4q" secondAttribute="width" id="6wA-lQ-gPw"/>
                                     <constraint firstItem="vFs-pa-oav" firstAttribute="centerX" secondItem="vha-uw-B4q" secondAttribute="centerX" id="CYh-MI-ivt"/>
@@ -285,7 +297,7 @@
                                     <constraint firstItem="rkS-Cc-xvy" firstAttribute="top" secondItem="UPe-ic-mT9" secondAttribute="bottom" id="VMR-Z8-zvQ"/>
                                     <constraint firstItem="vFs-pa-oav" firstAttribute="width" secondItem="vha-uw-B4q" secondAttribute="width" id="ZQS-7i-DRj"/>
                                     <constraint firstItem="rkS-Cc-xvy" firstAttribute="width" secondItem="vha-uw-B4q" secondAttribute="width" id="Zs1-vd-gKF"/>
-                                    <constraint firstAttribute="height" constant="358" id="cgP-Yt-Cns"/>
+                                    <constraint firstAttribute="height" constant="363" id="cgP-Yt-Cns"/>
                                     <constraint firstItem="1U9-5e-AOr" firstAttribute="width" secondItem="vha-uw-B4q" secondAttribute="width" id="o4s-SU-y0O"/>
                                     <constraint firstItem="1U9-5e-AOr" firstAttribute="centerX" secondItem="vha-uw-B4q" secondAttribute="centerX" id="v9G-jq-wTA"/>
                                 </constraints>
@@ -321,6 +333,7 @@
                         <outlet property="infantButton" destination="ldC-NI-ecT" id="KSN-jZ-oW1"/>
                         <outlet property="pickerView" destination="jM9-7f-snp" id="A2o-qH-jNr"/>
                         <outlet property="viewHeight" destination="cgP-Yt-Cns" id="S08-Xi-Oa1"/>
+                        <outlet property="warningLabel" destination="iFa-eg-4aU" id="y76-nT-8A4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z0e-fp-cam" userLabel="First Responder" sceneMemberID="firstResponder"/>

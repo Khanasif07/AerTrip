@@ -74,7 +74,7 @@
     NSDateFormatter *DateFormatter = [[NSDateFormatter alloc] init];
     [DateFormatter setDateFormat:@"dd-MM-yyyy"];
     NSDate * departDate = [DateFormatter dateFromString:inputDate];
-    [DateFormatter setDateFormat:@"dd MMM"];
+    [DateFormatter setDateFormat:@"d MMM"];
     NSString * outputDateString = [DateFormatter stringFromDate:departDate];
     return outputDateString;
 }
@@ -97,7 +97,7 @@
 -(void)setupDateForSingleLegJourney{
     
     NSString *departDateString = [self.quary objectForKey:@"depart"];
-    if (departDateString == nil) {
+    if (departDateString != nil) {
         NSMutableString * outputString = [NSMutableString stringWithString:[self formatDateString:departDateString]];
         
         NSString * returnDateString = [self.quary objectForKey:@"return"];
@@ -187,6 +187,7 @@
     
     self.TravelPlan = outputAttributedString;
 }
+
 - (void)setupTravelPlanForSingleLegJourney {
     NSString * origin = [self.quary objectForKey:@"origin"];
     NSString * destination  = [self.quary objectForKey:@"destination"];

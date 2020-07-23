@@ -11,6 +11,7 @@ import UIKit
 class FareRulesVC: UIViewController, UIScrollViewDelegate
 {
     //MARK:- Outlets
+    @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var dividerLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var fareRulesLabel: UILabel!
@@ -23,8 +24,16 @@ class FareRulesVC: UIViewController, UIScrollViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        let blurEffect = UIBlurEffect(style: .prominent)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.backgroundView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        backgroundView.addSubview(blurEffectView)
+
+        
         fareRulesScrollView.delegate = self
-        dividerLabel.isHidden = true
+//        dividerLabel.isHidden = true
         
         if fareRulesData.count > 0{
             let val = fareRulesData[0]
@@ -42,8 +51,8 @@ class FareRulesVC: UIViewController, UIScrollViewDelegate
                             if newVal.contains(find: "<h2>"){
                                 newVal = newVal.replacingOccurrences(of: "<h2>", with: "<p><h2>")
                             }
-
-                            let modifiedFont = String(format:"<span style=\"font-family: '-apple-system', 'SourceSansPro'; font-size: 12\">%@</span>", newVal)
+                           
+                            let modifiedFont = String(format:"<span style=\"font-family: '-apple-system', 'SourceSansPro'; font-size: 14\">%@</span>", newVal)
                             
                             let attrStr = try! NSMutableAttributedString(
                                 data: modifiedFont.data(using: String.Encoding.unicode, allowLossyConversion: true)!,
@@ -74,9 +83,9 @@ class FareRulesVC: UIViewController, UIScrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
         if scrollView.contentOffset.y > 0{
-            dividerLabel.isHidden = false
+//            dividerLabel.isHidden = false
         }else{
-            dividerLabel.isHidden = true
+//            dividerLabel.isHidden = true
         }
     }
     

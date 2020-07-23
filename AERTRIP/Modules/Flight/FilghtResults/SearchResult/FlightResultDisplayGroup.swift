@@ -20,6 +20,7 @@ class FlightResultDisplayGroup {
     var sortOrder : Sort = .Smart
     var userSelectedFilters : FiltersWS!
     var inputFilter : FiltersWS!
+    var updatedFilterResultCount = 0
 
     //MARK:- Computed Properties
     var appliedFilters = Set<Filters>() {
