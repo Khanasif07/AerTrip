@@ -132,7 +132,17 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             switch indexPath.section {
             //statement summery
             case 0:
-                return getSummeryCell(withData: self.viewModel.statementSummery[indexPath.row])
+                //return getSummeryCell(withData: self.viewModel.statementSummery[indexPath.row])
+                let cell = getSummeryCell(withData: self.viewModel.statementSummery[indexPath.row]) as! AccountSummeryCell
+                
+                if indexPath.row == 1 {
+                    cell.stackViewTop.constant = -4.0
+                }
+//                else if let sym = self.viewModel.statementSummery[indexPath.row].symbol, sym == "=" {
+//                    cell.stackViewTop.constant = 2.0
+//                }
+                
+                return cell
                 
             //credit summery
             case 1:
