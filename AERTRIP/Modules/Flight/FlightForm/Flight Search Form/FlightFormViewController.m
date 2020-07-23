@@ -68,7 +68,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *flightSearchOuterView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *flightSearchActivityIndicator;
-@property (weak, nonatomic) IBOutlet UIButton *flightSearchButton;
+@property (weak, nonatomic) IBOutlet ATButton *flightSearchButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *bulkFlightTravellingLabel;
 
@@ -474,7 +474,8 @@
 - (void)flightSearchButtonPressed
 {
 
-    self.flightSearchButton.transform = CGAffineTransformMakeScale(0.9, 0.9);
+    // Gurpreet
+//    self.flightSearchButton.transform = CGAffineTransformMakeScale(0.9, 0.9);
 
 //    [self customButtonViewPressed:self.flightSearchOuterView];
 
@@ -482,7 +483,8 @@
 
 - (void)flightSearchButtonReleased {
 
-    self.flightSearchButton.transform = CGAffineTransformMakeScale(1.0, 1.0);
+    // Gurpreet
+//    self.flightSearchButton.transform = CGAffineTransformMakeScale(1.0, 1.0);
 
     //[self customButtonViewReleased:self.flightSearchOuterView];
 
@@ -961,8 +963,13 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         
-        originAnimationLabel.frame = leftLabelTargetFrame;
-        destinationAnimationLabel.frame = rightLabelTargetFrame;
+//        originAnimationLabel.frame = leftLabelTargetFrame;
+//        destinationAnimationLabel.frame = rightLabelTargetFrame;
+        
+        // Gurpreet
+        originAnimationLabel.frame = CGRectMake(leftLabelTargetFrame.origin.x, originAnimationLabel.frame.origin.y, originAnimationLabel.frame.size.width, originAnimationLabel.frame.size.height);
+        
+        destinationAnimationLabel.frame = CGRectMake(rightLabelTargetFrame.origin.x, destinationAnimationLabel.frame.origin.y, destinationAnimationLabel.frame.size.width, destinationAnimationLabel.frame.size.height);
         
     } completion:^(BOOL finished) {
         

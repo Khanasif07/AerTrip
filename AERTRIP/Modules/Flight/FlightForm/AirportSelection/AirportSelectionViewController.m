@@ -1844,7 +1844,7 @@
     [self.viewModel onDoneButtonTapped];
 }
 
-- (void)swapPositionOfLabels:(UILabel *)leftLabel rightLabel:(UILabel *)rightLabel {
+- (void)swapPositionOfLabels:(UILabel* )leftLabel rightLabel:(UILabel* )rightLabel {
     UILabel * originAnimationLabel =  [self deepLabelCopy:leftLabel];
     UILabel * destinationAnimationLabel =  [self deepLabelCopy:rightLabel];
     
@@ -1855,33 +1855,41 @@
     
     [self.fromView addSubview:originAnimationLabel];
     [self.fromView addSubview:destinationAnimationLabel];
-    
-    
+
+
     CGRect leftLabelTargetFrame = rightLabel.frame;
     CGRect rightLabelTargetFrame = leftLabel.frame;
-    
+
     if (leftLabel.frame.size.height > leftLabelTargetFrame.size.height){
         leftLabelTargetFrame.size.height = leftLabel.frame.size.height;
     }
-    
+
     if (rightLabel.frame.size.height > rightLabelTargetFrame.size.height){
         rightLabelTargetFrame.size.height = rightLabel.frame.size.height;
     }
+
     
+
     [UIView animateWithDuration:0.3 animations:^{
         
-        originAnimationLabel.frame = leftLabelTargetFrame;
-        destinationAnimationLabel.frame = rightLabelTargetFrame;
+        //Gurpreet
+        originAnimationLabel.frame = CGRectMake(leftLabelTargetFrame.origin.x, originAnimationLabel.frame.origin.y, originAnimationLabel.frame.size.width, originAnimationLabel.frame.size.height);
         
+        destinationAnimationLabel.frame = CGRectMake(rightLabelTargetFrame.origin.x, destinationAnimationLabel.frame.origin.y, destinationAnimationLabel.frame.size.width, destinationAnimationLabel.frame.size.height);
+
         
+//        originAnimationLabel.frame.origin.x = leftLabelTargetFrame.origin.x;
+//        destinationAnimationLabel.frame.origin.x = rightLabelTargetFrame.origin.x;
+        
+
     } completion:^(BOOL finished) {
-        
+
         [originAnimationLabel removeFromSuperview];
         [destinationAnimationLabel removeFromSuperview];
-        
+
         leftLabel.textColor = previousColor;
         rightLabel.textColor = previousColor;
-        
+
     }];
 }
 

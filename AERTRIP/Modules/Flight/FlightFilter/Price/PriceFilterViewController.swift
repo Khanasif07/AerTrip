@@ -297,7 +297,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     }
  
     //MARK:- IBAction Methods
-    @IBAction func priceRangeChanged(_ sender: MARKRangeSlider) {
+    @objc fileprivate func priceRangeChanged() {
         
         currentPriceFilter.userSelectedFareMinValue = priceRangeSlider.leftValue.rounded(.down)
         currentPriceFilter.userSelectedFareMaxValue = priceRangeSlider.rightValue.rounded(.up)
@@ -305,7 +305,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         setupPriceLabels()
     }
     
-    @IBAction func priceRangeUpdated(_ sender: MARKRangeSlider) {
+    @objc fileprivate func priceRangeUpdated() {
         
         currentPriceFilter.userSelectedFareMinValue = priceRangeSlider.leftValue.rounded(.down)
         currentPriceFilter.userSelectedFareMaxValue = priceRangeSlider.rightValue.rounded(.up)
