@@ -14,10 +14,11 @@ class SmartIconCell: UICollectionViewCell {
     @IBOutlet weak var imageViewLeading: NSLayoutConstraint!
     @IBOutlet weak var superScript: UILabel!
     @IBOutlet weak var superScriptWidth: NSLayoutConstraint!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+
     }
-    
     
     override func prepareForReuse() {
         super.prepareForReuse()
