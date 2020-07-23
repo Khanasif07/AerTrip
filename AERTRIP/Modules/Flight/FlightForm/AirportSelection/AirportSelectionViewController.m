@@ -27,13 +27,13 @@
 
 
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *fromLabelCenterConstraint;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *fromLabelCenterConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *fromValueLabelHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *fromValueLabelWidth;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *fromValueLabelWidth;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *ToLabelCenterConstraint;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *ToLabelCenterConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *ToValueLabelHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *ToValueLabelWidth;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *ToValueLabelWidth;
 @property (weak, nonatomic) IBOutlet UIView *fromView;
 @property (weak, nonatomic) IBOutlet UILabel *fromLabel;
 @property (weak, nonatomic) IBOutlet UILabel *fromValueLabel;
@@ -60,7 +60,7 @@
 @property (weak, nonatomic) IBOutlet UIView *TopView;
 @property (weak, nonatomic) IBOutlet UIButton *switcherButton;
 
-@property (weak, nonatomic) IBOutlet UIImageView *backingImageView;
+//@property (weak, nonatomic) IBOutlet UIImageView *backingImageView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraintMainView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (strong, nonatomic) IBOutlet UIView *TableViewHeaderView;
@@ -71,7 +71,7 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *noResultViewHeight;
 @property (weak, nonatomic) IBOutlet UIView *noResultView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *noResultInnerViewY;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *noResultInnerViewY;
 
 @property (weak, nonatomic) IBOutlet UIView *doneOutterView;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
