@@ -57,6 +57,9 @@ class HotelCheckoutDetailVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        delay(seconds: 0.2) {
+            self.hotelDetailsTableView.reloadData()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

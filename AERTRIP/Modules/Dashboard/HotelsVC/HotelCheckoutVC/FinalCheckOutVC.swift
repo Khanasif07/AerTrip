@@ -172,6 +172,7 @@ class FinalCheckOutVC: BaseVC {
                 applyCouponCell.couponView.isHidden = true
                 applyCouponCell.couponLabel.text = LocalizedString.ApplyCoupon.localized
             }
+            applyCouponCell.hideShowLoader(isHidden: !self.viewModel.isApplyingCoupon)//Golu change
             applyCouponCell.delegate = self
             return applyCouponCell
         case 3:
@@ -623,11 +624,36 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
     */
+    
+    // Golu changes for  coupon code
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 1, indexPath.section == 0 {
-            AppFlowManager.default.presentHCCouponCodeVC(itineraryId: self.viewModel.itineraryData?.it_id ?? "", vc: self, couponCode: self.appliedCouponData.couponCode)
+            self.moveToCouponVC(indexPath: indexPath)
         }
     }
+    
+    func moveToCouponVC(indexPath:IndexPath){
+        self.manageCouponLoader(isApplying:true)
+        self.viewModel.getCouponsDetailsApi {[weak self] (success, couponDetails, error) in
+            guard let self = self else {return}
+            self.manageCouponLoader(isApplying:false)
+            if success{
+                AppFlowManager.default.presentHCCouponCodeVC(itineraryId: self.viewModel.itineraryData?.it_id ?? "", vc: self, couponData: couponDetails, couponCode: self.appliedCouponData.couponCode)
+            }else{
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
+            }
+        }
+        
+    }
+
+    
+    func manageCouponLoader(isApplying:Bool){
+        self.viewModel.isApplyingCoupon = isApplying
+        self.view.isUserInteractionEnabled = !isApplying
+        self.checkOutTableView.reloadData()
+    }
+    
+     // End
 }
 
 // MARK: - TopNavigationView Delegate methods
@@ -687,6 +713,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     }
     
     func removeCouponCodeSuccessful(_ appliedCouponData: HCCouponAppliedModel) {
+        self.manageCouponLoader(isApplying: false)//Golu Chnages
         self.viewModel.itineraryData = appliedCouponData.itinerary
         self.appliedCouponData = appliedCouponData
         self.isCouponApplied = false
@@ -695,6 +722,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     }
     
     func removeCouponCodeFailed() {
+        self.manageCouponLoader(isApplying: false) //Golu Chnages
         printDebug("Unable to remove Coupon Code")
     }
     

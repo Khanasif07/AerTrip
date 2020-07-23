@@ -21,6 +21,7 @@ class ApplyCouponTableViewCell: UITableViewCell {
     @IBOutlet weak var appliedCouponLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
+    @IBOutlet weak var arrowImage: UIImageView!
     // MARK: - Properties
     weak var delegate : ApplyCouponTableViewCellDelegate?
     
@@ -79,6 +80,7 @@ class ApplyCouponTableViewCell: UITableViewCell {
                 self.indicator.startAnimating()
             }
             self.closeButton.isHidden = !isHidden
+            self.arrowImage.isHidden = !isHidden
         }
     }
    

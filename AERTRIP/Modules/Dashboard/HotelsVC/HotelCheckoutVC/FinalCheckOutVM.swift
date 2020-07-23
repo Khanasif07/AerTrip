@@ -45,6 +45,7 @@ class FinalCheckoutVM: NSObject {
     var hotelFormData: HotelFormPreviosSearchData = HotelFormPreviosSearchData()
     var grossTotalPayableAmount : Double = 0.0 // without wallet amount
     var bookingIds: [String] = [], cId: [String] = []
+    var isApplyingCoupon = false
     
     func webServiceGetPaymentMethods() {
         let params: JSONDictionary = [APIKeys.it_id.rawValue:  self.itineraryData?.it_id ?? ""]
@@ -176,4 +177,15 @@ extension FinalCheckoutVM {
             }
         }
     }
+    
+    //Golu Chnages 
+    func getCouponsDetailsApi(completion: @escaping((_ success:Bool, _ couponData: [HCCouponModel], _ error:ErrorCodes)->())) {
+
+        let params: [String : Any] = [APIKeys.it_id.rawValue : self.itineraryData?.it_id ?? "" , APIKeys.product.rawValue : CouponFor.hotels.rawValue]
+        APICaller.shared.getCouponDetailsApi(params: params, loader: true ) { (success, errors, couponsDetails) in
+            completion(success, couponsDetails, errors)
+            
+        }
+    }
+    
 }

@@ -562,7 +562,7 @@ extension AppFlowManager {
         //        ob.modalPresentationStyle = .overFullScreen
         //        ob.modalPresentationCapturesStatusBarAppearance = true
         //        ob.statusBarColor = AppColors.themeWhite
-        UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
+        self.currentNavigation?.present(ob, animated: true, completion: nil)
     }
     
     func presentHotelDetailsOverViewVC(overViewInfo: String) {
@@ -627,12 +627,13 @@ extension AppFlowManager {
         }
     }
     
-    func presentHCCouponCodeVC(itineraryId: String, vc: HCCouponCodeVCDelegate, couponCode: String, product:CouponFor = .hotels) {
+    func presentHCCouponCodeVC(itineraryId: String, vc: HCCouponCodeVCDelegate, couponData: [HCCouponModel],couponCode: String, product:CouponFor = .hotels) {
         let obj = HCCouponCodeVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.delegate = vc
         obj.viewModel.itineraryId = itineraryId
         obj.viewModel.couponCode = couponCode
         obj.viewModel.product = product
+        obj.viewModel.couponsData = couponData
         obj.modalPresentationStyle = .overFullScreen
         self.currentNavigation?.present(obj, animated: true)
     }

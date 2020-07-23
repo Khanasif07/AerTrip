@@ -50,23 +50,23 @@ class HCCouponCodeVM {
     }
     
     
-    func getCouponsDetailsApi() {
-        delay(seconds: 0.2) {
-            AppGlobals.shared.startLoading()
-        }
-        let params: [String : Any] = [ APIKeys.it_id.rawValue : self.itineraryId , APIKeys.product.rawValue : self.product.rawValue]
-        APICaller.shared.getCouponDetailsApi(params: params, loader: true ) { [weak self] (success, errors, couponsDetails) in
-            AppGlobals.shared.stopLoading()
-            guard let sSelf = self else { return }
-            if success {
-                sSelf.couponsData = couponsDetails
-                sSelf.delegate?.getCouponsDataSuccessful()
-            } else {
-                printDebug(errors)
-                sSelf.delegate?.getCouponsDataFailed()
-            }
-        }
-    }
+//    func getCouponsDetailsApi() {
+//        delay(seconds: 0.2) {
+//            AppGlobals.shared.startLoading()
+//        }
+//        let params: [String : Any] = [ APIKeys.it_id.rawValue : self.itineraryId , APIKeys.product.rawValue : self.product.rawValue]
+//        APICaller.shared.getCouponDetailsApi(params: params, loader: true ) { [weak self] (success, errors, couponsDetails) in
+//            AppGlobals.shared.stopLoading()
+//            guard let sSelf = self else { return }
+//            if success {
+//                sSelf.couponsData = couponsDetails
+//                sSelf.delegate?.getCouponsDataSuccessful()
+//            } else {
+//                printDebug(errors)
+//                sSelf.delegate?.getCouponsDataFailed()
+//            }
+//        }
+//    }
     
     func applyCouponCode() {
         let params: [String : Any] = [APIKeys.action.rawValue : "coupons" , APIKeys.coupon_code.rawValue : self.couponCode , APIKeys.it_id.rawValue : self.itineraryId ]
@@ -78,7 +78,6 @@ class HCCouponCodeVM {
                 sSelf.delegate?.applyCouponCodeSuccessful()
             } else {
                 printDebug(errors)
-                //AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
                 sSelf.delegate?.applyCouponCodeFailed(errors: errors)
             }
         }
@@ -86,17 +85,14 @@ class HCCouponCodeVM {
     
     func applyFlightCouponCode() {
         let params: [String : Any] = [APIKeys.action.rawValue : "coupons" , APIKeys.coupon_code.rawValue : self.couponCode , APIKeys.it_id.rawValue : self.itineraryId ]
-//        AppGlobals.shared.startLoading()
         APICaller.shared.applyFlightCoupnCodeApi(params: params, loader: true) { [weak self] (success, errors, appliedCouponData) in
             guard let sSelf = self else { return }
-//            AppGlobals.shared.stopLoading()
             if success {
                 printDebug(appliedCouponData)
                 sSelf.appliedDataForFlight = appliedCouponData
                 sSelf.delegate?.applyCouponCodeSuccessful()
             } else {
                 printDebug(errors)
-                //AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
                 sSelf.delegate?.applyCouponCodeFailed(errors: errors)
             }
         }

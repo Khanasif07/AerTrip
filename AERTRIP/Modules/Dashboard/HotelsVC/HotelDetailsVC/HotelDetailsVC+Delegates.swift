@@ -199,10 +199,13 @@ extension HotelDetailsVC: HotelDetailDelegate {
     }
     
     func saveHotelWithTripSuccess(trip: TripModel, isAllreadyAdded: Bool) {
-        
-        //        let tripName = trip.isDefault ? LocalizedString.Default.localized.lowercased() : "\(trip.name)"
-        //        let message = "Hotel has been\(isAllreadyAdded ? " \(LocalizedString.Already.localized.lowercased())" : "") added to \(tripName) trip"
-        let message = LocalizedString.HotelHasAlreadyBeenSavedToTrip.localized
+        let message:String
+        if isAllreadyAdded{
+            message = LocalizedString.HotelHasAlreadyBeenSavedToTrip.localized
+        }else{
+            let tripName = trip.isDefault ? LocalizedString.Default.localized.lowercased() : "\(trip.name)"
+            message = "Hotel has been added to \(tripName) trip"
+        }
         AppToast.default.showToastMessage(message: message, onViewController: self)
     }
     
@@ -356,7 +359,7 @@ extension HotelDetailsVC {
                 }
                 
             } else {
-                if (self.initialStickyPosition + self.footerView.height) > self.hotelTableView.contentOffset.y {
+                if (self.initialStickyPosition + self.footerView.height) > self.hotelTableView.contentOffset.y && (self.hotelTableView.indexPathsForVisibleRows?.contains([2,0]) ?? false){
                     if self.stickyBottomConstraint.constant != 0.0 {
                         UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
                             guard let `self` = self else {return}
