@@ -32,7 +32,7 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
     @IBOutlet weak var heightConstraintForMulticityView: NSLayoutConstraint!
     @IBOutlet weak var multicitySegmentView: UIView!
     @IBOutlet weak var JourneyTitle: UILabel!
-    
+    var selectedAirlineArray = [String]()
     
     //MARK :- View Controller Life Cycle Methods
     override func viewDidLoad() {
@@ -116,13 +116,23 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
     
     
     func updateUIPostLatestResults() {
-       
+        
+        for i in 0..<currentSelectedAirlineFilter.airlinesArray.count{
+            for airline in selectedAirlineArray{
+                if currentSelectedAirlineFilter.airlinesArray[i].name == airline{
+                    currentSelectedAirlineFilter.airlinesArray[i].isSelected = true
+                }else{
+                    //                    currentSelectedAirlineFilter.airlinesArray[i].isSelected = false
+                }
+            }
+        }
         
         airlinesTableView.reloadData()
     }
     
     func resetFilter() {
         
+        selectedAirlineArray.removeAll()
         currentSelectedAirlineFilter.airlinesArray = currentSelectedAirlineFilter.airlinesArray.map{
             var airline = $0
             airline.isSelected = false
@@ -194,6 +204,9 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
                 return airline
             }
             allAirlineSelectedByUserInteraction = sender.isSelected
+            if sender.isSelected == false{
+                selectedAirlineArray.removeAll()
+            }
             airlinesTableView.reloadData()
             
             if showingForReturnJourney {
@@ -224,6 +237,12 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
             var airline = currentSelectedAirlineFilter.airlinesArray[selectedRow]
             airline.isSelected = sender.isSelected
             currentSelectedAirlineFilter.airlinesArray[selectedRow] = airline
+            
+            if !selectedAirlineArray.contains(airline.name){
+                selectedAirlineArray.append(airline.name)
+            }else{
+                selectedAirlineArray.removeAll(){$0 == airline.name}
+            }
             
             let combinedSelection = currentSelectedAirlineFilter.airlinesArray.reduce(true) { (result, next) -> Bool in
                 return result &&  next.isSelected
