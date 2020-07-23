@@ -1504,7 +1504,7 @@
 {
     RecentSearchCellCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"RecentSearchCell" forIndexPath:indexPath];
     
-    NSDictionary * dictionary = recentSearchArrayself.[indexPath.row];
+    NSDictionary * dictionary = self.recentSearchArray[indexPath.row];
     RecentSearchDisplayModel * recentModel = [[RecentSearchDisplayModel alloc] initWithDictionary:dictionary];
     [cell setPropertiesWithRecentSearch:recentModel];
     
@@ -1555,9 +1555,5 @@
 
     return CGSizeMake(width, 75.0);
 }
-
-
-
-
 
 @end
