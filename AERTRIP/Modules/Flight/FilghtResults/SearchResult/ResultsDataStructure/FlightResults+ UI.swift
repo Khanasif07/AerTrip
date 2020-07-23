@@ -74,10 +74,11 @@ struct OnewayJourneyResultsArray {
                     sortArray.sort(by: {$0.departTimeInterval < $1.departTimeInterval })
             case .Arrival:
                     sortArray.sort(by: {$0.arrivalTimeInteval < $1.arrivalTimeInteval })
-            case .DurationLatestFirst :
+            case .DurationLongestFirst :
                     sortArray.sort(by: {$0.departTimeInterval > $1.departTimeInterval })
             case .ArrivalLatestFirst :
                     sortArray.sort(by: {$0.arrivalTimeInteval > $1.arrivalTimeInteval })
+            default: break
             }
             
             return sortArray
@@ -140,10 +141,11 @@ struct DomesticMultilegJourneyResultsArray {
                     sortArray.sort(by: {$0.departTimeInterval < $1.departTimeInterval })
             case .Arrival:
                     sortArray.sort(by: {$0.arrivalTimeInteval < $1.arrivalTimeInteval })
-            case .DurationLatestFirst :
+            case .DurationLongestFirst :
                     sortArray.sort(by: {$0.departTimeInterval > $1.departTimeInterval })
             case .ArrivalLatestFirst :
                     sortArray.sort(by: {$0.arrivalTimeInteval > $1.arrivalTimeInteval })
+            default: break
             }
             
             return sortArray
@@ -274,10 +276,11 @@ struct InternationalJourneyResultsArray {
                     sortArray.sort(by: {$0.departTimeInterval < $1.departTimeInterval })
             case .Arrival:
                     sortArray.sort(by: {$0.arrivalTimeInteval < $1.arrivalTimeInteval })
-            case .DurationLatestFirst :
+            case .DurationLongestFirst :
                     sortArray.sort(by: {$0.departTimeInterval > $1.departTimeInterval })
             case .ArrivalLatestFirst :
                     sortArray.sort(by: {$0.arrivalTimeInteval > $1.arrivalTimeInteval })
+            default: break
             }
             
             return sortArray

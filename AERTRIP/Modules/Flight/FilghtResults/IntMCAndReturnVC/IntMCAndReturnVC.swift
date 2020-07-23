@@ -23,7 +23,7 @@ class IntMCAndReturnVC : UIViewController {
     @IBOutlet weak var emailPinnedLeading: NSLayoutConstraint!
     @IBOutlet weak var sharePinnedFlightLeading: NSLayoutConstraint!
     
-    
+    var airlineCode = ""
     var bannerView : ResultHeaderView?
     var titleString : NSAttributedString!
     var subtitleString : String!
@@ -95,11 +95,12 @@ extension IntMCAndReturnVC {
     
     func addBannerTableHeaderView() {
         DispatchQueue.main.async {
-            let rect = CGRect(x: 0, y: 82, width: UIScreen.main.bounds.size.width, height: 156)
+            let rect = CGRect(x: 0, y: 82, width: UIScreen.main.bounds.size.width, height: 154)
             self.bannerView = ResultHeaderView(frame: rect)
             self.bannerView?.frame = rect
+            self.bannerView?.lineView.isHidden = true
             self.view.addSubview(self.bannerView!)
-            let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 94))
+            let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 75))
             self.resultsTableView.tableHeaderView = headerView
             self.resultsTableView.isScrollEnabled = false
             self.resultsTableView.tableFooterView = nil
@@ -126,6 +127,12 @@ extension IntMCAndReturnVC {
     }
     
     func hidePinnedFlightOptions( _ hide : Bool) {
+        
+        //*******************Haptic Feedback code********************
+        let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        selectionFeedbackGenerator.selectionChanged()
+        //*******************Haptic Feedback code********************
+        
         let optionViewWidth : CGFloat =  hide ? 50.0 : 212.0
         let unpinButtonLeading : CGFloat = hide ? 0.0 : 60.0
         let emailButton : CGFloat = hide ? 0.0 : 114.0
@@ -285,6 +292,23 @@ extension IntMCAndReturnVC {
         
         var modifiedResult = results
         
+        for i in 0..<modifiedResult.count {
+            var isFlightCodeSame = false
+            for leg in modifiedResult[i].legsWithDetail{
+                for flight in leg.flightsWithDetails{
+                    let flightNum = flight.al + flight.fn
+                    if flightNum.uppercased() == airlineCode.uppercased(){
+                        isFlightCodeSame = true
+                    }
+                }
+            }
+            
+            if isFlightCodeSame == true{
+                modifiedResult[i].isPinned = true
+
+            }
+        }
+        
         DispatchQueue.global(qos: .userInteractive).async {
             self.viewModel.sortOrder = sortOrder
             self.viewModel.results.sort = sortOrder
@@ -376,7 +400,7 @@ extension IntMCAndReturnVC : flightDetailsPinFlightDelegate, UpdateRefundStatusD
         print(fk, rfd, rsc)
     }
     
-    func reloadRowFromFlightDetails(fk: String, isPinned: Bool) {
+    func reloadRowFromFlightDetails(fk: String, isPinned: Bool, isPinnedButtonClicked: Bool) {
         if #available(iOS 13.0, *) {
             self.setPinnedFlightAt(fk, isPinned: isPinned)
         } else {

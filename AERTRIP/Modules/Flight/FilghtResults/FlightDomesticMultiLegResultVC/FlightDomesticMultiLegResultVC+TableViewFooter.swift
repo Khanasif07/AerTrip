@@ -68,9 +68,9 @@ extension FlightDomesticMultiLegResultVC
             titleLabel.textAlignment = .center
             
             if aboveHumanScoreCount == 1 {
-                titleLabel.text  = "Show 1 longer or more expensive flight"
+                titleLabel.text  = "Show 1 longer or expensive flight"
             }else {
-                titleLabel.text  = "Show " + String(aboveHumanScoreCount) + " longer or more expensive flights"
+                titleLabel.text  = "Show " + String(aboveHumanScoreCount) + " longer or expensive flights"
             }
             
             groupedFooterView.addSubview(titleLabel)
@@ -109,6 +109,11 @@ extension FlightDomesticMultiLegResultVC
         
         let aboveHumanScoreCount = results[index].aboveHumanScoreCount
 
+            if aboveHumanScoreCount == 0 {
+                tableView.tableFooterView = nil
+                return
+            }
+
         let expandedFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 96))
         expandedFooterView.isUserInteractionEnabled = true
         expandedFooterView.tag = index
@@ -127,7 +132,7 @@ extension FlightDomesticMultiLegResultVC
         titleLabel.numberOfLines = 0
         titleLabel.font = UIFont(name: "SourceSansPro-Regular", size: 14.0)
         titleLabel.textAlignment = .center
-        titleLabel.text  = "Hide " + String(aboveHumanScoreCount) + " longer or more expensive flights"
+        titleLabel.text  = "Hide " + String(aboveHumanScoreCount) + " longer or expensive flights"
         expandedFooterView.addSubview(titleLabel)
         tableView.tableFooterView = expandedFooterView
             

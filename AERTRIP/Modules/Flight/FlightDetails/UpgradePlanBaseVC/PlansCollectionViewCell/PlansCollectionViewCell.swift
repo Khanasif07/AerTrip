@@ -22,6 +22,12 @@ class PlansCollectionViewCell: UICollectionViewCell
     @IBOutlet weak var selectButtonClick: UIButton!
     @IBOutlet weak var txtView: UITextView!
     
+    @IBOutlet weak var fewSeatsLeftView: UIView!
+    @IBOutlet weak var fewSeatsLeftViewHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var fewSeatsLeftLabel: UILabel!
+    @IBOutlet weak var fewSeatsLeftCountLabel: UILabel!
+    
     var desc = NSAttributedString()
     var isAnimated = false
     
@@ -29,8 +35,8 @@ class PlansCollectionViewCell: UICollectionViewCell
     {
         super.awakeFromNib()
         
+        fewSeatsLeftCountLabel.layer.cornerRadius = fewSeatsLeftCountLabel.frame.width/2
         dataDisplayView.layer.cornerRadius = 10
-                
         selectButton.layer.cornerRadius = selectButton.bounds.height/2
     }
 }

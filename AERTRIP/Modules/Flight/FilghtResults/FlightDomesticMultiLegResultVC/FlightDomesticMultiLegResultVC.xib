@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -60,7 +60,7 @@
                             <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9y7-6A-OPB">
                                 <rect key="frame" x="0.0" y="0.0" width="135" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="Ffr-vI-100">
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Ffr-vI-100">
                                     <rect key="frame" x="0.0" y="0.0" width="135" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
@@ -143,7 +143,7 @@
                     <rect key="frame" x="16" y="812" width="212" height="44"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wTm-MA-5wJ">
-                            <rect key="frame" x="60" y="0.0" width="44" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="Ge4-bY-3Xc"/>
                                 <constraint firstAttribute="width" constant="44" id="n14-QK-Hvq"/>
@@ -154,7 +154,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nst-Xs-8A2">
-                            <rect key="frame" x="114" y="0.0" width="44" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="CHE-U3-nOu"/>
                                 <constraint firstAttribute="width" constant="44" id="uRl-cK-ekx"/>
@@ -165,7 +165,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dE7-NY-XeB">
-                            <rect key="frame" x="168" y="0.0" width="44" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="iZI-Ni-cNH"/>
                                 <constraint firstAttribute="width" constant="44" id="jxG-jF-45Q"/>
@@ -193,11 +193,11 @@
                         <constraint firstItem="FKI-Sf-kMQ" firstAttribute="leading" secondItem="DY9-cf-6Y2" secondAttribute="leading" id="I6n-nS-Jex"/>
                         <constraint firstItem="FKI-Sf-kMQ" firstAttribute="centerY" secondItem="DY9-cf-6Y2" secondAttribute="centerY" id="KYb-w3-peb"/>
                         <constraint firstAttribute="width" constant="212" id="Lnr-fg-nY9"/>
-                        <constraint firstItem="dE7-NY-XeB" firstAttribute="leading" secondItem="DY9-cf-6Y2" secondAttribute="leading" constant="168" id="bjM-MY-MLy"/>
-                        <constraint firstItem="nst-Xs-8A2" firstAttribute="leading" secondItem="DY9-cf-6Y2" secondAttribute="leading" constant="114" id="bwS-wT-Pc1"/>
+                        <constraint firstItem="dE7-NY-XeB" firstAttribute="leading" secondItem="DY9-cf-6Y2" secondAttribute="leading" id="bjM-MY-MLy"/>
+                        <constraint firstItem="nst-Xs-8A2" firstAttribute="leading" secondItem="DY9-cf-6Y2" secondAttribute="leading" id="bwS-wT-Pc1"/>
                         <constraint firstAttribute="height" constant="44" id="eBX-fG-7jD"/>
                         <constraint firstItem="nst-Xs-8A2" firstAttribute="top" secondItem="DY9-cf-6Y2" secondAttribute="top" id="gdc-pn-QyY"/>
-                        <constraint firstItem="wTm-MA-5wJ" firstAttribute="leading" secondItem="DY9-cf-6Y2" secondAttribute="leading" constant="60" id="jkn-tz-ThO"/>
+                        <constraint firstItem="wTm-MA-5wJ" firstAttribute="leading" secondItem="DY9-cf-6Y2" secondAttribute="leading" id="jkn-tz-ThO"/>
                         <constraint firstItem="wTm-MA-5wJ" firstAttribute="top" secondItem="DY9-cf-6Y2" secondAttribute="top" id="xaV-3k-wQ1"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="ic5-OT-o4d"/>

@@ -157,10 +157,11 @@ extension IntFlightResultDisplayGroup  {
             sortArray.sort(by: {$0.departTimeInterval < $1.departTimeInterval })
         case .Arrival:
             sortArray.sort(by: {$0.arrivalTimeInteval < $1.arrivalTimeInteval })
-        case .DurationLatestFirst :
+        case .DurationLongestFirst :
             sortArray.sort(by: {$0.departTimeInterval > $1.departTimeInterval })
         case .ArrivalLatestFirst :
             sortArray.sort(by: {$0.arrivalTimeInteval > $1.arrivalTimeInteval })
+        default: break
         }
         
         self.filteredJourneyArray = sortArray

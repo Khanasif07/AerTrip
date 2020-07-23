@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "AERTRIP-Swift.h"
+#import "Aertrip-Swift.h"
 #import "MultiCityFlightTableViewCell.h"
 #import "flightSearchType.h"
 #import "CalendarVM.h"
@@ -80,6 +80,10 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)removeLastLegFromJourney;
 -(void)addFlightLegForMulticityJourney;
 -(MulticityCalendarVM*)prepareVMForMulticityCalendar:(NSUInteger)currentIndex;
+
+
+@property (strong , nonatomic) NSString * airlineCode;
+
 @end
 
 NS_ASSUME_NONNULL_END

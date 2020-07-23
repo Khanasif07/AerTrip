@@ -29,6 +29,7 @@ import UIKit
     @objc var toFlightArray : NSMutableArray?
     @objc var airportSelectionMode : AirportSelectionMode
     @objc var journeyType: JourneyType = .domestic
+    @objc var airlineNum : String?
  
     @objc init(isFrom:Bool , delegateHandler : AirportSelctionHandler , fromArray:NSMutableArray? , toArray : NSMutableArray? , airportSelectionMode : AirportSelectionMode) {
         
@@ -41,7 +42,6 @@ import UIKit
     }
     
     @objc func onDoneButtonTapped() {
-        self.delegate.flight!(fromSource: self.fromFlightArray, toDestination: self.toFlightArray)
-        
+        self.delegate.flight!(fromSource: self.fromFlightArray, toDestination: self.toFlightArray, airlineNum:airlineNum)
     }
 }

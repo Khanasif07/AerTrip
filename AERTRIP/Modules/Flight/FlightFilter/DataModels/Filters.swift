@@ -129,7 +129,9 @@ enum Sort : Int, CaseIterable {
     case Depart
     case Arrival
     case ArrivalLatestFirst
-    case DurationLatestFirst
+    case DepartLatestFirst
+    case PriceHighToLow
+    case DurationLongestFirst
     
 }
 
@@ -163,6 +165,11 @@ extension Sort {
             return "Earliest first"
         case .Duration:
             return "Shortest first"
+
+        case .PriceHighToLow:
+            return "High to low"
+        case .DurationLongestFirst:
+            return "Longest first"
         default:
             return ""
         }

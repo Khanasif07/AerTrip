@@ -19,8 +19,8 @@ protocol FilterUIDelegate : AnyObject
 }
 
 /// Base Class for Flight Filters
-class FlightFilterBaseViewController: UIViewController{
-    
+class FlightFilterBaseViewController: UIViewController
+{
     //MARK:- Outlets
     @IBOutlet weak var baseView: UIView!
     @IBOutlet weak var FilterTitle: UILabel!
@@ -34,7 +34,7 @@ class FlightFilterBaseViewController: UIViewController{
     var legList : [Leg]!
     var searchType : FlightSearchType!
     var flightResultArray : [FlightsResults]!
-        
+    
     //MARK:- Computed Properties
     var selectedIndex  : Int! {
         didSet {
@@ -72,6 +72,7 @@ class FlightFilterBaseViewController: UIViewController{
     }
     
     //MARK:- ViewController Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -133,8 +134,6 @@ class FlightFilterBaseViewController: UIViewController{
         viewController.didMove(toParent: self)
     }
     
-    
-    
     @objc func tapOnBaseView() {
         self.filterUIDelegate?.removedFilterUIFromParent()
         self.view.removeFromSuperview()
@@ -150,14 +149,15 @@ class FlightFilterBaseViewController: UIViewController{
         }
     }
     
-    
-
-    
     //MARK:- Setting Filter ViewController's  values
     func resetAllFilters() {
         for viewController in self.children {
-            if let filterViewController = viewController as? FilterViewController {
-                filterViewController.resetFilter()
+            if let sortViewController = viewController as? FlightSortFilterViewController {
+                sortViewController.resetSort()
+            }else{
+                if let filterViewController = viewController as? FilterViewController {
+                    filterViewController.resetFilter()
+                }
             }
         }
     }
@@ -173,21 +173,23 @@ class FlightFilterBaseViewController: UIViewController{
             if uiViewController is FlightSortFilterViewController {
                 setSortVC(uiViewController as! FlightSortFilterViewController)
             }
+            
         case .stops:
             if uiViewController is FlightStopsFilterViewController {
                 setStopsVC(uiViewController as! FlightStopsFilterViewController, inputFilters: filters)
             }
+            
         case .Times :
             if uiViewController is FlightFilterTimesViewController {
                 setTimesVC(uiViewController as! FlightFilterTimesViewController, inputFilters: filters)
             }
+            
         case .Duration:
             if uiViewController is FlightDurationFilterViewController {
                 
                 if searchType == RETURN_JOURNEY {
                     setDurationVCForReturnJourney(uiViewController as! FlightDurationFilterViewController, inputFilters: filters)
-                }
-                else {
+                }else {
                     setDurationVC(uiViewController as! FlightDurationFilterViewController, inputFilters: filters)
                 }
             }
@@ -197,8 +199,7 @@ class FlightFilterBaseViewController: UIViewController{
                 
                 if searchType == RETURN_JOURNEY {
                     setAirlineVCForReturnJourney(uiViewController as! AirlinesFilterViewController, inputFilters: filters)
-                }
-                else {
+                }else {
                     setAirlineVC( uiViewController as! AirlinesFilterViewController, inputFilters: filters)
                 }
             }
@@ -207,17 +208,18 @@ class FlightFilterBaseViewController: UIViewController{
             if uiViewController is PriceFilterViewController {
                 setPriceVC( uiViewController as! PriceFilterViewController, inputFilters: filters)
             }
+            
         case .Airport:
             if uiViewController is AirportsFilterViewController {
                 setAirportVC ( uiViewController as! AirportsFilterViewController, inputFilters: filters)
             }
+            
         case .Quality:
             if uiViewController is QualityFilterViewController {
                 setQualityFilterVC(uiViewController as! QualityFilterViewController)
             }
         }
     }
-    
     
     func updateInputFilters( flightResultArray : [FlightsResults])
     {
@@ -249,12 +251,12 @@ class FlightFilterBaseViewController: UIViewController{
                 if let durationFilterVC = viewController as? FlightDurationFilterViewController {
                     updateDurationVC(durationFilterVC , inputFilters: filters)
                     durationFilterVC.updateUIPostLatestResults()
-            }
+                }
             case FlightStopsFilterViewController.className :
                 if let stopVC = viewController as? FlightStopsFilterViewController {
                     setStopsVC(stopVC, inputFilters: filters)
                     stopVC.updateUIPostLatestResults()
-            }
+                }
             case AirportsFilterViewController.className :
                 if let airportFilter = viewController as? AirportsFilterViewController {
                     setAirportVC(airportFilter , inputFilters : filters)
@@ -271,11 +273,11 @@ class FlightFilterBaseViewController: UIViewController{
         }
     }
     
-    
     //MARK:- Sort
     func setSortVC(_ sortViewController : FlightSortFilterViewController) {
         sortViewController.delegate = delegate as? SortFilterDelegate
     }
+    
     // MARK:- Stops
     func setStopsVC(_ stopsViewController  : FlightStopsFilterViewController , inputFilters : [FiltersWS])
     {
@@ -305,7 +307,6 @@ class FlightFilterBaseViewController: UIViewController{
         
         stopsViewController.delegate = delegate as? FlightStopsFilterDelegate
     }
-    
     
     //MARK:- Times
     
@@ -346,27 +347,26 @@ class FlightFilterBaseViewController: UIViewController{
     }
     
     //MARK:- Duration
-    func updateDurationVC(_ durationVC : FlightDurationFilterViewController , inputFilters : [FiltersWS]) {
-
-        
+    func updateDurationVC(_ durationVC : FlightDurationFilterViewController , inputFilters : [FiltersWS])
+    {
         let durationLegFilters : [DurationFilter]
         if searchType == RETURN_JOURNEY {
             let durationLegFilter = self.createDurationFilterArrayReturnJourney(inputFilters: inputFilters)
             durationLegFilters = [durationLegFilter]
-         }
-         else {
+        }else {
             durationLegFilters = self.createDurationFilterArray(inputFilters: inputFilters)
-         }
+        }
         
         durationVC.durationFilters = durationLegFilters
-        durationVC.currentDurationFilter = durationLegFilters[0]
-
+        if durationLegFilters.count>0{
+            durationVC.currentDurationFilter = durationLegFilters[0]
+        }
     }
     
     func createDurationFilterArray(inputFilters : [FiltersWS]) ->  [DurationFilter] {
         var durationFilters = [DurationFilter]()
         
-         for index in 0 ..< inputFilters.count {
+        for index in 0 ..< inputFilters.count {
             
             let filter = inputFilters[index]
             let tripTime = filter.tt
@@ -390,7 +390,7 @@ class FlightFilterBaseViewController: UIViewController{
             let layoverMax = CGFloat( round(duration / 3600.0))
             
             let leg = legList[index]
-            let durationFilter = DurationFilter(leg: leg, tripMin: trimMinDuration, tripMax: tripMaxDuration, layoverMin: layoverMin, layoverMax: layoverMax)
+            let durationFilter = DurationFilter(leg: leg, tripMin: trimMinDuration, tripMax: tripMaxDuration, layoverMin: layoverMin, layoverMax: layoverMax, layoverMinTimeFormat: "")
             
             durationFilters.append(durationFilter)
         }
@@ -405,13 +405,13 @@ class FlightFilterBaseViewController: UIViewController{
         var layoverDurationMin : CGFloat = CGFloat.greatestFiniteMagnitude
         var layoverMaxDuration : CGFloat = 0.0
         
-
+        
         for filter in inputFilters {
             
             let tripTime = filter.tt
             let layoverTime = filter.lott
             var duration : Float
-
+            
             guard let tripTimeMinDuration = tripTime.minTime else { continue }
             duration = (tripTimeMinDuration as NSString).floatValue
             let tripMin = CGFloat( floor(duration / 3600.0 ))
@@ -430,11 +430,11 @@ class FlightFilterBaseViewController: UIViewController{
             
             // tripDurationMax is set to 0.0 value initially, whenever tripMax is more than tripDurationMax , tripMax is assigned to tripDurationMax
             // This logic works for first loop as well as in second iteration if tripMax is more than tripDurationMax.
-
+            
             if tripDurationMax < tripMax {
                 tripDurationMax = tripMax
             }
-        
+            
             guard let layoverMinDuration = layoverTime?.minTime else { continue }
             duration = ( layoverMinDuration as NSString).floatValue
             let layoverMin = CGFloat(floor( duration / 3600.0 ))
@@ -445,7 +445,7 @@ class FlightFilterBaseViewController: UIViewController{
             if layoverMin < layoverDurationMin {
                 layoverDurationMin = layoverMin
             }
-
+            
             guard let layoverMaxString = layoverTime?.maxTime else { continue }
             duration = ( layoverMaxString as NSString).floatValue
             let layoverMax = CGFloat( round(duration / 3600.0))
@@ -457,12 +457,10 @@ class FlightFilterBaseViewController: UIViewController{
                 layoverMaxDuration = layoverMax
             }
         }
-
         
-        let durationFilter = DurationFilter(leg: legList[0], tripMin: tripDurationMin, tripMax: tripDurationMax, layoverMin: layoverDurationMin, layoverMax: layoverMaxDuration)
+        let durationFilter = DurationFilter(leg: legList[0], tripMin: tripDurationMin, tripMax: tripDurationMax, layoverMin: layoverDurationMin, layoverMax: layoverMaxDuration,layoverMinTimeFormat:"")
         
         return durationFilter
-        
     }
     
     func setDurationVC(_ durationViewController : FlightDurationFilterViewController , inputFilters : [FiltersWS])
@@ -471,7 +469,9 @@ class FlightFilterBaseViewController: UIViewController{
         durationViewController.legsArray = legList
         let durationFilters = createDurationFilterArray(inputFilters: inputFilters)
         durationViewController.durationFilters = durationFilters
-        durationViewController.currentDurationFilter = durationFilters[0]
+        if durationFilters.count > 0{
+            durationViewController.currentDurationFilter = durationFilters[0]
+        }
         durationViewController.delegate = delegate as? FlightDurationFilterDelegate
     }
     
@@ -484,35 +484,34 @@ class FlightFilterBaseViewController: UIViewController{
         durationViewController.currentDurationFilter = durationFilter
         durationViewController.legsArray = [legList[0]]
         durationViewController.delegate = delegate as? FlightDurationFilterDelegate
-        
     }
     
     //MARK:- Airline
-   fileprivate func createAirlineFiltersArray(inputFilters : [FiltersWS]) -> [AirlineLegFilter] {
+    fileprivate func createAirlineFiltersArray(inputFilters : [FiltersWS]) -> [AirlineLegFilter] {
         
         var airlineFilters = [AirlineLegFilter]()
-         
-         for  index in 0 ..< inputFilters.count {
-             
-             let filter = inputFilters[index]
-             
-             let airlineDetail = flightResultArray[index].aldet
-             let multiAL = filter.multiAl
-             var airlineArray = [Airline]()
-             
-             for (code , name) in airlineDetail {
-                 let tempAirline = Airline(name: name, code: code)
-                 airlineArray.append(tempAirline)
-             }
-             let leg = legList[index]
-             let airlineLegFilter = AirlineLegFilter( leg: leg, airlinesArray: airlineArray, multiAl: multiAL ?? 0 )
-             
-             airlineFilters.append(airlineLegFilter)
-         }
+        
+        for  index in 0 ..< inputFilters.count {
+            
+            let filter = inputFilters[index]
+            
+            let airlineDetail = flightResultArray[index].aldet
+            let multiAL = filter.multiAl
+            var airlineArray = [Airline]()
+            
+            for (code , name) in airlineDetail {
+                let tempAirline = Airline(name: name, code: code)
+                airlineArray.append(tempAirline)
+            }
+            let leg = legList[index]
+            let airlineLegFilter = AirlineLegFilter( leg: leg, airlinesArray: airlineArray, multiAl: multiAL ?? 0 )
+            
+            airlineFilters.append(airlineLegFilter)
+        }
         return airlineFilters
     }
     
-   fileprivate func setAirlineVC( _ airlineViewController : AirlinesFilterViewController , inputFilters : [FiltersWS]) {
+    fileprivate func setAirlineVC( _ airlineViewController : AirlinesFilterViewController , inputFilters : [FiltersWS]) {
         
         let airlineFilters = self.createAirlineFiltersArray(inputFilters: inputFilters)
         airlineViewController.airlinesFilterArray = airlineFilters
@@ -546,14 +545,14 @@ class FlightFilterBaseViewController: UIViewController{
         
     }
     
-    fileprivate func setAirlineVCForReturnJourney( _ airlineViewController : AirlinesFilterViewController , inputFilters : [FiltersWS]) {
-        
+    fileprivate func setAirlineVCForReturnJourney( _ airlineViewController : AirlinesFilterViewController , inputFilters : [FiltersWS])
+    {
         let airlineLegFilter = self.createAirlineFilterForReturnJourney(inputFilters: inputFilters)
         airlineViewController.airlinesFilterArray  = [airlineLegFilter]
         airlineViewController.currentSelectedAirlineFilter = airlineLegFilter
         airlineViewController.showingForReturnJourney = true
         airlineViewController.delegate = delegate as? AirlineFilterDelegate
-
+        
     }
     
     fileprivate func updateAirlineVC(_ airlineVC: AirlinesFilterViewController , filters: [FiltersWS]) {
@@ -588,6 +587,8 @@ class FlightFilterBaseViewController: UIViewController{
             
             priceFilters.append(priceFilter)
         }
+        
+        priceViewController.flightResultArray = flightResultArray
         priceViewController.legsArray = legList
         priceViewController.allPriceFilters = priceFilters
         priceViewController.currentPriceFilter = priceFilters[0]
@@ -642,12 +643,12 @@ class FlightFilterBaseViewController: UIViewController{
                 for airportcode in airportCodes {
                     
                     if  let airport = airportsDetails[airportcode] {
-                    
+                        
                         let name = airport.n
                         let city = airport.c
                         cityName = city!
                         let airportCode = airportcode
-                    
+                        
                         let displayModel = Airport(name : name!, IATACode:airportCode, city: city! )
                         airportsArray.append(displayModel)
                     }
@@ -692,8 +693,8 @@ class FlightFilterBaseViewController: UIViewController{
             }
             
             layoverAirportsDisplayModelArray = layoverAirportsDisplayModelArray.sorted(by: { $0.country < $1.country })
-
-           let leg = legList[index]
+            
+            let leg = legList[index]
             let airportLegFilter =  AirportLegFilter(leg:leg, originCities: originAirports, destinationCities: destinationAirports, layoverCities: layoverAirportsDisplayModelArray)
             
             airportLegFilters.append(airportLegFilter)
@@ -704,9 +705,10 @@ class FlightFilterBaseViewController: UIViewController{
         airportViewController.delegate = delegate as? AirportFilterDelegate
         airportViewController.searchType = self.searchType
     }
+    
     //MARK:- Quality
-    func setQualityFilterVC(_ qualityViewController : QualityFilterViewController) {
-        
+    func setQualityFilterVC(_ qualityViewController : QualityFilterViewController)
+    {
         qualityViewController.delegate = delegate as? QualityFilterDelegate
         
         guard let flightQuality = inputFilters?.first?.fq else { return }

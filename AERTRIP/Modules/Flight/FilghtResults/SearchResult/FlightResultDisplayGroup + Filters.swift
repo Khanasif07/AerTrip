@@ -111,11 +111,25 @@ extension FlightResultDisplayGroup  {
         self.applySort(inputArray: filteredJourneyArray)
     }
     
+    
+    func priceSortFilterChanged(price:Bool){
+        
+        appliedFilters.insert(.sort)
+        if price {
+            self.sortOrder = .PriceHighToLow
+        }
+        else {
+            self.sortOrder = .Price
+        }
+        
+        self.applySort(inputArray: filteredJourneyArray)
+    }
+
     func departSortFilterChanged(departMode: Bool) {
         
         appliedFilters.insert(.sort)
         if departMode {
-            self.sortOrder = .DurationLatestFirst
+            self.sortOrder = .DepartLatestFirst
         }
         else {
             self.sortOrder = .Depart
@@ -137,37 +151,108 @@ extension FlightResultDisplayGroup  {
         self.applySort(inputArray: filteredJourneyArray)
     }
 
+    func durationSortFilterChanged(longestFirst: Bool)
+    {
+        appliedFilters.insert(.sort)
+        if longestFirst{
+            self.sortOrder = .DurationLongestFirst
+        }else{
+            self.sortOrder = .Duration
+        }
+        self.applySort(inputArray: filteredJourneyArray)
+    }
     
     func applySort( inputArray : [Journey] ) {
         
+        print("applySort=", sortOrder)
         var sortArray = inputArray
         switch  sortOrder {
         case .Price:
             sortArray.sort(by: {$0.price < $1.price})
+        case .PriceHighToLow:
+            sortArray.sort(by: {$0.price > $1.price})
+            
         case .Duration:
             sortArray.sort(by: {$0.duration < $1.duration })
+//            sortArray.sort(by: {$0.departTimeInterval < $1.departTimeInterval })
+            
+        case .DurationLongestFirst:
+            sortArray.sort(by: {$0.duration > $1.duration })
+
         case .Smart :
             sortArray.sort(by: {$0.computedHumanScore! < $1.computedHumanScore! })
         case .Depart:
-                sortArray.sort(by: {$0.departTimeInterval < $1.departTimeInterval })
+            sortArray.sort(by: {$0.departTimeInterval < $1.departTimeInterval })
+            sortArray.sort(by: {$0.arrivalTimeInteval < $1.arrivalTimeInteval })
+
         case .Arrival:
-                sortArray.sort(by: {$0.arrivalTimeInteval < $1.arrivalTimeInteval })
-        case .DurationLatestFirst :
-                sortArray.sort(by: {$0.departTimeInterval > $1.departTimeInterval })
+            sortArray.sort(by: {$0.arrivalTimeInteval < $1.arrivalTimeInteval })
+            sortArray.sort(by: {$0.departTimeInterval < $1.departTimeInterval })
+
+        case .DepartLatestFirst :
+            sortArray.sort(by: {$0.departTimeInterval > $1.departTimeInterval })
+            sortArray.sort(by: {$0.arrivalTimeInteval > $1.arrivalTimeInteval })
+
         case .ArrivalLatestFirst :
-                sortArray.sort(by: {$0.arrivalTimeInteval > $1.arrivalTimeInteval })
+            sortArray.sort(by: {$0.arrivalTimeInteval > $1.arrivalTimeInteval })
+            sortArray.sort(by: {$0.departTimeInterval > $1.departTimeInterval })
         }
         
         self.filteredJourneyArray = sortArray
         
     }
 
+    
+    func applySortFilter( inputArray : [Journey] ) -> [Journey]{
+            
+            print("sortOrder=", sortOrder)
+            var sortArray = inputArray
+            switch  sortOrder {
+            case .Price:
+                sortArray.sort(by: {$0.price < $1.price})
+            case .PriceHighToLow:
+                sortArray.sort(by: {$0.price > $1.price})
+                
+            case .Duration:
+                sortArray.sort(by: {$0.duration < $1.duration })
+    //            sortArray.sort(by: {$0.departTimeInterval < $1.departTimeInterval })
+                
+            case .DurationLongestFirst:
+                sortArray.sort(by: {$0.duration > $1.duration })
+
+            case .Smart :
+                sortArray.sort(by: {$0.computedHumanScore! < $1.computedHumanScore! })
+            case .Depart:
+                sortArray.sort(by: {$0.departTimeInterval < $1.departTimeInterval })
+                sortArray.sort(by: {$0.arrivalTimeInteval < $1.arrivalTimeInteval })
+
+            case .Arrival:
+                sortArray.sort(by: {$0.arrivalTimeInteval < $1.arrivalTimeInteval })
+                sortArray.sort(by: {$0.departTimeInterval < $1.departTimeInterval })
+
+            case .DepartLatestFirst :
+                sortArray.sort(by: {$0.departTimeInterval > $1.departTimeInterval })
+                sortArray.sort(by: {$0.arrivalTimeInteval > $1.arrivalTimeInteval })
+
+            case .ArrivalLatestFirst :
+                sortArray.sort(by: {$0.arrivalTimeInteval > $1.arrivalTimeInteval })
+                sortArray.sort(by: {$0.departTimeInterval > $1.departTimeInterval })
+            }
+            
+//            self.filteredJourneyArray = sortArray
+            
+        return sortArray
+        }
+
+
 //MARK:- Stops Filter
 
     func stopsSelectionChangedAt( stops: [Int]) {
         let stopsStringsArray = stops.map{ String($0)}
         appliedFilters.insert(.stops)
-        userSelectedFilters.stp = stopsStringsArray
+        if userSelectedFilters != nil{
+            userSelectedFilters.stp = stopsStringsArray
+        }
         applyFilters()
     }
     
@@ -177,7 +262,6 @@ extension FlightResultDisplayGroup  {
     }
     
     func applyStopsFilter(_ inputArray : [Journey] ) -> [Journey] {
-        
         let stopSet = Set(userSelectedFilters.stp)
         let outputArray = inputArray.filter{ stopSet.contains($0.stp) }
         return outputArray

@@ -118,7 +118,6 @@ class GroupedFlightCell: UITableViewCell {
         if let cell =  collaspableTableView.dequeueReusableCell(withIdentifier: "SingleJourneyCell") as? SingleJourneyCell{
             
             if #available(iOS 13, *) {
-                
                 let interaction = UIContextMenuInteraction(delegate: self)
                 cell.baseView.addInteraction(interaction)
             }

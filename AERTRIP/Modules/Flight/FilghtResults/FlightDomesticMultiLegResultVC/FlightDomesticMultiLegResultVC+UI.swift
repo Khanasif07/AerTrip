@@ -13,7 +13,7 @@ extension FlightDomesticMultiLegResultVC {
     
         
     func setupHeaderView() {
-        let rect = CGRect(x: 0, y: self.headerCollectionViewTop.constant , width: UIScreen.main.bounds.size.width, height: 165)
+        let rect = CGRect(x: 0, y: self.headerCollectionViewTop.constant + 52 , width: UIScreen.main.bounds.size.width, height: 165)
         self.bannerView = ResultHeaderView(frame: rect)
         self.bannerView?.frame = rect
         self.view.addSubview(self.bannerView!)
@@ -23,7 +23,6 @@ extension FlightDomesticMultiLegResultVC {
         
         pinnedFlightOptionsTop.constant = 0
         
-        
         showPinnedSwitch.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
         showPinnedSwitch.isOn = false
         showPinnedSwitch.setupUI()
@@ -32,29 +31,18 @@ extension FlightDomesticMultiLegResultVC {
         addShadowTo(unpinnedAllButton)
         addShadowTo(emailPinnedFlights)
         addShadowTo(sharePinnedFilghts)
-        
     }
     
-    
-    func addShadowTo(_ view : UIView) {
-        
-        view.layer.shadowOpacity = 0.2
+    func addShadowTo(_ view : UIView)
+    {
+        view.layer.shadowOpacity = 0.1
         view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowRadius = 10
-        view.layer.shadowOffset = CGSize(width: 5, height: 5)
+        view.layer.shadowRadius = 8
+        view.layer.shadowOffset = CGSize(width: 0, height: 2)
     }
     
-    func setupScrollView() {
-        
-        //        self.view.addSubview(debugVisibilityView)
-        //        debugVisibilityView.backgroundColor = .red
-        //        debugVisibilityView.layer.zPosition = 100
-        //
-        //
-        //        self.view.addSubview(firstVisibleRectView)
-        //        firstVisibleRectView.backgroundColor = .yellow
-        //        firstVisibleRectView.layer.zPosition = 150
-        
+    func setupScrollView()
+    {
         let width =  UIScreen.main.bounds.size.width / 2.0
         let height = self.baseScrollView.frame.height
         baseScrollView.contentSize = CGSize( width: (CGFloat(numberOfLegs) * width ), height:height + 88.0)
@@ -107,6 +95,7 @@ extension FlightDomesticMultiLegResultVC {
         
         setupCompactJourneyView(width, index)
     }
+    
     func setupCollectionView() {
         
         headerCollectionView.register( UINib(nibName: "FlightSectorHeaderCell", bundle: nil), forCellWithReuseIdentifier: "HeaderCollectionView")
@@ -157,6 +146,7 @@ extension FlightDomesticMultiLegResultVC {
                 
                 self.baseScrollView.setContentOffset(CGPoint(x: 0, y: 0) , animated: false)
                 self.bannerView?.isHidden = true
+                
                 self.updateUI(index: index, updatedArray : updatedArray, sortOrder: sortOrder)
             }
         }
@@ -236,9 +226,6 @@ extension FlightDomesticMultiLegResultVC {
         testView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         testView.tag = 5100
         self.navigationController?.view.addSubview(testView)
-//        self.navigationController?.addChild(fareBreakupVC)
-//        fareBreakupVC.didMove(toParent: self.navigationController)
-
         
         let fareBreakupVC = FareBreakupVC(nibName: "FareBreakupVC", bundle: nil)
         fareBreakupVC.taxesResult = taxesResult
@@ -253,6 +240,8 @@ extension FlightDomesticMultiLegResultVC {
         fareBreakupVC.modalPresentationStyle = .overCurrentContext
         
         var isFSRVisible = false
+        var remainingSeats = ""
+
         if let selectedJourney = getSelectedJourneyForAllLegs(){
             for i in 0..<selectedJourney.count{
                 let fk = selectedJourney[i].fk
@@ -260,15 +249,18 @@ extension FlightDomesticMultiLegResultVC {
                 if selectedJourney[i].fsr == 1{
                     isFSRVisible = true
                 }
+                
+                if selectedJourney[i].seats != nil{
+                    remainingSeats = selectedJourney[i].seats!
+                }
             }
         }
         
-        if isFSRVisible == true{
+        if isFSRVisible == true && remainingSeats != "" && Int(remainingSeats)! != 0{
             fareBreakupVC.fewSeatsLeftViewHeightFromFlightDetails = 40
         }else{
             fareBreakupVC.fewSeatsLeftViewHeightFromFlightDetails = 0
         }
-        
         
         let ts = CATransition()
         ts.type = .moveIn
@@ -281,7 +273,6 @@ extension FlightDomesticMultiLegResultVC {
         fareBreakupVC.didMove(toParent: self.navigationController)
         
         self.fareBreakupVC = fareBreakupVC
-        
     }
     
     func ShowFareBreakupView() {
@@ -296,6 +287,8 @@ extension FlightDomesticMultiLegResultVC {
             
             guard let fareBreakupViewController =  self.fareBreakupVC else { return }
             var isFSRVisible = false
+            var remainingSeats = ""
+
             if let selectedJourney = self.getSelectedJourneyForAllLegs(){
                 for i in 0..<selectedJourney.count{
                     let fk = selectedJourney[i].fk
@@ -305,13 +298,16 @@ extension FlightDomesticMultiLegResultVC {
                         isFSRVisible = true
                     }
                     
+                    if selectedJourney[i].seats != nil{
+                        remainingSeats = selectedJourney[i].seats!
+                    }
                 }
             }
             if fareBreakupViewController.isFareBreakupExpanded {
                 fareBreakupViewController.infoButtonTapped()
             }
             
-            if isFSRVisible == true{
+            if isFSRVisible == true && remainingSeats != "" && Int(remainingSeats)! != 0{
                 fareBreakupViewController.fewSeatsLeftViewHeightFromFlightDetails = 40
             }else{
                 fareBreakupViewController.fewSeatsLeftViewHeightFromFlightDetails = 0
@@ -337,39 +333,97 @@ extension FlightDomesticMultiLegResultVC {
     }
     
     //MARK:- PinnedFlightsOption View Methods
-    func hidePinnedFlightOptions( _ hide : Bool) {
-        
-        let optionViewWidth : CGFloat =  hide ? 50.0 : 212.0
-        let unpinButtonLeading : CGFloat = hide ? 0.0 : 60.0
-        let emailButton : CGFloat = hide ? 0.0 : 114.0
-        let shareButtonLeading : CGFloat =
-            hide ?  0.0 : 168.0
-        
-        if !hide {
-            self.emailPinnedFlights.isHidden = hide
-            self.unpinnedAllButton.isHidden = hide
-            self.sharePinnedFilghts.isHidden = hide
-        }
-        
-        pinOptionsViewWidth.constant = optionViewWidth
-        unpinAllLeading.constant = unpinButtonLeading
-        emailPinnedFlightLeading.constant = emailButton
-        sharePinnedFlightsLeading.constant = shareButtonLeading
-        
-        UIView.animate(withDuration: 0.1, delay: 0.0 ,
-                       options: []
-            , animations: {
-                
-                self.view.layoutIfNeeded()
-                
-        }) { (onCompletion) in
-            if hide {
-                self.emailPinnedFlights.isHidden = hide
-                self.unpinnedAllButton.isHidden = hide
-                self.sharePinnedFilghts.isHidden = hide
-            }
+    func hidePinnedFlightOptions( _ hide : Bool)
+    {
+        //*******************Haptic Feedback code********************
+           let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+           selectionFeedbackGenerator.selectionChanged()
+        //*******************Haptic Feedback code********************
+
+        print("hide=\(hide)")
+        if hide{
+            
+            //true - hideOption
+            
+            UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: .curveEaseOut, animations: { [weak self] in
+                self?.showPinnedSwitch.isUserInteractionEnabled = false
+
+                   self?.unpinnedAllButton.alpha = 0.0
+                   self?.emailPinnedFlights.alpha = 0.0
+                   self?.sharePinnedFilghts.alpha = 0.0
+                   self?.unpinnedAllButton.transform = CGAffineTransform(translationX: 0, y: 0)
+                   self?.emailPinnedFlights.transform = CGAffineTransform(translationX: 0, y: 0)
+                   self?.sharePinnedFilghts.transform = CGAffineTransform(translationX: 0, y: 0)
+                   }, completion: { [weak self] (success)
+            in
+                       self?.unpinnedAllButton.isHidden = true
+                       self?.emailPinnedFlights.isHidden = true
+                       self?.sharePinnedFilghts.isHidden = true
+                       self?.unpinnedAllButton.alpha = 1.0
+                       self?.emailPinnedFlights.alpha = 1.0
+                       self?.sharePinnedFilghts.alpha = 1.0
+                    self?.showPinnedSwitch.isUserInteractionEnabled = true
+               })
+        }else{
+            //false - showOption
+            self.unpinnedAllButton.alpha = 0.0
+            self.emailPinnedFlights.alpha = 0.0
+            self.sharePinnedFilghts.alpha = 0.0
+            UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: [.curveEaseOut, ], animations: { [weak self] in
+                self?.showPinnedSwitch.isUserInteractionEnabled = false
+
+                self?.unpinnedAllButton.isHidden = false
+                self?.emailPinnedFlights.isHidden = false
+                self?.sharePinnedFilghts.isHidden = false
+
+                self?.unpinnedAllButton.alpha = 1.0
+                self?.emailPinnedFlights.alpha = 1.0
+                self?.sharePinnedFilghts.alpha = 1.0
+                self?.unpinnedAllButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                self?.emailPinnedFlights.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                self?.sharePinnedFilghts.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                self?.emailPinnedFlights.transform = CGAffineTransform(translationX: 60, y: 0)
+                self?.sharePinnedFilghts.transform = CGAffineTransform(translationX: 114, y: 0)
+                self?.unpinnedAllButton.transform = CGAffineTransform(translationX: 168, y: 0)
+                }, completion: { [weak self] (success)
+                    in
+                    self?.showPinnedSwitch.isUserInteractionEnabled = true
+            })
         }
     }
+//    {
+//
+//        let optionViewWidth : CGFloat =  hide ? 50.0 : 212.0
+//        let unpinButtonLeading : CGFloat = hide ? 0.0 : 60.0
+//        let emailButton : CGFloat = hide ? 0.0 : 114.0
+//        let shareButtonLeading : CGFloat =
+//            hide ?  0.0 : 168.0
+//
+//        if !hide {
+//            self.emailPinnedFlights.isHidden = hide
+//            self.unpinnedAllButton.isHidden = hide
+//            self.sharePinnedFilghts.isHidden = hide
+//        }
+//
+//        pinOptionsViewWidth.constant = optionViewWidth
+//        unpinAllLeading.constant = unpinButtonLeading
+//        emailPinnedFlightLeading.constant = emailButton
+//        sharePinnedFlightsLeading.constant = shareButtonLeading
+//
+//        UIView.animate(withDuration: 0.1, delay: 0.0 ,
+//                       options: []
+//            , animations: {
+//
+//                self.view.layoutIfNeeded()
+//
+//        }) { (onCompletion) in
+//            if hide {
+//                self.emailPinnedFlights.isHidden = hide
+//                self.unpinnedAllButton.isHidden = hide
+//                self.sharePinnedFilghts.isHidden = hide
+//            }
+//        }
+//    }
     
     func showPinnedFlightSwitch(_ show  : Bool) {
         
@@ -402,7 +456,7 @@ extension FlightDomesticMultiLegResultVC {
 
 extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetailsPinFlightDelegate
 {
-    func reloadRowFromFlightDetails(fk: String, isPinned: Bool) {
+    func reloadRowFromFlightDetails(fk: String, isPinned: Bool, isPinnedButtonClicked: Bool) {
         for index in 0 ..< numberOfLegs {
                    
                    let tableResultState = resultsTableViewStates[index]
@@ -442,8 +496,6 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
     
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
             let storyboard = UIStoryboard(name: "FlightDetailsBaseVC", bundle: nil)
-            
-            
             let flightDetailsVC:FlightDetailsBaseVC =
                 storyboard.instantiateViewController(withIdentifier: "FlightDetailsBaseVC") as! FlightDetailsBaseVC
     
@@ -501,7 +553,8 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
                     var arrayForDisplay = self.results[index].suggestedJourneyArray
                     let tableState = self.resultsTableViewStates[index]
                     
-                    if self.sortOrder == .Smart || self.sortOrder == .Price {
+                    if self.sortOrder == .Smart{
+//                        || self.sortOrder == .Price || self.sortOrder == .PriceHighToLow{
                         
                         if tableState == .showExpensiveFlights && indexPath.section == 1 {
                             arrayForDisplay = self.results[index].expensiveJourneyArray
@@ -555,4 +608,3 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
 
 //FIXME:- 2) Method to get jounrney object from indexpath  for current sorting method
 //FIXME:- 3) Common method for pin , share and add to trip
-

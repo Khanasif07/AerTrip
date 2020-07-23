@@ -33,7 +33,6 @@ class IntReturnAndMCSortVC: UIViewController, FilterViewController {
     fileprivate func setupTableView ()
     {
         sortTableview.separatorStyle = .none
-        sortTableview.bounces = false
         sortTableview.isScrollEnabled = true
         whySmartSortView.onLearnMoreTap = { [weak self] gesture in
             self?.tapLabel(gesture: gesture)

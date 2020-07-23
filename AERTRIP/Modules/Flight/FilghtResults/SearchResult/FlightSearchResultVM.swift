@@ -398,21 +398,22 @@ extension FlightResultViewModelDelegate {
             return
         }
         if flightsArray.count == 0 {
+            if (progress == 100 || done ) {
+                
+                for flightLeg in flightLegs {
+                    
+                    if flightLeg.processedJourneyArray.count == 0 {
+                        self.delegate?.showNoResultScreenAt(index: flightLeg.index)
+                    }
+                }
+                
+            }
             return
         }
         
         workingOnReceived(flightsArray: flightsArray, displayGroup: displayGroup )
 
-        if (progress == 100 || done ) {
-            
-            for flightLeg in flightLegs {
-                
-                if flightLeg.processedJourneyArray.count == 0 {
-                    self.delegate?.showNoResultScreenAt(index: flightLeg.index)
-                }
-            }
-            
-        }
+        
     }
     
     

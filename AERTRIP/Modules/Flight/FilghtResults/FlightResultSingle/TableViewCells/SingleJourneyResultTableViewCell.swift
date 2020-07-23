@@ -17,6 +17,7 @@ class SingleJourneyResultTableViewCell: UITableViewCell
     @IBOutlet weak var logoThree: UIImageView!
     
     @IBOutlet weak var singleairlineLogo: UIImageView!
+    @IBOutlet weak var airlineTitleWidth: NSLayoutConstraint!
     @IBOutlet weak var airlineTitle: UILabel!
     @IBOutlet weak var departureTime: UILabel!
     @IBOutlet weak var arrivalTime: UILabel!
@@ -128,9 +129,26 @@ class SingleJourneyResultTableViewCell: UITableViewCell
         self.departureTime.text = journey.startTime
         self.arrivalTime.attributedText = journey.endTime18Size
         self.durationTime.text = journey.durationTitle
-        self.price.text = journey.priceAsString
+//        self.price.text = journey.priceAsString
+        let amountText = NSMutableAttributedString.init(string: journey.priceAsString)
+
+        amountText.setAttributes([NSAttributedString.Key.font: UIFont(name: "SourceSansPro-Regular", size: 16)!], range: NSMakeRange(0, 1))
+        self.price.attributedText = amountText
+
         self.priceWidth.constant =  self.price.intrinsicContentSize.width
         self.airlineTitle.text = journey.airlinesSubString
+        
+        
+//        if airlineTitle.text!.count > 20 {
+//            airlineTitleWidth.constant = 110
+//        }else if airlineTitle.text!.count > 15 {
+//            airlineTitleWidth.constant = 90
+//        }else if airlineTitle.text!.count > 12 {
+//            airlineTitleWidth.constant = 85
+//        }else{
+            airlineTitleWidth.constant = 70
+//        }
+
         
         if journey.isFastest ?? false  {
             durationTime.textColor = .AERTRIP_ORAGE_COLOR
@@ -230,6 +248,8 @@ extension SingleJourneyResultTableViewCell : UICollectionViewDataSource , UIColl
         if indexPath.section == 0 {
             cell.imageView.image = UIImage(named: "checkingBaggageKg")
             cell.superScript.attributedText = baggageSuperScript
+            cell.superScriptWidth.constant = 14
+            cell.imageViewLeading.constant = 0
         }
         else {
             
@@ -240,18 +260,29 @@ extension SingleJourneyResultTableViewCell : UICollectionViewDataSource , UIColl
                 if let seats = currentJourney?.seats {
                     let tempImage = textToImage(drawText: seats, diameter:20.0 , color: color)
                     cell.imageView.image = tempImage
+                    cell.superScriptWidth.constant = 0
+                    cell.imageViewLeading.constant = 3
                 }
             }else{
                 cell.imageView.image = UIImage(named: imageName)
+                cell.superScriptWidth.constant = 0
+                cell.imageViewLeading.constant = 3
             }
             
             if imageName == "refundStatusPending" {
                 cell.superScript.text = "?"
                 cell.superScript.textColor = UIColor.AERTRIP_RED_COLOR
                 cell.superScript.font = UIFont(name: "SourceSansPro-Bold", size: 10.0)
+                cell.superScriptWidth.constant = 10
+                if indexPath.row == 0{
+                    cell.imageViewLeading.constant = 0
+                }else{
+                    cell.imageViewLeading.constant = 3
+                }
             }
             else {
                 cell.superScript.text = ""
+                cell.superScriptWidth.constant = 0
             }
         }
         return cell
@@ -267,6 +298,9 @@ extension SingleJourneyResultTableViewCell : UICollectionViewDataSource , UIColl
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                withReuseIdentifier: "smartIconHeaderView",
                                for: indexPath)
+        
+        headerView.frame = CGRect(x: 33, y: 5, width: 1.0, height: collectionView.frame.height)
+        headerView.backgroundColor = UIColor(displayP3Red: ( 204.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 204 / 255.0), alpha: 1.0)
 
         return headerView
     }
@@ -282,7 +316,7 @@ extension SingleJourneyResultTableViewCell : UICollectionViewDataSource , UIColl
         if smartIconsArray?.count == 0  || baggageSuperScript?.string == "0P" {
             return .zero
         }
-        return CGSize(width: 20.0, height:  23.0)
+        return CGSize(width: 16.0, height:  23.0)
     }
     }
     

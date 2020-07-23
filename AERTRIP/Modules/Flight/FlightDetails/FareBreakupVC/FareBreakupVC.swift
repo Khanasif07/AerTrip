@@ -13,9 +13,14 @@ struct taxStruct {
     var taxVal : Int
 }
 
+//protocol FareBreakupVCDelegate : AnyObject  {
+//    func bookButtonTapped(journeyCombo:[CombinationJourney]?)
+//    func infoButtonTapped(isViewExpanded:Bool)
+//}
+
 protocol FareBreakupVCDelegate : AnyObject  {
-    func bookButtonTapped(journeyCombo:[CombinationJourney]?)
-    func infoButtonTapped(isViewExpanded:Bool)
+func bookButtonTapped(journeyCombo:[CombinationJourney]?)
+func infoButtonTapped(isViewExpanded:Bool)
     func tapUpgradeButton()
 }
 
@@ -25,7 +30,7 @@ extension FareBreakupVCDelegate{
     }
 }
 
-class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSource
+class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate
 {
     //MARK:- Outlets
     @IBOutlet weak var backgroundDisplayView: UIView!
@@ -61,13 +66,14 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     @IBOutlet weak var bookingDataDisplayView: UIView!
     @IBOutlet weak var bookingDataDisplayViewHeight: NSLayoutConstraint!
     @IBOutlet weak var dividerView: UIView!
+    @IBOutlet weak var dividerViewWidth: NSLayoutConstraint!
     
     //MARK:- Variable Declaration
     var taxesResult : [String : String]!
     var flights : [FlightDetail]?
     var journey: [Journey]!
     var journeyCombo: [CombinationJourney]!
-
+    
     var taxesData : Taxes?
     var taxesDetails : [String:Int] = [String:Int]()
     var taxAndFeesData = [NSDictionary]()
@@ -89,25 +95,26 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     var selectedJourneyFK = [String]()
     var fewSeatsLeftViewHeightFromFlightDetails = 0
     var indicator = UIActivityIndicatorView()
-    
+
     weak var delegate: FareBreakupVCDelegate?
     
     //MARK:- Initialise Views
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
         self.manageLoader()
-        self.parent?.view.isUserInteractionEnabled = false
+
         baseFareTableview.register(UINib(nibName: "FareBreakupTableViewCell", bundle: nil), forCellReuseIdentifier: "FareBreakupCell")
         baseFareTableview.register(UINib(nibName: "BaseFareTableViewCell", bundle: nil), forCellReuseIdentifier: "BaseFareCell")
         
         backgroundDisplayView.backgroundColor = .clear
         remainingSeatsCountLabel.layer.cornerRadius = remainingSeatsCountLabel.frame.width/2
+        
         initialDisplayView()
         taxesDataDisplay()
-        
-        //        setupSwipeDownGuesture()
-        
+        swipeDownToClose()
+
         if fromScreen == "upgradePlan" {
             infoLabel.isHidden = true
             bookingInfoArrowImg.isHidden = true
@@ -119,7 +126,6 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     override func viewDidLayoutSubviews()
     {
-        self.indicator.center = self.bookButton.center
         if fromScreen == "upgradePlanCollapse"
         {
             if let subLayers = bookingDataDisplayView.layer.sublayers{
@@ -182,12 +188,21 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         }
     }
     
-    func taxesDataDisplay(){
+    func taxesDataDisplay()
+    {
+        var isOtherFareVisible = false
+        
         if journeyCombo != nil{
             taxAndFeesData.removeAll()
             taxesDetails.removeAll()
             taxAndFeesDataDict.removeAll()
-            for i in 0...journeyCombo.count-1{
+            for i in 0..<journeyCombo.count{
+                if let otherFare = journeyCombo[i].otherfares{
+                    if otherFare == true{
+                        isOtherFareVisible = true
+                    }
+                }
+                
                 taxesData = journeyCombo[i].fare
                 
                 taxesDetails = (taxesData?.taxes.details)!
@@ -224,9 +239,10 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             let price1 = displayPriceInFormat(price: Double(totalFare), fromOption : "BookingAmount")
             bookingAmountLabel.attributedText = price1
             
+            
             let journey_totalFare = journey.reduce(0) { $0 + $1.farepr }
             let journey_price = displayPriceInFormat(price: Double(journey_totalFare), fromOption : "strikeOutPrice")
-                
+            
             journey_price.addAttribute(NSAttributedString.Key.strikethroughStyle, value: NSNumber(value: NSUnderlineStyle.single.rawValue), range: NSMakeRange(0, journey_price.length))
             
             journey_price.addAttribute(NSAttributedString.Key.strikethroughColor, value: UIColor.white, range: NSMakeRange(0, journey_price.length))
@@ -239,8 +255,13 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             if journey != nil{
                 taxAndFeesData.removeAll()
                 taxesDetails.removeAll()
-                taxAndFeesDataDict.removeAll()
-                for i in 0...journey.count-1{
+                for i in 0..<journey.count{
+                    if let otherFare = journey[i].otherfares{
+                        if otherFare == true{
+                            isOtherFareVisible = true
+                        }
+                    }
+                    
                     taxesData = journey[i].fare
                     
                     taxesDetails = (taxesData?.taxes.details)!
@@ -280,7 +301,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 baseFareTableview.reloadData()
             }
         }
-
+        
         
         if isUpgradePlanScreenVisible == false{
             upgradeButton.isHidden = false
@@ -291,8 +312,26 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             upgradeButtonWidth.constant = 0
             bookButtonTrailing.constant = 16
         }
+        
+        
+        if fromScreen != "upgradePlan"{
+            if isOtherFareVisible == true{
+                upgradeButton.isHidden = false
+                upgradeButtonWidth.constant = 32
+                dividerView.isHidden = false
+                dividerViewWidth.constant = 1
+                bookButtonTrailing.constant = 42
+            }else{
+                upgradeButton.isHidden = true
+                upgradeButtonWidth.constant = 0
+                dividerView.isHidden = true
+                dividerViewWidth.constant = 0
+                bookButtonTrailing.constant = 16
+            }
+        }
+        
+        
     }
-    
     
     private func manageLoader() {
         indicator.frame.size.height = 25
@@ -315,7 +354,6 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             }
         }
     }
-    
     //MARK:- TableView Methods
     func numberOfSections(in tableView: UITableView) -> Int
     {
@@ -442,7 +480,6 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 baseFareCell.titleLabelLeading.constant = 31
                 
                 if taxAndFeesData.count > 0{
-//                    print("taxAndFeesData[\(indexPath.row-1)]=", taxAndFeesData[indexPath.row-1])
                     baseFareCell.titleLabel.text = (taxAndFeesData[indexPath.row-1].value(forKey: "name") as! String)
                     if (taxAndFeesData[indexPath.row-1].value(forKey: "value") as? Int) != nil{
                         let amount : Double = Double(taxAndFeesData[indexPath.row-1].value(forKey: "value")! as! Int)
@@ -546,9 +583,9 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             }
         }
         
-        if isFSR == true && remainingSeats != ""{
+        if isFSR == true && remainingSeats != "" && fromScreen != "upgradePlan" && Int(remainingSeats)! != 0{
             fewSeatsLeftView.isHidden = false
-            fewSeatsLeftViewHeight.constant = 35
+            fewSeatsLeftViewHeight.constant = 40
             
             remainingSeatsCountLabel.text = remainingSeats
             
@@ -558,14 +595,14 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 fewSeatsLeftLabel.text = "Seat left at this price. Hurry up!"
             }
             
-            self.fareDataDisplayViewHeight.constant = 85 + CGFloat(bottomInset!)
-            self.bookingDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset!)
+            self.fareDataDisplayViewHeight.constant = 95 + CGFloat(bottomInset!)
+            self.bookingDataDisplayViewHeight.constant = 55 + CGFloat(bottomInset!)
         }else{
             fewSeatsLeftView.isHidden = true
             fewSeatsLeftViewHeight.constant = 0
             
-            self.fareDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset!)
-            self.bookingDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset!)
+            self.fareDataDisplayViewHeight.constant = 51 + CGFloat(bottomInset!)
+            self.bookingDataDisplayViewHeight.constant = 51 + CGFloat(bottomInset!)
         }
         
         self.totalPayableViewBottom.constant = bottomInset!
@@ -605,7 +642,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 
             case 812: //11 Pro | X | Xs
                 if #available(iOS 13.0, *) {
-                    self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 55, width: screenSize.width, height:viewHeight + CGFloat(bottomInset!))
+                    self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 54, width: screenSize.width, height:viewHeight + CGFloat(bottomInset!))
                 }else{
                     self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight, width: screenSize.width, height:viewHeight + CGFloat(bottomInset!))
                 }
@@ -614,7 +651,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 
             case 896: //11 & 11 Pro Max & Xs Max & Xr
                 if #available(iOS 13.0, *) {
-                    self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 60, width: screenSize.width, height:viewHeight + CGFloat(bottomInset!))
+                    self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 54, width: screenSize.width, height:viewHeight + CGFloat(bottomInset!))
                 }else{
                     self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight, width: screenSize.width, height:viewHeight + CGFloat(bottomInset!))
                 }
@@ -639,11 +676,8 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             fromScreen = "upgradePlanCollapse"
         }
         
-        UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseOut], animations: {
+        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
             
-//            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
-//                self.view.backgroundColor = UIColor(displayP3Red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 0.0)
-//            })
             if self.journey != nil{
                 // Display few seats left view if fsr != 0
                 var isFSR = false
@@ -655,16 +689,16 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 
                 if isFSR == true{
                     self.fewSeatsLeftView.isHidden = false
-                    self.fewSeatsLeftViewHeight.constant = 35
+                    self.fewSeatsLeftViewHeight.constant = 40
                     
-                    self.fareDataDisplayViewHeight.constant = 85 + CGFloat(bottomInset!)
-                    self.bookingDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset!)
+                    self.fareDataDisplayViewHeight.constant = 95 + CGFloat(bottomInset!)
+                    self.bookingDataDisplayViewHeight.constant = 55 + CGFloat(bottomInset!)
                 }else{
                     self.fewSeatsLeftView.isHidden = true
                     self.fewSeatsLeftViewHeight.constant = 0
                     
-                    self.fareDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset!)
-                    self.bookingDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset!)
+                    self.fareDataDisplayViewHeight.constant = 51 + CGFloat(bottomInset!)
+                    self.bookingDataDisplayViewHeight.constant = 51 + CGFloat(bottomInset!)
                 }
             }
             
@@ -679,10 +713,6 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             self.baseFareTableview.isHidden = true
             self.baseFareTableviewHeight.constant = 0
             
-            
-            self.view.layoutSubviews()
-            self.view.setNeedsLayout()
-        },completion: { _ in
             let viewHeight = self.bookingDataDisplayViewHeight.constant + self.fewSeatsLeftViewHeight.constant
             
             if self.isFromFlightDetails == true{
@@ -713,7 +743,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                     
                 case 812: //11 Pro | X | Xs
                     if #available(iOS 13.0, *) {
-                        self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 55, width: screenSize.width, height:viewHeight + CGFloat(bottomInset!))
+                        self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 54, width: screenSize.width, height:viewHeight + CGFloat(bottomInset!))
                     }else{
                         self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight, width: screenSize.width, height:viewHeight + CGFloat(bottomInset!))
                     }
@@ -721,7 +751,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                     
                 case 896: //11 & 11 Pro Max & Xs Max & Xr
                     if #available(iOS 13.0, *) {
-                        self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 60, width: screenSize.width, height:viewHeight + CGFloat(bottomInset!))
+                        self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 54, width: screenSize.width, height:viewHeight + CGFloat(bottomInset!))
                     }else{
                         self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight, width: screenSize.width, height:viewHeight + CGFloat(bottomInset!))
                     }
@@ -733,7 +763,10 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             }else{
                 self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight-CGFloat(bottomInset!), width: screenSize.width, height:viewHeight + CGFloat(bottomInset!))
             }
-        })
+            
+            self.view.layoutSubviews()
+            self.view.setNeedsLayout()
+        },completion: nil)
     }
     
     func displayExpandedView(fromSelection:String)
@@ -744,38 +777,41 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             baseFareTableview.reloadData()
         }
 
+        baseFareTableview.bounces = true
+        baseFareTableview.alwaysBounceVertical = true
+
         if isTaxesSectionHidden == true{
-            baseFareTableview.bounces = false
-            baseFareTableview.alwaysBounceVertical = false
+//            baseFareTableview.bounces = true
+//            baseFareTableview.alwaysBounceVertical = true
             sectionHeight = self.baseFareTableview.numberOfSections * 34
         }else{
-            baseFareTableview.bounces = true
-            baseFareTableview.alwaysBounceVertical = true
+//            baseFareTableview.bounces = true
+//            baseFareTableview.alwaysBounceVertical = true
             sectionHeight = self.baseFareTableview.numberOfSections * 37
         }
-
+        
         var cellHeight = 0
-
+        
         if self.baseFareTableview.numberOfRows(inSection: 2) == 2{
             cellHeight = 24
         }else{
             let cellsCount = self.baseFareTableview.numberOfRows(inSection: 2)
             cellHeight = (cellsCount-2) * 24
         }
-
+        
         var totalHeight = 0
         let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom
-
+        
         if isTaxesSectionHidden == false{
             totalHeight = sectionHeight + cellHeight + Int(bottomInset!) + 17
         }else{
             totalHeight = sectionHeight + Int(bottomInset!)
         }
-
+        
         if totalHeight > 404{
             totalHeight = 404
         }
-
+        
         if self.journey != nil{
             // Display few seats left view if fsr != 0
             var isFSR = false
@@ -784,11 +820,11 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                     isFSR = true
                 }
             }
-
+            
             if isFSR == true{
                 self.fewSeatsLeftView.isHidden = false
-                self.fewSeatsLeftViewHeight.constant = 35
-
+                self.fewSeatsLeftViewHeight.constant = 40
+                
                 if bottomInset == 0{
                     self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight+143)
                 }else{
@@ -797,7 +833,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             }else{
                 self.fewSeatsLeftView.isHidden = true
                 self.fewSeatsLeftViewHeight.constant = 0
-
+                
                 if bottomInset == 0{
                     self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight+108)
                 }else{
@@ -805,15 +841,14 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 }
             }
         }
-
+        
         self.bookingDataDisplayViewHeight.constant = 50
         self.totalPayableView.isHidden = false
         self.totalPayableViewHeight.constant = 50
         self.totalPayableViewBottom.constant = bottomInset!
         self.baseFareTableview.isHidden = false
         self.baseFareTableviewHeight.constant = 50
-        self.fareDataDisplayViewBottom.constant = 40
-
+        
         switch UIScreen.main.bounds.height{
         case 568: //iPhone SE | 5S
             if isFromFlightDetails == true{
@@ -826,7 +861,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 self.fareDataDisplayViewBottom.constant = 0
             }
             break
-
+            
         case 667: //iPhone 8 | 6 | 6s | 7
             if isFromFlightDetails == true{
                 if #available(iOS 13.0, *) {
@@ -838,7 +873,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 self.fareDataDisplayViewBottom.constant = 0
             }
             break
-
+            
         case 736: //iPhone 6 Plus | 8 plus | 6s plus | 7 Plus
             if isFromFlightDetails == true{
                 if #available(iOS 13.0, *) {
@@ -850,7 +885,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 self.fareDataDisplayViewBottom.constant = 0
             }
             break
-
+            
         case 812: //11 Pro | X | Xs
             if isFromFlightDetails == true{
                 if #available(iOS 13.0, *) {
@@ -862,7 +897,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 self.fareDataDisplayViewBottom.constant = 0
             }
             break
-
+            
         case 896: //11 & 11 Pro Max & Xs Max & Xr
             if isFromFlightDetails == true{
                 if #available(iOS 13.0, *) {
@@ -874,31 +909,39 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 self.fareDataDisplayViewBottom.constant = 0
             }
             break
-
+            
         default :
             self.fareDataDisplayViewBottom.constant = 0
             break
         }
-
+        
         self.bookingInfoArrowImg.image = UIImage(named: "down.png")
         if self.isBackgroundVisible == false{
             self.view.backgroundColor = .clear
             self.isBackgroundVisible = true
         }
-
+        
         UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
             self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height:UIScreen.main.bounds.height)
 
-            self.view.layoutSubviews()
+//            if self.isTaxesSectionHidden == true{
+//                self.view.layoutSubviews()
+//            }else{
+                self.view.layoutIfNeeded()
+//            }
             self.view.setNeedsLayout()
         })
     }
     
     //MARK:- Guesture
-    func setupSwipeDownGuesture(){
-        let gestureRecognizer = UIPanGestureRecognizer(target: self,
-                                                       action: #selector(panGestureRecognizerHandler(_:)))
-        view.addGestureRecognizer(gestureRecognizer)
+    
+    func swipeDownToClose()
+    {
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(infoButtonTapped))
+        swipeDown.direction = .down
+        swipeDown.delegate = self
+        self.view.isUserInteractionEnabled = true
+        self.view.addGestureRecognizer(swipeDown)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
@@ -909,20 +952,22 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         }
     }
     
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
     //MARK:- Button Action
     @IBAction func upgradeButtonClicked(_ sender: Any)
     {
         let upgradePlanBaseVC = UpgradePlanBaseVC(nibName: "UpgradePlanBaseVC", bundle: nil)
         upgradePlanBaseVC.taxesResult = self.taxesResult
         upgradePlanBaseVC.selectedJourneyFK = selectedJourneyFK
-        upgradePlanBaseVC.journey = self.journey
+        upgradePlanBaseVC.oldJourney = self.journey
         upgradePlanBaseVC.journeyCombo = self.journeyCombo
         upgradePlanBaseVC.sid = self.sid
         upgradePlanBaseVC.fare = bookingAmountLabel.text!
         upgradePlanBaseVC.flightAdultCount = flightAdultCount
         upgradePlanBaseVC.flightChildrenCount = flightChildrenCount
         upgradePlanBaseVC.flightInfantCount = flightInfantCount
-        upgradePlanBaseVC.fewSeatsLeftViewHeight = fewSeatsLeftViewHeightFromFlightDetails
         self.present(upgradePlanBaseVC, animated: true, completion: nil)
     }
     
@@ -937,52 +982,21 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     @objc func infoButtonTapped(){
         if fromScreen != "upgradePlan"{
-
+            
             if isInfoViewHidden == false
             {
                 self.isFareBreakupExpanded = true
                 displayExpandedView(fromSelection: "info")
                 self.delegate?.infoButtonTapped(isViewExpanded: true)
-
+                
             }else{
                 self.isFareBreakupExpanded = false
                 displayCollapseView()
                 self.bookingInfoArrowImg.image = UIImage(named: "up.png")
                 self.delegate?.infoButtonTapped(isViewExpanded: false)
-
             }
             
             isInfoViewHidden = !isInfoViewHidden
-
-        }
-    }
-    
-    @IBAction func panGestureRecognizerHandler(_ sender: UIPanGestureRecognizer) {
-        let touchPoint = sender.location(in: view?.window)
-        var initialTouchPoint = CGPoint.zero
-        
-        switch sender.state {
-        case .began:
-            initialTouchPoint = touchPoint
-        case .changed:
-            if touchPoint.y > initialTouchPoint.y {
-                view.frame.origin.y = touchPoint.y - initialTouchPoint.y
-            }
-        case .ended, .cancelled:
-            if touchPoint.y - initialTouchPoint.y > 200 {
-                dismiss(animated: true, completion: nil)
-            } else {
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.view.frame = CGRect(x: 0,
-                                             y: 0,
-                                             width: self.view.frame.size.width,
-                                             height: self.view.frame.size.height)
-                })
-            }
-        case .failed, .possible:
-            break
-            
-        default:break
         }
     }
     
@@ -1024,7 +1038,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             
             displayFont = "SourceSansPro-Regular"
             displayFontSuper = "SourceSansPro-Regular"
-
+            
         }
         
         let font:UIFont? = UIFont(name: displayFont, size:CGFloat(fontSize))

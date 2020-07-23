@@ -525,12 +525,62 @@ return user;
     airportSearch.label = [Parser getValueForKey:@"label" inDictionary:dictionary];
     airportSearch.value = [Parser getValueForKey:@"value" inDictionary:dictionary];
     
-    NSString * distanceString = [Parser getValueForKey:@"distance" inDictionary:dictionary];
-    airportSearch.distanceLabel = distanceString;
-    if (distanceString != nil){
-        NSArray * distanceComponents = [distanceString componentsSeparatedByString:@" km"];
-        if(distanceComponents.count == 2)
-        airportSearch.distance = [[distanceComponents objectAtIndex:0] integerValue];
+//    NSString * distanceString = [Parser getValueForKey:@"distance" inDictionary:dictionary];
+//    airportSearch.distanceLabel = distanceString;
+//    if (distanceString != nil){
+//        NSArray * distanceComponents = [distanceString componentsSeparatedByString:@" km"];
+//        if(distanceComponents.count == 2)
+//        airportSearch.distance = [[distanceComponents objectAtIndex:0] integerValue];
+//    }
+    
+    NSArray *distanceArray = [dictionary objectForKey:@"distance"];
+    if(distanceArray != nil){
+        if(distanceArray.count > 0){
+            if(distanceArray.count > 1){
+                
+                
+                NSDictionary *dict1 = distanceArray[0];
+                NSDictionary *dict2 = distanceArray[1];
+
+                NSString *str1 = [dict1 objectForKey:@"distance"];
+                NSString *str2 = [dict2 objectForKey:@"distance"];
+                
+                NSInteger distance1 = 0;
+                NSInteger distance2 = 0;
+
+                NSArray * distanceComponents1 = [str1 componentsSeparatedByString:@" km"];
+                if(distanceComponents1.count == 2){
+                    distance1 = [[distanceComponents1 objectAtIndex:0] integerValue];
+                }
+
+                
+                NSArray * distanceComponents2 = [str2 componentsSeparatedByString:@" km"];
+                if(distanceComponents2.count == 2){
+                    distance2 = [[distanceComponents2 objectAtIndex:0] integerValue];
+                }
+
+
+                if(distance1 < distance2){
+                    airportSearch.distance = distance1;
+                    airportSearch.distanceLabel = str1;
+                }else{
+                    airportSearch.distance = distance2;
+                    airportSearch.distanceLabel = str2;
+                }
+                
+            }else{
+                NSDictionary *dict = distanceArray[0];
+                NSString *str = [dict objectForKey:@"distance"];
+                airportSearch.distanceLabel = str;
+                
+                NSArray * distanceComponents = [str componentsSeparatedByString:@" km"];
+                if(distanceComponents.count == 2){
+                    airportSearch.distance = [[distanceComponents objectAtIndex:0] integerValue];
+                }
+
+
+            }
+        }
     }
     return airportSearch;
     

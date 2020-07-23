@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LFD-Wr-N75">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="508"/>
+                    <rect key="frame" x="-5" y="0.0" width="380" height="508"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="scy-iu-rmv"/>
@@ -57,12 +57,13 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ndQ-nQ-p6e" secondAttribute="bottom" constant="22" id="7u6-Ni-dMc"/>
+                <constraint firstItem="LFD-Wr-N75" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="-5" id="FhF-08-0dl"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ndQ-nQ-p6e" secondAttribute="trailing" constant="16" id="Hdj-CY-lcV"/>
                 <constraint firstItem="LFD-Wr-N75" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="R3f-nC-ym6"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="nHa-8g-BYt" secondAttribute="bottom" constant="109" id="Vgp-6b-7Rz"/>
                 <constraint firstItem="nHa-8g-BYt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="awL-dm-9Sf"/>
                 <constraint firstItem="LFD-Wr-N75" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="lnn-mt-NKi"/>
-                <constraint firstItem="LFD-Wr-N75" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="ntc-rL-bD4"/>
+                <constraint firstItem="LFD-Wr-N75" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="qAQ-Ue-Kmd"/>
                 <constraint firstItem="ndQ-nQ-p6e" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="rRk-6j-b3N"/>
                 <constraint firstItem="nHa-8g-BYt" firstAttribute="top" secondItem="LFD-Wr-N75" secondAttribute="bottom" constant="30" id="yL1-7H-z2i"/>
             </constraints>

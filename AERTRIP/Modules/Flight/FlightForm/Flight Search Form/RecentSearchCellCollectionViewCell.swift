@@ -35,13 +35,27 @@ class RecentSearchCellCollectionViewCell: UICollectionViewCell {
         planeIcon.image = UIImage (named: "plane")?.withRenderingMode(.alwaysTemplate)
     }
     
-   @objc func setProperties( recentSearch : RecentSearchDisplayModel ) {
-        
-        duration.text = recentSearch.searchTime
-        travelPath.attributedText = recentSearch.travelPlan
+   @objc func setProperties( recentSearch : RecentSearchDisplayModel )
+   {
+    travelPath.attributedText = recentSearch.travelPlan
+
+    if(recentSearch.travelDate.count > 33){
+
+        let startIndex = recentSearch.travelDate.index(recentSearch.travelDate.startIndex, offsetBy: 6)
+        let endIndex = recentSearch.travelDate.index(recentSearch.travelDate.endIndex, offsetBy: -6)
+
+        let startString = String(recentSearch.travelDate.prefix(upTo: startIndex))
+        let endString = String(recentSearch.travelDate.suffix(from: endIndex))
+
+        date.text = startString + " ... " + endString
+
+    }else{
         date.text = recentSearch.travelDate
-        travelDirection.text = recentSearch.travelType
-        travelClass.text = recentSearch.flightClass
-        TravelPax.text = recentSearch.paxCount
+    }
+    
+        //duration.text = recentSearch.searchTime
+        //travelDirection.text = recentSearch.travelType
+        //travelClass.text = recentSearch.flightClass
+        //TravelPax.text = recentSearch.paxCount
     }
 }

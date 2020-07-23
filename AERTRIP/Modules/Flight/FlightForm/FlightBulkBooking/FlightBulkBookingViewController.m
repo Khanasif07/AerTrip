@@ -10,9 +10,10 @@
 #import "FlightFormViewControllerHeader.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface FlightBulkBookingViewController () <CalendarDataHandler, AddFlightPassengerHandler, AddFlightClassHandler, AirportSelctionHandler,MultiCityFlightCellHandler , CLLocationManagerDelegate, UITableViewDelegate , UITableViewDataSource>
+@interface FlightBulkBookingViewController () <CalendarDataHandler, AddFlightPassengerHandler, AddFlightClassHandler, AirportSelctionHandler,MultiCityFlightCellHandler , CLLocationManagerDelegate, UITableViewDelegate , UITableViewDataSource, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet HMSegmentedControl *flightSegmentedControl;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (weak, nonatomic) IBOutlet UIView *multiCityView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *multiCityViewHeightConstraint;
@@ -116,9 +117,19 @@
 @property (assign) BOOL isMultiCity;
 
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *passengerLineViewHeight;
+
+
 @end
 
 @implementation FlightBulkBookingViewController
+
+static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.4;
+static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
+static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
+static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
+static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
+CGFloat animatedDistance;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -129,6 +140,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     [self setupFlightSection];
     [self handleLoginState];
 }
@@ -155,19 +167,23 @@
     }else{
         
         [self.submitButton setTitle:@"Login and Submit" forState:UIControlStateNormal];
-        self.submitButtonWidth.constant = 230;
-        self.submitWidth.constant = 230;
+        self.submitButtonWidth.constant = 202;
+        self.submitWidth.constant = 202;
         [self.submitButtonOuterView.superview layoutIfNeeded];
         [self setCustomButtonViewEnabled:self.submitButton withOuterView:self.submitButtonOuterView];
 
     }
 }
+
 //MARK:- FLIGHTS IMPLEMENTAION
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
 }
 
 - (void)setupFlightSection {
+    _preferredFlightValueTextField.delegate = self;
+    _specialRequestValueTextField.delegate = self;
+    
     self.primaryDuration = 0.4;
     [self makeTopCornersRounded:self.bottomView withRadius:10.0];
     self.myDatesArray = @[@"Flexible", @"Fixed"];
@@ -209,8 +225,6 @@
     self.isMultiCity = NO;
     self.isReturn = NO;
     
-    
-    
     [self adjustAsPerTopBar];
     
     if ( self.formDataModel.multiCityArray == nil) {
@@ -218,12 +232,8 @@
     }
     [self setupMultiCityTableView];
     [self setupSegmentControl];
-   
     [self setupFlightViewsHeights];
-    
-
     [self setSwipeGesture];
-    
 }
 
 
@@ -268,6 +278,13 @@
 - (IBAction)segmentChanged:(id)sender {
     self.formDataModel.flightSearchType = (FlightSearchType)self.flightSegmentedControl.selectedSegmentIndex; //used for swipe gesture too
     [self adjustAsPerTopBar];
+    [self.BulkBookingFormDelegate updateWithViewModel:self.formDataModel];
+    
+    if(self.formDataModel.flightSearchType == MULTI_CITY){
+        self.passengerLineViewHeight.constant = 0.48;
+    }else{
+        self.passengerLineViewHeight.constant = 0.5;
+    }
 }
 - (void) adjustAsPerTopBar {
     
@@ -447,6 +464,7 @@
     [self performAirportSwapAnimationForSubTitle];
     [self performAnimationForValueLabels];
     [self airportSwapOnModelView];
+    [self cancelAction:@"AirportSwap"];
 }
 
 
@@ -799,6 +817,7 @@
 {
     MultiCityFlightTableViewCell * cell = [self.multiCityTableView cellForRowAtIndexPath:indexPath];
     [cell shakeAnimation:label];
+    [cell setupFromAndToView];
     
 }
 
@@ -877,8 +896,7 @@
     }
 }
 
-
-- (void)flightFromSource:(NSMutableArray *)fromArray toDestination:(NSMutableArray *)toArray {
+- (void)flightFromSource:(NSMutableArray *)fromArray toDestination:(NSMutableArray *)toArray airlineNum:(NSString *)airlineNum{
     if (self.isMultiCity) {
         [self setMulticityAirports:fromArray toArray:toArray atIndexPath:self.selectedMultiCityArrayIndex];
 
@@ -888,6 +906,9 @@
         self.formDataModel.toFlightArray = toArray;
         [self setupFromAndToView];
     }
+    
+    [self.BulkBookingFormDelegate updateWithViewModel:self.formDataModel];
+
 }
 
 - (void)setMulticityAirports:(NSMutableArray * _Nullable)fromArray toArray:(NSMutableArray * _Nullable)toArray atIndexPath:(NSIndexPath*)indexPath{
@@ -1172,9 +1193,11 @@
 }
 
 - (IBAction)cancelAction:(id)sender {
-    
+
     [self.BulkBookingFormDelegate updateWithViewModel:self.formDataModel];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if(![sender  isEqual: @"AirportSwap"]){
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 //MARK:- PICKER VIEW
@@ -1423,6 +1446,9 @@
     if ( reloadUI ) {
         [self reloadMultiCityTableView];
     }
+    
+    [self.BulkBookingFormDelegate updateWithViewModel:self.formDataModel];
+
 }
 //MARK:- TABLEVIEW DELEGATES
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -1695,6 +1721,66 @@
 -(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
     [self.view endEditing:YES];
+}
+
+//MARK:- Textfield delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+
+    CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
+     CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
+     CGFloat midline = textFieldRect.origin.y + 0.5 * textFieldRect.size.height;
+     CGFloat numerator =  midline - viewRect.origin.y  - MINIMUM_SCROLL_FRACTION * viewRect.size.height;
+     CGFloat denominator = (MAXIMUM_SCROLL_FRACTION - MINIMUM_SCROLL_FRACTION)
+     * viewRect.size.height;
+     CGFloat heightFraction = numerator / denominator;
+     if (heightFraction < 0.0)
+     {
+         heightFraction = 0.0;
+     }
+     else if (heightFraction > 1.0)
+     {
+         heightFraction = 1.0;
+     }
+     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    if (orientation == UIInterfaceOrientationPortrait ||
+     orientation == UIInterfaceOrientationPortraitUpsideDown)
+    {
+         animatedDistance = floor(PORTRAIT_KEYBOARD_HEIGHT * heightFraction);
+    }
+    else
+    {
+        animatedDistance = floor(LANDSCAPE_KEYBOARD_HEIGHT * heightFraction);
+    }
+    CGRect viewFrame = self.view.frame;
+    viewFrame.origin.y -= animatedDistance;
+
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+    [self.view setFrame:viewFrame];
+    [UIView commitAnimations];
+    return YES;
+
+}
+
+- (BOOL) textFieldShouldEndEditing:(UITextField*)textField
+{
+     CGRect viewFrame = self.view.frame;
+     viewFrame.origin.y += animatedDistance;
+     [UIView beginAnimations:nil context:NULL];
+     [UIView setAnimationBeginsFromCurrentState:YES];
+     [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+     [self.view setFrame:viewFrame];
+     [UIView commitAnimations];
+    
+    return YES;
+
 }
 
 @end

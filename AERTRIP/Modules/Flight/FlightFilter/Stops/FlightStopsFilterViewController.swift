@@ -72,7 +72,9 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        currentStopFilter = allStopsFilters[0]
+        if allStopsFilters.count > 0 {
+            currentStopFilter = allStopsFilters[0]
+        }
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnLeastStopsView))
         leastStopTapGestureView.isUserInteractionEnabled = true
@@ -133,7 +135,9 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         stopsBaseView.layer.borderColor = UIColor.TWO_THREE_ZERO_COLOR.cgColor
         stopsBaseView.layer.cornerRadius = 10.0
         stopsBaseView.clipsToBounds = true
-        setStopsSubviews()
+        if currentStopFilter != nil{
+            setStopsSubviews()
+        }
     }
     
     fileprivate func setStopsSubviews () {
@@ -255,80 +259,82 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         
         let numberOfLegs = allStopsFilters.count
         
-        for  i in 1...numberOfLegs  {
-            let segmentViewWidth = UIScreen.main.bounds.size.width - 32
-            
-            let width = segmentViewWidth / CGFloat(numberOfLegs)
-            let xcordinate = CGFloat( i - 1 ) * width
-            let height = self.multicitySegmentView.frame.size.height
-            var rect = CGRect(x: xcordinate, y: 0, width: width, height: height)
-            let stopButton = UIButton(frame: rect)
-            stopButton.isSelected = false
-            stopButton.tag = i - 1
-            
-            let currentFilter = allStopsFilters[(i - 1)]
-            let isCurrentIndexActive = (i == (currentActiveIndex + 1 )) ? true : false
-            
-            let isFilterApplied = currentFilter.userSelectedStops.count > 0
-            
-            if isCurrentIndexActive {
-                stopButton.backgroundColor = UIColor.AertripColor
-            }
-            
-            var normalStateTitle : NSMutableAttributedString
-            if  numberOfLegs > 3 {
+        if numberOfLegs > 0 {
+            for  i in 1...numberOfLegs  {
+                let segmentViewWidth = UIScreen.main.bounds.size.width - 32
                 
+                let width = segmentViewWidth / CGFloat(numberOfLegs)
+                let xcordinate = CGFloat( i - 1 ) * width
+                let height = self.multicitySegmentView.frame.size.height
+                var rect = CGRect(x: xcordinate, y: 0, width: width, height: height)
+                let stopButton = UIButton(frame: rect)
+                stopButton.isSelected = false
+                stopButton.tag = i - 1
                 
-                let dot = "\u{2022}"
-                let font = UIFont(name: "SourceSansPro-Semibold", size: 14.0)!
-                let aertripColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
-                let whiteColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.white]
-                let clearColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.clear]
-
+                let currentFilter = allStopsFilters[(i - 1)]
+                let isCurrentIndexActive = (i == (currentActiveIndex + 1 )) ? true : false
+                
+                let isFilterApplied = currentFilter.userSelectedStops.count > 0
                 
                 if isCurrentIndexActive {
-                    normalStateTitle = NSMutableAttributedString(string: "\(i) " , attributes: whiteColorAttributes)
-                    
-                    let dotString : NSAttributedString
-                    if isFilterApplied {
-                      dotString = NSMutableAttributedString(string: dot , attributes: whiteColorAttributes)
-                    }
-                    else {
-                        dotString = NSMutableAttributedString(string: dot , attributes: clearColorAttributes)
-                    }
-                    normalStateTitle.append(dotString)
-                }
-                else {
-                    normalStateTitle = NSMutableAttributedString(string: "\(i) " , attributes: aertripColorAttributes)
-                    let dotString : NSAttributedString
-
-                    if isFilterApplied {
-                        dotString = NSMutableAttributedString(string: dot , attributes: aertripColorAttributes)
-                    }
-                    else {
-                        dotString = NSMutableAttributedString(string: dot , attributes: clearColorAttributes)
-                    }
-                    normalStateTitle.append(dotString)
+                    stopButton.backgroundColor = UIColor.AertripColor
                 }
                 
-            }
-            else {
-                let leg = allLegNames[(i - 1)]
-                normalStateTitle = leg.getTitle(isCurrentlySelected: isCurrentIndexActive, isFilterApplied: isFilterApplied)
-            }
-            
-            stopButton.setAttributedTitle(normalStateTitle, for: .normal)
-            
-            stopButton.addTarget(self, action: #selector(tappedOnMulticityButton(sender:)), for: .touchDown)
-            stopButton.titleLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 16)
-            
-            multicitySegmentView.addSubview(stopButton)
-            
-            if i != numberOfLegs {
-                rect  = CGRect(x: xcordinate + width - 1 , y: 0, width: 1, height: 30)
-                let verticalSeparator = UIView(frame: rect)
-                verticalSeparator.backgroundColor = UIColor.AertripColor
-                multicitySegmentView.addSubview(verticalSeparator)
+                var normalStateTitle : NSMutableAttributedString
+                if  numberOfLegs > 3 {
+                    
+                    
+                    let dot = "\u{2022}"
+                    let font = UIFont(name: "SourceSansPro-Semibold", size: 14.0)!
+                    let aertripColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
+                    let whiteColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.white]
+                    let clearColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.clear]
+                    
+                    
+                    if isCurrentIndexActive {
+                        normalStateTitle = NSMutableAttributedString(string: "\(i) " , attributes: whiteColorAttributes)
+                        
+                        let dotString : NSAttributedString
+                        if isFilterApplied {
+                            dotString = NSMutableAttributedString(string: dot , attributes: whiteColorAttributes)
+                        }
+                        else {
+                            dotString = NSMutableAttributedString(string: dot , attributes: clearColorAttributes)
+                        }
+                        normalStateTitle.append(dotString)
+                    }
+                    else {
+                        normalStateTitle = NSMutableAttributedString(string: "\(i) " , attributes: aertripColorAttributes)
+                        let dotString : NSAttributedString
+                        
+                        if isFilterApplied {
+                            dotString = NSMutableAttributedString(string: dot , attributes: aertripColorAttributes)
+                        }
+                        else {
+                            dotString = NSMutableAttributedString(string: dot , attributes: clearColorAttributes)
+                        }
+                        normalStateTitle.append(dotString)
+                    }
+                    
+                }
+                else {
+                    let leg = allLegNames[(i - 1)]
+                    normalStateTitle = leg.getTitle(isCurrentlySelected: isCurrentIndexActive, isFilterApplied: isFilterApplied)
+                }
+                
+                stopButton.setAttributedTitle(normalStateTitle, for: .normal)
+                
+                stopButton.addTarget(self, action: #selector(tappedOnMulticityButton(sender:)), for: .touchDown)
+                stopButton.titleLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 16)
+                
+                multicitySegmentView.addSubview(stopButton)
+                
+                if i != numberOfLegs {
+                    rect  = CGRect(x: xcordinate + width - 1 , y: 0, width: 1, height: 30)
+                    let verticalSeparator = UIView(frame: rect)
+                    verticalSeparator.backgroundColor = UIColor.AertripColor
+                    multicitySegmentView.addSubview(verticalSeparator)
+                }
             }
         }
     }
@@ -519,7 +525,11 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
 //                delegate?.stopsSelectionChangedAt(currentActiveIndex, stops: currentLegStopsSelection)
                 
                 allStopsFilters.enumerated().forEach { (index, filter) in
-                    delegate?.stopsSelectionChangedAt(index, stops: filter.userSelectedStops)
+                    if filter.userSelectedStops.count == 0{
+                        delegate?.allStopsSelectedAt(index)
+                    }else{
+                        delegate?.stopsSelectionChangedAt(index, stops: filter.userSelectedStops)
+                    }
                 }
             }
         allStopsFilters[currentActiveIndex] = currentStopFilter

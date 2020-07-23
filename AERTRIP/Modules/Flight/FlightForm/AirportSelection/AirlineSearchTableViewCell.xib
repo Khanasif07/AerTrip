@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,13 +19,12 @@
             <rect key="frame" x="0.0" y="0.0" width="345" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="345" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="345" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gyZ-97-Uog">
-                        <rect key="frame" x="16" y="11.5" width="170" height="21"/>
+                        <rect key="frame" x="16" y="11.5" width="214" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="170" id="4sq-9w-1rl"/>
                             <constraint firstAttribute="height" constant="21" id="Laq-Hw-CZz"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
@@ -35,17 +32,17 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D1F-Dn-Eiy">
-                        <rect key="frame" x="176" y="11.5" width="154" height="21"/>
+                        <rect key="frame" x="240" y="11.5" width="90" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="Gfh-zJ-q0f"/>
-                            <constraint firstAttribute="width" constant="154" id="lIO-4f-blA"/>
+                            <constraint firstAttribute="width" constant="90" id="lIO-4f-blA"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m30-9X-Wl5">
-                        <rect key="frame" x="16" y="43" width="329" height="0.5"/>
+                        <rect key="frame" x="16" y="43.5" width="329" height="0.5"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="D9L-0a-csL"/>
@@ -60,6 +57,7 @@
                     <constraint firstItem="D1F-Dn-Eiy" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="OCj-hq-Ll8"/>
                     <constraint firstAttribute="bottom" secondItem="m30-9X-Wl5" secondAttribute="bottom" id="Z1G-4F-oaF"/>
                     <constraint firstItem="gyZ-97-Uog" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Zgl-Rr-vYM"/>
+                    <constraint firstItem="D1F-Dn-Eiy" firstAttribute="leading" secondItem="gyZ-97-Uog" secondAttribute="trailing" constant="10" id="lHZ-pO-boL"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
