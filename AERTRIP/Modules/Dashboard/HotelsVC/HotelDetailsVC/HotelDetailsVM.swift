@@ -260,8 +260,7 @@ class HotelDetailsVM {
                 if let safeHotelData = hotelData {
                     sSelf.hotelData = safeHotelData
                     sSelf.currencyPreference = currencyPref
-//                    sSelf.delegate?.getHotelDetailsSuccess()
-                    sSelf.delegate?.getHotelDetailsFail()
+                    sSelf.delegate?.getHotelDetailsSuccess()
                 }
             } else {
                 printDebug(errors)
