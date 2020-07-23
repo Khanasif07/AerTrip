@@ -515,7 +515,7 @@
                                                                                 <rect key="frame" x="42" y="0.0" width="27" height="24"/>
                                                                                 <subviews>
                                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="childBlack" translatesAutoresizingMaskIntoConstraints="NO" id="Y8s-wT-KMs">
-                                                                                        <rect key="frame" x="0.0" y="5" width="6" height="14"/>
+                                                                                        <rect key="frame" x="0.0" y="5" width="6" height="14.000000000000004"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="height" constant="14" id="fMR-9g-JN0"/>
                                                                                             <constraint firstAttribute="width" constant="6" id="mCI-Nk-828"/>

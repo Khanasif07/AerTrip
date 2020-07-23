@@ -46,10 +46,9 @@ class AppToast: NSObject {
             if let view = onViewController?.view {
                 if buttonTitle.isEmpty {
                     self.hideToast(onViewController, animated: true)
+                    //Gurpreet
                     delay(seconds: 0.3) {
                         AertripToastView.toast(in: view, withText: message)
-                        
-                    
                     }
                 } else {
                     self.parentViewController = onViewController
