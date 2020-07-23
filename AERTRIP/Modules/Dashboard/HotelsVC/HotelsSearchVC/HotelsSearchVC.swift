@@ -358,7 +358,7 @@ class HotelsSearchVC: BaseVC {
                 let newCheckInData = self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date()
                 //if checkOut date didn't expired then checkOut date will be same
                 //no need to do anything
-                if let checkOutDate = oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), checkOutDate.daysFrom(newCheckInData) < 0 {
+                if let checkOutDate = oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), checkOutDate.daysFrom(newCheckInData) <= 0 {
                     //if checkOut date expired and not equal to checkIn date then make blank it.
                     self.viewModel.searchedFormData.checkOutDate = ""
                 }
@@ -759,10 +759,17 @@ extension HotelsSearchVC: ExpandedCellDelegate {
                 UIView.animate(withDuration: AppConstants.kAnimationDuration) {
                     self.addRoomCollectionView.performBatchUpdates({ () -> Void in
                         self.updateCollectionViewFrame()
-                        if let cell = self.addRoomCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as?AddRoomPictureCell {
-                            cell.configureCell(for: IndexPath(row: 0, section: 0), viewModel: self.viewModel)
-                        } else {
-                            self.addRoomCollectionView.reloadItems(at: [IndexPath(row: 0, section: 0)])
+//                        if let cell = self.addRoomCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as?AddRoomPictureCell {
+//                            cell.configureCell(for: IndexPath(row: 0, section: 0), viewModel: self.viewModel)
+//                        } else {
+//                            self.addRoomCollectionView.reloadItems(at: [IndexPath(row: 0, section: 0)])
+//                        }
+                        if indexPath.row == 0  {
+                            if let cell = self.addRoomCollectionView.cellForItem(at: IndexPath(row: 1, section: 0)) as?AddRoomPictureCell {
+                                cell.configureCell(for: IndexPath(row: 0, section: 0), viewModel: self.viewModel, animate: true)
+                            } else {
+                                self.addRoomCollectionView.reloadItems(at: [IndexPath(row: 1, section: 0)])
+                            }
                         }
                         self.addRoomCollectionView.deleteItems(at: [indexPath])
                     }) { (true) in
@@ -780,6 +787,8 @@ extension HotelsSearchVC: ExpandedCellDelegate {
         self.viewModel.searchedFormData.destName = hotel.dest_name
         self.viewModel.searchedFormData.destId = hotel.dest_id
         self.viewModel.searchedFormData.isHotelNearMeSelected = hotel.isHotelNearMeSelected
+        self.viewModel.searchedFormData.lat = hotel.latitude
+        self.viewModel.searchedFormData.lng = hotel.longitude
         HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
         
     }

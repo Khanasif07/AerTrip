@@ -38,6 +38,8 @@ class HotelDetailsVC: BaseVC {
     // manage wheter to hide with animate or note
     var isHideWithAnimation: Bool = true
     
+    var needToShowLoaderOnShare:Bool = false
+    
     //------------------------ Golu Change --------------------
     var interactiveStartingPoint: CGPoint?
     var dismissalAnimator: UIViewPropertyAnimator?
@@ -253,6 +255,7 @@ class HotelDetailsVC: BaseVC {
     }
     
     @objc func selectRoomAction() {
+        guard self.hotelTableView.numberOfSections > 1 else{return}
         self.hotelTableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
         delay(seconds: 0.6) { [weak self] in
             self?.manageHeaderView()

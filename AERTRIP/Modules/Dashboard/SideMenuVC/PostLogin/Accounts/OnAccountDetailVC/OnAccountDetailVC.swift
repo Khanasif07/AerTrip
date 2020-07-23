@@ -47,7 +47,7 @@ class OnAccountDetailVC: BaseVC {
         self.tableView.register(UINib(nibName: AppConstants.ktableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: AppConstants.ktableViewHeaderViewIdentifier)
         
         //for header blur
-        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         topNavView.backgroundColor = AppColors.clear
     }
     

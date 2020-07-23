@@ -706,6 +706,42 @@ extension AppGlobals {
         attString.addAttribute(.font, value: AppFonts.Regular.withSize(16.0), range: (text as NSString).range(of: boldText))
         return attString
     }
+    
+    func AttributedBackgroundColorForText(text : String, textColor : UIColor) -> NSMutableAttributedString {
+        let main_string = text as NSString
+        let range = main_string.range(of: text)
+        var  attribute = NSMutableAttributedString.init(string: main_string as String)
+        
+        attribute.addAttribute(NSAttributedString.Key.backgroundColor, value: textColor , range: range)
+        // attribute.addAttribute(NSBaselineOffsetAttributeName, value: 0, range: range)
+        return attribute
+    }
+    
+    func AttributedFontAndColorForText(text: String, atributedText : String, textFont : UIFont, textColor : UIColor) -> NSAttributedString {
+        
+         let labelString = text
+        
+        let main_string = labelString as NSString
+        //let range = main_string.range(of: atributedText)
+        
+        let  attribute = NSMutableAttributedString.init(string: main_string as String)
+        
+        
+        
+        if let regularExpression = try? NSRegularExpression(pattern: atributedText, options: .caseInsensitive) {
+            let matchedResults = regularExpression.matches(in: labelString, options: [], range: NSRange(location: 0, length: labelString.count))
+            for matched in matchedResults {
+                attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: textColor , range: matched.range)
+                
+                attribute.addAttribute(NSAttributedString.Key.font, value: textFont , range: matched.range)
+                
+            }
+        }
+        
+        
+        // attribute.addAttribute(NSBaselineOffsetAttributeName, value: 0, range: range)
+        return attribute
+    }
 }
 
 /*extension AppGlobals {

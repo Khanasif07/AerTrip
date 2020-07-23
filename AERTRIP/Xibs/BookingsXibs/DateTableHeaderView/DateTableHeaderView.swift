@@ -64,9 +64,12 @@ class DateTableHeaderView: UITableViewHeaderFooterView {
     }
     
     internal func configViewForBooking(date: String , isFirstHeaderView: Bool) {
+        self.dateLabel.font = AppFonts.SemiBold.withSize(16.0)
         self.dateLabel.text = date
-        self.dateLabelTopConstraint.constant = isFirstHeaderView ? 16 : 8
-        self.dataLabelBottomConstraint.constant = 8
+        self.dateLabelTopConstraint.constant = isFirstHeaderView ? 10 : 0
+        self.dataLabelBottomConstraint.constant = 0
+        self.topDividerView.isHidden = true
+        self.bottomDividerView.isHidden = true
         self.contentView.backgroundColor = AppColors.themeWhite
         self.backgroundColor = AppColors.themeWhite
         self.contentView.layoutIfNeeded()

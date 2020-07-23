@@ -17,6 +17,7 @@ class HotelRatingInfoCell: UITableViewCell {
     //Mark:- Variables
     //================
     internal weak var delegate: HotelRatingInfoCellDelegate?
+    private var indicator = UIActivityIndicatorView()
     
     //Mark:- IBOutlets
     //================
@@ -36,6 +37,7 @@ class HotelRatingInfoCell: UITableViewCell {
     //================
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.manageLoader()
         self.configureUI()
     }
     
@@ -57,6 +59,34 @@ class HotelRatingInfoCell: UITableViewCell {
         self.hotelRatingView.isHidden = true
         self.hotelDotsView.isHidden = true
         self.tripadviserImageView.isHidden = true
+    }
+    
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.indicator.center = self.shareButtonOutlet.center
+    }
+    
+    private func manageLoader() {
+        indicator.frame.size = CGSize(width: 25.0, height: 25.0)
+        self.containerView.addSubview(indicator)
+        self.indicator.style = .gray
+        self.indicator.tintColor = AppColors.themeGreen
+        self.indicator.color = AppColors.themeGreen
+        self.indicator.stopAnimating()
+        self.hideShowLoader(isHidden:true)
+    }
+      
+    func hideShowLoader(isHidden:Bool){
+        DispatchQueue.main.async {
+            if isHidden{
+                self.indicator.stopAnimating()
+                self.shareButtonOutlet.setImage(#imageLiteral(resourceName: "share_file_icon"), for: .normal)
+            }else{
+                self.shareButtonOutlet.setImage(nil, for: .normal)
+                self.indicator.startAnimating()
+            }
+        }
     }
     
     private func textSetUp(hotelName: String , distanceText: String, duration: Int?, starRating: Double , tripAdvisorRating: Double) {

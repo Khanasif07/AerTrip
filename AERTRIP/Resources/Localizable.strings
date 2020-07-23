@@ -43,6 +43,7 @@
 "Continue_with_Linkedin"  = "Continue with Linkedin";
 "AllowEmailInFacebook" = "Please allow the access for email in Facebook";
 "AllowEmailInLinkedIn" = "Please allow the access for email in LinkedIn";
+"Continue_with_Apple"  = "Continue with Apple";
 
 // MARK:- LoginVC
 //MARK:-
@@ -395,6 +396,7 @@
 // MARK: - RoomVC
 
 // Meal
+"RoomOnly" = "Room Only";
 "NoMeal" = "No Meal";
 "Breakfast" = "Breakfast";
 "HalfBoard" = "Half Board";
@@ -552,7 +554,7 @@
 "Pay" = "Pay";
 "FareRules" = "Fare Rules";
 "CheckOutPrivacyAndPolicyTerms" = "By proceeding you agree to the Privacy Policy and Terms of Use of Aertrip. \n \nYou will be re-directed to a Payment Gateway website and returned back on completing the payment transaction.";
-"CheckOutPrivacyAndPolicyTermsFlight" = "By proceeding you agree to the Privacy Policy and Terms of Use of Aertrip.";
+"CheckOutPrivacyAndPolicyTermsFlight" = "By proceeding, you agree to the Privacy Policy and Terms of Use of Aertrip.";
 "CheckOutFareRulesPrivacyAndPolicyTerms" = "By proceeding you agree to the Fare Rules, Privacy Policy and Terms of Use of Aertrip. \n \nYou will be re-directed to a Payment Gateway website and returned back on completing the payment transaction.";
 "PayableWalletMessage" = " will be credited to Aertrip wallet within 24 hours of successful payment / travel date";
 "NetEffectiveFare" = "Net Effective Fare: ";
@@ -857,7 +859,7 @@ Your booking ID is";
 "TransferType" = "Transfer Type";
 "EnterUTRSwiftCode" = "Enter UTR/Swift Code";
 "DepositAmountErrorMessage" = "Deposit amount must be grater then 0";
-"ModeOfPayment" = "ModeOfPayment";
+"ModeOfPayment" = "Mode of payment";
 
 
 "Camera" = "Camera";

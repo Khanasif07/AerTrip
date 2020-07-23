@@ -108,16 +108,21 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let tableViewRowCell = self.viewModel.hotelDetailsTableSectionData[indexPath.section]
         if indexPath.section == 0 {
             if (tableView.cellForRow(at: indexPath) as? HotelInfoAddressCell) != nil {
                 if indexPath.row == 2 {
                     // self.openMap()
                 } else if indexPath.row == 3 {
                     AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel.hotelData?.info ?? "")
-                }
+                } 
             } else if (tableView.cellForRow(at: indexPath) as? TripAdvisorTableViewCell) != nil , let locid = self.viewModel.hotelData?.locid {
                 !locid.isEmpty ? AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel.hotelData?.hid ?? "") : printDebug(locid + "location id is empty")
+            } else if (tableView.cellForRow(at: indexPath) as? HotelDetailAmenitiesCell) != nil {
+                self.viewAllButtonAction()
             }
+            
+            
         }
         else if let _ = tableView.cellForRow(at: indexPath) as? HotelDetailsCheckOutTableViewCell {
             AppGlobals.shared.startLoading(loaderBgColor: .clear)
@@ -136,6 +141,9 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                     AppGlobals.shared.stopLoading()
                 }
             }
+        }
+        if tableViewRowCell[indexPath.row] == .amenitiesCell{
+            self.viewAllButtonAction()
         }
     }
     
@@ -168,15 +176,21 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
 //==========================
 extension HotelDetailsVC: HotelDetailDelegate {
     func willGetPinnedTemplate() {
-        AppGlobals.shared.startLoading()
+//        AppGlobals.shared.startLoading()
+         self.needToShowLoaderOnShare = true
+        self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
     }
     
     func getPinnedTemplateSuccess() {
-        AppGlobals.shared.stopLoading()
+        self.needToShowLoaderOnShare = false
+        self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
+//        AppGlobals.shared.stopLoading()
     }
     
     func getPinnedTemplateFail() {
-        AppGlobals.shared.stopLoading()
+        self.needToShowLoaderOnShare = false
+        self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
+//        AppGlobals.shared.stopLoading()
     }
     
     
@@ -213,7 +227,8 @@ extension HotelDetailsVC: HotelDetailDelegate {
                 cell.activityIndicator.isHidden = true
             }
         }
-        AppToast.default.showToastMessage(message: LocalizedString.InformationUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonAction: self.completion)
+//        AppToast.default.showToastMessage(message: LocalizedString.InformationUnavailable.localized, onViewController: self, duration: 120.0,buttonTitle: LocalizedString.ReloadResults.localized, buttonAction: self.completion)
+         ReloadResultPopupVC.showPopUp(message: LocalizedString.InformationUnavailable.localized, isButtonHidden: false, buttonTitle: "Reload results", reloadButtonAction: completion)
         printDebug("API Parsing Failed")
     }
     
@@ -270,6 +285,7 @@ extension HotelDetailsVC {
             self.headerView.leftButton.setImage(selectedFevImage, for: .normal)
             self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "black_cross"), for: .normal)
             self.headerView.firstRightButtonTrailingConstraint.constant = 0
+            self.headerView.dividerView.isHidden = false
         }
         else {
             //hide
@@ -279,6 +295,7 @@ extension HotelDetailsVC {
             self.headerView.leftButton.setImage(buttonImage, for: .normal)
             self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
             self.headerView.firstRightButtonTrailingConstraint.constant = -3
+            self.headerView.dividerView.isHidden = true
         }
     }
     

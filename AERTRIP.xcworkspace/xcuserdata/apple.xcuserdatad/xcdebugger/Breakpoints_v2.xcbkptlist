@@ -26,16 +26,96 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D13AE052-7CF8-4375-8C04-B8D8E4FF802A"
+            uuid = "7EABD9C6-1A4A-40EA-B6CC-E9F865FAF00B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Flight/FlightDetails/FlightDetailsBaseVC/FlightDetailsBaseVC.swift"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/ReloadResultPopupVC/ReloadResultPopupVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "679"
-            endingLineNumber = "679"
-            landmarkName = "pushToPassenserSelectionVC(_:)"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "reloadButtonAction(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "829E7E5A-2778-49DD-8301-AE08F54935DE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelDetailsVC/HotelDetailsVC+Delegates.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "322"
+            endingLineNumber = "322"
+            landmarkName = "manageBottomRateView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DAF25E12-C860-4323-A5B3-2051F997FEE4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelDetailsVC/HotelDetailsVC+Delegates.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "340"
+            endingLineNumber = "340"
+            landmarkName = "manageBottomRateView()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DAF25E12-C860-4323-A5B3-2051F997FEE4 - 59e9f270662ce3fe"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AERTRIP.HotelDetailsVC.manageBottomRateView() -&gt; ()"
+                  moduleName = "Aertrip"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/Aertrip/AERTRIP/Modules/Dashboard/HotelsVC/HotelDetailsVC/HotelDetailsVC+Delegates.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "340"
+                  endingLineNumber = "340"
+                  offsetFromSymbolStart = "5983">
+               </Location>
+               <Location
+                  uuid = "DAF25E12-C860-4323-A5B3-2051F997FEE4 - 9de290d242ac7dcd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in AERTRIP.HotelDetailsVC.manageBottomRateView() -&gt; ()"
+                  moduleName = "Aertrip"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/Aertrip/AERTRIP/Modules/Dashboard/HotelsVC/HotelDetailsVC/HotelDetailsVC+Delegates.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "340"
+                  endingLineNumber = "340"
+                  offsetFromSymbolStart = "76">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D656F21F-3575-4D59-AD58-02BCB59665DD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelDetailsVC/HotelDetailsVC+Delegates.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "351"
+            endingLineNumber = "351"
+            landmarkName = "manageBottomRateView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

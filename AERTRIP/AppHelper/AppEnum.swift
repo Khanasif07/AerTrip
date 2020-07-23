@@ -304,6 +304,8 @@ enum AppImage {
     static let googleLogoImage: UIImage = #imageLiteral(resourceName: "google")
     static let netBanking = #imageLiteral(resourceName: "netBanking")
     static let visa = #imageLiteral(resourceName: "visa")
+    static let appleLogoImage: UIImage = #imageLiteral(resourceName: "Apple Logo")
+
 }
 
 enum ATAmenity: String, CaseIterable {
@@ -398,7 +400,7 @@ enum ATMeal: Int, CaseIterable {
     var title: String {
         switch self {
         case .NoMeal:
-            return LocalizedString.NoMeal.localized
+            return LocalizedString.RoomOnly.localized
             
         case .Breakfast:
             return LocalizedString.Breakfast.localized
@@ -491,6 +493,15 @@ enum ProductType: Int, CaseIterable {
             
         case .other:
             return #imageLiteral(resourceName: "others")
+        }
+    }
+    
+    static func getTypeFrom(_ str:String)-> ProductType{
+        let newStr = str.lowercased()
+        switch newStr{
+        case "flight": return .flight
+        case "hotel": return .hotel
+        default: return .other
         }
     }
 }

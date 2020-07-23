@@ -395,6 +395,17 @@ extension GuestDetailsVC: TopNavigationViewDelegate {
 extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
     
     private func serachData(textField: UITextField) {
+        if  let indexPath = self.guestDetailTableView.indexPath(forItem: textField) {
+        self.viewModel.selectedGuest = GuestDetailsVM.shared.guests[indexPath.section][indexPath.row]
+    }
+        if let cell = self.guestDetailTableView.cell(forItem: textField) as? GuestHotelDetailTableViewCell {
+            switch textField {
+            case cell.firstNameTextField: self.viewModel.isFirstNameTextField = true
+            case cell.lastNameTextField: self.viewModel.isFirstNameTextField = false
+            default: break
+            }
+        }
+        
         self.searchText = textField.text ?? ""
         self.viewModel.search(forText: self.searchText)
         if self.searchText.isEmpty {

@@ -66,22 +66,6 @@ class AppFlowManager: NSObject {
         return UIApplication.topViewController()?.navigationController
     }
     
-    private var currentTabbarNavigationController = UINavigationController() {
-        didSet {
-            self.currentTabbarNavigationController.isNavigationBarHidden = true
-        }
-    }
-    
-    func setCurrentTabbarNavigationController(navigation: UINavigationController) {
-        self.currentTabbarNavigationController = navigation
-    }
-    
-    private var tabBarController: BaseTabBarController!
-    
-    func setTabbarController(controller: BaseTabBarController) {
-        self.tabBarController = controller
-    }
-    
     func getNavigationController(forPresentVC: UIViewController) -> UINavigationController {
         let nav = UINavigationController(rootViewController: forPresentVC)
         let textAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(17.0),
@@ -153,10 +137,10 @@ class AppFlowManager: NSObject {
         self.mainHomeVC?.isLaunchThroughSplash = launchThroughSplash
         self.mainHomeVC?.toBeSelect = toBeSelect
         let nvc = SwipeNavigationController(rootViewController: mainHome)
-        nvc.delegate = AppDelegate.shared.transitionCoordinator
+       // nvc.delegate = AppDelegate.shared.transitionCoordinator
         self.mainNavigationController = nvc
         self.window.rootViewController = nvc
-        self.window.becomeKey()
+        //self.window.becomeKey()
         self.window.backgroundColor = .black
         self.window.makeKeyAndVisible()
     }
@@ -888,12 +872,9 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToADEventFilterVC(onViewController: UIViewController? = nil, delegate: ADEventFilterVCDelegate, voucherTypes: [String], oldFilter: AccountSelectedFilter?, minFromDate: Date? = nil) {
+    func moveToADEventFilterVC(onViewController: UIViewController? = nil, delegate: ADEventFilterVCDelegate) {
         if let obj = onViewController ?? UIApplication.topViewController() {
             let vc = ADEventFilterVC.instantiate(fromAppStoryboard: .Account)
-            vc.oldFilter = oldFilter
-            vc.minFromDate = minFromDate
-            vc.voucherTypes = voucherTypes
             vc.delegate = delegate
             obj.add(childViewController: vc)
         }

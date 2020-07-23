@@ -142,7 +142,7 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         //set date
         let days = event.overDueDays
         let dayStr = (days > 1) ? "days" : "day"
-        let overDueText = "Over Due by \(days) \(dayStr)"
+        let overDueText = "Over Due by \(abs(days)) \(dayStr)"
         
         let dueText = "Due Date:"
         

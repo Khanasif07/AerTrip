@@ -107,7 +107,7 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
         case 0:
             guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "cell") as? PassengerGridCell else {return UITableViewCell()}
             cell.totalPassenger = self.viewModel.totalPassengerCount
-            cell.configData(forIndexPath: indexPath, passengers: self.viewModel.passengerList)
+            cell.configData(forIndexPath: indexPath)
             cell.journeyType = self.viewModel.journeyType
             cell.delegate = self
             cell.lastJourneyDate = self.viewModel.itineraryData.itinerary.searchParams.lastJourneyDate

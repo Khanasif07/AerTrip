@@ -268,6 +268,7 @@ enum APIKeys: String {
     case ratingImageUrl = "rating_image_url"
     case localizedName = "localized_name"
     case date = "date"
+    case url = "url"
     
     //itinerary data
     case payment_amount

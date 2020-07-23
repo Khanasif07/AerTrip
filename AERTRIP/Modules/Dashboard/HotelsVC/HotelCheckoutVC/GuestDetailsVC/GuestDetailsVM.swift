@@ -25,6 +25,8 @@ class GuestDetailsVM: NSObject {
     var countries:[String:String]?
     // GuestModalArray for travellers
     var guests: [[ATContact]] = [[]]
+    var selectedGuest: ATContact?
+    var isFirstNameTextField = true
     var travellerList: [TravellerModel] = [] {
         didSet {
             fetchTravellersContact()
@@ -68,13 +70,24 @@ class GuestDetailsVM: NSObject {
         return false
     }
     
+    static func clearData(){
+        GuestDetailsVM.shared.guests.removeAll()
+        GuestDetailsVM.shared.delegate = nil
+        GuestDetailsVM.shared.selectedIndexPath = IndexPath()
+        GuestDetailsVM.shared.salutation.removeAll()
+        GuestDetailsVM.shared.canShowSalutationError = false
+        GuestDetailsVM.shared.guests.removeAll()
+        GuestDetailsVM.shared.travellerList.removeAll()
+        GuestDetailsVM.shared.travellerContacts.removeAll()
+    }
+    
     private override init() {}
     
     func checkForDoneValidation() -> Bool {
         for guest in GuestDetailsVM.shared.guests.flatMap({return $0}) {
             if !guest.firstName.isEmpty || !guest.lastName.isEmpty {
                 if guest.firstName.count < 3 || guest.lastName.count < 3 {
-                   AppToast.default.showToastMessage(message: LocalizedString.FirstLastNameCharacterLimitMessage.localized)
+                    AppToast.default.showToastMessage(message: LocalizedString.FirstLastNameCharacterLimitMessage.localized)
                     return false
                 }
             }
@@ -105,13 +118,13 @@ class GuestDetailsVM: NSObject {
         
         switch indexPath.section {
         case 0: //section 0 for travellers
-             object = self.travellerContacts[indexPath.row]
+            object = self.travellerContacts[indexPath.row]
         case 1: //section 1 for phone contacts
-             object =  self.phoneContacts[indexPath.row]
+            object =  self.phoneContacts[indexPath.row]
         case 2: //section 2 for facebook contact
-             object =  self.facebookContacts[indexPath.row]
+            object =  self.facebookContacts[indexPath.row]
         case 3: //section 3 for google contacts
-             object =  self.googleContacts[indexPath.row]
+            object =  self.googleContacts[indexPath.row]
         default: break
         }
         if let obj = object {
@@ -126,13 +139,13 @@ class GuestDetailsVM: NSObject {
         
         switch indexPath.section {
         case 0: //section 0 for travellers
-             object = self.travellerContacts[indexPath.row]
+            object = self.travellerContacts[indexPath.row]
         case 1: //section 1 for phone contacts
-             object =  self.phoneContacts[indexPath.row]
+            object =  self.phoneContacts[indexPath.row]
         case 2: //section 2 for facebook contact
-             object =  self.facebookContacts[indexPath.row]
+            object =  self.facebookContacts[indexPath.row]
         case 3: //section 3 for google contacts
-             object =  self.googleContacts[indexPath.row]
+            object =  self.googleContacts[indexPath.row]
         default: break
         }
         if let obj = object {
@@ -156,18 +169,18 @@ class GuestDetailsVM: NSObject {
         switch indexPath.section {
         case 0: //section 0 for travellers
             if (numberOfRowsInSection(section: 1) == 0 && numberOfRowsInSection(section: 2) == 0 && numberOfRowsInSection(section: 3) == 0) {
-               return (indexPath.row == self.numberOfRowsInSection(section: indexPath.section) - 1)
+                return (indexPath.row == self.numberOfRowsInSection(section: indexPath.section) - 1)
             }
         case 1: //section 1 for phone contacts
-             if (numberOfRowsInSection(section: 2) == 0 && numberOfRowsInSection(section: 3) == 0) {
+            if (numberOfRowsInSection(section: 2) == 0 && numberOfRowsInSection(section: 3) == 0) {
                 return (indexPath.row == self.numberOfRowsInSection(section: indexPath.section) - 1)
-             }
+            }
         case 2: //section 2 for facebook contact
-             if (numberOfRowsInSection(section: 3) == 0) {
+            if (numberOfRowsInSection(section: 3) == 0) {
                 return (indexPath.row == self.numberOfRowsInSection(section: indexPath.section) - 1)
-             }
+            }
         case 3: //section 3 for google contacts
-             return (indexPath.row == self.numberOfRowsInSection(section: indexPath.section) - 1)
+            return (indexPath.row == self.numberOfRowsInSection(section: indexPath.section) - 1)
         default: break
         }
         
@@ -203,7 +216,26 @@ class GuestDetailsVM: NSObject {
                     return false
                 }
             }
-            return contact.fullName.lowercased().contains(forText.lowercased())
+            var name = ""
+            if isFirstNameTextField  {
+                if let selectedGuest = self.selectedGuest, !selectedGuest.lastName.isEmpty {
+                    if contact.lastName.lowercased().contains(selectedGuest.lastName.lowercased()) {
+                        name = contact.firstName
+                    }
+                } else {
+                    name = contact.fullName
+                }
+            } else {
+                if let selectedGuest = self.selectedGuest, !selectedGuest.firstName.isEmpty {
+                    if contact.firstName.lowercased().contains(selectedGuest.firstName.lowercased()) {
+                        name = contact.lastName
+                    }
+                    
+                } else {
+                    name = contact.fullName
+                }
+            }
+            return name.lowercased().contains(forText.lowercased())
         })
         self.phoneContacts = HCSelectGuestsVM.shared._phoneContacts.filter({ (contact) -> Bool in
             for guest in allContact {
@@ -211,7 +243,26 @@ class GuestDetailsVM: NSObject {
                     return false
                 }
             }
-            return contact.fullName.lowercased().contains(forText.lowercased())
+            var name = ""
+            if isFirstNameTextField  {
+                if let selectedGuest = self.selectedGuest, !selectedGuest.lastName.isEmpty {
+                    if contact.lastName.lowercased().contains(selectedGuest.lastName.lowercased()) {
+                        name = contact.firstName
+                    }
+                } else {
+                    name = contact.fullName
+                }
+            } else {
+                if let selectedGuest = self.selectedGuest, !selectedGuest.firstName.isEmpty {
+                    if contact.firstName.lowercased().contains(selectedGuest.firstName.lowercased()) {
+                        name = contact.lastName
+                    }
+                    
+                } else {
+                    name = contact.fullName
+                }
+            }
+            return name.lowercased().contains(forText.lowercased())
         })
         self.facebookContacts = HCSelectGuestsVM.shared._facebookContacts.filter({ (contact) -> Bool in
             for guest in allContact {
@@ -219,7 +270,26 @@ class GuestDetailsVM: NSObject {
                     return false
                 }
             }
-            return contact.fullName.lowercased().contains(forText.lowercased())
+            var name = ""
+            if isFirstNameTextField  {
+                if let selectedGuest = self.selectedGuest, !selectedGuest.lastName.isEmpty {
+                    if contact.lastName.lowercased().contains(selectedGuest.lastName.lowercased()) {
+                        name = contact.firstName
+                    }
+                } else {
+                    name = contact.fullName
+                }
+            } else {
+                if let selectedGuest = self.selectedGuest, !selectedGuest.firstName.isEmpty {
+                    if contact.firstName.lowercased().contains(selectedGuest.firstName.lowercased()) {
+                        name = contact.lastName
+                    }
+                    
+                } else {
+                    name = contact.fullName
+                }
+            }
+            return name.lowercased().contains(forText.lowercased())
         })
         self.googleContacts = HCSelectGuestsVM.shared._googleContacts.filter({ (contact) -> Bool in
             for guest in allContact {
@@ -227,7 +297,26 @@ class GuestDetailsVM: NSObject {
                     return false
                 }
             }
-            return contact.fullName.lowercased().contains(forText.lowercased())
+            var name = ""
+            if isFirstNameTextField  {
+                if let selectedGuest = self.selectedGuest, !selectedGuest.lastName.isEmpty {
+                    if contact.lastName.lowercased().contains(selectedGuest.lastName.lowercased()) {
+                        name = contact.firstName
+                    }
+                } else {
+                    name = contact.fullName
+                }
+            } else {
+                if let selectedGuest = self.selectedGuest, !selectedGuest.firstName.isEmpty {
+                    if contact.firstName.lowercased().contains(selectedGuest.firstName.lowercased()) {
+                        name = contact.lastName
+                    }
+                    
+                } else {
+                    name = contact.fullName
+                }
+            }
+            return name.lowercased().contains(forText.lowercased())
         })
         self.delegate?.searchDidComplete()
     }

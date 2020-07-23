@@ -20,7 +20,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (section == 0) ? 14 : (self.viewModel.userEnteredDetails.uploadedSlips.count + 2)
+        return (section == 0) ? 14 : (self.viewModel.userEnteredDetails.uploadedSlips.count + 3)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -66,6 +66,9 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 else if newIndex == 1 {
                     //terms of use
                     return 110.0
+                }else if newIndex == 2 {
+                    //blank gap
+                    return 35.0
                 }
             }
             return 0.0
@@ -164,6 +167,9 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 else if newIndex == 1 {
                     //terms of use
                     return self.getAgreeTermsCell()
+                }else if newIndex == 2 {
+                    //blank gap
+                    return self.getBlankCell(isBottomDividerHidden: true)
                 }
             }
             return UITableViewCell()
@@ -245,12 +251,13 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         return depositCell
     }
     
-    func getBlankCell() -> UITableViewCell {
+    func getBlankCell(isBottomDividerHidden: Bool = false) -> UITableViewCell {
         //blank gap
         guard let cell = self.checkOutTableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.reusableIdentifier) as? EmptyTableViewCell else {
             printDebug("Cell not found")
             return UITableViewCell()
         }
+        cell.bottomDividerView.isHidden = isBottomDividerHidden
         cell.clipsToBounds = true
         
         return cell
@@ -294,7 +301,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             printDebug("Cell not found")
             return UITableViewCell()
         }
-        
+        cell.dividerView.isHidden = true
         cell.isHiddenButton = false
         cell.selectionButton.setImage(self.viewModel.userEnteredDetails.isAgreeToTerms ? #imageLiteral(resourceName: "tick") : #imageLiteral(resourceName: "untick"), for: .normal)
         cell.selectButtonTopConstraint.constant = 26.0
@@ -333,7 +340,8 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             printDebug("Cell not found")
             return UITableViewCell()
         }
-        
+        cell.titleLabel.font = AppFonts.Regular.withSize(14.0)
+        cell.titleLabel.textColor = AppColors.themeGray40
         cell.titleLabel.text = title
         cell.editableTextField.text = value.isEmpty ? placeholder : value
         cell.editableTextField.placeholder = ""
@@ -380,10 +388,10 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         cell.addNoteTextView.text = value
         cell.addNoteTextView.placeholder = placeholder
         cell.addNoteTextView.textColor = AppColors.themeBlack
-        cell.addNoteTextView.placeholderInsets = .zero
+        //cell.addNoteTextView.placeholderInsets = .zero
         cell.sepratorView.isHidden = !isDivider
         cell.addNoteTextView.delegate = self
-        cell.addNoteTextView.textContainerInset = .zero
+        //cell.addNoteTextView.textContainerInset = .zero
         
         return cell
     }
@@ -477,9 +485,13 @@ extension AccountOfflineDepositVC {
                 case 8:
                     
                     if self.currentUsingAs == .fundTransfer {
+                        var pickerValue = ["NEFT", "IMPS"]
+                        if self.viewModel.userEnteredDetails.depositAmount >= 200000{
+                            pickerValue.append("RTGS")
+                        }
                         //transfer type
                         PKMultiPicker.noOfComponent = 1
-                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: ["NEFT", "IMPS"], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self] (firstSelect, secondSelect) in
+                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: pickerValue, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self] (firstSelect, secondSelect) in
                             textField.text = firstSelect
                             self.viewModel.userEnteredDetails.transferType = firstSelect
                         }
@@ -566,6 +578,10 @@ extension AccountOfflineDepositVC {
 extension AccountOfflineDepositVC: AccountDepositAmountCellDelegate {
     func amountDidChanged(amount: Double, amountString: String) {
         self.viewModel.userEnteredDetails.depositAmount = amount
+        if self.viewModel.userEnteredDetails.depositAmount < 200000, self.viewModel.userEnteredDetails.transferType == "RTGS"{
+            self.viewModel.userEnteredDetails.transferType = ""
+            self.checkOutTableView.reloadData()
+        }
     }
 }
 

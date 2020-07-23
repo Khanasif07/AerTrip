@@ -89,12 +89,15 @@ class TravelDateVC: BaseVC {
     // Mark:- Functions
     //================
     internal func setFilterValues() {
+        if self.currentlyUsingAs != .account {
         oldFromDate = MyBookingFilterVM.shared.travelFromDate
         oldToDate = MyBookingFilterVM.shared.travelToDate
+        }
         self.setupDateSpan()
     }
     
     private func setupDatePickers() {
+        
        // self.showLoaderOnView(view: self.mainContainerView, show: true)
         
         self.setDateOnLabels(fromDate: nil, toDate: nil)
@@ -124,7 +127,15 @@ class TravelDateVC: BaseVC {
         }
         else {
             // account
-            self.fromTapGestureAction(UITapGestureRecognizer())
+            if let _ = self.oldFromDate {
+                self.fromTapGestureAction(UITapGestureRecognizer())
+            }
+            else if let _ = self.oldToDate {
+                self.toTapGestureAction(UITapGestureRecognizer())
+            }
+            else {
+                self.closeBothPicker(animated: false)
+            }
         }
         
         let fromTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.fromTapGestureAction))
@@ -173,14 +184,14 @@ class TravelDateVC: BaseVC {
         }
         if self.toDateLabel?.text == "-" {
             self.toDateCloseBtn?.isHidden = true
-            self.closeToDatePicker()
+            self.closeToDatePicker(animated: false)
         } else {
             self.toDateCloseBtn?.isHidden = false
         }
         
         if self.fromDateLabel?.text == "-" {
             self.fromDateCloseBtn?.isHidden = true
-            self.closeFromDatePicker()
+            self.closeFromDatePicker(animated: false)
         } else {
             self.fromDateCloseBtn?.isHidden = false
         }
@@ -241,17 +252,17 @@ class TravelDateVC: BaseVC {
             // account
 //            self.fromTapGestureAction(UITapGestureRecognizer())
             
-            let fromDt = self.oldFromDate ?? self.minFromDate
-            self.fromDatePicker?.setDate(fromDt ?? Date(), animated: false)
+            //let fromDt =  self.minFromDate
+            self.fromDatePicker?.setDate(self.oldFromDate ?? Date(), animated: false)
             self.toDatePicker?.setDate(self.oldToDate ?? Date(), animated: false)
             
-            self.fromDatePicker?.maximumDate = Date()
-            self.toDatePicker?.maximumDate = Date()
+            self.fromDatePicker?.maximumDate =  Date().add(years: 2) //Date()
+            self.toDatePicker?.maximumDate =  Date().add(years: 2) //Date()
             
             self.fromDatePicker?.minimumDate = self.minFromDate
-            self.toDatePicker?.minimumDate = self.oldFromDate ?? fromDt
+            self.toDatePicker?.minimumDate = self.minFromDate
             
-            self.setDateOnLabels(fromDate: fromDt ?? Date(), toDate: self.oldToDate ?? Date())
+            self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.oldToDate)
         }
 
     }
@@ -370,7 +381,8 @@ class TravelDateVC: BaseVC {
         closeToDatePicker()
     }
     
-    func closeFromDatePicker() {
+    func closeFromDatePicker(animated: Bool = true) {
+        if animated {
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             // close from picker
             self.fromViewHeightConstraint.constant = self.closedHeight
@@ -379,15 +391,27 @@ class TravelDateVC: BaseVC {
             self.view.layoutIfNeeded()
         }) { _ in
         }
+        } else {
+            self.fromViewHeightConstraint.constant = self.closedHeight
+            self.fromDatePickerContainer.alpha = 0.0
+            self.firstDividerView.alpha = 0.0
+            self.view.layoutIfNeeded()
+        }
     }
     
-    func closeToDatePicker() {
+    func closeToDatePicker(animated: Bool = true) {
+        if animated {
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             // close to picker
             self.toViewHeightConstraint.constant = self.closedHeight
             self.toDatePickerContainer.alpha = 0.0
             self.view.layoutIfNeeded()
         }) { _ in
+        }
+        } else {
+            self.toViewHeightConstraint.constant = self.closedHeight
+            self.toDatePickerContainer.alpha = 0.0
+            self.view.layoutIfNeeded()
         }
     }
 }

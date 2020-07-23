@@ -31,7 +31,6 @@ class DestinationSearchedTableCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.dividerLeadingConstraint.constant = 16
     }
     
     private func setupFontAndColor() {

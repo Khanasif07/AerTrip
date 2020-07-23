@@ -46,7 +46,7 @@ class AccountDetailsVC: BaseVC {
     @IBOutlet weak var openingBalanceTitleLabel: UILabel!
     @IBOutlet weak var openingBalanceDateLabel: UILabel!
     @IBOutlet weak var openingBalanceAmountLabel: UILabel!
-    
+    @IBOutlet weak var progressView: UIProgressView!
     
     
     //MARK:- Properties
@@ -55,6 +55,8 @@ class AccountDetailsVC: BaseVC {
     var currentUsingAs = UsingFor.account
     var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
     //MARK:- Private
+    private var time: Float = 0.0
+    private var timer: Timer?
     var currentViewState = ViewState.normal {
         didSet {
             self.manageHeader(animated: true)
@@ -84,7 +86,8 @@ class AccountDetailsVC: BaseVC {
     //MARK:- ViewLifeCycle
     //MARK:-
     override func initialSetup() {
-        
+        self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
+        self.progressView?.isHidden = true
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -108,8 +111,6 @@ class AccountDetailsVC: BaseVC {
         
         self.searchBar.isMicEnabled = true
         
-        self.topNavView.firstRightButton.isUserInteractionEnabled = false
-        self.topNavView.secondRightButton.isUserInteractionEnabled = false
         
         if let usr = UserInfo.loggedInUser, usr.userCreditType == .regular {
             self.viewModel.getAccountDetails()
@@ -133,11 +134,12 @@ class AccountDetailsVC: BaseVC {
         
         self.manageHeader(animated: false)
         //Chnage for blur header
-        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
 //        topNavView.backgroundColor = AppColors.clear
 //        delay(seconds: 0.4) { [weak self] in
 //            self?.getAccountDetailsSuccess()
 //        }
+        setupHeaderFooterText()
     }
     
     override func dataChanged(_ note: Notification) {
@@ -189,6 +191,44 @@ class AccountDetailsVC: BaseVC {
         self.openingBalanceDateLabel.textColor = AppColors.themeGray40
     }
     
+    func startProgress() {
+        // Invalid timer if it is valid
+        if self.timer?.isValid == true {
+            self.timer?.invalidate()
+        }
+        self.progressView?.isHidden = false
+        self.time = 0.0
+        self.progressView.setProgress(0.0, animated: false)
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
+    
+    @objc func setProgress() {
+        self.time += 1.0
+        self.progressView?.setProgress(self.time / 10, animated: true)
+        
+        if self.time == 8 {
+            self.timer?.invalidate()
+            return
+        }
+        if self.time == 2 {
+            self.timer!.invalidate()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+            }
+        }
+        
+        if self.time >= 10 {
+            self.timer!.invalidate()
+            delay(seconds: 0.5) {
+                self.progressView?.isHidden = true
+            }
+        }
+    }
+    func stopProgress() {
+        self.time += 1
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
+    
     @IBAction func tapSearchContainerView(_ sender: UIButton) {
         self.currentViewState = .normal
         self.clearSearchData()
@@ -202,6 +242,8 @@ class AccountDetailsVC: BaseVC {
             self.openingBalanceDateLabel.text = ""//"Upto Tue, 31 Jul 2018"
             
             self.balanceAmountLabel.attributedText = accountData.currentBalance.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(28.0))
+        } else {
+            self.balanceAmountLabel.attributedText = 0.0.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(28.0))
         }
     }
     
@@ -274,7 +316,17 @@ class AccountDetailsVC: BaseVC {
                 self.viewModel.sendEmailForLedger(onVC: self)
             } else {
                 //download pdf tapped
-                AppGlobals.shared.viewPdf(urlPath: "https://beta.aertrip.com/api/v1/user-accounts/report-action?action=pdf&type=ledger", screenTitle: LocalizedString.AccountsLegder.localized)
+//                AppGlobals.shared.viewPdf(urlPath: "https://beta.aertrip.com/api/v1/user-accounts/report-action?action=pdf&type=ledger", screenTitle: LocalizedString.AccountsLegder.localized)
+                self.topNavView.isToShowIndicatorView = true
+                self.topNavView.startActivityIndicaorLoading()
+                self.topNavView.firstRightButton.isHidden = true
+                self.topNavView.secondRightButton.isHidden = true
+                AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)user-accounts/report-action?action=pdf&type=ledger", screenTitle: LocalizedString.AccountsLegder.localized, showLoader: false, complition: { [weak self] (status) in
+                    self?.topNavView.isToShowIndicatorView = false
+                    self?.topNavView.stopActivityIndicaorLoading()
+                    self?.topNavView.firstRightButton.isHidden = false
+                    self?.topNavView.secondRightButton.isHidden = false
+                })
                 printDebug("download pdf tapped")
             }
         }
@@ -300,10 +352,10 @@ class AccountDetailsVC: BaseVC {
         }
     
         
-        if (self.currentViewState != .filterApplied) {
-            self.topNavView.firstRightButton.isUserInteractionEnabled = !isAllDatesEmpty
-            self.topNavView.secondRightButton.isUserInteractionEnabled = !isAllDatesEmpty
-        }
+//        if (self.currentViewState != .filterApplied) {
+//            self.topNavView.firstRightButton.isUserInteractionEnabled = !isAllDatesEmpty
+//            self.topNavView.secondRightButton.isUserInteractionEnabled = !isAllDatesEmpty
+//        }
         
         self.tableView.reloadData()
         self.searchTableView.reloadData()
@@ -407,41 +459,30 @@ extension AccountDetailsVC: TopNavigationViewDelegate {
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
         //filter button action
-        AppFlowManager.default.moveToADEventFilterVC(onViewController: self, delegate: self, voucherTypes: self.viewModel.allVouchers, oldFilter: self.viewModel.oldFilter, minFromDate: self.viewModel.ledgerStartDate)
+        ADEventFilterVM.shared.minFromDate = self.viewModel.ledgerStartDate
+        ADEventFilterVM.shared.voucherTypes = self.viewModel.allVouchers
+        AppFlowManager.default.moveToADEventFilterVC(onViewController: self, delegate: self)
     }
 }
 
 //MARK:- Filter VC delegate methods
 //MARK:-
 extension AccountDetailsVC: ADEventFilterVCDelegate {
-    func adEventFilterVC(filterVC: ADEventFilterVC, didChangedFilter filter: AccountSelectedFilter?) {
-        
-        if let fltr = filter {
-            if let fromDate = fltr.fromDate, let toDate = fltr.toDate, ((Date().timeIntervalSince1970 != toDate.timeIntervalSince1970) || (self.viewModel.ledgerStartDate.timeIntervalSince1970 != fromDate.timeIntervalSince1970)) {
-                //apply filter
-                if self.currentViewState == .searching {
-                }
-                else {
-                    self.currentViewState = .filterApplied
-                }
-            }
-            else if !fltr.voucherType.isEmpty {
-                //apply filter
-                if self.currentViewState == .searching {
-                }
-                else {
-                    self.currentViewState = .filterApplied
-                }
-            }
-            
-            self.viewModel.applyFilter(filter: filter, searchText: self.mainSearchBar.text ?? "")
-        }
-        else {
-            //clear all filter
+    func applyFilter() {
+        if ADEventFilterVM.shared.isFilterAplied  {
+            self.currentViewState = .filterApplied
+        } else {
             self.currentViewState = .normal
-            self.viewModel.applyFilter(filter: nil, searchText: self.mainSearchBar.text ?? "")
         }
+        self.viewModel.applyFilter(searchText: self.mainSearchBar.text ?? "")
     }
+    func clearAllFilter() {
+        //clear all filter
+        self.currentViewState = .normal
+        self.viewModel.applyFilter(searchText: self.mainSearchBar.text ?? "")
+    }
+    
+    
 }
 
 //MARK:- EmptyScreenViewdelegate methods
@@ -452,7 +493,8 @@ extension AccountDetailsVC: EmptyScreenViewDelegate {
     func bottomButtonAction(sender: UIButton) {
         //clear all filter
         self.currentViewState = .normal
-        self.viewModel.applyFilter(filter: nil, searchText: self.mainSearchBar.text ?? "")
+        ADEventFilterVM.shared.setToDefault()
+        self.viewModel.applyFilter(searchText: self.mainSearchBar.text ?? "")
     }
 }
 
@@ -468,18 +510,21 @@ extension AccountDetailsVC: AccountDetailsVMDelegate {
     }
 
     func willGetAccountDetails() {
-        AppGlobals.shared.startLoading()
+        self.startProgress()
+        //AppGlobals.shared.startLoading()
+        self.topNavView.firstRightButton.isUserInteractionEnabled = false
+        self.topNavView.secondRightButton.isUserInteractionEnabled = false
     }
     
     func getAccountDetailsSuccess() {
-        AppGlobals.shared.stopLoading()
-        self.topNavView.firstRightButton.isEnabled = true
-        self.topNavView.secondRightButton.isEnabled = true
+        self.stopProgress()
+        self.topNavView.firstRightButton.isUserInteractionEnabled = true
+        self.topNavView.secondRightButton.isUserInteractionEnabled = true
         self.reloadList()
     }
     
     func getAccountDetailsFail() {
-        AppGlobals.shared.stopLoading()
+        self.stopProgress()
     }
     
     func searchEventsSuccess() {

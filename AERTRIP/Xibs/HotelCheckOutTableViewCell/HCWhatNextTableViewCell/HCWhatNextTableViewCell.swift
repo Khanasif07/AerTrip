@@ -28,6 +28,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
     private var itemWidth: CGFloat  = 0
     
     var suggetionImage = #imageLiteral(resourceName: "flightIcon")//hotel_green_icon
+    var selectedWhatNext: ((_ index:Int)->())?
     
     //Mark:- IBOutlets
     //================
@@ -151,9 +152,17 @@ extension HCWhatNextTableViewCell: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCWhatNextCollectionViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextCollectionViewCell else { return UICollectionViewCell() }
         cell.nextPlanLabel.text = self.nextPlanString[indexPath.row]
-        cell.flightImageView.image = self.suggetionImage
+        if self.nextPlanString[indexPath.row].contains("flight"){
+            cell.flightImageView.image = #imageLiteral(resourceName: "flight_blue_icon")
+        }else{
+            cell.flightImageView.image = #imageLiteral(resourceName: "hotel_green_icon")
+        }
         cell.flightImageView.isHidden = false
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.selectedWhatNext?(indexPath.item)
     }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

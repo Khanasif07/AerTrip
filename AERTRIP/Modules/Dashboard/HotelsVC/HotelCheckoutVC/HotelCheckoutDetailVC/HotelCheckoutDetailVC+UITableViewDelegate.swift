@@ -92,6 +92,8 @@ extension HotelCheckoutDetailVC: UITableViewDelegate, UITableViewDataSource {
                 if let locid = self.viewModel?.locid {
                     !locid.isEmpty ? AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel?.hid ?? "") : printDebug(locid + "location id is empty")
                 }
+            case .amenitiesCell:
+                self.viewAllButtonAction()
             default: break
             }
         }

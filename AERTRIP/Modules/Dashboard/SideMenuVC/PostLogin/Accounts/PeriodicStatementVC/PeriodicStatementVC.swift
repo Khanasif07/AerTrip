@@ -54,7 +54,7 @@ class PeriodicStatementVC: BaseVC {
         
         self.setupPagerView()
         //for header blur
-        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         topNavView.backgroundColor = AppColors.clear
     }
     

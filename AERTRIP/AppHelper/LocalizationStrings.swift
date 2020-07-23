@@ -55,7 +55,8 @@ enum LocalizedString: String {
     case AllowEmailInFacebook
     case AllowEmailInLinkedIn
     case PleaseLoginByEmailId
-    
+    case Continue_with_Apple
+
     // MARK: - LoginVC
     
     // MARK: -
@@ -499,6 +500,7 @@ enum LocalizedString: String {
     // MARK: - RoomVC
     
     // Meal
+    case RoomOnly
     case NoMeal
     case Breakfast
     case HalfBoard
