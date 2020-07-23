@@ -52,6 +52,17 @@ extension FlightSearchResultVM : AirlineFilterDelegate {
 //MARK:- Sorting
 extension FlightSearchResultVM : SortFilterDelegate {
   
+    func resetSort() {}
+    func durationSortFilterChanged(longestFirst: Bool) {
+        if isIntMCOrReturnJourney {
+            return
+        }
+        
+        for flightLeg in flightLegs {
+         flightLeg.durationSortFilterChanged(longestFirst: longestFirst)
+        }
+    }
+    
     func sortFilterChanged(sort: Sort ) {
         
         if isIntMCOrReturnJourney {

@@ -821,7 +821,6 @@
 		843FF49C24740231001F21B1 /* FlightFilterTimesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3322474022F001F21B1 /* FlightFilterTimesViewController.swift */; };
 		843FF49D24740231001F21B1 /* FlightFilterTimesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF3332474022F001F21B1 /* FlightFilterTimesViewController.xib */; };
 		843FF49E24740231001F21B1 /* FlightFilterBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF3352474022F001F21B1 /* FlightFilterBaseViewController.xib */; };
-		843FF49F24740231001F21B1 /* FlightFilterBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3362474022F001F21B1 /* FlightFilterBaseViewController.swift */; };
 		843FF4A024740231001F21B1 /* RadioButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF3382474022F001F21B1 /* RadioButtonTableViewCell.xib */; };
 		843FF4A124740231001F21B1 /* RadioButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3392474022F001F21B1 /* RadioButtonTableViewCell.swift */; };
 		843FF4A224740231001F21B1 /* IntMCAndReturnFlightFiltersBaseVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF33B2474022F001F21B1 /* IntMCAndReturnFlightFiltersBaseVC.xib */; };
@@ -1495,6 +1494,7 @@
 		84DD249B226734D80013F77E /* BookingPaymentDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DD2499226734D80013F77E /* BookingPaymentDetailsTableViewCell.xib */; };
 		84DD249F2267A6030013F77E /* PaymentInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD249D2267A6030013F77E /* PaymentInfoTableViewCell.swift */; };
 		84DD24A02267A6030013F77E /* PaymentInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DD249E2267A6030013F77E /* PaymentInfoTableViewCell.xib */; };
+		84E246EC24C957BE00FBB511 /* FlightFilterBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E246EB24C957BE00FBB511 /* FlightFilterBaseViewController.swift */; };
 		84E4BC22229BA21100B72306 /* FlightBookingsDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4BC21229BA21100B72306 /* FlightBookingsDetailsVC.swift */; };
 		84E4BC27229C622700B72306 /* DownloadingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4BC26229C622700B72306 /* DownloadingModel.swift */; };
 		84E4BC4C229E67CC00B72306 /* FlightCarriersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4BC4A229E67CC00B72306 /* FlightCarriersTableViewCell.swift */; };
@@ -2456,7 +2456,6 @@
 		843FF3322474022F001F21B1 /* FlightFilterTimesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightFilterTimesViewController.swift; sourceTree = "<group>"; };
 		843FF3332474022F001F21B1 /* FlightFilterTimesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlightFilterTimesViewController.xib; sourceTree = "<group>"; };
 		843FF3352474022F001F21B1 /* FlightFilterBaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlightFilterBaseViewController.xib; sourceTree = "<group>"; };
-		843FF3362474022F001F21B1 /* FlightFilterBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightFilterBaseViewController.swift; sourceTree = "<group>"; };
 		843FF3382474022F001F21B1 /* RadioButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RadioButtonTableViewCell.xib; sourceTree = "<group>"; };
 		843FF3392474022F001F21B1 /* RadioButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonTableViewCell.swift; sourceTree = "<group>"; };
 		843FF33B2474022F001F21B1 /* IntMCAndReturnFlightFiltersBaseVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntMCAndReturnFlightFiltersBaseVC.xib; sourceTree = "<group>"; };
@@ -3251,6 +3250,7 @@
 		84DD2499226734D80013F77E /* BookingPaymentDetailsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingPaymentDetailsTableViewCell.xib; sourceTree = "<group>"; };
 		84DD249D2267A6030013F77E /* PaymentInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentInfoTableViewCell.swift; sourceTree = "<group>"; };
 		84DD249E2267A6030013F77E /* PaymentInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentInfoTableViewCell.xib; sourceTree = "<group>"; };
+		84E246EB24C957BE00FBB511 /* FlightFilterBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightFilterBaseViewController.swift; sourceTree = "<group>"; };
 		84E4BC21229BA21100B72306 /* FlightBookingsDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightBookingsDetailsVC.swift; sourceTree = "<group>"; };
 		84E4BC26229C622700B72306 /* DownloadingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadingModel.swift; sourceTree = "<group>"; };
 		84E4BC4A229E67CC00B72306 /* FlightCarriersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightCarriersTableViewCell.swift; sourceTree = "<group>"; };
@@ -6042,8 +6042,8 @@
 		843FF3342474022F001F21B1 /* FlightFilterBaseViewController */ = {
 			isa = PBXGroup;
 			children = (
+				84E246EB24C957BE00FBB511 /* FlightFilterBaseViewController.swift */,
 				843FF3352474022F001F21B1 /* FlightFilterBaseViewController.xib */,
-				843FF3362474022F001F21B1 /* FlightFilterBaseViewController.swift */,
 			);
 			path = FlightFilterBaseViewController;
 			sourceTree = "<group>";
@@ -9922,6 +9922,7 @@
 				843FF4C124740231001F21B1 /* PassengerSelectionVM.swift in Sources */,
 				0C24D4FC242CEEDD00CBFF92 /* NotificationSettingsVM.swift in Sources */,
 				843FF57124740232001F21B1 /* BaggageDetailsPerFlightTableViewCell.swift in Sources */,
+				84E246EC24C957BE00FBB511 /* FlightFilterBaseViewController.swift in Sources */,
 				0CC1B4E62478104F00AE6F12 /* AdonsCell.swift in Sources */,
 				0C24D4E4242C752A00CBFF92 /* CountryVC.swift in Sources */,
 				843FF4F424740231001F21B1 /* FlightBaggageTableViewCell.m in Sources */,
@@ -10531,7 +10532,6 @@
 				843FF694247409E4001F21B1 /* Singleton.m in Sources */,
 				842EDE7D2238E7D600E99409 /* HotelDetailsOverviewVC.swift in Sources */,
 				84F4DB8F226DCC0500B68171 /* ADEventFilterVC.swift in Sources */,
-				843FF49F24740231001F21B1 /* FlightFilterBaseViewController.swift in Sources */,
 				843FF698247409E4001F21B1 /* SkyFloatingLabelTextField.swift in Sources */,
 				84F983E721B51A070018DFED /* AppGlobals.swift in Sources */,
 				18A793DD23F3E9FB008A40F4 /* UPCarouselFlowLayout.swift in Sources */,

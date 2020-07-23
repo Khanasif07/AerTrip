@@ -95,11 +95,12 @@ extension IntMCAndReturnVC {
     
     func addBannerTableHeaderView() {
         DispatchQueue.main.async {
-            let rect = CGRect(x: 0, y: 82, width: UIScreen.main.bounds.size.width, height: 156)
+            let rect = CGRect(x: 0, y: 82, width: UIScreen.main.bounds.size.width, height: 154)
             self.bannerView = ResultHeaderView(frame: rect)
             self.bannerView?.frame = rect
+            self.bannerView?.lineView.isHidden = true
             self.view.addSubview(self.bannerView!)
-            let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 94))
+            let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 75))
             self.resultsTableView.tableHeaderView = headerView
             self.resultsTableView.isScrollEnabled = false
             self.resultsTableView.tableFooterView = nil

@@ -538,7 +538,7 @@
 {
     [self hideLoaderIndicatorForFilghtSearch];
     
-    self.isInternationalJourney = !bookflightObject.isDomestic;
+    self.isInternationalJourney = !bookflightObject.isDomestic && bookflightObject.flightSearchType != SINGLE_JOURNEY;
     
     NSMutableArray *values= [NSMutableArray array];
     
