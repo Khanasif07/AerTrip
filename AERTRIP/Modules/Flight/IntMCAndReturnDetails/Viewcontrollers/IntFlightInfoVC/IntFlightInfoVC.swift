@@ -62,30 +62,30 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             flightInfoTableViewBottom.constant = 0
             return
         }
-        switch UIScreen.main.bounds.height{
-                case 568: //iPhone SE | 5S
-                    flightInfoTableViewBottom.constant = CGFloat(310 + fewSeatsLeftViewHeight)
-                    break
-                    
-                case 667: //iPhone 8 | 6 | 6s | 7
-                    flightInfoTableViewBottom.constant = CGFloat(210 + fewSeatsLeftViewHeight)
-                    break
-                    
-                case 736: //iPhone 6 Plus | 8 plus | 6s plus | 7 Plus
-                    flightInfoTableViewBottom.constant = CGFloat(145 + fewSeatsLeftViewHeight)
-                    break
-                    
-                case 812: //11 Pro | X | Xs
-                    flightInfoTableViewBottom.constant = CGFloat(98 + fewSeatsLeftViewHeight)
-                    break
-                    
-                case 896: //11 & 11 Pro Max & Xs Max & Xr
-                    flightInfoTableViewBottom.constant = CGFloat(20 + fewSeatsLeftViewHeight)
-                    break
-                    
-                default :
-                    break
-                }
+//        switch UIScreen.main.bounds.height{
+//                case 568: //iPhone SE | 5S
+//                    flightInfoTableViewBottom.constant = CGFloat(310 + fewSeatsLeftViewHeight)
+//                    break
+//
+//                case 667: //iPhone 8 | 6 | 6s | 7
+//                    flightInfoTableViewBottom.constant = CGFloat(210 + fewSeatsLeftViewHeight)
+//                    break
+//
+//                case 736: //iPhone 6 Plus | 8 plus | 6s plus | 7 Plus
+//                    flightInfoTableViewBottom.constant = CGFloat(145 + fewSeatsLeftViewHeight)
+//                    break
+//
+//                case 812: //11 Pro | X | Xs
+//                    flightInfoTableViewBottom.constant = CGFloat(98 + fewSeatsLeftViewHeight)
+//                    break
+//
+//                case 896: //11 & 11 Pro Max & Xs Max & Xr
+//                    flightInfoTableViewBottom.constant = CGFloat(20 + fewSeatsLeftViewHeight)
+//                    break
+//
+//                default :
+//                    break
+//                }
     }
     
     override func viewWillAppear(_ animated: Bool) {

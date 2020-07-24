@@ -119,6 +119,12 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         clearCache.checkTimeAndClearFlightBaggageResultCache()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.parchmentView?.view.frame = self.displayView.bounds
+        self.parchmentView?.loadViewIfNeeded()
+    }
+    
     //MARK:- Initialise Views
     func setupInitialViews()
     {
@@ -196,8 +202,6 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         self.parchmentView?.indicatorColor = UIColor.AertripColor
         self.parchmentView?.selectedTextColor = .black
         self.parchmentView?.menuBackgroundColor = .white
-        self.parchmentView?.view.frame = self.dataDisplayView.bounds
-        self.parchmentView?.view.height += 50
         self.dataDisplayView.addSubview(self.parchmentView!.view)
         
         self.parchmentView?.collectionView.isScrollEnabled = false
@@ -232,7 +236,6 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         flightInfoVC.airportDetailsResult = airportDetailsResult
         flightInfoVC.airlineDetailsResult = airlineDetailsResult
         flightInfoVC.selectedJourneyFK = selectedJourneyFK
-        flightInfoVC.view.frame = dataDisplayView.frame
         return flightInfoVC
     }
     
@@ -249,7 +252,6 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         }
         
         baggageVC.airportDetailsResult = airportDetailsResult
-        baggageVC.view.frame = self.dataDisplayView.frame
         return baggageVC
     }
     
@@ -271,7 +273,6 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         fareInfoVc.flightChildrenCount = bookFlightObject.flightChildrenCount
         fareInfoVc.flightInfantCount = bookFlightObject.flightInfantCount
         fareInfoVc.airportDetailsResult = airportDetailsResult
-        fareInfoVc.view.frame = self.dataDisplayView.frame
         return fareInfoVc
     }
     
@@ -762,7 +763,6 @@ extension FlightDetailsBaseVC{
     }
     
     func addIntFlightInfoVC() -> UIViewController {
-        let bottomInset = ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!)
         let vc =
             IntFlightInfoVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
         vc.sid = sid
@@ -778,12 +778,10 @@ extension FlightDetailsBaseVC{
         vc.airportDetailsResult = intAirportDetailsResult
         vc.airlineDetailsResult = intAirlineDetailsResult
         vc.selectedJourneyFK = selectedJourneyFK
-        vc.view.frame = CGRect(x: 0 , y: 0, width: UIScreen.main.bounds.size.width, height :self.dataDisplayView.frame.height-CGFloat(bottomInset))
         return vc
     }
     
     func addIntBaggageVC() -> UIViewController {
-        let bottomInset = ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!)
         
         let vc = IntFlightBaggageInfoVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
         vc.journey = self.intJourney?.first
@@ -795,12 +793,10 @@ extension FlightDetailsBaseVC{
         }
         vc.isForDomestic = (self.bookFlightObject.isDomestic)
         vc.airportDetailsResult = intAirportDetailsResult
-        vc.view.frame = CGRect(x: UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width, height :self.dataDisplayView.frame.height-CGFloat(bottomInset))
         return vc
     }
     
     func addIntFareInfo() -> UIViewController {
-        let bottomInset = ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!)
         
         let vc = IntFareInfoVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
         vc.journey = [self.intJourney.first!]
@@ -818,7 +814,6 @@ extension FlightDetailsBaseVC{
         vc.flightChildrenCount = bookFlightObject.flightChildrenCount
         vc.flightInfantCount = bookFlightObject.flightInfantCount
         vc.airportDetailsResult = self.intAirportDetailsResult
-        vc.view.frame = CGRect(x: UIScreen.main.bounds.size.width * 2, y: 0, width: UIScreen.main.bounds.size.width, height :self.dataDisplayView.frame.height-CGFloat(bottomInset))
         return vc
     }
     

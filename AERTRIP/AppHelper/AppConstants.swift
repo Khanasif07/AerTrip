@@ -111,6 +111,9 @@ enum AppConstants {
     
     static let kAppStoreLink = "https://itunes.apple.com/app/id\(1369238862)?action=write-review"
 
+    
+    static let airlineMasterBaseUrl = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/"
+    
 }
 
 
