@@ -132,8 +132,8 @@ extension MealsContainerVC {
             height: 0.5, zIndex: Int.max - 1, insets: UIEdgeInsets(top: 0, left: -400, bottom: 0, right: -400))
         }
         
-        let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
-        self.parchmentView?.register(nib, for: MenuItem.self)
+        let nib = UINib(nibName: "MenuItemWithLogoCollCell", bundle: nil)
+        self.parchmentView?.register(nib, for: LogoMenuItem.self)
         self.parchmentView?.borderColor = AppColors.themeGray214
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
@@ -177,13 +177,13 @@ extension MealsContainerVC: TopNavigationViewDelegate {
 extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControllerDelegate ,PagingViewControllerSizeDelegate{
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         
-       if let pagingIndexItem = pagingItem as? MenuItem, let text = pagingIndexItem.attributedTitle {
+       if let pagingIndexItem = pagingItem as? LogoMenuItem, let text = pagingIndexItem.attributedTitle {
            
            
            let attText = NSMutableAttributedString(attributedString: text)
            attText.addAttribute(.font, value: AppFonts.SemiBold.withSize(16), range: NSRange(location: 0, length: attText.length))
            let width = attText.widthOfText(50, font: AppFonts.SemiBold.withSize(16))
-           return 85//(width) + 10
+           return width + 50
            
        }
           
@@ -203,15 +203,17 @@ extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControlle
         let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.flightsWithDataForMeals[index].flightId }
      
         guard let firstFlight = flightAtINdex.first else {
-            return MenuItem(title: "", index: index, isSelected:true)
+            return LogoMenuItem(index: index, isSelected:true)
         }
+        
+        return LogoMenuItem(index: index, isSelected: true, attributedTitle: self.mealsContainerVM.createAttHeaderTitle(firstFlight.fr, firstFlight.to), logoUrl: AppConstants.airlineMasterBaseUrl + firstFlight.al + ".png")
 
-        return MenuItem(title: "", index: index, isSelected: true, attributedTitle: self.mealsContainerVM.createAttHeaderTitle(firstFlight.fr, firstFlight.to))
+//        return MenuItem(title: "", index: index, isSelected: true, attributedTitle: self.mealsContainerVM.createAttHeaderTitle(firstFlight.fr, firstFlight.to))
         
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
-        if let pagingIndexItem = pagingItem as? MenuItem {
+        if let pagingIndexItem = pagingItem as? LogoMenuItem {
             self.mealsContainerVM.currentIndex = pagingIndexItem.index
         }
     }    
