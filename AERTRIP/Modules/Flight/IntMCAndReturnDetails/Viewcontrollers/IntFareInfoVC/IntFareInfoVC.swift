@@ -51,30 +51,30 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         fareInfoTableView.alwaysBounceVertical = true
         self.fareInfoTableView.separatorStyle = .none
 
-        switch UIScreen.main.bounds.height{
-        case 568: //iPhone SE | 5S
-            fareInfoTableViewBottom.constant = CGFloat(310 + fewSeatsLeftViewHeight)
-            break
-            
-        case 667: //iPhone 8 | 6 | 6s | 7
-            fareInfoTableViewBottom.constant = CGFloat(210 + fewSeatsLeftViewHeight)
-            break
-            
-        case 736: //iPhone 6 Plus | 8 plus | 6s plus | 7 Plus
-            fareInfoTableViewBottom.constant = CGFloat(145 + fewSeatsLeftViewHeight)
-            break
-            
-        case 812: //11 Pro | X | Xs
-            fareInfoTableViewBottom.constant = CGFloat(98 + fewSeatsLeftViewHeight)
-            break
-            
-        case 896: //11 & 11 Pro Max & Xs Max & Xr
-            fareInfoTableViewBottom.constant = CGFloat(20 + fewSeatsLeftViewHeight)
-            break
-            
-        default :
-            break
-        }
+//        switch UIScreen.main.bounds.height{
+//        case 568: //iPhone SE | 5S
+//            fareInfoTableViewBottom.constant = CGFloat(310 + fewSeatsLeftViewHeight)
+//            break
+//
+//        case 667: //iPhone 8 | 6 | 6s | 7
+//            fareInfoTableViewBottom.constant = CGFloat(210 + fewSeatsLeftViewHeight)
+//            break
+//
+//        case 736: //iPhone 6 Plus | 8 plus | 6s plus | 7 Plus
+//            fareInfoTableViewBottom.constant = CGFloat(145 + fewSeatsLeftViewHeight)
+//            break
+//
+//        case 812: //11 Pro | X | Xs
+//            fareInfoTableViewBottom.constant = CGFloat(98 + fewSeatsLeftViewHeight)
+//            break
+//
+//        case 896: //11 & 11 Pro Max & Xs Max & Xr
+//            fareInfoTableViewBottom.constant = CGFloat(20 + fewSeatsLeftViewHeight)
+//            break
+//
+//        default :
+//            break
+//        }
         guard let journey = self.journey.first else {return}
         if journey.legsWithDetail.first?.fcp == 0{
             var fareInfo = IntFareInfo(JSON())
