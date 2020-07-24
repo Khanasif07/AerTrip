@@ -418,11 +418,15 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (tableView.cellForRow(at: indexPath) as? HCHotelAddreesCell) != nil {
             AppGlobals.shared.redirectToMap(sourceView: view, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong, destLat: self.viewModel.hotelReceiptData?.lat ?? "", destLong: self.viewModel.hotelReceiptData?.long ?? "")
-        }
-        else if (tableView.cellForRow(at: indexPath) as? HCHotelRatingTableViewCell) != nil {
-            //self.viewModel.getBookingDetail()
+        }else if (indexPath.section != 0) && (indexPath.section < tableView.numberOfSections - 1){
             AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: nil, hotelTitle: getUpdatedTitle(), bookingId: self.viewModel.bookingIds.first ?? "", hotelName: self.viewModel.hotelReceiptData?.hname ?? "", taRating: self.viewModel.hotelReceiptData?.rating ?? 0.0, hotelStarRating: self.viewModel.hotelReceiptData?.star ?? 0.0)
         }
+        
+        
+//        else if (tableView.cellForRow(at: indexPath) as? HCHotelRatingTableViewCell) != nil {
+//            //self.viewModel.getBookingDetail()
+//            AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: nil, hotelTitle: getUpdatedTitle(), bookingId: self.viewModel.bookingIds.first ?? "", hotelName: self.viewModel.hotelReceiptData?.hname ?? "", taRating: self.viewModel.hotelReceiptData?.rating ?? 0.0, hotelStarRating: self.viewModel.hotelReceiptData?.star ?? 0.0)
+//        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

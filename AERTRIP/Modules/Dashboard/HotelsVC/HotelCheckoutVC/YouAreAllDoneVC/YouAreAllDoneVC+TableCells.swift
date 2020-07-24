@@ -51,6 +51,7 @@ extension YouAreAllDoneVC {
         cell.setupForAllDoneVC()
         cell.moreBtnOutlet.isHidden = true
         cell.deviderView.isHidden = true
+        cell.addressInfoTextView.isUserInteractionEnabled = false
         return cell
     }
     
@@ -180,12 +181,23 @@ extension YouAreAllDoneVC {
     internal func getWhatNextCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCWhatNextTableViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextTableViewCell else { return nil }
         cell.delegate = self
-        if !self.viewModel.whatNextValues.isEmpty {
-            cell.configCell(whatNextString: self.viewModel.whatNextValues)
+        guard let receipt = self.viewModel.hotelReceiptData else{return cell}
+        let whtNextNew = receipt.whatNext.map { whtNext -> String in
+            if whtNext.productType == .flight{
+                return "Book your return flight for\n\(whtNext.origin) to \(whtNext.destination)"
+            }else if whtNext.productType == .hotel{
+                return "Book your hotel in\n\(whtNext.city) & get the best deals!"
+            }else{
+                return "Book your hotel in\n\(whtNext.city) & get the best deals!"
+            }
+        }
+        cell.suggetionImage = #imageLiteral(resourceName: "hotel_green_icon")
+        if !whtNextNew.isEmpty {
+            cell.configCell(whatNextString: whtNextNew)
+            cell.whatNextStackView.isHidden = false
         } else {
             cell.whatNextStackView.isHidden = true
         }
-        //        cell.whatNextStackView.isHidden = false
         return cell
     }
 }
