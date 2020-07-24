@@ -17,7 +17,6 @@ class HotelRatingInfoCell: UITableViewCell {
     //Mark:- Variables
     //================
     internal weak var delegate: HotelRatingInfoCellDelegate?
-    private var indicator = UIActivityIndicatorView()
     
     //Mark:- IBOutlets
     //================
@@ -32,6 +31,7 @@ class HotelRatingInfoCell: UITableViewCell {
     @IBOutlet weak var hotelNameLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var deviderView: UIView!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     //Mark:- LifeCycle
     //================
@@ -60,16 +60,8 @@ class HotelRatingInfoCell: UITableViewCell {
         self.hotelDotsView.isHidden = true
         self.tripadviserImageView.isHidden = true
     }
-    
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.indicator.center = self.shareButtonOutlet.center
-    }
-    
+
     private func manageLoader() {
-        indicator.frame.size = CGSize(width: 25.0, height: 25.0)
-        self.containerView.addSubview(indicator)
         self.indicator.style = .gray
         self.indicator.tintColor = AppColors.themeGreen
         self.indicator.color = AppColors.themeGreen

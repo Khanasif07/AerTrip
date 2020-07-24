@@ -33,6 +33,7 @@ extension HotelCheckoutDetailVC {
         guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
         cell.addressInfoTextView.isUserInteractionEnabled = false
         cell.configureAddressCell(hotelData: hotelDetails)
+
         return cell
     }
     

@@ -46,32 +46,7 @@ class BaggageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
         baggageTableView.rowHeight = UITableView.automaticDimension
         baggageTableView.estimatedRowHeight = 175
         baggageTableView.alwaysBounceVertical = true
-        
-        switch UIScreen.main.bounds.height{
-        case 568: //iPhone SE | 5S
-            baggageTableViewBottom.constant = CGFloat(310 + fewSeatsLeftViewHeight)
-            break
-            
-        case 667: //iPhone 8 | 6 | 6s | 7
-            baggageTableViewBottom.constant = CGFloat(210 + fewSeatsLeftViewHeight)
-            break
-            
-        case 736: //iPhone 6 Plus | 8 plus | 6s plus | 7 Plus
-            baggageTableViewBottom.constant = CGFloat(145 + fewSeatsLeftViewHeight)
-            break
-            
-        case 812: //11 Pro | X | Xs
-            baggageTableViewBottom.constant = CGFloat(98 + fewSeatsLeftViewHeight)
-            break
-            
-        case 896: //11 & 11 Pro Max & Xs Max & Xr
-            baggageTableViewBottom.constant = CGFloat(20 + fewSeatsLeftViewHeight)
-            break
-            
-        default :
-            break
-        }
-        
+        baggageTableViewBottom.constant = 0.0
         if journey != nil{
             if journey.count > 0{
                 for i in 0..<journey.count{
@@ -145,7 +120,7 @@ class BaggageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
                 changeAirportCell.dataLabel.attributedText = title
             }
             
-            changeAirportCell.seperatorBottom.constant = 65
+            changeAirportCell.seperatorBottom.constant = 35
 
             return changeAirportCell
         }else{
@@ -790,7 +765,7 @@ class BaggageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, U
             if totalRow == 1 || indexPath.row == evaluatedBaggageResp[indexPath.section].count-1{
                 baggageCell.bottomSeperator.isHidden = false
                 baggageCell.bottomSeperatorHeight.constant = 0.6
-                baggageCell.bottomSeperatorBottom.constant = 40
+                baggageCell.bottomSeperatorBottom.constant = 35
             }else{
                 baggageCell.bottomSeperator.isHidden = true
                 baggageCell.bottomSeperatorBottom.constant = 0

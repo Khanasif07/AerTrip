@@ -401,9 +401,8 @@ class HotelDetailsVM {
         self.delegate?.willGetPinnedTemplate()
         APICaller.shared.getShareLinkAPI(params: param) { [weak self] isSuccess, _, shareLinkUrl in
             if isSuccess {
-                self?.delegate?.getPinnedTemplateSuccess()
-                
                 self?.shareLinkURL = shareLinkUrl
+                self?.delegate?.getPinnedTemplateSuccess()
                 completionBlock(true)
             } else {
                 self?.delegate?.getPinnedTemplateFail()

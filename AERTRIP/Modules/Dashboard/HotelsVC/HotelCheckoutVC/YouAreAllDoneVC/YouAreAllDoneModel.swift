@@ -44,7 +44,7 @@ struct HotelReceiptModel {
     var flight_link_param: JSONDictionary = [:]
     var payment_details: PaymentDetails?
     var trip_details: TripDetails?
-    
+    var whatNext:[WhatNext] = []
     var eventStartDate: Date?
     var eventEndDate: Date?
     
@@ -192,6 +192,9 @@ struct HotelReceiptModel {
         if  let date = json[APIKeys.checkout.rawValue], let time = json[APIKeys.checkout_time.rawValue]{
             // "2019-02-01"
             self.eventEndDate = "\(date) \(time)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
+        }
+        if let whatNext = json["whatsNext"]{
+            self.whatNext = JSON(whatNext).arrayValue.map{WhatNext($0)}
         }
     }
 

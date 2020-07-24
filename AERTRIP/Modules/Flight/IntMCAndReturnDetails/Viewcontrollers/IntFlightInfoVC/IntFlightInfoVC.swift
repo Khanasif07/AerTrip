@@ -35,12 +35,8 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     var selectedIndex : IndexPath!
     var selectedJourneyFK = [String]()
     var fewSeatsLeftViewHeight = 0
-    
-    
-    
-    
-    
-    
+
+
     //MARK:- Initial Display Methods
     
     override func viewDidLoad() {
@@ -58,34 +54,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         flightInfoTableView.register(UINib(nibName: "ChangeAirportTableViewCell", bundle: nil), forCellReuseIdentifier: "ChangeAirportCell")
         
         flightInfoTableView.sectionFooterHeight = .zero
-        guard (self.parent as? FlightDetailsBaseVC)?.needToAddFareBreakup ?? true else {
-            flightInfoTableViewBottom.constant = 0
-            return
-        }
-        switch UIScreen.main.bounds.height{
-                case 568: //iPhone SE | 5S
-                    flightInfoTableViewBottom.constant = CGFloat(310 + fewSeatsLeftViewHeight)
-                    break
-                    
-                case 667: //iPhone 8 | 6 | 6s | 7
-                    flightInfoTableViewBottom.constant = CGFloat(210 + fewSeatsLeftViewHeight)
-                    break
-                    
-                case 736: //iPhone 6 Plus | 8 plus | 6s plus | 7 Plus
-                    flightInfoTableViewBottom.constant = CGFloat(145 + fewSeatsLeftViewHeight)
-                    break
-                    
-                case 812: //11 Pro | X | Xs
-                    flightInfoTableViewBottom.constant = CGFloat(98 + fewSeatsLeftViewHeight)
-                    break
-                    
-                case 896: //11 & 11 Pro Max & Xs Max & Xr
-                    flightInfoTableViewBottom.constant = CGFloat(20 + fewSeatsLeftViewHeight)
-                    break
-                    
-                default :
-                    break
-                }
+        flightInfoTableViewBottom.constant = 0.0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -553,9 +522,9 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     let totalRow = tableView.numberOfRows(inSection: indexPath.section)
                     if totalRow == 1{
                         cell.bottomSeperatorView.isHidden = false
-                        cell.displayViewBottom.constant = (journey?.fsr == 1) ? 45 : 40
+                        cell.displayViewBottom.constant = 35.0
                     }else if(indexPath.row == totalRow-1){
-                        cell.displayViewBottom.constant = (journey?.fsr == 1) ? 45 : 40
+                        cell.displayViewBottom.constant = 35.0
                         cell.bottomSeperatorView.isHidden = false
                     }else{
                         cell.displayViewBottom.constant = 0
