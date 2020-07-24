@@ -87,6 +87,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     var intFareBreakup:IntFareBreakupVC?
     var fareBreakup:FareBreakupVC?
     var navigationContronller: UINavigationController?
+    var innerControllerBottomConstraint: CGFloat = 0.0
     
     //MARK:- Initial Display
     
@@ -122,13 +123,13 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.parchmentView?.view.frame = self.displayView.bounds
+        self.parchmentView?.view.frame.size.height = self.dataDisplayView.height - innerControllerBottomConstraint
         self.parchmentView?.loadViewIfNeeded()
     }
     
     //MARK:- Initialise Views
     func setupInitialViews()
     {
-        initialDisplayView()
         if needToAddFareBreakup{
             if !(self.isInternational){
                 setupFarebreakupView()
@@ -138,21 +139,15 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         }else{
             self.displayViewBottom.constant = 0
         }
+        initialDisplayView()
     }
     
     func initialDisplayView(){
         if isInternational || !(needToAddFareBreakup){
-//            addIntFlightInfoVC()
-//            addIntBaggageVC()
-//            addIntFareInfo()
             allChildVCs.append(addIntFlightInfoVC())
             allChildVCs.append(addIntBaggageVC())
             allChildVCs.append(addIntFareInfo())
         }else{
-                        //            addIntFlightInfoVC()
-            //            addIntBaggageVC()
-            //            addIntFareInfo()
-            
             allChildVCs.append(addFlightInfoVC())
             allChildVCs.append(addBaggageVC())
             allChildVCs.append(addFareInfoVC())
@@ -184,6 +179,8 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         self.addChild(fareBreakupVC)
         fareBreakupVC.didMove(toParent: self)
         self.fareBreakup = fareBreakupVC
+        let bottomSpecing = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+        self.innerControllerBottomConstraint = (fareBreakupVC.view.frame.height - bottomSpecing)
     }
     
     private func setupParchmentPageController(){
@@ -760,6 +757,8 @@ extension FlightDetailsBaseVC{
         self.addChild(vc)
         vc.didMove(toParent: self)
         self.intFareBreakup = vc
+        let bottomSpecing = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+        self.innerControllerBottomConstraint = (vc.view.frame.height - bottomSpecing)
     }
     
     func addIntFlightInfoVC() -> UIViewController {

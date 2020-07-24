@@ -50,31 +50,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         fareInfoTableView.register(UINib(nibName: "IntCombineFareInfoCell", bundle: nil), forCellReuseIdentifier: "IntCombineFareInfoCell")
         fareInfoTableView.alwaysBounceVertical = true
         self.fareInfoTableView.separatorStyle = .none
-
-//        switch UIScreen.main.bounds.height{
-//        case 568: //iPhone SE | 5S
-//            fareInfoTableViewBottom.constant = CGFloat(310 + fewSeatsLeftViewHeight)
-//            break
-//
-//        case 667: //iPhone 8 | 6 | 6s | 7
-//            fareInfoTableViewBottom.constant = CGFloat(210 + fewSeatsLeftViewHeight)
-//            break
-//
-//        case 736: //iPhone 6 Plus | 8 plus | 6s plus | 7 Plus
-//            fareInfoTableViewBottom.constant = CGFloat(145 + fewSeatsLeftViewHeight)
-//            break
-//
-//        case 812: //11 Pro | X | Xs
-//            fareInfoTableViewBottom.constant = CGFloat(98 + fewSeatsLeftViewHeight)
-//            break
-//
-//        case 896: //11 & 11 Pro Max & Xs Max & Xr
-//            fareInfoTableViewBottom.constant = CGFloat(20 + fewSeatsLeftViewHeight)
-//            break
-//
-//        default :
-//            break
-//        }
+        self.fareInfoTableViewBottom.constant = 0.0
         guard let journey = self.journey.first else {return}
         if journey.legsWithDetail.first?.fcp == 0{
             var fareInfo = IntFareInfo(JSON())
@@ -356,7 +332,7 @@ extension IntFareInfoVC{
         changeAirportCell.dataLabelTop.constant = 0
         
         changeAirportCell.dataLabel.attributedText = getAttributedNote()
-        changeAirportCell.seperatorBottom.constant = 45
+        changeAirportCell.seperatorBottom.constant = 35
         changeAirportCell.bottomStrokeHeight.constant = 0.7
         return changeAirportCell
         
@@ -435,7 +411,7 @@ extension IntFareInfoVC{
         changeAirportCell.dataLabel.attributedText = getAttributedNote()
         changeAirportCell.topSeperatorLabelLeading.constant = 16
         changeAirportCell.topSeperatorLabelTop.constant = 12
-        changeAirportCell.seperatorBottom.constant = 45
+        changeAirportCell.seperatorBottom.constant = 35
         return changeAirportCell
 
     }

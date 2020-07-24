@@ -21,7 +21,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qh7-o3-gGx">
-                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="768"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oKV-UF-qI4">
                                         <rect key="frame" x="169.66666666666666" y="6" width="36" height="4"/>
@@ -94,7 +94,7 @@
                                         </constraints>
                                     </view>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vz3-6g-6a5">
-                                        <rect key="frame" x="0.0" y="49" width="375" height="685"/>
+                                        <rect key="frame" x="0.0" y="49" width="375" height="719"/>
                                         <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </view>
                                     <button hidden="YES" opaque="NO" alpha="0.40000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dBs-ZV-1xZ">
@@ -136,7 +136,7 @@
                             <constraint firstItem="Qh7-o3-gGx" firstAttribute="top" secondItem="Kih-BO-mBc" secondAttribute="top" id="Lj3-If-JH9"/>
                             <constraint firstItem="3rX-B2-ENq" firstAttribute="leading" secondItem="7Ln-ti-jno" secondAttribute="leading" id="MJf-ND-vjn"/>
                             <constraint firstItem="3rX-B2-ENq" firstAttribute="top" secondItem="7Ln-ti-jno" secondAttribute="top" id="NzV-51-z7Y"/>
-                            <constraint firstItem="Kih-BO-mBc" firstAttribute="bottom" secondItem="Qh7-o3-gGx" secondAttribute="bottom" id="r0M-Aq-XpR"/>
+                            <constraint firstAttribute="bottom" secondItem="Qh7-o3-gGx" secondAttribute="bottom" id="r0M-Aq-XpR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Kih-BO-mBc"/>
                     </view>

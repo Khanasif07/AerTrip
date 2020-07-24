@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,7 +11,7 @@
         <!--Flight InfoVC-->
         <scene sceneID="EL2-gX-a4x">
             <objects>
-                <viewController storyboardIdentifier="FlightInfoVC" id="dV6-Ln-Xtm" customClass="FlightInfoVC" customModule="Aertrip" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FlightInfoVC" id="dV6-Ln-Xtm" customClass="FlightInfoVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HE1-aQ-eQJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -25,7 +25,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nNM-TQ-0ZR">
-                                <rect key="frame" x="374.66666666666669" y="44" width="0.33333333333331439" height="922"/>
+                                <rect key="frame" x="374.66666666666669" y="44" width="0.33333333333331439" height="956"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="0.5" id="SrX-rg-fNo"/>
@@ -37,7 +37,7 @@
                             <constraint firstItem="Aro-4l-bYV" firstAttribute="bottom" secondItem="kGK-Kf-9ne" secondAttribute="bottom" constant="200" id="015-sL-nvO"/>
                             <constraint firstItem="kGK-Kf-9ne" firstAttribute="top" secondItem="Aro-4l-bYV" secondAttribute="top" id="62z-Kj-QcP"/>
                             <constraint firstItem="nNM-TQ-0ZR" firstAttribute="leading" secondItem="kGK-Kf-9ne" secondAttribute="trailing" id="9uC-xU-PK9"/>
-                            <constraint firstItem="Aro-4l-bYV" firstAttribute="bottom" secondItem="nNM-TQ-0ZR" secondAttribute="bottom" id="MBo-kn-Ixg"/>
+                            <constraint firstAttribute="bottom" secondItem="nNM-TQ-0ZR" secondAttribute="bottom" id="MBo-kn-Ixg"/>
                             <constraint firstItem="Aro-4l-bYV" firstAttribute="trailing" secondItem="nNM-TQ-0ZR" secondAttribute="trailing" id="cPl-oI-7Ac"/>
                             <constraint firstItem="nNM-TQ-0ZR" firstAttribute="top" secondItem="Aro-4l-bYV" secondAttribute="top" id="fQP-14-W16"/>
                             <constraint firstItem="kGK-Kf-9ne" firstAttribute="leading" secondItem="Aro-4l-bYV" secondAttribute="leading" id="naS-os-j1S"/>
