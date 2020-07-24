@@ -13,13 +13,13 @@ extension SeatMapContainerVC: PagingViewControllerDataSource , PagingViewControl
     
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         
-        if let pagingIndexItem = pagingItem as? MenuItem, let text = pagingIndexItem.attributedTitle {
+        if let pagingIndexItem = pagingItem as? LogoMenuItem, let text = pagingIndexItem.attributedTitle {
             
             
             let attText = NSMutableAttributedString(attributedString: text)
             attText.addAttribute(.font, value: AppFonts.SemiBold.withSize(16), range: NSRange(location: 0, length: attText.length))
             let width = attText.widthOfText(50, font: AppFonts.SemiBold.withSize(16))
-            return 85//(width) + 10
+            return width + 50
             
         }
         
@@ -35,12 +35,15 @@ extension SeatMapContainerVC: PagingViewControllerDataSource , PagingViewControl
     }
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
-        return MenuItem(title: "", index: index, isSelected:true, attributedTitle: viewModel.allTabsStr[index])
+        
+        return LogoMenuItem(index: index, isSelected: true, attributedTitle: viewModel.allTabsStr[index], logoUrl: AppConstants.airlineMasterBaseUrl + viewModel.allFlightsData[index].al + ".png")
+        
+//        return MenuItem(title: "", index: index, isSelected:true, attributedTitle: viewModel.allTabsStr[index])
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
         
-        if let pagingIndexItem = pagingItem as? MenuItem {
+        if let pagingIndexItem = pagingItem as? LogoMenuItem {
             viewModel.currentIndex = pagingIndexItem.index
             self.planeLayoutCollView.reloadData()
             DispatchQueue.delay(0.5) {

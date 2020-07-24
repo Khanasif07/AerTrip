@@ -244,8 +244,8 @@ class SeatMapContainerVC: UIViewController {
             height: 0.5,
             zIndex: Int.max - 1,
             insets: UIEdgeInsets(top: 0, left: -400, bottom: 0, right: -400))
-        let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
-        self.parchmentView?.register(nib, for: MenuItem.self)
+        let nib = UINib(nibName: "MenuItemWithLogoCollCell", bundle: nil)
+        self.parchmentView?.register(nib, for: LogoMenuItem.self)
         self.parchmentView?.borderColor = AppColors.themeGray214
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
