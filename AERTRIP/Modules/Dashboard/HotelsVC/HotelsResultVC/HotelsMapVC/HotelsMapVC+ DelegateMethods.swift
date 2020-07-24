@@ -62,6 +62,9 @@ extension HotelsMapVC: UISearchBarDelegate {
 //        } else {
 //            return
 //        }
+        
+        //self.hideSearchAnimation()
+        self.reloadHotelList()
     }
 }
 

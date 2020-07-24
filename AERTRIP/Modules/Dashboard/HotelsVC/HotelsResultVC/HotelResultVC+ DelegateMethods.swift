@@ -42,9 +42,12 @@ extension HotelResultVC: UISearchBarDelegate {
             self.searchForText("", shouldPerformAction: false) //cancel all the previous operation
             self.reloadHotelList()
             noResultemptyView.searchTextLabel.text = ""
+            noResultemptyViewVerticalTableView.searchTextLabel.text = ""
         } else { //else if searchText.count >= AppConstants.kSearchTextLimit {
             noResultemptyView.searchTextLabel.isHidden = false
             noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
+            noResultemptyViewVerticalTableView.searchTextLabel.isHidden = false
+            noResultemptyViewVerticalTableView.searchTextLabel.text = "for \(searchText.quoted)"
             self.viewModel.searchTextStr = searchBar.text ?? ""
             self.searchForText(searchText)
         }
@@ -63,6 +66,8 @@ extension HotelResultVC: UISearchBarDelegate {
 //        } else {
 //            return
 //        }
+        self.hideSearchAnimation()
+        self.reloadHotelList()
     }
 }
 

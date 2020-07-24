@@ -149,6 +149,12 @@ class HotelResultVC: BaseVC {
         return newEmptyView
     }()
     
+    lazy var noResultemptyViewVerticalTableView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noResult
+        return newEmptyView
+    }()
+    
     // No Hotel Found empty View
     lazy var noHotelFoundEmptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
