@@ -6,6 +6,7 @@
 //  Copyright © 2018 Aertrip. All rights reserved.
 //
 #import "FlightFormViewControllerHeader.h"
+#import "AERTRIP-Swift.h"
 
 @interface FlightFormViewController ()< AddFlightPassengerHandler, AddFlightClassHandler, MultiCityFlightCellHandler , FlightViewModelDelegate , BulkBookingFormHandler, UIScrollViewDelegate , UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -466,10 +467,41 @@
 - (void)setupFlightSearchButton {
   
     [self hideLoaderIndicatorForFilghtSearch];
-    [self setCustomButtonViewEnabled:self.flightSearchButton withOuterView:self.flightSearchOuterView];
+   // [self setCustomButtonViewEnabled:self.flightSearchButton withOuterView:self.flightSearchOuterView];
     [self.flightSearchButton addTarget:self action:@selector(flightSearchButtonPressed) forControlEvents:UIControlEventTouchDown];
     [self.flightSearchButton addTarget:self action:@selector(flightSearchButtonReleased) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+    [self.flightSearchButton configureCommonGreenButton];
+    self.flightSearchOuterView.clipsToBounds = NO;
 }
+
+
+- (void)configureCommonGreenButton {
+
+    [self.flightSearchButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.flightSearchButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+    [self.flightSearchButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+
+
+}
+
+// @objc func configureCommonGreenButton() {
+//
+//    self.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+//    self.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+//    self.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
+//
+//    self.setTitleColor(AppColors.themeWhite, for: UIControl.State.normal)
+//    self.setTitleColor(AppColors.themeWhite, for: UIControl.State.selected)
+//    self.setTitleColor(AppColors.themeWhite, for: UIControl.State.highlighted)
+//
+//    self.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+//
+//    self.layer.cornerRadius = self.height / 2
+//    self.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+//    self.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+//    self.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+//
+//}
 
 - (void)flightSearchButtonPressed
 {

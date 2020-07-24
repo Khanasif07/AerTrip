@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ATButton: UIButton {
+@objc class ATButton: UIButton {
     
     enum ActionState {
         case pressing
@@ -32,7 +32,7 @@ class ATButton: UIButton {
     private(set) var currentActionState: ActionState = ActionState.released
     
     //MARK:- Public
-    var shadowColor: UIColor = AppColors.themeGreen {
+    var shadowColor: UIColor = AppColors.themeBlack.withAlphaComponent(0.16) {
         didSet {
             self.layoutSubviews()
         }
@@ -376,6 +376,28 @@ class ATButton: UIButton {
             _selectedFont = font
         }
     }
+    
+    
+     @objc func configureCommonGreenButton() {
+       
+        self.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+        self.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+        self.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
+        
+        self.setTitleColor(AppColors.themeWhite, for: UIControl.State.normal)
+        self.setTitleColor(AppColors.themeWhite, for: UIControl.State.selected)
+        self.setTitleColor(AppColors.themeWhite, for: UIControl.State.highlighted)
+
+        self.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        
+        self.layer.cornerRadius = self.height / 2
+        self.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+        self.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+        self.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        
+    }
+    
+    
 }
 
 
