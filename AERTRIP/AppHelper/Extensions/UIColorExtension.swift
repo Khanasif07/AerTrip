@@ -63,6 +63,8 @@ extension UIColor{
 
 extension UIColor {
     
+    @objc static var themeBlack : UIColor  { return UIColor(red: 0/255.0 , green:0/255.0 , blue:0/255.0 , alpha:1) }
+    
     @objc static var appColor : UIColor  { return UIColor(red: 0/255.0 , green:204/255.0 , blue:153/255.0 , alpha:1) }
     @objc static var OffWhiteColor : UIColor  { return UIColor(red: 246/255.0 , green:246/255.0 , blue:246/255.0 , alpha:1) }
     @objc static var AertripColor : UIColor  { return UIColor(red: 0/255.0 , green:204/255.0 , blue:153/255.0 , alpha:1) }

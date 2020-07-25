@@ -467,41 +467,18 @@
 - (void)setupFlightSearchButton {
   
     [self hideLoaderIndicatorForFilghtSearch];
-   // [self setCustomButtonViewEnabled:self.flightSearchButton withOuterView:self.flightSearchOuterView];
+    [self setCustomButtonView:self.flightSearchButton withOuterView:self.flightSearchOuterView];
     [self.flightSearchButton addTarget:self action:@selector(flightSearchButtonPressed) forControlEvents:UIControlEventTouchDown];
     [self.flightSearchButton addTarget:self action:@selector(flightSearchButtonReleased) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
     [self.flightSearchButton configureCommonGreenButton];
-    self.flightSearchOuterView.clipsToBounds = NO;
 }
 
-
-- (void)configureCommonGreenButton {
-
-    [self.flightSearchButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.flightSearchButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-    [self.flightSearchButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-
-
+- (void)setCustomButtonView:(UIButton *)button withOuterView:(UIView *)outerView {
+    outerView.layer.shadowOpacity = BUTTON_RELEASED_SHADOW_OPACITY;
+    [self setRoundedCornerWithShadowToButton:button outerView:outerView shadowColor:[[UIColor themeBlack] colorWithAlphaComponent:0.2]];
+//    [self applyGradientLayerToButton:button startColor:[UIColor BLUE_GREEN_COLOR] endColor:[UIColor GREEN_BLUE_COLOR]];
 }
 
-// @objc func configureCommonGreenButton() {
-//
-//    self.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
-//    self.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
-//    self.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
-//
-//    self.setTitleColor(AppColors.themeWhite, for: UIControl.State.normal)
-//    self.setTitleColor(AppColors.themeWhite, for: UIControl.State.selected)
-//    self.setTitleColor(AppColors.themeWhite, for: UIControl.State.highlighted)
-//
-//    self.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
-//
-//    self.layer.cornerRadius = self.height / 2
-//    self.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
-//    self.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
-//    self.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
-//
-//}
 
 - (void)flightSearchButtonPressed
 {

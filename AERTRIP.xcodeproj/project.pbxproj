@@ -36,6 +36,7 @@
 		0C0AB202247C439F005E5E99 /* SelectBagageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB200247C439F005E5E99 /* SelectBagageCell.swift */; };
 		0C0AB203247C439F005E5E99 /* SelectBagageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C0AB201247C439F005E5E99 /* SelectBagageCell.xib */; };
 		0C0B231524210CD700E1764D /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C0B231424210CD700E1764D /* Chat.storyboard */; };
+		0C1238DF24CB25D1004828AE /* FlightFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3162474022F001F21B1 /* FlightFormViewController.m */; };
 		0C14B8FB249343EA00C2D19A /* SelectOtherAdonsContainerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C14B8FA249343EA00C2D19A /* SelectOtherAdonsContainerVM.swift */; };
 		0C162AC8242337E9001C2B10 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162AC7242337E9001C2B10 /* MessageModel.swift */; };
 		0C162ACC24233AC5001C2B10 /* ChatVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */; };
@@ -801,7 +802,6 @@
 		843FF48824740230001F21B1 /* MulticityFlightLeg.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FF30D2474022F001F21B1 /* MulticityFlightLeg.m */; };
 		843FF48924740230001F21B1 /* FlightForm.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843FF3142474022F001F21B1 /* FlightForm.storyboard */; };
 		843FF48A24740230001F21B1 /* RecentSearchCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3152474022F001F21B1 /* RecentSearchCellCollectionViewCell.swift */; };
-		843FF48B24740230001F21B1 /* FlightFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3162474022F001F21B1 /* FlightFormViewController.m */; };
 		843FF48C24740230001F21B1 /* TravellerCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3182474022F001F21B1 /* TravellerCount.swift */; };
 		843FF48D24740230001F21B1 /* AirlineSearchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FF31A2474022F001F21B1 /* AirlineSearchModel.m */; };
 		843FF48E24740230001F21B1 /* FlightAddPassenger.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843FF31D2474022F001F21B1 /* FlightAddPassenger.storyboard */; };
@@ -10000,6 +10000,7 @@
 				84BBFF8224C9D2AB008010EB /* ADEventFilterVM.swift in Sources */,
 				84827652223A6DBD007B6A27 /* GuestDetailsVM.swift in Sources */,
 				1879C49B2292BD2600897CED /* DownloadInvoiceTableViewCell.swift in Sources */,
+				0C1238DF24CB25D1004828AE /* FlightFormViewController.m in Sources */,
 				84085CE321F59C0E00F1E844 /* SuccessPopupVC.swift in Sources */,
 				841AA5102474496600B66720 /* MARKRangeSlider+Extension.swift in Sources */,
 				189EF58822B7B7C600D5E055 /* AdditionalInformationModel.swift in Sources */,
@@ -10335,7 +10336,6 @@
 				84085CF821F59C0E00F1E844 /* AddFavouriteHotels.swift in Sources */,
 				8472F20123E3FE6C00993B08 /* HotelsMapVC.swift in Sources */,
 				84698FD421FB1E9B00A4A1F7 /* PKFloatLabelTextField.swift in Sources */,
-				843FF48B24740230001F21B1 /* FlightFormViewController.m in Sources */,
 				843FF54524740232001F21B1 /* smartIconHeaderView.swift in Sources */,
 				843FF4FF24740231001F21B1 /* IntJourneyHeaderView.swift in Sources */,
 				182EB218228580B5001BFB20 /* EmptyDividerViewCellTableViewCell.swift in Sources */,
