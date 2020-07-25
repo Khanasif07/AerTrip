@@ -60,32 +60,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         fareInfoTableView.register(UINib(nibName: "ChangeAirportTableViewCell", bundle: nil), forCellReuseIdentifier: "ChangeAirportCell")
         fareInfoTableView.register(UINib(nibName: "CombineFareInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "CombineFareInfoCell")
         fareInfoTableView.alwaysBounceVertical = true
-
-        switch UIScreen.main.bounds.height{
-        case 568: //iPhone SE | 5S
-            fareInfoTableViewBottom.constant = CGFloat(310 + fewSeatsLeftViewHeight)
-            break
-            
-        case 667: //iPhone 8 | 6 | 6s | 7
-            fareInfoTableViewBottom.constant = CGFloat(210 + fewSeatsLeftViewHeight)
-            break
-            
-        case 736: //iPhone 6 Plus | 8 plus | 6s plus | 7 Plus
-            fareInfoTableViewBottom.constant = CGFloat(145 + fewSeatsLeftViewHeight)
-            break
-            
-        case 812: //11 Pro | X | Xs
-            fareInfoTableViewBottom.constant = CGFloat(98 + fewSeatsLeftViewHeight)
-            break
-            
-        case 896: //11 & 11 Pro Max & Xs Max & Xr
-            fareInfoTableViewBottom.constant = CGFloat(20 + fewSeatsLeftViewHeight)
-            break
-            
-        default :
-            break
-        }
-        
+        self.fareInfoTableViewBottom.constant = 0.0
         if journey != nil{
             if journey.count > 1{
                 isReturnJourney = true
@@ -153,7 +128,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             changeAirportCell.dataLabelTop.constant = 0
             
             changeAirportCell.dataLabel.attributedText = getAttributedNote()
-            changeAirportCell.seperatorBottom.constant = 65
+            changeAirportCell.seperatorBottom.constant = 35
             changeAirportCell.bottomStrokeHeight.constant = 0.7
             return changeAirportCell
         }else{
@@ -257,7 +232,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     changeAirportCell.dataLabel.attributedText = getAttributedNote()
                     changeAirportCell.topSeperatorLabelLeading.constant = 16
                     changeAirportCell.topSeperatorLabelTop.constant = 12
-                    changeAirportCell.seperatorBottom.constant = 65
+                    changeAirportCell.seperatorBottom.constant = 35
                     return changeAirportCell
                 }else{
                     let fareInfoCell = tableView.dequeueReusableCell(withIdentifier: "CombineFareInfoCell") as! CombineFareInfoTableViewCell

@@ -82,34 +82,7 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
         flightInfoTableView.register(UINib(nibName: "FlightDetailsTableViewCell", bundle: nil), forCellReuseIdentifier: "FlightDetailsCell")
         flightInfoTableView.register(UINib(nibName: "LayoverViewTableViewCell", bundle: nil), forCellReuseIdentifier: "LayoverViewCell")
         flightInfoTableView.register(UINib(nibName: "ChangeAirportTableViewCell", bundle: nil), forCellReuseIdentifier: "ChangeAirportCell")
-        
-
-        //        flightInfoTableView.sectionFooterHeight = .zero
-
-        switch UIScreen.main.bounds.height{
-                case 568: //iPhone SE | 5S
-                    flightInfoTableViewBottom.constant = CGFloat(310 + fewSeatsLeftViewHeight)
-                    break
-                    
-                case 667: //iPhone 8 | 6 | 6s | 7
-                    flightInfoTableViewBottom.constant = CGFloat(210 + fewSeatsLeftViewHeight)
-                    break
-                    
-                case 736: //iPhone 6 Plus | 8 plus | 6s plus | 7 Plus
-                    flightInfoTableViewBottom.constant = CGFloat(145 + fewSeatsLeftViewHeight)
-                    break
-                    
-                case 812: //11 Pro | X | Xs
-                    flightInfoTableViewBottom.constant = CGFloat(98 + fewSeatsLeftViewHeight)
-                    break
-                    
-                case 896: //11 & 11 Pro Max & Xs Max & Xr
-                    flightInfoTableViewBottom.constant = CGFloat(20 + fewSeatsLeftViewHeight)
-                    break
-                    
-                default :
-                    break
-                }
+        self.flightInfoTableViewBottom.constant = 0.0
     }
     
     //MARK:- Get Flight Info
@@ -699,26 +672,30 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                         let totalRow = tableView.numberOfRows(inSection: indexPath.section)
                         if totalRow == 1{
                             flightDetailsCell.bottomSeperatorView.isHidden = false
-                            if journey[indexPath.section].fsr == 1{
-                                flightDetailsCell.displayViewBottom.constant = 45
-                            }else{
-                                if indexPath.section == journey.count - 1{
-                                    flightDetailsCell.displayViewBottom.constant = 60
-                                }else{
-                                    flightDetailsCell.displayViewBottom.constant = 40
-                                }
-                            }
+//                            if journey[indexPath.section].fsr == 1{
+//                                flightDetailsCell.displayViewBottom.constant = 35
+//                            }else{
+//                                if indexPath.section == journey.count - 1{
+//                                    flightDetailsCell.displayViewBottom.constant = 35
+//                                }else{
+//                                    flightDetailsCell.displayViewBottom.constant = 35
+//                                }
+//                            }
+                            flightDetailsCell.displayViewBottom.constant = 35
                         }else if(indexPath.row == totalRow-1){
-                            if journey[indexPath.section].fsr == 1{
-                                flightDetailsCell.displayViewBottom.constant = 70
-                            }else{
-                                flightDetailsCell.displayViewBottom.constant = 65
-                            }
+//                            if journey[indexPath.section].fsr == 1{
+//                                flightDetailsCell.displayViewBottom.constant = 35
+//                            }else{
+//                                flightDetailsCell.displayViewBottom.constant = 35
+//                            }
+                            flightDetailsCell.displayViewBottom.constant = 35
                             flightDetailsCell.bottomSeperatorView.isHidden = false
                         }else{
                             flightDetailsCell.displayViewBottom.constant = 0
                             flightDetailsCell.bottomSeperatorView.isHidden = true
                         }
+                        
+                        
                         
                         if indexPath.section == 0 && indexPath.row == 0{
                             flightDetailsCell.topSeperatorViewHeight.constant = 0

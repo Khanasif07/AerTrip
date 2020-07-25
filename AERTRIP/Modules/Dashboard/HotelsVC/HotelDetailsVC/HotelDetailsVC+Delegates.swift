@@ -182,8 +182,10 @@ extension HotelDetailsVC: HotelDetailDelegate {
     }
     
     func getPinnedTemplateSuccess() {
-        self.needToShowLoaderOnShare = false
-        self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
+        delay(seconds: 0.3) {
+            self.needToShowLoaderOnShare = false
+            self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
+        }
 //        AppGlobals.shared.stopLoading()
     }
     
@@ -510,13 +512,17 @@ extension HotelDetailsVC: HotelDetailAmenitiesCellDelegate {
 extension HotelDetailsVC: HotelRatingInfoCellDelegate {
     func shareButtonAction(_ sender: UIButton) {
         if !self.viewModel.shareLinkURL.isEmpty{
-            AppGlobals.shared.shareWithActivityViewController(VC: self , shareData: self.viewModel.shareLinkURL)
+            DispatchQueue.main.async {
+                AppGlobals.shared.shareWithActivityViewController(VC: self , shareData: self.viewModel.shareLinkURL)
+            }
         } else {
             self.viewModel.getShareLinkAPI {[weak self] (sucess) in
                 guard let strongSelf = self else {return}
                 if sucess {
                     if !strongSelf.viewModel.shareLinkURL.isEmpty{
-                        AppGlobals.shared.shareWithActivityViewController(VC: strongSelf , shareData: strongSelf.viewModel.shareLinkURL)
+                       DispatchQueue.main.async {
+                            AppGlobals.shared.shareWithActivityViewController(VC: strongSelf, shareData: strongSelf.viewModel.shareLinkURL)
+                        }
                     }
                 }
             }

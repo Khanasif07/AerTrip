@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BaggageVC" customModule="Aertrip" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BaggageVC" customModule="AERTRIP" customModuleProvider="target">
             <connections>
                 <outlet property="baggageTableView" destination="gT2-vO-MqL" id="FRA-hS-AMJ"/>
                 <outlet property="baggageTableViewBottom" destination="rqH-IN-h6e" id="vxc-9D-UQu"/>
@@ -44,7 +44,7 @@
                 <constraint firstItem="gT2-vO-MqL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Utm-Sy-CH8"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cHb-yZ-rXj" secondAttribute="trailing" id="j4K-d8-6zx"/>
                 <constraint firstItem="cHb-yZ-rXj" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="jw8-3a-21l"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="gT2-vO-MqL" secondAttribute="bottom" id="rqH-IN-h6e"/>
+                <constraint firstAttribute="bottom" secondItem="gT2-vO-MqL" secondAttribute="bottom" id="rqH-IN-h6e"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="136.875" y="154.22535211267606"/>

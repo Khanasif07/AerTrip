@@ -90,7 +90,10 @@ struct  WhatNext {
     var rooms: [RoomPassengerData]
     var checkin, destName: String
     var origin, totalLegs, adult, infant, depart, destination,tripType, cabinclass,child : String
+    var returnDate: String
     var productType:ProductType
+    var departCity:String
+    var arrivalCity:String
     
     init(_ json:JSON = JSON()){
         star = json["star"].stringValue
@@ -112,6 +115,9 @@ struct  WhatNext {
         tripType = json["trip_type"].stringValue
         cabinclass = json["cabinclass"].stringValue
         child = json["child"].stringValue
+        returnDate = json["return"].stringValue
+        departCity = json["depart_city"].stringValue
+        arrivalCity = json["arrival_city"].stringValue
         productType = ProductType.getTypeFrom(self.prodcut)
     }
 
