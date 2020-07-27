@@ -118,12 +118,14 @@ class PassengerSelectionVM  {
             guest.countryCode = "IN"
             temp.append(guest)
         }
+        self.setupLoginData()
         GuestDetailsVM.shared.guests.append(temp)
         GuestDetailsVM.shared.canShowSalutationError = false
     }
     
     func setupLoginData(){
-        self.journeyType = (self.bookingObject?.isDomestic ?? true) ? .domestic : .international
+        self.journeyType = (self.itineraryData.itinerary.isInternational) ? .international : .domestic
+        self.bookingObject?.isDomestic = (!self.itineraryData.itinerary.isInternational)
         if let userInfo = UserInfo.loggedInUser{
             self.email = userInfo.email
             self.mobile = userInfo.mobile

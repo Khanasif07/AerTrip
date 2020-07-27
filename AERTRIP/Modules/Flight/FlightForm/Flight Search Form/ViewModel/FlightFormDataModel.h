@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class FlightClass; 
 @class BookFlightObject;
-
+@class FlightWhatNextData;
 
 @protocol FlightViewModelDelegate
 -(void)showErrorMessage:(NSString*)errorMessage;

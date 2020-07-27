@@ -198,6 +198,9 @@ extension YouAreAllDoneVC {
         } else {
             cell.whatNextStackView.isHidden = true
         }
+        cell.selectedWhatNext = {[weak self] index in
+            self?.tapOnSeletedWhatNext(index: index)
+        }
         return cell
     }
 }

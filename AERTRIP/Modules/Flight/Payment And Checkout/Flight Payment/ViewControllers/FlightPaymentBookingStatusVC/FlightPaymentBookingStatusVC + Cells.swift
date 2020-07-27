@@ -146,7 +146,7 @@ extension FlightPaymentBookingStatusVC{
     
     private func tapOnSeletedWhatNext(index: Int){
         switch self.viewModel.itinerary.whatNext[index].productType{
-        case .flight: break;
+        case .flight: self.bookFlightFor(self.viewModel.itinerary.whatNext[index])
         case .hotel: self.bookAnotherRoom(self.viewModel.itinerary.whatNext[index])
         default: break;
         }
@@ -175,6 +175,12 @@ extension FlightPaymentBookingStatusVC{
         }
     }
     
+    func bookFlightFor(_ whatNext:WhatNext){
+        FlightWhatNextData.shared.isSettingForWhatNext = true
+        FlightWhatNextData.shared.whatNext = whatNext
+        AppFlowManager.default.goToDashboard(toBeSelect: .flight)
+        
+    }
     
 }
 

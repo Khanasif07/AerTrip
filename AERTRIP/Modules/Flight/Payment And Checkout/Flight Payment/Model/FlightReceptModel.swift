@@ -113,12 +113,26 @@ struct  WhatNext {
         depart = json["depart"].stringValue
         destination = json["destination"].stringValue
         tripType = json["trip_type"].stringValue
-        cabinclass = json["cabinclass"].stringValue
+        cabinclass = json["cabinclass"].stringValue.capitalized
         child = json["child"].stringValue
         returnDate = json["return"].stringValue
         departCity = json["depart_city"].stringValue
         arrivalCity = json["arrival_city"].stringValue
         productType = ProductType.getTypeFrom(self.prodcut)
+        switch productType{
+        case .flight:
+            self.returnDate = self.returnDate.toDate(dateFormat: "yyyy-MM-dd")?.toString(dateFormat: "dd-MM-yyyy") ?? ""
+            self.depart = self.depart.toDate(dateFormat: "yyyy-MM-dd")?.toString(dateFormat: "dd-MM-yyyy") ?? ""
+        case .hotel: break;
+        case .other: break;
+            
+            
+        }
+        
+        
+        if Int(adult) == nil && Int(child) == nil{
+            self.adult = "2"
+        }
     }
 
 }

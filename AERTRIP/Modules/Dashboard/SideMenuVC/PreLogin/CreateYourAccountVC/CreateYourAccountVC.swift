@@ -54,13 +54,14 @@ class CreateYourAccountVC: BaseVC {
         
         self.view.backgroundColor = AppColors.screensBackground.color
         self.registerButton.isEnabled = false
+        self.registerButton.configureCommonGreenButton()
         self.emailTextField.delegate  = self
         self.emailTextField.text = self.viewModel.email
         self.emailTextField.autocorrectionType = .no
         self.registerButton.isEnabled = self.viewModel.isEnableRegisterButton
-        self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
-        self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
-        self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
+//        self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+//        self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+//        self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
 
         self.linkSetupForTermsAndCondition(withLabel: self.privacyPolicyLabel)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
@@ -116,8 +117,8 @@ class CreateYourAccountVC: BaseVC {
         self.notRegisterYetLabel.textColor = AppColors.themeBlack
         self.headerTitleLabel.textColor = AppColors.themeBlack
         self.loginHereButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        self.registerButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
-        self.registerButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+//        self.registerButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+//        self.registerButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
     }
     
     override func bindViewModel() {

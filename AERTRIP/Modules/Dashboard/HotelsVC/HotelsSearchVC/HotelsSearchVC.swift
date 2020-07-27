@@ -92,17 +92,18 @@ class HotelsSearchVC: BaseVC {
         self.shadowSetUp()
         self.containerView.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         self.scrollView.delegate = self
-        self.searchBtnOutlet.layer.cornerRadius = 25.0
-        self.searchBtnOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
-        self.searchBtnOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
-        self.searchBtnOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
-        self.searchBtnOutlet.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
-        self.searchBtnOutlet.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+        self.searchBtnOutlet.configureCommonGreenButton()
+//        self.searchBtnOutlet.layer.cornerRadius = 25.0
+//        self.searchBtnOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+//        self.searchBtnOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+//        self.searchBtnOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
+//        self.searchBtnOutlet.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+//        self.searchBtnOutlet.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         self.configureCheckInOutView()
         self.configureRecentSearchesView()
         self.hideRecentSearchesView()
-        self.searchBtnOutlet.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
-        self.searchBtnOutlet.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+//        self.searchBtnOutlet.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+//        self.searchBtnOutlet.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         
         
         //        for btn in self.starButtonsOutlet {

@@ -18,7 +18,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 @class BookFlightObject;
-
+@class FlightWhatNextData;
 
 @interface FlightFormDataModel () <AirportSelctionHandler, CalendarDataHandler   ,CLLocationManagerDelegate>
 
@@ -919,6 +919,11 @@
 
 -(void)performNearbyAirportsByLocation:(CLLocation*)location
 {
+    ///Chnage for what next functionality by @Golu
+    if ([FlightWhatNextData.shared isSettingForWhatNext]){
+        return;
+    }
+    ///end
     [self.locationManager stopUpdatingLocation];
     
     NSString* latitudeLongituteString = [NSString stringWithFormat:@"?latitude=%.8f&longitude=%.8f",location.coordinate.latitude,location.coordinate.longitude];
@@ -964,7 +969,11 @@
 
 -(void)defaultCityForForm
 {
-    
+    ///Chnage for what next functionality by @Golu
+    if ([FlightWhatNextData.shared isSettingForWhatNext]){
+        return;
+    }
+    ///end
     NSString *filepath = [[NSBundle mainBundle] pathForResource:@"popularAirports" ofType:@"json"];
     
     NSError *error= NULL;
@@ -1209,12 +1218,20 @@
 
 
 -(void)getRecentSearches{
+    ///Chnage for what next functionality by @Golu
+    if([FlightWhatNextData.shared isSettingForWhatNext]){
+          [self handleWhatNext];
+      }
+    ///end
         NSMutableDictionary *parametersDynamic = [[NSMutableDictionary alloc] init];
     [parametersDynamic setObject:@"flight" forKey:@"product"];
     
     [[Network sharedNetwork] callGETApi:RECENT_SEARCH_GET_API parameters:parametersDynamic loadFromCache:NO expires:YES success:^(NSDictionary *dataDictionary) {
         [self handleRecentSearchWSResponse:dataDictionary];
     } failure:^(NSString *error, BOOL popup) {
+        ///Chnage for what next functionality by @Golu
+        [FlightWhatNextData.shared clearData];
+        ///end
     }];
 
 }
@@ -1308,7 +1325,12 @@
     NSDictionary * airportsDictionary = [extraData valueForKey:@"airports"];
     [self.recentSearchArray removeAllObjects];
     [self.recentSearchArray addObjectsFromArray:recentSearchArray];
-    
+    ///Chnage for what next functionality by @Golu
+    if([FlightWhatNextData.shared isSettingForWhatNext]){
+        [FlightWhatNextData.shared clearData];
+        return;
+    }
+    ///end
     if ( self.recentSearchArray.count > 0 ) {
 
         //  Fetch origin and destination airport and update UI
@@ -1555,5 +1577,66 @@
 
     return CGSizeMake(width, 75.0);
 }
+
+
+//MARK: What Next data set functions @Golu.
+-(void)handleWhatNext{
+    
+    NSDictionary * query = [FlightWhatNextData.shared getSeatchDictionary];
+    NSString * origin = [query valueForKey:@"origin"];
+    NSString * departDateString =[query valueForKey:@"depart"];
+    NSString * returnDateString =[query valueForKey:@"return"];
+    
+    NSString * destination = [query valueForKey:@"destination"];
+    NSString * tripType = [query valueForKey:@"trip_type"];
+    
+    
+    // Setting up Traveller details
+    self.travellerCount.flightAdultCount = [[query valueForKey:@"adult"] intValue];
+    self.travellerCount.flightChildrenCount = [[query valueForKey:@"child"] intValue];
+    self.travellerCount.flightInfantCount = [[query valueForKey:@"infant"] intValue];
+    
+    [self.delegate setupPassengerCountView];
+    
+    // Setting up travel class
+    
+    self.flightClass = [self flightClassForString:[query valueForKey:@"cabinclass"]];
+    [self.delegate setupFlightClassType];
+    
+    
+    // Fetch origin airport
+    [self setFlightFormUIFromWhatNext:destination origin:origin];
+    
+    // setting dates on Flight form UI
+    [self setFlightFormUIForOnwardDate:departDateString returnDateString:returnDateString tripType:tripType];
+    
+    [self.delegate setupFlightViews];
+    [self.delegate updateRecentSearch];
+    
+}
+
+
+- (void)setFlightFormUIFromWhatNext: (NSString *)destination origin:(NSString *)origin {
+    NSMutableArray * airportsArray = [NSMutableArray array];
+    NSDictionary * flightNextParam = [FlightWhatNextData.shared getSeatchDictionary];
+    
+    AirportSearch *airportSearch = [AirportSearch new];
+    airportSearch.iata = [flightNextParam valueForKey:@"origin"];
+    airportSearch.city = [flightNextParam valueForKey: @"departCity"];
+    airportSearch.countryCode = @"";
+    [airportsArray addObject: airportSearch];
+    self.fromFlightArray = [NSMutableArray arrayWithArray:airportsArray];
+
+    // Fetch destination airport
+    airportsArray = [NSMutableArray array];
+    AirportSearch *airportSearchReturn = [AirportSearch new];
+    airportSearchReturn.iata = [flightNextParam valueForKey:@"destination"];
+    airportSearchReturn.city = [flightNextParam valueForKey: @"arrivalCity"];
+    airportSearchReturn.countryCode = @"";
+    [airportsArray addObject: airportSearchReturn];
+    self.toFlightArray = [NSMutableArray arrayWithArray:airportsArray];
+    [self.delegate setupFromAndToView];
+}
+
 
 @end
