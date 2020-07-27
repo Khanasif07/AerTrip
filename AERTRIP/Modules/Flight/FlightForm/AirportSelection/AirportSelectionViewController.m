@@ -142,6 +142,14 @@
     [self startlocationService];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.searchWorkItem) {
+        dispatch_block_cancel(self.searchWorkItem);
+        self.searchWorkItem = nil;
+    }
+}
+
 -(void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     self.bottomHeightConstraint.constant = 50 + self.view.safeAreaInsets.bottom;
@@ -373,6 +381,11 @@
     }];
 }
 - (void)animateBottomViewOut {
+    
+    if (self.searchWorkItem) {
+        dispatch_block_cancel(self.searchWorkItem);
+        self.searchWorkItem = nil;
+    }
     
     if (@available(iOS 13.0, *)) {
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -923,14 +936,34 @@
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     
+     dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0);
+    if (self.searchWorkItem) {
+        dispatch_block_cancel(self.searchWorkItem);
+        self.searchWorkItem = nil;
+    }
+    __weak typeof(self) weakSelf = self;
+    self.searchWorkItem = dispatch_block_create(0, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf sendSearchRequest];
+        });
+        weakSelf.searchWorkItem = nil;
+    });
+    
     if ([searchText length] > 1 ){
         self.dictationButton.hidden = YES;
         
         self.NoResultLabel.text = @"Searching..";
-        [self performSelector:@selector(sendSearchRequest) withObject:searchText afterDelay:0.35f];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), queue, self.searchWorkItem);
+        
+//        [self performSelector:@selector(sendSearchRequest) withObject:searchText afterDelay:0.35f];
     }else {
+        if ([searchText length] > 0) {
+            self.dictationButton.hidden = YES;
+        } else {
+            self.dictationButton.hidden = NO;
+        }
         [self hideTableViewHeader:YES];
-        self.dictationButton.hidden = NO;
     }
     
     if ([searchText length] == 0 ){
