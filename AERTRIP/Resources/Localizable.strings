@@ -483,6 +483,8 @@
 "UnfavouriteAll" = "Unfavourite all";
 "UnfavouriteAllMessage" = "This action will unfavourite all the favorite hotels and cannot be undone.";
 "Unfavourite" = "Unfavourite";
+"ShowingResultsFor" = "Showing results for";
+"Clear" = "Clear";
 
 "ContactUsAertrip" = "Have a question? Contact us : support@aertrip.com";
 //"CopyrightAertrip" = "2012 Aertrip. All Rights Reserved.";

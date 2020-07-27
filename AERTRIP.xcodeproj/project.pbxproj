@@ -1349,6 +1349,8 @@
 		8491D1FC222D3FC2001D0313 /* SourceSansPro-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8491D1E9222D3FC1001D0313 /* SourceSansPro-Italic.ttf */; };
 		8491D1FD222D3FC2001D0313 /* AERTRIP.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8491D1EA222D3FC1001D0313 /* AERTRIP.xcdatamodeld */; };
 		8493CD4D2240E0A30073A679 /* YouAreAllDoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8493CD4C2240E0A30073A679 /* YouAreAllDoneVC.swift */; };
+		84947A9D24CE9AC90084E27E /* HotelSearchResultHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84947A9C24CE9AC90084E27E /* HotelSearchResultHeaderView.swift */; };
+		84947A9F24CE9AD60084E27E /* HotelSearchResultHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84947A9E24CE9AD60084E27E /* HotelSearchResultHeaderView.xib */; };
 		8495132622BA74B800938CB0 /* SourceSansPro-Regular.woff in Resources */ = {isa = PBXBuildFile; fileRef = 8495132322BA74B400938CB0 /* SourceSansPro-Regular.woff */; };
 		8495132722BA74B800938CB0 /* SourceSansPro-Regular.eot in Resources */ = {isa = PBXBuildFile; fileRef = 8495132422BA74B600938CB0 /* SourceSansPro-Regular.eot */; };
 		8495132822BA74B800938CB0 /* SourceSansPro-Regular.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8495132522BA74B700938CB0 /* SourceSansPro-Regular.svg */; };
@@ -3108,6 +3110,8 @@
 		8491D1E9222D3FC1001D0313 /* SourceSansPro-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Italic.ttf"; sourceTree = "<group>"; };
 		8491D1EB222D3FC1001D0313 /* AERTRIP.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AERTRIP.xcdatamodel; sourceTree = "<group>"; };
 		8493CD4C2240E0A30073A679 /* YouAreAllDoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouAreAllDoneVC.swift; sourceTree = "<group>"; };
+		84947A9C24CE9AC90084E27E /* HotelSearchResultHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelSearchResultHeaderView.swift; sourceTree = "<group>"; };
+		84947A9E24CE9AD60084E27E /* HotelSearchResultHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelSearchResultHeaderView.xib; sourceTree = "<group>"; };
 		8495132322BA74B400938CB0 /* SourceSansPro-Regular.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.woff"; sourceTree = "<group>"; };
 		8495132422BA74B600938CB0 /* SourceSansPro-Regular.eot */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.eot"; sourceTree = "<group>"; };
 		8495132522BA74B700938CB0 /* SourceSansPro-Regular.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "SourceSansPro-Regular.svg"; sourceTree = "<group>"; };
@@ -4484,6 +4488,7 @@
 		188E9309221A8CCA008FE50A /* HotelResults */ = {
 			isa = PBXGroup;
 			children = (
+				84947A9B24CE9A0D0084E27E /* HotelSearchResultHeaderView */,
 				8463A5732456D49800C70D8C /* HotelResultsScreen */,
 				842EDE872238E81A00E99409 /* HotelResultHeaderView */,
 				18C31F052227CAD80052162C /* MailComposer */,
@@ -7953,6 +7958,15 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
+		84947A9B24CE9A0D0084E27E /* HotelSearchResultHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				84947A9C24CE9AC90084E27E /* HotelSearchResultHeaderView.swift */,
+				84947A9E24CE9AD60084E27E /* HotelSearchResultHeaderView.xib */,
+			);
+			path = HotelSearchResultHeaderView;
+			sourceTree = "<group>";
+		};
 		84956FB721B65C4300BF1183 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -9339,6 +9353,7 @@
 				846856AD2233A482001B9E13 /* AdvisorRatingTableViewCell.xib in Resources */,
 				18DEFE8324A1A98500E64260 /* RetryView.xib in Resources */,
 				84FABD68228569520066CEB0 /* AccountDepositAmountCell.xib in Resources */,
+				84947A9F24CE9AD60084E27E /* HotelSearchResultHeaderView.xib in Resources */,
 				18999D8F21E48D6500E66072 /* OrderTableViewCell.xib in Resources */,
 				0C00EDDD247D23E800DDFD10 /* BagageSectionHeaderView.xib in Resources */,
 				846FB584222509D3007F70F9 /* Common.storyboard in Resources */,
@@ -9728,6 +9743,7 @@
 				843FF52824740231001F21B1 /* DomesticMultiLegTemplateCell.swift in Sources */,
 				84D54F7D23E3FC620002B504 /* MenuItemCollectionCell.swift in Sources */,
 				8438B440245AB1B600F7320B /* FlightBookingInfoVC.swift in Sources */,
+				84947A9D24CE9AC90084E27E /* HotelSearchResultHeaderView.swift in Sources */,
 				84085CE521F59C0E00F1E844 /* CreateProfileVC.swift in Sources */,
 				84085D1421F59C0E00F1E844 /* ViewProfileDetailVM.swift in Sources */,
 				8472F21F23E4568300993B08 /* HotelResultVC+UICollectionView.swift in Sources */,
@@ -10904,7 +10920,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 108;
+				CURRENT_PROJECT_VERSION = 109;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11113,7 +11129,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 108;
+				CURRENT_PROJECT_VERSION = 109;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;

@@ -62,7 +62,7 @@
                                     <constraint firstAttribute="height" constant="128" id="dJQ-Yw-pNi"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Residency Hotel, Fort" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QU2-8M-2gD">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="251" text="Residency Hotel, Fort" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QU2-8M-2gD">
                                 <rect key="frame" x="16" y="158" width="350" height="28"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -108,7 +108,7 @@
                                         <rect key="frame" x="93" y="0.0" width="100" height="22"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviser" translatesAutoresizingMaskIntoConstraints="NO" id="1hw-PQ-deH">
-                                                <rect key="frame" x="0.0" y="-10" width="32" height="17"/>
+                                                <rect key="frame" x="0.0" y="-10" width="32" height="19"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="32" id="AHp-7v-Czr"/>
                                                 </constraints>
@@ -213,6 +213,6 @@
         <image name="saveHotelsSelected" width="27" height="30"/>
         <image name="starRatingFilledShadow" width="15" height="20"/>
         <image name="starRatingUnfillShadow" width="15" height="20"/>
-        <image name="tripAdviser" width="31" height="17"/>
+        <image name="tripAdviser" width="25" height="19"/>
     </resources>
 </document>

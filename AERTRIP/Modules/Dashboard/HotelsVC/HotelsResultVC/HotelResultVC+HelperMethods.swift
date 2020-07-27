@@ -418,7 +418,7 @@ extension HotelResultVC {
                     //printDebug("hideHeaderBlurView.frame : \(self.headerContainerView.frame )")
                     self.headerContainerViewTopConstraint.constant = yCordinate
                     var value = self.topContentSpace - abs(yCordinate)
-                    printDebug("hideHeaderBlurView: \(value)")
+                    //printDebug("hideHeaderBlurView: \(value)")
                     if value < 0 {
                         value = 16
                     } else {

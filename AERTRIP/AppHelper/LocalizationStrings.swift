@@ -571,6 +571,8 @@ enum LocalizedString: String {
     case UnfavouriteAll
     case UnfavouriteAllMessage
     case Unfavourite
+    case ShowingResultsFor
+    case Clear
 
     // Mail Composer View
     case ContactUsAertrip

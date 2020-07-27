@@ -40,7 +40,7 @@ extension HotelsMapVC {
             sSelf.searchBarContainerView.backgroundColor = AppColors.clear
             sSelf.searchBarContainerView.frame = sSelf.searchBarFrame(isInSearchMode: false)
             sSelf.mapContainerView.layoutSubviews()
-            sSelf.view.layoutIfNeeded()
+            sSelf.view?.layoutIfNeeded()
         }
         
         animator.addCompletion { [weak self](pos) in
@@ -96,7 +96,7 @@ extension HotelsMapVC {
             sSelf.hotelsMapCV.alpha = isHidden ? 0.0 : 1.0
             sSelf.floatingViewInitialConstraint = isHidden ? 10.0 : (hiddenFrame.height)
             // floating buttons animation
-            sSelf.floatingViewBottomConstraint.constant = isHidden ? 10.0 : (hiddenFrame.height)
+            //sSelf.floatingViewBottomConstraint.constant = isHidden ? 10.0 : (hiddenFrame.height)
             sSelf.floatingButtonBackView.alpha = isHidden ? 0.0 : 1.0
             sSelf.cardGradientView.alpha = isHidden ? 0.0 : 1.0
             sSelf.collectionViewBottomConstraint.constant = 0.0
