@@ -8,6 +8,7 @@
 
 
 import UIKit
+import HMSegmentedControl
 import Parchment
 
 class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UIScrollViewDelegate
@@ -714,8 +715,10 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
     //MARK:- Button Action
     @objc func selectPlanButtonClicked(_ sender:UIButton)
     {
+        var dict = NSDictionary()
         if selectedPlanIndex != sender.tag{
             let upgardeResult = apiResp[selectedLocationIndex]
+            dict = (upgardeResult[sender.tag] as AnyObject).value(forKey: "fare") as! NSDictionary
             if let fareTypeName = (upgardeResult[sender.tag] as AnyObject).value(forKey: "FareTypeName") as? NSArray
             {
                 if fareTypeName.count > 0{
@@ -742,6 +745,10 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
         
         let price = getPrice(price: Double(totalFareVal))
         fareBreakupVC.bookingAmountLabel.text = price
+        
+        
+        fareBreakupVC.fareBreakupFromUpgrade = dict
+        fareBreakupVC.createTaxesDict()
     }
     
     @IBAction func closeButtonClicked(_ sender: Any)
