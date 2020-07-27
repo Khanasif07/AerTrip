@@ -613,6 +613,8 @@ struct RoomsRates: Hashable {
                         return true
                     }
                 }
+            }else{
+                return ((lhs.roomBedTypes == nil) && (rhs.roomBedTypes == nil))
             }
         }
         return false

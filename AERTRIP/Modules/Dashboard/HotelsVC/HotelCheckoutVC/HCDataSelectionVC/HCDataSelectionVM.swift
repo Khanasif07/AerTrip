@@ -277,22 +277,24 @@ class HCDataSelectionVM {
             // Room details cell only for room label cell
             self.sectionData.append([.roomDetailsCell])
             for rate in ratesData {
-                self.sectionData.append(self.dataForTableCell(rate: rate, currentRoom: rate.roomsRates?.first ?? RoomsRates()))
-                var tempData = [RoomsRates: Int] ()
-                for currentRoom in rate.roomsRates ?? [] {
-                    var count = 1
-                    for otherRoom in rate.roomsRates ?? [] {
-                        if (otherRoom.uuRid != currentRoom.uuRid) , currentRoom.rid == otherRoom.rid {
-                            if otherRoom == currentRoom {
-                                count = count + 1
-                            }
-                        }
-                    }
-                    tempData[currentRoom] = count
-                }
-                if !roomRates.contains(array: [tempData]) {
-                    self.roomRates.append(tempData)
-                }
+//                self.sectionData.append(self.dataForTableCell(rate: rate, currentRoom: rate.roomsRates?.first ?? RoomsRates()))
+                self.sectionData.append(rate.tableViewRowCell)
+                self.roomRates.append(rate.roomData)
+//                var tempData = [RoomsRates: Int] ()
+//                for currentRoom in rate.roomsRates ?? [] {
+//                    var count = 1
+//                    for otherRoom in rate.roomsRates ?? [] {
+//                        if (otherRoom.uuRid != currentRoom.uuRid) , currentRoom.rid == otherRoom.rid {
+//                            if otherRoom == currentRoom {
+//                                count = count + 1
+//                            }
+//                        }
+//                    }
+//                    tempData[currentRoom] = count
+//                }
+//                if !roomRates.contains(array: [tempData]) {
+//                    self.roomRates.append(tempData)
+//                }
             }
             printDebug(self.roomRates)
         }

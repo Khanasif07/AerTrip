@@ -126,6 +126,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     override func viewDidLayoutSubviews()
     {
+        self.indicator.center = self.bookButton.center
         if fromScreen == "upgradePlanCollapse"
         {
             if let subLayers = bookingDataDisplayView.layer.sublayers{
