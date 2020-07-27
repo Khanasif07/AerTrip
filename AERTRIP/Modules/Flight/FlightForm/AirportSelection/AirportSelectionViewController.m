@@ -507,7 +507,7 @@
 
 - (void) performSearchOnServerWithText:(NSString *)searchText
 {
-    
+    self.apiSearchText = searchText;
     [[Network sharedNetwork] callGETApi:AIRPORT_SEARCH_API parameters:[self buildDictionaryWithText:searchText] loadFromCache:NO expires:YES success:^(NSDictionary *dataDictionary) {
         [self handleSearchResultDictionary:dataDictionary];
     } failure:^(NSString *error, BOOL popup) {
@@ -919,7 +919,7 @@
                 count = self.airlinesArray.count;
             }
             
-            if (count > 0){
+            if ((count > 0) && (self.apiSearchText == self.searchBar.text)){
                 [self.noResultView setHidden:YES];
             }else{
                 [self.noResultView setHidden:NO];
