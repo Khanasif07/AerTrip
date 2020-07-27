@@ -507,16 +507,18 @@
 
 - (void) performSearchOnServerWithText:(NSString *)searchText
 {
-    self.apiSearchText = searchText;
     [[Network sharedNetwork] callGETApi:AIRPORT_SEARCH_API parameters:[self buildDictionaryWithText:searchText] loadFromCache:NO expires:YES success:^(NSDictionary *dataDictionary) {
-        [self handleSearchResultDictionary:dataDictionary];
+        [self handleSearchResultDictionary:dataDictionary:searchText];
     } failure:^(NSString *error, BOOL popup) {
         [AertripToastView toastInView:self.view withText:error];
         [self ResetSearch];
     }];
 }
 
-- (void)handleSearchResultDictionary:(NSDictionary *)dataDictionary {
+- (void)handleSearchResultDictionary:(NSDictionary *)dataDictionary :(NSString *)apiSearchText {
+    if (self.searchBar.text != apiSearchText) {
+        return;
+    }
     if ([[Parser getValueForKey:@"type" inDictionary:dataDictionary] isEqualToString:@"airports"]) {
         self.cellIdentifier = @"AirportCell";
         [self createAirportArrayFromSearchResult:[Parser parseAirportSearchArray:[dataDictionary objectForKey:@"results"]]];
@@ -919,7 +921,7 @@
                 count = self.airlinesArray.count;
             }
             
-            if ((count > 0) && (self.apiSearchText == self.searchBar.text)){
+            if (count > 0){
                 [self.noResultView setHidden:YES];
             }else{
                 [self.noResultView setHidden:NO];
@@ -954,7 +956,7 @@
         
         self.NoResultLabel.text = @"Searching..";
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), queue, self.searchWorkItem);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.35 * NSEC_PER_SEC)), queue, self.searchWorkItem);
         
 //        [self performSelector:@selector(sendSearchRequest) withObject:searchText afterDelay:0.35f];
     }else {
