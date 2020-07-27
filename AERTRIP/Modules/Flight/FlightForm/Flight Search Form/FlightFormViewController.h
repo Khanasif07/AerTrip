@@ -6,6 +6,7 @@
 //  Copyright © 2018 Aertrip. All rights reserved.
 //
 
+#import "AERTRIP-Swift.h"
 #import "BaseViewController.h"
 
 //#import <HMSegmentedControl/HMSegmentedControl.h>

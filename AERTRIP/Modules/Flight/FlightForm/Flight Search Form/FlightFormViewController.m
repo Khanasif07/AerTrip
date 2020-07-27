@@ -6,6 +6,7 @@
 //  Copyright © 2018 Aertrip. All rights reserved.
 //
 #import "FlightFormViewControllerHeader.h"
+#import "AERTRIP-Swift.h"
 
 @interface FlightFormViewController ()< AddFlightPassengerHandler, AddFlightClassHandler, MultiCityFlightCellHandler , FlightViewModelDelegate , BulkBookingFormHandler, UIScrollViewDelegate , UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -466,10 +467,18 @@
 - (void)setupFlightSearchButton {
   
     [self hideLoaderIndicatorForFilghtSearch];
-    [self setCustomButtonViewEnabled:self.flightSearchButton withOuterView:self.flightSearchOuterView];
+    [self setCustomButtonView:self.flightSearchButton withOuterView:self.flightSearchOuterView];
     [self.flightSearchButton addTarget:self action:@selector(flightSearchButtonPressed) forControlEvents:UIControlEventTouchDown];
     [self.flightSearchButton addTarget:self action:@selector(flightSearchButtonReleased) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+    [self.flightSearchButton configureCommonGreenButton];
 }
+
+- (void)setCustomButtonView:(UIButton *)button withOuterView:(UIView *)outerView {
+    outerView.layer.shadowOpacity = BUTTON_RELEASED_SHADOW_OPACITY;
+    [self setRoundedCornerWithShadowToButton:button outerView:outerView shadowColor:[[UIColor themeBlack] colorWithAlphaComponent:0.2]];
+//    [self applyGradientLayerToButton:button startColor:[UIColor BLUE_GREEN_COLOR] endColor:[UIColor GREEN_BLUE_COLOR]];
+}
+
 
 - (void)flightSearchButtonPressed
 {

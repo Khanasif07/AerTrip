@@ -60,9 +60,9 @@ class LoginVC: BaseVC {
         self.forgotPasswordButton.titleLabel?.font = AppFonts.SemiBold.withSize(16)
         self.registerHereButton.titleLabel?.font = AppFonts.SemiBold.withSize(16)
         self.registerHereLabel.font = AppFonts.Regular.withSize(16)
-        self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
-        self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
-        self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
+//        self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
+//        self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
+//        self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
     }
     
     override func setupTexts() {
@@ -199,18 +199,20 @@ private extension LoginVC {
 //        self.passwordTextField.lineViewBottomSpace = 10.0
 //        self.emailTextField.isSingleTextField = false
 //        self.passwordTextField.isSingleTextField = false
+       
         self.loginButton.isEnabled = false
-        self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
-        self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+        self.loginButton.configureCommonGreenButton()
+        
+//        self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+//        self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
 
         self.setupFontsAndText()
         
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
         self.topNavBar.delegate = self
         self.topNavBar.leftButton.isHidden = false
-        //self.loginButton.layer.masksToBounds = true
-        self.loginButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
-        self.loginButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+       // self.loginButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+      //  self.loginButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         var padingFrame =  emailTextField.bounds
         padingFrame.size = CGSize(width: 30, height: padingFrame.height)
         let paddingView = UIView(frame: padingFrame)
