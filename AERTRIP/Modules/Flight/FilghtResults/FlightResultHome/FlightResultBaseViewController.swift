@@ -19,7 +19,6 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     var flightSearchResultVM  : FlightSearchResultVM!
     var flightSearchParameters : NSDictionary!
     var visualEffectViewHeight : CGFloat {
-        
         return statusBarHeight + 88.0
     }
     var ApiProgress: UIProgressView!
@@ -55,10 +54,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         }
     }
     private var isIntReturnOrMCJourney = false
-    var statusBarHeight : CGFloat {
-        
-        return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
-    }
+
     
     private var filterUpdateWorkItem : DispatchWorkItem?
     private var showDepartReturnSame = false
@@ -1150,7 +1146,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                 }
                 
                 if progress >= 0.97 {
-                    self.ApiProgress.isHidden = true
+//                    self.ApiProgress.isHidden = true
                     self.singleJourneyResultVC?.addPlaceholderTableHeaderView()
                     
                     self.separatorView.snp.updateConstraints { (make) in

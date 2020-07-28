@@ -91,7 +91,7 @@ extension UIDevice{
         return plusRatio == currentRatio
     }
     
-    var modelName: String {
+    static var modelName: String {
         var systemInfo = utsname()
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)

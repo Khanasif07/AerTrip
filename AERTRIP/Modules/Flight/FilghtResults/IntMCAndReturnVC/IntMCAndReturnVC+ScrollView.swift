@@ -25,18 +25,21 @@ extension IntMCAndReturnVC {
             var yCordinate : CGFloat
             yCordinate = max (  -self.visualEffectViewHeight ,  -offsetDifference )
             yCordinate = min ( 0,  yCordinate)
-            
-            UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseOut], animations: {
+            let progressBarrStopPositionValue : CGFloat = UIDevice.isIPhoneX ? 46 : 22
+//            UIView.animate(withDuration: 0, delay: 0.0, options: [.curveEaseOut], animations: {
                 
                 if let blurEffectView = self.navigationController?.view.viewWithTag(500) {
                     var rect = blurEffectView.frame
                     let yCordinateOfView = rect.origin.y
                     if ( yCordinateOfView  > yCordinate ) {
                         rect.origin.y = yCordinate
-                        blurEffectView.frame = rect
+                        if (self.visualEffectViewHeight + yCordinate) > progressBarrStopPositionValue {
+//                            print(yCordinate)
+                            blurEffectView.frame = rect
+                        }
                     }
                 }
-            } ,completion: nil)
+           // } ,completion: nil)
         }
     }
     
@@ -55,7 +58,7 @@ extension IntMCAndReturnVC {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
+//        print("scrollViewDidScroll...\(scrollView.contentOffset.y)")
         let contentSize = scrollView.contentSize
         let scrollViewHeight = contentSize.height
         let viewHeight = self.view.frame.height
@@ -67,9 +70,9 @@ extension IntMCAndReturnVC {
         let contentOffset = scrollView.contentOffset
         let offsetDifference = contentOffset.y - scrollviewInitialYOffset
         if offsetDifference > 0 {
+//            print(scrollView.contentOffset)
             hideHeaderBlurView(offsetDifference)
-        }
-        else {
+        } else {
             let invertedOffset = -offsetDifference
             revealBlurredHeaderView(invertedOffset)
         }
@@ -89,7 +92,14 @@ extension IntMCAndReturnVC {
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         snapToTopOrBottomOnSlowScrollDragging(scrollView)
-        //        scrollviewInitialYOffset = 0.0
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        snapToTopOrBottomOnSlowScrollDragging(scrollView)
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        snapToTopOrBottomOnSlowScrollDragging(scrollView)
     }
     
     fileprivate func snapToTopOrBottomOnSlowScrollDragging(_ scrollView: UIScrollView) {
@@ -104,8 +114,11 @@ extension IntMCAndReturnVC {
             }
             
             // If blurEffectView yCoodinate is close to top of the screen
+            print(yCoordinate)
             if  ( yCoordinate > ( visualEffectViewHeight / 2.0 ) ){
-                rect.origin.y = -visualEffectViewHeight
+                let progressBarrStopPositionValue : CGFloat = UIDevice.isIPhoneX ? 46 : 22
+
+                rect.origin.y = -visualEffectViewHeight + progressBarrStopPositionValue
                 
                 if scrollView.contentOffset.y < 100 {
                     let zeroPoint = CGPoint(x: 0, y: 96.0)

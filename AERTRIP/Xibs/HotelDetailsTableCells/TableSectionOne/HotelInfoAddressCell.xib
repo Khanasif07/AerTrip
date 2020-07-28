@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -121,6 +121,7 @@
                 <outlet property="containerView" destination="ehA-12-5xn" id="OKf-oi-y3m"/>
                 <outlet property="containerViewBottomConstraint" destination="Zg3-vV-PYg" id="VVc-cH-PnM"/>
                 <outlet property="deviderView" destination="JR9-pa-wQ7" id="Ea0-DW-ffs"/>
+                <outlet property="dividerBottomConstraint" destination="w2u-RK-SQp" id="zSB-3n-CdX"/>
                 <outlet property="gradientView" destination="OwF-Et-57A" id="YL0-Pb-Dxf"/>
                 <outlet property="infoTextViewTrailingConstraint" destination="n8C-35-Br4" id="ocA-jQ-QHF"/>
                 <outlet property="moreBtnContainerView" destination="cje-PF-AVP" id="CC9-yD-HwU"/>

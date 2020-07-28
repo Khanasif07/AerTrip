@@ -50,7 +50,8 @@ struct FlightRecept {
         tripDetails = TripDetails(json: json["trip_details"].dictionaryValue)
         tk = json["tk"].stringValue
         currency = json["currency"].stringValue
-        whatNext =  json["whatsNext"].arrayValue.map{WhatNext($0)}
+        whatNext =  json["whatsNext"].arrayValue.map{WhatNext($0, isFor: "flight")}
+        whatNext = whatNext.filter{$0.product != ""}
     }
 }
 
@@ -85,7 +86,7 @@ struct HotelLinkParam {
 
 
 struct  WhatNext {
-    var star, destType, checkout, prodcut: String
+    var star, destType, checkout, product: String
     var destID, city, country: String
     var rooms: [RoomPassengerData]
     var checkin, destName: String
@@ -94,12 +95,30 @@ struct  WhatNext {
     var productType:ProductType
     var departCity:String
     var arrivalCity:String
+    var settingFor: String
     
-    init(_ json:JSON = JSON()){
+    var whatNextStringValue:String{
+        
+        if self.product.lowercased() == "hotel"{
+            return "Book your hotel in\n\(self.city) & get the best deals!"
+        }else if self.product.lowercased() == "flight"{
+            return "Book your return flight for\n\(self.origin) to \(self.destination)"
+        }else if self.product.lowercased() == "booking"{
+            if self.settingFor == "hotel"{
+                return "View or modify your booking."
+            }else{
+                return "View or modify your booking by adding add-ons & preferences"
+            }
+        }
+        
+        return ""
+    }
+    
+    init(_ json:JSON = JSON(), isFor:String){
         star = json["star"].stringValue
         destType = json["dest_type"].stringValue
         checkout = json["checkout"].stringValue
-        prodcut = json["product"].stringValue
+        product = json["product"].stringValue
         destID = json["dest_id"].stringValue
         city = json["city"].stringValue
         country = json["country"].stringValue
@@ -118,19 +137,18 @@ struct  WhatNext {
         returnDate = json["return"].stringValue
         departCity = json["depart_city"].stringValue
         arrivalCity = json["arrival_city"].stringValue
-        productType = ProductType.getTypeFrom(self.prodcut)
+        productType = ProductType.getTypeFrom(self.product)
+        settingFor = isFor
         switch productType{
         case .flight:
-            self.returnDate = self.returnDate.toDate(dateFormat: "yyyy-MM-dd")?.toString(dateFormat: "dd-MM-yyyy") ?? ""
-            self.depart = self.depart.toDate(dateFormat: "yyyy-MM-dd")?.toString(dateFormat: "dd-MM-yyyy") ?? ""
+            self.returnDate = self.returnDate.toDate(dateFormat: "yyyy-MM-dd")?.toString(dateFormat: "dd-MM-yyyy") ?? self.returnDate
+            self.depart = self.depart.toDate(dateFormat: "yyyy-MM-dd")?.toString(dateFormat: "dd-MM-yyyy") ?? self.depart
         case .hotel: break;
         case .other: break;
             
             
         }
-        
-        
-        if Int(adult) == nil && Int(child) == nil{
+        if ((Int(adult) ?? 0) == 0 && (Int(child) ?? 0) == 0){
             self.adult = "2"
         }
     }
