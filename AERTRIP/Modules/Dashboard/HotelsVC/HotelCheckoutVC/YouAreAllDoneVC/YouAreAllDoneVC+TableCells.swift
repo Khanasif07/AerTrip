@@ -15,7 +15,7 @@ extension YouAreAllDoneVC {
     /* AllDone Section Cells */
     internal func getAllDoneCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: YouAreAllDoneTableViewCell.reusableIdentifier, for: indexPath) as? YouAreAllDoneTableViewCell else { return nil }
-        cell.configCell(forBookingId: self.viewModel.bookingIds.first ?? "", forCid: self.viewModel.cId.first ?? LocalizedString.na.localized, isBookingPending: (self.viewModel.hotelReceiptData?.booking_status ?? .pending) == .pending)
+        cell.configCell(forBookingId: self.viewModel.hotelReceiptData?.booking_number ?? "", forCid: self.viewModel.cId.first ?? LocalizedString.na.localized, isBookingPending: (self.viewModel.hotelReceiptData?.booking_status ?? .pending) == .pending)
         cell.delegate = self
         return cell
     }
@@ -182,22 +182,10 @@ extension YouAreAllDoneVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCWhatNextTableViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextTableViewCell else { return nil }
         cell.delegate = self
         guard let receipt = self.viewModel.hotelReceiptData else{return cell}
-        let whtNextNew = receipt.whatNext.map { whtNext -> String in
-            if whtNext.productType == .flight{
-                return "Book your return flight for\n\(whtNext.origin) to \(whtNext.destination)"
-            }else if whtNext.productType == .hotel{
-                return "Book your hotel in\n\(whtNext.city) & get the best deals!"
-            }else{
-                return "Book your hotel in\n\(whtNext.city) & get the best deals!"
-            }
-        }
+        let whtNextNew = receipt.whatNext.filter{$0.product != ""}
         cell.suggetionImage = #imageLiteral(resourceName: "hotel_green_icon")
-        if !whtNextNew.isEmpty {
-            cell.configCell(whatNextString: whtNextNew)
-            cell.whatNextStackView.isHidden = false
-        } else {
-            cell.whatNextStackView.isHidden = true
-        }
+        cell.configCellwith(whtNextNew, usedFor: "hotel", isNeedToAdd: !self.viewModel.bookingIds.isEmpty)
+        cell.whatNextStackView.isHidden = self.viewModel.bookingIds.isEmpty
         cell.selectedWhatNext = {[weak self] index in
             self?.tapOnSeletedWhatNext(index: index)
         }

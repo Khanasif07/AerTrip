@@ -19,6 +19,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
     //Mark:- Variables
     //================
     var nextPlanString: [String] = []
+    private(set) var whatNextdata: [WhatNext] = []
     internal weak var delegate: HCWhatNextTableViewCellDelegate?
     private let collectionMargin: CGFloat  = 11.0
     private let itemSpacing : CGFloat = 0.0
@@ -64,7 +65,6 @@ class HCWhatNextTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.instagramButton.cornerRadius = self.instagramButton.frame.height/2
     }
     
     //Mark:- Methods
@@ -114,6 +114,18 @@ class HCWhatNextTableViewCell: UITableViewCell {
         self.whatNextCollectionView.reloadData()
     }
     
+    internal func configCellwith(_ whtnxt: [WhatNext], usedFor:String, isNeedToAdd:Bool) {
+        self.whatNextdata = whtnxt
+        if isNeedToAdd{
+            var wtNext = WhatNext(isFor: "Booking")
+            wtNext.product = "Booking"
+            wtNext.settingFor = usedFor
+            self.whatNextdata.insert(wtNext, at: 0)
+        }
+        self.pageControl.numberOfPages = self.whatNextdata.count
+        self.whatNextCollectionView.reloadData()
+    }
+    
     private func flowLayOut() {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         itemWidth =  self.whatNextCollectionView.bounds.width - collectionMargin * 2
@@ -146,17 +158,18 @@ class HCWhatNextTableViewCell: UITableViewCell {
 extension HCWhatNextTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.nextPlanString.count//10
+        return self.whatNextdata.count//10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCWhatNextCollectionViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextCollectionViewCell else { return UICollectionViewCell() }
-        cell.nextPlanLabel.text = self.nextPlanString[indexPath.row]
-        if self.nextPlanString[indexPath.row].contains("flight"){
-            cell.flightImageView.image = #imageLiteral(resourceName: "flight_blue_icon")
-        }else{
-            cell.flightImageView.image = #imageLiteral(resourceName: "hotel_green_icon")
+        cell.nextPlanLabel.text = self.whatNextdata[indexPath.item].whatNextStringValue//hotelsCopy2
+        switch self.whatNextdata[indexPath.item].productType {
+        case .hotel: cell.flightImageView.image = #imageLiteral(resourceName: "hotel_green_icon")
+        case .flight: cell.flightImageView.image = #imageLiteral(resourceName: "flight_blue_icon")
+        default: cell.flightImageView.image = #imageLiteral(resourceName: "hotelsCopy2")
         }
+        
         cell.flightImageView.isHidden = false
         return cell
     }

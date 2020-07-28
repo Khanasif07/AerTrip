@@ -194,7 +194,8 @@ struct HotelReceiptModel {
             self.eventEndDate = "\(date) \(time)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         if let whatNext = json["whatsNext"]{
-            self.whatNext = JSON(whatNext).arrayValue.map{WhatNext($0)}
+            self.whatNext = JSON(whatNext).arrayValue.map{WhatNext($0, isFor: "hotel")}
+            self.whatNext = self.whatNext.filter{$0.product != ""}
         }
     }
 
