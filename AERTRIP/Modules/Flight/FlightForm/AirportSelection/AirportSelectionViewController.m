@@ -177,9 +177,9 @@
 
         
         if (self.viewModel.isFrom){
-            [self fromAction:nil];
+//            [self fromAction:nil];
         }else {
-            [self toAction:nil];
+//            [self toAction:nil];
         }
         
     } failure:^(NSString *error, BOOL popup) {
@@ -246,7 +246,7 @@
     [self setupTableView];
     self.airportDisplayArray = [[NSMutableArray alloc] init];
     self.displaySections = [[NSMutableDictionary alloc] init];
-    [self refreshAllUIElements];
+    [self refreshAllUIElements:false];
     [self performNearbyAirportsSearch];
     [self notifications];
     [self showNoResultView];
@@ -467,7 +467,7 @@
     
     self.airportDisplayArray = [[NSMutableArray alloc] init];
     self.displaySections = [[NSMutableDictionary alloc] init];
-    [self refreshAllUIElements];
+    [self refreshAllUIElements:true];
 }
 
 - (void)updateUIAfterAddingAirport {
@@ -526,14 +526,14 @@
     if ([[Parser getValueForKey:@"type" inDictionary:dataDictionary] isEqualToString:@"airports"]) {
         self.cellIdentifier = @"AirportCell";
         [self createAirportArrayFromSearchResult:[Parser parseAirportSearchArray:[dataDictionary objectForKey:@"results"]]];
-        [self refreshAllUIElements];
+        [self refreshAllUIElements:true];
         return;
     }
     
     if ([[Parser getValueForKey:@"type" inDictionary:dataDictionary] isEqualToString:@"airlines"]) {
         self.cellIdentifier = @"AirlineSearchCell";
         [self createAirlineArrayFromSearchResult:[dataDictionary objectForKey:@"results"]];
-        [self refreshAllUIElements];
+        [self refreshAllUIElements:true];
         return;
     }
     
@@ -788,7 +788,7 @@
 }
 
 
-- (void)refreshAllUIElements {
+- (void)refreshAllUIElements:(BOOL)shouldReloadTable {
     
     if ( self.viewModel.toFlightArray.count == 0 && self.viewModel.fromFlightArray.count == 0 ) {
         [self.switcherButton setEnabled:false];
@@ -798,7 +798,9 @@
     
     [self populateDisplayArrays];
     [self setupFromAndToView];
-    [self.resultTableView reloadData];
+    if (shouldReloadTable) {
+        [self.resultTableView reloadData];
+    }
     [self showNoResultView];
     [self hideLoader:YES];
     
@@ -1706,7 +1708,7 @@
     self.searchBar.text = @"";
     self.airportDisplayArray = [[NSMutableArray alloc] init];
     self.displaySections = [[NSMutableDictionary alloc] init];
-    [self refreshAllUIElements];
+    [self refreshAllUIElements:false];
     [self performNearbyAirportsSearch];
 }
 
@@ -1718,7 +1720,7 @@
     self.searchBar.text = @"";
     self.airportDisplayArray = [[NSMutableArray alloc] init];
     self.displaySections = [[NSMutableDictionary alloc] init];
-    [self refreshAllUIElements];
+    [self refreshAllUIElements:false];
     [self performNearbyAirportsSearch];
 }
 
