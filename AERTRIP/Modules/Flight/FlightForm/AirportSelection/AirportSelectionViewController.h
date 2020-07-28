@@ -16,5 +16,6 @@
 @interface AirportSelectionViewController : BaseViewController
 
 @property (strong, nonatomic) AirportSelectionVM * viewModel;
+@property (strong, nonatomic) dispatch_block_t searchWorkItem;
 
 @end
