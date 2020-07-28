@@ -40,6 +40,7 @@ extension HotelsMapVC: UISearchBarDelegate {
             self.searchForText("", shouldPerformAction: false) //cancel all the previous operation
             self.reloadHotelList()
             noResultemptyView.searchTextLabel.text = ""
+            resetAllMarker()
         } else { //if searchText.count >= AppConstants.kSearchTextLimit {
             noResultemptyView.searchTextLabel.isHidden = false
             noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
@@ -83,6 +84,10 @@ extension HotelsMapVC: ATSwitcherChangeValueDelegate {
         }
         //self.updateMarkers()
             //if user in map view then update map focus as fav switch changed.
+        resetAllMarker()
+    }
+    
+    func resetAllMarker() {
         self.appleMap.removeAnnotations(self.appleMap.annotations)
         self.detailsShownMarkers = []
         self.addAllMarker()
@@ -175,7 +180,7 @@ extension HotelsMapVC: HotelResultDelegate {
         self.filterButton.isEnabled = true
 //        self.addMapView()
         self.reloadHotelList()
-        self.addAllMarker()
+        resetAllMarker()
         delay(seconds: 0.4) { [weak self] in
             self?.adjustMapPadding()
         }
@@ -366,8 +371,7 @@ extension HotelsMapVC: HotelFilteVCDelegate {
         UserInfo.hotelFilter = nil
         HotelFilterVM.shared.resetToDefault()
         self.viewModel.loadSaveData()
-        self.appleMap.removeAnnotations(self.appleMap.annotations)
-        self.addMakerToMap()
+        resetAllMarker()
         
         //manage switch button when clear all filters
         // nitin self.getFavouriteHotels(shouldReloadData: false)
@@ -397,8 +401,7 @@ extension HotelsMapVC: HotelFilteVCDelegate {
             self.manageSwitchContainer(isHidden: true, shouldOff: false)
         }
         self.filterButton.isSelected =  !(HotelFilterVM.shared.isSortingApplied || self.viewModel.isFilterApplied) ? false : true
-        self.appleMap.removeAnnotations(self.appleMap.annotations)
-        self.addMakerToMap()
+        resetAllMarker()
         
         
     }

@@ -15,6 +15,13 @@ extension HotelsMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UIC
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         self.hotelsMapCV.isHidden = self.viewModel.collectionViewLocArr.count == 0
+//        if  (self.viewModel.fetchRequestType != .normal) {
+        if !self.viewModel.favouriteHotels.isEmpty {
+            self.switchContainerView.isHidden = false
+        } else {
+            self.switchContainerView.isHidden = true
+        }
+//        }
         return self.viewModel.collectionViewLocArr.count
     }
     

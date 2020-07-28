@@ -195,6 +195,7 @@ extension HotelsMapVC {
         self.viewModel.searchTextStr = forText
         self.viewModel.loadSaveData()
         self.reloadHotelList()
+        resetAllMarker()
     }
     
     func hideFavsButtons() {
@@ -216,7 +217,7 @@ extension HotelsMapVC {
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {[weak self] in
                 guard let sSelf = self else {return}
                 
-                sSelf.switchContainerView.frame = newFrame
+                //sSelf.switchContainerView.frame = newFrame
                 sSelf.view.layoutIfNeeded()
                 
                 }, completion: { [weak self](isDone) in

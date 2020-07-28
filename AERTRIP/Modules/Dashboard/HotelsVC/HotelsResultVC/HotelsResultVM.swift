@@ -33,7 +33,7 @@ protocol HotelResultDelegate: class {
     func deleteRow(index: IndexPath)
     func updateFavOnList()
     func updateFavouriteAndFilterView()
-
+    
 }
 
 class HotelsResultVM: NSObject {
