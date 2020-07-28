@@ -110,7 +110,7 @@ extension HotelCheckoutDetailVC: UITableViewDelegate, UITableViewDataSource {
     internal func heightForRow(tableView: UITableView, indexPath: IndexPath, isForEstimateHeight: Bool) -> CGFloat {
         if let hotelData = self.viewModel {
             let sectionData = self.sectionData[indexPath.section]
-            if sectionData[indexPath.row] == .paymentPolicyCell {
+            if sectionData[indexPath.row] == .paymentPolicyCell  || sectionData[indexPath.row] == .checkOutCell{
                 return CGFloat.leastNormalMagnitude
             } else if indexPath.section == 0, indexPath.row == 2 {
                     let text = hotelData.address + "Maps 1234"

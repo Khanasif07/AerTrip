@@ -1255,11 +1255,11 @@ extension AppFlowManager {
                 //                    complition(trip, nil)
                 //                }
                 //                else {
-                if tripType == .hotel {
-                    checkDefaultTrip(trips: trips)
-                } else {
+//                if tripType == .hotel {
+//                    checkDefaultTrip(trips: trips)
+//                } else {
                     openSelectTripScreen(trips: trips)
-                }
+//                }
                 //                }
             }
         }
@@ -1270,11 +1270,11 @@ extension AppFlowManager {
                 //                    complition(trip, nil)
                 //                }
                 //                else {
-                if tripType == .hotel {
-                    checkDefaultTrip(trips: trips)
-                } else {
+//                if tripType == .hotel {
+//                    checkDefaultTrip(trips: trips)
+//                } else {
                     openSelectTripScreen(trips: trips)
-                }
+//                }
                 //                }
             }
         }

@@ -601,4 +601,45 @@ extension YouAreAllDoneVC: HCBookingDetailsTableViewHeaderFooterViewDelegate {
     
 }
 
-
+extension YouAreAllDoneVC{
+    
+    func tapOnSeletedWhatNext(index: Int){
+        guard let whtNxt = self.viewModel.hotelReceiptData?.whatNext[index] else {return}
+        switch whtNxt.productType{
+        case .flight:
+            self.bookFlightFor(whtNxt)
+        case .hotel:
+            self.bookAnotherHotels(whtNxt)
+        default: break;
+        }
+    }
+    
+    
+    func bookAnotherHotels(_ whatNext: WhatNext) {
+        if let checkIn = whatNext.checkin.toDate(dateFormat: "E, dd MMM yy")?.toString(dateFormat: "yyyy-MM-dd"), let checkOut = whatNext.checkout.toDate(dateFormat: "E, dd MMM yy")?.toString(dateFormat: "yyyy-MM-dd"){
+            var hotelData = HotelFormPreviosSearchData()
+            hotelData.cityName = whatNext.city
+            hotelData.adultsCount = whatNext.rooms.map{$0.adult}
+            hotelData.childrenCounts = whatNext.rooms.map{$0.child}
+            hotelData.destId = whatNext.destID
+            hotelData.destType = whatNext.destType
+            hotelData.destName = whatNext.destName
+            hotelData.roomNumber =  whatNext.rooms.count
+            hotelData.checkInDate = checkIn
+            hotelData.checkOutDate = checkOut
+            var splittedStringArray = whatNext.destName.components(separatedBy: ",")
+            splittedStringArray.removeFirst()
+            let stateName = splittedStringArray.joined(separator: ",")
+            hotelData.stateName = stateName
+            HotelsSearchVM.hotelFormData = hotelData
+            AppFlowManager.default.goToDashboard(toBeSelect: .hotels)
+        }
+    }
+    
+    func bookFlightFor(_ whatNext:WhatNext){
+        FlightWhatNextData.shared.isSettingForWhatNext = true
+        FlightWhatNextData.shared.whatNext = whatNext
+        AppFlowManager.default.goToDashboard(toBeSelect: .flight)
+        
+    }
+}

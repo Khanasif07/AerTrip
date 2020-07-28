@@ -1,0 +1,636 @@
+request params: ["booking_id": "13356", "_": 1595846954, "it_id": "5f1eb0dbb3561a42a07a3c4c"]
+request url: https://beta.aertrip.com/api/v1/booking/receipt
+method: HTTPMethod(rawValue: "GET")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+
+response: 5338 bytes
+response url: https://beta.aertrip.com/api/v1/booking/receipt
+{
+  "success" : true,
+  "errors" : [
+
+  ],
+  "data" : {
+    "receipt" : {
+      "part_payment" : {
+        "date" : "",
+        "amount_remaining" : 0,
+        "amount_paid" : 0
+      },
+      "tk" : "2f1e1286182bb25d354c0a8f28b43982a6962abb",
+      "addons" : [
+
+      ],
+      "traveller_details" : {
+        "mobile" : "+91",
+        "isd" : "9716218820",
+        "t" : [
+          {
+            "dob" : "1993-07-27",
+            "passport_number" : "13241324",
+            "ticket_details" : {
+              "9764" : {
+                "pnr" : "",
+                "ticket_no" : ""
+              }
+            },
+            "pax_id" : "33099",
+            "profile_img" : "",
+            "passport_expiry_date" : "2026-09-17",
+            "first_name" : "User",
+            "added_while_booking" : "0",
+            "passport_country" : "AD",
+            "age" : "27",
+            "last_name" : "Adult",
+            "email" : [
+
+            ],
+            "salutation" : "Mr",
+            "pax_type" : "ADT"
+          }
+        ]
+      },
+      "booking_actions" : {
+        "13356" : {
+          "reschedule_request_allowed" : true,
+          "display_seat_map" : false,
+          "cancellation_request_allowed" : true,
+          "addon_request_allowed" : true,
+          "display_addons_options" : false,
+          "special_request_allowed" : false
+        }
+      },
+      "id" : "5f1eb0dbb3561a42a07a3c4c",
+      "details" : {
+        "aldet" : {
+          "KL" : "KLM "
+        },
+        "leg" : [
+          {
+            "dt" : "02:10",
+            "at" : "09:00",
+            "ttl" : [
+              "Mumbai",
+              "London"
+            ],
+            "booking_id" : "13356",
+            "leg_id" : "9764",
+            "apc" : "",
+            "ad" : "2020-09-16",
+            "ap" : [
+              "BOM",
+              "LHR"
+            ],
+            "flights" : [
+              {
+                "bg" : {
+                  "ADT" : {
+                    "weight" : "",
+                    "note" : "",
+                    "pieces" : "0 pc",
+                    "max_pieces" : "",
+                    "max_weight" : "23 kg",
+                    "dimension" : {
+
+                    }
+                  }
+                },
+                "lo" : "3000",
+                "atm" : "",
+                "ad" : "2020-09-16",
+                "ft" : "32700",
+                "fn" : "878",
+                "dtm" : "T-2",
+                "ovgtf" : 1,
+                "llo" : 0,
+                "fbn" : "",
+                "oc" : "KL",
+                "bc" : "N",
+                "slo" : 1,
+                "cbg" : {
+                  "ADT" : {
+                    "pieces" : "1 pc",
+                    "dimension" : {
+                      "in" : {
+                        "height" : "26.40",
+                        "depth" : "13.00",
+                        "width" : "21.00"
+                      },
+                      "cm" : {
+                        "depth" : "25.00",
+                        "width" : "35.00",
+                        "height" : "55.00"
+                      }
+                    },
+                    "weight" : "12 kg"
+                  }
+                },
+                "al" : "KL",
+                "cc" : "Economy",
+                "eq" : "Boeing 777-200",
+                "to" : "AMS",
+                "at" : "07:45",
+                "flight_id" : "13952",
+                "dd" : "2020-09-16",
+                "halt_time" : "",
+                "ovgtlo" : 0,
+                "fr" : "BOM",
+                "halt" : "",
+                "eq_quality" : 2,
+                "dt" : "02:10"
+              },
+              {
+                "atm" : "T-2",
+                "oc" : "KL",
+                "ad" : "2020-09-16",
+                "cc" : "Economy",
+                "fbn" : "",
+                "halt" : "",
+                "dd" : "2020-09-16",
+                "dtm" : "",
+                "flight_id" : "13953",
+                "to" : "LHR",
+                "ft" : "5100",
+                "fr" : "AMS",
+                "eq_quality" : 3,
+                "al" : "KL",
+                "cbg" : {
+                  "ADT" : {
+                    "dimension" : {
+                      "in" : {
+                        "height" : "26.40",
+                        "width" : "21.00",
+                        "depth" : "13.00"
+                      },
+                      "cm" : {
+                        "height" : "55.00",
+                        "width" : "35.00",
+                        "depth" : "25.00"
+                      }
+                    },
+                    "pieces" : "1 pc",
+                    "weight" : "12 kg"
+                  }
+                },
+                "eq" : "Boeing 737-800",
+                "at" : "09:00",
+                "bg" : {
+                  "ADT" : {
+                    "weight" : "",
+                    "note" : "",
+                    "pieces" : "0 pc",
+                    "max_pieces" : "",
+                    "max_weight" : "23 kg",
+                    "dimension" : {
+
+                    }
+                  }
+                },
+                "fn" : "1007",
+                "dt" : "08:35",
+                "lo" : "0",
+                "bc" : "L",
+                "halt_time" : ""
+              }
+            ],
+            "lott" : [
+              "3000"
+            ],
+            "loap" : [
+              "AMS"
+            ],
+            "tt" : 40800,
+            "al" : [
+              "KL",
+              "KL"
+            ],
+            "all_ap" : {
+              "3" : "LHR",
+              "1" : "AMS",
+              "0" : "BOM"
+            },
+            "stp" : 1,
+            "dd" : "2020-09-16"
+          }
+        ],
+        "infants" : "0",
+        "children" : "0",
+        "combo" : "0",
+        "apdet" : {
+          "LHR" : {
+            "cn" : "GB",
+            "cname" : "United Kingdom",
+            "long" : "-0.453566",
+            "c" : "London",
+            "n" : "London Heathrow Airport",
+            "lat" : "51.469603"
+          },
+          "AMS" : {
+            "cn" : "NL",
+            "cname" : "Netherlands",
+            "long" : "4.763385",
+            "c" : "Amsterdam",
+            "n" : "Amsterdam Airport Schiphol",
+            "lat" : "52.309069"
+          },
+          "BOM" : {
+            "cn" : "IN",
+            "cname" : "India",
+            "long" : "72.868047",
+            "c" : "Mumbai",
+            "n" : "Chhatrapati Shivaji International Airport",
+            "lat" : "19.089891"
+          }
+        },
+        "taxes" : {
+          "YM" : "Development Fees",
+          "YR" : "Carrier Imposed Misc Fees",
+          "OT" : "Other Taxes & Fees",
+          "IN" : "User Development Fees",
+          "YQ" : "Fuel Surcharge",
+          "BF" : "Base Fare",
+          "K3" : "Airline GST"
+        },
+        "cityap" : {
+          "Mumbai" : "BOM",
+          "Amsterdam" : "AMS",
+          "London" : "LHR"
+        },
+        "adults" : "1",
+        "farepr" : 33867,
+        "fare" : {
+          "taxes" : {
+            "name" : "Taxes and Fees",
+            "details" : {
+              "YQ" : "925.00",
+              "YR" : "11946.00",
+              "K3" : "1479.00",
+              "IN" : "329.00",
+              "YM" : "850.00",
+              "OT" : "1638.00"
+            },
+            "value" : 17167
+          },
+          "convenience_fee" : 1354.6800000000001,
+          "total_payable_now" : {
+            "name" : "Total Payable Now",
+            "value" : 33867
+          },
+          "cut_n_pay_commissions" : {
+            "name" : "Cut and Pay Commissions",
+            "value" : 0
+          },
+          "insurance_fee" : 0,
+          "refund" : 0,
+          "grand_total" : {
+            "name" : "Grand Total",
+            "value" : 33867
+          },
+          "cashbacks" : {
+            "name" : "Cashbacks",
+            "value" : 0
+          },
+          "tds_cut_n_pay_commissions" : {
+            "name" : "TDS on Cut and Pay Commissions (Indirect Tax)",
+            "value" : 0
+          },
+          "addons" : {
+            "name" : "Add-ons",
+            "value" : 0
+          },
+          "tds_on_pay_later_commisions" : {
+            "name" : "TDS on Pay Later Commissions (Indirect Tax)",
+            "value" : 0
+          },
+          "gross_fare" : {
+            "name" : "Gross Fare",
+            "value" : 33867
+          },
+          "points" : {
+            "name" : "Points",
+            "value" : 0
+          },
+          "discounts" : {
+            "name" : "Discounts",
+            "value" : 0
+          },
+          "net_effective_fare" : {
+            "name" : "Net Effective Fare",
+            "value" : 33867
+          },
+          "BF" : {
+            "name" : "Base Fare",
+            "value" : "16700.00"
+          },
+          "pay_later_commisions" : {
+            "name" : "Pay Later Commissions",
+            "value" : 0
+          }
+        },
+        "rfd_plcy" : [
+          {
+            "rscp" : {
+              "SURFEE" : {
+                "ADT" : 0
+              },
+              "SPRFEE" : {
+                "ADT" : [
+                  {
+                    "from" : "2020-07-27 16:19:00",
+                    "value" : -9,
+                    "to" : "2020-09-15 00:10:00"
+                  },
+                  {
+                    "from" : "2020-09-15 00:11:00",
+                    "value" : -1,
+                    "to" : "2020-09-16 02:10:00"
+                  }
+                ]
+              }
+            },
+            "rfd" : 1,
+            "cp" : {
+              "RAF" : {
+                "ADT" : 354
+              },
+              "SPCFEE" : {
+                "ADT" : [
+                  {
+                    "from" : "2020-07-27 16:19:00",
+                    "to" : "2020-09-15 00:10:00",
+                    "value" : -9
+                  },
+                  {
+                    "from" : "2020-09-15 00:11:00",
+                    "to" : "2020-09-16 02:10:00",
+                    "value" : -1
+                  }
+                ]
+              },
+              "SUCFEE" : {
+                "ADT" : 0
+              }
+            },
+            "leg_id" : [
+              9764
+            ],
+            "rsc" : 1
+          }
+        ]
+      },
+      "seatmap_request" : [
+
+      ],
+      "booking_number" : "B\/20-21\/1705",
+      "whatsNext" : [
+        {
+          "origin" : "LON",
+          "depart" : "2020-09-17",
+          "adult" : "1",
+          "infant" : "0",
+          "totalLegs" : "1",
+          "cabinclass" : "economy",
+          "destination" : "BOM",
+          "trip_type" : "single",
+          "product" : "flight",
+          "child" : "0"
+        },
+        {
+          "dest_type" : "City",
+          "rooms" : [
+            {
+              "adult" : 1
+            }
+          ],
+          "country" : "United Kingdom",
+          "checkout" : "Thu, 17 Sep 20",
+          "star" : "0star,1star,2star,3star,4star,5star",
+          "city" : "London",
+          "dest_name" : "London, England, United Kingdom",
+          "checkin" : "Wed, 16 Sep 20",
+          "dest_id" : "416268",
+          "product" : "hotel"
+        }
+      ],
+      "selected_apf" : [
+
+      ],
+      "shareUrl" : "https:\/\/beta.aertrip.com\/flights?referrer=5f1eb0dbb3561a42a07a3c4c",
+      "booking_status" : {
+        "B\/20-21\/1705" : "pending"
+      },
+      "payment_details" : {
+        "info" : {
+          "payment_amount" : 34544.339999999997,
+          "transaction_id" : "order_FJUbPiNESTCpMO"
+        },
+        "mode" : "netbanking"
+      },
+      "currency" : "INR",
+      "sid" : "cc66f4619110f163a695c7e4250227b6",
+      "trip_details" : {
+        "name" : "Default Trip",
+        "trip_id" : "429",
+        "trip_key" : "dkAEa",
+        "is_updated" : "0",
+        "booking_id" : "13356",
+        "event_id" : [
+          "12352"
+        ]
+      }
+    }
+  }
+}
+
+//
+//-------------------------------Hotels response------------------------------------
+//
+
+
+request params: ["booking_id": "13357", "it_id": "5f1eb25eb3561a42b764cb86", "_": 1595847295]
+request url: https://beta.aertrip.com/api/v1/booking/receipt
+method: HTTPMethod(rawValue: "GET")
+Api-Key: 3a457a74be76d6c3603059b559f6addf
+
+response: 4103 bytes
+response url: https://beta.aertrip.com/api/v1/booking/receipt
+{
+  "errors" : [
+
+  ],
+  "success" : true,
+  "data" : {
+    "receipt" : {
+      "whatsNext" : [
+        {
+          "depart_city" : "Jakarta",
+          "adult" : 0,
+          "arrival_city" : null,
+          "trip_type" : "return",
+          "origin" : "JKT",
+          "depart" : "18-09-2020",
+          "product" : "flight",
+          "cabinclass" : "Economy",
+          "infant" : 0,
+          "return" : "30-09-2020",
+          "destination" : "QQU",
+          "child" : 0
+        }
+      ],
+      "currency" : "INR",
+      "checkin_time" : "00:00:00",
+      "booking_number" : "B\/20-21\/1706",
+      "address" : "2-8 Great Suffolk Street, London SE1 0UG, London - SE1 0UG, United Kingdom",
+      "support_sla_time" : {
+        "sla_ts" : 1596041273,
+        "booking_ts" : 1595847293
+      },
+      "long" : "-0.101504",
+      "checkout_time" : "00:00:00",
+      "checkin" : "2020-09-18",
+      "star" : "5.0",
+      "num_nights" : 12,
+      "trip_details" : {
+        "is_updated" : "0",
+        "name" : "Default Trip",
+        "event_id" : "12354",
+        "trip_key" : "dkAEa",
+        "trip_id" : "429",
+        "booking_id" : "13357"
+      },
+      "city" : "London",
+      "rating" : "5",
+      "rooms" : [
+        {
+          "num_adult" : 0,
+          "status" : "pending",
+          "thumbnail" : "",
+          "num_child" : 0,
+          "cancellation_policy" : "Full refund if you cancel this booking by 2020-09-04 23:59:59. Cancellation fee will be INR 13086 applicable from 2020-09-05 00:00:00.",
+          "inclusions" : {
+            "Inclusions" : [
+              "Room Only"
+            ],
+            "Notes" : [
+              "For this rate the infants will be converted to children with age 1.",
+              ".Check-in hour 18:00-.Car park NO.As a result of local government measures and guidelines put in place by services providers – including hotels and ancillaries – guests may find that some facilities or services are not available.Please visit https:\/\/static-sources.s3-eu-west-1.amazonaws.com\/policy\/index.html for further information",
+              "(15\/05\/2020-31\/12\/2020)"
+            ]
+          },
+          "name" : "Single Deluxe"
+        }
+      ],
+      "checkout" : "2020-09-30",
+      "tk" : "72259e5e34fcc7a48f25120152bae9f8f37e88c9",
+      "travellers" : [
+        [
+          {
+            "pax_type" : "Adult",
+            "pax_id" : "1",
+            "status_id" : null,
+            "ref_table" : "booking_rooms",
+            "first_name" : "User",
+            "isd" : null,
+            "crs_pnr" : "",
+            "id" : "24572",
+            "salutation" : "Mr",
+            "updated_on" : null,
+            "ticket_no" : "",
+            "booking_id" : "13357",
+            "email" : [
+
+            ],
+            "pax_status" : null,
+            "age" : null,
+            "lead_pax" : "1",
+            "mobile" : null,
+            "added_while_booking" : "0",
+            "pax_group" : "0",
+            "gender" : "male",
+            "added_on" : "2020-07-27 10:54:53",
+            "profile_image" : null,
+            "pnr" : null,
+            "ref_table_id" : "5060",
+            "last_name" : "Adult",
+            "pnr_sector" : null,
+            "middle_name" : "",
+            "dob" : null
+          },
+          {
+            "pax_type" : "Adult",
+            "pax_id" : "2",
+            "status_id" : null,
+            "ref_table" : "booking_rooms",
+            "first_name" : "User",
+            "isd" : null,
+            "crs_pnr" : "",
+            "id" : "24573",
+            "salutation" : "Mr",
+            "updated_on" : null,
+            "ticket_no" : "",
+            "booking_id" : "13357",
+            "email" : [
+
+            ],
+            "pax_status" : null,
+            "age" : null,
+            "lead_pax" : "0",
+            "mobile" : null,
+            "added_while_booking" : "0",
+            "pax_group" : "0",
+            "gender" : "male",
+            "added_on" : "2020-07-27 10:54:53",
+            "profile_image" : null,
+            "pnr" : null,
+            "ref_table_id" : "5060",
+            "last_name" : "Child",
+            "pnr_sector" : null,
+            "middle_name" : "",
+            "dob" : null
+          }
+        ]
+      ],
+      "city_id" : "416268",
+      "booking_params" : {
+        "booking_status" : "pending"
+      },
+      "part_payment" : [
+
+      ],
+      "num_rooms" : 1,
+      "lat" : "51.505697",
+      "shareUrl" : "https:\/\/beta.aertrip.com\/hotels?referrer=5f1eb25eb3561a42b764cb86",
+      "payment_details" : {
+        "info" : {
+          "transaction_id" : "order_FJUhW5WvBIT2aA",
+          "payment_amount" : 14978.700000000001
+        },
+        "mode" : "netbanking"
+      },
+      "state" : "",
+      "hid" : "123667",
+      "country" : "United Kingdom",
+      "hname" : "Hilton London Bankside",
+      "cancellation_penalty" : {
+        "is_refundable" : "1"
+      },
+      "country_code" : "GB",
+      "penalty_array" : [
+        {
+          "to" : "2020-09-04 23:59:59",
+          "is_refundable" : "1",
+          "from" : "2020-07-27 16:24:22",
+          "booking_fees" : "0.00"
+        },
+        {
+          "fees_purchase" : "13086.00",
+          "is_refundable" : "0",
+          "from" : "2020-09-05 00:00:00",
+          "booking_fees" : "13086.00"
+        }
+      ],
+      "overview" : "This striking hotel boasts a prestigious setting in London. Sitting on Great Suffolk Street, the hotel enjoys close proximity to South Bank, the Tate Modern and Borough Market. Guests will find themselves just a short walking distance away from Bankside, where they can enjoy food festivals, popular bars and delectable restaurants. The National Theatre, the Shard and Tower Bridge can also be found nearby. Close proximity to the city's financial district makes this a great choice for business and leisure travellers alike. The hotel enjoys a stunning design, tempting visitors into a world of style and charm. Beautifully-appointed guest rooms offer a relaxed ambiance, modern amenities and sleek, contemporary style. The hotel's extensive range of facilities and services are sure to surpass all expectations."
+    }
+  }
+}
+

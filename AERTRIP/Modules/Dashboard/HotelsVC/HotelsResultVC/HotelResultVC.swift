@@ -58,12 +58,19 @@ class HotelResultVC: BaseVC {
             self.tableViewVertical.registerCell(nibName: HotelCardTableViewCell.reusableIdentifier)
             self.tableViewVertical.register(HotelResultSectionHeader.self, forHeaderFooterViewReuseIdentifier: "HotelResultSectionHeader")
             self.tableViewVertical.register(UINib(nibName: "HotelResultSectionHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "HotelResultSectionHeader")
+            // self.tableViewVertical.register(UINib(nibName: "HotelSearchResultHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "HotelSearchResultHeaderView")
+            
             self.tableViewVertical.delegate = self
             self.tableViewVertical.dataSource = self
             self.tableViewVertical.separatorStyle = .none
             self.tableViewVertical.showsVerticalScrollIndicator = false
             self.tableViewVertical.showsHorizontalScrollIndicator = false
             self.tableViewVertical.contentInset = UIEdgeInsets(top: topContentSpace, left: 0, bottom: 0, right: 0)
+            var view = UIView()
+            view.frame = CGRect(x: 0, y: 0, width: tableViewVertical.width, height: 30)
+            view.backgroundColor = AppColors.themeGreen
+            self.tableViewVertical.tableHeaderView = searchResultHeaderView
+            self.tableViewVertical.sectionHeaderHeight = CGFloat.leastNormalMagnitude
         }
     }
     
@@ -135,15 +142,21 @@ class HotelResultVC: BaseVC {
     
     //var statusBarBlurView : UIVisualEffectView!
     //var headerBlurView : UIVisualEffectView!
-
-//    override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
-//        return StatusBarAnimatableConfig(prefersHidden: false, animation: .slide)
-//    }
-
+    
+    //    override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
+    //        return StatusBarAnimatableConfig(prefersHidden: false, animation: .slide)
+    //    }
+    
     
     // Empty State view
     
     lazy var noResultemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noResult
+        return newEmptyView
+    }()
+    
+    lazy var noResultemptyViewVerticalTableView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         newEmptyView.vType = .noResult
         return newEmptyView
@@ -188,8 +201,17 @@ class HotelResultVC: BaseVC {
     var indexOfCellBeforeDragging = 0
     
     //Manage Transition Created by golu
-     internal var transition: CardTransition?
-     
+    internal var transition: CardTransition?
+    var HotelSearchResultHeaderViewHeight: CGFloat = 44
+    lazy var  searchResultHeaderView: HotelSearchResultHeaderView = {
+        let view = HotelSearchResultHeaderView.instanceFromNib()
+        view.delegate = self
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.widthAnchor.constraint(equalToConstant: UIScreen.width).isActive = true
+        view.frame = CGRect(x: 0, y: 0, width: UIScreen.width, height: CGFloat.leastNormalMagnitude)
+        view.updateHeight(height: CGFloat.leastNormalMagnitude)
+        return view
+    }()
     // MARK: - ViewLifeCycle
     
     // MARK: -
@@ -198,9 +220,9 @@ class HotelResultVC: BaseVC {
         self.view.layoutIfNeeded()
         mapButtonIndicator.tintColor = AppColors.themeGreen
         self.filterCollectionView.isUserInteractionEnabled = false
-//        self.filterButton.isEnabled = false
-//        self.mapButton.isEnabled = false
-//        self.searchButton.isEnabled = false
+        //        self.filterButton.isEnabled = false
+        //        self.mapButton.isEnabled = false
+        //        self.searchButton.isEnabled = false
         self.filterButton.isUserInteractionEnabled = false
         self.mapButton.isUserInteractionEnabled = false
         self.searchButton.isUserInteractionEnabled = false
@@ -265,17 +287,17 @@ class HotelResultVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)        
-       // addCustomBackgroundBlurView()
+        // addCustomBackgroundBlurView()
         self.statusBarColor = AppColors.clear
         self.statusBarStyle = .default
     }
-        
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.statusBarColor = AppColors.clear
-//        self.headerBlurView.removeFromSuperview()
-//        self.statusBarBlurView.removeFromSuperview()
-
+        //        self.headerBlurView.removeFromSuperview()
+        //        self.statusBarBlurView.removeFromSuperview()
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -376,18 +398,18 @@ class HotelResultVC: BaseVC {
         switchView.isOn = false
         switchView.setupUI()
         /*
-        self.switchView.originalColor = AppColors.themeWhite.withAlphaComponent(0.85)
-        self.switchView.selectedColor = AppColors.themeRed
-        self.switchView.originalBorderColor = AppColors.themeGray04//AppColors.themeGray20
-        self.switchView.selectedBorderColor = AppColors.themeRed
-        self.switchView.originalBorderWidth = 0.0//1.5
-        self.switchView.selectedBorderWidth = 0.0//1.5
-        self.switchView.iconBorderWidth = 0.0
-        self.switchView.iconBorderColor = AppColors.clear
-        self.switchView.originalImage = #imageLiteral(resourceName: "switch_fav_on").maskWithColor(color: UIColor(displayP3Red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1))
-        self.switchView.selectedImage = #imageLiteral(resourceName: "switch_fav_on")
-        self.switchView.isBackgroundBlurry = true
- */
+         self.switchView.originalColor = AppColors.themeWhite.withAlphaComponent(0.85)
+         self.switchView.selectedColor = AppColors.themeRed
+         self.switchView.originalBorderColor = AppColors.themeGray04//AppColors.themeGray20
+         self.switchView.selectedBorderColor = AppColors.themeRed
+         self.switchView.originalBorderWidth = 0.0//1.5
+         self.switchView.selectedBorderWidth = 0.0//1.5
+         self.switchView.iconBorderWidth = 0.0
+         self.switchView.iconBorderColor = AppColors.clear
+         self.switchView.originalImage = #imageLiteral(resourceName: "switch_fav_on").maskWithColor(color: UIColor(displayP3Red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1))
+         self.switchView.selectedImage = #imageLiteral(resourceName: "switch_fav_on")
+         self.switchView.isBackgroundBlurry = true
+         */
         
         self.switchGradientView.backgroundColor = AppColors.clear
         self.switchGradientView.isHidden = true
@@ -524,6 +546,8 @@ class HotelResultVC: BaseVC {
     }
     
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
+        self.searchResultHeaderView.updateHeight(height: CGFloat.leastNormalMagnitude)
+        self.tableViewVertical.sectionHeaderHeight = CGFloat.leastNormalMagnitude
         self.viewModel.searchedHotels.removeAll()
         self.reloadHotelList()
         self.viewModel.fetchRequestType = .normal
@@ -538,7 +562,7 @@ class HotelResultVC: BaseVC {
         }
         // nitin       self.getFavouriteHotels(shouldReloadData: false)
     }
-
+    
     
     @IBAction func searchBtnTapped(_ sender: Any) {
         self.showSearchAnimation()

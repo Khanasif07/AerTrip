@@ -53,14 +53,18 @@ extension TermAndPrivacyTableViewCell {
         if self.currentUsingFrom == .accountCheckout {
             allTypes = [fareRules, privacyPolicy, termsOfUse]
             textToDisplay = LocalizedString.CheckOutFareRulesPrivacyAndPolicyTerms.localized
-        }else if self.currentUsingFrom == .flightCheckOut{
+        }else{
             allTypes = [privacyPolicy, termsOfUse]
             textToDisplay = LocalizedString.CheckOutPrivacyAndPolicyTermsFlight.localized
         }
-        else {
-            allTypes = [privacyPolicy, termsOfUse]
-            textToDisplay = LocalizedString.CheckOutPrivacyAndPolicyTerms.localized
-        }
+//        else if self.currentUsingFrom == .flightCheckOut{
+//            allTypes = [privacyPolicy, termsOfUse]
+//            textToDisplay = LocalizedString.CheckOutPrivacyAndPolicyTermsFlight.localized
+//        }
+//        else {
+//            allTypes = [privacyPolicy, termsOfUse]
+//            textToDisplay = LocalizedString.CheckOutPrivacyAndPolicyTerms.localized
+//        }
         
       //  withLabel.enabledTypes = [fareDetails, privacyPolicy, termsOfUse]
         

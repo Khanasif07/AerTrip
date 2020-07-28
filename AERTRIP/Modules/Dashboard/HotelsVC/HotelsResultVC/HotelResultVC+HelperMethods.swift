@@ -139,24 +139,24 @@ extension HotelResultVC {
     func updateFavOnList(forIndexPath: IndexPath?) {
         //update the current opened list as user make fav/unfav
         if let indexPath = forIndexPath {
-            if self.viewModel.fetchRequestType == .Searching {
+//            if self.viewModel.fetchRequestType == .Searching {
                 self.hotelSearchTableView.reloadRow(at: indexPath, with: .none)
-            }
-            else {
+//            }
+//            else {
                 self.tableViewVertical.reloadRow(at: indexPath, with: .none)
                 
-            }
+//            }
             selectedIndexPath = nil
         }
         else {
-            if self.viewModel.fetchRequestType == .Searching {
+//            if self.viewModel.fetchRequestType == .Searching {
                 self.hotelSearchTableView.reloadData()
-            }
-            else {
+//            }
+//            else {
                 self.viewModel.fetchDataFromCoreData(isUpdatingFav: true)
                 self.tableViewVertical.reloadData()
                 
-            }
+//            }
         }
     }
     
@@ -418,7 +418,7 @@ extension HotelResultVC {
                     //printDebug("hideHeaderBlurView.frame : \(self.headerContainerView.frame )")
                     self.headerContainerViewTopConstraint.constant = yCordinate
                     var value = self.topContentSpace - abs(yCordinate)
-                    printDebug("hideHeaderBlurView: \(value)")
+                    //printDebug("hideHeaderBlurView: \(value)")
                     if value < 0 {
                         value = 16
                     } else {

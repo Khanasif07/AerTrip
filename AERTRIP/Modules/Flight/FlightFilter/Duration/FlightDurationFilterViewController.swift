@@ -124,7 +124,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         super.viewDidLoad()
         
         
-        if durationFilters.count == 1 {
+        if durationFilters.count == 1 || durationFilters.count == 0 {
             multicityViewHeight.constant = 0.0
             multiLegView.isHidden = true
         }

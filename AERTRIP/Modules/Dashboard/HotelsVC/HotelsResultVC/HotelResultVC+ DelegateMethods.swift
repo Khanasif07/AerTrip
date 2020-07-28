@@ -42,10 +42,16 @@ extension HotelResultVC: UISearchBarDelegate {
             self.searchForText("", shouldPerformAction: false) //cancel all the previous operation
             self.reloadHotelList()
             noResultemptyView.searchTextLabel.text = ""
+            noResultemptyViewVerticalTableView.searchTextLabel.text = ""
         } else { //else if searchText.count >= AppConstants.kSearchTextLimit {
+            self.searchResultHeaderView.updateHeight(height: HotelSearchResultHeaderViewHeight)
+            self.tableViewVertical.sectionHeaderHeight = HotelSearchResultHeaderViewHeight
             noResultemptyView.searchTextLabel.isHidden = false
             noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
+            noResultemptyViewVerticalTableView.searchTextLabel.isHidden = false
+            noResultemptyViewVerticalTableView.searchTextLabel.text = "for \(searchText.quoted)"
             self.viewModel.searchTextStr = searchBar.text ?? ""
+            searchResultHeaderView.configureView(searhText: searchText)
             self.searchForText(searchText)
         }
     }
@@ -63,6 +69,8 @@ extension HotelResultVC: UISearchBarDelegate {
 //        } else {
 //            return
 //        }
+        self.hideSearchAnimation()
+        self.reloadHotelList()
     }
 }
 
@@ -422,5 +430,23 @@ extension HotelResultVC: HotelDetailsVCDelegate {
 extension HotelResultVC: HotelsGroupExpendedVCDelegate {
     func saveButtonActionFromLocalStorage(forHotel: HotelSearched) {
         self.viewModel.updateFavourite(forHotels: [forHotel], isUnpinHotels: false)
+    }
+}
+
+// MARK: - HotelSearchResultHeaderViewDelegate methods
+extension HotelResultVC: HotelSearchResultHeaderViewDelegate {
+    func clearSearchView() {
+        self.searchResultHeaderView.updateHeight(height: CGFloat.leastNormalMagnitude)
+        self.tableViewVertical.sectionHeaderHeight = CGFloat.leastNormalMagnitude
+        self.searchResultHeaderView.configureView(searhText: "")
+        self.viewModel.searchTextStr = ""
+        self.searchBar.text = ""
+        self.viewModel.fetchRequestType = self.filterButton.isSelected ? .FilterApplied : .normalInSearching //for getting all the data in search mode when the search text is blank
+        self.viewModel.loadSaveData()
+        self.searchForText("", shouldPerformAction: false) //cancel all the previous operation
+        self.reloadHotelList()
+        noResultemptyView.searchTextLabel.text = ""
+        noResultemptyViewVerticalTableView.searchTextLabel.text = ""
+        self.searchBar.becomeFirstResponder()
     }
 }

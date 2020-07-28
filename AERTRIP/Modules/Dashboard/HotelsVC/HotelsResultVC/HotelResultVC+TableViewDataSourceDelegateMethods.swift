@@ -24,15 +24,24 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         }
         else if (self.viewModel.fetchRequestType == .Searching) {
             self.manageFloatingView(isHidden: true)
-            self.hotelSearchView.isHidden = false
+            self.hotelSearchView.isHidden = !searchBar.isFirstResponder//false
             self.hotelSearchTableView.backgroundView = self.noResultemptyView
+            self.tableViewVertical.backgroundView = self.noResultemptyViewVerticalTableView
+            
             if !self.viewModel.searchedHotels.isEmpty {
                 self.hotelSearchTableView.backgroundView?.isHidden = true
+                self.tableViewVertical.backgroundView?.isHidden = true
             }
             else {
                 self.hotelSearchTableView.backgroundView?.isHidden = (self.viewModel.searchTextStr.isEmpty && self.viewModel.searchedHotels.isEmpty)
+                self.tableViewVertical.backgroundView?.isHidden = (self.viewModel.searchTextStr.isEmpty && self.viewModel.searchedHotels.isEmpty)
+
             }
-            manageFloatingView(isHidden: true)
+            if !searchBar.isFirstResponder && !self.viewModel.searchedHotels.isEmpty {
+                manageFloatingView(isHidden: false)
+            } else {
+                manageFloatingView(isHidden: true)
+            }
         }
         else if (self.viewModel.fetchRequestType == .normalInSearching) {
             self.viewModel.searchedHotels.removeAll()

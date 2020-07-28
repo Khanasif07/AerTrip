@@ -65,42 +65,49 @@ extension HotelCheckoutDetailVC {
     
     internal func getBedDeailsCell(indexPath: IndexPath, ratesData: Rates , roomData: [RoomsRates: Int]) -> UITableViewCell? {
         guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelDetailsBedsTableViewCell", for: indexPath) as? HotelDetailsBedsTableViewCell  else { return nil }
-////        cell.delegate = self
-////        let key = Array(roomData.keys)[indexPath.row]
-////        let value = roomData[key]
-//        let key = Array(roomData)[indexPath.row].key
-//        let value = Array(roomData)[indexPath.row].value
-//        var isOnlyOneRoom: Bool = false
-//        if roomData.count == 1 && value == 1 {
-//            isOnlyOneRoom = true
-//        } else {
-//            isOnlyOneRoom = false
-//        }
-//        cell.configCell(numberOfRooms: value , roomData: key, isOnlyOneRoom: isOnlyOneRoom)
-//        if roomData.count == 1 {
-//            cell.showHideSetUp(cornerRaduis: 10.0, bookmarkBtnHidden: true, dividerViewHidden: false)
-//        } else {
-//            if indexPath.row == 0 {
-//                cell.showHideSetUp(cornerRaduis: 10.0, bookmarkBtnHidden: true, dividerViewHidden: true)
-//            } else if indexPath.row < roomData.count - 1 {
-//                cell.showHideSetUp(cornerRaduis: 0.0, bookmarkBtnHidden: true, dividerViewHidden: true)
-//            } else {
-//                cell.showHideSetUp(cornerRaduis: 0.0, bookmarkBtnHidden: true, dividerViewHidden: false)
-//            }
-//        }
-//        cell.clipsToBounds = true
-        let key = Array(roomData)[0].key
+//        cell.delegate = self
+        let array = Array(roomData.keys).sorted {
+            $0.name < $1.name
+        }
+        let key = array[indexPath.row]
+        let value = roomData[key]
         var isOnlyOneRoom: Bool = false
-        if roomData.count == 1 {
+        if roomData.count == 1 && value == 1 {
             isOnlyOneRoom = true
         } else {
             isOnlyOneRoom = false
         }
-        cell.configCell(numberOfRooms: roomData.count , roomData: key, isOnlyOneRoom: isOnlyOneRoom)
-        cell.containerView.roundTopCorners(cornerRadius: 10.0)
-        cell.bookmarkButtonOutlet.isHidden = true
-        cell.deviderView.isHidden = false
+        cell.configCell(numberOfRooms: value ?? 0 , roomData: key, isOnlyOneRoom: isOnlyOneRoom)
+        if roomData.count == 1 {
+            cell.showHideSetUp(cornerRaduis: 10.0, bookmarkBtnHidden: false, dividerViewHidden: false)
+        } else {
+            if indexPath.row == 0 {
+                cell.showHideSetUp(cornerRaduis: 10.0, bookmarkBtnHidden: false, dividerViewHidden: true)
+            } else if indexPath.row < roomData.count - 1 {
+                cell.showHideSetUp(cornerRaduis: 0.0, bookmarkBtnHidden: true, dividerViewHidden: true)
+            } else {
+                cell.showHideSetUp(cornerRaduis: 0.0, bookmarkBtnHidden: true, dividerViewHidden: false)
+            }
+        }
+        if (indexPath.section - 2) == 0 && indexPath.row == 0 {
+            cell.shadowViewTopConstraint.constant = 12
+        } else {
+            cell.shadowViewTopConstraint.constant = cell.shadowViewTopConstraint.constant == 0.0 ? 0.0 : 8.0
+        }
+        
         cell.clipsToBounds = true
+//        let key = Array(roomData)[0].key
+//        var isOnlyOneRoom: Bool = false
+//        if roomData.count == 1 {
+//            isOnlyOneRoom = true
+//        } else {
+//            isOnlyOneRoom = false
+//        }
+//        cell.configCell(numberOfRooms: roomData.count , roomData: key, isOnlyOneRoom: isOnlyOneRoom)
+//        cell.containerView.roundTopCorners(cornerRadius: 10.0)
+//        cell.bookmarkButtonOutlet.isHidden = true
+//        cell.deviderView.isHidden = false
+//        cell.clipsToBounds = true
         return cell
     }
     

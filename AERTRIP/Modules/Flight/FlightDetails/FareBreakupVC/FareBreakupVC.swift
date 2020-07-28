@@ -95,6 +95,9 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     var selectedJourneyFK = [String]()
     var fewSeatsLeftViewHeightFromFlightDetails = 0
     var indicator = UIActivityIndicatorView()
+    var fareBreakupFromUpgrade = NSDictionary()
+    var taxAndFeesDataFromUpgrade = [NSDictionary]()
+    var taxAndFeesDataDictFromUpgrade = [taxStruct]()
 
     weak var delegate: FareBreakupVCDelegate?
     
@@ -114,10 +117,11 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         initialDisplayView()
         taxesDataDisplay()
         swipeDownToClose()
+        
 
         if fromScreen == "upgradePlan" {
-            infoLabel.isHidden = true
-            bookingInfoArrowImg.isHidden = true
+//            infoLabel.isHidden = true
+//            bookingInfoArrowImg.isHidden = true
         }else{
             infoLabel.isHidden = false
             bookingInfoArrowImg.isHidden = false
@@ -126,21 +130,66 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     override func viewDidLayoutSubviews()
     {
-        if fromScreen == "upgradePlanCollapse"
-        {
-            if let subLayers = bookingDataDisplayView.layer.sublayers{
-                if subLayers.count > 0{
-                    for layer in subLayers {
-                        if layer.name == "bookingGradient" {
-                            layer.removeFromSuperlayer()
+        self.indicator.center = self.bookButton.center
+//        if fromScreen == "upgradePlanCollapse"
+//        {
+//            if isFareBreakupExpanded == true{
+//                let gradient = CAGradientLayer()
+//                gradient.frame = bookingDataDisplayView.bounds
+//                gradient.frame.size.height = bookingDataDisplayView.frame.height
+//
+//                gradient.startPoint = CGPoint(x: 0, y: 1)
+//                gradient.endPoint = CGPoint(x: 1, y: 1)
+//                let colorOne = UIColor(displayP3Red: ( 0.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 153 / 255.0), alpha: 1.0)
+//                let colorTwo = UIColor(displayP3Red: (41.0/255.0), green: ( 176.0 / 255.0) , blue: ( 182 / 255.0), alpha: 1.0)
+//                gradient.colors = [colorTwo.cgColor, colorOne.cgColor]
+//                gradient.name = "bookingGradient"
+//                bookingDataDisplayView.layer.insertSublayer(gradient, at: 0)
+//            }else{
+//                if let subLayers = bookingDataDisplayView.layer.sublayers{
+//                    if subLayers.count > 0{
+//                        for layer in subLayers {
+//                            if layer.name == "bookingGradient" {
+//                                layer.removeFromSuperlayer()
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//
+//
+//            fromScreen = "upgradePlan"
+//        }else
+            
+            if fromScreen == "upgradePlan" {
+            self.view.backgroundColor = UIColor.clear
+            
+            if isFareBreakupExpanded == true{
+                let gradient = CAGradientLayer()
+                gradient.frame = bookingDataDisplayView.bounds
+                gradient.frame.size.height = bookingDataDisplayView.frame.height
+                
+                gradient.startPoint = CGPoint(x: 0, y: 1)
+                gradient.endPoint = CGPoint(x: 1, y: 1)
+                let colorOne = UIColor(displayP3Red: ( 0.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 153 / 255.0), alpha: 1.0)
+                let colorTwo = UIColor(displayP3Red: (41.0/255.0), green: ( 176.0 / 255.0) , blue: ( 182 / 255.0), alpha: 1.0)
+                gradient.colors = [colorTwo.cgColor, colorOne.cgColor]
+                gradient.name = "bookingGradient"
+                bookingDataDisplayView.layer.insertSublayer(gradient, at: 0)
+            }else{
+                if let subLayers = bookingDataDisplayView.layer.sublayers{
+                    if subLayers.count > 0{
+                        for layer in subLayers {
+                            if layer.name == "bookingGradient" {
+                                layer.removeFromSuperlayer()
+                            }
                         }
                     }
                 }
             }
             
-            fromScreen = "upgradePlan"
-        }else if fromScreen == "upgradePlan" {
-            self.view.backgroundColor = UIColor.clear
+            
+//            fromScreen = "upgradePlanCollapse"
         }else{
             bookingDataDisplayView.frame.size.width = self.view.frame.width
             
@@ -343,6 +392,43 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         self.hideShowLoader(isHidden:true)
     }
     
+    func createTaxesDict()
+    {
+        if self.fareBreakupFromUpgrade.count > 0{
+            
+            let taxes = fareBreakupFromUpgrade.value(forKey: "taxes") as! NSDictionary
+            let details = taxes.value(forKey: "details") as! [String:Int]
+
+            for (_, value) in details.enumerated() {
+                let newObj = taxStruct.init(name: taxesResult[value.key]!, taxVal: value.value)
+                taxAndFeesDataDictFromUpgrade.append(newObj)
+            }
+            
+            
+            let newDict = Dictionary(grouping: taxAndFeesDataDictFromUpgrade) { $0.name }
+            
+            for ( key , _ ) in newDict {
+                
+                let dataArray = newDict[key]
+                
+                var newTaxVal = 0
+                for i in 0..<dataArray!.count{
+                    newTaxVal += (dataArray?[i].taxVal)!
+                }
+                
+                let newArr = ["name" : key,
+                              "value":newTaxVal] as NSDictionary
+                taxAndFeesDataFromUpgrade.append(newArr)
+            }
+        }
+        
+        
+        let totalFare = (fareBreakupFromUpgrade.value(forKey: "total_payable_now") as! NSDictionary).value(forKey: "value") as! Int
+        let price = displayPriceInFormat(price: Double(totalFare), fromOption : "totalAmount")
+        totalPayableAmountLabel.attributedText = price
+        
+    }
+    
     func hideShowLoader(isHidden:Bool){
         DispatchQueue.main.async {
             if isHidden{
@@ -363,10 +449,16 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         if section == 2{
-            if taxAndFeesData.count > 0{
-                return taxAndFeesData.count+1
+            if fromScreen == "upgradePlan" && taxAndFeesDataFromUpgrade.count > 0{
+//                let taxes = fareBreakupFromUpgrade.value(forKey: "taxes") as! NSDictionary
+//                let details = taxes.value(forKey: "details") as! NSDictionary
+                return taxAndFeesDataFromUpgrade.count+1
             }else{
-                return 0
+                if taxAndFeesData.count > 0{
+                    return taxAndFeesData.count+1
+                }else{
+                    return 0
+                }
             }
         }else{
             return 1
@@ -420,19 +512,33 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             baseFareCell.titleLabelLeading.constant = 16
             
             baseFareCell.titleLabel.text = "Base Fare"
-            if taxesData != nil{
-                var amount = 0
-                if journeyCombo != nil{
-                    amount = journeyCombo.reduce(0) { $0 + $1.fare.BF.value }
+            
+            if fromScreen == "upgradePlan" && fareBreakupFromUpgrade.count > 0
+            {
+                if let bf = fareBreakupFromUpgrade.value(forKey: "BF") as? NSDictionary{
+                    let baseFare = bf.value(forKey: "value") as! Int
+
+                    let price = displayPriceInFormat(price: Double(baseFare), fromOption : "FareAmount")
+                    baseFareCell.amountLable.attributedText = price
                 }else{
-                    amount = journey.reduce(0) { $0 + $1.fare.BF.value }
+                    baseFareCell.amountLable.text = ""
                 }
-                
-                let price = displayPriceInFormat(price: Double(amount), fromOption : "FareAmount")
-                baseFareCell.amountLable.attributedText = price
             }else{
-                baseFareCell.amountLable.text = ""
+                if taxesData != nil{
+                    var amount = 0
+                    if journeyCombo != nil{
+                        amount = journeyCombo.reduce(0) { $0 + $1.fare.BF.value }
+                    }else{
+                        amount = journey.reduce(0) { $0 + $1.fare.BF.value }
+                    }
+                    
+                    let price = displayPriceInFormat(price: Double(amount), fromOption : "FareAmount")
+                    baseFareCell.amountLable.attributedText = price
+                }else{
+                    baseFareCell.amountLable.text = ""
+                }
             }
+            
             return baseFareCell
             
         case 2:
@@ -451,19 +557,29 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 
                 baseFareCell.upArrowImg.isHidden = false
                 baseFareCell.titleLabel.text = "Taxes and Fees"
-                if taxesData != nil{
-                    var amount = 0
-                    if journeyCombo != nil{
-                        amount = journeyCombo.reduce(0) { $0 + $1.fare.taxes.value }
-                    }else{
-                        amount = journey.reduce(0) { $0 + $1.fare.taxes.value }
-                    }
-                    
-                    let price = displayPriceInFormat(price: Double(amount), fromOption : "FareAmount")
+
+                if fromScreen == "upgradePlan" && fareBreakupFromUpgrade.count > 0
+                {
+                    let texes = (fareBreakupFromUpgrade.value(forKey: "taxes") as! NSDictionary).value(forKey: "value") as! Int
+                    let price = displayPriceInFormat(price: Double(texes), fromOption : "FareAmount")
                     baseFareCell.amountLable.attributedText = price
+
                 }else{
-                    baseFareCell.amountLable.text = ""
+                    if taxesData != nil{
+                        var amount = 0
+                        if journeyCombo != nil{
+                            amount = journeyCombo.reduce(0) { $0 + $1.fare.taxes.value }
+                        }else{
+                            amount = journey.reduce(0) { $0 + $1.fare.taxes.value }
+                        }
+                        
+                        let price = displayPriceInFormat(price: Double(amount), fromOption : "FareAmount")
+                        baseFareCell.amountLable.attributedText = price
+                    }else{
+                        baseFareCell.amountLable.text = ""
+                    }
                 }
+                
                 baseFareCell.dataDisplayViewBottom.constant = 0
                 
                 return baseFareCell
@@ -479,20 +595,36 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 
                 baseFareCell.titleLabelLeading.constant = 31
                 
-                if taxAndFeesData.count > 0{
-                    baseFareCell.titleLabel.text = (taxAndFeesData[indexPath.row-1].value(forKey: "name") as! String)
-                    if (taxAndFeesData[indexPath.row-1].value(forKey: "value") as? Int) != nil{
-                        let amount : Double = Double(taxAndFeesData[indexPath.row-1].value(forKey: "value")! as! Int)
+                if fromScreen == "upgradePlan" && self.taxAndFeesDataFromUpgrade.count > 0
+                {
+                    baseFareCell.titleLabel.text = (taxAndFeesDataFromUpgrade[indexPath.row-1].value(forKey: "name") as! String)
+                    
+                    if (taxAndFeesDataFromUpgrade[indexPath.row-1].value(forKey: "value") as? Int) != nil{
+                        let amount : Double = Double(taxAndFeesDataFromUpgrade[indexPath.row-1].value(forKey: "value")! as! Int)
                         
                         let price = displayPriceInFormat(price: amount, fromOption : "FareAmount")
                         baseFareCell.amountLable.attributedText = price
                     }else{
                         baseFareCell.amountLable.text = ""
                     }
+
                 }else{
-                    baseFareCell.titleLabel.text = ""
-                    baseFareCell.amountLable.text = ""
+                    if taxAndFeesData.count > 0{
+                        baseFareCell.titleLabel.text = (taxAndFeesData[indexPath.row-1].value(forKey: "name") as! String)
+                        if (taxAndFeesData[indexPath.row-1].value(forKey: "value") as? Int) != nil{
+                            let amount : Double = Double(taxAndFeesData[indexPath.row-1].value(forKey: "value")! as! Int)
+                            
+                            let price = displayPriceInFormat(price: amount, fromOption : "FareAmount")
+                            baseFareCell.amountLable.attributedText = price
+                        }else{
+                            baseFareCell.amountLable.text = ""
+                        }
+                    }else{
+                        baseFareCell.titleLabel.text = ""
+                        baseFareCell.amountLable.text = ""
+                    }
                 }
+                
                 
                 
                 if indexPath.row == taxAndFeesData.count{
@@ -672,9 +804,9 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom
         let screenSize = UIScreen.main.bounds
         
-        if fromScreen == "upgradePlanExpand"{
-            fromScreen = "upgradePlanCollapse"
-        }
+//        if fromScreen == "upgradePlanExpand"{
+//            fromScreen = "upgradePlanCollapse"
+//        }
         
         UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
             
@@ -981,7 +1113,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     @objc func infoButtonTapped(){
-        if fromScreen != "upgradePlan"{
+//        if fromScreen != "upgradePlan"{
             
             if isInfoViewHidden == false
             {
@@ -997,7 +1129,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             }
             
             isInfoViewHidden = !isInfoViewHidden
-        }
+//        }
     }
     
     //MARK:- Price Formatting

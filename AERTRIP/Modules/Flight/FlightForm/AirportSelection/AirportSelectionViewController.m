@@ -142,6 +142,14 @@
     [self startlocationService];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.searchWorkItem) {
+        dispatch_block_cancel(self.searchWorkItem);
+        self.searchWorkItem = nil;
+    }
+}
+
 -(void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     self.bottomHeightConstraint.constant = 50 + self.view.safeAreaInsets.bottom;
@@ -169,9 +177,9 @@
 
         
         if (self.viewModel.isFrom){
-            [self fromAction:nil];
+//            [self fromAction:nil];
         }else {
-            [self toAction:nil];
+//            [self toAction:nil];
         }
         
     } failure:^(NSString *error, BOOL popup) {
@@ -238,7 +246,7 @@
     [self setupTableView];
     self.airportDisplayArray = [[NSMutableArray alloc] init];
     self.displaySections = [[NSMutableDictionary alloc] init];
-    [self refreshAllUIElements];
+    [self refreshAllUIElements:false];
     [self performNearbyAirportsSearch];
     [self notifications];
     [self showNoResultView];
@@ -374,6 +382,11 @@
 }
 - (void)animateBottomViewOut {
     
+    if (self.searchWorkItem) {
+        dispatch_block_cancel(self.searchWorkItem);
+        self.searchWorkItem = nil;
+    }
+    
     if (@available(iOS 13.0, *)) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
@@ -450,7 +463,7 @@
     
     self.airportDisplayArray = [[NSMutableArray alloc] init];
     self.displaySections = [[NSMutableDictionary alloc] init];
-    [self refreshAllUIElements];
+    [self refreshAllUIElements:true];
 }
 
 - (void)updateUIAfterAddingAirport {
@@ -494,27 +507,29 @@
 
 - (void) performSearchOnServerWithText:(NSString *)searchText
 {
-    
     [[Network sharedNetwork] callGETApi:AIRPORT_SEARCH_API parameters:[self buildDictionaryWithText:searchText] loadFromCache:NO expires:YES success:^(NSDictionary *dataDictionary) {
-        [self handleSearchResultDictionary:dataDictionary];
+        [self handleSearchResultDictionary:dataDictionary:searchText];
     } failure:^(NSString *error, BOOL popup) {
         [AertripToastView toastInView:self.view withText:error];
         [self ResetSearch];
     }];
 }
 
-- (void)handleSearchResultDictionary:(NSDictionary *)dataDictionary {
+- (void)handleSearchResultDictionary:(NSDictionary *)dataDictionary :(NSString *)apiSearchText {
+    if (self.searchBar.text != apiSearchText) {
+        return;
+    }
     if ([[Parser getValueForKey:@"type" inDictionary:dataDictionary] isEqualToString:@"airports"]) {
         self.cellIdentifier = @"AirportCell";
         [self createAirportArrayFromSearchResult:[Parser parseAirportSearchArray:[dataDictionary objectForKey:@"results"]]];
-        [self refreshAllUIElements];
+        [self refreshAllUIElements:true];
         return;
     }
     
     if ([[Parser getValueForKey:@"type" inDictionary:dataDictionary] isEqualToString:@"airlines"]) {
         self.cellIdentifier = @"AirlineSearchCell";
         [self createAirlineArrayFromSearchResult:[dataDictionary objectForKey:@"results"]];
-        [self refreshAllUIElements];
+        [self refreshAllUIElements:true];
         return;
     }
     
@@ -769,7 +784,7 @@
 }
 
 
-- (void)refreshAllUIElements {
+- (void)refreshAllUIElements:(BOOL)shouldReloadTable {
     
     if ( self.viewModel.toFlightArray.count == 0 && self.viewModel.fromFlightArray.count == 0 ) {
         [self.switcherButton setEnabled:false];
@@ -779,7 +794,9 @@
     
     [self populateDisplayArrays];
     [self setupFromAndToView];
-    [self.resultTableView reloadData];
+    if (shouldReloadTable) {
+        [self.resultTableView reloadData];
+    }
     [self showNoResultView];
     [self hideLoader:YES];
     
@@ -923,14 +940,34 @@
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     
+     dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0);
+    if (self.searchWorkItem) {
+        dispatch_block_cancel(self.searchWorkItem);
+        self.searchWorkItem = nil;
+    }
+    __weak typeof(self) weakSelf = self;
+    self.searchWorkItem = dispatch_block_create(0, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf sendSearchRequest];
+        });
+        weakSelf.searchWorkItem = nil;
+    });
+    
     if ([searchText length] > 1 ){
         self.dictationButton.hidden = YES;
         
         self.NoResultLabel.text = @"Searching..";
-        [self performSelector:@selector(sendSearchRequest) withObject:searchText afterDelay:0.35f];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.35 * NSEC_PER_SEC)), queue, self.searchWorkItem);
+        
+//        [self performSelector:@selector(sendSearchRequest) withObject:searchText afterDelay:0.35f];
     }else {
+        if ([searchText length] > 0) {
+            self.dictationButton.hidden = YES;
+        } else {
+            self.dictationButton.hidden = NO;
+        }
         [self hideTableViewHeader:YES];
-        self.dictationButton.hidden = NO;
     }
     
     if ([searchText length] == 0 ){
@@ -1583,8 +1620,10 @@
 
 - (void)setupFromAndToView
 {
-    [self setupFromView];
-    [self setupToView];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self setupFromView];
+        [self setupToView];
+    });
     [self setupSwitcherButton];
     [self changeColorTab];
 }
@@ -1665,7 +1704,7 @@
     self.searchBar.text = @"";
     self.airportDisplayArray = [[NSMutableArray alloc] init];
     self.displaySections = [[NSMutableDictionary alloc] init];
-    [self refreshAllUIElements];
+    [self refreshAllUIElements:false];
     [self performNearbyAirportsSearch];
 }
 
@@ -1677,7 +1716,7 @@
     self.searchBar.text = @"";
     self.airportDisplayArray = [[NSMutableArray alloc] init];
     self.displaySections = [[NSMutableDictionary alloc] init];
-    [self refreshAllUIElements];
+    [self refreshAllUIElements:false];
     [self performNearbyAirportsSearch];
 }
 
