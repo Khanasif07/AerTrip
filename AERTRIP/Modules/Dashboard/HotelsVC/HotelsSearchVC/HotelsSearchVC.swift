@@ -932,7 +932,8 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
         printDebug("searching again for \(recentSearch.dest_name)")
         self.viewModel.searchedFormData.lat = recentSearch.lat
         self.viewModel.searchedFormData.lng = recentSearch.lng
-
+        self.viewModel.searchedFormData.isHotelNearMeSelected = false
+        
         self.setDataFromPreviousSearch(olddata: self.viewModel.searchedFormData, isSettingForFirstTime: true)
         self.searchButtonAction(nil)
         //        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
