@@ -604,20 +604,28 @@ extension YouAreAllDoneVC: HCBookingDetailsTableViewHeaderFooterViewDelegate {
 extension YouAreAllDoneVC{
     
     func tapOnSeletedWhatNext(index: Int){
-        if index == 0{
+        if self.viewModel.hotelReceiptData?.whatNext.count == 0{
             guard let bookingId = self.viewModel.bookingIds.first else {
                 return
             }
             AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: bookingId)
         }else{
-            guard let whtNxt = self.viewModel.hotelReceiptData?.whatNext[index - 1] else {return}
-            switch whtNxt.productType{
-            case .flight:
-                self.bookFlightFor(whtNxt)
-            case .hotel:
-                self.bookAnotherHotels(whtNxt)
-            default: break;
+            if index == self.viewModel.hotelReceiptData?.whatNext.count{
+                guard let bookingId = self.viewModel.bookingIds.first else {
+                    return
+                }
+                AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: bookingId)
+            }else{
+                guard let whtNxt = self.viewModel.hotelReceiptData?.whatNext[index] else {return}
+                switch whtNxt.productType{
+                case .flight:
+                    self.bookFlightFor(whtNxt)
+                case .hotel:
+                    self.bookAnotherHotels(whtNxt)
+                default: break;
+                }
             }
+            
         }
     }
     

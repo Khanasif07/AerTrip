@@ -807,7 +807,7 @@ extension AppFlowManager {
         
         let nav = UINavigationController(rootViewController: obj)
         nav.isNavigationBarHidden = true
-        self.mainNavigationController.present(nav, animated: true, completion: nil)
+        self.currentNavigation?.present(nav, animated: true, completion: nil)
     }
     
     func presentBookingFareInfoDetailVC(usingFor: BookingFareInfoDetailVC.UsingFor, forBookingId: String, legDetails: BookingLeg?, bookingFee: BookingFeeDetail?) {
@@ -1084,7 +1084,7 @@ extension AppFlowManager {
         let obj = BookingRequestAddOnsFFVC.instantiate(fromAppStoryboard: .Bookings)
         obj.delegate = delegate
         BookingRequestAddOnsFFVM.shared.bookingDetails = bookingdata
-        self.mainNavigationController.present(obj, animated: true)
+        self.currentNavigation?.present(obj, animated: true)
     }
     
     // Present BookingReschedulingVC
@@ -1096,7 +1096,7 @@ extension AppFlowManager {
         
         let nav = UINavigationController(rootViewController: obj)
         nav.isNavigationBarHidden = true
-        self.mainNavigationController.present(nav, animated: true)
+        self.currentNavigation?.present(nav, animated: true)
     }
     
     // Present RequestCancellation
@@ -1108,7 +1108,7 @@ extension AppFlowManager {
         
         let nav = UINavigationController(rootViewController: obj)
         nav.isNavigationBarHidden = true
-        self.mainNavigationController.present(nav, animated: true)
+        self.currentNavigation?.present(nav, animated: true)
     }
     
     // Move to Booking Review Cancellation
@@ -1127,7 +1127,7 @@ extension AppFlowManager {
         obj.viewModel.currentUsingAs = .specialRequest
         obj.viewModel.selectedRooms = []
         obj.viewModel.bookingId = forBookingId
-        self.mainNavigationController.present(obj, animated: true, completion: nil)
+        self.currentNavigation?.present(obj, animated: true, completion: nil)
     }
     
     // Move to Booking confirm email
@@ -1135,7 +1135,7 @@ extension AppFlowManager {
     func presentConfirmationMailVC(bookindId: String) {
         let obj = BookingConfimationMailVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.bookingId = bookindId
-        self.mainNavigationController.present(obj, animated: true)
+        self.currentNavigation?.present(obj, animated: true)
     }
     
     

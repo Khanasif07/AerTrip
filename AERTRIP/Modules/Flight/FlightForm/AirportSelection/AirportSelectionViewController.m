@@ -438,10 +438,6 @@
 
 -(NSAttributedString*)secondaryStringFor:(NSString*)inputString
 {
-    if (inputString == nil){
-        NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString: @" "];
-        return str;
-    }
     NSDictionary * attributes = @{NSForegroundColorAttributeName : [UIColor ONE_FIVE_THREE_COLOR],NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Regular" size:14]};
     NSMutableAttributedString * secondaryLabelAttributedString = [[NSMutableAttributedString alloc] initWithString:inputString attributes:attributes];
     

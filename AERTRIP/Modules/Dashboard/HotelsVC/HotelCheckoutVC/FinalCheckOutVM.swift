@@ -172,6 +172,7 @@ extension FinalCheckoutVM {
             if success {
                 let hotelReceiptData = receiptData ?? HotelReceiptModel()
                 sSelf.delegate?.getBookingReceiptSuccess(detail: hotelReceiptData)
+                sSelf.getUserAccountData()
             } else {
                 sSelf.delegate?.getBookingReceiptFail()
             }
@@ -185,6 +186,15 @@ extension FinalCheckoutVM {
         APICaller.shared.getCouponDetailsApi(params: params, loader: true ) { (success, errors, couponsDetails) in
             completion(success, couponsDetails, errors)
             
+        }
+    }
+    
+    //To update Account details after booking.
+    private func getUserAccountData(){
+        if UserInfo.loggedInUserId != nil{
+            APICaller.shared.getAccountDetailsAPI(params: [:]) {(success, accLad, accVchrs, outLad, periodic, errors) in
+                printDebug("Account updated.")
+            }
         }
     }
     
