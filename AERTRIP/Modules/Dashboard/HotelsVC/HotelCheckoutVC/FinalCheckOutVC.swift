@@ -17,7 +17,12 @@ class FinalCheckOutVC: BaseVC {
     // MARK: - IB Outlet
     
     @IBOutlet weak var topNavView: TopNavigationView!
-    @IBOutlet weak var checkOutTableView: ATTableView!
+    @IBOutlet weak var checkOutTableView: ATTableView!{
+        didSet{
+            self.checkOutTableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
+            self.checkOutTableView.backgroundColor = AppColors.screensBackground.color
+        }
+    }
     @IBOutlet weak var payButton: UIButton!
     @IBOutlet weak var loaderContainer: UIView!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
@@ -152,8 +157,9 @@ class FinalCheckOutVC: BaseVC {
                 printDebug("Cell not found")
                 return UITableViewCell()
             }
-            emptyCell.topDividerView.isHidden = indexPath.row == 0
+//            emptyCell.topDividerView.isHidden = indexPath.row == 0
             emptyCell.clipsToBounds = true
+            emptyCell.backgroundColor = AppColors.themeGray04
             return emptyCell
         case 1:
             guard let applyCouponCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: ApplyCouponTableViewCell.reusableIdentifier, for: indexPath) as? ApplyCouponTableViewCell else {

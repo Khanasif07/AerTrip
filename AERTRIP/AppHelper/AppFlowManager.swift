@@ -562,7 +562,9 @@ extension AppFlowManager {
         //        ob.modalPresentationStyle = .overFullScreen
         //        ob.modalPresentationCapturesStatusBarAppearance = true
         //        ob.statusBarColor = AppColors.themeWhite
-        self.currentNavigation?.present(ob, animated: true, completion: nil)
+        if !(UIApplication.topViewController()?.isKind(of: HotelDetailsAmenitiesVC.self) ?? false){
+            UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
+        }
     }
     
     func presentHotelDetailsOverViewVC(overViewInfo: String) {
@@ -783,13 +785,13 @@ extension AppFlowManager {
         let obj = FlightBookingsDetailsVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.bookingId = bookingId
         obj.viewModel.tripCitiesStr = tripCitiesStr ?? NSMutableAttributedString(string: "")
-        self.mainNavigationController.pushViewController(obj, animated: true)
+        self.currentNavigation?.pushViewController(obj, animated: true)
     }
     
     func moveToHotelBookingsDetailsVC(bookingId: String) {
         let obj = HotlelBookingsDetailsVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.bookingId = bookingId
-        self.mainNavigationController.pushViewController(obj, animated: true)
+        self.currentNavigation?.pushViewController(obj, animated: true)
     }
     
     func moveToRequestReschedulingVC(onNavController: UINavigationController?, legs: [BookingLeg], isOnlyReturn:Bool = false) {

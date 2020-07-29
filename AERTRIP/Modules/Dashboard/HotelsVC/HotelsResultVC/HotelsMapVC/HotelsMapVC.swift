@@ -222,6 +222,12 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.addGestureRecognizerForTap()
         self.loadFinalDataOnScreen()
         self.setupCollection()
+        
+        if !self.viewModel.searchTextStr.isEmpty {
+            animateHeaderToMapView()
+            self.showSearchAnimation()
+            self.searchBar.text = self.viewModel.searchTextStr
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -485,11 +491,12 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         delay(seconds: 0.1) { [weak self] in
             guard let self = self else {return}
             self.viewModel.loadSaveData()
-            if self.viewModel.isResetAnnotation{
-                self.appleMap.removeAnnotations(self.appleMap.annotations)
-                self.addAllMarker()
-                self.viewModel.isResetAnnotation = false
-            }
+            self.resetAllMarker()
+//            if self.viewModel.isResetAnnotation{
+//                self.appleMap.removeAnnotations(self.appleMap.annotations)
+//                self.addAllMarker()
+//                self.viewModel.isResetAnnotation = false
+//            }
         }
         // nitin       self.getFavouriteHotels(shouldReloadData: false)
     }

@@ -58,7 +58,6 @@ class IntMCAndReturnVC : UIViewController {
     var updateResultWorkItem: DispatchWorkItem?
 
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.results = InternationalJourneyResultsArray(sort: .Smart)
