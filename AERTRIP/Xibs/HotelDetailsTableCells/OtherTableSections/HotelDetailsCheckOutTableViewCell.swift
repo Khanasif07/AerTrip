@@ -17,6 +17,7 @@ class HotelDetailsCheckOutTableViewCell: UITableViewCell {
     @IBOutlet weak var bookLabel: UILabel!
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var shadowViewBottomConstraints: NSLayoutConstraint!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     
     //Mark:- LifeCycle
@@ -28,6 +29,25 @@ class HotelDetailsCheckOutTableViewCell: UITableViewCell {
 
     //Mark:- PrivateFunctions
     //=======================
+    
+    private func manageLoader() {
+        self.indicator.style = .gray
+        self.indicator.tintColor = AppColors.themeWhite
+        self.indicator.color = AppColors.themeWhite
+        self.indicator.startAnimating()
+        self.hideShowLoader(isHidden:true)
+    }
+    
+    func hideShowLoader(isHidden:Bool){
+        DispatchQueue.main.async {
+            if isHidden{
+                self.indicator.stopAnimating()
+            }else{
+                self.indicator.startAnimating()
+            }
+            self.bookLabel.isHidden = !isHidden
+        }
+    }
     
     ///ConfigureUI
     private func configureUI() {
@@ -47,6 +67,7 @@ class HotelDetailsCheckOutTableViewCell: UITableViewCell {
         
         //Text
         self.bookLabel.text = LocalizedString.Book.localized
+        self.manageLoader()
     }
     
 }

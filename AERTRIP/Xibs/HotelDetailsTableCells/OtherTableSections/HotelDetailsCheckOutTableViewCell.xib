@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -41,12 +41,17 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Ur2-rt-Z0H">
+                                        <rect key="frame" x="234.5" y="14.5" width="20" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="Ur2-rt-Z0H" firstAttribute="centerY" secondItem="jOF-BG-4px" secondAttribute="centerY" id="3ri-FN-MN5"/>
                                     <constraint firstItem="vaO-Hy-ELG" firstAttribute="centerY" secondItem="xdE-jI-gOD" secondAttribute="centerY" id="8RC-IY-KH1"/>
                                     <constraint firstAttribute="bottom" secondItem="jOF-BG-4px" secondAttribute="bottom" constant="12.5" id="Bu3-tj-sxH"/>
                                     <constraint firstItem="jOF-BG-4px" firstAttribute="leading" secondItem="vaO-Hy-ELG" secondAttribute="trailing" constant="10" id="Gp4-id-Rh7"/>
+                                    <constraint firstItem="Ur2-rt-Z0H" firstAttribute="centerX" secondItem="jOF-BG-4px" secondAttribute="centerX" id="MbU-Ic-NLO"/>
                                     <constraint firstAttribute="trailing" secondItem="jOF-BG-4px" secondAttribute="trailing" constant="16" id="QO1-rt-Sdl"/>
                                     <constraint firstItem="jOF-BG-4px" firstAttribute="centerY" secondItem="xdE-jI-gOD" secondAttribute="centerY" id="W8L-vC-JKJ"/>
                                     <constraint firstItem="vaO-Hy-ELG" firstAttribute="leading" secondItem="xdE-jI-gOD" secondAttribute="leading" constant="16" id="nkD-Wm-Ng7"/>
@@ -77,6 +82,7 @@
                 <outlet property="bookLabel" destination="jOF-BG-4px" id="tNf-5L-fqL"/>
                 <outlet property="containerView" destination="xdE-jI-gOD" id="R2h-lQ-U1W"/>
                 <outlet property="hotelFeesLabel" destination="vaO-Hy-ELG" id="spu-aj-edN"/>
+                <outlet property="indicator" destination="Ur2-rt-Z0H" id="2Ms-XM-nr0"/>
                 <outlet property="shadowView" destination="je1-nR-6fo" id="kSG-RT-4eV"/>
                 <outlet property="shadowViewBottomConstraints" destination="yhy-FA-JOA" id="VSp-d2-Yd2"/>
             </connections>
