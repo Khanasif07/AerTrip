@@ -24,6 +24,9 @@ protocol HotelDetailDelegate: class {
     func willGetPinnedTemplate()
     func getPinnedTemplateSuccess()
     func getPinnedTemplateFail()
+    
+    func willFetchConfirmItineraryData(index:Int)
+    func fetchConfirmItineraryDataResponse(itineraryData: ItineraryData?, index:Int, error:ErrorCodes)
 }
 
 class HotelDetailsVM {
@@ -54,6 +57,8 @@ class HotelDetailsVM {
     var isFooterViewHidden: Bool = false
     var filterAppliedData: UserInfo.HotelFilter = UserInfo.HotelFilter()
     var shareLinkURL = ""
+    var confirmationCount = 1
+    var isBookLoaderHidden = true
     
     private let defaultCheckInTime = "07:00"
     private let defaultCheckOutTime = "07:00"
@@ -408,6 +413,26 @@ class HotelDetailsVM {
                 self?.delegate?.getPinnedTemplateFail()
                 completionBlock(false)
             }
+        }
+    }
+    
+    ///Hotel confirmation Api
+    func fetchConfirmItineraryData(at index:Int) {
+        let params: JSONDictionary = [APIKeys.sid.rawValue: self.hotelSearchRequest?.sid ?? "", APIKeys.hid.rawValue: self.hotelInfo?.hid ?? "", "data[0][qid]": self.ratesData[index].qid, "p": "hotels"]
+        printDebug(params)
+        
+        delegate?.willFetchConfirmItineraryData(index: index)
+        APICaller.shared.fetchConfirmItineraryData(params: params) { [weak self] success, errors, itData in
+            guard let self = self else { return }
+            self.delegate?.fetchConfirmItineraryDataResponse(itineraryData: itData, index: index, error: errors)
+//            if success {
+//                sSelf.itineraryData = itData
+//                sSelf.itineraryData?.hotelDetails?.locid = sSelf.locid
+//                sSelf.delegate?.fetchConfirmItineraryDataSuccess()
+//            } else {
+//                printDebug(errors)
+//                sSelf.delegate?.fetchConfirmItineraryDataFail(errors: errors)
+//            }
         }
     }
 }

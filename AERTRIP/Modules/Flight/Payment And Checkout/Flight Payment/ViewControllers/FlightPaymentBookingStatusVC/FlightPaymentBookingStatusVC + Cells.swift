@@ -133,7 +133,7 @@ extension FlightPaymentBookingStatusVC{
     }
     
     private func tapOnSeletedWhatNext(index: Int){
-        if index == 0{
+        if self.viewModel.itinerary.whatNext.count == 0{
             guard self.viewModel.apiBookingIds.count != 0 else {return}
             if self.viewModel.apiBookingIds.count == 1{
                 let bookingId = self.viewModel.apiBookingIds.first ?? ""
@@ -142,10 +142,20 @@ extension FlightPaymentBookingStatusVC{
                 self.openActionSheetForBooking()
             }
         }else{
-            switch self.viewModel.itinerary.whatNext[index - 1].productType{
-            case .flight: self.bookFlightFor(self.viewModel.itinerary.whatNext[index - 1])
-            case .hotel: self.bookAnotherRoom(self.viewModel.itinerary.whatNext[index - 1])
-            default: break;
+            if index == self.viewModel.itinerary.whatNext.count{
+                guard self.viewModel.apiBookingIds.count != 0 else {return}
+                if self.viewModel.apiBookingIds.count == 1{
+                    let bookingId = self.viewModel.apiBookingIds.first ?? ""
+                    AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: bookingId, tripCitiesStr: self.viewModel.bookingObject?.titleString.mutableCopy() as? NSMutableAttributedString)
+                }else{
+                    self.openActionSheetForBooking()
+                }
+            }else{
+                switch self.viewModel.itinerary.whatNext[index].productType{
+                case .flight: self.bookFlightFor(self.viewModel.itinerary.whatNext[index])
+                case .hotel: self.bookAnotherRoom(self.viewModel.itinerary.whatNext[index])
+                default: break;
+                }
             }
         }
     }

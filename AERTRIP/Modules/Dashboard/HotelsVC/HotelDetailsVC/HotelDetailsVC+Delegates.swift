@@ -126,19 +126,17 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
         }
         else if let _ = tableView.cellForRow(at: indexPath) as? HotelDetailsCheckOutTableViewCell {
             AppGlobals.shared.startLoading(loaderBgColor: .clear)
-            delay(seconds: 0.1) {
-                var presentSelectionVC = false
-                if let _ = UserInfo.loggedInUserId {
-                    presentSelectionVC = true
-                }
+            delay(seconds: 0.0) {
+//                var presentSelectionVC = false
+//                if let _ = UserInfo.loggedInUserId {
+//                    presentSelectionVC = true
+//                }
                 AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForCheckout,presentViewController: true) { [weak self](isGuest) in
-                    guard let sSelf = self else {return}
-                    //                if let vc = sSelf.parent {
-                    //                    AppFlowManager.default.popToViewController(vc, animated: true)
-                    //                }
-                    AppFlowManager.default.moveToHCDataSelectionVC(sid: sSelf.viewModel.hotelSearchRequest?.sid ?? "", hid: sSelf.viewModel.hotelInfo?.hid ?? "", qid: sSelf.viewModel.ratesData[indexPath.section-2].qid, placeModel: sSelf.viewModel.placeModel ?? PlaceModel(), hotelSearchRequest: sSelf.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), hotelInfo: sSelf.viewModel.hotelInfo ?? HotelSearched(), locid: sSelf.viewModel.hotelInfo?.locid ?? "", roomRate: sSelf.viewModel.ratesData[indexPath.section - 2], delegate: self as! HCDataSelectionVCDelegate, presentViewController: presentSelectionVC)
+                    guard let self = self else {return}
                     AppFlowManager.default.removeLoginConfirmationScreenFromStack()
                     AppGlobals.shared.stopLoading()
+                    self.presentedViewController?.dismiss(animated: false, completion: nil)
+                    self.viewModel.fetchConfirmItineraryData(at: indexPath.section - 2)
                 }
             }
         }
@@ -175,6 +173,45 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
 //MARK:- HotelDetailDelegate
 //==========================
 extension HotelDetailsVC: HotelDetailDelegate {
+    func willFetchConfirmItineraryData(index: Int) {
+        self.manageLoaderOnBookCell(isHidden: false, at: index)
+    }
+    
+    func fetchConfirmItineraryDataResponse(itineraryData: ItineraryData?, index:Int, error: ErrorCodes) {
+        if let itData = itineraryData{
+            self.viewModel.confirmationCount = 1
+//            var presentSelectionVC = false
+//            if let _ = UserInfo.loggedInUserId {
+//                presentSelectionVC = true
+//            }
+            AppFlowManager.default.moveToHCDataSelectionVC(sid: self.viewModel.hotelSearchRequest?.sid ?? "", hid: self.viewModel.hotelInfo?.hid ?? "", qid: self.viewModel.ratesData[index].qid, placeModel: self.viewModel.placeModel ?? PlaceModel(), hotelSearchRequest: self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), itData: itData, hotelInfo: self.viewModel.hotelInfo ?? HotelSearched(), locid: self.viewModel.hotelInfo?.locid ?? "", roomRate: self.viewModel.ratesData[index], delegate: self, presentViewController: true)
+            self.manageLoaderOnBookCell(isHidden: true, at: index)
+            
+        }else if self.viewModel.confirmationCount < 5{
+            self.viewModel.confirmationCount += 1
+            self.viewModel.fetchConfirmItineraryData(at: index)
+        }else {
+            self.viewModel.confirmationCount = 1
+            self.manageLoaderOnBookCell(isHidden: true, at: index)
+            AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
+        }
+    }
+    
+    func manageLoaderOnBookCell(isHidden:Bool, at index: Int){
+        if self.hotelTableView.numberOfSections > index + 2{
+            let row = self.hotelTableView.numberOfRows(inSection: index + 2) - 1
+            let indexPath = IndexPath(row: row, section: index+2)
+            self.hotelTableView.isUserInteractionEnabled = isHidden
+            if #available(iOS 13.0, *) {
+                self.isModalInPresentation = !isHidden
+            }
+            self.viewModel.isBookLoaderHidden = isHidden
+           if let cell = self.hotelTableView.cellForRow(at: indexPath) as? HotelDetailsCheckOutTableViewCell{
+                cell.hideShowLoader(isHidden: isHidden)
+            }
+        }
+    }
+    
     func willGetPinnedTemplate() {
 //        AppGlobals.shared.startLoading()
          self.needToShowLoaderOnShare = true

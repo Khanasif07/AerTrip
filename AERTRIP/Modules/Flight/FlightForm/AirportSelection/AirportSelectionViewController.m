@@ -122,7 +122,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+    [self setNotifiers];
     if (@available(iOS 13.0, *)) {
         
     }
@@ -144,10 +144,18 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self removeNotifiers];
+    [self.locationManager stopUpdatingLocation];
+    self.locationManager = nil;
     if (self.searchWorkItem) {
         dispatch_block_cancel(self.searchWorkItem);
         self.searchWorkItem = nil;
     }
+}
+
+- (void)dealloc
+{
+    printf("deinit");
 }
 
 -(void)viewDidLayoutSubviews {
@@ -248,7 +256,7 @@
     self.displaySections = [[NSMutableDictionary alloc] init];
     [self refreshAllUIElements:false];
     [self performNearbyAirportsSearch];
-    [self notifications];
+//    [self setNotifiers];
     [self showNoResultView];
     [self makeTopCornersRounded:self.bottomView withRadius:10.0];
     [self hideLoader:YES];
@@ -279,7 +287,7 @@
     
 }
 
-- (void) notifications {
+- (void) setNotifiers {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
@@ -290,6 +298,11 @@
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
 }
+
+- (void) removeNotifiers {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 //MARK:- KEYBOARD LISTENERS
 - (void)keyboardWillShow:(NSNotification *)notification
 {
@@ -438,10 +451,6 @@
 
 -(NSAttributedString*)secondaryStringFor:(NSString*)inputString
 {
-    if (inputString == nil){
-        NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString: @" "];
-        return str;
-    }
     NSDictionary * attributes = @{NSForegroundColorAttributeName : [UIColor ONE_FIVE_THREE_COLOR],NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Regular" size:14]};
     NSMutableAttributedString * secondaryLabelAttributedString = [[NSMutableAttributedString alloc] initWithString:inputString attributes:attributes];
     

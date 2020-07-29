@@ -195,9 +195,9 @@ extension BookingHotelDetailVC {
             guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell else { return UITableViewCell() }
             cell.configureOverviewCell(isForBooking: true, overview: self.viewModel.bookingDetail?.bookingDetail?.overViewData ?? "")
             cell.addressInfoTextView.isUserInteractionEnabled = false
-//            cell.moreViewBottomConstraint.constant = 20.5
-//            cell.dividerBottomConstraint.constant = 0.5
-//            cell.deviderView.backgroundColor = AppColors.divider.color
+            cell.moreViewBottomConstraint.constant = 18.0
+            cell.dividerBottomConstraint.constant = -0.3
+            cell.deviderView.backgroundColor = AppColors.divider.color
             //cell.clipsToBounds = true
             return cell
         case 4: // Amentities Cell
@@ -206,7 +206,7 @@ extension BookingHotelDetailVC {
             cell.amenitiesDetails = self.viewModel.bookingDetail?.bookingDetail?.amenities
             cell.dividerView.isHidden = (self.viewModel.bookingDetail?.bookingDetail?.taLocationID.isEmpty ?? false)
             cell.amenitiesTopConstraint.constant = 16
-            cell.containerHeightConstraint.constant = 123
+            cell.containerHeightConstraint.constant = 132
             return cell
             
         case 5: // Trip Advisor Cell

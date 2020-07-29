@@ -120,7 +120,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
             var wtNext = WhatNext(isFor: "Booking")
             wtNext.product = "Booking"
             wtNext.settingFor = usedFor
-            self.whatNextdata.insert(wtNext, at: 0)
+            self.whatNextdata.insert(wtNext, at: whatNextdata.count)
         }
         self.pageControl.numberOfPages = self.whatNextdata.count
         self.whatNextCollectionView.reloadData()
@@ -128,7 +128,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
     
     private func flowLayOut() {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        itemWidth =  self.whatNextCollectionView.bounds.width - collectionMargin * 2
+        itemWidth =  UIScreen.width - collectionMargin * 2//self.whatNextCollectionView.bounds.width - collectionMargin * 2
         layout.sectionInset = UIEdgeInsets(top: 13, left: 0, bottom: 0, right: 0)
         layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
         layout.headerReferenceSize = CGSize(width: collectionMargin, height: 0.0)

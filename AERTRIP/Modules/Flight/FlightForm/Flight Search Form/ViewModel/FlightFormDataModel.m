@@ -1328,6 +1328,8 @@
     ///Chnage for what next functionality by @Golu
     if([FlightWhatNextData.shared isSettingForWhatNext]){
         [FlightWhatNextData.shared clearData];
+        [self.delegate setupFlightViews];
+        [self.delegate updateRecentSearch];
         return;
     }
     ///end

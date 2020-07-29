@@ -84,12 +84,13 @@ class HCDataSelectionVC: BaseVC {
         
         continueContainerView.backgroundColor = .clear
         continueGradientView.addGredient(isVertical: false)
-        viewModel.fetchConfirmItineraryData()
+//        viewModel.fetchConfirmItineraryData()
+        self.fetchConfirmItineraryDataSuccess()
         fillData()
         
         //        manageLoader(shouldStart: true)
         manageLoader(shouldStart: false)
-        startLoading()
+//        startLoading()
         continueButtonActivityIndicator.color = AppColors.themeWhite
         
         setUpUserEmailMobile()
@@ -448,18 +449,18 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     
     func fetchConfirmItineraryDataSuccess() {
         self.stopLoading()
-        if viewModel.itineraryData == nil, confirmationCall < 5 {
-            confirmationCall += 1
-            viewModel.fetchConfirmItineraryData()
-        }
-        else {
+//        if viewModel.itineraryData == nil, confirmationCall < 5 {
+//            confirmationCall += 1
+//            viewModel.fetchConfirmItineraryData()
+//        }
+//        else {
             HCSelectGuestsVM.shared.clearAllSelectedData()
             GuestDetailsVM.shared.travellerList = viewModel.itineraryData?.traveller_master ?? []
             //            manageLoader(shouldStart: false)
             //            AppGlobals.shared.stopLoading()
             self.fillData()
             self.viewModel.getHotelDetailsSectionData()
-        }
+//        }
         self.tableView.reloadData()
         if (self.viewModel.itineraryData?.hotelDetails?.is_price_change ?? false) {
                     
