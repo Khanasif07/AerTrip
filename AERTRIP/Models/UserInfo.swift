@@ -193,7 +193,7 @@ class UserInfo {
         var roomOther : [String] = []
         var sortUsing : SortUsing = .BestSellers
         var priceType : Price = .Total
-        
+        var isFilterAppliedForDestinetionFlow : Bool = false
         
         init() {
             ratingCount =  [0,1,2,3,4,5]
@@ -210,7 +210,7 @@ class UserInfo {
             roomOther  = []
             sortUsing = .BestSellers
             priceType = .Total
-           
+           isFilterAppliedForDestinetionFlow = false
         }
         
         
@@ -229,6 +229,7 @@ class UserInfo {
             case roomOther
             case sortUsing
             case priceType
+            case isFilterAppliedForDestinetionFlow
         }
 
         
@@ -248,7 +249,8 @@ class UserInfo {
             roomOther = try values.decode([String].self, forKey: .roomOther)
             sortUsing =  try values.decode(SortUsing.self, forKey: .sortUsing)
             priceType = try values.decode(Price.self, forKey: .priceType)
-            
+            isFilterAppliedForDestinetionFlow = try values.decode(Bool.self, forKey: .isFilterAppliedForDestinetionFlow)
+
             
         }
         

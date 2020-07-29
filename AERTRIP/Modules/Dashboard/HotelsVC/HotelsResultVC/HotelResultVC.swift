@@ -240,7 +240,7 @@ class HotelResultVC: BaseVC {
             
             UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
             self?.viewModel.fetchRequestType = .FilterApplied
-            if let old = UserInfo.hotelFilter {
+            if let old = self?.viewModel.tempHotelFilter {//UserInfo.hotelFilter {
                 HotelFilterVM.shared.setData(from: old)
             }
             self?.doneButtonTapped()

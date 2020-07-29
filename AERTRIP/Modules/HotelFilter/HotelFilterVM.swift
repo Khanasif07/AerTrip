@@ -118,9 +118,13 @@ class HotelFilterVM {
         filter.roomOther = roomOther
         filter.sortUsing = sortUsing
         filter.priceType = priceType
+        filter.isFilterAppliedForDestinetionFlow = isFilterAppliedForDestinetionFlow
         
-        UserInfo.hotelFilter = filter
-        
+        if self.isFilterApplied {
+            UserInfo.hotelFilter = filter
+        } else {
+           UserInfo.hotelFilter = nil
+        }
         if let filter = UserInfo.hotelFilter {
             printDebug(filter)
         }

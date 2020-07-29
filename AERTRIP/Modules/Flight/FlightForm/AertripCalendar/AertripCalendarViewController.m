@@ -204,7 +204,7 @@
 {
     if (date != nil) {
         NSDateFormatter *inputDateFormatter = [[NSDateFormatter alloc] init];
-        [inputDateFormatter setDateFormat:@"d MMM"];
+        [inputDateFormatter setDateFormat:@"d MMM"]; // Nitin Change
         NSString *dateString = [inputDateFormatter stringFromDate:date];
         return dateString;
     }else {
@@ -652,15 +652,20 @@
     [self doneAction:nil];
 }
 
-//MARK:- Target Action methods
-- (IBAction)doneAction:(id)sender {
-    
+// Nitin Change
+-(void)applyCalendarChanges {
     if (self.multicityViewModel != nil ) {
         [self.multicityViewModel onDoneButtonTapped];
     }
     else if ( self.viewModel != nil){
         [self.viewModel onDoneButtonTapped];
     }
+}
+
+//MARK:- Target Action methods
+- (IBAction)doneAction:(id)sender {
+    
+    [self applyCalendarChanges]; // Nitin Change
     if(sender != nil){
         [self animateBottomViewOut];
     }
@@ -754,6 +759,7 @@
 - (void)animateBottomViewOut {
     
     if (@available(iOS 13.0, *)) {
+        [self applyCalendarChanges]; // Nitin Change
         [self dismissViewControllerAnimated:YES completion:nil];
     }
     else {
@@ -762,6 +768,7 @@
             self.topConstraintMainView.constant = (self.view.bounds.size.height);
             [self.view layoutIfNeeded];
         } completion:^(BOOL finished) {
+            [self applyCalendarChanges]; // Nitin Change
             [self dismissViewControllerAnimated:NO completion:nil];
         }];
     }
@@ -909,7 +916,7 @@
         
         [self showDatesSelection];
         
-        if (self.viewModel.isReturn) {
+        if (self.viewModel.isReturn || self.viewModel.isHotelCalendar) { // Nitin Change
             self.viewModel.isStartDateSelection = NO;
             [self SwitchTapOfSingleLegTypeJourney];
         }

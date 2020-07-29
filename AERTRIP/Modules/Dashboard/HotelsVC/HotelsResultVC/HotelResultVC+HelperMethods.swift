@@ -41,22 +41,27 @@ extension HotelResultVC {
     
     func applyPreviousFilter() {
         
-        let isRangeFilterApplied = HotelFilterVM.shared.filterAppliedFor(filterName: LocalizedString.Range.localized, appliedFilter: self.viewModel.filterApplied)
-        let isStarFilterApplied = HotelFilterVM.shared.filterAppliedFor(filterName: LocalizedString.Ratings.localized, appliedFilter: self.viewModel.filterApplied)
+        var filterApplied: UserInfo.HotelFilter = UserInfo.HotelFilter()
+        if let oldFilter = self.viewModel.tempHotelFilter {
+            filterApplied = oldFilter
+        }
+        
+        let isRangeFilterApplied = HotelFilterVM.shared.filterAppliedFor(filterName: LocalizedString.Range.localized, appliedFilter: filterApplied)
+        let isStarFilterApplied = HotelFilterVM.shared.filterAppliedFor(filterName: LocalizedString.Ratings.localized, appliedFilter: filterApplied)
         
         var starStar = ""
         var distanceStr = ""
         if isStarFilterApplied {
-            if !self.viewModel.filterApplied.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty {
-                starStar = self.getStarString(fromArr: self.viewModel.filterApplied.tripAdvisorRatingCount, maxCount: 5, isTripRating: true)
+            if !filterApplied.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty {
+                starStar = self.getStarString(fromArr: filterApplied.tripAdvisorRatingCount, maxCount: 5, isTripRating: true)
                 
             } else {
-                starStar = self.getStarString(fromArr: self.viewModel.filterApplied.ratingCount, maxCount: 5, isTripRating: false)
+                starStar = self.getStarString(fromArr: filterApplied.ratingCount, maxCount: 5, isTripRating: false)
             }
         }
         
         if isRangeFilterApplied {
-            distanceStr = self.viewModel.filterApplied.distanceRange > 20 ? "beyond \(self.viewModel.filterApplied.distanceRange.toInt) " : " within \(self.viewModel.filterApplied.distanceRange.toInt) "
+            distanceStr = filterApplied.distanceRange > 20 ? "beyond \(filterApplied.distanceRange.toInt) " : " within \(filterApplied.distanceRange.toInt) "
             distanceStr = distanceStr.appending(LocalizedString.Kms.localized)
         }
         
