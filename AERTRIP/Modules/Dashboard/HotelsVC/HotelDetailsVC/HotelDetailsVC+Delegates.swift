@@ -473,6 +473,8 @@ extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
             gVC.imageNames = images
             gVC.startShowingFrom = index
         }
+        gVC.isTAAvailable = !(self.viewModel.hotelInfo?.locid?.isEmpty ?? true)
+        gVC.hid = self.viewModel.hotelInfo?.hid ?? ""
         self.present(gVC, animated: true, completion: nil)
         
         //            PhotoGalleryVC.show(onViewController: topVC, sourceView: self.imageView, startShowingFrom: index, imageArray: self.viewModel.hotelData?.photos ?? [])

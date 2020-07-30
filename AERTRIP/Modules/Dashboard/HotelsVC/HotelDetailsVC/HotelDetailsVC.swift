@@ -128,6 +128,13 @@ class HotelDetailsVC: BaseVC {
             
         }
         //------------------------ End --------------------
+        //TripAdiser photo
+        TAViewModel.shared.clearData()
+        if !(self.viewModel.hotelInfo?.locid?.isEmpty ?? true){
+            TAViewModel.shared.hotelId = self.viewModel.hotelInfo?.hid ?? ""
+            TAViewModel.shared.getTripAdvisorDetails()
+        }
+        
     }
     
 

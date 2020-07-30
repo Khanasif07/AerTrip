@@ -19,6 +19,8 @@ class PhotoGalleryVC: BaseVC {
     var parentVC = UIViewController()
     var startShowingFrom:Int = 0
     var index: Int = 0
+    var isTAAvailable = false
+    var hid = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,13 +30,16 @@ class PhotoGalleryVC: BaseVC {
         self.galleryCollection.backgroundColor = .black
     }
     
+    override func initialSetup() {
+        super.initialSetup()
+        self.galleryCollection.register(UINib(nibName: "PhotoGalleryFooterView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "PhotoGalleryFooterView")
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         self.galleryCollection.delegate = self
     }
     
     @IBAction func tapDismissBtn(_ sender: Any) {
-//        self.view.removeFromSuperview()
-//        self.removeFromParent()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -73,19 +78,11 @@ extension PhotoGalleryVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         
         let gallery = SwiftPhotoGallery(delegate: self, dataSource: self)
         gallery.backgroundColor = UIColor.black
-//        gallery.pageIndicatorTintColor = UIColor.gray.withAlphaComponent(0.5)
-//        gallery.currentPageIndicatorTintColor = UIColor(red: 0.0, green: 0.66, blue: 0.875, alpha: 1.0)
         gallery.hidePageControl = false
         gallery.modalPresentationStyle = .custom
         gallery.transitioningDelegate = self
         UIApplication.shared.statusBarStyle = .lightContent
         setNeedsStatusBarAppearanceUpdate()
-        /// Load the first page like this:
-        
-        //        present(gallery, animated: true, completion: nil)
-        
-        /// Or load on a specific page like this:
-        
         present(gallery, animated: true, completion: { () -> Void in
             gallery.currentPage = self.index
         })
@@ -105,28 +102,61 @@ extension PhotoGalleryVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         return UIEdgeInsets(top: 0, left: 0, bottom: 10.0, right: 0)
     }
     
-    private func showMe() {
-            self.parentVC.addChild(self)
-            self.view.frame = self.parentVC.view.bounds
-            self.parentVC.view.addSubview(self.view)
-            self.didMove(toParent: self.parentVC)
-            UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: { [weak self] in
-                guard let sSelf = self else {return}
-                sSelf.view.layoutIfNeeded()
-                }, completion: { (isDone) in
-                    self.galleryCollection.scrollToItem(at: IndexPath(item: self.startShowingFrom, section: 0), at: .centeredVertically, animated: true)
-            })
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+            
+        case UICollectionView.elementKindSectionFooter:
+            guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "PhotoGalleryFooterView", for: indexPath) as? PhotoGalleryFooterView, isTAAvailable, self.imageNames.count != 0 else {
+                return UICollectionReusableView()
+            }
+            footer.handeler = {[weak self] in
+                guard let self = self else {return}
+                if self.hid == TAViewModel.shared.hotelId, let data = TAViewModel.shared.hotelTripAdvisorDetails{
+                    let urlString = "https:\(data.seeAllPhotos)"
+                    let screenTitle = LocalizedString.Photos.localized
+                    AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+                }
+            }
+            return footer
+        default: return UICollectionReusableView()
+            
         }
-    
-    //MARK:- Public
-    public class func show(onViewController: UIViewController, sourceView: UIView?, startShowingFrom: Int = 0, imageArray:[String]) {
-        
-        let gVC = PhotoGalleryVC.instantiate(fromAppStoryboard: .Dashboard)
-        gVC.parentVC = onViewController
-        gVC.imageNames = imageArray
-        gVC.startShowingFrom = startShowingFrom
-        gVC.showMe()
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        if self.isTAAvailable && self.imageNames.count != 0{
+            return CGSize(width: UIScreen.width, height: 97)
+        }else{
+            return .zero
+        }
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return .zero
+    }
+    
+//    private func showMe() {
+//            self.parentVC.addChild(self)
+//            self.view.frame = self.parentVC.view.bounds
+//            self.parentVC.view.addSubview(self.view)
+//            self.didMove(toParent: self.parentVC)
+//            UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: { [weak self] in
+//                guard let sSelf = self else {return}
+//                sSelf.view.layoutIfNeeded()
+//                }, completion: { (isDone) in
+//                    self.galleryCollection.scrollToItem(at: IndexPath(item: self.startShowingFrom, section: 0), at: .centeredVertically, animated: true)
+//            })
+//        }
+
+//    public class func show(onViewController: UIViewController, sourceView: UIView?, startShowingFrom: Int = 0, imageArray:[String]) {
+//
+//        let gVC = PhotoGalleryVC.instantiate(fromAppStoryboard: .Dashboard)
+//        gVC.parentVC = onViewController
+//        gVC.imageNames = imageArray
+//        gVC.startShowingFrom = startShowingFrom
+//        gVC.showMe()
+//    }
     
 }
 
