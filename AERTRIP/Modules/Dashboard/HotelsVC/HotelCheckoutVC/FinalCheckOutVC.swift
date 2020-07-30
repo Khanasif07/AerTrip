@@ -754,28 +754,32 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
         self.manageLoader(shouldStart: false)
         if let oldAmount = viewModel.itineraryData?.total_fare {
             let newAmount = recheckedData.total_fare
-            
-            let diff = newAmount - oldAmount
-            
-            // update UI
-            isReloadingAfterFareDipOrIncrease = diff != 0
-            viewModel.itineraryData = recheckedData
-            updateAllData()
-            
-            if diff > 0 {
-                // increased
-                FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: diff, totalUpdatedAmount: newAmount, continueButtonAction: { [weak self] in
-                    guard let sSelf = self else { return }
-                    sSelf.viewModel.makePayment(forAmount: sSelf.getTotalPayableAmount(), useWallet: sSelf.isWallet)
-                }, goBackButtonAction: { [weak self] in
-                    guard let sSelf = self else { return }
-                    sSelf.topNavBarLeftButtonAction(sSelf.topNavView.leftButton)
-                })
-            } else if diff < 0 {
-                // dipped
-                FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: -diff, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
-                self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
-            } else {
+            if (recheckedData.hotelDetails?.is_price_change ?? false){
+                let diff = newAmount - oldAmount
+                
+                // update UI
+                isReloadingAfterFareDipOrIncrease = diff != 0
+                viewModel.itineraryData = recheckedData
+                updateAllData()
+                
+                if diff > 0 {
+                    // increased
+                    FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: diff, totalUpdatedAmount: newAmount, continueButtonAction: { [weak self] in
+                        guard let sSelf = self else { return }
+                        sSelf.viewModel.makePayment(forAmount: sSelf.getTotalPayableAmount(), useWallet: sSelf.isWallet)
+                        }, goBackButtonAction: { [weak self] in
+                            guard let sSelf = self else { return }
+                            sSelf.topNavBarLeftButtonAction(sSelf.topNavView.leftButton)
+                    })
+                } else if diff < 0 {
+                    // dipped
+                    FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: -diff, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
+                    self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
+                } else {
+                    self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
+                }
+            }
+            else{
                 self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
             }
         }
