@@ -419,20 +419,10 @@ class HotelDetailsVM {
     ///Hotel confirmation Api
     func fetchConfirmItineraryData(at index:Int) {
         let params: JSONDictionary = [APIKeys.sid.rawValue: self.hotelSearchRequest?.sid ?? "", APIKeys.hid.rawValue: self.hotelInfo?.hid ?? "", "data[0][qid]": self.ratesData[index].qid, "p": "hotels"]
-        printDebug(params)
-        
         delegate?.willFetchConfirmItineraryData(index: index)
         APICaller.shared.fetchConfirmItineraryData(params: params) { [weak self] success, errors, itData in
             guard let self = self else { return }
             self.delegate?.fetchConfirmItineraryDataResponse(itineraryData: itData, index: index, error: errors)
-//            if success {
-//                sSelf.itineraryData = itData
-//                sSelf.itineraryData?.hotelDetails?.locid = sSelf.locid
-//                sSelf.delegate?.fetchConfirmItineraryDataSuccess()
-//            } else {
-//                printDebug(errors)
-//                sSelf.delegate?.fetchConfirmItineraryDataFail(errors: errors)
-//            }
         }
     }
 }

@@ -366,6 +366,9 @@
 		1879C4AD2293DD2600897CED /* BookingRequestAddOnsFFVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1879C4AC2293DD2600897CED /* BookingRequestAddOnsFFVC.swift */; };
 		1879C4AF2293E15100897CED /* AddOnsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1879C4AE2293E15100897CED /* AddOnsVC.swift */; };
 		1879C4B12293E16900897CED /* FrequentFlyerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1879C4B02293E16900897CED /* FrequentFlyerVC.swift */; };
+		187A17E124D2AB9100DEA318 /* PhotoGalleryFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A17DF24D2AB9100DEA318 /* PhotoGalleryFooterView.swift */; };
+		187A17E224D2AB9100DEA318 /* PhotoGalleryFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187A17E024D2AB9100DEA318 /* PhotoGalleryFooterView.xib */; };
+		187A17E524D2C6AA00DEA318 /* TAViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A17E424D2C6A900DEA318 /* TAViewModel.swift */; };
 		187CC6D2249B27FE006C7F5A /* PostBookingAddonsPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187CC6D1249B27FE006C7F5A /* PostBookingAddonsPaymentVC.swift */; };
 		187CC6D4249B28FB006C7F5A /* PostBookingAddonsPaymentVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187CC6D3249B28FB006C7F5A /* PostBookingAddonsPaymentVM.swift */; };
 		187F9EAF22314F3F005B6027 /* HotelsSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187F9EAE22314F3F005B6027 /* HotelsSearch.storyboard */; };
@@ -1983,6 +1986,9 @@
 		1879C4AC2293DD2600897CED /* BookingRequestAddOnsFFVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingRequestAddOnsFFVC.swift; sourceTree = "<group>"; };
 		1879C4AE2293E15100897CED /* AddOnsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOnsVC.swift; sourceTree = "<group>"; };
 		1879C4B02293E16900897CED /* FrequentFlyerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequentFlyerVC.swift; sourceTree = "<group>"; };
+		187A17DF24D2AB9100DEA318 /* PhotoGalleryFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGalleryFooterView.swift; sourceTree = "<group>"; };
+		187A17E024D2AB9100DEA318 /* PhotoGalleryFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoGalleryFooterView.xib; sourceTree = "<group>"; };
+		187A17E424D2C6A900DEA318 /* TAViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAViewModel.swift; sourceTree = "<group>"; };
 		187CC6D1249B27FE006C7F5A /* PostBookingAddonsPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookingAddonsPaymentVC.swift; sourceTree = "<group>"; };
 		187CC6D3249B28FB006C7F5A /* PostBookingAddonsPaymentVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBookingAddonsPaymentVM.swift; sourceTree = "<group>"; };
 		187F9EAE22314F3F005B6027 /* HotelsSearch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HotelsSearch.storyboard; sourceTree = "<group>"; };
@@ -4399,6 +4405,23 @@
 			path = BookingRequestAddOnAndFF;
 			sourceTree = "<group>";
 		};
+		187A17DC24D2AAD100DEA318 /* FooterView */ = {
+			isa = PBXGroup;
+			children = (
+				187A17DF24D2AB9100DEA318 /* PhotoGalleryFooterView.swift */,
+				187A17E024D2AB9100DEA318 /* PhotoGalleryFooterView.xib */,
+			);
+			path = FooterView;
+			sourceTree = "<group>";
+		};
+		187A17E324D2C66400DEA318 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				187A17E424D2C6A900DEA318 /* TAViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		187CC6D0249B2662006C7F5A /* PostBookingAddonsPayment */ = {
 			isa = PBXGroup;
 			children = (
@@ -4442,6 +4465,7 @@
 		188A4DA8242DE8C000F871ED /* PhotoLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				187A17E324D2C66400DEA318 /* ViewModel */,
 				188A4DBD242DF1BA00F871ED /* Controller */,
 				188A4DB6242DEA2D00F871ED /* Transitions Files */,
 				188A4DA9242DE90800F871ED /* GalleryFile */,
@@ -4474,6 +4498,7 @@
 			children = (
 				188A4DBE242DF1E700F871ED /* PhotoGalleryVC.swift */,
 				188A4DC0242DF23800F871ED /* PhotoGalleryCell.swift */,
+				187A17DC24D2AAD100DEA318 /* FooterView */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -9139,6 +9164,7 @@
 				183B71AB2289901700A75B7F /* BookingAmenityCollectionViewCell.xib in Resources */,
 				183B71AF2289968400A75B7F /* BookingTravellerDetailTableViewCell.xib in Resources */,
 				84FCB83B24AF210800DAAB13 /* FareInfoCombineCell.xib in Resources */,
+				187A17E224D2AB9100DEA318 /* PhotoGalleryFooterView.xib in Resources */,
 				843FF50424740231001F21B1 /* IntFareInfoCell.xib in Resources */,
 				843FF69B247409E4001F21B1 /* LoginRegisterComplete copy.storyboard in Resources */,
 				18038CF0226D90C000A4D1DD /* Aerin.storyboard in Resources */,
@@ -9795,6 +9821,7 @@
 				8463A55E2456C7B200C70D8C /* GMUNonHierarchicalDistanceBasedAlgorithm.m in Sources */,
 				8426D8B022AE6B9D0081C9D8 /* DoubleExtension.swift in Sources */,
 				84247F8A22A5308200A0FEB7 /* CompletedVC+CoreData.swift in Sources */,
+				187A17E524D2C6AA00DEA318 /* TAViewModel.swift in Sources */,
 				843FF48324740230001F21B1 /* FlightBulkBookingViewController.m in Sources */,
 				84FD0DCC228A8E4800915A09 /* BankAccountDetail.swift in Sources */,
 				842995C1249E1DD9002E1A64 /* HotelFareTableViewCell.swift in Sources */,
@@ -10514,6 +10541,7 @@
 				18FD916F2296853B00D005E9 /* AirlineTableViewCell.swift in Sources */,
 				84D5037E2475316D00527C77 /* ChangePasswordVC.swift in Sources */,
 				1870AD17220C769400FB32C8 /* TravellerData+CoreDataProperties.swift in Sources */,
+				187A17E124D2AB9100DEA318 /* PhotoGalleryFooterView.swift in Sources */,
 				18E797072248F4B600A7AC8B /* WallletAmountCellTableViewCell.swift in Sources */,
 				187CC6D4249B28FB006C7F5A /* PostBookingAddonsPaymentVM.swift in Sources */,
 				847716282283F2FF000E1BB6 /* AccountOutstandingEventDescriptionCell.swift in Sources */,

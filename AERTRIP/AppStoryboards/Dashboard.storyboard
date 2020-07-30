@@ -63,7 +63,7 @@
                                                         </connections>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="homeAertripLogo" translatesAutoresizingMaskIntoConstraints="NO" id="dc0-cl-wv6">
-                                                        <rect key="frame" x="51" y="14.5" width="112" height="15"/>
+                                                        <rect key="frame" x="51" y="7" width="224" height="30"/>
                                                     </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -95,10 +95,10 @@
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wjk-Vp-DEf">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="66" height="105"/>
                                                                                         <subviews>
-                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Aerin Test66x66" translatesAutoresizingMaskIntoConstraints="NO" id="hKG-lk-EnP">
+                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="Aerin Test66x66" translatesAutoresizingMaskIntoConstraints="NO" id="hKG-lk-EnP">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="66" height="83"/>
                                                                                             </imageView>
-                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Aerin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMz-6r-Sru">
+                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" ambiguous="YES" text="Aerin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMz-6r-Sru">
                                                                                                 <rect key="frame" x="0.0" y="83" width="66" height="22"/>
                                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17.5"/>
                                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -141,10 +141,10 @@
                                                                                                 <inset key="imageEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                                                 <state key="normal" image="FlightTest 66x66"/>
                                                                                             </button>
-                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FlightTest 66x66" translatesAutoresizingMaskIntoConstraints="NO" id="KsZ-Ga-z3J">
+                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="FlightTest 66x66" translatesAutoresizingMaskIntoConstraints="NO" id="KsZ-Ga-z3J">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="66" height="83.5"/>
                                                                                             </imageView>
-                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Flights" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmS-2d-CXq">
+                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" ambiguous="YES" text="Flights" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmS-2d-CXq">
                                                                                                 <rect key="frame" x="0.0" y="83.5" width="66" height="21.5"/>
                                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -191,10 +191,10 @@
                                                                                         <rect key="frame" x="0.0" y="0.0" width="66" height="105"/>
                                                                                         <subviews>
                                                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HotelTest 66x66" translatesAutoresizingMaskIntoConstraints="NO" id="BKX-kN-nNl">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="66" height="83.5"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="66" height="85"/>
                                                                                             </imageView>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Hotels" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Md-Fs-uVy">
-                                                                                                <rect key="frame" x="0.0" y="83.5" width="66" height="21.5"/>
+                                                                                                <rect key="frame" x="0.0" y="85" width="66" height="20"/>
                                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                 <nil key="highlightedColor"/>
@@ -230,10 +230,10 @@
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Tu-Ax-XQ7">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="66" height="105"/>
                                                                                         <subviews>
-                                                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TripsTest 66x66" translatesAutoresizingMaskIntoConstraints="NO" id="ncO-p1-Aoc">
+                                                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="TripsTest 66x66" translatesAutoresizingMaskIntoConstraints="NO" id="ncO-p1-Aoc">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="66" height="83.5"/>
                                                                                             </imageView>
-                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Trips" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hM-k5-V70">
+                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" ambiguous="YES" text="Trips" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hM-k5-V70">
                                                                                                 <rect key="frame" x="0.0" y="83.5" width="66" height="21.5"/>
                                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -408,10 +408,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoIconVertical" translatesAutoresizingMaskIntoConstraints="NO" id="Jdp-0v-YDa">
-                                        <rect key="frame" x="183" y="354.5" width="48" height="54"/>
+                                        <rect key="frame" x="159" y="300.5" width="96" height="108"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoTitleWhite" translatesAutoresizingMaskIntoConstraints="NO" id="K8k-9r-kde">
-                                        <rect key="frame" x="126.49999999999999" y="448.5" width="161.00000000000003" height="20"/>
+                                        <rect key="frame" x="126.5" y="448.5" width="161" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="161" id="82m-YK-Ojq"/>
                                             <constraint firstAttribute="height" constant="20" id="oXl-bP-eiY"/>
@@ -1068,13 +1068,13 @@ on Christmas”</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLz-uM-NAJ">
-                                <rect key="frame" x="185.5" y="230.5" width="43" height="23.5"/>
+                                <rect key="frame" x="186.5" y="229.5" width="41.5" height="25.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ws-RO-flc">
-                                <rect key="frame" x="126.5" y="269" width="161" height="20"/>
+                                <rect key="frame" x="130" y="270" width="154" height="21.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1509,7 +1509,7 @@ on Christmas”</string>
                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="6Du-QQ-t9s">
                                             <size key="itemSize" width="241" height="193"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="50" height="50"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
@@ -1542,6 +1542,10 @@ on Christmas”</string>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
+                                        <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="euL-Fz-wnB">
+                                            <rect key="frame" x="0.0" y="193" width="414" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionReusableView>
                                     </collectionView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3MG-jE-qxZ">
                                         <rect key="frame" x="377" y="20" width="37" height="22"/>
@@ -1582,7 +1586,7 @@ on Christmas”</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BM1-Dy-gUK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-378.39999999999998" y="16.641679160419791"/>
+            <point key="canvasLocation" x="-379.71014492753625" y="16.071428571428569"/>
         </scene>
         <!--Things Can Be AskedVC-->
         <scene sceneID="z61-bQ-rEm">

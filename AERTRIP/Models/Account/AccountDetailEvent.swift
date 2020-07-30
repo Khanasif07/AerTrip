@@ -192,7 +192,7 @@ struct AccountDetailEvent {
     }
     
     mutating private func fetchVoucherDetails(json: JSONDictionary) {
-        printDebug(self.voucher.rawValue)
+//        printDebug(self.voucher.rawValue)
         switch self.voucher {
         case .lockAmount:
             self.iconImage = #imageLiteral(resourceName: "ic_acc_lockAmount")
@@ -244,7 +244,7 @@ struct AccountDetailEvent {
         case .sales:
             //self.title = "sales Test"
             if let details = json["detail"] as? JSONDictionary {
-                printDebug(json)
+//                printDebug(json)
                 if let obj = details["product_type"] {
                     self._productType = "\(obj)"
                 }
@@ -275,7 +275,7 @@ struct AccountDetailEvent {
             //self.title = self.voucher.rawValue //temp work
             
             if let details = json["detail"] as? JSONDictionary {
-                printDebug(json)
+//                printDebug(json)
                 if let obj = details["product_type"] {
                     self._productType = "\(obj)"
                 }

@@ -331,9 +331,10 @@ class FinalCheckOutVC: BaseVC {
             }
             finalAmountCell.dividerView.isHidden = true
             if self.isCouponApplied {
-                if let netAmount = self.viewModel.itinaryPriceDetail?.netAmount, let discountBreakUp = self.appliedCouponData.discountsBreakup {
+                if let discountBreakUp = self.appliedCouponData.discountsBreakup {// let netAmount = self.viewModel.itinaryPriceDetail?.netAmount,
                     // Net Effective fare
-                    let effectiveFare = abs(netAmount.toDouble ?? 0.0 - discountBreakUp.CPD)
+                    let netAmount = self.getTotalPayableAmount()
+                    let effectiveFare = abs(netAmount - discountBreakUp.CPD)//netAmount.toDouble ?? 0.0
                     finalAmountCell.payableWalletMessageLabel.text = (Double(discountBreakUp.CACB).amountInDelimeterWithSymbol + LocalizedString.PayableWalletMessage.localized)
                     finalAmountCell.payableWalletMessageLabel.asStylizedPrice(text: Double(discountBreakUp.CACB).amountInDelimeterWithSymbol, using: AppFonts.Regular.withSize(14.0))
                     finalAmountCell.netEffectiveFareLabel.attributedText = (LocalizedString.NetEffectiveFare.localized + " \(effectiveFare.amountInDelimeterWithSymbol)").asStylizedPrice(using: AppFonts.SemiBold.withSize(14.0))
@@ -719,21 +720,23 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
             self.setConvenienceFeeToBeApplied()
         }
         self.isWallet = self.getWalletAmount() > 0
-        
+        self.manageCouponLoader(isApplying:false)
         self.updateAllData()
         printDebug("Get Success")
     }
     
     func getPaymentMethodsFails(errors: ErrorCodes) {
+        self.manageCouponLoader(isApplying:false)
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
     }
     
     func removeCouponCodeSuccessful(_ appliedCouponData: HCCouponAppliedModel) {
-        self.manageCouponLoader(isApplying: false)//Golu Chnages
+//        self.manageCouponLoader(isApplying: false)//Golu Chnages
         self.viewModel.itineraryData = appliedCouponData.itinerary
         self.appliedCouponData = appliedCouponData
         self.isCouponApplied = false
         self.updateAllData()
+        self.viewModel.webServiceGetPaymentMethods()
         printDebug(appliedCouponData)
     }
     
@@ -826,7 +829,9 @@ extension FinalCheckOutVC: HCCouponCodeVCDelegate {
         printDebug(appliedCouponData)
         self.appliedCouponData = appliedCouponData
         self.isCouponApplied = true
+        self.manageCouponLoader(isApplying:true)
         delay(seconds: 0.3) { [weak self] in
+            self?.viewModel.webServiceGetPaymentMethods()
             self?.updateAllData()
         }
     }

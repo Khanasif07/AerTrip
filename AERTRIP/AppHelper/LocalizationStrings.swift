@@ -573,6 +573,7 @@ enum LocalizedString: String {
     case Unfavourite
     case ShowingResultsFor
     case Clear
+    case viewMorePhoto
 
     // Mail Composer View
     case ContactUsAertrip

@@ -49,7 +49,8 @@ class HCWhatNextTableViewCell: UITableViewCell {
         didSet {
             self.pageControl.tintColor = AppColors.themeGray220
             self.pageControl.currentPageTintColor = AppColors.themeGreen
-            self.pageControl.radius = 3.0
+            self.pageControl.radius = 3.5
+            self.pageControl.padding = 5.0
         }
     }
     @IBOutlet weak var whatNextStackView: UIStackView!
