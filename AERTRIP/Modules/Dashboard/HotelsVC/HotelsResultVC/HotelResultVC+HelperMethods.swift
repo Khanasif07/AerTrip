@@ -437,7 +437,7 @@ extension HotelResultVC {
         }
     }
     
-    fileprivate func revealBlurredHeaderView(_ invertedOffset: CGFloat) {
+     func revealBlurredHeaderView(_ invertedOffset: CGFloat) {
         DispatchQueue.main.async {
             
             UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseInOut], animations: {
@@ -506,10 +506,9 @@ extension HotelResultVC {
     
     func showBluredHeaderViewCompleted() {
         DispatchQueue.main.async {
-            
             UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseInOut], animations: {
                 self.headerContainerViewTopConstraint.constant = 0
-                self.tableViewVertical.contentInset = UIEdgeInsets(top: self.topContentSpace, left: 0, bottom: 0, right: 0)
+                //self.tableViewVertical.contentInset = UIEdgeInsets(top: self.topContentSpace, left: 0, bottom: 0, right: 0)
             } ,completion: nil)
         }
     }

@@ -35,6 +35,9 @@ extension HotelResultVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.viewModel.fetchRequestType = .Searching
         if searchText.isEmpty {
+                    self.searchResultHeaderView.updateHeight(height: CGFloat.leastNormalMagnitude)
+                    self.tableViewVertical.sectionHeaderHeight = CGFloat.leastNormalMagnitude
+            searchResultHeaderView.configureView(searhText: "")
             self.viewModel.searchTextStr = ""
             
             self.viewModel.fetchRequestType = self.filterButton.isSelected ? .FilterApplied : .normalInSearching //for getting all the data in search mode when the search text is blank
@@ -465,6 +468,9 @@ extension HotelResultVC: HotelSearchResultHeaderViewDelegate {
         //        self.reloadHotelList()
         //        noResultemptyView.searchTextLabel.text = ""
         //        noResultemptyViewVerticalTableView.searchTextLabel.text = ""
-        self.searchBar.becomeFirstResponder()
+        //self.searchBar.becomeFirstResponder()
+        
+        
+        self.cancelButtonTapped(self.cancelButton)
     }
 }

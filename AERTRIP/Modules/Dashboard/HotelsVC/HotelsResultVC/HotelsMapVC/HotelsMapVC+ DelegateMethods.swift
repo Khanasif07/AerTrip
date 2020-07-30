@@ -73,8 +73,6 @@ extension HotelsMapVC: UISearchBarDelegate {
 
 extension HotelsMapVC: ATSwitcherChangeValueDelegate {
     func switcherDidChangeValue(switcher: ATSwitcher, value: Bool) {
-        self.viewModel.isFavouriteOn = value
-        self.viewModel.loadSaveData()
         if value {
                 self.floatingButtonOnMapView.isHidden = false
             self.animateButton()
@@ -82,9 +80,13 @@ extension HotelsMapVC: ATSwitcherChangeValueDelegate {
         else {
             self.hideFavsButtons()
         }
+         delay(seconds: 0.01) { [weak self] in
+        self?.viewModel.isFavouriteOn = value
+        self?.viewModel.loadSaveData()
         //self.updateMarkers()
             //if user in map view then update map focus as fav switch changed.
-        resetAllMarker()
+            self?.resetAllMarker()
+        }
     }
     
     func resetAllMarker() {

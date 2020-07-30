@@ -73,7 +73,13 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
         self.setupPageControl()
         self.scrollSize = self.hotelImageView.frame.size.width
         
-        self.bgView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.1), offset: CGSize.zero, opacity: 0.4, shadowRadius: 5.0)
+        self.bgView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 5.0)
+        
+        self.firstShadowCard.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 5.0)
+
+        
+        self.secondShadowCard.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 5.0)
+
         self.hotelImageView.cornerRadius = 10.0
         self.scrollView.cornerRadius = 10.0
         self.gradientView.cornerRadius = 10.0
@@ -86,12 +92,12 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
     
     private func setupShadowCards() {
         self.firstShadowCard.backgroundColor = AppColors.themeGray40
-        self.firstShadowCard.layer.cornerRadius = 10.0
-        self.firstShadowCard.layer.masksToBounds = true
+//        self.firstShadowCard.layer.cornerRadius = 10.0
+//        self.firstShadowCard.layer.masksToBounds = true
         
-        self.secondShadowCard.backgroundColor = AppColors.themeBlackGreen
-        self.secondShadowCard.layer.cornerRadius = 10.0
-        self.secondShadowCard.layer.masksToBounds = true
+        self.secondShadowCard.backgroundColor = AppColors.themeGray40
+//        self.secondShadowCard.layer.cornerRadius = 10.0
+//        self.secondShadowCard.layer.masksToBounds = true
     }
     
     private func setUpInstagramDotGalleryView() {

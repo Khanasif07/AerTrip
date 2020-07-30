@@ -202,7 +202,7 @@ class HotelResultVC: BaseVC {
     
     //Manage Transition Created by golu
     internal var transition: CardTransition?
-    var HotelSearchResultHeaderViewHeight: CGFloat = 44
+    var HotelSearchResultHeaderViewHeight: CGFloat = 36
     lazy var  searchResultHeaderView: HotelSearchResultHeaderView = {
         let view = HotelSearchResultHeaderView.instanceFromNib()
         view.delegate = self
@@ -349,6 +349,21 @@ class HotelResultVC: BaseVC {
         }
     }
     
+    override func statusBarTapped(_ note: Notification) {
+      //  tableViewVertical.setContentOffset(CGPoint(x: 0, y: -topContentSpace), animated: true)
+    }
+    
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        printDebug("scrollViewShouldScrollToTop")
+        delay(seconds: 0.1) {
+            //self.showBluredHeaderViewCompleted()
+            self.tableViewVertical.setContentOffset(CGPoint(x: 0, y: -self.topContentSpace), animated: false)
+        }
+       // self.tableViewVertical.contentInset = UIEdgeInsets(top: self.topContentSpace, left: 0, bottom: 0, right: 0)
+        revealBlurredHeaderView(self.topContentSpace)
+
+        return false
+    }
     
     // MARK: - Methods
     

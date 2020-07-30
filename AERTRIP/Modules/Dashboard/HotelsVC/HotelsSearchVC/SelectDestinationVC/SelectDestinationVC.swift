@@ -532,7 +532,7 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: searchedCellId) as? DestinationSearchedTableCell else {
                     return UITableViewCell()
                 }
-                
+                cell.dividerView.isHidden = false
                 
                 if (self.viewModel.recentSearchLimit > 0), indexPath.section == 1 {
                     cell.configureData(data: self.viewModel.recentSearches[indexPath.row], forText: "")

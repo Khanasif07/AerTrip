@@ -107,6 +107,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         super.viewWillAppear(animated)
         
         self.registerLogoutNotification()
+        self.registerStatusBarTappedNotification()
         
         UIView.appearance().semanticContentAttribute = LanguageEnum.isLanguageEnglish ? .forceLeftToRight : .forceRightToLeft
 
@@ -142,6 +143,11 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     //MARK: Overrideabel functions
     private func registerDataChangeNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(dataChanged(_:)), name: .dataChanged, object: nil)
+    }
+    
+    //MARK: Overrideabel functions
+    private func registerStatusBarTappedNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(statusBarTapped(_:)), name: .statusBarTapped, object: nil)
     }
     
     func bindViewModel() {
@@ -209,6 +215,10 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         //function intended to override
     }
     
+    @objc func statusBarTapped(_ note: Notification) {
+        //function intended to override
+    }
+    
     final func sendDataChangedNotification(data: Any?) {
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .dataChanged, object: data)
@@ -236,6 +246,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
+        NotificationCenter.default.removeObserver(self, name: .statusBarTapped, object: nil)
 
         printDebug("deinit")
     }

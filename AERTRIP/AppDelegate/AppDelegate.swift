@@ -157,4 +157,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          */
         return true
     }
+    
+}
+
+extension AppDelegate {
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        guard let events = event?.allTouches else {return}
+        guard let touch = events.first else {return}
+        let location = touch.location(in: self.window)
+        let statusBarFrame = UIApplication.shared.statusBarFrame
+        if statusBarFrame.contains(location) {
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .statusBarTapped, object: nil)
+            }
+        }
+    }
+    
 }
