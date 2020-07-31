@@ -46,6 +46,7 @@ class FinalCheckoutVM: NSObject {
     var grossTotalPayableAmount : Double = 0.0 // without wallet amount
     var bookingIds: [String] = [], cId: [String] = []
     var isApplyingCoupon = false
+    var paymentMethodApiCount = 1
     
     func webServiceGetPaymentMethods() {
         let params: JSONDictionary = [APIKeys.it_id.rawValue:  self.itineraryData?.it_id ?? ""]

@@ -140,6 +140,12 @@ open class SwiftPhotoGalleryCell: UICollectionViewCell {
             
             if let img = imgD.image {
                 self.image = img
+                self.scrollView.delegate = self
+                self.scrollView.maximumZoomScale = 2.0
+                DispatchQueue.main.async {
+                    self.initialDoubleZoom()
+                    self.initialDoubleZoom()
+                }
             }
             else if let url = imgD.imageUrl {
                 self.imageView.setImageWithUrl(imageUrl: url.absoluteString, placeholder: ATGalleryViewConfiguration.placeholderImage, showIndicator: ATGalleryViewConfiguration.shouldShowLoader, completionHandler: {[weak self] image, error in

@@ -195,7 +195,15 @@ struct HotelReceiptModel {
         }
         if let whatNext = json["whatsNext"]{
             self.whatNext = JSON(whatNext).arrayValue.map{WhatNext($0, isFor: "hotel")}
-            self.whatNext = self.whatNext.filter{$0.product != ""}
+            self.whatNext = self.whatNext.filter({ whtNxt -> Bool in
+                if whtNxt.product == ""{
+                    return false
+                }else if (whtNxt.productType == .flight) && (whtNxt.origin == "" || whtNxt.destination == ""){
+                    return false
+                }else{
+                    return true
+                }
+            })//.filter{$0.product != ""}
         }
     }
 

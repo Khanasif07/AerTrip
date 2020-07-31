@@ -541,7 +541,9 @@ extension AppFlowManager {
             ob.delegate = delegate
             ob.viewModel.productType = productType
             ob.modalPresentationStyle = .overFullScreen
-            topVC.present(ob, animated: true, completion: nil)
+            topVC.present(ob, animated: true, completion: {
+              printDebug("dsafafds")
+            })
         }
     }
     
@@ -590,7 +592,7 @@ extension AppFlowManager {
         ob.viewModel.paxIds = selectedTraveller
         ob.delegate = vc
         ob.modalPresentationStyle = .overFullScreen
-        self.mainNavigationController.present(ob, animated: true, completion: nil)
+        self.currentNavigation?.present(ob, animated: true, completion: nil)
     }
     
     func showFilterVC(_ vc: BaseVC, index: Int? = nil) {
@@ -1027,7 +1029,7 @@ extension AppFlowManager {
          */
         let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
         obj.delegate = delegate
-        self.mainNavigationController.pushViewController(obj, animated: true)
+        self.currentNavigation?.pushViewController(obj, animated: true)
     }
     
     // Move to Add on Request Clel
@@ -1036,7 +1038,7 @@ extension AppFlowManager {
         let obj = BookingAddOnRequestVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.caseData = caseData
         obj.viewModel.receipt = receipt
-        self.mainNavigationController.pushViewController(obj, animated: true)
+        self.currentNavigation?.pushViewController(obj, animated: true)
     }
     
     // Move to Booking Voucher VC
@@ -1044,7 +1046,7 @@ extension AppFlowManager {
         let obj = BookingVoucherVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.receipt = receipt
         obj.viewModel.bookingId = bookingId
-        self.mainNavigationController.pushViewController(obj, animated: true)
+        self.currentNavigation?.pushViewController(obj, animated: true)
     }
     
     // Move To Booking Call VC
@@ -1054,7 +1056,7 @@ extension AppFlowManager {
         obj.viewModel.contactInfo = contactInfo
         obj.viewModel.usingFor = usingFor
         obj.viewModel.hotelName = hotel
-        self.mainNavigationController.present(obj, animated: true, completion: nil)
+        self.currentNavigation?.present(obj, animated: true, completion: nil)
     }
     
     // Move To Booking Call VC
@@ -1063,21 +1065,21 @@ extension AppFlowManager {
         let obj = WebCheckinVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.contactInfo = contactInfo
         obj.viewModel.webCheckins = webCheckins
-        self.mainNavigationController.present(obj, animated: true, completion: nil)
+        self.currentNavigation?.present(obj, animated: true, completion: nil)
     }
     
     // Move To Booking Invoice VC
     func moveToBookingInvoiceVC(forVoucher: Voucher) {
         let obj = BookingInvoiceVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.voucher = forVoucher
-        self.mainNavigationController.pushViewController(obj, animated: true)
+        self.currentNavigation?.pushViewController(obj, animated: true)
     }
     
     // Move To Booking Direction VC
     func moveToBookingDirectionVC(directions: [Direction]) {
         let obj = BookingDirectionVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.directionData = directions
-        self.mainNavigationController.present(obj, animated: true, completion: nil)
+        self.currentNavigation?.present(obj, animated: true, completion: nil)
     }
     
     // Present BookingRequestAddOnsAndFFC
@@ -1144,7 +1146,7 @@ extension AppFlowManager {
     
     func moveToQuickPayVC() {
         let ob = QuickPayVC.instantiate(fromAppStoryboard: .Profile)
-        self.mainNavigationController.pushViewController(ob, animated: true)
+        self.currentNavigation?.pushViewController(ob, animated: true)
     }
     
     // Move to Notification screen
