@@ -19,7 +19,7 @@ class HotelDetailsImgSlideCell: UITableViewCell {
     //Mark:- Variables
     //================
     internal var imageUrls: [String] = []
-    
+    let inactiveColor = UIColor(displayP3Red: 187.0/255, green: 179.0/255, blue: 175.0/255, alpha: 0)
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var imageCollectionView: UICollectionView! {
@@ -35,10 +35,11 @@ class HotelDetailsImgSlideCell: UITableViewCell {
     }
     @IBOutlet weak var pageControl: ISPageControl! {
         didSet {
-            self.pageControl.tintColor = AppColors.themeGray220
+            self.pageControl.inactiveTransparency = 1.0
+            self.pageControl.inactiveTintColor = AppColors.themeGray220
             self.pageControl.currentPageTintColor = AppColors.themeWhite
-            self.pageControl.radius = 3.0
-            self.pageControl.padding = 5.3
+            self.pageControl.radius = 3.5
+            self.pageControl.padding = 5.0
         }
     }
     weak var delegate: HotelDetailsImgSlideCellDelegate?

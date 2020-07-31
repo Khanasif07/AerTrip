@@ -219,7 +219,7 @@ extension HotelDetailsVC: HotelDetailDelegate {
     }
     
     func getPinnedTemplateSuccess() {
-        delay(seconds: 0.3) {
+        delay(seconds: 0.4) {
             self.needToShowLoaderOnShare = false
             self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
         }
@@ -249,6 +249,7 @@ extension HotelDetailsVC: HotelDetailDelegate {
     }
     
     func getHotelDetailsSuccess() {
+        self.footerView.isHidden = false
         self.filterdHotelData(tagList: self.viewModel.selectedTags)
         let index = IndexPath(row: 2, section: 0)
         if let cell = self.hotelTableView.cellForRow(at: index) as? HotelDetailsLoaderTableViewCell {
@@ -423,38 +424,20 @@ extension HotelDetailsVC {
         }
     }
     
-    private func closeOnScroll(_ scrollView: UIScrollView) {
-        _ = scrollView.contentOffset.y
-        if (scrollView.isTracking && scrollView.contentOffset.y < 0) {
-            //close
-            //--------------------------- Golu Change ---------------------
-            if self.isAddingChild{
-                self.hideOnScroll()
-            }else{
-                draggingDownToDismiss = true
-                hotelTableView.contentOffset = .zero
-                scrollView.showsVerticalScrollIndicator = !draggingDownToDismiss
-            }
-            //--------------------------- End ---------------------
-        }
-    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.manageHeaderView()
         self.manageBottomRateView()
-        //  self.closeOnScroll(scrollView)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if decelerate {
-            //self.closeOnScroll(scrollView)
             self.manageBottomRateView()
         }
     }
     //
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        //self.closeOnScroll(scrollView)
         self.manageHeaderView()
         self.manageBottomRateView()
     }

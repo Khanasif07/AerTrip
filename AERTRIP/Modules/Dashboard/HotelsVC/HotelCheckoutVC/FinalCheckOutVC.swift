@@ -368,8 +368,9 @@ class FinalCheckOutVC: BaseVC {
         case 2:
             if let _ = UserInfo.loggedInUser {
               return  self.getWalletAmount() > 0 ? 35.0 : CGFloat.leastNormalMagnitude
+            }else{
+                return 35.0
             }
-            return CGFloat.leastNormalMagnitude
         case 3: // Pay by Wallet Cell
             if let _ = UserInfo.loggedInUser {
               return  self.getWalletAmount() > 0 ? 75.0 : CGFloat.leastNormalMagnitude
@@ -714,6 +715,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     
     func getPaymentsMethodsSuccess() {
         //
+        self.viewModel.paymentMethodApiCount = 0
         if let razorPay = self.viewModel.paymentDetails?.paymentModes.razorPay {
             self.convenienceRate = razorPay.convenienceFees
             self.convenienceFeesWallet = razorPay.convenienceFeesWallet > 0 ? razorPay.convenienceFeesWallet : 0
@@ -726,8 +728,13 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     }
     
     func getPaymentMethodsFails(errors: ErrorCodes) {
-        self.manageCouponLoader(isApplying:false)
-        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+        if self.viewModel.paymentMethodApiCount < 5{
+            self.viewModel.paymentMethodApiCount += 1
+            self.viewModel.webServiceGetPaymentMethods()
+        }else{
+            self.manageCouponLoader(isApplying:false)
+            AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+        }
     }
     
     func removeCouponCodeSuccessful(_ appliedCouponData: HCCouponAppliedModel) {
@@ -735,7 +742,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
         self.viewModel.itineraryData = appliedCouponData.itinerary
         self.appliedCouponData = appliedCouponData
         self.isCouponApplied = false
-        self.updateAllData()
+//        self.updateAllData()
         self.viewModel.webServiceGetPaymentMethods()
         printDebug(appliedCouponData)
     }
@@ -836,7 +843,7 @@ extension FinalCheckOutVC: HCCouponCodeVCDelegate {
         self.manageCouponLoader(isApplying:true)
         delay(seconds: 0.3) { [weak self] in
             self?.viewModel.webServiceGetPaymentMethods()
-            self?.updateAllData()
+//            self?.updateAllData()
         }
     }
 }

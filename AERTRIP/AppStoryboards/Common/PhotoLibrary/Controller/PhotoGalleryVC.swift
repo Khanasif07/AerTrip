@@ -15,12 +15,23 @@ class PhotoGalleryVC: BaseVC {
     @IBOutlet weak var verticalCollectionBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var closeButtonTopConstraint: NSLayoutConstraint!
-    var imageNames = [String]()
+    var imageNames:[String] = []{
+        didSet{
+            self.atGalleryImage.removeAll()
+            for image in imageNames{
+                var imgData = ATGalleryImage()
+                imgData.imagePath = image
+                self.atGalleryImage.append(imgData)
+            }
+        }
+    }
+    var atGalleryImage = [ATGalleryImage]()
     var parentVC = UIViewController()
     var startShowingFrom:Int = 0
     var index: Int = 0
     var isTAAvailable = false
     var hid = ""
+    var isAnyImageDownloaded = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,22 +71,23 @@ class PhotoGalleryVC: BaseVC {
 extension PhotoGalleryVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageNames.count
+        return atGalleryImage.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoGalleryCell", for: indexPath) as? PhotoGalleryCell else {return UICollectionViewCell()}
-        var imgData = ATGalleryImage()
-        imgData.imagePath = self.imageNames[indexPath.row]
         cell.cellWidth.constant = UIScreen.main.bounds.width
-        cell.configureData(with : imgData)
+        cell.delegate = self
+        cell.cellIndex = indexPath
+        cell.configureData(with : atGalleryImage[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        index = indexPath.item
+        guard self.isAnyImageDownloaded else {return}
         
+        index = indexPath.item
         let gallery = SwiftPhotoGallery(delegate: self, dataSource: self)
         gallery.backgroundColor = UIColor.black
         gallery.hidePageControl = false
@@ -136,27 +148,6 @@ extension PhotoGalleryVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         return .zero
     }
     
-//    private func showMe() {
-//            self.parentVC.addChild(self)
-//            self.view.frame = self.parentVC.view.bounds
-//            self.parentVC.view.addSubview(self.view)
-//            self.didMove(toParent: self.parentVC)
-//            UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: { [weak self] in
-//                guard let sSelf = self else {return}
-//                sSelf.view.layoutIfNeeded()
-//                }, completion: { (isDone) in
-//                    self.galleryCollection.scrollToItem(at: IndexPath(item: self.startShowingFrom, section: 0), at: .centeredVertically, animated: true)
-//            })
-//        }
-
-//    public class func show(onViewController: UIViewController, sourceView: UIView?, startShowingFrom: Int = 0, imageArray:[String]) {
-//
-//        let gVC = PhotoGalleryVC.instantiate(fromAppStoryboard: .Dashboard)
-//        gVC.parentVC = onViewController
-//        gVC.imageNames = imageArray
-//        gVC.startShowingFrom = startShowingFrom
-//        gVC.showMe()
-//    }
     
 }
 
@@ -164,13 +155,11 @@ extension PhotoGalleryVC: UICollectionViewDelegate, UICollectionViewDataSource, 
 extension PhotoGalleryVC: SwiftPhotoGalleryDataSource {
     
     func numberOfImagesInGallery(gallery: SwiftPhotoGallery) -> Int {
-        return imageNames.count
+        return atGalleryImage.count
     }
 
     func imageInGallery(gallery: SwiftPhotoGallery, forIndex: Int) -> ATGalleryImage? {
-        var image = ATGalleryImage()
-        image.imagePath = imageNames[forIndex]
-        return image
+        return atGalleryImage[forIndex]
     }
 }
 
@@ -217,6 +206,14 @@ extension PhotoGalleryVC: UIViewControllerTransitioningDelegate {
         let currentCellFrame = cell.layer.presentation()!.frame
         let cardFrame = cell.superview!.convert(currentCellFrame, to: nil)
         return cardFrame
+    }
+    
+}
+
+extension PhotoGalleryVC : ImageDownloadDelegate{
+    func imageDownloadCompleted(with image:UIImage?, at index:Int){
+        self.isAnyImageDownloaded = true
+        self.atGalleryImage[index].image = image
     }
     
 }
