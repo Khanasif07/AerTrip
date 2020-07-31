@@ -349,20 +349,17 @@ class HotelResultVC: BaseVC {
         }
     }
     
-    override func statusBarTapped(_ note: Notification) {
-      //  tableViewVertical.setContentOffset(CGPoint(x: 0, y: -topContentSpace), animated: true)
-    }
     
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
         printDebug("scrollViewShouldScrollToTop")
-        delay(seconds: 0.1) {
-            //self.showBluredHeaderViewCompleted()
+        delay(seconds: 0.8) {
             self.tableViewVertical.setContentOffset(CGPoint(x: 0, y: -self.topContentSpace), animated: false)
+            self.showBluredHeaderViewCompleted()
         }
        // self.tableViewVertical.contentInset = UIEdgeInsets(top: self.topContentSpace, left: 0, bottom: 0, right: 0)
-        revealBlurredHeaderView(self.topContentSpace)
+//        revealBlurredHeaderView(self.topContentSpace)
 
-        return false
+        return true
     }
     
     // MARK: - Methods

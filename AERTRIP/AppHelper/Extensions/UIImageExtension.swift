@@ -140,10 +140,11 @@ extension UIImageView {
     }
     
     
-    func setImageWithUrl( imageUrl: String, placeholder: UIImage, showIndicator:Bool, completionHandler: @escaping (_ image: UIImage?, _ error: Error?) -> ()?) {
+    func setImageWithUrl( imageUrl: String, placeholder: UIImage, showIndicator:Bool, completionHandler: @escaping (_ image: UIImage?, _ error: Error?) -> Void?) {
         var imageUrl = imageUrl
         guard imageUrl.count > 0 else {
             self.image = placeholder
+            completionHandler(nil, nil)
             return
         }
         

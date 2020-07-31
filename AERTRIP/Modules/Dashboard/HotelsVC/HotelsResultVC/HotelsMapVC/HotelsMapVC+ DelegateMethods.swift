@@ -80,7 +80,7 @@ extension HotelsMapVC: ATSwitcherChangeValueDelegate {
         else {
             self.hideFavsButtons()
         }
-         delay(seconds: 0.01) { [weak self] in
+         delay(seconds: 0.2) { [weak self] in
         self?.viewModel.isFavouriteOn = value
         self?.viewModel.loadSaveData()
         //self.updateMarkers()
