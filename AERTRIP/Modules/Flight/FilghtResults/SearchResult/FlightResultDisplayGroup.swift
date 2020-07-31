@@ -337,13 +337,13 @@ class FlightResultDisplayGroup {
     //MARK:- Public Methods
     
     func workingOnReceived( flightsArray: [Flights] ,searchType : FlightSearchType) {
-       
         mergeFlightResults( flightsArray)
-        userSelectedFilters = flightsResults.f.last
+        if userSelectedFilters == nil {
+            userSelectedFilters = flightsResults.f.last
+        }
         inputFilter = flightsResults.f.last
         processingOnCombinedSearchResult(searchType : searchType)
     }
-
     
     func getOnewayJourneyDisplayArray() ->[Journey]
     {

@@ -201,31 +201,31 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                 
 
                 var journeyArray = [Journey]()
-                for flightLeg in self.flightSearchResultVM.flightLegs
-                {
-                    if appliedFilters > 0{
-                        journeyArray = flightLeg.applyStopsFilter(newJourney)
-                        journeyArray = flightLeg.applyPriceFilter(journeyArray)
-                        journeyArray = flightLeg.applyOriginFilter(journeyArray)
-                        journeyArray = flightLeg.applyAirlineFilter(journeyArray)
-                        journeyArray = flightLeg.applyLayoverFilter(journeyArray)
-                        journeyArray = flightLeg.applyDurationFilter(journeyArray)
-                        journeyArray = flightLeg.applyArrivalTimeFilter(journeyArray)
-                        journeyArray = flightLeg.applyDestinationFilter(journeyArray)
-                        journeyArray = flightLeg.applyDepartureTimeFilter(journeyArray)
-                        journeyArray = flightLeg.applyMultiItinaryAirlineFilter(journeyArray)
-                        journeyArray = flightLeg.applySortFilter(inputArray: journeyArray)
-                        
-                        flightLeg.updatedFilterResultCount = journeyArray.count
-                        print("updatedFilterResultCount=",flightLeg.updatedFilterResultCount)
-
-                    }else{
-                        journeyArray = newJourney
-                        flightLeg.updatedFilterResultCount = 0
-                    }
-                 
-
-                }
+//                for flightLeg in self.flightSearchResultVM.flightLegs
+//                {
+//                    if appliedFilters > 0{
+//                        journeyArray = flightLeg.applyStopsFilter(newJourney)
+//                        journeyArray = flightLeg.applyPriceFilter(journeyArray)
+//                        journeyArray = flightLeg.applyOriginFilter(journeyArray)
+//                        journeyArray = flightLeg.applyAirlineFilter(journeyArray)
+//                        journeyArray = flightLeg.applyLayoverFilter(journeyArray)
+//                        journeyArray = flightLeg.applyDurationFilter(journeyArray)
+//                        journeyArray = flightLeg.applyArrivalTimeFilter(journeyArray)
+//                        journeyArray = flightLeg.applyDestinationFilter(journeyArray)
+//                        journeyArray = flightLeg.applyDepartureTimeFilter(journeyArray)
+//                        journeyArray = flightLeg.applyMultiItinaryAirlineFilter(journeyArray)
+//                        journeyArray = flightLeg.applySortFilter(inputArray: journeyArray)
+//
+//                        flightLeg.updatedFilterResultCount = journeyArray.count
+//                        print("updatedFilterResultCount=",flightLeg.updatedFilterResultCount)
+//
+//                    }else{
+//                        journeyArray = newJourney
+//                        flightLeg.updatedFilterResultCount = 0
+//                    }
+//
+//
+//                }
 
                 if journeyArray.count > 0 {
                     self.pinnedFlightsArray = journeyArray
@@ -240,52 +240,52 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             }else{
                 if appliedFilters > 0{
                     var journeyArray = [Journey]()
-                    for flightLeg in self.flightSearchResultVM.flightLegs
-                    {
-                        if self.userSelectedFilters.first != nil{
-                            flightLeg.userSelectedFilters = self.userSelectedFilters.first
-                        }
-                        
-                        if flightLeg.userSelectedFilters.stp.count == 0{
-                            flightLeg.appliedFilters.remove(.stops)
+//                    for flightLeg in self.flightSearchResultVM.flightLegs
+//                    {
+//                        if self.userSelectedFilters.first != nil{
+//                            flightLeg.userSelectedFilters = self.userSelectedFilters.first
+//                        }
+//                        
+//                        if flightLeg.userSelectedFilters.stp.count == 0{
+//                            flightLeg.appliedFilters.remove(.stops)
                             journeyArray = results
-                        }else{
-                            journeyArray = flightLeg.applyStopsFilter(results)
-                        }
-                        
-                        
-                        if flightLeg.appliedFilters.contains(.Airlines){
-                            journeyArray = flightLeg.applyAirlineFilter(journeyArray)
-                        }
-                        
-                        if flightLeg.appliedFilters.contains(.Price){
-                            journeyArray = flightLeg.applyPriceFilter(journeyArray)
-                        }
-
-                        if flightLeg.appliedFilters.contains(.Duration){
-                            journeyArray = flightLeg.applyDurationFilter(journeyArray)
-                        }
-                        
-                        
-                        if flightLeg.appliedFilters.contains(.Times){
-                            journeyArray = flightLeg.applyDepartureTimeFilter(journeyArray)
-                            journeyArray = flightLeg.applyArrivalTimeFilter(journeyArray)
-                        }
-                        
-                        
-//                        journeyArray = flightLeg.applyOriginFilter(journeyArray)
-//                        journeyArray = flightLeg.applyLayoverFilter(journeyArray)
-//                        journeyArray = flightLeg.applyDestinationFilter(journeyArray)
-//                        journeyArray = flightLeg.applyMultiItinaryAirlineFilter(journeyArray)
-
-                        if flightLeg.appliedFilters.contains(.sort){
-                            journeyArray = flightLeg.applySortFilter(inputArray: journeyArray)
-                        }
-
-                        flightLeg.updatedFilterResultCount = journeyArray.count
-                    }
-
-                                        
+//                        }else{
+//                            journeyArray = flightLeg.applyStopsFilter(results)
+//                        }
+//                        
+//                        
+//                        if flightLeg.appliedFilters.contains(.Airlines){
+//                            journeyArray = flightLeg.applyAirlineFilter(journeyArray)
+//                        }
+//                        
+//                        if flightLeg.appliedFilters.contains(.Price){
+//                            journeyArray = flightLeg.applyPriceFilter(journeyArray)
+//                        }
+//
+//                        if flightLeg.appliedFilters.contains(.Duration){
+//                            journeyArray = flightLeg.applyDurationFilter(journeyArray)
+//                        }
+//                        
+//                        
+//                        if flightLeg.appliedFilters.contains(.Times){
+//                            journeyArray = flightLeg.applyDepartureTimeFilter(journeyArray)
+//                            journeyArray = flightLeg.applyArrivalTimeFilter(journeyArray)
+//                        }
+//                        
+//                        
+////                        journeyArray = flightLeg.applyOriginFilter(journeyArray)
+////                        journeyArray = flightLeg.applyLayoverFilter(journeyArray)
+////                        journeyArray = flightLeg.applyDestinationFilter(journeyArray)
+////                        journeyArray = flightLeg.applyMultiItinaryAirlineFilter(journeyArray)
+//
+//                        if flightLeg.appliedFilters.contains(.sort){
+//                            journeyArray = flightLeg.applySortFilter(inputArray: journeyArray)
+//                        }
+//
+//                        flightLeg.updatedFilterResultCount = journeyArray.count
+//                    }
+//
+//                                        
                     let groupedArray =  self.getOnewayJourneyDisplayArray(results: journeyArray, sortingOrder: sortOrder)
                     self.results.journeyArray = groupedArray
                     self.sortedArray = Array(self.results.sortedArray)

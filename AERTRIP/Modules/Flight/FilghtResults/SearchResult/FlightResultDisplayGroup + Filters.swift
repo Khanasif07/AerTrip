@@ -74,7 +74,9 @@ extension FlightResultDisplayGroup  {
     }
     
     func applyAirlineFilter(_ inputArray : [Journey]) -> [Journey] {
-        
+        if userSelectedFilters != nil {
+            print(userSelectedFilters.al)
+        }
         let filteredAirlineSet = Set(userSelectedFilters.al)
         
         var outputArray = inputArray
@@ -599,18 +601,31 @@ extension FlightResultDisplayGroup  {
             return inputArray
         }
         
-        let outputArray = inputArray.filter{
-            
-            let journeyLayovers = Set($0.loap)
+//        let outputArray = inputArray.filter{
+//
+//            let journeyLayovers = Set($0.loap)
+//            if journeyLayovers.count == 0 {
+//                return true
+//            }
+//
+//
+//            if journeyLayovers.isDisjoint(with:selectedLayovers) {
+//                return false
+//            }
+//            return true
+//        }
+        
+        let outputArray = inputArray.filter {
+            let totalLayoverAirports = $0.leg.flatMap { $0.loap }
+            let journeyLayovers = Set(totalLayoverAirports)
             if journeyLayovers.count == 0 {
-                return true
+                return false
             }
-            
-            
-            if journeyLayovers.isDisjoint(with:selectedLayovers) {
+            if journeyLayovers.isDisjoint(with: selectedLayovers) && !selectedLayovers.isEmpty {
                 return false
             }
             return true
+            
         }
         
         return outputArray
@@ -707,8 +722,10 @@ extension FlightResultDisplayGroup  {
             }
         }
         
-        DispatchQueue.main.async {
-            self.applySort(inputArray: inputForFilter)
-        }
+        self.filteredJourneyArray = inputForFilter
+        
+//        DispatchQueue.main.async {
+//            self.applySort(inputArray: inputForFilter)
+//        }
     }
 }

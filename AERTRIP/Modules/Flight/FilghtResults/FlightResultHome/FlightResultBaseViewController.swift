@@ -1038,20 +1038,20 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         guard let resultVM = self.flightSearchResultVM else  { return }
         self.filterTitle.text = self.flightSearchResultVM.filterSummaryTitle
         
-        if !filterApplied {
+//        if !filterApplied {
             self.flightFilterVC?.flightResultArray = self.flightSearchResultVM.flightResultArray
             self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
             
             
             self.intMCAndReturnFilterVC?.flightResultArray = self.flightSearchResultVM.intFlightResultArray
             self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)
-        }
-        
-        if resultVM.flightLegs.first!.appliedFilters.contains(.Airlines){
-            self.flightFilterVC?.flightResultArray = self.flightSearchResultVM.flightResultArray
-            self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
-
-        }
+//        }
+//        
+//        if resultVM.flightLegs.first!.appliedFilters.contains(.Airlines){
+//            self.flightFilterVC?.flightResultArray = self.flightSearchResultVM.flightResultArray
+//            self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
+//
+//        }
         
         let flightType = flightSearchResultVM.flightSearchType
         
@@ -1146,7 +1146,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                 }
                 
                 if progress >= 0.97 {
-//                    self.ApiProgress.isHidden = true
+                    self.ApiProgress.isHidden = true
                     self.singleJourneyResultVC?.addPlaceholderTableHeaderView()
                     
                     self.separatorView.snp.updateConstraints { (make) in
