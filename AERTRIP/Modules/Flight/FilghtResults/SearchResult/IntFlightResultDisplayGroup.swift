@@ -52,7 +52,7 @@ class IntFlightResultDisplayGroup {
             DispatchQueue.main.async {
                 
                 let filterApplied =  self.appliedFilters.count > 0 || self.UIFilters.count > 0
-                self.delegate?.updatedResponseReceivedAt(index: self.index , filterApplied:filterApplied)
+                self.delegate?.updatedResponseReceivedAt(index: self.index , filterApplied:filterApplied, isAPIResponseUpdated: true)
                 
                 if self.filteredJourneyArray.count == 0 {
                     self.delegate?.showNoFilteredResultsAt(index: self.index )

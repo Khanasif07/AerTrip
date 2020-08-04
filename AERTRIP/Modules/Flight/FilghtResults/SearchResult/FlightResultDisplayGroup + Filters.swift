@@ -659,7 +659,9 @@ extension FlightResultDisplayGroup  {
     }
     
     
-    func applyFilters() {
+    func applyFilters(isAPIResponseUpdated: Bool = false) {
+        
+        self.isAPIResponseUpdated = isAPIResponseUpdated
         
         var inputForFilter = self.processedJourneyArray
         

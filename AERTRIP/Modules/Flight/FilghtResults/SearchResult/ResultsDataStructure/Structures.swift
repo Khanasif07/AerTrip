@@ -142,8 +142,8 @@ public struct TimeRangeIntervalWS : Codable , Equatable {
 }
 
 public struct TimeRangeTimeZone : Codable {
-    let max : String
-    let min : String
+    var max : String
+    var min : String
 }
 
 public struct airportCodes : Codable {
