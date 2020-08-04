@@ -119,7 +119,6 @@ class FlightResultDisplayGroup {
         flightsResults.aldet =  lastFlightresults.aldet
         flightsResults.alMaster = lastFlightresults.alMaster
         
-        
     }
 
     fileprivate func findJourneyWithCheapestFare() -> Int {
@@ -332,24 +331,19 @@ class FlightResultDisplayGroup {
         return outputArray
     }
     
-    
-    
     //MARK:- Public Methods
     
     func workingOnReceived( flightsArray: [Flights] ,searchType : FlightSearchType) {
-       
         mergeFlightResults( flightsArray)
         userSelectedFilters = flightsResults.f.last
         inputFilter = flightsResults.f.last
         processingOnCombinedSearchResult(searchType : searchType)
     }
-
     
     func getOnewayJourneyDisplayArray() ->[Journey]
     {
         return filteredJourneyArray
     }
-    
     
     func getAirportDetailsArray() -> [String : AirportDetailsWS]{
         return flightsResults.apdet

@@ -418,7 +418,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     
     fileprivate func addSingleJourneyViewController() {
         let resultBaseVC = FlightResultSingleJourneyVC()
-        resultBaseVC.resultTableState = .showTemplateResults
+        resultBaseVC.viewModel.resultTableState = .showTemplateResults
         resultBaseVC.addBannerTableHeaderView()
         resultBaseVC.titleString = flightSearchResultVM.titleString
         resultBaseVC.subtitleString = flightSearchResultVM.subTitleString
@@ -1050,7 +1050,6 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         if resultVM.flightLegs.first!.appliedFilters.contains(.Airlines){
             self.flightFilterVC?.flightResultArray = self.flightSearchResultVM.flightResultArray
             self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
-
         }
         
         let flightType = flightSearchResultVM.flightSearchType
@@ -1146,7 +1145,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                 }
                 
                 if progress >= 0.97 {
-//                    self.ApiProgress.isHidden = true
+                    self.ApiProgress.isHidden = true
                     self.singleJourneyResultVC?.addPlaceholderTableHeaderView()
                     
                     self.separatorView.snp.updateConstraints { (make) in

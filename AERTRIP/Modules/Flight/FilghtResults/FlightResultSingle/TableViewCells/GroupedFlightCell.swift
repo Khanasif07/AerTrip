@@ -16,7 +16,7 @@ struct TimeFK {
     let fk : String
 }
 
-protocol  GroupedFlightCellDelegate : AnyObject {
+@available(iOS 13.0, *) protocol  GroupedFlightCellDelegate : AnyObject {
     func addToTrip(journey : Journey)
     func setPinnedFlightAt(_ flightKey: String , isPinned : Bool)
     func shareFlightAt(_ indexPath : IndexPath)
@@ -25,7 +25,7 @@ protocol  GroupedFlightCellDelegate : AnyObject {
     func navigateToFlightDetailFor(journey : Journey)
 }
 
-class GroupedFlightCell: UITableViewCell {
+@available(iOS 13.0, *) class GroupedFlightCell: UITableViewCell {
     //MARK:- View Outlets
     @IBOutlet weak var summaryLabel: UILabel!
     @IBOutlet weak var expandCollapseButton: UIButton!
@@ -44,23 +44,20 @@ class GroupedFlightCell: UITableViewCell {
     var buttonTapped : (() -> ()) = {}
     weak var delegate : GroupedFlightCellDelegate?
     var timeArray = [TimeFK]()
-    //MARK:-
+    
+    var currentJourney : Journey?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
     }
     
-    
     func setupTableView() {
-        
         collaspableTableView.estimatedRowHeight  = 131
         collaspableTableView.rowHeight = UITableView.automaticDimension
         collaspableTableView.register(UINib(nibName: "SingleJourneyCell", bundle: nil), forCellReuseIdentifier: "SingleJourneyCell")
         collaspableTableView.isScrollEnabled = false
         collaspableTableView.separatorStyle = .none
     }
-    
     
     func setupCollectionView() {
         timeCollectionView.register(UINib(nibName: "TimeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "TimeCollectionViewCell")
@@ -111,7 +108,6 @@ class GroupedFlightCell: UITableViewCell {
         summaryLabel.text = String(journey.count) + " flights at same price"
         
     }
-    
     
     func getSingleJourneyCell (indexPath : IndexPath , journey : Journey  ) -> UITableViewCell {
         
@@ -252,6 +248,7 @@ class GroupedFlightCell: UITableViewCell {
 }
 
 
+@available(iOS 13.0, *)
 extension GroupedFlightCell : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -268,12 +265,14 @@ extension GroupedFlightCell : UITableViewDataSource {
 }
 
 
+@available(iOS 13.0, *)
 extension GroupedFlightCell : UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             
         if let selectedJourney = getJourneyObj(indexPath: indexPath) {
+            self.currentJourney = selectedJourney
             self.delegate?.navigateToFlightDetailFor(journey: selectedJourney, selectedIndex: indexPath)
         }
     }
@@ -384,6 +383,7 @@ extension GroupedFlightCell : UITableViewDelegate {
 
 
 //MARK:- CollectionView Data Source and Delegate Methods
+@available(iOS 13.0, *)
 extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         

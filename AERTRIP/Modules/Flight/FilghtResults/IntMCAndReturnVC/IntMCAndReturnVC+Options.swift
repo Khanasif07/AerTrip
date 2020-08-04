@@ -154,8 +154,6 @@ extension IntMCAndReturnVC {
      }
      
 
-     
- 
      func performUnpinnedAllAction() {
         for i in 0 ..< viewModel.results.allJourneys.count {
                
@@ -259,10 +257,8 @@ extension IntMCAndReturnVC {
         let isDomestic = false
         valueString = valueString + "&cabinclass=\(cabinclass)&pType=flight&isDomestic=\(isDomestic)"
         return valueString
-        
     }
     
-        
     func generatePostData( for journey : [IntMultiCityAndReturnWSResponse.Results.J] ) -> NSData? {
         
         var valueString  = self.generateCommonString(for: journey)

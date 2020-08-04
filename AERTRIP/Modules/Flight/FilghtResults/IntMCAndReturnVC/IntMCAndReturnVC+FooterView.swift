@@ -28,7 +28,6 @@ extension IntMCAndReturnVC {
         }
     }
     
-    
     func setGroupedFooterView() {
         
         if viewModel.results.aboveScoreCount == 0 {
@@ -191,8 +190,6 @@ extension IntMCAndReturnVC {
             self.viewModel.results.excludeExpensiveFlights = false
             
             DispatchQueue.global(qos: .background).async {
-//                let groupedArray =  self.viewModel.getInternationalDisplayArray(results: self.viewModel.results.sortedArray)
-//                self.viewModel.results.journeyArray = groupedArray
                 self.sortedArray = Array(self.viewModel.results.sortedArray)
                 self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: self.viewModel.prevLegIndex, completion: {
                     DispatchQueue.main.async {
