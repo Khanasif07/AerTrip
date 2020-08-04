@@ -1317,6 +1317,12 @@
 		847C2248247BCC36004F32D6 /* StickyGridCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847C2247247BCC35004F32D6 /* StickyGridCollectionViewLayout.swift */; };
 		847C224A247BCF50004F32D6 /* Rishabh_Dev.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847C2249247BCF4F004F32D6 /* Rishabh_Dev.storyboard */; };
 		847C224C247C1664004F32D6 /* APICaller+SeatMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847C224B247C1664004F32D6 /* APICaller+SeatMap.swift */; };
+		847D166124D9433F008DF1D6 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847D166024D9433F008DF1D6 /* PassKit.framework */; };
+		847D166824D94523008DF1D6 /* pass.json in Resources */ = {isa = PBXBuildFile; fileRef = 847D166324D94522008DF1D6 /* pass.json */; };
+		847D166924D94523008DF1D6 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 847D166424D94522008DF1D6 /* icon@2x.png */; };
+		847D166A24D94523008DF1D6 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 847D166524D94523008DF1D6 /* logo.png */; };
+		847D166B24D94523008DF1D6 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 847D166624D94523008DF1D6 /* icon.png */; };
+		847D166C24D94523008DF1D6 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 847D166724D94523008DF1D6 /* logo@2x.png */; };
 		847F7EB82279DB75009BE02F /* PKTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F7EB72279DB75009BE02F /* PKTextField.swift */; };
 		847FBB9822B25B42001FC68D /* BookingFeeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FBB9722B25B42001FC68D /* BookingFeeDetail.swift */; };
 		84806833220990C600CBF362 /* BulkRoomSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84806832220990C600CBF362 /* BulkRoomSelectionVC.swift */; };
@@ -3081,6 +3087,12 @@
 		847C2247247BCC35004F32D6 /* StickyGridCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickyGridCollectionViewLayout.swift; sourceTree = "<group>"; };
 		847C2249247BCF4F004F32D6 /* Rishabh_Dev.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Rishabh_Dev.storyboard; sourceTree = "<group>"; };
 		847C224B247C1664004F32D6 /* APICaller+SeatMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+SeatMap.swift"; sourceTree = "<group>"; };
+		847D166024D9433F008DF1D6 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
+		847D166324D94522008DF1D6 /* pass.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pass.json; sourceTree = "<group>"; };
+		847D166424D94522008DF1D6 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		847D166524D94523008DF1D6 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		847D166624D94523008DF1D6 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		847D166724D94523008DF1D6 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		847F7EB72279DB75009BE02F /* PKTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKTextField.swift; sourceTree = "<group>"; };
 		847FBB9722B25B42001FC68D /* BookingFeeDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingFeeDetail.swift; sourceTree = "<group>"; };
 		84806832220990C600CBF362 /* BulkRoomSelectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulkRoomSelectionVC.swift; sourceTree = "<group>"; };
@@ -3394,6 +3406,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				847D166124D9433F008DF1D6 /* PassKit.framework in Frameworks */,
 				188BFBB72203379700B4C315 /* StoreKit.framework in Frameworks */,
 				188BFBB52203378F00B4C315 /* GameKit.framework in Frameworks */,
 				EE58E9D6E89B9661B1776B87 /* Pods_AERTRIP.framework in Frameworks */,
@@ -7921,6 +7934,18 @@
 			path = SeatCollCell;
 			sourceTree = "<group>";
 		};
+		847D166224D944CE008DF1D6 /* Lollipop.pass */ = {
+			isa = PBXGroup;
+			children = (
+				847D166624D94523008DF1D6 /* icon.png */,
+				847D166424D94522008DF1D6 /* icon@2x.png */,
+				847D166524D94523008DF1D6 /* logo.png */,
+				847D166724D94523008DF1D6 /* logo@2x.png */,
+				847D166324D94522008DF1D6 /* pass.json */,
+			);
+			path = Lollipop.pass;
+			sourceTree = "<group>";
+		};
 		847F7EB62279DB75009BE02F /* PKTextField */ = {
 			isa = PBXGroup;
 			children = (
@@ -7961,6 +7986,7 @@
 		8491D1D7222D3FC1001D0313 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				847D166224D944CE008DF1D6 /* Lollipop.pass */,
 				8474D2D02258BBC60042541D /* Info.plist */,
 				8491D1D9222D3FC1001D0313 /* Assets.xcassets */,
 				8491D1DA222D3FC1001D0313 /* GoogleService-Info.plist */,
@@ -9051,6 +9077,7 @@
 		E8564E98314D16DFFD182776 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				847D166024D9433F008DF1D6 /* PassKit.framework */,
 				0C181FBE22FABDAD0088E64A /* Bolts.framework */,
 				188BFBB62203379700B4C315 /* StoreKit.framework */,
 				188BFBB42203378F00B4C315 /* GameKit.framework */,
@@ -9174,6 +9201,7 @@
 				182EB22322859BA8001BFB20 /* FlightInfoTableViewCell.xib in Resources */,
 				0C1AA59624AF0FCD0082FE7D /* TokenView.xib in Resources */,
 				84FFDFA421F9DBD8005CA257 /* Settings.storyboard in Resources */,
+				847D166B24D94523008DF1D6 /* icon.png in Resources */,
 				84A03EE3247FA2F900CD3743 /* PriceSliderCell.xib in Resources */,
 				180162EF2295707F007E5D43 /* BookingAddOnHeaderView.xib in Resources */,
 				843FF4E424740231001F21B1 /* FlightSearchResultsTableViewCell.xib in Resources */,
@@ -9212,6 +9240,7 @@
 				843FF48924740230001F21B1 /* FlightForm.storyboard in Resources */,
 				84323D3E222FE5A300DA7581 /* AmenitiesNameTableViewCell.xib in Resources */,
 				18FD91702296853B00D005E9 /* AirlineTableViewCell.xib in Resources */,
+				847D166824D94523008DF1D6 /* pass.json in Resources */,
 				84BBEEAF2214261E00844034 /* HotelDetailsCancelPolicyTableCell.xib in Resources */,
 				84011A9C222E50B20050BDA1 /* HotelDetailsEmptyStateTableCell.xib in Resources */,
 				8474CC2D22269DCB00C4F076 /* NotesTableCell.xib in Resources */,
@@ -9331,6 +9360,7 @@
 				18020B0A2282A74500DE5FE0 /* InternationalOneWayCardTableViewCell.xib in Resources */,
 				84534ECB22490F91009FF536 /* HCWhatNextTableViewCell.xib in Resources */,
 				843FF4A024740231001F21B1 /* RadioButtonTableViewCell.xib in Resources */,
+				847D166A24D94523008DF1D6 /* logo.png in Resources */,
 				848B993521DF6559009A4772 /* EmptyScreenView.xib in Resources */,
 				84E4BC57229E935900B72306 /* TravellersPnrStatusTableViewCell.xib in Resources */,
 				843FF50124740231001F21B1 /* InternationalReturnDetailsCell.xib in Resources */,
@@ -9458,6 +9488,7 @@
 				1841AF9521C8BE830038111D /* ViewProfileTableViewCell.xib in Resources */,
 				843FF55A24740232001F21B1 /* UpgradePlanBaseVC.xib in Resources */,
 				8483AFA722118549009F7600 /* HotelRatingInfoCell.xib in Resources */,
+				847D166C24D94523008DF1D6 /* logo@2x.png in Resources */,
 				843FF64C247409E3001F21B1 /* AddressTableViewCell.xib in Resources */,
 				84BBEEA52214235900844034 /* HotelDetailsInclusionTableViewCell.xib in Resources */,
 				843FF54724740232001F21B1 /* FlightResultSingleJourneyVC.xib in Resources */,
@@ -9516,6 +9547,7 @@
 				84DD245A2265A5FA0013F77E /* DateTableHeaderView.xib in Resources */,
 				84A03EE7247FA86F00CD3743 /* RangeTableViewCell.xib in Resources */,
 				180692C222952FFE00177487 /* BookingFFMealTableViewCell.xib in Resources */,
+				847D166924D94523008DF1D6 /* icon@2x.png in Resources */,
 				0C26ECFE243386E700C058D0 /* SettingsHeaderView.xib in Resources */,
 				84DD246F2265B5700013F77E /* HotelTableViewCell.xib in Resources */,
 				843FF648247409E3001F21B1 /* GuestDetailTableViewCell.xib in Resources */,
@@ -10960,7 +10992,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 113;
+				CURRENT_PROJECT_VERSION = 114;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11169,7 +11201,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 113;
+				CURRENT_PROJECT_VERSION = 114;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;

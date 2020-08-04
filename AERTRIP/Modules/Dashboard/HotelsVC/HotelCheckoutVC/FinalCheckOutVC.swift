@@ -721,7 +721,10 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
             self.convenienceFeesWallet = razorPay.convenienceFeesWallet > 0 ? razorPay.convenienceFeesWallet : 0
             self.setConvenienceFeeToBeApplied()
         }
-        self.isWallet = self.getWalletAmount() > 0
+        if self.getWalletAmount() <= 0 {
+           self.isWallet = false
+        }
+        //self.isWallet = self.getWalletAmount() > 0
         self.manageCouponLoader(isApplying:false)
         self.updateAllData()
         printDebug("Get Success")

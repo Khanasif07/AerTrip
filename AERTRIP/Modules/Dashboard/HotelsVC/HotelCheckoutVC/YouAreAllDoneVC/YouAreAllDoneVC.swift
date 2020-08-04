@@ -8,6 +8,7 @@
 
 import UIKit
 import FBSDKShareKit
+import PassKit
 
 class YouAreAllDoneVC: BaseVC {
     
@@ -566,13 +567,19 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
             print("Instagram not found")
         }
  */
+        
     }
 }
 //Mark:- HCWhatNextTableViewCell Delegate
 //=========================================
 extension YouAreAllDoneVC: YouAreAllDoneTableViewCellDelegate {
     func addToAppleWalletTapped() {
-        
+//        if (!PKAddPaymentPassViewController.canAddPaymentPass()){
+//          // use other payment method / alert user
+//        }
+//        let config = PKAddPaymentPassRequestConfiguration.init(encryptionScheme: PKEncryptionScheme.ECC_V2)
+//        let addPaymentPassVC = PKAddPaymentPassViewController.init(requestConfiguration: config!, delegate: self)
+//        self.present(addPaymentPassVC!, animated: true, completion: nil)
     }
     
     func addToCallendarTapped() {
@@ -591,6 +598,15 @@ extension YouAreAllDoneVC: YouAreAllDoneTableViewCellDelegate {
     }
     
     
+}
+extension YouAreAllDoneVC: PKAddPaymentPassViewControllerDelegate {
+    func addPaymentPassViewController(_ controller: PKAddPaymentPassViewController, generateRequestWithCertificateChain certificates: [Data], nonce: Data, nonceSignature: Data, completionHandler handler: @escaping (PKAddPaymentPassRequest) -> Void) {
+
+    }
+
+    func addPaymentPassViewController(_ controller: PKAddPaymentPassViewController, didFinishAdding pass: PKPaymentPass?, error: Error?) {
+      // pass added
+    }
 }
 //Mark:- HCBookingDetailsTableViewHeaderFooterView Delegate
 //=========================================================
@@ -658,3 +674,7 @@ extension YouAreAllDoneVC{
         
     }
 }
+/*
+ how to call the apple wallet from ios app using swift
+ https://stackoverflow.com/questions/51060832/how-to-call-the-apple-wallet-from-ios-app-using-swift
+ */

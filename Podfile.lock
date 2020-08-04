@@ -10,6 +10,7 @@ PODS:
   - Crashlytics (3.14.0):
     - Fabric (~> 1.10.2)
   - Fabric (1.10.2)
+  - FBRetainCycleDetector (0.1.4)
   - FBSDKCoreKit (7.0.0):
     - FBSDKCoreKit/Basics (= 7.0.0)
     - FBSDKCoreKit/Core (= 7.0.0)
@@ -117,6 +118,8 @@ PODS:
     - Kingfisher/Core (= 5.13.4)
   - Kingfisher/Core (5.13.4)
   - MiniLayout (1.4.2)
+  - MLeaksFinder (1.0.0):
+    - FBRetainCycleDetector
   - MXParallaxHeader (1.1.0)
   - nanopb (1.30905.0):
     - nanopb/decode (= 1.30905.0)
@@ -157,6 +160,7 @@ DEPENDENCIES:
   - IQKeyboardManager
   - Kingfisher
   - MiniLayout
+  - MLeaksFinder
   - MXParallaxHeader
   - Parchment
   - PhoneNumberKit (~> 3.1)
@@ -175,6 +179,7 @@ SPEC REPOS:
     - AvailableHapticFeedback
     - Crashlytics
     - Fabric
+    - FBRetainCycleDetector
     - FBSDKCoreKit
     - FBSDKLoginKit
     - FBSDKShareKit
@@ -200,6 +205,7 @@ SPEC REPOS:
     - IQKeyboardManager
     - Kingfisher
     - MiniLayout
+    - MLeaksFinder
     - MXParallaxHeader
     - nanopb
     - Parchment
@@ -219,6 +225,7 @@ SPEC CHECKSUMS:
   AvailableHapticFeedback: 9b21b9f6d3e4566015988b5de35b40abefe6c09a
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
+  FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
   FBSDKCoreKit: 8ad31cd09f793d1d7e84cf20fd6cebfe80ad318d
   FBSDKLoginKit: 5d1e321dc45ab1fa09198b77fc17c32a06f008c0
   FBSDKShareKit: 7ec93bf49516a91513d64863f54121155bbd7f78
@@ -244,6 +251,7 @@ SPEC CHECKSUMS:
   IQKeyboardManager: 3a8b9e603f8b0eeaf5f096a1f2b2cfcf121992ef
   Kingfisher: d2279a7abece3c7f25a80cd2b7f363ca5cf3f44c
   MiniLayout: f819ad87432712e6b2596081a62e633a4961bfc6
+  MLeaksFinder: 8c435bd2f6d070af18cff082b503b21adc130fc0
   MXParallaxHeader: de3c867e10ba46e8f6e20c8ee1f2a910372b3b94
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   Parchment: 72a7eb8072454a9500a53dd84776e04fba24e740
@@ -256,6 +264,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
 
-PODFILE CHECKSUM: c489b2ce44c053640690518c91d0c4cfe6210160
+PODFILE CHECKSUM: b4c1c2959df839dad0f6da6526afd2aa17e51c85
 
 COCOAPODS: 1.9.2
