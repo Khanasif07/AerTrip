@@ -23,6 +23,8 @@ class IntFlightResultDisplayGroup {
     private var numberOfLegs = 0
     internal var isReturnJourney = false
     
+    internal var isAPIResponseUpdated = false
+    
     //MARK:- Computed Properties
     var appliedFilters = Set<Filters>() {
         didSet{
@@ -52,11 +54,12 @@ class IntFlightResultDisplayGroup {
             DispatchQueue.main.async {
                 
                 let filterApplied =  self.appliedFilters.count > 0 || self.UIFilters.count > 0
-                self.delegate?.updatedResponseReceivedAt(index: self.index , filterApplied:filterApplied, isAPIResponseUpdated: true)
+                self.delegate?.updatedResponseReceivedAt(index: self.index , filterApplied:filterApplied, isAPIResponseUpdated: self.isAPIResponseUpdated)
                 
                 if self.filteredJourneyArray.count == 0 {
                     self.delegate?.showNoFilteredResultsAt(index: self.index )
                 }
+                self.isAPIResponseUpdated = false
             }
         }
     }
@@ -87,7 +90,7 @@ class IntFlightResultDisplayGroup {
             processedJourneyArray = groupSimilarFlights(processedJourneyArray)
             
             for index in 0..<self.numberOfLegs{
-                applyFilters(index: index)
+                applyFilters(index: index, isAPIResponseUpdated: true)
             }
             
         

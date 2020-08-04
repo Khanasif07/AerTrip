@@ -922,8 +922,9 @@ extension IntFlightResultDisplayGroup  {
         self.filteredJourneyArray = processedJourneyArray
     }
     
-    func applyFilters(index : Int) {
+    func applyFilters(index : Int, isAPIResponseUpdated: Bool = false) {
         
+        self.isAPIResponseUpdated = isAPIResponseUpdated
         // DispatchQueue.global(qos: .background).async {
         
         var inputForFilter = self.processedJourneyArray
