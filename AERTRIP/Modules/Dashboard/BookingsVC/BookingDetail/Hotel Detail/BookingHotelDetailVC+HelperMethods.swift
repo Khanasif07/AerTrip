@@ -195,7 +195,9 @@ extension BookingHotelDetailVC {
             guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell else { return UITableViewCell() }
             cell.configureOverviewCell(isForBooking: true, overview: self.viewModel.bookingDetail?.bookingDetail?.overViewData ?? "")
             cell.addressInfoTextView.isUserInteractionEnabled = false
-            cell.moreViewBottomConstraint.constant = 20
+//            cell.moreViewBottomConstraint.constant = 20.5
+//            cell.dividerBottomConstraint.constant = 0.5
+//            cell.deviderView.backgroundColor = AppColors.divider.color
             //cell.clipsToBounds = true
             return cell
         case 4: // Amentities Cell
@@ -203,7 +205,7 @@ extension BookingHotelDetailVC {
             cell.delegate = self
             cell.amenitiesDetails = self.viewModel.bookingDetail?.bookingDetail?.amenities
             cell.dividerView.isHidden = (self.viewModel.bookingDetail?.bookingDetail?.taLocationID.isEmpty ?? false)
-            cell.amenitiesTopConstraint.constant = 7
+            cell.amenitiesTopConstraint.constant = 16
             cell.containerHeightConstraint.constant = 123
             return cell
             
@@ -241,7 +243,7 @@ extension BookingHotelDetailVC {
             //return (self.viewModel.bookingDetail?.bookingDetail?.hotelAddressDetail ?? "").isEmpty ? CGFloat.leastNormalMagnitude : UITableView.automaticDimension
             
             if let address = self.viewModel.bookingDetail?.bookingDetail?.hotelAddressDetail, !address.isEmpty {
-                let text = address + "Maps 1234"
+                let text = address + "\nMaps 1234"
                 let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 33.0, height: 10000.0))
                 return size.height + 46.5
                     + 13  + 2.0//y of textview 46.5 + bottom space 14.0 + 7.0

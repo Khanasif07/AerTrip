@@ -9,6 +9,16 @@
 import UIKit
 
 class FlightResultDisplayGroup {
+    
+    // Only for checking if user has initiated application of filter
+    // For filters with multiple checks only
+    enum InitiatedFilters {
+        case tripDuration
+        case layoverDuration
+    }
+    internal var initiatedFilters: Set<InitiatedFilters> = []
+    
+    
     let index : Int
     weak var delegate : FlightResultViewModelDelegate?
     var workItems = [DispatchWorkItem]()
@@ -21,6 +31,8 @@ class FlightResultDisplayGroup {
     var userSelectedFilters : FiltersWS!
     var inputFilter : FiltersWS!
     var updatedFilterResultCount = 0
+    
+    internal var isAPIResponseUpdated = false
 
     //MARK:- Computed Properties
     var appliedFilters = Set<Filters>() {
@@ -43,11 +55,12 @@ class FlightResultDisplayGroup {
             DispatchQueue.main.async {
                 
                 let filterApplied =  self.appliedFilters.count > 0 || self.UIFilters.count > 0
-                self.delegate?.updatedResponseReceivedAt(index: self.index , filterApplied:filterApplied)
+                self.delegate?.updatedResponseReceivedAt(index: self.index , filterApplied:filterApplied, isAPIResponseUpdated: self.isAPIResponseUpdated)
                 
                 if self.filteredJourneyArray.count == 0 {
                     self.delegate?.showNoFilteredResultsAt(index: self.index )
                 }
+                self.isAPIResponseUpdated = false
             }
         }
     }
@@ -76,7 +89,7 @@ class FlightResultDisplayGroup {
             if (searchType == SINGLE_JOURNEY  ) {
                 processedJourneyArray = groupSimilarFlights(processedJourneyArray)
             }
-            applyFilters()
+            applyFilters(isAPIResponseUpdated: true)
         }
     }
     
@@ -118,6 +131,7 @@ class FlightResultDisplayGroup {
         flightsResults.taxes = lastFlightresults.taxes
         flightsResults.aldet =  lastFlightresults.aldet
         flightsResults.alMaster = lastFlightresults.alMaster
+        
         
     }
 
@@ -331,19 +345,99 @@ class FlightResultDisplayGroup {
         return outputArray
     }
     
+    
+    
     //MARK:- Public Methods
     
     func workingOnReceived( flightsArray: [Flights] ,searchType : FlightSearchType) {
         mergeFlightResults( flightsArray)
-        userSelectedFilters = flightsResults.f.last
-        inputFilter = flightsResults.f.last
+//        if userSelectedFilters == nil {
+//            userSelectedFilters = flightsResults.f.last
+//        }
+//        inputFilter = flightsResults.f.last
+        mergeFilters(flightsArray)
         processingOnCombinedSearchResult(searchType : searchType)
+    }
+    
+    private func mergeFilters(_ flightsArray  : [Flights]) {
+        flightsArray.forEach { (flight) in
+            print("flight filters count: \(flight.results.f.count)")
+            if inputFilter == nil {
+                inputFilter = flight.results.f.last
+                userSelectedFilters = flight.results.f.last
+            } else {
+                guard let latestFilter = flight.results.f.last, var newFilter = inputFilter else { return }
+                
+                newFilter.multiAl = [(newFilter.multiAl ?? 0), (latestFilter.multiAl ?? 0)].max() ?? 0
+                
+                latestFilter.cityapN.fr.forEach { (key, val) in
+                    newFilter.cityapN.fr[key] = Array(Set(val + (latestFilter.cityapN.fr[key] ?? [])))
+                }
+                latestFilter.cityapN.to.forEach { (key, val) in
+                    newFilter.cityapN.to[key] = Array(Set(val + (latestFilter.cityapN.to[key] ?? [])))
+                }
+                newFilter.fares = Array(Set(newFilter.fares + latestFilter.fares))
+                latestFilter.fq.forEach { (key, val) in
+                    newFilter.fq[key] = val
+                }
+                newFilter.pr.minPrice = [newFilter.pr.minPrice, latestFilter.pr.minPrice].min() ?? 0
+                newFilter.pr.maxPrice = [newFilter.pr.maxPrice,
+                    latestFilter.pr.maxPrice].max() ?? 0
+                newFilter.stp = Array(Set(newFilter.stp + latestFilter.stp))
+                newFilter.al = Array(Set(newFilter.al + latestFilter.al))
+                newFilter.depDt.earliest = compareAndGetDate(.orderedAscending, d1: newFilter.depDt.earliest, d2: latestFilter.depDt.earliest)
+                newFilter.depDt.latest = compareAndGetDate(.orderedDescending, d1: newFilter.depDt.latest, d2: latestFilter.depDt.latest)
+                
+                newFilter.arDt.earliest = compareAndGetDate(.orderedAscending, d1: newFilter.arDt.earliest, d2: latestFilter.arDt.earliest)
+                newFilter.arDt.latest = compareAndGetDate(.orderedDescending, d1: newFilter.arDt.latest, d2: latestFilter.arDt.latest)
+                
+                newFilter.dt.earliest = compareAndGetDate(.orderedAscending, d1: newFilter.dt.earliest, d2: latestFilter.dt.earliest)
+                newFilter.dt.latest = compareAndGetDate(.orderedDescending, d1: newFilter.dt.latest, d2: latestFilter.dt.latest)
+                
+                newFilter.at.earliest = compareAndGetDate(.orderedAscending, d1: newFilter.at.earliest, d2: latestFilter.at.earliest)
+                newFilter.at.latest = compareAndGetDate(.orderedDescending, d1: newFilter.at.latest, d2: latestFilter.at.latest)
+                
+                newFilter.tt.minTime = compareAndGetDate(.orderedAscending, d1: newFilter.tt.minTime ?? "", d2: latestFilter.tt.minTime ?? "")
+                newFilter.tt.maxTime = compareAndGetDate(.orderedDescending, d1: newFilter.tt.maxTime ?? "", d2: latestFilter.tt.maxTime ?? "")
+                
+                newFilter.loap = Array(Set(newFilter.loap + latestFilter.loap))
+                
+                if newFilter.lott != nil {
+                    newFilter.lott!.minTime = compareAndGetDate(.orderedAscending, d1: newFilter.lott?.minTime ?? "", d2: latestFilter.lott?.minTime ?? "")
+                    newFilter.lott!.maxTime = compareAndGetDate(.orderedDescending, d1: newFilter.lott?.maxTime ?? "", d2: latestFilter.lott?.maxTime ?? "")
+
+                }
+                                
+                newFilter.originTz.min = compareAndGetDate(.orderedAscending, d1: newFilter.originTz.min, d2: latestFilter.originTz.min)
+                newFilter.originTz.max = compareAndGetDate(.orderedDescending, d1: newFilter.originTz.max, d2: latestFilter.originTz.max)
+                
+                newFilter.destinationTz.min = compareAndGetDate(.orderedAscending, d1: newFilter.destinationTz.min, d2: latestFilter.destinationTz.min)
+                newFilter.destinationTz.max = compareAndGetDate(.orderedDescending, d1: newFilter.destinationTz.max, d2: latestFilter.destinationTz.max)
+                
+                newFilter.ap = Array(Set(newFilter.ap + latestFilter.ap))
+                
+                latestFilter.cityap.forEach { (dict) in
+                    newFilter.cityap[dict.key] = Array(Set((newFilter.cityap[dict.key] ?? []) + dict.value))
+                }
+                inputFilter = newFilter
+            }
+        }
+    }
+    
+    private func compareAndGetDate(_ type: ComparisonResult, d1: String, d2: String) -> String {
+        if type == .orderedAscending {
+            return d1.compare(d2) == .orderedAscending ? d1 : d2
+        } else if type == .orderedDescending {
+            return d1.compare(d2) == .orderedDescending ? d1 : d2
+        }
+        return d1
     }
     
     func getOnewayJourneyDisplayArray() ->[Journey]
     {
         return filteredJourneyArray
     }
+    
     
     func getAirportDetailsArray() -> [String : AirportDetailsWS]{
         return flightsResults.apdet

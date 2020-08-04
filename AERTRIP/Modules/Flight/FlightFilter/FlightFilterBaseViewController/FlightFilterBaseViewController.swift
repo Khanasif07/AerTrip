@@ -244,7 +244,8 @@ class FlightFilterBaseViewController: UIViewController
                 }
             case PriceFilterViewController.className :
                 if let priceFilterVC = viewController as? PriceFilterViewController {
-                    setPriceVC( priceFilterVC, inputFilters: filters)
+//                    setPriceVC( priceFilterVC, inputFilters: filters)
+                    updatePriceVC(priceFilterVC, inputFilters: filters)
                     priceFilterVC.updateUIPostLatestResults()
                 }
             case FlightDurationFilterViewController.className :
@@ -592,6 +593,28 @@ class FlightFilterBaseViewController: UIViewController
         priceViewController.legsArray = legList
         priceViewController.allPriceFilters = priceFilters
         priceViewController.currentPriceFilter = priceFilters[0]
+    }
+    
+    func updatePriceVC(_ priceViewController : PriceFilterViewController , inputFilters : [FiltersWS]) {
+                
+        for (index, filter) in inputFilters.enumerated() {
+            let newPriceWS = filter.pr
+            let newPriceFilter = PriceFilter(onlyRefundableFaresSelected: false,
+            inputFareMinValue: CGFloat(newPriceWS.minPrice) ,
+            inputFareMaxVaule: CGFloat(newPriceWS.maxPrice) ,
+            userSelectedFareMinValue: CGFloat(newPriceWS.minPrice) ,
+            userSelectedFareMaxValue: CGFloat(newPriceWS.maxPrice) )
+            
+            if priceViewController.allPriceFilters.indices.contains(index) {
+                priceViewController.allPriceFilters[index].inputFareMinValue = newPriceFilter.inputFareMinValue
+                
+                priceViewController.allPriceFilters[index].inputFareMaxVaule = newPriceFilter.inputFareMaxVaule
+                
+            } else {
+                priceViewController.allPriceFilters.append(newPriceFilter)
+                
+            }
+        }
     }
     
     //MARK:- Airport

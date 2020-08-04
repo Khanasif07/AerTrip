@@ -11,7 +11,7 @@ import UIKit
 
 protocol FlightResultViewModelDelegate : class {
     func webserviceProgressUpdated(progress : Float)
-    func updatedResponseReceivedAt( index: Int , filterApplied : Bool)
+    func updatedResponseReceivedAt( index: Int , filterApplied : Bool, isAPIResponseUpdated: Bool)
     func showNoResultScreenAt(index : Int)
     func showNoFilteredResultsAt(index : Int)
     func filtersApplied(_ isApplied :  Bool )

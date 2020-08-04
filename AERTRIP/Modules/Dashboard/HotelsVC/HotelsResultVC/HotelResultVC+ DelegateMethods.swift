@@ -189,14 +189,17 @@ extension HotelResultVC: HotelResultDelegate {
         self.searchButton.isUserInteractionEnabled = true
         
         var ignorePreviousFilter = false
-        if self.viewModel.searchedFormData.destType == "Hotel" || self.viewModel.searchedFormData.destType == "POI" || self.viewModel.searchedFormData.destType == "Area" {
+        if self.viewModel.searchedFormData.destType == "Hotel" || self.viewModel.searchedFormData.destType == "POI" || self.viewModel.searchedFormData.destType == "Area" ||
+            self.viewModel.searchedFormData.isHotelNearMeSelected {
             self.viewModel.fetchRequestType = .FilterApplied
             self.viewModel.filterApplied.sortUsing = .DistanceNearestFirst(ascending: true)
             HotelFilterVM.shared.sortUsing = .DistanceNearestFirst(ascending: true)
             HotelFilterVM.shared.isFilterAppliedForDestinetionFlow = true
             ignorePreviousFilter = true
         } else {
-            HotelFilterVM.shared.isFilterAppliedForDestinetionFlow = false
+            HotelFilterVM.shared.resetToDefault()
+//            HotelFilterVM.shared.sortUsing = .BestSellers
+//            HotelFilterVM.shared.isFilterAppliedForDestinetionFlow = false
         }
         
         if let isUse = UserDefaults.getObject(forKey: "shouldApplyFormStars") as? Bool, isUse {
@@ -436,17 +439,17 @@ extension HotelResultVC: HotelsGroupExpendedVCDelegate {
 // MARK: - HotelSearchResultHeaderViewDelegate methods
 extension HotelResultVC: HotelSearchResultHeaderViewDelegate {
     func clearSearchView() {
-        self.searchResultHeaderView.updateHeight(height: CGFloat.leastNormalMagnitude)
-        self.tableViewVertical.sectionHeaderHeight = CGFloat.leastNormalMagnitude
-        self.searchResultHeaderView.configureView(searhText: "")
-        self.viewModel.searchTextStr = ""
-        self.searchBar.text = ""
-        self.viewModel.fetchRequestType = self.filterButton.isSelected ? .FilterApplied : .normalInSearching //for getting all the data in search mode when the search text is blank
-        self.viewModel.loadSaveData()
-        self.searchForText("", shouldPerformAction: false) //cancel all the previous operation
-        self.reloadHotelList()
-        noResultemptyView.searchTextLabel.text = ""
-        noResultemptyViewVerticalTableView.searchTextLabel.text = ""
+//        self.searchResultHeaderView.updateHeight(height: CGFloat.leastNormalMagnitude)
+//        self.tableViewVertical.sectionHeaderHeight = CGFloat.leastNormalMagnitude
+//        self.searchResultHeaderView.configureView(searhText: "")
+//        self.viewModel.searchTextStr = ""
+//        self.searchBar.text = ""
+//        self.viewModel.fetchRequestType = self.filterButton.isSelected ? .FilterApplied : .normalInSearching //for getting all the data in search mode when the search text is blank
+//        self.viewModel.loadSaveData()
+//        self.searchForText("", shouldPerformAction: false) //cancel all the previous operation
+//        self.reloadHotelList()
+//        noResultemptyView.searchTextLabel.text = ""
+//        noResultemptyViewVerticalTableView.searchTextLabel.text = ""
         self.searchBar.becomeFirstResponder()
     }
 }

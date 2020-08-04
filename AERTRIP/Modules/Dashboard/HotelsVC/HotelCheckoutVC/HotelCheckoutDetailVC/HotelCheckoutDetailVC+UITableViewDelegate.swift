@@ -113,7 +113,7 @@ extension HotelCheckoutDetailVC: UITableViewDelegate, UITableViewDataSource {
             if sectionData[indexPath.row] == .paymentPolicyCell  || sectionData[indexPath.row] == .checkOutCell{
                 return CGFloat.leastNormalMagnitude
             } else if indexPath.section == 0, indexPath.row == 2 {
-                    let text = hotelData.address + "Maps 1234"
+                    let text = hotelData.address + "\nMaps 1234"
                     let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
                     return size.height + 46.5
                         + 13  + 2.0 // y of textview 46.5 + bottom space 14.0 + 7.0

@@ -35,7 +35,7 @@
                                 <rect key="frame" x="9" y="44.5" width="178.5" height="31"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labelfds fsdf dsfsdfs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QVc-Sk-brs">
-                                        <rect key="frame" x="9" y="8" width="160.5" height="15"/>
+                                        <rect key="frame" x="9" y="3" width="160.5" height="25"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -43,10 +43,10 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="QVc-Sk-brs" secondAttribute="bottom" constant="8" id="CF0-s9-vtf"/>
+                                    <constraint firstAttribute="bottom" secondItem="QVc-Sk-brs" secondAttribute="bottom" constant="3" id="CF0-s9-vtf"/>
                                     <constraint firstAttribute="height" constant="31" id="JEC-h2-t8h"/>
                                     <constraint firstItem="QVc-Sk-brs" firstAttribute="leading" secondItem="SJm-r6-MAR" secondAttribute="leading" constant="9" id="nBE-nE-der"/>
-                                    <constraint firstItem="QVc-Sk-brs" firstAttribute="top" secondItem="SJm-r6-MAR" secondAttribute="top" constant="8" id="yoV-tn-GMe"/>
+                                    <constraint firstItem="QVc-Sk-brs" firstAttribute="top" secondItem="SJm-r6-MAR" secondAttribute="top" constant="3" id="yoV-tn-GMe"/>
                                     <constraint firstAttribute="trailing" secondItem="QVc-Sk-brs" secondAttribute="trailing" constant="9" id="zCJ-T6-xOE"/>
                                 </constraints>
                             </view>
@@ -54,7 +54,7 @@
                                 <rect key="frame" x="339" y="44.5" width="60" height="31"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XbK-HJ-9Tz">
-                                        <rect key="frame" x="9" y="8" width="42" height="15"/>
+                                        <rect key="frame" x="9" y="3" width="42" height="25"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -62,8 +62,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="XbK-HJ-9Tz" firstAttribute="top" secondItem="Lha-k7-qcW" secondAttribute="top" constant="8" id="04W-Rc-OCb"/>
-                                    <constraint firstAttribute="bottom" secondItem="XbK-HJ-9Tz" secondAttribute="bottom" constant="8" id="BVP-nW-mqb"/>
+                                    <constraint firstItem="XbK-HJ-9Tz" firstAttribute="top" secondItem="Lha-k7-qcW" secondAttribute="top" constant="3" id="04W-Rc-OCb"/>
+                                    <constraint firstAttribute="bottom" secondItem="XbK-HJ-9Tz" secondAttribute="bottom" constant="3" id="BVP-nW-mqb"/>
                                     <constraint firstAttribute="height" constant="31" id="C0X-6d-ihe"/>
                                     <constraint firstItem="XbK-HJ-9Tz" firstAttribute="leading" secondItem="Lha-k7-qcW" secondAttribute="leading" constant="9" id="ZgO-bG-BdV"/>
                                     <constraint firstAttribute="trailing" secondItem="XbK-HJ-9Tz" secondAttribute="trailing" constant="9" id="mNQ-eZ-rAU"/>

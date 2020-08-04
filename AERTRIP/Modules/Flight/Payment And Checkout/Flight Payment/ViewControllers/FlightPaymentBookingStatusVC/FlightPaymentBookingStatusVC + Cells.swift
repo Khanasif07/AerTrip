@@ -109,22 +109,10 @@ extension FlightPaymentBookingStatusVC{
     internal func getWhatNextCell(_ indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: HCWhatNextTableViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextTableViewCell else { return UITableViewCell() }
         cell.delegate = self
-        let whtNextNew = self.viewModel.itinerary.whatNext.map { whtNext -> String in
-            if whtNext.productType == .flight{
-                return "Book your return flight for\n\(whtNext.origin) to \(whtNext.destination)"
-            }else if whtNext.productType == .hotel{
-                return "Book your hotel in\n\(whtNext.city) & get the best deals!"
-            }else{
-                return "Book your hotel in\n\(whtNext.city) & get the best deals!"
-            }
-        }
+        let whtNextNew = self.viewModel.itinerary.whatNext.filter{$0.product != ""}
         cell.suggetionImage = #imageLiteral(resourceName: "hotel_green_icon")
-        if !whtNextNew.isEmpty {
-            cell.configCell(whatNextString: whtNextNew)
-            cell.whatNextStackView.isHidden = false
-        } else {
-            cell.whatNextStackView.isHidden = true
-        }
+        cell.configCellwith(whtNextNew, usedFor: "flight", isNeedToAdd: !self.viewModel.apiBookingIds.isEmpty)
+        cell.whatNextStackView.isHidden = self.viewModel.apiBookingIds.isEmpty
         cell.selectedWhatNext = {[weak self] index in
             self?.tapOnSeletedWhatNext(index: index)
         }
@@ -145,10 +133,20 @@ extension FlightPaymentBookingStatusVC{
     }
     
     private func tapOnSeletedWhatNext(index: Int){
-        switch self.viewModel.itinerary.whatNext[index].productType{
-        case .flight: self.bookFlightFor(self.viewModel.itinerary.whatNext[index])
-        case .hotel: self.bookAnotherRoom(self.viewModel.itinerary.whatNext[index])
-        default: break;
+        if index == 0{
+            guard self.viewModel.apiBookingIds.count != 0 else {return}
+            if self.viewModel.apiBookingIds.count == 1{
+                let bookingId = self.viewModel.apiBookingIds.first ?? ""
+                AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: bookingId, tripCitiesStr: self.viewModel.bookingObject?.titleString.mutableCopy() as? NSMutableAttributedString)
+            }else{
+                self.openActionSheetForBooking()
+            }
+        }else{
+            switch self.viewModel.itinerary.whatNext[index - 1].productType{
+            case .flight: self.bookFlightFor(self.viewModel.itinerary.whatNext[index - 1])
+            case .hotel: self.bookAnotherRoom(self.viewModel.itinerary.whatNext[index - 1])
+            default: break;
+            }
         }
     }
     
@@ -179,6 +177,18 @@ extension FlightPaymentBookingStatusVC{
         FlightWhatNextData.shared.isSettingForWhatNext = true
         FlightWhatNextData.shared.whatNext = whatNext
         AppFlowManager.default.goToDashboard(toBeSelect: .flight)
+        
+    }
+    
+    func openActionSheetForBooking(){
+        
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: self.viewModel.availableSeatMaps.map{$0.name}, colors: self.viewModel.availableSeatMaps.map{$0.isSelectedForall ? AppColors.themeGray40 : AppColors.themeGreen})
+        let cencelBtn = PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeDarkGreen,titleFont: AppFonts.SemiBold.withSize(20))
+        _ = PKAlertController.default.presentActionSheet("View details for...",titleFont: AppFonts.SemiBold.withSize(14), titleColor: AppColors.themeGray40, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: cencelBtn) { [weak self] _, index in
+            guard let self = self else {return}
+            let tripCity = NSMutableAttributedString(string: self.viewModel.availableSeatMaps[index].name)
+            AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: self.viewModel.availableSeatMaps[index].bookingId, tripCitiesStr: tripCity)
+        }
         
     }
     

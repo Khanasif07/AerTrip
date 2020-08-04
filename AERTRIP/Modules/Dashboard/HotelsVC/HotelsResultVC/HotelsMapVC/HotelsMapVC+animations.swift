@@ -40,7 +40,7 @@ extension HotelsMapVC {
             sSelf.searchBarContainerView.backgroundColor = AppColors.clear
             sSelf.searchBarContainerView.frame = sSelf.searchBarFrame(isInSearchMode: false)
             sSelf.mapContainerView.layoutSubviews()
-            sSelf.view?.layoutIfNeeded()
+            //sSelf.view?.layoutIfNeeded()
         }
         
         animator.addCompletion { [weak self](pos) in

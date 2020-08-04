@@ -418,7 +418,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     
     fileprivate func addSingleJourneyViewController() {
         let resultBaseVC = FlightResultSingleJourneyVC()
-        resultBaseVC.viewModel.resultTableState = .showTemplateResults
+        resultBaseVC.resultTableState = .showTemplateResults
         resultBaseVC.addBannerTableHeaderView()
         resultBaseVC.titleString = flightSearchResultVM.titleString
         resultBaseVC.subtitleString = flightSearchResultVM.subTitleString
@@ -1033,12 +1033,12 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         self.noResultScreen = noResultScreenForSearch
     }
     
-    func updatedResponseReceivedAt(index: Int , filterApplied : Bool) {
+    func updatedResponseReceivedAt(index: Int , filterApplied : Bool, isAPIResponseUpdated: Bool) {
         
         guard let resultVM = self.flightSearchResultVM else  { return }
         self.filterTitle.text = self.flightSearchResultVM.filterSummaryTitle
         
-        if !filterApplied {
+        if isAPIResponseUpdated {
             self.flightFilterVC?.flightResultArray = self.flightSearchResultVM.flightResultArray
             self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
             
@@ -1046,11 +1046,12 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             self.intMCAndReturnFilterVC?.flightResultArray = self.flightSearchResultVM.intFlightResultArray
             self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)
         }
-        
-        if resultVM.flightLegs.first!.appliedFilters.contains(.Airlines){
-            self.flightFilterVC?.flightResultArray = self.flightSearchResultVM.flightResultArray
-            self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
-        }
+//        
+//        if resultVM.flightLegs.first!.appliedFilters.contains(.Airlines){
+//            self.flightFilterVC?.flightResultArray = self.flightSearchResultVM.flightResultArray
+//            self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
+//
+//        }
         
         let flightType = flightSearchResultVM.flightSearchType
         
