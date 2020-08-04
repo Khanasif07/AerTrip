@@ -13,4 +13,5 @@ struct ATGalleryImage {
         return imagePath?.toUrl
     }
     var imagePath: String?
+    var retryCount = 0
 }

@@ -36,6 +36,9 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
             case .imageSlideCell:
                 let cell = self.getImageSlideCell(indexPath: indexPath, hotelDetails: hotelDetails)
                 return cell
+            case .noImageCell:
+                let cell = self.getNoImageCell()
+                return cell
             case .hotelRatingCell:
                 let cell = self.getHotelRatingInfoCell(indexPath: indexPath, hotelDetails: hotelDetails)
                 return cell
@@ -126,22 +129,30 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
         }
         else if let _ = tableView.cellForRow(at: indexPath) as? HotelDetailsCheckOutTableViewCell {
             AppGlobals.shared.startLoading(loaderBgColor: .clear)
-            delay(seconds: 0.0) {
-//                var presentSelectionVC = false
-//                if let _ = UserInfo.loggedInUserId {
-//                    presentSelectionVC = true
-//                }
+            delay(seconds: 0.1) {
+                var presentSelectionVC = false
+                if let _ = UserInfo.loggedInUserId {
+                    presentSelectionVC = true
+                }
                 AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForCheckout,presentViewController: true) { [weak self](isGuest) in
-                    guard let self = self else {return}
+                    guard let sSelf = self else {return}
+                    //                if let vc = sSelf.parent {
+                    //                    AppFlowManager.default.popToViewController(vc, animated: true)
+                    //                }
+                    AppFlowManager.default.moveToHCDataSelectionVC(sid: sSelf.viewModel.hotelSearchRequest?.sid ?? "", hid: sSelf.viewModel.hotelInfo?.hid ?? "", qid: sSelf.viewModel.ratesData[indexPath.section-2].qid, placeModel: sSelf.viewModel.placeModel ?? PlaceModel(), hotelSearchRequest: sSelf.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), hotelInfo: sSelf.viewModel.hotelInfo ?? HotelSearched(), locid: sSelf.viewModel.hotelInfo?.locid ?? "", roomRate: sSelf.viewModel.ratesData[indexPath.section - 2], delegate: self as! HCDataSelectionVCDelegate, presentViewController: presentSelectionVC)
                     AppFlowManager.default.removeLoginConfirmationScreenFromStack()
                     AppGlobals.shared.stopLoading()
-                    self.presentedViewController?.dismiss(animated: false, completion: nil)
-                    self.viewModel.fetchConfirmItineraryData(at: indexPath.section - 2)
                 }
             }
         }
         if tableViewRowCell[indexPath.row] == .amenitiesCell{
             self.viewAllButtonAction()
+        }else if tableViewRowCell[indexPath.row] == .noImageCell && !(self.viewModel.hotelInfo?.locid?.isEmpty ?? true){
+            if (self.viewModel.hotelInfo?.hid ?? "") == TAViewModel.shared.hotelId, let data = TAViewModel.shared.hotelTripAdvisorDetails{
+                let urlString = "https:\(data.seeAllPhotos)"
+                let screenTitle = LocalizedString.Photos.localized
+                AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+            }
         }
     }
     
@@ -219,7 +230,7 @@ extension HotelDetailsVC: HotelDetailDelegate {
     }
     
     func getPinnedTemplateSuccess() {
-        delay(seconds: 0.4) {
+        delay(seconds: 0.5 ) {
             self.needToShowLoaderOnShare = false
             self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
         }
@@ -251,6 +262,7 @@ extension HotelDetailsVC: HotelDetailDelegate {
     func getHotelDetailsSuccess() {
         self.footerView.isHidden = false
         self.filterdHotelData(tagList: self.viewModel.selectedTags)
+        self.downloadImages()
         let index = IndexPath(row: 2, section: 0)
         if let cell = self.hotelTableView.cellForRow(at: index) as? HotelDetailsLoaderTableViewCell {
             cell.activityIndicator.stopAnimating()
@@ -445,11 +457,11 @@ extension HotelDetailsVC {
 
 //MARK:- HotelDetailsImgSlideCellDelegate
 //=======================================
-extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
+extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate, ImageDeletionDelegate {
     func hotelImageTapAction(at index: Int) {
-        // open gallery with show image at index
-        //        if let topVC = UIApplication.topViewController() {
-        
+        guard  let data = self.viewModel.hotelData, (data.atImageData.filter{$0.image != nil}).count != 0 else {
+            return
+        }
         let gVC = PhotoGalleryVC.instantiate(fromAppStoryboard: .Dashboard)
         gVC.parentVC = self
         if let images = self.viewModel.hotelData?.photos {
@@ -459,9 +471,6 @@ extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
         gVC.isTAAvailable = !(self.viewModel.hotelInfo?.locid?.isEmpty ?? true)
         gVC.hid = self.viewModel.hotelInfo?.hid ?? ""
         self.present(gVC, animated: true, completion: nil)
-        
-        //            PhotoGalleryVC.show(onViewController: topVC, sourceView: self.imageView, startShowingFrom: index, imageArray: self.viewModel.hotelData?.photos ?? [])
-        //            ATGalleryViewController.show(onViewController: topVC, sourceView: self.imageView, startShowingFrom: index, datasource: self, delegate: self)
         canDismissViewController = false
         //        }
     }
@@ -472,6 +481,36 @@ extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
             self.imageView.image = image
         }
         //--------------------------- End ---------------------
+    }
+    
+    func shouldRemoveImage(_ image: UIImage?, for urlString: String?) {
+        
+        let str = urlString ?? ""
+        let images = self.viewModel.hotelData?.atImageData ?? []
+        guard let index = images.firstIndex(where: {($0.imagePath ?? "") == str}) else {return}
+        if let img = image{
+            if self.viewModel.hotelData?.atImageData.count != 0{
+                self.viewModel.hotelData?.atImageData[index].image = img
+            }
+        }
+//        else{
+//            let reachability = AFNetworkReachabilityManager.shared()
+//            if (reachability.isReachable || reachability.isReachableViaWiFi || reachability.isReachableViaWWAN) && (self.viewModel.hotelData?.atImageData.count != 0){
+//                self.viewModel.hotelData?.atImageData.remove(at: index)
+//                self.viewModel.hotelData?.photos.remove(at: index)
+//                if self.viewModel.hotelData?.atImageData.count == 0{
+//                    self.viewModel.isAllImageDownloadFails = true
+//                    self.filterdHotelData(tagList: self.viewModel.selectedTags)
+//                    self.manageHeaderView()
+//                    self.manageBottomRateView()
+//                    self.hotelTableView.reloadData()
+//                }else{
+//                    self.hotelTableView.reloadRow(at: IndexPath(row: 0, section: 0), with: .none)
+//                }
+//            }else{
+//                
+//            }
+//        }
     }
 }
 

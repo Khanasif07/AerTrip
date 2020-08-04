@@ -19,7 +19,9 @@ class HotelDetailsVC: BaseVC {
     private(set) var viewModel = HotelDetailsVM()
     internal var completion: (() -> Void)? = nil
     internal weak var imagesCollectionView: UICollectionView?
-    internal var hotelImageHeight: CGFloat{UIScreen.width}
+    internal var hotelImageHeight: CGFloat{
+        return !(self.viewModel.isAllImageDownloadFails) ? UIScreen.width: 85.0
+    }
     private var initialPanPoint: CGPoint = .zero
     private var sourceFrame: CGRect = .zero
     private weak var parentVC: UIViewController?
@@ -29,7 +31,6 @@ class HotelDetailsVC: BaseVC {
     }
     internal var allIndexPath = [IndexPath]()
     internal var initialStickyPosition: CGFloat = -1.0
-    internal var didsmissOnScrollPosition: CGFloat = 200.0
     var stickyView: HotelFilterResultFooterView?
     weak var delegate : HotelDetailsVCDelegate?
     var onCloseHandler: (() -> Void)? = nil
@@ -200,11 +201,6 @@ class HotelDetailsVC: BaseVC {
     }
     
     
-    func hideOnScroll() {
-        self.imageView.frame = CGRect(x: 0.0, y: didsmissOnScrollPosition, width: self.imageView.frame.size.width, height: self.imageView.frame.size.height)
-        self.hide(animated: isHideWithAnimation)
-    }
-    
     func hide(animated: Bool) {
         self.imageView.isHidden = false
 
@@ -306,6 +302,7 @@ class HotelDetailsVC: BaseVC {
         self.hotelTableView.registerCell(nibName: HotelDetailsSearchTagTableCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailsEmptyStateTableCell.reusableIdentifier)
         self.hotelTableView.registerCell(nibName: HotelDetailsCheckOutTableViewCell.reusableIdentifier)
+        self.hotelTableView.registerCell(nibName: NoImageDetailsCell.reusableIdentifier)
     }
     
     func manageFavIcon() {
@@ -379,7 +376,7 @@ class HotelDetailsVC: BaseVC {
                     }
                 }
                 else {
-                    return (UIDevice.screenHeight - UIApplication.shared.statusBarFrame.height) - (211.0 + 126.5)
+                    return (UIDevice.screenHeight - UIApplication.shared.statusBarFrame.height) - (self.hotelImageHeight + 126.5)
                 }
                 let maxH = AppFonts.Regular.withSize(18.0).lineHeight * 3.0
             }
@@ -407,7 +404,12 @@ class HotelDetailsVC: BaseVC {
     
     private func getFirstSectionData( hotelData: HotelDetails) -> [TableCellType] {
         var cellsArray: [TableCellType] = []
-        cellsArray.append(.imageSlideCell)
+        if !self.viewModel.isAllImageDownloadFails{
+            cellsArray.append(.imageSlideCell)
+        }else{
+             cellsArray.append(.noImageCell)
+        }
+        
         cellsArray.append(.hotelRatingCell)
         cellsArray.append(.addressCell)
         if !hotelData.info.isEmpty {
@@ -538,4 +540,39 @@ extension HotelDetailsVC{
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
+    
+    func downloadImages(){
+        let downloadGroup = DispatchGroup()
+        for (index, image) in (self.viewModel.hotelData?.atImageData ?? []).enumerated(){
+            let imageView = UIImageView()
+            if let imageurl = image.imagePath{
+                downloadGroup.enter()
+                imageView.setImageWithUrl(imageUrl: imageurl, placeholder: UIImage(), showIndicator: false) {[weak self] (img, err) in
+                    guard let self = self else { return ()}
+                    self.viewModel.hotelData?.atImageData[index].image = img
+                    downloadGroup.leave()
+                    return ()
+                }
+            }
+        }
+        downloadGroup.notify(queue: .main) {
+            print(self.viewModel.hotelData?.atImageData ?? [])
+            for image in (self.viewModel.hotelData?.atImageData ?? []){
+                if image.image == nil, let index = self.viewModel.hotelData?.atImageData.firstIndex(where: {$0.imagePath == image.imagePath}){
+                    self.viewModel.hotelData?.atImageData.remove(at: index)
+                    self.viewModel.hotelData?.photos.remove(at: index)
+                }
+            }
+            if self.viewModel.hotelData?.atImageData.count != 0{
+                self.hotelTableView.reloadData()
+            }else{
+                self.viewModel.isAllImageDownloadFails = true
+                self.filterdHotelData(tagList: self.viewModel.selectedTags)
+                self.manageHeaderView()
+                self.manageBottomRateView()
+                self.hotelTableView.reloadData()
+            }
+        }
+    }
+    
 }
