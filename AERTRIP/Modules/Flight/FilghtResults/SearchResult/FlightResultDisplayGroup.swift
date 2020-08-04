@@ -9,6 +9,16 @@
 import UIKit
 
 class FlightResultDisplayGroup {
+    
+    // Only for checking if user has initiated application of filter
+    // For filters with multiple checks only
+    enum InitiatedFilters {
+        case tripDuration
+        case layoverDuration
+    }
+    internal var initiatedFilters: Set<InitiatedFilters> = []
+    
+    
     let index : Int
     weak var delegate : FlightResultViewModelDelegate?
     var workItems = [DispatchWorkItem]()

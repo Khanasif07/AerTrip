@@ -275,6 +275,8 @@ extension FlightResultDisplayGroup  {
     
     func tripDurationChanged(min: CGFloat, max: CGFloat) {
         
+        initiatedFilters.insert(.tripDuration)
+        
         var Number = NSNumber(floatLiteral: Double(min * 3600))
         userSelectedFilters.tt.minTime = Number.stringValue
         
@@ -292,6 +294,8 @@ extension FlightResultDisplayGroup  {
     }
     
     func layoverDurationChanged(min: CGFloat, max: CGFloat) {
+        
+        initiatedFilters.insert(.layoverDuration)
         
         var Number = NSNumber(floatLiteral: Double(min * 3600))
         userSelectedFilters.lott?.minTime = Number.stringValue
@@ -311,37 +315,43 @@ extension FlightResultDisplayGroup  {
     
     func applyDurationFilter(_ inputArray : [Journey] ) -> [Journey] {
         
-        var outputArray = inputArray.filter {
-            
-            let journeyDuration = $0.duration
-            
-            let minTripDuration = Int(userSelectedFilters.tt.minTime ?? "0" )
-            let maxTripDuration = Int(userSelectedFilters.tt.maxTime ?? "0" )
-            
-            
-            if journeyDuration >= minTripDuration! && journeyDuration <= maxTripDuration! {
-                return true
+        var outputArray = inputArray
+        
+        if initiatedFilters.contains(.tripDuration) {
+            outputArray = outputArray.filter {
+                
+                let journeyDuration = $0.duration
+                
+                let minTripDuration = Int(userSelectedFilters.tt.minTime ?? "0" )
+                let maxTripDuration = Int(userSelectedFilters.tt.maxTime ?? "0" )
+                
+                
+                if journeyDuration >= minTripDuration! && journeyDuration <= maxTripDuration! {
+                    return true
+                }
+                return false
             }
-            return false
         }
         
-        
-        outputArray = outputArray.filter {
-            
-            let journeyLayoverDuration = $0.totalLayOver
-            
-            let minLayoverDuration = Int(userSelectedFilters.lott?.minTime ?? "0" )
-            let maxLayoverDuration = Int(userSelectedFilters.lott?.maxTime ?? "0" )
-            
-            if journeyLayoverDuration == 0 {
-                return true 
+        // Layover filter
+        if initiatedFilters.contains(.layoverDuration) {
+            outputArray = outputArray.filter {
+                
+                let journeyLayoverDuration = $0.totalLayOver
+                
+                if journeyLayoverDuration == 0 {
+                    return true
+                }
+                
+                let minLayoverDuration = Int(userSelectedFilters.lott?.minTime ?? "0" )
+                let maxLayoverDuration = Int(userSelectedFilters.lott?.maxTime ?? "0" )
+                
+                if journeyLayoverDuration >= minLayoverDuration! && journeyLayoverDuration <= maxLayoverDuration! {
+                    return true
+                }
+                return false
+                
             }
-            
-            if journeyLayoverDuration >= minLayoverDuration! && journeyLayoverDuration <= maxLayoverDuration! {
-                return true
-            }
-            return false
-            
         }
         
         return outputArray
