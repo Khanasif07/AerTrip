@@ -75,7 +75,9 @@ class HCSelectGuestsVC: BaseVC {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        self.initialSetups()
+        DispatchQueue.main.async {
+            self.initialSetups()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

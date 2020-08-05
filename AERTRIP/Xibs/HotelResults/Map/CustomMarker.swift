@@ -73,7 +73,7 @@ class CustomMarker: UIView {
         self.priceLabel.attributedText = (price.amountInDelimeterWithSymbol).addPriceSymbolToLeft(using: AppFonts.SemiBold.withSize(16.0))
         updateMakerImage()
         
-        self.priceLabel.sizeToFit()
+//        self.priceLabel.sizeToFit()
         self.priceView.layoutSubviews()
         self.layoutIfNeeded()
 

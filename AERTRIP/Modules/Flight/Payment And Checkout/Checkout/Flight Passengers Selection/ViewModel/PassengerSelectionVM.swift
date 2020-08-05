@@ -93,7 +93,7 @@ class PassengerSelectionVM  {
         for i in 0..<bookingObj.flightChildrenCount{
             var guest = ATContact()
 //            let idx = bookingObj.flightChildrenCount + i + 1
-            guest.passengerType = PassengersType.child
+            guest.passengerType = PassengersType.Child
             guest.frequentFlyer = self.getFrequentFlyer()
             guest.mealPreference = self.getMealPreference()
             guest.numberInRoom = (i + 1)
@@ -107,7 +107,7 @@ class PassengerSelectionVM  {
         for i in 0..<bookingObj.flightInfantCount{
             var guest = ATContact()
 //            let idx = bookingObj.flightAdultCount + bookingObj.flightChildrenCount + i + 1
-            guest.passengerType = PassengersType.infant
+            guest.passengerType = PassengersType.Infant
             guest.frequentFlyer = self.getFrequentFlyer()
             guest.mealPreference = []//self.getMealPreference()
             guest.numberInRoom = (i + 1)
@@ -276,7 +276,7 @@ class PassengerSelectionVM  {
             if contact.firstName.removeAllWhitespaces.isEmpty || contact.firstName.count < 3  || !contact.firstName.isName || contact.lastName.removeAllWhitespaces.isEmpty || contact.lastName.count < 3 || !contact.lastName.isName || contact.salutation.isEmpty{
                 return (false, "Please fill all the passenger details")
             }else if self.journeyType == .domestic{
-                if contact.passengerType == .infant{
+                if contact.passengerType == .Infant{
                     return (!(contact.dob.isEmpty), "Please fill all the passenger details")
                 }
             }else{

@@ -29,11 +29,11 @@ class BaggageContainerVM {
          }
          
          if forAdon.isChild{
-             allowedPassengers.append(contentsOf: allPassengers.filter { $0.passengerType == .child })
+             allowedPassengers.append(contentsOf: allPassengers.filter { $0.passengerType == .Child })
          }
          
          if forAdon.isInfant{
-             allowedPassengers.append(contentsOf: allPassengers.filter { $0.passengerType == .infant })
+             allowedPassengers.append(contentsOf: allPassengers.filter { $0.passengerType == .Infant })
          }
         
         return allowedPassengers

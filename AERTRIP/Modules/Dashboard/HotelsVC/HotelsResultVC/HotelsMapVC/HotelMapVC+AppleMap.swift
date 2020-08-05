@@ -119,6 +119,8 @@ extension HotelsMapVC : MKMapViewDelegate{
             return false
         } else if (touch.view === legalLabel) {
             return false
+        }else if legalLabel.frame.contains(touch.location(in: self.appleMap)){
+            return false
         }else{
             return true
         }

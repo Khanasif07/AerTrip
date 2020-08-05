@@ -179,11 +179,11 @@ class AdonsVM  {
                         mealsSelectedFor.append(contact)
                     }
                     
-                    if contact.passengerType == .child && flight.meal.addonsArray[firstMeal].isChild {
+                    if contact.passengerType == .Child && flight.meal.addonsArray[firstMeal].isChild {
                         mealsSelectedFor.append(contact)
                     }
                     
-                    if contact.passengerType == .infant && flight.meal.addonsArray[firstMeal].isInfant {
+                    if contact.passengerType == .Infant && flight.meal.addonsArray[firstMeal].isInfant {
                         mealsSelectedFor.append(contact)
                     }
                 }
@@ -475,7 +475,7 @@ extension AdonsVM {
                     self.parmsForItinerary["t[\(i)][\(APIKeys.passportExpiryDate.rawValue)]"] = dataStore.passengers[i].passportExpiryDate
                     self.parmsForItinerary["t[\(i)][\(APIKeys.passportCountry.rawValue)]"] = dataStore.passengers[i].countryCode
                 }else{
-                    if type == .infant || type == .child{
+                    if type == .Infant || type == .Child{
                         self.parmsForItinerary["t[\(i)][\(APIKeys.dob.rawValue)]"] = dataStore.passengers[i].dob
                     }
                 }
