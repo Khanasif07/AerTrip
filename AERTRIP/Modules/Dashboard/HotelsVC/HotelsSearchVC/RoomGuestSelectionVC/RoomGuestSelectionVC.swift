@@ -148,6 +148,7 @@ class RoomGuestSelectionVC: BaseVC {
         self.firstLineView.isHidden = true
         self.secondLineView.isHidden = true
         self.doneButtonBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
+        
     }
     
     private func setOldAges() {
@@ -327,8 +328,10 @@ class RoomGuestSelectionVC: BaseVC {
         
         self.agesContainerView.isHidden = false
         self.ageSelectionLabel.isHidden = false
+        if #available(iOS 14.0, *) {} else {
         self.firstLineView.isHidden = false
         self.secondLineView.isHidden = false
+        }
         let mainH = self.containerHeight
         // - self.agesContainerView.frame.height
         //let mainH = self.mainContainerHeight + self.agesContainerView.frame.height

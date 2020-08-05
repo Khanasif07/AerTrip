@@ -414,7 +414,7 @@ extension HotelResultVC {
             yCordinate = min ( 0,  yCordinate)
             
             
-            UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseOut], animations: {
+            UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseOut], animations: {
                 
                 var rect = self.headerContainerView.frame
                 let yCordinateOfView = rect.origin.y
@@ -440,7 +440,7 @@ extension HotelResultVC {
      func revealBlurredHeaderView(_ invertedOffset: CGFloat) {
         DispatchQueue.main.async {
             
-            UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseInOut], animations: {
+            UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseInOut], animations: {
                 
                 var rect = self.headerContainerView.frame
                 
@@ -487,7 +487,7 @@ extension HotelResultVC {
             }
             
             // Animatioon to move the blurEffectView
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseOut], animations: {
+            UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseOut], animations: {
                 self.headerContainerViewTopConstraint.constant = rect.origin.y
                 var value = self.topContentSpace - abs(rect.origin.y)
                 if value >= 0 {
@@ -506,7 +506,7 @@ extension HotelResultVC {
     
     func showBluredHeaderViewCompleted() {
         DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseInOut], animations: {
+            UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseInOut], animations: {
                 self.headerContainerViewTopConstraint.constant = 0
                 //self.tableViewVertical.contentInset = UIEdgeInsets(top: self.topContentSpace, left: 0, bottom: 0, right: 0)
             } ,completion: nil)
