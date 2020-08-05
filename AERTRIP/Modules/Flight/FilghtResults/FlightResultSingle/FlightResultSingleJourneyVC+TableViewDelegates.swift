@@ -60,7 +60,7 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
             
             if arrayForDisplay[indexPath.row].cellType == .singleJourneyCell {
                 
-                return getSingleJourneyCell(indexPath: indexPath ,journey: arrayForDisplay[indexPath.row].first )
+                return getSingleJourneyCell(indexPath: indexPath ,journey: arrayForDisplay[indexPath.row].journeyArray.first)
 
             } else{
              
@@ -70,6 +70,88 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
             
         }
     }
+    
+    //MARK:- Methods to get different types of cells
+    func getTemplateCell () -> UITableViewCell {
+        
+        if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "SingleJourneyTemplateCell") {
+            cell.selectionStyle = .none
+            return cell
+        }
+        
+        return UITableViewCell()
+    }
+    
+    func getSingleJourneyCell (indexPath : IndexPath , journey : Journey?  ) -> UITableViewCell {
+        
+        if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "SingleJourneyResultTableViewCell") as? SingleJourneyResultTableViewCell{
+            
+            if #available(iOS 13, *) {
+                let interaction = UIContextMenuInteraction(delegate: self)
+                cell.baseView.addInteraction(interaction)
+            }
+            
+            cell.selectionStyle = .none
+            cell.setTitlesFrom( journey : journey)
+            if let logoArray = journey?.airlineLogoArray {
+                
+                switch logoArray.count {
+                    
+                case 1 :
+                    
+                    cell.logoTwo.isHidden = true
+                    cell.logoThree.isHidden = true
+                    setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
+                case 2 :
+                    
+                    cell.logoThree.isHidden = true
+                    setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
+                    setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
+                    
+                case 3 :
+                    setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
+                    setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
+                    setImageto(imageView: cell.logoThree, url:logoArray[2] , index:  indexPath.row)
+                    
+                default:
+                    break
+                }
+            }
+            return cell
+        }
+        assertionFailure("Failed to create SingleJourneyResultTableViewCell cell ")
+        
+        return UITableViewCell()
+    }
+    
+    
+    func getGroupedFlightCell( indexPath : IndexPath , journey : JourneyOnewayDisplay  ) -> UITableViewCell {
+        
+        if #available(iOS 13.0, *) {
+            if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "GroupedFlightCell") as? GroupedFlightCell {
+                cell.selectionStyle = .none
+                cell.delegate = self
+                cell.setVaulesFrom(journey: journey)
+                cell.buttonTapped = {
+                    self.reloadTableCell(indexPath)
+                }
+                return cell
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        assertionFailure("Failed to create GroupedFlightCell ")
+        
+        return UITableViewCell()
+    }
+    
+    func reloadTableCell(_ indexPath: IndexPath){
+        
+        DispatchQueue.main.async {
+            self.resultsTableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+        }
+    }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
@@ -83,10 +165,6 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
         
         navigateToFlightDetailFor(journey: currentJourney, selectedIndex: indexPath)
 
-     
-        
-        
-        
      //   if (tableView.cellForRow(at: indexPath) as? SingleJourneyResultTableViewCell) != nil {
    
 //            if viewModel.resultTableState == .showPinnedFlights {
@@ -112,4 +190,7 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
 //            }
     //    }
     }
+    
+    
+    
 }

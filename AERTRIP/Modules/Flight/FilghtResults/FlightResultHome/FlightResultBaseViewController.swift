@@ -328,7 +328,6 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             fullString.append(imageString)
             fullString.append(desinationAtrributedString)
             
-            
             let redString = NSMutableAttributedString(string: origin + " " )
             let redImageString = getStringFromImage(name : "ArrowRed")
             redString.append(redImageString)
@@ -418,7 +417,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     
     fileprivate func addSingleJourneyViewController() {
         let resultBaseVC = FlightResultSingleJourneyVC()
-        resultBaseVC.resultTableState = .showTemplateResults
+        resultBaseVC.viewModel.resultTableState = .showTemplateResults
         resultBaseVC.addBannerTableHeaderView()
         resultBaseVC.titleString = flightSearchResultVM.titleString
         resultBaseVC.subtitleString = flightSearchResultVM.subTitleString

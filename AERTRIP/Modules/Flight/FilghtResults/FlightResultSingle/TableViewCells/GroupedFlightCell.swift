@@ -109,7 +109,7 @@ struct TimeFK {
         
     }
     
-    func getSingleJourneyCell (indexPath : IndexPath , journey : Journey  ) -> UITableViewCell {
+    func getSingleJourneyCell (indexPath : IndexPath , journey : Journey?  ) -> UITableViewCell {
         
         if let cell =  collaspableTableView.dequeueReusableCell(withIdentifier: "SingleJourneyCell") as? SingleJourneyCell{
             
@@ -120,7 +120,7 @@ struct TimeFK {
             
             cell.selectionStyle = .none
             cell.setTitlesFrom( journey : journey)
-            if let logoArray = journey.airlineLogoArray {
+            if let logoArray = journey?.airlineLogoArray {
                 
                 switch logoArray.count {
                 case 1 :
