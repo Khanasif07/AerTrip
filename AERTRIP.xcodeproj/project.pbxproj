@@ -36,6 +36,10 @@
 		0C0AB202247C439F005E5E99 /* SelectBagageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB200247C439F005E5E99 /* SelectBagageCell.swift */; };
 		0C0AB203247C439F005E5E99 /* SelectBagageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C0AB201247C439F005E5E99 /* SelectBagageCell.xib */; };
 		0C0B231524210CD700E1764D /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C0B231424210CD700E1764D /* Chat.storyboard */; };
+		0C0B8CDA24D2C88C008942DB /* FlightResultSingleJourneyVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0B8CD924D2C88C008942DB /* FlightResultSingleJourneyVM.swift */; };
+		0C0B8CDC24D2D63F008942DB /* FlightResultSingleJourneyVC+TableViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0B8CDB24D2D63F008942DB /* FlightResultSingleJourneyVC+TableViewDelegates.swift */; };
+		0C0D992C24D431A900DF80F0 /* FlightResultSingleJourneyVC+FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0D992B24D431A900DF80F0 /* FlightResultSingleJourneyVC+FooterView.swift */; };
+		0C0D992E24D91B3A00DF80F0 /* FlightResultSingleJourneyVC+Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0D992D24D91B3A00DF80F0 /* FlightResultSingleJourneyVC+Options.swift */; };
 		0C1238DF24CB25D1004828AE /* FlightFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3162474022F001F21B1 /* FlightFormViewController.m */; };
 		0C14B8FB249343EA00C2D19A /* SelectOtherAdonsContainerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C14B8FA249343EA00C2D19A /* SelectOtherAdonsContainerVM.swift */; };
 		0C162AC8242337E9001C2B10 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162AC7242337E9001C2B10 /* MessageModel.swift */; };
@@ -1644,6 +1648,10 @@
 		0C0AB200247C439F005E5E99 /* SelectBagageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBagageCell.swift; sourceTree = "<group>"; };
 		0C0AB201247C439F005E5E99 /* SelectBagageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectBagageCell.xib; sourceTree = "<group>"; };
 		0C0B231424210CD700E1764D /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
+		0C0B8CD924D2C88C008942DB /* FlightResultSingleJourneyVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightResultSingleJourneyVM.swift; sourceTree = "<group>"; };
+		0C0B8CDB24D2D63F008942DB /* FlightResultSingleJourneyVC+TableViewDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightResultSingleJourneyVC+TableViewDelegates.swift"; sourceTree = "<group>"; };
+		0C0D992B24D431A900DF80F0 /* FlightResultSingleJourneyVC+FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightResultSingleJourneyVC+FooterView.swift"; sourceTree = "<group>"; };
+		0C0D992D24D91B3A00DF80F0 /* FlightResultSingleJourneyVC+Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightResultSingleJourneyVC+Options.swift"; sourceTree = "<group>"; };
 		0C14B8FA249343EA00C2D19A /* SelectOtherAdonsContainerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOtherAdonsContainerVM.swift; sourceTree = "<group>"; };
 		0C162AC7242337E9001C2B10 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatVC+TableView.swift"; sourceTree = "<group>"; };
@@ -6649,6 +6657,10 @@
 				843FF40C24740230001F21B1 /* TableViewCells */,
 				843FF41D24740230001F21B1 /* FlightResultSingleJourneyVC.xib */,
 				843FF41E24740230001F21B1 /* LongPressViewController.swift */,
+				0C0B8CD924D2C88C008942DB /* FlightResultSingleJourneyVM.swift */,
+				0C0B8CDB24D2D63F008942DB /* FlightResultSingleJourneyVC+TableViewDelegates.swift */,
+				0C0D992B24D431A900DF80F0 /* FlightResultSingleJourneyVC+FooterView.swift */,
+				0C0D992D24D91B3A00DF80F0 /* FlightResultSingleJourneyVC+Options.swift */,
 			);
 			path = FlightResultSingle;
 			sourceTree = "<group>";
@@ -9951,6 +9963,7 @@
 				84F983D121B51A070018DFED /* UIColorExtension.swift in Sources */,
 				1879C4A12293CADF00897CED /* BookingDirectionVM.swift in Sources */,
 				84F983C921B51A070018DFED /* AppColors.swift in Sources */,
+				0C0D992E24D91B3A00DF80F0 /* FlightResultSingleJourneyVC+Options.swift in Sources */,
 				845B619224C0226C00369CC1 /* WebCheckinVM.swift in Sources */,
 				846EADA324A4794D00BF5E40 /* PostBookingAddOnConfModel.swift in Sources */,
 				18D284AD2499EEC1000457F6 /* PostBookingFlightDetailsVM.swift in Sources */,
@@ -10220,6 +10233,7 @@
 				18038D13226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.swift in Sources */,
 				18AAAC1F24B4979000025ABF /* FlightDetailsVM.swift in Sources */,
 				180E7C0C223205B8005FAEA9 /* EmailComposerFooterView.swift in Sources */,
+				0C0B8CDA24D2C88C008942DB /* FlightResultSingleJourneyVM.swift in Sources */,
 				849DA81C23E2B6F800C2E9D8 /* ATCategoryNavBarStyle.swift in Sources */,
 				84791ED92281A04900472E54 /* AccountLadgerDetailsVC+Delegate.swift in Sources */,
 				845B619324C0226C00369CC1 /* WebCheckinVC.swift in Sources */,
@@ -10246,6 +10260,7 @@
 				848F1A5D2203281C002BDA39 /* HotelsResultHeaderView.swift in Sources */,
 				18D88BF822C3894A0089755D /* BookingAddOnRequestFF+DelegateMethods.swift in Sources */,
 				84806833220990C600CBF362 /* BulkRoomSelectionVC.swift in Sources */,
+				0C0D992C24D431A900DF80F0 /* FlightResultSingleJourneyVC+FooterView.swift in Sources */,
 				843FF53A24740232001F21B1 /* SingleJourneyResultTemplateCell.swift in Sources */,
 				84085D0721F59C0E00F1E844 /* ViewProfileVC.swift in Sources */,
 				843FF50824740231001F21B1 /* IntFareInfoVC.swift in Sources */,
@@ -10694,6 +10709,7 @@
 				84D503772474F6E500527C77 /* AppSocialNetwork.swift in Sources */,
 				0C2558FD233C979B00F57C6E /* UIViewKeyframeAnimationOptions + Extension.swift in Sources */,
 				842BE085249A471F005B604E /* InstagramManager.swift in Sources */,
+				0C0B8CDC24D2D63F008942DB /* FlightResultSingleJourneyVC+TableViewDelegates.swift in Sources */,
 				84085D1021F59C0E00F1E844 /* ContactListVC.swift in Sources */,
 				843FF65E247409E3001F21B1 /* Model.m in Sources */,
 				8441B24224C6B3D9001A465F /* SnappingCollectionViewLayout.swift in Sources */,

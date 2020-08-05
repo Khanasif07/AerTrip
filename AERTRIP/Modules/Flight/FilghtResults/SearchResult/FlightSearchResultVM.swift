@@ -41,6 +41,7 @@ extension FlightResultViewModelDelegate {
     let dispatchGroup = DispatchGroup()
     let dispatchQueue = DispatchQueue.global()
     private var workItems = [DispatchWorkItem]()
+
     
     func cancelAllWebserviceCalls() {
         
