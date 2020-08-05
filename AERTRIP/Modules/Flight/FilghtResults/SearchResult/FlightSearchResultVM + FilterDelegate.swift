@@ -161,7 +161,7 @@ extension FlightSearchResultVM : FlightDurationFilterDelegate {
     func layoverDurationChangedAt(_ index: Int ,min: CGFloat, max: CGFloat) {
         
         if isIntMCOrReturnJourney {
-            intFlightLegs[0].layoverDurationChanged(index: index, min: min, max: max)
+            intFlightLegs[0].layoverDurationChanged(index: index, min: min, max: max, searchType: bookFlightObject.flightSearchType)
             return
         }
         

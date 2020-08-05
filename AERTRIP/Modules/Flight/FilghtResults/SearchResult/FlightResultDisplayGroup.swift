@@ -15,6 +15,8 @@ class FlightResultDisplayGroup {
     enum InitiatedFilters {
         case tripDuration
         case layoverDuration
+        case departureTime
+        case arrivalTime
     }
     internal var initiatedFilters: Set<InitiatedFilters> = []
     

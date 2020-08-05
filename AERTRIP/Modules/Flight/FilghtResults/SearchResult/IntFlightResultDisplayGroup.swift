@@ -9,6 +9,15 @@
 import Foundation
 
 class IntFlightResultDisplayGroup {
+    
+    enum InitiatedFilters {
+        case tripDuration
+        case layoverDuration
+    }
+    
+    internal var initiatedFilters: [Int: Set<FlightResultDisplayGroup.InitiatedFilters>] = [:]
+
+    
     let index : Int
     weak var delegate : FlightResultViewModelDelegate?
     var workItems = [DispatchWorkItem]()

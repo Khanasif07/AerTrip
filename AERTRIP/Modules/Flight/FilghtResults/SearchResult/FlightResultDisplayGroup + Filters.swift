@@ -362,19 +362,29 @@ extension FlightResultDisplayGroup  {
 
     func departureSelectionChangedAt( minDuration: TimeInterval, maxDuration: TimeInterval) {
         
+        initiatedFilters.insert(.departureTime)
+        
         userSelectedFilters.dt.setEarliest(time: minDuration)
         userSelectedFilters.dt.setLatest(time: maxDuration)
         
-        if userSelectedFilters.dt == inputFilter.dt {
+        if isTimesFilterApplied() {
+            appliedFilters.insert(.Times)
+        } else {
             appliedFilters.remove(.Times)
         }
-        else {
-            appliedFilters.insert(.Times)
-        }
+        
+//        if userSelectedFilters.dt == inputFilter.dt {
+//            appliedFilters.remove(.Times)
+//        }
+//        else {
+//            appliedFilters.insert(.Times)
+//        }
         applyFilters()
     }
     
     func arrivalSelectionChanged( minDate: Date, maxDate: Date) {
+        
+        initiatedFilters.insert(.arrivalTime)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
@@ -384,11 +394,31 @@ extension FlightResultDisplayGroup  {
         userSelectedFilters.arDt.earliest = minDateString
         userSelectedFilters.arDt.latest = maxDateString
         
-        appliedFilters.insert(.Times)
+        if isTimesFilterApplied() {
+            appliedFilters.insert(.Times)
+        } else {
+            appliedFilters.remove(.Times)
+        }
+        
         applyFilters()
     }
     
+    private func isTimesFilterApplied() -> Bool {
+        let departureCheck =  userSelectedFilters.dt.earliest <= inputFilter.dt.earliest && userSelectedFilters.dt.latest >= inputFilter.dt.latest
+        let arrivalCheck = userSelectedFilters.arDt.earliest <= inputFilter.arDt.earliest && userSelectedFilters.arDt.latest >= inputFilter.arDt.latest
+        if initiatedFilters.contains(.departureTime) && initiatedFilters.contains(.arrivalTime) {
+            return !departureCheck || !arrivalCheck
+        } else if initiatedFilters.contains(.departureTime) {
+            return !departureCheck
+        } else if initiatedFilters.contains(.arrivalTime) {
+            return !arrivalCheck
+        }
+        return false
+    }
+    
     func applyDepartureTimeFilter(_ inputArray : [Journey]) -> [Journey] {
+        
+        guard initiatedFilters.contains(.departureTime) else { return inputArray }
         
         guard let minDepartureTime = userSelectedFilters.dt.earliestTimeInteval else { return inputArray}
         guard let maxDepartureTime = userSelectedFilters.dt.latestTimeInterval else { return inputArray}
@@ -417,6 +447,8 @@ extension FlightResultDisplayGroup  {
     
     
     func applyArrivalTimeFilter( _ inputArray : [ Journey]) ->  [ Journey] {
+        
+        guard initiatedFilters.contains(.arrivalTime) else { return inputArray }
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
