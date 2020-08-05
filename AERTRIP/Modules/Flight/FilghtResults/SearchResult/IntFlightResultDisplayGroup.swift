@@ -166,7 +166,7 @@ class IntFlightResultDisplayGroup {
         }
     }
     
-    private func compareAndGetDate(_ type: ComparisonResult, d1: String, d2: String) -> String {
+    internal func compareAndGetDate(_ type: ComparisonResult, d1: String, d2: String) -> String {
         if type == .orderedAscending {
             if let _ = Int(d1) {
                 return (Int(d1) ?? 0) < (Int(d2) ?? 0) ? d1 : d2

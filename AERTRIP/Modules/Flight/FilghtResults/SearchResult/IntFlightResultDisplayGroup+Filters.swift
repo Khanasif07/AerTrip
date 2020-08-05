@@ -220,7 +220,7 @@ extension IntFlightResultDisplayGroup  {
     
     //MARK:- Duration Filter
     
-    func tripDurationChanged(index: Int, min: CGFloat, max: CGFloat) {
+    func tripDurationChanged(index: Int, min: CGFloat, max: CGFloat, searchType: FlightSearchType) {
         
         var durationChanged = false
         var layOverChanged = false
@@ -235,8 +235,18 @@ extension IntFlightResultDisplayGroup  {
         
         if let _ = userSelectedFilters.enumerated().first(where: { (legIndex, obj) -> Bool in
             
-            let inputMinDurationValue = Double(inputFilter[legIndex].tt.minTime ?? "") ?? 0
-            let inputMaxDurationValue = Double(inputFilter[legIndex].tt.maxTime ?? "") ?? 0
+            var inputMinDurationValue: Double = 0
+            var inputMaxDurationValue: Double = 0
+            
+            if searchType == RETURN_JOURNEY {
+                let inputMin = compareAndGetDate(.orderedAscending, d1: inputFilter[0].tt.minTime ?? "", d2: inputFilter[1].tt.minTime ?? "")
+                let inputMax = compareAndGetDate(.orderedDescending, d1: inputFilter[0].tt.maxTime ?? "", d2: inputFilter[1].tt.maxTime ?? "")
+                inputMinDurationValue = Double(inputMin) ?? 0
+                inputMaxDurationValue = Double(inputMax) ?? 0
+            } else {
+                inputMinDurationValue = Double(inputFilter[legIndex].tt.minTime ?? "") ?? 0
+                inputMaxDurationValue = Double(inputFilter[legIndex].tt.maxTime ?? "") ?? 0
+            }
             
             let convertedInputMinDurationValue = (floor((inputMinDurationValue) / 3600)) * 3600
             let convertedInputMaxDurationValue = (ceil(inputMaxDurationValue / 3600)) * 3600
