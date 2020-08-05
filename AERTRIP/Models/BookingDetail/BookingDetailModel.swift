@@ -583,6 +583,7 @@ struct BookingDetail {
     
     var amenities_group_order: [String : String] = [:]
     var bookingId: String = ""
+    var atImageData = [ATGalleryImage]()
     
     init() {
         self.init(json: [:], bookingId: "")
@@ -657,12 +658,6 @@ struct BookingDetail {
             self.hotelEmail = "\(obj)".removeNull
         }
         
-        if let obj = json["photos"] as? [String] {
-            self.photos = obj
-        }
-        
-     
-        
         if let jsonData = json[APIKeys.amenities_group.rawValue] as? JSONDictionary {
             self.amenitiesGroups = jsonData
         }
@@ -692,6 +687,14 @@ struct BookingDetail {
         }
         if let obj = json["hotel_img"] {
             self.hotelImage = "\(obj)".removeNull
+        }
+        if let obj = json["photos"] as? [String] {
+            self.photos = obj + [self.hotelImage]
+            self.atImageData = self.photos.map{img in
+                var imgData = ATGalleryImage()
+                imgData.imagePath = img
+                return imgData
+            }
         }
         if let obj = json["hotel_star_rating"] {
             self.hotelStarRating = "\(obj)".toDouble ?? 0.0

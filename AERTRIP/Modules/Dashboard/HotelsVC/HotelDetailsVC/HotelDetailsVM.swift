@@ -59,6 +59,7 @@ class HotelDetailsVM {
     var shareLinkURL = ""
     var confirmationCount = 1
     var isBookLoaderHidden = true
+    var isAllImageDownloadFails = false
     
     private let defaultCheckInTime = "07:00"
     private let defaultCheckOutTime = "07:00"

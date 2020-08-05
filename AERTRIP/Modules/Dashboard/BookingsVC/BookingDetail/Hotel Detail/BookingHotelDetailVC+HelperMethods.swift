@@ -72,16 +72,23 @@ extension BookingHotelDetailVC {
     func getCellForFirstSection(_ indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0: // Hotel  Image Slide Cell
-            guard let hotelImageSlideCell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelDetailsImgSlideCell", for: indexPath) as? HotelDetailsImgSlideCell else {
-                fatalError("HotelDetailsImgSlideCell not found")
+            if let imgData = self.viewModel.bookingDetail?.bookingDetail?.atImageData, imgData.count != 0{
+                guard let hotelImageSlideCell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelDetailsImgSlideCell", for: indexPath) as? HotelDetailsImgSlideCell else {
+                    fatalError("HotelDetailsImgSlideCell not found")
+                }
+                hotelImageSlideCell.images = imgData
+                hotelImageSlideCell.delegate = self
+                hotelImageSlideCell.imgDelegate = self
+                hotelImageSlideCell.configureCell(with: imgData)
+                return hotelImageSlideCell
+            }else{
+                
+                guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "NoImageDetailsCell", for: indexPath) as? NoImageDetailsCell else { return UITableViewCell() }
+                cell.configureCell(isTAImageAvailable: !(self.viewModel.bookingDetail?.bookingDetail?.taLocationID.isEmpty ?? false))
+                return cell
+                
             }
             
-            hotelImageSlideCell.imageUrls = self.viewModel.bookingDetail?.bookingDetail?.completePhotos ?? []
-            hotelImageSlideCell.delegate = self
-            hotelImageSlideCell.configCell(imageUrls: self.viewModel.bookingDetail?.bookingDetail?.completePhotos ?? [])
-            hotelImageSlideCell.pageControl.radius = 5.0
-            hotelImageSlideCell.pageControl.tintColor = AppColors.themeWhite70
-            return hotelImageSlideCell
             
         case 1: // Hotel Name Rating Cell
             guard let hotelNameCell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelNameRatingTableViewCell", for: indexPath) as? HotelNameRatingTableViewCell else {
