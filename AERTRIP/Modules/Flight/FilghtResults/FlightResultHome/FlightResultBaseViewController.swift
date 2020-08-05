@@ -555,8 +555,8 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             let destination = self.flightSearchParameters.value(forKey: "destination") as! String
             let journey = Leg(origin: origin, destination: destination)
             legList = [journey]
-            
         }
+        
         if flightType == RETURN_JOURNEY {
             legList = legListForReturnFlightSearch()
         }
