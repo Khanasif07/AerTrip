@@ -103,8 +103,8 @@ extension FlightSearchResultVM : SortFilterDelegate {
         } else {
             
             for (index,flightLeg) in flightLegs.enumerated() {
-
-                
+                flightLeg.sortFilterChanged(sort: Sort.Duration)
+                self.delegate?.applySorting(sortOrder: Sort.Duration, isConditionReverced: longestFirst, legIndex: index)
             }
             
         }
@@ -129,8 +129,12 @@ extension FlightSearchResultVM : SortFilterDelegate {
             return
         }
         
-        for flightLeg in flightLegs {
-         flightLeg.departSortFilterChanged(departMode: departMode)
+        for (index,flightLeg) in flightLegs.enumerated() {
+//         flightLeg.departSortFilterChanged(departMode: departMode)
+            
+            flightLeg.sortFilterChanged(sort: Sort.Depart)
+            self.delegate?.applySorting(sortOrder: Sort.Depart, isConditionReverced: departMode, legIndex: index)
+            
         }
     }
     
@@ -140,8 +144,10 @@ extension FlightSearchResultVM : SortFilterDelegate {
             return
         }
         
-        for flightLeg in flightLegs {
-            flightLeg.arrivalSortFilterChanged(arrivalMode: arrivalMode)
+        for (index,flightLeg) in flightLegs.enumerated() {
+//            flightLeg.arrivalSortFilterChanged(arrivalMode: arrivalMode)
+            flightLeg.sortFilterChanged(sort: Sort.Arrival)
+            self.delegate?.applySorting(sortOrder: Sort.Arrival, isConditionReverced: arrivalMode, legIndex: index)
         }
     }
 }
