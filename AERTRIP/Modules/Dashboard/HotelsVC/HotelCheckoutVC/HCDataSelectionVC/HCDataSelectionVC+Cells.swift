@@ -105,7 +105,7 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
             if indexPath.item >= hotelFormData.adultsCount[forIdx.row] {
                 let age = hotelFormData.childrenAge[forIdx.row][indexPath.item - hotelFormData.adultsCount[forIdx.row]]
                 
-                contact.passengerType = .child
+                contact.passengerType = .Child
                 contact.numberInRoom = ((indexPath.item - hotelFormData.adultsCount[forIdx.row]) + 1)
                 contact.age = age
             }

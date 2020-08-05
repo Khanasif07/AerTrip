@@ -207,9 +207,9 @@ class AddPassengerDetailsCell: UITableViewCell {
             switch type{
             case .Adult:
                 self.guestTitleLabel.text = "\(LocalizedString.Adult.localized) \(number)"
-            case .child:
+            case .Child:
                 self.guestTitleLabel.text = "\(LocalizedString.Child.localized) \(number)"// \(ageText)"
-            case .infant:
+            case .Infant:
                 self.guestTitleLabel.text = "\(LocalizedString.Infant.localized) \(number)"// \(ageText)"
             }
             self.guestTitleLabel.AttributedFontColorForText(text: ageText, textColor: AppColors.themeGray40)
@@ -240,7 +240,7 @@ class AddPassengerDetailsCell: UITableViewCell {
                 self.lNameDivider.isHidden = false
                 self.emailDivider.isHidden = false
             }
-        case .child, .infant:
+        case .Child, .Infant:
             self.dobAndNationalityStack.isHidden = false
             self.nataionalityView.isHidden = true
             self.dobDivider.isHidden = isNoOption
@@ -349,12 +349,12 @@ class AddPassengerDetailsCell: UITableViewCell {
         switch type {
         case .Adult:
             break;
-        case .child:
+        case .Child:
             let isValidDob = !((self.dobTextField.text ?? "").isEmpty)
             self.dobTextField.isError = !isValidDob
             let dob = self.dobTextField.placeholder ?? ""
             self.dobTextField.attributedPlaceholder = NSAttributedString(string: dob, attributes: [NSAttributedString.Key.foregroundColor: isValidDob ? AppColors.themeGray40 :  AppColors.themeRed])
-        case .infant:
+        case .Infant:
             let isValidDob = !((self.dobTextField.text ?? "").isEmpty)
             self.dobTextField.isError = !isValidDob
             let dob = self.dobTextField.placeholder ?? ""
@@ -477,9 +477,9 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
                 switch passenger.passengerType {
                 case .Adult:
                     minimumDate = nil
-                case .child:
+                case .Child:
                     minimumDate = self.lastJourneyDate.add(years: -12, days: 1)
-                case .infant:
+                case .Infant:
                     minimumDate = self.lastJourneyDate.add(years: -2, days: 1)
                     
                 }

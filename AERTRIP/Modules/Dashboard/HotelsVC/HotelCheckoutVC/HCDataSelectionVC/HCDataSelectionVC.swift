@@ -297,7 +297,7 @@ class HCDataSelectionVC: BaseVC {
                     guest.id = "\(j + 1)"
                 }
                 else {
-                    guest.passengerType = PassengersType.child
+                    guest.passengerType = PassengersType.Child
                     let childIdx = (j - hotelFormData.adultsCount[i])
                     guest.numberInRoom = childIdx + 1
                     guest.age = hotelFormData.childrenAge[i][childIdx]

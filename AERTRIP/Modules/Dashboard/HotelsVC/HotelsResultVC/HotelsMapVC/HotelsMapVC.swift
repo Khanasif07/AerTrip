@@ -48,6 +48,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
             self.hotelsMapCV.backgroundColor = AppColors.clear
             self.hotelsMapCV.decelerationRate = UIScrollView.DecelerationRate.fast
             self.hotelsMapCV.isPagingEnabled = false
+            self.hotelsMapCV.decelerationRate = UICollectionView.DecelerationRate.fast
         }
     }
     
@@ -319,6 +320,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         let layout = self.hotelsMapCV.collectionViewLayout as! UPCarouselFlowLayout
         layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: -7)
         layout.scrollDirection = .horizontal
+        layout.scrollScalePoint = 1.8
         layout.sideItemScale = 1.0
         layout.sideItemAlpha = 1.0
         //layout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.width - 20, height: 201)

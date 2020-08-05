@@ -96,11 +96,11 @@ class SelectMealsVM {
                     mealsSelectedFor.append(contact)
                 }
                 
-                if contact.passengerType == .child && addonsDetails.addonsArray[firstMeal].isChild {
+                if contact.passengerType == .Child && addonsDetails.addonsArray[firstMeal].isChild {
                     mealsSelectedFor.append(contact)
                 }
                 
-                if contact.passengerType == .infant && addonsDetails.addonsArray[firstMeal].isInfant {
+                if contact.passengerType == .Infant && addonsDetails.addonsArray[firstMeal].isInfant {
                     mealsSelectedFor.append(contact)
                 }
             }
