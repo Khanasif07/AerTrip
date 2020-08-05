@@ -40,7 +40,7 @@ class IntMCAndReturnVM {
                      let j2Humane = j2.computedHumanScore ?? 0
                      return j1Humane < j2Humane
                  }
-                 
+                
                  displayArray.append(journey)
              }
      
