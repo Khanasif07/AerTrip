@@ -226,21 +226,22 @@ extension HotelDetailsVC: HotelDetailDelegate {
     func willGetPinnedTemplate() {
 //        AppGlobals.shared.startLoading()
          self.needToShowLoaderOnShare = true
-        self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
+        self.hotelTableView.reloadData()
+//        self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
     }
     
     func getPinnedTemplateSuccess() {
         delay(seconds: 0.5 ) {
             self.needToShowLoaderOnShare = false
-            self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
+            self.hotelTableView.reloadData()
+//            self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
         }
-//        AppGlobals.shared.stopLoading()
     }
     
     func getPinnedTemplateFail() {
         self.needToShowLoaderOnShare = false
-        self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
-//        AppGlobals.shared.stopLoading()
+        self.hotelTableView.reloadData()
+//        self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
     }
     
     
@@ -574,7 +575,11 @@ extension HotelDetailsVC: HotelRatingInfoCellDelegate {
     func shareButtonAction(_ sender: UIButton) {
         if !self.viewModel.shareLinkURL.isEmpty{
             DispatchQueue.main.async {
+                self.willGetPinnedTemplate()
                 AppGlobals.shared.shareWithActivityViewController(VC: self , shareData: self.viewModel.shareLinkURL)
+                delay(seconds: 0.5) {
+                    self.getPinnedTemplateFail()
+                }
             }
         } else {
             self.viewModel.getShareLinkAPI {[weak self] (sucess) in

@@ -151,7 +151,6 @@ class HotelCheckoutDetailVC: BaseVC {
             }
         }
         downloadGroup.notify(queue: .main) {
-            print(self.viewModel?.atImageData ?? [])
             for image in (self.viewModel?.atImageData ?? []){
                 if image.image == nil, let index = self.viewModel?.atImageData.firstIndex(where: {$0.imagePath == image.imagePath}){
                     self.viewModel?.atImageData.remove(at: index)

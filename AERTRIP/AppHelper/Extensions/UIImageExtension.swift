@@ -156,10 +156,10 @@ extension UIImageView {
                 
                 switch result {
                 case .success(let value):
-                    print("Task done for: \(value.source.url?.absoluteString ?? "")")
+//                    print("Task done for: \(value.source.url?.absoluteString ?? "")")
                     completionHandler(value.image, nil)
                 case .failure(let error):
-                    print("Job failed: \(error.localizedDescription)")
+//                    print("Job failed: \(error.localizedDescription)")
                     completionHandler(nil, error)
                 }
             }

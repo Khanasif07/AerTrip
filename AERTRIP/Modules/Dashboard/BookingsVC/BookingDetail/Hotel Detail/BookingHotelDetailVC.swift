@@ -111,8 +111,6 @@ class BookingHotelDetailVC: BaseVC {
     
     // configure nav bar
     private func configureNavBar() {
-        //self.topNavBarHeightConstraint.constant = navBarHeight
-        //self.topNavigationView.configureNavBar(title: "", isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false,isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
         self.topNavigationView.configureNavBar(title: nil , isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
         
         self.topNavigationView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "CancelButtonWhite"), selectedImage: #imageLiteral(resourceName: "black_cross"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
@@ -167,7 +165,6 @@ extension BookingHotelDetailVC: BookingHotelDetailVMDelgate {
             }
         }
         downloadGroup.notify(queue: .main) {
-            print(self.viewModel.bookingDetail?.bookingDetail?.atImageData ?? [])
             for image in (self.viewModel.bookingDetail?.bookingDetail?.atImageData ?? []){
                 if image.image == nil, let index = self.viewModel.bookingDetail?.bookingDetail?.atImageData.firstIndex(where: {$0.imagePath == image.imagePath}){
                     self.viewModel.bookingDetail?.bookingDetail?.atImageData.remove(at: index)

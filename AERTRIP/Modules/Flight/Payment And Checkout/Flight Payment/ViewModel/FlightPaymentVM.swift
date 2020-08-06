@@ -270,6 +270,7 @@ extension FlightPaymentVM{
         }
         
 //        self.delegate?.willGetPaymentResonse()
+        printDebug(params)
         APICaller.shared.flightPaymentResponseAPI(params: params) { [weak self](success, errors, jsonData)  in
             guard let self = self else { return }
             if success, let json = jsonData {

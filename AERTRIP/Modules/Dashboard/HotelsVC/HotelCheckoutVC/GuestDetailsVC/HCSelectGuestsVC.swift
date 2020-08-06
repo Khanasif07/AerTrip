@@ -62,6 +62,10 @@ class HCSelectGuestsVC: BaseVC {
     private var currentSelectedGuestIndex: IndexPath = IndexPath(item: 0, section: 0)
     
     private let oldGuestState = GuestDetailsVM.shared.guests
+    private let oldTravellerSelcted = HCSelectGuestsVM.shared.selectedTravellerContacts
+    private let oldContactSelcted = HCSelectGuestsVM.shared.selectedPhoneContacts
+    private let oldGoogleSelcted = HCSelectGuestsVM.shared.selectedGoogleContacts
+    private let oldFacebookSelcted = HCSelectGuestsVM.shared.selectedFacebookContacts
     
     var noResultemptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
@@ -299,6 +303,10 @@ class HCSelectGuestsVC: BaseVC {
     //MARK:- Action
     @IBAction func cancelButtonAction(_ sender: UIButton) {
         GuestDetailsVM.shared.guests = self.oldGuestState
+       HCSelectGuestsVM.shared.selectedTravellerContacts = oldTravellerSelcted
+        HCSelectGuestsVM.shared.selectedPhoneContacts = oldContactSelcted
+        HCSelectGuestsVM.shared.selectedGoogleContacts = oldGoogleSelcted
+        HCSelectGuestsVM.shared.selectedFacebookContacts = oldFacebookSelcted
         self.dismiss(animated: true, completion: nil)
     }
     

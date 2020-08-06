@@ -26,96 +26,33 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1DB2B1E4-22EE-4EC9-A49E-D6B653CB601B"
+            uuid = "7415A447-5517-4A2E-BC85-D452A6A82760"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/HotlelBookingsDetailsVC/HotelBookingsDetailsVC+Extensions.swift"
+            filePath = "AERTRIP/Controller/AppleLoginController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
-            landmarkName = "tableView(_:didSelectRowAt:)"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "authorizationController(controller:didCompleteWithError:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8AE62F38-7B7B-4051-8878-450272D4A24A"
+            uuid = "9B807147-0681-4E4F-97E3-DAFD2AABF517"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/BookingDetail/Hotel Detail/BookingHotelDetailVC+DelegateMethods.swift"
+            filePath = "AERTRIP/Controller/SignInWithApple.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
-            landmarkName = "tableView(_:didSelectRowAt:)"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "authorizationController(controller:didCompleteWithAuthorization:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A30CB863-B2F2-458D-96A8-C8ABD8EE1D89"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/AppHelper/AppFlowManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "992"
-            endingLineNumber = "992"
-            landmarkName = "moveToBookingDetail(bookingDetail:tripCities:legSectionTap:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "A30CB863-B2F2-458D-96A8-C8ABD8EE1D89 - e99e25d0f7a67899"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "default argument 1 of AERTRIP.AppFlowManager.moveToBookingDetail(bookingDetail: Swift.Optional&lt;AERTRIP.BookingDetailModel&gt;, tripCities: __C.NSMutableAttributedString, legSectionTap: Swift.Int) -&gt; ()"
-                  moduleName = "Aertrip"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/apple/Desktop/Aertrip/AERTRIP/AppHelper/AppFlowManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "992"
-                  endingLineNumber = "992"
-                  offsetFromSymbolStart = "14">
-               </Location>
-               <Location
-                  uuid = "A30CB863-B2F2-458D-96A8-C8ABD8EE1D89 - a3fa66f58e57b658"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "default argument 2 of AERTRIP.AppFlowManager.moveToBookingDetail(bookingDetail: Swift.Optional&lt;AERTRIP.BookingDetailModel&gt;, tripCities: __C.NSMutableAttributedString, legSectionTap: Swift.Int) -&gt; ()"
-                  moduleName = "Aertrip"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/apple/Desktop/Aertrip/AERTRIP/AppHelper/AppFlowManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "992"
-                  endingLineNumber = "992"
-                  offsetFromSymbolStart = "6">
-               </Location>
-               <Location
-                  uuid = "A30CB863-B2F2-458D-96A8-C8ABD8EE1D89 - 3c0823dcac8751bf"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AERTRIP.AppFlowManager.moveToBookingDetail(bookingDetail: Swift.Optional&lt;AERTRIP.BookingDetailModel&gt;, tripCities: __C.NSMutableAttributedString, legSectionTap: Swift.Int) -&gt; ()"
-                  moduleName = "Aertrip"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/apple/Desktop/Aertrip/AERTRIP/AppHelper/AppFlowManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "993"
-                  endingLineNumber = "993"
-                  offsetFromSymbolStart = "171">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
