@@ -556,7 +556,6 @@ extension HotelDetailsVC{
             }
         }
         downloadGroup.notify(queue: .main) {
-            print(self.viewModel.hotelData?.atImageData ?? [])
             for image in (self.viewModel.hotelData?.atImageData ?? []){
                 if image.image == nil, let index = self.viewModel.hotelData?.atImageData.firstIndex(where: {$0.imagePath == image.imagePath}){
                     self.viewModel.hotelData?.atImageData.remove(at: index)

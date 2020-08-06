@@ -91,10 +91,6 @@ extension HotelsMapVC : MKMapViewDelegate{
         }else if self.appleMap.subviews.count > 1{// IOS12 and lower devices.// && !isMapInFullView
             let legalLabel: UIView = self.appleMap.subviews[1]
             let legalLabelY = self.appleMap.height - legalLabel.height - 7
-//            let nextLegalLabeYPosition = self.isMapInFullView ? legalLabelY + 30 : legalLabelY - 30
-//            if self.appleMap.height < nextLegalLabeYPosition {
-//                return
-//            }
             UIView.animateKeyframes(withDuration: 0.3, delay: 0.0, options: .calculationModeLinear, animations: {
                 UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3) {
                     legalLabel.frame.origin.x = UIScreen.main.bounds.width/2 - 14
@@ -160,15 +156,15 @@ extension HotelsMapVC : MKMapViewDelegate{
         
     }
     
-    func addAllMarker() {
+    func addAllMarker(isNeedToShowAll: Bool = true) {
         if self.viewModel.collectionViewLocArr.count != 0{
             guard let location = self.getLocationObject(fromLocation: self.viewModel.collectionViewLocArr.first!) else{return}
             self.setInitailRegionToShow(location: location)
         }
-        self.addMakerToMap()
+        self.addMakerToMap(isNeedToShowAll)
     }
     
-    func addMakerToMap(){
+    func addMakerToMap(_ isNeedToShowAll: Bool = true){
         self.addCityLocationMarker()
         self.viewModel.collectionViewList.keys.forEach { (locStr) in
             if let location = self.getLocationObject(fromLocation: locStr), let allHotels = self.viewModel.collectionViewList[locStr] as? [HotelSearched] {
@@ -190,7 +186,9 @@ extension HotelsMapVC : MKMapViewDelegate{
                 self.appleMap.addAnnotation(marker)
             }
         }
-        self.appleMap.showAnnotations(self.appleMap.annotations, animated: true)
+        if isNeedToShowAll{
+            self.appleMap.showAnnotations(self.appleMap.annotations, animated: true)
+        }
     }
     
     
@@ -344,7 +342,7 @@ extension HotelsMapVC : MKMapViewDelegate{
     
     func updateSeletedUnfavouriteAll(){
         self.appleMap.removeAnnotations(self.appleMap.annotations)
-        self.addAllMarker()
+        self.addAllMarker(isNeedToShowAll: false)
         guard self.viewModel.collectionViewLocArr.count != 0,
             let location = self.getLocationObject(fromLocation: self.viewModel.collectionViewLocArr.first!),
             let anno = self.appleMap.annotations.first(where: {self.compareTwoCoordinate($0.coordinate, location)})else{return}
@@ -377,7 +375,7 @@ extension HotelsMapVC : MKMapViewDelegate{
             }
             if self.appleMap.annotations.count == 2{
                 self.appleMap.removeAnnotations(self.appleMap.annotations)
-                self.addAllMarker()
+                self.addAllMarker(isNeedToShowAll: false)
             }
         }
     }

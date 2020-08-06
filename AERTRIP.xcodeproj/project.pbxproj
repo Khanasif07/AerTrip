@@ -350,6 +350,7 @@
 		187684AD228456F4009637D6 /* BookingInfoCommonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187684AB228456F4009637D6 /* BookingInfoCommonCell.xib */; };
 		187684B022845A44009637D6 /* NightStateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187684AE22845A44009637D6 /* NightStateTableViewCell.swift */; };
 		187684B122845A44009637D6 /* NightStateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187684AF22845A44009637D6 /* NightStateTableViewCell.xib */; };
+		1878E4BD24DC3B2F00F4C8B8 /* SignInWithApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1878E4BC24DC3B2F00F4C8B8 /* SignInWithApple.swift */; };
 		1879C4892292669000897CED /* BookingCallVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1879C4882292669000897CED /* BookingCallVC.swift */; };
 		1879C48B2292680C00897CED /* BookingCallVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1879C48A2292680C00897CED /* BookingCallVM.swift */; };
 		1879C48F22927AA700897CED /* BookingCallTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1879C48D22927AA700897CED /* BookingCallTableViewCell.swift */; };
@@ -1978,6 +1979,7 @@
 		187684AB228456F4009637D6 /* BookingInfoCommonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingInfoCommonCell.xib; sourceTree = "<group>"; };
 		187684AE22845A44009637D6 /* NightStateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightStateTableViewCell.swift; sourceTree = "<group>"; };
 		187684AF22845A44009637D6 /* NightStateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NightStateTableViewCell.xib; sourceTree = "<group>"; };
+		1878E4BC24DC3B2F00F4C8B8 /* SignInWithApple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInWithApple.swift; sourceTree = "<group>"; };
 		1879C4882292669000897CED /* BookingCallVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCallVC.swift; sourceTree = "<group>"; };
 		1879C48A2292680C00897CED /* BookingCallVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCallVM.swift; sourceTree = "<group>"; };
 		1879C48D22927AA700897CED /* BookingCallTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCallTableViewCell.swift; sourceTree = "<group>"; };
@@ -4607,6 +4609,7 @@
 		18A96B9321B661F900EA9B3A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1878E4BC24DC3B2F00F4C8B8 /* SignInWithApple.swift */,
 				84BBFF8824C9D6AB008010EB /* AppleLoginController.swift */,
 				8452D36C21E614BA00927287 /* CoreData */,
 				18A96B9421B661F900EA9B3A /* FacebookController.swift */,
@@ -9983,6 +9986,7 @@
 				182E2104247E0784007B6501 /* AddonsMaster.swift in Sources */,
 				8402009322C1EEB7002E5977 /* BookingAddOnRequestVM.swift in Sources */,
 				0C1671D324B36C99001BAD22 /* Int+Extension.swift in Sources */,
+				1878E4BD24DC3B2F00F4C8B8 /* SignInWithApple.swift in Sources */,
 				841DD1EB2202DC690055FEBB /* BulkBookingVC.swift in Sources */,
 				84AD5F23222D51C60095EA5D /* SearchFavouriteHotelsVM.swift in Sources */,
 				8477163722843546000E1BB6 /* OnAccountDetailVC.swift in Sources */,
