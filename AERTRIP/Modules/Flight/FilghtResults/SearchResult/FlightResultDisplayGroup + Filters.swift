@@ -283,11 +283,10 @@ extension FlightResultDisplayGroup  {
         Number = NSNumber(floatLiteral: Double(max * 3600))
         userSelectedFilters.tt.maxTime = Number.stringValue
         
-        if userSelectedFilters.tt == inputFilter.tt {
-            appliedFilters.remove(.Duration)
-        }
-        else {
+        if isDurationFilterApplied() {
             appliedFilters.insert(.Duration)
+        } else {
+            appliedFilters.remove(.Duration)
         }
         
         applyFilters()
@@ -303,14 +302,27 @@ extension FlightResultDisplayGroup  {
         Number = NSNumber(floatLiteral: Double(max * 3600))
         userSelectedFilters.lott?.maxTime = Number.stringValue
         
-        if userSelectedFilters.lott == inputFilter.lott {
-            appliedFilters.remove(.Duration)
-        }
-        else {
+        if isDurationFilterApplied() {
             appliedFilters.insert(.Duration)
+        } else {
+            appliedFilters.remove(.Duration)
         }
         
         applyFilters()
+    }
+    
+    private func isDurationFilterApplied() -> Bool {
+        let totalTimeCheck = userSelectedFilters.tt == inputFilter.tt
+        let totalLayoverCheck = userSelectedFilters.lott == inputFilter.lott
+        
+        if initiatedFilters.contains(.tripDuration) && initiatedFilters.contains(.layoverDuration) {
+            return !totalTimeCheck || !totalLayoverCheck
+        } else if initiatedFilters.contains(.tripDuration) {
+            return !totalTimeCheck
+        } else if initiatedFilters.contains(.layoverDuration) {
+            return !totalLayoverCheck
+        }
+        return false
     }
     
     func applyDurationFilter(_ inputArray : [Journey] ) -> [Journey] {
