@@ -52,7 +52,10 @@ extension FlightSearchResultVM : AirlineFilterDelegate {
 //MARK:- Sorting
 extension FlightSearchResultVM : SortFilterDelegate {
   
-    func resetSort() {}
+    func resetSort() {
+        
+    }
+    
     func durationSortFilterChanged(longestFirst: Bool) {
         if isIntMCOrReturnJourney {
             return
@@ -71,20 +74,43 @@ extension FlightSearchResultVM : SortFilterDelegate {
             return
         }
         
-        for flightLeg in flightLegs {
+        for (index,flightLeg) in flightLegs.enumerated() {
             flightLeg.sortFilterChanged(sort: sort)
+            self.delegate?.applySorting(sortOrder: sort, isConditionReverced: true, legIndex: index)
         }
+        
     }
     
     func priceFilterChangedWith(_ highToLow: Bool){
-        intFlightLegs[0].sortFilterChanged(sort: Sort.Price)
-        self.delegate?.applySorting(sortOrder: Sort.Price, isConditionReverced: highToLow, legIndex: 0)
+        if isIntMCOrReturnJourney {
+            intFlightLegs[0].sortFilterChanged(sort: Sort.Price)
+            self.delegate?.applySorting(sortOrder: Sort.Price, isConditionReverced: highToLow, legIndex: 0)
+        } else {
+            for (index,flightLeg) in flightLegs.enumerated() {
+                flightLeg.sortFilterChanged(sort: Sort.Price)
+                self.delegate?.applySorting(sortOrder: Sort.Price, isConditionReverced: highToLow, legIndex: index)
+            }
+        }
     }
     
     func durationFilterChangedWith(_ longestFirst: Bool){
-        intFlightLegs[0].sortFilterChanged(sort: Sort.Duration)
-        self.delegate?.applySorting(sortOrder: Sort.Duration, isConditionReverced: longestFirst, legIndex: 0)
+        
+        if isIntMCOrReturnJourney {
+        
+            intFlightLegs[0].sortFilterChanged(sort: Sort.Duration)
+            self.delegate?.applySorting(sortOrder: Sort.Duration, isConditionReverced: longestFirst, legIndex: 0)
+    
+        } else {
+            
+            for (index,flightLeg) in flightLegs.enumerated() {
+                flightLeg.sortFilterChanged(sort: Sort.Duration)
+                self.delegate?.applySorting(sortOrder: Sort.Duration, isConditionReverced: longestFirst, legIndex: index)
+            }
+            
+        }
+        
     }
+    
     
     func departSortFilterChangedWith(_ index: Int,_ earliestFirst: Bool){
         intFlightLegs[0].sortFilterChanged(sort: Sort.Depart)
@@ -103,8 +129,12 @@ extension FlightSearchResultVM : SortFilterDelegate {
             return
         }
         
-        for flightLeg in flightLegs {
-         flightLeg.departSortFilterChanged(departMode: departMode)
+        for (index,flightLeg) in flightLegs.enumerated() {
+//         flightLeg.departSortFilterChanged(departMode: departMode)
+            
+            flightLeg.sortFilterChanged(sort: Sort.Depart)
+            self.delegate?.applySorting(sortOrder: Sort.Depart, isConditionReverced: departMode, legIndex: index)
+            
         }
     }
     
@@ -114,8 +144,10 @@ extension FlightSearchResultVM : SortFilterDelegate {
             return
         }
         
-        for flightLeg in flightLegs {
-            flightLeg.arrivalSortFilterChanged(arrivalMode: arrivalMode)
+        for (index,flightLeg) in flightLegs.enumerated() {
+//            flightLeg.arrivalSortFilterChanged(arrivalMode: arrivalMode)
+            flightLeg.sortFilterChanged(sort: Sort.Arrival)
+            self.delegate?.applySorting(sortOrder: Sort.Arrival, isConditionReverced: arrivalMode, legIndex: index)
         }
     }
 }
@@ -167,8 +199,6 @@ extension FlightSearchResultVM : FlightDurationFilterDelegate {
         
         flightLegs[index].layoverDurationChanged(min: min, max: max)
     }
-    
-
 }
 
 //MARK:- Times ( Departure , Arrival ) Filter

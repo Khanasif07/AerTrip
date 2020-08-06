@@ -154,9 +154,7 @@ class IntMCAndReturnFlightFiltersBaseVC: UIViewController{
         }
     }
     
-    
-
-    
+        
     //MARK:- Setting Filter ViewController's  values
     func resetAllFilters() {
         for viewController in self.children {

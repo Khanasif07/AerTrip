@@ -110,7 +110,7 @@ extension FlightResultDisplayGroup  {
         }
         
         self.sortOrder = sort
-        self.applySort(inputArray: filteredJourneyArray)
+//        self.applySort(inputArray: filteredJourneyArray)
     }
     
     

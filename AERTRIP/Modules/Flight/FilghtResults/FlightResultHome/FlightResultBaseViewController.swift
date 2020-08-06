@@ -555,8 +555,8 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             let destination = self.flightSearchParameters.value(forKey: "destination") as! String
             let journey = Leg(origin: origin, destination: destination)
             legList = [journey]
-            
         }
+        
         if flightType == RETURN_JOURNEY {
             legList = legListForReturnFlightSearch()
         }
@@ -1129,9 +1129,23 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
     }
     
     func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int){
-        guard let intMCAndReturnVC = self.intMultiLegResultVC else { return }
-        intMCAndReturnVC.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex, shouldReload : true, completion: {})
+//        guard let intMCAndReturnVC = self.intMultiLegResultVC else { return }
+//        intMCAndReturnVC.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex, shouldReload : true, completion: {})
+        
+        if let intMCAndReturnVC = self.intMultiLegResultVC {
+             intMCAndReturnVC.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex, shouldReload : true, completion: {})
+        }else{
+            
+            if self.flightSearchResultVM.bookFlightObject.flightSearchType == SINGLE_JOURNEY {
+                
+                singleJourneyResultVC?.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex, shouldReload: true, completion: {})
+                
+            }else{
+                
+            }
+        }
     }
+    
     
     func webserviceProgressUpdated(progress: Float) {
         if progress > 0.25 {
