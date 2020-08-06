@@ -34,6 +34,7 @@ class FlightFilterBaseViewController: UIViewController
     var legList : [Leg]!
     var searchType : FlightSearchType!
     var flightResultArray : [FlightsResults]!
+    var userAppliedFilters: AppliedAndUIFilters?
     
     //MARK:- Computed Properties
     var selectedIndex  : Int! {
@@ -246,7 +247,7 @@ class FlightFilterBaseViewController: UIViewController
                 if let priceFilterVC = viewController as? PriceFilterViewController {
 //                    setPriceVC( priceFilterVC, inputFilters: filters)
                     updatePriceVC(priceFilterVC, inputFilters: filters)
-                    priceFilterVC.updateUIPostLatestResults()
+//                    priceFilterVC.updateUIPostLatestResults()
                 }
             case FlightDurationFilterViewController.className :
                 if let durationFilterVC = viewController as? FlightDurationFilterViewController {
@@ -605,15 +606,14 @@ class FlightFilterBaseViewController: UIViewController
             userSelectedFareMinValue: CGFloat(newPriceWS.minPrice) ,
             userSelectedFareMaxValue: CGFloat(newPriceWS.maxPrice) )
             
-            if priceViewController.allPriceFilters.indices.contains(index) {
+            if let userFilters = userAppliedFilters, userFilters.appliedFilters[index].contains(.Price), priceViewController.allPriceFilters.indices.contains(index) {
                 priceViewController.allPriceFilters[index].inputFareMinValue = newPriceFilter.inputFareMinValue
                 
                 priceViewController.allPriceFilters[index].inputFareMaxVaule = newPriceFilter.inputFareMaxVaule
-                
             } else {
-                priceViewController.allPriceFilters.append(newPriceFilter)
-                
+                priceViewController.allPriceFilters[index] = newPriceFilter
             }
+            priceViewController.updateFiltersFromAPI()
         }
     }
     

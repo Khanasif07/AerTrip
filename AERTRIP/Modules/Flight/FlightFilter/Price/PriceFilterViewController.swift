@@ -91,6 +91,15 @@ class PriceFilterViewController: UIViewController , FilterViewController {
 
     //MARK:- Additional UI Methods
     
+    func updateFiltersFromAPI() {
+        currentPriceFilter = allPriceFilters[currentActiveIndex]
+        UIView.animate(withDuration: 0.3) {
+            self.setupPriceSlider()
+            self.setupPriceLabels()
+            self.view.layoutIfNeeded()
+        }
+    }
+    
     func initialSetup () {
        
         
