@@ -1137,10 +1137,9 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         }else{
             
             if self.flightSearchResultVM.bookFlightObject.flightSearchType == SINGLE_JOURNEY {
-                
                 singleJourneyResultVC?.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex, shouldReload: true, completion: {})
-                
             }else{
+                
                 
             }
         }

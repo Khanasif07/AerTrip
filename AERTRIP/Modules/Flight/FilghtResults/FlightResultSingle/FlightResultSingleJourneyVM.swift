@@ -9,7 +9,7 @@
 import UIKit
 
 class FlightResultSingleJourneyVM {
-
+    
         var resultTableState  = ResultTableViewState.showTemplateResults {
             didSet {
                 print(resultTableState)
@@ -181,10 +181,13 @@ class FlightResultSingleJourneyVM {
                   
                   if isConditionReverced {
                       
-                      return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ?? "") < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime ?? "")
-                      
-                  }else{
                       return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ?? "") > self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime ?? "")
+
+                    
+                  }else{
+                    
+                    return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ?? "") < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime ?? "")
+
                       
                   }
               })
@@ -201,9 +204,14 @@ class FlightResultSingleJourneyVM {
                   let secondObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: secondObjDepartureTime)
                   
                   if isConditionReverced {
-                      return firstObjTimeInterval < secondObjTimeInterval
+                    
+                    return firstObjTimeInterval > secondObjTimeInterval
+
+                    
                   }else{
-                      return firstObjTimeInterval > secondObjTimeInterval
+                    
+                    return firstObjTimeInterval < secondObjTimeInterval
+
                   }
               })
               
