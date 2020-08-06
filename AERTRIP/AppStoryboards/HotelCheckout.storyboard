@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -246,6 +246,10 @@
                                     <constraint firstAttribute="height" constant="44" id="nrm-Q5-Yc0"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y34-L8-8sl">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pDs-Hh-dQp">
                                 <rect key="frame" x="0.0" y="483" width="375" height="44"/>
                                 <subviews>
@@ -468,6 +472,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="y34-L8-8sl" secondAttribute="bottom" id="0Rc-Dp-8LE"/>
                             <constraint firstItem="qGC-DP-rgu" firstAttribute="trailing" secondItem="bXX-Jv-Wqc" secondAttribute="trailing" id="12h-jb-aW1"/>
                             <constraint firstItem="ppY-MC-9bt" firstAttribute="top" secondItem="pDs-Hh-dQp" secondAttribute="bottom" id="1P7-NX-d4n"/>
                             <constraint firstItem="ffZ-xz-8YE" firstAttribute="top" secondItem="bXX-Jv-Wqc" secondAttribute="bottom" constant="-0.5" id="1is-1F-BP8"/>
@@ -476,6 +481,7 @@
                             <constraint firstItem="qGC-DP-rgu" firstAttribute="trailing" secondItem="pDs-Hh-dQp" secondAttribute="trailing" id="6k3-TT-BPK"/>
                             <constraint firstItem="ffZ-xz-8YE" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="7xd-lw-0Hd"/>
                             <constraint firstItem="pDs-Hh-dQp" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="9Pl-Yz-GTl"/>
+                            <constraint firstAttribute="trailing" secondItem="y34-L8-8sl" secondAttribute="trailing" id="BdL-Yy-wcT"/>
                             <constraint firstItem="cUJ-iR-Ql8" firstAttribute="leading" secondItem="pDs-Hh-dQp" secondAttribute="leading" id="Ff9-lJ-Xc4"/>
                             <constraint firstItem="ppY-MC-9bt" firstAttribute="leading" secondItem="MBG-cE-VPm" secondAttribute="leading" id="GK6-5t-Mtb"/>
                             <constraint firstItem="fLI-xY-h1k" firstAttribute="centerX" secondItem="qGC-DP-rgu" secondAttribute="centerX" id="HId-cg-W7A"/>
@@ -492,8 +498,10 @@
                             <constraint firstItem="ppY-MC-9bt" firstAttribute="trailing" secondItem="MBG-cE-VPm" secondAttribute="trailing" id="aHs-r6-bGS"/>
                             <constraint firstItem="cUJ-iR-Ql8" firstAttribute="top" secondItem="pDs-Hh-dQp" secondAttribute="top" id="cyD-jk-S7l"/>
                             <constraint firstItem="bXX-Jv-Wqc" firstAttribute="top" secondItem="qGC-DP-rgu" secondAttribute="top" id="ljZ-aS-cxI"/>
+                            <constraint firstItem="y34-L8-8sl" firstAttribute="leading" secondItem="TPm-LJ-TxA" secondAttribute="leading" id="mdy-Un-GaP"/>
                             <constraint firstItem="ppY-MC-9bt" firstAttribute="top" secondItem="3bH-R8-FdX" secondAttribute="bottom" id="oe1-1I-8Pk"/>
                             <constraint firstAttribute="bottom" secondItem="MBG-cE-VPm" secondAttribute="bottom" id="ozE-DY-P7n"/>
+                            <constraint firstItem="y34-L8-8sl" firstAttribute="top" secondItem="TPm-LJ-TxA" secondAttribute="top" id="t0J-w6-lxQ"/>
                             <constraint firstItem="qGC-DP-rgu" firstAttribute="trailing" secondItem="zMl-TE-dRQ" secondAttribute="trailing" id="wlJ-ud-Cvi"/>
                             <constraint firstItem="bXX-Jv-Wqc" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="xDG-ow-6vT"/>
                             <constraint firstItem="zMl-TE-dRQ" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="zUA-yo-GjA"/>
@@ -510,6 +518,7 @@
                         <outlet property="continueViewBottomConstraint" destination="UVz-Jr-Qoz" id="KgV-K6-HdP"/>
                         <outlet property="detailsButton" destination="8MW-fv-lmw" id="r4O-qj-YBo"/>
                         <outlet property="fareBreakupTitleLabel" destination="R1w-5H-hFM" id="PK2-DG-nBT"/>
+                        <outlet property="fareDetailBlackView" destination="y34-L8-8sl" id="M0e-UA-r2l"/>
                         <outlet property="fareDetailBottomConstraint" destination="RCf-rf-KB5" id="dtX-cV-aPE"/>
                         <outlet property="fareDetailContainerView" destination="zMl-TE-dRQ" id="12S-eq-jIJ"/>
                         <outlet property="fareDetailLabel" destination="6mh-b2-aJB" id="gYh-Yk-Ymc"/>

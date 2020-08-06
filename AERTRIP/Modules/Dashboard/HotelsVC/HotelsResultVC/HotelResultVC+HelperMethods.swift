@@ -117,51 +117,51 @@ extension HotelResultVC {
         self.viewModel.updateFavourite(forHotels: self.viewModel.favouriteHotels, isUnpinHotels: true)
     }
     
-//    func expandGroup(_ hotels: [HotelSearched]) {
-//        if let topVC = UIApplication.topViewController() {
-//            let dataVC = HotelsGroupExpendedVC.instantiate(fromAppStoryboard: .HotelsSearch)
-//            dataVC.delegate = self
-//            dataVC.viewModel.sid = self.viewModel.sid
-//            dataVC.viewModel.hotelSearchRequest = self.viewModel.hotelSearchRequest
-//            self.hotelsGroupExpendedVC = dataVC
-//            dataVC.viewModel.samePlaceHotels = hotels
-//            dataVC.viewModel.isFromFavorite = self.switchView.isOn
-//            let sheet = PKBottomSheet.instanceFromNib
-//            sheet.isAddTapGesture = false
-//            sheet.headerHeight = 24.0
-//            sheet.headerView = dataVC.headerView
-//            sheet.isHideBottomSheetOnTap = false
-//
-//            dataVC.sheetView = sheet
-//
-//            sheet.frame = topVC.view.bounds
-//            sheet.delegate = self
-//            topVC.view.addSubview(sheet)
-//            sheet.present(presentedViewController: dataVC, animated: true)
-//        }
-//    }
+    //    func expandGroup(_ hotels: [HotelSearched]) {
+    //        if let topVC = UIApplication.topViewController() {
+    //            let dataVC = HotelsGroupExpendedVC.instantiate(fromAppStoryboard: .HotelsSearch)
+    //            dataVC.delegate = self
+    //            dataVC.viewModel.sid = self.viewModel.sid
+    //            dataVC.viewModel.hotelSearchRequest = self.viewModel.hotelSearchRequest
+    //            self.hotelsGroupExpendedVC = dataVC
+    //            dataVC.viewModel.samePlaceHotels = hotels
+    //            dataVC.viewModel.isFromFavorite = self.switchView.isOn
+    //            let sheet = PKBottomSheet.instanceFromNib
+    //            sheet.isAddTapGesture = false
+    //            sheet.headerHeight = 24.0
+    //            sheet.headerView = dataVC.headerView
+    //            sheet.isHideBottomSheetOnTap = false
+    //
+    //            dataVC.sheetView = sheet
+    //
+    //            sheet.frame = topVC.view.bounds
+    //            sheet.delegate = self
+    //            topVC.view.addSubview(sheet)
+    //            sheet.present(presentedViewController: dataVC, animated: true)
+    //        }
+    //    }
     
     func updateFavOnList(forIndexPath: IndexPath?) {
         //update the current opened list as user make fav/unfav
         if let indexPath = forIndexPath {
-//            if self.viewModel.fetchRequestType == .Searching {
-                self.hotelSearchTableView.reloadRow(at: indexPath, with: .none)
-//            }
-//            else {
-                self.tableViewVertical.reloadRow(at: indexPath, with: .none)
-                
-//            }
+            //            if self.viewModel.fetchRequestType == .Searching {
+            self.hotelSearchTableView.reloadRow(at: indexPath, with: .none)
+            //            }
+            //            else {
+            self.tableViewVertical.reloadRow(at: indexPath, with: .none)
+            
+            //            }
             selectedIndexPath = nil
         }
         else {
-//            if self.viewModel.fetchRequestType == .Searching {
-                self.hotelSearchTableView.reloadData()
-//            }
-//            else {
-                self.viewModel.fetchDataFromCoreData(isUpdatingFav: true)
-                self.tableViewVertical.reloadData()
-                
-//            }
+            //            if self.viewModel.fetchRequestType == .Searching {
+            self.hotelSearchTableView.reloadData()
+            //            }
+            //            else {
+            self.viewModel.fetchDataFromCoreData(isUpdatingFav: true)
+            self.tableViewVertical.reloadData()
+            
+            //            }
         }
     }
     
@@ -432,12 +432,17 @@ extension HotelResultVC {
                     self.tableViewVertical.contentInset = UIEdgeInsets(top: value, left: 0, bottom: 0, right: 0)
                     
                 }
-                
+                if self.headerContainerViewTopConstraint.constant == 0 {
+                    self.statusBarViewContainer.isHidden = true
+                } else {
+                    self.statusBarViewContainer.isHidden = false
+                }
+                self.view.layoutIfNeeded()
             } ,completion: nil)
         }
     }
     
-     func revealBlurredHeaderView(_ invertedOffset: CGFloat) {
+    func revealBlurredHeaderView(_ invertedOffset: CGFloat) {
         DispatchQueue.main.async {
             
             UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseInOut], animations: {
@@ -457,64 +462,76 @@ extension HotelResultVC {
                 if self.tableViewVertical.contentOffset.y < 100 {
                     value = self.topContentSpace 
                 }
+                if self.headerContainerViewTopConstraint.constant == 0 {
+                    self.statusBarViewContainer.isHidden = true
+                } else {
+                    self.statusBarViewContainer.isHidden = false
+                }
                 self.tableViewVertical.contentInset = UIEdgeInsets(top: value, left: 0, bottom: 0, right: 0)
-                
+                self.view.layoutIfNeeded()
             } ,completion: nil)
         }
     }
     
     fileprivate func snapToTopOrBottomOnSlowScrollDragging(_ scrollView: UIScrollView) {
         
-            var rect = self.headerContainerView.frame
-            let yCoordinate = rect.origin.y * ( -1 )
+        var rect = self.headerContainerView.frame
+        let yCoordinate = rect.origin.y * ( -1 )
+        
+        // After dragging if blurEffectView is at top or bottom position , snapping animation is not required
+        if yCoordinate == 0 || yCoordinate == ( -visualEffectViewHeight){
+            return
+        }
+        
+        // If blurEffectView yCoodinate is close to top of the screen
+        if  ( yCoordinate > ( visualEffectViewHeight / 2.0 ) ){
+            rect.origin.y = -visualEffectViewHeight
             
-            // After dragging if blurEffectView is at top or bottom position , snapping animation is not required
-            if yCoordinate == 0 || yCoordinate == ( -visualEffectViewHeight){
-                return
+            if scrollView.contentOffset.y < 100 {
+                let zeroPoint = CGPoint(x: 0, y: self.topContentSpace)
+                scrollView.setContentOffset(zeroPoint, animated: true)
             }
-            
-            // If blurEffectView yCoodinate is close to top of the screen
-            if  ( yCoordinate > ( visualEffectViewHeight / 2.0 ) ){
-                rect.origin.y = -visualEffectViewHeight
-                
-                if scrollView.contentOffset.y < 100 {
-                    let zeroPoint = CGPoint(x: 0, y: self.topContentSpace)
-                    scrollView.setContentOffset(zeroPoint, animated: true)
-                }
+        }
+        else {  //If blurEffectView yCoodinate is close to fully visible state of blurView
+            rect.origin.y = 0
+        }
+        
+        // Animatioon to move the blurEffectView
+        UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseOut], animations: {
+            self.headerContainerViewTopConstraint.constant = rect.origin.y
+            var value = self.topContentSpace - abs(rect.origin.y)
+            if value >= 0 {
+                value = self.topContentSpace + 16
             }
-            else {  //If blurEffectView yCoodinate is close to fully visible state of blurView
-                rect.origin.y = 0
+            if value < 0 {
+                value = 16
             }
-            
-            // Animatioon to move the blurEffectView
-            UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseOut], animations: {
-                self.headerContainerViewTopConstraint.constant = rect.origin.y
-                var value = self.topContentSpace - abs(rect.origin.y)
-                if value >= 0 {
-                    value = self.topContentSpace + 16
-                }
-                if value < 0 {
-                    value = 16
-                }
-                if self.tableViewVertical.contentOffset.y < 100 {
-                    value = self.topContentSpace
-                }
-                
-                self.tableViewVertical.contentInset = UIEdgeInsets(top: value, left: 0, bottom: 0, right: 0)
-            } ,completion: nil)
+            if self.tableViewVertical.contentOffset.y < 100 {
+                value = self.topContentSpace
+            }
+            if self.headerContainerViewTopConstraint.constant == 0 {
+                self.statusBarViewContainer.isHidden = true
+            } else {
+                self.statusBarViewContainer.isHidden = false
+            }
+            self.tableViewVertical.contentInset = UIEdgeInsets(top: value, left: 0, bottom: 0, right: 0)
+            self.view.layoutIfNeeded()
+        } ,completion: nil)
     }
     
     func showBluredHeaderViewCompleted() {
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseInOut], animations: {
                 self.headerContainerViewTopConstraint.constant = 0
+                self.statusBarViewContainer.isHidden = true
                 //self.tableViewVertical.contentInset = UIEdgeInsets(top: self.topContentSpace, left: 0, bottom: 0, right: 0)
+                self.view.layoutIfNeeded()
             } ,completion: nil)
         }
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-         guard scrollView === tableViewVertical, self.isViewDidAppear else {return}
+        guard scrollView === tableViewVertical, self.isViewDidAppear else {return}
         scrollviewInitialYOffset = scrollView.contentOffset.y
     }
     

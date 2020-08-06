@@ -142,9 +142,19 @@ class SocialLoginVM {
     }
     func appleLogin(vc: UIViewController, completionBlock: ((_ success: Bool)->())? )  {
         AppleLoginController.shared.login(success: { (model :  AppleUser) in
-            let message = "Apple Login Succes.\nUser Name: \(model.fullName)\nEmail: \(model.email)\nUser id: \(model.id)"
-            AppToast.default.showToastMessage(message: message)
+//            let message = "Apple Login Succes.\nUser Name: \(model.fullName)\nEmail: \(model.email)\nUser id: \(model.id)"
+//            AppToast.default.showToastMessage(message: message)
+//
+            
+            self.userData.authKey        = ""//model.accessToken
+            self.userData.firstName       = model.firstName
+            self.userData.lastName        = model.lastName
+            self.userData.email          = model.email
+            self.userData.service         = "apple_oauth2"
+            self.userData.id            = model.id
             completionBlock?(true)
+            
+            self.webserviceForSocialLogin(isAppleLogin: true)
         }) { (error) in
             completionBlock?(false)
         }
@@ -155,10 +165,44 @@ class SocialLoginVM {
 //MARK:-
 extension SocialLoginVM {
     
-    func webserviceForSocialLogin() {
+    func webserviceForSocialLogin(isAppleLogin: Bool = false) {
         
         var params = JSONDictionary()
-        
+        if isAppleLogin {
+            var profile = JSONDictionary()
+            profile[APIKeys.name.rawValue]        = self.userData.firstName
+            profile[APIKeys.id.rawValue]        = self.userData.id
+            profile[APIKeys.emailAddress.rawValue]        = self.userData.email
+            profile[APIKeys.birthday.rawValue]        = ""
+            profile["firstName"]        = self.userData.firstName
+            profile["lastName"]        = self.userData.lastName
+            profile[APIKeys.picture.rawValue]        = ["data":""]
+            profile[APIKeys.gender.rawValue]        = ""
+            profile[APIKeys.service.rawValue]        = "apple_oauth2"
+
+            params[APIKeys.id.rawValue]        = self.userData.id
+            params[APIKeys.profile.rawValue]        = profile
+            params[APIKeys.userName.rawValue]        = self.userData.firstName + " " + self.userData.lastName
+            params[APIKeys.profile.rawValue]        = profile
+
+//            [
+//            'id' => 'apple-@appleID,
+//            'username' => @FirstName . ' ' . @Lastname,
+//            'profile' => [
+//                'name' => @FirstName . ' ' . @Lastname,
+//                'id' => @appleID,
+//                'emailAddress' => @email,
+//                'birthday' => '',
+//                'firstName' => @FirstName,
+//                'lastName' => @Lastname,
+//                'picture' => [
+//                    'data' => '',
+//                ],
+//                'gender' => '',
+//                'service' => 'apple_oauth2'
+//            ]
+//            ]
+        } else {
         params[APIKeys.id.rawValue]        = self.userData.id
         params[APIKeys.userName.rawValue]    = self.userData.firstName
         params[APIKeys.firstName.rawValue]   = self.userData.firstName
@@ -171,7 +215,7 @@ extension SocialLoginVM {
         
         let permission = ["user_birthday" : 1, "user_friends" : 1, "email" : 1, "publish_actions" : 1 , "public_profile" : 1]
         params[APIKeys.permissions.rawValue] = AppGlobals.shared.json(from: [permission])
-        
+        }
         self.delegate?.willLogin()
         APICaller.shared.callSocialLoginAPI(params: params, loader: true, completionBlock: {(success, errors) in
             

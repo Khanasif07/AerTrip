@@ -48,6 +48,7 @@ class HCDataSelectionVC: BaseVC {
     @IBOutlet weak var totalFareAmountLabel: UILabel!
     @IBOutlet weak var loaderContainerView: UIView!
     @IBOutlet weak var activityLoader: UIActivityIndicatorView!
+    @IBOutlet weak var fareDetailBlackView: UIView!
     
     // MARK: - Properties
     
@@ -255,14 +256,18 @@ class HCDataSelectionVC: BaseVC {
     
     private func animateFareDetails(isHidden: Bool, animated: Bool) {
         let rotateTrans = isHidden ? CGAffineTransform.identity : CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+        var blackViewAlpha: CGFloat = 1.0
         if !isHidden {
             fareDetailContainerView.isHidden = false
+            fareDetailBlackView.isHidden = false
+            blackViewAlpha = 1.0
             if isHotelDetailsCheckOutViewOpen {
                 //                self.hotelCheckOutDetailsContainerVIew.transform = CGAffineTransform(translationX: 0, y: view.height - (hotelDetailsParentContainerView.height + fareDetailContainerView.height + AppFlowManager.default.safeAreaInsets.top))
                 hotelDetailsContainerViewHeightConstraint.constant = view.height - (hotelDetailsParentContainerView.height + fareDetailContainerView.height)
             }
         }
         else {
+            blackViewAlpha = 0.0
             if isHotelDetailsCheckOutViewOpen {
                 //                 self.hotelCheckOutDetailsContainerVIew.transform = CGAffineTransform(translationX: 0, y: view.height - (hotelDetailsParentContainerView.height +  AppFlowManager.default.safeAreaInsets.top))
                 hotelDetailsContainerViewHeightConstraint.constant = view.height - (hotelDetailsParentContainerView.height )
@@ -275,11 +280,13 @@ class HCDataSelectionVC: BaseVC {
             sSelf.fareDetailBottomConstraint.constant = isHidden ? -(sSelf.fareDetailContainerView.height) : safeDistance
             sSelf.upArrowImageView.transform = rotateTrans
             sSelf.continueViewBottomConstraint.constant = isHidden ? safeDistance : 0
+            sSelf.fareDetailBlackView.alpha = blackViewAlpha
             sSelf.view.layoutIfNeeded()
             
             }, completion: { [weak self] _ in
                 if isHidden {
                     self?.fareDetailContainerView.isHidden = true
+                    self?.fareDetailBlackView.isHidden = true
                 }
         })
     }

@@ -31,7 +31,7 @@ class HotelResultVC: BaseVC {
     
     // MARK: - IBOutlets
     // MARK: -
-    
+    @IBOutlet weak var statusBarViewContainer: UIView!
     @IBOutlet weak var headerContainerView: UIView!
     @IBOutlet weak var navContainerView: UIView!
     @IBOutlet weak var backButton: UIButton!

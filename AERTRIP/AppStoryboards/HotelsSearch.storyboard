@@ -880,16 +880,16 @@ been sent</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="266"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="19.5" translatesAutoresizingMaskIntoConstraints="NO" id="5Nc-t2-hZo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="274"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="266"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="lUb-4B-UGW">
-                                                                <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="121"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="113"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="627-JL-ot9">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="51"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="43"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rooms" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQ4-Rr-9MZ">
-                                                                                <rect key="frame" x="0.0" y="5" width="112.66666666666667" height="20.333333333333332"/>
+                                                                                <rect key="frame" x="0.0" y="5" width="112.66666666666667" height="19.666666666666668"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -905,7 +905,7 @@ been sent</string>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFd-nY-Rus">
-                                                                        <rect key="frame" x="0.0" y="63" width="112.66666666666667" height="58"/>
+                                                                        <rect key="frame" x="0.0" y="55" width="112.66666666666667" height="58"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4l-qf-vJb">
                                                                                 <rect key="frame" x="41" y="0.0" width="31" height="58"/>
@@ -925,7 +925,7 @@ been sent</string>
                                                                 </constraints>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="klb-yY-qLX">
-                                                                <rect key="frame" x="0.0" y="140.66666666666663" width="112.66666666666667" height="133.33333333333337"/>
+                                                                <rect key="frame" x="0.0" y="132.66666666666663" width="112.66666666666667" height="133.33333333333337"/>
                                                                 <subviews>
                                                                     <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2S-NB-xYW">
                                                                         <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="133.33333333333334"/>
@@ -1037,10 +1037,10 @@ been sent</string>
                                                 <rect key="frame" x="225.33333333333331" y="0.0" width="100" height="266"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="12.5" translatesAutoresizingMaskIntoConstraints="NO" id="pK7-Yp-wzS">
-                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="344"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="348.33333333333331"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yha-YK-x8Z">
-                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="70.666666666666671"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="71.666666666666671"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Children" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Sw-4i-o5H">
                                                                         <rect key="frame" x="0.0" y="5" width="100" height="20.333333333333332"/>
@@ -1068,10 +1068,10 @@ been sent</string>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="6Bo-AR-Jbm">
-                                                                <rect key="frame" x="0.0" y="83.333333333333371" width="100" height="83.666666666666686"/>
+                                                                <rect key="frame" x="0.0" y="84.333333333333371" width="100" height="84.666666666666686"/>
                                                                 <subviews>
                                                                     <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JKq-Tl-RDH">
-                                                                        <rect key="frame" x="26" y="17.666666666666629" width="48" height="48"/>
+                                                                        <rect key="frame" x="26" y="18.333333333333258" width="48" height="48"/>
                                                                         <state key="normal" image="child_icon_bulk"/>
                                                                         <state key="selected" image="child_selected"/>
                                                                     </button>
@@ -1084,10 +1084,10 @@ been sent</string>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YzA-bp-NnN">
-                                                                <rect key="frame" x="0.0" y="179.66666666666663" width="100" height="164.33333333333337"/>
+                                                                <rect key="frame" x="0.0" y="181.66666666666663" width="100" height="166.66666666666663"/>
                                                                 <subviews>
                                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Kp-MU-TGO">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="164.33333333333334"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="166.66666666666666"/>
                                                                     </pickerView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1805,6 +1805,7 @@ been sent</string>
                         <outlet property="searchButton" destination="rLI-7S-jmG" id="SP0-X5-fOi"/>
                         <outlet property="shareButton" destination="Np6-QS-n4N" id="tuh-RK-ach"/>
                         <outlet property="shimmerView" destination="QAK-AD-OFu" id="hhE-LV-vRb"/>
+                        <outlet property="statusBarViewContainer" destination="B4W-uH-lnc" id="7o7-FT-yKW"/>
                         <outlet property="switchContainerView" destination="QEv-AK-2AZ" id="fTg-2R-gOf"/>
                         <outlet property="switchGradientView" destination="P4Z-qb-xPw" id="ANl-08-tq3"/>
                         <outlet property="switchView" destination="c5D-7q-5xF" id="Aq2-9d-1gr"/>

@@ -46,7 +46,7 @@ class AppleLoginController : NSObject, ASAuthorizationControllerDelegate {
             let lastName = name?.familyName ?? ""
             let email = appleIDCredential.email ?? ""
             let fullName = "\(firstName) \(lastName)"
-            
+            printDebug(appleIDCredential.identityToken)
             printDebug("User id is \(userIdentifier) \n Full Name is \(String(describing: fullName)) \n Email id is \(String(describing: email))")
 
            let user =  AppleUser(id: userIdentifier, fullName: fullName, firstName: firstName, lastName: lastName, email: email)

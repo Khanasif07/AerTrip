@@ -446,4 +446,8 @@ enum APIKeys: String {
     case origin = "origin"
     case cabinClass = "cabinClass"
     
+    case emailAddress = "emailAddress"
+    case birthday = "birthday"
+    case profile = "profile"
+
 }
