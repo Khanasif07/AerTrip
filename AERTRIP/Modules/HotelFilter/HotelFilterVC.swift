@@ -258,7 +258,7 @@ class HotelFilterVC: BaseVC {
                     filtersTabs[idx].isSelected = (HotelFilterVM.shared.sortUsing == HotelFilterVM.shared.defaultSortUsing) ? true : false
                 }
                 
-            case LocalizedString.Range.localized.lowercased():
+            case LocalizedString.Distance.localized.lowercased():
                 filtersTabs[idx].isSelected  = (HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange) ? true : false
                 
             case LocalizedString.Price.localized.lowercased():

@@ -347,6 +347,9 @@ class HCDataSelectionVC: BaseVC {
     // MARK: - Public
     
     // MARK: - Action
+    @IBAction func fareDetailBackgroundTapped(_ sender: Any) {
+        toggleFareDetailView()
+    }
     
     @IBAction func fareInfoButtonAction(_ sender: UIButton) {
         toggleFareDetailView()

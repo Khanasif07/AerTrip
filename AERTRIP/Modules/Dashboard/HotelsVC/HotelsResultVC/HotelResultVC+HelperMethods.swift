@@ -46,7 +46,7 @@ extension HotelResultVC {
             filterApplied = oldFilter
         }
         
-        let isRangeFilterApplied = HotelFilterVM.shared.filterAppliedFor(filterName: LocalizedString.Range.localized, appliedFilter: filterApplied)
+        let isRangeFilterApplied = HotelFilterVM.shared.filterAppliedFor(filterName: LocalizedString.Distance.localized, appliedFilter: filterApplied)
         let isStarFilterApplied = HotelFilterVM.shared.filterAppliedFor(filterName: LocalizedString.Ratings.localized, appliedFilter: filterApplied)
         
         var starStar = ""
@@ -204,7 +204,7 @@ extension HotelResultVC {
         let checkIn = Date.getDateFromString(stringDate: self.viewModel.searchedFormData.checkInDate, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
         let checkOut = Date.getDateFromString(stringDate: self.viewModel.searchedFormData.checkOutDate, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
         let numberOfRoom = self.viewModel.searchedFormData.adultsCount.count
-        self.descriptionLabel.text = "\(checkIn) - \(checkOut) • \(numberOfRoom) Rooms"
+        self.descriptionLabel.text = "\(checkIn) - \(checkOut) • \(numberOfRoom) \(numberOfRoom > 1 ? "Rooms" : "Room")"
         
     }
     

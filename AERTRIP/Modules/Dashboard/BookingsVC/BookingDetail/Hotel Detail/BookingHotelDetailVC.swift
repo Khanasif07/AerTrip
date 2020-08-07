@@ -115,6 +115,7 @@ class BookingHotelDetailVC: BaseVC {
         
         self.topNavigationView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "CancelButtonWhite"), selectedImage: #imageLiteral(resourceName: "black_cross"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.topNavigationView.firstRightButton.imageEdgeInsets = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
+        self.topNavigationView.navTitleLabel.numberOfLines = 1
         self.topNavigationView.firstRightButtonTrailingConstraint.constant = -3
         //self.topNavigationView.configureLeftButton(normalImage: UIImage(named: "whiteBackIcon"), selectedImage: UIImage(named: "whiteBackIcon"))
         self.topNavigationView.delegate = self

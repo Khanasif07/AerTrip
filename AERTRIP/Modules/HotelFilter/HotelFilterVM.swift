@@ -60,7 +60,7 @@ class HotelFilterVM {
     var filterHotelCount: Int = 0
     var lastSelectedIndex: Int = 0
     var isSortingApplied: Bool = false
-    let allTabsStr: [String] = [LocalizedString.Sort.localized, LocalizedString.Range.localized, LocalizedString.Price.localized, LocalizedString.Ratings.localized, LocalizedString.Amenities.localized,LocalizedString.Room.localized]
+    let allTabsStr: [String] = [LocalizedString.Sort.localized, LocalizedString.Distance.localized, LocalizedString.Price.localized, LocalizedString.Ratings.localized, LocalizedString.Amenities.localized,LocalizedString.Room.localized]
 
     weak var delegate: HotelFilterVMDelegate?
     var isFilterAppliedForDestinetionFlow = false
@@ -159,7 +159,7 @@ class HotelFilterVM {
             } else {
             return (appliedFilter.sortUsing == HotelFilterVM.shared.defaultSortUsing) ? false : true
             }
-        case LocalizedString.Range.localized.lowercased():
+        case LocalizedString.Distance.localized.lowercased():
             return (appliedFilter.distanceRange == HotelFilterVM.shared.defaultDistanceRange) ? false : true
             
         case LocalizedString.Price.localized.lowercased():

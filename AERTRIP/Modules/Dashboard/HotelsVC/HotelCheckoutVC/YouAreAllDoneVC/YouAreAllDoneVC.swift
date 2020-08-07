@@ -481,10 +481,10 @@ extension YouAreAllDoneVC: YouAreAllDoneVMDelegate {
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
     }
     func getUpdatedTitle() -> String {
-        var updatedTitle = self.viewModel.hotelReceiptData?.hname ?? ""
-        if updatedTitle.count > 24 {
-            updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.count)
-        }
+        let updatedTitle = self.viewModel.hotelReceiptData?.hname ?? ""
+//        if updatedTitle.count > 24 {
+//            updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.count)
+//        }
         return updatedTitle
     }
 }
