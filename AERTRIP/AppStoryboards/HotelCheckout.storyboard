@@ -248,7 +248,21 @@
                             </view>
                             <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y34-L8-8sl">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5L-jP-pJJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <connections>
+                                            <action selector="fareDetailBackgroundTapped:" destination="Rg5-aE-wya" eventType="touchUpInside" id="i1s-NQ-UMm"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="A5L-jP-pJJ" secondAttribute="bottom" id="0lc-Fa-xQd"/>
+                                    <constraint firstItem="A5L-jP-pJJ" firstAttribute="top" secondItem="y34-L8-8sl" secondAttribute="top" id="0zn-Lu-Qd3"/>
+                                    <constraint firstAttribute="trailing" secondItem="A5L-jP-pJJ" secondAttribute="trailing" id="kAm-h9-rXK"/>
+                                    <constraint firstItem="A5L-jP-pJJ" firstAttribute="leading" secondItem="y34-L8-8sl" secondAttribute="leading" id="lNR-aR-TIp"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pDs-Hh-dQp">
                                 <rect key="frame" x="0.0" y="483" width="375" height="44"/>

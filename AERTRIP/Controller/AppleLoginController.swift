@@ -57,6 +57,7 @@ class AppleLoginController : NSObject, ASAuthorizationControllerDelegate {
     }
     @available(iOS 13.0, *)
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        printDebug("error: \(error)")
         // Handle error.
         failure?(error)
         success = nil

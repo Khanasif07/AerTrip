@@ -100,7 +100,7 @@ class ImportContactVC: BaseVC {
         
         self.topNavView.delegate = self
         self.topNavView.firstLeftButtonLeadingConst.constant = 7.0
-        self.topNavView.configureNavBar(title: LocalizedString.AllowContacts.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false,backgroundType: .color(color: AppColors.clear))
+        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false,backgroundType: .color(color: AppColors.clear))// LocalizedString.AllowContacts.localized
         self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Import.rawValue, selectedTitle: LocalizedString.Import.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
@@ -199,18 +199,18 @@ class ImportContactVC: BaseVC {
             switch self.currentIndex {
             case 0:
                 //phone
-                self.topNavView.navTitleLabel.text = self.viewModel.sections.isEmpty ? LocalizedString.AllowContacts.localized : LocalizedString.SelectContactsToImport.localized
+                self.topNavView.navTitleLabel.text = self.viewModel.sections.isEmpty ? "" : LocalizedString.SelectContactsToImport.localized // LocalizedString.AllowContacts.localized
                 
             case 1:
                 //facebook
-                self.topNavView.navTitleLabel.text = self.viewModel.facebookSection.isEmpty ? LocalizedString.ConnectWithFB.localized : LocalizedString.SelectContactsToImport.localized
+                self.topNavView.navTitleLabel.text = self.viewModel.facebookSection.isEmpty ? "" : LocalizedString.SelectContactsToImport.localized // LocalizedString.ConnectWithFB.localized
                 
             case 2:
                 //google
-                self.topNavView.navTitleLabel.text = self.viewModel.facebookSection.isEmpty ? LocalizedString.ConnectWithGoogle.localized : LocalizedString.SelectContactsToImport.localized
+                self.topNavView.navTitleLabel.text = self.viewModel.facebookSection.isEmpty ? "" : LocalizedString.SelectContactsToImport.localized // LocalizedString.ConnectWithGoogle.localized
                 
             default:
-                self.topNavView.navTitleLabel.text = LocalizedString.AllowContacts.localized
+                self.topNavView.navTitleLabel.text = "" //LocalizedString.AllowContacts.localized
             }
         }
         else {
