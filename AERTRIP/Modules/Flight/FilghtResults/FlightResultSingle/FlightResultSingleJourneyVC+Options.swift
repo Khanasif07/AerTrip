@@ -13,52 +13,63 @@ extension FlightResultSingleJourneyVC {
 
  func setPinnedFlightAt(_ flightKey: String , isPinned : Bool) {
     
-    guard let index = viewModel.results.journeyArray.firstIndex(where: {
-        
-        for journey in $0.journeyArray {
-            
-            if journey.fk == flightKey
-            {
-                return true
-            }
-        }
-        return false
-    }) else {
-        return
-    }
-        
-    let displayArray = viewModel.results.journeyArray[index]
     
+    var curJourneyArr = [JourneyOnewayDisplay]()
+           
+           if viewModel.resultTableState == .showRegularResults {
+               curJourneyArr = viewModel.results.suggestedJourneyArray
+           } else {
+               curJourneyArr = viewModel.results.allJourneys
+           }
+    
+    
+       guard let index = curJourneyArr.firstIndex(where: {
+                
+                for journey in $0.journeyArray {
+                    if journey.fk == flightKey {
+    //                   print("index...\(index)")
+                        return true
+                    }
+                }
+                return false
+            }) else {
+                return
+            }
+        
+    let displayArray = curJourneyArr[index]
+
     guard let journeyArrayIndex = displayArray.journeyArray.firstIndex(where : {
-        $0.fk == flightKey
-    }) else {
-        return
-    }
+               $0.fk == flightKey
+           }) else {
+               return
+           }
     
     displayArray.journeyArray[journeyArrayIndex].isPinned = isPinned
-    viewModel.results.journeyArray[index] = displayArray
-    
+    curJourneyArr[index] = displayArray
     
     if isPinned {
-        self.viewModel.results.pinnedFlights.append(displayArray.journeyArray[journeyArrayIndex])
         showPinnedFlightsOption(true)
+    self.viewModel.results.currentPinnedJourneys.append(displayArray.journeyArray[journeyArrayIndex])
     }
     else {
-        for i in 0..<self.viewModel.results.pinnedFlights.count{
-            if self.viewModel.results.pinnedFlights[i].fk == flightKey{
-                self.viewModel.results.pinnedFlights.remove(at: i)
-            }
-        }
-
-        let containesPinnedFlight = viewModel.results.journeyArray.reduce(viewModel.results.journeyArray[0].containsPinnedFlight) { $0 || $1.containsPinnedFlight }
+       
+       let containesPinnedFlight = viewModel.results.allJourneys.reduce(curJourneyArr[0].containsPinnedFlight) { $0 || $1.containsPinnedFlight }
         showPinnedFlightsOption(containesPinnedFlight)
         
         if !containesPinnedFlight {
-            viewModel.resultTableState = stateBeforePinnedFlight
+           viewModel.resultTableState = stateBeforePinnedFlight
             hidePinnedFlightOptions(true)
             showPinnedSwitch.isOn = false
         }
+       
+       if let index = self.viewModel.results.currentPinnedJourneys.firstIndex(where: { (obj) -> Bool in
+           obj.id == displayArray.journeyArray[journeyArrayIndex].id
+       }){
+           self.viewModel.results.currentPinnedJourneys.remove(at: index)
+       }
     }
+    
+    self.viewModel.setPinnedFlights()
     self.resultsTableView.reloadData()
     showFooterView()
     
@@ -177,13 +188,8 @@ func showPinnedFlightsOption(_ show  : Bool)
     func makeMenusFor(journey : Journey? ,  fk: String? , markPinned : Bool) -> UIMenu
     {
         if let currentJourney = journey {
-            let pinTitle : String
-            if markPinned {
-                pinTitle = "Pin"
-            }
-            else {
-                pinTitle = "Unpin"
-            }
+         let pinTitle : String
+        pinTitle = markPinned ? "Pin" : "Unpin"
             
             let pin = UIAction(title:  pinTitle , image: UIImage(systemName: "pin" ), identifier: nil) { (action) in
                 guard let flightKey = fk else {
@@ -211,7 +217,7 @@ func showPinnedFlightsOption(_ show  : Bool)
     }
     
      func performUnpinnedAllAction() {
-        for i in 0 ..< viewModel.results.journeyArray.count {
+        for i in 0 ..< viewModel.results.allJourneys.count {
             
             let journeyGroup = viewModel.results.journeyArray[i]
             let newJourneyGroup = journeyGroup
@@ -227,11 +233,9 @@ func showPinnedFlightsOption(_ show  : Bool)
         showPinnedSwitch.isOn = false
         hidePinnedFlightOptions(true)
         viewModel.resultTableState = stateBeforePinnedFlight
-        
         showPinnedFlightsOption(false)
         resultsTableView.reloadData()
         showFooterView()
-        
         resultsTableView.setContentOffset(.zero, animated: true)
     }
     

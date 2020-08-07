@@ -102,11 +102,12 @@ class FlightResultSingleJourneyVM {
                   let secondObjDepartureTime = obj2.leg[self.prevLegIndex].dt
                   
                   if isConditionReverced {
-                      
-                      return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
-                      
-                  }else{
+                    
                       return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) > self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+                      
+                  } else {
+                    
+                    return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
                       
                   }
               })
@@ -123,9 +124,9 @@ class FlightResultSingleJourneyVM {
                   let secondObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: secondObjDepartureTime)
                   
                   if isConditionReverced {
-                      return firstObjTimeInterval < secondObjTimeInterval
+                    return firstObjTimeInterval > secondObjTimeInterval
                   }else{
-                      return firstObjTimeInterval > secondObjTimeInterval
+                    return firstObjTimeInterval < secondObjTimeInterval
                   }
               })
               

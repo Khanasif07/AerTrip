@@ -87,8 +87,10 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
         if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "SingleJourneyResultTableViewCell") as? SingleJourneyResultTableViewCell{
             
             if #available(iOS 13, *) {
-                let interaction = UIContextMenuInteraction(delegate: self)
-                cell.baseView.addInteraction(interaction)
+                if cell.baseView.interactions.isEmpty{
+                    let interaction = UIContextMenuInteraction(delegate: self)
+                    cell.baseView.addInteraction(interaction)
+                }
             }
             
             cell.selectionStyle = .none

@@ -50,11 +50,8 @@ class IntMCAndReturnVC : UIViewController {
 //    var isConditionReverced = false
 //    var prevLegIndex = 0
     private var noResultScreen : NoResultsScreenViewController?
-    
     let viewModel = IntMCAndReturnVM()
-    
     var previousRequest : DispatchWorkItem?
-    
     var updateResultWorkItem: DispatchWorkItem?
 
     
