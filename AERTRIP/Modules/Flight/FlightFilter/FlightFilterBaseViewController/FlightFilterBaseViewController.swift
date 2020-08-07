@@ -266,8 +266,7 @@ class FlightFilterBaseViewController: UIViewController
                 }
             case QualityFilterViewController.className :
                 if let qualityFilterVC = viewController as? QualityFilterViewController {
-                    setQualityFilterVC(qualityFilterVC)
-                    qualityFilterVC.updateUIPostLatestResults()
+                    updateQualityFilter(qualityFilterVC)
                 }
             default:
                 print("Switch case missing for " + VCclass)
@@ -759,6 +758,38 @@ class FlightFilterBaseViewController: UIViewController
         }
         
         qualityViewController.qualityFilterArray = qualityFilterArray
+    }
+    
+    private func updateQualityFilter(_ qualityViewController : QualityFilterViewController) {
+        
+        guard let flightQuality = inputFilters?.first?.fq else { return }
+        
+        for ( key , value ) in flightQuality {
+            
+            var filterToAdd = UIFilters.refundableFares
+            for filter in UIFilters.allCases {
+                
+                if filter.title == value {
+                    filterToAdd = filter
+                    break
+                }
+            }
+            
+            // Longer and expensive flights as filter will not added as quality filter
+            if filterToAdd == UIFilters.hideLongerOrExpensive {
+                continue
+            }
+            
+            assert(filterToAdd != .refundableFares, "Quailty Filter title and UIFilter Title did not match for " + value )
+            let filter = QualityFilter(name: value, filterKey: key, isSelected: false, filterID: filterToAdd)
+            
+            if qualityViewController.qualityFilterArray.contains(where: { $0.filterID == filter.filterID }) {
+                
+            } else {
+                qualityViewController.qualityFilterArray.append(filter)
+            }
+        }
+        qualityViewController.updateUIPostLatestResults()
     }
 }
 
