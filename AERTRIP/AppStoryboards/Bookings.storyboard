@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -889,6 +889,10 @@ with us!</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="got-SJ-hpU" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="117.5" width="414" height="728.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8a9-js-Ay6" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -915,10 +919,6 @@ with us!</string>
                                     <constraint firstAttribute="height" constant="30" id="y9E-1K-pAh"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="got-SJ-hpU" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="118" width="414" height="728"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="W9P-10-Q6e">
                                 <rect key="frame" x="0.0" y="88" width="414" height="2"/>
                                 <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -986,7 +986,7 @@ with us!</string>
                             <constraint firstItem="M3B-FY-Udb" firstAttribute="top" secondItem="got-SJ-hpU" secondAttribute="bottom" id="S8H-pK-X8O"/>
                             <constraint firstItem="gmJ-gX-dhB" firstAttribute="trailing" secondItem="VHX-sa-ouH" secondAttribute="trailing" id="V6h-18-QbA"/>
                             <constraint firstItem="W9P-10-Q6e" firstAttribute="top" secondItem="8a9-js-Ay6" secondAttribute="bottom" id="VSb-iZ-dnu"/>
-                            <constraint firstItem="got-SJ-hpU" firstAttribute="top" secondItem="gmJ-gX-dhB" secondAttribute="bottom" id="cjA-oJ-oU7"/>
+                            <constraint firstItem="got-SJ-hpU" firstAttribute="top" secondItem="gmJ-gX-dhB" secondAttribute="bottom" constant="-0.5" id="cjA-oJ-oU7"/>
                             <constraint firstItem="VHX-sa-ouH" firstAttribute="trailing" secondItem="8a9-js-Ay6" secondAttribute="trailing" id="clD-d2-yLs"/>
                             <constraint firstItem="W9P-10-Q6e" firstAttribute="leading" secondItem="Tzy-KJ-qp9" secondAttribute="leading" id="i24-gq-g9S"/>
                             <constraint firstItem="gmJ-gX-dhB" firstAttribute="leading" secondItem="VHX-sa-ouH" secondAttribute="leading" id="qtF-1P-MUe"/>

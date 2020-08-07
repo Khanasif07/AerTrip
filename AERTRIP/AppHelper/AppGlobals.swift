@@ -673,7 +673,9 @@ extension AppGlobals {
                             AppGlobals.shared.stopLoading()
                         }
                     }
-                    complition?(true)
+                    delay(seconds: 1.5) {
+                        complition?(true)
+                    }
                 }
             }
         }

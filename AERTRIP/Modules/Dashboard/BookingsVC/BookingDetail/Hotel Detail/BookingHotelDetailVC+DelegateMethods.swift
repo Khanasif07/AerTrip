@@ -222,19 +222,13 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
 
 extension BookingHotelDetailVC: HotelDetailsImgSlideCellDelegate, ImageDeletionDelegate{
     func hotelImageTapAction(at index: Int) {
-        // open gallery with show image at index
-        //        let indexPath = IndexPath(row: 0, section: 0)
-        //        guard let cell = self.hotelDetailTableView.cellForRow(at: indexPath) as? HotelDetailsImgSlideCell else { return }
-        //        if let topVC = UIApplication.topViewController() {
-        //            ATGalleryViewController.show(onViewController: topVC, sourceView: cell.imageCollectionView, startShowingFrom: index, datasource: self, delegate: self)
-        //        }
-        
-        
-        if let images = self.viewModel.bookingDetail?.bookingDetail?.photos {
+        if let bookingDetails = self.viewModel.bookingDetail?.bookingDetail,  let _ = bookingDetails.atImageData.first(where: {$0.image != nil}){
             let gVC = PhotoGalleryVC.instantiate(fromAppStoryboard: .Dashboard)
             gVC.parentVC = self
-            gVC.imageNames = images
+            gVC.imageNames = bookingDetails.photos
             gVC.startShowingFrom = index
+            gVC.isTAAvailable = !(self.viewModel.bookingDetail?.bookingDetail?.taLocationID.isEmpty ?? true)
+            gVC.hid = bookingDetails.hotelId
             self.present(gVC, animated: true, completion: nil)
         }
     }

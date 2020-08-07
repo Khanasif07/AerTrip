@@ -433,7 +433,7 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         bookingRouteCell.configure(title: self.viewModel.caseHistory?.caseName ?? LocalizedString.dash.localized, detail: self.viewModel.caseHistory?.caseNumber ?? LocalizedString.dash.localized)
-        
+        bookingRouteCell.dividerView.isHidden = false
         return bookingRouteCell
     }
     

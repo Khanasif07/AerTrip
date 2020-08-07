@@ -277,6 +277,7 @@ extension FlightBookingsDetailsVC {
             tripChangeCell.configureCell(tripName: self.viewModel.bookingDetail?.tripInfo?.name ?? "")
         }
         tripChangeCell.hideBottomSpace = self.viewModel.bookingDetail?.tripWeatherData.isEmpty ?? true
+        tripChangeCell.cellHeightConstraints.constant = tripChangeCell.hideBottomSpace ? 82.0 : 101.0
         return tripChangeCell
     }
     
