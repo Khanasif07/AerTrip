@@ -72,7 +72,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-            if indexPath.row == 0 && (indexPath.section - 1) != 0{
+            if indexPath.row == 0 {//&& (indexPath.section - 1) != 0
                 return 36.0
             }else if indexPath.row == 0 && isForVouchre{
                 return 36.0
@@ -314,7 +314,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         if title == "Balance" || title == "Amount" || title == "Total Amount"  || title == "Pending Amount"{
-            let val = (description.toDouble ?? 0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
+            let val = (description.toDouble ?? 0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
             cell.configureCellWithAttributedText(title: title, description: val)
         }else{
             cell.configure(title: title, description: description, age: age)

@@ -354,6 +354,7 @@ enum APIKeys: String {
     case ptype
     case zip
     case telephone = "tel"
+    case phone
     case total_usage_limit
     case per_user_usage_limit
     case is_payment_method_mapped
