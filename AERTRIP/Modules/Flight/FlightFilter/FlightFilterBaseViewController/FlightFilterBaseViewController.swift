@@ -465,7 +465,7 @@ class FlightFilterBaseViewController: UIViewController
             
             guard let tripTimeMaxDuration = tripTime.maxTime else { continue }
             duration = (tripTimeMaxDuration as NSString).floatValue
-            let tripMax = CGFloat( round(duration / 3600.0))
+            let tripMax = CGFloat( ceil(duration / 3600.0))
             
             
             // tripDurationMax is set to 0.0 value initially, whenever tripMax is more than tripDurationMax , tripMax is assigned to tripDurationMax
@@ -488,7 +488,7 @@ class FlightFilterBaseViewController: UIViewController
             
             guard let layoverMaxString = layoverTime?.maxTime else { continue }
             duration = ( layoverMaxString as NSString).floatValue
-            let layoverMax = CGFloat( round(duration / 3600.0))
+            let layoverMax = CGFloat( ceil(duration / 3600.0))
             
             // layoverMaxDuration is set to 0.0 value initially, whenever layoverMax is more than layoverMaxDuration , layoverMax is assigned to layoverMaxDuration
             // This logic works for first loop as well as in second iteration if layoverMax is more than layoverMax.
@@ -501,6 +501,92 @@ class FlightFilterBaseViewController: UIViewController
         let durationFilter = DurationFilter(leg: legList[0], tripMin: tripDurationMin, tripMax: tripDurationMax, layoverMin: layoverDurationMin, layoverMax: layoverMaxDuration,layoverMinTimeFormat:"")
         
         return durationFilter
+    }
+    
+    private func updateDurationFilterForReturnJourney(_ durationViewController : FlightDurationFilterViewController, inputFilters : [FiltersWS]) {
+        
+        var tripDurationMin : CGFloat  = CGFloat.greatestFiniteMagnitude
+        var tripDurationMax : CGFloat = 0.0
+        
+        var layoverDurationMin : CGFloat = CGFloat.greatestFiniteMagnitude
+        var layoverMaxDuration : CGFloat = 0.0
+        
+        
+        for filter in inputFilters {
+            
+            let tripTime = filter.tt
+            let layoverTime = filter.lott
+            var duration : Float
+            
+            guard let tripTimeMinDuration = tripTime.minTime else { continue }
+            duration = (tripTimeMinDuration as NSString).floatValue
+            let tripMin = CGFloat( floor(duration / 3600.0 ))
+            
+            
+            // tripDurationMinDuration is set to max value initially, whenever tripMinDuration is less than tripDurationMinDuration , tripMinDuration is assigned to tripDurationMinDuration
+            // This logic works for first loop as well as in second iteration if tripMinDuration is less than tripDurationMinDuration.
+            if tripMin < tripDurationMin {
+                tripDurationMin = tripMin
+            }
+            
+            guard let tripTimeMaxDuration = tripTime.maxTime else { continue }
+            duration = (tripTimeMaxDuration as NSString).floatValue
+            let tripMax = CGFloat( ceil(duration / 3600.0))
+            
+            
+            // tripDurationMax is set to 0.0 value initially, whenever tripMax is more than tripDurationMax , tripMax is assigned to tripDurationMax
+            // This logic works for first loop as well as in second iteration if tripMax is more than tripDurationMax.
+            
+            if tripDurationMax < tripMax {
+                tripDurationMax = tripMax
+            }
+            
+            guard let layoverMinDuration = layoverTime?.minTime else { continue }
+            duration = ( layoverMinDuration as NSString).floatValue
+            let layoverMin = CGFloat(floor( duration / 3600.0 ))
+            
+            // layoverDurationMinDuration is set to max value initially, whenever layoverMin is less than layoverDurationMinDuration , layoverMin is assigned to layoverDurationMinDuration
+            // This logic works for first loop as well as in second iteration if layoverMin is less than layoverDurationMinDuration.
+            
+            if layoverMin < layoverDurationMin {
+                layoverDurationMin = layoverMin
+            }
+            
+            guard let layoverMaxString = layoverTime?.maxTime else { continue }
+            duration = ( layoverMaxString as NSString).floatValue
+            let layoverMax = CGFloat( ceil(duration / 3600.0))
+            
+            // layoverMaxDuration is set to 0.0 value initially, whenever layoverMax is more than layoverMaxDuration , layoverMax is assigned to layoverMaxDuration
+            // This logic works for first loop as well as in second iteration if layoverMax is more than layoverMax.
+            
+            if layoverMaxDuration < layoverMax {
+                layoverMaxDuration = layoverMax
+            }
+        }
+        
+        let durationFilter = DurationFilter(leg: legList[0], tripMin: tripDurationMin, tripMax: tripDurationMax, layoverMin: layoverDurationMin, layoverMax: layoverMaxDuration,layoverMinTimeFormat:"")
+        
+        
+        if let userFilters = userAppliedFilters, userFilters.appliedFilters[0].contains(.Duration) {
+            
+            if userFilters.appliedSubFilters[0].contains(.tripDuration) {
+                durationViewController.durationFilters[0].tripDurationMinDuration = tripDurationMin
+                durationViewController.durationFilters[0].tripDurationmaxDuration = tripDurationMax
+            }
+            
+            if userFilters.appliedSubFilters[0].contains(.layoverDuration) {
+                durationViewController.durationFilters[0].layoverMinDuration = layoverDurationMin
+                durationViewController.durationFilters[0].layoverMaxDuration = layoverMaxDuration
+            }
+            
+        } else {
+            durationViewController.durationFilters = [durationFilter]
+        }
+        
+    }
+    
+    private func updateDurationFilter(_ durationViewController : FlightDurationFilterViewController , inputFilters : [FiltersWS]) {
+        
     }
     
     func setDurationVC(_ durationViewController : FlightDurationFilterViewController , inputFilters : [FiltersWS])

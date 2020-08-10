@@ -79,7 +79,9 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     func updateFiltersFromAPI() {
         currentTimerFilter = multiLegTimerFilter[currentActiveIndex]
         UIView.animate(withDuration: 0.3) {
-            self.setUIValues()
+            self.setDepartureSliderValues()
+            self.setArrivalSliderValues(userSelected: false)
+            self.setArrivalSliderValues(userSelected: true)
             self.view.layoutIfNeeded()
         }
     }
