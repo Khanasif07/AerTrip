@@ -16,6 +16,7 @@ class TripChangeTableViewCell: ATTableViewCell {
     @IBOutlet weak var tripNameLabel: UILabel!
     @IBOutlet weak var changeButton: UIButton!
     @IBOutlet weak var viewBottomContraint: NSLayoutConstraint!
+    @IBOutlet weak var cellHeightConstraints: NSLayoutConstraint!
     
     var hideBottomSpace = false {
         didSet {

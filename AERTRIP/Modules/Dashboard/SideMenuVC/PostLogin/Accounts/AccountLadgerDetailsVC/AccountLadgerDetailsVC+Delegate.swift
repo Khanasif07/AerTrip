@@ -23,17 +23,6 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return 3
         }
         return self.viewModel.sectionArray[section - 1].count
-
-//
-//        guard let dict = self.viewModel.ladgerDetails["\(section - 1)"] as? JSONDictionary else {
-//            return 0
-//        }
-//
-//        if !dict.isEmpty {
-//            //extra 1 is for divider
-//            return dict.keys.count + 1
-//        }
-//        return 0
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return CGFloat.leastNormalMagnitude
@@ -295,6 +284,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                             cell.showLoader = true
                         }
                         AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Receipt Voucher", showLoader: false, complition: { [weak self] (status) in
+                            
                             self?.viewModel.isDownloadingRecipt = false
                             self?.tableView.reloadRow(at: indexPath, with: .automatic)
                         })

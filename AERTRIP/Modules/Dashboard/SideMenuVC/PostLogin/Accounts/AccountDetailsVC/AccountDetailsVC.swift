@@ -27,6 +27,7 @@ class AccountDetailsVC: BaseVC {
     @IBOutlet weak var balanceContainerView: UIView!
     @IBOutlet weak var balanceTextLabel: UILabel!
     @IBOutlet weak var balanceAmountLabel: UILabel!
+    @IBOutlet weak var balanceContainerDivider: ATDividerView!
     @IBOutlet weak var tableView: ATTableView!
     @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var blankSpaceView: UIView!
@@ -114,6 +115,9 @@ class AccountDetailsVC: BaseVC {
         
         if let usr = UserInfo.loggedInUser, usr.userCreditType == .regular {
             self.viewModel.getAccountDetails()
+            self.balanceContainerDivider.isHidden = false
+        }else{
+            self.balanceContainerDivider.isHidden = true
         }
         
         self.searchDataContainerView.backgroundColor = AppColors.clear

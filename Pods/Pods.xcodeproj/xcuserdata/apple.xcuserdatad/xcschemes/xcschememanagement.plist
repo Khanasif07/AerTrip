@@ -63,7 +63,7 @@
 		<key>AppAuth.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>18</integer>
+			<integer>17</integer>
 		</dict>
 		<key>AvailableHapticFeedback.xcscheme</key>
 		<dict>
@@ -73,7 +73,7 @@
 		<key>AvailableHapticFeedback.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>19</integer>
+			<integer>18</integer>
 		</dict>
 		<key>Bolts.xcscheme</key>
 		<dict>
@@ -90,12 +90,12 @@
 		<key>Crashlytics.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>20</integer>
+			<integer>19</integer>
 		</dict>
 		<key>FBRetainCycleDetector.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>22</integer>
+			<integer>21</integer>
 		</dict>
 		<key>FBSDKCoreKit.xcscheme</key>
 		<dict>
@@ -114,7 +114,7 @@
 		<key>FBSDKShareKit.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>23</integer>
+			<integer>22</integer>
 		</dict>
 		<key>FSCalendar.xcscheme</key>
 		<dict>
@@ -134,7 +134,7 @@
 		<key>Fabric.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>21</integer>
+			<integer>20</integer>
 		</dict>
 		<key>Firebase.xcscheme</key>
 		<dict>
@@ -144,7 +144,7 @@
 		<key>Firebase.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>17</integer>
+			<integer>23</integer>
 		</dict>
 		<key>FirebaseAnalytics.xcscheme</key>
 		<dict>
