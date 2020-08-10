@@ -262,8 +262,9 @@ class FlightFilterBaseViewController: UIViewController
                 }
             case AirportsFilterViewController.className :
                 if let airportFilter = viewController as? AirportsFilterViewController {
-                    setAirportVC(airportFilter , inputFilters : filters)
-                    airportFilter.updateUIPostLatestResults()
+                    updateAirportVC(airportFilter, inputFilters: filters)
+//                    setAirportVC(airportFilter , inputFilters : filters)
+//                    airportFilter.updateUIPostLatestResults()
                 }
             case QualityFilterViewController.className :
                 if let qualityFilterVC = viewController as? QualityFilterViewController {
@@ -899,6 +900,156 @@ class FlightFilterBaseViewController: UIViewController
         airportViewController.currentAirportFilter = airportLegFilters[0]
         airportViewController.delegate = delegate as? AirportFilterDelegate
         airportViewController.searchType = self.searchType
+    }
+    
+    func updateAirportVC(_ airportViewController : AirportsFilterViewController , inputFilters : [FiltersWS])
+    {
+        
+        for index in 0 ..< inputFilters.count {
+            
+            let filter = inputFilters[index]
+            let airports = filter.cityapN
+            
+            let airportsDetails = flightResultArray[index].apdet
+            
+            let fromAirports = airports.fr
+            let toAirports = airports.to
+            
+            var originAirports = [AirportsGroupedByCity]()
+            var destinationAirports = [AirportsGroupedByCity]()
+            var layoverAirportsDisplayModelArray = [LayoverDisplayModel]()
+            
+            for city in fromAirports {
+                
+                let airportCodes = city.value
+                
+                var airportsArray = [Airport]()
+                var cityName = city.key
+                for airportcode in airportCodes {
+                    
+                    let airport = airportsDetails[airportcode]
+                    
+                    let name = airport?.n
+                    guard let airportCity = airport?.c else { continue }
+                    cityName = airportCity
+                    let airportCode = airportcode
+                    
+                    let displayModel = Airport(name : name!, IATACode:airportCode, city: airportCity )
+                    airportsArray.append(displayModel)
+                }
+                originAirports.append( AirportsGroupedByCity(name: cityName, airports: airportsArray))
+            }
+            
+            for city in toAirports {
+                
+                let airportCodes = city.value
+                
+                var airportsArray = [Airport]()
+                var cityName = city.key
+                for airportcode in airportCodes {
+                    
+                    if  let airport = airportsDetails[airportcode] {
+                        
+                        let name = airport.n
+                        let city = airport.c
+                        cityName = city!
+                        let airportCode = airportcode
+                        
+                        let displayModel = Airport(name : name!, IATACode:airportCode, city: city! )
+                        airportsArray.append(displayModel)
+                    }
+                }
+                destinationAirports.append( AirportsGroupedByCity(name: cityName, airports: airportsArray))
+            }
+            
+            let layoverAirportsCode = filter.loap
+            
+            var country : String
+            for layoverAirport in  layoverAirportsCode {
+                
+                if let airport = airportsDetails[layoverAirport] {
+                    let name = airport.n
+                    country = airport.cname!
+                    let city = airport.c
+                    let airportCode = layoverAirport
+                    
+                    var layouverAirportsArray = [Airport]()
+                    let displayModel = Airport(name : name!, IATACode:airportCode, city: city! )
+                    layouverAirportsArray.append(displayModel)
+                    let layoverDisplayModel =  LayoverDisplayModel(country: country, airports:layouverAirportsArray)
+                    
+                    if layoverAirportsDisplayModelArray.count > 0 {
+                        
+                        if let row = layoverAirportsDisplayModelArray.firstIndex(where: {$0.country == country}) {
+                            
+                            var airportsArray =  layoverAirportsDisplayModelArray[row].airports
+                            airportsArray.append(displayModel)
+                            
+                            airportsArray = airportsArray.sorted(by: { $0.IATACode < $1.IATACode })
+                            layoverAirportsDisplayModelArray[row] = LayoverDisplayModel(country: country, airports:airportsArray)
+                        }
+                        else {
+                            layoverAirportsDisplayModelArray.append(layoverDisplayModel)
+                        }
+                    }
+                    else {
+                        layoverAirportsDisplayModelArray.append(layoverDisplayModel)
+                    }
+                }
+            }
+            
+            layoverAirportsDisplayModelArray = layoverAirportsDisplayModelArray.sorted(by: { $0.country < $1.country })
+            
+            let leg = legList[index]
+            var airportLegFilter =  AirportLegFilter(leg:leg, originCities: originAirports, destinationCities: destinationAirports, layoverCities: layoverAirportsDisplayModelArray)
+            
+            if let userFilters = userAppliedFilters, userFilters.appliedFilters[index].contains(.Airport) {
+                let curAiportFilter = airportViewController.airportFilterArray[index]
+                let selectedAirports = curAiportFilter.allSelectedAirports
+
+                airportLegFilter.originCities = airportLegFilter.originCities.map { (city) in
+                    var newCity = city
+                    newCity.airports = newCity.airports.map({ (airport) in
+                        var newAirport = airport
+                        if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
+                            newAirport.isSelected = true
+                        }
+                        return newAirport
+                    })
+                    return newCity
+                }
+                
+                airportLegFilter.destinationCities = airportLegFilter.destinationCities.map { (city) in
+                    var newCity = city
+                    newCity.airports = newCity.airports.map({ (airport) in
+                        var newAirport = airport
+                        if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
+                            newAirport.isSelected = true
+                        }
+                        return newAirport
+                    })
+                    return newCity
+                }
+                
+                airportLegFilter.layoverCities = airportLegFilter.layoverCities.map { (city) in
+                    var newCity = city
+                    newCity.airports = newCity.airports.map({ (airport) in
+                        var newAirport = airport
+                        if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
+                            newAirport.isSelected = true
+                        }
+                        return newAirport
+                    })
+                    return newCity
+                }
+                
+                airportViewController.airportFilterArray[index] = airportLegFilter
+                
+            } else {
+                airportViewController.airportFilterArray[index] = airportLegFilter
+            }
+            airportViewController.initialSetup()
+        }
     }
     
     //MARK:- Quality
