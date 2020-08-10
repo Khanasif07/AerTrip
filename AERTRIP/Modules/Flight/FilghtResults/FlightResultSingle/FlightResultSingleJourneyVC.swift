@@ -164,7 +164,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         self.viewModel.sortOrder = sortOrder
         self.viewModel.isConditionReverced = isConditionReverced
         self.viewModel.prevLegIndex = legIndex
-//        self.flightSearchResultVM.setPinnedFlights(shouldApplySorting: true)
+        self.viewModel.setPinnedFlights(shouldApplySorting: true)
         self.viewModel.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex)
        
             let newRequest = DispatchWorkItem {
@@ -180,13 +180,15 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     func updateWithArray(_ results : [Journey] , sortOrder: Sort ) {
         
-        var modifiedResult = results
 
         if viewModel.resultTableState == .showTemplateResults {
                 viewModel.resultTableState = .showRegularResults
         }
+        
+        let modifiedResult = results
+
                
-        for j in results{
+        for j in modifiedResult{
                   let flightNum = j.leg.first!.flights.first!.al + j.leg.first!.flights.first!.fn
                   if flightNum.uppercased() == airlineCode.uppercased(){
                       j.isPinned = true
@@ -210,23 +212,18 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                        }
             
             let groupedArray =   self.viewModel.getOnewayDisplayArray(results: modifiedResult)
-            
-           
-            
             self.viewModel.results.journeyArray = groupedArray
             self.sortedArray = Array(self.viewModel.results.sortedArray)
-//            self.flightSearchResultVM.setPinnedFlights(shouldApplySorting: true)
+            self.viewModel.setPinnedFlights(shouldApplySorting: true)
             
             
             self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: self.viewModel.prevLegIndex, completion: {
                 DispatchQueue.main.async {
                     self.animateTableHeader()
                     
-                    if self.viewModel.resultTableState == .showPinnedFlights{
-                        self.resultsTableView.tableFooterView = nil
-                    }
-                    
-                    if self.viewModel.results.suggestedJourneyArray.isEmpty {
+                    if (self.viewModel.resultTableState == .showPinnedFlights) ||
+                        (self.viewModel.results.suggestedJourneyArray.isEmpty) ||
+                        (self.viewModel.results.suggestedJourneyArray.count == self.viewModel.results.journeyArray.count) {
                         self.resultsTableView.tableFooterView = nil
                     }
                     
@@ -506,6 +503,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             }
         }
         else {
+            
             viewModel.resultTableState = stateBeforePinnedFlight
             showFooterView()
         }
@@ -581,7 +579,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     
     //MARK:- Additional Tableview methods
-    
     func setImageto( imageView : UIImageView , url : String , index : Int ) {
         if let image = resultsTableView.resourceFor(urlPath: url , forView: index) {
             
