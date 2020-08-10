@@ -177,6 +177,26 @@ extension LinkedAccountsVM {
         })
  */
     }
+    
+    func appleLogin(vc: UIViewController, completionBlock: ((_ success: Bool)->())? )  {
+        AppleLoginController.shared.login(success: { (model :  AppleUser) in
+            //            let message = "Apple Login Succes.\nUser Name: \(model.fullName)\nEmail: \(model.email)\nUser id: \(model.id)"
+            //            AppToast.default.showToastMessage(message: message)
+            //
+            
+            self.userData.authKey        = ""//model.accessToken
+            self.userData.firstName       = model.firstName
+            self.userData.lastName        = model.lastName
+            self.userData.email          = model.email
+            self.userData.service         = "apple_oauth2"
+            self.userData.id            = model.id
+            completionBlock?(true)
+            
+            //self.webserviceForSocialLogin()
+        }) { (error) in
+            completionBlock?(false)
+        }
+    }
 }
 
 //MARK:- Extension Webservices

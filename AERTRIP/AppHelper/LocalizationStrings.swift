@@ -31,7 +31,8 @@ enum LocalizedString: String {
     case apply = "Apply"
     case For
     case Already
-    
+    case ALL
+
     // MARK: - TextField validation
     
     // MARK: -
@@ -351,6 +352,7 @@ enum LocalizedString: String {
     case Contacts
     case Google
     case LinkedIn
+    case Apple
     case ImportContactMessage
     case ImportFacebookMessage
     case ImportGoogleMessage
@@ -361,6 +363,7 @@ enum LocalizedString: String {
     case ConnectWithFB
     case ConnectWithLinkedIn
     case ContactsSelected
+    case ContactSelected
     case NoContactsFetched
     case SelectContactsToImport
     
@@ -615,6 +618,7 @@ enum LocalizedString: String {
     case PanCard
     case EnterPanCardMessage
     case FirstLastNameCharacterLimitMessage
+    case TravelSafetyGuidelines
 
     
     // Hotel Checkout Coupons VC

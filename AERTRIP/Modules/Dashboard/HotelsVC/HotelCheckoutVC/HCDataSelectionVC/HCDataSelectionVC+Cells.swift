@@ -348,8 +348,34 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
         return attributedString
     }
 }
-
-
+//Travel Safety Guidelines
+class HCDataSelectionTravelSafetyCell: UITableViewCell {
+    // Mark:- IBOutlets
+    // Mark:-
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    // Mark:- LifeCycles
+    // Mark:-
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        selectionStyle = .none
+        configUI()
+    }
+    
+    // Mark:- Functions
+    // Mark:-
+    
+    private func configUI() {
+        titleLabel.font = AppFonts.SemiBold.withSize(16.0)
+        titleLabel.textColor = AppColors.themeBlack
+        titleLabel.text = LocalizedString.TravelSafetyGuidelines.localized
+        
+        
+    }
+    
+    
+}
 
 
 

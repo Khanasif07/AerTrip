@@ -173,22 +173,22 @@
                                     <rect key="frame" x="0.0" y="0.0" width="108.5" height="95"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="oeM-ip-nLv">
-                                            <rect key="frame" x="16" y="8" width="76.5" height="79"/>
+                                            <rect key="frame" x="16" y="4" width="76.5" height="87"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check-in" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="voi-Lg-hEa">
-                                                    <rect key="frame" x="0.0" y="0.0" width="76.5" height="26.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="76.5" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 Aug" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kts-eY-ONj">
-                                                    <rect key="frame" x="0.0" y="26.5" width="76.5" height="26"/>
+                                                    <rect key="frame" x="0.0" y="29" width="76.5" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tuesday" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9en-ck-icY">
-                                                    <rect key="frame" x="0.0" y="52.5" width="76.5" height="26.5"/>
+                                                    <rect key="frame" x="0.0" y="58" width="76.5" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -207,7 +207,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="oeM-ip-nLv" firstAttribute="centerY" secondItem="TW8-fS-wON" secondAttribute="centerY" id="EKK-Ef-XG4"/>
-                                        <constraint firstItem="oeM-ip-nLv" firstAttribute="top" secondItem="TW8-fS-wON" secondAttribute="top" constant="8" id="azY-ve-aDa"/>
+                                        <constraint firstItem="oeM-ip-nLv" firstAttribute="top" secondItem="TW8-fS-wON" secondAttribute="top" constant="4" id="azY-ve-aDa"/>
                                         <constraint firstItem="oeM-ip-nLv" firstAttribute="centerX" secondItem="TW8-fS-wON" secondAttribute="centerX" id="cw7-pe-efl"/>
                                         <constraint firstItem="oeM-ip-nLv" firstAttribute="leading" secondItem="TW8-fS-wON" secondAttribute="leading" constant="16" id="kGF-H5-h5r"/>
                                     </constraints>
@@ -216,22 +216,22 @@
                                     <rect key="frame" x="232" y="0.0" width="111" height="95"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1UD-hH-vzU">
-                                            <rect key="frame" x="16" y="8" width="79" height="79"/>
+                                            <rect key="frame" x="16" y="4" width="79" height="87"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Check-out" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5lj-uF-N7H">
-                                                    <rect key="frame" x="0.0" y="0.0" width="79" height="26.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="79" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 Sep" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zLb-Rh-lmO">
-                                                    <rect key="frame" x="0.0" y="26.5" width="79" height="26"/>
+                                                    <rect key="frame" x="0.0" y="29" width="79" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Tuesday" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iJW-E2-Isc">
-                                                    <rect key="frame" x="0.0" y="52.5" width="79" height="26.5"/>
+                                                    <rect key="frame" x="0.0" y="58" width="79" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -252,7 +252,7 @@
                                         <constraint firstAttribute="trailing" secondItem="1UD-hH-vzU" secondAttribute="trailing" constant="16" id="EGG-zl-sTz"/>
                                         <constraint firstItem="1UD-hH-vzU" firstAttribute="centerX" secondItem="h2N-mL-pXY" secondAttribute="centerX" id="Nag-sW-HSh"/>
                                         <constraint firstItem="1UD-hH-vzU" firstAttribute="centerY" secondItem="h2N-mL-pXY" secondAttribute="centerY" id="QZ8-oG-o9Z"/>
-                                        <constraint firstItem="1UD-hH-vzU" firstAttribute="top" secondItem="h2N-mL-pXY" secondAttribute="top" constant="8" id="mfN-ay-lmO"/>
+                                        <constraint firstItem="1UD-hH-vzU" firstAttribute="top" secondItem="h2N-mL-pXY" secondAttribute="top" constant="4" id="mfN-ay-lmO"/>
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6mW-C0-sfY">

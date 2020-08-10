@@ -37,14 +37,24 @@ class AddAddressTableViewCell: UITableViewCell {
     
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var bottomDivider: ATDividerView!
+    @IBOutlet weak var seperatorView: UIView!
+    @IBOutlet weak var seperatorDividerView: ATDividerView!
     
     // MARK: - Variables
     weak var delegate:AddAddressTableViewCellDelegate?
     
+    var hideSepratorView = false {
+        didSet {
+            self.mangeSeparatorView()
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
-      self.cellDividerView.defaultHeight = 1.0
+      //self.cellDividerView.defaultHeight = 1.0
+        hideSepratorView = true
+        seperatorView.backgroundColor = AppColors.greyO4
     }
     
     
@@ -86,6 +96,10 @@ class AddAddressTableViewCell: UITableViewCell {
         
     }
     
+    func mangeSeparatorView() {
+        seperatorView.isHidden = hideSepratorView
+        seperatorDividerView.isHidden = hideSepratorView
+    }
     
     @objc func addressTypeTapped(gesture: UITapGestureRecognizer) {
         if let idxPath = indexPath {

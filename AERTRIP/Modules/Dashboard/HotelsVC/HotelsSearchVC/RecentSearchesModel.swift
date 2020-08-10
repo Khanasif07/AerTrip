@@ -39,6 +39,8 @@ struct RecentSearchesModel {
     var lat: String = ""
     var lng: String = ""
     var type = ChatVM.RecentSearchFor.hotel
+    var search_nearby: Bool = false
+
     
     //Mark:- Initialization
     //=====================
@@ -58,7 +60,8 @@ struct RecentSearchesModel {
                 APIKeys.value.rawValue: self.totalNights,
                 APIKeys.value.rawValue: self.guestsValue,
                 APIKeys.added_on.rawValue: self.added_on,
-                APIKeys.time_ago.rawValue: self.time_ago]
+                APIKeys.time_ago.rawValue: self.time_ago,
+                APIKeys.search_nearby.rawValue: self.search_nearby]
     }
     
     init(json: JSONDictionary) {
@@ -135,6 +138,11 @@ struct RecentSearchesModel {
             if let filterData = obj[APIKeys.filter.rawValue] as? JSONDictionary {
                 self.filter = RecentSearchesFilter.filterData(json: filterData)
             }
+            
+            if let search_nearby = obj[APIKeys.search_nearby.rawValue] as? Bool {
+                self.search_nearby = search_nearby
+            }
+            
         }
     }
     

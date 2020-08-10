@@ -115,7 +115,7 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var switchGradientView: UIView!
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var blurViewHeightConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var headerBlurView: BlurView!
     // MARK: - Properties
     
     //    var container: NSPersistentContainer!
@@ -275,7 +275,7 @@ class HotelResultVC: BaseVC {
         searchBar.setTextField(color: UIColor(displayP3Red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
         self.setUpLongPressOnFilterButton()
         //addCustomBackgroundBlurView()
-        
+        headerBlurView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
     }
     
     override func viewDidAppear(_ animated: Bool) {

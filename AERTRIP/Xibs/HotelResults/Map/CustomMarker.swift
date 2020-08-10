@@ -114,6 +114,6 @@ class CustomMarker: UIView {
         priceView.layer.borderWidth = isSelected ? 0.0 : 1.0
         priceView.backgroundColor = isSelected ? (isFavourite ? AppColors.themeRed : AppColors.themeGreen) : AppColors.themeWhite
 
-        priceLabel.textColor = isSelected ? AppColors.themeWhite : (isFavourite ? AppColors.themeRed : AppColors.themeGreen)
+        priceLabel.textColor = isSelected ? AppColors.themeWhite : (isFavourite ? AppColors.themeRed : AppColors.themeGray60)
     }
 }

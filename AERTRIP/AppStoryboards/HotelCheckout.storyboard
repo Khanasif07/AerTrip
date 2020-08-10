@@ -237,6 +237,44 @@
                                             <outlet property="topConstraint" destination="f8L-aS-WBm" id="7iU-Ka-JR5"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HCDataSelectionTravelSafetyCell" rowHeight="90" id="m8B-fZ-6Ps" customClass="HCDataSelectionTravelSafetyCell" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="355" width="375" height="90"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="m8B-fZ-6Ps" id="YV6-5d-Okv">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Travel Safety icon" translatesAutoresizingMaskIntoConstraints="NO" id="DEf-5a-J1b">
+                                                    <rect key="frame" x="16" y="33" width="24" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="24" id="82N-ZY-ddf"/>
+                                                        <constraint firstAttribute="height" constant="24" id="yIZ-FB-3yM"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHc-d5-8wV">
+                                                    <rect key="frame" x="56" y="35" width="274" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightArrow" translatesAutoresizingMaskIntoConstraints="NO" id="7EJ-CK-nBP">
+                                                    <rect key="frame" x="330" y="23" width="40" height="44"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="7EJ-CK-nBP" firstAttribute="centerY" secondItem="YV6-5d-Okv" secondAttribute="centerY" id="9qz-10-ZgQ"/>
+                                                <constraint firstItem="DEf-5a-J1b" firstAttribute="centerY" secondItem="YV6-5d-Okv" secondAttribute="centerY" id="Otj-Gj-Sxy"/>
+                                                <constraint firstItem="mHc-d5-8wV" firstAttribute="leading" secondItem="DEf-5a-J1b" secondAttribute="trailing" constant="16" id="ZSM-Pd-vHC"/>
+                                                <constraint firstItem="mHc-d5-8wV" firstAttribute="centerY" secondItem="DEf-5a-J1b" secondAttribute="centerY" id="c5u-xS-AcJ"/>
+                                                <constraint firstItem="DEf-5a-J1b" firstAttribute="leading" secondItem="YV6-5d-Okv" secondAttribute="leading" constant="16" id="hyl-Ei-Dhj"/>
+                                                <constraint firstItem="7EJ-CK-nBP" firstAttribute="leading" secondItem="mHc-d5-8wV" secondAttribute="trailing" id="n9m-Tg-Yj6"/>
+                                                <constraint firstAttribute="trailing" secondItem="7EJ-CK-nBP" secondAttribute="trailing" constant="5" id="vaU-mB-PFS"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="mHc-d5-8wV" id="SBA-DW-Mz9"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bXX-Jv-Wqc" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
@@ -1937,6 +1975,7 @@ Incomplete</string>
         </scene>
     </scenes>
     <resources>
+        <image name="Travel Safety icon" width="24" height="24"/>
         <image name="add_icon" width="22" height="22"/>
         <image name="black_cross" width="24" height="24"/>
         <image name="emptyStateCoupon" width="192" height="104"/>

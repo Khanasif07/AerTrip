@@ -215,7 +215,7 @@ class ImportContactVC: BaseVC {
         }
         else {
             self.topNavView.firstRightButton.isEnabled = true
-            self.topNavView.navTitleLabel.text = "\(self.viewModel.totalSelectedContacts) \(LocalizedString.ContactsSelected.localized)"
+            self.topNavView.navTitleLabel.text = "\(self.viewModel.totalSelectedContacts) \(self.viewModel.totalSelectedContacts > 1 ? LocalizedString.ContactsSelected.localized : LocalizedString.ContactSelected.localized)"
         }
     }
     

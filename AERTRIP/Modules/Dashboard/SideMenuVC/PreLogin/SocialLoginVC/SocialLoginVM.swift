@@ -230,8 +230,8 @@ extension SocialLoginVM {
             if success {
                 
                 switch self.userData.service.lowercased() {
-                case "linkedin".lowercased():
-                    UserInfo.loggedInUser?.socialLoginType = LinkedAccount.SocialType.linkedin
+                    //                case "linkedin".lowercased():
+                    //                    UserInfo.loggedInUser?.socialLoginType = LinkedAccount.SocialType.linkedin
                     
                 case "google".lowercased():
                     UserInfo.loggedInUser?.socialLoginType = LinkedAccount.SocialType.google
@@ -239,6 +239,8 @@ extension SocialLoginVM {
                 case "facebook".lowercased():
                     UserInfo.loggedInUser?.socialLoginType = LinkedAccount.SocialType.facebook
                     
+                case "apple_oauth2".lowercased():
+                    UserInfo.loggedInUser?.socialLoginType = LinkedAccount.SocialType.apple
                 default:
                     UserInfo.loggedInUser?.socialLoginType = nil
                 }

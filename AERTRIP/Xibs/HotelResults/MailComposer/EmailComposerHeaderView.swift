@@ -107,7 +107,7 @@ class EmailComposerHeaderView: UIView {
         self.toLabel.font = AppFonts.Regular.withSize(14.0)
         self.messageLabel.font = AppFonts.Regular.withSize(14.0)
         self.sharedStatusLabel.font = AppFonts.Regular.withSize(30.0)
-        self.seeRatesButton.titleLabel?.font = AppFonts.Regular.withSize(16.0)
+        self.seeRatesButton.titleLabel?.font = AppFonts.SemiBold.withSize(16.0)
         self.checkOutMessageLabel.font = AppFonts.Italic.withSize(18.0)
         self.hotelResultLabel.font = AppFonts.Regular.withSize(18.0)
         // to Email Text View font
