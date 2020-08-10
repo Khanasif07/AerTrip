@@ -221,11 +221,9 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                 DispatchQueue.main.async {
                     self.animateTableHeader()
                     
-                    if self.viewModel.resultTableState == .showPinnedFlights{
-                        self.resultsTableView.tableFooterView = nil
-                    }
-                    
-                    if self.viewModel.results.suggestedJourneyArray.isEmpty {
+                    if (self.viewModel.resultTableState == .showPinnedFlights) ||
+                        (self.viewModel.results.suggestedJourneyArray.isEmpty) ||
+                        (self.viewModel.results.suggestedJourneyArray.count == self.viewModel.results.journeyArray.count) {
                         self.resultsTableView.tableFooterView = nil
                     }
                     
@@ -505,6 +503,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             }
         }
         else {
+            
             viewModel.resultTableState = stateBeforePinnedFlight
             showFooterView()
         }
@@ -580,7 +579,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     
     //MARK:- Additional Tableview methods
-    
     func setImageto( imageView : UIImageView , url : String , index : Int ) {
         if let image = resultsTableView.resourceFor(urlPath: url , forView: index) {
             

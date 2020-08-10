@@ -34,6 +34,7 @@ class FlightFilterBaseViewController: UIViewController
     var legList : [Leg]!
     var searchType : FlightSearchType!
     var flightResultArray : [FlightsResults]!
+    var userAppliedFilters: AppliedAndUIFilters?
     
     //MARK:- Computed Properties
     var selectedIndex  : Int! {
@@ -246,7 +247,7 @@ class FlightFilterBaseViewController: UIViewController
                 if let priceFilterVC = viewController as? PriceFilterViewController {
 //                    setPriceVC( priceFilterVC, inputFilters: filters)
                     updatePriceVC(priceFilterVC, inputFilters: filters)
-                    priceFilterVC.updateUIPostLatestResults()
+//                    priceFilterVC.updateUIPostLatestResults()
                 }
             case FlightDurationFilterViewController.className :
                 if let durationFilterVC = viewController as? FlightDurationFilterViewController {
@@ -265,8 +266,7 @@ class FlightFilterBaseViewController: UIViewController
                 }
             case QualityFilterViewController.className :
                 if let qualityFilterVC = viewController as? QualityFilterViewController {
-                    setQualityFilterVC(qualityFilterVC)
-                    qualityFilterVC.updateUIPostLatestResults()
+                    updateQualityFilter(qualityFilterVC)
                 }
             default:
                 print("Switch case missing for " + VCclass)
@@ -605,15 +605,14 @@ class FlightFilterBaseViewController: UIViewController
             userSelectedFareMinValue: CGFloat(newPriceWS.minPrice) ,
             userSelectedFareMaxValue: CGFloat(newPriceWS.maxPrice) )
             
-            if priceViewController.allPriceFilters.indices.contains(index) {
+            if let userFilters = userAppliedFilters, userFilters.appliedFilters[index].contains(.Price), priceViewController.allPriceFilters.indices.contains(index) {
                 priceViewController.allPriceFilters[index].inputFareMinValue = newPriceFilter.inputFareMinValue
                 
                 priceViewController.allPriceFilters[index].inputFareMaxVaule = newPriceFilter.inputFareMaxVaule
-                
             } else {
-                priceViewController.allPriceFilters.append(newPriceFilter)
-                
+                priceViewController.allPriceFilters[index] = newPriceFilter
             }
+            priceViewController.updateFiltersFromAPI()
         }
     }
     
@@ -759,6 +758,38 @@ class FlightFilterBaseViewController: UIViewController
         }
         
         qualityViewController.qualityFilterArray = qualityFilterArray
+    }
+    
+    private func updateQualityFilter(_ qualityViewController : QualityFilterViewController) {
+        
+        guard let flightQuality = inputFilters?.first?.fq else { return }
+        
+        for ( key , value ) in flightQuality {
+            
+            var filterToAdd = UIFilters.refundableFares
+            for filter in UIFilters.allCases {
+                
+                if filter.title == value {
+                    filterToAdd = filter
+                    break
+                }
+            }
+            
+            // Longer and expensive flights as filter will not added as quality filter
+            if filterToAdd == UIFilters.hideLongerOrExpensive {
+                continue
+            }
+            
+            assert(filterToAdd != .refundableFares, "Quailty Filter title and UIFilter Title did not match for " + value )
+            let filter = QualityFilter(name: value, filterKey: key, isSelected: false, filterID: filterToAdd)
+            
+            if qualityViewController.qualityFilterArray.contains(where: { $0.filterID == filter.filterID }) {
+                
+            } else {
+                qualityViewController.qualityFilterArray.append(filter)
+            }
+        }
+        qualityViewController.updateUIPostLatestResults()
     }
 }
 

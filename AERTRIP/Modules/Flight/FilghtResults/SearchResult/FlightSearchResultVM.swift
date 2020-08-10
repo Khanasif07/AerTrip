@@ -126,6 +126,15 @@ extension FlightResultViewModelDelegate {
         return resultsArray
     }
     
+    var flightLegsAppliedFilters: AppliedAndUIFilters {
+        var filters = AppliedAndUIFilters()
+        let appliedFilters = flightLegs.map { $0.appliedFilters }
+        let uiFilters = flightLegs.map { $0.UIFilters }
+        filters.appliedFilters = appliedFilters
+        filters.uiFilters = uiFilters
+        return filters
+    }
+    
     var intFlightResultArray : [IntMultiCityAndReturnWSResponse.Results] {
                 
         let resultsArray = intFlightLegs.map{ return $0.flightsResults }
@@ -498,4 +507,9 @@ extension FlightSearchResultVM {
     fileprivate func workingOnReceived( flightsArray: [IntMultiCityAndReturnWSResponse.Flight] , displayGroup : Int) {
         intFlightLegs[(displayGroup - 1)].workingOnReceived(flightsArray: flightsArray ,searchType : bookFlightObject.flightSearchType)
     }
+}
+
+struct AppliedAndUIFilters {
+    var uiFilters: [Set<UIFilters>] = []
+    var appliedFilters: [Set<Filters>] = []
 }

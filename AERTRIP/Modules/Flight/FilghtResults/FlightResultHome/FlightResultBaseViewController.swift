@@ -1039,8 +1039,8 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         
         if isAPIResponseUpdated {
             self.flightFilterVC?.flightResultArray = self.flightSearchResultVM.flightResultArray
+            flightFilterVC?.userAppliedFilters =  flightSearchResultVM.flightLegsAppliedFilters
             self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
-            
             
             self.intMCAndReturnFilterVC?.flightResultArray = self.flightSearchResultVM.intFlightResultArray
             self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)

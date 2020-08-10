@@ -223,9 +223,9 @@ class FlightResultSingleJourneyVM {
           }
           
           if self.resultTableState == .showExpensiveFlights{
-                  self.results.journeyArray = sortArray
+            self.results.journeyArray = sortArray
           }else{
-                  self.results.suggestedJourneyArray = sortArray
+            self.results.suggestedJourneyArray = sortArray
           }
       }
     
