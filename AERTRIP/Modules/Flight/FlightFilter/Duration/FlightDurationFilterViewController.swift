@@ -234,6 +234,15 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         
     }
     
+    
+    func updateFiltersFromAPI() {
+        currentDurationFilter = durationFilters[currentActiveIndex]
+        UIView.animate(withDuration: 0.3) {
+            self.setupTripDurationValues()
+            self.setupLayoutDurationValues()
+        }
+    }
+    
     func updateUIPostLatestResults() {
        resetFilter()
     }
