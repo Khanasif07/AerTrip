@@ -75,6 +75,15 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         initialSetup()
     }
     
+    /// Updates UI if data is coming and filters
+    func updateFiltersFromAPI() {
+        currentTimerFilter = multiLegTimerFilter[currentActiveIndex]
+        UIView.animate(withDuration: 0.3) {
+            self.setUIValues()
+            self.view.layoutIfNeeded()
+        }
+    }
+    
     //MARK:- Departure feature methods
     fileprivate func setDepartureLabelAttributedString() {
         let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Semibold", size: 14.0)! , NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR]

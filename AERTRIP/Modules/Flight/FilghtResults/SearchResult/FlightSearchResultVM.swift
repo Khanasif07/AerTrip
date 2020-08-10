@@ -130,8 +130,10 @@ extension FlightResultViewModelDelegate {
         var filters = AppliedAndUIFilters()
         let appliedFilters = flightLegs.map { $0.appliedFilters }
         let uiFilters = flightLegs.map { $0.UIFilters }
+        let appliedSubFilters = flightLegs.map { $0.appliedSubFilters }
         filters.appliedFilters = appliedFilters
         filters.uiFilters = uiFilters
+        filters.appliedSubFilters = appliedSubFilters
         return filters
     }
     
@@ -512,4 +514,5 @@ extension FlightSearchResultVM {
 struct AppliedAndUIFilters {
     var uiFilters: [Set<UIFilters>] = []
     var appliedFilters: [Set<Filters>] = []
+    var appliedSubFilters: [Set<FlightResultDisplayGroup.InitiatedFilters>] = []
 }

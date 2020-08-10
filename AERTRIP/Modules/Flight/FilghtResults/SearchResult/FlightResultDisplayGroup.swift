@@ -10,8 +10,8 @@ import UIKit
 
 class FlightResultDisplayGroup {
     
-    // Only for checking if user has initiated application of filter
-    // For filters with multiple checks only
+    /// Only for checking if user has initiated application of filter
+    /// For filters with multiple checks only
     enum InitiatedFilters {
         case tripDuration
         case layoverDuration
@@ -20,6 +20,8 @@ class FlightResultDisplayGroup {
     }
     internal var initiatedFilters: Set<InitiatedFilters> = []
     
+    /// For checking if any of the sub filter is applied
+    var appliedSubFilters: Set<InitiatedFilters> = []
     
     let index : Int
     weak var delegate : FlightResultViewModelDelegate?
@@ -41,6 +43,15 @@ class FlightResultDisplayGroup {
         didSet{
             let filterApplied =  appliedFilters.count > 0 || UIFilters.count > 0
             self.delegate?.filtersApplied(filterApplied)
+            
+            /// Removes applied sub filters if main filter is removed
+            if !appliedFilters.contains(.Times) {
+                appliedSubFilters.remove(.arrivalTime)
+                appliedSubFilters.remove(.departureTime)
+            } else if !appliedFilters.contains(.Duration) {
+                appliedSubFilters.remove(.tripDuration)
+                appliedSubFilters.remove(.layoverDuration)
+            }
         }
     }
     

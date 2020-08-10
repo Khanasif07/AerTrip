@@ -240,8 +240,9 @@ class FlightFilterBaseViewController: UIViewController
                     updateAirlineVC(airlineVC, filters: filters )
                 }
             case FlightFilterTimesViewController.className :
-                if let TimesFilterVC = viewController as? FlightFilterTimesViewController {
-                    updateTimesVC(TimesFilterVC, inputFilters: filters  )
+                if let timesFilterVC = viewController as? FlightFilterTimesViewController {
+//                    updateTimesVC(TimesFilterVC, inputFilters: filters  )
+                    updateFlightLegTimeFilters(timesFilterVC, inputFilters: filters)
                 }
             case PriceFilterViewController.className :
                 if let priceFilterVC = viewController as? PriceFilterViewController {
@@ -345,6 +346,44 @@ class FlightFilterBaseViewController: UIViewController
             
         }
         return flightLegTimeFilters
+    }
+    
+    func updateFlightLegTimeFilters(_ timesViewController : FlightFilterTimesViewController, inputFilters : [FiltersWS]) {
+                
+        for index in 0 ..< inputFilters.count {
+            
+            let leg = legList[index]
+            let filter = inputFilters[index]
+            
+            let departureTime = filter.depDt
+            let arrivalTime = filter.arDt
+            
+            let departureMin = departureTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)
+            let departureMax = departureTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
+            let arrivalMin = arrivalTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
+            let arrivalMax = arrivalTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)
+            
+            let newFlightLegFilter =  FlightLegTimeFilter(leg:leg, departureStartTime:  departureMin!, departureMaxTime: departureMax, arrivalStartTime: arrivalMin, arrivalEndTime: arrivalMax! )
+            
+            if let userFilters = userAppliedFilters, userFilters.appliedFilters[index].contains(.Times), timesViewController.multiLegTimerFilter.indices.contains(index) {
+                
+                if userFilters.appliedSubFilters[index].contains(.departureTime) {
+                    timesViewController.multiLegTimerFilter[index].departureMinTime = newFlightLegFilter.departureMinTime
+                    
+                    timesViewController.multiLegTimerFilter[index].departureTimeMax = newFlightLegFilter.departureTimeMax
+                }
+                
+                if userFilters.appliedSubFilters[index].contains(.arrivalTime) {
+                    timesViewController.multiLegTimerFilter[index].arrivalStartTime = newFlightLegFilter.arrivalStartTime
+                    
+                    timesViewController.multiLegTimerFilter[index].arrivalEndTime = newFlightLegFilter.arrivalEndTime
+                }
+                
+            } else {
+                timesViewController.multiLegTimerFilter[index] = newFlightLegFilter
+            }
+            timesViewController.updateFiltersFromAPI()
+        }
     }
     
     //MARK:- Duration
