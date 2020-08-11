@@ -171,6 +171,7 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        printDebug(Date())
         var allEvent: [AccountDetailEvent] = []
         if tableView === self.tableView {
             allEvent = (self.viewModel.accountDetails[self.viewModel.allDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
@@ -186,7 +187,9 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
 //        let allCount = 2
 //        let idx = Int(indexPath.row/allCount)
         let idx = indexPath.row
-
-        AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: allEvent[idx])
+        printDebug(Date())
+        delay(seconds: 0.0){
+            AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: allEvent[idx])
+        }
     }
 }

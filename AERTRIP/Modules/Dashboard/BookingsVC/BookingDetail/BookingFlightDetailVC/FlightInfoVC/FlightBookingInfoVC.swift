@@ -40,6 +40,9 @@ class FlightBookingInfoVC: BaseVC {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.registerXib()
+        delay(seconds: 0.2) {
+            self.tableView.reloadData()
+        }
         delay(seconds: 0.3) { [weak self] in
             guard let self = self else {return}
             guard (self.viewModel.legSectionTap < self.tableView.numberOfSections) else {return}

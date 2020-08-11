@@ -71,31 +71,19 @@ class AccountLadgerDetailsVC: BaseVC {
     //MARK:- ViewLifeCycle
     //MARK:-
     override func initialSetup() {
-        
+        self.tableView.registerCell(nibName: EmptyTableViewCell.reusableIdentifier)
+        self.tableView.registerCell(nibName: DownloadInvoiceTableViewCell.reusableIdentifier)
+        DispatchQueue.main.async {
         self.topNavView.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true, backgroundType: .blurAnimatedView(isDark: false))
         
         self.topNavView.delegate = self
         self.topNavView.backgroundColor = AppColors.clear
-        self.navBarHeight.constant = headerViewHeight
+        self.navBarHeight.constant = self.headerViewHeight
         self.topNavView.navTitleLabel.numberOfLines = 1
-//        self.topNavView.containerView.backgroundColor = AppColors.clear
-        
-//        if let event = self.viewModel.ladgerEvent, let img = event.iconImage {
-//            self.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: img, endText: "  \(event.title)", font: AppFonts.SemiBold.withSize(18.0))
-//        }
-//        else {
-//            self.topNavView.navTitleLabel.text = self.viewModel.ladgerEvent?.title ?? ""
-//        }
-        self.tableView.registerCell(nibName: EmptyTableViewCell.reusableIdentifier)
-        self.tableView.registerCell(nibName: DownloadInvoiceTableViewCell.reusableIdentifier)
-        //for header blur
-        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
-//        topNavView.backgroundColor = AppColors.clear
         self.blurView.isHidden = true
-        
-        self.setupParallexHeaderView()
-        self.viewModel.fetchLadgerDetails()
-
+            self.viewModel.fetchLadgerDetails()
+            self.setupParallexHeaderView()
+        }
     }
     
     override func bindViewModel() {
@@ -220,7 +208,9 @@ extension AccountLadgerDetailsVC: AccountLadgerDetailsVMDelegate {
 extension AccountLadgerDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //back button
-        AppFlowManager.default.popViewController(animated: true)
+        DispatchQueue.main.async {
+           AppFlowManager.default.popViewController(animated: true)
+        }
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {

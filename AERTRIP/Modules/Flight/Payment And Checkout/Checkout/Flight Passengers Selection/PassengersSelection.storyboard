@@ -191,18 +191,18 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Passengers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goS-ai-7w2">
-                                        <rect key="frame" x="75" y="12" width="264" height="20"/>
+                                        <rect key="frame" x="75" y="12" width="259" height="20"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zFB-fl-1Re">
-                                        <rect key="frame" x="379" y="8.5" width="27" height="27"/>
+                                        <rect key="frame" x="374" y="8.5" width="27" height="27"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="27" id="so5-1R-PJq"/>
                                             <constraint firstAttribute="width" constant="27" id="xVP-Il-WmF"/>
                                         </constraints>
-                                        <state key="normal" image="greenAdd"/>
+                                        <state key="normal" image="AddPassenger"/>
                                         <connections>
                                             <action selector="tapAddButton:" destination="bs2-rK-aRj" eventType="touchUpInside" id="UTP-uw-cSg"/>
                                         </connections>
@@ -219,7 +219,7 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="aLn-ja-3y9" secondAttribute="trailing" id="7Pt-lW-zOM"/>
                                     <constraint firstItem="aif-0d-fl2" firstAttribute="centerY" secondItem="NgK-m2-Bz1" secondAttribute="centerY" id="9QN-ES-R00"/>
-                                    <constraint firstAttribute="trailing" secondItem="zFB-fl-1Re" secondAttribute="trailing" constant="8" id="KGs-a6-uT4"/>
+                                    <constraint firstAttribute="trailing" secondItem="zFB-fl-1Re" secondAttribute="trailing" constant="13" id="KGs-a6-uT4"/>
                                     <constraint firstItem="aif-0d-fl2" firstAttribute="leading" secondItem="NgK-m2-Bz1" secondAttribute="leading" constant="8" id="KOt-eM-lfU"/>
                                     <constraint firstItem="zFB-fl-1Re" firstAttribute="leading" secondItem="goS-ai-7w2" secondAttribute="trailing" constant="40" id="PUJ-0P-WkJ"/>
                                     <constraint firstItem="goS-ai-7w2" firstAttribute="leading" secondItem="aif-0d-fl2" secondAttribute="trailing" constant="40" id="SeP-EY-xti"/>
@@ -674,11 +674,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="AddPassenger" width="27" height="27"/>
         <image name="FreeMealAndSeat" width="281" height="237"/>
         <image name="GrayCross" width="24" height="24"/>
         <image name="adultPassengers" width="56" height="56"/>
         <image name="backThick" width="27" height="27"/>
-        <image name="greenAdd" width="27" height="27"/>
         <image name="greenFilledAdd" width="22" height="22"/>
         <image name="passportExample" width="341" height="334"/>
     </resources>

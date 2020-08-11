@@ -10,7 +10,7 @@ import UIKit
 
 extension FlightBookingInfoVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.viewModel.legDetails.count
+        return self.viewModel.allFlightInfoCells.count//self.viewModel.legDetails.count
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -42,7 +42,7 @@ extension FlightBookingInfoVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let detailsC = self.viewModel.legDetails[section].flight.reduce(into: 0) { $0 += $1.numberOfCellFlightInfo }
-        return self.viewModel.legDetails[section].pax.isEmpty ? detailsC : (detailsC + 1)
+        return self.viewModel.allFlightInfoCells[section].count//self.viewModel.legDetails[section].pax.isEmpty ? detailsC : (detailsC + 1)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

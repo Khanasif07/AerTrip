@@ -60,8 +60,6 @@ class NewAccountLedgerEventCell: UITableViewCell {
     private func setFontAndColor() {
         
         self.mainContainerView.backgroundColor = AppColors.themeWhite
-//        self.mainContainerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize(width: 0.0, height: -1.0), opacity: 0.4, shadowRadius: 8.0)
-        
         self.mainContainerView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.3), offset: CGSize(width: 0, height: -1), opacity: 0.5, shadowRadius: 4.0)
 
         self.backgroundColor = AppColors.themeWhite
@@ -109,7 +107,7 @@ class NewAccountLedgerEventCell: UITableViewCell {
         
         self.voucherTitleLabel.text = self.event?.voucherName ?? ""
         self.balanceTitleLabel.attributedText = (self.event?.amount ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(18.0))
-        let mutableText = NSMutableAttributedString(string: "Closing Balance : -", attributes: [.font: AppFonts.Regular.withSize(12), .foregroundColor: AppColors.themeGray40])
+        let mutableText = NSMutableAttributedString(string: "Closing Balance: ", attributes: [.font: AppFonts.Regular.withSize(12), .foregroundColor: AppColors.themeGray40])
         mutableText.append((self.event?.balance ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(12.0)))
         self.balanceValueLabel.attributedText = mutableText//(self.event?.balance ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(12.0))
     }
