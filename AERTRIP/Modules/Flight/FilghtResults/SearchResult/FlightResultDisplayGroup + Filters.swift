@@ -707,7 +707,7 @@ extension FlightResultDisplayGroup  {
             let totalLayoverAirports = $0.leg.flatMap { $0.loap }
             let journeyLayovers = Set(totalLayoverAirports)
             if journeyLayovers.count == 0 {
-                return false
+                return true
             }
             if journeyLayovers.isDisjoint(with: selectedLayovers) && !selectedLayovers.isEmpty {
                 return false
