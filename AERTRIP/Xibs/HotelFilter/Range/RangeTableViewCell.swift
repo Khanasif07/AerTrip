@@ -39,7 +39,9 @@ class RangeTableViewCell: UITableViewCell {
     
     func setupColors() {
         self.rangeView.backgroundColor = AppColors.themeGray10
-        self.rangeLabel.textColor = AppColors.textFieldTextColor51
+        self.rangeLabel.textColor = AppColors.themeBlack
+        self.searchResultRangeLabel.textColor = AppColors.themeGray40
+
     }
     
     private func addCurrentLocationView() {
@@ -54,7 +56,7 @@ class RangeTableViewCell: UITableViewCell {
     }
     
     func updateSliderValueOnLabel(range: Double) {
-        self.rangeLabel?.text = range.toInt >= 20 ? "Beyond \(range.toInt)km" : "Within " + "\((range.toInt))" + "km"
+        self.rangeLabel?.text = "\((range.toInt))" + "km" //range.toInt >= 20 ? "Beyond \(range.toInt)km" : "Within " + "\((range.toInt))" + "km"
 
     }
 }

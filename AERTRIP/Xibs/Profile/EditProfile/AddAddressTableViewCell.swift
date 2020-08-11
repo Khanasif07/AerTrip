@@ -29,9 +29,7 @@ class AddAddressTableViewCell: UITableViewCell {
     @IBOutlet weak var postalCodeTextField: UITextField!
     @IBOutlet weak var stateTextField: UITextField!
     @IBOutlet weak var countryLabel:UILabel!
-    @IBOutlet weak var cellDividerViewHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var cellDividerView: ATDividerView!
     @IBOutlet weak var addressTypeView: UIView!
     @IBOutlet weak var countryView: UIView!
     

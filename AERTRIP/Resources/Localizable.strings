@@ -375,7 +375,7 @@
 "Meal" = "Meal";
 
 // MARK:- Range VC
-"SearchResultsRange" = "Search Results Range";
+"SearchResultsRange" = "Show hotels within";
 
 // MARK: - Price VC
 "PricePerNight" = "Price per night";
@@ -968,6 +968,11 @@ Your booking ID is";
 "EnjoyPersonalisedTravelExperience" = "Enjoy a more personalised travel experience";
 "ContactDetails" = "Contact Details";
 "KindlyDisconnectMessage" = "Kindly set a password for your Aertrip account or login via another social account before disconnecting ";
+
+// MARK: - Import Contacts
+"ImportingContacts" = "Importing contacts";
+"ThisMightTakeSomeTime" = "This might take some time";
+
 
 //MARK:- Settings
 "Currency" = "Currency";

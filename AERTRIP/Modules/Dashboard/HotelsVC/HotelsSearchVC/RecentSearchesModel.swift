@@ -40,7 +40,7 @@ struct RecentSearchesModel {
     var lng: String = ""
     var type = ChatVM.RecentSearchFor.hotel
     var search_nearby: Bool = false
-
+    
     
     //Mark:- Initialization
     //=====================
@@ -168,6 +168,37 @@ struct RecentSearchesModel {
         return recentSearchesData
     }
     
+    func getTextWidth(_ height: CGFloat) -> CGFloat {
+        var titleWidth: CGFloat = 0
+        var dateWidth: CGFloat = 0
+        var title = ""
+       // var textWidth = width + 86
+        //        if recentSearchesData.search_nearby {
+        //
+        var date = ""
+                    if let checkInDate = self.checkInDate.toDate(dateFormat: "E, dd MMM yy"), let checkOutDate = self.checkOutDate.toDate(dateFormat: "E, dd MMM yy") {
+                        date = checkInDate.toString(dateFormat: "dd MMM") + " - " + checkOutDate.toString(dateFormat: "dd MMM")
+                    }
+                    dateWidth = date.widthOfText(height, font: AppFonts.Regular.withSize(14.0))
+        //            textWidth = width + 78
+        //        } else {
+        let cityName = self.dest_name.split(separator: ",").first ?? ""
+        let countryCode = self.dest_name.split(separator: ",").last ?? ""
+        //        self.cityNameLabel.text = "\(cityName)"
+        let prefix: String = cityName.isEmpty ? "" : "\(cityName),"
+        let suffix: String = countryCode.isEmpty ? "" : ",\(countryCode)"
+        
+        var stateText = self.dest_name.deletingPrefix(prefix: prefix).removeSpaceAsSentence
+        stateText = stateText.deletingSuffix(suffix: suffix).removeSpaceAsSentence
+        
+        title = "\(cityName) " + stateText
+        titleWidth = AppGlobals.shared.AttributedFontAndColorForText(text: title, atributedText: "\(cityName)", textFont: AppFonts.SemiBold.withSize(18.0), textColor: AppColors.themeBlack).width(withConstrainedHeight: height)
+        // textWidth = width + 86
+        
+        //        }
+        
+        return titleWidth > dateWidth ? titleWidth : dateWidth
+    }
 }
 
 struct RecentRoom {
@@ -266,7 +297,7 @@ struct RecentSearchesFilter {
     var thirdTripAdvisorStar: Bool = false
     var fourthTripAdvisorStar: Bool = false
     var fifthTripAdvisorStar: Bool = false
-
+    
     //Amenities
     var amenities: JSONDictionary = [:]
     //var amenities: RecentAmenities?

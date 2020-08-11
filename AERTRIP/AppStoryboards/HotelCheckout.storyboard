@@ -158,6 +158,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="collectionView" destination="Van-Ur-BqB" id="ssa-AW-WN3"/>
+                                            <outlet property="dividerView" destination="CxT-8S-WpD" id="zXC-Pn-M59"/>
                                             <outlet property="roomNumberLabel" destination="YLX-fm-tfI" id="po0-hS-J4N"/>
                                         </connections>
                                     </tableViewCell>

@@ -95,31 +95,9 @@ extension RecentHotelSearcheView: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let recentSearchesData = self.recentSearchesData?[indexPath.row] ?? RecentSearchesModel()
-        var width: CGFloat = 0
-        var title = ""
-        var textWidth = width + 86
-//        if recentSearchesData.search_nearby {
-//
-//            if let checkInDate = recentSearchesData.checkInDate.toDate(dateFormat: "E, dd MMM yy"), let checkOutDate = recentSearchesData.checkOutDate.toDate(dateFormat: "E, dd MMM yy") {
-//                title = checkInDate.toString(dateFormat: "dd MMM") + " - " + checkOutDate.toString(dateFormat: "dd MMM")
-//            }
-//            width = title.widthOfText(collectionView.frame.height, font: AppFonts.Regular.withSize(14.0))
-//            textWidth = width + 78
-//        } else {
-        let cityName = recentSearchesData.dest_name.split(separator: ",").first ?? ""
-                let countryCode = recentSearchesData.dest_name.split(separator: ",").last ?? ""
-        //        self.cityNameLabel.text = "\(cityName)"
-                let prefix: String = cityName.isEmpty ? "" : "\(cityName),"
-                let suffix: String = countryCode.isEmpty ? "" : ",\(countryCode)"
+        let width: CGFloat = recentSearchesData.getTextWidth(collectionView.frame.height)
+        let textWidth = width + 86
 
-                var stateText = recentSearchesData.dest_name.deletingPrefix(prefix: prefix).removeSpaceAsSentence
-                stateText = stateText.deletingSuffix(suffix: suffix).removeSpaceAsSentence
-                
-        title = "\(cityName) " + stateText
-            width = AppGlobals.shared.AttributedFontAndColorForText(text: title, atributedText: "\(cityName)", textFont: AppFonts.SemiBold.withSize(18.0), textColor: AppColors.themeBlack).width(withConstrainedHeight: collectionView.frame.height)
-            textWidth = width + 86
-
-//        }
         let cellWidth = textWidth > 275 ? 275 : textWidth
         printDebug("width: \(width)")
         printDebug("textWidth: \(textWidth)")

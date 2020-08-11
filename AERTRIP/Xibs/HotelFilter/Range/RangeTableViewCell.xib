@@ -26,13 +26,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search Results Range" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kdq-R3-IkJ">
-                        <rect key="frame" x="16" y="12" width="142.5" height="20.5"/>
+                        <rect key="frame" x="16" y="16" width="142.5" height="20.5"/>
                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uHa-at-buw">
-                        <rect key="frame" x="279" y="45" width="119" height="31"/>
+                        <rect key="frame" x="279" y="11" width="119" height="31"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beyond 20km" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7OG-zf-g1e">
                                 <rect key="frame" x="8" y="0.0" width="103" height="31"/>
@@ -51,7 +51,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mXc-vm-Kvw" customClass="StepSlider">
-                        <rect key="frame" x="18" y="80" width="378" height="80"/>
+                        <rect key="frame" x="18" y="46" width="378" height="80"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -94,10 +94,10 @@
                     <constraint firstAttribute="bottom" secondItem="BRk-Lm-Ht5" secondAttribute="bottom" id="Kzc-Ub-9MM"/>
                     <constraint firstAttribute="trailing" secondItem="mXc-vm-Kvw" secondAttribute="trailing" constant="18" id="LHb-51-fPt"/>
                     <constraint firstItem="BRk-Lm-Ht5" firstAttribute="leading" secondItem="cEW-AQ-v8H" secondAttribute="leading" id="PeP-xi-Hyo"/>
-                    <constraint firstItem="Kdq-R3-IkJ" firstAttribute="top" secondItem="cEW-AQ-v8H" secondAttribute="top" constant="12" id="VBF-nG-m5B"/>
+                    <constraint firstItem="Kdq-R3-IkJ" firstAttribute="top" secondItem="cEW-AQ-v8H" secondAttribute="top" constant="16" id="VBF-nG-m5B"/>
                     <constraint firstAttribute="trailing" secondItem="uHa-at-buw" secondAttribute="trailing" constant="16" id="Yq2-ii-Nse"/>
                     <constraint firstItem="mXc-vm-Kvw" firstAttribute="leading" secondItem="cEW-AQ-v8H" secondAttribute="leading" constant="18" id="fpT-V6-LZs"/>
-                    <constraint firstItem="uHa-at-buw" firstAttribute="top" secondItem="cEW-AQ-v8H" secondAttribute="top" constant="45" id="jSU-69-tLf"/>
+                    <constraint firstItem="uHa-at-buw" firstAttribute="centerY" secondItem="Kdq-R3-IkJ" secondAttribute="centerY" id="gxG-ef-7u7"/>
                     <constraint firstItem="mXc-vm-Kvw" firstAttribute="top" secondItem="7OG-zf-g1e" secondAttribute="bottom" constant="4" id="mQf-Uq-Rhu"/>
                     <constraint firstItem="Kdq-R3-IkJ" firstAttribute="leading" secondItem="cEW-AQ-v8H" secondAttribute="leading" constant="16" id="y2f-zP-Vdd"/>
                 </constraints>

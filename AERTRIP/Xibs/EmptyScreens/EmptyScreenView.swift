@@ -336,7 +336,7 @@ extension EmptyScreenView {
         self.firstButton.setTitle(LocalizedString.AllowContacts.localized, for: .selected)
         self.firstButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.firstButton.setTitleColor(AppColors.themeWhite, for: .selected)
-        self.firstButton.setTitleFont(font: AppFonts.Regular.withSize(16.0), for: .normal)
+        self.firstButton.setTitleFont(font: AppFonts.SemiBold.withSize(16.0), for: .normal)
         
         self.firstButton.layer.cornerRadius = self.firstButton.height / 2.0
         self.firstButton.shadowColor = AppColors.clear
@@ -358,7 +358,7 @@ extension EmptyScreenView {
         self.firstButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.firstButton.setTitleColor(AppColors.themeWhite, for: .selected)
         
-        self.firstButton.setTitleFont(font: AppFonts.Regular.withSize(16.0), for: .normal)
+        self.firstButton.setTitleFont(font: AppFonts.SemiBold.withSize(16.0), for: .normal)
         self.firstButton.setImage(#imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal), for: .normal)
         self.firstButton.setImage(#imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal), for: .selected)
         self.firstButton.layer.cornerRadius = self.firstButton.height / 2.0
@@ -381,7 +381,7 @@ extension EmptyScreenView {
         self.firstButton.setTitleColor(AppColors.themeBlack, for: .normal)
         self.firstButton.setTitleColor(AppColors.themeBlack, for: .selected)
         
-        self.firstButton.setTitleFont(font: AppFonts.Regular.withSize(16.0), for: .normal)
+        self.firstButton.setTitleFont(font: AppFonts.SemiBold.withSize(16.0), for: .normal)
         
         self.firstButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .normal)
         self.firstButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .selected)

@@ -346,7 +346,9 @@ enum LocalizedString: String {
     case CantCreateGroupWithThisName
     
     // MARK: - Import Contacts
-    
+    case ImportingContacts
+    case ThisMightTakeSomeTime
+
     // MARK: -
     
     case Contacts

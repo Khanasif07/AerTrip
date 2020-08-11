@@ -258,13 +258,6 @@
                             <constraint firstItem="i1s-hK-EDN" firstAttribute="leading" secondItem="Cfo-1a-dW3" secondAttribute="leading" constant="16" id="zWz-Y0-Tsd"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r10-PF-5nI" userLabel="cellDivider" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="263.5" width="320" height="0.5"/>
-                        <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="0.5" id="l9Y-GH-bzf"/>
-                        </constraints>
-                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iA0-UP-Lr2" userLabel="cellDivider" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="263" width="320" height="0.5"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -273,14 +266,14 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ULm-w9-qde">
-                        <rect key="frame" x="0.0" y="264" width="320" height="10"/>
+                        <rect key="frame" x="0.0" y="263.5" width="320" height="10"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="jxK-l7-sae"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XsZ-Tw-vqR" userLabel="cellDivider" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="274" width="320" height="0.5"/>
+                        <rect key="frame" x="0.0" y="273.5" width="320" height="0.5"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="ZiM-b1-fsE"/>
                         </constraints>
@@ -288,20 +281,18 @@
                 </subviews>
                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstItem="r10-PF-5nI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="83A-RK-E7Y"/>
                     <constraint firstItem="ULm-w9-qde" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="AWX-47-eX7"/>
                     <constraint firstAttribute="trailing" secondItem="ULm-w9-qde" secondAttribute="trailing" id="Abu-gM-jbT"/>
                     <constraint firstAttribute="trailing" secondItem="iA0-UP-Lr2" secondAttribute="trailing" id="Cnh-Mt-qgg"/>
-                    <constraint firstItem="r10-PF-5nI" firstAttribute="top" secondItem="iA0-UP-Lr2" secondAttribute="bottom" id="FJE-w9-OuJ"/>
-                    <constraint firstAttribute="trailing" secondItem="r10-PF-5nI" secondAttribute="trailing" id="OLA-MV-5Jf"/>
+                    <constraint firstItem="ULm-w9-qde" firstAttribute="top" secondItem="iA0-UP-Lr2" secondAttribute="bottom" id="Od8-Ue-if9"/>
                     <constraint firstItem="XsZ-Tw-vqR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Sq5-UR-2Qg"/>
                     <constraint firstItem="Cfo-1a-dW3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="X6Y-Vw-gL0"/>
                     <constraint firstItem="iA0-UP-Lr2" firstAttribute="top" secondItem="Cfo-1a-dW3" secondAttribute="bottom" id="iW8-bL-NjF"/>
                     <constraint firstAttribute="trailing" secondItem="Cfo-1a-dW3" secondAttribute="trailing" id="kEg-kR-sel"/>
+                    <constraint firstItem="iA0-UP-Lr2" firstAttribute="top" secondItem="Cfo-1a-dW3" secondAttribute="bottom" id="kom-TQ-zbL"/>
                     <constraint firstAttribute="trailing" secondItem="XsZ-Tw-vqR" secondAttribute="trailing" id="miy-ac-6et"/>
                     <constraint firstItem="iA0-UP-Lr2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="oe4-Z2-Eu2"/>
                     <constraint firstItem="Cfo-1a-dW3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="qr9-ac-227"/>
-                    <constraint firstItem="ULm-w9-qde" firstAttribute="top" secondItem="r10-PF-5nI" secondAttribute="bottom" id="rgq-4f-XhL"/>
                     <constraint firstItem="XsZ-Tw-vqR" firstAttribute="top" secondItem="ULm-w9-qde" secondAttribute="bottom" id="sqS-hH-DlA"/>
                 </constraints>
             </tableViewCellContentView>
@@ -312,8 +303,6 @@
                 <outlet property="addressTypeLabel" destination="iDz-wV-uFX" id="WTp-To-wUi"/>
                 <outlet property="addressTypeView" destination="bnX-oS-u73" id="pe4-Hz-t1r"/>
                 <outlet property="bottomDivider" destination="iA0-UP-Lr2" id="OPv-23-8oQ"/>
-                <outlet property="cellDividerView" destination="r10-PF-5nI" id="Ffe-YZ-3km"/>
-                <outlet property="cellDividerViewHeightConstraint" destination="l9Y-GH-bzf" id="Boc-JD-iwA"/>
                 <outlet property="cityTextField" destination="Upn-U7-H0G" id="hwo-ev-zgS"/>
                 <outlet property="countryLabel" destination="I4d-qe-2c6" id="lSw-9U-ZOQ"/>
                 <outlet property="countryView" destination="aLv-IZ-FCW" id="toR-ca-GTk"/>

@@ -199,15 +199,15 @@ class ImportContactVC: BaseVC {
             switch self.currentIndex {
             case 0:
                 //phone
-                self.topNavView.navTitleLabel.text = self.viewModel.sections.isEmpty ? "" : LocalizedString.SelectContactsToImport.localized // LocalizedString.AllowContacts.localized
+                self.topNavView.navTitleLabel.text = "" //self.viewModel.sections.isEmpty ? "" : LocalizedString.SelectContactsToImport.localized // LocalizedString.AllowContacts.localized
                 
             case 1:
                 //facebook
-                self.topNavView.navTitleLabel.text = self.viewModel.facebookSection.isEmpty ? "" : LocalizedString.SelectContactsToImport.localized // LocalizedString.ConnectWithFB.localized
+                self.topNavView.navTitleLabel.text = "" // self.viewModel.facebookSection.isEmpty ? "" : LocalizedString.SelectContactsToImport.localized // LocalizedString.ConnectWithFB.localized
                 
             case 2:
                 //google
-                self.topNavView.navTitleLabel.text = self.viewModel.facebookSection.isEmpty ? "" : LocalizedString.SelectContactsToImport.localized // LocalizedString.ConnectWithGoogle.localized
+                self.topNavView.navTitleLabel.text = "" // self.viewModel.facebookSection.isEmpty ? "" : LocalizedString.SelectContactsToImport.localized // LocalizedString.ConnectWithGoogle.localized
                 
             default:
                 self.topNavView.navTitleLabel.text = "" //LocalizedString.AllowContacts.localized

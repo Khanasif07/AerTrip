@@ -18,8 +18,9 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="232"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YU8-2B-ElD" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                            <rect key="frame" x="137" y="8" width="100" height="35"/>
+                            <rect key="frame" x="137.5" y="8" width="100" height="35"/>
                             <constraints>
+                                <constraint firstAttribute="width" constant="100" id="Abx-3I-uTY"/>
                                 <constraint firstAttribute="height" constant="35" id="sQg-Nl-fGC"/>
                             </constraints>
                             <state key="normal">
@@ -80,15 +81,14 @@
                         <constraint firstItem="7io-eN-eus" firstAttribute="leading" secondItem="gI7-8o-Pk3" secondAttribute="leading" id="CSX-af-eaC"/>
                         <constraint firstAttribute="trailing" secondItem="7Fx-JZ-fqP" secondAttribute="trailing" constant="16" id="Dey-w3-LbV"/>
                         <constraint firstItem="fJb-Cm-eXE" firstAttribute="top" secondItem="7Fx-JZ-fqP" secondAttribute="bottom" constant="26" id="EZL-vX-gkC"/>
-                        <constraint firstItem="YU8-2B-ElD" firstAttribute="leading" secondItem="gI7-8o-Pk3" secondAttribute="leading" constant="137" id="Lmd-3x-OtN"/>
                         <constraint firstItem="YU8-2B-ElD" firstAttribute="top" secondItem="gI7-8o-Pk3" secondAttribute="top" constant="8" id="OMj-TN-68K"/>
                         <constraint firstItem="7Fx-JZ-fqP" firstAttribute="leading" secondItem="gI7-8o-Pk3" secondAttribute="leading" constant="16" id="YM6-KZ-Lis"/>
+                        <constraint firstItem="YU8-2B-ElD" firstAttribute="centerX" secondItem="gI7-8o-Pk3" secondAttribute="centerX" id="Zb1-rl-pQ7"/>
                         <constraint firstItem="fJb-Cm-eXE" firstAttribute="centerX" secondItem="gI7-8o-Pk3" secondAttribute="centerX" id="gHM-JH-9Ss"/>
                         <constraint firstItem="7Fx-JZ-fqP" firstAttribute="top" secondItem="7io-eN-eus" secondAttribute="bottom" constant="26" id="gwM-Wf-zsK"/>
                         <constraint firstItem="7io-eN-eus" firstAttribute="top" secondItem="YU8-2B-ElD" secondAttribute="bottom" constant="26" id="hn3-az-PBJ"/>
                         <constraint firstItem="hQU-Se-DTN" firstAttribute="leading" secondItem="gI7-8o-Pk3" secondAttribute="leading" constant="16" id="lZx-8O-4Lp"/>
                         <constraint firstAttribute="trailing" secondItem="hQU-Se-DTN" secondAttribute="trailing" constant="16" id="mrX-oT-a16"/>
-                        <constraint firstAttribute="trailing" secondItem="YU8-2B-ElD" secondAttribute="trailing" constant="138" id="o4E-CW-7p5"/>
                         <constraint firstAttribute="trailing" secondItem="7io-eN-eus" secondAttribute="trailing" id="rAe-MH-a3f"/>
                         <constraint firstAttribute="bottom" secondItem="hQU-Se-DTN" secondAttribute="bottom" constant="25" id="wUE-5d-vjE"/>
                         <constraint firstItem="hQU-Se-DTN" firstAttribute="top" secondItem="fJb-Cm-eXE" secondAttribute="bottom" constant="26" id="yUy-Tm-eMY"/>

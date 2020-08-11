@@ -14,6 +14,7 @@ class HCDataSelectionRoomDetailCell: UITableViewCell {
     // Mark:-
     @IBOutlet weak var roomNumberLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var dividerView: ATDividerView!
     
     private(set) var forIndex: IndexPath?
     private let hotelFormData = HotelsSearchVM.hotelFormData
@@ -53,6 +54,7 @@ class HCDataSelectionRoomDetailCell: UITableViewCell {
         }
         lineSpacing = isEmptyText ? 12 : 5
         collectionView.reloadData()
+        self.dividerView.isHidden = idxPath.row != 0
     }
     
     // Mark:- IBActions
