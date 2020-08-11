@@ -13,9 +13,9 @@ protocol APIProtocol {
     
     func getUrlRequest() -> URLRequest
     
-    var flightBaseUrl : String { get }
+//    var flightBaseUrl : String { get }
 
-    var tripsBaseUrl : String { get }
+//    var tripsBaseUrl : String { get }
 
     var path : String { get }
     

@@ -10,9 +10,9 @@ protocol flightDetailsPinFlightDelegate : AnyObject {
     func reloadRowFromFlightDetails(fk:String,isPinned:Bool,isPinnedButtonClicked:Bool)
 }
 
-protocol flightInfoViewDisplayDelegate:AnyObject {
-    func updateView()
-}
+//protocol flightInfoViewDisplayDelegate:AnyObject {
+//    func updateView()
+//}
 
 protocol getBaggageDimentionsDelegate :AnyObject{
     func getBaggageDimentions(baggage:[[NSDictionary]],sender:UIButton)
@@ -22,13 +22,19 @@ protocol getFareRulesDelegate:AnyObject {
     func getFareRulesData(fareRules:[NSDictionary])
 }
 
+protocol getArrivalPerformanceDelegate:AnyObject {
+    func getArrivalPerformanceData(flight:FlightDetail)
+}
+
+
 
 import UIKit
 //import HMSegmentedControl
 import Parchment
 
-class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetailsSmartIconsDelegate, FareBreakupVCDelegate, flightDetailsBaggageDelegate, flightInfoViewDisplayDelegate, getBaggageDimentionsDelegate, getFareRulesDelegate
+class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetailsSmartIconsDelegate, FareBreakupVCDelegate, flightDetailsBaggageDelegate, getBaggageDimentionsDelegate, getFareRulesDelegate, getSharableUrlDelegate, getArrivalPerformanceDelegate
 {
+    
     //MARK:- Outlets
     @IBOutlet weak var blurView: UIView!
     @IBOutlet weak var displayView: UIView!
@@ -89,12 +95,13 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     var navigationContronller: UINavigationController?
     var innerControllerBottomConstraint: CGFloat = 0.0
     
+    let getSharableLink = GetSharableUrl()
+    
     //MARK:- Initial Display
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(arrivalPerformanceBackgroundButtonClicked), name: NSNotification.Name("arrivalPerformanceBackgroundButtonClicked"), object: nil)
         backgroundViewForFareBreakup.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         backgroundViewForFareBreakup.tag = 1002
         self.view.addSubview(backgroundViewForFareBreakup)
@@ -107,6 +114,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         }else{
            self.setFlightDetailsForDomestic()
         }
+//        flightInfoVC.arrivalPerformanceDelegate = self
         setupInitialViews()
         setupParchmentPageController()
         self.setupViewModel()
@@ -221,7 +229,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
             storyboard.instantiateViewController(withIdentifier: "FlightInfoVC") as!
         FlightInfoVC
         flightInfoVC.sid = sid
-        flightInfoVC.flightInfoDelegate = self
+//        flightInfoVC.flightInfoDelegate = self
         flightInfoVC.titleString = titleString
         flightInfoVC.journey = journey
         if isFSRVisible == true{
@@ -284,6 +292,31 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     func reloadBaggageSuperScriptAtIndexPath() {
         self.delegate?.reloadRowFromFlightDetails(fk: journey.first!.fk, isPinned: false,isPinnedButtonClicked:false)
     }
+    
+    func getArrivalPerformanceData(flight:FlightDetail)
+    {
+        let arrivalPerformanceView = ArrivalPerformaceVC(nibName: "ArrivalPerformaceVC", bundle: nil)
+        
+            if flight.ontimePerformanceDataStoringTime != nil{
+
+                arrivalPerformanceView.observationCount = "\(flight.observationCount!)"
+                arrivalPerformanceView.averageDelay = "\(flight.averageDelay!)"
+                
+                arrivalPerformanceView.cancelledPerformanceInPercent = flight.cancelledPerformance!
+                arrivalPerformanceView.delayedPerformanceInPercent = flight.latePerformance!
+                arrivalPerformanceView.onTimePerformanceInPercent = flight.ontimePerformance!
+                
+                arrivalPerformanceView.view.frame = self.view.bounds
+                self.view.addSubview(arrivalPerformanceView.view)
+                self.addChild(arrivalPerformanceView)
+                arrivalPerformanceView.willMove(toParent: self)
+            }
+    }
+    
+    func returnEmailView(view: String) {
+        
+    }
+
 
     //MARK:- Button Actions
     
@@ -350,160 +383,181 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         
     }
     
-    @IBAction func shareButtonClicked(_ sender: Any){
+//    @IBAction func shareButtonClicked(_ sender: Any){
+//        guard !isInternational else {return}
+//        let flightAdultCount = bookFlightObject.flightAdultCount
+//        let flightChildrenCount = bookFlightObject.flightChildrenCount
+//        let flightInfantCount = bookFlightObject.flightInfantCount
+//
+//        let isDomestic = bookFlightObject.isDomestic
+//
+//        let cc = journey.first?.cc
+//        var trip_type = ""
+//
+//        var origin = ""
+//        var destination = ""
+//        var departureDate = ""
+//        var returnDate = ""
+//
+//        if journey.count == 1{
+//            origin.append("origin=\(journey[0].ap[0])&")
+//            destination.append("destination=\(journey[0].ap[1])&")
+//
+//            let inputFormatter = DateFormatter()
+//            inputFormatter.dateFormat = "yyyy-MM-dd"
+//            let showDate = inputFormatter.date(from: journey[0].ad)
+//            inputFormatter.dateFormat = "dd-MM-yyyy"
+//            let newAd = inputFormatter.string(from: showDate!)
+//
+//            departureDate.append("depart=\(newAd)&")
+//
+//            returnDate.append("return=&")
+//        }else{
+//            for i in 0..<journey.count{
+//                origin.append("origin[\(i)]=\(journey[i].ap[0])&")
+//                destination.append("destination[\(i)]=\(journey[i].ap[1])&")
+//
+//                let inputFormatter = DateFormatter()
+//                inputFormatter.dateFormat = "yyyy-MM-dd"
+//                let showDate = inputFormatter.date(from: journey[i].ad)
+//                inputFormatter.dateFormat = "dd-MM-yyyy"
+//                let newAd = inputFormatter.string(from: showDate!)
+//
+//                departureDate.append("depart[\(i)]=\(newAd)&")
+//
+//
+//                inputFormatter.dateFormat = "yyyy-MM-dd"
+//                let showDate1 = inputFormatter.date(from: journey[i].dd)
+//                inputFormatter.dateFormat = "dd-MM-yyyy"
+//                let newDd = inputFormatter.string(from: showDate1!)
+//
+//                returnDate.append("return[\(i)]=\(newDd)&")
+//            }
+//        }
+//
+//        if journey.count == 1{
+//            trip_type = "single"
+//        }else if journey.count > 2{
+//            trip_type = "multi"
+//        }else{
+//            trip_type = "return"
+//        }
+//
+//        if trip_type == "return"{
+//            origin.append("origin=\(journey[0].ap[0])&")
+//            destination.append("destination=\(journey[0].ap[1])&")
+//
+//            let inputFormatter = DateFormatter()
+//            inputFormatter.dateFormat = "yyyy-MM-dd"
+//            let showDate = inputFormatter.date(from: journey[0].ad)
+//            inputFormatter.dateFormat = "dd-MM-yyyy"
+//            let newAd = inputFormatter.string(from: showDate!)
+//
+//            departureDate.append("depart=\(newAd)&")
+//
+//            inputFormatter.dateFormat = "yyyy-MM-dd"
+//            let showDate1 = inputFormatter.date(from: journey[1].dd)
+//            inputFormatter.dateFormat = "dd-MM-yyyy"
+//            let newDd = inputFormatter.string(from: showDate1!)
+//
+//            returnDate.append("return=\(newDd)&")
+//        }
+//
+//        var pinnedFlightFK = ""
+//
+//        for i in 0..<journey.count{
+//            if i == journey.count-1{
+//                pinnedFlightFK.append("PF[\(i)]=\(journey[i].fk)")
+//            }else{
+//                pinnedFlightFK.append("PF[\(i)]=\(journey[i].fk)&")
+//            }
+//        }
+//
+//        let postData = NSMutableData()
+//        print("https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(flightAdultCount)&child=\(flightChildrenCount)&infant=\(flightInfantCount)&\(origin)\(destination)\(departureDate)\(returnDate)cabinclass=\(cc!)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)")
+//
+//        let parameters = [
+//            [
+//                "name": "u",
+//                "value": "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(flightAdultCount)&child=\(flightChildrenCount)&infant=\(flightInfantCount)&\(origin)\(destination)\(departureDate)\(returnDate)cabinclass=\(cc!)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)"
+//            ]
+//        ]
+//
+//        let boundary = "----WebKitFormBoundary7MA4YWxkTrZu0gW"
+//
+//        var body = ""
+//        let _: NSError? = nil
+//        for param in parameters {
+//            let paramName = param["name"]!
+//            body += "--\(boundary)\r\n"
+//            body += "Content-Disposition:form-data; name=\"\(paramName)\""
+//            if let filename = param["fileName"] {
+//                let contentType = param["content-type"]!
+//                let fileContent = try! String(contentsOfFile: filename, encoding: String.Encoding.utf8)
+//                body += "; filename=\"\(filename)\"\r\n"
+//                body += "Content-Type: \(contentType)\r\n\r\n"
+//                body += fileContent
+//            } else if let paramValue = param["value"] {
+//                body += "\r\n\r\n\(paramValue)"
+//            }
+//        }
+//
+//        postData.append(body.data(using: String.Encoding.utf8)!)
+//
+//        let webservice = WebAPIService()
+//        webservice.executeAPI(apiServive: .getShareUrl(postData: postData as Data) , completionHandler: {    (data) in
+//
+//            let decoder = JSONDecoder()
+//            decoder.keyDecodingStrategy = .convertFromSnakeCase
+//
+//            do{
+//                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
+//
+//                DispatchQueue.main.async {
+//                    if let result = jsonResult as? [String: AnyObject] {
+////                        print("result= ", result)
+//
+//                        if result["success"] as? Bool == true{
+//                            if let link = (result["data"] as? NSDictionary)?.value(forKey: "u") as? String{
+//
+//
+//                                let textToShare = [ link ]
+//                                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+//                                activityViewController.popoverPresentationController?.sourceView = self.view
+//
+//                                self.present(activityViewController, animated: true, completion: nil)
+//                            }
+//                        }
+//                    }
+//                }
+//            }catch{
+//            }
+//        } , failureHandler : { (error ) in
+//            print(error)
+//        })
+//    }
+    
+    // Monika
+    @IBAction func shareButtonClicked(_ sender: Any)
+    {
         guard !isInternational else {return}
         let flightAdultCount = bookFlightObject.flightAdultCount
         let flightChildrenCount = bookFlightObject.flightChildrenCount
         let flightInfantCount = bookFlightObject.flightInfantCount
         
         let isDomestic = bookFlightObject.isDomestic
-        
-        let cc = journey.first?.cc
-        var trip_type = ""
-        
-        var origin = ""
-        var destination = ""
-        var departureDate = ""
-        var returnDate = ""
-        
-        if journey.count == 1{
-            origin.append("origin=\(journey[0].ap[0])&")
-            destination.append("destination=\(journey[0].ap[1])&")
-            
-            let inputFormatter = DateFormatter()
-            inputFormatter.dateFormat = "yyyy-MM-dd"
-            let showDate = inputFormatter.date(from: journey[0].ad)
-            inputFormatter.dateFormat = "dd-MM-yyyy"
-            let newAd = inputFormatter.string(from: showDate!)
-            
-            departureDate.append("depart=\(newAd)&")
-            
-            returnDate.append("return=&")
-        }else{
-            for i in 0..<journey.count{
-                origin.append("origin[\(i)]=\(journey[i].ap[0])&")
-                destination.append("destination[\(i)]=\(journey[i].ap[1])&")
-                
-                let inputFormatter = DateFormatter()
-                inputFormatter.dateFormat = "yyyy-MM-dd"
-                let showDate = inputFormatter.date(from: journey[i].ad)
-                inputFormatter.dateFormat = "dd-MM-yyyy"
-                let newAd = inputFormatter.string(from: showDate!)
-                
-                departureDate.append("depart[\(i)]=\(newAd)&")
-                
-                
-                inputFormatter.dateFormat = "yyyy-MM-dd"
-                let showDate1 = inputFormatter.date(from: journey[i].dd)
-                inputFormatter.dateFormat = "dd-MM-yyyy"
-                let newDd = inputFormatter.string(from: showDate1!)
-                
-                returnDate.append("return[\(i)]=\(newDd)&")
-            }
-        }
-        
-        if journey.count == 1{
-            trip_type = "single"
-        }else if journey.count > 2{
-            trip_type = "multi"
-        }else{
-            trip_type = "return"
-        }
-        
-        if trip_type == "return"{
-            origin.append("origin=\(journey[0].ap[0])&")
-            destination.append("destination=\(journey[0].ap[1])&")
-            
-            let inputFormatter = DateFormatter()
-            inputFormatter.dateFormat = "yyyy-MM-dd"
-            let showDate = inputFormatter.date(from: journey[0].ad)
-            inputFormatter.dateFormat = "dd-MM-yyyy"
-            let newAd = inputFormatter.string(from: showDate!)
-            
-            departureDate.append("depart=\(newAd)&")
-            
-            inputFormatter.dateFormat = "yyyy-MM-dd"
-            let showDate1 = inputFormatter.date(from: journey[1].dd)
-            inputFormatter.dateFormat = "dd-MM-yyyy"
-            let newDd = inputFormatter.string(from: showDate1!)
-            
-            returnDate.append("return=\(newDd)&")
-        }
-        
-        var pinnedFlightFK = ""
-        
-        for i in 0..<journey.count{
-            if i == journey.count-1{
-                pinnedFlightFK.append("PF[\(i)]=\(journey[i].fk)")
-            }else{
-                pinnedFlightFK.append("PF[\(i)]=\(journey[i].fk)&")
-            }
-        }
-        
-        let postData = NSMutableData()
-        print("https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(flightAdultCount)&child=\(flightChildrenCount)&infant=\(flightInfantCount)&\(origin)\(destination)\(departureDate)\(returnDate)cabinclass=\(cc!)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)")
-        
-        let parameters = [
-            [
-                "name": "u",
-                "value": "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(flightAdultCount)&child=\(flightChildrenCount)&infant=\(flightInfantCount)&\(origin)\(destination)\(departureDate)\(returnDate)cabinclass=\(cc!)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)"
-            ]
-        ]
-        
-        let boundary = "----WebKitFormBoundary7MA4YWxkTrZu0gW"
-        
-        var body = ""
-        let _: NSError? = nil
-        for param in parameters {
-            let paramName = param["name"]!
-            body += "--\(boundary)\r\n"
-            body += "Content-Disposition:form-data; name=\"\(paramName)\""
-            if let filename = param["fileName"] {
-                let contentType = param["content-type"]!
-                let fileContent = try! String(contentsOfFile: filename, encoding: String.Encoding.utf8)
-                body += "; filename=\"\(filename)\"\r\n"
-                body += "Content-Type: \(contentType)\r\n\r\n"
-                body += fileContent
-            } else if let paramValue = param["value"] {
-                body += "\r\n\r\n\(paramValue)"
-            }
-        }
-        
-        postData.append(body.data(using: String.Encoding.utf8)!)
-        
-        let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .getShareUrl(postData: postData as Data) , completionHandler: {    (data) in
-            
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            do{
-                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
-                
-                DispatchQueue.main.async {
-                    if let result = jsonResult as? [String: AnyObject] {
-//                        print("result= ", result)
-                        
-                        if result["success"] as? Bool == true{
-                            if let link = (result["data"] as? NSDictionary)?.value(forKey: "u") as? String{
-                                
-                                
-                                let textToShare = [ link ]
-                                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-                                activityViewController.popoverPresentationController?.sourceView = self.view
-                                
-                                self.present(activityViewController, animated: true, completion: nil)
-                            }
-                        }
-                    }
-                }
-            }catch{
-            }
-        } , failureHandler : { (error ) in
-            print(error)
-        })
+
+        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, journey: journey)
     }
     
+    func returnSharableUrl(url: String)
+    {
+        let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]
+        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+
+        self.present(activityViewController, animated: true, completion: nil)
+    }
     
     func infoButtonTapped(isViewExpanded: Bool)
     {
@@ -608,19 +662,15 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         self.present(vc, animated: true, completion: nil)
     }
     
-    //Arrival Performance view hide & show
-    func updateView() {
-        backgroundButton.isHidden = false
-    }
+//    //Arrival Performance view hide & show
+//    func updateView() {
+//        backgroundButton.isHidden = false
+//    }
     
     @IBAction func backgroundButtonClicked(_ sender: Any)
     {
-        backgroundButton.isHidden = true
-        NotificationCenter.default.post(name:NSNotification.Name("backgroundButtonClicked"), object: nil)
+        
 
-    }
-    @objc private func arrivalPerformanceBackgroundButtonClicked(){
-        backgroundButton.isHidden = true
     }
     
     //Present Baggage Dimensions screen

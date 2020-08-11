@@ -21,7 +21,7 @@ struct TimeFK {
     func setPinnedFlightAt(_ flightKey: String , isPinned : Bool)
     func shareFlightAt(_ indexPath : IndexPath)
     func navigateToFlightDetailFor(journey : Journey, selectedIndex: IndexPath)
-    func shareJourney(journey : Journey)
+    func shareJourney(journey : [Journey])
     func navigateToFlightDetailFor(journey : Journey)
 }
 
@@ -352,7 +352,7 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
         }
         // share action
         let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up"), identifier: nil) {  (action) in
-            self.delegate?.shareJourney(journey: journey)
+            self.delegate?.shareJourney(journey: [journey])
         }
         
         // Add to Trip Action
