@@ -39,6 +39,9 @@ struct TimeFK {
     @IBOutlet weak var tableViewTop: NSLayoutConstraint!
     @IBOutlet weak var downArrowButtonHeight: NSLayoutConstraint!
     @IBOutlet weak var bottomWhitePatchVIewHeight: NSLayoutConstraint!
+    @IBOutlet weak var resultsCollectionView: UICollectionView!
+    
+    
     //MARK:- State variables
     var flightGroup = JourneyOnewayDisplay([])
     var buttonTapped : (() -> ()) = {}
@@ -65,6 +68,16 @@ struct TimeFK {
         timeCollectionView.delegate = self
         timeCollectionView.allowsSelection = true
         timeCollectionView.allowsMultipleSelection = false
+        
+        
+        resultsCollectionView.registerCell(nibName: SingleJourneyCollectionViewCell.reusableIdentifier)
+        resultsCollectionView.dataSource = self
+        resultsCollectionView.delegate = self
+        resultsCollectionView.allowsSelection = true
+        resultsCollectionView.allowsMultipleSelection = false
+        resultsCollectionView.isPagingEnabled = true
+        resultsCollectionView.showsHorizontalScrollIndicator = false
+        
     }
     
     func setVaulesFrom( journey: JourneyOnewayDisplay) {
@@ -88,6 +101,7 @@ struct TimeFK {
         setupCollectionView()
         timeCollectionView.reloadData()
         collaspableTableView.reloadData()
+        resultsCollectionView.reloadData()
 
         if  let selectedDepartureIndex = timeArray.firstIndex(where: { $0.fk == flightGroup.selectedFK}) {
             let indexPath = IndexPath(row: selectedDepartureIndex, section: 0)
@@ -132,7 +146,6 @@ struct TimeFK {
             }
         }
         buttonTapped()
-
     }
     
     
@@ -142,19 +155,20 @@ struct TimeFK {
     }
     
      func updateViewConstraints() {
-        
         if flightGroup.isCollapsed == false {
             self.timeSegmentBGViewHeight.constant = 0
             tableViewTop.constant = 50.0
             self.tableViewHeight.constant = CGFloat((flightGroup.journeyArray.count ) * 131)
             downArrowButtonHeight.constant = 44
             bottomWhitePatchVIewHeight.constant = 22
+            self.resultsCollectionView.isHidden = true
         }else{
             self.timeSegmentBGViewHeight.constant = 30
             self.tableViewHeight.constant = 139
             tableViewTop.constant = 90.0
             downArrowButtonHeight.constant = 0
             bottomWhitePatchVIewHeight.constant = 0
+            self.resultsCollectionView.isHidden = false
         }
     }
     
@@ -276,7 +290,8 @@ extension GroupedFlightCell : UITableViewDataSource, UITableViewDelegate {
 
 //MARK:- CollectionView Data Source and Delegate Methods
 @available(iOS 13.0, *)
-extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDelegate {
+extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return flightGroup.journeyArray.count
@@ -284,22 +299,58 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = timeCollectionView.dequeueReusableCell(withReuseIdentifier: "TimeCollectionViewCell", for: indexPath) as! TimeCollectionViewCell
-        let currentTimeFK = timeArray[indexPath.row]
-        let currentTime = currentTimeFK.departurTime
-        let currentFK = currentTimeFK.fk
-        cell.timeLabel.text = currentTime
-        if  let journey = flightGroup.getJourneyWith(fk: currentFK) {
-            cell.isPinnedView.isHidden = !(journey.isPinned ?? false)
+        if collectionView == self.timeCollectionView {
+            
+            let cell = timeCollectionView.dequeueReusableCell(withReuseIdentifier: "TimeCollectionViewCell", for: indexPath) as! TimeCollectionViewCell
+            let currentTimeFK = timeArray[indexPath.row]
+            let currentTime = currentTimeFK.departurTime
+            let currentFK = currentTimeFK.fk
+            cell.timeLabel.text = currentTime
+            if  let journey = flightGroup.getJourneyWith(fk: currentFK) {
+                cell.isPinnedView.isHidden = !(journey.isPinned ?? false)
+            }
+            return cell
+            
+        } else {
+            
+            let cell = resultsCollectionView.dequeueReusableCell(withReuseIdentifier: "SingleJourneyCollectionViewCell", for: indexPath) as! SingleJourneyCollectionViewCell
+            if let journey = getJourneyObj(indexPath: indexPath) {
+                cell.setTitlesFrom(journey: journey)
+            }
+            return cell
+            
         }
-        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return collectionView == self.timeCollectionView ? 6 : 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return collectionView == self.timeCollectionView ? 6 : 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return collectionView == self.timeCollectionView ? UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16) : UIEdgeInsets.zero
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+       return collectionView == self.timeCollectionView ? CGSize(width: 58, height: 30) : CGSize(width: collectionView.frame.width, height: 139)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        flightGroup.selectedFK = timeArray[indexPath.row].fk
-        collaspableTableView.reloadData()
-        setSelectionViewFrame(animate: true)
+        if collectionView == self.timeCollectionView {
+            flightGroup.selectedFK = timeArray[indexPath.row].fk
+            collaspableTableView.reloadData()
+            setSelectionViewFrame(animate: true)
+        } else {
+            if let selectedJourney = getJourneyObj(indexPath: indexPath) {
+                self.currentJourney = selectedJourney
+                self.delegate?.navigateToFlightDetailFor(journey: selectedJourney, selectedIndex: indexPath)
+            }
+        }
     }
 }
 

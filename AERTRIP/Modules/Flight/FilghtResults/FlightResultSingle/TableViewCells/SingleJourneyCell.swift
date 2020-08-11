@@ -58,7 +58,6 @@ class SingleJourneyCell: UITableViewCell
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         self.layer.masksToBounds = false
         setupBaseView()
         dashedView.setupDashedView()
