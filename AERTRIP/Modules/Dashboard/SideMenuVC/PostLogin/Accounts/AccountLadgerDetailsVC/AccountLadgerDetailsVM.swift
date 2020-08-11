@@ -69,6 +69,7 @@ class AccountLadgerDetailsVM {
             
             var section2 = [(title: String, value: String, age: String, isEmptyCell: Bool)]()
             section2.append((title: "Date", value: self.ladgerEvent!.date?.toString(dateFormat: "dd-MM-YYYY") ?? "", age: "", isEmptyCell: false))
+            section2.append((title: "Voucher", value: self.ladgerEvent!.voucherName, age: "",  isEmptyCell: false))
             if  !self.ladgerEvent!.voucherNo.isEmpty{
                 section2.append((title: "Voucher No.", value: self.ladgerEvent!.voucherNo, age: "", isEmptyCell: false))
             }
@@ -83,7 +84,7 @@ class AccountLadgerDetailsVM {
             if  !self.ladgerEvent!.airline.isEmpty{
                 section4.append((title: "Airline", value: self.ladgerEvent!.airline, age: "", isEmptyCell: false))
             }
-            if  !self.ladgerEvent!.pnr.isEmpty{
+            if  !self.ladgerEvent!.sector.isEmpty{
                 section4.append((title: "Sector", age: "", value: self.ladgerEvent!.sector, isEmptyCell: false))
             }
             if  !self.ladgerEvent!.pnr.isEmpty{
@@ -193,6 +194,7 @@ class AccountLadgerDetailsVM {
             self.sectionArray.append(section1)
             var section2 = [(title: String, value: String, age: String, isEmptyCell: Bool)]()
             section2.append((title: "Date", value: self.ladgerEvent!.date?.toString(dateFormat: "dd-MM-YYYY") ?? "", age: "", isEmptyCell: false))
+            section2.append((title: "Voucher", value: self.ladgerEvent!.voucherName, age: "", isEmptyCell: false))
             if  !self.ladgerEvent!.voucherNo.isEmpty{
                 section2.append((title: "Voucher No.", value: self.ladgerEvent!.voucherNo, age: "", isEmptyCell: false))
             }
@@ -253,7 +255,7 @@ class AccountLadgerDetailsVM {
             self.parseDataForDefault()
         }
         
-        delay(seconds: 0.8) { [weak self] in
+        delay(seconds: 0.0) { [weak self] in
             self?.delegate?.fetchLadgerDetailsSuccess()
         }
         self.delegate?.fetchLadgerDetailsSuccess()

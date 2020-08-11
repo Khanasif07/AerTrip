@@ -105,7 +105,7 @@
                                                 <rect key="frame" x="372" y="0.0" width="77" height="60"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IOT-td-qlA">
-                                                        <rect key="frame" x="0.0" y="22" width="77" height="38"/>
+                                                        <rect key="frame" x="0.0" y="11" width="77" height="38"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xQ0-83-6xP">
                                                                 <rect key="frame" x="0.0" y="0.0" width="77" height="38"/>
@@ -182,7 +182,7 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="IOT-td-qlA" secondAttribute="bottom" id="NAZ-IG-dt0"/>
+                                                    <constraint firstAttribute="bottom" secondItem="IOT-td-qlA" secondAttribute="bottom" constant="11" id="NAZ-IG-dt0"/>
                                                     <constraint firstAttribute="trailing" secondItem="IOT-td-qlA" secondAttribute="trailing" id="Sxb-dg-PPG"/>
                                                     <constraint firstItem="IOT-td-qlA" firstAttribute="leading" secondItem="LTA-1Z-u40" secondAttribute="leading" id="XDE-rE-8YD"/>
                                                 </constraints>

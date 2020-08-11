@@ -28,26 +28,33 @@ class NightStateTableViewCell: UITableViewCell {
         self.titleLabel.font = AppFonts.Regular.withSize(14.0)
         self.titleLabel.textColor = AppColors.themeBlack
         self.titleLabel.backgroundColor = AppColors.clear
-        self.topBackgroundView.layer.cornerRadius = 12.0
+//        self.topBackgroundView.layer.cornerRadius = 12.0
         self.topBackgroundView.layer.borderWidth = 0.2
         self.topBackgroundView.layer.borderColor = AppColors.themeGray20.cgColor
         self.topBackgroundView.backgroundColor = AppColors.themeGray04
         self.selectionStyle = .none
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.topBackgroundView.layer.cornerRadius = self.topBackgroundView.frame.height/2
+    }
+    
     private func configureCell() {
         if flightDetail?.ovgtlo ?? false {
         self.imageview.image = #imageLiteral(resourceName: "overnightIcon")
-        let timeStr = self.flightDetail?.layoverTime.asString(units: [.hour, .minute], style: .abbreviated) ?? LocalizedString.na.localized
-        let finalText = "Overnight Layover in \(flightDetail?.arrivalCity ?? LocalizedString.dash.localized) \(timeStr)"
+        var timeStr = self.flightDetail?.layoverTime.asString(units: [.hour, .minute], style: .abbreviated) ?? LocalizedString.na.localized
+        timeStr = "  •  \(timeStr)"
+        let finalText = "Overnight Layover in \(flightDetail?.arrivalCity ?? LocalizedString.dash.localized)\(timeStr)"//
         self.titleLabel.attributedText = self.getAttributedBoldText(text: finalText, boldText: timeStr)
         } else {
             self.imageview.image = nil
-            let timeStr = self.flightDetail?.layoverTime.asString(units: [.hour, .minute], style: .abbreviated) ?? LocalizedString.na.localized
-            let finalText = "Layover in \(flightDetail?.arrivalCity ?? LocalizedString.dash.localized) \(timeStr)"
+            var timeStr = self.flightDetail?.layoverTime.asString(units: [.hour, .minute], style: .abbreviated) ?? LocalizedString.na.localized
+            timeStr = "  •  \(timeStr)"
+            let finalText = "Layover in \(flightDetail?.arrivalCity ?? LocalizedString.dash.localized)\(timeStr)"
             self.titleLabel.attributedText = self.getAttributedBoldText(text: finalText, boldText: timeStr)
         }
-        
+         self.topBackgroundView.layer.cornerRadius = self.topBackgroundView.frame.height/2
     }
     
     // MARK: - Helper methods

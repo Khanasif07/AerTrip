@@ -25,7 +25,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         return self.viewModel.sectionArray[section - 1].count
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat.leastNormalMagnitude
+        return CGFloat.leastNonzeroMagnitude
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -72,11 +72,11 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-            if indexPath.row == 0 {//&& (indexPath.section - 1) != 0
+            if indexPath.row == 0 && (indexPath.section - 1) != 0{
                 return 36.0
             }else if indexPath.row == 0 && isForVouchre{
                 return 36.0
-            }else if indexPath.row == self.viewModel.sectionArray[indexPath.section - 1].count-1{
+            }else if indexPath.row == self.viewModel.sectionArray[indexPath.section - 1].count-2{
                 return 36.0
             }else{
                return 30.0
@@ -106,6 +106,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 }
                 emptyCell.bottomDividerView.isHidden = true//(indexPath.row == 2)
                 emptyCell.topDividerView.isHidden = (indexPath.row == 2)
+                emptyCell.topDividerTopConstraint.constant = -0.1
                 return emptyCell
             case 1:
                 guard let downloadInvoiceCell = self.tableView.dequeueReusableCell(withIdentifier: "DownloadInvoiceTableViewCell") as? DownloadInvoiceTableViewCell else {

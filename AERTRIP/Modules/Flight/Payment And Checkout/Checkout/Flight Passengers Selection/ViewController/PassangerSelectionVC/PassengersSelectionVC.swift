@@ -72,6 +72,7 @@ class PassengersSelectionVC: BaseVC {
         self.passengerTableview.backgroundColor = AppColors.themeGray04
         self.titleLabel.text = "Passengers"
 //        addButtomView()
+        self.addButton.setImage(#imageLiteral(resourceName: "AddPassenger"), for: .normal)
         self.addButton.isHidden = !(self.viewModel.isLogin)
     }
     
