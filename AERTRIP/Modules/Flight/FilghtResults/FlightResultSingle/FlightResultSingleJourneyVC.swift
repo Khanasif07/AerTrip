@@ -319,7 +319,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         return displayArray
     }
     
-    
     func updateAirportDetailsArray(_ results : [String : AirportDetailsWS])
     {
         airportDetailsResult = results

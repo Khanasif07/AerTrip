@@ -109,47 +109,6 @@ struct TimeFK {
         
     }
     
-    func getSingleJourneyCell (indexPath : IndexPath , journey : Journey?  ) -> UITableViewCell {
-        
-        if let cell =  collaspableTableView.dequeueReusableCell(withIdentifier: "SingleJourneyCell") as? SingleJourneyCell{
-            
-            if #available(iOS 13, *) {
-                if cell.baseView.interactions.isEmpty{
-                    let interaction = UIContextMenuInteraction(delegate: self)
-                    cell.baseView.addInteraction(interaction)
-                }
-            }
-            
-            cell.selectionStyle = .none
-            cell.setTitlesFrom( journey : journey)
-            if let logoArray = journey?.airlineLogoArray {
-                
-                switch logoArray.count {
-                case 1 :
-                    cell.logoTwo.isHidden = true
-                    cell.logoThree.isHidden = true
-                    setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
-                case 2 :
-                    cell.logoThree.isHidden = true
-                    setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
-                    setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
-                    
-                case 3 :
-                    setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
-                    setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
-                    setImageto(imageView: cell.logoThree, url:logoArray[2] , index:  indexPath.row)
-                default:
-                    break
-                }
-            }
-            return cell
-        }
-        assertionFailure("Failed to create SingleJourneyCell cell ")
-        
-        return UITableViewCell()
-    }
-    
-    
     func setImageto( imageView : UIImageView , url : String , index : Int ) {
         if let image = collaspableTableView.resourceFor(urlPath: url , forView: index) {
             
@@ -181,7 +140,6 @@ struct TimeFK {
         flightGroup.isCollapsed = !flightGroup.isCollapsed
         buttonTapped()
     }
-    
     
      func updateViewConstraints() {
         
@@ -251,7 +209,11 @@ struct TimeFK {
 
 
 @available(iOS 13.0, *)
-extension GroupedFlightCell : UITableViewDataSource {
+extension GroupedFlightCell : UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return flightGroup.isCollapsed ? 1 : flightGroup.journeyArray.count
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -261,128 +223,56 @@ extension GroupedFlightCell : UITableViewDataSource {
         return UITableViewCell()
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return flightGroup.isCollapsed ? 1 : flightGroup.journeyArray.count
-    }
-}
-
-
-@available(iOS 13.0, *)
-extension GroupedFlightCell : UITableViewDelegate {
-    
+    func getSingleJourneyCell (indexPath : IndexPath , journey : Journey?  ) -> UITableViewCell {
+         
+         if let cell =  collaspableTableView.dequeueReusableCell(withIdentifier: "SingleJourneyCell") as? SingleJourneyCell{
+             
+             if #available(iOS 13, *) {
+                 if cell.baseView.interactions.isEmpty{
+                     let interaction = UIContextMenuInteraction(delegate: self)
+                     cell.baseView.addInteraction(interaction)
+                 }
+             }
+             
+             cell.selectionStyle = .none
+             cell.setTitlesFrom( journey : journey)
+             if let logoArray = journey?.airlineLogoArray {
+                 
+                 switch logoArray.count {
+                 case 1 :
+                     cell.logoTwo.isHidden = true
+                     cell.logoThree.isHidden = true
+                     setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
+                 case 2 :
+                     cell.logoThree.isHidden = true
+                     setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
+                     setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
+                     
+                 case 3 :
+                     setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
+                     setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
+                     setImageto(imageView: cell.logoThree, url:logoArray[2] , index:  indexPath.row)
+                 default:
+                     break
+                 }
+             }
+             return cell
+         }
+         assertionFailure("Failed to create SingleJourneyCell cell ")
+         
+         return UITableViewCell()
+     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            
-        if let selectedJourney = getJourneyObj(indexPath: indexPath) {
-            self.currentJourney = selectedJourney
-            self.delegate?.navigateToFlightDetailFor(journey: selectedJourney, selectedIndex: indexPath)
-        }
-    }
+               
+           if let selectedJourney = getJourneyObj(indexPath: indexPath) {
+               self.currentJourney = selectedJourney
+               self.delegate?.navigateToFlightDetailFor(journey: selectedJourney, selectedIndex: indexPath)
+           }
+       }
+
     
-    //MARK:-  Methods for TableviewCell Swipe Implementation
-
-    fileprivate func createSwipeActionForLeftOrientation(_ indexPath: IndexPath) -> [UIContextualAction] {
-
-        guard let currentJourney = getJourneyObj(indexPath: indexPath) else {
-            return [UIContextualAction]()
-        }
-
-        let flightKey = currentJourney.fk
-        let isPinned = currentJourney.isPinned ?? false
-        let backgroundColor = UIColor.OffWhiteColor
-
-            if currentJourney.isPinned ?? false {
-
-                let pinAction = UIContextualAction(style: .normal, title: nil , handler: { [weak self] (action, view , completionHandler)  in
-
-                    if let strongSelf = self {
-
-                        strongSelf.delegate?.setPinnedFlightAt(flightKey, isPinned: !isPinned)
-                        strongSelf.collaspableTableView.reloadData()
-                        strongSelf.timeCollectionView.reloadData()
-                    }
-
-                   completionHandler(true)
-                })
-                pinAction.backgroundColor = backgroundColor
-                if let cgImageX =  UIImage(named: "Unpin")?.cgImage {
-                    pinAction.image = ImageWithoutRender(cgImage: cgImageX, scale: UIScreen.main.nativeScale, orientation: .up)
-                }
-
-                return [pinAction]
-
-            }
-            else {
-
-                let pinAction = UIContextualAction(style: .normal, title: nil , handler: { [weak self] (action, view , completionHandler)  in
-
-                    if let strongSelf = self {
-
-                        strongSelf.delegate?.setPinnedFlightAt(flightKey, isPinned: !isPinned)
-                        strongSelf.collaspableTableView.reloadData()
-                        strongSelf.timeCollectionView.reloadData()
-
-                    }
-                    completionHandler(true)
-                })
-
-                pinAction.backgroundColor = backgroundColor
-                if let cgImageX =  UIImage(named: "Pin")?.cgImage {
-                    pinAction.image = ImageWithoutRender(cgImage: cgImageX, scale: UIScreen.main.nativeScale, orientation: .up)
-                }
-
-                return [pinAction]
-
-            }
-    }
-
-
-
-    fileprivate func createSwipeActionsForRightOrientation(_ indexPath: IndexPath) -> [UIContextualAction] {
-
-        let currentJourney = flightGroup.journeyArray[indexPath.row]
-        let backgroundColor = UIColor.OffWhiteColor
-
-        let shareAction = UIContextualAction(style: .normal, title: nil , handler: { (action, view , completionHandler) in
-            self.delegate?.shareJourney(journey: currentJourney)
-            completionHandler(true)
-        })
-
-        if let cgImageX =  UIImage(named: "Share")?.cgImage {
-            shareAction.image = ImageWithoutRender(cgImage: cgImageX, scale: UIScreen.main.nativeScale, orientation: .up)
-        }
-
-        shareAction.backgroundColor =  backgroundColor
-
-        let addToTripAction = UIContextualAction(style: .normal, title: nil, handler: { [weak self]  (action, view , completionHandler)  in
-
-            if let strongSelf = self {
-                strongSelf.delegate?.addToTrip(journey: currentJourney)
-            }
-            completionHandler(true)
-        })
-        addToTripAction.backgroundColor = backgroundColor
-
-        if let cgImageX =  UIImage(named: "AddToTrip")?.cgImage {
-            addToTripAction.image = ImageWithoutRender(cgImage: cgImageX, scale: UIScreen.main.nativeScale, orientation: .up)
-        }
-
-        return [addToTripAction, shareAction]
-    }
-
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-
-            let configuration = UISwipeActionsConfiguration(actions: createSwipeActionForLeftOrientation(indexPath))
-            return configuration
-    }
-
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-
-        let configuration = UISwipeActionsConfiguration(actions: createSwipeActionsForRightOrientation(indexPath))
-        return configuration
-    }
 }
-
 
 //MARK:- CollectionView Data Source and Delegate Methods
 @available(iOS 13.0, *)
@@ -444,7 +334,6 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
     }
 }
     
-    
     func makeMenusFor(journey : Journey ,  flightKey: String , markPinned : Bool) -> UIMenu {
         
         // Pin Action
@@ -473,4 +362,124 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
         }
         return UIMenu(title: "", children: [pin, share, addToTrip])
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@available(iOS 13.0, *)
+extension GroupedFlightCell  {
+
+    //    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    //
+    //            let configuration = UISwipeActionsConfiguration(actions: createSwipeActionForLeftOrientation(indexPath))
+    //            return configuration
+    //    }
+    //
+    //    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    //
+    //        let configuration = UISwipeActionsConfiguration(actions: createSwipeActionsForRightOrientation(indexPath))
+    //        return configuration
+    //    }
+    
+    //MARK:-  Methods for TableviewCell Swipe Implementation
+
+//      fileprivate func createSwipeActionForLeftOrientation(_ indexPath: IndexPath) -> [UIContextualAction] {
+//
+//          guard let currentJourney = getJourneyObj(indexPath: indexPath) else {
+//              return [UIContextualAction]()
+//          }
+//
+//          let flightKey = currentJourney.fk
+//          let isPinned = currentJourney.isPinned ?? false
+//          let backgroundColor = UIColor.OffWhiteColor
+//
+//              if currentJourney.isPinned ?? false {
+//
+//                  let pinAction = UIContextualAction(style: .normal, title: nil , handler: { [weak self] (action, view , completionHandler)  in
+//
+//                      if let strongSelf = self {
+//
+//                          strongSelf.delegate?.setPinnedFlightAt(flightKey, isPinned: !isPinned)
+//                          strongSelf.collaspableTableView.reloadData()
+//                          strongSelf.timeCollectionView.reloadData()
+//                      }
+//
+//                     completionHandler(true)
+//                  })
+//                  pinAction.backgroundColor = backgroundColor
+//                  if let cgImageX =  UIImage(named: "Unpin")?.cgImage {
+//                      pinAction.image = ImageWithoutRender(cgImage: cgImageX, scale: UIScreen.main.nativeScale, orientation: .up)
+//                  }
+//
+//                  return [pinAction]
+//
+//              }
+//              else {
+//
+//                  let pinAction = UIContextualAction(style: .normal, title: nil , handler: { [weak self] (action, view , completionHandler)  in
+//
+//                      if let strongSelf = self {
+//
+//                          strongSelf.delegate?.setPinnedFlightAt(flightKey, isPinned: !isPinned)
+//                          strongSelf.collaspableTableView.reloadData()
+//                          strongSelf.timeCollectionView.reloadData()
+//
+//                      }
+//                      completionHandler(true)
+//                  })
+//
+//                  pinAction.backgroundColor = backgroundColor
+//                  if let cgImageX =  UIImage(named: "Pin")?.cgImage {
+//                      pinAction.image = ImageWithoutRender(cgImage: cgImageX, scale: UIScreen.main.nativeScale, orientation: .up)
+//                  }
+//
+//                  return [pinAction]
+//
+//              }
+//      }
+//
+//
+//
+//      fileprivate func createSwipeActionsForRightOrientation(_ indexPath: IndexPath) -> [UIContextualAction] {
+//
+//          let currentJourney = flightGroup.journeyArray[indexPath.row]
+//          let backgroundColor = UIColor.OffWhiteColor
+//
+//          let shareAction = UIContextualAction(style: .normal, title: nil , handler: { (action, view , completionHandler) in
+//              self.delegate?.shareJourney(journey: currentJourney)
+//              completionHandler(true)
+//          })
+//
+//          if let cgImageX =  UIImage(named: "Share")?.cgImage {
+//              shareAction.image = ImageWithoutRender(cgImage: cgImageX, scale: UIScreen.main.nativeScale, orientation: .up)
+//          }
+//
+//          shareAction.backgroundColor =  backgroundColor
+//
+//          let addToTripAction = UIContextualAction(style: .normal, title: nil, handler: { [weak self]  (action, view , completionHandler)  in
+//
+//              if let strongSelf = self {
+//                  strongSelf.delegate?.addToTrip(journey: currentJourney)
+//              }
+//              completionHandler(true)
+//          })
+//          addToTripAction.backgroundColor = backgroundColor
+//
+//          if let cgImageX =  UIImage(named: "AddToTrip")?.cgImage {
+//              addToTripAction.image = ImageWithoutRender(cgImage: cgImageX, scale: UIScreen.main.nativeScale, orientation: .up)
+//          }
+//
+//          return [addToTripAction, shareAction]
+//      }
+    
 }
