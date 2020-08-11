@@ -299,8 +299,13 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     }
     
     func resetFilter() {
-        for var filter in allPriceFilters {
-            filter.resetFilter()
+        if let newPriceFilters = allPriceFilters {
+            let priceFilters = newPriceFilters.map { (priceFilter) -> PriceFilter in
+                var newPriceFilter = priceFilter
+                newPriceFilter.resetFilter()
+                return newPriceFilter
+            }
+            allPriceFilters = priceFilters
         }
         setupUI()
     }

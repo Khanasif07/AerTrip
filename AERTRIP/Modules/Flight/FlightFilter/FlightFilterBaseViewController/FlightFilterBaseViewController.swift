@@ -383,8 +383,8 @@ class FlightFilterBaseViewController: UIViewController
             } else {
                 timesViewController.multiLegTimerFilter[index] = newFlightLegFilter
             }
-            timesViewController.updateFiltersFromAPI()
         }
+        timesViewController.updateFiltersFromAPI()
     }
     
     //MARK:- Duration
@@ -634,8 +634,8 @@ class FlightFilterBaseViewController: UIViewController
             } else {
                 durationViewController.durationFilters[index] = durationFilter
             }
-            durationViewController.updateFiltersFromAPI()
         }
+        durationViewController.updateFiltersFromAPI()
     }
     
     func setDurationVC(_ durationViewController : FlightDurationFilterViewController , inputFilters : [FiltersWS])
@@ -786,8 +786,8 @@ class FlightFilterBaseViewController: UIViewController
             } else {
                 priceViewController.allPriceFilters[index] = newPriceFilter
             }
-            priceViewController.updateFiltersFromAPI()
         }
+        priceViewController.updateFiltersFromAPI()
     }
     
     //MARK:- Airport
