@@ -306,6 +306,7 @@
 		1851A75C21C3E051008DF03F /* AppUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1851A75B21C3E051008DF03F /* AppUserDefaults.swift */; };
 		1853A37222975BD600891E53 /* BookingReschedulingPassengerAccordionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853A37022975BD600891E53 /* BookingReschedulingPassengerAccordionTableViewCell.swift */; };
 		1853A37322975BD600891E53 /* BookingReschedulingPassengerAccordionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1853A37122975BD600891E53 /* BookingReschedulingPassengerAccordionTableViewCell.xib */; };
+		1854A85824E3EA5000072A42 /* CommunicationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854A85724E3EA5000072A42 /* CommunicationVC.swift */; };
 		18611786242B7CC600BE1306 /* HCDataHotelRatingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18611785242B7CC600BE1306 /* HCDataHotelRatingInfoTableViewCell.swift */; };
 		18611788242B7CF800BE1306 /* HCDataHotelRatingInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18611787242B7CF800BE1306 /* HCDataHotelRatingInfoTableViewCell.xib */; };
 		18637D66249C98EA001325CD /* FlightPaymentPendingRequestSuccessVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18637D65249C98EA001325CD /* FlightPaymentPendingRequestSuccessVC.swift */; };
@@ -1938,6 +1939,7 @@
 		1851A75B21C3E051008DF03F /* AppUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUserDefaults.swift; sourceTree = "<group>"; };
 		1853A37022975BD600891E53 /* BookingReschedulingPassengerAccordionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingReschedulingPassengerAccordionTableViewCell.swift; sourceTree = "<group>"; };
 		1853A37122975BD600891E53 /* BookingReschedulingPassengerAccordionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingReschedulingPassengerAccordionTableViewCell.xib; sourceTree = "<group>"; };
+		1854A85724E3EA5000072A42 /* CommunicationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationVC.swift; sourceTree = "<group>"; };
 		18611785242B7CC600BE1306 /* HCDataHotelRatingInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCDataHotelRatingInfoTableViewCell.swift; sourceTree = "<group>"; };
 		18611787242B7CF800BE1306 /* HCDataHotelRatingInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HCDataHotelRatingInfoTableViewCell.xib; sourceTree = "<group>"; };
 		18637D65249C98EA001325CD /* FlightPaymentPendingRequestSuccessVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPaymentPendingRequestSuccessVC.swift; sourceTree = "<group>"; };
@@ -4251,6 +4253,14 @@
 				84EAABEC21DA0A96006B757F /* SideMenuLogoView.swift */,
 			);
 			path = SideMenu;
+			sourceTree = "<group>";
+		};
+		1854A85624E3EA0400072A42 /* CommunicationVC */ = {
+			isa = PBXGroup;
+			children = (
+				1854A85724E3EA5000072A42 /* CommunicationVC.swift */,
+			);
+			path = CommunicationVC;
 			sourceTree = "<group>";
 		};
 		18637D64249C987B001325CD /* FlightPaymentPendingRequestSuccessVC */ = {
@@ -8773,6 +8783,7 @@
 		84F2DC9122644C4300212F05 /* BookingsVC */ = {
 			isa = PBXGroup;
 			children = (
+				1854A85624E3EA0400072A42 /* CommunicationVC */,
 				845B618F24C0226C00369CC1 /* WebCheckin */,
 				18FFD1AD22A672FB0010C7DB /* BookingConfirmation */,
 				18AE8F5822A4F491009D625E /* ReviewCancellation */,
@@ -9767,6 +9778,7 @@
 				18AC309124878382004CB0B8 /* FlightPaymentVC.swift in Sources */,
 				843FF66D247409E3001F21B1 /* KeyValueData.m in Sources */,
 				84323D412230563800DA7581 /* HotelDetailsSearchTagTableCell.swift in Sources */,
+				1854A85824E3EA5000072A42 /* CommunicationVC.swift in Sources */,
 				8477163E22844AC0000E1BB6 /* PeriodicStatementListVM.swift in Sources */,
 				843FF4F524740231001F21B1 /* IntMCAndReturnDetailsVM.swift in Sources */,
 				8463A5782456D4BB00C70D8C /* HotelShimmerView.swift in Sources */,

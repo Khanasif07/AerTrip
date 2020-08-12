@@ -283,7 +283,8 @@ extension BookingAddOnRequestVC: BookingAddOnRequestVMDelegate {
         if let cell = self.requestTableView.cellForRow(at: indexPath) as? BookingRequestAddOnTableViewCell {
             cell.showLoader = false
         }
-        AppFlowManager.default.showHTMLOnATWebView(htmlString, screenTitle: title)
+        let time = "\(self.viewModel.caseHistory?.communications[indexPath.row].commDate?.toString(dateFormat: "hh:mm aa") ?? "") "
+        self.showAddonsCommunication(htmlString, screenTitle: title, time: time)
     }
     
     func getCommunicationDetailFail(indexPath: IndexPath) {
@@ -292,6 +293,15 @@ extension BookingAddOnRequestVC: BookingAddOnRequestVMDelegate {
             cell.showLoader = false
         }
         //AppGlobals.shared.stopLoading()
+    }
+    
+    func showAddonsCommunication(_ html: String, screenTitle: String, time:String = ""){
+        let obj = CommunicationVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.htmlString = html
+        obj.navTitle = screenTitle
+        obj.timeString = time
+        self.navigationController?.present(obj, animated: true, completion: nil)
+        
     }
     
     func makeRequestConfirmSuccess() {

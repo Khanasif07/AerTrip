@@ -225,7 +225,8 @@ extension AppFlowManager {
         obj.htmlString = html
         obj.navTitle = screenTitle
         //        self.mainNavigationController.present(obj, animated: true, completion: nil)
-        UIApplication.topViewController()?.present(obj, animated: true, completion: nil)
+//        UIApplication.topViewController()?.present(obj, animated: true, completion: nil)
+        self.currentNavigation?.present(obj, animated: true, completion: nil)
     }
     
     func moveToLoginVC(email: String, usingFor: LoginFlowUsingFor = .loginProcess) {

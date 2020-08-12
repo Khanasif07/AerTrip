@@ -100,14 +100,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
         self.whatNextCollectionView.registerCell(nibName: HCWhatNextCollectionViewCell.reusableIdentifier)
         self.flowLayOut()
     }
-//    [UIColor(red: 156/255, green: 39/255, blue: 176/255, alpha: 1.0),
-//    UIColor(red: 255/255, green: 64/255, blue: 129/255, alpha: 1.0),
-//    UIColor(red: 123/255, green: 31/255, blue: 162/255, alpha: 1.0),
-//    UIColor(red: 32/255, green: 76/255, blue: 255/255, alpha: 1.0),
-//    UIColor(red: 32/255, green: 158/255, blue: 255/255, alpha: 1.0),
-//    UIColor(red: 90/255, green: 120/255, blue: 127/255, alpha: 1.0),
-//    UIColor(red: 58/255, green: 255/255, blue: 217/255, alpha: 1.0)]
-    
+
     ///COnfigure Cell
     internal func configCell(whatNextString: [String]) {
         self.nextPlanString = whatNextString

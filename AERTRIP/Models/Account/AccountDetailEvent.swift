@@ -28,6 +28,7 @@ enum VoucherReceiptMethod: String {
     case netbanking = "netbanking"
     case card = "card"
     case upi = "upi"
+    case offline = "offline"
 }
 
 enum VoucherProductType: String {
@@ -150,7 +151,11 @@ struct AccountDetailEvent {
         
         if let obj = json["balance"] {
             let amt = "\(obj)".toDouble ?? 0.0
-            self.balance = amt * -1
+            if amt != 0{
+                self.balance = amt * -1
+            }else{
+                self.balance = 0
+            }
         }
         
         if let obj = json["transaction_datetime"] {
@@ -202,7 +207,11 @@ struct AccountDetailEvent {
             
         case .receipt:
             if let details = json["detail"] as? JSONDictionary, let info = details["info"] as? JSONDictionary {
-                self._receiptMethod = (info["method"] as? String) ?? ""
+                if !((info["method"] as? String) ?? "").isEmpty{
+                    self._receiptMethod = (info["method"] as? String) ?? ""
+                }else if !((info["type"] as? String) ?? "").isEmpty{
+                    self._receiptMethod = (info["type"] as? String) ?? ""
+                }
                 switch self.receiptMethod {
                 case .netbanking:
                     self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
@@ -222,6 +231,17 @@ struct AccountDetailEvent {
                     let cardNum = (info["card_number"] as? String) ?? "XXXX"
                     self.creditCardNo = "XXXX - XXXX - XXXX - \(cardNum)"
                     
+                case .offline:
+                    self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
+                    if info["draft_cheque_number"] != nil {
+                        self.title = "Cheque / Demand Draft"
+                    }else if info["utr_number"] != nil{
+                        self.title = "Fund Transfer"
+                    }else{
+                        self.title = "Cash deposit in Bank"
+                    }
+//                    let bankName = (info["bank_name"] as? String) ?? ""
+//                    self.title = self._receiptMethod.isEmpty ? bankName : "\(self._receiptMethod.capitalizedFirst()): \(bankName)"
                 case .none:
                     printDebug("No need for other voucher types")
                 @unknown default:
