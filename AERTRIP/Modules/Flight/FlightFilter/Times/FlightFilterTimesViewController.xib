@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +13,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FlightFilterTimesViewController" customModule="Aertrip" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FlightFilterTimesViewController" customModule="AERTRIP" customModuleProvider="target">
             <connections>
                 <outlet property="arrivalEndTime" destination="fBg-O1-NMI" id="Uqu-oU-nO0"/>
                 <outlet property="arrivalEndTimeWidth" destination="GT1-b7-oyx" id="Bra-nZ-UmB"/>
@@ -26,12 +26,16 @@
                 <outlet property="departureStartTime" destination="myP-Ae-C4j" id="xbw-Uf-00e"/>
                 <outlet property="departureTimeLabel" destination="YfV-Mf-CSo" id="xOZ-E5-77c"/>
                 <outlet property="earlyMorningButton" destination="nah-4I-hI0" id="rD5-SR-stI"/>
+                <outlet property="earlyMorningContainerView" destination="kH9-1y-fuF" id="k4j-nD-e8o"/>
                 <outlet property="eveningButton" destination="VGQ-bl-6hJ" id="AAI-K6-5AM"/>
+                <outlet property="eveningContainerView" destination="8iZ-h7-kib" id="XJR-pQ-VFI"/>
                 <outlet property="lateEveningButton" destination="dPi-nd-qa5" id="S6Q-vt-jFa"/>
+                <outlet property="lateEveningContainerView" destination="Dwp-Ho-8QC" id="0ch-rJ-PxB"/>
                 <outlet property="multiLegView" destination="aad-gD-Igu" id="3aV-Rr-LSI"/>
                 <outlet property="multiLegViewHeight" destination="KM6-jV-MyU" id="Jki-fl-kGA"/>
                 <outlet property="multiSegmentView" destination="BW3-J2-Xhr" id="F1i-af-YSP"/>
                 <outlet property="noonButton" destination="1wV-bm-9Ui" id="gdU-aQ-w1g"/>
+                <outlet property="noonContainerView" destination="ZeH-De-ngh" id="3sX-O3-iiM"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -116,7 +120,7 @@
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R0r-6H-pM8" customClass="AertripRangeSlider" customModule="Aertrip" customModuleProvider="target">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R0r-6H-pM8" customClass="AertripRangeSlider" customModule="AERTRIP" customModuleProvider="target">
                             <rect key="frame" x="16" y="90" width="343" height="28"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -280,7 +284,7 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OAV-cO-fKE" customClass="AertripRangeSlider" customModule="Aertrip" customModuleProvider="target">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OAV-cO-fKE" customClass="AertripRangeSlider" customModule="AERTRIP" customModuleProvider="target">
                             <rect key="frame" x="16" y="286" width="343" height="28"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>

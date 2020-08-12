@@ -57,7 +57,7 @@
                 <outlet property="superScript" destination="EyP-JG-Nav" id="owP-Zg-B95"/>
                 <outlet property="superScriptWidth" destination="jWy-EE-Oma" id="U5x-yx-fJi"/>
             </connections>
-            <point key="canvasLocation" x="147.10144927536234" y="156.69642857142856"/>
+            <point key="canvasLocation" x="146.37681159420291" y="156.36160714285714"/>
         </collectionViewCell>
     </objects>
 </document>

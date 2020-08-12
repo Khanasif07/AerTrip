@@ -104,7 +104,9 @@
         
         if ( returnDateString != nil) {
             NSString * returnOutputString = [self formatDateString:returnDateString];
-            [outputString appendFormat:@" - %@",returnOutputString];
+            if (returnOutputString != nil) {
+                [outputString appendFormat:@" - %@",returnOutputString];
+            }
         }
         
         self.travelDate = outputString;
