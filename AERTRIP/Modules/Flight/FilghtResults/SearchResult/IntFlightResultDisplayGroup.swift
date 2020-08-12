@@ -9,6 +9,15 @@
 import Foundation
 
 class IntFlightResultDisplayGroup {
+    
+    enum InitiatedFilters {
+        case tripDuration
+        case layoverDuration
+    }
+    
+    internal var initiatedFilters: [Int: Set<FlightResultDisplayGroup.InitiatedFilters>] = [:]
+
+    
     let index : Int
     weak var delegate : FlightResultViewModelDelegate?
     var workItems = [DispatchWorkItem]()
@@ -22,6 +31,8 @@ class IntFlightResultDisplayGroup {
     var inputFilter : [IntMultiCityAndReturnWSResponse.Results.F] = []
     private var numberOfLegs = 0
     internal var isReturnJourney = false
+    
+    internal var isAPIResponseUpdated = false
     
     //MARK:- Computed Properties
     var appliedFilters = Set<Filters>() {
@@ -52,11 +63,12 @@ class IntFlightResultDisplayGroup {
             DispatchQueue.main.async {
                 
                 let filterApplied =  self.appliedFilters.count > 0 || self.UIFilters.count > 0
-                self.delegate?.updatedResponseReceivedAt(index: self.index , filterApplied:filterApplied)
+                self.delegate?.updatedResponseReceivedAt(index: self.index , filterApplied:filterApplied, isAPIResponseUpdated: self.isAPIResponseUpdated)
                 
                 if self.filteredJourneyArray.count == 0 {
                     self.delegate?.showNoFilteredResultsAt(index: self.index )
                 }
+                self.isAPIResponseUpdated = false
             }
         }
     }
@@ -87,7 +99,7 @@ class IntFlightResultDisplayGroup {
             processedJourneyArray = groupSimilarFlights(processedJourneyArray)
             
             for index in 0..<self.numberOfLegs{
-                applyFilters(index: index)
+                applyFilters(index: index, isAPIResponseUpdated: true)
             }
             
         
@@ -163,11 +175,20 @@ class IntFlightResultDisplayGroup {
         }
     }
     
-    private func compareAndGetDate(_ type: ComparisonResult, d1: String, d2: String) -> String {
+    internal func compareAndGetDate(_ type: ComparisonResult, d1: String, d2: String) -> String {
         if type == .orderedAscending {
-            return d1.compare(d2) == .orderedAscending ? d1 : d2
+            if let _ = Int(d1) {
+                return (Int(d1) ?? 0) < (Int(d2) ?? 0) ? d1 : d2
+            } else {
+                return d1.compare(d2) == .orderedAscending ? d1 : d2
+            }
+            
         } else if type == .orderedDescending {
-            return d1.compare(d2) == .orderedDescending ? d1 : d2
+            if let _ = Int(d1) {
+                return (Int(d1) ?? 0) > (Int(d2) ?? 0) ? d1 : d2
+            } else {
+                return d1.compare(d2) == .orderedDescending ? d1 : d2
+            }
         }
         return d1
     }

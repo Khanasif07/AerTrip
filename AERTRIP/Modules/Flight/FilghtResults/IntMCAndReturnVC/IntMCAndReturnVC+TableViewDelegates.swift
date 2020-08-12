@@ -33,14 +33,11 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
         if viewModel.resultTableState == .showExpensiveFlights {
             
             return viewModel.results.allJourneys.count
-
-           // return self.getnumberOfRowsWhenExpanded(section: section)
             
         }else{
+            
             return viewModel.results.suggestedJourneyArray.count
-
-
-           // return self.getNumberOfRowsWhenNotExpanded(section : section)
+            
         }
     }
     

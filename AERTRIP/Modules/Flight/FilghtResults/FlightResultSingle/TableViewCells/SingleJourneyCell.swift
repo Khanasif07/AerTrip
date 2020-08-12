@@ -58,7 +58,6 @@ class SingleJourneyCell: UITableViewCell
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         self.layer.masksToBounds = false
         setupBaseView()
         dashedView.setupDashedView()
@@ -78,8 +77,8 @@ class SingleJourneyCell: UITableViewCell
         smartIconCollectionView.dataSource = self
         smartIconCollectionView.delegate = self
     }
-    //MARK:-
     
+    //MARK:-
     fileprivate func setupGradientView( selectedColor : UIColor = UIColor.white)
     {
         let gradient = CAGradientLayer()
@@ -122,8 +121,8 @@ class SingleJourneyCell: UITableViewCell
         }
     }
     
-    func setTitlesFrom( journey : Journey)
-    {
+    func setTitlesFrom( journey : Journey?) {
+        guard let journey = journey else { return }
         currentJourney = journey
         if journey.isPinned ?? false {
             setPinnedFlight()
@@ -178,11 +177,10 @@ class SingleJourneyCell: UITableViewCell
         baggageSuperScript = journey.baggageSuperScript
         smartIconsArray = journey.smartIconArray
         smartIconCollectionView.reloadData()
-
     }
     
     override func prepareForReuse() {
-        
+        super.prepareForReuse()
         logoOne.isHidden = false
         logoTwo.isHidden = false
         logoThree.isHidden = false
@@ -196,7 +194,6 @@ class SingleJourneyCell: UITableViewCell
         
         pinnedRoundedLayer?.removeFromSuperlayer()
         
-        super.prepareForReuse()
     }
     
     

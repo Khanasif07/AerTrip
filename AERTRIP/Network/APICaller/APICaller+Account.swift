@@ -14,7 +14,7 @@ extension APICaller {
     func getAccountDetailsAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ accountLadger: JSONDictionary, _ accountLadgerVouchers: [String], _ outstanding: AccountOutstanding?, _ periodicEventData: JSONDictionary, _ errorCodes: ErrorCodes) -> Void) {
         AppNetworking.GET(endPoint: APIEndPoint.accountDetail, parameters: params, success: { [weak self] json in
             guard let sSelf = self else { return }
-//            printDebug(json)
+            printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
                 if sucess {
                     let data = jsonData[APIKeys.data.rawValue]

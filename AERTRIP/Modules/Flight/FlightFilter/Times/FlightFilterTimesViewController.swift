@@ -57,9 +57,13 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     @IBOutlet weak var departureEndTime: UILabel!
     @IBOutlet weak var departureRangeSlider:  AertripRangeSlider!
 
+    @IBOutlet weak var earlyMorningContainerView: UIView!
     @IBOutlet weak var earlyMorningButton: UIButton!
+    @IBOutlet weak var noonContainerView: UIView!
     @IBOutlet weak var noonButton: UIButton!
+    @IBOutlet weak var eveningContainerView: UIView!
     @IBOutlet weak var eveningButton: UIButton!
+    @IBOutlet weak var lateEveningContainerView: UIView!
     @IBOutlet weak var lateEveningButton: UIButton!
     
     //MARK:- Arrival Outlets
@@ -73,6 +77,17 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
+    }
+    
+    /// Updates UI if data is coming and filters
+    func updateFiltersFromAPI() {
+        currentTimerFilter = multiLegTimerFilter[currentActiveIndex]
+        UIView.animate(withDuration: 0.3) {
+            self.setDepartureSliderValues()
+            self.setArrivalSliderValues(userSelected: false)
+            self.setArrivalSliderValues(userSelected: true)
+            self.view.layoutIfNeeded()
+        }
     }
     
     //MARK:- Departure feature methods
@@ -128,6 +143,13 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         eveningButton.isEnabled = true
         lateEveningButton.isEnabled = true
         
+        earlyMorningButton.alpha = 1
+        noonButton.alpha = 1
+        noonButton.alpha = 1
+        eveningButton.alpha = 1
+        lateEveningButton.alpha = 1
+        
+        
         let startDateTime = Calendar.current.startOfDay(for: currentTimerFilter.departureMinTime)
         let minTimeInterval = currentTimerFilter.departureMinTime.timeIntervalSince(startDateTime)
         let maxTimeInterval = currentTimerFilter.departureTimeMax.timeIntervalSince(startDateTime)
@@ -138,27 +160,33 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
         
         if startTime > TimeInterval.sixAM {
-            earlyMorningButton.isEnabled = false
+//            earlyMorningButton.isEnabled = false
+            earlyMorningButton.alpha = 0.6
         }
         
         if startTime > TimeInterval.twelvePM {
-            noonButton.isEnabled = false
+//            noonButton.isEnabled = false
+            noonButton.alpha = 0.6
         }
         
         if startTime > TimeInterval.sixPM {
-            eveningButton.isEnabled = false
+//            eveningButton.isEnabled = false
+            eveningButton.alpha = 0.6
         }
         
         if endTime < TimeInterval.sixPM {
-            lateEveningButton.isEnabled = false
+//            lateEveningButton.isEnabled = false
+            lateEveningButton.alpha = 0.6
         }
         
         if endTime < TimeInterval.twelvePM {
-            eveningButton.isEnabled = false
+//            eveningButton.isEnabled = false
+            eveningButton.alpha = 0.6
         }
         
         if endTime < TimeInterval.sixAM {
-            noonButton.isEnabled = false
+//            noonButton.isEnabled = false
+            noonButton.alpha = 0.6
         }
 
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanOnView(sender:)))
@@ -298,6 +326,148 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         }
     }
     
+    var panStartPos: CGFloat?
+    
+    @objc private func handlePan(sender: UIPanGestureRecognizer) {
+        
+        guard let senderView = sender.view else { return }
+        
+        let location = sender.location(in: senderView)
+        
+        if sender.state == .began {
+            panStartPos = location.x
+        }
+        
+        if sender.state == .changed {
+            
+            let calendar = Calendar.current
+            let startTime = calendar.startOfDay(for: currentTimerFilter.departureMinTime)
+            let minDeparture = currentTimerFilter.departureMinTime.timeIntervalSince(startTime)
+            let roundedMinDeparture = TimeInterval(3600.0 * floor((minDeparture  / 3600 )))
+            let maxDeparture =  currentTimerFilter.departureTimeMax.timeIntervalSince(startTime)
+            let roundedMaxDeparture = TimeInterval(3600 * ceil(maxDeparture  / 3600 ))
+            
+            let width = senderView.frame.width
+            let partWidth = width/4.0
+            
+            let panStartPositionInNumber = (panStartPos ?? 0) / partWidth
+            
+            if location.x < (panStartPos ?? 0) {
+                switch ceil(panStartPositionInNumber) {
+                case 1 :
+                    if roundedMaxDeparture < TimeInterval.sixAM  {
+                        departureEndTimeInterval = roundedMaxDeparture
+                    }
+                    else {
+                        departureEndTimeInterval = TimeInterval.sixAM
+                    }
+                case 2 :
+                    if roundedMaxDeparture < TimeInterval.twelvePM {
+                        departureEndTimeInterval = roundedMaxDeparture
+                    }
+                    else {
+                        departureEndTimeInterval = TimeInterval.twelvePM
+                    }
+                case 3 :
+                    if roundedMaxDeparture < TimeInterval.sixPM {
+                        departureEndTimeInterval = roundedMaxDeparture
+                    }
+                    else {
+                        departureEndTimeInterval = TimeInterval.sixPM
+                    }
+                case 4 , 5 :
+                
+                    if roundedMaxDeparture < TimeInterval.endOfDay {
+                        departureEndTimeInterval = roundedMaxDeparture
+                    }
+                        else {
+                        departureEndTimeInterval = TimeInterval.endOfDay
+                    }
+                    
+                default:
+                    print("unknown state")
+                }
+                
+                
+                let curPosInNumber = floor(location.x / partWidth)
+                
+                switch curPosInNumber {
+                    case 0 :
+                        if roundedMinDeparture > TimeInterval.startOfDay {
+                            departureStartTimeInterval = roundedMinDeparture
+                        }
+                        else {
+                            departureStartTimeInterval = TimeInterval.startOfDay
+                        }
+                    case 1 :
+                        
+                        if roundedMinDeparture > TimeInterval.sixAM {
+                            departureStartTimeInterval = roundedMinDeparture
+                        }
+                        else {
+                            departureStartTimeInterval = TimeInterval.sixAM
+                        }
+                    case 2 :
+                        if roundedMinDeparture > TimeInterval.twelvePM {
+                            departureStartTimeInterval = roundedMinDeparture
+                        }
+                        else {
+                            departureStartTimeInterval = TimeInterval.twelvePM
+                        }
+                    case 3 :
+                        
+                        if roundedMinDeparture > TimeInterval.sixPM {
+                            departureStartTimeInterval = roundedMinDeparture
+                        }
+                        else {
+                            departureStartTimeInterval = TimeInterval.sixPM
+                        }
+                        
+                    default:
+                        print("unknown state")
+                }
+                
+            } else {
+                switch floor(panStartPositionInNumber) {
+                    case 0 :
+                        if roundedMinDeparture > TimeInterval.startOfDay {
+                            departureStartTimeInterval = roundedMinDeparture
+                        }
+                        else {
+                            departureStartTimeInterval = TimeInterval.startOfDay
+                        }
+                    case 1 :
+                        
+                        if roundedMinDeparture > TimeInterval.sixAM {
+                            departureStartTimeInterval = roundedMinDeparture
+                        }
+                        else {
+                            departureStartTimeInterval = TimeInterval.sixAM
+                        }
+                    case 2 :
+                        if roundedMinDeparture > TimeInterval.twelvePM {
+                            departureStartTimeInterval = roundedMinDeparture
+                        }
+                        else {
+                            departureStartTimeInterval = TimeInterval.twelvePM
+                        }
+                    case 3 :
+                        
+                        if roundedMinDeparture > TimeInterval.sixPM {
+                            departureStartTimeInterval = roundedMinDeparture
+                        }
+                        else {
+                            departureStartTimeInterval = TimeInterval.sixPM
+                        }
+                        
+                    default:
+                        print("unknown state")
+                }
+            }
+            updateDepartureUIValues()
+        }
+        
+    }
     
     @objc fileprivate func departureRangeChanged () {
         
@@ -422,6 +592,12 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     
     
     @IBAction func departureSelectedByRangeButtons(_ sender: UIButton) {
+        
+        guard sender.alpha == 1 else {
+            let message = "Flights are available between " +  stringFromTimeInterval(interval: departureStartTimeInterval) + " and " + stringFromTimeInterval(interval: departureEndTimeInterval)
+            showToastMessageForAvailableDepartureRange(message)
+            return
+        }
         
         let buttonTag = sender.tag
         var message = String()

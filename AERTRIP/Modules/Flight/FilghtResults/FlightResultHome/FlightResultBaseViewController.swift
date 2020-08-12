@@ -328,7 +328,6 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             fullString.append(imageString)
             fullString.append(desinationAtrributedString)
             
-            
             let redString = NSMutableAttributedString(string: origin + " " )
             let redImageString = getStringFromImage(name : "ArrowRed")
             redString.append(redImageString)
@@ -418,7 +417,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     
     fileprivate func addSingleJourneyViewController() {
         let resultBaseVC = FlightResultSingleJourneyVC()
-        resultBaseVC.resultTableState = .showTemplateResults
+        resultBaseVC.viewModel.resultTableState = .showTemplateResults
         resultBaseVC.addBannerTableHeaderView()
         resultBaseVC.titleString = flightSearchResultVM.titleString
         resultBaseVC.subtitleString = flightSearchResultVM.subTitleString
@@ -556,8 +555,8 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             let destination = self.flightSearchParameters.value(forKey: "destination") as! String
             let journey = Leg(origin: origin, destination: destination)
             legList = [journey]
-            
         }
+        
         if flightType == RETURN_JOURNEY {
             legList = legListForReturnFlightSearch()
         }
@@ -1033,24 +1032,18 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         self.noResultScreen = noResultScreenForSearch
     }
     
-    func updatedResponseReceivedAt(index: Int , filterApplied : Bool) {
+    func updatedResponseReceivedAt(index: Int , filterApplied : Bool, isAPIResponseUpdated: Bool) {
         
         guard let resultVM = self.flightSearchResultVM else  { return }
         self.filterTitle.text = self.flightSearchResultVM.filterSummaryTitle
         
-        if !filterApplied {
+        if isAPIResponseUpdated {
             self.flightFilterVC?.flightResultArray = self.flightSearchResultVM.flightResultArray
+            flightFilterVC?.userAppliedFilters =  flightSearchResultVM.flightLegsAppliedFilters
             self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
-            
             
             self.intMCAndReturnFilterVC?.flightResultArray = self.flightSearchResultVM.intFlightResultArray
             self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)
-        }
-        
-        if resultVM.flightLegs.first!.appliedFilters.contains(.Airlines){
-            self.flightFilterVC?.flightResultArray = self.flightSearchResultVM.flightResultArray
-            self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
-
         }
         
         let flightType = flightSearchResultVM.flightSearchType
@@ -1130,9 +1123,22 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
     }
     
     func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int){
-        guard let intMCAndReturnVC = self.intMultiLegResultVC else { return }
-        intMCAndReturnVC.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex, shouldReload : true, completion: {})
+//        guard let intMCAndReturnVC = self.intMultiLegResultVC else { return }
+//        intMCAndReturnVC.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex, shouldReload : true, completion: {})
+        
+        if let intMCAndReturnVC = self.intMultiLegResultVC {
+             intMCAndReturnVC.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex, shouldReload : true, completion: {})
+        }else{
+            
+            if self.flightSearchResultVM.bookFlightObject.flightSearchType == SINGLE_JOURNEY {
+                singleJourneyResultVC?.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex, shouldReload: true, completion: {})
+            }else{
+                
+                
+            }
+        }
     }
+    
     
     func webserviceProgressUpdated(progress: Float) {
         if progress > 0.25 {
@@ -1146,7 +1152,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                 }
                 
                 if progress >= 0.97 {
-//                    self.ApiProgress.isHidden = true
+                    self.ApiProgress.isHidden = true
                     self.singleJourneyResultVC?.addPlaceholderTableHeaderView()
                     
                     self.separatorView.snp.updateConstraints { (make) in

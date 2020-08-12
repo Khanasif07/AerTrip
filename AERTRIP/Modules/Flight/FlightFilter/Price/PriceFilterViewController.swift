@@ -91,6 +91,15 @@ class PriceFilterViewController: UIViewController , FilterViewController {
 
     //MARK:- Additional UI Methods
     
+    func updateFiltersFromAPI() {
+        currentPriceFilter = allPriceFilters[currentActiveIndex]
+        UIView.animate(withDuration: 0.3) {
+            self.setupPriceSlider()
+            self.setupPriceLabels()
+            self.view.layoutIfNeeded()
+        }
+    }
+    
     func initialSetup () {
        
         
@@ -290,8 +299,13 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     }
     
     func resetFilter() {
-        for var filter in allPriceFilters {
-            filter.resetFilter()
+        if let newPriceFilters = allPriceFilters {
+            let priceFilters = newPriceFilters.map { (priceFilter) -> PriceFilter in
+                var newPriceFilter = priceFilter
+                newPriceFilter.resetFilter()
+                return newPriceFilter
+            }
+            allPriceFilters = priceFilters
         }
         setupUI()
     }

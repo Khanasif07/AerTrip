@@ -275,19 +275,29 @@ extension FlightSortFilterViewController : UITableViewDataSource , UITableViewDe
             
             switch  indexPath.row
             {
+          
+            case 0:
+                delegate?.sortFilterChanged(sort: .Smart)
+            
+            case 1:
+                delegate?.priceFilterChangedWith(priceHighToLow)
+                
             case 2 :
-                delegate?.durationSortFilterChanged(longestFirst: durationLogestFirst)
+                delegate?.durationFilterChangedWith(durationLogestFirst)
+
             case 3 :
-                delegate?.departSortFilterChanged(departMode: departModeLatestFirst )
+                delegate?.departSortFilterChanged(departMode: departModeLatestFirst)
+                
             case 4 :
                 delegate?.arrivalSortFilterChanged(arrivalMode: arrivalModeLatestFirst)
                 
             default :
-                if indexPath.row == 1 && priceHighToLow == true{
-                    delegate?.sortFilterChanged(sort: Sort(rawValue: 7)!)
-                }else{
-                    delegate?.sortFilterChanged(sort: sortFilter)
-                }
+                break
+//                if indexPath.row == 1 && priceHighToLow == true{
+//                    delegate?.sortFilterChanged(sort: Sort(rawValue: 7)!)
+//                }else{
+//                    delegate?.sortFilterChanged(sort: sortFilter)
+//                }
             }
         }
         self.sortTableview.reloadData()

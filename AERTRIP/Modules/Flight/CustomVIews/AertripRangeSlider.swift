@@ -182,7 +182,7 @@ class AertripRangeSlider : UIControl {
             rightValue = min(xCoordinate / trackWidth, 1.0)
             
              // Pushing left knob to keep distance between two
-            if (xCoordinate - spacingBetweenKnobs < leftImageView.center.x ) {
+            if (xCoordinate - spacingBetweenKnobs < leftImageView.center.x - spacing ) {
                 let leftKnobCenter = xCoordinate - spacingBetweenKnobs
                 leftValue = max(leftKnobCenter/trackWidth, 0.0)
             }
