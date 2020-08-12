@@ -11,7 +11,7 @@ import UIKit
 
 protocol FlightResultViewModelDelegate : class {
     func webserviceProgressUpdated(progress : Float)
-    func updatedResponseReceivedAt( index: Int , filterApplied : Bool)
+    func updatedResponseReceivedAt( index: Int , filterApplied : Bool, isAPIResponseUpdated: Bool)
     func showNoResultScreenAt(index : Int)
     func showNoFilteredResultsAt(index : Int)
     func filtersApplied(_ isApplied :  Bool )
@@ -41,6 +41,7 @@ extension FlightResultViewModelDelegate {
     let dispatchGroup = DispatchGroup()
     let dispatchQueue = DispatchQueue.global()
     private var workItems = [DispatchWorkItem]()
+
     
     func cancelAllWebserviceCalls() {
         
@@ -123,6 +124,17 @@ extension FlightResultViewModelDelegate {
                 
         let resultsArray = flightLegs.map{ return $0.flightsResults }
         return resultsArray
+    }
+    
+    var flightLegsAppliedFilters: AppliedAndUIFilters {
+        var filters = AppliedAndUIFilters()
+        let appliedFilters = flightLegs.map { $0.appliedFilters }
+        let uiFilters = flightLegs.map { $0.UIFilters }
+        let appliedSubFilters = flightLegs.map { $0.appliedSubFilters }
+        filters.appliedFilters = appliedFilters
+        filters.uiFilters = uiFilters
+        filters.appliedSubFilters = appliedSubFilters
+        return filters
     }
     
     var intFlightResultArray : [IntMultiCityAndReturnWSResponse.Results] {
@@ -497,4 +509,10 @@ extension FlightSearchResultVM {
     fileprivate func workingOnReceived( flightsArray: [IntMultiCityAndReturnWSResponse.Flight] , displayGroup : Int) {
         intFlightLegs[(displayGroup - 1)].workingOnReceived(flightsArray: flightsArray ,searchType : bookFlightObject.flightSearchType)
     }
+}
+
+struct AppliedAndUIFilters {
+    var uiFilters: [Set<UIFilters>] = []
+    var appliedFilters: [Set<Filters>] = []
+    var appliedSubFilters: [Set<FlightResultDisplayGroup.InitiatedFilters>] = []
 }

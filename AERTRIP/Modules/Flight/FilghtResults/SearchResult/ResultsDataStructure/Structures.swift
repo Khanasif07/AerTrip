@@ -61,7 +61,7 @@ public struct TimeRange24hoursWS : Codable , Equatable {
     func convertFrom(timeInterval : TimeInterval ) -> String? {
         
         if timeInterval == 86400 {
-            return "24.00"
+            return "24:00"
         }
         
         let calendar = Calendar.current
@@ -78,7 +78,7 @@ public struct TimeRange24hoursWS : Codable , Equatable {
     
     func convertFrom(string : String ) ->  TimeInterval? {
         
-        if string == "24.00" {
+        if string == "24:00" {
             return 86400.0
         }
         
@@ -142,8 +142,8 @@ public struct TimeRangeIntervalWS : Codable , Equatable {
 }
 
 public struct TimeRangeTimeZone : Codable {
-    let max : String
-    let min : String
+    var max : String
+    var min : String
 }
 
 public struct airportCodes : Codable {

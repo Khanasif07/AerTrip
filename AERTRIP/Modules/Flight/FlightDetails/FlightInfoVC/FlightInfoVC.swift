@@ -46,7 +46,13 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
     //MARK:- Variable Declaration
     weak var delegate : flightDetailsBaggageDelegate?
 
-    var flightInfoDelegate : flightInfoViewDisplayDelegate?
+    
+    // Monika
+    
+//    var flightInfoDelegate : flightInfoViewDisplayDelegate?
+    
+    var arrivalPerformanceDelegate : getArrivalPerformanceDelegate?
+    
     var journey: [Journey]!
     var titleString : NSAttributedString!
     var airportDetailsResult : [String : AirportDetailsWS]!
@@ -871,28 +877,39 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     //MARK:- Button Actions
+//    @objc func flightArrivalPerfomaceButtonClicked(_ sender:UIButton)
+//    {
+//        let arrivalPerformanceView = ArrivalPerformaceVC(nibName: "ArrivalPerformaceVC", bundle: nil)
+//
+//        let section = sender.tag / 100
+//        let row = sender.tag % 100
+//
+//        if let flight = journey[section].leg.first?.flights[row]{
+//            if flight.ontimePerformanceDataStoringTime != nil{
+//                flightInfoDelegate?.updateView()
+//                arrivalPerformanceView.observationCount = "\(flight.observationCount!)"
+//                arrivalPerformanceView.averageDelay = "\(flight.averageDelay!)"
+//
+//                arrivalPerformanceView.cancelledPerformanceInPercent = flight.cancelledPerformance!
+//                arrivalPerformanceView.delayedPerformanceInPercent = flight.latePerformance!
+//                arrivalPerformanceView.onTimePerformanceInPercent = flight.ontimePerformance!
+//
+//                arrivalPerformanceView.view.frame = self.parent!.view.bounds
+//                self.parent!.view.addSubview(arrivalPerformanceView.view)
+//                self.parent!.addChild(arrivalPerformanceView)
+//                arrivalPerformanceView.willMove(toParent: self)
+//            }
+//        }
+//    }
+    
+    // Monika
     @objc func flightArrivalPerfomaceButtonClicked(_ sender:UIButton)
     {
-        let arrivalPerformanceView = ArrivalPerformaceVC(nibName: "ArrivalPerformaceVC", bundle: nil)
-        
         let section = sender.tag / 100
         let row = sender.tag % 100
         
         if let flight = journey[section].leg.first?.flights[row]{
-            if flight.ontimePerformanceDataStoringTime != nil{
-                flightInfoDelegate?.updateView()
-                arrivalPerformanceView.observationCount = "\(flight.observationCount!)"
-                arrivalPerformanceView.averageDelay = "\(flight.averageDelay!)"
-                
-                arrivalPerformanceView.cancelledPerformanceInPercent = flight.cancelledPerformance!
-                arrivalPerformanceView.delayedPerformanceInPercent = flight.latePerformance!
-                arrivalPerformanceView.onTimePerformanceInPercent = flight.ontimePerformance!
-                
-                arrivalPerformanceView.view.frame = self.parent!.view.bounds
-                self.parent!.view.addSubview(arrivalPerformanceView.view)
-                self.parent!.addChild(arrivalPerformanceView)
-                arrivalPerformanceView.willMove(toParent: self)
-            }
+            arrivalPerformanceDelegate?.getArrivalPerformanceData(flight: flight)
         }
     }
     

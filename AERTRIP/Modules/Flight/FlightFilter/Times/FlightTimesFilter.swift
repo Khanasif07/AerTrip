@@ -16,8 +16,8 @@ struct  FlightLegTimeFilter {
     var userSelectedStartTime : Date
     var userSelectedEndTime : Date
     
-    let arrivalStartTime : Date
-    let arrivalEndTime : Date
+    var arrivalStartTime : Date
+    var arrivalEndTime : Date
     
     var userSelectedArrivalStartTime : Date
     var userSelectedArrivalEndTime : Date

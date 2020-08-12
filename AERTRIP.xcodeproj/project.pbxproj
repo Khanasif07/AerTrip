@@ -36,6 +36,10 @@
 		0C0AB202247C439F005E5E99 /* SelectBagageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB200247C439F005E5E99 /* SelectBagageCell.swift */; };
 		0C0AB203247C439F005E5E99 /* SelectBagageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C0AB201247C439F005E5E99 /* SelectBagageCell.xib */; };
 		0C0B231524210CD700E1764D /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C0B231424210CD700E1764D /* Chat.storyboard */; };
+		0C0B8CDA24D2C88C008942DB /* FlightResultSingleJourneyVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0B8CD924D2C88C008942DB /* FlightResultSingleJourneyVM.swift */; };
+		0C0B8CDC24D2D63F008942DB /* FlightResultSingleJourneyVC+TableViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0B8CDB24D2D63F008942DB /* FlightResultSingleJourneyVC+TableViewDelegates.swift */; };
+		0C0D992C24D431A900DF80F0 /* FlightResultSingleJourneyVC+FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0D992B24D431A900DF80F0 /* FlightResultSingleJourneyVC+FooterView.swift */; };
+		0C0D992E24D91B3A00DF80F0 /* FlightResultSingleJourneyVC+Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0D992D24D91B3A00DF80F0 /* FlightResultSingleJourneyVC+Options.swift */; };
 		0C1238DF24CB25D1004828AE /* FlightFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3162474022F001F21B1 /* FlightFormViewController.m */; };
 		0C14B8FB249343EA00C2D19A /* SelectOtherAdonsContainerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C14B8FA249343EA00C2D19A /* SelectOtherAdonsContainerVM.swift */; };
 		0C162AC8242337E9001C2B10 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162AC7242337E9001C2B10 /* MessageModel.swift */; };
@@ -87,6 +91,8 @@
 		0C91D189248E94A100D91658 /* SelectBaggageVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C91D188248E94A100D91658 /* SelectBaggageVM.swift */; };
 		0C93A8E82330ABB6000795DE /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C93A8E72330ABB6000795DE /* NotificationVC.swift */; };
 		0C9CD03A247E4F49002D1073 /* SelectOtherAdonsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9CD039247E4F49002D1073 /* SelectOtherAdonsVM.swift */; };
+		0C9D3FEA24E2C0EE00238A18 /* SingleJourneyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9D3FE824E2C0EE00238A18 /* SingleJourneyCollectionViewCell.swift */; };
+		0C9D3FEB24E2C0EE00238A18 /* SingleJourneyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C9D3FE924E2C0EE00238A18 /* SingleJourneyCollectionViewCell.xib */; };
 		0CAC8C8222E1E0620039D612 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F983A221B51A070018DFED /* UIImageExtension.swift */; };
 		0CAD5FE32338B32D0086F58D /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD5FE22338B32C0086F58D /* UILabel+Extension.swift */; };
 		0CBADF622473DC4700086EA7 /* MARKRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CBADF602473DC4700086EA7 /* MARKRangeSlider.m */; };
@@ -1218,6 +1224,8 @@
 		8455A682223295FF00CEE2B3 /* PoweredByTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455A680223295FF00CEE2B3 /* PoweredByTableViewCell.swift */; };
 		8455A683223295FF00CEE2B3 /* PoweredByTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8455A681223295FF00CEE2B3 /* PoweredByTableViewCell.xib */; };
 		8455A6A52232D01B00CEE2B3 /* PKProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455A6A42232D01B00CEE2B3 /* PKProgressView.swift */; };
+		8459208D24E2CA710001ED28 /* GetSharableUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459208C24E2CA710001ED28 /* GetSharableUrl.swift */; };
+		8459208F24E2D3490001ED28 /* APIURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459208E24E2D3490001ED28 /* APIURLs.swift */; };
 		845B619224C0226C00369CC1 /* WebCheckinVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B619024C0226C00369CC1 /* WebCheckinVM.swift */; };
 		845B619324C0226C00369CC1 /* WebCheckinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B619124C0226C00369CC1 /* WebCheckinVC.swift */; };
 		845D3A1A228D724500062EE5 /* AccountOutstanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D3A19228D724500062EE5 /* AccountOutstanding.swift */; };
@@ -1657,6 +1665,10 @@
 		0C0AB200247C439F005E5E99 /* SelectBagageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBagageCell.swift; sourceTree = "<group>"; };
 		0C0AB201247C439F005E5E99 /* SelectBagageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectBagageCell.xib; sourceTree = "<group>"; };
 		0C0B231424210CD700E1764D /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
+		0C0B8CD924D2C88C008942DB /* FlightResultSingleJourneyVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightResultSingleJourneyVM.swift; sourceTree = "<group>"; };
+		0C0B8CDB24D2D63F008942DB /* FlightResultSingleJourneyVC+TableViewDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightResultSingleJourneyVC+TableViewDelegates.swift"; sourceTree = "<group>"; };
+		0C0D992B24D431A900DF80F0 /* FlightResultSingleJourneyVC+FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightResultSingleJourneyVC+FooterView.swift"; sourceTree = "<group>"; };
+		0C0D992D24D91B3A00DF80F0 /* FlightResultSingleJourneyVC+Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightResultSingleJourneyVC+Options.swift"; sourceTree = "<group>"; };
 		0C14B8FA249343EA00C2D19A /* SelectOtherAdonsContainerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOtherAdonsContainerVM.swift; sourceTree = "<group>"; };
 		0C162AC7242337E9001C2B10 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatVC+TableView.swift"; sourceTree = "<group>"; };
@@ -1709,6 +1721,8 @@
 		0C91D188248E94A100D91658 /* SelectBaggageVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBaggageVM.swift; sourceTree = "<group>"; };
 		0C93A8E72330ABB6000795DE /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		0C9CD039247E4F49002D1073 /* SelectOtherAdonsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOtherAdonsVM.swift; sourceTree = "<group>"; };
+		0C9D3FE824E2C0EE00238A18 /* SingleJourneyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleJourneyCollectionViewCell.swift; sourceTree = "<group>"; };
+		0C9D3FE924E2C0EE00238A18 /* SingleJourneyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleJourneyCollectionViewCell.xib; sourceTree = "<group>"; };
 		0CAD5FE22338B32C0086F58D /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		0CBADF5F2473DC4700086EA7 /* MARKRangeSlider 2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MARKRangeSlider 2.h"; sourceTree = "<group>"; };
 		0CBADF602473DC4700086EA7 /* MARKRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MARKRangeSlider.m; sourceTree = "<group>"; };
@@ -2951,6 +2965,8 @@
 		8455A680223295FF00CEE2B3 /* PoweredByTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoweredByTableViewCell.swift; sourceTree = "<group>"; };
 		8455A681223295FF00CEE2B3 /* PoweredByTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PoweredByTableViewCell.xib; sourceTree = "<group>"; };
 		8455A6A42232D01B00CEE2B3 /* PKProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKProgressView.swift; sourceTree = "<group>"; };
+		8459208C24E2CA710001ED28 /* GetSharableUrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetSharableUrl.swift; sourceTree = "<group>"; };
+		8459208E24E2D3490001ED28 /* APIURLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIURLs.swift; sourceTree = "<group>"; };
 		845B619024C0226C00369CC1 /* WebCheckinVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebCheckinVM.swift; sourceTree = "<group>"; };
 		845B619124C0226C00369CC1 /* WebCheckinVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebCheckinVC.swift; sourceTree = "<group>"; };
 		845D3A19228D724500062EE5 /* AccountOutstanding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOutstanding.swift; sourceTree = "<group>"; };
@@ -5355,6 +5371,7 @@
 		841AA507247439B000B66720 /* Webservice Layer */ = {
 			isa = PBXGroup;
 			children = (
+				8459208E24E2D3490001ED28 /* APIURLs.swift */,
 				841AA508247439B000B66720 /* NetworkLayer.swift */,
 				841AA509247439B000B66720 /* Webservice.swift */,
 			);
@@ -6714,6 +6731,10 @@
 				843FF40C24740230001F21B1 /* TableViewCells */,
 				843FF41D24740230001F21B1 /* FlightResultSingleJourneyVC.xib */,
 				843FF41E24740230001F21B1 /* LongPressViewController.swift */,
+				0C0B8CD924D2C88C008942DB /* FlightResultSingleJourneyVM.swift */,
+				0C0B8CDB24D2D63F008942DB /* FlightResultSingleJourneyVC+TableViewDelegates.swift */,
+				0C0D992B24D431A900DF80F0 /* FlightResultSingleJourneyVC+FooterView.swift */,
+				0C0D992D24D91B3A00DF80F0 /* FlightResultSingleJourneyVC+Options.swift */,
 			);
 			path = FlightResultSingle;
 			sourceTree = "<group>";
@@ -6737,6 +6758,8 @@
 				843FF41A24740230001F21B1 /* SingleJourneyCell.xib */,
 				843FF41B24740230001F21B1 /* smartIconHeaderView.swift */,
 				843FF41C24740230001F21B1 /* smartIconHeaderView.xib */,
+				0C9D3FE824E2C0EE00238A18 /* SingleJourneyCollectionViewCell.swift */,
+				0C9D3FE924E2C0EE00238A18 /* SingleJourneyCollectionViewCell.xib */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -8933,6 +8956,7 @@
 		84F9838421B51A070018DFED /* AppHelper */ = {
 			isa = PBXGroup;
 			children = (
+				8459208C24E2CA710001ED28 /* GetSharableUrl.swift */,
 				847790BF23ED70A6004EBC45 /* AppGradientView.swift */,
 				1835E4FC23EAC11300F6EEA1 /* PresetationTransition */,
 				84F9EADD226EDCD7005A1B8B /* AppBeautifier.swift */,
@@ -9548,6 +9572,7 @@
 				18AAAC1D24B37E7800025ABF /* SeeExampleHeaderView.xib in Resources */,
 				18B57A1A22AF546800269410 /* BookingTravellerAddOnsCollectionViewCell.xib in Resources */,
 				18F9E2F42255BA8E00CD0B42 /* ConvenienceFeeTableViewCell.xib in Resources */,
+				0C9D3FEB24E2C0EE00238A18 /* SingleJourneyCollectionViewCell.xib in Resources */,
 				188785A721DF7D990061869E /* TravellerListTableViewCell.xib in Resources */,
 				843FF52224740231001F21B1 /* NoResultScreenView.xib in Resources */,
 				84D2FB8521BE351E00011000 /* countryData.json in Resources */,
@@ -9749,6 +9774,7 @@
 				847C2244247BCBEE004F32D6 /* SeatCollCell.swift in Sources */,
 				1819D3D721FF4900006A367E /* CustomShimmerSetup.swift in Sources */,
 				84D2FB8321BE351E00011000 /* PKCountryView.swift in Sources */,
+				8459208D24E2CA710001ED28 /* GetSharableUrl.swift in Sources */,
 				84085CDC21F59C0E00F1E844 /* DashboardVC.swift in Sources */,
 				84F2DC95226472E300212F05 /* MyBookingsVM.swift in Sources */,
 				1F4636CE21F5ABE2000D56B0 /* CheckInOutView.swift in Sources */,
@@ -10042,6 +10068,7 @@
 				84F983D121B51A070018DFED /* UIColorExtension.swift in Sources */,
 				1879C4A12293CADF00897CED /* BookingDirectionVM.swift in Sources */,
 				84F983C921B51A070018DFED /* AppColors.swift in Sources */,
+				0C0D992E24D91B3A00DF80F0 /* FlightResultSingleJourneyVC+Options.swift in Sources */,
 				845B619224C0226C00369CC1 /* WebCheckinVM.swift in Sources */,
 				846EADA324A4794D00BF5E40 /* PostBookingAddOnConfModel.swift in Sources */,
 				18D284AD2499EEC1000457F6 /* PostBookingFlightDetailsVM.swift in Sources */,
@@ -10311,6 +10338,7 @@
 				18038D13226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.swift in Sources */,
 				18AAAC1F24B4979000025ABF /* FlightDetailsVM.swift in Sources */,
 				180E7C0C223205B8005FAEA9 /* EmailComposerFooterView.swift in Sources */,
+				0C0B8CDA24D2C88C008942DB /* FlightResultSingleJourneyVM.swift in Sources */,
 				849DA81C23E2B6F800C2E9D8 /* ATCategoryNavBarStyle.swift in Sources */,
 				84791ED92281A04900472E54 /* AccountLadgerDetailsVC+Delegate.swift in Sources */,
 				845B619324C0226C00369CC1 /* WebCheckinVC.swift in Sources */,
@@ -10335,8 +10363,10 @@
 				18930A2621D34D16005442C8 /* APICaller+Search.swift in Sources */,
 				84534ECA22490F91009FF536 /* HCWhatNextTableViewCell.swift in Sources */,
 				848F1A5D2203281C002BDA39 /* HotelsResultHeaderView.swift in Sources */,
+				0C9D3FEA24E2C0EE00238A18 /* SingleJourneyCollectionViewCell.swift in Sources */,
 				18D88BF822C3894A0089755D /* BookingAddOnRequestFF+DelegateMethods.swift in Sources */,
 				84806833220990C600CBF362 /* BulkRoomSelectionVC.swift in Sources */,
+				0C0D992C24D431A900DF80F0 /* FlightResultSingleJourneyVC+FooterView.swift in Sources */,
 				843FF53A24740232001F21B1 /* SingleJourneyResultTemplateCell.swift in Sources */,
 				84085D0721F59C0E00F1E844 /* ViewProfileVC.swift in Sources */,
 				843FF50824740231001F21B1 /* IntFareInfoVC.swift in Sources */,
@@ -10668,6 +10698,7 @@
 				84085CE121F59C0E00F1E844 /* LoginVC.swift in Sources */,
 				1896D5932209538B003FC2B6 /* MultiSliderExtensions.swift in Sources */,
 				0CBDEA472429CDE9009D7849 /* AMDots.swift in Sources */,
+				8459208F24E2D3490001ED28 /* APIURLs.swift in Sources */,
 				183B71A6228984C600A75B7F /* RouteFareInfoTableViewCell.swift in Sources */,
 				8463A56D2456C7B200C70D8C /* GMUStyle.m in Sources */,
 				0C24D500242E47FC00CBFF92 /* FlightsDemoVC.swift in Sources */,
@@ -10786,6 +10817,7 @@
 				84D503772474F6E500527C77 /* AppSocialNetwork.swift in Sources */,
 				0C2558FD233C979B00F57C6E /* UIViewKeyframeAnimationOptions + Extension.swift in Sources */,
 				842BE085249A471F005B604E /* InstagramManager.swift in Sources */,
+				0C0B8CDC24D2D63F008942DB /* FlightResultSingleJourneyVC+TableViewDelegates.swift in Sources */,
 				84085D1021F59C0E00F1E844 /* ContactListVC.swift in Sources */,
 				843FF65E247409E3001F21B1 /* Model.m in Sources */,
 				8441B24224C6B3D9001A465F /* SnappingCollectionViewLayout.swift in Sources */,

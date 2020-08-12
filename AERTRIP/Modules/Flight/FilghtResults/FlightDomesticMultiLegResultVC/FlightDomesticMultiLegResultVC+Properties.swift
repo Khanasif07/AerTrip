@@ -12,7 +12,7 @@ import UIKit
 import SnapKit
 import MessageUI
 
-class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate , MFMailComposeViewControllerDelegate
+class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate , MFMailComposeViewControllerDelegate, getSharableUrlDelegate
 {
     //MARK:- Outlets
     var bannerView : ResultHeaderView?
@@ -79,6 +79,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
     var userSelectedFilters = [FiltersWS]()
     var updatedApiProgress : Float = 0
 
+    let getSharableLink = GetSharableUrl()
+
     //MARK:-  Initializers
     
     convenience init(numberOfLegs  : Int , headerArray : [MultiLegHeader] ) {
@@ -136,6 +138,9 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         
         ApiProgress.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 10.0)
         self.headerCollectionView.addSubview(ApiProgress)
+
+        getSharableLink.delegate = self
+
     }
     
     override func viewDidLayoutSubviews() {
@@ -490,14 +495,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
                                 frame.size.height = frame.size.height - 16
                             }
                             
-//                            AertripToastView.toast(in: parentVC.view , withText: "Flight timings are not compatible. Select a different flight." , parentRect: frame)
-                            
-                            //Gurpreet
-                            AppToast.default.hideToast(parentVC, animated: false)
-                            
-                            delay(seconds: 0.3) {
-                                AertripToastView.toast(in: parentVC.view , withText: "Flight timings are not compatible. Select a different flight." , parentRect: frame)
-                            }
+                            AertripToastView.toast(in: parentVC.view , withText: "Flight timings are not compatible. Select a different flight." , parentRect: frame)
                             
                             setTextColorToHeader(.AERTRIP_RED_COLOR, indexPath: i)
                             setTextColorToHeader(.AERTRIP_RED_COLOR, indexPath: (i + 1 ))
@@ -519,16 +517,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
                                 frame.size.height = frame.size.height - 16
                             }
                             
-//                            AertripToastView.toast(in: parentVC.view , withText: "Selected flights have less than 2 hrs of gap." , parentRect: frame)
-                            
-                            //Gurpreet
-                            AppToast.default.hideToast(parentVC, animated: false)
-                            
-                            delay(seconds: 0.3) {
-                                AertripToastView.toast(in: parentVC.view , withText: "Selected flights have less than 2 hrs of gap." , parentRect: frame)
-                            }
-                            
-                            
+                            AertripToastView.toast(in: parentVC.view , withText: "Selected flights have less than 2 hrs of gap." , parentRect: frame)
                             
                             fareBreakupVC?.bookButton.isEnabled = true
                         }
@@ -667,104 +656,122 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
     }
     
 
+    
+//    MARK:- Email Flight code added by Monika
     @IBAction func emailPinnedFlights(_ sender: Any) {
 
         let pinnedFlightsArray = results.reduce([]) { $0 + $1.pinnedFlights }
-        guard let postData = generatePostDataForEmail(for: pinnedFlightsArray) else { return }
-        executeWebServiceForEmail(with: postData as Data, onCompletion:{ (view)  in
-            
-        DispatchQueue.main.async {
-            self.showEmailViewController(body : view)
-            }
-        })
-    }
-    
-
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        controller.dismiss(animated: true, completion: nil)
-    }
-    
-    
-    func generatePostDataForEmail( for journey : [Journey] ) -> Data? {
+//        guard let postData = generatePostDataForEmail(for: pinnedFlightsArray) else { return }
+//        executeWebServiceForEmail(with: postData as Data, onCompletion:{ (view)  in
+//            
+//        DispatchQueue.main.async {
+//            self.showEmailViewController(body : view)
+//            }
+//        })
+        
         
         
         let flightAdultCount = bookFlightObject.flightAdultCount
         let flightChildrenCount = bookFlightObject.flightChildrenCount
         let flightInfantCount = bookFlightObject.flightInfantCount
         let isDomestic = bookFlightObject.isDomestic
-        
-        guard let firstJourney = journey.first else { return nil}
-        
-        let cc = firstJourney.cc
-        let ap = firstJourney.ap
-        
-        let trip_type = "single"
-        
-        let inputFormatter = DateFormatter()
-        inputFormatter.dateFormat = "dd-MM-yyyy"
-        let departDate = inputFormatter.string(from: bookFlightObject.onwardDate)
-        
-        var valueString = "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(flightAdultCount)&child=\(flightChildrenCount)&infant=\(flightInfantCount)&origin=\(ap[0])&destination=\(ap[1])&depart=\(departDate)&cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)"
-        
-        
-        for i in 0 ..< journey.count {
-            let tempJourney = journey[i]
-            valueString = valueString + "&PF[\(i)]=\(tempJourney.fk)"
-        }
-        
+          
+        self.getSharableLink.getUrlForMail(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, journey: pinnedFlightsArray, sid: sid)
 
-        var parameters = [ "u": valueString , "sid": bookFlightObject.sid ]
-     
-        
-        let fkArray = journey.map{ $0.fk }
-        
-        for i in 0 ..< fkArray.count {
-            let key = "fk%5B\(i)%5D"
-            parameters[key] = fkArray[i]
-        }
-        
-        
-        let parameterArray = parameters.map { (arg) -> String in
-            let (key, value) = arg
-            
-            let percentEscapeString = self.percentEscapeString(value!)
-            return "\(key)=\(percentEscapeString)"
-        }
-        
-        let data = parameterArray.joined(separator: "&").data(using: String.Encoding.utf8)
-        return data
     }
     
-    
-    func percentEscapeString(_ string: String) -> String {
-        var characterSet = CharacterSet.alphanumerics
-        characterSet.insert(charactersIn: "-._* ")
-        
-        return string
-            .addingPercentEncoding(withAllowedCharacters: characterSet)!
-            .replacingOccurrences(of: " ", with: "+")
-            .replacingOccurrences(of: " ", with: "+", options: [], range: nil)
-    }
-    
-    fileprivate func executeWebServiceForEmail(with postData: Data , onCompletion:@escaping (String) -> ()) {
-        let webservice = WebAPIService()
-        
-        webservice.executeAPI(apiServive: .getEmailUrl(postData: postData ) , completionHandler: {    (receivedData) in
-            
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
 
-            if let currentParsedResponse = parse(data: receivedData, into: getPinnedURLResponse.self, with:decoder) {
-                let data = currentParsedResponse.data
-                if let view = data["view"] {
-                    onCompletion(view)
-                }
-            }
-        } , failureHandler : { (error ) in
-            print(error)
-        })
+    func returnEmailView(view: String) {
+        DispatchQueue.main.async {
+        self.showEmailViewController(body : view)
+        }
     }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    
+//    func generatePostDataForEmail( for journey : [Journey] ) -> Data? {
+//
+//
+//        let flightAdultCount = bookFlightObject.flightAdultCount
+//        let flightChildrenCount = bookFlightObject.flightChildrenCount
+//        let flightInfantCount = bookFlightObject.flightInfantCount
+//        let isDomestic = bookFlightObject.isDomestic
+//
+//        guard let firstJourney = journey.first else { return nil}
+//
+//        let cc = firstJourney.cc
+//        let ap = firstJourney.ap
+//
+//        let trip_type = "single"
+//
+//        let inputFormatter = DateFormatter()
+//        inputFormatter.dateFormat = "dd-MM-yyyy"
+//        let departDate = inputFormatter.string(from: bookFlightObject.onwardDate)
+//
+//        var valueString = "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(flightAdultCount)&child=\(flightChildrenCount)&infant=\(flightInfantCount)&origin=\(ap[0])&destination=\(ap[1])&depart=\(departDate)&cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)"
+//
+//
+//        for i in 0 ..< journey.count {
+//            let tempJourney = journey[i]
+//            valueString = valueString + "&PF[\(i)]=\(tempJourney.fk)"
+//        }
+//
+//
+//        var parameters = [ "u": valueString , "sid": bookFlightObject.sid ]
+//
+//
+//        let fkArray = journey.map{ $0.fk }
+//
+//        for i in 0 ..< fkArray.count {
+//            let key = "fk%5B\(i)%5D"
+//            parameters[key] = fkArray[i]
+//        }
+//
+//
+//        let parameterArray = parameters.map { (arg) -> String in
+//            let (key, value) = arg
+//
+//            let percentEscapeString = self.percentEscapeString(value!)
+//            return "\(key)=\(percentEscapeString)"
+//        }
+//
+//        let data = parameterArray.joined(separator: "&").data(using: String.Encoding.utf8)
+//        return data
+//    }
+    
+    
+//    func percentEscapeString(_ string: String) -> String {
+//        var characterSet = CharacterSet.alphanumerics
+//        characterSet.insert(charactersIn: "-._* ")
+//
+//        return string
+//            .addingPercentEncoding(withAllowedCharacters: characterSet)!
+//            .replacingOccurrences(of: " ", with: "+")
+//            .replacingOccurrences(of: " ", with: "+", options: [], range: nil)
+//    }
+    
+//    fileprivate func executeWebServiceForEmail(with postData: Data , onCompletion:@escaping (String) -> ()) {
+//        let webservice = WebAPIService()
+//
+//        webservice.executeAPI(apiServive: .getEmailUrl(postData: postData ) , completionHandler: {    (receivedData) in
+//
+//            let decoder = JSONDecoder()
+//            decoder.keyDecodingStrategy = .convertFromSnakeCase
+//
+//
+//            if let currentParsedResponse = parse(data: receivedData, into: getPinnedURLResponse.self, with:decoder) {
+//                let data = currentParsedResponse.data
+//                if let view = data["view"] {
+//                    onCompletion(view)
+//                }
+//            }
+//        } , failureHandler : { (error ) in
+//            print(error)
+//        })
+//    }
     
     func addToTrip(journey : Journey) {
         let tripListVC = TripListVC(nibName: "TripListVC", bundle: nil)
@@ -773,139 +780,32 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         self.present(tripListVC, animated: true, completion: nil)
     }
     
-    
-    @IBAction func sharePinnedFlights(_ sender: Any) {
-        
+    //MARK:- Sharing Journey code added by Monika
+
+    @IBAction func sharePinnedFlights(_ sender: Any)
+    {
         let pinnedFlightsArray = results.reduce([]) { $0 + $1.pinnedFlights }
         shareFlights(journeyArray: pinnedFlightsArray)
     }
     
     func shareFlights( journeyArray : [Journey]) {
-        
-        guard let postData = generatePostData(for: journeyArray ) else { return }
-        executeWebServiceForShare(with: postData as Data, onCompletion:{ (link)  in
-            
-            DispatchQueue.main.async {
-                let textToShare = [ link ]
-                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-                self.present(activityViewController, animated: true, completion: nil)
-            }
-        })
-    }
-    
-    //MARK:- Sharing Journey
-    
-    
-    func generatePostData( for journey : [Journey]) -> NSData? {
-        
-        var valueString = "https://beta.aertrip.com/flights?trip_type=single&"
-        
-        // Adding Passanger Count
+
         let flightAdultCount = bookFlightObject.flightAdultCount
         let flightChildrenCount = bookFlightObject.flightChildrenCount
         let flightInfantCount = bookFlightObject.flightInfantCount
-        valueString = valueString + "adult=\(flightAdultCount)&child=\(flightChildrenCount)&infant=\(flightInfantCount)"
-        
-        
-        guard let firstJourney = journey.first else { return nil}
-        
-
-        let ap = firstJourney.ap
-        valueString = valueString + "&origin=\(ap[0])&destination=\(ap[1])"
-        
-        
-        // Flight Date
-
-        if journey.count == 1{
-
-            let inputFormatter = DateFormatter()
-            inputFormatter.dateFormat = "yyyy-MM-dd"
-            let showDate = inputFormatter.date(from: journey[0].ad)
-            inputFormatter.dateFormat = "dd-MM-yyyy"
-            let newAd = inputFormatter.string(from: showDate!)
-
-//            inputFormatter.dateFormat = "yyyy-MM-dd"
-//            let showDate1 = inputFormatter.date(from: journey[0].dd)
-//            inputFormatter.dateFormat = "dd-MM-yyyy"
-//            let newDd = inputFormatter.string(from: showDate1!)
-            
-            valueString = valueString + "&depart=\(newAd)&return="
-
-        }else{
-            let inputFormatter = DateFormatter()
-            inputFormatter.dateFormat = "dd-MM-yyyy"
-
-            let departDate = inputFormatter.string(from: bookFlightObject.onwardDate)
-            let returnDate = inputFormatter.string(from: bookFlightObject.returnDate)
-            valueString = valueString + "&depart=\(departDate)&return=\(returnDate)"
-        }
-        
-        // Flight Class and Types
         let isDomestic = bookFlightObject.isDomestic
-        let cabinclass = firstJourney.cc
-        valueString = valueString + "&cabinclass=\(cabinclass)&pType=flight&isDomestic=\(isDomestic)"
-        
-        
-        let postData = NSMutableData()
-        
+          
+        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, journey: journeyArray)
 
-        
-        for i in 0 ..< journey.count {
-            let tempJourney = journey[i]
-            valueString = valueString + "&PF[\(i)]=\(tempJourney.fk)"
-        }
-        
-        let parameters = [
-            [
-                "name": "u",
-                "value": valueString
-            ]
-        ]
-        
-        let boundary = "----WebKitFormBoundary7MA4YWxkTrZu0gW"
-        
-        var body = ""
-        let _: NSError? = nil
-        for param in parameters {
-            let paramName = param["name"]!
-            body += "--\(boundary)\r\n"
-            body += "Content-Disposition:form-data; name=\"\(paramName)\""
-            if let filename = param["fileName"] {
-                let contentType = param["content-type"]!
-                let fileContent = try! String(contentsOfFile: filename, encoding: String.Encoding.utf8)
-                body += "; filename=\"\(filename)\"\r\n"
-                body += "Content-Type: \(contentType)\r\n\r\n"
-                body += fileContent
-            } else if let paramValue = param["value"] {
-                body += "\r\n\r\n\(paramValue)"
-            }
-        }
-        
-        guard let bodyData = body.data(using: String.Encoding.utf8) else { return nil }
-        postData.append(bodyData)
-        
-        return postData
     }
     
-    
-    fileprivate func executeWebServiceForShare(with postData: Data , onCompletion:@escaping (String) -> ()) {
-        let webservice = WebAPIService()
-        
-        webservice.executeAPI(apiServive: .getShareUrl(postData: postData ) , completionHandler: {    (data) in
-            
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            if let currentParsedResponse = parse(data: data, into: getPinnedURLResponse.self, with:decoder) {
-                
-                let data = currentParsedResponse.data
-                if let link = data["u"] {
-                    onCompletion(link)
-                }
-            }
-        } , failureHandler : { (error ) in
-            print(error)
-        })
+    func returnSharableUrl(url: String)
+    {
+        let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]
+        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+
+        self.present(activityViewController, animated: true, completion: nil)
     }
     
     func setPinnedFlightAt(flightKey : String , indexPath : IndexPath , isPinned : Bool , tableIndex : Int ) {

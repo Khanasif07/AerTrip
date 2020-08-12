@@ -42,10 +42,6 @@ class ArrivalPerformaceVC: UIViewController
     {
         super.viewDidLoad()
         
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(backgroundButtonClicked), name: NSNotification.Name("backgroundButtonClicked"), object: nil)
-
-
         performaceDisplayView.layer.cornerRadius = 10
 
         self.onTimeProgressDisplayView.layer.cornerRadius = onTimeProgressDisplayView.frame.height/2
@@ -110,7 +106,6 @@ class ArrivalPerformaceVC: UIViewController
     {
         let touch: UITouch? = touches.first
         if touch?.view == backgroundDisplayView {
-            NotificationCenter.default.post(name:NSNotification.Name("arrivalPerformanceBackgroundButtonClicked"), object: nil)
             self.view.removeFromSuperview()
         }
     }
@@ -119,12 +114,6 @@ class ArrivalPerformaceVC: UIViewController
 
     @IBAction func closeButtonClicked(_ sender: Any)
     {
-        NotificationCenter.default.post(name:NSNotification.Name("arrivalPerformanceBackgroundButtonClicked"), object: nil)
-
-        self.view.removeFromSuperview()
-    }
-    
-    @objc private func backgroundButtonClicked() {
         self.view.removeFromSuperview()
     }
 }

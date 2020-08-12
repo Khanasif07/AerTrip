@@ -32,17 +32,17 @@ extension WebService : APIProtocol {
         return urlRequestObj
     }
     
-    var flightBaseUrl: String {
-        return "https://beta.aertrip.com/api/v1/flights/"
-    }
+//    var flightBaseUrl: String {
+//        return  flightBaseUrl123//"https://beta.aertrip.com/api/v1/flights/"
+//    }
     
-    var tripsBaseUrl: String{
-        return "https://beta.aertrip.com/api/v1/trips/"
-    }
+//    var tripsBaseUrl: String{
+//        return "https://beta.aertrip.com/api/v1/trips/"
+//    }
     
-    var apiKey:String{
-        return "3a457a74be76d6c3603059b559f6addf"
-    }
+//    var apiKey:String{
+//        return "3a457a74be76d6c3603059b559f6addf"
+//    }
     
     var path: String {
         switch self {
@@ -114,7 +114,7 @@ extension WebService : APIProtocol {
         case .getShareUrl(postData: _):
             return "POST"
             
-        case .getEmailUrl(let _):
+        case .getEmailUrl( _):
              return "POST"
         }
     }
@@ -256,7 +256,7 @@ extension WebService : APIProtocol {
               "Content-Type": "multipart/form-data; boundary=--------------------------311403206525934394271310",
             ]
             return headers
-        case .getEmailUrl(let _):
+        case .getEmailUrl( _):
             let headers = [
               "api-key": apiKey,
               "Cookie" : "AT_R_STAGE_SESSID=a186gmjn76ai68c0qfetm818p6",

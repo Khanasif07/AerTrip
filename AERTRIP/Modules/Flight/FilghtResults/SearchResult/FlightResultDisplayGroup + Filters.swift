@@ -74,7 +74,9 @@ extension FlightResultDisplayGroup  {
     }
     
     func applyAirlineFilter(_ inputArray : [Journey]) -> [Journey] {
-        
+        if userSelectedFilters != nil {
+            print(userSelectedFilters.al)
+        }
         let filteredAirlineSet = Set(userSelectedFilters.al)
         
         var outputArray = inputArray
@@ -108,7 +110,7 @@ extension FlightResultDisplayGroup  {
         }
         
         self.sortOrder = sort
-        self.applySort(inputArray: filteredJourneyArray)
+//        self.applySort(inputArray: filteredJourneyArray)
     }
     
     
@@ -273,17 +275,18 @@ extension FlightResultDisplayGroup  {
     
     func tripDurationChanged(min: CGFloat, max: CGFloat) {
         
+        initiatedFilters.insert(.tripDuration)
+        
         var Number = NSNumber(floatLiteral: Double(min * 3600))
         userSelectedFilters.tt.minTime = Number.stringValue
         
         Number = NSNumber(floatLiteral: Double(max * 3600))
         userSelectedFilters.tt.maxTime = Number.stringValue
         
-        if userSelectedFilters.tt == inputFilter.tt {
-            appliedFilters.remove(.Duration)
-        }
-        else {
+        if isDurationFilterApplied() {
             appliedFilters.insert(.Duration)
+        } else {
+            appliedFilters.remove(.Duration)
         }
         
         applyFilters()
@@ -291,55 +294,96 @@ extension FlightResultDisplayGroup  {
     
     func layoverDurationChanged(min: CGFloat, max: CGFloat) {
         
+        initiatedFilters.insert(.layoverDuration)
+        
         var Number = NSNumber(floatLiteral: Double(min * 3600))
         userSelectedFilters.lott?.minTime = Number.stringValue
         
         Number = NSNumber(floatLiteral: Double(max * 3600))
         userSelectedFilters.lott?.maxTime = Number.stringValue
         
-        if userSelectedFilters.lott == inputFilter.lott {
-            appliedFilters.remove(.Duration)
-        }
-        else {
+        if isDurationFilterApplied() {
             appliedFilters.insert(.Duration)
+        } else {
+            appliedFilters.remove(.Duration)
         }
         
         applyFilters()
     }
     
+    private func isDurationFilterApplied() -> Bool {
+        let totalTimeCheck = isTripDurationFilterApplied()
+        let totalLayoverCheck = isLayoverDurationFilterApplied()
+        
+        if initiatedFilters.contains(.tripDuration) && initiatedFilters.contains(.layoverDuration) {
+            return totalTimeCheck || totalLayoverCheck
+        } else if initiatedFilters.contains(.tripDuration) {
+            return totalTimeCheck
+        } else if initiatedFilters.contains(.layoverDuration) {
+            return totalLayoverCheck
+        }
+        return false
+    }
+    
+    private func isTripDurationFilterApplied() -> Bool {
+        let totalTimeCheck = !(userSelectedFilters.tt == inputFilter.tt)
+        if totalTimeCheck {
+            appliedSubFilters.insert(.tripDuration)
+        } else {
+            appliedSubFilters.remove(.tripDuration)
+        }
+        return totalTimeCheck
+    }
+    
+    private func isLayoverDurationFilterApplied() -> Bool {
+        let totalTimeCheck = !(userSelectedFilters.lott == inputFilter.lott)
+        if totalTimeCheck {
+            appliedSubFilters.insert(.layoverDuration)
+        } else {
+            appliedSubFilters.remove(.layoverDuration)
+        }
+        return totalTimeCheck
+    }
+    
     func applyDurationFilter(_ inputArray : [Journey] ) -> [Journey] {
         
-        var outputArray = inputArray.filter {
-            
-            let journeyDuration = $0.duration
-            
-            let minTripDuration = Int(userSelectedFilters.tt.minTime ?? "0" )
-            let maxTripDuration = Int(userSelectedFilters.tt.maxTime ?? "0" )
-            
-            
-            if journeyDuration >= minTripDuration! && journeyDuration <= maxTripDuration! {
-                return true
+        var outputArray = inputArray
+        
+        if initiatedFilters.contains(.tripDuration) {
+            outputArray = outputArray.filter {
+                
+                let journeyDuration = $0.duration
+                
+                let minTripDuration = Int(userSelectedFilters.tt.minTime ?? "0" )
+                let maxTripDuration = Int(userSelectedFilters.tt.maxTime ?? "0" )
+                
+                
+                if journeyDuration >= minTripDuration! && journeyDuration <= maxTripDuration! {
+                    return true
+                }
+                return false
             }
-            return false
         }
         
-        
-        outputArray = outputArray.filter {
-            
-            let journeyLayoverDuration = $0.totalLayOver
-            
-            let minLayoverDuration = Int(userSelectedFilters.lott?.minTime ?? "0" )
-            let maxLayoverDuration = Int(userSelectedFilters.lott?.maxTime ?? "0" )
-            
-            if journeyLayoverDuration == 0 {
-                return true 
+        // Layover filter
+        if initiatedFilters.contains(.layoverDuration) {
+            outputArray = outputArray.filter {
+                
+                let journeyLayoverDuration = $0.totalLayOver
+                
+                if journeyLayoverDuration == 0 {
+                    return true
+                }
+                
+                let minLayoverDuration = Int(userSelectedFilters.lott?.minTime ?? "0" )
+                let maxLayoverDuration = Int(userSelectedFilters.lott?.maxTime ?? "0" )
+                
+                if journeyLayoverDuration >= minLayoverDuration! && journeyLayoverDuration <= maxLayoverDuration! {
+                    return true
+                }
+                return false
+                
             }
-            
-            if journeyLayoverDuration >= minLayoverDuration! && journeyLayoverDuration <= maxLayoverDuration! {
-                return true
-            }
-            return false
-            
         }
         
         return outputArray
@@ -350,19 +394,23 @@ extension FlightResultDisplayGroup  {
 
     func departureSelectionChangedAt( minDuration: TimeInterval, maxDuration: TimeInterval) {
         
+        initiatedFilters.insert(.departureTime)
+        
         userSelectedFilters.dt.setEarliest(time: minDuration)
         userSelectedFilters.dt.setLatest(time: maxDuration)
         
-        if userSelectedFilters.dt == inputFilter.dt {
+        if isTimesFilterApplied() {
+            appliedFilters.insert(.Times)
+        } else {
             appliedFilters.remove(.Times)
         }
-        else {
-            appliedFilters.insert(.Times)
-        }
+        
         applyFilters()
     }
     
     func arrivalSelectionChanged( minDate: Date, maxDate: Date) {
+        
+        initiatedFilters.insert(.arrivalTime)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
@@ -372,11 +420,51 @@ extension FlightResultDisplayGroup  {
         userSelectedFilters.arDt.earliest = minDateString
         userSelectedFilters.arDt.latest = maxDateString
         
-        appliedFilters.insert(.Times)
+        if isTimesFilterApplied() {
+            appliedFilters.insert(.Times)
+        } else {
+            appliedFilters.remove(.Times)
+        }
+        
         applyFilters()
     }
     
+    private func isTimesFilterApplied() -> Bool {
+        let departureCheck = isDepartureTimeFilterApplied()
+        let arrivalCheck = isArrivalTimeFilterApplied()
+        if initiatedFilters.contains(.departureTime) && initiatedFilters.contains(.arrivalTime) {
+            return departureCheck || arrivalCheck
+        } else if initiatedFilters.contains(.departureTime) {
+            return departureCheck
+        } else if initiatedFilters.contains(.arrivalTime) {
+            return arrivalCheck
+        }
+        return false
+    }
+    
+    private func isDepartureTimeFilterApplied() -> Bool {
+        let departFilterCheck = !(userSelectedFilters.dt.earliest <= inputFilter.dt.earliest && userSelectedFilters.dt.latest >= inputFilter.dt.latest)
+        if departFilterCheck {
+            appliedSubFilters.insert(.departureTime)
+        } else {
+            appliedSubFilters.remove(.departureTime)
+        }
+        return departFilterCheck
+    }
+    
+    private func isArrivalTimeFilterApplied() -> Bool {
+        let arrivalFilterCheck = !(userSelectedFilters.arDt.earliest <= inputFilter.arDt.earliest && userSelectedFilters.arDt.latest >= inputFilter.arDt.latest)
+        if arrivalFilterCheck {
+            appliedSubFilters.insert(.arrivalTime)
+        } else {
+            appliedSubFilters.remove(.arrivalTime)
+        }
+        return arrivalFilterCheck
+    }
+    
     func applyDepartureTimeFilter(_ inputArray : [Journey]) -> [Journey] {
+        
+        guard initiatedFilters.contains(.departureTime) else { return inputArray }
         
         guard let minDepartureTime = userSelectedFilters.dt.earliestTimeInteval else { return inputArray}
         guard let maxDepartureTime = userSelectedFilters.dt.latestTimeInterval else { return inputArray}
@@ -405,6 +493,8 @@ extension FlightResultDisplayGroup  {
     
     
     func applyArrivalTimeFilter( _ inputArray : [ Journey]) ->  [ Journey] {
+        
+        guard initiatedFilters.contains(.arrivalTime) else { return inputArray }
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
@@ -599,18 +689,31 @@ extension FlightResultDisplayGroup  {
             return inputArray
         }
         
-        let outputArray = inputArray.filter{
-            
-            let journeyLayovers = Set($0.loap)
+//        let outputArray = inputArray.filter{
+//
+//            let journeyLayovers = Set($0.loap)
+//            if journeyLayovers.count == 0 {
+//                return true
+//            }
+//
+//
+//            if journeyLayovers.isDisjoint(with:selectedLayovers) {
+//                return false
+//            }
+//            return true
+//        }
+        
+        let outputArray = inputArray.filter {
+            let totalLayoverAirports = $0.leg.flatMap { $0.loap }
+            let journeyLayovers = Set(totalLayoverAirports)
             if journeyLayovers.count == 0 {
                 return true
             }
-            
-            
-            if journeyLayovers.isDisjoint(with:selectedLayovers) {
+            if journeyLayovers.isDisjoint(with: selectedLayovers) && !selectedLayovers.isEmpty {
                 return false
             }
             return true
+            
         }
         
         return outputArray
@@ -644,7 +747,9 @@ extension FlightResultDisplayGroup  {
     }
     
     
-    func applyFilters() {
+    func applyFilters(isAPIResponseUpdated: Bool = false) {
+        
+        self.isAPIResponseUpdated = isAPIResponseUpdated
         
         var inputForFilter = self.processedJourneyArray
         
@@ -707,8 +812,10 @@ extension FlightResultDisplayGroup  {
             }
         }
         
-        DispatchQueue.main.async {
-            self.applySort(inputArray: inputForFilter)
-        }
+        self.filteredJourneyArray = inputForFilter
+        
+//        DispatchQueue.main.async {
+//            self.applySort(inputArray: inputForFilter)
+//        }
     }
 }

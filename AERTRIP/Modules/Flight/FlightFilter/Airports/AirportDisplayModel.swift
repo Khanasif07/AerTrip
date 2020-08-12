@@ -141,4 +141,19 @@ struct AirportLegFilter {
         let allDestinationSelected = destinationCities.reduce(true) { $0 && $1.allSelected() }
         return allOriginSelected && allDestinationSelected
     }
+    
+    /// to get list of all selected airports
+    var allSelectedAirports: [Airport] {
+        var selectedAirports = [Airport]()
+        originCities.forEach { (city) in
+            selectedAirports.append(contentsOf: city.airports.filter { $0.isSelected })
+        }
+        destinationCities.forEach { (city) in
+            selectedAirports.append(contentsOf: city.airports.filter { $0.isSelected })
+        }
+        layoverCities.forEach { (city) in
+            selectedAirports.append(contentsOf: city.airports.filter { $0.isSelected })
+        }
+        return selectedAirports
+    }
 }

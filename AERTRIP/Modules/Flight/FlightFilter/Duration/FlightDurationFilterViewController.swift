@@ -234,6 +234,15 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         
     }
     
+    
+    func updateFiltersFromAPI() {
+        currentDurationFilter = durationFilters[currentActiveIndex]
+        UIView.animate(withDuration: 0.3) {
+            self.setupTripDurationValues()
+            self.setupLayoutDurationValues()
+        }
+    }
+    
     func updateUIPostLatestResults() {
        resetFilter()
     }
@@ -430,7 +439,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     @IBAction func layoverDurationChanged(_ sender: MARKRangeSlider) {
         
              currentDurationFilter.userSelectedLayoverMin = layoverDurationSlider.leftValue.rounded(.down)
-             currentDurationFilter.userSelectedLayoverMax = layoverDurationSlider.rightValue.rounded()
+        currentDurationFilter.userSelectedLayoverMax = layoverDurationSlider.rightValue.rounded(.up)
 
             layoverDurationMinLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedLayoverMin)
         layoverDurationMinLabelWidth.constant = layoverDurationMinLabel.intrinsicContentSize.width + 16.0
