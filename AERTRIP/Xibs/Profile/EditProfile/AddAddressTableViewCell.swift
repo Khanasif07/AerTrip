@@ -37,7 +37,7 @@ class AddAddressTableViewCell: UITableViewCell {
     @IBOutlet weak var bottomDivider: ATDividerView!
     @IBOutlet weak var seperatorView: UIView!
     @IBOutlet weak var seperatorDividerView: ATDividerView!
-    
+    @IBOutlet weak var seperatorViewHeightConstraint: NSLayoutConstraint!
     // MARK: - Variables
     weak var delegate:AddAddressTableViewCellDelegate?
     
@@ -97,6 +97,8 @@ class AddAddressTableViewCell: UITableViewCell {
     func mangeSeparatorView() {
         seperatorView.isHidden = hideSepratorView
         seperatorDividerView.isHidden = hideSepratorView
+        self.seperatorViewHeightConstraint.constant = hideSepratorView ? 0  : 10
+        self.contentView.layoutIfNeeded()
     }
     
     @objc func addressTypeTapped(gesture: UITapGestureRecognizer) {
