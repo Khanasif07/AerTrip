@@ -9,11 +9,7 @@
 import UIKit
 import MessageUI
 
-class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDelegate , GroupedFlightCellDelegate {
-    
-    func navigateToFlightDetailFor(journey: Journey) {
-        
-    }
+class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDelegate , GroupedFlightCellDelegate, getSharableUrlDelegate {
     
     //MARK:- Outlets
     var bannerView : ResultHeaderView?
@@ -65,6 +61,8 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     var ApiProgress: UIProgressView!
     var previousRequest : DispatchWorkItem?
     let viewModel = FlightResultSingleJourneyVM()
+    
+    let getSharableLink = GetSharableUrl()
 
     //MARK:- View Controller Methods
     override func viewDidLoad() {
@@ -77,6 +75,8 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
 //        ApiProgress.frame = CGRect(x: 0, y: 100, width: UIScreen.main.bounds.size.width, height: 10.0)
 //        self.resultsTableView.addSubview(ApiProgress)
 
+        getSharableLink.delegate = self
+        
         self.viewModel.results = OnewayJourneyResultsArray(sort: .Smart)
         setupTableView()
         setupPinnedFlightsOptionsView()
@@ -555,24 +555,32 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         })
     }
     
+//    @IBAction func sharePinnedFlights(_ sender: Any) {
+//
+////        guard let postData = generatePostData(for: results.pinnedFlights ) else { return }
+//
+//        if #available(iOS 13.0, *) {
+//
+//        guard let postData = generatePostData(for: self.viewModel.results.pinnedFlights ) else { return }
+//
+//        executeWebServiceForShare(with: postData as Data, onCompletion:{ (link)  in
+//
+//            DispatchQueue.main.async {
+//                let textToShare = [ link ]
+//                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+//                activityViewController.popoverPresentationController?.sourceView = self.view
+//                self.present(activityViewController, animated: true, completion: nil)
+//
+//            }
+//        })
+//        }
+//    }
+    
+    
+    // Monika
     @IBAction func sharePinnedFlights(_ sender: Any) {
-        
-//        guard let postData = generatePostData(for: results.pinnedFlights ) else { return }
-        
         if #available(iOS 13.0, *) {
-
-        guard let postData = generatePostData(for: self.viewModel.results.pinnedFlights ) else { return }
-
-        executeWebServiceForShare(with: postData as Data, onCompletion:{ (link)  in
-            
-            DispatchQueue.main.async {
-                let textToShare = [ link ]
-                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-                activityViewController.popoverPresentationController?.sourceView = self.view
-                self.present(activityViewController, animated: true, completion: nil)
-                
-            }
-        })
+            shareJourney(journey: self.viewModel.results.pinnedFlights)
         }
     }
     
@@ -766,10 +774,20 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         
         guard let strongJourney = journey else { return }
         if #available(iOS 13.0, *) {
-            shareJourney(journey: strongJourney)
+            shareJourney(journey: [strongJourney])
         } else {
             // Fallback on earlier versions
         }
+    }
+    
+    // Monika
+    func returnEmailView(view: String) {
+        
+    }
+    
+    
+    func navigateToFlightDetailFor(journey: Journey) {
+        
     }
         
     //MARK:-  Methods for TableviewCell Swipe Implementation

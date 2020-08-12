@@ -21,7 +21,7 @@ struct TimeFK {
     func setPinnedFlightAt(_ flightKey: String , isPinned : Bool)
     func shareFlightAt(_ indexPath : IndexPath)
     func navigateToFlightDetailFor(journey : Journey, selectedIndex: IndexPath)
-    func shareJourney(journey : Journey)
+    func shareJourney(journey : [Journey])
     func navigateToFlightDetailFor(journey : Journey)
 }
 
@@ -49,6 +49,7 @@ struct TimeFK {
     var timeArray = [TimeFK]()
     
     var currentJourney : Journey?
+    var currentSelectedIndex = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -92,6 +93,7 @@ struct TimeFK {
         }
         var timeFKArray = journey.journeyArray.map{ return TimeFK(departurTime: $0.dt, fk: $0.fk) }
         timeFKArray.sort(by : { $0.departurTime < $1.departurTime })
+        flightGroup.journeyArray.sort(by : { $0.dt < $1.dt })
         timeArray = timeFKArray
         if flightGroup.selectedFK == String() {
             flightGroup.selectedFK = flightGroup.getJourneyWithLeastHumanScore().fk
@@ -176,32 +178,34 @@ struct TimeFK {
         
         var selectedJourney  : Journey?
 
-        if self.flightGroup.isCollapsed {
-            let flightGroup = self.flightGroup
-            let departureTime = flightGroup.selectedFK
-            if let journey = flightGroup.getJourneyWith(fk: departureTime) {
-                selectedJourney = journey
-            }
-        }
-        else {
+//        if self.flightGroup.isCollapsed {
+//            let flightGroup = self.flightGroup
+//            let departureTime = flightGroup.selectedFK
+//            if let journey = flightGroup.getJourneyWith(fk: departureTime) {
+//                selectedJourney = journey
+//            }
+//        }
+//        else {
             selectedJourney = flightGroup.journeyArray[indexPath.row]
-        }
+       // }
         return selectedJourney
     }
     
     func setSelectionViewFrame(animate : Bool) {
         
-        guard  let selectedIndices = timeCollectionView.indexPathsForSelectedItems else{
-            print("Selected Cell not found")
-            return }
-        let selectedIndex = selectedIndices.first!
+//        guard  let selectedIndices = timeCollectionView.indexPathsForSelectedItems else{
+//            print("Selected Cell not found")
+//            return }
+        
+        let selectedIndex = IndexPath(item: currentSelectedIndex, section: 0)
+    
         guard  let attributes = timeCollectionView.layoutAttributesForItem(at: selectedIndex) else {
             print("Attributed not found")
             return }
         
         let duration : Double
         if animate  {
-            duration = 0.4
+            duration = 0.3
         }
         else {
             duration = 0.0
@@ -285,7 +289,6 @@ extension GroupedFlightCell : UITableViewDataSource, UITableViewDelegate {
            }
        }
 
-    
 }
 
 //MARK:- CollectionView Data Source and Delegate Methods
@@ -314,6 +317,12 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
         } else {
             
             let cell = resultsCollectionView.dequeueReusableCell(withReuseIdentifier: "SingleJourneyCollectionViewCell", for: indexPath) as! SingleJourneyCollectionViewCell
+            if #available(iOS 13, *) {
+                          if cell.baseView.interactions.isEmpty{
+                              let interaction = UIContextMenuInteraction(delegate: self)
+                              cell.baseView.addInteraction(interaction)
+                          }
+                      }
             if let journey = getJourneyObj(indexPath: indexPath) {
                 cell.setTitlesFrom(journey: journey)
             }
@@ -341,10 +350,15 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         if collectionView == self.timeCollectionView {
+            currentSelectedIndex = indexPath.item
             flightGroup.selectedFK = timeArray[indexPath.row].fk
             collaspableTableView.reloadData()
             setSelectionViewFrame(animate: true)
+            self.timeCollectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
+            self.resultsCollectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.right, animated: true)
+            
         } else {
             if let selectedJourney = getJourneyObj(indexPath: indexPath) {
                 self.currentJourney = selectedJourney
@@ -352,6 +366,36 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
             }
         }
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView != self.resultsCollectionView { return }
+
+        
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+
+    }
+    
+    
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+                if scrollView != self.resultsCollectionView { return }
+                guard let indexPath =  self.resultsCollectionView.indexPathForItem(at: scrollView.contentOffset) else { return }
+                print(indexPath.item)
+            currentSelectedIndex = indexPath.item
+                 flightGroup.selectedFK = timeArray[indexPath.item].fk
+                 collaspableTableView.reloadData()
+                 setSelectionViewFrame(animate: true)
+        self.timeCollectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
+
+
+    }
+    
 }
 
 //MARK:- iOS 13 Contexual Menu Interaction UI 
@@ -363,24 +407,26 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
             
             
             // As when collapsed we need to get selected cell based on selected time , we need to get journey object based on selectedJourneyTimeProperty
+            
             if self.flightGroup.isCollapsed {
-                let flightGroup = self.flightGroup
-                if let journey = flightGroup.getJourneyWith(fk: flightGroup.selectedFK) {
-                    let fk = journey.fk
-                    let isPinned = journey.isPinned
-                    return self.makeMenusFor(journey : journey ,flightKey : fk , markPinned : isPinned ?? false)
-                }
-            }
-        else {
-                let locationInTableView = interaction.location(in: self.collaspableTableView)
-            if let indexPath = self.collaspableTableView.indexPathForRow(at: locationInTableView) {
+          
+                let locationInCollectionView = interaction.location(in: self.resultsCollectionView)
+                guard let indexPath = self.resultsCollectionView.indexPathForItem(at: locationInCollectionView) else { return nil }
                 let currentJourney  = self.flightGroup.journeyArray[indexPath.row]
                 let fk = currentJourney.fk
                 let isPinned = currentJourney.isPinned
-                
                 return self.makeMenusFor(journey : currentJourney ,flightKey : fk , markPinned : isPinned ?? false)
+        
             }
+        else {
+                let locationInTableView = interaction.location(in: self.collaspableTableView)
+                guard let indexPath = self.collaspableTableView.indexPathForRow(at: locationInTableView) else { return nil }
+                let currentJourney  = self.flightGroup.journeyArray[indexPath.row]
+                let fk = currentJourney.fk
+                let isPinned = currentJourney.isPinned
+                return self.makeMenusFor(journey : currentJourney ,flightKey : fk , markPinned : isPinned ?? false)
         }
+            
         return nil
     }
 }
@@ -403,7 +449,7 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
         }
         // share action
         let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up"), identifier: nil) {  (action) in
-            self.delegate?.shareJourney(journey: journey)
+            self.delegate?.shareJourney(journey: [journey])
         }
         
         // Add to Trip Action

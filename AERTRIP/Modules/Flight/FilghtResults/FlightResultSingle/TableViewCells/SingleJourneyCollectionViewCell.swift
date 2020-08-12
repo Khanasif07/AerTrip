@@ -179,21 +179,19 @@ class SingleJourneyCollectionViewCell: UICollectionViewCell {
         }
         
         override func prepareForReuse() {
-            
+            super.prepareForReuse()
             logoOne.isHidden = false
             logoTwo.isHidden = false
             logoThree.isHidden = false
             self.immediateAirportWidth.constant = 100
             self.intermediateAirports.isHidden = false
             
-            self.baseView.layer.borderWidth = 0.0
             durationTime.textColor = UIColor.ONE_ZORE_TWO_COLOR
             price.textColor = .black
             priceWidth.constant = 170
-            
+            self.baseView.layer.borderWidth = 0.0
             pinnedRoundedLayer?.removeFromSuperlayer()
-            
-            super.prepareForReuse()
+            pinnedRoundedLayer = nil
         }
     
     func textToImage(drawText text: String, diameter: CGFloat, color: UIColor ) -> UIImage {

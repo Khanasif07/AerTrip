@@ -266,9 +266,13 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
          let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,withReuseIdentifier: "smartIconHeaderView", for: indexPath)
-         return headerView
+        
+        headerView.frame = CGRect(x: 33, y: 5, width: 1.0, height: collectionView.frame.height)
+
+        headerView.backgroundColor = UIColor(displayP3Red: ( 204.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 204 / 255.0), alpha: 1.0)
+     
+        return headerView
      }
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = smartIconCollectionView.dequeueReusableCell(withReuseIdentifier: "SmartIconCell", for: indexPath) as! SmartIconCell

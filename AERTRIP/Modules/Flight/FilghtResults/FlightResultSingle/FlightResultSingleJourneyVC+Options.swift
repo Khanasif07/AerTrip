@@ -145,6 +145,7 @@ func showPinnedFlightsOption(_ show  : Bool)
   }
 }
 
+
 @available(iOS 13.0, *) extension FlightResultSingleJourneyVC : UIContextMenuInteractionDelegate {
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
         
@@ -201,7 +202,7 @@ func showPinnedFlightsOption(_ show  : Bool)
                 
                 guard let strongSelf = self else { return }
                 guard let strongJourney = journey else { return }
-                strongSelf.shareJourney(journey: strongJourney)
+                strongSelf.shareJourney(journey: [strongJourney])
                 
             }
             let addToTrip = UIAction(title: "Add To Trip", image: UIImage(systemName: "map" ), identifier: nil) { (action) in
@@ -239,26 +240,29 @@ func showPinnedFlightsOption(_ show  : Bool)
         resultsTableView.setContentOffset(.zero, animated: true)
     }
     
-    func shareJourney(journey : Journey) {
-         
-        if #available(iOS 13.0, *) {
-
-        guard let postData = generatePostData(for: [journey]) else { return }
+    func shareJourney(journey : [Journey]) {
         
-        executeWebServiceForShare(with: postData as Data, onCompletion:{ (link)  in
-            
-            DispatchQueue.main.async {
-                let textToShare = [ link ]
-                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-                activityViewController.popoverPresentationController?.sourceView = self.view
-                self.present(activityViewController, animated: true, completion: nil)
-            }
-        })
-        }
+        let flightAdultCount = bookFlightObject.flightAdultCount
+        let flightChildrenCount = bookFlightObject.flightChildrenCount
+        let flightInfantCount = bookFlightObject.flightInfantCount
+        let isDomestic = bookFlightObject.isDomestic
+        
+        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, journey: journey)
+        
     }
 }
 
 extension FlightResultSingleJourneyVC : MFMailComposeViewControllerDelegate {
+    
+    func returnSharableUrl(url: String)
+    {
+        
+        let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]
+        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        
+        self.present(activityViewController, animated: true, completion: nil)
+    }
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
            controller.dismiss(animated: true, completion: nil)

@@ -77,8 +77,8 @@ class SingleJourneyCell: UITableViewCell
         smartIconCollectionView.dataSource = self
         smartIconCollectionView.delegate = self
     }
-    //MARK:-
     
+    //MARK:-
     fileprivate func setupGradientView( selectedColor : UIColor = UIColor.white)
     {
         let gradient = CAGradientLayer()
@@ -180,7 +180,7 @@ class SingleJourneyCell: UITableViewCell
     }
     
     override func prepareForReuse() {
-        
+        super.prepareForReuse()
         logoOne.isHidden = false
         logoTwo.isHidden = false
         logoThree.isHidden = false
@@ -194,7 +194,6 @@ class SingleJourneyCell: UITableViewCell
         
         pinnedRoundedLayer?.removeFromSuperlayer()
         
-        super.prepareForReuse()
     }
     
     
