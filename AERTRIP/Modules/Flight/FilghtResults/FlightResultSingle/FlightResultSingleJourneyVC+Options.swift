@@ -68,13 +68,13 @@ extension FlightResultSingleJourneyVC {
     }
     
     self.viewModel.setPinnedFlights()
-//    resultsTableView.tableFooterView?.isHidden = true
+    resultsTableView.tableFooterView?.isHidden = true
     self.resultsTableView.reloadData()
-    showFooterView()
-    
     delay(seconds: 0.5) {
-//        self.resultsTableView.tableFooterView?.isHidden = false
+        self.resultsTableView.tableFooterView?.isHidden = false
     }
+    showFooterView()
+
 
 }
     

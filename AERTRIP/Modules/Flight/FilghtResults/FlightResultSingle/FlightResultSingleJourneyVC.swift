@@ -800,7 +800,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         
     }
     
-    
     func navigateToFlightDetailFor(journey: Journey) {
         
     }
