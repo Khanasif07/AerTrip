@@ -46,7 +46,7 @@ class TotalPayableNowCell: UITableViewCell {
         totalPriceLabel.attributedText = nil
     }
     
-    private func setUpText() {
+    func setUpText() {
         self.totalPayableNowLabel.text = LocalizedString.TotalPayableNow.localized
         
         self.totalPayableTextTopConstraint.constant = (currentUsingFor == .totalPayableAmout) ? 9.0 : 0.0

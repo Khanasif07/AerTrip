@@ -154,6 +154,7 @@ class AccountDetailsVM: NSObject {
             if success {
                 sSelf._accountDetails = accLad
                 sSelf.setAccountDetails(data: accLad)
+                sSelf.allVouchers = accVchrs
                 sSelf.delegate?.getAccountDetailsSuccess()
             }
             else {
@@ -178,7 +179,7 @@ class AccountDetailsVM: NSObject {
                         fltrd = events.filter { event in
                             
                             var status = false
-                            if let frmDate = filtr.fromDate, let toDate = filtr.toDate, let creationDate = event._creationDate {
+                            if let frmDate = filtr.fromDate, let toDate = filtr.toDate, let creationDate = event._creationDate, frmDate <= toDate {
                                 if (frmDate...toDate).contains(creationDate) {
                                     status = true
                                 }

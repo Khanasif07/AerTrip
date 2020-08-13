@@ -1278,6 +1278,10 @@ with us!</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="sTn-3c-QGW" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="87.5" width="414" height="808.5"/>
+                                <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J80-Nz-GmH" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1285,10 +1289,6 @@ with us!</string>
                                     <constraint firstAttribute="height" constant="44" id="m82-3Z-Hjj"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="sTn-3c-QGW" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
-                                <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
-                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -1297,7 +1297,7 @@ with us!</string>
                             <constraint firstItem="J80-Nz-GmH" firstAttribute="leading" secondItem="5D0-XR-qi0" secondAttribute="leading" id="SFf-qh-wgS"/>
                             <constraint firstItem="5D0-XR-qi0" firstAttribute="trailing" secondItem="J80-Nz-GmH" secondAttribute="trailing" id="SnE-Z2-VWV"/>
                             <constraint firstAttribute="bottom" secondItem="sTn-3c-QGW" secondAttribute="bottom" id="ioO-bQ-DKu"/>
-                            <constraint firstItem="sTn-3c-QGW" firstAttribute="top" secondItem="J80-Nz-GmH" secondAttribute="bottom" id="vBV-2s-Gja"/>
+                            <constraint firstItem="sTn-3c-QGW" firstAttribute="top" secondItem="J80-Nz-GmH" secondAttribute="bottom" constant="-0.5" id="vBV-2s-Gja"/>
                             <constraint firstItem="J80-Nz-GmH" firstAttribute="top" secondItem="5D0-XR-qi0" secondAttribute="top" id="yRi-Nu-uPG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5D0-XR-qi0"/>
@@ -1444,6 +1444,11 @@ with us!</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nVN-KD-R9K" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="87.5" width="414" height="808.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CFv-Rw-eJl" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1451,11 +1456,6 @@ with us!</string>
                                     <constraint firstAttribute="height" constant="44" id="HNu-sb-Ubo"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nVN-KD-R9K" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -1465,7 +1465,7 @@ with us!</string>
                             <constraint firstItem="CFv-Rw-eJl" firstAttribute="top" secondItem="oxA-MX-1Cb" secondAttribute="top" id="S0X-vS-9tU"/>
                             <constraint firstAttribute="bottom" secondItem="nVN-KD-R9K" secondAttribute="bottom" id="S9A-7D-qoo"/>
                             <constraint firstItem="oxA-MX-1Cb" firstAttribute="trailing" secondItem="CFv-Rw-eJl" secondAttribute="trailing" id="m6F-kj-R4m"/>
-                            <constraint firstItem="nVN-KD-R9K" firstAttribute="top" secondItem="CFv-Rw-eJl" secondAttribute="bottom" id="vSR-WK-qNn"/>
+                            <constraint firstItem="nVN-KD-R9K" firstAttribute="top" secondItem="CFv-Rw-eJl" secondAttribute="bottom" constant="-0.5" id="vSR-WK-qNn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="oxA-MX-1Cb"/>
                     </view>

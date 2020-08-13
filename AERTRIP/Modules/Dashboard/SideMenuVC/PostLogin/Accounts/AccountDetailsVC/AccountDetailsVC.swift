@@ -244,8 +244,13 @@ class AccountDetailsVC: BaseVC {
         if let accountData = UserInfo.loggedInUser?.accountData {
             self.openingBalanceAmountLabel.attributedText = accountData.openingBalance.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
             self.openingBalanceDateLabel.text = ""//"Upto Tue, 31 Jul 2018"
+//            if UserInfo.loggedInUser?.userCreditType
             
-            self.balanceAmountLabel.attributedText = accountData.currentBalance.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(28.0))
+            if (UserInfo.loggedInUser?.userCreditType ?? .statement  == .regular){
+                self.balanceAmountLabel.attributedText = accountData.walletAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(28.0))
+            }else{
+                self.balanceAmountLabel.attributedText = accountData.currentBalance.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(28.0))
+            }
         } else {
             self.balanceAmountLabel.attributedText = 0.0.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(28.0))
         }

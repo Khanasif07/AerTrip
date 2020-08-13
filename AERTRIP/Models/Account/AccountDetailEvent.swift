@@ -16,6 +16,7 @@ enum VoucherType: String {
     case lockAmount = "Lock Amount"
     case debitNote = "Debit Note"
     case creditNote = "Credit Note"
+    case payment = "Payment"
     
     //these have sub types
     case sales = "Sales"
@@ -233,7 +234,7 @@ struct AccountDetailEvent {
                     
                 case .offline:
                     self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
-                    if info["draft_cheque_number"] != nil {
+                    if (info["draft_cheque_number"] != nil) || (info["draft_cheque_date"] != nil) {
                         self.title = "Cheque / Demand Draft"
                     }else if info["utr_number"] != nil{
                         self.title = "Fund Transfer"
@@ -247,6 +248,14 @@ struct AccountDetailEvent {
                 @unknown default:
                     printDebug("No need for other voucher types")
                 }
+            }
+            
+        case .payment:
+            if let details = json["detail"] as? JSONDictionary, let info = details["info"] as? JSONDictionary {
+                self._receiptMethod = (info["method"] as? String) ?? ""
+                self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
+                let bankName = (info["payment_method_value"] as? String) ?? ""
+                self.title = self._receiptMethod.isEmpty ? bankName : "\(self._receiptMethod.capitalizedFirst()): \(bankName)"
             }
             
         case .debitNote:

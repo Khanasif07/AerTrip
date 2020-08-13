@@ -64,6 +64,7 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
             
             totalPayableNowCell.topDeviderView.isHidden = true
             totalPayableNowCell.bottomDeviderView.isHidden = true
+            totalPayableNowCell.setUpText()
             totalPayableNowCell.totalPayableTextTopConstraint.constant = -2.0
             totalPayableNowCell.totalPayableTextBottomConstraint.constant = 12.0
             return totalPayableNowCell
@@ -82,6 +83,7 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
             
             totalPayableNowCell.topDeviderView.isHidden = true
             totalPayableNowCell.bottomDeviderView.isHidden = true
+            totalPayableNowCell.setUpText()
             totalPayableNowCell.totalPayableTextTopConstraint.constant = -2.0
             totalPayableNowCell.totalPayableTextBottomConstraint.constant = 12.0
             return totalPayableNowCell
@@ -93,8 +95,10 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 return UITableViewCell()
             }
             totalPayableNowCell.totalPriceLabel.attributedText = self.viewModel.totalPayableAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+            totalPayableNowCell.currentUsingFor = .totalPayableAmout
             totalPayableNowCell.topDeviderView.isHidden = false
             totalPayableNowCell.bottomDeviderView.isHidden = true
+            totalPayableNowCell.setUpText()
             return totalPayableNowCell
             
         case 6:
