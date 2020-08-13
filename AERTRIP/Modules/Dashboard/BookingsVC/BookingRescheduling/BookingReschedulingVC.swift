@@ -391,6 +391,7 @@ extension BookingReschedulingVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("BookingInfoFooterView not found")
         }
         footerView.bottomDividerView.isHidden = (self.viewModel.legsData.count - 1) == section
+        footerView.topDividerTopConstraints.constant = 0.2
         return footerView
     }
     

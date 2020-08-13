@@ -77,7 +77,7 @@ extension SideMenuViewAccountCell {
                 date = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.dates.first
                 
             default:
-                amount = UserInfo.loggedInUser?.accountData?.currentBalance ?? 0.0
+                amount = UserInfo.loggedInUser?.accountData?.walletAmount ?? 0.0
             }
         }
         

@@ -144,6 +144,7 @@ extension BookingVoucherVC: UITableViewDataSource,UITableViewDelegate {
             }
             voucherCell.titleLabel.text = self.viewModel.receipt?.otherVoucher[indexPath.row].basic?.event ??  "Booking"
             voucherCell.paymentTypeImageView.isHidden = true
+            voucherCell.topDividerView.isHidden = false
         }
         else if indexPath.section == 1 {
             //receipt

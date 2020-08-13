@@ -98,6 +98,7 @@ class BookingInvoiceVC: BaseVC {
             voucherStr = voucherStr.isEmpty ? LocalizedString.dash.localized : voucherStr
             
             bookingVoucherCell.configureCell(date: dateStr, voucher: voucherStr)
+            bookingVoucherCell.dividerView.isHidden = false
             return bookingVoucherCell
         case 1:
             guard let emptyCell = self.invoiceTableView.dequeueReusableCell(withIdentifier: "EmptyTableViewCell") as? EmptyTableViewCell else {
