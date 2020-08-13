@@ -21,7 +21,13 @@ extension HotelsMapVC {
     func getSavedFilter() {
         guard let filter = UserInfo.hotelFilter else {
             printDebug("filter not found")
+            self.viewModel.fetchRequestType = .normal
+            self.filterButton.isSelected = false
+            self.viewModel.isFilterApplied = false
+            HotelFilterVM.shared.isSortingApplied = false
+            UserInfo.hotelFilter = nil
             HotelFilterVM.shared.resetToDefault()
+            self.viewModel.filterApplied = UserInfo.HotelFilter()
             return
         }
         self.viewModel.fetchRequestType = .FilterApplied

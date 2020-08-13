@@ -133,7 +133,7 @@ class EmailComposerHeaderView: UIView {
         self.messageLabel.textColor = AppColors.themeGray40
         self.seeRatesButton.backgroundColor = AppColors.themeGreen
         self.seeRatesButton.titleLabel?.textColor = AppColors.themeWhite
-        self.checkOutMessageLabel.textColor = AppColors.textFieldTextColor51
+        self.checkOutMessageLabel.textColor = AppColors.themeBlack
         self.hotelResultLabel.textColor = AppColors.themeGray60
         self.messageSubjectTextView.textColor = AppColors.textFieldTextColor51
         // toEmail Text View Color

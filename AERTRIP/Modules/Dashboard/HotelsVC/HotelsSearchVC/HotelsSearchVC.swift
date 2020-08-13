@@ -935,7 +935,7 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
         self.viewModel.searchedFormData.isHotelNearMeSelected = false
         
         self.setDataFromPreviousSearch(olddata: self.viewModel.searchedFormData, isSettingForFirstTime: true)
-        self.searchButtonAction(nil)
+        self.searchButtonAction(self.searchBtnOutlet)
         //        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
         //open result screen for the recent
         //        AppFlowManager.default.moveToHotelsResultVc(withFormData: self.viewModel.searchedFormData)

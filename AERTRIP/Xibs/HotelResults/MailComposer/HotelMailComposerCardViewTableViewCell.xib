@@ -83,7 +83,7 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="quK-2T-AN4" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="21" y="4" width="68" height="14"/>
+                                                                <rect key="frame" x="25" y="4" width="68" height="14"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="68" id="Ud9-p5-Tgh"/>
@@ -103,7 +103,7 @@
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstItem="tQF-hM-iNe" firstAttribute="top" secondItem="GgV-4W-z1p" secondAttribute="top" constant="-11" id="3Mi-iU-UCU"/>
-                                                            <constraint firstItem="quK-2T-AN4" firstAttribute="leading" secondItem="tQF-hM-iNe" secondAttribute="trailing" id="3x4-S3-7LO"/>
+                                                            <constraint firstItem="quK-2T-AN4" firstAttribute="leading" secondItem="tQF-hM-iNe" secondAttribute="trailing" constant="4" id="3x4-S3-7LO"/>
                                                             <constraint firstItem="quK-2T-AN4" firstAttribute="centerY" secondItem="GgV-4W-z1p" secondAttribute="centerY" id="TM4-yu-Kwd"/>
                                                             <constraint firstAttribute="trailing" secondItem="quK-2T-AN4" secondAttribute="trailing" priority="900" id="hUV-3F-tVw"/>
                                                             <constraint firstItem="tQF-hM-iNe" firstAttribute="leading" secondItem="GgV-4W-z1p" secondAttribute="leading" id="y9u-lh-1LT"/>

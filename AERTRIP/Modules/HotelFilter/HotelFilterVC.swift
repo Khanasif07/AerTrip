@@ -76,7 +76,7 @@ class HotelFilterVC: BaseVC {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        delay(seconds: 0.5) { [weak self] in
+        delay(seconds: 0.1) { [weak self] in
             self?.show(animated: true)
         }
         self.statusBarColor = AppColors.clear
@@ -159,7 +159,7 @@ class HotelFilterVC: BaseVC {
     private func show(animated: Bool) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerViewTopConstraint.constant = 0.0
-            self.view.alpha = 1.0
+            self.mainBackView.alpha = 1.0
             self.view.layoutIfNeeded()
         })
     }
@@ -167,7 +167,7 @@ class HotelFilterVC: BaseVC {
     private func hide(animated: Bool, shouldRemove: Bool = false) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerViewTopConstraint.constant = -(self.mainContainerView.height)
-            self.view.alpha = 0.0
+            self.mainBackView.alpha = 0.0
             self.view.layoutIfNeeded()
         }, completion: { _ in
             if shouldRemove {
