@@ -166,6 +166,7 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
 //        if let image = UIImage(named: "hotelCardPlaceHolder") {
 //            self.hotelImageView.setImageWithUrl(self.hotelData?.photo ?? "", placeholder: image, showIndicator: false)
 //        }
+        self.hotelImageView.cancelImageDownloading()
         self.hotelImageView.setImageWithUrl(imageUrl: self.hotelData?.photo ?? "", placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false) { [weak self] (image, error) in
             if let downloadedImage = image {
                 self?.hotelImageView.image = downloadedImage
@@ -214,6 +215,7 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
         self.discountedPriceLabel.text = price.amountInDelimeterWithSymbol
         self.saveButton.isSelected = self.hotelListData?.fav == "0" ? false : true
         
+        self.hotelImageView.cancelImageDownloading()
         self.hotelImageView.setImageWithUrl(imageUrl: self.hotelListData?.thumbnail?.first ?? "", placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false) { [weak self] (image, error) in
             if let downloadedImage = image {
                 self?.hotelImageView.image = downloadedImage

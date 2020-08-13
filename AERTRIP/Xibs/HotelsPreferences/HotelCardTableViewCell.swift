@@ -250,6 +250,7 @@ extension HotelCardTableViewCell: UICollectionViewDataSource, UICollectionViewDe
             //set image from url
             //            cell.imageView.image = #imageLiteral(resourceName: "hotelCardPlaceHolder")
 //            cell.imageView.setImageWithUrl(images[indexPath.item], placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false)
+            cell.imageView.cancelImageDownloading()
             cell.imageView.setImageWithUrl(imageUrl: images[indexPath.item], placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false) { [unowned self] (image, error) in
                 if let downloadedImage = image {
                     cell.imageView.image = downloadedImage
