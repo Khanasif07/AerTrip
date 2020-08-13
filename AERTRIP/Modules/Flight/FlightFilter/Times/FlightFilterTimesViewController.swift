@@ -620,10 +620,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
         if departureStartTime.text == "00:00" || departureStartTime.text == "06:00" || departureStartTime.text == "12:00" || departureStartTime.text == "18:00" || departureStartTime.text == "24:00" || departureEndTime.text == "00:00" || departureEndTime.text == "06:00" || departureEndTime.text == "12:00" || departureEndTime.text == "18:00" || departureEndTime.text == "24:00"
         {
-            //*******************Haptic Feedback code********************
-               let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-               selectionFeedbackGenerator.selectionChanged()
-            //*******************Haptic Feedback code********************
+            giveHapticFeedback()
 
         }
         
@@ -641,10 +638,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
         if departureStartTime.text == "00:00" || departureStartTime.text == "06:00" || departureStartTime.text == "12:00" || departureStartTime.text == "18:00" || departureStartTime.text == "24:00" || departureEndTime.text == "00:00" || departureEndTime.text == "06:00" || departureEndTime.text == "12:00" || departureEndTime.text == "18:00" || departureEndTime.text == "24:00"
         {
-            //*******************Haptic Feedback code********************
-               let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-               selectionFeedbackGenerator.selectionChanged()
-            //*******************Haptic Feedback code********************
+            giveHapticFeedback()
 
         }
     }
@@ -834,10 +828,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         setmultiLegSubviews()
         delegate?.departureSelectionChangedAt(currentActiveIndex , minDuration:departureStartTimeInterval , maxDuration: departureEndTimeInterval)
         
-        //*******************Haptic Feedback code********************
-        let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-        selectionFeedbackGenerator.selectionChanged()
-        //*******************Haptic Feedback code********************
+        giveHapticFeedback()
         
     }
     
@@ -1068,10 +1059,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
         if arrivalEndTime.text!.contains(find: "00:00") || arrivalStartTime.text!.contains(find: "00:00")
          {
-             //*******************Haptic Feedback code********************
-             let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-             selectionFeedbackGenerator.selectionChanged()
-             //*******************Haptic Feedback code********************
+             giveHapticFeedback()
              
          }
     }
@@ -1177,6 +1165,8 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         default:
             print("unknown state")
         }
+        
+        departureSelectedByRangeButtons(sender)
     }
     
     @objc func buttonReleased(sender:UIButton)
@@ -1232,6 +1222,13 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         setUIValues()
         
         
+    }
+    
+    private func giveHapticFeedback() {
+        //*******************Haptic Feedback code********************
+        let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        selectionFeedbackGenerator.selectionChanged()
+        //*******************Haptic Feedback code********************
     }
 }
 
