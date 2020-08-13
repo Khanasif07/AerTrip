@@ -335,6 +335,10 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
         let location = sender.location(in: senderView)
         
+        if locationOutOfRange(senderView: senderView, location: location) {
+            return
+        }
+        
         if sender.state == .began {
             panStartPos = location.x
         }
@@ -371,6 +375,54 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             dragStartPosition = 0.0
             dragEndPosition = 0.0
         }
+    }
+    
+    private func locationOutOfRange(senderView: UIView, location: CGPoint) -> Bool {
+        
+        var leftFrameToExclude: CGRect = .zero
+        var rightFrameToExclude: CGRect = .zero
+        
+        let startDateTime = Calendar.current.startOfDay(for: currentTimerFilter.departureMinTime)
+        let minTimeInterval = currentTimerFilter.departureMinTime.timeIntervalSince(startDateTime)
+        let maxTimeInterval = currentTimerFilter.departureTimeMax.timeIntervalSince(startDateTime)
+        
+        let startTime = TimeInterval(3600 * floor(minTimeInterval / 3600))
+        
+        let endTime = 3600 * TimeInterval(ceil(maxTimeInterval  / 3600 ))
+        
+        
+        if startTime > TimeInterval.sixAM {
+            leftFrameToExclude = earlyMorningContainerView.convert(earlyMorningButton.frame, to: senderView)
+        }
+        
+        if startTime > TimeInterval.twelvePM {
+            leftFrameToExclude = noonContainerView.convert(noonButton.frame, to: senderView)
+        }
+        
+        if startTime > TimeInterval.sixPM {
+            leftFrameToExclude = eveningContainerView.convert(eveningButton.frame, to: senderView)
+        }
+        
+        if endTime < TimeInterval.sixPM {
+            rightFrameToExclude = lateEveningContainerView.convert(lateEveningButton.frame, to: senderView)
+        }
+        
+        if endTime < TimeInterval.twelvePM {
+            rightFrameToExclude = eveningContainerView.convert(eveningButton.frame, to: senderView)
+        }
+        
+        if endTime < TimeInterval.sixAM {
+            rightFrameToExclude = noonContainerView.convert(noonButton.frame, to: senderView)
+        }
+        
+        leftFrameToExclude.origin.x -= senderView.width
+        leftFrameToExclude.size.width += senderView.width + 25
+        rightFrameToExclude.size.width = senderView.width
+        
+        if leftFrameToExclude.contains(location) || rightFrameToExclude.contains(location) {
+            return true
+        }
+        return false
     }
     
     private func handleRightSidePan(minPosNumber: CGFloat, roundedMinDeparture: TimeInterval, roundedMaxDeparture: TimeInterval, curPosNumber: CGFloat) {
