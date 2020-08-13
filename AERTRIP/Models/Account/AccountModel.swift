@@ -107,9 +107,9 @@ struct AccountModel {
             
         case .regular:
             if let jsn = json["amount"] {
-                self.walletAmount   = (JSON(jsn).doubleValue != 0) ? (JSON(jsn).doubleValue * -1) : (JSON(jsn).doubleValue)
+                self.walletAmount   = JSON(jsn).doubleValue
             }else if let jsn = json["wallet_balance"]{
-                self.walletAmount = (JSON(jsn).doubleValue != 0) ? (JSON(jsn).doubleValue * -1) : (JSON(jsn).doubleValue)
+                self.walletAmount = JSON(jsn).doubleValue
             }
         }
     }
