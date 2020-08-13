@@ -36,8 +36,8 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     var currentTimerFilter : FlightLegTimeFilter!
     var currentActiveIndex = 0
     var numberOfLegs = 1
-    var dragStartPosition : CGFloat =  0.0
-    var dragEndPosition : CGFloat = 0.0
+//    var dragStartPosition : CGFloat =  0.0
+//    var dragEndPosition : CGFloat = 0.0
     
     var airportsArr = [AirportLegFilter]()
     var isIntMCOrReturnVC = false
@@ -339,6 +339,10 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             return
         }
         
+        if let startPos = panStartPos {
+            highlightButtonsInRange(mainRectView: senderView, startPos: startPos, curPos: location.x)
+        }
+        
         if sender.state == .began {
             panStartPos = location.x
         }
@@ -370,10 +374,10 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
                 self.view.layoutIfNeeded()
             }
         }
-        if sender.state == .ended {
+        
+        if sender.state == .ended || sender.state == .cancelled {
             delegate?.departureSelectionChangedAt(currentActiveIndex , minDuration:departureStartTimeInterval , maxDuration: departureEndTimeInterval)
-            dragStartPosition = 0.0
-            dragEndPosition = 0.0
+            self.buttonReleased(sender: UIButton())
         }
     }
     
@@ -417,12 +421,40 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
         leftFrameToExclude.origin.x -= senderView.width
         leftFrameToExclude.size.width += senderView.width + 25
+        rightFrameToExclude.origin.x -= 25
         rightFrameToExclude.size.width = senderView.width
         
         if leftFrameToExclude.contains(location) || rightFrameToExclude.contains(location) {
             return true
         }
         return false
+    }
+    
+    private func highlightButtonsInRange(mainRectView: UIView, startPos: CGFloat, curPos: CGFloat) {
+        var selectedRect: CGRect = .zero
+        selectedRect = earlyMorningButton.frame
+        if startPos < curPos {
+            selectedRect.origin.x = startPos
+            selectedRect.size.width = curPos - startPos
+        } else {
+            selectedRect.origin.x = curPos
+            selectedRect.size.width = startPos - curPos
+        }
+        
+        highlightUnhighlightButtonsInRect(selectedRect: selectedRect, mainRectView: mainRectView)
+    }
+    
+    private func highlightUnhighlightButtonsInRect(selectedRect: CGRect, mainRectView: UIView) {
+        let btnArr = [earlyMorningButton, noonButton, eveningButton, lateEveningButton]
+        btnArr.forEach { (btn) in
+            if let button = btn, let btnSuperViewRect = button.superview?.frame {
+                if selectedRect.intersects(btnSuperViewRect) {
+                    button.backgroundColor = UIColor(displayP3Red: 236.0/255.0 , green:253.0/255.0 , blue:244.0/255.0 , alpha:1)
+                } else {
+                    button.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+                }
+            }
+        }
     }
     
     private func handleRightSidePan(minPosNumber: CGFloat, roundedMinDeparture: TimeInterval, roundedMaxDeparture: TimeInterval, curPosNumber: CGFloat) {
