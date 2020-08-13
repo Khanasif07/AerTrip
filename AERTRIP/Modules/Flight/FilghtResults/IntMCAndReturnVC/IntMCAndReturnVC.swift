@@ -43,6 +43,7 @@ class IntMCAndReturnVC : UIViewController {
     var visualEffectViewHeight : CGFloat {
         return statusBarHeight + 88.0
     }
+    
     var statusBarHeight : CGFloat {
         return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
     }
@@ -53,7 +54,6 @@ class IntMCAndReturnVC : UIViewController {
     let viewModel = IntMCAndReturnVM()
     var previousRequest : DispatchWorkItem?
     var updateResultWorkItem: DispatchWorkItem?
-
     
     override func viewDidLoad() {
         super.viewDidLoad()

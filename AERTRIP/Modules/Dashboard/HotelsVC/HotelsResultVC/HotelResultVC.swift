@@ -24,9 +24,6 @@ enum HotelResultViewType {
 
 let visualEffectViewHeight =  CGFloat(20)//CGFloat(200.0)
 
-
-
-
 class HotelResultVC: BaseVC {
     
     // MARK: - IBOutlets

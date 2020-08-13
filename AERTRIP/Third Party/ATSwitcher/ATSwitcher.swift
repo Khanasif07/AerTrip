@@ -21,6 +21,11 @@ class ATSwitcher: UIControl {
             self.setupUI()
         }
     }
+    
+    var onThumbImage : UIImage = #imageLiteral(resourceName: "switch_fav_on")
+    
+    var offThumbImage : UIImage = #imageLiteral(resourceName: "switch_fav_on")
+    
     public var offTintColor = UIColor.white {
         didSet {
             self.setupUI()
@@ -108,9 +113,9 @@ class ATSwitcher: UIControl {
     
     private func setPinImage() {
         if self.isOn {
-            self.thumbImageView.image = #imageLiteral(resourceName: "switch_fav_on")
+            self.thumbImageView.image = onThumbImage
         } else {
-            self.thumbImageView.image = #imageLiteral(resourceName: "switch_fav_on").maskWithColor(color: UIColor(displayP3Red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1))
+            self.thumbImageView.image = onThumbImage.maskWithColor(color: UIColor(displayP3Red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1))
         }
         self.thumbImageView.contentMode = .center
         //        self.thumbImageView.image = self.isOn ? UIImage(named:"pushpin") :  UIImage(named:"pushpin-gray")
@@ -137,7 +142,6 @@ class ATSwitcher: UIControl {
             self.thumbView.layer.cornerRadius = thumbSize.height * self.thumbCornerRadius
             
         }
-        
     }
     
     private func animate() {

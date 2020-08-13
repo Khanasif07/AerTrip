@@ -15,16 +15,18 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     var bannerView : ResultHeaderView?
     @IBOutlet weak var resultsTableView: UITableView!
     @IBOutlet weak var pinnedFlightsOptionsView : UIView!
-    @IBOutlet weak var showPinnedSwitch: AertripSwitch!
+    @IBOutlet weak var switchView: ATSwitcher!
     @IBOutlet weak var unpinnedAllButton: UIButton!
     @IBOutlet weak var emailPinnedFlights: UIButton!
     @IBOutlet weak var sharePinnedFilghts: UIButton!
-    @IBOutlet weak var pinnedFlightOptionsTop: NSLayoutConstraint!
+    @IBOutlet weak var switchGradientView: UIView!
     
-    @IBOutlet weak var pinOptionsViewWidth: NSLayoutConstraint!
-    @IBOutlet weak var unpinAllLeading: NSLayoutConstraint!
-    @IBOutlet weak var emailPinnedLeading: NSLayoutConstraint!
-    @IBOutlet weak var sharePinnedFlightLeading: NSLayoutConstraint!
+//    @IBOutlet weak var pinnedFlightOptionsTop: NSLayoutConstraint!
+    
+//    @IBOutlet weak var pinOptionsViewWidth: NSLayoutConstraint!
+//    @IBOutlet weak var unpinAllLeading: NSLayoutConstraint!
+//    @IBOutlet weak var emailPinnedLeading: NSLayoutConstraint!
+//    @IBOutlet weak var sharePinnedFlightLeading: NSLayoutConstraint!
     @IBOutlet weak var resultsTableViewTop: NSLayoutConstraint!
    
     var noResultScreen : NoResultsScreenViewController?
@@ -347,14 +349,29 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     func setupPinnedFlightsOptionsView()
     {
-        pinnedFlightOptionsTop.constant = 0
+//        pinnedFlightOptionsTop.constant = 0
                 
-        showPinnedSwitch.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
-        showPinnedSwitch.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
-        showPinnedSwitch.isOn = false
-        showPinnedSwitch.setupUI()
+        switchView.delegate = self
+        switchView.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
+        switchView.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
+        switchView.onTintColor = AppColors.themeGreen
+        switchView.onThumbImage = #imageLiteral(resourceName: "pushpin")
+        switchView.offThumbImage = #imageLiteral(resourceName: "pushpin-gray")
+
+
+//        self.switchView.onTintColor = UIColor.blue
+//        self.switchView.offTintColor = UIColor.yellow
         
+        switchView.setupUI()
+        
+        delay(seconds: 0.6) {
+            self.switchView.isOn = false
+        }
+
+        
+        manageSwitchContainer(isHidden: true)
         hidePinnedFlightOptions(true)
+        
         addShadowTo(unpinnedAllButton)
         addShadowTo(emailPinnedFlights)
         addShadowTo(sharePinnedFilghts)
@@ -508,8 +525,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         }
         
         hidePinnedFlightOptions(!sender.isOn)
-//        updateWithArray(tempResults, sortOrder: viewModel.sortOrder)
-        
         resultsTableView.reloadData()
         resultsTableView.setContentOffset(.zero, animated: false)
         showBluredHeaderViewCompleted()
