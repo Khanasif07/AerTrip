@@ -140,11 +140,11 @@ extension UIImageView {
     }
     
     
-    func setImageWithUrl( imageUrl: String, placeholder: UIImage, showIndicator:Bool, completionHandler: @escaping (_ image: UIImage?, _ error: Error?) -> Void?) {
+    func setImageWithUrl( imageUrl: String, placeholder: UIImage, showIndicator:Bool, completionHandler: ((_ image: UIImage?, _ error: Error?) -> Void)?) {
         var imageUrl = imageUrl
         guard imageUrl.count > 0 else {
             self.image = placeholder
-            completionHandler(nil, nil)
+            completionHandler?(nil, nil)
             return
         }
         
@@ -157,10 +157,10 @@ extension UIImageView {
                 switch result {
                 case .success(let value):
 //                    print("Task done for: \(value.source.url?.absoluteString ?? "")")
-                    completionHandler(value.image, nil)
+                    completionHandler?(value.image, nil)
                 case .failure(let error):
 //                    print("Job failed: \(error.localizedDescription)")
-                    completionHandler(nil, error)
+                    completionHandler?(nil, error)
                 }
             }
         }

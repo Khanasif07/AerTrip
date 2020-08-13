@@ -427,7 +427,10 @@ extension HotelResultVC {
                 if ( yCordinateOfView  > yCordinate ) {
                     rect.origin.y = yCordinate
                     //printDebug("hideHeaderBlurView.frame : \(self.headerContainerView.frame )")
-                    self.headerContainerViewTopConstraint.constant = yCordinate
+                    if self.headerContainerViewTopConstraint.constant != yCordinate {
+                        self.headerContainerViewTopConstraint.constant = yCordinate
+                        self.headerContainerView.layoutIfNeeded()
+                    }
                     var value = self.topContentSpace - abs(yCordinate)
                     //printDebug("hideHeaderBlurView: \(value)")
                     if value < 0 {
@@ -443,7 +446,6 @@ extension HotelResultVC {
                 } else {
                     self.statusBarViewContainer.isHidden = false
                 }
-                self.view.layoutIfNeeded()
             } ,completion: nil)
         }
     }
@@ -459,7 +461,10 @@ extension HotelResultVC {
                 yCordinate = min ( 0,  yCordinate)
                 rect.origin.y = yCordinate
                 //printDebug("revealBlurredHeaderView.frame : \(self.headerContainerView.frame )")
-                self.headerContainerViewTopConstraint.constant = yCordinate
+                if self.headerContainerViewTopConstraint.constant != yCordinate {
+                    self.headerContainerViewTopConstraint.constant = yCordinate
+                    self.headerContainerView.layoutIfNeeded()
+                }
                 var value = self.topContentSpace - abs(yCordinate)
                 printDebug("revealBlurredHeaderView: \(value)")
                 if value >= 0 {
@@ -474,7 +479,7 @@ extension HotelResultVC {
                     self.statusBarViewContainer.isHidden = false
                 }
                 self.tableViewVertical.contentInset = UIEdgeInsets(top: value, left: 0, bottom: 0, right: 0)
-                self.view.layoutIfNeeded()
+                
             } ,completion: nil)
         }
     }
@@ -504,7 +509,10 @@ extension HotelResultVC {
         
         // Animatioon to move the blurEffectView
         UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseOut], animations: {
-            self.headerContainerViewTopConstraint.constant = rect.origin.y
+            if self.headerContainerViewTopConstraint.constant != rect.origin.y {
+                self.headerContainerViewTopConstraint.constant = rect.origin.y
+                self.view.layoutIfNeeded()
+            }
             var value = self.topContentSpace - abs(rect.origin.y)
             if value >= 0 {
                 value = self.topContentSpace + 16
@@ -521,17 +529,20 @@ extension HotelResultVC {
                 self.statusBarViewContainer.isHidden = false
             }
             self.tableViewVertical.contentInset = UIEdgeInsets(top: value, left: 0, bottom: 0, right: 0)
-            self.view.layoutIfNeeded()
+            
         } ,completion: nil)
     }
     
     func showBluredHeaderViewCompleted() {
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseInOut], animations: {
-                self.headerContainerViewTopConstraint.constant = 0
+                if self.headerContainerViewTopConstraint.constant != 0 {
+                    self.headerContainerViewTopConstraint.constant = 0
+                    self.headerContainerView.layoutIfNeeded()
+                }
                 self.statusBarViewContainer.isHidden = true
                 //self.tableViewVertical.contentInset = UIEdgeInsets(top: self.topContentSpace, left: 0, bottom: 0, right: 0)
-                self.view.layoutIfNeeded()
+                
             } ,completion: nil)
         }
     }
