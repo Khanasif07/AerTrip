@@ -61,7 +61,7 @@ extension FlightResultSingleJourneyVC {
                 groupedFooterView.sendSubviewToBack(baseView)
             }
             
-            let titleLabel = UILabel(frame: CGRect(x:8,y: 16 ,width:groupedFooterView.frame.width - 16  ,height:44))
+            let titleLabel = UILabel(frame: CGRect(x:8,y: 8 ,width:groupedFooterView.frame.width - 16  ,height:44))
             titleLabel.textColor = UIColor.AertripColor
             titleLabel.font = UIFont(name: "SourceSansPro-Regular", size: 18.0)
             titleLabel.textAlignment = .center
@@ -134,7 +134,7 @@ extension FlightResultSingleJourneyVC {
 
             expandedFooterView.addSubview(baseView)
      
-            let titleLabel = UILabel(frame: CGRect(x:8,y: 16 ,width:expandedFooterView.frame.width - 16  ,height:44))
+            let titleLabel = UILabel(frame: CGRect(x:8,y: 8 ,width:expandedFooterView.frame.width - 16  ,height:44))
             titleLabel.textColor = UIColor.AertripColor
             titleLabel.font = UIFont(name: "SourceSansPro-Regular", size: 18)
             titleLabel.textAlignment = .center
