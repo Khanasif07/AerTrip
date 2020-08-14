@@ -698,9 +698,8 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         }
         
         if leftValue >= endTime {
-//            var maxValForDeparture: Double = 0.0
-            let maxValForDeparture = (endTime/3600) + 3
-            departureEndTimeInterval = TimeInterval(maxValForDeparture * 3600)
+            let maxValForDeparture = (endTime/3600) - 2
+            departureStartTimeInterval = TimeInterval(maxValForDeparture * 3600)
         }
 
         if rightValue > endTime {
@@ -709,7 +708,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         }
         
         if rightValue <= startTime {
-            let minValForDeparture = (startTime/3600) + 3
+            let minValForDeparture = (startTime/3600) + 2
             departureEndTimeInterval = TimeInterval(minValForDeparture * 3600)
         }
 
@@ -726,7 +725,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             
             message = "Flights are available between " +  stringFromTimeInterval(interval: availableMinTime) + " and " + stringFromTimeInterval(interval: availabelMaxTime)
             showToastMessageForAvailableDepartureRange(message)
-            return
+//            return
         }
         
         multiLegTimerFilter[currentActiveIndex] = currentTimerFilter
@@ -1148,6 +1147,9 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     
     @objc func buttonPressed(sender:UIButton)
     {
+        if sender.alpha != 1 {
+            return
+        }
         switch sender.tag
         {
         case 1 :
