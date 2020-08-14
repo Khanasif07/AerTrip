@@ -610,6 +610,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
         let leftValue  = departureRangeSlider.leftValue
         let rightValue = departureRangeSlider.rightValue
+        
         var startTime  =  TimeInterval(leftValue * 86400.0 )
         var endTime    =  TimeInterval(rightValue * 86400.0 )
 
@@ -686,18 +687,30 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
 
         let startTime = TimeInterval(3600 * floor(minTimeInterval / 3600))
         departureStartTimeInterval = TimeInterval(3600 * floor(leftValue / 3600))
+        
+        let endTime = 3600 * TimeInterval(ceil(maxTimeInterval  / 3600 ))
+        departureEndTimeInterval = TimeInterval(3600 * floor(rightValue / 3600))
 
+        // MAX and MIN checks
         if leftValue < startTime {
             departureStartTimeInterval = TimeInterval(startTime)
             showMessage = true
         }
-
-        let endTime = 3600 * TimeInterval(ceil(maxTimeInterval  / 3600 ))
-        departureEndTimeInterval = TimeInterval(3600 * floor(rightValue / 3600))
+        
+        if leftValue >= endTime {
+//            var maxValForDeparture: Double = 0.0
+            let maxValForDeparture = (endTime/3600) + 3
+            departureEndTimeInterval = TimeInterval(maxValForDeparture * 3600)
+        }
 
         if rightValue > endTime {
             departureEndTimeInterval = TimeInterval(endTime)
             showMessage = true
+        }
+        
+        if rightValue <= startTime {
+            let minValForDeparture = (startTime/3600) + 3
+            departureEndTimeInterval = TimeInterval(minValForDeparture * 3600)
         }
 
         let calendar = Calendar.current
