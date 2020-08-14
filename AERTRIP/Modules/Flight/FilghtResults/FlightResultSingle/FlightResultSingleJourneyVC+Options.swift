@@ -13,7 +13,6 @@ extension FlightResultSingleJourneyVC {
 
  func setPinnedFlightAt(_ flightKey: String , isPinned : Bool) {
     
-    
     var curJourneyArr = [JourneyOnewayDisplay]()
            
            if viewModel.resultTableState == .showRegularResults {
@@ -50,8 +49,7 @@ extension FlightResultSingleJourneyVC {
     if isPinned {
         showPinnedFlightsOption(true)
     self.viewModel.results.currentPinnedJourneys.append(displayArray.journeyArray[journeyArrayIndex])
-    }
-    else {
+    } else {
        
        let containesPinnedFlight = viewModel.results.allJourneys.reduce(curJourneyArr[0].containsPinnedFlight) { $0 || $1.containsPinnedFlight }
         showPinnedFlightsOption(containesPinnedFlight)
@@ -59,7 +57,7 @@ extension FlightResultSingleJourneyVC {
         if !containesPinnedFlight {
            viewModel.resultTableState = stateBeforePinnedFlight
             hidePinnedFlightOptions(true)
-            showPinnedSwitch.isOn = false
+            switchView.isOn = false
         }
        
        if let index = self.viewModel.results.currentPinnedJourneys.firstIndex(where: { (obj) -> Bool in
@@ -70,81 +68,171 @@ extension FlightResultSingleJourneyVC {
     }
     
     self.viewModel.setPinnedFlights()
+    resultsTableView.tableFooterView?.isHidden = true
     self.resultsTableView.reloadData()
+    delay(seconds: 0.5) {
+        self.resultsTableView.tableFooterView?.isHidden = false
+    }
     showFooterView()
-    
+
+
 }
     
      func hidePinnedFlightOptions( _ hide : Bool){
-        //*******************Haptic Feedback code********************
-           let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-           selectionFeedbackGenerator.selectionChanged()
-        //*******************Haptic Feedback code********************
-
-        print("hide=\(hide)")
-        if hide{
-            
-            //true - hideOption
-            
-            UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: .curveEaseOut, animations: { [weak self] in
-                self?.showPinnedSwitch.isUserInteractionEnabled = false
-
-                   self?.unpinnedAllButton.alpha = 0.0
-                   self?.emailPinnedFlights.alpha = 0.0
-                   self?.sharePinnedFilghts.alpha = 0.0
-                   self?.unpinnedAllButton.transform = CGAffineTransform(translationX: 0, y: 0)
-                   self?.emailPinnedFlights.transform = CGAffineTransform(translationX: 0, y: 0)
-                   self?.sharePinnedFilghts.transform = CGAffineTransform(translationX: 0, y: 0)
-                   }, completion: { [weak self] (success)
-            in
-                       self?.unpinnedAllButton.isHidden = true
-                       self?.emailPinnedFlights.isHidden = true
-                       self?.sharePinnedFilghts.isHidden = true
-                       self?.unpinnedAllButton.alpha = 1.0
-                       self?.emailPinnedFlights.alpha = 1.0
-                       self?.sharePinnedFilghts.alpha = 1.0
-                    self?.showPinnedSwitch.isUserInteractionEnabled = true
-               })
-        }else{
-            //false - showOption
-            self.unpinnedAllButton.alpha = 0.0
-            self.emailPinnedFlights.alpha = 0.0
-            self.sharePinnedFilghts.alpha = 0.0
-            UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: [.curveEaseOut, ], animations: { [weak self] in
-                self?.showPinnedSwitch.isUserInteractionEnabled = false
-
-                self?.unpinnedAllButton.isHidden = false
-                self?.emailPinnedFlights.isHidden = false
-                self?.sharePinnedFilghts.isHidden = false
-
-                self?.unpinnedAllButton.alpha = 1.0
-                self?.emailPinnedFlights.alpha = 1.0
-                self?.sharePinnedFilghts.alpha = 1.0
-                self?.unpinnedAllButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                self?.emailPinnedFlights.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                self?.sharePinnedFilghts.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                self?.emailPinnedFlights.transform = CGAffineTransform(translationX: 60, y: 0)
-                self?.sharePinnedFilghts.transform = CGAffineTransform(translationX: 114, y: 0)
-                self?.unpinnedAllButton.transform = CGAffineTransform(translationX: 168, y: 0)
-                }, completion: { [weak self] (success)
-                    in
-                    self?.showPinnedSwitch.isUserInteractionEnabled = true
-            })
+        if hide {
+            self.hideFavsButtons()
+        } else {
+            self.animateFloatingButtonOnListView(isAnimated: true)
         }
     }
 
 
-func showPinnedFlightsOption(_ show  : Bool)
-{
-    let offsetFromBottom = show ? 60.0 + self.view.safeAreaInsets.bottom : 0
-    self.pinnedFlightOptionsTop.constant = CGFloat(offsetFromBottom)
-    
-    UIView.animate(withDuration: 0.6, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
-        self.view.layoutIfNeeded()
-    }, completion: nil)
+func showPinnedFlightsOption(_ show  : Bool) {
+    manageSwitchContainer(isHidden: !show)
   }
+    
 }
 
+
+extension FlightResultSingleJourneyVC: ATSwitcherChangeValueDelegate {
+    
+    func switcherDidChangeValue(switcher: ATSwitcher, value: Bool) {
+//        self.viewModel.isFavouriteOn = value
+//        self.viewModel.loadSaveData()
+      
+        if value {
+            
+            self.unpinnedAllButton.isHidden = false
+            self.emailPinnedFlights.isHidden = false
+            self.sharePinnedFilghts.isHidden = false
+            self.animateButton()
+            
+            stateBeforePinnedFlight = viewModel.resultTableState
+            viewModel.resultTableState = .showPinnedFlights
+            resultsTableView.tableFooterView = nil
+            if viewModel.results.pinnedFlights.isEmpty {
+                showNoFilteredResults()
+            }
+            
+        }
+        else {
+            self.hideFavsButtons(isAnimated: true)
+            viewModel.resultTableState = stateBeforePinnedFlight
+            showFooterView()
+        }
+        
+        hidePinnedFlightOptions(!value)
+        resultsTableView.reloadData()
+        resultsTableView.setContentOffset(.zero, animated: false)
+        showBluredHeaderViewCompleted()
+        
+//        tableViewVertical.setContentOffset(CGPoint(x: 0, y: -topContentSpace), animated: false)
+        //showBluredHeaderViewCompleted()
+    }
+}
+
+extension FlightResultSingleJourneyVC {
+    
+    
+    func manageSwitchContainer(isHidden: Bool, shouldOff: Bool = true) {
+         
+        manageFloatingView(isHidden: false)
+          
+          if !isHidden {
+              self.pinnedFlightsOptionsView.isHidden = false
+          }
+          
+          DispatchQueue.main.async {
+              let newFrame = CGRect(x: 0.0, y: isHidden ? 100.0 : 0.0, width: self.pinnedFlightsOptionsView.width, height: self.pinnedFlightsOptionsView.height)
+              UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {[weak self] in
+                  guard let sSelf = self else {return}
+                  
+                  sSelf.pinnedFlightsOptionsView.frame = newFrame
+                  sSelf.view.layoutIfNeeded()
+                  
+                  }, completion: { [weak self](isDone) in
+                      guard let sSelf = self else {return}
+                      
+                      if isHidden {
+                          sSelf.pinnedFlightsOptionsView.isHidden = true
+                      }
+              })
+          }
+          
+          if isHidden, shouldOff {
+              //if switch is hidden then it must be off, otherwise it should be as it is.
+              self.hideFavsButtons()
+             // tableViewVertical.setContentOffset(CGPoint(x: 0, y: -topContentSpace), animated: false)
+              showBluredHeaderViewCompleted()
+          }
+          
+      }
+    
+    func manageFloatingView(isHidden: Bool) {
+         self.pinnedFlightsOptionsView.isHidden = isHidden
+//         self.floatingButtonBackView.isHidden = isHidden
+     }
+    
+    
+    func animateFloatingButtonOnListView(isAnimated: Bool = true) {
+          if isAnimated {
+              self.unpinnedAllButton.alpha = 0.0
+              self.emailPinnedFlights.alpha = 0.0
+              self.sharePinnedFilghts.alpha = 0.0
+              UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: [.curveEaseOut, ], animations: { [weak self] in
+                  self?.unpinnedAllButton.alpha = 1.0
+                  self?.emailPinnedFlights.alpha = 1.0
+                  self?.sharePinnedFilghts.alpha = 1.0
+                  self?.unpinnedAllButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                  self?.emailPinnedFlights.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                  self?.sharePinnedFilghts.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                  self?.emailPinnedFlights.transform = CGAffineTransform(translationX: 26, y: 0)
+                  self?.sharePinnedFilghts.transform = CGAffineTransform(translationX: 80, y: 0)
+                  self?.unpinnedAllButton.transform = CGAffineTransform(translationX: 134, y: 0)
+                  }, completion: nil)
+              
+          } else {
+              self.unpinnedAllButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+              self.emailPinnedFlights.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+              self.sharePinnedFilghts.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+              self.emailPinnedFlights.transform = CGAffineTransform(translationX: 26, y: 0)
+              self.sharePinnedFilghts.transform = CGAffineTransform(translationX: 80, y: 0)
+              self.unpinnedAllButton.transform = CGAffineTransform(translationX: 134, y: 0)
+          }
+      }
+      
+      func hideFavsButtons(isAnimated: Bool = false) {
+          if isAnimated {
+              UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: .curveEaseOut, animations: { [weak self] in
+                  self?.unpinnedAllButton.alpha = 0.0
+                  self?.emailPinnedFlights.alpha = 0.0
+                  self?.sharePinnedFilghts.alpha = 0.0
+                  self?.unpinnedAllButton.transform = CGAffineTransform(translationX: 0, y: 0)
+                  self?.emailPinnedFlights.transform = CGAffineTransform(translationX: 0, y: 0)
+                  self?.sharePinnedFilghts.transform = CGAffineTransform(translationX: 0, y: 0)
+                  }, completion: { [weak self] (success) in
+                      self?.unpinnedAllButton.isHidden = true
+                      self?.emailPinnedFlights.isHidden = true
+                      self?.sharePinnedFilghts.isHidden = true
+                      self?.unpinnedAllButton.alpha = 1.0
+                      self?.emailPinnedFlights.alpha = 1.0
+                      self?.sharePinnedFilghts.alpha = 1.0
+              })
+          } else {
+              self.unpinnedAllButton.transform = CGAffineTransform(translationX: 0, y: 0)
+              self.emailPinnedFlights.transform = CGAffineTransform(translationX: 0, y: 0)
+              self.sharePinnedFilghts.transform = CGAffineTransform(translationX: 0, y: 0)
+              self.unpinnedAllButton.isHidden = true
+              self.emailPinnedFlights.isHidden = true
+              self.sharePinnedFilghts.isHidden = true
+          }
+      }
+      
+      func animateButton() {
+          self.animateFloatingButtonOnListView()
+      }
+    
+}
 
 @available(iOS 13.0, *) extension FlightResultSingleJourneyVC : UIContextMenuInteractionDelegate {
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
@@ -205,6 +293,7 @@ func showPinnedFlightsOption(_ show  : Bool)
                 strongSelf.shareJourney(journey: [strongJourney])
                 
             }
+            
             let addToTrip = UIAction(title: "Add To Trip", image: UIImage(systemName: "map" ), identifier: nil) { (action) in
                 
                 self.addToTrip(journey: currentJourney)
@@ -231,7 +320,7 @@ func showPinnedFlightsOption(_ show  : Bool)
             viewModel.results.journeyArray[i] = newJourneyGroup
         }
         
-        showPinnedSwitch.isOn = false
+        switchView.isOn = false
         hidePinnedFlightOptions(true)
         viewModel.resultTableState = stateBeforePinnedFlight
         showPinnedFlightsOption(false)

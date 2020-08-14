@@ -282,7 +282,6 @@ extension GroupedFlightCell : UITableViewDataSource, UITableViewDelegate {
      }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-               
            if let selectedJourney = getJourneyObj(indexPath: indexPath) {
                self.currentJourney = selectedJourney
                self.delegate?.navigateToFlightDetailFor(journey: selectedJourney, selectedIndex: indexPath)

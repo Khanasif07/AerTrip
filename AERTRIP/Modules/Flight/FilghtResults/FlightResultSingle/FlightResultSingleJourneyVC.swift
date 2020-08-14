@@ -15,16 +15,18 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     var bannerView : ResultHeaderView?
     @IBOutlet weak var resultsTableView: UITableView!
     @IBOutlet weak var pinnedFlightsOptionsView : UIView!
-    @IBOutlet weak var showPinnedSwitch: AertripSwitch!
+    @IBOutlet weak var switchView: ATSwitcher!
     @IBOutlet weak var unpinnedAllButton: UIButton!
     @IBOutlet weak var emailPinnedFlights: UIButton!
     @IBOutlet weak var sharePinnedFilghts: UIButton!
-    @IBOutlet weak var pinnedFlightOptionsTop: NSLayoutConstraint!
+    @IBOutlet weak var switchGradientView: UIView!
     
-    @IBOutlet weak var pinOptionsViewWidth: NSLayoutConstraint!
-    @IBOutlet weak var unpinAllLeading: NSLayoutConstraint!
-    @IBOutlet weak var emailPinnedLeading: NSLayoutConstraint!
-    @IBOutlet weak var sharePinnedFlightLeading: NSLayoutConstraint!
+//    @IBOutlet weak var pinnedFlightOptionsTop: NSLayoutConstraint!
+    
+//    @IBOutlet weak var pinOptionsViewWidth: NSLayoutConstraint!
+//    @IBOutlet weak var unpinAllLeading: NSLayoutConstraint!
+//    @IBOutlet weak var emailPinnedLeading: NSLayoutConstraint!
+//    @IBOutlet weak var sharePinnedFlightLeading: NSLayoutConstraint!
     @IBOutlet weak var resultsTableViewTop: NSLayoutConstraint!
    
     var noResultScreen : NoResultsScreenViewController?
@@ -115,7 +117,13 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             guard let headerView = bannerView  else { return }
             
             let rect = headerView.frame
-            resultsTableViewTop.constant = 0
+            
+            UIView.animate(withDuration: 1) {
+                self.resultsTableViewTop.constant = 0
+                self.view.layoutIfNeeded()
+            }
+            
+
             
             UIView.animate(withDuration: 1.0 , animations: {
                 let y = rect.origin.y - rect.size.height - 20
@@ -187,7 +195,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         
         let modifiedResult = results
 
-               
         for j in modifiedResult{
                   let flightNum = j.leg.first!.flights.first!.al + j.leg.first!.flights.first!.fn
                   if flightNum.uppercased() == airlineCode.uppercased(){
@@ -195,7 +202,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                       showPinnedFlightsOption(true)
                   }
               }
-        
         
         DispatchQueue.global(qos: .userInteractive).async {
 
@@ -347,14 +353,29 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     func setupPinnedFlightsOptionsView()
     {
-        pinnedFlightOptionsTop.constant = 0
+//        pinnedFlightOptionsTop.constant = 0
                 
-        showPinnedSwitch.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
-        showPinnedSwitch.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
-        showPinnedSwitch.isOn = false
-        showPinnedSwitch.setupUI()
+        switchView.delegate = self
+        switchView.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
+        switchView.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
+        switchView.onTintColor = AppColors.themeGreen
+        switchView.onThumbImage = #imageLiteral(resourceName: "pushpin")
+        switchView.offThumbImage = #imageLiteral(resourceName: "pushpin-gray")
+
+
+//        self.switchView.onTintColor = UIColor.blue
+//        self.switchView.offTintColor = UIColor.yellow
         
+        switchView.setupUI()
+        
+        delay(seconds: 0.6) {
+            self.switchView.isOn = false
+        }
+
+        
+        manageSwitchContainer(isHidden: true)
         hidePinnedFlightOptions(true)
+        
         addShadowTo(unpinnedAllButton)
         addShadowTo(emailPinnedFlights)
         addShadowTo(sharePinnedFilghts)
@@ -474,7 +495,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             self.bannerView?.lineView.isHidden = true
             self.view.addSubview(self.bannerView!)
             
-            let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 76))
+            let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 96))
             self.resultsTableView.tableHeaderView = headerView
             self.resultsTableView.isScrollEnabled = false
             self.resultsTableView.tableFooterView = nil
@@ -485,7 +506,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     func addPlaceholderTableHeaderView() {
         
         DispatchQueue.main.async {
-            
+        
             let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 96))
             self.resultsTableView.tableHeaderView = headerView
         }
@@ -508,8 +529,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         }
         
         hidePinnedFlightOptions(!sender.isOn)
-//        updateWithArray(tempResults, sortOrder: viewModel.sortOrder)
-        
         resultsTableView.reloadData()
         resultsTableView.setContentOffset(.zero, animated: false)
         showBluredHeaderViewCompleted()
@@ -784,7 +803,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     func returnEmailView(view: String) {
         
     }
-    
     
     func navigateToFlightDetailFor(journey: Journey) {
         
