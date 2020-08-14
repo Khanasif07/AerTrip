@@ -188,7 +188,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     func updateWithArray(_ results : [Journey] , sortOrder: Sort ) {
         
-
         if viewModel.resultTableState == .showTemplateResults {
                 viewModel.resultTableState = .showRegularResults
         }

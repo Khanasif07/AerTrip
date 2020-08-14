@@ -40,6 +40,7 @@ struct TimeFK {
     @IBOutlet weak var downArrowButtonHeight: NSLayoutConstraint!
     @IBOutlet weak var bottomWhitePatchVIewHeight: NSLayoutConstraint!
     @IBOutlet weak var resultsCollectionView: UICollectionView!
+    @IBOutlet weak var timeSegmentBGView: UIView!
     
     
     //MARK:- State variables
@@ -49,10 +50,24 @@ struct TimeFK {
     var timeArray = [TimeFK]()
     
     var currentJourney : Journey?
-    var currentSelectedIndex = 0
+    var currentSelectedIndex : Int?
+    
+    var selectionViewFrame = CGRect(x: 0, y: 0, width: 58, height: 30)
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+         setupTableView()
+         setupCollectionView()
+        
+        selectionView.alpha = 0.0
+        selectionView.backgroundColor = UIColor.AertripColor.withAlphaComponent(0.10)
+        selectionView.layer.cornerRadius = 15.0
+        timeSegmentBGView.addSubview(selectionView)
+        timeCollectionView.sendSubviewToBack(selectionView)
+        timeSegmentBGView.clipsToBounds = true
+//        timeCollectionView.addSubview(selectionView)
+
     }
     
     func setupTableView() {
@@ -85,41 +100,32 @@ struct TimeFK {
        
         flightGroup = journey
 
-        if !flightGroup.isCollapsed {
-            expandCollapseButton.setImage(UIImage(named:"DownArrow"), for: .normal)
-        }
-        else {
-            expandCollapseButton.setImage(UIImage(named:"UpArrow"), for: .normal)
-        }
+        let arrowImage = !flightGroup.isCollapsed ? UIImage(named:"DownArrow") : UIImage(named:"UpArrow")
+        expandCollapseButton.setImage(arrowImage, for: .normal)
+        
         var timeFKArray = journey.journeyArray.map{ return TimeFK(departurTime: $0.dt, fk: $0.fk) }
         timeFKArray.sort(by : { $0.departurTime < $1.departurTime })
         flightGroup.journeyArray.sort(by : { $0.dt < $1.dt })
         timeArray = timeFKArray
+      
         if flightGroup.selectedFK == String() {
             flightGroup.selectedFK = flightGroup.getJourneyWithLeastHumanScore().fk
         }
         
-        setupTableView()
-        setupCollectionView()
+        if currentSelectedIndex == nil {
+             if  let selectedDepartureIndex = timeArray.firstIndex(where: { $0.fk == flightGroup.selectedFK}) {
+                currentSelectedIndex = selectedDepartureIndex
+            }
+            selectionView.frame = selectionViewFrame
+        }
+ 
         timeCollectionView.reloadData()
         collaspableTableView.reloadData()
         resultsCollectionView.reloadData()
 
-        if  let selectedDepartureIndex = timeArray.firstIndex(where: { $0.fk == flightGroup.selectedFK}) {
-            let indexPath = IndexPath(row: selectedDepartureIndex, section: 0)
-            self.timeCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: UICollectionView.ScrollPosition.centeredHorizontally)
-            
-            selectionView.frame = CGRect(x: 0, y: 0, width: 58, height: 30)
-            selectionView.alpha = 0.0
-            selectionView.backgroundColor = UIColor.AertripColor.withAlphaComponent(0.10)
-            selectionView.layer.cornerRadius = 15.0
-            
-            timeCollectionView.addSubview(selectionView)
-            timeCollectionView.sendSubviewToBack(selectionView)
-
-            setSelectionViewFrame(animate: false)
-        }
-
+        let indexPath = IndexPath(row: currentSelectedIndex ?? 0, section: 0)
+        self.timeCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: UICollectionView.ScrollPosition.centeredHorizontally)
+        setSelectionViewFrame(animate: false)
         updateViewConstraints()
         summaryLabel.text = String(journey.count) + " flights at same price"
         
@@ -197,7 +203,7 @@ struct TimeFK {
 //            print("Selected Cell not found")
 //            return }
         
-        let selectedIndex = IndexPath(item: currentSelectedIndex, section: 0)
+        let selectedIndex = IndexPath(item: currentSelectedIndex ?? 0, section: 0)
     
         guard  let attributes = timeCollectionView.layoutAttributesForItem(at: selectedIndex) else {
             print("Attributed not found")
