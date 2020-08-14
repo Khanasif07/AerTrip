@@ -117,7 +117,13 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             guard let headerView = bannerView  else { return }
             
             let rect = headerView.frame
-            resultsTableViewTop.constant = 0
+            
+            UIView.animate(withDuration: 1) {
+                self.resultsTableViewTop.constant = 0
+                self.view.layoutIfNeeded()
+            }
+            
+
             
             UIView.animate(withDuration: 1.0 , animations: {
                 let y = rect.origin.y - rect.size.height - 20
@@ -189,7 +195,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         
         let modifiedResult = results
 
-               
         for j in modifiedResult{
                   let flightNum = j.leg.first!.flights.first!.al + j.leg.first!.flights.first!.fn
                   if flightNum.uppercased() == airlineCode.uppercased(){
@@ -197,7 +202,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                       showPinnedFlightsOption(true)
                   }
               }
-        
         
         DispatchQueue.global(qos: .userInteractive).async {
 
@@ -491,7 +495,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             self.bannerView?.lineView.isHidden = true
             self.view.addSubview(self.bannerView!)
             
-            let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 76))
+            let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 96))
             self.resultsTableView.tableHeaderView = headerView
             self.resultsTableView.isScrollEnabled = false
             self.resultsTableView.tableFooterView = nil
@@ -502,7 +506,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     func addPlaceholderTableHeaderView() {
         
         DispatchQueue.main.async {
-            
+        
             let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 96))
             self.resultsTableView.tableHeaderView = headerView
         }
