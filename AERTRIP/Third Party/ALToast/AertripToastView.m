@@ -73,7 +73,7 @@ static NSMutableArray *toasts;
             CGFloat buttonTitleWidth = width - 64;
             UIFont * font2 =  [UIFont fontWithName:@"SourceSansPro-Semibold" size:18];
             CGRect rectForButton = [buttonTitle boundingRectWithSize:CGSizeMake(buttonTitleWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName:font2} context:nil];
-            
+            [_button setBackgroundColor: [UIColor redColor]];
             CGSize buttonSize = rectForButton.size;
             
             CGRect buttonFrame = CGRectMake(0, 0 ,buttonSize.width + 32 , buttonSize.height);
