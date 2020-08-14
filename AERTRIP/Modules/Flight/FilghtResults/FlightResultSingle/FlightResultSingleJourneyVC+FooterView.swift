@@ -61,7 +61,6 @@ extension FlightResultSingleJourneyVC {
                 groupedFooterView.sendSubviewToBack(baseView)
             }
             
-            
             let titleLabel = UILabel(frame: CGRect(x:8,y: 16 ,width:groupedFooterView.frame.width - 16  ,height:44))
             titleLabel.textColor = UIColor.AertripColor
             titleLabel.font = UIFont(name: "SourceSansPro-Regular", size: 18.0)
@@ -104,7 +103,6 @@ extension FlightResultSingleJourneyVC {
                         self.viewModel.results.excludeExpensiveFlights = false
                         DispatchQueue.global(qos: .default).async {
 
-                        
                             self.sortedArray = Array(self.viewModel.results.sortedArray)
 
                             self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: self.viewModel.prevLegIndex, completion: {

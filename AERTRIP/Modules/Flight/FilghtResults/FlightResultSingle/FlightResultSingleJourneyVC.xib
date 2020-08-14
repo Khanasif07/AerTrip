@@ -34,7 +34,7 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nS9-zg-BIM">
-                    <rect key="frame" x="0.0" y="212" width="414" height="896"/>
+                    <rect key="frame" x="0.0" y="192" width="414" height="896"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="oLG-x5-tZM"/>
@@ -147,7 +147,7 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="y0M-cH-cm4" secondAttribute="bottom" constant="1" id="nm1-Qm-WT4"/>
                 <constraint firstItem="hQE-5P-eq9" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="oza-AT-Dcj"/>
                 <constraint firstItem="nS9-zg-BIM" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="r8Y-WR-b3W"/>
-                <constraint firstItem="nS9-zg-BIM" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="168" id="yl3-4I-m4W"/>
+                <constraint firstItem="nS9-zg-BIM" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="148" id="yl3-4I-m4W"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="137.68115942028987" y="139.95535714285714"/>
