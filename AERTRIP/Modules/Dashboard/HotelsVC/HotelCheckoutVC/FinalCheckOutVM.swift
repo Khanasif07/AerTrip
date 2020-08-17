@@ -23,7 +23,7 @@ protocol FinalCheckoutVMDelegate: class {
     
     func willMakePayment()
     func makePaymentSuccess(options: JSONDictionary, shouldGoForRazorPay: Bool)
-    func makePaymentFail()
+    func makePaymentFail(errors: ErrorCodes)
     
     func willGetPaymentResonse()
     func getPaymentResonseSuccess(bookingIds: [String] , cid: [String])
@@ -130,7 +130,7 @@ extension FinalCheckoutVM {
             if success {
                 sSelf.delegate?.makePaymentSuccess(options: options, shouldGoForRazorPay: !(useWallet && forAmount <= 0))
             } else {
-                sSelf.delegate?.makePaymentFail()
+                sSelf.delegate?.makePaymentFail(errors: errors)
                 //AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
             }
         }

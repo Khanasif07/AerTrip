@@ -602,9 +602,10 @@ class HotelsSearchVC: BaseVC {
     //    }
     
     @IBAction func whereButtonAction(_ sender: UIButton) {
-       // AppFlowManager.default.presentYouAreAllDoneVC(forItId: "5ef046d3b3561a59175cb321", bookingIds: ["12506"], cid: [], originLat: "1.4605111451913", originLong: "103.76455485821", recieptData: nil)
+//        AppFlowManager.default.presentYouAreAllDoneVC(forItId: "5f3a173ebc716e330942beed", bookingIds: ["13662"], cid: [], originLat: "1.4605111451913", originLong: "103.76455485821", recieptData: nil)
         AppFlowManager.default.showSelectDestinationVC(delegate: self,currentlyUsingFor: .hotelForm)
     }
+    
     
     @IBAction func searchButtonAction(_ sender: ATButton?) {
         if validateData() {

@@ -681,6 +681,28 @@ extension AppGlobals {
         }
     }
     
+    func downloadWallet(fileURL: URL, complition: @escaping ((URL?) -> Void)) {
+            
+            let sessionConfig = URLSessionConfiguration.default
+            let session = URLSession(configuration: sessionConfig)
+            
+            let request = URLRequest(url: fileURL)
+            
+            let task = session.downloadTask(with: request) { tempLocalUrl, response, error in
+                if let tempLocalUrl = tempLocalUrl, error == nil {
+                    // Success
+                    if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                        printDebug("Successfully downloaded. Status code: \(statusCode)")
+                    }
+                    complition(tempLocalUrl)
+                    
+                } else {
+                    printDebug("Error took place while downloading a file. Error description: \(error?.localizedDescription ?? "N/A")")
+                }
+            }
+            task.resume()
+    }
+    
     func getAirlineCodeImageUrl(code: String) -> String {
         return "https://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/\(code.uppercased()).png"
     }

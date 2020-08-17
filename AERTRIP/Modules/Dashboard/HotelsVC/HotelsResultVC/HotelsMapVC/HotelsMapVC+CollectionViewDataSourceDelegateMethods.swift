@@ -40,6 +40,7 @@ extension HotelsMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UIC
             cell.layer.shouldRasterize = true
             cell.layer.rasterizationScale = UIScreen.main.scale
             cell.hotelListData = hData.first
+            cell.hotelList = hData
             cell.containerTopConstraint.constant = 10
             cell.containerBottomConstraint.constant = 8
             cell.delegate = self

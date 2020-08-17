@@ -50,7 +50,7 @@
 49,,41,new password is required,Please provide new password,
 50,,3,old password is required,Please provide existing password,
 51,,49,Failed to update password,Unable to update password,
-52,,126,New Password can not be from the last 4 used passwords,New Password can not be from the last 4 used passwords,
+52,,126,New Password can not be from the last 4 used passwords,You used this password recently. Please choose a different one.,
 53,,,,,
 54,users/edit-user-details,8,User not found,User not found,
 55,,60,Failed to update user details,Failed to update user details,

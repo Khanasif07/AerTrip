@@ -28,6 +28,8 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var secondShadowCard: UIView!
     @IBOutlet weak var ratingContainerLeadingConstraint: NSLayoutConstraint!
 
+    @IBOutlet weak var thirdHotelImageview: UIImageView!
+    @IBOutlet weak var secondHotelImageView: UIImageView!
     
     weak var delegate: HotelCardCollectionViewCellDelegate?
     
@@ -44,6 +46,11 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
     var hotelData: HotelsModel? {
         didSet {
             self.populateData()
+        }
+    }
+    var hotelList: [HotelSearched]? {
+        didSet {
+            self.setupOtherHotelImages()
         }
     }
     
@@ -83,8 +90,13 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
         self.hotelImageView.cornerRadius = 10.0
         self.scrollView.cornerRadius = 10.0
         self.gradientView.cornerRadius = 10.0
-        
+        self.secondHotelImageView.cornerRadius = 10.0
+        self.thirdHotelImageview.cornerRadius = 10.0
+
         self.hotelImageView.contentMode = .scaleAspectFill
+        self.secondHotelImageView.contentMode = .scaleAspectFill
+        self.thirdHotelImageview.contentMode = .scaleAspectFill
+
     }
     
     override func layoutSubviews() {
@@ -207,6 +219,32 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
             } else {
                  self?.hotelImageView.image = #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder")
             }
+        }
+    }
+    
+    private func setupOtherHotelImages() {
+        self.secondHotelImageView.cancelImageDownloading()
+        self.thirdHotelImageview.cancelImageDownloading()
+        self.secondHotelImageView.image = nil
+        self.thirdHotelImageview.image = nil
+        
+        if self.hotelList?.indices.contains(1) ?? false, let hotel =  self.hotelList?[1] {
+            self.secondHotelImageView.setImageWithUrl(imageUrl: hotel.thumbnail?.first ?? "", placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false) { [weak self] (image, error) in
+            if let downloadedImage = image {
+                self?.secondHotelImageView.image = downloadedImage
+            } else {
+                 self?.secondHotelImageView.image = #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder")
+            }
+        }
+        }
+        if self.hotelList?.indices.contains(2) ?? false, let hotel =  self.hotelList?[2] {
+            self.thirdHotelImageview.setImageWithUrl(imageUrl: hotel.thumbnail?.first ?? "", placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false) { [weak self] (image, error) in
+            if let downloadedImage = image {
+                self?.thirdHotelImageview.image = downloadedImage
+            } else {
+                 self?.thirdHotelImageview.image = #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder")
+            }
+        }
         }
     }
     
