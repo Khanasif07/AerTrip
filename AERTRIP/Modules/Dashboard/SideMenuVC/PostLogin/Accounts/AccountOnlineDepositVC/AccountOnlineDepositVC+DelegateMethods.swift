@@ -58,13 +58,13 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
             }
             
             totalPayableNowCell.currentUsingFor = .normal
+            totalPayableNowCell.setUpText()
             totalPayableNowCell.totalPayableNowLabel.text = LocalizedString.DepositAmount.localized
             
             totalPayableNowCell.totalPriceLabel.attributedText = self.viewModel.depositAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(16.0))
             
             totalPayableNowCell.topDeviderView.isHidden = true
             totalPayableNowCell.bottomDeviderView.isHidden = true
-            totalPayableNowCell.setUpText()
             totalPayableNowCell.totalPayableTextTopConstraint.constant = -2.0
             totalPayableNowCell.totalPayableTextBottomConstraint.constant = 12.0
             return totalPayableNowCell
@@ -75,15 +75,13 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 printDebug("TotalPayableNowCell not found")
                 return UITableViewCell()
             }
-            
+            totalPayableNowCell.topDeviderView.isHidden = true
+            totalPayableNowCell.bottomDeviderView.isHidden = true
             totalPayableNowCell.currentUsingFor = .normal
+            totalPayableNowCell.setUpText()
             totalPayableNowCell.totalPayableNowLabel.text = LocalizedString.ConvenienceFeeNonRefundable.localized
             
             totalPayableNowCell.totalPriceLabel.attributedText = self.viewModel.feeAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(16.0))
-            
-            totalPayableNowCell.topDeviderView.isHidden = true
-            totalPayableNowCell.bottomDeviderView.isHidden = true
-            totalPayableNowCell.setUpText()
             totalPayableNowCell.totalPayableTextTopConstraint.constant = -2.0
             totalPayableNowCell.totalPayableTextBottomConstraint.constant = 12.0
             return totalPayableNowCell
