@@ -113,8 +113,8 @@ extension FlightResultSingleJourneyVC: ATSwitcherChangeValueDelegate {
             if viewModel.results.pinnedFlights.isEmpty {
                 showNoFilteredResults()
             }
-            
         }
+            
         else {
             self.hideFavsButtons(isAnimated: true)
             viewModel.resultTableState = stateBeforePinnedFlight

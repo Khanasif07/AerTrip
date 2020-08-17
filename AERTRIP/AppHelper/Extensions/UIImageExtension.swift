@@ -190,8 +190,6 @@ extension UIImageView {
         self.addSubview(blurEffectView)
     }
     
-        
-    
 }
 
 
