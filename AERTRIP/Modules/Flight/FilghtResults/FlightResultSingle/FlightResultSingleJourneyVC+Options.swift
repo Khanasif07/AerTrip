@@ -80,7 +80,7 @@ extension FlightResultSingleJourneyVC {
     
      func hidePinnedFlightOptions( _ hide : Bool){
         if hide {
-            self.hideFavsButtons()
+            self.hideFavsButtons(isAnimated : true)
         } else {
             self.animateFloatingButtonOnListView(isAnimated: true)
         }
@@ -113,15 +113,15 @@ extension FlightResultSingleJourneyVC: ATSwitcherChangeValueDelegate {
             if viewModel.results.pinnedFlights.isEmpty {
                 showNoFilteredResults()
             }
-            
         }
+            
         else {
             self.hideFavsButtons(isAnimated: true)
             viewModel.resultTableState = stateBeforePinnedFlight
             showFooterView()
         }
         
-        hidePinnedFlightOptions(!value)
+//        hidePinnedFlightOptions(!value)
         resultsTableView.reloadData()
         resultsTableView.setContentOffset(.zero, animated: false)
         showBluredHeaderViewCompleted()
@@ -204,12 +204,13 @@ extension FlightResultSingleJourneyVC {
       func hideFavsButtons(isAnimated: Bool = false) {
           if isAnimated {
               UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: .curveEaseOut, animations: { [weak self] in
-                  self?.unpinnedAllButton.alpha = 0.0
-                  self?.emailPinnedFlights.alpha = 0.0
-                  self?.sharePinnedFilghts.alpha = 0.0
+                
                   self?.unpinnedAllButton.transform = CGAffineTransform(translationX: 0, y: 0)
                   self?.emailPinnedFlights.transform = CGAffineTransform(translationX: 0, y: 0)
                   self?.sharePinnedFilghts.transform = CGAffineTransform(translationX: 0, y: 0)
+                    self?.unpinnedAllButton.alpha = 0.0
+                    self?.emailPinnedFlights.alpha = 0.0
+                    self?.sharePinnedFilghts.alpha = 0.0
                   }, completion: { [weak self] (success) in
                       self?.unpinnedAllButton.isHidden = true
                       self?.emailPinnedFlights.isHidden = true

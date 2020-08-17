@@ -188,6 +188,7 @@
                 <outlet property="tableViewHeight" destination="mkc-5t-uRo" id="CEX-OK-SHK"/>
                 <outlet property="tableViewTop" destination="atB-md-2UA" id="bcH-jP-aSi"/>
                 <outlet property="timeCollectionView" destination="fMy-uW-SJu" id="dRq-75-6nC"/>
+                <outlet property="timeSegmentBGView" destination="x5C-gC-Waq" id="Bd8-jr-ERs"/>
                 <outlet property="timeSegmentBGViewHeight" destination="G03-37-k7I" id="7gS-ml-7kA"/>
             </connections>
             <point key="canvasLocation" x="278.98550724637681" y="255.13392857142856"/>
