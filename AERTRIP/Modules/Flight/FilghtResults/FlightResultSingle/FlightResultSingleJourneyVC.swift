@@ -20,31 +20,18 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     @IBOutlet weak var emailPinnedFlights: UIButton!
     @IBOutlet weak var sharePinnedFilghts: UIButton!
     @IBOutlet weak var switchGradientView: UIView!
-    
-//    @IBOutlet weak var pinnedFlightOptionsTop: NSLayoutConstraint!
-    
-//    @IBOutlet weak var pinOptionsViewWidth: NSLayoutConstraint!
-//    @IBOutlet weak var unpinAllLeading: NSLayoutConstraint!
-//    @IBOutlet weak var emailPinnedLeading: NSLayoutConstraint!
-//    @IBOutlet weak var sharePinnedFlightLeading: NSLayoutConstraint!
     @IBOutlet weak var resultsTableViewTop: NSLayoutConstraint!
    
+    //MARK:- Properties
     var noResultScreen : NoResultsScreenViewController?
-    //MARK:- State Properties
     var titleString : NSAttributedString!
     var subtitleString : String!
     var stateBeforePinnedFlight = ResultTableViewState.showRegularResults
-//    var results : OnewayJourneyResultsArray!
     var sortedArray: [Journey]!
     var airportDetailsResult : [String : AirportDetailsWS]!
     var airlineDetailsResult : [String : AirlineMasterWS]!
     var taxesResult : [String : String]!
-
-//    var sortedJourneyArray : [JourneyOnewayDisplay]!
     var airlineCode = ""
-
-//    var flightsResults  =  FlightsResults()
-//    var pinnedFlightsArray = [Journey]()
     var sid : String = ""
     var bookFlightObject = BookFlightObject()
     var visualEffectViewHeight : CGFloat {
@@ -54,31 +41,19 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
     }
     var scrollviewInitialYOffset = CGFloat(0.0)
-//    var sortOrder = Sort.Smart
     var flightSearchResultVM  : FlightSearchResultVM!
-//    var tempResults = [Journey]()
     var userSelectedFilters = [FiltersWS]()
     var updatedApiProgress : Float = 0
     var apiProgress : Float = 0
     var ApiProgress: UIProgressView!
     var previousRequest : DispatchWorkItem?
     let viewModel = FlightResultSingleJourneyVM()
-    
     let getSharableLink = GetSharableUrl()
 
     //MARK:- View Controller Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-//        ApiProgress = UIProgressView()
-//        ApiProgress.progressTintColor = UIColor.AertripColor
-//        ApiProgress.trackTintColor = .clear
-//        ApiProgress.progress = 0.25
-//        
-//        ApiProgress.frame = CGRect(x: 0, y: 100, width: UIScreen.main.bounds.size.width, height: 10.0)
-//        self.resultsTableView.addSubview(ApiProgress)
-
         getSharableLink.delegate = self
-        
         self.viewModel.results = OnewayJourneyResultsArray(sort: .Smart)
         setupTableView()
         setupPinnedFlightsOptionsView()
@@ -122,8 +97,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                 self.resultsTableViewTop.constant = 0
                 self.view.layoutIfNeeded()
             }
-            
-
             
             UIView.animate(withDuration: 1.0 , animations: {
                 let y = rect.origin.y - rect.size.height - 20
@@ -360,18 +333,11 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         switchView.onTintColor = AppColors.themeGreen
         switchView.onThumbImage = #imageLiteral(resourceName: "pushpin")
         switchView.offThumbImage = #imageLiteral(resourceName: "pushpin-gray")
-
-
-//        self.switchView.onTintColor = UIColor.blue
-//        self.switchView.offTintColor = UIColor.yellow
-        
         switchView.setupUI()
-        
         delay(seconds: 0.6) {
             self.switchView.isOn = false
         }
 
-        
         manageSwitchContainer(isHidden: true)
         hidePinnedFlightOptions(true)
         
@@ -403,51 +369,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             }
         }
     }
-    
-
-//    {
-//        
-//        //*******************Haptic Feedback code********************
-//           let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-//           selectionFeedbackGenerator.selectionChanged()
-//        //*******************Haptic Feedback code********************
-//
-//        
-//        let optionViewWidth : CGFloat =  hide ? 50.0 : 212.0
-//        let unpinButtonLeading : CGFloat = hide ? 0.0 : 60.0
-//        let emailButton : CGFloat = hide ? 0.0 : 114.0
-//        let shareButtonLeading : CGFloat =
-//        hide ?  0.0 : 168.0
-//        
-//        if !hide {
-//            self.emailPinnedFlights.isHidden = hide
-//            self.unpinnedAllButton.isHidden = hide
-//            self.sharePinnedFilghts.isHidden = hide
-//        }
-//        
-//        pinOptionsViewWidth.constant = optionViewWidth
-//        
-//        unpinAllLeading.constant = unpinButtonLeading
-//        emailPinnedLeading.constant = emailButton
-//        sharePinnedFlightLeading.constant = shareButtonLeading
-//        
-//        UIView.animate(withDuration: 0.41, delay: 0.0 ,
-//                       options: [.curveEaseOut]
-//            , animations: {
-//                
-//                self.view.layoutIfNeeded()
-//                
-//        }) { (onCompletion) in
-//            
-//            if hide {
-//                
-//                self.emailPinnedFlights.isHidden = hide
-//                self.unpinnedAllButton.isHidden = hide
-//                self.sharePinnedFilghts.isHidden = hide
-//            }
-//        }
-//    }
-    
+        
     
     fileprivate func snapToTopOrBottomOnSlowScrollDragging(_ scrollView: UIScrollView) {
         
@@ -503,9 +425,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     }
     
     func addPlaceholderTableHeaderView() {
-        
         DispatchQueue.main.async {
-        
             let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 96))
             self.resultsTableView.tableHeaderView = headerView
         }
@@ -520,9 +440,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             if viewModel.results.pinnedFlights.isEmpty {
                 showNoFilteredResults()
             }
-        }
-        else {
-            
+        } else {
             viewModel.resultTableState = stateBeforePinnedFlight
             showFooterView()
         }
@@ -536,7 +454,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     @IBAction func unpinnedAllTapped(_ sender: Any) {
         
         let alert = UIAlertController(title: "Unpin All?", message: "This action will unpin all the pinned flights and cannot be undone.", preferredStyle: .alert)
-
+        
         alert.view.tintColor = UIColor.AertripColor
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { action in
               }))
@@ -562,8 +480,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     @IBAction func emailPinnedFlights(_ sender: Any) {
         
-//        guard let postData = generatePostDataForEmail(for: results.pinnedFlights) else { return }
-
         guard let postData = generatePostDataForEmail(for: self.viewModel.results.pinnedFlights) else { return }
         executeWebServiceForEmail(with: postData as Data, onCompletion:{ (view)  in
             
@@ -573,35 +489,12 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         })
     }
     
-//    @IBAction func sharePinnedFlights(_ sender: Any) {
-//
-////        guard let postData = generatePostData(for: results.pinnedFlights ) else { return }
-//
-//        if #available(iOS 13.0, *) {
-//
-//        guard let postData = generatePostData(for: self.viewModel.results.pinnedFlights ) else { return }
-//
-//        executeWebServiceForShare(with: postData as Data, onCompletion:{ (link)  in
-//
-//            DispatchQueue.main.async {
-//                let textToShare = [ link ]
-//                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-//                activityViewController.popoverPresentationController?.sourceView = self.view
-//                self.present(activityViewController, animated: true, completion: nil)
-//
-//            }
-//        })
-//        }
-//    }
-    
-    
     // Monika
     @IBAction func sharePinnedFlights(_ sender: Any) {
         if #available(iOS 13.0, *) {
             shareJourney(journey: self.viewModel.results.pinnedFlights)
         }
     }
-    
     
     //MARK:- Additional Tableview methods
     func setImageto( imageView : UIImageView , url : String , index : Int ) {
@@ -806,222 +699,11 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     func navigateToFlightDetailFor(journey: Journey) {
         
     }
-        
-    //MARK:-  Methods for TableviewCell Swipe Implementation
-    
-//     func createSwipeActionForLeftOrientation(_ indexPath: IndexPath) -> [UIContextualAction] {
-//
-//        var currentArray : [JourneyOnewayDisplay]
-//        let flightKey : String
-//        let journey : JourneyOnewayDisplay
-//
-//        if viewModel.sortOrder == .Smart {
-//            //|| sortOrder == .Price || sortOrder == .PriceHighToLow{
-//            if indexPath.section == 0 {
-//                currentArray = viewModel.results.suggestedJourneyArray
-//            }
-//            else {
-//                currentArray = viewModel.results.expensiveJourneyArray
-//            }
-//            journey = currentArray[indexPath.row]
-//            flightKey = journey.journeyArray[0].fk
-//
-//            if journey.isPinned(atIndex: 0) {
-//
-//                let pinAction = UIContextualAction(style: .normal, title: nil , handler: { [weak self] (action, view , completionHandler)  in
-//
-//                    if let strongSelf = self {
-//                        strongSelf.setPinnedFlightAt(flightKey , isPinned:  false)
-//                        strongSelf.showPinnedSwitch.isOn = false
-//                        strongSelf.hidePinnedFlightOptions(true)
-//                    }
-//                    completionHandler(true)
-//                })
-//                pinAction.backgroundColor = .white
-//                if let cgImageX =  UIImage(named: "Unpin")?.cgImage {
-//                    pinAction.image = ImageWithoutRender(cgImage: cgImageX, scale: UIScreen.main.nativeScale, orientation: .up)
-//                }
-//
-//                return [pinAction]
-//
-//            }
-//            else {
-//
-//                let pinAction = UIContextualAction(style: .normal, title: nil , handler: { [weak self] (action, view , completionHandler)  in
-//
-//                    if let strongSelf = self {
-//                        strongSelf.setPinnedFlightAt(flightKey , isPinned:  true)
-//                    }
-//                    completionHandler(true)
-//                })
-//
-//                pinAction.backgroundColor = .white
-//                if let cgImageX =  UIImage(named: "Pin")?.cgImage {
-//                    pinAction.image = ImageWithoutRender(cgImage: cgImageX, scale: UIScreen.main.nativeScale, orientation: .up)
-//                }
-//
-//                return [pinAction]
-//            }
-//
-//        }
-//        else {
-//
-//            let currentJourney = self.sortedArray[indexPath.row]
-//            flightKey = currentJourney.fk
-//
-//            if currentJourney.isPinned ?? false {
-//
-//                let pinAction = UIContextualAction(style: .normal, title: nil , handler: { [weak self] (action, view , completionHandler)  in
-//
-//                    if let strongSelf = self {
-//                        strongSelf.setPinnedFlightAt(flightKey , isPinned:  false)
-//                        strongSelf.showPinnedSwitch.isOn = false
-//                        strongSelf.hidePinnedFlightOptions(true)
-//                    }
-//                   completionHandler(true)
-//                })
-//                pinAction.backgroundColor = .white
-//                if let cgImageX =  UIImage(named: "Unpin")?.cgImage {
-//                    pinAction.image = ImageWithoutRender(cgImage: cgImageX, scale: UIScreen.main.nativeScale, orientation: .up)
-//                }
-//
-//                return [pinAction]
-//
-//            }
-//            else {
-//
-//                let pinAction = UIContextualAction(style: .normal, title: nil , handler: { [weak self] (action, view , completionHandler)  in
-//
-//                    if let strongSelf = self {
-//                        strongSelf.setPinnedFlightAt(flightKey , isPinned:  true)
-//                    }
-//                    completionHandler(true)
-//                })
-//
-//                pinAction.backgroundColor = .white
-//                if let cgImageX =  UIImage(named: "Pin")?.cgImage {
-//                    pinAction.image = ImageWithoutRender(cgImage: cgImageX, scale: UIScreen.main.nativeScale, orientation: .up)
-//                }
-//
-//                return [pinAction]
-//
-//            }
-//        }
-//    }
-    
-//    fileprivate func createSwipeActionForPinnedFlightLeftOrientation(_ indexPath: IndexPath) -> [UIContextualAction] {
-//
-////        let journeyArray = results.pinnedFlights
-//        let journeyArray = pinnedFlightsArray
-//        let journey = journeyArray[indexPath.row]
-//        let flightKey = journey.fk
-//
-//        if journey.isPinned ?? false {
-//
-//            let pinAction = UIContextualAction(style: .normal, title: nil , handler: { [weak self] (action, view , completionHandler)  in
-//
-//                if let strongSelf = self {
-//                    strongSelf.setPinnedFlightAt(flightKey , isPinned:  false)
-//                }
-//                completionHandler(true)
-//            })
-//            pinAction.backgroundColor = .white
-//            if let cgImageX =  UIImage(named: "Unpin")?.cgImage {
-//                pinAction.image = ImageWithoutRender(cgImage: cgImageX, scale: UIScreen.main.nativeScale, orientation: .up)
-//            }
-//
-//            return [pinAction]
-//
-//        }
-//        else {
-//
-//            let pinAction = UIContextualAction(style: .normal, title: nil , handler: { [weak self] (action, view , completionHandler)  in
-//
-//                if let strongSelf = self {
-//                    strongSelf.setPinnedFlightAt(flightKey , isPinned:  true)
-//                }
-//                completionHandler(true)
-//            })
-//
-//            pinAction.backgroundColor = .white
-//            if let cgImageX =  UIImage(named: "Pin")?.cgImage {
-//                pinAction.image = ImageWithoutRender(cgImage: cgImageX, scale: UIScreen.main.nativeScale, orientation: .up)
-//            }
-//
-//            return [pinAction]
-//
-//        }
-//    }
-    
-//    fileprivate func createSwipeActionsForRightOrientation(_ indexPath: IndexPath) -> [UIContextualAction] {
-//        let shareAction = UIContextualAction(style: .normal, title: nil , handler: { [weak self] (action, view , completionHandler) in
-//            completionHandler(true)
-//
-//            if let strongSelf = self {
-//                strongSelf.shareFlightAt(indexPath)
-//            }
-//            completionHandler(true)
-//
-//        })
-//
-//        if let cgImageX =  UIImage(named: "Share")?.cgImage {
-//            shareAction.image = ImageWithoutRender(cgImage: cgImageX, scale: UIScreen.main.nativeScale, orientation: .up)
-//        }
-//        shareAction.backgroundColor =  .white
-//
-//        let addToTripAction = UIContextualAction(style: .normal, title: nil, handler: { [weak self]  (action, view , completionHandler)  in
-//
-//            if let strongSelf = self {
-//                strongSelf.addToTripFlightAt(indexPath)
-//            }
-//            completionHandler(true)
-//        })
-//        addToTripAction.backgroundColor = .white
-//
-//        if let cgImageX =  UIImage(named: "AddToTrip")?.cgImage {
-//            addToTripAction.image = ImageWithoutRender(cgImage: cgImageX, scale: UIScreen.main.nativeScale, orientation: .up)
-//        }
-//
-//        return [addToTripAction, shareAction]
-//    }
-    
-//    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//
-//        if (tableView.cellForRow(at: indexPath) as? SingleJourneyResultTableViewCell) != nil {
-//
-//            let configuration : UISwipeActionsConfiguration
-//
-//            if viewModel.resultTableState == .showPinnedFlights {
-//                configuration = UISwipeActionsConfiguration(actions: createSwipeActionForPinnedFlightLeftOrientation(indexPath))
-//            }
-//            else {
-//                configuration = UISwipeActionsConfiguration(actions: createSwipeActionForLeftOrientation(indexPath))
-//            }
-//            return configuration
-//        }
-//
-//        let configuration = UISwipeActionsConfiguration(actions: [])
-//        return configuration
-//    }
-
-//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//
-//        if (tableView.cellForRow(at: indexPath) as? SingleJourneyResultTableViewCell) != nil {
-//
-//            let configuration = UISwipeActionsConfiguration(actions: createSwipeActionsForRightOrientation(indexPath))
-//            return configuration
-//        }
-//        let configuration = UISwipeActionsConfiguration(actions: [])
-//        return configuration
-//
-//    }
+ 
     
     //MARK:- Methods for naviagating to other View Controller
-
-
     
-    func navigateToFlightDetailFor(journey : Journey, selectedIndex:IndexPath)
-    {
+    func navigateToFlightDetailFor(journey : Journey, selectedIndex:IndexPath) {
         let storyboard = UIStoryboard(name: "FlightDetailsBaseVC", bundle: nil)
         let flightDetailsVC:FlightDetailsBaseVC =
             storyboard.instantiateViewController(withIdentifier: "FlightDetailsBaseVC") as! FlightDetailsBaseVC

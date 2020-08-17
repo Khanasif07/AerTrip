@@ -58,7 +58,7 @@ extension IntMCAndReturnVC {
             if !containesPinnedFlight {
                viewModel.resultTableState = stateBeforePinnedFlight
                 hidePinnedFlightOptions(true)
-                showPinnedSwitch.isOn = false
+                switchView.isOn = false
             }
            
            
@@ -77,17 +77,55 @@ extension IntMCAndReturnVC {
     }
     
     func showPinnedFlightsOption(_ show  : Bool) {
-          
-          let offsetFromBottom = show ? -22 : 70
-          self.pinnedFlightOptionsTop.constant = CGFloat(offsetFromBottom)
-          
-          UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
-              self.view.layoutIfNeeded()
-          }, completion: nil)
+          manageSwitchContainer(isHidden: !show)
+
+//          let offsetFromBottom = show ? -22 : 70
+//          self.pinnedFlightOptionsTop.constant = CGFloat(offsetFromBottom)
+//
+//          UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+//              self.view.layoutIfNeeded()
+//          }, completion: nil)
           
       }
     
 }
+
+extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
+    
+    func switcherDidChangeValue(switcher: ATSwitcher, value: Bool) {
+//        self.viewModel.isFavouriteOn = value
+//        self.viewModel.loadSaveData()
+      
+        if value {
+            
+            self.unpinnedAllButton.isHidden = false
+            self.emailPinnedFlights.isHidden = false
+            self.sharePinnedFilghts.isHidden = false
+            self.animateButton()
+            
+            stateBeforePinnedFlight = viewModel.resultTableState
+                       viewModel.resultTableState = .showPinnedFlights
+                       resultsTableView.tableFooterView = nil
+                       if viewModel.results.pinnedFlights.isEmpty {
+                           showNoFilteredResults()
+                       }
+            
+        } else {
+            self.hideFavsButtons(isAnimated: true)
+           viewModel.resultTableState = stateBeforePinnedFlight
+            showFooterView()
+        }
+        
+//        hidePinnedFlightOptions(!value)
+        resultsTableView.reloadData()
+        resultsTableView.setContentOffset(.zero, animated: false)
+        showBluredHeaderViewCompleted()
+        
+//        tableViewVertical.setContentOffset(CGPoint(x: 0, y: -topContentSpace), animated: false)
+        //showBluredHeaderViewCompleted()
+    }
+}
+
 
 @available(iOS 13.0, *) extension IntMCAndReturnVC : UIContextMenuInteractionDelegate {
 
@@ -168,7 +206,7 @@ extension IntMCAndReturnVC {
             viewModel.results.journeyArray[i] = newJourneyGroup
            }
            
-           showPinnedSwitch.isOn = false
+           switchView.isOn = false
            hidePinnedFlightOptions(true)
           viewModel.resultTableState = stateBeforePinnedFlight
            
@@ -389,6 +427,7 @@ extension IntMCAndReturnVC {
       }
     
 }
+
 
 
 extension IntMCAndReturnVC : MFMailComposeViewControllerDelegate{

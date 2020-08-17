@@ -12,16 +12,13 @@ class IntMCAndReturnVC : UIViewController {
     
     @IBOutlet weak var resultsTableView: UITableView!
     @IBOutlet weak var pinnedFlightsOptionsView : UIView!
-    @IBOutlet weak var showPinnedSwitch: AertripSwitch!
+    @IBOutlet weak var switchView: ATSwitcher!
     @IBOutlet weak var unpinnedAllButton: UIButton!
     @IBOutlet weak var emailPinnedFlights: UIButton!
     @IBOutlet weak var sharePinnedFilghts: UIButton!
-    @IBOutlet weak var pinnedFlightOptionsTop: NSLayoutConstraint!
     @IBOutlet weak var resultTableViewTop: NSLayoutConstraint!
-    @IBOutlet weak var pinOptionsViewWidth: NSLayoutConstraint!
-    @IBOutlet weak var unpinAllLeading: NSLayoutConstraint!
-    @IBOutlet weak var emailPinnedLeading: NSLayoutConstraint!
-    @IBOutlet weak var sharePinnedFlightLeading: NSLayoutConstraint!
+    
+    
     
     var airlineCode = ""
     var bannerView : ResultHeaderView?
@@ -83,7 +80,7 @@ extension IntMCAndReturnVC {
         resultsTableView.register(UINib(nibName: "InternationalReturnTemplateTableViewCell", bundle: nil), forCellReuseIdentifier: "InternationalReturnTemplateTableViewCell")
         resultsTableView.separatorStyle = .none
         resultsTableView.scrollsToTop = true
-        resultsTableView.estimatedRowHeight  = 123
+        resultsTableView.estimatedRowHeight = 123
         resultsTableView.rowHeight = UITableView.automaticDimension
         resultsTableView.dataSource = self
         resultsTableView.delegate = self
@@ -104,16 +101,24 @@ extension IntMCAndReturnVC {
     }
     
     func setupPinnedFlightsOptionsView() {
-        pinnedFlightOptionsTop.constant = 100
-        showPinnedSwitch.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
-        showPinnedSwitch.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
-        showPinnedSwitch.isOn = false
-        showPinnedSwitch.setupUI()
-        hidePinnedFlightOptions(true)
-        addShadowTo(unpinnedAllButton)
-        addShadowTo(emailPinnedFlights)
-        addShadowTo(sharePinnedFilghts)
-    }
+            switchView.delegate = self
+            switchView.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
+            switchView.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
+            switchView.onTintColor = AppColors.themeGreen
+            switchView.onThumbImage = #imageLiteral(resourceName: "pushpin")
+            switchView.offThumbImage = #imageLiteral(resourceName: "pushpin-gray")
+            switchView.setupUI()
+            delay(seconds: 0.6) {
+                self.switchView.isOn = false
+            }
+
+            manageSwitchContainer(isHidden: true)
+            hidePinnedFlightOptions(true)
+            
+            addShadowTo(unpinnedAllButton)
+            addShadowTo(emailPinnedFlights)
+            addShadowTo(sharePinnedFilghts)
+        }
     
     func addShadowTo(_ view : UIView) {
         view.layer.shadowOpacity = 0.2
@@ -123,35 +128,10 @@ extension IntMCAndReturnVC {
     }
     
     func hidePinnedFlightOptions( _ hide : Bool) {
-        
-        //*******************Haptic Feedback code********************
-        let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-        selectionFeedbackGenerator.selectionChanged()
-        //*******************Haptic Feedback code********************
-        
-        let optionViewWidth : CGFloat =  hide ? 50.0 : 212.0
-        let unpinButtonLeading : CGFloat = hide ? 0.0 : 60.0
-        let emailButton : CGFloat = hide ? 0.0 : 114.0
-        let shareButtonLeading : CGFloat =
-            hide ?  0.0 : 168.0
-        if !hide {
-            self.emailPinnedFlights.isHidden = hide
-            self.unpinnedAllButton.isHidden = hide
-            self.sharePinnedFilghts.isHidden = hide
-        }
-        
-        pinOptionsViewWidth.constant = optionViewWidth
-        unpinAllLeading.constant = unpinButtonLeading
-        emailPinnedLeading.constant = emailButton
-        sharePinnedFlightLeading.constant = shareButtonLeading
-        UIView.animate(withDuration: 0.1, delay: 0.0 , options: [] , animations: {
-            self.view.layoutIfNeeded()
-        }) { (onCompletion) in
-            if hide {
-                self.emailPinnedFlights.isHidden = hide
-                self.unpinnedAllButton.isHidden = hide
-                self.sharePinnedFilghts.isHidden = hide
-            }
+        if hide {
+            self.hideFavsButtons(isAnimated : true)
+        } else {
+            self.animateFloatingButtonOnListView(isAnimated: true)
         }
     }
     
@@ -367,7 +347,6 @@ extension IntMCAndReturnVC {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newRequest)
     }
     
-    
     func updateAirportDetailsArray(_ results : [String : IntAirportDetailsWS]) {
         airportDetailsResult = results
     }
@@ -388,7 +367,6 @@ extension IntMCAndReturnVC {
     }
 }
 
-
 //MARK:- Pinned and RefundStatus Delegate.
 
 extension IntMCAndReturnVC : flightDetailsPinFlightDelegate, UpdateRefundStatusDelegate{
@@ -405,4 +383,3 @@ extension IntMCAndReturnVC : flightDetailsPinFlightDelegate, UpdateRefundStatusD
     }
     
 }
-

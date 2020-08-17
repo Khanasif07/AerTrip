@@ -93,27 +93,7 @@ extension FlightResultSingleJourneyVC {
         }
         
         @objc func tappedOnGroupedFooterView(_ sender : UITapGestureRecognizer) {
-            
-            
-            UIView.animate(withDuration: 0.3, animations: {
-                         self.resultsTableView.tableFooterView?.transform = CGAffineTransform(translationX: 0, y: 200)
-                     }) { (success) in
-                        
-                        self.viewModel.resultTableState = .showExpensiveFlights
-                        self.viewModel.results.excludeExpensiveFlights = false
-                        DispatchQueue.global(qos: .default).async {
-
-                            self.sortedArray = Array(self.viewModel.results.sortedArray)
-
-                            self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: self.viewModel.prevLegIndex, completion: {
-                                      DispatchQueue.main.async {
-                                          self.setExpandedStateFooter()
-                                          self.resultsTableView.reloadData()
-                                          self.resultsTableView.tableFooterView?.transform = CGAffineTransform.identity
-                                      }
-                                  })
-                        }
-            }
+           expandFlights()
         }
         
         func setExpandedStateFooter() {
@@ -139,13 +119,7 @@ extension FlightResultSingleJourneyVC {
             titleLabel.font = UIFont(name: "SourceSansPro-Regular", size: 18)
             titleLabel.textAlignment = .center
             let count = viewModel.results.aboveHumanScoreCount
-            
-//            if count == 0 {
-//                resultsTableView.tableFooterView = nil
-//                return
-//            }
-//
-            
+
             titleLabel.text  = "Hide " + String(count) + " longer or expensive flights"
             expandedFooterView.addSubview(titleLabel)
             
@@ -180,36 +154,9 @@ extension FlightResultSingleJourneyVC {
         }
         
         
-        @objc func tapOnExpandedFooterView(_ sender: UITapGestureRecognizer) {
-                    
-                    var tempAllArray = self.viewModel.results.allJourneys
-                    var indexPathsToBedeleted : [IndexPath] = []
-                    let suggestedArrayCount = self.viewModel.results.suggestedJourneyArray.count
-                    
-                    for (index, _) in tempAllArray.reversed().enumerated() {
-                        if index >= suggestedArrayCount{
-                            tempAllArray.removeLast()
-                            indexPathsToBedeleted.append(IndexPath(row: index, section: 0))
-                        }
-                    }
-                    
-                    self.viewModel.results.allJourneys = tempAllArray
-                    self.resultsTableView.deleteRows(at: indexPathsToBedeleted, with: UITableView.RowAnimation.fade)
-                    
-                self.viewModel.resultTableState = .showRegularResults
-                    self.viewModel.results.excludeExpensiveFlights = false
-                    
-                    DispatchQueue.global(qos: .background).async {
-                        self.sortedArray = Array(self.viewModel.results.sortedArray)
-                        self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: self.viewModel.prevLegIndex, completion: {
-                            DispatchQueue.main.async {
-                                self.setGroupedFooterView()
-                                self.showBluredHeaderViewCompleted()
-                                self.resultsTableView.reloadSections([0], with: .none)
-                            }
-                        })
-                    }
-            }
+    @objc func tapOnExpandedFooterView(_ sender: UITapGestureRecognizer) {
+        collapseFlights()
+    }
         
     //MARK:- Target  methods
      func showBluredHeaderViewCompleted() {
