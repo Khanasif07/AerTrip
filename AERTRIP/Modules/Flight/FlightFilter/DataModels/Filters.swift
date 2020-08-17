@@ -20,7 +20,6 @@ enum Filters : Int,  CaseIterable{
     case Quality
     case Price
 //    case API
-    
 }
 
 

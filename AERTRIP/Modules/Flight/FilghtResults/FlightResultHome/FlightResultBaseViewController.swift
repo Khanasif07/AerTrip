@@ -31,7 +31,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     var  singleJourneyResultVC : FlightResultSingleJourneyVC?
     var  domesticMultiLegResultVC : FlightDomesticMultiLegResultVC?
     var  intMultiLegResultVC : IntMCAndReturnVC?
-    var flightFilterVC : FlightFilterBaseViewController?
+    var flightFilterVC : FlightFilterBaseVC?
     var intMCAndReturnFilterVC: IntMCAndReturnFlightFiltersBaseVC?
     var noResultScreen : NoResultsScreenViewController?
     //MARK:- Navigation Bar UI Elements
@@ -578,7 +578,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             return
         }
         
-        self.flightFilterVC = FlightFilterBaseViewController(flightSearchResult: self.flightSearchResultVM.flightResultArray , selectedIndex: index , legList: legList , searchType: flightType )
+        self.flightFilterVC = FlightFilterBaseVC(flightSearchResult: self.flightSearchResultVM.flightResultArray , selectedIndex: index , legList: legList , searchType: flightType )
         self.flightFilterVC?.delegate = flightSearchResultVM
         self.flightFilterVC?.filterUIDelegate = self
     }
@@ -887,8 +887,8 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         if let FilterBaseView = self.flightFilterVC {
             if FilterBaseView.parent == nil {
                 var frame = self.view.frame
-                frame.origin.y = statusBarHeight + 88
-                frame.size.height = UIScreen.main.bounds.size.height - 88 - statusBarHeight 
+                frame.origin.y = statusBarHeight + 88 - 50
+                frame.size.height = UIScreen.main.bounds.size.height - 88 - statusBarHeight + 50
                 FilterBaseView.view.frame = frame
                 self.view.addSubview(FilterBaseView.view)
                 self.addChild(FilterBaseView)
@@ -990,6 +990,9 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         filterButton.isSelected = isApplied
         
         filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: true, selectedIndex: filterSegmentView.selectedSegmentIndex)
+        
+        flightFilterVC?.userAppliedFilters =  flightSearchResultVM.flightLegsAppliedFilters
+        flightFilterVC?.updateMenuItems()
     }
     
     

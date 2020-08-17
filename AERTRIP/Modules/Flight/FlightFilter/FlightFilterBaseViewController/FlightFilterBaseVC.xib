@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FlightFilterBaseVC" customModule="AERTRIP" customModuleProvider="target">
+            <connections>
+                <outlet property="baseView" destination="i5M-Pr-FkT" id="G5u-zI-nDM"/>
+                <outlet property="closeFiltersBtn" destination="hHg-oZ-Cxz" id="F0o-0p-PdE"/>
+                <outlet property="filtersView" destination="D1g-79-lpE" id="uYZ-sK-ZGc"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hHg-oZ-Cxz">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <connections>
+                        <action selector="closeFiltersBtnAction:" destination="-1" eventType="touchUpInside" id="QL0-6d-1bQ"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D1g-79-lpE">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="404"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="404" id="BH5-xQ-ltm"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hHg-oZ-Cxz" secondAttribute="trailing" id="713-1C-kgG"/>
+                <constraint firstItem="hHg-oZ-Cxz" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="BPz-Ca-Uvd"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="hHg-oZ-Cxz" secondAttribute="bottom" id="KDq-So-4nC"/>
+                <constraint firstItem="D1g-79-lpE" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="LwM-xi-Bfx"/>
+                <constraint firstItem="hHg-oZ-Cxz" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Rac-5V-JWg"/>
+                <constraint firstItem="D1g-79-lpE" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="UBh-1C-u97"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="D1g-79-lpE" secondAttribute="trailing" id="zgx-Za-nYe"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="138.40000000000001" y="89.505247376311857"/>
+        </view>
+    </objects>
+</document>

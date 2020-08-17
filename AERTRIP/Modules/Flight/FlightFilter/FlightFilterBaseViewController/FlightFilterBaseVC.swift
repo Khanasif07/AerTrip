@@ -1,45 +1,29 @@
 //
-//  FlightFilterBaseViewController.swift
-//  Aertrip
+//  FlightFilterBaseVC.swift
+//  AERTRIP
 //
-//  Created by  hrishikesh on 27/02/19.
-//  Copyright © 2019 Aertrip. All rights reserved.
+//  Created by Rishabh on 17/08/20.
+//  Copyright © 2020 Pramod Kumar. All rights reserved.
 //
 
 import UIKit
+import Parchment
 
-protocol  FilterDelegate : AnyObject {
-    
-}
+class FlightFilterBaseVC: UIViewController {
 
-protocol FilterUIDelegate : AnyObject
-{
-    func selectedIndexChanged(index : UInt)
-    func removedFilterUIFromParent()
-}
-
-/// Base Class for Flight Filters
-class FlightFilterBaseViewController: UIViewController
-{
-    //MARK:- Outlets
-    @IBOutlet weak var baseView: UIView!
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var backgroudView: UIView!
-    
-    //MARK:- State Properties
+    // MARK: Properties
     weak var delegate : FilterDelegate?
     weak var filterUIDelegate : FilterUIDelegate?
     var legList : [Leg]!
     var searchType : FlightSearchType!
     var flightResultArray : [FlightsResults]!
     var userAppliedFilters: AppliedAndUIFilters?
+    internal var allChildVCs = [UIViewController]()
+    var menuItems = [MenuItem]()
+    var selectedIndex  : Int!
     
-    //MARK:- Computed Properties
-    var selectedIndex  : Int! {
-        didSet {
-            setCurrentIndex()
-        }
-    }
+    // Parchment View
+    fileprivate var parchmentView : PagingViewController?
     
     var inputFilters : [FiltersWS]? {
         var inputFiltersArray = [FiltersWS]()
@@ -57,7 +41,7 @@ class FlightFilterBaseViewController: UIViewController
     convenience init(flightSearchResult : [FlightsResults] , selectedIndex :Int = 0 , legList : [Leg] , searchType: FlightSearchType) {
         self.init(nibName:nil, bundle:nil)
         self.flightResultArray = flightSearchResult
-        self.selectedIndex = selectedIndex
+//        self.selectedIndex = selectedIndex
         self.legList = legList
         self.searchType = searchType
     }
@@ -70,96 +54,127 @@ class FlightFilterBaseViewController: UIViewController
         super.init(coder: aDecoder)
     }
     
-    //MARK:- ViewController Methods
+    // MARK: IBOutlets
     
+    @IBOutlet weak var baseView: UIView!
+    @IBOutlet weak var closeFiltersBtn: UIButton!
+    @IBOutlet weak var filtersView: UIView!
+    
+    // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
-        setupBaseView()
-        setupScrollView()
-        
+        initialSetup()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        parchmentView?.view.frame = self.filtersView.bounds
+        parchmentView?.view.roundParticularCorners(10, [.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
+        self.parchmentView?.loadViewIfNeeded()
+    }
+    
+    // MARK: IBActions
+    
+    @IBAction func closeFiltersBtnAction(_ sender: UIButton) {
+        filterUIDelegate?.removedFilterUIFromParent()
+    }
+    
+    // MARK: Functions
+    
+    private func initialSetup() {
         for filter in Filters.allCases {
-            self.addToScrollView(filter: filter)
+            self.addToParchment(filter: filter)
         }
+        setUpViewPager()
+        setupBaseView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.setCurrentIndex()
-    }
-    
-    //MARK:- Additional UI Methods
-    /// Method to setup BaseView ( view with white Background and rounded corner )
     fileprivate func setupBaseView() {
-        
-        baseView.clipsToBounds = true
-        baseView.layer.cornerRadius = 10
-        if #available(iOS 11.0, *) {
-            baseView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-        } else {
-            baseView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10)
-        }
+//        baseView.clipsToBounds = true
+//        baseView.layer.cornerRadius = 10
+//        if #available(iOS 11.0, *) {
+//            baseView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+//        } else {
+//            baseView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10)
+//        }
+        filtersView.roundParticularCorners(10, [.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
     }
     
-    /// Setting up ViewController's view
-    fileprivate func setupView() {
-        self.view.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnBaseView))
-        self.backgroudView.addGestureRecognizer(tapGesture)
-    }
-    
-    /// Setup for scrollview
-    fileprivate func setupScrollView()
+    fileprivate func addToParchment(filter : Filters)
     {
-        scrollView.isPagingEnabled = true
-        scrollView.alwaysBounceHorizontal = true
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.showsHorizontalScrollIndicator = false
-        let width =  UIScreen.main.bounds.size.width
-        let height = self.scrollView.frame.height
-        scrollView.contentSize = CGSize( width: (CGFloat(Filters.allCases.count) * width ), height:height)
-    }
-    
-    fileprivate func addToScrollView(filter : Filters )
-    {
-        let width =  UIScreen.main.bounds.size.width
-        let height = self.scrollView.frame.height
-        let x = CGFloat(filter.rawValue) *  width
         let viewController = filter.viewController
+        allChildVCs.append(viewController)
+        let newMenuItem = MenuItem(title: filter.title, index: filter.rawValue + 1, isSelected: false)
+        menuItems.append(newMenuItem)
         setValuesFor(viewController , filter: filter)
-        viewController.view.frame = CGRect(x: x, y: 0, width: width, height :height)
-        viewController.view.autoresizingMask = []
-        self.scrollView.addSubview(viewController.view)
-        self.addChild(viewController)
-        viewController.didMove(toParent: self)
     }
     
-    @objc func tapOnBaseView() {
-        self.filterUIDelegate?.removedFilterUIFromParent()
-        self.view.removeFromSuperview()
-        self.removeFromParent()
-    }
-    
-    fileprivate func setCurrentIndex() {
-        let width = UIScreen.main.bounds.width
-        let x = CGFloat(selectedIndex) * width
-        let point = CGPoint(x: x, y: 0.0)
-        if scrollView != nil {
-            scrollView.setContentOffset(point, animated: true)
+    private func setUpViewPager() {
+        if let _ = self.parchmentView{
+            self.parchmentView?.view.removeFromSuperview()
+            self.parchmentView = nil
         }
+        setupParchmentPageController()
+    }
+    
+    private func setupParchmentPageController(){
+        
+        self.parchmentView = PagingViewController()
+        self.parchmentView?.menuItemSpacing = 18
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 50, bottom: 0.0, right: 10)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 45)
+        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
+        self.parchmentView?.borderOptions = PagingBorderOptions.visible(
+            height: 0.25,
+            zIndex: Int.max - 1,
+            insets: UIEdgeInsets(top: 0, left: -400, bottom: 0, right: -400))
+        let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
+        self.parchmentView?.register(nib, for: MenuItem.self)
+        self.parchmentView?.borderColor = AppColors.themeGray20
+        self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
+        self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
+        self.parchmentView?.indicatorColor = AppColors.themeGreen
+        self.parchmentView?.selectedTextColor = AppColors.themeBlack
+        self.filtersView.addSubview(self.parchmentView!.view)
+        
+        self.parchmentView?.dataSource = self
+        self.parchmentView?.delegate = self
+        self.parchmentView?.sizeDelegate = self
+//        self.parchmentView?.select(index: 0)
+        self.parchmentView?.reloadData()
+        self.parchmentView?.reloadMenu()
+        self.parchmentView?.menuBackgroundColor = AppColors.themeGray49
+//        self.parchmentView?.collectionView.backgroundColor = UIColor.clear
     }
     
     //MARK:- Setting Filter ViewController's  values
     func resetAllFilters() {
-        for viewController in self.children {
-            if let sortViewController = viewController as? FlightSortFilterViewController {
+        for viewController in allChildVCs {
+            if let sortViewController = viewController as? FlightSortFilterViewController, sortViewController.sortTableview != nil {
                 sortViewController.resetSort()
-            }else{
+            }else {
                 if let filterViewController = viewController as? FilterViewController {
                     filterViewController.resetFilter()
                 }
             }
         }
     }
+    
+    func updateMenuItems() {
+        guard let filters = userAppliedFilters else { return }
+        menuItems[Filters.sort.rawValue].isSelected = filters.appliedFilters[0].contains(.sort)
+        menuItems[Filters.stops.rawValue].isSelected = filters.appliedFilters[0].contains(.stops)
+        menuItems[Filters.Times.rawValue].isSelected = filters.appliedFilters[0].contains(.Times)
+        menuItems[Filters.Duration.rawValue].isSelected = filters.appliedFilters[0].contains(.Duration)
+        menuItems[Filters.Airlines.rawValue].isSelected = filters.appliedFilters[0].contains(.Airlines)
+        menuItems[Filters.Airport.rawValue].isSelected = filters.appliedFilters[0].contains(.Airport)
+        menuItems[Filters.Quality.rawValue].isSelected = filters.appliedFilters[0].contains(.Quality)
+        menuItems[Filters.Price.rawValue].isSelected = filters.appliedFilters[0].contains(.Price)
+        parchmentView?.reloadMenu()
+    }
+}
+
+extension FlightFilterBaseVC {
     
     func setValuesFor(_ uiViewController  : UIViewController , filter : Filters)
     {
@@ -239,19 +254,19 @@ class FlightFilterBaseViewController: UIViewController
                 }
             case FlightFilterTimesViewController.className :
                 if let timesFilterVC = viewController as? FlightFilterTimesViewController {
-//                    updateTimesVC(TimesFilterVC, inputFilters: filters  )
+                    //                    updateTimesVC(TimesFilterVC, inputFilters: filters  )
                     updateFlightLegTimeFilters(timesFilterVC, inputFilters: filters)
                 }
             case PriceFilterViewController.className :
                 if let priceFilterVC = viewController as? PriceFilterViewController {
-//                    setPriceVC( priceFilterVC, inputFilters: filters)
+                    //                    setPriceVC( priceFilterVC, inputFilters: filters)
                     updatePriceVC(priceFilterVC, inputFilters: filters)
-//                    priceFilterVC.updateUIPostLatestResults()
+                    //                    priceFilterVC.updateUIPostLatestResults()
                 }
             case FlightDurationFilterViewController.className :
                 if let durationFilterVC = viewController as? FlightDurationFilterViewController {
                     updateDurationVC(durationFilterVC , inputFilters: filters)
-//                    durationFilterVC.updateUIPostLatestResults()
+                    //                    durationFilterVC.updateUIPostLatestResults()
                 }
             case FlightStopsFilterViewController.className :
                 if let stopVC = viewController as? FlightStopsFilterViewController {
@@ -261,8 +276,8 @@ class FlightFilterBaseViewController: UIViewController
             case AirportsFilterViewController.className :
                 if let airportFilter = viewController as? AirportsFilterViewController {
                     updateAirportVC(airportFilter, inputFilters: filters)
-//                    setAirportVC(airportFilter , inputFilters : filters)
-//                    airportFilter.updateUIPostLatestResults()
+                    //                    setAirportVC(airportFilter , inputFilters : filters)
+                    //                    airportFilter.updateUIPostLatestResults()
                 }
             case QualityFilterViewController.className :
                 if let qualityFilterVC = viewController as? QualityFilterViewController {
@@ -348,7 +363,7 @@ class FlightFilterBaseViewController: UIViewController
     }
     
     func updateFlightLegTimeFilters(_ timesViewController : FlightFilterTimesViewController, inputFilters : [FiltersWS]) {
-                
+        
         for index in 0 ..< inputFilters.count {
             
             let leg = legList[index]
@@ -393,18 +408,18 @@ class FlightFilterBaseViewController: UIViewController
         } else {
             updateDurationFilter(durationVC, inputFilters: inputFilters)
         }
-//        let durationLegFilters : [DurationFilter]
-//        if searchType == RETURN_JOURNEY {
-//            let durationLegFilter = self.createDurationFilterArrayReturnJourney(inputFilters: inputFilters)
-//            durationLegFilters = [durationLegFilter]
-//        }else {
-//            durationLegFilters = self.createDurationFilterArray(inputFilters: inputFilters)
-//        }
-//
-//        durationVC.durationFilters = durationLegFilters
-//        if durationLegFilters.count>0{
-//            durationVC.currentDurationFilter = durationLegFilters[0]
-//        }
+        //        let durationLegFilters : [DurationFilter]
+        //        if searchType == RETURN_JOURNEY {
+        //            let durationLegFilter = self.createDurationFilterArrayReturnJourney(inputFilters: inputFilters)
+        //            durationLegFilters = [durationLegFilter]
+        //        }else {
+        //            durationLegFilters = self.createDurationFilterArray(inputFilters: inputFilters)
+        //        }
+        //
+        //        durationVC.durationFilters = durationLegFilters
+        //        if durationLegFilters.count>0{
+        //            durationVC.currentDurationFilter = durationLegFilters[0]
+        //        }
     }
     
     func createDurationFilterArray(inputFilters : [FiltersWS]) ->  [DurationFilter] {
@@ -768,14 +783,14 @@ class FlightFilterBaseViewController: UIViewController
     }
     
     func updatePriceVC(_ priceViewController : PriceFilterViewController , inputFilters : [FiltersWS]) {
-                
+        
         for (index, filter) in inputFilters.enumerated() {
             let newPriceWS = filter.pr
             let newPriceFilter = PriceFilter(onlyRefundableFaresSelected: false,
-            inputFareMinValue: CGFloat(newPriceWS.minPrice) ,
-            inputFareMaxVaule: CGFloat(newPriceWS.maxPrice) ,
-            userSelectedFareMinValue: CGFloat(newPriceWS.minPrice) ,
-            userSelectedFareMaxValue: CGFloat(newPriceWS.maxPrice) )
+                                             inputFareMinValue: CGFloat(newPriceWS.minPrice) ,
+                                             inputFareMaxVaule: CGFloat(newPriceWS.maxPrice) ,
+                                             userSelectedFareMinValue: CGFloat(newPriceWS.minPrice) ,
+                                             userSelectedFareMaxValue: CGFloat(newPriceWS.maxPrice) )
             
             if let userFilters = userAppliedFilters, userFilters.appliedFilters[index].contains(.Price), priceViewController.allPriceFilters.indices.contains(index) {
                 priceViewController.allPriceFilters[index].inputFareMinValue = newPriceFilter.inputFareMinValue
@@ -1004,7 +1019,7 @@ class FlightFilterBaseViewController: UIViewController
             if let userFilters = userAppliedFilters, userFilters.appliedFilters[index].contains(.Airport) {
                 let curAiportFilter = airportViewController.airportFilterArray[index]
                 let selectedAirports = curAiportFilter.allSelectedAirports
-
+                
                 airportLegFilter.originCities = airportLegFilter.originCities.map { (city) in
                     var newCity = city
                     newCity.airports = newCity.airports.map({ (airport) in
@@ -1115,10 +1130,3 @@ class FlightFilterBaseViewController: UIViewController
     }
 }
 
-extension FlightFilterBaseViewController : UIScrollViewDelegate
-{
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let index = scrollView.contentOffset.x / scrollView.frame.size.width
-        filterUIDelegate?.selectedIndexChanged(index: UInt(index))
-    }
-}
