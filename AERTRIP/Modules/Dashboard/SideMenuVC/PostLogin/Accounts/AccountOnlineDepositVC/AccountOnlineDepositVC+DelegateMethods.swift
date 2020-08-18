@@ -58,13 +58,13 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
             }
             
             totalPayableNowCell.currentUsingFor = .normal
+            totalPayableNowCell.setUpText()
             totalPayableNowCell.totalPayableNowLabel.text = LocalizedString.DepositAmount.localized
             
             totalPayableNowCell.totalPriceLabel.attributedText = self.viewModel.depositAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(16.0))
             
             totalPayableNowCell.topDeviderView.isHidden = true
             totalPayableNowCell.bottomDeviderView.isHidden = true
-            totalPayableNowCell.setUpText()
             totalPayableNowCell.totalPayableTextTopConstraint.constant = -2.0
             totalPayableNowCell.totalPayableTextBottomConstraint.constant = 12.0
             return totalPayableNowCell
@@ -75,15 +75,13 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 printDebug("TotalPayableNowCell not found")
                 return UITableViewCell()
             }
-            
+            totalPayableNowCell.topDeviderView.isHidden = true
+            totalPayableNowCell.bottomDeviderView.isHidden = true
             totalPayableNowCell.currentUsingFor = .normal
+            totalPayableNowCell.setUpText()
             totalPayableNowCell.totalPayableNowLabel.text = LocalizedString.ConvenienceFeeNonRefundable.localized
             
             totalPayableNowCell.totalPriceLabel.attributedText = self.viewModel.feeAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(16.0))
-            
-            totalPayableNowCell.topDeviderView.isHidden = true
-            totalPayableNowCell.bottomDeviderView.isHidden = true
-            totalPayableNowCell.setUpText()
             totalPayableNowCell.totalPayableTextTopConstraint.constant = -2.0
             totalPayableNowCell.totalPayableTextBottomConstraint.constant = 12.0
             return totalPayableNowCell
@@ -173,6 +171,27 @@ extension AccountOnlineDepositVC: AccountDepositAmountCellDelegate {
         self.updatePayButtonText()
         self.checkOutTableView.reloadData()
     }
+    
+    func amountValueChanged(amount: Double, amountString: String) {
+        self.viewModel.timer?.invalidate()
+        self.viewModel.timer = nil
+        self.viewModel.convenienceFeeUpdateTime = 1.0
+        self.updateConvenienceFee(with: amount)
+        
+    }
+    
+    func updateConvenienceFee(with amount: Double){
+        self.viewModel.timer?.invalidate()
+        self.viewModel.timer = nil
+        if amount != 0{
+            self.viewModel.depositItinerary?.partPaymentAmount = amount
+            self.viewModel.timer = Timer.scheduledTimer(withTimeInterval: self.viewModel.convenienceFeeUpdateTime, repeats: false, block: {[weak self] timer in
+                guard let self = self else {return}
+                self.viewModel.updateConvenienceFee(amount: "\(amount)")
+            })
+        }
+    }
+    
 }
 
 // MARK: - TopNavigationView Delegate methods
@@ -210,4 +229,20 @@ extension AccountOnlineDepositVC: AccountOnlineDepositVMDelegate {
     func makePaymentFail() {
         self.manageLoader(shouldStart: false)
     }
+    
+    
+    func willUpdateConvenienceFee() {
+        self.manageLoader(shouldStart: true)
+    }
+    
+    func didUpdateConvenienceFee() {
+        self.manageLoader(shouldStart: false)
+        self.updatePayButtonText()
+        self.checkOutTableView.reloadData()
+    }
+    
+    func convenienceFeeFail() {
+        self.manageLoader(shouldStart: false)
+    }
+    
 }

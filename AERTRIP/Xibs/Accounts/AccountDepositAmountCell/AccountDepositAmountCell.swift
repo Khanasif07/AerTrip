@@ -10,6 +10,11 @@ import UIKit
 
 protocol AccountDepositAmountCellDelegate: class {
     func amountDidChanged(amount: Double, amountString: String)
+    func amountValueChanged(amount: Double, amountString: String)
+}
+
+extension AccountDepositAmountCellDelegate{
+    func amountValueChanged(amount: Double, amountString: String){}
 }
 
 
@@ -41,7 +46,7 @@ class AccountDepositAmountCell: UITableViewCell {
 
         self.setFontAndColor()
         self.amountTextField.addTarget(self, action: #selector(self.textFieldDidEndEditing(_:)), for: .editingDidEnd)
-        //self.amountTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        self.amountTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
 
     }
     deinit {
@@ -69,9 +74,13 @@ class AccountDepositAmountCell: UITableViewCell {
         self.amountTextField.backgroundColor = .clear
         if let txt = sender.text  {
             self.amountTextField.AttributedBackgroundColorForText(text: txt, textColor: AppColors.clear)
+            let value = txt.isEmpty ? "0" : txt
+            if let amt = value.replacingOccurrences(of: ",", with: "").toDouble {
+                self.delegate?.amountValueChanged(amount: amt, amountString: txt)
+            }
         }
-
-       }
+        
+    }
     
     private func setData() {
         let value = amount.delimiterWithoutSymbol

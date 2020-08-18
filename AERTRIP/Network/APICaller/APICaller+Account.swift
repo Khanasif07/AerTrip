@@ -170,4 +170,41 @@ extension APICaller {
             }
         }
     }
+    
+    
+    func updateConvenienceFeeApi(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ itinerary: DepositItinerary?) -> Void) {
+        let id = params[APIKeys.it_id.rawValue] as? String ?? ""
+        let urlString = "\(APIEndPoint.baseUrlPath.rawValue)\(APIEndPoint.updateConvenienceFee.rawValue)?\(APIKeys.it_id.rawValue)=\(id)\(APIKeys.convenience_fees.rawValue)=\(APIKeys.convenience_fees.rawValue)"
+        
+        AppNetworking.POST(endPointPath: urlString, parameters: params, success: { [weak self] json in
+            guard let sSelf = self else { return }
+            printDebug(json)
+            sSelf.handleResponse(json, success: { sucess, jsonData in
+                if sucess {
+                    
+                    var itin: DepositItinerary?
+                    if let dict = jsonData[APIKeys.data.rawValue][APIKeys.itinerary.rawValue].dictionaryObject {
+                        itin = DepositItinerary(json: dict)
+                    }
+                    
+                    completionBlock(true, [], itin)
+                }
+                else {
+                    completionBlock(false, [], nil)
+                }
+            }, failure: { error in
+                ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
+                completionBlock(false, error, nil)
+            })
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [], nil)
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
+            }
+        }
+    }
+    
 }
