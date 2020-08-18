@@ -535,18 +535,17 @@
 
 //MARK:- FLIGHT SEARCH
 
--(void)showErrorMessage:(NSString*)errorMessage
-{
+-(void)showErrorMessage:(NSString*)errorMessage {
   [AertripToastView toastInView:self.parentViewController.view withText:errorMessage];
 }
+
 - (IBAction)searchFlightAction:(id)sender {
     
     [self.viewModel performFlightSearch];
     
 }
 
--(void)showFlightSearchResult:(BookFlightObject*)bookflightObject flightSearchParameters:(NSDictionary*)flightSearchParameters
-{
+-(void)showFlightSearchResult:(BookFlightObject*)bookflightObject flightSearchParameters:(NSDictionary*)flightSearchParameters {
     [self hideLoaderIndicatorForFilghtSearch];
     
     self.isInternationalJourney = !bookflightObject.isDomestic && bookflightObject.flightSearchType != SINGLE_JOURNEY;

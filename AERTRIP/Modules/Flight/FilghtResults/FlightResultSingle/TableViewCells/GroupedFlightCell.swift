@@ -61,10 +61,10 @@ struct TimeFK {
 //        selectionView.alpha = 0.0
         selectionView.backgroundColor = UIColor.AertripColor.withAlphaComponent(0.10)
         selectionView.layer.cornerRadius = 15.0
-        timeSegmentBGView.addSubview(selectionView)
+        //timeSegmentBGView.addSubview(selectionView)
+        timeCollectionView.addSubview(selectionView)
         timeCollectionView.sendSubviewToBack(selectionView)
         timeSegmentBGView.clipsToBounds = true
-//      timeCollectionView.addSubview(selectionView)
     }
     
     func setupTableView() {
