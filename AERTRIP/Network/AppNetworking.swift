@@ -299,6 +299,7 @@ enum AppNetworking {
                                 else {
                                     printDebug("response: \(value)\nresponse url: \(URLString)")
                                 }
+                                printDebug(JSON(value))
                                 success(JSON(value))
                                 
                             case .failure(let e):

@@ -748,7 +748,13 @@ extension AppFlowManager {
     
     func moveToRefundRequestedVC() {
         let obj = HCRefundRequestedVC.instantiate(fromAppStoryboard: .HotelCheckout)
-        self.mainNavigationController.pushViewController(obj, animated: true)
+        self.currentNavigation?.pushViewController(obj, animated: true)
+    }
+    
+    func moveToPaymentAmountHigh() {
+        let obj = HCRefundRequestedVC.instantiate(fromAppStoryboard: .HotelCheckout)
+        obj.currentUsingAs = .paymentAmountHigh
+        self.currentNavigation?.pushViewController(obj, animated: true)
     }
     
     // MARK: - Booking Module

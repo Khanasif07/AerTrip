@@ -10,17 +10,23 @@ import UIKit
 
 class HCRefundRequestedVC: BaseVC {
     
+    enum UsingFor {
+        case refundRequest
+        case paymentAmountHigh
+    }
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var tickButton: ATButton!
     @IBOutlet weak var requestedTextLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
-    @IBOutlet weak var goToHomeButton: ATButton!
+    @IBOutlet weak var goToHomeButton: UIButton!
+    @IBOutlet weak var gradientView: UIView!
     
     
     //MARK:- Properties
     //MARK:- Public
+    var currentUsingAs = UsingFor.refundRequest
     
     //MARK:- Private
     private var paymentMethod = "{payment method}"
@@ -40,12 +46,16 @@ class HCRefundRequestedVC: BaseVC {
         tickButton.layer.masksToBounds = true
     }
     
+    override func viewDidLayoutSubviews() {
+        self.gradientView.addGredient(isVertical: false)
+    }
+    
     override func initialSetup() {
         topNavView.configureNavBar(title: nil, isLeftButton: false, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
     }
     
     override func setupFonts() {
-        requestedTextLabel.font = AppFonts.Bold.withSize(31.0)
+        requestedTextLabel.font = AppFonts.c.withSize(31.0)
         
         messageLabel.font = AppFonts.Regular.withSize(16.0)
         
@@ -53,17 +63,24 @@ class HCRefundRequestedVC: BaseVC {
     }
     
     override func setupTexts() {
-        requestedTextLabel.text = LocalizedString.Requested.localized
-        
         tickButton.setTitle(nil, for: .normal)
-        
-        let messageText = "\(LocalizedString.WeNotedYourRequestToRefund.localized) \(2000.0.amountInDelimeterWithSymbol) \(LocalizedString.ToYour.localized) \(paymentMethod)"
-        
-        let attrMessageText = NSMutableAttributedString(string: messageText)
-        attrMessageText.addAttributes([NSAttributedString.Key.font: AppFonts.SemiBold.withSize(18.0)], range: (messageText as NSString).range(of: "\(2000.0.amountInDelimeterWithSymbol)"))
-        attrMessageText.addAttributes([NSAttributedString.Key.font: AppFonts.SemiBold.withSize(18.0)], range: (messageText as NSString).range(of: "\(paymentMethod)"))
-        
-        messageLabel.attributedText = attrMessageText
+        switch currentUsingAs {
+        case .refundRequest:
+            requestedTextLabel.text = LocalizedString.Requested.localized
+            
+            
+            let messageText = "\(LocalizedString.WeNotedYourRequestToRefund.localized) \(2000.0.amountInDelimeterWithSymbol) \(LocalizedString.ToYour.localized) \(paymentMethod)"
+            
+            let attrMessageText = NSMutableAttributedString(string: messageText)
+            attrMessageText.addAttributes([NSAttributedString.Key.font: AppFonts.SemiBold.withSize(18.0)], range: (messageText as NSString).range(of: "\(2000.0.amountInDelimeterWithSymbol)"))
+            attrMessageText.addAttributes([NSAttributedString.Key.font: AppFonts.SemiBold.withSize(18.0)], range: (messageText as NSString).range(of: "\(paymentMethod)"))
+            
+            messageLabel.attributedText = attrMessageText
+        case .paymentAmountHigh:
+            requestedTextLabel.numberOfLines = 0
+            requestedTextLabel.text = LocalizedString.WeHaveNotedYourBookingRequirement.localized
+            messageLabel.text = LocalizedString.WeHaveNotedYourBookingRequirementMessage.localized
+        }
         
         goToHomeButton.setTitle(LocalizedString.ReturnHome.localized, for: .normal)
     }
@@ -72,7 +89,7 @@ class HCRefundRequestedVC: BaseVC {
         tickButton.setImage(#imageLiteral(resourceName: "Checkmark"), for: .normal)
         
         requestedTextLabel.textColor = AppColors.themeBlack
-
+        
         goToHomeButton.setTitleColor(AppColors.themeWhite, for: .normal)
     }
     
@@ -85,6 +102,11 @@ class HCRefundRequestedVC: BaseVC {
     
     //MARK:- Action
     @IBAction func goToHomeButtonAction(_ sender: ATButton) {
-        AppFlowManager.default.popViewController(animated: true)
+        switch currentUsingAs {
+        case .refundRequest:
+            AppFlowManager.default.popViewController(animated: true)
+        case .paymentAmountHigh:
+            AppFlowManager.default.goToDashboard()
+        }
     }
 }

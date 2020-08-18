@@ -1,10 +1,10 @@
 Service Name,Error Code,Error Description,Error Message,
 ,,,,
-users/get-emails,1,No User/email found,,
+users/get-emails,1,No User/email found,User account not found,
 ,,,,
 ,,,,
 ,,,,
-flights/milefy,31,Error to fetch while calculate milefy benefits.,Error to fetch milage benefits data,Currently not merged
+flights/milefy,31,Error to fetch while calculate milefy benefits.,Unable to fetch milage benefits data,Currently not merged
 ,,,,
 airline/search,32,No result Found for search text,,
 ,,,,

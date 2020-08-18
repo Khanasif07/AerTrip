@@ -575,6 +575,10 @@
 "PerChild" = "Per Child";
 "PerInfant" = "Per Infant";
 "viewMorePhoto" = "More photos on TripAdvisor";
+"WeHaveNotedYourBookingRequirement" = "We have noted your booking requirement.";
+"WeHaveNotedYourBookingRequirementMessage" = " As per guideline, payments of more than ₹5,00,000 are not allowed online.
+
+Not to worry! Your booking is our highest priority. Our customer support team shall contact you at earliest. Thank you.";
 
 //Select Guest
 "SelectGuests" = "Select Guests";

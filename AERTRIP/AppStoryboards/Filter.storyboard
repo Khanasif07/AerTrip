@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -26,7 +26,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TYJ-ic-F1i">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4cd-5g-yVs">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="515.33333333333337"/>
@@ -136,7 +136,7 @@
                                 <state key="normal" image="bookingFilterIcon"/>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="4cd-5g-yVs" firstAttribute="width" secondItem="vJy-po-FUp" secondAttribute="width" id="2Mc-KZ-Y73"/>
@@ -147,7 +147,7 @@
                             <constraint firstItem="4cd-5g-yVs" firstAttribute="centerX" secondItem="dxU-Fm-YZC" secondAttribute="centerX" id="aSq-3M-tDY"/>
                             <constraint firstItem="ipg-zr-qoG" firstAttribute="centerY" secondItem="SM2-wX-DbY" secondAttribute="centerY" id="lAr-xG-f8g"/>
                             <constraint firstItem="ipg-zr-qoG" firstAttribute="leading" secondItem="SM2-wX-DbY" secondAttribute="leading" constant="9" id="lzN-it-iXz"/>
-                            <constraint firstItem="dxU-Fm-YZC" firstAttribute="bottom" secondItem="TYJ-ic-F1i" secondAttribute="bottom" id="oAd-cG-5Wp"/>
+                            <constraint firstAttribute="bottom" secondItem="TYJ-ic-F1i" secondAttribute="bottom" id="oAd-cG-5Wp"/>
                             <constraint firstItem="SM2-wX-DbY" firstAttribute="leading" secondItem="e2I-lS-6Bs" secondAttribute="leading" id="oRs-ys-VSM"/>
                             <constraint firstItem="TYJ-ic-F1i" firstAttribute="leading" secondItem="dxU-Fm-YZC" secondAttribute="leading" id="pfW-E5-EJh"/>
                             <constraint firstItem="hn4-KT-Vs8" firstAttribute="bottom" secondItem="gba-0o-61v" secondAttribute="bottom" id="sJ9-Bs-fx6"/>

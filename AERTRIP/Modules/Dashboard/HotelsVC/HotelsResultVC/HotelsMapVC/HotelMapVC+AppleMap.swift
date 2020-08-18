@@ -478,7 +478,12 @@ extension HotelsMapVC : MKMapViewDelegate{
     }
     
     func setInitailRegionToShow(location: CLLocationCoordinate2D){
-        self.appleMap.setRegion(MKCoordinateRegion(center: location, latitudinalMeters: 6000, longitudinalMeters: 6000), animated: true)
+        var region = MKCoordinateRegion(center: location, latitudinalMeters: 6000, longitudinalMeters: 6000)
+        if isZoomLevelOnceSet {
+            isZoomLevelOnceSet = true
+            region = MKCoordinateRegion(center: location, span: self.currentMapSpan)
+        }
+        self.appleMap.setRegion(region, animated: true)
     }
     
     func addBlurView(){

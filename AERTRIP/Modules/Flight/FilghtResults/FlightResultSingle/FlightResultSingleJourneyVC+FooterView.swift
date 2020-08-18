@@ -48,20 +48,20 @@ extension FlightResultSingleJourneyVC {
             let footerViewRect =  CGRect(x: 0, y: 0, width: resultsTableView.frame.width, height: height)
             let groupedFooterView = UIView(frame:footerViewRect)
             groupedFooterView.isUserInteractionEnabled = true
-            
+//            groupedFooterView.backgroundColor = UIColor.yellow
             let  tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappedOnGroupedFooterView(_:)))
             tapGesture.numberOfTapsRequired = 1
             groupedFooterView.addGestureRecognizer(tapGesture)
             
             for count in 1...numberOfView {
                 let baseView = createRepeatedFooterBaseView()
-                baseView.frame = CGRect(x: (8 * count) ,y: (10 + 6 * count) ,width: (Int(groupedFooterView.frame.width) - (16 * count))  ,height:44)
+                
+                baseView.frame = CGRect(x: (8 * count) ,y: (10 + 6 * count) - 8 ,width: (Int(groupedFooterView.frame.width) - (16 * count))  ,height:44)
                 groupedFooterView.addSubview(baseView)
                 groupedFooterView.sendSubviewToBack(baseView)
             }
             
-            
-            let titleLabel = UILabel(frame: CGRect(x:8,y: 16 ,width:groupedFooterView.frame.width - 16  ,height:44))
+            let titleLabel = UILabel(frame: CGRect(x:8,y: 8 ,width:groupedFooterView.frame.width - 16  ,height:44))
             titleLabel.textColor = UIColor.AertripColor
             titleLabel.font = UIFont(name: "SourceSansPro-Regular", size: 18.0)
             titleLabel.textAlignment = .center
@@ -103,7 +103,6 @@ extension FlightResultSingleJourneyVC {
                         self.viewModel.results.excludeExpensiveFlights = false
                         DispatchQueue.global(qos: .default).async {
 
-                        
                             self.sortedArray = Array(self.viewModel.results.sortedArray)
 
                             self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: self.viewModel.prevLegIndex, completion: {
@@ -121,6 +120,8 @@ extension FlightResultSingleJourneyVC {
             
             let footerViewRect = CGRect(x: 0, y: 0, width: resultsTableView.frame.width, height: 95)
             let expandedFooterView = UIView(frame: footerViewRect)
+//            expandedFooterView.backgroundColor = UIColor.yellow
+
             expandedFooterView.isUserInteractionEnabled = true
             
             let  tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnExpandedFooterView(_:)))
@@ -129,11 +130,11 @@ extension FlightResultSingleJourneyVC {
             
 
             let baseView = createRepeatedFooterBaseView()
-            baseView.frame = CGRect(x: 8,y: 16 ,width:expandedFooterView.frame.width - 16  ,height:44)
+            baseView.frame = CGRect(x: 8,y: 8 ,width:expandedFooterView.frame.width - 16  ,height:44)
 
             expandedFooterView.addSubview(baseView)
      
-            let titleLabel = UILabel(frame: CGRect(x:8,y: 16 ,width:expandedFooterView.frame.width - 16  ,height:44))
+            let titleLabel = UILabel(frame: CGRect(x:8,y: 8 ,width:expandedFooterView.frame.width - 16  ,height:44))
             titleLabel.textColor = UIColor.AertripColor
             titleLabel.font = UIFont(name: "SourceSansPro-Regular", size: 18)
             titleLabel.textAlignment = .center

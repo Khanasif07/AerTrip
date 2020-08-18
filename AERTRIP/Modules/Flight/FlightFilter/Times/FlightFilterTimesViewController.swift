@@ -36,13 +36,16 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     var currentTimerFilter : FlightLegTimeFilter!
     var currentActiveIndex = 0
     var numberOfLegs = 1
-    var dragStartPosition : CGFloat =  0.0
-    var dragEndPosition : CGFloat = 0.0
+//    var dragStartPosition : CGFloat =  0.0
+//    var dragEndPosition : CGFloat = 0.0
     
     var airportsArr = [AirportLegFilter]()
     var isIntMCOrReturnVC = false
 
     var arivalDifferenceInSeconds : TimeInterval = 0
+    
+    /// Used for day segments pan gesture
+    var panStartPos: CGFloat?
     
     //MARK:- multiLeg Outlets
     @IBOutlet weak var multiLegViewHeight: NSLayoutConstraint!
@@ -189,150 +192,156 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             noonButton.alpha = 0.6
         }
 
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanOnView(sender:)))
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan(sender:)))
         departureButtonStackView.isUserInteractionEnabled = true
         departureButtonStackView.addGestureRecognizer(panGesture)
     }
     
     
-    @objc func handlePanOnView(sender: UIPanGestureRecognizer) {
+//    @objc func handlePanOnView(sender: UIPanGestureRecognizer) {
+//
+//        guard let senderView = sender.view else { return }
+//
+//        if sender.state == .began {
+//            dragStartPosition = sender.location(in: senderView).x
+//        }
+//
+//        if sender.state == .ended {
+//            dragEndPosition = sender.location(in: senderView).x
+//
+//            if dragEndPosition < dragStartPosition {
+//                dragStartPosition = 0.0
+//                dragEndPosition = 0.0
+//                return
+//            }
+//
+//            let width = senderView.frame.width
+//            let partWidth = width/4.0
+//
+//            let startPosition = floor(dragStartPosition  /  partWidth )
+//            let endPosition =  ceil(dragEndPosition  /  partWidth )
+//            var showMessage = false
+//            let calendar = Calendar.current
+//            let startTime = calendar.startOfDay(for: currentTimerFilter.departureMinTime)
+//            let minDeparture = currentTimerFilter.departureMinTime.timeIntervalSince(startTime)
+//            let roundedMinDeparture = TimeInterval(3600.0 * floor((minDeparture  / 3600 )))
+//            let maxDeparture =  currentTimerFilter.departureTimeMax.timeIntervalSince(startTime)
+//            let roundedMaxDeparture = TimeInterval(3600 * ceil(maxDeparture  / 3600 ))
+//
+//
+//            switch startPosition {
+//            case 0 :
+//                if roundedMinDeparture > TimeInterval.startOfDay {
+//                    departureStartTimeInterval = roundedMinDeparture
+//                    showMessage = true
+//                }
+//                else {
+//                    departureStartTimeInterval = TimeInterval.startOfDay
+//                }
+//            case 1 :
+//
+//                if roundedMinDeparture > TimeInterval.sixAM {
+//                    departureStartTimeInterval = roundedMinDeparture
+//                    showMessage = true
+//                }
+//                else {
+//                    departureStartTimeInterval = TimeInterval.sixAM
+//                }
+//            case 2 :
+//                if roundedMinDeparture > TimeInterval.twelvePM {
+//                    departureStartTimeInterval = roundedMinDeparture
+//                    showMessage = true
+//                }
+//                else {
+//                    departureStartTimeInterval = TimeInterval.twelvePM
+//                }
+//            case 3 :
+//
+//                if roundedMinDeparture > TimeInterval.sixPM {
+//                    departureStartTimeInterval = roundedMinDeparture
+//                    showMessage = true
+//                }
+//                else {
+//                    departureStartTimeInterval = TimeInterval.sixPM
+//                }
+//
+//            default:
+//                print("unknown state")
+//            }
+//
+//            switch  endPosition{
+//            case 1 :
+//                if roundedMaxDeparture < TimeInterval.sixAM  {
+//                    departureEndTimeInterval = roundedMaxDeparture
+//                    showMessage = true
+//                }
+//                else {
+//                    departureEndTimeInterval = TimeInterval.sixAM
+//                }
+//            case 2 :
+//                if roundedMaxDeparture < TimeInterval.twelvePM {
+//                    departureEndTimeInterval = roundedMaxDeparture
+//                    showMessage = true
+//                }
+//                else {
+//                    departureEndTimeInterval = TimeInterval.twelvePM
+//                }
+//            case 3 :
+//                if roundedMaxDeparture < TimeInterval.sixPM {
+//                    departureEndTimeInterval = roundedMaxDeparture
+//                    showMessage = true
+//                }
+//                else {
+//                    departureEndTimeInterval = TimeInterval.sixPM
+//                }
+//            case 4 , 5 :
+//
+//                if roundedMaxDeparture < TimeInterval.endOfDay {
+//                    departureEndTimeInterval = roundedMaxDeparture
+//                    showMessage = true
+//                }
+//                    else {
+//                    departureEndTimeInterval = TimeInterval.endOfDay
+//                }
+//
+//            default:
+//                print("unknown state")
+//            }
+//
+//            //*******************Haptic Feedback code********************
+//            let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+//            selectionFeedbackGenerator.selectionChanged()
+//            //*******************Haptic Feedback code********************
+//
+//            updateDepartureUIValues()
+//            var message = String()
+//
+//            if showMessage {
+//                message = "Flights are available between " +  stringFromTimeInterval(interval: departureStartTimeInterval) + " and " + stringFromTimeInterval(interval: departureEndTimeInterval)
+//                showToastMessageForAvailableDepartureRange(message)
+//            }
+//
+//            delegate?.departureSelectionChangedAt(currentActiveIndex , minDuration:departureStartTimeInterval , maxDuration: departureEndTimeInterval)
+//            dragStartPosition = 0.0
+//            dragEndPosition = 0.0
+//
+//
+//        }
+//    }
         
-        guard let senderView = sender.view else { return }
-        
-        if sender.state == .began {
-            dragStartPosition = sender.location(in: senderView).x
-        }
-        
-        if sender.state == .ended {
-            dragEndPosition = sender.location(in: senderView).x
-            
-            if dragEndPosition < dragStartPosition {
-                dragStartPosition = 0.0
-                dragEndPosition = 0.0
-                return
-            }
-            
-            let width = senderView.frame.width
-            let partWidth = width/4.0
-            
-            let startPosition = floor(dragStartPosition  /  partWidth )
-            let endPosition =  ceil(dragEndPosition  /  partWidth )
-            var showMessage = false
-            let calendar = Calendar.current
-            let startTime = calendar.startOfDay(for: currentTimerFilter.departureMinTime)
-            let minDeparture = currentTimerFilter.departureMinTime.timeIntervalSince(startTime)
-            let roundedMinDeparture = TimeInterval(3600.0 * floor((minDeparture  / 3600 )))
-            let maxDeparture =  currentTimerFilter.departureTimeMax.timeIntervalSince(startTime)
-            let roundedMaxDeparture = TimeInterval(3600 * ceil(maxDeparture  / 3600 ))
-
-            
-            switch startPosition {
-            case 0 :
-                if roundedMinDeparture > TimeInterval.startOfDay {
-                    departureStartTimeInterval = roundedMinDeparture
-                    showMessage = true
-                }
-                else {
-                    departureStartTimeInterval = TimeInterval.startOfDay
-                }
-            case 1 :
-                
-                if roundedMinDeparture > TimeInterval.sixAM {
-                    departureStartTimeInterval = roundedMinDeparture
-                    showMessage = true
-                }
-                else {
-                    departureStartTimeInterval = TimeInterval.sixAM
-                }
-            case 2 :
-                if roundedMinDeparture > TimeInterval.twelvePM {
-                    departureStartTimeInterval = roundedMinDeparture
-                    showMessage = true
-                }
-                else {
-                    departureStartTimeInterval = TimeInterval.twelvePM
-                }
-            case 3 :
-                
-                if roundedMinDeparture > TimeInterval.sixPM {
-                    departureStartTimeInterval = roundedMinDeparture
-                    showMessage = true
-                }
-                else {
-                    departureStartTimeInterval = TimeInterval.sixPM
-                }
-                
-            default:
-                print("unknown state")
-            }
-
-            switch  endPosition{
-            case 1 :
-                if roundedMaxDeparture < TimeInterval.sixAM  {
-                    departureEndTimeInterval = roundedMaxDeparture
-                    showMessage = true
-                }
-                else {
-                    departureEndTimeInterval = TimeInterval.sixAM
-                }
-            case 2 :
-                if roundedMaxDeparture < TimeInterval.twelvePM {
-                    departureEndTimeInterval = roundedMaxDeparture
-                    showMessage = true
-                }
-                else {
-                    departureEndTimeInterval = TimeInterval.twelvePM
-                }
-            case 3 :
-                if roundedMaxDeparture < TimeInterval.sixPM {
-                    departureEndTimeInterval = roundedMaxDeparture
-                    showMessage = true
-                }
-                else {
-                    departureEndTimeInterval = TimeInterval.sixPM
-                }
-            case 4 , 5 :
-            
-                if roundedMaxDeparture < TimeInterval.endOfDay {
-                    departureEndTimeInterval = roundedMaxDeparture
-                    showMessage = true
-                }
-                    else {
-                    departureEndTimeInterval = TimeInterval.endOfDay
-                }
-                
-            default:
-                print("unknown state")
-            }
-            
-            //*******************Haptic Feedback code********************
-            let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-            selectionFeedbackGenerator.selectionChanged()
-            //*******************Haptic Feedback code********************
-
-            updateDepartureUIValues()
-            var message = String()
-            
-            if showMessage {
-                message = "Flights are available between " +  stringFromTimeInterval(interval: departureStartTimeInterval) + " and " + stringFromTimeInterval(interval: departureEndTimeInterval)
-                showToastMessageForAvailableDepartureRange(message)
-            }
-            
-            delegate?.departureSelectionChangedAt(currentActiveIndex , minDuration:departureStartTimeInterval , maxDuration: departureEndTimeInterval)
-            dragStartPosition = 0.0
-            dragEndPosition = 0.0
-
-            
-        }
-    }
-    
-    var panStartPos: CGFloat?
-    
     @objc private func handlePan(sender: UIPanGestureRecognizer) {
         
         guard let senderView = sender.view else { return }
         
         let location = sender.location(in: senderView)
+        
+        if locationOutOfRange(senderView: senderView, location: location) {
+            return
+        }
+        
+        if let startPos = panStartPos {
+            highlightButtonsInRange(mainRectView: senderView, startPos: startPos, curPos: location.x)
+        }
         
         if sender.state == .began {
             panStartPos = location.x
@@ -353,126 +362,255 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             let panStartPositionInNumber = (panStartPos ?? 0) / partWidth
             
             if location.x < (panStartPos ?? 0) {
-                switch ceil(panStartPositionInNumber) {
-                case 1 :
-                    if roundedMaxDeparture < TimeInterval.sixAM  {
-                        departureEndTimeInterval = roundedMaxDeparture
-                    }
-                    else {
-                        departureEndTimeInterval = TimeInterval.sixAM
-                    }
-                case 2 :
-                    if roundedMaxDeparture < TimeInterval.twelvePM {
-                        departureEndTimeInterval = roundedMaxDeparture
-                    }
-                    else {
-                        departureEndTimeInterval = TimeInterval.twelvePM
-                    }
-                case 3 :
-                    if roundedMaxDeparture < TimeInterval.sixPM {
-                        departureEndTimeInterval = roundedMaxDeparture
-                    }
-                    else {
-                        departureEndTimeInterval = TimeInterval.sixPM
-                    }
-                case 4 , 5 :
-                
-                    if roundedMaxDeparture < TimeInterval.endOfDay {
-                        departureEndTimeInterval = roundedMaxDeparture
-                    }
-                        else {
-                        departureEndTimeInterval = TimeInterval.endOfDay
-                    }
-                    
-                default:
-                    print("unknown state")
-                }
-                
-                
                 let curPosInNumber = floor(location.x / partWidth)
-                
-                switch curPosInNumber {
-                    case 0 :
-                        if roundedMinDeparture > TimeInterval.startOfDay {
-                            departureStartTimeInterval = roundedMinDeparture
-                        }
-                        else {
-                            departureStartTimeInterval = TimeInterval.startOfDay
-                        }
-                    case 1 :
-                        
-                        if roundedMinDeparture > TimeInterval.sixAM {
-                            departureStartTimeInterval = roundedMinDeparture
-                        }
-                        else {
-                            departureStartTimeInterval = TimeInterval.sixAM
-                        }
-                    case 2 :
-                        if roundedMinDeparture > TimeInterval.twelvePM {
-                            departureStartTimeInterval = roundedMinDeparture
-                        }
-                        else {
-                            departureStartTimeInterval = TimeInterval.twelvePM
-                        }
-                    case 3 :
-                        
-                        if roundedMinDeparture > TimeInterval.sixPM {
-                            departureStartTimeInterval = roundedMinDeparture
-                        }
-                        else {
-                            departureStartTimeInterval = TimeInterval.sixPM
-                        }
-                        
-                    default:
-                        print("unknown state")
-                }
+                handleLeftSidePan(maxPosNumber: ceil(panStartPositionInNumber), roundedMinDeparture: roundedMinDeparture, roundedMaxDeparture: roundedMaxDeparture, curPosNumber: curPosInNumber)
                 
             } else {
-                switch floor(panStartPositionInNumber) {
-                    case 0 :
-                        if roundedMinDeparture > TimeInterval.startOfDay {
-                            departureStartTimeInterval = roundedMinDeparture
-                        }
-                        else {
-                            departureStartTimeInterval = TimeInterval.startOfDay
-                        }
-                    case 1 :
-                        
-                        if roundedMinDeparture > TimeInterval.sixAM {
-                            departureStartTimeInterval = roundedMinDeparture
-                        }
-                        else {
-                            departureStartTimeInterval = TimeInterval.sixAM
-                        }
-                    case 2 :
-                        if roundedMinDeparture > TimeInterval.twelvePM {
-                            departureStartTimeInterval = roundedMinDeparture
-                        }
-                        else {
-                            departureStartTimeInterval = TimeInterval.twelvePM
-                        }
-                    case 3 :
-                        
-                        if roundedMinDeparture > TimeInterval.sixPM {
-                            departureStartTimeInterval = roundedMinDeparture
-                        }
-                        else {
-                            departureStartTimeInterval = TimeInterval.sixPM
-                        }
-                        
-                    default:
-                        print("unknown state")
-                }
+                let curPosInNumber = ceil(location.x / partWidth)
+                handleRightSidePan(minPosNumber: floor(panStartPositionInNumber), roundedMinDeparture: roundedMinDeparture, roundedMaxDeparture: roundedMaxDeparture, curPosNumber: curPosInNumber)
             }
-            updateDepartureUIValues()
+            UIView.animate(withDuration: 0.3) {
+                self.updateDepartureUIValues()
+                self.view.layoutIfNeeded()
+            }
         }
         
+        if sender.state == .ended || sender.state == .cancelled {
+            delegate?.departureSelectionChangedAt(currentActiveIndex , minDuration:departureStartTimeInterval , maxDuration: departureEndTimeInterval)
+            self.buttonReleased(sender: UIButton())
+        }
+    }
+    
+    private func locationOutOfRange(senderView: UIView, location: CGPoint) -> Bool {
+        
+        var leftFrameToExclude: CGRect = .zero
+        var rightFrameToExclude: CGRect = .zero
+        
+        let startDateTime = Calendar.current.startOfDay(for: currentTimerFilter.departureMinTime)
+        let minTimeInterval = currentTimerFilter.departureMinTime.timeIntervalSince(startDateTime)
+        let maxTimeInterval = currentTimerFilter.departureTimeMax.timeIntervalSince(startDateTime)
+        
+        let startTime = TimeInterval(3600 * floor(minTimeInterval / 3600))
+        
+        let endTime = 3600 * TimeInterval(ceil(maxTimeInterval  / 3600 ))
+        
+        
+        if startTime > TimeInterval.sixAM {
+            leftFrameToExclude = earlyMorningContainerView.convert(earlyMorningButton.frame, to: senderView)
+        }
+        
+        if startTime > TimeInterval.twelvePM {
+            leftFrameToExclude = noonContainerView.convert(noonButton.frame, to: senderView)
+        }
+        
+        if startTime > TimeInterval.sixPM {
+            leftFrameToExclude = eveningContainerView.convert(eveningButton.frame, to: senderView)
+        }
+        
+        if endTime < TimeInterval.sixPM {
+            rightFrameToExclude = lateEveningContainerView.convert(lateEveningButton.frame, to: senderView)
+        }
+        
+        if endTime < TimeInterval.twelvePM {
+            rightFrameToExclude = eveningContainerView.convert(eveningButton.frame, to: senderView)
+        }
+        
+        if endTime < TimeInterval.sixAM {
+            rightFrameToExclude = noonContainerView.convert(noonButton.frame, to: senderView)
+        }
+        
+        leftFrameToExclude.origin.x -= senderView.width
+        leftFrameToExclude.size.width += senderView.width + 25
+        rightFrameToExclude.origin.x -= 25
+        rightFrameToExclude.size.width = senderView.width
+        
+        if leftFrameToExclude.contains(location) || rightFrameToExclude.contains(location) {
+            return true
+        }
+        return false
+    }
+    
+    private func highlightButtonsInRange(mainRectView: UIView, startPos: CGFloat, curPos: CGFloat) {
+        var selectedRect: CGRect = .zero
+        selectedRect = earlyMorningButton.frame
+        if startPos < curPos {
+            selectedRect.origin.x = startPos
+            selectedRect.size.width = curPos - startPos
+        } else {
+            selectedRect.origin.x = curPos
+            selectedRect.size.width = startPos - curPos
+        }
+        
+        highlightUnhighlightButtonsInRect(selectedRect: selectedRect, mainRectView: mainRectView)
+    }
+    
+    private func highlightUnhighlightButtonsInRect(selectedRect: CGRect, mainRectView: UIView) {
+        let btnArr = [earlyMorningButton, noonButton, eveningButton, lateEveningButton]
+        btnArr.forEach { (btn) in
+            if let button = btn, let btnSuperViewRect = button.superview?.frame {
+                if selectedRect.intersects(btnSuperViewRect) {
+                    button.backgroundColor = UIColor(displayP3Red: 236.0/255.0 , green:253.0/255.0 , blue:244.0/255.0 , alpha:1)
+                } else {
+                    button.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+                }
+            }
+        }
+    }
+    
+    private func handleRightSidePan(minPosNumber: CGFloat, roundedMinDeparture: TimeInterval, roundedMaxDeparture: TimeInterval, curPosNumber: CGFloat) {
+        
+        switch minPosNumber {
+            case 0 :
+                if roundedMinDeparture > TimeInterval.startOfDay {
+                    departureStartTimeInterval = roundedMinDeparture
+                }
+                else {
+                    departureStartTimeInterval = TimeInterval.startOfDay
+                }
+            case 1 :
+                
+                if roundedMinDeparture > TimeInterval.sixAM {
+                    departureStartTimeInterval = roundedMinDeparture
+                }
+                else {
+                    departureStartTimeInterval = TimeInterval.sixAM
+                }
+            case 2 :
+                if roundedMinDeparture > TimeInterval.twelvePM {
+                    departureStartTimeInterval = roundedMinDeparture
+                }
+                else {
+                    departureStartTimeInterval = TimeInterval.twelvePM
+                }
+            case 3 :
+                
+                if roundedMinDeparture > TimeInterval.sixPM {
+                    departureStartTimeInterval = roundedMinDeparture
+                }
+                else {
+                    departureStartTimeInterval = TimeInterval.sixPM
+                }
+                
+            default:
+                print("unknown state")
+        }
+        
+        switch curPosNumber {
+        case 1 :
+            if roundedMaxDeparture < TimeInterval.sixAM  {
+                departureEndTimeInterval = roundedMaxDeparture
+            }
+            else {
+                departureEndTimeInterval = TimeInterval.sixAM
+            }
+        case 2 :
+            if roundedMaxDeparture < TimeInterval.twelvePM {
+                departureEndTimeInterval = roundedMaxDeparture
+            }
+            else {
+                departureEndTimeInterval = TimeInterval.twelvePM
+            }
+        case 3 :
+            if roundedMaxDeparture < TimeInterval.sixPM {
+                departureEndTimeInterval = roundedMaxDeparture
+            }
+            else {
+                departureEndTimeInterval = TimeInterval.sixPM
+            }
+        case 4 , 5 :
+        
+            if roundedMaxDeparture < TimeInterval.endOfDay {
+                departureEndTimeInterval = roundedMaxDeparture
+            }
+                else {
+                departureEndTimeInterval = TimeInterval.endOfDay
+            }
+            
+        default:
+            print("unknown state")
+        }
+        
+    }
+    
+    private func handleLeftSidePan(maxPosNumber: CGFloat, roundedMinDeparture: TimeInterval, roundedMaxDeparture: TimeInterval, curPosNumber: CGFloat) {
+        
+        switch maxPosNumber {
+        case 1 :
+            if roundedMaxDeparture < TimeInterval.sixAM  {
+                departureEndTimeInterval = roundedMaxDeparture
+            }
+            else {
+                departureEndTimeInterval = TimeInterval.sixAM
+            }
+        case 2 :
+            if roundedMaxDeparture < TimeInterval.twelvePM {
+                departureEndTimeInterval = roundedMaxDeparture
+            }
+            else {
+                departureEndTimeInterval = TimeInterval.twelvePM
+            }
+        case 3 :
+            if roundedMaxDeparture < TimeInterval.sixPM {
+                departureEndTimeInterval = roundedMaxDeparture
+            }
+            else {
+                departureEndTimeInterval = TimeInterval.sixPM
+            }
+        case 4 , 5 :
+        
+            if roundedMaxDeparture < TimeInterval.endOfDay {
+                departureEndTimeInterval = roundedMaxDeparture
+            }
+                else {
+                departureEndTimeInterval = TimeInterval.endOfDay
+            }
+            
+        default:
+            print("unknown state")
+        }
+                
+        switch curPosNumber {
+            case 0 :
+                if roundedMinDeparture > TimeInterval.startOfDay {
+                    departureStartTimeInterval = roundedMinDeparture
+                }
+                else {
+                    departureStartTimeInterval = TimeInterval.startOfDay
+                }
+            case 1 :
+                
+                if roundedMinDeparture > TimeInterval.sixAM {
+                    departureStartTimeInterval = roundedMinDeparture
+                }
+                else {
+                    departureStartTimeInterval = TimeInterval.sixAM
+                }
+            case 2 :
+                if roundedMinDeparture > TimeInterval.twelvePM {
+                    departureStartTimeInterval = roundedMinDeparture
+                }
+                else {
+                    departureStartTimeInterval = TimeInterval.twelvePM
+                }
+            case 3 :
+                
+                if roundedMinDeparture > TimeInterval.sixPM {
+                    departureStartTimeInterval = roundedMinDeparture
+                }
+                else {
+                    departureStartTimeInterval = TimeInterval.sixPM
+                }
+                
+            default:
+                print("unknown state")
+        }
     }
     
     @objc fileprivate func departureRangeChanged () {
         
         let leftValue  = departureRangeSlider.leftValue
         let rightValue = departureRangeSlider.rightValue
+        
         var startTime  =  TimeInterval(leftValue * 86400.0 )
         var endTime    =  TimeInterval(rightValue * 86400.0 )
 
@@ -483,10 +621,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
         if departureStartTime.text == "00:00" || departureStartTime.text == "06:00" || departureStartTime.text == "12:00" || departureStartTime.text == "18:00" || departureStartTime.text == "24:00" || departureEndTime.text == "00:00" || departureEndTime.text == "06:00" || departureEndTime.text == "12:00" || departureEndTime.text == "18:00" || departureEndTime.text == "24:00"
         {
-            //*******************Haptic Feedback code********************
-               let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-               selectionFeedbackGenerator.selectionChanged()
-            //*******************Haptic Feedback code********************
+            giveHapticFeedback()
 
         }
         
@@ -504,10 +639,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
         if departureStartTime.text == "00:00" || departureStartTime.text == "06:00" || departureStartTime.text == "12:00" || departureStartTime.text == "18:00" || departureStartTime.text == "24:00" || departureEndTime.text == "00:00" || departureEndTime.text == "06:00" || departureEndTime.text == "12:00" || departureEndTime.text == "18:00" || departureEndTime.text == "24:00"
         {
-            //*******************Haptic Feedback code********************
-               let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-               selectionFeedbackGenerator.selectionChanged()
-            //*******************Haptic Feedback code********************
+            giveHapticFeedback()
 
         }
     }
@@ -555,18 +687,29 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
 
         let startTime = TimeInterval(3600 * floor(minTimeInterval / 3600))
         departureStartTimeInterval = TimeInterval(3600 * floor(leftValue / 3600))
+        
+        let endTime = 3600 * TimeInterval(ceil(maxTimeInterval  / 3600 ))
+        departureEndTimeInterval = TimeInterval(3600 * floor(rightValue / 3600))
 
+        // MAX and MIN checks
         if leftValue < startTime {
             departureStartTimeInterval = TimeInterval(startTime)
             showMessage = true
         }
-
-        let endTime = 3600 * TimeInterval(ceil(maxTimeInterval  / 3600 ))
-        departureEndTimeInterval = TimeInterval(3600 * floor(rightValue / 3600))
+        
+        if leftValue >= endTime {
+            let maxValForDeparture = (endTime/3600) - 2
+            departureStartTimeInterval = TimeInterval(maxValForDeparture * 3600)
+        }
 
         if rightValue > endTime {
             departureEndTimeInterval = TimeInterval(endTime)
             showMessage = true
+        }
+        
+        if rightValue <= startTime {
+            let minValForDeparture = (startTime/3600) + 2
+            departureEndTimeInterval = TimeInterval(minValForDeparture * 3600)
         }
 
         let calendar = Calendar.current
@@ -582,7 +725,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             
             message = "Flights are available between " +  stringFromTimeInterval(interval: availableMinTime) + " and " + stringFromTimeInterval(interval: availabelMaxTime)
             showToastMessageForAvailableDepartureRange(message)
-            return
+//            return
         }
         
         multiLegTimerFilter[currentActiveIndex] = currentTimerFilter
@@ -697,10 +840,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         setmultiLegSubviews()
         delegate?.departureSelectionChangedAt(currentActiveIndex , minDuration:departureStartTimeInterval , maxDuration: departureEndTimeInterval)
         
-        //*******************Haptic Feedback code********************
-        let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-        selectionFeedbackGenerator.selectionChanged()
-        //*******************Haptic Feedback code********************
+        giveHapticFeedback()
         
     }
     
@@ -931,10 +1071,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
         if arrivalEndTime.text!.contains(find: "00:00") || arrivalStartTime.text!.contains(find: "00:00")
          {
-             //*******************Haptic Feedback code********************
-             let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-             selectionFeedbackGenerator.selectionChanged()
-             //*******************Haptic Feedback code********************
+             giveHapticFeedback()
              
          }
     }
@@ -1010,6 +1147,9 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     
     @objc func buttonPressed(sender:UIButton)
     {
+        if sender.alpha != 1 {
+            return
+        }
         switch sender.tag
         {
         case 1 :
@@ -1040,6 +1180,8 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         default:
             print("unknown state")
         }
+        
+        departureSelectedByRangeButtons(sender)
     }
     
     @objc func buttonReleased(sender:UIButton)
@@ -1095,6 +1237,13 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         setUIValues()
         
         
+    }
+    
+    private func giveHapticFeedback() {
+        //*******************Haptic Feedback code********************
+        let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        selectionFeedbackGenerator.selectionChanged()
+        //*******************Haptic Feedback code********************
     }
 }
 

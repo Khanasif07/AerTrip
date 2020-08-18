@@ -99,6 +99,8 @@ class HCWhatNextTableViewCell: UITableViewCell {
 //        self.instagramButton.backgroundColor = AppColors.clear
         self.whatNextCollectionView.registerCell(nibName: HCWhatNextCollectionViewCell.reusableIdentifier)
         self.flowLayOut()
+        
+        self.contentView.layoutIfNeeded()
     }
 
     ///COnfigure Cell

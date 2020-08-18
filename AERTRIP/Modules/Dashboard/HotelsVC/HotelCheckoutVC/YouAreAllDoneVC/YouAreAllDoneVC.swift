@@ -416,6 +416,10 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
         return self.heightForHeaderInSection(section: section)
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        if (tableView.cellForRow(at: indexPath) as? HCHotelAddreesCell) != nil {
 //            AppGlobals.shared.redirectToMap(sourceView: view, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong, destLat: self.viewModel.hotelReceiptData?.lat ?? "", destLong: self.viewModel.hotelReceiptData?.long ?? "")

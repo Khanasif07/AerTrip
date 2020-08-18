@@ -737,6 +737,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
         }else{
             self.manageCouponLoader(isApplying:false)
             AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+            
         }
     }
     
@@ -813,9 +814,14 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
         }
     }
     
-    func makePaymentFail() {
+    func makePaymentFail(errors: ErrorCodes) {
         self.manageLoader(shouldStart: false)
-        AppToast.default.showToastMessage(message: "Make Payment Failed")
+//        if errors.contains(994) {
+            AppFlowManager.default.moveToPaymentAmountHigh()
+//        } else {
+//            AppToast.default.showToastMessage(message: "Make Payment Failed")
+//        }
+        //
     }
     
     func willGetPaymentResonse() {

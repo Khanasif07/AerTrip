@@ -126,6 +126,7 @@ class HotelInfoAddressCell: UITableViewCell {
     
     internal func configureAddressCell(hotelData: HotelDetails = HotelDetails(),isForBooking: Bool = false,address: String = "") {
         addressInfoTextView.textContainer.lineBreakMode = .byWordWrapping
+        self.addressInfoTextView.textContainer.maximumNumberOfLines = 0
         self.moreBtnOutlet.isHidden = true
         self.addressLabel.text = LocalizedString.AddressSmallLaters.localized
         if isForBooking {
@@ -136,8 +137,8 @@ class HotelInfoAddressCell: UITableViewCell {
             }
         } else {
                 self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText: hotelData.address, startTextColor: AppColors.themeBlack, middleText: "\n" + LocalizedString.Maps.localized + " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+            
         }
-        
     }
     
     internal func configureOverviewCell(hotelData: HotelDetails = HotelDetails(), isForBooking: Bool = false, overview: String = "") {

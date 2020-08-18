@@ -125,7 +125,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     // Request and View Type
     var visualEffectView : UIVisualEffectView!
     var backView : UIView!
-    
+    var isZoomLevelOnceSet = false
     
     // Empty State view
     

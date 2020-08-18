@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -43,13 +43,13 @@
                                 <rect key="frame" x="16" y="20" width="311" height="84.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="gc5-0F-aYP">
-                                        <rect key="frame" x="0.0" y="0.0" width="122" height="16"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="137" height="16"/>
                                         <subviews>
                                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Woo-ge-naB" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="83" height="16"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="95" height="16"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="83" id="H7d-IY-OK8"/>
+                                                    <constraint firstAttribute="width" constant="95" id="H7d-IY-OK8"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="starRatingUnfill"/>
@@ -66,20 +66,20 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="n7I-tp-hRy">
-                                                <rect key="frame" x="101" y="0.0" width="21" height="16"/>
+                                                <rect key="frame" x="113" y="0.0" width="24" height="16"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviserBig" translatesAutoresizingMaskIntoConstraints="NO" id="bzb-lF-LnC">
-                                                        <rect key="frame" x="0.0" y="0.0" width="21" height="16"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="24" height="16"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="21" id="bEC-qI-feu"/>
+                                                            <constraint firstAttribute="width" constant="24" id="bEC-qI-feu"/>
                                                         </constraints>
                                                     </imageView>
                                                     <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iI0-d8-CnF" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                                        <rect key="frame" x="-47" y="0.0" width="68" height="16"/>
+                                                        <rect key="frame" x="-54" y="0.0" width="78" height="16"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="16" id="Him-OF-4va"/>
-                                                            <constraint firstAttribute="width" constant="68" id="VPy-Wi-mTf"/>
+                                                            <constraint firstAttribute="width" constant="78" id="VPy-Wi-mTf"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilled"/>
@@ -181,9 +181,9 @@
     <resources>
         <image name="combinedShapeFill" width="15" height="14"/>
         <image name="combinedShapeUnfilled" width="14" height="14"/>
-        <image name="saveHotelsSelected" width="27" height="27"/>
+        <image name="saveHotelsSelected" width="27" height="30"/>
         <image name="share_file_icon" width="27" height="27"/>
-        <image name="starRatingFilled" width="30" height="30"/>
+        <image name="starRatingFilled" width="31" height="30"/>
         <image name="starRatingUnfill" width="30" height="30"/>
         <image name="tripAdviserBig" width="32" height="18"/>
     </resources>

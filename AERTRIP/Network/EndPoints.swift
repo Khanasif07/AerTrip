@@ -114,6 +114,7 @@ enum APIEndPoint: String {
     case rescheduleRequest = "reschedule/request"
     case addOnRequest = "addon/request"
     case communicationDetail = "dashboard/communication-detail"
+    case pass = "dashboard/pass"
 
     // Final Checkout
     

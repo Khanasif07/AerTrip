@@ -278,7 +278,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             cell.separatorView.isHidden = self.details[indexPath.row] != LocalizedString.LinkedAccounts.localized
             cell.menuOptionLabel.isHidden = false
             cell.configureCell(self.details[indexPath.row])
-            
+            cell.contentView.layoutIfNeeded()
             return cell
         case "logOut":
             cell.bottomViewHeightConst.constant =  0
@@ -290,7 +290,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             } else {
                 cell.configureCell(self.logOut[indexPath.row].localized)
             }
-            
+            cell.contentView.layoutIfNeeded()
             return cell
         default:
             return UITableViewCell()

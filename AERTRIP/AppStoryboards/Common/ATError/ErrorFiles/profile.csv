@@ -1,106 +1,106 @@
-1,Service Name,Error Code,Error Description,Error Display
-2,user/meta,-1,user not logged in,User not logged in
-3,,8,user not found,User not found
-4,,,,
-5,user/set-profile-image,69,self passenger not found,Unable to set profile image
-6,,70,error to set profile image,Unable to set profile image
-7,,71,no profile image found to set,Unable to set profile image
-8,,72,,Unable to remove profile image
-9,,73,Error to set profile image with social account,Unable to set profile image
-10,,,,
-11,,,,
-12,users/upload-user-image,74,Invalid Image format,"Please provide a valid Image, either format is incorrect"
-13,,75,error to uploading file,Unable to upload user image
-14,,76,error to save profile image,Unable to upload user image
-,,125,Image size exceeds 5MB size,File size exceeds 5MB
-15,,,,
-16,users/update-news-letters,77,Error to remove news letter setting,Failed to update new letter setting
-17,,78,Error to save news letter settings,Failed to update new letter setting
-18,,79,error to update news letter setting,Failed to update new letter setting
-19,,,,
-20,airline/search,80,search input required,Please provide a search query
-21,,81,input should be at lease 2 char,Search query should be at least 2 characters long
-22,,82,input should contain only alphabets,Search query should only contain alphabets
-23,,,,
-24,users/unlink-social-account,11,user id required,User id required
-25,,83,Please enter a password before unlinking social account,Please enter a password before unlinking social account
-26,,84,Failed to unlink social account,Failed to unlink social account
-27,,85,no User_Oauth Entry corresponding to submitted query,Failed to unlink social account
-28,,86,Error to save user pax while removing social account,Failed to unlink social account
-29,,87,error to remove record for social account,Failed to unlink social account
-30,,,,
-31,,,,
-32,,,,
-33,user-passengers/delete-pax-data,50,Pax ids are required,Please select passenger(s) to delete
-34,,51,Cannot delete main passenger,Cannot delete main passenger
-35,,52,Error to delete passenger,Unable to delete passenger
-36,,,,
-37,users/save-general-preferences,53,failed to update General Preferences,Failed to update General Preferences
-38,,54,failed to remove label of passenger,Failed to update General Preferences
-39,,55,error to save general preferance,Failed to update General Preferences
-40,,,,
-41,users/change-login,2,Invalid Email ID,Please provide a valid Email ID
-42,,7,Invalid password,Please provide a valid password
-43,,56,Failed to register Email change request,Failed to register Email change request
-44,,57,Failed to change login,Failed to change login id
-45,,122,Reset Email Token Error,Reset Email Token Error
-46,,,,
-47,users/change-password,47,Incorrect current password,Current password is invalid
-48,,48,Password validation failed,Password is weak. Please set a stronger password.
-49,,41,new password is required,Please provide new password
-50,,3,old password is required,Please provide existing password
-51,,49,Failed to update password,Unable to update password
-52,,126,New Password can not be from the last 4 used passwords,New Password can not be from the last 4 used passwords
-53,,,,
-54,users/edit-user-details,8,User not found,User not found
-55,,60,Failed to update user details,Failed to update user details
-56,,,,
-57,users/edit-user-details?country,24,preferred country is required,Please select a preferred country
-58,,,,
-59,users/edit-user-details?currency,25,preferred currency is required,Please select a preferred currency
-60,,,,
-61,users/edit-user-details?billing_name,21,Billing name is required,Please provide a billing name
-62,,119,Failed to update account master name,Failed to update account master name
-63,,,,
-64,users/edit-user-details?pan_card,62,Pan Card is required,Please provide a valid PAN Number
-65,,63,Pan is invalid,Please provide a valid PAN Number
-66,,64,Pan must be of length 10,Please provide a valid PAN Number
-67,,,,
-68,users/edit-user-details?aadhar_number,65,aadhar number is required,Please provide a valid Aadhar Number
-69,,66,aadhar number is invalid,Please provide a valid Aadhar Number
-70,,,,
-71,users/edit-user-details?gst,67,gst number is required,Please provide a valid GST Number
-72,,68,gst number is invalid,Please provide a valid GST Number
-73,,,,
-74,users/edit-user-details?billing_address_id,22,billing address id is required,Please provide a valid billing address
-75,,61,billing address id should be number,Please provide a valid billing address
-76,,,,
-77,,,,
-78,user-passengers/save,74,Please provide a valid Image under 2MB size,Please provide a valid Image under 2MB size
-79,,92,first name is required,Kindly provide a valid passenger first name
-80,,93,last name is required,Kindly provide a valid passenger last name
-81,,94,salutation is required,Kindly provide a valid salutation
-82,,95,user id should be integer,Unable to create passenger
-83,,96,gender is required,Unable to create passenger
-84,,97,passenger id required,Unable to create passenger
-85,,98,airline code required,Please provide a valid Airline code
-86,,99,frequent flyer number required,Please provide a valid frequent flyer number
-87,,100,preference type required,Please provide a valid flight preference type
-88,,101,preferance value is required,Please provide a valid flight preference value
-89,,102,mobile isd should be integer,Please provide a valid isd code
-90,,103,invalid contact email,Please provide a valid email id
-91,,104,invalid contact mobile number,Please provide a valid mobile number
-92,,105,invalid social contact value,Please provide a valid social contact
-93,,107,pax_id required,Please select a valid passengers
-94,,108,label is required,Label should not be empty
-95,,109,pax_id should be numeric,Please select a valid passengers
-96,,110,label should be less than 21 charater,Label should be less than or equal to 20 characters
-97,,111,Failed to apply label for selected passengers,Failed to apply label for selected passengers
-,,124,Can not change label for Primary Passenger,Can not change label for Primary Passenger
-98,,112,hotel id required,Please select the hotel
-99,,113,status is required,"Something went wrong, Please try again."
-100,,114,Error to update profile picture,Error to update profile picture
-101,,118,Traveller details requested doesn't belong to loggedin customer,Traveller details not found
-102,,121,Invalid Airline code in frequent flyer ,Invalid Airline code in frequent flyer
-103,,,,
-104,users/hotel-star-preference,120,Unable to save hotel star preference,Unable to save hotel star preference
+1,Service Name,Error Code,Error Description,Error Display,
+2,user/meta,-1,user not logged in,User not logged in,
+3,,8,user not found,User not found,
+4,,,,,
+5,user/set-profile-image,69,self passenger not found,Unable to set profile image,
+6,,70,error to set profile image,Unable to set profile image,
+7,,71,no profile image found to set,Unable to set profile image,
+8,,72,,Unable to remove profile image,
+9,,73,Error to set profile image with social account,Unable to set profile image,
+10,,,,,
+11,,,,,
+12,users/upload-user-image,74,Invalid Image format,"Please provide a valid Image, either format is incorrect",
+13,,75,error to uploading file,Unable to upload user image,
+14,,76,error to save profile image,Unable to upload user image,
+,,125,Image size exceeds 5MB size,File size exceeds 5MB,
+15,,,,,
+16,users/update-news-letters,77,Error to remove news letter setting,Failed to update new letter setting,
+17,,78,Error to save news letter settings,Failed to update new letter setting,
+18,,79,error to update news letter setting,Failed to update new letter setting,
+19,,,,,
+20,airline/search,80,search input required,Please provide a search query,
+21,,81,input should be at lease 2 char,Search query should be at least 2 characters long,
+22,,82,input should contain only alphabets,Search query should only contain alphabets,
+23,,,,,
+24,users/unlink-social-account,11,user id required,User id required,
+25,,83,Please enter a password before unlinking social account,Please enter a password before unlinking social account,
+26,,84,Failed to unlink social account,Failed to unlink social account,
+27,,85,no User_Oauth Entry corresponding to submitted query,Failed to unlink social account,
+28,,86,Error to save user pax while removing social account,Failed to unlink social account,
+29,,87,error to remove record for social account,Failed to unlink social account,
+30,,,,,
+31,,,,,
+32,,,,,
+33,user-passengers/delete-pax-data,50,Pax ids are required,Please select passenger(s) to delete,
+34,,51,Cannot delete main passenger,Cannot delete main passenger,
+35,,52,Error to delete passenger,Unable to delete passenger,
+36,,,,,
+37,users/save-general-preferences,53,failed to update General Preferences,Failed to update General Preferences,
+38,,54,failed to remove label of passenger,Failed to update General Preferences,
+39,,55,error to save general preferance,Failed to update General Preferences,
+40,,,,,
+41,users/change-login,2,Invalid Email ID,Please provide a valid Email ID,
+42,,7,Invalid password,Please provide a valid password,
+43,,56,Failed to register Email change request,Failed to register Email change request,
+44,,57,Failed to change login,Failed to change login id,
+45,,122,Reset Email Token Error,Reset Email Token Error,
+46,,,,,
+47,users/change-password,47,Incorrect current password,Current password is invalid,
+48,,48,Password validation failed,Password is weak. Please set a stronger password.,
+49,,41,new password is required,Please provide new password,
+50,,3,old password is required,Please provide existing password,
+51,,49,Failed to update password,Unable to update password,
+52,,126,New Password can not be from the last 4 used passwords,You used this password recently. Please choose a different one.,
+53,,,,,
+54,users/edit-user-details,8,User not found,User not found,
+55,,60,Failed to update user details,Failed to update user details,
+56,,,,,
+57,users/edit-user-details?country,24,preferred country is required,Please select a preferred country,
+58,,,,,
+59,users/edit-user-details?currency,25,preferred currency is required,Please select a preferred currency,
+60,,,,,
+61,users/edit-user-details?billing_name,21,Billing name is required,Please provide a billing name,
+62,,119,Failed to update account master name,Failed to update account master name,
+63,,,,,
+64,users/edit-user-details?pan_card,62,Pan Card is required,Please provide a valid PAN Number,
+65,,63,Pan is invalid,Please provide a valid PAN Number,
+66,,64,Pan must be of length 10,Please provide a valid PAN Number,
+67,,,,,
+68,users/edit-user-details?aadhar_number,65,aadhar number is required,Please provide a valid Aadhar Number,
+69,,66,aadhar number is invalid,Please provide a valid Aadhar Number,
+70,,,,,
+71,users/edit-user-details?gst,67,gst number is required,Please provide a valid GST Number,
+72,,68,gst number is invalid,Please provide a valid GST Number,
+73,,,,,
+74,users/edit-user-details?billing_address_id,22,billing address id is required,Please provide a valid billing address,
+75,,61,billing address id should be number,Please provide a valid billing address,
+76,,,,,
+77,,,,,
+78,user-passengers/save,74,Please provide a valid Image under 2MB size,Please provide a valid Image under 2MB size,*
+79,,92,first name is required,Kindly provide a valid passenger first name,
+80,,93,last name is required,Kindly provide a valid passenger last name,
+81,,94,salutation is required,Kindly provide a valid salutation,
+82,,95,user id should be integer,Unable to create passenger,
+83,,96,gender is required,Unable to create passenger,
+84,,97,passenger id required,Unable to create passenger,
+85,,98,airline code required,Please provide a valid Airline code,
+86,,99,frequent flyer number required,Please provide a valid frequent flyer number,
+87,,100,preference type required,Please provide a valid flight preference type,
+88,,101,preferance value is required,Please provide a valid flight preference value,
+89,,102,mobile isd should be integer,Please provide a valid isd code,
+90,,103,invalid contact email,Please provide a valid email id,
+91,,104,invalid contact mobile number,Please provide a valid mobile number,
+92,,105,invalid social contact value,Please provide a valid social contact,
+93,,107,pax_id required,Please select a valid passengers,
+94,,108,label is required,Label should not be empty,
+95,,109,pax_id should be numeric,Please select a valid passengers,
+96,,110,label should be less than 21 charater,Label should be less than or equal to 20 characters,
+97,,111,Failed to apply label for selected passengers,Failed to apply label for selected passengers,
+,,124,Can not change label for Primary Passenger,Can not change label for Primary Passenger,
+98,,112,hotel id required,Please select the hotel,
+99,,113,status is required,"Something went wrong, Please try again.",
+100,,114,Error to update profile picture,Error to update profile picture,
+101,,118,Traveller details requested doesn't belong to loggedin customer,Traveller details not found,
+102,,121,Invalid Airline code in frequent flyer ,Invalid Airline code in frequent flyer,
+103,,,,,
+104,users/hotel-star-preference,120,Unable to save hotel star preference,Unable to save hotel star preference,*

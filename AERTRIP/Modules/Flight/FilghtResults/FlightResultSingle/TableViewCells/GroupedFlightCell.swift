@@ -32,7 +32,6 @@ struct TimeFK {
     @IBOutlet weak var collaspableTableView: UITableView!
     @IBOutlet weak var timeCollectionView: UICollectionView!
     @IBOutlet weak var downArrow: UIButton!
-    let selectionView = UIView()
     //MARK:- Constraints Outlets
     @IBOutlet weak var timeSegmentBGViewHeight: NSLayoutConstraint!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
@@ -40,6 +39,7 @@ struct TimeFK {
     @IBOutlet weak var downArrowButtonHeight: NSLayoutConstraint!
     @IBOutlet weak var bottomWhitePatchVIewHeight: NSLayoutConstraint!
     @IBOutlet weak var resultsCollectionView: UICollectionView!
+    @IBOutlet weak var timeSegmentBGView: UIView!
     
     
     //MARK:- State variables
@@ -47,12 +47,24 @@ struct TimeFK {
     var buttonTapped : (() -> ()) = {}
     weak var delegate : GroupedFlightCellDelegate?
     var timeArray = [TimeFK]()
-    
     var currentJourney : Journey?
-    var currentSelectedIndex = 0
+    
+    var currentSelectedIndex : Int?
+    var selectionViewFrame = CGRect(x: 0, y: 0, width: 58, height: 30)
+    let selectionView = UIView()
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupTableView()
+        setupCollectionView()
+//        selectionView.alpha = 0.0
+        selectionView.backgroundColor = UIColor.AertripColor.withAlphaComponent(0.10)
+        selectionView.layer.cornerRadius = 15.0
+        timeSegmentBGView.addSubview(selectionView)
+        timeCollectionView.sendSubviewToBack(selectionView)
+        timeSegmentBGView.clipsToBounds = true
+//      timeCollectionView.addSubview(selectionView)
     }
     
     func setupTableView() {
@@ -69,8 +81,6 @@ struct TimeFK {
         timeCollectionView.delegate = self
         timeCollectionView.allowsSelection = true
         timeCollectionView.allowsMultipleSelection = false
-        
-        
         resultsCollectionView.registerCell(nibName: SingleJourneyCollectionViewCell.reusableIdentifier)
         resultsCollectionView.dataSource = self
         resultsCollectionView.delegate = self
@@ -78,60 +88,6 @@ struct TimeFK {
         resultsCollectionView.allowsMultipleSelection = false
         resultsCollectionView.isPagingEnabled = true
         resultsCollectionView.showsHorizontalScrollIndicator = false
-        
-    }
-    
-    func setVaulesFrom( journey: JourneyOnewayDisplay) {
-       
-        flightGroup = journey
-
-        if !flightGroup.isCollapsed {
-            expandCollapseButton.setImage(UIImage(named:"DownArrow"), for: .normal)
-        }
-        else {
-            expandCollapseButton.setImage(UIImage(named:"UpArrow"), for: .normal)
-        }
-        var timeFKArray = journey.journeyArray.map{ return TimeFK(departurTime: $0.dt, fk: $0.fk) }
-        timeFKArray.sort(by : { $0.departurTime < $1.departurTime })
-        flightGroup.journeyArray.sort(by : { $0.dt < $1.dt })
-        timeArray = timeFKArray
-        if flightGroup.selectedFK == String() {
-            flightGroup.selectedFK = flightGroup.getJourneyWithLeastHumanScore().fk
-        }
-        
-        setupTableView()
-        setupCollectionView()
-        timeCollectionView.reloadData()
-        collaspableTableView.reloadData()
-        resultsCollectionView.reloadData()
-
-        if  let selectedDepartureIndex = timeArray.firstIndex(where: { $0.fk == flightGroup.selectedFK}) {
-            let indexPath = IndexPath(row: selectedDepartureIndex, section: 0)
-            self.timeCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: UICollectionView.ScrollPosition.centeredHorizontally)
-            
-            selectionView.frame = CGRect(x: 0, y: 0, width: 58, height: 30)
-            selectionView.alpha = 0.0
-            selectionView.backgroundColor = UIColor.AertripColor.withAlphaComponent(0.10)
-            selectionView.layer.cornerRadius = 15.0
-            
-            timeCollectionView.addSubview(selectionView)
-            timeCollectionView.sendSubviewToBack(selectionView)
-
-            setSelectionViewFrame(animate: false)
-        }
-
-        updateViewConstraints()
-        summaryLabel.text = String(journey.count) + " flights at same price"
-        
-    }
-    
-    func setImageto( imageView : UIImageView , url : String , index : Int ) {
-        if let image = collaspableTableView.resourceFor(urlPath: url , forView: index) {
-            
-            let resizedImage = image.resizeImage(24.0, opaque: false)
-            imageView.contentMode = .scaleAspectFit
-            imageView.image = UIImage.roundedRectImageFromImage(image: resizedImage, imageSize: CGSize(width: 24.0, height: 24.0), cornerRadius: 2.0)
-        }
     }
     
     @IBAction func expandCollapsedToggled(_ sender: UIButton) {
@@ -156,6 +112,52 @@ struct TimeFK {
         buttonTapped()
     }
     
+    func setVaulesFrom( journey: JourneyOnewayDisplay) {
+       
+        flightGroup = journey
+        
+        let arrowImage = !flightGroup.isCollapsed ? UIImage(named:"DownArrow") : UIImage(named:"UpArrow")
+        expandCollapseButton.setImage(arrowImage, for: .normal)
+        
+        var timeFKArray = journey.journeyArray.map{ return TimeFK(departurTime: $0.dt, fk: $0.fk) }
+        timeFKArray.sort(by : { $0.departurTime < $1.departurTime })
+        flightGroup.journeyArray.sort(by : { $0.dt < $1.dt })
+        timeArray = timeFKArray
+      
+        if flightGroup.selectedFK == String() {
+            flightGroup.selectedFK = flightGroup.getJourneyWithLeastHumanScore().fk
+        }
+        
+        if currentSelectedIndex == nil {
+             if  let selectedDepartureIndex = timeArray.firstIndex(where: { $0.fk == flightGroup.selectedFK}) {
+                currentSelectedIndex = selectedDepartureIndex
+            }
+            selectionView.frame = selectionViewFrame
+        }
+        
+        updateViewConstraints()
+        timeCollectionView.reloadData()
+        collaspableTableView.reloadData()
+        resultsCollectionView.reloadData()
+        delay(seconds: 0.2) {
+            let indexPath = IndexPath(row: self.currentSelectedIndex ?? 0, section: 0)
+                   self.timeCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: UICollectionView.ScrollPosition.centeredHorizontally)
+            self.setSelectionViewFrame(animate: false)
+        }
+       
+        summaryLabel.text = String(journey.count) + " flights at same price"
+    }
+    
+    
+    func setImageto( imageView : UIImageView , url : String , index : Int ) {
+        if let image = collaspableTableView.resourceFor(urlPath: url , forView: index) {
+            
+            let resizedImage = image.resizeImage(24.0, opaque: false)
+            imageView.contentMode = .scaleAspectFit
+            imageView.image = UIImage.roundedRectImageFromImage(image: resizedImage, imageSize: CGSize(width: 24.0, height: 24.0), cornerRadius: 2.0)
+        }
+    }
+    
      func updateViewConstraints() {
         if flightGroup.isCollapsed == false {
             self.timeSegmentBGViewHeight.constant = 0
@@ -164,6 +166,7 @@ struct TimeFK {
             downArrowButtonHeight.constant = 44
             bottomWhitePatchVIewHeight.constant = 22
             self.resultsCollectionView.isHidden = true
+            self.selectionView.alpha = 0
         }else{
             self.timeSegmentBGViewHeight.constant = 30
             self.tableViewHeight.constant = 139
@@ -171,6 +174,7 @@ struct TimeFK {
             downArrowButtonHeight.constant = 0
             bottomWhitePatchVIewHeight.constant = 0
             self.resultsCollectionView.isHidden = false
+            self.selectionView.alpha = 0
         }
     }
     
@@ -197,7 +201,7 @@ struct TimeFK {
 //            print("Selected Cell not found")
 //            return }
         
-        let selectedIndex = IndexPath(item: currentSelectedIndex, section: 0)
+        let selectedIndex = IndexPath(item: currentSelectedIndex ?? 0, section: 0)
     
         guard  let attributes = timeCollectionView.layoutAttributesForItem(at: selectedIndex) else {
             print("Attributed not found")
@@ -221,7 +225,7 @@ struct TimeFK {
         super.prepareForReuse()
         collaspableTableView.tableFooterView = nil
         expandCollapseButton.transform = .identity
-        selectionView.alpha = 0.0
+//        selectionView.alpha = 0.0
     }
 }
 
@@ -282,13 +286,12 @@ extension GroupedFlightCell : UITableViewDataSource, UITableViewDelegate {
      }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-               
            if let selectedJourney = getJourneyObj(indexPath: indexPath) {
                self.currentJourney = selectedJourney
                self.delegate?.navigateToFlightDetailFor(journey: selectedJourney, selectedIndex: indexPath)
            }
        }
-
+    
 }
 
 //MARK:- CollectionView Data Source and Delegate Methods
@@ -296,7 +299,6 @@ extension GroupedFlightCell : UITableViewDataSource, UITableViewDelegate {
 extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return flightGroup.journeyArray.count
     }
     
@@ -325,9 +327,29 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
                       }
             if let journey = getJourneyObj(indexPath: indexPath) {
                 cell.setTitlesFrom(journey: journey)
+                
+                if let logoArray = journey.airlineLogoArray {
+                    
+                    switch logoArray.count {
+                    case 1 :
+                        cell.logoTwo.isHidden = true
+                        cell.logoThree.isHidden = true
+                        setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
+                    case 2 :
+                        cell.logoThree.isHidden = true
+                        setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
+                        setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
+                        
+                    case 3 :
+                        setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
+                        setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
+                        setImageto(imageView: cell.logoThree, url:logoArray[2] , index:  indexPath.row)
+                    default:
+                        break
+                    }
+                }
             }
             return cell
-            
         }
     }
     
@@ -346,7 +368,7 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
        return collectionView == self.timeCollectionView ? CGSize(width: 58, height: 30) : CGSize(width: collectionView.frame.width, height: 139)
-        
+    
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -370,14 +392,11 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView != self.resultsCollectionView { return }
 
-        
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
 
     }
-    
-    
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
 
@@ -393,7 +412,6 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
                  setSelectionViewFrame(animate: true)
         self.timeCollectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
 
-
     }
     
 }
@@ -404,7 +422,6 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
         
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
-            
             
             // As when collapsed we need to get selected cell based on selected time , we need to get journey object based on selectedJourneyTimeProperty
             
@@ -460,18 +477,6 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
         return UIMenu(title: "", children: [pin, share, addToTrip])
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 @available(iOS 13.0, *)
 extension GroupedFlightCell  {
