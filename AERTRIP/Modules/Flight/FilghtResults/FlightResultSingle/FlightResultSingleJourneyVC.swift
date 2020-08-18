@@ -604,8 +604,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         let offsetDifference = contentOffset.y - scrollviewInitialYOffset
         if offsetDifference > 0 {
             hideHeaderBlurView(offsetDifference)
-        }
-        else {
+        } else {
             let invertedOffset = -offsetDifference
             revealBlurredHeaderView(invertedOffset)
         }

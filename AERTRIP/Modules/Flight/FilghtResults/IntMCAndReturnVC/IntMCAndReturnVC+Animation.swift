@@ -16,7 +16,6 @@ extension IntMCAndReturnVC {
        //         self.floatingButtonBackView.isHidden = isHidden
             }
            
-           
            func animateFloatingButtonOnListView(isAnimated: Bool = true) {
                  if isAnimated {
                      self.unpinnedAllButton.alpha = 0.0

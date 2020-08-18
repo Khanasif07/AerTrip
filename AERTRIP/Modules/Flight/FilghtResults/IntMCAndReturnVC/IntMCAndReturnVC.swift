@@ -93,7 +93,7 @@ extension IntMCAndReturnVC {
             self.bannerView?.frame = rect
             self.bannerView?.lineView.isHidden = true
             self.view.addSubview(self.bannerView!)
-            let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 75))
+            let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 96))
             self.resultsTableView.tableHeaderView = headerView
             self.resultsTableView.isScrollEnabled = false
             self.resultsTableView.tableFooterView = nil
