@@ -171,6 +171,27 @@ extension AccountOnlineDepositVC: AccountDepositAmountCellDelegate {
         self.updatePayButtonText()
         self.checkOutTableView.reloadData()
     }
+    
+    func amountValueChanged(amount: Double, amountString: String) {
+        self.viewModel.timer?.invalidate()
+        self.viewModel.timer = nil
+        self.viewModel.convenienceFeeUpdateTime = 1.0
+        self.updateConvenienceFee(with: amount)
+        
+    }
+    
+    func updateConvenienceFee(with amount: Double){
+        self.viewModel.timer?.invalidate()
+        self.viewModel.timer = nil
+        if amount != 0{
+            self.viewModel.depositItinerary?.partPaymentAmount = amount
+            self.viewModel.timer = Timer.scheduledTimer(withTimeInterval: self.viewModel.convenienceFeeUpdateTime, repeats: false, block: {[weak self] timer in
+                guard let self = self else {return}
+                self.viewModel.updateConvenienceFee(amount: "\(amount)")
+            })
+        }
+    }
+    
 }
 
 // MARK: - TopNavigationView Delegate methods
@@ -208,4 +229,20 @@ extension AccountOnlineDepositVC: AccountOnlineDepositVMDelegate {
     func makePaymentFail() {
         self.manageLoader(shouldStart: false)
     }
+    
+    
+    func willUpdateConvenienceFee() {
+        self.manageLoader(shouldStart: true)
+    }
+    
+    func didUpdateConvenienceFee() {
+        self.manageLoader(shouldStart: false)
+        self.updatePayButtonText()
+        self.checkOutTableView.reloadData()
+    }
+    
+    func convenienceFeeFail() {
+        self.manageLoader(shouldStart: false)
+    }
+    
 }
