@@ -24,7 +24,8 @@ class AccountDepositAmountCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var amountTextField: UITextField!
-
+    @IBOutlet weak var topDividerView: ATDividerView!
+    
     
     weak var delegate: AccountDepositAmountCellDelegate?
     
@@ -47,6 +48,7 @@ class AccountDepositAmountCell: UITableViewCell {
         self.setFontAndColor()
         self.amountTextField.addTarget(self, action: #selector(self.textFieldDidEndEditing(_:)), for: .editingDidEnd)
         self.amountTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        self.topDividerView.isHidden = true
 
     }
     deinit {
@@ -55,6 +57,7 @@ class AccountDepositAmountCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.topDividerView.isHidden = true
         self.amountTextField.attributedText = nil
         self.amountTextField.font = AppFonts.SemiBold.withSize(40.0)
         self.amountTextField.keyboardType = .numberPad

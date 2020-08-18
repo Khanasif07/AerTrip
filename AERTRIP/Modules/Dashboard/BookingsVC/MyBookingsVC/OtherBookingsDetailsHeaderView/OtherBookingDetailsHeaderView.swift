@@ -25,6 +25,7 @@ class OtherBookingDetailsHeaderView: UIView {
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet weak var progressBottomConstraint: NSLayoutConstraint!
     
     //MARK:- LifeCycle
     //MARK:===========
