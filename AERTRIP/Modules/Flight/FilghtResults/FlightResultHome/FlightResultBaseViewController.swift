@@ -37,7 +37,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     //MARK:- Navigation Bar UI Elements
     var backButton : UIButton!
     var filterButton : UIButton!
-    var filterSegmentView: HMSegmentedControl!
+//    var filterSegmentView: HMSegmentedControl!
     var resultTitle : UILabel!
     var resultsubTitle: UILabel!
     var infoButton : UIButton!
@@ -84,9 +84,9 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         setupNagationBar()
         createFilterTitle()
         
-        setupSegmentView()
-        self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex)
-        self.filterSegmentView.selectedSegmentIndex = HMSegmentedControlNoSegment
+//        setupSegmentView()
+//        self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex)
+//        self.filterSegmentView.selectedSegmentIndex = HMSegmentedControlNoSegment
         NotificationCenter.default.addObserver(self, selector: #selector(updateFilterScreenText), name: NSNotification.Name("updateFilterScreenText"), object: nil)
         setupResultView()
     }
@@ -124,6 +124,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         backView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
         backView.addSubview(visualEffectView)
         backView.tag = 500
+        backView.clipsToBounds = true
         
         backButton = UIButton(type: .custom)
         let buttonImage = UIImage(named: "green")
@@ -142,7 +143,11 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         
         visualEffectView.contentView.addSubview(resultTitle)
         visualEffectView.contentView.addSubview(resultsubTitle)
-        visualEffectView.contentView.addSubview(filterButton)
+        visualEffectView.contentView.addSubview(infoButton)
+        
+        backView.addSubview(filterButton)
+
+//        visualEffectView.contentView.addSubview(self.filterSegmentView)
         
         filterButton.snp.makeConstraints { (make) in
             make.left.equalTo(visualEffectView.contentView).offset(0)
@@ -151,15 +156,12 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             make.height.equalTo(51)
         }
         
-        visualEffectView.contentView.addSubview(infoButton)
-        
-        visualEffectView.contentView.addSubview(self.filterSegmentView)
-        filterSegmentView.snp.makeConstraints { (make) in
-            make.left.equalTo(visualEffectView.contentView).offset(44.0)
-            make.bottom.equalTo(visualEffectView.contentView).offset(-1.7)
-            make.trailing.equalTo(visualEffectView.contentView).offset(0)
-            make.height.equalTo(51)
-        }
+//        filterSegmentView.snp.makeConstraints { (make) in
+//            make.left.equalTo(visualEffectView.contentView).offset(44.0)
+//            make.bottom.equalTo(visualEffectView.contentView).offset(-1.7)
+//            make.trailing.equalTo(visualEffectView.contentView).offset(0)
+//            make.height.equalTo(51)
+//        }
         
         ApiProgress = UIProgressView()
         ApiProgress.progressTintColor = UIColor.AertripColor
@@ -171,7 +173,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             ApiProgress.progress = flightSearchResultVM.containsJourneyResuls ? 0 : 0.25
         }
         
-        visualEffectView.contentView.addSubview(ApiProgress)
+        backView.addSubview(ApiProgress)
         ApiProgress.snp.makeConstraints { (make) in
             make.bottom.equalTo(visualEffectView.contentView).offset(0)
             make.width.equalToSuperview()
@@ -180,7 +182,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         
         ApiProgress.backgroundColor = UIColor.white
         separatorView.backgroundColor = UIColor.TWO_ZERO_FOUR_COLOR
-        visualEffectView.contentView.addSubview(separatorView)
+        backView.addSubview(separatorView)
                 //        separatorView.snp.makeConstraints { (make) in
         //            make.left.equalTo(visualEffectView.contentView).offset(0.0)
         //            make.bottom.equalTo(visualEffectView.contentView).offset(-2.0)
@@ -581,32 +583,55 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         self.flightFilterVC = FlightFilterBaseVC(flightSearchResult: self.flightSearchResultVM.flightResultArray , selectedIndex: index , legList: legList , searchType: flightType )
         self.flightFilterVC?.delegate = flightSearchResultVM
         self.flightFilterVC?.filterUIDelegate = self
+        
+        if let FilterBaseView = self.flightFilterVC {
+            if FilterBaseView.parent == nil {
+                var frame = self.view.frame
+                frame.origin.y = visualEffectViewHeight - 46
+                frame.size.height = 36//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
+                FilterBaseView.view.frame = frame
+                backView.addSubview(FilterBaseView.view)
+                backView.bringSubviewToFront(filterButton)
+                backView.bringSubviewToFront(separatorView)
+                backView.bringSubviewToFront(ApiProgress)
+//                backView.height = view.height
+//                backView.layoutIfNeeded()
+                //                    self.view.addSubview(FilterBaseView.view)
+//                self.addChild(FilterBaseView)
+                //                    self.view.bringSubviewToFront(FilterBaseView.view)
+//                FilterBaseView.didMove(toParent: self)
+//                addFilterHeader()
+            }
+            
+            FilterBaseView.selectedIndex = index
+            
+        }
     }
     
     //MARK:- HMSegmentedControl SegmentView UI Methods
     
-    fileprivate func setupSegmentView(){
-        self.filterSegmentView = HMSegmentedControl()
-        self.filterSegmentView.backgroundColor = .clear
-        self.filterSegmentView.selectionIndicatorLocation = .down;
-        self.filterSegmentView.segmentWidthStyle = .dynamic
-        self.filterSegmentView.segmentEdgeInset = UIEdgeInsets(top: 0, left: 20.0, bottom: 0, right: 20.0);
-        self.filterSegmentView.selectionIndicatorEdgeInsets = UIEdgeInsets(top: 0, left: 20.0, bottom: 0, right: 40.0);
-        
-        self.filterSegmentView.autoresizingMask = .flexibleWidth
-        self.filterSegmentView.selectionStyle = .textWidthStripe
-        self.filterSegmentView.selectionIndicatorLocation = .down;
-        self.filterSegmentView.selectionIndicatorHeight = 2
-        self.filterSegmentView.isVerticalDividerEnabled = false
-        self.filterSegmentView.selectionIndicatorColor = .clear
-        
-        self.filterSegmentView.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black , NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Regular" , size: 16)! ]
-        self.filterSegmentView.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.black , NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Semibold" , size: 16)!]
-        self.filterSegmentView .addTarget(self, action: #selector(filtersegmentChanged(_:)), for: .valueChanged)
-        
-        self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex)
-        self.filterSegmentView.selectedSegmentIndex = HMSegmentedControlNoSegment
-    }
+//    fileprivate func setupSegmentView(){
+//        self.filterSegmentView = HMSegmentedControl()
+//        self.filterSegmentView.backgroundColor = .clear
+//        self.filterSegmentView.selectionIndicatorLocation = .down;
+//        self.filterSegmentView.segmentWidthStyle = .dynamic
+//        self.filterSegmentView.segmentEdgeInset = UIEdgeInsets(top: 0, left: 20.0, bottom: 0, right: 20.0);
+//        self.filterSegmentView.selectionIndicatorEdgeInsets = UIEdgeInsets(top: 0, left: 20.0, bottom: 0, right: 40.0);
+//
+//        self.filterSegmentView.autoresizingMask = .flexibleWidth
+//        self.filterSegmentView.selectionStyle = .textWidthStripe
+//        self.filterSegmentView.selectionIndicatorLocation = .down;
+//        self.filterSegmentView.selectionIndicatorHeight = 2
+//        self.filterSegmentView.isVerticalDividerEnabled = false
+//        self.filterSegmentView.selectionIndicatorColor = .clear
+//
+//        self.filterSegmentView.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black , NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Regular" , size: 16)! ]
+//        self.filterSegmentView.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.black , NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Semibold" , size: 16)!]
+//        self.filterSegmentView .addTarget(self, action: #selector(filtersegmentChanged(_:)), for: .valueChanged)
+//
+//        self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex)
+//        self.filterSegmentView.selectedSegmentIndex = HMSegmentedControlNoSegment
+//    }
     
     //MARK:- Navigation Bar Methods
     
@@ -654,6 +679,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     
     func createFilterButton() {
         filterButton = UIButton(type: .custom)
+        filterButton.backgroundColor = AppColors.themeGray49
         guard let normalImage = UIImage(named: "filterClearIndicator") else { assertionFailure("filter clear imaage missing")
             return }
         guard let selectedImage = UIImage(named:"FilterApplIiedndicator") else { assertionFailure("filter selected image missing")
@@ -778,11 +804,13 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     }
     
     @IBAction func doneButtonTapped() {
-        flightFilterVC?.view.removeFromSuperview()
-        flightFilterVC?.removeFromParent()
-        intMCAndReturnFilterVC?.view.removeFromSuperview()
-        intMCAndReturnFilterVC?.removeFromParent()
-        removedFilterUIFromParent()
+        toggleFiltersView(hidden: true)
+        
+//        flightFilterVC?.view.removeFromSuperview()
+//        flightFilterVC?.removeFromParent()
+//        intMCAndReturnFilterVC?.view.removeFromSuperview()
+//        intMCAndReturnFilterVC?.removeFromParent()
+//        removedFilterUIFromParent()
     }
     
     
@@ -791,28 +819,46 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     }
     
     func selectedIndexChanged(index: UInt) {
-        self.filterSegmentView.setSelectedSegmentIndex(index , animated: true)
-        self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: true, selectedIndex: filterSegmentView.selectedSegmentIndex)
+        toggleFiltersView(hidden: false)
+//        self.filterSegmentView.setSelectedSegmentIndex(index , animated: true)
+//        self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: true, selectedIndex: filterSegmentView.selectedSegmentIndex)
     }
     
     //MARK:- Methods to open Filter UI
     @IBAction func filterButtonTapped(_ sender: Any) {
         
         if flightSearchResultVM.containsJourneyResuls  {
-            self.openFiltersWith(index: 0)
-            self.filterSegmentView.selectedSegmentIndex = 0
-            filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: true, selectedIndex: filterSegmentView.selectedSegmentIndex)
+//            self.openFiltersWith(index: 0)
+            toggleFiltersView(hidden: false)
+//            self.filterSegmentView.selectedSegmentIndex = 0
+//            filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: true, selectedIndex: filterSegmentView.selectedSegmentIndex)
         }
     }
     
+    private func toggleFiltersView(hidden: Bool) {
+        flightFilterVC?.toggleSelectedState(hidden: hidden)
+        if !hidden {
+            addFilterHeader()
+            UIView.animate(withDuration: 0.3) {
+                self.backView.height = self.view.height + 100
+            }
+        } else {
+            removeFilterHeader()
+            UIView.animate(withDuration: 0.3) {
+                self.backView.height = self.visualEffectViewHeight
+            }
+        }
+        backView.layoutIfNeeded()
+    }
+    
     @IBAction func filtersegmentChanged(_ sender: HMSegmentedControl) {
-        if flightSearchResultVM.containsJourneyResuls {
-            self.openFiltersWith(index: sender.selectedSegmentIndex)
-            self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: true, selectedIndex: filterSegmentView.selectedSegmentIndex)
-        }
-        else {
-            self.filterSegmentView.selectedSegmentIndex = HMSegmentedControlNoSegment
-        }
+//        if flightSearchResultVM.containsJourneyResuls {
+//            self.openFiltersWith(index: sender.selectedSegmentIndex)
+//            self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: true, selectedIndex: filterSegmentView.selectedSegmentIndex)
+//        }
+//        else {
+//            self.filterSegmentView.selectedSegmentIndex = HMSegmentedControlNoSegment
+//        }
     }
     
     //MARK:- Filter Mode UI Methods
@@ -917,24 +963,25 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             
         }
         
-        self.filterSegmentView.selectionIndicatorColor = .AertripColor
-        self.filterSegmentView.setNeedsDisplay()
+//        self.filterSegmentView.selectionIndicatorColor = .AertripColor
+//        self.filterSegmentView.setNeedsDisplay()
         filterTitle.text = self.flightSearchResultVM.filterSummaryTitle
     }
     
     func removedFilterUIFromParent() {
-        let flightType = flightSearchResultVM.flightSearchType
-        if flightType != SINGLE_JOURNEY{
-            self.ApiProgress.isHidden = true
-            
-            self.separatorView.snp.updateConstraints { (make) in
-                make.bottom.equalTo(self.visualEffectView.contentView).offset(0.0)
-            }
-        }
-        self.removeFilterHeader()
-        self.filterSegmentView.selectionIndicatorColor = .clear
-        self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex)
-        self.filterSegmentView.selectedSegmentIndex = HMSegmentedControlNoSegment
+        toggleFiltersView(hidden: true)
+//        let flightType = flightSearchResultVM.flightSearchType
+//        if flightType != SINGLE_JOURNEY{
+//            self.ApiProgress.isHidden = true
+//
+//            self.separatorView.snp.updateConstraints { (make) in
+//                make.bottom.equalTo(self.visualEffectView.contentView).offset(0.0)
+//            }
+//        }
+//        self.removeFilterHeader()
+//        self.filterSegmentView.selectionIndicatorColor = .clear
+//        self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex)
+//        self.filterSegmentView.selectedSegmentIndex = HMSegmentedControlNoSegment
         
     }
     
@@ -989,7 +1036,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         clearAllFiltersButton?.isEnabled = isApplied
         filterButton.isSelected = isApplied
         
-        filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: true, selectedIndex: filterSegmentView.selectedSegmentIndex)
+//        filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: true, selectedIndex: filterSegmentView.selectedSegmentIndex)
         
         flightFilterVC?.userAppliedFilters =  flightSearchResultVM.flightLegsAppliedFilters
         flightFilterVC?.updateMenuItems()
@@ -1039,6 +1086,10 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         
         guard let resultVM = self.flightSearchResultVM else  { return }
         self.filterTitle.text = self.flightSearchResultVM.filterSummaryTitle
+        
+        if flightFilterVC == nil && intMCAndReturnFilterVC == nil {
+            createFiltersBaseView(index: 0)
+        }
         
         if isAPIResponseUpdated {
             self.flightFilterVC?.flightResultArray = self.flightSearchResultVM.flightResultArray
@@ -1162,9 +1213,9 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                         make.bottom.equalTo(self.visualEffectView.contentView).offset(0.0)
                     }
                     
-                    self.filterSegmentView.snp.updateConstraints{ (make) in
-                        make.bottom.equalTo(self.visualEffectView.contentView).offset(0)
-                    }
+//                    self.filterSegmentView.snp.updateConstraints{ (make) in
+//                        make.bottom.equalTo(self.visualEffectView.contentView).offset(0)
+//                    }
                 }
             }
         }

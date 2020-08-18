@@ -19,6 +19,7 @@ class QualityFilterViewController: UIViewController ,UITableViewDataSource , UIT
     }
     
     func updateUIPostLatestResults() {
+        guard qualityFilterTableView != nil else { return }
         qualityFilterTableView.reloadData()
     }
     
@@ -79,6 +80,7 @@ class QualityFilterViewController: UIViewController ,UITableViewDataSource , UIT
             qualityFilter.isSelected = false
             return qualityFilter
         }
+        guard qualityFilterTableView != nil else { return }
         qualityFilterTableView.reloadData()
   }
     

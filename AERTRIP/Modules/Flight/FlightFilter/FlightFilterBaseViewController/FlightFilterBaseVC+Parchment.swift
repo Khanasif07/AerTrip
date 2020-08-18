@@ -13,7 +13,7 @@ extension FlightFilterBaseVC: PagingViewControllerDataSource , PagingViewControl
     
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         
-        if let pagingIndexItem = pagingItem as? MenuItem {
+        if let pagingIndexItem = pagingItem as? MenuItemForFilter {
             let text = pagingIndexItem.title
             let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
             return text.widthOfString(usingFont: font) + 23.0
@@ -32,10 +32,10 @@ extension FlightFilterBaseVC: PagingViewControllerDataSource , PagingViewControl
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
         
-        return MenuItem(title: menuItems[index].title, index: index, isSelected: !menuItems[index].isSelected)
+        return MenuItemForFilter(title: menuItems[index].title, index: index, isSelected: !menuItems[index].isSelected, showSelectedFont: showSelectedFontOnMenu)
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didSelectItem pagingItem: PagingItem) {
-        
+        filterUIDelegate?.selectedIndexChanged(index: 0)
     }
 }

@@ -19,12 +19,13 @@ class FlightFilterBaseVC: UIViewController {
     var flightResultArray : [FlightsResults]!
     var userAppliedFilters: AppliedAndUIFilters?
     internal var allChildVCs = [UIViewController]()
-    var menuItems = [MenuItem]()
+    var menuItems = [MenuItemForFilter]()
     var selectedIndex  : Int!
     
     // Parchment View
     fileprivate var parchmentView : PagingViewController?
-    
+    internal var showSelectedFontOnMenu = false
+        
     var inputFilters : [FiltersWS]? {
         var inputFiltersArray = [FiltersWS]()
         
@@ -104,7 +105,7 @@ class FlightFilterBaseVC: UIViewController {
     {
         let viewController = filter.viewController
         allChildVCs.append(viewController)
-        let newMenuItem = MenuItem(title: filter.title, index: filter.rawValue + 1, isSelected: false)
+        let newMenuItem = MenuItemForFilter(title: filter.title, index: filter.rawValue + 1, isSelected: false)
         menuItems.append(newMenuItem)
         setValuesFor(viewController , filter: filter)
     }
@@ -128,12 +129,12 @@ class FlightFilterBaseVC: UIViewController {
             height: 0.25,
             zIndex: Int.max - 1,
             insets: UIEdgeInsets(top: 0, left: -400, bottom: 0, right: -400))
-        let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
-        self.parchmentView?.register(nib, for: MenuItem.self)
-        self.parchmentView?.borderColor = AppColors.themeGray20
+        let nib = UINib(nibName: "MenuItemFilterCollCell", bundle: nil)
+        self.parchmentView?.register(nib, for: MenuItemForFilter.self)
+        self.parchmentView?.borderColor = .clear//AppColors.themeGray20
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
-        self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
-        self.parchmentView?.indicatorColor = AppColors.themeGreen
+        self.parchmentView?.selectedFont = AppFonts.Regular.withSize(16.0)//AppFonts.SemiBold.withSize(16.0)
+        self.parchmentView?.indicatorColor = .clear//AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
         self.filtersView.addSubview(self.parchmentView!.view)
         
@@ -145,6 +146,18 @@ class FlightFilterBaseVC: UIViewController {
         self.parchmentView?.reloadMenu()
         self.parchmentView?.menuBackgroundColor = AppColors.themeGray49
 //        self.parchmentView?.collectionView.backgroundColor = UIColor.clear
+    }
+    
+    func toggleSelectedState(hidden: Bool) {
+        showSelectedFontOnMenu = !hidden
+        if hidden {
+            self.parchmentView?.selectedFont = AppFonts.Regular.withSize(16.0)//AppFonts.SemiBold.withSize(16.0)
+            self.parchmentView?.indicatorColor = .clear//AppColors.themeGreen
+        } else {
+            self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
+            self.parchmentView?.indicatorColor = AppColors.themeGreen
+        }
+        parchmentView?.reloadMenu()
     }
     
     //MARK:- Setting Filter ViewController's  values
@@ -239,7 +252,7 @@ extension FlightFilterBaseVC {
     {
         self.flightResultArray = flightResultArray
         guard let filters = inputFilters else { return }
-        for viewController in self.children {
+        for viewController in allChildVCs /*self.children*/ {
             
             if !(viewController is FilterViewController )  {
                 continue

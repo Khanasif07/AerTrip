@@ -93,6 +93,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     
     func updateFiltersFromAPI() {
         currentPriceFilter = allPriceFilters[currentActiveIndex]
+        guard priceRangeSlider != nil else { return }
         UIView.animate(withDuration: 0.3) {
             self.setupPriceSlider()
             self.setupPriceLabels()
@@ -299,6 +300,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     }
     
     func resetFilter() {
+        guard priceRangeSlider != nil else { return }
         if let newPriceFilters = allPriceFilters {
             let priceFilters = newPriceFilters.map { (priceFilter) -> PriceFilter in
                 var newPriceFilter = priceFilter

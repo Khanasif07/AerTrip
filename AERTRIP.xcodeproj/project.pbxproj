@@ -647,6 +647,8 @@
 		841A0DCF24EA543F0050ACFD /* FlightFilterBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A0DCD24EA543F0050ACFD /* FlightFilterBaseVC.swift */; };
 		841A0DD024EA543F0050ACFD /* FlightFilterBaseVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841A0DCE24EA543F0050ACFD /* FlightFilterBaseVC.xib */; };
 		841A0DD224EA7BE80050ACFD /* FlightFilterBaseVC+Parchment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A0DD124EA7BE80050ACFD /* FlightFilterBaseVC+Parchment.swift */; };
+		841A0DD824EC37280050ACFD /* MenuItemFilterCollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A0DD624EC37280050ACFD /* MenuItemFilterCollCell.swift */; };
+		841A0DD924EC37280050ACFD /* MenuItemFilterCollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841A0DD724EC37280050ACFD /* MenuItemFilterCollCell.xib */; };
 		841A75F0226F320F00D5C47A /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A75EF226F320F00D5C47A /* CircularProgress.swift */; };
 		841AA4FF2474374700B66720 /* UIScreenExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AA4FE2474374700B66720 /* UIScreenExtension.swift */; };
 		841AA5032474378600B66720 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AA5012474378500B66720 /* WebViewController.swift */; };
@@ -2276,6 +2278,8 @@
 		841A0DCD24EA543F0050ACFD /* FlightFilterBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightFilterBaseVC.swift; sourceTree = "<group>"; };
 		841A0DCE24EA543F0050ACFD /* FlightFilterBaseVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlightFilterBaseVC.xib; sourceTree = "<group>"; };
 		841A0DD124EA7BE80050ACFD /* FlightFilterBaseVC+Parchment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightFilterBaseVC+Parchment.swift"; sourceTree = "<group>"; };
+		841A0DD624EC37280050ACFD /* MenuItemFilterCollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuItemFilterCollCell.swift; path = AERTRIP/Modules/Flight/FilghtResults/MenuItemFilterCollCell.swift; sourceTree = SOURCE_ROOT; };
+		841A0DD724EC37280050ACFD /* MenuItemFilterCollCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MenuItemFilterCollCell.xib; path = AERTRIP/Modules/Flight/FilghtResults/MenuItemFilterCollCell.xib; sourceTree = SOURCE_ROOT; };
 		841A75EF226F320F00D5C47A /* CircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
 		841AA4FE2474374700B66720 /* UIScreenExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScreenExtension.swift; sourceTree = "<group>"; };
 		841AA5012474378500B66720 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
@@ -3610,11 +3614,13 @@
 			path = chat;
 			sourceTree = "<group>";
 		};
-		0C32DC03232F70B5008033B5 /* New Group */ = {
+		0C32DC03232F70B5008033B5 /* MenuItemFilterCollCell */ = {
 			isa = PBXGroup;
 			children = (
+				841A0DD624EC37280050ACFD /* MenuItemFilterCollCell.swift */,
+				841A0DD724EC37280050ACFD /* MenuItemFilterCollCell.xib */,
 			);
-			path = "New Group";
+			path = MenuItemFilterCollCell;
 			sourceTree = "<group>";
 		};
 		0C32DC04232F70DD008033B5 /* QuickPay */ = {
@@ -4991,7 +4997,7 @@
 		84085C7F21F59C0C00F1E844 /* SideMenuVC */ = {
 			isa = PBXGroup;
 			children = (
-				0C32DC03232F70B5008033B5 /* New Group */,
+				0C32DC03232F70B5008033B5 /* MenuItemFilterCollCell */,
 				84085C8021F59C0C00F1E844 /* SideMenuVC.swift */,
 				84085CD121F59C0D00F1E844 /* SideMenuVM.swift */,
 				84085C8121F59C0C00F1E844 /* PreLogin */,
@@ -9564,6 +9570,7 @@
 				1800FC6621EF1FA20006D6D1 /* AddNotesTableViewCell.xib in Resources */,
 				84EAABEB21DA09EC006B757F /* SideMenuLogoView.xib in Resources */,
 				182D4859228AECCF004796A2 /* BookingHDWebPhoneTableViewCell.xib in Resources */,
+				841A0DD924EC37280050ACFD /* MenuItemFilterCollCell.xib in Resources */,
 				841AA52C24744F0700B66720 /* Info.plist in Resources */,
 				0C6666AF22D472F1009DFACD /* TripChangeTableViewCell.xib in Resources */,
 				843FF56F24740232001F21B1 /* FlightInfoVC.storyboard in Resources */,
@@ -10040,6 +10047,7 @@
 				843FF56D24740232001F21B1 /* FlightDetailsTableViewCell.swift in Sources */,
 				182EB20F22855F27001BFB20 /* BaggageInfoTableViewCell.swift in Sources */,
 				843FF49B24740231001F21B1 /* FlightTimesFilter.swift in Sources */,
+				841A0DD824EC37280050ACFD /* MenuItemFilterCollCell.swift in Sources */,
 				84D2FB8121BE351E00011000 /* PKCountryPicker.swift in Sources */,
 				18FD915E229575A700D005E9 /* BookingRequestAddOnsFFVM.swift in Sources */,
 				84DD249A226734D80013F77E /* BookingPaymentDetailsTableViewCell.swift in Sources */,

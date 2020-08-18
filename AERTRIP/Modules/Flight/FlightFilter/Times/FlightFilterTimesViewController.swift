@@ -85,6 +85,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     /// Updates UI if data is coming and filters
     func updateFiltersFromAPI() {
         currentTimerFilter = multiLegTimerFilter[currentActiveIndex]
+        guard departureRangeSlider != nil else { return }
         UIView.animate(withDuration: 0.3) {
             self.setDepartureSliderValues()
             self.setArrivalSliderValues(userSelected: false)
@@ -1222,6 +1223,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     }
     
     func updateUIPostLatestResults() {
+        guard departureRangeSlider != nil else { return }
         setUIValues()
     }
 
@@ -1234,6 +1236,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         }
         
         currentTimerFilter.resetFilter()
+        guard departureRangeSlider != nil else { return }
         setUIValues()
         
         

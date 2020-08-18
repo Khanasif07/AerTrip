@@ -126,12 +126,11 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
                 }
             }
         }
-        
+        guard airlinesTableView != nil else { return }
         airlinesTableView.reloadData()
     }
     
     func resetFilter() {
-        
         selectedAirlineArray.removeAll()
         currentSelectedAirlineFilter.airlinesArray = currentSelectedAirlineFilter.airlinesArray.map{
             var airline = $0
@@ -145,6 +144,7 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
         currentSelectedAirlineFilter.allAirlinesSelected = false
         currentSelectedAirlineFilter.hideMultipleAirline = false
         allAirlineSelectedByUserInteraction = false
+        guard airlinesTableView != nil else { return }
         self.airlinesTableView.reloadData()
     }
     
