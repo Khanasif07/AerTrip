@@ -335,7 +335,8 @@ class RoomGuestSelectionVC: BaseVC {
         let mainH = self.containerHeight
         // - self.agesContainerView.frame.height
         //let mainH = self.mainContainerHeight + self.agesContainerView.frame.height
-        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+        UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseInOut], animations: {
+//        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.mainContainerHeightConstraint.constant = mainH
             self.ageSelectionLabel.alpha = 1.0
             self.view.layoutIfNeeded()
@@ -353,7 +354,8 @@ class RoomGuestSelectionVC: BaseVC {
         self.firstLineView.isHidden = true
         self.secondLineView.isHidden = true
         let mainH = self.mainContainerHeight - self.agesContainerView.frame.height
-        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+        UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseInOut], animations: {
+//        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.mainContainerHeightConstraint.constant = mainH
             self.ageSelectionLabel.alpha = 0.0
             self.view.layoutIfNeeded()

@@ -483,14 +483,14 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     
     private func addWallet(passFilePath: URL) {
         // let filePath = Bundle.main.path(forResource: "DealsPasses", ofType: "pkpass")!
-        guard let passData = try? Data(contentsOf: passFilePath, options: []) else {return}
+        guard let passData = try? Data(contentsOf: passFilePath) else {return}
         do {
             let newpass = try PKPass.init(data: passData)
             let addController =  PKAddPassesViewController(pass: newpass)
             addController?.delegate = self
             self.present(addController!, animated: true)
         } catch {
-            
+            print(error)
         }
     }
     

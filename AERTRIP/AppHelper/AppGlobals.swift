@@ -682,6 +682,13 @@ extension AppGlobals {
     }
     
     func downloadWallet(fileURL: URL, complition: @escaping ((URL?) -> Void)) {
+        // Create destination URL
+        if let documentsUrl: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let destinationFileUrl = documentsUrl.appendingPathComponent("\("test").pkpass")
+            
+            if FileManager.default.fileExists(atPath: destinationFileUrl.path) {
+                try? FileManager.default.removeItem(at: destinationFileUrl)
+            }
             
             let sessionConfig = URLSessionConfiguration.default
             let session = URLSession(configuration: sessionConfig)
@@ -694,13 +701,22 @@ extension AppGlobals {
                     if let statusCode = (response as? HTTPURLResponse)?.statusCode {
                         printDebug("Successfully downloaded. Status code: \(statusCode)")
                     }
-                    complition(tempLocalUrl)
+                    
+                    do {
+                        try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
+                        complition(destinationFileUrl)
+                    } catch let writeError {
+                        printDebug("Error creating a file \(destinationFileUrl) : \(writeError)")
+                    }
                     
                 } else {
                     printDebug("Error took place while downloading a file. Error description: \(error?.localizedDescription ?? "N/A")")
                 }
             }
             task.resume()
+        } else {
+            complition(nil)
+        }
     }
     
     func getAirlineCodeImageUrl(code: String) -> String {
