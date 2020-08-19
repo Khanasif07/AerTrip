@@ -339,7 +339,7 @@ extension PostBookingAddonsPaymentVC : RazorpayPaymentCompletionProtocolWithData
     }
     func onPaymentError(_ code: Int32, description str: String, andData response: [AnyHashable : Any]?) {
         hideShowLoader(isHidden: true)
-        AppToast.default.showToastMessage(message: "Sorry! payment was faild.\nPlease try again.")
+        AppToast.default.showToastMessage(message: LocalizedString.paymentFails.localized)//"Sorry! payment was faild.\nPlease try again.")
     }
     
     func onPaymentSuccess(_ payment_id: String, andData response: [AnyHashable : Any]?) {

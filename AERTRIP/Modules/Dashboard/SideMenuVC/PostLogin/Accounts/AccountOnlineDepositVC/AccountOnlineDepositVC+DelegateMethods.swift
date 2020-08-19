@@ -93,8 +93,8 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 printDebug("TotalPayableNowCell not found")
                 return UITableViewCell()
             }
-            totalPayableNowCell.totalPriceLabel.attributedText = self.viewModel.totalPayableAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
             totalPayableNowCell.currentUsingFor = .totalPayableAmout
+            totalPayableNowCell.totalPriceLabel.attributedText = self.viewModel.totalPayableAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
             totalPayableNowCell.topDeviderView.isHidden = false
             totalPayableNowCell.bottomDeviderView.isHidden = true
             totalPayableNowCell.setUpText()
@@ -216,7 +216,7 @@ extension AccountOnlineDepositVC: AccountOnlineDepositVMDelegate {
     
     func paymentResponseFail() {
         self.manageLoader(shouldStart: false)
-         AppToast.default.showToastMessage(message: "Sorry! payment was faild.\nPlease try again.")
+        AppToast.default.showToastMessage(message: LocalizedString.paymentFails.localized)//"Sorry! payment was faild.\nPlease try again.")
     }
     
     func willMakePayment() {

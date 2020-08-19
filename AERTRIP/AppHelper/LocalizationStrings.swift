@@ -660,6 +660,7 @@ enum LocalizedString: String {
     case PerInfant
     case WeHaveNotedYourBookingRequirement
     case WeHaveNotedYourBookingRequirementMessage
+    case paymentFails
     
     // Select Guests
     case SelectGuests

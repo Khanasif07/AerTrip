@@ -105,6 +105,13 @@ struct  WhatNext {
     var arrivalCity:String
     var settingFor: String
     
+    //Array for multicity flight result
+    var originArr:[String]?
+    var destinationArr:[String]?
+    var departArr:[String]?
+    var departCityArr:[String]?
+    var arrivalCityArr:[String]?
+    
     var whatNextStringValue:String{
         
         if self.product.lowercased() == "hotel"{

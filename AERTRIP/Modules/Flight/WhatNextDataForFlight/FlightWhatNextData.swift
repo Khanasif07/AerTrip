@@ -30,8 +30,15 @@ import Foundation
                     "infant": whtNxt.infant,
                     "cabinclass":whtNxt.cabinclass,
                     "departCity":whtNxt.departCity,
-                    "arrivalCity":whtNxt.arrivalCity]
-        return dict as NSDictionary
+                    "arrivalCity":whtNxt.arrivalCity] as NSMutableDictionary
+        if whtNxt.tripType.lowercased() == "multi"{
+            dict["originArr"] = whtNxt.originArr ?? []
+            dict["destinationArr"] = whtNxt.destinationArr ?? []
+            dict["departArr"] = whtNxt.departArr ?? []
+            dict["departCityArr"] = whtNxt.departCityArr ?? []
+            dict["arrivalCityArr"] = whtNxt.arrivalCityArr ?? []
+        }
+        return dict
     }
     
     @objc func clearData(){

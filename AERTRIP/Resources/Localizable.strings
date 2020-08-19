@@ -580,6 +580,8 @@
 
 Not to worry! Your booking is our highest priority. Our customer support team shall contact you at earliest. Thank you.";
 
+"paymentFails" = "The transaction was unsucessful. Kindly retry.";
+
 //Select Guest
 "SelectGuests" = "Select Guests";
 

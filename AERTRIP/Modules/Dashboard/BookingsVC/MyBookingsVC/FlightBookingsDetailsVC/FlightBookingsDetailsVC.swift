@@ -123,6 +123,67 @@ class FlightBookingsDetailsVC: BaseVC {
         }
     }
     
+    
+    func whatNextForSameFlightBook()-> WhatNext?{
+        guard let detail = self.viewModel.bookingDetail, let fDetails = detail.bookingDetail else { return nil}
+        var whatNext = WhatNext(isFor: "Hotel")
+        if let leg = fDetails.leg.first {
+            whatNext.departCity = (leg.title.components(separatedBy: "→").first ?? "").trimmingCharacters(in: .whitespaces)
+            whatNext.arrivalCity = (leg.title.components(separatedBy: "→").last ?? "").trimmingCharacters(in: .whitespaces)
+            whatNext.origin = leg.origin
+            whatNext.destination = leg.destination
+            whatNext.cabinclass = leg.flight.first?.cabinClass ?? "Economy"
+            
+            whatNext.depart = leg.flight.first?.departDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
+            whatNext.tripType = detail.tripType
+            whatNext.adult = "\((leg.pax.filter{$0.paxType.uppercased() == "ADT"}).count)"
+            whatNext.child = "\((leg.pax.filter{$0.paxType.uppercased() == "CHD"}).count)"
+            whatNext.infant = "\((leg.pax.filter{$0.paxType.uppercased() == "INF"}).count)"
+        }else{
+            return nil
+        }
+
+        switch detail.tripType{
+        case "single", "return":
+            if detail.tripType != "single"{
+                whatNext.returnDate = fDetails.leg.last?.flight.first?.departDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
+            }
+            return whatNext
+            
+        case "multi":
+            var depart = [String]()
+            var origin = [String]()
+            var destination = [String]()
+            var departCity = [String]()
+            var arrivalCity = [String]()
+            
+            for leg in fDetails.leg{
+                depart.append(leg.flight.first?.departDate?.toString(dateFormat: "dd-MM-yyyy") ?? "")
+                origin.append(leg.origin)
+                destination.append(leg.destination)
+                departCity.append((leg.title.components(separatedBy: "→").first ?? "").trimmingCharacters(in: .whitespaces))
+                arrivalCity.append((leg.title.components(separatedBy: "→").last ?? "").trimmingCharacters(in: .whitespaces))
+                whatNext.departArr = depart
+                whatNext.originArr = origin
+                whatNext.destinationArr = destination
+                whatNext.departCityArr = departCity
+                whatNext.arrivalCityArr = arrivalCity
+            }
+            return whatNext
+        default : break;
+        }
+        
+        return nil
+        
+    }
+    
+    func bookSameFlightWith(_ whatNext:WhatNext){
+        FlightWhatNextData.shared.isSettingForWhatNext = true
+        FlightWhatNextData.shared.whatNext = whatNext
+        AppFlowManager.default.goToDashboard(toBeSelect: .flight)
+        
+    }
+    
     private func setupParallaxHeader() {
         let parallexHeaderHeight = CGFloat(147.0)
         let parallexHeaderMinHeight = CGFloat(0.0)//navigationController?.navigationBar.bounds.height ?? 74 // 105

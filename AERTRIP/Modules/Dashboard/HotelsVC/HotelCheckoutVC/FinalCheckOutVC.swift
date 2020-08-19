@@ -819,7 +819,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
 //        if errors.contains(994) {
             AppFlowManager.default.moveToPaymentAmountHigh()
 //        } else {
-//            AppToast.default.showToastMessage(message: "Make Payment Failed")
+//            AppToast.default.showToastMessage(message: LocalizedString.paymentFails.localized)
 //        }
         //
     }
