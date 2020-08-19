@@ -131,7 +131,7 @@ class HCGuestListVC: BaseVC {
                 self.noResultemptyView.messageLabel.isHidden = false
                 self.noResultemptyView.messageLabel.text = "\(LocalizedString.noResults.localized + " " + LocalizedString.For.localized) '\(self.viewModel.searchText)'"
                 self.noResultemptyView.messageLabel.numberOfLines = 0
-                self.noResultemptyView.messageLabelTopConstraint.constant = 30
+                //self.noResultemptyView.messageLabelTopConstraint.constant = 30
                 if self.currentlyUsingFor == .travellers && self.viewModel.travellerContacts.isEmpty {
                     self.tableView?.backgroundView = self.noResultemptyView
                 }
@@ -167,14 +167,14 @@ class HCGuestListVC: BaseVC {
                 return
             }
             self.noResultemptyView.messageLabel.text = ""
-            self.noResultemptyView.messageLabelTopConstraint.constant = 30
+            //self.noResultemptyView.messageLabelTopConstraint.constant = 30
         }
         
 //        self.tableView.backgroundView = self.allowEmptyView
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        noResultemptyView.mainImageViewTopConstraint.constant = 200
+        //noResultemptyView.mainImageViewTopConstraint.constant = 200
         
 //        if self.currentlyUsingFor == .contacts {
 //            if self.viewModel.phoneContacts.isEmpty, CNContactStore.authorizationStatus(for: .contacts) == .authorized {

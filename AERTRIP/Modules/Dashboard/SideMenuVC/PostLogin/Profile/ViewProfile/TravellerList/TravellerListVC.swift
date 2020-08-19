@@ -93,7 +93,7 @@ class TravellerListVC: BaseVC {
         tableView.backgroundView?.isHidden = true
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = AppColors.blueGray
-        noResultemptyView.mainImageViewTopConstraint.constant = tableView.height/2
+        //noResultemptyView.mainImageViewTopConstraint.constant = tableView.height/2
         loadSavedData()
         doInitialSetUp()
         registerXib()

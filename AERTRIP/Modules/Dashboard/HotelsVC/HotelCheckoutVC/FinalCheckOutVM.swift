@@ -193,9 +193,13 @@ extension FinalCheckoutVM {
     //To update Account details after booking.
     private func getUserAccountData(){
         if UserInfo.loggedInUserId != nil{
-            APICaller.shared.getAccountDetailsAPI(params: [:]) {(success, accLad, accVchrs, outLad, periodic, errors) in
+//            APICaller.shared.getAccountDetailsAPI(params: [:]) {(success, accLad, accVchrs, outLad, periodic, errors) in
+//                printDebug("Account updated.")
+//            }
+            
+            APICaller.shared.getAccountSummaryAPI(params: [:], completionBlock: { ( success, errors) in
                 printDebug("Account updated.")
-            }
+            })
         }
     }
     
