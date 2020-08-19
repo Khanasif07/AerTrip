@@ -111,11 +111,14 @@ class FlightBookingsDetailsVC: BaseVC {
             view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM''yy") ?? "")
             
             view.dividerView.isHidden = true
+            view.progressBottomConstraint.constant = 0.0
             if let note = self.viewModel.bookingDetail?.bookingDetail?.note, !note.isEmpty {
                 view.dividerView.isHidden = false
+                view.progressBottomConstraint.constant = 2.0
             }
             else if let cases = self.viewModel.bookingDetail?.cases, !cases.isEmpty {
                 view.dividerView.isHidden = false
+                view.progressBottomConstraint.constant = 2.0
             }
         }
     }

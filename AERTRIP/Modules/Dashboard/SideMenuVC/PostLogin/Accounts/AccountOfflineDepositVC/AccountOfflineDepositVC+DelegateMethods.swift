@@ -248,6 +248,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             depositCell.amountTextField.backgroundColor = AppColors.clear
             depositCell.isUserInteractionEnabled = false
         }
+        depositCell.topDividerView.isHidden = false
         return depositCell
     }
     

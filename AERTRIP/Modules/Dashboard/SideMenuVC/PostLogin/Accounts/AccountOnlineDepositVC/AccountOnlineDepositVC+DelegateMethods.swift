@@ -27,6 +27,7 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 depositCell.amountTextField.backgroundColor = AppColors.clear
                 depositCell.isUserInteractionEnabled = false
             }
+//            depositCell.topDividerView.isHidden = false
             return depositCell
             
         case 1:
@@ -170,26 +171,27 @@ extension AccountOnlineDepositVC: AccountDepositAmountCellDelegate {
         self.viewModel.depositItinerary?.partPaymentAmount = amount
         self.updatePayButtonText()
         self.checkOutTableView.reloadData()
+        self.updateConvenienceFee(with: amount)
     }
     
     func amountValueChanged(amount: Double, amountString: String) {
-        self.viewModel.timer?.invalidate()
-        self.viewModel.timer = nil
-        self.viewModel.convenienceFeeUpdateTime = 1.0
-        self.updateConvenienceFee(with: amount)
+//        self.viewModel.timer?.invalidate()
+//        self.viewModel.timer = nil
+//        self.viewModel.convenienceFeeUpdateTime = 1.0
+//        self.updateConvenienceFee(with: amount)
         
     }
     
     func updateConvenienceFee(with amount: Double){
-        self.viewModel.timer?.invalidate()
-        self.viewModel.timer = nil
-        if amount != 0{
-            self.viewModel.depositItinerary?.partPaymentAmount = amount
-            self.viewModel.timer = Timer.scheduledTimer(withTimeInterval: self.viewModel.convenienceFeeUpdateTime, repeats: false, block: {[weak self] timer in
-                guard let self = self else {return}
+//        self.viewModel.timer?.invalidate()
+//        self.viewModel.timer = nil
+//        if amount != 0{
+//            self.viewModel.depositItinerary?.partPaymentAmount = amount
+//            self.viewModel.timer = Timer.scheduledTimer(withTimeInterval: self.viewModel.convenienceFeeUpdateTime, repeats: false, block: {[weak self] timer in
+//                guard let self = self else {return}
                 self.viewModel.updateConvenienceFee(amount: "\(amount)")
-            })
-        }
+//            })
+//        }
     }
     
 }
