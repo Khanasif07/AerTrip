@@ -21,7 +21,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     @IBOutlet weak var sharePinnedFilghts: UIButton!
     @IBOutlet weak var switchGradientView: UIView!
     @IBOutlet weak var resultsTableViewTop: NSLayoutConstraint!
-   
+    
     //MARK:- Properties
     var noResultScreen : NoResultsScreenViewController?
     var titleString : NSAttributedString!
@@ -49,7 +49,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     var previousRequest : DispatchWorkItem?
     let viewModel = FlightResultSingleJourneyVM()
     let getSharableLink = GetSharableUrl()
-
+    
     //MARK:- View Controller Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +57,10 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         self.viewModel.results = OnewayJourneyResultsArray(sort: .Smart)
         setupTableView()
         setupPinnedFlightsOptionsView()
+    }
+    
+    deinit {
+        print("FlightResultSingleJourneyVC")
     }
     
     //MARK:- Additional UI Methods
@@ -114,7 +118,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         }
     }
     
-     func updateUI() {
+    func updateUI() {
         let rect = self.resultsTableView.rectForRow(at: IndexPath(row: 0, section: 0))
         self.resultsTableView.scrollRectToVisible(rect, animated: true)
         
@@ -147,12 +151,12 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         self.viewModel.prevLegIndex = legIndex
         self.viewModel.setPinnedFlights(shouldApplySorting: true)
         self.viewModel.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex)
-       
-            let newRequest = DispatchWorkItem {
-                if shouldReload {
-                    self.resultsTableView.reloadData()
-                }
+        
+        let newRequest = DispatchWorkItem {
+            if shouldReload {
+                self.resultsTableView.reloadData()
             }
+        }
         
         completion()
         previousRequest = newRequest
@@ -162,39 +166,33 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     func updateWithArray(_ results : [Journey] , sortOrder: Sort ) {
         
         if viewModel.resultTableState == .showTemplateResults {
-                viewModel.resultTableState = .showRegularResults
+            viewModel.resultTableState = .showRegularResults
         }
         
         let modifiedResult = results
-
-        for j in modifiedResult{
-                  let flightNum = j.leg.first!.flights.first!.al + j.leg.first!.flights.first!.fn
-                  if flightNum.uppercased() == airlineCode.uppercased(){
-                      j.isPinned = true
-                      showPinnedFlightsOption(true)
-                  }
-              }
+        
+   
         
         DispatchQueue.global(qos: .userInteractive).async {
-
+            
             self.viewModel.sortOrder = sortOrder
-                       self.viewModel.results.sort = sortOrder
-                       
-                       self.viewModel.results.currentPinnedJourneys.forEach { (pinedJourney) in
-                           
-                           if let resultIndex = results.firstIndex(where: { (resultJourney) -> Bool in
-                               return pinedJourney.id == resultJourney.id
-                           }){
-                               modifiedResult[resultIndex].isPinned = true
-                           }
-                       }
+            self.viewModel.results.sort = sortOrder
+            
+            self.viewModel.results.currentPinnedJourneys.forEach { (pinedJourney) in
+                if let resultIndex = results.firstIndex(where: { (resultJourney) -> Bool in
+                    return pinedJourney.id == resultJourney.id
+                }){
+                    modifiedResult[resultIndex].isPinned = true
+                }
+            }
+            
+
             
             let groupedArray =   self.viewModel.getOnewayDisplayArray(results: modifiedResult)
             self.viewModel.results.journeyArray = groupedArray
             self.sortedArray = Array(self.viewModel.results.sortedArray)
             self.viewModel.setPinnedFlights(shouldApplySorting: true)
-            
-            
+
             self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: self.viewModel.prevLegIndex, completion: {
                 DispatchQueue.main.async {
                     self.animateTableHeader()
@@ -212,11 +210,29 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                         self.noResultScreen?.removeFromParent()
                         self.noResultScreen = nil
                     }
+                    
+                    if !self.airlineCode.isEmpty{
+                        let searchByAirlineJourney = modifiedResult.filter { (journ) -> Bool in
+                                 let flightNum = journ.leg.first!.flights.first!.al + journ.leg.first!.flights.first!.fn
+                                 return flightNum.uppercased() == self.airlineCode.uppercased()
+                        }
+                        
+                        if !searchByAirlineJourney.isEmpty{
+                            DispatchQueue.main.async {
+                                self.setPinnedFlightAt(searchByAirlineJourney.first?.fk ?? "", isPinned: true)
+                                self.switchView.isOn = true
+                                self.switcherDidChangeValue(switcher: self.switchView, value: true)
+                            }
+                        }
+                    }
+                    
+                    
+                    
                 }
             })
         }
     }
-
+    
     
     func getOnewayJourneyDisplayArray( results : [Journey] , sortingOrder:Sort) ->[JourneyOnewayDisplay]
     {
@@ -227,8 +243,8 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             if viewModel.resultTableState == .showExpensiveFlights {
                 
                 let combinedByGroupID = Dictionary(grouping: results, by: { $0.groupID })
+                
                 for (_ , journeyArray) in combinedByGroupID {
-                    
                     let journey = JourneyOnewayDisplay(journeyArray)
                     displayArray.append(journey)
                 }
@@ -241,11 +257,11 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                 }else if sortingOrder == .PriceHighToLow{
                     displayArray = displayArray.sorted(by: { $0.fare > $1.fare })
                 }
-//                else if sortingOrder == .Duration{
-//                    displayArray = displayArray.sorted(by: { $0.duration < $1.duration })
-//                }else{
-//                    displayArray = displayArray.sorted(by: { $0.duration > $1.duration })
-//                }
+                //                else if sortingOrder == .Duration{
+                //                    displayArray = displayArray.sorted(by: { $0.duration < $1.duration })
+                //                }else{
+                //                    displayArray = displayArray.sorted(by: { $0.duration > $1.duration })
+                //                }
             }else {
                 let combinedByGroupID = Dictionary(grouping: results, by: { $0.groupID })
                 for (groupID , _) in combinedByGroupID {
@@ -269,11 +285,11 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                 }else if sortingOrder == .PriceHighToLow{
                     displayArray = displayArray.sorted(by: { $0.fare > $1.fare })
                 }
-//                else if sortingOrder == .Duration{
-//                    displayArray = displayArray.sorted(by: { $0.duration < $1.duration })
-//                }else{
-//                    displayArray = displayArray.sorted(by: { $0.duration > $1.duration })
-//                }
+                //                else if sortingOrder == .Duration{
+                //                    displayArray = displayArray.sorted(by: { $0.duration < $1.duration })
+                //                }else{
+                //                    displayArray = displayArray.sorted(by: { $0.duration > $1.duration })
+                //                }
             }
         }else {
             for journey in results {
@@ -287,11 +303,11 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             }else if sortingOrder == .PriceHighToLow{
                 displayArray = displayArray.sorted(by: { $0.fare > $1.fare })
             }
-//            else if sortingOrder == .Duration{
-//                displayArray = displayArray.sorted(by: { $0.duration < $1.duration })
-//            }else{
-//                displayArray = displayArray.sorted(by: { $0.duration > $1.duration })
-//            }
+            //            else if sortingOrder == .Duration{
+            //                displayArray = displayArray.sorted(by: { $0.duration < $1.duration })
+            //            }else{
+            //                displayArray = displayArray.sorted(by: { $0.duration > $1.duration })
+            //            }
         }
         
         return displayArray
@@ -309,7 +325,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     func updateTaxesArray(_ results : [String : String])
     {
-       taxesResult = results
+        taxesResult = results
     }
     
     fileprivate func setupTableView(){
@@ -325,8 +341,8 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     func setupPinnedFlightsOptionsView()
     {
-//        pinnedFlightOptionsTop.constant = 0
-                
+        //        pinnedFlightOptionsTop.constant = 0
+        
         switchView.delegate = self
         switchView.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
         switchView.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
@@ -337,8 +353,9 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         delay(seconds: 0.6) {
             self.switchView.isOn = false
         }
-
-        manageSwitchContainer(isHidden: true)
+        
+        //        manageSwitchContainer(isHidden: true)
+        showPinnedFlightsOption(false)
         hidePinnedFlightOptions(true)
         
         addShadowTo(unpinnedAllButton)
@@ -369,15 +386,15 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             }
         }
     }
-        
+    
     
     fileprivate func snapToTopOrBottomOnSlowScrollDragging(_ scrollView: UIScrollView) {
         
-
+        
         if let blurEffectView = self.navigationController?.view.viewWithTag(500) {
             var rect = blurEffectView.frame
             let yCoordinate = rect.origin.y * ( -1 )
-
+            
             // After dragging if blurEffectView is at top or bottom position , snapping animation is not required
             if yCoordinate == 0 || yCoordinate == ( -visualEffectViewHeight){
                 return
@@ -387,7 +404,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             if  ( yCoordinate > ( visualEffectViewHeight / 2.0 ) ){
                 rect.origin.y = -visualEffectViewHeight
                 
-
+                
                 if scrollView.contentOffset.y < 100 {
                     let zeroPoint = CGPoint(x: 0, y: 96.0)
                     scrollView.setContentOffset(zeroPoint, animated: true)
@@ -420,7 +437,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             self.resultsTableView.tableHeaderView = headerView
             self.resultsTableView.isScrollEnabled = false
             self.resultsTableView.tableFooterView = nil
-
+            
         }
     }
     
@@ -457,10 +474,10 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         
         alert.view.tintColor = UIColor.AertripColor
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { action in
-              }))
+        }))
         alert.addAction(UIAlertAction(title: "Unpin all", style: .destructive, handler: { action in
-         if #available(iOS 13.0, *) {
-            self.performUnpinnedAllAction()
+            if #available(iOS 13.0, *) {
+                self.performUnpinnedAllAction()
             }
         }))
         
@@ -509,25 +526,25 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     func reloadRowAtIndex(indexPath: IndexPath , with journeyDisplay: JourneyOnewayDisplay ) {
         
-//        if indexPath.section == 0 {
-//            viewModel.results.suggestedJourneyArray[indexPath.row] = journeyDisplay
-//        }
-//        else {
-//            viewModel.results.expensiveJourneyArray[indexPath.row] = journeyDisplay
-//        }
-//
-//        let suggestedPinnedFlight = viewModel.results.suggestedJourneyArray.reduce(viewModel.results.suggestedJourneyArray[0].containsPinnedFlight) { $0 || $1.containsPinnedFlight }
-//
-//        var expensivePinnedFlight = false
-//        if viewModel.results.expensiveJourneyArray.count > 0 {
-//            expensivePinnedFlight  = viewModel.results.expensiveJourneyArray.reduce(viewModel.results.expensiveJourneyArray[0].containsPinnedFlight) { $0 || $1.containsPinnedFlight }
-//        }
-//        if !(suggestedPinnedFlight ||  expensivePinnedFlight) {
-//            showPinnedFlightsOption(false)
-//        }else {
-//            showPinnedFlightsOption(true)
-//        }
-//         self.resultsTableView.reloadRows(at: [indexPath], with: .none)
+        //        if indexPath.section == 0 {
+        //            viewModel.results.suggestedJourneyArray[indexPath.row] = journeyDisplay
+        //        }
+        //        else {
+        //            viewModel.results.expensiveJourneyArray[indexPath.row] = journeyDisplay
+        //        }
+        //
+        //        let suggestedPinnedFlight = viewModel.results.suggestedJourneyArray.reduce(viewModel.results.suggestedJourneyArray[0].containsPinnedFlight) { $0 || $1.containsPinnedFlight }
+        //
+        //        var expensivePinnedFlight = false
+        //        if viewModel.results.expensiveJourneyArray.count > 0 {
+        //            expensivePinnedFlight  = viewModel.results.expensiveJourneyArray.reduce(viewModel.results.expensiveJourneyArray[0].containsPinnedFlight) { $0 || $1.containsPinnedFlight }
+        //        }
+        //        if !(suggestedPinnedFlight ||  expensivePinnedFlight) {
+        //            showPinnedFlightsOption(false)
+        //        }else {
+        //            showPinnedFlightsOption(true)
+        //        }
+        //         self.resultsTableView.reloadRows(at: [indexPath], with: .none)
     }
     
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool,isPinnedButtonClicked:Bool)
@@ -537,12 +554,12 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         }
         
         if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "SingleJourneyResultTableViewCell") as? SingleJourneyResultTableViewCell{
-
+            
             cell.smartIconsArray = cell.currentJourney?.smartIconArray
             cell.smartIconCollectionView.reloadData()
         }
     }
-
+    
     
     //MARK:- Scroll related methods
     
@@ -595,11 +612,11 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         let contentSize = scrollView.contentSize
         let scrollViewHeight = contentSize.height
         let viewHeight = self.view.frame.height
-
+        
         if scrollViewHeight < (viewHeight + visualEffectViewHeight) {
             return
         }
-
+        
         let contentOffset = scrollView.contentOffset
         let offsetDifference = contentOffset.y - scrollviewInitialYOffset
         if offsetDifference > 0 {
@@ -611,7 +628,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     }
     
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView){
-
+        
         if let blurEffectView = self.navigationController?.view.viewWithTag(500) {
             var rect = blurEffectView.frame
             rect.origin.y = 0
@@ -624,42 +641,42 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         snapToTopOrBottomOnSlowScrollDragging(scrollView)
-//        scrollviewInitialYOffset = 0.0
+        //        scrollviewInitialYOffset = 0.0
     }
-
+    
     
     //MARK:-  Actions to be performed on Journey objects
     
     func addToTripFlightAt(_ indexPath : IndexPath){
         
-//        if viewModel.sortOrder == .Smart{
-//            var arrayForDisplay = viewModel.results.suggestedJourneyArray
-//
-//            if viewModel.resultTableState == .showExpensiveFlights && indexPath.section == 1 {
-//                arrayForDisplay = viewModel.results.expensiveJourneyArray
-//            }
-//
-//             let journey = arrayForDisplay[indexPath.row]
-//
-//                if journey.cellType == .singleJourneyCell {
-//                    addToTrip(journey: journey.first )
-//                }
-//                else {
-//                    addToTrip(journey: journey.first)
-//                }
-//
-//        }
-//        else {
-//            let currentJourney =  self.sortedArray[indexPath.row]
-//            addToTrip(journey: currentJourney)
-//        }
+        //        if viewModel.sortOrder == .Smart{
+        //            var arrayForDisplay = viewModel.results.suggestedJourneyArray
+        //
+        //            if viewModel.resultTableState == .showExpensiveFlights && indexPath.section == 1 {
+        //                arrayForDisplay = viewModel.results.expensiveJourneyArray
+        //            }
+        //
+        //             let journey = arrayForDisplay[indexPath.row]
+        //
+        //                if journey.cellType == .singleJourneyCell {
+        //                    addToTrip(journey: journey.first )
+        //                }
+        //                else {
+        //                    addToTrip(journey: journey.first)
+        //                }
+        //
+        //        }
+        //        else {
+        //            let currentJourney =  self.sortedArray[indexPath.row]
+        //            addToTrip(journey: currentJourney)
+        //        }
     }
     
     func addToTrip(journey : Journey) {
-            let tripListVC = TripListVC(nibName: "TripListVC", bundle: nil)
-            tripListVC.journey = [journey]
-            tripListVC.modalPresentationStyle = .overCurrentContext
-            self.present(tripListVC, animated: true, completion: nil)
+        let tripListVC = TripListVC(nibName: "TripListVC", bundle: nil)
+        tripListVC.journey = [journey]
+        tripListVC.modalPresentationStyle = .overCurrentContext
+        self.present(tripListVC, animated: true, completion: nil)
     }
     
     func shareFlightAt(_ indexPath : IndexPath) {
@@ -673,12 +690,12 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         else {
             
             var arrayForDisplay = self.viewModel.results.suggestedJourneyArray
-                
-            if self.viewModel.resultTableState == .showExpensiveFlights {
-                    arrayForDisplay = self.viewModel.results.journeyArray
-                }
             
-                 journey = arrayForDisplay[indexPath.row].first
+            if self.viewModel.resultTableState == .showExpensiveFlights {
+                arrayForDisplay = self.viewModel.results.journeyArray
+            }
+            
+            journey = arrayForDisplay[indexPath.row].first
             
         }
         
@@ -698,7 +715,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     func navigateToFlightDetailFor(journey: Journey) {
         
     }
- 
+    
     
     //MARK:- Methods for naviagating to other View Controller
     

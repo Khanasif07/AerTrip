@@ -21,12 +21,12 @@ extension FlightResultSingleJourneyVC {
                curJourneyArr = viewModel.results.allJourneys
            }
     
+    print(curJourneyArr.count)
     
        guard let index = curJourneyArr.firstIndex(where: {
                 
                 for journey in $0.journeyArray {
                     if journey.fk == flightKey {
-    //                   print("index...\(index)")
                         return true
                     }
                 }
@@ -49,6 +49,7 @@ extension FlightResultSingleJourneyVC {
     if isPinned {
         showPinnedFlightsOption(true)
     self.viewModel.results.currentPinnedJourneys.append(displayArray.journeyArray[journeyArrayIndex])
+  
     } else {
        
        let containesPinnedFlight = viewModel.results.allJourneys.reduce(curJourneyArr[0].containsPinnedFlight) { $0 || $1.containsPinnedFlight }
@@ -74,8 +75,6 @@ extension FlightResultSingleJourneyVC {
         self.resultsTableView.tableFooterView?.isHidden = false
     }
     showFooterView()
-
-
 }
     
      func hidePinnedFlightOptions( _ hide : Bool){
@@ -97,9 +96,7 @@ func showPinnedFlightsOption(_ show  : Bool) {
 extension FlightResultSingleJourneyVC: ATSwitcherChangeValueDelegate {
     
     func switcherDidChangeValue(switcher: ATSwitcher, value: Bool) {
-//        self.viewModel.isFavouriteOn = value
-//        self.viewModel.loadSaveData()
-      
+
         if value {
             
             self.unpinnedAllButton.isHidden = false
@@ -117,7 +114,11 @@ extension FlightResultSingleJourneyVC: ATSwitcherChangeValueDelegate {
         }
         else {
             self.hideFavsButtons(isAnimated: true)
-            viewModel.resultTableState = stateBeforePinnedFlight
+            if stateBeforePinnedFlight == ResultTableViewState.showPinnedFlights{
+                viewModel.resultTableState = ResultTableViewState.showRegularResults
+            }else {
+                viewModel.resultTableState = stateBeforePinnedFlight
+            }
             showFooterView()
         }
         
@@ -129,6 +130,11 @@ extension FlightResultSingleJourneyVC: ATSwitcherChangeValueDelegate {
 //        tableViewVertical.setContentOffset(CGPoint(x: 0, y: -topContentSpace), animated: false)
         //showBluredHeaderViewCompleted()
     }
+    
+//    func switchTogggled(switcher: ATSwitcher, value: Bool, shouldaddNoDataView : Bool = true){
+//
+//    }
+    
 }
 
 extension FlightResultSingleJourneyVC {
@@ -423,5 +429,5 @@ extension FlightResultSingleJourneyVC {
           
           return postData
       }
-      
+    
 }

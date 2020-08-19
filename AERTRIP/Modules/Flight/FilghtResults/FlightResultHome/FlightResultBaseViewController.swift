@@ -78,6 +78,10 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         super.init(coder: aDecoder)
     }
     
+    deinit {
+          print("FlightResultBaseViewController")
+      }
+    
     //MARK:- View Controller Methods
     override func viewDidLoad() {
         super.viewDidLoad()

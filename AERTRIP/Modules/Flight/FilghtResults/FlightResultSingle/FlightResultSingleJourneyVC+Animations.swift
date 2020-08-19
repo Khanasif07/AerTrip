@@ -133,15 +133,18 @@ extension FlightResultSingleJourneyVC {
     
      func manageSwitchContainer(isHidden: Bool, shouldOff: Bool = true) {
           
-         manageFloatingView(isHidden: false)
+         manageFloatingView(isHidden: isHidden)
            
-           if !isHidden {
-               self.pinnedFlightsOptionsView.isHidden = false
-           }
+//           if !isHidden {
+//               self.pinnedFlightsOptionsView.isHidden = false
+//           }
            
            DispatchQueue.main.async {
                let newFrame = CGRect(x: 0.0, y: isHidden ? 100.0 : 0.0, width: self.pinnedFlightsOptionsView.width, height: self.pinnedFlightsOptionsView.height)
-               UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {[weak self] in
+            
+            print("newFrame...\(newFrame)")
+            
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {[weak self] in
                    guard let sSelf = self else {return}
                    
                    sSelf.pinnedFlightsOptionsView.frame = newFrame
