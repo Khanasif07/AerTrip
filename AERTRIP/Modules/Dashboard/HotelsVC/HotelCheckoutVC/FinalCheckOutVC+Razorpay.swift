@@ -17,7 +17,7 @@ extension FinalCheckOutVC: RazorpayPaymentCompletionProtocolWithData {
         razorpay.open(options, displayController: self)
     }
     func onPaymentError(_ code: Int32, description str: String, andData response: [AnyHashable : Any]?) {
-        AppToast.default.showToastMessage(message: "Sorry! payment was faild.\nPlease try again.")
+        AppToast.default.showToastMessage(message: LocalizedString.paymentFails.localized)//"Sorry! payment was faild.\nPlease try again.")
     }
     
     func onPaymentSuccess(_ payment_id: String, andData response: [AnyHashable : Any]?) {

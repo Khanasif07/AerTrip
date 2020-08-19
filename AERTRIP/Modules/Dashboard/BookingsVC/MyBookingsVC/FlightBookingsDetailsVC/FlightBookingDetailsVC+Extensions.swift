@@ -127,7 +127,9 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         case .addToAppleWallet:
             addToAppleWallet()
         case .bookSameFlightCell :
-            AppGlobals.shared.showUnderDevelopment()
+            if let whatNext = self.whatNextForSameFlightBook() {
+                self.bookSameFlightWith(whatNext)
+            }
         case .addToCalenderCell:
             self.addToCalender()
         case .paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .refundCell,.paymentPendingCell, .paidCell:
