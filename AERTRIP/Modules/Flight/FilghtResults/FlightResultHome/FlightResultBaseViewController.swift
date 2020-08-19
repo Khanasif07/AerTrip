@@ -37,7 +37,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     //MARK:- Navigation Bar UI Elements
     var backButton : UIButton!
     var filterButton : UIButton!
-//    var filterSegmentView: HMSegmentedControl!
+    var filterSegmentView: HMSegmentedControl!
     var resultTitle : UILabel!
     var resultsubTitle: UILabel!
     var infoButton : UIButton!
@@ -84,9 +84,9 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         setupNagationBar()
         createFilterTitle()
         
-//        setupSegmentView()
-//        self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex)
-//        self.filterSegmentView.selectedSegmentIndex = HMSegmentedControlNoSegment
+        setupSegmentView()
+        self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex)
+        self.filterSegmentView.selectedSegmentIndex = HMSegmentedControlNoSegment
         NotificationCenter.default.addObserver(self, selector: #selector(updateFilterScreenText), name: NSNotification.Name("updateFilterScreenText"), object: nil)
         setupResultView()
     }
@@ -147,7 +147,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         
         backView.addSubview(filterButton)
 
-//        visualEffectView.contentView.addSubview(self.filterSegmentView)
+        visualEffectView.contentView.addSubview(self.filterSegmentView)
         
         filterButton.snp.makeConstraints { (make) in
             make.left.equalTo(visualEffectView.contentView).offset(0)
@@ -156,12 +156,12 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             make.height.equalTo(51)
         }
         
-//        filterSegmentView.snp.makeConstraints { (make) in
-//            make.left.equalTo(visualEffectView.contentView).offset(44.0)
-//            make.bottom.equalTo(visualEffectView.contentView).offset(-1.7)
-//            make.trailing.equalTo(visualEffectView.contentView).offset(0)
-//            make.height.equalTo(51)
-//        }
+        filterSegmentView.snp.makeConstraints { (make) in
+            make.left.equalTo(visualEffectView.contentView).offset(41.5)
+            make.bottom.equalTo(visualEffectView.contentView).offset(-1.7)
+            make.trailing.equalTo(visualEffectView.contentView).offset(0)
+            make.height.equalTo(42)
+        }
         
         ApiProgress = UIProgressView()
         ApiProgress.progressTintColor = UIColor.AertripColor
@@ -610,28 +610,30 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     
     //MARK:- HMSegmentedControl SegmentView UI Methods
     
-//    fileprivate func setupSegmentView(){
-//        self.filterSegmentView = HMSegmentedControl()
-//        self.filterSegmentView.backgroundColor = .clear
-//        self.filterSegmentView.selectionIndicatorLocation = .down;
-//        self.filterSegmentView.segmentWidthStyle = .dynamic
-//        self.filterSegmentView.segmentEdgeInset = UIEdgeInsets(top: 0, left: 20.0, bottom: 0, right: 20.0);
-//        self.filterSegmentView.selectionIndicatorEdgeInsets = UIEdgeInsets(top: 0, left: 20.0, bottom: 0, right: 40.0);
-//
-//        self.filterSegmentView.autoresizingMask = .flexibleWidth
-//        self.filterSegmentView.selectionStyle = .textWidthStripe
-//        self.filterSegmentView.selectionIndicatorLocation = .down;
-//        self.filterSegmentView.selectionIndicatorHeight = 2
-//        self.filterSegmentView.isVerticalDividerEnabled = false
-//        self.filterSegmentView.selectionIndicatorColor = .clear
-//
-//        self.filterSegmentView.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black , NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Regular" , size: 16)! ]
-//        self.filterSegmentView.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.black , NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Semibold" , size: 16)!]
-//        self.filterSegmentView .addTarget(self, action: #selector(filtersegmentChanged(_:)), for: .valueChanged)
-//
-//        self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex)
-//        self.filterSegmentView.selectedSegmentIndex = HMSegmentedControlNoSegment
-//    }
+    fileprivate func setupSegmentView(){
+        self.filterSegmentView = HMSegmentedControl()
+        self.filterSegmentView.backgroundColor = .clear
+        self.filterSegmentView.selectionIndicatorLocation = .down;
+        self.filterSegmentView.segmentWidthStyle = .dynamic
+        self.filterSegmentView.segmentEdgeInset = UIEdgeInsets(top: 0, left: 20.0, bottom: 0, right: 20.0);
+        self.filterSegmentView.selectionIndicatorEdgeInsets = UIEdgeInsets(top: 0, left: 20.0, bottom: 0, right: 40.0);
+
+        self.filterSegmentView.autoresizingMask = .flexibleWidth
+        self.filterSegmentView.selectionStyle = .textWidthStripe
+        self.filterSegmentView.selectionIndicatorLocation = .down;
+        self.filterSegmentView.selectionIndicatorHeight = 2
+        self.filterSegmentView.isVerticalDividerEnabled = false
+        self.filterSegmentView.selectionIndicatorColor = .clear
+
+        self.filterSegmentView.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black , NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Regular" , size: 16)! ]
+        self.filterSegmentView.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.black , NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Semibold" , size: 16)!]
+        self.filterSegmentView .addTarget(self, action: #selector(filtersegmentChanged(_:)), for: .valueChanged)
+
+        self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex)
+        self.filterSegmentView.selectedSegmentIndex = HMSegmentedControlNoSegment
+        
+        self.filterSegmentView.isUserInteractionEnabled = false
+    }
     
     //MARK:- Navigation Bar Methods
     

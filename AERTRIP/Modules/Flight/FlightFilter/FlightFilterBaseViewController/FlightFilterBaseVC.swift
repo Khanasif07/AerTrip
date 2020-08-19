@@ -126,10 +126,11 @@ class FlightFilterBaseVC: UIViewController {
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 50, bottom: 0.0, right: 10)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 45)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
-        self.parchmentView?.borderOptions = PagingBorderOptions.visible(
-            height: 0.25,
-            zIndex: Int.max - 1,
-            insets: UIEdgeInsets(top: 0, left: -400, bottom: 0, right: -400))
+//        self.parchmentView?.borderOptions = PagingBorderOptions.visible(
+//            height: 0.25,
+//            zIndex: Int.max - 1,
+//            insets: UIEdgeInsets(top: 0, left: -400, bottom: 0, right: -400))
+        self.parchmentView?.borderOptions = PagingBorderOptions.hidden
         let nib = UINib(nibName: "MenuItemFilterCollCell", bundle: nil)
         self.parchmentView?.register(nib, for: MenuItemForFilter.self)
         self.parchmentView?.borderColor = .clear//AppColors.themeGray20
