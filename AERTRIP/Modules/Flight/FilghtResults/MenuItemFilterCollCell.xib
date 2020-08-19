@@ -27,7 +27,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VFW-v5-sbW">
-                                <rect key="frame" x="97" y="22" width="4" height="4"/>
+                                <rect key="frame" x="97" y="23" width="4" height="4"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="4" id="Joh-Oo-H0B"/>
@@ -38,8 +38,8 @@
                         <constraints>
                             <constraint firstItem="uhL-Oq-d5m" firstAttribute="centerX" secondItem="vkg-0K-JPQ" secondAttribute="centerX" id="2fx-sg-px9"/>
                             <constraint firstItem="VFW-v5-sbW" firstAttribute="leading" secondItem="uhL-Oq-d5m" secondAttribute="trailing" constant="5" id="Etf-5Y-UOM"/>
+                            <constraint firstItem="VFW-v5-sbW" firstAttribute="centerY" secondItem="uhL-Oq-d5m" secondAttribute="centerY" id="LUx-Bg-eOh"/>
                             <constraint firstItem="uhL-Oq-d5m" firstAttribute="centerY" secondItem="vkg-0K-JPQ" secondAttribute="centerY" id="Yaw-iX-nzl"/>
-                            <constraint firstItem="VFW-v5-sbW" firstAttribute="top" secondItem="uhL-Oq-d5m" secondAttribute="top" constant="7.5" id="fvT-gF-u5R"/>
                         </constraints>
                     </view>
                 </subviews>
