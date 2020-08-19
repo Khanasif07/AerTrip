@@ -839,11 +839,13 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         flightFilterVC?.toggleSelectedState(hidden: hidden)
         if !hidden {
             addFilterHeader()
+            backView.sendSubviewToBack(ApiProgress)
             UIView.animate(withDuration: 0.3) {
                 self.backView.height = self.view.height + 100
             }
         } else {
             removeFilterHeader()
+            backView.bringSubviewToFront(ApiProgress)
             UIView.animate(withDuration: 0.3) {
                 self.backView.height = self.visualEffectViewHeight
             }
