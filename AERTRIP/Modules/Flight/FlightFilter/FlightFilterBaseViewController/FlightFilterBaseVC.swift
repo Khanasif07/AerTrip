@@ -143,11 +143,9 @@ class FlightFilterBaseVC: UIViewController {
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
         self.parchmentView?.sizeDelegate = self
-//        self.parchmentView?.select(index: 0)
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
         self.parchmentView?.menuBackgroundColor = AppColors.themeGray49
-//        self.parchmentView?.collectionView.backgroundColor = UIColor.clear
     }
     
     func toggleSelectedState(hidden: Bool) {

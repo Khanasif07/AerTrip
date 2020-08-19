@@ -48,6 +48,9 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     var isSearchByAirline = false
     var airlineCode = ""
     let separatorView = UIView()
+    
+    private var filterBackView = UIView()
+    
     private var numberOfLegs = 0 {
         didSet {
             self.flightSearchResultVM.numberOfLegs = numberOfLegs
@@ -89,6 +92,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         self.filterSegmentView.selectedSegmentIndex = HMSegmentedControlNoSegment
         NotificationCenter.default.addObserver(self, selector: #selector(updateFilterScreenText), name: NSNotification.Name("updateFilterScreenText"), object: nil)
         setupResultView()
+        addFilterBackView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -119,12 +123,13 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         
         visualEffectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
         visualEffectView.effect = UIBlurEffect(style: .prominent)
+        visualEffectView.contentView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
         
         backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
-        backView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
         backView.addSubview(visualEffectView)
         backView.tag = 500
         backView.clipsToBounds = true
+        backView.backgroundColor = .clear
         
         backButton = UIButton(type: .custom)
         let buttonImage = UIImage(named: "green")
@@ -608,6 +613,31 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         }
     }
     
+    private func addFilterBackView() {
+        filterBackView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+        filterBackView.frame = view.frame
+        filterBackView.size.height += 100
+        filterBackView.origin.y = visualEffectViewHeight
+        view.addSubview(filterBackView)
+        filterBackView.alpha = 0
+        filterBackView.isHidden = true
+    }
+    
+    private func toggleFilterBackView(hidden: Bool) {
+        if hidden {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.filterBackView.alpha = 0
+            }) { (_) in
+                self.filterBackView.isHidden = true
+            }
+        } else {
+            filterBackView.isHidden = false
+            UIView.animate(withDuration: 0.3, animations: {
+                self.filterBackView.alpha = 1
+            })
+        }
+    }
+    
     //MARK:- HMSegmentedControl SegmentView UI Methods
     
     fileprivate func setupSegmentView(){
@@ -839,6 +869,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     
     private func toggleFiltersView(hidden: Bool) {
         flightFilterVC?.toggleSelectedState(hidden: hidden)
+        toggleFilterBackView(hidden: hidden)
         if !hidden {
             addFilterHeader()
             backView.sendSubviewToBack(ApiProgress)
