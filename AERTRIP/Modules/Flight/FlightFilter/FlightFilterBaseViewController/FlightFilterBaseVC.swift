@@ -108,6 +108,7 @@ class FlightFilterBaseVC: UIViewController {
         let newMenuItem = MenuItemForFilter(title: filter.title, index: filter.rawValue + 1, isSelected: false)
         menuItems.append(newMenuItem)
         setValuesFor(viewController , filter: filter)
+        viewController.loadViewIfNeeded()
     }
     
     private func setUpViewPager() {
