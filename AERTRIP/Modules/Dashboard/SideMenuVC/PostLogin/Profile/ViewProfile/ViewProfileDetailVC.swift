@@ -481,12 +481,12 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
-        switch sections[indexPath.section] {
-        case LocalizedString.PassportDetails.localized, LocalizedString.FlightPreferences.localized:
-            return false
-        default :
+//        switch sections[indexPath.section] {
+//        case LocalizedString.FlightPreferences.localized:
+//            return false
+//        default :
             return true
-        }
+//        }
     }
     
     func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
@@ -507,6 +507,23 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
                 pasteText = social[indexPath.row].value
             case LocalizedString.Address.localized:
                 pasteText = createAddress(addresses[indexPath.row])
+            case LocalizedString.PassportDetails.localized:
+                if indexPath.row >= 2 {
+                } else {
+                    pasteText = passportDetails[indexPath.row]
+                }
+            case LocalizedString.FlightPreferences.localized:
+                if flightDetails.count > indexPath.row {
+                    pasteText = flightDetails[indexPath.row]
+                }
+                else {
+                    if (flightDetails.count == 1 && indexPath.row == 1) || (flightDetails.count == 2 && indexPath.row == 2) {
+                        pasteText = "\(frequentFlyer[indexPath.row - flightDetails.count].airlineName)\n\(frequentFlyer[indexPath.row - flightDetails.count].number)"
+                    } else {
+                        pasteText = "\(frequentFlyer[indexPath.row - flightDetails.count].airlineName)\n\(frequentFlyer[indexPath.row - flightDetails.count].number)"
+                    }
+                    
+                }
             default:
                 pasteText = ""
             }

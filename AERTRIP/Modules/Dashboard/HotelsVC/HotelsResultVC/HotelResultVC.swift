@@ -63,9 +63,6 @@ class HotelResultVC: BaseVC {
             self.tableViewVertical.showsVerticalScrollIndicator = false
             self.tableViewVertical.showsHorizontalScrollIndicator = false
             self.tableViewVertical.contentInset = UIEdgeInsets(top: topContentSpace, left: 0, bottom: 0, right: 0)
-            var view = UIView()
-            view.frame = CGRect(x: 0, y: 0, width: tableViewVertical.width, height: 30)
-            view.backgroundColor = AppColors.themeGreen
             self.tableViewVertical.tableHeaderView = searchResultHeaderView
             self.tableViewVertical.sectionHeaderHeight = CGFloat.leastNormalMagnitude
         }

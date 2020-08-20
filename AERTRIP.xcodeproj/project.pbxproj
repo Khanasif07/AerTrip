@@ -663,15 +663,10 @@
 		841AA51224744A8900B66720 /* ImageWithoutRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AA51124744A8900B66720 /* ImageWithoutRender.swift */; };
 		841AA51624744CA200B66720 /* HomeDummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AA51424744CA100B66720 /* HomeDummyViewController.swift */; };
 		841AA51724744CA200B66720 /* HomeDummyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841AA51524744CA100B66720 /* HomeDummyViewController.xib */; };
-		841AA51E24744E0A00B66720 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 841AA51924744E0900B66720 /* LICENSE.md */; };
 		841AA51F24744E0A00B66720 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 841AA51C24744E0900B66720 /* HMSegmentedControl.m */; };
 		841AA52024744E0A00B66720 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 841AA51D24744E0900B66720 /* README.md */; };
-		841AA52B24744F0700B66720 /* HMSegmentedControl.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 841AA52224744F0500B66720 /* HMSegmentedControl.release.xcconfig */; };
-		841AA52C24744F0700B66720 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 841AA52424744F0600B66720 /* Info.plist */; };
 		841AA52D24744F0700B66720 /* HMSegmentedControl-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 841AA52524744F0600B66720 /* HMSegmentedControl-Info.plist */; };
-		841AA52E24744F0700B66720 /* HMSegmentedControl.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 841AA52624744F0600B66720 /* HMSegmentedControl.debug.xcconfig */; };
 		841AA52F24744F0700B66720 /* HMSegmentedControl-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 841AA52924744F0600B66720 /* HMSegmentedControl-dummy.m */; };
-		841AA53024744F0700B66720 /* HMSegmentedControl.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 841AA52A24744F0700B66720 /* HMSegmentedControl.xcconfig */; };
 		841AA5342475124000B66720 /* ShadowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 841AA5332475124000B66720 /* ShadowButton.m */; };
 		841C8DAF225742BA009B9A54 /* YouAreAllDoneModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841C8DAE225742BA009B9A54 /* YouAreAllDoneModel.swift */; };
 		841DD1E32202DC690055FEBB /* RoomGuestSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841DD1D52202DC680055FEBB /* RoomGuestSelectionVC.swift */; };
@@ -9169,7 +9164,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Pramod Kumar";
 				TargetAttributes = {
 					8469FE8E21B513FD0027BB2E = {
@@ -9275,7 +9270,6 @@
 				8445B53022A5371700DDBC7F /* CustomerContactCellTableViewCell.xib in Resources */,
 				843FF56B24740232001F21B1 /* AmenitiesDetailsVC.xib in Resources */,
 				0C024047248044C300B06AEC /* SelectPassengerCell.xib in Resources */,
-				841AA52B24744F0700B66720 /* HMSegmentedControl.release.xcconfig in Resources */,
 				843FF49024740230001F21B1 /* FlightFilterAmenitiesViewController.xib in Resources */,
 				0CBDEA4B2429E413009D7849 /* ReceiverChatCell.xib in Resources */,
 				18E79718224A06B100A7AC8B /* TotalPayableNowCell.xib in Resources */,
@@ -9558,7 +9552,6 @@
 				188290612238D51A0000C118 /* GuestHotelDetailTableViewCell.xib in Resources */,
 				843FF48424740230001F21B1 /* FlightBulkBooking.storyboard in Resources */,
 				8446C8FE22A7CDA30077556B /* HotelCancellationRoomInfoTableViewCell.xib in Resources */,
-				841AA51E24744E0A00B66720 /* LICENSE.md in Resources */,
 				18B4356B2202DCA6000C5E31 /* SortTableViewCell.xib in Resources */,
 				18020ADB2280546F00DE5FE0 /* SingleFlightResultTableViewCell.xib in Resources */,
 				843FF4F324740231001F21B1 /* FlightPreferencesTableViewCell.xib in Resources */,
@@ -9640,7 +9633,6 @@
 				1800FC6621EF1FA20006D6D1 /* AddNotesTableViewCell.xib in Resources */,
 				84EAABEB21DA09EC006B757F /* SideMenuLogoView.xib in Resources */,
 				182D4859228AECCF004796A2 /* BookingHDWebPhoneTableViewCell.xib in Resources */,
-				841AA52C24744F0700B66720 /* Info.plist in Resources */,
 				0C6666AF22D472F1009DFACD /* TripChangeTableViewCell.xib in Resources */,
 				843FF56F24740232001F21B1 /* FlightInfoVC.storyboard in Resources */,
 				18E797002248E53B00A7AC8B /* FinalAmountTableViewCell.xib in Resources */,
@@ -9652,7 +9644,6 @@
 				18999D9321E48DCE00E66072 /* CategorisedByGroupsTableViewCell.xib in Resources */,
 				182D486D228BE3DB004796A2 /* CancellationPolicyTableViewCell.xib in Resources */,
 				0C272E2A2422601300133B50 /* SenderChatCell.xib in Resources */,
-				841AA52E24744F0700B66720 /* HMSegmentedControl.debug.xcconfig in Resources */,
 				8431405A22291554006C672A /* HotelResultSectionHeader.xib in Resources */,
 				8445B52222A5111700DDBC7F /* BookingTopNavBarWithSubtitle.xib in Resources */,
 				1870BEC222C4DBE20030174C /* BookingAddCommonInputTableViewCell.xib in Resources */,
@@ -9663,7 +9654,6 @@
 				18193A9724A60C310066C518 /* AddonsPassangerCell.xib in Resources */,
 				84DD248A226715530013F77E /* BookingTravellersDetailsTableViewCell.xib in Resources */,
 				18E49BB324D904DE00661404 /* NoImageDetailsCell.xib in Resources */,
-				841AA53024744F0700B66720 /* HMSegmentedControl.xcconfig in Resources */,
 				187684A522844C2C009637D6 /* BookingInfoEmptyFooterView.xib in Resources */,
 				843FF56524740232001F21B1 /* ArrivalPerformaceVC.xib in Resources */,
 				843FF50024740231001F21B1 /* IntHeaderCollectionCell.xib in Resources */,
@@ -10953,6 +10943,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -10978,7 +10969,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -11016,6 +11007,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -11035,7 +11027,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -11098,7 +11090,7 @@
 					"\"${PODS_ROOT}/razorpay-pod/Pod\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/AERTRIP/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -11307,7 +11299,7 @@
 					"\"${PODS_ROOT}/razorpay-pod/Pod\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/AERTRIP/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -16,6 +16,7 @@ import GoogleSignIn
 //import LinkedinSwift
 import FirebaseDynamicLinks
 import UIKit
+import FirebaseCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

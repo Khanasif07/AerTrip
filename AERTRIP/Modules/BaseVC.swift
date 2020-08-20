@@ -80,9 +80,9 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
             backV.sendSubviewToBack(blurEffectView)
         }
         
-        delay(seconds: 0.1) {
-            self.setupLayout()
-        }
+//        delay(seconds: 0.1) {
+//            self.setupLayout()
+//        }
         IQKeyboardManager.shared().toolbarTintColor = AppColors.themeGreen
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().isEnableAutoToolbar = true
@@ -100,7 +100,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        self.setupLayout()
+       // self.setupLayout()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -268,9 +268,9 @@ extension BaseVC {
     }
     
     /// Setup Layout
-    @objc func setupLayout() {
-        
-    }
+//    @objc func setupLayout() {
+//
+//    }
     
     /// Setup up Nav Bar
     
