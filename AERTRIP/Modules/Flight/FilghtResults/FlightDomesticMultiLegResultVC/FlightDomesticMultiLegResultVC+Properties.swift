@@ -267,16 +267,14 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
     
     func updateReceivedAt(index : Int , updatedArray : [Journey] , sortOrder : Sort) {
         
-//        for j in updatedArray{
-//            let flightNum = j.leg.first!.flights.first!.al + j.leg.first!.flights.first!.fn
-//            if flightNum.uppercased() == airlineCode.uppercased(){
-//                j.isPinned = true
-//            }
-//        }
-        
-        
-        
-        
+        for j in updatedArray{
+            let flightNum = j.leg.first!.flights.first!.al + j.leg.first!.flights.first!.fn
+//            print("flightNum= ", flightNum)
+//            print("airlineCode= ", airlineCode)
+            if flightNum.uppercased() == airlineCode.uppercased(){
+                j.isPinned = true
+            }
+        }
         
         let appliedFilters = (self.flightSearchResultVM.flightLegs[index].appliedFilters.count)
 
@@ -432,7 +430,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         }
     }
     
-
     func formatted(fare : Int ) -> String {
         
         let formatter = NumberFormatter()
@@ -536,6 +533,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
     
     //MARK:- Target  methods
     @IBAction func PinnedFlightSwitchTogged(_ sender: AertripSwitch) {
+        
         
         if sender.isOn  {
             showPinnedFlights = true

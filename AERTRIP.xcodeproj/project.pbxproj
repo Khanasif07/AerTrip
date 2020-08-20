@@ -47,6 +47,7 @@
 		0C162ACD24233AC5001C2B10 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162ACB24233AC5001C2B10 /* ChatVC.swift */; };
 		0C162ACF24233B24001C2B10 /* ChatVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162ACE24233B24001C2B10 /* ChatVM.swift */; };
 		0C1671D324B36C99001BAD22 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1671D224B36C99001BAD22 /* Int+Extension.swift */; };
+		0C17B29A24EE8A58004B721C /* FlightDomesticMultiLegResultVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C17B29924EE8A58004B721C /* FlightDomesticMultiLegResultVM.swift */; };
 		0C1AA59424AF0DDB0082FE7D /* ZFTokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1AA59224AF0DDB0082FE7D /* ZFTokenField.m */; };
 		0C1AA59624AF0FCD0082FE7D /* TokenView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C1AA59524AF0FCD0082FE7D /* TokenView.xib */; };
 		0C1B945C248789F600CA6B49 /* AddonsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1B945B248789F600CA6B49 /* AddonsDataStore.swift */; };
@@ -1664,6 +1665,7 @@
 		0C162ACB24233AC5001C2B10 /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
 		0C162ACE24233B24001C2B10 /* ChatVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVM.swift; sourceTree = "<group>"; };
 		0C1671D224B36C99001BAD22 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		0C17B29924EE8A58004B721C /* FlightDomesticMultiLegResultVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDomesticMultiLegResultVM.swift; sourceTree = "<group>"; };
 		0C181FBE22FABDAD0088E64A /* Bolts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Bolts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C1AA59224AF0DDB0082FE7D /* ZFTokenField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFTokenField.m; sourceTree = "<group>"; };
 		0C1AA59324AF0DDB0082FE7D /* ZFTokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFTokenField.h; sourceTree = "<group>"; };
@@ -6634,6 +6636,7 @@
 				843FF40124740230001F21B1 /* JourneyHeaderView.swift */,
 				843FF40224740230001F21B1 /* NoResultScreenView.swift */,
 				843FF40324740230001F21B1 /* JourneyHeaderView.xib */,
+				0C17B29924EE8A58004B721C /* FlightDomesticMultiLegResultVM.swift */,
 			);
 			path = FlightDomesticMultiLegResultVC;
 			sourceTree = "<group>";
@@ -9825,6 +9828,7 @@
 				1835E50F23EAE3E900F6EEA1 /* AppStoreAnimationCollectionCell.swift in Sources */,
 				843FF68E247409E3001F21B1 /* SimpleImageCollectionViewCell.m in Sources */,
 				8463A55E2456C7B200C70D8C /* GMUNonHierarchicalDistanceBasedAlgorithm.m in Sources */,
+				0C17B29A24EE8A58004B721C /* FlightDomesticMultiLegResultVM.swift in Sources */,
 				8426D8B022AE6B9D0081C9D8 /* DoubleExtension.swift in Sources */,
 				84247F8A22A5308200A0FEB7 /* CompletedVC+CoreData.swift in Sources */,
 				843FF48324740230001F21B1 /* FlightBulkBookingViewController.m in Sources */,

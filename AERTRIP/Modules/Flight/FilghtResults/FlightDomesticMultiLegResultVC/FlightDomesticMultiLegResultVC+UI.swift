@@ -92,7 +92,6 @@ extension FlightDomesticMultiLegResultVC {
         
         baseScrollView.addSubview(tableView)
         baseScrollView.addSubview(borderView)
-        
         setupCompactJourneyView(width, index)
     }
     
