@@ -1537,6 +1537,7 @@ with us!</string>
         <!--Booking Request Add OnsFFVC-->
         <scene sceneID="bg3-QD-dNM">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d3P-5B-AQq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="BookingRequestAddOnsFFVC" id="8Ar-K6-6p1" customClass="BookingRequestAddOnsFFVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BEJ-Ul-xq7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -1566,10 +1567,14 @@ with us!</string>
                                     <action selector="requstButtonTapped:" destination="8Ar-K6-6p1" eventType="touchUpInside" id="Pld-qM-s2H"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="B5r-dm-1zQ">
+                                <rect key="frame" x="197" y="827" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="7hY-87-fYM" firstAttribute="leading" secondItem="liV-xw-Oym" secondAttribute="leading" id="0F9-iZ-sx7"/>
+                            <constraint firstItem="B5r-dm-1zQ" firstAttribute="centerY" secondItem="3Jz-d5-jao" secondAttribute="centerY" id="3N7-cl-hr8"/>
                             <constraint firstItem="3Jz-d5-jao" firstAttribute="leading" secondItem="liV-xw-Oym" secondAttribute="leading" id="KPP-NB-oXk"/>
                             <constraint firstItem="3Jz-d5-jao" firstAttribute="top" secondItem="7py-hj-JkT" secondAttribute="top" id="QXV-qA-JX7"/>
                             <constraint firstItem="liV-xw-Oym" firstAttribute="trailing" secondItem="7hY-87-fYM" secondAttribute="trailing" id="SKx-LB-2BT"/>
@@ -1580,6 +1585,7 @@ with us!</string>
                             <constraint firstItem="Slw-2P-6Su" firstAttribute="top" secondItem="liV-xw-Oym" secondAttribute="top" id="Tyz-oN-rCs"/>
                             <constraint firstItem="3Jz-d5-jao" firstAttribute="top" secondItem="7hY-87-fYM" secondAttribute="bottom" id="VwW-ug-dUb"/>
                             <constraint firstItem="liV-xw-Oym" firstAttribute="trailing" secondItem="Slw-2P-6Su" secondAttribute="trailing" id="XXk-LK-Qtq"/>
+                            <constraint firstItem="B5r-dm-1zQ" firstAttribute="centerX" secondItem="3Jz-d5-jao" secondAttribute="centerX" id="Xne-Ne-5tQ"/>
                             <constraint firstItem="Slw-2P-6Su" firstAttribute="leading" secondItem="liV-xw-Oym" secondAttribute="leading" id="YMe-bD-sCr"/>
                             <constraint firstItem="7hY-87-fYM" firstAttribute="top" secondItem="Slw-2P-6Su" secondAttribute="bottom" id="ddp-Ci-5bM"/>
                             <constraint firstItem="3Jz-d5-jao" firstAttribute="trailing" secondItem="7py-hj-JkT" secondAttribute="trailing" id="z70-T2-5vA"/>
@@ -1589,11 +1595,11 @@ with us!</string>
                     <connections>
                         <outlet property="dataContainerView" destination="7hY-87-fYM" id="i7y-YI-CBS"/>
                         <outlet property="gradientView" destination="7py-hj-JkT" id="9Gb-1s-wD0"/>
+                        <outlet property="indicatorView" destination="B5r-dm-1zQ" id="yvv-cz-vnb"/>
                         <outlet property="requestButton" destination="3Jz-d5-jao" id="Rp7-bb-SsG"/>
                         <outlet property="topNavigationView" destination="Slw-2P-6Su" id="jpH-IY-Hia"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="d3P-5B-AQq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3936.8000000000002" y="761.46926536731644"/>
         </scene>

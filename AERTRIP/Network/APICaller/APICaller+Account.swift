@@ -174,7 +174,7 @@ extension APICaller {
     
     func updateConvenienceFeeApi(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ itinerary: DepositItinerary?) -> Void) {
         let id = params[APIKeys.it_id.rawValue] as? String ?? ""
-        let urlString = "\(APIEndPoint.baseUrlPath.rawValue)\(APIEndPoint.updateConvenienceFee.rawValue)?\(APIKeys.it_id.rawValue)=\(id)\(APIKeys.convenience_fees.rawValue)=\(APIKeys.convenience_fees.rawValue)"
+        let urlString = "\(APIEndPoint.baseUrlPath.rawValue)\(APIEndPoint.updateConvenienceFee.rawValue)?\(APIKeys.it_id.rawValue)=\(id)&\(APIKeys.action.rawValue)=\(APIKeys.convenience_fees.rawValue)"
         
         AppNetworking.POST(endPointPath: urlString, parameters: params, success: { [weak self] json in
             guard let sSelf = self else { return }

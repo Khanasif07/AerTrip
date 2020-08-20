@@ -102,6 +102,7 @@ extension HotlelBookingsDetailsVC {
         }else{
             cell.paymentInfoTopConstraint.constant = 5
         }
+        cell.changeShadow()
         cell.clipsToBounds = true
         return cell
     }
