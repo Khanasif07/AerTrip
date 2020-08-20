@@ -158,6 +158,40 @@ extension FlightResultViewModelDelegate {
         return filters
     }
     
+    var intFlightLegsAppliedFilters: AppliedAndUIFilters {
+        var filters = AppliedAndUIFilters()
+        var appliedFilters = intFlightLegs.map { $0.appliedFilters }
+        let uiFilters = intFlightLegs.map { $0.UIFilters }
+//        let appliedSubFilters = intFlightLegs.map { $0.appliedSubFilters }
+        
+        var containsAirport = false, containsQuality = false
+        for uiFilter in uiFilters {
+            if uiFilter.contains(.layoverAirports) || uiFilter.contains(.originAirports) || uiFilter.contains(.destinationAirports) ||
+                uiFilter.contains(.originDestinationSelectedForReturnJourney) {
+                containsAirport = true
+                break
+            }
+        }
+        for uiFilter in uiFilters {
+            if uiFilter.contains(.hideOvernight) || uiFilter.contains(.hideOvernightLayover) {
+                containsQuality = true
+                break
+            }
+        }
+        if containsAirport {
+            appliedFilters[0].insert(.Airport)
+        }
+        if containsQuality {
+            appliedFilters[0].insert(.Quality)
+        }
+        
+        filters.appliedFilters = appliedFilters
+        filters.uiFilters = uiFilters
+//        filters.appliedSubFilters = appliedSubFilters
+        return filters
+    }
+    
+    
     var intFlightResultArray : [IntMultiCityAndReturnWSResponse.Results] {
                 
         let resultsArray = intFlightLegs.map{ return $0.flightsResults }

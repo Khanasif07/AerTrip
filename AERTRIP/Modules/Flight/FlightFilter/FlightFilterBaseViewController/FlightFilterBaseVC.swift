@@ -17,12 +17,12 @@ class FlightFilterBaseVC: UIViewController {
     var legList : [Leg]!
     var searchType : FlightSearchType!
     var flightResultArray : [FlightsResults]!
+    var selectedIndex  : Int!
     var userAppliedFilters: AppliedAndUIFilters?
+
+    // Parchment View
     internal var allChildVCs = [UIViewController]()
     var menuItems = [MenuItemForFilter]()
-    var selectedIndex  : Int!
-    
-    // Parchment View
     fileprivate var parchmentView : PagingViewController?
     internal var showSelectedFontOnMenu = false
         
@@ -42,7 +42,7 @@ class FlightFilterBaseVC: UIViewController {
     convenience init(flightSearchResult : [FlightsResults] , selectedIndex :Int = 0 , legList : [Leg] , searchType: FlightSearchType) {
         self.init(nibName:nil, bundle:nil)
         self.flightResultArray = flightSearchResult
-//        self.selectedIndex = selectedIndex
+        self.selectedIndex = selectedIndex
         self.legList = legList
         self.searchType = searchType
     }
@@ -126,17 +126,13 @@ class FlightFilterBaseVC: UIViewController {
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 50, bottom: 0.0, right: 10)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 45)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
-//        self.parchmentView?.borderOptions = PagingBorderOptions.visible(
-//            height: 0.25,
-//            zIndex: Int.max - 1,
-//            insets: UIEdgeInsets(top: 0, left: -400, bottom: 0, right: -400))
         self.parchmentView?.borderOptions = PagingBorderOptions.hidden
         let nib = UINib(nibName: "MenuItemFilterCollCell", bundle: nil)
         self.parchmentView?.register(nib, for: MenuItemForFilter.self)
         self.parchmentView?.borderColor = .clear//AppColors.themeGray20
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
-        self.parchmentView?.selectedFont = AppFonts.Regular.withSize(16.0)//AppFonts.SemiBold.withSize(16.0)
-        self.parchmentView?.indicatorColor = .clear//AppColors.themeGreen
+        self.parchmentView?.selectedFont = AppFonts.Regular.withSize(16.0)
+        self.parchmentView?.indicatorColor = .clear
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
         self.filtersView.addSubview(self.parchmentView!.view)
         

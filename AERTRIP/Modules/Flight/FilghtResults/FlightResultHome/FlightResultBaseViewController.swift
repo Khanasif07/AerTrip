@@ -32,7 +32,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     var  domesticMultiLegResultVC : FlightDomesticMultiLegResultVC?
     var  intMultiLegResultVC : IntMCAndReturnVC?
     var flightFilterVC : FlightFilterBaseVC?
-    var intMCAndReturnFilterVC: IntMCAndReturnFlightFiltersBaseVC?
+    var intMCAndReturnFilterVC: IntMCAndReturnFiltersBaseVC?
     var noResultScreen : NoResultsScreenViewController?
     //MARK:- Navigation Bar UI Elements
     var backButton : UIButton!
@@ -578,10 +578,35 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         
         if isIntReturnOrMCJourney {
             
-            intMCAndReturnFilterVC = IntMCAndReturnFlightFiltersBaseVC(flightSearchResult: self.flightSearchResultVM.intFlightResultArray, selectedIndex: index, legList: legList, searchType: flightType)
+            intMCAndReturnFilterVC = IntMCAndReturnFiltersBaseVC(flightSearchResult: self.flightSearchResultVM.intFlightResultArray, selectedIndex: index, legList: legList, searchType: flightType)
             self.intMCAndReturnFilterVC?.delegate = flightSearchResultVM
             self.intMCAndReturnFilterVC?.filterUIDelegate = self
             self.intMCAndReturnFilterVC?.showDepartReturnSame = showDepartReturnSame
+            
+            
+            if let intFilterBaseView = self.intMCAndReturnFilterVC {
+                if intFilterBaseView.parent == nil {
+                    var frame = self.view.frame
+                    frame.origin.y = visualEffectViewHeight - 46
+                    frame.size.height = 36//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
+                    intFilterBaseView.view.frame = frame
+                    backView.addSubview(intFilterBaseView.view)
+                    backView.bringSubviewToFront(filterButton)
+                    backView.bringSubviewToFront(separatorView)
+                    backView.bringSubviewToFront(ApiProgress)
+                    //                backView.height = view.height
+                    //                backView.layoutIfNeeded()
+                    //                    self.view.addSubview(FilterBaseView.view)
+                    //                self.addChild(FilterBaseView)
+                    //                    self.view.bringSubviewToFront(FilterBaseView.view)
+                    //                FilterBaseView.didMove(toParent: self)
+                    //                addFilterHeader()
+                }
+                
+                intFilterBaseView.selectedIndex = index
+                
+            }
+            
             return
         }
         
@@ -869,6 +894,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     
     private func toggleFiltersView(hidden: Bool) {
         flightFilterVC?.toggleSelectedState(hidden: hidden)
+        intMCAndReturnFilterVC?.toggleSelectedState(hidden: hidden)
         toggleFilterBackView(hidden: hidden)
         if !hidden {
             addFilterHeader()
@@ -1075,6 +1101,9 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         
         flightFilterVC?.userAppliedFilters =  flightSearchResultVM.flightLegsAppliedFilters
         flightFilterVC?.updateMenuItems()
+        
+        intMCAndReturnFilterVC?.userAppliedFilters =  flightSearchResultVM.intFlightLegsAppliedFilters
+        intMCAndReturnFilterVC?.updateMenuItems()
     }
     
     
@@ -1133,6 +1162,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             
             self.intMCAndReturnFilterVC?.flightResultArray = self.flightSearchResultVM.intFlightResultArray
             self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)
+            self.intMCAndReturnFilterVC?.resetData()
         }
         
         let flightType = flightSearchResultVM.flightSearchType

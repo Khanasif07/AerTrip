@@ -28,10 +28,10 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D1g-79-lpE">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="404"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="454"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="404" id="BH5-xQ-ltm"/>
+                        <constraint firstAttribute="height" constant="454" id="BH5-xQ-ltm"/>
                     </constraints>
                 </view>
             </subviews>
