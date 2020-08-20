@@ -67,7 +67,7 @@ class AccountOnlineDepositVM: NSObject {
     func makePayment() {
         //forAmount used to decide that razor pay will use or not
         var params: [String : Any] = [ APIKeys.it_id.rawValue : self.depositItinerary?.id ?? ""]
-        params[APIKeys.currency_code.rawValue] = UserInfo.loggedInUser?.preferredCurrency ?? ""
+        params[APIKeys.currency_code.rawValue] = depositItinerary?.currency ?? (UserInfo.loggedInUser?.preferredCurrency ?? "")
         params[APIKeys.payment_method_id.rawValue] = depositItinerary?.razorpay?.id ?? ""
 
         params[APIKeys.total_amount.rawValue] = self.depositAmount
@@ -122,7 +122,7 @@ class AccountOnlineDepositVM: NSObject {
     
     func updateConvenienceFee(amount:String){
         var params: JSONDictionary = [:]
-        params[APIKeys.id.rawValue] = self.depositItinerary?.id ?? ""
+        params[APIKeys.it_id.rawValue] = self.depositItinerary?.id ?? ""
         params[APIKeys.total_amount.rawValue] = amount
         params[APIKeys.action.rawValue] = APIKeys.convenience_fees.rawValue
         self.delegate?.willUpdateConvenienceFee()

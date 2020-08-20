@@ -15,6 +15,7 @@ import GoogleMaps
 import GoogleSignIn
 //import LinkedinSwift
 import FirebaseDynamicLinks
+import FirebaseCore
 import UIKit
 
 @UIApplicationMain

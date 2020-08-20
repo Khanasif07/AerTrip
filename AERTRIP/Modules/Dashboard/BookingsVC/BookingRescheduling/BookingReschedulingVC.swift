@@ -185,6 +185,8 @@ class BookingReschedulingVC: BaseVC {
     
     private func collapseCell(_ cell: BookingReschedulingPassengerAccordionTableViewCell, animated: Bool) {
         if let indexPath = reschedulingTableView.indexPath(for: cell) {
+            let legD = self.viewModel.legsData[indexPath.section]
+            let index = indexPath.row - legD.flight.count
             if !animated {
                 cell.setExpanded(false, animated: false)
                 self.removeFromExpandedIndexPaths(indexPath)
@@ -204,7 +206,7 @@ class BookingReschedulingVC: BaseVC {
                 
                 CATransaction.commit()
             }
-            cell.headerDividerView.isHidden = false
+            cell.headerDividerView.isHidden = (index == legD.pax.count - 1)
             cell.bottomDividerView.isHidden = true
         }
     }
@@ -268,7 +270,7 @@ class BookingReschedulingVC: BaseVC {
             
             bookingAccordionCell.configureCell(passengerName: paxD.paxName, pnrNo: pnrNoStr, saleValue: paxD.amountPaid.amountInDelimeterWithSymbol, cancellationCharge: cancelationValueText, refundValue: self.viewModel.usingFor == .rescheduling ? paxD.netRefundForReschedule.amountInDelimeterWithSymbol : paxD.netRefundForCancellation.amountInDelimeterWithSymbol, age: age)
             bookingAccordionCell.delegate = self
-            bookingAccordionCell.headerDividerView.isHidden = (legD.pax.count - 1) == (indexPath.row - (legD.flight.count))
+//            bookingAccordionCell.headerDividerView.isHidden = (legD.pax.count - 1) == (indexPath.row - (legD.flight.count))
             
             bookingAccordionCell.cancellationChargeLabel.text = self.viewModel.usingFor == .rescheduling ? LocalizedString.ReschedulingCharges.localized : LocalizedString.CancellationCharges.localized
 
@@ -276,7 +278,9 @@ class BookingReschedulingVC: BaseVC {
             if legD.selectedPaxs.contains(where: { $0.paxId == paxD.paxId }) {
                 bookingAccordionCell.selectedTravellerButton.isSelected = true
             }
-            bookingAccordionCell.bottomDividerView.isHidden = (index == legD.pax.count - 1)
+            //expandedIndexPaths
+            bookingAccordionCell.headerDividerView.isHidden = (self.expandedIndexPaths.contains(indexPath) || (index == legD.pax.count - 1))
+            bookingAccordionCell.bottomDividerView.isHidden = ((index == legD.pax.count - 1) || !self.expandedIndexPaths.contains(indexPath))
             return bookingAccordionCell
         }
     }

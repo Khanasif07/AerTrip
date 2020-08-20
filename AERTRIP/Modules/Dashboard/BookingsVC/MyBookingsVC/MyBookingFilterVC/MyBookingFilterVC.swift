@@ -140,6 +140,7 @@ class MyBookingFilterVC: BaseVC {
     private func show(animated: Bool) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerViewTopConstraint.constant = 0.0
+//            self.mainContainerView.transform = .identity
             self.mainBackView.alpha = 1.0
             self.view.layoutIfNeeded()
         }) { (isDone) in
@@ -158,6 +159,7 @@ class MyBookingFilterVC: BaseVC {
     private func hide(animated: Bool, shouldRemove: Bool = false) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerViewTopConstraint.constant = -(self.mainContainerView.height)
+//            self.mainContainerView.transform = CGAffineTransform(translationX: 0, y: -self.mainContainerView.height)
             self.mainBackView.alpha = 0.0
             self.view.layoutIfNeeded()
         }, completion: { _ in
