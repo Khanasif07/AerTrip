@@ -1064,9 +1064,9 @@
                                                             </subviews>
                                                         </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfi-ED-wI3">
-                                                            <rect key="frame" x="0.0" y="20" width="382" height="15"/>
+                                                            <rect key="frame" x="0.0" y="19" width="382" height="16"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="15" id="T8t-pg-QAC"/>
+                                                                <constraint firstAttribute="height" constant="16" id="T8t-pg-QAC"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
@@ -1090,6 +1090,7 @@
                                         <connections>
                                             <outlet property="amountLabel" destination="S7k-H4-aYw" id="U1X-8P-tMZ"/>
                                             <outlet property="amountLabelTraillingConstant" destination="PC4-7H-rWT" id="B9f-5t-bLH"/>
+                                            <outlet property="amountStackView" destination="6Op-Ix-CnB" id="Fsj-fm-Ydg"/>
                                             <outlet property="descLabel" destination="hfi-ED-wI3" id="2Un-3T-0cI"/>
                                             <outlet property="dividerView" destination="Li4-hx-RnE" id="p3M-o1-Gl0"/>
                                             <outlet property="dividerViewLeadingConstraint" destination="uLd-Nc-tKS" id="FUT-Ht-eu4"/>
