@@ -56,7 +56,7 @@ extension FlightResultSingleJourneyVC {
         showPinnedFlightsOption(containesPinnedFlight)
         
         if !containesPinnedFlight {
-           viewModel.resultTableState = stateBeforePinnedFlight
+            viewModel.resultTableState = self.viewModel.stateBeforePinnedFlight
             hidePinnedFlightOptions(true)
             switchView.isOn = false
         }
@@ -104,7 +104,7 @@ extension FlightResultSingleJourneyVC: ATSwitcherChangeValueDelegate {
             self.sharePinnedFilghts.isHidden = false
             self.animateButton()
             
-            stateBeforePinnedFlight = viewModel.resultTableState
+            viewModel.stateBeforePinnedFlight = viewModel.resultTableState
             viewModel.resultTableState = .showPinnedFlights
             resultsTableView.tableFooterView = nil
             if viewModel.results.pinnedFlights.isEmpty {
@@ -114,10 +114,10 @@ extension FlightResultSingleJourneyVC: ATSwitcherChangeValueDelegate {
         }
         else {
             self.hideFavsButtons(isAnimated: true)
-            if stateBeforePinnedFlight == ResultTableViewState.showPinnedFlights{
+            if viewModel.stateBeforePinnedFlight == ResultTableViewState.showPinnedFlights{
                 viewModel.resultTableState = ResultTableViewState.showRegularResults
             }else {
-                viewModel.resultTableState = stateBeforePinnedFlight
+                viewModel.resultTableState = viewModel.stateBeforePinnedFlight
             }
             showFooterView()
         }
@@ -231,7 +231,7 @@ extension FlightResultSingleJourneyVC {
         
         switchView.isOn = false
         hidePinnedFlightOptions(true)
-        viewModel.resultTableState = stateBeforePinnedFlight
+        viewModel.resultTableState = viewModel.stateBeforePinnedFlight
         showPinnedFlightsOption(false)
         resultsTableView.reloadData()
         showFooterView()
@@ -240,10 +240,10 @@ extension FlightResultSingleJourneyVC {
     
     func shareJourney(journey : [Journey]) {
         
-        let flightAdultCount = bookFlightObject.flightAdultCount
-        let flightChildrenCount = bookFlightObject.flightChildrenCount
-        let flightInfantCount = bookFlightObject.flightInfantCount
-        let isDomestic = bookFlightObject.isDomestic
+        let flightAdultCount = self.viewModel.bookFlightObject.flightAdultCount
+        let flightChildrenCount = self.viewModel.bookFlightObject.flightChildrenCount
+        let flightInfantCount = self.viewModel.bookFlightObject.flightInfantCount
+        let isDomestic = self.viewModel.bookFlightObject.isDomestic
         
         self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, journey: journey)
         
@@ -313,10 +313,10 @@ extension FlightResultSingleJourneyVC {
     
     func generatePostDataForEmail( for journey : [Journey] ) -> Data? {
           
-          let flightAdultCount = bookFlightObject.flightAdultCount
-           let flightChildrenCount = bookFlightObject.flightChildrenCount
-           let flightInfantCount = bookFlightObject.flightInfantCount
-           let isDomestic = bookFlightObject.isDomestic
+        let flightAdultCount = self.viewModel.bookFlightObject.flightAdultCount
+           let flightChildrenCount = self.viewModel.bookFlightObject.flightChildrenCount
+           let flightInfantCount = self.viewModel.bookFlightObject.flightInfantCount
+           let isDomestic = self.viewModel.bookFlightObject.isDomestic
            
           guard let firstJourney = journey.first else { return nil}
           
@@ -327,7 +327,7 @@ extension FlightResultSingleJourneyVC {
            
           let inputFormatter = DateFormatter()
           inputFormatter.dateFormat = "dd-MM-yyyy"
-          let departDate = inputFormatter.string(from: bookFlightObject.onwardDate)
+        let departDate = inputFormatter.string(from: self.viewModel.bookFlightObject.onwardDate)
            
           var valueString = "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(flightAdultCount)&child=\(flightChildrenCount)&infant=\(flightInfantCount)&origin=\(ap[0])&destination=\(ap[1])&depart=\(departDate)&cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)"
           
@@ -337,7 +337,7 @@ extension FlightResultSingleJourneyVC {
               valueString = valueString + "&PF[\(i)]=\(tempJourney.fk)"
           }
 
-          var parameters = [ "u": valueString , "sid": bookFlightObject.sid ]
+          var parameters = [ "u": valueString , "sid": self.viewModel.bookFlightObject.sid ]
        
           
           let fkArray = journey.map{ $0.fk }
@@ -372,10 +372,10 @@ extension FlightResultSingleJourneyVC {
       func generatePostData( for journey : [Journey] ) -> NSData? {
           
           
-          let flightAdultCount = bookFlightObject.flightAdultCount
-          let flightChildrenCount = bookFlightObject.flightChildrenCount
-          let flightInfantCount = bookFlightObject.flightInfantCount
-          let isDomestic = bookFlightObject.isDomestic
+        let flightAdultCount = self.viewModel.bookFlightObject.flightAdultCount
+          let flightChildrenCount = self.viewModel.bookFlightObject.flightChildrenCount
+          let flightInfantCount = self.viewModel.bookFlightObject.flightInfantCount
+          let isDomestic = self.viewModel.bookFlightObject.isDomestic
           
           guard let firstJourney = journey.first else { return nil}
           
@@ -386,7 +386,7 @@ extension FlightResultSingleJourneyVC {
           
           let inputFormatter = DateFormatter()
           inputFormatter.dateFormat = "dd-MM-yyyy"
-          let departDate = inputFormatter.string(from: bookFlightObject.onwardDate)
+          let departDate = inputFormatter.string(from: self.viewModel.bookFlightObject.onwardDate)
            
           let postData = NSMutableData()
           

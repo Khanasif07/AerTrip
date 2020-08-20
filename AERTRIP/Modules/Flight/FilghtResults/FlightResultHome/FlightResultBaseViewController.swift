@@ -423,11 +423,11 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         let resultBaseVC = FlightResultSingleJourneyVC()
         resultBaseVC.viewModel.resultTableState = .showTemplateResults
         resultBaseVC.addBannerTableHeaderView()
-        resultBaseVC.titleString = flightSearchResultVM.titleString
-        resultBaseVC.subtitleString = flightSearchResultVM.subTitleString
-        resultBaseVC.sid = flightSearchResultVM.sid
-        resultBaseVC.bookFlightObject = flightSearchResultVM.bookFlightObject
-        resultBaseVC.flightSearchResultVM = flightSearchResultVM
+        resultBaseVC.viewModel.titleString = flightSearchResultVM.titleString
+        resultBaseVC.viewModel.subtitleString = flightSearchResultVM.subTitleString
+        resultBaseVC.viewModel.sid = flightSearchResultVM.sid
+        resultBaseVC.viewModel.bookFlightObject = flightSearchResultVM.bookFlightObject
+        resultBaseVC.viewModel.flightSearchResultVM = flightSearchResultVM
         addChildView(resultBaseVC)
         singleJourneyResultVC = resultBaseVC
     }
@@ -773,8 +773,8 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     
     //MARK:- Target Methods
     @IBAction func clearAllFilterTapped(_ sender: Any) {
-        self.singleJourneyResultVC?.userSelectedFilters.removeAll()
-        self.singleJourneyResultVC?.updatedApiProgress = 0.0
+        self.singleJourneyResultVC?.viewModel.userSelectedFilters.removeAll()
+        self.singleJourneyResultVC?.viewModel.updatedApiProgress = 0.0
         flightSearchResultVM.clearAllFilters()
         flightFilterVC?.resetAllFilters()
         intMCAndReturnFilterVC?.resetAllFilters()
@@ -1055,8 +1055,8 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         switch flightType {
         case SINGLE_JOURNEY:
             if let singleJourneyVC = self.singleJourneyResultVC {
-                singleJourneyVC.updatedApiProgress = updatedApiProgress
-                singleJourneyVC.airlineCode = airlineCode
+                singleJourneyVC.viewModel.updatedApiProgress = updatedApiProgress
+                singleJourneyVC.viewModel.airlineCode = airlineCode
                 singleJourneyVC.updateWithArray( resultVM.getOnewayJourneyDisplayArray(), sortOrder: resultVM.getSortOrder())
                 singleJourneyVC.updateAirportDetailsArray(resultVM.getOnewayAirportArray())
                 singleJourneyVC.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())

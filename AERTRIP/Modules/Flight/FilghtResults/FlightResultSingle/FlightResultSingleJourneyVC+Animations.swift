@@ -20,7 +20,7 @@ extension FlightResultSingleJourneyVC {
             self.viewModel.results.excludeExpensiveFlights = false
             DispatchQueue.global(qos: .default).async {
                 
-                self.sortedArray = Array(self.viewModel.results.sortedArray)
+//                self.sortedArray = Array(self.viewModel.results.sortedArray)
                 
                 self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: self.viewModel.prevLegIndex, completion: {
                     DispatchQueue.main.async {
@@ -54,7 +54,7 @@ extension FlightResultSingleJourneyVC {
             self.viewModel.results.excludeExpensiveFlights = false
             
             DispatchQueue.global(qos: .background).async {
-                self.sortedArray = Array(self.viewModel.results.sortedArray)
+//                self.sortedArray = Array(self.viewModel.results.sortedArray)
                 self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: self.viewModel.prevLegIndex, completion: {
                     DispatchQueue.main.async {
                         self.setGroupedFooterView()

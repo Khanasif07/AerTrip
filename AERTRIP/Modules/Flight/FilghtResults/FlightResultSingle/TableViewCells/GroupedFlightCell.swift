@@ -166,6 +166,7 @@ struct TimeFK {
             downArrowButtonHeight.constant = 44
             bottomWhitePatchVIewHeight.constant = 22
             self.resultsCollectionView.isHidden = true
+            self.collaspableTableView.isHidden = false
             self.selectionView.alpha = 0
         }else{
             self.timeSegmentBGViewHeight.constant = 30
@@ -174,6 +175,7 @@ struct TimeFK {
             downArrowButtonHeight.constant = 0
             bottomWhitePatchVIewHeight.constant = 0
             self.resultsCollectionView.isHidden = false
+            self.collaspableTableView.isHidden = true
             self.selectionView.alpha = 0
         }
     }

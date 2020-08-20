@@ -255,7 +255,6 @@ extension IntMCAndReturnVC {
             })
         }
     }
-    
 }
 
 extension IntMCAndReturnVC {
@@ -268,22 +267,22 @@ extension IntMCAndReturnVC {
         
         var modifiedResult = results
         
-        for i in 0..<modifiedResult.count {
-            var isFlightCodeSame = false
-            for leg in modifiedResult[i].legsWithDetail{
-                for flight in leg.flightsWithDetails{
-                    let flightNum = flight.al + flight.fn
-                    if flightNum.uppercased() == airlineCode.uppercased(){
-                        isFlightCodeSame = true
-                    }
-                }
-            }
-            
-            if isFlightCodeSame == true{
-                modifiedResult[i].isPinned = true
-
-            }
-        }
+//        for i in 0..<modifiedResult.count {
+//            var isFlightCodeSame = false
+//            for leg in modifiedResult[i].legsWithDetail{
+//                for flight in leg.flightsWithDetails{
+//                    let flightNum = flight.al + flight.fn
+//                    if flightNum.uppercased() == airlineCode.uppercased(){
+//                        isFlightCodeSame = true
+//                    }
+//                }
+//            }
+//
+//            if isFlightCodeSame == true{
+//                modifiedResult[i].isPinned = true
+//
+//            }
+//        }
         
         DispatchQueue.global(qos: .userInteractive).async {
             self.viewModel.sortOrder = sortOrder
@@ -323,6 +322,29 @@ extension IntMCAndReturnVC {
                         self.noResultScreen?.removeFromParent()
                         self.noResultScreen = nil
                     }
+                    
+                    if !self.airlineCode.isEmpty{
+                        
+                        for i in 0..<modifiedResult.count {
+                              var isFlightCodeSame = false
+                              for leg in modifiedResult[i].legsWithDetail{
+                                  for flight in leg.flightsWithDetails{
+                                      let flightNum = flight.al + flight.fn
+                                    if flightNum.uppercased() == self.airlineCode.uppercased(){
+                                          isFlightCodeSame = true
+                                      }
+                                  }
+                              }
+
+                              if isFlightCodeSame == true{
+//                                  modifiedResult[i].isPinned = true
+                                self.setPinnedFlightAt(modifiedResult[i].fk , isPinned: true)
+                                self.switchView.isOn = true
+                                self.switcherDidChangeValue(switcher: self.switchView, value: true)
+                              }
+                          }
+                    }
+                    
                 }
             })
         }

@@ -10,11 +10,28 @@ import UIKit
 
 class FlightResultSingleJourneyVM {
     
+        var titleString : NSAttributedString!
+        var subtitleString : String!
+        var airportDetailsResult : [String : AirportDetailsWS]!
+        var airlineDetailsResult : [String : AirlineMasterWS]!
+        var taxesResult : [String : String]!
+        var airlineCode = ""
+        var sid : String = ""
+        var bookFlightObject = BookFlightObject()
+        var scrollviewInitialYOffset = CGFloat(0.0)
+        var flightSearchResultVM  : FlightSearchResultVM!
+        var userSelectedFilters = [FiltersWS]()
+        var updatedApiProgress : Float = 0
+        var apiProgress : Float = 0
+    
+    
         var resultTableState  = ResultTableViewState.showTemplateResults {
             didSet {
                 print(resultTableState)
             }
-    }
+        }
+    
+        var stateBeforePinnedFlight = ResultTableViewState.showRegularResults
         var results : OnewayJourneyResultsArray!
         var isConditionReverced = false
         var prevLegIndex = 0

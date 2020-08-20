@@ -28,7 +28,7 @@ extension FlightResultSingleJourneyVC {
         }
         
         func setGroupedFooterView() {
-            if viewModel.results.aboveHumanScoreCount == 0 {
+            if viewModel.results.aboveHumanScoreCount == 0 || viewModel.resultTableState == .showPinnedFlights {
                 resultsTableView.tableFooterView = nil
                 return
             }

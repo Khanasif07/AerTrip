@@ -157,4 +157,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          */
         return true
     }
+    
+    func access(){
+        
+    }
+    
 }

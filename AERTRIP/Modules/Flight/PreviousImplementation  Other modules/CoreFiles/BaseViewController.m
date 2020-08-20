@@ -1578,8 +1578,6 @@
     [self applyGradientLayerToButton:button startColor:[UIColor BLUE_GREEN_COLOR] endColor:[UIColor GREEN_BLUE_COLOR]];
 }
 
-
-
 - (UIImage*)captureView:(UIView *)view
 {
     CGRect rect = [[UIScreen mainScreen] bounds];

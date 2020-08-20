@@ -104,11 +104,11 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
             self.animateButton()
             
             stateBeforePinnedFlight = viewModel.resultTableState
-                       viewModel.resultTableState = .showPinnedFlights
-                       resultsTableView.tableFooterView = nil
-                       if viewModel.results.pinnedFlights.isEmpty {
-                           showNoFilteredResults()
-                       }
+            viewModel.resultTableState = .showPinnedFlights
+            resultsTableView.tableFooterView = nil
+            if viewModel.results.pinnedFlights.isEmpty {
+                showNoFilteredResults()
+            }
             
         } else {
             self.hideFavsButtons(isAnimated: true)

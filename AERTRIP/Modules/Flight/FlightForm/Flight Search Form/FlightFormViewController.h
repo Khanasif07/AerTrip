@@ -12,7 +12,7 @@
 //#import <HMSegmentedControl/HMSegmentedControl.h>
 #import "FlightFormDataModel.h"
 
-@interface FlightFormViewController : BaseViewController 
+@interface FlightFormViewController : BaseViewController
 @property (strong , nonatomic) FlightFormDataModel* viewModel;
 @property (nonatomic, assign) BOOL isInternationalJourney;
 @end

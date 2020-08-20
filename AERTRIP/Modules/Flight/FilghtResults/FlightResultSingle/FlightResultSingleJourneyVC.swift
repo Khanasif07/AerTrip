@@ -9,6 +9,11 @@
 import UIKit
 import MessageUI
 
+
+@objc protocol BridgeProtocol {
+    func access()
+}
+
 class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDelegate , GroupedFlightCellDelegate, getSharableUrlDelegate {
     
     //MARK:- Outlets
@@ -24,31 +29,21 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     //MARK:- Properties
     var noResultScreen : NoResultsScreenViewController?
-    var titleString : NSAttributedString!
-    var subtitleString : String!
-    var stateBeforePinnedFlight = ResultTableViewState.showRegularResults
-    var sortedArray: [Journey]!
-    var airportDetailsResult : [String : AirportDetailsWS]!
-    var airlineDetailsResult : [String : AirlineMasterWS]!
-    var taxesResult : [String : String]!
-    var airlineCode = ""
-    var sid : String = ""
-    var bookFlightObject = BookFlightObject()
+
+//    var sortedArray: [Journey]!
+
     var visualEffectViewHeight : CGFloat {
         return statusBarHeight + 88.0
     }
     var statusBarHeight : CGFloat {
         return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
     }
-    var scrollviewInitialYOffset = CGFloat(0.0)
-    var flightSearchResultVM  : FlightSearchResultVM!
-    var userSelectedFilters = [FiltersWS]()
-    var updatedApiProgress : Float = 0
-    var apiProgress : Float = 0
+  
     var ApiProgress: UIProgressView!
     var previousRequest : DispatchWorkItem?
-    let viewModel = FlightResultSingleJourneyVM()
     let getSharableLink = GetSharableUrl()
+    let viewModel = FlightResultSingleJourneyVM()
+
     
     //MARK:- View Controller Methods
     override func viewDidLoad() {
@@ -171,8 +166,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         
         let modifiedResult = results
         
-   
-        
         DispatchQueue.global(qos: .userInteractive).async {
             
             self.viewModel.sortOrder = sortOrder
@@ -186,11 +179,9 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                 }
             }
             
-
-            
             let groupedArray =   self.viewModel.getOnewayDisplayArray(results: modifiedResult)
             self.viewModel.results.journeyArray = groupedArray
-            self.sortedArray = Array(self.viewModel.results.sortedArray)
+//            self.sortedArray = Array(self.viewModel.results.sortedArray)
             self.viewModel.setPinnedFlights(shouldApplySorting: true)
 
             self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: self.viewModel.prevLegIndex, completion: {
@@ -211,23 +202,18 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                         self.noResultScreen = nil
                     }
                     
-                    if !self.airlineCode.isEmpty{
-                        let searchByAirlineJourney = modifiedResult.filter { (journ) -> Bool in
-                                 let flightNum = journ.leg.first!.flights.first!.al + journ.leg.first!.flights.first!.fn
-                                 return flightNum.uppercased() == self.airlineCode.uppercased()
-                        }
-                        
-                        if !searchByAirlineJourney.isEmpty{
-                            DispatchQueue.main.async {
-                                self.setPinnedFlightAt(searchByAirlineJourney.first?.fk ?? "", isPinned: true)
+                    if !self.viewModel.airlineCode.isEmpty{
+                        for journ in modifiedResult {
+                            let flightNum = journ.leg.first!.flights.first!.al + journ.leg.first!.flights.first!.fn
+                            
+                            if flightNum.uppercased() == self.viewModel.airlineCode.uppercased() {
+                                
+                                self.setPinnedFlightAt(journ.fk , isPinned: true)
                                 self.switchView.isOn = true
                                 self.switcherDidChangeValue(switcher: self.switchView, value: true)
                             }
                         }
                     }
-                    
-                    
-                    
                 }
             })
         }
@@ -315,17 +301,17 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     func updateAirportDetailsArray(_ results : [String : AirportDetailsWS])
     {
-        airportDetailsResult = results
+        self.viewModel.airportDetailsResult = results
     }
     
     func updateAirlinesDetailsArray(_ results : [String : AirlineMasterWS])
     {
-        airlineDetailsResult = results
+        self.viewModel.airlineDetailsResult = results
     }
     
     func updateTaxesArray(_ results : [String : String])
     {
-        taxesResult = results
+        self.viewModel.taxesResult = results
     }
     
     fileprivate func setupTableView(){
@@ -451,14 +437,14 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     @IBAction func PinnedFlightSwitchToggled(_ sender: AertripSwitch) {
         
         if sender.isOn {
-            stateBeforePinnedFlight = viewModel.resultTableState
+            self.viewModel.stateBeforePinnedFlight = viewModel.resultTableState
             viewModel.resultTableState = .showPinnedFlights
             resultsTableView.tableFooterView = nil
             if viewModel.results.pinnedFlights.isEmpty {
                 showNoFilteredResults()
             }
         } else {
-            viewModel.resultTableState = stateBeforePinnedFlight
+            viewModel.resultTableState = self.viewModel.stateBeforePinnedFlight
             showFooterView()
         }
         
@@ -564,8 +550,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     //MARK:- Scroll related methods
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        
-        scrollviewInitialYOffset = scrollView.contentOffset.y
+        self.viewModel.scrollviewInitialYOffset = scrollView.contentOffset.y
     }
     
     fileprivate func hideHeaderBlurView(_ offsetDifference: CGFloat) {
@@ -618,7 +603,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         }
         
         let contentOffset = scrollView.contentOffset
-        let offsetDifference = contentOffset.y - scrollviewInitialYOffset
+        let offsetDifference = contentOffset.y - self.viewModel.scrollviewInitialYOffset
         if offsetDifference > 0 {
             hideHeaderBlurView(offsetDifference)
         } else {
@@ -725,14 +710,14 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             storyboard.instantiateViewController(withIdentifier: "FlightDetailsBaseVC") as! FlightDetailsBaseVC
         
         flightDetailsVC.delegate = self
-        flightDetailsVC.bookFlightObject = self.bookFlightObject
-        flightDetailsVC.taxesResult = self.taxesResult
-        flightDetailsVC.sid = sid
+        flightDetailsVC.bookFlightObject = self.viewModel.bookFlightObject
+        flightDetailsVC.taxesResult = self.viewModel.taxesResult
+        flightDetailsVC.sid = self.viewModel.sid
         flightDetailsVC.selectedIndex = selectedIndex
         flightDetailsVC.journey = [journey]
-        flightDetailsVC.titleString = titleString
-        flightDetailsVC.airportDetailsResult = airportDetailsResult
-        flightDetailsVC.airlineDetailsResult = airlineDetailsResult
+        flightDetailsVC.titleString = self.viewModel.titleString
+        flightDetailsVC.airportDetailsResult = self.viewModel.airportDetailsResult
+        flightDetailsVC.airlineDetailsResult = self.viewModel.airlineDetailsResult
         flightDetailsVC.selectedJourneyFK = [journey.fk]
         self.present(flightDetailsVC, animated: true, completion: nil)
     }
