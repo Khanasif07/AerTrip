@@ -81,6 +81,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
 
     let getSharableLink = GetSharableUrl()
 
+    let viewModel = FlightDomesticMultiLegResultVM()
+    
     //MARK:-  Initializers
     
     convenience init(numberOfLegs  : Int , headerArray : [MultiLegHeader] ) {
@@ -267,64 +269,17 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
     
     func updateReceivedAt(index : Int , updatedArray : [Journey] , sortOrder : Sort) {
         
-        for j in updatedArray{
-            let flightNum = j.leg.first!.flights.first!.al + j.leg.first!.flights.first!.fn
-//            print("flightNum= ", flightNum)
-//            print("airlineCode= ", airlineCode)
-            if flightNum.uppercased() == airlineCode.uppercased(){
-                j.isPinned = true
-            }
-        }
+//        for j in updatedArray{
+//            let flightNum = j.leg.first!.flights.first!.al + j.leg.first!.flights.first!.fn
+//            if flightNum.uppercased() == airlineCode.uppercased(){
+//                j.isPinned = true
+//            }
+//        }
         
-        let appliedFilters = (self.flightSearchResultVM.flightLegs[index].appliedFilters.count)
-
-        if appliedFilters > 0{
-            if self.userSelectedFilters.count != self.flightSearchResultVM.flightLegs.count && self.updatedApiProgress < 0.95{
-                if index < self.userSelectedFilters.count{
-                    if self.userSelectedFilters[index].al == []{
-                        self.userSelectedFilters.insert(self.flightSearchResultVM.flightLegs[index].userSelectedFilters, at: index)
-                    }
-                    }else{
-                    self.userSelectedFilters.insert(self.flightSearchResultVM.flightLegs[index].userSelectedFilters, at: index)
-                }
-            }
-        }else{
-            self.userSelectedFilters.removeAll()
-        }
         
-        if appliedFilters > 0 && userSelectedFilters.count > 0{
-            var journeyArray = [Journey]()
-            if (self.userSelectedFilters[index]).al != []{
-                self.flightSearchResultVM.flightLegs[index].userSelectedFilters = self.userSelectedFilters[index]
-            }
-            
-            journeyArray = self.flightSearchResultVM.flightLegs[index].applyStopsFilter(updatedArray)
-            journeyArray = self.flightSearchResultVM.flightLegs[index].applyPriceFilter(journeyArray)
-            journeyArray = self.flightSearchResultVM.flightLegs[index].applyOriginFilter(journeyArray)
-            journeyArray = self.flightSearchResultVM.flightLegs[index].applyAirlineFilter(journeyArray)
-            journeyArray = self.flightSearchResultVM.flightLegs[index].applyLayoverFilter(journeyArray)
-            journeyArray = self.flightSearchResultVM.flightLegs[index].applyDurationFilter(journeyArray)
-            journeyArray = self.flightSearchResultVM.flightLegs[index].applyArrivalTimeFilter(journeyArray)
-            journeyArray = self.flightSearchResultVM.flightLegs[index].applyDestinationFilter(journeyArray)
-            journeyArray = self.flightSearchResultVM.flightLegs[index].applyDepartureTimeFilter(journeyArray)
-            journeyArray = self.flightSearchResultVM.flightLegs[index].applyMultiItinaryAirlineFilter(journeyArray)
-                        
-            
-//            self.flightSearchResultVM.flightLegs[index].filteredJourneyArray = journeyArray
-
-            self.flightSearchResultVM.flightLegs[index].updatedFilterResultCount = journeyArray.count
-
-            if journeyArray.count == 0{
-                showNoFilteredResults(index: index)
-            }else{
-                animateTableBanner(index: index , updatedArray: journeyArray, sortOrder: sortOrder)
-            }
-        }else{
-            self.flightSearchResultVM.flightLegs[index].updatedFilterResultCount = 0
-            animateTableBanner(index: index , updatedArray: updatedArray, sortOrder: sortOrder)
-        }
-        
-        NotificationCenter.default.post(name:NSNotification.Name("updateFilterScreenText"), object: nil)
+        self.flightSearchResultVM.flightLegs[index].updatedFilterResultCount = 0
+        animateTableBanner(index: index , updatedArray: updatedArray, sortOrder: sortOrder)
+    NotificationCenter.default.post(name:NSNotification.Name("updateFilterScreenText"), object: nil)
     }
     
     
