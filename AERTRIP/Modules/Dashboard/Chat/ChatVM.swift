@@ -108,6 +108,8 @@ class ChatVM {
     func getRecentFlights(){
         APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.flight) { (success, error, obj) in
             
+            
+            
         }
     }
     

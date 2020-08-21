@@ -15,14 +15,15 @@ extension ChatVC : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.chatVm.recentSearchesData.count
+        return 5
+//        return self.chatVm.recentSearchesData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SuggestionsCell", for: indexPath) as? SuggestionsCell else {
                 fatalError("SuggestionsCell not found")
         }
-        cell.populateData(data: self.chatVm.recentSearchesData[indexPath.item])
+      //  cell.populateData(data: self.chatVm.recentSearchesData[indexPath.item])
         return cell
     }
     
