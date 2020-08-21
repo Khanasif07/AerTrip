@@ -403,7 +403,11 @@ extension FlightFilterBaseVC {
                 }
                 
             } else {
-                timesViewController.multiLegTimerFilter[index] = newFlightLegFilter
+                if !timesViewController.multiLegTimerFilter.indices.contains(index) {
+                    timesViewController.multiLegTimerFilter.insert(newFlightLegFilter, at: index)
+                } else {
+                    timesViewController.multiLegTimerFilter[index] = newFlightLegFilter
+                }
             }
         }
         timesViewController.updateFiltersFromAPI()
@@ -641,7 +645,7 @@ extension FlightFilterBaseVC {
             let leg = legList[index]
             let durationFilter = DurationFilter(leg: leg, tripMin: tripMinDuration, tripMax: tripMaxDuration, layoverMin: layoverMin, layoverMax: layoverMax, layoverMinTimeFormat: "")
             
-            if let userFilters = userAppliedFilters, userFilters.appliedFilters[index].contains(.Duration) {
+            if let userFilters = userAppliedFilters, userFilters.appliedFilters[index].contains(.Duration), durationViewController.durationFilters.indices.contains(index) {
                 
                 if userFilters.appliedSubFilters[index].contains(.tripDuration) {
                     durationViewController.durationFilters[index].tripDurationMinDuration = tripMinDuration
@@ -654,7 +658,11 @@ extension FlightFilterBaseVC {
                 }
                 
             } else {
+                if !durationViewController.durationFilters.indices.contains(index) {
+                    durationViewController.durationFilters.insert(durationFilter, at: index)
+                } else {
                 durationViewController.durationFilters[index] = durationFilter
+                }
             }
         }
         durationViewController.updateFiltersFromAPI()
@@ -806,7 +814,11 @@ extension FlightFilterBaseVC {
                 
                 priceViewController.allPriceFilters[index].inputFareMaxVaule = newPriceFilter.inputFareMaxVaule
             } else {
-                priceViewController.allPriceFilters[index] = newPriceFilter
+                if !priceViewController.allPriceFilters.indices.contains(index) {
+                    priceViewController.allPriceFilters.insert(newPriceFilter, at: index)
+                } else {
+                    priceViewController.allPriceFilters[index] = newPriceFilter
+                }
             }
         }
         priceViewController.updateFiltersFromAPI()
@@ -1025,7 +1037,7 @@ extension FlightFilterBaseVC {
             let leg = legList[index]
             var airportLegFilter =  AirportLegFilter(leg:leg, originCities: originAirports, destinationCities: destinationAirports, layoverCities: layoverAirportsDisplayModelArray)
             
-            if let userFilters = userAppliedFilters, userFilters.appliedFilters[index].contains(.Airport) {
+            if let userFilters = userAppliedFilters, userFilters.appliedFilters[index].contains(.Airport), airportViewController.airportFilterArray.indices.contains(index) {
                 let curAiportFilter = airportViewController.airportFilterArray[index]
                 let selectedAirports = curAiportFilter.allSelectedAirports
                 
@@ -1068,7 +1080,11 @@ extension FlightFilterBaseVC {
                 airportViewController.airportFilterArray[index] = airportLegFilter
                 
             } else {
+                if !airportViewController.airportFilterArray.indices.contains(index) {
+                    airportViewController.airportFilterArray.insert(airportLegFilter, at: index)
+                } else {
                 airportViewController.airportFilterArray[index] = airportLegFilter
+                }
             }
             airportViewController.initialSetup()
         }
