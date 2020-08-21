@@ -475,9 +475,9 @@ extension ChatVC {
 
 extension ChatVC : ChatBotDelegatesDelegate {
     
+   
     func willstarttChatBotSession() {
-        //        self.scheduleTypingCell()
-        
+
     }
     
     func chatBotSessionCreatedSuccessfully() {
@@ -506,10 +506,11 @@ extension ChatVC : ChatBotDelegatesDelegate {
         invalidateTypingCellTimer()
     }
     
-    func moveFurtherWhenallRequiredInformationSubmited() {
-        let vc = FlightsDemoVC.instantiate(fromAppStoryboard: AppStoryboard.Dashboard)
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
+    func moveFurtherWhenallRequiredInformationSubmited(data: MessageModel) {
+        print("lets go...\(data)")
+            let vc = FlightsDemoVC.instantiate(fromAppStoryboard: AppStoryboard.Dashboard)
+            self.navigationController?.pushViewController(vc, animated: true)
+       }
     
     func willGetRecentSearchHotel(){
         

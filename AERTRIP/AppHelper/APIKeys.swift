@@ -154,7 +154,11 @@ enum APIKeys: String {
     case preferred = "preferred"
     case special_request = "special_request"
     case pType = "pType"
-    
+    case cabinclass = "cabinclass"
+    case adult = "adult"
+//    case child = "child"
+    case infant = "infant"
+
     //HotelDetails
     case photos = "photos"
     case amenities_group = "amenities_group"

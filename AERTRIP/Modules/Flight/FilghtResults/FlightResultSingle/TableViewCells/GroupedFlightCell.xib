@@ -125,7 +125,7 @@
                             </tableView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="zlS-Fq-BNc">
                                 <rect key="frame" x="0.0" y="90" width="515" height="139"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="139" id="Dc4-cp-blV"/>
                                 </constraints>
@@ -188,6 +188,7 @@
                 <outlet property="tableViewHeight" destination="mkc-5t-uRo" id="CEX-OK-SHK"/>
                 <outlet property="tableViewTop" destination="atB-md-2UA" id="bcH-jP-aSi"/>
                 <outlet property="timeCollectionView" destination="fMy-uW-SJu" id="dRq-75-6nC"/>
+                <outlet property="timeSegmentBGView" destination="x5C-gC-Waq" id="Bd8-jr-ERs"/>
                 <outlet property="timeSegmentBGViewHeight" destination="G03-37-k7I" id="7gS-ml-7kA"/>
             </connections>
             <point key="canvasLocation" x="278.98550724637681" y="255.13392857142856"/>

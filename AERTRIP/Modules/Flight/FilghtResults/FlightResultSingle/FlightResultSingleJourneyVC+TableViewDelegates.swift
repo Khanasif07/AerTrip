@@ -155,8 +155,7 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
     }
     
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-    {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if viewModel.resultTableState == .showTemplateResults {
             return
         }
@@ -164,33 +163,7 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
         guard let journeyCell = tableView.cellForRow(at: indexPath) as? SingleJourneyResultTableViewCell, let currentJourney = journeyCell.currentJourney  else {
             return
         }
-        
         navigateToFlightDetailFor(journey: currentJourney, selectedIndex: indexPath)
-
-     //   if (tableView.cellForRow(at: indexPath) as? SingleJourneyResultTableViewCell) != nil {
-   
-//            if viewModel.resultTableState == .showPinnedFlights {
-//                let journeyArray = pinnedFlightsArray
-//                let currentJourney = journeyArray[indexPath.row]
-//                navigateToFlightDetailFor(journey: currentJourney, selectedIndex: indexPath)
-//                return
-//            }
-//
-//            if viewModel.sortOrder == .Smart || viewModel.sortOrder == .Price || viewModel.sortOrder == .PriceHighToLow {
-//                var arrayForDisplay = viewModel.results.suggestedJourneyArray
-//
-//                if viewModel.resultTableState == .showExpensiveFlights && indexPath.section == 1 {
-//                    arrayForDisplay = viewModel.results.expensiveJourneyArray
-//                }
-//
-//                 let journey = arrayForDisplay[indexPath.row]
-//                    navigateToFlightDetailFor(journey:  journey.first, selectedIndex: indexPath)
-//
-//            }else {
-//                let currentJourney =  self.sortedArray[indexPath.row]
-//                navigateToFlightDetailFor(journey: currentJourney, selectedIndex: indexPath)
-//            }
-    //    }
     }
     
     

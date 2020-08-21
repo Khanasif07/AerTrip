@@ -430,9 +430,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         }
     }
     
-
-    
-    
     func formatted(fare : Int ) -> String {
         
         let formatter = NumberFormatter()

@@ -12,16 +12,13 @@ class IntMCAndReturnVC : UIViewController {
     
     @IBOutlet weak var resultsTableView: UITableView!
     @IBOutlet weak var pinnedFlightsOptionsView : UIView!
-    @IBOutlet weak var showPinnedSwitch: AertripSwitch!
+    @IBOutlet weak var switchView: ATSwitcher!
     @IBOutlet weak var unpinnedAllButton: UIButton!
     @IBOutlet weak var emailPinnedFlights: UIButton!
     @IBOutlet weak var sharePinnedFilghts: UIButton!
-    @IBOutlet weak var pinnedFlightOptionsTop: NSLayoutConstraint!
     @IBOutlet weak var resultTableViewTop: NSLayoutConstraint!
-    @IBOutlet weak var pinOptionsViewWidth: NSLayoutConstraint!
-    @IBOutlet weak var unpinAllLeading: NSLayoutConstraint!
-    @IBOutlet weak var emailPinnedLeading: NSLayoutConstraint!
-    @IBOutlet weak var sharePinnedFlightLeading: NSLayoutConstraint!
+    
+    
     
     var airlineCode = ""
     var bannerView : ResultHeaderView?
@@ -83,7 +80,7 @@ extension IntMCAndReturnVC {
         resultsTableView.register(UINib(nibName: "InternationalReturnTemplateTableViewCell", bundle: nil), forCellReuseIdentifier: "InternationalReturnTemplateTableViewCell")
         resultsTableView.separatorStyle = .none
         resultsTableView.scrollsToTop = true
-        resultsTableView.estimatedRowHeight  = 123
+        resultsTableView.estimatedRowHeight = 123
         resultsTableView.rowHeight = UITableView.automaticDimension
         resultsTableView.dataSource = self
         resultsTableView.delegate = self
@@ -96,7 +93,7 @@ extension IntMCAndReturnVC {
             self.bannerView?.frame = rect
             self.bannerView?.lineView.isHidden = true
             self.view.addSubview(self.bannerView!)
-            let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 75))
+            let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 96))
             self.resultsTableView.tableHeaderView = headerView
             self.resultsTableView.isScrollEnabled = false
             self.resultsTableView.tableFooterView = nil
@@ -104,16 +101,24 @@ extension IntMCAndReturnVC {
     }
     
     func setupPinnedFlightsOptionsView() {
-        pinnedFlightOptionsTop.constant = 100
-        showPinnedSwitch.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
-        showPinnedSwitch.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
-        showPinnedSwitch.isOn = false
-        showPinnedSwitch.setupUI()
-        hidePinnedFlightOptions(true)
-        addShadowTo(unpinnedAllButton)
-        addShadowTo(emailPinnedFlights)
-        addShadowTo(sharePinnedFilghts)
-    }
+            switchView.delegate = self
+            switchView.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
+            switchView.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
+            switchView.onTintColor = AppColors.themeGreen
+            switchView.onThumbImage = #imageLiteral(resourceName: "pushpin")
+            switchView.offThumbImage = #imageLiteral(resourceName: "pushpin-gray")
+            switchView.setupUI()
+            delay(seconds: 0.6) {
+                self.switchView.isOn = false
+            }
+
+            manageSwitchContainer(isHidden: true)
+            hidePinnedFlightOptions(true)
+            
+            addShadowTo(unpinnedAllButton)
+            addShadowTo(emailPinnedFlights)
+            addShadowTo(sharePinnedFilghts)
+        }
     
     func addShadowTo(_ view : UIView) {
         view.layer.shadowOpacity = 0.2
@@ -123,35 +128,10 @@ extension IntMCAndReturnVC {
     }
     
     func hidePinnedFlightOptions( _ hide : Bool) {
-        
-        //*******************Haptic Feedback code********************
-        let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-        selectionFeedbackGenerator.selectionChanged()
-        //*******************Haptic Feedback code********************
-        
-        let optionViewWidth : CGFloat =  hide ? 50.0 : 212.0
-        let unpinButtonLeading : CGFloat = hide ? 0.0 : 60.0
-        let emailButton : CGFloat = hide ? 0.0 : 114.0
-        let shareButtonLeading : CGFloat =
-            hide ?  0.0 : 168.0
-        if !hide {
-            self.emailPinnedFlights.isHidden = hide
-            self.unpinnedAllButton.isHidden = hide
-            self.sharePinnedFilghts.isHidden = hide
-        }
-        
-        pinOptionsViewWidth.constant = optionViewWidth
-        unpinAllLeading.constant = unpinButtonLeading
-        emailPinnedLeading.constant = emailButton
-        sharePinnedFlightLeading.constant = shareButtonLeading
-        UIView.animate(withDuration: 0.1, delay: 0.0 , options: [] , animations: {
-            self.view.layoutIfNeeded()
-        }) { (onCompletion) in
-            if hide {
-                self.emailPinnedFlights.isHidden = hide
-                self.unpinnedAllButton.isHidden = hide
-                self.sharePinnedFilghts.isHidden = hide
-            }
+        if hide {
+            self.hideFavsButtons(isAnimated : true)
+        } else {
+            self.animateFloatingButtonOnListView(isAnimated: true)
         }
     }
     
@@ -275,7 +255,6 @@ extension IntMCAndReturnVC {
             })
         }
     }
-    
 }
 
 extension IntMCAndReturnVC {
@@ -288,22 +267,22 @@ extension IntMCAndReturnVC {
         
         var modifiedResult = results
         
-        for i in 0..<modifiedResult.count {
-            var isFlightCodeSame = false
-            for leg in modifiedResult[i].legsWithDetail{
-                for flight in leg.flightsWithDetails{
-                    let flightNum = flight.al + flight.fn
-                    if flightNum.uppercased() == airlineCode.uppercased(){
-                        isFlightCodeSame = true
-                    }
-                }
-            }
-            
-            if isFlightCodeSame == true{
-                modifiedResult[i].isPinned = true
-
-            }
-        }
+//        for i in 0..<modifiedResult.count {
+//            var isFlightCodeSame = false
+//            for leg in modifiedResult[i].legsWithDetail{
+//                for flight in leg.flightsWithDetails{
+//                    let flightNum = flight.al + flight.fn
+//                    if flightNum.uppercased() == airlineCode.uppercased(){
+//                        isFlightCodeSame = true
+//                    }
+//                }
+//            }
+//
+//            if isFlightCodeSame == true{
+//                modifiedResult[i].isPinned = true
+//
+//            }
+//        }
         
         DispatchQueue.global(qos: .userInteractive).async {
             self.viewModel.sortOrder = sortOrder
@@ -343,6 +322,29 @@ extension IntMCAndReturnVC {
                         self.noResultScreen?.removeFromParent()
                         self.noResultScreen = nil
                     }
+                    
+                    if !self.airlineCode.isEmpty{
+                        
+                        for i in 0..<modifiedResult.count {
+                              var isFlightCodeSame = false
+                              for leg in modifiedResult[i].legsWithDetail{
+                                  for flight in leg.flightsWithDetails{
+                                      let flightNum = flight.al + flight.fn
+                                    if flightNum.uppercased() == self.airlineCode.uppercased(){
+                                          isFlightCodeSame = true
+                                      }
+                                  }
+                              }
+
+                              if isFlightCodeSame == true{
+//                                  modifiedResult[i].isPinned = true
+                                self.setPinnedFlightAt(modifiedResult[i].fk , isPinned: true)
+                                self.switchView.isOn = true
+                                self.switcherDidChangeValue(switcher: self.switchView, value: true)
+                              }
+                          }
+                    }
+                    
                 }
             })
         }
@@ -367,7 +369,6 @@ extension IntMCAndReturnVC {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newRequest)
     }
     
-    
     func updateAirportDetailsArray(_ results : [String : IntAirportDetailsWS]) {
         airportDetailsResult = results
     }
@@ -388,7 +389,6 @@ extension IntMCAndReturnVC {
     }
 }
 
-
 //MARK:- Pinned and RefundStatus Delegate.
 
 extension IntMCAndReturnVC : flightDetailsPinFlightDelegate, UpdateRefundStatusDelegate{
@@ -405,4 +405,3 @@ extension IntMCAndReturnVC : flightDetailsPinFlightDelegate, UpdateRefundStatusD
     }
     
 }
-

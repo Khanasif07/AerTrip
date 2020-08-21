@@ -48,6 +48,7 @@ class FlightsVC: BaseVC {
     private func addFlightsModuleView() {
         let homeFlightStoryBoard = UIStoryboard(name: "FlightForm", bundle: nil)
         homeFlightsVC = homeFlightStoryBoard.instantiateViewController(withIdentifier: "FlightFormViewController")
+    
         homeFlightsVC.view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
         self.addChild(homeFlightsVC)
         view.addSubview(homeFlightsVC.view)
