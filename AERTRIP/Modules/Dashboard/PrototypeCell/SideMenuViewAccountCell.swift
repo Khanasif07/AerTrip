@@ -78,6 +78,9 @@ extension SideMenuViewAccountCell {
                 
             default:
                 amount = UserInfo.loggedInUser?.accountData?.walletAmount ?? 0.0
+                if amount != 0{
+                    amount *= -1
+                }
             }
         }
         

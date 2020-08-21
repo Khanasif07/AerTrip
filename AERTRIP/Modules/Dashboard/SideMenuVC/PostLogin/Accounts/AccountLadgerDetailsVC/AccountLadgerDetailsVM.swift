@@ -249,6 +249,8 @@ class AccountLadgerDetailsVM {
             }
             else if event.productType == .flight {
                 self.parseDataForFlightSales()
+            }else{
+                self.parseDataForDefault()
             }
         }
         else {

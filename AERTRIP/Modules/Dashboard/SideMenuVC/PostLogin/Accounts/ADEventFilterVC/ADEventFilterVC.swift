@@ -99,7 +99,7 @@ class ADEventFilterVC: BaseVC {
         self.navigationViewTopConstraint.constant = CGFloat(height)
         
 //        self.hide(animated: false)
-        self.mainContainerView.transform = CGAffineTransform(translationX: 0, y: -self.mainContainerView.height)
+//        self.mainContainerView.transform = CGAffineTransform(translationX: 0, y: -self.mainContainerView.height)
         //        delay(seconds: 0.01) { [weak self] in
         self.setUpViewPager()
         //        }
@@ -111,6 +111,8 @@ class ADEventFilterVC: BaseVC {
             self.setupGesture()
             self.checkDoneBtnState()
         }
+        self.hide(animated: false)
+        self.show(animated: true)
     }
     
 //    override func viewDidLoad() {
@@ -120,11 +122,17 @@ class ADEventFilterVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.show(animated: true)
+//        self.show(animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.parchmentView?.view.frame = self.childContainerView.bounds
+        self.parchmentView?.loadViewIfNeeded()
     }
     
     override func viewDidLayoutSubviews() {

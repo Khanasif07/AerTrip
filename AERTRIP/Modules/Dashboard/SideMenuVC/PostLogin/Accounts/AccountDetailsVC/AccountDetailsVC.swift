@@ -247,7 +247,8 @@ class AccountDetailsVC: BaseVC {
 //            if UserInfo.loggedInUser?.userCreditType
             
             if (UserInfo.loggedInUser?.userCreditType ?? .statement  == .regular){
-                self.balanceAmountLabel.attributedText = accountData.walletAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(28.0))
+                let amount = (accountData.walletAmount != 0) ? (accountData.walletAmount * -1): accountData.walletAmount
+                self.balanceAmountLabel.attributedText = amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(28.0))
             }else{
                 self.balanceAmountLabel.attributedText = accountData.currentBalance.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(28.0))
             }
@@ -356,9 +357,18 @@ class AccountDetailsVC: BaseVC {
             self.tableView.tableHeaderView = isAllDatesEmpty ? nil : self.searchContainerView
         }
         
-        if let usr = UserInfo.loggedInUser, usr.userCreditType != .regular {
-            self.tableView.tableFooterView = isAllDatesEmpty ? nil : self.openingDetailContainerView
-        }
+//        if let usr = UserInfo.loggedInUser, usr.userCreditType != .regular {
+            if ADEventFilterVM.shared.selectedVoucherType.isEmpty && (ADEventFilterVM.shared.fromDate != nil || ADEventFilterVM.shared.toDate != nil){
+                if let events = (self.viewModel.accountDetails[self.viewModel.allDates.last ?? ""] as? [AccountDetailEvent]), let event = events.last{
+                    let balance = event.balance - event.amount
+                    self.openingBalanceAmountLabel.attributedText = balance.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16))
+                }
+                self.tableView.tableFooterView = isAllDatesEmpty ? nil : self.openingDetailContainerView
+            }else{
+                self.tableView.tableFooterView = nil
+            }
+            
+//        }
     
         
 //        if (self.currentViewState != .filterApplied) {
@@ -383,6 +393,7 @@ extension AccountDetailsVC: UISearchBarDelegate {
         self.ladgerDummySearchBar.text = ""
         self.viewModel.setSearchedAccountDetails(data: [:])
         self.viewModel.setAccountDetails(data: self.viewModel._accountDetails)
+        self.applyFilter()
         self.reloadList()
     }
     
@@ -458,6 +469,7 @@ extension AccountDetailsVC: UISearchBarDelegate {
 extension AccountDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //back button action
+        ADEventFilterVM.shared.setToDefault()
         AppFlowManager.default.popViewController(animated: true)
     }
     

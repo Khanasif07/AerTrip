@@ -188,6 +188,10 @@ extension HotelsMapVC : MKMapViewDelegate{
         }
         if isNeedToShowAll{
             self.appleMap.showAnnotations(self.appleMap.annotations, animated: true)
+        }else{
+            if ((self.hotelsMapCV.numberOfSections != 0) && (self.hotelsMapCV.numberOfItems(inSection: 0) != 0)){
+                self.hotelsMapCV.scrollToItem(at: [0, 0], at: .centeredHorizontally, animated: false)
+            }
         }
     }
     
@@ -480,10 +484,14 @@ extension HotelsMapVC : MKMapViewDelegate{
     func setInitailRegionToShow(location: CLLocationCoordinate2D){
         var region = MKCoordinateRegion(center: location, latitudinalMeters: 6000, longitudinalMeters: 6000)
         if isZoomLevelOnceSet {
-            isZoomLevelOnceSet = true
             region = MKCoordinateRegion(center: location, span: self.currentMapSpan)
         }
+        
         self.appleMap.setRegion(region, animated: true)
+//        if !isZoomLevelOnceSet{
+//            self.appleMap.showAnnotations(self.appleMap.annotations, animated: true)
+//        }
+        isZoomLevelOnceSet = true
     }
     
     func addBlurView(){
