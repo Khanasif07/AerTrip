@@ -3626,13 +3626,6 @@
 			path = chat;
 			sourceTree = "<group>";
 		};
-		0C32DC03232F70B5008033B5 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		0C32DC04232F70DD008033B5 /* QuickPay */ = {
 			isa = PBXGroup;
 			children = (
@@ -5044,7 +5037,6 @@
 		84085C7F21F59C0C00F1E844 /* SideMenuVC */ = {
 			isa = PBXGroup;
 			children = (
-				0C32DC03232F70B5008033B5 /* New Group */,
 				84085C8021F59C0C00F1E844 /* SideMenuVC.swift */,
 				84085CD121F59C0D00F1E844 /* SideMenuVM.swift */,
 				84085C8121F59C0C00F1E844 /* PreLogin */,
@@ -11048,7 +11040,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 128;
+				CURRENT_PROJECT_VERSION = 129;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11257,7 +11249,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 128;
+				CURRENT_PROJECT_VERSION = 129;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;

@@ -85,7 +85,7 @@ extension HotelResultVC {
             self.unPinAllFavouriteButton.alpha = 0.0
             self.emailButton.alpha = 0.0
             self.shareButton.alpha = 0.0
-            UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: [.curveEaseOut, ], animations: { [weak self] in
+            UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: [.curveEaseOut], animations: { [weak self] in
                 self?.unPinAllFavouriteButton.alpha = 1.0
                 self?.emailButton.alpha = 1.0
                 self?.shareButton.alpha = 1.0

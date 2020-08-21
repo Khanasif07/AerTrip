@@ -31,7 +31,7 @@ class TextEditableTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        self.editableTextField.font = AppFonts.Regular.withSize(18.0)
 //         editableTextField.delegate = self
     }
 

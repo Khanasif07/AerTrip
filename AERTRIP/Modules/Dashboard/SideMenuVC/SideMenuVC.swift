@@ -476,7 +476,7 @@ extension SideMenuVC: SideMenuVMDelegate {
     
     func getAccountSummarySuccess() {
         DispatchQueue.mainAsync {
-            self.sideMenuTableView.reloadRow(at: IndexPath(row: 0, section: 0), with: .none)
+            self.sideMenuTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
         }
     }
     

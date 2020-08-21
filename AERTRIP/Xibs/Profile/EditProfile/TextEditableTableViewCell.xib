@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17147" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17120"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,33 +19,33 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jbb-aq-Bg0">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O3d-YN-fg4">
-                                <rect key="frame" x="16" y="8" width="288" height="18"/>
+                                <rect key="frame" x="16" y="6" width="288" height="16.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lsh-jQ-zRg" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="26" width="295" height="24.5"/>
+                                <rect key="frame" x="16" y="12.5" width="295" height="42.5"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tZF-zs-Pde" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="59" width="304" height="0.5"/>
+                                <rect key="frame" x="16" y="59.5" width="304" height="0.5"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="PGr-nN-DXw"/>
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="uVY-gm-z90">
-                                <rect key="frame" x="295" y="35.5" width="9" height="6"/>
+                                <rect key="frame" x="295" y="31" width="9" height="6"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="6" id="Hax-rC-hVD"/>
                                     <constraint firstAttribute="width" constant="9" id="w5n-Gt-3I3"/>
@@ -57,17 +55,17 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="O3d-YN-fg4" secondAttribute="trailing" constant="16" id="0O1-FJ-xC0"/>
-                            <constraint firstAttribute="bottom" secondItem="lsh-jQ-zRg" secondAttribute="bottom" constant="9" id="1Pr-6J-DRy"/>
+                            <constraint firstAttribute="bottom" secondItem="lsh-jQ-zRg" secondAttribute="bottom" constant="5" id="1Pr-6J-DRy"/>
                             <constraint firstAttribute="trailing" secondItem="lsh-jQ-zRg" secondAttribute="trailing" constant="9" id="3IP-RA-Njx"/>
                             <constraint firstAttribute="trailing" secondItem="tZF-zs-Pde" secondAttribute="trailing" id="6BS-45-Eh5"/>
                             <constraint firstItem="lsh-jQ-zRg" firstAttribute="leading" secondItem="Jbb-aq-Bg0" secondAttribute="leading" constant="16" id="85V-Qs-qN0"/>
                             <constraint firstItem="O3d-YN-fg4" firstAttribute="leading" secondItem="Jbb-aq-Bg0" secondAttribute="leading" constant="16" id="Gwa-dW-PPm"/>
                             <constraint firstItem="uVY-gm-z90" firstAttribute="trailing" secondItem="lsh-jQ-zRg" secondAttribute="trailing" constant="-7" id="hKy-vY-U11"/>
                             <constraint firstAttribute="bottom" secondItem="tZF-zs-Pde" secondAttribute="bottom" id="k6V-ZC-xbf"/>
-                            <constraint firstItem="lsh-jQ-zRg" firstAttribute="top" secondItem="O3d-YN-fg4" secondAttribute="bottom" id="szB-vV-KFj"/>
+                            <constraint firstItem="lsh-jQ-zRg" firstAttribute="top" secondItem="O3d-YN-fg4" secondAttribute="bottom" constant="-10" id="szB-vV-KFj"/>
                             <constraint firstItem="tZF-zs-Pde" firstAttribute="leading" secondItem="Jbb-aq-Bg0" secondAttribute="leading" constant="16" id="t36-OD-y2C"/>
                             <constraint firstItem="uVY-gm-z90" firstAttribute="centerY" secondItem="lsh-jQ-zRg" secondAttribute="centerY" id="uaa-bC-1sB"/>
-                            <constraint firstItem="O3d-YN-fg4" firstAttribute="top" secondItem="Jbb-aq-Bg0" secondAttribute="top" constant="8" id="umg-t4-9Wy"/>
+                            <constraint firstItem="O3d-YN-fg4" firstAttribute="top" secondItem="Jbb-aq-Bg0" secondAttribute="top" constant="6" id="umg-t4-9Wy"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -88,6 +86,11 @@
             <point key="canvasLocation" x="137.59999999999999" y="153.82308845577214"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="lsh-jQ-zRg">
+            <size key="intrinsicContentSize" width="6" height="23"/>
+        </designable>
+    </designables>
     <resources>
         <image name="downArrow" width="9" height="6"/>
     </resources>

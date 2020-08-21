@@ -182,18 +182,19 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: titles, colors: ttlClrs)
         
-        _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.ChooseOptionToSelect.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+        _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.ChooseOptionToSelect.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] (_, index) in
+            guard let strongSelf = self else {return}
             if index == 0 {
                 //Camera
-                self.checkAndOpenCamera(delegate: self)
+                strongSelf.checkAndOpenCamera(delegate: strongSelf)
             }
             else if index == 1 {
                 //PhotoLibrary
-                self.checkAndOpenLibrary(delegate: self)
+                strongSelf.checkAndOpenLibrary(delegate: strongSelf)
             }
             else {
                 //Document
-                self.openDocumentPicker()
+                strongSelf.openDocumentPicker()
             }
         }
     }

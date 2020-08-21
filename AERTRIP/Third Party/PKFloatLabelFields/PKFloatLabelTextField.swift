@@ -164,6 +164,10 @@ import UIKit
 		setupSubviews()
 	}
 	
+    deinit {
+        printDebug("PKFloatLabelTextField deinit")
+    }
+    
 	// MARK:- Overrides
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if self.isSelectionOptionEnabled {
