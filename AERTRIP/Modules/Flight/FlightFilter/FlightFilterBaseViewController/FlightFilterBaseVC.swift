@@ -171,14 +171,14 @@ class FlightFilterBaseVC: UIViewController {
     
     func updateMenuItems() {
         guard let filters = userAppliedFilters else { return }
-        menuItems[Filters.sort.rawValue].isSelected = filters.appliedFilters[0].contains(.sort)
-        menuItems[Filters.stops.rawValue].isSelected = filters.appliedFilters[0].contains(.stops)
-        menuItems[Filters.Times.rawValue].isSelected = filters.appliedFilters[0].contains(.Times)
-        menuItems[Filters.Duration.rawValue].isSelected = filters.appliedFilters[0].contains(.Duration)
-        menuItems[Filters.Airlines.rawValue].isSelected = filters.appliedFilters[0].contains(.Airlines)
-        menuItems[Filters.Airport.rawValue].isSelected = filters.appliedFilters[0].contains(.Airport)
-        menuItems[Filters.Quality.rawValue].isSelected = filters.appliedFilters[0].contains(.Quality)
-        menuItems[Filters.Price.rawValue].isSelected = filters.appliedFilters[0].contains(.Price)
+        menuItems[Filters.sort.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.sort) }
+        menuItems[Filters.stops.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.stops) }
+        menuItems[Filters.Times.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Times) }
+        menuItems[Filters.Duration.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Duration) }
+        menuItems[Filters.Airlines.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Airlines) }
+        menuItems[Filters.Airport.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Airport) }
+        menuItems[Filters.Quality.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Quality) }
+        menuItems[Filters.Price.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Price) }
         parchmentView?.reloadMenu()
     }
 }
