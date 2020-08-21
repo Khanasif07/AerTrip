@@ -566,9 +566,9 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
                         arrayForDisplay = self.results[index].pinnedFlights
                     }
                     
-                    if let journey = arrayForDisplay?[indexPath.row] {
-                        return self.makeMenus(journey : journey, indexPath: indexPath , tableIndex: index)
-                    }
+                     let journey = arrayForDisplay[indexPath.row]
+                    return self.makeMenus(journey : journey, indexPath: indexPath , tableIndex: index)
+                    
                 }
             }
             // should not come here following code is to silent the warnring

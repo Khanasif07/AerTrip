@@ -342,7 +342,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
                 case .showRegularResults :
                     
                     let suggestedJourneyArray = results[index].suggestedJourneyArray
-                    if suggestedJourneyArray?.count ?? 0 > 0 {
+                    if suggestedJourneyArray.count ?? 0 > 0 {
                         currentJourney = results[index].suggestedJourneyArray[selectedIndex.row]
                         selectedJourneys.append(currentJourney)
                     }
@@ -562,7 +562,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
             
             // unpinning of all flights in array
             var legArray = results[index]
-            if var journeyArray = legArray.journeyArray {
+             var journeyArray = legArray.journeyArray
                 
                 for j in 0 ..<  journeyArray.count {
                     let journey = journeyArray[j]
@@ -579,7 +579,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
                         errorView.removeFromSuperview()
                     }
                 }
-            }
+            
             
             // updating UITableview state
             self.updateUIForTableviewAt(index)
@@ -762,7 +762,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
     
     func setPinnedFlightAt(flightKey : String , indexPath : IndexPath , isPinned : Bool , tableIndex : Int ) {
         
-        guard var journeyArray = results[tableIndex].journeyArray else { return }
+         var journeyArray = results[tableIndex].journeyArray
         guard let index = journeyArray.firstIndex(where: {
             $0.fk == flightKey
         }) else {
@@ -967,8 +967,8 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
             }
         }
         
-        if arrayForDisplay!.count > 0 && indexPath.row < arrayForDisplay!.count{
-            if let journey = arrayForDisplay?[indexPath.row] {
+        if arrayForDisplay.count > 0 && indexPath.row < arrayForDisplay.count{
+             let journey = arrayForDisplay[indexPath.row]
                 cell.showDetailsFrom(journey:  journey)
                 if let logoArray = journey.airlineLogoArray {
                     
@@ -990,7 +990,6 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
                         break
                     }
                 }
-            }
         }
     }
     

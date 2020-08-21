@@ -102,8 +102,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     weak var delegate: FareBreakupVCDelegate?
     
     //MARK:- Initialise Views
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         self.manageLoader()

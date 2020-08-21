@@ -165,7 +165,7 @@ extension FlightDomesticMultiLegResultVC {
                     arrayForDisplay =  self.sortedJourneyArray[index]
                 }
                 
-                guard let journey = arrayForDisplay?[indexPath.row] else {   return }
+                 let journey = arrayForDisplay[indexPath.row]
                 headerView.setValuesFrom(journey: journey)
                 
                 let headerJourneyRect  = CGRect(x: (width * CGFloat(index)), y: (-journeyCompactViewHeight) , width: width - 1 , height: journeyCompactViewHeight)

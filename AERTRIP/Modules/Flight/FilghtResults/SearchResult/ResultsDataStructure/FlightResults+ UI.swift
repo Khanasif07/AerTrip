@@ -29,40 +29,17 @@ struct OnewayJourneyResultsArray {
         }
     }
     
-    var sort : Sort
-    var excludeExpensiveFlights = true
-    
     var allJourneys : [JourneyOnewayDisplay] = []
+
+    var suggestedJourneyArray: [JourneyOnewayDisplay] = []
     
     var currentPinnedJourneys : [Journey] = []
 
     var pinnedFlights : [Journey] = []
-   
     
-    var suggestedJourneyArray: [JourneyOnewayDisplay] = []
-
+    var sort : Sort
+    var excludeExpensiveFlights = true
     
-    
-//    var suggestedJourneyArray: [JourneyOnewayDisplay]! { get {
-//        return journeyArray.filter(){ $0.isAboveHumanScore == false }
-//        }
-//        set (newJourneyArray){
-//        }
-//    }
-//
-    
-    //Needs to be commented
-//    var expensiveJourneyArray : [JourneyOnewayDisplay]! {
-//        get {
-//            return journeyArray.filter(){ $0.isAboveHumanScore == true }
-//        }
-//        set(newJourneyArray) {
-//        }
-//    }
-    
-//    var pinnedFlights : [Journey] {
-//        return journeyArray.reduce([]) { $0 + $1.pinnedFlights }
-//    }
     
     var aboveHumanScoreCount : Int {
         
@@ -105,8 +82,98 @@ struct OnewayJourneyResultsArray {
             return sortArray
         }
     }
-    
 }
+
+struct DomesticMultilegJourneyResultsArray {
+    
+    var journeyArray : [Journey] = [] {
+        didSet {
+            self.allJourneys = journeyArray
+            self.suggestedJourneyArray = journeyArray.filter(){
+                $0.isAboveHumanScore == false
+            }
+        }
+    }
+    
+    var allJourneys : [Journey] = []
+
+    var suggestedJourneyArray: [Journey] = []
+    
+    
+   
+    
+    
+    var sort : Sort
+    var excludeExpensiveFlights = true
+
+//    var suggestedJourneyArray: [Journey]! { get {
+//        return journeyArray.filter(){ $0.isAboveHumanScore == false }
+//        }
+//        set (newJourneyArray){
+//        }
+//    }
+//
+    var expensiveJourneyArray : [Journey]! {
+        get {
+            return journeyArray.filter(){ $0.isAboveHumanScore == true }
+        }
+        set(newJourneyArray) {
+        }
+    }
+    
+    var pinnedFlights : [Journey] {
+        return journeyArray.filter{ $0.isPinned  ?? false }
+    }
+    
+    var aboveHumanScoreCount : Int {
+        let count = journeyArray.filter() { $0.isAboveHumanScore == true }.count
+        return count
+    }
+    
+    var belowThresholdHumanScore : Int {
+        return journeyArray.count - aboveHumanScoreCount
+    }
+    
+    var sortedArray : [Journey] {
+        get {
+            
+            var sortArray = journeyArray
+                        
+            if excludeExpensiveFlights {
+                sortArray = sortArray.filter({ $0.isAboveHumanScore == false })
+            }
+            
+            switch  sort {
+            case .Price:
+                sortArray.sort(by: {$0.farepr < $1.farepr})
+            case .Duration:
+                sortArray.sort(by: {$0.duration < $1.duration })
+            case .Smart :
+                sortArray.sort(by: {$0.computedHumanScore! < $1.computedHumanScore! })
+            case .Depart:
+                    sortArray.sort(by: {$0.departTimeInterval < $1.departTimeInterval })
+            case .Arrival:
+                    sortArray.sort(by: {$0.arrivalTimeInteval < $1.arrivalTimeInteval })
+            case .DurationLongestFirst :
+                    sortArray.sort(by: {$0.departTimeInterval > $1.departTimeInterval })
+            case .ArrivalLatestFirst :
+                    sortArray.sort(by: {$0.arrivalTimeInteval > $1.arrivalTimeInteval })
+            default: break
+            }
+            
+            return sortArray
+        }
+    }
+    
+    var containsPinnedFlight : Bool {
+        get {
+            return journeyArray.reduce(false) {
+                return $0 || $1.isPinned ?? false
+            }
+        }
+    }
+}
+
 
 
 
@@ -168,40 +235,6 @@ struct InternationalJourneyResultsArray {
             
             self.suggestedJourneyArray = sortArray
             
-
-//
-//            switch  sortOrder {
-//            case .Price:
-//
-//            sortArray.sort(by: { (obj1, obj2) -> Bool in
-//
-//                if isConditionReverced {
-//                    (obj1.journeyArray.first?.price ?? 0) > (obj2.journeyArray.first?.price ?? 0)
-//                }else{
-//                    (obj1.journeyArray.first?.price ?? 0) < (obj2.journeyArray.first?.price ?? 0)
-//                }
-//
-//                return (obj1.journeyArray.first?.price ?? 0) < (obj2.journeyArray.first?.price ?? 0)
-//            })
-//
-//
-//
-//            case .Duration:
-//                sortArray.sort(by: {$0.duration < $1.duration })
-//            case .Smart :
-//                sortArray.sort(by: {$0.computedHumanScore! < $1.computedHumanScore! })
-//            case .Depart:
-//                    sortArray.sort(by: {$0.departTimeInterval < $1.departTimeInterval })
-//            case .Arrival:
-//                    sortArray.sort(by: {$0.arrivalTimeInteval < $1.arrivalTimeInteval })
-//            case .DurationLatestFirst :
-//                    sortArray.sort(by: {$0.departTimeInterval > $1.departTimeInterval })
-//            case .ArrivalLatestFirst :
-//                    sortArray.sort(by: {$0.arrivalTimeInteval > $1.arrivalTimeInteval })
-//            }
-//
-//
-            
         }
     
     
@@ -238,77 +271,3 @@ struct InternationalJourneyResultsArray {
     
 }
 
-
-struct DomesticMultilegJourneyResultsArray {
-    
-    var journeyArray : [Journey]!
-    var sort : Sort
-    var excludeExpensiveFlights = true
-
-    var suggestedJourneyArray: [Journey]! { get {
-        return journeyArray.filter(){ $0.isAboveHumanScore == false }
-        }
-        set (newJourneyArray){
-        }
-    }
-    
-    var expensiveJourneyArray : [Journey]! {
-        get {
-            return journeyArray.filter(){ $0.isAboveHumanScore == true }
-        }
-        set(newJourneyArray) {
-        }
-    }
-    
-    var pinnedFlights : [Journey] {
-        return journeyArray.filter{ $0.isPinned  ?? false }
-    }
-    
-    var aboveHumanScoreCount : Int {
-        let count = journeyArray.filter() { $0.isAboveHumanScore == true }.count
-        return count
-    }
-    
-    var belowThresholdHumanScore : Int {
-        return journeyArray.count - aboveHumanScoreCount
-    }
-    
-    var sortedArray : [Journey] {
-        get {
-            
-            guard var sortArray = journeyArray else { return journeyArray }
-            
-            if excludeExpensiveFlights {
-                sortArray = sortArray.filter({ $0.isAboveHumanScore == false })
-            }
-            
-            switch  sort {
-            case .Price:
-                sortArray.sort(by: {$0.farepr < $1.farepr})
-            case .Duration:
-                sortArray.sort(by: {$0.duration < $1.duration })
-            case .Smart :
-                sortArray.sort(by: {$0.computedHumanScore! < $1.computedHumanScore! })
-            case .Depart:
-                    sortArray.sort(by: {$0.departTimeInterval < $1.departTimeInterval })
-            case .Arrival:
-                    sortArray.sort(by: {$0.arrivalTimeInteval < $1.arrivalTimeInteval })
-            case .DurationLongestFirst :
-                    sortArray.sort(by: {$0.departTimeInterval > $1.departTimeInterval })
-            case .ArrivalLatestFirst :
-                    sortArray.sort(by: {$0.arrivalTimeInteval > $1.arrivalTimeInteval })
-            default: break
-            }
-            
-            return sortArray
-        }
-    }
-    
-    var containsPinnedFlight : Bool {
-        get {
-            return journeyArray.reduce(false) {
-                return $0 || $1.isPinned ?? false
-            }
-        }
-    }
-}
