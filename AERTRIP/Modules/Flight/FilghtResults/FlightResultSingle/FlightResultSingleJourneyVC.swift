@@ -309,8 +309,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         //         self.resultsTableView.reloadRows(at: [indexPath], with: .none)
     }
     
-    func reloadRowFromFlightDetails(fk: String, isPinned: Bool,isPinnedButtonClicked:Bool)
-    {
+    func reloadRowFromFlightDetails(fk: String, isPinned: Bool,isPinnedButtonClicked:Bool) {
         if isPinnedButtonClicked == true{
             setPinnedFlightAt(fk, isPinned: isPinned)
         }

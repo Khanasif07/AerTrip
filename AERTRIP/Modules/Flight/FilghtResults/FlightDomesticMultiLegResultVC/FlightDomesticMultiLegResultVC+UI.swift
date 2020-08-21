@@ -117,43 +117,6 @@ extension FlightDomesticMultiLegResultVC {
     }
     
     
-    //MARK:- Additional UI Methods
-    
-    func animateTableBanner(index : Int , updatedArray : [Journey] , sortOrder :Sort)  {
-        if bannerView?.isHidden == false {
-            guard let headerView = bannerView  else { return }
-            
-            var rect = headerView.frame
-            baseScrollViewTop.constant = 0
-            
-            UIView.animate(withDuration: 1.0 , animations: {
-                let y = rect.origin.y - rect.size.height - 20
-                rect.origin.y = y
-                headerView.frame = rect
-                self.view.layoutIfNeeded()
-                
-                for subview in self.baseScrollView.subviews {
-                    
-                    if let tableView = subview as? UITableView {
-                        let width = UIScreen.main.bounds.size.width / 2.0
-                        let headerRect = CGRect(x: 0, y: 0, width: width, height: 138.0)
-                        tableView.tableHeaderView = UIView(frame: headerRect)
-                    }
-                }
-                
-            }) { (bool) in
-                
-                self.baseScrollView.setContentOffset(CGPoint(x: 0, y: 0) , animated: false)
-                self.bannerView?.isHidden = true
-                
-                self.updateUI(index: index, updatedArray : updatedArray, sortOrder: sortOrder)
-            }
-        }
-        else {
-            self.updateUI(index: index , updatedArray: updatedArray, sortOrder: sortOrder)
-        }
-        
-    }
     
     func addErrorScreenAtIndex(index: Int , forFilteredResults: Bool )
     {

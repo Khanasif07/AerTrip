@@ -47,6 +47,9 @@ extension APICaller {
                 sSelf.handleResponse(json, success: { sucess, jsonData in
 
                     if sucess {
+                        
+                        print("jsonData...\(jsonData)")
+                        
                         completionBlock(true, MessageModel(json: jsonData[APIKeys.data.rawValue]),jsonData[APIKeys.data.rawValue][APIKeys.session_id.rawValue].stringValue)
                     }else{
                         completionBlock(false,nil,"")

@@ -104,20 +104,16 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     //MARK:- Initialise Views
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.manageLoader()
-
         baseFareTableview.register(UINib(nibName: "FareBreakupTableViewCell", bundle: nil), forCellReuseIdentifier: "FareBreakupCell")
         baseFareTableview.register(UINib(nibName: "BaseFareTableViewCell", bundle: nil), forCellReuseIdentifier: "BaseFareCell")
-        
         backgroundDisplayView.backgroundColor = .clear
         remainingSeatsCountLabel.layer.cornerRadius = remainingSeatsCountLabel.frame.width/2
-        
         initialDisplayView()
         taxesDataDisplay()
         swipeDownToClose()
         
-
+        
         if fromScreen == "upgradePlan" {
 //            infoLabel.isHidden = true
 //            bookingInfoArrowImg.isHidden = true
@@ -127,8 +123,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         }
     }
     
-    override func viewDidLayoutSubviews()
-    {
+    override func viewDidLayoutSubviews() {
         self.indicator.center = self.bookButton.center
 //        if fromScreen == "upgradePlanCollapse"
 //        {

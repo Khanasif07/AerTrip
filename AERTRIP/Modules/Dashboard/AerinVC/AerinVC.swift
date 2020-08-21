@@ -233,9 +233,6 @@ class AerinVC: BaseVC {
 //            AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: true)
            
             
-            
-            
-            
             //****  Booking DirectionVC ******
             
             //AppFlowManager.default.moveToBookingDirectionVC()
@@ -244,10 +241,11 @@ class AerinVC: BaseVC {
             //            AppFlowManager.default.mainNavigationController.present(obj, animated: true)
             
             let obj = ChatVC.instantiate(fromAppStoryboard: .Dashboard)
+        AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: false)
 
-         AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: false)
-
-            
+        
+        
+        
             
 //        }
     }

@@ -34,6 +34,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
     @IBOutlet weak var unpinAllLeading: NSLayoutConstraint!
     @IBOutlet weak var emailPinnedFlightLeading: NSLayoutConstraint!
     @IBOutlet weak var sharePinnedFlightsLeading: NSLayoutConstraint!
+    
     //MARK:- State Properties
     var resultsTableViewStates =  [ResultTableViewState]()
     var stateBeforePinnedFlight = [ResultTableViewState]()
@@ -104,7 +105,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         sortedJourneyArray = Array(repeating: [Journey](), count: 0)
         resultsTableViewStates =  Array(repeating: .showTemplateResults , count: 0)
         
-
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
     }
@@ -225,31 +225,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         }
     }
     
-    func updateUI(index : Int , updatedArray : [Journey] , sortOrder : Sort) {
-    
-        results[index].journeyArray = updatedArray
-        results[index].sort = sortOrder
-        self.sortOrder = sortOrder
-//        sortedJourneyArray[index] = Array(results[index].sortedArray)
-        
-        let currentState =  resultsTableViewStates[index]
-        if currentState == .showTemplateResults || currentState == .showNoResults {
-            if updatedArray.count == 0 {
-                return
-            }
-            resultsTableViewStates[index] = .showRegularResults
-        }
-        DispatchQueue.main.async {
-            if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
-                if updatedArray.count > 0 {
-                    errorView.removeFromSuperview()
-                }
-            }
-                self.updateUIForTableviewAt(index)
-                self.checkForOverlappingFlights()
-        }
-    }
-    
+ 
 
     
     fileprivate func setTotalFare() {
@@ -264,8 +240,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         else {
             hideFareBreakupView()
         }
-        
     }
+    
     
     func updateReceivedAt(index : Int , updatedArray : [Journey] , sortOrder : Sort) {
         
@@ -276,13 +252,73 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
 //            }
 //        }
         
-        
         self.flightSearchResultVM.flightLegs[index].updatedFilterResultCount = 0
+
+        results[index].journeyArray = updatedArray
+              results[index].sort = sortOrder
+              self.sortOrder = sortOrder
+        
         animateTableBanner(index: index , updatedArray: updatedArray, sortOrder: sortOrder)
     NotificationCenter.default.post(name:NSNotification.Name("updateFilterScreenText"), object: nil)
     }
     
+    //MARK:- Additional UI Methods
+    func animateTableBanner(index : Int , updatedArray : [Journey] , sortOrder :Sort)  {
+        if bannerView?.isHidden == false {
+            guard let headerView = bannerView  else { return }
+            
+            var rect = headerView.frame
+            baseScrollViewTop.constant = 0
+            
+            UIView.animate(withDuration: 1.0 , animations: {
+                let y = rect.origin.y - rect.size.height - 20
+                rect.origin.y = y
+                headerView.frame = rect
+                self.view.layoutIfNeeded()
+                
+                for subview in self.baseScrollView.subviews {
+                    
+                    if let tableView = subview as? UITableView {
+                        let width = UIScreen.main.bounds.size.width / 2.0
+                        let headerRect = CGRect(x: 0, y: 0, width: width, height: 138.0)
+                        tableView.tableHeaderView = UIView(frame: headerRect)
+                    }
+                }
+                
+            }) { (bool) in
+                
+                self.baseScrollView.setContentOffset(CGPoint(x: 0, y: 0) , animated: false)
+                self.bannerView?.isHidden = true
+                
+                self.updateUI(index: index, updatedArray : updatedArray, sortOrder: sortOrder)
+            }
+        }
+        else {
+            self.updateUI(index: index , updatedArray: updatedArray, sortOrder: sortOrder)
+        }
+        
+    }
     
+       func updateUI(index : Int , updatedArray : [Journey] , sortOrder : Sort) {
+        
+            let currentState =  resultsTableViewStates[index]
+            if currentState == .showTemplateResults || currentState == .showNoResults {
+                if updatedArray.count == 0 {
+                    return
+                }
+                resultsTableViewStates[index] = .showRegularResults
+            }
+            DispatchQueue.main.async {
+                if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
+                    if updatedArray.count > 0 {
+                        errorView.removeFromSuperview()
+                    }
+                }
+                    self.updateUIForTableviewAt(index)
+                    self.checkForOverlappingFlights()
+            }
+        }
+        
 
     func showNoResultScreenAt(index: Int) {
         addErrorScreenAtIndex(index: index, forFilteredResults: false)

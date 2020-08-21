@@ -33,7 +33,6 @@ extension FlightResultSingleJourneyVC {
             
             let groupedArray =   self.viewModel.getOnewayDisplayArray(results: modifiedResult)
             self.viewModel.results.journeyArray = groupedArray
-            //            self.sortedArray = Array(self.viewModel.results.sortedArray)
             self.viewModel.setPinnedFlights(shouldApplySorting: true)
             
             self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: self.viewModel.prevLegIndex, completion: {
@@ -93,8 +92,7 @@ extension FlightResultSingleJourneyVC {
                 self.bannerView?.isHidden = true
                 self.updateUI()
             }
-        }
-        else {
+        } else {
             self.updateUI()
         }
     }
