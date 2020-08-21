@@ -20,7 +20,7 @@ protocol ChatBotDelegatesDelegate: class {
     func failedToCommunicateWithChatBot()
     
     func hideTypingCell()
-    func moveFurtherWhenallRequiredInformationSubmited()
+    func moveFurtherWhenallRequiredInformationSubmited(data : MessageModel)
     
     func willGetRecentSearchHotel()
     func getRecentSearchHotelSuccessFully()
@@ -71,7 +71,7 @@ class ChatVM {
                 self.messages.append(msg)
                 self.delegate?.chatBotSessionCreatedSuccessfully()
                 if !msg.depart.isEmpty && !msg.origin.isEmpty && !msg.destination.isEmpty {
-                    self.delegate?.moveFurtherWhenallRequiredInformationSubmited()
+                    self.delegate?.moveFurtherWhenallRequiredInformationSubmited(data: msg)
                 }
                 
                 
@@ -96,7 +96,7 @@ class ChatVM {
                  self.messages.append(msg)
                  self.delegate?.chatBotCommunicatedSuccessfully()
                 if !msg.depart.isEmpty && !msg.origin.isEmpty && !msg.destination.isEmpty {
-                          self.delegate?.moveFurtherWhenallRequiredInformationSubmited()
+                    self.delegate?.moveFurtherWhenallRequiredInformationSubmited(data: msg)
                       }
              }else{
                  self.delegate?.failedToCommunicateWithChatBot()
