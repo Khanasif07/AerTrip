@@ -94,19 +94,13 @@
 
 @implementation FlightFormViewController
 
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupInitials];
     self.bridgingObj = [SwiftObjCBridgingController shared];
     
-    __weak typeof(self) weakSelf = self;
-    [self.bridgingObj setOnFetchingFlightFormData:^{
-        [weakSelf.viewModel performFlightSearch];
-    }];
+    [self setAerinSearchClosure];
 }
-
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -211,6 +205,13 @@
     self.flightSegmentedControl.borderType = HMSegmentedControlBorderTypeNone;
     self.flightSegmentedControl.selectedSegmentIndex = 0;
   //  [self setupSwipe];
+}
+
+-(void)setAerinSearchClosure {
+    __weak typeof(self) weakSelf = self;
+    [self.bridgingObj setOnFetchingFlightFormData:^(NSMutableDictionary<NSString *,id> * dict) {
+        [weakSelf.viewModel performFlightSearchWith:dict];
+    }];
 }
 
 

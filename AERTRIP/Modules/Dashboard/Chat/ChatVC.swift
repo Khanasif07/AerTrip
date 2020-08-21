@@ -74,7 +74,6 @@ class ChatVC : BaseVC {
     
     //MARK:- Send Button Tapped
     @IBAction func sendButton(_ sender: UIButton) {
-        SwiftObjCBridgingController.shared.sendFlightFormData([:])
         self.messageTextView.placeholder = ""
         self.invalidateTypingCellTimer()
         guard  let msg = self.messageTextView.text, !msg.isEmpty else { return }
@@ -507,9 +506,9 @@ extension ChatVC : ChatBotDelegatesDelegate {
     }
     
     func moveFurtherWhenallRequiredInformationSubmited(data: MessageModel) {
+        invalidateTypingCellTimer()
         print("lets go...\(data)")
-            let vc = FlightsDemoVC.instantiate(fromAppStoryboard: AppStoryboard.Dashboard)
-            self.navigationController?.pushViewController(vc, animated: true)
+        chatVm.createFlightSearchDictionaryAndPushToVC(data)
        }
     
     func willGetRecentSearchHotel(){

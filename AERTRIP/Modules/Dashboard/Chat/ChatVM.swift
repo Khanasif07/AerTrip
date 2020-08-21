@@ -123,4 +123,24 @@ class ChatVM {
         }
     }
     
+    func createFlightSearchDictionaryAndPushToVC(_ model: MessageModel) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let departDate = dateFormatter.date(from: model.depart)
+        let newDepartDate = departDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
+        
+        var jsonDict = JSONDictionary()
+        jsonDict["adult"] = model.adult
+        jsonDict["child"] = model.child
+        jsonDict["infant"] = model.infant
+        jsonDict["cabinclass"] = model.cabinclass
+        jsonDict["trip_type"] = "single"
+        jsonDict["origin"] = model.origin
+        jsonDict["destination"] = model.destination
+        jsonDict["depart"] = newDepartDate
+        jsonDict["totalLegs"] = 1
+        
+        SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
+    }
 }
