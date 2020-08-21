@@ -104,6 +104,7 @@
          success:(void (^)(NSDictionary* dataDictionary))success
          failure:(void (^)(NSString *error,BOOL popup))failure {
     
+    //printf(@"%@",apiName);
     
     if ([BaseViewController isReachable]) {
         
@@ -117,6 +118,8 @@
         }
         else{
             NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName];
+         //  printf(@"%@",url);
+
             AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
           //  manager.requestSerializer = [AFJSONRequestSerializer serializer];

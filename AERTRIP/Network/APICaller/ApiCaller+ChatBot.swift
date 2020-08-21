@@ -73,7 +73,6 @@ extension APICaller {
         }
     
     func recentSearchesApi(searchFor : ChatVM.RecentSearchFor, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ recentSearchesData: [RecentSearchesModel]) -> Void) {
-        
         let endPoints = "https://beta.aertrip.com/api/v1/recent-search/get?product=\(searchFor.rawValue)"
         AppNetworking.GET(endPoint: endPoints, loader: loader, success: { [weak self] json in
             guard let sSelf = self else { return }
