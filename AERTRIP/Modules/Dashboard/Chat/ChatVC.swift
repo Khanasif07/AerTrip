@@ -74,6 +74,7 @@ class ChatVC : BaseVC {
     
     //MARK:- Send Button Tapped
     @IBAction func sendButton(_ sender: UIButton) {
+        SwiftObjCBridgingController.shared.sendFlightFormData([:])
         self.messageTextView.placeholder = ""
         self.invalidateTypingCellTimer()
         guard  let msg = self.messageTextView.text, !msg.isEmpty else { return }

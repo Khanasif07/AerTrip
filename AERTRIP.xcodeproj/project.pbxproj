@@ -1458,6 +1458,7 @@
 		84C7805824EE5A4300F69FC3 /* IntMCAndReturnFiltersBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7805624EE5A4300F69FC3 /* IntMCAndReturnFiltersBaseVC.swift */; };
 		84C7805924EE5A4300F69FC3 /* IntMCAndReturnFiltersBaseVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C7805724EE5A4300F69FC3 /* IntMCAndReturnFiltersBaseVC.xib */; };
 		84C7805B24EE60BE00F69FC3 /* IntMCAndReturnFiltersBaseVC+Parchment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7805A24EE60BE00F69FC3 /* IntMCAndReturnFiltersBaseVC+Parchment.swift */; };
+		84C7805D24EFD19800F69FC3 /* SwiftObjCBridgingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7805C24EFD19800F69FC3 /* SwiftObjCBridgingController.swift */; };
 		84C7C39A23FE78A400755C6F /* HotelsResultVM+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C39923FE78A300755C6F /* HotelsResultVM+CoreData.swift */; };
 		84CF4E3C21BE8C5500B8EC47 /* ATBedgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF4E3A21BE8C5500B8EC47 /* ATBedgeLabel.swift */; };
 		84D11CC722702BE500FADD29 /* BookingUserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CC522702BE500FADD29 /* BookingUserInfoTableViewCell.swift */; };
@@ -3238,6 +3239,7 @@
 		84C7805624EE5A4300F69FC3 /* IntMCAndReturnFiltersBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntMCAndReturnFiltersBaseVC.swift; sourceTree = "<group>"; };
 		84C7805724EE5A4300F69FC3 /* IntMCAndReturnFiltersBaseVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntMCAndReturnFiltersBaseVC.xib; sourceTree = "<group>"; };
 		84C7805A24EE60BE00F69FC3 /* IntMCAndReturnFiltersBaseVC+Parchment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IntMCAndReturnFiltersBaseVC+Parchment.swift"; sourceTree = "<group>"; };
+		84C7805C24EFD19800F69FC3 /* SwiftObjCBridgingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftObjCBridgingController.swift; sourceTree = "<group>"; };
 		84C7C39923FE78A300755C6F /* HotelsResultVM+CoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HotelsResultVM+CoreData.swift"; sourceTree = "<group>"; };
 		84CF4E3A21BE8C5500B8EC47 /* ATBedgeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATBedgeLabel.swift; sourceTree = "<group>"; };
 		84D11CC522702BE500FADD29 /* BookingUserInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingUserInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -4603,6 +4605,7 @@
 				8452D36C21E614BA00927287 /* CoreData */,
 				18A96B9421B661F900EA9B3A /* FacebookController.swift */,
 				18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */,
+				84C7805C24EFD19800F69FC3 /* SwiftObjCBridgingController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -10667,6 +10670,7 @@
 				843FF4C024740231001F21B1 /* AddEditGSTVM.swift in Sources */,
 				843FF669247409E3001F21B1 /* TypeValueData.m in Sources */,
 				84F983D921B51A070018DFED /* Extensions.swift in Sources */,
+				84C7805D24EFD19800F69FC3 /* SwiftObjCBridgingController.swift in Sources */,
 				843FF55424740232001F21B1 /* FlightResultDisplayGroup.swift in Sources */,
 				84E4CC6421E3679B0015C306 /* PKViewPagerOptions.swift in Sources */,
 				843FF68F247409E4001F21B1 /* SimpleLabelTableViewCell.m in Sources */,
