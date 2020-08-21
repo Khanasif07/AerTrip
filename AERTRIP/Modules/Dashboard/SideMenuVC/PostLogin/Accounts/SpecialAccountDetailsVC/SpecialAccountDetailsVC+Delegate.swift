@@ -133,7 +133,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             //statement summery
             case 0:
                 //return getSummeryCell(withData: self.viewModel.statementSummery[indexPath.row])
-                let cell = getSummeryCell(withData: self.viewModel.statementSummery[indexPath.row]) as! AccountSummeryCell
+                let cell = getSummeryCell(withData: self.viewModel.statementSummery[indexPath.row], isForOther: false) as! AccountSummeryCell
                 
                 if indexPath.row == 1 {
                 //    cell.stackViewTop.constant = -4.0
@@ -146,7 +146,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 
             //credit summery
             case 1:
-                return getSummeryCell(withData: self.viewModel.creditSummery[indexPath.row])
+                return getSummeryCell(withData: self.viewModel.creditSummery[indexPath.row], isForOther: false)
                 
             //deposit cell
             case 2:
@@ -168,7 +168,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 
             //other action
             case 3:
-                return getSummeryCell(withData: self.viewModel.otherAction[indexPath.row])
+                return getSummeryCell(withData: self.viewModel.otherAction[indexPath.row], isForOther: true)
                 
             default:
                 return UITableViewCell()
@@ -179,7 +179,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             switch indexPath.section {
             //topup summery
             case 0:
-                let cell = getSummeryCell(withData: self.viewModel.topUpSummery[indexPath.row]) as! AccountSummeryCell
+                let cell = getSummeryCell(withData: self.viewModel.topUpSummery[indexPath.row], isForOther: false) as! AccountSummeryCell
                 
                 if indexPath.row == 1 {
               //      cell.stackViewTop.constant = -4.0
@@ -209,7 +209,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         
             //other action
             case 2:
-                return getSummeryCell(withData: self.viewModel.otherAction[indexPath.row])
+                return getSummeryCell(withData: self.viewModel.otherAction[indexPath.row], isForOther: true)
                 
             default:
                 return UITableViewCell()
@@ -220,7 +220,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             switch indexPath.section {
             //bilwise summery
             case 0:
-                let cell = getSummeryCell(withData: self.viewModel.bilWiseSummery[indexPath.row]) as! AccountSummeryCell
+                let cell = getSummeryCell(withData: self.viewModel.bilWiseSummery[indexPath.row], isForOther: false) as! AccountSummeryCell
                 
                 if indexPath.row == 1 {
                //     cell.stackViewTop.constant = -4.0
@@ -230,7 +230,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 
             //credit summery
             case 1:
-                return getSummeryCell(withData: self.viewModel.creditSummery[indexPath.row])
+                return getSummeryCell(withData: self.viewModel.creditSummery[indexPath.row], isForOther: false)
                 
             //deposit cell
             case 2:
@@ -243,7 +243,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 
             //other action
             case 3:
-                return getSummeryCell(withData: self.viewModel.otherAction[indexPath.row])
+                return getSummeryCell(withData: self.viewModel.otherAction[indexPath.row], isForOther: true)
                 
             default:
                 return UITableViewCell()
@@ -254,13 +254,17 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func getSummeryCell(withData: SpecialAccountEvent) -> UITableViewCell {
+    func getSummeryCell(withData: SpecialAccountEvent, isForOther:Bool) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AccountSummeryCell.reusableIdentifier) as? AccountSummeryCell else {
             return UITableViewCell()
         }
         
         cell.event = withData
-        
+        if isForOther{
+            cell.mainStackHeight.constant = 42
+        }else{
+            cell.mainStackHeight.constant = 35
+        }
         return cell
     }
     
@@ -346,6 +350,8 @@ class AccountSummeryCell: UITableViewCell {
     @IBOutlet weak var stackViewTop: NSLayoutConstraint!
     @IBOutlet weak var amountLabelTraillingConstant: NSLayoutConstraint!
     @IBOutlet weak var amountStackView: UIStackView!
+    @IBOutlet weak var dipositLabelHeight: NSLayoutConstraint!
+    @IBOutlet weak var mainStackHeight: NSLayoutConstraint!
     
     
     //MARK:- Life Cycle

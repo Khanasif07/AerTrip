@@ -30,6 +30,7 @@ enum VoucherReceiptMethod: String {
     case card = "card"
     case upi = "upi"
     case offline = "offline"
+    case wallet = "wallet"
 }
 
 enum VoucherProductType: String {
@@ -243,10 +244,19 @@ struct AccountDetailEvent {
                     }
 //                    let bankName = (info["bank_name"] as? String) ?? ""
 //                    self.title = self._receiptMethod.isEmpty ? bankName : "\(self._receiptMethod.capitalizedFirst()): \(bankName)"
+                case .wallet:
+                    self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
+                    let walletName = (info["wallet_name"] as? String) ?? ""
+                    if walletName.isEmpty{
+                        self.title = "Wallet"
+                    }else{
+                        self.title = "Wallet: \(walletName)"
+                    }
+                    
                 case .none:
                     printDebug("No need for other voucher types")
-                @unknown default:
-                    printDebug("No need for other voucher types")
+//                @unknown default:
+//                    printDebug("No need for other voucher types")
                 }
             }
             
@@ -320,9 +330,10 @@ struct AccountDetailEvent {
                     self.parseForAddOnsSales(details: details)
                     
                 case .none:
-                    printDebug("No need for other voucher types")
-                @unknown default:
-                    printDebug("No need for other voucher types")
+//                    printDebug("No need for other voucher types")
+                    self.parseForOtherSales(details: details)
+//                @unknown default:
+//                    printDebug("No need for other voucher types")
                 }
                 
                 if self.title.isEmpty, let partyName = details["party_name"] {
@@ -372,6 +383,7 @@ struct AccountDetailEvent {
         if self.voucherNo.lowercased().contains("srjv") {
             self.title = "\(LocalizedString.CancellationFor.localized)\n\(self.title)"
             self.attributedString = nil
+            self.iconImage = #imageLiteral(resourceName: "flightCancellation")
         } else if self.voucherNo.lowercased().contains("rsrjv") {
             self.title = "\(LocalizedString.ReschedulingFor.localized)\n\(self.title)"
             self.attributedString = nil
@@ -436,6 +448,84 @@ struct AccountDetailEvent {
             }
         }
     }
+    
+    
+    private mutating func parseForOtherSales(details: JSONDictionary) {
+        
+        self.iconImage = #imageLiteral(resourceName: "others_hotels")
+        
+        //booking date
+        if let obj = details["booking_date"] {
+            //"2019-05-16 00:00:00",
+            self.voucherDate = "\(obj)".toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")
+        }
+        
+        //booking id
+        if let obj = details["booking_id"] {
+            self.bookingId = "\(obj)"
+        }
+        if let obj = details["booking_number"] {
+            self.bookingNumber = "\(obj)"
+        }
+        
+        //title
+        self.title = details["party_name"] as? String ?? ""
+        
+//        if let rows = details["rows"] as? [JSONDictionary], !rows.isEmpty {
+//            if let first = rows.first {
+//                if let obj = first["travel_date"] {
+//                    //travelDate : "2019-05-20"
+//                    self.travelDate = "\(obj)".toDate(dateFormat: "YYYY-MM-dd")
+//                }
+//
+//                if let obj = first["al"] {
+//                    //airline
+//                    self.airline = "\(obj)"
+//                }
+//
+//                if let obj = first["sector"] as? [String] {
+//                    //sector
+//                    self.sector = obj.joined(separator: " → ")
+//                }
+//            }
+//            self.flightNumber = ""
+//
+//            for row in rows {
+//                if let num = row["flight_no"] as? String{
+//                    self.flightNumber += (self.flightNumber.isEmpty) ? num : ",\(num)"
+//                }
+//                if let pnrs = row["pnrs"] as? [JSONDictionary], !pnrs.isEmpty {
+//                    if let first = rows.first {
+//                        if let obj = first["pnr"] {
+//                            //pnr
+//                            self.pnr = "\(obj)"
+//                        }
+//
+//                        if let obj = first["ticket_no"] {
+//                            //ticketNo
+//                            self.ticketNo = "\(obj)"
+//                        }
+//                    }
+//
+//                    //names for paxs
+//                    for pnr in pnrs {
+//                        if let paxs = pnr["pax"] as? [JSONDictionary], !paxs.isEmpty {
+//                            self.names = AccountUser.retunsAccountUserArray(jsonArr: paxs)
+//                            /*
+//                             for pax in paxs {
+//                             let salt = (pax["salutation"] as? String) ?? ""
+//                             let name = (pax["name"] as? String) ?? ""
+//
+//                             let final = salt.isEmpty ? name : "\(salt) \(name)"
+//                             self.names.append(final)
+//                             } */
+//                        }
+//                    }
+//                }
+//            }
+//        }
+    }
+
     
     private mutating func getAttributedText(){
         

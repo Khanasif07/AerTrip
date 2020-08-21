@@ -492,7 +492,7 @@ enum ProductType: Int, CaseIterable {
             return #imageLiteral(resourceName: "hotel_green_icon")
             
         case .other:
-            return #imageLiteral(resourceName: "others")
+            return #imageLiteral(resourceName: "others_hotels") //#imageLiteral(resourceName: "others")
         }
     }
     

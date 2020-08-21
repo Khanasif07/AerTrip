@@ -89,10 +89,10 @@ extension HotelsMapVC: ATSwitcherChangeValueDelegate {
         }
     }
     
-    func resetAllMarker() {
+    func resetAllMarker(isNeedToShowAll: Bool = false) {
         self.appleMap.removeAnnotations(self.appleMap.annotations)
         self.detailsShownMarkers = []
-        self.addAllMarker()
+        self.addAllMarker(isNeedToShowAll: isNeedToShowAll)
             delay(seconds: 0.4) { [weak self] in
                 guard let strongSelf = self else {return}
                 //                let indexOfMajorCell = strongSelf.indexOfMajorCell()
@@ -182,7 +182,7 @@ extension HotelsMapVC: HotelResultDelegate {
         self.filterButton.isEnabled = true
 //        self.addMapView()
         self.reloadHotelList()
-        resetAllMarker()
+        resetAllMarker(isNeedToShowAll: true)
         delay(seconds: 0.4) { [weak self] in
             self?.adjustMapPadding()
         }

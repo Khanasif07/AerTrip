@@ -106,7 +106,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 }
                 emptyCell.bottomDividerView.isHidden = true//(indexPath.row == 2)
                 emptyCell.topDividerView.isHidden = (indexPath.row == 2)
-                emptyCell.topDividerTopConstraint.constant = -0.1
+                emptyCell.topDividerTopConstraint.constant = 0.0
                 return emptyCell
             case 1:
                 guard let downloadInvoiceCell = self.tableView.dequeueReusableCell(withIdentifier: "DownloadInvoiceTableViewCell") as? DownloadInvoiceTableViewCell else {
