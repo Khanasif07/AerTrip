@@ -21,12 +21,12 @@ extension FlightResultSingleJourneyVC {
                curJourneyArr = viewModel.results.allJourneys
            }
     
+    print(curJourneyArr.count)
     
        guard let index = curJourneyArr.firstIndex(where: {
                 
                 for journey in $0.journeyArray {
                     if journey.fk == flightKey {
-    //                   print("index...\(index)")
                         return true
                     }
                 }
@@ -49,13 +49,14 @@ extension FlightResultSingleJourneyVC {
     if isPinned {
         showPinnedFlightsOption(true)
     self.viewModel.results.currentPinnedJourneys.append(displayArray.journeyArray[journeyArrayIndex])
+  
     } else {
        
        let containesPinnedFlight = viewModel.results.allJourneys.reduce(curJourneyArr[0].containsPinnedFlight) { $0 || $1.containsPinnedFlight }
         showPinnedFlightsOption(containesPinnedFlight)
         
         if !containesPinnedFlight {
-           viewModel.resultTableState = stateBeforePinnedFlight
+            viewModel.resultTableState = self.viewModel.stateBeforePinnedFlight
             hidePinnedFlightOptions(true)
             switchView.isOn = false
         }
@@ -74,8 +75,6 @@ extension FlightResultSingleJourneyVC {
         self.resultsTableView.tableFooterView?.isHidden = false
     }
     showFooterView()
-
-
 }
     
      func hidePinnedFlightOptions( _ hide : Bool){
@@ -97,9 +96,7 @@ func showPinnedFlightsOption(_ show  : Bool) {
 extension FlightResultSingleJourneyVC: ATSwitcherChangeValueDelegate {
     
     func switcherDidChangeValue(switcher: ATSwitcher, value: Bool) {
-//        self.viewModel.isFavouriteOn = value
-//        self.viewModel.loadSaveData()
-      
+
         if value {
             
             self.unpinnedAllButton.isHidden = false
@@ -107,17 +104,21 @@ extension FlightResultSingleJourneyVC: ATSwitcherChangeValueDelegate {
             self.sharePinnedFilghts.isHidden = false
             self.animateButton()
             
-            stateBeforePinnedFlight = viewModel.resultTableState
+            viewModel.stateBeforePinnedFlight = viewModel.resultTableState
             viewModel.resultTableState = .showPinnedFlights
             resultsTableView.tableFooterView = nil
             if viewModel.results.pinnedFlights.isEmpty {
                 showNoFilteredResults()
             }
-        }
             
+        }
         else {
             self.hideFavsButtons(isAnimated: true)
-            viewModel.resultTableState = stateBeforePinnedFlight
+            if viewModel.stateBeforePinnedFlight == ResultTableViewState.showPinnedFlights{
+                viewModel.resultTableState = ResultTableViewState.showRegularResults
+            }else {
+                viewModel.resultTableState = viewModel.stateBeforePinnedFlight
+            }
             showFooterView()
         }
         
@@ -129,109 +130,16 @@ extension FlightResultSingleJourneyVC: ATSwitcherChangeValueDelegate {
 //        tableViewVertical.setContentOffset(CGPoint(x: 0, y: -topContentSpace), animated: false)
         //showBluredHeaderViewCompleted()
     }
+    
+//    func switchTogggled(switcher: ATSwitcher, value: Bool, shouldaddNoDataView : Bool = true){
+//
+//    }
+    
 }
 
 extension FlightResultSingleJourneyVC {
     
-    
-    func manageSwitchContainer(isHidden: Bool, shouldOff: Bool = true) {
-         
-        manageFloatingView(isHidden: false)
-          
-          if !isHidden {
-              self.pinnedFlightsOptionsView.isHidden = false
-          }
-          
-          DispatchQueue.main.async {
-              let newFrame = CGRect(x: 0.0, y: isHidden ? 100.0 : 0.0, width: self.pinnedFlightsOptionsView.width, height: self.pinnedFlightsOptionsView.height)
-              UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {[weak self] in
-                  guard let sSelf = self else {return}
-                  
-                  sSelf.pinnedFlightsOptionsView.frame = newFrame
-                  sSelf.view.layoutIfNeeded()
-                  
-                  }, completion: { [weak self](isDone) in
-                      guard let sSelf = self else {return}
-                      
-                      if isHidden {
-                          sSelf.pinnedFlightsOptionsView.isHidden = true
-                      }
-              })
-          }
-          
-          if isHidden, shouldOff {
-              //if switch is hidden then it must be off, otherwise it should be as it is.
-              self.hideFavsButtons()
-             // tableViewVertical.setContentOffset(CGPoint(x: 0, y: -topContentSpace), animated: false)
-              showBluredHeaderViewCompleted()
-          }
-          
-      }
-    
-    func manageFloatingView(isHidden: Bool) {
-         self.pinnedFlightsOptionsView.isHidden = isHidden
-//         self.floatingButtonBackView.isHidden = isHidden
-     }
-    
-    
-    func animateFloatingButtonOnListView(isAnimated: Bool = true) {
-          if isAnimated {
-              self.unpinnedAllButton.alpha = 0.0
-              self.emailPinnedFlights.alpha = 0.0
-              self.sharePinnedFilghts.alpha = 0.0
-              UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: [.curveEaseOut, ], animations: { [weak self] in
-                  self?.unpinnedAllButton.alpha = 1.0
-                  self?.emailPinnedFlights.alpha = 1.0
-                  self?.sharePinnedFilghts.alpha = 1.0
-                  self?.unpinnedAllButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                  self?.emailPinnedFlights.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                  self?.sharePinnedFilghts.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                  self?.emailPinnedFlights.transform = CGAffineTransform(translationX: 26, y: 0)
-                  self?.sharePinnedFilghts.transform = CGAffineTransform(translationX: 80, y: 0)
-                  self?.unpinnedAllButton.transform = CGAffineTransform(translationX: 134, y: 0)
-                  }, completion: nil)
-              
-          } else {
-              self.unpinnedAllButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-              self.emailPinnedFlights.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-              self.sharePinnedFilghts.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-              self.emailPinnedFlights.transform = CGAffineTransform(translationX: 26, y: 0)
-              self.sharePinnedFilghts.transform = CGAffineTransform(translationX: 80, y: 0)
-              self.unpinnedAllButton.transform = CGAffineTransform(translationX: 134, y: 0)
-          }
-      }
-      
-      func hideFavsButtons(isAnimated: Bool = false) {
-          if isAnimated {
-              UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: .curveEaseOut, animations: { [weak self] in
-                
-                  self?.unpinnedAllButton.transform = CGAffineTransform(translationX: 0, y: 0)
-                  self?.emailPinnedFlights.transform = CGAffineTransform(translationX: 0, y: 0)
-                  self?.sharePinnedFilghts.transform = CGAffineTransform(translationX: 0, y: 0)
-                    self?.unpinnedAllButton.alpha = 0.0
-                    self?.emailPinnedFlights.alpha = 0.0
-                    self?.sharePinnedFilghts.alpha = 0.0
-                  }, completion: { [weak self] (success) in
-                      self?.unpinnedAllButton.isHidden = true
-                      self?.emailPinnedFlights.isHidden = true
-                      self?.sharePinnedFilghts.isHidden = true
-                      self?.unpinnedAllButton.alpha = 1.0
-                      self?.emailPinnedFlights.alpha = 1.0
-                      self?.sharePinnedFilghts.alpha = 1.0
-              })
-          } else {
-              self.unpinnedAllButton.transform = CGAffineTransform(translationX: 0, y: 0)
-              self.emailPinnedFlights.transform = CGAffineTransform(translationX: 0, y: 0)
-              self.sharePinnedFilghts.transform = CGAffineTransform(translationX: 0, y: 0)
-              self.unpinnedAllButton.isHidden = true
-              self.emailPinnedFlights.isHidden = true
-              self.sharePinnedFilghts.isHidden = true
-          }
-      }
-      
-      func animateButton() {
-          self.animateFloatingButtonOnListView()
-      }
+ 
     
 }
 
@@ -323,7 +231,7 @@ extension FlightResultSingleJourneyVC {
         
         switchView.isOn = false
         hidePinnedFlightOptions(true)
-        viewModel.resultTableState = stateBeforePinnedFlight
+        viewModel.resultTableState = viewModel.stateBeforePinnedFlight
         showPinnedFlightsOption(false)
         resultsTableView.reloadData()
         showFooterView()
@@ -332,10 +240,10 @@ extension FlightResultSingleJourneyVC {
     
     func shareJourney(journey : [Journey]) {
         
-        let flightAdultCount = bookFlightObject.flightAdultCount
-        let flightChildrenCount = bookFlightObject.flightChildrenCount
-        let flightInfantCount = bookFlightObject.flightInfantCount
-        let isDomestic = bookFlightObject.isDomestic
+        let flightAdultCount = self.viewModel.bookFlightObject.flightAdultCount
+        let flightChildrenCount = self.viewModel.bookFlightObject.flightChildrenCount
+        let flightInfantCount = self.viewModel.bookFlightObject.flightInfantCount
+        let isDomestic = self.viewModel.bookFlightObject.isDomestic
         
         self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, journey: journey)
         
@@ -405,10 +313,10 @@ extension FlightResultSingleJourneyVC {
     
     func generatePostDataForEmail( for journey : [Journey] ) -> Data? {
           
-          let flightAdultCount = bookFlightObject.flightAdultCount
-           let flightChildrenCount = bookFlightObject.flightChildrenCount
-           let flightInfantCount = bookFlightObject.flightInfantCount
-           let isDomestic = bookFlightObject.isDomestic
+        let flightAdultCount = self.viewModel.bookFlightObject.flightAdultCount
+           let flightChildrenCount = self.viewModel.bookFlightObject.flightChildrenCount
+           let flightInfantCount = self.viewModel.bookFlightObject.flightInfantCount
+           let isDomestic = self.viewModel.bookFlightObject.isDomestic
            
           guard let firstJourney = journey.first else { return nil}
           
@@ -419,7 +327,7 @@ extension FlightResultSingleJourneyVC {
            
           let inputFormatter = DateFormatter()
           inputFormatter.dateFormat = "dd-MM-yyyy"
-          let departDate = inputFormatter.string(from: bookFlightObject.onwardDate)
+        let departDate = inputFormatter.string(from: self.viewModel.bookFlightObject.onwardDate)
            
           var valueString = "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(flightAdultCount)&child=\(flightChildrenCount)&infant=\(flightInfantCount)&origin=\(ap[0])&destination=\(ap[1])&depart=\(departDate)&cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)"
           
@@ -429,7 +337,7 @@ extension FlightResultSingleJourneyVC {
               valueString = valueString + "&PF[\(i)]=\(tempJourney.fk)"
           }
 
-          var parameters = [ "u": valueString , "sid": bookFlightObject.sid ]
+          var parameters = [ "u": valueString , "sid": self.viewModel.bookFlightObject.sid ]
        
           
           let fkArray = journey.map{ $0.fk }
@@ -464,10 +372,10 @@ extension FlightResultSingleJourneyVC {
       func generatePostData( for journey : [Journey] ) -> NSData? {
           
           
-          let flightAdultCount = bookFlightObject.flightAdultCount
-          let flightChildrenCount = bookFlightObject.flightChildrenCount
-          let flightInfantCount = bookFlightObject.flightInfantCount
-          let isDomestic = bookFlightObject.isDomestic
+        let flightAdultCount = self.viewModel.bookFlightObject.flightAdultCount
+          let flightChildrenCount = self.viewModel.bookFlightObject.flightChildrenCount
+          let flightInfantCount = self.viewModel.bookFlightObject.flightInfantCount
+          let isDomestic = self.viewModel.bookFlightObject.isDomestic
           
           guard let firstJourney = journey.first else { return nil}
           
@@ -478,7 +386,7 @@ extension FlightResultSingleJourneyVC {
           
           let inputFormatter = DateFormatter()
           inputFormatter.dateFormat = "dd-MM-yyyy"
-          let departDate = inputFormatter.string(from: bookFlightObject.onwardDate)
+          let departDate = inputFormatter.string(from: self.viewModel.bookFlightObject.onwardDate)
            
           let postData = NSMutableData()
           
@@ -521,5 +429,5 @@ extension FlightResultSingleJourneyVC {
           
           return postData
       }
-      
+    
 }

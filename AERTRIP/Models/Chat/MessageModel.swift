@@ -26,6 +26,11 @@ struct MessageModel {
     let depart : String
     let origin : String
     let destination : String
+    let cabinclass : String
+    let adult : Int
+    let child : Int
+    let infant : Int
+    
     
     init(msg : String, source : MessageSource) {
         self.msg = msg
@@ -36,6 +41,10 @@ struct MessageModel {
         depart = ""
         origin = ""
         destination = ""
+        cabinclass = ""
+        adult = 0
+        child = 0
+        infant = 0
     }
     
     init(json : JSON){
@@ -48,7 +57,11 @@ struct MessageModel {
         depart = json[APIKeys.depart.rawValue].stringValue
         origin = json[APIKeys.origin.rawValue].stringValue
         destination = json[APIKeys.destination.rawValue].stringValue
-        
+        cabinclass = json[APIKeys.cabinclass.rawValue].stringValue
+        adult = json[APIKeys.adult.rawValue].intValue
+        child = json[APIKeys.child.rawValue].intValue
+        infant = json[APIKeys.infant.rawValue].intValue
+
     }
     
 }

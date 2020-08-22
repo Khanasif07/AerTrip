@@ -22,7 +22,7 @@ extension ChatVC : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SuggestionsCell", for: indexPath) as? SuggestionsCell else {
                 fatalError("SuggestionsCell not found")
         }
-        cell.populateData(data: self.chatVm.recentSearchesData[indexPath.item])
+      //  cell.populateData(data: self.chatVm.recentSearchesData[indexPath.item])
         return cell
     }
     

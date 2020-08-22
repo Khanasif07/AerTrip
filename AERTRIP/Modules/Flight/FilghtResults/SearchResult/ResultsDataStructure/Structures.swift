@@ -132,10 +132,10 @@ public struct TimeRangeIntervalWS : Codable , Equatable {
         let rightMinValue = CGFloat( floor(duration / 3600.0 ))
 
         duration = (lhs.maxTime! as NSString).floatValue
-        let  leftMaxValue = CGFloat( round(duration / 3600.0))
+        let  leftMaxValue = CGFloat( ceil(duration / 3600.0))
         
         duration = (rhs.maxTime! as NSString).floatValue
-        let rightMaxValue = CGFloat( round(duration / 3600.0))
+        let rightMaxValue = CGFloat( ceil(duration / 3600.0))
 
         return leftMinValue == rightMinValue && leftMaxValue == rightMaxValue
     }

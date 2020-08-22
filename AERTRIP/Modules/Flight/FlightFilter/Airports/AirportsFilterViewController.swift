@@ -352,6 +352,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
     
     //MARK:- FilterViewController Methods
     func initialSetup() {
+        guard originDestinationView != nil else { return }
         originDestinationView.isHidden = true
         sameDepartReturnView.isHidden = true
         setupTopView()
@@ -377,7 +378,8 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
     }
     
     func resetFilter() {
-        
+        guard originsTableView != nil else { return }
+
         for i in 0 ..< airportFilterArray.count {
             
             var filter = airportFilterArray[i]
@@ -410,6 +412,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
             allLayoverButton.isSelected = false
             allLayoverSelectedByUserInteraction = false
         }
+                
         setmultiLegSubviews ()
         originsTableView.reloadData()
         destinationsTableView.reloadData()

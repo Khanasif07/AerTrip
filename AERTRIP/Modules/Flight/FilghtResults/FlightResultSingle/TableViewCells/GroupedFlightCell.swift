@@ -61,10 +61,10 @@ struct TimeFK {
 //        selectionView.alpha = 0.0
         selectionView.backgroundColor = UIColor.AertripColor.withAlphaComponent(0.10)
         selectionView.layer.cornerRadius = 15.0
-        timeSegmentBGView.addSubview(selectionView)
+        //timeSegmentBGView.addSubview(selectionView)
+        timeCollectionView.addSubview(selectionView)
         timeCollectionView.sendSubviewToBack(selectionView)
         timeSegmentBGView.clipsToBounds = true
-//      timeCollectionView.addSubview(selectionView)
     }
     
     func setupTableView() {
@@ -166,6 +166,7 @@ struct TimeFK {
             downArrowButtonHeight.constant = 44
             bottomWhitePatchVIewHeight.constant = 22
             self.resultsCollectionView.isHidden = true
+            self.collaspableTableView.isHidden = false
             self.selectionView.alpha = 0
         }else{
             self.timeSegmentBGViewHeight.constant = 30
@@ -174,6 +175,7 @@ struct TimeFK {
             downArrowButtonHeight.constant = 0
             bottomWhitePatchVIewHeight.constant = 0
             self.resultsCollectionView.isHidden = false
+            self.collaspableTableView.isHidden = true
             self.selectionView.alpha = 0
         }
     }

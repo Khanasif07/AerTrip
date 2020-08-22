@@ -1076,3 +1076,9 @@ Your booking ID is";
 "Book_Now_And_Get_Off" = "Book Now &\nget up to  20% off ";
 "Special_Request" = "Special Request";
 "Special_Request_If_Any" = "Special request if any...";
+
+// FLight Filters
+"Stops" = "Stops";
+"Times" = "Times";
+"Duration" = "Duration";
+"Quality" = "Quality";

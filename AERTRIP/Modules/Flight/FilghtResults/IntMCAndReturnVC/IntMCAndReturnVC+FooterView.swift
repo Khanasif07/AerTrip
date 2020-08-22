@@ -30,7 +30,7 @@ extension IntMCAndReturnVC {
     
     func setGroupedFooterView() {
         
-        if viewModel.results.aboveScoreCount == 0 {
+        if viewModel.results.aboveScoreCount == 0 || viewModel.resultTableState == .showPinnedFlights {
             resultsTableView.tableFooterView = nil
             return
         }

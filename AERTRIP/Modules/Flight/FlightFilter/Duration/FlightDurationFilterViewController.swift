@@ -237,6 +237,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     
     func updateFiltersFromAPI() {
         currentDurationFilter = durationFilters[currentActiveIndex]
+        guard tripDurationSlider != nil else { return }
         UIView.animate(withDuration: 0.3) {
             self.setupTripDurationValues()
             self.setupLayoutDurationValues()
@@ -255,6 +256,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     currentDurationFilter.userSelectedLayoverMin = currentDurationFilter.layoverMinDuration
     currentDurationFilter.userSelectedLayoverMax = currentDurationFilter.layoverMaxDuration
 
+        guard tripDurationSlider != nil else { return }
     tripDurationSlider.setLeftValue(currentDurationFilter.tripDurationMinDuration, rightValue: currentDurationFilter.tripDurationmaxDuration)
     tripDurationMinLabel.text = formattedStringWith(duration: currentDurationFilter.tripDurationMinDuration)
         tripDurationMinLabelWidth.constant = tripDurationMinLabel.intrinsicContentSize.width + 16.0
