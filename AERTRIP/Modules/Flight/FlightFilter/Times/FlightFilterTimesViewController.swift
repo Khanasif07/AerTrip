@@ -1178,6 +1178,14 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     @objc func buttonPressed(sender:UIButton)
     {
         if sender.alpha != 1 {
+            let startDateTime = Calendar.current.startOfDay(for: currentTimerFilter.departureMinTime)
+            let minTimeInterval = currentTimerFilter.departureMinTime.timeIntervalSince(startDateTime)
+            let maxTimeInterval = currentTimerFilter.departureTimeMax.timeIntervalSince(startDateTime)
+            let startTime = TimeInterval(floor(minTimeInterval / 3600))
+            
+            let endTime = TimeInterval(ceil(maxTimeInterval  / 3600 ))
+            let message = "Flights are available between " +  stringFromTimeInterval(interval: minTimeInterval) + " and " + stringFromTimeInterval(interval: maxTimeInterval)
+            showToastMessageForAvailableDepartureRange(message)
             return
         }
         switch sender.tag

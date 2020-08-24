@@ -673,6 +673,7 @@ extension FlightFilterBaseVC {
                 }
             }
         }
+        guard durationViewController.durationFilters.count > 0 else { return }
         durationViewController.updateFiltersFromAPI()
     }
     
