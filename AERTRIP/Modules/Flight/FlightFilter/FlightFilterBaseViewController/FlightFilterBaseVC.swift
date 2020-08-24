@@ -9,11 +9,16 @@
 import UIKit
 import Parchment
 
+protocol FlightFiltersToastDelegate: AnyObject {
+    func showToastWithMsg(_ msg: String)
+}
+
 class FlightFilterBaseVC: UIViewController {
 
     // MARK: Properties
     weak var delegate : FilterDelegate?
     weak var filterUIDelegate : FilterUIDelegate?
+    weak var toastDelegate: FlightFiltersToastDelegate?
     var legList : [Leg]!
     var searchType : FlightSearchType!
     var flightResultArray : [FlightsResults]!
@@ -25,7 +30,7 @@ class FlightFilterBaseVC: UIViewController {
     var menuItems = [MenuItemForFilter]()
     fileprivate var parchmentView : PagingViewController?
     internal var showSelectedFontOnMenu = false
-        
+
     var inputFilters : [FiltersWS]? {
         var inputFiltersArray = [FiltersWS]()
         
@@ -342,6 +347,9 @@ extension FlightFilterBaseVC {
     
     func setTimesVC(_ timesViewController : FlightFilterTimesViewController , inputFilters : [FiltersWS])
     {
+        timesViewController.onToastInitiation = {[weak self] message in
+            self?.toastDelegate?.showToastWithMsg(message)
+        }
         timesViewController.multiLegTimerFilter = getFlightLegTimeFilters( inputFilters)
         timesViewController.delegate = delegate as? FlightTimeFilterDelegate
     }

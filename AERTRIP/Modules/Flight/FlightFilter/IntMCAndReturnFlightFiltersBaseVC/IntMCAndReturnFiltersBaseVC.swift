@@ -14,6 +14,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     // MARK: Properties
     weak var delegate : FilterDelegate?
     weak var filterUIDelegate : FilterUIDelegate?
+    weak var toastDelegate: FlightFiltersToastDelegate?
     var legList : [Leg]!
     var searchType : FlightSearchType!
     var flightResultArray : [IntMultiCityAndReturnWSResponse.Results]!
@@ -48,7 +49,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     var menuItems = [MenuItemForFilter]()
     fileprivate var parchmentView : PagingViewController?
     internal var showSelectedFontOnMenu = false
-    
+
     // MARK: IBOutlets
     @IBOutlet weak var baseView: UIView!
     @IBOutlet weak var closeFiltersBtn: UIButton!
@@ -430,6 +431,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     
     func setTimesVC(_ timesViewController : FlightFilterTimesViewController , inputFilters : [IntMultiCityAndReturnWSResponse.Results.F])
     {
+        timesViewController.onToastInitiation = {[weak self] message in
+            self?.toastDelegate?.showToastWithMsg(message)
+        }
         let timeFilters = getFlightLegTimeFilters(inputFilters)
         timesViewController.multiLegTimerFilter = timeFilters
         timesViewController.delegate = delegate as? FlightTimeFilterDelegate

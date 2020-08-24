@@ -36,6 +36,8 @@ extension FlightFilterBaseVC: PagingViewControllerDataSource , PagingViewControl
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didSelectItem pagingItem: PagingItem) {
-        filterUIDelegate?.selectedIndexChanged(index: 0)
+        if let pagingIndexItem = pagingItem as? MenuItemForFilter {
+            filterUIDelegate?.selectedIndexChanged(index: UInt(pagingIndexItem.index))
+        }
     }
 }

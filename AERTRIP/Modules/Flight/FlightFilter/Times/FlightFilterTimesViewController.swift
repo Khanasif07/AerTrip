@@ -36,15 +36,16 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     var currentTimerFilter : FlightLegTimeFilter!
     var currentActiveIndex = 0
     var numberOfLegs = 1
-//    var dragStartPosition : CGFloat =  0.0
-//    var dragEndPosition : CGFloat = 0.0
     
     var airportsArr = [AirportLegFilter]()
     var isIntMCOrReturnVC = false
 
     var arivalDifferenceInSeconds : TimeInterval = 0
     
+    var onToastInitiation: ((String) -> ())?
+    
     /// Used for day segments pan gesture
+    var panGesture: UIPanGestureRecognizer?
     var panStartPos: CGFloat?
     
     //MARK:- multiLeg Outlets
@@ -86,6 +87,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     func updateFiltersFromAPI() {
         currentTimerFilter = multiLegTimerFilter[currentActiveIndex]
         guard departureRangeSlider != nil else { return }
+        setupDeparatureRangeButtons()
         UIView.animate(withDuration: 0.3) {
             self.setDepartureSliderValues()
             self.setArrivalSliderValues(userSelected: false)
@@ -193,9 +195,12 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             noonButton.alpha = 0.6
         }
 
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan(sender:)))
+        if let gesture = panGesture {
+            departureButtonStackView.removeGestureRecognizer(gesture)
+        }
+        panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan(sender:)))
         departureButtonStackView.isUserInteractionEnabled = true
-        departureButtonStackView.addGestureRecognizer(panGesture)
+        departureButtonStackView.addGestureRecognizer(panGesture!)
     }
     
     
@@ -647,9 +652,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     
     func showToastMessageForAvailableDepartureRange(_ message : String) {
         
-        if let view = self.parent?.view {
-            AertripToastView.toast(in: view, withText: message)
-        }
+        onToastInitiation?(message)
         
 //        if multiLegTimerFilter.count > 1{
 //            var frame = UIApplication.shared.windows.last!.frame
@@ -1225,6 +1228,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     func updateUIPostLatestResults() {
         guard departureRangeSlider != nil else { return }
         setUIValues()
+        
     }
 
     func resetFilter() {

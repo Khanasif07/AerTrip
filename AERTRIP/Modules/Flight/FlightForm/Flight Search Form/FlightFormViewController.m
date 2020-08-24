@@ -97,8 +97,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupInitials];
-    self.bridgingObj = [SwiftObjCBridgingController shared];
-    
     [self setAerinSearchClosure];
 }
 
@@ -208,6 +206,7 @@
 }
 
 -(void)setAerinSearchClosure {
+    self.bridgingObj = [SwiftObjCBridgingController shared];
     __weak typeof(self) weakSelf = self;
     [self.bridgingObj setOnFetchingFlightFormData:^(NSMutableDictionary<NSString *,id> * dict) {
         [weakSelf.viewModel performFlightSearchWith:dict];
