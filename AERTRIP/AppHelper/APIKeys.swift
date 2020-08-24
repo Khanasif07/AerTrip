@@ -342,7 +342,8 @@ enum APIKeys: String {
     case per_night_cost
     case num_guests
     case currency_code
-    
+    case currency_icon
+
     // Final Checkout VC
     case grossAmout = "gross_amount"
     case netAmount = "net_amount"

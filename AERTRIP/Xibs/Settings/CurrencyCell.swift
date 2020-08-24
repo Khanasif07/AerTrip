@@ -24,7 +24,12 @@ class CurrencyCell: UITableViewCell {
         currencyCodeLabel.font = AppFonts.Regular.withSize(18)
         currencySymbolLabel.font = AppFonts.Regular.withSize(18)
     }
-
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.currencySymbolLabel.attributedText = nil
+        self.currencySymbolLabel.text = nil
+    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -36,6 +41,12 @@ class CurrencyCell: UITableViewCell {
         self.currencyNameLabel.text = country.currencyName
         self.currencyCodeLabel.text = country.currencyCode
         self.tickImageView.isHidden = isSelected
+//        if let image = UIImage(named: country.currencyIcon) {
+//            self.currencySymbolLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: image, endText: "", font: AppFonts.Regular.withSize(18))
+//        } else {
+//            self.currencySymbolLabel.text = country.currencySymbol
+//        }
+        
     }
     
 }

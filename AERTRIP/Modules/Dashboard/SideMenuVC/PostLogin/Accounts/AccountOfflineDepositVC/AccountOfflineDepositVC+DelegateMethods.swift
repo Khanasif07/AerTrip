@@ -364,10 +364,11 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         
+        cell.editableTextField.titleFont = AppFonts.Regular.withSize(14)
         cell.textFieldTopConstraint.constant = 8.0
         cell.textFiledBottomConstraint.constant = 0.0
         cell.editableTextField.titleYPadding = 0
-        cell.editableTextField.hintYPadding = 0
+        cell.editableTextField.hintYPadding = -8
         cell.editableTextField.isHiddenBottomLine = true
         cell.editableTextField.text = value
         cell.editableTextField.setUpAttributedPlaceholder(placeholderString: placeholder)

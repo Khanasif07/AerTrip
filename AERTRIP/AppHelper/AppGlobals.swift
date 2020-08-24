@@ -681,9 +681,12 @@ extension AppGlobals {
         }
     }
     
-    func downloadWallet(fileURL: URL, complition: @escaping ((URL?) -> Void)) {
+    func downloadWallet(fileURL: URL, showLoader: Bool = true, complition: @escaping ((URL?) -> Void)) {
         // Create destination URL
         if let documentsUrl: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            if showLoader {
+            AppGlobals.shared.startLoading()
+            }
             let destinationFileUrl = documentsUrl.appendingPathComponent("\("test").pkpass")
             
             if FileManager.default.fileExists(atPath: destinationFileUrl.path) {
@@ -696,6 +699,11 @@ extension AppGlobals {
             let request = URLRequest(url: fileURL)
             
             let task = session.downloadTask(with: request) { tempLocalUrl, response, error in
+               if showLoader {
+                   delay(seconds: 5) {
+                       AppGlobals.shared.stopLoading()
+                   }
+               }
                 if let tempLocalUrl = tempLocalUrl, error == nil {
                     // Success
                     if let statusCode = (response as? HTTPURLResponse)?.statusCode {

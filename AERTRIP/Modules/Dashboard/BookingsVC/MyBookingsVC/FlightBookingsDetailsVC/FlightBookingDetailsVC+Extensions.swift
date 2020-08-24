@@ -474,10 +474,12 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     func addToAppleWallet() {
         printDebug("Add To Apple Wallet")
         let endPoints = "\(APIEndPoint.pass.path)?booking_id=\(self.viewModel.bookingDetail?.id ?? "")&flight_id=\(self.viewModel.bookingDetail?.bookingDetail?.leg.first?.flight.first?.flightId ?? "")"
+        printDebug("endPoints: \(endPoints)")
         guard let url = URL(string: endPoints) else {return}
         AppGlobals.shared.downloadWallet(fileURL: url) {[weak self] (passUrl) in
             
             if let localURL = passUrl {
+                printDebug("localURL: \(localURL)")
                 self?.addWallet(passFilePath: localURL)
             }
         }
