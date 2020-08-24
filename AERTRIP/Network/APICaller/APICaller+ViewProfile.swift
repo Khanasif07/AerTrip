@@ -75,7 +75,7 @@ extension APICaller {
                 printDebug(json)
                 sSelf.handleResponse(json, success: { sucess, jsonData in
                     if sucess {
-                        if let acc = jsonData["data"] as? JSONDictionary {
+                        if let acc = jsonData["data"].dictionaryObject {
                             //if there is account data then save it
                             UserInfo.loggedInUser?.accountData = AccountModel(json: acc)
                         }

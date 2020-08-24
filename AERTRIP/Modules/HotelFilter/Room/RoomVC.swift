@@ -58,23 +58,25 @@ class RoomVC: UIViewController {
         roomSegmentedControl.setWidth(95, forSegmentAt: 2)
         tableView.reloadData()
         if #available(iOS 13.0, *) {
-            roomSegmentedControl.backgroundColor = AppColors.themeWhite
-            roomSegmentedControl.selectedSegmentTintColor = AppColors.themeGreen
-            
-            roomSegmentedControl.apportionsSegmentWidthsByContent = true
-            roomSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeWhite], for: UIControl.State.selected)
+//            roomSegmentedControl.backgroundColor = AppColors.themeWhite
+//            roomSegmentedControl.selectedSegmentTintColor = AppColors.themeGreen
+//
+//            roomSegmentedControl.apportionsSegmentWidthsByContent = true
+//            roomSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeWhite], for: UIControl.State.selected)
             
             let font: [AnyHashable : Any] = [NSAttributedString.Key.font : AppFonts.SemiBold.withSize(14)]
             roomSegmentedControl.setTitleTextAttributes(font as? [NSAttributedString.Key : Any], for: .normal)
-            roomSegmentedControl.layer.borderColor = AppColors.themeGreen.cgColor
-            roomSegmentedControl.layer.borderWidth = 1.0
-            roomSegmentedControl.layer.cornerRadius = 4.0
-            roomSegmentedControl.layer.masksToBounds = true
-            
-            roomSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGreen], for: UIControl.State.normal)
-            roomSegmentedControl.setBacgroundColor()
+//            roomSegmentedControl.layer.borderColor = AppColors.themeGreen.cgColor
+//            roomSegmentedControl.layer.borderWidth = 1.0
+//            roomSegmentedControl.layer.cornerRadius = 4.0
+//            roomSegmentedControl.layer.masksToBounds = true
+//
+//            roomSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGreen], for: UIControl.State.normal)
+//            roomSegmentedControl.setBacgroundColor()
         } else {
             // Fallback on earlier versions
+           // roomSegmentedControl.selectedSegmentTintColor = AppColors.themeGreen
+            roomSegmentedControl.tintColor = AppColors.themeGreen
         }
         updateSegmentControlTitle()
     }
