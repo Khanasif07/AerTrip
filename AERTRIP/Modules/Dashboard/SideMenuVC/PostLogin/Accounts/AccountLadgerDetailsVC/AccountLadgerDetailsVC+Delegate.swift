@@ -32,8 +32,8 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         
         guard indexPath.section > 0 else {
             //first section's first cell
-            if let event = self.viewModel.ladgerEvent, event.voucher == .sales || event.voucher == .journal {
-                if event.productType == .flight {
+            if let event = self.viewModel.ladgerEvent, event.voucher == .sales || event.voucher == .journal  || self.viewModel.sectionArray.count > 2 {
+                if event.productType == .flight{
                     return 7.0
                 }
                 else {
@@ -68,7 +68,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             if let type = self.viewModel.ladgerEvent?.productType{
                 switch type{
                 case .hotel, .flight: isForVouchre = false
-                default: isForVouchre = true
+                default: isForVouchre = (self.viewModel.sectionArray.count < 2)
                 }
             }
             
@@ -116,7 +116,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 if let type = self.viewModel.ladgerEvent?.productType{
                     switch type{
                     case .hotel, .flight: isForVouchre = false
-                    default: isForVouchre = true
+                    default:    isForVouchre = (self.viewModel.sectionArray.count < 2)
                     }
                 }
                 downloadInvoiceCell.showLoader = self.viewModel.isDownloadingRecipt
@@ -332,7 +332,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         if let type = self.viewModel.ladgerEvent?.productType{
             switch type{
             case .hotel, .flight: isForVouchre = false
-            default: isForVouchre = true
+            default: isForVouchre = (self.viewModel.sectionArray.count < 2)
             }
         }
         if indexPath.row == 0 && section != 0{
