@@ -488,9 +488,9 @@ extension HotelsMapVC : MKMapViewDelegate{
         }
         
         self.appleMap.setRegion(region, animated: true)
-//        if !isZoomLevelOnceSet{
-//            self.appleMap.showAnnotations(self.appleMap.annotations, animated: true)
-//        }
+        if !isZoomLevelOnceSet{
+            self.appleMap.layoutMargins = UIEdgeInsets(top: 40.0, left: 40.0, bottom: 40.0, right: 40.0)
+        }
         isZoomLevelOnceSet = true
     }
     

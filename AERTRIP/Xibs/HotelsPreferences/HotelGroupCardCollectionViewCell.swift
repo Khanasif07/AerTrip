@@ -30,6 +30,7 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var thirdHotelImageview: UIImageView!
     @IBOutlet weak var secondHotelImageView: UIImageView!
+    @IBOutlet weak var secondViewBottomConstataints: NSLayoutConstraint!
     
     weak var delegate: HotelCardCollectionViewCellDelegate?
     

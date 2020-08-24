@@ -256,6 +256,7 @@
                 <outlet property="scrollView" destination="hfU-XL-9qt" id="9pe-3H-NeJ"/>
                 <outlet property="secondHotelImageView" destination="aJx-Ex-cDC" id="Wmd-wJ-XYS"/>
                 <outlet property="secondShadowCard" destination="dNm-qq-26F" id="teF-Ts-qog"/>
+                <outlet property="secondViewBottomConstataints" destination="NhJ-xe-ngU" id="R4g-cn-0UO"/>
                 <outlet property="starRatingView" destination="cFg-Ie-cCS" id="RtT-uT-6zc"/>
                 <outlet property="thirdHotelImageview" destination="2bG-0H-JVV" id="DbW-M2-PD8"/>
                 <outlet property="tripLogoImage" destination="uMf-Wb-8gZ" id="yYa-7h-Wpf"/>

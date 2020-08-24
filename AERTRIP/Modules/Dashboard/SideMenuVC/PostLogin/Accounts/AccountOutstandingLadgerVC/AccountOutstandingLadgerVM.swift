@@ -96,6 +96,7 @@ class AccountOutstandingLadgerVM: NSObject {
 //                    let fltrd = events.filter({ $0.title.lowercased().contains(forText.lowercased())})
                     let fltrd = events.filter { event in
                         return ((event.title.lowercased().contains(forText.lowercased())) || (event.voucherNo.lowercased().contains(forText.lowercased())) ||
+                            (event.bookingNumber.lowercased().contains(forText.lowercased())) ||
                             (event.airline.lowercased().contains(forText.lowercased())) ||
                             (self.removeSpecialChar(from:event.flightNumber).contains(self.removeSpecialChar(from: forText))))
                         

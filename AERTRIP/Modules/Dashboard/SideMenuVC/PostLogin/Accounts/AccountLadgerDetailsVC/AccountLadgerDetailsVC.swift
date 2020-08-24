@@ -75,7 +75,7 @@ class AccountLadgerDetailsVC: BaseVC {
         self.tableView.registerCell(nibName: DownloadInvoiceTableViewCell.reusableIdentifier)
         DispatchQueue.main.async {
         self.topNavView.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true, backgroundType: .blurAnimatedView(isDark: false))
-        
+            self.topNavView.dividerView.isHidden = true
         self.topNavView.delegate = self
         self.topNavView.backgroundColor = AppColors.clear
         self.navBarHeight.constant = self.headerViewHeight

@@ -34,6 +34,10 @@ extension APICaller {
                         accLadgerVchrs = vchr
                     }
                     
+                    if let paymentMethod = ledger["payment_methods_map"].dictionaryObject{
+                        ADEventFilterVM.shared.paymentMethodArray = paymentMethod
+                    }
+                    
                     let periodicDict: [JSONDictionary] = data["statement_list"].arrayObject as? [JSONDictionary] ?? []
                     let periodicData = PeriodicStatementEvent.modelsDict(data: periodicDict)
                     

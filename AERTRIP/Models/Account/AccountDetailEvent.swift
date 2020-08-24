@@ -126,6 +126,14 @@ struct AccountDetailEvent {
     var hotelAddress = ""
     var flightNumber = ""
     
+    //Added for ofline receipts:--
+    var chequeNumber = ""
+    var chequeDate = ""
+    var offlineAccountName = ""
+    var offlineBankName = ""
+    var depositDate = ""
+    var utrNumner = ""
+    
     var numOfRows: Int {
         return 2
     }
@@ -237,10 +245,21 @@ struct AccountDetailEvent {
                     self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
                     if (info["draft_cheque_number"] != nil) || (info["draft_cheque_date"] != nil) {
                         self.title = "Cheque / Demand Draft"
+                        self.chequeNumber = info["draft_cheque_number"] as? String ?? ""
+                        self.chequeDate = info["draft_cheque_date"] as? String ?? ""
+                        self.offlineBankName = info["bank_name"] as? String ?? ""
+                        self.offlineAccountName = info["account_name"] as? String ?? ""
                     }else if info["utr_number"] != nil{
                         self.title = "Fund Transfer"
+                        self.utrNumner = info["utr_number"] as? String ?? ""
+                        self.depositDate = info["deposit_date"] as? String ?? ""
+                        self.offlineBankName = info["bank_name"] as? String ?? ""
+                        self.offlineAccountName = info["account_name"] as? String ?? ""
                     }else{
                         self.title = "Cash deposit in Bank"
+                    }
+                    if let mode = details["mode"] as? String, let value = ADEventFilterVM.shared.paymentMethodArray[mode], !JSON(value).stringValue.isEmpty{
+                        self.title = JSON(value).stringValue
                     }
 //                    let bankName = (info["bank_name"] as? String) ?? ""
 //                    self.title = self._receiptMethod.isEmpty ? bankName : "\(self._receiptMethod.capitalizedFirst()): \(bankName)"
@@ -299,7 +318,7 @@ struct AccountDetailEvent {
                     self.parseForAddOnsSales(details: details)
                     
                 case .none:
-                    printDebug("No need for other voucher types")
+                    self.parseForOtherSales(details: details)
                 @unknown default:
                     printDebug("No need for other voucher types")
                 }
@@ -376,7 +395,7 @@ struct AccountDetailEvent {
         self.title = ""
         if let journey = details["journey"] as? [[String]] {
             for obj in journey {
-                self.title += ( (self.title.isEmpty ? "" : " → ") + obj.joined(separator: " → "))
+                self.title += ( (self.title.isEmpty ? "" : " , ") + obj.joined(separator: " → "))
             }
         }
         self.getAttributedText()
@@ -470,60 +489,6 @@ struct AccountDetailEvent {
         
         //title
         self.title = details["party_name"] as? String ?? ""
-        
-//        if let rows = details["rows"] as? [JSONDictionary], !rows.isEmpty {
-//            if let first = rows.first {
-//                if let obj = first["travel_date"] {
-//                    //travelDate : "2019-05-20"
-//                    self.travelDate = "\(obj)".toDate(dateFormat: "YYYY-MM-dd")
-//                }
-//
-//                if let obj = first["al"] {
-//                    //airline
-//                    self.airline = "\(obj)"
-//                }
-//
-//                if let obj = first["sector"] as? [String] {
-//                    //sector
-//                    self.sector = obj.joined(separator: " → ")
-//                }
-//            }
-//            self.flightNumber = ""
-//
-//            for row in rows {
-//                if let num = row["flight_no"] as? String{
-//                    self.flightNumber += (self.flightNumber.isEmpty) ? num : ",\(num)"
-//                }
-//                if let pnrs = row["pnrs"] as? [JSONDictionary], !pnrs.isEmpty {
-//                    if let first = rows.first {
-//                        if let obj = first["pnr"] {
-//                            //pnr
-//                            self.pnr = "\(obj)"
-//                        }
-//
-//                        if let obj = first["ticket_no"] {
-//                            //ticketNo
-//                            self.ticketNo = "\(obj)"
-//                        }
-//                    }
-//
-//                    //names for paxs
-//                    for pnr in pnrs {
-//                        if let paxs = pnr["pax"] as? [JSONDictionary], !paxs.isEmpty {
-//                            self.names = AccountUser.retunsAccountUserArray(jsonArr: paxs)
-//                            /*
-//                             for pax in paxs {
-//                             let salt = (pax["salutation"] as? String) ?? ""
-//                             let name = (pax["name"] as? String) ?? ""
-//
-//                             let final = salt.isEmpty ? name : "\(salt) \(name)"
-//                             self.names.append(final)
-//                             } */
-//                        }
-//                    }
-//                }
-//            }
-//        }
     }
 
     

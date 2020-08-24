@@ -43,6 +43,7 @@ extension HotelsMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UIC
             cell.hotelList = hData
             cell.containerTopConstraint.constant = 10
             cell.containerBottomConstraint.constant = 8
+            cell.secondViewBottomConstataints.constant = (hData.count < 3) ? 0.0 : 12.0
             cell.delegate = self
             cell.shouldShowMultiPhotos = false
             

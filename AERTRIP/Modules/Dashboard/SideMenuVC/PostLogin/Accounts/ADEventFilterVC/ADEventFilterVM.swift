@@ -21,6 +21,8 @@ class ADEventFilterVM {
     var voucherTypes: [String] = []
     var minFromDate: Date?
 
+    var paymentMethodArray:JSONDictionary = [:]
+    
     var isFilterAplied: Bool {
         if self.fromDate == nil && self.toDate == nil && self.selectedVoucherType.isEmpty {
             return false

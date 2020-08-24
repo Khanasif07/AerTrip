@@ -52,6 +52,35 @@ class AccountLadgerDetailsVM {
         self.sectionArray.append(section1)
 
        // self.ladgerDetails["0"] = amountDetails
+        
+        if self.ladgerEvent!.receiptMethod == .offline{
+            var section2 = [(title: String, value: String, age: String, isEmptyCell: Bool)]()
+            
+            if !self.ladgerEvent!.chequeNumber.isEmpty{
+                section2.append((title: "Cheque Number", value: "\(self.ladgerEvent!.chequeNumber)", age: "", isEmptyCell: false))
+            }
+            if let date  = self.ladgerEvent!.chequeDate.toDate(dateFormat: "yyyy-MM-dd")?.toString(dateFormat: "dd-MM-yyyy"){
+                section2.append((title: "Cheque date", value: date, age: "", isEmptyCell: false))
+            }
+            if !self.ladgerEvent!.utrNumner.isEmpty{
+                section2.append((title: "UTR Number", value: "\(self.ladgerEvent!.utrNumner)", age: "", isEmptyCell: false))
+            }
+            if let dDate  = self.ladgerEvent!.depositDate.toDate(dateFormat: "yyyy-MM-dd")?.toString(dateFormat: "dd-MM-yyyy"){
+                section2.append((title: "Deposit Date", value: dDate, age: "", isEmptyCell: false))
+            }
+            if !self.ladgerEvent!.offlineBankName.isEmpty{
+                section2.append((title: "Bank Name", value: "\(self.ladgerEvent!.offlineBankName)", age: "", isEmptyCell: false))
+            }
+            if !self.ladgerEvent!.offlineAccountName.isEmpty{
+                section2.append((title: "Account Name", value: "\(self.ladgerEvent!.offlineAccountName)", age: "", isEmptyCell: false))
+            }
+            if !section2.isEmpty{
+                section2.append((title: "", value: "", age: "", isEmptyCell: true))
+                self.sectionArray.append(section2)
+            }
+            
+        }
+        
     }
     
     private func parseDataForFlightSales() {

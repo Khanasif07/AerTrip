@@ -358,7 +358,7 @@ class AccountDetailsVC: BaseVC {
         }
         
 //        if let usr = UserInfo.loggedInUser, usr.userCreditType != .regular {
-            if ADEventFilterVM.shared.selectedVoucherType.isEmpty && (ADEventFilterVM.shared.fromDate != nil || ADEventFilterVM.shared.toDate != nil){
+        if (ADEventFilterVM.shared.selectedVoucherType.isEmpty || ADEventFilterVM.shared.selectedVoucherType.count == ADEventFilterVM.shared.voucherTypes.count) && (ADEventFilterVM.shared.fromDate != nil || ADEventFilterVM.shared.toDate != nil){
                 if let events = (self.viewModel.accountDetails[self.viewModel.allDates.last ?? ""] as? [AccountDetailEvent]), let event = events.last{
                     let balance = event.balance - event.amount
                     self.openingBalanceAmountLabel.attributedText = balance.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16))
