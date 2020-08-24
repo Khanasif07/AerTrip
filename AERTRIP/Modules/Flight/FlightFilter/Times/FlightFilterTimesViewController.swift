@@ -1181,9 +1181,6 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             let startDateTime = Calendar.current.startOfDay(for: currentTimerFilter.departureMinTime)
             let minTimeInterval = currentTimerFilter.departureMinTime.timeIntervalSince(startDateTime)
             let maxTimeInterval = currentTimerFilter.departureTimeMax.timeIntervalSince(startDateTime)
-            let startTime = TimeInterval(floor(minTimeInterval / 3600))
-            
-            let endTime = TimeInterval(ceil(maxTimeInterval  / 3600 ))
             let message = "Flights are available between " +  stringFromTimeInterval(interval: minTimeInterval) + " and " + stringFromTimeInterval(interval: maxTimeInterval)
             showToastMessageForAvailableDepartureRange(message)
             return
@@ -1224,10 +1221,12 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     
     @objc func buttonReleased(sender:UIButton)
     {
-        earlyMorningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
-        noonButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
-        eveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
-        lateEveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+        DispatchQueue.delay(0.1) {
+            self.earlyMorningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            self.noonButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            self.eveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            self.lateEveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+        }
     }
         
     func setUIValues(){
