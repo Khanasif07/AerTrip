@@ -382,6 +382,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         }
         
         if sender.state == .ended || sender.state == .cancelled {
+            checkToShowMsg()
             delegate?.departureSelectionChangedAt(currentActiveIndex , minDuration:departureStartTimeInterval , maxDuration: departureEndTimeInterval)
             self.buttonReleased(sender: UIButton())
         }
@@ -609,6 +610,31 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
                 
             default:
                 print("unknown state")
+        }
+    }
+    
+    private func checkToShowMsg() {
+        let calendar = Calendar.current
+        let startTime = calendar.startOfDay(for: currentTimerFilter.departureMinTime)
+        let minDeparture = currentTimerFilter.departureMinTime.timeIntervalSince(startTime)
+        let roundedMinDeparture = TimeInterval(3600.0 * floor((minDeparture  / 3600 )))
+        let maxDeparture =  currentTimerFilter.departureTimeMax.timeIntervalSince(startTime)
+        let roundedMaxDeparture = TimeInterval(3600 * ceil(maxDeparture  / 3600 ))
+        
+        if roundedMinDeparture >= departureStartTimeInterval || roundedMaxDeparture <= departureEndTimeInterval {
+            let availableMinTime = TimeInterval(3600 * floor(roundedMinDeparture / 3600))
+            let availabelMaxTime = TimeInterval(3600 * ceil(roundedMaxDeparture / 3600))
+            
+            let curSelectedMinTime = TimeInterval( floor(departureStartTimeInterval / 3600))
+            let curSelectedMaxTime = TimeInterval( ceil(departureEndTimeInterval / 3600))
+            
+            
+            if (curSelectedMinTime == 0 || curSelectedMinTime == 6 || curSelectedMinTime == 12 || curSelectedMinTime == 18) && (curSelectedMaxTime == 6 || curSelectedMaxTime == 12 || curSelectedMaxTime == 18 || curSelectedMaxTime == 24) {
+                return
+            }
+
+            let message = "Flights are available between " +  stringFromTimeInterval(interval: availableMinTime) + " and " + stringFromTimeInterval(interval: availabelMaxTime)
+            showToastMessageForAvailableDepartureRange(message)
         }
     }
     

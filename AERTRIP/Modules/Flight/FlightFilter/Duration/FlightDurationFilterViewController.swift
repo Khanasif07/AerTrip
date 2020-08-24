@@ -78,6 +78,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     var legsArray = [Leg]()
     var currentActiveIndex = 0
     var showingForReturnJourney = false
+    private var tripDurationMarkersArr = [UIView]()
     
     //MARK:- multiLeg Outlets
     @IBOutlet weak var multiLegViewHeight: NSLayoutConstraint!
@@ -138,7 +139,28 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         layoverDurationSlider.setupThemeImages()
 
         initialSetup()
+        setTripDurationSliderMarkers()
         
+        //Layover duration slider
+        
+        if layoverDurationSlider.maximumValue == 24 && (layoverDurationSlider.minimumValue == 0 || layoverDurationSlider.minimumValue == 1){
+            
+            let trackWidth = self.view.bounds.width - 16
+            let xPosition = 1.0 * trackWidth
+            let marker = UIView(frame: CGRect(x: xPosition, y: layoverDurationSlider.frame.height/2 - 2 , width: 3.0, height: 3.0 ))
+            marker.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+            layoverDurationSlider.addSubview(marker)
+            layoverDurationSlider.bringSubviewToFront(layoverDurationSlider.leftThumbView)
+            layoverDurationSlider.bringSubviewToFront(layoverDurationSlider.rightThumbView)
+            
+        }
+    }
+    
+    private func setTripDurationSliderMarkers() {
+        tripDurationMarkersArr.forEach { (marker) in
+            marker.removeFromSuperview()
+        }
+        tripDurationMarkersArr.removeAll()
         //Trip Duration Slider
         if tripDurationSlider.maximumValue == 29{
             createMarkersAt(positions: [0.85] , slider: tripDurationSlider)
@@ -187,21 +209,6 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         }else if (tripDurationSlider.maximumValue == 55 || tripDurationSlider.maximumValue == 56 || tripDurationSlider.maximumValue == 57) && (tripDurationSlider.minimumValue == 9 || tripDurationSlider.minimumValue == 10 || tripDurationSlider.minimumValue == 11){
             createMarkersAt(positions: [0.33, 0.85], slider: tripDurationSlider )
         }
-        
-        
-        //Layover duration slider
-        
-        if layoverDurationSlider.maximumValue == 24 && (layoverDurationSlider.minimumValue == 0 || layoverDurationSlider.minimumValue == 1){
-            
-            let trackWidth = self.view.bounds.width - 16
-            let xPosition = 1.0 * trackWidth
-            let marker = UIView(frame: CGRect(x: xPosition, y: layoverDurationSlider.frame.height/2 - 2 , width: 3.0, height: 3.0 ))
-            marker.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-            layoverDurationSlider.addSubview(marker)
-            layoverDurationSlider.bringSubviewToFront(layoverDurationSlider.leftThumbView)
-            layoverDurationSlider.bringSubviewToFront(layoverDurationSlider.rightThumbView)
-            
-        }
     }
     
     func createMarkersAt(positions : [CGFloat], slider:MARKRangeSlider)
@@ -212,6 +219,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
             let xPosition = position * trackWidth
             let marker = UIView(frame: CGRect(x: xPosition, y: slider.frame.height/2 - 2 , width: 3.0, height: 3.0 ))
             marker.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+            tripDurationMarkersArr.append(marker)
             slider.addSubview(marker)
             slider.bringSubviewToFront(marker)
             
@@ -238,6 +246,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     func updateFiltersFromAPI() {
         currentDurationFilter = durationFilters[currentActiveIndex]
         guard tripDurationSlider != nil else { return }
+        setTripDurationSliderMarkers()
         UIView.animate(withDuration: 0.3) {
             self.setupTripDurationValues()
             self.setupLayoutDurationValues()
