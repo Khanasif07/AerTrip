@@ -296,7 +296,7 @@ extension IntFlightResultDisplayGroup  {
             let convertedSelectedMaxLayoverValue = (ceil(userSelectedMaxLayoverValue / 3600)) * 3600
             
             return convertedSelectedMinLayoverValue != convertedInputMinLayoverValue || convertedSelectedMaxLayoverValue != convertedInputMaxLayoverValue
-            
+
         }){
             layOverChanged = true
         }else{
