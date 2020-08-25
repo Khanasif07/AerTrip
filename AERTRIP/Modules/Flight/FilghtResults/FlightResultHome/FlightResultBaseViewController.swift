@@ -127,7 +127,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         
         visualEffectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
         visualEffectView.effect = UIBlurEffect(style: .prominent)
-        visualEffectView.contentView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
+        visualEffectView.contentView.backgroundColor = .clear//UIColor.white.withAlphaComponent(0.4)
         
         backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
         backView.addSubview(visualEffectView)
@@ -592,13 +592,14 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             if let intFilterBaseView = self.intMCAndReturnFilterVC {
                 if intFilterBaseView.parent == nil {
                     var frame = self.view.frame
-                    frame.origin.y = visualEffectViewHeight - 46
+                    frame.origin.y = visualEffectViewHeight - 45
                     frame.size.height = 36//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
                     intFilterBaseView.view.frame = frame
                     backView.addSubview(intFilterBaseView.view)
                     backView.bringSubviewToFront(filterButton)
                     backView.bringSubviewToFront(separatorView)
                     backView.bringSubviewToFront(ApiProgress)
+                    filterSegmentView.removeFromSuperview()
                     //                backView.height = view.height
                     //                backView.layoutIfNeeded()
                     //                    self.view.addSubview(FilterBaseView.view)
@@ -630,6 +631,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
                 backView.bringSubviewToFront(filterButton)
                 backView.bringSubviewToFront(separatorView)
                 backView.bringSubviewToFront(ApiProgress)
+                filterSegmentView.removeFromSuperview()
 //                backView.height = view.height
 //                backView.layoutIfNeeded()
                 //                    self.view.addSubview(FilterBaseView.view)
@@ -743,7 +745,6 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     
     func createFilterButton() {
         filterButton = UIButton(type: .custom)
-        filterButton.backgroundColor = AppColors.themeGray49
         guard let normalImage = UIImage(named: "filterClearIndicator") else { assertionFailure("filter clear imaage missing")
             return }
         guard let selectedImage = UIImage(named:"FilterApplIiedndicator") else { assertionFailure("filter selected image missing")

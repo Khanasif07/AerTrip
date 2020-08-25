@@ -47,7 +47,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     // Parchment View
     internal var allChildVCs = [UIViewController]()
     var menuItems = [MenuItemForFilter]()
-    fileprivate var parchmentView : PagingViewController?
+    fileprivate var parchmentView : FiltersCustomPagingViewController?
     internal var showSelectedFontOnMenu = false
 
     // MARK: IBOutlets
@@ -136,9 +136,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     
     private func setupParchmentPageController(){
         
-        self.parchmentView = PagingViewController()
+        self.parchmentView = FiltersCustomPagingViewController()
         self.parchmentView?.menuItemSpacing = 18
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 50, bottom: 0.0, right: 10)
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 0, bottom: 0.0, right: 10)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 45)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.borderOptions = PagingBorderOptions.hidden
@@ -156,7 +156,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         self.parchmentView?.sizeDelegate = self
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
-        self.parchmentView?.menuBackgroundColor = AppColors.themeGray49
+        self.parchmentView?.menuBackgroundColor = .clear
     }
     
     func toggleSelectedState(hidden: Bool) {
@@ -548,7 +548,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             
             guard let tripTimeMaxDuration = tripTime.maxTime else { continue }
             duration = (tripTimeMaxDuration as NSString).floatValue
-            let tripMax = CGFloat( round(duration / 3600.0))
+            let tripMax = CGFloat( ceil(duration / 3600.0))
             
             
             // tripDurationMax is set to 0.0 value initially, whenever tripMax is more than tripDurationMax , tripMax is assigned to tripDurationMax

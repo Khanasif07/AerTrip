@@ -61,13 +61,11 @@ extension IntMCAndReturnVC {
                 switchView.isOn = false
             }
            
-           
            if let index = self.viewModel.results.currentPinnedJourneys.firstIndex(where: { (obj) -> Bool in
                obj.id == displayArray.journeyArray[journeyArrayIndex].id
            }){
                self.viewModel.results.currentPinnedJourneys.remove(at: index)
            }
-           
         }
         
         self.viewModel.setPinnedFlights()

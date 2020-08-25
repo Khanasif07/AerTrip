@@ -35,6 +35,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="uhL-Oq-d5m" firstAttribute="centerX" secondItem="vkg-0K-JPQ" secondAttribute="centerX" id="2fx-sg-px9"/>
                             <constraint firstItem="VFW-v5-sbW" firstAttribute="leading" secondItem="uhL-Oq-d5m" secondAttribute="trailing" constant="5" id="Etf-5Y-UOM"/>
@@ -44,6 +45,7 @@
                     </view>
                 </subviews>
             </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="vkg-0K-JPQ" secondAttribute="trailing" id="0uT-cz-BKb"/>
                 <constraint firstItem="vkg-0K-JPQ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Bbg-42-ir7"/>
