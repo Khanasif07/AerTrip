@@ -61,13 +61,11 @@ extension IntMCAndReturnVC {
                 switchView.isOn = false
             }
            
-           
            if let index = self.viewModel.results.currentPinnedJourneys.firstIndex(where: { (obj) -> Bool in
                obj.id == displayArray.journeyArray[journeyArrayIndex].id
            }){
                self.viewModel.results.currentPinnedJourneys.remove(at: index)
            }
-           
         }
         
         self.viewModel.setPinnedFlights()
@@ -87,7 +85,6 @@ extension IntMCAndReturnVC {
 //          }, completion: nil)
           
       }
-    
 }
 
 extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
@@ -405,7 +402,6 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
          }
      }
            
-    
        func executeWebServiceForEmail(with postData: Data , onCompletion:@escaping (String) -> ()) {
           let webservice = WebAPIService()
           

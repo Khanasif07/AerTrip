@@ -536,6 +536,26 @@ extension AdonsVM {
             }
         }
         
+    func checkForSpecialRequest() {
+        let dataStore = AddonsDataStore.shared
+
+        dataStore.flightsWithData.forEach { (flight) in
+            
+            if flight.specialRequest.isEmpty{
+                return
+            }
+            
+            self.parmsForItinerary["flight_special_request[\(flight.flightId)]"] = flight.specialRequest
+            
+//                  let others = flight.special.addonsArray.filter { !$0.othersSelectedFor.isEmpty }
+                 
+            
+              }
+        
+        
+    }
+    
+    
         private func checkForSelectedSeats() {
             let dataStore = AddonsDataStore.shared
             dataStore.seatsArray.forEach { (seatData) in
@@ -613,6 +633,8 @@ extension AdonsVM {
             self.afCount = 0
             self.delegate?.willBookFlight()
             self.createParamForItineraryApi()
+           
+                
             APICaller.shared.getItineraryData(params: self.parmsForItinerary, itId: AddonsDataStore.shared.itinerary.id) { (success, error, itinerary) in
                 if success, let iteneraryData = itinerary{
                     AddonsDataStore.shared.appliedCouponData = iteneraryData
@@ -622,7 +644,6 @@ extension AdonsVM {
                     self.delegate?.failedToBookBlight(error: error)
                 }
             }
-            
         }
         
         /// To get Itenerary Data from API
@@ -635,8 +656,8 @@ extension AdonsVM {
             self.checkForBaggage()
             self.checkForOthers()
             self.checkForSelectedSeats()
-            
-            
+            checkForSpecialRequest()
+  
             APICaller.shared.getItineraryData(withAddons : true, params: self.parmsForItinerary, itId: AddonsDataStore.shared.itinerary.id) { (success, error, itinerary) in
                 if success, let iteneraryData = itinerary{
                     AddonsDataStore.shared.appliedCouponData = iteneraryData

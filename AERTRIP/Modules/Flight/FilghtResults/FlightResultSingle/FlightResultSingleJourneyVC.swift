@@ -86,10 +86,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         }
     }
     
-    
-  
-
-    
     fileprivate func setupTableView(){
         resultsTableView.register(UINib(nibName: "SingleJourneyResultTemplateCell", bundle: nil), forCellReuseIdentifier: "SingleJourneyTemplateCell")
         resultsTableView.register(UINib(nibName: "SingleJourneyResultTableViewCell", bundle: nil), forCellReuseIdentifier: "SingleJourneyResultTableViewCell")
@@ -101,8 +97,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     }
     
     
-    func setupPinnedFlightsOptionsView()
-    {
+    func setupPinnedFlightsOptionsView() {
         //        pinnedFlightOptionsTop.constant = 0
         
         switchView.delegate = self
@@ -309,8 +304,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         //         self.resultsTableView.reloadRows(at: [indexPath], with: .none)
     }
     
-    func reloadRowFromFlightDetails(fk: String, isPinned: Bool,isPinnedButtonClicked:Bool)
-    {
+    func reloadRowFromFlightDetails(fk: String, isPinned: Bool,isPinnedButtonClicked:Bool) {
         if isPinnedButtonClicked == true{
             setPinnedFlightAt(fk, isPinned: isPinned)
         }

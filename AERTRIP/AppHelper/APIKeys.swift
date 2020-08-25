@@ -158,7 +158,9 @@ enum APIKeys: String {
     case adult = "adult"
 //    case child = "child"
     case infant = "infant"
-
+    case totalLegs = "totalLegs"
+    
+    
     //HotelDetails
     case photos = "photos"
     case amenities_group = "amenities_group"

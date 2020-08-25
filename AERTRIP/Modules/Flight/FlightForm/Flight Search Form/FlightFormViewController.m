@@ -399,8 +399,7 @@
 - (void)setupReturnDateView:(NSDate*)returnDate {
     if (self.viewModel.flightSearchType == RETURN_JOURNEY ) {
         [self.returnLabel setTextColor:[ UIColor ONE_FIVE_THREE_COLOR] ];
-        
-        
+                
         if (returnDate != nil) {
             [self changeLabelFont:self.returnLabel isSmall:YES];
             self.returnValueLabel.hidden = NO;

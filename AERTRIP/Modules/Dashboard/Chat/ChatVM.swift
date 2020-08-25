@@ -108,6 +108,8 @@ class ChatVM {
     func getRecentFlights(){
         APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.flight) { (success, error, obj) in
             
+            print("obj.....\(obj)")
+            
         }
     }
     
@@ -144,3 +146,6 @@ class ChatVM {
         SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
 }
+
+
+
