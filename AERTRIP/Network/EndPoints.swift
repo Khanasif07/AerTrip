@@ -136,7 +136,9 @@ enum APIEndPoint: String {
     
     case chatBotStart = "aerin/start"
     
-    case currencies = "default/supported-currencies"
+//    case currencies = "default/supported-currencies"
+    case currencies = "default/currencies"
+
     
     case privacy = "https://beta.aertrip.com/privacy"
     case about = "https://beta.aertrip.com/about"

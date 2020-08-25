@@ -44,6 +44,7 @@ target 'AERTRIP' do
 #  pod 'AertripCalendar' , :git => 'git@gitlab.com:aertrip/ios-calendar.git'
   pod 'FSCalendar'
   pod 'MLeaksFinder' 
+#  pod "WSTagsField"
   
   # FLIGHTS PODS
   pod 'SnapKit', '~> 5.0.0'

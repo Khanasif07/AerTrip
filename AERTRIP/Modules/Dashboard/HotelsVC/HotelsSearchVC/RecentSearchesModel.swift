@@ -172,14 +172,14 @@ struct RecentSearchesModel {
         var titleWidth: CGFloat = 0
         var dateWidth: CGFloat = 0
         var title = ""
-       // var textWidth = width + 86
+        // var textWidth = width + 86
         //        if recentSearchesData.search_nearby {
         //
         var date = ""
-                    if let checkInDate = self.checkInDate.toDate(dateFormat: "E, dd MMM yy"), let checkOutDate = self.checkOutDate.toDate(dateFormat: "E, dd MMM yy") {
-                        date = checkInDate.toString(dateFormat: "dd MMM") + " - " + checkOutDate.toString(dateFormat: "dd MMM")
-                    }
-                    dateWidth = date.widthOfText(height, font: AppFonts.Regular.withSize(14.0))
+        if let checkInDate = self.checkInDate.toDate(dateFormat: "E, dd MMM yy"), let checkOutDate = self.checkOutDate.toDate(dateFormat: "E, dd MMM yy") {
+            date = checkInDate.toString(dateFormat: "dd MMM") + " - " + checkOutDate.toString(dateFormat: "dd MMM")
+        }
+        dateWidth = date.widthOfText(height, font: AppFonts.Regular.withSize(14.0))
         //            textWidth = width + 78
         //        } else {
         let cityName = self.dest_name.split(separator: ",").first ?? ""
@@ -196,7 +196,7 @@ struct RecentSearchesModel {
         // textWidth = width + 86
         
         //        }
-        
+        printDebug(title)
         return titleWidth > dateWidth ? titleWidth : dateWidth
     }
 }
