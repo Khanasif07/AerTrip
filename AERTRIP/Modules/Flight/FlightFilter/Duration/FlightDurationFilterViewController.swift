@@ -139,7 +139,8 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         layoverDurationSlider.setupThemeImages()
 
         initialSetup()
-        setTripDurationSliderMarkers()
+//        setTripDurationSliderMarkers()
+        addMarkers()
         
         //Layover duration slider
         
@@ -154,6 +155,25 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
             layoverDurationSlider.bringSubviewToFront(layoverDurationSlider.rightThumbView)
             
         }
+    }
+    
+    private func addMarkers() {
+        tripDurationMarkersArr.forEach { (marker) in
+            marker.removeFromSuperview()
+        }
+        tripDurationMarkersArr.removeAll()
+        let minVal = tripDurationSlider.minimumValue - tripDurationSlider.minimumValue
+        let maxVal = tripDurationSlider.maximumValue - tripDurationSlider.minimumValue
+        let diff = maxVal - minVal
+        var markerLocations = [CGFloat]()
+        for dayChangeTime in stride(from: 24, through: 240, by: 24) {
+            let markLoc = CGFloat(dayChangeTime) - tripDurationSlider.minimumValue
+            let fraction = markLoc/diff
+            guard fraction < 1 else { break }
+            markerLocations.append(fraction)
+        }
+        createMarkersAt(positions: markerLocations , slider: tripDurationSlider)
+        
     }
     
     private func setTripDurationSliderMarkers() {
@@ -215,9 +235,9 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     {
         for position in positions
         {
-            let trackWidth = (self.view.bounds.size.width - 2 * 15)
+            let trackWidth = slider.width
             let xPosition = position * trackWidth
-            let marker = UIView(frame: CGRect(x: xPosition, y: slider.frame.height/2 - 2 , width: 3.0, height: 3.0 ))
+            let marker = UIView(frame: CGRect(x: (xPosition - 1.5), y: slider.frame.height/2 - 2 , width: 3.0, height: 3.0 ))
             marker.backgroundColor = UIColor.black.withAlphaComponent(0.4)
             tripDurationMarkersArr.append(marker)
             slider.addSubview(marker)
@@ -246,7 +266,8 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     func updateFiltersFromAPI() {
         currentDurationFilter = durationFilters[currentActiveIndex]
         guard tripDurationSlider != nil else { return }
-        setTripDurationSliderMarkers()
+//        setTripDurationSliderMarkers()
+        addMarkers()
         UIView.animate(withDuration: 0.3) {
             self.setupTripDurationValues()
             self.setupLayoutDurationValues()
