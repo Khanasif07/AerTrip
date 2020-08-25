@@ -14,7 +14,7 @@ extension FlightDomesticMultiLegResultVC
     
     func showFooterViewAt(index : Int) {
         
-        if resultsTableViewStates[index] == .showExpensiveFlights {
+        if viewModel.resultsTableStates[index] == .showExpensiveFlights {
             setExpandedStateFooterAt(index: index)
         }
         else {
@@ -83,7 +83,7 @@ extension FlightDomesticMultiLegResultVC
     @objc func tappedOnGroupedFooterView(_ sender : UITapGestureRecognizer) {
         
         if let index = sender.view?.tag {
-            resultsTableViewStates[index] = .showExpensiveFlights
+            viewModel.resultsTableStates[index] = .showExpensiveFlights
             self.results[index].sort = sortOrder
             self.results[index].excludeExpensiveFlights = false
             self.sortedJourneyArray[index] = Array(self.results[index].sortedArray)
@@ -157,7 +157,7 @@ extension FlightDomesticMultiLegResultVC
         
         if let index = sender.view?.tag {
             
-            resultsTableViewStates[index] = .showRegularResults
+            viewModel.resultsTableStates[index] = .showRegularResults
             
             self.results[index].sort = sortOrder
             self.results[index].excludeExpensiveFlights = true

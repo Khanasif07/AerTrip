@@ -122,7 +122,7 @@ extension FlightDomesticMultiLegResultVC {
     {
         if let tableview = baseScrollView.viewWithTag(1000 + index) as? UITableView {
             
-            resultsTableViewStates[index] = .showNoResults
+            viewModel.resultsTableStates[index] = .showNoResults
             tableview.tableFooterView = nil
             tableview.reloadData()
         }
@@ -142,7 +142,7 @@ extension FlightDomesticMultiLegResultVC {
             rect.size.width = width - 2.0
             
             noResultsView = NoResultScreenView(frame: rect)
-            let state = resultsTableViewStates[index]
+            let state = viewModel.resultsTableStates[index]
             if state == .showPinnedFlights {
                 noResultsView.delegate = self
             }
@@ -421,7 +421,7 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool, isPinnedButtonClicked: Bool) {
         for index in 0 ..< numberOfLegs {
                    
-                   let tableResultState = resultsTableViewStates[index]
+                   let tableResultState = viewModel.resultsTableStates[index]
                    if tableResultState == .showTemplateResults {  return  }
                    
                    if let tableView = baseScrollView.viewWithTag( 1000 + index ) as? UITableView {
@@ -439,6 +439,7 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
                    
                }
     }
+    
     func infoButtonTapped(isViewExpanded: Bool) {
         
         if isViewExpanded == true{
@@ -513,7 +514,7 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
                 if let indexPath = tableview.indexPathForRow(at: locationInTableView) {
                     
                     var arrayForDisplay = self.results[index].suggestedJourneyArray
-                    let tableState = self.resultsTableViewStates[index]
+                    let tableState = self.viewModel.resultsTableStates[index]
                     
                     if self.sortOrder == .Smart{
 //                        || self.sortOrder == .Price || self.sortOrder == .PriceHighToLow{

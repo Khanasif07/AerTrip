@@ -1070,7 +1070,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             domesticMultiLegResultVC?.airlineCode = airlineCode
             if flightSearchResultVM.isDomestic {
                 let journeyArray = resultVM.getJourneyDisplayArrayFor(index:  index)
-                domesticMultiLegResultVC?.updateReceivedAt(index: index , updatedArray: journeyArray, sortOrder: resultVM.getSortOrder())
+                domesticMultiLegResultVC?.updatewithArray(index: index , updatedArray: journeyArray, sortOrder: resultVM.getSortOrder())
                 domesticMultiLegResultVC?.updateAirportDetailsArray(resultVM.getAllAirportsArray())
                 domesticMultiLegResultVC?.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
                 domesticMultiLegResultVC?.updateTaxesArray(resultVM.getTaxesDetailsArray())
@@ -1099,7 +1099,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             if flightSearchResultVM.isDomestic {
                 
                 let journeyArray = self.flightSearchResultVM.getJourneyDisplayArrayFor(index: index )
-                domesticMultiLegResultVC?.updateReceivedAt(index: index , updatedArray: journeyArray, sortOrder: self.flightSearchResultVM.getSortOrder())
+                domesticMultiLegResultVC?.updatewithArray(index: index , updatedArray: journeyArray, sortOrder: self.flightSearchResultVM.getSortOrder())
                 domesticMultiLegResultVC?.updateAirportDetailsArray(resultVM.getAllAirportsArray())
                 domesticMultiLegResultVC?.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
                 domesticMultiLegResultVC?.updateTaxesArray(resultVM.getTaxesDetailsArray())

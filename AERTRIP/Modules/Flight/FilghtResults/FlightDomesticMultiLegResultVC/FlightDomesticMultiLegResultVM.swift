@@ -11,9 +11,9 @@ import UIKit
 class FlightDomesticMultiLegResultVM {
 
     
-    
-    
-    
+    var resultsTableStates =  [ResultTableViewState]()
+    var stateBeforePinnedFlight = [ResultTableViewState]()
+
     
     
     

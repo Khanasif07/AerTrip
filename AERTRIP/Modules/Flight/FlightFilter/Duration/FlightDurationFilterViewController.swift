@@ -254,7 +254,6 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
 
     currentDurationFilter.userSelectedLayoverMin = currentDurationFilter.layoverMinDuration
     currentDurationFilter.userSelectedLayoverMax = currentDurationFilter.layoverMaxDuration
-
     tripDurationSlider.setLeftValue(currentDurationFilter.tripDurationMinDuration, rightValue: currentDurationFilter.tripDurationmaxDuration)
     tripDurationMinLabel.text = formattedStringWith(duration: currentDurationFilter.tripDurationMinDuration)
         tripDurationMinLabelWidth.constant = tripDurationMinLabel.intrinsicContentSize.width + 16.0

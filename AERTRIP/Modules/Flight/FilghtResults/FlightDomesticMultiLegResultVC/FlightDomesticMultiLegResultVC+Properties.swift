@@ -36,8 +36,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
     @IBOutlet weak var sharePinnedFlightsLeading: NSLayoutConstraint!
     
     //MARK:- State Properties
-    var resultsTableViewStates =  [ResultTableViewState]()
-    var stateBeforePinnedFlight = [ResultTableViewState]()
     var showPinnedFlights = false
     var numberOfLegs : Int
     var results = [DomesticMultilegJourneyResultsArray]()
@@ -93,8 +91,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         self.flightSearchType = flightSearchType
         results = Array(repeating: DomesticMultilegJourneyResultsArray(sort: .Smart), count: numberOfLegs)
         sortedJourneyArray = Array(repeating: [Journey](), count: numberOfLegs)
-        resultsTableViewStates =  Array(repeating: .showTemplateResults , count: numberOfLegs)
-        stateBeforePinnedFlight = Array(repeating: .showRegularResults, count: numberOfLegs)
+        viewModel.resultsTableStates =  Array(repeating: .showTemplateResults , count: numberOfLegs)
+        viewModel.stateBeforePinnedFlight = Array(repeating: .showRegularResults, count: numberOfLegs)
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -103,7 +101,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         self.flightSearchType = RETURN_JOURNEY
         results = Array(repeating: DomesticMultilegJourneyResultsArray(sort: .Smart), count: 0)
         sortedJourneyArray = Array(repeating: [Journey](), count: 0)
-        resultsTableViewStates =  Array(repeating: .showTemplateResults , count: 0)
+        viewModel.resultsTableStates =  Array(repeating: .showTemplateResults , count: 0)
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
@@ -115,7 +113,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         self.headerArray = [MultiLegHeader]()
         results = Array(repeating: DomesticMultilegJourneyResultsArray(sort: .Smart), count: 0)
         sortedJourneyArray = Array(repeating: [Journey](), count: 0)
-        resultsTableViewStates =  Array(repeating: .showTemplateResults , count: 0)
+        viewModel.resultsTableStates =  Array(repeating: .showTemplateResults , count: 0)
         
 
         super.init(coder: aDecoder)
@@ -171,13 +169,13 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
             if let tableView = self.baseScrollView.viewWithTag( 1000 + index) as? UITableView {
                 let selectedIndex = tableView.indexPathForSelectedRow
                 tableView.reloadData()
-                
+
                 // setting up header for table view
                 let width = UIScreen.main.bounds.size.width / 2.0
                 let headerRect = CGRect(x: 0, y: 0, width: width, height: 138.0)
                 tableView.tableHeaderView = UIView(frame: headerRect)
-                
-                
+
+
                 //selecting tableview cell
                 if (selectedIndex != nil) {
                     tableView.selectRow(at:selectedIndex, animated: false, scrollPosition: .none)
@@ -202,10 +200,15 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
             }
             
             //setting footer for table view
-            if self.resultsTableViewStates[index] == .showExpensiveFlights {
-                self.setExpandedStateFooterAt(index: index)
+            
+             if self.viewModel.resultsTableStates[index] != .showPinnedFlights{
+                
             }
-            else if self.resultsTableViewStates[index] != .showPinnedFlights{
+            
+            
+            if self.viewModel.resultsTableStates[index] == .showExpensiveFlights {
+                self.setExpandedStateFooterAt(index: index)
+            }else if self.viewModel.resultsTableStates[index] != .showPinnedFlights{
                 if self.results[index].suggestedJourneyArray.count == 0{
                     let invisibleView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
                     invisibleView.tag = index
@@ -225,9 +228,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         }
     }
     
- 
-
-    
     fileprivate func setTotalFare() {
         if let selectedJourneys = self.getSelectedJourneyForAllLegs() {
             
@@ -243,7 +243,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
     }
     
     
-    func updateReceivedAt(index : Int , updatedArray : [Journey] , sortOrder : Sort) {
+    func updatewithArray(index : Int , updatedArray : [Journey] , sortOrder : Sort) {
         
 //        for j in updatedArray{
 //            let flightNum = j.leg.first!.flights.first!.al + j.leg.first!.flights.first!.fn
@@ -251,6 +251,10 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
 //                j.isPinned = true
 //            }
 //        }
+        
+        if viewModel.resultsTableStates[index] == .showTemplateResults {
+            viewModel.resultsTableStates[index] = .showRegularResults
+        }
         
         self.flightSearchResultVM.flightLegs[index].updatedFilterResultCount = 0
 
@@ -301,13 +305,14 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
     
        func updateUI(index : Int , updatedArray : [Journey] , sortOrder : Sort) {
         
-            let currentState =  resultsTableViewStates[index]
+            let currentState =  viewModel.resultsTableStates[index]
             if currentState == .showTemplateResults || currentState == .showNoResults {
                 if updatedArray.count == 0 {
                     return
                 }
-                resultsTableViewStates[index] = .showRegularResults
+                viewModel.resultsTableStates[index] = .showRegularResults
             }
+        
             DispatchQueue.main.async {
                 if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
                     if updatedArray.count > 0 {
@@ -338,7 +343,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         
         for index in 0 ..< numberOfLegs {
             
-            let tableResultState = resultsTableViewStates[index]
+            let tableResultState = viewModel.resultsTableStates[index]
             if tableResultState == .showTemplateResults {  return nil }
             
             if let tableView = baseScrollView.viewWithTag( 1000 + index ) as? UITableView {
@@ -528,8 +533,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         
         if sender.isOn  {
             showPinnedFlights = true
-            stateBeforePinnedFlight = resultsTableViewStates
-            resultsTableViewStates = Array(repeating: .showPinnedFlights, count: numberOfLegs)
+            viewModel.stateBeforePinnedFlight = viewModel.resultsTableStates
+            viewModel.resultsTableStates = Array(repeating: .showPinnedFlights, count: numberOfLegs)
             for subView in self.baseScrollView.subviews {
                 if let tableview = subView as? UITableView {
                     let index = tableview.tag - 1000
@@ -555,7 +560,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         }
         else {
             showPinnedFlights = false
-            resultsTableViewStates = stateBeforePinnedFlight
+            viewModel.resultsTableStates = viewModel.stateBeforePinnedFlight
             for index in 0 ..< numberOfLegs {
                 if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
                     errorView.removeFromSuperview()
@@ -592,7 +597,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
 
     
     func performUnpinnedAllAction() {
-        resultsTableViewStates  = stateBeforePinnedFlight
+        viewModel.resultsTableStates  = viewModel.stateBeforePinnedFlight
         
         for index in 0 ..< numberOfLegs {
             
@@ -818,7 +823,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
             showPinnedFlightSwitch(containsPinnedFlight)
             
             if !containsPinnedFlight {
-                resultsTableViewStates = stateBeforePinnedFlight
+                viewModel.resultsTableStates = viewModel.stateBeforePinnedFlight
                 for index in 0 ..< numberOfLegs {
                     // Removal of ErrorScreen if pinned flights were 0
                     if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
@@ -924,7 +929,7 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
     func numberOfSections(in tableView: UITableView) -> Int {
         
         let index = tableView.tag - 1000
-        let tableState = resultsTableViewStates[index]
+        let tableState = viewModel.resultsTableStates[index]
         
 
         switch tableState {
@@ -947,7 +952,7 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
         let index = tableView.tag - 1000
         
 
-        let tableState = resultsTableViewStates[index]
+        let tableState = viewModel.resultsTableStates[index]
         
         switch tableState {
         case .showTemplateResults:
@@ -984,7 +989,7 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
     
     fileprivate func setPropertiesToCellAt( index: Int, _ indexPath: IndexPath,  cell: DomesticMultiLegCell, _ tableView: UITableView) {
         
-        let tableState = resultsTableViewStates[index]
+        let tableState = viewModel.resultsTableStates[index]
         var arrayForDisplay = results[index].suggestedJourneyArray
         
         if tableState == .showPinnedFlights {
@@ -1032,7 +1037,7 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let index = tableView.tag - 1000
-        let tableState = resultsTableViewStates[index]
+        let tableState = viewModel.resultsTableStates[index]
         
 
         if tableState == .showTemplateResults {

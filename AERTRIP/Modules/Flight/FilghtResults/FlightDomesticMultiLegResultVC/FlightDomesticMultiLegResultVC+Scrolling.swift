@@ -152,7 +152,7 @@ extension FlightDomesticMultiLegResultVC {
             
                 let width = UIScreen.main.bounds.size.width / 2.0
 
-                let tableState = resultsTableViewStates[index]
+                let tableState = viewModel.resultsTableStates[index]
                 var arrayForDisplay = results[index].suggestedJourneyArray
                 
                 if sortOrder == .Smart  {
