@@ -120,8 +120,8 @@ public struct TimeRange24hoursWS : Codable , Equatable {
 }
 
 public struct TimeRangeIntervalWS : Codable , Equatable {
-    var minTime : String?
-    var maxTime : String?
+    var minTime : String? = "0"
+    var maxTime : String? = "0"
     
     public static func == (lhs : TimeRangeIntervalWS , rhs : TimeRangeIntervalWS ) -> Bool {
         

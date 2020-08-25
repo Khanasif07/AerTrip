@@ -232,6 +232,8 @@ extension IntFlightResultDisplayGroup  {
         userSelectedFilters[index].tt.minTime = Number.stringValue
         Number = NSNumber(floatLiteral: Double(max * 3600))
         userSelectedFilters[index].tt.maxTime = Number.stringValue
+        
+        initiatedFilters.insert(.tripDuration)
                 
         if let _ = userSelectedFilters.enumerated().first(where: { (legIndex, obj) -> Bool in
             
@@ -298,7 +300,9 @@ extension IntFlightResultDisplayGroup  {
             return convertedSelectedMinLayoverValue != convertedInputMinLayoverValue || convertedSelectedMaxLayoverValue != convertedInputMaxLayoverValue
             
         }){
-            layOverChanged = true
+            if initiatedFilters.contains(.layoverDuration) {
+                layOverChanged = true
+            }
         }else{
             layOverChanged = false
         }
@@ -324,7 +328,7 @@ extension IntFlightResultDisplayGroup  {
         Number = NSNumber(floatLiteral: Double(max * 3600))
         userSelectedFilters[index].lott.maxTime = Number.stringValue
         
-        initiatedFilters[index]?.insert(.layoverDuration)
+        initiatedFilters.insert(.layoverDuration)
         
         if let _ = userSelectedFilters.enumerated().first(where: { (legIndex, obj) -> Bool in
             
@@ -386,7 +390,9 @@ extension IntFlightResultDisplayGroup  {
             return convertedSelectedMinDurationValue != convertedInputMinDurationValue || convertedSelectedMaxDurationValue != convertedInputMaxDurationValue
             
         }){
-            durationChanged = true
+            if initiatedFilters.contains(.tripDuration) {
+                durationChanged = true
+            }
         }else{
             durationChanged = false
         }

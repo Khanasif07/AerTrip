@@ -9,11 +9,16 @@
 import UIKit
 import Parchment
 
+protocol FlightFiltersToastDelegate: AnyObject {
+    func showToastWithMsg(_ msg: String)
+}
+
 class FlightFilterBaseVC: UIViewController {
 
     // MARK: Properties
     weak var delegate : FilterDelegate?
     weak var filterUIDelegate : FilterUIDelegate?
+    weak var toastDelegate: FlightFiltersToastDelegate?
     var legList : [Leg]!
     var searchType : FlightSearchType!
     var flightResultArray : [FlightsResults]!
@@ -23,9 +28,9 @@ class FlightFilterBaseVC: UIViewController {
     // Parchment View
     internal var allChildVCs = [UIViewController]()
     var menuItems = [MenuItemForFilter]()
-    fileprivate var parchmentView : PagingViewController?
+    fileprivate var parchmentView : FiltersCustomPagingViewController?
     internal var showSelectedFontOnMenu = false
-        
+
     var inputFilters : [FiltersWS]? {
         var inputFiltersArray = [FiltersWS]()
         
@@ -121,9 +126,9 @@ class FlightFilterBaseVC: UIViewController {
     
     private func setupParchmentPageController(){
         
-        self.parchmentView = PagingViewController()
+        self.parchmentView = FiltersCustomPagingViewController()
         self.parchmentView?.menuItemSpacing = 18
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 50, bottom: 0.0, right: 10)
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 0, bottom: 0.0, right: 10)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 45)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.borderOptions = PagingBorderOptions.hidden
@@ -141,7 +146,8 @@ class FlightFilterBaseVC: UIViewController {
         self.parchmentView?.sizeDelegate = self
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
-        self.parchmentView?.menuBackgroundColor = AppColors.themeGray49
+        self.parchmentView?.menuBackgroundColor = .clear
+        
     }
     
     func toggleSelectedState(hidden: Bool) {
@@ -342,6 +348,9 @@ extension FlightFilterBaseVC {
     
     func setTimesVC(_ timesViewController : FlightFilterTimesViewController , inputFilters : [FiltersWS])
     {
+        timesViewController.onToastInitiation = {[weak self] message in
+            self?.toastDelegate?.showToastWithMsg(message)
+        }
         timesViewController.multiLegTimerFilter = getFlightLegTimeFilters( inputFilters)
         timesViewController.delegate = delegate as? FlightTimeFilterDelegate
     }
@@ -451,7 +460,7 @@ extension FlightFilterBaseVC {
             
             guard let tripTimeMaxDuration = tripTime.maxTime else { continue }
             duration = (tripTimeMaxDuration as NSString).floatValue
-            let tripMaxDuration = CGFloat( round(duration / 3600.0))
+            let tripMaxDuration = CGFloat( ceil(duration / 3600.0))
             
             guard let layoverMinDuration = layoverTime?.minTime else { continue }
             duration = ( layoverMinDuration as NSString).floatValue
@@ -459,7 +468,7 @@ extension FlightFilterBaseVC {
             
             guard let layoverMaxDuration = layoverTime?.maxTime else { continue }
             duration = ( layoverMaxDuration as NSString).floatValue
-            let layoverMax = CGFloat( round(duration / 3600.0))
+            let layoverMax = CGFloat( ceil(duration / 3600.0))
             
             let leg = legList[index]
             let durationFilter = DurationFilter(leg: leg, tripMin: trimMinDuration, tripMax: tripMaxDuration, layoverMin: layoverMin, layoverMax: layoverMax, layoverMinTimeFormat: "")
@@ -632,7 +641,7 @@ extension FlightFilterBaseVC {
             
             guard let tripTimeMaxDuration = tripTime.maxTime else { continue }
             duration = (tripTimeMaxDuration as NSString).floatValue
-            let tripMaxDuration = CGFloat( round(duration / 3600.0))
+            let tripMaxDuration = CGFloat( ceil(duration / 3600.0))
             
             guard let layoverMinDuration = layoverTime?.minTime else { continue }
             duration = ( layoverMinDuration as NSString).floatValue
@@ -640,7 +649,7 @@ extension FlightFilterBaseVC {
             
             guard let layoverMaxDuration = layoverTime?.maxTime else { continue }
             duration = ( layoverMaxDuration as NSString).floatValue
-            let layoverMax = CGFloat( round(duration / 3600.0))
+            let layoverMax = CGFloat( ceil(duration / 3600.0))
             
             let leg = legList[index]
             let durationFilter = DurationFilter(leg: leg, tripMin: tripMinDuration, tripMax: tripMaxDuration, layoverMin: layoverMin, layoverMax: layoverMax, layoverMinTimeFormat: "")
@@ -665,6 +674,7 @@ extension FlightFilterBaseVC {
                 }
             }
         }
+        guard durationViewController.durationFilters.count > 0 else { return }
         durationViewController.updateFiltersFromAPI()
     }
     

@@ -57,10 +57,10 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         }
     }
     private var isIntReturnOrMCJourney = false
-
     
     private var filterUpdateWorkItem : DispatchWorkItem?
     private var showDepartReturnSame = false
+    private var curSelectedFilterIndex = 0
     
     //MARK:- Initializers
     @objc convenience init(flightSearchResultVM : FlightSearchResultVM , flightSearchParameters: NSDictionary, isIntReturnOrMCJourney: Bool, airlineCode:String) {
@@ -127,7 +127,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         
         visualEffectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
         visualEffectView.effect = UIBlurEffect(style: .prominent)
-        visualEffectView.contentView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
+        visualEffectView.contentView.backgroundColor = .clear//UIColor.white.withAlphaComponent(0.4)
         
         backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
         backView.addSubview(visualEffectView)
@@ -584,6 +584,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             
             intMCAndReturnFilterVC = IntMCAndReturnFiltersBaseVC(flightSearchResult: self.flightSearchResultVM.intFlightResultArray, selectedIndex: index, legList: legList, searchType: flightType)
             self.intMCAndReturnFilterVC?.delegate = flightSearchResultVM
+            self.intMCAndReturnFilterVC?.toastDelegate = self
             self.intMCAndReturnFilterVC?.filterUIDelegate = self
             self.intMCAndReturnFilterVC?.showDepartReturnSame = showDepartReturnSame
             
@@ -591,13 +592,14 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             if let intFilterBaseView = self.intMCAndReturnFilterVC {
                 if intFilterBaseView.parent == nil {
                     var frame = self.view.frame
-                    frame.origin.y = visualEffectViewHeight - 46
+                    frame.origin.y = visualEffectViewHeight - 45
                     frame.size.height = 36//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
                     intFilterBaseView.view.frame = frame
                     backView.addSubview(intFilterBaseView.view)
                     backView.bringSubviewToFront(filterButton)
                     backView.bringSubviewToFront(separatorView)
                     backView.bringSubviewToFront(ApiProgress)
+                    filterSegmentView.removeFromSuperview()
                     //                backView.height = view.height
                     //                backView.layoutIfNeeded()
                     //                    self.view.addSubview(FilterBaseView.view)
@@ -616,18 +618,20 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         
         self.flightFilterVC = FlightFilterBaseVC(flightSearchResult: self.flightSearchResultVM.flightResultArray , selectedIndex: index , legList: legList , searchType: flightType )
         self.flightFilterVC?.delegate = flightSearchResultVM
+        self.flightFilterVC?.toastDelegate = self
         self.flightFilterVC?.filterUIDelegate = self
         
         if let FilterBaseView = self.flightFilterVC {
             if FilterBaseView.parent == nil {
                 var frame = self.view.frame
-                frame.origin.y = visualEffectViewHeight - 46
+                frame.origin.y = visualEffectViewHeight - 45
                 frame.size.height = 36//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
                 FilterBaseView.view.frame = frame
                 backView.addSubview(FilterBaseView.view)
                 backView.bringSubviewToFront(filterButton)
                 backView.bringSubviewToFront(separatorView)
                 backView.bringSubviewToFront(ApiProgress)
+                filterSegmentView.removeFromSuperview()
 //                backView.height = view.height
 //                backView.layoutIfNeeded()
                 //                    self.view.addSubview(FilterBaseView.view)
@@ -646,6 +650,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         filterBackView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
         filterBackView.frame = view.frame
         filterBackView.size.height += 100
+        filterBackView.size.width += 100
         filterBackView.origin.y = visualEffectViewHeight
         view.addSubview(filterBackView)
         filterBackView.alpha = 0
@@ -740,7 +745,6 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     
     func createFilterButton() {
         filterButton = UIButton(type: .custom)
-        filterButton.backgroundColor = AppColors.themeGray49
         guard let normalImage = UIImage(named: "filterClearIndicator") else { assertionFailure("filter clear imaage missing")
             return }
         guard let selectedImage = UIImage(named:"FilterApplIiedndicator") else { assertionFailure("filter selected image missing")
@@ -880,7 +884,12 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     }
     
     func selectedIndexChanged(index: UInt) {
-        toggleFiltersView(hidden: false)
+        if index == curSelectedFilterIndex && backView.height > visualEffectViewHeight {
+            toggleFiltersView(hidden: true)
+        } else {
+            toggleFiltersView(hidden: false)
+        }
+        curSelectedFilterIndex = Int(index)
 //        self.filterSegmentView.setSelectedSegmentIndex(index , animated: true)
 //        self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: true, selectedIndex: filterSegmentView.selectedSegmentIndex)
     }
@@ -889,8 +898,15 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     @IBAction func filterButtonTapped(_ sender: Any) {
         
         if flightSearchResultVM.containsJourneyResuls  {
+            
+            if backView.height <= visualEffectViewHeight {
+                toggleFiltersView(hidden: false)
+            } else {
+                toggleFiltersView(hidden: true)
+            }
+            
 //            self.openFiltersWith(index: 0)
-            toggleFiltersView(hidden: false)
+            
 //            self.filterSegmentView.selectedSegmentIndex = 0
 //            filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: true, selectedIndex: filterSegmentView.selectedSegmentIndex)
         }
@@ -1310,5 +1326,11 @@ extension FlightResultBaseViewController{
     
     func searchApiResult(){
         
+    }
+}
+
+extension FlightResultBaseViewController: FlightFiltersToastDelegate {
+    func showToastWithMsg(_ msg: String) {
+        AertripToastView.toast(in: view, withText: msg)
     }
 }
