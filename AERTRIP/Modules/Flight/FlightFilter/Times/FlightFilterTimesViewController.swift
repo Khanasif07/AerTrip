@@ -36,15 +36,16 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     var currentTimerFilter : FlightLegTimeFilter!
     var currentActiveIndex = 0
     var numberOfLegs = 1
-//    var dragStartPosition : CGFloat =  0.0
-//    var dragEndPosition : CGFloat = 0.0
     
     var airportsArr = [AirportLegFilter]()
     var isIntMCOrReturnVC = false
 
     var arivalDifferenceInSeconds : TimeInterval = 0
     
+    var onToastInitiation: ((String) -> ())?
+    
     /// Used for day segments pan gesture
+    var panGesture: UIPanGestureRecognizer?
     var panStartPos: CGFloat?
     
     //MARK:- multiLeg Outlets
@@ -86,6 +87,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     func updateFiltersFromAPI() {
         currentTimerFilter = multiLegTimerFilter[currentActiveIndex]
         guard departureRangeSlider != nil else { return }
+        setupDeparatureRangeButtons()
         UIView.animate(withDuration: 0.3) {
             self.setDepartureSliderValues()
             self.setArrivalSliderValues(userSelected: false)
@@ -193,9 +195,12 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             noonButton.alpha = 0.6
         }
 
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan(sender:)))
+        if let gesture = panGesture {
+            departureButtonStackView.removeGestureRecognizer(gesture)
+        }
+        panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan(sender:)))
         departureButtonStackView.isUserInteractionEnabled = true
-        departureButtonStackView.addGestureRecognizer(panGesture)
+        departureButtonStackView.addGestureRecognizer(panGesture!)
     }
     
     
@@ -377,6 +382,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         }
         
         if sender.state == .ended || sender.state == .cancelled {
+            checkToShowMsg()
             delegate?.departureSelectionChangedAt(currentActiveIndex , minDuration:departureStartTimeInterval , maxDuration: departureEndTimeInterval)
             self.buttonReleased(sender: UIButton())
         }
@@ -607,6 +613,31 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         }
     }
     
+    private func checkToShowMsg() {
+        let calendar = Calendar.current
+        let startTime = calendar.startOfDay(for: currentTimerFilter.departureMinTime)
+        let minDeparture = currentTimerFilter.departureMinTime.timeIntervalSince(startTime)
+        let roundedMinDeparture = TimeInterval(3600.0 * floor((minDeparture  / 3600 )))
+        let maxDeparture =  currentTimerFilter.departureTimeMax.timeIntervalSince(startTime)
+        let roundedMaxDeparture = TimeInterval(3600 * ceil(maxDeparture  / 3600 ))
+        
+        if roundedMinDeparture >= departureStartTimeInterval || roundedMaxDeparture <= departureEndTimeInterval {
+            let availableMinTime = TimeInterval(3600 * floor(roundedMinDeparture / 3600))
+            let availabelMaxTime = TimeInterval(3600 * ceil(roundedMaxDeparture / 3600))
+            
+            let curSelectedMinTime = TimeInterval( floor(departureStartTimeInterval / 3600))
+            let curSelectedMaxTime = TimeInterval( ceil(departureEndTimeInterval / 3600))
+            
+            
+            if (curSelectedMinTime == 0 || curSelectedMinTime == 6 || curSelectedMinTime == 12 || curSelectedMinTime == 18) && (curSelectedMaxTime == 6 || curSelectedMaxTime == 12 || curSelectedMaxTime == 18 || curSelectedMaxTime == 24) {
+                return
+            }
+
+            let message = "Flights are available between " +  stringFromTimeInterval(interval: availableMinTime) + " and " + stringFromTimeInterval(interval: availabelMaxTime)
+            showToastMessageForAvailableDepartureRange(message)
+        }
+    }
+    
     @objc fileprivate func departureRangeChanged () {
         
         let leftValue  = departureRangeSlider.leftValue
@@ -647,9 +678,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     
     func showToastMessageForAvailableDepartureRange(_ message : String) {
         
-        if let view = self.parent?.view {
-            AertripToastView.toast(in: view, withText: message)
-        }
+        onToastInitiation?(message)
         
 //        if multiLegTimerFilter.count > 1{
 //            var frame = UIApplication.shared.windows.last!.frame
@@ -1149,6 +1178,11 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     @objc func buttonPressed(sender:UIButton)
     {
         if sender.alpha != 1 {
+            let startDateTime = Calendar.current.startOfDay(for: currentTimerFilter.departureMinTime)
+            let minTimeInterval = currentTimerFilter.departureMinTime.timeIntervalSince(startDateTime)
+            let maxTimeInterval = currentTimerFilter.departureTimeMax.timeIntervalSince(startDateTime)
+            let message = "Flights are available between " +  stringFromTimeInterval(interval: minTimeInterval) + " and " + stringFromTimeInterval(interval: maxTimeInterval)
+            showToastMessageForAvailableDepartureRange(message)
             return
         }
         switch sender.tag
@@ -1187,10 +1221,12 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     
     @objc func buttonReleased(sender:UIButton)
     {
-        earlyMorningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
-        noonButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
-        eveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
-        lateEveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+        DispatchQueue.delay(0.1) {
+            self.earlyMorningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            self.noonButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            self.eveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            self.lateEveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+        }
     }
         
     func setUIValues(){
@@ -1225,6 +1261,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     func updateUIPostLatestResults() {
         guard departureRangeSlider != nil else { return }
         setUIValues()
+        
     }
 
     func resetFilter() {

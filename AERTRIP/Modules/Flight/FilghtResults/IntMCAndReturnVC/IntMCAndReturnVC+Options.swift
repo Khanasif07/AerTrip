@@ -405,7 +405,6 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
          }
      }
            
-    
        func executeWebServiceForEmail(with postData: Data , onCompletion:@escaping (String) -> ()) {
           let webservice = WebAPIService()
           

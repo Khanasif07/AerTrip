@@ -8,10 +8,6 @@
 
 import Foundation
 
-protocol SwiftObjCBridgingControllerDelegate: NSObject {
-    func onFetchingFlightFormData()
-}
-
 class SwiftObjCBridgingController: NSObject {
     
     @objc static let shared = SwiftObjCBridgingController()

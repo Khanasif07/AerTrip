@@ -164,7 +164,7 @@ extension FlightResultSingleJourneyVC {
                     
                     var arrayForDisplay = self.viewModel.results.suggestedJourneyArray
                         
-                    if self.viewModel.resultTableState == .showExpensiveFlights {
+            if self.viewModel.resultTableState == .showExpensiveFlights{
                             arrayForDisplay = self.viewModel.results.journeyArray
                         }
                         
@@ -183,8 +183,7 @@ extension FlightResultSingleJourneyVC {
         }
     }
     
-    func makeMenusFor(journey : Journey? ,  fk: String? , markPinned : Bool) -> UIMenu
-    {
+    func makeMenusFor(journey : Journey? ,  fk: String? , markPinned : Bool) -> UIMenu {
         if let currentJourney = journey {
          let pinTitle : String
         pinTitle = markPinned ? "Pin" : "Unpin"
