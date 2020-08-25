@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WSTagsField
 
 protocol EmailComposeerHeaderViewDelegate: class {
     func openContactScreen()
@@ -42,12 +43,15 @@ class EmailComposerHeaderView: UIView {
     
     @IBOutlet weak var checkInTitleLable: UILabel!
     @IBOutlet weak var checkOutTitleLable: UILabel!
+    @IBOutlet weak var emailTextField: UIView!
     
+    @IBOutlet weak var emailTextFieldHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var checkOutMessageLabelHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Properties
     
     weak var delegate: EmailComposeerHeaderViewDelegate?
+    let tagsField = WSTagsField()
     
     class func instanceFromNib() -> EmailComposerHeaderView {
         return UINib(nibName: "EmailComposerHeaderView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! EmailComposerHeaderView
@@ -62,6 +66,7 @@ class EmailComposerHeaderView: UIView {
         self.setUpText()
         self.setUpColor()
         self.setUpFont()
+        self.emailTextFieldHandlers()
     }
     
     override func layoutSubviews() {
@@ -159,6 +164,23 @@ class EmailComposerHeaderView: UIView {
         path.addLines(between: [p0, p1])
         shapeLayer.path = path
         view.layer.addSublayer(shapeLayer)
+    }
+    
+    func emailTextFieldHandlers() {
+        self.tagsField.font = AppFonts.Regular.withSize(18.0)
+        self.tagsField.placeholder = LocalizedString.EnterEmail.localized
+        self.tagsField.placeholderColor = AppColors.themeGray40
+        self.tagsField.textField.keyboardType = .emailAddress
+        
+        tagsField.onDidChangeHeightTo = { _, height in
+            print("HeightTo", height)
+
+        }
+
+        tagsField.onValidateTag = { tag, tags in
+            // custom validations, called before tag is added to tags list
+            return  tag.text.checkValidity(.Email)
+        }
     }
     
     // MARK: - IB Actions
