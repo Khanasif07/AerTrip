@@ -666,7 +666,7 @@ class IndUpgradeFlightVC: BaseVC, UICollectionViewDataSource, UICollectionViewDe
                         }
                     }
                 }else{
-                    AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .flights)
+                    AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .hotelsSearch)
                 }
                 
             }

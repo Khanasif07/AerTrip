@@ -309,30 +309,49 @@ class IntFareBreakupVC: UIViewController {
             taxesDetails.removeAll()
             taxAndFeesDataDict.removeAll()
             taxesData = journey.first?.fare
-            
+            var sortOrderArray = [String]()
             taxesDetails = (taxesData?.taxes.details)!
+            
+            for val in (taxesData?.sortOrder ?? "").components(separatedBy: ","){
+                sortOrderArray.append(taxesResult[val.removeAllWhitespaces] ?? "")
+            }
             
             for (_, value) in taxesDetails.enumerated() {
                 let newObj = taxStruct.init(name: taxesResult[value.key]!, taxVal: value.value)
                 taxAndFeesDataDict.append(newObj)
             }
             let newDict = Dictionary(grouping: taxAndFeesDataDict) { $0.name }
-            
-            for ( key , _ ) in newDict {
-                
-                let dataArray = newDict[key]
-                
-                var newTaxVal = 0
-                for i in 0..<dataArray!.count{
-                    newTaxVal += (dataArray?[i].taxVal)!
+            if sortOrderArray.isEmpty{
+                for ( key , _ ) in newDict {
+                    
+                    let dataArray = newDict[key]
+                    
+                    var newTaxVal = 0
+                    for i in 0..<dataArray!.count{
+                        newTaxVal += (dataArray?[i].taxVal)!
+                    }
+                    
+                    let newArr = ["name" : key,
+                                  "value":newTaxVal] as NSDictionary
+                    taxAndFeesData.append(newArr)
+                    
                 }
-                
-                let newArr = ["name" : key,
-                              "value":newTaxVal] as NSDictionary
-                taxAndFeesData.append(newArr)
-                
+            }else{
+                for key in sortOrderArray {
+                    
+                    let dataArray = newDict[key]
+                    
+                    var newTaxVal = 0
+                    for i in 0..<dataArray!.count{
+                        newTaxVal += (dataArray?[i].taxVal)!
+                    }
+                    
+                    let newArr = ["name" : key,
+                                  "value":newTaxVal] as NSDictionary
+                    taxAndFeesData.append(newArr)
+                    
+                }
             }
-            
             let addonsPrice = self.addonsData.reduce(0){$0 + $1.value}
             let totalFare = (journey.first?.farepr ?? 0) + addonsPrice
             

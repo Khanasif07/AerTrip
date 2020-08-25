@@ -166,6 +166,14 @@ class FlightPaymentVC: BaseVC {
         }
     }
     
+    func updateConvenienceFee(){
+        if let razorPay = self.viewModel.paymentDetails?.paymentModes.razorPay {
+            self.convenienceRate = razorPay.convenienceFees
+            self.convenienceFeesWallet = razorPay.convenienceFeesWallet > 0 ? razorPay.convenienceFeesWallet : 0
+            self.setConvenienceFeeToBeApplied()
+        }
+    }
+    
     private func addFooterView() {
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 23))
         customView.backgroundColor = AppColors.themeGray04
@@ -318,6 +326,8 @@ extension FlightPaymentVC: FlightCouponCodeVCDelegate {
         self.viewModel.appliedCouponData = appliedCouponData
         self.isCouponApplied = true
         self.viewModel.taxesDataDisplay()
+        self.viewModel.updateConvenienceFee()
+        self.updateConvenienceFee()
         delay(seconds: 0.3) { [weak self] in
             self?.updateAllData()
         }
@@ -342,13 +352,8 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
     }
     
     func getPaymentsMethodsSuccess(){
-        if let razorPay = self.viewModel.paymentDetails?.paymentModes.razorPay {
-            self.convenienceRate = razorPay.convenienceFees
-            self.convenienceFeesWallet = razorPay.convenienceFeesWallet > 0 ? razorPay.convenienceFeesWallet : 0
-            self.setConvenienceFeeToBeApplied()
-        }
+        self.updateConvenienceFee()
         self.isWallet = self.getWalletAmount() > 0
-        
         self.updateAllData()
     }
     func getPaymentMethodsFails(error: ErrorCodes){
@@ -361,6 +366,8 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
         self.viewModel.appliedCouponData = appliedCouponData
         self.isCouponApplied = false
         self.viewModel.taxesDataDisplay()
+        self.viewModel.updateConvenienceFee()
+        self.updateConvenienceFee()
         self.updateAllData()
         printDebug(appliedCouponData)
     }

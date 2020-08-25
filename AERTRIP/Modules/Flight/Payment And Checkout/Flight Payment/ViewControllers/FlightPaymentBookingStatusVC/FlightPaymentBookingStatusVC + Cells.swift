@@ -245,20 +245,43 @@ extension FlightPaymentBookingStatusVC : YouAreAllDoneTableViewCellDelegate{
     }
     
     func addToCallendarTapped() {
-        
-        for legs in self.viewModel.itinerary.details.legsWithDetail{
-            guard let start = "\(legs.dd) \(legs.dt)".toDate(dateFormat: "yyyy-MM-dd HH:MM"),
-                let end = "\(legs.ad) \(legs.at)".toDate(dateFormat: "yyyy-MM-dd HH:MM") else {
-                    return
-            }
-            let bid = self.viewModel.itinerary.bookingNumber
-            let title = "Flight: \(legs.originIATACode) → \(legs.destinationIATACode)"
-            let location = self.viewModel.itinerary.details.apdet?[legs.originIATACode]?.c ?? ""
-            let bookingId = "Booking Id: \(self.viewModel.itinerary.bookingNumber)"
-            let notes = bookingId //+ "\n \(confirmationCode)"
-            AppGlobals.shared.addEventToCalender(title: title, startDate: start, endDate: end, location: location,  notes: notes, uniqueId: bid)
+        for bookingDetails in self.viewModel.bookingDetail{
+            self.addToCalender(bookingDetail: bookingDetails)
         }
     }
+    
+    
+    
+    
+    func addToCalender(bookingDetail: BookingDetailModel?) {
+        
+        let bId = bookingDetail?.bookingDetail?.bookingId ?? ""
+        bookingDetail?.bookingDetail?.leg.forEach({ (leg) in
+            leg.flight.forEach { (flightDetail) in
+                if let start = flightDetail.calendarDepartDate, let end = flightDetail.calendarArivalDate {
+                    let tripCity = "Flight: \(flightDetail.departCity) -> \(flightDetail.arrivalCity)"
+                    let flightCode = flightDetail.carrierCode
+                    let flightNo = flightDetail.flightNumber
+                    let title = tripCity + " (\(flightCode) \(flightNo))"
+                    let locaction = "\(flightDetail.departCity) \(flightDetail.departure)"
+                    let bookingId = "Booking Id: \(bookingDetail?.bookingDetail?.bookingId ?? "")"
+                    let pnrArray = leg.pax.map { (pax) -> String in
+                        pax.pnr
+                    }
+                    var pnr = pnrArray.joined(separator: ", ")
+                    if !pnr.isEmpty {
+                        pnr = "\nPNR: \(pnr)"
+                    }
+                    let notes = bookingId + pnr
+                    
+                    AppGlobals.shared.addEventToCalender(title: title, startDate: start, endDate: end,location: locaction, notes: notes, uniqueId: bId)
+                }
+            }
+        })
+        
+    }
+
+    
 }
 
 
