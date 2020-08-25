@@ -40,7 +40,6 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
         }
     }
     
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if viewModel.resultTableState == .showTemplateResults {
@@ -67,7 +66,6 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
                 return getGroupedFlightCell(indexPath: indexPath, journey: arrayForDisplay[indexPath.row])
 
             }
-            
         }
     }
     
@@ -153,7 +151,6 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
             self.resultsTableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if viewModel.resultTableState == .showTemplateResults {
