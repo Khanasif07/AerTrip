@@ -49,7 +49,9 @@ class PassengersSelectionVC: BaseVC {
     }
     
     func apiCall(){
-        GuestDetailsVM.shared.guests.removeAll()
+        if self.viewModel.sid != GuestDetailsVM.shared.sid{
+            GuestDetailsVM.shared.guests.removeAll()
+        }
         self.viewModel.setupGuestArray()
         self.viewModel.webserviceForGetCountryList()
         self.viewModel.setupLoginData()

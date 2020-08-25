@@ -50,7 +50,7 @@ struct TimeFK {
     var currentJourney : Journey?
     
     var currentSelectedIndex : Int?
-    var selectionViewFrame = CGRect(x: 0, y: 0, width: 58, height: 30)
+//    var selectionViewFrame = CGRect(x: 0, y: 0, width: 58, height: 30)
     let selectionView = UIView()
 
     
@@ -65,6 +65,7 @@ struct TimeFK {
         timeCollectionView.addSubview(selectionView)
         timeCollectionView.sendSubviewToBack(selectionView)
         timeSegmentBGView.clipsToBounds = true
+        selectionView.frame = CGRect(x: 0, y: 0, width: 58, height: 30)
     }
     
     func setupTableView() {
@@ -106,7 +107,6 @@ struct TimeFK {
         buttonTapped()
     }
     
-    
     @IBAction func collapseTableButtonTapped(_ sender: UIButton) {
         flightGroup.isCollapsed = !flightGroup.isCollapsed
         buttonTapped()
@@ -132,18 +132,24 @@ struct TimeFK {
              if  let selectedDepartureIndex = timeArray.firstIndex(where: { $0.fk == flightGroup.selectedFK}) {
                 currentSelectedIndex = selectedDepartureIndex
             }
-            selectionView.frame = selectionViewFrame
+//            selectionView.frame = selectionViewFrame
         }
         
         updateViewConstraints()
         timeCollectionView.reloadData()
         collaspableTableView.reloadData()
         resultsCollectionView.reloadData()
-        delay(seconds: 0.2) {
+       delay(seconds: 0.1) {
             let indexPath = IndexPath(row: self.currentSelectedIndex ?? 0, section: 0)
                    self.timeCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: UICollectionView.ScrollPosition.centeredHorizontally)
+            
+            self.resultsCollectionView.scrollToItem(at: IndexPath(item: self.currentSelectedIndex ?? 0, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
+            
             self.setSelectionViewFrame(animate: false)
-        }
+//            self.layoutIfNeeded()
+//            self.layoutSubviews()
+//            print("\(journey.fare)....\(self.currentSelectedIndex).....\(self.selectionView.frame)")
+       }
        
         summaryLabel.text = String(journey.count) + " flights at same price"
     }
@@ -170,13 +176,13 @@ struct TimeFK {
             self.selectionView.alpha = 0
         }else{
             self.timeSegmentBGViewHeight.constant = 30
-            self.tableViewHeight.constant = 139
+            self.tableViewHeight.constant = 147
             tableViewTop.constant = 90.0
             downArrowButtonHeight.constant = 0
             bottomWhitePatchVIewHeight.constant = 0
             self.resultsCollectionView.isHidden = false
             self.collaspableTableView.isHidden = true
-            self.selectionView.alpha = 0
+            self.selectionView.alpha = 1
         }
     }
     
@@ -225,6 +231,8 @@ struct TimeFK {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+//        self.currentSelectedIndex = 0
+        currentSelectedIndex = nil
         collaspableTableView.tableFooterView = nil
         expandCollapseButton.transform = .identity
 //        selectionView.alpha = 0.0

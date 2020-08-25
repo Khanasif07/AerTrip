@@ -27,6 +27,7 @@ class GuestDetailsVM: NSObject {
     var guests: [[ATContact]] = [[]]
     var selectedGuest: ATContact?
     var isFirstNameTextField = true
+    var sid:String = ""//To key user details for same search.
     var travellerList: [TravellerModel] = [] {
         didSet {
             fetchTravellersContact()

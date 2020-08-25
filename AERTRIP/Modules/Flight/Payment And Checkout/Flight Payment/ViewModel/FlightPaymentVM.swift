@@ -63,21 +63,38 @@ class FlightPaymentVM{
         taxAndFeesData.removeAll()
         var taxesDetails : [String:Int] = [String:Int]()
         var taxAndFeesDataDict = [taxStruct]()
+        var sortOrderArr = [String]()
         taxesDetails = self.itinerary.details.fare.taxes.details
+        for val in self.itinerary.details.fare.sortOrder.components(separatedBy: ","){
+            sortOrderArr.append(taxesResult[val.removeAllWhitespaces] ?? "")
+        }
         for (_, value) in taxesDetails.enumerated() {
             let newObj = taxStruct.init(name: taxesResult[value.key] ?? "", taxVal: value.value)
             taxAndFeesDataDict.append(newObj)
         }
         let newDict = Dictionary(grouping: taxAndFeesDataDict) { $0.name }
-        for ( key , _ ) in newDict {
-            let dataArray = newDict[key]
-            var newTaxVal = 0
-            for i in 0..<dataArray!.count {
-                newTaxVal += (dataArray?[i].taxVal ?? 0)
+        if sortOrderArr.isEmpty{
+            for ( key , _ ) in newDict {
+                let dataArray = newDict[key]
+                var newTaxVal = 0
+                for i in 0..<dataArray!.count {
+                    newTaxVal += (dataArray?[i].taxVal ?? 0)
+                }
+                let newArr = (key,newTaxVal)
+                taxAndFeesData.append(newArr)
             }
-            let newArr = (key,newTaxVal)
-            taxAndFeesData.append(newArr)
+        }else{
+            for key in sortOrderArr {
+                let dataArray = newDict[key]
+                var newTaxVal = 0
+                for i in 0..<dataArray!.count {
+                    newTaxVal += (dataArray?[i].taxVal ?? 0)
+                }
+                let newArr = (key,newTaxVal)
+                taxAndFeesData.append(newArr)
+            }
         }
+        
         self.addonsDataDisplay()
         self.discountDataDisplay()
         self.getNumberOfSection()
@@ -296,7 +313,11 @@ extension FlightPaymentVM{
         }
     }
     
-    
+    func updateConvenienceFee(){
+        if self.paymentDetails != nil{
+            self.paymentDetails?.paymentModes.razorPay = self.appliedCouponData.itinerary.paymentModes.razorPay
+        }
+    }
     
     func getCouponsDetailsApi(completion: @escaping((_ success:Bool, _ couponData: [HCCouponModel], _ error:ErrorCodes)->())) {
 

@@ -243,6 +243,8 @@ class AddPassengerDetailsCell: UITableViewCell {
         case .Child, .Infant:
             self.dobAndNationalityStack.isHidden = false
             self.nataionalityView.isHidden = true
+            self.fNameDivider.isHidden = false
+            self.lNameDivider.isHidden = false
             self.dobDivider.isHidden = isNoOption
         }
     }

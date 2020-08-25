@@ -102,7 +102,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         addCustomBackgroundBlurView()
-        addSwipeLeftGuesture()
+//        addSwipeLeftGuesture()
     }
     
     func addSwipeLeftGuesture(){

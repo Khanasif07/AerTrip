@@ -31,4 +31,5 @@ class ResultHeaderView: UIView {
         grayView.layer.cornerRadius = 10.0
         yellowView.layer.cornerRadius = 5.0
     }
+    
 }

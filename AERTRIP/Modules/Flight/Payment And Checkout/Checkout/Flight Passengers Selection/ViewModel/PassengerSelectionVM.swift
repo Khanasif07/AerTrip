@@ -73,6 +73,13 @@ class PassengerSelectionVM  {
     
     func setupGuestArray() {
         AddonsDataStore.shared.resetData()
+        guard self.sid != GuestDetailsVM.shared.sid else {
+            self.setupLoginData()
+            GuestDetailsVM.shared.canShowSalutationError = false
+            return
+        }
+        HCSelectGuestsVM.shared.clearAllSelectedData()
+        GuestDetailsVM.shared.sid = self.sid
         GuestDetailsVM.shared.guests.removeAll()
         var temp: [ATContact] = []
         guard let bookingObj = self.bookingObject else {return}
@@ -167,7 +174,6 @@ class PassengerSelectionVM  {
         self.itineraryData = newItineraryData
         self.id = self.itineraryData.itinerary.id
         self.sid = self.itineraryData.itinerary.sid
-        HCSelectGuestsVM.shared.clearAllSelectedData()
         GuestDetailsVM.shared.travellerList = self.itineraryData.itinerary.travellerMaster
         if let artpt = self.itineraryData.itinerary.details.apdet{
             self.intAirportDetailsResult = artpt
