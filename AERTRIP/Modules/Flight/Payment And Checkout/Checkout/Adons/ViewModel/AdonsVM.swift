@@ -644,7 +644,6 @@ extension AdonsVM {
                     self.delegate?.failedToBookBlight(error: error)
                 }
             }
-            
         }
         
         /// To get Itenerary Data from API

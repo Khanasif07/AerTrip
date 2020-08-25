@@ -15,8 +15,10 @@ class IntFlightResultDisplayGroup {
         case layoverDuration
     }
     
-    internal var initiatedFilters: [Int: Set<FlightResultDisplayGroup.InitiatedFilters>] = [:]
+    internal var initiatedFilters:  Set<FlightResultDisplayGroup.InitiatedFilters> = []
 
+    /// Only for checking if user has initiated application of filter
+    /// For filters with multiple checks only
     
     let index : Int
     weak var delegate : FlightResultViewModelDelegate?
