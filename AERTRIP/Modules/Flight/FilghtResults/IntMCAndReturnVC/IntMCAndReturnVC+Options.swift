@@ -87,7 +87,6 @@ extension IntMCAndReturnVC {
 //          }, completion: nil)
           
       }
-    
 }
 
 extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
