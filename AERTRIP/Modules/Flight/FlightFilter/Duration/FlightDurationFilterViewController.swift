@@ -172,7 +172,9 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
             guard fraction < 1 else { break }
             markerLocations.append(fraction)
         }
-        createMarkersAt(positions: markerLocations , slider: tripDurationSlider)
+//        tripDurationSlider.createMarkers(at: markerLocations)
+        
+//        createMarkersAt(positions: markerLocations , slider: tripDurationSlider)
         
     }
     
@@ -235,14 +237,13 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     {
         for position in positions
         {
-            let trackWidth = slider.width
+            let trackWidth = (slider.bounds.size.width - 2 * 15)
             let xPosition = position * trackWidth
-            let marker = UIView(frame: CGRect(x: (xPosition - 1.5), y: slider.frame.height/2 - 2 , width: 3.0, height: 3.0 ))
+            let marker = UIView(frame: CGRect(x: 15 + xPosition, y: slider.frame.height/2 - 2 , width: 3.0, height: 3.0 ))
             marker.backgroundColor = UIColor.black.withAlphaComponent(0.4)
             tripDurationMarkersArr.append(marker)
             slider.addSubview(marker)
             slider.bringSubviewToFront(marker)
-            
         }
     }
     
