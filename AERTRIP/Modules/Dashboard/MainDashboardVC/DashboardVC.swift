@@ -428,7 +428,8 @@ extension DashboardVC  {
                 
                 let increaseTransform = 1.0 + progressValueMoved/4.0
                 let decreaseTransform = 1.0 - progressValueMoved/4.0
-                
+                printDebug("increaseTransform: \(increaseTransform)")
+                printDebug("decreaseTransform: \(decreaseTransform)")
                 if scrollView.contentOffset.x >= 0 {
                     if self.isSelectingFromTabs {
                         if self.selectedOption != self.toBeSelect {
@@ -446,6 +447,8 @@ extension DashboardVC  {
                 
                 let increaseTransform = 1.0 + tabValueMoved/4
                 let decreaseTransform = 1.0 - tabValueMoved/4
+                printDebug("increaseTransform: \(increaseTransform)")
+                printDebug("decreaseTransform: \(decreaseTransform)")
                 if scrollView.contentOffset.x >= 0 {
                     if self.isSelectingFromTabs {
                         if self.selectedOption != self.toBeSelect {

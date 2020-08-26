@@ -123,7 +123,7 @@ class MailComposerVC: BaseVC {
         mailComposerHeaderView.sharedStatusLabel.textAlignment = .center
         self.setUpCheckInOutView()
         self.tableView.tableHeaderView = mailComposerHeaderView
-        self.updateHeightOfHeader(mailComposerHeaderView, mailComposerHeaderView.toEmailTextView)
+        self.updateHeightOfHeader(mailComposerHeaderView, mailComposerHeaderView.messageSubjectTextView)
         mailComposerHeaderView.seeRatesButton.isUserInteractionEnabled = false
         mailComposerHeaderView.clipsToBounds = true
     }
@@ -167,8 +167,10 @@ class MailComposerVC: BaseVC {
     
     private func updateSendButton(){
         
-        let mail = self.mailComposerHeaderView.toEmailTextView.text
-        let mailsArray = mail?.components(separatedBy: ",") ?? []
+        let mailsArray = self.mailComposerHeaderView.tagsField.tags.map { (tag) -> String in
+            return tag.text
+        }
+       // let mailsArray = mail?.components(separatedBy: ",") ?? []
         let emails = mailsArray.filter({ $0 != " " &&  $0 != ""})
         var isEmailValid = false
         for email in emails{
@@ -209,8 +211,11 @@ extension MailComposerVC: TopNavigationViewDelegate {
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         printDebug("Send mail")
         self.view.endEditing(true)
-        let mail = self.mailComposerHeaderView.toEmailTextView.text
-        let mailsArray = mail?.components(separatedBy: ",") ?? []
+        //let mail = self.mailComposerHeaderView.toEmailTextView.text
+        let mailsArray = self.mailComposerHeaderView.tagsField.tags.map { (tag) -> String in
+            return tag.text
+        }
+        //let mailsArray = mail?.components(separatedBy: ",") ?? []
         self.viewModel.pinnedEmails = mailsArray.filter({ $0 != " " })
         if self.viewModel.pinnedEmails.contains("") {
             AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterEmail.localized)
@@ -249,6 +254,15 @@ extension MailComposerVC: UITableViewDataSource, UITableViewDelegate {
 // MARK: -  Mail Composer Header View Delegate methods
 
 extension MailComposerVC: EmailComposeerHeaderViewDelegate {
+    func emailTagAddedOrRemoved() {
+       self.updateSendButton()
+    }
+    
+    func textViewText(emailTextViewHeight: CGFloat) {
+        mailComposerHeaderView.emailContainerViewHeightConstraint.constant = emailTextViewHeight
+        updateHeightOfHeader(mailComposerHeaderView, mailComposerHeaderView.messageSubjectTextView)
+    }
+    
     
     func updateHeightOfHeader(_ headerView: EmailComposerHeaderView, _ textView: UITextView) {
         let minHeight = textView.font!.lineHeight * 1.0
@@ -256,7 +270,7 @@ extension MailComposerVC: EmailComposeerHeaderViewDelegate {
         //for email textView (screenW-62)
         //for message textView (screenW-32)
         
-        var emailHeight = headerView.toEmailTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 62.0), height: 10000.0)).height
+        var emailHeight = headerView.emailContainerViewHeightConstraint.constant//headerView.toEmailTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 62.0), height: 10000.0)).height
         
         var msgHeight = headerView.messageSubjectTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 22.0), height: 10000.0)).height
         
@@ -276,12 +290,13 @@ extension MailComposerVC: EmailComposeerHeaderViewDelegate {
         self.tableView.tableHeaderView?.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: (607.0 + emailHeight + msgHeight + labelHeight))
         
         UIView.animate(withDuration: 0.3, animations: {
-            headerView.emailHeightConatraint.constant = emailHeight
+           // headerView.emailContainerViewHeightConstraint.constant = emailHeight
+            //headerView.tagsField.maxHeight = emailHeight
             headerView.subjectHeightConstraint.constant = msgHeight
             headerView.checkOutMessageLabelHeightConstraint.constant = labelHeight
             self.view.layoutIfNeeded()
         }, completion: { (isDone) in
-            headerView.toEmailTextView.isScrollEnabled = emailHeight >= maxHeight
+            //headerView.tagsField.enableScrolling = emailHeight >= maxHeight
             headerView.messageSubjectTextView.isScrollEnabled = msgHeight >= maxHeight
         })
     }
@@ -328,9 +343,9 @@ extension MailComposerVC: CNContactPickerDelegate {
         picker.dismiss(animated: true, completion: nil)
         if let _mail = contact.emailAddresses.first?.value as String? {
             printDebug("mail is \(_mail)")
-            self.mailComposerHeaderView.toEmailTextView.text.append(_mail)
-            self.mailComposerHeaderView.toEmailTextView.layoutIfNeeded()
-            self.updateHeightOfHeader(mailComposerHeaderView,mailComposerHeaderView.toEmailTextView)
+            self.mailComposerHeaderView.tagsField.addTag(_mail)
+           // self.mailComposerHeaderView.toEmailTextView.layoutIfNeeded()
+            self.updateHeightOfHeader(mailComposerHeaderView,mailComposerHeaderView.messageSubjectTextView)
             self.selectedUserEmail = _mail
         } else {
             AppToast.default.showToastMessage(message: LocalizedString.UnableToGetMail.localized, title:"", onViewController: self, duration: 0.6)

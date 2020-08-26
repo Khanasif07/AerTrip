@@ -31,16 +31,6 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ceQ-iC-loU" customClass="ATEmailSelectorTextView" customModule="AERTRIP" customModuleProvider="target">
-                            <rect key="frame" x="13" y="28" width="316" height="23"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="23" id="0vA-yN-6Bv"/>
-                            </constraints>
-                            <color key="textColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                        </textView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A1W-Xe-V2F">
                             <rect key="frame" x="13" y="28" width="316" height="23"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -329,7 +319,6 @@
                         <constraint firstAttribute="trailing" secondItem="Tvp-gj-PIc" secondAttribute="trailing" id="HLo-re-B4G"/>
                         <constraint firstAttribute="trailing" secondItem="IBF-re-cKD" secondAttribute="trailing" constant="16" id="HTX-Mn-R62"/>
                         <constraint firstItem="CL1-bf-r78" firstAttribute="top" secondItem="IBF-re-cKD" secondAttribute="bottom" constant="26" id="Hyv-a6-2YL"/>
-                        <constraint firstItem="ceQ-iC-loU" firstAttribute="top" secondItem="dWR-0m-g9N" secondAttribute="bottom" constant="2" id="Ie9-Ji-LaO"/>
                         <constraint firstAttribute="trailing" secondItem="j5U-IC-iww" secondAttribute="trailing" constant="16" id="Jz5-d2-rzl"/>
                         <constraint firstItem="BOy-xX-wKf" firstAttribute="leading" secondItem="PEr-vS-ghZ" secondAttribute="leading" constant="16" id="L6A-xd-HZP"/>
                         <constraint firstItem="oRo-04-jGV" firstAttribute="leading" secondItem="PEr-vS-ghZ" secondAttribute="leading" id="OH7-0f-1kg"/>
@@ -337,7 +326,6 @@
                         <constraint firstItem="Tvp-gj-PIc" firstAttribute="top" secondItem="5fx-v2-Dvx" secondAttribute="bottom" constant="9" id="PnO-BY-t2W"/>
                         <constraint firstAttribute="trailing" secondItem="BOy-xX-wKf" secondAttribute="trailing" id="QkJ-WK-i8M"/>
                         <constraint firstItem="j5U-IC-iww" firstAttribute="leading" secondItem="PEr-vS-ghZ" secondAttribute="leading" constant="16" id="R9m-KX-eWX"/>
-                        <constraint firstItem="5fx-v2-Dvx" firstAttribute="leading" secondItem="ceQ-iC-loU" secondAttribute="trailing" constant="8" id="SJu-Y8-kVs"/>
                         <constraint firstAttribute="trailing" secondItem="CL1-bf-r78" secondAttribute="trailing" id="Sc5-2M-VMi"/>
                         <constraint firstAttribute="trailing" secondItem="5fx-v2-Dvx" secondAttribute="trailing" constant="16" id="WHM-FT-PxX"/>
                         <constraint firstItem="IBF-re-cKD" firstAttribute="leading" secondItem="PEr-vS-ghZ" secondAttribute="leading" constant="16" id="WlU-Di-qdr"/>
@@ -347,15 +335,13 @@
                         <constraint firstItem="ube-H2-2Px" firstAttribute="top" secondItem="A1W-Xe-V2F" secondAttribute="bottom" constant="17" id="dZG-tU-bNt"/>
                         <constraint firstAttribute="trailing" secondItem="oRo-04-jGV" secondAttribute="trailing" id="eIW-eN-PwQ"/>
                         <constraint firstItem="dWR-0m-g9N" firstAttribute="top" secondItem="PEr-vS-ghZ" secondAttribute="top" constant="8" id="eX1-aG-SJn"/>
-                        <constraint firstItem="ceQ-iC-loU" firstAttribute="leading" secondItem="PEr-vS-ghZ" secondAttribute="leading" constant="13" id="fmy-d6-ZRa"/>
                         <constraint firstAttribute="trailing" secondItem="ocP-IW-CF3" secondAttribute="trailing" id="hYM-fL-bXr"/>
                         <constraint firstItem="ube-H2-2Px" firstAttribute="leading" secondItem="PEr-vS-ghZ" secondAttribute="leading" constant="16" id="hj5-j4-8w7"/>
-                        <constraint firstItem="ube-H2-2Px" firstAttribute="top" secondItem="ceQ-iC-loU" secondAttribute="bottom" constant="17" id="hsV-xX-Cav"/>
                         <constraint firstItem="90Q-sL-sHD" firstAttribute="leading" secondItem="PEr-vS-ghZ" secondAttribute="leading" constant="16" id="i4I-ck-LVe"/>
                         <constraint firstItem="PAu-eZ-YrA" firstAttribute="top" secondItem="ube-H2-2Px" secondAttribute="bottom" constant="2" id="iCB-8Y-fKF"/>
                         <constraint firstItem="A1W-Xe-V2F" firstAttribute="top" secondItem="dWR-0m-g9N" secondAttribute="bottom" constant="2" id="k9w-Yc-yEc"/>
                         <constraint firstItem="5fx-v2-Dvx" firstAttribute="leading" secondItem="A1W-Xe-V2F" secondAttribute="trailing" constant="8" id="mfT-bW-WjE"/>
-                        <constraint firstItem="5fx-v2-Dvx" firstAttribute="bottom" secondItem="ceQ-iC-loU" secondAttribute="bottom" id="p1h-l7-BEF"/>
+                        <constraint firstItem="5fx-v2-Dvx" firstAttribute="bottom" secondItem="A1W-Xe-V2F" secondAttribute="bottom" id="sdi-Pv-qgt"/>
                         <constraint firstItem="IBF-re-cKD" firstAttribute="top" secondItem="ocP-IW-CF3" secondAttribute="bottom" constant="26" id="toh-fy-GCh"/>
                         <constraint firstItem="PAu-eZ-YrA" firstAttribute="bottom" secondItem="BOy-xX-wKf" secondAttribute="bottom" constant="-9" id="ujr-qM-0Ov"/>
                         <constraint firstItem="CL1-bf-r78" firstAttribute="leading" secondItem="PEr-vS-ghZ" secondAttribute="leading" id="ukv-xb-NGG"/>
@@ -387,9 +373,8 @@
                 <outlet property="checkOutMessageLabel" destination="IBF-re-cKD" id="U0a-BU-h3Z"/>
                 <outlet property="checkOutMessageLabelHeightConstraint" destination="aSk-dB-7tx" id="rcf-pe-hNV"/>
                 <outlet property="checkOutTitleLable" destination="5lj-uF-N7H" id="nff-QS-Cb5"/>
-                <outlet property="emailHeightConatraint" destination="0vA-yN-6Bv" id="4aw-2n-J2p"/>
-                <outlet property="emailTextField" destination="A1W-Xe-V2F" id="rQl-QW-Bmp"/>
-                <outlet property="emailTextFieldHeightConstraint" destination="eDI-hO-zQv" id="mwn-G2-aoY"/>
+                <outlet property="emailContainerView" destination="A1W-Xe-V2F" id="KBa-j8-VZm"/>
+                <outlet property="emailContainerViewHeightConstraint" destination="eDI-hO-zQv" id="QeZ-VW-QvU"/>
                 <outlet property="firstDotedView" destination="ocP-IW-CF3" id="itV-hx-oI6"/>
                 <outlet property="hotelResultLabel" destination="90Q-sL-sHD" id="Lg6-ct-koP"/>
                 <outlet property="messageLabel" destination="ube-H2-2Px" id="VnR-aw-sLL"/>
@@ -399,7 +384,6 @@
                 <outlet property="seeRatesButton" destination="q7i-Bc-ECR" id="klL-oI-PpG"/>
                 <outlet property="sharedStatusLabel" destination="wtN-30-eUt" id="kh3-pb-5Vm"/>
                 <outlet property="subjectHeightConstraint" destination="tQW-5S-S8K" id="of5-qf-KEj"/>
-                <outlet property="toEmailTextView" destination="ceQ-iC-loU" id="rEl-vn-wDM"/>
                 <outlet property="toLabel" destination="dWR-0m-g9N" id="epD-qW-vBg"/>
             </connections>
             <point key="canvasLocation" x="16.800000000000001" y="160.56971514242881"/>

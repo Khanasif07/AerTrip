@@ -1537,7 +1537,6 @@ with us!</string>
         <!--Booking Request Add OnsFFVC-->
         <scene sceneID="bg3-QD-dNM">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="d3P-5B-AQq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="BookingRequestAddOnsFFVC" id="8Ar-K6-6p1" customClass="BookingRequestAddOnsFFVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BEJ-Ul-xq7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -1600,6 +1599,7 @@ with us!</string>
                         <outlet property="topNavigationView" destination="Slw-2P-6Su" id="jpH-IY-Hia"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d3P-5B-AQq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3936.8000000000002" y="761.46926536731644"/>
         </scene>
@@ -1860,15 +1860,13 @@ with us!</string>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="pU3-7x-KCv" customClass="ATEmailSelectorTextView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="39.5" y="11.5" width="324.5" height="20"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hdl-CV-WIO">
+                                        <rect key="frame" x="39.5" y="7.5" width="324.5" height="20"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="ohd-jy-fRZ"/>
+                                            <constraint firstAttribute="height" constant="20" id="CtY-eE-oZj"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
+                                    </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6TH-GX-8GW">
                                         <rect key="frame" x="376" y="11" width="22" height="22"/>
                                         <constraints>
@@ -1882,14 +1880,14 @@ with us!</string>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="pU3-7x-KCv" firstAttribute="leading" secondItem="BFQ-HM-0yQ" secondAttribute="trailing" id="2gF-aW-6e5"/>
                                     <constraint firstAttribute="trailing" secondItem="6TH-GX-8GW" secondAttribute="trailing" constant="16" id="2vz-YX-gkA"/>
-                                    <constraint firstItem="6TH-GX-8GW" firstAttribute="leading" secondItem="pU3-7x-KCv" secondAttribute="trailing" constant="12" id="HnH-wa-UW3"/>
-                                    <constraint firstItem="pU3-7x-KCv" firstAttribute="top" secondItem="BFQ-HM-0yQ" secondAttribute="top" id="KyS-Rg-FGV"/>
+                                    <constraint firstItem="hdl-CV-WIO" firstAttribute="top" secondItem="BFQ-HM-0yQ" secondAttribute="top" constant="-4" id="DyY-Ym-LOE"/>
+                                    <constraint firstAttribute="bottom" secondItem="hdl-CV-WIO" secondAttribute="bottom" constant="16" id="QDW-XI-0gw"/>
+                                    <constraint firstItem="6TH-GX-8GW" firstAttribute="leading" secondItem="hdl-CV-WIO" secondAttribute="trailing" constant="12" id="adB-Ie-RdV"/>
                                     <constraint firstItem="BFQ-HM-0yQ" firstAttribute="leading" secondItem="F7d-bq-YSK" secondAttribute="leading" constant="16" id="e1r-sD-b84"/>
                                     <constraint firstItem="BFQ-HM-0yQ" firstAttribute="top" secondItem="F7d-bq-YSK" secondAttribute="top" constant="11.5" id="gpW-8C-MS7"/>
+                                    <constraint firstItem="hdl-CV-WIO" firstAttribute="leading" secondItem="BFQ-HM-0yQ" secondAttribute="trailing" id="hfC-2K-PcF"/>
                                     <constraint firstItem="6TH-GX-8GW" firstAttribute="top" secondItem="F7d-bq-YSK" secondAttribute="top" constant="11" id="u42-IT-VaD"/>
-                                    <constraint firstAttribute="bottom" secondItem="pU3-7x-KCv" secondAttribute="bottom" constant="12" id="zP0-96-IoW"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XFI-IG-ufI">
@@ -1942,12 +1940,12 @@ with us!</string>
                     <connections>
                         <outlet property="addEmailButton" destination="6TH-GX-8GW" id="Xus-54-vPk"/>
                         <outlet property="bottomView" destination="XFI-IG-ufI" id="YZy-AD-HF9"/>
+                        <outlet property="emailContainerView" destination="hdl-CV-WIO" id="37s-CA-gjp"/>
+                        <outlet property="emailContainerViewHeightConstraint" destination="CtY-eE-oZj" id="9aW-3l-vnI"/>
                         <outlet property="emailTextViewBottomConstraint" destination="UFk-6B-ijX" id="DFy-jz-uxJ"/>
                         <outlet property="infoLabel" destination="uQe-I9-BGR" id="CYF-HW-NDG"/>
                         <outlet property="navigationViewHeightConstraint" destination="IvS-GF-syQ" id="HNe-9x-ZAW"/>
-                        <outlet property="toEmailTextViewHeightConstraint" destination="ohd-jy-fRZ" id="wjk-ak-wXn"/>
                         <outlet property="toLabel" destination="BFQ-HM-0yQ" id="i8G-O2-DB9"/>
-                        <outlet property="toMailTextView" destination="pU3-7x-KCv" id="VDJ-ls-oUo"/>
                         <outlet property="topNavigationView" destination="aKq-04-O9H" id="IMQ-T9-xHt"/>
                     </connections>
                 </viewController>
