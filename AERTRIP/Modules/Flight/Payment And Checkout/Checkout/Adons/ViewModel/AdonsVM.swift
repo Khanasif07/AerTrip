@@ -450,7 +450,6 @@ extension AdonsVM {
 //MARK:- Api related functions
 extension AdonsVM {
     
-       
         func createParamForItineraryApi(){
             let dataStore = AddonsDataStore.shared
             self.parmsForItinerary[APIKeys.mobile.rawValue] = dataStore.mobile
