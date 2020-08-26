@@ -78,7 +78,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     var legsArray = [Leg]()
     var currentActiveIndex = 0
     var showingForReturnJourney = false
-    private var tripDurationMarkersArr = [UIView]()
+    var isFeedBackProvided = false
     
     var tripDurationDiffForFraction: CGFloat {
         return (currentDurationFilter.tripDurationmaxDuration - currentDurationFilter.tripDurationMinDuration)
@@ -160,10 +160,6 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     }
     
     private func addMarkersOnTripDuration() {
-        tripDurationMarkersArr.forEach { (marker) in
-            marker.removeFromSuperview()
-        }
-        tripDurationMarkersArr.removeAll()
         let minVal = currentDurationFilter.tripDurationMinDuration - currentDurationFilter.tripDurationMinDuration
         let maxVal = currentDurationFilter.tripDurationmaxDuration - currentDurationFilter.tripDurationMinDuration
         let diff = maxVal - minVal
@@ -361,8 +357,13 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         currentDurationFilter.userSelectedTripMin = ((tripDurationSlider.leftValue * tripDurationDiffForFraction) + currentDurationFilter.tripDurationMinDuration).rounded(.down)
         currentDurationFilter.userSelectedTripMax = ((tripDurationSlider.rightValue * tripDurationDiffForFraction) + currentDurationFilter.tripDurationMinDuration).rounded(.up)
         
-        if (currentDurationFilter.userSelectedTripMin.truncatingRemainder(dividingBy: 24) == 0) || (currentDurationFilter.userSelectedTripMax.truncatingRemainder(dividingBy: 24) == 0) {
-            print("24")
+        if (((currentDurationFilter.userSelectedTripMin.truncatingRemainder(dividingBy: 24) == 0) && currentDurationFilter.userSelectedTripMin != currentDurationFilter.tripDurationMinDuration)) || ((currentDurationFilter.userSelectedTripMax.truncatingRemainder(dividingBy: 24) == 0) && currentDurationFilter.userSelectedTripMax != currentDurationFilter.tripDurationmaxDuration) {
+            if !isFeedBackProvided {
+               generateHapticFeedback()
+            }
+            isFeedBackProvided = true
+        } else {
+            isFeedBackProvided = false
         }
         
         tripDurationMinLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedTripMin)
@@ -388,14 +389,6 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         else {
             delegate?.tripDurationChangedAt(currentActiveIndex, min:  currentDurationFilter.userSelectedTripMin, max:  currentDurationFilter.userSelectedTripMax)
         }
-        
-        if currentDurationFilter.userSelectedTripMin == 24.0 || currentDurationFilter.userSelectedTripMax == 24.0 || currentDurationFilter.userSelectedTripMin == 48.0 || currentDurationFilter.userSelectedTripMax == 48.0
-        {
-            //*******************Haptic Feedback code********************
-            let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-            selectionFeedbackGenerator.selectionChanged()
-            //*******************Haptic Feedback code********************
-        }
     }
     
     @IBAction func layoverDurationChanged(_ sender: MARKRangeSlider) {
@@ -407,6 +400,16 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         layoverDurationMinLabelWidth.constant = layoverDurationMinLabel.intrinsicContentSize.width + 16.0
         
         layoverDurationMaxLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedLayoverMax)
+        
+        
+        if (((currentDurationFilter.userSelectedLayoverMin.truncatingRemainder(dividingBy: 24) == 0) && currentDurationFilter.userSelectedLayoverMin != currentDurationFilter.layoverMinDuration) || (currentDurationFilter.userSelectedLayoverMax.truncatingRemainder(dividingBy: 24) == 0) && currentDurationFilter.userSelectedLayoverMax != currentDurationFilter.layoverMaxDuration) {
+            if !isFeedBackProvided {
+               generateHapticFeedback()
+            }
+            isFeedBackProvided = true
+        } else {
+            isFeedBackProvided = false
+        }
         
     }
     
@@ -424,15 +427,6 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         else {
             delegate?.layoverDurationChangedAt(currentActiveIndex ,min:  currentDurationFilter.userSelectedLayoverMin, max:  currentDurationFilter.userSelectedLayoverMax)
         }
-        
-        if currentDurationFilter.userSelectedLayoverMin == 24.0 || currentDurationFilter.userSelectedLayoverMax == 24.0 || currentDurationFilter.userSelectedLayoverMin == 48.0 || currentDurationFilter.userSelectedLayoverMax == 48.0
-        {
-            //*******************Haptic Feedback code********************
-            let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-            selectionFeedbackGenerator.selectionChanged()
-            //*******************Haptic Feedback code********************
-        }
-        
     }
     
     @IBAction fileprivate func tappedOnMulticityButton( sender : UIButton) {
@@ -453,5 +447,12 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         setupTripDurationValues()
         setupLayoutDurationValues()
         
+    }
+    
+    private func generateHapticFeedback() {
+        //*******************Haptic Feedback code********************
+        let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        selectionFeedbackGenerator.selectionChanged()
+        //*******************Haptic Feedback code********************
     }
 }
