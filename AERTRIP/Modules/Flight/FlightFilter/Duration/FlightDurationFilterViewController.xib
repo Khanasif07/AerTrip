@@ -111,7 +111,7 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8kD-f4-BI3" customClass="MARKRangeSlider">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8kD-f4-BI3" customClass="AertripRangeSlider" customModule="AERTRIP" customModuleProvider="target">
                             <rect key="frame" x="16" y="93" width="343" height="28"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
