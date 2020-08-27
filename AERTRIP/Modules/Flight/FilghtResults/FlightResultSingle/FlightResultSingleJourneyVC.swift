@@ -86,10 +86,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         }
     }
     
-    
-  
-
-    
     fileprivate func setupTableView(){
         resultsTableView.register(UINib(nibName: "SingleJourneyResultTemplateCell", bundle: nil), forCellReuseIdentifier: "SingleJourneyTemplateCell")
         resultsTableView.register(UINib(nibName: "SingleJourneyResultTableViewCell", bundle: nil), forCellReuseIdentifier: "SingleJourneyResultTableViewCell")
@@ -100,9 +96,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         resultsTableView.rowHeight = UITableView.automaticDimension
     }
     
-    
-    func setupPinnedFlightsOptionsView()
-    {
+    func setupPinnedFlightsOptionsView() {
         //        pinnedFlightOptionsTop.constant = 0
         
         switchView.delegate = self
@@ -334,7 +328,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             var yCordinate : CGFloat
             yCordinate = max (  -self.visualEffectViewHeight ,  -offsetDifference )
             yCordinate = min ( 0,  yCordinate)
-            
             
             UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseOut], animations: {
                 

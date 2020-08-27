@@ -113,13 +113,14 @@ struct DomesticMultilegJourneyResultsArray {
 //        }
 //    }
 //
-    var expensiveJourneyArray : [Journey]! {
-        get {
-            return journeyArray.filter(){ $0.isAboveHumanScore == true }
-        }
-        set(newJourneyArray) {
-        }
-    }
+    
+//    var expensiveJourneyArray : [Journey]! {
+//        get {
+//            return journeyArray.filter(){ $0.isAboveHumanScore == true }
+//        }
+//        set(newJourneyArray) {
+//        }
+//    }
     
     var pinnedFlights : [Journey] {
         return journeyArray.filter{ $0.isPinned  ?? false }

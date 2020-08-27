@@ -11,7 +11,6 @@ import SnapKit
 
 extension FlightDomesticMultiLegResultVC {
     
-        
     func setupHeaderView() {
         let rect = CGRect(x: 0, y: self.headerCollectionViewTop.constant + 52 , width: UIScreen.main.bounds.size.width, height: 165)
         self.bannerView = ResultHeaderView(frame: rect)
@@ -45,13 +44,13 @@ extension FlightDomesticMultiLegResultVC {
     {
         let width =  UIScreen.main.bounds.size.width / 2.0
         let height = self.baseScrollView.frame.height
-        baseScrollView.contentSize = CGSize( width: (CGFloat(numberOfLegs) * width ), height:height + 88.0)
+        baseScrollView.contentSize = CGSize( width: (CGFloat(self.viewModel.numberOfLegs) * width ), height:height + 88.0)
         baseScrollView.showsHorizontalScrollIndicator = false
         baseScrollView.showsVerticalScrollIndicator = false
         baseScrollView.delegate = self
         baseScrollView.bounces = false
         baseScrollView.isDirectionalLockEnabled = true
-        for i in 0 ..< numberOfLegs {
+        for i in 0 ..< self.viewModel.numberOfLegs {
             setupTableView(At: i)
         }
     }
@@ -96,7 +95,6 @@ extension FlightDomesticMultiLegResultVC {
     }
     
     func setupCollectionView() {
-        
         headerCollectionView.register( UINib(nibName: "FlightSectorHeaderCell", bundle: nil), forCellWithReuseIdentifier: "HeaderCollectionView")
         headerCollectionView.bounces = false
         headerCollectionView.isScrollEnabled = false
@@ -172,16 +170,7 @@ extension FlightDomesticMultiLegResultVC {
     
     //MARK:- Fare Breakup View Methods
     
-    fileprivate func setTotalFare() {
-        if let selectedJourneys = self.getSelectedJourneyForAllLegs() {
-            if selectedJourneys.count == numberOfLegs {
-                ShowFareBreakupView()
-            }
-        }
-        else {
-            hideFareBreakupView()
-        }
-    }
+   
     
     func setupBottomView() {
         
@@ -190,7 +179,7 @@ extension FlightDomesticMultiLegResultVC {
         self.navigationController?.view.addSubview(testView)
         
         let fareBreakupVC = FareBreakupVC(nibName: "FareBreakupVC", bundle: nil)
-        fareBreakupVC.taxesResult = taxesResult
+        fareBreakupVC.taxesResult = self.viewModel.taxesResult
         fareBreakupVC.journey = getSelectedJourneyForAllLegs()
         fareBreakupVC.sid = sid
         fareBreakupVC.flightAdultCount = bookFlightObject.flightAdultCount
@@ -419,7 +408,7 @@ extension FlightDomesticMultiLegResultVC {
 extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetailsPinFlightDelegate
 {
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool, isPinnedButtonClicked: Bool) {
-        for index in 0 ..< numberOfLegs {
+        for index in 0 ..< self.viewModel.numberOfLegs {
                    
                    let tableResultState = viewModel.resultsTableStates[index]
                    if tableResultState == .showTemplateResults {  return  }
@@ -464,12 +453,12 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
     
             flightDetailsVC.delegate = self
             flightDetailsVC.bookFlightObject = self.bookFlightObject
-            flightDetailsVC.taxesResult = self.taxesResult
+            flightDetailsVC.taxesResult = self.viewModel.taxesResult
             flightDetailsVC.sid = sid
             flightDetailsVC.journey = getSelectedJourneyForAllLegs()
             flightDetailsVC.titleString = titleString
-            flightDetailsVC.airportDetailsResult = airportDetailsResult
-            flightDetailsVC.airlineDetailsResult = airlineDetailsResult
+            flightDetailsVC.airportDetailsResult = self.viewModel.airportDetailsResult
+            flightDetailsVC.airlineDetailsResult = self.viewModel.airlineDetailsResult
     
             if let allJourneyObj = getSelectedJourneyForAllLegs(){
                 for i in 0..<allJourneyObj.count{
@@ -481,20 +470,18 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
             self.present(flightDetailsVC, animated: true, completion: nil)
     }
     
-    func updateAirportDetailsArray(_ results : [String : AirportDetailsWS])
-    {
-        airportDetailsResult = results
+    func updateAirportDetailsArray(_ results : [String : AirportDetailsWS]) {
+        self.viewModel.airportDetailsResult = results
     }
     
-    func updateAirlinesDetailsArray(_ results : [String : AirlineMasterWS])
-    {
-        airlineDetailsResult = results
+    func updateAirlinesDetailsArray(_ results : [String : AirlineMasterWS]) {
+        self.viewModel.airlineDetailsResult = results
     }
     
-    func updateTaxesArray(_ results : [String : String])
-    {
-        taxesResult = results
+    func updateTaxesArray(_ results : [String : String]) {
+        self.viewModel.taxesResult = results
     }
+    
 }
 
 //MARK:- UIContextMenuInteractionDelegate Method
@@ -513,22 +500,17 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
                 let locationInTableView = interaction.location(in: tableview)
                 if let indexPath = tableview.indexPathForRow(at: locationInTableView) {
                     
-                    var arrayForDisplay = self.results[index].suggestedJourneyArray
+                    var arrayForDisplay = self.viewModel.results[index].suggestedJourneyArray
                     let tableState = self.viewModel.resultsTableStates[index]
-                    
-                    if self.sortOrder == .Smart{
-//                        || self.sortOrder == .Price || self.sortOrder == .PriceHighToLow{
-                        
-                        if tableState == .showExpensiveFlights && indexPath.section == 1 {
-                            arrayForDisplay = self.results[index].expensiveJourneyArray
-                        }
-                    }
-                    else {
-                        arrayForDisplay =  self.sortedJourneyArray[index]
-                    }
+                                    
                     if tableState == .showPinnedFlights {
-                        arrayForDisplay = self.results[index].pinnedFlights
-                    }
+                         arrayForDisplay = self.viewModel.results[index].pinnedFlights
+                      } else if tableState == .showExpensiveFlights {
+                         arrayForDisplay = self.viewModel.results[index].allJourneys
+                      } else {
+                          arrayForDisplay = self.viewModel.results[index].suggestedJourneyArray
+                      }
+                    
                     
                      let journey = arrayForDisplay[indexPath.row]
                     return self.makeMenus(journey : journey, indexPath: indexPath , tableIndex: index)

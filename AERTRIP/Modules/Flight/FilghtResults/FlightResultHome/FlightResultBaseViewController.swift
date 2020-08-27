@@ -1067,7 +1067,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             
         case RETURN_JOURNEY:
             domesticMultiLegResultVC?.updatedApiProgress = updatedApiProgress
-            domesticMultiLegResultVC?.airlineCode = airlineCode
+            domesticMultiLegResultVC?.viewModel.airlineCode = airlineCode
             if flightSearchResultVM.isDomestic {
                 let journeyArray = resultVM.getJourneyDisplayArrayFor(index:  index)
                 domesticMultiLegResultVC?.updatewithArray(index: index , updatedArray: journeyArray, sortOrder: resultVM.getSortOrder())
@@ -1103,7 +1103,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                 domesticMultiLegResultVC?.updateAirportDetailsArray(resultVM.getAllAirportsArray())
                 domesticMultiLegResultVC?.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
                 domesticMultiLegResultVC?.updateTaxesArray(resultVM.getTaxesDetailsArray())
-                domesticMultiLegResultVC?.airlineCode = airlineCode
+                domesticMultiLegResultVC?.viewModel.airlineCode = airlineCode
                 
             }
             else {
