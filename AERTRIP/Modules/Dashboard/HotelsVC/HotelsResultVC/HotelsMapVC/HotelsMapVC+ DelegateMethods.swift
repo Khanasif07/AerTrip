@@ -199,15 +199,15 @@ extension HotelsMapVC: HotelResultDelegate {
     
     
     func willGetPinnedTemplate() {
-        AppGlobals.shared.startLoading()
+       // AppGlobals.shared.startLoading()
     }
     
     func getPinnedTemplateSuccess() {
-        AppGlobals.shared.stopLoading()
+       // AppGlobals.shared.stopLoading()
     }
     
     func getPinnedTemplateFail() {
-        AppGlobals.shared.stopLoading()
+       // AppGlobals.shared.stopLoading()
     }
     
     func willUpdateFavourite() {

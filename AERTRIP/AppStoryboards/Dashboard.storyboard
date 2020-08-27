@@ -1052,32 +1052,58 @@ on Christmas”</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="494.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLz-uM-NAJ">
-                                <rect key="frame" x="186.5" y="229.5" width="41.5" height="25.5"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ws-RO-flc">
-                                <rect key="frame" x="130" y="270" width="154" height="21.5"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHo-d9-8jc">
+                                <rect key="frame" x="0.0" y="44" width="414" height="450.5"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="saM-KT-JLj">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="443"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLz-uM-NAJ">
+                                                <rect key="frame" x="186.5" y="209" width="41.5" height="25.5"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ws-RO-flc">
+                                                <rect key="frame" x="130" y="249.5" width="154" height="21.5"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="vLz-uM-NAJ" firstAttribute="centerY" secondItem="saM-KT-JLj" secondAttribute="centerY" id="A4H-WO-M39"/>
+                                            <constraint firstItem="vLz-uM-NAJ" firstAttribute="centerX" secondItem="saM-KT-JLj" secondAttribute="centerX" id="Jzh-Qm-5DN"/>
+                                            <constraint firstItem="0Ws-RO-flc" firstAttribute="centerX" secondItem="vLz-uM-NAJ" secondAttribute="centerX" id="Wq9-Ln-Ti3"/>
+                                            <constraint firstItem="0Ws-RO-flc" firstAttribute="top" secondItem="vLz-uM-NAJ" secondAttribute="bottom" constant="15" id="gsd-AD-ljV"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="saM-KT-JLj" firstAttribute="height" secondItem="YHo-d9-8jc" secondAttribute="height" multiplier="0.983352" id="07O-vt-Mch"/>
+                                    <constraint firstItem="saM-KT-JLj" firstAttribute="top" secondItem="YHo-d9-8jc" secondAttribute="top" id="9XJ-6M-uXo"/>
+                                    <constraint firstItem="saM-KT-JLj" firstAttribute="width" secondItem="YHo-d9-8jc" secondAttribute="width" id="G1I-7m-9ur"/>
+                                    <constraint firstItem="saM-KT-JLj" firstAttribute="leading" secondItem="YHo-d9-8jc" secondAttribute="leading" id="Oeb-7V-49P"/>
+                                    <constraint firstAttribute="bottom" secondItem="saM-KT-JLj" secondAttribute="bottom" id="Xwj-JN-XmD"/>
+                                    <constraint firstAttribute="trailing" secondItem="saM-KT-JLj" secondAttribute="trailing" id="erw-jq-Xly"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="vLz-uM-NAJ" firstAttribute="centerY" secondItem="Rks-F0-sBa" secondAttribute="centerY" multiplier="0.9" id="6By-uL-coL"/>
-                            <constraint firstItem="vLz-uM-NAJ" firstAttribute="centerX" secondItem="Rks-F0-sBa" secondAttribute="centerX" id="Ni8-GT-W1Y"/>
-                            <constraint firstItem="0Ws-RO-flc" firstAttribute="centerX" secondItem="vLz-uM-NAJ" secondAttribute="centerX" id="RFE-YY-jWd"/>
-                            <constraint firstItem="0Ws-RO-flc" firstAttribute="top" secondItem="vLz-uM-NAJ" secondAttribute="bottom" constant="15" id="bWa-sv-NaH"/>
+                            <constraint firstItem="YHo-d9-8jc" firstAttribute="leading" secondItem="Rks-F0-sBa" secondAttribute="leading" id="0P5-Fh-cfQ"/>
+                            <constraint firstAttribute="bottom" secondItem="YHo-d9-8jc" secondAttribute="bottom" id="N80-7J-ARv"/>
+                            <constraint firstItem="Rks-F0-sBa" firstAttribute="trailing" secondItem="YHo-d9-8jc" secondAttribute="trailing" id="S52-WH-wYU"/>
+                            <constraint firstItem="YHo-d9-8jc" firstAttribute="top" secondItem="Rks-F0-sBa" secondAttribute="top" id="dcx-CV-guL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Rks-F0-sBa"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WEO-TU-TaM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3655" y="-222"/>
+            <point key="canvasLocation" x="3653.6231884057975" y="-222.65625"/>
         </scene>
         <!--Main DashboardVC-->
         <scene sceneID="aBX-jS-oiA">
