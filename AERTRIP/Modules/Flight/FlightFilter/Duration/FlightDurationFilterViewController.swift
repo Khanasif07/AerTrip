@@ -29,7 +29,7 @@ struct DurationFilter {
     
     var userSelectedLayoverMin : CGFloat = 0.0
     var userSelectedLayoverMax : CGFloat = CGFloat.greatestFiniteMagnitude
-
+    
     var layoverDurationTimeFormat : String = ""
     
     init(leg : Leg , tripMin : CGFloat , tripMax : CGFloat , layoverMin : CGFloat , layoverMax : CGFloat, layoverMinTimeFormat:String) {
@@ -70,7 +70,7 @@ struct DurationFilter {
 }
 
 class FlightDurationFilterViewController : UIViewController , FilterViewController {
-
+    
     //MARK:- State Properties
     weak var delegate : FlightDurationFilterDelegate?
     var currentDurationFilter : DurationFilter
@@ -78,7 +78,11 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     var legsArray = [Leg]()
     var currentActiveIndex = 0
     var showingForReturnJourney = false
-    private var tripDurationMarkersArr = [UIView]()
+    var isFeedBackProvided = false
+    
+    var tripDurationDiffForFraction: CGFloat {
+        return (currentDurationFilter.tripDurationmaxDuration - currentDurationFilter.tripDurationMinDuration)
+    }
     
     //MARK:- multiLeg Outlets
     @IBOutlet weak var multiLegViewHeight: NSLayoutConstraint!
@@ -105,7 +109,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         
     }
     
-
+    
     //MARK:- Outlets
     @IBOutlet weak var tripDurationMinLabel: UILabel!
     @IBOutlet weak var tripDurationMinLabelWidth: NSLayoutConstraint!
@@ -115,7 +119,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     @IBOutlet weak var layoverDurationMinLabelWidth: NSLayoutConstraint!
     @IBOutlet weak var layoverDurationMaxLabel: UILabel!
     @IBOutlet weak var layoverDurationMaxLabelWidth: NSLayoutConstraint!
-    @IBOutlet weak var tripDurationSlider: MARKRangeSlider!
+    @IBOutlet weak var tripDurationSlider: AertripRangeSlider!
     @IBOutlet weak var layoverDurationSlider: MARKRangeSlider!
     @IBOutlet weak var multicityViewHeight: NSLayoutConstraint!
     
@@ -134,12 +138,11 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
             multiLegView.isHidden = false
             setmultiLegSubviews()
         }
-
-        tripDurationSlider.setupThemeImages()
+        
         layoverDurationSlider.setupThemeImages()
-
+        
         initialSetup()
-        setTripDurationSliderMarkers()
+        addMarkersOnTripDuration()
         
         //Layover duration slider
         
@@ -156,76 +159,19 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         }
     }
     
-    private func setTripDurationSliderMarkers() {
-        tripDurationMarkersArr.forEach { (marker) in
-            marker.removeFromSuperview()
+    private func addMarkersOnTripDuration() {
+        let minVal = currentDurationFilter.tripDurationMinDuration - currentDurationFilter.tripDurationMinDuration
+        let maxVal = currentDurationFilter.tripDurationmaxDuration - currentDurationFilter.tripDurationMinDuration
+        let diff = maxVal - minVal
+        var markerLocations = [CGFloat]()
+        for dayChangeTime in stride(from: 24, through: 240, by: 24) {
+            let markLoc = CGFloat(dayChangeTime) - currentDurationFilter.tripDurationMinDuration
+            let fraction = markLoc/diff
+            guard fraction < 1 else { break }
+            markerLocations.append(fraction)
         }
-        tripDurationMarkersArr.removeAll()
-        //Trip Duration Slider
-        if tripDurationSlider.maximumValue == 29{
-            createMarkersAt(positions: [0.85] , slider: tripDurationSlider)
-        }else if tripDurationSlider.maximumValue == 36{
-            createMarkersAt(positions: [0.72] , slider: tripDurationSlider)
-        }else if tripDurationSlider.maximumValue == 25{
-            createMarkersAt(positions: [0.98] , slider: tripDurationSlider)
-        }else if tripDurationSlider.maximumValue == 33 || tripDurationSlider.maximumValue == 32 || tripDurationSlider.maximumValue == 31{
-            createMarkersAt(positions: [0.78] , slider: tripDurationSlider)
-        }else if tripDurationSlider.maximumValue == 26{
-            createMarkersAt(positions: [0.98] , slider: tripDurationSlider)
-        }else if tripDurationSlider.maximumValue == 42{
-            createMarkersAt(positions: [0.72] , slider: tripDurationSlider)
-        }else if (tripDurationSlider.maximumValue == 27 || tripDurationSlider.maximumValue == 28) && (tripDurationSlider.minimumValue == 1 || tripDurationSlider.minimumValue == 2) {
-            createMarkersAt(positions: [0.90] , slider: tripDurationSlider)
-        }else if tripDurationSlider.maximumValue == 40 || tripDurationSlider.maximumValue == 41{
-            createMarkersAt(positions: [0.65] , slider: tripDurationSlider)
-        }else if tripDurationSlider.maximumValue == 38{
-            createMarkersAt(positions: [0.68] , slider: tripDurationSlider)
-        }else if (tripDurationSlider.maximumValue == 59 || tripDurationSlider.maximumValue == 60 || tripDurationSlider.maximumValue == 61) && (tripDurationSlider.minimumValue == 17 || tripDurationSlider.minimumValue == 18 || tripDurationSlider.minimumValue == 19){
-            createMarkersAt(positions: [0.18, 0.77] , slider: tripDurationSlider)
-        }else if (tripDurationSlider.maximumValue == 54 || tripDurationSlider.maximumValue == 55 || tripDurationSlider.maximumValue == 56) && (tripDurationSlider.minimumValue == 16 || tripDurationSlider.minimumValue == 17 || tripDurationSlider.minimumValue == 18){
-            createMarkersAt(positions: [0.20, 0.88] , slider: tripDurationSlider)
-        }else if (tripDurationSlider.maximumValue == 60 || tripDurationSlider.maximumValue == 61 || tripDurationSlider.maximumValue == 62) && (tripDurationSlider.minimumValue == 22 || tripDurationSlider.minimumValue == 23 || tripDurationSlider.minimumValue == 24){
-            createMarkersAt(positions: [0.08, 0.75] , slider: tripDurationSlider)
-        }else if (tripDurationSlider.maximumValue == 33 || tripDurationSlider.maximumValue == 34 || tripDurationSlider.maximumValue == 35) && (tripDurationSlider.minimumValue == 29 || tripDurationSlider.minimumValue == 30 || tripDurationSlider.minimumValue == 31){
-            createMarkersAt(positions: [0.05, 0.75] , slider: tripDurationSlider)
-        }else if (tripDurationSlider.maximumValue == 63 || tripDurationSlider.maximumValue == 64 || tripDurationSlider.maximumValue == 65) && (tripDurationSlider.minimumValue == 22 || tripDurationSlider.minimumValue == 23 || tripDurationSlider.minimumValue == 24){
-            createMarkersAt(positions: [0.08, 0.70] , slider: tripDurationSlider)
-        }else if (tripDurationSlider.maximumValue == 59 || tripDurationSlider.maximumValue == 60 || tripDurationSlider.maximumValue == 61) && (tripDurationSlider.minimumValue == 18 || tripDurationSlider.minimumValue == 19 || tripDurationSlider.minimumValue == 20){
-            createMarkersAt(positions: [0.18, 0.78] , slider: tripDurationSlider)
-        }else if (tripDurationSlider.maximumValue == 65 || tripDurationSlider.maximumValue == 66 || tripDurationSlider.maximumValue == 67) && (tripDurationSlider.minimumValue == 19 || tripDurationSlider.minimumValue == 20 || tripDurationSlider.minimumValue == 21){
-            createMarkersAt(positions: [0.15, 0.67] , slider: tripDurationSlider)
-        }else if (tripDurationSlider.maximumValue == 45 || tripDurationSlider.maximumValue == 46 || tripDurationSlider.maximumValue == 47) && (tripDurationSlider.minimumValue == 18 || tripDurationSlider.minimumValue == 19 || tripDurationSlider.minimumValue == 20){
-            createMarkersAt(positions: [0.20] , slider: tripDurationSlider)
-        }else if (tripDurationSlider.maximumValue == 54 || tripDurationSlider.maximumValue == 55 || tripDurationSlider.maximumValue == 56) && (tripDurationSlider.minimumValue == 18 || tripDurationSlider.minimumValue == 19 || tripDurationSlider.minimumValue == 20){
-            createMarkersAt(positions: [0.20, 0.85] , slider: tripDurationSlider)
-        }else if (tripDurationSlider.maximumValue == 63 || tripDurationSlider.maximumValue == 64 || tripDurationSlider.maximumValue == 65) && (tripDurationSlider.minimumValue == 17 || tripDurationSlider.minimumValue == 18 || tripDurationSlider.minimumValue == 18){
-            createMarkersAt(positions: [0.18, 0.70] , slider: tripDurationSlider)
-        }else if (tripDurationSlider.maximumValue == 59 || tripDurationSlider.maximumValue == 60 || tripDurationSlider.maximumValue == 61) && (tripDurationSlider.minimumValue == 16 || tripDurationSlider.minimumValue == 15 || tripDurationSlider.minimumValue == 14){
-            createMarkersAt(positions: [0.22, 0.78] , slider: tripDurationSlider)
-        }else if (tripDurationSlider.maximumValue == 45 ||  tripDurationSlider.maximumValue == 46 ||  tripDurationSlider.maximumValue == 47) && (tripDurationSlider.minimumValue == 8 || tripDurationSlider.minimumValue == 9 || tripDurationSlider.minimumValue == 10){
-            createMarkersAt(positions: [0.40] , slider: tripDurationSlider)
-        }else if (tripDurationSlider.maximumValue == 42 || tripDurationSlider.maximumValue == 43 || tripDurationSlider.maximumValue == 44) && (tripDurationSlider.minimumValue == 12 || tripDurationSlider.minimumValue == 13 || tripDurationSlider.minimumValue == 14){
-            createMarkersAt(positions: [0.40] , slider: tripDurationSlider)
-        }else if (tripDurationSlider.maximumValue == 55 || tripDurationSlider.maximumValue == 56 || tripDurationSlider.maximumValue == 57) && (tripDurationSlider.minimumValue == 9 || tripDurationSlider.minimumValue == 10 || tripDurationSlider.minimumValue == 11){
-            createMarkersAt(positions: [0.33, 0.85], slider: tripDurationSlider )
-        }
+        tripDurationSlider.createMarkersAt(positions: markerLocations)
     }
-    
-    func createMarkersAt(positions : [CGFloat], slider:MARKRangeSlider)
-    {
-        for position in positions
-        {
-            let trackWidth = (self.view.bounds.size.width - 2 * 15)
-            let xPosition = position * trackWidth
-            let marker = UIView(frame: CGRect(x: xPosition, y: slider.frame.height/2 - 2 , width: 3.0, height: 3.0 ))
-            marker.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-            tripDurationMarkersArr.append(marker)
-            slider.addSubview(marker)
-            slider.bringSubviewToFront(marker)
-            
-        }
-    }
-    
     
     //MARK:- Additional methods
     
@@ -246,7 +192,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     func updateFiltersFromAPI() {
         currentDurationFilter = durationFilters[currentActiveIndex]
         guard tripDurationSlider != nil else { return }
-        setTripDurationSliderMarkers()
+        addMarkersOnTripDuration()
         UIView.animate(withDuration: 0.3) {
             self.setupTripDurationValues()
             self.setupLayoutDurationValues()
@@ -254,31 +200,32 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     }
     
     func updateUIPostLatestResults() {
-       resetFilter()
+        resetFilter()
     }
     
     func resetFilter() {
         
-    currentDurationFilter.userSelectedTripMin = currentDurationFilter.tripDurationMinDuration
-    currentDurationFilter.userSelectedTripMax = currentDurationFilter.tripDurationmaxDuration
-
-    currentDurationFilter.userSelectedLayoverMin = currentDurationFilter.layoverMinDuration
-    currentDurationFilter.userSelectedLayoverMax = currentDurationFilter.layoverMaxDuration
-
+        currentDurationFilter.userSelectedTripMin = currentDurationFilter.tripDurationMinDuration
+        currentDurationFilter.userSelectedTripMax = currentDurationFilter.tripDurationmaxDuration
+        
+        currentDurationFilter.userSelectedLayoverMin = currentDurationFilter.layoverMinDuration
+        currentDurationFilter.userSelectedLayoverMax = currentDurationFilter.layoverMaxDuration
+        
         guard tripDurationSlider != nil else { return }
-    tripDurationSlider.setLeftValue(currentDurationFilter.tripDurationMinDuration, rightValue: currentDurationFilter.tripDurationmaxDuration)
-    tripDurationMinLabel.text = formattedStringWith(duration: currentDurationFilter.tripDurationMinDuration)
+        tripDurationSlider.set(leftValue: (currentDurationFilter.tripDurationMinDuration - currentDurationFilter.tripDurationMinDuration)/tripDurationDiffForFraction, rightValue: (currentDurationFilter.tripDurationmaxDuration - currentDurationFilter.tripDurationMinDuration)/tripDurationDiffForFraction)
+        
+        tripDurationMinLabel.text = formattedStringWith(duration: currentDurationFilter.tripDurationMinDuration)
         tripDurationMinLabelWidth.constant = tripDurationMinLabel.intrinsicContentSize.width + 16.0
         
-    tripDurationMaxLabel.text = formattedStringWith(duration: currentDurationFilter.tripDurationmaxDuration)
+        tripDurationMaxLabel.text = formattedStringWith(duration: currentDurationFilter.tripDurationmaxDuration)
         tripDurationMaxLabelWidth.constant = tripDurationMaxLabel.intrinsicContentSize.width + 16.0
-    layoverDurationSlider.setLeftValue(currentDurationFilter.layoverMinDuration, rightValue: currentDurationFilter.layoverMaxDuration)
-    layoverDurationMinLabel.text = formattedStringWith(duration: currentDurationFilter.layoverMinDuration)
+        layoverDurationSlider.setLeftValue(currentDurationFilter.layoverMinDuration, rightValue: currentDurationFilter.layoverMaxDuration)
+        layoverDurationMinLabel.text = formattedStringWith(duration: currentDurationFilter.layoverMinDuration)
         layoverDurationMinLabelWidth.constant = layoverDurationMinLabel.intrinsicContentSize.width + 16.0
-    layoverDurationMaxLabel.text = formattedStringWith(duration: currentDurationFilter.layoverMaxDuration)
+        layoverDurationMaxLabel.text = formattedStringWith(duration: currentDurationFilter.layoverMaxDuration)
         layoverDurationMaxLabelWidth.constant = layoverDurationMaxLabel.intrinsicContentSize.width + 16.0
-    
-    setmultiLegSubviews()
+        
+        setmultiLegSubviews()
         
     }
     
@@ -382,48 +329,56 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     }
     
     fileprivate func setupTripDurationValues() {
-       
-        tripDurationSlider.setMinValue( currentDurationFilter.tripDurationMinDuration, maxValue:  currentDurationFilter.tripDurationmaxDuration)
-        tripDurationSlider.setLeftValue( currentDurationFilter.userSelectedTripMin, rightValue:  currentDurationFilter.userSelectedTripMax)
-
+        tripDurationSlider.set(leftValue: (currentDurationFilter.userSelectedTripMin - currentDurationFilter.tripDurationMinDuration)/tripDurationDiffForFraction, rightValue: (currentDurationFilter.userSelectedTripMax - currentDurationFilter.tripDurationMinDuration)/tripDurationDiffForFraction)
+        
         tripDurationMinLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedTripMin)
         tripDurationMinLabelWidth.constant = tripDurationMinLabel.intrinsicContentSize.width + 16.0
         tripDurationMaxLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedTripMax)
         tripDurationMaxLabelWidth.constant = tripDurationMaxLabel.intrinsicContentSize.width + 16.0
         
     }
-
+    
     fileprivate func setupLayoutDurationValues() {
-      
+        
         layoverDurationSlider.setMinValue( currentDurationFilter.layoverMinDuration, maxValue:  currentDurationFilter.layoverMaxDuration)
         layoverDurationSlider.setLeftValue( currentDurationFilter.userSelectedLayoverMin, rightValue:  currentDurationFilter.userSelectedLayoverMax)
-
+        
         layoverDurationMinLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedLayoverMin)
         layoverDurationMinLabelWidth.constant = layoverDurationMinLabel.intrinsicContentSize.width + 16.0
-
+        
         layoverDurationMaxLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedLayoverMax)
         layoverDurationMaxLabelWidth.constant = layoverDurationMaxLabel.intrinsicContentSize.width + 16.0
         
     }
     
     //MARK:- IBAction Methods
-    @IBAction func tripDurationChanged(_ sender: MARKRangeSlider) {
+    @IBAction func tripDurationChanged(_ sender: AertripRangeSlider) {
         
-         currentDurationFilter.userSelectedTripMin = tripDurationSlider.leftValue.rounded(.down)
-         currentDurationFilter.userSelectedTripMax = tripDurationSlider.rightValue.rounded(.up)
+        currentDurationFilter.userSelectedTripMin = ((tripDurationSlider.leftValue * tripDurationDiffForFraction) + currentDurationFilter.tripDurationMinDuration).rounded(.down)
+        currentDurationFilter.userSelectedTripMax = ((tripDurationSlider.rightValue * tripDurationDiffForFraction) + currentDurationFilter.tripDurationMinDuration).rounded(.up)
+        
+        if (((currentDurationFilter.userSelectedTripMin.truncatingRemainder(dividingBy: 24) == 0) && currentDurationFilter.userSelectedTripMin != currentDurationFilter.tripDurationMinDuration)) || ((currentDurationFilter.userSelectedTripMax.truncatingRemainder(dividingBy: 24) == 0) && currentDurationFilter.userSelectedTripMax != currentDurationFilter.tripDurationmaxDuration) {
+            if !isFeedBackProvided {
+               generateHapticFeedback()
+            }
+            isFeedBackProvided = true
+        } else {
+            isFeedBackProvided = false
+        }
+        
         tripDurationMinLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedTripMin)
         tripDurationMinLabelWidth.constant = tripDurationMinLabel.intrinsicContentSize.width + 16.0
-
+        
         tripDurationMaxLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedTripMax)
         tripDurationMaxLabelWidth.constant = tripDurationMaxLabel.intrinsicContentSize.width + 16.0
-
+        
     }
     
     
-    @IBAction func tripDurationUpdated(_ sender: MARKRangeSlider) {
+    @IBAction func tripDurationUpdated(_ sender: AertripRangeSlider) {
         
-        currentDurationFilter.userSelectedTripMin = floor(tripDurationSlider.leftValue)
-        currentDurationFilter.userSelectedTripMax = ceil(tripDurationSlider.rightValue)
+        currentDurationFilter.userSelectedTripMin = floor((tripDurationSlider.leftValue * tripDurationDiffForFraction) + currentDurationFilter.tripDurationMinDuration)
+        currentDurationFilter.userSelectedTripMax = ceil((tripDurationSlider.rightValue * tripDurationDiffForFraction) + currentDurationFilter.tripDurationMinDuration)
         durationFilters[currentActiveIndex] = currentDurationFilter
         setmultiLegSubviews()
         
@@ -434,29 +389,28 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         else {
             delegate?.tripDurationChangedAt(currentActiveIndex, min:  currentDurationFilter.userSelectedTripMin, max:  currentDurationFilter.userSelectedTripMax)
         }
-        
-        if currentDurationFilter.userSelectedTripMin == 24.0 || currentDurationFilter.userSelectedTripMax == 24.0 || currentDurationFilter.userSelectedTripMin == 48.0 || currentDurationFilter.userSelectedTripMax == 48.0
-        {
-            //*******************Haptic Feedback code********************
-               let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-               selectionFeedbackGenerator.selectionChanged()
-            //*******************Haptic Feedback code********************
-        }
     }
-    
-    
-
     
     @IBAction func layoverDurationChanged(_ sender: MARKRangeSlider) {
         
-             currentDurationFilter.userSelectedLayoverMin = layoverDurationSlider.leftValue.rounded(.down)
+        currentDurationFilter.userSelectedLayoverMin = layoverDurationSlider.leftValue.rounded(.down)
         currentDurationFilter.userSelectedLayoverMax = layoverDurationSlider.rightValue.rounded(.up)
-
-            layoverDurationMinLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedLayoverMin)
+        
+        layoverDurationMinLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedLayoverMin)
         layoverDurationMinLabelWidth.constant = layoverDurationMinLabel.intrinsicContentSize.width + 16.0
-
-            layoverDurationMaxLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedLayoverMax)
-
+        
+        layoverDurationMaxLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedLayoverMax)
+        
+        
+        if (((currentDurationFilter.userSelectedLayoverMin.truncatingRemainder(dividingBy: 24) == 0) && currentDurationFilter.userSelectedLayoverMin != currentDurationFilter.layoverMinDuration) || (currentDurationFilter.userSelectedLayoverMax.truncatingRemainder(dividingBy: 24) == 0) && currentDurationFilter.userSelectedLayoverMax != currentDurationFilter.layoverMaxDuration) {
+            if !isFeedBackProvided {
+               generateHapticFeedback()
+            }
+            isFeedBackProvided = true
+        } else {
+            isFeedBackProvided = false
+        }
+        
     }
     
     @IBAction func layoverDurationUpdated(_ sender: MARKRangeSlider) {
@@ -473,18 +427,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         else {
             delegate?.layoverDurationChangedAt(currentActiveIndex ,min:  currentDurationFilter.userSelectedLayoverMin, max:  currentDurationFilter.userSelectedLayoverMax)
         }
-        
-        if currentDurationFilter.userSelectedLayoverMin == 24.0 || currentDurationFilter.userSelectedLayoverMax == 24.0 || currentDurationFilter.userSelectedLayoverMin == 48.0 || currentDurationFilter.userSelectedLayoverMax == 48.0
-        {
-            //*******************Haptic Feedback code********************
-               let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-               selectionFeedbackGenerator.selectionChanged()
-            //*******************Haptic Feedback code********************
-        }
-        
     }
-    
-    
     
     @IBAction fileprivate func tappedOnMulticityButton( sender : UIButton) {
         
@@ -505,6 +448,11 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         setupLayoutDurationValues()
         
     }
-
     
+    private func generateHapticFeedback() {
+        //*******************Haptic Feedback code********************
+        let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        selectionFeedbackGenerator.selectionChanged()
+        //*******************Haptic Feedback code********************
+    }
 }

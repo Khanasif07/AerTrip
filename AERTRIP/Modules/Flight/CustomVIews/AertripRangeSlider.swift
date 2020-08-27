@@ -26,6 +26,8 @@ class AertripRangeSlider : UIControl {
     var spacingBetweenKnobs : CGFloat {
         return knobRadius * 2 + spacing
     }
+    
+    private var addedMarkers = [UIView]()
         
         
     var trackColor : UIColor  = UIColor(displayP3Red: (230.0 / 255.0), green: (230.0 / 255.0), blue: (230.0 / 255.0), alpha: 1.0)  {
@@ -84,6 +86,9 @@ class AertripRangeSlider : UIControl {
     
     func createMarkersAt(positions : [CGFloat]) {
         
+        addedMarkers.forEach { $0.removeFromSuperview() }
+        addedMarkers.removeAll()
+        
         markerPositions = positions
         var tag = 500
         for position in positions {
@@ -94,6 +99,7 @@ class AertripRangeSlider : UIControl {
             marker.tag = tag
             tag = tag + 1
             marker.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+            addedMarkers.append(marker)
             trackerView.addSubview(marker)
             trackerView.bringSubviewToFront(marker)
         }

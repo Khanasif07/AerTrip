@@ -44,6 +44,8 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     
     var onToastInitiation: ((String) -> ())?
     
+    private var isHapticFeedbackProvided = false
+    
     /// Used for day segments pan gesture
     var panGesture: UIPanGestureRecognizer?
     var panStartPos: CGFloat?
@@ -651,12 +653,17 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         departureStartTime.text = stringFromTimeInterval(interval: startTime)
         departureEndTime.text = stringFromTimeInterval(interval: endTime)
         
-        if departureStartTime.text == "00:00" || departureStartTime.text == "06:00" || departureStartTime.text == "12:00" || departureStartTime.text == "18:00" || departureStartTime.text == "24:00" || departureEndTime.text == "00:00" || departureEndTime.text == "06:00" || departureEndTime.text == "12:00" || departureEndTime.text == "18:00" || departureEndTime.text == "24:00"
-        {
-            giveHapticFeedback()
-
-        }
+        let startTimeInHour = startTime/3600
+        let endTimeInHour = endTime/3600
         
+        if (startTimeInHour.truncatingRemainder(dividingBy: 6) == 0 && startTimeInHour != 0) || (endTimeInHour.truncatingRemainder(dividingBy: 6) == 0 && endTimeInHour != 24) {
+            if !isHapticFeedbackProvided {
+                giveHapticFeedback()
+            }
+            isHapticFeedbackProvided = true
+        } else {
+            isHapticFeedbackProvided = false
+        }
     }
     
     fileprivate func updateDepartureUIValues() {
@@ -668,12 +675,6 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         departureStartTime.text = stringFromTimeInterval(interval: departureStartTimeInterval)
         departureEndTime.text = stringFromTimeInterval(interval: departureEndTimeInterval)
         setDepartureLabel()
-        
-        if departureStartTime.text == "00:00" || departureStartTime.text == "06:00" || departureStartTime.text == "12:00" || departureStartTime.text == "18:00" || departureStartTime.text == "24:00" || departureEndTime.text == "00:00" || departureEndTime.text == "06:00" || departureEndTime.text == "12:00" || departureEndTime.text == "18:00" || departureEndTime.text == "24:00"
-        {
-            giveHapticFeedback()
-
-        }
     }
     
     func showToastMessageForAvailableDepartureRange(_ message : String) {
@@ -1101,9 +1102,13 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
         if arrivalEndTime.text!.contains(find: "00:00") || arrivalStartTime.text!.contains(find: "00:00")
          {
-             giveHapticFeedback()
-             
-         }
+            if !isHapticFeedbackProvided {
+                giveHapticFeedback()
+                isHapticFeedbackProvided = true
+            }
+        } else {
+            isHapticFeedbackProvided = false
+        }
     }
         
     @objc fileprivate func arrivalRangeUpdated() {
