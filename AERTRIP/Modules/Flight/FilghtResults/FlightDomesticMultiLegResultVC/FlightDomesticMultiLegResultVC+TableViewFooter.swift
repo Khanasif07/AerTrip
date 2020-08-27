@@ -82,6 +82,19 @@ extension FlightDomesticMultiLegResultVC
     
     @objc func tappedOnGroupedFooterView(_ sender : UITapGestureRecognizer) {
         
+        
+        guard let index = sender.view?.tag else { return }
+        
+//        UIView.animate(withDuration: 0.3, animations: {
+//              self.resultsTableView.tableFooterView?.transform = CGAffineTransform(translationX: 0, y: 200)
+//          }) { (success) in
+//            
+//            
+//        }
+//        
+        
+        
+        
         if let index = sender.view?.tag {
             viewModel.resultsTableStates[index] = .showExpensiveFlights
             self.results[index].sort = sortOrder

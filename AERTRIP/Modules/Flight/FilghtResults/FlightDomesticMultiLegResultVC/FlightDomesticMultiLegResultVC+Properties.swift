@@ -166,7 +166,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
     
     func updateUIForTableviewAt(_ index: Int) {
         DispatchQueue.main.async {
-            if let tableView = self.baseScrollView.viewWithTag( 1000 + index) as? UITableView {
+            guard let tableView = self.baseScrollView.viewWithTag( 1000 + index) as? UITableView else { return }
                 let selectedIndex = tableView.indexPathForSelectedRow
                 tableView.reloadData()
 
@@ -197,32 +197,56 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
                     }
                 }
                 tableView.isScrollEnabled = true
-            }
+            
+            ///............
             
             //setting footer for table view
             
-             if self.viewModel.resultsTableStates[index] != .showPinnedFlights{
+             if self.viewModel.resultsTableStates[index] == .showPinnedFlights{
+                tableView.tableFooterView = nil
+
+             } else if self.viewModel.resultsTableStates[index] == .showExpensiveFlights{
                 
-            }
+                if self.results[index].suggestedJourneyArray.count != 0{
+                    self.setExpandedStateFooterAt(index: index)
+                }else{
+                    tableView.tableFooterView = nil
+                }
             
-            
-            if self.viewModel.resultsTableStates[index] == .showExpensiveFlights {
-                self.setExpandedStateFooterAt(index: index)
-            }else if self.viewModel.resultsTableStates[index] != .showPinnedFlights{
+             }else {
+                
                 if self.results[index].suggestedJourneyArray.count == 0{
-                    let invisibleView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-                    invisibleView.tag = index
-                    let tap = UITapGestureRecognizer()
-                    invisibleView.addGestureRecognizer(tap)
-                    self.tappedOnGroupedFooterView(tap)
                     
-                    if let tableView = self.baseScrollView.viewWithTag( 1000 + index) as? UITableView {
-                        tableView.tableFooterView = nil
-                    }
+                    self.tappedOnGroupedFooterView(UITapGestureRecognizer())
+                    tableView.tableFooterView = nil
+
                 }else{
                     self.setGroupedFooterViewAt(index: index)
                 }
+                
             }
+            
+            tableView.isScrollEnabled = true
+            tableView.scrollsToTop = true
+            tableView.reloadData()
+            
+//            if self.viewModel.resultsTableStates[index] == .showExpensiveFlights {
+//                self.setExpandedStateFooterAt(index: index)
+//            }else if self.viewModel.resultsTableStates[index] != .showPinnedFlights{
+//                if self.results[index].suggestedJourneyArray.count == 0{
+//                    let invisibleView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+//                    invisibleView.tag = index
+//                    let tap = UITapGestureRecognizer()
+//                    invisibleView.addGestureRecognizer(tap)
+//                    self.tappedOnGroupedFooterView(tap)
+//
+//                    if let tableView = self.baseScrollView.viewWithTag( 1000 + index) as? UITableView {
+//                        tableView.tableFooterView = nil
+//                    }
+//                }else{
+//                    self.setGroupedFooterViewAt(index: index)
+//                }
+//            }
             
             self.setTotalFare()
         }
@@ -871,8 +895,6 @@ extension FlightDomesticMultiLegResultVC : UICollectionViewDataSource , UICollec
         
     }
     
-    
-
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         var size = UIScreen.main.bounds.size
@@ -928,85 +950,66 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        let index = tableView.tag - 1000
-        let tableState = viewModel.resultsTableStates[index]
+//        let index = tableView.tag - 1000
+//        let tableState = viewModel.resultsTableStates[index]
+//
+//
+//        switch tableState {
+//        case .showExpensiveFlights :
+//            if sortOrder == .Smart  {
+//                return 2
+//            }
+//            else {
+//                return 1
+//            }
+//        case .showPinnedFlights, .showTemplateResults, .showNoResults :
+//            return 1
+//        case .showRegularResults :
+//            return 1
+//        }
         
-
-        switch tableState {
-        case .showExpensiveFlights :
-            if sortOrder == .Smart  {
-                return 2
-            }
-            else {
-                return 1
-            }
-        case .showPinnedFlights, .showTemplateResults, .showNoResults :
-            return 1
-        case .showRegularResults :
-            return 1
-        }
+        return 1
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         let index = tableView.tag - 1000
         
-
         let tableState = viewModel.resultsTableStates[index]
         
-        switch tableState {
-        case .showTemplateResults:
+        
+        if tableState == .showTemplateResults{
             return 10
-        case .showPinnedFlights:
-            return results[index].pinnedFlights.count
-        case .showExpensiveFlights:
-            
-            if sortOrder == .Smart {
-                if section == 0 {
-                    return results[index].suggestedJourneyArray.count
-                }
-                if section == 1 {
-                    return results[index].expensiveJourneyArray.count
-                }
-            }
-            else {
-                return results[index].journeyArray.count
-            }
-        case .showRegularResults :
-            if sortOrder == .Smart  {
-                return results[index].suggestedJourneyArray.count
-            }
-            else {
-                return results[index].belowThresholdHumanScore
-            }
-        case .showNoResults:
-            return 0
         }
         
-        return 0
+        if tableState == .showPinnedFlights {
+            return results[index].pinnedFlights.count
+        }
+             
+        if tableState == .showExpensiveFlights {
+            return results[index].allJourneys.count
+        }else{
+            return results[index].suggestedJourneyArray.count
+        }
         
     }
     
     fileprivate func setPropertiesToCellAt( index: Int, _ indexPath: IndexPath,  cell: DomesticMultiLegCell, _ tableView: UITableView) {
         
         let tableState = viewModel.resultsTableStates[index]
+   
         var arrayForDisplay = results[index].suggestedJourneyArray
+        
         
         if tableState == .showPinnedFlights {
             arrayForDisplay = results[index].pinnedFlights
+        } else if tableState == .showExpensiveFlights {
+            arrayForDisplay = results[index].allJourneys
+        } else {
+            arrayForDisplay = results[index].suggestedJourneyArray
         }
-        else
-        {
-            if sortOrder == .Smart {
-                
-                if tableState == .showExpensiveFlights && indexPath.section == 1 {
-                    arrayForDisplay = results[index].expensiveJourneyArray
-                }
-            }
-            else {
-                arrayForDisplay =  self.sortedJourneyArray[index]
-            }
-        }
+       
         
         if arrayForDisplay.count > 0 && indexPath.row < arrayForDisplay.count{
              let journey = arrayForDisplay[indexPath.row]
@@ -1039,7 +1042,6 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
         let index = tableView.tag - 1000
         let tableState = viewModel.resultsTableStates[index]
         
-
         if tableState == .showTemplateResults {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "DomesticMultiLegTemplateCell") as? DomesticMultiLegTemplateCell{
                 cell.selectionStyle = .none
