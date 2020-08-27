@@ -257,14 +257,17 @@ extension HotelResultVC: HotelResultDelegate {
     
     func willGetPinnedTemplate() {
        // AppGlobals.shared.startLoading()
+        self.emailButton.setImage(nil, for: .normal)
     }
     
     func getPinnedTemplateSuccess() {
       //  AppGlobals.shared.stopLoading()
+        self.emailButton.setImage(#imageLiteral(resourceName: "emailIcon"), for: .normal)
     }
     
     func getPinnedTemplateFail() {
       //  AppGlobals.shared.stopLoading()
+        self.emailButton.setImage(#imageLiteral(resourceName: "emailIcon"), for: .normal)
     }
     
     func willUpdateFavourite() {
