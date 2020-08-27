@@ -123,6 +123,7 @@ class AddPassengerDetailsCell: UITableViewCell {
             txtFld?.lineView.isHidden = true
             txtFld?.titleActiveTextColour = AppColors.themeGreen
             txtFld?.selectedLineColor = AppColors.clear
+            txtFld?.editingBottom = 0.0
             txtFld?.lineColor = AppColors.clear
             txtFld?.lineErrorColor = AppColors.clear
             txtFld?.autocorrectionType = .no

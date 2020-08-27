@@ -11,7 +11,8 @@ import Foundation
 protocol FlightPaymentVMDelegate:NSObjectProtocol {
     func fetchingItineraryData()
     func responseFromIteneraryData(success:Bool, error: ErrorCodes)
-    func getPaymentsMethodsSuccess()
+    func willGetPaymetMenthods()
+    func getPaymentsMethodsSuccess(_ isWalletChnaged: Bool)
     func getPaymentMethodsFails(error: ErrorCodes)
     func removeCouponCodeSuccessful(_ appliedCouponData: FlightItineraryData)
     func removeCouponCodeFailed(error: ErrorCodes)
@@ -188,14 +189,15 @@ class FlightPaymentVM{
 //MARK:- API Call
 extension FlightPaymentVM{
     
-     func webServiceGetPaymentMethods() {
+     func webServiceGetPaymentMethods(isWalletChnaged: Bool) {
          let params: JSONDictionary = [APIKeys.it_id.rawValue:  self.itinerary.id]
          printDebug(params)
+        self.delegate?.willGetPaymetMenthods()
          APICaller.shared.getPaymentMethods(params: params) { [weak self] success, errors,paymentDetails in
              guard let sSelf = self else { return }
              if success {
                  sSelf.paymentDetails = paymentDetails
-                 sSelf.delegate?.getPaymentsMethodsSuccess()
+                 sSelf.delegate?.getPaymentsMethodsSuccess(isWalletChnaged)
              } else {
                  printDebug(errors)
                 sSelf.delegate?.getPaymentMethodsFails(error: errors)

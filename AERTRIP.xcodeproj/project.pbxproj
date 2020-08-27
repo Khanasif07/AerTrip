@@ -93,6 +93,10 @@
 		0C7532C22431FC6600B8F213 /* NotificationSettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C7532C02431FC6600B8F213 /* NotificationSettingsCell.xib */; };
 		0C91D189248E94A100D91658 /* SelectBaggageVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C91D188248E94A100D91658 /* SelectBaggageVM.swift */; };
 		0C93A8E82330ABB6000795DE /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C93A8E72330ABB6000795DE /* NotificationVC.swift */; };
+		0C98720224F66C40005279F9 /* UpgradePlanContrainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C98720124F66C40005279F9 /* UpgradePlanContrainerVC.swift */; };
+		0C98720424F66C77005279F9 /* UpgradePlanListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C98720324F66C77005279F9 /* UpgradePlanListVC.swift */; };
+		0C98720624F67079005279F9 /* UpgradePlanVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C98720524F67079005279F9 /* UpgradePlanVM.swift */; };
+		0C98720824F683AA005279F9 /* OtherFareModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C98720724F683AA005279F9 /* OtherFareModel.swift */; };
 		0C9CD03A247E4F49002D1073 /* SelectOtherAdonsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9CD039247E4F49002D1073 /* SelectOtherAdonsVM.swift */; };
 		0C9D3FEA24E2C0EE00238A18 /* SingleJourneyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9D3FE824E2C0EE00238A18 /* SingleJourneyCollectionViewCell.swift */; };
 		0C9D3FEB24E2C0EE00238A18 /* SingleJourneyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C9D3FE924E2C0EE00238A18 /* SingleJourneyCollectionViewCell.xib */; };
@@ -1734,6 +1738,10 @@
 		0C7532C02431FC6600B8F213 /* NotificationSettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationSettingsCell.xib; sourceTree = "<group>"; };
 		0C91D188248E94A100D91658 /* SelectBaggageVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBaggageVM.swift; sourceTree = "<group>"; };
 		0C93A8E72330ABB6000795DE /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
+		0C98720124F66C40005279F9 /* UpgradePlanContrainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradePlanContrainerVC.swift; sourceTree = "<group>"; };
+		0C98720324F66C77005279F9 /* UpgradePlanListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradePlanListVC.swift; sourceTree = "<group>"; };
+		0C98720524F67079005279F9 /* UpgradePlanVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradePlanVM.swift; sourceTree = "<group>"; };
+		0C98720724F683AA005279F9 /* OtherFareModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFareModel.swift; sourceTree = "<group>"; };
 		0C9CD039247E4F49002D1073 /* SelectOtherAdonsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOtherAdonsVM.swift; sourceTree = "<group>"; };
 		0C9D3FE824E2C0EE00238A18 /* SingleJourneyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleJourneyCollectionViewCell.swift; sourceTree = "<group>"; };
 		0C9D3FE924E2C0EE00238A18 /* SingleJourneyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleJourneyCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -3700,6 +3708,31 @@
 				0C93A8E72330ABB6000795DE /* NotificationVC.swift */,
 			);
 			path = NotificationVC;
+			sourceTree = "<group>";
+		};
+		0C9871FE24F66A5F005279F9 /* UpgradeFlight */ = {
+			isa = PBXGroup;
+			children = (
+				0C98720024F66BA6005279F9 /* UpgradePlanListVC */,
+				0C9871FF24F66B56005279F9 /* UpgradePlanContainerVC */,
+			);
+			path = UpgradeFlight;
+			sourceTree = "<group>";
+		};
+		0C9871FF24F66B56005279F9 /* UpgradePlanContainerVC */ = {
+			isa = PBXGroup;
+			children = (
+				0C98720124F66C40005279F9 /* UpgradePlanContrainerVC.swift */,
+			);
+			path = UpgradePlanContainerVC;
+			sourceTree = "<group>";
+		};
+		0C98720024F66BA6005279F9 /* UpgradePlanListVC */ = {
+			isa = PBXGroup;
+			children = (
+				0C98720324F66C77005279F9 /* UpgradePlanListVC.swift */,
+			);
+			path = UpgradePlanListVC;
 			sourceTree = "<group>";
 		};
 		0CBADF0D2473C18800086EA7 /* FlightThirdParties */ = {
@@ -6569,6 +6602,7 @@
 			children = (
 				843FF3B924740230001F21B1 /* IntMCAndReturnDetailsVM.swift */,
 				18AAAC1E24B4978F00025ABF /* FlightDetailsVM.swift */,
+				0C98720524F67079005279F9 /* UpgradePlanVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -6576,6 +6610,7 @@
 		843FF3BA24740230001F21B1 /* Viewcontrollers */ = {
 			isa = PBXGroup;
 			children = (
+				0C9871FE24F66A5F005279F9 /* UpgradeFlight */,
 				18DEFE7B249E7B7400E64260 /* IntFlightUpgradeVC */,
 				843FF3BB24740230001F21B1 /* IntFlightInfoVC */,
 				843FF3BD24740230001F21B1 /* IntFlightBaggageInfo */,
@@ -6660,6 +6695,7 @@
 			isa = PBXGroup;
 			children = (
 				843FF3D724740230001F21B1 /* IntFlightFareInfoResponse.swift */,
+				0C98720724F683AA005279F9 /* OtherFareModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -9850,6 +9886,7 @@
 				84085CD621F59C0E00F1E844 /* DefaultNavigationTransition.swift in Sources */,
 				1820F100228E93820019B8BB /* BookingVoucherVM.swift in Sources */,
 				84246B6C2451C92900C3F5F6 /* HCPanCardTextFieldCell.swift in Sources */,
+				0C98720224F66C40005279F9 /* UpgradePlanContrainerVC.swift in Sources */,
 				18AC309124878382004CB0B8 /* FlightPaymentVC.swift in Sources */,
 				843FF66D247409E3001F21B1 /* KeyValueData.m in Sources */,
 				84323D412230563800DA7581 /* HotelDetailsSearchTagTableCell.swift in Sources */,
@@ -9979,6 +10016,7 @@
 				843FF56924740232001F21B1 /* LayoverViewTableViewCell.swift in Sources */,
 				18DE97D322CB689C0006C5E0 /* FrequentFlyerData.swift in Sources */,
 				84E4BC51229E6F2000B72306 /* FlightBoardingAndDestinationTableViewCell.swift in Sources */,
+				0C98720424F66C77005279F9 /* UpgradePlanListVC.swift in Sources */,
 				84085CDA21F59C0E00F1E844 /* MainHomeVC.swift in Sources */,
 				18F181DC223BC8EE00323775 /* WalletTableViewCell.swift in Sources */,
 				1809A47B21CDFA7E0018AB2F /* TableViewAddActionCell.swift in Sources */,
@@ -10273,6 +10311,7 @@
 				84085CF321F59C0E00F1E844 /* LinkedAccountsVM.swift in Sources */,
 				18E79717224A06B100A7AC8B /* TotalPayableNowCell.swift in Sources */,
 				84085CE821F59C0E00F1E844 /* CreateYourAccountVC.swift in Sources */,
+				0C98720824F683AA005279F9 /* OtherFareModel.swift in Sources */,
 				18EF75372280145A00FCBBE6 /* PKWaterWaveView.swift in Sources */,
 				8463A56C2456C7B200C70D8C /* GMUGroundOverlay.m in Sources */,
 				0CBDEA4E2429EF9B009D7849 /* SuggestionsCell.swift in Sources */,
@@ -10951,6 +10990,7 @@
 				84085D0A21F59C0E00F1E844 /* PreferencesVM.swift in Sources */,
 				84D5F22D22A648F000824A9F /* HotelBookingAddressDetailsTableViewCell.swift in Sources */,
 				84E4BC7122A1197F00B72306 /* FlightsOptionCollectionViewCell.swift in Sources */,
+				0C98720624F67079005279F9 /* UpgradePlanVM.swift in Sources */,
 				84BBC1DC2228F4A4008CC03A /* HotelFormPreviosSearchData.swift in Sources */,
 				18FA223821EC948C0024B91E /* APICaller+AssignGroup.swift in Sources */,
 				0C32DC06232F70FC008033B5 /* QuickPayVC.swift in Sources */,

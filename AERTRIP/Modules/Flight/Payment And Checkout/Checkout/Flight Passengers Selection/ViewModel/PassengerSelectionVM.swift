@@ -33,11 +33,8 @@ class PassengerSelectionVM  {
     var journeyDate:String?
     var id = ""
     var addonsMaster = AddonsMaster()
-    //Varialbles for domestic and oneway
-    //Varialbles for international return and multicity
     var intAirportDetailsResult : [String : IntAirportDetailsWS]!
     var intAirlineDetailsResult : [String : IntAirlineMasterWS]!
-//    var intJourney: [IntJourney]?
     var isSwitchOn = false
     var isLogin:Bool{
         return (UserInfo.loggedInUser != nil)

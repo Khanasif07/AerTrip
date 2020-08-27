@@ -31,7 +31,6 @@ class IndUpgradeFlightVC: BaseVC, UICollectionViewDataSource, UICollectionViewDe
     var selectedPlanIndex = -1
     var isNewSubPoint = false
     
-    var thisWidth = 0
     var selectedLocationIndex = 0
     var upgardeResult = NSArray()
     let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
@@ -464,6 +463,7 @@ class IndUpgradeFlightVC: BaseVC, UICollectionViewDataSource, UICollectionViewDe
             self.selectedJourney.farepr = farepr
             let price = getPrice(price: Double(farepr))
             fareBreakupVC?.bookingAmountLabel.text = price
+            
         }
         
         planCollectionView.reloadData()
@@ -620,7 +620,11 @@ class IndUpgradeFlightVC: BaseVC, UICollectionViewDataSource, UICollectionViewDe
 }
 
 
-    extension IndUpgradeFlightVC : FareBreakupVCDelegate{
+extension IndUpgradeFlightVC : FareBreakupVCDelegate{
+    func tapUpgradeButton() {
+        
+    }
+    
         func bookButtonTapped(journeyCombo: [CombinationJourney]?){
             self.setupViewModel()
             if #available(iOS 13.0, *) {
@@ -646,6 +650,10 @@ class IndUpgradeFlightVC: BaseVC, UICollectionViewDataSource, UICollectionViewDe
         func pushToPassenserSelectionVC(_ vc: PassengersSelectionVC){
             self.presentedViewController?.dismiss(animated: false, completion: nil)
             self.view.isUserInteractionEnabled = false
+            if self.viewModel.intJourney?.count != 0{
+                self.viewModel.intJourney?[0] = self.selectedJourney
+            }
+                
             self.viewModel.fetchConfirmationData(){[weak self] success, errorCodes in
                 guard let self = self else {return}
                 self.view.isUserInteractionEnabled = true

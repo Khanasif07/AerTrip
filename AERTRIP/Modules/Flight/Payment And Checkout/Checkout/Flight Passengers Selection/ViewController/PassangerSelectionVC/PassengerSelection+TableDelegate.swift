@@ -30,16 +30,13 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
         guard GuestDetailsVM.shared.guests.count != 0 else {return 0}
         if indexPath.section == 0{
             if indexPath.row == 0{
-//                var firstRowHeight:CGFloat = 0
-//                var secondRowHeight:CGFloat = 0
-//                var thirdRowHeight:CGFloat = 0
-                
+
                 let passengerCount = GuestDetailsVM.shared.guests[indexPath.section].count
                 var cellHeight: CGFloat = 0.0
                 if passengerCount % 4 == 0{
-                    cellHeight = CGFloat(passengerCount % 4) * 119
+                    cellHeight = CGFloat(passengerCount / 4) * 119
                 }else{
-                    cellHeight = CGFloat((passengerCount % 4) + 1) * 119
+                    cellHeight = CGFloat((passengerCount / 4) + 1) * 119
                 }
                 var indexWithDetails = [Int]()
                 for (index, value) in GuestDetailsVM.shared.guests[indexPath.section].enumerated(){
@@ -48,27 +45,7 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
                     }
                 }
                 indexWithDetails = Array(Set(indexWithDetails.map{$0/4}))
-                if (indexWithDetails.count < 2) && (GuestDetailsVM.shared.guests[indexPath.section].count > 12){
-                    cellHeight += CGFloat(indexWithDetails.count * 25)
-                }else{
-                    cellHeight += CGFloat(indexWithDetails.count * 17)
-                }
-                
-                
-                
-//                for i in 0..<GuestDetailsVM.shared.guests[indexPath.section].count {
-//                    switch i{
-//                    case 0,1,2,3:
-//                        firstRowHeight = (firstRowHeight == 136 || (!(GuestDetailsVM.shared.guests[indexPath.section][i].firstName.isEmpty) && !(GuestDetailsVM.shared.guests[indexPath.section][i].lastName.isEmpty))) ? 136 : 119
-//                    case 4,5,6,7:
-//                        secondRowHeight = (secondRowHeight == 136 || (!(GuestDetailsVM.shared.guests[indexPath.section][i].firstName.isEmpty) && !(GuestDetailsVM.shared.guests[indexPath.section][i].lastName.isEmpty))) ? 136 : 119
-//                    case 8,9,10,11:
-//                        thirdRowHeight = (thirdRowHeight == 136 || (!(GuestDetailsVM.shared.guests[indexPath.section][i].firstName.isEmpty) && !(GuestDetailsVM.shared.guests[indexPath.section][i].lastName.isEmpty))) ? 136 : 119
-//                    default: break;
-//                    }
-//
-//                }
-                
+                cellHeight += CGFloat(indexWithDetails.count * 17)
                 return cellHeight//(firstRowHeight + secondRowHeight + thirdRowHeight)
             }else{
                 return 35
@@ -151,7 +128,7 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
         
         switch indexPath.row {
         case 0:
-            guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "CommunicarionCell") as? CommunicationTextCell else {return UITableViewCell()}
+            guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "CommunicationTextCell") as? CommunicationTextCell else {return UITableViewCell()}
             cell.setupForTitlte()
             return cell
         case 1:
@@ -168,7 +145,7 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
             cell.delegate = self
             return cell
         case 3:
-            guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "CommunicarionCell") as? CommunicationTextCell else {return UITableViewCell()}
+            guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "CommunicationTextCell") as? CommunicationTextCell else {return UITableViewCell()}
             cell.setupForCommunicationMsg()
             return cell
         case 4:

@@ -66,7 +66,7 @@ class FlightPaymentVC: BaseVC {
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
         self.viewModel.delegate = self
-        self.viewModel.webServiceGetPaymentMethods()
+        self.viewModel.webServiceGetPaymentMethods(isWalletChnaged: false)
 //        self.viewModel.getItineraryData()
         self.addFooterView()
         self.payButton.addGredient(isVertical: false)
@@ -326,11 +326,12 @@ extension FlightPaymentVC: FlightCouponCodeVCDelegate {
         self.viewModel.appliedCouponData = appliedCouponData
         self.isCouponApplied = true
         self.viewModel.taxesDataDisplay()
-        self.viewModel.updateConvenienceFee()
-        self.updateConvenienceFee()
-        delay(seconds: 0.3) { [weak self] in
-            self?.updateAllData()
-        }
+        self.viewModel.webServiceGetPaymentMethods(isWalletChnaged: true)
+//        self.viewModel.updateConvenienceFee()
+//        self.updateConvenienceFee()
+//        delay(seconds: 0.3) { [weak self] in
+//            self?.updateAllData()
+//        }
     }
 }
 
@@ -351,12 +352,20 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
         }
     }
     
-    func getPaymentsMethodsSuccess(){
+    func willGetPaymetMenthods(){
+        self.hideShowLoader(isHidden: false)
+    }
+    
+    func getPaymentsMethodsSuccess(_ isWalletChnaged: Bool){
+        self.hideShowLoader(isHidden: true)
         self.updateConvenienceFee()
-        self.isWallet = self.getWalletAmount() > 0
+        if !isWalletChnaged{
+            self.isWallet = self.getWalletAmount() > 0
+        }
         self.updateAllData()
     }
     func getPaymentMethodsFails(error: ErrorCodes){
+        self.hideShowLoader(isHidden: true)
         AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
     }
     
@@ -366,9 +375,10 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
         self.viewModel.appliedCouponData = appliedCouponData
         self.isCouponApplied = false
         self.viewModel.taxesDataDisplay()
-        self.viewModel.updateConvenienceFee()
-        self.updateConvenienceFee()
-        self.updateAllData()
+        self.viewModel.webServiceGetPaymentMethods(isWalletChnaged: true)
+//        self.viewModel.updateConvenienceFee()
+//        self.updateConvenienceFee()
+//        self.updateAllData()
         printDebug(appliedCouponData)
     }
     

@@ -78,7 +78,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     var taxesDetails : [String:Int] = [String:Int]()
     var taxAndFeesData = [NSDictionary]()
     var taxAndFeesDataDict = [taxStruct]()
-    
+    var bookingObject:BookFlightObject?
     var isTaxesSectionHidden = true
     var isInfoViewHidden = false
     var isUpgradePlanScreenVisible = false
@@ -450,8 +450,6 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     {
         if section == 2{
             if fromScreen == "upgradePlan" && taxAndFeesDataFromUpgrade.count > 0{
-//                let taxes = fareBreakupFromUpgrade.value(forKey: "taxes") as! NSDictionary
-//                let details = taxes.value(forKey: "details") as! NSDictionary
                 return taxAndFeesDataFromUpgrade.count+1
             }else{
                 if taxAndFeesData.count > 0{
@@ -1090,17 +1088,29 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     //MARK:- Button Action
     @IBAction func upgradeButtonClicked(_ sender: Any)
     {
-        let upgradePlanBaseVC = UpgradePlanBaseVC(nibName: "UpgradePlanBaseVC", bundle: nil)
-        upgradePlanBaseVC.taxesResult = self.taxesResult
-        upgradePlanBaseVC.selectedJourneyFK = selectedJourneyFK
-        upgradePlanBaseVC.oldJourney = self.journey
-        upgradePlanBaseVC.journeyCombo = self.journeyCombo
-        upgradePlanBaseVC.sid = self.sid
-        upgradePlanBaseVC.fare = bookingAmountLabel.text!
-        upgradePlanBaseVC.flightAdultCount = flightAdultCount
-        upgradePlanBaseVC.flightChildrenCount = flightChildrenCount
-        upgradePlanBaseVC.flightInfantCount = flightInfantCount
-        self.present(upgradePlanBaseVC, animated: true, completion: nil)
+        
+        let vc = UpgradePlanContrainerVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
+        vc.viewModel.oldJourney = self.journey
+        vc.viewModel.sid = self.sid
+        vc.viewModel.selectedJourneyFK = selectedJourneyFK
+        vc.viewModel.flightAdultCount = flightAdultCount
+        vc.viewModel.flightChildrenCount = flightChildrenCount
+        vc.viewModel.flightInfantCount = flightInfantCount
+        vc.viewModel.bookingObject = self.bookingObject
+        vc.viewModel.taxesResult = self.taxesResult
+        self.present(vc, animated: true, completion: nil)
+        
+//        let upgradePlanBaseVC = UpgradePlanBaseVC(nibName: "UpgradePlanBaseVC", bundle: nil)
+//        upgradePlanBaseVC.taxesResult = self.taxesResult
+//        upgradePlanBaseVC.selectedJourneyFK = selectedJourneyFK
+//        upgradePlanBaseVC.oldJourney = self.journey
+//        upgradePlanBaseVC.journeyCombo = self.journeyCombo
+//        upgradePlanBaseVC.sid = self.sid
+//        upgradePlanBaseVC.fare = bookingAmountLabel.text!
+//        upgradePlanBaseVC.flightAdultCount = flightAdultCount
+//        upgradePlanBaseVC.flightChildrenCount = flightChildrenCount
+//        upgradePlanBaseVC.flightInfantCount = flightInfantCount
+//        self.present(upgradePlanBaseVC, animated: true, completion: nil)
     }
     
     @IBAction func bookButtonClicked(_ sender: Any) {
@@ -1113,7 +1123,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     @objc func infoButtonTapped(){
-//        if fromScreen != "upgradePlan"{
+        if fromScreen != "upgradePlan"{
             
             if isInfoViewHidden == false
             {
@@ -1129,7 +1139,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             }
             
             isInfoViewHidden = !isInfoViewHidden
-//        }
+        }
     }
     
     //MARK:- Price Formatting

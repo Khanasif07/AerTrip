@@ -157,6 +157,7 @@ enum APIEndPoint: String {
     case flightReconfirmationApi = "flights/re-confirmation"
     case flightItinerary = "flights/itinerary"
     case refundCase = "/itinerary/refund-case"
+    case otherFare = "flights/otherfares"
     
     //FlightAddOns
     case seatMap = "flights/seat-map-list"

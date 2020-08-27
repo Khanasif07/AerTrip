@@ -103,4 +103,41 @@ extension APICaller{
     }
     
     
+    func getOtherFare(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ data: [OtherFareModel]?)->Void ) {
+        
+        AppNetworking.GET(endPoint: .otherFare, parameters: params, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            printDebug(json)
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                
+                if sucess {
+                    
+                    let jsondata = json[APIKeys.data.rawValue]["other_fares"].arrayValue
+                    var otherFare = [OtherFareModel]()
+                    if jsondata.count > 1{
+                        otherFare = jsondata.map{OtherFareModel($0)}
+                    }else{
+                        otherFare = (jsondata.first ?? JSON()).arrayValue.map{OtherFareModel($0)}
+                    }
+                    completionBlock(true, [], otherFare)
+                } else {
+                    completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
+                }
+                
+            }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .flights)
+                completionBlock(false, errors, nil)
+            })
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [], nil)
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
+            }
+        }
+        
+    }
 }

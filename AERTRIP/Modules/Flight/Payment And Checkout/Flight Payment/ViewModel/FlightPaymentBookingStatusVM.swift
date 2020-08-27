@@ -70,7 +70,7 @@ class FlightPaymentBookingStatusVM{
             self.sectionData.append(data)
         }
         var dataForLastSection = [TableViewCellType]()
-        if self.apiBookingIds.count != 0{//self.itinerary.bookingStatus.status != "pending"
+        if self.itinerary.bookingStatus.status != "pending"{//self.apiBookingIds.count != 0{
             dataForLastSection.append(contentsOf: [.totalChargeCell, .confirmationHeaderCell])
             for _ in 0..<self.apiBookingIds.count{//(self.itinerary.details.legsWithDetail.count)
                 dataForLastSection.append(.confirmationVoucherCell)

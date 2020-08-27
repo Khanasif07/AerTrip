@@ -176,6 +176,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         }else{
             fareBreakupVC.fewSeatsLeftViewHeightFromFlightDetails = 0
         }
+        fareBreakupVC.bookingObject = bookFlightObject
         fareBreakupVC.isFromFlightDetails = true
         fareBreakupVC.selectedJourneyFK = selectedJourneyFK
         fareBreakupVC.flightAdultCount = bookFlightObject.flightAdultCount
