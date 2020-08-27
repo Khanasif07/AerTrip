@@ -40,7 +40,7 @@ class UpgradePlanVM{
             if success, let data = otherFare{
                 self.delegate?.didFetchDataAt(index: index, data: data)
             }else{
-                self.delegate?.willFetchDataAt(index: index)
+                self.delegate?.failsWithError(index: index)
             }
             
         }

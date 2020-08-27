@@ -268,14 +268,14 @@ struct Taxes:Codable {
 
 struct TaxesSubStruct:Codable {
     let name:String
-    let value:Int
+    var value:Int
 }
 
 struct TotalPayabelSubStruct:Codable {
     let name:String
-    let value:Int
+    var value:Int
     
-    let details : [String:Int]
+    var details : [String:Int]
 }
 
 struct cancellationChargesStruct:Codable {
