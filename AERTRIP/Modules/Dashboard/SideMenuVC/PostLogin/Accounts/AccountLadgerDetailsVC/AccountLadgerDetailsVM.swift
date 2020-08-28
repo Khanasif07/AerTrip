@@ -114,7 +114,7 @@ class AccountLadgerDetailsVM {
                 section4.append((title: "Airline", value: self.ladgerEvent!.airline, age: "", isEmptyCell: false))
             }
             if  !self.ladgerEvent!.sector.isEmpty{
-                section4.append((title: "Sector", age: "", value: self.ladgerEvent!.sector, isEmptyCell: false))
+                section4.append((title: "Sector", age: "", value: self.ladgerEvent!.title, isEmptyCell: false))
             }
             if  !self.ladgerEvent!.pnr.isEmpty{
                 section4.append((title: "PNR", value: self.ladgerEvent!.pnr, age: "", isEmptyCell: false))
@@ -162,7 +162,7 @@ class AccountLadgerDetailsVM {
                 section2.append((title: "Airline", value: self.ladgerEvent!.airline, age: "", isEmptyCell: false))
             }
             if  !self.ladgerEvent!.sector.isEmpty{
-            section2.append((title: "Sector", age: "", value: self.ladgerEvent!.sector, isEmptyCell: false))
+            section2.append((title: "Sector", age: "", value: self.ladgerEvent!.title, isEmptyCell: false))
             }
             if  !self.ladgerEvent!.pnr.isEmpty{
                 section2.append((title: "PNR", value: self.ladgerEvent!.pnr, age: "", isEmptyCell: false))

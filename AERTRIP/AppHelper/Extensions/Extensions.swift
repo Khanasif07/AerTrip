@@ -313,7 +313,7 @@ extension Double{
     }
     
     var delimiterWithoutSymbol: String {
-        return Double.numberFormatter.string(from: NSNumber(value: Int(self))) ?? ""
+        return self.amountInDelimeterWithSymbol.replacingOccurrences(of: self.getCurrencySymbol, with: "") //Double.numberFormatter.string(from: NSNumber(value: Int(self))) ?? ""
     }
     
     var getCurrencySymbol: String {

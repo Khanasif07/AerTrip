@@ -14,12 +14,13 @@ import Foundation
     @objc static var shared = FlightWhatNextData()
     
     var whatNext:WhatNext?
+    var recentSearch: NSDictionary?
     @objc var isSettingForWhatNext = false
     private override init(){
     }
     
     @objc var getSeatchDictionary: NSDictionary{
-        guard let whtNxt = self.whatNext else {return [:]}
+        if let whtNxt = self.whatNext {
         let dict = ["origin":whtNxt.origin,
                     "destination":whtNxt.destination,
                     "depart": whtNxt.depart,
@@ -39,9 +40,14 @@ import Foundation
             dict["arrivalCityArr"] = whtNxt.arrivalCityArr ?? []
         }
         return dict
+        } else if let recentsearch =  self.recentSearch{
+            return recentsearch
+        }
+        return [:]
     }
     
     @objc func clearData(){
+        self.recentSearch = nil
         self.whatNext = nil
         self.isSettingForWhatNext = false
     }

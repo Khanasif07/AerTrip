@@ -38,8 +38,9 @@ struct RecentSearchesModel {
     var time_ago: String = ""
     var lat: String = ""
     var lng: String = ""
-    var type = ChatVM.RecentSearchFor.hotel
     var search_nearby: Bool = false
+    var type = ChatVM.RecentSearchFor.hotel
+    var flight: RecentSearchDisplayModel?
     
     
     //Mark:- Initialization
@@ -158,10 +159,14 @@ struct RecentSearchesModel {
         return recentSearchesData
     }
     
-    static func recentSearchDataWithType(type : ChatVM.RecentSearchFor ,jsonArr: [JSONDictionary]) -> [RecentSearchesModel] {
+    static func recentSearchDataWithType(type : ChatVM.RecentSearchFor ,jsonArr: [JSONDictionary], extraData: JSONDictionary? = nil) -> [RecentSearchesModel] {
         var recentSearchesData = [RecentSearchesModel]()
         for json in jsonArr {
             var obj = RecentSearchesModel(json: json)
+            if type == .flight {
+                obj.flight = RecentSearchDisplayModel(dictionary: json)
+                obj.flight?.quary[APIKeys.extra_data.rawValue] = extraData
+            }
             obj.type = type
             recentSearchesData.append(obj)
         }
