@@ -12,8 +12,8 @@ import UIKit
 import SnapKit
 import MessageUI
 
-class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate , MFMailComposeViewControllerDelegate, getSharableUrlDelegate
-{
+class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate , MFMailComposeViewControllerDelegate, getSharableUrlDelegate {
+    
     //MARK:- Outlets
     var bannerView : ResultHeaderView?
     @IBOutlet weak var headerCollectionView: UICollectionView!
@@ -34,6 +34,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
     @IBOutlet weak var unpinAllLeading: NSLayoutConstraint!
     @IBOutlet weak var emailPinnedFlightLeading: NSLayoutConstraint!
     @IBOutlet weak var sharePinnedFlightsLeading: NSLayoutConstraint!
+   
     //MARK:- State Properties
     var resultsTableViewStates =  [ResultTableViewState]()
     var stateBeforePinnedFlight = [ResultTableViewState]()
@@ -56,7 +57,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
     var sid : String = ""
     var bookFlightObject = BookFlightObject()
     
-
     var titleString : NSAttributedString!
     var subtitleString : String!
     
@@ -81,8 +81,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
 
     let getSharableLink = GetSharableUrl()
 
-    //MARK:-  Initializers
     
+    //MARK:-  Initializers
     convenience init(numberOfLegs  : Int , headerArray : [MultiLegHeader] ) {
         self.init(nibName:nil, bundle:nil)
         self.numberOfLegs = numberOfLegs
@@ -101,10 +101,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         results = Array(repeating: DomesticMultilegJourneyResultsArray(sort: .Smart), count: 0)
         sortedJourneyArray = Array(repeating: [Journey](), count: 0)
         resultsTableViewStates =  Array(repeating: .showTemplateResults , count: 0)
-        
-
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -149,9 +146,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         let height = self.baseScrollView.frame.height + statusBarHeight + 88.0
         baseScrollView.contentSize = CGSize( width: (CGFloat(numberOfLegs) * width ), height:height)
         
-
-        for view in self.baseScrollView.subviews
-        {
+        for view in self.baseScrollView.subviews {
             if view is JourneyHeaderView {
                 continue
             }
@@ -279,16 +274,16 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         let appliedFilters = (self.flightSearchResultVM.flightLegs[index].appliedFilters.count)
 
         if appliedFilters > 0{
-            if self.userSelectedFilters.count != self.flightSearchResultVM.flightLegs.count && self.updatedApiProgress < 0.95{
+            if self.userSelectedFilters.count != self.flightSearchResultVM.flightLegs.count && self.updatedApiProgress < 0.95 {
                 if index < self.userSelectedFilters.count{
-                    if self.userSelectedFilters[index].al == []{
+                    if self.userSelectedFilters[index].al == [] {
                         self.userSelectedFilters.insert(self.flightSearchResultVM.flightLegs[index].userSelectedFilters, at: index)
                     }
-                    }else{
-                    self.userSelectedFilters.insert(self.flightSearchResultVM.flightLegs[index].userSelectedFilters, at: index)
+                } else {
+                self.userSelectedFilters.insert(self.flightSearchResultVM.flightLegs[index].userSelectedFilters, at: index)
                 }
             }
-        }else{
+        } else {
             self.userSelectedFilters.removeAll()
         }
         
@@ -309,7 +304,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
             journeyArray = self.flightSearchResultVM.flightLegs[index].applyDepartureTimeFilter(journeyArray)
             journeyArray = self.flightSearchResultVM.flightLegs[index].applyMultiItinaryAirlineFilter(journeyArray)
                         
-            
 //            self.flightSearchResultVM.flightLegs[index].filteredJourneyArray = journeyArray
 
             self.flightSearchResultVM.flightLegs[index].updatedFilterResultCount = journeyArray.count
@@ -327,8 +321,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         NotificationCenter.default.post(name:NSNotification.Name("updateFilterScreenText"), object: nil)
     }
     
-    
-
     func showNoResultScreenAt(index: Int) {
         addErrorScreenAtIndex(index: index, forFilteredResults: false)
     }
@@ -338,9 +330,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
         addErrorScreenAtIndex(index: index, forFilteredResults: true)
     }
     
-    
     //MARK:- Logical methods
-    
     func  getSelectedJourneyForAllLegs() -> [Journey]? {
         
         var selectedJourneys = [Journey]()
@@ -383,7 +373,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
                         selectedJourneys.append(currentJourney)
                     }
                     
-
                 case .showRegularResults :
                     
                     let suggestedJourneyArray = results[index].suggestedJourneyArray
@@ -397,7 +386,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
                 case .showNoResults:
                     return nil
                 }
-                
             }
         }
         if selectedJourneys.count == numberOfLegs {
