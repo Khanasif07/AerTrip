@@ -45,6 +45,7 @@ class PassengerSelectionVM  {
     var isdCode = "+91"
     var manimumContactLimit = 10
     var maximumContactLimit = 10
+    var isTravelSefetyRequired  = true
     var itineraryData = FlightItineraryData()
     var newItineraryData = FlightItineraryData()
     weak var delegate:PassengerSelectionVMDelegate?

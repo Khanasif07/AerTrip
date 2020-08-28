@@ -1324,8 +1324,45 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
 
 extension FlightResultBaseViewController{
     
-    func searchApiResult(){
+    func searchApiResult(flightItinary: FlightItineraryData){
         
+        guard let chngResult = flightItinary.changeResults?.values.first else {return}
+        let flightType = flightSearchResultVM.flightSearchType
+        
+        switch flightType {
+        case SINGLE_JOURNEY: self.singleJourneyResultVC?.updatePriceWhenGoneup(flightItinary.itinerary.details.fk, changeResult: chngResult)
+        case RETURN_JOURNEY:
+            if flightSearchResultVM.isDomestic {
+
+                if let changeData = flightItinary.changeResults{
+                    for key in changeData.map({$0.key}){
+                        if let index = key.toInt, let priceChnage = changeData[key]{
+                            self.domesticMultiLegResultVC?.updatePriceWhenGoneup(flightItinary.itinerary.details.legsWithDetail[index - 1].lfk, changeResult: priceChnage, tableIndex: (index - 1))
+                        }
+                    }
+                }
+            }
+            else {
+                self.intMultiLegResultVC?.updatePriceWhenGoneup(flightItinary.itinerary.details.fk, changeResult: chngResult)
+            }
+        case  MULTI_CITY:
+            
+            if flightSearchResultVM.isDomestic {
+                if let changeData = flightItinary.changeResults{
+                    for key in changeData.map({$0.key}){
+                        if let index = key.toInt, let priceChnage = changeData[key]{
+                            self.domesticMultiLegResultVC?.updatePriceWhenGoneup(flightItinary.itinerary.details.legsWithDetail[index - 1].lfk, changeResult: priceChnage, tableIndex: (index - 1))
+                        }
+                    }
+                }
+            } else {
+                self.intMultiLegResultVC?.updatePriceWhenGoneup(flightItinary.itinerary.details.fk, changeResult: chngResult)
+            }
+            break
+        default:
+            return
+        }
+
     }
 }
 

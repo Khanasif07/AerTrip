@@ -236,8 +236,8 @@ class FlightPaymentVC: BaseVC {
             nav.dismiss(animated: true) {
                 delay(seconds: 0.0) {
                     if let vc = nav.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
-                        nav.popToViewController(vc, animated: true)
-                        vc.searchApiResult()
+//                        nav.popToViewController(vc, animated: true)
+                        vc.searchApiResult(flightItinary: self.viewModel.appliedCouponData)
                     }
                 }
             }
@@ -264,7 +264,7 @@ class FlightPaymentVC: BaseVC {
     // Get Available Wallet Amount
     func getWalletAmount() -> Double {
         if let walletAmount = self.viewModel.paymentDetails?.paymentDetails.wallet {
-            return walletAmount
+            return walletAmount.roundTo(places: 2)
         } else {
             return 0
         }

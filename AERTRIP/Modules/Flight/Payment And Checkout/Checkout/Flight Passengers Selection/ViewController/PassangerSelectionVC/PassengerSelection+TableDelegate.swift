@@ -12,7 +12,7 @@ import PhoneNumberKit
 extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return self.viewModel.isTravelSefetyRequired ? 3 : 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -21,6 +21,8 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
             return 2
         case 1:
             return 6
+        case 2:
+            return 2
         default:
             return 0
         }
@@ -51,7 +53,7 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
                 return 35
             }
             
-        }else{
+        }else if indexPath.section == 1{
             
             switch indexPath.row {
             case 0:
@@ -67,6 +69,13 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
             default:
                 return 35
             }
+        }else{
+            switch indexPath.row {
+            case 0:
+                return 44
+            default:
+                return 35
+            }
         }
     }
     
@@ -78,6 +87,8 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
             return self.getCellForFirstSection(with: indexPath)
         case 1:
             return getCellForSecondSection(with: indexPath)
+        case 2:
+            return getCellForThirdSection(with: indexPath)
         default:
             return UITableViewCell()
         }
@@ -164,6 +175,22 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
 //            }
             return cell
         case 5:
+            guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "FlightEmptyCell") as? FlightEmptyCell else {return UITableViewCell()}
+            cell.bottomDividerView.isHidden = !(self.viewModel.isTravelSefetyRequired)
+            cell.backgroundColor = AppColors.themeGray04
+            return cell
+        default:
+            return UITableViewCell()
+        }
+    }
+    
+    
+    func getCellForThirdSection(with indexPath: IndexPath)-> UITableViewCell{
+        switch indexPath.row {
+        case 0:
+            guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "TravellSefetyCell") as? TravellSefetyCell else {return UITableViewCell()}
+            return cell
+        case 1:
             guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "FlightEmptyCell") as? FlightEmptyCell else {return UITableViewCell()}
             cell.bottomDividerView.isHidden = true
             cell.backgroundColor = AppColors.themeGray04

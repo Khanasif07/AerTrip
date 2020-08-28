@@ -259,9 +259,9 @@ struct AirlineMasterWS : Codable {
 
 
 struct Taxes:Codable {
-    let taxes : TotalPayabelSubStruct
-    let BF : TaxesSubStruct
-    let totalPayableNow : TaxesSubStruct
+    var taxes : TotalPayabelSubStruct
+    var BF : TaxesSubStruct
+    var totalPayableNow : TaxesSubStruct
     let cancellationCharges : cancellationChargesStruct
     let reschedulingCharges : reschedulingChargesStruct
 }
