@@ -16,6 +16,7 @@ class IntMCAndReturnVM {
             print(resultTableState)
         }
 }
+    
     var results : InternationalJourneyResultsArray!
     var isConditionReverced = false
     var prevLegIndex = 0
@@ -23,7 +24,6 @@ class IntMCAndReturnVM {
     let dateFormatter = DateFormatter()
 
     
-         
      func getInternationalDisplayArray( results : [IntMultiCityAndReturnWSResponse.Results.J]) -> [IntMultiCityAndReturnDisplay] {
         
         var displayArray = [IntMultiCityAndReturnDisplay]()

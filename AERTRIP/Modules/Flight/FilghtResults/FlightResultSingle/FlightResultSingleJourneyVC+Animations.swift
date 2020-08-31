@@ -22,7 +22,7 @@ extension FlightResultSingleJourneyVC {
                 
 //                self.sortedArray = Array(self.viewModel.results.sortedArray)
                 
-                self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: self.viewModel.prevLegIndex, completion: {
+                self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: 0, completion: {
                     DispatchQueue.main.async {
                         self.setExpandedStateFooter()
                         self.resultsTableView.reloadData()
@@ -55,7 +55,7 @@ extension FlightResultSingleJourneyVC {
             
             DispatchQueue.global(qos: .background).async {
 //                self.sortedArray = Array(self.viewModel.results.sortedArray)
-                self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: self.viewModel.prevLegIndex, completion: {
+                self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: 0, completion: {
                     DispatchQueue.main.async {
                         self.setGroupedFooterView()
                         self.showBluredHeaderViewCompleted()

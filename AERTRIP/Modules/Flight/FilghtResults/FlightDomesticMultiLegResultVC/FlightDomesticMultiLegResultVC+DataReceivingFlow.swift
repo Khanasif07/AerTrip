@@ -25,13 +25,46 @@ extension FlightDomesticMultiLegResultVC {
             
             self.flightSearchResultVM.flightLegs[index].updatedFilterResultCount = 0
 
-           self.viewModel.results[index].journeyArray = updatedArray
-            self.viewModel.results[index].sort = sortOrder
-            self.viewModel.sortOrder = sortOrder
+            self.viewModel.results[index].journeyArray = updatedArray
+             self.viewModel.results[index].sort = sortOrder
+             self.viewModel.sortOrder = sortOrder
             
-            animateTableBanner(index: index , updatedArray: updatedArray, sortOrder: sortOrder)
-        NotificationCenter.default.post(name:NSNotification.Name("updateFilterScreenText"), object: nil)
+            DispatchQueue.global(qos: .userInteractive).async {
+
+                self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: index, completion: {
+                    DispatchQueue.main.async {
+
+                    self.animateTableBanner(index: index , updatedArray: updatedArray, sortOrder: sortOrder)
+                    NotificationCenter.default.post(name:NSNotification.Name("updateFilterScreenText"), object: nil)
+                    }
+
+                })
+3
+            }
+            
         }
+    
+    
+    func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int, shouldReload : Bool = false, completion : (()-> Void)){
+//        previousRequest?.cancel()
+        self.viewModel.sortOrder = sortOrder
+        self.viewModel.isConditionReverced = isConditionReverced
+        self.viewModel.prevLegIndex = legIndex
+//        self.viewModel.setPinnedFlights(shouldApplySorting: true)
+        
+        self.viewModel.applySorting(tableIndex: legIndex, sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex)
+                
+        let newRequest = DispatchWorkItem {
+            if shouldReload {
+                guard let tableView = self.baseScrollView.viewWithTag( 1000 + legIndex) as? UITableView else { return }
+                tableView.reloadData()
+            }
+        }
+        
+        completion()
+        previousRequest = newRequest
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newRequest)
+    }
     
     
     //MARK:- Additional UI Methods

@@ -94,15 +94,15 @@ extension FlightDomesticMultiLegResultVC {
                 DispatchQueue.global(qos: .default).async {
 
                     //apply sorting
-                    
+                self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: tableIndex, completion: {
                     DispatchQueue.main.async {
                         self.setExpandedStateFooterAt(index: tableIndex)
                         tableView.reloadData()
                         tableView.tableFooterView?.transform = CGAffineTransform.identity
                     }
-                }
+                })
+            }
         }
-        
     }
     
     
@@ -142,7 +142,6 @@ extension FlightDomesticMultiLegResultVC {
         }
     }
     
-    
     func createRepeatedFooterBaseView(for view : UIView) -> UIView {
         let baseView = UIView(frame: CGRect(x: 0 , y: 0, width: view.frame.width, height: 60))
         baseView.backgroundColor = .white
@@ -180,14 +179,14 @@ extension FlightDomesticMultiLegResultVC {
             self.viewModel.results[tableIndex].excludeExpensiveFlights = false
         
                     DispatchQueue.global(qos: .background).async {
-                    //    self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: self.viewModel.prevLegIndex, completion: {
+                    self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: tableIndex, completion: {
                             DispatchQueue.main.async {
                                 self.viewModel.results[tableIndex].journeyArray = self.viewModel.results[tableIndex].journeyArray
                                 self.setGroupedFooterViewAt(index: tableIndex)
 //                                self.showBluredHeaderViewCompleted()
                                 tableView.reloadSections([0], with: .none)
                        }
-            //     })
+                })
         }
     }
 }

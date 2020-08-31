@@ -35,7 +35,7 @@ extension FlightResultSingleJourneyVC {
             self.viewModel.results.journeyArray = groupedArray
             self.viewModel.setPinnedFlights(shouldApplySorting: true)
             
-            self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: self.viewModel.prevLegIndex, completion: {
+            self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: 0, completion: {
                 DispatchQueue.main.async {
                     self.animateTableHeader()
                     
@@ -127,7 +127,7 @@ extension FlightResultSingleJourneyVC {
         previousRequest?.cancel()
         self.viewModel.sortOrder = sortOrder
         self.viewModel.isConditionReverced = isConditionReverced
-        self.viewModel.prevLegIndex = legIndex
+      //  self.viewModel.prevLegIndex = legIndex
         self.viewModel.setPinnedFlights(shouldApplySorting: true)
         self.viewModel.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex)
         

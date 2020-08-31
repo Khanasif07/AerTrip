@@ -67,6 +67,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     var updatedApiProgress : Float = 0
 
     let getSharableLink = GetSharableUrl()
+    var previousRequest : DispatchWorkItem?
 
     
     //MARK:-  Initializers
@@ -132,7 +133,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         let width =  UIScreen.main.bounds.size.width / 2.0
         let height = self.baseScrollView.frame.height + statusBarHeight + 88.0
         baseScrollView.contentSize = CGSize( width: (CGFloat(self.viewModel.numberOfLegs) * width ), height:height)
-        
 
         for view in self.baseScrollView.subviews {
             if view is JourneyHeaderView {

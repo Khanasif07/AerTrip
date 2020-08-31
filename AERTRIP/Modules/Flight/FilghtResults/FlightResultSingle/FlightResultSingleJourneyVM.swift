@@ -34,7 +34,7 @@ class FlightResultSingleJourneyVM {
         var stateBeforePinnedFlight = ResultTableViewState.showRegularResults
         var results : OnewayJourneyResultsArray!
         var isConditionReverced = false
-        var prevLegIndex = 0
+//        var prevLegIndex = 0
         var sortOrder = Sort.Smart
         let dateFormatter = DateFormatter()
     
@@ -115,8 +115,8 @@ class FlightResultSingleJourneyVM {
               
               sortArray.sort(by: { (obj1, obj2) -> Bool in
                 
-                  let firstObjDepartureTime = obj1.leg[self.prevLegIndex].dt
-                  let secondObjDepartureTime = obj2.leg[self.prevLegIndex].dt
+                  let firstObjDepartureTime = obj1.leg[0].dt
+                  let secondObjDepartureTime = obj2.leg[0].dt
                   
                   if isConditionReverced {
                     
@@ -132,9 +132,9 @@ class FlightResultSingleJourneyVM {
           case .Arrival:
               sortArray.sort(by: { (obj1, obj2) -> Bool in
                   
-                  let firstObjDepartureTime = (obj1.leg[self.prevLegIndex].ad) + " " + (obj1.leg[self.prevLegIndex].at)
+                  let firstObjDepartureTime = (obj1.leg[0].ad) + " " + (obj1.leg[0].at)
                   
-                  let secondObjDepartureTime = (obj2.leg[self.prevLegIndex].ad) + " " + (obj2.leg[self.prevLegIndex].at)
+                  let secondObjDepartureTime = (obj2.leg[0].ad) + " " + (obj2.leg[0].at)
                   
                   let firstObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: firstObjDepartureTime)
                   
@@ -211,8 +211,8 @@ class FlightResultSingleJourneyVM {
               
               suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
                   
-                  let firstObjDepartureTime = obj1.journeyArray.first?.leg[self.prevLegIndex].dt
-                  let secondObjDepartureTime = obj2.journeyArray.first?.leg[self.prevLegIndex].dt
+                  let firstObjDepartureTime = obj1.journeyArray.first?.leg[0].dt
+                  let secondObjDepartureTime = obj2.journeyArray.first?.leg[0].dt
                   
                   if isConditionReverced {
                       
@@ -223,14 +223,13 @@ class FlightResultSingleJourneyVM {
                     
                     return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ?? "") < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime ?? "")
 
-                      
                   }
               })
             
             journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
                 
-                let firstObjDepartureTime = obj1.journeyArray.first?.leg[self.prevLegIndex].dt
-                let secondObjDepartureTime = obj2.journeyArray.first?.leg[self.prevLegIndex].dt
+                let firstObjDepartureTime = obj1.journeyArray.first?.leg[0].dt
+                let secondObjDepartureTime = obj2.journeyArray.first?.leg[0].dt
                 
                 if isConditionReverced {
                     
@@ -248,9 +247,9 @@ class FlightResultSingleJourneyVM {
           case .Arrival:
               suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
                   
-                  let firstObjDepartureTime = (obj1.journeyArray.first?.leg[self.prevLegIndex].ad ?? "") + " " + (obj1.journeyArray.first?.leg[self.prevLegIndex].at ?? "")
+                  let firstObjDepartureTime = (obj1.journeyArray.first?.leg[0].ad ?? "") + " " + (obj1.journeyArray.first?.leg[0].at ?? "")
                   
-                  let secondObjDepartureTime = (obj2.journeyArray.first?.leg[self.prevLegIndex].ad ?? "") + " " + (obj2.journeyArray.first?.leg[self.prevLegIndex].at ?? "")
+                  let secondObjDepartureTime = (obj2.journeyArray.first?.leg[0].ad ?? "") + " " + (obj2.journeyArray.first?.leg[0].at ?? "")
                   
                   let firstObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: firstObjDepartureTime)
                   
@@ -270,9 +269,9 @@ class FlightResultSingleJourneyVM {
               
             journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
                 
-                let firstObjDepartureTime = (obj1.journeyArray.first?.leg[self.prevLegIndex].ad ?? "") + " " + (obj1.journeyArray.first?.leg[self.prevLegIndex].at ?? "")
+                let firstObjDepartureTime = (obj1.journeyArray.first?.leg[0].ad ?? "") + " " + (obj1.journeyArray.first?.leg[0].at ?? "")
                 
-                let secondObjDepartureTime = (obj2.journeyArray.first?.leg[self.prevLegIndex].ad ?? "") + " " + (obj2.journeyArray.first?.leg[self.prevLegIndex].at ?? "")
+                let secondObjDepartureTime = (obj2.journeyArray.first?.leg[0].ad ?? "") + " " + (obj2.journeyArray.first?.leg[0].at ?? "")
                 
                 let firstObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: firstObjDepartureTime)
                 
