@@ -162,7 +162,7 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
         postSeatSelectionPopupVC.onDismissTap = { [weak self] in
             self?.seatMapCollView.reloadItems(at: [indexPath])
         }
-        let seatTitle = seatData.columnData.seatNumber + " •  ₹\(seatData.columnData.amount.formattedWithCommaSeparator)"
+        let seatTitle = seatData.columnData.seatNumber + " •  ₹ \(seatData.columnData.amount.formattedWithCommaSeparator)"
         postSeatSelectionPopupVC.setTexts(seatTitle, seatData.columnData.getCharactericstic())
         postSeatSelectionPopupVC.modalPresentationStyle = .overFullScreen
         present(postSeatSelectionPopupVC, animated: false, completion: nil)

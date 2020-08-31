@@ -101,6 +101,10 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         setupBaseView()
     }
     
+    func selectSortVC() {
+        parchmentView?.select(index: 0, animated: false)
+    }
+    
     fileprivate func setupBaseView() {
         
 //        baseView.clipsToBounds = true
@@ -716,6 +720,32 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         priceViewController.allPriceFilters = priceFilters
         priceViewController.currentPriceFilter = priceFilters[0]
     }
+    
+    func updatePriceVC(_ priceViewController : PriceFilterViewController , inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]) {
+        
+        for (index, filter) in inputFilters.enumerated() {
+            let newPriceWS = filter.pr
+            let newPriceFilter = PriceFilter(onlyRefundableFaresSelected: false,
+                                             inputFareMinValue: CGFloat(newPriceWS.minPrice) ,
+                                             inputFareMaxVaule: CGFloat(newPriceWS.maxPrice) ,
+                                             userSelectedFareMinValue: CGFloat(newPriceWS.minPrice) ,
+                                             userSelectedFareMaxValue: CGFloat(newPriceWS.maxPrice) )
+            
+            if let userFilters = userAppliedFilters, userFilters.appliedFilters[index].contains(.Price), priceViewController.allPriceFilters.indices.contains(index) {
+                priceViewController.allPriceFilters[index].inputFareMinValue = newPriceFilter.inputFareMinValue
+                
+                priceViewController.allPriceFilters[index].inputFareMaxVaule = newPriceFilter.inputFareMaxVaule
+            } else {
+                if !priceViewController.allPriceFilters.indices.contains(index) {
+                    priceViewController.allPriceFilters.insert(newPriceFilter, at: index)
+                } else {
+                    priceViewController.allPriceFilters[index] = newPriceFilter
+                }
+            }
+        }
+        priceViewController.updateFiltersFromAPI()
+    }
+    
     
     //MARK:- Airport
     func setAirportVC(_ airportViewController : AirportsFilterViewController , inputFilters : [IntMultiCityAndReturnWSResponse.Results.F], isUpdating: Bool)

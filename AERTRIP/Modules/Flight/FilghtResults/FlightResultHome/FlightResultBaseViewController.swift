@@ -899,16 +899,20 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         
         if flightSearchResultVM.containsJourneyResuls  {
             
-            if backView.height <= visualEffectViewHeight {
-                toggleFiltersView(hidden: false)
-            } else {
+            if curSelectedFilterIndex == 0 && backView.height > visualEffectViewHeight {
                 toggleFiltersView(hidden: true)
+            } else {
+                flightFilterVC?.selectSortVC()
+                intMCAndReturnFilterVC?.selectSortVC()
+                toggleFiltersView(hidden: false)
+                curSelectedFilterIndex = 0
             }
-            
-//            self.openFiltersWith(index: 0)
-            
-//            self.filterSegmentView.selectedSegmentIndex = 0
-//            filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: true, selectedIndex: filterSegmentView.selectedSegmentIndex)
+//            
+//            if backView.height <= visualEffectViewHeight {
+//                toggleFiltersView(hidden: false)
+//            } else {
+//                toggleFiltersView(hidden: true)
+//            }
         }
     }
     
