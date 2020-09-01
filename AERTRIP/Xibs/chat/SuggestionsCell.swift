@@ -63,10 +63,28 @@ class SuggestionsCell : UICollectionViewCell {
     func configureFlightCell(data : RecentSearchesModel){
         self.suggestionLabel.font = AppFonts.SemiBold.withSize(18)
         self.suggestionLabel.textColor = AppColors.themeBlack
-
-        self.suggestionLabel.text = "BOM → DEL"
-        self.dateLabel.text = "17 Jan"
+        
+        guard let flight = data.flight  else {return}
+        
+//        self.suggestionLabel.text = "BOM → DEL"
+//        self.dateLabel.text = "17 Jan"
         self.suggestionImageView.image = #imageLiteral(resourceName: "blueflight")
+        
+        suggestionLabel.attributedText = flight.travelPlan
+
+        if(flight.travelDate.count > 33){
+
+            let startIndex = flight.travelDate.index(flight.travelDate.startIndex, offsetBy: 6)
+            let endIndex = flight.travelDate.index(flight.travelDate.endIndex, offsetBy: -6)
+
+            let startString = String(flight.travelDate.prefix(upTo: startIndex))
+            let endString = String(flight.travelDate.suffix(from: endIndex))
+
+            dateLabel.text = startString + " ... " + endString
+
+        }else{
+            dateLabel.text = flight.travelDate
+        }
     }
     
     func populateData(data : RecentSearchesModel){

@@ -141,9 +141,9 @@ class RoomGuestSelectionVC: BaseVC {
         
         self.setOldAges()
         self.hide(animated: false)
-//        delay(seconds: 0.0) { [weak self] in
-//            self?.show(animated: true)
-//        }
+        //        delay(seconds: 0.0) { [weak self] in
+        //            self?.show(animated: true)
+        //        }
         
         self.firstLineView.isHidden = true
         self.secondLineView.isHidden = true
@@ -174,7 +174,7 @@ class RoomGuestSelectionVC: BaseVC {
         }
         
         if animated {
-                UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, delay: 0, options: .curveEaseInOut, animations: {
+            UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, delay: 0, options: .curveEaseInOut, animations: {
                 setValue()
             }, completion: { (isDone) in
             })
@@ -200,13 +200,13 @@ class RoomGuestSelectionVC: BaseVC {
                     self.dismiss(animated: false, completion: nil)
                 }
             })
-//            UIView.animate(withDuration: animated ? AppConstants.kCloseAnimationDuration : 0.0, animations: {
-//                setValue()
-//            }, completion: { (isDone) in
-//                if shouldRemove {
-//                    self.removeFromParentVC
-//                }
-//            })
+            //            UIView.animate(withDuration: animated ? AppConstants.kCloseAnimationDuration : 0.0, animations: {
+            //                setValue()
+            //            }, completion: { (isDone) in
+            //                if shouldRemove {
+            //                    self.removeFromParentVC
+            //                }
+            //            })
         }
         else {
             setValue()
@@ -280,25 +280,25 @@ class RoomGuestSelectionVC: BaseVC {
     
     func deselectButtonAnimation(button: UIButton,isFirstTime: Bool = false){
         //Total animation duration is 1.0 seconds - This time is inside the
-//        if isFirstTime {
-//            UIView.animateKeyframes(withDuration: 1.0, delay: 0.0, options: [], animations: {
-//                UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.33, animations: {
-//                    //1.Expansion + button label alpha
-//                    button.imageView?.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-//                })
-//                UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.33, animations: {
-//                    //2.Shrink
-//                    button.imageView?.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-//                })
-//                UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.33, animations: {
-//                    //4.Move out of screen and reduce alpha to 0
-//                    button.imageView?.transform = CGAffineTransform(scaleX: 0.25, y: 0.25)
-//                })
-//            }) { (completed) in
-//                //Completion of whole animation sequence
-//                button.imageView?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-//            }
-//        }
+        //        if isFirstTime {
+        //            UIView.animateKeyframes(withDuration: 1.0, delay: 0.0, options: [], animations: {
+        //                UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.33, animations: {
+        //                    //1.Expansion + button label alpha
+        //                    button.imageView?.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+        //                })
+        //                UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.33, animations: {
+        //                    //2.Shrink
+        //                    button.imageView?.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        //                })
+        //                UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.33, animations: {
+        //                    //4.Move out of screen and reduce alpha to 0
+        //                    button.imageView?.transform = CGAffineTransform(scaleX: 0.25, y: 0.25)
+        //                })
+        //            }) { (completed) in
+        //                //Completion of whole animation sequence
+        //                button.imageView?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        //            }
+        //        }
     }
     
     private func enableAgePicker() {
@@ -329,14 +329,14 @@ class RoomGuestSelectionVC: BaseVC {
         self.agesContainerView.isHidden = false
         self.ageSelectionLabel.isHidden = false
         if #available(iOS 14.0, *) {} else {
-        self.firstLineView.isHidden = false
-        self.secondLineView.isHidden = false
+            self.firstLineView.isHidden = false
+            self.secondLineView.isHidden = false
         }
         let mainH = self.containerHeight
         // - self.agesContainerView.frame.height
         //let mainH = self.mainContainerHeight + self.agesContainerView.frame.height
         UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseInOut], animations: {
-//        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+            //        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.mainContainerHeightConstraint.constant = mainH
             self.ageSelectionLabel.alpha = 1.0
             self.view.layoutIfNeeded()
@@ -355,7 +355,7 @@ class RoomGuestSelectionVC: BaseVC {
         self.secondLineView.isHidden = true
         let mainH = self.mainContainerHeight - self.agesContainerView.frame.height
         UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseInOut], animations: {
-//        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+            //        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.mainContainerHeightConstraint.constant = mainH
             self.ageSelectionLabel.alpha = 0.0
             self.view.layoutIfNeeded()
@@ -383,7 +383,7 @@ class RoomGuestSelectionVC: BaseVC {
     }
     
     @IBAction func adultsButtonsAction(_ sender: ATGuestButton) {
-        
+        var showMessage = false
         if sender.tag == 1 {
             //first button tapped, clear all selection except first adult
             self.viewModel.selectedAdults = sender.tag
@@ -391,31 +391,37 @@ class RoomGuestSelectionVC: BaseVC {
         }
         else {
             var tag = sender.tag//(self.viewModel.selectedAdults >= sender.tag) ? (sender.tag - 1) : sender.tag
+            showMessage = (tag + self.viewModel.selectedAdults) > self.viewModel.maxGuest
             if (tag + self.viewModel.selectedChilds) >= self.viewModel.maxGuest {
                 tag = (self.viewModel.maxGuest - self.viewModel.selectedChilds)
             }
             // need to remove unselect on tap of selected uncomment comment logic
-//            self.viewModel.selectedAdults = tag
+            //            self.viewModel.selectedAdults = tag
             self.viewModel.selectedAdults = (self.viewModel.selectedAdults == tag) ? (tag - 1) : tag
             self.updateSelection(needToChangePickerViewHeight: false)
         }
-        self.checkForMaximumGuest()
+        if showMessage {
+            self.checkForMaximumGuest()
+        }
     }
     
     @IBAction func childrenButtonsAction(_ sender: ATGuestButton) {
         var tag = (self.viewModel.selectedChilds >= sender.tag) ? (sender.tag - 1) : sender.tag
+        let showMessage = (tag + self.viewModel.selectedAdults) > self.viewModel.maxGuest
         if (tag + self.viewModel.selectedAdults) >= self.viewModel.maxGuest {
             tag = (self.viewModel.maxGuest - self.viewModel.selectedAdults)
         }
         self.viewModel.selectedChilds = tag
         self.updateSelection(needToChangePickerViewHeight: true)
-        self.checkForMaximumGuest()
+        if showMessage {
+            self.checkForMaximumGuest()
+        }
     }
     
     func checkForMaximumGuest() {
-        if (self.viewModel.selectedAdults + self.viewModel.selectedChilds) >= 6 {
-            AppToast.default.showToastMessage(message: "Max guest can not be more than 6")
-        }
+        //        if (self.viewModel.selectedAdults + self.viewModel.selectedChilds) >= 6 {
+        AppToast.default.showToastMessage(message: "Max guest can not be more than 6")
+        //        }
     }
 }
 
@@ -461,7 +467,7 @@ extension RoomGuestSelectionVC {
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
         closeBottomSheet()
     }
-
+    
     func openBottomSheet() {
         self.show(animated: true)
     }

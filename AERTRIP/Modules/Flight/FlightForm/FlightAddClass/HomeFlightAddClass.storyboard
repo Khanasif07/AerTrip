@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17147" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17120"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -97,7 +97,7 @@
                                                 </view>
                                                 <blurEffect style="light"/>
                                             </visualEffectView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v0a-N6-60R">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v0a-N6-60R">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="0pf-aN-Hj2"/>
@@ -110,7 +110,7 @@
                                                     <action selector="doneAction:" destination="rPn-hE-b08" eventType="touchUpInside" id="O19-7v-RxG"/>
                                                 </connections>
                                             </button>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BkU-JE-LPu">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BkU-JE-LPu" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="0.66666666666666663"/>
                                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -154,6 +154,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="H4V-Vm-hAZ"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="RHv-v6-ner" secondAttribute="bottom" id="E27-vu-J4D"/>
                             <constraint firstItem="bFB-ax-FHN" firstAttribute="centerX" secondItem="H4V-Vm-hAZ" secondAttribute="centerX" id="Emc-Cs-v7x"/>
@@ -163,7 +164,6 @@
                             <constraint firstItem="bFB-ax-FHN" firstAttribute="width" secondItem="y90-Hl-i72" secondAttribute="width" id="ug7-w1-ynT"/>
                             <constraint firstItem="bFB-ax-FHN" firstAttribute="height" secondItem="y90-Hl-i72" secondAttribute="height" id="zMl-4S-duf"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="H4V-Vm-hAZ"/>
                     </view>
                     <connections>
                         <outlet property="bottomView" destination="RHv-v6-ner" id="UGb-3H-BJl"/>
@@ -182,6 +182,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="greenTick" width="12.333333015441895" height="9.6666669845581055"/>
+        <image name="greenTick" width="20" height="20"/>
     </resources>
 </document>

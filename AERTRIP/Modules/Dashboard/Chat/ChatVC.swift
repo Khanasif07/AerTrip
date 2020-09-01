@@ -142,6 +142,7 @@ extension ChatVC {
         self.chatVm.getRecentHotels()
         self.chatVm.getRecentFlights()
         self.resetFrames()
+        self.messageTextView.becomeFirstResponder()
     }
     
     //MARK:- Set view attributes
@@ -459,6 +460,7 @@ extension ChatVC {
             UIView.animate(withDuration: 0.3) {
                 self.view.layoutIfNeeded()
             }
+            checkSendButtonStatus()
         }else if height < 44{
             resetFrames()
         }
@@ -469,6 +471,9 @@ extension ChatVC {
             self.chatBackViewHeight.constant = 44
             self.view.layoutIfNeeded()
         }
+        checkSendButtonStatus()
+    }
+    func checkSendButtonStatus() {
         self.sendButton.isHidden = messageTextView.text.isEmpty
     }
 }

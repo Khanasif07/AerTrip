@@ -441,6 +441,7 @@ extension AccountDetailsVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar === self.mainSearchBar {
+            self.currentViewState = .searching
             //searchText.count >= AppConstants.kSearchTextLimit
             self.viewModel.searchEvent(forText: searchText)
             if !searchText.isEmpty {
@@ -493,7 +494,7 @@ extension AccountDetailsVC: ADEventFilterVCDelegate {
         if ADEventFilterVM.shared.isFilterAplied  {
             self.currentViewState = .filterApplied
         } else {
-            self.currentViewState = .normal
+            self.currentViewState =  self.currentViewState == .filterApplied ? .normal : self.currentViewState
         }
         self.viewModel.applyFilter(searchText: self.mainSearchBar.text ?? "")
     }

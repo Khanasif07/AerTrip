@@ -395,7 +395,7 @@ struct AccountDetailEvent {
         self.title = ""
         if let journey = details["journey"] as? [[String]] {
             for obj in journey {
-                self.title += ( (self.title.isEmpty ? "" : " , ") + obj.joined(separator: " → "))
+                self.title += ( (self.title.isEmpty ? "" : ", ") + obj.joined(separator: " → "))
             }
         }
         self.getAttributedText()

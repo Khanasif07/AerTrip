@@ -90,9 +90,11 @@ class AccountDetailsVM: NSObject {
                     //                    let fltrd = events.filter({ $0.title.lowercased().contains(forText.lowercased())})
                     let fltrd = events.filter { event in
                         return ((event.title.lowercased().contains(forText.lowercased())) || (event.voucherNo.lowercased().contains(forText.lowercased())) ||
-                            (event.bookingNumber.lowercased().contains(forText.lowercased())) ||
-                            (event.airline.lowercased().contains(forText.lowercased())) ||
-                            (self.removeSpecialChar(from:event.flightNumber).contains(self.removeSpecialChar(from: forText))))
+                                    (event.bookingNumber.lowercased().contains(forText.lowercased())) ||
+                                    (event.airline.lowercased().contains(forText.lowercased())) ||
+                                    (self.removeSpecialChar(from:event.flightNumber).contains(self.removeSpecialChar(from: forText))) ||
+                                    (event.bookingId.lowercased().contains(forText.lowercased())))
+                        
                         
                     }
                     if !fltrd.isEmpty {
@@ -166,17 +168,17 @@ class AccountDetailsVM: NSObject {
     }
     
     func applyFilter(searchText: String) {
-            let filtr = ADEventFilterVM.shared
-            if !ADEventFilterVM.shared.isFilterAplied {
-                setAccountDetails(data: _accountDetails)
-            } else {
-                var newData = JSONDictionary()
-                for date in Array(_accountDetails.keys) {
-                    if let events = _accountDetails[date] as? [AccountDetailEvent] {
-                        var fltrd = [AccountDetailEvent]()
-                         if filtr.fromDate == nil && filtr.toDate == nil {
-                             fltrd = events
-                         } else {
+        let filtr = ADEventFilterVM.shared
+        if !ADEventFilterVM.shared.isFilterAplied {
+            setAccountDetails(data: _accountDetails)
+        } else {
+            var newData = JSONDictionary()
+            for date in Array(_accountDetails.keys) {
+                if let events = _accountDetails[date] as? [AccountDetailEvent] {
+                    var fltrd = [AccountDetailEvent]()
+                    if filtr.fromDate == nil && filtr.toDate == nil {
+                        fltrd = events
+                    } else {
                         fltrd = events.filter { event in
                             
                             var status = false
@@ -193,39 +195,39 @@ class AccountDetailsVM: NSObject {
                                     status = true
                                 }
                             }
-                                                        
+                            
                             return status
-                        }
-                        }
-                        fltrd = fltrd.filter { event in
-                            var status = false
-                            if !filtr.selectedVoucherType.isEmpty {
-                                if filtr.selectedVoucherType.contains(where: { (voucher) -> Bool in
-                                    return voucher.lowercased() == "all"
-                                }) {
-                                    status = true
-                                }
-                                else if filtr.selectedVoucherType.contains(where: { (voucher) -> Bool in
-                                    return voucher.lowercased() == event.voucherName.lowercased()
-                                }) {
-                                    status = true
-                                }else {
-                                    status = false
-                                }
-                            } else {
-                                status = true
-                            }
-                            return status
-                        }
-                        
-                        if !fltrd.isEmpty {
-                            newData[date] = fltrd
                         }
                     }
+                    fltrd = fltrd.filter { event in
+                        var status = false
+                        if !filtr.selectedVoucherType.isEmpty {
+                            if filtr.selectedVoucherType.contains(where: { (voucher) -> Bool in
+                                return voucher.lowercased() == "all"
+                            }) {
+                                status = true
+                            }
+                            else if filtr.selectedVoucherType.contains(where: { (voucher) -> Bool in
+                                return voucher.lowercased() == event.voucherName.lowercased()
+                            }) {
+                                status = true
+                            }else {
+                                status = false
+                            }
+                        } else {
+                            status = true
+                        }
+                        return status
+                    }
+                    
+                    if !fltrd.isEmpty {
+                        newData[date] = fltrd
+                    }
                 }
-                
-                setAccountDetails(data: newData)
             }
+            
+            setAccountDetails(data: newData)
+        }
         
         self.delegate?.applyFilterSuccess()
         /*
