@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -34,6 +34,28 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="THK-DK-Zyp">
                     <rect key="frame" x="0.0" y="0.0" width="422" height="166"/>
                     <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Utx-fw-8ZA">
+                            <rect key="frame" x="8" y="118" width="406" height="38"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use coupon 'AER' to get discounts &amp; cashback*" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78a-Br-3fg">
+                                    <rect key="frame" x="10" y="0.0" width="386" height="38"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="38" id="yex-DC-ClM"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                    <color key="textColor" red="0.80000000000000004" green="0.58823529411764708" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.97254901960784312" green="0.72549019607843135" blue="0.031372549019607843" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="78a-Br-3fg" firstAttribute="leading" secondItem="Utx-fw-8ZA" secondAttribute="leading" constant="10" id="Kzs-Qj-LSo"/>
+                                <constraint firstAttribute="height" constant="38" id="Tok-1a-TcQ"/>
+                                <constraint firstItem="78a-Br-3fg" firstAttribute="centerY" secondItem="Utx-fw-8ZA" secondAttribute="centerY" id="UXd-JO-3Pf"/>
+                                <constraint firstAttribute="trailing" secondItem="78a-Br-3fg" secondAttribute="trailing" constant="10" id="qBI-VO-Xk8"/>
+                                <constraint firstItem="78a-Br-3fg" firstAttribute="centerX" secondItem="Utx-fw-8ZA" secondAttribute="centerX" id="slz-RX-cnr"/>
+                            </constraints>
+                        </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dXJ-Sz-lnR">
                             <rect key="frame" x="8" y="16" width="406" height="92"/>
                             <subviews>
@@ -112,28 +134,6 @@ Fees</string>
                                 <constraint firstAttribute="trailing" secondItem="dNo-hK-Fqa" secondAttribute="trailing" constant="10" id="iCg-5r-y6x"/>
                                 <constraint firstItem="YDP-3r-bmr" firstAttribute="top" secondItem="CNg-yM-ztw" secondAttribute="top" id="ml3-Zk-mqV"/>
                                 <constraint firstItem="dNo-hK-Fqa" firstAttribute="top" secondItem="dXJ-Sz-lnR" secondAttribute="top" constant="14" id="uco-XV-PIK"/>
-                            </constraints>
-                        </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Utx-fw-8ZA">
-                            <rect key="frame" x="8" y="118" width="406" height="38"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use coupon 'AER' to get discounts &amp; cashback*" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78a-Br-3fg">
-                                    <rect key="frame" x="10" y="0.0" width="386" height="38"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="38" id="yex-DC-ClM"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                    <color key="textColor" red="0.80000000000000004" green="0.58823529411764708" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" red="0.97254901960784312" green="0.72549019607843135" blue="0.031372549019607843" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstItem="78a-Br-3fg" firstAttribute="leading" secondItem="Utx-fw-8ZA" secondAttribute="leading" constant="10" id="Kzs-Qj-LSo"/>
-                                <constraint firstAttribute="height" constant="38" id="Tok-1a-TcQ"/>
-                                <constraint firstItem="78a-Br-3fg" firstAttribute="centerY" secondItem="Utx-fw-8ZA" secondAttribute="centerY" id="UXd-JO-3Pf"/>
-                                <constraint firstAttribute="trailing" secondItem="78a-Br-3fg" secondAttribute="trailing" constant="10" id="qBI-VO-Xk8"/>
-                                <constraint firstItem="78a-Br-3fg" firstAttribute="centerX" secondItem="Utx-fw-8ZA" secondAttribute="centerX" id="slz-RX-cnr"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GzG-eT-Nq9" userLabel="LineView">

@@ -72,6 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSString*)flightClassName;
 -(BOOL)isValidFlightSearch;
 -(void)performFlightSearch;
+-(void)performFlightSearchWith:(NSMutableDictionary*)dict;
 -(AirportSelectionVM*)prepareForAirportSelection:(BOOL)isFrom  airportSelectionMode:(AirportSelectionMode)airportSelectionVM;
 -(AirportSelectionVM*)prepareForMultiCityAirportSelection:(BOOL)isFrom indexPath:(NSIndexPath*)indexPath;
 -(CalendarVM*)VMForDateSelectionIsOnwardsSelection:(BOOL)isOnwards forReturnMode:(BOOL)forReturn;

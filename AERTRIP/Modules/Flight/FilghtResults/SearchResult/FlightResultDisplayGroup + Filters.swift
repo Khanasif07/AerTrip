@@ -326,7 +326,14 @@ extension FlightResultDisplayGroup  {
     }
     
     private func isTripDurationFilterApplied() -> Bool {
-        let totalTimeCheck = !(userSelectedFilters.tt == inputFilter.tt)
+        guard let userSel = userSelectedFilters, let inputFil = inputFilter else { return false }
+        
+        let userSelectedMinTime = Int(userSel.tt.minTime ?? "") ?? 0,
+        userSelectedMaxTime = Int(userSel.tt.maxTime ?? "") ?? 0,
+        inputFilterMinTime = Int(inputFil.tt.minTime ?? "") ?? 0,
+        inputFilterMaxTime = Int(inputFil.tt.maxTime ?? "") ?? 0
+        let totalTimeCheck = !((userSelectedMinTime <= inputFilterMinTime) && (userSelectedMaxTime >= inputFilterMaxTime))
+        
         if totalTimeCheck {
             appliedSubFilters.insert(.tripDuration)
         } else {
@@ -336,7 +343,14 @@ extension FlightResultDisplayGroup  {
     }
     
     private func isLayoverDurationFilterApplied() -> Bool {
-        let totalTimeCheck = !(userSelectedFilters.lott == inputFilter.lott)
+        guard let userSel = userSelectedFilters, let inputFil = inputFilter else { return false }
+        
+        let userSelectedMinTime = Int(userSel.lott?.minTime ?? "") ?? 0,
+        userSelectedMaxTime = Int(userSel.lott?.maxTime ?? "") ?? 0,
+        inputFilterMinTime = Int(inputFil.lott?.minTime ?? "") ?? 0,
+        inputFilterMaxTime = Int(inputFil.lott?.maxTime ?? "") ?? 0
+        let totalTimeCheck = !((userSelectedMinTime <= inputFilterMinTime) && (userSelectedMaxTime >= inputFilterMaxTime))
+
         if totalTimeCheck {
             appliedSubFilters.insert(.layoverDuration)
         } else {

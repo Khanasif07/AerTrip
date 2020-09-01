@@ -69,6 +69,9 @@ enum AppColors {
     /// RGB - 246, 246, 246
     static let themeGray04  = UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
     
+    /// RGB - 249, 249, 249
+    static let themeGray49  = UIColor(displayP3Red: 0.976, green: 0.976, blue: 0.976, alpha: 1)
+    
     /// RGB - 255, 255, 255
     static let themeWhite  = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1)
     

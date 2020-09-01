@@ -117,8 +117,7 @@ class SingleJourneyResultTableViewCell: UITableViewCell
         }
     }
     
-    func setTitlesFrom( journey : Journey?)
-    {
+    func setTitlesFrom( journey : Journey?) {
         guard let journey = journey else { return }
         
         currentJourney = journey

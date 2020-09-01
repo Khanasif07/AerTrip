@@ -96,6 +96,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         resultsTableView.rowHeight = UITableView.automaticDimension
     }
     
+    
     func setupPinnedFlightsOptionsView() {
         //        pinnedFlightOptionsTop.constant = 0
         
@@ -328,6 +329,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             var yCordinate : CGFloat
             yCordinate = max (  -self.visualEffectViewHeight ,  -offsetDifference )
             yCordinate = min ( 0,  yCordinate)
+            
             
             UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseOut], animations: {
                 

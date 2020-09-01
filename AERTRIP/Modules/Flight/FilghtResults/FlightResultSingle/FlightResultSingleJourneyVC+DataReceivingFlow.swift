@@ -30,6 +30,7 @@ extension FlightResultSingleJourneyVC {
                     modifiedResult[resultIndex].isPinned = true
                 }
             }
+            print("currentPinnedJourneys....\(self.viewModel.results.currentPinnedJourneys.count)")
             
             let groupedArray =   self.viewModel.getOnewayDisplayArray(results: modifiedResult)
             self.viewModel.results.journeyArray = groupedArray
@@ -58,6 +59,9 @@ extension FlightResultSingleJourneyVC {
                             let flightNum = journ.leg.first!.flights.first!.al + journ.leg.first!.flights.first!.fn
                             
                             if flightNum.uppercased() == self.viewModel.airlineCode.uppercased() {
+                                
+                                print("flightNum....\(flightNum.uppercased())")
+
                                 
                                 self.setPinnedFlightAt(journ.fk , isPinned: true)
                                 self.switchView.isOn = true

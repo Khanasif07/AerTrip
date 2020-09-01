@@ -20,7 +20,7 @@ protocol ChatBotDelegatesDelegate: class {
     func failedToCommunicateWithChatBot()
     
     func hideTypingCell()
-    func moveFurtherWhenallRequiredInformationSubmited()
+    func moveFurtherWhenallRequiredInformationSubmited(data : MessageModel)
     
     func willGetRecentSearchHotel()
     func getRecentSearchHotelSuccessFully()
@@ -71,7 +71,7 @@ class ChatVM {
                 self.messages.append(msg)
                 self.delegate?.chatBotSessionCreatedSuccessfully()
                 if !msg.depart.isEmpty && !msg.origin.isEmpty && !msg.destination.isEmpty {
-                    self.delegate?.moveFurtherWhenallRequiredInformationSubmited()
+                    self.delegate?.moveFurtherWhenallRequiredInformationSubmited(data: msg)
                 }
                 
                 
@@ -96,7 +96,7 @@ class ChatVM {
                  self.messages.append(msg)
                  self.delegate?.chatBotCommunicatedSuccessfully()
                 if !msg.depart.isEmpty && !msg.origin.isEmpty && !msg.destination.isEmpty {
-                          self.delegate?.moveFurtherWhenallRequiredInformationSubmited()
+                    self.delegate?.moveFurtherWhenallRequiredInformationSubmited(data: msg)
                       }
              }else{
                  self.delegate?.failedToCommunicateWithChatBot()
@@ -106,6 +106,7 @@ class ChatVM {
     
     
     func getRecentFlights(){
+
         APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.flight) {
             (success, error, obj) in
             print(obj)
@@ -123,4 +124,31 @@ class ChatVM {
             }
         }
     }
+<<<<<<< HEAD
+=======
+    
+    func createFlightSearchDictionaryAndPushToVC(_ model: MessageModel) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let departDate = dateFormatter.date(from: model.depart)
+        let newDepartDate = departDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
+        
+        var jsonDict = JSONDictionary()
+        jsonDict["adult"] = model.adult
+        jsonDict["child"] = model.child
+        jsonDict["infant"] = model.infant
+        jsonDict["cabinclass"] = model.cabinclass
+        jsonDict["trip_type"] = "single"
+        jsonDict["origin"] = model.origin
+        jsonDict["destination"] = model.destination
+        jsonDict["depart"] = newDepartDate
+        jsonDict["totalLegs"] = 1
+        
+        SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
+    }
+>>>>>>> ddf677434f313ac68b341c742101ac52dc9a9af3
 }
+
+
+

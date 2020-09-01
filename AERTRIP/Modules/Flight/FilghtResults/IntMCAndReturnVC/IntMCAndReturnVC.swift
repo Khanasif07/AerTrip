@@ -298,7 +298,6 @@ extension IntMCAndReturnVC {
                 }
             }
             
-            
             let groupedArray =  self.viewModel.getInternationalDisplayArray(results: modifiedResult)
             self.viewModel.results.journeyArray = groupedArray
             self.sortedArray = Array(self.viewModel.results.sortedArray)

@@ -182,7 +182,7 @@
                 }
             }
         }
-
+        [self appendPopularAirports];
         
         if (self.viewModel.isFrom){
 //            [self fromAction:nil];
@@ -830,8 +830,11 @@
         NSArray * popularAirportsArray = [self getPopularAirportsArray];
         
         NSString * popularAirports = @"POPULAR AIRPORTS";
-        [self.airportDisplayArray addObject:popularAirports];
+        if (![self.airportDisplayArray containsObject:(popularAirports)]) {
+            [self.airportDisplayArray addObject:popularAirports];
+        }
         [self.displaySections setObject:popularAirportsArray forKey:popularAirports];
+        [self.resultTableView reloadData];
     }
 }
 

@@ -366,6 +366,10 @@
     }
 }
 
+-(void)performFlightSearchWith:(NSMutableDictionary*)dict {
+    [self performFlightSearchWebServiceCall:dict];
+}
+
 - (BOOL)validateSingleLegJourney {
     if (self.fromFlightArray.count == 0) {
         [self.delegate  showErrorMessage:@"Please select an origin airport"];

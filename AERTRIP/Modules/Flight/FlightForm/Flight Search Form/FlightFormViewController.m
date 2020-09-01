@@ -7,7 +7,7 @@
 //
 #import "FlightFormViewControllerHeader.h"
 #import "AERTRIP-Swift.h"
-
+@class SwiftObjCBridgingController;
 @interface FlightFormViewController ()< AddFlightPassengerHandler, AddFlightClassHandler, MultiCityFlightCellHandler , FlightViewModelDelegate , BulkBookingFormHandler, UIScrollViewDelegate , UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 
@@ -88,16 +88,17 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *recentSearchCollectionView;
 
+@property (strong , nonatomic) SwiftObjCBridgingController* bridgingObj;
+
 @end
 
 @implementation FlightFormViewController
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupInitials];
+    [self setAerinSearchClosure];
 }
-
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -202,6 +203,14 @@
     self.flightSegmentedControl.borderType = HMSegmentedControlBorderTypeNone;
     self.flightSegmentedControl.selectedSegmentIndex = 0;
   //  [self setupSwipe];
+}
+
+-(void)setAerinSearchClosure {
+    self.bridgingObj = [SwiftObjCBridgingController shared];
+    __weak typeof(self) weakSelf = self;
+    [self.bridgingObj setOnFetchingFlightFormData:^(NSMutableDictionary<NSString *,id> * dict) {
+        [weakSelf.viewModel performFlightSearchWith:dict];
+    }];
 }
 
 
@@ -390,8 +399,7 @@
 - (void)setupReturnDateView:(NSDate*)returnDate {
     if (self.viewModel.flightSearchType == RETURN_JOURNEY ) {
         [self.returnLabel setTextColor:[ UIColor ONE_FIVE_THREE_COLOR] ];
-        
-        
+                
         if (returnDate != nil) {
             [self changeLabelFont:self.returnLabel isSmall:YES];
             self.returnValueLabel.hidden = NO;

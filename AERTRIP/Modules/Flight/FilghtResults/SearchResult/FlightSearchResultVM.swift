@@ -128,14 +128,69 @@ extension FlightResultViewModelDelegate {
     
     var flightLegsAppliedFilters: AppliedAndUIFilters {
         var filters = AppliedAndUIFilters()
-        let appliedFilters = flightLegs.map { $0.appliedFilters }
+        var appliedFilters = flightLegs.map { $0.appliedFilters }
         let uiFilters = flightLegs.map { $0.UIFilters }
         let appliedSubFilters = flightLegs.map { $0.appliedSubFilters }
+        
+        var containsAirport = false, containsQuality = false
+        for uiFilter in uiFilters {
+            if uiFilter.contains(.layoverAirports) || uiFilter.contains(.originAirports) || uiFilter.contains(.destinationAirports) {
+                containsAirport = true
+                break
+            }
+        }
+        for uiFilter in uiFilters {
+            if uiFilter.contains(.hideOvernight) || uiFilter.contains(.hideOvernightLayover) {
+                containsQuality = true
+                break
+            }
+        }
+        if containsAirport {
+            appliedFilters[0].insert(.Airport)
+        }
+        if containsQuality {
+            appliedFilters[0].insert(.Quality)
+        }
+        
         filters.appliedFilters = appliedFilters
         filters.uiFilters = uiFilters
         filters.appliedSubFilters = appliedSubFilters
         return filters
     }
+    
+    var intFlightLegsAppliedFilters: AppliedAndUIFilters {
+        var filters = AppliedAndUIFilters()
+        var appliedFilters = intFlightLegs.map { $0.appliedFilters }
+        let uiFilters = intFlightLegs.map { $0.UIFilters }
+        let appliedSubFilters = intFlightLegs[0].appliedSubFilters.map { $0.value }
+        
+        var containsAirport = false, containsQuality = false
+        for uiFilter in uiFilters {
+            if uiFilter.contains(.layoverAirports) || uiFilter.contains(.originAirports) || uiFilter.contains(.destinationAirports) ||
+                uiFilter.contains(.originDestinationSelectedForReturnJourney) {
+                containsAirport = true
+                break
+            }
+        }
+        for uiFilter in uiFilters {
+            if uiFilter.contains(.hideOvernight) || uiFilter.contains(.hideOvernightLayover) {
+                containsQuality = true
+                break
+            }
+        }
+        if containsAirport {
+            appliedFilters[0].insert(.Airport)
+        }
+        if containsQuality {
+            appliedFilters[0].insert(.Quality)
+        }
+        
+        filters.appliedFilters = appliedFilters
+        filters.uiFilters = uiFilters
+        filters.appliedSubFilters = appliedSubFilters
+        return filters
+    }
+    
     
     var intFlightResultArray : [IntMultiCityAndReturnWSResponse.Results] {
                 

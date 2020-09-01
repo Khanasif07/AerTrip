@@ -65,6 +65,7 @@ extension FlightResultSingleJourneyVC {
             }
     }
     
+    
       func manageFloatingView(isHidden: Bool) {
              self.pinnedFlightsOptionsView.isHidden = isHidden
     //         self.floatingButtonBackView.isHidden = isHidden
@@ -129,7 +130,6 @@ extension FlightResultSingleJourneyVC {
           func animateButton() {
               self.animateFloatingButtonOnListView()
           }
-    
     
      func manageSwitchContainer(isHidden: Bool, shouldOff: Bool = true) {
           

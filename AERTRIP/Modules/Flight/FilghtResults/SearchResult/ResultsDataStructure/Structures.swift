@@ -120,8 +120,8 @@ public struct TimeRange24hoursWS : Codable , Equatable {
 }
 
 public struct TimeRangeIntervalWS : Codable , Equatable {
-    var minTime : String?
-    var maxTime : String?
+    var minTime : String? = "0"
+    var maxTime : String? = "0"
     
     public static func == (lhs : TimeRangeIntervalWS , rhs : TimeRangeIntervalWS ) -> Bool {
         
@@ -132,10 +132,10 @@ public struct TimeRangeIntervalWS : Codable , Equatable {
         let rightMinValue = CGFloat( floor(duration / 3600.0 ))
 
         duration = (lhs.maxTime! as NSString).floatValue
-        let  leftMaxValue = CGFloat( round(duration / 3600.0))
+        let  leftMaxValue = CGFloat( ceil(duration / 3600.0))
         
         duration = (rhs.maxTime! as NSString).floatValue
-        let rightMaxValue = CGFloat( round(duration / 3600.0))
+        let rightMaxValue = CGFloat( ceil(duration / 3600.0))
 
         return leftMinValue == rightMinValue && leftMaxValue == rightMaxValue
     }
@@ -210,7 +210,7 @@ public struct FlightDetail : Codable {
     let llo : Int
 
     var bg : [ String : baggageStruct]?
- //   let cbg : [ String : cbgStruct]?
+//    let cbg : [ String : cbgStruct]?
 //    let cbg : String?
     let isLcc : Int
     var isArrivalTerminalChange:Bool?
