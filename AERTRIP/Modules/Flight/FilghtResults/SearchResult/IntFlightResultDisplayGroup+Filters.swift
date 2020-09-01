@@ -957,7 +957,7 @@ extension IntFlightResultDisplayGroup  {
         outputArray = outputArray.filter {
             let journeyLayovers = Set($0.legsWithDetail[0].loap + $0.legsWithDetail[1].loap)
             if journeyLayovers.count == 0 {
-                return false
+                return true
             }
             if journeyLayovers.isDisjoint(with: selectedLayovers) && !selectedLayovers.isEmpty {
                 return false
