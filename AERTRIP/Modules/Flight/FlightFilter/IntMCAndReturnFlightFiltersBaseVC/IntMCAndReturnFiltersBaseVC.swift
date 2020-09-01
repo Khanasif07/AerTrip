@@ -297,7 +297,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             case FlightDurationFilterViewController.className :
                 if let durationFilterVC = viewController as? FlightDurationFilterViewController {
                     updateDurationVC(durationFilterVC , inputFilters: filters)
-                    durationFilterVC.updateUIPostLatestResults()
+//                    durationFilterVC.updateUIPostLatestResults()
                 }
             case FlightStopsFilterViewController.className :
                 if let stopVC = viewController as? FlightStopsFilterViewController {
@@ -518,22 +518,160 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     
     //MARK:- Duration
     func updateDurationVC(_ durationVC : FlightDurationFilterViewController , inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]) {
-        
-        
+
+
         let durationLegFilters : [DurationFilter]
         if searchType == RETURN_JOURNEY {
-            let durationLegFilter = self.createDurationFilterArrayReturnJourney(inputFilters: inputFilters)
-            durationLegFilters = [durationLegFilter]
+//            let durationLegFilter = self.createDurationFilterArrayReturnJourney(inputFilters: inputFilters)
+//            durationLegFilters = [durationLegFilter]
+            updateDurationFilterForReturnJourney(durationVC, inputFilters: inputFilters)
         }
         else {
-            durationLegFilters = self.createDurationFilterArray(inputFilters: inputFilters)
+//            durationLegFilters = self.createDurationFilterArray(inputFilters: inputFilters)
+            updateDurationFilter(durationVC, inputFilters: inputFilters)
+        }
+
+//        durationVC.durationFilters = durationLegFilters
+//
+//        durationVC.currentDurationFilter = durationLegFilters[durationVC.currentActiveIndex]
+
+    }
+    
+    private func updateDurationFilterForReturnJourney(_ durationViewController : FlightDurationFilterViewController, inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]) {
+        
+        var tripDurationMin : CGFloat  = CGFloat.greatestFiniteMagnitude
+        var tripDurationMax : CGFloat = 0.0
+        
+        var layoverDurationMin : CGFloat = CGFloat.greatestFiniteMagnitude
+        var layoverMaxDuration : CGFloat = 0.0
+        
+        
+        for filter in inputFilters {
+            
+            let tripTime = filter.tt
+            let layoverTime = filter.lott
+            var duration : Float
+            
+            guard let tripTimeMinDuration = tripTime.minTime else { continue }
+            duration = (tripTimeMinDuration as NSString).floatValue
+            let tripMin = CGFloat( floor(duration / 3600.0 ))
+            
+            
+            // tripDurationMinDuration is set to max value initially, whenever tripMinDuration is less than tripDurationMinDuration , tripMinDuration is assigned to tripDurationMinDuration
+            // This logic works for first loop as well as in second iteration if tripMinDuration is less than tripDurationMinDuration.
+            if tripMin < tripDurationMin {
+                tripDurationMin = tripMin
+            }
+            
+            guard let tripTimeMaxDuration = tripTime.maxTime else { continue }
+            duration = (tripTimeMaxDuration as NSString).floatValue
+            let tripMax = CGFloat( ceil(duration / 3600.0))
+            
+            
+            // tripDurationMax is set to 0.0 value initially, whenever tripMax is more than tripDurationMax , tripMax is assigned to tripDurationMax
+            // This logic works for first loop as well as in second iteration if tripMax is more than tripDurationMax.
+            
+            if tripDurationMax < tripMax {
+                tripDurationMax = tripMax
+            }
+            
+            guard let layoverMinDuration = layoverTime.minTime else { continue }
+            duration = ( layoverMinDuration as NSString).floatValue
+            let layoverMin = CGFloat(floor( duration / 3600.0 ))
+            
+            // layoverDurationMinDuration is set to max value initially, whenever layoverMin is less than layoverDurationMinDuration , layoverMin is assigned to layoverDurationMinDuration
+            // This logic works for first loop as well as in second iteration if layoverMin is less than layoverDurationMinDuration.
+            
+            if layoverMin < layoverDurationMin {
+                layoverDurationMin = layoverMin
+            }
+            
+            guard let layoverMaxString = layoverTime.maxTime else { continue }
+            duration = ( layoverMaxString as NSString).floatValue
+            let layoverMax = CGFloat( ceil(duration / 3600.0))
+            
+            // layoverMaxDuration is set to 0.0 value initially, whenever layoverMax is more than layoverMaxDuration , layoverMax is assigned to layoverMaxDuration
+            // This logic works for first loop as well as in second iteration if layoverMax is more than layoverMax.
+            
+            if layoverMaxDuration < layoverMax {
+                layoverMaxDuration = layoverMax
+            }
         }
         
-        durationVC.durationFilters = durationLegFilters
+        let durationFilter = DurationFilter(leg: legList[0], tripMin: tripDurationMin, tripMax: tripDurationMax, layoverMin: layoverDurationMin, layoverMax: layoverMaxDuration,layoverMinTimeFormat:"")
         
-        durationVC.currentDurationFilter = durationLegFilters[durationVC.currentActiveIndex]
         
+        if let userFilters = userAppliedFilters, userFilters.appliedFilters[0].contains(.Duration) {
+            
+            if userFilters.appliedSubFilters[0].contains(.tripDuration) {
+                durationViewController.durationFilters[0].tripDurationMinDuration = tripDurationMin
+                durationViewController.durationFilters[0].tripDurationmaxDuration = tripDurationMax
+            }
+            
+            if userFilters.appliedSubFilters[0].contains(.layoverDuration) {
+                durationViewController.durationFilters[0].layoverMinDuration = layoverDurationMin
+                durationViewController.durationFilters[0].layoverMaxDuration = layoverMaxDuration
+            }
+            
+        } else {
+            durationViewController.durationFilters = [durationFilter]
+        }
+        durationViewController.updateFiltersFromAPI()
     }
+    
+    private func updateDurationFilter(_ durationViewController : FlightDurationFilterViewController , inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]) {
+        
+        for index in 0 ..< inputFilters.count {
+            
+            let filter = inputFilters[index]
+            let tripTime = filter.tt
+            let layoverTime = filter.lott
+            var duration : Float
+            
+            guard let tripTimeMinDuration = tripTime.minTime else { continue }
+            duration = (tripTimeMinDuration as NSString).floatValue
+            let tripMinDuration = CGFloat( floor(duration / 3600.0 ))
+            
+            guard let tripTimeMaxDuration = tripTime.maxTime else { continue }
+            duration = (tripTimeMaxDuration as NSString).floatValue
+            let tripMaxDuration = CGFloat( ceil(duration / 3600.0))
+            
+            guard let layoverMinDuration = layoverTime.minTime else { continue }
+            duration = ( layoverMinDuration as NSString).floatValue
+            let layoverMin = CGFloat(floor( duration / 3600.0 ))
+            
+            guard let layoverMaxDuration = layoverTime.maxTime else { continue }
+            duration = ( layoverMaxDuration as NSString).floatValue
+            let layoverMax = CGFloat( ceil(duration / 3600.0))
+            
+            let leg = legList[index]
+            let durationFilter = DurationFilter(leg: leg, tripMin: tripMinDuration, tripMax: tripMaxDuration, layoverMin: layoverMin, layoverMax: layoverMax, layoverMinTimeFormat: "")
+            
+            if let userFilters = userAppliedFilters, userFilters.appliedFilters[index].contains(.Duration), durationViewController.durationFilters.indices.contains(index) {
+                
+                if userFilters.appliedSubFilters[index].contains(.tripDuration) {
+                    durationViewController.durationFilters[index].tripDurationMinDuration = tripMinDuration
+                    durationViewController.durationFilters[index].tripDurationmaxDuration = tripMaxDuration
+                }
+                
+                if userFilters.appliedSubFilters[index].contains(.layoverDuration) {
+                    durationViewController.durationFilters[index].layoverMinDuration = layoverMin
+                    durationViewController.durationFilters[index].layoverMaxDuration = layoverMax
+                }
+                
+            } else {
+                if !durationViewController.durationFilters.indices.contains(index) {
+                    durationViewController.durationFilters.insert(durationFilter, at: index)
+                } else {
+                durationViewController.durationFilters[index] = durationFilter
+                }
+            }
+        }
+        guard durationViewController.durationFilters.count > 0 else { return }
+        durationViewController.updateFiltersFromAPI()
+    }
+    
+    
     
     func createDurationFilterArray(inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]) ->  [DurationFilter] {
         var durationFilters = [DurationFilter]()
