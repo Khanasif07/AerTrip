@@ -20,7 +20,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     var flightResultArray : [IntMultiCityAndReturnWSResponse.Results]!
     var selectedIndex : Int!
     var userAppliedFilters: AppliedAndUIFilters?
-
+    
     var showDepartReturnSame = false {
         didSet {
             let viewCon = Filters.Airport.viewController
@@ -49,7 +49,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     var menuItems = [MenuItemForFilter]()
     fileprivate var parchmentView : FiltersCustomPagingViewController?
     internal var showSelectedFontOnMenu = false
-
+    
     // MARK: IBOutlets
     @IBOutlet weak var baseView: UIView!
     @IBOutlet weak var closeFiltersBtn: UIButton!
@@ -107,13 +107,13 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     
     fileprivate func setupBaseView() {
         
-//        baseView.clipsToBounds = true
-//        baseView.layer.cornerRadius = 10
-//        if #available(iOS 11.0, *) {
-//            baseView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-//        } else {
-//            baseView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10)
-//        }
+        //        baseView.clipsToBounds = true
+        //        baseView.layer.cornerRadius = 10
+        //        if #available(iOS 11.0, *) {
+        //            baseView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        //        } else {
+        //            baseView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10)
+        //        }
         filtersView.roundParticularCorners(10, [.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
     }
     
@@ -176,14 +176,14 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     }
     
     /// Temporary method to update all the data
-    func resetData() {
-        allChildVCs.removeAll()
-        menuItems.removeAll()
-        for filter in Filters.allCases {
-            self.addToParchment(filter: filter)
-        }
-        parchmentView?.reloadData()
-    }
+    //    func resetData() {
+    //        allChildVCs.removeAll()
+    //        menuItems.removeAll()
+    //        for filter in Filters.allCases {
+    //            self.addToParchment(filter: filter)
+    //        }
+    //        parchmentView?.reloadData()
+    //    }
     
     
     //MARK:- Setting Filter ViewController's  values
@@ -272,7 +272,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     {
         self.flightResultArray = flightResultArray
         guard let filters = inputFilters else { return }
-        for viewController in self.children {
+        for viewController in  allChildVCs /*self.children*/ {
             
             if !(viewController is FilterViewController )  {
                 continue
@@ -287,12 +287,12 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                 }
             case FlightFilterTimesViewController.className :
                 if let TimesFilterVC = viewController as? FlightFilterTimesViewController {
-                    updateTimesVC(TimesFilterVC, inputFilters: filters  )
+                    //                    updateTimesVC(TimesFilterVC, inputFilters: filters  )
+                    updateFlightLegTimeFilters(TimesFilterVC, inputFilters: filters)
                 }
             case PriceFilterViewController.className :
                 if let priceFilterVC = viewController as? PriceFilterViewController {
-                    setPriceVC( priceFilterVC, inputFilters: filters)
-                    priceFilterVC.updateUIPostLatestResults()
+                    updatePriceVC( priceFilterVC, inputFilters: filters)
                 }
             case FlightDurationFilterViewController.className :
                 if let durationFilterVC = viewController as? FlightDurationFilterViewController {
@@ -307,12 +307,14 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             case AirportsFilterViewController.className :
                 if let airportFilter = viewController as? AirportsFilterViewController {
                     //                    setAirportVC(airportFilter , inputFilters : filters, isUpdating: true)
-                    airportFilter.updateUIPostLatestResults()
+                    //                    airportFilter.updateUIPostLatestResults()
+                    updateAirportVC(airportFilter, inputFilters: filters)
                 }
             case QualityFilterViewController.className :
                 if let qualityFilterVC = viewController as? QualityFilterViewController {
-                    setQualityFilterVC(qualityFilterVC)
-                    qualityFilterVC.updateUIPostLatestResults()
+                    //                    setQualityFilterVC(qualityFilterVC)
+                    //                    qualityFilterVC.updateUIPostLatestResults()
+                    updateQualityFilter(qualityFilterVC)
                 }
             default:
                 print("Switch case missing for " + VCclass)
@@ -469,6 +471,49 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         }
         
         return flightLegTimeFilters
+    }
+    
+    func updateFlightLegTimeFilters(_ timesViewController : FlightFilterTimesViewController, inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]) {
+        
+        for index in 0 ..< inputFilters.count {
+            
+            let leg = legList[index]
+            let filter = inputFilters[index]
+            
+            let departureTime = filter.depDt
+            let arrivalTime = filter.arDt
+            
+            let departureMin = departureTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)
+            let departureMax = departureTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
+            let arrivalMin = arrivalTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
+            let arrivalMax = arrivalTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)
+            
+            let newFlightLegFilter =  FlightLegTimeFilter(leg:leg, departureStartTime:  departureMin!, departureMaxTime: departureMax, arrivalStartTime: arrivalMin, arrivalEndTime: arrivalMax! )
+            
+            if let userFilters = userAppliedFilters, userFilters.appliedFilters[0].contains(.Times),
+                userFilters.appliedSubFilters.indices.contains(index), timesViewController.multiLegTimerFilter.indices.contains(index) {
+                
+                if userFilters.appliedSubFilters[index].contains(.departureTime) {
+                    timesViewController.multiLegTimerFilter[index].departureMinTime = newFlightLegFilter.departureMinTime
+                    
+                    timesViewController.multiLegTimerFilter[index].departureTimeMax = newFlightLegFilter.departureTimeMax
+                }
+                
+                if userFilters.appliedSubFilters[index].contains(.arrivalTime) {
+                    timesViewController.multiLegTimerFilter[index].arrivalStartTime = newFlightLegFilter.arrivalStartTime
+                    
+                    timesViewController.multiLegTimerFilter[index].arrivalEndTime = newFlightLegFilter.arrivalEndTime
+                }
+                
+            } else {
+                if !timesViewController.multiLegTimerFilter.indices.contains(index) {
+                    timesViewController.multiLegTimerFilter.insert(newFlightLegFilter, at: index)
+                } else {
+                    timesViewController.multiLegTimerFilter[index] = newFlightLegFilter
+                }
+            }
+        }
+        timesViewController.updateFiltersFromAPI()
     }
     
     //MARK:- Duration
@@ -731,7 +776,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                                              userSelectedFareMinValue: CGFloat(newPriceWS.minPrice) ,
                                              userSelectedFareMaxValue: CGFloat(newPriceWS.maxPrice) )
             
-            if let userFilters = userAppliedFilters, userFilters.appliedFilters[index].contains(.Price), priceViewController.allPriceFilters.indices.contains(index) {
+            if let userFilters = userAppliedFilters, userFilters.appliedFilters[0].contains(.Price), priceViewController.allPriceFilters.indices.contains(index) {
                 priceViewController.allPriceFilters[index].inputFareMinValue = newPriceFilter.inputFareMinValue
                 
                 priceViewController.allPriceFilters[index].inputFareMaxVaule = newPriceFilter.inputFareMaxVaule
@@ -899,6 +944,216 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         airportViewController.isIntReturnOrMCJourney = true
         airportViewController.areAllDepartReturnNotSame = showDepartReturnSame
     }
+    
+    func updateAirportVC(_ airportViewController : AirportsFilterViewController , inputFilters : [IntMultiCityAndReturnWSResponse.Results.F])
+    {
+        
+        for index in 0 ..< inputFilters.count {
+            
+            let filter = inputFilters[index]
+            let airports = filter.cityapn
+            
+            let airportsDetails = flightResultArray[0].apdet
+            
+            let fromAirports = airports.fr
+            let toAirports = airports.to
+            
+            var originAirports = [AirportsGroupedByCity]()
+            var destinationAirports = [AirportsGroupedByCity]()
+            var layoverAirportsDisplayModelArray = [LayoverDisplayModel]()
+            
+            for city in fromAirports {
+                
+                let airportCodes = city.value
+                
+                var airportsArray = [Airport]()
+                var cityName = city.key
+                for airportcode in airportCodes {
+                    
+                    let airport = airportsDetails[airportcode]
+                    
+                    let name = airport?.n
+                    guard let airportCity = airport?.c else { continue }
+                    cityName = airportCity
+                    let airportCode = airportcode
+                    
+                    let displayModel = Airport(name : name!, IATACode:airportCode, city: airportCity )
+                    airportsArray.append(displayModel)
+                }
+                originAirports.append( AirportsGroupedByCity(name: cityName, airports: airportsArray))
+            }
+            
+            for city in toAirports {
+                
+                let airportCodes = city.value
+                
+                var airportsArray = [Airport]()
+                var cityName = city.key
+                for airportcode in airportCodes {
+                    
+                    if  let airport = airportsDetails[airportcode] {
+                        
+                        let name = airport.n
+                        let city = airport.c
+                        cityName = city
+                        let airportCode = airportcode
+                        
+                        let displayModel = Airport(name : name, IATACode:airportCode, city: city )
+                        airportsArray.append(displayModel)
+                    }
+                }
+                destinationAirports.append( AirportsGroupedByCity(name: cityName, airports: airportsArray))
+            }
+            
+            let layoverAirportsCode = filter.loap
+            
+            var country : String
+            for layoverAirport in  layoverAirportsCode {
+                
+                if let airport = airportsDetails[layoverAirport] {
+                    let name = airport.n
+                    country = airport.cname
+                    let city = airport.c
+                    let airportCode = layoverAirport
+                    
+                    var layouverAirportsArray = [Airport]()
+                    let displayModel = Airport(name : name, IATACode:airportCode, city: city )
+                    layouverAirportsArray.append(displayModel)
+                    let layoverDisplayModel =  LayoverDisplayModel(country: country, airports:layouverAirportsArray)
+                    
+                    if layoverAirportsDisplayModelArray.count > 0 {
+                        
+                        if let row = layoverAirportsDisplayModelArray.firstIndex(where: {$0.country == country}) {
+                            
+                            var airportsArray =  layoverAirportsDisplayModelArray[row].airports
+                            airportsArray.append(displayModel)
+                            
+                            airportsArray = airportsArray.sorted(by: { $0.IATACode < $1.IATACode })
+                            layoverAirportsDisplayModelArray[row] = LayoverDisplayModel(country: country, airports:airportsArray)
+                        }
+                        else {
+                            layoverAirportsDisplayModelArray.append(layoverDisplayModel)
+                        }
+                    }
+                    else {
+                        layoverAirportsDisplayModelArray.append(layoverDisplayModel)
+                    }
+                }
+            }
+            
+            layoverAirportsDisplayModelArray = layoverAirportsDisplayModelArray.sorted(by: { $0.country < $1.country })
+            
+            let leg = legList[index]
+            var airportLegFilter =  AirportLegFilter(leg:leg, originCities: originAirports, destinationCities: destinationAirports, layoverCities: layoverAirportsDisplayModelArray)
+            
+            if searchType == RETURN_JOURNEY {
+                airportViewController.airportFilterArray[0].originCities = airportViewController.airportFilterArray[0].originCities.map({ (city) in
+                    var newCity = city
+                    if let cityInReturnLeg = airportLegFilter.destinationCities.first(where: { $0.name == newCity.name }) {
+                        newCity.airports = Array(Set(newCity.airports + cityInReturnLeg.airports))
+                        let selectedAirports = newCity.airports.filter { $0.isSelected }
+                        selectedAirports.forEach { (airport) in
+                            newCity.airports.removeAll(where: { $0.IATACode == airport.IATACode })
+                        }
+                        newCity.airports = Array(Set(newCity.airports + selectedAirports))
+                        newCity.airports.sort(by: { $0.city < $1.city })
+                    }
+                    return newCity
+                })
+                
+                airportViewController.airportFilterArray[0].destinationCities = airportViewController.airportFilterArray[0].destinationCities.map({ (city) in
+                    var newCity = city
+                    if let cityInReturnLeg = airportLegFilter.originCities.first(where: { $0.name == newCity.name }) {
+                        newCity.airports = Array(Set(newCity.airports + cityInReturnLeg.airports))
+                        let selectedAirports = newCity.airports.filter { $0.isSelected }
+                        selectedAirports.forEach { (airport) in
+                            newCity.airports.removeAll(where: { $0.IATACode == airport.IATACode })
+                        }
+                        newCity.airports = Array(Set(newCity.airports + selectedAirports))
+                        newCity.airports.sort(by: { $0.city < $1.city })
+                    }
+                    return newCity
+                })
+                
+                airportViewController.airportFilterArray[0].layoverCities = airportViewController.airportFilterArray[0].layoverCities.map({ (city) in
+                    var newCity = city
+                    if let cityInReturnLeg = airportLegFilter.layoverCities.first(where: { $0.country == newCity.country }) {
+                        newCity.airports = Array(Set(newCity.airports + cityInReturnLeg.airports))
+                        let selectedAirports = newCity.airports.filter { $0.isSelected }
+                        selectedAirports.forEach { (airport) in
+                            newCity.airports.removeAll(where: { $0.IATACode == airport.IATACode })
+                        }
+                        newCity.airports = Array(Set(newCity.airports + selectedAirports))
+                        newCity.airports.sort(by: { $0.city < $1.city })
+                    }
+                    return newCity
+                })
+                
+                airportLegFilter.layoverCities.forEach { (layCity) in
+                    if !airportViewController.airportFilterArray[0].layoverCities.contains(where: { $0.country == layCity.country }) {
+                        airportViewController.airportFilterArray[0].layoverCities.append(layCity)
+                    }
+                }
+                
+                airportViewController.airportFilterArray[0].layoverCities.sort(by: { $0.country < $1.country })
+            }
+            
+            
+            if let userFilters = userAppliedFilters, userFilters.appliedFilters[0].contains(.Airport), airportViewController.airportFilterArray.indices.contains(index) {
+                let curAiportFilter = airportViewController.airportFilterArray[index]
+                let selectedAirports = curAiportFilter.allSelectedAirports
+                
+                airportLegFilter.originCities = airportLegFilter.originCities.map { (city) in
+                    var newCity = city
+                    newCity.airports = newCity.airports.map({ (airport) in
+                        var newAirport = airport
+                        if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
+                            newAirport.isSelected = true
+                        }
+                        return newAirport
+                    })
+                    return newCity
+                }
+                
+                airportLegFilter.destinationCities = airportLegFilter.destinationCities.map { (city) in
+                    var newCity = city
+                    newCity.airports = newCity.airports.map({ (airport) in
+                        var newAirport = airport
+                        if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
+                            newAirport.isSelected = true
+                        }
+                        return newAirport
+                    })
+                    return newCity
+                }
+                
+                airportLegFilter.layoverCities = airportLegFilter.layoverCities.map { (city) in
+                    var newCity = city
+                    newCity.airports = newCity.airports.map({ (airport) in
+                        var newAirport = airport
+                        if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
+                            newAirport.isSelected = true
+                        }
+                        return newAirport
+                    })
+                    return newCity
+                }
+                
+                airportViewController.airportFilterArray[index] = airportLegFilter
+                
+            } else {
+                if !airportViewController.airportFilterArray.indices.contains(index) {
+                    airportViewController.airportFilterArray.insert(airportLegFilter, at: index)
+                } else {
+                    airportViewController.airportFilterArray[index] = airportLegFilter
+                }
+            }
+            airportViewController.initialSetup()
+        }
+    }
+    
+    
+    
     //MARK:- Quality
     func setQualityFilterVC(_ qualityViewController : QualityFilterViewController) {
         
@@ -929,6 +1184,38 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         }
         
         qualityViewController.qualityFilterArray = qualityFilterArray
+    }
+    
+    private func updateQualityFilter(_ qualityViewController : QualityFilterViewController) {
+        
+        guard let flightQuality = inputFilters?.first?.fq else { return }
+        
+        for ( key , value ) in flightQuality {
+            
+            var filterToAdd = UIFilters.refundableFares
+            for filter in UIFilters.allCases {
+                
+                if filter.title == value {
+                    filterToAdd = filter
+                    break
+                }
+            }
+            
+            // Longer and expensive flights as filter will not added as quality filter
+            if filterToAdd == UIFilters.hideLongerOrExpensive {
+                continue
+            }
+            
+            assert(filterToAdd != .refundableFares, "Quailty Filter title and UIFilter Title did not match for " + value )
+            let filter = QualityFilter(name: value, filterKey: key, isSelected: false, filterID: filterToAdd)
+            
+            if qualityViewController.qualityFilterArray.contains(where: { $0.filterID == filter.filterID }) {
+                
+            } else {
+                qualityViewController.qualityFilterArray.append(filter)
+            }
+        }
+        qualityViewController.updateUIPostLatestResults()
     }
 }
 

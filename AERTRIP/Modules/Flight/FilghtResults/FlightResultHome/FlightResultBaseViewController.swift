@@ -1185,8 +1185,8 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
             
             self.intMCAndReturnFilterVC?.flightResultArray = self.flightSearchResultVM.intFlightResultArray
+            intMCAndReturnFilterVC?.userAppliedFilters = flightSearchResultVM.intFlightLegsAppliedFilters
             self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)
-            self.intMCAndReturnFilterVC?.resetData()
         }
         
         let flightType = flightSearchResultVM.flightSearchType

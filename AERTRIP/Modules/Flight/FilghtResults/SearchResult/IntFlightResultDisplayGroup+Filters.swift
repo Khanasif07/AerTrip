@@ -233,7 +233,7 @@ extension IntFlightResultDisplayGroup  {
         Number = NSNumber(floatLiteral: Double(max * 3600))
         userSelectedFilters[index].tt.maxTime = Number.stringValue
         
-        initiatedFilters.insert(.tripDuration)
+        initiatedFilters[index]?.insert(.tripDuration)
                 
         if let _ = userSelectedFilters.enumerated().first(where: { (legIndex, obj) -> Bool in
             
@@ -300,7 +300,8 @@ extension IntFlightResultDisplayGroup  {
             return convertedSelectedMinLayoverValue != convertedInputMinLayoverValue || convertedSelectedMaxLayoverValue != convertedInputMaxLayoverValue
             
         }){
-            if initiatedFilters.contains(.layoverDuration) {
+            if let initFilters = initiatedFilters[index],
+                initFilters.contains(.layoverDuration) {
                 layOverChanged = true
             }
         }else{
@@ -313,6 +314,19 @@ extension IntFlightResultDisplayGroup  {
             appliedFilters.remove(.Duration)
             
         }
+        
+        if layOverChanged {
+            appliedSubFilters[index]?.insert(.layoverDuration)
+        } else {
+            appliedSubFilters[index]?.remove(.layoverDuration)
+        }
+        
+        if durationChanged {
+            appliedSubFilters[index]?.insert(.tripDuration)
+        } else {
+            appliedSubFilters[index]?.remove(.tripDuration)
+        }
+        
 //        print(appliedFilters)
         applyFilters(index: index)
     }
@@ -328,7 +342,7 @@ extension IntFlightResultDisplayGroup  {
         Number = NSNumber(floatLiteral: Double(max * 3600))
         userSelectedFilters[index].lott.maxTime = Number.stringValue
         
-        initiatedFilters.insert(.layoverDuration)
+        initiatedFilters[index]?.insert(.layoverDuration)
         
         if let _ = userSelectedFilters.enumerated().first(where: { (legIndex, obj) -> Bool in
             
@@ -390,7 +404,8 @@ extension IntFlightResultDisplayGroup  {
             return convertedSelectedMinDurationValue != convertedInputMinDurationValue || convertedSelectedMaxDurationValue != convertedInputMaxDurationValue
             
         }){
-            if initiatedFilters.contains(.tripDuration) {
+            if let initFilters = initiatedFilters[index],
+            initFilters.contains(.tripDuration) {
                 durationChanged = true
             }
         }else{
@@ -401,6 +416,18 @@ extension IntFlightResultDisplayGroup  {
             appliedFilters.insert(.Duration)
         } else {
             appliedFilters.remove(.Duration)
+        }
+        
+        if layOverChanged {
+            appliedSubFilters[index]?.insert(.layoverDuration)
+        } else {
+            appliedSubFilters[index]?.remove(.layoverDuration)
+        }
+        
+        if durationChanged {
+            appliedSubFilters[index]?.insert(.tripDuration)
+        } else {
+            appliedSubFilters[index]?.remove(.tripDuration)
         }
         
 //        print(appliedFilters)
@@ -456,6 +483,8 @@ extension IntFlightResultDisplayGroup  {
         userSelectedFilters[index].dt.setEarliest(time: minDuration)
         userSelectedFilters[index].dt.setLatest(time: maxDuration)
         
+        initiatedFilters[index]?.insert(.departureTime)
+        
         if let _ = userSelectedFilters.enumerated().first(where: { (legIndex, obj) -> Bool in
             let roundedEarliestforInput = TimeInterval(3600.0 * floor(((inputFilter[legIndex].dt.earliestTimeInteval ?? 0)  / 3600 )))
             let roundedLatestforInput = TimeInterval(3600.0 * ceil(((inputFilter[legIndex].dt.latestTimeInterval ?? 0)  / 3600 )))
@@ -477,7 +506,10 @@ extension IntFlightResultDisplayGroup  {
             let userSelectedLatest = TimeInterval(3600.0 * ceil(((obj.arDt.latestTimeIntervalWithDate ?? 0)  / 3600 )))
             return (userSelectedEarliest != roundedEarliestforInput) || (userSelectedLatest != roundedLatestforInput)
         }){
-            arivalTimeChanged = true
+            if let initFilters = initiatedFilters[index],
+            initFilters.contains(.arrivalTime) {
+                arivalTimeChanged = true
+            }
 //            appliedFilters.insert(.Times)
         }else  {
             arivalTimeChanged = false
@@ -490,6 +522,18 @@ extension IntFlightResultDisplayGroup  {
             appliedFilters.insert(.Times)
         }else{
             appliedFilters.remove(.Times)
+        }
+        
+        if departureTimsChanged {
+            appliedSubFilters[index]?.insert(.departureTime)
+        } else {
+            appliedSubFilters[index]?.remove(.departureTime)
+        }
+        
+        if arivalTimeChanged {
+            appliedSubFilters[index]?.insert(.arrivalTime)
+        } else {
+            appliedSubFilters[index]?.remove(.arrivalTime)
         }
         
         applyFilters(index: index)
@@ -529,7 +573,10 @@ extension IntFlightResultDisplayGroup  {
             let userSelectedLatest = TimeInterval(3600.0 * ceil(((obj.dt.latestTimeInterval ?? 0)  / 3600 )))
             return (userSelectedEarliest != roundedEarliestforInput) || (userSelectedLatest != roundedLatestforInput)
         }){
-            departureTimsChanged = true
+            if let initFilters = initiatedFilters[index],
+            initFilters.contains(.departureTime) {
+                departureTimsChanged = true
+            }
             //            appliedFilters.insert(.Times)
         }else  {
             departureTimsChanged = false
@@ -543,6 +590,18 @@ extension IntFlightResultDisplayGroup  {
             }else{
                 appliedFilters.remove(.Times)
             }
+        
+        if departureTimsChanged {
+            appliedSubFilters[index]?.insert(.departureTime)
+        } else {
+            appliedSubFilters[index]?.remove(.departureTime)
+        }
+        
+        if arivalTimeChanged {
+            appliedSubFilters[index]?.insert(.arrivalTime)
+        } else {
+            appliedSubFilters[index]?.remove(.arrivalTime)
+        }
         
         applyFilters(index: index)
     }
@@ -813,13 +872,25 @@ extension IntFlightResultDisplayGroup  {
         
         userSelectedFilters[index].allLayoversSelected = selectedLayoverIATACodes.count == inputFilter[index].loap.count
         
-        if let _ = userSelectedFilters.enumerated().first(where: { (index, obj) -> Bool in
-            return (obj.loap.count != inputFilter[index].loap.count) && !obj.loap.isEmpty
-        }){
-            UIFilters.insert(.layoverAirports)
-        }else{
-            //working fine
-            UIFilters.remove(.layoverAirports)
+        if isReturnJourney {
+            
+            if (userSelectedFilters[0].loap.count != inputFilter[0].loap.count) && !userSelectedFilters[0].loap.isEmpty {
+                
+                UIFilters.insert(.layoverAirports)
+                
+            } else {
+                //working fine
+                UIFilters.remove(.layoverAirports)
+            }
+        } else {
+            if let _ = userSelectedFilters.enumerated().first(where: { (index, obj) -> Bool in
+                return (obj.loap.count != inputFilter[index].loap.count) && !obj.loap.isEmpty
+            }){
+                UIFilters.insert(.layoverAirports)
+            }else{
+                //working fine
+                UIFilters.remove(.layoverAirports)
+            }
         }
         
         if let _ = userSelectedFilters.first(where: { $0.allLayoversSelected }) {

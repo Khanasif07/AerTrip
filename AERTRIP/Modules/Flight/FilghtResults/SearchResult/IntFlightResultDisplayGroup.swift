@@ -10,15 +10,12 @@ import Foundation
 
 class IntFlightResultDisplayGroup {
     
-    enum InitiatedFilters {
-        case tripDuration
-        case layoverDuration
-    }
-    
-    internal var initiatedFilters:  Set<FlightResultDisplayGroup.InitiatedFilters> = []
-
     /// Only for checking if user has initiated application of filter
     /// For filters with multiple checks only
+    internal var initiatedFilters:  [Int: Set<FlightResultDisplayGroup.InitiatedFilters>] = [:]
+    
+    /// For checking if any of the sub filter is applied
+    var appliedSubFilters: [Int: Set<FlightResultDisplayGroup.InitiatedFilters>] = [:]
     
     let index : Int
     weak var delegate : FlightResultViewModelDelegate?
@@ -172,7 +169,7 @@ class IntFlightResultDisplayGroup {
                     
                     return newFilter
                 })
-                userSelectedFilters = inputFilter
+//                userSelectedFilters = inputFilter
             }
         }
     }
