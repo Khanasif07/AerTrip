@@ -375,7 +375,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
          if isInternational{
              if intFlightResultArray.count > 0{
                  var isRefundable = true
-                 let journey = intFlightResultArray[index].j
+                 let journey = intFlightResultArray[0].j
                  for j in journey{
                      if j.smartIconArray.contains("refundStatusPending") || j.smartIconArray.contains("noRefund") {
                          isRefundable = false
