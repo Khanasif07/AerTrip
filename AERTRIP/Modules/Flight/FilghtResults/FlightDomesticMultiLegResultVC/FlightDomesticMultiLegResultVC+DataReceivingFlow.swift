@@ -164,9 +164,11 @@ extension FlightDomesticMultiLegResultVC {
                 
                 //setting footer for table view
                 
+                if self.viewModel.results[index].suggestedJourneyArray.isEmpty && self.viewModel.resultsTableStates[index] != .showPinnedFlights { self.viewModel.resultsTableStates[index] = .showExpensiveFlights
+                }
+                
                  if self.viewModel.resultsTableStates[index] == .showPinnedFlights{
                     tableView.tableFooterView = nil
-
                  } else if self.viewModel.resultsTableStates[index] == .showExpensiveFlights{
                     
                     if self.viewModel.results[index].suggestedJourneyArray.count != 0{

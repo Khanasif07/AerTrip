@@ -101,6 +101,9 @@ extension FlightResultSingleJourneyVC {
         let rect = self.resultsTableView.rectForRow(at: IndexPath(row: 0, section: 0))
         self.resultsTableView.scrollRectToVisible(rect, animated: true)
         
+        if self.viewModel.results.suggestedJourneyArray.isEmpty && viewModel.resultTableState != .showPinnedFlights { viewModel.resultTableState = .showExpensiveFlights
+        }
+        
         if viewModel.resultTableState == .showPinnedFlights {
             resultsTableView.tableFooterView = nil
         }else if self.viewModel.resultTableState == .showExpensiveFlights {

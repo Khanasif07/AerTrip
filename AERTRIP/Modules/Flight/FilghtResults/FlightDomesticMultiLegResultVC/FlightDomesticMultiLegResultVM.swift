@@ -88,8 +88,8 @@ class FlightDomesticMultiLegResultVM {
             
             suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
                 
-                let firstObjDepartureTime = obj1.leg[legIndex].dt
-                let secondObjDepartureTime = obj2.leg[legIndex].dt
+                let firstObjDepartureTime = obj1.dt
+                let secondObjDepartureTime = obj2.dt
                 
                 if isConditionReverced {
                     
@@ -104,8 +104,8 @@ class FlightDomesticMultiLegResultVM {
             
             journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
                 
-                let firstObjDepartureTime = obj1.leg[legIndex].dt
-                let secondObjDepartureTime = obj2.leg[legIndex].dt
+                let firstObjDepartureTime = obj1.dt
+                let secondObjDepartureTime = obj2.dt
                 
                 if isConditionReverced {
                     
@@ -122,9 +122,9 @@ class FlightDomesticMultiLegResultVM {
             case .Arrival:
                 suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
                     
-                    let firstObjDepartureTime = (obj1.leg[legIndex].ad) + " " + (obj1.leg[legIndex].at)
+                    let firstObjDepartureTime = (obj1.ad) + " " + (obj1.at)
                     
-                    let secondObjDepartureTime = (obj2.leg[legIndex].ad) + " " + (obj2.leg[legIndex].at)
+                    let secondObjDepartureTime = (obj2.ad) + " " + (obj2.at)
                     
                     let firstObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: firstObjDepartureTime)
                     
@@ -143,9 +143,9 @@ class FlightDomesticMultiLegResultVM {
                 
               journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
                   
-                  let firstObjDepartureTime = (obj1.leg[legIndex].ad) + " " + (obj1.leg[legIndex].at)
+                  let firstObjDepartureTime = (obj1.ad) + " " + (obj1.at)
                   
-                  let secondObjDepartureTime = (obj2.leg[legIndex].ad) + " " + (obj2.leg[legIndex].at)
+                  let secondObjDepartureTime = (obj2.ad) + " " + (obj2.at)
                   
                   let firstObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: firstObjDepartureTime)
                   
