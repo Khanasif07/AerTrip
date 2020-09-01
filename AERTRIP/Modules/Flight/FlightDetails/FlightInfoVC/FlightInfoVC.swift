@@ -877,41 +877,37 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     //MARK:- Button Actions
+    //Golu for On-Time-Preformance in full screen.
+    @objc func flightArrivalPerfomaceButtonClicked(_ sender:UIButton)
+    {
+        let arrivalPerformanceView = ArrivalPerformaceVC(nibName: "ArrivalPerformaceVC", bundle: nil)
+
+        let section = sender.tag / 100
+        let row = sender.tag % 100
+
+        if let flight = journey[section].leg.first?.flights[row]{
+            if flight.ontimePerformanceDataStoringTime != nil{
+                arrivalPerformanceView.observationCount = "\(flight.observationCount!)"
+                arrivalPerformanceView.averageDelay = "\(flight.averageDelay!)"
+                arrivalPerformanceView.cancelledPerformanceInPercent = flight.cancelledPerformance!
+                arrivalPerformanceView.delayedPerformanceInPercent = flight.latePerformance!
+                arrivalPerformanceView.onTimePerformanceInPercent = flight.ontimePerformance!
+                arrivalPerformanceView.modalPresentationStyle = .overFullScreen
+                self.present(arrivalPerformanceView, animated: false, completion: nil)
+            }
+        }
+    }
+    
+    // Monika
 //    @objc func flightArrivalPerfomaceButtonClicked(_ sender:UIButton)
 //    {
-//        let arrivalPerformanceView = ArrivalPerformaceVC(nibName: "ArrivalPerformaceVC", bundle: nil)
-//
 //        let section = sender.tag / 100
 //        let row = sender.tag % 100
 //
 //        if let flight = journey[section].leg.first?.flights[row]{
-//            if flight.ontimePerformanceDataStoringTime != nil{
-//                flightInfoDelegate?.updateView()
-//                arrivalPerformanceView.observationCount = "\(flight.observationCount!)"
-//                arrivalPerformanceView.averageDelay = "\(flight.averageDelay!)"
-//
-//                arrivalPerformanceView.cancelledPerformanceInPercent = flight.cancelledPerformance!
-//                arrivalPerformanceView.delayedPerformanceInPercent = flight.latePerformance!
-//                arrivalPerformanceView.onTimePerformanceInPercent = flight.ontimePerformance!
-//
-//                arrivalPerformanceView.view.frame = self.parent!.view.bounds
-//                self.parent!.view.addSubview(arrivalPerformanceView.view)
-//                self.parent!.addChild(arrivalPerformanceView)
-//                arrivalPerformanceView.willMove(toParent: self)
-//            }
+//            arrivalPerformanceDelegate?.getArrivalPerformanceData(flight: flight)
 //        }
 //    }
-    
-    // Monika
-    @objc func flightArrivalPerfomaceButtonClicked(_ sender:UIButton)
-    {
-        let section = sender.tag / 100
-        let row = sender.tag % 100
-        
-        if let flight = journey[section].leg.first?.flights[row]{
-            arrivalPerformanceDelegate?.getArrivalPerformanceData(flight: flight)
-        }
-    }
     
     //MARK:- API Call
     func callAPIforFlightsOnTimePerformace(origin: String, destination: String, airline: String, flight_number: String, index:[Int],FFK:String)

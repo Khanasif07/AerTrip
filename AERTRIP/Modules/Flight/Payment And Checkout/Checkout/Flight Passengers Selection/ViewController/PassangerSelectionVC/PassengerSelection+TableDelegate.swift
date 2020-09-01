@@ -98,6 +98,10 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        if (indexPath.section == 2) && (indexPath.row == 0){
+            AppFlowManager.default.showURLOnATWebView(URL(string: "https://beta.aertrip.com/")!, screenTitle: "Travel Safety Guidlines")
+        }
+        
 //        if indexPath.row == 0 {
 //            printDebug("0")
 ////            AppToast.default.hideToast(self, animated: false)

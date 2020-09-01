@@ -175,6 +175,7 @@ class HCGuestListVC: BaseVC {
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.backgroundColor = AppColors.themeGray04
         //noResultemptyView.mainImageViewTopConstraint.constant = 200
         
 //        if self.currentlyUsingFor == .contacts {
@@ -246,7 +247,9 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let emptyCell = self.tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.reusableIdentifier) as? EmptyTableViewCell ?? UITableViewCell()
+        let emptyCell = self.tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.reusableIdentifier) as? EmptyTableViewCell ?? EmptyTableViewCell()
+        emptyCell.backgroundColor = AppColors.themeGray04
+        emptyCell.bottomDividerView.isHidden = true
         switch self.currentlyUsingFor {
         case .travellers: return (self.viewModel.travellerContacts.count != indexPath.row) ? returnCellForContact(with: indexPath) : emptyCell
         case .contacts: return (self.viewModel.phoneContacts.count != indexPath.row) ? returnCellForContact(with: indexPath) : emptyCell

@@ -20,12 +20,32 @@ class HCConfirmationVoucherTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabelTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleLabelBottomContraint: NSLayoutConstraint!
     @IBOutlet weak var dividerView: ATDividerView!
-    
+    @IBOutlet weak var loader: UIActivityIndicatorView!
+       
+    var showLoader: Bool = false {
+        didSet {
+            if showLoader {
+                loader.startAnimating()
+            } else {
+                loader.stopAnimating()
+            }
+            self.viewButton.isHidden = showLoader
+        }
+    }
     //Mark:- LifeCycle
     //================
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
+        loader.color = AppColors.themeGreen
+        loader.hidesWhenStopped = true
+        loader.stopAnimating()
+    }
+    
+    override func prepareForReuse(){
+        loader.color = AppColors.themeGreen
+        loader.hidesWhenStopped = true
+        loader.stopAnimating()
     }
     
     //Mark:- Methods

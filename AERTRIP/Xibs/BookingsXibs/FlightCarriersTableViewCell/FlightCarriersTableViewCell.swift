@@ -31,6 +31,7 @@ class FlightCarriersTableViewCell: UITableViewCell {
     @IBOutlet weak var flightCode: UILabel!
     @IBOutlet weak var remainingCodesLabel: UILabel!
     @IBOutlet weak var nextScreenImageView: UIImageView!
+    @IBOutlet weak var containerTopConstraints: NSLayoutConstraint!
     
     // MARK: - LifeCycle
     
