@@ -93,6 +93,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     
     func updateFiltersFromAPI() {
         currentPriceFilter = allPriceFilters[currentActiveIndex]
+        initSetupForMLSubViews()
         guard priceRangeSlider != nil else { return }
         UIView.animate(withDuration: 0.3) {
             self.setupPriceSlider()
@@ -102,13 +103,21 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     }
     
     func initialSetup () {
-       
         
+        initSetupForMLSubViews()
+        
+        currentPriceFilter.userSelectedFareMinValue = currentPriceFilter.inputFareMinValue
+        currentPriceFilter.userSelectedFareMaxValue = currentPriceFilter.inputFareMaxVaule
+       
+    }
+    
+    private func initSetupForMLSubViews() {
         switch  allPriceFilters.count {
         case 1:
             multicityViewHeight.constant = 0
             multiLegView.isHidden = true
         case 2:
+            multiLegView.isHidden = false
             JourneyTitle.isHidden = true
             multicityViewHeight.constant = 60.0
             setmultiLegSubviews()
@@ -130,10 +139,6 @@ class PriceFilterViewController: UIViewController , FilterViewController {
             JourneyTitle.isHidden = false
             JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
         }
-        
-        currentPriceFilter.userSelectedFareMinValue = currentPriceFilter.inputFareMinValue
-        currentPriceFilter.userSelectedFareMaxValue = currentPriceFilter.inputFareMaxVaule
-        
     }
     
     fileprivate func setmultiLegSubviews () {
