@@ -22,13 +22,21 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
     var parchmentView:PagingViewController?
     var viewModel = UpgradePlanVM()
     var allChildVCs = [UpgradePlanListVC]()
-    let fareBreakupVC = FareBreakupVC(nibName: "FareBreakupVC", bundle: nil)
+    var fareBreakupVC : FareBreakupVC?
+    var intFareBreakup:IntFareBreakupVC?
+    var viewForFare = UIView()
+    var innerControllerBottomConstraint: CGFloat = 0.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.delegate = self
         self.getMenuTitle()
-        self.setupFarebreakupView()
+        if self.viewModel.isInternational{
+            self.setupIntFarebreakupView()
+        }else{
+            self.setupFarebreakupView()
+        }
+        
     }
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -39,19 +47,34 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
         super.viewDidLayoutSubviews()
         self.parchmentView?.view.frame = self.containerView.bounds
         self.view.addGredient(isVertical: true, cornerRadius: 0, colors: [AppColors.themeGreen, AppColors.dashboardGradientColor])
+        self.parchmentView?.view.frame.size.height = self.containerView.height - innerControllerBottomConstraint
         self.parchmentView?.loadViewIfNeeded()
     }
     
     
     private func getMenuTitle(){
         self.viewModel.allTabsStr.removeAll()
-        if let journeys  = self.viewModel.oldJourney{
+        if !(self.viewModel.isInternational), let journeys  = self.viewModel.oldJourney{
+            for journey in journeys{
+                let titel = self.createAttHeaderTitle(journey.originIATACode, journey.destinationIATACode)
+                self.viewModel.allTabsStr.append(titel)
+            }
+        }else if let journeys  = self.viewModel.oldIntJourney{
             for journey in journeys{
                 let titel = self.createAttHeaderTitle(journey.originIATACode, journey.destinationIATACode)
                 self.viewModel.allTabsStr.append(titel)
             }
         }
+        self.updateUI()
         self.setupPagger()
+    }
+    
+    private func updateUI(){
+        self.upgradeYourFlightLabel.text = "Upgrade your flight"
+        self.upgradeYourFlightLabel.font = AppFonts.SemiBold.withSize(18.0)
+        self.upgradeYourFlightLabel.textColor = AppColors.themeWhite
+        self.grabberView.layer.cornerRadius = 2.0
+        self.grabberView.clipsToBounds = true
     }
     
     func setupPagger(){
@@ -70,7 +93,11 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
             self.parchmentView = nil
         }
         self.setupParchmentPageController()
-        self.apiCallForOtherFare()
+        if self.viewModel.isInternational{
+            self.apiCallForIntOtherFare()
+        }else{
+            self.apiCallForOtherFare()
+        }
         
     }
     
@@ -79,7 +106,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
         self.parchmentView = PagingViewController()
         self.parchmentView?.menuItemSpacing = 30
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 15, bottom: 0.0, right: 15)
-        if self.viewModel.oldJourney?.count == 1{
+        if (self.viewModel.oldJourney?.count == 1) || (self.viewModel.oldIntJourney?.count == 1){
             self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 0)
         }else{
             self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 55)
@@ -153,26 +180,85 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
     }
     
     
-    func setupFarebreakupView(){
-        fareBreakupVC.taxesResult = self.viewModel.taxesResult
-        fareBreakupVC.journey = self.viewModel.oldJourney
-        fareBreakupVC.sid = self.viewModel.sid
-        fareBreakupVC.delegate = self
-        fareBreakupVC.isFromFlightDetails = true
-        fareBreakupVC.fromScreen = "upgradePlan"
-        fareBreakupVC.isUpgradePlanScreenVisible = true
-        fareBreakupVC.flightAdultCount = self.viewModel.flightAdultCount
-        fareBreakupVC.flightChildrenCount = self.viewModel.flightChildrenCount
-        fareBreakupVC.flightInfantCount = self.viewModel.flightInfantCount
-        fareBreakupVC.bookingObject = self.viewModel.bookingObject
-        self.view.addSubview(fareBreakupVC.view)
-        self.addChild(fareBreakupVC)
-        fareBreakupVC.didMove(toParent: self)
+    
+    func apiCallForIntOtherFare(){
+     
+        guard let journeys = self.viewModel.oldIntJourney else {return}
+        self.viewModel.ohterFareData = []
+        self.viewModel.selectedOhterFareData = []
+        for (index, value) in journeys.enumerated(){
+            self.viewModel.ohterFareData.append([])
+            self.viewModel.selectedOhterFareData.append(nil)
+            if (value.otherFares){
+                self.viewModel.getOtherFare(with: value.fk, oldFare: "\(value.farepr)", index: index)
+            }else{
+                self.viewModel.ohterFareData[index] = nil
+                self.viewModel.selectedOhterFareData[index] = nil
+                self.allChildVCs[index].shouldStartIndicator(isDataFetched: false)
+            }
+        }
+    }
+    
+    private func setupFarebreakupView(){
+        self.addTranparentView()
+        let fbVC =  FareBreakupVC(nibName: "FareBreakupVC", bundle: nil)
+        fbVC.taxesResult = self.viewModel.taxesResult
+        fbVC.journey = self.viewModel.oldJourney
+        fbVC.sid = self.viewModel.sid
+        fbVC.delegate = self
+        fbVC.isFromFlightDetails = true
+        fbVC.fromScreen = "upgradePlan"
+        fbVC.isUpgradePlanScreenVisible = true
+        fbVC.flightAdultCount = self.viewModel.flightAdultCount
+        fbVC.flightChildrenCount = self.viewModel.flightChildrenCount
+        fbVC.flightInfantCount = self.viewModel.flightInfantCount
+        fbVC.bookingObject = self.viewModel.bookingObject
+        self.view.addSubview(fbVC.view)
+        self.addChild(fbVC)
+        fbVC.didMove(toParent: self)
+        self.fareBreakupVC = fbVC
+        let bottomSpecing = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+        self.innerControllerBottomConstraint = (fbVC.view.frame.height - bottomSpecing)
+        
+    }
+    
+    func setupIntFarebreakupView(){
+        self.addTranparentView()
+        let intFBVC = IntFareBreakupVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
+        intFBVC.taxesResult = self.viewModel.taxesResult
+        intFBVC.journey = self.viewModel.oldIntJourney
+        intFBVC.sid = self.viewModel.sid
+        intFBVC.isFromFlightDetails = true
+        intFBVC.fromScreen = "upgradePlan"
+        intFBVC.isUpgradePlanScreenVisible = true
+        intFBVC.delegate = self
+        intFBVC.bookFlightObject = self.viewModel.bookingObject ??  BookFlightObject()
+        intFBVC.fewSeatsLeftViewHeightFromFlightDetails = 0
+        intFBVC.view.autoresizingMask = []
+        self.view.addSubview(intFBVC.view)
+        self.addChild(intFBVC)
+        intFBVC.didMove(toParent: self)
+        self.intFareBreakup = intFBVC
+        var bottomSpecing = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0.0
+        if bottomSpecing != 0.0{
+            bottomSpecing = 20.0
+        }
+        self.innerControllerBottomConstraint = (intFBVC.view.frame.height - bottomSpecing)
+    }
+    
+    private func addTranparentView(){
+        viewForFare.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        self.view.addSubview(viewForFare)
     }
     
     func updateFareBreakupView(fareAmount: String){
-        let price = fareAmount
-        fareBreakupVC.bookingAmountLabel.text = price
+        if self.viewModel.isInternational{
+            intFareBreakup?.journey = self.viewModel.oldIntJourney
+            intFareBreakup?.reloadDataForAddons()
+        }else{
+            fareBreakupVC?.updateData(with: self.viewModel.getOtherModelForDomestic())
+        }
+        
     }
     
     @IBAction func tapCloseButton(_ sender: Any) {
@@ -250,7 +336,11 @@ extension UpgradePlanContrainerVC : FareBreakupVCDelegate{
         }
         AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
             guard let self = self else {return}
-            self.fareBreakupVC.hideShowLoader(isHidden: false)
+            if self.viewModel.isInternational{
+                self.intFareBreakup?.hideShowLoader(isHidden: false)
+            }else{
+                self.fareBreakupVC?.hideShowLoader(isHidden: false)
+            }
             let vc = PassengersSelectionVC.instantiate(fromAppStoryboard: .PassengersSelection)
             vc.viewModel.taxesResult = self.viewModel.taxesResult
             vc.viewModel.sid = self.viewModel.sid
@@ -267,7 +357,11 @@ extension UpgradePlanContrainerVC : FareBreakupVCDelegate{
         self.viewModel.fetchConfirmationData(){[weak self] success, errorCodes in
             guard let self = self else {return}
             self.view.isUserInteractionEnabled = true
-            self.fareBreakupVC.hideShowLoader(isHidden: true)
+            if self.viewModel.isInternational{
+                self.intFareBreakup?.hideShowLoader(isHidden: true)
+            }else{
+                self.fareBreakupVC?.hideShowLoader(isHidden: true)
+            }
             if success{
                 DispatchQueue.main.async{
                     if #available(iOS 13.0, *) {
@@ -292,7 +386,18 @@ extension UpgradePlanContrainerVC : FareBreakupVCDelegate{
 
     
     func infoButtonTapped(isViewExpanded: Bool) {
-        
+        if isViewExpanded == true{
+            viewForFare.frame = CGRect(x: 0, y: 0, width: UIScreen.width, height: UIScreen.height)
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
+                self.viewForFare.backgroundColor = AppColors.blackWith20PerAlpha
+            })
+        }else{
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
+                self.viewForFare.backgroundColor = AppColors.clear
+            },completion: { _ in
+                self.viewForFare.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+            })
+        }
     }
     
 

@@ -130,13 +130,13 @@ class IntFareBreakupVC: UIViewController {
         self.setupUpgradeButton(isHidden: self.isHideUpgradeOption)
         //        setupSwipeDownGuesture()
         self.manageLoader()
-        if fromScreen == "upgradePlan" {
-            infoLabel.isHidden = true
-            bookingInfoArrowImg.isHidden = true
-        }else{
+//        if fromScreen == "upgradePlan" {
+//            infoLabel.isHidden = true
+//            bookingInfoArrowImg.isHidden = true
+//        }else{
             infoLabel.isHidden = false
             bookingInfoArrowImg.isHidden = false
-        }
+//        }
     }
     
     override func viewDidLayoutSubviews(){
@@ -153,8 +153,35 @@ class IntFareBreakupVC: UIViewController {
             }
             
             fromScreen = "upgradePlan"
+
         }else if fromScreen == "upgradePlan" {
-            self.view.backgroundColor = UIColor.clear
+            self.view.backgroundColor = .clear
+            
+            if isFareBreakupExpanded == true{
+                self.fareDataDisplayView.backgroundColor = .white
+                let gradient = CAGradientLayer()
+                gradient.frame = bookingDataDisplayView.bounds
+                gradient.frame.size.height = bookingDataDisplayView.frame.height
+                
+                gradient.startPoint = CGPoint(x: 0, y: 1)
+                gradient.endPoint = CGPoint(x: 1, y: 1)
+                let colorOne = UIColor(displayP3Red: ( 0.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 153 / 255.0), alpha: 1.0)
+                let colorTwo = UIColor(displayP3Red: (41.0/255.0), green: ( 176.0 / 255.0) , blue: ( 182 / 255.0), alpha: 1.0)
+                gradient.colors = [colorTwo.cgColor, colorOne.cgColor]
+                gradient.name = "bookingGradient"
+                bookingDataDisplayView.layer.insertSublayer(gradient, at: 0)
+            }else{
+                self.fareDataDisplayView.backgroundColor = .clear
+                if let subLayers = bookingDataDisplayView.layer.sublayers{
+                    if subLayers.count > 0{
+                        for layer in subLayers {
+                            if layer.name == "bookingGradient" {
+                                layer.removeFromSuperlayer()
+                            }
+                        }
+                    }
+                }
+            }
         }else{
             bookingDataDisplayView.frame.size.width = self.view.frame.width
             
@@ -383,7 +410,7 @@ class IntFareBreakupVC: UIViewController {
             
             if self.journey != nil{
                 // Display few seats left view if fsr != 0
-                if ((self.journey.first?.fsr ?? 0) == 1){
+                if ((self.journey.first?.fsr ?? 0) == 1) && (self.fromScreen != "upgradePlan"){
                     self.fewSeatsLeftView.isHidden = false
                     self.fewSeatsLeftViewHeight.constant = 35
                     self.fareDataDisplayViewHeight.constant = 85 + CGFloat(bottomInset) + self.heightForBookingTitleView
@@ -533,7 +560,7 @@ class IntFareBreakupVC: UIViewController {
                 }
             }
 
-            if isFSR == true{
+            if isFSR == true && (self.fromScreen != "upgradePlan"){
                 self.fewSeatsLeftView.isHidden = false
                 self.fewSeatsLeftViewHeight.constant = 35
 
@@ -672,7 +699,7 @@ class IntFareBreakupVC: UIViewController {
     }
     
     @objc func infoButtonTapped(){
-        if fromScreen != "upgradePlan"{
+//        if fromScreen != "upgradePlan"{
             
             if !isInfoViewHidden{
                 self.isFareBreakupExpanded = true
@@ -689,7 +716,7 @@ class IntFareBreakupVC: UIViewController {
             
             isInfoViewHidden = !isInfoViewHidden
             
-        }
+//        }
     }
     
     @IBAction func panGestureRecognizerHandler(_ sender: UIPanGestureRecognizer) {

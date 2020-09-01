@@ -647,19 +647,16 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     }
     
     func tapUpgradeButton(){
-        let vc = IndUpgradeFlightVC.instantiate(fromAppStoryboard:.InternationalReturnAndMulticityDetails)
-        vc.taxesResult = self.taxesResult
-        vc.selectedJourneyFK = selectedJourneyFK
-        vc.journey = self.intJourney
-        vc.sid = self.sid
-        vc.fare = "\(self.intJourney?.first?.farepr ?? 0)"
-        vc.bookFlightObject = self.bookFlightObject
-        vc.intAirportDetailsResult = self.intAirportDetailsResult
-        vc.intAirlineDetailsResult = self.intAirlineDetailsResult
-        vc.intFlights = self.intFlights
-        vc.journeyTitle = self.journeyTitle
-        vc.journeyDate = self.journeyDate
-        vc.fewSeatsLeftViewHeight = isFSRVisible ? 40 : 0
+        let vc = UpgradePlanContrainerVC.instantiate(fromAppStoryboard:.InternationalReturnAndMulticityDetails)
+        vc.viewModel.oldIntJourney = self.intJourney
+        vc.viewModel.sid = self.sid
+        vc.viewModel.isInternational = true
+        vc.viewModel.selectedJourneyFK = selectedJourneyFK
+        vc.viewModel.flightAdultCount = self.bookFlightObject.flightAdultCount
+        vc.viewModel.flightChildrenCount = self.bookFlightObject.flightAdultCount
+        vc.viewModel.flightInfantCount = self.bookFlightObject.flightAdultCount
+        vc.viewModel.bookingObject = self.bookFlightObject
+        vc.viewModel.taxesResult = self.taxesResult
         self.present(vc, animated: true, completion: nil)
     }
     
