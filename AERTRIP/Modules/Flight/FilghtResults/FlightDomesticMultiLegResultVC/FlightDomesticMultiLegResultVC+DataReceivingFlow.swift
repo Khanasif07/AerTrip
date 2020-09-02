@@ -82,7 +82,6 @@ extension FlightDomesticMultiLegResultVC {
                    self.view.layoutIfNeeded()
                    
                    for subview in self.baseScrollView.subviews {
-                       
                        if let tableView = subview as? UITableView {
                            let width = UIScreen.main.bounds.size.width / 2.0
                            let headerRect = CGRect(x: 0, y: 0, width: width, height: 138.0)
@@ -101,7 +100,6 @@ extension FlightDomesticMultiLegResultVC {
            else {
                self.updateUI(index: index , updatedArray: updatedArray, sortOrder: sortOrder)
            }
-           
        }
        
           func updateUI(index : Int , updatedArray : [Journey] , sortOrder : Sort) {
@@ -136,27 +134,26 @@ extension FlightDomesticMultiLegResultVC {
                     let headerRect = CGRect(x: 0, y: 0, width: width, height: 138.0)
                     tableView.tableHeaderView = UIView(frame: headerRect)
 
-
                     //selecting tableview cell
-    //                if (selectedIndex != nil) {
-    //                    tableView.selectRow(at:selectedIndex, animated: false, scrollPosition: .none)
-    //                }
-    //
-    //                let indexPath : IndexPath
-    //                if (self.viewModel.results[index].suggestedJourneyArray.count > 0 ) {
-    //                    indexPath = IndexPath(row: 0, section: 0)
-    //                    tableView.selectRow(at: indexPath , animated: false, scrollPosition: .none)
-    //                    self.hideHeaderCellAt(index: index)
-    //                } else  {
-    //                    if (self.viewModel.results[index].allJourneys.count > 0 ){
-    //                        indexPath = IndexPath(row: 0, section: 0)
-    //                        tableView.selectRow(at: indexPath , animated: false, scrollPosition: .none)
-    //                        self.hideHeaderCellAt(index: index)
-    //                    }
-    //                    else {
-    //                        print("Into Else else")
-    //                    }
-    //                }
+                    if (selectedIndex != nil) {
+                        tableView.selectRow(at:selectedIndex, animated: false, scrollPosition: .none)
+                    }
+    
+                    let indexPath : IndexPath
+                    if (self.viewModel.results[index].suggestedJourneyArray.count > 0 ) {
+                        indexPath = IndexPath(row: 0, section: 0)
+                        tableView.selectRow(at: indexPath , animated: false, scrollPosition: .none)
+                        self.hideHeaderCellAt(index: index)
+                    } else  {
+                        if (self.viewModel.results[index].allJourneys.count > 0 ){
+                            indexPath = IndexPath(row: 0, section: 0)
+                            tableView.selectRow(at: indexPath , animated: false, scrollPosition: .none)
+                            self.hideHeaderCellAt(index: index)
+                        }
+                        else {
+                            print("Into Else else")
+                        }
+                    }
                 
                     tableView.isScrollEnabled = true
                 
@@ -215,8 +212,5 @@ extension FlightDomesticMultiLegResultVC {
                 self.setTotalFare()
             }
         }
-           
-
-    
     
 }

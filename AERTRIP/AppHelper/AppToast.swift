@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class AppToast: NSObject {
+class AppToast : NSObject {
     
     enum ButtonIcon {
         case cross

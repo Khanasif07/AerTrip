@@ -125,7 +125,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         self.headerCollectionView.addSubview(ApiProgress)
 
         getSharableLink.delegate = self
-
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -205,7 +205,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                 case .showRegularResults :
                     
                     let suggestedJourneyArray = self.viewModel.results[index].suggestedJourneyArray
-                    if suggestedJourneyArray.count ?? 0 > 0 {
+                    if suggestedJourneyArray.count > 0 {
                         currentJourney = self.viewModel.results[index].suggestedJourneyArray[selectedIndex.row]
                         selectedJourneys.append(currentJourney)
                     }

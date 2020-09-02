@@ -19,7 +19,6 @@ class IntMCAndReturnVC : UIViewController {
     @IBOutlet weak var resultTableViewTop: NSLayoutConstraint!
     
     
-    
     var airlineCode = ""
     var bannerView : ResultHeaderView?
     var titleString : NSAttributedString!

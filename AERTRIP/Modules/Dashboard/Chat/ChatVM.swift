@@ -124,9 +124,7 @@ class ChatVM {
             }
         }
     }
-<<<<<<< HEAD
-=======
-    
+
     func createFlightSearchDictionaryAndPushToVC(_ model: MessageModel) {
         
         let dateFormatter = DateFormatter()
@@ -147,7 +145,6 @@ class ChatVM {
         
         SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
->>>>>>> ddf677434f313ac68b341c742101ac52dc9a9af3
 }
 
 

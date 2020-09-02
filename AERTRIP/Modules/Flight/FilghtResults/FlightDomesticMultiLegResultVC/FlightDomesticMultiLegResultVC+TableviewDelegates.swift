@@ -100,9 +100,12 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
         
          
          if arrayForDisplay.count > 0 && indexPath.row < arrayForDisplay.count{
-              let journey = arrayForDisplay[indexPath.row]
-                 cell.showDetailsFrom(journey:  journey)
-                 if let logoArray = journey.airlineLogoArray {
+              
+            let journey = arrayForDisplay[indexPath.row]
+                 
+            cell.showDetailsFrom(journey:  journey)
+               
+            if let logoArray = journey.airlineLogoArray {
                      
                      switch logoArray.count {
                      case 1 :

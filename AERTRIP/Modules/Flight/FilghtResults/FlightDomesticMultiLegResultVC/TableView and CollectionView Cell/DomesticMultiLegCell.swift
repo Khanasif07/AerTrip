@@ -35,6 +35,7 @@ class DomesticMultiLegCell: UITableViewCell {
     var baggageSuperScript : NSAttributedString?
     var currentJourney : Journey?
     //MARK:- Override methods
+   
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
@@ -56,7 +57,6 @@ class DomesticMultiLegCell: UITableViewCell {
         dashedView.setupDashedView()
         setupCollectionView()
         setupGradientView()
-        
     }
     
     func setupCollectionView() {

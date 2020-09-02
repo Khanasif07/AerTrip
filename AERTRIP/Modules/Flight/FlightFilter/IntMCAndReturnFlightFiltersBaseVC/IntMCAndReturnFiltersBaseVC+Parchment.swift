@@ -31,7 +31,6 @@ extension IntMCAndReturnFiltersBaseVC: PagingViewControllerDataSource , PagingVi
     }
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
-        
         return MenuItemForFilter(title: menuItems[index].title, index: index, isSelected: !menuItems[index].isSelected, showSelectedFont: showSelectedFontOnMenu)
     }
     
