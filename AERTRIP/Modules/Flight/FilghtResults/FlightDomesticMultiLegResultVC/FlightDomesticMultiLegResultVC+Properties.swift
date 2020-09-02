@@ -165,54 +165,60 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         
         for index in 0 ..< self.viewModel.numberOfLegs {
             
-            let tableResultState = viewModel.resultsTableStates[index]
-            if tableResultState == .showTemplateResults {  return nil }
-            guard let tableView = baseScrollView.viewWithTag( 1000 + index ) as? UITableView else {
+//            let tableResultState = viewModel.resultsTableStates[index]
+//            if tableResultState == .showTemplateResults {  return nil }
+            
+//            guard let tableView = baseScrollView.viewWithTag( 1000 + index ) as? UITableView else {
+//                return nil
+//            }
+               
+//            guard let selectedIndex = tableView.indexPathForSelectedRow else {
+//                    return nil }
+                
+//                var currentJourney : Journey
+//                let currentArray : [Journey]
+           
+            guard let selJour = self.viewModel.results[index].selectedJourney else {
                 return nil
             }
-               
-            guard let selectedIndex = tableView.indexPathForSelectedRow else {
-                    return nil }
-                
-                var currentJourney : Journey
-                let currentArray : [Journey]
-           
-            switch tableResultState {
-                case .showExpensiveFlights :
-                        currentArray = self.viewModel.results[index].allJourneys
-
-                    if selectedIndex.row < currentArray.count {
-                        currentJourney = currentArray[selectedIndex.row]
-                        selectedJourneys.append(currentJourney)
-                    }
-                    else {
-                        return nil
-                    }
-                case .showPinnedFlights :
-                    
-                    if selectedIndex.row > self.viewModel.results[index].pinnedFlights.count {
-                        return nil
-                    }
-                    
-                    if self.viewModel.results[index].pinnedFlights.count > 0{
-                        currentJourney = self.viewModel.results[index].pinnedFlights[selectedIndex.row]
-                        selectedJourneys.append(currentJourney)
-                    }
-                    
-
-                case .showRegularResults :
-                    
-                    let suggestedJourneyArray = self.viewModel.results[index].suggestedJourneyArray
-                    if suggestedJourneyArray.count > 0 {
-                        currentJourney = self.viewModel.results[index].suggestedJourneyArray[selectedIndex.row]
-                        selectedJourneys.append(currentJourney)
-                    }
-                    
-                case .showTemplateResults :
-                    assertionFailure("Invalid state")
-                case .showNoResults:
-                    return nil
-                }
+            selectedJourneys.append(selJour)
+            
+//            switch tableResultState {
+//                case .showExpensiveFlights :
+//                        currentArray = self.viewModel.results[index].allJourneys
+//
+//                    if selectedIndex.row < currentArray.count {
+//                        currentJourney = currentArray[selectedIndex.row]
+//                        selectedJourneys.append(currentJourney)
+//                    }
+//                    else {
+//                        return nil
+//                    }
+//                case .showPinnedFlights :
+//
+//                    if selectedIndex.row > self.viewModel.results[index].pinnedFlights.count {
+//                        return nil
+//                    }
+//
+//                    if self.viewModel.results[index].pinnedFlights.count > 0{
+//                        currentJourney = self.viewModel.results[index].pinnedFlights[selectedIndex.row]
+//                        selectedJourneys.append(currentJourney)
+//                    }
+//
+//
+//                case .showRegularResults :
+//
+//                    let suggestedJourneyArray = self.viewModel.results[index].suggestedJourneyArray
+//                    if suggestedJourneyArray.count > 0 {
+//                        currentJourney = self.viewModel.results[index].suggestedJourneyArray[selectedIndex.row]
+//                        selectedJourneys.append(currentJourney)
+//                    }
+//
+//                case .showTemplateResults :
+//                    assertionFailure("Invalid state")
+//                case .showNoResults:
+//                    return nil
+//                }
             
         }
         
