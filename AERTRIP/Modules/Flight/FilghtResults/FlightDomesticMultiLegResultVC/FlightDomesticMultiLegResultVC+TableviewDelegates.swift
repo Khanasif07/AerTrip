@@ -70,8 +70,10 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
        }
        
        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-           
-           animateJourneyCompactView(for: tableView)
+        
+        let tableIndex = tableView.tag - 1000
+     
+        self.viewModel.setSelectedJourney(tableIndex: tableIndex, journeyIndex: indexPath.row)
            
            if flightSearchType == RETURN_JOURNEY {
                checkForComboFares()
@@ -81,29 +83,23 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
            //        let containsPinnedFlight = results.reduce(false) { $0 || $1.containsPinnedFlight }
            //        showPinnedFlightSwitch(containsPinnedFlight)
            setTableViewHeaderAfterSelection(tableView: tableView )
+        
+            tableView.reloadData()
        }
     
     fileprivate func setPropertiesToCellAt( index: Int, _ indexPath: IndexPath,  cell: DomesticMultiLegCell, _ tableView: UITableView) {
          
-         let tableState = viewModel.resultsTableStates[index]
+//         let tableState = viewModel.resultsTableStates[index]
     
         var arrayForDisplay = self.viewModel.results[index].suggestedJourneyArray
          
-         
-         if tableState == .showPinnedFlights {
-            arrayForDisplay = self.viewModel.results[index].pinnedFlights
-         } else if tableState == .showExpensiveFlights {
-            arrayForDisplay = self.viewModel.results[index].allJourneys
-         } else {
-             arrayForDisplay = self.viewModel.results[index].suggestedJourneyArray
-         }
-        
+       arrayForDisplay = self.viewModel.currentDataSource(tableIndex: index)
          
          if arrayForDisplay.count > 0 && indexPath.row < arrayForDisplay.count{
               
             let journey = arrayForDisplay[indexPath.row]
                  
-            cell.showDetailsFrom(journey:  journey)
+            cell.showDetailsFrom(journey:  journey, selectedJourney: self.viewModel.results[index].selectedJourney)
                
             if let logoArray = journey.airlineLogoArray {
                      

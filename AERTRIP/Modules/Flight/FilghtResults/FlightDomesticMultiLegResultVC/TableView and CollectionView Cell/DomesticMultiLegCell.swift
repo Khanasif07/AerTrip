@@ -36,21 +36,22 @@ class DomesticMultiLegCell: UITableViewCell {
     var currentJourney : Journey?
     //MARK:- Override methods
    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        let selectedStateBGColor = UIColor(displayP3Red: (236.0/255.0), green: (253.0/255.0), blue: (244.0/255.0), alpha: 1.0)
-        
-        let backgroundColor = selected ? selectedStateBGColor : .white
-        
-        if ( duration.isHidden == false) {
-            self.backgroundColor = backgroundColor
-            stopsBackgroundView.backgroundColor = backgroundColor
-            price.backgroundColor = backgroundColor
-            setupGradientView(selectedColor: backgroundColor)
-        }
-        
-    }
+//    override func setSelected(_ selected: Bool, animated: Bool) {
+//        super.setSelected(selected, animated: animated)
+//
+//        let selectedStateBGColor = UIColor(displayP3Red: (236.0/255.0), green: (253.0/255.0), blue: (244.0/255.0), alpha: 1.0)
+//
+//        let backgroundColor = selected ? selectedStateBGColor : .white
+//
+//        if ( duration.isHidden == false) {
+//            self.backgroundColor = backgroundColor
+//            stopsBackgroundView.backgroundColor = backgroundColor
+//            price.backgroundColor = backgroundColor
+//            setupGradientView(selectedColor: backgroundColor)
+//        }
+//
+//    }
+    
     
     
     
@@ -193,7 +194,7 @@ class DomesticMultiLegCell: UITableViewCell {
         
     }
     
-    func showDetailsFrom(journey : Journey) {
+    func showDetailsFrom(journey : Journey, selectedJourney : Journey?) {
         
         currentJourney = journey
         if journey.isPinned ?? false {
@@ -240,6 +241,33 @@ class DomesticMultiLegCell: UITableViewCell {
         smartIconCollectionView.reloadData()
         
         setStopsUI(journey)
+        
+        showSelection(journey: journey, selectedJourney: selectedJourney)
+        
+    }
+    
+    func showSelection(journey : Journey, selectedJourney : Journey?){
+    
+        var isSelected = false
+        
+        if let sselJourney = selectedJourney, sselJourney.id == journey.id  {
+            isSelected = true
+        } else {
+            isSelected = false
+        }
+        
+        let selectedStateBGColor = UIColor(displayP3Red: (236.0/255.0), green: (253.0/255.0), blue: (244.0/255.0), alpha: 1.0)
+
+        
+                let backgroundColor = isSelected ? selectedStateBGColor : .white
+        
+                if ( duration.isHidden == false) {
+                    self.backgroundColor = backgroundColor
+                    stopsBackgroundView.backgroundColor = backgroundColor
+                    price.backgroundColor = backgroundColor
+                    setupGradientView(selectedColor: backgroundColor)
+                }
+        
     }
     
     

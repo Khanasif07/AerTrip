@@ -135,25 +135,36 @@ extension FlightDomesticMultiLegResultVC {
                     tableView.tableHeaderView = UIView(frame: headerRect)
 
                     //selecting tableview cell
-                    if (selectedIndex != nil) {
-                        tableView.selectRow(at:selectedIndex, animated: false, scrollPosition: .none)
-                    }
-    
-                    let indexPath : IndexPath
-                    if (self.viewModel.results[index].suggestedJourneyArray.count > 0 ) {
-                        indexPath = IndexPath(row: 0, section: 0)
-                        tableView.selectRow(at: indexPath , animated: false, scrollPosition: .none)
-                        self.hideHeaderCellAt(index: index)
-                    } else  {
-                        if (self.viewModel.results[index].allJourneys.count > 0 ){
-                            indexPath = IndexPath(row: 0, section: 0)
-                            tableView.selectRow(at: indexPath , animated: false, scrollPosition: .none)
-                            self.hideHeaderCellAt(index: index)
-                        }
-                        else {
-                            print("Into Else else")
-                        }
-                    }
+//                    if (selectedIndex != nil) {
+//                        tableView.selectRow(at:selectedIndex, animated: false, scrollPosition: .none)
+//                    }
+//
+//                    let indexPath : IndexPath
+//                    if (self.viewModel.results[index].suggestedJourneyArray.count > 0 ) {
+//                        indexPath = IndexPath(row: 0, section: 0)
+//                        tableView.selectRow(at: indexPath , animated: false, scrollPosition: .none)
+//                        self.hideHeaderCellAt(index: index)
+//                    } else  {
+//                        if (self.viewModel.results[index].allJourneys.count > 0 ){
+//                            indexPath = IndexPath(row: 0, section: 0)
+//                            tableView.selectRow(at: indexPath , animated: false, scrollPosition: .none)
+//                            self.hideHeaderCellAt(index: index)
+//                        }
+//                        else {
+//                            print("Into Else else")
+//                        }
+//                    }
+//
+                
+               // if self.viewModel.results[index].selectedJourney == nil{
+//                    self.viewModel.results[index].selectedJourney = self.viewModel.results[index].suggestedJourneyArray.first
+                    
+                    self.viewModel.setSelectedJourney(tableIndex: index, journeyIndex: 0)
+
+              //  }
+                
+                
+                
                 
                     tableView.isScrollEnabled = true
                 

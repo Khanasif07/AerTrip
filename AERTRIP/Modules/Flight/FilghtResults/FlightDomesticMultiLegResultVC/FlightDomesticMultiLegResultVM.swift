@@ -190,4 +190,28 @@ class FlightDomesticMultiLegResultVM {
         return arrivalDate
     }
     
+    func currentDataSource(tableIndex : Int) -> [Journey] {
+        
+        let tableState = self.resultsTableStates[tableIndex]
+        var arrayForDisplay = self.results[tableIndex].suggestedJourneyArray
+
+          if tableState == .showPinnedFlights {
+             arrayForDisplay = self.results[tableIndex].pinnedFlights
+          } else if tableState == .showExpensiveFlights {
+             arrayForDisplay = self.results[tableIndex].allJourneys
+          } else {
+              arrayForDisplay = self.results[tableIndex].suggestedJourneyArray
+          }
+        
+        return arrayForDisplay
+         
+    }
+    
+    
+    func setSelectedJourney(tableIndex : Int, journeyIndex : Int) {
+        let currentDataSorce = self.currentDataSource(tableIndex: tableIndex)
+        self.results[tableIndex].selectedJourney = currentDataSorce[journeyIndex]
+     }
+    
+    
 }
