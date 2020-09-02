@@ -683,3 +683,11 @@ extension YouAreAllDoneVC{
  how to call the apple wallet from ios app using swift
  https://stackoverflow.com/questions/51060832/how-to-call-the-apple-wallet-from-ios-app-using-swift
  */
+
+/*
+ instagram RND
+ https://stackoverflow.com/questions/11393071/how-to-share-an-image-on-instagram-in-ios/28272642#28272642
+ https://help.instagram.com/355896521173347
+ https://stackoverflow.com/questions/51318060/instagram-share-image-text-and-url-via-ios-app-swift
+ https://developers.facebook.com/docs/instagram/sharing-to-feed
+ */

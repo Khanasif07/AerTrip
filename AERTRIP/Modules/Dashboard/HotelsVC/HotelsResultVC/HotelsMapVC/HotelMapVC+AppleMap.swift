@@ -132,12 +132,16 @@ extension HotelsMapVC : MKMapViewDelegate{
     }
     
     @objc func zoomInGesture() {
+        self.appleMap.isUserInteractionEnabled = false
         var region = self.appleMap.region
         var span = self.appleMap.region.span
         span.latitudeDelta *= CLLocationDegrees(0.5)
         span.longitudeDelta *= CLLocationDegrees(0.5)
         region.span = span
         self.appleMap.setRegion(region, animated: true)
+        delay(seconds: 0.2) {
+            self.appleMap.isUserInteractionEnabled = true
+        }
     }
     
     func updateAnnotationOnMapTap(){

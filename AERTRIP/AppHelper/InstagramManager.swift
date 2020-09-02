@@ -55,7 +55,8 @@ class InstagramManager: NSObject, UIDocumentInteractionControllerDelegate {
         else {
             
             // alert displayed when the instagram application is not available in the device
-            UIAlertView(title: kAlertViewTitle, message: kAlertViewMessage, delegate:nil, cancelButtonTitle:"Ok").show()
+            //UIAlertView(title: kAlertViewTitle, message: kAlertViewMessage, delegate:nil, cancelButtonTitle:"Ok").show()
+            AppToast.default.showToastMessage(message: kAlertViewMessage)
         }
     }
 }
