@@ -329,7 +329,9 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     
     
     fileprivate func formattedStringWith(duration : CGFloat) -> String {
-        
+        if duration > 100000 {
+            return ""
+        }
         if duration > 1 {
             return  "\(Int(duration))" + " hrs"
         }else {
