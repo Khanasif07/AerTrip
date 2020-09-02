@@ -175,13 +175,14 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
                 if (selectedIndex != nil) {
                     tableView.selectRow(at:selectedIndex, animated: false, scrollPosition: .none)
                 }
+                
                 let indexPath : IndexPath
+                
                 if (self.results[index].suggestedJourneyArray.count > 0 ) {
                     indexPath = IndexPath(row: 0, section: 0)
                     tableView.selectRow(at: indexPath , animated: false, scrollPosition: .none)
                     self.hideHeaderCellAt(index: index)
-                }
-                else  {
+                } else  {
                     if (self.results[index].expensiveJourneyArray.count > 0 ){
                         indexPath = IndexPath(row: 0, section: 1)
                         tableView.selectRow(at: indexPath , animated: false, scrollPosition: .none)
