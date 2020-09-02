@@ -29,9 +29,19 @@
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uin-Mt-cLd">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="454"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ieo-R7-vSU">
+                            <rect key="frame" x="0.0" y="45" width="375" height="409"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
+                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="454" id="Swh-iA-3lO"/>
+                        <constraint firstItem="Ieo-R7-vSU" firstAttribute="top" secondItem="Uin-Mt-cLd" secondAttribute="top" constant="45" id="Z3G-Nq-Glz"/>
+                        <constraint firstAttribute="bottom" secondItem="Ieo-R7-vSU" secondAttribute="bottom" id="c33-nl-O2a"/>
+                        <constraint firstAttribute="trailing" secondItem="Ieo-R7-vSU" secondAttribute="trailing" id="glr-gc-oRO"/>
+                        <constraint firstItem="Ieo-R7-vSU" firstAttribute="leading" secondItem="Uin-Mt-cLd" secondAttribute="leading" id="qYY-NV-IMa"/>
                     </constraints>
                 </view>
             </subviews>

@@ -899,16 +899,20 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         
         if flightSearchResultVM.containsJourneyResuls  {
             
-            if backView.height <= visualEffectViewHeight {
-                toggleFiltersView(hidden: false)
-            } else {
+            if curSelectedFilterIndex == 0 && backView.height > visualEffectViewHeight {
                 toggleFiltersView(hidden: true)
+            } else {
+                flightFilterVC?.selectSortVC()
+                intMCAndReturnFilterVC?.selectSortVC()
+                toggleFiltersView(hidden: false)
+                curSelectedFilterIndex = 0
             }
-            
-//            self.openFiltersWith(index: 0)
-            
-//            self.filterSegmentView.selectedSegmentIndex = 0
-//            filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: true, selectedIndex: filterSegmentView.selectedSegmentIndex)
+//            
+//            if backView.height <= visualEffectViewHeight {
+//                toggleFiltersView(hidden: false)
+//            } else {
+//                toggleFiltersView(hidden: true)
+//            }
         }
     }
     
@@ -1114,8 +1118,25 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
     
     func filtersApplied(_ isApplied: Bool ) {
         
-        clearAllFiltersButton?.isEnabled = isApplied
-        filterButton.isSelected = isApplied
+        var isFilterApplied = false
+
+        if flightFilterVC != nil {
+            for appliedFilters in flightSearchResultVM.flightLegsAppliedFilters.appliedFilters {
+                if !appliedFilters.isEmpty {
+                    isFilterApplied = true
+                    break
+                }
+            }
+        } else {
+            for appliedFilters in flightSearchResultVM.intFlightLegsAppliedFilters.appliedFilters {
+                if !appliedFilters.isEmpty {
+                    isFilterApplied = true
+                    break
+                }
+            }
+        }
+        clearAllFiltersButton?.isEnabled = isFilterApplied
+        filterButton.isSelected = isFilterApplied
         
 //        filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: true, selectedIndex: filterSegmentView.selectedSegmentIndex)
         
@@ -1181,8 +1202,8 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
             
             self.intMCAndReturnFilterVC?.flightResultArray = self.flightSearchResultVM.intFlightResultArray
+            intMCAndReturnFilterVC?.userAppliedFilters = flightSearchResultVM.intFlightLegsAppliedFilters
             self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)
-            self.intMCAndReturnFilterVC?.resetData()
         }
         
         let flightType = flightSearchResultVM.flightSearchType

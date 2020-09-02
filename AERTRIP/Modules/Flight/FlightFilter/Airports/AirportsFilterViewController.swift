@@ -50,6 +50,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
     @IBOutlet weak var multiCitySegmentSeparator: UIView!
     @IBOutlet weak var destinationSeparatorView: UIView!
     @IBOutlet weak var layoverSeparatorView: UIView!
+    @IBOutlet weak var layoverTitleLbl: UILabel!
     @IBOutlet weak var allLayoverButton: UIButton!
     //MARK:- Height Constraints Outlets
     @IBOutlet weak var topViewHeight: NSLayoutConstraint!
@@ -180,6 +181,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
             currentAirportFilter.originCities = currentAirportFilter.originCitiesSortedArray
             currentAirportFilter.destinationCities = currentAirportFilter.destinationCitiesSortedArray
             currentAirportFilter.layoverCities = currentAirportFilter.layoverCities.sorted(by: {$0.country < $1.country})
+            allLayoverButton.isSelected = currentAirportFilter.allLayoverSelected()
         }
         
         // Setup Origin Table
@@ -211,7 +213,15 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
             destinationSeparatorView.isHidden = true
         }
         setupLayoverTable(zeroRectView)
-        self.layoverTableViewHeight.constant = self.layoverTableview.contentSize.height
+        if currentAirportFilter.layoverAirportsCount < 1 {
+            layoverTitleLbl.isHidden = true
+            allLayoverButton.isHidden = true
+            self.layoverTableViewHeight.constant = 0
+        } else {
+            layoverTitleLbl.isHidden = false
+            allLayoverButton.isHidden = false
+            self.layoverTableViewHeight.constant = self.layoverTableview.contentSize.height
+        }
   
         
         if isIntReturnOrMCJourney {
@@ -384,9 +394,9 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
             
             var filter = airportFilterArray[i]
             
-            if isIntReturnOrMCJourney {
+//            if isIntReturnOrMCJourney {
                 currentAirportFilter = filter
-            }
+//            }
            
             filter.originCities = currentAirportFilter.originCities.map { var newAirport = $0
                 newAirport.selectAll(false)
@@ -590,7 +600,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
             return newAirport
         }
         if !isIntReturnOrMCJourney {
-            allLayoverSelectedByUserInteraction  = sender.isSelected
+//            allLayoverSelectedByUserInteraction  = sender.isSelected
         }
         airportFilterArray[currentActiveIndex] = currentAirportFilter
         setmultiLegSubviews ()

@@ -88,6 +88,15 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     /// Updates UI if data is coming and filters
     func updateFiltersFromAPI() {
         currentTimerFilter = multiLegTimerFilter[currentActiveIndex]
+        if multiLegTimerFilter.count == 1 {
+            multiLegViewHeight.constant = 0
+            multiLegView.isHidden = true
+        }
+        else {
+            multiLegViewHeight.constant = 50
+            multiLegView.isHidden = false
+            setmultiLegSubviews()
+        }
         guard departureRangeSlider != nil else { return }
         setupDeparatureRangeButtons()
         UIView.animate(withDuration: 0.3) {
