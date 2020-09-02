@@ -180,6 +180,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
             currentAirportFilter.originCities = currentAirportFilter.originCitiesSortedArray
             currentAirportFilter.destinationCities = currentAirportFilter.destinationCitiesSortedArray
             currentAirportFilter.layoverCities = currentAirportFilter.layoverCities.sorted(by: {$0.country < $1.country})
+            allLayoverButton.isSelected = currentAirportFilter.allLayoverSelected()
         }
         
         // Setup Origin Table
@@ -590,7 +591,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
             return newAirport
         }
         if !isIntReturnOrMCJourney {
-            allLayoverSelectedByUserInteraction  = sender.isSelected
+//            allLayoverSelectedByUserInteraction  = sender.isSelected
         }
         airportFilterArray[currentActiveIndex] = currentAirportFilter
         setmultiLegSubviews ()
