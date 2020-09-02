@@ -191,6 +191,15 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     
     func updateFiltersFromAPI() {
         currentDurationFilter = durationFilters[currentActiveIndex]
+        if durationFilters.count == 1 || durationFilters.count == 0 {
+            multicityViewHeight.constant = 0.0
+            multiLegView.isHidden = true
+        }
+        else {
+            multicityViewHeight.constant = 50.0
+            multiLegView.isHidden = false
+            setmultiLegSubviews()
+        }
         guard tripDurationSlider != nil else { return }
         addMarkersOnTripDuration()
         UIView.animate(withDuration: 0.3) {
@@ -320,7 +329,9 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     
     
     fileprivate func formattedStringWith(duration : CGFloat) -> String {
-        
+        if duration > 100000 {
+            return ""
+        }
         if duration > 1 {
             return  "\(Int(duration))" + " hrs"
         }else {

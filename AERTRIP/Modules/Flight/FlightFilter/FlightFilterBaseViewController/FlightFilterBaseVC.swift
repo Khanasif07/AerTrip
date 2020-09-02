@@ -95,6 +95,10 @@ class FlightFilterBaseVC: UIViewController {
         setupBaseView()
     }
     
+    func selectSortVC() {
+        parchmentView?.select(index: 0, animated: false)
+    }
+    
     fileprivate func setupBaseView() {
 //        baseView.clipsToBounds = true
 //        baseView.layer.cornerRadius = 10

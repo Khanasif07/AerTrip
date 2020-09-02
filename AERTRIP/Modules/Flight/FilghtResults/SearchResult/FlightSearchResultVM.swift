@@ -162,7 +162,7 @@ extension FlightResultViewModelDelegate {
         var filters = AppliedAndUIFilters()
         var appliedFilters = intFlightLegs.map { $0.appliedFilters }
         let uiFilters = intFlightLegs.map { $0.UIFilters }
-//        let appliedSubFilters = intFlightLegs.map { $0.appliedSubFilters }
+        let appliedSubFilters = intFlightLegs[0].appliedSubFilters.map { $0.value }
         
         var containsAirport = false, containsQuality = false
         for uiFilter in uiFilters {
@@ -187,7 +187,7 @@ extension FlightResultViewModelDelegate {
         
         filters.appliedFilters = appliedFilters
         filters.uiFilters = uiFilters
-//        filters.appliedSubFilters = appliedSubFilters
+        filters.appliedSubFilters = appliedSubFilters
         return filters
     }
     
