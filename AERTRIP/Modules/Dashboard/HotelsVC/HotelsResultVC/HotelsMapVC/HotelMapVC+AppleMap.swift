@@ -132,16 +132,12 @@ extension HotelsMapVC : MKMapViewDelegate{
     }
     
     @objc func zoomInGesture() {
-        self.appleMap.isUserInteractionEnabled = false
-        var region = self.appleMap.region
-        var span = self.appleMap.region.span
-        span.latitudeDelta *= CLLocationDegrees(0.5)
-        span.longitudeDelta *= CLLocationDegrees(0.5)
-        region.span = span
-        self.appleMap.setRegion(region, animated: true)
-        delay(seconds: 0.2) {
-            self.appleMap.isUserInteractionEnabled = true
-        }
+//        var region = self.appleMap.region
+//        var span = self.appleMap.region.span
+//        span.latitudeDelta *= CLLocationDegrees(0.5)
+//        span.longitudeDelta *= CLLocationDegrees(0.5)
+//        region.span = span
+//        self.appleMap.setRegion(region, animated: true)
     }
     
     func updateAnnotationOnMapTap(){
@@ -583,3 +579,11 @@ class ResistantAnnotationView: MKAnnotationView {
         return self.layer as! ResistantLayer
     }
 }
+
+/*
+ https://stackoverflow.com/questions/13571595/single-tap-to-mkmapview-without-breaking-double-tap-zoom
+ https://stackoverflow.com/questions/1275731/iphone-detecting-tap-in-mkmapview
+ https://stackoverflow.com/questions/16571012/ios-is-it-possible-to-add-a-triple-tap-gesture-recognizer-to-a-mkmapview
+ https://stackoverflow.com/questions/12521017/disable-double-tap-zoom-in-mkmapview-ios-6
+ https://stackoverflow.com/questions/45364346/swift-mapkit-not-showing-directions-to-pin
+ */
