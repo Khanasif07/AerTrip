@@ -1118,19 +1118,26 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
     
     func filtersApplied(_ isApplied: Bool ) {
         
+        var isFilterApplied = false
+
         if flightFilterVC != nil {
-            var isDomesticFilterApplied = false
             for appliedFilters in flightSearchResultVM.flightLegsAppliedFilters.appliedFilters {
                 if !appliedFilters.isEmpty {
-                    isDomesticFilterApplied = true
+                    isFilterApplied = true
                     break
                 }
             }
-            clearAllFiltersButton?.isEnabled = isDomesticFilterApplied
-            filterButton.isSelected = isDomesticFilterApplied
+            clearAllFiltersButton?.isEnabled = isFilterApplied
+            filterButton.isSelected = isFilterApplied
         } else {
-            clearAllFiltersButton?.isEnabled = isApplied
-            filterButton.isSelected = isApplied
+            for appliedFilters in flightSearchResultVM.intFlightLegsAppliedFilters.appliedFilters {
+                if !appliedFilters.isEmpty {
+                    isFilterApplied = true
+                    break
+                }
+            }
+            clearAllFiltersButton?.isEnabled = isFilterApplied
+            filterButton.isSelected = isFilterApplied
         }
         
 //        filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: true, selectedIndex: filterSegmentView.selectedSegmentIndex)
