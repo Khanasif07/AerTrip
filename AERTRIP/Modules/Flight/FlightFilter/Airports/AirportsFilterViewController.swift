@@ -50,6 +50,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
     @IBOutlet weak var multiCitySegmentSeparator: UIView!
     @IBOutlet weak var destinationSeparatorView: UIView!
     @IBOutlet weak var layoverSeparatorView: UIView!
+    @IBOutlet weak var layoverTitleLbl: UILabel!
     @IBOutlet weak var allLayoverButton: UIButton!
     //MARK:- Height Constraints Outlets
     @IBOutlet weak var topViewHeight: NSLayoutConstraint!
@@ -212,7 +213,15 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
             destinationSeparatorView.isHidden = true
         }
         setupLayoverTable(zeroRectView)
-        self.layoverTableViewHeight.constant = self.layoverTableview.contentSize.height
+        if currentAirportFilter.layoverAirportsCount < 1 {
+            layoverTitleLbl.isHidden = true
+            allLayoverButton.isHidden = true
+            self.layoverTableViewHeight.constant = 0
+        } else {
+            layoverTitleLbl.isHidden = false
+            allLayoverButton.isHidden = false
+            self.layoverTableViewHeight.constant = self.layoverTableview.contentSize.height
+        }
   
         
         if isIntReturnOrMCJourney {

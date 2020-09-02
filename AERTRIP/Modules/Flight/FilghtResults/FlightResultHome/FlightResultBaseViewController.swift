@@ -1127,8 +1127,6 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                     break
                 }
             }
-            clearAllFiltersButton?.isEnabled = isFilterApplied
-            filterButton.isSelected = isFilterApplied
         } else {
             for appliedFilters in flightSearchResultVM.intFlightLegsAppliedFilters.appliedFilters {
                 if !appliedFilters.isEmpty {
@@ -1136,9 +1134,9 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                     break
                 }
             }
-            clearAllFiltersButton?.isEnabled = isFilterApplied
-            filterButton.isSelected = isFilterApplied
         }
+        clearAllFiltersButton?.isEnabled = isFilterApplied
+        filterButton.isSelected = isFilterApplied
         
 //        filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: true, selectedIndex: filterSegmentView.selectedSegmentIndex)
         
