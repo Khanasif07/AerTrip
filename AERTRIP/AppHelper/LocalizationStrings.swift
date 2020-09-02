@@ -412,7 +412,8 @@ enum LocalizedString: String {
     case ChildAges
     case MostHotelsTypicallyAllow
     case ageInYrs
-    
+    case MaxGuestSelectionMessage
+
     // MARK: - Destination Selection
     
     case CityAreaOrHotels

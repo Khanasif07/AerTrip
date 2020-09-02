@@ -312,9 +312,6 @@ class HotelResultVC: BaseVC {
     
     deinit {
         CoreDataManager.shared.deleteData("HotelSearched")
-        //        ImageCache.default.clearMemoryCache()
-        //        ImageCache.default.clearDiskCache()
-        //        ImageCache.default.cleanExpiredDiskCache()
         printDebug("HotelResultVC deinit")
     }
     

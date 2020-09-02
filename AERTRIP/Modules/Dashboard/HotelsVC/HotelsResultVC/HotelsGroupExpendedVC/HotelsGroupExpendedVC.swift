@@ -288,6 +288,12 @@ extension HotelsGroupExpendedVC: HotelDetailsVCDelegate {
     func hotelFavouriteUpdated() {
         print("favourite updated")
     }
+    
+    func imageUpdated() {
+        if let indexPath = self.selectedIndexPath {
+            self.collectionView.reloadItems(at: [indexPath])
+        }
+    }
 }
 extension HotelsGroupExpendedVC {
     

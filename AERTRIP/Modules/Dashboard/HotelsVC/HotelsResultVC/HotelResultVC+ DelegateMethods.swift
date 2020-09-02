@@ -446,6 +446,12 @@ extension HotelResultVC: HotelDetailsVCDelegate {
     func hotelFavouriteUpdated() {
         //work of this method has been handeled in data changed also, we can remove HotelDetailsVCDelegate after confirming with team.
     }
+    
+    func imageUpdated() {
+        if let indexPath = self.selectedIndexPath {
+            self.tableViewVertical.reloadRow(at: indexPath, with: .none)
+        }
+    }
 }
 
 

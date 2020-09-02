@@ -30,7 +30,7 @@ class ChatVC : BaseVC {
     @IBOutlet weak var suggestionsCollectionView: UICollectionView!
     @IBOutlet weak var sendButtonWidth: NSLayoutConstraint!
     @IBOutlet weak var collectionViewBottom: NSLayoutConstraint!
-    @IBOutlet weak var sepratorView: UIView!
+    @IBOutlet weak var sepratorView: ATDividerView!
     
     //MARK:- Variables
     private var name = "Guru"
@@ -48,7 +48,7 @@ class ChatVC : BaseVC {
         super.viewWillAppear(animated)
         IQKeyboardManager.shared().isEnabled = false
         IQKeyboardManager.shared().isEnableAutoToolbar = false
-        IQKeyboardManager.shared().shouldResignOnTouchOutside = true
+        IQKeyboardManager.shared().shouldResignOnTouchOutside = false
         addKeyboard()
         self.statusBarStyle = .default
     }

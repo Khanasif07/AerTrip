@@ -326,6 +326,7 @@
 "ChildAges" = "Ages 0 - 12";
 "MostHotelsTypicallyAllow" = "Most hotels typically allow upto 3 pax in a room";
 "ageInYrs" = "Age in yrs";
+"MaxGuestSelectionMessage" = "Max 6 guests can be selected per room";
 
 //MARK:- Destination Selection
 "CityAreaOrHotels" = "City, Area or Hotels";

@@ -420,7 +420,7 @@ class RoomGuestSelectionVC: BaseVC {
     
     func checkForMaximumGuest() {
         //        if (self.viewModel.selectedAdults + self.viewModel.selectedChilds) >= 6 {
-        AppToast.default.showToastMessage(message: "Max guest can not be more than 6")
+        AppToast.default.showToastMessage(message: LocalizedString.MaxGuestSelectionMessage.localized)
         //        }
     }
 }

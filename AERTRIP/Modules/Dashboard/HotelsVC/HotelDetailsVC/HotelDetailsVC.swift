@@ -10,6 +10,7 @@ import UIKit
 
 protocol HotelDetailsVCDelegate : class {
     func hotelFavouriteUpdated()
+    func imageUpdated()
 }
 
 class HotelDetailsVC: BaseVC {
@@ -38,14 +39,14 @@ class HotelDetailsVC: BaseVC {
     var needToShowLoaderOnShare:Bool = false
     
     //------------------------ Golu Change --------------------
-
+    
     var backImage:UIImage? = UIImage()
     var isAddingChild = false
     var isDeviceHasBadzel = false
     var currentViewHeight = CGFloat()
     var statusBarHeight:CGFloat{return UIApplication.shared.statusBarFrame.size.height}
     var canDismissViewController = true
-
+    
     
     @IBOutlet weak var heightOfHeader: NSLayoutConstraint!
     @IBOutlet weak var footerViewHeightConstraint: NSLayoutConstraint!
@@ -108,7 +109,7 @@ class HotelDetailsVC: BaseVC {
         super.viewWillDisappear(animated)
         self.statusBarColor = AppColors.clear
         if #available(iOS 13.0, *) {
-//            self.isModalInPresentation = true
+            //            self.isModalInPresentation = true
             self.statusBarStyle = .default
         }
     }
@@ -126,7 +127,7 @@ class HotelDetailsVC: BaseVC {
         self.view.backgroundColor = .clear
         
         if #available(iOS 13.0, *) {} else {
-        self.headerTopConstraint.constant = AppFlowManager.default.safeAreaInsets.top + 8
+            self.headerTopConstraint.constant = AppFlowManager.default.safeAreaInsets.top + 8
             self.tableViewTopConstraint.constant = AppFlowManager.default.safeAreaInsets.top + 8
             let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
             swipeGesture.delegate = self
@@ -142,14 +143,14 @@ class HotelDetailsVC: BaseVC {
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
-
+    
     override func dataChanged(_ note: Notification) {
         if let _ = note.object as? HCDataSelectionVC {
             delay(seconds: 1.0) { [weak self] in
                 self?.hotelTableView.reloadRow(at: IndexPath(row: 0, section: 0), with: .none)
                 self?.manageFavIcon()
             }
-          
+            
         }
     }
     
@@ -188,7 +189,7 @@ class HotelDetailsVC: BaseVC {
                 stickyView.selectRoomLabel.isHidden = true
             }
         } else {
-//            self.hotelTableView.tableFooterView?.isHidden = false
+            //            self.hotelTableView.tableFooterView?.isHidden = false
             if let stickyView = self.stickyView {
                 stickyView.containerView.backgroundColor = AppColors.themeGreen
                 stickyView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
@@ -203,10 +204,10 @@ class HotelDetailsVC: BaseVC {
     
     func hide(animated: Bool) {
         self.imageView.isHidden = false
-
+        
         self.footerView.isHidden = true
         self.headerView.isHidden = true
-
+        
         func setValue() {
             self.imageView.frame = self.sourceFrame
             self.hotelTableView.alpha = 0.0
@@ -214,13 +215,13 @@ class HotelDetailsVC: BaseVC {
             self.mainView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
             self.view.layoutIfNeeded()
         }
-
+        
         func manageOnComplition() {
             self.removeFromParentVC
             self.headerView.isHidden = false
             self.onCloseHandler?()
         }
-
+        
         if animated {
             let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
                 setValue()
@@ -234,10 +235,10 @@ class HotelDetailsVC: BaseVC {
             setValue()
             manageOnComplition()
         }
-
+        
     }
     
-     func footerViewSetUp() {
+    func footerViewSetUp() {
         if isDeviceHasBadzel{
             self.footerViewHeightConstraint.constant = 84
         }
@@ -325,7 +326,7 @@ class HotelDetailsVC: BaseVC {
         self.viewModel.roomCancellationDataCopy = filter.roomCancelation
         
         self.viewModel.syncPermanentTagsWithSelectedFilter()
-       //self.viewModel.selectedTags = filter.roomMeal + filter.roomCancelation + filter.roomOther
+        //self.viewModel.selectedTags = filter.roomMeal + filter.roomCancelation + filter.roomOther
     }
     
     internal func permanentTagsForFilteration() {
@@ -337,10 +338,10 @@ class HotelDetailsVC: BaseVC {
             self.viewModel.selectedTags = [ATMeal.Breakfast.title]
         }
     }
-        
+    
     internal func heightForRow(tableView: UITableView, indexPath: IndexPath, isForEstimateHeight: Bool) -> CGFloat {
         if !self.viewModel.hotelDetailsTableSectionData.isEmpty, self.viewModel.hotelDetailsTableSectionData[indexPath.section][indexPath.row] == .searchTagCell {
-             return  isForEstimateHeight ? 100 : UITableView.automaticDimension
+            return  isForEstimateHeight ? 100 : UITableView.automaticDimension
         } else {
             if indexPath.section == 0, indexPath.row == 2 {
                 if let hotelData = self.viewModel.hotelData {
@@ -369,10 +370,10 @@ class HotelDetailsVC: BaseVC {
                             return ((3 * lineHeight) + 62)
                         }
                     }else{
-                    let text = hotelData.address + "Maps    "
-                    let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
-                    return size.height + 46.5
-                        + 13.0  + 2.0//y of textview 46.5 + bottom space 14.0 + 7.0
+                        let text = hotelData.address + "Maps    "
+                        let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
+                        return size.height + 46.5
+                            + 13.0  + 2.0//y of textview 46.5 + bottom space 14.0 + 7.0
                     }
                 }
                 else {
@@ -385,11 +386,11 @@ class HotelDetailsVC: BaseVC {
             }
             else if  !self.viewModel.hotelDetailsTableSectionData.isEmpty, self.viewModel.hotelDetailsTableSectionData[indexPath.section][indexPath.row] == .paymentPolicyCell {
                 return isForEstimateHeight ? 100 : CGFloat.leastNormalMagnitude
-                }
+            }
             else {
                 return isForEstimateHeight ? 100 : UITableView.automaticDimension
             }
-           
+            
         }
         
     }
@@ -407,7 +408,7 @@ class HotelDetailsVC: BaseVC {
         if !self.viewModel.isAllImageDownloadFails{
             cellsArray.append(.imageSlideCell)
         }else{
-             cellsArray.append(.noImageCell)
+            cellsArray.append(.noImageCell)
         }
         
         cellsArray.append(.hotelRatingCell)
@@ -431,14 +432,14 @@ class HotelDetailsVC: BaseVC {
         self.viewModel.roomMealDataCopy = tagList
         self.viewModel.roomOtherDataCopy = tagList
         self.viewModel.roomCancellationDataCopy = tagList
-       
-       
+        
+        
         if let hotelData = self.viewModel.hotelData , let rates = hotelData.rates {
             self.viewModel.hotelDetailsTableSectionData.append(self.getFirstSectionData(hotelData: hotelData))
             self.viewModel.hotelDetailsTableSectionData.append([.searchTagCell])
             self.viewModel.ratesData = self.viewModel.newFiltersAccordingToTags(rates: rates, selectedTag: tagList)//self.viewModel.filteredRates(rates: rates , roomMealData: self.viewModel.roomMealDataCopy, roomOtherData: self.viewModel.roomOtherDataCopy, roomCancellationData: self.viewModel.roomCancellationDataCopy)
             if self.viewModel.ratesData.isEmpty {
-            self.viewModel.hotelDetailsTableSectionData.append([.ratesEmptyStateCell])
+                self.viewModel.hotelDetailsTableSectionData.append([.ratesEmptyStateCell])
             } else {
                 for singleRate in self.viewModel.ratesData {
                     self.viewModel.roomRates.append(singleRate.roomData)
@@ -487,7 +488,7 @@ class HotelDetailsVC: BaseVC {
             self.initialPanPoint = touchPoint
         }
         else  if (initialPanPoint.y + 10) < touchPoint.y {
-           // self.hide(animated: isHideWithAnimation)
+            // self.hide(animated: isHideWithAnimation)
             initialPanPoint = touchPoint
         }
     }
@@ -516,8 +517,8 @@ extension HotelDetailsVC{
         
         guard let direction = sender.direction, direction.isVertical, direction == .down, self.hotelTableView.contentOffset.y <= 0
             else {
-            reset()
-            return
+                reset()
+                return
         }
         
         switch sender.state {
@@ -564,6 +565,13 @@ extension HotelDetailsVC{
             }
             if self.viewModel.hotelData?.atImageData.count != 0{
                 self.hotelTableView.reloadData()
+                if let info = self.viewModel.hotelInfo {
+                    if let url = info.thumbnail?.first, !UIImageView.imageExistForURL(url: url), let firstImage = self.viewModel.hotelData?.atImageData.first?.imagePath {
+                        info.thumbnail = [firstImage]
+                        _ = info.afterUpdate
+                        self.delegate?.imageUpdated()
+                    }
+                }
             }else{
                 self.viewModel.isAllImageDownloadFails = true
                 self.filterdHotelData(tagList: self.viewModel.selectedTags)
