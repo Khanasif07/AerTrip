@@ -126,8 +126,8 @@ extension FlightDomesticMultiLegResultVC {
      func updateUIForTableviewAt(_ index: Int) {
             DispatchQueue.main.async {
                 guard let tableView = self.baseScrollView.viewWithTag( 1000 + index) as? UITableView else { return }
-                    let selectedIndex = tableView.indexPathForSelectedRow
-                    tableView.reloadData()
+                let selectedIndex = tableView.indexPathForSelectedRow
+                tableView.reloadData()
 
                     // setting up header for table view
                     let width = UIScreen.main.bounds.size.width / 2.0

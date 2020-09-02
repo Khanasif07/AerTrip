@@ -101,8 +101,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         self.viewModel.results = Array(repeating: DomesticMultilegJourneyResultsArray(sort: .Smart), count: 0)
         sortedJourneyArray = Array(repeating: [Journey](), count: 0)
         viewModel.resultsTableStates =  Array(repeating: .showTemplateResults , count: 0)
-        
-
         super.init(coder: aDecoder)
     }
     

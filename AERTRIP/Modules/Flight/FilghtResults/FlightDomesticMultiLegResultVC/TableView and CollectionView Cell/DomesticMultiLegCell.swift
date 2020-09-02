@@ -42,12 +42,14 @@ class DomesticMultiLegCell: UITableViewCell {
         let selectedStateBGColor = UIColor(displayP3Red: (236.0/255.0), green: (253.0/255.0), blue: (244.0/255.0), alpha: 1.0)
         
         let backgroundColor = selected ? selectedStateBGColor : .white
+        
         if ( duration.isHidden == false) {
             self.backgroundColor = backgroundColor
             stopsBackgroundView.backgroundColor = backgroundColor
             price.backgroundColor = backgroundColor
             setupGradientView(selectedColor: backgroundColor)
         }
+        
     }
     
     
