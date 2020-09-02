@@ -1353,5 +1353,6 @@ extension FlightResultBaseViewController{
 extension FlightResultBaseViewController: FlightFiltersToastDelegate {
     func showToastWithMsg(_ msg: String) {
         AertripToastView.toast(in: view, withText: msg)
+//        CustomToast.shared.showToast(msg)
     }
 }

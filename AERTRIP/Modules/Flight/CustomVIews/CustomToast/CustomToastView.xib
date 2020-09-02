@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomToastView" customModule="AERTRIP" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="qQ7-ta-Gmi"/>
+                <outlet property="toastLbl" destination="Ciq-xC-4nF" id="UYx-VX-Cq9"/>
+                <outlet property="toastView" destination="Ch7-lp-9PC" id="h2F-3j-ImR"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="122"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ch7-lp-9PC">
+                    <rect key="frame" x="50.5" y="25.5" width="313" height="71"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labelf dfg fdd f df df db fdbf dbf dbf sbf b  fvdsf vds fsd v cv v fdsvd" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ciq-xC-4nF">
+                            <rect key="frame" x="15" y="15" width="283" height="41"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.24313725490196078" green="0.24313725490196078" blue="0.24313725490196078" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="Ciq-xC-4nF" secondAttribute="trailing" constant="15" id="GTZ-Uy-1Ml"/>
+                        <constraint firstAttribute="bottom" secondItem="Ciq-xC-4nF" secondAttribute="bottom" constant="15" id="NMl-6b-l3V"/>
+                        <constraint firstItem="Ciq-xC-4nF" firstAttribute="leading" secondItem="Ch7-lp-9PC" secondAttribute="leading" constant="15" id="iUw-qa-ynH"/>
+                        <constraint firstItem="Ciq-xC-4nF" firstAttribute="top" secondItem="Ch7-lp-9PC" secondAttribute="top" constant="15" id="pQQ-2E-DRp"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fMI-h7-6Mp">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="122"/>
+                    <connections>
+                        <action selector="dismissBtnAction:" destination="-1" eventType="touchUpInside" id="TrU-go-cKn"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="fMI-h7-6Mp" secondAttribute="trailing" id="0YE-xt-qXU"/>
+                <constraint firstItem="Ch7-lp-9PC" firstAttribute="width" relation="lessThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="width" multiplier="0.8" id="1zG-ff-Oqw"/>
+                <constraint firstItem="fMI-h7-6Mp" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="EtF-Gc-4jd"/>
+                <constraint firstItem="Ch7-lp-9PC" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="Kf9-O1-hvO"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="fMI-h7-6Mp" secondAttribute="bottom" id="aGa-W9-Qc4"/>
+                <constraint firstItem="Ch7-lp-9PC" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="c6m-uL-Ufd"/>
+                <constraint firstItem="fMI-h7-6Mp" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="mio-oG-JlY"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="97.599999999999994" y="-613.49325337331334"/>
+        </view>
+    </objects>
+</document>

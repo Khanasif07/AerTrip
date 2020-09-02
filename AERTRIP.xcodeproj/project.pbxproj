@@ -1380,6 +1380,8 @@
 		84981CD921F74EC9002E68C7 /* AddRoomPictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84981CD721F74EC9002E68C7 /* AddRoomPictureCell.xib */; };
 		84981CDC21F759A1002E68C7 /* AddRoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84981CDA21F759A1002E68C7 /* AddRoomCell.swift */; };
 		84981CDD21F759A1002E68C7 /* AddRoomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84981CDB21F759A1002E68C7 /* AddRoomCell.xib */; };
+		849C563D24FFA1F600EB3D1B /* CustomToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849C563B24FFA1F600EB3D1B /* CustomToastView.xib */; };
+		849C563E24FFA1F600EB3D1B /* CustomToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C563C24FFA1F600EB3D1B /* CustomToast.swift */; };
 		849D37922289397200763AD8 /* AccountOnlineDepositVC+Razorpay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D378E2289397200763AD8 /* AccountOnlineDepositVC+Razorpay.swift */; };
 		849D37932289397200763AD8 /* AccountOnlineDepositVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D378F2289397200763AD8 /* AccountOnlineDepositVC.swift */; };
 		849D37942289397200763AD8 /* AccountOnlineDepositVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D37902289397200763AD8 /* AccountOnlineDepositVM.swift */; };
@@ -3165,6 +3167,8 @@
 		84981CD721F74EC9002E68C7 /* AddRoomPictureCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddRoomPictureCell.xib; sourceTree = "<group>"; };
 		84981CDA21F759A1002E68C7 /* AddRoomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoomCell.swift; sourceTree = "<group>"; };
 		84981CDB21F759A1002E68C7 /* AddRoomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddRoomCell.xib; sourceTree = "<group>"; };
+		849C563B24FFA1F600EB3D1B /* CustomToastView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomToastView.xib; sourceTree = "<group>"; };
+		849C563C24FFA1F600EB3D1B /* CustomToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomToast.swift; sourceTree = "<group>"; };
 		849D378E2289397200763AD8 /* AccountOnlineDepositVC+Razorpay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AccountOnlineDepositVC+Razorpay.swift"; sourceTree = "<group>"; };
 		849D378F2289397200763AD8 /* AccountOnlineDepositVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountOnlineDepositVC.swift; sourceTree = "<group>"; };
 		849D37902289397200763AD8 /* AccountOnlineDepositVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountOnlineDepositVM.swift; sourceTree = "<group>"; };
@@ -7012,6 +7016,7 @@
 		843FF5872474093C001F21B1 /* CustomVIews */ = {
 			isa = PBXGroup;
 			children = (
+				849C563A24FFA1D900EB3D1B /* CustomToast */,
 				8449C2BC24F4EB7500049AD6 /* FiltersCustomPagingView */,
 				841AA5312475121200B66720 /* ShadowButton */,
 				843FF5882474093C001F21B1 /* AertripRangeSlider.swift */,
@@ -8079,6 +8084,15 @@
 				0CC23988231639EF00ADEE92 /* TestViewController.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		849C563A24FFA1D900EB3D1B /* CustomToast */ = {
+			isa = PBXGroup;
+			children = (
+				849C563C24FFA1F600EB3D1B /* CustomToast.swift */,
+				849C563B24FFA1F600EB3D1B /* CustomToastView.xib */,
+			);
+			path = CustomToast;
 			sourceTree = "<group>";
 		};
 		849D378D2289397200763AD8 /* AccountOnlineDepositVC */ = {
@@ -9519,6 +9533,7 @@
 				8491D1F2222D3FC2001D0313 /* SourceSansPro-SemiBoldItalic.ttf in Resources */,
 				8438C17C22045E4C001D510B /* TopNavigationView.xib in Resources */,
 				182D485D228AF198004796A2 /* BookingHDRoomDetailHeaderView.xib in Resources */,
+				849C563D24FFA1F600EB3D1B /* CustomToastView.xib in Resources */,
 				843FF49724740231001F21B1 /* QualityFilterViewController.xib in Resources */,
 				843FF56124740232001F21B1 /* FlightDetailsBaseVC.storyboard in Resources */,
 				84B23F73222FA39B00C952ED /* CityMarkerView.xib in Resources */,
@@ -10411,6 +10426,7 @@
 				0C24D4D7242C747000CBFF92 /* CountryCell.swift in Sources */,
 				849F31F221FF1AD70076BB3D /* ATErrorManager.swift in Sources */,
 				840494F82253203900983F5E /* HCRoomTableViewCell.swift in Sources */,
+				849C563E24FFA1F600EB3D1B /* CustomToast.swift in Sources */,
 				1820F0F7228E34700019B8BB /* BookingRequestStatusTableViewCell.swift in Sources */,
 				18FFD1AF22A674410010C7DB /* BookingConfimationMailVC.swift in Sources */,
 				84085CFC21F59C0E00F1E844 /* FavouriteHotelsVC.swift in Sources */,
