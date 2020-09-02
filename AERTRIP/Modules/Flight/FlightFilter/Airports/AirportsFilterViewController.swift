@@ -384,9 +384,9 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
             
             var filter = airportFilterArray[i]
             
-            if isIntReturnOrMCJourney {
+//            if isIntReturnOrMCJourney {
                 currentAirportFilter = filter
-            }
+//            }
            
             filter.originCities = currentAirportFilter.originCities.map { var newAirport = $0
                 newAirport.selectAll(false)
