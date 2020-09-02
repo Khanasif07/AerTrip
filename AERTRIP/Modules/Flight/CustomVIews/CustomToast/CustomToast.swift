@@ -36,7 +36,7 @@ import UIKit
     func fadeAllToasts() {
         guard let window = AppDelegate.shared.window else { return }
         func fade(_ subView: CustomToastView) {
-            UIView.animate(withDuration: 0.2, animations: {
+            UIView.animate(withDuration: 0.3, animations: {
                 subView.alpha = 0
             }) { (_) in
                 subView.removeFromSuperview()
