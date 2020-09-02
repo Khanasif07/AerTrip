@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FlexiblePageControl
 
 protocol  UpgradePlanListVCDelegate:NSObject {
     func updateFareBreakupView(fareAmount: String)
@@ -14,8 +15,15 @@ protocol  UpgradePlanListVCDelegate:NSObject {
 
 class UpgradePlanListVC: BaseVC {
 
-    @IBOutlet weak var journeyPageControl: UIPageControl!
-    @IBOutlet weak var planCollectionView: UICollectionView!
+    @IBOutlet weak var journeyPageControl: ISPageControl!
+    @IBOutlet weak var planCollectionView: UICollectionView!{
+        didSet{
+            self.planCollectionView.backgroundColor = AppColors.clear
+            self.planCollectionView.decelerationRate = UIScrollView.DecelerationRate.fast
+            self.planCollectionView.isPagingEnabled = false
+            self.planCollectionView.decelerationRate = UICollectionView.DecelerationRate.fast
+        }
+    }
     @IBOutlet weak var noDataFoundView: UIView!
     @IBOutlet weak var noDataFoundLabel: UILabel!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
@@ -24,6 +32,7 @@ class UpgradePlanListVC: BaseVC {
     var isNewSubPoint = false
     var cellScale:CGFloat = 0.92
     var usedIndexFor = 0
+    var isLayoutSet = false
 //    var indicator = UIActivityIndicatorView()
     weak var delegate: UpgradePlanListVCDelegate?
     override func viewDidLoad() {
@@ -32,7 +41,7 @@ class UpgradePlanListVC: BaseVC {
 //        self.planCollectionView.isPagingEnabled = true
         self.planCollectionView.delegate = self
         self.planCollectionView.dataSource = self
-        self.setupDisplayView()
+//        self.setupDisplayView()
         self.setupPageController()
         self.setupIndicator()
         self.setNoDataLabel()
@@ -45,12 +54,37 @@ class UpgradePlanListVC: BaseVC {
         self.indicator.hidesWhenStopped = true
     }
     
-    func setupPageController(){
-        journeyPageControl.numberOfPages = 0
-        journeyPageControl.hidesForSinglePage = true
-        journeyPageControl.currentPage = 0
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if !self.isLayoutSet{
+            self.setupCollection()
+        }
     }
     
+    func setupPageController(){
+        self.journeyPageControl.numberOfPages = 0
+//        journeyPageControl.hidesForSinglePage = true
+        self.journeyPageControl.currentPage = 0
+        self.journeyPageControl.inactiveTransparency = 1.0
+        self.journeyPageControl.inactiveTintColor = AppColors.themeGray220
+        self.journeyPageControl.currentPageTintColor = AppColors.themeWhite
+        self.journeyPageControl.radius = 3.5
+        self.journeyPageControl.padding = 5.0
+
+    }
+    
+    func setupCollection() {
+        let layout = self.planCollectionView.collectionViewLayout as! UPCarouselFlowLayout
+        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 4.0)
+        layout.scrollDirection = .horizontal
+        layout.scrollScalePoint = 1.8
+        layout.sideItemScale = 1.0
+        layout.sideItemAlpha = 1.0
+        //layout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.width - 20, height: 201)
+        layout.itemSize = CGSize(width: (UIScreen.width * cellScale), height: planCollectionView.height)
+        self.isLayoutSet = true
+    }
     
     func shouldStartIndicator(isDataFetched: Bool){
         if self.viewModel.ohterFareData[usedIndexFor] == nil{
@@ -64,6 +98,7 @@ class UpgradePlanListVC: BaseVC {
                 self.indicator.startAnimating()
             }
             self.journeyPageControl.numberOfPages = (self.viewModel.ohterFareData[usedIndexFor]?.count ?? 0)
+            self.journeyPageControl.isHidden = ((self.viewModel.ohterFareData[usedIndexFor]?.count ?? 0) < 2)
             self.noDataFoundView.isHidden = true
             self.planCollectionView.isHidden = false
             self.planCollectionView.reloadData()
@@ -84,24 +119,7 @@ class UpgradePlanListVC: BaseVC {
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
         noDataFoundLabel.attributedText = attributedString
     }
-    
-    func setupDisplayView(){
-        let screenSize = UIScreen.main.bounds.size
-        let cellWidth = floor(screenSize.width * cellScale)
-//        guard self.journey != nil else {return}
-//        //            let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
-//        if fewSeatsLeftViewHeight == 40{
-//            self.planCollectionViewBottom.constant = 90
-//        }else{
-//            self.planCollectionViewBottom.constant = 50 //+ bottomInset
-//        }
-        if let layout = self.planCollectionView.collectionViewLayout as? UICollectionViewFlowLayout{
-            layout.itemSize = CGSize(width: cellWidth, height: self.planCollectionView.frame.height)
-            planCollectionView.contentInset = UIEdgeInsets(top: 0 , left: 16.0, bottom: 0, right: 16)
-            planCollectionView.decelerationRate = .init(rawValue: 0.5)
-            
-        }
-    }
+
     
 }
 
@@ -162,7 +180,7 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
                 cell.priceLabel.text = getPrice(price: Double(farepr))
                 cell.selectButton.backgroundColor = AppColors.quaternarySystemFillColor
                 cell.selectButton.setTitleColor(AppColors.themeGreen, for: .normal)
-                cell.selectButton.setTitle("Selecte", for: .normal)
+                cell.selectButton.setTitle("Select", for: .normal)
                 checkMarkImgName = "blackCheckmark.png"
             }
             
@@ -206,6 +224,22 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
             cell.handler = {[weak self] in
                 self?.updateSelected(at: indexPath)
             }
+            
+            //For showing upgrade Seat
+            if upgardeResult[indexPath.item].flightResult.seats != "" && upgardeResult[indexPath.item].flightResult.fsr == 1{
+                cell.fewSeatsLeftView.isHidden = false
+                cell.fewSeatsLeftViewHeight.constant = 35
+                cell.fewSeatsLeftCountLabel.text = upgardeResult[indexPath.item].flightResult.seats
+                if (upgardeResult[indexPath.item].flightResult.seats.toInt ?? 0) > 1{
+                    cell.fewSeatsLeftLabel.text = "Seats left at this price. Hurry up!"
+                }else{
+                    cell.fewSeatsLeftLabel.text = "Seat left at this price. Hurry up!"
+                }
+                 
+            }else{
+                cell.fewSeatsLeftView.isHidden = true
+                cell.fewSeatsLeftViewHeight.constant = 0
+            }
         }
         return cell
     }
@@ -214,9 +248,9 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.width * cellScale, height: collectionView.height)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: collectionView.width * cellScale, height: collectionView.height)
+//    }
     
     
     func updateSelected(at indexPath: IndexPath){
@@ -225,6 +259,10 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
         }
         self.viewModel.selectedOhterFareData[usedIndexFor] = self.viewModel.ohterFareData[usedIndexFor]?[indexPath.item]
         let amount = getPrice(price: Double(self.viewModel.updateFareTaxes()))
+        if self.viewModel.isInternational, let journey = self.viewModel.ohterFareData[usedIndexFor]?[indexPath.item]{
+            self.viewModel.oldIntJourney?[usedIndexFor].farepr = journey.farepr
+            self.viewModel.oldIntJourney?[usedIndexFor].fare = journey.fare
+        }
         self.delegate?.updateFareBreakupView(fareAmount: amount)
         self.planCollectionView.reloadData()
     }

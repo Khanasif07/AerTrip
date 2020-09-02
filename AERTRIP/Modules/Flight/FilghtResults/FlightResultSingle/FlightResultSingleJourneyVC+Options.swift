@@ -430,3 +430,55 @@ extension FlightResultSingleJourneyVC {
       }
     
 }
+
+
+extension FlightResultSingleJourneyVC {
+    
+    func updatePriceWhenGoneup(_ fk: String , changeResult : ChangeResult) {
+        
+        var curJourneyArr = [JourneyOnewayDisplay]()
+               
+               if viewModel.resultTableState == .showRegularResults {
+                   curJourneyArr = viewModel.results.suggestedJourneyArray
+               } else {
+                   curJourneyArr = viewModel.results.allJourneys
+               }
+        
+        print(curJourneyArr.count)
+        
+           guard let index = curJourneyArr.firstIndex(where: {
+                    
+                    for journey in $0.journeyArray {
+                        if journey.fk == fk {
+                            return true
+                        }
+                    }
+                    return false
+                }) else {
+                    return
+                }
+            
+        let displayArray = curJourneyArr[index]
+
+        guard let journeyArrayIndex = displayArray.journeyArray.firstIndex(where : {
+                   $0.fk == fk
+               }) else {
+                   return
+               }
+        
+        displayArray.journeyArray[journeyArrayIndex].farepr = changeResult.farepr
+        displayArray.journeyArray[journeyArrayIndex].fare.BF.value = changeResult.fare.bf.value
+        displayArray.journeyArray[journeyArrayIndex].fare.taxes.value = changeResult.fare.taxes.value
+        displayArray.journeyArray[journeyArrayIndex].fare.taxes.details = changeResult.fare.taxes.details
+        displayArray.journeyArray[journeyArrayIndex].fare.totalPayableNow.value = changeResult.fare.totalPayableNow.value
+        curJourneyArr[index] = displayArray
+        
+        resultsTableView.tableFooterView?.isHidden = true
+        self.resultsTableView.reloadData()
+        delay(seconds: 0.5) {
+            self.resultsTableView.tableFooterView?.isHidden = false
+        }
+        showFooterView()
+    }
+    
+}

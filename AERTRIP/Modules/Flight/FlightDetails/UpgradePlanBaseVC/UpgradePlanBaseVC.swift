@@ -745,9 +745,9 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
         let price = getPrice(price: Double(totalFareVal))
         fareBreakupVC.bookingAmountLabel.text = price
         
-        
-        fareBreakupVC.fareBreakupFromUpgrade = dict
-        fareBreakupVC.createTaxesDict()
+//        
+//        fareBreakupVC.fareBreakupFromUpgrade = dict
+//        fareBreakupVC.createTaxesDict()
     }
     
     @IBAction func closeButtonClicked(_ sender: Any)

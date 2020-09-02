@@ -615,8 +615,7 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "ThisWillCancelThisBookingAndAmountRefundToPayment" = "This will cancel this booking and the amount will be refunded to your";
 
 "Change" = "Change";
-"YourBookingIDIs" = "Congratulations, your booking is successful.
-Your booking ID is";
+"YourBookingIDIs" = "Your booking ID is";//Congratulations, your booking is successful.\nYour booking ID is
 "YourCaseIDIs" = "Your case ID is";
 "YourBookingID" = "Your booking ID is";
 "AndAllDetailsWillBeSentToYourEmail" = "and all details have been sent to your email.";

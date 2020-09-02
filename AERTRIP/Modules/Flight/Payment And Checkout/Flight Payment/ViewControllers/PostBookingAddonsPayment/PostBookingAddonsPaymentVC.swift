@@ -168,18 +168,18 @@ class PostBookingAddonsPaymentVC: BaseVC{
     }
     
     
-    func getListingController(){
-        if let nav = self.navigationController?.presentingViewController?.presentingViewController as? UINavigationController{
-            nav.dismiss(animated: true) {
-                delay(seconds: 0.0) {
-                    if let vc = nav.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
-                        nav.popToViewController(vc, animated: true)
-                        vc.searchApiResult()
-                    }
-                }
-            }
-        }
-    }
+//    func getListingController(){
+//        if let nav = self.navigationController?.presentingViewController?.presentingViewController as? UINavigationController{
+//            nav.dismiss(animated: true) {
+//                delay(seconds: 0.0) {
+//                    if let vc = nav.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
+//                        nav.popToViewController(vc, animated: true)
+//                        vc.searchApiResult(chnageData: self.viewModel.baggageData)
+//                    }
+//                }
+//            }
+//        }
+//    }
     
     // Set Boolean convenience fee to applied or Not
     

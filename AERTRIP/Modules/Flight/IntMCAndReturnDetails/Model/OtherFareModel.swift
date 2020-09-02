@@ -18,7 +18,7 @@ struct OtherFareModel {
     var apc: String
     var flightResult: IntJourney
     var isDefault: Bool
-    var fareDict:NSDictionary = [:]
+    var sortOrder:String
     
     var cellTitle:String{
         var titleVal = ""
@@ -96,6 +96,6 @@ struct OtherFareModel {
         flightResult = IntJourney(jsonData: json["flight_result"])
         flightResult.fare = self.fare
         isDefault = json["default"].boolValue
-        fareDict = json["fare"].dictionaryValue as NSDictionary
+        sortOrder = json["tax_sort"].stringValue
     }
 }

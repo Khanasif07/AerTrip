@@ -41,6 +41,7 @@ extension FlightPaymentBookingStatusVC{
     func getCarriarTableCell(_ indexPath: IndexPath)-> UITableViewCell{
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: FlightCarriersTableViewCell.reusableIdentifier) as? FlightCarriersTableViewCell else {return UITableViewCell()}
         cell.configureCellWith(self.viewModel.itinerary.details.legsWithDetail[indexPath.section - 1], airLineDetail: self.viewModel.itinerary.details.aldet ?? [:])
+        cell.containerTopConstraints.constant = ((indexPath.section - 1) == 0) ? 5.0 : 13.0
         return cell
     }
     
@@ -66,7 +67,8 @@ extension FlightPaymentBookingStatusVC{
         let traveller = self.viewModel.itinerary.travellerDetails.t[indexPath.row - 3]
         let pnr = self.viewModel.getPnrWith(indexPath)
         cell.configCell(travellersImage: traveller.profileImg, travellerName: "\(traveller.firstName) \(traveller.lastName)", travellerPnrStatus: pnr, firstName: (traveller.firstName), lastName: (traveller.lastName), isLastTraveller: (indexPath.row == (count + 2)),paxType: traveller.paxType, dob: traveller.dob, salutation: traveller.salutation)
-        cell.clipsToBounds = true
+        cell.containerViewBottomConstraint.constant = (indexPath.row == (count + 2)) ? 13.0 : 0.0
+//        cell.clipsToBounds = true
         return cell
     }
     
@@ -103,6 +105,7 @@ extension FlightPaymentBookingStatusVC{
         cell.viewButton.tag = indexPath.row - 2
         cell.confirmationVoucherLabel.text = "\(source) - \(destination)"
         cell.configCell()
+        cell.showLoader = ((self.viewModel.loadingIndex == indexPath.row - 2) && self.viewModel.isLoadingTicket)
         return cell
     }
     
@@ -121,15 +124,26 @@ extension FlightPaymentBookingStatusVC{
     }
     
     @objc func tapViewTicketViewButton(_ sender: UIButton){
-        
+        guard  !(self.viewModel.isLoadingTicket) else {return}
         let index = sender.tag
+        self.updateCellForLoader(isStart: true, index: index)
         if self.viewModel.apiBookingIds.count > index{
             let id = self.viewModel.apiBookingIds[index]
-            AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/booking-action?type=pdf&booking_id=\(id)&doc=voucher", screenTitle: "Booking Ticket")
+            AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/booking-action?type=pdf&booking_id=\(id)&doc=voucher", screenTitle: "Booking Ticket", showLoader: false) {[weak self] (_) in
+                self?.updateCellForLoader(isStart: false, index: index)
+            }
         }else{
             let id = self.viewModel.apiBookingIds.first ?? ""
-            AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/booking-action?type=pdf&booking_id=\(id)&doc=voucher", screenTitle: "Booking Ticket")
+            AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/booking-action?type=pdf&booking_id=\(id)&doc=voucher", screenTitle: "Booking Ticket", showLoader: false) { [weak self] _ in
+                self?.updateCellForLoader(isStart: false, index: index)
+            }
         }
+    }
+    
+    private func updateCellForLoader(isStart: Bool, index: Int){
+        self.viewModel.isLoadingTicket = isStart
+        self.viewModel.loadingIndex = (self.viewModel.loadingIndex == index && !isStart) ? -1 : index
+        self.statusTableView.reloadData()
     }
     
     private func tapOnSeletedWhatNext(index: Int){

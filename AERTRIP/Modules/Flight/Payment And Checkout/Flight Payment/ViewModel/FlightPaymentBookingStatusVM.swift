@@ -30,6 +30,8 @@ class FlightPaymentBookingStatusVM{
     var bookingDetail: [BookingDetailModel?] = []
     //Data For API And Details
     var apiBookingIds:[String] = []
+    var isLoadingTicket:Bool = false
+    var loadingIndex:Int = -1
     var bookingObject:BookFlightObject?
     var availableSeatMaps = [AvailableSeatMap]()
     

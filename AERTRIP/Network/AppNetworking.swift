@@ -264,6 +264,7 @@ enum AppNetworking {
             header["X-Auth-Token"] = xToken
         }
         
+        AF.sessionConfiguration.timeoutIntervalForRequest = 120
        let request = AF.request(URLString,
                           method: httpMethod,
                           parameters: isLocalServerUrl ? addMandatoryParams(toExistingParams: parameters):parameters,

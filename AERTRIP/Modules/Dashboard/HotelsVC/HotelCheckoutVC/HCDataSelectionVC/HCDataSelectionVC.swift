@@ -806,14 +806,14 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 cell.editableTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.Email_ID.localized,with: "")
                 cell.delegate = self
                 cell.editableTextField.text = viewModel.email
-                cell.editableTextField.font = AppFonts.Regular.withSize(18.0)
+//                cell.editableTextField.font = AppFonts.Regular.withSize(18.0)
                 cell.editableTextField.textColor = UserInfo.loggedInUserId == nil ? AppColors.themeBlack : AppColors.themeGray40
                 cell.editableTextField.keyboardType = .emailAddress
                 
                 if viewModel.canShowErrorForEmailPhone {
                     cell.checkForErrorStateOfTextfield()
                 }
-                
+                cell.editableTextField.font = AppFonts.Regular.withSize(18.0)
                 return cell
                 
             case 6:

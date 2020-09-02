@@ -433,3 +433,47 @@ extension IntMCAndReturnVC : MFMailComposeViewControllerDelegate{
     }
     
 }
+
+
+extension IntMCAndReturnVC{
+    
+    func updatePriceWhenGoneup(_ fk: String, changeResult: ChangeResult) {
+           
+           var curJourneyArr = [IntMultiCityAndReturnDisplay]()
+            
+            if viewModel.resultTableState == .showRegularResults {
+                curJourneyArr = viewModel.results.suggestedJourneyArray
+            } else {
+                curJourneyArr = viewModel.results.allJourneys
+            }
+            
+           guard let index = curJourneyArr.firstIndex(where: {
+                
+                for journey in $0.journeyArray {
+                    if journey.fk == fk {
+    //                   print("index...\(index)")
+                        return true
+                    }
+                }
+                return false
+            }) else {
+                return
+            }
+                
+           let displayArray = curJourneyArr[index]
+            
+            guard let journeyArrayIndex = displayArray.journeyArray.firstIndex(where : {
+                $0.fk == fk
+            }) else {
+                return
+            }
+            
+        displayArray.journeyArray[journeyArrayIndex].farepr = changeResult.farepr
+        displayArray.journeyArray[journeyArrayIndex].fare = changeResult.fare
+            curJourneyArr[index] = displayArray
+            self.resultsTableView.reloadData()
+            showFooterView()
+            
+        }
+    
+}

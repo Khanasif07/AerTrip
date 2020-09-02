@@ -96,7 +96,7 @@ extension TermAndPrivacyTableViewCell {
             label.handleCustomTap(for: termsOfUse) { _ in
                 
                 guard let url = URL(string: AppConstants.termsOfUse) else { return }
-                 AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Trems of Use")
+                 AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Terms of Use")
             }
         }
     }
