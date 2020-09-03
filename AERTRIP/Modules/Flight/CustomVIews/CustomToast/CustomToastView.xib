@@ -21,10 +21,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ch7-lp-9PC">
-                    <rect key="frame" x="50.5" y="25.5" width="313" height="71"/>
+                    <rect key="frame" x="31" y="25.5" width="352" height="71"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labelf dfg fdd f df df db fdbf dbf dbf sbf b  fvdsf vds fsd v cv v fdsvd" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ciq-xC-4nF">
-                            <rect key="frame" x="15" y="15" width="283" height="41"/>
+                            <rect key="frame" x="15" y="15" width="322" height="41"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -48,7 +48,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="fMI-h7-6Mp" secondAttribute="trailing" id="0YE-xt-qXU"/>
-                <constraint firstItem="Ch7-lp-9PC" firstAttribute="width" relation="lessThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="width" multiplier="0.8" id="1zG-ff-Oqw"/>
+                <constraint firstItem="Ch7-lp-9PC" firstAttribute="width" relation="lessThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="width" multiplier="0.85" id="1zG-ff-Oqw"/>
                 <constraint firstItem="fMI-h7-6Mp" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="EtF-Gc-4jd"/>
                 <constraint firstItem="Ch7-lp-9PC" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="Kf9-O1-hvO"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="fMI-h7-6Mp" secondAttribute="bottom" id="aGa-W9-Qc4"/>

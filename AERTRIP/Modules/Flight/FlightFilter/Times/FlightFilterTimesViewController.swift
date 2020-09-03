@@ -49,6 +49,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     /// Used for day segments pan gesture
     var panGesture: UIPanGestureRecognizer?
     var panStartPos: CGFloat?
+    private var highlightedBtnArr = Set<UIButton>()
     
     //MARK:- multiLeg Outlets
     @IBOutlet weak var multiLegViewHeight: NSLayoutConstraint!
@@ -182,27 +183,22 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         }
         
         if startTime > TimeInterval.twelvePM {
-//            noonButton.isEnabled = false
             noonButton.alpha = 0.6
         }
         
         if startTime > TimeInterval.sixPM {
-//            eveningButton.isEnabled = false
             eveningButton.alpha = 0.6
         }
         
         if endTime < TimeInterval.sixPM {
-//            lateEveningButton.isEnabled = false
             lateEveningButton.alpha = 0.6
         }
         
         if endTime < TimeInterval.twelvePM {
-//            eveningButton.isEnabled = false
             eveningButton.alpha = 0.6
         }
         
         if endTime < TimeInterval.sixAM {
-//            noonButton.isEnabled = false
             noonButton.alpha = 0.6
         }
 
@@ -213,138 +209,6 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         departureButtonStackView.isUserInteractionEnabled = true
         departureButtonStackView.addGestureRecognizer(panGesture!)
     }
-    
-    
-//    @objc func handlePanOnView(sender: UIPanGestureRecognizer) {
-//
-//        guard let senderView = sender.view else { return }
-//
-//        if sender.state == .began {
-//            dragStartPosition = sender.location(in: senderView).x
-//        }
-//
-//        if sender.state == .ended {
-//            dragEndPosition = sender.location(in: senderView).x
-//
-//            if dragEndPosition < dragStartPosition {
-//                dragStartPosition = 0.0
-//                dragEndPosition = 0.0
-//                return
-//            }
-//
-//            let width = senderView.frame.width
-//            let partWidth = width/4.0
-//
-//            let startPosition = floor(dragStartPosition  /  partWidth )
-//            let endPosition =  ceil(dragEndPosition  /  partWidth )
-//            var showMessage = false
-//            let calendar = Calendar.current
-//            let startTime = calendar.startOfDay(for: currentTimerFilter.departureMinTime)
-//            let minDeparture = currentTimerFilter.departureMinTime.timeIntervalSince(startTime)
-//            let roundedMinDeparture = TimeInterval(3600.0 * floor((minDeparture  / 3600 )))
-//            let maxDeparture =  currentTimerFilter.departureTimeMax.timeIntervalSince(startTime)
-//            let roundedMaxDeparture = TimeInterval(3600 * ceil(maxDeparture  / 3600 ))
-//
-//
-//            switch startPosition {
-//            case 0 :
-//                if roundedMinDeparture > TimeInterval.startOfDay {
-//                    departureStartTimeInterval = roundedMinDeparture
-//                    showMessage = true
-//                }
-//                else {
-//                    departureStartTimeInterval = TimeInterval.startOfDay
-//                }
-//            case 1 :
-//
-//                if roundedMinDeparture > TimeInterval.sixAM {
-//                    departureStartTimeInterval = roundedMinDeparture
-//                    showMessage = true
-//                }
-//                else {
-//                    departureStartTimeInterval = TimeInterval.sixAM
-//                }
-//            case 2 :
-//                if roundedMinDeparture > TimeInterval.twelvePM {
-//                    departureStartTimeInterval = roundedMinDeparture
-//                    showMessage = true
-//                }
-//                else {
-//                    departureStartTimeInterval = TimeInterval.twelvePM
-//                }
-//            case 3 :
-//
-//                if roundedMinDeparture > TimeInterval.sixPM {
-//                    departureStartTimeInterval = roundedMinDeparture
-//                    showMessage = true
-//                }
-//                else {
-//                    departureStartTimeInterval = TimeInterval.sixPM
-//                }
-//
-//            default:
-//                print("unknown state")
-//            }
-//
-//            switch  endPosition{
-//            case 1 :
-//                if roundedMaxDeparture < TimeInterval.sixAM  {
-//                    departureEndTimeInterval = roundedMaxDeparture
-//                    showMessage = true
-//                }
-//                else {
-//                    departureEndTimeInterval = TimeInterval.sixAM
-//                }
-//            case 2 :
-//                if roundedMaxDeparture < TimeInterval.twelvePM {
-//                    departureEndTimeInterval = roundedMaxDeparture
-//                    showMessage = true
-//                }
-//                else {
-//                    departureEndTimeInterval = TimeInterval.twelvePM
-//                }
-//            case 3 :
-//                if roundedMaxDeparture < TimeInterval.sixPM {
-//                    departureEndTimeInterval = roundedMaxDeparture
-//                    showMessage = true
-//                }
-//                else {
-//                    departureEndTimeInterval = TimeInterval.sixPM
-//                }
-//            case 4 , 5 :
-//
-//                if roundedMaxDeparture < TimeInterval.endOfDay {
-//                    departureEndTimeInterval = roundedMaxDeparture
-//                    showMessage = true
-//                }
-//                    else {
-//                    departureEndTimeInterval = TimeInterval.endOfDay
-//                }
-//
-//            default:
-//                print("unknown state")
-//            }
-//
-//            //*******************Haptic Feedback code********************
-//            let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-//            selectionFeedbackGenerator.selectionChanged()
-//            //*******************Haptic Feedback code********************
-//
-//            updateDepartureUIValues()
-//            var message = String()
-//
-//            if showMessage {
-//                message = "Flights are available between " +  stringFromTimeInterval(interval: departureStartTimeInterval) + " and " + stringFromTimeInterval(interval: departureEndTimeInterval)
-//                showToastMessageForAvailableDepartureRange(message)
-//            }
-//
-//            delegate?.departureSelectionChangedAt(currentActiveIndex , minDuration:departureStartTimeInterval , maxDuration: departureEndTimeInterval)
-//            dragStartPosition = 0.0
-//            dragEndPosition = 0.0
-//
-//
-//        }
-//    }
         
     @objc private func handlePan(sender: UIPanGestureRecognizer) {
         
@@ -467,8 +331,13 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         btnArr.forEach { (btn) in
             if let button = btn, let btnSuperViewRect = button.superview?.frame {
                 if selectedRect.intersects(btnSuperViewRect) {
+                    if !highlightedBtnArr.contains(button) {
+                        giveHapticFeedback()
+                        highlightedBtnArr.insert(button)
+                    }
                     button.backgroundColor = UIColor(displayP3Red: 236.0/255.0 , green:253.0/255.0 , blue:244.0/255.0 , alpha:1)
                 } else {
+                    highlightedBtnArr.remove(button)
                     button.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
                 }
             }
@@ -872,7 +741,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         updateDepartureUIValues()
         if showMessage {
             
-            message = "Flights are available between " +  stringFromTimeInterval(interval: departureStartTimeInterval) + " and " + stringFromTimeInterval(interval: departureEndTimeInterval)
+            message = "Flights are available between " +  stringFromTimeInterval(interval: minDeparture) + " and " + stringFromTimeInterval(interval: maxDeparture)
             showToastMessageForAvailableDepartureRange(message)
         }
         
