@@ -863,6 +863,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             setArrivalSliderValues(userSelected: true)
         }
         setupDeparatureRangeButtons()
+        addDaysSeparatorInArrivalRangeSlider()
     }
     
     
@@ -918,15 +919,15 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             return
         }
         
+        var positions = [CGFloat]()
         if numberOfDays > 0 {
-            var positions = [CGFloat]()
             for i in 1...numberOfDays {
                 let nextDayMidNight =  CGFloat(i * 86400) - CGFloat(diffFromStartOfDay)
                 let x = nextDayMidNight / timeDifference
                 positions.append(x)
             }
-            arrivalRangeSlider.createMarkersAt(positions: positions)
         }
+        arrivalRangeSlider.createMarkersAt(positions: positions)
     }
     
     func daySeparatorView() -> UIView {
