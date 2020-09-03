@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SnapKit
 
 protocol AirportFilterDelegate : FilterDelegate {
     
@@ -80,6 +80,8 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
             checkForDepartReturnSame()
         }
     }
+    
+    private var multiLegSegmentControl = UISegmentedControl()
     
     //MARK:- View Controller Method
     override func viewDidLoad() {
@@ -271,92 +273,76 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         }
     }
     
-    fileprivate func setmultiLegSubviews () {
+    
+    private func setupMultiLegSegmentControl() {
         
-        multicitySegmentView.subviews.forEach { $0.removeFromSuperview() }
-        multiCitySegmentSeparator.alpha = 0.0
         if airportFilterArray.count == 1 || self.searchType == RETURN_JOURNEY {
             return
         }
-        
-        multicitySegmentView.layer.cornerRadius = 3
-        multicitySegmentView.layer.borderColor = UIColor.AertripColor.cgColor
-        multicitySegmentView.layer.borderWidth = 1.0
-        multicitySegmentView.clipsToBounds = true
+                
+        multiLegSegmentControl.removeAllSegments()
         
         let numberOfStops = airportFilterArray.count
+
+        for  index in 1...numberOfStops  {
+            let segmentTitle = getSegmentTitleFor(index)
+            multiLegSegmentControl.insertSegment(withTitle: segmentTitle, at: index-1, animated: false)
+        }
         
-        for  i in 1...numberOfStops  {
-            
-            let segmentViewWidth = UIScreen.main.bounds.size.width - 32
-            let width = segmentViewWidth / CGFloat(numberOfStops)
-            let xcordinate = CGFloat( i - 1 ) * width
-            let height = self.multicitySegmentView.frame.size.height
-            var rect = CGRect(x: xcordinate, y: 0, width: width, height: height)
-            let stopButton = UIButton(frame: rect)
-            stopButton.tag = (i - 1)
-
-            let currentFilter = airportFilterArray[(i - 1)]
-            var normalStateTitle : NSMutableAttributedString
-            let isCurrentIndexActive = (i == (currentActiveIndex + 1 )) ? true : false
-            let isFilterApplied = currentFilter.filterApplied()
-
-            
-            if isCurrentIndexActive {
-                stopButton.backgroundColor = UIColor.AertripColor
-            }
-            
-            
-            if numberOfStops > 3 {
+        multiLegSegmentControl.selectedSegmentIndex = currentActiveIndex
                 
-                let dot = "\u{2022}"
-                let font = UIFont(name: "SourceSansPro-Semibold", size: 14.0)!
-                let aertripColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
-                let whiteColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor :  UIColor.white]
-                let clearColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.clear]
-                
-                
-                if isCurrentIndexActive {
-                    normalStateTitle = NSMutableAttributedString(string: "\(i) " , attributes: whiteColorAttributes)
-                    
-                    let dotString : NSAttributedString
-                    if isFilterApplied {
-                        dotString = NSMutableAttributedString(string: dot , attributes: whiteColorAttributes)
-                    }
-                    else {
-                        dotString = NSMutableAttributedString(string: dot , attributes: clearColorAttributes)
-                    }
-                    normalStateTitle.append(dotString)
-                }
-                else {
-                    normalStateTitle = NSMutableAttributedString(string: "\(i) " , attributes: aertripColorAttributes)
-                    let dotString : NSAttributedString
-                    
-                    if isFilterApplied {
-                        dotString = NSMutableAttributedString(string: dot , attributes: aertripColorAttributes)
-                    }
-                    else {
-                        dotString = NSMutableAttributedString(string: dot , attributes: clearColorAttributes)
-                    }
-                    normalStateTitle.append(dotString)
-                }
+        if multiLegSegmentControl.superview == nil && numberOfStops > 1 {
+            let font: [NSAttributedString.Key : Any] = [.font : AppFonts.SemiBold.withSize(14)]
+            multiLegSegmentControl.setTitleTextAttributes(font, for: .normal)
+            multiLegSegmentControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
+            multicitySegmentView.addSubview(multiLegSegmentControl)
+            multiLegSegmentControl.snp.makeConstraints { (maker) in
+                maker.width.equalToSuperview()
+                maker.height.equalToSuperview()
+                maker.leading.equalToSuperview()
+                maker.trailing.equalToSuperview()
             }
-            else {
-                let leg = airportFilterArray[(i - 1)].leg
-                normalStateTitle = leg.getTitle(isCurrentlySelected: isCurrentIndexActive, isFilterApplied: isFilterApplied)
-            }
+        }
+    }
+    
+    @objc func indexChanged(_ sender: UISegmentedControl) {
+                
+        tableOffsetAtIndex[currentActiveIndex] = baseScrollview.contentOffset.y
+        
+        guard currentActiveIndex != sender.selectedSegmentIndex else { return }
 
-            stopButton.setAttributedTitle(normalStateTitle, for: .normal)
-            stopButton.addTarget(self, action: #selector(tappedOnMulticityButton(sender:)), for: .touchDown)
-            
-            multicitySegmentView.addSubview(stopButton)
-            
-            if i != numberOfStops {
-                rect  = CGRect(x: xcordinate + width - 1 , y: 0, width: 1, height: 30)
-                let verticalSeparator = UIView(frame: rect)
-                verticalSeparator.backgroundColor = UIColor.AertripColor
-                multicitySegmentView.addSubview(verticalSeparator)
-            }
+        airportFilterArray[currentActiveIndex] = currentAirportFilter
+        currentActiveIndex = sender.selectedSegmentIndex
+        
+        currentAirportFilter = airportFilterArray[currentActiveIndex]
+        journeyTitle.attributedText = currentAirportFilter.leg.descriptionOneFiveThree
+        originsTableView.reloadData()
+        destinationsTableView.reloadData()
+        layoverTableview.reloadData()
+//        setmultiLegSubviews ()
+        updateSegmentTitles()
+        setupScrollView()
+
+    }
+    
+    private func getSegmentTitleFor(_ index: Int) -> String {
+        let currentFilter = airportFilterArray[(index - 1)]
+        let isFilterApplied = currentFilter.filterApplied()
+        var title = "\(currentFilter.leg.origin) \u{2794} \(currentFilter.leg.destination)"
+        if airportFilterArray.count > 3 {
+            title = "\(index)"
+        }
+        var segmentTitle = title
+        if isFilterApplied {
+            segmentTitle = "\(title) •"
+        }
+        return segmentTitle
+    }
+    
+    private func updateSegmentTitles() {
+        for index in 0..<multiLegSegmentControl.numberOfSegments {
+            let segmentTitle = getSegmentTitleFor(index + 1)
+            multiLegSegmentControl.setTitle(segmentTitle, forSegmentAt: index)
         }
     }
     
@@ -368,10 +354,12 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         setupTopView()
         
         if airportFilterArray.count > 1 {
-            setmultiLegSubviews()
+//            setmultiLegSubviews()
+            setupMultiLegSegmentControl()
         }
         setupScrollView()
     }
+    
     func updateUIPostLatestResults() {
         
         if allLayoverSelectedByUserInteraction {
@@ -383,7 +371,8 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         setupTopView()
         journeyTitle.attributedText = currentAirportFilter.leg.descriptionOneFiveThree
         setupScrollView()
-        setmultiLegSubviews()
+//        setmultiLegSubviews()
+        setupMultiLegSegmentControl()
 
     }
     
@@ -423,7 +412,8 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
             allLayoverSelectedByUserInteraction = false
         }
                 
-        setmultiLegSubviews ()
+//        setmultiLegSubviews ()
+        updateSegmentTitles()
         originsTableView.reloadData()
         destinationsTableView.reloadData()
         layoverTableview.reloadData()
@@ -452,7 +442,8 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         
         originDestinationBtn.isSelected = currentAirportFilter.allOriginDestinationSelected()
         
-        setmultiLegSubviews ()
+//        setmultiLegSubviews ()
+        updateSegmentTitles()
         if searchType == RETURN_JOURNEY {
 //            delegate?.originSelectionChanged(selection: currentAirportFilter.originCities ,at: 0)
 //            delegate?.originSelectionChanged(selection: currentAirportFilter.originCities ,at: 1)
@@ -484,7 +475,8 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         originsTableView.reloadData()
         destinationsTableView.reloadData()
         layoverTableview.reloadData()
-        setmultiLegSubviews ()
+//        setmultiLegSubviews ()
+        updateSegmentTitles()
         
         setupScrollView()
     }
@@ -509,7 +501,8 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         allLayoverButton.isSelected = combinedSelectionStatus
         
         airportFilterArray[currentActiveIndex] = currentAirportFilter
-        setmultiLegSubviews ()
+//        setmultiLegSubviews ()
+        updateSegmentTitles()
         if searchType == RETURN_JOURNEY {
             if isIntReturnOrMCJourney {
                 delegate?.layoverSelectionsChangedForReturnJourney(selection: currentAirportFilter.layoverCities, at: 0)
@@ -545,7 +538,8 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         
         originDestinationBtn.isSelected = currentAirportFilter.allOriginDestinationSelected()
         
-        setmultiLegSubviews ()
+//        setmultiLegSubviews ()
+        updateSegmentTitles()
         
         if searchType == RETURN_JOURNEY {
 //            delegate?.destinationSelectionChanged(selection :  airportFilter.destinationCities  ,at: 0)
@@ -583,7 +577,8 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         airportFilterArray[currentActiveIndex] = currentAirportFilter
         
 //        allOriginDestSelectedAtIndex[currentActiveIndex] = sender.isSelected
-        setmultiLegSubviews()
+//        setmultiLegSubviews()
+        updateSegmentTitles()
         
         originsTableView.reloadData()
         destinationsTableView.reloadData()
@@ -603,7 +598,8 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
 //            allLayoverSelectedByUserInteraction  = sender.isSelected
         }
         airportFilterArray[currentActiveIndex] = currentAirportFilter
-        setmultiLegSubviews ()
+//        setmultiLegSubviews ()
+        updateSegmentTitles()
         layoverTableview.reloadData()
         if searchType == RETURN_JOURNEY {
             if isIntReturnOrMCJourney {
