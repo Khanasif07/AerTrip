@@ -17,6 +17,7 @@ class MailComposerVC: BaseVC {
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var acitivityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var progressView: UIProgressView!
     
     // MARK: Variables
     
@@ -26,6 +27,8 @@ class MailComposerVC: BaseVC {
     var selectedMails: [String] = []
     let viewModel = MailComposerVM()
     var selectedUserEmail = ""
+    private var time: Float = 0.0
+    private var timer: Timer?
     
     // MARK: - View Life cycle
     
@@ -83,7 +86,16 @@ class MailComposerVC: BaseVC {
     
     private func doInitialSetup() {
         self.tableView.contentInsetAdjustmentBehavior = .always
+        self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.navBarSetUp()
+//        self.tableViewSetup()
+//        self.registerXib()
+//        self.setupHeader()
+//        self.setUpFooter()
+        self.viewModel.getPinnedTemplate()
+    }
+    
+    private func showEmailView() {
         self.tableViewSetup()
         self.registerXib()
         self.setupHeader()
@@ -224,6 +236,44 @@ extension MailComposerVC: TopNavigationViewDelegate {
         }
         
     }
+    
+    func startProgress() {
+        // Invalid timer if it is valid
+        if self.timer?.isValid == true {
+            self.timer?.invalidate()
+        }
+        self.progressView?.isHidden = false
+        self.time = 0.0
+        self.progressView.setProgress(0.0, animated: false)
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
+    
+    @objc func setProgress() {
+        self.time += 1.0
+        self.progressView?.setProgress(self.time / 10, animated: true)
+        
+        if self.time == 8 {
+            self.timer?.invalidate()
+            return
+        }
+        if self.time == 2 {
+            self.timer!.invalidate()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+            }
+        }
+        
+        if self.time >= 10 {
+            self.timer!.invalidate()
+            delay(seconds: 0.5) {
+                self.progressView?.isHidden = true
+            }
+        }
+    }
+    func stopProgress() {
+        self.time += 1
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
 }
 
 // MARK: - TableViewDataSource and TableViewDelegate methods
@@ -358,6 +408,19 @@ extension MailComposerVC: CNContactPickerDelegate {
 // MARK: - Viewmodel delegates methods
 
 extension MailComposerVC: MailComoserVMDelegate {
+    func willGetPinnedTemplate() {
+        startProgress()
+    }
+    
+    func getPinnedTemplateSuccess() {
+        stopProgress()
+        showEmailView()
+    }
+    
+    func getPinnedTemplateFail() {
+        stopProgress()
+    }
+    
     func willSendEmail() {
         startLoading()
     }

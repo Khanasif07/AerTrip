@@ -263,6 +263,7 @@ class HotelsResultVM: NSObject {
         }
     }
     
+    /*
     func getPinnedTemplate(hotels: [HotelSearched],completionBlock: @escaping(_ success: Bool)->Void ) {
         var param = JSONDictionary()
         for (idx, hotel) in hotels.enumerated() {
@@ -286,7 +287,7 @@ class HotelsResultVM: NSObject {
             }
         }
     }
-    
+    */
     func hotelListOnResultFallback() {
         let params: JSONDictionary = [APIKeys.vcodes.rawValue: self.hotelSearchRequest?.vcodes.first ?? "", APIKeys.sid.rawValue: self.hotelSearchRequest?.sid ?? ""]
         printDebug(params)

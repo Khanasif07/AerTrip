@@ -15,6 +15,10 @@ class PhotoGalleryVC: BaseVC {
     @IBOutlet weak var verticalCollectionBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var closeButtonTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomContainerView: PhotoGalleryBottomView!
+    @IBOutlet weak var bottomContainerHeightConstraint: NSLayoutConstraint!
+    
+    
     var imageNames:[String] = []{
         didSet{
             self.atGalleryImage.removeAll()
@@ -39,6 +43,17 @@ class PhotoGalleryVC: BaseVC {
         self.galleryCollection.delegate = self
         self.galleryCollection.dataSource = self
         self.galleryCollection.backgroundColor = .black
+        let height: CGFloat = isTAAvailable ? (97 + AppFlowManager.default.safeAreaInsets.bottom) : 0.0
+        self.bottomContainerHeightConstraint.constant = height
+        self.bottomContainerView.backgroundColor = .black
+        self.bottomContainerView.handeler = {[weak self] in
+            guard let self = self else {return}
+            if self.hid == TAViewModel.shared.hotelId, let data = TAViewModel.shared.hotelTripAdvisorDetails{
+                let urlString = "https:\(data.seeAllPhotos)"
+                let screenTitle = LocalizedString.Photos.localized
+                AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+            }
+        }
     }
     
     override func initialSetup() {
@@ -114,6 +129,7 @@ extension PhotoGalleryVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         return UIEdgeInsets(top: 0, left: 0, bottom: 10.0, right: 0)
     }
     
+    /*
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
             
@@ -134,13 +150,13 @@ extension PhotoGalleryVC: UICollectionViewDelegate, UICollectionViewDataSource, 
             
         }
     }
-    
+    */
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if self.isTAAvailable && self.imageNames.count != 0{
-            return CGSize(width: UIScreen.width, height: 97)
-        }else{
+//        if self.isTAAvailable && self.imageNames.count != 0{
+//            return CGSize(width: UIScreen.width, height: 97)
+//        }else{
             return .zero
-        }
+//        }
         
     }
     

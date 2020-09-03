@@ -402,6 +402,8 @@ class RoomGuestSelectionVC: BaseVC {
         }
         if showMessage {
             self.checkForMaximumGuest()
+        } else {
+            AppToast.default.hideToast(self, animated: false)
         }
     }
     
@@ -415,6 +417,8 @@ class RoomGuestSelectionVC: BaseVC {
         self.updateSelection(needToChangePickerViewHeight: true)
         if showMessage {
             self.checkForMaximumGuest()
+        }else {
+            AppToast.default.hideToast(self, animated: false)
         }
     }
     

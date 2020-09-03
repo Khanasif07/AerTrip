@@ -12,6 +12,10 @@ protocol MailComoserVMDelegate: class {
     func willSendEmail()
     func didSendEmailSuccess()
     func didSendemailFail(_ errors: ErrorCodes)
+    
+    func willGetPinnedTemplate()
+    func getPinnedTemplateSuccess()
+    func getPinnedTemplateFail()
 }
 
 class MailComposerVM: NSObject {
@@ -21,9 +25,10 @@ class MailComposerVM: NSObject {
     var hotelSearchRequest: HotelSearchRequestModel?
     weak var delegate: MailComoserVMDelegate?
     var subject: String = LocalizedString.CheckoutMyFavouriteHotels.localized
-    var u: String = ""
+   // var u: String = ""
     var fromEmails: [String] = []
     var pinnedEmails: [String] = []
+    var shortUrl: String = ""
     
     func callSendEmailMail() {
         var param = JSONDictionary()
@@ -39,7 +44,7 @@ class MailComposerVM: NSObject {
             param["from[\(idx)]"] = email
         }
         param["subject"] = self.subject
-        param["u"] = self.u
+        param["u"] = self.shortUrl
         
         self.delegate?.willSendEmail()
         APICaller.shared.callSendEmailAPI(params: param) { isSuccess,errors, _ in
@@ -47,6 +52,24 @@ class MailComposerVM: NSObject {
                 self.delegate?.didSendEmailSuccess()
             } else {
                 self.delegate?.didSendemailFail(errors)
+            }
+        }
+    }
+    
+    func getPinnedTemplate() {
+        var param = JSONDictionary()
+        for (idx, hotel) in favouriteHotels.enumerated() {
+            param["hid[\(idx)]"] = hotel.hid
+        }
+        param[APIKeys.sid.rawValue] = self.hotelSearchRequest?.sid
+        
+        self.delegate?.willGetPinnedTemplate()
+        APICaller.shared.getPinnedTemplateAPI(params: param) { isSuccess, _, shortTemplateUrl in
+            if isSuccess {
+                self.shortUrl = shortTemplateUrl
+                self.delegate?.getPinnedTemplateSuccess()
+            } else {
+                self.delegate?.getPinnedTemplateFail()
             }
         }
     }

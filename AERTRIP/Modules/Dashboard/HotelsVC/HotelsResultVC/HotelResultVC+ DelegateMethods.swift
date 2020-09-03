@@ -395,9 +395,19 @@ extension HotelResultVC: HotelFilteVCDelegate {
         self.filterButton.isSelected = false
         self.viewModel.isFilterApplied = false
         HotelFilterVM.shared.isSortingApplied = false
+        let isFilterAppliedForDestinetionFlow = HotelFilterVM.shared.isFilterAppliedForDestinetionFlow
         UserInfo.hotelFilter = nil
         HotelFilterVM.shared.resetToDefault()
         self.viewModel.filterApplied = UserInfo.HotelFilter()
+        if isFilterAppliedForDestinetionFlow {
+            self.viewModel.fetchRequestType = .FilterApplied
+            self.viewModel.isFilterApplied = true
+            self.viewModel.filterApplied.sortUsing = .DistanceNearestFirst(ascending: true)
+            HotelFilterVM.shared.sortUsing = .DistanceNearestFirst(ascending: true)
+            HotelFilterVM.shared.isFilterAppliedForDestinetionFlow = true
+            HotelFilterVM.shared.saveDataToUserDefaults()
+            self.getSavedFilter()
+        }
         self.viewModel.loadSaveData()
         self.filterCollectionView.reloadData()
         //manage switch button when clear all filters

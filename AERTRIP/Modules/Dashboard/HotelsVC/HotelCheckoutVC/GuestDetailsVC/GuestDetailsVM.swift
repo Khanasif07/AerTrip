@@ -13,7 +13,7 @@ protocol GuestDetailsVMDelegate: class {
 }
 
 class GuestDetailsVM: NSObject {
-    typealias GuestDetailContactTouple = (firstName: String, lastName: String, fullName: String, dob: String, salutation: String)
+    typealias GuestDetailContactTouple = (firstName: String, lastName: String, fullName: String, dob: String, salutation: String, id: String)
     
     static let shared = GuestDetailsVM()
     weak var delegate: GuestDetailsVMDelegate?
@@ -129,7 +129,7 @@ class GuestDetailsVM: NSObject {
         default: break
         }
         if let obj = object {
-            return (obj.firstName, obj.lastName, obj.fullName, obj.dob, obj.salutation)
+            return (obj.firstName, obj.lastName, obj.fullName, obj.dob, obj.salutation, obj.apiId)
         }
         
         return nil

@@ -264,6 +264,7 @@ enum AppNetworking {
             header["X-Auth-Token"] = xToken
         }
         
+        printDebug("headers: \(header)")
         AF.sessionConfiguration.timeoutIntervalForRequest = 120
        let request = AF.request(URLString,
                           method: httpMethod,
@@ -279,7 +280,6 @@ enum AppNetworking {
         
         request.responseData { (response:DataResponse) in
                             
-                            printDebug(headers)
             
             //save the X-Auth-Token for the security perpose as discussed with aertrip backend
             if let headers = response.response?.allHeaderFields, let xToken = headers["X-Auth-Token"] {
