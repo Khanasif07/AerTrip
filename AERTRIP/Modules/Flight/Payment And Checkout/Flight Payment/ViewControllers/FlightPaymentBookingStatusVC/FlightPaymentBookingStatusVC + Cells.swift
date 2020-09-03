@@ -41,6 +41,7 @@ extension FlightPaymentBookingStatusVC{
     func getCarriarTableCell(_ indexPath: IndexPath)-> UITableViewCell{
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: FlightCarriersTableViewCell.reusableIdentifier) as? FlightCarriersTableViewCell else {return UITableViewCell()}
         cell.configureCellWith(self.viewModel.itinerary.details.legsWithDetail[indexPath.section - 1], airLineDetail: self.viewModel.itinerary.details.aldet ?? [:])
+        cell.containerTopConstraints.constant = ((indexPath.section - 1) == 0) ? 5.0 : 13.0
         return cell
     }
     
@@ -66,7 +67,8 @@ extension FlightPaymentBookingStatusVC{
         let traveller = self.viewModel.itinerary.travellerDetails.t[indexPath.row - 3]
         let pnr = self.viewModel.getPnrWith(indexPath)
         cell.configCell(travellersImage: traveller.profileImg, travellerName: "\(traveller.firstName) \(traveller.lastName)", travellerPnrStatus: pnr, firstName: (traveller.firstName), lastName: (traveller.lastName), isLastTraveller: (indexPath.row == (count + 2)),paxType: traveller.paxType, dob: traveller.dob, salutation: traveller.salutation)
-        cell.clipsToBounds = true
+        cell.containerViewBottomConstraint.constant = (indexPath.row == (count + 2)) ? 13.0 : 0.0
+//        cell.clipsToBounds = true
         return cell
     }
     
@@ -103,6 +105,7 @@ extension FlightPaymentBookingStatusVC{
         cell.viewButton.tag = indexPath.row - 2
         cell.confirmationVoucherLabel.text = "\(source) - \(destination)"
         cell.configCell()
+        cell.showLoader = ((self.viewModel.loadingIndex == indexPath.row - 2) && self.viewModel.isLoadingTicket)
         return cell
     }
     
@@ -121,19 +124,30 @@ extension FlightPaymentBookingStatusVC{
     }
     
     @objc func tapViewTicketViewButton(_ sender: UIButton){
-        
+        guard  !(self.viewModel.isLoadingTicket) else {return}
         let index = sender.tag
+        self.updateCellForLoader(isStart: true, index: index)
         if self.viewModel.apiBookingIds.count > index{
             let id = self.viewModel.apiBookingIds[index]
-            AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/booking-action?type=pdf&booking_id=\(id)&doc=voucher", screenTitle: "Booking Ticket")
+            AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/booking-action?type=pdf&booking_id=\(id)&doc=voucher", screenTitle: "Booking Ticket", showLoader: false) {[weak self] (_) in
+                self?.updateCellForLoader(isStart: false, index: index)
+            }
         }else{
             let id = self.viewModel.apiBookingIds.first ?? ""
-            AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/booking-action?type=pdf&booking_id=\(id)&doc=voucher", screenTitle: "Booking Ticket")
+            AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/booking-action?type=pdf&booking_id=\(id)&doc=voucher", screenTitle: "Booking Ticket", showLoader: false) { [weak self] _ in
+                self?.updateCellForLoader(isStart: false, index: index)
+            }
         }
     }
     
+    private func updateCellForLoader(isStart: Bool, index: Int){
+        self.viewModel.isLoadingTicket = isStart
+        self.viewModel.loadingIndex = (self.viewModel.loadingIndex == index && !isStart) ? -1 : index
+        self.statusTableView.reloadData()
+    }
+    
     private func tapOnSeletedWhatNext(index: Int){
-        if index == 0{
+        if self.viewModel.itinerary.whatNext.count == 0{
             guard self.viewModel.apiBookingIds.count != 0 else {return}
             if self.viewModel.apiBookingIds.count == 1{
                 let bookingId = self.viewModel.apiBookingIds.first ?? ""
@@ -142,10 +156,20 @@ extension FlightPaymentBookingStatusVC{
                 self.openActionSheetForBooking()
             }
         }else{
-            switch self.viewModel.itinerary.whatNext[index - 1].productType{
-            case .flight: self.bookFlightFor(self.viewModel.itinerary.whatNext[index - 1])
-            case .hotel: self.bookAnotherRoom(self.viewModel.itinerary.whatNext[index - 1])
-            default: break;
+            if index == self.viewModel.itinerary.whatNext.count{
+                guard self.viewModel.apiBookingIds.count != 0 else {return}
+                if self.viewModel.apiBookingIds.count == 1{
+                    let bookingId = self.viewModel.apiBookingIds.first ?? ""
+                    AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: bookingId, tripCitiesStr: self.viewModel.bookingObject?.titleString.mutableCopy() as? NSMutableAttributedString)
+                }else{
+                    self.openActionSheetForBooking()
+                }
+            }else{
+                switch self.viewModel.itinerary.whatNext[index].productType{
+                case .flight: self.bookFlightFor(self.viewModel.itinerary.whatNext[index])
+                case .hotel: self.bookAnotherRoom(self.viewModel.itinerary.whatNext[index])
+                default: break;
+                }
             }
         }
     }
@@ -235,20 +259,43 @@ extension FlightPaymentBookingStatusVC : YouAreAllDoneTableViewCellDelegate{
     }
     
     func addToCallendarTapped() {
-        
-        for legs in self.viewModel.itinerary.details.legsWithDetail{
-            guard let start = "\(legs.dd) \(legs.dt)".toDate(dateFormat: "yyyy-MM-dd HH:MM"),
-                let end = "\(legs.ad) \(legs.at)".toDate(dateFormat: "yyyy-MM-dd HH:MM") else {
-                    return
-            }
-            let bid = self.viewModel.itinerary.bookingNumber
-            let title = "Flight: \(legs.originIATACode) → \(legs.destinationIATACode)"
-            let location = self.viewModel.itinerary.details.apdet?[legs.originIATACode]?.c ?? ""
-            let bookingId = "Booking Id: \(self.viewModel.itinerary.bookingNumber)"
-            let notes = bookingId //+ "\n \(confirmationCode)"
-            AppGlobals.shared.addEventToCalender(title: title, startDate: start, endDate: end, location: location,  notes: notes, uniqueId: bid)
+        for bookingDetails in self.viewModel.bookingDetail{
+            self.addToCalender(bookingDetail: bookingDetails)
         }
     }
+    
+    
+    
+    
+    func addToCalender(bookingDetail: BookingDetailModel?) {
+        
+        let bId = bookingDetail?.bookingDetail?.bookingId ?? ""
+        bookingDetail?.bookingDetail?.leg.forEach({ (leg) in
+            leg.flight.forEach { (flightDetail) in
+                if let start = flightDetail.calendarDepartDate, let end = flightDetail.calendarArivalDate {
+                    let tripCity = "Flight: \(flightDetail.departCity) -> \(flightDetail.arrivalCity)"
+                    let flightCode = flightDetail.carrierCode
+                    let flightNo = flightDetail.flightNumber
+                    let title = tripCity + " (\(flightCode) \(flightNo))"
+                    let locaction = "\(flightDetail.departCity) \(flightDetail.departure)"
+                    let bookingId = "Booking Id: \(bookingDetail?.bookingDetail?.bookingId ?? "")"
+                    let pnrArray = leg.pax.map { (pax) -> String in
+                        pax.pnr
+                    }
+                    var pnr = pnrArray.joined(separator: ", ")
+                    if !pnr.isEmpty {
+                        pnr = "\nPNR: \(pnr)"
+                    }
+                    let notes = bookingId + pnr
+                    
+                    AppGlobals.shared.addEventToCalender(title: title, startDate: start, endDate: end,location: locaction, notes: notes, uniqueId: bId)
+                }
+            }
+        })
+        
+    }
+
+    
 }
 
 

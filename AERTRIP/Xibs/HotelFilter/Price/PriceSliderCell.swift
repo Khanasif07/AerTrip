@@ -64,7 +64,9 @@ class PriceSliderCell: UITableViewCell {
         horizontalMultiSlider.trackWidth = 3
         horizontalMultiSlider.showsThumbImageShadow = true
         horizontalMultiSlider.hasRoundTrackEnds = true
-        horizontalMultiSlider.frame = CGRect(x: minimumPriceView.frame.origin.x + 16, y: minimumPriceView.frame.origin.y + minimumPriceView.height + 14, width: UIScreen.main.bounds.width - 66, height: 28.0)
+//        horizontalMultiSlider.frame = CGRect(x: minimumPriceView.frame.origin.x + 16, y: minimumPriceView.frame.origin.y + minimumPriceView.height + 14, width: UIScreen.main.bounds.width - 66, height: 28.0)
+        horizontalMultiSlider.frame = CGRect(x: 30, y: minimumPriceView.frame.origin.y + minimumPriceView.height + 16, width: UIScreen.main.bounds.width - 60, height: 28.0)
+
         containerView.addSubview(horizontalMultiSlider)
         
     }

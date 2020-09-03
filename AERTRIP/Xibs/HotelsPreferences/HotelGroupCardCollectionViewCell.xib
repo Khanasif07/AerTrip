@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -29,12 +29,34 @@
                         <rect key="frame" x="8" y="4" width="407" height="259"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dNm-qq-26F">
-                                <rect key="frame" x="30" y="0.0" width="347" height="259"/>
+                                <rect key="frame" x="30" y="20" width="347" height="239"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2bG-0H-JVV">
+                                        <rect key="frame" x="0.0" y="0.0" width="347" height="239"/>
+                                    </imageView>
+                                </subviews>
                                 <color key="backgroundColor" red="0.3428386578" green="0.89365664779999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="2bG-0H-JVV" secondAttribute="trailing" id="CtZ-iC-zya"/>
+                                    <constraint firstItem="2bG-0H-JVV" firstAttribute="top" secondItem="dNm-qq-26F" secondAttribute="top" id="T6C-Ux-E64"/>
+                                    <constraint firstItem="2bG-0H-JVV" firstAttribute="leading" secondItem="dNm-qq-26F" secondAttribute="leading" id="rid-tJ-sSh"/>
+                                    <constraint firstAttribute="bottom" secondItem="2bG-0H-JVV" secondAttribute="bottom" id="z2B-1x-xqz"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pgL-Ui-Ktf">
-                                <rect key="frame" x="15" y="0.0" width="377" height="247"/>
+                                <rect key="frame" x="15" y="20" width="377" height="227"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aJx-Ex-cDC">
+                                        <rect key="frame" x="0.0" y="0.0" width="377" height="227"/>
+                                    </imageView>
+                                </subviews>
                                 <color key="backgroundColor" red="1" green="0.52120530610000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="aJx-Ex-cDC" firstAttribute="top" secondItem="pgL-Ui-Ktf" secondAttribute="top" id="5sO-Iy-igg"/>
+                                    <constraint firstAttribute="trailing" secondItem="aJx-Ex-cDC" secondAttribute="trailing" id="9Jc-xi-o06"/>
+                                    <constraint firstItem="aJx-Ex-cDC" firstAttribute="leading" secondItem="pgL-Ui-Ktf" secondAttribute="leading" id="aPW-HH-exD"/>
+                                    <constraint firstAttribute="bottom" secondItem="aJx-Ex-cDC" secondAttribute="bottom" id="r3j-a4-smO"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LMU-bo-fv2">
                                 <rect key="frame" x="0.0" y="0.0" width="407" height="235"/>
@@ -116,7 +138,7 @@
                                                 <rect key="frame" x="87" y="0.0" width="106" height="22"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviser" translatesAutoresizingMaskIntoConstraints="NO" id="uMf-Wb-8gZ">
-                                                        <rect key="frame" x="0.0" y="-10" width="32" height="16"/>
+                                                        <rect key="frame" x="0.0" y="-10" width="32" height="19"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="32" id="VsG-fY-yX5"/>
                                                         </constraints>
@@ -201,7 +223,7 @@
                             <constraint firstItem="LMU-bo-fv2" firstAttribute="leading" secondItem="unI-yn-8ak" secondAttribute="leading" id="Wru-fi-afs"/>
                             <constraint firstAttribute="trailing" secondItem="LMU-bo-fv2" secondAttribute="trailing" id="d6T-L3-gmn"/>
                             <constraint firstAttribute="bottom" secondItem="dNm-qq-26F" secondAttribute="bottom" id="iVK-pf-6yG"/>
-                            <constraint firstItem="pgL-Ui-Ktf" firstAttribute="top" secondItem="LMU-bo-fv2" secondAttribute="top" id="qBh-lP-gQf"/>
+                            <constraint firstItem="pgL-Ui-Ktf" firstAttribute="top" secondItem="LMU-bo-fv2" secondAttribute="top" constant="20" id="qBh-lP-gQf"/>
                             <constraint firstItem="LMU-bo-fv2" firstAttribute="top" secondItem="unI-yn-8ak" secondAttribute="top" id="sw0-Ju-J42"/>
                             <constraint firstItem="pgL-Ui-Ktf" firstAttribute="trailing" secondItem="LMU-bo-fv2" secondAttribute="trailing" constant="-15" id="txT-8w-1AQ"/>
                         </constraints>
@@ -232,8 +254,11 @@
                 <outlet property="ratingContainerLeadingConstraint" destination="VCV-vQ-e1J" id="zjc-bE-vyv"/>
                 <outlet property="saveButton" destination="jc5-ID-tyR" id="cME-fm-ujq"/>
                 <outlet property="scrollView" destination="hfU-XL-9qt" id="9pe-3H-NeJ"/>
+                <outlet property="secondHotelImageView" destination="aJx-Ex-cDC" id="Wmd-wJ-XYS"/>
                 <outlet property="secondShadowCard" destination="dNm-qq-26F" id="teF-Ts-qog"/>
+                <outlet property="secondViewBottomConstataints" destination="NhJ-xe-ngU" id="R4g-cn-0UO"/>
                 <outlet property="starRatingView" destination="cFg-Ie-cCS" id="RtT-uT-6zc"/>
+                <outlet property="thirdHotelImageview" destination="2bG-0H-JVV" id="DbW-M2-PD8"/>
                 <outlet property="tripLogoImage" destination="uMf-Wb-8gZ" id="yYa-7h-Wpf"/>
             </connections>
             <point key="canvasLocation" x="117.59999999999999" y="104.7976011994003"/>
@@ -243,10 +268,10 @@
         <image name="combinedShapeFillShadow" width="12" height="16"/>
         <image name="combinedShapeUnfilledShadow" width="12" height="16"/>
         <image name="hotelCardPlaceHolder" width="359" height="193"/>
-        <image name="saveHotels" width="27" height="27"/>
-        <image name="saveHotelsSelected" width="27" height="27"/>
+        <image name="saveHotels" width="27" height="30"/>
+        <image name="saveHotelsSelected" width="27" height="30"/>
         <image name="starRatingFilledShadow" width="15" height="20"/>
         <image name="starRatingUnfillShadow" width="15" height="20"/>
-        <image name="tripAdviser" width="20" height="16"/>
+        <image name="tripAdviser" width="25" height="19"/>
     </resources>
 </document>

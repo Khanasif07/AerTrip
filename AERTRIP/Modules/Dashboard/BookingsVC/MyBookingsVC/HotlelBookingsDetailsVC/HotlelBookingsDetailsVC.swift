@@ -121,12 +121,15 @@ class HotlelBookingsDetailsVC: BaseVC {
     private func configureTableHeaderView() {
         if let view = self.headerView {
             view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM''yy") ?? "")
-            view.dividerView.isHidden = true
+//            view.dividerView.isHidden = true
+            view.isBottomStroke = false
             if let note = self.viewModel.bookingDetail?.bookingDetail?.note, !note.isEmpty {
-                view.dividerView.isHidden = false
+//                view.dividerView.isHidden = false
+                view.isBottomStroke = true
             }
             else if let cases = self.viewModel.bookingDetail?.cases, !cases.isEmpty {
-                view.dividerView.isHidden = false
+//                view.dividerView.isHidden = false
+                view.isBottomStroke = true
             }
         }
     }

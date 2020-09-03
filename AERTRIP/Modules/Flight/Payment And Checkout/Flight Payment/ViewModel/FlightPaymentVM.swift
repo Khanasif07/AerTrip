@@ -11,7 +11,8 @@ import Foundation
 protocol FlightPaymentVMDelegate:NSObjectProtocol {
     func fetchingItineraryData()
     func responseFromIteneraryData(success:Bool, error: ErrorCodes)
-    func getPaymentsMethodsSuccess()
+    func willGetPaymetMenthods()
+    func getPaymentsMethodsSuccess(_ isWalletChnaged: Bool)
     func getPaymentMethodsFails(error: ErrorCodes)
     func removeCouponCodeSuccessful(_ appliedCouponData: FlightItineraryData)
     func removeCouponCodeFailed(error: ErrorCodes)
@@ -63,21 +64,38 @@ class FlightPaymentVM{
         taxAndFeesData.removeAll()
         var taxesDetails : [String:Int] = [String:Int]()
         var taxAndFeesDataDict = [taxStruct]()
+        var sortOrderArr = [String]()
         taxesDetails = self.itinerary.details.fare.taxes.details
+        for val in self.itinerary.details.fare.sortOrder.components(separatedBy: ","){
+            sortOrderArr.append(taxesResult[val.removeAllWhitespaces] ?? "")
+        }
         for (_, value) in taxesDetails.enumerated() {
             let newObj = taxStruct.init(name: taxesResult[value.key] ?? "", taxVal: value.value)
             taxAndFeesDataDict.append(newObj)
         }
         let newDict = Dictionary(grouping: taxAndFeesDataDict) { $0.name }
-        for ( key , _ ) in newDict {
-            let dataArray = newDict[key]
-            var newTaxVal = 0
-            for i in 0..<dataArray!.count {
-                newTaxVal += (dataArray?[i].taxVal ?? 0)
+        if sortOrderArr.isEmpty{
+            for ( key , _ ) in newDict {
+                let dataArray = newDict[key]
+                var newTaxVal = 0
+                for i in 0..<dataArray!.count {
+                    newTaxVal += (dataArray?[i].taxVal ?? 0)
+                }
+                let newArr = (key,newTaxVal)
+                taxAndFeesData.append(newArr)
             }
-            let newArr = (key,newTaxVal)
-            taxAndFeesData.append(newArr)
+        }else{
+            for key in sortOrderArr {
+                let dataArray = newDict[key]
+                var newTaxVal = 0
+                for i in 0..<dataArray!.count {
+                    newTaxVal += (dataArray?[i].taxVal ?? 0)
+                }
+                let newArr = (key,newTaxVal)
+                taxAndFeesData.append(newArr)
+            }
         }
+        
         self.addonsDataDisplay()
         self.discountDataDisplay()
         self.getNumberOfSection()
@@ -171,14 +189,15 @@ class FlightPaymentVM{
 //MARK:- API Call
 extension FlightPaymentVM{
     
-     func webServiceGetPaymentMethods() {
+     func webServiceGetPaymentMethods(isWalletChnaged: Bool) {
          let params: JSONDictionary = [APIKeys.it_id.rawValue:  self.itinerary.id]
          printDebug(params)
+        self.delegate?.willGetPaymetMenthods()
          APICaller.shared.getPaymentMethods(params: params) { [weak self] success, errors,paymentDetails in
              guard let sSelf = self else { return }
              if success {
                  sSelf.paymentDetails = paymentDetails
-                 sSelf.delegate?.getPaymentsMethodsSuccess()
+                 sSelf.delegate?.getPaymentsMethodsSuccess(isWalletChnaged)
              } else {
                  printDebug(errors)
                 sSelf.delegate?.getPaymentMethodsFails(error: errors)
@@ -270,6 +289,7 @@ extension FlightPaymentVM{
         }
         
 //        self.delegate?.willGetPaymentResonse()
+        printDebug(params)
         APICaller.shared.flightPaymentResponseAPI(params: params) { [weak self](success, errors, jsonData)  in
             guard let self = self else { return }
             if success, let json = jsonData {
@@ -295,7 +315,11 @@ extension FlightPaymentVM{
         }
     }
     
-    
+    func updateConvenienceFee(){
+        if self.paymentDetails != nil{
+            self.paymentDetails?.paymentModes.razorPay = self.appliedCouponData.itinerary.paymentModes.razorPay
+        }
+    }
     
     func getCouponsDetailsApi(completion: @escaping((_ success:Bool, _ couponData: [HCCouponModel], _ error:ErrorCodes)->())) {
 

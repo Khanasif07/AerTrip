@@ -31,7 +31,8 @@ public struct PKCountryModel {
     var currencySymbol : String = ""
     var currencyName : String = ""
     var currencyCode : String = ""
-    
+    var currencyIcon : String = ""
+
     init(json: [String: Any]) {
         if let obj = json["CountryID"] as? Int {
             self.countryID = obj
@@ -113,6 +114,7 @@ public struct PKCountryModel {
         currencyCode = json[APIKeys.currency_code.rawValue].stringValue
         currencyName = json[APIKeys.name.rawValue].stringValue
         self.currencySymbol = self.getSymbolForCurrencyCode(code: json[APIKeys.currency_code.rawValue].stringValue)
+        currencyIcon = json[APIKeys.currency_icon.rawValue].stringValue
     }
     
     static func getModels(jsonArr: [[String:Any]]) -> [PKCountryModel] {

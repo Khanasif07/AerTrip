@@ -24,6 +24,7 @@
 "For" = "For";
 "Already" = "Already";
 "UnderDevelopment" = "Under Development";
+"ALL" = "All";
 
 // MARK:- TextField validation
 //MARK:-
@@ -188,7 +189,7 @@
 "FavouriteHotels" = "Favourite Hotels";
 "stars" = "Stars";
 "star" = "Star";
-"searchForHotelsToAdd" = "Search for hotels to add";
+"searchForHotelsToAdd" = "Search for hotels";
 "searchHotelName" = "Search";
 "NearMe" = "Near Me";
 
@@ -199,6 +200,7 @@
 "Facebook" = "Facebook";
 "Google" = "Google";
 "LinkedIn" = "LinkedIn";
+"Apple" = "Apple";
 "ImportContactMessage" = "We will show you a list of your contacts to \n add them as travellers";
 "ImportFacebookMessage" = "Connect with Facebook to import your \n friends to the travellers list.";
 "ImportGoogleMessage" = "Connect with Google to import your contacts \n to the travellers list";
@@ -209,6 +211,7 @@
 "ConnectWithFB" = " Connect with Facebook";
 "ConnectWithLinkedIn" = " Connect with LinkedIn";
 "ContactsSelected" = "Contacts Selected";
+"ContactSelected" = "Contact Selected";
 "SelectContactsToImport" = "Select Contacts to import";
 
 
@@ -323,6 +326,7 @@
 "ChildAges" = "Ages 0 - 12";
 "MostHotelsTypicallyAllow" = "Most hotels typically allow upto 3 pax in a room";
 "ageInYrs" = "Age in yrs";
+"MaxGuestSelectionMessage" = "Max 6 guests can be selected per room";
 
 //MARK:- Destination Selection
 "CityAreaOrHotels" = "City, Area or Hotels";
@@ -372,7 +376,7 @@
 "Meal" = "Meal";
 
 // MARK:- Range VC
-"SearchResultsRange" = "Search Results Range";
+"SearchResultsRange" = "Show hotels within";
 
 // MARK: - Price VC
 "PricePerNight" = "Price per night";
@@ -471,7 +475,7 @@
 "To" = "To";
 "Message" = "Message";
 "SeeRates" = "See Rates";
-"SharedMessage" = "shared his favorite hotels with you…";
+"SharedMessage" = "has shared his favorite hotels with you…";
 "CheckOutMessage" = "Checkout my favorite hotels on Aertrip!";
 "HotelResultFor" = "Hotel results for…";
 "NoHotelFound" = "No Hotel Found\nChoose another date for this location and try again.";
@@ -486,7 +490,7 @@
 "ShowingResultsFor" = "Showing results for";
 "Clear" = "Clear";
 
-"ContactUsAertrip" = "Have a question? Contact us : support@aertrip.com";
+"ContactUsAertrip" = "Have a question? Contact us: support@aertrip.com";
 //"CopyrightAertrip" = "2012 Aertrip. All Rights Reserved.";
 "TripRating" = "Trip Rating";
 
@@ -520,7 +524,7 @@
 "FirstName" = "First Name";
 "LastName" = "Last Name";
 "Details" = "Details";
-"PreferencesSpecialRequests" = "PreferencesSpecialRequests";
+"Preferences, Special Requests" = "Preferences, Special Requests";
 "Optional" = "Optional";
 "EmailMobileCommunicationMessageForBooking" = "This mobile number and email address will be used for all communication related to this booking.";
 "FareIncreasedBy" = "Fare increased by";
@@ -534,6 +538,8 @@
 "PanCard" = "PAN Number";
 "EnterPanCardMessage" = "Please enter a valid PAN Number";
 "FirstLastNameCharacterLimitMessage" = "First & Last name must have at least 3 characters";
+"FirstLastNameCharacterLimitMessage" = "First & Last name must have at least 3 characters";
+"TravelSafetyGuidelines" = "Travel Safety Guidelines";
 
 //Hotel Checkout Coupons VC
 "Coupons" = "Coupons";
@@ -569,6 +575,13 @@
 "PerAdult" = "Per Adult";
 "PerChild" = "Per Child";
 "PerInfant" = "Per Infant";
+"viewMorePhoto" = "More photos on TripAdvisor";
+"WeHaveNotedYourBookingRequirement" = "We have noted your booking requirement.";
+"WeHaveNotedYourBookingRequirementMessage" = " As per guideline, payments of more than ₹5,00,000 are not allowed online.
+
+Not to worry! Your booking is our highest priority. Our customer support team shall contact you at earliest. Thank you.";
+
+"paymentFails" = "The transaction was unsucessful. Kindly retry.";
 
 //Select Guest
 "SelectGuests" = "Select Guests";
@@ -602,8 +615,7 @@
 "ThisWillCancelThisBookingAndAmountRefundToPayment" = "This will cancel this booking and the amount will be refunded to your";
 
 "Change" = "Change";
-"YourBookingIDIs" = "Congratulations, your booking is successful.
-Your booking ID is";
+"YourBookingIDIs" = "Your booking ID is";//Congratulations, your booking is successful.\nYour booking ID is
 "YourCaseIDIs" = "Your case ID is";
 "YourBookingID" = "Your booking ID is";
 "AndAllDetailsWillBeSentToYourEmail" = "and all details have been sent to your email.";
@@ -962,6 +974,11 @@ Your booking ID is";
 "EnjoyPersonalisedTravelExperience" = "Enjoy a more personalised travel experience";
 "ContactDetails" = "Contact Details";
 "KindlyDisconnectMessage" = "Kindly set a password for your Aertrip account or login via another social account before disconnecting ";
+
+// MARK: - Import Contacts
+"ImportingContacts" = "Importing contacts";
+"ThisMightTakeSomeTime" = "This might take some time";
+
 
 //MARK:- Settings
 "Currency" = "Currency";

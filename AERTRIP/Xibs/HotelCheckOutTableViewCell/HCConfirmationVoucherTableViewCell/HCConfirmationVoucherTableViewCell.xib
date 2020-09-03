@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -43,9 +43,13 @@
                             <constraint firstAttribute="height" constant="0.5" id="Jgd-Jo-sBD"/>
                         </constraints>
                     </view>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="E4t-6t-mfL">
+                        <rect key="frame" x="326.5" y="17.5" width="20" height="20"/>
+                    </activityIndicatorView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="E44-G0-EWa" secondAttribute="bottom" constant="19" id="ACn-Vi-aBz"/>
+                    <constraint firstItem="E4t-6t-mfL" firstAttribute="centerY" secondItem="7UR-LQ-qpt" secondAttribute="centerY" id="OIS-2b-EUo"/>
                     <constraint firstItem="7UR-LQ-qpt" firstAttribute="centerY" secondItem="E44-G0-EWa" secondAttribute="centerY" id="RSd-50-FWd"/>
                     <constraint firstItem="E44-G0-EWa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Td6-6H-KlY"/>
                     <constraint firstItem="suS-4e-B13" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Vqz-DK-OQQ"/>
@@ -53,12 +57,14 @@
                     <constraint firstAttribute="trailing" secondItem="7UR-LQ-qpt" secondAttribute="trailing" constant="16" id="gyZ-6E-g4s"/>
                     <constraint firstAttribute="trailing" secondItem="suS-4e-B13" secondAttribute="trailing" id="hg7-7P-xtk"/>
                     <constraint firstItem="E44-G0-EWa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="snj-lI-YKj"/>
+                    <constraint firstItem="E4t-6t-mfL" firstAttribute="centerX" secondItem="7UR-LQ-qpt" secondAttribute="centerX" id="wMq-SG-dKq"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="confirmationVoucherLabel" destination="E44-G0-EWa" id="x6u-3l-8Hf"/>
                 <outlet property="dividerView" destination="suS-4e-B13" id="Vf3-gq-iy3"/>
+                <outlet property="loader" destination="E4t-6t-mfL" id="HiC-o8-euh"/>
                 <outlet property="titleLabelBottomContraint" destination="ACn-Vi-aBz" id="nyn-gG-cl8"/>
                 <outlet property="titleLabelTopConstraint" destination="snj-lI-YKj" id="Ahc-Eu-hs0"/>
                 <outlet property="viewButton" destination="7UR-LQ-qpt" id="9OL-LT-ku3"/>

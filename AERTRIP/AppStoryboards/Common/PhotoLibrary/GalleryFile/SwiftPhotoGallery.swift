@@ -111,16 +111,6 @@ public class SwiftPhotoGallery: UIViewController {
         super.init(coder: aDecoder)
     }
 
-//    public func reload(imageIndexes:Int...) {
-//
-//        if imageIndexes.isEmpty {
-//            imageCollectionView.reloadData()
-//
-//        } else {
-//            let indexPaths: [IndexPath] = imageIndexes.map({IndexPath(item: $0, section: 0)})
-//            imageCollectionView.reloadItems(at: indexPaths)
-//        }
-//    }
 
 
     // MARK: Lifecycle methods

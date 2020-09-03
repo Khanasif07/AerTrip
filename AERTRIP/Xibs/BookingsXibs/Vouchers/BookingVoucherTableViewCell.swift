@@ -24,6 +24,7 @@ class BookingVoucherTableViewCell: ATTableViewCell {
     @IBOutlet weak var dividerViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var paymentTypeImageView: UIImageView!
+    @IBOutlet weak var topDividerView: ATDividerView!
     
     
     var voucherData: Voucher = Voucher() {
@@ -44,6 +45,12 @@ class BookingVoucherTableViewCell: ATTableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.paymentTypeImageView.isHidden = true
+        self.topDividerView.isHidden = true
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.topDividerView.isHidden = true
     }
     
     // MARK: - Override methods

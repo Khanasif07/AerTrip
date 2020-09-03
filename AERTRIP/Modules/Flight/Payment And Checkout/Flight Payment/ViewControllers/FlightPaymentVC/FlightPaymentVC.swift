@@ -66,7 +66,7 @@ class FlightPaymentVC: BaseVC {
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
         self.viewModel.delegate = self
-        self.viewModel.webServiceGetPaymentMethods()
+        self.viewModel.webServiceGetPaymentMethods(isWalletChnaged: false)
 //        self.viewModel.getItineraryData()
         self.addFooterView()
         self.payButton.addGredient(isVertical: false)
@@ -166,6 +166,14 @@ class FlightPaymentVC: BaseVC {
         }
     }
     
+    func updateConvenienceFee(){
+        if let razorPay = self.viewModel.paymentDetails?.paymentModes.razorPay {
+            self.convenienceRate = razorPay.convenienceFees
+            self.convenienceFeesWallet = razorPay.convenienceFeesWallet > 0 ? razorPay.convenienceFeesWallet : 0
+            self.setConvenienceFeeToBeApplied()
+        }
+    }
+    
     private func addFooterView() {
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 23))
         customView.backgroundColor = AppColors.themeGray04
@@ -228,8 +236,8 @@ class FlightPaymentVC: BaseVC {
             nav.dismiss(animated: true) {
                 delay(seconds: 0.0) {
                     if let vc = nav.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
-                        nav.popToViewController(vc, animated: true)
-                        vc.searchApiResult()
+//                        nav.popToViewController(vc, animated: true)
+                        vc.searchApiResult(flightItinary: self.viewModel.appliedCouponData)
                     }
                 }
             }
@@ -256,7 +264,7 @@ class FlightPaymentVC: BaseVC {
     // Get Available Wallet Amount
     func getWalletAmount() -> Double {
         if let walletAmount = self.viewModel.paymentDetails?.paymentDetails.wallet {
-            return walletAmount
+            return walletAmount.roundTo(places: 2)
         } else {
             return 0
         }
@@ -318,9 +326,12 @@ extension FlightPaymentVC: FlightCouponCodeVCDelegate {
         self.viewModel.appliedCouponData = appliedCouponData
         self.isCouponApplied = true
         self.viewModel.taxesDataDisplay()
-        delay(seconds: 0.3) { [weak self] in
-            self?.updateAllData()
-        }
+        self.viewModel.webServiceGetPaymentMethods(isWalletChnaged: true)
+//        self.viewModel.updateConvenienceFee()
+//        self.updateConvenienceFee()
+//        delay(seconds: 0.3) { [weak self] in
+//            self?.updateAllData()
+//        }
     }
 }
 
@@ -341,17 +352,20 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
         }
     }
     
-    func getPaymentsMethodsSuccess(){
-        if let razorPay = self.viewModel.paymentDetails?.paymentModes.razorPay {
-            self.convenienceRate = razorPay.convenienceFees
-            self.convenienceFeesWallet = razorPay.convenienceFeesWallet > 0 ? razorPay.convenienceFeesWallet : 0
-            self.setConvenienceFeeToBeApplied()
+    func willGetPaymetMenthods(){
+        self.hideShowLoader(isHidden: false)
+    }
+    
+    func getPaymentsMethodsSuccess(_ isWalletChnaged: Bool){
+        self.hideShowLoader(isHidden: true)
+        self.updateConvenienceFee()
+        if !isWalletChnaged{
+            self.isWallet = self.getWalletAmount() > 0
         }
-        self.isWallet = self.getWalletAmount() > 0
-        
         self.updateAllData()
     }
     func getPaymentMethodsFails(error: ErrorCodes){
+        self.hideShowLoader(isHidden: true)
         AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
     }
     
@@ -361,7 +375,10 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
         self.viewModel.appliedCouponData = appliedCouponData
         self.isCouponApplied = false
         self.viewModel.taxesDataDisplay()
-        self.updateAllData()
+        self.viewModel.webServiceGetPaymentMethods(isWalletChnaged: true)
+//        self.viewModel.updateConvenienceFee()
+//        self.updateConvenienceFee()
+//        self.updateAllData()
         printDebug(appliedCouponData)
     }
     
@@ -472,7 +489,7 @@ extension FlightPaymentVC : RazorpayPaymentCompletionProtocolWithData {
     }
     func onPaymentError(_ code: Int32, description str: String, andData response: [AnyHashable : Any]?) {
         self.hideShowLoader(isHidden: true)
-        AppToast.default.showToastMessage(message: "Sorry! payment was faild.\nPlease try again.")
+        AppToast.default.showToastMessage(message: LocalizedString.paymentFails.localized)//"Sorry! payment was faild.\nPlease try again.")
     }
     
     func onPaymentSuccess(_ payment_id: String, andData response: [AnyHashable : Any]?) {

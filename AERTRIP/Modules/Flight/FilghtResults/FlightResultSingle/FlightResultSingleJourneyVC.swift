@@ -195,6 +195,8 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             self.resultsTableView.isScrollEnabled = false
             self.resultsTableView.tableFooterView = nil
             
+            self.resultsTableView.bringSubviewToFront(self.bannerView!)
+            
         }
     }
     

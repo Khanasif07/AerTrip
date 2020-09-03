@@ -30,7 +30,7 @@ class ChatVC : BaseVC {
     @IBOutlet weak var suggestionsCollectionView: UICollectionView!
     @IBOutlet weak var sendButtonWidth: NSLayoutConstraint!
     @IBOutlet weak var collectionViewBottom: NSLayoutConstraint!
-    @IBOutlet weak var sepratorView: UIView!
+    @IBOutlet weak var sepratorView: ATDividerView!
     
     //MARK:- Variables
     private var name = "Guru"
@@ -48,7 +48,7 @@ class ChatVC : BaseVC {
         super.viewWillAppear(animated)
         IQKeyboardManager.shared().isEnabled = false
         IQKeyboardManager.shared().isEnableAutoToolbar = false
-        IQKeyboardManager.shared().shouldResignOnTouchOutside = true
+        IQKeyboardManager.shared().shouldResignOnTouchOutside = false
         addKeyboard()
         self.statusBarStyle = .default
     }
@@ -142,6 +142,7 @@ extension ChatVC {
         self.chatVm.getRecentHotels()
         self.chatVm.getRecentFlights()
         self.resetFrames()
+        self.messageTextView.becomeFirstResponder()
     }
     
     //MARK:- Set view attributes
@@ -459,6 +460,7 @@ extension ChatVC {
             UIView.animate(withDuration: 0.3) {
                 self.view.layoutIfNeeded()
             }
+            checkSendButtonStatus()
         }else if height < 44{
             resetFrames()
         }
@@ -469,6 +471,9 @@ extension ChatVC {
             self.chatBackViewHeight.constant = 44
             self.view.layoutIfNeeded()
         }
+        checkSendButtonStatus()
+    }
+    func checkSendButtonStatus() {
         self.sendButton.isHidden = messageTextView.text.isEmpty
     }
 }

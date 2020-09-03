@@ -25,7 +25,15 @@ class BookingHotelDetailVC: BaseVC {
         return AppFlowManager.default.mainNavigationController.navigationBar.bounds.height + AppFlowManager.default.safeAreaInsets.top
     }
     internal var completion: (() -> Void)? = nil
-    internal let hotelImageHeight: CGFloat = 211.0
+    internal var hotelImageHeight: CGFloat{
+        
+        if !(self.viewModel.bookingDetail?.bookingDetail?.atImageData.isEmpty ?? true){
+            return UIScreen.width
+        }else{
+            return 85.0
+        }
+        
+    }
     
     // MARK: - Override methods
     
@@ -55,6 +63,9 @@ class BookingHotelDetailVC: BaseVC {
         if self.viewModel.bookingDetail == nil {
             self.hotelDetailTableView.backgroundColor = AppColors.themeWhite
             self.viewModel.getBookingDetail()
+        }else{
+            self.setupTAViewmodel()
+            self.downloadImages()
         }
         
         self.completion = { [weak self] in
@@ -64,7 +75,6 @@ class BookingHotelDetailVC: BaseVC {
         if #available(iOS 13.0, *) {} else {
             self.navigationHeightConstraint.constant = 64
         }
-        
         
     }
     
@@ -95,27 +105,37 @@ class BookingHotelDetailVC: BaseVC {
         self.hotelDetailTableView.register(UINib(nibName: self.footerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.footerViewIdentifier)
         
         self.hotelDetailTableView.registerCell(nibName: HotelDetailsLoaderTableViewCell.reusableIdentifier)
+        self.hotelDetailTableView.registerCell(nibName: NoImageDetailsCell.reusableIdentifier)
 
     }
     
     // configure nav bar
     private func configureNavBar() {
-        //self.topNavBarHeightConstraint.constant = navBarHeight
-        //self.topNavigationView.configureNavBar(title: "", isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false,isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
         self.topNavigationView.configureNavBar(title: nil , isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
         
         self.topNavigationView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "CancelButtonWhite"), selectedImage: #imageLiteral(resourceName: "black_cross"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.topNavigationView.firstRightButton.imageEdgeInsets = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
+        self.topNavigationView.navTitleLabel.numberOfLines = 1
         self.topNavigationView.firstRightButtonTrailingConstraint.constant = -3
         //self.topNavigationView.configureLeftButton(normalImage: UIImage(named: "whiteBackIcon"), selectedImage: UIImage(named: "whiteBackIcon"))
         self.topNavigationView.delegate = self
         self.topNavigationView.backgroundColor = .clear
         self.view.bringSubviewToFront(self.topNavigationView)
     }
+    
+    func setupTAViewmodel(){
+        
+        TAViewModel.shared.clearData()
+        TAViewModel.shared.hotelId = self.viewModel.bookingDetail?.bookingDetail?.hotelId ?? ""
+        TAViewModel.shared.getTripAdvisorDetails()
+        
+    }
 }
 extension BookingHotelDetailVC: BookingHotelDetailVMDelgate {
     func getHotelDetailsSuccess() {
         self.hotelDetailTableView.backgroundColor = AppColors.themeGray04
+        self.setupTAViewmodel()
+        self.downloadImages()
         self.hotelDetailTableView.reloadData()
     }
     
@@ -128,6 +148,32 @@ extension BookingHotelDetailVC: BookingHotelDetailVMDelgate {
             }
         }
         AppToast.default.showToastMessage(message: LocalizedString.InformationUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonAction: self.completion)
+    }
+    
+    
+    func downloadImages(){
+        let downloadGroup = DispatchGroup()
+        for (index, image) in (self.viewModel.bookingDetail?.bookingDetail?.atImageData ?? []).enumerated(){
+            let imageView = UIImageView()
+            if let imageurl = image.imagePath{
+                downloadGroup.enter()
+                imageView.setImageWithUrl(imageUrl: imageurl, placeholder: UIImage(), showIndicator: false) {[weak self] (img, err) in
+                    guard let self = self else { return ()}
+                    self.viewModel.bookingDetail?.bookingDetail?.atImageData[index].image = img
+                    downloadGroup.leave()
+                    return ()
+                }
+            }
+        }
+        downloadGroup.notify(queue: .main) {
+            for image in (self.viewModel.bookingDetail?.bookingDetail?.atImageData ?? []){
+                if image.image == nil, let index = self.viewModel.bookingDetail?.bookingDetail?.atImageData.firstIndex(where: {$0.imagePath == image.imagePath}){
+                    self.viewModel.bookingDetail?.bookingDetail?.atImageData.remove(at: index)
+                    self.viewModel.bookingDetail?.bookingDetail?.photos.remove(at: index)
+                }
+            }
+            self.hotelDetailTableView.reloadData()
+        }
     }
     
     

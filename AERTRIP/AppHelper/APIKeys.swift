@@ -342,7 +342,8 @@ enum APIKeys: String {
     case per_night_cost
     case num_guests
     case currency_code
-    
+    case currency_icon
+
     // Final Checkout VC
     case grossAmout = "gross_amount"
     case netAmount = "net_amount"
@@ -360,6 +361,7 @@ enum APIKeys: String {
     case ptype
     case zip
     case telephone = "tel"
+    case phone
     case total_usage_limit
     case per_user_usage_limit
     case is_payment_method_mapped
@@ -440,7 +442,7 @@ enum APIKeys: String {
     case new_password = "new_password"
     case event_start_date = "event_start_date"
     case event_end_date = "event_end_date"
-
+    case extra_data = "extra_data"
     
     //MARK:- ChatBot
     
@@ -452,4 +454,8 @@ enum APIKeys: String {
     case origin = "origin"
     case cabinClass = "cabinClass"
     
+    case emailAddress = "emailAddress"
+    case birthday = "birthday"
+    case profile = "profile"
+
 }

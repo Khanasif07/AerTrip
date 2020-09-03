@@ -32,7 +32,7 @@ class HCWhatNextCollectionViewCell: UICollectionViewCell {
     ///COnfigure UI
     private func configUI() {
         //UI
-        self.shadowView.addShadow(cornerRadius: 13, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+        self.shadowView.addShadow(cornerRadius: 13, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.16), offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
         self.containerView.cornerRadius = 13.0
         self.containerView.clipsToBounds = true
         //Image
@@ -42,7 +42,7 @@ class HCWhatNextCollectionViewCell: UICollectionViewCell {
         //Text
         
         //Color
-        self.nextPlanLabel.textColor = AppColors.textFieldTextColor51
+        self.nextPlanLabel.textColor = AppColors.themeBlack
        
     }
     

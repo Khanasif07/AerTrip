@@ -10,16 +10,17 @@ import Foundation
 
 extension APICaller {
 
-    func getCurrencies(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: [PKCountryModel]) -> Void) {
+    func getCurrencies(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: [CurrencyModel]) -> Void) {
         AppNetworking.GET(endPoint: APIEndPoint.currencies, parameters: params, success: { [weak self] json in
             guard let sSelf = self else { return }
             printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
                 
                 if sucess {
-                   let currencies = json[APIKeys.data.rawValue].arrayValue.map { (jsonObj) -> PKCountryModel in
-                        return PKCountryModel(json: jsonObj)
-                    }
+//                   let currencies = json[APIKeys.data.rawValue].arrayValue.map { (jsonObj) -> PKCountryModel in
+//                        return PKCountryModel(json: jsonObj)
+//                    }
+                    let currencies = CurrencyModel.retunCurrencyModelArray(json: json[APIKeys.data.rawValue].array?.first ?? JSON())
                     completionBlock(true,currencies)
                 }else{
                     completionBlock(false,[])

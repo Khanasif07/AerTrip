@@ -43,6 +43,8 @@ import UIKit
         }
     }
     
+    var editingBottom:CGFloat = 4.0
+    
     /// A Boolean value that determines whether the textfield is being edited or is selected.
     open var editingOrSelected: Bool {
         return super.isEditing || isSelected
@@ -164,6 +166,10 @@ import UIKit
 		setupSubviews()
 	}
 	
+    deinit {
+        printDebug("PKFloatLabelTextField deinit")
+    }
+    
 	// MARK:- Overrides
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if self.isSelectionOptionEnabled {
@@ -227,7 +233,7 @@ import UIKit
             updateLineView(isEditing: true)
 			var top = ceil(title.font.lineHeight + hintYPadding)
 			top = min(top, maxTopInset())
-            r = r.inset(by: UIEdgeInsets(top: top, left: 0.0, bottom: 4, right: 0.0))
+            r = r.inset(by: UIEdgeInsets(top: top, left: 0.0, bottom: editingBottom, right: 0.0))
         } else {
             UIView.animate(withDuration: 0.0) { [weak self] in
                 self?.updateLineView(isEditing: false)

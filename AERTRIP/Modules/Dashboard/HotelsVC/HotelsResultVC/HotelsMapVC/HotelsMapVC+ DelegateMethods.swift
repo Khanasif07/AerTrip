@@ -73,8 +73,6 @@ extension HotelsMapVC: UISearchBarDelegate {
 
 extension HotelsMapVC: ATSwitcherChangeValueDelegate {
     func switcherDidChangeValue(switcher: ATSwitcher, value: Bool) {
-        self.viewModel.isFavouriteOn = value
-        self.viewModel.loadSaveData()
         if value {
                 self.floatingButtonOnMapView.isHidden = false
             self.animateButton()
@@ -82,15 +80,19 @@ extension HotelsMapVC: ATSwitcherChangeValueDelegate {
         else {
             self.hideFavsButtons()
         }
+         delay(seconds: 0.2) { [weak self] in
+        self?.viewModel.isFavouriteOn = value
+        self?.viewModel.loadSaveData()
         //self.updateMarkers()
             //if user in map view then update map focus as fav switch changed.
-        resetAllMarker()
+            self?.resetAllMarker()
+        }
     }
     
-    func resetAllMarker() {
+    func resetAllMarker(isNeedToShowAll: Bool = false) {
         self.appleMap.removeAnnotations(self.appleMap.annotations)
         self.detailsShownMarkers = []
-        self.addAllMarker()
+        self.addAllMarker(isNeedToShowAll: isNeedToShowAll)
             delay(seconds: 0.4) { [weak self] in
                 guard let strongSelf = self else {return}
                 //                let indexOfMajorCell = strongSelf.indexOfMajorCell()
@@ -180,7 +182,7 @@ extension HotelsMapVC: HotelResultDelegate {
         self.filterButton.isEnabled = true
 //        self.addMapView()
         self.reloadHotelList()
-        resetAllMarker()
+        resetAllMarker(isNeedToShowAll: true)
         delay(seconds: 0.4) { [weak self] in
             self?.adjustMapPadding()
         }
@@ -197,15 +199,15 @@ extension HotelsMapVC: HotelResultDelegate {
     
     
     func willGetPinnedTemplate() {
-        AppGlobals.shared.startLoading()
+       // AppGlobals.shared.startLoading()
     }
     
     func getPinnedTemplateSuccess() {
-        AppGlobals.shared.stopLoading()
+       // AppGlobals.shared.stopLoading()
     }
     
     func getPinnedTemplateFail() {
-        AppGlobals.shared.stopLoading()
+       // AppGlobals.shared.stopLoading()
     }
     
     func willUpdateFavourite() {
@@ -423,6 +425,12 @@ extension HotelsMapVC: CLLocationManagerDelegate {
 extension HotelsMapVC: HotelDetailsVCDelegate {
     func hotelFavouriteUpdated() {
         //work of this method has been handeled in data changed also, we can remove HotelDetailsVCDelegate after confirming with team.
+    }
+    
+    func imageUpdated() {
+        if let indexPath = self.selectedIndexPath {
+            self.hotelsMapCV.reloadItems(at: [indexPath])
+        }
     }
 }
 

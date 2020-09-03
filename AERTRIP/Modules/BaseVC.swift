@@ -80,9 +80,9 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
             backV.sendSubviewToBack(blurEffectView)
         }
         
-        delay(seconds: 0.1) {
-            self.setupLayout()
-        }
+//        delay(seconds: 0.1) {
+//            self.setupLayout()
+//        }
         IQKeyboardManager.shared().toolbarTintColor = AppColors.themeGreen
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().isEnableAutoToolbar = true
@@ -100,7 +100,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        self.setupLayout()
+       // self.setupLayout()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -209,6 +209,10 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         //function intended to override
     }
     
+    @objc func statusBarTapped(_ note: Notification) {
+        //function intended to override
+    }
+    
     final func sendDataChangedNotification(data: Any?) {
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .dataChanged, object: data)
@@ -236,7 +240,6 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
-
         printDebug("deinit")
     }
 }
@@ -265,9 +268,9 @@ extension BaseVC {
     }
     
     /// Setup Layout
-    @objc func setupLayout() {
-        
-    }
+//    @objc func setupLayout() {
+//
+//    }
     
     /// Setup up Nav Bar
     

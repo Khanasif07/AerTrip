@@ -48,6 +48,7 @@ class HCDataSelectionVC: BaseVC {
     @IBOutlet weak var totalFareAmountLabel: UILabel!
     @IBOutlet weak var loaderContainerView: UIView!
     @IBOutlet weak var activityLoader: UIActivityIndicatorView!
+    @IBOutlet weak var fareDetailBlackView: UIView!
     
     // MARK: - Properties
     
@@ -85,6 +86,7 @@ class HCDataSelectionVC: BaseVC {
         continueContainerView.backgroundColor = .clear
         continueGradientView.addGredient(isVertical: false)
         viewModel.fetchConfirmItineraryData()
+        //        self.fetchConfirmItineraryDataSuccess()
         fillData()
         
         //        manageLoader(shouldStart: true)
@@ -218,7 +220,7 @@ class HCDataSelectionVC: BaseVC {
         topNavView.delegate = self
         topNavView.configureNavBar(title: LocalizedString.Guests.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
         
-        topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "plusButton2"), selectedImage: #imageLiteral(resourceName: "plusButton2"))
+        topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "AddPassenger"), selectedImage: #imageLiteral(resourceName: "AddPassenger"))
     }
     
     private func registerXIBs() {
@@ -254,14 +256,18 @@ class HCDataSelectionVC: BaseVC {
     
     private func animateFareDetails(isHidden: Bool, animated: Bool) {
         let rotateTrans = isHidden ? CGAffineTransform.identity : CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+        var blackViewAlpha: CGFloat = 1.0
         if !isHidden {
             fareDetailContainerView.isHidden = false
+            fareDetailBlackView.isHidden = false
+            blackViewAlpha = 1.0
             if isHotelDetailsCheckOutViewOpen {
                 //                self.hotelCheckOutDetailsContainerVIew.transform = CGAffineTransform(translationX: 0, y: view.height - (hotelDetailsParentContainerView.height + fareDetailContainerView.height + AppFlowManager.default.safeAreaInsets.top))
                 hotelDetailsContainerViewHeightConstraint.constant = view.height - (hotelDetailsParentContainerView.height + fareDetailContainerView.height)
             }
         }
         else {
+            blackViewAlpha = 0.0
             if isHotelDetailsCheckOutViewOpen {
                 //                 self.hotelCheckOutDetailsContainerVIew.transform = CGAffineTransform(translationX: 0, y: view.height - (hotelDetailsParentContainerView.height +  AppFlowManager.default.safeAreaInsets.top))
                 hotelDetailsContainerViewHeightConstraint.constant = view.height - (hotelDetailsParentContainerView.height )
@@ -274,11 +280,13 @@ class HCDataSelectionVC: BaseVC {
             sSelf.fareDetailBottomConstraint.constant = isHidden ? -(sSelf.fareDetailContainerView.height) : safeDistance
             sSelf.upArrowImageView.transform = rotateTrans
             sSelf.continueViewBottomConstraint.constant = isHidden ? safeDistance : 0
+            sSelf.fareDetailBlackView.alpha = blackViewAlpha
             sSelf.view.layoutIfNeeded()
             
             }, completion: { [weak self] _ in
                 if isHidden {
                     self?.fareDetailContainerView.isHidden = true
+                    self?.fareDetailBlackView.isHidden = true
                 }
         })
     }
@@ -296,7 +304,7 @@ class HCDataSelectionVC: BaseVC {
                     guest.id = "\(j + 1)"
                 }
                 else {
-                    guest.passengerType = PassengersType.child
+                    guest.passengerType = PassengersType.Child
                     let childIdx = (j - hotelFormData.adultsCount[i])
                     guest.numberInRoom = childIdx + 1
                     guest.age = hotelFormData.childrenAge[i][childIdx]
@@ -326,17 +334,22 @@ class HCDataSelectionVC: BaseVC {
     func startLoading() {
         self.continueButtonActivityIndicator.isHidden = false
         self.continueButtonActivityIndicator.startAnimating()
+        self.view.isUserInteractionEnabled = false
         self.continueButton.isHidden = true
     }
     
     func stopLoading() {
         self.continueButtonActivityIndicator.isHidden = true
         self.continueButtonActivityIndicator.stopAnimating()
+        self.view.isUserInteractionEnabled = true
         self.continueButton.isHidden = false
     }
     // MARK: - Public
     
     // MARK: - Action
+    @IBAction func fareDetailBackgroundTapped(_ sender: Any) {
+        toggleFareDetailView()
+    }
     
     @IBAction func fareInfoButtonAction(_ sender: UIButton) {
         toggleFareDetailView()
@@ -359,46 +372,46 @@ class HCDataSelectionVC: BaseVC {
     
     @IBAction func detailsButtonAction(_ sender: UIButton) {
         if viewModel.itineraryData != nil {
-//            hotelDetailsContainerView.isHidden = true
-//            hotelCheckOutDetailsContainerVIew.isHidden = false
-//            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-//                if self.fareDetailContainerView.isHidden {
-//                    self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (UIDevice.isIPhoneX   ?  self.hotelDetailsParentContainerView.height /*+  AppFlowManager.default.safeAreaInsets.top - 5 */:  self.hotelDetailsParentContainerView.height + 3)
-//                }
-//                else {
-//                    self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + self.fareDetailContainerView.height/* + AppFlowManager.default.safeAreaInsets.top */)
-//                }
-//                self.view.layoutIfNeeded()
-//            }, completion: { [weak self] _ in
-//                self?.isHotelDetailsCheckOutViewOpen = true
-//                self?.hotelCheckOutDetailsContainerVIew?.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
-//                //self?.statusBarColor = AppColors.themeGray140
-//
-//            })
+            //            hotelDetailsContainerView.isHidden = true
+            //            hotelCheckOutDetailsContainerVIew.isHidden = false
+            //            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+            //                if self.fareDetailContainerView.isHidden {
+            //                    self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (UIDevice.isIPhoneX   ?  self.hotelDetailsParentContainerView.height /*+  AppFlowManager.default.safeAreaInsets.top - 5 */:  self.hotelDetailsParentContainerView.height + 3)
+            //                }
+            //                else {
+            //                    self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + self.fareDetailContainerView.height/* + AppFlowManager.default.safeAreaInsets.top */)
+            //                }
+            //                self.view.layoutIfNeeded()
+            //            }, completion: { [weak self] _ in
+            //                self?.isHotelDetailsCheckOutViewOpen = true
+            //                self?.hotelCheckOutDetailsContainerVIew?.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+            //                //self?.statusBarColor = AppColors.themeGray140
+            //
+            //            })
             AppFlowManager.default.moveToHotelCheckoutDetailVC(viewModel: self.viewModel, delegate: self)
         }
         
-    
+        
     }
 }
 
 extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     func updateFavouriteSuccess(withMessage: String) {
-//        if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
-//            //            hotelCheckOutDetailsVIew.hotelDetailsTableView.reloadData()
-//            sendDataChangedNotification(data: self)
-//            let buttonImage: UIImage = viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
-//            hotelCheckOutDetailsVIew.headerView.leftButton.setImage(buttonImage, for: .normal)
-//        }
+        //        if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
+        //            //            hotelCheckOutDetailsVIew.hotelDetailsTableView.reloadData()
+        //            sendDataChangedNotification(data: self)
+        //            let buttonImage: UIImage = viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
+        //            hotelCheckOutDetailsVIew.headerView.leftButton.setImage(buttonImage, for: .normal)
+        //        }
     }
     
     func updateFavouriteFail(errors: ErrorCodes) {
         AppNetworking.hideLoader()
-//        if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
-//            sendDataChangedNotification(data: self)
-//            let buttonImage: UIImage = viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
-//            hotelCheckOutDetailsVIew.headerView.leftButton.setImage(buttonImage, for: .normal)
-//        }
+        //        if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
+        //            sendDataChangedNotification(data: self)
+        //            let buttonImage: UIImage = viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
+        //            hotelCheckOutDetailsVIew.headerView.leftButton.setImage(buttonImage, for: .normal)
+        //        }
         if let _ = UserInfo.loggedInUser {
             if errors.contains(array: [-1]) {
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
@@ -455,39 +468,39 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
         else {
             HCSelectGuestsVM.shared.clearAllSelectedData()
             GuestDetailsVM.shared.travellerList = viewModel.itineraryData?.traveller_master ?? []
-            //            manageLoader(shouldStart: false)
-            //            AppGlobals.shared.stopLoading()
+            manageLoader(shouldStart: false)
+            AppGlobals.shared.stopLoading()
             self.fillData()
             self.viewModel.getHotelDetailsSectionData()
         }
         self.tableView.reloadData()
         if (self.viewModel.itineraryData?.hotelDetails?.is_price_change ?? false) {
-                    
-                    if let newAmount = viewModel.itineraryData?.total_fare, let oldAmount = self.viewModel.detailPageRoomRate?.price  {
-                        
-                        let diff = newAmount - oldAmount
-                        if diff > 0 {
-                            // increased
-                            FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: diff, totalUpdatedAmount: newAmount, continueButtonAction: { [weak self] in
-                                guard let sSelf = self else { return }
-        //                        sSelf.sendToFinalCheckoutVC()
-                                }, goBackButtonAction: { [weak self] in
-                                    guard let sSelf = self else { return }
-                                    sSelf.delegate?.updateFarePrice()
-                                    sSelf.topNavBarLeftButtonAction(sSelf.topNavView.leftButton)
-                            })
-                        }
-                        else if diff < 0 {
-                            // dipped
-        //                    FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: -diff, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
-        //                    delay(seconds: 2.0) { [weak self] in
-        //                        guard let sSelf = self else { return }
-        //                        sSelf.sendToFinalCheckoutVC()
-        //                    }
-                        }
-                        
-                    }
+            
+            if let newAmount = viewModel.itineraryData?.total_fare, let oldAmount = self.viewModel.detailPageRoomRate?.price  {
+                
+                let diff = newAmount - oldAmount
+                if diff > 0 {
+                    // increased
+                    FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: diff, totalUpdatedAmount: newAmount, continueButtonAction: { [weak self] in
+                        guard let sSelf = self else { return }
+                        //                        sSelf.sendToFinalCheckoutVC()
+                        }, goBackButtonAction: { [weak self] in
+                            guard let sSelf = self else { return }
+                            sSelf.delegate?.updateFarePrice()
+                            sSelf.topNavBarLeftButtonAction(sSelf.topNavView.leftButton)
+                    })
                 }
+                else if diff < 0 {
+                    // dipped
+                    //                    FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: -diff, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
+                    //                    delay(seconds: 2.0) { [weak self] in
+                    //                        guard let sSelf = self else { return }
+                    //                        sSelf.sendToFinalCheckoutVC()
+                    //                    }
+                }
+                
+            }
+        }
     }
     
     func fetchConfirmItineraryDataFail(errors: ErrorCodes) {
@@ -554,9 +567,9 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
         //        self.mainIndicatorView.isHidden = true
         
         func fetchIternaryData() {
-        if viewModel.isValidateData(vc: self) {
-            viewModel.webserviceForItenaryDataTraveller()
-        }
+            if viewModel.isValidateData(vc: self) {
+                viewModel.webserviceForItenaryDataTraveller()
+            }
         }
         
         if let oldAmount = viewModel.itineraryData?.total_fare {
@@ -632,7 +645,7 @@ extension HCDataSelectionVC: HCSelectGuestsVCDelegate {
 
 extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return hotelFormData.adultsCount.count + 9
+        return hotelFormData.adultsCount.count + 11
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -683,7 +696,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
         }
         else {
             switch newRow {
-            case 0, 2, 8:
+            case 0, 2, 8, 10:
                 // space
                 return 35.0
                 
@@ -711,6 +724,10 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 //pan card
                 return (self.viewModel.itineraryData?.hotelDetails?.pan_required ?? false) ? 60.0 : CGFloat.leastNormalMagnitude
                 
+            case 9:
+                //Travel Safety Guidelines
+                return 44.0
+                
             default:
                 return 0.0
             }
@@ -731,7 +748,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
         }
         else {
             switch newRow {
-            case 0, 2, 8:
+            case 0, 2, 8, 10:
                 // space
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.reusableIdentifier) as? EmptyTableViewCell else {
                     return UITableViewCell()
@@ -739,7 +756,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 
                 cell.contentView.backgroundColor = AppColors.themeGray04
                 cell.backgroundColor = AppColors.themeGray04
-                cell.bottomDividerView.isHidden = newRow == 8
+                cell.bottomDividerView.isHidden = newRow == 10
                 
                 return cell
                 
@@ -784,19 +801,19 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: HCEmailTextFieldCell.reusableIdentifier) as? HCEmailTextFieldCell else {
                     return UITableViewCell()
                 }
-
+                
                 cell.editableTextField.isEnabled = UserInfo.loggedInUserId == nil
                 cell.editableTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.Email_ID.localized,with: "")
                 cell.delegate = self
                 cell.editableTextField.text = viewModel.email
-                cell.editableTextField.font = AppFonts.Regular.withSize(18.0)
+//                cell.editableTextField.font = AppFonts.Regular.withSize(18.0)
                 cell.editableTextField.textColor = UserInfo.loggedInUserId == nil ? AppColors.themeBlack : AppColors.themeGray40
                 cell.editableTextField.keyboardType = .emailAddress
                 
                 if viewModel.canShowErrorForEmailPhone {
                     cell.checkForErrorStateOfTextfield()
                 }
-                
+                cell.editableTextField.font = AppFonts.Regular.withSize(18.0)
                 return cell
                 
             case 6:
@@ -829,6 +846,12 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 return cell
                 
+            case 9:
+                // Travel Safety Guidelines
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: HCDataSelectionTravelSafetyCell.reusableIdentifier) as? HCDataSelectionTravelSafetyCell else {
+                    return UITableViewCell()
+                }
+                return cell
             default:
                 return UITableViewCell()
             }
@@ -839,6 +862,8 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
         // Redirect to Selection Preference VC
         if let _ = tableView.cellForRow(at: indexPath) as? HCDataSelectionPrefrencesCell, let specialRequests = self.viewModel.itineraryData?.special_requests {
             AppFlowManager.default.presentHCSpecialRequestsVC(specialRequests: specialRequests,selectedRequestIds: self.viewModel.selectedSpecialRequest, selectedRequestNames: self.viewModel.selectedRequestsName, other: self.viewModel.other, specialRequest: self.viewModel.specialRequest,delegate: self)
+        } else if let _ = tableView.cellForRow(at: indexPath) as? HCDataSelectionTravelSafetyCell {
+            AppToast.default.showToastMessage(message: LocalizedString.UnderDevelopment.localized)
         }
     }
     

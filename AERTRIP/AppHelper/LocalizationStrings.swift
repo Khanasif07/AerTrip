@@ -31,7 +31,8 @@ enum LocalizedString: String {
     case apply = "Apply"
     case For
     case Already
-    
+    case ALL
+
     // MARK: - TextField validation
     
     // MARK: -
@@ -345,12 +346,15 @@ enum LocalizedString: String {
     case CantCreateGroupWithThisName
     
     // MARK: - Import Contacts
-    
+    case ImportingContacts
+    case ThisMightTakeSomeTime
+
     // MARK: -
     
     case Contacts
     case Google
     case LinkedIn
+    case Apple
     case ImportContactMessage
     case ImportFacebookMessage
     case ImportGoogleMessage
@@ -361,6 +365,7 @@ enum LocalizedString: String {
     case ConnectWithFB
     case ConnectWithLinkedIn
     case ContactsSelected
+    case ContactSelected
     case NoContactsFetched
     case SelectContactsToImport
     
@@ -407,7 +412,8 @@ enum LocalizedString: String {
     case ChildAges
     case MostHotelsTypicallyAllow
     case ageInYrs
-    
+    case MaxGuestSelectionMessage
+
     // MARK: - Destination Selection
     
     case CityAreaOrHotels
@@ -573,6 +579,7 @@ enum LocalizedString: String {
     case Unfavourite
     case ShowingResultsFor
     case Clear
+    case viewMorePhoto
 
     // Mail Composer View
     case ContactUsAertrip
@@ -614,6 +621,7 @@ enum LocalizedString: String {
     case PanCard
     case EnterPanCardMessage
     case FirstLastNameCharacterLimitMessage
+    case TravelSafetyGuidelines
 
     
     // Hotel Checkout Coupons VC
@@ -651,7 +659,9 @@ enum LocalizedString: String {
     case PerAdult
     case PerChild
     case PerInfant
-
+    case WeHaveNotedYourBookingRequirement
+    case WeHaveNotedYourBookingRequirementMessage
+    case paymentFails
     
     // Select Guests
     case SelectGuests

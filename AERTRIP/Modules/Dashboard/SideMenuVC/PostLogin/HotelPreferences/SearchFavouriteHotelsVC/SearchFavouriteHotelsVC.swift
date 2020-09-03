@@ -56,22 +56,33 @@ class SearchFavouriteHotelsVC: BaseVC {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        adjustEmptyView()
+    }
     
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
     
     override func keyboardWillShow(notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             printDebug("notification: Keyboard will show")
-            emptyView.mainImageViewTopConstraint.constant = -keyboardSize.height
-        }
+//            let height = (collectionView.height - emptyView.containerView.height - 60)/2
+//            emptyView.containerViewCenterYConstraint.constant = -(height)//-keyboardSize.height
+        adjustEmptyView()
+//        }
+        
+    }
+    private func adjustEmptyView() {
+        let height = (collectionView.height - emptyView.containerView.height - 60)/2
+        emptyView.containerViewCenterYConstraint.constant = -(height)//-keyboardSize.height
     }
     
     override func keyboardWillHide(notification: Notification) {
         if ((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
             printDebug("notificatin:Keyboard will hide")
-            emptyView.mainImageViewTopConstraint.constant =  UIScreen.main.bounds.origin.y
+            emptyView.containerViewCenterYConstraint.constant =  0//UIScreen.main.bounds.origin.y
             
         }
     }
@@ -95,6 +106,7 @@ class SearchFavouriteHotelsVC: BaseVC {
         //setup indicator view
         indicatorView.color = AppColors.themeGreen
         self.stopLoading()
+        self.view.layoutIfNeeded()
     }
     
     private func startLoading() {

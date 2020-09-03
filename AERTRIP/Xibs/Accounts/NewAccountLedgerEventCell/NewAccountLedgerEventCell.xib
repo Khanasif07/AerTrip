@@ -77,16 +77,16 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="128" height="43"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TrY-If-h9e">
-                                                        <rect key="frame" x="0.0" y="0.0" width="128" height="24"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="128" height="23"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="24" id="vp0-Kh-0e6"/>
+                                                            <constraint firstAttribute="height" constant="23" id="vp0-Kh-0e6"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r6i-of-sNx">
-                                                        <rect key="frame" x="0.0" y="27" width="128" height="16"/>
+                                                        <rect key="frame" x="0.0" y="26" width="128" height="17"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -97,16 +97,16 @@
                                                 <rect key="frame" x="128" y="0.0" width="128" height="43"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tzy-op-FT4">
-                                                        <rect key="frame" x="0.0" y="0.0" width="128" height="24"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="128" height="23"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="24" id="RFk-gM-ysZ"/>
+                                                            <constraint firstAttribute="height" constant="23" id="RFk-gM-ysZ"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8G1-Tg-U2o">
-                                                        <rect key="frame" x="0.0" y="27" width="128" height="16"/>
+                                                        <rect key="frame" x="0.0" y="26" width="128" height="17"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>

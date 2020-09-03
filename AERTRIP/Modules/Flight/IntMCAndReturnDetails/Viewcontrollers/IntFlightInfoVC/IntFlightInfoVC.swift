@@ -743,10 +743,12 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 arrivalPerformanceView.cancelledPerformanceInPercent = flight.cancelledPerformance!
                 arrivalPerformanceView.delayedPerformanceInPercent = flight.latePerformance!
                 arrivalPerformanceView.onTimePerformanceInPercent = flight.ontimePerformance!
-                arrivalPerformanceView.view.frame = self.parent!.view.bounds
-                self.parent!.view.addSubview(arrivalPerformanceView.view)
-                self.parent!.addChild(arrivalPerformanceView)
-                arrivalPerformanceView.willMove(toParent: self)
+                arrivalPerformanceView.modalPresentationStyle = .overFullScreen
+                self.present(arrivalPerformanceView, animated: false, completion: nil)
+//                arrivalPerformanceView.view.frame = self.parent!.view.bounds
+//                self.parent!.view.addSubview(arrivalPerformanceView.view)
+//                self.parent!.addChild(arrivalPerformanceView)
+//                arrivalPerformanceView.willMove(toParent: self)
             }
         }
     }

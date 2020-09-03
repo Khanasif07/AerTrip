@@ -84,10 +84,10 @@ class PassengerDetailsCell: UICollectionViewCell {
                 case .Adult:
                     iconImageView.image = #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
                     finalText = "\(LocalizedString.Adult.localized) \(self.contact?.numberInRoom ?? 0)"
-                case .child:
+                case .Child:
                     iconImageView.image = #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
                     finalText = "\(LocalizedString.Child.localized) \(self.contact?.numberInRoom ?? 0)"
-                case .infant:
+                case .Infant:
                     iconImageView.image = #imageLiteral(resourceName: "ic_deselected_hotel_guest_infant")
                     finalText = "\(LocalizedString.Infant.localized) \(self.contact?.numberInRoom ?? 0)"
                 }
@@ -155,7 +155,7 @@ class PassengerDetailsCell: UICollectionViewCell {
         switch guest.passengerType{
         case .Adult:
             break;
-        case .infant, .child:
+        case .Infant, .Child:
             if guest.displayDob.isEmpty{
                 infoImageView.isHidden = false
             }
@@ -187,12 +187,12 @@ class PassengerDetailsCell: UICollectionViewCell {
                 guard let indx = self.innerCellIndex else {return}
                 switch type{
                 case .Adult:break
-                case .child:
+                case .Child:
                     if !self.calculateAge(with: 12){
                         GuestDetailsVM.shared.guests[0][indx.row].dob = ""
                         self.infoImageView.isHidden = false
                     }
-                case .infant:
+                case .Infant:
                     if !self.calculateAge(with: 2){
                         GuestDetailsVM.shared.guests[0][indx.row].dob = ""
                         self.infoImageView.isHidden = false

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17147" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17120"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -31,7 +32,7 @@
                                     <rect key="frame" x="0.0" y="117.5" width="375" height="171"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NRv-ny-DuO">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NRv-ny-DuO" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
                                             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
@@ -85,6 +86,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="jcT-ab-lF8"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="lbP-xl-q27" firstAttribute="top" secondItem="zEc-Oe-p41" secondAttribute="bottom" id="Di1-Co-Q7T"/>
@@ -95,7 +97,6 @@
                             <constraint firstItem="zEc-Oe-p41" firstAttribute="top" secondItem="jcT-ab-lF8" secondAttribute="top" id="sZG-Ld-fj7"/>
                             <constraint firstItem="jcT-ab-lF8" firstAttribute="trailing" secondItem="zEc-Oe-p41" secondAttribute="trailing" id="vbE-nl-sUJ"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="jcT-ab-lF8"/>
                     </view>
                     <connections>
                         <outlet property="copyRightLabel" destination="gCL-ZI-6RO" id="7Hc-cQ-HK2"/>
@@ -178,7 +179,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="AxX-xj-RI2" secondAttribute="trailing" constant="16" id="7cp-5g-ydI"/>
                                     <constraint firstAttribute="height" constant="52" id="Npk-mr-NCZ"/>
@@ -190,6 +191,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="kcg-Ig-V90"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ORh-v3-htr" firstAttribute="leading" secondItem="kcg-Ig-V90" secondAttribute="leading" id="DYB-3D-OCl"/>
@@ -203,7 +205,6 @@
                             <constraint firstItem="je3-Vo-fAu" firstAttribute="top" secondItem="kcg-Ig-V90" secondAttribute="top" id="td8-TS-lP7"/>
                             <constraint firstItem="Grc-nl-Gvn" firstAttribute="leading" secondItem="kcg-Ig-V90" secondAttribute="leading" id="udK-Pq-QUC"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="kcg-Ig-V90"/>
                     </view>
                     <connections>
                         <outlet property="countryTableView" destination="ORh-v3-htr" id="Ntj-4a-509"/>
@@ -287,7 +288,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="rh1-7C-Tok" firstAttribute="top" secondItem="6Qh-Hh-DoL" secondAttribute="top" constant="8" id="2Gd-7m-uVT"/>
                                     <constraint firstAttribute="bottom" secondItem="Ozx-OB-bR7" secondAttribute="bottom" id="6sc-X3-OPM"/>
@@ -299,6 +300,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="4Bv-2i-N2k"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="4Bv-2i-N2k" firstAttribute="trailing" secondItem="Erc-5Z-ktL" secondAttribute="trailing" id="FVh-GT-Uv7"/>
@@ -312,7 +314,6 @@
                             <constraint firstItem="4Bv-2i-N2k" firstAttribute="trailing" secondItem="6Qh-Hh-DoL" secondAttribute="trailing" id="rEu-FO-AaL"/>
                             <constraint firstItem="yDI-Q3-4IA" firstAttribute="leading" secondItem="4Bv-2i-N2k" secondAttribute="leading" id="wfa-x5-8Rl"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="4Bv-2i-N2k"/>
                     </view>
                     <connections>
                         <outlet property="currencyTableView" destination="Erc-5Z-ktL" id="mo7-gz-JsU"/>
@@ -363,6 +364,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="jpH-nX-bbb"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="iaF-oq-xOr" secondAttribute="bottom" id="Atg-qs-lCu"/>
@@ -373,7 +375,6 @@
                             <constraint firstItem="jpH-nX-bbb" firstAttribute="trailing" secondItem="nga-dw-0gY" secondAttribute="trailing" id="u5Q-YF-qlo"/>
                             <constraint firstItem="iaF-oq-xOr" firstAttribute="top" secondItem="nga-dw-0gY" secondAttribute="bottom" id="uVx-ug-PM0"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="jpH-nX-bbb"/>
                     </view>
                     <connections>
                         <outlet property="notificationSettingsTableView" destination="iaF-oq-xOr" id="9Vs-jC-f3U"/>
@@ -408,6 +409,7 @@
                                 </wkWebViewConfiguration>
                             </wkWebView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="ZUC-am-U1K"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="HAs-w1-4WN" secondAttribute="bottom" id="BLa-WV-pYs"/>
@@ -418,7 +420,6 @@
                             <constraint firstItem="5mP-38-vfU" firstAttribute="leading" secondItem="ZUC-am-U1K" secondAttribute="leading" id="utm-u5-3oo"/>
                             <constraint firstItem="5mP-38-vfU" firstAttribute="top" secondItem="ZUC-am-U1K" secondAttribute="top" id="zcg-P9-AeU"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="ZUC-am-U1K"/>
                     </view>
                     <connections>
                         <outlet property="topNavView" destination="5mP-38-vfU" id="XcW-4K-yEz"/>
@@ -433,5 +434,8 @@
     <resources>
         <image name="ic_search_mic" width="36" height="36"/>
         <image name="searchBarIcon" width="14" height="14"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

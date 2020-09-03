@@ -102,9 +102,9 @@ class SelectedContactCollectionCell: UICollectionViewCell {
                 switch type{
                 case .Adult:
                     self.nameLabel.text = "\(LocalizedString.Adult.localized) \(number)"
-                case .child:
+                case .Child:
                     self.nameLabel.text = "\(LocalizedString.Child.localized) \(number)"
-                case .infant:
+                case .Infant:
                    self.nameLabel.text = "\(LocalizedString.Infant.localized) \(number)"
                 }
 //                self.nameLabel.text = (type == PassengersType.Adult) ? "\(LocalizedString.Adult.localized) \(number)" : "\(LocalizedString.Child.localized) \(number)"
@@ -135,9 +135,9 @@ class SelectedContactCollectionCell: UICollectionViewCell {
                     switch ptype{
                     case .Adult:
                         placeHolder = #imageLiteral(resourceName: "ic_selected_hotel_guest_adult")
-                    case .child:
+                    case .Child:
                         placeHolder = #imageLiteral(resourceName: "ic_selected_hotel_guest_child")
-                    case .infant:
+                    case .Infant:
                         placeHolder = #imageLiteral(resourceName: "ic_selected_hotel_guest_infant")
                     }
 //                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_selected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_selected_hotel_guest_child")
@@ -147,9 +147,9 @@ class SelectedContactCollectionCell: UICollectionViewCell {
                     switch ptype{
                     case .Adult:
                         placeHolder = #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
-                    case .child:
+                    case .Child:
                         placeHolder = #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
-                    case .infant:
+                    case .Infant:
                         placeHolder = #imageLiteral(resourceName: "ic_deselected_hotel_guest_infant")
                     }
 //                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
@@ -291,9 +291,9 @@ class SelectedContactImportCollectionCell: UICollectionViewCell {
                 switch type{
                 case .Adult:
                     self.nameLabel.text = "\(LocalizedString.Adult.localized) \(number)"
-                case .child:
+                case .Child:
                     self.nameLabel.text = "\(LocalizedString.Child.localized) \(number)"
-                case .infant:
+                case .Infant:
                    self.nameLabel.text = "\(LocalizedString.Infant.localized) \(number)"
                 }
 
@@ -307,9 +307,9 @@ class SelectedContactImportCollectionCell: UICollectionViewCell {
                     switch ptype{
                     case .Adult:
                         placeHolder = #imageLiteral(resourceName: "ic_selected_hotel_guest_adult")
-                    case .child:
+                    case .Child:
                         placeHolder = #imageLiteral(resourceName: "ic_selected_hotel_guest_child")
-                    case .infant:
+                    case .Infant:
                         placeHolder = #imageLiteral(resourceName: "ic_selected_hotel_guest_infant")
                     }
 //                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_selected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_selected_hotel_guest_child")
@@ -319,9 +319,9 @@ class SelectedContactImportCollectionCell: UICollectionViewCell {
                     switch ptype{
                     case .Adult:
                         placeHolder = #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
-                    case .child:
+                    case .Child:
                         placeHolder = #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
-                    case .infant:
+                    case .Infant:
                         placeHolder = #imageLiteral(resourceName: "ic_deselected_hotel_guest_infant")
                     }
 //                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")

@@ -14,6 +14,7 @@ class HCDataSelectionRoomDetailCell: UITableViewCell {
     // Mark:-
     @IBOutlet weak var roomNumberLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var dividerView: ATDividerView!
     
     private(set) var forIndex: IndexPath?
     private let hotelFormData = HotelsSearchVM.hotelFormData
@@ -53,6 +54,7 @@ class HCDataSelectionRoomDetailCell: UITableViewCell {
         }
         lineSpacing = isEmptyText ? 12 : 5
         collectionView.reloadData()
+        self.dividerView.isHidden = idxPath.row != 0
     }
     
     // Mark:- IBActions
@@ -105,7 +107,7 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
             if indexPath.item >= hotelFormData.adultsCount[forIdx.row] {
                 let age = hotelFormData.childrenAge[forIdx.row][indexPath.item - hotelFormData.adultsCount[forIdx.row]]
                 
-                contact.passengerType = .child
+                contact.passengerType = .Child
                 contact.numberInRoom = ((indexPath.item - hotelFormData.adultsCount[forIdx.row]) + 1)
                 contact.age = age
             }
@@ -348,8 +350,34 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
         return attributedString
     }
 }
-
-
+//Travel Safety Guidelines
+class HCDataSelectionTravelSafetyCell: UITableViewCell {
+    // Mark:- IBOutlets
+    // Mark:-
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    // Mark:- LifeCycles
+    // Mark:-
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        selectionStyle = .none
+        configUI()
+    }
+    
+    // Mark:- Functions
+    // Mark:-
+    
+    private func configUI() {
+        titleLabel.font = AppFonts.SemiBold.withSize(16.0)
+        titleLabel.textColor = AppColors.themeBlack
+        titleLabel.text = LocalizedString.TravelSafetyGuidelines.localized
+        
+        
+    }
+    
+    
+}
 
 
 

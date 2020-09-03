@@ -60,13 +60,13 @@ class HotelFilterVM {
     var filterHotelCount: Int = 0
     var lastSelectedIndex: Int = 0
     var isSortingApplied: Bool = false
-    let allTabsStr: [String] = [LocalizedString.Sort.localized, LocalizedString.Range.localized, LocalizedString.Price.localized, LocalizedString.Ratings.localized, LocalizedString.Amenities.localized,LocalizedString.Room.localized]
+    let allTabsStr: [String] = [LocalizedString.Sort.localized, LocalizedString.Distance.localized, LocalizedString.Price.localized, LocalizedString.Ratings.localized, LocalizedString.Amenities.localized,LocalizedString.Room.localized]
 
     weak var delegate: HotelFilterVMDelegate?
     var isFilterAppliedForDestinetionFlow = false
     
     var isFilterApplied: Bool {
-        return !( HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange && HotelFilterVM.shared.leftRangePrice == HotelFilterVM.shared.defaultLeftRangePrice && HotelFilterVM.shared.rightRangePrice == HotelFilterVM.shared.defaultRightRangePrice && HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount).isEmpty &&  HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty && HotelFilterVM.shared.isIncludeUnrated == HotelFilterVM.shared.defaultIsIncludeUnrated && HotelFilterVM.shared.priceType == HotelFilterVM.shared.defaultPriceType && HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty && HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty && HotelFilterVM.shared.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty && HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty)
+        return !(HotelFilterVM.shared.sortUsing == HotelFilterVM.shared.defaultSortUsing && HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange && HotelFilterVM.shared.leftRangePrice == HotelFilterVM.shared.defaultLeftRangePrice && HotelFilterVM.shared.rightRangePrice == HotelFilterVM.shared.defaultRightRangePrice && HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount).isEmpty &&  HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty && HotelFilterVM.shared.isIncludeUnrated == HotelFilterVM.shared.defaultIsIncludeUnrated && HotelFilterVM.shared.priceType == HotelFilterVM.shared.defaultPriceType && HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty && HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty && HotelFilterVM.shared.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty && HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty)
     }
     
     func setData(from: UserInfo.HotelFilter) {
@@ -118,9 +118,13 @@ class HotelFilterVM {
         filter.roomOther = roomOther
         filter.sortUsing = sortUsing
         filter.priceType = priceType
+        filter.isFilterAppliedForDestinetionFlow = isFilterAppliedForDestinetionFlow
         
-        UserInfo.hotelFilter = filter
-        
+        if self.isFilterApplied {
+            UserInfo.hotelFilter = filter
+        } else {
+           UserInfo.hotelFilter = nil
+        }
         if let filter = UserInfo.hotelFilter {
             printDebug(filter)
         }
@@ -155,7 +159,7 @@ class HotelFilterVM {
             } else {
             return (appliedFilter.sortUsing == HotelFilterVM.shared.defaultSortUsing) ? false : true
             }
-        case LocalizedString.Range.localized.lowercased():
+        case LocalizedString.Distance.localized.lowercased():
             return (appliedFilter.distanceRange == HotelFilterVM.shared.defaultDistanceRange) ? false : true
             
         case LocalizedString.Price.localized.lowercased():

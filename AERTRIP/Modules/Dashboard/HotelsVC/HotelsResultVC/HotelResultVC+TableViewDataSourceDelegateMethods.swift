@@ -225,7 +225,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         self.selectedIndexPath = indexPath
         if tableView === hotelSearchTableView {
             let hData = self.viewModel.searchedHotels[indexPath.row]
-            if let cell = tableView.cellForRow(at: indexPath) as? HotelSearchTableViewCell {
+//            if let cell = tableView.cellForRow(at: indexPath) as? HotelSearchTableViewCell {
 //                AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: hData, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest){
 //                    self.statusBarColor = AppColors.themeWhite
 //                }
@@ -234,15 +234,15 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
                 AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
 
                 self.selectedIndexPath = indexPath
-            }
+//            }
         } else {
             let hData = viewModel.fetchedResultsController.object(at: indexPath)
-            if let cell = tableView.cellForRow(at: indexPath) as? HotelCardTableViewCell {
+//            if let cell = tableView.cellForRow(at: indexPath) as? HotelCardTableViewCell {
                 
                 //self.presentControllerDefault(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
                 AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
 
-            }
+//            }
         }
     }
     ///Uncomment commented line when "Beyond 20km" label need to show.

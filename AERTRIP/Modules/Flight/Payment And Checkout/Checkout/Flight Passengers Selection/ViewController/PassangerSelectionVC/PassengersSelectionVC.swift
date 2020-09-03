@@ -49,7 +49,9 @@ class PassengersSelectionVC: BaseVC {
     }
     
     func apiCall(){
-        GuestDetailsVM.shared.guests.removeAll()
+        if self.viewModel.sid != GuestDetailsVM.shared.sid{
+            GuestDetailsVM.shared.guests.removeAll()
+        }
         self.viewModel.setupGuestArray()
         self.viewModel.webserviceForGetCountryList()
         self.viewModel.setupLoginData()
@@ -64,6 +66,7 @@ class PassengersSelectionVC: BaseVC {
         self.passengerTableview.registerCell(nibName: FlightEmailFieldCell.reusableIdentifier)
         self.passengerTableview.registerCell(nibName: UseGSTINCell.reusableIdentifier)
         self.passengerTableview.registerCell(nibName: CommunicationTextCell.reusableIdentifier)
+        self.passengerTableview.registerCell(nibName: TravellSefetyCell.reusableIdentifier)
     }
         
     private func setupFont(){
@@ -72,6 +75,7 @@ class PassengersSelectionVC: BaseVC {
         self.passengerTableview.backgroundColor = AppColors.themeGray04
         self.titleLabel.text = "Passengers"
 //        addButtomView()
+        self.addButton.setImage(#imageLiteral(resourceName: "AddPassenger"), for: .normal)
         self.addButton.isHidden = !(self.viewModel.isLogin)
     }
     
@@ -199,32 +203,6 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
     
     func tappedDetailsButton(){
         self.openDetailsButton()
-//        guard self.detailsBaseVC == nil else { return }
-//        let vc = FlightDetailsBaseVC.instantiate(fromAppStoryboard: .FlightDetailsBaseVC)
-//        vc.isInternational = true
-//        vc.bookFlightObject = self.viewModel.bookingObject ?? BookFlightObject()
-//        vc.taxesResult = self.viewModel.taxesResult
-//        vc.sid = self.viewModel.sid
-//        vc.intJourney = [self.viewModel.itineraryData.itinerary.details]
-//        vc.intAirportDetailsResult = self.viewModel.intAirportDetailsResult
-//        vc.selectedJourneyFK = [self.viewModel.itineraryData.itinerary.details.fk]
-//        vc.airlineData = self.viewModel.itineraryData.itinerary.details.aldet
-//        vc.needToAddFareBreakup = false
-//        vc.journey = self.viewModel.journey ?? []
-//        vc.view.autoresizingMask = []
-//        self.view.addSubview(vc.view)
-//        self.addChild(vc)
-//        vc.didMove(toParent: self)
-//        self.detailsBaseVC = vc
-//        if let newView = self.intFareBreakupVC?.view{
-//            vc.view.frame = CGRect(x: 0, y: UIScreen.height, width: UIScreen.main.bounds.width, height: UIScreen.height - newView.frame.height)
-//            self.view.bringSubviewToFront(newView)
-//            UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseOut], animations: {
-//                vc.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.height - newView.frame.height)
-//                vc.view.layoutSubviews()
-//                vc.view.setNeedsLayout()
-//            })
-//        }
     }
     
     func openDetailsButton(){
@@ -234,6 +212,7 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
         vc.taxesResult = self.viewModel.taxesResult
         vc.isForCheckOut = true
         vc.sid = self.viewModel.sid
+        vc.airlineData = self.viewModel.itineraryData.itinerary.details.aldet
         vc.intJourney = [self.viewModel.itineraryData.itinerary.details]
         vc.intAirportDetailsResult = self.viewModel.intAirportDetailsResult
         vc.intAirlineDetailsResult = self.viewModel.intAirlineDetailsResult
@@ -291,10 +270,10 @@ extension PassengersSelectionVC{
           nav.dismiss(animated: true) {[weak self] in
           guard let _ = self else {return}
               delay(seconds: 0.0) {[weak self] in
-                guard let _ = self else {return}
+                guard let self = self else {return}
                 if let vc = nav.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
-                    nav.popToViewController(vc, animated: true)
-                    vc.searchApiResult()
+//                    nav.popToViewController(vc, animated: true)
+                    vc.searchApiResult(flightItinary: self.viewModel.itineraryData)
                 }
               }
           }

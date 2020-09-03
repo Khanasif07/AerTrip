@@ -288,7 +288,7 @@ static NSMutableArray *toasts;
     if (view.button != nil){
         
         CGRect buttonFrame = view.button.frame;
-        CGFloat buttonWidth = view.button.titleLabel.intrinsicContentSize.width;
+        CGFloat buttonWidth = view.button.titleLabel.intrinsicContentSize.width + 16; // nitin change
         buttonFrame.origin.x = view.frame.size.width - buttonWidth - 16 ;
         buttonFrame.size.height = height;
         buttonFrame.size.width = buttonWidth + 16 ;
@@ -359,6 +359,7 @@ static NSMutableArray *toasts;
         }
         
     }];
+     
 }
 
 

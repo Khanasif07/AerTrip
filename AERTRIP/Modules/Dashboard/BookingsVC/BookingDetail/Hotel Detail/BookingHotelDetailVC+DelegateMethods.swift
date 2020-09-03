@@ -155,6 +155,13 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
             } else if indexPath.row == 4 {
                 AppFlowManager.default.showHotelDetailAmenitiesVC(amenitiesGroups: self.viewModel.bookingDetail?.bookingDetail?.amenitiesGroups ?? [:], amentites: self.viewModel.bookingDetail?.bookingDetail?.amenities, amenitiesGroupOrder: self.viewModel.bookingDetail?.bookingDetail?.amenities_group_order ?? [:])
             }
+        }else if (indexPath.section == 0) && (indexPath.row == 0){
+            if (self.viewModel.bookingDetail?.bookingDetail?.hotelId ?? "") == TAViewModel.shared.hotelId, let data = TAViewModel.shared.hotelTripAdvisorDetails{
+                let urlString = "https:\(data.seeAllPhotos)"
+                let screenTitle = LocalizedString.Photos.localized
+                AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+            }
+            
         }
     }
     
@@ -213,21 +220,15 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
 
 // MARK:
 
-extension BookingHotelDetailVC: HotelDetailsImgSlideCellDelegate {
+extension BookingHotelDetailVC: HotelDetailsImgSlideCellDelegate, ImageDeletionDelegate{
     func hotelImageTapAction(at index: Int) {
-        // open gallery with show image at index
-        //        let indexPath = IndexPath(row: 0, section: 0)
-        //        guard let cell = self.hotelDetailTableView.cellForRow(at: indexPath) as? HotelDetailsImgSlideCell else { return }
-        //        if let topVC = UIApplication.topViewController() {
-        //            ATGalleryViewController.show(onViewController: topVC, sourceView: cell.imageCollectionView, startShowingFrom: index, datasource: self, delegate: self)
-        //        }
-        
-        
-        if let images = self.viewModel.bookingDetail?.bookingDetail?.completePhotos {
+        if let bookingDetails = self.viewModel.bookingDetail?.bookingDetail,  let _ = bookingDetails.atImageData.first(where: {$0.image != nil}){
             let gVC = PhotoGalleryVC.instantiate(fromAppStoryboard: .Dashboard)
             gVC.parentVC = self
-            gVC.imageNames = images
+            gVC.imageNames = bookingDetails.photos
             gVC.startShowingFrom = index
+            gVC.isTAAvailable = !(self.viewModel.bookingDetail?.bookingDetail?.taLocationID.isEmpty ?? true)
+            gVC.hid = bookingDetails.hotelId
             self.present(gVC, animated: true, completion: nil)
         }
     }
@@ -235,6 +236,18 @@ extension BookingHotelDetailVC: HotelDetailsImgSlideCellDelegate {
     func willShowImage(at index: Int, image: UIImage?) {
         //        self.imageView.image = image
     }
+    
+    func shouldRemoveImage(_ image: UIImage?, for urlString: String?) {
+        let str = urlString ?? ""
+        let images = self.viewModel.bookingDetail?.bookingDetail?.atImageData ?? []
+        guard let index = images.firstIndex(where: {($0.imagePath ?? "") == str}) else {return}
+        if let img = image{
+            if self.viewModel.bookingDetail?.bookingDetail?.atImageData.count != 0{
+                self.viewModel.bookingDetail?.bookingDetail?.atImageData[index].image = img
+            }
+        }
+    }
+    
 }
 
 // Mark:- ATGallery Delegate And Datasource

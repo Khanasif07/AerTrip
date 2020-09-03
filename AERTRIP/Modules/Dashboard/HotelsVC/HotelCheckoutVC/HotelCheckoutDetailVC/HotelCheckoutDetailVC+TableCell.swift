@@ -14,9 +14,16 @@ extension HotelCheckoutDetailVC {
     
     internal func getImageSlideCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelDetailsImgSlideCell", for: indexPath) as? HotelDetailsImgSlideCell  else { return UITableViewCell() }
-        cell.imageUrls = hotelDetails.photos
+        cell.images = hotelDetails.atImageData
         cell.delegate = self
-        cell.configCell(imageUrls: hotelDetails.photos)
+        cell.imgDelegate = self
+        cell.configureCell(with: hotelDetails.atImageData)
+        return cell
+    }
+    
+    func getNoImageCell()-> UITableViewCell{
+        guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: NoImageDetailsCell.reusableIdentifier) as?  NoImageDetailsCell else {return UITableViewCell()}
+        cell.configureCell(isTAImageAvailable: !(self.viewModel?.rating.isZero ?? true))
         return cell
     }
 

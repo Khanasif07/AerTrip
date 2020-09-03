@@ -8,6 +8,7 @@
 
 import UIKit
 import FBSDKShareKit
+import PassKit
 
 class YouAreAllDoneVC: BaseVC {
     
@@ -415,10 +416,15 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
         return self.heightForHeaderInSection(section: section)
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (tableView.cellForRow(at: indexPath) as? HCHotelAddreesCell) != nil {
-            AppGlobals.shared.redirectToMap(sourceView: view, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong, destLat: self.viewModel.hotelReceiptData?.lat ?? "", destLong: self.viewModel.hotelReceiptData?.long ?? "")
-        }else if (indexPath.section != 0) && (indexPath.section < tableView.numberOfSections - 1){
+//        if (tableView.cellForRow(at: indexPath) as? HCHotelAddreesCell) != nil {
+//            AppGlobals.shared.redirectToMap(sourceView: view, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong, destLat: self.viewModel.hotelReceiptData?.lat ?? "", destLong: self.viewModel.hotelReceiptData?.long ?? "")
+//        }else
+            if (indexPath.section != 0) && (indexPath.section < tableView.numberOfSections - 1){
             AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: nil, hotelTitle: getUpdatedTitle(), bookingId: self.viewModel.bookingIds.first ?? "", hotelName: self.viewModel.hotelReceiptData?.hname ?? "", taRating: self.viewModel.hotelReceiptData?.rating ?? 0.0, hotelStarRating: self.viewModel.hotelReceiptData?.star ?? 0.0)
         }
         
@@ -480,10 +486,10 @@ extension YouAreAllDoneVC: YouAreAllDoneVMDelegate {
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
     }
     func getUpdatedTitle() -> String {
-        var updatedTitle = self.viewModel.hotelReceiptData?.hname ?? ""
-        if updatedTitle.count > 24 {
-            updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.count)
-        }
+        let updatedTitle = self.viewModel.hotelReceiptData?.hname ?? ""
+//        if updatedTitle.count > 24 {
+//            updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.count)
+//        }
         return updatedTitle
     }
 }
@@ -566,13 +572,19 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
             print("Instagram not found")
         }
  */
+        
     }
 }
 //Mark:- HCWhatNextTableViewCell Delegate
 //=========================================
 extension YouAreAllDoneVC: YouAreAllDoneTableViewCellDelegate {
     func addToAppleWalletTapped() {
-        
+//        if (!PKAddPaymentPassViewController.canAddPaymentPass()){
+//          // use other payment method / alert user
+//        }
+//        let config = PKAddPaymentPassRequestConfiguration.init(encryptionScheme: PKEncryptionScheme.ECC_V2)
+//        let addPaymentPassVC = PKAddPaymentPassViewController.init(requestConfiguration: config!, delegate: self)
+//        self.present(addPaymentPassVC!, animated: true, completion: nil)
     }
     
     func addToCallendarTapped() {
@@ -592,6 +604,15 @@ extension YouAreAllDoneVC: YouAreAllDoneTableViewCellDelegate {
     
     
 }
+extension YouAreAllDoneVC: PKAddPaymentPassViewControllerDelegate {
+    func addPaymentPassViewController(_ controller: PKAddPaymentPassViewController, generateRequestWithCertificateChain certificates: [Data], nonce: Data, nonceSignature: Data, completionHandler handler: @escaping (PKAddPaymentPassRequest) -> Void) {
+
+    }
+
+    func addPaymentPassViewController(_ controller: PKAddPaymentPassViewController, didFinishAdding pass: PKPaymentPass?, error: Error?) {
+      // pass added
+    }
+}
 //Mark:- HCBookingDetailsTableViewHeaderFooterView Delegate
 //=========================================================
 extension YouAreAllDoneVC: HCBookingDetailsTableViewHeaderFooterViewDelegate {
@@ -604,20 +625,28 @@ extension YouAreAllDoneVC: HCBookingDetailsTableViewHeaderFooterViewDelegate {
 extension YouAreAllDoneVC{
     
     func tapOnSeletedWhatNext(index: Int){
-        if index == 0{
+        if self.viewModel.hotelReceiptData?.whatNext.count == 0{
             guard let bookingId = self.viewModel.bookingIds.first else {
                 return
             }
             AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: bookingId)
         }else{
-            guard let whtNxt = self.viewModel.hotelReceiptData?.whatNext[index - 1] else {return}
-            switch whtNxt.productType{
-            case .flight:
-                self.bookFlightFor(whtNxt)
-            case .hotel:
-                self.bookAnotherHotels(whtNxt)
-            default: break;
+            if index == self.viewModel.hotelReceiptData?.whatNext.count{
+                guard let bookingId = self.viewModel.bookingIds.first else {
+                    return
+                }
+                AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: bookingId)
+            }else{
+                guard let whtNxt = self.viewModel.hotelReceiptData?.whatNext[index] else {return}
+                switch whtNxt.productType{
+                case .flight:
+                    self.bookFlightFor(whtNxt)
+                case .hotel:
+                    self.bookAnotherHotels(whtNxt)
+                default: break;
+                }
             }
+            
         }
     }
     
@@ -650,3 +679,15 @@ extension YouAreAllDoneVC{
         
     }
 }
+/*
+ how to call the apple wallet from ios app using swift
+ https://stackoverflow.com/questions/51060832/how-to-call-the-apple-wallet-from-ios-app-using-swift
+ */
+
+/*
+ instagram RND
+ https://stackoverflow.com/questions/11393071/how-to-share-an-image-on-instagram-in-ios/28272642#28272642
+ https://help.instagram.com/355896521173347
+ https://stackoverflow.com/questions/51318060/instagram-share-image-text-and-url-via-ios-app-swift
+ https://developers.facebook.com/docs/instagram/sharing-to-feed
+ */

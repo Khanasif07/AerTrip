@@ -479,6 +479,61 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
         return nil
         
     }
+    
+    func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
+//        switch sections[indexPath.section] {
+//        case LocalizedString.FlightPreferences.localized:
+//            return false
+//        default :
+            return true
+//        }
+    }
+    
+    func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        return action == #selector(copy(_:))
+    }
+    
+    func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
+        if action == #selector(copy(_:)) {
+            var pasteText = ""
+            switch sections[indexPath.section] {
+            case LocalizedString.EmailAddress.localized:
+                pasteText = email[indexPath.row].value
+            case LocalizedString.MoreInformation.localized:
+                pasteText = informations[indexPath.row]
+            case LocalizedString.ContactNumber.localized:
+                 pasteText = mobile[indexPath.row].valueWithISD.removeAllWhiteSpacesAndNewLines
+            case LocalizedString.SocialAccounts.localized:
+                pasteText = social[indexPath.row].value
+            case LocalizedString.Address.localized:
+                pasteText = createAddress(addresses[indexPath.row])
+            case LocalizedString.PassportDetails.localized:
+                if indexPath.row >= 2 {
+                } else {
+                    pasteText = passportDetails[indexPath.row]
+                }
+            case LocalizedString.FlightPreferences.localized:
+                if flightDetails.count > indexPath.row {
+                    pasteText = flightDetails[indexPath.row]
+                }
+                else {
+                    if (flightDetails.count == 1 && indexPath.row == 1) || (flightDetails.count == 2 && indexPath.row == 2) {
+                        pasteText = "\(frequentFlyer[indexPath.row - flightDetails.count].airlineName)\n\(frequentFlyer[indexPath.row - flightDetails.count].number)"
+                    } else {
+                        pasteText = "\(frequentFlyer[indexPath.row - flightDetails.count].airlineName)\n\(frequentFlyer[indexPath.row - flightDetails.count].number)"
+                    }
+                    
+                }
+            default:
+                pasteText = ""
+            }
+            let pasteboard = UIPasteboard.general
+            pasteboard.string = pasteText
+        }
+    }
+    /*
+     https://stackoverflow.com/questions/2487844/simple-way-to-show-the-copy-popup-on-uitableviewcells-like-the-address-book-ap/2488237#2488237
+     */
 }
 
 // MARK: - MXParallaxHeaderDelegate methods

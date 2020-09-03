@@ -19,7 +19,7 @@ extension HotelResultVC: UISearchBarDelegate {
         return true//!((viewModel.fetchedResultsController.fetchedObjects ?? []).isEmpty)
     }
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-       IQKeyboardManager.shared().isEnableAutoToolbar = true
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -35,6 +35,9 @@ extension HotelResultVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.viewModel.fetchRequestType = .Searching
         if searchText.isEmpty {
+                    self.searchResultHeaderView.updateHeight(height: CGFloat.leastNormalMagnitude)
+                    self.tableViewVertical.sectionHeaderHeight = CGFloat.leastNormalMagnitude
+            searchResultHeaderView.configureView(searhText: "")
             self.viewModel.searchTextStr = ""
             
             self.viewModel.fetchRequestType = self.filterButton.isSelected ? .FilterApplied : .normalInSearching //for getting all the data in search mode when the search text is blank
@@ -61,14 +64,14 @@ extension HotelResultVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.view.endEditing(true)
-//        if viewModel.searchedHotels.count > 0 {
-//            self.viewModel.fetchRequestType = .normal
-//            self.hideSearchAnimation()
-//            self.view.endEditing(true)
-//            self.reloadHotelList()
-//        } else {
-//            return
-//        }
+        //        if viewModel.searchedHotels.count > 0 {
+        //            self.viewModel.fetchRequestType = .normal
+        //            self.hideSearchAnimation()
+        //            self.view.endEditing(true)
+        //            self.reloadHotelList()
+        //        } else {
+        //            return
+        //        }
         self.hideSearchAnimation()
         self.reloadHotelList()
     }
@@ -132,6 +135,12 @@ extension HotelResultVC: HotelResultDelegate {
         self.switchContainerView.isHidden = self.viewModel.favouriteHotels.isEmpty
         self.floatingButtonOnMapView.isHidden = true//!self.viewModel.isFavouriteOn
         self.switchView.isOn = self.viewModel.isFavouriteOn
+        if self.viewModel.searchTextStr.isEmpty {
+            self.searchBar.text = ""
+            self.searchResultHeaderView.updateHeight(height: CGFloat.leastNormalMagnitude)
+            self.tableViewVertical.sectionHeaderHeight = CGFloat.leastNormalMagnitude
+        }
+        self.tableViewVertical.reloadData()
         self.filterCollectionView.reloadData()
     }
     
@@ -181,9 +190,9 @@ extension HotelResultVC: HotelResultDelegate {
     
     func loadFinalDataOnScreen() {
         self.filterCollectionView.isUserInteractionEnabled = true
-//        self.filterButton.isEnabled = true
-//        self.mapButton.isEnabled = true
-//        self.searchButton.isEnabled = true
+        //        self.filterButton.isEnabled = true
+        //        self.mapButton.isEnabled = true
+        //        self.searchButton.isEnabled = true
         self.filterButton.isUserInteractionEnabled = true
         self.mapButton.isUserInteractionEnabled = true
         self.searchButton.isUserInteractionEnabled = true
@@ -197,9 +206,18 @@ extension HotelResultVC: HotelResultDelegate {
             HotelFilterVM.shared.isFilterAppliedForDestinetionFlow = true
             ignorePreviousFilter = true
         } else {
+            if HotelFilterVM.shared.isFilterAppliedForDestinetionFlow {
+                UserInfo.hotelFilter = nil
+                HotelFilterVM.shared.resetToDefault()
+            }
+            HotelFilterVM.shared.sortUsing = .BestSellers
+            HotelFilterVM.shared.isFilterAppliedForDestinetionFlow = false
+            if let filter = UserInfo.hotelFilter {
+                self.viewModel.tempHotelFilter = filter
+            }
+            UserInfo.hotelFilter = nil
             HotelFilterVM.shared.resetToDefault()
-//            HotelFilterVM.shared.sortUsing = .BestSellers
-//            HotelFilterVM.shared.isFilterAppliedForDestinetionFlow = false
+            self.filterCollectionView.reloadData()
         }
         
         if let isUse = UserDefaults.getObject(forKey: "shouldApplyFormStars") as? Bool, isUse {
@@ -217,8 +235,8 @@ extension HotelResultVC: HotelResultDelegate {
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
         //self.updateMarkers()
         
-        if UserInfo.hotelFilter != nil, !ignorePreviousFilter {
-            self.getSavedFilter()
+        if self.viewModel.tempHotelFilter != nil, !ignorePreviousFilter {
+         //   self.getSavedFilter()
             // Apply previous filter
             self.applyPreviousFilter()
             
@@ -238,15 +256,18 @@ extension HotelResultVC: HotelResultDelegate {
     
     
     func willGetPinnedTemplate() {
-        AppGlobals.shared.startLoading()
+       // AppGlobals.shared.startLoading()
+        self.emailButton.setImage(nil, for: .normal)
     }
     
     func getPinnedTemplateSuccess() {
-        AppGlobals.shared.stopLoading()
+      //  AppGlobals.shared.stopLoading()
+        self.emailButton.setImage(#imageLiteral(resourceName: "emailIcon"), for: .normal)
     }
     
     func getPinnedTemplateFail() {
-        AppGlobals.shared.stopLoading()
+      //  AppGlobals.shared.stopLoading()
+        self.emailButton.setImage(#imageLiteral(resourceName: "emailIcon"), for: .normal)
     }
     
     func willUpdateFavourite() {
@@ -386,7 +407,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
     
     func doneButtonTapped() {
         self.filterCollectionView.scrollToItem(at: IndexPath(item: HotelFilterVM.shared.lastSelectedIndex, section: 0), at: .centeredHorizontally, animated: false)
-
+        
         if let isUse = UserDefaults.getObject(forKey: "shouldApplyFormStars") as? Bool, isUse {
             UserInfo.hotelFilterApplied = UserInfo.hotelFilter
         }
@@ -425,6 +446,12 @@ extension HotelResultVC: HotelDetailsVCDelegate {
     func hotelFavouriteUpdated() {
         //work of this method has been handeled in data changed also, we can remove HotelDetailsVCDelegate after confirming with team.
     }
+    
+    func imageUpdated() {
+        if let indexPath = self.selectedIndexPath {
+            self.tableViewVertical.reloadRow(at: indexPath, with: .none)
+        }
+    }
 }
 
 
@@ -439,17 +466,20 @@ extension HotelResultVC: HotelsGroupExpendedVCDelegate {
 // MARK: - HotelSearchResultHeaderViewDelegate methods
 extension HotelResultVC: HotelSearchResultHeaderViewDelegate {
     func clearSearchView() {
-//        self.searchResultHeaderView.updateHeight(height: CGFloat.leastNormalMagnitude)
-//        self.tableViewVertical.sectionHeaderHeight = CGFloat.leastNormalMagnitude
-//        self.searchResultHeaderView.configureView(searhText: "")
-//        self.viewModel.searchTextStr = ""
-//        self.searchBar.text = ""
-//        self.viewModel.fetchRequestType = self.filterButton.isSelected ? .FilterApplied : .normalInSearching //for getting all the data in search mode when the search text is blank
-//        self.viewModel.loadSaveData()
-//        self.searchForText("", shouldPerformAction: false) //cancel all the previous operation
-//        self.reloadHotelList()
-//        noResultemptyView.searchTextLabel.text = ""
-//        noResultemptyViewVerticalTableView.searchTextLabel.text = ""
-        self.searchBar.becomeFirstResponder()
+        //        self.searchResultHeaderView.updateHeight(height: CGFloat.leastNormalMagnitude)
+        //        self.tableViewVertical.sectionHeaderHeight = CGFloat.leastNormalMagnitude
+        //        self.searchResultHeaderView.configureView(searhText: "")
+        //        self.viewModel.searchTextStr = ""
+        //        self.searchBar.text = ""
+        //        self.viewModel.fetchRequestType = self.filterButton.isSelected ? .FilterApplied : .normalInSearching //for getting all the data in search mode when the search text is blank
+        //        self.viewModel.loadSaveData()
+        //        self.searchForText("", shouldPerformAction: false) //cancel all the previous operation
+        //        self.reloadHotelList()
+        //        noResultemptyView.searchTextLabel.text = ""
+        //        noResultemptyViewVerticalTableView.searchTextLabel.text = ""
+        //self.searchBar.becomeFirstResponder()
+        
+        
+        self.cancelButtonTapped(self.cancelButton)
     }
 }

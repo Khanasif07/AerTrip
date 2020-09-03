@@ -168,18 +168,18 @@ class PostBookingAddonsPaymentVC: BaseVC{
     }
     
     
-    func getListingController(){
-        if let nav = self.navigationController?.presentingViewController?.presentingViewController as? UINavigationController{
-            nav.dismiss(animated: true) {
-                delay(seconds: 0.0) {
-                    if let vc = nav.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
-                        nav.popToViewController(vc, animated: true)
-                        vc.searchApiResult()
-                    }
-                }
-            }
-        }
-    }
+//    func getListingController(){
+//        if let nav = self.navigationController?.presentingViewController?.presentingViewController as? UINavigationController{
+//            nav.dismiss(animated: true) {
+//                delay(seconds: 0.0) {
+//                    if let vc = nav.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
+//                        nav.popToViewController(vc, animated: true)
+//                        vc.searchApiResult(chnageData: self.viewModel.baggageData)
+//                    }
+//                }
+//            }
+//        }
+//    }
     
     // Set Boolean convenience fee to applied or Not
     
@@ -339,7 +339,7 @@ extension PostBookingAddonsPaymentVC : RazorpayPaymentCompletionProtocolWithData
     }
     func onPaymentError(_ code: Int32, description str: String, andData response: [AnyHashable : Any]?) {
         hideShowLoader(isHidden: true)
-        AppToast.default.showToastMessage(message: "Sorry! payment was faild.\nPlease try again.")
+        AppToast.default.showToastMessage(message: LocalizedString.paymentFails.localized)//"Sorry! payment was faild.\nPlease try again.")
     }
     
     func onPaymentSuccess(_ payment_id: String, andData response: [AnyHashable : Any]?) {

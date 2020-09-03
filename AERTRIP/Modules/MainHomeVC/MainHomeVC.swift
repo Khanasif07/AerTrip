@@ -332,6 +332,7 @@ class MainHomeVC: BaseVC {
         }
         
         animator.startAnimation()
+        self.sideMenuVC?.getAccountSummary()
     }
     
     private func setupLogoView() {
@@ -452,6 +453,7 @@ extension MainHomeVC: PKSideMenuControllerDelegate {
 //        self.sideMenuVC?.sideMenuTableView.setContentOffset(CGPoint(x: 0.0, y: -UIApplication.shared.statusBarFrame.height), animated: false)
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: (UserInfo.loggedInUserId != nil), onView: self.view)
         self.statusBarStyle = .default
+        self.sideMenuVC?.getAccountSummary()
     }
 }
 

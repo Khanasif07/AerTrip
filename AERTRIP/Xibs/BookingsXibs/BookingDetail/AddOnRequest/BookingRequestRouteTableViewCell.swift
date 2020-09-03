@@ -13,7 +13,8 @@ class BookingRequestRouteTableViewCell: ATTableViewCell {
     // MARK: - IBOutlet
     @IBOutlet weak var routeLabel: UILabel!
      @IBOutlet weak var routeIdLabel: UILabel!
-
+    @IBOutlet weak var dividerView: ATDividerView!
+    
     
     override func setupFonts() {
         self.routeLabel.font = AppFonts.SemiBold.withSize(18.0)

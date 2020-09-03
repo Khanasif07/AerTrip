@@ -55,15 +55,15 @@ class AccountOutstandingLadgerVM: NSObject {
     //MARK:- Public
     func setAccountDetails(data: JSONDictionary) {
         self.accountDetails = data
-            var arr = Array(data.keys)
-            arr.sort { ($0.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0)}
+        var arr = Array(data.keys)
+        arr.sort { ($0.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0)}
         self.allDates =  arr
     }
     
     func setSearchedAccountDetails(data: JSONDictionary) {
         self.searchedAccountDetails = data
-            var arr = Array(data.keys)
-            arr.sort { ($0.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0)}
+        var arr = Array(data.keys)
+        arr.sort { ($0.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0)}
         self.searchedAllDates =  arr
     }
     
@@ -77,7 +77,7 @@ class AccountOutstandingLadgerVM: NSObject {
     
     @objc private func callSearchEvent(_ forText: String) {
         printDebug("search text for: \(forText)")
-
+        
         let value = self.getDataApplySearch(forText: forText, onData: self._accountDetails) ?? [:]
         self.setSearchedAccountDetails(data: value)
         self.delegate?.searchEventsSuccess()
@@ -93,11 +93,13 @@ class AccountOutstandingLadgerVM: NSObject {
             
             for date in Array(onData.keys) {
                 if let events = onData[date] as? [AccountDetailEvent] {
-//                    let fltrd = events.filter({ $0.title.lowercased().contains(forText.lowercased())})
+                    //                    let fltrd = events.filter({ $0.title.lowercased().contains(forText.lowercased())})
                     let fltrd = events.filter { event in
                         return ((event.title.lowercased().contains(forText.lowercased())) || (event.voucherNo.lowercased().contains(forText.lowercased())) ||
-                            (event.airline.lowercased().contains(forText.lowercased())) ||
-                            (self.removeSpecialChar(from:event.flightNumber).contains(self.removeSpecialChar(from: forText))))
+                                    (event.bookingNumber.lowercased().contains(forText.lowercased())) ||
+                                    (event.airline.lowercased().contains(forText.lowercased())) ||
+                                    (self.removeSpecialChar(from:event.flightNumber).contains(self.removeSpecialChar(from: forText))) ||
+                                    (event.bookingId.lowercased().contains(forText.lowercased())))
                         
                     }
                     if !fltrd.isEmpty {
@@ -151,7 +153,7 @@ class AccountOutstandingLadgerVM: NSObject {
                 allIds.append(event.transactionId)
             }
         }
-
+        
         APICaller.shared.outstandingPaymentAPI(params: ["txn_ids": allIds]) { [weak self](success, errors, itiner) in
             if success {
                 self?.itineraryData = itiner

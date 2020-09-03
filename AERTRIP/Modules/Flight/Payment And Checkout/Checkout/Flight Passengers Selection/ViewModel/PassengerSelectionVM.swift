@@ -33,11 +33,8 @@ class PassengerSelectionVM  {
     var journeyDate:String?
     var id = ""
     var addonsMaster = AddonsMaster()
-    //Varialbles for domestic and oneway
-    //Varialbles for international return and multicity
     var intAirportDetailsResult : [String : IntAirportDetailsWS]!
     var intAirlineDetailsResult : [String : IntAirlineMasterWS]!
-//    var intJourney: [IntJourney]?
     var isSwitchOn = false
     var isLogin:Bool{
         return (UserInfo.loggedInUser != nil)
@@ -48,6 +45,7 @@ class PassengerSelectionVM  {
     var isdCode = "+91"
     var manimumContactLimit = 10
     var maximumContactLimit = 10
+    var isTravelSefetyRequired  = true
     var itineraryData = FlightItineraryData()
     var newItineraryData = FlightItineraryData()
     weak var delegate:PassengerSelectionVMDelegate?
@@ -73,6 +71,13 @@ class PassengerSelectionVM  {
     
     func setupGuestArray() {
         AddonsDataStore.shared.resetData()
+        guard self.sid != GuestDetailsVM.shared.sid else {
+            self.setupLoginData()
+            GuestDetailsVM.shared.canShowSalutationError = false
+            return
+        }
+        HCSelectGuestsVM.shared.clearAllSelectedData()
+        GuestDetailsVM.shared.sid = self.sid
         GuestDetailsVM.shared.guests.removeAll()
         var temp: [ATContact] = []
         guard let bookingObj = self.bookingObject else {return}
@@ -93,7 +98,7 @@ class PassengerSelectionVM  {
         for i in 0..<bookingObj.flightChildrenCount{
             var guest = ATContact()
 //            let idx = bookingObj.flightChildrenCount + i + 1
-            guest.passengerType = PassengersType.child
+            guest.passengerType = PassengersType.Child
             guest.frequentFlyer = self.getFrequentFlyer()
             guest.mealPreference = self.getMealPreference()
             guest.numberInRoom = (i + 1)
@@ -107,7 +112,7 @@ class PassengerSelectionVM  {
         for i in 0..<bookingObj.flightInfantCount{
             var guest = ATContact()
 //            let idx = bookingObj.flightAdultCount + bookingObj.flightChildrenCount + i + 1
-            guest.passengerType = PassengersType.infant
+            guest.passengerType = PassengersType.Infant
             guest.frequentFlyer = self.getFrequentFlyer()
             guest.mealPreference = []//self.getMealPreference()
             guest.numberInRoom = (i + 1)
@@ -167,7 +172,6 @@ class PassengerSelectionVM  {
         self.itineraryData = newItineraryData
         self.id = self.itineraryData.itinerary.id
         self.sid = self.itineraryData.itinerary.sid
-        HCSelectGuestsVM.shared.clearAllSelectedData()
         GuestDetailsVM.shared.travellerList = self.itineraryData.itinerary.travellerMaster
         if let artpt = self.itineraryData.itinerary.details.apdet{
             self.intAirportDetailsResult = artpt
@@ -276,7 +280,7 @@ class PassengerSelectionVM  {
             if contact.firstName.removeAllWhitespaces.isEmpty || contact.firstName.count < 3  || !contact.firstName.isName || contact.lastName.removeAllWhitespaces.isEmpty || contact.lastName.count < 3 || !contact.lastName.isName || contact.salutation.isEmpty{
                 return (false, "Please fill all the passenger details")
             }else if self.journeyType == .domestic{
-                if contact.passengerType == .infant{
+                if contact.passengerType == .Infant{
                     return (!(contact.dob.isEmpty), "Please fill all the passenger details")
                 }
             }else{

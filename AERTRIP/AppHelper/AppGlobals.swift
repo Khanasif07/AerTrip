@@ -673,9 +673,57 @@ extension AppGlobals {
                             AppGlobals.shared.stopLoading()
                         }
                     }
-                    complition?(true)
+                    delay(seconds: 1.5) {
+                        complition?(true)
+                    }
                 }
             }
+        }
+    }
+    
+    func downloadWallet(fileURL: URL, showLoader: Bool = true, complition: @escaping ((URL?) -> Void)) {
+        // Create destination URL
+        if let documentsUrl: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            if showLoader {
+            AppGlobals.shared.startLoading()
+            }
+            let destinationFileUrl = documentsUrl.appendingPathComponent("\("test").pkpass")
+            
+            if FileManager.default.fileExists(atPath: destinationFileUrl.path) {
+                try? FileManager.default.removeItem(at: destinationFileUrl)
+            }
+            
+            let sessionConfig = URLSessionConfiguration.default
+            let session = URLSession(configuration: sessionConfig)
+            
+            let request = URLRequest(url: fileURL)
+            
+            let task = session.downloadTask(with: request) { tempLocalUrl, response, error in
+               if showLoader {
+                   delay(seconds: 5) {
+                       AppGlobals.shared.stopLoading()
+                   }
+               }
+                if let tempLocalUrl = tempLocalUrl, error == nil {
+                    // Success
+                    if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                        printDebug("Successfully downloaded. Status code: \(statusCode)")
+                    }
+                    
+                    do {
+                        try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
+                        complition(destinationFileUrl)
+                    } catch let writeError {
+                        printDebug("Error creating a file \(destinationFileUrl) : \(writeError)")
+                    }
+                    
+                } else {
+                    printDebug("Error took place while downloading a file. Error description: \(error?.localizedDescription ?? "N/A")")
+                }
+            }
+            task.resume()
+        } else {
+            complition(nil)
         }
     }
     

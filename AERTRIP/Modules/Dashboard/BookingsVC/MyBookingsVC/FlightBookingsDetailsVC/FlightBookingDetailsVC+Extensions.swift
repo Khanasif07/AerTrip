@@ -9,6 +9,7 @@
 import MXParallaxHeader
 import SafariServices
 import UIKit
+import PassKit
 
 // MARK: - Extensions
 
@@ -123,8 +124,12 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         case .tripChangeCell:
             AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips,tripInfo: self.viewModel.bookingDetail?.tripInfo ?? TripInfo())
             self.tripChangeIndexPath = indexPath
-        case .addToAppleWallet, .bookSameFlightCell :
-            AppGlobals.shared.showUnderDevelopment()
+        case .addToAppleWallet:
+            addToAppleWallet()
+        case .bookSameFlightCell :
+            if let whatNext = self.whatNextForSameFlightBook() {
+                self.bookSameFlightWith(whatNext)
+            }
         case .addToCalenderCell:
             self.addToCalender()
         case .paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .refundCell,.paymentPendingCell, .paidCell:
@@ -415,7 +420,7 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     func openWebCheckin() {
         // TODO: - Need to test with when web url is present
         if (self.viewModel.bookingDetail?.additionalInformation?.webCheckins.count ?? 0) > 1 {
-          AppFlowManager.default.moveToBookingWebCheckinVC(contactInfo: self.viewModel.bookingDetail?.additionalInformation?.contactInfo, webCheckins: self.viewModel.bookingDetail?.additionalInformation?.webCheckins ?? [])
+            AppFlowManager.default.moveToBookingWebCheckinVC(contactInfo: self.viewModel.bookingDetail?.additionalInformation?.contactInfo, webCheckins: self.viewModel.bookingDetail?.additionalInformation?.webCheckins ?? [])
         } else {
             self.webCheckinServices(url: self.viewModel.bookingDetail?.webCheckinUrl ?? "")
             
@@ -468,7 +473,35 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     
     func addToAppleWallet() {
         printDebug("Add To Apple Wallet")
+        let endPoints = "\(APIEndPoint.pass.path)?booking_id=\(self.viewModel.bookingDetail?.id ?? "")&flight_id=\(self.viewModel.bookingDetail?.bookingDetail?.leg.first?.flight.first?.flightId ?? "")"
+        printDebug("endPoints: \(endPoints)")
+        guard let url = URL(string: endPoints) else {return}
+        AppGlobals.shared.downloadWallet(fileURL: url) {[weak self] (passUrl) in
+            
+            if let localURL = passUrl {
+                printDebug("localURL: \(localURL)")
+                self?.addWallet(passFilePath: localURL)
+            }
+        }
     }
+    
+    private func addWallet(passFilePath: URL) {
+        // let filePath = Bundle.main.path(forResource: "DealsPasses", ofType: "pkpass")!
+        guard let passData = try? Data(contentsOf: passFilePath) else {return}
+        do {
+            let newpass = try PKPass.init(data: passData)
+            let addController =  PKAddPassesViewController(pass: newpass)
+            addController?.delegate = self
+            self.present(addController!, animated: true)
+        } catch {
+            print(error)
+        }
+    }
+    
+    
+}
+extension FlightBookingsDetailsVC: PKAddPassesViewControllerDelegate {
+    
 }
 
 extension FlightBookingsDetailsVC: WeatherHeaderTableViewCellDelegate {
@@ -554,3 +587,6 @@ extension FlightBookingsDetailsVC: BookingRequestAddOnsFFVCDelegate {
     
     
 }
+/*
+ https://stackoverflow.com/questions/39927087/unable-to-add-pass-to-apple-wallet
+ */

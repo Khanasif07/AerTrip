@@ -1,102 +1,101 @@
-Service Name,Error Code,Error Description,Error Message,
-,,,,
-users/get-emails,1,No User/email found,,
-,,,,
-,,,,
-,,,,
-flights/milefy,31,Error to fetch while calculate milefy benefits.,Error to fetch milage benefits data,Currently not merged
-,,,,
-airline/search,32,No result Found for search text,,
-,,,,
-,,,,
-checkout,111,Markup should not be empty.,Markup should not be empty.,
-,114,Agent isd should not be empty.,Agent isd should not be empty.,
-,115,Agent mobile should not be empty.,Agent mobile should not be empty.,
-,116,Invalid Agent Markup Value,Invalid Agent Markup Value,
-,,,,
-Bulk Enquiry (Flight nd Hotel),3,User Not Found,,
-,4,Error saving additional information,,
-,5,Error saving bulk enquiry,,
-,6,Type is required,,
-,7,User ID required,,
-,8,Source is required,,
-,9,from_date is required,,
-,47,to_date id required,,
-,44,pax_count is required,,
-,45,adt is required,,
-,46,added_ip is required,,
-,14,is_deleted required,,
-,15,destination is required,,
-,,,,
-,,,,
-flight/search,9,departure date is required,,
-,10,origin is required,,
-,11,destination is required,,
-,12,Cabin class is required,,
-,13,trip type is required,,
-,14,adult is required,,
-,15,session_id is required,,
-,16,User group is required,,
-,17,Product Type not found,,
-,18,Vcodes not found,,
-,19,Display group not found,,
-,20,Invalid format for departure date. Required format : dd-MM-yyyy,,
-,21,Invalid format for return date. Required format : dd-MM-yyyy,,
-,22,Adult must be no greater than 9.,,
-,23,Adult must be no less than 1,,
-,24,Sum of Adult and child should not be greater than 9,,
-,25,Child must be no greater than 8.,,
-,26,Must be a number,,
-,27,"Infant must be less than or equal to ""Adult"".",,
-,28,Cabinclass is invalid.,,
-,29,Trip Type is invalid,,
-,30,Airport iata code ($iata_code) size must be 3 characters,,
-,31,Invalid Origin Airport Code,,
-,32,Invalid Destination Airport Code,,
-,33,Destination cannot be same as Origin,,
-,34,Depart date should be today or future date,,
-,35,Return date should be greather than depart date,,
-,36,Return date is required for return trip,,
-,37,Trip Type must be return. If journey is return then trip type must be return,,
-,,,,
-flight/result,36,Display Group Id must be an integer.,,
-,37,No flights found,,
-,35,SID is required.,,
-,,,,
-,,,,
-,,,,
-,,,,
-Flight Quote Email Send,,,,
-,70,To email Required ,,
-,71,Quote Email TO should not be greater than 5,,
-,72,Quote Email CC should not be greater than 5,,
-,73,Quote Email BCC should not be greater than 5,,
-,74,TO email Validation,,
-,75,CC email Validation,,
-,76,BCC email Validation,,
-,,,,
-Action Itinerary | traveller detail ,104,First Name Not valid Only Alphabets,,
-,105,Last name Not valid Only Alphabets,,
-,106,pax id required ,,
-,107,pax type required,,
-,108,salutation required ,,
-,109,first name required ,,
-,110,last name required ,,
-,112,pax type Not Valid,,
-,113,GST Number Not Valid,,
-,114,GST Required,,
-,115,gst number Required,,
-,116,gst company name required,,
-,117,gst address line1 required,,
-,118,gst city required,,
-,119,gst postal code required,,
-,120,Date of Birth and Age is Required,,
-,121,"Date of Birth format - ""yyyy-MM-dd"" must required",,
-,122,Age of infant should be 2 year or less,,
-,123,Age of child should be between {2} to {12} year,,
-,124,salutation not valid,,
-,125,passport expiry date required,,
-,126,passport country required,,
-,127,passport number required,,
-,128,passport country Code String Length,,
-,129,"passport expiry date Formate ""yyyy-MM-dd""",,
+0,Service Name,Error Code,Error Description,Error Message
+1,users/get-emails,1,No User/email found,User account not found
+2,,,,
+3,,,,
+4,,,,
+5,flights/milefy,31,Error to fetch while calculate milefy benefits.,Unable to fetch milage benefits data
+6,,,,
+7,airline/search,32,No result Found for search text,
+8,,,,
+9,,,,
+10,checkout,111,Markup should not be empty.,Markup should not be empty.
+11,,114,Agent isd should not be empty.,Agent isd should not be empty.
+12,,115,Agent mobile should not be empty.,Agent mobile should not be empty.
+13,,116,Invalid Agent Markup Value,Invalid Agent Markup Value
+14,,,,
+15,Bulk Enquiry (Flight nd Hotel),3,User Not Found,"Something went wrong, please try again."
+16,,4,Error saving additional information,"Something went wrong, please try again."
+17,,5,Error saving bulk enquiry,"Something went wrong, please try again."
+18,,6,Type is required,Please select the trip type
+19,,7,User ID required,"Something went wrong, please try again."
+20,,8,Source is required,Please provide origin airport
+21,,9,from_date is required,Please provide the departure date
+22,,47,to_date is required,Please provide the arrival date
+23,,44,pax_count is required,Please provide number of passengers
+24,,45,adt is required,Please provide number of adult passengers
+25,,46,added_ip is required,"Something went wrong, please try again."
+26,,14,is_deleted required,"Something went wrong, please try again."
+27,,15,destination is required,Please provide destination airport
+28,,,,
+29,,,,
+30,flight/search,9,departure date is required,Please provide the departure date
+31,,10,origin is required,Please provide origin airport
+32,,11,destination is required,Please provide destination airport
+33,,12,Cabin class is required,Please provide cabin class
+34,,13,trip type is required,Please select the trip type
+35,,14,adult is required,Please provide number of adult passengers
+36,,15,session_id is required,"Something went wrong, please try again."
+37,,16,User group is required,"Something went wrong, please try again."
+38,,17,Product Type not found,"Something went wrong, please try again."
+39,,18,Vcodes not found,"Something went wrong, please try again."
+40,,19,Display group not found,"Something went wrong, please try again."
+41,,20,Invalid format for departure date. Required format : dd-MM-yyyy,Please provide valid departure date
+42,,21,Invalid format for return date. Required format : dd-MM-yyyy,Please provide valid return date
+43,,22,Adult must be no greater than 9.,"Nubmer of adult passengers should be under 10, for more please use bulk-booking feature."
+44,,23,Adult must be no less than 1,Number of adult passengers should be 1 or above
+45,,24,Sum of Adult and child should not be greater than 9,"Sum of Adult and child should not be greater than 9, for more please use bulk-booking feature."
+46,,25,Child must be no greater than 8.,Number of child passengers shold be under 9
+47,,26,Must be a number,
+48,,27,"Infant must be less than or equal to ""Adult"".",Number of infants should not be number of adult passengers
+49,,28,Cabinclass is invalid.,Please provide a valid cabinclass
+50,,29,Trip Type is invalid,Please provide a valid  trip type
+51,,30,Airport iata code ($iata_code) size must be 3 characters,"Invalid airport code, please try again."
+52,,31,Invalid Origin Airport Code,"Invalid origin airport code, please try again."
+53,,32,Invalid Destination Airport Code,"Invalid destination airport code, please try again."
+54,,33,Destination cannot be same as Origin,Destination cannot be same as Origin!
+55,,34,Depart date should be today or future date,Depart date should be today or after
+56,,35,Return date should be greather than depart date,Return date should be after than depart date
+57,,36,Return date is required for return trip,Return date is required for return trip
+58,,37,Trip Type must be return. If journey is return then trip type must be return,"Invalid trip type, please try again."
+59,,,,
+60,flight/result,36,Display Group Id must be an integer.,"Something went wrong, please try again."
+61,,37,No flights found,No Flights found for the searched parameters
+62,,35,SID is required.,"Something went wrong, please try again."
+63,,,,
+64,,,,
+65,,,,
+66,,,,
+67,Flight Quote Email Send,,,
+68,,70,To email Required ,To field should contain valid email address
+69,,71,Quote Email TO should not be greater than 5,To field should contain at most 5 email addresses
+70,,72,Quote Email CC should not be greater than 5,CC field should contain at most 5 email addresses
+71,,73,Quote Email BCC should not be greater than 5,BCC field should contain at most 5 email addresses
+72,,74,TO email Validation,To field should contain valid email address
+73,,75,CC email Validation,CC field should contain valid email address
+74,,76,BCC email Validation,BCC field should contain valid email address
+75,,,,
+76,Action Itinerary | traveller detail ,104,First Name Not valid Only Alphabets,"First Name is invalid, should only contain alphabets"
+77,,105,Last name Not valid Only Alphabets,"Last Name is invalid, should only contain alphabets"
+78,,106,pax id required ,"Something went wrong, please try again"
+79,,107,pax type required,"Something went wrong, please try again"
+80,,108,salutation required ,Please select salutation
+81,,109,first name required ,First Name is required
+82,,110,last name required ,Last Name is required
+83,,112,pax type Not Valid,"Something went wrong, please try again"
+84,,113,GST Number Not Valid,"GST number is invalid, Please try again"
+85,,114,GST Required,GST details are required
+86,,115,gst number Required,GST number is required
+87,,116,gst company name required,GST company name is required
+88,,117,gst address line1 required,GST address line1 is required
+89,,118,gst city required,GST city name is required
+90,,119,gst postal code required,GST postal code is required
+91,,120,Date of Birth and Age is Required,Date of Birth and Age is Required
+92,,121,"Date of Birth format - ""yyyy-MM-dd"" must required","Date of Birth should be in ""YYYY-MM-DD"" format"
+93,,122,Age of infant should be 2 year or less,Age of infant should be 2 year or less
+94,,123,Age of child should be between {2} to {12} year,Age of child should be between 2 - 12 years
+95,,124,salutation not valid,"Salutation is invalid, please try again"
+96,,125,passport expiry date required,Passport expiry date is required
+97,,126,passport country required,Passport country is required
+98,,127,passport number required,Passport number is required
+99,,128,passport country Code String Length,Passport country is invalid
+100,,129,"passport expiry date Formate ""yyyy-MM-dd""","Passport expiry date should be in ""YYYY-MM-DD"" format"

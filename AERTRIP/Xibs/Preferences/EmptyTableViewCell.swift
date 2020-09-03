@@ -11,5 +11,6 @@ import UIKit
 class EmptyTableViewCell: UITableViewCell {
     @IBOutlet weak var topDividerView: ATDividerView!
     @IBOutlet weak var bottomDividerView: ATDividerView!
+    @IBOutlet weak var topDividerTopConstraint: NSLayoutConstraint!
     
 }

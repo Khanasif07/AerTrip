@@ -23,7 +23,7 @@ protocol FinalCheckoutVMDelegate: class {
     
     func willMakePayment()
     func makePaymentSuccess(options: JSONDictionary, shouldGoForRazorPay: Bool)
-    func makePaymentFail()
+    func makePaymentFail(errors: ErrorCodes)
     
     func willGetPaymentResonse()
     func getPaymentResonseSuccess(bookingIds: [String] , cid: [String])
@@ -46,6 +46,7 @@ class FinalCheckoutVM: NSObject {
     var grossTotalPayableAmount : Double = 0.0 // without wallet amount
     var bookingIds: [String] = [], cId: [String] = []
     var isApplyingCoupon = false
+    var paymentMethodApiCount = 1
     
     func webServiceGetPaymentMethods() {
         let params: JSONDictionary = [APIKeys.it_id.rawValue:  self.itineraryData?.it_id ?? ""]
@@ -129,7 +130,7 @@ extension FinalCheckoutVM {
             if success {
                 sSelf.delegate?.makePaymentSuccess(options: options, shouldGoForRazorPay: !(useWallet && forAmount <= 0))
             } else {
-                sSelf.delegate?.makePaymentFail()
+                sSelf.delegate?.makePaymentFail(errors: errors)
                 //AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
             }
         }
@@ -172,6 +173,7 @@ extension FinalCheckoutVM {
             if success {
                 let hotelReceiptData = receiptData ?? HotelReceiptModel()
                 sSelf.delegate?.getBookingReceiptSuccess(detail: hotelReceiptData)
+                sSelf.getUserAccountData()
             } else {
                 sSelf.delegate?.getBookingReceiptFail()
             }
@@ -185,6 +187,19 @@ extension FinalCheckoutVM {
         APICaller.shared.getCouponDetailsApi(params: params, loader: true ) { (success, errors, couponsDetails) in
             completion(success, couponsDetails, errors)
             
+        }
+    }
+    
+    //To update Account details after booking.
+    private func getUserAccountData(){
+        if UserInfo.loggedInUserId != nil{
+//            APICaller.shared.getAccountDetailsAPI(params: [:]) {(success, accLad, accVchrs, outLad, periodic, errors) in
+//                printDebug("Account updated.")
+//            }
+            
+            APICaller.shared.getAccountSummaryAPI(params: [:], completionBlock: { ( success, errors) in
+                printDebug("Account updated.")
+            })
         }
     }
     

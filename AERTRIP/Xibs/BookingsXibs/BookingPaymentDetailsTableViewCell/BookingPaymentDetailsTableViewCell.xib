@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17147" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17120"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -64,7 +64,7 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="8cC-tC-t7L" secondAttribute="bottom" constant="2" id="73Z-dq-E3g"/>
+                    <constraint firstAttribute="bottom" secondItem="8cC-tC-t7L" secondAttribute="bottom" id="73Z-dq-E3g"/>
                     <constraint firstAttribute="trailing" secondItem="8cC-tC-t7L" secondAttribute="trailing" constant="16" id="Jkw-2k-n6M"/>
                     <constraint firstItem="8cC-tC-t7L" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Smv-Xo-FDj"/>
                     <constraint firstItem="8cC-tC-t7L" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Vo9-YB-pv2"/>

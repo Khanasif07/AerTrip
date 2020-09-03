@@ -36,7 +36,7 @@ extension FlightBookingInfoVC {
             // 10 id collection view top & bottom in xib
             return (CGFloat(totalRowsForAmenities) * heightForOneRow) + lineSpace + extraPadding
             
-        case .layover: return 40.0
+        case .layover: return UITableView.automaticDimension//40.0
         case .paxData:
             //            if let pax = self.viewModel.legDetails[indexPath.section].pax.first, !pax.detailsToShow.isEmpty {
             //                // Travellers & Add-ons

@@ -34,15 +34,20 @@ class AccountChargeInfoVC: BaseVC {
         
         self.topNavBarHeightConstraint.constant = (self.viewModel.currentUsingFor == .chargeInfo) ? 44.0 : 60.0
         let navTitle = (self.viewModel.currentUsingFor == .chargeInfo) ? LocalizedString.Info.localized : LocalizedString.StepsForOfflinePayment.localized
-        self.topNavView.configureNavBar(title: navTitle, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        self.topNavView.configureNavBar(title: navTitle, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
         
         self.topNavView.delegate = self
         
         self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_toast_cross"), selectedImage: #imageLiteral(resourceName: "ic_toast_cross"), normalTitle: " ", selectedTitle: " ")
         
         //for header blur
-        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
-        topNavView.backgroundColor = AppColors.clear
+        topNavView.backgroundColor = .clear
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        if #available(iOS 13.0, *) {
+            topNavBarHeightConstraint.constant = 56
+        } else {
+            self.view.backgroundColor = .white
+        }
     }
     
     override func viewDidLayoutSubviews() {

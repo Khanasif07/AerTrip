@@ -73,7 +73,7 @@ class CustomMarker: UIView {
         self.priceLabel.attributedText = (price.amountInDelimeterWithSymbol).addPriceSymbolToLeft(using: AppFonts.SemiBold.withSize(16.0))
         updateMakerImage()
         
-        self.priceLabel.sizeToFit()
+//        self.priceLabel.sizeToFit()
         self.priceView.layoutSubviews()
         self.layoutIfNeeded()
 
@@ -114,6 +114,6 @@ class CustomMarker: UIView {
         priceView.layer.borderWidth = isSelected ? 0.0 : 1.0
         priceView.backgroundColor = isSelected ? (isFavourite ? AppColors.themeRed : AppColors.themeGreen) : AppColors.themeWhite
 
-        priceLabel.textColor = isSelected ? AppColors.themeWhite : (isFavourite ? AppColors.themeRed : AppColors.themeGreen)
+        priceLabel.textColor = isSelected ? AppColors.themeWhite : (isFavourite ? AppColors.themeRed : AppColors.themeGray60)
     }
 }

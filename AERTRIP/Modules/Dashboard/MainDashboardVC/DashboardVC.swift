@@ -428,7 +428,8 @@ extension DashboardVC  {
                 
                 let increaseTransform = 1.0 + progressValueMoved/4.0
                 let decreaseTransform = 1.0 - progressValueMoved/4.0
-                
+                printDebug("increaseTransform: \(increaseTransform)")
+                printDebug("decreaseTransform: \(decreaseTransform)")
                 if scrollView.contentOffset.x >= 0 {
                     if self.isSelectingFromTabs {
                         if self.selectedOption != self.toBeSelect {
@@ -446,6 +447,8 @@ extension DashboardVC  {
                 
                 let increaseTransform = 1.0 + tabValueMoved/4
                 let decreaseTransform = 1.0 - tabValueMoved/4
+                printDebug("increaseTransform: \(increaseTransform)")
+                printDebug("decreaseTransform: \(decreaseTransform)")
                 if scrollView.contentOffset.x >= 0 {
                     if self.isSelectingFromTabs {
                         if self.selectedOption != self.toBeSelect {
@@ -505,6 +508,7 @@ extension DashboardVC  {
         }
     }
     
+    /*
     private func checkAndApplyTransform(_ view : UIView, transformValue : CGFloat, scrolledUp : Bool){
         
         let initialTransform = view.transform
@@ -526,6 +530,25 @@ extension DashboardVC  {
             //            }
             view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
             
+        }
+    }
+ */
+    private func checkAndApplyTransform(_ view : UIView, transformValue : CGFloat, scrolledUp : Bool){
+        
+        let initialTransform = view.transform
+        let transformedBounds = view.bounds.applying(initialTransform.scaledBy(x: transformValue, y: transformValue))
+        
+        if isSelectingFromTabs {
+            view.transform = (transformValue == 1.0) ? CGAffineTransform.identity : CGAffineTransform(scaleX: transformValue, y: transformValue)
+        }
+        else {
+            if transformedBounds.size.width >= identitySize.width && !scrolledUp{
+                view.transform = CGAffineTransform.identity
+            }else if transformedBounds.size.width < smallerSize.width && scrolledUp{
+                view.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+            }else{
+                view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
+            }
         }
     }
     

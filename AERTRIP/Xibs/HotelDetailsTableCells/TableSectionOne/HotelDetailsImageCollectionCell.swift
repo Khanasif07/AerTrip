@@ -22,6 +22,8 @@ class HotelDetailsImageCollectionCell: UICollectionViewCell {
     
     @IBOutlet weak var smallLineView: UIView!
     
+    weak var delegate:ImageDeletionDelegate?
+    
     //Mark:- LifeCycle
     //================
     override func awakeFromNib() {
@@ -42,6 +44,21 @@ class HotelDetailsImageCollectionCell: UICollectionViewCell {
         self.hotelImageView.setImageWithUrl(imgUrl, placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: true)
     }
     
+    func configureCell(with images: ATGalleryImage, cornerRadius: CGFloat = 10.0){
+        self.bgView.roundTopCorners(cornerRadius: cornerRadius)
+        if let img = images.image {
+            self.hotelImageView.image = img
+        }
+        else if let url = images.imageUrl {
+            self.hotelImageView.setImageWithUrl(imageUrl: url.absoluteString, placeholder: ATGalleryViewConfiguration.placeholderImage, showIndicator: ATGalleryViewConfiguration.shouldShowLoader){[weak self] image, error in
+                guard let self = self else {return () }
+                self.delegate?.shouldRemoveImage(image, for: images.imagePath)
+                return ()
+            }
+        }else{
+            self.delegate?.shouldRemoveImage(nil, for: images.imagePath)
+        }
+    }
     
     private func initialSetup() {
         self.gradientView.backgroundColor = AppColors.clear

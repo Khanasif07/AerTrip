@@ -100,6 +100,7 @@ extension FlightBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
         cell.titleTopConstraint.constant = 12.0
         cell.titleBottomConstraint.constant = 8.0
+        cell.containerViewBottomConstraint.constant = 0.0
         let paxCount = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section - self.viewModel.noOfLegCellAboveLeg].pax.count ?? 0
         cell.configCell(title: paxCount > 1 ? LocalizedString.Travellers.localized : LocalizedString.Traveller.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, isFirstCell: false, price: "PNR/Status", isLastCell: false, cellHeight: 38.0)
         cell.clipsToBounds = true
@@ -160,6 +161,7 @@ extension FlightBookingsDetailsVC {
         }else{
             cell.paymentInfoTopConstraint.constant = 5
         }
+        cell.changeShadow()
         cell.clipsToBounds = true
         return cell
     }
@@ -277,6 +279,7 @@ extension FlightBookingsDetailsVC {
             tripChangeCell.configureCell(tripName: self.viewModel.bookingDetail?.tripInfo?.name ?? "")
         }
         tripChangeCell.hideBottomSpace = self.viewModel.bookingDetail?.tripWeatherData.isEmpty ?? true
+        tripChangeCell.cellHeightConstraints.constant = tripChangeCell.hideBottomSpace ? 82.0 : 101.0
         return tripChangeCell
     }
     

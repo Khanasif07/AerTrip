@@ -86,7 +86,7 @@ class HotelsResultVM: NSObject {
     var filterApplied: UserInfo.HotelFilter = UserInfo.HotelFilter()
     var isFilterApplied: Bool = false
     var isFavouriteOn: Bool = false
-
+    var tempHotelFilter: UserInfo.HotelFilter? = nil
     
     func searchHotel(forText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)

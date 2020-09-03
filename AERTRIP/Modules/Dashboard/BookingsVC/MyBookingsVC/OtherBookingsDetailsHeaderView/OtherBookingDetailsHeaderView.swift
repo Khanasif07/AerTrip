@@ -25,6 +25,10 @@ class OtherBookingDetailsHeaderView: UIView {
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet weak var progressBottomConstraint: NSLayoutConstraint!
+    
+    
+    var isBottomStroke = false
     
     //MARK:- LifeCycle
     //MARK:===========
@@ -66,7 +70,7 @@ class OtherBookingDetailsHeaderView: UIView {
         //Colors
         self.bookingIdAndDateTitleLabel.textColor = AppColors.themeGray40
         
-        self.dividerView.isHidden = !isDividerView
+        self.dividerView.isHidden = true//!isDividerView
         
     }
     
@@ -122,6 +126,11 @@ class OtherBookingDetailsHeaderView: UIView {
             delay(seconds: 0.5) {
                 self.progressView?.isHidden = true
                 self.backgroundView.backgroundColor = .white
+//                if self.isBottomStroke{
+                    self.dividerView.isHidden = !self.isBottomStroke//false
+//                }else{
+//
+//                }
             }
         }
     }
