@@ -27,7 +27,7 @@ target 'AERTRIP' do
   pod 'Crashlytics'
   pod 'AvailableHapticFeedback'
   pod 'MiniLayout'
-  pod 'GoogleMaps'
+  pod 'GoogleMaps', '~> 2.5.0'
   pod 'GooglePlaces'
   pod 'FlexiblePageControl'
 #  pod 'PKCategoryView'

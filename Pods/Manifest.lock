@@ -68,13 +68,13 @@ PODS:
     - nanopb (~> 1.30905.0)
   - GoogleDataTransport (7.2.0):
     - nanopb (~> 1.30905.0)
-  - GoogleMaps (3.10.0):
-    - GoogleMaps/Maps (= 3.10.0)
-  - GoogleMaps/Base (3.10.0)
-  - GoogleMaps/Maps (3.10.0):
+  - GoogleMaps (2.5.0):
+    - GoogleMaps/Maps (= 2.5.0)
+  - GoogleMaps/Base (2.5.0)
+  - GoogleMaps/Maps (2.5.0):
     - GoogleMaps/Base
-  - GooglePlaces (3.10.0):
-    - GoogleMaps/Base (= 3.10.0)
+  - GooglePlaces (2.5.0):
+    - GoogleMaps/Base (= 2.5.0)
   - GoogleSignIn (5.0.2):
     - AppAuth (~> 1.2)
     - GTMAppAuth (~> 1.0)
@@ -148,7 +148,7 @@ DEPENDENCIES:
   - Firebase/DynamicLinks
   - FlexiblePageControl
   - FSCalendar
-  - GoogleMaps
+  - GoogleMaps (~> 2.5.0)
   - GooglePlaces
   - GoogleSignIn
   - IQKeyboardManager
@@ -232,8 +232,8 @@ SPEC CHECKSUMS:
   FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
   GoogleAppMeasurement: 3def7652b1f5b5a576178dc332e2a36a260fbef6
   GoogleDataTransport: 672fb0ce96fe7f7f31d43672fca62ad2c9c86f7b
-  GoogleMaps: 8c080862ff2748ece9929471b30feb56a6c5079d
-  GooglePlaces: 9a6f5f3a0c88da2aa1bf7426a65d3e004f5e69a1
+  GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
+  GooglePlaces: dd70d9d71ea1c7944846afe67de3712c99b30a77
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
@@ -255,6 +255,6 @@ SPEC CHECKSUMS:
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
   WSTagsField: a4e91b7d866e8c9755332ebcf8123f42f2abd4a0
 
-PODFILE CHECKSUM: 9629babb3cb79f69dccfa0b7352324f0b91c7bcc
+PODFILE CHECKSUM: f6d6926a477f4ccc87d3388f6c1f3bd727a4f05d
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.9.2

@@ -2090,11 +2090,11 @@ Copyright 2020 Google
 
 ## GoogleMaps
 
-Copyright 2020 Google
+Copyright 2017 Google
 
 ## GooglePlaces
 
-Copyright 2020 Google
+Copyright 2017 Google
 
 ## GoogleSignIn
 

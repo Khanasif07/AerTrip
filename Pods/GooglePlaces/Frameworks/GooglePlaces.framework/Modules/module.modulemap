@@ -1,17 +1,8 @@
 framework module GooglePlaces {
   umbrella header "GooglePlaces.h"
   export *
-  module * { export * }
-  link "c++"
+  module * { export *}
   link "z"
-  link framework "CoreData"
-  link framework "CoreFoundation"
-  link framework "CoreGraphics"
   link framework "CoreLocation"
-  link framework "CoreText"
-  link framework "Foundation"
-  link framework "QuartzCore"
-  link framework "Security"
-  link framework "SystemConfiguration"
-  link framework "UIKit"
-}
+  link framework "CoreTelephony"
+  link framework "Security"}

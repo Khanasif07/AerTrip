@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Google LLC. All rights reserved.
+ * Copyright 2016 Google Inc. All rights reserved.
  *
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -18,7 +18,7 @@
  * API Key should be kept private.
  *
  * See documentation on getting an API Key for your API Project here:
- * https://developers.google.com/places/ios-sdk/start#get-key
+ * https://developers.google.com/places/ios-api/start#get-key
  */
 
 #error Register your API key and insert here, then delete this line.

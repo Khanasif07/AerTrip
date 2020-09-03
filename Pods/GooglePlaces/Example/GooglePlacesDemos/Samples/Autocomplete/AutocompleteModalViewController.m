@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Google LLC. All rights reserved.
+ * Copyright 2016 Google Inc. All rights reserved.
  *
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -13,6 +13,10 @@
  * permissions and limitations under the License.
  */
 
+#if !defined(__has_feature) || !__has_feature(objc_arc)
+#error "This file requires ARC support."
+#endif
+
 #import "GooglePlacesDemos/Samples/Autocomplete/AutocompleteModalViewController.h"
 
 #import <GooglePlaces/GooglePlaces.h>
@@ -20,9 +24,7 @@
 @interface AutocompleteModalViewController () <GMSAutocompleteViewControllerDelegate>
 @end
 
-@implementation AutocompleteModalViewController {
-  UIButton *_showAutocompleteWidgetButton;
-}
+@implementation AutocompleteModalViewController
 
 + (NSString *)demoTitle {
   return NSLocalizedString(
@@ -36,8 +38,9 @@
   [super viewDidLoad];
 
   // Configure the UI. Tell our superclass we want a button and a result view below that.
-  _showAutocompleteWidgetButton =
+  UIButton *button =
       [self createShowAutocompleteButton:@selector(showAutocompleteWidgetButtonTapped)];
+  [self addResultViewBelow:button];
 }
 
 #pragma mark - Actions
@@ -47,10 +50,7 @@
   GMSAutocompleteViewController *autocompleteViewController =
       [[GMSAutocompleteViewController alloc] init];
   autocompleteViewController.delegate = self;
-  autocompleteViewController.autocompleteFilter = self.autocompleteFilter;
-  autocompleteViewController.placeFields = self.placeFields;
   [self presentViewController:autocompleteViewController animated:YES completion:nil];
-  [_showAutocompleteWidgetButton setHidden:YES];
 }
 
 #pragma mark - GMSAutocompleteViewControllerDelegate

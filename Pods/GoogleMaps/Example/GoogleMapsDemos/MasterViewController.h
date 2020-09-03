@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Google LLC. All rights reserved.
+ * Copyright 2016 Google Inc. All rights reserved.
  *
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -15,6 +15,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MasterViewController : UITableViewController <UISplitViewControllerDelegate>
+@class DemoAppDelegate;
+
+@interface MasterViewController : UITableViewController <
+    UISplitViewControllerDelegate,
+    UITableViewDataSource,
+    UITableViewDelegate>
+
+@property(nonatomic, assign) DemoAppDelegate *appDelegate;
 
 @end
