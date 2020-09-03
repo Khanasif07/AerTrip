@@ -72,7 +72,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     
     //MARK:-  Initializers
     
-    convenience init(numberOfLegs  : Int , headerArray : [MultiLegHeader] ) {
+    convenience init(numberOfLegs  : Int , headerArray : [MultiLegHeader]) {
         self.init(nibName:nil, bundle:nil)
         self.viewModel.numberOfLegs = numberOfLegs
         self.headerArray = headerArray
@@ -91,7 +91,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         sortedJourneyArray = Array(repeating: [Journey](), count: 0)
         viewModel.resultsTableStates =  Array(repeating: .showTemplateResults , count: 0)
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -103,7 +102,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         viewModel.resultsTableStates =  Array(repeating: .showTemplateResults , count: 0)
         super.init(coder: aDecoder)
     }
-    
     
     //MARK:- View Controller Methods
     override func viewDidLoad() {
@@ -145,12 +143,9 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     
     //MARK:- Additional UI Methods
     
-
-    
     func showNoResultScreenAt(index: Int) {
         addErrorScreenAtIndex(index: index, forFilteredResults: false)
     }
-    
     
     func showNoFilteredResults(index: Int) {
         addErrorScreenAtIndex(index: index, forFilteredResults: true)
@@ -159,82 +154,10 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     
     //MARK:- Logical methods
     
-    func  getSelectedJourneyForAllLegs() -> [Journey]? {
-        
-        var selectedJourneys = [Journey]()
-        
-        for index in 0 ..< self.viewModel.numberOfLegs {
-            
-//            let tableResultState = viewModel.resultsTableStates[index]
-//            if tableResultState == .showTemplateResults {  return nil }
-            
-//            guard let tableView = baseScrollView.viewWithTag( 1000 + index ) as? UITableView else {
-//                return nil
-//            }
-               
-//            guard let selectedIndex = tableView.indexPathForSelectedRow else {
-//                    return nil }
-                
-//                var currentJourney : Journey
-//                let currentArray : [Journey]
-           
-            guard let selJour = self.viewModel.results[index].selectedJourney else {
-                return nil
-            }
-            selectedJourneys.append(selJour)
-            
-//            switch tableResultState {
-//                case .showExpensiveFlights :
-//                        currentArray = self.viewModel.results[index].allJourneys
-//
-//                    if selectedIndex.row < currentArray.count {
-//                        currentJourney = currentArray[selectedIndex.row]
-//                        selectedJourneys.append(currentJourney)
-//                    }
-//                    else {
-//                        return nil
-//                    }
-//                case .showPinnedFlights :
-//
-//                    if selectedIndex.row > self.viewModel.results[index].pinnedFlights.count {
-//                        return nil
-//                    }
-//
-//                    if self.viewModel.results[index].pinnedFlights.count > 0{
-//                        currentJourney = self.viewModel.results[index].pinnedFlights[selectedIndex.row]
-//                        selectedJourneys.append(currentJourney)
-//                    }
-//
-//
-//                case .showRegularResults :
-//
-//                    let suggestedJourneyArray = self.viewModel.results[index].suggestedJourneyArray
-//                    if suggestedJourneyArray.count > 0 {
-//                        currentJourney = self.viewModel.results[index].suggestedJourneyArray[selectedIndex.row]
-//                        selectedJourneys.append(currentJourney)
-//                    }
-//
-//                case .showTemplateResults :
-//                    assertionFailure("Invalid state")
-//                case .showNoResults:
-//                    return nil
-//                }
-            
-        }
-        
-        if selectedJourneys.count == self.viewModel.numberOfLegs {
-            return selectedJourneys
-        }
-
-        return nil
-    }
-    
-    
     fileprivate func setTextColorToHeader(_ color : UIColor , indexPath : Int ) {
         
         let index = IndexPath(item: indexPath, section: 0)
-        if let headerCell =  headerCollectionView.cellForItem(at: index) as? FlightSectorHeaderCell
-        {
+        if let headerCell =  headerCollectionView.cellForItem(at: index) as? FlightSectorHeaderCell {
             if indexPath == 0{
                 headerCell.veticalSeparatorWidth.constant = 0.3
                 headerCell.veticalSeparatorTrailing.constant = 0.8
@@ -252,20 +175,9 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         }
     }
     
-    func formatted(fare : Int ) -> String {
-        
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.maximumFractionDigits = 0
-        
-        formatter.locale = Locale.init(identifier: "en_IN")
-        return formatter.string(from: NSNumber(value: fare)) ?? ""
-        
-    }
-    
     func checkForComboFares() {
         
-        if let selectedJourneys = getSelectedJourneyForAllLegs() {
+        if let selectedJourneys = self.viewModel.getSelectedJourneyForAllLegs() {
             
             let fkArray = selectedJourneys.map( {
                 return $0.fk
@@ -284,10 +196,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
             setTextColorToHeader(.black, indexPath: i)
         }
         
-        if let selectedJourneys = getSelectedJourneyForAllLegs() {
-            
-            if selectedJourneys.count >= 2 {
-                
+        guard let selectedJourneys = self.viewModel.getSelectedJourneyForAllLegs(), selectedJourneys.count >= 2 else { return }
+
                 for i in 0 ..< (selectedJourneys.count - 1) {
                     
                     let currentLegJourney = selectedJourneys[i]
@@ -333,16 +243,15 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                             
                             fareBreakupVC?.bookButton.isEnabled = true
                         }
-                    }
-                    else {
+                    } else {
 //                        setTextColorToHeader(.black, indexPath: i)
 //                        setTextColorToHeader(.black, indexPath: (i + 1 ))
                         
 //                        AertripToastView.hideToast()
                     }
                 }
-            }
-        }
+            
+        
     }
     
     

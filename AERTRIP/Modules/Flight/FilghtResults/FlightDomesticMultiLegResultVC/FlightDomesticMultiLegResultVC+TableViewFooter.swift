@@ -80,7 +80,6 @@ extension FlightDomesticMultiLegResultVC {
     
     @objc func tappedOnGroupedFooterView(_ sender : UITapGestureRecognizer) {
         
-        
         guard let tableIndex = sender.view?.tag else { return }
         guard let tableView = baseScrollView.viewWithTag( 1000 + tableIndex) as? UITableView else { return }
 

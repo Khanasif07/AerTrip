@@ -93,7 +93,7 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
     
         var arrayForDisplay = self.viewModel.results[index].suggestedJourneyArray
          
-       arrayForDisplay = self.viewModel.currentDataSource(tableIndex: index)
+        arrayForDisplay = self.viewModel.currentDataSource(tableIndex: index)
          
          if arrayForDisplay.count > 0 && indexPath.row < arrayForDisplay.count{
               
@@ -136,12 +136,11 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
      }
     
      func setTotalFare() {
-           if let selectedJourneys = self.getSelectedJourneyForAllLegs() {
+        if let selectedJourneys = self.viewModel.getSelectedJourneyForAllLegs() {
                if selectedJourneys.count == self.viewModel.numberOfLegs {
                    ShowFareBreakupView()
                }
-           }
-           else {
+           } else {
                hideFareBreakupView()
            }
        }

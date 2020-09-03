@@ -180,7 +180,7 @@ extension FlightDomesticMultiLegResultVC {
         
         let fareBreakupVC = FareBreakupVC(nibName: "FareBreakupVC", bundle: nil)
         fareBreakupVC.taxesResult = self.viewModel.taxesResult
-        fareBreakupVC.journey = getSelectedJourneyForAllLegs()
+        fareBreakupVC.journey = self.viewModel.getSelectedJourneyForAllLegs()
         fareBreakupVC.sid = sid
         fareBreakupVC.flightAdultCount = bookFlightObject.flightAdultCount
         fareBreakupVC.flightChildrenCount = bookFlightObject.flightChildrenCount
@@ -193,7 +193,7 @@ extension FlightDomesticMultiLegResultVC {
         var isFSRVisible = false
         var remainingSeats = ""
 
-        if let selectedJourney = getSelectedJourneyForAllLegs(){
+        if let selectedJourney = self.viewModel.getSelectedJourneyForAllLegs(){
             for i in 0..<selectedJourney.count{
                 let fk = selectedJourney[i].fk
                 fareBreakupVC.selectedJourneyFK.append(fk)
@@ -240,7 +240,7 @@ extension FlightDomesticMultiLegResultVC {
             var isFSRVisible = false
             var remainingSeats = ""
 
-            if let selectedJourney = self.getSelectedJourneyForAllLegs(){
+            if let selectedJourney = self.viewModel.getSelectedJourneyForAllLegs(){
                 for i in 0..<selectedJourney.count{
                     let fk = selectedJourney[i].fk
                     fareBreakupViewController.selectedJourneyFK.append(fk)
@@ -266,7 +266,7 @@ extension FlightDomesticMultiLegResultVC {
             
             self.checkForComboFares()
             
-            fareBreakupViewController.journey = self.getSelectedJourneyForAllLegs()
+            fareBreakupViewController.journey = self.viewModel.getSelectedJourneyForAllLegs()
             fareBreakupViewController.taxesDataDisplay()
             fareBreakupViewController.initialDisplayView()
             fareBreakupViewController.view.isHidden = false
@@ -455,12 +455,12 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
             flightDetailsVC.bookFlightObject = self.bookFlightObject
             flightDetailsVC.taxesResult = self.viewModel.taxesResult
             flightDetailsVC.sid = sid
-            flightDetailsVC.journey = getSelectedJourneyForAllLegs()
+            flightDetailsVC.journey = self.viewModel.getSelectedJourneyForAllLegs()
             flightDetailsVC.titleString = titleString
             flightDetailsVC.airportDetailsResult = self.viewModel.airportDetailsResult
             flightDetailsVC.airlineDetailsResult = self.viewModel.airlineDetailsResult
     
-            if let allJourneyObj = getSelectedJourneyForAllLegs(){
+            if let allJourneyObj = self.viewModel.getSelectedJourneyForAllLegs(){
                 for i in 0..<allJourneyObj.count{
                     let fk = allJourneyObj[i].fk
                     flightDetailsVC.selectedJourneyFK.append(fk)

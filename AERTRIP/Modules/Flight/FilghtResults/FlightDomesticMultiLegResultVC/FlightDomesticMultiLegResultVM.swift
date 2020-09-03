@@ -207,11 +207,91 @@ class FlightDomesticMultiLegResultVM {
          
     }
     
-    
     func setSelectedJourney(tableIndex : Int, journeyIndex : Int) {
         let currentDataSorce = self.currentDataSource(tableIndex: tableIndex)
         self.results[tableIndex].selectedJourney = currentDataSorce[journeyIndex]
      }
     
+       func  getSelectedJourneyForAllLegs() -> [Journey]? {
+            
+            var selectedJourneys = [Journey]()
+        
+            for index in 0 ..< self.numberOfLegs {
+                
+    //            let tableResultState = viewModel.resultsTableStates[index]
+    //            if tableResultState == .showTemplateResults {  return nil }
+                
+    //            guard let tableView = baseScrollView.viewWithTag( 1000 + index ) as? UITableView else {
+    //                return nil
+    //            }
+                   
+    //            guard let selectedIndex = tableView.indexPathForSelectedRow else {
+    //                    return nil }
+                    
+    //                var currentJourney : Journey
+    //                let currentArray : [Journey]
+               
+                guard let selJour = self.results[index].selectedJourney else {
+                    return nil
+                }
+                selectedJourneys.append(selJour)
+                
+    //            switch tableResultState {
+    //                case .showExpensiveFlights :
+    //                        currentArray = self.viewModel.results[index].allJourneys
+    //
+    //                    if selectedIndex.row < currentArray.count {
+    //                        currentJourney = currentArray[selectedIndex.row]
+    //                        selectedJourneys.append(currentJourney)
+    //                    }
+    //                    else {
+    //                        return nil
+    //                    }
+    //                case .showPinnedFlights :
+    //
+    //                    if selectedIndex.row > self.viewModel.results[index].pinnedFlights.count {
+    //                        return nil
+    //                    }
+    //
+    //                    if self.viewModel.results[index].pinnedFlights.count > 0{
+    //                        currentJourney = self.viewModel.results[index].pinnedFlights[selectedIndex.row]
+    //                        selectedJourneys.append(currentJourney)
+    //                    }
+    //
+    //
+    //                case .showRegularResults :
+    //
+    //                    let suggestedJourneyArray = self.viewModel.results[index].suggestedJourneyArray
+    //                    if suggestedJourneyArray.count > 0 {
+    //                        currentJourney = self.viewModel.results[index].suggestedJourneyArray[selectedIndex.row]
+    //                        selectedJourneys.append(currentJourney)
+    //                    }
+    //
+    //                case .showTemplateResults :
+    //                    assertionFailure("Invalid state")
+    //                case .showNoResults:
+    //                    return nil
+    //                }
+                
+            }
+            
+            if selectedJourneys.count == self.numberOfLegs {
+                return selectedJourneys
+            }
+
+            return nil
+        }
+    
+    
+    func formatted(fare : Int ) -> String {
+         
+         let formatter = NumberFormatter()
+         formatter.numberStyle = .currency
+         formatter.maximumFractionDigits = 0
+         
+         formatter.locale = Locale.init(identifier: "en_IN")
+         return formatter.string(from: NSNumber(value: fare)) ?? ""
+         
+     }
     
 }

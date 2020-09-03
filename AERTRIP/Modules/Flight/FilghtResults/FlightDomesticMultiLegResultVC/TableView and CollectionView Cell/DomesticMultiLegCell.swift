@@ -234,8 +234,6 @@ class DomesticMultiLegCell: UITableViewCell {
             price.textColor = .AERTRIP_ORAGE_COLOR
         }
         
-        
-        
         baggageSuperScript = journey.baggageSuperScript
         smartIconsArray = journey.smartIconArray
         smartIconCollectionView.reloadData()
@@ -250,23 +248,22 @@ class DomesticMultiLegCell: UITableViewCell {
     
         var isSelected = false
         
-        if let sselJourney = selectedJourney, sselJourney.id == journey.id  {
+        if let sselJourney = selectedJourney, sselJourney.fk == journey.fk  {
             isSelected = true
         } else {
             isSelected = false
         }
         
         let selectedStateBGColor = UIColor(displayP3Red: (236.0/255.0), green: (253.0/255.0), blue: (244.0/255.0), alpha: 1.0)
-
         
                 let backgroundColor = isSelected ? selectedStateBGColor : .white
         
-                if ( duration.isHidden == false) {
+               // if ( duration.isHidden == false) {
                     self.backgroundColor = backgroundColor
                     stopsBackgroundView.backgroundColor = backgroundColor
                     price.backgroundColor = backgroundColor
                     setupGradientView(selectedColor: backgroundColor)
-                }
+              //  }
         
     }
     

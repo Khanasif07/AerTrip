@@ -35,7 +35,7 @@ extension FlightResultSingleJourneyVC {
     
     
     func collapseFlights(){
-            
+        
             var tempAllArray = self.viewModel.results.allJourneys
             var indexPathsToBedeleted : [IndexPath] = []
             let suggestedArrayCount = self.viewModel.results.suggestedJourneyArray.count
@@ -63,17 +63,15 @@ extension FlightResultSingleJourneyVC {
                     }
                 })
             }
-    }
+        }
     
-    
-      func manageFloatingView(isHidden: Bool) {
+        func manageFloatingView(isHidden: Bool) {
              self.pinnedFlightsOptionsView.isHidden = isHidden
-    //         self.floatingButtonBackView.isHidden = isHidden
          }
         
         
-        func animateFloatingButtonOnListView(isAnimated: Bool = true) {
-              if isAnimated {
+        func showPinnedButtons(withAnimation: Bool = true) {
+              if withAnimation {
                   self.unpinnedAllButton.alpha = 0.0
                   self.emailPinnedFlights.alpha = 0.0
                   self.sharePinnedFilghts.alpha = 0.0
@@ -99,8 +97,8 @@ extension FlightResultSingleJourneyVC {
               }
           }
           
-          func hideFavsButtons(isAnimated: Bool = false) {
-              if isAnimated {
+          func hidePinnedButtons(withAnimation: Bool = false) {
+              if withAnimation {
                   UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: .curveEaseOut, animations: { [weak self] in
                     
                       self?.unpinnedAllButton.transform = CGAffineTransform(translationX: 0, y: 0)
@@ -128,22 +126,16 @@ extension FlightResultSingleJourneyVC {
           }
           
           func animateButton() {
-              self.animateFloatingButtonOnListView()
+              self.showPinnedButtons()
           }
     
      func manageSwitchContainer(isHidden: Bool, shouldOff: Bool = true) {
           
          manageFloatingView(isHidden: isHidden)
            
-//           if !isHidden {
-//               self.pinnedFlightsOptionsView.isHidden = false
-//           }
-           
            DispatchQueue.main.async {
                let newFrame = CGRect(x: 0.0, y: isHidden ? 100.0 : 0.0, width: self.pinnedFlightsOptionsView.width, height: self.pinnedFlightsOptionsView.height)
-            
-            print("newFrame...\(newFrame)")
-            
+                        
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {[weak self] in
                    guard let sSelf = self else {return}
                    
@@ -161,7 +153,7 @@ extension FlightResultSingleJourneyVC {
            
            if isHidden, shouldOff {
                //if switch is hidden then it must be off, otherwise it should be as it is.
-               self.hideFavsButtons()
+            self.hidePinnedButtons()
               // tableViewVertical.setContentOffset(CGPoint(x: 0, y: -topContentSpace), animated: false)
                showBluredHeaderViewCompleted()
            }

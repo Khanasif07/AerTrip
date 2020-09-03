@@ -37,13 +37,9 @@ extension FlightDomesticMultiLegResultVC {
                     self.animateTableBanner(index: index , updatedArray: updatedArray, sortOrder: sortOrder)
                     NotificationCenter.default.post(name:NSNotification.Name("updateFilterScreenText"), object: nil)
                     }
-
                 })
-3
             }
-            
         }
-    
     
     func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int, shouldReload : Bool = false, completion : (()-> Void)){
 //        previousRequest?.cancel()
@@ -90,10 +86,8 @@ extension FlightDomesticMultiLegResultVC {
                    }
                    
                }) { (bool) in
-                   
                    self.baseScrollView.setContentOffset(CGPoint(x: 0, y: 0) , animated: false)
                    self.bannerView?.isHidden = true
-                   
                    self.updateUI(index: index, updatedArray : updatedArray, sortOrder: sortOrder)
                }
            }
@@ -126,7 +120,7 @@ extension FlightDomesticMultiLegResultVC {
      func updateUIForTableviewAt(_ index: Int) {
             DispatchQueue.main.async {
                 guard let tableView = self.baseScrollView.viewWithTag( 1000 + index) as? UITableView else { return }
-                let selectedIndex = tableView.indexPathForSelectedRow
+//                let selectedIndex = tableView.indexPathForSelectedRow
                 tableView.reloadData()
 
                     // setting up header for table view

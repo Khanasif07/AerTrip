@@ -11,8 +11,7 @@ import MessageUI
 
 
 extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
-   
-    
+       
     func setPinnedFlightAt(flightKey : String , indexPath : IndexPath , isPinned : Bool , tableIndex : Int ) {
         
          var journeyArray = self.viewModel.results[tableIndex].journeyArray
