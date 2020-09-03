@@ -111,9 +111,9 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             self.switchView.isOn = false
         }
         
-        //        manageSwitchContainer(isHidden: true)
         showPinnedFlightsOption(false)
-        hidePinnedFlightOptions(true)
+        
+        hideOrShowPinnedButtons(show : false)
         
         addShadowTo(unpinnedAllButton)
         addShadowTo(emailPinnedFlights)
@@ -219,7 +219,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             showFooterView()
         }
         
-        hidePinnedFlightOptions(!sender.isOn)
+        hideOrShowPinnedButtons(show : sender.isOn)
         resultsTableView.reloadData()
         resultsTableView.setContentOffset(.zero, animated: false)
         showBluredHeaderViewCompleted()

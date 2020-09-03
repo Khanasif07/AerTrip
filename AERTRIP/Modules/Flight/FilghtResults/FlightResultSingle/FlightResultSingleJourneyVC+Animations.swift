@@ -160,6 +160,9 @@ extension FlightResultSingleJourneyVC {
            
        }
     
+    func setPinedSwitchState(isOn : Bool){
+         switchView.isOn = isOn
+     }
     
 }
 

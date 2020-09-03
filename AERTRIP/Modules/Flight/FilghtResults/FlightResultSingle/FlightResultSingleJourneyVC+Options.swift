@@ -56,7 +56,7 @@ extension FlightResultSingleJourneyVC {
             
             if !containesPinnedFlight {
                 viewModel.resultTableState = self.viewModel.stateBeforePinnedFlight
-                hidePinnedFlightOptions(true)
+                hideOrShowPinnedButtons(show : false)
                 switchView.isOn = false
             }
             
@@ -76,11 +76,11 @@ extension FlightResultSingleJourneyVC {
         showFooterView()
     }
     
-    func hidePinnedFlightOptions( _ hide : Bool){
-        if hide {
-            self.hidePinnedButtons(withAnimation : true)
-        } else {
+    func hideOrShowPinnedButtons(show : Bool){
+        if show {
             self.showPinnedButtons(withAnimation : true)
+        } else {
+            self.hidePinnedButtons(withAnimation : true)
         }
     }
     
@@ -224,7 +224,8 @@ extension FlightResultSingleJourneyVC {
         }
         
         self.setPinedSwitchState(isOn: false)
-        hidePinnedFlightOptions(true)
+        hideOrShowPinnedButtons(show : false)
+
         viewModel.resultTableState = viewModel.stateBeforePinnedFlight
         showPinnedFlightsOption(false)
         resultsTableView.reloadData()
@@ -232,9 +233,7 @@ extension FlightResultSingleJourneyVC {
         resultsTableView.setContentOffset(.zero, animated: true)
     }
     
-    func setPinedSwitchState(isOn : Bool){
-        switchView.isOn = isOn
-    }
+ 
     
     func shareJourney(journey : [Journey]) {
         
