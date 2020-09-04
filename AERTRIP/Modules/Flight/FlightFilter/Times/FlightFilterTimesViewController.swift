@@ -263,6 +263,12 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             checkToShowMsg()
             delegate?.departureSelectionChangedAt(currentActiveIndex , minDuration:departureStartTimeInterval , maxDuration: departureEndTimeInterval)
             self.buttonReleased(sender: UIButton())
+            let calendar = Calendar.current
+            let startOfDay = calendar.startOfDay(for: currentTimerFilter.departureMinTime)
+            currentTimerFilter.userSelectedStartTime = startOfDay.addingTimeInterval(departureStartTimeInterval)
+            currentTimerFilter.userSelectedEndTime = startOfDay.addingTimeInterval(departureEndTimeInterval)
+            multiLegTimerFilter[currentActiveIndex] = currentTimerFilter
+            updateSegmentTitles()
         }
     }
     
@@ -561,23 +567,6 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     func showToastMessageForAvailableDepartureRange(_ message : String) {
         
         onToastInitiation?(message)
-        
-//        if multiLegTimerFilter.count > 1{
-//            var frame = UIApplication.shared.windows.last!.frame
-//            let bottomInset = self.view.safeAreaInsets.bottom
-//            let height = 70 + bottomInset
-//            frame.size.height = frame.size.height - height
-//
-//            AertripToastView.toast(in: UIApplication.shared.windows.last! , withText: message , parentRect: frame)
-//        }else{
-//            var frame = UIApplication.shared.windows.last!.frame
-//            let bottomInset = self.view.safeAreaInsets.bottom
-//            let height = 16 + bottomInset
-//            frame.size.height = frame.size.height - height
-//
-//            AertripToastView.toast(in: UIApplication.shared.windows.last! , withText: message , parentRect: frame)
-//        }
-        
     }
     
     @objc fileprivate func departurnRangeUpdated() {

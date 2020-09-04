@@ -190,7 +190,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         let zeroRectView = UIView(frame: .zero)
         setupOriginTable(zeroRectView)
        
-        if currentAirportFilter.originAirportsCount == 1 {
+        if currentAirportFilter.originAirportsCount <= 1 {
             self.originTableViewHeight.constant = 0
             self.destinationTopViewSpacing.constant = 0
         }
@@ -200,7 +200,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
        
         // Setup Destinations Table
         setdestinationTable(zeroRectView)
-        if currentAirportFilter.destinationAirportsCount == 1  {
+        if currentAirportFilter.destinationAirportsCount <= 1  {
              self.destinationTableViewHeight.constant = 0
         }
         else {
