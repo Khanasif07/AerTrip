@@ -259,7 +259,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     @IBAction func PinnedFlightSwitchTogged(_ sender: AertripSwitch) {
         
         if sender.isOn  {
-            self.viewModel.showPinnedFlights = true
             viewModel.stateBeforePinnedFlight = viewModel.resultsTableStates
             viewModel.resultsTableStates = Array(repeating: .showPinnedFlights, count: self.viewModel.numberOfLegs)
             for subView in self.baseScrollView.subviews {
@@ -286,7 +285,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
             hidePinnedFlightOptions(false)
         }
         else {
-            self.viewModel.showPinnedFlights = false
             viewModel.resultsTableStates = viewModel.stateBeforePinnedFlight
             for index in 0 ..< self.viewModel.numberOfLegs {
                 if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
@@ -403,7 +401,7 @@ extension FlightDomesticMultiLegResultVC {
     
     func updatePriceWhenGoneup(_ fk: String, changeResult: ChangeResult,tableIndex : Int ) {
         
-        guard var journeyArray = results[tableIndex].journeyArray else { return }
+         var journeyArray = self.viewModel.results[tableIndex].journeyArray
         guard let index = journeyArray.firstIndex(where: {
             $0.fk == fk
         }) else {
@@ -417,7 +415,7 @@ extension FlightDomesticMultiLegResultVC {
         journeyToToggle.fare.taxes.value = changeResult.fare.taxes.value
         journeyToToggle.fare.taxes.details = changeResult.fare.taxes.details
         journeyArray[index] = journeyToToggle
-        results[tableIndex].journeyArray = journeyArray
+        self.viewModel.results[tableIndex].journeyArray = journeyArray
         
         //Updating pinned flight indicator in tableview Cell after pin / unpin action
         guard let tableview = self.baseScrollView.viewWithTag(1000 + tableIndex) as? UITableView  else { return }

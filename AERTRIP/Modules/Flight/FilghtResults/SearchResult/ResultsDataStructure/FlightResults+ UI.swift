@@ -104,6 +104,15 @@ struct DomesticMultilegJourneyResultsArray {
     var sort : Sort
     var excludeExpensiveFlights = true
 
+    var currentPinnedJourneys : [Journey] = []
+    
+    var pinnedFlights : [Journey] {
+        return journeyArray.filter{ $0.isPinned  ?? false }
+    }
+    
+    
+    
+    
 //    var suggestedJourneyArray: [Journey]! { get {
 //        return journeyArray.filter(){ $0.isAboveHumanScore == false }
 //        }
@@ -120,9 +129,7 @@ struct DomesticMultilegJourneyResultsArray {
 //        }
 //    }
     
-    var pinnedFlights : [Journey] {
-        return journeyArray.filter{ $0.isPinned  ?? false }
-    }
+
     
     var aboveHumanScoreCount : Int {
         let count = journeyArray.filter() { $0.isAboveHumanScore == true }.count

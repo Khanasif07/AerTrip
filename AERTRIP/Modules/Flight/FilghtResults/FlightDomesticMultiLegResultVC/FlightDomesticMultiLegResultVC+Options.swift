@@ -15,21 +15,26 @@ extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
     func setPinnedFlightAt(flightKey : String , indexPath : IndexPath , isPinned : Bool , tableIndex : Int ) {
         
          var journeyArray = self.viewModel.results[tableIndex].journeyArray
-        guard let index = journeyArray.firstIndex(where: {
+      
+        guard let journeyIndex = journeyArray.firstIndex(where: {
             $0.fk == flightKey
         }) else {
             return
         }
         
-        let journeyToToggle = journeyArray[index]
+        let journeyToToggle = journeyArray[journeyIndex]
         journeyToToggle.isPinned = isPinned
-        journeyArray[index] = journeyToToggle
+        journeyArray[journeyIndex] = journeyToToggle
         self.viewModel.results[tableIndex].journeyArray = journeyArray
         
         if isPinned {
             showPinnedFlightSwitch(true)
+            
+        self.viewModel.results[tableIndex].currentPinnedJourneys.append(journeyToToggle)
+
         }
         else {
+            
             let containsPinnedFlight = self.viewModel.results.reduce(false) { $0 || $1.containsPinnedFlight }
             showPinnedFlightSwitch(containsPinnedFlight)
             
@@ -46,15 +51,25 @@ extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
                     self.updateUIForTableviewAt(index)
                 }
                 showPinnedSwitch.isOn = false
-                self.viewModel.showPinnedFlights = false
                 hidePinnedFlightOptions(true)
             }
+            
+            if let index = self.viewModel.results[tableIndex].currentPinnedJourneys.firstIndex(where: { (obj) -> Bool in
+                    obj.id == journeyArray[journeyIndex].id
+            }){
+                    self.viewModel.results[tableIndex].currentPinnedJourneys.remove(at: index)
+            }
+            
         }
         
         //Updating pinned flight indicator in tableview Cell after pin / unpin action
         guard let tableview = self.baseScrollView.viewWithTag(1000 + tableIndex) as? UITableView  else { return }
         guard let cell = tableview.cellForRow(at: indexPath) as? DomesticMultiLegCell else { return }
         cell.setPinnedFlight()
+        delay(seconds: 0.5) {
+            tableview.reloadData()
+        }
+
     }
     
     func performUnpinnedAllAction() {
@@ -88,7 +103,6 @@ extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
            }
            
            showPinnedSwitch.isOn = false
-           self.viewModel.showPinnedFlights = false
            hidePinnedFlightOptions(true)
            showPinnedFlightSwitch(showPinnedSwitch.isOn)
            self.setTotalFare()

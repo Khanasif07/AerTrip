@@ -25,16 +25,32 @@ extension FlightDomesticMultiLegResultVC {
             
             self.flightSearchResultVM.flightLegs[index].updatedFilterResultCount = 0
 
-            self.viewModel.results[index].journeyArray = updatedArray
-             self.viewModel.results[index].sort = sortOrder
-             self.viewModel.sortOrder = sortOrder
-            
+         let modifiedResult = updatedArray
+
             DispatchQueue.global(qos: .userInteractive).async {
 
+                self.viewModel.results[index].sort = sortOrder
+                self.viewModel.sortOrder = sortOrder
+                
+                self.viewModel.results[index].currentPinnedJourneys.forEach { (pinedJourney) in
+                               if let resultIndex = updatedArray.firstIndex(where: { (resultJourney) -> Bool in
+                                   return pinedJourney.id == resultJourney.id
+                               }){
+                                   modifiedResult[resultIndex].isPinned = true
+                               }
+                           }
+                
+                self.viewModel.results[index].journeyArray = modifiedResult
                 self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: index, completion: {
                     DispatchQueue.main.async {
-
                     self.animateTableBanner(index: index , updatedArray: updatedArray, sortOrder: sortOrder)
+                        
+//                        if (self.viewModel.resultTableState[index] == .showPinnedFlights) ||
+//                            (self.viewModel.results.suggestedJourneyArray.isEmpty) ||
+//                            (self.viewModel.results.suggestedJourneyArray.count == self.viewModel.results.journeyArray.count) {
+//                            self.resultsTableView.tableFooterView = nil
+//                        }
+                        
                     NotificationCenter.default.post(name:NSNotification.Name("updateFilterScreenText"), object: nil)
                     }
                 })
@@ -153,13 +169,8 @@ extension FlightDomesticMultiLegResultVC {
                // if self.viewModel.results[index].selectedJourney == nil{
 //                    self.viewModel.results[index].selectedJourney = self.viewModel.results[index].suggestedJourneyArray.first
                     
-                    self.viewModel.setSelectedJourney(tableIndex: index, journeyIndex: 0)
-
               //  }
-                
-                
-                
-                
+            
                     tableView.isScrollEnabled = true
                 
                 ///............
@@ -192,9 +203,12 @@ extension FlightDomesticMultiLegResultVC {
                     
                 }
                 
+                self.viewModel.setSelectedJourney(tableIndex: index, journeyIndex: 0)
                 tableView.isScrollEnabled = true
                 tableView.scrollsToTop = true
                 tableView.reloadData()
+                
+
                 
     //            if self.viewModel.resultsTableStates[index] == .showExpensiveFlights {
     //                self.setExpandedStateFooterAt(index: index)

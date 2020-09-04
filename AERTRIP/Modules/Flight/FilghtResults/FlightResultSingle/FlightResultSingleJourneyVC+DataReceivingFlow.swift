@@ -30,7 +30,6 @@ extension FlightResultSingleJourneyVC {
                     modifiedResult[resultIndex].isPinned = true
                 }
             }
-            print("currentPinnedJourneys....\(self.viewModel.results.currentPinnedJourneys.count)")
             
             let groupedArray =   self.viewModel.getOnewayDisplayArray(results: modifiedResult)
             self.viewModel.results.journeyArray = groupedArray

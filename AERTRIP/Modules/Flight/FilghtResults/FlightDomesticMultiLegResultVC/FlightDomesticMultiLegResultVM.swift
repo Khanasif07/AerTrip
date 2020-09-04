@@ -10,7 +10,6 @@ import UIKit
 
 class FlightDomesticMultiLegResultVM {
     
-    var showPinnedFlights = false
     var numberOfLegs : Int = 0
     var resultsTableStates =  [ResultTableViewState]()
     var stateBeforePinnedFlight = [ResultTableViewState]()
@@ -158,9 +157,7 @@ class FlightDomesticMultiLegResultVM {
                   } else {
                     
                     return firstObjTimeInterval < secondObjTimeInterval
-                    
                   }
-                
               })
             
         default: break;
@@ -209,6 +206,7 @@ class FlightDomesticMultiLegResultVM {
     
     func setSelectedJourney(tableIndex : Int, journeyIndex : Int) {
         let currentDataSorce = self.currentDataSource(tableIndex: tableIndex)
+        if currentDataSorce.isEmpty || self.resultsTableStates[tableIndex] == .showTemplateResults { return }
         self.results[tableIndex].selectedJourney = currentDataSorce[journeyIndex]
      }
     
