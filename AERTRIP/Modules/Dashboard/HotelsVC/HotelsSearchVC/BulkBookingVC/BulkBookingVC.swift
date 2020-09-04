@@ -208,15 +208,16 @@ class BulkBookingVC: BaseVC {
             self.rectangleView.cornerRadius = 10.0
         } else {
             self.rectangleView.cornerRadius = 15.0
+            self.hide(animated: false)
+            delay(seconds: 0.1) { [weak self] in
+                self?.show(animated: true)
+            }
         }
         self.rectangleView.layer.masksToBounds = true
         self.configureCheckInOutView()
         
         self.setWhere(cityName: "", stateName: "")
-        self.hide(animated: false)
-        delay(seconds: 0.1) { [weak self] in
-            self?.show(animated: true)
-        }
+        
         
         self.setSearchFormData()
         

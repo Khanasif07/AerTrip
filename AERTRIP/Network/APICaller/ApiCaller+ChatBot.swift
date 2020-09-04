@@ -79,8 +79,8 @@ extension APICaller {
             printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
             
-                if sucess, let response = jsonData[APIKeys.data.rawValue][APIKeys.search.rawValue].arrayObject as? JSONDictionaryArray {
-                    let recentSearchesData = RecentSearchesModel.recentSearchDataWithType(type: searchFor, jsonArr: response)
+                if sucess, let response = jsonData[APIKeys.data.rawValue][APIKeys.search.rawValue].arrayObject as? JSONDictionaryArray, let extra_data = jsonData[APIKeys.data.rawValue][APIKeys.extra_data.rawValue].object as? JSONDictionary {
+                    let recentSearchesData = RecentSearchesModel.recentSearchDataWithType(type: searchFor, jsonArr: response, extraData: extra_data)
                     completionBlock(true, [], recentSearchesData)
                 }
             }, failure: { errors in

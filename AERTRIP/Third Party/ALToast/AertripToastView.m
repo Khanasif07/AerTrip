@@ -2,7 +2,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "AertripToastView.h"
-
+#import <AERTRIP-Swift.h>
 
 // Set visibility duration
 static const CGFloat kDuration = 3;
@@ -14,7 +14,6 @@ static NSMutableArray *toasts;
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 @interface AertripToastView ()
 
@@ -36,8 +35,6 @@ static NSMutableArray *toasts;
 @synthesize textLabel = _textLabel;
 @synthesize button = _button;
 @synthesize backgroundBlurEffectView = _backgroundBlurEffectView;
-
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - NSObject
@@ -137,7 +134,9 @@ static NSMutableArray *toasts;
 #pragma mark - Public
 
 + (void)toastInView:(nonnull UIView *)parentView withText:(nonnull NSString *)text{
-    [AertripToastView toastInView:parentView withText:text buttonTitle:nil delegate:nil];
+    CustomToast *toastView = [CustomToast shared];
+    [toastView showToast:text];
+//    [AertripToastView toastInView:parentView withText:text buttonTitle:nil delegate:nil];
 }
 
 + (void)toastInView:(nonnull UIView *)parentView withText:(nonnull NSString *)text parentRect:(CGRect)parentRect
@@ -289,7 +288,7 @@ static NSMutableArray *toasts;
     if (view.button != nil){
         
         CGRect buttonFrame = view.button.frame;
-        CGFloat buttonWidth = view.button.titleLabel.intrinsicContentSize.width;
+        CGFloat buttonWidth = view.button.titleLabel.intrinsicContentSize.width + 16; // nitin change
         buttonFrame.origin.x = view.frame.size.width - buttonWidth - 16 ;
         buttonFrame.size.height = height;
         buttonFrame.size.width = buttonWidth + 16 ;
@@ -360,6 +359,7 @@ static NSMutableArray *toasts;
         }
         
     }];
+     
 }
 
 

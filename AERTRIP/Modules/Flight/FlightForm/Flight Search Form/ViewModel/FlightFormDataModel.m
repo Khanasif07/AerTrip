@@ -1332,6 +1332,8 @@
     ///Chnage for what next functionality by @Golu
     if([FlightWhatNextData.shared isSettingForWhatNext]){
         [FlightWhatNextData.shared clearData];
+        [self.delegate setupFlightViews];
+        [self.delegate updateRecentSearch];
         return;
     }
     ///end
@@ -1608,12 +1610,56 @@
     [self.delegate setupFlightClassType];
     
     
-    // Fetch origin airport
-    [self setFlightFormUIFromWhatNext:destination origin:origin];
     
-    // setting dates on Flight form UI
-    [self setFlightFormUIForOnwardDate:departDateString returnDateString:returnDateString tripType:tripType];
+    if ( [tripType isEqualToString:@"single"] || [tripType isEqualToString:@"return"] ) {
+           
+             // Fetch origin airport
+             [self setFlightFormUIFromWhatNext:destination origin:origin];
+             
+             // setting dates on Flight form UI
+             [self setFlightFormUIForOnwardDate:departDateString returnDateString:returnDateString tripType:tripType];
+             
+           }
+    else {
+        
+        [self.multiCityArray removeAllObjects];
+        self.flightSearchType = MULTI_CITY;
+        
+        NSArray *originArray = [query mutableArrayValueForKey:@"originArr"];
+        NSArray * destinationArray = [query mutableArrayValueForKey:@"destinationArr"];
+        NSArray * datesArray = [query mutableArrayValueForKey:@"departArr"];
+        NSArray * departCityArr = [query mutableArrayValueForKey:@"departCityArr"];
+        NSArray * arrivalCityArr = [query mutableArrayValueForKey:@"arrivalCityArr"];
+        
+        for (int i = 0;  i < originArray.count; i++) {
+            
+            NSString * currentOrigin = [originArray objectAtIndex:i];
+            NSString * currentDestination = [destinationArray objectAtIndex:i];
+            NSString * date = [datesArray objectAtIndex:i];
+            NSString * departCity = [departCityArr objectAtIndex:i];
+            NSString * arrivalCity = [arrivalCityArr objectAtIndex:i];
+            
+            AirportSearch * SourceAirport = [AirportSearch new];
+            SourceAirport.iata = currentOrigin;
+            SourceAirport.city = departCity;
+            SourceAirport.countryCode = @"";
+            
+            AirportSearch * ToAirport = [AirportSearch new];
+            ToAirport.iata = currentDestination;
+            ToAirport.city = arrivalCity;
+            ToAirport.countryCode = @"";
+            
+            NSDate * travelDate = [self dateFromString:date];
+            MulticityFlightLeg * newMultiLegJourney = [[MulticityFlightLeg alloc]init];
+            newMultiLegJourney.origin = SourceAirport;
+            newMultiLegJourney.destination = ToAirport;
+            newMultiLegJourney.travelDate = travelDate;
+            [self.multiCityArray addObject:newMultiLegJourney];
+        }
+        //[self.delegate setupFlightViews];
+    }
     
+  
     [self.delegate setupFlightViews];
     [self.delegate updateRecentSearch];
     

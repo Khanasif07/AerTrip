@@ -33,7 +33,7 @@ class EventTypeVC: BaseVC {
             self.eventTypeTableView.rowHeight = UITableView.automaticDimension
         }
     }
-
+    
     //Mark:- LifeCycle
     //================
     override func viewDidLoad() {
@@ -49,6 +49,8 @@ class EventTypeVC: BaseVC {
     //================
     private func registerNibs() {
         self.eventTypeTableView.registerCell(nibName: AmenitiesTableViewCell.reusableIdentifier)
+        self.eventTypeTableView.registerCell(nibName: RoomTableViewCell.reusableIdentifier)
+        
     }
     internal func setFilterValues() {
         eventType.removeAll()
@@ -67,24 +69,50 @@ class EventTypeVC: BaseVC {
 //Mark:- Extensions
 //=================
 extension EventTypeVC: UITableViewDelegate , UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.eventType.count
+        return section == 0 ? 1 : self.eventType.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: AmenitiesTableViewCell.reusableIdentifier) as? AmenitiesTableViewCell else { return UITableViewCell() }
-        cell.eventType = eventType[indexPath.row]
-        cell.statusButton.isSelected = oldSelection.contains(eventType[indexPath.row].rawValue)
-        return cell
+        if indexPath.section == 1 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: AmenitiesTableViewCell.reusableIdentifier) as? AmenitiesTableViewCell else { return UITableViewCell() }
+            cell.eventType = eventType[indexPath.row]
+            cell.statusButton.isSelected = oldSelection.contains(eventType[indexPath.row].rawValue)
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoomTableViewCell.reusableIdentifier) as? RoomTableViewCell else {
+                printDebug("RoomTableViewCell not found")
+                return UITableViewCell()
+            }
+            cell.configCell(title: LocalizedString.ALL.localized)
+            cell.dividerView.isHidden = false
+            cell.statusButton.isSelected = oldSelection.count == eventType.count
+            
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let idx = oldSelection.firstIndex(of: self.eventType[indexPath.row].rawValue) {
-           oldSelection.remove(at: idx)
+        if indexPath.section == 1 {
+            if let idx = oldSelection.firstIndex(of: self.eventType[indexPath.row].rawValue) {
+                oldSelection.remove(at: idx)
+            } else {
+                oldSelection.append(self.eventType[indexPath.row].rawValue)
+            }
+            
         } else {
-            oldSelection.append(self.eventType[indexPath.row].rawValue)
+            if  oldSelection.count == eventType.count {
+                oldSelection.removeAll()
+            } else {
+                oldSelection.removeAll()
+                self.eventType.forEach { (model) in
+                    oldSelection.append(model.rawValue)
+                }
+            }
         }
-        
         self.delegate?.didSelectEventTypes(selection: oldSelection)
         self.eventTypeTableView.reloadData()
     }

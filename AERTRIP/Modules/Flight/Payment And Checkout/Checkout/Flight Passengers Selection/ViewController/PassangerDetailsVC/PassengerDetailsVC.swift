@@ -125,11 +125,11 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     private func updateDob(at index:Int){
         switch GuestDetailsVM.shared.guests[0][index].passengerType{
         case .Adult:break
-        case .child:
+        case .Child:
             if !calculateAge(with : GuestDetailsVM.shared.guests[0][index], year: 12){
                 GuestDetailsVM.shared.guests[0][index].dob = ""
             }
-        case .infant:
+        case .Infant:
             if !calculateAge(with : GuestDetailsVM.shared.guests[0][index], year: 2){
                 GuestDetailsVM.shared.guests[0][index].dob = ""
             }

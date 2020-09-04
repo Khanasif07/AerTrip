@@ -36,7 +36,8 @@ class TotalPayableNowCell: UITableViewCell {
         self.setUpText()
         self.setUpFont()
         self.setUpColor()
-        
+//        self.totalPayableNowLabel.text = LocalizedString.TotalPayableNow.localized
+
         self.topDeviderView.isHidden = true
         self.bottomDeviderView.isHidden = true
     }
@@ -46,16 +47,15 @@ class TotalPayableNowCell: UITableViewCell {
         totalPriceLabel.attributedText = nil
     }
     
-    private func setUpText() {
+    func setUpText() {
         self.totalPayableNowLabel.text = LocalizedString.TotalPayableNow.localized
-        
         self.totalPayableTextTopConstraint.constant = (currentUsingFor == .totalPayableAmout) ? 9.0 : 0.0
         self.totalPayableTextBottomConstraint.constant = (currentUsingFor == .totalPayableAmout) ? 14.5 : 0.0
     }
     
     private func setUpFont() {
         self.totalPayableNowLabel.font = AppFonts.Regular.withSize(((currentUsingFor == .totalPayableAmout) ? 20.0 : 16.0))
-        self.totalPriceLabel.font = AppFonts.SemiBold.withSize(((currentUsingFor == .totalPayableAmout) ? 20.0 : 16.0))
+//        self.totalPriceLabel.font = AppFonts.SemiBold.withSize(((currentUsingFor == .totalPayableAmout) ? 20.0 : 16.0))
     }
     
     private func setUpColor() {

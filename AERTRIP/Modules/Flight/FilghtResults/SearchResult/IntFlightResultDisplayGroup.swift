@@ -111,6 +111,10 @@ class IntFlightResultDisplayGroup {
             if inputFilter.isEmpty {
                 inputFilter = flight.results.f
                 userSelectedFilters = flight.results.f
+                for count in 0..<flight.results.f.count {
+                    initiatedFilters[count] = []
+                    appliedSubFilters[count] = []
+                }
             } else {
                 let latestFilterArr = flight.results.f
                 inputFilter = inputFilter.enumerated().map({ (index, filterElement) in

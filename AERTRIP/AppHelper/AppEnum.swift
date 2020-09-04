@@ -32,7 +32,7 @@ extension Notification.Name {
     static let bulkEnquirySent = Notification.Name("bulkEnquirySent")
     static let bookingFilterApplied = Notification.Name("bookingFilterApplied")
     static let checkoutSessionExpired = Notification.Name("checkoutSessionExpired")
-    
+
 }
 
 // MARK: - Applicaion Response Code From Server
@@ -453,8 +453,8 @@ enum ATOthers: Int, CaseIterable {
 
 enum PassengersType: String {
     case Adult = "ADT"
-    case child = "CHD"
-    case infant = "INF"
+    case Child = "CHD"
+    case Infant = "INF"
 }
 
 enum UserCreditType: String {
@@ -492,7 +492,7 @@ enum ProductType: Int, CaseIterable {
             return #imageLiteral(resourceName: "hotel_green_icon")
             
         case .other:
-            return #imageLiteral(resourceName: "others")
+            return #imageLiteral(resourceName: "others_hotels") //#imageLiteral(resourceName: "others")
         }
     }
     

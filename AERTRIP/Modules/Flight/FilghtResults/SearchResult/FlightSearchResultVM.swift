@@ -464,6 +464,9 @@ extension FlightResultViewModelDelegate {
         guard let flightsArray = responseData.flights  else {
             return
         }
+        if let taxSort = flightsArray.first?.results.taxSort,  !taxSort.isEmpty{
+            self.bookFlightObject.taxSort = taxSort
+        }
         if flightsArray.count == 0 {
             if (progress == 100 || done ) {
                 
@@ -506,7 +509,9 @@ extension FlightResultViewModelDelegate {
         guard let flightsArray = responseData.flights  , flightsArray.count > 0 else {
             return
         }
-                
+        if let taxSort = flightsArray.first?.results.taxSort,  !taxSort.isEmpty{
+            self.bookFlightObject.taxSort = taxSort
+        }
         for comboflight in flightsArray {
             let compoJounrneys = comboflight.results.c
             comboResults.append(contentsOf: compoJounrneys)

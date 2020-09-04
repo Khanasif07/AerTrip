@@ -331,9 +331,10 @@ class FinalCheckOutVC: BaseVC {
             }
             finalAmountCell.dividerView.isHidden = true
             if self.isCouponApplied {
-                if let netAmount = self.viewModel.itinaryPriceDetail?.netAmount, let discountBreakUp = self.appliedCouponData.discountsBreakup {
+                if let discountBreakUp = self.appliedCouponData.discountsBreakup {// let netAmount = self.viewModel.itinaryPriceDetail?.netAmount,
                     // Net Effective fare
-                    let effectiveFare = abs(netAmount.toDouble ?? 0.0 - discountBreakUp.CPD)
+                    let netAmount = self.getTotalPayableAmount()
+                    let effectiveFare = abs(netAmount - discountBreakUp.CPD)//netAmount.toDouble ?? 0.0
                     finalAmountCell.payableWalletMessageLabel.text = (Double(discountBreakUp.CACB).amountInDelimeterWithSymbol + LocalizedString.PayableWalletMessage.localized)
                     finalAmountCell.payableWalletMessageLabel.asStylizedPrice(text: Double(discountBreakUp.CACB).amountInDelimeterWithSymbol, using: AppFonts.Regular.withSize(14.0))
                     finalAmountCell.netEffectiveFareLabel.attributedText = (LocalizedString.NetEffectiveFare.localized + " \(effectiveFare.amountInDelimeterWithSymbol)").asStylizedPrice(using: AppFonts.SemiBold.withSize(14.0))
@@ -367,8 +368,9 @@ class FinalCheckOutVC: BaseVC {
         case 2:
             if let _ = UserInfo.loggedInUser {
               return  self.getWalletAmount() > 0 ? 35.0 : CGFloat.leastNormalMagnitude
+            }else{
+                return 35.0
             }
-            return CGFloat.leastNormalMagnitude
         case 3: // Pay by Wallet Cell
             if let _ = UserInfo.loggedInUser {
               return  self.getWalletAmount() > 0 ? 75.0 : CGFloat.leastNormalMagnitude
@@ -713,27 +715,39 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     
     func getPaymentsMethodsSuccess() {
         //
+        self.viewModel.paymentMethodApiCount = 0
         if let razorPay = self.viewModel.paymentDetails?.paymentModes.razorPay {
             self.convenienceRate = razorPay.convenienceFees
             self.convenienceFeesWallet = razorPay.convenienceFeesWallet > 0 ? razorPay.convenienceFeesWallet : 0
             self.setConvenienceFeeToBeApplied()
         }
-        self.isWallet = self.getWalletAmount() > 0
-        
+        if self.getWalletAmount() <= 0 {
+           self.isWallet = false
+        }
+        //self.isWallet = self.getWalletAmount() > 0
+        self.manageCouponLoader(isApplying:false)
         self.updateAllData()
         printDebug("Get Success")
     }
     
     func getPaymentMethodsFails(errors: ErrorCodes) {
-        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+        if self.viewModel.paymentMethodApiCount < 5{
+            self.viewModel.paymentMethodApiCount += 1
+            self.viewModel.webServiceGetPaymentMethods()
+        }else{
+            self.manageCouponLoader(isApplying:false)
+            AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+            
+        }
     }
     
     func removeCouponCodeSuccessful(_ appliedCouponData: HCCouponAppliedModel) {
-        self.manageCouponLoader(isApplying: false)//Golu Chnages
+//        self.manageCouponLoader(isApplying: false)//Golu Chnages
         self.viewModel.itineraryData = appliedCouponData.itinerary
         self.appliedCouponData = appliedCouponData
         self.isCouponApplied = false
-        self.updateAllData()
+//        self.updateAllData()
+        self.viewModel.webServiceGetPaymentMethods()
         printDebug(appliedCouponData)
     }
     
@@ -751,28 +765,32 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
         self.manageLoader(shouldStart: false)
         if let oldAmount = viewModel.itineraryData?.total_fare {
             let newAmount = recheckedData.total_fare
-            
-            let diff = newAmount - oldAmount
-            
-            // update UI
-            isReloadingAfterFareDipOrIncrease = diff != 0
-            viewModel.itineraryData = recheckedData
-            updateAllData()
-            
-            if diff > 0 {
-                // increased
-                FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: diff, totalUpdatedAmount: newAmount, continueButtonAction: { [weak self] in
-                    guard let sSelf = self else { return }
-                    sSelf.viewModel.makePayment(forAmount: sSelf.getTotalPayableAmount(), useWallet: sSelf.isWallet)
-                }, goBackButtonAction: { [weak self] in
-                    guard let sSelf = self else { return }
-                    sSelf.topNavBarLeftButtonAction(sSelf.topNavView.leftButton)
-                })
-            } else if diff < 0 {
-                // dipped
-                FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: -diff, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
-                self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
-            } else {
+            if (recheckedData.hotelDetails?.is_price_change ?? false){
+                let diff = newAmount - oldAmount
+                
+                // update UI
+                isReloadingAfterFareDipOrIncrease = diff != 0
+                viewModel.itineraryData = recheckedData
+                updateAllData()
+                
+                if diff > 0 {
+                    // increased
+                    FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: diff, totalUpdatedAmount: newAmount, continueButtonAction: { [weak self] in
+                        guard let sSelf = self else { return }
+                        sSelf.viewModel.makePayment(forAmount: sSelf.getTotalPayableAmount(), useWallet: sSelf.isWallet)
+                        }, goBackButtonAction: { [weak self] in
+                            guard let sSelf = self else { return }
+                            sSelf.topNavBarLeftButtonAction(sSelf.topNavView.leftButton)
+                    })
+                } else if diff < 0 {
+                    // dipped
+                    FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: -diff, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
+                    self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
+                } else {
+                    self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
+                }
+            }
+            else{
                 self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
             }
         }
@@ -796,9 +814,14 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
         }
     }
     
-    func makePaymentFail() {
+    func makePaymentFail(errors: ErrorCodes) {
         self.manageLoader(shouldStart: false)
-        AppToast.default.showToastMessage(message: "Make Payment Failed")
+//        if errors.contains(994) {
+            AppFlowManager.default.moveToPaymentAmountHigh()
+//        } else {
+//            AppToast.default.showToastMessage(message: LocalizedString.paymentFails.localized)
+//        }
+        //
     }
     
     func willGetPaymentResonse() {
@@ -826,8 +849,10 @@ extension FinalCheckOutVC: HCCouponCodeVCDelegate {
         printDebug(appliedCouponData)
         self.appliedCouponData = appliedCouponData
         self.isCouponApplied = true
+        self.manageCouponLoader(isApplying:true)
         delay(seconds: 0.3) { [weak self] in
-            self?.updateAllData()
+            self?.viewModel.webServiceGetPaymentMethods()
+//            self?.updateAllData()
         }
     }
 }

@@ -131,7 +131,7 @@ class HCGuestListVC: BaseVC {
                 self.noResultemptyView.messageLabel.isHidden = false
                 self.noResultemptyView.messageLabel.text = "\(LocalizedString.noResults.localized + " " + LocalizedString.For.localized) '\(self.viewModel.searchText)'"
                 self.noResultemptyView.messageLabel.numberOfLines = 0
-                self.noResultemptyView.messageLabelTopConstraint.constant = 30
+                //self.noResultemptyView.messageLabelTopConstraint.constant = 30
                 if self.currentlyUsingFor == .travellers && self.viewModel.travellerContacts.isEmpty {
                     self.tableView?.backgroundView = self.noResultemptyView
                 }
@@ -162,19 +162,21 @@ class HCGuestListVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         self.viewModel.fetchTravellersContact()
+        self.tableView.registerCell(nibName: EmptyTableViewCell.reusableIdentifier)
         delay(seconds: 0.3) { [weak self] in
             guard let `self` = self else {
                 return
             }
             self.noResultemptyView.messageLabel.text = ""
-            self.noResultemptyView.messageLabelTopConstraint.constant = 30
+            //self.noResultemptyView.messageLabelTopConstraint.constant = 30
         }
         
 //        self.tableView.backgroundView = self.allowEmptyView
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        noResultemptyView.mainImageViewTopConstraint.constant = 200
+        self.tableView.backgroundColor = AppColors.themeGray04
+        //noResultemptyView.mainImageViewTopConstraint.constant = 200
         
 //        if self.currentlyUsingFor == .contacts {
 //            if self.viewModel.phoneContacts.isEmpty, CNContactStore.authorizationStatus(for: .contacts) == .authorized {
@@ -215,35 +217,58 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.currentlyUsingFor == .travellers {
             tableView.backgroundView?.isHidden = !self.viewModel.travellerContacts.isEmpty
-            return self.viewModel.travellerContacts.count
+            return (self.viewModel.travellerContacts.count != 0) ? self.viewModel.travellerContacts.count + 1: 0
         }
         else if self.currentlyUsingFor == .contacts {
             
             tableView.backgroundView?.isHidden = !self.viewModel.phoneContacts.isEmpty
-            return self.viewModel.phoneContacts.count
+            return (self.viewModel.phoneContacts.count != 0) ? self.viewModel.phoneContacts.count + 1 : 0
         }
         else if self.currentlyUsingFor == .facebook {
             tableView.backgroundView?.isHidden = !self.viewModel.facebookContacts.isEmpty
-            return self.viewModel.facebookContacts.count
+            return (self.viewModel.facebookContacts.count != 0) ? self.viewModel.facebookContacts.count + 1 : 0
         }
         else if self.currentlyUsingFor == .google {
             tableView.backgroundView?.isHidden = !self.viewModel.googleContacts.isEmpty
-            return self.viewModel.googleContacts.count
+            return (self.viewModel.googleContacts.count != 0) ? self.viewModel.googleContacts.count + 1 : 0
         }
         
         return 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50.0
+        switch self.currentlyUsingFor {
+        case .travellers: return (self.viewModel.travellerContacts.count != indexPath.row) ? 50.0 : 35.0
+        case .contacts: return (self.viewModel.phoneContacts.count != indexPath.row) ? 50.0 : 35.0
+        case .facebook: return (self.viewModel.facebookContacts.count != indexPath.row) ? 50.0 : 35.0
+        case .google: return (self.viewModel.googleContacts.count != indexPath.row) ? 50.0 : 35.0
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let emptyCell = self.tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.reusableIdentifier) as? EmptyTableViewCell ?? EmptyTableViewCell()
+        emptyCell.backgroundColor = AppColors.themeGray04
+        emptyCell.bottomDividerView.isHidden = true
+        switch self.currentlyUsingFor {
+        case .travellers: return (self.viewModel.travellerContacts.count != indexPath.row) ? returnCellForContact(with: indexPath) : emptyCell
+        case .contacts: return (self.viewModel.phoneContacts.count != indexPath.row) ? returnCellForContact(with: indexPath) : emptyCell
+        case .facebook: return (self.viewModel.facebookContacts.count != indexPath.row) ? returnCellForContact(with: indexPath) : emptyCell
+        case .google: return (self.viewModel.googleContacts.count != indexPath.row) ? returnCellForContact(with: indexPath) : emptyCell
+        }
+        
+    }
+    
+    
+    func returnCellForContact(with indexPath: IndexPath)-> UITableViewCell{
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ContactDetailsTableCell") as? ContactDetailsTableCell else {
             return UITableViewCell()
         }
         
-        if self.currentlyUsingFor == .travellers {
+        
+        switch self.currentlyUsingFor {
+        case .travellers:
             cell.showSalutationImage = true
             cell.contact = self.viewModel.travellerContacts[indexPath.row]
             
@@ -260,22 +285,19 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
             cell.selectionButton.isSelected = self.viewModel.selectedTravellerContacts.contains(where: { (contact) -> Bool in
                 contact.id == self.viewModel.travellerContacts[indexPath.row].id
             })
-        }
-        else if self.currentlyUsingFor == .contacts {
+        case .contacts:
             cell.contact = self.viewModel.phoneContacts[indexPath.row]
             cell.dividerView.isHidden = indexPath.row == (self.viewModel.phoneContacts.count - 1)
             cell.selectionButton.isSelected = self.viewModel.selectedPhoneContacts.contains(where: { (contact) -> Bool in
                 contact.id == self.viewModel.phoneContacts[indexPath.row].id
             })
-        }
-        else if self.currentlyUsingFor == .facebook {
+        case .facebook:
             cell.contact = self.viewModel.facebookContacts[indexPath.row]
             cell.dividerView.isHidden = indexPath.row == (self.viewModel.facebookContacts.count - 1)
             cell.selectionButton.isSelected = self.viewModel.selectedFacebookContacts.contains(where: { (contact) -> Bool in
                 contact.id == self.viewModel.facebookContacts[indexPath.row].id
             })
-        }
-        else if self.currentlyUsingFor == .google {
+        case .google:
             cell.contact = self.viewModel.googleContacts[indexPath.row]
             cell.dividerView.isHidden = indexPath.row == (self.viewModel.googleContacts.count - 1)
             cell.selectionButton.isSelected = self.viewModel.selectedGoogleContacts.contains(where: { (contact) -> Bool in
@@ -283,13 +305,55 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
             })
         }
         
+//        if self.currentlyUsingFor == .travellers {
+//            cell.showSalutationImage = true
+//            cell.contact = self.viewModel.travellerContacts[indexPath.row]
+//
+//            // Get age str based on date of birth
+//            //            let dateStr = AppGlobals.shared.getAgeLastString(dob: self.viewModel.travellerContacts[indexPath.row].dob, formatter: "yyyy-MM-dd")
+//            //            // get attributed date str
+//            //            let attributedDateStr = AppGlobals.shared.getAttributedBoldText(text: dateStr, boldText: dateStr,color: AppColors.themeGray40)
+//            //
+//            //            // add a UILabel for Age string
+//            //            let label = UILabel(frame: CGRect(x: 0, y: 0, width: 45, height: 30))
+//            //            label.attributedText = attributedDateStr
+//            //            cell.accessoryView = label
+//            cell.dividerView.isHidden = indexPath.row == (self.viewModel.travellerContacts.count - 1)
+//            cell.selectionButton.isSelected = self.viewModel.selectedTravellerContacts.contains(where: { (contact) -> Bool in
+//                contact.id == self.viewModel.travellerContacts[indexPath.row].id
+//            })
+//        }
+//        else if self.currentlyUsingFor == .contacts {
+//            cell.contact = self.viewModel.phoneContacts[indexPath.row]
+//            cell.dividerView.isHidden = indexPath.row == (self.viewModel.phoneContacts.count - 1)
+//            cell.selectionButton.isSelected = self.viewModel.selectedPhoneContacts.contains(where: { (contact) -> Bool in
+//                contact.id == self.viewModel.phoneContacts[indexPath.row].id
+//            })
+//        }
+//        else if self.currentlyUsingFor == .facebook {
+//            cell.contact = self.viewModel.facebookContacts[indexPath.row]
+//            cell.dividerView.isHidden = indexPath.row == (self.viewModel.facebookContacts.count - 1)
+//            cell.selectionButton.isSelected = self.viewModel.selectedFacebookContacts.contains(where: { (contact) -> Bool in
+//                contact.id == self.viewModel.facebookContacts[indexPath.row].id
+//            })
+//        }
+//        else if self.currentlyUsingFor == .google {
+//            cell.contact = self.viewModel.googleContacts[indexPath.row]
+//            cell.dividerView.isHidden = indexPath.row == (self.viewModel.googleContacts.count - 1)
+//            cell.selectionButton.isSelected = self.viewModel.selectedGoogleContacts.contains(where: { (contact) -> Bool in
+//                contact.id == self.viewModel.googleContacts[indexPath.row].id
+//            })
+//        }
+        
         return cell
+        
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if self.currentlyUsingFor == .travellers {
-            
+            guard self.viewModel.travellerContacts.count > indexPath.row else {return}
             if let oIndex = self.viewModel.originalIndex(forContact: self.viewModel.travellerContacts[indexPath.row], forType: .travellers) {
                 
                 if let index = self.viewModel.selectedTravellerContacts.firstIndex(where: { (contact) -> Bool in
@@ -308,6 +372,7 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         else if self.currentlyUsingFor == .contacts {
+            guard self.viewModel.phoneContacts.count > indexPath.row else {return}
             if let index = self.viewModel.selectedPhoneContacts.firstIndex(where: { (contact) -> Bool in
                 contact.id == self.viewModel.phoneContacts[indexPath.row].id
             }) {
@@ -333,6 +398,7 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         else if self.currentlyUsingFor == .facebook {
+             guard self.viewModel.facebookContacts.count > indexPath.row else {return}
             if let index = self.viewModel.selectedFacebookContacts.firstIndex(where: { (contact) -> Bool in
                 contact.id == self.viewModel.facebookContacts[indexPath.row].id
             }) {
@@ -358,6 +424,7 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         else if self.currentlyUsingFor == .google {
+             guard self.viewModel.googleContacts.count > indexPath.row else {return}
             if let index = self.viewModel.selectedGoogleContacts.firstIndex(where: { (contact) -> Bool in
                 contact.id == self.viewModel.googleContacts[indexPath.row].id
             }) {

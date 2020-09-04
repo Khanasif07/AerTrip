@@ -105,6 +105,7 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self.ScrollView setContentOffset:CGPointZero animated:FALSE];
 }
+
 -(void)setupMainView
 {
     self.mainView.layer.shadowOffset = CGSizeMake(0.0,16.0);
@@ -125,12 +126,12 @@
 }
 
 - (void)setupInitials {
-
     self.viewModel = [[FlightFormDataModel alloc] init];
     self.viewModel.delegate = self;
     [self setupMainView];
     [self setupCollectionView];
     [self setupFlightSection];
+    [self updateScrollviewContentHeight];
 }
 
 - (void)hideLoaderIndicator {
@@ -151,13 +152,13 @@
 
 - (void)datesSelectedIsReturn:(BOOL)isReturn
 {
-        if (isReturn) {
-            self.flightSegmentedControl.selectedSegmentIndex = 1;
-        }else {
-            self.flightSegmentedControl.selectedSegmentIndex = 0;
-        }
+    if (isReturn) {
+        self.flightSegmentedControl.selectedSegmentIndex = 1;
+    }else {
+        self.flightSegmentedControl.selectedSegmentIndex = 0;
+    }
     [self setupDatesInOnwardsReturnView];
-
+    
 }
 
 
@@ -173,9 +174,9 @@
     [self setupFlightViews];
     [self setupFlightSearchButton];
     [self setupMultiCityTableView];
-
-
-
+    
+    
+    
 }
 - (void)setupSegmentControl {
     if (self.viewModel.segmentTitleSectionArray.count == 0) self.viewModel.segmentTitleSectionArray = [@[@"Oneway"] mutableCopy];
@@ -185,8 +186,8 @@
     self.flightSegmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     self.flightSegmentedControl.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleFixed;
     
-   // self.flightSegmentedControl.segmentEdgeInset = UIEdgeInsetsMake(0, 20.0, 0, 20.0);
-   // self.flightSegmentedControl.selectionIndicatorEdgeInsets = UIEdgeInsetsMake(0, 20.0, 0, 40.0);
+    // self.flightSegmentedControl.segmentEdgeInset = UIEdgeInsetsMake(0, 20.0, 0, 20.0);
+    // self.flightSegmentedControl.selectionIndicatorEdgeInsets = UIEdgeInsetsMake(0, 20.0, 0, 40.0);
     
     self.flightSegmentedControl.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
     // self.topSegmentControl.frame = CGRectMake(0, 64, self.view.frame.size.width, 46);
@@ -202,7 +203,7 @@
     
     self.flightSegmentedControl.borderType = HMSegmentedControlBorderTypeNone;
     self.flightSegmentedControl.selectedSegmentIndex = 0;
-  //  [self setupSwipe];
+    //  [self setupSwipe];
 }
 
 -(void)setAerinSearchClosure {
@@ -225,7 +226,7 @@
 
 - (void)setupFlightViews {
     
-//    self.flightSegmentedControl.selectedSegmentIndex = self.viewModel.flightSearchType;
+    //    self.flightSegmentedControl.selectedSegmentIndex = self.viewModel.flightSearchType;
     
     [self.flightSegmentedControl setSelectedSegmentIndex:self.viewModel.flightSearchType animated:YES];
     
@@ -235,7 +236,7 @@
         [self.viewModel setupMultiCityView];
         self.multiCityViewHeightConstraint.constant = 2000.0;
         [self reloadMultiCityTableView];
-
+        
     }else {
         self.fromToViewHeightConstraint.constant = 104.0;
         self.onwardReturnViewHeightConstraint.constant = 104.0;
@@ -246,27 +247,28 @@
             self.viewModel.returnDate  =  nil;
         }
         [self setupDatesInOnwardsReturnView];
-
+        
     }
+    [self updateScrollviewContentHeight];
 }
 
 
 -(void) setupFromLabel:(NSArray*)fromFlightArray
 {
     if (fromFlightArray.count  > 0) {
-
+        
         [UIView animateWithDuration:0.3 animations:^{
-           
+            
             self.fromTopLabel.alpha = 1.0;
             self.fromLabel.alpha = 0.0;
         }];
         
         self.fromValueLabel.hidden = NO;
         self.fromValueLabel.text = [self.viewModel flightFromText];
-
+        
         
         AirportSearch *airportSearch = fromFlightArray[0];
-
+        
         NSInteger count = fromFlightArray.count;
         switch (count) {
             case 1:
@@ -310,11 +312,11 @@
             self.toTopLabel.alpha = 1.0;
         }];
         
-
+        
         self.toValueLabel.text = self.viewModel.flightToText;
         
         AirportSearch *airportSearch = toFlightArray[0];
-
+        
         NSInteger count = toFlightArray.count;
         switch (count) {
             case 1:
@@ -339,7 +341,7 @@
         
     }else {
         [UIView animateWithDuration:0.4 animations:^{
-         
+            
             self.toLabel.alpha = 1.0;
             self.toTopLabel.alpha = 0.0;
             
@@ -399,7 +401,7 @@
 - (void)setupReturnDateView:(NSDate*)returnDate {
     if (self.viewModel.flightSearchType == RETURN_JOURNEY ) {
         [self.returnLabel setTextColor:[ UIColor ONE_FIVE_THREE_COLOR] ];
-                
+        
         if (returnDate != nil) {
             [self changeLabelFont:self.returnLabel isSmall:YES];
             self.returnValueLabel.hidden = NO;
@@ -473,7 +475,7 @@
 }
 
 - (void)setupFlightSearchButton {
-  
+    
     [self hideLoaderIndicatorForFilghtSearch];
     [self setCustomButtonView:self.flightSearchButton withOuterView:self.flightSearchOuterView];
     [self.flightSearchButton addTarget:self action:@selector(flightSearchButtonPressed) forControlEvents:UIControlEventTouchDown];
@@ -484,27 +486,27 @@
 - (void)setCustomButtonView:(UIButton *)button withOuterView:(UIView *)outerView {
     outerView.layer.shadowOpacity = BUTTON_RELEASED_SHADOW_OPACITY;
     [self setRoundedCornerWithShadowToButton:button outerView:outerView shadowColor:[[UIColor themeBlack] colorWithAlphaComponent:0.2]];
-//    [self applyGradientLayerToButton:button startColor:[UIColor BLUE_GREEN_COLOR] endColor:[UIColor GREEN_BLUE_COLOR]];
+    //    [self applyGradientLayerToButton:button startColor:[UIColor BLUE_GREEN_COLOR] endColor:[UIColor GREEN_BLUE_COLOR]];
 }
 
 
 - (void)flightSearchButtonPressed
 {
-
+    
     // Gurpreet
-//    self.flightSearchButton.transform = CGAffineTransformMakeScale(0.9, 0.9);
-
-//    [self customButtonViewPressed:self.flightSearchOuterView];
-
+    //    self.flightSearchButton.transform = CGAffineTransformMakeScale(0.9, 0.9);
+    
+    //    [self customButtonViewPressed:self.flightSearchOuterView];
+    
 }
 
 - (void)flightSearchButtonReleased {
-
+    
     // Gurpreet
-//    self.flightSearchButton.transform = CGAffineTransformMakeScale(1.0, 1.0);
-
+    //    self.flightSearchButton.transform = CGAffineTransformMakeScale(1.0, 1.0);
+    
     //[self customButtonViewReleased:self.flightSearchOuterView];
-
+    
 }
 
 - (void)hideLoaderIndicatorForFilghtSearch {
@@ -534,7 +536,7 @@
     
 }
 - (IBAction)flightBulkAction:(id)sender {
-
+    
     FlightBulkBookingViewController *controller = (FlightBulkBookingViewController *)[self getControllerForModule:FLIGHT_BULK_BOOKING_CONTROLLER];
     controller.formDataModel = self.viewModel;
     controller.BulkBookingFormDelegate = self;
@@ -544,7 +546,7 @@
 //MARK:- FLIGHT SEARCH
 
 -(void)showErrorMessage:(NSString*)errorMessage {
-  [AertripToastView toastInView:self.parentViewController.view withText:errorMessage];
+    [AertripToastView toastInView:self.parentViewController.view withText:errorMessage];
 }
 
 - (IBAction)searchFlightAction:(id)sender {
@@ -579,7 +581,7 @@
     values = [NSMutableArray arrayWithArray:[displayGroupSet allObjects]];
     
     NSString * sid = bookflightObject.sid;
-
+    
     int64_t numberOfLegs = 1;
     if (bookflightObject.flightSearchType == RETURN_JOURNEY) {
         numberOfLegs = 2;
@@ -594,30 +596,30 @@
     }
     
     FlightSearchResultVM * flightSearchResponse = [[FlightSearchResultVM alloc] initWithDisplayGroups:values sid:sid bookFlightObject:bookflightObject isInternationalJourney:self.isInternationalJourney numberOfLegs: numberOfLegs];
-        
+    
     FlightResultBaseViewController * flightResultView = [[FlightResultBaseViewController alloc] initWithFlightSearchResultVM:flightSearchResponse flightSearchParameters:flightSearchParameters isIntReturnOrMCJourney:self.isInternationalJourney airlineCode:self.viewModel.airlineCode];
-
-
+    
+    
     [self.navigationController pushViewController:flightResultView animated:true];
-
+    
 }
 
 //MARK:- Target Action Methods
 
 - (IBAction)fromAction:(id)sender {
     AirportSelectionViewController *controller = (AirportSelectionViewController *)[self getControllerForModule:AIRPORT_SELECTION_CONTROLLER];
-
+    
     AirportSelectionVM * viewModel = [self.viewModel prepareForAirportSelection:true airportSelectionMode:AirportSelectionModeSingleLegJournery];
     viewModel.isFrom = true;
     controller.viewModel = viewModel;
-
     
-     if (@available(iOS 13.0, *)) {
-         [self presentViewController:controller animated:YES completion:nil];
-     }
-     else {
-         [self presentViewController:controller animated:NO completion:nil];
-     }
+    
+    if (@available(iOS 13.0, *)) {
+        [self presentViewController:controller animated:YES completion:nil];
+    }
+    else {
+        [self presentViewController:controller animated:NO completion:nil];
+    }
 }
 
 - (IBAction)toAction:(id)sender {
@@ -635,8 +637,8 @@
 }
 
 - (IBAction)onwardsAction:(id)sender {
-
-
+    
+    
     NSBundle * calendarBundle = [NSBundle bundleForClass:AertripCalendarViewController.class];
     UIStoryboard *storyboard = [UIStoryboard   storyboardWithName:@"AertripCalendar" bundle:calendarBundle];
     AertripCalendarViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"AertripCalendarViewController"];
@@ -647,7 +649,7 @@
     else {
         controller.viewModel = [self.viewModel VMForDateSelectionIsOnwardsSelection:YES forReturnMode:YES];
     }
-
+    
     if (@available(iOS 13.0, *)) {
         [self presentViewController:controller animated:YES completion:nil];
     }
@@ -657,10 +659,10 @@
 }
 - (IBAction)returnAction:(id)sender {
     
-        if (self.viewModel.flightSearchType != RETURN_JOURNEY ) {
-            self.flightSegmentedControl.selectedSegmentIndex = 1 ;
-            [self segmentChanged:nil];
-        }
+    if (self.viewModel.flightSearchType != RETURN_JOURNEY ) {
+        self.flightSegmentedControl.selectedSegmentIndex = 1 ;
+        [self segmentChanged:nil];
+    }
     
     NSBundle * calendarBundle = [NSBundle bundleForClass:AertripCalendarViewController.class];
     UIStoryboard *storyboard = [UIStoryboard   storyboardWithName:@"AertripCalendar" bundle:calendarBundle];
@@ -677,7 +679,7 @@
 }
 
 - (IBAction)passengersAction:(id)sender {
-
+    
     FlightAddPassengerViewController *controller = (FlightAddPassengerViewController *)[self getControllerForModule:FLIGHT_ADD_PASSENGER_CONTROLLER];
     controller.travellerCount = self.viewModel.travellerCount;
     controller.delegate = self;
@@ -693,12 +695,12 @@
 }
 
 - (IBAction)classAction:(id)sender {
-
+    
     HomeFlightAddClassViewController *controller = (HomeFlightAddClassViewController *)[self getControllerForModule:HOME_FLIGHT_ADD_CLASS_CONTROLLER];
     controller.flightClassSelectiondelegate = self;
     controller.flightClass = self.viewModel.flightClass;
     [self presentViewController:controller animated:NO completion:nil];
-
+    
 }
 
 - (void)addFlightClassAction:(FlightClass *)flightClass {
@@ -727,8 +729,9 @@
     }else{
         self.recentSearchTitleLabel.hidden = true;
     }
-
+    
     [self.recentSearchCollectionView reloadData];
+    [self updateScrollviewContentHeight];
 }
 
 //MARK:- MULTICITY IMPLEMENTATION
@@ -752,14 +755,14 @@
         self.multicityRemoveButton.enabled = NO;
         self.multicityRemoveTitle.alpha = 0.2;
         self.multiCityRemoveIcon.alpha = 0.2;
-
+        
     }
     else {
- 
+        
         self.multicityRemoveTitle.alpha = 1.0;
         self.multiCityRemoveIcon.alpha = 1.0;
         self.multicityRemoveButton.enabled = YES;
-
+        
     }
 }
 
@@ -767,7 +770,7 @@
     
     [self.viewModel addFlightLegForMulticityJourney];
     [self reloadMultiCityTableView];
-
+    
 }
 -(void)disableAddMulticityButton:(BOOL)disable
 {
@@ -776,7 +779,7 @@
         self.multicityAddIcon.alpha = 0.2;
         self.multicityAddTitle.alpha = 0.2;
         self.multicityAddButton.enabled = NO;
-
+        
     }
     else {
         self.multicityAddButton.enabled = YES;
@@ -791,6 +794,7 @@
     self.multiCityTableViewHeightConstraint.constant = 80 * self.viewModel.multiCityArray.count;
     self.flightFormHeight.constant = self.multiCityTableViewHeightConstraint.constant + 305.0;
     [self.view layoutIfNeeded];
+    [self updateScrollviewContentHeight];
 }
 
 
@@ -817,7 +821,7 @@
     }else{
         self.isInternationalJourney = false;
     }
-//    self.isInternationalJourney = (uniqueArray.count > 1);
+    //    self.isInternationalJourney = (uniqueArray.count > 1);
 }
 
 
@@ -848,9 +852,9 @@
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    
     return self.viewModel.multiCityArray.count;
-
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 80.0;
@@ -868,7 +872,7 @@
     if (cell == nil) {
         NSArray *customCell = [[NSBundle mainBundle] loadNibNamed:@"MultiCityFlightTableViewCell" owner:self options:nil];
         cell = [customCell objectAtIndex:0];
-
+        
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.delegate = self;
@@ -892,7 +896,7 @@
     else {
         [self presentViewController:controller animated:NO completion:nil];
     }
-
+    
 }
 - (void)openCalenderDateForMulticity:(NSIndexPath *)indexPath {
     
@@ -928,24 +932,24 @@
     
     AirportSearch * origin = currentLeg.destination;
     AirportSearch * destination = currentLeg.origin;
-
+    
     if ( origin != nil ){
         [fromArray addObject:origin];
     }
-
-//    AirportSearch * destination = currentLeg.origin;
+    
+    //    AirportSearch * destination = currentLeg.origin;
     if ( destination != nil ){//&& ![origin.iata isEqual: destination.iata]) {
         [toArray addObject:destination];
     }
-
+    
     [self.viewModel setMulticityAirports:fromArray toArray:toArray atIndexPath:indexPath];
     
 }
 //MARK:- Selected Airtport Swapping
 
 - (void)performAirportSwap {
-
-//    [self performAnimationForPlaceholderLabels];
+    
+    //    [self performAnimationForPlaceholderLabels];
     [self performAirportSwapAnimationForSubTitle];
     [self performAnimationForValueLabels];
     [self airportSwapOnModelView];
@@ -954,7 +958,7 @@
 - (void)swipPositionOfLabels:(UILabel *)leftLabel rightLabel:(UILabel *)rightLabel {
     UILabel * originAnimationLabel =  [self deepLabelCopy:leftLabel];
     UILabel * destinationAnimationLabel =  [self deepLabelCopy:rightLabel];
-
+    
     
     UIColor * previousColor = leftLabel.textColor;
     
@@ -979,8 +983,8 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         
-//        originAnimationLabel.frame = leftLabelTargetFrame;
-//        destinationAnimationLabel.frame = rightLabelTargetFrame;
+        //        originAnimationLabel.frame = leftLabelTargetFrame;
+        //        destinationAnimationLabel.frame = rightLabelTargetFrame;
         
         // Gurpreet
         originAnimationLabel.frame = CGRectMake(leftLabelTargetFrame.origin.x, originAnimationLabel.frame.origin.y, originAnimationLabel.frame.size.width, originAnimationLabel.frame.size.height);
@@ -1006,13 +1010,13 @@
     
     UILabel * leftLabel = self.fromSubTitleLabel;
     UILabel * rightLabel = self.toSubTitleLabel;
-
+    
     [self swipPositionOfLabels:leftLabel rightLabel:rightLabel];
 }
 
 
 -(void)animateLabel:(UILabel*)sourceLabel targetLabel:(UILabel*)targetLabel {
-
+    
     UILabel *labelCopy = [self deepLabelCopy:sourceLabel];
     UIColor * previousColor = self.fromLabel.textColor;
     
@@ -1038,28 +1042,28 @@
 
 
 -(void)performAnimationForPlaceholderLabels{
- 
+    
     if (!self.fromLabel.isHidden) {
-
-//        UILabel *fromLabelCopy = [self deepLabelCopy:self.fromLabel];
-//        UIColor * previousColor = self.fromLabel.textColor;
-//
-//        self.fromLabel.textColor = [UIColor clearColor];
-//        [self.FromToView addSubview:fromLabelCopy];
-//
-//        CGRect targetRect = self.fromTopLabel.frame;
-//        targetRect.size = self.fromLabel.frame.size;
-//
-//
-//        [UIView animateWithDuration:0.3 animations:^{
-//
-//            fromLabelCopy.frame = targetRect;
-//
-//        } completion:^(BOOL finished) {
-//
-//            [fromLabelCopy removeFromSuperview];
-//            self.fromLabel.textColor = previousColor;
-//        }];
+        
+        //        UILabel *fromLabelCopy = [self deepLabelCopy:self.fromLabel];
+        //        UIColor * previousColor = self.fromLabel.textColor;
+        //
+        //        self.fromLabel.textColor = [UIColor clearColor];
+        //        [self.FromToView addSubview:fromLabelCopy];
+        //
+        //        CGRect targetRect = self.fromTopLabel.frame;
+        //        targetRect.size = self.fromLabel.frame.size;
+        //
+        //
+        //        [UIView animateWithDuration:0.3 animations:^{
+        //
+        //            fromLabelCopy.frame = targetRect;
+        //
+        //        } completion:^(BOOL finished) {
+        //
+        //            [fromLabelCopy removeFromSuperview];
+        //            self.fromLabel.textColor = previousColor;
+        //        }];
         
         [self animateLabel:self.fromLabel targetLabel:self.fromTopLabel];
     }
@@ -1067,8 +1071,8 @@
     
     if (!self.toLabel.isHidden) {
         
-    [self animateLabel:self.toLabel targetLabel:self.toTopLabel];
-
+        [self animateLabel:self.toLabel targetLabel:self.toTopLabel];
+        
     }
     
 }
@@ -1112,7 +1116,19 @@
         [label setFont:[UIFont fontWithName:@"SourceSansPro-Regular" size:16.0]];
     }else {
         [label setFont:[UIFont fontWithName:@"SourceSansPro-Regular" size:20.0]];
+        
+    }
+}
 
+-(void)updateScrollviewContentHeight {
+    if(self.viewModel.recentSearchArray.count > 0){
+        CGFloat height = self.flightFormHeight.constant + self.recentSearchCollectionView.frame.size.height + 20.0 + 51;
+        CGSize size = CGSizeMake(self.ScrollView.contentSize.width, height);
+        self.ScrollView.contentSize = size;
+    }else{
+        CGFloat height = self.flightFormHeight.constant + 20.0 + 300;
+        CGSize size = CGSizeMake(self.ScrollView.contentSize.width, height);
+        self.ScrollView.contentSize = size;
     }
 }
 

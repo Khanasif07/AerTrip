@@ -140,21 +140,40 @@ open class SwiftPhotoGalleryCell: UICollectionViewCell {
             
             if let img = imgD.image {
                 self.image = img
+                self.scrollView.delegate = self
+                self.scrollView.maximumZoomScale = 2.0
+                DispatchQueue.main.async {
+                    self.initialDoubleZoom()
+                    self.initialDoubleZoom()
+                }
             }
             else if let url = imgD.imageUrl {
                 self.imageView.setImageWithUrl(imageUrl: url.absoluteString, placeholder: ATGalleryViewConfiguration.placeholderImage, showIndicator: ATGalleryViewConfiguration.shouldShowLoader, completionHandler: {[weak self] image, error in
+                    guard let self = self else {return () }
                     if let image = image{
-                        self?.image = image
-                        self?.scrollView.delegate = self
-                        self?.scrollView.maximumZoomScale = 2.0
+                        self.image = image
+                        self.scrollView.delegate = self
+                        self.scrollView.maximumZoomScale = 2.0
+                        DispatchQueue.main.async {
+                            self.initialDoubleZoom()
+                            self.initialDoubleZoom()
+                        }
                     }else{
-                        self?.scrollView.delegate = nil
+                        self.scrollView.delegate = nil
                     }
                     return ()
                 })
             }
         }
     
+    //Fix issue with specific image not closing on drag.
+    private func initialDoubleZoom(){
+        if (scrollView.zoomScale > scrollView.minimumZoomScale) {
+            scrollView.setZoomScale(scrollView.minimumZoomScale, animated: false)
+        } else {
+            scrollView.setZoomScale(scrollView.maximumZoomScale, animated: false)
+        }
+    }
     
     // MARK: Private Methods
 

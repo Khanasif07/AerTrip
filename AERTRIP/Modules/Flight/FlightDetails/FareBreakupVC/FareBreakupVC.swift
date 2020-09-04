@@ -78,7 +78,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     var taxesDetails : [String:Int] = [String:Int]()
     var taxAndFeesData = [NSDictionary]()
     var taxAndFeesDataDict = [taxStruct]()
-    
+    var bookingObject:BookFlightObject?
     var isTaxesSectionHidden = true
     var isInfoViewHidden = false
     var isUpgradePlanScreenVisible = false
@@ -95,70 +95,37 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     var selectedJourneyFK = [String]()
     var fewSeatsLeftViewHeightFromFlightDetails = 0
     var indicator = UIActivityIndicatorView()
-    var fareBreakupFromUpgrade = NSDictionary()
-    var taxAndFeesDataFromUpgrade = [NSDictionary]()
-    var taxAndFeesDataDictFromUpgrade = [taxStruct]()
-
+    var otherFareModel = [OtherFareModel]()
     weak var delegate: FareBreakupVCDelegate?
     
     //MARK:- Initialise Views
-    override func viewDidLoad() {
+    override func viewDidLoad(){
         super.viewDidLoad()
         self.manageLoader()
         baseFareTableview.register(UINib(nibName: "FareBreakupTableViewCell", bundle: nil), forCellReuseIdentifier: "FareBreakupCell")
         baseFareTableview.register(UINib(nibName: "BaseFareTableViewCell", bundle: nil), forCellReuseIdentifier: "BaseFareCell")
+        
         backgroundDisplayView.backgroundColor = .clear
         remainingSeatsCountLabel.layer.cornerRadius = remainingSeatsCountLabel.frame.width/2
+        
         initialDisplayView()
         taxesDataDisplay()
         swipeDownToClose()
         
+        infoLabel.isHidden = false
+        bookingInfoArrowImg.isHidden = false
         
-        if fromScreen == "upgradePlan" {
-//            infoLabel.isHidden = true
-//            bookingInfoArrowImg.isHidden = true
-        }else{
-            infoLabel.isHidden = false
-            bookingInfoArrowImg.isHidden = false
-        }
     }
     
-    override func viewDidLayoutSubviews() {
+    override func viewDidLayoutSubviews()
+    {
         self.indicator.center = self.bookButton.center
-//        if fromScreen == "upgradePlanCollapse"
-//        {
-//            if isFareBreakupExpanded == true{
-//                let gradient = CAGradientLayer()
-//                gradient.frame = bookingDataDisplayView.bounds
-//                gradient.frame.size.height = bookingDataDisplayView.frame.height
-//
-//                gradient.startPoint = CGPoint(x: 0, y: 1)
-//                gradient.endPoint = CGPoint(x: 1, y: 1)
-//                let colorOne = UIColor(displayP3Red: ( 0.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 153 / 255.0), alpha: 1.0)
-//                let colorTwo = UIColor(displayP3Red: (41.0/255.0), green: ( 176.0 / 255.0) , blue: ( 182 / 255.0), alpha: 1.0)
-//                gradient.colors = [colorTwo.cgColor, colorOne.cgColor]
-//                gradient.name = "bookingGradient"
-//                bookingDataDisplayView.layer.insertSublayer(gradient, at: 0)
-//            }else{
-//                if let subLayers = bookingDataDisplayView.layer.sublayers{
-//                    if subLayers.count > 0{
-//                        for layer in subLayers {
-//                            if layer.name == "bookingGradient" {
-//                                layer.removeFromSuperlayer()
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//
-//
-//            fromScreen = "upgradePlan"
-//        }else
             
             if fromScreen == "upgradePlan" {
-            self.view.backgroundColor = UIColor.clear
+                self.view.backgroundColor = .clear
             
             if isFareBreakupExpanded == true{
+                self.fareDataDisplayView.backgroundColor = .white
                 let gradient = CAGradientLayer()
                 gradient.frame = bookingDataDisplayView.bounds
                 gradient.frame.size.height = bookingDataDisplayView.frame.height
@@ -171,6 +138,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 gradient.name = "bookingGradient"
                 bookingDataDisplayView.layer.insertSublayer(gradient, at: 0)
             }else{
+                self.fareDataDisplayView.backgroundColor = .clear
                 if let subLayers = bookingDataDisplayView.layer.sublayers{
                     if subLayers.count > 0{
                         for layer in subLayers {
@@ -234,7 +202,10 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     func taxesDataDisplay()
     {
         var isOtherFareVisible = false
-        
+        var sortOrderArray = [String]()
+        for val in (self.bookingObject?.taxSort ?? "").components(separatedBy: ","){
+            sortOrderArray.append(taxesResult[val.removeAllWhitespaces] ?? "")
+        }
         if journeyCombo != nil{
             taxAndFeesData.removeAll()
             taxesDetails.removeAll()
@@ -257,23 +228,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             }
             
             let newDict = Dictionary(grouping: taxAndFeesDataDict) { $0.name }
-            
-            for ( key , _ ) in newDict {
-                
-                let dataArray = newDict[key]
-                
-                var newTaxVal = 0
-                for i in 0..<dataArray!.count{
-                    newTaxVal += (dataArray?[i].taxVal)!
-                }
-                
-                let newArr = ["name" : key,
-                              "value":newTaxVal] as NSDictionary
-                taxAndFeesData.append(newArr)
-                
-            }
-            
-            
+            self.getSortedData(newDict: newDict, sortData: sortOrderArray)
             let totalFare = journeyCombo.reduce(0) { $0 + $1.farepr }
             
             let price = displayPriceInFormat(price: Double(totalFare), fromOption : "totalAmount")
@@ -298,6 +253,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             if journey != nil{
                 taxAndFeesData.removeAll()
                 taxesDetails.removeAll()
+                taxAndFeesDataDict.removeAll()
                 for i in 0..<journey.count{
                     if let otherFare = journey[i].otherfares{
                         if otherFare == true{
@@ -316,22 +272,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 }
                 
                 let newDict = Dictionary(grouping: taxAndFeesDataDict) { $0.name }
-                
-                for ( key , _ ) in newDict {
-                    
-                    let dataArray = newDict[key]
-                    
-                    var newTaxVal = 0
-                    for i in 0..<dataArray!.count{
-                        newTaxVal += (dataArray?[i].taxVal)!
-                    }
-                    
-                    let newArr = ["name" : key,
-                                  "value":newTaxVal] as NSDictionary
-                    taxAndFeesData.append(newArr)
-                    
-                }
-                
+                self.getSortedData(newDict: newDict, sortData: sortOrderArray)
                 
                 let totalFare = journey.reduce(0) { $0 + $1.farepr }
                 
@@ -376,31 +317,51 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
     }
     
-    private func manageLoader() {
-        indicator.frame.size.height = 25
-        indicator.frame.size.width = 25
-        self.bookingView.addSubview(indicator)
-        self.indicator.style = .white
-        self.indicator.color = AppColors.themeWhite
-        self.indicator.startAnimating()
-        self.hideShowLoader(isHidden:true)
+    
+    func updateData(with intFare: [OtherFareModel]){
+        taxAndFeesData.removeAll()
+        taxesDetails.removeAll()
+        taxAndFeesDataDict.removeAll()
+        self.otherFareModel = intFare
+        var sortOrderArray = [String]()
+        for i in 0..<intFare.count{
+            taxesDetails = (intFare[i].fare.taxes.details)
+            
+            for (_, value) in taxesDetails.enumerated() {
+                let newObj = taxStruct.init(name: taxesResult[value.key]!, taxVal: value.value)
+                taxAndFeesDataDict.append(newObj)
+            }
+        }
+        for val in (intFare.first?.sortOrder ?? "").components(separatedBy: ","){
+            sortOrderArray.append(taxesResult[val.removeAllWhitespaces] ?? "")
+        }
+        
+        let newDict = Dictionary(grouping: taxAndFeesDataDict) { $0.name }
+        
+        self.getSortedData(newDict: newDict, sortData: sortOrderArray)
+        let totalFare = intFare.reduce(0) { $0 + $1.farepr }
+        
+        let price = displayPriceInFormat(price: Double(totalFare), fromOption : "totalAmount")
+        totalPayableAmountLabel.attributedText = price
+        
+        let price1 = displayPriceInFormat(price: Double(totalFare), fromOption : "BookingAmount")
+        bookingAmountLabel.attributedText = price1
+        
+        baseFareTableview.reloadData()
     }
     
-    func createTaxesDict()
-    {
-        if self.fareBreakupFromUpgrade.count > 0{
-            
-            let taxes = fareBreakupFromUpgrade.value(forKey: "taxes") as! NSDictionary
-            let details = taxes.value(forKey: "details") as! [String:Int]
-
-            for (_, value) in details.enumerated() {
-                let newObj = taxStruct.init(name: taxesResult[value.key]!, taxVal: value.value)
-                taxAndFeesDataDictFromUpgrade.append(newObj)
+    func getSortedData(newDict: [String : [taxStruct]], sortData: [String]){
+        
+        let totalKeys = newDict.map{$0.key}
+        var containSortOrder = [String]()
+        
+        for key in sortData{
+            if totalKeys.contains(key){
+                containSortOrder.append(key)
             }
-            
-            
-            let newDict = Dictionary(grouping: taxAndFeesDataDictFromUpgrade) { $0.name }
-            
+        }
+        
+        if containSortOrder.isEmpty{
             for ( key , _ ) in newDict {
                 
                 let dataArray = newDict[key]
@@ -412,16 +373,39 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 
                 let newArr = ["name" : key,
                               "value":newTaxVal] as NSDictionary
-                taxAndFeesDataFromUpgrade.append(newArr)
+                taxAndFeesData.append(newArr)
+                
+            }
+        }else{
+            for key in containSortOrder {
+                
+                let dataArray = newDict[key]
+                
+                var newTaxVal = 0
+                for i in 0..<dataArray!.count{
+                    newTaxVal += (dataArray?[i].taxVal)!
+                }
+                
+                let newArr = ["name" : key,
+                              "value":newTaxVal] as NSDictionary
+                taxAndFeesData.append(newArr)
+                
             }
         }
         
-        
-        let totalFare = (fareBreakupFromUpgrade.value(forKey: "total_payable_now") as! NSDictionary).value(forKey: "value") as! Int
-        let price = displayPriceInFormat(price: Double(totalFare), fromOption : "totalAmount")
-        totalPayableAmountLabel.attributedText = price
-        
     }
+
+    
+    private func manageLoader() {
+        indicator.frame.size.height = 25
+        indicator.frame.size.width = 25
+        self.bookingView.addSubview(indicator)
+        self.indicator.style = .white
+        self.indicator.color = AppColors.themeWhite
+        self.indicator.startAnimating()
+        self.hideShowLoader(isHidden:true)
+    }
+    
     
     func hideShowLoader(isHidden:Bool){
         DispatchQueue.main.async {
@@ -443,16 +427,10 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         if section == 2{
-            if fromScreen == "upgradePlan" && taxAndFeesDataFromUpgrade.count > 0{
-//                let taxes = fareBreakupFromUpgrade.value(forKey: "taxes") as! NSDictionary
-//                let details = taxes.value(forKey: "details") as! NSDictionary
-                return taxAndFeesDataFromUpgrade.count+1
+            if taxAndFeesData.count > 0{
+                return taxAndFeesData.count+1
             }else{
-                if taxAndFeesData.count > 0{
-                    return taxAndFeesData.count+1
-                }else{
-                    return 0
-                }
+                return 0
             }
         }else{
             return 1
@@ -507,16 +485,11 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             
             baseFareCell.titleLabel.text = "Base Fare"
             
-            if fromScreen == "upgradePlan" && fareBreakupFromUpgrade.count > 0
-            {
-                if let bf = fareBreakupFromUpgrade.value(forKey: "BF") as? NSDictionary{
-                    let baseFare = bf.value(forKey: "value") as! Int
-
-                    let price = displayPriceInFormat(price: Double(baseFare), fromOption : "FareAmount")
-                    baseFareCell.amountLable.attributedText = price
-                }else{
-                    baseFareCell.amountLable.text = ""
-                }
+            if fromScreen == "upgradePlan" && otherFareModel.count > 0{
+                let amount = otherFareModel.reduce(0) { $0 + $1.fare.bf.value }
+                let price = displayPriceInFormat(price: Double(amount), fromOption : "FareAmount")
+                baseFareCell.amountLable.attributedText = price
+                
             }else{
                 if taxesData != nil{
                     var amount = 0
@@ -552,10 +525,9 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 baseFareCell.upArrowImg.isHidden = false
                 baseFareCell.titleLabel.text = "Taxes and Fees"
 
-                if fromScreen == "upgradePlan" && fareBreakupFromUpgrade.count > 0
-                {
-                    let texes = (fareBreakupFromUpgrade.value(forKey: "taxes") as! NSDictionary).value(forKey: "value") as! Int
-                    let price = displayPriceInFormat(price: Double(texes), fromOption : "FareAmount")
+                if fromScreen == "upgradePlan" && otherFareModel.count > 0{
+                    let amount = otherFareModel.reduce(0) { $0 + $1.fare.taxes.value }
+                    let price = displayPriceInFormat(price: Double(amount), fromOption : "FareAmount")
                     baseFareCell.amountLable.attributedText = price
 
                 }else{
@@ -588,21 +560,6 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 }
                 
                 baseFareCell.titleLabelLeading.constant = 31
-                
-                if fromScreen == "upgradePlan" && self.taxAndFeesDataFromUpgrade.count > 0
-                {
-                    baseFareCell.titleLabel.text = (taxAndFeesDataFromUpgrade[indexPath.row-1].value(forKey: "name") as! String)
-                    
-                    if (taxAndFeesDataFromUpgrade[indexPath.row-1].value(forKey: "value") as? Int) != nil{
-                        let amount : Double = Double(taxAndFeesDataFromUpgrade[indexPath.row-1].value(forKey: "value")! as! Int)
-                        
-                        let price = displayPriceInFormat(price: amount, fromOption : "FareAmount")
-                        baseFareCell.amountLable.attributedText = price
-                    }else{
-                        baseFareCell.amountLable.text = ""
-                    }
-
-                }else{
                     if taxAndFeesData.count > 0{
                         baseFareCell.titleLabel.text = (taxAndFeesData[indexPath.row-1].value(forKey: "name") as! String)
                         if (taxAndFeesData[indexPath.row-1].value(forKey: "value") as? Int) != nil{
@@ -617,10 +574,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                         baseFareCell.titleLabel.text = ""
                         baseFareCell.amountLable.text = ""
                     }
-                }
-                
-                
-                
+
                 if indexPath.row == taxAndFeesData.count{
                     //                    baseFareCell.dataDisplayViewBottom.constant = 15
                     baseFareCell.titleLabelYPosition.constant = -7
@@ -1084,17 +1038,17 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     //MARK:- Button Action
     @IBAction func upgradeButtonClicked(_ sender: Any)
     {
-        let upgradePlanBaseVC = UpgradePlanBaseVC(nibName: "UpgradePlanBaseVC", bundle: nil)
-        upgradePlanBaseVC.taxesResult = self.taxesResult
-        upgradePlanBaseVC.selectedJourneyFK = selectedJourneyFK
-        upgradePlanBaseVC.oldJourney = self.journey
-        upgradePlanBaseVC.journeyCombo = self.journeyCombo
-        upgradePlanBaseVC.sid = self.sid
-        upgradePlanBaseVC.fare = bookingAmountLabel.text!
-        upgradePlanBaseVC.flightAdultCount = flightAdultCount
-        upgradePlanBaseVC.flightChildrenCount = flightChildrenCount
-        upgradePlanBaseVC.flightInfantCount = flightInfantCount
-        self.present(upgradePlanBaseVC, animated: true, completion: nil)
+        
+        let vc = UpgradePlanContrainerVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
+        vc.viewModel.oldJourney = self.journey
+        vc.viewModel.sid = self.sid
+        vc.viewModel.selectedJourneyFK = selectedJourneyFK
+        vc.viewModel.flightAdultCount = flightAdultCount
+        vc.viewModel.flightChildrenCount = flightChildrenCount
+        vc.viewModel.flightInfantCount = flightInfantCount
+        vc.viewModel.bookingObject = self.bookingObject
+        vc.viewModel.taxesResult = self.taxesResult
+        self.present(vc, animated: true, completion: nil)
     }
     
     @IBAction func bookButtonClicked(_ sender: Any) {

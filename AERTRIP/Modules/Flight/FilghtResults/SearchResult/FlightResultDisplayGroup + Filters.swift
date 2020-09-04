@@ -251,7 +251,11 @@ extension FlightResultDisplayGroup  {
 
     func stopsSelectionChangedAt( stops: [Int]) {
         let stopsStringsArray = stops.map{ String($0)}
-        appliedFilters.insert(.stops)
+        if stopsStringsArray.isEmpty {
+            appliedFilters.remove(.stops)
+        } else {
+            appliedFilters.insert(.stops)
+        }
         if userSelectedFilters != nil{
             userSelectedFilters.stp = stopsStringsArray
         }

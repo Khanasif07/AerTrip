@@ -18,6 +18,8 @@ struct AccountModel {
     var openingBalance: Double = 0.0
     var currentBalance: Double = 0.0
     var runningBalance: Double = 0.0
+    //Added For regular user
+    var walletAmount: Double = 0.0
     
     var jsonDict: JSONDictionary {
         var temp: JSONDictionary = JSONDictionary()
@@ -50,8 +52,8 @@ struct AccountModel {
                 temp["credit"] = obj
             }
             
-        default:
-            printDebug("no need to implement")
+        case .regular:
+            temp["wallet_balance"] = self.walletAmount
         }
         
         temp["opening_balance"] = self.openingBalance
@@ -103,8 +105,12 @@ struct AccountModel {
                 self.credit   = CreditSummery(json: obj)
             }
             
-        default:
-            printDebug("no need to implement")
+        case .regular:
+            if let jsn = json["amount"] {
+                self.walletAmount   = JSON(jsn).doubleValue
+            }else if let jsn = json["wallet_balance"]{
+                self.walletAmount = JSON(jsn).doubleValue
+            }
         }
     }
 }

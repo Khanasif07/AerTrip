@@ -26,6 +26,9 @@ extension HotelCheckoutDetailVC: UITableViewDelegate, UITableViewDataSource {
         case .imageSlideCell:
             let cell = self.getImageSlideCell(indexPath: indexPath, hotelDetails: hotelDetails)
             return cell
+        case .noImageCell:
+            let cell = self.getNoImageCell()
+            return cell
         case .hotelRatingCell:
             let cell = self.getHotelRatingInfoCell(indexPath: indexPath, hotelDetails: hotelDetails)
             return cell
@@ -65,10 +68,6 @@ extension HotelCheckoutDetailVC: UITableViewDelegate, UITableViewDataSource {
             if let cell = self.getCancellationCell(indexPath: indexPath, ratesData: rates) {
                 return cell
             }
-            //        case .paymentPolicyCell:
-            //            if let cell = self.getPaymentInfoCell(indexPath: indexPath, ratesData: rates) {
-            //                return cell
-        //            }
         case .notesCell:
             if let cell = self.getNotesCell(indexPath: indexPath, ratesData: rates) {
                 return cell
@@ -83,6 +82,12 @@ extension HotelCheckoutDetailVC: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             let sectionData = self.sectionData[indexPath.section]
             switch sectionData[indexPath.row] {
+            case .noImageCell:
+                if (self.viewModel?.hid ?? "") == TAViewModel.shared.hotelId, let data = TAViewModel.shared.hotelTripAdvisorDetails{
+                    let urlString = "https:\(data.seeAllPhotos)"
+                    let screenTitle = LocalizedString.Photos.localized
+                    AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+                }
             case .addressCell:
                 guard let reqParams = self.requestParameters, let destParams = self.viewModel else { return }
                 AppGlobals.shared.redirectToMap(sourceView: self.view, originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
@@ -215,15 +220,9 @@ extension HotelCheckoutDetailVC {
 
 // Mark:- HotelDetailsImgSlideCellDelegate
 //=======================================
-extension HotelCheckoutDetailVC: HotelDetailsImgSlideCellDelegate {
+extension HotelCheckoutDetailVC: HotelDetailsImgSlideCellDelegate, ImageDeletionDelegate {
     func hotelImageTapAction(at index: Int) {
-        // open gallery with show image at index
-//        let indexPath = IndexPath(row: 0, section: 0)
-//        guard let cell = self.hotelDetailsTableView.cellForRow(at: indexPath) as? HotelDetailsImgSlideCell else { return }
-//        if let topVC = UIApplication.topViewController() {
-//            ATGalleryViewController.show(onViewController: topVC, sourceView: cell.imageCollectionView, startShowingFrom: index, datasource: self, delegate: self)
-//        }
-        
+        guard let data = self.viewModel, (data.atImageData.filter{$0.image != nil}).count != 0 else {return}
         let gVC = PhotoGalleryVC.instantiate(fromAppStoryboard: .Dashboard)
         gVC.parentVC = self
         if let images = self.viewModel?.photos {
@@ -234,8 +233,19 @@ extension HotelCheckoutDetailVC: HotelDetailsImgSlideCellDelegate {
     }
     
     func willShowImage(at index: Int, image: UIImage?) {
-        //        self.imageView.image = image
     }
+    
+    func shouldRemoveImage(_ image: UIImage?, for urlString: String?) {
+        let str = urlString ?? ""
+        let images = self.viewModel?.atImageData ?? []
+        guard let index = images.firstIndex(where: {($0.imagePath ?? "") == str}) else {return}
+        if let img = image{
+            if self.viewModel?.atImageData.count != 0{
+                self.viewModel?.atImageData[index].image = img
+            }
+        }
+    }
+    
 }
 
 // Mark:- ATGallery Delegate And Datasource

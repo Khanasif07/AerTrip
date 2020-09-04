@@ -13,7 +13,6 @@ class ViewProfileTableViewCell: UITableViewCell {
     // MARK: - IBOutlets
     @IBOutlet weak var menuOptionLabel: UILabel!
     @IBOutlet weak var separatorView: ATDividerView!
-    
     @IBOutlet weak var bottomViewHeightConst: NSLayoutConstraint!
     @IBOutlet weak var topViewHeightConst: NSLayoutConstraint!
     

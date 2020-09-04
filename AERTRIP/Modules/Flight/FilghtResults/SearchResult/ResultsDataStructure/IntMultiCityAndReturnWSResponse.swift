@@ -572,6 +572,7 @@ struct IntMultiCityAndReturnWSResponse {
                 //Added for IteneraryDetails:---
                 var addons:Taxes?
                 var discount:Taxes?
+                var sortOrder:String
                 
                 init(_ json: JSON) {
                     bf = Taxes(json["BF"])
@@ -588,7 +589,7 @@ struct IntMultiCityAndReturnWSResponse {
                     if json["discounts"].dictionary != nil{
                         discount = Taxes(json["discounts"])
                     }
-                    
+                    sortOrder = json["taxes_sort_order"].stringValue
                 }
                 
                 struct Taxes {

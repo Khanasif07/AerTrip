@@ -60,6 +60,7 @@ extension UIApplication {
                 guard let statusBarFrame = keyWindow?.windowScene?.statusBarManager?.statusBarFrame else { return nil }
                 let statusBarView = UIView(frame: statusBarFrame)
                 statusBarView.tag = tag
+                statusBarView.isUserInteractionEnabled = true
                 keyWindow?.addSubview(statusBarView)
                 return statusBarView
             }

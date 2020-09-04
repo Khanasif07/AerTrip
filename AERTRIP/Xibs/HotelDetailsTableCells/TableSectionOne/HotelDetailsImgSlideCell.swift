@@ -13,17 +13,21 @@ protocol HotelDetailsImgSlideCellDelegate: class {
     func willShowImage(at index: Int, image: UIImage?)
 }
 
+protocol ImageDeletionDelegate:NSObjectProtocol {
+    func shouldRemoveImage(_ image: UIImage?, for urlString:String?)
+}
+
 
 class HotelDetailsImgSlideCell: UITableViewCell {
     
     //Mark:- Variables
     //================
     internal var imageUrls: [String] = []
+    var images = [ATGalleryImage]()
     
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var imageCollectionView: UICollectionView! {
-        //--------------------------- Golu Change ---------------------
         didSet {
             delay(seconds: 0.005) {
                 self.imageCollectionView.delegate = self
@@ -31,18 +35,18 @@ class HotelDetailsImgSlideCell: UITableViewCell {
             }
             
         }
-         //--------------------------- End ---------------------
     }
     @IBOutlet weak var pageControl: ISPageControl! {
         didSet {
-            self.pageControl.tintColor = AppColors.themeGray220
+            self.pageControl.inactiveTransparency = 1.0
+            self.pageControl.inactiveTintColor = AppColors.themeGray220
             self.pageControl.currentPageTintColor = AppColors.themeWhite
-            self.pageControl.radius = 3.0
-            self.pageControl.padding = 5.3
+            self.pageControl.radius = 3.5
+            self.pageControl.padding = 5.0
         }
     }
     weak var delegate: HotelDetailsImgSlideCellDelegate?
-    
+    weak var imgDelegate: ImageDeletionDelegate?
     
     
     //Mark:- LifeCycle
@@ -50,25 +54,30 @@ class HotelDetailsImgSlideCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.initialSetUps()
+        let nib = UINib(nibName: "HotelDetailsImageCollectionCell", bundle: nil)
+        self.imageCollectionView.register(nib, forCellWithReuseIdentifier: "HotelDetailsImageCollectionCell")
     }
     
     //Mark:- Methods
     //==============
     private func initialSetUps() {
-        
-        let nib = UINib(nibName: "HotelDetailsImageCollectionCell", bundle: nil)
-        self.imageCollectionView.register(nib, forCellWithReuseIdentifier: "HotelDetailsImageCollectionCell")
-        self.pageControl.isHidden = !(imageUrls.count > 1)
-        self.pageControl.numberOfPages = imageUrls.count
+        self.pageControl.isHidden = (!(imageUrls.count > 1) ||  !(self.images.count == 0))
+        self.pageControl.numberOfPages = (self.images.count == 0) ? imageUrls.count : images.count
     }
     
     internal func configCell(imageUrls: [String]) {
+        self.initialSetUps()
         self.pageControl.isHidden = !(imageUrls.count > 1)
         self.pageControl.numberOfPages = imageUrls.count
         self.imageCollectionView.reloadData()
     }
-    //Mark:- IBOActions
-    //=================
+
+    func configureCell(with images:[ATGalleryImage]){
+        self.initialSetUps()
+        self.images = images
+        self.pageControl.isHidden = !(images.count > 1)
+        self.imageCollectionView.reloadData()
+    }
     
 }
 
@@ -77,15 +86,19 @@ class HotelDetailsImgSlideCell: UITableViewCell {
 extension HotelDetailsImgSlideCell: UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.imageUrls.count
+        return (self.images.count == 0) ? self.imageUrls.count : self.images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HotelDetailsImageCollectionCell", for: indexPath) as? HotelDetailsImageCollectionCell else {
             return UICollectionViewCell()
         }
-        cell.configCell(imgUrl: imageUrls[indexPath.item], cornerRadius: 0.0)
-        
+        cell.delegate = self.imgDelegate
+        if (self.images.count == 0){
+            cell.configCell(imgUrl: imageUrls[indexPath.item], cornerRadius: 0.0)
+        }else{
+            cell.configureCell(with: images[indexPath.item], cornerRadius: 0.0)
+        }
         return cell
     }
     
@@ -108,6 +121,11 @@ extension HotelDetailsImgSlideCell: UICollectionViewDelegate , UICollectionViewD
 extension HotelDetailsImgSlideCell: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
-        pageControl.currentPage = Int(pageNumber)
+        if self.imageUrls.count == 0{
+            pageControl.currentPage = (Int(pageNumber) < self.images.count) ? Int(pageNumber) : (self.images.count - 1)
+        }else{
+            pageControl.currentPage = Int(pageNumber)
+        }
+        
     }
 }

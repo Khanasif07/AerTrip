@@ -182,6 +182,7 @@ extension FlightDomesticMultiLegResultVC {
         fareBreakupVC.taxesResult = self.viewModel.taxesResult
         fareBreakupVC.journey = self.viewModel.getSelectedJourneyForAllLegs()
         fareBreakupVC.sid = sid
+        fareBreakupVC.bookingObject = bookFlightObject
         fareBreakupVC.flightAdultCount = bookFlightObject.flightAdultCount
         fareBreakupVC.flightChildrenCount = bookFlightObject.flightChildrenCount
         fareBreakupVC.flightInfantCount = bookFlightObject.flightInfantCount

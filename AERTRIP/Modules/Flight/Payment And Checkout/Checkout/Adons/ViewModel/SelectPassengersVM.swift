@@ -87,7 +87,7 @@ class SelectPassengersVM {
         guard let allPassengers = GuestDetailsVM.shared.guests.first else { return }
         
         if setupFor == .seatSelection {
-            allowedPassengers = allPassengers.filter { $0.passengerType != .infant }
+            allowedPassengers = allPassengers.filter { $0.passengerType != .Infant }
             return
         }
         
@@ -96,11 +96,11 @@ class SelectPassengersVM {
         }
         
         if adonsData.isChild{
-            allowedPassengers.append(contentsOf: allPassengers.filter { $0.passengerType == .child })
+            allowedPassengers.append(contentsOf: allPassengers.filter { $0.passengerType == .Child })
         }
         
         if adonsData.isInfant{
-            allowedPassengers.append(contentsOf: allPassengers.filter { $0.passengerType == .infant })
+            allowedPassengers.append(contentsOf: allPassengers.filter { $0.passengerType == .Infant })
         }
     }
 }

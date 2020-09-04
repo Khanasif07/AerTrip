@@ -49,7 +49,8 @@ class HCWhatNextTableViewCell: UITableViewCell {
         didSet {
             self.pageControl.tintColor = AppColors.themeGray220
             self.pageControl.currentPageTintColor = AppColors.themeGreen
-            self.pageControl.radius = 3.0
+            self.pageControl.radius = 3.5
+            self.pageControl.padding = 5.0
         }
     }
     @IBOutlet weak var whatNextStackView: UIStackView!
@@ -98,15 +99,10 @@ class HCWhatNextTableViewCell: UITableViewCell {
 //        self.instagramButton.backgroundColor = AppColors.clear
         self.whatNextCollectionView.registerCell(nibName: HCWhatNextCollectionViewCell.reusableIdentifier)
         self.flowLayOut()
+        
+        self.contentView.layoutIfNeeded()
     }
-//    [UIColor(red: 156/255, green: 39/255, blue: 176/255, alpha: 1.0),
-//    UIColor(red: 255/255, green: 64/255, blue: 129/255, alpha: 1.0),
-//    UIColor(red: 123/255, green: 31/255, blue: 162/255, alpha: 1.0),
-//    UIColor(red: 32/255, green: 76/255, blue: 255/255, alpha: 1.0),
-//    UIColor(red: 32/255, green: 158/255, blue: 255/255, alpha: 1.0),
-//    UIColor(red: 90/255, green: 120/255, blue: 127/255, alpha: 1.0),
-//    UIColor(red: 58/255, green: 255/255, blue: 217/255, alpha: 1.0)]
-    
+
     ///COnfigure Cell
     internal func configCell(whatNextString: [String]) {
         self.nextPlanString = whatNextString
@@ -120,7 +116,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
             var wtNext = WhatNext(isFor: "Booking")
             wtNext.product = "Booking"
             wtNext.settingFor = usedFor
-            self.whatNextdata.insert(wtNext, at: 0)
+            self.whatNextdata.insert(wtNext, at: whatNextdata.count)
         }
         self.pageControl.numberOfPages = self.whatNextdata.count
         self.whatNextCollectionView.reloadData()
@@ -128,7 +124,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
     
     private func flowLayOut() {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        itemWidth =  self.whatNextCollectionView.bounds.width - collectionMargin * 2
+        itemWidth =  UIScreen.width - collectionMargin * 2//self.whatNextCollectionView.bounds.width - collectionMargin * 2
         layout.sectionInset = UIEdgeInsets(top: 13, left: 0, bottom: 0, right: 0)
         layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
         layout.headerReferenceSize = CGSize(width: collectionMargin, height: 0.0)

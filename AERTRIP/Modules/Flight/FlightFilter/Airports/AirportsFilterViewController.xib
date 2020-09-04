@@ -29,6 +29,7 @@
                 <outlet property="layoverSeparatorView" destination="Q4N-KB-wvw" id="uTD-ID-bof"/>
                 <outlet property="layoverTableViewHeight" destination="T4D-he-QZT" id="jpv-05-OKx"/>
                 <outlet property="layoverTableview" destination="SoM-Je-Erx" id="u8t-nL-6yD"/>
+                <outlet property="layoverTitleLbl" destination="jrA-Th-7kE" id="fxR-QL-qgy"/>
                 <outlet property="multiCitySegmentSeparator" destination="Bgg-xm-l4F" id="Nly-VE-EF3"/>
                 <outlet property="multicitySegmentView" destination="9Id-ev-37i" id="bR0-QQ-N28"/>
                 <outlet property="originDestinationBtn" destination="9C8-vH-nCu" id="Kd4-WB-VV1"/>

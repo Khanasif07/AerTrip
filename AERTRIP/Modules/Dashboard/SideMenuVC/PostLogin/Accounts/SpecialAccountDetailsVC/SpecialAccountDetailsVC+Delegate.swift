@@ -133,10 +133,10 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             //statement summery
             case 0:
                 //return getSummeryCell(withData: self.viewModel.statementSummery[indexPath.row])
-                let cell = getSummeryCell(withData: self.viewModel.statementSummery[indexPath.row]) as! AccountSummeryCell
+                let cell = getSummeryCell(withData: self.viewModel.statementSummery[indexPath.row], isForOther: false) as! AccountSummeryCell
                 
                 if indexPath.row == 1 {
-                    cell.stackViewTop.constant = -4.0
+                //    cell.stackViewTop.constant = -4.0
                 }
 //                else if let sym = self.viewModel.statementSummery[indexPath.row].symbol, sym == "=" {
 //                    cell.stackViewTop.constant = 2.0
@@ -146,7 +146,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 
             //credit summery
             case 1:
-                return getSummeryCell(withData: self.viewModel.creditSummery[indexPath.row])
+                return getSummeryCell(withData: self.viewModel.creditSummery[indexPath.row], isForOther: false)
                 
             //deposit cell
             case 2:
@@ -168,7 +168,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 
             //other action
             case 3:
-                return getSummeryCell(withData: self.viewModel.otherAction[indexPath.row])
+                return getSummeryCell(withData: self.viewModel.otherAction[indexPath.row], isForOther: true)
                 
             default:
                 return UITableViewCell()
@@ -179,13 +179,13 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             switch indexPath.section {
             //topup summery
             case 0:
-                let cell = getSummeryCell(withData: self.viewModel.topUpSummery[indexPath.row]) as! AccountSummeryCell
+                let cell = getSummeryCell(withData: self.viewModel.topUpSummery[indexPath.row], isForOther: false) as! AccountSummeryCell
                 
                 if indexPath.row == 1 {
-                    cell.stackViewTop.constant = -4.0
+              //      cell.stackViewTop.constant = -4.0
                 }
                 else if let sym = self.viewModel.topUpSummery[indexPath.row].symbol, sym == "=" {
-                    cell.stackViewTop.constant = 4.0
+              //      cell.stackViewTop.constant = 4.0
                 }
                 
                 return cell
@@ -209,7 +209,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         
             //other action
             case 2:
-                return getSummeryCell(withData: self.viewModel.otherAction[indexPath.row])
+                return getSummeryCell(withData: self.viewModel.otherAction[indexPath.row], isForOther: true)
                 
             default:
                 return UITableViewCell()
@@ -220,17 +220,17 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             switch indexPath.section {
             //bilwise summery
             case 0:
-                let cell = getSummeryCell(withData: self.viewModel.bilWiseSummery[indexPath.row]) as! AccountSummeryCell
+                let cell = getSummeryCell(withData: self.viewModel.bilWiseSummery[indexPath.row], isForOther: false) as! AccountSummeryCell
                 
                 if indexPath.row == 1 {
-                    cell.stackViewTop.constant = -4.0
+               //     cell.stackViewTop.constant = -4.0
                 }
                 
                 return cell
                 
             //credit summery
             case 1:
-                return getSummeryCell(withData: self.viewModel.creditSummery[indexPath.row])
+                return getSummeryCell(withData: self.viewModel.creditSummery[indexPath.row], isForOther: false)
                 
             //deposit cell
             case 2:
@@ -243,7 +243,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 
             //other action
             case 3:
-                return getSummeryCell(withData: self.viewModel.otherAction[indexPath.row])
+                return getSummeryCell(withData: self.viewModel.otherAction[indexPath.row], isForOther: true)
                 
             default:
                 return UITableViewCell()
@@ -254,13 +254,17 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func getSummeryCell(withData: SpecialAccountEvent) -> UITableViewCell {
+    func getSummeryCell(withData: SpecialAccountEvent, isForOther:Bool) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AccountSummeryCell.reusableIdentifier) as? AccountSummeryCell else {
             return UITableViewCell()
         }
         
         cell.event = withData
-        
+        if isForOther{
+            cell.mainStackHeight.constant = 42
+        }else{
+            cell.mainStackHeight.constant = 35
+        }
         return cell
     }
     
@@ -345,6 +349,9 @@ class AccountSummeryCell: UITableViewCell {
     @IBOutlet weak var dividerViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var stackViewTop: NSLayoutConstraint!
     @IBOutlet weak var amountLabelTraillingConstant: NSLayoutConstraint!
+    @IBOutlet weak var amountStackView: UIStackView!
+    @IBOutlet weak var dipositLabelHeight: NSLayoutConstraint!
+    @IBOutlet weak var mainStackHeight: NSLayoutConstraint!
     
     
     //MARK:- Life Cycle
@@ -365,9 +372,10 @@ class AccountSummeryCell: UITableViewCell {
     //MARK:- Private
     private func resetAllSubViews() {
         titleLabel.isHidden = true
-        descLabel.isHidden = true
         symbolLabel.isHidden = true
         amountLabel.isHidden = true
+        amountStackView.isHidden = true
+        descLabel.isHidden = true
         dividerView.isHidden = true
         
         titleLabel.text = ""
@@ -380,9 +388,9 @@ class AccountSummeryCell: UITableViewCell {
         dividerViewTrailingConstraint.constant = 16.0
         amountLabelTraillingConstant.constant = 16.0
         
-        if let user = UserInfo.loggedInUser, (user.userCreditType == .topup) {
-            stackViewTop.constant = self.event!.isForTitle ? 4.0 : 0.0
-        }
+//        if let user = UserInfo.loggedInUser, (user.userCreditType == .topup) {
+//            stackViewTop.constant = self.event!.isForTitle ? 4.0 : 0.0
+//        }
     }
     
     //MARK:- Public
@@ -413,7 +421,7 @@ class AccountSummeryCell: UITableViewCell {
     //MARK:- Public
     private func configureHeader(title: String) {
         self.resetAllSubViews()
-        
+        amountStackView.isHidden = false
         self.titleLabel.isHidden = false
         self.titleLabel.font = AppFonts.Regular.withSize(14.0)
         self.titleLabel.textColor = AppColors.themeGray40
@@ -422,7 +430,7 @@ class AccountSummeryCell: UITableViewCell {
     
     private func configure(detail: String, amount: String, descp: String? = nil, symbol: String? = nil) {
         self.resetAllSubViews()
-        
+        amountStackView.isHidden = false
         self.dividerView.isHidden = !(self.event!.isDevider)
         self.dividerViewTrailingConstraint.constant = 16.0
         
@@ -453,7 +461,7 @@ class AccountSummeryCell: UITableViewCell {
     
     private func configureGrandTotal(title: String, totalAmount: String) {
         self.resetAllSubViews()
-        
+        amountStackView.isHidden = false
         self.titleLabel.isHidden = false
         self.titleLabel.font = AppFonts.SemiBold.withSize(16.0)
         self.titleLabel.textColor = AppColors.themeBlack
@@ -472,7 +480,7 @@ class AccountSummeryCell: UITableViewCell {
     
     private func configureNext(title: String) {
         self.resetAllSubViews()
-        
+        amountStackView.isHidden = false
         self.dividerView.isHidden = false
         self.dividerViewTrailingConstraint.constant = 0.0
         if self.event!.isLastNext {
@@ -489,7 +497,7 @@ class AccountSummeryCell: UITableViewCell {
         self.amountLabel.textColor = AppColors.themeBlack
         self.amountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: #imageLiteral(resourceName: "arrowNextScreen"), endText: "", font: AppFonts.SemiBold.withSize(16.0))
         
-        self.stackViewTop.constant = 6.0
+      //  self.stackViewTop.constant = 6.0
         self.amountLabelTraillingConstant.constant = 0.0
     }
 }

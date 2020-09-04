@@ -135,7 +135,7 @@ extension HotelsMapVC: GMSMapViewDelegate {
     
     func movetoDetailPage(data: HotelSearched, isNeedToOpen:Bool = true) {
         if let lat = data.lat, let long = data.long, let index = Array(self.viewModel.collectionViewList.keys).firstIndex(of: "\(lat),\(long)") , let scrollIndex = self.viewModel.collectionViewLocArr.firstIndex(of: "\(lat),\(long)"){
-            let index = IndexPath(item: index, section: 0)
+            let index = IndexPath(item: scrollIndex, section: 0)
             self.selectedIndexPath = index
             guard let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[index.item]] as? [HotelSearched] else {return}
             self.hotelsMapCV.scrollToItem(at: IndexPath(item: scrollIndex, section: 0), at: .centeredHorizontally, animated: true)

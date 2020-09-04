@@ -89,6 +89,7 @@ class SpecialAccountDetailsVM {
             
             if idx == 0 {
                 obj.isForTitle = true
+                obj.height = stmtSummeryHeight[idx] - 8.0
             }
             else if idx == 1 {
                 if let event = accountData.statements?.lastStatementBalence {
@@ -138,15 +139,16 @@ class SpecialAccountDetailsVM {
             
             if idx == 0 {
                 obj.isForTitle = true
+                obj.height = tpupSummeryHeight[idx] - 8.0
             }
             else if idx == 1 {
                 obj.amount = (accountData.topup?.topupLimit ?? 0.0).amountInDelimeterWithSymbol
-                obj.height = tpupSummeryHeight[idx] - 13.0
+                obj.height = tpupSummeryHeight[idx] - 10.0
             }
             else if idx == 2 {
                 obj.symbol = "-"
                 obj.amount = (accountData.topup?.usedCredit ?? 0.0).amountInDelimeterWithSymbol
-                obj.height = tpupSummeryHeight[idx] - 4.0
+                //obj.height = tpupSummeryHeight[idx] - 4.0
                 obj.isDevider = true
             }
             else if idx == 3 {
@@ -170,10 +172,11 @@ class SpecialAccountDetailsVM {
             
             if idx == 0 {
                 obj.isForTitle = true
+                obj.height = bwSummeryHeight[idx] - 8.0
             }
             else if idx == 1 {
                 obj.amount = (accountData.billwise?.totalOverDue ?? 0.0).amountInDelimeterWithSymbol
-                obj.height = bwSummeryHeight[idx] - 13.0
+                obj.height = bwSummeryHeight[idx] - 10.0
             }
             else if idx == 2 {
                 obj.symbol = "+"//"-"

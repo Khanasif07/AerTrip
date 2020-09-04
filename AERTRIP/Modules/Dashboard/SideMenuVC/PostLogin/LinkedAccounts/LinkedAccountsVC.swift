@@ -147,18 +147,23 @@ extension LinkedAccountsVC: LinkedAccountsCellDelegate {
                 sender.isLoading = false
             }
             
-        case .linkedin:
-            sender.isLoading = true
-            self.viewModel.linkedLogin(vc: self) { (_) in
-                sender.isLoading = false
-            }
+//        case .linkedin:
+//            sender.isLoading = true
+//            self.viewModel.linkedLogin(vc: self) { (_) in
+//                sender.isLoading = false
+//            }
             
         case .google:
             sender.isLoading = true
             self.viewModel.googleLogin(vc: self) { (_) in
                 sender.isLoading = false
             }
-            
+          
+         case .apple:
+            sender.isLoading = true
+            self.viewModel.appleLogin(vc: self) { (_) in
+                sender.isLoading = false
+            }
         default:
             printDebug("not required")
         }

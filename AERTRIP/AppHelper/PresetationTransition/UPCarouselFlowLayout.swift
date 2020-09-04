@@ -8,6 +8,11 @@
 
 import UIKit
 
+public enum ScrollDirection {
+    case left
+    case right
+}
+
 
 public enum UPCarouselFlowLayoutSpacingMode {
     case fixed(spacing: CGFloat)
@@ -29,6 +34,7 @@ open class UPCarouselFlowLayout: UICollectionViewFlowLayout {
     @IBInspectable open var sideItemAlpha: CGFloat = 0.6
     @IBInspectable open var sideItemShift: CGFloat = 0.0
     open var spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 40)
+    open var scrollScalePoint: CGFloat = 1.0
     
     fileprivate var state = LayoutState(size: CGSize.zero, direction: .horizontal)
     
@@ -120,19 +126,40 @@ open class UPCarouselFlowLayout: UICollectionViewFlowLayout {
         let isHorizontal = (self.scrollDirection == .horizontal)
         
         let midSide = (isHorizontal ? collectionView.bounds.size.width : collectionView.bounds.size.height) / 2
-        let proposedContentOffsetCenterOrigin = (isHorizontal ? proposedContentOffset.x : proposedContentOffset.y) + midSide
+//        let proposedContentOffsetCenterOrigin = (isHorizontal ? proposedContentOffset.x : proposedContentOffset.y) + midSide
+        
+        
         
         var targetContentOffset: CGPoint
         if isHorizontal {
+            let midval = ((self.getScrollDirection() ?? .left) == .left) ? (midSide * scrollScalePoint) : -(midSide / scrollScalePoint)
+            
+            let proposedContentOffsetCenterOrigin = (isHorizontal ? proposedContentOffset.x : proposedContentOffset.y) + midval
+            
             let closest = layoutAttributes.sorted { abs($0.center.x - proposedContentOffsetCenterOrigin) < abs($1.center.x - proposedContentOffsetCenterOrigin) }.first ?? UICollectionViewLayoutAttributes()
             targetContentOffset = CGPoint(x: floor(closest.center.x - midSide), y: proposedContentOffset.y)
         }
         else {
+            let proposedContentOffsetCenterOrigin = (isHorizontal ? proposedContentOffset.x : proposedContentOffset.y) + midSide
             let closest = layoutAttributes.sorted { abs($0.center.y - proposedContentOffsetCenterOrigin) < abs($1.center.y - proposedContentOffsetCenterOrigin) }.first ?? UICollectionViewLayoutAttributes()
             targetContentOffset = CGPoint(x: proposedContentOffset.x, y: floor(closest.center.y - midSide))
         }
         
         return targetContentOffset
     }
+    
+    func getScrollDirection() -> ScrollDirection? {
+        guard let collectionView = self.collectionView else { return nil }
+
+        let scrollVelocity = collectionView.panGestureRecognizer.velocity(in: collectionView.superview)
+        if (scrollVelocity.x > 0.0) {
+            return .right
+        } else if (scrollVelocity.x < 0.0) {
+            return .left
+        } else {
+            return nil
+        }
+    }
+    
 }
 

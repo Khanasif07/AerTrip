@@ -29,22 +29,30 @@ class AddAddressTableViewCell: UITableViewCell {
     @IBOutlet weak var postalCodeTextField: UITextField!
     @IBOutlet weak var stateTextField: UITextField!
     @IBOutlet weak var countryLabel:UILabel!
-    @IBOutlet weak var cellDividerViewHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var cellDividerView: ATDividerView!
     @IBOutlet weak var addressTypeView: UIView!
     @IBOutlet weak var countryView: UIView!
     
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var bottomDivider: ATDividerView!
-    
+    @IBOutlet weak var seperatorView: UIView!
+    @IBOutlet weak var seperatorDividerView: ATDividerView!
+    @IBOutlet weak var seperatorViewHeightConstraint: NSLayoutConstraint!
     // MARK: - Variables
     weak var delegate:AddAddressTableViewCellDelegate?
+    
+    var hideSepratorView = false {
+        didSet {
+            self.mangeSeparatorView()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-      self.cellDividerView.defaultHeight = 1.0
+      //self.cellDividerView.defaultHeight = 1.0
+        hideSepratorView = true
+        seperatorView.backgroundColor = AppColors.greyO4
     }
     
     
@@ -86,6 +94,12 @@ class AddAddressTableViewCell: UITableViewCell {
         
     }
     
+    func mangeSeparatorView() {
+        seperatorView.isHidden = hideSepratorView
+        seperatorDividerView.isHidden = hideSepratorView
+        self.seperatorViewHeightConstraint.constant = hideSepratorView ? 0  : 10
+        self.contentView.layoutIfNeeded()
+    }
     
     @objc func addressTypeTapped(gesture: UITapGestureRecognizer) {
         if let idxPath = indexPath {

@@ -24,6 +24,8 @@ class BookingAddOnRequestVC: BaseVC {
     @IBOutlet weak var bookingRequestStatusLabel: UILabel!
     @IBOutlet weak var bookingStatusViewHeight: NSLayoutConstraint!
     @IBOutlet weak var progressView: UIProgressView!
+    
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     // MARK: - Variables
     let viewModel = BookingAddOnRequestVM()
     
@@ -125,6 +127,16 @@ class BookingAddOnRequestVC: BaseVC {
         self.requestTableView.reloadData()
     }
     
+    private func manageLoader(shouldStart: Bool) {
+        self.indicator.style = .white
+        self.indicator.color = AppColors.themeWhite
+        if shouldStart{
+            self.indicator.startAnimating()
+        }else{
+            self.indicator.stopAnimating()
+        }
+        self.makePaymentLabel.isHidden = shouldStart//.text = shouldStart ? "" : "Make Payment"
+    }
     
     private func setupBookingStatusView(){
         
@@ -217,7 +229,8 @@ class BookingAddOnRequestVC: BaseVC {
     @IBAction func makePaymentAction(_ sender: Any) {
         if let caseData = self.viewModel.caseHistory {
             if caseData.resolutionStatus == .paymentPending {
-                self.showLoaderOnView(view: self.priceView, show: true)
+//                self.showLoaderOnView(view: self.priceView, show: true)
+                self.manageLoader(shouldStart: true)
                 self.viewModel.getAddonPaymentItinerary()
             }
             else if caseData.resolutionStatus == .confirmationPending {
@@ -283,7 +296,8 @@ extension BookingAddOnRequestVC: BookingAddOnRequestVMDelegate {
         if let cell = self.requestTableView.cellForRow(at: indexPath) as? BookingRequestAddOnTableViewCell {
             cell.showLoader = false
         }
-        AppFlowManager.default.showHTMLOnATWebView(htmlString, screenTitle: title)
+        let time = "\(self.viewModel.caseHistory?.communications[indexPath.row].commDate?.toString(dateFormat: "hh:mm aa") ?? "") "
+        self.showAddonsCommunication(htmlString, screenTitle: title, time: time)
     }
     
     func getCommunicationDetailFail(indexPath: IndexPath) {
@@ -292,6 +306,15 @@ extension BookingAddOnRequestVC: BookingAddOnRequestVMDelegate {
             cell.showLoader = false
         }
         //AppGlobals.shared.stopLoading()
+    }
+    
+    func showAddonsCommunication(_ html: String, screenTitle: String, time:String = ""){
+        let obj = CommunicationVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.htmlString = html
+        obj.navTitle = screenTitle
+        obj.timeString = time
+        self.navigationController?.present(obj, animated: true, completion: nil)
+        
     }
     
     func makeRequestConfirmSuccess() {
@@ -433,7 +456,7 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         bookingRouteCell.configure(title: self.viewModel.caseHistory?.caseName ?? LocalizedString.dash.localized, detail: self.viewModel.caseHistory?.caseNumber ?? LocalizedString.dash.localized)
-        
+        bookingRouteCell.dividerView.isHidden = false
         return bookingRouteCell
     }
     
@@ -571,11 +594,13 @@ extension BookingAddOnRequestVC {
     }
     
     func getAddonPaymentItinerarySuccess() {
-        self.showLoaderOnView(view: self.priceView, show: false)
+        self.manageLoader(shouldStart: false)
+//        self.showLoaderOnView(view: self.priceView, show: false)
         self.showDepositOptions()
     }
     
     func getAddonPaymentItineraryFail() {
-        self.showLoaderOnView(view: self.priceView, show: false)
+//        self.showLoaderOnView(view: self.priceView, show: false)
+        self.manageLoader(shouldStart: false)
     }
 }

@@ -64,7 +64,8 @@ class HotelInfoAddressCell: UITableViewCell {
     /// COnfigure UI
     private func configureUI() {
         // SetUps
-        self.moreBtnContainerView.addGredient(isVertical: false, colors: [.white, UIColor.white.withAlphaComponent(0)])
+//        self.moreBtnContainerView.addGredient(isVertical: false, colors: [.white, UIColor.white.withAlphaComponent(0)])
+        self.gradientView.backgroundColor = .clear
         self.gradientView.addGredient(isVertical: false, colors: [.white, UIColor.white.withAlphaComponent(0)])
         self.moreBtnContainerView.isHidden = true
         
@@ -125,6 +126,7 @@ class HotelInfoAddressCell: UITableViewCell {
     
     internal func configureAddressCell(hotelData: HotelDetails = HotelDetails(),isForBooking: Bool = false,address: String = "") {
         addressInfoTextView.textContainer.lineBreakMode = .byWordWrapping
+        self.addressInfoTextView.textContainer.maximumNumberOfLines = 0
         self.moreBtnOutlet.isHidden = true
         self.addressLabel.text = LocalizedString.AddressSmallLaters.localized
         if isForBooking {
@@ -135,8 +137,8 @@ class HotelInfoAddressCell: UITableViewCell {
             }
         } else {
                 self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText: hotelData.address, startTextColor: AppColors.themeBlack, middleText: "\n" + LocalizedString.Maps.localized + " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+            
         }
-        
     }
     
     internal func configureOverviewCell(hotelData: HotelDetails = HotelDetails(), isForBooking: Bool = false, overview: String = "") {
@@ -192,7 +194,7 @@ class HotelInfoAddressCell: UITableViewCell {
         self.containerLeadingConstraint.constant = 16
         self.containerTrailingConstraint.constant = 16
         self.layoutIfNeeded()
-        self.containerView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+        self.containerView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
     }
     
     // Mark:- IBActions

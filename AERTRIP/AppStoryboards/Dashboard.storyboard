@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -63,7 +63,7 @@
                                                         </connections>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="homeAertripLogo" translatesAutoresizingMaskIntoConstraints="NO" id="dc0-cl-wv6">
-                                                        <rect key="frame" x="51" y="7" width="224" height="30"/>
+                                                        <rect key="frame" x="51" y="14.5" width="112" height="15"/>
                                                     </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -95,11 +95,11 @@
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wjk-Vp-DEf">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="66" height="105"/>
                                                                                         <subviews>
-                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="Aerin Test66x66" translatesAutoresizingMaskIntoConstraints="NO" id="hKG-lk-EnP">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="66" height="83"/>
+                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Aerin Test66x66" translatesAutoresizingMaskIntoConstraints="NO" id="hKG-lk-EnP">
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="66" height="84.5"/>
                                                                                             </imageView>
-                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" ambiguous="YES" text="Aerin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMz-6r-Sru">
-                                                                                                <rect key="frame" x="0.0" y="83" width="66" height="22"/>
+                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Aerin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMz-6r-Sru">
+                                                                                                <rect key="frame" x="0.0" y="84.5" width="66" height="20.5"/>
                                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17.5"/>
                                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                 <nil key="highlightedColor"/>
@@ -141,11 +141,11 @@
                                                                                                 <inset key="imageEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                                                 <state key="normal" image="FlightTest 66x66"/>
                                                                                             </button>
-                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="FlightTest 66x66" translatesAutoresizingMaskIntoConstraints="NO" id="KsZ-Ga-z3J">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="66" height="83.5"/>
+                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FlightTest 66x66" translatesAutoresizingMaskIntoConstraints="NO" id="KsZ-Ga-z3J">
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="66" height="85"/>
                                                                                             </imageView>
-                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" ambiguous="YES" text="Flights" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmS-2d-CXq">
-                                                                                                <rect key="frame" x="0.0" y="83.5" width="66" height="21.5"/>
+                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Flights" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmS-2d-CXq">
+                                                                                                <rect key="frame" x="0.0" y="85" width="66" height="20"/>
                                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                 <nil key="highlightedColor"/>
@@ -230,11 +230,11 @@
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Tu-Ax-XQ7">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="66" height="105"/>
                                                                                         <subviews>
-                                                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="TripsTest 66x66" translatesAutoresizingMaskIntoConstraints="NO" id="ncO-p1-Aoc">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="66" height="83.5"/>
+                                                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TripsTest 66x66" translatesAutoresizingMaskIntoConstraints="NO" id="ncO-p1-Aoc">
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="66" height="85"/>
                                                                                             </imageView>
-                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" ambiguous="YES" text="Trips" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hM-k5-V70">
-                                                                                                <rect key="frame" x="0.0" y="83.5" width="66" height="21.5"/>
+                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Trips" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hM-k5-V70">
+                                                                                                <rect key="frame" x="0.0" y="85" width="66" height="20"/>
                                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                 <nil key="highlightedColor"/>
@@ -311,7 +311,7 @@
                                                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aq8-ab-p6z">
                                                                 <rect key="frame" x="414" y="0.0" width="414" height="494.5"/>
                                                                 <connections>
-                                                                    <segue destination="qif-Xc-JfX" kind="embed" id="hoI-mw-cFu"/>
+                                                                    <segue destination="ttU-fb-RtE" kind="embed" id="MBh-Ay-Sn6"/>
                                                                 </connections>
                                                             </containerView>
                                                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xMf-kg-3pF">
@@ -408,7 +408,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoIconVertical" translatesAutoresizingMaskIntoConstraints="NO" id="Jdp-0v-YDa">
-                                        <rect key="frame" x="159" y="300.5" width="96" height="108"/>
+                                        <rect key="frame" x="183" y="354.5" width="48" height="54"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoTitleWhite" translatesAutoresizingMaskIntoConstraints="NO" id="K8k-9r-kde">
                                         <rect key="frame" x="126.5" y="448.5" width="161" height="20"/>
@@ -653,21 +653,6 @@ on Christmas”</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gTo-O5-b5p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1382" y="-221"/>
-        </scene>
-        <!--FlightsVC-->
-        <scene sceneID="8pZ-q3-XJc">
-            <objects>
-                <viewController storyboardIdentifier="FlightsVC" id="qif-Xc-JfX" customClass="FlightsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ZF0-0c-QWp">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="494.5"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="LFJ-3z-saS"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WqH-6U-ZCU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2098" y="-222"/>
         </scene>
         <!--Side MenuVC-->
         <scene sceneID="9f1-KM-h0W">
@@ -1067,32 +1052,58 @@ on Christmas”</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="494.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLz-uM-NAJ">
-                                <rect key="frame" x="186.5" y="229.5" width="41.5" height="25.5"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ws-RO-flc">
-                                <rect key="frame" x="130" y="270" width="154" height="21.5"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHo-d9-8jc">
+                                <rect key="frame" x="0.0" y="44" width="414" height="450.5"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="saM-KT-JLj">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="443"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLz-uM-NAJ">
+                                                <rect key="frame" x="186.5" y="209" width="41.5" height="25.5"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ws-RO-flc">
+                                                <rect key="frame" x="130" y="249.5" width="154" height="21.5"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="vLz-uM-NAJ" firstAttribute="centerY" secondItem="saM-KT-JLj" secondAttribute="centerY" id="A4H-WO-M39"/>
+                                            <constraint firstItem="vLz-uM-NAJ" firstAttribute="centerX" secondItem="saM-KT-JLj" secondAttribute="centerX" id="Jzh-Qm-5DN"/>
+                                            <constraint firstItem="0Ws-RO-flc" firstAttribute="centerX" secondItem="vLz-uM-NAJ" secondAttribute="centerX" id="Wq9-Ln-Ti3"/>
+                                            <constraint firstItem="0Ws-RO-flc" firstAttribute="top" secondItem="vLz-uM-NAJ" secondAttribute="bottom" constant="15" id="gsd-AD-ljV"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="saM-KT-JLj" firstAttribute="height" secondItem="YHo-d9-8jc" secondAttribute="height" multiplier="0.983352" id="07O-vt-Mch"/>
+                                    <constraint firstItem="saM-KT-JLj" firstAttribute="top" secondItem="YHo-d9-8jc" secondAttribute="top" id="9XJ-6M-uXo"/>
+                                    <constraint firstItem="saM-KT-JLj" firstAttribute="width" secondItem="YHo-d9-8jc" secondAttribute="width" id="G1I-7m-9ur"/>
+                                    <constraint firstItem="saM-KT-JLj" firstAttribute="leading" secondItem="YHo-d9-8jc" secondAttribute="leading" id="Oeb-7V-49P"/>
+                                    <constraint firstAttribute="bottom" secondItem="saM-KT-JLj" secondAttribute="bottom" id="Xwj-JN-XmD"/>
+                                    <constraint firstAttribute="trailing" secondItem="saM-KT-JLj" secondAttribute="trailing" id="erw-jq-Xly"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="vLz-uM-NAJ" firstAttribute="centerY" secondItem="Rks-F0-sBa" secondAttribute="centerY" multiplier="0.9" id="6By-uL-coL"/>
-                            <constraint firstItem="vLz-uM-NAJ" firstAttribute="centerX" secondItem="Rks-F0-sBa" secondAttribute="centerX" id="Ni8-GT-W1Y"/>
-                            <constraint firstItem="0Ws-RO-flc" firstAttribute="centerX" secondItem="vLz-uM-NAJ" secondAttribute="centerX" id="RFE-YY-jWd"/>
-                            <constraint firstItem="0Ws-RO-flc" firstAttribute="top" secondItem="vLz-uM-NAJ" secondAttribute="bottom" constant="15" id="bWa-sv-NaH"/>
+                            <constraint firstItem="YHo-d9-8jc" firstAttribute="leading" secondItem="Rks-F0-sBa" secondAttribute="leading" id="0P5-Fh-cfQ"/>
+                            <constraint firstAttribute="bottom" secondItem="YHo-d9-8jc" secondAttribute="bottom" id="N80-7J-ARv"/>
+                            <constraint firstItem="Rks-F0-sBa" firstAttribute="trailing" secondItem="YHo-d9-8jc" secondAttribute="trailing" id="S52-WH-wYU"/>
+                            <constraint firstItem="YHo-d9-8jc" firstAttribute="top" secondItem="Rks-F0-sBa" secondAttribute="top" id="dcx-CV-guL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Rks-F0-sBa"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WEO-TU-TaM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3655" y="-222"/>
+            <point key="canvasLocation" x="3653.6231884057975" y="-222.65625"/>
         </scene>
         <!--Main DashboardVC-->
         <scene sceneID="aBX-jS-oiA">
@@ -1509,7 +1520,7 @@ on Christmas”</string>
                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="6Du-QQ-t9s">
                                             <size key="itemSize" width="241" height="193"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="50" height="50"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
@@ -1542,6 +1553,10 @@ on Christmas”</string>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
+                                        <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="euL-Fz-wnB">
+                                            <rect key="frame" x="0.0" y="193" width="414" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionReusableView>
                                     </collectionView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3MG-jE-qxZ">
                                         <rect key="frame" x="377" y="20" width="37" height="22"/>
@@ -1582,7 +1597,7 @@ on Christmas”</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BM1-Dy-gUK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-378.39999999999998" y="16.641679160419791"/>
+            <point key="canvasLocation" x="-379.71014492753625" y="16.071428571428569"/>
         </scene>
         <!--Things Can Be AskedVC-->
         <scene sceneID="z61-bQ-rEm">
@@ -1718,7 +1733,7 @@ on Christmas”</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="93" id="x0H-kc-NEq"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xkD-N8-pWa">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xkD-N8-pWa">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -1750,7 +1765,7 @@ on Christmas”</string>
                                 <rect key="frame" x="0.0" y="818" width="414" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="huK-ls-6Xc">
-                                        <rect key="frame" x="355" y="0.0" width="44" height="44"/>
+                                        <rect key="frame" x="361.5" y="0.0" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="Yvz-YQ-vNS"/>
                                             <constraint firstAttribute="height" constant="44" id="cAl-ZW-RcW"/>
@@ -1760,7 +1775,7 @@ on Christmas”</string>
                                             <action selector="sendButton:" destination="F7l-JW-d0o" eventType="touchUpInside" id="dcO-5g-pPT"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Oh-fZ-7Q4">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Oh-fZ-7Q4" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -1768,7 +1783,7 @@ on Christmas”</string>
                                         </constraints>
                                     </view>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aze-k3-p83" customClass="IQTextView">
-                                        <rect key="frame" x="15" y="0.5" width="340" height="43.5"/>
+                                        <rect key="frame" x="15" y="0.5" width="346.5" height="43.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1788,7 +1803,7 @@ on Christmas”</string>
                                     <constraint firstItem="2Oh-fZ-7Q4" firstAttribute="top" secondItem="kaX-pv-2mw" secondAttribute="top" id="EWP-Gr-IZ3"/>
                                     <constraint firstAttribute="height" constant="44" id="HtC-Sq-157"/>
                                     <constraint firstItem="huK-ls-6Xc" firstAttribute="leading" secondItem="aze-k3-p83" secondAttribute="trailing" id="JLD-zs-hn0"/>
-                                    <constraint firstAttribute="trailing" secondItem="huK-ls-6Xc" secondAttribute="trailing" constant="15" id="Jf7-xX-Bdn"/>
+                                    <constraint firstAttribute="trailing" secondItem="huK-ls-6Xc" secondAttribute="trailing" constant="8.5" id="Jf7-xX-Bdn"/>
                                     <constraint firstItem="huK-ls-6Xc" firstAttribute="centerY" secondItem="kaX-pv-2mw" secondAttribute="centerY" id="NEL-G4-eeq"/>
                                     <constraint firstAttribute="trailing" secondItem="2Oh-fZ-7Q4" secondAttribute="trailing" id="Q7B-MB-Npq"/>
                                     <constraint firstItem="aze-k3-p83" firstAttribute="leading" secondItem="kaX-pv-2mw" secondAttribute="leading" constant="15" id="Q7u-ZN-M0R"/>
@@ -1876,6 +1891,21 @@ on Christmas”</string>
                 </view>
             </objects>
             <point key="canvasLocation" x="2304.8000000000002" y="1558.4707646176912"/>
+        </scene>
+        <!--FlightsVC-->
+        <scene sceneID="JY3-b0-v04">
+            <objects>
+                <viewController storyboardIdentifier="FlightsVC" id="ttU-fb-RtE" customClass="FlightsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zfL-C7-WBo">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="494.5"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="sXC-Ib-YgW"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="46V-G6-ruV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2098" y="-222"/>
         </scene>
     </scenes>
     <resources>

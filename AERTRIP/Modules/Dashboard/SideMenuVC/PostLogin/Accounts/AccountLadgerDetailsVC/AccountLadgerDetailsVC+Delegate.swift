@@ -23,28 +23,17 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return 3
         }
         return self.viewModel.sectionArray[section - 1].count
-
-//
-//        guard let dict = self.viewModel.ladgerDetails["\(section - 1)"] as? JSONDictionary else {
-//            return 0
-//        }
-//
-//        if !dict.isEmpty {
-//            //extra 1 is for divider
-//            return dict.keys.count + 1
-//        }
-//        return 0
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat.leastNormalMagnitude
+        return CGFloat.leastNonzeroMagnitude
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         guard indexPath.section > 0 else {
             //first section's first cell
-            if let event = self.viewModel.ladgerEvent, event.voucher == .sales || event.voucher == .journal {
-                if event.productType == .flight {
+            if let event = self.viewModel.ladgerEvent, event.voucher == .sales || event.voucher == .journal  || self.viewModel.sectionArray.count > 2 {
+                if event.productType == .flight{
                     return 7.0
                 }
                 else {
@@ -79,7 +68,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             if let type = self.viewModel.ladgerEvent?.productType{
                 switch type{
                 case .hotel, .flight: isForVouchre = false
-                default: isForVouchre = true
+                default: isForVouchre = (self.viewModel.sectionArray.count < 2)
                 }
             }
             
@@ -87,7 +76,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 return 36.0
             }else if indexPath.row == 0 && isForVouchre{
                 return 36.0
-            }else if indexPath.row == self.viewModel.sectionArray[indexPath.section - 1].count-1{
+            }else if indexPath.row == self.viewModel.sectionArray[indexPath.section - 1].count-2{
                 return 36.0
             }else{
                return 30.0
@@ -117,6 +106,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 }
                 emptyCell.bottomDividerView.isHidden = true//(indexPath.row == 2)
                 emptyCell.topDividerView.isHidden = (indexPath.row == 2)
+                emptyCell.topDividerTopConstraint.constant = 0.0
                 return emptyCell
             case 1:
                 guard let downloadInvoiceCell = self.tableView.dequeueReusableCell(withIdentifier: "DownloadInvoiceTableViewCell") as? DownloadInvoiceTableViewCell else {
@@ -126,7 +116,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 if let type = self.viewModel.ladgerEvent?.productType{
                     switch type{
                     case .hotel, .flight: isForVouchre = false
-                    default: isForVouchre = true
+                    default:    isForVouchre = (self.viewModel.sectionArray.count < 2)
                     }
                 }
                 downloadInvoiceCell.showLoader = self.viewModel.isDownloadingRecipt
@@ -295,6 +285,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                             cell.showLoader = true
                         }
                         AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Receipt Voucher", showLoader: false, complition: { [weak self] (status) in
+                            
                             self?.viewModel.isDownloadingRecipt = false
                             self?.tableView.reloadRow(at: indexPath, with: .automatic)
                         })
@@ -324,7 +315,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         if title == "Balance" || title == "Amount" || title == "Total Amount"  || title == "Pending Amount"{
-            let val = (description.toDouble ?? 0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
+            let val = (description.toDouble ?? 0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
             cell.configureCellWithAttributedText(title: title, description: val)
         }else{
             cell.configure(title: title, description: description, age: age)
@@ -341,7 +332,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         if let type = self.viewModel.ladgerEvent?.productType{
             switch type{
             case .hotel, .flight: isForVouchre = false
-            default: isForVouchre = true
+            default: isForVouchre = (self.viewModel.sectionArray.count < 2)
             }
         }
         if indexPath.row == 0 && section != 0{

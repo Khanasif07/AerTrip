@@ -1,6 +1,6 @@
 //
 //  GMSAutocompleteResultsViewController.h
-//  Google Places SDK for iOS
+//  Google Places API for iOS
 //
 //  Copyright 2016 Google Inc.
 //
@@ -10,16 +10,19 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_feature(modules)
+@import GoogleMapsBase;
+#else
+#import <GoogleMapsBase/GoogleMapsBase.h>
+#endif
 #import "GMSAutocompleteBoundsMode.h"
 #import "GMSAutocompleteFilter.h"
 #import "GMSAutocompletePrediction.h"
 #import "GMSPlace.h"
-#import "GMSPlaceFieldMask.h"
+
+NS_ASSUME_NONNULL_BEGIN;
 
 @class GMSAutocompleteResultsViewController;
-@class GMSCoordinateBounds;
-
-NS_ASSUME_NONNULL_BEGIN
 
 /**
  * Protocol used by |GMSAutocompleteResultsViewController|, to communicate the user's interaction
@@ -135,18 +138,6 @@ NS_ASSUME_NONNULL_BEGIN
 /** The tint color applied to controls in the Autocomplete view. */
 @property(nonatomic, strong, nullable) IBInspectable UIColor *tintColor;
 
-/**
- * Specify individual place details to fetch for object |GMSPlace|.
- * Defaults to returning all details if not overridden.
- */
-@property(nonatomic, assign) GMSPlaceField placeFields;
-
-/**
- * Sets up the autocomplete bounds using the NE and SW corner locations.
- */
-- (void)setAutocompleteBoundsUsingNorthEastCorner:(CLLocationCoordinate2D)NorthEastCorner
-                                  SouthWestCorner:(CLLocationCoordinate2D)SouthWestCorner;
-
 @end
 
-NS_ASSUME_NONNULL_END
+NS_ASSUME_NONNULL_END;

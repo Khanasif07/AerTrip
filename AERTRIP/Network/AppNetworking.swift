@@ -264,6 +264,7 @@ enum AppNetworking {
             header["X-Auth-Token"] = xToken
         }
         
+        AF.sessionConfiguration.timeoutIntervalForRequest = 120
        let request = AF.request(URLString,
                           method: httpMethod,
                           parameters: isLocalServerUrl ? addMandatoryParams(toExistingParams: parameters):parameters,
@@ -284,7 +285,7 @@ enum AppNetworking {
             if let headers = response.response?.allHeaderFields, let xToken = headers["X-Auth-Token"] {
                 UserDefaults.setObject("\(xToken)", forKey: UserDefaults.Key.xAuthToken.rawValue)
             }
-//            printDebug("Cookies:--\(HTTPCookieStorage.shared.cookies(for: request.request!.url!))")
+            printDebug("Cookies:--\(HTTPCookieStorage.shared.cookies(for: request.request!.url!))")
             
             AppNetworking.saveCookies(fromUrl: response.response?.url)
             
@@ -299,6 +300,7 @@ enum AppNetworking {
                                 else {
                                     printDebug("response: \(value)\nresponse url: \(URLString)")
                                 }
+                                printDebug(JSON(value))
                                 success(JSON(value))
                                 
                             case .failure(let e):

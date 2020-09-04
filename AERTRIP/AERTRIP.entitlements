@@ -14,5 +14,9 @@
 		<string>applinks:beta.aertrip.com</string>
 		<string>applinks:*.aertrip.com</string>
 	</array>
+	<key>com.apple.developer.pass-type-identifiers</key>
+	<array>
+		<string>$(TeamIdentifierPrefix)*</string>
+	</array>
 </dict>
 </plist>

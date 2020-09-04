@@ -25,14 +25,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price per night" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hmx-8v-f8e">
-                                <rect key="frame" x="16" y="12" width="97.5" height="20.5"/>
+                                <rect key="frame" x="16" y="16" width="97.5" height="20.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <color key="textColor" red="0.79607843140000001" green="0.79607843140000001" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SJm-r6-MAR">
-                                <rect key="frame" x="9" y="44.5" width="178.5" height="31"/>
+                                <rect key="frame" x="16" y="52.5" width="178.5" height="31"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labelfds fsdf dsfsdfs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QVc-Sk-brs">
                                         <rect key="frame" x="9" y="3" width="160.5" height="25"/>
@@ -51,7 +51,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lha-k7-qcW">
-                                <rect key="frame" x="339" y="44.5" width="60" height="31"/>
+                                <rect key="frame" x="338" y="52.5" width="60" height="31"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XbK-HJ-9Tz">
                                         <rect key="frame" x="9" y="3" width="42" height="25"/>
@@ -70,14 +70,14 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nit-WS-kOl">
-                                <rect key="frame" x="16" y="143.5" width="382" height="0.5"/>
+                                <rect key="frame" x="16" y="153.5" width="382" height="0.5"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="MaX-bA-g4o"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kXM-Nx-Ah8">
-                                <rect key="frame" x="16" y="157.5" width="74" height="20.5"/>
+                                <rect key="frame" x="16" y="170" width="74" height="20.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -85,16 +85,16 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Lha-k7-qcW" secondAttribute="trailing" constant="15" id="Boj-DS-OGY"/>
+                            <constraint firstAttribute="trailing" secondItem="Lha-k7-qcW" secondAttribute="trailing" constant="16" id="Boj-DS-OGY"/>
                             <constraint firstAttribute="trailing" secondItem="Nit-WS-kOl" secondAttribute="trailing" constant="16" id="Lw0-VG-15m"/>
-                            <constraint firstItem="SJm-r6-MAR" firstAttribute="leading" secondItem="kEj-FZ-EyD" secondAttribute="leading" constant="9" id="QRv-6i-KiM"/>
-                            <constraint firstItem="Nit-WS-kOl" firstAttribute="top" secondItem="SJm-r6-MAR" secondAttribute="bottom" constant="68" id="Sa9-Ie-RYy"/>
+                            <constraint firstItem="SJm-r6-MAR" firstAttribute="leading" secondItem="kEj-FZ-EyD" secondAttribute="leading" constant="16" id="QRv-6i-KiM"/>
+                            <constraint firstItem="Nit-WS-kOl" firstAttribute="top" secondItem="SJm-r6-MAR" secondAttribute="bottom" constant="70" id="Sa9-Ie-RYy"/>
                             <constraint firstItem="Nit-WS-kOl" firstAttribute="leading" secondItem="kEj-FZ-EyD" secondAttribute="leading" constant="16" id="U9L-63-KGs"/>
                             <constraint firstItem="kXM-Nx-Ah8" firstAttribute="leading" secondItem="kEj-FZ-EyD" secondAttribute="leading" constant="16" id="awN-MF-TUj"/>
                             <constraint firstItem="hmx-8v-f8e" firstAttribute="leading" secondItem="kEj-FZ-EyD" secondAttribute="leading" constant="16" id="bSs-NC-Dh4"/>
-                            <constraint firstItem="SJm-r6-MAR" firstAttribute="top" secondItem="hmx-8v-f8e" secondAttribute="bottom" constant="12" id="cMa-uA-ucp"/>
-                            <constraint firstItem="kXM-Nx-Ah8" firstAttribute="top" secondItem="Nit-WS-kOl" secondAttribute="bottom" constant="13.5" id="eZL-jb-Rbj"/>
-                            <constraint firstItem="hmx-8v-f8e" firstAttribute="top" secondItem="kEj-FZ-EyD" secondAttribute="top" constant="12" id="mtU-1N-izT"/>
+                            <constraint firstItem="SJm-r6-MAR" firstAttribute="top" secondItem="hmx-8v-f8e" secondAttribute="bottom" constant="16" id="cMa-uA-ucp"/>
+                            <constraint firstItem="kXM-Nx-Ah8" firstAttribute="top" secondItem="Nit-WS-kOl" secondAttribute="bottom" constant="16" id="eZL-jb-Rbj"/>
+                            <constraint firstItem="hmx-8v-f8e" firstAttribute="top" secondItem="kEj-FZ-EyD" secondAttribute="top" constant="16" id="mtU-1N-izT"/>
                             <constraint firstItem="Lha-k7-qcW" firstAttribute="centerY" secondItem="SJm-r6-MAR" secondAttribute="centerY" id="tTL-uo-06h"/>
                         </constraints>
                     </view>

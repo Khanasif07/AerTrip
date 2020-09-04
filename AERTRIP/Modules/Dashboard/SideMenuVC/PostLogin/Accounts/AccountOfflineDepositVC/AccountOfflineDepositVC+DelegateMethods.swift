@@ -182,18 +182,19 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: titles, colors: ttlClrs)
         
-        _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.ChooseOptionToSelect.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+        _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.ChooseOptionToSelect.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] (_, index) in
+            guard let strongSelf = self else {return}
             if index == 0 {
                 //Camera
-                self.checkAndOpenCamera(delegate: self)
+                strongSelf.checkAndOpenCamera(delegate: strongSelf)
             }
             else if index == 1 {
                 //PhotoLibrary
-                self.checkAndOpenLibrary(delegate: self)
+                strongSelf.checkAndOpenLibrary(delegate: strongSelf)
             }
             else {
                 //Document
-                self.openDocumentPicker()
+                strongSelf.openDocumentPicker()
             }
         }
     }
@@ -248,6 +249,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             depositCell.amountTextField.backgroundColor = AppColors.clear
             depositCell.isUserInteractionEnabled = false
         }
+        depositCell.topDividerView.isHidden = false
         return depositCell
     }
     
@@ -362,10 +364,11 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         
+        cell.editableTextField.titleFont = AppFonts.Regular.withSize(14)
         cell.textFieldTopConstraint.constant = 8.0
         cell.textFiledBottomConstraint.constant = 0.0
         cell.editableTextField.titleYPadding = 0
-        cell.editableTextField.hintYPadding = 0
+        cell.editableTextField.hintYPadding = -8
         cell.editableTextField.isHiddenBottomLine = true
         cell.editableTextField.text = value
         cell.editableTextField.setUpAttributedPlaceholder(placeholderString: placeholder)

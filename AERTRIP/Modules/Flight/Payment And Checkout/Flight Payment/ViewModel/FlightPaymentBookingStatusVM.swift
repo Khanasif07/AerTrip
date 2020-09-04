@@ -30,6 +30,8 @@ class FlightPaymentBookingStatusVM{
     var bookingDetail: [BookingDetailModel?] = []
     //Data For API And Details
     var apiBookingIds:[String] = []
+    var isLoadingTicket:Bool = false
+    var loadingIndex:Int = -1
     var bookingObject:BookFlightObject?
     var availableSeatMaps = [AvailableSeatMap]()
     
@@ -70,9 +72,9 @@ class FlightPaymentBookingStatusVM{
             self.sectionData.append(data)
         }
         var dataForLastSection = [TableViewCellType]()
-        if self.itinerary.bookingStatus.status != "pending"{
+        if self.itinerary.bookingStatus.status != "pending"{//self.apiBookingIds.count != 0{
             dataForLastSection.append(contentsOf: [.totalChargeCell, .confirmationHeaderCell])
-            for _ in 0..<(self.itinerary.details.legsWithDetail.count){
+            for _ in 0..<self.apiBookingIds.count{//(self.itinerary.details.legsWithDetail.count)
                 dataForLastSection.append(.confirmationVoucherCell)
             }
         }else{
@@ -127,10 +129,10 @@ class FlightPaymentBookingStatusVM{
     }
     
     func setSeatMapAvailability(_ bookingId: String, booking: BookingDetailModel?){//→
-        guard let booking = booking else {return}//booking.displaySeatMap//Add conditions after check
+        guard let booking = booking , booking.displaySeatMap else {return}//booking.displaySeatMap//Add conditions after check
         var seatMap = AvailableSeatMap(bookingId: bookingId, name: "")
         for leg in booking.bookingDetail?.leg ?? []{
-//            guard (leg.pax.first?.status ?? "") == "booked" else {return}
+            guard self.itinerary.bookingStatus.status == "booked" else {return}// (leg.pax.first?.status ?? "") == "booked" //on the basis of legs/
             let name = "\(leg.origin) → \(leg.destination)"
             seatMap.name = name
             self.availableSeatMaps.append(seatMap)

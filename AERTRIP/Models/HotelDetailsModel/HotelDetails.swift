@@ -59,6 +59,7 @@ struct HotelDetails {
     var pan_required: Bool = false
     var is_price_change: Bool = false
     var amenities_group_order: [String : String] = [:]
+    var atImageData : [ATGalleryImage] = []
     
     //Mark:- Initialization
     //=====================
@@ -206,6 +207,11 @@ struct HotelDetails {
         }
         if let obj = json[APIKeys.photos.rawValue] as? [String] {
             self.photos = obj
+            self.atImageData = self.photos.map{ photo in
+                var imgData = ATGalleryImage()
+                imgData.imagePath = photo
+                return imgData
+            }
         }
         else if let dict = json[APIKeys.photos.rawValue] as? JSONDictionary {
             self.photos = dict.map {"\($0.1)"}
@@ -381,7 +387,7 @@ struct AmenitiesMain {
 //Mark:- Enums
 //============
 enum TableCellType {
-    case imageSlideCell , hotelRatingCell , addressCell , checkInOutDateCell , overViewCell , amenitiesCell , tripAdvisorRatingCell , searchTagCell , ratesEmptyStateCell , roomBedsTypeCell , inclusionCell , otherInclusionCell, cancellationPolicyCell , paymentPolicyCell , notesCell , checkOutCell , roomDetailsCell
+    case imageSlideCell , hotelRatingCell , addressCell , checkInOutDateCell , overViewCell , amenitiesCell , tripAdvisorRatingCell , searchTagCell , ratesEmptyStateCell , roomBedsTypeCell , inclusionCell , otherInclusionCell, cancellationPolicyCell , paymentPolicyCell , notesCell , checkOutCell , roomDetailsCell, noImageCell
 }
 
 //Mark:- Rates

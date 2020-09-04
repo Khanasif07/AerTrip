@@ -16,6 +16,7 @@ enum VoucherType: String {
     case lockAmount = "Lock Amount"
     case debitNote = "Debit Note"
     case creditNote = "Credit Note"
+    case payment = "Payment"
     
     //these have sub types
     case sales = "Sales"
@@ -28,6 +29,8 @@ enum VoucherReceiptMethod: String {
     case netbanking = "netbanking"
     case card = "card"
     case upi = "upi"
+    case offline = "offline"
+    case wallet = "wallet"
 }
 
 enum VoucherProductType: String {
@@ -123,6 +126,14 @@ struct AccountDetailEvent {
     var hotelAddress = ""
     var flightNumber = ""
     
+    //Added for ofline receipts:--
+    var chequeNumber = ""
+    var chequeDate = ""
+    var offlineAccountName = ""
+    var offlineBankName = ""
+    var depositDate = ""
+    var utrNumner = ""
+    
     var numOfRows: Int {
         return 2
     }
@@ -150,7 +161,11 @@ struct AccountDetailEvent {
         
         if let obj = json["balance"] {
             let amt = "\(obj)".toDouble ?? 0.0
-            self.balance = amt * -1
+            if amt != 0{
+                self.balance = amt * -1
+            }else{
+                self.balance = 0
+            }
         }
         
         if let obj = json["transaction_datetime"] {
@@ -192,7 +207,7 @@ struct AccountDetailEvent {
     }
     
     mutating private func fetchVoucherDetails(json: JSONDictionary) {
-        printDebug(self.voucher.rawValue)
+//        printDebug(self.voucher.rawValue)
         switch self.voucher {
         case .lockAmount:
             self.iconImage = #imageLiteral(resourceName: "ic_acc_lockAmount")
@@ -202,7 +217,11 @@ struct AccountDetailEvent {
             
         case .receipt:
             if let details = json["detail"] as? JSONDictionary, let info = details["info"] as? JSONDictionary {
-                self._receiptMethod = (info["method"] as? String) ?? ""
+                if !((info["method"] as? String) ?? "").isEmpty{
+                    self._receiptMethod = (info["method"] as? String) ?? ""
+                }else if !((info["type"] as? String) ?? "").isEmpty{
+                    self._receiptMethod = (info["type"] as? String) ?? ""
+                }
                 switch self.receiptMethod {
                 case .netbanking:
                     self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
@@ -222,11 +241,50 @@ struct AccountDetailEvent {
                     let cardNum = (info["card_number"] as? String) ?? "XXXX"
                     self.creditCardNo = "XXXX - XXXX - XXXX - \(cardNum)"
                     
+                case .offline:
+                    self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
+                    if (info["draft_cheque_number"] != nil) || (info["draft_cheque_date"] != nil) {
+                        self.title = "Cheque / Demand Draft"
+                        self.chequeNumber = info["draft_cheque_number"] as? String ?? ""
+                        self.chequeDate = info["draft_cheque_date"] as? String ?? ""
+                        self.offlineBankName = info["bank_name"] as? String ?? ""
+                        self.offlineAccountName = info["account_name"] as? String ?? ""
+                    }else if info["utr_number"] != nil{
+                        self.title = "Fund Transfer"
+                        self.utrNumner = info["utr_number"] as? String ?? ""
+                        self.depositDate = info["deposit_date"] as? String ?? ""
+                        self.offlineBankName = info["bank_name"] as? String ?? ""
+                        self.offlineAccountName = info["account_name"] as? String ?? ""
+                    }else{
+                        self.title = "Cash deposit in Bank"
+                    }
+                    if let mode = details["mode"] as? String, let value = ADEventFilterVM.shared.paymentMethodArray[mode], !JSON(value).stringValue.isEmpty{
+                        self.title = JSON(value).stringValue
+                    }
+//                    let bankName = (info["bank_name"] as? String) ?? ""
+//                    self.title = self._receiptMethod.isEmpty ? bankName : "\(self._receiptMethod.capitalizedFirst()): \(bankName)"
+                case .wallet:
+                    self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
+                    let walletName = (info["wallet_name"] as? String) ?? ""
+                    if walletName.isEmpty{
+                        self.title = "Wallet"
+                    }else{
+                        self.title = "Wallet: \(walletName)"
+                    }
+                    
                 case .none:
                     printDebug("No need for other voucher types")
-                @unknown default:
-                    printDebug("No need for other voucher types")
+//                @unknown default:
+//                    printDebug("No need for other voucher types")
                 }
+            }
+            
+        case .payment:
+            if let details = json["detail"] as? JSONDictionary, let info = details["info"] as? JSONDictionary {
+                self._receiptMethod = (info["method"] as? String) ?? ""
+                self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
+                let bankName = (info["payment_method_value"] as? String) ?? ""
+                self.title = self._receiptMethod.isEmpty ? bankName : "\(self._receiptMethod.capitalizedFirst()): \(bankName)"
             }
             
         case .debitNote:
@@ -244,7 +302,7 @@ struct AccountDetailEvent {
         case .sales:
             //self.title = "sales Test"
             if let details = json["detail"] as? JSONDictionary {
-                printDebug(json)
+//                printDebug(json)
                 if let obj = details["product_type"] {
                     self._productType = "\(obj)"
                 }
@@ -260,7 +318,7 @@ struct AccountDetailEvent {
                     self.parseForAddOnsSales(details: details)
                     
                 case .none:
-                    printDebug("No need for other voucher types")
+                    self.parseForOtherSales(details: details)
                 @unknown default:
                     printDebug("No need for other voucher types")
                 }
@@ -275,7 +333,7 @@ struct AccountDetailEvent {
             //self.title = self.voucher.rawValue //temp work
             
             if let details = json["detail"] as? JSONDictionary {
-                printDebug(json)
+//                printDebug(json)
                 if let obj = details["product_type"] {
                     self._productType = "\(obj)"
                 }
@@ -291,9 +349,10 @@ struct AccountDetailEvent {
                     self.parseForAddOnsSales(details: details)
                     
                 case .none:
-                    printDebug("No need for other voucher types")
-                @unknown default:
-                    printDebug("No need for other voucher types")
+//                    printDebug("No need for other voucher types")
+                    self.parseForOtherSales(details: details)
+//                @unknown default:
+//                    printDebug("No need for other voucher types")
                 }
                 
                 if self.title.isEmpty, let partyName = details["party_name"] {
@@ -336,13 +395,14 @@ struct AccountDetailEvent {
         self.title = ""
         if let journey = details["journey"] as? [[String]] {
             for obj in journey {
-                self.title += ( (self.title.isEmpty ? "" : " → ") + obj.joined(separator: " → "))
+                self.title += ( (self.title.isEmpty ? "" : ", ") + obj.joined(separator: " → "))
             }
         }
         self.getAttributedText()
         if self.voucherNo.lowercased().contains("srjv") {
             self.title = "\(LocalizedString.CancellationFor.localized)\n\(self.title)"
             self.attributedString = nil
+            self.iconImage = #imageLiteral(resourceName: "flightCancellation")
         } else if self.voucherNo.lowercased().contains("rsrjv") {
             self.title = "\(LocalizedString.ReschedulingFor.localized)\n\(self.title)"
             self.attributedString = nil
@@ -407,6 +467,30 @@ struct AccountDetailEvent {
             }
         }
     }
+    
+    
+    private mutating func parseForOtherSales(details: JSONDictionary) {
+        
+        self.iconImage = #imageLiteral(resourceName: "others_hotels")
+        
+        //booking date
+        if let obj = details["booking_date"] {
+            //"2019-05-16 00:00:00",
+            self.voucherDate = "\(obj)".toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")
+        }
+        
+        //booking id
+        if let obj = details["booking_id"] {
+            self.bookingId = "\(obj)"
+        }
+        if let obj = details["booking_number"] {
+            self.bookingNumber = "\(obj)"
+        }
+        
+        //title
+        self.title = details["party_name"] as? String ?? ""
+    }
+
     
     private mutating func getAttributedText(){
         
@@ -476,7 +560,7 @@ struct AccountDetailEvent {
                 }
                 
                 //confirmation id
-                self.confirmationId = LocalizedString.dash.localized
+                self.confirmationId = ""//LocalizedString.dash.localized
                 
                 //guest names
                 for room in rows {

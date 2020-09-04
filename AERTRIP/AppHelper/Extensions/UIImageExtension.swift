@@ -140,10 +140,11 @@ extension UIImageView {
     }
     
     
-    func setImageWithUrl( imageUrl: String, placeholder: UIImage, showIndicator:Bool, completionHandler: @escaping (_ image: UIImage?, _ error: Error?) -> ()?) {
+    func setImageWithUrl( imageUrl: String, placeholder: UIImage, showIndicator:Bool, completionHandler: ((_ image: UIImage?, _ error: Error?) -> Void)?) {
         var imageUrl = imageUrl
         guard imageUrl.count > 0 else {
             self.image = placeholder
+            completionHandler?(nil, nil)
             return
         }
         
@@ -155,11 +156,11 @@ extension UIImageView {
                 
                 switch result {
                 case .success(let value):
-                    print("Task done for: \(value.source.url?.absoluteString ?? "")")
-                    completionHandler(value.image, nil)
+                    //                    print("Task done for: \(value.source.url?.absoluteString ?? "")")
+                    completionHandler?(value.image, nil)
                 case .failure(let error):
-                    print("Job failed: \(error.localizedDescription)")
-                    completionHandler(nil, error)
+                    //                    print("Job failed: \(error.localizedDescription)")
+                    completionHandler?(nil, error)
                 }
             }
         }
@@ -188,6 +189,16 @@ extension UIImageView {
         
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
         self.addSubview(blurEffectView)
+    }
+    
+    static func imageExistForURL(url: String) -> Bool {
+        return ImageCache.default.isCached(forKey: url)
+    }
+    
+    static func clearImageCache() {
+        ImageCache.default.clearMemoryCache()
+        ImageCache.default.clearDiskCache()
+        ImageCache.default.cleanExpiredDiskCache()
     }
     
 }
@@ -304,7 +315,7 @@ extension UIImage {
         let finalImage=UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return finalImage
-     }
+    }
 }
 
 // FLIGHTS
@@ -317,7 +328,7 @@ extension UIImageView{
             return
         }
         
-         let urlRequest = URLRequest(url: urlobj)
+        let urlRequest = URLRequest(url: urlobj)
         
         if let responseObj = URLCache.shared.cachedResponse(for: urlRequest) {
             
@@ -326,16 +337,16 @@ extension UIImageView{
         }else {
             
             let urlSession = URLSession.shared
-          let dataTask =  urlSession.dataTask(with: urlRequest) {[weak self ] ( downloadedData, response, error) in
-            
+            let dataTask =  urlSession.dataTask(with: urlRequest) {[weak self ] ( downloadedData, response, error) in
+                
                 if (error != nil) {
-//                    print(error.debugDescription)
+                    //                    print(error.debugDescription)
                     return
                 }
                 if let data = downloadedData , let response = response {
                     let cacheResponse = CachedURLResponse(response: response, data: data)
                     URLCache.shared.storeCachedResponse(cacheResponse, for: urlRequest)
-                      DispatchQueue.main.async {
+                    DispatchQueue.main.async {
                         self?.image = UIImage(data: data)
                     }
                 }

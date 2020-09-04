@@ -51,7 +51,15 @@ struct FlightRecept {
         tk = json["tk"].stringValue
         currency = json["currency"].stringValue
         whatNext =  json["whatsNext"].arrayValue.map{WhatNext($0, isFor: "flight")}
-        whatNext = whatNext.filter{$0.product != ""}
+        whatNext = whatNext.filter({ whtNxt -> Bool in
+            if whtNxt.product == ""{
+                return false
+            }else if (whtNxt.productType == .flight) && (whtNxt.origin == "" || whtNxt.destination == ""){
+                return false
+            }else{
+                return true
+            }
+        })//filter{$0.product != ""}
     }
 }
 
@@ -96,6 +104,13 @@ struct  WhatNext {
     var departCity:String
     var arrivalCity:String
     var settingFor: String
+    
+    //Array for multicity flight result
+    var originArr:[String]?
+    var destinationArr:[String]?
+    var departArr:[String]?
+    var departCityArr:[String]?
+    var arrivalCityArr:[String]?
     
     var whatNextStringValue:String{
         

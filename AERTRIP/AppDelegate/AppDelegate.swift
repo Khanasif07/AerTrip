@@ -15,7 +15,9 @@ import GoogleMaps
 import GoogleSignIn
 //import LinkedinSwift
 import FirebaseDynamicLinks
+import FirebaseCore
 import UIKit
+import FirebaseCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -156,10 +158,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          }
          */
         return true
-    }
-    
-    func access(){
-        
     }
     
 }

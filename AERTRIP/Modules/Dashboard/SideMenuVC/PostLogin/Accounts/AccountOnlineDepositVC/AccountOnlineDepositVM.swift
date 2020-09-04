@@ -17,12 +17,18 @@ protocol AccountOnlineDepositVMDelegate: class {
     func willFetchPaymentResponse()
     func paymentResponseSuccess(_ with:JSON)
     func paymentResponseFail()
+    
+    func willUpdateConvenienceFee()
+    func didUpdateConvenienceFee()
+    func convenienceFeeFail()
 }
 
 class AccountOnlineDepositVM: NSObject {
     
     weak var delegate: AccountOnlineDepositVMDelegate?
     var depositItinerary: DepositItinerary?
+    var timer:Timer?
+    var convenienceFeeUpdateTime = 1.0
     
     var depositAmount: Double {
         if let part = depositItinerary?.partPaymentAmount, part > 0.0 {
@@ -61,7 +67,7 @@ class AccountOnlineDepositVM: NSObject {
     func makePayment() {
         //forAmount used to decide that razor pay will use or not
         var params: [String : Any] = [ APIKeys.it_id.rawValue : self.depositItinerary?.id ?? ""]
-        params[APIKeys.currency_code.rawValue] = UserInfo.loggedInUser?.preferredCurrency ?? ""
+        params[APIKeys.currency_code.rawValue] = depositItinerary?.currency ?? (UserInfo.loggedInUser?.preferredCurrency ?? "")
         params[APIKeys.payment_method_id.rawValue] = depositItinerary?.razorpay?.id ?? ""
 
         params[APIKeys.total_amount.rawValue] = self.depositAmount
@@ -112,5 +118,24 @@ class AccountOnlineDepositVM: NSObject {
                 }
             }
         }
+    
+    
+    func updateConvenienceFee(amount:String){
+        var params: JSONDictionary = [:]
+        params[APIKeys.it_id.rawValue] = self.depositItinerary?.id ?? ""
+        params[APIKeys.total_amount.rawValue] = amount
+        params[APIKeys.action.rawValue] = APIKeys.convenience_fees.rawValue
+        self.delegate?.willUpdateConvenienceFee()
+        APICaller.shared.updateConvenienceFeeApi(params: params) {[weak self] (success, error, itinerary) in
+            guard let self = self else {return}
+            if success, let itinerary = itinerary{
+                self.depositItinerary = itinerary
+                self.delegate?.didUpdateConvenienceFee()
+            }else{
+                self.delegate?.convenienceFeeFail()
+            }
+        }
+        
+    }
     
 }

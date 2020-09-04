@@ -35,7 +35,7 @@ public struct  FlightsResults : Codable {
     var taxes : [String : String]
     var aldet : [String : String]
     var alMaster :[ String :AirlineMasterWS]
-    
+    var taxSort : String
     
     init() {
         j = [Journey]()
@@ -44,6 +44,7 @@ public struct  FlightsResults : Codable {
         taxes = [String : String]()
         aldet = [String : String]()
         alMaster = [ String :AirlineMasterWS]()
+        taxSort = ""
     }
     
     

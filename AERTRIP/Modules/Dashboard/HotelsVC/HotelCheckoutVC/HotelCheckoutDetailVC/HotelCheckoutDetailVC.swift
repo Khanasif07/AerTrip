@@ -20,9 +20,16 @@ class HotelCheckoutDetailVC: BaseVC {
     internal weak var delegate: HotelCheckOutDetailsVIewDelegate?
     internal var roomRates = [[RoomsRates : Int]]()
     internal var requestParameters:RequestParameters?
-    internal let hotelImageHeight: CGFloat = 211.0
+    internal var hotelImageHeight: CGFloat{
+        if (self.sectionData.first?.contains(.imageSlideCell) ?? true){
+            return UIScreen.width
+        }else{
+            return 85.0
+        }
+    }
     internal var didsmissOnScrollPosition: CGFloat = 200.0
     internal var viewTranslation = CGPoint(x: 0, y: 0)
+    var isAllImageDownloadFails = false
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var hotelDetailsTableView: UITableView! {
@@ -82,6 +89,7 @@ class HotelCheckoutDetailVC: BaseVC {
             self.view.addGestureRecognizer(swipeGesture)
             self.view.backgroundColor = AppColors.clear
         }
+        self.downloadImages()
         DispatchQueue.main.async {
             self.configureUI()
         }
@@ -125,6 +133,44 @@ class HotelCheckoutDetailVC: BaseVC {
         self.hotelDetailsTableView.registerCell(nibName: HotelDetailsCancelPolicyTableCell.reusableIdentifier)
         self.hotelDetailsTableView.registerCell(nibName: HCCheckInOutTableViewCell.reusableIdentifier)
         self.hotelDetailsTableView.registerCell(nibName: HCRoomTableViewCell.reusableIdentifier)
+        self.hotelDetailsTableView.registerCell(nibName: NoImageDetailsCell.reusableIdentifier)
+    }
+    
+    func downloadImages(){
+        let downloadGroup = DispatchGroup()
+        for (index, image) in (self.viewModel?.atImageData ?? []).enumerated(){
+            let imageView = UIImageView()
+            if let imageurl = image.imagePath{
+                downloadGroup.enter()
+                imageView.setImageWithUrl(imageUrl: imageurl, placeholder: UIImage(), showIndicator: false) {[weak self] (img, err) in
+                    guard let self = self else { return ()}
+                    self.viewModel?.atImageData[index].image = img
+                    downloadGroup.leave()
+                    return ()
+                }
+            }
+        }
+        downloadGroup.notify(queue: .main) {
+            for image in (self.viewModel?.atImageData ?? []){
+                if image.image == nil, let index = self.viewModel?.atImageData.firstIndex(where: {$0.imagePath == image.imagePath}){
+                    self.viewModel?.atImageData.remove(at: index)
+                    self.viewModel?.photos.remove(at: index)
+                }
+            }
+            if self.viewModel?.atImageData.count != 0{
+                self.hotelDetailsTableView.reloadData()
+            }else{
+                self.removeImageCell()
+                self.hotelDetailsTableView.reloadData()
+            }
+        }
+    }
+    
+    func removeImageCell(){
+        if self.sectionData.count != 0, let index = self.sectionData.first?.firstIndex(where: {$0 == .imageSlideCell}){
+            self.sectionData[0].remove(at: index)
+            self.sectionData[0].insert(.noImageCell, at: 0)
+        }
     }
 }
 extension HotelCheckoutDetailVC {

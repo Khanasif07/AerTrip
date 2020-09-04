@@ -26,32 +26,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7F82BD62-EA81-42CB-8164-97C4C29F1BEA"
+            uuid = "7415A447-5517-4A2E-BC85-D452A6A82760"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Network/APICaller/APICaller+FlightPending.swift"
+            filePath = "AERTRIP/Controller/AppleLoginController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "getItinerayDataForPendingPayment(params:loader:completionBlock:)"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "authorizationController(controller:didCompleteWithError:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "04CB50E7-1F9E-40FE-B71F-947304507F35"
+            uuid = "9B807147-0681-4E4F-97E3-DAFD2AABF517"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Xibs/BookingsXibs/BookingDetail/Fare/FareRuleTableViewCell.swift"
+            filePath = "AERTRIP/Controller/SignInWithApple.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "configureCell(isForBookingPolicy:fareRules:ruteString:)"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "authorizationController(controller:didCompleteWithAuthorization:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1C536654-41B2-4649-A708-73E411AD8F02"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/BookingDetail/BookingFlightDetailVC/FlightInfoVC/FlightInfoVC+ HelperMethods.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "getHeightForFlightInfo(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

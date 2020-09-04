@@ -27,6 +27,7 @@ class TravellerListVC: BaseVC {
     @IBOutlet weak var searchBar: ATSearchBar!
     @IBOutlet weak var headerDividerView: ATDividerView!
     @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet weak var progressView: UIProgressView!
     
     // MARK: - Variables
     
@@ -63,11 +64,18 @@ class TravellerListVC: BaseVC {
     var fetchedResultsController: NSFetchedResultsController<TravellerData>!
     var predicateStr: String = ""
     var didTapCrossKey: Bool = false
-    
+    private var time: Float = 0.0
+    private var timer: Timer?
+    private var showImportContactView = false
+    var tableViewContentInset: CGFloat {
+       return  44 + searchBar.height
+    }
     // MARK: - View Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
+        self.progressView?.isHidden = true
         self.bottomBackgroundView.backgroundColor = AppColors.themeGray04
         CoreDataManager.shared.deleteData("TravellerData")
         container = NSPersistentContainer(name: "AERTRIP")
@@ -85,7 +93,7 @@ class TravellerListVC: BaseVC {
         tableView.backgroundView?.isHidden = true
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = AppColors.blueGray
-        noResultemptyView.mainImageViewTopConstraint.constant = tableView.height/2
+        //noResultemptyView.mainImageViewTopConstraint.constant = tableView.height/2
         loadSavedData()
         doInitialSetUp()
         registerXib()
@@ -155,6 +163,10 @@ class TravellerListVC: BaseVC {
             //re-hit the details API
             loadSavedData()
         }else if let noti = note.object as? ImportContactVM.Notification, noti == .contactSavedSuccess {
+            self.tableView.setContentOffset(CGPoint(x: 0, y: -tableViewContentInset), animated: false)
+            self.shouldHitAPI = false
+            self.showImportContactView = true
+            manageImportContactHeaderView()
             // Clear the DB
             CoreDataManager.shared.deleteData("TravellerData")
             //re-hit the details API
@@ -194,6 +206,44 @@ class TravellerListVC: BaseVC {
             topNavView.configureFirstRightButton(normalImage:  #imageLiteral(resourceName: "greenPopOverButton"), selectedImage:  #imageLiteral(resourceName: "greenPopOverButton"))
             topNavView.configureSecondRightButton(normalImage:  #imageLiteral(resourceName: "plusButton"), selectedImage:  #imageLiteral(resourceName: "plusButton"))
         }
+    }
+    
+    func startProgress() {
+        // Invalid timer if it is valid
+        if self.timer?.isValid == true {
+            self.timer?.invalidate()
+        }
+        self.progressView?.isHidden = false
+        self.time = 0.0
+        self.progressView.setProgress(0.0, animated: false)
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
+    
+    @objc func setProgress() {
+        self.time += 1.0
+        self.progressView?.setProgress(self.time / 10, animated: true)
+        
+        if self.time == 8 {
+            self.timer?.invalidate()
+            return
+        }
+        if self.time == 2 {
+            self.timer!.invalidate()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+            }
+        }
+        
+        if self.time >= 10 {
+            self.timer!.invalidate()
+            delay(seconds: 0.5) {
+                self.progressView?.isHidden = true
+            }
+        }
+    }
+    func stopProgress() {
+        self.time += 1
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
     }
     
     // MARK: - IB Action
@@ -257,6 +307,7 @@ class TravellerListVC: BaseVC {
                 AppFlowManager.default.moveToPreferencesVC(sSelf)
             } else if index == 2 {
                 printDebug("import traveller")
+                self?.shouldHitAPI = false
                 AppFlowManager.default.moveToImportContactVC()
             }
         }
@@ -264,6 +315,14 @@ class TravellerListVC: BaseVC {
     
     func getSelectedPaxIds() -> [String] {
         return selectedTravller.compactMap({ $0.id })
+    }
+    
+    func manageImportContactHeaderView() {
+        let height: CGFloat = self.showImportContactView ? (44 + 60) : 44
+        self.tableView.sectionHeaderHeight = height
+        travellerListHeaderView.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: height)
+        travellerListHeaderView.isImportContactViewVisible = self.showImportContactView
+        self.tableView.reloadData()
     }
     
     @IBAction func assignGroupTapped(_ sender: Any) {
@@ -313,7 +372,7 @@ class TravellerListVC: BaseVC {
         addLongPressOnTableView()
         topNavView.delegate = self
         updateNavView()
-        self.tableView.contentInset = UIEdgeInsets(top: 44 + searchBar.height, left: 0, bottom: 0, right: 0)
+        self.tableView.contentInset = UIEdgeInsets(top: tableViewContentInset, left: 0, bottom: 0, right: 0)
     }
     
     func registerXib() {
@@ -768,7 +827,10 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
 extension TravellerListVC: TravellerListVMDelegate {
     func willSearchForTraveller(_ isShowLoader: Bool = false) {
         if isShowLoader {
-            AppGlobals.shared.startLoading(loaderBgColor: AppColors.themeWhite)
+            //AppGlobals.shared.startLoading(loaderBgColor: AppColors.themeWhite)
+            startProgress()
+        }
+        if self.showImportContactView {
         }
     }
     
@@ -806,16 +868,30 @@ extension TravellerListVC: TravellerListVMDelegate {
         shouldHitAPI = true
     }
     
-    func searchTravellerFail(errors: ErrorCodes) {
+    func searchTravellerFail(errors: ErrorCodes, _ isShowLoader: Bool = false) {
         printDebug(errors)
-        AppGlobals.shared.stopLoading()
+        //AppGlobals.shared.stopLoading()
+        if isShowLoader {
+            stopProgress()
+        }
+        if self.showImportContactView {
+            self.showImportContactView = false
+            manageImportContactHeaderView()
+        }
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
     
     
     
-    func searchTravellerSuccess() {
-        AppGlobals.shared.stopLoading()
+    func searchTravellerSuccess(_ isShowLoader: Bool = false) {
+        //AppGlobals.shared.stopLoading()
+        if isShowLoader {
+            stopProgress()
+        }
+        if self.showImportContactView {
+            self.showImportContactView = false
+            manageImportContactHeaderView()
+        }
         tableView.delegate = self
         tableView.dataSource = self
         shouldHitAPI = true

@@ -36,6 +36,9 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
             case .imageSlideCell:
                 let cell = self.getImageSlideCell(indexPath: indexPath, hotelDetails: hotelDetails)
                 return cell
+            case .noImageCell:
+                let cell = self.getNoImageCell()
+                return cell
             case .hotelRatingCell:
                 let cell = self.getHotelRatingInfoCell(indexPath: indexPath, hotelDetails: hotelDetails)
                 return cell
@@ -144,6 +147,12 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
         }
         if tableViewRowCell[indexPath.row] == .amenitiesCell{
             self.viewAllButtonAction()
+        }else if tableViewRowCell[indexPath.row] == .noImageCell && !(self.viewModel.hotelInfo?.locid?.isEmpty ?? true){
+            if (self.viewModel.hotelInfo?.hid ?? "") == TAViewModel.shared.hotelId, let data = TAViewModel.shared.hotelTripAdvisorDetails{
+                let urlString = "https:\(data.seeAllPhotos)"
+                let screenTitle = LocalizedString.Photos.localized
+                AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+            }
         }
     }
     
@@ -175,24 +184,64 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
 //MARK:- HotelDetailDelegate
 //==========================
 extension HotelDetailsVC: HotelDetailDelegate {
+    func willFetchConfirmItineraryData(index: Int) {
+        self.manageLoaderOnBookCell(isHidden: false, at: index)
+    }
+    
+    func fetchConfirmItineraryDataResponse(itineraryData: ItineraryData?, index:Int, error: ErrorCodes) {
+        if let itData = itineraryData{
+            self.viewModel.confirmationCount = 1
+//            var presentSelectionVC = false
+//            if let _ = UserInfo.loggedInUserId {
+//                presentSelectionVC = true
+//            }
+            AppFlowManager.default.moveToHCDataSelectionVC(sid: self.viewModel.hotelSearchRequest?.sid ?? "", hid: self.viewModel.hotelInfo?.hid ?? "", qid: self.viewModel.ratesData[index].qid, placeModel: self.viewModel.placeModel ?? PlaceModel(), hotelSearchRequest: self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), itData: itData, hotelInfo: self.viewModel.hotelInfo ?? HotelSearched(), locid: self.viewModel.hotelInfo?.locid ?? "", roomRate: self.viewModel.ratesData[index], delegate: self, presentViewController: true)
+            self.manageLoaderOnBookCell(isHidden: true, at: index)
+            
+        }else if self.viewModel.confirmationCount < 5{
+            self.viewModel.confirmationCount += 1
+            self.viewModel.fetchConfirmItineraryData(at: index)
+        }else {
+            self.viewModel.confirmationCount = 1
+            self.manageLoaderOnBookCell(isHidden: true, at: index)
+            AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
+        }
+    }
+    
+    func manageLoaderOnBookCell(isHidden:Bool, at index: Int){
+        if self.hotelTableView.numberOfSections > index + 2{
+            let row = self.hotelTableView.numberOfRows(inSection: index + 2) - 1
+            let indexPath = IndexPath(row: row, section: index+2)
+            self.hotelTableView.isUserInteractionEnabled = isHidden
+            if #available(iOS 13.0, *) {
+                self.isModalInPresentation = !isHidden
+            }
+            self.viewModel.isBookLoaderHidden = isHidden
+           if let cell = self.hotelTableView.cellForRow(at: indexPath) as? HotelDetailsCheckOutTableViewCell{
+                cell.hideShowLoader(isHidden: isHidden)
+            }
+        }
+    }
+    
     func willGetPinnedTemplate() {
 //        AppGlobals.shared.startLoading()
          self.needToShowLoaderOnShare = true
-        self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
+        self.hotelTableView.reloadData()
+//        self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
     }
     
     func getPinnedTemplateSuccess() {
-        delay(seconds: 0.3) {
+        delay(seconds: 0.5 ) {
             self.needToShowLoaderOnShare = false
-            self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
+            self.hotelTableView.reloadData()
+//            self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
         }
-//        AppGlobals.shared.stopLoading()
     }
     
     func getPinnedTemplateFail() {
         self.needToShowLoaderOnShare = false
-        self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
-//        AppGlobals.shared.stopLoading()
+        self.hotelTableView.reloadData()
+//        self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
     }
     
     
@@ -212,7 +261,9 @@ extension HotelDetailsVC: HotelDetailDelegate {
     }
     
     func getHotelDetailsSuccess() {
+        self.footerView.isHidden = false
         self.filterdHotelData(tagList: self.viewModel.selectedTags)
+        self.downloadImages()
         let index = IndexPath(row: 2, section: 0)
         if let cell = self.hotelTableView.cellForRow(at: index) as? HotelDetailsLoaderTableViewCell {
             cell.activityIndicator.stopAnimating()
@@ -386,38 +437,20 @@ extension HotelDetailsVC {
         }
     }
     
-    private func closeOnScroll(_ scrollView: UIScrollView) {
-        _ = scrollView.contentOffset.y
-        if (scrollView.isTracking && scrollView.contentOffset.y < 0) {
-            //close
-            //--------------------------- Golu Change ---------------------
-            if self.isAddingChild{
-                self.hideOnScroll()
-            }else{
-                draggingDownToDismiss = true
-                hotelTableView.contentOffset = .zero
-                scrollView.showsVerticalScrollIndicator = !draggingDownToDismiss
-            }
-            //--------------------------- End ---------------------
-        }
-    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.manageHeaderView()
         self.manageBottomRateView()
-        //  self.closeOnScroll(scrollView)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if decelerate {
-            //self.closeOnScroll(scrollView)
             self.manageBottomRateView()
         }
     }
     //
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        //self.closeOnScroll(scrollView)
         self.manageHeaderView()
         self.manageBottomRateView()
     }
@@ -425,21 +458,20 @@ extension HotelDetailsVC {
 
 //MARK:- HotelDetailsImgSlideCellDelegate
 //=======================================
-extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
+extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate, ImageDeletionDelegate {
     func hotelImageTapAction(at index: Int) {
-        // open gallery with show image at index
-        //        if let topVC = UIApplication.topViewController() {
-        
+        guard  let data = self.viewModel.hotelData, (data.atImageData.filter{$0.image != nil}).count != 0 else {
+            return
+        }
         let gVC = PhotoGalleryVC.instantiate(fromAppStoryboard: .Dashboard)
         gVC.parentVC = self
         if let images = self.viewModel.hotelData?.photos {
             gVC.imageNames = images
             gVC.startShowingFrom = index
         }
+        gVC.isTAAvailable = !(self.viewModel.hotelInfo?.locid?.isEmpty ?? true)
+        gVC.hid = self.viewModel.hotelInfo?.hid ?? ""
         self.present(gVC, animated: true, completion: nil)
-        
-        //            PhotoGalleryVC.show(onViewController: topVC, sourceView: self.imageView, startShowingFrom: index, imageArray: self.viewModel.hotelData?.photos ?? [])
-        //            ATGalleryViewController.show(onViewController: topVC, sourceView: self.imageView, startShowingFrom: index, datasource: self, delegate: self)
         canDismissViewController = false
         //        }
     }
@@ -450,6 +482,36 @@ extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
             self.imageView.image = image
         }
         //--------------------------- End ---------------------
+    }
+    
+    func shouldRemoveImage(_ image: UIImage?, for urlString: String?) {
+        
+        let str = urlString ?? ""
+        let images = self.viewModel.hotelData?.atImageData ?? []
+        guard let index = images.firstIndex(where: {($0.imagePath ?? "") == str}) else {return}
+        if let img = image{
+            if self.viewModel.hotelData?.atImageData.count != 0{
+                self.viewModel.hotelData?.atImageData[index].image = img
+            }
+        }
+//        else{
+//            let reachability = AFNetworkReachabilityManager.shared()
+//            if (reachability.isReachable || reachability.isReachableViaWiFi || reachability.isReachableViaWWAN) && (self.viewModel.hotelData?.atImageData.count != 0){
+//                self.viewModel.hotelData?.atImageData.remove(at: index)
+//                self.viewModel.hotelData?.photos.remove(at: index)
+//                if self.viewModel.hotelData?.atImageData.count == 0{
+//                    self.viewModel.isAllImageDownloadFails = true
+//                    self.filterdHotelData(tagList: self.viewModel.selectedTags)
+//                    self.manageHeaderView()
+//                    self.manageBottomRateView()
+//                    self.hotelTableView.reloadData()
+//                }else{
+//                    self.hotelTableView.reloadRow(at: IndexPath(row: 0, section: 0), with: .none)
+//                }
+//            }else{
+//                
+//            }
+//        }
     }
 }
 
@@ -513,7 +575,11 @@ extension HotelDetailsVC: HotelRatingInfoCellDelegate {
     func shareButtonAction(_ sender: UIButton) {
         if !self.viewModel.shareLinkURL.isEmpty{
             DispatchQueue.main.async {
+                self.willGetPinnedTemplate()
                 AppGlobals.shared.shareWithActivityViewController(VC: self , shareData: self.viewModel.shareLinkURL)
+                delay(seconds: 0.5) {
+                    self.getPinnedTemplateFail()
+                }
             }
         } else {
             self.viewModel.getShareLinkAPI {[weak self] (sucess) in

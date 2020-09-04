@@ -28,7 +28,7 @@ class HotelResultVC: BaseVC {
     
     // MARK: - IBOutlets
     // MARK: -
-    
+    @IBOutlet weak var statusBarViewContainer: UIView!
     @IBOutlet weak var headerContainerView: UIView!
     @IBOutlet weak var navContainerView: UIView!
     @IBOutlet weak var backButton: UIButton!
@@ -63,9 +63,6 @@ class HotelResultVC: BaseVC {
             self.tableViewVertical.showsVerticalScrollIndicator = false
             self.tableViewVertical.showsHorizontalScrollIndicator = false
             self.tableViewVertical.contentInset = UIEdgeInsets(top: topContentSpace, left: 0, bottom: 0, right: 0)
-            var view = UIView()
-            view.frame = CGRect(x: 0, y: 0, width: tableViewVertical.width, height: 30)
-            view.backgroundColor = AppColors.themeGreen
             self.tableViewVertical.tableHeaderView = searchResultHeaderView
             self.tableViewVertical.sectionHeaderHeight = CGFloat.leastNormalMagnitude
         }
@@ -112,7 +109,7 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var switchGradientView: UIView!
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var blurViewHeightConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var headerBlurView: BlurView!
     // MARK: - Properties
     
     //    var container: NSPersistentContainer!
@@ -199,7 +196,7 @@ class HotelResultVC: BaseVC {
     
     //Manage Transition Created by golu
     internal var transition: CardTransition?
-    var HotelSearchResultHeaderViewHeight: CGFloat = 44
+    var HotelSearchResultHeaderViewHeight: CGFloat = 36
     lazy var  searchResultHeaderView: HotelSearchResultHeaderView = {
         let view = HotelSearchResultHeaderView.instanceFromNib()
         view.delegate = self
@@ -237,7 +234,7 @@ class HotelResultVC: BaseVC {
             
             UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
             self?.viewModel.fetchRequestType = .FilterApplied
-            if let old = UserInfo.hotelFilter {
+            if let old = self?.viewModel.tempHotelFilter {//UserInfo.hotelFilter {
                 HotelFilterVM.shared.setData(from: old)
             }
             self?.doneButtonTapped()
@@ -272,7 +269,7 @@ class HotelResultVC: BaseVC {
         searchBar.setTextField(color: UIColor(displayP3Red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
         self.setUpLongPressOnFilterButton()
         //addCustomBackgroundBlurView()
-        
+        headerBlurView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -315,9 +312,6 @@ class HotelResultVC: BaseVC {
     
     deinit {
         CoreDataManager.shared.deleteData("HotelSearched")
-        //        ImageCache.default.clearMemoryCache()
-        //        ImageCache.default.clearDiskCache()
-        //        ImageCache.default.cleanExpiredDiskCache()
         printDebug("HotelResultVC deinit")
     }
     
@@ -346,6 +340,18 @@ class HotelResultVC: BaseVC {
         }
     }
     
+    
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        printDebug("scrollViewShouldScrollToTop")
+        delay(seconds: 0.8) {
+            self.tableViewVertical.setContentOffset(CGPoint(x: 0, y: -self.topContentSpace), animated: false)
+            self.showBluredHeaderViewCompleted()
+        }
+       // self.tableViewVertical.contentInset = UIEdgeInsets(top: self.topContentSpace, left: 0, bottom: 0, right: 0)
+//        revealBlurredHeaderView(self.topContentSpace)
+
+        return true
+    }
     
     // MARK: - Methods
     

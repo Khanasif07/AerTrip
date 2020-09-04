@@ -395,3 +395,33 @@ extension  FlightDomesticMultiLegResultVC {
         }
     }
 }
+
+
+
+extension FlightDomesticMultiLegResultVC {
+    
+    
+    func updatePriceWhenGoneup(_ fk: String, changeResult: ChangeResult,tableIndex : Int ) {
+        
+        guard var journeyArray = results[tableIndex].journeyArray else { return }
+        guard let index = journeyArray.firstIndex(where: {
+            $0.fk == fk
+        }) else {
+            return
+        }
+        
+        let journeyToToggle = journeyArray[index]
+//        journeyToToggle.isPinned = isPinned
+        journeyToToggle.farepr = changeResult.farepr
+        journeyToToggle.fare.BF.value = changeResult.fare.bf.value
+        journeyToToggle.fare.taxes.value = changeResult.fare.taxes.value
+        journeyToToggle.fare.taxes.details = changeResult.fare.taxes.details
+        journeyArray[index] = journeyToToggle
+        results[tableIndex].journeyArray = journeyArray
+        
+        //Updating pinned flight indicator in tableview Cell after pin / unpin action
+        guard let tableview = self.baseScrollView.viewWithTag(1000 + tableIndex) as? UITableView  else { return }
+        tableview.reloadData()
+    }
+    
+}

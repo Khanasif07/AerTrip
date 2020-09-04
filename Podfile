@@ -27,7 +27,7 @@ target 'AERTRIP' do
   pod 'Crashlytics'
   pod 'AvailableHapticFeedback'
   pod 'MiniLayout'
-  pod 'GoogleMaps'
+  pod 'GoogleMaps', '~> 2.5.0'
   pod 'GooglePlaces'
   pod 'FlexiblePageControl'
 #  pod 'PKCategoryView'
@@ -43,7 +43,8 @@ target 'AERTRIP' do
 #  pod 'AertripCalendarDataModel' , :git => 'git@gitlab.com:aertrip/ios-shared-rep.git' , :commit => '38ef98df8d00a76bf09f37fffd1905c60d22c58e'
 #  pod 'AertripCalendar' , :git => 'git@gitlab.com:aertrip/ios-calendar.git'
   pod 'FSCalendar'
-#  pod 'MLeaksFinder'
+  pod 'MLeaksFinder' 
+  pod "WSTagsField"
   
   # FLIGHTS PODS
   pod 'SnapKit', '~> 5.0.0'

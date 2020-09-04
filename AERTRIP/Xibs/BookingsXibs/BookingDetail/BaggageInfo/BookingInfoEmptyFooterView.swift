@@ -12,6 +12,7 @@ class BookingInfoEmptyFooterView: UITableViewHeaderFooterView {
     // MARK: - IB Outlet
     
     @IBOutlet weak var footerBackgroundView: UIView!
+    @IBOutlet weak var topDividerTopConstraints: NSLayoutConstraint!
     @IBOutlet weak var topDividerView: ATDividerView!
     @IBOutlet weak var bottomDividerView: ATDividerView!
     

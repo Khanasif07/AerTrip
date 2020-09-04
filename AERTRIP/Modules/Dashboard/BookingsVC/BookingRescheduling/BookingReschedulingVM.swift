@@ -17,6 +17,7 @@ enum BookingReschedulingVCUsingFor {
 class BookingReschedulingVM {
     // MARK: - Variables
     var legsData: [BookingLeg] = []
+    var expendCellData = [Set<Int>]()
     
     var totRefundForRescheduling: Double {
         return legsData.reduce(0) { $0 + ($1.selectedPaxs.reduce(0, { $0 + $1.netRefundForReschedule })) }

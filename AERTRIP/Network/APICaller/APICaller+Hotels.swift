@@ -192,6 +192,7 @@ extension APICaller {
     
     func loginForPaymentAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool,_ logInId: String , _ isGuestUser: String  ,_ errorCodes: ErrorCodes)->Void ) {
         AppNetworking.POST(endPoint: APIEndPoint.login, parameters: params, success: { [weak self] (json) in
+            print(json)
             guard let sSelf = self else {return}
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
                 if sucess {

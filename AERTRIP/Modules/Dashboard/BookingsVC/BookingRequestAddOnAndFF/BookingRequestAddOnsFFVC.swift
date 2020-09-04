@@ -20,6 +20,7 @@ class BookingRequestAddOnsFFVC: BaseVC {
     @IBOutlet weak var dataContainerView: UIView!
     @IBOutlet weak var requestButton: UIButton!
     @IBOutlet weak var gradientView: UIView!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     // MARK: - Properties
     
@@ -146,6 +147,20 @@ class BookingRequestAddOnsFFVC: BaseVC {
         
     }
     
+    func manageLoader(shouldStart: Bool) {
+        self.indicatorView.style = .white
+        self.indicatorView.color = AppColors.themeWhite
+        if shouldStart{
+            self.requestButton.setTitle("", for: .normal)
+            self.requestButton.setTitle("", for: .selected)
+            self.indicatorView.startAnimating()
+        }else{
+            self.indicatorView.stopAnimating()
+            self.requestButton.setTitle(LocalizedString.Request.localized, for: .normal)
+            self.requestButton.setTitle(LocalizedString.Request.localized, for: .selected)
+        }
+    }
+    
     @IBAction func requstButtonTapped(_ sender: Any) {
         self.view.endEditing(true)
         // AppFlowManager.default.showAddonRequestSent(buttonTitle:LocalizedString.Done.localized)
@@ -189,7 +204,7 @@ extension BookingRequestAddOnsFFVC: BookingRequestAddOnsFFVMDelegate {
     }
     
     func willSendAddOnFFRequest() {
-        AppGlobals.shared.startLoading()
+        self.manageLoader(shouldStart: true)
     }
     
     func sendAddOnFFRequestSuccess() {
@@ -203,12 +218,13 @@ extension BookingRequestAddOnsFFVC: BookingRequestAddOnsFFVMDelegate {
             config.buttonHeight = self.gradientView.height
           config.spaceFromBottom = AppFlowManager.default.safeAreaInsets.bottom
           AppFlowManager.default.showAddonRequestSent(buttonConfig: config, delegate: self)
-        AppGlobals.shared.stopLoading()
+
+        self.manageLoader(shouldStart: false)
     }
     
     func failAddOnFFRequestFail(errorCode: ErrorCodes) {
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
-        AppGlobals.shared.stopLoading()
+        self.manageLoader(shouldStart: false)
     }
 }
 

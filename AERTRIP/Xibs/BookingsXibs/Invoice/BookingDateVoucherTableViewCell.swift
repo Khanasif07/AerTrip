@@ -12,6 +12,7 @@ class BookingDateVoucherTableViewCell: ATTableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var voucherLabel: UILabel!
     
+    @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var dateValueLabel: UILabel!
     @IBOutlet weak var voucherValueLabel: UILabel!
     
@@ -25,6 +26,7 @@ class BookingDateVoucherTableViewCell: ATTableViewCell {
     override func setupTexts() {
         self.dateLabel.text = LocalizedString.Date.localized
         self.voucherLabel.text = LocalizedString.VoucherNo.localized
+        self.dividerView.isHidden = true
     }
     
     override func setupFonts() {
@@ -39,6 +41,11 @@ class BookingDateVoucherTableViewCell: ATTableViewCell {
         self.voucherLabel.textColor = AppColors.themeBlack
         self.dateValueLabel.textColor = AppColors.themeBlack
         self.voucherValueLabel.textColor = AppColors.themeBlack
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.dividerView.isHidden = true
     }
     
     func configureCell(date: String, voucher: String) {

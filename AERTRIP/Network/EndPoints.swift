@@ -114,6 +114,7 @@ enum APIEndPoint: String {
     case rescheduleRequest = "reschedule/request"
     case addOnRequest = "addon/request"
     case communicationDetail = "dashboard/communication-detail"
+    case pass = "dashboard/pass"
 
     // Final Checkout
     
@@ -123,8 +124,9 @@ enum APIEndPoint: String {
     case outstandingPayment = "user-accounts/outstanding-payment"
     case registerPayment = "payment/register-payment"
     case bookingOutstandingPayment = "user-accounts/booking-outstanding-payment"
+    case updateConvenienceFee = "itinerary/get"
+    case accountsummary = "user-accounts/get-summary"
 
-    
     //my booking
     case addonPayment = "quotation/addon-payment"
     
@@ -134,7 +136,9 @@ enum APIEndPoint: String {
     
     case chatBotStart = "aerin/start"
     
-    case currencies = "default/supported-currencies"
+//    case currencies = "default/supported-currencies"
+    case currencies = "default/currencies"
+
     
     case privacy = "https://beta.aertrip.com/privacy"
     case about = "https://beta.aertrip.com/about"
@@ -153,6 +157,7 @@ enum APIEndPoint: String {
     case flightReconfirmationApi = "flights/re-confirmation"
     case flightItinerary = "flights/itinerary"
     case refundCase = "/itinerary/refund-case"
+    case otherFare = "flights/otherfares"
     
     //FlightAddOns
     case seatMap = "flights/seat-map-list"

@@ -11,9 +11,10 @@ import UIKit
 struct LinkedAccount {
     
     enum SocialType: String {
-        case linkedin = "linkedin_oauth2"
+        //case linkedin = "linkedin_oauth2"
         case facebook = "facebook"
         case google = "google_oauth"
+        case apple = "apple_oauth2"
         case none = "none"
         
         var priority: Int {
@@ -25,7 +26,10 @@ struct LinkedAccount {
             case .google:
                 return 2
                 
-            case .linkedin:
+                //            case .linkedin:
+                //                return 3
+                
+            case .apple:
                 return 3
                 
             default:
@@ -42,9 +46,11 @@ struct LinkedAccount {
             case .google:
                 return LocalizedString.Google.localized
                 
-            case .linkedin:
-                return LocalizedString.LinkedIn.localized
+                //            case .linkedin:
+                //                return LocalizedString.LinkedIn.localized
                 
+            case .apple:
+                return LocalizedString.Apple.localized
             default:
                 return ""
             }
@@ -59,9 +65,12 @@ struct LinkedAccount {
             case .google:
                 return #imageLiteral(resourceName: "linkGoogle")
                 
-            case .linkedin:
-                return #imageLiteral(resourceName: "linkLinkedIn")
-
+                //            case .linkedin:
+                //                return #imageLiteral(resourceName: "linkLinkedIn")
+                
+            case .apple:
+                return #imageLiteral(resourceName: "Apple Logo")
+                
             default:
                 return nil
             }
@@ -105,7 +114,7 @@ struct LinkedAccount {
     
     static func fetchModelsForLinkedAccounts(data: JSONDictionary) -> [LinkedAccount] {
         var temp = [LinkedAccount]()
-        var isFBDone: Bool = false, isGLDone: Bool = false, isLIDone: Bool = false
+        var isFBDone: Bool = false, isGLDone: Bool = false, isLIDone: Bool = false, isAppDone: Bool = false
         for key in Array(data.keys) {
             if let dict = data[key] as? JSONDictionary {
                 let laObj = LinkedAccount(json: dict)
@@ -118,8 +127,11 @@ struct LinkedAccount {
                 case .google:
                     isGLDone = true
                     
-                case .linkedin:
-                    isLIDone = true
+                    //                case .linkedin:
+                    //                    isLIDone = true
+                    
+                case .apple:
+                    isAppDone = true
                     
                 default:
                     printDebug("")
@@ -141,9 +153,15 @@ struct LinkedAccount {
             temp.append(laObj)
         }
         
-        if !isLIDone {
+        //        if !isLIDone {
+        //            var laObj = LinkedAccount(json: [:])
+        //            laObj._socialType = SocialType.linkedin.rawValue
+        //            temp.append(laObj)
+        //        }
+        
+        if !isAppDone {
             var laObj = LinkedAccount(json: [:])
-            laObj._socialType = SocialType.linkedin.rawValue
+            laObj._socialType = SocialType.apple.rawValue
             temp.append(laObj)
         }
         

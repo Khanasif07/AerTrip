@@ -91,10 +91,6 @@ extension HotelsMapVC : MKMapViewDelegate{
         }else if self.appleMap.subviews.count > 1{// IOS12 and lower devices.// && !isMapInFullView
             let legalLabel: UIView = self.appleMap.subviews[1]
             let legalLabelY = self.appleMap.height - legalLabel.height - 7
-//            let nextLegalLabeYPosition = self.isMapInFullView ? legalLabelY + 30 : legalLabelY - 30
-//            if self.appleMap.height < nextLegalLabeYPosition {
-//                return
-//            }
             UIView.animateKeyframes(withDuration: 0.3, delay: 0.0, options: .calculationModeLinear, animations: {
                 UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3) {
                     legalLabel.frame.origin.x = UIScreen.main.bounds.width/2 - 14
@@ -119,6 +115,8 @@ extension HotelsMapVC : MKMapViewDelegate{
             return false
         } else if (touch.view === legalLabel) {
             return false
+        }else if legalLabel.frame.contains(touch.location(in: self.appleMap)){
+            return false
         }else{
             return true
         }
@@ -134,12 +132,12 @@ extension HotelsMapVC : MKMapViewDelegate{
     }
     
     @objc func zoomInGesture() {
-        var region = self.appleMap.region
-        var span = self.appleMap.region.span
-        span.latitudeDelta *= CLLocationDegrees(0.5)
-        span.longitudeDelta *= CLLocationDegrees(0.5)
-        region.span = span
-        self.appleMap.setRegion(region, animated: true)
+//        var region = self.appleMap.region
+//        var span = self.appleMap.region.span
+//        span.latitudeDelta *= CLLocationDegrees(0.5)
+//        span.longitudeDelta *= CLLocationDegrees(0.5)
+//        region.span = span
+//        self.appleMap.setRegion(region, animated: true)
     }
     
     func updateAnnotationOnMapTap(){
@@ -158,15 +156,15 @@ extension HotelsMapVC : MKMapViewDelegate{
         
     }
     
-    func addAllMarker() {
+    func addAllMarker(isNeedToShowAll: Bool = true) {
         if self.viewModel.collectionViewLocArr.count != 0{
             guard let location = self.getLocationObject(fromLocation: self.viewModel.collectionViewLocArr.first!) else{return}
             self.setInitailRegionToShow(location: location)
         }
-        self.addMakerToMap()
+        self.addMakerToMap(isNeedToShowAll)
     }
     
-    func addMakerToMap(){
+    func addMakerToMap(_ isNeedToShowAll: Bool = true){
         self.addCityLocationMarker()
         self.viewModel.collectionViewList.keys.forEach { (locStr) in
             if let location = self.getLocationObject(fromLocation: locStr), let allHotels = self.viewModel.collectionViewList[locStr] as? [HotelSearched] {
@@ -188,7 +186,13 @@ extension HotelsMapVC : MKMapViewDelegate{
                 self.appleMap.addAnnotation(marker)
             }
         }
-        self.appleMap.showAnnotations(self.appleMap.annotations, animated: true)
+        if isNeedToShowAll{
+            self.appleMap.showAnnotations(self.appleMap.annotations, animated: true)
+        }else{
+            if ((self.hotelsMapCV.numberOfSections != 0) && (self.hotelsMapCV.numberOfItems(inSection: 0) != 0)){
+                self.hotelsMapCV.scrollToItem(at: [0, 0], at: .centeredHorizontally, animated: false)
+            }
+        }
     }
     
     
@@ -342,7 +346,7 @@ extension HotelsMapVC : MKMapViewDelegate{
     
     func updateSeletedUnfavouriteAll(){
         self.appleMap.removeAnnotations(self.appleMap.annotations)
-        self.addAllMarker()
+        self.addAllMarker(isNeedToShowAll: false)
         guard self.viewModel.collectionViewLocArr.count != 0,
             let location = self.getLocationObject(fromLocation: self.viewModel.collectionViewLocArr.first!),
             let anno = self.appleMap.annotations.first(where: {self.compareTwoCoordinate($0.coordinate, location)})else{return}
@@ -375,7 +379,7 @@ extension HotelsMapVC : MKMapViewDelegate{
             }
             if self.appleMap.annotations.count == 2{
                 self.appleMap.removeAnnotations(self.appleMap.annotations)
-                self.addAllMarker()
+                self.addAllMarker(isNeedToShowAll: false)
             }
         }
     }
@@ -478,7 +482,16 @@ extension HotelsMapVC : MKMapViewDelegate{
     }
     
     func setInitailRegionToShow(location: CLLocationCoordinate2D){
-        self.appleMap.setRegion(MKCoordinateRegion(center: location, latitudinalMeters: 6000, longitudinalMeters: 6000), animated: true)
+        var region = MKCoordinateRegion(center: location, latitudinalMeters: 6000, longitudinalMeters: 6000)
+        if isZoomLevelOnceSet {
+            region = MKCoordinateRegion(center: location, span: self.currentMapSpan)
+        }
+        
+        self.appleMap.setRegion(region, animated: true)
+        if !isZoomLevelOnceSet{
+            self.appleMap.layoutMargins = UIEdgeInsets(top: 40.0, left: 40.0, bottom: 40.0, right: 40.0)
+        }
+        isZoomLevelOnceSet = true
     }
     
     func addBlurView(){
@@ -566,3 +579,11 @@ class ResistantAnnotationView: MKAnnotationView {
         return self.layer as! ResistantLayer
     }
 }
+
+/*
+ https://stackoverflow.com/questions/13571595/single-tap-to-mkmapview-without-breaking-double-tap-zoom
+ https://stackoverflow.com/questions/1275731/iphone-detecting-tap-in-mkmapview
+ https://stackoverflow.com/questions/16571012/ios-is-it-possible-to-add-a-triple-tap-gesture-recognizer-to-a-mkmapview
+ https://stackoverflow.com/questions/12521017/disable-double-tap-zoom-in-mkmapview-ios-6
+ https://stackoverflow.com/questions/45364346/swift-mapkit-not-showing-directions-to-pin
+ */

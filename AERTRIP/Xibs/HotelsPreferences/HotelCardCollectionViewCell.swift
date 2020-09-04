@@ -85,6 +85,7 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
         self.hotelImageView.cornerRadius = 10.0
         self.scrollView.cornerRadius = 10.0
         self.gradientView.cornerRadius = 10.0
+        self.hotelImageView.contentMode = .scaleAspectFill
     }
     
     override func layoutSubviews() {
@@ -117,7 +118,15 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
         self.pageControl.isHidden = (thumbnail.count <= 1)
         for index in 0..<thumbnail.count {
             let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: self.hotelImageView.frame.origin.y, width: hotelImageView.frame.size.width, height: hotelImageView.frame.size.height))
-            view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: false)
+            view.contentMode = .scaleAspectFill
+           // view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: false)
+            view.setImageWithUrl(imageUrl: thumbnail.first ?? "", placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false) { [weak self] (image, error) in
+                if let downloadedImage = image {
+                    view.image = downloadedImage
+                } else {
+                    view.image = #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder")
+                }
+            }
             view.autoresizingMask = [.flexibleHeight,.flexibleWidth]
             scrollView.addSubview(view)
         }
@@ -154,8 +163,16 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
         
         self.saveButton.isSelected = self.hotelData?.isFavourite ?? false
         
-        if let image = UIImage(named: "hotelCardPlaceHolder") {
-            self.hotelImageView.setImageWithUrl(self.hotelData?.photo ?? "", placeholder: image, showIndicator: false)
+//        if let image = UIImage(named: "hotelCardPlaceHolder") {
+//            self.hotelImageView.setImageWithUrl(self.hotelData?.photo ?? "", placeholder: image, showIndicator: false)
+//        }
+        self.hotelImageView.cancelImageDownloading()
+        self.hotelImageView.setImageWithUrl(imageUrl: self.hotelData?.photo ?? "", placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false) { [weak self] (image, error) in
+            if let downloadedImage = image {
+                self?.hotelImageView.image = downloadedImage
+            } else {
+                self?.hotelImageView.image = #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder")
+            }
         }
     }
     
@@ -197,6 +214,15 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
         
         self.discountedPriceLabel.text = price.amountInDelimeterWithSymbol
         self.saveButton.isSelected = self.hotelListData?.fav == "0" ? false : true
+        
+        self.hotelImageView.cancelImageDownloading()
+        self.hotelImageView.setImageWithUrl(imageUrl: self.hotelListData?.thumbnail?.first ?? "", placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false) { [weak self] (image, error) in
+            if let downloadedImage = image {
+                self?.hotelImageView.image = downloadedImage
+            } else {
+                self?.hotelImageView.image = #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder")
+            }
+        }
     }
     
     private func setupPageControl() {

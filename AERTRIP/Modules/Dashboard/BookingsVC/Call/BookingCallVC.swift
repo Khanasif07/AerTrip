@@ -80,7 +80,8 @@ class BookingCallVC: BaseVC {
             fatalError("BookingCallTableViewCell not found")
         }
         bookingCell.configureCell(code: self.viewModel.airlineData[indexPath.row].airlineCode, title: self.viewModel.airlineData[indexPath.row].airlineName, phoneLabel: self.viewModel.airlineData[indexPath.row].phone, cellType: .airlines)
-        bookingCell.dividerView.isHidden = self.viewModel.airlineData.count - 1 == indexPath.row
+        bookingCell.dividerView.isHidden = false//self.viewModel.airlineData.count - 1 == indexPath.row
+        bookingCell.dividerViewLeadingConst.constant = (self.viewModel.airlineData.count - 1 == indexPath.row) ? 0 : 59
         return bookingCell
     }
     

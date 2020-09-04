@@ -56,6 +56,7 @@ class SideMenuVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        getAccountSummary()
     }
     
     
@@ -66,6 +67,9 @@ class SideMenuVC: BaseVC {
         sideMenuTableView.reloadData()
     }
     
+    override func bindViewModel() {
+        self.viewModel.delegate = self
+    }
     
     
     override func viewDidAppear(_ animated: Bool) {
@@ -120,7 +124,13 @@ class SideMenuVC: BaseVC {
         view.frame = CGRect(x: 0.0, y: self.sideMenuTableView.y, width: self.sideMenuTableView.width, height: 179.0)
     }
     
-    
+    func getAccountSummary() {
+        if let _ = UserInfo.loggedInUserId {
+            DispatchQueue.backgroundAsync() { [weak self] in
+                self?.viewModel.webserviceForGetAccountSummary()
+            }
+        }
+    }
     
     func getProfileView() -> SlideMenuProfileImageHeaderView {
         //add the profile view only if user is logged in
@@ -278,8 +288,10 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 
                 cell.populateData()
-                if (UserInfo.loggedInUser?.userCreditType ?? .statement  == .topup) || (UserInfo.loggedInUser?.userCreditType ?? .statement  == .statement){
+                if (UserInfo.loggedInUser?.userCreditType ?? .statement  == .topup) || (UserInfo.loggedInUser?.userCreditType ?? .statement  == .statement) ||  (UserInfo.loggedInUser?.userCreditType ?? .statement  == .billwise){
                     cell.totalDueAmountLabel.text = "Amount Due"
+                } else {
+                    cell.totalDueAmountLabel.text = "Account Balance"
                 }
                 return cell
                 
@@ -454,3 +466,25 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
 }
+
+// MARK: - Extension SideMenuVM Delegate
+
+extension SideMenuVC: SideMenuVMDelegate {
+    
+    func willGetAccountSummary() {
+    }
+    
+    func getAccountSummarySuccess() {
+        DispatchQueue.mainAsync {
+            self.sideMenuTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
+        }
+    }
+    
+    func getAccountSummaryFail(errors: ErrorCodes) {
+        
+    }
+    
+    
+}
+
+

@@ -71,7 +71,7 @@ extension APICaller {
         AppNetworking.GET(endPoint: APIEndPoint.searchDestinationHotels, parameters: params, success: { [weak self] json in
             
             guard let sSelf = self else { return }
-            
+            printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
                 if sucess, let arr = jsonData[APIKeys.data.rawValue].arrayObject as? [JSONDictionary] {
                     let (hotels, _) = SearchedDestination.models(jsonArr: arr)

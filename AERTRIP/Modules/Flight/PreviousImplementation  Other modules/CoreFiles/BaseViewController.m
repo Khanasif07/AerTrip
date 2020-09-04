@@ -1091,8 +1091,6 @@
 
 
 - (void) initiateNetworkingCheck{
-    [AFNetworkReachabilityManager sharedManager];
-    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         
         if (status == AFNetworkReachabilityStatusReachableViaWiFi || status == AFNetworkReachabilityStatusReachableViaWWAN) {
@@ -1105,6 +1103,7 @@
             [self saveBoolean:TRUE forKey:REACHABLE_KEY];
         }
     }];
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 }
 
 //UI Code
@@ -1302,7 +1301,11 @@
 }
 
 + (BOOL)isReachable {
-    return [self getBooleanForKey:REACHABLE_KEY];
+    AFNetworkReachabilityStatus status = [[AFNetworkReachabilityManager sharedManager] networkReachabilityStatus];
+    if (status == AFNetworkReachabilityStatusNotReachable) {
+        return false;
+    }
+    return true; //[self getBooleanForKey:REACHABLE_KEY];
 }
 
 -(NSDictionary *)getData:(NSDictionary *)dictionary{

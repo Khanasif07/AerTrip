@@ -18,7 +18,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if sections[indexPath.section] == LocalizedString.Address.localized, indexPath.row != self.viewModel.addresses.count {
-            return 264.0
+            return UITableView.automaticDimension //264.0 + (self.viewModel.addresses.count > 1 ? 10.5 : 0)
         } else{
 //            if sections[indexPath.section] == LocalizedString.MoreInformation.localized, indexPath.row == 2 {
 //                return UITableView.automaticDimension
@@ -200,11 +200,11 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.configureCell(addressType: self.viewModel.addresses[indexPath.row].label, addressLineOne: self.viewModel.addresses[indexPath.row].line1, addressLineTwo: self.viewModel.addresses[indexPath.row].line2, cityName: self.viewModel.addresses[indexPath.row].city, postalCode: self.viewModel.addresses[indexPath.row].postalCode, stateName: self.viewModel.addresses[indexPath.row].state, countryName: self.viewModel.addresses[indexPath.row].countryName.isEmpty ? LocalizedString.Select.localized : self.viewModel.addresses[indexPath.row].countryName)
                 
                 cell.deleteButton.isHidden = self.viewModel.addresses.count <= 1
-                cell.cellDividerView.defaultBackgroundColor = AppColors.themeGray04
+//                cell.cellDividerView.defaultBackgroundColor = AppColors.themeGray04
                 cell.contentView.backgroundColor = AppColors.themeGray04
-                cell.bottomDivider.isHidden = indexPath.row < (self.viewModel.addresses.count - 1)
+                //cell.bottomDivider.isHidden = indexPath.row < (self.viewModel.addresses.count - 1)
                 cell.contentView.bringSubviewToFront(cell.bottomDivider)
-                
+                cell.hideSepratorView = indexPath.row >= (self.viewModel.addresses.count - 1)
                 return cell
             }
             

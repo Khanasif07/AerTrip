@@ -1118,8 +1118,25 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
     
     func filtersApplied(_ isApplied: Bool ) {
         
-        clearAllFiltersButton?.isEnabled = isApplied
-        filterButton.isSelected = isApplied
+        var isFilterApplied = false
+
+        if flightFilterVC != nil {
+            for appliedFilters in flightSearchResultVM.flightLegsAppliedFilters.appliedFilters {
+                if !appliedFilters.isEmpty {
+                    isFilterApplied = true
+                    break
+                }
+            }
+        } else {
+            for appliedFilters in flightSearchResultVM.intFlightLegsAppliedFilters.appliedFilters {
+                if !appliedFilters.isEmpty {
+                    isFilterApplied = true
+                    break
+                }
+            }
+        }
+        clearAllFiltersButton?.isEnabled = isFilterApplied
+        filterButton.isSelected = isFilterApplied
         
 //        filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: true, selectedIndex: filterSegmentView.selectedSegmentIndex)
         
@@ -1330,13 +1347,51 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
 
 extension FlightResultBaseViewController{
     
-    func searchApiResult(){
+    func searchApiResult(flightItinary: FlightItineraryData){
         
+        guard let chngResult = flightItinary.changeResults?.values.first else {return}
+        let flightType = flightSearchResultVM.flightSearchType
+        
+        switch flightType {
+        case SINGLE_JOURNEY: self.singleJourneyResultVC?.updatePriceWhenGoneup(flightItinary.itinerary.details.fk, changeResult: chngResult)
+        case RETURN_JOURNEY:
+            if flightSearchResultVM.isDomestic {
+
+                if let changeData = flightItinary.changeResults{
+                    for key in changeData.map({$0.key}){
+                        if let index = key.toInt, let priceChnage = changeData[key]{
+                            self.domesticMultiLegResultVC?.updatePriceWhenGoneup(flightItinary.itinerary.details.legsWithDetail[index - 1].lfk, changeResult: priceChnage, tableIndex: (index - 1))
+                        }
+                    }
+                }
+            }
+            else {
+                self.intMultiLegResultVC?.updatePriceWhenGoneup(flightItinary.itinerary.details.fk, changeResult: chngResult)
+            }
+        case  MULTI_CITY:
+            
+            if flightSearchResultVM.isDomestic {
+                if let changeData = flightItinary.changeResults{
+                    for key in changeData.map({$0.key}){
+                        if let index = key.toInt, let priceChnage = changeData[key]{
+                            self.domesticMultiLegResultVC?.updatePriceWhenGoneup(flightItinary.itinerary.details.legsWithDetail[index - 1].lfk, changeResult: priceChnage, tableIndex: (index - 1))
+                        }
+                    }
+                }
+            } else {
+                self.intMultiLegResultVC?.updatePriceWhenGoneup(flightItinary.itinerary.details.fk, changeResult: chngResult)
+            }
+            break
+        default:
+            return
+        }
+
     }
 }
 
 extension FlightResultBaseViewController: FlightFiltersToastDelegate {
     func showToastWithMsg(_ msg: String) {
         AertripToastView.toast(in: view, withText: msg)
+//        CustomToast.shared.showToast(msg)
     }
 }

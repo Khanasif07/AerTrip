@@ -34,6 +34,7 @@ public struct  ComboFlightsResults : Codable {
     var taxes : [String : String]
     var aldet : [String : String]
     var alMaster :[ String :AirlineMasterWS]
+    var taxSort : String
     
     
     init() {
@@ -42,6 +43,7 @@ public struct  ComboFlightsResults : Codable {
         taxes = [String : String]()
         aldet = [String : String]()
         alMaster = [ String :AirlineMasterWS]()
+        taxSort = ""
     }
     
 }

@@ -54,7 +54,7 @@ class EmailComposerFooterView: UIView {
     }
     
     private func setUpFont() {
-        self.seeRatesButton.titleLabel?.font = AppFonts.Regular.withSize(16.0)
+        self.seeRatesButton.titleLabel?.font = AppFonts.SemiBold.withSize(16.0)
         self.contactUsLabel.font = AppFonts.Regular.withSize(14.0)
         //        self.licenseLabel.font = AppFonts.Regular.withSize(14.0)
     }
