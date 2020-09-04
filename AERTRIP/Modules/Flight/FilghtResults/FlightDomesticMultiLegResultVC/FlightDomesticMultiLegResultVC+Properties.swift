@@ -770,12 +770,12 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
 //        })
 //    }
     
-    func addToTrip(journey : Journey) {
-        let tripListVC = TripListVC(nibName: "TripListVC", bundle: nil)
-        tripListVC.journey = [journey]
-        tripListVC.modalPresentationStyle = .overCurrentContext
-        self.present(tripListVC, animated: true, completion: nil)
-    }
+//    func addToTrip(journey : Journey) {
+//        let tripListVC = TripListVC(nibName: "TripListVC", bundle: nil)
+//        tripListVC.journey = [journey]
+//        tripListVC.modalPresentationStyle = .overCurrentContext
+//        self.present(tripListVC, animated: true, completion: nil)
+//    }
     
     //MARK:- Sharing Journey code added by Monika
 
@@ -1137,6 +1137,77 @@ extension FlightDomesticMultiLegResultVC {
         //Updating pinned flight indicator in tableview Cell after pin / unpin action
         guard let tableview = self.baseScrollView.viewWithTag(1000 + tableIndex) as? UITableView  else { return }
         tableview.reloadData()
+    }
+    
+}
+
+
+extension FlightDomesticMultiLegResultVC{
+    
+    func generateParam(with journey: Journey, trip:TripModel)-> JSONDictionary{
+        var param = JSONDictionary()
+        let flights = journey.leg.flatMap{$0.flights}
+        param["trip_id"] = trip.id
+        for (index, flight) in flights.enumerated(){
+            param["eventDetails[\(index)][airline_code]"] = flight.al
+            param["eventDetails[\(index)][depart_airport]"] = flight.fr
+            param["eventDetails[\(index)][arrival_airport]"] = flight.to
+            param["eventDetails[\(index)][flight_number]"] = flight.fn
+            param["eventDetails[\(index)][depart_terminal]"] = flight.dtm
+            param["eventDetails[\(index)][arrival_terminal]"] = flight.atm
+            param["eventDetails[\(index)][cabin_class]"] = flight.cc
+            param["eventDetails[\(index)][depart_dt]"] = flight.dd
+            param["eventDetails[\(index)][depart_time]"] = flight.dt
+            param["eventDetails[\(index)][arrival_dt]"] = flight.ad
+            param["eventDetails[\(index)][arrival_time]"] = flight.at
+            param["eventDetails[\(index)][equipment]"] = flight.eq
+        }
+        param["timezone"] = "Automatic"
+        return param
+    }
+    
+    func addToTrip(with journey: Journey, trip: TripModel, complition: @escaping((_ success:Bool, _ alreadyAdded: Bool)->())){
+        let param = self.generateParam(with: journey, trip: trip)
+        APICaller.shared.addToTripFlight(params: param) {(success, error, alreadyAdded) in
+            complition(success, alreadyAdded)
+            if !success{
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
+            }
+        }
+        
+    }
+    
+    func addToTrip(journey : Journey) {
+        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
+            guard let self = self else {return}
+            AppFlowManager.default.removeLoginConfirmationScreenFromStack()
+            self.presentedViewController?.dismiss(animated: false, completion: nil)
+            guard !isGuest else {
+                return
+            }
+            AppFlowManager.default.selectTrip(nil, tripType: .hotel) { [weak self] (trip, details)  in
+                delay(seconds: 0.3, completion: { [weak self] in
+                    guard let self = self else {return}
+                    self.addToTripApiCall(with: journey, trip: trip)
+                })
+            }
+        }
+    }
+    
+    
+    func addToTripApiCall(with journey: Journey, trip: TripModel){
+        self.addToTrip(with: journey, trip: trip) {[weak self] (success, alreadyAdded) in
+            if success{
+                let message:String
+                if alreadyAdded{
+                    message = LocalizedString.flightHasAlreadyBeenSavedToTrip.localized
+                }else{
+                    let tripName = (trip.isDefault) ? LocalizedString.Default.localized.lowercased() : "\(trip.name)"
+                    message = "journey has been added to \(tripName) trip"
+                }
+                AppToast.default.showToastMessage(message: message, onViewController: self)
+            }
+        }
     }
     
 }
