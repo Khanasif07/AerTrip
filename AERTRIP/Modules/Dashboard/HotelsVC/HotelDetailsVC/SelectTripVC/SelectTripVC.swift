@@ -12,6 +12,10 @@ protocol SelectTripVCDelegate: class {
     func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel, tripDetails: TripDetails?)
 }
 
+protocol TripCancelDelegate:NSObjectProtocol {
+    func addTripCancelled()
+}
+
 class SelectTripVC: BaseVC {
     
     // MARK: - IBOutlets
@@ -38,6 +42,7 @@ class SelectTripVC: BaseVC {
     
     let viewModel = SelectTripVM()
     weak var delegate: SelectTripVCDelegate?
+    weak var cancelDelegate:TripCancelDelegate?
     var selectionComplition: ((TripModel, TripDetails?) -> Void)?
     
     // MARK: - Private
@@ -156,18 +161,21 @@ extension SelectTripVC: SelectTripVMDelegate {
 
 extension SelectTripVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+        self.cancelDelegate?.addTripCancelled()
         dismiss(animated: true, completion: nil)
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        if viewModel.usingFor == .hotel {
+        
+        switch self.viewModel.usingFor{
+        case .hotel, .flight:
             if viewModel.selectedIndexPath != nil {
                 selectionCompleted()
             } else {
                 AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectTrip.localized)
                 
             }
-        } else {
+        case .bookingTripChange, .bookingAddToTrip:
             if  let indexPath = viewModel.selectedIndexPath {
                 // move and update trip
                 viewModel.moveAndUpdateTripAPI(selectedTrip: viewModel.allTrips[indexPath.row])

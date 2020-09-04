@@ -354,12 +354,12 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
             })
         }
         
-        func addToTrip(journey : IntMultiCityAndReturnWSResponse.Results.J) {
+//        func addToTrip(journey : IntMultiCityAndReturnWSResponse.Results.J) {
     //            let tripListVC = TripListVC(nibName: "TripListVC", bundle: nil)
     //            tripListVC.journey = [journey]
     //            tripListVC.modalPresentationStyle = .overCurrentContext
     //            self.present(tripListVC, animated: true, completion: nil)
-        }
+//        }
     
     func generatePostDataForEmail( for journey : [IntMultiCityAndReturnWSResponse.Results.J] ) -> Data? {
         var valueString  = self.generateCommonString(for: journey)
@@ -475,5 +475,45 @@ extension IntMCAndReturnVC{
             showFooterView()
             
         }
+    
+}
+
+extension IntMCAndReturnVC{
+    
+    
+    func addToTrip(journey : IntJourney) {
+        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
+            guard let self = self else {return}
+            AppFlowManager.default.removeLoginConfirmationScreenFromStack()
+            self.presentedViewController?.dismiss(animated: false, completion: nil)
+            guard !isGuest else {
+                return
+            }
+            AppFlowManager.default.selectTrip(nil, tripType: .hotel) { [weak self] (trip, details)  in
+                delay(seconds: 0.3, completion: { [weak self] in
+                    guard let self = self else {return}
+                    self.addToTripApiCall(with: journey, trip: trip)
+                })
+            }
+        }
+    }
+    
+    
+    func addToTripApiCall(with journey: IntJourney, trip: TripModel){
+        self.viewModel.addToTrip(with: journey, trip: trip) {[weak self] (success, alreadyAdded) in
+            if success{
+                let message:String
+                if alreadyAdded{
+                    message = LocalizedString.flightHasAlreadyBeenSavedToTrip.localized
+                }else{
+                    let tripName = (trip.isDefault) ? LocalizedString.Default.localized.lowercased() : "\(trip.name)"
+                    message = "journey has been added to \(tripName) trip"
+                }
+                AppToast.default.showToastMessage(message: message, onViewController: self)
+            }
+        }
+        
+    }
+    
     
 }

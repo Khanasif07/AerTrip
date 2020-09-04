@@ -21,6 +21,7 @@ protocol SelectTripVMDelegate: class {
 enum TripUsingFor {
     case bookingTripChange
     case hotel
+    case flight
     case bookingAddToTrip
 }
 

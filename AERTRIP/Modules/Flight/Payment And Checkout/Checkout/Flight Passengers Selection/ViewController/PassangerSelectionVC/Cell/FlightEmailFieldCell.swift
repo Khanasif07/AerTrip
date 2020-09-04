@@ -58,6 +58,7 @@ class FlightEmailFieldCell: UITableViewCell {
         self.editableTextField.textColor = AppColors.themeBlack
         editableTextField.title.font = AppFonts.Regular.withSize(14.0)
         self.editableTextField.setUpAttributedPlaceholder(placeholderString: "Email ID",with: "")
+        editableTextField.title.textColor = AppColors.themeGray40
     }
     
     private func setUpFont() {

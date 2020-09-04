@@ -33,7 +33,7 @@ class UpgradePlanListVC: BaseVC {
     var cellScale:CGFloat = 0.92
     var usedIndexFor = 0
     var isLayoutSet = false
-//    var indicator = UIActivityIndicatorView()
+    var isDataFetched = false
     weak var delegate: UpgradePlanListVCDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +46,11 @@ class UpgradePlanListVC: BaseVC {
         self.setupIndicator()
         self.setNoDataLabel()
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.shouldStartIndicator(isDataFetched: self.isDataFetched)
     }
     
     private func setupIndicator(){
@@ -87,21 +92,23 @@ class UpgradePlanListVC: BaseVC {
     }
     
     func shouldStartIndicator(isDataFetched: Bool){
+        self.isDataFetched = isDataFetched
+        guard self.viewModel.ohterFareData.count > usedIndexFor else {return}
         if self.viewModel.ohterFareData[usedIndexFor] == nil{
-            self.indicator.stopAnimating()
+            self.indicator?.stopAnimating()
             self.noDataFoundView.isHidden = false
             self.planCollectionView.isHidden = true
         }else{
             if isDataFetched{
-                self.indicator.stopAnimating()
+                self.indicator?.stopAnimating()
             }else{
-                self.indicator.startAnimating()
+                self.indicator?.startAnimating()
             }
-            self.journeyPageControl.numberOfPages = (self.viewModel.ohterFareData[usedIndexFor]?.count ?? 0)
-            self.journeyPageControl.isHidden = ((self.viewModel.ohterFareData[usedIndexFor]?.count ?? 0) < 2)
-            self.noDataFoundView.isHidden = true
-            self.planCollectionView.isHidden = false
-            self.planCollectionView.reloadData()
+            self.journeyPageControl?.numberOfPages = (self.viewModel.ohterFareData[usedIndexFor]?.count ?? 0)
+            self.journeyPageControl?.isHidden = ((self.viewModel.ohterFareData[usedIndexFor]?.count ?? 0) < 2)
+            self.noDataFoundView?.isHidden = true
+            self.planCollectionView?.isHidden = false
+            self.planCollectionView?.reloadData()
         }
     }
     
