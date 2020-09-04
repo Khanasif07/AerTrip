@@ -399,15 +399,15 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         let rows = tableView.numberOfRows(inSection: sourceIndexPath.section)
-        if let lastCell = self.tableView.cellForRow(at: IndexPath(row: rows-1, section: sourceIndexPath.section)) as? GroupTableViewCell {
+        if let lastCell = self.tableView.cellForRow(at: IndexPath(row: rows-2, section: sourceIndexPath.section)) as? GroupTableViewCell {
             lastCell.dividerView.isHidden = true
             
-            if destinationIndexPath.row == (rows - 1) {
+            if destinationIndexPath.row == (rows - 2) {
                 lastCell.dividerView.isHidden = false
                 sourceCell.dividerView.isHidden = true
             }
-            else if sourceIndexPath.row == (rows - 1) {
-                if (rows - 2) >= 0, let secondlastCell = self.tableView.cellForRow(at: IndexPath(row: rows-2, section: sourceIndexPath.section)) as? GroupTableViewCell {
+            else if sourceIndexPath.row == (rows - 2) {
+                if (rows - 3) >= 0, let secondlastCell = self.tableView.cellForRow(at: IndexPath(row: rows-3, section: sourceIndexPath.section)) as? GroupTableViewCell {
                     secondlastCell.dividerView.isHidden = true
                 }
                 sourceCell.dividerView.isHidden = false
@@ -419,6 +419,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
         // Insert element at Particular index
         viewModel.groups.insert(movedObject, at: destinationIndexPath.row)
         viewModel.modifiedGroups.insert(movedModifiedObject, at: destinationIndexPath.row)
+        
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {

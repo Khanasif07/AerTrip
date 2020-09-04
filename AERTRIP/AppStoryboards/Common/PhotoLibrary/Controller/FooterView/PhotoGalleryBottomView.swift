@@ -50,6 +50,7 @@ class PhotoGalleryBottomView: UIView {
         containerView.frame = self.bounds
         containerView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
         containerView.backgroundColor = .clear
+        bottomDividerView.isHidden = true
     }
     
     var productType:ProductType = .hotel{

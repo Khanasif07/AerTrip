@@ -9,7 +9,7 @@
 import UIKit
 
 protocol HCPanCardTextFieldCellDelegate: class {
-      func textEditableTableViewCellTextFieldText(_ indexPath: IndexPath, _ text: String)
+    func textEditableTableViewCellTextFieldText(_ indexPath: IndexPath, _ text: String)
 }
 
 class HCPanCardTextFieldCell: UITableViewCell {
@@ -30,6 +30,7 @@ class HCPanCardTextFieldCell: UITableViewCell {
     
     // MARK: - Variables
     weak var delegate : HCPanCardTextFieldCellDelegate?
+    var checkForPanCardValidation = true
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -56,7 +57,7 @@ class HCPanCardTextFieldCell: UITableViewCell {
     private func setUpFont() {
         self.editableTextField.font = AppFonts.Regular.withSize(18.0)
     }
-
+    
     internal func checkForErrorStateOfTextfield() {
         let finalTxt = (editableTextField.text ?? "").removeAllWhitespaces
         self.editableTextField.isError = finalTxt.checkInvalidity(.PanCard)
@@ -72,7 +73,9 @@ class HCPanCardTextFieldCell: UITableViewCell {
 extension HCPanCardTextFieldCell: UITextFieldDelegate {
     @objc func textFieldDidChanged(_ textField: UITextField) {
         printDebug("text field text \(textField.text ?? " ")")
-        textField.text = textField.text?.uppercased()
+        if checkForPanCardValidation {
+            textField.text = textField.text?.uppercased()
+        }
         let finalTxt = (textField.text ?? "").removeAllWhitespaces
         if let idxPath = indexPath {
             delegate?.textEditableTableViewCellTextFieldText(idxPath, finalTxt)
@@ -82,8 +85,10 @@ extension HCPanCardTextFieldCell: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         //for verify the data
-        let finalTxt = (textField.text ?? "").removeAllWhitespaces
-        self.editableTextField.isError = finalTxt.checkInvalidity(.PanCard)
+        if checkForPanCardValidation {
+            let finalTxt = (textField.text ?? "").removeAllWhitespaces
+            self.editableTextField.isError = finalTxt.checkInvalidity(.PanCard)
+        }
     }
 }
 

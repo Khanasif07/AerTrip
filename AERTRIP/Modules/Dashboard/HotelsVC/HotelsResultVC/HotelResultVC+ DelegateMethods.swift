@@ -251,7 +251,7 @@ extension HotelResultVC: HotelResultDelegate {
     
     func getAllHotelsOnResultFallbackFail(errors: ErrorCodes) {
         self.noHotelFound()
-        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+       // AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
     
     

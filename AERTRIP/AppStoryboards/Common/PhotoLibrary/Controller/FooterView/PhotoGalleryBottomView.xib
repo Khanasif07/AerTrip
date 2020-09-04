@@ -22,34 +22,34 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lmZ-kg-Zyb">
-                    <rect key="frame" x="16" y="16.5" width="350" height="44"/>
+                    <rect key="frame" x="16" y="0.5" width="350" height="44"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rxb-Dd-pI4" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="16" width="414" height="0.5"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="0.5" id="hCh-tA-y8t"/>
                     </constraints>
                 </view>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="nKS-pc-kcz">
-                    <rect key="frame" x="374" y="16.5" width="40" height="44"/>
+                    <rect key="frame" x="374" y="0.5" width="40" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="4l9-QQ-IWH"/>
                         <constraint firstAttribute="width" constant="40" id="JGN-3M-Oao"/>
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X7h-Eg-jXc" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="60.5" width="414" height="0.5"/>
+                    <rect key="frame" x="0.0" y="44.5" width="414" height="0.5"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="0.5" id="60h-vx-xsP"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W2v-rg-ZKc">
-                    <rect key="frame" x="0.0" y="16" width="414" height="45"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
                     <connections>
                         <action selector="tapTripAvdiser:" destination="-1" eventType="touchUpInside" id="cG3-s6-0EY"/>
                     </connections>
@@ -63,7 +63,7 @@
                 <constraint firstItem="W2v-rg-ZKc" firstAttribute="trailing" secondItem="rxb-Dd-pI4" secondAttribute="trailing" id="Gn9-9g-oaz"/>
                 <constraint firstItem="rxb-Dd-pI4" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="O5a-Xc-I1q"/>
                 <constraint firstItem="X7h-Eg-jXc" firstAttribute="top" secondItem="lmZ-kg-Zyb" secondAttribute="bottom" id="Oro-7t-SLP"/>
-                <constraint firstItem="rxb-Dd-pI4" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="PgP-Uv-azW"/>
+                <constraint firstItem="rxb-Dd-pI4" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="PgP-Uv-azW"/>
                 <constraint firstItem="X7h-Eg-jXc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Pzd-Q8-4P6"/>
                 <constraint firstItem="X7h-Eg-jXc" firstAttribute="top" secondItem="nKS-pc-kcz" secondAttribute="bottom" id="WbH-az-1Ga"/>
                 <constraint firstItem="W2v-rg-ZKc" firstAttribute="top" secondItem="rxb-Dd-pI4" secondAttribute="top" id="X6L-x6-dYC"/>

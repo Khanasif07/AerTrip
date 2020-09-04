@@ -691,7 +691,7 @@ extension AppFlowManager {
         obj.viewModel.favouriteHotels = favouriteHotels
         obj.viewModel.shortUrl = pinnedTemplateUrl
         obj.viewModel.hotelSearchRequest = hotelSearchRequest
-        obj.modalPresentationStyle = .overFullScreen
+        //obj.modalPresentationStyle = .overFullScreen
         self.currentNavigation?.present(obj, animated: true)
     }
     

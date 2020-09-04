@@ -87,6 +87,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     let addNotesTableViewCellIdentifier = "AddNotesTableViewCell"
     let frequentFlyerTableViewCellIdentifier = "FrequentFlyerTableViewCell"
     let editProfileFooterTableView = "EditProfileFooterTableView"
+    let hcPanCardTextFieldCell = "HCPanCardTextFieldCell"
 
 
     
@@ -273,7 +274,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         tableView.register(UINib(nibName: editThreePartCellIdentifier, bundle: nil), forCellReuseIdentifier: editThreePartCellIdentifier)
         tableView.register(UINib(nibName: addActionCellIdentifier, bundle: nil), forCellReuseIdentifier: addActionCellIdentifier)
         tableView.register(UINib(nibName: textEditableCellIdentifier, bundle: nil), forCellReuseIdentifier: textEditableCellIdentifier)
-        
+        tableView.register(UINib(nibName: hcPanCardTextFieldCell, bundle: nil), forCellReuseIdentifier: hcPanCardTextFieldCell)
+
         tableView.register(UINib(nibName: twoPartEditTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: twoPartEditTableViewCellIdentifier)
         tableView.register(UINib(nibName: addressTextEditTableCellIdentier, bundle: nil), forCellReuseIdentifier: addressTextEditTableCellIdentier)
         tableView.register(UINib(nibName: addAddressTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: addAddressTableViewCellIdentifier)

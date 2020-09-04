@@ -100,6 +100,8 @@ class MailComposerVC: BaseVC {
         self.registerXib()
         self.setupHeader()
         self.setUpFooter()
+        self.setupEmail()
+        self.updateSendButton()
     }
     
     private func navBarSetUp() {
@@ -135,7 +137,7 @@ class MailComposerVC: BaseVC {
         mailComposerHeaderView.sharedStatusLabel.textAlignment = .center
         self.setUpCheckInOutView()
         self.tableView.tableHeaderView = mailComposerHeaderView
-        self.updateHeightOfHeader(mailComposerHeaderView, mailComposerHeaderView.messageSubjectTextView)
+        //self.updateHeightOfHeader(mailComposerHeaderView, mailComposerHeaderView.messageSubjectTextView)
         mailComposerHeaderView.seeRatesButton.isUserInteractionEnabled = false
         mailComposerHeaderView.clipsToBounds = true
     }
@@ -209,6 +211,7 @@ class MailComposerVC: BaseVC {
     private func setupEmail() {
         if let email = UserInfo.loggedInUser?.email {
             self.viewModel.fromEmails = [email]
+            self.mailComposerHeaderView.tagsField.addTag(email)
         }
     }
 }
@@ -344,7 +347,7 @@ extension MailComposerVC: EmailComposeerHeaderViewDelegate {
             //headerView.tagsField.maxHeight = emailHeight
             headerView.subjectHeightConstraint.constant = msgHeight
             headerView.checkOutMessageLabelHeightConstraint.constant = labelHeight
-            self.view.layoutIfNeeded()
+            //self.view.layoutIfNeeded()
         }, completion: { (isDone) in
             //headerView.tagsField.enableScrolling = emailHeight >= maxHeight
             headerView.messageSubjectTextView.isScrollEnabled = msgHeight >= maxHeight
