@@ -228,21 +228,21 @@ extension FlightDomesticMultiLegResultVC {
     func setTableViewHeaderFor(tableView  : UITableView) {
                 
         
-        let width = tableView.bounds.size.width
-        let index = tableView.tag - 1000
-        let headerView = journeyHeaderViewArray[index]
-        
-        let height : CGFloat
-        if headerView.isHidden {
-            height = 138.0
-        }
-        else {
-            height = 188.0
-        }
-        
-        let rect = CGRect(x: 0, y: 0, width: width, height: height )
-        let tableHeaderView = UIView(frame: rect)
-        tableView.tableHeaderView = tableHeaderView
+//        let width = tableView.bounds.size.width
+//        let index = tableView.tag - 1000
+//        let headerView = journeyHeaderViewArray[index]
+//
+//        let height : CGFloat
+//        if headerView.isHidden {
+//            height = 138.0
+//        }
+//        else {
+//            height = 188.0
+//        }
+//
+//        let rect = CGRect(x: 0, y: 0, width: width, height: height )
+//        let tableHeaderView = UIView(frame: rect)
+//        tableView.tableHeaderView = tableHeaderView
     }
                
 

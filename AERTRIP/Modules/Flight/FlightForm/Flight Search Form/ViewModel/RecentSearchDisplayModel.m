@@ -74,6 +74,10 @@
     NSDateFormatter *DateFormatter = [[NSDateFormatter alloc] init];
     [DateFormatter setDateFormat:@"dd-MM-yyyy"];
     NSDate * departDate = [DateFormatter dateFromString:inputDate];
+    if (departDate == nil) {
+        [DateFormatter setDateFormat:@"yyyy-MM-dd"];
+        departDate = [DateFormatter dateFromString:inputDate];
+    }
     [DateFormatter setDateFormat:@"d MMM"];
     NSString * outputDateString = [DateFormatter stringFromDate:departDate];
     return outputDateString;

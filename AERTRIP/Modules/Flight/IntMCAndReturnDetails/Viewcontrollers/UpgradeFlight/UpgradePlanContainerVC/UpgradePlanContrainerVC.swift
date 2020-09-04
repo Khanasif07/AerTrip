@@ -151,7 +151,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
     
     private func getStringFromImage(name : String) -> NSAttributedString {
         let imageAttachment = NSTextAttachment()
-        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
+        let sourceSansPro18 = AppFonts.SemiBold.withSize(18.0)
         let iconImage = UIImage(named: name )!
         imageAttachment.image = iconImage
         
@@ -296,7 +296,7 @@ extension UpgradePlanContrainerVC: PagingViewControllerDataSource , PagingViewCo
             let attText = NSMutableAttributedString(attributedString: text)
             attText.addAttribute(.font, value: AppFonts.SemiBold.withSize(16), range: NSRange(location: 0, length: attText.length))
             let width = attText.widthOfText(50, font: AppFonts.SemiBold.withSize(16))
-            return width
+            return (width + 20.0)
             
         }
         

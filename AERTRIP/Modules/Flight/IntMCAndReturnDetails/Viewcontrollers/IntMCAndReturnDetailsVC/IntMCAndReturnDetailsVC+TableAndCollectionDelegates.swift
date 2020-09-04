@@ -90,6 +90,28 @@ extension  IntMCAndReturnDetailsVC : UITableViewDataSource , UITableViewDelegate
         return 1
     }
     
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let index = tableView.tag - 100
+        if self.viewModel.journeyHeaderViewArray.count > index {
+            return self.viewModel.journeyHeaderViewArray[index]
+        }
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let index = tableView.tag - 100
+        if self.viewModel.journeyHeaderViewArray.count > index{
+            if self.viewModel.journeyHeaderViewArray[index].isHidden{
+                return 94.0
+            }else{
+                return 136.0
+            }
+        }
+        return CGFloat.leastNonzeroMagnitude
+    }
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         let index = tableView.tag - 1000

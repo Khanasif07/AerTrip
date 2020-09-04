@@ -770,12 +770,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate 
 //        })
 //    }
     
-//    func addToTrip(journey : Journey) {
-//        let tripListVC = TripListVC(nibName: "TripListVC", bundle: nil)
-//        tripListVC.journey = [journey]
-//        tripListVC.modalPresentationStyle = .overCurrentContext
-//        self.present(tripListVC, animated: true, completion: nil)
-//    }
+
     
     //MARK:- Sharing Journey code added by Monika
 
@@ -1039,6 +1034,26 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
         }
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let index = tableView.tag - 100
+        if journeyHeaderViewArray.count > index && section == 0{
+            return journeyHeaderViewArray[index]
+        }
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let index = tableView.tag - 100
+        if journeyHeaderViewArray.count > index && section == 0{
+            if journeyHeaderViewArray[index].isHidden{
+                return 138
+            }else{
+                return 188
+            }
+        }
+        return CGFloat.leastNonzeroMagnitude
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let index = tableView.tag - 1000
@@ -1141,7 +1156,7 @@ extension FlightDomesticMultiLegResultVC {
     
 }
 
-
+//MARK: Add To trip Api's and functions.
 extension FlightDomesticMultiLegResultVC{
     
     func generateParam(with journey: Journey, trip:TripModel)-> JSONDictionary{

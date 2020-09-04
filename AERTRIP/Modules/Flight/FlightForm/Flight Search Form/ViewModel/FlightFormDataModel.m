@@ -539,16 +539,16 @@
             
             NSString * departDateString = [flightSearchParameters valueForKey:@"depart"];
               NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-              [dateFormatter setDateFormat:@"dd-MM-yyyy"];
-              NSDate * departDate = [dateFormatter dateFromString:departDateString];
+//              [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+            NSDate * departDate = [self dateFromString:departDateString];//[dateFormatter dateFromString:departDateString];
             bookFlightObject.onwardDate = departDate;
               [dateFormatter setDateFormat:@"d MMM"];
             
             date = [dateFormatter stringFromDate:departDate];
             NSString * returnDateString = [flightSearchParameters valueForKey:@"return"];
             
-            [dateFormatter setDateFormat:@"dd-MM-yyyy"];
-            NSDate * returnDate = [dateFormatter dateFromString:returnDateString];
+//            [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+            NSDate * returnDate = [self dateFromString:returnDateString];//[dateFormatter dateFromString:returnDateString];
             [dateFormatter setDateFormat:@"d MMM"];
             
             NSString * returnString = [dateFormatter stringFromDate:returnDate];
@@ -561,7 +561,7 @@
             NSString * departDateString = [flightSearchParameters valueForKey:@"depart"];
               NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
               [dateFormatter setDateFormat:@"dd-MM-yyyy"];
-              NSDate * departDate = [dateFormatter dateFromString:departDateString];
+              NSDate * departDate = [self dateFromString:departDateString];//[dateFormatter dateFromString:departDateString];
               [dateFormatter setDateFormat:@"d MMM"];
 
             date = [dateFormatter stringFromDate:departDate];
@@ -577,8 +577,8 @@
         NSString * lastDateKey = [NSString stringWithFormat:@"%@%lu%@",@"depart[",(bookFlightObject.displayGroups.allKeys.count - 1),@"]" ];
         NSString * lastDateString = [flightSearchParameters valueForKey:lastDateKey];
         [dateFormatter setDateFormat:@"dd-MM-yyyy"];
-        NSDate * firstDate = [dateFormatter dateFromString:firstDateString];
-        NSDate * lastDate = [dateFormatter dateFromString:lastDateString];
+        NSDate * firstDate = [self dateFromString:firstDateString];//[dateFormatter dateFromString:firstDateString];
+        NSDate * lastDate = [self dateFromString:lastDateString];//[dateFormatter dateFromString:lastDateString];
         [dateFormatter setDateFormat:@"d MMM"];
 
         NSString * formattedFirstDate = [dateFormatter stringFromDate:firstDate];
@@ -1318,6 +1318,10 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"dd-MM-yyyy"];
     NSDate * date = [ dateFormatter dateFromString:dateString];
+    if (date == nil) {
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        date = [dateFormatter dateFromString:dateString];
+    }
     return date;
 }
 
