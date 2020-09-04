@@ -457,30 +457,6 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         }
     }
     
-    
-    @objc fileprivate func tappedOnMulticityButton( sender : UIButton) {
-        tableOffsetAtIndex[currentActiveIndex] = baseScrollview.contentOffset.y
-        let tag = sender.tag
-        
-        if tag == currentActiveIndex {
-            return
-        }
-        else {
-            airportFilterArray[currentActiveIndex] = currentAirportFilter
-            currentActiveIndex = tag
-        }
-        
-        currentAirportFilter = airportFilterArray[currentActiveIndex]
-        journeyTitle.attributedText = currentAirportFilter.leg.descriptionOneFiveThree
-        originsTableView.reloadData()
-        destinationsTableView.reloadData()
-        layoverTableview.reloadData()
-//        setmultiLegSubviews ()
-        updateSegmentTitles()
-        
-        setupScrollView()
-    }
-    
     @objc func layoverAirportTapped(sender: UIButton){
         tableOffsetAtIndex[currentActiveIndex] = baseScrollview.contentOffset.y
         sender.isSelected.toggle()

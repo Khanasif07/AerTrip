@@ -46,6 +46,9 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     
     private var isHapticFeedbackProvided = false
     
+    private var multiLegSegmentControl = UISegmentedControl()
+
+    
     /// Used for day segments pan gesture
     var panGesture: UIPanGestureRecognizer?
     var panStartPos: CGFloat?
@@ -96,7 +99,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         else {
             multiLegViewHeight.constant = 50
             multiLegView.isHidden = false
-            setmultiLegSubviews()
+            setupMultiLegSegmentControl()
         }
         guard departureRangeSlider != nil else { return }
         setupDeparatureRangeButtons()
@@ -638,7 +641,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         }
         
         multiLegTimerFilter[currentActiveIndex] = currentTimerFilter
-        setmultiLegSubviews()
+        updateSegmentTitles()
         delegate?.departureSelectionChangedAt(currentActiveIndex , minDuration:departureStartTimeInterval , maxDuration: departureEndTimeInterval)
     }
     
@@ -746,124 +749,81 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         }
         
         multiLegTimerFilter[currentActiveIndex] = currentTimerFilter
-        setmultiLegSubviews()
+        updateSegmentTitles()
         delegate?.departureSelectionChangedAt(currentActiveIndex , minDuration:departureStartTimeInterval , maxDuration: departureEndTimeInterval)
         
         giveHapticFeedback()
         
     }
     
-
-    
     //MARK:- Multi Leg Feature
-    fileprivate func setmultiLegSubviews () {
-        
-        multiSegmentView.subviews.forEach { $0.removeFromSuperview() }
-        
-        multiSegmentView.layer.cornerRadius = 3
-        multiSegmentView.layer.borderColor = UIColor.AertripColor.cgColor
-        multiSegmentView.layer.borderWidth = 1.0
-        multiSegmentView.clipsToBounds = true
+    
+    
+    private func setupMultiLegSegmentControl() {
+                
+        multiLegSegmentControl.removeAllSegments()
         
         let numberOfStops = multiLegTimerFilter.count
+
+        for  index in 1...numberOfStops  {
+            let segmentTitle = getSegmentTitleFor(index)
+            multiLegSegmentControl.insertSegment(withTitle: segmentTitle, at: index-1, animated: false)
+        }
         
-        if numberOfStops > 0 {
-            for  i in 1...numberOfStops  {
+        multiLegSegmentControl.selectedSegmentIndex = currentActiveIndex
                 
-                let segmentViewWidth = UIScreen.main.bounds.size.width - 32
-                let width = segmentViewWidth / CGFloat(numberOfStops)
-                let xcordinate = CGFloat( i - 1 ) * width
-                let height = self.multiSegmentView.frame.size.height
-                var rect = CGRect(x: xcordinate, y: 0, width: width, height: height)
-                let stopButton = UIButton(frame: rect)
-                stopButton.tag = (i - 1)
-                
-                var normalStateTitle : NSMutableAttributedString
-                let currentFilter = multiLegTimerFilter[(i - 1)]
-                let isCurrentIndexActive = (i == (currentActiveIndex + 1 )) ? true : false
-                let isFilterApplied = currentFilter.filterApplied()
-                
-                if isCurrentIndexActive {
-                    stopButton.backgroundColor = UIColor.AertripColor
-                }
-                
-                if numberOfStops > 3 {
-                    
-                    let dot = "\u{2022}"
-                    let font = UIFont(name: "SourceSansPro-Semibold", size: 14.0)!
-                    let aertripColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
-                    let whiteColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor :  UIColor.white]
-                    let clearColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.clear]
-                    
-                    
-                    if isCurrentIndexActive {
-                        normalStateTitle = NSMutableAttributedString(string: "\(i) " , attributes: whiteColorAttributes)
-                        
-                        let dotString : NSAttributedString
-                        if isFilterApplied {
-                            dotString = NSMutableAttributedString(string: dot , attributes: whiteColorAttributes)
-                        }
-                        else {
-                            dotString = NSMutableAttributedString(string: dot , attributes: clearColorAttributes)
-                        }
-                        normalStateTitle.append(dotString)
-                    }
-                    else {
-                        normalStateTitle = NSMutableAttributedString(string: "\(i) " , attributes: aertripColorAttributes)
-                        let dotString : NSAttributedString
-                        
-                        if isFilterApplied {
-                            dotString = NSMutableAttributedString(string: dot , attributes: aertripColorAttributes)
-                        }
-                        else {
-                            dotString = NSMutableAttributedString(string: dot , attributes: clearColorAttributes)
-                        }
-                        normalStateTitle.append(dotString)
-                    }
-                }
-                else {
-                    let leg = multiLegTimerFilter[(i - 1)].leg
-                    normalStateTitle = leg.getTitle(isCurrentlySelected: isCurrentIndexActive, isFilterApplied: isFilterApplied)
-                }
-                
-                stopButton.setAttributedTitle(normalStateTitle, for: .normal)
-                stopButton.addTarget(self, action: #selector(tappedOnMulticityButton(sender:)), for: .touchDown)
-                
-                multiSegmentView.addSubview(stopButton)
-                
-                if i != numberOfStops {
-                    rect  = CGRect(x: xcordinate + width - 1 , y: 0, width: 1, height: 30)
-                    let verticalSeparator = UIView(frame: rect)
-                    verticalSeparator.backgroundColor = UIColor.AertripColor
-                    multiSegmentView.addSubview(verticalSeparator)
-                }
+        if multiLegSegmentControl.superview == nil && numberOfStops > 1 {
+            let font: [NSAttributedString.Key : Any] = [.font : AppFonts.SemiBold.withSize(14)]
+            multiLegSegmentControl.setTitleTextAttributes(font, for: .normal)
+            multiLegSegmentControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
+            multiSegmentView.addSubview(multiLegSegmentControl)
+            multiLegSegmentControl.snp.makeConstraints { (maker) in
+                maker.width.equalToSuperview()
+                maker.height.equalToSuperview()
+                maker.leading.equalToSuperview()
+                maker.trailing.equalToSuperview()
             }
         }
     }
     
-    
-    @objc fileprivate func tappedOnMulticityButton( sender : UIButton) {
+    @objc func indexChanged(_ sender: UISegmentedControl) {
         
-        let tag = sender.tag
-        
-        if tag == currentActiveIndex {
-            return
-        } else {
-            multiLegTimerFilter[currentActiveIndex] = currentTimerFilter
-            currentActiveIndex = tag
-        }
-        
+        guard currentActiveIndex != sender.selectedSegmentIndex else { return }
+        multiLegTimerFilter[currentActiveIndex] = currentTimerFilter
+        currentActiveIndex = sender.selectedSegmentIndex
         currentTimerFilter = multiLegTimerFilter[currentActiveIndex]
         if currentTimerFilter != nil {
             setDepartureSliderValues()
         }
-        setmultiLegSubviews()
         setDepartureLabel()
         if currentTimerFilter != nil{
             setArrivalSliderValues(userSelected: true)
         }
         setupDeparatureRangeButtons()
         addDaysSeparatorInArrivalRangeSlider()
+        updateSegmentTitles()
+
+    }
+    
+    private func getSegmentTitleFor(_ index: Int) -> String {
+        let currentFilter = multiLegTimerFilter[(index - 1)]
+        let isFilterApplied = currentFilter.filterApplied()
+        var title = "\(multiLegTimerFilter[index - 1].leg.origin) \u{2794} \(multiLegTimerFilter[index - 1].leg.destination)"
+        if multiLegTimerFilter.count > 3 {
+            title = "\(index)"
+        }
+        var segmentTitle = "\(title) "
+        if isFilterApplied {
+            segmentTitle = "\(title) •"
+        }
+        return segmentTitle
+    }
+    
+    private func updateSegmentTitles() {
+        for index in 0..<multiLegSegmentControl.numberOfSegments {
+            let segmentTitle = getSegmentTitleFor(index + 1)
+            multiLegSegmentControl.setTitle(segmentTitle, forSegmentAt: index)
+        }
     }
     
     
@@ -995,7 +955,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         currentTimerFilter.userSelectedArrivalStartTime = startDate
         currentTimerFilter.userSelectedArrivalEndTime = endDate
         multiLegTimerFilter[currentActiveIndex] = currentTimerFilter
-        setmultiLegSubviews()
+        updateSegmentTitles()
         delegate?.arrivalSelectionChangedAt(currentActiveIndex, minDate: startDate, maxDate: endDate)
     }
 
@@ -1035,7 +995,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         } else {
             multiLegViewHeight.constant = 50
             multiLegView.isHidden = false
-            setmultiLegSubviews()
+            updateSegmentTitles()
         }
         
         if multiLegTimerFilter.count > 0 {
@@ -1138,7 +1098,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
           else {
               multiLegViewHeight.constant = 50
               multiLegView.isHidden = false
-              setmultiLegSubviews()
+              updateSegmentTitles()
           }
     }
     
@@ -1150,10 +1110,10 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
 
     func resetFilter() {
         
-        for i in 0 ..< multiLegTimerFilter.count {
-            var filter = multiLegTimerFilter[i]
-            filter.resetFilter()
-            multiLegTimerFilter[i] = filter
+        multiLegTimerFilter = multiLegTimerFilter.map {
+            var newFilter = $0
+            newFilter.resetFilter()
+            return newFilter
         }
         
         currentTimerFilter.resetFilter()

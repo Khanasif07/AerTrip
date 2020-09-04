@@ -53,7 +53,7 @@ struct DurationFilter {
         if userSelectedTripMin > tripDurationMinDuration {
             return true
         }
-        if userSelectedTripMax != tripDurationmaxDuration {
+        if userSelectedTripMax < tripDurationmaxDuration {
             return true
         }
         
@@ -61,11 +61,18 @@ struct DurationFilter {
             return true
         }
         
-        if layoverMaxDuration != userSelectedLayoverMax {
+        if layoverMaxDuration > userSelectedLayoverMax {
             return true
         }
         
         return false
+    }
+    
+    mutating func resetFilter() {
+        self.userSelectedTripMin = self.tripDurationMinDuration
+        self.userSelectedTripMax = self.tripDurationmaxDuration
+        self.userSelectedLayoverMin = self.layoverMinDuration
+        self.userSelectedLayoverMax = self.layoverMaxDuration
     }
 }
 
@@ -83,6 +90,8 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     var tripDurationDiffForFraction: CGFloat {
         return (currentDurationFilter.tripDurationmaxDuration - currentDurationFilter.tripDurationMinDuration)
     }
+    
+    private var multiLegSegmentControl = UISegmentedControl()
     
     //MARK:- multiLeg Outlets
     @IBOutlet weak var multiLegViewHeight: NSLayoutConstraint!
@@ -136,7 +145,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         else {
             multicityViewHeight.constant = 50.0
             multiLegView.isHidden = false
-            setmultiLegSubviews()
+            setupMultiLegSegmentControl()
         }
         
         layoverDurationSlider.setupThemeImages()
@@ -147,16 +156,24 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         //Layover duration slider
         
         if layoverDurationSlider.maximumValue == 24 && (layoverDurationSlider.minimumValue == 0 || layoverDurationSlider.minimumValue == 1){
-            
-            let trackWidth = self.view.bounds.width - 16
-            let xPosition = 1.0 * trackWidth
-            let marker = UIView(frame: CGRect(x: xPosition, y: layoverDurationSlider.frame.height/2 - 2 , width: 3.0, height: 3.0 ))
-            marker.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-            layoverDurationSlider.addSubview(marker)
+            addMarkersOnLayoverDuration()
             layoverDurationSlider.bringSubviewToFront(layoverDurationSlider.leftThumbView)
             layoverDurationSlider.bringSubviewToFront(layoverDurationSlider.rightThumbView)
             
         }
+    }
+    
+    private func addMarkersOnLayoverDuration() {
+        layoverDurationSlider.subviews.forEach { (subview) in
+            if subview is MarkerView {
+                subview.removeFromSuperview()
+            }
+        }
+        let trackWidth = self.view.bounds.width - 16
+        let xPosition = 1.0 * trackWidth
+        let marker = MarkerView(frame: CGRect(x: xPosition, y: layoverDurationSlider.frame.height/2 - 2 , width: 3.0, height: 3.0 ))
+        marker.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+        layoverDurationSlider.addSubview(marker)
     }
     
     private func addMarkersOnTripDuration() {
@@ -198,9 +215,10 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         else {
             multicityViewHeight.constant = 50.0
             multiLegView.isHidden = false
-            setmultiLegSubviews()
+            setupMultiLegSegmentControl()
         }
         guard tripDurationSlider != nil else { return }
+        addMarkersOnLayoverDuration()
         addMarkersOnTripDuration()
         UIView.animate(withDuration: 0.3) {
             self.setupTripDurationValues()
@@ -214,11 +232,12 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     
     func resetFilter() {
         
-        currentDurationFilter.userSelectedTripMin = currentDurationFilter.tripDurationMinDuration
-        currentDurationFilter.userSelectedTripMax = currentDurationFilter.tripDurationmaxDuration
-        
-        currentDurationFilter.userSelectedLayoverMin = currentDurationFilter.layoverMinDuration
-        currentDurationFilter.userSelectedLayoverMax = currentDurationFilter.layoverMaxDuration
+        durationFilters = durationFilters.map {
+            var newFilter = $0
+            newFilter.resetFilter()
+            return newFilter
+        }
+        currentDurationFilter.resetFilter()
         
         guard tripDurationSlider != nil else { return }
         tripDurationSlider.set(leftValue: (currentDurationFilter.tripDurationMinDuration - currentDurationFilter.tripDurationMinDuration)/tripDurationDiffForFraction, rightValue: (currentDurationFilter.tripDurationmaxDuration - currentDurationFilter.tripDurationMinDuration)/tripDurationDiffForFraction)
@@ -234,99 +253,73 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         layoverDurationMaxLabel.text = formattedStringWith(duration: currentDurationFilter.layoverMaxDuration)
         layoverDurationMaxLabelWidth.constant = layoverDurationMaxLabel.intrinsicContentSize.width + 16.0
         
-        setmultiLegSubviews()
+        updateSegmentTitles()
         
     }
     
-    fileprivate func setmultiLegSubviews () {
-        
-        multiLegSegmentView.subviews.forEach { $0.removeFromSuperview() }
-        
-        multiLegSegmentView.layer.cornerRadius = 3
-        multiLegSegmentView.layer.borderColor = UIColor.AertripColor.cgColor
-        multiLegSegmentView.layer.borderWidth = 1.0
-        multiLegSegmentView.clipsToBounds = true
+    
+    private func setupMultiLegSegmentControl() {
+                
+        multiLegSegmentControl.removeAllSegments()
         
         let numberOfStops = durationFilters.count
+
+        for  index in 1...numberOfStops  {
+            let segmentTitle = getSegmentTitleFor(index)
+            multiLegSegmentControl.insertSegment(withTitle: segmentTitle, at: index-1, animated: false)
+        }
         
-        if numberOfStops > 0 {
-            for  i in 1...numberOfStops  {
+        multiLegSegmentControl.selectedSegmentIndex = currentActiveIndex
                 
-                let segmentViewWidth = UIScreen.main.bounds.size.width - 32
-                let width = segmentViewWidth / CGFloat(numberOfStops)
-                let xcordinate = CGFloat( i - 1 ) * width
-                let height = self.multiLegSegmentView.frame.size.height
-                var rect = CGRect(x: xcordinate, y: 0, width: width, height: height)
-                let stopButton = UIButton(frame: rect)
-                stopButton.tag = i
-                
-                let currentFilter = durationFilters[(i - 1)]
-                
-                var normalStateTitle : NSMutableAttributedString
-                let isCurrentIndexActive = (i == (currentActiveIndex + 1 )) ? true : false
-                let isFilterApplied = currentFilter.filterApplied()
-                
-                if isCurrentIndexActive {
-                    stopButton.backgroundColor = UIColor.AertripColor
-                }
-                
-                if numberOfStops > 3 {
-                    
-                    let dot = "\u{2022}"
-                    let font = UIFont(name: "SourceSansPro-Semibold", size: 14.0)!
-                    let aertripColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
-                    let whiteColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor :  UIColor.white]
-                    let clearColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.clear]
-                    
-                    
-                    if isCurrentIndexActive {
-                        normalStateTitle = NSMutableAttributedString(string: "\(i) " , attributes: whiteColorAttributes)
-                        
-                        let dotString : NSAttributedString
-                        if isFilterApplied {
-                            dotString = NSMutableAttributedString(string: dot , attributes: whiteColorAttributes)
-                        }
-                        else {
-                            dotString = NSMutableAttributedString(string: dot , attributes: clearColorAttributes)
-                        }
-                        normalStateTitle.append(dotString)
-                    }
-                    else {
-                        normalStateTitle = NSMutableAttributedString(string: "\(i) " , attributes: aertripColorAttributes)
-                        let dotString : NSAttributedString
-                        
-                        if isFilterApplied {
-                            dotString = NSMutableAttributedString(string: dot , attributes: aertripColorAttributes)
-                        }
-                        else {
-                            dotString = NSMutableAttributedString(string: dot , attributes: clearColorAttributes)
-                        }
-                        normalStateTitle.append(dotString)
-                    }
-                }
-                else {
-                    let leg = durationFilters[( i - 1 )].leg
-                    normalStateTitle = leg.getTitle(isCurrentlySelected: isCurrentIndexActive, isFilterApplied: isFilterApplied)
-                }
-                
-                stopButton.setAttributedTitle(normalStateTitle, for: .normal)
-                stopButton.addTarget(self, action: #selector(tappedOnMulticityButton(sender:)), for: .touchDown)
-                stopButton.titleLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 16)
-                
-                
-                
-                multiLegSegmentView.addSubview(stopButton)
-                
-                if i != numberOfStops {
-                    rect  = CGRect(x: xcordinate + width - 1 , y: 0, width: 1, height: 30)
-                    let verticalSeparator = UIView(frame: rect)
-                    verticalSeparator.backgroundColor = UIColor.AertripColor
-                    multiLegSegmentView.addSubview(verticalSeparator)
-                }
+        if multiLegSegmentControl.superview == nil && numberOfStops > 1 {
+            let font: [NSAttributedString.Key : Any] = [.font : AppFonts.SemiBold.withSize(14)]
+            multiLegSegmentControl.setTitleTextAttributes(font, for: .normal)
+            multiLegSegmentControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
+            multiLegSegmentView.addSubview(multiLegSegmentControl)
+            multiLegSegmentControl.snp.makeConstraints { (maker) in
+                maker.width.equalToSuperview()
+                maker.height.equalToSuperview()
+                maker.leading.equalToSuperview()
+                maker.trailing.equalToSuperview()
             }
         }
     }
     
+    @objc func indexChanged(_ sender: UISegmentedControl) {
+        
+        guard currentActiveIndex != sender.selectedSegmentIndex else { return }
+        
+        durationFilters[currentActiveIndex] = currentDurationFilter
+        currentActiveIndex = sender.selectedSegmentIndex
+        currentDurationFilter = durationFilters[currentActiveIndex]
+//        JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
+        setupTripDurationValues()
+        setupLayoutDurationValues()
+        updateSegmentTitles()
+        addMarkersOnLayoverDuration()
+        addMarkersOnTripDuration()
+    }
+    
+    private func getSegmentTitleFor(_ index: Int) -> String {
+        let currentFilter = durationFilters[(index - 1)]
+        let isFilterApplied = currentFilter.filterApplied()
+        var title = "\(legsArray[index - 1].origin) \u{2794} \(legsArray[index - 1].destination)"
+        if durationFilters.count > 3 {
+            title = "\(index)"
+        }
+        var segmentTitle = "\(title) "
+        if isFilterApplied {
+            segmentTitle = "\(title) •"
+        }
+        return segmentTitle
+    }
+    
+    private func updateSegmentTitles() {
+        for index in 0..<multiLegSegmentControl.numberOfSegments {
+            let segmentTitle = getSegmentTitleFor(index + 1)
+            multiLegSegmentControl.setTitle(segmentTitle, forSegmentAt: index)
+        }
+    }
     
     fileprivate func formattedStringWith(duration : CGFloat) -> String {
         if duration > 100000 {
@@ -391,7 +384,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         currentDurationFilter.userSelectedTripMin = floor((tripDurationSlider.leftValue * tripDurationDiffForFraction) + currentDurationFilter.tripDurationMinDuration)
         currentDurationFilter.userSelectedTripMax = ceil((tripDurationSlider.rightValue * tripDurationDiffForFraction) + currentDurationFilter.tripDurationMinDuration)
         durationFilters[currentActiveIndex] = currentDurationFilter
-        setmultiLegSubviews()
+        updateSegmentTitles()
         
         if showingForReturnJourney {
             delegate?.tripDurationChangedAt(0, min:  currentDurationFilter.userSelectedTripMin, max:  currentDurationFilter.userSelectedTripMax)
@@ -429,7 +422,6 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         currentDurationFilter.userSelectedLayoverMin = floor(layoverDurationSlider.leftValue)
         currentDurationFilter.userSelectedLayoverMax = ceil(layoverDurationSlider.rightValue)
         durationFilters[currentActiveIndex] = currentDurationFilter
-        setmultiLegSubviews()
         
         if showingForReturnJourney {
             delegate?.layoverDurationChangedAt(0 ,min:  currentDurationFilter.userSelectedLayoverMin, max:  currentDurationFilter.userSelectedLayoverMax)
@@ -440,30 +432,12 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         }
     }
     
-    @IBAction fileprivate func tappedOnMulticityButton( sender : UIButton) {
-        
-        let tag = sender.tag
-        
-        if tag == (currentActiveIndex + 1) {
-            return
-        }
-        else {
-            
-            durationFilters[currentActiveIndex] = currentDurationFilter
-            currentActiveIndex = tag - 1
-        }
-        
-        currentDurationFilter = durationFilters[currentActiveIndex]
-        setmultiLegSubviews()
-        setupTripDurationValues()
-        setupLayoutDurationValues()
-        
-    }
-    
     private func generateHapticFeedback() {
         //*******************Haptic Feedback code********************
         let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
         selectionFeedbackGenerator.selectionChanged()
         //*******************Haptic Feedback code********************
     }
+    
+    class MarkerView: UIView { }
 }

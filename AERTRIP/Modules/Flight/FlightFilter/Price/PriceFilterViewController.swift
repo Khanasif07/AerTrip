@@ -315,7 +315,6 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         
         allPriceFilters[currentActiveIndex] = currentPriceFilter
         updateSegmentTitles()
-//        setmultiLegSubviews()
         delegate?.priceSelectionChangedAt(currentActiveIndex , minFare: currentPriceFilter.userSelectedFareMinValue, maxFare: currentPriceFilter.userSelectedFareMaxValue)
     }
     
@@ -333,7 +332,6 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         
         allPriceFilters[currentActiveIndex] = currentPriceFilter
         updateSegmentTitles()
-//        setmultiLegSubviews()
         delegate?.onlyRefundableFares(selected: currentPriceFilter.onlyRefundableFaresSelected, index:  currentActiveIndex)
     }
     
