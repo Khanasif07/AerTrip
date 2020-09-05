@@ -403,14 +403,14 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     private func presentEmailVC() {
         
         func showEmailComposer() {
-            self.viewModel.getPinnedTemplate(hotels: self.viewModel.favouriteHotels) { [weak self] (status) in
-                guard let strongSelf = self else {return}
-                if status {
+//            self.viewModel.getPinnedTemplate(hotels: self.viewModel.favouriteHotels) { [weak self] (status) in
+//                guard let strongSelf = self else {return}
+//                if status {
                     // url fetched
-                    AppFlowManager.default.presentMailComposerVC(strongSelf.viewModel.favouriteHotels, strongSelf.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), strongSelf.viewModel.shortUrl)
+                    AppFlowManager.default.presentMailComposerVC(self.viewModel.favouriteHotels, self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), self.viewModel.shortUrl)
                     AppFlowManager.default.removeLoginConfirmationScreenFromStack()
-                }
-            }
+//                }
+//            }
         }
         AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { (_) in
             guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}

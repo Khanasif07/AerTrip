@@ -168,6 +168,10 @@ class HCDataSelectionVM {
                     params["t[\(i)][_t][\(j)][age]"] = guest.age
                 }
                 params["t[\(i)][_t][\(j)][id]"] = guest.id
+                
+                printDebug("guest.id: \(guest.id)")
+                printDebug("guest.apiId: \(guest.apiId)")
+
             }
         }
         

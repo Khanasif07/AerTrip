@@ -154,7 +154,7 @@ class AccountOnlineDepositVC: BaseVC {
             config.width = self.payButton.width
             config.spaceFromBottom = AppFlowManager.default.safeAreaInsets.bottom
             
-            AppFlowManager.default.showAccountDepositSuccessVC(buttonConfig: config, delegate: self, flow: .accountDeposit)
+            AppFlowManager.default.showAccountDepositSuccessVC(buttonConfig: config, delegate: self, flow: .accountDepositOnline)
         }
     }
 

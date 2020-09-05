@@ -177,6 +177,8 @@ extension BookingHotelDetailVC {
                 cell.deviderView.isHidden = true
             } else if !(self.viewModel.bookingDetail?.bookingDetail?.phoneDetail ?? "").isEmpty {
                 cell.deviderView.isHidden = true
+            }else if !(self.viewModel.bookingDetail?.bookingDetail?.websiteDetail ?? "").isEmpty {
+                cell.deviderView.isHidden = true
             }
             //cell.deviderView.isHidden = true
             cell.addressLblTopConst.constant = 16

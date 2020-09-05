@@ -391,7 +391,8 @@ class RoomGuestSelectionVC: BaseVC {
         }
         else {
             var tag = sender.tag//(self.viewModel.selectedAdults >= sender.tag) ? (sender.tag - 1) : sender.tag
-            showMessage = (tag + self.viewModel.selectedAdults) > self.viewModel.maxGuest
+            printDebug("pax count: \((tag + self.viewModel.selectedChilds))")
+            showMessage = (tag + self.viewModel.selectedChilds) > self.viewModel.maxGuest
             if (tag + self.viewModel.selectedChilds) >= self.viewModel.maxGuest {
                 tag = (self.viewModel.maxGuest - self.viewModel.selectedChilds)
             }
@@ -402,6 +403,8 @@ class RoomGuestSelectionVC: BaseVC {
         }
         if showMessage {
             self.checkForMaximumGuest()
+        } else {
+            AppToast.default.hideToast(self, animated: false)
         }
     }
     
@@ -415,6 +418,8 @@ class RoomGuestSelectionVC: BaseVC {
         self.updateSelection(needToChangePickerViewHeight: true)
         if showMessage {
             self.checkForMaximumGuest()
+        }else {
+            AppToast.default.hideToast(self, animated: false)
         }
     }
     

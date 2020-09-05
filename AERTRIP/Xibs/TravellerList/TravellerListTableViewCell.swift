@@ -41,7 +41,7 @@ class TravellerListTableViewCell: UITableViewCell {
 //        }
 //    }
     
-    var travellerModelData: (firstName: String, lastName: String, fullName: String, dob: String, salutation: String)? {
+    var travellerModelData: (firstName: String, lastName: String, fullName: String, dob: String, salutation: String, id: String)? {
         didSet {
             configureCellForTraveller()
         }

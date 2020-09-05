@@ -81,7 +81,9 @@
 74,users/update-refund-mode,58,mode is required,Refund mode is required,
 75,,59,Failed to update refund mode,Failed to update refund mode,
 ,,,,,
-76,users/app-social-link,57,This Social Account is already linked with another Aertrip ID,The social account is already linked with other account,*
+76,users/app-social-link,57,This Social Account is already linked with another Aertrip ID,This Social Account is already linked with another Aertrip account,*
 ,,76,Unable to fetch Email id from Facebook,,
 ,,77,Facebook user not found,,
 ,,78,Unable to fetch Email id from Google,,
+,,79,Unable to fetch user detail,,
+,,80,Unable to fetch user detail From Apple,,

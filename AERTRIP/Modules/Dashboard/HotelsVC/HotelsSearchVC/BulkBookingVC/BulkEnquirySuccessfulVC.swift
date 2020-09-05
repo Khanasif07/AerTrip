@@ -38,6 +38,8 @@ class BulkEnquirySuccessfulVC: BaseVC {
         case specialRequest
         case addOnRequestPayment
         case bookingPayment
+        case accountDepositOnline
+        
     }
     
     //Mark:- Variables
@@ -167,6 +169,12 @@ class BulkEnquirySuccessfulVC: BaseVC {
             self.searchButtonWidthConstraint.constant = UIDevice.screenWidth
             self.mainContainerViewHeightConstraint.constant = self.view.height
             self.containerView.roundTopCorners(cornerRadius: 0.0)
+        case .accountDepositOnline:
+            self.mainTitleLabel.text = LocalizedString.BookingPayment.localized
+            self.subTitleLabel.text = LocalizedString.BookingPaymentMessage.localized
+            self.searchButtonWidthConstraint.constant = UIDevice.screenWidth
+            self.mainContainerViewHeightConstraint.constant = self.view.height
+            self.containerView.roundTopCorners(cornerRadius: 0.0)
         }
         
         self.searchBtnOutlet.isUserInteractionEnabled = false
@@ -215,13 +223,13 @@ class BulkEnquirySuccessfulVC: BaseVC {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             self?.mainContainerBottomConstraint.constant = -(height + 100)
             self?.view.layoutIfNeeded()
-        }, completion: { [weak self] (isDone) in
-            if shouldRemove {
-                self?.removeFromParentVC
-                if self?.currentUsingAs == .bulkBooking {
-                    NotificationCenter.default.post(name: .bulkEnquirySent, object: nil)
+            }, completion: { [weak self] (isDone) in
+                if shouldRemove {
+                    self?.removeFromParentVC
+                    if self?.currentUsingAs == .bulkBooking {
+                        NotificationCenter.default.post(name: .bulkEnquirySent, object: nil)
+                    }
                 }
-            }
         })
     }
     

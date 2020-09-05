@@ -19,7 +19,9 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if sections[indexPath.section] == LocalizedString.Address.localized, indexPath.row != self.viewModel.addresses.count {
             return UITableView.automaticDimension //264.0 + (self.viewModel.addresses.count > 1 ? 10.5 : 0)
-        } else{
+        }else  if sections[indexPath.section] == LocalizedString.PassportDetails.localized, indexPath.row == 0  {
+            return 60
+        }else{
 //            if sections[indexPath.section] == LocalizedString.MoreInformation.localized, indexPath.row == 2 {
 //                return UITableView.automaticDimension
 //            } else {
@@ -151,6 +153,27 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             }
             
         case LocalizedString.PassportDetails.localized: // passport details
+            if indexPath.row == 0 {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: HCPanCardTextFieldCell.reusableIdentifier) as? HCPanCardTextFieldCell else {
+                    return UITableViewCell()
+                }
+                
+                
+                cell.editableTextField.setUpAttributedPlaceholder(placeholderString: passportDetaitTitle[indexPath.row],with: "")
+                cell.delegate = self
+                cell.editableTextField.text = viewModel.passportNumber
+                cell.editableTextField.font = AppFonts.Regular.withSize(18.0)
+                cell.editableTextField.textColor = AppColors.themeBlack
+                cell.editableTextField.keyboardType = .default
+                cell.checkForPanCardValidation = false
+                cell.separatorView.isHidden = false
+                cell.editableTextField.titleYPadding = 14.0
+                cell.editableTextField.hintYPadding = 4.0
+//                if viewModel.canShowErrorForEmailPhone {
+//                    cell.checkForErrorStateOfTextfield()
+//                }
+                return cell
+            }
             if indexPath.row == 2 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: twoPartEditTableViewCellIdentifier, for: indexPath) as? TwoPartEditTableViewCell else { fatalError("TwoPartEditTableViewCell not found") }
                 
@@ -1072,14 +1095,14 @@ extension EditProfileVC: SearchVCDelegate {
 
 // MARK: - TextEditableTableViewCellDelegate methods
 
-extension EditProfileVC: TextEditableTableViewCellDelegate {
+extension EditProfileVC: TextEditableTableViewCellDelegate, HCPanCardTextFieldCellDelegate {
     func textEditableTableViewCellTextFieldText(_ indexPath: IndexPath, _ text: String) {
         switch sections[indexPath.section] {
         case LocalizedString.MoreInformation.localized:
             // viewModel.notes = text
             break
         case LocalizedString.PassportDetails.localized:
-            if indexPath.row == 0, let cell = self.tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell {
+            if indexPath.row == 0, let cell = self.tableView.cellForRow(at: indexPath) as? HCPanCardTextFieldCell {
                 let final = text.substring(to: AppConstants.kPassportNoLimit-1)
                 viewModel.passportNumber = final
                 cell.editableTextField.text = final
@@ -1193,6 +1216,7 @@ extension EditProfileVC {
         self.present(controller, animated: true, completion: nil)
     }
 }
+
 
 /*
  self.viewModel.notes = textView.text
