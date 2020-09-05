@@ -67,7 +67,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     var updatedApiProgress : Float = 0
 
     let getSharableLink = GetSharableUrl()
-    var previousRequest : DispatchWorkItem?
+    var previousRequest : [DispatchWorkItem?] = []
 
     
     //MARK:-  Initializers
@@ -81,6 +81,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         sortedJourneyArray = Array(repeating: [Journey](), count: numberOfLegs)
         viewModel.resultsTableStates =  Array(repeating: .showTemplateResults , count: numberOfLegs)
         viewModel.stateBeforePinnedFlight = Array(repeating: .showRegularResults, count: numberOfLegs)
+        previousRequest = Array(repeating: nil, count: numberOfLegs)
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -90,6 +91,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         self.viewModel.results = Array(repeating: DomesticMultilegJourneyResultsArray(sort: .Smart), count: 0)
         sortedJourneyArray = Array(repeating: [Journey](), count: 0)
         viewModel.resultsTableStates =  Array(repeating: .showTemplateResults , count: 0)
+        previousRequest = Array(repeating: nil, count: 0)
+
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -100,6 +103,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         self.viewModel.results = Array(repeating: DomesticMultilegJourneyResultsArray(sort: .Smart), count: 0)
         sortedJourneyArray = Array(repeating: [Journey](), count: 0)
         viewModel.resultsTableStates =  Array(repeating: .showTemplateResults , count: 0)
+        previousRequest = Array(repeating: nil, count: 0)
         super.init(coder: aDecoder)
     }
     

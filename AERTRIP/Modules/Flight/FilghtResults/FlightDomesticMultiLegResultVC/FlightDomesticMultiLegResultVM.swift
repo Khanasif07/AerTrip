@@ -261,10 +261,11 @@ class FlightDomesticMultiLegResultVM {
         }
         
         
-        self.results[tableIndex].suggestedJourneyArray = suggetedSortArray
 
         self.results[tableIndex].journeyArray = journeySortedArray
         
+        self.results[tableIndex].suggestedJourneyArray = suggetedSortArray
+
     }
     
     
