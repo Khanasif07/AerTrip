@@ -317,3 +317,39 @@ class FlightResultSingleJourneyVM {
      }
     
 }
+
+extension FlightResultSingleJourneyVM{
+    
+    func generateParam(with journey: Journey, trip:TripModel)-> JSONDictionary{
+        var param = JSONDictionary()
+        let flights = journey.leg.flatMap{$0.flights}
+        param["trip_id"] = trip.id
+        for (index, flight) in flights.enumerated(){
+            param["eventDetails[\(index)][airline_code]"] = flight.al
+            param["eventDetails[\(index)][depart_airport]"] = flight.fr
+            param["eventDetails[\(index)][arrival_airport]"] = flight.to
+            param["eventDetails[\(index)][flight_number]"] = flight.fn
+            param["eventDetails[\(index)][depart_terminal]"] = flight.dtm
+            param["eventDetails[\(index)][arrival_terminal]"] = flight.atm
+            param["eventDetails[\(index)][cabin_class]"] = flight.cc
+            param["eventDetails[\(index)][depart_dt]"] = flight.dd
+            param["eventDetails[\(index)][depart_time]"] = flight.dt
+            param["eventDetails[\(index)][arrival_dt]"] = flight.ad
+            param["eventDetails[\(index)][arrival_time]"] = flight.at
+            param["eventDetails[\(index)][equipment]"] = flight.eq
+        }
+        param["timezone"] = "Automatic"
+        return param
+    }
+    
+    func addToTrip(with journey: Journey, trip: TripModel, complition: @escaping((_ success:Bool, _ alreadyAdded: Bool)->())){
+        let param = self.generateParam(with: journey, trip: trip)
+        APICaller.shared.addToTripFlight(params: param) {(success, error, alreadyAdded) in
+            complition(success, alreadyAdded)
+            if !success{
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
+            }
+        }
+        
+    }
+}

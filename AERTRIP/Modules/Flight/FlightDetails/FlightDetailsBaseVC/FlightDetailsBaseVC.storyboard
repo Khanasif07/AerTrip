@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="c27-JN-uoz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="c27-JN-uoz">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -79,6 +79,9 @@
                                                     <action selector="closeButtonClicked:" destination="c27-JN-uoz" eventType="touchUpInside" id="0ah-I8-ryn"/>
                                                 </connections>
                                             </button>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="xVb-Yw-pAz">
+                                                <rect key="frame" x="72" y="5.6666666666666714" width="20" height="20"/>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -87,8 +90,10 @@
                                             <constraint firstItem="hIx-IU-kS4" firstAttribute="centerY" secondItem="7F2-KX-TYL" secondAttribute="centerY" id="A9s-rA-mOD"/>
                                             <constraint firstItem="V7K-cb-uaI" firstAttribute="centerY" secondItem="7F2-KX-TYL" secondAttribute="centerY" id="BzG-u5-FcG"/>
                                             <constraint firstAttribute="trailing" secondItem="hIx-IU-kS4" secondAttribute="trailing" constant="7" id="Cj1-C2-VMi"/>
+                                            <constraint firstItem="xVb-Yw-pAz" firstAttribute="centerX" secondItem="heH-z9-lhs" secondAttribute="centerX" id="KLw-nL-EBF"/>
                                             <constraint firstItem="V7K-cb-uaI" firstAttribute="leading" secondItem="heH-z9-lhs" secondAttribute="trailing" constant="8" id="YuS-b6-7wP"/>
                                             <constraint firstItem="heH-z9-lhs" firstAttribute="leading" secondItem="UgT-6B-QEu" secondAttribute="trailing" constant="8" id="fRx-g1-Q2m"/>
+                                            <constraint firstItem="xVb-Yw-pAz" firstAttribute="centerY" secondItem="heH-z9-lhs" secondAttribute="centerY" id="llB-IT-y3A"/>
                                             <constraint firstItem="UgT-6B-QEu" firstAttribute="centerY" secondItem="7F2-KX-TYL" secondAttribute="centerY" id="o7U-YK-Xd7"/>
                                             <constraint firstAttribute="height" constant="31" id="qki-8d-Zbp"/>
                                         </constraints>
@@ -142,6 +147,7 @@
                     </view>
                     <connections>
                         <outlet property="addToTripButton" destination="heH-z9-lhs" id="vks-f5-3kd"/>
+                        <outlet property="addToTripIndicator" destination="xVb-Yw-pAz" id="yz4-Ad-i3W"/>
                         <outlet property="backgroundButton" destination="dBs-ZV-1xZ" id="iAi-AZ-DjD"/>
                         <outlet property="blurView" destination="3rX-B2-ENq" id="Y7Z-My-5VA"/>
                         <outlet property="dataDisplayView" destination="vz3-6g-6a5" id="OqK-3t-Hjd"/>

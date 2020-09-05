@@ -144,4 +144,31 @@ extension APICaller {
             }
         }
     }
+    
+    func addToTripFlight(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ isAlredyAdded: Bool)->Void ) {
+        
+        AppNetworking.POST(endPoint: .addToTripFlight, parameters: params, success: { [weak self] (json) in
+            guard let sSelf = self else {return}
+            
+            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                if sucess {
+                    completionBlock(true, [], jsonData[APIKeys.data.rawValue].isEmpty)
+                } else {
+                    completionBlock(false, [], false)
+                }
+            }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                completionBlock(false, errors, false)
+            })
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [], false)
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], false)
+            }
+        }
+    }
 }

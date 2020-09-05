@@ -406,35 +406,71 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     func addToTripFlightAt(_ indexPath : IndexPath){
         
-        //        if viewModel.sortOrder == .Smart{
-        //            var arrayForDisplay = viewModel.results.suggestedJourneyArray
-        //
-        //            if viewModel.resultTableState == .showExpensiveFlights && indexPath.section == 1 {
-        //                arrayForDisplay = viewModel.results.expensiveJourneyArray
-        //            }
-        //
-        //             let journey = arrayForDisplay[indexPath.row]
-        //
-        //                if journey.cellType == .singleJourneyCell {
-        //                    addToTrip(journey: journey.first )
-        //                }
-        //                else {
-        //                    addToTrip(journey: journey.first)
-        //                }
-        //
-        //        }
-        //        else {
-        //            let currentJourney =  self.sortedArray[indexPath.row]
-        //            addToTrip(journey: currentJourney)
-        //        }
+//        if viewModel.sortOrder == .Smart{
+            var arrayForDisplay = viewModel.results.suggestedJourneyArray
+            
+            if viewModel.resultTableState == .showExpensiveFlights && indexPath.section == 1 {
+                arrayForDisplay = viewModel.results.allJourneys
+            }
+            
+            let journey = arrayForDisplay[indexPath.row]
+            
+            if journey.cellType == .singleJourneyCell {
+                addToTrip(journey: journey.first )
+            }
+            else {
+                addToTrip(journey: journey.first)
+            }
+            
+//        }
+//        else {
+//            let currentJourney =  self.sortedArray[indexPath.row]
+//            addToTrip(journey: currentJourney)
+//        }
     }
     
+//    func addToTrip(journey : Journey) {
+//        let tripListVC = TripListVC(nibName: "TripListVC", bundle: nil)
+//        tripListVC.journey = [journey]
+//        tripListVC.modalPresentationStyle = .overCurrentContext
+//        self.present(tripListVC, animated: true, completion: nil)
+//    }
+//
+    
     func addToTrip(journey : Journey) {
-        let tripListVC = TripListVC(nibName: "TripListVC", bundle: nil)
-        tripListVC.journey = [journey]
-        tripListVC.modalPresentationStyle = .overCurrentContext
-        self.present(tripListVC, animated: true, completion: nil)
+        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
+            guard let self = self else {return}
+            AppFlowManager.default.removeLoginConfirmationScreenFromStack()
+            self.presentedViewController?.dismiss(animated: false, completion: nil)
+            guard !isGuest else {
+                return
+            }
+            AppFlowManager.default.selectTrip(nil, tripType: .hotel) { [weak self] (trip, details)  in
+                delay(seconds: 0.3, completion: { [weak self] in
+                    guard let self = self else {return}
+                    self.addToTripApiCall(with: journey, trip: trip)
+                })
+            }
+        }
     }
+    
+    
+    func addToTripApiCall(with journey: Journey, trip: TripModel){
+        self.viewModel.addToTrip(with: journey, trip: trip) {[weak self] (success, alreadyAdded) in
+            if success{
+                let message:String
+                if alreadyAdded{
+                    message = LocalizedString.flightHasAlreadyBeenSavedToTrip.localized
+                }else{
+                    let tripName = (trip.isDefault) ? LocalizedString.Default.localized.lowercased() : "\(trip.name)"
+                    message = "journey has been added to \(tripName) trip"
+                }
+                AppToast.default.showToastMessage(message: message, onViewController: self)
+            }
+        }
+        
+    }
+    
     
     func shareFlightAt(_ indexPath : IndexPath) {
         
