@@ -155,6 +155,7 @@ class FlightResultSingleJourneyVM {
           self.results.pinnedFlights = sortArray
       }
       
+    
       func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int){
        
           var suggetedSortArray = self.results.suggestedJourneyArray
@@ -218,7 +219,6 @@ class FlightResultSingleJourneyVM {
                       
                       return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ?? "") > self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime ?? "")
 
-                    
                   }else{
                     
                     return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ?? "") < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime ?? "")

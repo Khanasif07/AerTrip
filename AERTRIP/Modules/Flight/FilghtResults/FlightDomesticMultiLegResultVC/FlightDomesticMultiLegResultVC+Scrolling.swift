@@ -12,8 +12,7 @@ extension FlightDomesticMultiLegResultVC {
     
     
     //MARK:- NavigationView Animation
-    func hidingAnimationOnNavigationBarOnScroll(offsetDifference : CGFloat)
-    {
+    func hidingAnimationOnNavigationBarOnScroll(offsetDifference : CGFloat) {
          DispatchQueue.main.async {
             let visualEffectViewHeight =  CGFloat(88.0)
             
@@ -79,12 +78,10 @@ extension FlightDomesticMultiLegResultVC {
         
         if offsetDifference > 0 {
             self.hidingAnimationOnNavigationBarOnScroll(offsetDifference : offsetDifference)
-        }
-        else {
+        } else {
             self.revealAnimationOfNavigationBarOnScroll(offsetDifference : offsetDifference)
         }
     }
-    
     
     fileprivate func snapToTopOrBottomOnSlowScrollDragging(_ scrollView: UIScrollView) {
 
@@ -140,7 +137,6 @@ extension FlightDomesticMultiLegResultVC {
             }
             setTableViewHeaderFor(tableView: tableView)
         }
-        
         
         func showHeaderCellAt(indexPath : IndexPath, tableView : UITableView) {
             
@@ -225,7 +221,6 @@ extension FlightDomesticMultiLegResultVC {
     
     func setTableViewHeaderFor(tableView  : UITableView) {
                 
-        
         let width = tableView.bounds.size.width
         let index = tableView.tag - 1000
         let headerView = journeyHeaderViewArray[index]
@@ -270,7 +265,6 @@ extension FlightDomesticMultiLegResultVC {
         let index = tableView.tag - 1000
         let headerView = journeyHeaderViewArray[index]
         
-        
         var height : CGFloat = 188.0
         if isFirstCellVisible {
 
@@ -311,7 +305,6 @@ extension FlightDomesticMultiLegResultVC {
             self.syncScrollView(headerCollectionView, toScrollView: baseScrollView)
             return
         }
-        
         
         // Scrolling on tableviews
         if scrollView.tag > 999 {
