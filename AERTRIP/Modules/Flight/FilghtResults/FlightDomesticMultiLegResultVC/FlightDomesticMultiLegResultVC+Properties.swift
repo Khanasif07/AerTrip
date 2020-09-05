@@ -283,8 +283,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
             }
             self.baseScrollView.setContentOffset(.zero, animated: true)
             hidePinnedFlightOptions(false)
-        }
-        else {
+        } else {
             viewModel.resultsTableStates = viewModel.stateBeforePinnedFlight
             for index in 0 ..< self.viewModel.numberOfLegs {
                 if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
@@ -294,13 +293,12 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
             }
             hidePinnedFlightOptions(true)
         }
-        
+        self.viewModel.isPinnedOn = sender.isOn
         self.setTotalFare()
         let containsPinnedFlight = self.viewModel.results.reduce(false) { $0 || $1.containsPinnedFlight }
         showPinnedFlightSwitch(containsPinnedFlight)
         self.checkForOverlappingFlights()
         
-
     }
     
     @IBAction func unpinnedAllTapped(_ sender: Any) {

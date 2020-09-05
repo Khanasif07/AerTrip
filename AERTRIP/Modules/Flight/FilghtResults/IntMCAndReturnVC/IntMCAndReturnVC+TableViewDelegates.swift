@@ -34,10 +34,11 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
             
             return viewModel.results.allJourneys.count
             
-        }else{
-            
+        }else if viewModel.resultTableState == .showNoResults {
+            return 0
+        }else {
             return viewModel.results.suggestedJourneyArray.count
-            
+
         }
     }
     

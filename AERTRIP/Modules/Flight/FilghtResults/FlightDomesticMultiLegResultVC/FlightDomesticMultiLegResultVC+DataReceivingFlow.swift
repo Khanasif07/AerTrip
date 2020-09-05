@@ -41,6 +41,9 @@ extension FlightDomesticMultiLegResultVC {
                            }
                 
                 self.viewModel.results[index].journeyArray = modifiedResult
+                
+                self.viewModel.setPinnedFlights(tableIndex: index)
+                
                 self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: index, completion: {
                     DispatchQueue.main.async {
                     self.animateTableBanner(index: index , updatedArray: updatedArray, sortOrder: sortOrder)
@@ -62,8 +65,8 @@ extension FlightDomesticMultiLegResultVC {
         self.viewModel.sortOrder = sortOrder
         self.viewModel.isConditionReverced = isConditionReverced
         self.viewModel.prevLegIndex = legIndex
-//        self.viewModel.setPinnedFlights(shouldApplySorting: true)
-        
+        self.viewModel.setPinnedFlights(tableIndex: legIndex)
+
         self.viewModel.applySorting(tableIndex: legIndex, sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex)
                 
         let newRequest = DispatchWorkItem {
@@ -74,7 +77,7 @@ extension FlightDomesticMultiLegResultVC {
         }
         
         completion()
-        previousRequest = newRequest
+//        previousRequest = newRequest
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newRequest)
     }
     
@@ -119,8 +122,10 @@ extension FlightDomesticMultiLegResultVC {
                    if updatedArray.count == 0 {
                        return
                    }
+                
                    viewModel.resultsTableStates[index] = .showRegularResults
-               }
+               
+            }
            
                DispatchQueue.main.async {
                    if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
@@ -177,7 +182,7 @@ extension FlightDomesticMultiLegResultVC {
                 
                 //setting footer for table view
                 
-                if self.viewModel.results[index].suggestedJourneyArray.isEmpty && self.viewModel.resultsTableStates[index] != .showPinnedFlights { self.viewModel.resultsTableStates[index] = .showExpensiveFlights
+                if self.viewModel.results[index].suggestedJourneyArray.isEmpty && (self.viewModel.resultsTableStates[index] != .showPinnedFlights  ) { self.viewModel.resultsTableStates[index] = .showExpensiveFlights
                 }
                 
                  if self.viewModel.resultsTableStates[index] == .showPinnedFlights{

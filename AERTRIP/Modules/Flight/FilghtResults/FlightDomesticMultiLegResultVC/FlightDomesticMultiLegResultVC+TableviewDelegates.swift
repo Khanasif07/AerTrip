@@ -20,19 +20,19 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
            let index = tableView.tag - 1000
            
            let tableState = viewModel.resultsTableStates[index]
-           
+        
+        printDebug("state...\(index)...\(tableState)")
+        
            if tableState == .showTemplateResults{
                return 10
-           }
-           
-           if tableState == .showPinnedFlights {
+           } else if tableState == .showPinnedFlights {
             return self.viewModel.results[index].pinnedFlights.count
-           }
-                
-           if tableState == .showExpensiveFlights {
+           } else if tableState == .showExpensiveFlights {
                return self.viewModel.results[index].allJourneys.count
-           }else{
-               return self.viewModel.results[index].suggestedJourneyArray.count
+           } else if tableState == .showRegularResults{
+            return self.viewModel.results[index].suggestedJourneyArray.count
+           } else{
+               return 0
            }
            
        }
@@ -47,8 +47,9 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
                    cell.selectionStyle = .none
                    return cell
                }
-           }
-           else {
+           } else if tableState == .showNoResults{
+                return UITableViewCell()
+           } else {
                
                if let cell = tableView.dequeueReusableCell(withIdentifier: "DomesticMultiLegCell") as? DomesticMultiLegCell{
                    cell.selectionStyle = .none

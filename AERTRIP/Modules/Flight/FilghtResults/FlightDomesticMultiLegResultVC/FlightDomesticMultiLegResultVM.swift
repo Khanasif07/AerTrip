@@ -21,12 +21,108 @@ class FlightDomesticMultiLegResultVM {
     var sortOrder = Sort.Smart
     let dateFormatter = DateFormatter()
     var prevLegIndex = 0
-
     var isConditionReverced = false
-
+    var isPinnedOn = false
+    
     init() {
         
     }
+    
+    
+    func setPinnedFlights(tableIndex : Int) {
+          
+        var sortArray = self.results[tableIndex].journeyArray.filter { ($0.isPinned ?? false) }
+
+          switch  sortOrder {
+              
+          case .Smart:
+              
+              sortArray.sort { (obj1, obj2) -> Bool in
+                  obj1.computedHumanScore ?? 0.0 < obj2.computedHumanScore ?? 0.0
+              }
+                            
+          case .Price:
+              
+              sortArray.sort(by: { (obj1, obj2) -> Bool in
+                  
+                  if isConditionReverced {
+                      return obj1.price  > obj2.price
+                  } else {
+                      return obj1.price  < obj2.price
+                  }
+              })
+              
+      
+              
+              
+          case .Duration:
+              
+              sortArray.sort(by: { (obj1, obj2) -> Bool in
+                  
+                  if isConditionReverced {
+                      return obj1.duration > obj2.duration
+                  }else{
+                      return obj1.duration < obj2.duration
+                  }
+              })
+  
+              
+          case .Depart:
+              
+              sortArray.sort(by: { (obj1, obj2) -> Bool in
+                  
+                  let firstObjDepartureTime = obj1.dt
+                  let secondObjDepartureTime = obj2.dt
+                  
+                  if isConditionReverced {
+                      
+                      return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) > self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+                      
+                  }else{
+                      
+                      return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+                      
+                  }
+              })
+              
+     
+              
+              
+              case .Arrival:
+                  sortArray.sort(by: { (obj1, obj2) -> Bool in
+                      
+                      let firstObjDepartureTime = (obj1.ad) + " " + (obj1.at)
+                      
+                      let secondObjDepartureTime = (obj2.ad) + " " + (obj2.at)
+                      
+                      let firstObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: firstObjDepartureTime)
+                      
+                      let secondObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: secondObjDepartureTime)
+                      
+                      if isConditionReverced {
+                        
+                        return firstObjTimeInterval > secondObjTimeInterval
+
+                      }else{
+                        
+                        return firstObjTimeInterval < secondObjTimeInterval
+
+                      }
+                  })
+                  
+   
+              
+          default: break;
+              
+          }
+        
+        self.results[tableIndex].pinnedFlights = sortArray
+          
+      }
+    
+    
+    
+    
     
     func applySorting(tableIndex : Int, sortOrder : Sort, isConditionReverced : Bool, legIndex : Int) {
         
@@ -164,9 +260,9 @@ class FlightDomesticMultiLegResultVM {
             
         }
         
+        self.results[tableIndex].suggestedJourneyArray = suggetedSortArray
 
         self.results[tableIndex].journeyArray = journeySortedArray
-        self.results[tableIndex].suggestedJourneyArray = suggetedSortArray
         
     }
     

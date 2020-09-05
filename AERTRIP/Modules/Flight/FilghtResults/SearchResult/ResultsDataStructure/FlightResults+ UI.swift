@@ -106,9 +106,12 @@ struct DomesticMultilegJourneyResultsArray {
 
     var currentPinnedJourneys : [Journey] = []
     
-    var pinnedFlights : [Journey] {
-        return journeyArray.filter{ $0.isPinned  ?? false }
-    }
+    var pinnedFlights : [Journey] = []
+
+//
+//    var pinnedFlights : [Journey] {
+//        return journeyArray.filter{ $0.isPinned  ?? false }
+//    }
     
     
     

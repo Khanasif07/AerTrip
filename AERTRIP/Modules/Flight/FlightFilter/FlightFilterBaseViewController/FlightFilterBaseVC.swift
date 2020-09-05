@@ -671,9 +671,9 @@ extension FlightFilterBaseVC {
                 }
                 
             } else {
-                if !durationViewController.durationFilters.indices.contains(index) {
+                if !durationViewController.durationFilters.indices.contains(index), durationViewController.durationFilters.count >= index {
                     durationViewController.durationFilters.insert(durationFilter, at: index)
-                } else {
+                } else if durationViewController.durationFilters.indices.contains(index) {
                 durationViewController.durationFilters[index] = durationFilter
                 }
             }
