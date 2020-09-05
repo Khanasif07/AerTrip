@@ -537,7 +537,7 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
         }
         
         let pin = UIAction(title:  pinTitle, image: UIImage(systemName: "pin" ), identifier: nil) { (action) in
-            self.setPinnedFlightAt(flightKey : flightKey ,  indexPath : indexPath , isPinned : !isPinned, tableIndex : tableIndex)
+//            self.setPinnedFlightAt(flightKey : flightKey ,  indexPath : indexPath , isPinned : !isPinned, tableIndex : tableIndex)
         }
         let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up"), identifier: nil) { (action) in
             self.shareFlights(journeyArray: [currentJourney])

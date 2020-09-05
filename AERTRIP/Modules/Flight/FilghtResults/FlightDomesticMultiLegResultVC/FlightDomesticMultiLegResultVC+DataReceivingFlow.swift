@@ -65,7 +65,7 @@ extension FlightDomesticMultiLegResultVC {
         self.viewModel.sortOrder = sortOrder
         self.viewModel.isConditionReverced = isConditionReverced
         self.viewModel.prevLegIndex = legIndex
-        self.viewModel.setPinnedFlights(tableIndex: legIndex)
+//        self.viewModel.setPinnedFlights(tableIndex: legIndex)
 
         self.viewModel.applySorting(tableIndex: legIndex, sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex)
                 
