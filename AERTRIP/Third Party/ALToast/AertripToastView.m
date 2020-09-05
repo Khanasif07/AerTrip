@@ -141,12 +141,19 @@ static NSMutableArray *toasts;
 
 + (void)toastInView:(nonnull UIView *)parentView withText:(nonnull NSString *)text parentRect:(CGRect)parentRect
 {
-    [AertripToastView toastInView:parentView withText:text buttonTitle:nil delegate:nil parentRect:parentRect];
+    CustomToast *toastView = [CustomToast shared];
+    [toastView showToast:text];
+//    [AertripToastView toastInView:parentView withText:text buttonTitle:nil delegate:nil parentRect:parentRect];
 }
 
 + (void)toastInView:(nonnull UIView *)parentView withText:(nonnull NSString *)text buttonTitle:(nullable NSString *)buttonTitle delegate:(nullable id <AertripToastViewDelegate>)aDelegate parentRect:(CGRect)parentRect;
 {
 
+    CustomToast *toastView = [CustomToast shared];
+    [toastView showToast:text];
+    return;
+    
+    
     // If toastView with same error message exists , instead of creating new message , increase time to dismiss for current message.
     for ( AertripToastView * toastview in toasts) {
         
@@ -224,6 +231,8 @@ static NSMutableArray *toasts;
 
 + (void)ShowToastInView:(UIView *)parentView  parentRect:(CGRect)parentRect {
     if ([toasts count] > 0) {
+        
+
     AertripToastView *view = [toasts objectAtIndex:0];
     
     [parentView addSubview:view];
@@ -248,6 +257,10 @@ static NSMutableArray *toasts;
 
 + (void)toastInView:(nonnull UIView *)parentView withText:(nonnull NSString *)text buttonTitle:(nullable NSString *)buttonTitle delegate:(nullable id <AertripToastViewDelegate>)aDelegate;
 {
+    
+    CustomToast *toastView = [CustomToast shared];
+    [toastView showToast:text];
+    return;
     
     // If toastView with same error message exists , instead of creating new message , increase time to dismiss for current message.
     for ( AertripToastView * toastview in toasts) {
@@ -367,6 +380,7 @@ static NSMutableArray *toasts;
 
 + (void)ShowToastInView:(UIView *)parentView withDuration:(CGFloat) duration {
     if ([toasts count] > 0) {
+        
         AertripToastView *view = [toasts objectAtIndex:0];
         
         [parentView addSubview:view];
