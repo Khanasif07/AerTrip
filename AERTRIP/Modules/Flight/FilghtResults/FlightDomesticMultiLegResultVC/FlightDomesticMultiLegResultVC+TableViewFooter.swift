@@ -9,12 +9,11 @@
 import UIKit
 
 
-extension FlightDomesticMultiLegResultVC
-{
+extension FlightDomesticMultiLegResultVC {
     
     func showFooterViewAt(index : Int) {
         
-        if resultsTableViewStates[index] == .showExpensiveFlights {
+        if viewModel.resultsTableStates[index] == .showExpensiveFlights {
             setExpandedStateFooterAt(index: index)
         }
         else {
@@ -24,7 +23,7 @@ extension FlightDomesticMultiLegResultVC
     
     func setGroupedFooterViewAt(index : Int) {
         
-        let aboveHumanScoreCount = results[index].aboveHumanScoreCount
+        let aboveHumanScoreCount = self.viewModel.results[index].aboveHumanScoreCount
         
         if let tableView = baseScrollView.viewWithTag( 1000 + index) as? UITableView {
             
@@ -77,28 +76,31 @@ extension FlightDomesticMultiLegResultVC
             tableView.tableFooterView = groupedFooterView
             
         }
-        
     }
     
     @objc func tappedOnGroupedFooterView(_ sender : UITapGestureRecognizer) {
         
-        if let index = sender.view?.tag {
-            resultsTableViewStates[index] = .showExpensiveFlights
-            self.results[index].sort = sortOrder
-            self.results[index].excludeExpensiveFlights = false
-            self.sortedJourneyArray[index] = Array(self.results[index].sortedArray)
-            if let tableView = baseScrollView.viewWithTag( 1000 + index) as? UITableView {
-                tableView.reloadData()
+        guard let tableIndex = sender.view?.tag else { return }
+        guard let tableView = baseScrollView.viewWithTag( 1000 + tableIndex) as? UITableView else { return }
+
+        UIView.animate(withDuration: 0.3, animations: {
+                   tableView.tableFooterView?.transform = CGAffineTransform(translationX: 0, y: 200)
+               }) { (success) in
                 
-                let indexPath : IndexPath
-                if (self.results[index].suggestedJourneyArray.count == 0 ) {
-                    indexPath = IndexPath(row: 0, section: 1)
-                    tableView.selectRow(at: indexPath , animated: false, scrollPosition: .none)
-                    ShowFareBreakupView()
-                }
+                self.viewModel.resultsTableStates[tableIndex] = .showExpensiveFlights
+                self.viewModel.results[tableIndex].excludeExpensiveFlights = false
                 
+                DispatchQueue.global(qos: .default).async {
+
+                    //apply sorting
+                self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: tableIndex, completion: {
+                    DispatchQueue.main.async {
+                        self.setExpandedStateFooterAt(index: tableIndex)
+                        tableView.reloadData()
+                        tableView.tableFooterView?.transform = CGAffineTransform.identity
+                    }
+                })
             }
-            setExpandedStateFooterAt(index: index)
         }
     }
     
@@ -107,7 +109,7 @@ extension FlightDomesticMultiLegResultVC
         
         if let tableView = baseScrollView.viewWithTag( 1000 + index) as? UITableView {
         
-        let aboveHumanScoreCount = results[index].aboveHumanScoreCount
+        let aboveHumanScoreCount = self.viewModel.results[index].aboveHumanScoreCount
 
             if aboveHumanScoreCount == 0 {
                 tableView.tableFooterView = nil
@@ -139,7 +141,6 @@ extension FlightDomesticMultiLegResultVC
         }
     }
     
-    
     func createRepeatedFooterBaseView(for view : UIView) -> UIView {
         let baseView = UIView(frame: CGRect(x: 0 , y: 0, width: view.frame.width, height: 60))
         baseView.backgroundColor = .white
@@ -155,29 +156,36 @@ extension FlightDomesticMultiLegResultVC
     
     @objc func tapOnExpandedFooterView(_ sender: UITapGestureRecognizer) {
         
-        if let index = sender.view?.tag {
-            
-            resultsTableViewStates[index] = .showRegularResults
-            
-            self.results[index].sort = sortOrder
-            self.results[index].excludeExpensiveFlights = true
-            self.sortedJourneyArray[index] = Array(self.results[index].sortedArray)
-
-            if let tableView = baseScrollView.viewWithTag( 1000 + index) as? UITableView {
-                
-                if sortOrder == .Smart  {
-                    tableView.deleteSections( IndexSet(integer: 1), with: .top)
-                }
-                else {
-                    tableView.reloadData()
-                }
-                                
-                if let bounds = tableView.tableFooterView?.bounds {
-                    let rect = tableView.convert( bounds, from: tableView.tableFooterView)
-                    tableView.scrollRectToVisible(rect, animated: true)
-                }
+        
+        guard let tableIndex = sender.view?.tag else { return }
+             guard let tableView = baseScrollView.viewWithTag( 1000 + tableIndex) as? UITableView else { return }
+        
+        var tempAllArray = self.viewModel.results[tableIndex].allJourneys
+        var indexPathsToBedeleted : [IndexPath] = []
+        let suggestedArrayCount = self.viewModel.results[tableIndex].suggestedJourneyArray.count
+        
+        for (index, _) in tempAllArray.reversed().enumerated() {
+            if index >= suggestedArrayCount{
+                tempAllArray.removeLast()
+                indexPathsToBedeleted.append(IndexPath(row: index, section: 0))
             }
-            setGroupedFooterViewAt(index: index)
+        }
+        
+          self.viewModel.results[tableIndex].allJourneys = tempAllArray
+          tableView.deleteRows(at: indexPathsToBedeleted, with: UITableView.RowAnimation.fade)
+            
+            self.viewModel.resultsTableStates[tableIndex] = .showRegularResults
+            self.viewModel.results[tableIndex].excludeExpensiveFlights = false
+        
+                    DispatchQueue.global(qos: .background).async {
+                    self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: tableIndex, completion: {
+                            DispatchQueue.main.async {
+                                self.viewModel.results[tableIndex].journeyArray = self.viewModel.results[tableIndex].journeyArray
+                                self.setGroupedFooterViewAt(index: tableIndex)
+//                                self.showBluredHeaderViewCompleted()
+                                tableView.reloadSections([0], with: .none)
+                       }
+                })
         }
     }
 }

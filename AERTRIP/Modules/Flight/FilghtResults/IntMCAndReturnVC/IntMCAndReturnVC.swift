@@ -19,7 +19,6 @@ class IntMCAndReturnVC : UIViewController {
     @IBOutlet weak var resultTableViewTop: NSLayoutConstraint!
     
     
-    
     var airlineCode = ""
     var bannerView : ResultHeaderView?
     var titleString : NSAttributedString!
@@ -172,7 +171,8 @@ extension IntMCAndReturnVC {
         let rect = self.resultsTableView.rectForRow(at: IndexPath(row: 0, section: 0))
         self.resultsTableView.scrollRectToVisible(rect, animated: true)
         
-        if self.viewModel.results.suggestedJourneyArray.isEmpty && viewModel.resultTableState != .showPinnedFlights { viewModel.resultTableState = .showExpensiveFlights }
+        if self.viewModel.results.suggestedJourneyArray.isEmpty && viewModel.resultTableState != .showPinnedFlights { viewModel.resultTableState = .showExpensiveFlights
+        }
         
         if viewModel.resultTableState == .showExpensiveFlights {
             self.setExpandedStateFooter()

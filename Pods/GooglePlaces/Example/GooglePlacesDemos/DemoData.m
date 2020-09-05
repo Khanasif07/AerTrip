@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Google LLC. All rights reserved.
+ * Copyright 2016 Google Inc. All rights reserved.
  *
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -13,15 +13,21 @@
  * permissions and limitations under the License.
  */
 
+#if !defined(__has_feature) || !__has_feature(objc_arc)
+#error "This file requires ARC support."
+#endif
+
 #import "GooglePlacesDemos/DemoData.h"
 
+#import "GooglePlacesDemos/Support/BaseDemoViewController.h"
 #import "GooglePlacesDemos/Samples/Autocomplete/AutocompleteModalViewController.h"
 #import "GooglePlacesDemos/Samples/Autocomplete/AutocompletePushViewController.h"
 #import "GooglePlacesDemos/Samples/Autocomplete/AutocompleteWithCustomColors.h"
+#import "GooglePlacesDemos/Samples/Autocomplete/AutocompleteWithSearchDisplayController.h"
 #import "GooglePlacesDemos/Samples/Autocomplete/AutocompleteWithSearchViewController.h"
 #import "GooglePlacesDemos/Samples/Autocomplete/AutocompleteWithTextFieldController.h"
-#import "GooglePlacesDemos/Samples/FindPlaceLikelihoodListViewController.h"
-#import "GooglePlacesDemos/Support/BaseDemoViewController.h"
+#import "GooglePlacesDemos/Samples/PhotosViewController.h"
+#import "GooglePlacesDemos/Samples/PlacePickerViewController.h"
 
 @implementation Demo {
   Class _viewControllerClass;
@@ -35,21 +41,21 @@
   return self;
 }
 
-- (UIViewController *)createViewControllerWithAutocompleteFilter:
-                          (GMSAutocompleteFilter *)autocompleteFilter
-                                                     placeFields:(GMSPlaceField)placeFields {
+- (UIViewController *)createViewControllerForSplitView:
+    (UISplitViewController *)splitViewController {
   // Construct the demo view controller.
   UIViewController *demoViewController = [[_viewControllerClass alloc] init];
 
-  // Pass the place fields to the view controller for these classes.
-  if ([demoViewController isKindOfClass:[AutocompleteBaseViewController class]]) {
-    AutocompleteBaseViewController *controller =
-        (AutocompleteBaseViewController *)demoViewController;
-    controller.autocompleteFilter = autocompleteFilter;
-    controller.placeFields = placeFields;
-  }
+  // Configure its left bar button item to display the displayModeButtonItem provided by the
+  // splitViewController.
+  demoViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem;
+  demoViewController.navigationItem.leftItemsSupplementBackButton = YES;
 
-  return demoViewController;
+  // Wrap the demo in a navigation controller.
+  UINavigationController *navigationController =
+      [[UINavigationController alloc] initWithRootViewController:demoViewController];
+
+  return navigationController;
 }
 
 @end
@@ -74,12 +80,16 @@
       [[Demo alloc] initWithViewControllerClass:[AutocompleteWithCustomColors class]],
       [[Demo alloc] initWithViewControllerClass:[AutocompleteModalViewController class]],
       [[Demo alloc] initWithViewControllerClass:[AutocompletePushViewController class]],
+      [[Demo alloc] initWithViewControllerClass:[AutocompleteWithSearchDisplayController class]],
       [[Demo alloc] initWithViewControllerClass:[AutocompleteWithSearchViewController class]],
       [[Demo alloc] initWithViewControllerClass:[AutocompleteWithTextFieldController class]],
     ];
 
-    NSArray<Demo *> *findPlaceLikelihoodDemos = @[ [[Demo alloc]
-        initWithViewControllerClass:[FindPlaceLikelihoodListViewController class]] ];
+    NSArray<Demo *> *otherDemos = @[
+      [[Demo alloc] initWithViewControllerClass:[PhotosViewController class]],
+      [[Demo alloc] initWithViewControllerClass:[PlacePickerViewController class]]
+    ];
+
 
     _sections = @[
       [[DemoSection alloc]
@@ -87,9 +97,9 @@
                                           @"Title of the autocomplete demo section")
                   demos:autocompleteDemos],
       [[DemoSection alloc]
-          initWithTitle:NSLocalizedString(@"Demo.Section.Title.FindPlaceLikelihood",
-                                          @"Title of the findPlaceLikelihood demo section")
-                  demos:findPlaceLikelihoodDemos]
+          initWithTitle:NSLocalizedString(@"Demo.Section.Title.Programmatic",
+                                          @"Title of the 'Programmatic' demo section")
+                  demos:otherDemos],
     ];
   }
   return self;

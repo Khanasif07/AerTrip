@@ -48,6 +48,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     @IBOutlet weak var addToTripButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var backgroundButton: UIButton!
+    @IBOutlet weak var addToTripIndicator: UIActivityIndicatorView!
     
     //MARK:- Variable Declaration
     var journeyGroup: JourneyOnewayDisplay!
@@ -118,6 +119,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         setupInitialViews()
         setupParchmentPageController()
         self.setupViewModel()
+        self.manageLoader()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -372,15 +374,16 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     }
     
     @IBAction func addToTripButtonClicked(_ sender: Any){
-        if !isInternational{
-            let tripListVC = TripListVC(nibName: "TripListVC", bundle: nil)
-            tripListVC.view.frame = self.view.frame
-            tripListVC.journey = self.journey
-            tripListVC.modalPresentationStyle = .overCurrentContext
-            self.present(tripListVC, animated: true, completion: nil)
-        }else{
-            
-        }
+        self.addToTrip()
+//        if !isInternational{
+//            let tripListVC = TripListVC(nibName: "TripListVC", bundle: nil)
+//            tripListVC.view.frame = self.view.frame
+//            tripListVC.journey = self.journey
+//            tripListVC.modalPresentationStyle = .overCurrentContext
+//            self.present(tripListVC, animated: true, completion: nil)
+//        }else{
+//
+//        }
         
     }
     
@@ -870,4 +873,71 @@ extension FlightDetailsBaseVC{
         self.viewModel.intJourney = self.intJourney
         self.viewModel.journeyType = (self.bookFlightObject.isDomestic) ? .domestic : .international
     }
+}
+
+
+extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
+    func manageLoader() {
+        self.addToTripIndicator.style = .gray
+        self.addToTripIndicator.color = AppColors.themeGreen
+        self.addToTripIndicator.startAnimating()
+        self.viewModel.delegate = self
+        self.hideShowLoader(isHidden:true)
+    }
+    
+    func hideShowLoader(isHidden:Bool){
+        DispatchQueue.main.async {
+            if isHidden{
+                self.addToTripIndicator.stopAnimating()
+            }else{
+                self.addToTripIndicator.startAnimating()
+            }
+            self.view.isUserInteractionEnabled = isHidden
+            self.addToTripButton.isHidden = !isHidden
+        }
+    }
+    
+    func addToTrip(){
+        self.hideShowLoader(isHidden: false)
+         AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
+                   guard let self = self else {return}
+            AppFlowManager.default.removeLoginConfirmationScreenFromStack()
+            self.presentedViewController?.dismiss(animated: false, completion: nil)
+            guard !isGuest else {
+                self.hideShowLoader(isHidden: true)
+                return
+            }
+            AppFlowManager.default.selectTrip(nil, tripType: .flight, cancelDelegate: self) { [weak self] (trip, details)  in
+                delay(seconds: 0.3, completion: { [weak self] in
+                    guard let self = self else {return}
+                    self.viewModel.selectedTrip = trip
+                    self.viewModel.addToTrip()
+                })
+            }
+        }
+    }
+    
+    func addTripCancelled(){
+        self.hideShowLoader(isHidden: true)
+    }
+    
+    func willGetAddToTrip() {
+        self.hideShowLoader(isHidden: false)
+    }
+    
+    func getResponseForAddToTrip(success: Bool, alreadyAdded: Bool) {
+        self.hideShowLoader(isHidden: true)
+        if success{
+            let message:String
+            if alreadyAdded{
+                message = LocalizedString.flightHasAlreadyBeenSavedToTrip.localized
+            }else{
+                let tripName = (self.viewModel.selectedTrip?.isDefault ?? false) ? LocalizedString.Default.localized.lowercased() : "\(self.viewModel.selectedTrip?.name ?? "")"
+                message = "journey has been added to \(tripName) trip"
+            }
+            AppToast.default.showToastMessage(message: message, onViewController: self)
+        }
+        
+    }
+    
 }

@@ -72,7 +72,6 @@ class PhotoGalleryVC: BaseVC {
     private func setupCloseButton() {
         self.closeButton.backgroundColor = AppColors.clear
         self.closeButton.tintColor = AppColors.clear
-        
         self.closeButton.setImage(ATGalleryViewConfiguration.closeButtonImage.withRenderingMode(.alwaysOriginal), for: .normal)
         self.closeButton.setImage(ATGalleryViewConfiguration.closeButtonImage.withRenderingMode(.alwaysOriginal), for: .selected)
         

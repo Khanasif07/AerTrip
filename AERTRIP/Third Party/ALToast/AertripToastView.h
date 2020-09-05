@@ -2,7 +2,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
+@class CustomToast;
 @protocol AertripToastViewDelegate <NSObject>
 @optional
 - (void)buttonTapped;

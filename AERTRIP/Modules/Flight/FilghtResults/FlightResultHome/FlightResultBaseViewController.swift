@@ -1223,10 +1223,10 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             
         case RETURN_JOURNEY:
             domesticMultiLegResultVC?.updatedApiProgress = updatedApiProgress
-            domesticMultiLegResultVC?.airlineCode = airlineCode
+            domesticMultiLegResultVC?.viewModel.airlineCode = airlineCode
             if flightSearchResultVM.isDomestic {
                 let journeyArray = resultVM.getJourneyDisplayArrayFor(index:  index)
-                domesticMultiLegResultVC?.updateReceivedAt(index: index , updatedArray: journeyArray, sortOrder: resultVM.getSortOrder())
+                domesticMultiLegResultVC?.updatewithArray(index: index , updatedArray: journeyArray, sortOrder: resultVM.getSortOrder())
                 domesticMultiLegResultVC?.updateAirportDetailsArray(resultVM.getAllAirportsArray())
                 domesticMultiLegResultVC?.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
                 domesticMultiLegResultVC?.updateTaxesArray(resultVM.getTaxesDetailsArray())
@@ -1255,11 +1255,11 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             if flightSearchResultVM.isDomestic {
                 
                 let journeyArray = self.flightSearchResultVM.getJourneyDisplayArrayFor(index: index )
-                domesticMultiLegResultVC?.updateReceivedAt(index: index , updatedArray: journeyArray, sortOrder: self.flightSearchResultVM.getSortOrder())
+                domesticMultiLegResultVC?.updatewithArray(index: index , updatedArray: journeyArray, sortOrder: self.flightSearchResultVM.getSortOrder())
                 domesticMultiLegResultVC?.updateAirportDetailsArray(resultVM.getAllAirportsArray())
                 domesticMultiLegResultVC?.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
                 domesticMultiLegResultVC?.updateTaxesArray(resultVM.getTaxesDetailsArray())
-                domesticMultiLegResultVC?.airlineCode = airlineCode
+                domesticMultiLegResultVC?.viewModel.airlineCode = airlineCode
                 
             }
             else {
@@ -1293,7 +1293,9 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             if self.flightSearchResultVM.bookFlightObject.flightSearchType == SINGLE_JOURNEY {
                 singleJourneyResultVC?.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex, shouldReload: true, completion: {})
             }else{
-                
+            
+                domesticMultiLegResultVC?.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex, shouldReload: true, completion: {})
+
                 
             }
         }
@@ -1390,5 +1392,6 @@ extension FlightResultBaseViewController{
 extension FlightResultBaseViewController: FlightFiltersToastDelegate {
     func showToastWithMsg(_ msg: String) {
         AertripToastView.toast(in: view, withText: msg)
+//        CustomToast.shared.showToast(msg)
     }
 }

@@ -99,22 +99,22 @@ extension IntMCAndReturnDetailsVC{
     //MARK:- Setting TableView Header after showing/hiding journey compact view to avoid overlapping of first cell
     
     func setTableViewHeaderFor(tableView  : UITableView) {
-        guard tableView.contentSize.height > tableView.frame.height else {return}
-        let width = tableView.bounds.size.width
-        let index = tableView.tag - 1000
-        let headerView = self.viewModel.journeyHeaderViewArray[index]
-        
-        let height : CGFloat
-        if headerView.isHidden {
-            height = 94.0
-        }
-        else {
-            height = 136.0
-        }
-        
-        let rect = CGRect(x: 0, y: 0, width: width, height: height )
-        let tableHeaderView = UIView(frame: rect)
-        tableView.tableHeaderView = tableHeaderView
+//        guard tableView.contentSize.height > tableView.frame.height else {return}
+//        let width = tableView.bounds.size.width
+//        let index = tableView.tag - 1000
+//        let headerView = self.viewModel.journeyHeaderViewArray[index]
+//        
+//        let height : CGFloat
+//        if headerView.isHidden {
+//            height = 94.0
+//        }
+//        else {
+//            height = 136.0
+//        }
+//        
+//        let rect = CGRect(x: 0, y: 0, width: width, height: height )
+//        let tableHeaderView = UIView(frame: rect)
+//        tableView.tableHeaderView = tableHeaderView
     }
     
     

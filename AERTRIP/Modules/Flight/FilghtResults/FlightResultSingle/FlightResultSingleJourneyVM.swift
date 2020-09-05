@@ -34,7 +34,7 @@ class FlightResultSingleJourneyVM {
         var stateBeforePinnedFlight = ResultTableViewState.showRegularResults
         var results : OnewayJourneyResultsArray!
         var isConditionReverced = false
-        var prevLegIndex = 0
+//        var prevLegIndex = 0
         var sortOrder = Sort.Smart
         let dateFormatter = DateFormatter()
     
@@ -115,8 +115,8 @@ class FlightResultSingleJourneyVM {
               
               sortArray.sort(by: { (obj1, obj2) -> Bool in
                 
-                  let firstObjDepartureTime = obj1.leg[self.prevLegIndex].dt
-                  let secondObjDepartureTime = obj2.leg[self.prevLegIndex].dt
+                  let firstObjDepartureTime = obj1.leg[0].dt
+                  let secondObjDepartureTime = obj2.leg[0].dt
                   
                   if isConditionReverced {
                     
@@ -132,9 +132,9 @@ class FlightResultSingleJourneyVM {
           case .Arrival:
               sortArray.sort(by: { (obj1, obj2) -> Bool in
                   
-                  let firstObjDepartureTime = (obj1.leg[self.prevLegIndex].ad) + " " + (obj1.leg[self.prevLegIndex].at)
+                  let firstObjDepartureTime = (obj1.leg[0].ad) + " " + (obj1.leg[0].at)
                   
-                  let secondObjDepartureTime = (obj2.leg[self.prevLegIndex].ad) + " " + (obj2.leg[self.prevLegIndex].at)
+                  let secondObjDepartureTime = (obj2.leg[0].ad) + " " + (obj2.leg[0].at)
                   
                   let firstObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: firstObjDepartureTime)
                   
@@ -155,6 +155,7 @@ class FlightResultSingleJourneyVM {
           self.results.pinnedFlights = sortArray
       }
       
+    
       func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int){
        
           var suggetedSortArray = self.results.suggestedJourneyArray
@@ -211,26 +212,24 @@ class FlightResultSingleJourneyVM {
               
               suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
                   
-                  let firstObjDepartureTime = obj1.journeyArray.first?.leg[self.prevLegIndex].dt
-                  let secondObjDepartureTime = obj2.journeyArray.first?.leg[self.prevLegIndex].dt
+                  let firstObjDepartureTime = obj1.journeyArray.first?.leg[0].dt
+                  let secondObjDepartureTime = obj2.journeyArray.first?.leg[0].dt
                   
                   if isConditionReverced {
                       
                       return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ?? "") > self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime ?? "")
 
-                    
                   }else{
                     
                     return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ?? "") < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime ?? "")
 
-                      
                   }
               })
             
             journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
                 
-                let firstObjDepartureTime = obj1.journeyArray.first?.leg[self.prevLegIndex].dt
-                let secondObjDepartureTime = obj2.journeyArray.first?.leg[self.prevLegIndex].dt
+                let firstObjDepartureTime = obj1.journeyArray.first?.leg[0].dt
+                let secondObjDepartureTime = obj2.journeyArray.first?.leg[0].dt
                 
                 if isConditionReverced {
                     
@@ -248,9 +247,9 @@ class FlightResultSingleJourneyVM {
           case .Arrival:
               suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
                   
-                  let firstObjDepartureTime = (obj1.journeyArray.first?.leg[self.prevLegIndex].ad ?? "") + " " + (obj1.journeyArray.first?.leg[self.prevLegIndex].at ?? "")
+                  let firstObjDepartureTime = (obj1.journeyArray.first?.leg[0].ad ?? "") + " " + (obj1.journeyArray.first?.leg[0].at ?? "")
                   
-                  let secondObjDepartureTime = (obj2.journeyArray.first?.leg[self.prevLegIndex].ad ?? "") + " " + (obj2.journeyArray.first?.leg[self.prevLegIndex].at ?? "")
+                  let secondObjDepartureTime = (obj2.journeyArray.first?.leg[0].ad ?? "") + " " + (obj2.journeyArray.first?.leg[0].at ?? "")
                   
                   let firstObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: firstObjDepartureTime)
                   
@@ -270,9 +269,9 @@ class FlightResultSingleJourneyVM {
               
             journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
                 
-                let firstObjDepartureTime = (obj1.journeyArray.first?.leg[self.prevLegIndex].ad ?? "") + " " + (obj1.journeyArray.first?.leg[self.prevLegIndex].at ?? "")
+                let firstObjDepartureTime = (obj1.journeyArray.first?.leg[0].ad ?? "") + " " + (obj1.journeyArray.first?.leg[0].at ?? "")
                 
-                let secondObjDepartureTime = (obj2.journeyArray.first?.leg[self.prevLegIndex].ad ?? "") + " " + (obj2.journeyArray.first?.leg[self.prevLegIndex].at ?? "")
+                let secondObjDepartureTime = (obj2.journeyArray.first?.leg[0].ad ?? "") + " " + (obj2.journeyArray.first?.leg[0].at ?? "")
                 
                 let firstObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: firstObjDepartureTime)
                 
@@ -317,4 +316,40 @@ class FlightResultSingleJourneyVM {
          return arrivalDate
      }
     
+}
+
+extension FlightResultSingleJourneyVM{
+    
+    func generateParam(with journey: Journey, trip:TripModel)-> JSONDictionary{
+        var param = JSONDictionary()
+        let flights = journey.leg.flatMap{$0.flights}
+        param["trip_id"] = trip.id
+        for (index, flight) in flights.enumerated(){
+            param["eventDetails[\(index)][airline_code]"] = flight.al
+            param["eventDetails[\(index)][depart_airport]"] = flight.fr
+            param["eventDetails[\(index)][arrival_airport]"] = flight.to
+            param["eventDetails[\(index)][flight_number]"] = flight.fn
+            param["eventDetails[\(index)][depart_terminal]"] = flight.dtm
+            param["eventDetails[\(index)][arrival_terminal]"] = flight.atm
+            param["eventDetails[\(index)][cabin_class]"] = flight.cc
+            param["eventDetails[\(index)][depart_dt]"] = flight.dd
+            param["eventDetails[\(index)][depart_time]"] = flight.dt
+            param["eventDetails[\(index)][arrival_dt]"] = flight.ad
+            param["eventDetails[\(index)][arrival_time]"] = flight.at
+            param["eventDetails[\(index)][equipment]"] = flight.eq
+        }
+        param["timezone"] = "Automatic"
+        return param
+    }
+    
+    func addToTrip(with journey: Journey, trip: TripModel, complition: @escaping((_ success:Bool, _ alreadyAdded: Bool)->())){
+        let param = self.generateParam(with: journey, trip: trip)
+        APICaller.shared.addToTripFlight(params: param) {(success, error, alreadyAdded) in
+            complition(success, alreadyAdded)
+            if !success{
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
+            }
+        }
+        
+    }
 }

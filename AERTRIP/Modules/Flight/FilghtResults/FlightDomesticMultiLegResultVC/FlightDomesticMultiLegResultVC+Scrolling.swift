@@ -12,8 +12,7 @@ extension FlightDomesticMultiLegResultVC {
     
     
     //MARK:- NavigationView Animation
-    func hidingAnimationOnNavigationBarOnScroll(offsetDifference : CGFloat)
-    {
+    func hidingAnimationOnNavigationBarOnScroll(offsetDifference : CGFloat) {
          DispatchQueue.main.async {
             let visualEffectViewHeight =  CGFloat(88.0)
             
@@ -79,12 +78,10 @@ extension FlightDomesticMultiLegResultVC {
         
         if offsetDifference > 0 {
             self.hidingAnimationOnNavigationBarOnScroll(offsetDifference : offsetDifference)
-        }
-        else {
+        } else {
             self.revealAnimationOfNavigationBarOnScroll(offsetDifference : offsetDifference)
         }
     }
-    
     
     fileprivate func snapToTopOrBottomOnSlowScrollDragging(_ scrollView: UIScrollView) {
 
@@ -141,7 +138,6 @@ extension FlightDomesticMultiLegResultVC {
             setTableViewHeaderFor(tableView: tableView)
         }
         
-        
         func showHeaderCellAt(indexPath : IndexPath, tableView : UITableView) {
             
             let index = tableView.tag - 1000
@@ -152,20 +148,18 @@ extension FlightDomesticMultiLegResultVC {
             
                 let width = UIScreen.main.bounds.size.width / 2.0
 
-                let tableState = resultsTableViewStates[index]
-                var arrayForDisplay = results[index].suggestedJourneyArray
+                let tableState = viewModel.resultsTableStates[index]
+                var arrayForDisplay = self.viewModel.results[index].suggestedJourneyArray
                 
-                if sortOrder == .Smart  {
-                    
-                    if tableState == .showExpensiveFlights && indexPath.section == 1 {
-                        arrayForDisplay = results[index].expensiveJourneyArray
-                    }
-                }
-                else {
-                    arrayForDisplay =  self.sortedJourneyArray[index]
-                }
+                    if tableState == .showPinnedFlights {
+                          arrayForDisplay = self.viewModel.results[index].pinnedFlights
+                       } else if tableState == .showExpensiveFlights {
+                          arrayForDisplay = self.viewModel.results[index].allJourneys
+                       } else {
+                           arrayForDisplay = self.viewModel.results[index].suggestedJourneyArray
+                       }
                 
-                guard let journey = arrayForDisplay?[indexPath.row] else {   return }
+                 let journey = arrayForDisplay[indexPath.row]
                 headerView.setValuesFrom(journey: journey)
                 
                 let headerJourneyRect  = CGRect(x: (width * CGFloat(index)), y: (-journeyCompactViewHeight) , width: width - 1 , height: journeyCompactViewHeight)
@@ -211,7 +205,7 @@ extension FlightDomesticMultiLegResultVC {
     //MARK:- Horizontal Scrolling
     func showHintAnimation() {
         
-        if numberOfLegs > 2 {
+        if self.viewModel.numberOfLegs > 2 {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 let point = CGPoint(x: 30 , y: 0)
                 self.baseScrollView.setContentOffset(point , animated: true)
@@ -227,7 +221,6 @@ extension FlightDomesticMultiLegResultVC {
     
     func setTableViewHeaderFor(tableView  : UITableView) {
                 
-        
         let width = tableView.bounds.size.width
         let index = tableView.tag - 1000
         let headerView = journeyHeaderViewArray[index]
@@ -272,7 +265,6 @@ extension FlightDomesticMultiLegResultVC {
         let index = tableView.tag - 1000
         let headerView = journeyHeaderViewArray[index]
         
-        
         var height : CGFloat = 188.0
         if isFirstCellVisible {
 
@@ -313,7 +305,6 @@ extension FlightDomesticMultiLegResultVC {
             self.syncScrollView(headerCollectionView, toScrollView: baseScrollView)
             return
         }
-        
         
         // Scrolling on tableviews
         if scrollView.tag > 999 {

@@ -70,10 +70,13 @@
 
 
 -(NSString*)formatDateString:(NSString*)inputDate{
-    
     NSDateFormatter *DateFormatter = [[NSDateFormatter alloc] init];
     [DateFormatter setDateFormat:@"dd-MM-yyyy"];
     NSDate * departDate = [DateFormatter dateFromString:inputDate];
+    if (departDate == nil) {
+        [DateFormatter setDateFormat:@"yyyy-MM-dd"];
+        departDate = [DateFormatter dateFromString:inputDate];
+    }
     [DateFormatter setDateFormat:@"d MMM"];
     NSString * outputDateString = [DateFormatter stringFromDate:departDate];
     return outputDateString;
@@ -99,7 +102,6 @@
     NSString *departDateString = [self.quary objectForKey:@"depart"];
     if (departDateString != nil) {
         NSMutableString * outputString = [NSMutableString stringWithString:[self formatDateString:departDateString]];
-        
         NSString * returnDateString = [self.quary objectForKey:@"return"];
         
         if ( returnDateString != nil) {

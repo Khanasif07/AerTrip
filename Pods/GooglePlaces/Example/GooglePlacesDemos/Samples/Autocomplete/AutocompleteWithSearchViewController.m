@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Google LLC. All rights reserved.
+ * Copyright 2016 Google Inc. All rights reserved.
  *
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -13,14 +13,15 @@
  * permissions and limitations under the License.
  */
 
+#if !defined(__has_feature) || !__has_feature(objc_arc)
+#error "This file requires ARC support."
+#endif
+
 #import "GooglePlacesDemos/Samples/Autocomplete/AutocompleteWithSearchViewController.h"
 
 #import <GooglePlaces/GooglePlaces.h>
 
-NSString *const kSearchBarAccessibilityIdentifier = @"searchBarAccessibilityIdentifier";
-
-@interface AutocompleteWithSearchViewController () <GMSAutocompleteResultsViewControllerDelegate,
-                                                    UISearchBarDelegate>
+@interface AutocompleteWithSearchViewController () <GMSAutocompleteResultsViewControllerDelegate>
 @end
 
 @implementation AutocompleteWithSearchViewController {
@@ -40,8 +41,6 @@ NSString *const kSearchBarAccessibilityIdentifier = @"searchBarAccessibilityIden
   [super viewDidLoad];
 
   _acViewController = [[GMSAutocompleteResultsViewController alloc] init];
-  _acViewController.autocompleteFilter = self.autocompleteFilter;
-  _acViewController.placeFields = self.placeFields;
   _acViewController.delegate = self;
 
   _searchController =
@@ -51,8 +50,6 @@ NSString *const kSearchBarAccessibilityIdentifier = @"searchBarAccessibilityIden
 
   _searchController.searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   _searchController.searchBar.searchBarStyle = UISearchBarStyleMinimal;
-  _searchController.searchBar.delegate = self;
-  _searchController.searchBar.accessibilityIdentifier = kSearchBarAccessibilityIdentifier;
 
   [_searchController.searchBar sizeToFit];
   self.navigationItem.titleView = _searchController.searchBar;
@@ -69,15 +66,8 @@ NSString *const kSearchBarAccessibilityIdentifier = @"searchBarAccessibilityIden
   } else {
     _searchController.modalPresentationStyle = UIModalPresentationFullScreen;
   }
-}
 
-#pragma mark - UISearcBarDelegate
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-  // Inform user that the autocomplete query has been cancelled and dismiss the search bar.
-  [_searchController setActive:NO];
-  [_searchController.searchBar setHidden:YES];
-  [self autocompleteDidCancel];
+  [self addResultViewBelow:nil];
 }
 
 #pragma mark - GMSAutocompleteResultsViewControllerDelegate
@@ -101,9 +91,6 @@ NSString *const kSearchBarAccessibilityIdentifier = @"searchBarAccessibilityIden
 - (void)didRequestAutocompletePredictionsForResultsController:
     (GMSAutocompleteResultsViewController *)resultsController {
   [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-
-  // Reset the text and photos view when we are requesting for predictions.
-  [self resetViews];
 }
 
 - (void)didUpdateAutocompletePredictionsForResultsController:

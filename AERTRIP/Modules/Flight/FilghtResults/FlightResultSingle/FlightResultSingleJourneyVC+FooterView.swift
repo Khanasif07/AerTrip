@@ -21,8 +21,7 @@ extension FlightResultSingleJourneyVC {
             
             if viewModel.resultTableState == .showExpensiveFlights {
                 setExpandedStateFooter()
-            }
-            else {
+            } else {
                 setGroupedFooterView()
             }
         }

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class AppToast: NSObject {
+class AppToast : NSObject {
     
     enum ButtonIcon {
         case cross
@@ -38,6 +38,8 @@ class AppToast: NSObject {
     
      func showToastMessage(message: String, title: String = "", onViewController: UIViewController? = UIApplication.topViewController(), duration: Double = 3.0, buttonTitle: String = "",spaceFromBottom: CGFloat = 10.0, buttonAction: (()->Void)? = nil,toastDidClose: (()->Void)? = nil) {
         
+        CustomToast.shared.showToast(message)
+        return
         
         if !AppToast.isPreviousView, !message.isEmpty {
 

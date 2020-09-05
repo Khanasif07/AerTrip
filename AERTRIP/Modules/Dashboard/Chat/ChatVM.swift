@@ -106,40 +106,25 @@ class ChatVM {
     
     
     func getRecentFlights(){
-        self.delegate?.willGetRecentSearchHotel()
-        APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.flight) { [weak self] (success, error, obj) in
-            print("obj.....\(obj)")
-            if success {
-                //self?.recentSearchesData = obj
-                self?.arrangeHotelAndFlightsRecentSearch(obj)
-                self?.delegate?.getRecentSearchHotelSuccessFully()
-            }else{
-                self?.delegate?.failedToGetRecentSearchApi()
-            }
-            
-        }
-    }
-    
-    private func arrangeHotelAndFlightsRecentSearch(_ array: [RecentSearchesModel]) {
-        self.recentSearchesData.append(contentsOf: array)
-        self.recentSearchesData.sort { (object1, object2) -> Bool in
-            return object1.added_on > object2.added_on
+
+        APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.flight) {
+            (success, error, obj) in
+            print(obj)
         }
     }
     
     func getRecentHotels(){
         self.delegate?.willGetRecentSearchHotel()
-        APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.hotel) { [weak self] (success, error, obj) in
+        APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.hotel) { (success, error, obj) in
             if success {
-                //self?.recentSearchesData = obj
-                self?.arrangeHotelAndFlightsRecentSearch(obj)
-                self?.delegate?.getRecentSearchHotelSuccessFully()
+                self.recentSearchesData = obj
+                self.delegate?.getRecentSearchHotelSuccessFully()
             }else{
-                self?.delegate?.failedToGetRecentSearchApi()
+                self.delegate?.failedToGetRecentSearchApi()
             }
         }
     }
-    
+
     func createFlightSearchDictionaryAndPushToVC(_ model: MessageModel) {
         
         let dateFormatter = DateFormatter()

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SnapKit
 
 protocol  PriceFilterDelegate : FilterDelegate {
     func priceSelectionChangedAt(_ index : Int , minFare : CGFloat , maxFare : CGFloat )
@@ -45,7 +45,6 @@ struct PriceFilter {
         
         return false
     }
-    
 }
 
 class PriceFilterViewController: UIViewController , FilterViewController {
@@ -58,6 +57,8 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     var flightResultArray : [FlightsResults]!
     var intFlightResultArray : [IntMultiCityAndReturnWSResponse.Results]!
     var isInternational = false
+    
+    private var multiLegSegmentControl = UISegmentedControl()
 
     //MARK:- Outlets
     @IBOutlet weak var multiLegView: UIView!
@@ -74,7 +75,6 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     //MARK:- View Controller Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 
         initialSetup()
         setupPriceSlider()
@@ -87,6 +87,10 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         priceRangeSlider.addTarget(self, action: #selector(priceRangeChanged), for: .valueChanged)
         priceRangeSlider.addTarget(self, action: #selector(priceRangeUpdated), for: .touchUpInside)
 
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
 
     //MARK:- Additional UI Methods
@@ -120,112 +124,90 @@ class PriceFilterViewController: UIViewController , FilterViewController {
             multiLegView.isHidden = false
             JourneyTitle.isHidden = true
             multicityViewHeight.constant = 60.0
-            setmultiLegSubviews()
+            setupMultiLegSegmentControl()
         case 3:
             multiLegView.isHidden = false
             multicityViewHeight.constant = 60.0
-            setmultiLegSubviews()
+            setupMultiLegSegmentControl()
             JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
         case 4 , 5 :
             multiLegView.isHidden = false
             multicityViewHeight.constant = 90.0
-            setmultiLegSubviews()
+            setupMultiLegSegmentControl()
             JourneyTitle.isHidden = false
             JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
         default:
             multicityViewHeight.constant = 90.0
-            setmultiLegSubviews()
+            setupMultiLegSegmentControl()
             multiLegView.isHidden = false
             JourneyTitle.isHidden = false
             JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
         }
     }
     
-    fileprivate func setmultiLegSubviews () {
-        
-        multiSegmentView.subviews.forEach { $0.removeFromSuperview() }
-        
-        multiSegmentView.layer.cornerRadius = 3
-        multiSegmentView.layer.borderColor = UIColor.AertripColor.cgColor
-        multiSegmentView.layer.borderWidth = 1.0
-        multiSegmentView.clipsToBounds = true
+    private func setupMultiLegSegmentControl() {
+                
+        multiLegSegmentControl.removeAllSegments()
         
         let numberOfStops = allPriceFilters.count
+
+        for  index in 1...numberOfStops  {
+            let segmentTitle = getSegmentTitleFor(index)
+            multiLegSegmentControl.insertSegment(withTitle: segmentTitle, at: index-1, animated: false)
+        }
         
-        for  i in 1...numberOfStops  {
-            
-            let segmentViewWidth = UIScreen.main.bounds.size.width - 32
-            let width = segmentViewWidth / CGFloat(numberOfStops)
-            let xcordinate = CGFloat( i - 1 ) * width
-            let height = self.multiSegmentView.frame.size.height
-            var rect = CGRect(x: xcordinate, y: 0, width: width, height: height)
-            let stopButton = UIButton(frame: rect)
-            stopButton.tag = i
-            
-            var normalStateTitle : NSMutableAttributedString
-            let currentFilter = allPriceFilters[(i - 1)]
-            let isCurrentIndexActive = (i == (currentActiveIndex + 1 )) ? true : false
-            let isFilterApplied = currentFilter.filterApplied()
-
-            
-            if numberOfStops > 3 {
+        multiLegSegmentControl.selectedSegmentIndex = currentActiveIndex
                 
-                let dot = "\u{2022}"
-                let font = UIFont(name: "SourceSansPro-Semibold", size: 14.0)!
-                let aertripColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
-                let whiteColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor :  UIColor.white]
-                let clearColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.clear]
-
-                 
-                 if isCurrentIndexActive {
-                     normalStateTitle = NSMutableAttributedString(string: "\(i) " , attributes: whiteColorAttributes)
-                     
-                     let dotString : NSAttributedString
-                     if isFilterApplied {
-                       dotString = NSMutableAttributedString(string: dot , attributes: whiteColorAttributes)
-                     }
-                     else {
-                         dotString = NSMutableAttributedString(string: dot , attributes: clearColorAttributes)
-                     }
-                     normalStateTitle.append(dotString)
-                 }
-                 else {
-                     normalStateTitle = NSMutableAttributedString(string: "\(i) " , attributes: aertripColorAttributes)
-                     let dotString : NSAttributedString
-
-                     if isFilterApplied {
-                         dotString = NSMutableAttributedString(string: dot , attributes: aertripColorAttributes)
-                     }
-                     else {
-                         dotString = NSMutableAttributedString(string: dot , attributes: clearColorAttributes)
-                     }
-                     normalStateTitle.append(dotString)
-                }
-            }
-            else {
-
-                let leg = legsArray[(i - 1)]
-                normalStateTitle = leg.getTitle(isCurrentlySelected: isCurrentIndexActive, isFilterApplied: isFilterApplied)
-            }
-            
-            stopButton.setAttributedTitle(normalStateTitle, for: .normal)
-            stopButton.addTarget(self, action: #selector(tappedOnMulticityButton(sender:)), for: .touchDown)
-            
-            if i == (currentActiveIndex + 1 ) {
-                stopButton.backgroundColor = UIColor.AertripColor
-            }
-            
-            multiSegmentView.addSubview(stopButton)
-            
-            if i != numberOfStops {
-                rect  = CGRect(x: xcordinate + width - 1 , y: 0, width: 1, height: 30)
-                let verticalSeparator = UIView(frame: rect)
-                verticalSeparator.backgroundColor = UIColor.AertripColor
-                multiSegmentView.addSubview(verticalSeparator)
+        if multiLegSegmentControl.superview == nil && numberOfStops > 1 {
+            let font: [NSAttributedString.Key : Any] = [.font : AppFonts.SemiBold.withSize(14)]
+            multiLegSegmentControl.setTitleTextAttributes(font, for: .normal)
+            multiLegSegmentControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
+            multiSegmentView.addSubview(multiLegSegmentControl)
+            multiLegSegmentControl.snp.makeConstraints { (maker) in
+                maker.width.equalToSuperview()
+                maker.height.equalToSuperview()
+                maker.leading.equalToSuperview()
+                maker.trailing.equalToSuperview()
             }
         }
     }
     
+    @objc func indexChanged(_ sender: UISegmentedControl) {
+        
+        guard currentActiveIndex != sender.selectedSegmentIndex else { return }
+        
+        allPriceFilters[currentActiveIndex] = currentPriceFilter
+        currentActiveIndex = sender.selectedSegmentIndex
+        currentPriceFilter = allPriceFilters[currentActiveIndex]
+        JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
+        
+        checkRefundableFlights(index: sender.selectedSegmentIndex)
+        setupPriceSlider()
+        setupPriceLabels()
+        updateSegmentTitles()
+
+    }
+    
+    private func getSegmentTitleFor(_ index: Int) -> String {
+        let currentFilter = allPriceFilters[(index - 1)]
+        let isFilterApplied = currentFilter.filterApplied()
+        var title = "\(legsArray[index - 1].origin) \u{2794} \(legsArray[index - 1].destination)"
+        if allPriceFilters.count > 3 {
+            title = "\(index)"
+        }
+        var segmentTitle = "\(title) "
+        if isFilterApplied {
+            segmentTitle = "\(title) •"
+        }
+        return segmentTitle
+    }
+    
+    private func updateSegmentTitles() {
+        for index in 0..<multiLegSegmentControl.numberOfSegments {
+            let segmentTitle = getSegmentTitleFor(index + 1)
+            multiLegSegmentControl.setTitle(segmentTitle, forSegmentAt: index)
+        }
+    }
     
     fileprivate func setupPriceSlider() {
         priceRangeSlider.setupThemeImages()
@@ -278,21 +260,21 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         case 2:
             JourneyTitle.isHidden = true
             multicityViewHeight.constant = 60.0
-            setmultiLegSubviews()
+            setupMultiLegSegmentControl()
         case 3:
             multiLegView.isHidden = false
             multicityViewHeight.constant = 60.0
-            setmultiLegSubviews()
+            setupMultiLegSegmentControl()
             JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
         case 4 , 5 :
             multiLegView.isHidden = false
             multicityViewHeight.constant = 90.0
-            setmultiLegSubviews()
+            setupMultiLegSegmentControl()
             JourneyTitle.isHidden = false
             JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
         default:
             multicityViewHeight.constant = 90.0
-            setmultiLegSubviews()
+            setupMultiLegSegmentControl()
             multiLegView.isHidden = false
             JourneyTitle.isHidden = false
             JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
@@ -332,7 +314,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         currentPriceFilter.userSelectedFareMaxValue = priceRangeSlider.rightValue.rounded(.up)
         
         allPriceFilters[currentActiveIndex] = currentPriceFilter
-        setmultiLegSubviews()
+        updateSegmentTitles()
         delegate?.priceSelectionChangedAt(currentActiveIndex , minFare: currentPriceFilter.userSelectedFareMinValue, maxFare: currentPriceFilter.userSelectedFareMaxValue)
     }
     
@@ -349,32 +331,10 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         }
         
         allPriceFilters[currentActiveIndex] = currentPriceFilter
-        setmultiLegSubviews()
+        updateSegmentTitles()
         delegate?.onlyRefundableFares(selected: currentPriceFilter.onlyRefundableFaresSelected, index:  currentActiveIndex)
     }
-     @IBAction fileprivate func tappedOnMulticityButton( sender : UIButton) {
-        
-        
-        let tag = sender.tag
-        
-        if currentActiveIndex == (tag - 1) {
-            return
-        }
-        else {
-            
-            allPriceFilters[currentActiveIndex] = currentPriceFilter
-            currentActiveIndex = tag - 1
-            currentPriceFilter = allPriceFilters[currentActiveIndex]
-            JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
-        }
-        
-        checkRefundableFlights(index: sender.tag-1)
-        
-        setmultiLegSubviews()
-        setupPriceSlider()
-        setupPriceLabels()
-        
-    }
+    
     
     func checkRefundableFlights(index:Int){
          if isInternational{

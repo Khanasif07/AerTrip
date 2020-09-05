@@ -30,14 +30,12 @@ extension FlightResultSingleJourneyVC {
                     modifiedResult[resultIndex].isPinned = true
                 }
             }
-            print("currentPinnedJourneys....\(self.viewModel.results.currentPinnedJourneys.count)")
             
             let groupedArray =   self.viewModel.getOnewayDisplayArray(results: modifiedResult)
             self.viewModel.results.journeyArray = groupedArray
-            //            self.sortedArray = Array(self.viewModel.results.sortedArray)
             self.viewModel.setPinnedFlights(shouldApplySorting: true)
             
-            self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: self.viewModel.prevLegIndex, completion: {
+            self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: 0, completion: {
                 DispatchQueue.main.async {
                     self.animateTableHeader()
                     
@@ -97,8 +95,7 @@ extension FlightResultSingleJourneyVC {
                 self.bannerView?.isHidden = true
                 self.updateUI()
             }
-        }
-        else {
+        } else {
             self.updateUI()
         }
     }
@@ -106,6 +103,9 @@ extension FlightResultSingleJourneyVC {
     func updateUI() {
         let rect = self.resultsTableView.rectForRow(at: IndexPath(row: 0, section: 0))
         self.resultsTableView.scrollRectToVisible(rect, animated: true)
+        
+        if self.viewModel.results.suggestedJourneyArray.isEmpty && viewModel.resultTableState != .showPinnedFlights { viewModel.resultTableState = .showExpensiveFlights
+        }
         
         if viewModel.resultTableState == .showPinnedFlights {
             resultsTableView.tableFooterView = nil
@@ -133,7 +133,7 @@ extension FlightResultSingleJourneyVC {
         previousRequest?.cancel()
         self.viewModel.sortOrder = sortOrder
         self.viewModel.isConditionReverced = isConditionReverced
-        self.viewModel.prevLegIndex = legIndex
+      //  self.viewModel.prevLegIndex = legIndex
         self.viewModel.setPinnedFlights(shouldApplySorting: true)
         self.viewModel.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex)
         

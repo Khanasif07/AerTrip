@@ -1230,19 +1230,25 @@ extension AppFlowManager {
 // MARK: - Select Trip Flow Methods
 
 extension AppFlowManager {
-    func selectTrip(_ tripDetails: TripDetails?, tripType: TripUsingFor, complition: @escaping ((TripModel, TripDetails?) -> Void)) {
+    func selectTrip(_ tripDetails: TripDetails?, tripType: TripUsingFor, cancelDelegate:TripCancelDelegate? = nil ,complition: @escaping ((TripModel, TripDetails?) -> Void)) {
         func openSelectTripScreen(trips: [TripModel]) {
             let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
             obj.selectionComplition = complition
             obj.viewModel.allTrips = trips
             obj.viewModel.tripDetails = tripDetails
             obj.viewModel.usingFor = tripType
+            obj.cancelDelegate = cancelDelegate
             if #available(iOS 13.0, *) {} else {
             obj.modalPresentationStyle = .overFullScreen
             obj.modalPresentationCapturesStatusBarAppearance = true
             obj.statusBarColor = AppColors.themeWhite
             }
-            self.currentNavigation?.present(obj, animated: true)
+            if self.currentNavigation != nil{
+                self.currentNavigation?.present(obj, animated: true)
+            }else{
+                UIApplication.topViewController()?.present(obj, animated: true)
+            }
+            
         }
         
         func checkDefaultTrip(trips: [TripModel]) {

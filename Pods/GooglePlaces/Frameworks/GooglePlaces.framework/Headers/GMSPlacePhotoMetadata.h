@@ -1,8 +1,8 @@
 //
 //  GMSPlacePhotoMetadata.h
-//  Google Places SDK for iOS
+//  Google Places API for iOS
 //
-//  Copyright 2016 Google LLC
+//  Copyright 2016 Google Inc.
 //
 //  Usage of this SDK is subject to the Google Maps/Google Earth APIs Terms of
 //  Service: https://developers.google.com/maps/terms
@@ -10,7 +10,7 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
+NS_ASSUME_NONNULL_BEGIN;
 
 /**
  * The metadata corresponding to a single photo associated with a place.
@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
  * provider.
  *
  * In general, these must be shown to the user if data from this GMSPlacePhotoMetadata is shown, as
- * described in the Places SDK Terms of Service.
+ * described in the Places API Terms of Service.
  */
 @property(nonatomic, readonly, copy, nullable) NSAttributedString *attributions;
 
@@ -33,11 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic, readonly, assign) CGSize maxSize;
 
-/**
- * Initializer is not available.
- */
-- (instancetype)init NS_UNAVAILABLE;
-
 @end
 
-NS_ASSUME_NONNULL_END
+NS_ASSUME_NONNULL_END;

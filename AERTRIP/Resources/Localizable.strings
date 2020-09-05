@@ -512,6 +512,7 @@
 
 // Hotel Detail screen
 "HotelHasAlreadyBeenSavedToTrip" = "Hotel has already been saved to trip";
+"flightHasAlreadyBeenSavedToTrip" = "Journey has already been saved to trip";
 
 //Hotel Checkout Deatail Selection screen
 "Guests" = "Guests";
