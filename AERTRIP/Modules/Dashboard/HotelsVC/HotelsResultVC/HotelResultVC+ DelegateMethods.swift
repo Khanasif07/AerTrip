@@ -189,6 +189,7 @@ extension HotelResultVC: HotelResultDelegate {
     }
     
     func loadFinalDataOnScreen() {
+        self.isDataFetched = true
         self.filterCollectionView.isUserInteractionEnabled = true
         //        self.filterButton.isEnabled = true
         //        self.mapButton.isEnabled = true

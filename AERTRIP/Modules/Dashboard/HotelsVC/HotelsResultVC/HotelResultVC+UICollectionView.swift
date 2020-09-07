@@ -57,7 +57,11 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCollectionViewCell", for: indexPath) as? FilterCollectionViewCell else { fatalError("FilterCollectionViewCell not found")}
         let filterText = HotelFilterVM.shared.allTabsStr[indexPath.item]
         cell.titleLabel.text = filterText
+        if self.isDataFetched {
         cell.dotView.isHidden = !HotelFilterVM.shared.filterAppliedFor(filterName: filterText, appliedFilter: self.viewModel.filterApplied)
+        } else {
+          cell.dotView.isHidden = true
+        }
         return cell
     }
     

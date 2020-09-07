@@ -146,6 +146,18 @@ class HotelFilterVC: BaseVC {
         }
         self.isFilterAppliedBtn.setImage(isFilterApplied  ? #imageLiteral(resourceName: "ic_hotel_filter_applied") : #imageLiteral(resourceName: "ic_hotel_filter"), for: .normal)
         self.isFilterAppliedBtn.setImage(isFilterApplied  ? #imageLiteral(resourceName: "ic_hotel_filter_applied") : #imageLiteral(resourceName: "ic_hotel_filter"), for: .selected)
+        
+        if  isFilterApplied {
+            //self.topNavBar.firstRightButton.isEnabled = true
+            //self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
+            self.clearAllButton.isEnabled = true
+            self.clearAllButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        } else {
+            //self.topNavBar.firstRightButton.isEnabled = false
+            //self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+            self.clearAllButton.isEnabled = false
+            self.clearAllButton.setTitleColor(AppColors.themeGray40, for: .normal)
+        }
     }
     
     private func initiateFilterTabs() {
@@ -308,6 +320,7 @@ class HotelFilterVC: BaseVC {
         }
         self.setFilterButton()
     }
+    
     
     private func setupGesture() {
         let gestureRecognizer = UITapGestureRecognizer(target: self,action: #selector(outsideAreaTapped))
