@@ -153,35 +153,11 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
             multiLegView.isHidden = false
             setupMultiLegSegmentControl()
         }
-        
-//        layoverDurationSlider.setupThemeImages()
-        
+                
         initialSetup()
         addMarkersOnTripDuration()
         
-        
-//        //Layover duration slider
-//
-//        if layoverDurationSlider.maximumValue == 24 && (layoverDurationSlider.minimumValue == 0 || layoverDurationSlider.minimumValue == 1){
-//            addMarkersOnLayoverDuration()
-//            layoverDurationSlider.bringSubviewToFront(layoverDurationSlider.leftThumbView)
-//            layoverDurationSlider.bringSubviewToFront(layoverDurationSlider.rightThumbView)
-//
-//        }
     }
-    
-//    private func addMarkersOnLayoverDuration() {
-//        layoverDurationSlider.subviews.forEach { (subview) in
-//            if subview is MarkerView {
-//                subview.removeFromSuperview()
-//            }
-//        }
-//        let trackWidth = self.view.bounds.width - 16
-//        let xPosition = 1.0 * trackWidth
-//        let marker = MarkerView(frame: CGRect(x: xPosition, y: layoverDurationSlider.frame.height/2 - 2 , width: 3.0, height: 3.0 ))
-//        marker.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-//        layoverDurationSlider.addSubview(marker)
-//    }
     
     private func addMarkersOnTripDuration() {
         let minVal = currentDurationFilter.tripDurationMinDuration - currentDurationFilter.tripDurationMinDuration
@@ -270,7 +246,6 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         tripDurationMaxLabelWidth.constant = tripDurationMaxLabel.intrinsicContentSize.width + 16.0
         
         layoverDurationSlider.set(leftValue: (currentDurationFilter.layoverMinDuration - currentDurationFilter.layoverMinDuration)/layoverDurationDiffForFraction, rightValue: (currentDurationFilter.layoverMaxDuration - currentDurationFilter.layoverMinDuration)/layoverDurationDiffForFraction)
-//        layoverDurationSlider.setLeftValue(currentDurationFilter.layoverMinDuration, rightValue: currentDurationFilter.layoverMaxDuration)
         layoverDurationMinLabel.text = formattedStringWith(duration: currentDurationFilter.layoverMinDuration)
         layoverDurationMinLabelWidth.constant = layoverDurationMinLabel.intrinsicContentSize.width + 16.0
         layoverDurationMaxLabel.text = formattedStringWith(duration: currentDurationFilter.layoverMaxDuration)
@@ -315,7 +290,6 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         durationFilters[currentActiveIndex] = currentDurationFilter
         currentActiveIndex = sender.selectedSegmentIndex
         currentDurationFilter = durationFilters[currentActiveIndex]
-//        JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
         setupTripDurationValues()
         setupLayoutDurationValues()
         updateSegmentTitles()
@@ -367,9 +341,6 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     
     fileprivate func setupLayoutDurationValues() {
         layoverDurationSlider.set(leftValue: (currentDurationFilter.userSelectedLayoverMin - currentDurationFilter.layoverMinDuration)/layoverDurationDiffForFraction, rightValue: (currentDurationFilter.userSelectedLayoverMax - currentDurationFilter.layoverMinDuration)/layoverDurationDiffForFraction)
-        
-//        layoverDurationSlider.setMinValue( currentDurationFilter.layoverMinDuration, maxValue:  currentDurationFilter.layoverMaxDuration)
-//        layoverDurationSlider.setLeftValue( currentDurationFilter.userSelectedLayoverMin, rightValue:  currentDurationFilter.userSelectedLayoverMax)
         
         layoverDurationMinLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedLayoverMin)
         layoverDurationMinLabelWidth.constant = layoverDurationMinLabel.intrinsicContentSize.width + 16.0
