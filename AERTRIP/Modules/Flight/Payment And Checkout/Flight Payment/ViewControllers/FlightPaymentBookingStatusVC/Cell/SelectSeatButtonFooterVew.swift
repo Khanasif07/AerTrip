@@ -34,7 +34,7 @@ class SelectSeatButtonFooterVew: UITableViewHeaderFooterView {
         self.selectSeatButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         self.selectSeatButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
         self.selectSeatButton.backgroundColor = AppColors.themeWhite
-        self.selectSeatButton.cornerRadius = 10.0
+        self.selectSeatButton.cornerradius = 10.0
         self.selectSeatButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.selectSeatButton.setTitleColor(AppColors.themeGreen, for: .selected)
         self.selectSeatButton.layer.borderWidth = 1.0

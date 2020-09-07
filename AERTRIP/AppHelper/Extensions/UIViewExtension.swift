@@ -23,7 +23,7 @@ extension UIView {
         }
     }
     
-    public var cornerRadius: CGFloat {
+    public var cornerradius: CGFloat {
         get {
             return self.layer.cornerRadius
         }
@@ -142,7 +142,7 @@ extension UIView {
     
     func roundedCorners(cornerRadius: CGFloat){
         self.clipsToBounds = true
-        self.cornerRadius = cornerRadius
+        self.cornerradius = cornerRadius
     }
     
     func roundTopCorners(cornerRadius: CGFloat) {

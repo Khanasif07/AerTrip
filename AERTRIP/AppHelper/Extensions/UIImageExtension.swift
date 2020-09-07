@@ -63,7 +63,7 @@ extension UIImage {
         }
         
         switch self.imageOrientation {
-            
+        
         case .upMirrored,.downMirrored:
             transform = transform.translatedBy(x: self.size.width, y: 0)
             transform = transform.scaledBy(x: -1, y: 1)
@@ -81,7 +81,7 @@ extension UIImage {
         ctx.concatenate(transform)
         
         switch self.imageOrientation {
-            
+        
         case .left,.leftMirrored,.right,.rightMirrored:
             ctx.draw(self.cgImage!, in: CGRect(x: 0, y: 0, width: self.size.height, height: self.size.width))
             
@@ -201,6 +201,11 @@ extension UIImageView {
         ImageCache.default.cleanExpiredDiskCache()
     }
     
+    static func downloadImage(url: String) {
+        if let imageUrl = URL(string: url) {
+            ImageDownloader.default.downloadImage(with: imageUrl)
+        }
+    }
 }
 
 

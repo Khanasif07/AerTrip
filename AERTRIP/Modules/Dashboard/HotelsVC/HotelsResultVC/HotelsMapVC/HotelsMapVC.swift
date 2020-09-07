@@ -228,6 +228,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
             animateHeaderToMapView()
             self.showSearchAnimation()
             self.searchBar.text = self.viewModel.searchTextStr
+            self.searchBar.hideMiceButton(isHidden: self.viewModel.searchTextStr.isEmpty)
         }
     }
     

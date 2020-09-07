@@ -51,9 +51,9 @@ class BaggageInfoTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        self.heightDataContainer.cornerRadius = self.heightDataContainer.height / 2.0
-        self.widthDataContainer.cornerRadius = self.widthDataContainer.height / 2.0
-        self.depthDataContainer.cornerRadius = self.depthDataContainer.height / 2.0
+        self.heightDataContainer.cornerradius = self.heightDataContainer.height / 2.0
+        self.widthDataContainer.cornerradius = self.widthDataContainer.height / 2.0
+        self.depthDataContainer.cornerradius = self.depthDataContainer.height / 2.0
     }
     
     

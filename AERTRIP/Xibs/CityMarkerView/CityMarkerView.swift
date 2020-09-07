@@ -84,7 +84,7 @@ class CityMarkerView: UIView {
         backgroundView.backgroundColor = shouldAddRippel ? AppColors.clear : AppColors.themeOrange.withAlphaComponent(0.1)//AppColors.themeOrange.withAlphaComponent(0.1)
         dotView.backgroundColor = AppColors.themeOrange
         
-        backgroundView.cornerRadius = backgroundView.height / 2.0
-        dotView.cornerRadius = dotHeightConstraint.constant / 2.0
+        backgroundView.cornerradius = backgroundView.height / 2.0
+        dotView.cornerradius = dotHeightConstraint.constant / 2.0
     }
 }

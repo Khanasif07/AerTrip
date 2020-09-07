@@ -134,6 +134,7 @@ class HotelsResultVM: NSObject {
                     if var allHotles = self.collectionViewList["\(lat),\(long)"] as? [HotelSearched] {
                         allHotles.append(hs)
                         self.collectionViewList["\(lat),\(long)"] = allHotles
+                        UIImageView.downloadImage(url: hs.thumbnail?.first ?? "")
                     } else {
                         self.collectionViewLocArr.append("\(lat),\(long)")
                         self.collectionViewList["\(lat),\(long)"] = [hs]

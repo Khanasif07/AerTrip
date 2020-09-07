@@ -52,7 +52,7 @@ class ReloadResultPopupVC: BaseVC {
         self.reloadButton.titleLabel?.font = AppFonts.SemiBold.withSize(18)
         self.decreaseLabel.font = AppFonts.Regular.withSize(16)
         self.decreaseLabel.textColor = AppColors.themeWhite
-        decreaseContainerView.cornerRadius = 10.0
+        decreaseContainerView.cornerradius = 10.0
         decreaseContainerView.backgroundColor = AppColors.themeGray60.withAlphaComponent(0.82)
     }
 

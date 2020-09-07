@@ -37,8 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        // CHECK FOR LAUNCH OF FLIGHT OR HOTEL MODULE
-        
+        // CHECK FOR LAUNCH OF FLIGHT OR HOTEL MODULE        
         FirebaseApp.configure()
         AppFlowManager.default.setupInitialFlow()
         window?.backgroundColor = UIColor.black

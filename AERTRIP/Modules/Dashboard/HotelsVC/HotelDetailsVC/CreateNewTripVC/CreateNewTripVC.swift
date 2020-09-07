@@ -42,12 +42,12 @@ class CreateNewTripVC: BaseVC {
         super.viewWillLayoutSubviews()
         
         createButton.layer.cornerRadius = createButton.height / 2
-        editButton.cornerRadius = editButton.height / 2.0
+        editButton.cornerradius = editButton.height / 2.0
 //        createButton.layer.masksToBounds = true
         
         popUpContainerView.roundTopCorners(cornerRadius: 10.0)
-        inputContainerView.cornerRadius = 10.0
-        inputContainerShadowView.addShadow(cornerRadius: inputContainerView.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+        inputContainerView.cornerradius = 10.0
+        inputContainerShadowView.addShadow(cornerRadius: inputContainerView.cornerradius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
         inputContainerShadowView.clipsToBounds = false
     }
     override func viewWillAppear(_ animated: Bool) {

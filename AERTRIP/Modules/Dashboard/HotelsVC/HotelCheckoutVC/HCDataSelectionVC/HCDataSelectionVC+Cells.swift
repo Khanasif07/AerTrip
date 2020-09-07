@@ -292,7 +292,7 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
             firstNameLabel.attributedText = self.atributedtedString(text: finalText, ageText: ageText)
         }
         
-        self.iconImageView.cornerRadius = self.iconImageView.height / 2.0
+        self.iconImageView.cornerradius = self.iconImageView.height / 2.0
         if let fName = self.contact?.firstName, let lName = self.contact?.lastName, let saltn = self.contact?.salutation {
             infoImageView.image = #imageLiteral(resourceName: "ic_info_incomplete")
             infoImageView.isHidden = true

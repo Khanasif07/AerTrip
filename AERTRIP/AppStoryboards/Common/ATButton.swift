@@ -141,7 +141,7 @@ import UIKit
         }
         
         let shadowFrame = self.isSocial ? CGRect(x: 0.0, y:1.0, width: bounds.width, height: bounds.height) : CGRect(x: 3.0, y: 0.0, width: bounds.width - 6.0, height: bounds.height)
-        shadowLayer.path = UIBezierPath(roundedRect: shadowFrame, cornerRadius: self.cornerRadius).cgPath
+        shadowLayer.path = UIBezierPath(roundedRect: shadowFrame, cornerRadius: self.cornerradius).cgPath
         shadowLayer.fillColor = AppColors.clear.cgColor
         if self.isEnabled {
             if isEnabledShadow {
@@ -191,7 +191,7 @@ import UIKit
         gLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
         gLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
         
-        gLayer.cornerRadius = self.cornerRadius
+        gLayer.cornerRadius = self.cornerradius
         gLayer.masksToBounds = true
         
         if self.isEnabled {
@@ -277,7 +277,7 @@ import UIKit
             self.addSubview(self.loaderContainer)
         }
         
-        self.loaderContainer.layer.cornerRadius = self.cornerRadius
+        self.loaderContainer.layer.cornerRadius = self.cornerradius
         self.loaderContainer.layer.masksToBounds = true
         self.updateGradientLayer(gLayer: self.loaderGradientLayer)
         
@@ -509,7 +509,7 @@ class ATBlurButton: UIButton {
     }
     
     private func makeCircle() {
-        self.cornerRadius = self.isCircular ? (self.width / 2.0) : 0.0
+        self.cornerradius = self.isCircular ? (self.width / 2.0) : 0.0
     }
     
     private func updateBorder() {

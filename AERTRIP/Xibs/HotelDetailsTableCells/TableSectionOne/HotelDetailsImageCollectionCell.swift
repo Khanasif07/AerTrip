@@ -30,7 +30,7 @@ class HotelDetailsImageCollectionCell: UICollectionViewCell {
         super.awakeFromNib()
         
         self.smallLineView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
-        self.smallLineView.cornerRadius = self.smallLineView.height/2.0
+        self.smallLineView.cornerradius = self.smallLineView.height/2.0
         self.smallLineView.clipsToBounds = true
         self.smallLineView.isHidden = true
         self.initialSetup()

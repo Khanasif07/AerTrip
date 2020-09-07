@@ -17,10 +17,11 @@ extension APICaller {
             sSelf.handleResponse(json, success: { sucess, jsonData in
                 
                 if sucess {
-//                   let currencies = json[APIKeys.data.rawValue].arrayValue.map { (jsonObj) -> PKCountryModel in
+                    let currencies = CurrencyModel.retunCurrencyModelArray(json: json[APIKeys.data.rawValue].arrayValue)
+//                    json[APIKeys.data.rawValue].arrayValue.map { (jsonObj) -> PKCountryModel in
 //                        return PKCountryModel(json: jsonObj)
 //                    }
-                    let currencies = CurrencyModel.retunCurrencyModelArray(json: json[APIKeys.data.rawValue].array?.first ?? JSON())
+//                    let currencies = CurrencyModel.retunCurrencyModelArray(json: json[APIKeys.data.rawValue].array?.first ?? JSON())
                     completionBlock(true,currencies)
                 }else{
                     completionBlock(false,[])

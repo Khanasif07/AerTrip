@@ -205,9 +205,9 @@ class BulkBookingVC: BaseVC {
         self.searchButtonOutlet.layer.cornerRadius = 25.0
         //self.rectangleView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
         if #available(iOS 13.0, *) {
-            self.rectangleView.cornerRadius = 10.0
+            self.rectangleView.cornerradius = 10.0
         } else {
-            self.rectangleView.cornerRadius = 15.0
+            self.rectangleView.cornerradius = 15.0
             self.hide(animated: false)
             delay(seconds: 0.1) { [weak self] in
                 self?.show(animated: true)

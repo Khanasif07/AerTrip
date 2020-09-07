@@ -128,9 +128,9 @@ class SelectDestinationVC: BaseVC {
         
         //self.headerView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
         if #available(iOS 13.0, *) {
-            self.rectangleView.cornerRadius = 10.0
+            self.rectangleView.cornerradius = 10.0
         } else {
-            self.rectangleView.cornerRadius = 15.0
+            self.rectangleView.cornerradius = 15.0
         }
         
         self.rectangleView.layer.masksToBounds = true

@@ -66,7 +66,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
     
     private func appleWalletButtonSetUp() {
         self.addToAppleWalletButton.backgroundColor = AppColors.themeBlack
-        self.addToAppleWalletButton.cornerRadius = 10.0
+        self.addToAppleWalletButton.cornerradius = 10.0
         self.addToAppleWalletButton.clipsToBounds = true
         self.addToAppleWalletButton.imageView?.size = CGSize(width: 30.0, height: 22.0)
         self.addToAppleWalletButton.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: -20.0, bottom: 0.0, right: 0.0)
@@ -75,7 +75,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
     
     private func addToCallendarButtonSetUp() {
         self.addToCalendarButton.backgroundColor = AppColors.themeWhite
-        self.addToCalendarButton.cornerRadius = 10.0
+        self.addToCalendarButton.cornerradius = 10.0
         self.addToCalendarButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.addToCalendarButton.setTitleColor(AppColors.themeGreen, for: .selected)
         
