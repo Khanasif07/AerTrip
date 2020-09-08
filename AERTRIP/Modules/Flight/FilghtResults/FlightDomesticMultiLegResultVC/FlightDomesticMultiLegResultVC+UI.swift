@@ -281,6 +281,7 @@ extension FlightDomesticMultiLegResultVC {
             rect.origin.y =  self.view.frame.height
             self.fareBreakupVC?.view.frame = rect
             self.fareBreakupVC?.view.isHidden = true
+            self.fareBreakupVC = nil
         }
     }
     

@@ -199,6 +199,7 @@ class HCGuestListVC: BaseVC {
         } else {
             self.tableView.backgroundView = self.allowEmptyView
         }
+        self.tableView.showsVerticalScrollIndicator = true
     }
     
     private func reloadList() {

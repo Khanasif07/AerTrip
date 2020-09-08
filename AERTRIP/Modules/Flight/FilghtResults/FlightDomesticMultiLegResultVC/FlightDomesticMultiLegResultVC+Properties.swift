@@ -131,7 +131,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let width =  UIScreen.main.bounds.size.width / 2.0
-        let height = self.baseScrollView.frame.height + statusBarHeight + 88.0
+        let height = self.baseScrollView.frame.height + 88.0//statusBarHeight + 88.0
         baseScrollView.contentSize = CGSize( width: (CGFloat(self.viewModel.numberOfLegs) * width ), height:height)
 
         for view in self.baseScrollView.subviews {
@@ -163,8 +163,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         let index = IndexPath(item: indexPath, section: 0)
         if let headerCell =  headerCollectionView.cellForItem(at: index) as? FlightSectorHeaderCell {
             if indexPath == 0{
-                headerCell.veticalSeparatorWidth.constant = 0.3
-                headerCell.veticalSeparatorTrailing.constant = 0.8
+                headerCell.veticalSeparatorWidth.constant = 0.4
+                headerCell.veticalSeparatorTrailing.constant = 0.7
             }else{
                 headerCell.veticalSeparatorWidth.constant = 0.4
                 headerCell.veticalSeparatorTrailing.constant = 0.7
@@ -342,7 +342,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         let flightInfantCount = bookFlightObject.flightInfantCount
         let isDomestic = bookFlightObject.isDomestic
           
-        self.getSharableLink.getUrlForMail(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, journey: pinnedFlightsArray, sid: sid)
+//        self.getSharableLink.getUrlForMail(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, journey: pinnedFlightsArray, sid: sid)
 
     }
     
@@ -362,7 +362,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         let flightInfantCount = bookFlightObject.flightInfantCount
         let isDomestic = bookFlightObject.isDomestic
           
-        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, journey: journeyArray)
+//        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, journey: journeyArray)
 
     }
     

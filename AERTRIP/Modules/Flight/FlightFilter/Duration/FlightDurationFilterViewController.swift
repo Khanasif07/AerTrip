@@ -88,7 +88,13 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     var isFeedBackProvided = false
     
     var tripDurationDiffForFraction: CGFloat {
-        return (currentDurationFilter.tripDurationmaxDuration - currentDurationFilter.tripDurationMinDuration)
+        let diff = currentDurationFilter.tripDurationmaxDuration - currentDurationFilter.tripDurationMinDuration
+        return diff == 0 ? 1 : diff
+    }
+    
+    var layoverDurationDiffForFraction: CGFloat {
+        let diff = currentDurationFilter.layoverMaxDuration - currentDurationFilter.layoverMinDuration
+        return diff == 0 ? 1 : diff
     }
     
     private var multiLegSegmentControl = UISegmentedControl()
@@ -129,7 +135,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     @IBOutlet weak var layoverDurationMaxLabel: UILabel!
     @IBOutlet weak var layoverDurationMaxLabelWidth: NSLayoutConstraint!
     @IBOutlet weak var tripDurationSlider: AertripRangeSlider!
-    @IBOutlet weak var layoverDurationSlider: MARKRangeSlider!
+    @IBOutlet weak var layoverDurationSlider: AertripRangeSlider!
     @IBOutlet weak var multicityViewHeight: NSLayoutConstraint!
     
     
@@ -147,33 +153,10 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
             multiLegView.isHidden = false
             setupMultiLegSegmentControl()
         }
-        
-        layoverDurationSlider.setupThemeImages()
-        
+                
         initialSetup()
         addMarkersOnTripDuration()
         
-        //Layover duration slider
-        
-        if layoverDurationSlider.maximumValue == 24 && (layoverDurationSlider.minimumValue == 0 || layoverDurationSlider.minimumValue == 1){
-            addMarkersOnLayoverDuration()
-            layoverDurationSlider.bringSubviewToFront(layoverDurationSlider.leftThumbView)
-            layoverDurationSlider.bringSubviewToFront(layoverDurationSlider.rightThumbView)
-            
-        }
-    }
-    
-    private func addMarkersOnLayoverDuration() {
-        layoverDurationSlider.subviews.forEach { (subview) in
-            if subview is MarkerView {
-                subview.removeFromSuperview()
-            }
-        }
-        let trackWidth = self.view.bounds.width - 16
-        let xPosition = 1.0 * trackWidth
-        let marker = MarkerView(frame: CGRect(x: xPosition, y: layoverDurationSlider.frame.height/2 - 2 , width: 3.0, height: 3.0 ))
-        marker.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-        layoverDurationSlider.addSubview(marker)
     }
     
     private func addMarkersOnTripDuration() {
@@ -183,6 +166,20 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         var markerLocations = [CGFloat]()
         for dayChangeTime in stride(from: 24, through: 240, by: 24) {
             let markLoc = CGFloat(dayChangeTime) - currentDurationFilter.tripDurationMinDuration
+            let fraction = markLoc/diff
+            guard fraction < 1 else { break }
+            markerLocations.append(fraction)
+        }
+        tripDurationSlider.createMarkersAt(positions: markerLocations)
+    }
+    
+    private func addMarkersOnLayoverDuration() {
+        let minVal = currentDurationFilter.layoverMinDuration - currentDurationFilter.layoverMinDuration
+        let maxVal = currentDurationFilter.tripDurationmaxDuration - currentDurationFilter.layoverMinDuration
+        let diff = maxVal - minVal
+        var markerLocations = [CGFloat]()
+        for dayChangeTime in stride(from: 24, through: 240, by: 24) {
+            let markLoc = CGFloat(dayChangeTime) - currentDurationFilter.layoverMinDuration
             let fraction = markLoc/diff
             guard fraction < 1 else { break }
             markerLocations.append(fraction)
@@ -247,7 +244,8 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         
         tripDurationMaxLabel.text = formattedStringWith(duration: currentDurationFilter.tripDurationmaxDuration)
         tripDurationMaxLabelWidth.constant = tripDurationMaxLabel.intrinsicContentSize.width + 16.0
-        layoverDurationSlider.setLeftValue(currentDurationFilter.layoverMinDuration, rightValue: currentDurationFilter.layoverMaxDuration)
+        
+        layoverDurationSlider.set(leftValue: (currentDurationFilter.layoverMinDuration - currentDurationFilter.layoverMinDuration)/layoverDurationDiffForFraction, rightValue: (currentDurationFilter.layoverMaxDuration - currentDurationFilter.layoverMinDuration)/layoverDurationDiffForFraction)
         layoverDurationMinLabel.text = formattedStringWith(duration: currentDurationFilter.layoverMinDuration)
         layoverDurationMinLabelWidth.constant = layoverDurationMinLabel.intrinsicContentSize.width + 16.0
         layoverDurationMaxLabel.text = formattedStringWith(duration: currentDurationFilter.layoverMaxDuration)
@@ -292,7 +290,6 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         durationFilters[currentActiveIndex] = currentDurationFilter
         currentActiveIndex = sender.selectedSegmentIndex
         currentDurationFilter = durationFilters[currentActiveIndex]
-//        JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
         setupTripDurationValues()
         setupLayoutDurationValues()
         updateSegmentTitles()
@@ -303,7 +300,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     private func getSegmentTitleFor(_ index: Int) -> String {
         let currentFilter = durationFilters[(index - 1)]
         let isFilterApplied = currentFilter.filterApplied()
-        var title = "\(legsArray[index - 1].origin) \u{2794} \(legsArray[index - 1].destination)"
+        var title = "\(legsArray[index - 1].origin) \u{279E} \(legsArray[index - 1].destination)"
         if durationFilters.count > 3 {
             title = "\(index)"
         }
@@ -343,9 +340,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     }
     
     fileprivate func setupLayoutDurationValues() {
-        
-        layoverDurationSlider.setMinValue( currentDurationFilter.layoverMinDuration, maxValue:  currentDurationFilter.layoverMaxDuration)
-        layoverDurationSlider.setLeftValue( currentDurationFilter.userSelectedLayoverMin, rightValue:  currentDurationFilter.userSelectedLayoverMax)
+        layoverDurationSlider.set(leftValue: (currentDurationFilter.userSelectedLayoverMin - currentDurationFilter.layoverMinDuration)/layoverDurationDiffForFraction, rightValue: (currentDurationFilter.userSelectedLayoverMax - currentDurationFilter.layoverMinDuration)/layoverDurationDiffForFraction)
         
         layoverDurationMinLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedLayoverMin)
         layoverDurationMinLabelWidth.constant = layoverDurationMinLabel.intrinsicContentSize.width + 16.0
@@ -397,8 +392,8 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     
     @IBAction func layoverDurationChanged(_ sender: MARKRangeSlider) {
         
-        currentDurationFilter.userSelectedLayoverMin = layoverDurationSlider.leftValue.rounded(.down)
-        currentDurationFilter.userSelectedLayoverMax = layoverDurationSlider.rightValue.rounded(.up)
+        currentDurationFilter.userSelectedLayoverMin = ((layoverDurationSlider.leftValue * layoverDurationDiffForFraction) + currentDurationFilter.layoverMinDuration).rounded(.down)
+        currentDurationFilter.userSelectedLayoverMax = ((layoverDurationSlider.rightValue * layoverDurationDiffForFraction) + currentDurationFilter.layoverMinDuration).rounded(.up)
         
         layoverDurationMinLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedLayoverMin)
         layoverDurationMinLabelWidth.constant = layoverDurationMinLabel.intrinsicContentSize.width + 16.0
@@ -419,8 +414,8 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     
     @IBAction func layoverDurationUpdated(_ sender: MARKRangeSlider) {
         
-        currentDurationFilter.userSelectedLayoverMin = floor(layoverDurationSlider.leftValue)
-        currentDurationFilter.userSelectedLayoverMax = ceil(layoverDurationSlider.rightValue)
+        currentDurationFilter.userSelectedLayoverMin = ((layoverDurationSlider.leftValue * layoverDurationDiffForFraction) + currentDurationFilter.layoverMinDuration).rounded(.down)
+        currentDurationFilter.userSelectedLayoverMax = ((layoverDurationSlider.rightValue * layoverDurationDiffForFraction) + currentDurationFilter.layoverMinDuration).rounded(.up)
         durationFilters[currentActiveIndex] = currentDurationFilter
         
         if showingForReturnJourney {

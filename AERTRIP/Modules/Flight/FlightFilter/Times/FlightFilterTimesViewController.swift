@@ -107,7 +107,8 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             self.setDepartureSliderValues()
             self.setArrivalSliderValues(userSelected: false)
             self.setArrivalSliderValues(userSelected: true)
-            self.view.layoutIfNeeded()
+            self.departureRangeSlider.layoutIfNeeded()
+            self.arrivalRangeSlider.layoutIfNeeded()
         }
     }
     
@@ -797,7 +798,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     private func getSegmentTitleFor(_ index: Int) -> String {
         let currentFilter = multiLegTimerFilter[(index - 1)]
         let isFilterApplied = currentFilter.filterApplied()
-        var title = "\(multiLegTimerFilter[index - 1].leg.origin) \u{2794} \(multiLegTimerFilter[index - 1].leg.destination)"
+        var title = "\(multiLegTimerFilter[index - 1].leg.origin) \u{279E} \(multiLegTimerFilter[index - 1].leg.destination)"
         if multiLegTimerFilter.count > 3 {
             title = "\(index)"
         }
