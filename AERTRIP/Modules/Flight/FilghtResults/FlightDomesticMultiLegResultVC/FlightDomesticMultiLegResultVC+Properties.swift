@@ -163,8 +163,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         let index = IndexPath(item: indexPath, section: 0)
         if let headerCell =  headerCollectionView.cellForItem(at: index) as? FlightSectorHeaderCell {
             if indexPath == 0{
-                headerCell.veticalSeparatorWidth.constant = 0.3
-                headerCell.veticalSeparatorTrailing.constant = 0.8
+                headerCell.veticalSeparatorWidth.constant = 0.4
+                headerCell.veticalSeparatorTrailing.constant = 0.7
             }else{
                 headerCell.veticalSeparatorWidth.constant = 0.4
                 headerCell.veticalSeparatorTrailing.constant = 0.7

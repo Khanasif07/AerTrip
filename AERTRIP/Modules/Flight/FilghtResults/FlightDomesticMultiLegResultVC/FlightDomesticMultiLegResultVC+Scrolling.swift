@@ -361,6 +361,10 @@ extension FlightDomesticMultiLegResultVC {
         
     }
     
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        return scrollView != self.baseScrollView
+    }
+    
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         
         if scrollView.tag > 999 {
