@@ -107,7 +107,8 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             self.setDepartureSliderValues()
             self.setArrivalSliderValues(userSelected: false)
             self.setArrivalSliderValues(userSelected: true)
-            self.view.layoutIfNeeded()
+            self.departureRangeSlider.layoutIfNeeded()
+            self.arrivalRangeSlider.layoutIfNeeded()
         }
     }
     

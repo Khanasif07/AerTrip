@@ -107,7 +107,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         UIView.animate(withDuration: 0.3) {
             self.setupPriceSlider()
             self.setupPriceLabels()
-            self.view.layoutIfNeeded()
+            self.priceRangeSlider.layoutIfNeeded()
         }
     }
     
