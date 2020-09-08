@@ -15,6 +15,27 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
         return 1
     }
     
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let index = tableView.tag - 1000
+//        if journeyHeaderViewArray.count > index{
+//            return journeyHeaderViewArray[index]
+//        }
+//        return nil
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        let index = tableView.tag - 1000
+//        if journeyHeaderViewArray.count > index{
+//            if journeyHeaderViewArray[index].isHidden{
+//                return 138
+//            }else{
+//                return 188
+//            }
+//        }
+//        return CGFloat.leastNonzeroMagnitude
+//    }
+
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
            
            let index = tableView.tag - 1000
@@ -85,6 +106,8 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
            setTableViewHeaderAfterSelection(tableView: tableView )
         
             tableView.reloadData()
+        setTableViewHeaderAfterSelection(tableView: tableView)
+        animateJourneyCompactView(for: tableView)
        }
     
     fileprivate func setPropertiesToCellAt( index: Int, _ indexPath: IndexPath,  cell: DomesticMultiLegCell, _ tableView: UITableView) {

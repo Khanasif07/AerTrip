@@ -120,11 +120,11 @@ extension FlightDomesticMultiLegResultVC {
     }
     
         func animateJourneyCompactView(for tableView : UITableView) {
-            
-            guard let selectedRowIndex = tableView.indexPathForSelectedRow else { return }
+            let tableIndex = tableView.tag - 1000
+            guard let selectedIndex =  self.viewModel.results[tableIndex].selectesIndex else { return }//tableView.indexPathForSelectedRow
             let visibleRect = getVisibleAreaRectFor(tableView: tableView)
             let xCoordinate = tableView.frame.origin.x
-
+            let selectedRowIndex = IndexPath(row: selectedIndex, section: 0)
             var selectedRowRect = tableView.rectForRow(at: selectedRowIndex)
             selectedRowRect.origin.y = selectedRowRect.origin.y - tableView.contentOffset.y
             selectedRowRect.origin.x = xCoordinate
@@ -221,26 +221,26 @@ extension FlightDomesticMultiLegResultVC {
     
     func setTableViewHeaderFor(tableView  : UITableView) {
                 
-        let width = tableView.bounds.size.width
-        let index = tableView.tag - 1000
-        let headerView = journeyHeaderViewArray[index]
-        
-        let height : CGFloat
-        if headerView.isHidden {
-            height = 138.0
-        }
-        else {
-            height = 188.0
-        }
-        
-        let rect = CGRect(x: 0, y: 0, width: width, height: height )
-        let tableHeaderView = UIView(frame: rect)
-        tableView.tableHeaderView = tableHeaderView
+//        let width = tableView.bounds.size.width
+//        let index = tableView.tag - 1000
+//        let headerView = journeyHeaderViewArray[index]
+//
+//        let height : CGFloat
+//        if headerView.isHidden {
+//            height = 138.0
+//        }
+//        else {
+//            height = 188.0
+//        }
+//
+//        let rect = CGRect(x: 0, y: 0, width: width, height: height )
+//        let tableHeaderView = UIView(frame: rect)
+//        tableView.tableHeaderView = tableHeaderView
     }
                
 
     func setTableViewHeaderAfterSelection(tableView  : UITableView) {
-        
+        let tableIndex = tableView.tag - 1000
         let visibleRect = self.getVisibleAreaRectFor(tableView: tableView)
         let xCoordinate = tableView.frame.origin.x
         let zerothRowIndex = IndexPath(item: 0, section: 0)
@@ -276,10 +276,10 @@ extension FlightDomesticMultiLegResultVC {
             }
         }
 
-        if let selectedIndex =  tableView.indexPathForSelectedRow
+        if let selectedIndex =  self.viewModel.results[tableIndex].selectesIndex//tableView.indexPathForSelectedRow
         {
             
-            if selectedIndex.row <= 4 {
+            if selectedIndex <= 4 {//selectedIndex.row
                   height = 138.0
             }
         }
@@ -303,6 +303,9 @@ extension FlightDomesticMultiLegResultVC {
         // Synchronizing scrolling of headerCollectionView to baseScrollView scroll movement
         if scrollView == baseScrollView {
             self.syncScrollView(headerCollectionView, toScrollView: baseScrollView)
+            if scrollView.contentOffset.y > 88.0{
+                scrollView.contentOffset.y = 88.0
+            }
             return
         }
         
@@ -322,6 +325,20 @@ extension FlightDomesticMultiLegResultVC {
                         tableView.setContentOffset(tableView.contentOffset, animated: false)
                     }
                 }
+            }
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if scrollView.tag > 999 {
+            if let tableView = scrollView as? UITableView {
+                setTableViewHeaderFor(tableView: tableView)
+                snapToTopOrBottomOnSlowScrollDragging(scrollView)
+                return
+            }
+        }else if scrollView == self.baseScrollView{
+            if scrollView.contentOffset.y < 88.0{
+                self.revealAnimationOfNavigationBarOnScroll(offsetDifference: -88.0)
             }
         }
     }
@@ -362,6 +379,12 @@ extension FlightDomesticMultiLegResultVC {
                 return
             }
         }
+//        else{
+//            if scrollView.contentOffset.y < 88.0{
+//                self.revealAnimationOfNavigationBarOnScroll(offsetDifference: -88.0)
+//            }
+//
+//        }
 
     }
     
@@ -409,6 +432,9 @@ extension FlightDomesticMultiLegResultVC {
 //            }
             
             lastTargetContentOffsetX = targetContentOffset.pointee.x
+            if scrollView.contentOffset.y < 88.0{
+                self.revealAnimationOfNavigationBarOnScroll(offsetDifference: -88.0)
+            }
         }
     }
 }

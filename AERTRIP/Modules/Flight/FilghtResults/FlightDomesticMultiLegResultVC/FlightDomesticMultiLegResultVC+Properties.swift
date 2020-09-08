@@ -131,7 +131,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let width =  UIScreen.main.bounds.size.width / 2.0
-        let height = self.baseScrollView.frame.height + statusBarHeight + 88.0
+        let height = self.baseScrollView.frame.height + 88.0//statusBarHeight + 88.0
         baseScrollView.contentSize = CGSize( width: (CGFloat(self.viewModel.numberOfLegs) * width ), height:height)
 
         for view in self.baseScrollView.subviews {
