@@ -43,7 +43,8 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     var previousRequest : DispatchWorkItem?
     let getSharableLink = GetSharableUrl()
     let viewModel = FlightResultSingleJourneyVM()
-
+    var flightSearchResultVM: FlightSearchResultVM?
+    var flightSearchParameters: NSDictionary?
     
     //MARK:- View Controller Methods
     override func viewDidLoad() {
@@ -516,7 +517,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         let storyboard = UIStoryboard(name: "FlightDetailsBaseVC", bundle: nil)
         let flightDetailsVC:FlightDetailsBaseVC =
             storyboard.instantiateViewController(withIdentifier: "FlightDetailsBaseVC") as! FlightDetailsBaseVC
-        
+        flightDetailsVC.flightSearchResultVM = self.flightSearchResultVM
         flightDetailsVC.delegate = self
         flightDetailsVC.bookFlightObject = self.viewModel.bookFlightObject
         flightDetailsVC.taxesResult = self.viewModel.taxesResult

@@ -98,6 +98,7 @@
     [super viewDidLoad];
     [self setupInitials];
     [self setAerinSearchClosure];
+    [self setSharedUrlClosure];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -210,6 +211,15 @@
     self.bridgingObj = [SwiftObjCBridgingController shared];
     __weak typeof(self) weakSelf = self;
     [self.bridgingObj setOnFetchingFlightFormData:^(NSMutableDictionary<NSString *,id> * dict) {
+        [weakSelf.viewModel performFlightSearchWith:dict];
+    }];
+}
+
+-(void)setSharedUrlClosure {
+    self.bridgingObj = [SwiftObjCBridgingController shared];
+    __weak typeof(self) weakSelf = self;
+
+    [self.bridgingObj setOnFetchingFlightFormDataForSharedUrl:^(NSMutableDictionary<NSString *  ,id>*  dict){
         [weakSelf.viewModel performFlightSearchWith:dict];
     }];
 }

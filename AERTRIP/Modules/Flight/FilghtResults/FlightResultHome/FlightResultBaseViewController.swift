@@ -1197,6 +1197,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             if let singleJourneyVC = self.singleJourneyResultVC {
                 singleJourneyVC.viewModel.updatedApiProgress = updatedApiProgress
                 singleJourneyVC.viewModel.airlineCode = airlineCode
+                singleJourneyVC.flightSearchParameters = self.flightSearchParameters
                 singleJourneyVC.updateWithArray( resultVM.getOnewayJourneyDisplayArray(), sortOrder: resultVM.getSortOrder())
                 singleJourneyVC.updateAirportDetailsArray(resultVM.getOnewayAirportArray())
                 singleJourneyVC.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
