@@ -33,7 +33,7 @@ class AccountLadgerDetailsVM {
             let daysStr = (days > 1) ? "days" : "day"
             //fAmountDetails["Over Due by days"] = "\(abs(days)) \(daysStr)"
             var section1 = [(title: String, value: String, age: String, isEmptyCell: Bool)]()
-            section1.append((title: "Pending Amount", value: "\(self.ladgerEvent!.pendingAmount)", age: "", isEmptyCell: false))
+            section1.append((title: "Pending Amount", value: "\(self.ladgerEvent!.pendingAmount.amountInDelimeterWithSymbol)", age: "", isEmptyCell: false))
             section1.append((title: "Due Date", value: self.ladgerEvent!.dueDate?.toString(dateFormat: "dd-MM-YYYY") ?? "", age: "", isEmptyCell: false))
             section1.append((title: "Over Due by days", value: "\(abs(days)) \(daysStr)", age: "", isEmptyCell: false))
             section1.append((title: "", value: "", age: "", isEmptyCell: true))
@@ -46,7 +46,8 @@ class AccountLadgerDetailsVM {
         if  !self.ladgerEvent!.voucherNo.isEmpty{
             section1.append((title: "Voucher No.", value: self.ladgerEvent!.voucherNo, age: "",  isEmptyCell: false))
         }
-        section1.append((title: "Amount", value: "\(abs(self.ladgerEvent!.amount))", age: "", isEmptyCell: false))
+        let suffix = self.ladgerEvent!.amount > 0 ? LocalizedString.DebitShort.localized : LocalizedString.CreditShort.localized
+        section1.append((title: "Amount", value: "\(abs(self.ladgerEvent!.amount).amountInDelimeterWithSymbol) \(suffix)", age: "", isEmptyCell: false))
 //        section1.append((title: "Balance", value: "\(self.ladgerEvent!.balance)", age: "", isEmptyCell: false))
         section1.append((title: "", value: "", age: "", isEmptyCell: true))
         self.sectionArray.append(section1)
@@ -90,7 +91,7 @@ class AccountLadgerDetailsVM {
             let daysStr = (days > 1) ? "days" : "day"
             //fAmountDetails["Over Due by days"] = "\(abs(days)) \(daysStr)"
             var section1 = [(title: String, value: String, age: String, isEmptyCell: Bool)]()
-            section1.append((title: "Pending Amount", value: "\(self.ladgerEvent!.pendingAmount)", age: "", isEmptyCell: false))
+            section1.append((title: "Pending Amount", value: "\(self.ladgerEvent!.pendingAmount.amountInDelimeterWithSymbol)", age: "", isEmptyCell: false))
             section1.append((title: "Due Date", value: self.ladgerEvent!.dueDate?.toString(dateFormat: "dd-MM-YYYY") ?? "", age: "", isEmptyCell: false))
             section1.append((title: "Over Due by days", value: "\(abs(days)) \(daysStr)", age: "", isEmptyCell: false))
             section1.append((title: "", value: "", age: "", isEmptyCell: true))
@@ -102,7 +103,7 @@ class AccountLadgerDetailsVM {
             if  !self.ladgerEvent!.voucherNo.isEmpty{
                 section2.append((title: "Voucher No.", value: self.ladgerEvent!.voucherNo, age: "", isEmptyCell: false))
             }
-            section2.append((title: "Total Amount", value: "\(self.ladgerEvent!.amount)", age: "", isEmptyCell: false))
+            section2.append((title: "Total Amount", value: "\(self.ladgerEvent!.amount.amountInDelimeterWithSymbol)", age: "", isEmptyCell: false))
             section2.append((title: "", value: "", age: "", isEmptyCell: true))
             self.sectionArray.append(section2)
             
@@ -148,7 +149,8 @@ class AccountLadgerDetailsVM {
             if  !self.ladgerEvent!.voucherNo.isEmpty{
                 section1.append((title: "Voucher No.", value: self.ladgerEvent!.voucherNo, age: "", isEmptyCell: false))
             }
-            section1.append((title: "Amount", value: "\(abs(self.ladgerEvent!.amount))", age: "", isEmptyCell: false))
+            let suffix = self.ladgerEvent!.amount > 0 ? LocalizedString.DebitShort.localized : LocalizedString.CreditShort.localized
+            section1.append((title: "Amount", value: "\(abs(self.ladgerEvent!.amount).amountInDelimeterWithSymbol) \(suffix)", age: "", isEmptyCell: false))
 //            section1.append((title: "Balance", value: "\(self.ladgerEvent!.balance)", age: "", isEmptyCell: false))
             section1.append((title: "", value: "", age: "", isEmptyCell: true))
             self.sectionArray.append(section1)
@@ -204,7 +206,8 @@ class AccountLadgerDetailsVM {
             if  !self.ladgerEvent!.voucherNo.isEmpty{
                 section1.append((title: "Voucher No.", value: self.ladgerEvent!.voucherNo, age: "", isEmptyCell: false))
             }
-            section1.append((title: "Amount", value: "\(abs(self.ladgerEvent!.amount))", age: "",
+            let suffix = self.ladgerEvent!.amount > 0 ? LocalizedString.DebitShort.localized : LocalizedString.CreditShort.localized
+            section1.append((title: "Amount", value: "\(abs(self.ladgerEvent!.amount).amountInDelimeterWithSymbol) \(suffix)", age: "",
                              isEmptyCell: false))
 //            section1.append((title: "Balance", value: "\(self.ladgerEvent!.balance)", age: "", isEmptyCell: false))
             section1.append((title: "", value: "", age: "", isEmptyCell: true))
@@ -216,7 +219,7 @@ class AccountLadgerDetailsVM {
             let daysStr = (days > 1) ? "days" : "day"
             //fAmountDetails["Over Due by days"] = "\(abs(days)) \(daysStr)"
             var section1 = [(title: String, value: String, age: String, isEmptyCell: Bool)]()
-            section1.append((title: "Pending Amount", value: "\(self.ladgerEvent!.pendingAmount)", age: "", isEmptyCell: false))
+            section1.append((title: "Pending Amount", value: "\(self.ladgerEvent!.pendingAmount.amountInDelimeterWithSymbol)", age: "", isEmptyCell: false))
             section1.append((title: "Due Date", value: self.ladgerEvent!.dueDate?.toString(dateFormat: "dd-MM-YYYY") ?? "", age: "", isEmptyCell: false))
             section1.append((title: "Over Due by days", value: "\(abs(days)) \(daysStr)", age: "", isEmptyCell: false))
             section1.append((title: "", value: "", age: "", isEmptyCell: true))
@@ -227,7 +230,7 @@ class AccountLadgerDetailsVM {
             if  !self.ladgerEvent!.voucherNo.isEmpty{
                 section2.append((title: "Voucher No.", value: self.ladgerEvent!.voucherNo, age: "", isEmptyCell: false))
             }
-            section2.append((title: "Total Amount", value: "\(self.ladgerEvent!.amount)", age: "", isEmptyCell: false))
+            section2.append((title: "Total Amount", value: "\(self.ladgerEvent!.amount.amountInDelimeterWithSymbol)", age: "", isEmptyCell: false))
             section2.append((title: "", value: "", age: "", isEmptyCell: true))
             self.sectionArray.append(section2)
 

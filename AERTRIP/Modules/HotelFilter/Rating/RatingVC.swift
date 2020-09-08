@@ -20,6 +20,9 @@ class RatingVC: BaseVC {
     @IBOutlet weak var tripAdvisorStarLabel: UILabel!
     @IBOutlet var starButtonsOutlet: [UIButton]!
     @IBOutlet var tripAdvisorRatingButtons: [UIButton]!
+    @IBOutlet weak var includeUnrateViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var includeUnratedViewBottomConstraint: NSLayoutConstraint!
+    
     
     // MARK: - Variables
     
@@ -28,6 +31,13 @@ class RatingVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if HotelFilterVM.shared.showIncludeUnrated {
+            self.includeUnrateViewHeightConstraint.constant = 44
+            self.includeUnratedViewBottomConstraint.constant = 16
+        } else {
+            self.includeUnrateViewHeightConstraint.constant = 0
+            self.includeUnratedViewBottomConstraint.constant = 0
+        }
         self.setFilterValues()
     }
     
@@ -127,6 +137,7 @@ class RatingVC: BaseVC {
             HotelFilterVM.shared.delegate?.updateFiltersTabs()
 //        }
         print("size: \(sender.size)")
+        
         
     }
     

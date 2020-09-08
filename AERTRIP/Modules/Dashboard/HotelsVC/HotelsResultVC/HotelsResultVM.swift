@@ -106,9 +106,13 @@ class HotelsResultVM: NSObject {
             if success {
                 sSelf.hotelListResult = hotels
                 HotelFilterVM.shared.totalHotelCount = hotels.count
+                
                 for hotel in hotels {
                     _ = HotelSearched.insert(dataDict: hotel.jsonDict)
                 }
+                let result = CoreDataManager.shared.fetchData("HotelSearched", nsPredicate: NSPredicate(format: "filterStar CONTAINS[c] '\(0)'")) ?? []
+                printDebug("hotels count with zero rating \(result.count)")
+                HotelFilterVM.shared.showIncludeUnrated = !result.isEmpty
                 sSelf.hotelResultDelegate?.getAllHotelsListResultSuccess(isDone)
                 sSelf.hotelMapDelegate?.getAllHotelsListResultSuccess(isDone)
             } else {

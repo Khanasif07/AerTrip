@@ -94,6 +94,7 @@ extension ChatVC : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
             hotelData.lng = object.lng
             hotelData.isHotelNearMeSelected = false
             HotelsSearchVM.hotelFormData = hotelData
+            AppFlowManager.default.showHotelResult = true
             AppFlowManager.default.goToDashboard(toBeSelect: .hotels)
         } else {
             if let flight = object.flight {

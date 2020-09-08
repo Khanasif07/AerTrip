@@ -791,6 +791,7 @@ enum LocalizedString: String {
     case VoucherNo
     case DownloadInvoice
     case DownloadReceipt
+    case DownloadVoucher
     case Directions
     case RequestAddOnsAndFF
     case AddOns

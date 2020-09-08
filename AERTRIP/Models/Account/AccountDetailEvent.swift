@@ -437,7 +437,7 @@ struct AccountDetailEvent {
                     self.flightNumber += (self.flightNumber.isEmpty) ? num : ",\(num)"
                 }
                 if let pnrs = row["pnrs"] as? [JSONDictionary], !pnrs.isEmpty {
-                    if let first = rows.first {
+                    if let first = pnrs.first {
                         if let obj = first["pnr"] {
                             //pnr
                             self.pnr = "\(obj)"
@@ -561,6 +561,9 @@ struct AccountDetailEvent {
                 
                 //confirmation id
                 self.confirmationId = ""//LocalizedString.dash.localized
+                if let obj = first["voucher_id"] {
+                    self.confirmationId = "\(obj)"
+                }
                 
                 //guest names
                 for room in rows {

@@ -215,17 +215,21 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
         var tripAdvisorPredicate: NSPredicate?
         var tripAdvisorPredicates = [AnyHashable]()
         
-//        if self.filterApplied.tripAdvisorRatingCount.isEmpty {
-//            tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '0'"))
-//        }
-//        else {
-            for rating in self.filterApplied.tripAdvisorRatingCount {
-                tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '\(rating)'"))
-            }
-//            if !self.filterApplied.tripAdvisorRatingCount.contains(0) {
-//                tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '0'"))
-//            }
-//        }
+        //        if self.filterApplied.tripAdvisorRatingCount.isEmpty {
+        //            tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '0'"))
+        //        }
+        //        else {
+        var array = self.filterApplied.tripAdvisorRatingCount
+        if !array.contains(0) {
+            array.append(0)
+        }
+        for rating in array {
+            tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '\(rating)'"))
+        }
+        //            if !self.filterApplied.tripAdvisorRatingCount.contains(0) {
+        //                tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '0'"))
+        //            }
+        //        }
         
         if tripAdvisorPredicates.count > 0 {
             if let tripAdvisorPredicates = tripAdvisorPredicates as? [NSPredicate] {
@@ -253,16 +257,16 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
             try self.fetchedResultsController.performFetch()
             self.hotelResultDelegate?.getHotelsCount()
             self.hotelMapDelegate?.getHotelsCount()
-
+            
             if !self.searchTextStr.isEmpty {
                 self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
                 //TO DO
-               // self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
+                // self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
             }
             
             self.fetchHotelsDataForCollectionView(fromController: self.fetchedResultsController)
             self.hotelMapDelegate?.reloadHotelList(isUpdatingFav: isUpdatingFav)
-
+            
             if !isUpdatingFav {
                 self.hotelResultDelegate?.reloadHotelList(isUpdatingFav: isUpdatingFav)
             }
@@ -318,9 +322,9 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch (type) {
-            //        case .insert:
-            //            if let indexPath = newIndexPath {
-            //                tableViewVertical.insertRows(at: [indexPath], with: .fade)
+        //        case .insert:
+        //            if let indexPath = newIndexPath {
+        //                tableViewVertical.insertRows(at: [indexPath], with: .fade)
         //            }
         case .delete:
             
@@ -331,20 +335,20 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
                     self.deleteHotelsDataForCollectionView(hotel: hotel)
                 }
             }
-            //        case .update:
-            //            if let indexPath = indexPath, let cell = tableViewVertical.cellForRow(at: indexPath) as? HotelCardTableViewCell {
-            //                configureCell(cell: cell, at: indexPath)
-            //            }
-            //        case .move:
-            //            if let indexPath = indexPath {
-            //                tableViewVertical.deleteRows(at: [indexPath], with: .fade)
-            //            }
-            //
-            //            if let newIndexPath = newIndexPath {
-            //                tableViewVertical.insertRows(at: [newIndexPath], with: .fade)
-            //            }
-            
-            
+        //        case .update:
+        //            if let indexPath = indexPath, let cell = tableViewVertical.cellForRow(at: indexPath) as? HotelCardTableViewCell {
+        //                configureCell(cell: cell, at: indexPath)
+        //            }
+        //        case .move:
+        //            if let indexPath = indexPath {
+        //                tableViewVertical.deleteRows(at: [indexPath], with: .fade)
+        //            }
+        //
+        //            if let newIndexPath = newIndexPath {
+        //                tableViewVertical.insertRows(at: [newIndexPath], with: .fade)
+        //            }
+        
+        
         @unknown default: break
         }
     }

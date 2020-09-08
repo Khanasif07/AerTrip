@@ -104,6 +104,9 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 guard let emptyCell = self.tableView.dequeueReusableCell(withIdentifier: "EmptyTableViewCell") as? EmptyTableViewCell else {
                     fatalError("EmptyTableViewCell not found")
                 }
+                emptyCell.clipsToBounds = true
+                emptyCell.backgroundColor = AppColors.themeGray04
+                emptyCell.contentView.backgroundColor = AppColors.themeGray04
                 emptyCell.bottomDividerView.isHidden = true//(indexPath.row == 2)
                 emptyCell.topDividerView.isHidden = (indexPath.row == 2)
                 emptyCell.topDividerTopConstraint.constant = 0.0
@@ -112,15 +115,22 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 guard let downloadInvoiceCell = self.tableView.dequeueReusableCell(withIdentifier: "DownloadInvoiceTableViewCell") as? DownloadInvoiceTableViewCell else {
                     fatalError("DownloadInvoiceTableViewCell not found")
                 }
-                var isForVouchre = false
-                if let type = self.viewModel.ladgerEvent?.productType{
-                    switch type{
-                    case .hotel, .flight: isForVouchre = false
-                    default:    isForVouchre = (self.viewModel.sectionArray.count < 2)
-                    }
+//                var isForVouchre = false
+//                if let type = self.viewModel.ladgerEvent?.productType{
+//                    switch type{
+//                    case .hotel, .flight: isForVouchre = false
+//                    default:    isForVouchre = (self.viewModel.sectionArray.count < 2)
+//                    }
+//                }
+                if self.viewModel.ladgerEvent?.voucher == .sales  {
+                    downloadInvoiceCell.titleLabel.text = LocalizedString.DownloadInvoice.localized
+                } else if self.viewModel.ladgerEvent?.voucher == .receipt {
+                    downloadInvoiceCell.titleLabel.text = LocalizedString.DownloadReceipt.localized
+                } else {
+                    downloadInvoiceCell.titleLabel.text = LocalizedString.DownloadVoucher.localized
                 }
                 downloadInvoiceCell.showLoader = self.viewModel.isDownloadingRecipt
-                downloadInvoiceCell.titleLabel.text = isForVouchre ? LocalizedString.DownloadReceipt.localized : LocalizedString.DownloadInvoice.localized
+//                downloadInvoiceCell.titleLabel.text = isForVouchre ? LocalizedString.DownloadReceipt.localized : LocalizedString.DownloadInvoice.localized
                 
                 return downloadInvoiceCell
             default: return UITableViewCell()
@@ -303,8 +313,9 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         let value:CGFloat = (self.numberOfSections(in: self.tableView) - 1 ) == indexPath.section ? 0 : 16
         cell.dividerLeadingConstraint.constant = value
         cell.dividerTrailingConstraint.constant = value
+        
 //        if indexPath.section == self.viewModel.ladgerDetails.count{
-        cell.isHidden = (indexPath.section == self.viewModel.sectionArray.count)
+        cell.dividerView.isHidden = (indexPath.section == self.viewModel.sectionArray.count)
 //        }
         return cell
     }
@@ -315,7 +326,20 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         if title == "Balance" || title == "Amount" || title == "Total Amount"  || title == "Pending Amount"{
-            let val = (description.toDouble ?? 0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+            var desc = description
+            var suffix: NSMutableAttributedString?
+            if desc.contains(LocalizedString.DebitShort.localized) {
+                desc = desc.replacingLastOccurrenceOfString(" \(LocalizedString.DebitShort.localized)", with: "")
+                suffix = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
+            }
+            if desc.contains(LocalizedString.CreditShort.localized) {
+                desc = desc.replacingLastOccurrenceOfString(" \(LocalizedString.CreditShort.localized)", with: "")
+                suffix = NSMutableAttributedString(string: " \(LocalizedString.CreditShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
+            }
+            let val = desc.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+            if let mutableString = suffix {
+                val.append(mutableString)
+            }
             cell.configureCellWithAttributedText(title: title, description: val)
         }else{
             cell.configure(title: title, description: description, age: age)

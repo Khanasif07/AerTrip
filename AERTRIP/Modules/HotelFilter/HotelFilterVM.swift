@@ -57,6 +57,8 @@ class HotelFilterVM {
     var sortUsing: SortUsing = .BestSellers
     var priceType: Price = .Total
     var totalHotelCount: Int = 0
+    var showIncludeUnrated: Bool = true
+
     var filterHotelCount: Int = 0
     var lastSelectedIndex: Int = 0
     var isSortingApplied: Bool = false
@@ -79,11 +81,11 @@ class HotelFilterVM {
         let diff = HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount)
         let taDiff = HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount)
 
-        if 1...4 ~= diff.count {
+        if 1...5 ~= diff.count {
             isRatingChanged = false
         }
         
-        if 1...4 ~= taDiff.count {
+        if 1...5 ~= taDiff.count {
             isTARatingChanged = false
         }
         
@@ -115,13 +117,13 @@ class HotelFilterVM {
     
     func saveDataToUserDefaults() {
         var filter = UserInfo.HotelFilter()
-        if 1...4 ~= ratingCount.count {
+        if 1...5 ~= ratingCount.count {
             filter.ratingCount = ratingCount
         }
         else {
             filter.ratingCount = defaultRatingCount
         }
-        if 1...4 ~= tripAdvisorRatingCount.count {
+        if 1...5 ~= tripAdvisorRatingCount.count {
             filter.tripAdvisorRatingCount = tripAdvisorRatingCount
         }
         else {

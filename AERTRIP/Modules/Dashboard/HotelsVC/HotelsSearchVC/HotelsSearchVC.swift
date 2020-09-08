@@ -119,7 +119,13 @@ class HotelsSearchVC: BaseVC {
         self.updateNearMeLocation()
         
         NotificationCenter.default.addObserver(self, selector: #selector(checkoutSessionExpired(_:)), name: .checkoutSessionExpired, object: nil)
-
+        
+        if AppFlowManager.default.showHotelResult {
+            AppFlowManager.default.showHotelResult = false
+            delay(seconds: 0.6) {
+                self.searchButtonAction(self.searchBtnOutlet)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
