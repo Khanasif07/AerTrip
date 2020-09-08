@@ -319,6 +319,9 @@ int alreadySelectedComponent = 0;
         NSUInteger adultCount = tempTravellerCount.flightAdultCount ;
         [self.pickerView selectRow:adultCount inComponent:2 animated:YES];
 //        [AertripToastView toastInView:self.view withText:@"Infants should not exceed adults"];
+        
+        
+        
         [self displayToastWithMessage:@"Infants should not exceed adults" component:2];
 
 
@@ -395,6 +398,12 @@ int alreadySelectedComponent = 0;
 
 -(void)displayToastWithMessage:(NSString *)toastMessage component:(int)component
 {
+    
+    CustomToast *toastView = [CustomToast shared];
+    [toastView showToast:toastMessage];
+    return;
+    
+    
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         UIView *toastView = [[UIView alloc] init];
         toastView.frame = CGRectMake(16.0, self.view.frame.size.height, self.view.frame.size.width-32, 50.0);

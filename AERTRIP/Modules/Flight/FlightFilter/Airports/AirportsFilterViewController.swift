@@ -328,7 +328,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
     private func getSegmentTitleFor(_ index: Int) -> String {
         let currentFilter = airportFilterArray[(index - 1)]
         let isFilterApplied = currentFilter.filterApplied()
-        var title = "\(currentFilter.leg.origin) \u{2794} \(currentFilter.leg.destination)"
+        var title = "\(currentFilter.leg.origin) \u{279E} \(currentFilter.leg.destination)"
         if airportFilterArray.count > 3 {
             title = "\(index)"
         }

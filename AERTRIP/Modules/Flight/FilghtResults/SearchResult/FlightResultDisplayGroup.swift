@@ -32,8 +32,8 @@ class FlightResultDisplayGroup {
     var InputJourneyArray = [Journey]()
     var processedJourneyArray = [Journey]()
     var sortOrder : Sort = .Smart
-    var userSelectedFilters : FiltersWS!
-    var inputFilter : FiltersWS!
+    var userSelectedFilters : FiltersWS?
+    var inputFilter : FiltersWS?
     var updatedFilterResultCount = 0
     
     internal var isAPIResponseUpdated = false

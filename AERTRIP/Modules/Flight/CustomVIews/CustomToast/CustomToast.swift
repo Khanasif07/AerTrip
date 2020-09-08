@@ -10,6 +10,10 @@ import UIKit
 
 @objc open class CustomToast: NSObject {
     
+    // MARK: Variables
+    private var lastMessage = ""
+    private var messageWorkItem: DispatchWorkItem?
+    
     ///to keep a single instance throughout the application
     @objc static let shared = CustomToast()
         
@@ -17,6 +21,18 @@ import UIKit
     /// - Parameter msg: Message to be displayed within the toast
     @objc func showToast(_ msg: String) {
         guard let window = AppDelegate.shared.window else { return }
+        
+        if msg == lastMessage {
+            if let toast = window.subviews.first(where: { $0 is CustomToastView }) {
+                guard let lastToast = toast as? CustomToastView else { return }
+                messageWorkItem?.cancel()
+                messageWorkItem = DispatchWorkItem(block: {
+                    self.hideToast(lastToast)
+                })
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: messageWorkItem!)
+                return
+            }
+        }
         
         fadeAllToasts()
         let toastView = CustomToastView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height - 100, width: UIScreen.main.bounds.width, height: 100))
@@ -27,9 +43,13 @@ import UIKit
             toastView.transform = .identity
         }, completion: nil)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        messageWorkItem = DispatchWorkItem(block: {
             self.hideToast(toastView)
-        }
+        })
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: messageWorkItem!)
+        
+        lastMessage = msg
     }
     
     /// hides all existing toasts with fade animation

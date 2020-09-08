@@ -66,7 +66,9 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     @IBOutlet weak var priceRangeSlider: MARKRangeSlider!
     @IBOutlet weak var multicityViewHeight: NSLayoutConstraint!
     @IBOutlet weak var JourneyTitle: UILabel!
+    @IBOutlet weak var fareMinValView: UIView!
     @IBOutlet weak var fareMinValue: UILabel!
+    @IBOutlet weak var fareMaxValView: UIView!
     @IBOutlet weak var fareMaxValue: UILabel!
     @IBOutlet weak var refundableFaresButton: UIButton!
     @IBOutlet weak var refundableFaresOnlyLabel: UILabel!
@@ -91,6 +93,9 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
+        fareMinValView.roundedCorners(cornerRadius: fareMinValView.height/2)
+        fareMaxValView.roundedCorners(cornerRadius: fareMaxValView.height/2)
     }
 
     //MARK:- Additional UI Methods
@@ -102,7 +107,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         UIView.animate(withDuration: 0.3) {
             self.setupPriceSlider()
             self.setupPriceLabels()
-            self.view.layoutIfNeeded()
+            self.priceRangeSlider.layoutIfNeeded()
         }
     }
     
@@ -191,7 +196,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     private func getSegmentTitleFor(_ index: Int) -> String {
         let currentFilter = allPriceFilters[(index - 1)]
         let isFilterApplied = currentFilter.filterApplied()
-        var title = "\(legsArray[index - 1].origin) \u{2794} \(legsArray[index - 1].destination)"
+        var title = "\(legsArray[index - 1].origin) \u{279E} \(legsArray[index - 1].destination)"
         if allPriceFilters.count > 3 {
             title = "\(index)"
         }
@@ -238,12 +243,11 @@ class PriceFilterViewController: UIViewController , FilterViewController {
             .font: UIFont(name: "SourceSansPro-Regular", size: 18.0)!,
             .foregroundColor: UIColor.black,
             .kern: 0.0
-            ])
+        ])
         
-            attributedString.addAttribute(.font, value: UIFont(name: "SourceSansPro-Regular", size: 14.0)!, range:NSRange(location: 0, length: 1))
-//            attributedString.addAttribute(.font, value: UIFont(name: "SourceSansPro-Regular", size: 14.0)!, range:NSRange(location: distance, length: 1))
+        attributedString.addAttribute(.font, value: UIFont(name: "SourceSansPro-Regular", size: 14.0)!, range:NSRange(location: 0, length: 1))
+        //            attributedString.addAttribute(.font, value: UIFont(name: "SourceSansPro-Regular", size: 14.0)!, range:NSRange(location: distance, length: 1))
         return attributedString
-        
     }
     
     func setupUI() {
