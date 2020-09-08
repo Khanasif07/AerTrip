@@ -305,6 +305,8 @@ extension FlightDomesticMultiLegResultVC {
             self.syncScrollView(headerCollectionView, toScrollView: baseScrollView)
             if scrollView.contentOffset.y > 88.0{
                 scrollView.contentOffset.y = 88.0
+            }else{
+                self.changeContentOfssetWithMainScrollView()
             }
             return
         }
@@ -329,19 +331,21 @@ extension FlightDomesticMultiLegResultVC {
         }
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if scrollView.tag > 999 {
-            if let tableView = scrollView as? UITableView {
-                setTableViewHeaderFor(tableView: tableView)
-                snapToTopOrBottomOnSlowScrollDragging(scrollView)
-                return
-            }
-        }else if scrollView == self.baseScrollView{
-            if scrollView.contentOffset.y < 88.0{
-                self.revealAnimationOfNavigationBarOnScroll(offsetDifference: -88.0)
-            }
-        }
+    func changeContentOfssetWithMainScrollView(){
+        guard let blurView = self.navigationController?.view.viewWithTag(500) else  {return}
+        blurView.frame.origin.y = -self.baseScrollView.contentOffset.y
+        self.headerCollectionView.frame.origin.y = (88.0 - self.baseScrollView.contentOffset.y)
+        self.headerCollectionViewTop.constant = (88.0 - self.baseScrollView.contentOffset.y)
     }
+    
+    
+//    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+//        self.revealAnimationOfNavigationBarOnScroll(offsetDifference: -88.0)
+//    }
+//
+//    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+//        return true
+//    }
     
     func syncScrollView(_ scrollViewToScroll: UIScrollView, toScrollView scrolledView: UIScrollView) {
         
@@ -432,9 +436,6 @@ extension FlightDomesticMultiLegResultVC {
 //            }
             
             lastTargetContentOffsetX = targetContentOffset.pointee.x
-            if scrollView.contentOffset.y < 88.0{
-                self.revealAnimationOfNavigationBarOnScroll(offsetDifference: -88.0)
-            }
         }
     }
 }
