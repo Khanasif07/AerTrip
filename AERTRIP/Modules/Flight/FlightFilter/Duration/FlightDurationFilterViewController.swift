@@ -300,7 +300,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     private func getSegmentTitleFor(_ index: Int) -> String {
         let currentFilter = durationFilters[(index - 1)]
         let isFilterApplied = currentFilter.filterApplied()
-        var title = "\(legsArray[index - 1].origin) \u{2794} \(legsArray[index - 1].destination)"
+        var title = "\(legsArray[index - 1].origin) \u{279E} \(legsArray[index - 1].destination)"
         if durationFilters.count > 3 {
             title = "\(index)"
         }

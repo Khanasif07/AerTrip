@@ -797,7 +797,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     private func getSegmentTitleFor(_ index: Int) -> String {
         let currentFilter = multiLegTimerFilter[(index - 1)]
         let isFilterApplied = currentFilter.filterApplied()
-        var title = "\(multiLegTimerFilter[index - 1].leg.origin) \u{2794} \(multiLegTimerFilter[index - 1].leg.destination)"
+        var title = "\(multiLegTimerFilter[index - 1].leg.origin) \u{279E} \(multiLegTimerFilter[index - 1].leg.destination)"
         if multiLegTimerFilter.count > 3 {
             title = "\(index)"
         }
