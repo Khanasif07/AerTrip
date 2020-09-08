@@ -331,21 +331,15 @@ extension FlightDomesticMultiLegResultVC {
         }
     }
     
-    func changeContentOfssetWithMainScrollView(){
+    func changeContentOfssetWithMainScrollView(_ isNeedToAnimate:Bool = false){
         guard let blurView = self.navigationController?.view.viewWithTag(500) else  {return}
-        blurView.frame.origin.y = -self.baseScrollView.contentOffset.y
-        self.headerCollectionView.frame.origin.y = (88.0 - self.baseScrollView.contentOffset.y)
-        self.headerCollectionViewTop.constant = (88.0 - self.baseScrollView.contentOffset.y)
+        UIView.animate(withDuration: isNeedToAnimate ? 0.3 : 0.0) {
+            blurView.frame.origin.y = -self.baseScrollView.contentOffset.y
+            self.headerCollectionView.frame.origin.y = (88.0 - self.baseScrollView.contentOffset.y)
+            self.headerCollectionViewTop.constant = (88.0 - self.baseScrollView.contentOffset.y)
+            self.view.layoutIfNeeded()
+        }
     }
-    
-    
-//    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-//        self.revealAnimationOfNavigationBarOnScroll(offsetDifference: -88.0)
-//    }
-//
-//    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-//        return true
-//    }
     
     func syncScrollView(_ scrollViewToScroll: UIScrollView, toScrollView scrolledView: UIScrollView) {
         
@@ -363,7 +357,6 @@ extension FlightDomesticMultiLegResultVC {
             var scrollBounds = scrollViewToScroll.bounds
             scrollBounds.origin.x = scrolledView.contentOffset.x + offset
             scrollViewToScroll.bounds = scrollBounds
-
         }
         
     }
@@ -378,17 +371,23 @@ extension FlightDomesticMultiLegResultVC {
 //                        return
 //                    }
 //                }
-                setTableViewHeaderFor(tableView: tableView)
+//                setTableViewHeaderFor(tableView: tableView)
+                animateJourneyCompactView(for: tableView)
                 snapToTopOrBottomOnSlowScrollDragging(scrollView)
                 return
             }
         }
-//        else{
-//            if scrollView.contentOffset.y < 88.0{
-//                self.revealAnimationOfNavigationBarOnScroll(offsetDifference: -88.0)
-//            }
-//
-//        }
+        else{
+            if scrollView == self.baseScrollView && scrollView.contentOffset.y < 88.0{
+                if scrollView.contentOffset.y < 44{
+                    scrollView.contentOffset.y = 0.0
+                }else{
+                    scrollView.contentOffset.y = 88.0
+                }
+                self.changeContentOfssetWithMainScrollView(true)
+            }
+            
+        }
 
     }
     
