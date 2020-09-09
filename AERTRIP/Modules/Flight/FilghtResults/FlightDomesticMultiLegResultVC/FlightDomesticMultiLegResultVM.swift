@@ -301,6 +301,25 @@ class FlightDomesticMultiLegResultVM {
         return arrayForDisplay
          
     }
+
+    
+    func selectFlightsInInitialFlow(tableIndex : Int){
+        let currentDataSorce = self.currentDataSource(tableIndex: tableIndex)
+        if currentDataSorce.isEmpty || self.resultsTableStates[tableIndex] == .showTemplateResults { return }
+        
+        if self.results[tableIndex].selectedJourney == nil {
+            self.results[tableIndex].selectedJourney = currentDataSorce.first
+        } else  {
+            
+            let selectedJourney = currentDataSorce.filter { $0.fk == self.results[tableIndex].selectedJourney?.fk }
+            
+            if selectedJourney.isEmpty {
+                self.results[tableIndex].selectedJourney = currentDataSorce.first
+            }
+            
+        }
+    }
+    
     
     func setSelectedJourney(tableIndex : Int, journeyIndex : Int) {
         let currentDataSorce = self.currentDataSource(tableIndex: tableIndex)

@@ -60,8 +60,6 @@ extension FlightResultSingleJourneyVC {
                             if flightNum.uppercased() == self.viewModel.airlineCode.uppercased() {
                                 
                                 print("flightNum....\(flightNum.uppercased())")
-
-                                
                                 self.setPinnedFlightAt(journ.fk , isPinned: true)
                                 self.switchView.isOn = true
                                 self.switcherDidChangeValue(switcher: self.switchView, value: true)
