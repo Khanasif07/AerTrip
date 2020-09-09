@@ -1555,6 +1555,8 @@
     
     
     CGFloat width = [[[NSAttributedString alloc] initWithString:recentModel.TravelPlan.string attributes:attributes] size].width;
+    
+    CGFloat dateWidth = [self getStringSizeWithText:recentModel.travelDate font:[UIFont fontWithName:@"SourceSansPro-Regular" size:14]].width;
 
     NSDictionary *qr = recentModel.quary;
     if(qr != nil){
@@ -1579,6 +1581,11 @@
             }
             
         }
+    }
+    
+    CGFloat dateWidthExtraConstant = 87;
+    if (dateWidth + dateWidthExtraConstant > width) {
+        width = dateWidth + dateWidthExtraConstant;
     }
     
     if(width > 275){
@@ -1692,5 +1699,13 @@
     [self.delegate setupFromAndToView];
 }
 
+- (CGSize)getStringSizeWithText:(NSString *)string font:(UIFont *)font{
+
+    UILabel *label = [[UILabel alloc] init];
+    label.text = string;
+    label.font = font;
+
+    return label.attributedText.size;
+}
 
 @end
