@@ -170,14 +170,10 @@ extension FlightDomesticMultiLegResultVC {
     
     //MARK:- Fare Breakup View Methods
     
-   
-    
     func setupBottomView() {
-        
         testView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         testView.tag = 5100
         self.navigationController?.view.addSubview(testView)
-        
         let fareBreakupVC = FareBreakupVC(nibName: "FareBreakupVC", bundle: nil)
         fareBreakupVC.taxesResult = self.viewModel.taxesResult
         fareBreakupVC.journey = self.viewModel.getSelectedJourneyForAllLegs()
@@ -268,6 +264,13 @@ extension FlightDomesticMultiLegResultVC {
             }else{
                 fareBreakupViewController.fewSeatsLeftViewHeightFromFlightDetails = 0
                 self.viewModel.isFewSeatsLeft = false
+                
+            }
+            
+            let containsPinnedFlight = self.viewModel.results.reduce(false) { $0 || $1.containsPinnedFlight }
+
+            if containsPinnedFlight {
+                self.showPinnedFlightSwitch(true)
             }
             
             self.checkForComboFares()
@@ -290,8 +293,7 @@ extension FlightDomesticMultiLegResultVC {
     }
     
     //MARK:- PinnedFlightsOption View Methods
-    func hidePinnedFlightOptions( _ hide : Bool)
-    {
+    func hidePinnedFlightOptions( _ hide : Bool) {
         //*******************Haptic Feedback code********************
            let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
            selectionFeedbackGenerator.selectionChanged()
