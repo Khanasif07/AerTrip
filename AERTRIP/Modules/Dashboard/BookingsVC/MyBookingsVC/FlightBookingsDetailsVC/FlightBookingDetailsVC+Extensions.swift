@@ -125,7 +125,7 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips,tripInfo: self.viewModel.bookingDetail?.tripInfo ?? TripInfo())
             self.tripChangeIndexPath = indexPath
         case .addToAppleWallet:
-            addToAppleWallet()
+            addToAppleWallet(indexPath: indexPath)
         case .bookSameFlightCell :
             if let whatNext = self.whatNextForSameFlightBook() {
                 self.bookSameFlightWith(whatNext)
@@ -471,18 +471,61 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
         
     }
     
-    func addToAppleWallet() {
-        printDebug("Add To Apple Wallet")
-        let endPoints = "\(APIEndPoint.pass.path)?booking_id=\(self.viewModel.bookingDetail?.id ?? "")&flight_id=\(self.viewModel.bookingDetail?.bookingDetail?.leg.first?.flight.first?.flightId ?? "")"
-        printDebug("endPoints: \(endPoints)")
-        guard let url = URL(string: endPoints) else {return}
-        AppGlobals.shared.downloadWallet(fileURL: url) {[weak self] (passUrl) in
-            
-            if let localURL = passUrl {
-                printDebug("localURL: \(localURL)")
-                self?.addWallet(passFilePath: localURL)
+    func addToAppleWallet(indexPath: IndexPath) {
+        
+        guard let legs = self.viewModel.bookingDetail?.bookingDetail?.leg, !legs.isEmpty else {return}
+        
+        
+        func addToWallet(FlightId:String) {
+            printDebug("Add To Apple Wallet")
+            let endPoints = "\(APIEndPoint.pass.path)?booking_id=\(self.viewModel.bookingDetail?.id ?? "")&flight_id=\(FlightId)"
+            printDebug("endPoints: \(endPoints)")
+            guard let url = URL(string: endPoints) else {return}
+            self.viewModel.showWaletLoader = true
+            if let cell = self.bookingDetailsTableView.cellForRow(at: indexPath) as? BookingCommonActionTableViewCell {
+                cell.actionButton.isLoading = true
+            } else {
+                self.bookingDetailsTableView.reloadRow(at: indexPath, with: .none)
+            }
+            AppGlobals.shared.downloadWallet(fileURL: url, showLoader: false) {[weak self] (passUrl) in
+                DispatchQueue.main.async {
+                    if let localURL = passUrl {
+                        printDebug("localURL: \(localURL)")
+                        self?.addWallet(passFilePath: localURL)
+                    }
+                    self?.viewModel.showWaletLoader = false
+                    if let cell = self?.bookingDetailsTableView.cellForRow(at: indexPath) as? BookingCommonActionTableViewCell {
+                        cell.actionButton.isLoading = false
+                    } else {
+                        self?.bookingDetailsTableView.reloadRow(at: indexPath, with: .none)
+                    }
+                }
             }
         }
+        
+        var result = [(flightName: String, flightId: String)]()
+        legs.forEach { (booking) in
+            booking.flight.forEach { (flightDetail) in
+               let name = "\(flightDetail.departure) → \(flightDetail.arrival)"
+                result.append((flightName: name, flightId: flightDetail.flightId))
+            }
+        }
+        
+        if result.count > 1{
+//            let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: result.map{$0.name}, colors: self.viewModel.availableSeatMaps.map{$0.isSelectedForall ? AppColors.themeGray40 : AppColors.themeGreen})
+            let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: result.map{$0.flightName}, colors: result.map{$0.flightName.isEmpty ? AppColors.themeGray40 : AppColors.themeGreen})
+
+            let cencelBtn = PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeDarkGreen,titleFont: AppFonts.SemiBold.withSize(20))
+            _ = PKAlertController.default.presentActionSheet("Select Flight for…",titleFont: AppFonts.SemiBold.withSize(14), titleColor: AppColors.themeGray40, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: cencelBtn) { [weak self] _, index in
+                guard let self = self else {return}
+                addToWallet(FlightId: result[index].flightId)
+            }
+        }else{
+            addToWallet(FlightId: result.first?.flightId ?? "")
+        }
+        
+        
+        
     }
     
     private func addWallet(passFilePath: URL) {

@@ -167,7 +167,6 @@ extension BookingHotelDetailVC {
     }
     
     func getCellForLastSection(_ indexPath: IndexPath) -> UITableViewCell {
-        guard let phoneWebCommonCell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "BookingHDWebPhoneTableViewCell") as? BookingHDWebPhoneTableViewCell else { return UITableViewCell() }
         
         switch indexPath.row {
         case 0:
@@ -189,16 +188,27 @@ extension BookingHotelDetailVC {
             return cell
             
         case 1: // Phone Detail Cell
-            phoneWebCommonCell.configureCell(title: "Phone", text: self.viewModel.bookingDetail?.bookingDetail?.phoneDetail ?? "")
-            if (self.viewModel.bookingDetail?.bookingDetail?.websiteDetail ?? "").isEmpty {
-               phoneWebCommonCell.deviderBottomConstraint.constant = 10
-            }
-            return phoneWebCommonCell
+//            phoneWebCommonCell.configureCell(title: "Phone", text: self.viewModel.bookingDetail?.bookingDetail?.phoneDetail ?? "")
+//            if (self.viewModel.bookingDetail?.bookingDetail?.websiteDetail ?? "").isEmpty {
+//               phoneWebCommonCell.deviderBottomConstraint.constant = 0
+//            } else {
+//               phoneWebCommonCell.dividerView.isHidden = true
+//            }
+//            return phoneWebCommonCell
+            guard let cell = hotelDetailTableView.dequeueReusableCell(withIdentifier: HCPhoneTableViewCell.reusableIdentifier, for: indexPath) as? HCPhoneTableViewCell else { return UITableViewCell() }
+            
+            
+            let result = PKCountryPicker.default.getCountryData(forISOCode: self.viewModel.bookingDetail?.bookingDetail?.country ?? AppConstants.kIndianCountryCode)
+            cell.configCell(countryImage: result?.flagImage ?? UIImage(), phoneNumber: self.viewModel.bookingDetail?.bookingDetail?.phoneDetail ?? "")
+            cell.dividerView.isHidden = !(self.viewModel.bookingDetail?.bookingDetail?.websiteDetail ?? "").isEmpty
+            return cell
             
         // Website Detail Cell
         case 2:
+            guard let phoneWebCommonCell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "BookingHDWebPhoneTableViewCell") as? BookingHDWebPhoneTableViewCell else { return UITableViewCell() }
+
             phoneWebCommonCell.configureCell(title: "Website", text: self.viewModel.bookingDetail?.bookingDetail?.websiteDetail ?? "")
-            phoneWebCommonCell.deviderBottomConstraint.constant = 10
+            phoneWebCommonCell.deviderBottomConstraint.constant = 0
             return phoneWebCommonCell
         case 3: // Overview Cell
             guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell else { return UITableViewCell() }

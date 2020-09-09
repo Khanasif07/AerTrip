@@ -166,7 +166,9 @@ class EmailComposerHeaderView: UIView {
     }
     
     func emailTextFieldHandlers() {
-        self.tagsField.frame = self.emailContainerView.bounds
+        var frame =  self.emailContainerView.bounds
+        frame.size.width = UIScreen.width - 65
+        self.tagsField.frame = frame
         self.tagsField.font = AppFonts.Regular.withSize(18.0)
         self.tagsField.placeholder = LocalizedString.EnterEmail.localized
         self.tagsField.placeholderColor = AppColors.themeGray40

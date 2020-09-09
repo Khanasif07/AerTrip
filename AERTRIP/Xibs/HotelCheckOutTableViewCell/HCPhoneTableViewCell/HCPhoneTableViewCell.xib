@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,36 +19,46 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReO-8A-Jko">
-                        <rect key="frame" x="16" y="2" width="343" height="20.5"/>
+                        <rect key="frame" x="16" y="0.0" width="343" height="15"/>
                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2eX-CA-qR9">
-                        <rect key="frame" x="15" y="28.5" width="19" height="23"/>
+                        <rect key="frame" x="15" y="25" width="19" height="15"/>
                         <color key="backgroundColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="23" id="TbE-Mf-HFe"/>
+                            <constraint firstAttribute="height" constant="15" id="TbE-Mf-HFe"/>
                             <constraint firstAttribute="width" constant="19" id="jfI-Ub-fSQ"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+91 1234567890" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lak-dM-XIa">
-                        <rect key="frame" x="39" y="30" width="320" height="20.5"/>
+                        <rect key="frame" x="39" y="22.5" width="320" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HWr-3s-nRM" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                        <rect key="frame" x="16" y="59.5" width="343" height="0.5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="6qF-73-RVE"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="2eX-CA-qR9" firstAttribute="top" secondItem="ReO-8A-Jko" secondAttribute="bottom" constant="6" id="G6g-aM-eyn"/>
+                    <constraint firstAttribute="bottom" secondItem="HWr-3s-nRM" secondAttribute="bottom" id="3UT-gm-Xqf"/>
+                    <constraint firstItem="HWr-3s-nRM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="BNN-3a-prl"/>
+                    <constraint firstItem="2eX-CA-qR9" firstAttribute="top" secondItem="ReO-8A-Jko" secondAttribute="bottom" constant="10" id="G6g-aM-eyn"/>
+                    <constraint firstAttribute="trailing" secondItem="HWr-3s-nRM" secondAttribute="trailing" constant="16" id="Gba-8f-ji7"/>
                     <constraint firstItem="Lak-dM-XIa" firstAttribute="leading" secondItem="2eX-CA-qR9" secondAttribute="trailing" constant="5" id="LJA-DR-xn2"/>
                     <constraint firstItem="ReO-8A-Jko" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="PbS-Jo-f4T"/>
-                    <constraint firstAttribute="bottom" secondItem="2eX-CA-qR9" secondAttribute="bottom" constant="8" id="XMr-S2-MUP"/>
-                    <constraint firstItem="ReO-8A-Jko" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="cDQ-bl-xFj"/>
+                    <constraint firstAttribute="bottom" secondItem="2eX-CA-qR9" secondAttribute="bottom" constant="20" id="XMr-S2-MUP"/>
+                    <constraint firstItem="ReO-8A-Jko" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="cDQ-bl-xFj"/>
                     <constraint firstItem="2eX-CA-qR9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="cHN-cc-X71"/>
                     <constraint firstAttribute="trailing" secondItem="ReO-8A-Jko" secondAttribute="trailing" constant="16" id="cMR-7K-ow4"/>
                     <constraint firstAttribute="trailing" secondItem="Lak-dM-XIa" secondAttribute="trailing" constant="16" id="chd-Yx-u6u"/>
@@ -60,10 +68,11 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="countryImageView" destination="2eX-CA-qR9" id="vZ1-8M-znd"/>
+                <outlet property="dividerView" destination="HWr-3s-nRM" id="Dw8-Nb-IVG"/>
                 <outlet property="phoneLabel" destination="ReO-8A-Jko" id="thV-w6-atG"/>
                 <outlet property="phoneNumberLabel" destination="Lak-dM-XIa" id="3HJ-R0-pvf"/>
             </connections>
-            <point key="canvasLocation" x="53.600000000000001" y="48.125937031484263"/>
+            <point key="canvasLocation" x="53.600000000000001" y="47.676161919040482"/>
         </tableViewCell>
     </objects>
 </document>

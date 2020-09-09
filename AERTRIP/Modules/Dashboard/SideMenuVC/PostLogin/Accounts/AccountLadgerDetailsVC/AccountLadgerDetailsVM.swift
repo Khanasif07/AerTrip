@@ -46,7 +46,7 @@ class AccountLadgerDetailsVM {
         if  !self.ladgerEvent!.voucherNo.isEmpty{
             section1.append((title: "Voucher No.", value: self.ladgerEvent!.voucherNo, age: "",  isEmptyCell: false))
         }
-        let suffix = self.ladgerEvent!.amount > 0 ? LocalizedString.DebitShort.localized : LocalizedString.CreditShort.localized
+        let suffix = self.ladgerEvent!.amount > 0 ? LocalizedString.CreditShort.localized : LocalizedString.DebitShort.localized
         section1.append((title: "Amount", value: "\(abs(self.ladgerEvent!.amount).amountInDelimeterWithSymbol) \(suffix)", age: "", isEmptyCell: false))
 //        section1.append((title: "Balance", value: "\(self.ladgerEvent!.balance)", age: "", isEmptyCell: false))
         section1.append((title: "", value: "", age: "", isEmptyCell: true))
@@ -149,7 +149,7 @@ class AccountLadgerDetailsVM {
             if  !self.ladgerEvent!.voucherNo.isEmpty{
                 section1.append((title: "Voucher No.", value: self.ladgerEvent!.voucherNo, age: "", isEmptyCell: false))
             }
-            let suffix = self.ladgerEvent!.amount > 0 ? LocalizedString.DebitShort.localized : LocalizedString.CreditShort.localized
+            let suffix = self.ladgerEvent!.amount > 0 ? LocalizedString.CreditShort.localized : LocalizedString.DebitShort.localized
             section1.append((title: "Amount", value: "\(abs(self.ladgerEvent!.amount).amountInDelimeterWithSymbol) \(suffix)", age: "", isEmptyCell: false))
 //            section1.append((title: "Balance", value: "\(self.ladgerEvent!.balance)", age: "", isEmptyCell: false))
             section1.append((title: "", value: "", age: "", isEmptyCell: true))
@@ -206,7 +206,7 @@ class AccountLadgerDetailsVM {
             if  !self.ladgerEvent!.voucherNo.isEmpty{
                 section1.append((title: "Voucher No.", value: self.ladgerEvent!.voucherNo, age: "", isEmptyCell: false))
             }
-            let suffix = self.ladgerEvent!.amount > 0 ? LocalizedString.DebitShort.localized : LocalizedString.CreditShort.localized
+            let suffix = self.ladgerEvent!.amount > 0 ? LocalizedString.CreditShort.localized : LocalizedString.DebitShort.localized
             section1.append((title: "Amount", value: "\(abs(self.ladgerEvent!.amount).amountInDelimeterWithSymbol) \(suffix)", age: "",
                              isEmptyCell: false))
 //            section1.append((title: "Balance", value: "\(self.ladgerEvent!.balance)", age: "", isEmptyCell: false))

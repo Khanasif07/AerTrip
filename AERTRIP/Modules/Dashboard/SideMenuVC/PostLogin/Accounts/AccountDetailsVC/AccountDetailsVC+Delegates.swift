@@ -146,6 +146,9 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
                 cell.containerTopConstrain.constant = 8
                 cell.containerBottomConstaint.constant = 8
             }
+        } else {
+            cell.containerTopConstrain.constant = 8
+            cell.containerBottomConstaint.constant = 8
         }
         return cell
     }

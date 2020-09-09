@@ -11,21 +11,21 @@ import Foundation
 struct BookingFeeDetail {
     
     struct Charges {
-        var adult: Int?
-        var child: Int?
-        var infant: Int?
+        var adult: Double?
+        var child: Double?
+        var infant: Double?
         
         init(json: JSONDictionary) {
             if let obj = json["ADT"] {
-                self.adult = "\(obj)".toInt
+                self.adult = "\(obj)".toDouble
             }
             
             if let obj = json["CHD"] {
-                self.child = "\(obj)".toInt
+                self.child = "\(obj)".toDouble
             }
             
             if let obj = json["INF"] {
-                self.infant = "\(obj)".toInt
+                self.infant = "\(obj)".toDouble
             }
         }
     }
@@ -100,7 +100,7 @@ struct AerlineCharge {
 struct FEE {
     var from: Date?
     var to: Date?
-    var value: Int?
+    var value: Double?
     
     init(json: JSONDictionary) {
         if let obj = json["from"] {
@@ -112,7 +112,7 @@ struct FEE {
         }
         
         if let obj = json["value"] {
-            self.value = "\(obj)".toInt
+            self.value = "\(obj)".toDouble
         }
     }
     

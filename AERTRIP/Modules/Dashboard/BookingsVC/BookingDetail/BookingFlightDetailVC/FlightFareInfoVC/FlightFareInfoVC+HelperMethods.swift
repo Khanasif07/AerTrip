@@ -150,6 +150,7 @@ extension FlightFareInfoVC {
         return fareInfoNoteCell
     }
     
+    /*
     func getCellForFareInfoForNormalFlight(_ indexPath: IndexPath) -> UITableViewCell {
         func getNotesCell() -> UITableViewCell {
             guard let fareInfoNoteCell = self.tableView.dequeueReusableCell(withIdentifier: "FareInfoNoteTableViewCell") as? FareInfoNoteTableViewCell else {
@@ -313,6 +314,7 @@ extension FlightFareInfoVC {
         
         return finalCell
     }
+ */
 }
 extension FlightFareInfoVC:TravellerAddOnsCellHeightDelegate {
     

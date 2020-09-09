@@ -18,7 +18,8 @@ class HCPhoneTableViewCell: UITableViewCell {
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var countryImageView: UIImageView!
     @IBOutlet weak var phoneNumberLabel: UILabel!
-
+    @IBOutlet weak var dividerView: ATDividerView!
+    
     //Mark:- LifeCycle
     //================
     override func awakeFromNib() {
@@ -39,6 +40,7 @@ class HCPhoneTableViewCell: UITableViewCell {
         self.phoneLabel.textColor = AppColors.themeBlack
         self.phoneNumberLabel.textColor = AppColors.themeBlack
         self.countryImageView.backgroundColor = .clear
+        self.dividerView.isHidden = true
     }
     
     ///COnfigure Cell
