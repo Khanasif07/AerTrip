@@ -384,7 +384,7 @@
                                         <rect key="frame" x="0.0" y="145" width="414" height="657"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eUe-bm-n91">
-                                                <rect key="frame" x="0.0" y="179" width="414" height="170"/>
+                                                <rect key="frame" x="0.0" y="243.5" width="414" height="170"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoAirportPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="MIf-TT-9VL">
                                                         <rect key="frame" x="160" y="0.0" width="94" height="81"/>
@@ -417,7 +417,8 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="eUe-bm-n91" firstAttribute="width" secondItem="ssf-vC-Xcc" secondAttribute="width" id="3Dd-Dn-5aE"/>
-                                            <constraint firstItem="eUe-bm-n91" firstAttribute="centerX" secondItem="ssf-vC-Xcc" secondAttribute="centerX" id="NR0-5R-jLz"/>
+                                            <constraint firstItem="eUe-bm-n91" firstAttribute="centerY" secondItem="ssf-vC-Xcc" secondAttribute="centerY" id="Oxy-fM-rMT"/>
+                                            <constraint firstItem="eUe-bm-n91" firstAttribute="centerX" secondItem="ssf-vC-Xcc" secondAttribute="centerX" id="xhO-zk-x5k"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZd-3u-dmy" userLabel="DoneView">
@@ -501,7 +502,6 @@
                             </view>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="eUe-bm-n91" firstAttribute="centerY" secondItem="qcR-gw-4LU" secondAttribute="centerY" id="PWu-Fv-HGn"/>
                             <constraint firstItem="Pzh-Kj-LCv" firstAttribute="top" secondItem="qcR-gw-4LU" secondAttribute="top" id="Wba-r7-HHe"/>
                             <constraint firstItem="Peh-to-bvn" firstAttribute="centerX" secondItem="qcR-gw-4LU" secondAttribute="centerX" id="cSh-hy-eCB"/>
                             <constraint firstItem="Pzh-Kj-LCv" firstAttribute="width" secondItem="JDK-zL-cLs" secondAttribute="width" id="f1f-6A-NHF"/>
