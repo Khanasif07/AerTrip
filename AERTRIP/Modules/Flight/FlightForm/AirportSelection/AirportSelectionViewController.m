@@ -753,7 +753,7 @@
     }else {
         self.cellIdentifier = @"";
         NSDictionary * lineOneDictionary =  @{ NSForegroundColorAttributeName : [UIColor blackColor] ,NSFontAttributeName : [UIFont fontWithName:@"SourceSansPro-Regular" size:22.0]  };
-        NSMutableAttributedString * noResultLabel = [[NSMutableAttributedString alloc]initWithString:@"Opps" attributes:lineOneDictionary];
+        NSMutableAttributedString * noResultLabel = [[NSMutableAttributedString alloc]initWithString:@"Oops" attributes:lineOneDictionary];
         
         NSDictionary * lineTwoDictionary = @{ NSForegroundColorAttributeName : [ UIColor ONE_ZORE_TWO_COLOR]  ,NSFontAttributeName : [UIFont fontWithName:@"SourceSansPro-Regular" size:18.0]  };
         NSMutableAttributedString * line2 = [[NSMutableAttributedString alloc] initWithString:@"\nNo Airports Found" attributes:lineTwoDictionary];

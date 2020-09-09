@@ -10,6 +10,7 @@ import UIKit
 
 class PhotoGalleryVC: BaseVC {
 
+    
     @IBOutlet weak var galleryCollection: UICollectionView!
     @IBOutlet weak var verticalCollectionTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var verticalCollectionBottomConstraint: NSLayoutConstraint!
@@ -19,7 +20,7 @@ class PhotoGalleryVC: BaseVC {
     @IBOutlet weak var bottomContainerHeightConstraint: NSLayoutConstraint!
     
     
-    var imageNames:[String] = []{
+    var imageNames:[String] = [] {
         didSet{
             self.atGalleryImage.removeAll()
             for image in imageNames{
@@ -29,6 +30,7 @@ class PhotoGalleryVC: BaseVC {
             }
         }
     }
+    
     var atGalleryImage = [ATGalleryImage]()
     var parentVC = UIViewController()
     var startShowingFrom:Int = 0

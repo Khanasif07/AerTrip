@@ -320,9 +320,9 @@ extension AddOnVC : AddonsUpdatedDelegate {
     }
     
     func seatsUpdated(amount: Int) {
+        self.adonsVm.updatePriceDict(key: "Seat", value: "\(amount)")
         self.adonsVm.setSeatsString()
         self.adonsTableView.reloadData()
-        self.adonsVm.updatePriceDict(key: "Seat", value: "\(amount)")
         self.setSkipButton()
     }
     

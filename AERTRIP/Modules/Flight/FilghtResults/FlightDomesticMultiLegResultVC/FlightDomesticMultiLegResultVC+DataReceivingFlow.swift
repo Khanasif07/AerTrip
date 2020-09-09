@@ -142,7 +142,7 @@ extension FlightDomesticMultiLegResultVC {
             DispatchQueue.main.async {
                 guard let tableView = self.baseScrollView.viewWithTag( 1000 + index) as? UITableView else { return }
 //                let selectedIndex = tableView.indexPathForSelectedRow
-                tableView.reloadData()
+//                tableView.reloadData()
 
                     // setting up header for table view
                     let width = UIScreen.main.bounds.size.width / 2.0
@@ -171,10 +171,10 @@ extension FlightDomesticMultiLegResultVC {
 //                    }
 //
                 
-               // if self.viewModel.results[index].selectedJourney == nil{
+//                if self.viewModel.results[index].selectedJourney == nil{
 //                    self.viewModel.results[index].selectedJourney = self.viewModel.results[index].suggestedJourneyArray.first
-                    
-              //  }
+//
+//                }
             
                     tableView.isScrollEnabled = true
                 
@@ -208,7 +208,10 @@ extension FlightDomesticMultiLegResultVC {
                     
                 }
                 
-                self.viewModel.setSelectedJourney(tableIndex: index, journeyIndex: 0)
+//                self.viewModel.setSelectedJourney(tableIndex: index, journeyIndex: 0)
+                
+                self.viewModel.selectFlightsInInitialFlow(tableIndex: index)
+                
                 tableView.isScrollEnabled = true
                 tableView.scrollsToTop = true
                 tableView.reloadData()
@@ -236,5 +239,10 @@ extension FlightDomesticMultiLegResultVC {
                 self.setTotalFare()
             }
         }
+    
+    
+    
+    
+    
     
 }

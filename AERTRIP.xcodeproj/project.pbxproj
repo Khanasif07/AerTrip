@@ -147,6 +147,7 @@
 		0CC1B4E72478104F00AE6F12 /* AdonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CC1B4E52478104E00AE6F12 /* AdonsCell.xib */; };
 		0CC23989231639EF00ADEE92 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC23988231639EF00ADEE92 /* TestViewController.swift */; };
 		0CC8546D2350956500544F10 /* UISearchBar+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC8546C2350956500544F10 /* UISearchBar+extension.swift */; };
+		0CCEEBF1250909B800B84CDC /* UIScrollViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCEEBF0250909B800B84CDC /* UIScrollViewExtension.swift */; };
 		0CD644B7234B0AEE00D71709 /* ATUnicodeSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD644B6234B0AED00D71709 /* ATUnicodeSwitch.swift */; };
 		0CE3E89D24406627005E015E /* ThingsCanBeAskedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE3E89B24406627005E015E /* ThingsCanBeAskedCell.swift */; };
 		0CE3E89E24406627005E015E /* ThingsCanBeAskedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CE3E89C24406627005E015E /* ThingsCanBeAskedCell.xib */; };
@@ -1809,6 +1810,7 @@
 		0CC1B4E52478104E00AE6F12 /* AdonsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdonsCell.xib; sourceTree = "<group>"; };
 		0CC23988231639EF00ADEE92 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		0CC8546C2350956500544F10 /* UISearchBar+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+extension.swift"; sourceTree = "<group>"; };
+		0CCEEBF0250909B800B84CDC /* UIScrollViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollViewExtension.swift; sourceTree = "<group>"; };
 		0CD644B6234B0AED00D71709 /* ATUnicodeSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATUnicodeSwitch.swift; sourceTree = "<group>"; };
 		0CE3E89B24406627005E015E /* ThingsCanBeAskedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingsCanBeAskedCell.swift; sourceTree = "<group>"; };
 		0CE3E89C24406627005E015E /* ThingsCanBeAskedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThingsCanBeAskedCell.xib; sourceTree = "<group>"; };
@@ -9143,6 +9145,7 @@
 				84795B36241B7254004CCA36 /* UISegmentedControlExtension.swift */,
 				84432AE92420F7B100E7A387 /* UIPanGestureRecognizerExtension.swift */,
 				0C1671D224B36C99001BAD22 /* Int+Extension.swift */,
+				0CCEEBF0250909B800B84CDC /* UIScrollViewExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -10514,6 +10517,7 @@
 				84956FBF21B667D200BF1183 /* ATButton.swift in Sources */,
 				0C272E292422601300133B50 /* SenderChatCell.swift in Sources */,
 				84F983CF21B51A070018DFED /* AppProtocols.swift in Sources */,
+				0CCEEBF1250909B800B84CDC /* UIScrollViewExtension.swift in Sources */,
 				843FF4E724740231001F21B1 /* FlightResultReturnTableViewCell.m in Sources */,
 				843FF4EF24740231001F21B1 /* FlightPreferencesTableViewCell.m in Sources */,
 				843FF54224740232001F21B1 /* TimeCollectionViewCell.swift in Sources */,

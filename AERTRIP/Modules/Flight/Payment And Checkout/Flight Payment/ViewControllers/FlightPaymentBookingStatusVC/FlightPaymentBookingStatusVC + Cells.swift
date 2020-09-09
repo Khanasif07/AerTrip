@@ -7,7 +7,8 @@
 //
 
 import Foundation
-//import FBSDKShareKit
+import PassKit
+import FBSDKShareKit
 
 extension FlightPaymentBookingStatusVC{
     
@@ -226,6 +227,17 @@ extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate{
     
     func shareOnFaceBook() {
         printDebug("Share On FaceBook")
+        
+        guard let url = URL(string: AppConstants.kAppStoreLink) else { return }
+        let content = ShareLinkContent()
+        content.contentURL = url
+        let dialog = ShareDialog(
+            fromViewController: self,
+            content: content,
+            delegate: nil
+        )
+        dialog.mode = .automatic
+        dialog.show()
     }
     
     func shareOnTwitter() {
@@ -252,7 +264,7 @@ extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate{
     }
 }
 
-extension FlightPaymentBookingStatusVC : YouAreAllDoneTableViewCellDelegate{
+extension FlightPaymentBookingStatusVC : YouAreAllDoneTableViewCellDelegate, PKAddPassesViewControllerDelegate{
     
     func addToAppleWalletTapped() {
         
@@ -264,8 +276,48 @@ extension FlightPaymentBookingStatusVC : YouAreAllDoneTableViewCellDelegate{
         }
     }
     
+    func addToAppleWallet(_ bookingId: String, details: BookingDetailModel?) {
+        printDebug("Add To Apple Wallet")
+        let endPoints = "\(APIEndPoint.pass.path)?booking_id=\(bookingId)&flight_id=\(details?.bookingDetail?.leg.first?.flight.first?.flightId ?? "")"
+        printDebug("endPoints: \(endPoints)")
+        guard let url = URL(string: endPoints) else {return}
+        AppGlobals.shared.downloadWallet(fileURL: url) {[weak self] (passUrl) in
+
+            if let localURL = passUrl {
+                printDebug("localURL: \(localURL)")
+                self?.addWallet(passFilePath: localURL)
+            }
+        }
+    }
     
+    func addToAppleWalletSetup(){
+        if self.viewModel.apiBookingIds.count > 1{//"\(leg.origin) → \(leg.destination)"
+            let names = self.viewModel.bookingDetail.map{"\($0?.bookingDetail?.leg.first?.origin ?? "") → \($0?.bookingDetail?.leg.first?.destination ?? "")" }
+            let colors = self.viewModel.bookingDetail.map{_ in AppColors.themeGreen}
+            let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: names, colors: colors)
+            let cencelBtn = PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeDarkGreen,titleFont: AppFonts.SemiBold.withSize(20))
+            _ = PKAlertController.default.presentActionSheet("Add Pass for…",titleFont: AppFonts.SemiBold.withSize(14), titleColor: AppColors.themeGray40, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: cencelBtn) { [weak self] _, index in
+                guard let self = self , let detail = self.viewModel.bookingDetail[index] else {return}
+                self.addToAppleWallet(self.viewModel.apiBookingIds[index], details: detail)
+            }
+        }else{
+            guard let bookingId = self.viewModel.apiBookingIds.first,let detail = self.viewModel.bookingDetail.first else {return}
+                self.addToAppleWallet(bookingId, details: detail)
+        }
+    }
     
+    func addWallet(passFilePath: URL) {
+        guard let passData = try? Data(contentsOf: passFilePath) else {return}
+        do {
+            let newpass = try PKPass.init(data: passData)
+            let addController =  PKAddPassesViewController(pass: newpass)
+            addController?.delegate = self
+            self.present(addController!, animated: true)
+        } catch {
+            print(error)
+        }
+    }
+
     
     func addToCalender(bookingDetail: BookingDetailModel?) {
         

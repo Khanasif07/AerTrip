@@ -170,14 +170,10 @@ extension FlightDomesticMultiLegResultVC {
     
     //MARK:- Fare Breakup View Methods
     
-   
-    
     func setupBottomView() {
-        
         testView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         testView.tag = 5100
         self.navigationController?.view.addSubview(testView)
-        
         let fareBreakupVC = FareBreakupVC(nibName: "FareBreakupVC", bundle: nil)
         fareBreakupVC.taxesResult = self.viewModel.taxesResult
         fareBreakupVC.journey = self.viewModel.getSelectedJourneyForAllLegs()
@@ -210,8 +206,10 @@ extension FlightDomesticMultiLegResultVC {
         
         if isFSRVisible == true && remainingSeats != "" && Int(remainingSeats)! != 0{
             fareBreakupVC.fewSeatsLeftViewHeightFromFlightDetails = 40
+            self.viewModel.isFewSeatsLeft = true
         }else{
             fareBreakupVC.fewSeatsLeftViewHeightFromFlightDetails = 0
+            self.viewModel.isFewSeatsLeft = false
         }
         
         let ts = CATransition()
@@ -230,17 +228,22 @@ extension FlightDomesticMultiLegResultVC {
     func ShowFareBreakupView() {
         
         DispatchQueue.main.async {
+            let bottomInset = self.view.safeAreaInsets.bottom
+            let scrollBottom = ((self.viewModel.results.map{$0.selectedJourney}.filter{($0?.fsr ?? 0) == 1}).count == 0) ? (50 + bottomInset) : (90 + bottomInset)
+            UIView.animate(withDuration: 0.2) {
+                self.scrollViewBottomConstraint.constant = scrollBottom
+                self.baseScrollView.layoutIfNeeded()
+            }
             if self.fareBreakupVC == nil {
-                
-                let bottomInset = self.view.safeAreaInsets.bottom
-                self.scrollViewBottomConstraint.constant = 50 + bottomInset
+//                let bottomInset = self.view.safeAreaInsets.bottom
+//                self.scrollViewBottomConstraint.constant = 50 + bottomInset
                 self.setupBottomView()
             }
             
             guard let fareBreakupViewController =  self.fareBreakupVC else { return }
             var isFSRVisible = false
             var remainingSeats = ""
-
+            
             if let selectedJourney = self.viewModel.getSelectedJourneyForAllLegs(){
                 for i in 0..<selectedJourney.count{
                     let fk = selectedJourney[i].fk
@@ -261,8 +264,18 @@ extension FlightDomesticMultiLegResultVC {
             
             if isFSRVisible == true && remainingSeats != "" && Int(remainingSeats)! != 0{
                 fareBreakupViewController.fewSeatsLeftViewHeightFromFlightDetails = 40
+                self.viewModel.isFewSeatsLeft = true
+
             }else{
                 fareBreakupViewController.fewSeatsLeftViewHeightFromFlightDetails = 0
+                self.viewModel.isFewSeatsLeft = false
+                
+            }
+            
+            let containsPinnedFlight = self.viewModel.results.reduce(false) { $0 || $1.containsPinnedFlight }
+
+            if containsPinnedFlight {
+                self.showPinnedFlightSwitch(true)
             }
             
             self.checkForComboFares()
@@ -286,8 +299,7 @@ extension FlightDomesticMultiLegResultVC {
     }
     
     //MARK:- PinnedFlightsOption View Methods
-    func hidePinnedFlightOptions( _ hide : Bool)
-    {
+    func hidePinnedFlightOptions( _ hide : Bool) {
         //*******************Haptic Feedback code********************
            let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
            selectionFeedbackGenerator.selectionChanged()
@@ -385,9 +397,11 @@ extension FlightDomesticMultiLegResultVC {
             let bottomInset = self.view.safeAreaInsets.bottom
             var height :  CGFloat = 0.0
             
+           let fewSeatsLeftViewHeight = self.viewModel.isFewSeatsLeft ? 40 : 0
+            
             if show {
                 height =  60.0
-                height = height + bottomInset
+                height = height + bottomInset + CGFloat(fewSeatsLeftViewHeight)
                 
                 if self.fareBreakupVC?.view.isHidden == false {
                     height = height + 50
@@ -538,7 +552,7 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
         }
         
         let pin = UIAction(title:  pinTitle, image: UIImage(systemName: "pin" ), identifier: nil) { (action) in
-//            self.setPinnedFlightAt(flightKey : flightKey ,  indexPath : indexPath , isPinned : !isPinned, tableIndex : tableIndex)
+            self.setPinnedFlightAt(flightKey : flightKey ,  indexPath : indexPath , isPinned : !isPinned, tableIndex : tableIndex)
         }
         let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up"), identifier: nil) { (action) in
             self.shareFlights(journeyArray: [currentJourney])

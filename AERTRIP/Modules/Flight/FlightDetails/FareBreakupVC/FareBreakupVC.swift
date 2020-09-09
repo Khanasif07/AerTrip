@@ -117,8 +117,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
     }
     
-    override func viewDidLayoutSubviews()
-    {
+    override func viewDidLayoutSubviews() {
         self.indicator.center = self.bookButton.center
             
             if fromScreen == "upgradePlan" {
@@ -206,10 +205,12 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         for val in (self.bookingObject?.taxSort ?? "").components(separatedBy: ","){
             sortOrderArray.append(taxesResult[val.removeAllWhitespaces] ?? "")
         }
+        
         if journeyCombo != nil{
             taxAndFeesData.removeAll()
             taxesDetails.removeAll()
             taxAndFeesDataDict.removeAll()
+            
             for i in 0..<journeyCombo.count{
                 if let otherFare = journeyCombo[i].otherfares{
                     if otherFare == true{
@@ -313,10 +314,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 bookButtonTrailing.constant = 16
             }
         }
-        
-        
     }
-    
     
     func updateData(with intFare: [OtherFareModel]){
         taxAndFeesData.removeAll()
@@ -849,8 +847,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         },completion: nil)
     }
     
-    func displayExpandedView(fromSelection:String)
-    {
+    func displayExpandedView(fromSelection:String) {
         var sectionHeight = 0
         if fromSelection == "info"{
             isTaxesSectionHidden = true
@@ -864,7 +861,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
 //            baseFareTableview.bounces = true
 //            baseFareTableview.alwaysBounceVertical = true
             sectionHeight = self.baseFareTableview.numberOfSections * 34
-        }else{
+        } else {
 //            baseFareTableview.bounces = true
 //            baseFareTableview.alwaysBounceVertical = true
             sectionHeight = self.baseFareTableview.numberOfSections * 37
@@ -1015,8 +1012,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     //MARK:- Guesture
     
-    func swipeDownToClose()
-    {
+    func swipeDownToClose() {
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(infoButtonTapped))
         swipeDown.direction = .down
         swipeDown.delegate = self
@@ -1024,8 +1020,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         self.view.addGestureRecognizer(swipeDown)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
-    {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch: UITouch? = touches.first
         if touch?.view == backgroundDisplayView {
             infoButtonTapped()
@@ -1035,10 +1030,9 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
+    
     //MARK:- Button Action
-    @IBAction func upgradeButtonClicked(_ sender: Any)
-    {
-        
+    @IBAction func upgradeButtonClicked(_ sender: Any) {
         let vc = UpgradePlanContrainerVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
         vc.viewModel.oldJourney = self.journey
         vc.viewModel.sid = self.sid
