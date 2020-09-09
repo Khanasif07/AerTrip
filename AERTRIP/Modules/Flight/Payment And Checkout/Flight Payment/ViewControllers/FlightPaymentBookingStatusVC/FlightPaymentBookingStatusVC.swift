@@ -120,7 +120,6 @@ class FlightPaymentBookingStatusVC: BaseVC {
                 self.instantiateSeatMapVC(bookingId)
             }
         }
-        
     }
     
     private func instantiateSeatMapVC(_ bookingId: String) {

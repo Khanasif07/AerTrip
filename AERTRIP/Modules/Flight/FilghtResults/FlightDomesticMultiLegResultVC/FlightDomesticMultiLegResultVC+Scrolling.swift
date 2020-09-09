@@ -45,7 +45,7 @@ extension FlightDomesticMultiLegResultVC {
        }
     
     
-    func revealAnimationOfNavigationBarOnScroll(offsetDifference : CGFloat) {
+    fileprivate func revealAnimationOfNavigationBarOnScroll(offsetDifference : CGFloat) {
         let invertedOffset = -offsetDifference
         
         DispatchQueue.main.async {
@@ -76,7 +76,7 @@ extension FlightDomesticMultiLegResultVC {
         let contentOffset = scrollView.contentOffset
         let offsetDifference = contentOffset.y - scrollviewInitialYOffset
         
-        if offsetDifference > 0 {
+        if offsetDifference >= 0 {
             self.hidingAnimationOnNavigationBarOnScroll(offsetDifference : offsetDifference)
         } else {
             self.revealAnimationOfNavigationBarOnScroll(offsetDifference : offsetDifference)
@@ -114,14 +114,13 @@ extension FlightDomesticMultiLegResultVC {
         let width = tableView.bounds.size.width
         let bottomInset = self.view.safeAreaInsets.bottom
         //FIXME :- magical no
-        let height = UIScreen.main.bounds.height - yCoordinate - bottomInset - 50 - self.statusBarHeight
+        let height = UIScreen.main.bounds.height - yCoordinate - bottomInset// - 50 - self.statusBarHeight
         let visibleRect = CGRect(x: xCoordinate, y: yCoordinate, width: width, height: height)
         return visibleRect
     }
     
         func animateJourneyCompactView(for tableView : UITableView) {
-            let tableIndex = tableView.tag - 1000
-            guard let selectedIndex =  self.viewModel.results[tableIndex].selectesIndex else { return }//tableView.indexPathForSelectedRow
+            guard let selectedIndex =  self.getSelectedIndex(for: tableView) else { return }//tableView.indexPathForSelectedRow
             let visibleRect = getVisibleAreaRectFor(tableView: tableView)
             let xCoordinate = tableView.frame.origin.x
             let selectedRowIndex = IndexPath(row: selectedIndex, section: 0)
@@ -276,8 +275,7 @@ extension FlightDomesticMultiLegResultVC {
             }
         }
 
-        if let selectedIndex =  self.viewModel.results[tableIndex].selectesIndex//tableView.indexPathForSelectedRow
-        {
+        if let selectedIndex =  self.getSelectedIndex(for: tableView){ //tableView.indexPathForSelectedRow
             
             if selectedIndex <= 4 {//selectedIndex.row
                   height = 138.0
@@ -377,20 +375,21 @@ extension FlightDomesticMultiLegResultVC {
 //                }
 //                setTableViewHeaderFor(tableView: tableView)
                 animateJourneyCompactView(for: tableView)
-                snapToTopOrBottomOnSlowScrollDragging(scrollView)
+                if !scrollView.isBouncingTop{
+                    snapToTopOrBottomOnSlowScrollDragging(scrollView)
+                }
                 return
             }
         }
         else{
-            if scrollView == self.baseScrollView && scrollView.contentOffset.y < 88.0{
-                if scrollView.contentOffset.y < 44{
-                    scrollView.contentOffset.y = 0.0
-                }else{
-                    scrollView.contentOffset.y = 88.0
-                }
-                self.changeContentOfssetWithMainScrollView(true)
-            }
-            
+//            if scrollView == self.baseScrollView && scrollView.contentOffset.y < 88.0{
+//                if scrollView.contentOffset.y < 44{
+//                    scrollView.contentOffset.y = 0.0
+//                }else{
+//                    scrollView.contentOffset.y = 88.0
+//                }
+//                self.changeContentOfssetWithMainScrollView(true)
+//            }
         }
 
     }
@@ -439,6 +438,20 @@ extension FlightDomesticMultiLegResultVC {
 //            }
             
             lastTargetContentOffsetX = targetContentOffset.pointee.x
+        }
+    }
+    
+    func getSelectedIndex(for table: UITableView)-> Int?{
+        let index = table.tag - 1000
+        let tableState = viewModel.resultsTableStates[index]
+        if tableState == .showPinnedFlights {
+            return self.viewModel.results[index].pinnedFlights.firstIndex(where: {$0.fk == (self.viewModel.results[index].selectedJourney?.fk ?? "")})
+        } else if tableState == .showExpensiveFlights {
+            return self.viewModel.results[index].allJourneys.firstIndex(where: {$0.fk == (self.viewModel.results[index].selectedJourney?.fk ?? "")})
+        } else if tableState == .showRegularResults{
+         return self.viewModel.results[index].suggestedJourneyArray.firstIndex(where: {$0.fk == (self.viewModel.results[index].selectedJourney?.fk ?? "")})
+        } else{
+            return nil
         }
     }
 }

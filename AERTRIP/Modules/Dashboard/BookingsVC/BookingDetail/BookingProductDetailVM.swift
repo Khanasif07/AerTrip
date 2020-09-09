@@ -333,8 +333,10 @@ class BookingProductDetailVM {
     }
     
     func getBookingDetail(shouldCallWillDelegate: Bool = true) {
-        let params: JSONDictionary = ["booking_id": bookingId]
-        
+        var params: JSONDictionary = ["booking_id": bookingId]
+        if UserInfo.loggedInUserId == nil{
+            params["is_guest_user"] = true
+        }
 //        if shouldCallWillDelegate {
 //            delegate?.willGetBookingDetail()
 //        }

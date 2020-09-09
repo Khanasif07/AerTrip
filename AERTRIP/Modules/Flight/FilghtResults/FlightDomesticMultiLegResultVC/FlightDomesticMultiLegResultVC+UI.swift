@@ -230,17 +230,22 @@ extension FlightDomesticMultiLegResultVC {
     func ShowFareBreakupView() {
         
         DispatchQueue.main.async {
+            let bottomInset = self.view.safeAreaInsets.bottom
+            let scrollBottom = ((self.viewModel.results.map{$0.selectedJourney}.filter{($0?.fsr ?? 0) == 1}).count == 0) ? (50 + bottomInset) : (90 + bottomInset)
+            UIView.animate(withDuration: 0.2) {
+                self.scrollViewBottomConstraint.constant = scrollBottom
+                self.baseScrollView.layoutIfNeeded()
+            }
             if self.fareBreakupVC == nil {
-                
-                let bottomInset = self.view.safeAreaInsets.bottom
-                self.scrollViewBottomConstraint.constant = 50 + bottomInset
+//                let bottomInset = self.view.safeAreaInsets.bottom
+//                self.scrollViewBottomConstraint.constant = 50 + bottomInset
                 self.setupBottomView()
             }
             
             guard let fareBreakupViewController =  self.fareBreakupVC else { return }
             var isFSRVisible = false
             var remainingSeats = ""
-
+            
             if let selectedJourney = self.viewModel.getSelectedJourneyForAllLegs(){
                 for i in 0..<selectedJourney.count{
                     let fk = selectedJourney[i].fk
