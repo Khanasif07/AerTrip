@@ -210,8 +210,10 @@ extension FlightDomesticMultiLegResultVC {
         
         if isFSRVisible == true && remainingSeats != "" && Int(remainingSeats)! != 0{
             fareBreakupVC.fewSeatsLeftViewHeightFromFlightDetails = 40
+            self.viewModel.isFewSeatsLeft = true
         }else{
             fareBreakupVC.fewSeatsLeftViewHeightFromFlightDetails = 0
+            self.viewModel.isFewSeatsLeft = false
         }
         
         let ts = CATransition()
@@ -261,8 +263,11 @@ extension FlightDomesticMultiLegResultVC {
             
             if isFSRVisible == true && remainingSeats != "" && Int(remainingSeats)! != 0{
                 fareBreakupViewController.fewSeatsLeftViewHeightFromFlightDetails = 40
+                self.viewModel.isFewSeatsLeft = true
+
             }else{
                 fareBreakupViewController.fewSeatsLeftViewHeightFromFlightDetails = 0
+                self.viewModel.isFewSeatsLeft = false
             }
             
             self.checkForComboFares()
@@ -384,9 +389,11 @@ extension FlightDomesticMultiLegResultVC {
             let bottomInset = self.view.safeAreaInsets.bottom
             var height :  CGFloat = 0.0
             
+           let fewSeatsLeftViewHeight = self.viewModel.isFewSeatsLeft ? 40 : 0
+            
             if show {
                 height =  60.0
-                height = height + bottomInset
+                height = height + bottomInset + CGFloat(fewSeatsLeftViewHeight)
                 
                 if self.fareBreakupVC?.view.isHidden == false {
                     height = height + 50
@@ -537,7 +544,7 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
         }
         
         let pin = UIAction(title:  pinTitle, image: UIImage(systemName: "pin" ), identifier: nil) { (action) in
-//            self.setPinnedFlightAt(flightKey : flightKey ,  indexPath : indexPath , isPinned : !isPinned, tableIndex : tableIndex)
+            self.setPinnedFlightAt(flightKey : flightKey ,  indexPath : indexPath , isPinned : !isPinned, tableIndex : tableIndex)
         }
         let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up"), identifier: nil) { (action) in
             self.shareFlights(journeyArray: [currentJourney])

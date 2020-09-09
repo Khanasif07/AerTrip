@@ -23,6 +23,7 @@ class FlightDomesticMultiLegResultVM {
     var prevLegIndex = 0
     var isConditionReverced = false
     var isPinnedOn = false
+    var isFewSeatsLeft = false
     
     init() {
         
@@ -313,7 +314,7 @@ class FlightDomesticMultiLegResultVM {
             
             let selectedJourney = currentDataSorce.filter { $0.fk == self.results[tableIndex].selectedJourney?.fk }
             
-            if selectedJourney.isEmpty {
+            if selectedJourney.isEmpty || !self.results[tableIndex].isJourneySelectedByUser {
                 self.results[tableIndex].selectedJourney = currentDataSorce.first
             }
             
@@ -325,6 +326,7 @@ class FlightDomesticMultiLegResultVM {
         let currentDataSorce = self.currentDataSource(tableIndex: tableIndex)
         if currentDataSorce.isEmpty || self.resultsTableStates[tableIndex] == .showTemplateResults { return }
         self.results[tableIndex].selectedJourney = currentDataSorce[journeyIndex]
+        self.results[tableIndex].isJourneySelectedByUser = true
      }
     
        func  getSelectedJourneyForAllLegs() -> [Journey]? {
