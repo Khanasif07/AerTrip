@@ -29,7 +29,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="733"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="znX-wS-4up">
-                                        <rect key="frame" x="16" y="5" width="382" height="470"/>
+                                        <rect key="frame" x="16" y="5" width="382" height="477"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Lp-ah-OLg" customClass="HMSegmentedControl">
                                                 <rect key="frame" x="0.0" y="6" width="382" height="42"/>
@@ -701,7 +701,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Travelling in a group? Request Bulk Booking" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="He0-CA-PB7">
-                                                <rect key="frame" x="52" y="432" width="278" height="17.666666666666686"/>
+                                                <rect key="frame" x="52" y="439" width="278" height="17.666666666666686"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="278" id="gTg-pe-VQB"/>
                                                 </constraints>
@@ -717,7 +717,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HGw-7j-31M">
-                                                <rect key="frame" x="191" y="426" width="139" height="30"/>
+                                                <rect key="frame" x="191" y="433" width="139" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal">
                                                     <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -735,7 +735,7 @@
                                             <constraint firstItem="Cmd-5B-LDk" firstAttribute="centerX" secondItem="5Lp-ah-OLg" secondAttribute="centerX" id="6il-oh-5CM"/>
                                             <constraint firstItem="lap-cq-AfY" firstAttribute="top" secondItem="fXg-Ug-PbS" secondAttribute="bottom" constant="22" id="DFg-3P-utK"/>
                                             <constraint firstItem="jkL-T0-Ii9" firstAttribute="centerX" secondItem="znX-wS-4up" secondAttribute="centerX" id="HXo-uj-dIr"/>
-                                            <constraint firstItem="He0-CA-PB7" firstAttribute="top" secondItem="lap-cq-AfY" secondAttribute="bottom" constant="13" id="Hnz-aP-wyx"/>
+                                            <constraint firstItem="He0-CA-PB7" firstAttribute="top" secondItem="lap-cq-AfY" secondAttribute="bottom" constant="20" id="Hnz-aP-wyx"/>
                                             <constraint firstItem="l7L-AN-5en" firstAttribute="width" secondItem="znX-wS-4up" secondAttribute="width" id="Ni4-di-Cu6"/>
                                             <constraint firstItem="HGw-7j-31M" firstAttribute="width" secondItem="He0-CA-PB7" secondAttribute="width" multiplier="1/2" id="Ofg-mJ-IfF"/>
                                             <constraint firstItem="l7L-AN-5en" firstAttribute="top" secondItem="znX-wS-4up" secondAttribute="top" constant="48" id="Oh5-s2-qdH"/>
@@ -745,14 +745,14 @@
                                             <constraint firstItem="RLV-oD-1KY" firstAttribute="width" secondItem="znX-wS-4up" secondAttribute="width" id="cX8-0O-9LK"/>
                                             <constraint firstItem="5Lp-ah-OLg" firstAttribute="centerX" secondItem="znX-wS-4up" secondAttribute="centerX" id="fGk-ZF-aPg"/>
                                             <constraint firstItem="RLV-oD-1KY" firstAttribute="top" secondItem="l7L-AN-5en" secondAttribute="bottom" id="gWj-L2-tNV"/>
-                                            <constraint firstAttribute="bottom" secondItem="fXg-Ug-PbS" secondAttribute="bottom" constant="123" id="hmG-2u-0bI"/>
+                                            <constraint firstAttribute="bottom" secondItem="fXg-Ug-PbS" secondAttribute="bottom" constant="130" id="hmG-2u-0bI"/>
                                             <constraint firstItem="5Lp-ah-OLg" firstAttribute="width" secondItem="znX-wS-4up" secondAttribute="width" id="jE9-CL-fDy"/>
                                             <constraint firstItem="fXg-Ug-PbS" firstAttribute="width" secondItem="znX-wS-4up" secondAttribute="width" id="mOE-R8-UG3"/>
                                             <constraint firstItem="l7L-AN-5en" firstAttribute="centerX" secondItem="znX-wS-4up" secondAttribute="centerX" id="n7a-eB-PnU"/>
                                             <constraint firstItem="jkL-T0-Ii9" firstAttribute="top" secondItem="Cmd-5B-LDk" secondAttribute="bottom" id="oTv-oH-DB9"/>
                                             <constraint firstItem="fXg-Ug-PbS" firstAttribute="centerX" secondItem="znX-wS-4up" secondAttribute="centerX" id="ojo-Fv-kEd"/>
                                             <constraint firstItem="HGw-7j-31M" firstAttribute="trailing" secondItem="He0-CA-PB7" secondAttribute="trailing" id="oyc-hj-TdM"/>
-                                            <constraint firstAttribute="height" constant="470" id="pZK-rr-CUn"/>
+                                            <constraint firstAttribute="height" constant="477" id="pZK-rr-CUn"/>
                                             <constraint firstItem="5Lp-ah-OLg" firstAttribute="top" secondItem="znX-wS-4up" secondAttribute="top" constant="6" id="vjG-dB-IkA"/>
                                             <constraint firstItem="RLV-oD-1KY" firstAttribute="centerX" secondItem="znX-wS-4up" secondAttribute="centerX" id="yFx-R6-oj5"/>
                                         </constraints>
@@ -764,7 +764,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent Searches" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="raa-TY-z5j">
-                                        <rect key="frame" x="16" y="511" width="140" height="18"/>
+                                        <rect key="frame" x="16" y="518" width="140" height="18"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="140" id="ZIx-eA-jh5"/>
                                             <constraint firstAttribute="height" constant="18" id="tjC-yZ-9ZA"/>
@@ -774,7 +774,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="XIl-zP-BdG">
-                                        <rect key="frame" x="0.0" y="526" width="414" height="100"/>
+                                        <rect key="frame" x="0.0" y="533" width="414" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="azQ-Ut-cQp"/>
                                         </constraints>
