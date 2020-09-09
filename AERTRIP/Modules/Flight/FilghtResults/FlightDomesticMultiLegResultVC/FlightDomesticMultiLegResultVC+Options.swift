@@ -67,7 +67,6 @@ extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
         guard let cell = tableview.cellForRow(at: indexPath) as? DomesticMultiLegCell else { return }
         cell.setPinnedFlight()
         
-
         delay(seconds: 0.5) {
             tableview.reloadData()
         }
