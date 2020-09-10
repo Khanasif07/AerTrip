@@ -252,10 +252,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
 //                        setTextColorToHeader(.black, indexPath: (i + 1 ))
                         
 //                        AertripToastView.hideToast()
-                    }
-                }
-            
-        
+            }
+       }
     }
     
     
@@ -275,7 +273,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                         tableview.reloadData()
                         tableview.tableFooterView = nil
                         
-
                         let indexPath = IndexPath(row: 0, section: 0)
                         tableview.scrollToRow(at: indexPath, at: .top, animated: true)
                         tableview.selectRow(at: indexPath , animated: false, scrollPosition: .none)

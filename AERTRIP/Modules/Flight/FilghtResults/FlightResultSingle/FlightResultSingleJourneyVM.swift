@@ -81,6 +81,8 @@ class FlightResultSingleJourneyVM {
      }
     
     
+
+    
     func setPinnedFlights(shouldApplySorting : Bool = false) {
           
           var sortArray = self.results.journeyArray.reduce([]) { $0 + $1.pinnedFlights }
@@ -156,13 +158,107 @@ class FlightResultSingleJourneyVM {
       }
       
     
+    func applySortingWithinGroups(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int) {
+     
+        var journeyArrayToSort = self.results.journeyArray
+        
+        for (index,_) in journeyArrayToSort.enumerated() {
+                        
+            switch  sortOrder {
+                
+    
+            case .Smart:
+    
+                
+                journeyArrayToSort[index].journeyArray.sort(by: { $0.computedHumanScore ?? 0  < $1.computedHumanScore ?? 0  })
+                
+                
+            case .Price:
+                
+                
+                journeyArrayToSort[index].journeyArray.sort(by: { (obj1, obj2) -> Bool in
+                    if isConditionReverced {
+                        return (obj1.price) > (obj2.price)
+                    }else{
+                        return (obj1.price) < (obj2.price)
+                    }
+                })
+                
+
+            case .Duration:
+                         
+                         journeyArrayToSort[index].journeyArray.sort(by: { (obj1, obj2) -> Bool in
+                             if isConditionReverced {
+                                 return obj1.duration > obj2.duration
+                             }else{
+                                 return obj1.duration < obj2.duration
+                             }
+                         })
+                       
+            
+            case .Depart:
+                
+                journeyArrayToSort[index].journeyArray.sort(by: { (obj1, obj2) -> Bool in
+                    
+                    let firstObjDepartureTime = obj1.dt
+                    let secondObjDepartureTime = obj2.dt
+                    
+                    if isConditionReverced {
+                        
+                        return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ) > self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+                        
+                    }else{
+                      
+                      return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+
+                    }
+                })
+      
+                
+            case .Arrival:
+                      journeyArrayToSort[index].journeyArray.sort(by: { (obj1, obj2) -> Bool in
+                          
+                        let firstObjDepartureTime = obj1.ad + " " + obj1.at
+                          
+                          let secondObjDepartureTime = obj2.ad + " " + obj2.at
+                          
+                          let firstObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: firstObjDepartureTime)
+                          
+                          let secondObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: secondObjDepartureTime)
+                          
+                          if isConditionReverced {
+                            
+                            return firstObjTimeInterval > secondObjTimeInterval
+
+                          }else{
+                            
+                            return firstObjTimeInterval < secondObjTimeInterval
+
+                          }
+                      })
+                      
+                
+                
+                
+            default:
+    
+                print("default")
+    
+            }
+        }
+        
+        self.results.journeyArray = journeyArrayToSort
+        
+        
+    }
+    
+    
       func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int){
        
           var suggetedSortArray = self.results.suggestedJourneyArray
                 
           var journeySortedArray = self.results.journeyArray
 
-          
           switch  sortOrder {
               
           case .Smart:
