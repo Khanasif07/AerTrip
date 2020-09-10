@@ -21,10 +21,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ch7-lp-9PC">
-                    <rect key="frame" x="16" y="25.5" width="382" height="71"/>
+                    <rect key="frame" x="27" y="25.5" width="360.5" height="71"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labelf dfg fdd f df df db fdbf dbf dbf sbf b  fvdsf vds fsd v cv v fdsvd" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ciq-xC-4nF">
-                            <rect key="frame" x="15" y="15" width="352" height="41"/>
+                            <rect key="frame" x="15" y="15" width="330.5" height="41"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -49,11 +49,10 @@
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="fMI-h7-6Mp" secondAttribute="trailing" id="0YE-xt-qXU"/>
                 <constraint firstItem="fMI-h7-6Mp" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="EtF-Gc-4jd"/>
-                <constraint firstAttribute="trailing" secondItem="Ch7-lp-9PC" secondAttribute="trailing" constant="16" id="JE9-v7-Et7"/>
                 <constraint firstItem="Ch7-lp-9PC" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="Kf9-O1-hvO"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="fMI-h7-6Mp" secondAttribute="bottom" id="aGa-W9-Qc4"/>
                 <constraint firstItem="Ch7-lp-9PC" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="c6m-uL-Ufd"/>
-                <constraint firstItem="Ch7-lp-9PC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="hF6-fx-tOH"/>
+                <constraint firstItem="Ch7-lp-9PC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="hF6-fx-tOH"/>
                 <constraint firstItem="fMI-h7-6Mp" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="mio-oG-JlY"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
