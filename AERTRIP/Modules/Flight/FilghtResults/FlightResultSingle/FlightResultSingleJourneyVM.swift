@@ -158,12 +158,14 @@ class FlightResultSingleJourneyVM {
       }
       
     
-    func applySortingWithinGroups(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int) {
+    func applySortingOnGroups(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int) {
      
-        var journeyArrayToSort = self.results.journeyArray
+        let journeyArrayToSort = self.results.journeyArray
         
         for (index,_) in journeyArrayToSort.enumerated() {
                         
+            if journeyArrayToSort[index].journeyArray.count > 1 {
+            
             switch  sortOrder {
                 
     
@@ -194,7 +196,14 @@ class FlightResultSingleJourneyVM {
                                  return obj1.duration < obj2.duration
                              }
                          })
-                       
+                
+                         journeyArrayToSort[index].journeyArray.forEach { (jor) in
+                            print("jor...\(jor.durationTitle)")
+                         }
+                         
+                print(journeyArrayToSort[index].journeyArray)
+
+                
             
             case .Depart:
                 
@@ -245,6 +254,8 @@ class FlightResultSingleJourneyVM {
                 print("default")
     
             }
+            
+        }
         }
         
         self.results.journeyArray = journeyArrayToSort

@@ -119,9 +119,9 @@ struct TimeFK {
         let arrowImage = !flightGroup.isCollapsed ? UIImage(named:"DownArrow") : UIImage(named:"UpArrow")
         expandCollapseButton.setImage(arrowImage, for: .normal)
         
-        var timeFKArray = journey.journeyArray.map{ return TimeFK(departurTime: $0.dt, fk: $0.fk) }
-        timeFKArray.sort(by : { $0.departurTime < $1.departurTime })
-        flightGroup.journeyArray.sort(by : { $0.dt < $1.dt })
+        let timeFKArray = journey.journeyArray.map{ return TimeFK(departurTime: $0.dt, fk: $0.fk) }
+//        timeFKArray.sort(by : { $0.departurTime < $1.departurTime })
+//        flightGroup.journeyArray.sort(by : { $0.dt < $1.dt })
         timeArray = timeFKArray
       
         if flightGroup.selectedFK == String() {
