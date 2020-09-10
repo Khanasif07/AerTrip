@@ -1583,10 +1583,10 @@
         }
     }
     
-//    CGFloat dateWidthExtraConstant = 87;
-//    if (dateWidth + dateWidthExtraConstant > width) {
-//        width = dateWidth + dateWidthExtraConstant;
-//    }
+    CGFloat dateWidthExtraConstant = 87;
+    if (dateWidth + dateWidthExtraConstant > width) {
+        width = dateWidth + dateWidthExtraConstant;
+    }
     
     if(width > 275){
         width = 275;
