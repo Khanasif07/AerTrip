@@ -172,15 +172,13 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
             }
         } else {
             
-            if(penalty != 0 && penalty == Int(roomPrice) &&
+            if(penalty != 0 && penalty >= Int(roomPrice) &&
                 !fromDate.isEmpty && toDate.isEmpty) {
-//            if penalty == Int(roomPrice) && !fromDate.isEmpty {
                 penaltyString = "Non Refundable from  \(startingDate)\n"
                 return penaltyString
             } else if(penalty != 0 && penalty != Int(roomPrice) &&
                         !fromDate.isEmpty && toDate.isEmpty) {
-//            if penalty == Int(roomPrice) && !fromDate.isEmpty {
-                penaltyString = "Cancellation fee of \(roomPrice.amountInDelimeterWithSymbol) will be charged if you cancel on \(startingDate) or later\n"
+                penaltyString = "Cancellation fee of \(Double(penalty).amountInDelimeterWithSymbol) will be charged if you cancel on \(startingDate) or later\n"
                 return penaltyString
             }
         }

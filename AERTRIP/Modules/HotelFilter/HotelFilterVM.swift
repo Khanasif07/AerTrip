@@ -29,8 +29,8 @@ protocol HotelFilterVMDelegate: class {
 class HotelFilterVM {
     static let shared = HotelFilterVM()
     
-    var defaultRatingCount: [Int] = [0,1,2,3,4,5]
-    var defaultTripAdvisorRatingCount: [Int] = [0,1,2,3,4,5]
+    var defaultRatingCount: [Int] = [1,2,3,4,5]
+    var defaultTripAdvisorRatingCount: [Int] = [1,2,3,4,5]
     var defaultIsIncludeUnrated: Bool = true
     var defaultDistanceRange: Double = 20
     var defaultLeftRangePrice: Double = 0.0
@@ -58,34 +58,35 @@ class HotelFilterVM {
     var priceType: Price = .Total
     var totalHotelCount: Int = 0
     var showIncludeUnrated: Bool = true
-
+    
     var filterHotelCount: Int = 0
     var lastSelectedIndex: Int = 0
     var isSortingApplied: Bool = false
     let allTabsStr: [String] = [LocalizedString.Sort.localized, LocalizedString.Distance.localized, LocalizedString.Price.localized, LocalizedString.Ratings.localized, LocalizedString.Amenities.localized,LocalizedString.Room.localized]
-
+    
     weak var delegate: HotelFilterVMDelegate?
     var isFilterAppliedForDestinetionFlow = false
-    
+    var availableAmenities: [String] = []
+
     var isFilterApplied: Bool {
         var isSorstingChanged = false
         var isRatingChanged = true
         var isTARatingChanged = true
-
+        
         if HotelFilterVM.shared.isFilterAppliedForDestinetionFlow {
-           isSorstingChanged = (HotelFilterVM.shared.sortUsing == .DistanceNearestFirst(ascending: true)) ? true : false
+            isSorstingChanged = (HotelFilterVM.shared.sortUsing == .DistanceNearestFirst(ascending: true)) ? true : false
         } else {
-        isSorstingChanged = (HotelFilterVM.shared.sortUsing == HotelFilterVM.shared.defaultSortUsing) ? true : false
+            isSorstingChanged = (HotelFilterVM.shared.sortUsing == HotelFilterVM.shared.defaultSortUsing) ? true : false
         }
         
         let diff = HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount)
         let taDiff = HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount)
-
-        if 1...5 ~= diff.count {
+        
+        if 1...4 ~= diff.count {
             isRatingChanged = false
         }
         
-        if 1...5 ~= taDiff.count {
+        if 1...4 ~= taDiff.count {
             isTARatingChanged = false
         }
         
@@ -112,24 +113,24 @@ class HotelFilterVM {
         delay(seconds: 0.3) { [weak self] in
             self?.delegate?.updateFiltersTabs()
         }
-                
+        
     }
     
     func saveDataToUserDefaults() {
         var filter = UserInfo.HotelFilter()
-        if 1...5 ~= ratingCount.count {
+        if 1...4 ~= ratingCount.count {
             filter.ratingCount = ratingCount
         }
         else {
             filter.ratingCount = defaultRatingCount
         }
-        if 1...5 ~= tripAdvisorRatingCount.count {
+        if 1...4 ~= tripAdvisorRatingCount.count {
             filter.tripAdvisorRatingCount = tripAdvisorRatingCount
         }
         else {
             filter.tripAdvisorRatingCount = defaultTripAdvisorRatingCount
         }
-        //filter.tripAdvisorRatingCount = tripAdvisorRatingCount
+        //        filter.tripAdvisorRatingCount = tripAdvisorRatingCount
         filter.isIncludeUnrated = isIncludeUnrated
         filter.distanceRange = distanceRange
         filter.minimumPrice = minimumPrice
@@ -144,10 +145,10 @@ class HotelFilterVM {
         filter.priceType = priceType
         filter.isFilterAppliedForDestinetionFlow = isFilterAppliedForDestinetionFlow
         
-        if self.isFilterApplied || self.isFilterAppliedForDestinetionFlow{
+        if self.isFilterApplied {
             UserInfo.hotelFilter = filter
         } else {
-           UserInfo.hotelFilter = nil
+            UserInfo.hotelFilter = nil
         }
         if let filter = UserInfo.hotelFilter {
             printDebug(filter)
@@ -167,7 +168,10 @@ class HotelFilterVM {
         self.roomOther = defaultRoomOther
         self.sortUsing = defaultSortUsing
         self.priceType = defaultPriceType
-        self.isFilterAppliedForDestinetionFlow = false
+        if self.isFilterAppliedForDestinetionFlow  {
+            self.sortUsing = .DistanceNearestFirst(ascending: true)
+        }
+        //self.isFilterAppliedForDestinetionFlow = false
     }
     
     private init() {
@@ -179,9 +183,9 @@ class HotelFilterVM {
         switch filterName.lowercased() {
         case LocalizedString.Sort.localized.lowercased():
             if HotelFilterVM.shared.isFilterAppliedForDestinetionFlow {
-               return (appliedFilter.sortUsing == .DistanceNearestFirst(ascending: true)) ? false : true
+                return (appliedFilter.sortUsing == .DistanceNearestFirst(ascending: true)) ? false : true
             } else {
-            return (appliedFilter.sortUsing == HotelFilterVM.shared.defaultSortUsing) ? false : true
+                return (appliedFilter.sortUsing == HotelFilterVM.shared.defaultSortUsing) ? false : true
             }
         case LocalizedString.Distance.localized.lowercased():
             return (appliedFilter.distanceRange == HotelFilterVM.shared.defaultDistanceRange) ? false : true
@@ -204,7 +208,7 @@ class HotelFilterVM {
             
             let diff = appliedFilter.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount)
             let taDiff = appliedFilter.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount)
-
+            
             if 1...4 ~= diff.count {
                 return true
             }

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -34,7 +33,7 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gba-0o-61v">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="114"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="We1-vK-Fq2">
                                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
@@ -135,9 +134,11 @@
                                     <constraint firstAttribute="width" constant="27" id="hjN-bb-t2r"/>
                                 </constraints>
                                 <state key="normal" image="bookingFilterIcon"/>
+                                <connections>
+                                    <action selector="filterBtnTapped:" destination="EtU-Pd-1aU" eventType="touchUpInside" id="v3G-Fr-j2t"/>
+                                </connections>
                             </button>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="dxU-Fm-YZC"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
@@ -155,6 +156,7 @@
                             <constraint firstItem="hn4-KT-Vs8" firstAttribute="bottom" secondItem="gba-0o-61v" secondAttribute="bottom" id="sJ9-Bs-fx6"/>
                             <constraint firstItem="SM2-wX-DbY" firstAttribute="top" secondItem="e2I-lS-6Bs" secondAttribute="top" id="wEJ-47-V5Y"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="dxU-Fm-YZC"/>
                     </view>
                     <connections>
                         <outlet property="blurBackGroundView" destination="gba-0o-61v" id="kB1-UZ-8d9"/>
@@ -188,7 +190,6 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="Kzf-ZQ-dW2"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="gYA-6f-Aik" firstAttribute="leading" secondItem="nwG-0k-EnN" secondAttribute="leading" id="C7e-Gb-cHH"/>
@@ -196,6 +197,7 @@
                             <constraint firstItem="gYA-6f-Aik" firstAttribute="top" secondItem="Kzf-ZQ-dW2" secondAttribute="top" id="aWP-Ml-viq"/>
                             <constraint firstItem="Kzf-ZQ-dW2" firstAttribute="trailing" secondItem="gYA-6f-Aik" secondAttribute="trailing" id="mtK-Sh-0hl"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="Kzf-ZQ-dW2"/>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="gYA-6f-Aik" id="9u7-7T-EbT"/>
@@ -215,7 +217,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OJi-n3-uUv" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="RangeTableViewCell" rowHeight="149" id="Bxo-WI-EgW" customClass="RangeTableViewCell" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="149"/>
@@ -226,7 +228,7 @@
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Prr-8o-sjF">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="149"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search Results Range" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mAo-am-rnj">
                                                     <rect key="frame" x="16" y="11.999999999999998" width="142.33333333333334" height="20.333333333333329"/>
@@ -318,7 +320,6 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="Eok-Mn-bfI"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="OJi-n3-uUv" firstAttribute="top" secondItem="Eok-Mn-bfI" secondAttribute="top" id="8uY-TO-271"/>
@@ -326,6 +327,7 @@
                             <constraint firstItem="OJi-n3-uUv" firstAttribute="trailing" secondItem="Eok-Mn-bfI" secondAttribute="trailing" id="rl8-Fx-MuX"/>
                             <constraint firstItem="OJi-n3-uUv" firstAttribute="leading" secondItem="Eok-Mn-bfI" secondAttribute="leading" id="u5G-tI-fWR"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="Eok-Mn-bfI"/>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="OJi-n3-uUv" id="1M1-PG-Wha"/>
@@ -348,7 +350,6 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="ShX-SR-Ybv"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="5NB-aY-GKJ" firstAttribute="leading" secondItem="ShX-SR-Ybv" secondAttribute="leading" id="8ex-iq-1AN"/>
@@ -356,6 +357,7 @@
                             <constraint firstItem="ShX-SR-Ybv" firstAttribute="trailing" secondItem="5NB-aY-GKJ" secondAttribute="trailing" id="XKS-xI-sqi"/>
                             <constraint firstItem="ShX-SR-Ybv" firstAttribute="bottom" secondItem="5NB-aY-GKJ" secondAttribute="bottom" id="wCu-Tx-Mfo"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="ShX-SR-Ybv"/>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="5NB-aY-GKJ" id="OB8-JT-vxJ"/>
@@ -577,7 +579,7 @@
                                         <rect key="frame" x="16" y="0.0" width="382" height="19.333333333333332"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TripAdvisor Rating" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKE-Bp-bwj">
-                                                <rect key="frame" x="0.0" y="0.0" width="132.33333333333334" height="19.333333333333332"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="132" height="19.333333333333332"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="19.5" id="QYB-87-hXf"/>
                                                 </constraints>
@@ -614,6 +616,8 @@
                                                         <state key="normal" image="deselectedAdvisorRating"/>
                                                         <state key="selected" image="selectedAdvisorRating"/>
                                                         <connections>
+                                                            <action selector="tripAdvisorRatingButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpOutside" id="LD1-1y-4F0"/>
+                                                            <action selector="tripAdvisorRatingButtonsAction:" destination="Ny0-QT-oGF" eventType="touchDragExit" id="rsr-FC-C3t"/>
                                                             <action selector="tripAdvisorRatingButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="y9f-Vm-qO8"/>
                                                         </connections>
                                                     </button>
@@ -634,6 +638,8 @@
                                                         <state key="normal" image="deselectedAdvisorRating"/>
                                                         <state key="selected" image="selectedAdvisorRating"/>
                                                         <connections>
+                                                            <action selector="tripAdvisorRatingButtonsAction:" destination="Ny0-QT-oGF" eventType="touchDragExit" id="2IE-ho-CCG"/>
+                                                            <action selector="tripAdvisorRatingButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpOutside" id="dr4-yx-SJu"/>
                                                             <action selector="tripAdvisorRatingButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="f6o-Wb-79g"/>
                                                         </connections>
                                                     </button>
@@ -654,6 +660,8 @@
                                                         <state key="normal" image="deselectedAdvisorRating"/>
                                                         <state key="selected" image="selectedAdvisorRating"/>
                                                         <connections>
+                                                            <action selector="tripAdvisorRatingButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpOutside" id="RQi-0X-sIZ"/>
+                                                            <action selector="tripAdvisorRatingButtonsAction:" destination="Ny0-QT-oGF" eventType="touchDragExit" id="cxc-a6-VJq"/>
                                                             <action selector="tripAdvisorRatingButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="wsm-1m-xii"/>
                                                         </connections>
                                                     </button>
@@ -675,6 +683,8 @@
                                                         <state key="selected" image="selectedAdvisorRating"/>
                                                         <connections>
                                                             <action selector="tripAdvisorRatingButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="9Ij-sU-Vqp"/>
+                                                            <action selector="tripAdvisorRatingButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpOutside" id="Rhp-Ps-XkI"/>
+                                                            <action selector="tripAdvisorRatingButtonsAction:" destination="Ny0-QT-oGF" eventType="touchDragExit" id="phV-GV-gzd"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -694,7 +704,9 @@
                                                         <state key="normal" image="deselectedAdvisorRating"/>
                                                         <state key="selected" image="selectedAdvisorRating"/>
                                                         <connections>
-                                                            <action selector="tripAdvisorRatingButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="aDT-fe-b4P"/>
+                                                            <action selector="tripAdvisorRatingButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpOutside" id="HaI-Hs-glU"/>
+                                                            <action selector="tripAdvisorRatingButtonsAction:" destination="Ny0-QT-oGF" eventType="touchDragExit" id="nmA-fk-XpC"/>
+                                                            <action selector="tripAdvisorRatingButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="nuS-Fw-N4I"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -715,7 +727,6 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="Ikl-ck-nG6"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="zEX-Uu-021" firstAttribute="trailing" secondItem="Ikl-ck-nG6" secondAttribute="trailing" id="3rA-zA-aR6"/>
@@ -731,6 +742,7 @@
                             <constraint firstItem="UEz-Fm-zlt" firstAttribute="top" secondItem="VVD-aU-ocN" secondAttribute="bottom" constant="16" id="ziJ-vG-imp"/>
                             <constraint firstAttribute="trailing" secondItem="gq6-Ev-zlo" secondAttribute="trailing" id="zpY-Pn-Wov"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ikl-ck-nG6"/>
                     </view>
                     <connections>
                         <outlet property="includeRatedStatusButton" destination="Hjq-iD-j65" id="2Td-d7-UoQ"/>
@@ -770,7 +782,6 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="fSh-AG-CXg"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="fSh-AG-CXg" firstAttribute="bottom" secondItem="jrr-Ly-Kbz" secondAttribute="bottom" id="2C0-bq-yQA"/>
@@ -778,6 +789,7 @@
                             <constraint firstItem="jrr-Ly-Kbz" firstAttribute="top" secondItem="fSh-AG-CXg" secondAttribute="top" id="Rc9-Xd-ZCj"/>
                             <constraint firstItem="jrr-Ly-Kbz" firstAttribute="leading" secondItem="fSh-AG-CXg" secondAttribute="leading" id="Rff-P4-sq4"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="fSh-AG-CXg"/>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="jrr-Ly-Kbz" id="e7b-Ji-BcZ"/>
@@ -811,7 +823,6 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="WJY-o5-RkH"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ulD-C2-1Kj" firstAttribute="centerX" secondItem="WJY-o5-RkH" secondAttribute="centerX" id="6nQ-ak-xrY"/>
@@ -823,6 +834,7 @@
                             <constraint firstItem="ulD-C2-1Kj" firstAttribute="leading" secondItem="WJY-o5-RkH" secondAttribute="leading" constant="16" id="dwI-X3-W4b"/>
                             <constraint firstItem="WJY-o5-RkH" firstAttribute="trailing" secondItem="Gjc-BT-nEO" secondAttribute="trailing" id="rJF-H3-2dS"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="WJY-o5-RkH"/>
                     </view>
                     <connections>
                         <outlet property="roomSegmentedControl" destination="ulD-C2-1Kj" id="IAk-vW-o8u"/>
@@ -834,11 +846,6 @@
             <point key="canvasLocation" x="829.60000000000002" y="101.19940029985008"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="8mm-XZ-Sa6">
-            <size key="intrinsicContentSize" width="378" height="44"/>
-        </designable>
-    </designables>
     <resources>
         <image name="UnselectedStar" width="30" height="30"/>
         <image name="bookingFilterIcon" width="27" height="27"/>
@@ -2041,8 +2048,5 @@ AtQAAQLdAAEC4gABAugAAQLwAAEC8gABAvQAAQL2AAEC+AABFGQAARRpAAEUdgABFHkAARSGAAEUiwAB
 FJMAARSWAAEUmwABFKMAAAAAAAAEAQAAAAAAAABnAAAAAAAAAAAAAAAAAAEUpg
 </mutableData>
         </image>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

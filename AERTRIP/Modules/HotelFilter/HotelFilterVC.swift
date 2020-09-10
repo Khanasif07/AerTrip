@@ -254,6 +254,7 @@ class HotelFilterVC: BaseVC {
         self.parchmentView?.menuBackgroundColor = UIColor.clear
         self.parchmentView?.collectionView.backgroundColor = UIColor.clear
         
+        HotelFilterVM.shared.lastSelectedIndex = selectedIndex
     }
     
     
@@ -289,10 +290,10 @@ class HotelFilterVC: BaseVC {
                 
                 let diff = HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount)
                 let taDiff = HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount)
-                if 1...5 ~= diff.count {
+                if 1...4 ~= diff.count {
                     filtersTabs[idx].isSelected =  false
                 }
-                else if 1...5 ~= taDiff.count {
+                else if 1...4 ~= taDiff.count {
                     filtersTabs[idx].isSelected =  false
                 }
                 else if HotelFilterVM.shared.isIncludeUnrated != HotelFilterVM.shared.defaultIsIncludeUnrated {
@@ -345,7 +346,7 @@ class HotelFilterVC: BaseVC {
     @IBAction func clearAllButtonTapped(_ sender: Any) {
        // self.hide(animated: true, shouldRemove: true)
         delegate?.clearAllButtonTapped()
-        self.updateFiltersTabs()
+        reloadMenu()
         self.allChildVCs.forEach { (viewController) in
             if let vc = viewController as? PriceVC {
                 vc.setFilterValues()
@@ -377,7 +378,10 @@ class HotelFilterVC: BaseVC {
         self.hide(animated: true, shouldRemove: true)
         
     }
-        
+    @IBAction func filterBtnTapped(_ sender: Any) {
+        outsideAreaTapped()
+    }
+     
 }
 
 extension HotelFilterVC: HotelFilterVMDelegate {
@@ -393,13 +397,17 @@ extension HotelFilterVC: HotelFilterVMDelegate {
     
     @objc func updateFilter() {
         printDebug("updateFilter")
-        self.setBadgesOnAllCategories()
+        reloadMenu()
+        saveAndApplyFilter()
+    }
+    
+    func reloadMenu(){
+       self.setBadgesOnAllCategories()
         UIView.setAnimationsEnabled(false)
         UIView.animate(withDuration: 0, animations: {
             self.parchmentView?.reloadMenu()
         }) { (_) in
                     UIView.setAnimationsEnabled(true)
         }
-        saveAndApplyFilter()
     }
 }

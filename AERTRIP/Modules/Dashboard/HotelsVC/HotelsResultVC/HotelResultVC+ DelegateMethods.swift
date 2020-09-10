@@ -407,7 +407,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
             HotelFilterVM.shared.sortUsing = .DistanceNearestFirst(ascending: true)
             HotelFilterVM.shared.isFilterAppliedForDestinetionFlow = true
             HotelFilterVM.shared.saveDataToUserDefaults()
-            self.getSavedFilter()
+            //self.getSavedFilter()
         }
         self.viewModel.loadSaveData()
         self.filterCollectionView.reloadData()

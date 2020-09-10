@@ -78,12 +78,19 @@ extension AmenitiesVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var updateFilter = true
         if HotelFilterVM.shared.amenitites.contains(amentiesDetails[indexPath.row].rawValue) {
             HotelFilterVM.shared.amenitites.remove(at: HotelFilterVM.shared.amenitites.firstIndex(of: amentiesDetails[indexPath.row].rawValue)!)
         } else {
-            HotelFilterVM.shared.amenitites.append(amentiesDetails[indexPath.row].rawValue)
+            if HotelFilterVM.shared.availableAmenities.contains(amentiesDetails[indexPath.row].id) {
+                HotelFilterVM.shared.amenitites.append(amentiesDetails[indexPath.row].rawValue)
+            } else {
+                updateFilter = false
+            }
         }
+        if updateFilter {
         HotelFilterVM.shared.delegate?.updateFiltersTabs()
         self.tableView.reloadData()
+        }
     }
 }

@@ -388,6 +388,40 @@ enum ATAmenity: String, CaseIterable {
             return #imageLiteral(resourceName: "ame-coffee-shop")
         }
     }
+    
+    var id: String {
+           switch self {
+           case .Wifi:
+               return "10"
+               
+           case .RoomService:
+               return "8"
+               
+           case .Internet:
+               return "5"
+               
+           case .AirConditioner:
+               return "1"
+               
+           case .RestaurantBar:
+               return "7"
+               
+           case .Gym:
+               return "4"
+               
+           case .BusinessCenter:
+               return "2"
+               
+           case .Pool:
+               return "6"
+               
+           case .Spa:
+               return "9"
+               
+           case .Coffee_Shop:
+               return "3"
+           }
+       }
 }
 
 enum ATMeal: Int, CaseIterable {

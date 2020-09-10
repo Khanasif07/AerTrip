@@ -125,7 +125,8 @@ struct AccountDetailEvent {
     var ticketNo: String = ""
     var hotelAddress = ""
     var flightNumber = ""
-    
+    var countryCode = ""
+
     //Added for ofline receipts:--
     var chequeNumber = ""
     var chequeDate = ""
@@ -519,8 +520,13 @@ struct AccountDetailEvent {
             tStr = hotelName
         }
         if let hotelAddress = details["hotel_address"] as? String, !hotelAddress.isEmpty {
-            tStr = tStr.isEmpty ? hotelAddress : "\(tStr), \(hotelAddress)"
+            //tStr = tStr.isEmpty ? hotelAddress : "\(tStr), \(hotelAddress)"
             self.hotelAddress = hotelAddress
+        }
+        
+        if let countryCode = details["hotel_country_code"] as? String, !hotelAddress.isEmpty {
+            tStr = tStr.isEmpty ? countryCode : "\(tStr), \(countryCode)"
+            self.countryCode = countryCode
         }
         self.title = tStr
         
