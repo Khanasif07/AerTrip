@@ -70,7 +70,7 @@
 
 //
 @property (weak, nonatomic) IBOutlet UIView *submitButtonOuterView;
-@property (weak, nonatomic) IBOutlet UIButton *submitButton;
+@property (weak, nonatomic) IBOutlet ATButton *submitButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *buttonActivityIndicator;
 
 //
