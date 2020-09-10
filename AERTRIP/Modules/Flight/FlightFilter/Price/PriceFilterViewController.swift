@@ -59,11 +59,16 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     var isInternational = false
     
     private var multiLegSegmentControl = UISegmentedControl()
+    
+    var priceDiffForFraction: CGFloat {
+        let diff = currentPriceFilter.inputFareMaxVaule - currentPriceFilter.inputFareMinValue
+        return diff == 0 ? 1 : diff
+    }
 
     //MARK:- Outlets
     @IBOutlet weak var multiLegView: UIView!
     @IBOutlet weak var multiSegmentView: UIView!
-    @IBOutlet weak var priceRangeSlider: MARKRangeSlider!
+    @IBOutlet weak var priceRangeSlider: AertripRangeSlider!
     @IBOutlet weak var multicityViewHeight: NSLayoutConstraint!
     @IBOutlet weak var JourneyTitle: UILabel!
     @IBOutlet weak var fareMinValView: UIView!
@@ -215,9 +220,9 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     }
     
     fileprivate func setupPriceSlider() {
-        priceRangeSlider.setupThemeImages()
-        priceRangeSlider.setMinValue(currentPriceFilter.inputFareMinValue, maxValue: currentPriceFilter.inputFareMaxVaule)
-        priceRangeSlider.setLeftValue(currentPriceFilter.userSelectedFareMinValue, rightValue: currentPriceFilter.userSelectedFareMaxValue)
+        
+        priceRangeSlider.set(leftValue: (currentPriceFilter.userSelectedFareMinValue - currentPriceFilter.inputFareMinValue)/priceDiffForFraction, rightValue: (currentPriceFilter.userSelectedFareMaxValue - currentPriceFilter.inputFareMinValue)/priceDiffForFraction)
+        
     }
 
     fileprivate func setupPriceLabels() {
@@ -253,7 +258,9 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     func setupUI() {
         
         currentPriceFilter = allPriceFilters[currentActiveIndex]
-        priceRangeSlider.setLeftValue(currentPriceFilter.inputFareMinValue, rightValue: currentPriceFilter.inputFareMaxVaule)
+        
+        priceRangeSlider.set(leftValue: (currentPriceFilter.userSelectedFareMinValue - currentPriceFilter.inputFareMinValue)/priceDiffForFraction, rightValue: (currentPriceFilter.userSelectedFareMaxValue - currentPriceFilter.inputFareMinValue)/priceDiffForFraction)
+        
         setupPriceLabels()
         refundableFaresButton.isSelected = false
         
@@ -306,16 +313,16 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     //MARK:- IBAction Methods
     @objc fileprivate func priceRangeChanged() {
         
-        currentPriceFilter.userSelectedFareMinValue = priceRangeSlider.leftValue.rounded(.down)
-        currentPriceFilter.userSelectedFareMaxValue = priceRangeSlider.rightValue.rounded(.up)
+        currentPriceFilter.userSelectedFareMinValue = ((priceRangeSlider.leftValue * priceDiffForFraction) + currentPriceFilter.inputFareMinValue).rounded(.down)
+        currentPriceFilter.userSelectedFareMaxValue = ((priceRangeSlider.rightValue * priceDiffForFraction) + currentPriceFilter.inputFareMinValue).rounded(.up)
         
         setupPriceLabels()
     }
     
     @objc fileprivate func priceRangeUpdated() {
         
-        currentPriceFilter.userSelectedFareMinValue = priceRangeSlider.leftValue.rounded(.down)
-        currentPriceFilter.userSelectedFareMaxValue = priceRangeSlider.rightValue.rounded(.up)
+        currentPriceFilter.userSelectedFareMinValue = ((priceRangeSlider.leftValue * priceDiffForFraction) + currentPriceFilter.inputFareMinValue).rounded(.down)
+        currentPriceFilter.userSelectedFareMaxValue = ((priceRangeSlider.rightValue * priceDiffForFraction) + currentPriceFilter.inputFareMinValue).rounded(.up)
         
         allPriceFilters[currentActiveIndex] = currentPriceFilter
         updateSegmentTitles()
