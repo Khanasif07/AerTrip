@@ -275,7 +275,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                             cell.amenitiesDelegate = self
                             cell.amenitiesData = amenitiesData
                             cell.amenitiesDisplayView.isHidden = false
-                            cell.amenitiesDisplayViewHeight.constant = 90
+                            cell.amenitiesDisplayViewHeight.constant = 100
                             cell.amenitiesCollectionView.reloadData()
                         }else{
                             cell.amenitiesDisplayView.isHidden = true
@@ -409,17 +409,38 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                         cell.equipmentsLabel.text = flight.eq
                     }
                     if (flight.isArrivalDateChange ?? false){
-                        let str = self.dateConverter(dateStr: flight.ad)
+//                        let str = self.dateConverter(dateStr: flight.ad)
+//                        cell.arrivalDateLabel.attributedText = self.addAttributsForRange(str, coloredString: str, color: AppColors.lightYellow)
+                        
+                        let str = "  "+self.dateConverter(dateStr: flight.ad)+"  "
                         cell.arrivalDateLabel.attributedText = self.addAttributsForRange(str, coloredString: str, color: AppColors.lightYellow)
+                        
+                        
                     }else{
                         cell.arrivalDateLabel.attributedText = nil
                         cell.arrivalDateLabel.text = self.dateConverter(dateStr: flight.ad)
                     }
                     
                     if (flight.isDepartureDateChange ?? false){
-                        let str = self.dateConverter(dateStr: flight.dd)
+                        //                        let str = self.dateConverter(dateStr: flight.dd)
+                        //                        cell.departureDateLabel.attributedText = self.addAttributsForRange(str, coloredString: str, color: AppColors.lightYellow)
                         
-                        cell.departureDateLabel.attributedText = self.addAttributsForRange(str, coloredString: str, color: AppColors.lightYellow)
+                        let str = "  "+self.dateConverter(dateStr: flight.dd)+" ."
+                        let str1 = "  "+self.dateConverter(dateStr: flight.dd)+" "
+                        
+                        //                        cell.departureDateLabel.attributedText = self.addAttributsForRange(str, coloredString: str, color: AppColors.lightYellow)
+                        
+                        
+                        
+                        let deptDateRange = (str as NSString).range(of: str1)
+                        let deptDateAttrStr = NSMutableAttributedString(string:str)
+                        deptDateAttrStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: deptDateRange)
+                        deptDateAttrStr.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0), range: deptDateRange)
+                        deptDateAttrStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (str as NSString).range(of: "."))
+                        cell.departureDateLabel.attributedText = deptDateAttrStr
+                        
+                        
+                        
                     }else{
                         cell.departureDateLabel.attributedText = nil
                         cell.departureDateLabel.text = self.dateConverter(dateStr: flight.dd)

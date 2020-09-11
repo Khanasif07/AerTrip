@@ -947,7 +947,5 @@ extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
             }
             AppToast.default.showToastMessage(message: message, onViewController: self)
         }
-        
     }
-    
 }
