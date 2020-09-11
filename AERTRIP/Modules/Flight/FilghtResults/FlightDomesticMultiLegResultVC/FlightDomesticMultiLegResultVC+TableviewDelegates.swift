@@ -101,13 +101,10 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
            }
            checkForOverlappingFlights()
            setTotalFare()
-           //        let containsPinnedFlight = results.reduce(false) { $0 || $1.containsPinnedFlight }
-           //        showPinnedFlightSwitch(containsPinnedFlight)
-           setTableViewHeaderAfterSelection(tableView: tableView )
-        
-            tableView.reloadData()
+        tableView.reloadData()
+//        animateJourneyCompactView(for: tableView)
         setTableViewHeaderAfterSelection(tableView: tableView)
-        animateJourneyCompactView(for: tableView)
+        
        }
     
     fileprivate func setPropertiesToCellAt( index: Int, _ indexPath: IndexPath,  cell: DomesticMultiLegCell, _ tableView: UITableView) {
