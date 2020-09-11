@@ -82,7 +82,7 @@ extension AmenitiesVC: UITableViewDataSource, UITableViewDelegate {
         if HotelFilterVM.shared.amenitites.contains(amentiesDetails[indexPath.row].rawValue) {
             HotelFilterVM.shared.amenitites.remove(at: HotelFilterVM.shared.amenitites.firstIndex(of: amentiesDetails[indexPath.row].rawValue)!)
         } else {
-            if HotelFilterVM.shared.availableAmenities.contains(amentiesDetails[indexPath.row].id) {
+            if HotelFilterVM.shared.availableAmenities.contains(amentiesDetails[indexPath.row].rawValue) {
                 HotelFilterVM.shared.amenitites.append(amentiesDetails[indexPath.row].rawValue)
             } else {
                 updateFilter = false

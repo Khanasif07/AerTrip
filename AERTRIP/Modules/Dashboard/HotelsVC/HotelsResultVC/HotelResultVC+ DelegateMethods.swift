@@ -494,3 +494,12 @@ extension HotelResultVC: HotelSearchResultHeaderViewDelegate {
         self.cancelButtonTapped(self.cancelButton)
     }
 }
+// MARK: - EmptyScreenViewDelegate methods
+extension HotelResultVC: EmptyScreenViewDelegate {
+    func firstButtonAction(sender: ATButton) {
+    }
+    
+    func bottomButtonAction(sender: UIButton) {
+        self.clearAllButtonTapped()
+    }
+}

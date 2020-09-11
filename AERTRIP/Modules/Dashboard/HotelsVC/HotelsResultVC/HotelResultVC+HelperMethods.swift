@@ -53,6 +53,7 @@ extension HotelResultVC {
         }
         self.viewModel.fetchRequestType = .FilterApplied
         self.viewModel.filterApplied = filter
+        self.viewModel.isFilterApplied = true
     }
     
     func applyPreviousFilter() {

@@ -170,10 +170,7 @@ extension APICaller {
                     HotelFilterVM.shared.rightRangePrice = HotelFilterVM.shared.maximumPrice
                     HotelFilterVM.shared.defaultLeftRangePrice = HotelFilterVM.shared.minimumPrice
                     HotelFilterVM.shared.defaultRightRangePrice = HotelFilterVM.shared.maximumPrice
-                    HotelFilterVM.shared.availableAmenities = (filters?["amenities"] as? [JSONDictionary] ?? []) .map({ (dict) -> String in
-                        return (dict["id"] as? String) ?? ""
-                    })
-                    printDebug("HotelFilterVM.shared.availableAmenities :\(HotelFilterVM.shared.availableAmenities)")
+                    
                     completionBlock(true, [], hotelsInfo, done ?? false)
                 }
                 else {

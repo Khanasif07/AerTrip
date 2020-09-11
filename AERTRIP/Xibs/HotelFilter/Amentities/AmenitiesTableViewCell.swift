@@ -41,7 +41,7 @@ class AmenitiesTableViewCell: UITableViewCell {
         self.amenityImageView.image = amenitie?.icon
         self.amentityTitleLabel.text = amenitie?.title
         
-        if HotelFilterVM.shared.availableAmenities.contains(amenitie?.id ?? "") {
+        if HotelFilterVM.shared.availableAmenities.contains(amenitie?.rawValue ?? "") {
             amentityTitleLabel.alpha = 1.0
             amenityImageView.alpha = 1.0
             statusButton.alpha = 1.0

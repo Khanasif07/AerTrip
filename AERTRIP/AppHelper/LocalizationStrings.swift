@@ -563,6 +563,7 @@ enum LocalizedString: String {
     case NoHotelFoundMessage
     case NoHotelFoundMessageOnFilter
     case NoHotelFoundFilter
+    case NoResultsAvailable
     case Inclusion
     case OtherInclusions
     case CancellationPolicy

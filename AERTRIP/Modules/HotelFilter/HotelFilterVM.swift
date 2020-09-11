@@ -205,9 +205,18 @@ class HotelFilterVM {
             return  false
         case LocalizedString.Ratings.localized.lowercased():
             
+            var appliedRating = appliedFilter.ratingCount
+            if appliedRating.contains(0) {
+                appliedRating.remove(object: 0)
+            }
             
-            let diff = appliedFilter.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount)
-            let taDiff = appliedFilter.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount)
+            var appliedTARating = appliedFilter.tripAdvisorRatingCount
+            if appliedTARating.contains(0) {
+                appliedTARating.remove(object: 0)
+            }
+            
+            let diff = appliedRating.difference(from: HotelFilterVM.shared.defaultRatingCount)
+            let taDiff = appliedTARating.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount)
             
             if 1...4 ~= diff.count {
                 return true

@@ -115,14 +115,17 @@ class HotelDetailsVM {
         var filteredRates: [Rates] = []
         var tempRatesData = rates
         if !selectedTag.isEmpty{
-//            for tag in selectedTag{
-//                if (tag != selectedTag.first ?? ""){//To Apply AND filter on rates.
-//                    tempRatesData = filteredRates
-//                    filteredRates = []
-//                }
-                let filteredArray = tempRatesData.filter{ rates in
+            //            for tag in selectedTag{
+            //                if (tag != selectedTag.first ?? ""){//To Apply AND filter on rates.
+            //                    tempRatesData = filteredRates
+            //                    filteredRates = []
+            //                }
+            
+            
+            func getMatchedTagResult(tag: String, array: [Rates]) -> [Rates]{
+                return  array.filter { rates in
                     
-                    for tag in selectedTag{
+                    //                    for tag in selectedTag{
                     let roomRate = rates.roomsRates ?? []
                     if roomRate.map({$0.name.lowercased()}).joined(separator: ",").contains(tag.lowercased()){
                         return true
@@ -130,7 +133,7 @@ class HotelDetailsVM {
                     if roomRate.map({$0.desc.lowercased()}).joined(separator: ",").contains(tag.lowercased()){
                         return true
                     }
-                        if (rates.inclusion_array[APIKeys.boardType.rawValue] as? [String] ?? []).joined(separator: ",").lowercased().contains(tag.lowercased()){
+                    if (rates.inclusion_array[APIKeys.boardType.rawValue] as? [String] ?? []).joined(separator: ",").lowercased().contains(tag.lowercased()){
                         return true
                     }
                     if (rates.inclusion_array[APIKeys.other_inclusions.rawValue] as? [String] ?? []).joined(separator: ",").lowercased().contains(tag.lowercased()){
@@ -174,15 +177,88 @@ class HotelDetailsVM {
                     if ((rates.cancellation_penalty?.is_refundable  ?? false) == false && ((tag.lowercased() == "non-refundable") || (tag.lowercased() == "non refundable"))){
                         return true
                     }
-                    }
+                    //                    }
                     return false
                 }
+            }
+            
+            func filterArray(filteredArray: [Rates]) {
                 for rt in filteredArray{
                     if !filteredRates.contains(array: [rt]){
                         filteredRates.append(rt)
                     }
                 }
+            }
+            
+            let meal: [String] = ATMeal.allCases.map { $0.title.lowercased()}
+            let cancellationPolicy: [String] = ATCancellationPolicy.allCases.map { $0.title.lowercased()}
+            
+            var mealTags: [String] = []
+            var cancelationTags: [String] = []
+            var others: [String] = []
+
+            for tag in selectedTag{
+                if meal.contains(tag.lowercased()) {
+                    mealTags.append(tag)
+                }else if cancellationPolicy.contains(tag.lowercased()) {
+                    cancelationTags.append(tag)
+                } else {
+                    others.append(tag)
+                }
+            }
+            
+            var array: [Rates] = tempRatesData
+            for tag in mealTags{
+                let filteredArray = getMatchedTagResult(tag: tag, array: array)
+                filterArray(filteredArray: filteredArray)
+            }
+            if !mealTags.isEmpty {
+               array = filteredRates
+               filteredRates = []
+            }
+            for tag in cancelationTags{
+                let filteredArray = getMatchedTagResult(tag: tag, array: array)
+                filterArray(filteredArray: filteredArray)
+            }
+            if !cancelationTags.isEmpty {
+               array = filteredRates
+               filteredRates = []
+            }
+            for tag in others{
+                let filteredArray = getMatchedTagResult(tag: tag, array: array)
+                filterArray(filteredArray: filteredArray)
+                array = filteredRates
+            }
+            filteredRates = array
+            
+//            for tag in selectedTag{
+//                var applyMealAndCase = false
+//                var applyCancelationPolicyAndCase = false
+//                var array: [Rates] = filteredRates
+//
+//                let mealResult = meal.filter({ (meal) -> Bool in
+//                    return meal.title.lowercased() == tag.lowercased()
+//                })
+//                if !applyMealAndCase {
+//                    applyMealAndCase = !mealResult.isEmpty
+//                }
+//
+//                let policyResult = cancellationPolicy.filter({ (policy) -> Bool in
+//                    return policy.title.lowercased() == tag.lowercased()
+//                })
+//                if !applyCancelationPolicyAndCase {
+//                    applyCancelationPolicyAndCase = !policyResult.isEmpty
+//                }
+//
+//                let filteredArray = getMatchedTagResult(tag: tag, array: array)
+//
+//                for rt in filteredArray{
+//                    if !filteredRates.contains(array: [rt]){
+//                        filteredRates.append(rt)
+//                    }
+//                }
 //            }
+            //            }
             return filteredRates
         }else{
             return rates

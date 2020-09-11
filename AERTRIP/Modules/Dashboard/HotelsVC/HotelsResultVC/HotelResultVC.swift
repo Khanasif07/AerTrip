@@ -167,6 +167,7 @@ class HotelResultVC: BaseVC {
     lazy var noHotelFoundOnFilterEmptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         newEmptyView.vType = .noHotelFoundOnFilter
+        newEmptyView.delegate = self
         return newEmptyView
     }()
     

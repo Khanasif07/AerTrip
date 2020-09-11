@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
+        UIImageView.clearImageCache()
         // CHECK FOR LAUNCH OF FLIGHT OR HOTEL MODULE        
         FirebaseApp.configure()
         AppFlowManager.default.setupInitialFlow()

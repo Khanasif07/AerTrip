@@ -557,6 +557,7 @@ extension HotelDetailsVC{
             }
         }
         downloadGroup.notify(queue: .main) {
+            printDebug("all images downloaded")
             for image in (self.viewModel.hotelData?.atImageData ?? []){
                 if image.image == nil, let index = self.viewModel.hotelData?.atImageData.firstIndex(where: {$0.imagePath == image.imagePath}){
                     self.viewModel.hotelData?.atImageData.remove(at: index)
@@ -569,8 +570,8 @@ extension HotelDetailsVC{
                     if let url = info.thumbnail?.first, !UIImageView.imageExistForURL(url: url), let firstImage = self.viewModel.hotelData?.atImageData.first?.imagePath {
                         info.thumbnail = [firstImage]
                         _ = info.afterUpdate
-                        self.delegate?.imageUpdated()
                     }
+                    self.delegate?.imageUpdated()
                 }
             }else{
                 self.viewModel.isAllImageDownloadFails = true

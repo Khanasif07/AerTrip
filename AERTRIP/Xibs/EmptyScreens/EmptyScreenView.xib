@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,6 +23,7 @@
                 <outlet property="containerView" destination="k6e-Wt-Gf4" id="mjM-mT-YsZ"/>
                 <outlet property="containerViewCenterYConstraint" destination="na9-oF-fcB" id="Ttb-j3-HcG"/>
                 <outlet property="contentView" destination="QTr-ii-F5R" id="RjT-6N-lcp"/>
+                <outlet property="firstBtnStackView" destination="Hoh-1u-nT9" id="CAS-gz-nF5"/>
                 <outlet property="firstButton" destination="6BF-Ab-CFI" id="Hra-1i-ObX"/>
                 <outlet property="firstButtonContainerView" destination="ggg-Pf-b7E" id="FxJ-Sh-xQi"/>
                 <outlet property="firstbuttonHeightConstraint" destination="3Y0-z6-jZs" id="aRD-CO-Rsi"/>
@@ -106,7 +107,7 @@
                                         <constraint firstAttribute="height" constant="45" id="3Y0-z6-jZs"/>
                                     </constraints>
                                 </stackView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ZX-42-Dni">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ZX-42-Dni">
                                     <rect key="frame" x="0.0" y="446" width="375" height="44"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="44" id="WQO-bL-VmV"/>
@@ -128,7 +129,6 @@
                     </constraints>
                 </view>
             </subviews>
-            <viewLayoutGuide key="safeArea" id="aJs-V7-1W0"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="k6e-Wt-Gf4" firstAttribute="trailing" secondItem="aJs-V7-1W0" secondAttribute="trailing" id="8RI-qF-qxq"/>
@@ -136,6 +136,7 @@
                 <constraint firstItem="k6e-Wt-Gf4" firstAttribute="centerY" secondItem="QTr-ii-F5R" secondAttribute="centerY" id="na9-oF-fcB"/>
                 <constraint firstItem="aJs-V7-1W0" firstAttribute="leading" secondItem="k6e-Wt-Gf4" secondAttribute="leading" id="sbi-Ce-QgW"/>
             </constraints>
+            <viewLayoutGuide key="safeArea" id="aJs-V7-1W0"/>
             <point key="canvasLocation" x="0.80000000000000004" y="557.27136431784118"/>
         </view>
         <view contentMode="scaleToFill" id="rde-hu-oEo">
@@ -210,7 +211,7 @@
                         <constraint firstAttribute="trailing" secondItem="JaE-iK-ick" secondAttribute="trailing" id="yzL-Y7-mmN"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dfr-fK-dd7">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dfr-fK-dd7">
                     <rect key="frame" x="16" y="536.5" width="343" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="bwp-eV-5hU"/>
@@ -221,7 +222,6 @@
                     </connections>
                 </button>
             </subviews>
-            <viewLayoutGuide key="safeArea" id="pYg-JD-13C"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="pEe-Qj-aL5" firstAttribute="trailing" secondItem="pYg-JD-13C" secondAttribute="trailing" id="6Uh-K3-dy2"/>
@@ -232,6 +232,7 @@
                 <constraint firstItem="pEe-Qj-aL5" firstAttribute="centerY" secondItem="rde-hu-oEo" secondAttribute="centerY" id="hPa-Fo-ONF"/>
                 <constraint firstItem="dfr-fK-dd7" firstAttribute="leading" secondItem="pEe-Qj-aL5" secondAttribute="leading" constant="16" id="qBj-el-hct"/>
             </constraints>
+            <viewLayoutGuide key="safeArea" id="pYg-JD-13C"/>
             <point key="canvasLocation" x="764" y="567"/>
         </view>
     </objects>

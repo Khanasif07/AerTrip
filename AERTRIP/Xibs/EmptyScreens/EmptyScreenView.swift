@@ -83,6 +83,7 @@ class EmptyScreenView: UIView {
     @IBOutlet weak var buttonLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var buttonTrailingConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var firstBtnStackView: UIStackView!
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -230,6 +231,7 @@ extension EmptyScreenView {
         self.firstButtonContainerView.isHidden = isHidden
         self.firstbuttonHeightConstraint.constant = isHidden ? 0.0 : 45.0
        // self.firstButtonTopConstraint.constant = isHidden ? 0.0 : 20.0
+        self.firstBtnStackView.isHidden = isHidden
     }
     
     private func hideBottomButton(isHidden: Bool) {
@@ -459,11 +461,33 @@ extension EmptyScreenView {
         self.containerViewCenterYConstraint.constant = 0
      //   self.messageLabelTopConstraint.constant = 0
         self.mainImageView.image = #imageLiteral(resourceName: "noHotelFound")
+//        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+//        self.messageLabel.textColor = AppColors.themeBlack
+//        self.messageLabel.attributedText = getAttributedBoldText(text: LocalizedString.NoResultsAvailable.localized, boldText: LocalizedString.NoHotelFoundFilter.localized)
+//        self.bottomButton.isHidden = false
+//        self.searchTextLabel.isHidden = true
+        
+//        self.hideBottomButton(isHidden: false)
+        
+        self.hideFirstButton(isHidden: true)
+        self.labelsStackView.spacing = 6
+        self.containerStackView.spacing = 16
+        
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
         self.messageLabel.textColor = AppColors.themeBlack
-        self.messageLabel.attributedText = getAttributedBoldText(text: LocalizedString.NoHotelFoundFilter.localized, boldText: LocalizedString.NoHotelFoundMessageOnFilter.localized)
-        self.bottomButton.isHidden = true
-        self.searchTextLabel.isHidden = true
+        self.messageLabel.text = LocalizedString.NoResultsAvailable.localized
+        
+        self.searchTextLabel.isHidden = false
+        self.searchTextLabel.font = AppFonts.Regular.withSize(18.0)
+        self.searchTextLabel.textColor = AppColors.themeGray60
+        self.searchTextLabel.text = LocalizedString.NoHotelFoundFilter.localized
+        
+        self.bottomButton.isHidden = false
+        self.bottomButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
+        self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .normal)
+        self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .selected)
+        self.bottomButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.bottomButton.setTitleColor(AppColors.themeGreen, for: .selected)
     }
     
     
