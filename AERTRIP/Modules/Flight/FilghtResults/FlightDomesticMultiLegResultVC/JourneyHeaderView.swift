@@ -147,15 +147,17 @@ class JourneyHeaderView: UIView {
     
     func setImageFor( imageView : UIImageView , path : String) {
         
-        guard  let urlobj = URL(string: path) else {
-            return
-        }
         
-        let urlRequest = URLRequest(url: urlobj)
-        if let responseObj = URLCache.shared.cachedResponse(for: urlRequest ) {
-            
-            let image = UIImage(data: responseObj.data)
-            imageView.image  = image
-        }
+        imageView.setImageWithUrl(path, placeholder: UIImage(), showIndicator: false)
+//        guard  let urlobj = URL(string: path) else {
+//            return
+//        }
+//
+//        let urlRequest = URLRequest(url: urlobj)
+//        if let responseObj = URLCache.shared.cachedResponse(for: urlRequest ) {
+//
+//            let image = UIImage(data: responseObj.data)
+//            imageView.image  = image
+//        }
     }
 }
