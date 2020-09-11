@@ -134,7 +134,8 @@ extension FlightDomesticMultiLegResultVC {
                        }
                    }
                        self.updateUIForTableviewAt(index)
-                       self.checkForOverlappingFlights()
+                       
+
                }
            }
     
@@ -211,6 +212,8 @@ extension FlightDomesticMultiLegResultVC {
 //                self.viewModel.setSelectedJourney(tableIndex: index, journeyIndex: 0)
                 
                 self.viewModel.selectFlightsInInitialFlow(tableIndex: index)
+                
+                self.checkForOverlappingFlights()
                 
                 tableView.isScrollEnabled = true
                 tableView.scrollsToTop = true

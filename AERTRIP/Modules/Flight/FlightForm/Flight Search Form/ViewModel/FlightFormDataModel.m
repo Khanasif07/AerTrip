@@ -556,7 +556,7 @@
             date = [date stringByAppendingFormat:@" - %@",returnString];
             bookFlightObject.returnDate = returnDate;
         }
-        if ( [tripType isEqualToString:@"single"]) {
+        if ([tripType isEqualToString:@"single"]) {
                 
             NSString * departDateString = [flightSearchParameters valueForKey:@"depart"];
               NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -1583,10 +1583,10 @@
         }
     }
     
-//    CGFloat dateWidthExtraConstant = 87;
-//    if (dateWidth + dateWidthExtraConstant > width) {
-//        width = dateWidth + dateWidthExtraConstant;
-//    }
+    CGFloat dateWidthExtraConstant = 87;
+    if (dateWidth + dateWidthExtraConstant > width) {
+        width = dateWidth + dateWidthExtraConstant;
+    }
     
     if(width > 275){
         width = 275;

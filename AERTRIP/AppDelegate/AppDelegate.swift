@@ -150,13 +150,85 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         else if url.scheme?.lowercased() == AppConstants.googleUrl {
             return GIDSignIn.sharedInstance().handle(url)
+            
+        } else {
+            checkForFlightsDeepLink(url: url)
         }
+        
+        
         /*
          else if LinkedinSwiftHelper.shouldHandle(url) {
          return LinkedinSwiftHelper.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
          }
          */
+        
         return true
     }
     
+    func checkForFlightsDeepLink(url: URL?) {
+        let str = url?.absoluteString
+        var newStr: String?
+        
+        if (str as NSString?)?.range(of: "https").location != NSNotFound {
+            newStr = str?.replacingOccurrences(of: "aertrip://https", with: "https:")
+        } else {
+            if (str as NSString?)?.range(of: "http").location != NSNotFound {
+                newStr = str?.replacingOccurrences(of: "aertrip://http", with: "http:")
+            }
+        }
+        
+        let newUrl = URL(string: newStr ?? "")
+        
+        var pairs: [String : Any] = [:]
+        
+        
+        newUrl?.expandURLWithCompletionHandler(completionHandler: { url in
+            if let url = url {
+                print("expandedUrl=\(url)")
+            }
+            
+            let str = url?.query
+            
+            for pairString in str?.components(separatedBy: "&") ?? [] {
+                let pair = pairString.components(separatedBy: "=")
+                
+                if pair.count != 2 {
+                    continue
+                }
+                
+                var key = pair[0]
+                var val = pair[1]
+                if key.contains("%5B") {
+                    key = key.replacingOccurrences(
+                        of: "%5B",
+                        with: "[")
+                }
+                
+                
+                if key.contains("%5D") {
+                    key = key.replacingOccurrences(
+                        of: "%5D",
+                        with: "]")
+                }
+                
+                if val.contains("%2C") {
+                    val = val.replacingOccurrences(
+                        of: "%2C",
+                        with: ",")
+                }
+                pairs[key] = val
+            }
+            
+            DispatchQueue.main.async {
+                if let rootVC = self.window?.rootViewController as? UINavigationController, let _ = rootVC.viewControllers.last as? FlightResultBaseViewController {
+                    rootVC.popViewController(animated: true)
+                    rootVC.dismiss(animated: true, completion: nil)
+                }
+            }
+            
+            DispatchQueue.delay(1) {
+                SwiftObjCBridgingController.shared.sendFlightFormData(pairs)
+            }
+        })
+    }
 }

@@ -87,6 +87,7 @@ class InternationalReturnJourneyCell : UITableViewCell {
                 self.logoOne?.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
                 self.logoTwo?.setImageWithUrl(logoArray[1], placeholder: UIImage(), showIndicator: false)
                 
+                
             case 3 :
                 self.logoOne.isHidden = false
                 self.logoTwo.isHidden = false
@@ -99,6 +100,16 @@ class InternationalReturnJourneyCell : UITableViewCell {
             default:
                 break
             }
+            
+//            self.logoOne.isHidden = false
+//            self.logoTwo.isHidden = false
+//            self.logoThree.isHighlighted = false
+//
+//            self.logoOne.backgroundColor = .blue
+//            self.logoTwo.backgroundColor = .red
+//            self.logoThree.backgroundColor = .yellow
+            
+            
         }
     }
     

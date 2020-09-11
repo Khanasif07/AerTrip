@@ -99,16 +99,24 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
                     
                 case 1 :
                     
+                    cell.logoOne.isHidden = false
                     cell.logoTwo.isHidden = true
                     cell.logoThree.isHidden = true
                     setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
+
                 case 2 :
                     
+                    cell.logoOne.isHidden = false
+                    cell.logoTwo.isHidden = false
                     cell.logoThree.isHidden = true
                     setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
                     setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
-                    
+
                 case 3 :
+                    
+                    cell.logoOne.isHidden = false
+                    cell.logoTwo.isHidden = false
+                    cell.logoThree.isHidden = false
                     setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
                     setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
                     setImageto(imageView: cell.logoThree, url:logoArray[2] , index:  indexPath.row)
@@ -117,6 +125,15 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
                     break
                 }
             }
+            
+//            cell.logoOne.isHidden = false
+//            cell.logoTwo.isHidden = false
+//            cell.logoThree.isHighlighted = false
+//
+//            cell.logoOne.backgroundColor = .blue
+//            cell.logoTwo.backgroundColor = .red
+//            cell.logoThree.backgroundColor = .yellow
+            
             return cell
         }
         assertionFailure("Failed to create SingleJourneyResultTableViewCell cell ")

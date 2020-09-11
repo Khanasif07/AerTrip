@@ -147,7 +147,7 @@ extension FlightPaymentVC{
         headerView.delegate = self
         headerView.grossFareTitleTopConstraint.constant = 0
         self.handleDiscountArrowAnimation(headerView)
-        headerView.discountsTitleLabel.text = "Addons"
+        headerView.discountsTitleLabel.text = "Add-ons"
         headerView.discountPriceLabel.text = "\(Double(self.viewModel.itinerary.details.fare.addons?.value ?? 0).amountInDelimeterWithSymbol)"
         return headerView
     }

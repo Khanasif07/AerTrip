@@ -87,6 +87,7 @@ extension GoogleLoginController : GIDSignInDelegate {
         } else {
             failure?(error)
         }
+        
         success = nil
         failure = nil
     }
@@ -99,9 +100,9 @@ extension GoogleLoginController : GIDSignInDelegate {
     // MARK: - To dismiss from your controller
     func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
         contentViewController.dismiss(animated: true, completion: nil)
-        
         self.logout()
     }
+    
 }
 
 // MARK: - Fetch google contacts
