@@ -248,6 +248,9 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                             fareBreakupVC?.bookButton.isEnabled = true
                         }
                     } else {
+                        
+                        CustomToast.shared.fadeAllToasts()
+                        
 //                        setTextColorToHeader(.black, indexPath: i)
 //                        setTextColorToHeader(.black, indexPath: (i + 1 ))
                         

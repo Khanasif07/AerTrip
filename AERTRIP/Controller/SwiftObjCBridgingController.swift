@@ -13,8 +13,6 @@ class SwiftObjCBridgingController: NSObject {
     @objc static let shared = SwiftObjCBridgingController()
         
     @objc var onFetchingFlightFormData: ((NSMutableDictionary) -> ())?
-    @objc var onFetchingFlightFormDataForSharedUrl: ((NSMutableDictionary) -> ())?
-
     
     func sendFlightFormData(_ jsonDict: JSONDictionary) {
         
@@ -24,16 +22,6 @@ class SwiftObjCBridgingController: NSObject {
         }
         
         onFetchingFlightFormData?(newDict)
-    }
-    
-    func sendFlightFormDataForSharedUrl(_ jsonDict: NSDictionary) {
-        
-        let newDict = NSMutableDictionary()
-        jsonDict.forEach { (key, val) in
-            newDict[key] = val
-        }
-        
-        onFetchingFlightFormDataForSharedUrl?(newDict)
     }
 }
 

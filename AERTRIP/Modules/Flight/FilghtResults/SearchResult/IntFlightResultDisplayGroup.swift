@@ -492,13 +492,65 @@ class IntFlightResultDisplayGroup {
     
     //MARK:- Public Methods
     
-    func workingOnReceived( flightsArray: [IntMultiCityAndReturnWSResponse.Flight] ,searchType : FlightSearchType) {
+    func workingOnReceived( flightsArray: [IntMultiCityAndReturnWSResponse.Flight] ,searchType : FlightSearchType, flightSearchParam: JSONDictionary) {
         isReturnJourney = searchType == RETURN_JOURNEY
         mergeFlightResults(flightsArray)
         mergeFilters(flightsArray)
         processingOnCombinedSearchResult()
+        updateUserFiltersFromDeepLink(flightSearchParam)
     }
-
+    
+    private func updateUserFiltersFromDeepLink(_ flightSearchParam: JSONDictionary) {
+        DispatchQueue.main.async
+            {
+                
+                if let stop = flightSearchParam["filters[\(self.index)][stp][0]"] as? String{
+                    self.appliedFilters.insert(.stops)
+                    self.userSelectedFilters[self.index].stp = [stop]
+                }
+                
+                if let al = flightSearchParam["filters[\(self.index)][al][0]"] as? String{
+                    self.appliedFilters.insert(.Airlines)
+                    self.userSelectedFilters[self.index].al = [al]
+                }
+                
+                
+                if let ar_dt = flightSearchParam["filters[\(self.index)][ar_dt][0]"]  as? String{
+                    self.appliedFilters.insert(.Times)
+                    self.userSelectedFilters[self.index].arDt.earliest = ar_dt
+                }
+                
+                if let ar_dt = flightSearchParam["filters[\(self.index)][ar_dt][1]"]  as? String{
+                    self.appliedFilters.insert(.Times)
+                    self.userSelectedFilters[self.index].arDt.latest = ar_dt
+                }
+                
+                if let dep_dt = flightSearchParam["filters[\(self.index)][dep_dt][0]"]  as? String{
+                    self.appliedFilters.insert(.Times)
+                    self.userSelectedFilters[self.index].depDt.earliest = dep_dt
+                }
+                
+                if let dep_dt = flightSearchParam["filters[\(self.index)][dep_dt][1]"]  as? String{
+                    self.appliedFilters.insert(.Times)
+                    self.userSelectedFilters[self.index].depDt.latest = dep_dt
+                }
+                
+                if let loap = flightSearchParam["filters[\(self.index)][loap][0]"]  as? String{
+                    self.appliedFilters.insert(.Airport)
+                    self.userSelectedFilters[self.index].loap = [loap]
+                }
+                
+                if let price = flightSearchParam["filters[\(self.index)][pr][0]"]  as? String{
+                    self.appliedFilters.insert(.Price)
+                    self.userSelectedFilters[self.index].pr.minPrice = Int(price) ?? 0
+                }
+                
+                if let price = flightSearchParam["filters[\(self.index)][pr][1]"] as? String{
+                    self.appliedFilters.insert(.Price)
+                    self.userSelectedFilters[self.index].pr.maxPrice = Int(price) ?? 0
+                }
+        }
+    }
     
     func getOnewayJourneyDisplayArray() ->[IntMultiCityAndReturnWSResponse.Results.J]
     {

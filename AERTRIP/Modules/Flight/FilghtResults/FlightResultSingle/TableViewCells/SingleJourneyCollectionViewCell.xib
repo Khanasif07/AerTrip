@@ -29,21 +29,30 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eoA-86-HQg">
                         <rect key="frame" x="8" y="8" width="377" height="98"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZmM-bk-zxo">
-                                <rect key="frame" x="8" y="16" width="73" height="23"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="ZmM-bk-zxo">
+                                <rect key="frame" x="9" y="16" width="73" height="23"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BaK-z8-YIA">
-                                        <rect key="frame" x="0.0" y="0.0" width="23.5" height="23"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="23" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="23" id="b0I-re-VgH"/>
+                                        </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="90H-Lt-TCc">
-                                        <rect key="frame" x="24.5" y="0.0" width="24" height="23"/>
+                                        <rect key="frame" x="25" y="0.0" width="23" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="23" id="IId-FQ-dKK"/>
+                                        </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jWf-Ga-eZl">
-                                        <rect key="frame" x="49.5" y="0.0" width="23.5" height="23"/>
+                                        <rect key="frame" x="50" y="0.0" width="23" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="23" id="ajY-tv-Yia"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="73" id="5xW-df-WrQ"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="73" id="5xW-df-WrQ"/>
                                     <constraint firstAttribute="height" constant="23" id="8Qx-TQ-YZu"/>
                                 </constraints>
                             </stackView>
@@ -192,7 +201,6 @@
                             <constraint firstAttribute="bottom" secondItem="qwX-Sy-JgK" secondAttribute="bottom" id="13X-LI-gnb"/>
                             <constraint firstItem="Hu0-UC-HMj" firstAttribute="height" secondItem="qwX-Sy-JgK" secondAttribute="height" id="1WR-it-rY9"/>
                             <constraint firstItem="f9h-Ox-m6F" firstAttribute="top" secondItem="eoA-86-HQg" secondAttribute="top" constant="70" id="4oo-FW-pPM"/>
-                            <constraint firstItem="ZmM-bk-zxo" firstAttribute="leading" secondItem="eoA-86-HQg" secondAttribute="leading" constant="8" id="5J3-cA-UTd"/>
                             <constraint firstItem="Rhw-dX-QQy" firstAttribute="top" secondItem="eoA-86-HQg" secondAttribute="top" constant="78" id="5w1-bH-eYa"/>
                             <constraint firstItem="Hu0-UC-HMj" firstAttribute="top" secondItem="qwX-Sy-JgK" secondAttribute="top" id="6do-UP-Flk"/>
                             <constraint firstItem="gM0-By-dG1" firstAttribute="leading" secondItem="eoA-86-HQg" secondAttribute="leading" constant="8" id="7RR-iw-JSM"/>
@@ -212,6 +220,7 @@
                             <constraint firstItem="Rhw-dX-QQy" firstAttribute="leading" secondItem="eoA-86-HQg" secondAttribute="leading" constant="16" id="gWh-Ym-kYj"/>
                             <constraint firstAttribute="trailing" secondItem="y2u-oH-wji" secondAttribute="trailing" constant="10" id="ict-CN-C5B"/>
                             <constraint firstAttribute="trailing" secondItem="f9h-Ox-m6F" secondAttribute="trailing" constant="10" id="w8O-Lw-nvB"/>
+                            <constraint firstItem="ZmM-bk-zxo" firstAttribute="centerX" secondItem="gM0-By-dG1" secondAttribute="centerX" id="yRx-7d-qeG"/>
                             <constraint firstItem="qwX-Sy-JgK" firstAttribute="leading" secondItem="Hu0-UC-HMj" secondAttribute="trailing" id="zT2-cl-C9t"/>
                         </constraints>
                     </view>

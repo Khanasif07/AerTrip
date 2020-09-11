@@ -125,14 +125,15 @@ struct TimeFK {
         timeArray = timeFKArray
       
         if flightGroup.selectedFK == String() {
-            flightGroup.selectedFK = flightGroup.getJourneyWithLeastHumanScore().fk
+//            flightGroup.selectedFK = flightGroup.getJourneyWithLeastHumanScore().fk
+            
+            flightGroup.selectedFK = flightGroup.first.fk
         }
         
         if currentSelectedIndex == nil {
-             if  let selectedDepartureIndex = timeArray.firstIndex(where: { $0.fk == flightGroup.selectedFK}) {
-                currentSelectedIndex = selectedDepartureIndex
-            }
-//            selectionView.frame = selectionViewFrame
+          //   if  let selectedDepartureIndex = timeArray.firstIndex(where: { $0.fk == flightGroup.selectedFK}) {
+                currentSelectedIndex = 0
+          //  }
         }
         
         updateViewConstraints()
@@ -272,15 +273,22 @@ extension GroupedFlightCell : UITableViewDataSource, UITableViewDelegate {
                  
                  switch logoArray.count {
                  case 1 :
+                     cell.logoOne.isHidden = false
                      cell.logoTwo.isHidden = true
                      cell.logoThree.isHidden = true
                      setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
+
                  case 2 :
+                     cell.logoOne.isHidden = false
+                     cell.logoTwo.isHidden = false
                      cell.logoThree.isHidden = true
                      setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
                      setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
                      
                  case 3 :
+                    cell.logoOne.isHidden = false
+                    cell.logoTwo.isHidden = false
+                    cell.logoThree.isHidden = false
                      setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
                      setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
                      setImageto(imageView: cell.logoThree, url:logoArray[2] , index:  indexPath.row)
@@ -341,22 +349,31 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
                 if let logoArray = journey.airlineLogoArray {
                     
                     switch logoArray.count {
-                    case 1 :
-                        cell.logoTwo.isHidden = true
-                        cell.logoThree.isHidden = true
-                        setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
-                    case 2 :
-                        cell.logoThree.isHidden = true
-                        setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
-                        setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
+                  
+                        case 1 :
+                            cell.logoOne.isHidden = false
+                            cell.logoTwo.isHidden = true
+                            cell.logoThree.isHidden = true
+                            setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
+                  
+                        case 2 :
+                            cell.logoOne.isHidden = false
+                            cell.logoTwo.isHidden = false
+                            cell.logoThree.isHidden = true
+                            setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
+                            setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
                         
-                    case 3 :
-                        setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
-                        setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
-                        setImageto(imageView: cell.logoThree, url:logoArray[2] , index:  indexPath.row)
-                    default:
-                        break
+                        case 3 :
+                            cell.logoOne.isHidden = false
+                            cell.logoTwo.isHidden = false
+                            cell.logoThree.isHidden = false
+                            setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
+                            setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
+                            setImageto(imageView: cell.logoThree, url:logoArray[2] , index:  indexPath.row)
+                        default:
+                            break
                     }
+                    
                 }
             }
             return cell
@@ -499,7 +516,7 @@ extension GroupedFlightCell  {
     //
     //    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     //
-    //        let configuration = UISwipeActionsConfiguration(actions: createSwipeActionsForRightOrientation(indexPath))
+    //        let configuration = UISwipeAc tionsConfiguration(actions: createSwipeActionsForRightOrientation(indexPath))
     //        return configuration
     //    }
     

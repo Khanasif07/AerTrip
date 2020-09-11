@@ -122,7 +122,7 @@
                                 <constraint firstAttribute="height" constant="31" id="xsx-1e-Mfe"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iQq-G5-KUi" customClass="MARKRangeSlider">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iQq-G5-KUi" customClass="AertripRangeSlider" customModule="AERTRIP" customModuleProvider="target">
                             <rect key="frame" x="16" y="64" width="343" height="28"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>

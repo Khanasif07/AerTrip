@@ -1576,9 +1576,10 @@
 }
 - (void)setCustomButtonViewEnabled:(UIButton *)button withOuterView:(UIView *)outerView {
     [button setEnabled:YES];
-    outerView.layer.shadowOpacity = BUTTON_RELEASED_SHADOW_OPACITY;
-    [self setRoundedCornerWithShadowToButton:button outerView:outerView shadowColor:[UIColor GREEN_BLUE_COLOR]];
-    [self applyGradientLayerToButton:button startColor:[UIColor BLUE_GREEN_COLOR] endColor:[UIColor GREEN_BLUE_COLOR]];
+    
+//    outerView.layer.shadowOpacity = BUTTON_RELEASED_SHADOW_OPACITY;
+//    [self setRoundedCornerWithShadowToButton:button outerView:outerView shadowColor:[UIColor GREEN_BLUE_COLOR]];
+//    [self applyGradientLayerToButton:button startColor:[UIColor BLUE_GREEN_COLOR] endColor:[UIColor GREEN_BLUE_COLOR]];
 }
 
 - (UIImage*)captureView:(UIView *)view

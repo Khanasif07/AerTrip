@@ -245,7 +245,7 @@ extension AdonsVM {
           if let ind = self.addonsData.firstIndex(where: { (addonsData) -> Bool in
               return addonsData.addonsType == .meals
           }){
-              self.addonsData[ind].heading = count != 0 ? LocalizedString.Meals.localized + " " + "x\(count)" : LocalizedString.Meals.localized
+              self.addonsData[ind].heading = count != 0 ? LocalizedString.Meals.localized + "  " + "x\(count)" : LocalizedString.Meals.localized
             self.addonsData[ind].description = description.replacingLastOccurrenceOfString(", ", with: "")
             
                 //description.replacingLastOccurrenceOfString(", ", with: "")
@@ -320,7 +320,7 @@ extension AdonsVM {
         if let ind = self.addonsData.firstIndex(where: { (addonsData) -> Bool in
             return addonsData.addonsType == .baggage
         }){
-            self.addonsData[ind].heading = count != 0 ? LocalizedString.Baggage.localized + " " + "x\(count)" : LocalizedString.Baggage.localized
+            self.addonsData[ind].heading = count != 0 ? LocalizedString.Baggage.localized + "  " + "x\(count)" : LocalizedString.Baggage.localized
             self.addonsData[ind].description = description.replacingLastOccurrenceOfString(", ", with: "")
         }
     }
@@ -391,7 +391,7 @@ extension AdonsVM {
         if let ind = self.addonsData.firstIndex(where: { (addonsData) -> Bool in
             return addonsData.addonsType == .otheres
         }){
-            self.addonsData[ind].heading = count != 0 ? LocalizedString.Other.localized + " " + "x\(count)" : LocalizedString.Other.localized
+            self.addonsData[ind].heading = count != 0 ? LocalizedString.Other.localized + "  " + "x\(count)" : LocalizedString.Other.localized
             self.addonsData[ind].description = description.replacingLastOccurrenceOfString(", ", with: "")
         }
         
@@ -471,7 +471,7 @@ extension AdonsVM {
            if let ind = self.addonsData.firstIndex(where: { (addonsData) -> Bool in
                      return addonsData.addonsType == .seat
                  }){
-                     self.addonsData[ind].heading = selectedSeatsCount > 0 ? LocalizedString.Seat.localized + " " + headingStr : LocalizedString.Seat.localized
+                     self.addonsData[ind].heading = selectedSeatsCount > 0 ? LocalizedString.Seat.localized + "  " + headingStr : LocalizedString.Seat.localized
                      self.addonsData[ind].description = descStr
                  }
        }
