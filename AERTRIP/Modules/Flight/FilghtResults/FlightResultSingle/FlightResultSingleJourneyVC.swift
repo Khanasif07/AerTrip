@@ -121,8 +121,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         addShadowTo(sharePinnedFilghts)
     }
     
-    func addShadowTo(_ view : UIView)
-    {
+    func addShadowTo(_ view : UIView) {
         view.layer.shadowOpacity = 1.0
         view.layer.shadowRadius = 5.0
         view.layer.shadowOffset = CGSize(width: 0.0, height: 4)

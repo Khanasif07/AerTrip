@@ -157,9 +157,6 @@ extension AddOnVC {
         self.reloadFareBreakup()
         self.configureNavigation(showSkip: !(self.adonsVm.isMealSelected() || self.adonsVm.isOthersSelected() || self.adonsVm.isBaggageSelected()))
     }
-    
-    
-    
 }
 
 extension AddOnVC : FareBreakupVCDelegate {
