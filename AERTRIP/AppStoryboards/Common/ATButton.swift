@@ -522,7 +522,7 @@ class ATBlurButton: UIButton {
 
 
 extension CALayer {
-    func applySketchShadow(
+    @objc func applySketchShadow(
         color: UIColor = .black,
         alpha: Float = 0.5,
         x: CGFloat = 0,

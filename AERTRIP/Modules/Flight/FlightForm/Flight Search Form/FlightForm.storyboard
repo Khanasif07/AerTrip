@@ -665,7 +665,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="j9O-oG-cbe" secondAttribute="trailing" constant="16" id="wM9-BR-J9v"/>
                                                 </constraints>
                                             </view>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lap-cq-AfY" userLabel="searchOuterView">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lap-cq-AfY" userLabel="searchOuterView">
                                                 <rect key="frame" x="116" y="369" width="150" height="50"/>
                                                 <subviews>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vEc-rd-yqx" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">

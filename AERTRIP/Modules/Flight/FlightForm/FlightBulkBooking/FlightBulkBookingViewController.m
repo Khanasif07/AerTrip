@@ -143,6 +143,8 @@ CGFloat animatedDistance;
 
     [self setupFlightSection];
     [self handleLoginState];
+    self.submitButton.layer.masksToBounds = NO;
+    [self.submitButton configureCommonGreenButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -153,7 +155,6 @@ CGFloat animatedDistance;
     [super viewDidAppear:animated];
     
 }
-
 
 -(void) handleLoginState{
     if ([self exists:[self userID]]) {
@@ -709,8 +710,8 @@ CGFloat animatedDistance;
     
     [self hideFlightLoaderIndicator];
     [self setCustomButtonViewEnabled:self.submitButton withOuterView:self.submitButtonOuterView];
-    [self.submitButton addTarget:self action:@selector(flightSearchButtonPressed) forControlEvents:UIControlEventTouchDown];
-    [self.submitButton addTarget:self action:@selector(flightSearchButtonReleased) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+//    [self.submitButton addTarget:self action:@selector(flightSearchButtonPressed) forControlEvents:UIControlEventTouchDown];
+//    [self.submitButton addTarget:self action:@selector(flightSearchButtonReleased) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
 }
 
 - (void)flightSearchButtonPressed {

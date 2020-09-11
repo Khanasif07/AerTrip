@@ -487,9 +487,10 @@
 - (void)setupFlightSearchButton {
     
     [self hideLoaderIndicatorForFilghtSearch];
-    [self setCustomButtonView:self.flightSearchButton withOuterView:self.flightSearchOuterView];
+//    [self setCustomButtonView:self.flightSearchButton withOuterView:self.flightSearchOuterView];
     [self.flightSearchButton addTarget:self action:@selector(flightSearchButtonPressed) forControlEvents:UIControlEventTouchDown];
     [self.flightSearchButton addTarget:self action:@selector(flightSearchButtonReleased) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+    self.flightSearchButton.layer.masksToBounds = NO;
     [self.flightSearchButton configureCommonGreenButton];
 }
 
