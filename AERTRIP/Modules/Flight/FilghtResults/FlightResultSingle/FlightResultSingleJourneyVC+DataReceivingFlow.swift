@@ -16,6 +16,19 @@ extension FlightResultSingleJourneyVC {
             viewModel.resultTableState = .showRegularResults
         }
         
+//        var sharedUrlPF = ""
+//        if ((self.flightSearchParameters?["PF[]"] as? String) != nil){
+//            sharedUrlPF = self.flightSearchParameters?["PF[]"] as? String ?? ""
+//        }
+//
+//        if sharedUrlPF != ""{
+//            for j in results{
+//                if j.fk == sharedUrlPF{
+//                    j.isPinned = true
+//                }
+//            }
+//        }
+        
         let modifiedResult = results
         
         DispatchQueue.global(qos: .userInteractive).async {

@@ -18,97 +18,43 @@ class GetSharableUrl
 {
     weak var delegate : getSharableUrlDelegate?
     var semaphore = DispatchSemaphore (value: 0)
+    var tripType = ""
     
-    func getUrl(adult:String, child:String, infant:String,isDomestic:Bool, journey: [Journey])
+    func getUrl(adult:String, child:String, infant:String,isDomestic:Bool, isInternational:Bool, journeyArray:[Journey], valString:String,trip_type:String, filterString:String)
     {
-        let cc = journey.first?.cc
-        let trip_type = getTripType(journey: journey)
-        
-        let origin = getOrigin(journey: journey)
-        let destination = getDestination(journey: journey)
-        let departureDate = getDepartureDate(journey: journey)
-        let returnDate = getReturnDate(journey: journey)
-        
-        
-        //        if journey.count == 1{
-        //            origin.append("origin=\(journey[0].ap[0])&")
-        //            destination.append("destination=\(journey[0].ap[1])&")
-        //
-        //            let inputFormatter = DateFormatter()
-        //            inputFormatter.dateFormat = "yyyy-MM-dd"
-        //            let showDate = inputFormatter.date(from: journey[0].ad)
-        //            inputFormatter.dateFormat = "dd-MM-yyyy"
-        //            let newAd = inputFormatter.string(from: showDate!)
-        //
-        //            departureDate.append("depart=\(newAd)&")
-        //
-        //            returnDate.append("return=&")
-        //        }else{
-        //            for i in 0..<journey.count{
-        //                origin.append("origin[\(i)]=\(journey[i].ap[0])&")
-        //                destination.append("destination[\(i)]=\(journey[i].ap[1])&")
-        //
-        //                let inputFormatter = DateFormatter()
-        //                inputFormatter.dateFormat = "yyyy-MM-dd"
-        //                let showDate = inputFormatter.date(from: journey[i].ad)
-        //                inputFormatter.dateFormat = "dd-MM-yyyy"
-        //                let newAd = inputFormatter.string(from: showDate!)
-        //
-        //                departureDate.append("depart[\(i)]=\(newAd)&")
-        //
-        //
-        //                inputFormatter.dateFormat = "yyyy-MM-dd"
-        //                let showDate1 = inputFormatter.date(from: journey[i].dd)
-        //                inputFormatter.dateFormat = "dd-MM-yyyy"
-        //                let newDd = inputFormatter.string(from: showDate1!)
-        //
-        //                returnDate.append("return[\(i)]=\(newDd)&")
-        //            }
-        //        }
-        
-        //        trip_type = getTripType(journey: journey)
-        
-        //        if trip_type == "return"{
-        //            origin.append("origin=\(journey[0].ap[0])&")
-        //            destination.append("destination=\(journey[0].ap[1])&")
-        //
-        //            let inputFormatter = DateFormatter()
-        //            inputFormatter.dateFormat = "yyyy-MM-dd"
-        //            let showDate = inputFormatter.date(from: journey[0].ad)
-        //            inputFormatter.dateFormat = "dd-MM-yyyy"
-        //            let newAd = inputFormatter.string(from: showDate!)
-        //
-        //            departureDate.append("depart=\(newAd)&")
-        //
-        //            inputFormatter.dateFormat = "yyyy-MM-dd"
-        //            let showDate1 = inputFormatter.date(from: journey[1].dd)
-        //            inputFormatter.dateFormat = "dd-MM-yyyy"
-        //            let newDd = inputFormatter.string(from: showDate1!)
-        //
-        //            returnDate.append("return=\(newDd)&")
-        //        }
-        
-        let pinnedFlightFK = getPinnedFlightFK(journey: journey)
-        
-//        for i in 0..<journey.count{
-//            if i == journey.count-1{
-//                pinnedFlightFK.append("PF[\(i)]=\(journey[i].fk)")
-//            }else{
-//                pinnedFlightFK.append("PF[\(i)]=\(journey[i].fk)&")
-//            }
-//        }
-        
-        //        print("https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(adult)&child=\(child)&infant=\(infant)&\(origin)\(destination)\(departureDate)\(returnDate)cabinclass=\(cc!)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)")
-        
+        tripType = trip_type
+        var valueString = ""
+        if !isInternational{
+            let cc = journeyArray.first!.cc
+            let origin = getOrigin(journey: journeyArray)
+            let destination = getDestination(journey: journeyArray)
+            let departureDate = getDepartureDate(journey: journeyArray)
+            let returnDate = getReturnDate(journey: journeyArray)
+            let pinnedFlightFK = getPinnedFlightFK(journey: journeyArray)
+            
+            valueString = "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(adult)&child=\(child)&infant=\(infant)&\(origin)\(destination)\(departureDate)\(returnDate)cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)\(filterString)"
+            
+            print("valueString=",valueString)
+        }
         
         let pinnedUrl = flightBaseUrl+"get-pinned-url"
-        
-        let parameters = [
+        var parameters = [[String : Any]]()
+        if isInternational{
+            parameters = [
             [
                 "key": "u",
-                "value": "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(adult)&child=\(child)&infant=\(infant)&\(origin)\(destination)\(departureDate)\(returnDate)&cabinclass=\(cc!)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)",
+                "value": valString,
                 "type": "text"
             ]] as [[String : Any]]
+        }else{
+            parameters = [
+            [
+                "key": "u",
+                "value": valueString,
+                "type": "text"
+            ]] as [[String : Any]]
+        }
+        
         
         let boundary = "Boundary-\(UUID().uuidString)"
         var body = ""
@@ -159,9 +105,15 @@ class GetSharableUrl
                 DispatchQueue.main.async {
                     if let result = jsonResult as? [String: AnyObject] {
                         if result["success"] as? Bool == true{
-                            if let link = (result["data"] as? NSDictionary)?.value(forKey: "u") as? String{
-                                self.delegate?.returnSharableUrl(url: link)
+                            
+                            if let data = (result["data"] as? [String:Any]){
+                                if let link = data["u"] as? String{
+                                    self.delegate?.returnSharableUrl(url: link)
+                                }
                             }
+//                            if let link = (result["data"] as? [String:Any])?.value(forKey: "u") as? String{
+//                                self.delegate?.returnSharableUrl(url: link)
+//                            }
                         }
                     }
                 }
@@ -177,101 +129,60 @@ class GetSharableUrl
     
     
     
-    func getUrlForMail(adult:String, child:String, infant:String,isDomestic:Bool, journey: [Journey], sid:String)
+    func getUrlForMail(adult:String, child:String, infant:String,isDomestic:Bool, sid:String, isInternational:Bool, journeyArray:[Any],valString:String, trip_type:String)
     {
-        let cc = journey.first?.cc
-        let trip_type = getTripType(journey: journey)
-        
-        let origin = getOrigin(journey: journey)
-        let destination = getDestination(journey: journey)
-        let departureDate = getDepartureDate(journey: journey)
-        let returnDate = getReturnDate(journey: journey)
-        
-        //        if journey.count == 1{
-        //            origin.append("origin=\(journey[0].ap[0])&")
-        //            destination.append("destination=\(journey[0].ap[1])&")
-        //
-        //            let inputFormatter = DateFormatter()
-        //            inputFormatter.dateFormat = "yyyy-MM-dd"
-        //            let showDate = inputFormatter.date(from: journey[0].ad)
-        //            inputFormatter.dateFormat = "dd-MM-yyyy"
-        //            let newAd = inputFormatter.string(from: showDate!)
-        //
-        //            departureDate.append("depart=\(newAd)&")
-        //
-        //            returnDate.append("return=&")
-        //        }else{
-        //            for i in 0..<journey.count{
-        //                origin.append("origin[\(i)]=\(journey[i].ap[0])&")
-        //                destination.append("destination[\(i)]=\(journey[i].ap[1])&")
-        //
-        //                let inputFormatter = DateFormatter()
-        //                inputFormatter.dateFormat = "yyyy-MM-dd"
-        //                let showDate = inputFormatter.date(from: journey[i].ad)
-        //                inputFormatter.dateFormat = "dd-MM-yyyy"
-        //                let newAd = inputFormatter.string(from: showDate!)
-        //
-        //                departureDate.append("depart[\(i)]=\(newAd)&")
-        //
-        //
-        //                inputFormatter.dateFormat = "yyyy-MM-dd"
-        //                let showDate1 = inputFormatter.date(from: journey[i].dd)
-        //                inputFormatter.dateFormat = "dd-MM-yyyy"
-        //                let newDd = inputFormatter.string(from: showDate1!)
-        //
-        //                returnDate.append("return[\(i)]=\(newDd)&")
-        //            }
-        //        }
-        
-        //        trip_type = getTripType(journey: journey)
-        
-        //        if trip_type == "return"{
-        //            origin.append("origin=\(journey[0].ap[0])&")
-        //            destination.append("destination=\(journey[0].ap[1])&")
-        //
-        //            let inputFormatter = DateFormatter()
-        //            inputFormatter.dateFormat = "yyyy-MM-dd"
-        //            let showDate = inputFormatter.date(from: journey[0].ad)
-        //            inputFormatter.dateFormat = "dd-MM-yyyy"
-        //            let newAd = inputFormatter.string(from: showDate!)
-        //
-        //            departureDate.append("depart=\(newAd)&")
-        //
-        //            inputFormatter.dateFormat = "yyyy-MM-dd"
-        //            let showDate1 = inputFormatter.date(from: journey[1].dd)
-        //            inputFormatter.dateFormat = "dd-MM-yyyy"
-        //            let newDd = inputFormatter.string(from: showDate1!)
-        //
-        //            returnDate.append("return=\(newDd)&")
-        //        }
-        
+        tripType = trip_type
+        let tempelteUrl = flightBaseUrl+"get-pinned-template"
 
-//        for i in 0..<journey.count{
-//            if i == journey.count-1{
-//                pinnedFlightFK.append("PF[\(i)]=\(journey[i].fk)")
-//            }else{
-//                pinnedFlightFK.append("PF[\(i)]=\(journey[i].fk)&")
-//            }
-//        }
-        
-        let pinnedFlightFK = getPinnedFlightFK(journey: journey)
-        
-        var parameters = [[String : Any]]()
-        for i in 0..<journey.count{
-            let test = [
-                "key": "fk[\(i)]",
-                "value": journey[i].fk,
-                "type": "text"
-            ]
+        var valueString = ""
+        if !isInternational{
+            let cc = (journeyArray as! [Journey]).first!.cc
+//            let trip_type = getTripType(journey: (journeyArray as! [Journey]))
+            let origin = getOrigin(journey: (journeyArray as! [Journey]))
+            let destination = getDestination(journey: (journeyArray as! [Journey]))
+            let departureDate = getDepartureDate(journey: (journeyArray as! [Journey]))
+            let returnDate = getReturnDate(journey: (journeyArray as! [Journey]))
+            let pinnedFlightFK = getPinnedFlightFK(journey: (journeyArray as! [Journey]))
             
-            parameters.append(test)
+            valueString = "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(adult)&child=\(child)&infant=\(infant)&\(origin)\(destination)\(departureDate)\(returnDate)&cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)"
+        }
+
+        var parameters = [[String : Any]]()
+        for i in 0..<journeyArray.count{
+            if isInternational{
+                let test = [
+                    "key": "fk[\(i)]",
+                    "value": (journeyArray as! [IntMultiCityAndReturnWSResponse.Results.J])[i].fk,
+                    "type": "text"
+                ]
+                
+                parameters.append(test)
+            }else{
+                let test = [
+                    "key": "fk[\(i)]",
+                    "value": (journeyArray as! [Journey])[i].fk,
+                    "type": "text"
+                ]
+                
+                parameters.append(test)
+            }
         }
         
-        parameters.append([
-            "key": "u",
-            "value": "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(adult)&child=\(child)&infant=\(infant)&\(origin)\(destination)\(departureDate)\(returnDate)&cabinclass=\(cc!)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)",
-            "type": "text"
-        ])
+        if isInternational{
+            parameters.append([
+                "key": "u",
+                "value": valString,
+                "type": "text"
+            ])
+        }else{
+            parameters.append([
+                "key": "u",
+                "value": valueString,
+                "type": "text"
+            ])
+        }
+        
+        
         
         parameters.append([
             "key": "sid",
@@ -303,7 +214,7 @@ class GetSharableUrl
         body += "--\(boundary)--\r\n";
         let postData = body.data(using: .utf8)
         
-        var request = URLRequest(url: URL(string: "https://beta.aertrip.com/api/v1/flights/get-pinned-template")!,timeoutInterval: Double.infinity)
+        var request = URLRequest(url: URL(string: tempelteUrl)!,timeoutInterval: Double.infinity)
         request.addValue(apiKey, forHTTPHeaderField: "api-key")
         request.addValue("AT_R_STAGE_SESSID=2vrftci1u2q2arn56d8fnap92c", forHTTPHeaderField: "Cookie")
         request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
@@ -323,9 +234,11 @@ class GetSharableUrl
                 
                 DispatchQueue.main.async {
                     if let result = jsonResult as? [String: AnyObject] {
-                        if result["success"] as? Bool == true{
-                            if let view = (result["data"] as? NSDictionary)?.value(forKey: "view") as? String{
-                                self.delegate?.returnEmailView(view: view)
+                        if result["success"] as? Bool == true{                            
+                            if let data = (result["data"] as? [String:Any]){
+                                if let view = data["view"] as? String{
+                                    self.delegate?.returnEmailView(view: view)
+                                }
                             }
                         }
                     }
@@ -339,39 +252,51 @@ class GetSharableUrl
         semaphore.wait()
     }
     
-    
-    
-    
-    func getTripType(journey:[Journey])->String{
-        if journey.count == 1{
-            return "single"
-        }else if journey.count > 2{
-            return "multi"
-        }else{
-            return "return"
-        }
-    }
+//    func getTripType(journey:[Journey])->String{
+//        if journey.count == 1{
+//            return "single"
+//        }else if journey.count > 2{
+//            return "multi"
+//        }else{
+//            return "return"
+//        }
+//    }
     
     func getReturnDate(journey:[Journey])->String{
+        var showDate = Date()
         var returnDate = ""
         let inputFormatter = DateFormatter()
-        inputFormatter.dateFormat = "yyyy-MM-dd"
         
-        if journey.count == 1{
+        if tripType == "single"{
             returnDate.append("return=&")
-        }else if journey.count > 2{
-            for i in 0..<journey.count{
-                let showDate1 = inputFormatter.date(from: journey[i].dd)
-                inputFormatter.dateFormat = "dd-MM-yyyy"
-                let newDd = inputFormatter.string(from: showDate1!)
-                returnDate.append("return[\(i)]=\(newDd)&")
-            }
-        }else{
-            let showDate1 = inputFormatter.date(from: journey[1].dd)
+        }else if tripType == "return"{
+            inputFormatter.dateFormat = "yyyy-MM-dd"
+            showDate = inputFormatter.date(from: journey[1].dd)!
             inputFormatter.dateFormat = "dd-MM-yyyy"
-            let newDd = inputFormatter.string(from: showDate1!)
+            let newDd = inputFormatter.string(from: showDate)
             returnDate.append("return=\(newDd)&")
+        }else{
+//            if journey.count == 1{
+//                returnDate.append("return=&")
+//            }else if journey.count > 2{
+                for i in 0..<journey.count{
+
+                    inputFormatter.dateFormat = "yyyy-MM-dd"
+                    showDate = inputFormatter.date(from: journey[i].dd)!
+                    inputFormatter.dateFormat = "dd-MM-yyyy"
+                    let newDd = inputFormatter.string(from: showDate)
+                    returnDate.append("return[\(i)]=\(newDd)&")
+                }
+//            }else{
+//                inputFormatter.dateFormat = "yyyy-MM-dd"
+//                showDate = inputFormatter.date(from: journey[1].dd)!
+//                inputFormatter.dateFormat = "dd-MM-yyyy"
+//                let newDd = inputFormatter.string(from: showDate)
+//                returnDate.append("return=\(newDd)&")
+//            }
         }
+            
+        
 
         return returnDate
     }
@@ -379,41 +304,57 @@ class GetSharableUrl
     func getDepartureDate(journey:[Journey])->String{
         var departureDate = ""
         let inputFormatter = DateFormatter()
-        inputFormatter.dateFormat = "yyyy-MM-dd"
-        
-        if journey.count == 1{
-            let showDate = inputFormatter.date(from: journey[0].ad)
+        var showDate = Date()
+
+        if tripType == "single" || tripType == "return"{
+            inputFormatter.dateFormat = "yyyy-MM-dd"
+            showDate = inputFormatter.date(from: journey[0].ad)!
             inputFormatter.dateFormat = "dd-MM-yyyy"
-            let newAd = inputFormatter.string(from: showDate!)
+            let newAd = inputFormatter.string(from: showDate)
             departureDate.append("depart=\(newAd)&")
-            
-        }else if journey.count > 2{
-            for i in 0..<journey.count{
-                let showDate = inputFormatter.date(from: journey[i].ad)
-                inputFormatter.dateFormat = "dd-MM-yyyy"
-                let newAd = inputFormatter.string(from: showDate!)
-                departureDate.append("depart[\(i)]=\(newAd)&")
-            }
         }else{
-            let showDate = inputFormatter.date(from: journey[0].ad)
-            inputFormatter.dateFormat = "dd-MM-yyyy"
-            let newAd = inputFormatter.string(from: showDate!)
-            departureDate.append("depart=\(newAd)&")
+//            if journey.count == 1{
+//                inputFormatter.dateFormat = "yyyy-MM-dd"
+//                showDate = inputFormatter.date(from: journey[0].ad)!
+//                inputFormatter.dateFormat = "dd-MM-yyyy"
+//                let newAd = inputFormatter.string(from: showDate)
+//                departureDate.append("depart=\(newAd)&")
+//
+//            }else if journey.count > 2{
+                for i in 0..<journey.count{
+                    inputFormatter.dateFormat = "yyyy-MM-dd"
+                    showDate = inputFormatter.date(from: journey[i].ad)!
+                    inputFormatter.dateFormat = "dd-MM-yyyy"
+                    let newAd = inputFormatter.string(from: showDate)
+                    departureDate.append("depart[\(i)]=\(newAd)&")
+                }
+//            }else{
+//                inputFormatter.dateFormat = "yyyy-MM-dd"
+//                showDate = inputFormatter.date(from: journey[0].ad)!
+//                inputFormatter.dateFormat = "dd-MM-yyyy"
+//                let newAd = inputFormatter.string(from: showDate)
+//                departureDate.append("depart=\(newAd)&")
+//            }
         }
         
         return departureDate
     }
     
-    func getOrigin(journey:[Journey])->String{
+    func getOrigin(journey:[Journey])->String
+    {
         var origin = ""
-        if journey.count == 1{
+        if tripType == "single" || tripType == "return"{
             origin.append("origin=\(journey[0].ap[0])&")
-        }else if journey.count > 2{
-            for i in 0..<journey.count{
-                origin.append("origin[\(i)]=\(journey[i].ap[0])&")
-            }
         }else{
-            origin.append("origin=\(journey[0].ap[0])&")
+//            if journey.count == 1{
+//                origin.append("origin=\(journey[0].ap[0])&")
+//            }else if journey.count > 2{
+                for i in 0..<journey.count{
+                    origin.append("origin[\(i)]=\(journey[i].ap[0])&")
+                }
+//            }else{
+//                origin.append("origin=\(journey[0].ap[0])&")
+//            }
         }
         
         return origin
@@ -421,15 +362,22 @@ class GetSharableUrl
     
     func getDestination(journey:[Journey])->String{
         var destination = ""
-        if journey.count == 1{
+        if tripType == "single" || tripType == "return"{
             destination.append("destination=\(journey[0].ap[1])&")
-        }else if journey.count > 2{
-            for i in 0..<journey.count{
-                destination.append("destination[\(i)]=\(journey[i].ap[1])&")
-            }
         }else{
-            destination.append("destination=\(journey[0].ap[1])&")
+//            if journey.count == 1{
+//                destination.append("destination=\(journey[0].ap[1])&")
+//            }else if journey.count > 2{
+                for i in 0..<journey.count{
+                    destination.append("destination[\(i)]=\(journey[i].ap[1])&")
+                }
+//            }else{
+//                destination.append("destination=\(journey[0].ap[1])&")
+//            }
         }
+            
+        
+        
         
         return destination
     }
@@ -439,12 +387,198 @@ class GetSharableUrl
         
         for i in 0..<journey.count{
             if i == journey.count-1{
-                pinnedFlightFK.append("PF[\(i)]=\(journey[i].fk)")
+                    pinnedFlightFK.append("PF[\(i)]=\(journey[i].fk)")
             }else{
-                pinnedFlightFK.append("PF[\(i)]=\(journey[i].fk)&")
+                    pinnedFlightFK.append("PF[\(i)]=\(journey[i].fk)&")
             }
         }
         
         return pinnedFlightFK
+    }
+    
+    
+    func getAppliedFiltersForSharingDomesticJourney(legs:[FlightResultDisplayGroup])->String
+    {
+        var filterString = ""
+        
+        for i in 0..<legs.count{
+            filterString.append("&")
+            let userSelectedFilters = legs[i].userSelectedFilters
+            
+            let appliedFilters = legs[i].appliedFilters
+            
+            //     Times
+            if (appliedFilters.contains(.Times))
+            {
+                //     Departure Time
+                var depTime = ""
+                if let earliest = userSelectedFilters?.dt.earliest{
+                    let earliestTimeInverval = convertFrom(string: earliest)
+                    let intTime = Int(earliestTimeInverval!/60)
+                    depTime.append("filters[\(i)][dep_dt][0]=\(intTime)&")
+                }
+                
+                if let latest = userSelectedFilters?.dt.latest{
+                    let latestTimeInverval = convertFrom(string: latest)
+                    let intTime = Int(latestTimeInverval!/60)
+                    depTime.append("filters[\(i)][dep_dt][1]=\(intTime)")
+                }
+                
+                
+                //     Arrival Time
+                var arrivalTime = ""
+                if let arrivalDateEarliest = userSelectedFilters?.arDt.earliest{
+                    let earliest = arrivalDateEarliest.components(separatedBy: " ")
+                    var earliestTimeInverval = TimeInterval()
+                    if earliest.count > 1{
+                        earliestTimeInverval = convertFrom(string: earliest[1])!
+                    }else{
+                        earliestTimeInverval = convertFrom(string: earliest[0])!
+                    }
+                    let intTime = Int(earliestTimeInverval/60)
+                    arrivalTime.append("filters[\(i)][ar_dt][0]=\(intTime)&")
+                }
+                
+                if let arrivalDateLatest = userSelectedFilters?.arDt.latest{
+                    let latest = arrivalDateLatest.components(separatedBy: " ")
+                    let latestTimeInverval = convertFrom(string: latest[1])
+                    let intTime = Int(latestTimeInverval!/60)
+                    arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
+                }
+                
+                filterString.append("\(depTime)&\(arrivalTime)")
+            }
+            
+            
+            //     Duration
+            if (appliedFilters.contains(.Duration))
+            {
+                //     Trip Duration
+                var tripDuration = ""
+                if let tripMinTime = Int(userSelectedFilters!.tt.minTime!){
+                    let minTime = tripMinTime/60
+                    tripDuration.append("filters[\(i)][tt][0]=\(minTime)&")
+                }
+                if let tripMaxTime = Int(userSelectedFilters!.tt.maxTime!){
+                    let maxTime = tripMaxTime/60
+                    tripDuration.append("filters[\(i)][tt][1]=\(maxTime)")
+                }
+                
+                
+                
+                //     Layover Duration
+                var layoverDuration = ""
+                if let layoverMinTime = Int(userSelectedFilters!.lott!.minTime!){
+                    let minTime = layoverMinTime/60
+                    layoverDuration.append("filters[\(i)][lott][0]=\(minTime)&")
+                }
+                
+                if let layoverMaxTime = Int(userSelectedFilters!.lott!.maxTime!){
+                    let maxTime = layoverMaxTime/60
+                    layoverDuration.append("filters[\(i)][lott][1]=\(maxTime)&")
+                }
+                
+                filterString.append("\(tripDuration)&\(layoverDuration)")
+            }
+            
+            
+            //     Airline
+            if (appliedFilters.contains(.Airlines))
+            {
+                var airline = ""
+                for n in 0..<userSelectedFilters!.al.count{
+                    airline.append("filters[\(i)][al][\(n)]=\(userSelectedFilters!.al[n])&")
+                }
+                
+                filterString.append(airline)
+            }
+            
+            
+            //     Airport
+            if (appliedFilters.contains(.Airport))
+            {
+                var airport = ""
+                for n in 0..<userSelectedFilters!.loap.count{
+                    airport.append("filters[\(i)][loap][\(n)]=\(userSelectedFilters!.loap[n])&")
+                }
+                
+                filterString.append(airport)
+            }
+            
+            //     Quality
+            if (appliedFilters.contains(.Quality))
+            {
+                var quality = ""
+                
+                let fqArray = Array(userSelectedFilters!.fq.keys)
+                for n in 0..<fqArray.count{
+                    quality.append("filters[\(i)][fq][\(n)]=\(fqArray[n])&")
+                }
+                
+                filterString.append(quality)
+            }
+            
+            
+            //     Price
+            if (appliedFilters.contains(.Price))
+            {
+                let price = "filters[\(i)][pr][0]=\(userSelectedFilters!.pr.minPrice)&filters[\(i)][pr][1]=\(userSelectedFilters!.pr.maxPrice)&"
+                
+                filterString.append(price)
+            }
+            
+            
+            //     Stops
+            if (appliedFilters.contains(.stops))
+            {
+                var stops = ""
+                
+                for n in 0..<userSelectedFilters!.stp.count{
+                    if n == userSelectedFilters!.stp.count-1{
+                        stops.append("filters[\(i)][stp][\(n)]=\(userSelectedFilters!.stp[n])")
+                    }else{
+                        stops.append("filters[\(i)][stp][\(n)]=\(userSelectedFilters!.stp[n])&")
+                    }
+                }
+                
+                filterString.append(stops)
+            }
+            
+        }
+        
+        
+        return filterString
+    }
+    
+    func convertFrom(string : String) ->  TimeInterval? {
+        
+        if string == "24.00" {
+            return 86400.0
+        }
+        
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: Date())
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.defaultDate = startOfDay
+        guard let date = dateFormatter.date(from: string) else { return nil}
+        let timeInverval = date.timeIntervalSince(startOfDay)
+        return timeInverval
+        
+    }
+    
+}
+
+
+extension URL {
+    
+    func expandURLWithCompletionHandler(completionHandler: @escaping (URL?) -> Void) {
+        let dataTask = URLSession.shared.dataTask(with: self, completionHandler: {
+            _, response, _ in
+            if let expandedURL = response?.url {
+                completionHandler(expandedURL)
+            }
+        })
+        dataTask.resume()
     }
 }

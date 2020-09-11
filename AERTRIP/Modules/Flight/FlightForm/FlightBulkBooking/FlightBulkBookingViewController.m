@@ -70,7 +70,7 @@
 
 //
 @property (weak, nonatomic) IBOutlet UIView *submitButtonOuterView;
-@property (weak, nonatomic) IBOutlet UIButton *submitButton;
+@property (weak, nonatomic) IBOutlet ATButton *submitButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *buttonActivityIndicator;
 
 //
@@ -143,6 +143,8 @@ CGFloat animatedDistance;
 
     [self setupFlightSection];
     [self handleLoginState];
+    self.submitButton.layer.masksToBounds = NO;
+    [self.submitButton configureCommonGreenButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -153,7 +155,6 @@ CGFloat animatedDistance;
     [super viewDidAppear:animated];
     
 }
-
 
 -(void) handleLoginState{
     if ([self exists:[self userID]]) {
@@ -281,9 +282,9 @@ CGFloat animatedDistance;
     [self.BulkBookingFormDelegate updateWithViewModel:self.formDataModel];
     
     if(self.formDataModel.flightSearchType == MULTI_CITY){
-        self.passengerLineViewHeight.constant = 0.48;
+        self.passengerLineViewHeight.constant = 0.4;
     }else{
-        self.passengerLineViewHeight.constant = 0.5;
+        self.passengerLineViewHeight.constant = 0.4;
     }
 }
 - (void) adjustAsPerTopBar {
@@ -709,8 +710,8 @@ CGFloat animatedDistance;
     
     [self hideFlightLoaderIndicator];
     [self setCustomButtonViewEnabled:self.submitButton withOuterView:self.submitButtonOuterView];
-    [self.submitButton addTarget:self action:@selector(flightSearchButtonPressed) forControlEvents:UIControlEventTouchDown];
-    [self.submitButton addTarget:self action:@selector(flightSearchButtonReleased) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+//    [self.submitButton addTarget:self action:@selector(flightSearchButtonPressed) forControlEvents:UIControlEventTouchDown];
+//    [self.submitButton addTarget:self action:@selector(flightSearchButtonReleased) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
 }
 
 - (void)flightSearchButtonPressed {

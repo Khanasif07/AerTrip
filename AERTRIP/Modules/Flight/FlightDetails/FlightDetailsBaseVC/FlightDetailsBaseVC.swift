@@ -95,6 +95,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     var fareBreakup:FareBreakupVC?
     var navigationContronller: UINavigationController?
     var innerControllerBottomConstraint: CGFloat = 0.0
+    var flightSearchResultVM: FlightSearchResultVM?
     
     let getSharableLink = GetSharableUrl()
     
@@ -551,7 +552,16 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         
         let isDomestic = bookFlightObject.isDomestic
 
-        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, journey: journey)
+        let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM?.flightLegs ?? [])
+        
+        var tripType = ""
+        if bookFlightObject.isReturn == false && bookFlightObject.isMultyCity == false{
+            tripType = "single"
+        }else{
+            tripType = (self.bookFlightObject.flightSearchType == RETURN_JOURNEY) ? "return" : "multi"
+        }
+        
+        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journey, valString: "", trip_type: tripType,filterString: filterStr)
     }
     
     func returnSharableUrl(url: String)
@@ -937,7 +947,5 @@ extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
             }
             AppToast.default.showToastMessage(message: message, onViewController: self)
         }
-        
     }
-    
 }

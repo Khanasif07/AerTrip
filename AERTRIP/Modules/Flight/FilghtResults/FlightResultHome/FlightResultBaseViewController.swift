@@ -102,7 +102,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         addCustomBackgroundBlurView()
-//        addSwipeLeftGuesture()
+        createFilters(curSelectedFilterIndex)
     }
     
     func addSwipeLeftGuesture(){
@@ -587,32 +587,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             self.intMCAndReturnFilterVC?.toastDelegate = self
             self.intMCAndReturnFilterVC?.filterUIDelegate = self
             self.intMCAndReturnFilterVC?.showDepartReturnSame = showDepartReturnSame
-            
-            
-            if let intFilterBaseView = self.intMCAndReturnFilterVC {
-                if intFilterBaseView.parent == nil {
-                    var frame = self.view.frame
-                    frame.origin.y = visualEffectViewHeight - 45
-                    frame.size.height = 36//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
-                    intFilterBaseView.view.frame = frame
-                    backView.addSubview(intFilterBaseView.view)
-                    backView.bringSubviewToFront(filterButton)
-                    backView.bringSubviewToFront(separatorView)
-                    backView.bringSubviewToFront(ApiProgress)
-                    filterSegmentView.removeFromSuperview()
-                    //                backView.height = view.height
-                    //                backView.layoutIfNeeded()
-                    //                    self.view.addSubview(FilterBaseView.view)
-                    //                self.addChild(FilterBaseView)
-                    //                    self.view.bringSubviewToFront(FilterBaseView.view)
-                    //                FilterBaseView.didMove(toParent: self)
-                    //                addFilterHeader()
-                }
-                
-                intFilterBaseView.selectedIndex = index
-                
-            }
-            
+            createFilters(index)
             return
         }
         
@@ -620,6 +595,24 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         self.flightFilterVC?.delegate = flightSearchResultVM
         self.flightFilterVC?.toastDelegate = self
         self.flightFilterVC?.filterUIDelegate = self
+        createFilters(index)
+    }
+    
+    private func createFilters(_ index: Int) {
+        if let intFilterBaseView = self.intMCAndReturnFilterVC {
+            if intFilterBaseView.parent == nil {
+                var frame = self.view.frame
+                frame.origin.y = visualEffectViewHeight - 45
+                frame.size.height = 36//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
+                intFilterBaseView.view.frame = frame
+                backView.addSubview(intFilterBaseView.view)
+                backView.bringSubviewToFront(filterButton)
+                backView.bringSubviewToFront(separatorView)
+                backView.bringSubviewToFront(ApiProgress)
+                filterSegmentView.removeFromSuperview()
+            }
+            intFilterBaseView.selectedIndex = index
+        }
         
         if let FilterBaseView = self.flightFilterVC {
             if FilterBaseView.parent == nil {
@@ -632,17 +625,8 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
                 backView.bringSubviewToFront(separatorView)
                 backView.bringSubviewToFront(ApiProgress)
                 filterSegmentView.removeFromSuperview()
-//                backView.height = view.height
-//                backView.layoutIfNeeded()
-                //                    self.view.addSubview(FilterBaseView.view)
-//                self.addChild(FilterBaseView)
-                //                    self.view.bringSubviewToFront(FilterBaseView.view)
-//                FilterBaseView.didMove(toParent: self)
-//                addFilterHeader()
             }
-            
             FilterBaseView.selectedIndex = index
-            
         }
     }
     
@@ -1213,6 +1197,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             if let singleJourneyVC = self.singleJourneyResultVC {
                 singleJourneyVC.viewModel.updatedApiProgress = updatedApiProgress
                 singleJourneyVC.viewModel.airlineCode = airlineCode
+                singleJourneyVC.flightSearchParameters = self.flightSearchParameters
                 singleJourneyVC.updateWithArray( resultVM.getOnewayJourneyDisplayArray(), sortOrder: resultVM.getSortOrder())
                 singleJourneyVC.updateAirportDetailsArray(resultVM.getOnewayAirportArray())
                 singleJourneyVC.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())

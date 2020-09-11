@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,7 +16,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PriceFilterViewController">
             <connections>
                 <outlet property="JourneyTitle" destination="RvU-c7-C9Z" id="H3h-cd-Lz0"/>
+                <outlet property="fareMaxValView" destination="Yyp-Is-KYB" id="Z5H-dW-GjN"/>
                 <outlet property="fareMaxValue" destination="SX5-5k-dvP" id="Dy7-1p-SDM"/>
+                <outlet property="fareMinValView" destination="uhS-iE-Aqm" id="kSC-Ct-s2J"/>
                 <outlet property="fareMinValue" destination="Ol6-p2-zEZ" id="PLs-fG-1kR"/>
                 <outlet property="multiLegView" destination="nr6-rV-y6c" id="OGQ-ew-88j"/>
                 <outlet property="multiSegmentView" destination="hsk-VL-Lpy" id="UKI-7A-6GX"/>
@@ -68,41 +70,59 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R8a-VA-Hvl">
                     <rect key="frame" x="0.0" y="90" width="375" height="162"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 8657.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ol6-p2-zEZ">
-                            <rect key="frame" x="16" y="12" width="90" height="31"/>
-                            <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uhS-iE-Aqm">
+                            <rect key="frame" x="16" y="12" width="88" height="31"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 8657.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ol6-p2-zEZ">
+                                    <rect key="frame" x="8" y="0.0" width="71" height="31"/>
+                                    <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <real key="value" value="15.5"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="Pks-9H-vhh"/>
-                                <constraint firstAttribute="height" constant="31" id="n7f-JV-n22"/>
+                                <constraint firstItem="Ol6-p2-zEZ" firstAttribute="leading" secondItem="uhS-iE-Aqm" secondAttribute="leading" constant="8" id="CXt-QD-hLU"/>
+                                <constraint firstAttribute="trailing" secondItem="Ol6-p2-zEZ" secondAttribute="trailing" constant="9" id="Oqo-Qb-4N6"/>
+                                <constraint firstAttribute="height" constant="31" id="idl-Ky-V2h"/>
+                                <constraint firstAttribute="bottom" secondItem="Ol6-p2-zEZ" secondAttribute="bottom" id="sEb-ze-WBz"/>
+                                <constraint firstItem="Ol6-p2-zEZ" firstAttribute="top" secondItem="uhS-iE-Aqm" secondAttribute="top" id="xhw-FA-cfj"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <real key="value" value="15.5"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                            </userDefinedRuntimeAttributes>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 8657.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SX5-5k-dvP">
-                            <rect key="frame" x="269" y="12" width="90" height="31"/>
-                            <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yyp-Is-KYB">
+                            <rect key="frame" x="271" y="12" width="88" height="31"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 8657.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SX5-5k-dvP">
+                                    <rect key="frame" x="8" y="0.0" width="71" height="31"/>
+                                    <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="15"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="31" id="6JN-Y4-eU8"/>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="E80-So-ZT6"/>
+                                <constraint firstAttribute="trailing" secondItem="SX5-5k-dvP" secondAttribute="trailing" constant="9" id="XwW-ZF-yIq"/>
+                                <constraint firstItem="SX5-5k-dvP" firstAttribute="leading" secondItem="Yyp-Is-KYB" secondAttribute="leading" constant="8" id="cM2-AS-ffH"/>
+                                <constraint firstAttribute="bottom" secondItem="SX5-5k-dvP" secondAttribute="bottom" id="tan-i4-JHX"/>
+                                <constraint firstItem="SX5-5k-dvP" firstAttribute="top" secondItem="Yyp-Is-KYB" secondAttribute="top" id="wP7-JT-KPH"/>
+                                <constraint firstAttribute="height" constant="31" id="xsx-1e-Mfe"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="15"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                            </userDefinedRuntimeAttributes>
-                        </label>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iQq-G5-KUi" customClass="MARKRangeSlider">
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iQq-G5-KUi" customClass="AertripRangeSlider" customModule="AERTRIP" customModuleProvider="target">
                             <rect key="frame" x="16" y="64" width="343" height="28"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -143,20 +163,20 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="cwW-JK-pry" firstAttribute="leading" secondItem="R8a-VA-Hvl" secondAttribute="leading" constant="16" id="2la-a4-J6o"/>
+                        <constraint firstItem="uhS-iE-Aqm" firstAttribute="top" secondItem="R8a-VA-Hvl" secondAttribute="top" constant="12" id="5pf-Xb-JzO"/>
                         <constraint firstItem="u3z-gj-ekL" firstAttribute="leading" secondItem="R8a-VA-Hvl" secondAttribute="leading" constant="16" id="6Tc-Fp-S3R"/>
                         <constraint firstItem="cwW-JK-pry" firstAttribute="top" secondItem="R8a-VA-Hvl" secondAttribute="top" constant="118" id="A0z-3x-znn"/>
                         <constraint firstAttribute="trailing" secondItem="6E3-gN-P76" secondAttribute="trailing" constant="5" id="GuL-wB-YcW"/>
-                        <constraint firstItem="Ol6-p2-zEZ" firstAttribute="leading" secondItem="R8a-VA-Hvl" secondAttribute="leading" constant="16" id="H0A-pN-ho4"/>
                         <constraint firstAttribute="trailing" secondItem="cwW-JK-pry" secondAttribute="trailing" constant="16" id="Klw-z4-Wt5"/>
                         <constraint firstAttribute="height" constant="162" id="OD0-hg-n7m"/>
                         <constraint firstAttribute="trailing" secondItem="iQq-G5-KUi" secondAttribute="trailing" constant="16" id="Sf3-g2-Sq1"/>
+                        <constraint firstItem="uhS-iE-Aqm" firstAttribute="leading" secondItem="R8a-VA-Hvl" secondAttribute="leading" constant="16" id="SyT-lb-aHq"/>
                         <constraint firstItem="iQq-G5-KUi" firstAttribute="leading" secondItem="R8a-VA-Hvl" secondAttribute="leading" constant="16" id="azt-hs-98y"/>
-                        <constraint firstAttribute="trailing" secondItem="SX5-5k-dvP" secondAttribute="trailing" constant="16" id="dCc-tJ-g4d"/>
+                        <constraint firstItem="Yyp-Is-KYB" firstAttribute="top" secondItem="R8a-VA-Hvl" secondAttribute="top" constant="12" id="l78-H9-nUC"/>
                         <constraint firstAttribute="bottom" secondItem="6E3-gN-P76" secondAttribute="bottom" id="lEE-4l-5Na"/>
                         <constraint firstItem="iQq-G5-KUi" firstAttribute="top" secondItem="R8a-VA-Hvl" secondAttribute="top" constant="64" id="n3Z-DY-e5a"/>
                         <constraint firstAttribute="bottom" secondItem="u3z-gj-ekL" secondAttribute="bottom" id="peM-8Y-xR8"/>
-                        <constraint firstItem="Ol6-p2-zEZ" firstAttribute="top" secondItem="R8a-VA-Hvl" secondAttribute="top" constant="12" id="sbu-8S-HDP"/>
-                        <constraint firstItem="SX5-5k-dvP" firstAttribute="top" secondItem="R8a-VA-Hvl" secondAttribute="top" constant="12" id="t5k-Q8-UOi"/>
+                        <constraint firstAttribute="trailing" secondItem="Yyp-Is-KYB" secondAttribute="trailing" constant="16" id="xuE-M7-JO2"/>
                     </constraints>
                 </view>
             </subviews>

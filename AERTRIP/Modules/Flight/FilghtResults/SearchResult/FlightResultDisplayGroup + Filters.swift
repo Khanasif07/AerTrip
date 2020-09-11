@@ -13,8 +13,8 @@ import UIKit
 extension FlightResultDisplayGroup  {
     func allAirlinesSelected() {
         
-        userSelectedFilters.al = []
-        userSelectedFilters.multiAl = 0
+        userSelectedFilters?.al = []
+        userSelectedFilters?.multiAl = 0
         appliedFilters.remove(.Airlines)
         UIFilters.remove(.hideMultiAirlineItinarery)
         applyFilters()
@@ -25,11 +25,11 @@ extension FlightResultDisplayGroup  {
     func hideMultiAirlineItineraryUpdated(_ filter: AirlineLegFilter ) {
         
         if filter.hideMultipleAirline {
-            userSelectedFilters.multiAl = 0
+            userSelectedFilters?.multiAl = 0
             UIFilters.insert(.hideMultiAirlineItinarery)
         }
         else {
-            userSelectedFilters.multiAl = 1
+            userSelectedFilters?.multiAl = 1
             UIFilters.remove(.hideMultiAirlineItinarery)
         }
         applyFilters()
@@ -40,9 +40,9 @@ extension FlightResultDisplayGroup  {
         let selectedAirlines = filter.airlinesArray.filter{ $0.isSelected }
         let airlineCodesArray = selectedAirlines.map{ $0.code }
         
-        userSelectedFilters.al = airlineCodesArray
+        userSelectedFilters?.al = airlineCodesArray
         
-        if userSelectedFilters.al.count > 0 {
+        if (userSelectedFilters?.al.count ?? 0) > 0 {
             appliedFilters.insert(.Airlines)
         }
         else {
@@ -55,7 +55,7 @@ extension FlightResultDisplayGroup  {
     
     func applyMultiItinaryAirlineFilter( _ inputArray : [Journey]) -> [Journey] {
         
-        let hideMultiAirlineItinerary =  userSelectedFilters.multiAl == 1 ? false : true
+        let hideMultiAirlineItinerary =  userSelectedFilters?.multiAl == 1 ? false : true
         if hideMultiAirlineItinerary {
             
             let outputArray = inputArray.filter{
@@ -74,10 +74,10 @@ extension FlightResultDisplayGroup  {
     }
     
     func applyAirlineFilter(_ inputArray : [Journey]) -> [Journey] {
-        if userSelectedFilters != nil {
-            print(userSelectedFilters.al)
+        var filteredAirlineSet = Set<String>()
+        if let airlines = userSelectedFilters?.al {
+            filteredAirlineSet = Set(airlines)
         }
-        let filteredAirlineSet = Set(userSelectedFilters.al)
         
         var outputArray = inputArray
         
@@ -257,7 +257,7 @@ extension FlightResultDisplayGroup  {
             appliedFilters.insert(.stops)
         }
         if userSelectedFilters != nil{
-            userSelectedFilters.stp = stopsStringsArray
+            userSelectedFilters?.stp = stopsStringsArray
         }
         applyFilters()
     }
@@ -268,7 +268,7 @@ extension FlightResultDisplayGroup  {
     }
     
     func applyStopsFilter(_ inputArray : [Journey] ) -> [Journey] {
-        let stopSet = Set(userSelectedFilters.stp)
+        let stopSet = Set(userSelectedFilters?.stp ?? [""])
         let outputArray = inputArray.filter{ stopSet.contains($0.stp) }
         return outputArray
     }
@@ -282,10 +282,10 @@ extension FlightResultDisplayGroup  {
         initiatedFilters.insert(.tripDuration)
         
         var Number = NSNumber(floatLiteral: Double(min * 3600))
-        userSelectedFilters.tt.minTime = Number.stringValue
+        userSelectedFilters?.tt.minTime = Number.stringValue
         
         Number = NSNumber(floatLiteral: Double(max * 3600))
-        userSelectedFilters.tt.maxTime = Number.stringValue
+        userSelectedFilters?.tt.maxTime = Number.stringValue
         
         if isDurationFilterApplied() {
             appliedFilters.insert(.Duration)
@@ -301,10 +301,10 @@ extension FlightResultDisplayGroup  {
         initiatedFilters.insert(.layoverDuration)
         
         var Number = NSNumber(floatLiteral: Double(min * 3600))
-        userSelectedFilters.lott?.minTime = Number.stringValue
+        userSelectedFilters?.lott?.minTime = Number.stringValue
         
         Number = NSNumber(floatLiteral: Double(max * 3600))
-        userSelectedFilters.lott?.maxTime = Number.stringValue
+        userSelectedFilters?.lott?.maxTime = Number.stringValue
         
         if isDurationFilterApplied() {
             appliedFilters.insert(.Duration)
@@ -372,8 +372,8 @@ extension FlightResultDisplayGroup  {
                 
                 let journeyDuration = $0.duration
                 
-                let minTripDuration = Int(userSelectedFilters.tt.minTime ?? "0" )
-                let maxTripDuration = Int(userSelectedFilters.tt.maxTime ?? "0" )
+                let minTripDuration = Int(userSelectedFilters?.tt.minTime ?? "0" )
+                let maxTripDuration = Int(userSelectedFilters?.tt.maxTime ?? "0" )
                 
                 
                 if journeyDuration >= minTripDuration! && journeyDuration <= maxTripDuration! {
@@ -393,8 +393,8 @@ extension FlightResultDisplayGroup  {
                     return true
                 }
                 
-                let minLayoverDuration = Int(userSelectedFilters.lott?.minTime ?? "0" )
-                let maxLayoverDuration = Int(userSelectedFilters.lott?.maxTime ?? "0" )
+                let minLayoverDuration = Int(userSelectedFilters?.lott?.minTime ?? "0" )
+                let maxLayoverDuration = Int(userSelectedFilters?.lott?.maxTime ?? "0" )
                 
                 if journeyLayoverDuration >= minLayoverDuration! && journeyLayoverDuration <= maxLayoverDuration! {
                     return true
@@ -414,8 +414,8 @@ extension FlightResultDisplayGroup  {
         
         initiatedFilters.insert(.departureTime)
         
-        userSelectedFilters.dt.setEarliest(time: minDuration)
-        userSelectedFilters.dt.setLatest(time: maxDuration)
+        userSelectedFilters?.dt.setEarliest(time: minDuration)
+        userSelectedFilters?.dt.setLatest(time: maxDuration)
         
         if isTimesFilterApplied() {
             appliedFilters.insert(.Times)
@@ -435,8 +435,8 @@ extension FlightResultDisplayGroup  {
         let minDateString = dateFormatter.string(from: minDate)
         let maxDateString = dateFormatter.string(from: maxDate)
         
-        userSelectedFilters.arDt.earliest = minDateString
-        userSelectedFilters.arDt.latest = maxDateString
+        userSelectedFilters?.arDt.earliest = minDateString
+        userSelectedFilters?.arDt.latest = maxDateString
         
         if isTimesFilterApplied() {
             appliedFilters.insert(.Times)
@@ -461,7 +461,8 @@ extension FlightResultDisplayGroup  {
     }
     
     private func isDepartureTimeFilterApplied() -> Bool {
-        let departFilterCheck = !(userSelectedFilters.dt.earliest <= inputFilter.dt.earliest && userSelectedFilters.dt.latest >= inputFilter.dt.latest)
+        guard let userFil = userSelectedFilters, let inputFil = inputFilter else { return false }
+        let departFilterCheck = !(userFil.dt.earliest <= inputFil.dt.earliest && userFil.dt.latest >= inputFil.dt.latest)
         if departFilterCheck {
             appliedSubFilters.insert(.departureTime)
         } else {
@@ -471,7 +472,8 @@ extension FlightResultDisplayGroup  {
     }
     
     private func isArrivalTimeFilterApplied() -> Bool {
-        let arrivalFilterCheck = !(userSelectedFilters.arDt.earliest <= inputFilter.arDt.earliest && userSelectedFilters.arDt.latest >= inputFilter.arDt.latest)
+        guard let userFil = userSelectedFilters, let inputFil = inputFilter else { return false }
+        let arrivalFilterCheck = !(userFil.arDt.earliest <= inputFil.arDt.earliest && userFil.arDt.latest >= inputFil.arDt.latest)
         if arrivalFilterCheck {
             appliedSubFilters.insert(.arrivalTime)
         } else {
@@ -484,8 +486,8 @@ extension FlightResultDisplayGroup  {
         
         guard initiatedFilters.contains(.departureTime) else { return inputArray }
         
-        guard let minDepartureTime = userSelectedFilters.dt.earliestTimeInteval else { return inputArray}
-        guard let maxDepartureTime = userSelectedFilters.dt.latestTimeInterval else { return inputArray}
+        guard let minDepartureTime = userSelectedFilters?.dt.earliestTimeInteval else { return inputArray}
+        guard let maxDepartureTime = userSelectedFilters?.dt.latestTimeInterval else { return inputArray}
         
     
         let outputArray = inputArray.filter {
@@ -511,13 +513,13 @@ extension FlightResultDisplayGroup  {
     
     
     func applyArrivalTimeFilter( _ inputArray : [ Journey]) ->  [ Journey] {
-        
+        guard let userFil = userSelectedFilters else { return inputArray }
         guard initiatedFilters.contains(.arrivalTime) else { return inputArray }
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-        guard let minDateDate = dateFormatter.date(from: userSelectedFilters.arDt.earliest) else { return inputArray}
-        guard let maxDateDate = dateFormatter.date(from: userSelectedFilters.arDt.latest) else { return inputArray}
+        guard let minDateDate = dateFormatter.date(from: userFil.arDt.earliest) else { return inputArray}
+        guard let maxDateDate = dateFormatter.date(from: userFil.arDt.latest) else { return inputArray}
         
         let outputArray = inputArray.filter {
             
@@ -539,10 +541,10 @@ extension FlightResultDisplayGroup  {
     
     func priceSelectionChangedAt( minFare: CGFloat, maxFare: CGFloat) {
         
-        userSelectedFilters.pr.minPrice = Int(minFare)
-        userSelectedFilters.pr.maxPrice = Int(maxFare)
+        userSelectedFilters?.pr.minPrice = Int(minFare)
+        userSelectedFilters?.pr.maxPrice = Int(maxFare)
         
-        if userSelectedFilters.pr == inputFilter.pr {
+        if userSelectedFilters?.pr == inputFilter?.pr {
             appliedFilters.remove(.Price)
         }
         else {
@@ -564,7 +566,8 @@ extension FlightResultDisplayGroup  {
     }
     
     func applyPriceFilter(_ inputArray: [Journey]) -> [Journey]{
-        let outputArray = inputArray.filter{  $0.farepr >= userSelectedFilters.pr.minPrice && $0.farepr <= userSelectedFilters.pr.maxPrice  }
+        guard let userFil = userSelectedFilters else { return inputArray }
+        let outputArray = inputArray.filter{  $0.farepr >= userFil.pr.minPrice && $0.farepr <= userFil.pr.maxPrice  }
         return outputArray
     }
 
@@ -573,7 +576,7 @@ extension FlightResultDisplayGroup  {
 
     func allLayoverSelected() {
         
-        userSelectedFilters.loap = [String]()
+        userSelectedFilters?.loap = [String]()
         UIFilters.remove(.layoverAirports)
         applyFilters()
     }
@@ -584,11 +587,11 @@ extension FlightResultDisplayGroup  {
     
     
     func allOriginDestinationAirportsSelected() {
-        
+        guard let inputFil = inputFilter else { return }
         UIFilters.remove(.originAirports)
         UIFilters.remove(.destinationAirports)
         
-        userSelectedFilters.cityapN = inputFilter.cityapN
+        userSelectedFilters?.cityapN = inputFil.cityapN
         applyFilters()
     }
     
@@ -604,7 +607,7 @@ extension FlightResultDisplayGroup  {
             userSelectedOrigins[city] = journeyArray.map{ $0.IATACode }
         }
         
-        userSelectedFilters.cityapN.fr = userSelectedOrigins
+        userSelectedFilters?.cityapN.fr = userSelectedOrigins
         
         if origins.count == selectedOrigins.count || selectedOrigins.count == 0 {
             UIFilters.remove(.originAirports)
@@ -629,7 +632,7 @@ extension FlightResultDisplayGroup  {
             userSelectedDestinations[city] = journeyArray.map{ $0.IATACode }
         }
         
-        userSelectedFilters.cityapN.to = userSelectedDestinations
+        userSelectedFilters?.cityapN.to = userSelectedDestinations
         if destinations.count == selectedDestinations.count || selectedDestinations.count == 0 {
             UIFilters.remove(.destinationAirports)
         }
@@ -647,7 +650,7 @@ extension FlightResultDisplayGroup  {
         let selectedLayovers = layOvers.filter{ $0.isSelected == true }
         let selectedLayoverIATACodes = selectedLayovers.map{ $0.IATACode}
         
-        userSelectedFilters.loap = selectedLayoverIATACodes
+        userSelectedFilters?.loap = selectedLayoverIATACodes
         if layOvers.count == selectedLayovers.count || selectedLayovers.count == 0 {
             UIFilters.remove(.layoverAirports)
         }
@@ -660,8 +663,8 @@ extension FlightResultDisplayGroup  {
     }
     
     func applyOriginFilter(_ inputArray: [Journey]) -> [Journey] {
-        
-        let selectedOrigins = userSelectedFilters.cityapN.fr.reduce([]){ $0 +  $1.value }
+        guard let userFil = userSelectedFilters else { return inputArray }
+        let selectedOrigins = userFil.cityapN.fr.reduce([]){ $0 +  $1.value }
         let originSet = Set(selectedOrigins)
         if selectedOrigins.count == 0 {
             return inputArray
@@ -680,8 +683,9 @@ extension FlightResultDisplayGroup  {
     
     
     func applyDestinationFilter(_ inputArray: [Journey]) -> [Journey] {
+        guard let userFil = userSelectedFilters else { return inputArray }
         
-        let selectedDestinations = userSelectedFilters.cityapN.to.reduce([]){ $0 +  $1.value }
+        let selectedDestinations = userFil.cityapN.to.reduce([]){ $0 +  $1.value }
         let destinationSet = Set(selectedDestinations)
         if selectedDestinations.count == 0 {
             return inputArray
@@ -700,8 +704,9 @@ extension FlightResultDisplayGroup  {
     }
     
     func applyLayoverFilter(_ inputArray : [Journey]) -> [Journey] {
+        guard let userFil = userSelectedFilters else { return inputArray }
         
-        let selectedLayovers = Set( userSelectedFilters.loap )
+        let selectedLayovers = Set( userFil.loap )
         
         if selectedLayovers.count == 0 {
             return inputArray

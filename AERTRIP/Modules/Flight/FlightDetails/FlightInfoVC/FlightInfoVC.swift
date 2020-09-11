@@ -89,6 +89,7 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
         flightInfoTableView.register(UINib(nibName: "LayoverViewTableViewCell", bundle: nil), forCellReuseIdentifier: "LayoverViewCell")
         flightInfoTableView.register(UINib(nibName: "ChangeAirportTableViewCell", bundle: nil), forCellReuseIdentifier: "ChangeAirportCell")
         self.flightInfoTableViewBottom.constant = 0.0
+        
     }
     
     //MARK:- Get Flight Info
@@ -311,7 +312,7 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                                 
                                 flightDetailsCell.amenitiesData = amenitiesData
                                 flightDetailsCell.amenitiesDisplayView.isHidden = false
-                                flightDetailsCell.amenitiesDisplayViewHeight.constant = 90
+                                flightDetailsCell.amenitiesDisplayViewHeight.constant = 100
                                 flightDetailsCell.amenitiesCollectionView.reloadData()
                             }else{
                                 flightDetailsCell.amenitiesDisplayView.isHidden = true
@@ -674,6 +675,8 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                         }else{
                             flightDetailsCell.travelingtimeLabel.attributedText = travellingTime
                         }
+                        
+                        flightDetailsCell.travelingtimeLabel.textAlignment = .center
                         
                         let totalRow = tableView.numberOfRows(inSection: indexPath.section)
                         if totalRow == 1{
