@@ -282,9 +282,9 @@ CGFloat animatedDistance;
     [self.BulkBookingFormDelegate updateWithViewModel:self.formDataModel];
     
     if(self.formDataModel.flightSearchType == MULTI_CITY){
-        self.passengerLineViewHeight.constant = 0.48;
+        self.passengerLineViewHeight.constant = 0.4;
     }else{
-        self.passengerLineViewHeight.constant = 0.5;
+        self.passengerLineViewHeight.constant = 0.4;
     }
 }
 - (void) adjustAsPerTopBar {
