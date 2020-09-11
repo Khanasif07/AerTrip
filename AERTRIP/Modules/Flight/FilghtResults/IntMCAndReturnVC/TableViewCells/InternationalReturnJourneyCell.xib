@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -26,25 +26,34 @@
                 <rect key="frame" x="0.0" y="0.0" width="427" height="71"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="jzX-UL-anj">
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="jzX-UL-anj">
                         <rect key="frame" x="0.0" y="15" width="73" height="23"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EmptyHotelSearch" translatesAutoresizingMaskIntoConstraints="NO" id="rz2-n6-ATl">
-                                <rect key="frame" x="0.0" y="0.0" width="23.5" height="23"/>
+                                <rect key="frame" x="0.0" y="0.0" width="23" height="23"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="23" id="QYo-QC-kCU"/>
+                                </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mapIcon" translatesAutoresizingMaskIntoConstraints="NO" id="8lY-ii-jeE">
-                                <rect key="frame" x="24.5" y="0.0" width="24" height="23"/>
+                                <rect key="frame" x="25" y="0.0" width="23" height="23"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="23" id="AGZ-nS-xNS"/>
+                                </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AertripIconWhiteSmall" translatesAutoresizingMaskIntoConstraints="NO" id="cEm-5S-ZtP">
-                                <rect key="frame" x="49.5" y="0.0" width="23.5" height="23"/>
+                                <rect key="frame" x="50" y="0.0" width="23" height="23"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="23" id="MUa-Hg-HVQ"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="height" constant="23" id="csa-vW-jSK"/>
-                            <constraint firstAttribute="width" constant="73" id="umH-Yq-xJd"/>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="73" id="umH-Yq-xJd"/>
                         </constraints>
                     </stackView>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="JSb-Cx-HfV">
@@ -152,13 +161,13 @@
                     <constraint firstItem="WY8-xg-FDP" firstAttribute="centerY" secondItem="oul-ao-EqI" secondAttribute="centerY" id="5GD-5I-ua9"/>
                     <constraint firstItem="4np-Ca-7Fg" firstAttribute="centerX" secondItem="WY8-xg-FDP" secondAttribute="centerX" id="5Sl-Ma-cdP"/>
                     <constraint firstItem="4np-Ca-7Fg" firstAttribute="centerY" secondItem="WY8-xg-FDP" secondAttribute="centerY" id="7kO-K0-HDV"/>
+                    <constraint firstItem="JSb-Cx-HfV" firstAttribute="leading" secondItem="oul-ao-EqI" secondAttribute="trailing" constant="9" id="CTp-sK-W8l"/>
                     <constraint firstItem="oul-ao-EqI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="DVt-mv-b9n"/>
-                    <constraint firstItem="JSb-Cx-HfV" firstAttribute="leading" secondItem="jzX-UL-anj" secondAttribute="trailing" constant="9" id="GMy-uf-fOB"/>
+                    <constraint firstItem="jzX-UL-anj" firstAttribute="centerX" secondItem="oul-ao-EqI" secondAttribute="centerX" id="O5k-jy-oPP"/>
                     <constraint firstItem="WY8-xg-FDP" firstAttribute="leading" secondItem="JSb-Cx-HfV" secondAttribute="leading" id="WgB-ck-wsB"/>
                     <constraint firstItem="jzX-UL-anj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="YKz-Q3-Mkz"/>
                     <constraint firstItem="oul-ao-EqI" firstAttribute="top" secondItem="jzX-UL-anj" secondAttribute="bottom" constant="1.5" id="aPf-RV-0Yu"/>
                     <constraint firstItem="JSb-Cx-HfV" firstAttribute="top" secondItem="jzX-UL-anj" secondAttribute="top" constant="-5" id="bTn-bJ-145"/>
-                    <constraint firstItem="jzX-UL-anj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="hWG-06-ZzO"/>
                     <constraint firstAttribute="trailing" secondItem="WY8-xg-FDP" secondAttribute="trailing" id="w7d-TC-OGh"/>
                 </constraints>
             </tableViewCellContentView>

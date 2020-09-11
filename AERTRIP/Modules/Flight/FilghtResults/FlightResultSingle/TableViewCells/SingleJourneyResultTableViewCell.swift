@@ -9,8 +9,7 @@
 import UIKit
 
 
-class SingleJourneyResultTableViewCell: UITableViewCell
-{
+class SingleJourneyResultTableViewCell: UITableViewCell {
     //MARK:- Outlets
     @IBOutlet weak var logoOne: UIImageView!
     @IBOutlet weak var logoTwo: UIImageView!
@@ -40,6 +39,7 @@ class SingleJourneyResultTableViewCell: UITableViewCell
     var smartIconsArray : [String]?
     var baggageSuperScript : NSAttributedString?
     var currentJourney : Journey?
+    
     //MARK:- Setup Methods
     fileprivate func setupBaseView() {
         backgroundColor = .clear // very important
@@ -59,6 +59,8 @@ class SingleJourneyResultTableViewCell: UITableViewCell
         dashedView.setupDashedView()
         setupGradientView()
         setupCollectionView()
+        
+   
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -75,8 +77,7 @@ class SingleJourneyResultTableViewCell: UITableViewCell
     }
     //MARK:-
     
-    fileprivate func setupGradientView( selectedColor : UIColor = UIColor.white)
-    {
+    fileprivate func setupGradientView( selectedColor : UIColor = UIColor.white) {
         let gradient = CAGradientLayer()
         let gradientViewRect = gradientView.bounds
         
