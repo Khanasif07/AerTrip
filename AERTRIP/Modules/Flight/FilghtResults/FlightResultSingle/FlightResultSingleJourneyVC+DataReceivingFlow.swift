@@ -73,8 +73,6 @@ extension FlightResultSingleJourneyVC {
                             if flightNum.uppercased() == self.viewModel.airlineCode.uppercased() {
                                 
                                 print("flightNum....\(flightNum.uppercased())")
-
-                                
                                 self.setPinnedFlightAt(journ.fk , isPinned: true)
                                 self.switchView.isOn = true
                                 self.switcherDidChangeValue(switcher: self.switchView, value: true)
@@ -147,6 +145,8 @@ extension FlightResultSingleJourneyVC {
         self.viewModel.sortOrder = sortOrder
         self.viewModel.isConditionReverced = isConditionReverced
       //  self.viewModel.prevLegIndex = legIndex
+        
+        self.viewModel.applySortingOnGroups(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex)
         self.viewModel.setPinnedFlights(shouldApplySorting: true)
         self.viewModel.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex)
         

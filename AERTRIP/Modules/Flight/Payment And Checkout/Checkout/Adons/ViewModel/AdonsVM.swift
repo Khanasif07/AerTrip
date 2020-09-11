@@ -207,6 +207,7 @@ extension AdonsVM {
               if !isMealSelected{
                   isMealSelected = !meals.isEmpty
               }
+            
           }
           
           return isMealSelected
@@ -218,18 +219,23 @@ extension AdonsVM {
           
           var description = ""
           var count = 0
-          
+            var mealsTotal = 0
+        
           if self.isMealSelected(){
               dataStore.flightsWithData.forEach { (flight) in
                   let others = flight.meal.addonsArray.filter { !$0.mealsSelectedFor.isEmpty }
                   others.forEach { (other) in
+                    
+                    mealsTotal += other.price * other.mealsSelectedFor.count
+                    
                       other.mealsSelectedFor.forEach { (passenger) in
                           count += 1
-                          guard let desc = other.ssrName?.name else { return }
-                          description += "\(desc), "
+//                          guard let desc = other.ssrName?.name else { return }
+//                          description += "\(desc), "
                       }
                   }
               }
+            description = "\(LocalizedString.Total.localized) : ₹\(mealsTotal.commaSeprated)"
           }
           
           if description.isEmpty {
@@ -240,7 +246,9 @@ extension AdonsVM {
               return addonsData.addonsType == .meals
           }){
               self.addonsData[ind].heading = count != 0 ? LocalizedString.Meals.localized + " " + "x\(count)" : LocalizedString.Meals.localized
-              self.addonsData[ind].description = description.replacingLastOccurrenceOfString(", ", with: "")
+            self.addonsData[ind].description = description.replacingLastOccurrenceOfString(", ", with: "")
+            
+                //description.replacingLastOccurrenceOfString(", ", with: "")
           }
       }
     
@@ -254,6 +262,7 @@ extension AdonsVM {
                 AddonsDataStore.shared.flightsWithData[ind].meal = flightDataForMeals.meal
             }
         }
+        
     }
     
 }
@@ -282,18 +291,26 @@ extension AdonsVM {
         
         var description = ""
         var count = 0
+        var baggageTotal = 0
+
         
         if self.isBaggageSelected(){
             dataStore.flightsWithData.forEach { (flight) in
                 let baggage = flight.bags.addonsArray.filter { !$0.bagageSelectedFor.isEmpty }
                 baggage.forEach { (bag) in
+                    
+                    baggageTotal += bag.price * bag.bagageSelectedFor.count
+
+                    
                     bag.bagageSelectedFor.forEach { (passenger) in
                         count += 1
-                        guard let desc = bag.ssrName?.name else { return }
-                        description += "\(desc), "
+//                        guard let desc = bag.ssrName?.name else { return }
+//                        description += "\(desc), "
                     }
                 }
             }
+            description = "\(LocalizedString.Total.localized) : ₹\(baggageTotal.commaSeprated)"
+
         }
         
         if description.isEmpty {
@@ -343,21 +360,28 @@ extension AdonsVM {
     func setOthersString() {
         
         let dataStore = AddonsDataStore.shared
-        
         var description = ""
         var count = 0
+        var othersTotal = 0
+
         
         if self.isOthersSelected(){
+            
             dataStore.flightsWithData.forEach { (flight) in
                 let others = flight.special.addonsArray.filter { !$0.othersSelectedFor.isEmpty }
                 others.forEach { (other) in
+                    
+                    othersTotal += other.price * other.othersSelectedFor.count
+
+                    
                     other.othersSelectedFor.forEach { (passenger) in
                         count += 1
-                        guard let desc = other.ssrName?.name else { return }
-                        description += "\(desc), "
+//                        guard let desc = other.ssrName?.name else { return }
+//                        description += "\(desc), "
                     }
                 }
             }
+            description = "\(LocalizedString.Total.localized) : ₹\(othersTotal.commaSeprated)"
         }
         
         if description.isEmpty {
@@ -400,34 +424,43 @@ extension AdonsVM {
                headingStr = "x\(selectedSeatsCount)"
            }
            let flightSequenceArr = dataStore.allFlights.map { $0.ffk }
-           
+            var seatsTotal = 0
+
+        
            if selectedSeatsCount > 0 {
     
                flightSequenceArr.forEach { (flightKey) in
                     var seats = dataStore.seatsArray.filter { $0.ffk == flightKey }
                     if seats.count > 0 {
                         seats.sort(by: { $0.columnData.ssrCode < $1.columnData.ssrCode })
+                      
+                        
+                        if let seatTo = priceDict["Seat"] {
+                            seatsTotal = seatTo
+                        }
+                        
                         seats.forEach { (seatData) in
-                            var rowStr: String {
-                                if let number = Int(seatData.columnData.ssrCode.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
-                                    print(number)
-                                    return "\(number)"
-                                }
-                                return ""
-                            }
-                            let columnStr = seatData.columnData.ssrCode.components(separatedBy: CharacterSet.letters.inverted).joined()
-                            
-                            let seatNumber = rowStr + columnStr
-                            
-                            if let passenger = seatData.columnData.passenger {
-                                descStr.append(seatNumber + " - " + passenger.firstName + ", ")
-                            }
+//                            var rowStr: String {
+//                                if let number = Int(seatData.columnData.ssrCode.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
+//                                    print(number)
+//                                    return "\(number)"
+//                                }
+//                                return ""
+//                            }
+//                            let columnStr = seatData.columnData.ssrCode.components(separatedBy: CharacterSet.letters.inverted).joined()
+//
+//                            let seatNumber = rowStr + columnStr
+//
+//                            if let passenger = seatData.columnData.passenger {
+//                                descStr.append(seatNumber + " - " + passenger.firstName + ", ")
+//                            }
                         }
                     }
                 }
                if descStr.hasSuffix(", ") {
                    descStr.removeLast(2)
                }
+            descStr = "\(LocalizedString.Total.localized) : ₹\(seatsTotal.commaSeprated)"
 
            }
            
@@ -443,7 +476,6 @@ extension AdonsVM {
                  }
        }
        
-    
 }
 
 
@@ -548,10 +580,7 @@ extension AdonsVM {
             
 //                  let others = flight.special.addonsArray.filter { !$0.othersSelectedFor.isEmpty }
                  
-            
-              }
-        
-        
+        }
     }
     
     
