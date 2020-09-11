@@ -562,14 +562,13 @@ class GetSharableUrl
 }
 
 
-extension NSURL {
+extension URL {
     
-    @objc
-    func expandURLWithCompletionHandler(completionHandler: @escaping (NSURL?) -> Void) {
-        let dataTask = URLSession.shared.dataTask(with: self as URL, completionHandler: {
+    func expandURLWithCompletionHandler(completionHandler: @escaping (URL?) -> Void) {
+        let dataTask = URLSession.shared.dataTask(with: self, completionHandler: {
             _, response, _ in
             if let expandedURL = response?.url {
-                completionHandler(expandedURL as NSURL)
+                completionHandler(expandedURL)
             }
         })
         dataTask.resume()
