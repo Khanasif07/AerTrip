@@ -42,6 +42,7 @@ extension FlightResultViewModelDelegate {
     let dispatchQueue = DispatchQueue.global()
     private var workItems = [DispatchWorkItem]()
 
+    var flightSearchParametersFromDeepLink = JSONDictionary()
     
     func cancelAllWebserviceCalls() {
         
@@ -200,12 +201,22 @@ extension FlightResultViewModelDelegate {
     
     //MARK:- Methods
     
-    @objc  init(displayGroups : [Int], sid : String , bookFlightObject : BookFlightObject, isInternationalJourney: Bool, numberOfLegs: Int) {
+    @objc  init(displayGroups : [Int], sid : String , bookFlightObject : BookFlightObject, isInternationalJourney: Bool, numberOfLegs: Int, flightSearchParameters: NSDictionary) {
         self.displayGroups = displayGroups
         self.sid = sid
         self.bookFlightObject = bookFlightObject
         self.isIntMCOrReturnJourney = isInternationalJourney
         self.numberOfLegs = numberOfLegs
+        
+        var flightSearchParamsDict = JSONDictionary()
+        
+        flightSearchParameters.forEach {
+            if let key = $0.key as? String {
+                flightSearchParamsDict[key] = $0.value
+            }
+        }
+        
+        self.flightSearchParametersFromDeepLink = flightSearchParamsDict
     }
     
     func segmentTitles(showSelection : Bool , selectedIndex: Int) ->  [NSAttributedString]
@@ -432,11 +443,9 @@ extension FlightResultViewModelDelegate {
     
     // Handling Web service response
     fileprivate func workingOnReceived( flightsArray: [Flights] , displayGroup : Int) {
-        
 
-            flightLegs[(displayGroup - 1)].workingOnReceived(flightsArray: flightsArray ,searchType : bookFlightObject.flightSearchType)
+        flightLegs[(displayGroup - 1)].workingOnReceived(flightsArray: flightsArray ,searchType : bookFlightObject.flightSearchType, flightSearchParam: flightSearchParametersFromDeepLink)
 
-        
     }
     
     func handleWebService( response  : FlightSearchWSResponse , displayGroup : Int) {
@@ -567,7 +576,7 @@ extension FlightSearchResultVM {
     }
     
     fileprivate func workingOnReceived( flightsArray: [IntMultiCityAndReturnWSResponse.Flight] , displayGroup : Int) {
-        intFlightLegs[(displayGroup - 1)].workingOnReceived(flightsArray: flightsArray ,searchType : bookFlightObject.flightSearchType)
+        intFlightLegs[(displayGroup - 1)].workingOnReceived(flightsArray: flightsArray ,searchType : bookFlightObject.flightSearchType, flightSearchParam: flightSearchParametersFromDeepLink)
     }
 }
 

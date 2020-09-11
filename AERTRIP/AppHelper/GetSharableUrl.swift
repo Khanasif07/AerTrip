@@ -20,12 +20,12 @@ class GetSharableUrl
     var semaphore = DispatchSemaphore (value: 0)
     var tripType = ""
     
-    func getUrl(adult:String, child:String, infant:String,isDomestic:Bool, isInternational:Bool, journeyArray:[Journey], valString:String, trip_type:String, filterString:String)
+    func getUrl(adult:String, child:String, infant:String,isDomestic:Bool, isInternational:Bool, journeyArray:[Journey], valString:String,trip_type:String, filterString:String)
     {
         tripType = trip_type
         var valueString = ""
         if !isInternational{
-            let cc = journeyArray.first?.cc ?? ""
+            let cc = journeyArray.first!.cc
             let origin = getOrigin(journey: journeyArray)
             let destination = getDestination(journey: journeyArray)
             let departureDate = getDepartureDate(journey: journeyArray)
@@ -105,9 +105,15 @@ class GetSharableUrl
                 DispatchQueue.main.async {
                     if let result = jsonResult as? [String: AnyObject] {
                         if result["success"] as? Bool == true{
-                            if let link = (result["data"] as? NSDictionary)?.value(forKey: "u") as? String{
-                                self.delegate?.returnSharableUrl(url: link)
+                            
+                            if let data = (result["data"] as? [String:Any]){
+                                if let link = data["u"] as? String{
+                                    self.delegate?.returnSharableUrl(url: link)
+                                }
                             }
+//                            if let link = (result["data"] as? [String:Any])?.value(forKey: "u") as? String{
+//                                self.delegate?.returnSharableUrl(url: link)
+//                            }
                         }
                     }
                 }
@@ -228,9 +234,11 @@ class GetSharableUrl
                 
                 DispatchQueue.main.async {
                     if let result = jsonResult as? [String: AnyObject] {
-                        if result["success"] as? Bool == true{
-                            if let view = (result["data"] as? NSDictionary)?.value(forKey: "view") as? String{
-                                self.delegate?.returnEmailView(view: view)
+                        if result["success"] as? Bool == true{                            
+                            if let data = (result["data"] as? [String:Any]){
+                                if let view = data["view"] as? String{
+                                    self.delegate?.returnEmailView(view: view)
+                                }
                             }
                         }
                     }

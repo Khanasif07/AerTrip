@@ -98,7 +98,6 @@
     [super viewDidLoad];
     [self setupInitials];
     [self setAerinSearchClosure];
-    [self setSharedUrlClosure];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -214,16 +213,6 @@
         [weakSelf.viewModel performFlightSearchWith:dict];
     }];
 }
-
--(void)setSharedUrlClosure {
-    self.bridgingObj = [SwiftObjCBridgingController shared];
-    __weak typeof(self) weakSelf = self;
-
-    [self.bridgingObj setOnFetchingFlightFormDataForSharedUrl:^(NSMutableDictionary<NSString *  ,id>*  dict){
-        [weakSelf.viewModel performFlightSearchWith:dict];
-    }];
-}
-
 
 - (IBAction)segmentChanged:(id)sender{
     [self adjustAsPerTopBar];
@@ -606,10 +595,11 @@
         bookflightObject.isDomestic = true;
     }
     
-    FlightSearchResultVM * flightSearchResponse = [[FlightSearchResultVM alloc] initWithDisplayGroups:values sid:sid bookFlightObject:bookflightObject isInternationalJourney:self.isInternationalJourney numberOfLegs: numberOfLegs];
+    
+    
+    FlightSearchResultVM * flightSearchResponse = [[FlightSearchResultVM alloc] initWithDisplayGroups:values sid:sid bookFlightObject:bookflightObject isInternationalJourney:self.isInternationalJourney numberOfLegs: numberOfLegs flightSearchParameters: flightSearchParameters];
     
     FlightResultBaseViewController * flightResultView = [[FlightResultBaseViewController alloc] initWithFlightSearchResultVM:flightSearchResponse flightSearchParameters:flightSearchParameters isIntReturnOrMCJourney:self.isInternationalJourney airlineCode:self.viewModel.airlineCode];
-    
     
     [self.navigationController pushViewController:flightResultView animated:true];
     

@@ -556,7 +556,7 @@
             date = [date stringByAppendingFormat:@" - %@",returnString];
             bookFlightObject.returnDate = returnDate;
         }
-        if ( [tripType isEqualToString:@"single"]) {
+        if ([tripType isEqualToString:@"single"]) {
                 
             NSString * departDateString = [flightSearchParameters valueForKey:@"depart"];
               NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
