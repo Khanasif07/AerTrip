@@ -125,14 +125,15 @@ struct TimeFK {
         timeArray = timeFKArray
       
         if flightGroup.selectedFK == String() {
-            flightGroup.selectedFK = flightGroup.getJourneyWithLeastHumanScore().fk
+//            flightGroup.selectedFK = flightGroup.getJourneyWithLeastHumanScore().fk
+            
+            flightGroup.selectedFK = flightGroup.first.fk
         }
         
         if currentSelectedIndex == nil {
-             if  let selectedDepartureIndex = timeArray.firstIndex(where: { $0.fk == flightGroup.selectedFK}) {
-                currentSelectedIndex = selectedDepartureIndex
-            }
-//            selectionView.frame = selectionViewFrame
+          //   if  let selectedDepartureIndex = timeArray.firstIndex(where: { $0.fk == flightGroup.selectedFK}) {
+                currentSelectedIndex = 0
+          //  }
         }
         
         updateViewConstraints()
@@ -499,7 +500,7 @@ extension GroupedFlightCell  {
     //
     //    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     //
-    //        let configuration = UISwipeActionsConfiguration(actions: createSwipeActionsForRightOrientation(indexPath))
+    //        let configuration = UISwipeAc tionsConfiguration(actions: createSwipeActionsForRightOrientation(indexPath))
     //        return configuration
     //    }
     
