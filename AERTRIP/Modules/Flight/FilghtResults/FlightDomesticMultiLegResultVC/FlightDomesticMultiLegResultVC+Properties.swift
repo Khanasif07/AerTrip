@@ -176,6 +176,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
             else {
                 headerCell.setRedColoredTitles()
             }
+        } else {
+            print("cell not fount...\(indexPath)")
         }
     }
     
