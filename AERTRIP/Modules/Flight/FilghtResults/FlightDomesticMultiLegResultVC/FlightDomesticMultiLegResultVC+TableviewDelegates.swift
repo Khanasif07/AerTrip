@@ -116,7 +116,6 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
                          cell.iconOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
                          cell.iconTwo.setImageWithUrl(logoArray[1], placeholder: UIImage(), showIndicator: false)
 
-
                          
 //                         setImageto(tableView: tableView, imageView: cell.iconOne, url:logoArray[0] , index:  indexPath.row)
 //                         setImageto(tableView: tableView, imageView: cell.iconTwo, url:logoArray[1] , index:  indexPath.row)
