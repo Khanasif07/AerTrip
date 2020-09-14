@@ -157,22 +157,20 @@ CGFloat animatedDistance;
 }
 
 -(void) handleLoginState{
-    if ([self exists:[self userID]]) {
-        
+    
+    BOOL isLoggedIn = [self isUserLoggedIn];
+    if (isLoggedIn) {
         [self.submitButton setTitle:@"Submit" forState:UIControlStateNormal];
         self.submitButtonWidth.constant = 150.0;
         self.submitWidth.constant = 150;
         [self.submitButtonOuterView.superview layoutIfNeeded];
         [self setCustomButtonViewEnabled:self.submitButton withOuterView:self.submitButtonOuterView];
-
-    }else{
-        
+    } else {
         [self.submitButton setTitle:@"Login and Submit" forState:UIControlStateNormal];
         self.submitButtonWidth.constant = 202;
         self.submitWidth.constant = 202;
         [self.submitButtonOuterView.superview layoutIfNeeded];
         [self setCustomButtonViewEnabled:self.submitButton withOuterView:self.submitButtonOuterView];
-
     }
 }
 
@@ -886,7 +884,8 @@ CGFloat animatedDistance;
         return;
     }
     
-    if ([self exists:[self userID]]) {
+    BOOL isLoggedIn = [self isUserLoggedIn];
+    if (isLoggedIn) {
         
         [self performFlightSearch:[self buildDictionaryForFlightSearch]];
 
@@ -1054,7 +1053,7 @@ CGFloat animatedDistance;
 //    HomeBulkHotelSubmitViewController *controller = (HomeBulkHotelSubmitViewController *)[self getControllerForModule:HOME_BULK_HOTEL_SUBMIT_CONTROLLER];
 //    controller.delegate = self;
 //    [self presentViewController:controller animated:NO completion:nil];
-    [self removeActivityIndicator];
+    [self hideFlightLoaderIndicator];
 }
 - (void)submitBulkRoomsDoneAction {
     [self animateBackingImageOut];
@@ -1782,6 +1781,15 @@ CGFloat animatedDistance;
     
     return YES;
 
+}
+
+- (BOOL) isUserLoggedIn {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [prefs stringForKey:@"loggedInUserId"];
+    if ((userId != nil) && (userId.length != 0)) {
+        return true;
+    }
+    return false;
 }
 
 @end
