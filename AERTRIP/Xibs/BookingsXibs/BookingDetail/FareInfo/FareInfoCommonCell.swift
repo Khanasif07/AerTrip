@@ -189,7 +189,9 @@ class FareInfoCommonCell: ATTableViewCell {
                         let displayValue = Double(airlineValue + adtRafVal)
                         
                         
-                        self.statusLabel.text = displayValue.amountInDelimeterWithSymbol + " + " + aertripValue.amountInDelimeterWithSymbol
+                        self.statusLabel.attributedText = getFormatedPrice(flightPrice: displayValue, aertripPrice: aertripValue, font: self.statusLabel.font)
+                            
+                            //displayValue.amountInDelimeterWithSymbol + " + " + aertripValue.amountInDelimeterWithSymbol
                     }
                 }else{
                     if airlineValue == -9{
@@ -206,7 +208,9 @@ class FareInfoCommonCell: ATTableViewCell {
                         let adtRafVal = model.aertripCanCharges?.adult ?? 0 //rafFees["ADT"]
                         let displayValue = Double(airlineValue + adtRafVal)
                         self.adultView.isHidden = false
-                        self.perAdultAmountLabel.text = displayValue.amountInDelimeterWithSymbol + " + " + aertripValue.amountInDelimeterWithSymbol
+                        self.perAdultAmountLabel.attributedText = getFormatedPrice(flightPrice: displayValue, aertripPrice: aertripValue, font: self.perAdultAmountLabel.font)
+                            
+                            //displayValue.amountInDelimeterWithSymbol + " + " + aertripValue.amountInDelimeterWithSymbol
                     }
                 }
             }else{
@@ -241,7 +245,8 @@ class FareInfoCommonCell: ATTableViewCell {
                     let chdRafVal = model.aertripCanCharges?.child ?? 0 //rafFees["CHD"]
                     let displayValue = Double(value! + chdRafVal)
                     self.childView.isHidden = false
-                    self.perChildAmountLabel.text = displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
+                    self.perChildAmountLabel.attributedText = getFormatedPrice(flightPrice: displayValue, aertripPrice: aertripValue, font: self.perChildAmountLabel.font)
+                        //displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
                 }
             }else{
                 self.perChildAmountLabel.text = "NA"
@@ -275,7 +280,9 @@ class FareInfoCommonCell: ATTableViewCell {
                     let chdRafVal = model.aertripCanCharges?.infant ?? 0 //rafFees["INF"]
                     let displayValue = Double(value! + chdRafVal)
                     self.infrantView.isHidden = false
-                    self.perInfantAmountLabel.text = displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
+                    self.perInfantAmountLabel.attributedText = getFormatedPrice(flightPrice: displayValue, aertripPrice: aertripValue, font: self.perInfantAmountLabel.font)
+                        
+                        //displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
                 }
             }else{
                 self.perInfantAmountLabel.text = "NA"
@@ -354,7 +361,9 @@ class FareInfoCommonCell: ATTableViewCell {
                         self.statusLabel.textColor = .black
                         
                         let displayValue = Double(value!)
-                        self.statusLabel.text = displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
+                        self.statusLabel.attributedText = getFormatedPrice(flightPrice: displayValue, aertripPrice: aertripValue, font: self.statusLabel.font)
+                            
+                            //displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
                     }
                 }else{
                     if value == -9{
@@ -371,7 +380,9 @@ class FareInfoCommonCell: ATTableViewCell {
                         
                         let displayValue = Double(value!)
                         
-                        self.perAdultAmountLabel.text = displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
+                        self.perAdultAmountLabel.attributedText = getFormatedPrice(flightPrice: displayValue, aertripPrice: aertripValue, font: self.perAdultAmountLabel.font)
+                            
+                            //displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
                     }
                 }
             }else{
@@ -406,7 +417,9 @@ class FareInfoCommonCell: ATTableViewCell {
                     
                     let displayValue = Double(value!)
                     
-                    self.perChildAmountLabel.text = displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
+                    self.perChildAmountLabel.attributedText = getFormatedPrice(flightPrice: displayValue, aertripPrice: aertripValue, font: self.perChildAmountLabel.font)
+                        
+                        //displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
                 }
             }else{
                 self.perChildAmountLabel.text = "NA"
@@ -439,7 +452,9 @@ class FareInfoCommonCell: ATTableViewCell {
                     self.perInfantAmountLabel.textColor = .black
                     let displayValue = Double(value!)
                     
-                    self.perInfantAmountLabel.text = displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
+                    self.perInfantAmountLabel.attributedText = getFormatedPrice(flightPrice: displayValue, aertripPrice: aertripValue, font: self.perInfantAmountLabel.font)
+                        
+                        //displayValue.amountInDelimeterWithSymbol + " + " +  aertripValue.amountInDelimeterWithSymbol
                 }
             }else{
                 self.perInfantAmountLabel.text = "NA"
@@ -535,5 +550,15 @@ class FareInfoCommonCell: ATTableViewCell {
             
             self.infrantView.isHidden = true
         }
+    }
+    
+    private func getFormatedPrice(flightPrice: Double, aertripPrice: Double, font: UIFont) -> NSMutableAttributedString{
+        let fPrice = flightPrice.amountInDelimeterWithSymbol.asStylizedPrice(using: font)
+        let aPrice = aertripPrice.amountInDelimeterWithSymbol.asStylizedPrice(using: font)
+        
+        let finalString = NSMutableAttributedString(attributedString: fPrice)
+        finalString.append(NSMutableAttributedString(string: " + "))
+        finalString.append(aPrice)
+        return finalString
     }
 }

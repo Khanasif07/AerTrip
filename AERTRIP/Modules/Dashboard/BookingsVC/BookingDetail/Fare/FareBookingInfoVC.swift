@@ -285,14 +285,14 @@ extension FareBookingInfoVC {
                 else if indexPath.row == 1, let val = can.adult {
                     //adult
                     finalCell = getFeeDetailsCell(indexPath: indexPath, type: "Per Adult", aerlineFee: val.reduce(0, { (result, object) -> Int in
-                        return result + (object.value ?? 0)
-                    }), aertripFee: info.aertripCanCharges?.adult ?? 0)
+                        return result + Int((object.value ?? 0))
+                    }), aertripFee: Int(info.aertripCanCharges?.adult ?? 0))
                 }
                 else if indexPath.row <= 2, let val = can.child {
                     //Child
                     finalCell = getFeeDetailsCell(indexPath: indexPath, type: "Per Child", aerlineFee: val.reduce(0, { (result, object) -> Int in
-                        return result + (object.value ?? 0)
-                    }), aertripFee: info.aertripCanCharges?.child ?? 0)
+                        return result + Int((object.value ?? 0))
+                    }), aertripFee: Int(info.aertripCanCharges?.child ?? 0))
                 }
                 else if indexPath.row <= 3, let val = can.infant {
                     if indexPath.row == 3 {
@@ -302,8 +302,8 @@ extension FareBookingInfoVC {
                     else {
                         //infant
                         finalCell = getFeeDetailsCell(indexPath: indexPath, type: "Per Infant", aerlineFee: val.reduce(0, { (result, object) -> Int in
-                            return result + (object.value ?? 0)
-                        }), aertripFee: info.aertripCanCharges?.infant ?? 0)
+                            return result + Int((object.value ?? 0))
+                        }), aertripFee: Int(info.aertripCanCharges?.infant ?? 0))
                     }
                 }
                 else if indexPath.row == (getCancelChargesCount(charge: info.aerlineCanCharges) - 1) {
@@ -322,14 +322,14 @@ extension FareBookingInfoVC {
                 else if newIndex == 1, let val = res.adult {
                     //adult
                     finalCell = getFeeDetailsCell(indexPath: indexPath, type: "Per Adult", aerlineFee: val.reduce(0, { (result, object) -> Int in
-                        return result + (object.value ?? 0)
-                    }), aertripFee: info.aertripResCharges?.adult ?? 0)
+                        return result + Int((object.value ?? 0))
+                    }), aertripFee: Int(info.aertripResCharges?.adult ?? 0))
                 }
                 else if newIndex <= 2, let val = res.child {
                     //Child
                     finalCell = getFeeDetailsCell(indexPath: indexPath, type: "Per Child", aerlineFee: val.reduce(0, { (result, object) -> Int in
-                        return result + (object.value ?? 0)
-                    }), aertripFee: info.aertripResCharges?.child ?? 0)
+                        return result + Int((object.value ?? 0))
+                    }), aertripFee: Int(info.aertripResCharges?.child ?? 0))
                 }
                 else if newIndex <= 3, let val = res.infant {
                     if newIndex == 3 {
@@ -339,8 +339,8 @@ extension FareBookingInfoVC {
                     else {
                         //infant
                         finalCell = getFeeDetailsCell(indexPath: indexPath, type: "Per Infant", aerlineFee: val.reduce(0, { (result, object) -> Int in
-                            return result + (object.value ?? 0)
-                        }), aertripFee: info.aertripResCharges?.infant ?? 0)
+                            return result + Int((object.value ?? 0))
+                        }), aertripFee: Int(info.aertripResCharges?.infant ?? 0))
                     }
                 }
                 else if newIndex > 0 {

@@ -388,6 +388,8 @@ enum ATAmenity: String, CaseIterable {
             return #imageLiteral(resourceName: "ame-coffee-shop")
         }
     }
+    
+    
 }
 
 enum ATMeal: Int, CaseIterable {

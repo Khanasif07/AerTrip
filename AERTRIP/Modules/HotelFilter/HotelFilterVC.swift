@@ -146,6 +146,18 @@ class HotelFilterVC: BaseVC {
         }
         self.isFilterAppliedBtn.setImage(isFilterApplied  ? #imageLiteral(resourceName: "ic_hotel_filter_applied") : #imageLiteral(resourceName: "ic_hotel_filter"), for: .normal)
         self.isFilterAppliedBtn.setImage(isFilterApplied  ? #imageLiteral(resourceName: "ic_hotel_filter_applied") : #imageLiteral(resourceName: "ic_hotel_filter"), for: .selected)
+        
+        if  isFilterApplied {
+            //self.topNavBar.firstRightButton.isEnabled = true
+            //self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
+            self.clearAllButton.isEnabled = true
+            self.clearAllButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        } else {
+            //self.topNavBar.firstRightButton.isEnabled = false
+            //self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+            self.clearAllButton.isEnabled = false
+            self.clearAllButton.setTitleColor(AppColors.themeGray40, for: .normal)
+        }
     }
     
     private func initiateFilterTabs() {
@@ -217,7 +229,7 @@ class HotelFilterVC: BaseVC {
         
         self.parchmentView = PagingViewController()
         self.parchmentView?.menuItemSpacing = 10.0
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 41.0, bottom: 0.0, right: 0.0)
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 41.0, bottom: 0.0, right: 11.0)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 52)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets(top: 0, left: 11.5, bottom: 0, right: 11.5), insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
@@ -242,6 +254,7 @@ class HotelFilterVC: BaseVC {
         self.parchmentView?.menuBackgroundColor = UIColor.clear
         self.parchmentView?.collectionView.backgroundColor = UIColor.clear
         
+        HotelFilterVM.shared.lastSelectedIndex = selectedIndex
     }
     
     
@@ -277,10 +290,10 @@ class HotelFilterVC: BaseVC {
                 
                 let diff = HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount)
                 let taDiff = HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount)
-                if 1...5 ~= diff.count {
+                if 1...4 ~= diff.count {
                     filtersTabs[idx].isSelected =  false
                 }
-                else if 1...5 ~= taDiff.count {
+                else if 1...4 ~= taDiff.count {
                     filtersTabs[idx].isSelected =  false
                 }
                 else if HotelFilterVM.shared.isIncludeUnrated != HotelFilterVM.shared.defaultIsIncludeUnrated {
@@ -309,6 +322,7 @@ class HotelFilterVC: BaseVC {
         self.setFilterButton()
     }
     
+    
     private func setupGesture() {
         let gestureRecognizer = UITapGestureRecognizer(target: self,action: #selector(outsideAreaTapped))
         gestureRecognizer.cancelsTouchesInView = false
@@ -332,7 +346,7 @@ class HotelFilterVC: BaseVC {
     @IBAction func clearAllButtonTapped(_ sender: Any) {
        // self.hide(animated: true, shouldRemove: true)
         delegate?.clearAllButtonTapped()
-        self.updateFiltersTabs()
+        reloadMenu()
         self.allChildVCs.forEach { (viewController) in
             if let vc = viewController as? PriceVC {
                 vc.setFilterValues()
@@ -364,7 +378,10 @@ class HotelFilterVC: BaseVC {
         self.hide(animated: true, shouldRemove: true)
         
     }
-        
+    @IBAction func filterBtnTapped(_ sender: Any) {
+        outsideAreaTapped()
+    }
+     
 }
 
 extension HotelFilterVC: HotelFilterVMDelegate {
@@ -380,13 +397,17 @@ extension HotelFilterVC: HotelFilterVMDelegate {
     
     @objc func updateFilter() {
         printDebug("updateFilter")
-        self.setBadgesOnAllCategories()
+        reloadMenu()
+        saveAndApplyFilter()
+    }
+    
+    func reloadMenu(){
+       self.setBadgesOnAllCategories()
         UIView.setAnimationsEnabled(false)
         UIView.animate(withDuration: 0, animations: {
             self.parchmentView?.reloadMenu()
         }) { (_) in
                     UIView.setAnimationsEnabled(true)
         }
-        saveAndApplyFilter()
     }
 }

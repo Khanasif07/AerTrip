@@ -37,7 +37,7 @@ class FareUpdatedPopUpVC: BaseVC {
     //MARK:- Methods
     //MARK:- Private
     private func setupIncreasePopUp() {
-        fareIncreasedContainerView.cornerRadius = 10.0
+        fareIncreasedContainerView.cornerradius = 10.0
         descriptionLabel.font = AppFonts.Regular.withSize(14.0)
         descriptionLabel.textColor = AppColors.themeBlack
         
@@ -51,7 +51,7 @@ class FareUpdatedPopUpVC: BaseVC {
     }
     
     private func setupRefundPopUp() {
-        fareIncreasedContainerView.cornerRadius = 10.0
+        fareIncreasedContainerView.cornerradius = 10.0
         descriptionLabel.font = AppFonts.Regular.withSize(14.0)
         descriptionLabel.textColor = AppColors.themeBlack
         
@@ -65,7 +65,7 @@ class FareUpdatedPopUpVC: BaseVC {
     }
     
     private func setupDecreasePopUp() {
-        decreaseContainerView.cornerRadius = 10.0
+        decreaseContainerView.cornerradius = 10.0
         decreaseContainerView.layer.borderWidth = 1.0
         decreaseContainerView.layer.borderColor = AppColors.themeGreen.withAlphaComponent(0.2).cgColor
         decreaseContainerView.backgroundColor = AppColors.iceGreen

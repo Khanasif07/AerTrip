@@ -29,6 +29,7 @@ class BookingProductDetailVM {
     var sectionDataForHotelDetail: [[TableViewCellForHotel]] = []
     var allTrips: [TripModel] = []
     var isSeeAllWeatherButtonTapped: Bool = false
+    var showWaletLoader = false
     
     var noOfCellAboveHotelDetail: Int {
         var count = 1
@@ -121,7 +122,9 @@ class BookingProductDetailVM {
         
         self.sectionDataForHotelDetail.append([.addToCalenderCell])
         self.sectionDataForHotelDetail.append([.bookAnotherRoomCell])
-        self.sectionDataForHotelDetail.append([.addToAppleWallet])
+        if self.bookingDetail?.bookingStatus == .booked {
+            self.sectionDataForHotelDetail.append([.addToAppleWallet])
+        }
         
         // logic for add trip change cell
         if self.bookingDetail?.tripInfo != nil {
@@ -270,7 +273,9 @@ class BookingProductDetailVM {
         }
        
         self.sectionDataForFlightProductType.append([.bookSameFlightCell])
-        self.sectionDataForFlightProductType.append([.addToAppleWallet])
+        if self.bookingDetail?.bookingStatus == .booked {
+            self.sectionDataForFlightProductType.append([.addToAppleWallet])
+        }
         
         if self.bookingDetail?.tripInfo != nil {
             self.sectionDataForFlightProductType.append([.tripChangeCell])
@@ -333,8 +338,10 @@ class BookingProductDetailVM {
     }
     
     func getBookingDetail(shouldCallWillDelegate: Bool = true) {
-        let params: JSONDictionary = ["booking_id": bookingId]
-        
+        var params: JSONDictionary = ["booking_id": bookingId]
+        if UserInfo.loggedInUserId == nil{
+            params["is_guest_user"] = true
+        }
 //        if shouldCallWillDelegate {
 //            delegate?.willGetBookingDetail()
 //        }

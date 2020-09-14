@@ -25,9 +25,19 @@ extension HotelsMapVC {
             self.filterButton.isSelected = false
             self.viewModel.isFilterApplied = false
             HotelFilterVM.shared.isSortingApplied = false
+            let isFilterAppliedForDestinetionFlow = HotelFilterVM.shared.isFilterAppliedForDestinetionFlow
             UserInfo.hotelFilter = nil
             HotelFilterVM.shared.resetToDefault()
             self.viewModel.filterApplied = UserInfo.HotelFilter()
+            if isFilterAppliedForDestinetionFlow {
+                self.viewModel.fetchRequestType = .FilterApplied
+                self.viewModel.isFilterApplied = true
+                self.viewModel.filterApplied.sortUsing = .DistanceNearestFirst(ascending: true)
+                HotelFilterVM.shared.sortUsing = .DistanceNearestFirst(ascending: true)
+                HotelFilterVM.shared.isFilterAppliedForDestinetionFlow = true
+                HotelFilterVM.shared.saveDataToUserDefaults()
+                //self.getSavedFilter()
+            }
             return
         }
         self.viewModel.fetchRequestType = .FilterApplied
@@ -78,27 +88,27 @@ extension HotelsMapVC {
     }
     
     func expandGroup(_ hotels: [HotelSearched]) {
-//        if let topVC = UIApplication.topViewController() {
-//            let dataVC = HotelsGroupExpendedVC.instantiate(fromAppStoryboard: .HotelsSearch)
-//            dataVC.delegate = self
-//            dataVC.viewModel.sid = self.viewModel.sid
-//            dataVC.viewModel.hotelSearchRequest = self.viewModel.hotelSearchRequest
-//            self.hotelsGroupExpendedVC = dataVC
-//            dataVC.viewModel.samePlaceHotels = hotels
-//            dataVC.viewModel.isFromFavorite = self.switchView.isOn
-//            let sheet = PKBottomSheet.instanceFromNib
-//            sheet.isAddTapGesture = false
-//            sheet.headerHeight = 24.0
-//            sheet.headerView = dataVC.headerView
-//            sheet.isHideBottomSheetOnTap = false
-//
-//            dataVC.sheetView = sheet
-//
-//            sheet.frame = topVC.view.bounds
-//            sheet.delegate = self
-//            topVC.view.addSubview(sheet)
-//            sheet.present(presentedViewController: dataVC, animated: true)
-//        }
+        //        if let topVC = UIApplication.topViewController() {
+        //            let dataVC = HotelsGroupExpendedVC.instantiate(fromAppStoryboard: .HotelsSearch)
+        //            dataVC.delegate = self
+        //            dataVC.viewModel.sid = self.viewModel.sid
+        //            dataVC.viewModel.hotelSearchRequest = self.viewModel.hotelSearchRequest
+        //            self.hotelsGroupExpendedVC = dataVC
+        //            dataVC.viewModel.samePlaceHotels = hotels
+        //            dataVC.viewModel.isFromFavorite = self.switchView.isOn
+        //            let sheet = PKBottomSheet.instanceFromNib
+        //            sheet.isAddTapGesture = false
+        //            sheet.headerHeight = 24.0
+        //            sheet.headerView = dataVC.headerView
+        //            sheet.isHideBottomSheetOnTap = false
+        //
+        //            dataVC.sheetView = sheet
+        //
+        //            sheet.frame = topVC.view.bounds
+        //            sheet.delegate = self
+        //            topVC.view.addSubview(sheet)
+        //            sheet.present(presentedViewController: dataVC, animated: true)
+        //        }
         
         let dataVC = HotelsGroupExpendedVC.instantiate(fromAppStoryboard: .HotelsSearch)
         dataVC.delegate = self
@@ -121,7 +131,7 @@ extension HotelsMapVC {
                 self.hotelSearchTableView.reloadRow(at: indexPath, with: .none)
             }
             else {
-                    self.hotelsMapCV.reloadItems(at: indexPath)
+                self.hotelsMapCV.reloadItems(at: indexPath)
             }
             selectedIndexPath = nil
         }
@@ -132,7 +142,7 @@ extension HotelsMapVC {
             else {
                 
                 self.viewModel.fetchDataFromCoreData(isUpdatingFav: true)
-                    self.hotelsMapCV.reloadData()
+                self.hotelsMapCV.reloadData()
             }
         }
     }
@@ -156,15 +166,15 @@ extension HotelsMapVC {
     }
     
     func moveMapToCurrentCity() {
-//        if let loc = self.viewModel.searchedCityLocation {
-//            self.focusMarker(coordinates: loc)
-//        }
+        //        if let loc = self.viewModel.searchedCityLocation {
+        //            self.focusMarker(coordinates: loc)
+        //        }
     }
     
     func animateMapToFirstHotelInMapMode() {
-//        if let locStr = self.viewModel.collectionViewLocArr.first, let loc = self.getLocationObject(fromLocation: locStr) {
-//            self.focusMarker(coordinates: loc)
-//        }
+        //        if let locStr = self.viewModel.collectionViewLocArr.first, let loc = self.getLocationObject(fromLocation: locStr) {
+        //            self.focusMarker(coordinates: loc)
+        //        }
     }
     
     func getHotelsCount() {
@@ -178,10 +188,10 @@ extension HotelsMapVC {
         self.hotelSearchTableView.reloadData()
         self.hotelsMapCV.reloadData()
         
-//        if drawMarkers {
-//            updateMarkers()
-//        }
-            self.showHotelOnMap(duration: 0)
+        //        if drawMarkers {
+        //            updateMarkers()
+        //        }
+        self.showHotelOnMap(duration: 0)
     }
     
     func searchForText(_ searchText: String, shouldPerformAction: Bool = true) {
@@ -205,14 +215,14 @@ extension HotelsMapVC {
     }
     
     func hideFavsButtons() {
-            self.floatingButtonOnMapView.transform = CGAffineTransform(translationX: 0, y: 0)
-            self.floatingButtonOnMapView.isHidden = true
+        self.floatingButtonOnMapView.transform = CGAffineTransform(translationX: 0, y: 0)
+        self.floatingButtonOnMapView.isHidden = true
     }
     
     
     func manageSwitchContainer(isHidden: Bool, shouldOff: Bool = true) {
-            manageFloatingView(isHidden: false)
-            self.currentLocationButton.isHidden = false
+        manageFloatingView(isHidden: false)
+        self.currentLocationButton.isHidden = false
         
         if !isHidden {
             self.switchContainerView.isHidden = false
@@ -246,7 +256,7 @@ extension HotelsMapVC {
     func manageFloatingView(isHidden: Bool) {
         self.currentLocationButton.isHidden = isHidden
         self.switchContainerView.isHidden = isHidden
-       // self.floatingButtonBackView.isHidden = isHidden
+        // self.floatingButtonBackView.isHidden = isHidden
     }
     
     // MARK: - Manage Header animation
@@ -257,7 +267,7 @@ extension HotelsMapVC {
             let locStr = self.viewModel.collectionViewLocArr[atIndex]
             if let loc = self.getLocationObject(fromLocation: locStr) {
                 self.displayingHotelLocation = loc
-//                focusMarker(coordinates: loc)
+                //                focusMarker(coordinates: loc)
                 selecteMarkerOnScrollCollection(location: loc)
             }
         }

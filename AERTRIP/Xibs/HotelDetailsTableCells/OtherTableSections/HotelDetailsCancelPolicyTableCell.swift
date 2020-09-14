@@ -122,10 +122,11 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
             if cancellationInfo.is_refundable {
                 let attributesDictionary = [NSAttributedString.Key.font : AppFonts.Regular.withSize(14.0),NSAttributedString.Key.foregroundColor: AppColors.themeGray60] as [NSAttributedString.Key : Any]
                 let fullAttributedString = NSMutableAttributedString()
-                for penaltyData in ratesData.penalty_array! {
+                let array = ratesData.penalty_array ?? []
+                for (index, penaltyData) in array.enumerated() {
                     let string = self.attributedPenaltyString(roomPrice: ratesData.price, isRefundable: penaltyData.is_refundable, toDate: penaltyData.to, fromDate: penaltyData.from, penalty: penaltyData.penalty)
                     //\u{2022}
-                    let formattedString: String = "\(string)\n"
+                    let formattedString: String = index == (array.count - 1) ? "\(string)" : "\(string)\n\n"
                     let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: formattedString, attributes: attributesDictionary)
                     let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore: -4.1, isForNotes: false)
                     attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))
@@ -170,11 +171,14 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
                 return penaltyString
             }
         } else {
-            if penalty == Int(roomPrice) && !fromDate.isEmpty {
+            
+            if(penalty != 0 && penalty >= Int(roomPrice) &&
+                !fromDate.isEmpty && toDate.isEmpty) {
                 penaltyString = "Non Refundable from  \(startingDate)\n"
                 return penaltyString
-            } else if penalty == Int(roomPrice) && !fromDate.isEmpty {
-                penaltyString = "Cancellation fee of \(roomPrice.amountInDelimeterWithSymbol) will be charged if you cancel on \(startingDate) or later\n"
+            } else if(penalty != 0 && penalty != Int(roomPrice) &&
+                        !fromDate.isEmpty && toDate.isEmpty) {
+                penaltyString = "Cancellation fee of \(Double(penalty).amountInDelimeterWithSymbol) will be charged if you cancel on \(startingDate) or later\n"
                 return penaltyString
             }
         }
@@ -368,3 +372,4 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         }
     }
 }
+

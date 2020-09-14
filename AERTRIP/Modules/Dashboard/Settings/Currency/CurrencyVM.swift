@@ -20,7 +20,7 @@ protocol CurrencyVcDelegate : class {
 class CurrencyVM {
     
     private var countries: [CurrencyModel] = [CurrencyModel]()
-    private var selectedCountry = CurrencyModel(json: [:], code: "")
+    private var selectedCountry = CurrencyModel(json: [:])
     weak var delegate : CurrencyVcDelegate?
     private var filteredCountries: [CurrencyModel] = [CurrencyModel]()
     var searchText : String = ""
@@ -31,8 +31,8 @@ class CurrencyVM {
     }
     
     func preSelectIndia(){
-        let india = countries.filter { $0.code == "INR"  }
-        selectedCountry = india.first ?? CurrencyModel(json: [:], code: "")
+        let india = countries.filter { $0.currencyCode == "INR"  }
+        selectedCountry = india.first ?? CurrencyModel(json: [:])
     }
     
 //    func getCurrencies() {
@@ -49,14 +49,14 @@ class CurrencyVM {
     
     func againSelectIndia(){
         if let indiaIndex = self.getCurrentDaraSource().lastIndex(where: { (obj) -> Bool in
-            return obj.code == "INR"
+            return obj.currencyCode == "INR"
         }){
             self.selectedCountry = self.getCurrentDaraSource()[indiaIndex]
             self.delegate?.showUnderDevelopmentPopUp()
         }else{
             
             guard let indiaIndex = self.countries.lastIndex(where: { (obj) -> Bool in
-                return obj.code == "INR"
+                return obj.currencyCode == "INR"
             }) else { return }
             self.selectedCountry = self.countries[indiaIndex]
             self.delegate?.showUnderDevelopmentPopUp()
@@ -73,7 +73,7 @@ class CurrencyVM {
     }
     
     func isSelectedCurrency(index : Int) -> Bool {
-        return getCurrentDaraSource()[index].code == selectedCountry.code
+        return getCurrentDaraSource()[index].currencyCode == selectedCountry.currencyCode
     }
     
     func isSeperatorHidden(index : Int) -> Bool {
@@ -87,7 +87,7 @@ class CurrencyVM {
     func filterCountries(txt : String) {
         self.filteredCountries = self.countries.filter { (obj) -> Bool in
             
-            let currencyName = obj.name.lowercased()
+            let currencyName = obj.currencyName.lowercased()
             let currencyNameArray = currencyName.split(separator: " ")
             
             for item in currencyNameArray{
@@ -96,7 +96,7 @@ class CurrencyVM {
                 }
             }
             
-            let currencyCode = obj.code.lowercased()
+            let currencyCode = obj.currencyCode.lowercased()
             let currencyCodeArray = currencyCode.split(separator: " ")
             
             for item in currencyCodeArray {
@@ -124,15 +124,15 @@ class CurrencyVM {
             if success{
                 
                let data = data.sorted { (one, two) -> Bool in
-                    two.name.lowercased() > one.name.lowercased()
+                    two.currencyName.lowercased() > one.currencyName.lowercased()
                 }
                 
                 var topCountries =  data.filter { (obj) -> Bool in
-                    return obj.code == "INR" || obj.code == "USD" || obj.code == "EUR" || obj.code == "JYP" || obj.code == "GBP"
+                    return obj.currencyCode == "INR" || obj.currencyCode == "USD" || obj.currencyCode == "EUR" || obj.currencyCode == "JYP" || obj.currencyCode == "GBP"
                 }
                 
                 let restCountries = data.filter { (obj) -> Bool in
-                    return obj.code != "INR" && obj.code != "USD" && obj.code != "EUR" && obj.code != "JYP" && obj.code != "GBP"
+                    return obj.currencyCode != "INR" && obj.currencyCode != "USD" && obj.currencyCode != "EUR" && obj.currencyCode != "JYP" && obj.currencyCode != "GBP"
                 }
                 
                topCountries = self.arangeTopCountries(countries: topCountries)
@@ -152,7 +152,7 @@ class CurrencyVM {
         var topCountries = countries
         
         if let indiaIndex = topCountries.lastIndex(where: { (obj) -> Bool in
-             return obj.code == "GBP"
+             return obj.currencyCode == "GBP"
          }){
              let india = topCountries[indiaIndex]
              topCountries.remove(at: indiaIndex)
@@ -160,7 +160,7 @@ class CurrencyVM {
          }
          
          if let indiaIndex = topCountries.lastIndex(where: { (obj) -> Bool in
-             return obj.code == "JYP"
+             return obj.currencyCode == "JYP"
          }){
              let india = topCountries[indiaIndex]
              topCountries.remove(at: indiaIndex)
@@ -168,7 +168,7 @@ class CurrencyVM {
          }
          
          if let indiaIndex = topCountries.lastIndex(where: { (obj) -> Bool in
-             return obj.code == "EUR"
+             return obj.currencyCode == "EUR"
          }){
              let india = topCountries[indiaIndex]
              topCountries.remove(at: indiaIndex)
@@ -176,7 +176,7 @@ class CurrencyVM {
          }
          
          if let indiaIndex = topCountries.lastIndex(where: { (obj) -> Bool in
-             return obj.code == "USD"
+             return obj.currencyCode == "USD"
          }){
              let india = topCountries[indiaIndex]
              topCountries.remove(at: indiaIndex)
@@ -184,7 +184,7 @@ class CurrencyVM {
          }
          
          if let indiaIndex = topCountries.lastIndex(where: { (obj) -> Bool in
-             return obj.code == "INR"
+             return obj.currencyCode == "INR"
          }){
              let india = topCountries[indiaIndex]
              topCountries.remove(at: indiaIndex)

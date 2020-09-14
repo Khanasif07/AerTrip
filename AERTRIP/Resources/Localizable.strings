@@ -481,7 +481,8 @@
 "NoHotelFound" = "No Hotel Found\nChoose another date for this location and try again.";
 "NoHotelFoundMessage" = "Choose another date for this location and try again.";
 "NoHotelFoundMessageOnFilter" = "Choose another filters try again.";
-"NoHotelFoundFilter" = "No Hotel Found\nChoose another filters try again.";
+"NoHotelFoundFilter" = "We couldn’t find hotels to match your filters. Try changing the filters, or reset them.";
+"NoResultsAvailable" = "No Results Available";
 "rupeesText" = "₹";
 "callingNotAvailable" = "Your device doesn't supports calling function!";
 "UnfavouriteAll" = "Unfavourite all";
@@ -721,6 +722,7 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "VoucherNo"  = "Voucher No.";
 "DownloadInvoice" = "Download Invoice";
 "DownloadReceipt" = "Download Receipt";
+"DownloadVoucher" = "Download Voucher";
 "Directions" = "Directions";
 "RequestAddOnsAndFF" = "Request Add-ons & FF";
 "AddOns" = "Add-ons";

@@ -45,7 +45,7 @@ extension FlightDomesticMultiLegResultVC {
        }
     
     
-    func revealAnimationOfNavigationBarOnScroll(offsetDifference : CGFloat) {
+    fileprivate func revealAnimationOfNavigationBarOnScroll(offsetDifference : CGFloat) {
         let invertedOffset = -offsetDifference
         
         DispatchQueue.main.async {
@@ -78,7 +78,7 @@ extension FlightDomesticMultiLegResultVC {
         
         if offsetDifference > 0 {
             self.hidingAnimationOnNavigationBarOnScroll(offsetDifference : offsetDifference)
-        } else {
+        } else if offsetDifference < 0{
             self.revealAnimationOfNavigationBarOnScroll(offsetDifference : offsetDifference)
         }
     }
@@ -114,91 +114,76 @@ extension FlightDomesticMultiLegResultVC {
         let width = tableView.bounds.size.width
         let bottomInset = self.view.safeAreaInsets.bottom
         //FIXME :- magical no
-        let height = UIScreen.main.bounds.height - yCoordinate - bottomInset - 50 - self.statusBarHeight
+        let height = UIScreen.main.bounds.height - yCoordinate - bottomInset //- 50 - self.statusBarHeight
         let visibleRect = CGRect(x: xCoordinate, y: yCoordinate, width: width, height: height)
         return visibleRect
     }
     
-        func animateJourneyCompactView(for tableView : UITableView) {
-            
-            guard let selectedRowIndex = tableView.indexPathForSelectedRow else { return }
-            let visibleRect = getVisibleAreaRectFor(tableView: tableView)
-            let xCoordinate = tableView.frame.origin.x
-
-            var selectedRowRect = tableView.rectForRow(at: selectedRowIndex)
-            selectedRowRect.origin.y = selectedRowRect.origin.y - tableView.contentOffset.y
-            selectedRowRect.origin.x = xCoordinate
-            if visibleRect.contains(selectedRowRect) {
-                let index = tableView.tag - 1000
-                hideHeaderCellAt(index: index)
-            }
-            else {
-                showHeaderCellAt(indexPath: selectedRowIndex , tableView: tableView)
-            }
-            setTableViewHeaderFor(tableView: tableView)
-        }
-        
-        func showHeaderCellAt(indexPath : IndexPath, tableView : UITableView) {
-            
+    func animateJourneyCompactView(for tableView : UITableView) {
+        guard let selectedIndex =  self.getSelectedIndex(for: tableView) else { return }//tableView.indexPathForSelectedRow
+        let visibleRect = getVisibleAreaRectFor(tableView: tableView)
+        let xCoordinate = tableView.frame.origin.x
+        let selectedRowIndex = IndexPath(row: selectedIndex, section: 0)
+        var selectedRowRect = tableView.rectForRow(at: selectedRowIndex)
+        selectedRowRect.origin.y = selectedRowRect.origin.y - tableView.contentOffset.y
+        selectedRowRect.origin.x = xCoordinate
+        if visibleRect.contains(selectedRowRect) {
             let index = tableView.tag - 1000
-            let headerView = journeyHeaderViewArray[index]
+            hideHeaderCellAt(index: index)
+        }
+        else {
+            showHeaderCellAt(tableView: tableView)
+        }
+        setTableViewHeaderFor(tableView: tableView)
+    }
+        
+    func showHeaderCellAt(tableView : UITableView) {
+        
+        let index = tableView.tag - 1000
+        let headerView = journeyHeaderViewArray[index]
+        
+        if headerView.isHidden {
+            headerView.isHidden = false
             
-            if headerView.isHidden {
-                headerView.isHidden = false
+            let width = UIScreen.main.bounds.size.width / 2.0
             
-                let width = UIScreen.main.bounds.size.width / 2.0
-
-                let tableState = viewModel.resultsTableStates[index]
-                var arrayForDisplay = self.viewModel.results[index].suggestedJourneyArray
-                
-                    if tableState == .showPinnedFlights {
-                          arrayForDisplay = self.viewModel.results[index].pinnedFlights
-                       } else if tableState == .showExpensiveFlights {
-                          arrayForDisplay = self.viewModel.results[index].allJourneys
-                       } else {
-                           arrayForDisplay = self.viewModel.results[index].suggestedJourneyArray
-                       }
-                
-                 let journey = arrayForDisplay[indexPath.row]
+            if let journey = self.viewModel.results[index].selectedJourney{
                 headerView.setValuesFrom(journey: journey)
-                
-                let headerJourneyRect  = CGRect(x: (width * CGFloat(index)), y: (-journeyCompactViewHeight) , width: width - 1 , height: journeyCompactViewHeight)
-                headerView.frame = headerJourneyRect
-                
-                
-                UIView.animate(withDuration: 0.4) {
-                    var rect = headerView.frame
-                    var yCoordinate = max(self.headerCollectionViewTop.constant +  self.headerCollectionView.frame.size.height , self.headerCollectionView.frame.size.height )
-                    if self.baseScrollView.contentOffset.y == 88.0 {
-                        yCoordinate = yCoordinate + 88.0
-                    }
-                    rect.origin.y = yCoordinate
-                    rect.size.height = self.journeyCompactViewHeight
-                    headerView.frame = rect
-                }
             }
+            let headerJourneyRect  = CGRect(x: (width * CGFloat(index)), y: (-journeyCompactViewHeight) , width: width - 1 , height: journeyCompactViewHeight)
+            headerView.frame = headerJourneyRect
+            UIView.animate(withDuration: 0.4) {
+                var rect = headerView.frame
+                var yCoordinate = max(self.headerCollectionViewTop.constant +  self.headerCollectionView.frame.size.height , self.headerCollectionView.frame.size.height )
+                if self.baseScrollView.contentOffset.y == 88.0 {
+                    yCoordinate = yCoordinate + 88.0
+                }
+                rect.origin.y = yCoordinate
+                rect.size.height = self.journeyCompactViewHeight
+                headerView.frame = rect
+            }
+        }
+    }
+        
+    func hideHeaderCellAt(index : Int) {
+        
+        let headerView = journeyHeaderViewArray[index]
+        
+        if headerView.isHidden {
+            return
         }
         
-        func hideHeaderCellAt(index : Int) {
-            
-            let headerView = journeyHeaderViewArray[index]
-            
-            if headerView.isHidden {
-                return
-            }
-            
-            if !headerView.isHidden {
-                UIView.animate(withDuration: 0.4, animations: {
-                    
-                    var frame = headerView.frame
-                    frame.origin.y =  (-self.headerCollectionViewTop.constant - self.journeyCompactViewHeight)
-                    headerView.frame = frame
-                    
-                }) { (completed) in
-                    headerView.isHidden = true
-                }
+        if !headerView.isHidden {
+            UIView.animate(withDuration: 0.4, animations: {
+                
+                var frame = headerView.frame
+                frame.origin.y =  (-self.headerCollectionViewTop.constant - self.journeyCompactViewHeight)
+                headerView.frame = frame
+            }) { (completed) in
+                headerView.isHidden = true
             }
         }
+    }
     
     
     
@@ -211,8 +196,8 @@ extension FlightDomesticMultiLegResultVC {
                 self.baseScrollView.setContentOffset(point , animated: true)
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                  let point  = CGPoint(x: 0 , y: 0)
-                 self.baseScrollView.setContentOffset(point , animated: true)
+                let point  = CGPoint(x: 0 , y: 0)
+                self.baseScrollView.setContentOffset(point , animated: true)
             }
         }
     }
@@ -224,7 +209,7 @@ extension FlightDomesticMultiLegResultVC {
         let width = tableView.bounds.size.width
         let index = tableView.tag - 1000
         let headerView = journeyHeaderViewArray[index]
-        
+
         let height : CGFloat
         if headerView.isHidden {
             height = 138.0
@@ -232,7 +217,6 @@ extension FlightDomesticMultiLegResultVC {
         else {
             height = 188.0
         }
-        
         let rect = CGRect(x: 0, y: 0, width: width, height: height )
         let tableHeaderView = UIView(frame: rect)
         tableView.tableHeaderView = tableHeaderView
@@ -240,50 +224,46 @@ extension FlightDomesticMultiLegResultVC {
                
 
     func setTableViewHeaderAfterSelection(tableView  : UITableView) {
-        
         let visibleRect = self.getVisibleAreaRectFor(tableView: tableView)
         let xCoordinate = tableView.frame.origin.x
         let zerothRowIndex = IndexPath(item: 0, section: 0)
         var zerothRowRect = tableView.rectForRow(at: zerothRowIndex)
         zerothRowRect.origin.x = xCoordinate
         let width = tableView.bounds.size.width
-
-        let isFirstCellVisible : Bool
-        if visibleRect.contains(zerothRowRect) {
-            isFirstCellVisible = true
-        }
-        else {
-            isFirstCellVisible = false
-        }
-        
-        // Debuging code
-//        zerothRowRect.origin.x = 0
-//        visibleRect.origin.x = 0
-//        firstVisibleRectView.frame = zerothRowRect
-//        debugVisibilityView.frame = visibleRect
+//
+//        let isFirstCellVisible : Bool
+//        if visibleRect.contains(zerothRowRect) {
+//            isFirstCellVisible = true
+//        }
+//        else {
+//            isFirstCellVisible = false
+//        }
         
         let index = tableView.tag - 1000
-        let headerView = journeyHeaderViewArray[index]
-        
-        var height : CGFloat = 188.0
-        if isFirstCellVisible {
-
-            if headerView.isHidden {
-                height = 138.0
-            }
-            else {
-                height = 188.0
-            }
+        if let journey = self.viewModel.results[index].selectedJourney{
+            journeyHeaderViewArray[index].setValuesFrom(journey: journey)
         }
-
-        if let selectedIndex =  tableView.indexPathForSelectedRow
-        {
-            
-            if selectedIndex.row <= 4 {
-                  height = 138.0
-            }
-        }
+//        let headerView = journeyHeaderViewArray[index]
         
+        var height : CGFloat = 138.0
+        journeyHeaderViewArray[index].isHidden = true
+//        if isFirstCellVisible {
+//
+//            if headerView.isHidden {
+//                height = 138.0
+//            }
+//            else {
+//                height = 188.0
+//            }
+//        }
+
+//        if let selectedIndex =  self.getSelectedIndex(for: tableView){ //tableView.indexPathForSelectedRow
+//
+//            if selectedIndex <= 4 {//selectedIndex.row
+//                  height = 138.0
+//            }
+//        }
+//
         let rect = CGRect(x: 0.0, y: 0.0, width: width, height: height )
         let tableHeaderView = UIView(frame: rect)
         tableView.tableHeaderView = tableHeaderView
@@ -303,6 +283,11 @@ extension FlightDomesticMultiLegResultVC {
         // Synchronizing scrolling of headerCollectionView to baseScrollView scroll movement
         if scrollView == baseScrollView {
             self.syncScrollView(headerCollectionView, toScrollView: baseScrollView)
+            if scrollView.contentOffset.y > 88.0{
+                scrollView.contentOffset.y = 88.0
+            }else{
+                self.changeContentOfssetWithMainScrollView()
+            }
             return
         }
         
@@ -326,6 +311,16 @@ extension FlightDomesticMultiLegResultVC {
         }
     }
     
+    func changeContentOfssetWithMainScrollView(_ isNeedToAnimate:Bool = false){
+        guard let blurView = self.navigationController?.view.viewWithTag(500) else  {return}
+        UIView.animate(withDuration: isNeedToAnimate ? 0.3 : 0.0) {
+            blurView.frame.origin.y = -self.baseScrollView.contentOffset.y
+            self.headerCollectionView.frame.origin.y = (88.0 - self.baseScrollView.contentOffset.y)
+            self.headerCollectionViewTop.constant = (88.0 - self.baseScrollView.contentOffset.y)
+            self.view.layoutIfNeeded()
+        }
+    }
+    
     func syncScrollView(_ scrollViewToScroll: UIScrollView, toScrollView scrolledView: UIScrollView) {
         
         var offset : CGFloat
@@ -342,9 +337,12 @@ extension FlightDomesticMultiLegResultVC {
             var scrollBounds = scrollViewToScroll.bounds
             scrollBounds.origin.x = scrolledView.contentOffset.x + offset
             scrollViewToScroll.bounds = scrollBounds
-
         }
         
+    }
+    
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        return scrollView != self.baseScrollView
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -358,8 +356,21 @@ extension FlightDomesticMultiLegResultVC {
 //                    }
 //                }
                 setTableViewHeaderFor(tableView: tableView)
-                snapToTopOrBottomOnSlowScrollDragging(scrollView)
+                animateJourneyCompactView(for: tableView)
+                if !scrollView.isBouncingTop{
+                    snapToTopOrBottomOnSlowScrollDragging(scrollView)
+                }
                 return
+            }
+        }
+        else{
+            if scrollView == self.baseScrollView && scrollView.contentOffset.y < 88.0{
+                if scrollView.contentOffset.y < 44{
+                    scrollView.contentOffset.y = 0.0
+                }else{
+                    scrollView.contentOffset.y = 88.0
+                }
+                self.changeContentOfssetWithMainScrollView(true)
             }
         }
 
@@ -409,6 +420,20 @@ extension FlightDomesticMultiLegResultVC {
 //            }
             
             lastTargetContentOffsetX = targetContentOffset.pointee.x
+        }
+    }
+    
+    func getSelectedIndex(for table: UITableView)-> Int?{
+        let index = table.tag - 1000
+        let tableState = viewModel.resultsTableStates[index]
+        if tableState == .showPinnedFlights {
+            return self.viewModel.results[index].pinnedFlights.firstIndex(where: {$0.fk == (self.viewModel.results[index].selectedJourney?.fk ?? "")})
+        } else if tableState == .showExpensiveFlights {
+            return self.viewModel.results[index].allJourneys.firstIndex(where: {$0.fk == (self.viewModel.results[index].selectedJourney?.fk ?? "")})
+        } else if tableState == .showRegularResults{
+         return self.viewModel.results[index].suggestedJourneyArray.firstIndex(where: {$0.fk == (self.viewModel.results[index].selectedJourney?.fk ?? "")})
+        } else{
+            return nil
         }
     }
 }

@@ -15,7 +15,7 @@ protocol EmailComposeerHeaderViewDelegate: class {
     func textViewText(messageTextView: UITextView)
     func updateHeightOfHeader(_ headerView: EmailComposerHeaderView, _ textView: UITextView)
     func emailTagAddedOrRemoved()
-
+    
 }
 
 class EmailComposerHeaderView: UIView {
@@ -88,13 +88,13 @@ class EmailComposerHeaderView: UIView {
         self.seeRatesButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         self.seeRatesButton.isUserInteractionEnabled = false
         
-//        self.toEmailTextView.delegate = self
-//        self.toEmailTextView.keyboardType = .emailAddress
-//        self.toEmailTextView.textContainerInset = UIEdgeInsets.zero
-//        self.toEmailTextView.textContainer.lineFragmentPadding = 0
+        //        self.toEmailTextView.delegate = self
+        //        self.toEmailTextView.keyboardType = .emailAddress
+        //        self.toEmailTextView.textContainerInset = UIEdgeInsets.zero
+        //        self.toEmailTextView.textContainer.lineFragmentPadding = 0
         
         self.messageSubjectTextView.textContainerInset = UIEdgeInsets.zero
-//        self.messageSubjectTextView.textContainer.lineFragmentPadding = 0
+        //        self.messageSubjectTextView.textContainer.lineFragmentPadding = 0
     }
     
     private func setUpText() {
@@ -104,7 +104,7 @@ class EmailComposerHeaderView: UIView {
         self.hotelResultLabel.text = LocalizedString.HotelResultFor.localized
         self.seeRatesButton.setTitle(LocalizedString.SeeRates.localized, for: .normal)
         self.checkOutMessageLabel.text = LocalizedString.CheckOutMessage.localized
-//        self.toEmailTextView.placeholder = LocalizedString.EnterEmail.localized
+        //        self.toEmailTextView.placeholder = LocalizedString.EnterEmail.localized
     }
     
     private func setUpFont() {
@@ -115,9 +115,9 @@ class EmailComposerHeaderView: UIView {
         self.checkOutMessageLabel.font = AppFonts.Italic.withSize(18.0)
         self.hotelResultLabel.font = AppFonts.Regular.withSize(18.0)
         // to Email Text View font
-//        self.toEmailTextView.inactiveTagFont = AppFonts.Regular.withSize(18.0)
-//        self.toEmailTextView.activeTagFont = AppFonts.Regular.withSize(18.0)
-//        self.toEmailTextView.tagSeparatorFont = AppFonts.Regular.withSize(18.0)
+        //        self.toEmailTextView.inactiveTagFont = AppFonts.Regular.withSize(18.0)
+        //        self.toEmailTextView.activeTagFont = AppFonts.Regular.withSize(18.0)
+        //        self.toEmailTextView.tagSeparatorFont = AppFonts.Regular.withSize(18.0)
         
         self.messageSubjectTextView.font = AppFonts.Regular.withSize(18.0)
         
@@ -141,14 +141,14 @@ class EmailComposerHeaderView: UIView {
         self.hotelResultLabel.textColor = AppColors.themeGray60
         self.messageSubjectTextView.textColor = AppColors.textFieldTextColor51
         // toEmail Text View Color
-//        self.toEmailTextView.activeTagBackgroundColor = AppColors.clear
-//        self.toEmailTextView.inactiveTagFontColor = AppColors.themeGreen
-//        self.toEmailTextView.activeTagFontColor = AppColors.themeGreen
-//        self.toEmailTextView.tagSeparatorColor = AppColors.themeGreen
-//        if #available(iOS 13, *) {
-//        }else{
-//            self.toEmailTextView.placeholderTextColor = AppColors.themeGray40
-//        }
+        //        self.toEmailTextView.activeTagBackgroundColor = AppColors.clear
+        //        self.toEmailTextView.inactiveTagFontColor = AppColors.themeGreen
+        //        self.toEmailTextView.activeTagFontColor = AppColors.themeGreen
+        //        self.toEmailTextView.tagSeparatorColor = AppColors.themeGreen
+        //        if #available(iOS 13, *) {
+        //        }else{
+        //            self.toEmailTextView.placeholderTextColor = AppColors.themeGray40
+        //        }
     }
     
     // Check Out View
@@ -166,7 +166,9 @@ class EmailComposerHeaderView: UIView {
     }
     
     func emailTextFieldHandlers() {
-        self.tagsField.frame = self.emailContainerView.bounds
+        var frame =  self.emailContainerView.bounds
+        frame.size.width = UIScreen.width - 65
+        self.tagsField.frame = frame
         self.tagsField.font = AppFonts.Regular.withSize(18.0)
         self.tagsField.placeholder = LocalizedString.EnterEmail.localized
         self.tagsField.placeholderColor = AppColors.themeGray40
@@ -176,24 +178,24 @@ class EmailComposerHeaderView: UIView {
         tagsField.contentInset = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2) //old padding
         tagsField.spaceBetweenLines = 4
         tagsField.spaceBetweenTags = 4
-        tagsField.tintColor = .clear
+        tagsField.tintColor = UIColor(displayP3Red: 0.961, green: 0.961, blue: 0.961, alpha: 1) //0.961 f5f5f5
         tagsField.textColor = AppColors.themeGreen
         tagsField.selectedColor = AppColors.themeGreen
         tagsField.selectedTextColor = AppColors.themeWhite
         tagsField.delimiter = ","
         tagsField.isDelimiterVisible = false
-        tagsField.borderWidth = 1
-        tagsField.borderColor = AppColors.themeGreen
+        tagsField.borderWidth = 0
+        tagsField.borderColor = .clear //AppColors.themeGreen
         tagsField.textField.textColor = AppColors.themeBlack
         tagsField.acceptTagOption = [.comma, .return, .space]
-        
+        tagsField.cornerRadius = 4
         self.emailContainerView.addSubview(self.tagsField)
         
         tagsField.onDidChangeHeightTo = { [weak self] (_, height) in
             printDebug("HeightTo: \( height)")
             self?.delegate?.textViewText(emailTextViewHeight: height)
         }
-
+        
         tagsField.onValidateTag = { tag, tags in
             // custom validations, called before tag is added to tags list
             return  tag.text.checkValidity(.Email)
@@ -224,10 +226,10 @@ class EmailComposerHeaderView: UIView {
 
 extension EmailComposerHeaderView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-//        if textView == self.toEmailTextView {
-//            self.delegate?.textViewText(emailTextView: textView)
-//        } else
-            
+        //        if textView == self.toEmailTextView {
+        //            self.delegate?.textViewText(emailTextView: textView)
+        //        } else
+        
         if textView == self.messageSubjectTextView {
             self.checkOutMessageLabel.text = textView.text
             self.delegate?.textViewText(messageTextView: textView)
@@ -242,7 +244,7 @@ extension EmailComposerHeaderView: UITextViewDelegate {
         }
         return true
     }
-  
+    
     
 }
 

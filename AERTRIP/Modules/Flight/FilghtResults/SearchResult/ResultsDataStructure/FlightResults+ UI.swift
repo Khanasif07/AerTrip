@@ -100,8 +100,10 @@ struct DomesticMultilegJourneyResultsArray {
     var suggestedJourneyArray: [Journey] = []
     
     var selectedJourney : Journey?
-    
+
+    var selectesIndex:Int?
     var isJourneySelectedByUser = false
+
        
     var sort : Sort
     var excludeExpensiveFlights = true

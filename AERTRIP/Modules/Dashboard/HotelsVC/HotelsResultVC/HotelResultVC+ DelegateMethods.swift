@@ -189,6 +189,7 @@ extension HotelResultVC: HotelResultDelegate {
     }
     
     func loadFinalDataOnScreen() {
+        self.isDataFetched = true
         self.filterCollectionView.isUserInteractionEnabled = true
         //        self.filterButton.isEnabled = true
         //        self.mapButton.isEnabled = true
@@ -406,7 +407,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
             HotelFilterVM.shared.sortUsing = .DistanceNearestFirst(ascending: true)
             HotelFilterVM.shared.isFilterAppliedForDestinetionFlow = true
             HotelFilterVM.shared.saveDataToUserDefaults()
-            self.getSavedFilter()
+            //self.getSavedFilter()
         }
         self.viewModel.loadSaveData()
         self.filterCollectionView.reloadData()
@@ -491,5 +492,14 @@ extension HotelResultVC: HotelSearchResultHeaderViewDelegate {
         
         
         self.cancelButtonTapped(self.cancelButton)
+    }
+}
+// MARK: - EmptyScreenViewDelegate methods
+extension HotelResultVC: EmptyScreenViewDelegate {
+    func firstButtonAction(sender: ATButton) {
+    }
+    
+    func bottomButtonAction(sender: UIButton) {
+        self.clearAllButtonTapped()
     }
 }

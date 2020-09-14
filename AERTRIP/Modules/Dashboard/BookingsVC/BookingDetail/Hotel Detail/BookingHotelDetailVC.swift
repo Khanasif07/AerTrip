@@ -107,6 +107,8 @@ class BookingHotelDetailVC: BaseVC {
         self.hotelDetailTableView.registerCell(nibName: HotelDetailsLoaderTableViewCell.reusableIdentifier)
         self.hotelDetailTableView.registerCell(nibName: NoImageDetailsCell.reusableIdentifier)
 
+        self.hotelDetailTableView.registerCell(nibName: HCPhoneTableViewCell.reusableIdentifier)
+
     }
     
     // configure nav bar

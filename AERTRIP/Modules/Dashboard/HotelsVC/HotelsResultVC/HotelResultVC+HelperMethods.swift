@@ -36,13 +36,24 @@ extension HotelResultVC {
             self.filterButton.isSelected = false
             self.viewModel.isFilterApplied = false
             HotelFilterVM.shared.isSortingApplied = false
+            let isFilterAppliedForDestinetionFlow = HotelFilterVM.shared.isFilterAppliedForDestinetionFlow
             UserInfo.hotelFilter = nil
             HotelFilterVM.shared.resetToDefault()
             self.viewModel.filterApplied = UserInfo.HotelFilter()
+            if isFilterAppliedForDestinetionFlow {
+                self.viewModel.fetchRequestType = .FilterApplied
+                self.viewModel.isFilterApplied = true
+                self.viewModel.filterApplied.sortUsing = .DistanceNearestFirst(ascending: true)
+                HotelFilterVM.shared.sortUsing = .DistanceNearestFirst(ascending: true)
+                HotelFilterVM.shared.isFilterAppliedForDestinetionFlow = true
+                HotelFilterVM.shared.saveDataToUserDefaults()
+                //self.getSavedFilter()
+            }
             return
         }
         self.viewModel.fetchRequestType = .FilterApplied
         self.viewModel.filterApplied = filter
+        self.viewModel.isFilterApplied = true
     }
     
     func applyPreviousFilter() {

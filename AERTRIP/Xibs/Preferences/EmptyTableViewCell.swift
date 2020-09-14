@@ -13,4 +13,9 @@ class EmptyTableViewCell: UITableViewCell {
     @IBOutlet weak var bottomDividerView: ATDividerView!
     @IBOutlet weak var topDividerTopConstraint: NSLayoutConstraint!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.backgroundColor = AppColors.greyO4
+    }
+    
 }

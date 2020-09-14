@@ -326,6 +326,7 @@ class FlightDomesticMultiLegResultVM {
         let currentDataSorce = self.currentDataSource(tableIndex: tableIndex)
         if currentDataSorce.isEmpty || self.resultsTableStates[tableIndex] == .showTemplateResults { return }
         self.results[tableIndex].selectedJourney = currentDataSorce[journeyIndex]
+        self.results[tableIndex].selectesIndex = journeyIndex
         self.results[tableIndex].isJourneySelectedByUser = true
      }
     

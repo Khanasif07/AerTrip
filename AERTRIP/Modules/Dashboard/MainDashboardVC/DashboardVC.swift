@@ -132,7 +132,7 @@ class DashboardVC: BaseVC {
             let extraHeightForSafeArea: CGFloat = UIApplication.shared.statusBarFrame.height > 20 ? 26 : 0
             innerScrollViewHeightConstraint.constant = temp + extraHeightForSafeArea
         }
-        self.profileButton.cornerRadius = self.profileButton.height/2
+        self.profileButton.cornerradius = self.profileButton.height/2
     }
     
     override func viewWillAppear(_ animated: Bool) {

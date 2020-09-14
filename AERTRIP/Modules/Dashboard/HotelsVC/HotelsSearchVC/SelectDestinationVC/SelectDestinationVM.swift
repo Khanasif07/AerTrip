@@ -183,13 +183,15 @@ class SelectDestinationVM: NSObject {
                         if !recent.contains(where: { (dest) -> Bool in
                             dest.dest_id == hotel.dest_id
                         }) {
-                            tamp.append(hotel)
+                            if tamp.count < 5 {
+                                tamp.append(hotel)
+                            }
                         }
                     }
                     sSelf.popularHotels = tamp
                 }
                 else {
-                    sSelf.popularHotels = hotels
+                    sSelf.popularHotels = hotels.count > 5 ? Array(hotels[0..<5]) : hotels
                 }
                 
                 sSelf.delegate?.getAllPopularHotelsSuccess()

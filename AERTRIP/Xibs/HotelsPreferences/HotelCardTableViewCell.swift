@@ -82,8 +82,8 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
         self.setupPageControl()
         
         self.bgView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
-        self.collectionView.cornerRadius = 10.0
-        self.gradientView.cornerRadius = 10.0
+        self.collectionView.cornerradius = 10.0
+        self.gradientView.cornerradius = 10.0
         self.collectionView.registerCell(nibName: ATGalleryCell.reusableIdentifier)
         
         self.discountedPriceLabel.font = AppFonts.SemiBold.withSize(22)

@@ -171,7 +171,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 }
                 baseFareCell.titleLabelLeading.constant = 16
                 baseFareCell.upArrowImg.isHidden = false
-                baseFareCell.titleLabel.text = "Addons"
+                baseFareCell.titleLabel.text = "Add-ons"
                 let amount = self.addonsData.reduce(0){$0 + $1.1}
                 let price = displayPriceInFormat(price: Double(amount), fromOption : "FareAmount")
                 baseFareCell.amountLable.attributedText = price

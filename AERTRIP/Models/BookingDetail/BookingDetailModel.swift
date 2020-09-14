@@ -812,7 +812,6 @@ struct BookingDetail {
 //        return self.website.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.website
         
         return (self.website != "somedummywebsite.com") ? self.website : ""
-
     }
     
     // Phone Details

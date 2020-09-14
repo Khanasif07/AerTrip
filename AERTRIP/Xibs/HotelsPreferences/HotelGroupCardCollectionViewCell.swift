@@ -88,11 +88,11 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
         
         self.secondShadowCard.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 5.0)
 
-        self.hotelImageView.cornerRadius = 10.0
-        self.scrollView.cornerRadius = 10.0
-        self.gradientView.cornerRadius = 10.0
-        self.secondHotelImageView.cornerRadius = 10.0
-        self.thirdHotelImageview.cornerRadius = 10.0
+        self.hotelImageView.cornerradius = 10.0
+        self.scrollView.cornerradius = 10.0
+        self.gradientView.cornerradius = 10.0
+        self.secondHotelImageView.cornerradius = 10.0
+        self.thirdHotelImageview.cornerradius = 10.0
 
         self.hotelImageView.contentMode = .scaleAspectFill
         self.secondHotelImageView.contentMode = .scaleAspectFill

@@ -40,6 +40,16 @@ class AmenitiesTableViewCell: UITableViewCell {
     private func populateData() {
         self.amenityImageView.image = amenitie?.icon
         self.amentityTitleLabel.text = amenitie?.title
+        
+        if HotelFilterVM.shared.availableAmenities.contains(amenitie?.rawValue ?? "") {
+            amentityTitleLabel.alpha = 1.0
+            amenityImageView.alpha = 1.0
+            statusButton.alpha = 1.0
+        } else {
+            amentityTitleLabel.alpha = 0.2
+            amenityImageView.alpha = 0.2
+            statusButton.alpha = 0.2
+        }
     }
     
     

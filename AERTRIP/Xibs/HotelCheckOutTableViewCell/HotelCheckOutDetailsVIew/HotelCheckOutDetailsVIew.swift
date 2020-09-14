@@ -43,7 +43,7 @@ class HotelCheckOutDetailsVIew: UIView {
     }
     @IBOutlet weak var smallLineView: UIView! {
         didSet {
-            self.smallLineView.cornerRadius = self.smallLineView.height/2.0
+            self.smallLineView.cornerradius = self.smallLineView.height/2.0
             self.smallLineView.clipsToBounds = true
         }
     }    

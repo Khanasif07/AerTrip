@@ -125,7 +125,8 @@ struct AccountDetailEvent {
     var ticketNo: String = ""
     var hotelAddress = ""
     var flightNumber = ""
-    
+    var countryCode = ""
+
     //Added for ofline receipts:--
     var chequeNumber = ""
     var chequeDate = ""
@@ -437,7 +438,7 @@ struct AccountDetailEvent {
                     self.flightNumber += (self.flightNumber.isEmpty) ? num : ",\(num)"
                 }
                 if let pnrs = row["pnrs"] as? [JSONDictionary], !pnrs.isEmpty {
-                    if let first = rows.first {
+                    if let first = pnrs.first {
                         if let obj = first["pnr"] {
                             //pnr
                             self.pnr = "\(obj)"
@@ -519,8 +520,13 @@ struct AccountDetailEvent {
             tStr = hotelName
         }
         if let hotelAddress = details["hotel_address"] as? String, !hotelAddress.isEmpty {
-            tStr = tStr.isEmpty ? hotelAddress : "\(tStr), \(hotelAddress)"
+            //tStr = tStr.isEmpty ? hotelAddress : "\(tStr), \(hotelAddress)"
             self.hotelAddress = hotelAddress
+        }
+        
+        if let countryCode = details["hotel_country_code"] as? String, !hotelAddress.isEmpty {
+            tStr = tStr.isEmpty ? countryCode : "\(tStr), \(countryCode)"
+            self.countryCode = countryCode
         }
         self.title = tStr
         
@@ -561,6 +567,9 @@ struct AccountDetailEvent {
                 
                 //confirmation id
                 self.confirmationId = ""//LocalizedString.dash.localized
+                if let obj = first["voucher_id"] {
+                    self.confirmationId = "\(obj)"
+                }
                 
                 //guest names
                 for room in rows {

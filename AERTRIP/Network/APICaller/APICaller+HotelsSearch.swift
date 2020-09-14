@@ -170,7 +170,7 @@ extension APICaller {
                     HotelFilterVM.shared.rightRangePrice = HotelFilterVM.shared.maximumPrice
                     HotelFilterVM.shared.defaultLeftRangePrice = HotelFilterVM.shared.minimumPrice
                     HotelFilterVM.shared.defaultRightRangePrice = HotelFilterVM.shared.maximumPrice
-                   
+                    
                     completionBlock(true, [], hotelsInfo, done ?? false)
                 }
                 else {

@@ -61,7 +61,7 @@ class MyBookingsVC: BaseVC {
         self.topNavBar.firstRightBtnTrailingConst.constant = 3.0
         //        self.topNavBar.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "swipeArrow"), selectedImage: #imageLiteral(resourceName: "swipeArrow"))
         self.topNavBar.firstRightButton.isHidden = true
-        self.searchBar.cornerRadius = 10.0
+        self.searchBar.cornerradius = 10.0
         self.searchBar.clipsToBounds = true
         self.hideAllData()
         MyBookingFilterVM.shared.searchText = ""

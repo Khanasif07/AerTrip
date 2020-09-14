@@ -37,11 +37,12 @@ class CurrencyCell: UITableViewCell {
     }
     
     func populateData(country : CurrencyModel, isSelected : Bool){
-        //        self.currencySymbolLabel.text = country.currencySymbol
-        //        self.currencyNameLabel.text = country.currencyName
-        //        self.currencyCodeLabel.text = country.currencyCode
+                self.currencySymbolLabel.text = country.currencySymbol
+                self.currencyNameLabel.text = country.currencyName
+                self.currencyCodeLabel.text = country.currencyCode
         self.tickImageView.isHidden = isSelected
         
+        /*
         //        self.currencySymbolLabel.text = country.currencySymbol
         self.currencyNameLabel.text = country.name
         self.currencyCodeLabel.text = country.code
@@ -58,11 +59,7 @@ class CurrencyCell: UITableViewCell {
         } else {
             self.currencySymbolLabel.text = country.text
         }
-        //        if let image = UIImage(named: country.currencyIcon) {
-        //            self.currencySymbolLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: image, endText: "", font: AppFonts.Regular.withSize(18))
-        //        } else {
-        //            self.currencySymbolLabel.text = country.currencySymbol
-        //        }
+ */
         
     }
     
@@ -80,9 +77,9 @@ class CurrencyCell: UITableViewCell {
         //        image1Attachment.bounds.origin = CGPoint(x: 0.0, y: 5.0)
         if let size = imageSize {
             image1Attachment.bounds = CGRect(x: startText.isEmpty ? 0 : -4, y: (font.capHeight - size).rounded() / 2, width: size, height: size)
-
+            
         } else {
-        image1Attachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height).rounded() / 2, width: image.size.width, height: image.size.height)
+            image1Attachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height).rounded() / 2, width: image.size.width, height: image.size.height)
         }
         image1Attachment.image = image
         
@@ -92,7 +89,7 @@ class CurrencyCell: UITableViewCell {
         
         // add the NSTextAttachment wrapper to our full string, then add some more text.
         fullString.append(image1String)
-       
+        
         if !endText.isEmpty {
             fullString.append(NSAttributedString(string: endText))
         }

@@ -22,12 +22,13 @@ class AppFlowManager: NSObject {
     }
     
     var mainHomeVC: MainHomeVC?
-    
     var documentInteractionController = UIDocumentInteractionController()
+    var showHotelResult = false
     
     private var blurEffectView: UIVisualEffectView?
     private let urlScheme = "://"
     private var loginVerificationComplition: ((_ isGuest: Bool) -> Void)?
+
     
     private override init() {
         super.init()

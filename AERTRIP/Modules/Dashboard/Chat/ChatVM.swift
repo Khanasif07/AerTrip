@@ -34,7 +34,7 @@ protocol ChatBotDelegatesDelegate: class {
 
 
 class ChatVM {
-
+    
     enum RecentSearchFor : String {
         case hotel = "hotel"
         case flight = "flight"
@@ -46,7 +46,7 @@ class ChatVM {
     weak var delegate : ChatBotDelegatesDelegate?
     var msgToBeSent : String = ""
     var recentSearchesData : [RecentSearchesModel] = []
-
+    
     
     func getRandomSessionId(length : Int) -> String{
         let letters = "0123456789"
@@ -58,14 +58,14 @@ class ChatVM {
     }
     
     func startaSessionWithChatBot(message : String){
-       
+        
         self.delegate?.willstarttChatBotSession()
         
         let params : JSONDictionary = [APIKeys.session_id.rawValue : getRandomSessionId(length : 13), "q" : message]
         APICaller.shared.startChatBotSession(params: params) { (success, message, sessionId) in
-          
+            
             if success {
-//                self.delegate?.hideTypingCell()
+                //                self.delegate?.hideTypingCell()
                 self.sessionId = sessionId
                 guard let msg = message else { return }
                 self.messages.append(msg)
@@ -86,51 +86,71 @@ class ChatVM {
         self.delegate?.willCommunicateWithChatBot()
         
         let params : JSONDictionary = [APIKeys.session_id.rawValue : self.sessionId, "q" : message]
-
+        
         APICaller.shared.communicateWithChatBot(params: params) { (success, message, sessionId) in
-           
-             if success {
-//                self.delegate?.hideTypingCell()
-                 self.sessionId = sessionId
-                 guard let msg = message else { return }
-                 self.messages.append(msg)
-                 self.delegate?.chatBotCommunicatedSuccessfully()
+            
+            if success {
+                //                self.delegate?.hideTypingCell()
+                self.sessionId = sessionId
+                guard let msg = message else { return }
+                self.messages.append(msg)
+                self.delegate?.chatBotCommunicatedSuccessfully()
                 if !msg.depart.isEmpty && !msg.origin.isEmpty && !msg.destination.isEmpty {
                     self.delegate?.moveFurtherWhenallRequiredInformationSubmited(data: msg)
-                      }
-             }else{
-                 self.delegate?.failedToCommunicateWithChatBot()
-             }
-         }
+                }
+            }else{
+                self.delegate?.failedToCommunicateWithChatBot()
+            }
+        }
     }
     
     
     func getRecentFlights(){
-
-        APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.flight) {
-            (success, error, obj) in
-            print(obj)
+        APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.flight) { (success, error, obj) in
+            
+            self.delegate?.willGetRecentSearchHotel()
+            APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.flight) { [weak self] (success, error, obj) in
+                print("obj.....\(obj)")
+                if success {
+                    //self?.recentSearchesData = obj
+                    self?.arrangeHotelAndFlightsRecentSearch(obj)
+                    self?.delegate?.getRecentSearchHotelSuccessFully()
+                }else{
+                    self?.delegate?.failedToGetRecentSearchApi()
+                }
+                
+            }
+        }
+    }
+    
+    private func arrangeHotelAndFlightsRecentSearch(_ array: [RecentSearchesModel]) {
+        self.recentSearchesData.append(contentsOf: array)
+        self.recentSearchesData.sort { (object1, object2) -> Bool in
+            return object1.added_on > object2.added_on
         }
     }
     
     func getRecentHotels(){
         self.delegate?.willGetRecentSearchHotel()
         APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.hotel) { (success, error, obj) in
-            if success {
-                self.recentSearchesData = obj
-                self.delegate?.getRecentSearchHotelSuccessFully()
-            }else{
-                self.delegate?.failedToGetRecentSearchApi()
+            APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.hotel) { [weak self] (success, error, obj) in
+                if success {
+                    //self?.recentSearchesData = obj
+                    self?.arrangeHotelAndFlightsRecentSearch(obj)
+                    self?.delegate?.getRecentSearchHotelSuccessFully()
+                }else{
+                    self?.delegate?.failedToGetRecentSearchApi()
+                }
             }
         }
     }
-
+    
     func createFlightSearchDictionaryAndPushToVC(_ model: MessageModel) {
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "yyyyMMdd"
         let departDate = dateFormatter.date(from: model.depart)
-        let newDepartDate = departDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
+        let newDepartDate = departDate?.toString(dateFormat: "ddMMyyyy") ?? ""
         
         var jsonDict = JSONDictionary()
         jsonDict["adult"] = model.adult
@@ -146,6 +166,11 @@ class ChatVM {
         SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
 }
+
+
+
+
+
 
 
 

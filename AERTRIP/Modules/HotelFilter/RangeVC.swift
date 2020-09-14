@@ -49,13 +49,28 @@ class RangeVC: BaseVC {
         //        let value = (sender as AnyObject).index ?? 0
         // self.rangeLabel.text = value >= 20 ? "Beyond \(value)km" : "Within " + "\(value)" + "km"
         var value = Double((sender as AnyObject).index ?? 0)
-        if value < 1 {
-            value = 1
+        printDebug("index: \((sender as AnyObject).index ?? 0)")
+        printDebug("value: \(value)")
+        var sliderPoint = 13
+        if value <= 1 {
+            value = 0.5
+            sliderPoint = 1
+        } else if value > 11 &&   value <= 12 {
+           value = 15
+            sliderPoint = 12
+        } else if value > 12  {
+            value = 20
+            sliderPoint = 13
+        } else {
+            sliderPoint = Int(value)
+//            if value > 10 {
+                value = value - 1
+//            }
         }
         HotelFilterVM.shared.distanceRange =  value
         HotelFilterVM.shared.delegate?.updateFiltersTabs()
         if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? RangeTableViewCell {
-            cell.stepSlider?.index = UInt(value.toInt)
+            cell.stepSlider?.index = UInt(sliderPoint)
             cell.updateSliderValueOnLabel(range: value)
         } else {
             tableView?.reloadData()
@@ -82,7 +97,18 @@ extension RangeVC: UITableViewDataSource, UITableViewDelegate {
         cell.stepSlider?.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
         let filter = UserInfo.hotelFilter
         let range = filter?.distanceRange ?? HotelFilterVM.shared.distanceRange
-        cell.stepSlider?.index = UInt(range.toInt)
+        var value = 13
+        if range == 20 {
+            value = 13
+        } else if range == 15 {
+            value = 12
+        }else if range == 0.5 {
+            value = 1
+        } else {
+            value = Int(range + 1)
+        }
+        
+        cell.stepSlider?.index = UInt(value) //UInt(value.toInt)
         cell.updateSliderValueOnLabel(range: range)
         return cell
     }

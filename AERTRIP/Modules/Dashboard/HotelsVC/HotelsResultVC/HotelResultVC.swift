@@ -133,7 +133,7 @@ class HotelResultVC: BaseVC {
     
     var oldOffset: CGPoint = .zero //used in colletion view scrolling for map re-focus
     let hotelResultCellIdentifier = "HotelSearchTableViewCell"
-    
+    var isDataFetched = false
     //var statusBarBlurView : UIVisualEffectView!
     //var headerBlurView : UIVisualEffectView!
     
@@ -167,6 +167,7 @@ class HotelResultVC: BaseVC {
     lazy var noHotelFoundOnFilterEmptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         newEmptyView.vType = .noHotelFoundOnFilter
+        newEmptyView.delegate = self
         return newEmptyView
     }()
     
