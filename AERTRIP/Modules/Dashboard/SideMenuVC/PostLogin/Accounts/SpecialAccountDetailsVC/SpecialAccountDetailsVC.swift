@@ -13,7 +13,11 @@ class SpecialAccountDetailsVC: BaseVC {
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var topNavView: TopNavigationView!
-    @IBOutlet weak var tableView: ATTableView!
+    @IBOutlet weak var tableView: ATTableView! {
+        didSet {
+            self.tableView.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
+        }
+    }
     @IBOutlet weak var progressView: UIProgressView!
     
     //MARK:- Properties
@@ -34,6 +38,11 @@ class SpecialAccountDetailsVC: BaseVC {
     }
     private var time: Float = 0.0
     private var timer: Timer?
+    private let refreshControl = UIRefreshControl()
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .accountDetailFetched, object: nil)
+    }
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -55,18 +64,33 @@ class SpecialAccountDetailsVC: BaseVC {
         
         self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_account_info"), selectedImage: #imageLiteral(resourceName: "ic_account_info"))
         
-        self.viewModel.fetchScreenDetails()
+        self.viewModel.fetchScreenDetails(showProgress: true)
         topNavView.backgroundColor = AppColors.clear
         //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.tableView.tableFooterView = self.tableFooterView
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(accountDetailFetched(_:)), name: .accountDetailFetched, object: nil)
+        
+
+        self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        self.refreshControl.tintColor = AppColors.themeGreen
+        self.tableView.refreshControl = refreshControl
     }
     
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification, noti == .accountPaymentRegister {
             //re-hit the details API
-            self.viewModel.fetchScreenDetails()
+            self.viewModel.fetchScreenDetails(showProgress: true)
         }
     }
+    
+    @objc func accountDetailFetched(_ note: Notification) {
+        if let object = note.object as? AccountDetailPostModel {
+            printDebug("accountDetailFetched")
+            self.viewModel.setAccountDetail(model: object)
+        }
+    }
+    
     
     override func bindViewModel() {
         self.viewModel.delegate = self
@@ -133,6 +157,9 @@ class SpecialAccountDetailsVC: BaseVC {
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
     }
     
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.viewModel.fetchScreenDetails(showProgress: false)
+    }
     //MARK:- Public
     
     
@@ -158,24 +185,31 @@ extension SpecialAccountDetailsVC: SpecialAccountDetailsVMDelegate {
         self.depositButton?.isLoading = false
     }
     
-    func willFetchScreenDetails() {
+    func willFetchScreenDetails(showProgress: Bool) {
         //AppGlobals.shared.startLoading()
-        startProgress()
-        self.tableView.isUserInteractionEnabled = false
-        
+        if showProgress {
+            startProgress()
+            self.tableView.isUserInteractionEnabled = false
+        }
     }
     
-    func fetchScreenDetailsSuccess() {
+    func fetchScreenDetailsSuccess(showProgress: Bool) {
         //AppGlobals.shared.stopLoading()
-        stopProgress()
+        if showProgress {
+            stopProgress()
+            self.tableView.isUserInteractionEnabled = true
+        }
         self.tableView.reloadData()
-        self.tableView.isUserInteractionEnabled = true
+        self.refreshControl.endRefreshing()
     }
     
-    func fetchScreenDetailsFail() {
+    func fetchScreenDetailsFail(showProgress: Bool) {
         //AppGlobals.shared.stopLoading()
-        stopProgress()
-        self.tableView.isUserInteractionEnabled = true
+        if showProgress {
+            stopProgress()
+            self.tableView.isUserInteractionEnabled = true
+        }
+        self.refreshControl.endRefreshing()
     }
 }
 

@@ -576,14 +576,17 @@ class HotelsSearchVC: BaseVC {
         if self.viewModel.searchedFormData.destName.isEmpty {
             AppToast.default.showToastMessage(message: "Please select destination name.")
             flag = false
+            self.whereLabel.nudgeAnimation()
         }
         else if self.viewModel.searchedFormData.checkInDate.isEmpty {
             AppToast.default.showToastMessage(message: "Please select check in date.")
             flag = false
+            self.checkInOutView?.checkInLabel.nudgeAnimation()
         }
         else if self.viewModel.searchedFormData.checkOutDate.isEmpty {
             AppToast.default.showToastMessage(message: "Please select check out date.")
             flag = false
+            self.checkInOutView?.checkOutLabel.nudgeAnimation()
         }
         
         return flag

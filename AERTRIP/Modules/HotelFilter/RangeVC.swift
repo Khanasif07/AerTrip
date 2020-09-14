@@ -58,10 +58,13 @@ class RangeVC: BaseVC {
         } else if value > 11 &&   value <= 12 {
            value = 15
             sliderPoint = 12
-        } else if value > 12  {
+        } else if value > 12 && value <= 13 {
             value = 20
             sliderPoint = 13
-        } else {
+        } else if value > 13 {
+            value = 25
+            sliderPoint = 14
+        }else {
             sliderPoint = Int(value)
 //            if value > 10 {
                 value = value - 1
@@ -98,7 +101,9 @@ extension RangeVC: UITableViewDataSource, UITableViewDelegate {
         let filter = UserInfo.hotelFilter
         let range = filter?.distanceRange ?? HotelFilterVM.shared.distanceRange
         var value = 13
-        if range == 20 {
+        if range == 25 {
+            value = 14
+        }else if range == 20 {
             value = 13
         } else if range == 15 {
             value = 12

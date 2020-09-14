@@ -66,6 +66,7 @@ class AccountOutstandingLadgerVC: BaseVC {
             }
         }
     }
+    private let refreshControl = UIRefreshControl()
     
     // Empty State view
     private lazy var noAccountTransectionView: EmptyScreenView = {
@@ -136,6 +137,10 @@ class AccountOutstandingLadgerVC: BaseVC {
         topNavView.backgroundColor = AppColors.clear
         
         self.searchModeSearchBarTopConstraint.constant = ((self.subHeaderContainer.height + self.topNavView.height) - self.mainSearchBar.height)
+        
+        self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        self.refreshControl.tintColor = AppColors.themeGreen
+        self.tableView.refreshControl = refreshControl
     }
     
     override func bindViewModel() {
@@ -351,6 +356,11 @@ class AccountOutstandingLadgerVC: BaseVC {
     }
     
     //MARK:- Public
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.viewModel.getAccountDetails(showProgres: false)
+    }
+    
     func reloadList() {
         
         self.setupNavBar()
@@ -652,14 +662,22 @@ extension AccountOutstandingLadgerVC: AccountOutstandingLadgerVMDelegate {
         self.manageLoader(shouldStart: false)
     }
     
-    func willGetAccountDetails() {
+    func willGetAccountDetails(showProgres: Bool) {
+        //AppGlobals.shared.startLoading()
+        self.topNavView.firstRightButton.isUserInteractionEnabled = false
+        self.topNavView.secondRightButton.isUserInteractionEnabled = false
     }
     
-    func getAccountDetailsSuccess() {
+    func getAccountDetailsSuccess(model: AccountDetailPostModel, showProgres: Bool) {
+        self.refreshControl.endRefreshing()
+        self.topNavView.firstRightButton.isUserInteractionEnabled = true
+        self.topNavView.secondRightButton.isUserInteractionEnabled = true
         self.reloadList()
+        NotificationCenter.default.post(name: .accountDetailFetched, object: model)
     }
     
-    func getAccountDetailsFail() {
+    func getAccountDetailsFail(showProgres: Bool) {
+        self.refreshControl.endRefreshing()
     }
     
     func searchEventsSuccess() {

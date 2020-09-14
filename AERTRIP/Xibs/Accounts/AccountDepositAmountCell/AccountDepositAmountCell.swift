@@ -69,9 +69,9 @@ class AccountDepositAmountCell: UITableViewCell {
             let value = txt.isEmpty ? "0" : txt
             if let amt = value.replacingOccurrences(of: ",", with: "").toDouble {
                 var value = amt.delimiterWithoutSymbol
-                if !value.contains(".") {
-                    value.append(".00")
-                }
+//                if !value.contains(".") {
+//                    value.append(".00")
+//                }
             self.amountTextField.text = value
             self.delegate?.amountDidChanged(amount: amt, amountString: txt)
             }
@@ -92,9 +92,9 @@ class AccountDepositAmountCell: UITableViewCell {
     
     private func setData() {
         var value = amount.delimiterWithoutSymbol
-        if !value.contains(".") {
-            value.append(".00")
-        }
+//        if !value.contains(".") {
+//            value.append(".00")
+//        }
         self.amountTextField.text = value
 //        if !amountTextSetOnce {
 //            amountTextSetOnce = true

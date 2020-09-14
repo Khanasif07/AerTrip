@@ -563,7 +563,7 @@ enum LocalizedString: String {
     case NoHotelFoundMessage
     case NoHotelFoundMessageOnFilter
     case NoHotelFoundFilter
-    case NoResultsAvailable
+    case NoHotelMatchedYourFilters
     case Inclusion
     case OtherInclusions
     case CancellationPolicy
@@ -899,6 +899,8 @@ enum LocalizedString: String {
     case OpeningBalance
     case NoBookingAvailable
     case NoBookingAvailableMessage
+    case NoTransactionsMatchYourFilters
+    case TryDifferentFiltersOrClearAll
 
     
     // MARK: - OutStanding Ladger

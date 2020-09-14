@@ -880,9 +880,10 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToAccountLadgerDetailsVC(forEvent: AccountDetailEvent) {
+    func moveToAccountLadgerDetailsVC(forEvent: AccountDetailEvent, detailType: AccountLadgerDetailsVM.AccountLadgerDetailType) {
         let obj = AccountLadgerDetailsVC.instantiate(fromAppStoryboard: .Account)
         obj.viewModel.ladgerEvent = forEvent
+        obj.viewModel.detailType = detailType
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     

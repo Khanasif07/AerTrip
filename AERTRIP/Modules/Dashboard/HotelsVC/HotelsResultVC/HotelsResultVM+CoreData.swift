@@ -144,7 +144,7 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
         let maximumPricePredicate = NSPredicate(format: "perNightPrice <= \(filterApplied.rightRangePrice)")
         subpredicates.append(minimumPricePredicate)
         subpredicates.append(maximumPricePredicate)
-        if self.filterApplied.distanceRange < 20 {
+        if self.filterApplied.distanceRange < 25 {
             let distancePredicate = NSPredicate(format: "distance <= \(self.filterApplied.distanceRange)")
             subpredicates.append(distancePredicate)
         }

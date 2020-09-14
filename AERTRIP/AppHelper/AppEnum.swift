@@ -32,6 +32,7 @@ extension Notification.Name {
     static let bulkEnquirySent = Notification.Name("bulkEnquirySent")
     static let bookingFilterApplied = Notification.Name("bookingFilterApplied")
     static let checkoutSessionExpired = Notification.Name("checkoutSessionExpired")
+    static let accountDetailFetched = Notification.Name("accountDetailFetched")
 
 }
 

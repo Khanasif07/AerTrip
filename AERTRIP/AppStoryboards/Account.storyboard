@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,7 +22,7 @@
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lRS-hF-bsl" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="165"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eOR-Sa-j4l">
                                 <rect key="frame" x="0.0" y="88" width="414" height="77"/>
@@ -48,7 +47,7 @@
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TsI-AD-qdz" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="76.5" width="414" height="0.5"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="bqi-F0-vmI"/>
                                                 </constraints>
@@ -145,7 +144,7 @@
                                             <constraint firstAttribute="trailing" secondItem="sE6-ys-C1a" secondAttribute="trailing" id="zNE-6J-EVZ"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNn-Ad-ZBZ">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNn-Ad-ZBZ">
                                         <rect key="frame" x="0.0" y="207" width="414" height="645"/>
                                         <connections>
                                             <action selector="tapSearchContainerView:" destination="BjZ-kP-qGq" eventType="touchUpInside" id="7U7-6z-GUk"/>
@@ -181,7 +180,6 @@
                                 <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </progressView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="Jht-mn-azk"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="JfE-Y0-1gq" firstAttribute="leading" secondItem="t5T-XB-FFI" secondAttribute="leading" id="5hQ-ok-Ytx"/>
@@ -206,6 +204,7 @@
                             <constraint firstAttribute="bottom" secondItem="ziz-Lg-1eA" secondAttribute="bottom" id="zY5-DO-IHr"/>
                             <constraint firstItem="aoE-5V-ZMQ" firstAttribute="leading" secondItem="Jht-mn-azk" secondAttribute="leading" id="zvx-lh-H7g"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="Jht-mn-azk"/>
                     </view>
                     <connections>
                         <outlet property="balanceAmountLabel" destination="ixO-GK-RLc" id="6su-sU-hAH"/>
@@ -249,16 +248,16 @@
                             <rect key="frame" x="16" y="32.5" width="382" height="38"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="qys-es-zoS">
-                                    <rect key="frame" x="0.0" y="0.0" width="234.5" height="38"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="234" height="38"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label sad f sd fs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77e-Yz-bFY">
-                                            <rect key="frame" x="0.0" y="0.0" width="234.5" height="19"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="234" height="19"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label asd fs dF" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKQ-fo-hsw">
-                                            <rect key="frame" x="0.0" y="19" width="234.5" height="19"/>
+                                            <rect key="frame" x="0.0" y="19" width="234" height="19"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -266,7 +265,7 @@
                                     </subviews>
                                 </stackView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" text="Labelxc s df sd f sd" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yI0-bC-wcV">
-                                    <rect key="frame" x="234.5" y="0.0" width="147.5" height="38"/>
+                                    <rect key="frame" x="234" y="0.0" width="148" height="38"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -277,7 +276,6 @@
                             </constraints>
                         </stackView>
                     </subviews>
-                    <viewLayoutGuide key="safeArea" id="elU-cp-feh"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="if4-0F-OLH" secondAttribute="trailing" constant="16" id="0H5-iY-4R1"/>
@@ -287,6 +285,7 @@
                         <constraint firstItem="if4-0F-OLH" firstAttribute="leading" secondItem="qsh-4H-Ggd" secondAttribute="leading" constant="16" id="LRL-FU-iY0"/>
                         <constraint firstItem="Qe5-Ha-8gl" firstAttribute="leading" secondItem="if4-0F-OLH" secondAttribute="leading" id="i40-1j-wMc"/>
                     </constraints>
+                    <viewLayoutGuide key="safeArea" id="elU-cp-feh"/>
                 </view>
                 <view contentMode="scaleToFill" id="OhW-km-KdJ">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="87"/>
@@ -347,7 +346,6 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <viewLayoutGuide key="safeArea" id="Ew3-fR-MTU"/>
                     <constraints>
                         <constraint firstItem="tF1-yx-byL" firstAttribute="leading" secondItem="OhW-km-KdJ" secondAttribute="leading" id="2gp-Di-hwM"/>
                         <constraint firstItem="ETc-M1-MdA" firstAttribute="leading" secondItem="Ew3-fR-MTU" secondAttribute="leading" id="ExL-O3-9Bl"/>
@@ -356,6 +354,7 @@
                         <constraint firstItem="ETc-M1-MdA" firstAttribute="bottom" secondItem="OhW-km-KdJ" secondAttribute="bottom" id="qQu-3D-ZgW"/>
                         <constraint firstItem="Ew3-fR-MTU" firstAttribute="trailing" secondItem="ETc-M1-MdA" secondAttribute="trailing" id="z9x-fd-Tks"/>
                     </constraints>
+                    <viewLayoutGuide key="safeArea" id="Ew3-fR-MTU"/>
                 </view>
             </objects>
             <point key="canvasLocation" x="53.623188405797109" y="41.517857142857139"/>
@@ -401,7 +400,7 @@
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zZX-An-8gJ">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zZX-An-8gJ">
                                                                         <rect key="frame" x="0.0" y="0.0" width="191" height="30"/>
                                                                         <state key="normal">
                                                                             <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -529,7 +528,6 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <viewLayoutGuide key="safeArea" id="YfZ-eY-q2N"/>
                                         <constraints>
                                             <constraint firstItem="YfZ-eY-q2N" firstAttribute="trailing" secondItem="shi-no-gJQ" secondAttribute="trailing" id="Im2-ty-gIs"/>
                                             <constraint firstItem="nYu-z2-KrL" firstAttribute="leading" secondItem="NzK-AL-RCX" secondAttribute="leading" id="JiQ-un-whU"/>
@@ -539,6 +537,7 @@
                                             <constraint firstAttribute="height" constant="87" id="o4g-Vw-buS"/>
                                             <constraint firstItem="shi-no-gJQ" firstAttribute="bottom" secondItem="NzK-AL-RCX" secondAttribute="bottom" id="uP0-Eg-RoL"/>
                                         </constraints>
+                                        <viewLayoutGuide key="safeArea" id="YfZ-eY-q2N"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -555,7 +554,7 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YAI-QO-eB9" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qc9-zy-3fi" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -570,7 +569,7 @@
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NTQ-N0-pQw">
                                 <rect key="frame" x="0.0" y="812" width="414" height="84"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0DU-y2-6RT">
                                 <rect key="frame" x="0.0" y="812" width="414" height="50"/>
@@ -592,7 +591,7 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L5M-AI-5rE">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L5M-AI-5rE">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
                                         <connections>
                                             <action selector="makePaymentButtonAction:" destination="efP-LQ-OCJ" eventType="touchUpInside" id="BkW-Fb-wTL"/>
@@ -676,7 +675,6 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="Kes-aL-kWC"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="6Cg-Vh-kc3" secondAttribute="bottom" id="43x-Dl-0Yf"/>
@@ -705,6 +703,7 @@
                             <constraint firstItem="Kes-aL-kWC" firstAttribute="trailing" secondItem="0DU-y2-6RT" secondAttribute="trailing" id="ulj-dW-dP1"/>
                             <constraint firstItem="0DU-y2-6RT" firstAttribute="top" secondItem="aeG-rx-6ZF" secondAttribute="bottom" id="zbp-bn-xWG"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="Kes-aL-kWC"/>
                     </view>
                     <connections>
                         <outlet property="blankSpaceView" destination="nYu-z2-KrL" id="rJY-0n-8wL"/>
@@ -753,6 +752,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yNN-Ko-Xnv">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c3U-he-759">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="350" id="MSt-gL-iNy"/>
+                                        </constraints>
+                                    </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="HEl-5A-H5v" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -829,14 +835,17 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="HEl-5A-H5v" firstAttribute="leading" secondItem="yNN-Ko-Xnv" secondAttribute="leading" id="4mC-sU-1le"/>
+                                    <constraint firstItem="c3U-he-759" firstAttribute="top" secondItem="yNN-Ko-Xnv" secondAttribute="top" id="5aP-QA-nTn"/>
                                     <constraint firstAttribute="trailing" secondItem="HEl-5A-H5v" secondAttribute="trailing" id="Tyx-XQ-Bnj"/>
+                                    <constraint firstAttribute="trailing" secondItem="c3U-he-759" secondAttribute="trailing" id="Zv3-Si-ubx"/>
+                                    <constraint firstItem="c3U-he-759" firstAttribute="leading" secondItem="yNN-Ko-Xnv" secondAttribute="leading" id="jjc-KU-tKv"/>
                                     <constraint firstAttribute="bottom" secondItem="HEl-5A-H5v" secondAttribute="bottom" id="nVE-q0-Put"/>
                                     <constraint firstItem="HEl-5A-H5v" firstAttribute="top" secondItem="yNN-Ko-Xnv" secondAttribute="top" id="xFo-jJ-9cA"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AZB-jX-PKd" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pin-zw-ibd" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -846,7 +855,6 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="8IO-QV-0GZ"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="8IO-QV-0GZ" firstAttribute="trailing" secondItem="Pin-zw-ibd" secondAttribute="trailing" id="4LZ-PN-iFb"/>
@@ -863,12 +871,15 @@
                             <constraint firstItem="AZB-jX-PKd" firstAttribute="leading" secondItem="Pin-zw-ibd" secondAttribute="leading" id="ktO-IM-AXJ"/>
                             <constraint firstAttribute="trailing" secondItem="yNN-Ko-Xnv" secondAttribute="trailing" id="vNX-7E-a9Q"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="8IO-QV-0GZ"/>
                     </view>
                     <connections>
                         <outlet property="blurView" destination="AZB-jX-PKd" id="MmM-tt-of0"/>
+                        <outlet property="containerView" destination="yNN-Ko-Xnv" id="Cbd-gd-Fiw"/>
                         <outlet property="navBarHeight" destination="qr5-mi-tnf" id="c8r-7A-j7a"/>
                         <outlet property="tableView" destination="HEl-5A-H5v" id="8TT-UT-lcI"/>
                         <outlet property="topNavView" destination="Pin-zw-ibd" id="2Ks-AK-JfV"/>
+                        <outlet property="whiteContainerView" destination="c3U-he-759" id="TJ4-2A-FBZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mm7-tU-jJr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -962,7 +973,7 @@
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7GI-N5-qZj" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pmf-Rk-Fgu" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -972,7 +983,6 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="K7B-88-d8y"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="qgN-8D-cih" firstAttribute="top" secondItem="Pmf-Rk-Fgu" secondAttribute="bottom" constant="-1" id="88q-Kl-llM"/>
@@ -987,6 +997,7 @@
                             <constraint firstItem="K7B-88-d8y" firstAttribute="trailing" secondItem="qgN-8D-cih" secondAttribute="trailing" id="rFa-BU-l3u"/>
                             <constraint firstItem="Pmf-Rk-Fgu" firstAttribute="top" secondItem="K7B-88-d8y" secondAttribute="top" id="tbG-Ng-T9W"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="K7B-88-d8y"/>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="qgN-8D-cih" id="img-xk-dQd"/>
@@ -1008,14 +1019,9 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MYT-af-oVj" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="KK4-tX-QTl">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="AccountSummeryCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AccountSummeryCell" rowHeight="45" id="HuW-CJ-dMY" customClass="AccountSummeryCell" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="414" height="45"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HuW-CJ-dMY" id="dNa-f9-Cfc">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
@@ -1100,7 +1106,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AccountDepositCell" rowHeight="105" id="qJM-e4-YGu" customClass="AccountDepositCell" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="117" width="414" height="105"/>
+                                        <rect key="frame" x="0.0" y="73" width="414" height="105"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qJM-e4-YGu" id="RV4-VK-hVx">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
@@ -1110,10 +1116,10 @@
                                                     <rect key="frame" x="16" y="13.5" width="268" height="78"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="fME-Ho-10Q">
-                                                            <rect key="frame" x="0.0" y="0.0" width="41.5" height="58"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="42" height="58"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xbU-L0-sjj">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="41.5" height="18"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="42" height="18"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="18" id="AlH-BP-cTd"/>
                                                                     </constraints>
@@ -1122,7 +1128,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qfb-B9-hur">
-                                                                    <rect key="frame" x="0.0" y="22" width="41.5" height="36"/>
+                                                                    <rect key="frame" x="0.0" y="22" width="42" height="36"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="36" id="FqQ-aY-1IX"/>
                                                                     </constraints>
@@ -1133,7 +1139,7 @@
                                                             </subviews>
                                                         </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q1Z-4K-IZR">
-                                                            <rect key="frame" x="0.0" y="60" width="41.5" height="18"/>
+                                                            <rect key="frame" x="0.0" y="60" width="42" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1171,7 +1177,7 @@
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zNG-aC-UAd" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjS-gH-BEj" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1190,7 +1196,6 @@
                                 <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </progressView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="OTX-fc-WUk"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="zNG-aC-UAd" firstAttribute="bottom" secondItem="bjS-gH-BEj" secondAttribute="bottom" id="3yy-Nt-LRe"/>
@@ -1208,6 +1213,7 @@
                             <constraint firstItem="OTX-fc-WUk" firstAttribute="trailing" secondItem="bjS-gH-BEj" secondAttribute="trailing" id="wfw-SF-yoZ"/>
                             <constraint firstItem="bjS-gH-BEj" firstAttribute="leading" secondItem="OTX-fc-WUk" secondAttribute="leading" id="wkr-Fa-4AB"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="OTX-fc-WUk"/>
                     </view>
                     <connections>
                         <outlet property="progressView" destination="Qyf-xV-gcd" id="2ib-hS-HPX"/>
@@ -1229,7 +1235,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VHE-d0-ntj" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="104"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tjU-nz-ENs" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="60"/>
@@ -1284,7 +1290,6 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="Vq4-eM-kdJ"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Vq4-eM-kdJ" firstAttribute="trailing" secondItem="tjU-nz-ENs" secondAttribute="trailing" id="1Xg-RH-PVS"/>
@@ -1299,6 +1304,7 @@
                             <constraint firstItem="tjU-nz-ENs" firstAttribute="leading" secondItem="Vq4-eM-kdJ" secondAttribute="leading" id="qgz-2D-T6n"/>
                             <constraint firstItem="VHE-d0-ntj" firstAttribute="trailing" secondItem="tjU-nz-ENs" secondAttribute="trailing" id="w75-HT-4oB"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="Vq4-eM-kdJ"/>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="ayw-ey-vwt" id="kBq-fQ-DXL"/>
@@ -1323,7 +1329,6 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="WIH-Q3-eNd"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="F6g-76-sjM" firstAttribute="top" secondItem="WIH-Q3-eNd" secondAttribute="top" id="Arb-2P-m3x"/>
@@ -1331,6 +1336,7 @@
                             <constraint firstItem="F6g-76-sjM" firstAttribute="leading" secondItem="WIH-Q3-eNd" secondAttribute="leading" id="Wxk-xd-07V"/>
                             <constraint firstAttribute="bottom" secondItem="F6g-76-sjM" secondAttribute="bottom" id="m45-zK-vuF"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="WIH-Q3-eNd"/>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="F6g-76-sjM" id="CWU-4X-hrt"/>
@@ -1354,7 +1360,7 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bZN-Wm-3tB" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uk7-P8-JEa">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="518"/>
@@ -1384,7 +1390,6 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="XF3-qq-fOP"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
@@ -1401,6 +1406,7 @@
                             <constraint firstItem="bZN-Wm-3tB" firstAttribute="top" secondItem="I7K-Ik-68U" secondAttribute="top" id="pmm-wO-0Mo"/>
                             <constraint firstItem="t6Q-xd-zRQ" firstAttribute="trailing" secondItem="XF3-qq-fOP" secondAttribute="trailing" id="yZp-hB-128"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="XF3-qq-fOP"/>
                     </view>
                     <connections>
                         <outlet property="childContainerView" destination="JuE-aX-6WW" id="OeG-h6-IYz"/>
@@ -1425,7 +1431,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qdr-Y8-4yC" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LXy-nf-VU3" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1439,7 +1445,6 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="Pye-PP-PgX"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Qdr-Y8-4yC" firstAttribute="bottom" secondItem="LXy-nf-VU3" secondAttribute="bottom" id="03r-KW-gOI"/>
@@ -1454,6 +1459,7 @@
                             <constraint firstItem="LXy-nf-VU3" firstAttribute="top" secondItem="Pye-PP-PgX" secondAttribute="top" id="vkE-6o-5Bk"/>
                             <constraint firstItem="LXy-nf-VU3" firstAttribute="leading" secondItem="Pye-PP-PgX" secondAttribute="leading" id="x86-y4-vtL"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="Pye-PP-PgX"/>
                     </view>
                     <connections>
                         <outlet property="dataContainerView" destination="84N-mg-dBn" id="VTH-HI-6g1"/>
@@ -1535,7 +1541,6 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="JWn-o4-NrI"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="du2-Z8-c7h" secondAttribute="bottom" id="SS7-Ed-Kf6"/>
@@ -1546,6 +1551,7 @@
                             <constraint firstItem="JWn-o4-NrI" firstAttribute="trailing" secondItem="3jD-iR-X1F" secondAttribute="trailing" id="lAG-aq-6Xe"/>
                             <constraint firstItem="3jD-iR-X1F" firstAttribute="top" secondItem="JWn-o4-NrI" secondAttribute="top" id="nNa-KG-Gyc"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="JWn-o4-NrI"/>
                     </view>
                     <connections>
                         <outlet property="dividerView" destination="3jD-iR-X1F" id="Fnv-BU-QPX"/>
@@ -1566,7 +1572,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k0p-4q-jD4" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="jdd-ph-CmQ" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="87.5" width="414" height="724.5"/>
@@ -1586,9 +1592,9 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SET-HQ-7Y0">
                                 <rect key="frame" x="0.0" y="812" width="414" height="84"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
-                            <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Le-pX-rey">
+                            <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Le-pX-rey">
                                 <rect key="frame" x="0.0" y="812" width="414" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1612,7 +1618,6 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="BuY-Oc-bUv"/>
                         <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="k0p-4q-jD4" firstAttribute="leading" secondItem="YZc-0A-tyn" secondAttribute="leading" id="2L2-Ih-2WP"/>
@@ -1638,6 +1643,7 @@
                             <constraint firstItem="7Le-pX-rey" firstAttribute="leading" secondItem="SET-HQ-7Y0" secondAttribute="leading" id="t4v-k7-3aD"/>
                             <constraint firstItem="k0p-4q-jD4" firstAttribute="trailing" secondItem="YZc-0A-tyn" secondAttribute="trailing" id="xQK-Wh-yYj"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="BuY-Oc-bUv"/>
                     </view>
                     <connections>
                         <outlet property="checkOutTableView" destination="jdd-ph-CmQ" id="rfJ-WI-djU"/>
@@ -1666,7 +1672,7 @@
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GZr-s3-Mrg" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fTk-vB-NOm" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1677,9 +1683,9 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Trq-7T-wih">
                                 <rect key="frame" x="0.0" y="812" width="414" height="84"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
-                            <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Mf-KI-PPm">
+                            <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Mf-KI-PPm">
                                 <rect key="frame" x="0.0" y="812" width="414" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1703,7 +1709,6 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="xQM-Gm-sBL"/>
                         <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="8Mf-KI-PPm" firstAttribute="trailing" secondItem="PVc-GF-9ED" secondAttribute="trailing" id="73m-CY-zkC"/>
@@ -1729,6 +1734,7 @@
                             <constraint firstItem="HxK-ol-UV0" firstAttribute="leading" secondItem="xQM-Gm-sBL" secondAttribute="leading" id="lMW-LL-tPM"/>
                             <constraint firstAttribute="trailing" secondItem="8Mf-KI-PPm" secondAttribute="trailing" id="sDI-kS-dgQ"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="xQM-Gm-sBL"/>
                     </view>
                     <connections>
                         <outlet property="checkOutTableView" destination="HxK-ol-UV0" id="J4B-oT-Myn"/>
@@ -1753,7 +1759,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6m6-cZ-xbl" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="apF-Fb-U5z" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1764,10 +1770,9 @@
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="See-IK-Gzj" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="TcB-tK-QkX"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="apF-Fb-U5z" firstAttribute="bottom" secondItem="6m6-cZ-xbl" secondAttribute="bottom" id="0hU-FA-AlL"/>
@@ -1782,6 +1787,7 @@
                             <constraint firstItem="TcB-tK-QkX" firstAttribute="trailing" secondItem="See-IK-Gzj" secondAttribute="trailing" id="oPT-Hu-iH1"/>
                             <constraint firstItem="apF-Fb-U5z" firstAttribute="top" secondItem="TcB-tK-QkX" secondAttribute="top" id="w6X-V2-318"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="TcB-tK-QkX"/>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="See-IK-Gzj" id="yta-PV-1yj"/>
@@ -1796,8 +1802,5 @@
     </scenes>
     <resources>
         <image name="accountRightArrow" width="8" height="14"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

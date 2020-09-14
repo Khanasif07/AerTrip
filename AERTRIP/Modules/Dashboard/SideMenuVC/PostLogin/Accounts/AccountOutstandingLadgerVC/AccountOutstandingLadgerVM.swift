@@ -9,9 +9,9 @@
 import UIKit
 
 protocol AccountOutstandingLadgerVMDelegate: class {
-    func willGetAccountDetails()
-    func getAccountDetailsSuccess()
-    func getAccountDetailsFail()
+    func willGetAccountDetails(showProgres: Bool)
+    func getAccountDetailsSuccess(model: AccountDetailPostModel, showProgres: Bool)
+    func getAccountDetailsFail(showProgres: Bool)
     
     func searchEventsSuccess()
     func willGetOutstandingPayment()
@@ -96,10 +96,10 @@ class AccountOutstandingLadgerVM: NSObject {
                     //                    let fltrd = events.filter({ $0.title.lowercased().contains(forText.lowercased())})
                     let fltrd = events.filter { event in
                         return ((event.title.lowercased().contains(forText.lowercased())) || (event.voucherNo.lowercased().contains(forText.lowercased())) ||
-                                    (event.bookingNumber.lowercased().contains(forText.lowercased())) ||
-                                    (event.airline.lowercased().contains(forText.lowercased())) ||
-                                    (self.removeSpecialChar(from:event.flightNumber).contains(self.removeSpecialChar(from: forText))) ||
-                                    (event.bookingId.lowercased().contains(forText.lowercased())))
+                            (event.bookingNumber.lowercased().contains(forText.lowercased())) ||
+                            (event.airline.lowercased().contains(forText.lowercased())) ||
+                            (self.removeSpecialChar(from:event.flightNumber).contains(self.removeSpecialChar(from: forText))) ||
+                            (event.bookingId.lowercased().contains(forText.lowercased())))
                         
                     }
                     if !fltrd.isEmpty {
@@ -167,4 +167,42 @@ class AccountOutstandingLadgerVM: NSObject {
     }
     
     //MARK:- Private
+    
+    func getAccountDetails(showProgres: Bool) {
+        self.delegate?.willGetAccountDetails(showProgres: showProgres)
+        
+        //        guard self._accountDetails.isEmpty else {
+        //            //because the data has been send from previous screen
+        //            self.delegate?.getAccountDetailsSuccess(model: AccountDetailPostModel(), showProgres: showProgres)
+        //            return
+        //        }
+        
+        //hit api to update the saved data and show it on screen
+        APICaller.shared.getAccountDetailsAPI(params: [:]) { [weak self](success, accLad, accVchrs, outLad, periodic, errors) in
+            
+            guard let sSelf = self else {
+                return
+            }
+            
+            if success {
+                if let obj = outLad {
+                    sSelf.accountOutstanding = obj
+                }
+                let model = AccountDetailPostModel()
+                model.accountLadger = accLad
+                model.periodicEvents = periodic
+                if let obj = outLad {
+                    model.outstandingLadger = obj
+                }
+                model.accVouchers = accVchrs
+                
+                sSelf.delegate?.getAccountDetailsSuccess(model: model, showProgres: showProgres)
+                
+            }
+            else {
+                sSelf.delegate?.getAccountDetailsFail(showProgres: showProgres)
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+            }
+        }
+    }
 }

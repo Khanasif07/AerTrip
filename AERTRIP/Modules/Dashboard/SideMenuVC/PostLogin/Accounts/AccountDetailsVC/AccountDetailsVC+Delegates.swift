@@ -192,7 +192,7 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
         let idx = indexPath.row
         printDebug(Date())
         delay(seconds: 0.0){
-            AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: allEvent[idx])
+            AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: allEvent[idx], detailType: .accountLadger)
         }
     }
 }
