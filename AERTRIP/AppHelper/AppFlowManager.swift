@@ -177,7 +177,7 @@ class AppFlowManager: NSObject {
     }
     
     // check and manage the further processing if user logged-in or not
-    func proccessIfUserLoggedInForFlight(verifyingFor: LoginFlowUsingFor, presentViewController: Bool = false, vc: UIViewController, completion: ((_ isGuest: Bool) -> Void)?) {
+    @objc func proccessIfUserLoggedInForFlight(verifyingFor: LoginFlowUsingFor, presentViewController: Bool = false, vc: UIViewController, completion: ((_ isGuest: Bool) -> Void)?) {
         self.loginVerificationComplition = completion
         if let _ = UserInfo.loggedInUserId {
             // user is logged in
@@ -1404,7 +1404,7 @@ extension AppFlowManager {
         self.currentNavigation?.popToViewController(viewController, animated: animated)
     }
     
-    func popToRootViewController(animated: Bool) {
+    @objc func popToRootViewController(animated: Bool) {
         self.currentNavigation?.popToRootViewController(animated: animated)
     }
     

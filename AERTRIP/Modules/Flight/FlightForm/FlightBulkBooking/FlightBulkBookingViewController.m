@@ -886,13 +886,9 @@ CGFloat animatedDistance;
     
     BOOL isLoggedIn = [self isUserLoggedIn];
     if (isLoggedIn) {
-        
         [self performFlightSearch:[self buildDictionaryForFlightSearch]];
-
     }else{
-        
-
-
+        [self startLoginFlow];
     }
 }
 
@@ -1807,6 +1803,19 @@ CGFloat animatedDistance;
 
 - (void)doneButtonAction {
     [self dismissViewControllerAnimated:true completion:nil];
+}
+
+-(void) startLoginFlow {
+    UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleDefault;
+    __weak typeof(self) weakSelf = self;
+    AppFlowManager *def = [AppFlowManager default];
+    [def proccessIfUserLoggedInForFlightWithVerifyingFor:LoginFlowUsingForLoginVerificationForBulkbooking presentViewController:true vc:self completion:^(BOOL isGuest) {
+        UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleLightContent;
+        [def popToRootViewControllerWithAnimated:true];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [weakSelf submitAction:nil];
+        });
+    }];
 }
 
 @end
