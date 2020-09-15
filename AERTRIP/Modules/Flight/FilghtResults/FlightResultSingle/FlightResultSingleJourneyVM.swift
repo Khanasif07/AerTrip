@@ -166,47 +166,32 @@ class FlightResultSingleJourneyVM {
                         
             if journeyArrayToSort[index].journeyArray.count > 1 {
             
-            switch  sortOrder {
+                //smart sort
+                journeyArrayToSort[index].journeyArray.sort(by: { $0.computedHumanScore ?? 0.0 < $1.computedHumanScore ?? 0.0 })
                 
-    
-            case .Smart:
-    
-                
-                journeyArrayToSort[index].journeyArray.sort(by: { $0.computedHumanScore ?? 0  < $1.computedHumanScore ?? 0  })
-                
-                
-            case .Price:
-                
-                
+                //arival sort
                 journeyArrayToSort[index].journeyArray.sort(by: { (obj1, obj2) -> Bool in
-                    if isConditionReverced {
-                        return (obj1.price) > (obj2.price)
-                    }else{
-                        return (obj1.price) < (obj2.price)
-                    }
-                })
-                
+                               
+                    let firstObjDepartureTime = (obj1.ad) + " " + (obj1.at)
+                               
+                               let secondObjDepartureTime = (obj2.ad) + " " + (obj2.at)
+                               
+                               let firstObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: firstObjDepartureTime)
+                               
+                               let secondObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: secondObjDepartureTime)
+                               
+                               if isConditionReverced {
+                                 
+                                 return firstObjTimeInterval > secondObjTimeInterval
 
-            case .Duration:
-                         
-                         journeyArrayToSort[index].journeyArray.sort(by: { (obj1, obj2) -> Bool in
-                             if isConditionReverced {
-                                 return obj1.duration > obj2.duration
-                             }else{
-                                 return obj1.duration < obj2.duration
-                             }
-                         })
-                
-                         journeyArrayToSort[index].journeyArray.forEach { (jor) in
-                            print("jor...\(jor.durationTitle)")
-                         }
-                         
-                print(journeyArrayToSort[index].journeyArray)
+                               }else{
+                                 
+                                 return firstObjTimeInterval < secondObjTimeInterval
 
-                
-            
-            case .Depart:
-                
+                               }
+                           })
+
+                //departure sort
                 journeyArrayToSort[index].journeyArray.sort(by: { (obj1, obj2) -> Bool in
                     
                     let firstObjDepartureTime = obj1.dt
@@ -222,44 +207,10 @@ class FlightResultSingleJourneyVM {
 
                     }
                 })
-      
-                
-            case .Arrival:
-                      journeyArrayToSort[index].journeyArray.sort(by: { (obj1, obj2) -> Bool in
-                          
-                        let firstObjDepartureTime = obj1.ad + " " + obj1.at
-                          
-                          let secondObjDepartureTime = obj2.ad + " " + obj2.at
-                          
-                          let firstObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: firstObjDepartureTime)
-                          
-                          let secondObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: secondObjDepartureTime)
-                          
-                          if isConditionReverced {
-                            
-                            return firstObjTimeInterval > secondObjTimeInterval
-
-                          }else{
-                            
-                            return firstObjTimeInterval < secondObjTimeInterval
-
-                          }
-                      })
-                      
-                
-                
-                
-            default:
-    
-                print("default")
-    
-            }
-            
-        }
+           }
         }
         
         self.results.journeyArray = journeyArrayToSort
-        
         
     }
     

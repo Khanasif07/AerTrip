@@ -195,7 +195,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         }
     }
     
-    func checkForOverlappingFlights() {
+    func checkForOverlappingFlights(shouldDisplayToast : Bool = true) {
         fareBreakupVC?.bookButton.isEnabled = true
         
         for i in 0 ..< self.viewModel.numberOfLegs {
@@ -226,7 +226,9 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                                 frame.size.height = frame.size.height - 16
                             }
                             
-                            AertripToastView.toast(in: parentVC.view , withText: "Flight timings are not compatible. Select a different flight." , parentRect: frame)
+                            if shouldDisplayToast{
+                                AertripToastView.toast(in: parentVC.view , withText: "Flight timings are not compatible. Select a different flight." , parentRect: frame)
+                            }
                             
                             setTextColorToHeader(.AERTRIP_RED_COLOR, indexPath: i)
                             setTextColorToHeader(.AERTRIP_RED_COLOR, indexPath: (i + 1 ))
@@ -245,7 +247,9 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                                 frame.size.height = frame.size.height - 16
                             }
                             
-                            AertripToastView.toast(in: parentVC.view , withText: "Selected flights have less than 2 hrs of gap." , parentRect: frame)
+                            if shouldDisplayToast{
+                                AertripToastView.toast(in: parentVC.view , withText: "Selected flights have less than 2 hrs of gap." , parentRect: frame)
+                            }
                             
                             fareBreakupVC?.bookButton.isEnabled = true
                         }

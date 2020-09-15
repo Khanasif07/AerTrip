@@ -365,7 +365,7 @@ extension IntMCAndReturnVC {
         
         completion()
         previousRequest = newRequest
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newRequest)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0, execute: newRequest)
     }
     
     func updateAirportDetailsArray(_ results : [String : IntAirportDetailsWS]) {
