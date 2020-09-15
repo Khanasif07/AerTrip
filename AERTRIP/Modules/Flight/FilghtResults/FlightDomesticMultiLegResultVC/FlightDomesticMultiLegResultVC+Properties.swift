@@ -123,9 +123,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         
         ApiProgress.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 10.0)
         self.headerCollectionView.addSubview(ApiProgress)
-
-        getSharableLink.delegate = self
         
+        getSharableLink.delegate = self
     }
     
     override func viewDidLayoutSubviews() {
@@ -135,6 +134,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         baseScrollView.contentSize = CGSize( width: (CGFloat(self.viewModel.numberOfLegs) * width ), height:height)
 
         for view in self.baseScrollView.subviews {
+            
             if view is JourneyHeaderView {
                 continue
             }
