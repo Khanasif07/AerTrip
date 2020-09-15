@@ -10,7 +10,7 @@
 #import "FlightFormViewControllerHeader.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface FlightBulkBookingViewController () <CalendarDataHandler, AddFlightPassengerHandler, AddFlightClassHandler, AirportSelctionHandler,MultiCityFlightCellHandler , CLLocationManagerDelegate, UITableViewDelegate , UITableViewDataSource, UITextFieldDelegate>
+@interface FlightBulkBookingViewController () <CalendarDataHandler, AddFlightPassengerHandler, AddFlightClassHandler, AirportSelctionHandler,MultiCityFlightCellHandler , CLLocationManagerDelegate, UITableViewDelegate , UITableViewDataSource, UITextFieldDelegate, BulkEnquirySuccessfulVCDelegate>
 
 @property (weak, nonatomic) IBOutlet HMSegmentedControl *flightSegmentedControl;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -1050,11 +1050,24 @@ CGFloat animatedDistance;
     
 
 - (void)handleDictionary:(NSDictionary *)dataDictionary {
-//    HomeBulkHotelSubmitViewController *controller = (HomeBulkHotelSubmitViewController *)[self getControllerForModule:HOME_BULK_HOTEL_SUBMIT_CONTROLLER];
-//    controller.delegate = self;
-//    [self presentViewController:controller animated:NO completion:nil];
     [self hideFlightLoaderIndicator];
+    [self showBulBookingSuccessViewCon];
 }
+
+-  (void)showBulBookingSuccessViewCon {
+    
+    BulkEnquirySuccessfulVC *viewCon = [[BulkEnquirySuccessfulVC alloc] init];
+    
+    [viewCon setConfigForFlightsBulkBooking];
+    
+    AppFlowManager *def = [AppFlowManager default];
+    
+    [def showFlightsBulkEnquiryVCWithDelegate:self mainView:self.bottomView viewHeight:self.view.bounds.size.height submitBtn:self.submitButton];
+    
+//    [AppFlowManager.defaul]
+//    AppFlowManager.default.showBulkEnquiryVC(buttonConfig: config, delegate: self)
+}
+
 - (void)submitBulkRoomsDoneAction {
     [self animateBackingImageOut];
     [self animateBottomViewOut];
@@ -1790,6 +1803,10 @@ CGFloat animatedDistance;
         return true;
     }
     return false;
+}
+
+- (void)doneButtonAction {
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 @end

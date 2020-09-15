@@ -15,7 +15,7 @@ enum ViewPresnetEnum {
 }
 
 class AppFlowManager: NSObject {
-    static let `default` = AppFlowManager()
+    @objc static let `default` = AppFlowManager()
     
     var sideMenuController: PKSideMenuController? {
         return self.mainHomeVC?.sideMenuController
@@ -458,6 +458,28 @@ extension AppFlowManager {
             ob.delegate = delegate
             mVC.add(childViewController: ob)
         }
+    }
+    
+    @objc func showFlightsBulkEnquiryVC(delegate: BulkEnquirySuccessfulVCDelegate, mainView: UIView, viewHeight: CGFloat, submitBtn: UIButton) {
+        if let mVC = UIApplication.topViewController() {
+            let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.searchButtonConfiguration = createConfigForFlightsBulkEnquiry(mainView: mainView, viewHeight: viewHeight, submitBtn: submitBtn)
+            ob.currentUsingAs = .bulkBooking
+            ob.delegate = delegate
+            mVC.add(childViewController: ob)
+        }
+    }
+    
+    private func createConfigForFlightsBulkEnquiry(mainView: UIView ,viewHeight: CGFloat, submitBtn: UIButton) -> BulkEnquirySuccessfulVC.ButtonConfiguration {
+        var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
+        config.text = LocalizedString.Submit.localized
+        config.cornerRadius = 25.0
+        config.textFont = AppFonts.SemiBold.withSize(17)
+        let point = submitBtn.superview?.convert(submitBtn.frame.origin, to: mainView) ?? .zero
+        let y = viewHeight - (point.y)
+        config.width = submitBtn.width
+        config.spaceFromBottom = y
+        return config
     }
     
     func showAddonRequestSent(buttonConfig: BulkEnquirySuccessfulVC.ButtonConfiguration, delegate: BulkEnquirySuccessfulVCDelegate) {
