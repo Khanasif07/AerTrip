@@ -5,7 +5,6 @@
 //  Created by Kakshil Shah on 8/23/18.
 //  Copyright © 2018 Aertrip. All rights reserved.
 //
-
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 //#import <HMSegmentedControl/HMSegmentedControl.h>

@@ -37,10 +37,7 @@ class AppToast : NSObject {
     let tagAsSubview: Int = 5932
     
      func showToastMessage(message: String, title: String = "", onViewController: UIViewController? = UIApplication.topViewController(), duration: Double = 3.0, buttonTitle: String = "",spaceFromBottom: CGFloat = 10.0, buttonAction: (()->Void)? = nil,toastDidClose: (()->Void)? = nil) {
-        
-        CustomToast.shared.showToast(message)
-        return
-        
+                
         if !AppToast.isPreviousView, !message.isEmpty {
 
             self.toastDidClose = toastDidClose
@@ -49,10 +46,11 @@ class AppToast : NSObject {
                 if buttonTitle.isEmpty {
                     self.hideToast(onViewController, animated: true)
                     //Gurpreet
-                    delay(seconds: 0.3) {
+//                    delay(seconds: 0.3) {
                         AertripToastView.toast(in: view, withText: message)
-                    }
+//                    }
                 } else {
+                    CustomToast.shared.fadeAllToasts()
                     self.parentViewController = onViewController
                     AertripToastView.toast(in: view, withText: message, buttonTitle: buttonTitle, delegate: self)
                 }

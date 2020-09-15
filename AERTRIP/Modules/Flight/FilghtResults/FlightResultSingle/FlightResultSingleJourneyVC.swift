@@ -318,9 +318,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         }
     }
     
-    
     //MARK:- Scroll related methods
-    
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.viewModel.scrollviewInitialYOffset = scrollView.contentOffset.y
     }

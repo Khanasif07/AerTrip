@@ -62,7 +62,7 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
                 return getSingleJourneyCell(indexPath: indexPath ,journey:  arrayForDisplay[indexPath.row].journeyArray.first)
 
             } else{
-             
+                
                 return getGroupedFlightCell(indexPath: indexPath, journey: arrayForDisplay[indexPath.row])
 
             }
@@ -162,11 +162,12 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
         return UITableViewCell()
     }
     
-    func reloadTableCell(_ indexPath: IndexPath){
+    func reloadTableCell(_ indexPath: IndexPath) {
         
         DispatchQueue.main.async {
             self.resultsTableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -110,6 +110,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             self.departureRangeSlider.layoutIfNeeded()
             self.arrivalRangeSlider.layoutIfNeeded()
         }
+        addDaysSeparatorInArrivalRangeSlider()
     }
     
     //MARK:- Departure feature methods

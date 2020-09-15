@@ -78,7 +78,7 @@ extension FlightDomesticMultiLegResultVC {
         
         completion()
 //        previousRequest = newRequest
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newRequest)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0, execute: newRequest)
     }
     
     
@@ -213,7 +213,7 @@ extension FlightDomesticMultiLegResultVC {
                 
                 self.viewModel.selectFlightsInInitialFlow(tableIndex: index)
                 
-                self.checkForOverlappingFlights()
+                self.checkForOverlappingFlights(shouldDisplayToast: false)
                 
                 tableView.isScrollEnabled = true
                 tableView.scrollsToTop = true
