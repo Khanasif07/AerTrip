@@ -77,8 +77,10 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
                    setPropertiesToCellAt(index:index, indexPath, cell: cell, tableView)
                    
                    if #available(iOS 13, *) {
+                    if cell.interactions.isEmpty{
                        let interaction = UIContextMenuInteraction(delegate: self)
                        cell.addInteraction(interaction)
+                    }
                    }
                    return cell
                }

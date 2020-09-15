@@ -213,7 +213,7 @@ extension FlightDomesticMultiLegResultVC {
                 
                 self.viewModel.selectFlightsInInitialFlow(tableIndex: index)
                 
-                self.checkForOverlappingFlights()
+                self.checkForOverlappingFlights(shouldDisplayToast: false)
                 
                 tableView.isScrollEnabled = true
                 tableView.scrollsToTop = true
