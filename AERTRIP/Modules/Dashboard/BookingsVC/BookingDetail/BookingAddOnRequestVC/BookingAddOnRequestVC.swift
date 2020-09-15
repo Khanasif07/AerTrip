@@ -28,6 +28,7 @@ class BookingAddOnRequestVC: BaseVC {
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     // MARK: - Variables
     let viewModel = BookingAddOnRequestVM()
+    fileprivate let refreshControl = UIRefreshControl()
     
     var shouldShowMakePayment: Bool {
         if let caseData = self.viewModel.caseHistory, ((caseData.resolutionStatus == .paymentPending) || (caseData.resolutionStatus == .confirmationPending)) {
@@ -68,8 +69,11 @@ class BookingAddOnRequestVC: BaseVC {
         self.setUpNavBar()
         self.setupBookingStatusView()
         self.view.layoutIfNeeded()
-        self.viewModel.getCaseHistory()
-
+        self.viewModel.getCaseHistory(showProgress: true)
+        
+        self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        self.refreshControl.tintColor = AppColors.themeGreen
+        self.requestTableView.refreshControl = refreshControl
     }
     
     override func bindViewModel() {
@@ -78,7 +82,7 @@ class BookingAddOnRequestVC: BaseVC {
     
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification, noti == .myBookingCasesRequestStatusChanged {
-            self.viewModel.getCaseHistory()
+            self.viewModel.getCaseHistory(showProgress: true)
         }
     }
     
@@ -226,6 +230,10 @@ class BookingAddOnRequestVC: BaseVC {
         return updatedTitle
     }
     
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.viewModel.getCaseHistory(showProgress: false)
+    }
+    
     @IBAction func makePaymentAction(_ sender: Any) {
         if let caseData = self.viewModel.caseHistory {
             if caseData.resolutionStatus == .paymentPending {
@@ -326,17 +334,25 @@ extension BookingAddOnRequestVC: BookingAddOnRequestVMDelegate {
         AppGlobals.shared.stopLoading()
     }
     
-    func willGetCaseHistory() {
+    func willGetCaseHistory(showProgress: Bool) {
+        if showProgress {
         self.startProgress()
+        }
     }
     
-    func getCaseHistorySuccess() {
+    func getCaseHistorySuccess(showProgress: Bool) {
+        if showProgress {
         self.stopProgress()
+        }
         self.reloadList()
+        self.refreshControl.endRefreshing()
     }
     
-    func getCaseHistoryFail() {
+    func getCaseHistoryFail(showProgress: Bool) {
+        if showProgress {
         self.stopProgress()
+        }
+        self.refreshControl.endRefreshing()
     }
 }
 

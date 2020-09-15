@@ -897,7 +897,7 @@ enum LocalizedString: String {
     case ClearFilters
     case BookingID
     case OpeningBalance
-    case NoBookingAvailable
+    case NoBookingsMatchYourFilters
     case NoBookingAvailableMessage
     case NoTransactionsMatchYourFilters
     case TryDifferentFiltersOrClearAll

@@ -81,6 +81,15 @@
     [self showDatesSelection];
 }
 
+// Nitin Change
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    if ([self isBeingDismissed]) {
+        [self applyCalendarChanges];
+    }
+}
+
 -(void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     self.bottomViewHeight.constant = 50 + self.view.safeAreaInsets.bottom;

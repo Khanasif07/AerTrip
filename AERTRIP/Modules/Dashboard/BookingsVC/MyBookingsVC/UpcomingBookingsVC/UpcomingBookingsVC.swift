@@ -44,6 +44,7 @@ class UpcomingBookingsVC: BaseVC {
     var fetchRequest: NSFetchRequest<BookingData> = BookingData.fetchRequest()
     var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
     var showFirstDivider: Bool = false
+    fileprivate let refreshControl = UIRefreshControl()
     
     // fetch result controller
     lazy var fetchedResultsController: NSFetchedResultsController<BookingData> = {
@@ -92,6 +93,10 @@ class UpcomingBookingsVC: BaseVC {
     override func initialSetup() {
         self.registerXibs()
         self.loadSaveData(isForFirstTime: MyBookingFilterVM.shared.searchText.isEmpty)
+        
+        self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        self.refreshControl.tintColor = AppColors.themeGreen
+        self.upcomingBookingsTableView.refreshControl = refreshControl
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -139,7 +144,7 @@ class UpcomingBookingsVC: BaseVC {
         self.upcomingBookingsTableView.registerCell(nibName: HotelTableViewCell.reusableIdentifier)
         self.upcomingBookingsTableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
         self.upcomingBookingsTableView.register(UINib(nibName: tableViewHeaderCellIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderCellIdentifier)
-
+        
     }
     
     func emptyStateSetUp() {
@@ -155,7 +160,7 @@ class UpcomingBookingsVC: BaseVC {
                     emptyView = noResultFilterEmptyView
                 }
                 else {
-                     emptyView = noUpCommingBookingResultemptyView
+                    emptyView = noUpCommingBookingResultemptyView
                 }
             } else {
                 noResultemptyView.searchTextLabel.isHidden = false
@@ -185,6 +190,9 @@ class UpcomingBookingsVC: BaseVC {
     
     //Mark:- IBActions
     //================
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        MyBookingsVM.shared.getBookings(showProgress: false)
+    }
 }
 
 

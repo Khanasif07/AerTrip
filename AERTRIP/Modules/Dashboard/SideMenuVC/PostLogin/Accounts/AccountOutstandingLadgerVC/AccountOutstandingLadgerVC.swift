@@ -81,8 +81,13 @@ class AccountOutstandingLadgerVC: BaseVC {
         return newEmptyView
     }()
     
+    
+    
     //MARK:- ViewLifeCycle
     //MARK:-
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .accountDetailFetched, object: nil)
+    }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -137,6 +142,8 @@ class AccountOutstandingLadgerVC: BaseVC {
         topNavView.backgroundColor = AppColors.clear
         
         self.searchModeSearchBarTopConstraint.constant = ((self.subHeaderContainer.height + self.topNavView.height) - self.mainSearchBar.height)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(accountDetailFetched(_:)), name: .accountDetailFetched, object: nil)
         
         self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         self.refreshControl.tintColor = AppColors.themeGreen
@@ -202,6 +209,13 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.makePaymentTitleLabel.textColor = AppColors.themeWhite
         
         self.makePaymentContainerView.addShadow(cornerRadius: 0.0, shadowColor: AppColors.themeGreen, backgroundColor: AppColors.clear, offset: CGSize(width: 0.0, height: 12.0))
+    }
+    
+    @objc func accountDetailFetched(_ note: Notification) {
+        if let object = note.object as? AccountDetailPostModel {
+            printDebug("accountDetailFetched")
+            self.viewModel.accountOutstanding = object.outstandingLadger
+        }
     }
     
     //MARK:- Methods

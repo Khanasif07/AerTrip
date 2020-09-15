@@ -43,7 +43,7 @@ class FlightBookingsDetailsVC: BaseVC {
     let headerHeightToAnimate: CGFloat = 30.0
     var isHeaderAnimating: Bool = false
     var isBackBtnTapped = false
-    
+    let refreshControl = UIRefreshControl()
     // MARK: - IBOutlets
     
     // MARK: -
@@ -61,6 +61,10 @@ class FlightBookingsDetailsVC: BaseVC {
     
     @IBOutlet weak var topNavBarHeightConstraint: NSLayoutConstraint!
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .bookingDetailFetched, object: nil)
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     }
@@ -71,12 +75,19 @@ class FlightBookingsDetailsVC: BaseVC {
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
-        self.configureTableHeaderView()
+        self.configureTableHeaderView(hideDivider: true)
         self.setupParallaxHeader()
         self.registerNibs()
         
+        self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        self.refreshControl.tintColor = AppColors.themeGreen
+        self.bookingDetailsTableView.refreshControl = refreshControl
+        
         // Call to get booking detail
-        self.viewModel.getBookingDetail()
+        self.viewModel.getBookingDetail(showProgress: true)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(bookingDetailFetched(_:)), name: .bookingDetailFetched, object: nil)
+
     }
     
     override func setupColors() {
@@ -97,16 +108,28 @@ class FlightBookingsDetailsVC: BaseVC {
     
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification, noti == .myBookingCasesRequestStatusChanged {
-            self.viewModel.getBookingDetail()
+            self.viewModel.getBookingDetail(showProgress: true)
+        }
+    }
+    
+    @objc func bookingDetailFetched(_ note: Notification) {
+        if let object = note.object as? BookingDetailModel {
+            printDebug("BookingDetailModel")
+            if self.viewModel.bookingId == object.id {
+                self.viewModel.bookingDetail = object
+                self.getBookingDetailSucces(showProgress: false)
+            }
         }
     }
     
     // MARK: - Functions
-    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.viewModel.getBookingDetail(showProgress: false)
+    }
     // MARK: -
     
     /// ConfigureCheckInOutView
-    func configureTableHeaderView() {
+    func configureTableHeaderView(hideDivider: Bool) {
         if let view = self.headerView {
             view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM''yy") ?? "")
             
@@ -114,14 +137,17 @@ class FlightBookingsDetailsVC: BaseVC {
             view.isBottomStroke = false
             view.progressBottomConstraint.constant = 0.0
             if let note = self.viewModel.bookingDetail?.bookingDetail?.note, !note.isEmpty {
-//                view.dividerView.isHidden = false
+                //                view.dividerView.isHidden = false
                 view.isBottomStroke = true
-//                view.progressBottomConstraint.constant = 2.0
+                //                view.progressBottomConstraint.constant = 2.0
             }
             else if let cases = self.viewModel.bookingDetail?.cases, !cases.isEmpty {
-//                view.dividerView.isHidden = false
+                //                view.dividerView.isHidden = false
                 view.isBottomStroke = true
-//                view.progressBottomConstraint.constant = 2.0
+                //                view.progressBottomConstraint.constant = 2.0
+            }
+            if !hideDivider {
+                view.dividerView.isHidden = !view.isBottomStroke
             }
         }
     }
@@ -145,7 +171,7 @@ class FlightBookingsDetailsVC: BaseVC {
         }else{
             return nil
         }
-
+        
         switch detail.tripType{
         case "single", "return":
             if detail.tripType != "single"{
@@ -192,11 +218,11 @@ class FlightBookingsDetailsVC: BaseVC {
         let parallexHeaderMinHeight = CGFloat(0.0)//navigationController?.navigationBar.bounds.height ?? 74 // 105
         self.headerView?.translatesAutoresizingMaskIntoConstraints = false
         self.headerView?.widthAnchor.constraint(equalToConstant: bookingDetailsTableView?.width ?? 0.0).isActive = true
-
+        
         self.bookingDetailsTableView.parallaxHeader.view = self.headerView
         self.bookingDetailsTableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight
         self.bookingDetailsTableView.parallaxHeader.height = parallexHeaderHeight
-        self.bookingDetailsTableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
+        self.bookingDetailsTableView.parallaxHeader.mode = MXParallaxHeaderMode.top
         self.bookingDetailsTableView.parallaxHeader.delegate = self
         self.view.bringSubviewToFront(self.topNavBar)
     }

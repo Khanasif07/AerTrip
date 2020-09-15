@@ -1078,9 +1078,12 @@ extension AppFlowManager {
     }
     
     // Move To Booking Invoice VC
-    func moveToBookingInvoiceVC(forVoucher: Voucher) {
+    func moveToBookingInvoiceVC(forVoucher: Voucher, bookingId: String, isReciept: Bool, receiptIndex: Int) {
         let obj = BookingInvoiceVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.voucher = forVoucher
+        obj.viewModel.bookingId = bookingId
+        obj.viewModel.isReciept = isReciept
+        obj.viewModel.receiptIndex = receiptIndex
         self.currentNavigation?.pushViewController(obj, animated: true)
     }
     

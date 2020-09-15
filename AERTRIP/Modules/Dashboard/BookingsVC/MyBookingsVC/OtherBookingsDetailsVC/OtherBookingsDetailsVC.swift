@@ -35,6 +35,7 @@ class OtherBookingsDetailsVC: BaseVC {
     let headerHeightToAnimate: CGFloat = 30.0
     var isHeaderAnimating: Bool = false
     var isBackBtnTapped = false
+    let refreshControl = UIRefreshControl()
     
     // MARK: - IBOutlets
     
@@ -55,11 +56,14 @@ class OtherBookingsDetailsVC: BaseVC {
     @IBOutlet weak var topNavBarHeightConstraint: NSLayoutConstraint!
     
     // MARK: - LifeCycle
-    
     // MARK: ===========
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .bookingDetailFetched, object: nil)
+    }
+    
     override func initialSetup() {
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
-        self.viewModel.getBookingDetail()
+        self.viewModel.getBookingDetail(showProgress: true)
         self.statusBarStyle = .default
         self.topNavBarHeightConstraint.constant = self.navBarHeight
         self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: .white))
@@ -67,6 +71,13 @@ class OtherBookingsDetailsVC: BaseVC {
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
         self.setupParallaxHeader()
         self.registerNibs()
+        
+        self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        self.refreshControl.tintColor = AppColors.themeGreen
+        self.dataTableView.refreshControl = refreshControl
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(bookingDetailFetched(_:)), name: .bookingDetailFetched, object: nil)
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -98,8 +109,20 @@ class OtherBookingsDetailsVC: BaseVC {
         }
     }
     
-    // MARK: - Functions
+    @objc func bookingDetailFetched(_ note: Notification) {
+        if let object = note.object as? BookingDetailModel {
+            printDebug("BookingDetailModel")
+            if self.viewModel.bookingId == object.id {
+                self.viewModel.bookingDetail = object
+                self.getBookingDetailSucces(showProgress: false)
+            }
+        }
+    }
     
+    // MARK: - Functions
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.viewModel.getBookingDetail(showProgress: false)
+    }
     // MARK: ===========
     
     /// ConfigureCheckInOutView
@@ -118,7 +141,7 @@ class OtherBookingsDetailsVC: BaseVC {
         self.dataTableView.parallaxHeader.view = self.headerView
         self.dataTableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight
         self.dataTableView.parallaxHeader.height = parallexHeaderHeight
-        self.dataTableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
+        self.dataTableView.parallaxHeader.mode = MXParallaxHeaderMode.top
         self.dataTableView.parallaxHeader.delegate = self
         self.view.bringSubviewToFront(self.topNavBar)
     }

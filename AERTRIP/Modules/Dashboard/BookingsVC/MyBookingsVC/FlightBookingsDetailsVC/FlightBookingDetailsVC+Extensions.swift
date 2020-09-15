@@ -562,15 +562,20 @@ extension FlightBookingsDetailsVC: WeatherHeaderTableViewCellDelegate {
 // MARK: - BookingProductDetailVM methods
 
 extension FlightBookingsDetailsVC: BookingProductDetailVMDelegate {
-    func willGetBookingDetail() {
+    func willGetBookingDetail(showProgress: Bool) {
         //AppGlobals.shared.startLoading()
+        if showProgress {
         self.headerView?.startProgress()
+        }
     }
     
-    func getBookingDetailSucces() {
+    func getBookingDetailSucces(showProgress: Bool) {
         //AppGlobals.shared.stopLoading()
+        if showProgress {
         self.headerView?.stopProgress()
-        self.configureTableHeaderView()
+        }
+        self.refreshControl.endRefreshing()
+        self.configureTableHeaderView(hideDivider: showProgress)
         self.bookingDetailsTableView.delegate = self
         self.bookingDetailsTableView.dataSource = self
         self.viewModel.getSectionDataForFlightProductType()
@@ -579,8 +584,11 @@ extension FlightBookingsDetailsVC: BookingProductDetailVMDelegate {
         self.viewModel.getTripOwnerApi()
     }
     
-    func getBookingDetailFaiure(error: ErrorCodes) {
-        self.headerView?.stopProgress()
+    func getBookingDetailFaiure(error: ErrorCodes,showProgress: Bool) {
+        if showProgress {
+            self.headerView?.stopProgress()
+        }
+        self.refreshControl.endRefreshing()
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
         //AppGlobals.shared.stopLoading()
     }
@@ -625,7 +633,7 @@ extension FlightBookingsDetailsVC: SelectTripVCDelegate {
 
 extension FlightBookingsDetailsVC: BookingRequestAddOnsFFVCDelegate {
     func addOnAndFFUpdated() {
-        self.viewModel.getBookingDetail()
+        self.viewModel.getBookingDetail(showProgress: true)
     }
     
     

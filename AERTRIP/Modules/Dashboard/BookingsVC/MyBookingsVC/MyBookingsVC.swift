@@ -65,6 +65,7 @@ class MyBookingsVC: BaseVC {
         self.searchBar.clipsToBounds = true
         self.hideAllData()
         MyBookingFilterVM.shared.searchText = ""
+        MyBookingsVM.shared.isFetchingBooking = false
     }
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
@@ -83,7 +84,7 @@ class MyBookingsVC: BaseVC {
                 MyBookingFilterVM.shared.setToDefault()
             }
             else if noti == .myBookingCasesRequestStatusChanged {
-                MyBookingsVM.shared.getBookings(shouldCallWillDelegate: false)
+                MyBookingsVM.shared.getBookings(showProgress: true)
             }
         }
     }
@@ -106,7 +107,7 @@ class MyBookingsVC: BaseVC {
         super.viewDidAppear(animated)
         if !isBookingApiRunned {
             isBookingApiRunned = true
-            MyBookingsVM.shared.getBookings()
+            MyBookingsVM.shared.getBookings(showProgress: true)
         }
     }
     override func viewWillAppear(_ animated: Bool) {

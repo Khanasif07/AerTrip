@@ -8,6 +8,12 @@
 
 import Foundation
 
+protocol BookingInvoiceVMDelegate: class {
+    func willGetBookingDetail()
+    func getBookingDetailSucces(model: BookingDetailModel)
+    func getBookingDetailFaiure(error: ErrorCodes)
+}
+
 class BookingInvoiceVM {
     
     enum BookingInvoiceTypes {
@@ -34,6 +40,11 @@ class BookingInvoiceVM {
     private(set) var transectionCodes: [Codes] = []
     private(set) var discountCodes: [Codes] = []
     
+    weak var delegate: BookingInvoiceVMDelegate? = nil
+    
+    var isReciept = false
+    var receiptIndex = 0
+    var bookingId: String = ""
     var sectionHeader = [(section:BookingInvoiceTypes, rowCount: Int, amount: Double, title: String)]()
     var isBaseFareSectionExpanded: Bool = true
     var isGrossFareSectionExpanded: Bool = true
@@ -61,7 +72,7 @@ class BookingInvoiceVM {
         if isForReceipt {
             
         } else {
-            
+            sectionHeader.removeAll()
             
             var baseFare:Double = 0
             var taxes:Double = 0
@@ -127,6 +138,38 @@ class BookingInvoiceVM {
             sectionHeader.append((section: .total, rowCount: 3, amount: total, title: "Total"))
             
             printDebug(sectionHeader)
+        }
+    }
+    
+    func getBookingDetail() {
+        var params: JSONDictionary = ["booking_id": bookingId]
+        if UserInfo.loggedInUserId == nil{
+            params["is_guest_user"] = true
+        }
+        //        if shouldCallWillDelegate {
+        //            delegate?.willGetBookingDetail()
+        //        }
+        delegate?.willGetBookingDetail()
+        APICaller.shared.getBookingDetail(params: params) { [weak self] success, errors, bookingDetail in
+            guard let sSelf = self else { return }
+            if success {
+                if let object = bookingDetail {
+                    if !sSelf.isReciept {
+                        if let receipt =  object.receipt?.otherVoucher  {
+                            sSelf.voucher = receipt[sSelf.receiptIndex]
+                        }
+                    } else {
+                        if let receipt =  object.receipt?.receiptVoucher  {
+                            sSelf.voucher = receipt[sSelf.receiptIndex]
+                        }
+                    }
+                    
+                    sSelf.delegate?.getBookingDetailSucces(model: object)
+                }
+            } else {
+                sSelf.delegate?.getBookingDetailFaiure(error: errors)
+                printDebug(errors)
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ class SpecialAccountDetailsVC: BaseVC {
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var tableView: ATTableView! {
         didSet {
-            self.tableView.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
+            self.tableView.contentInset = UIEdgeInsets(top: 43.5, left: 0, bottom: 0, right: 0)
         }
     }
     @IBOutlet weak var progressView: UIProgressView!
@@ -40,12 +40,15 @@ class SpecialAccountDetailsVC: BaseVC {
     private var timer: Timer?
     private let refreshControl = UIRefreshControl()
     
+    
+    
+    //MARK:- ViewLifeCycle
+    //MARK:-
+    
     deinit {
         NotificationCenter.default.removeObserver(self, name: .accountDetailFetched, object: nil)
     }
     
-    //MARK:- ViewLifeCycle
-    //MARK:-
     override func initialSetup() {
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.progressView?.isHidden = true
@@ -54,10 +57,10 @@ class SpecialAccountDetailsVC: BaseVC {
         self.tableView.backgroundColor = AppColors.screensBackground.color
         self.tableView.registerCell(nibName: EmptyTableViewCell.reusableIdentifier)
         
-        self.topNavView.configureNavBar(title: LocalizedString.Accounts.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: AppColors.themeWhite))
+        self.topNavView.configureNavBar(title: LocalizedString.Accounts.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true, backgroundType: .color(color: AppColors.themeWhite))
         
         if let user = UserInfo.loggedInUser, (user.userCreditType == .statement || user.userCreditType == .billwise) {
-            self.topNavView.configureNavBar(title: LocalizedString.Accounts.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: AppColors.themeWhite))
+            self.topNavView.configureNavBar(title: LocalizedString.Accounts.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .color(color: AppColors.themeWhite))
         }
         
         self.topNavView.delegate = self

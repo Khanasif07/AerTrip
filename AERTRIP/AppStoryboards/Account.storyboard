@@ -1080,11 +1080,21 @@
                                                         <constraint firstAttribute="height" constant="35" id="TST-F2-19g"/>
                                                     </constraints>
                                                 </stackView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qQF-Bc-zo2" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="0.5" id="Bpj-u0-UNx"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="qQF-Bc-zo2" firstAttribute="leading" secondItem="dNa-f9-Cfc" secondAttribute="leading" id="JFA-Bi-AjS"/>
                                                 <constraint firstAttribute="trailing" secondItem="qv2-5j-sRR" secondAttribute="trailing" constant="16" id="PC4-7H-rWT"/>
                                                 <constraint firstItem="qv2-5j-sRR" firstAttribute="top" secondItem="dNa-f9-Cfc" secondAttribute="top" constant="2" id="Psu-Xr-mjU"/>
+                                                <constraint firstItem="qQF-Bc-zo2" firstAttribute="top" secondItem="dNa-f9-Cfc" secondAttribute="top" id="R8p-Kp-frp"/>
                                                 <constraint firstAttribute="bottom" secondItem="Li4-hx-RnE" secondAttribute="bottom" id="bVm-xC-pak"/>
+                                                <constraint firstAttribute="trailing" secondItem="qQF-Bc-zo2" secondAttribute="trailing" id="f36-bx-dPw"/>
                                                 <constraint firstItem="qv2-5j-sRR" firstAttribute="leading" secondItem="dNa-f9-Cfc" secondAttribute="leading" constant="16" id="oCM-MP-Glc"/>
                                                 <constraint firstItem="Li4-hx-RnE" firstAttribute="leading" secondItem="dNa-f9-Cfc" secondAttribute="leading" constant="16" id="uLd-Nc-tKS"/>
                                                 <constraint firstAttribute="trailing" secondItem="Li4-hx-RnE" secondAttribute="trailing" constant="16" id="zGT-tx-TWA"/>
@@ -1103,6 +1113,7 @@
                                             <outlet property="stackViewTop" destination="Psu-Xr-mjU" id="FWd-gq-yhz"/>
                                             <outlet property="symbolLabel" destination="Tze-0q-rn3" id="8JB-LP-XIC"/>
                                             <outlet property="titleLabel" destination="tNL-Gp-xSs" id="47v-np-hhe"/>
+                                            <outlet property="topDividerView" destination="qQF-Bc-zo2" id="f1F-oC-uxq"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AccountDepositCell" rowHeight="105" id="qJM-e4-YGu" customClass="AccountDepositCell" customModule="AERTRIP" customModuleProvider="target">

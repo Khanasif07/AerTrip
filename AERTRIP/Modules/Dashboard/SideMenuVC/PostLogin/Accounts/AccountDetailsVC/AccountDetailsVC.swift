@@ -86,8 +86,16 @@ class AccountDetailsVC: BaseVC {
         return newEmptyView
     }()
     
+    
+    
+    
     //MARK:- ViewLifeCycle
     //MARK:-
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .accountDetailFetched, object: nil)
+    }
+    
     override func initialSetup() {
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.progressView?.isHidden = true
@@ -146,15 +154,27 @@ class AccountDetailsVC: BaseVC {
             self?.setupHeaderFooterText()
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(accountDetailFetched(_:)), name: .accountDetailFetched, object: nil)
+
+        
         self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         self.refreshControl.tintColor = AppColors.themeGreen
         self.tableView.refreshControl = refreshControl
+        
     }
     
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification, noti == .accountPaymentRegister, let usr = UserInfo.loggedInUser, usr.userCreditType == .regular {
             //re-hit the details API
             self.viewModel.getAccountDetails(showProgres: true)
+        }
+    }
+    
+    @objc func accountDetailFetched(_ note: Notification) {
+        if let object = note.object as? AccountDetailPostModel {
+            printDebug("accountDetailFetched")
+            self.viewModel.allVouchers = object.accVouchers
+            self.viewModel.setAccountDetails(details: object.accountLadger)
         }
     }
     

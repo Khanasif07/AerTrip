@@ -22,42 +22,48 @@ extension MyBookingsVC: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-         self.view.endEditing(true)
+        self.view.endEditing(true)
     }
 }
 
 extension MyBookingsVC: MyBookingsVMDelegate {
     
-   
-    func getBookingDetailFail(error: ErrorCodes) {
+    
+    func getBookingDetailFail(error: ErrorCodes,showProgress: Bool) {
         //AppGlobals.shared.stopLoading()
-        stopProgress()
+        if showProgress {
+            stopProgress()
+        }
         self.emptyStateSetUp()
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
         self.sendDataChangedNotification(data: ATNotification.myBookingSearching)
     }
     
-    func willGetBookings() {
+    func willGetBookings(showProgress: Bool) {
         //AppGlobals.shared.startLoading()
         printDebug("Will get bookings ")
-        startProgress()
+        if showProgress {
+            startProgress()
+        }
     }
     
-    func getBookingsDetailSuccess() {
-
+    func getBookingsDetailSuccess(showProgress: Bool) {
+        
         //AppGlobals.shared.stopLoading()
         MyBookingsVM.shared.allTabTypes = CoreDataManager.shared.fetchData(fromEntity: "BookingData", forAttribute: "bookingTabType", usingFunction: "count").map({ ($0["bookingTabType"] as? Int16) ?? -1})
         
         let allEvents = [1,2,3]
         MyBookingFilterVM.shared.bookigEventAvailableType.removeAll()
-               for type in allEvents {
-                let result = CoreDataManager.shared.fetchData("BookingData", nsPredicate: NSPredicate(format: "bookingProductType == \(type)")) ?? []
-                if !result.isEmpty {
-                    MyBookingFilterVM.shared.bookigEventAvailableType.append(type)
-                }
-               }
+        for type in allEvents {
+            let result = CoreDataManager.shared.fetchData("BookingData", nsPredicate: NSPredicate(format: "bookingProductType == \(type)")) ?? []
+            if !result.isEmpty {
+                MyBookingFilterVM.shared.bookigEventAvailableType.append(type)
+            }
+        }
         self.emptyStateSetUp()
         self.sendDataChangedNotification(data: ATNotification.myBookingSearching)
-        stopProgress()
+        if showProgress {
+            stopProgress()
+        }
     }
 }

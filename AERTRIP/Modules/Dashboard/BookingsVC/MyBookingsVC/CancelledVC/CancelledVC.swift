@@ -16,7 +16,8 @@ class CancelledVC: BaseVC {
     var isComingFromFilter:Bool = false
     var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
     var showFirstDivider: Bool = false
-
+    fileprivate let refreshControl = UIRefreshControl()
+    
     // Mark:- IBOutlets
     //================
     @IBOutlet weak var cancelledBookingsTableView: UITableView! {
@@ -99,7 +100,11 @@ class CancelledVC: BaseVC {
     override func initialSetup() {
         self.registerXibs()
         self.loadSaveData(isForFirstTime: false)
-//        self.reloadList(isFirstTimeLoading: true)
+        //        self.reloadList(isFirstTimeLoading: true)
+        
+        self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        self.refreshControl.tintColor = AppColors.themeGreen
+        self.cancelledBookingsTableView.refreshControl = refreshControl
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -111,7 +116,7 @@ class CancelledVC: BaseVC {
     // Mark:- Functions
     //================
     func manageFooter(isHidden: Bool) {
-//        guard self.isViewLoaded, let _ = self.view.window  else {return}
+        //        guard self.isViewLoaded, let _ = self.view.window  else {return}
         self.footerView?.isHidden = isHidden
         self.footerHeightConstraint?.constant = isHidden ? 0.0 : 44.0
         self.footerBottomConstraint?.constant = isHidden ? 0.0 : AppFlowManager.default.safeAreaInsets.bottom
@@ -125,22 +130,22 @@ class CancelledVC: BaseVC {
         self.emptyStateSetUp()
     }
     
-//    func reloadTable() {
-//        delay(seconds: 0.2) { [weak self] in
-//            self?.reloadAndScrollToTop()
-//        }
-//    }
-//
+    //    func reloadTable() {
+    //        delay(seconds: 0.2) { [weak self] in
+    //            self?.reloadAndScrollToTop()
+    //        }
+    //    }
+    //
     func reloadTable() {
         self.cancelledBookingsTableView?.reloadData()
     }
     
-//    func reloadAndScrollToTop() {
-//        self.cancelledBookingsTableView?.reloadData()
-//        self.cancelledBookingsTableView?.layoutIfNeeded()
-//        self.cancelledBookingsTableView?.setContentOffset(.zero, animated: false)
-//
-//    }
+    //    func reloadAndScrollToTop() {
+    //        self.cancelledBookingsTableView?.reloadData()
+    //        self.cancelledBookingsTableView?.layoutIfNeeded()
+    //        self.cancelledBookingsTableView?.setContentOffset(.zero, animated: false)
+    //
+    //    }
     
     private func registerXibs() {
         self.cancelledBookingsTableView.registerCell(nibName: OthersBookingTableViewCell.reusableIdentifier)
@@ -190,6 +195,9 @@ class CancelledVC: BaseVC {
     
     // Mark:- IBActions
     //================
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        MyBookingsVM.shared.getBookings(showProgress: false)
+    }
 }
 extension CancelledVC: EmptyScreenViewDelegate {
     func firstButtonAction(sender: ATButton) {
