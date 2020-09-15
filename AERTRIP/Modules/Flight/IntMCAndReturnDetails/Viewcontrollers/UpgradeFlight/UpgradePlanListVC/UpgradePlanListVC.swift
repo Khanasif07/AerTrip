@@ -214,7 +214,7 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
             
             let style = NSMutableParagraphStyle()
             style.alignment = .left
-            if isNewSubPoint == true{
+            if isNewSubPoint{
                 style.headIndent = 56
             }else{
                 style.headIndent = 25
@@ -226,6 +226,11 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
             updatedStr.addAttribute(NSAttributedString.Key.font, value: AppFonts.Regular.withSize(16.0) , range: range)
             updatedStr.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: range)
             
+            let newRange = (upgardeResult[indexPath.item].descriptionShown as NSString).range(of: upgardeResult[indexPath.item].descriptionTitle)
+            let newStyle = NSMutableParagraphStyle()
+            newStyle.headIndent = 0
+            newStyle.paragraphSpacingBefore = 12
+            updatedStr.addAttribute(NSAttributedString.Key.paragraphStyle, value: newStyle, range: newRange)
             cell.txtView.attributedText = updatedStr
             cell.txtView.layoutIfNeeded()
             cell.handler = {[weak self] in

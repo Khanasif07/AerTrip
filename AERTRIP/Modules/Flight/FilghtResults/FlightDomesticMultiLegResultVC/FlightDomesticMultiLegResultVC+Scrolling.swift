@@ -134,7 +134,7 @@ extension FlightDomesticMultiLegResultVC {
         else {
             showHeaderCellAt(tableView: tableView)
         }
-        setTableViewHeaderFor(tableView: tableView)
+//        setTableViewHeaderFor(tableView: tableView)
     }
         
     func showHeaderCellAt(tableView : UITableView) {
@@ -269,6 +269,12 @@ extension FlightDomesticMultiLegResultVC {
         tableView.tableHeaderView = tableHeaderView
     }
 
+    func isVisibleCellContainSelected(_ tableView: UITableView)-> Bool{
+        
+        
+        return false
+    }
+    
     
     //MARK:- ScrollView Delegate Methods
     
@@ -277,6 +283,12 @@ extension FlightDomesticMultiLegResultVC {
         scrollviewInitialYOffset = scrollView.contentOffset.y
     }
     
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if let tableView = scrollView as? UITableView{
+            setTableViewHeaderFor(tableView: tableView)
+        }
+    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
@@ -308,6 +320,12 @@ extension FlightDomesticMultiLegResultVC {
                     }
                 }
             }
+        }
+    }
+    
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        if let tableView = scrollView as? UITableView{
+            setTableViewHeaderFor(tableView: tableView)
         }
     }
     
@@ -355,7 +373,7 @@ extension FlightDomesticMultiLegResultVC {
 //                        return
 //                    }
 //                }
-                setTableViewHeaderFor(tableView: tableView)
+//                setTableViewHeaderFor(tableView: tableView)
                 animateJourneyCompactView(for: tableView)
                 if !scrollView.isBouncingTop{
                     snapToTopOrBottomOnSlowScrollDragging(scrollView)

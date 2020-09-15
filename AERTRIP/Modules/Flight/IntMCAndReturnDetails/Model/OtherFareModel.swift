@@ -80,6 +80,12 @@ struct OtherFareModel {
         }
         return displayString
     }
+    
+    var descriptionTitle:String{
+        
+        let dexcription = descriptionShown.components(separatedBy: "\n•   ").first ?? ""
+        return dexcription
+    }
 
     init(_ json: JSON = JSON()){
         fk = json["fk"].stringValue
