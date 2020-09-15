@@ -472,7 +472,7 @@ extension AppFlowManager {
     
     private func createConfigForFlightsBulkEnquiry(mainView: UIView ,viewHeight: CGFloat, submitBtn: UIButton) -> BulkEnquirySuccessfulVC.ButtonConfiguration {
         var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
-        config.text = LocalizedString.Submit.localized
+        config.text = ""//LocalizedString.Submit.localized
         config.cornerRadius = 25.0
         config.textFont = AppFonts.SemiBold.withSize(17)
         let point = submitBtn.superview?.convert(submitBtn.frame.origin, to: mainView) ?? .zero
