@@ -182,7 +182,7 @@ extension FlightPaymentVC{
             
         case 1: // Wallet amount Cell
             if self.isWallet {
-                return 40.0
+                return 29.0
             } else {
                 return 0.0
             }
@@ -342,6 +342,7 @@ extension FlightPaymentVC{
                 }
                 walletAmountCell.walletAmountLabel.text = "-" + abs(amountFromWallet).amountInDelimeterWithSymbol
                 walletAmountCell.clipsToBounds = true
+                walletAmountCell.labelTopConstraint.constant = 0.0
                 return walletAmountCell
             } else {
                 walletAmountCell.clipsToBounds = true
