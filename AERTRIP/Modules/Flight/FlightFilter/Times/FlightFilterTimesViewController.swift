@@ -48,7 +48,8 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     private var isHapticFeedbackProvided = false
     
     private var multiLegSegmentControl = UISegmentedControl()
-
+    
+    var enableOvernightFlightQualityFilter = false
     
     /// Used for day segments pan gesture
     var panGesture: UIPanGestureRecognizer?
@@ -118,6 +119,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             self.arrivalRangeSlider.layoutIfNeeded()
         }
         addDaysSeparatorInArrivalRangeSlider()
+        avoidOvernightView.isHidden = !enableOvernightFlightQualityFilter
     }
     
     //MARK:- Departure feature methods

@@ -358,6 +358,9 @@ extension FlightFilterBaseVC {
         timesViewController.multiLegTimerFilter = getFlightLegTimeFilters( inputFilters)
         timesViewController.delegate = delegate as? FlightTimeFilterDelegate
         timesViewController.qualityFilterDelegate = delegate as? QualityFilterDelegate
+        if let qualityFilters = inputFilters.first?.fq {
+            timesViewController.enableOvernightFlightQualityFilter =  qualityFilters.values.contains(UIFilters.hideOvernight.title)
+        }
     }
     
     
@@ -432,6 +435,9 @@ extension FlightFilterBaseVC {
             if let quality = qualityFilter {
                 timesViewController.multiLegTimerFilter[index].qualityFilter = quality
             }
+        }
+        if let qualityFilters = inputFilters.first?.fq {
+            timesViewController.enableOvernightFlightQualityFilter =  qualityFilters.values.contains(UIFilters.hideOvernight.title)
         }
         timesViewController.updateFiltersFromAPI()
     }

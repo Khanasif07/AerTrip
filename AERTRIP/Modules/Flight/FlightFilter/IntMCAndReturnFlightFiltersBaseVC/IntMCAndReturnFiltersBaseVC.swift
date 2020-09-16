@@ -445,6 +445,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         timesViewController.isIntMCOrReturnVC = true
         timesViewController.delegate = delegate as? FlightTimeFilterDelegate
         timesViewController.qualityFilterDelegate = delegate as? QualityFilterDelegate
+        if let qualityFilters = inputFilters.first?.fq {
+            timesViewController.enableOvernightFlightQualityFilter =  qualityFilters.values.contains(UIFilters.hideOvernight.title)
+        }
     }
     
     
@@ -514,6 +517,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                     timesViewController.multiLegTimerFilter[index] = newFlightLegFilter
                 }
             }
+        }
+        if let qualityFilters = inputFilters.first?.fq {
+            timesViewController.enableOvernightFlightQualityFilter =  qualityFilters.values.contains(UIFilters.hideOvernight.title)
         }
         timesViewController.updateFiltersFromAPI()
     }
