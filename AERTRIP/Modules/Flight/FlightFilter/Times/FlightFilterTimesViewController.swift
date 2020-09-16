@@ -41,7 +41,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     var airportsArr = [AirportLegFilter]()
     var isIntMCOrReturnVC = false
 
-    var arivalDifferenceInSeconds : TimeInterval = 0
+    var arivalDifferenceInSeconds : TimeInterval = 1
     
     var onToastInitiation: ((String) -> ())?
     
@@ -861,7 +861,9 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             arrivalInputEndDate = currentTimerFilter.arrivalEndTime
         }
         
-        self.arivalDifferenceInSeconds = currentTimerFilter.arrivalEndTime.timeIntervalSince(currentTimerFilter.arrivalStartTime)
+        let diff = currentTimerFilter.arrivalEndTime.timeIntervalSince(currentTimerFilter.arrivalStartTime)
+        
+        self.arivalDifferenceInSeconds = diff == 0 ? 1 : diff
             
         let startTimeInterval = arrivalInputStartDate.timeIntervalSince(currentTimerFilter.arrivalStartTime)
         let endTimeInterval = arrivalInputEndDate.timeIntervalSince(currentTimerFilter.arrivalStartTime)

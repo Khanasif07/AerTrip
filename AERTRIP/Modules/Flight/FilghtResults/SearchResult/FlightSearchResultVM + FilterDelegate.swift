@@ -340,7 +340,7 @@ extension FlightSearchResultVM : QualityFilterDelegate {
     func qualityFilterChangedAt(_ index: Int, filter: QualityFilter) {
         if isIntMCOrReturnJourney {
             for leg in intFlightLegs {
-                leg.qualityFilterChangedAt(index, filter)
+                leg.qualityFiltersChanged(filter)
             }
             return
         }
