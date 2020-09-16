@@ -70,10 +70,15 @@ class RangeVC: BaseVC {
                 value = value - 1
 //            }
         }
+        var setValue = true
+        if HotelFilterVM.shared.distanceRange == value {
+            setValue = false
+        }
         HotelFilterVM.shared.distanceRange =  value
         HotelFilterVM.shared.delegate?.updateFiltersTabs()
         if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? RangeTableViewCell {
-            cell.stepSlider?.index = UInt(sliderPoint)
+            //cell.stepSlider?.index = UInt(sliderPoint)
+            cell.stepSlider?.setIndex(UInt(sliderPoint), animated: false)
             cell.updateSliderValueOnLabel(range: value)
         } else {
             tableView?.reloadData()

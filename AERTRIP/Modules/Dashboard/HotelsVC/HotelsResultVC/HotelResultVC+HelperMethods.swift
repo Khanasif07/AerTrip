@@ -86,7 +86,7 @@ extension HotelResultVC {
         
         
         if isRangeFilterApplied || isStarFilterApplied {
-            finalStr = LocalizedString.ApplyPreviousFilter.localized + distanceStr + (starStar.isEmpty ? starStar : " \(starStar)") + AppConstants.kEllipses
+            finalStr = LocalizedString.ApplyPreviousFilter.localized + distanceStr + (starStar.isEmpty ? starStar : " \(starStar)") //+ AppConstants.kEllipses
             finalStr = finalStr.replacingOccurrences(of: "  ", with: "")
         }
         finalStr = finalStr.removeLeadingTrailingWhitespaces
