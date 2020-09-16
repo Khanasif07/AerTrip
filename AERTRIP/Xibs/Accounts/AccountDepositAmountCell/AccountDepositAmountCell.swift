@@ -99,7 +99,8 @@ class AccountDepositAmountCell: UITableViewCell {
         self.amountTextField.text = value
         if !amountTextSetOnce {
             amountTextSetOnce = true
-        self.amountTextField.AttributedBackgroundColorForText(text: value, textColor: AppColors.themeBlue.withAlphaComponent(0.26))
+            self.amountTextField.selectAll(nil)
+        //self.amountTextField.AttributedBackgroundColorForText(text: value, textColor: AppColors.themeBlue.withAlphaComponent(0.26))
         }
         
     }

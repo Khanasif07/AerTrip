@@ -2243,7 +2243,7 @@ struct BookingPaymentInfo {
 }
 
 struct Codes {
-    var code: String = ""
+    var code: Int = 0
     var ledgerName: String = ""
     var amount: Double = 0.0
     
@@ -2253,7 +2253,7 @@ struct Codes {
     
     init(json: JSONDictionary) {
         if let obj = json["id"] {
-            self.code = "\(obj)".removeNull
+            self.code = "\(obj)".toInt ?? 0
         }
         
         if let obj = json["ledger_name"] {
@@ -2275,6 +2275,8 @@ struct Codes {
                 codes.append(Codes(json: temp))
             }
         }
+        codes.sort { $0.code < $1.code }
+        printDebug(codes)
         return codes
     }
 }
