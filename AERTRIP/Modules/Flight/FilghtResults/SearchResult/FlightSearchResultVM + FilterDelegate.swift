@@ -337,6 +337,15 @@ extension FlightSearchResultVM : AirportFilterDelegate {
 //MARK:- Flight Quality Filter
 extension FlightSearchResultVM : QualityFilterDelegate {
     
+    func qualityFilterChangedAt(_ index: Int, filter: QualityFilter) {
+        if isIntMCOrReturnJourney {
+            for leg in intFlightLegs {
+                leg.qualityFilterChangedAt(index, filter)
+            }
+            return
+        }
+        flightLegs[index].qualityFiltersChanged(filter)
+    }
     
     func qualityFiltersChanged(_ filter : QualityFilter) {
         if isIntMCOrReturnJourney {

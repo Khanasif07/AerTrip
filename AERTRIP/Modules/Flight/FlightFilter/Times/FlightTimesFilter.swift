@@ -22,6 +22,8 @@ struct  FlightLegTimeFilter {
     var userSelectedArrivalStartTime : Date
     var userSelectedArrivalEndTime : Date
     
+    var qualityFilter = QualityFilter(name: "Overnight", filterKey: "ovgtf", isSelected: false, filterID: .hideOvernight)
+    
     init ( leg : Leg , departureStartTime : Date , departureMaxTime : Date , arrivalStartTime: Date , arrivalEndTime: Date) {
         
         self.leg = leg
@@ -53,17 +55,21 @@ struct  FlightLegTimeFilter {
             return true
         }
         
+        if qualityFilter.isSelected {
+            return true
+        }
+        
         return false
     }
     
     
-        mutating func resetFilter() {
+    mutating func resetFilter() {
         
-         self.userSelectedStartTime = self.departureMinTime
-         self.userSelectedEndTime =  self.departureTimeMax         
-         self.userSelectedArrivalStartTime = self.arrivalStartTime
-         self.userSelectedArrivalEndTime = self.arrivalEndTime
-
+        self.userSelectedStartTime = self.departureMinTime
+        self.userSelectedEndTime =  self.departureTimeMax
+        self.userSelectedArrivalStartTime = self.arrivalStartTime
+        self.userSelectedArrivalEndTime = self.arrivalEndTime
+        self.qualityFilter.isSelected = false
     }
     
     

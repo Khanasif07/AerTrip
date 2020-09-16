@@ -357,6 +357,7 @@ extension FlightFilterBaseVC {
         }
         timesViewController.multiLegTimerFilter = getFlightLegTimeFilters( inputFilters)
         timesViewController.delegate = delegate as? FlightTimeFilterDelegate
+        timesViewController.qualityFilterDelegate = delegate as? QualityFilterDelegate
     }
     
     
@@ -387,6 +388,11 @@ extension FlightFilterBaseVC {
     func updateFlightLegTimeFilters(_ timesViewController : FlightFilterTimesViewController, inputFilters : [FiltersWS]) {
         
         for index in 0 ..< inputFilters.count {
+            
+            var qualityFilter: QualityFilter?
+            if timesViewController.multiLegTimerFilter.indices.contains(index) {
+                qualityFilter = timesViewController.multiLegTimerFilter[index].qualityFilter
+            }
             
             let leg = legList[index]
             let filter = inputFilters[index]
@@ -421,6 +427,10 @@ extension FlightFilterBaseVC {
                 } else {
                     timesViewController.multiLegTimerFilter[index] = newFlightLegFilter
                 }
+            }
+            
+            if let quality = qualityFilter {
+                timesViewController.multiLegTimerFilter[index].qualityFilter = quality
             }
         }
         timesViewController.updateFiltersFromAPI()
