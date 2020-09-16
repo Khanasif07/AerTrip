@@ -763,6 +763,14 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     private func toggleAvoidOvernight(_ selected: Bool) {
         currentTimerFilter.qualityFilter.isSelected = selected
         multiLegTimerFilter[currentActiveIndex] = currentTimerFilter
+        
+        if isIntMCOrReturnVC {
+            multiLegTimerFilter = multiLegTimerFilter.map {
+                var newFilter = $0
+                newFilter.qualityFilter = currentTimerFilter.qualityFilter
+                return newFilter
+            }
+        }
         qualityFilterDelegate?.qualityFilterChangedAt(currentActiveIndex, filter: currentTimerFilter.qualityFilter)
         resetAvoidOvernightBtn()
         

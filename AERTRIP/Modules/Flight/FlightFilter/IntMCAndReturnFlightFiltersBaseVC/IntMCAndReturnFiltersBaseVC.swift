@@ -442,6 +442,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         }
         let timeFilters = getFlightLegTimeFilters(inputFilters)
         timesViewController.multiLegTimerFilter = timeFilters
+        timesViewController.isIntMCOrReturnVC = true
         timesViewController.delegate = delegate as? FlightTimeFilterDelegate
         timesViewController.qualityFilterDelegate = delegate as? QualityFilterDelegate
     }
