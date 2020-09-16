@@ -23,7 +23,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
     //================
     @IBOutlet weak var youAreAllDoneLabel: UILabel!
     @IBOutlet weak var bookingIdAndDetailsLabel: UILabel!
-    @IBOutlet weak var addToAppleWalletButton: UIButton!
+    @IBOutlet weak var addToAppleWalletButton: ATButton!
     @IBOutlet weak var importantNoteLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var tickMarKButton: ATButton!
@@ -38,6 +38,12 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
+        self.addToAppleWalletButton.isLoading = false
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.addToAppleWalletButton.isLoading = false
     }
     
     //Mark:- Functions
@@ -47,7 +53,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
         self.addToAppleWalletButton.setImage(#imageLiteral(resourceName: "AddToAppleWallet"), for: .normal)
         //Font
         self.youAreAllDoneLabel.font = AppFonts.c.withSize(38.0)
-        self.addToAppleWalletButton.titleLabel?.font = AppFonts.Regular.withSize(16.0)
+        self.configureAppleButton()
         self.addToCalendarButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
 
         //Color
@@ -146,6 +152,16 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
             
         }
         self.contentView.layoutIfNeeded()
+    }
+    
+    private func configureAppleButton(){
+        self.addToAppleWalletButton.titleLabel?.font = AppFonts.Regular.withSize(16.0)
+        self.addToAppleWalletButton.setTitleFont(font: AppFonts.SemiBold.withSize(16), for: .highlighted)
+        self.addToAppleWalletButton.setTitleFont(font: AppFonts.SemiBold.withSize(16), for: .normal)
+        self.addToAppleWalletButton.setTitleFont(font: AppFonts.SemiBold.withSize(16), for: .selected)
+        self.addToAppleWalletButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.addToAppleWalletButton.setTitleColor(AppColors.themeWhite, for: .selected)
+        self.addToAppleWalletButton.gradientColors = [AppColors.themeBlack, AppColors.themeBlack]
     }
     
     //Mark:- IBActions

@@ -92,6 +92,12 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
            return 130.0
        }
        
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        tableView.isScrollEnabled = false
+        baseScrollView.isScrollEnabled = false
+        return indexPath
+    }
+    
        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let tableIndex = tableView.tag - 1000
@@ -106,7 +112,10 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
         tableView.reloadData()
 //        animateJourneyCompactView(for: tableView)
         setTableViewHeaderAfterSelection(tableView: tableView)
-        
+        delay(seconds: 0.2) {
+            tableView.isScrollEnabled = true
+            self.baseScrollView.isScrollEnabled = true
+        }
        }
     
     fileprivate func setPropertiesToCellAt( index: Int, _ indexPath: IndexPath,  cell: DomesticMultiLegCell, _ tableView: UITableView) {

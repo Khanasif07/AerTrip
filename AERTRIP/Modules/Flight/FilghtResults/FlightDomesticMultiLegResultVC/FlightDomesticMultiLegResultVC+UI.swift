@@ -47,6 +47,7 @@ extension FlightDomesticMultiLegResultVC {
         baseScrollView.contentSize = CGSize( width: (CGFloat(self.viewModel.numberOfLegs) * width ), height:height + 88.0)
         baseScrollView.showsHorizontalScrollIndicator = false
         baseScrollView.showsVerticalScrollIndicator = false
+        baseScrollView.alwaysBounceVertical = false
         baseScrollView.delegate = self
         baseScrollView.bounces = false
         baseScrollView.isDirectionalLockEnabled = true
