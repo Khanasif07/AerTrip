@@ -80,10 +80,10 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let tableIndex = tableView.tag - 1000
-     
+        self.viewModel.shouldDisplayToast = true
         self.viewModel.setSelectedJourney(tableIndex: tableIndex, journeyIndex: indexPath.row)
            
-           if flightSearchType == RETURN_JOURNEY {
+           if flightSearchType == RETURN_JOURNEY { 
                checkForComboFares()
            }
            checkForOverlappingFlights()
