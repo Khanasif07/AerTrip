@@ -1055,7 +1055,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         setDepartureLabel()
         setupDeparatureRangeButtons()
         setupArrivalRangeSlider()
-        
+        setupOvernightFlightsView()
         earlyMorningButton.addTarget(self, action: #selector(buttonPressed), for: .touchDown)
         earlyMorningButton.addTarget(self, action: #selector(buttonReleased), for: .touchUpInside)
         
@@ -1067,6 +1067,15 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
         lateEveningButton.addTarget(self, action: #selector(buttonPressed), for: .touchDown)
         lateEveningButton.addTarget(self, action: #selector(buttonReleased), for: .touchUpInside)
+    }
+    
+    
+    private func setupOvernightFlightsView() {
+        avoidOvernightTitleLbl.font = AppFonts.Regular.withSize(18)
+        avoidOvernightDescLbl.font = AppFonts.Regular.withSize(14)
+        avoidOvernightDescLbl.textColor = AppColors.themeGray60
+        allSectorsLbl.font = AppFonts.Regular.withSize(14)
+        
     }
     
     @objc func buttonPressed(sender:UIButton)
