@@ -369,7 +369,15 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
     }
     
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        return scrollView != self.baseScrollView
+        if scrollView != self.baseScrollView{
+            if let tableView = scrollView as? UITableView{
+                tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .middle, animated: true)
+                delay(seconds: 0.4) {
+                    self.setTableViewHeaderFor(tableView: tableView)
+                }
+            }
+        }
+        return false
     }
     // For Horizontal Scrollig , snaping at the edge of tableview column
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {

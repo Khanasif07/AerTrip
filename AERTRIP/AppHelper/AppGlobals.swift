@@ -118,13 +118,21 @@ class AppGlobals {
     
     func showErrorOnToastView(withErrors errors: ErrorCodes, fromModule module: ATErrorManager.Module) {
         let (_, message, hint) = ATErrorManager.default.error(forCodes: errors, module: module)
+        var msgStr:String = ""
         if !message.isEmpty {
-            AppToast.default.showToastMessage(message: message)
+           msgStr = message
         }else if !hint.isEmpty {
-            AppToast.default.showToastMessage(message: hint)
+            msgStr = hint
         }else{
-            AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
+            msgStr = LocalizedString.SomethingWentWrong.localized
         }
+        let txt = msgStr.removeAllWhitespaces.lowercased()
+        if txt == "\"somethingwentwrong"{
+            msgStr = "Something went wrong"
+        }else if txt == "pleasetryagain.\""{
+            msgStr = "please try again."
+        }
+         AppToast.default.showToastMessage(message: msgStr)
     }
     
     // convert Date from one format to another

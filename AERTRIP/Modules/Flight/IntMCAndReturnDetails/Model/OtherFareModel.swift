@@ -105,3 +105,12 @@ struct OtherFareModel {
         sortOrder = json["tax_sort"].stringValue
     }
 }
+
+
+struct OtherFareCache{
+    
+    var data:[OtherFareModel]?
+    var date:Date
+    var fk: String
+    
+}

@@ -36,10 +36,18 @@ class UpgradePlanVM{
     
     func getOtherFare(with fk:String, oldFare: String, index:Int){
         let param = ["sid": self.sid, "fk[]":fk, "old_farepr[]": oldFare]
+        
+        if self.retriveData(for: fk) != nil{
+            delay(seconds: 0.2) {
+                self.delegate?.didFetchDataAt(index: index, data: self.retriveData(for: fk))
+            }
+            return
+        }
         self.delegate?.willFetchDataAt(index: index)
         APICaller.shared.getOtherFare(params: param) {[weak self] (success, errorCode, otherFare) in
             guard let self = self else {return}
             if success, let data = otherFare{
+                self.saveDataToAppDelegate(otherFare, for: fk)
                 self.delegate?.didFetchDataAt(index: index, data: data)
             }else{
                 self.delegate?.failsWithError(index: index)
@@ -118,5 +126,36 @@ class UpgradePlanVM{
         }
         return otherFare
     }
+    
+    func saveDataToAppDelegate(_ data: [OtherFareModel]?, for fk: String){
+        
+        if let appDel = UIApplication.shared.delegate as? AppDelegate{
+            if let index = appDel.upgradePlanData.firstIndex(where: {$0.fk == fk}){
+                appDel.upgradePlanData[index].date = Date()
+                appDel.upgradePlanData[index].data = data
+            }else{
+                let cachedModel = OtherFareCache(data: data, date: Date(), fk: fk)
+                appDel.upgradePlanData.append(cachedModel)
+            }
+        }
+    }
+    
+    private func clearCachedData(){
+        if let appDel = UIApplication.shared.delegate as? AppDelegate{
+            appDel.upgradePlanData.removeAll(where: {($0.date.add(minutes: 5) ?? Date()) <= Date()})
+        }
+    }
+    
+    func retriveData(for fk: String)-> [OtherFareModel]?{
+        self.clearCachedData()
+        if let appDel = UIApplication.shared.delegate as? AppDelegate, let index = appDel.upgradePlanData.firstIndex(where: {$0.fk == fk}){
+            if (appDel.upgradePlanData[index].date.add(minutes: 5) ?? Date()) >= Date(){
+                return appDel.upgradePlanData[index].data
+            }
+        }
+        return nil
+    }
+    
+
     
 }
