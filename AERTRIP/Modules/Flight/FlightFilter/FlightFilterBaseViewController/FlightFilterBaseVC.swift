@@ -89,6 +89,7 @@ class FlightFilterBaseVC: UIViewController {
     
     private func initialSetup() {
         for filter in Filters.allCases {
+            if filter == .Quality { continue }
             self.addToParchment(filter: filter)
         }
         setUpViewPager()
@@ -188,7 +189,7 @@ class FlightFilterBaseVC: UIViewController {
         menuItems[Filters.Airlines.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Airlines) }
         menuItems[Filters.Airport.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Airport) }
         menuItems[Filters.Quality.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Quality) }
-        menuItems[Filters.Price.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Price) }
+        menuItems[Filters.Price.rawValue - 1].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Price) }
         parchmentView?.reloadMenu()
     }
 }

@@ -95,6 +95,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     /// Method to setup BaseView ( view with white Background and rounded corner )
     private func initialSetup() {
         for filter in Filters.allCases {
+            if filter == .Quality { return }
             self.addToParchment(filter: filter)
         }
         setUpViewPager()
@@ -204,7 +205,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         menuItems[Filters.Airlines.rawValue].isSelected = filters.appliedFilters[0].contains(.Airlines)
         menuItems[Filters.Airport.rawValue].isSelected = filters.appliedFilters[0].contains(.Airport)
         menuItems[Filters.Quality.rawValue].isSelected = filters.appliedFilters[0].contains(.Quality)
-        menuItems[Filters.Price.rawValue].isSelected = filters.appliedFilters[0].contains(.Price)
+        menuItems[Filters.Price.rawValue - 1].isSelected = filters.appliedFilters[0].contains(.Price)
         parchmentView?.reloadMenu()
     }
     
