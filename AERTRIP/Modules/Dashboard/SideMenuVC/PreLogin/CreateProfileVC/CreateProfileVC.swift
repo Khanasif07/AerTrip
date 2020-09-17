@@ -123,6 +123,21 @@ class CreateProfileVC: BaseVC {
         self.view.endEditing(true)
         if self.viewModel.isValidateData {
             self.viewModel.webserviceForUpdateProfile()
+        } else {
+            let isValidFirstName = !self.viewModel.userData.firstName.isEmpty
+            self.firstNameTextField.isError = !isValidFirstName
+            let firstNamePlaceHolder = self.firstNameTextField.placeholder ?? ""
+            self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstNamePlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidFirstName ? AppColors.themeGray40 :  AppColors.themeRed])
+            
+            let isValidLastName = !self.viewModel.userData.lastName.isEmpty
+            self.lastNameTextField.isError = !isValidLastName
+            let lastNamePlaceHolder = self.lastNameTextField.placeholder ?? ""
+            self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: lastNamePlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidLastName ? AppColors.themeGray40 :  AppColors.themeRed])
+            
+            let isValidMobile = !(self.viewModel.userData.mobile.isEmpty || self.viewModel.userData.mobile.count < self.viewModel.userData.minContactLimit)
+            //self.mobileNumberTextField.isError = !isValidLastName
+            let mobilePlaceHolder = self.mobileNumberTextField.placeholder ?? ""
+            self.mobileNumberTextField.attributedPlaceholder = NSAttributedString(string: mobilePlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidMobile ? AppColors.themeGray40 :  AppColors.themeRed])
         }
     }
     
@@ -322,6 +337,31 @@ extension CreateProfileVC {
         }
         
         self.letsStartedButton.isEnabledShadow  = !self.viewModel.isValidateForButtonEnable
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+            
+        case self.firstNameTextField:
+           let isValidFirstName = !self.viewModel.userData.firstName.isEmpty
+           self.firstNameTextField.isError = !isValidFirstName
+           let firstNamePlaceHolder = self.firstNameTextField.placeholder ?? ""
+           self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstNamePlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidFirstName ? AppColors.themeGray40 :  AppColors.themeRed])
+            
+        case self.lastNameTextField:
+          let isValidLastName = !self.viewModel.userData.lastName.isEmpty
+          self.lastNameTextField.isError = !isValidLastName
+          let lastNamePlaceHolder = self.lastNameTextField.placeholder ?? ""
+          self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: lastNamePlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidLastName ? AppColors.themeGray40 :  AppColors.themeRed])
+            
+        case self.mobileNumberTextField:
+            let isValidMobile = !(self.viewModel.userData.mobile.isEmpty || self.viewModel.userData.mobile.count < self.viewModel.userData.minContactLimit)
+            //self.mobileNumberTextField.isError = !isValidLastName
+            let mobilePlaceHolder = self.mobileNumberTextField.placeholder ?? ""
+            self.mobileNumberTextField.attributedPlaceholder = NSAttributedString(string: mobilePlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidMobile ? AppColors.themeGray40 :  AppColors.themeRed])
+            
+        default:
+            break
+        }
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {

@@ -78,6 +78,7 @@ class RangeVC: BaseVC {
         HotelFilterVM.shared.delegate?.updateFiltersTabs()
         if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? RangeTableViewCell {
             //cell.stepSlider?.index = UInt(sliderPoint)
+            cell.stepSlider?.enableHapticFeedback = setValue
             cell.stepSlider?.setIndex(UInt(sliderPoint), animated: false)
             cell.updateSliderValueOnLabel(range: value)
         } else {
@@ -117,7 +118,7 @@ extension RangeVC: UITableViewDataSource, UITableViewDelegate {
         } else {
             value = Int(range + 1)
         }
-        
+        cell.stepSlider?.enableHapticFeedback = HotelFilterVM.shared.distanceRange != 0.5
         cell.stepSlider?.index = UInt(value) //UInt(value.toInt)
         cell.updateSliderValueOnLabel(range: range)
         return cell

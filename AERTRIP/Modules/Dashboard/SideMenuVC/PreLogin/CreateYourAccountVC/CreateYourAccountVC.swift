@@ -53,18 +53,20 @@ class CreateYourAccountVC: BaseVC {
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false, onView: self.emailTextField)
         
         self.view.backgroundColor = AppColors.screensBackground.color
-        self.registerButton.isEnabled = false
+        //self.registerButton.isEnabled = false
         self.registerButton.configureCommonGreenButton()
         self.emailTextField.delegate  = self
         self.emailTextField.text = self.viewModel.email
         self.emailTextField.autocorrectionType = .no
-        self.registerButton.isEnabled = self.viewModel.isEnableRegisterButton
+        //self.registerButton.isEnabled = self.viewModel.isEnableRegisterButton
 //        self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
 //        self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
 //        self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
 
         self.linkSetupForTermsAndCondition(withLabel: self.privacyPolicyLabel)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
+        
+        self.registerButton.isEnabledShadow = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -132,6 +134,11 @@ class CreateYourAccountVC: BaseVC {
         self.view.endEditing(true)
         if self.viewModel.isValidEmail(vc: self) {
             self.viewModel.webserviceForCreateAccount()
+        } else {
+            let isValidEmail = !self.viewModel.email.checkInvalidity(.Email)
+            self.emailTextField.isError = !isValidEmail
+            let emailPlaceHolder = self.emailTextField.placeholder ?? ""
+            self.emailTextField.attributedPlaceholder = NSAttributedString(string: emailPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray40 :  AppColors.themeRed])
         }
     }
     
@@ -184,14 +191,18 @@ extension CreateYourAccountVC {
     @objc func textFieldValueChanged(_ textField: UITextField) {
         
         self.viewModel.email = (textField.text ?? "").removeAllWhitespaces
-        self.registerButton.isEnabled = self.viewModel.email.count > 0
+        //self.registerButton.isEnabled = self.viewModel.email.count > 0
+        self.registerButton.isEnabledShadow = !self.viewModel.isEnableRegisterButton
         
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         //for verify the data
-        self.emailTextField.isError = self.viewModel.email.checkInvalidity(.Email)
+        let isValidEmail = !self.viewModel.email.checkInvalidity(.Email)
+        self.emailTextField.isError = !isValidEmail
+        let emailPlaceHolder = self.emailTextField.placeholder ?? ""
+        self.emailTextField.attributedPlaceholder = NSAttributedString(string: emailPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray40 :  AppColors.themeRed])
         
     }
     

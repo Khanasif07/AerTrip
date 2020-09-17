@@ -78,7 +78,12 @@ extension HotelResultVC {
         }
         
         if isRangeFilterApplied {
-            distanceStr = filterApplied.distanceRange > 20 ? "beyond \(filterApplied.distanceRange.toInt) " : " within \(filterApplied.distanceRange.toInt) "
+            var distance = "\(filterApplied.distanceRange.toInt)"
+            if filterApplied.distanceRange.toInt == 0 {
+                distance = "0.5"
+            }
+            distanceStr = filterApplied.distanceRange > 20 ? "beyond \(distance) " : " within \(distance) "
+            
             distanceStr = distanceStr.appending(LocalizedString.Kms.localized)
         }
         
