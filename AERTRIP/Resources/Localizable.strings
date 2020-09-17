@@ -482,7 +482,7 @@
 "NoHotelFoundMessage" = "Choose another date for this location and try again.";
 "NoHotelFoundMessageOnFilter" = "Choose another filters try again.";
 "NoHotelFoundFilter" = "We couldn’t find hotels to match your filters. Try changing the filters, or reset them.";
-"NoResultsAvailable" = "No Results Available";
+"NoHotelMatchedYourFilters" = "No hotel match your filters";
 "rupeesText" = "₹";
 "callingNotAvailable" = "Your device doesn't supports calling function!";
 "UnfavouriteAll" = "Unfavourite all";
@@ -829,8 +829,10 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "ClearFilters" = "Clear Filters";
 "BookingID" = "Booking ID";
 "OpeningBalance" = "Opening Balance";
-"NoBookingAvailable" = "No Bookings Found";
+"NoBookingsMatchYourFilters" = "No bookings match your filters";
 "NoBookingAvailableMessage" = "We couldn’t find bookings matching your filters. Try changing the filters, or reset them";
+"NoTransactionsMatchYourFilters" = "No transactions match your filters";
+"TryDifferentFiltersOrClearAll" = "Try different filters, or clear all.";
 
 //MARK:- OutStanding Ladger
 "Summary" = "Summary";

@@ -45,7 +45,7 @@ class PhotoGalleryVC: BaseVC {
         self.galleryCollection.delegate = self
         self.galleryCollection.dataSource = self
         self.galleryCollection.backgroundColor = .black
-        let height: CGFloat = isTAAvailable ? (81 + AppFlowManager.default.safeAreaInsets.bottom) : 0.0
+        let height: CGFloat = isTAAvailable ? (44 + AppFlowManager.default.safeAreaInsets.bottom) : 0.0
         self.bottomContainerHeightConstraint.constant = height
         self.bottomContainerView.backgroundColor = .black
         self.bottomContainerView.handeler = {[weak self] in

@@ -248,10 +248,20 @@ struct TicketDetail {
 }
 
 struct AvailableSeatMap{
-    
     var bookingId:String
     var name:String
     var isSelectedForall:Bool = false
-    
 }
 
+struct AppleWalletFlight{
+    var bookingId:String
+    var name:String
+    var flightId:String
+    var isAdded:Bool = false
+    
+    init(bookingId: String, flight: BookingFlightDetail) {
+        self.bookingId = bookingId
+        self.name = "\(flight.departure) → \(flight.arrival)"
+        self.flightId = flight.flightId
+    }
+}

@@ -9,9 +9,9 @@
 import UIKit
 
 protocol BookingAddOnRequestVMDelegate: class {
-    func willGetCaseHistory()
-    func getCaseHistorySuccess()
-    func getCaseHistoryFail()
+    func willGetCaseHistory(showProgress: Bool)
+    func getCaseHistorySuccess(showProgress: Bool)
+    func getCaseHistoryFail(showProgress: Bool)
     
     func makeRequestConfirmSuccess()
     func makeRequestConfirmFail()
@@ -90,18 +90,18 @@ class BookingAddOnRequestVM {
         self.caseDetailData = temp
     }
     
-    func getCaseHistory() {
-        self.delegate?.willGetCaseHistory()
+    func getCaseHistory(showProgress: Bool) {
+        self.delegate?.willGetCaseHistory(showProgress: showProgress)
         let param: JSONDictionary = ["case_id": caseData?.id ?? ""]
         APICaller.shared.getCaseHistory(params: param) { [weak self](success, errore, history) in
             guard let sSelf = self else {return}
             
             if success {
                 sSelf.caseHistory = history
-                sSelf.delegate?.getCaseHistorySuccess()
+                sSelf.delegate?.getCaseHistorySuccess(showProgress: showProgress)
             }
             else {
-                sSelf.delegate?.getCaseHistoryFail()
+                sSelf.delegate?.getCaseHistoryFail(showProgress: showProgress)
             }
         }
     }

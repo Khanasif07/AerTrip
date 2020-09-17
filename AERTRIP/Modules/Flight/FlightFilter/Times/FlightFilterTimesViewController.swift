@@ -25,6 +25,7 @@ extension TimeInterval  {
 class FlightFilterTimesViewController : UIViewController , FilterViewController {
 
     weak var  delegate : FlightTimeFilterDelegate?
+    weak var qualityFilterDelegate : QualityFilterDelegate?
     
     //MARK:- State Properties
     var departureStartTimeInterval : TimeInterval = TimeInterval.startOfDay
@@ -40,14 +41,15 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     var airportsArr = [AirportLegFilter]()
     var isIntMCOrReturnVC = false
 
-    var arivalDifferenceInSeconds : TimeInterval = 0
+    var arivalDifferenceInSeconds : TimeInterval = 1
     
     var onToastInitiation: ((String) -> ())?
     
     private var isHapticFeedbackProvided = false
     
     private var multiLegSegmentControl = UISegmentedControl()
-
+    
+    var enableOvernightFlightQualityFilter = [Bool]()
     
     /// Used for day segments pan gesture
     var panGesture: UIPanGestureRecognizer?
@@ -83,6 +85,13 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     @IBOutlet weak var arrivalStartTimeWidth: NSLayoutConstraint!
     @IBOutlet weak var arrivalEndTimeWidth: NSLayoutConstraint!
    
+    @IBOutlet weak var avoidOvernightView: UIView!
+    @IBOutlet weak var avoidOvernightTitleLbl: UILabel!
+    @IBOutlet weak var allSectorsLbl: UILabel!
+    @IBOutlet weak var avoidOvernightDescLbl: UILabel!
+    @IBOutlet weak var avoidOvernightImgView: UIImageView!
+    @IBOutlet weak var avoidOvernightBtn: UIButton!
+    
     //MARK:- View Controller Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,6 +120,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             self.arrivalRangeSlider.layoutIfNeeded()
         }
         addDaysSeparatorInArrivalRangeSlider()
+        hideShowOvernightView()
     }
     
     //MARK:- Departure feature methods
@@ -747,6 +757,50 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
     }
     
+    @IBAction func avoidOvernightBtnAction(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        toggleAvoidOvernight(sender.isSelected)
+        updateSegmentTitles()
+    }
+    
+    private func toggleAvoidOvernight(_ selected: Bool) {
+        currentTimerFilter.qualityFilter.isSelected = selected
+        multiLegTimerFilter[currentActiveIndex] = currentTimerFilter
+        
+        if isIntMCOrReturnVC {
+            multiLegTimerFilter = multiLegTimerFilter.map {
+                var newFilter = $0
+                newFilter.qualityFilter = currentTimerFilter.qualityFilter
+                return newFilter
+            }
+        }
+        qualityFilterDelegate?.qualityFilterChangedAt(currentActiveIndex, filter: currentTimerFilter.qualityFilter)
+        resetAvoidOvernightBtn()
+        
+    }
+    
+    private func resetAvoidOvernightBtn() {
+        avoidOvernightBtn.isSelected = currentTimerFilter.qualityFilter.isSelected
+        if currentTimerFilter.qualityFilter.isSelected {
+            avoidOvernightImgView.image = UIImage(named: "CheckedGreenRadioButton")
+        }
+        else {
+            avoidOvernightImgView.image = UIImage(named: "UncheckedGreenRadioButton")
+        }
+    }
+    
+    private func hideShowOvernightView() {
+        if isIntMCOrReturnVC {
+            if enableOvernightFlightQualityFilter.indices.contains(0) {
+                avoidOvernightView.isHidden = !enableOvernightFlightQualityFilter[0]
+            }
+        } else {
+            if enableOvernightFlightQualityFilter.indices.contains(currentActiveIndex) {
+                avoidOvernightView.isHidden = !enableOvernightFlightQualityFilter[currentActiveIndex]
+            }
+        }
+    }
+    
     //MARK:- Multi Leg Feature
     
     
@@ -792,6 +846,8 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         }
         setupDeparatureRangeButtons()
         addDaysSeparatorInArrivalRangeSlider()
+        hideShowOvernightView()
+        resetAvoidOvernightBtn()
         updateSegmentTitles()
 
     }
@@ -829,7 +885,9 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             arrivalInputEndDate = currentTimerFilter.arrivalEndTime
         }
         
-        self.arivalDifferenceInSeconds = currentTimerFilter.arrivalEndTime.timeIntervalSince(currentTimerFilter.arrivalStartTime)
+        let diff = currentTimerFilter.arrivalEndTime.timeIntervalSince(currentTimerFilter.arrivalStartTime)
+        
+        self.arivalDifferenceInSeconds = diff == 0 ? 1 : diff
             
         let startTimeInterval = arrivalInputStartDate.timeIntervalSince(currentTimerFilter.arrivalStartTime)
         let endTimeInterval = arrivalInputEndDate.timeIntervalSince(currentTimerFilter.arrivalStartTime)
@@ -979,7 +1037,8 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     
     func initialSetup() {
        
-        
+        allSectorsLbl.isHidden = !isIntMCOrReturnVC
+                
         if multiLegTimerFilter.count == 1 {
             multiLegViewHeight.constant = 0
             multiLegView.isHidden = true
@@ -996,7 +1055,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         setDepartureLabel()
         setupDeparatureRangeButtons()
         setupArrivalRangeSlider()
-        
+        setupOvernightFlightsView()
         earlyMorningButton.addTarget(self, action: #selector(buttonPressed), for: .touchDown)
         earlyMorningButton.addTarget(self, action: #selector(buttonReleased), for: .touchUpInside)
         
@@ -1008,6 +1067,15 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
         lateEveningButton.addTarget(self, action: #selector(buttonPressed), for: .touchDown)
         lateEveningButton.addTarget(self, action: #selector(buttonReleased), for: .touchUpInside)
+    }
+    
+    
+    private func setupOvernightFlightsView() {
+        avoidOvernightTitleLbl.font = AppFonts.Regular.withSize(18)
+        avoidOvernightDescLbl.font = AppFonts.Regular.withSize(14)
+        avoidOvernightDescLbl.textColor = AppColors.themeGray60
+        allSectorsLbl.font = AppFonts.Regular.withSize(14)
+        allSectorsLbl.textColor = AppColors.themeGray40
     }
     
     @objc func buttonPressed(sender:UIButton)
@@ -1065,6 +1133,9 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     }
         
     func setUIValues(){
+        
+        resetAvoidOvernightBtn()
+        
           let calendar = Calendar.current
           let startOfDay = calendar.startOfDay(for: currentTimerFilter.departureMinTime)
           let startTime = currentTimerFilter.departureMinTime.timeIntervalSince(startOfDay)

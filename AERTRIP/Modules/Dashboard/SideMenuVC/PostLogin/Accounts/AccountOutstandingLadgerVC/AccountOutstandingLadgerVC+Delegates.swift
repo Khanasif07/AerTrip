@@ -174,7 +174,7 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
             self.reloadList()
         }
         else {
-            AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: event)
+            AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: event, detailType: .outstandingLadger)
         }
     }
     

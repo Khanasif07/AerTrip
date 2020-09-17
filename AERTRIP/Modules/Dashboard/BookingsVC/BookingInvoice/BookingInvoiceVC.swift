@@ -18,6 +18,7 @@ class BookingInvoiceVC: BaseVC {
     let viewModel = BookingInvoiceVM()
     let cellIdentifier = "FareSectionHeader"
     var isDownloadingRecipt = false
+    let refreshControl = UIRefreshControl()
     //    var isBaseFareSectionExpanded: Bool = true
     //    var isGrossFareSectionExpanded: Bool = true
     
@@ -30,6 +31,14 @@ class BookingInvoiceVC: BaseVC {
         self.invoiceTableView.dataSource = self
         self.invoiceTableView.delegate = self
         self.invoiceTableView.reloadData()
+        
+        self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        self.refreshControl.tintColor = AppColors.themeGreen
+        self.invoiceTableView.refreshControl = refreshControl
+    }
+    
+    override func bindViewModel() {
+        self.viewModel.delegate = self
     }
     
     override func setupNavBar() {
@@ -46,6 +55,10 @@ class BookingInvoiceVC: BaseVC {
 //        let navTitle = self.viewModel.isForReceipt ? LocalizedString.Receipt.localized : LocalizedString.Booking.localized
         self.topNavBar.configureNavBar(title: navTitle, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true)
         self.invoiceTableView.backgroundColor = AppColors.themeGray04
+    }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.viewModel.getBookingDetail()
     }
     
     // MARK: - Helper methods
@@ -530,4 +543,21 @@ extension BookingInvoiceVC: FareSectionHeaderDelegate {
         }
         self.invoiceTableView.reloadData()
     }
+}
+extension BookingInvoiceVC: BookingInvoiceVMDelegate {
+    func willGetBookingDetail() {
+        
+    }
+    
+    func getBookingDetailSucces(model: BookingDetailModel) {
+        NotificationCenter.default.post(name: .bookingDetailFetched, object: model)
+        self.refreshControl.endRefreshing()
+        self.invoiceTableView.reloadData()
+    }
+    
+    func getBookingDetailFaiure(error: ErrorCodes) {
+        self.refreshControl.endRefreshing()
+        AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
+    }
+    
 }

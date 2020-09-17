@@ -127,6 +127,10 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         getSharableLink.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let width =  UIScreen.main.bounds.size.width / 2.0

@@ -60,18 +60,19 @@ class AccountDepositAmountCell: UITableViewCell {
         super.prepareForReuse()
         self.topDividerView.isHidden = true
         self.amountTextField.attributedText = nil
-        self.amountTextField.font = AppFonts.SemiBold.withSize(40.0)
+       // self.amountTextField.font = AppFonts.SemiBold.withSize(40.0)
         self.amountTextField.keyboardType = .decimalPad
+        
     }
     
     @objc internal func textFieldDidEndEditing(_ sender: UITextField) {
         if let txt = sender.text  {
             let value = txt.isEmpty ? "0" : txt
             if let amt = value.replacingOccurrences(of: ",", with: "").toDouble {
-                var value = amt.delimiterWithoutSymbol
-                if !value.contains(".") {
-                    value.append(".00")
-                }
+                let value = amt.delimiterWithoutSymbol.removeAllWhiteSpacesAndNewLines
+//                if !value.contains(".") {
+//                    value.append(".00")
+//                }
             self.amountTextField.text = value
             self.delegate?.amountDidChanged(amount: amt, amountString: txt)
             }
@@ -91,15 +92,15 @@ class AccountDepositAmountCell: UITableViewCell {
     }
     
     private func setData() {
-        var value = amount.delimiterWithoutSymbol
-        if !value.contains(".") {
-            value.append(".00")
-        }
-        self.amountTextField.text = value
-//        if !amountTextSetOnce {
-//            amountTextSetOnce = true
-//        self.amountTextField.AttributedBackgroundColorForText(text: value, textColor: AppColors.themeBlue.withAlphaComponent(0.26))
+        let value = amount.delimiterWithoutSymbol.removeAllWhiteSpacesAndNewLines
+//        if !value.contains(".") {
+//            value.append(".00")
 //        }
+        self.amountTextField.text = value
+        if !amountTextSetOnce {
+            amountTextSetOnce = true
+        self.amountTextField.AttributedBackgroundColorForText(text: value, textColor: AppColors.themeBlue.withAlphaComponent(0.26))
+        }
         
     }
     
@@ -131,7 +132,7 @@ extension AccountDepositAmountCell: UITextFieldDelegate {
             return true
         }
         
-        let newString = NSString(string: textField.text!).replacingCharacters(in: range, with: string).removeAllWhiteSpacesAndNewLines
+        let newString = NSString(string: textField.text!).replacingCharacters(in: range, with: string).removeAllWhiteSpacesAndNewLines.replacingOccurrences(of: ",", with: "")
 
         if newString.count > 32 { //restrict input upto 32 characters
             return false

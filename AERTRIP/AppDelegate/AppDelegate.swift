@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let transitionCoordinator = TransitionCoordinator()
     static var shared = UIApplication.shared.delegate as! AppDelegate
     
+    var upgradePlanData = [OtherFareCache]()
     var upgradeDataMutableArray = NSMutableArray()
     var flightPerformanceMutableArray = NSMutableArray()
     var flightBaggageMutableArray = NSMutableArray()

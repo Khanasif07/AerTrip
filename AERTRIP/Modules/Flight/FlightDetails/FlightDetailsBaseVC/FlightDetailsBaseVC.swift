@@ -654,7 +654,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
                     }
                 }
             }else{
-                AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .hotelsSearch)
+                AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .flights)
             }
         }
     }

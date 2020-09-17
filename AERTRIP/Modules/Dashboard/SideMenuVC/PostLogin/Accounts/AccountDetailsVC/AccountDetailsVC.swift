@@ -58,6 +58,8 @@ class AccountDetailsVC: BaseVC {
     //MARK:- Private
     private var time: Float = 0.0
     private var timer: Timer?
+    fileprivate let refreshControl = UIRefreshControl()
+    
     var currentViewState = ViewState.normal {
         didSet {
             self.manageHeader(animated: true)
@@ -84,8 +86,16 @@ class AccountDetailsVC: BaseVC {
         return newEmptyView
     }()
     
+    
+    
+    
     //MARK:- ViewLifeCycle
     //MARK:-
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .accountDetailFetched, object: nil)
+    }
+    
     override func initialSetup() {
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.progressView?.isHidden = true
@@ -114,7 +124,7 @@ class AccountDetailsVC: BaseVC {
         
         
         if let usr = UserInfo.loggedInUser, usr.userCreditType == .regular {
-            self.viewModel.getAccountDetails()
+            self.viewModel.getAccountDetails(showProgres: true)
             self.balanceContainerDivider.isHidden = false
         }else{
             self.balanceContainerDivider.isHidden = true
@@ -144,12 +154,27 @@ class AccountDetailsVC: BaseVC {
             self?.setupHeaderFooterText()
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(accountDetailFetched(_:)), name: .accountDetailFetched, object: nil)
+
+        
+        self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        self.refreshControl.tintColor = AppColors.themeGreen
+        self.tableView.refreshControl = refreshControl
+        
     }
     
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification, noti == .accountPaymentRegister, let usr = UserInfo.loggedInUser, usr.userCreditType == .regular {
             //re-hit the details API
-            self.viewModel.getAccountDetails()
+            self.viewModel.getAccountDetails(showProgres: true)
+        }
+    }
+    
+    @objc func accountDetailFetched(_ note: Notification) {
+        if let object = note.object as? AccountDetailPostModel {
+            printDebug("accountDetailFetched")
+            self.viewModel.allVouchers = object.accVouchers
+            self.viewModel.setAccountDetails(details: object.accountLadger)
         }
     }
     
@@ -231,6 +256,10 @@ class AccountDetailsVC: BaseVC {
     func stopProgress() {
         self.time += 1
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+     self.viewModel.getAccountDetails(showProgres: false)
     }
     
     @IBAction func tapSearchContainerView(_ sender: UIButton) {
@@ -523,6 +552,7 @@ extension AccountDetailsVC: EmptyScreenViewDelegate {
 //MARK:- View model delegate methods
 //MARK:-
 extension AccountDetailsVC: AccountDetailsVMDelegate {
+    
     func applyFilterSuccess() {
         self.reloadList()
     }
@@ -531,22 +561,31 @@ extension AccountDetailsVC: AccountDetailsVMDelegate {
         self.reloadList()
     }
 
-    func willGetAccountDetails() {
-        self.startProgress()
+    func willGetAccountDetails(showProgres: Bool) {
+        if showProgres {
+            self.startProgress()
+        }
         //AppGlobals.shared.startLoading()
         self.topNavView.firstRightButton.isUserInteractionEnabled = false
         self.topNavView.secondRightButton.isUserInteractionEnabled = false
     }
     
-    func getAccountDetailsSuccess() {
-        self.stopProgress()
+    func getAccountDetailsSuccess(model: AccountDetailPostModel, showProgres: Bool) {
+        if showProgres {
+            self.stopProgress()
+        }
+        self.refreshControl.endRefreshing()
         self.topNavView.firstRightButton.isUserInteractionEnabled = true
         self.topNavView.secondRightButton.isUserInteractionEnabled = true
         self.reloadList()
+        NotificationCenter.default.post(name: .accountDetailFetched, object: model)
     }
     
-    func getAccountDetailsFail() {
-        self.stopProgress()
+    func getAccountDetailsFail(showProgres: Bool) {
+        if showProgres {
+            self.stopProgress()
+        }
+        self.refreshControl.endRefreshing()
     }
     
     func searchEventsSuccess() {

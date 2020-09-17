@@ -576,14 +576,17 @@ class HotelsSearchVC: BaseVC {
         if self.viewModel.searchedFormData.destName.isEmpty {
             AppToast.default.showToastMessage(message: "Please select destination name.")
             flag = false
+            self.whereLabel.nudgeAnimation()
         }
         else if self.viewModel.searchedFormData.checkInDate.isEmpty {
             AppToast.default.showToastMessage(message: "Please select check in date.")
             flag = false
+            self.checkInOutView?.checkInLabel.nudgeAnimation()
         }
         else if self.viewModel.searchedFormData.checkOutDate.isEmpty {
             AppToast.default.showToastMessage(message: "Please select check out date.")
             flag = false
+            self.checkInOutView?.checkOutLabel.nudgeAnimation()
         }
         
         return flag
@@ -955,12 +958,12 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
 extension HotelsSearchVC: CheckInOutViewDelegate {
     
     func selectCheckInDate(_ sender: UIButton) {
-        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date(), checkOutDate: self.viewModel.searchedFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self, isStartDateSelection: true)
+        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") , checkOutDate: self.viewModel.searchedFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self, isStartDateSelection: true)
     }
     
     func selectCheckOutDate(_ sender: UIButton) {
         
-        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date(), checkOutDate: self.viewModel.searchedFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self, isStartDateSelection: false) }
+        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") , checkOutDate: self.viewModel.searchedFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self, isStartDateSelection: false) }
 }
 
 extension HotelsSearchVC: CalendarDataHandler {

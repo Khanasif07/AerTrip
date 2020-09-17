@@ -902,9 +902,10 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToAccountLadgerDetailsVC(forEvent: AccountDetailEvent) {
+    func moveToAccountLadgerDetailsVC(forEvent: AccountDetailEvent, detailType: AccountLadgerDetailsVM.AccountLadgerDetailType) {
         let obj = AccountLadgerDetailsVC.instantiate(fromAppStoryboard: .Account)
         obj.viewModel.ladgerEvent = forEvent
+        obj.viewModel.detailType = detailType
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -1099,9 +1100,12 @@ extension AppFlowManager {
     }
     
     // Move To Booking Invoice VC
-    func moveToBookingInvoiceVC(forVoucher: Voucher) {
+    func moveToBookingInvoiceVC(forVoucher: Voucher, bookingId: String, isReciept: Bool, receiptIndex: Int) {
         let obj = BookingInvoiceVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.voucher = forVoucher
+        obj.viewModel.bookingId = bookingId
+        obj.viewModel.isReciept = isReciept
+        obj.viewModel.receiptIndex = receiptIndex
         self.currentNavigation?.pushViewController(obj, animated: true)
     }
     
