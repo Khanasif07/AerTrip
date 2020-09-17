@@ -43,28 +43,36 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if viewModel.resultTableState == .showTemplateResults {
-                   return getTemplateCell()
+           
+            return getTemplateCell()
+        
         } else if viewModel.resultTableState == .showPinnedFlights {
+          
             let journey = viewModel.results.pinnedFlights[indexPath.row]
             return getSingleJourneyCell(indexPath: indexPath ,journey: journey )
-        }else{
+        
+        } else {
             
             var arrayForDisplay = viewModel.results.suggestedJourneyArray
             
             if viewModel.resultTableState == .showExpensiveFlights {
+            
                 arrayForDisplay = viewModel.results.allJourneys }
+           
             else {
+            
                 arrayForDisplay = viewModel.results.suggestedJourneyArray
+            
             }
             
             if arrayForDisplay[indexPath.row].cellType == .singleJourneyCell {
-                
+            
                 return getSingleJourneyCell(indexPath: indexPath ,journey:  arrayForDisplay[indexPath.row].journeyArray.first)
-
-            } else{
-                
+            
+            } else {
+            
                 return getGroupedFlightCell(indexPath: indexPath, journey: arrayForDisplay[indexPath.row])
-
+         
             }
         }
     }
@@ -148,7 +156,7 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
             if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "GroupedFlightCell") as? GroupedFlightCell {
                 cell.selectionStyle = .none
                 cell.delegate = self
-                cell.setVaulesFrom(journey: journey)
+                cell.setVaulesFrom(journey: journey, sortOrder: self.viewModel.sortOrder, isConditionReverced : self.viewModel.isConditionReverced)
                 cell.buttonTapped = {
                     self.reloadTableCell(indexPath)
                 }
