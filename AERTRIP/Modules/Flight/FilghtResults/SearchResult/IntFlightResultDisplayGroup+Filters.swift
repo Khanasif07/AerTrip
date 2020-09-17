@@ -1050,7 +1050,6 @@ extension IntFlightResultDisplayGroup  {
     
     //MARK:- Flight Quality Filter
     
-    
     func qualityFiltersChanged(_ filter : QualityFilter) {
         if filter.isSelected {
             self.UIFilters.insert(filter.filterID)
