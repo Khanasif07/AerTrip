@@ -486,6 +486,11 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         
         for index in 0 ..< inputFilters.count {
             
+            var qualityFilter: QualityFilter?
+            if timesViewController.multiLegTimerFilter.indices.contains(index) {
+                qualityFilter = timesViewController.multiLegTimerFilter[index].qualityFilter
+            }
+            
             let leg = legList[index]
             let filter = inputFilters[index]
             
@@ -520,6 +525,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                 } else {
                     timesViewController.multiLegTimerFilter[index] = newFlightLegFilter
                 }
+            }
+            if let quality = qualityFilter {
+                timesViewController.multiLegTimerFilter[index].qualityFilter = quality
             }
         }
         if let qualityFilters = inputFilters.first?.fq {
@@ -632,6 +640,13 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         } else {
             durationViewController.durationFilters = [durationFilter]
         }
+        if let qualityFilters = inputFilters.first?.fq {
+            if durationViewController.enableOvernightFlightQualityFilter.indices.contains(0) {
+            durationViewController.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideOvernight.title)
+            } else {
+                durationViewController.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideOvernight.title), at: 0)
+            }
+        }
         durationViewController.updateFiltersFromAPI()
     }
     
@@ -684,6 +699,13 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             }
         }
         guard durationViewController.durationFilters.count > 0 else { return }
+        if let qualityFilters = inputFilters.first?.fq {
+            if durationViewController.enableOvernightFlightQualityFilter.indices.contains(0) {
+            durationViewController.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideOvernight.title)
+            } else {
+                durationViewController.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideOvernight.title), at: 0)
+            }
+        }
         durationViewController.updateFiltersFromAPI()
     }
     
@@ -797,9 +819,17 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         durationViewController.showingForReturnJourney = false
         durationViewController.legsArray = legList
         let durationFilters = createDurationFilterArray(inputFilters: inputFilters)
+        durationViewController.isIntMCOrReturnVC = true
         durationViewController.durationFilters = durationFilters
         durationViewController.currentDurationFilter = durationFilters[0]
         durationViewController.delegate = delegate as? FlightDurationFilterDelegate
+        if let qualityFilters = inputFilters.first?.fq {
+            if durationViewController.enableOvernightFlightQualityFilter.indices.contains(0) {
+            durationViewController.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideOvernight.title)
+            } else {
+                durationViewController.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideOvernight.title), at: 0)
+            }
+        }
     }
     
     func setDurationVCForReturnJourney(_ durationViewController : FlightDurationFilterViewController , inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]) {

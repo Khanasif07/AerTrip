@@ -580,8 +580,13 @@ extension FlightFilterBaseVC {
         var layoverDurationMin : CGFloat = CGFloat.greatestFiniteMagnitude
         var layoverMaxDuration : CGFloat = 0.0
         
-        
+        var qualityFilter: QualityFilter?
+
         for filter in inputFilters {
+            
+            if durationViewController.durationFilters.indices.contains(0) {
+                qualityFilter = durationViewController.durationFilters[0].qualityFilter
+            }
             
             let tripTime = filter.tt
             let layoverTime = filter.lott
@@ -651,12 +656,31 @@ extension FlightFilterBaseVC {
         } else {
             durationViewController.durationFilters = [durationFilter]
         }
+        
+        if let quality = qualityFilter {
+            durationViewController.durationFilters[0].qualityFilter = quality
+        }
+        
+        let fq = inputFilters.map { $0.fq }
+        if let _ = fq.first(where: { $0.values.contains(UIFilters.hideOvernightLayover.title) }) {
+           if durationViewController.enableOvernightFlightQualityFilter.indices.contains(0) {
+                durationViewController.enableOvernightFlightQualityFilter[0] = true
+           } else {
+            durationViewController.enableOvernightFlightQualityFilter.insert(true, at: 0)
+            }
+        }
+        
         durationViewController.updateFiltersFromAPI()
     }
     
     private func updateDurationFilter(_ durationViewController : FlightDurationFilterViewController , inputFilters : [FiltersWS]) {
         
         for index in 0 ..< inputFilters.count {
+            
+            var qualityFilter: QualityFilter?
+            if durationViewController.durationFilters.indices.contains(index) {
+                qualityFilter = durationViewController.durationFilters[index].qualityFilter
+            }
             
             let filter = inputFilters[index]
             let tripTime = filter.tt
@@ -701,9 +725,21 @@ extension FlightFilterBaseVC {
                 durationViewController.durationFilters[index] = durationFilter
                 }
             }
+            
+            if let quality = qualityFilter {
+                durationViewController.durationFilters[index].qualityFilter = quality
+            }
         }
         guard durationViewController.durationFilters.count > 0 else { return }
+        inputFilters.enumerated().forEach { (index, filter) in
+            if durationViewController.enableOvernightFlightQualityFilter.indices.contains(index) {
+                durationViewController.enableOvernightFlightQualityFilter[index] =  filter.fq.values.contains(UIFilters.hideOvernightLayover.title)
+            } else {
+                durationViewController.enableOvernightFlightQualityFilter.insert(filter.fq.values.contains(UIFilters.hideOvernightLayover.title), at: index)
+            }
+        }
         durationViewController.updateFiltersFromAPI()
+        
     }
     
     func setDurationVC(_ durationViewController : FlightDurationFilterViewController , inputFilters : [FiltersWS])
@@ -716,6 +752,15 @@ extension FlightFilterBaseVC {
             durationViewController.currentDurationFilter = durationFilters[0]
         }
         durationViewController.delegate = delegate as? FlightDurationFilterDelegate
+        durationViewController.qualityFilterDelegate = delegate as? QualityFilterDelegate
+        inputFilters.enumerated().forEach { (index, filter) in
+            if durationViewController.enableOvernightFlightQualityFilter.indices.contains(index) {
+                durationViewController.enableOvernightFlightQualityFilter[index] =  filter.fq.values.contains(UIFilters.hideOvernightLayover.title)
+            } else {
+                durationViewController.enableOvernightFlightQualityFilter.insert(filter.fq.values.contains(UIFilters.hideOvernightLayover.title), at: index)
+            }
+        }
+        
     }
     
     func setDurationVCForReturnJourney(_ durationViewController : FlightDurationFilterViewController , inputFilters : [FiltersWS]) {
@@ -727,6 +772,15 @@ extension FlightFilterBaseVC {
         durationViewController.currentDurationFilter = durationFilter
         durationViewController.legsArray = [legList[0]]
         durationViewController.delegate = delegate as? FlightDurationFilterDelegate
+        durationViewController.qualityFilterDelegate = delegate as? QualityFilterDelegate
+        let fq = inputFilters.map { $0.fq }
+        if let _ = fq.first(where: { $0.values.contains(UIFilters.hideOvernightLayover.title) }) {
+           if durationViewController.enableOvernightFlightQualityFilter.indices.contains(0) {
+                durationViewController.enableOvernightFlightQualityFilter[0] = true
+           } else {
+            durationViewController.enableOvernightFlightQualityFilter.insert(true, at: 0)
+            }
+        }
     }
     
     //MARK:- Airline

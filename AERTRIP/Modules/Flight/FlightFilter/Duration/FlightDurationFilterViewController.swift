@@ -32,6 +32,8 @@ struct DurationFilter {
     
     var layoverDurationTimeFormat : String = ""
     
+    var qualityFilter = QualityFilter(name: "Overnight Layover", filterKey: "ovgtlo", isSelected: false, filterID: .hideOvernightLayover)
+    
     init(leg : Leg , tripMin : CGFloat , tripMax : CGFloat , layoverMin : CGFloat , layoverMax : CGFloat, layoverMinTimeFormat:String) {
         
         self.leg = leg
@@ -65,6 +67,10 @@ struct DurationFilter {
             return true
         }
         
+        if qualityFilter.isSelected {
+            return true
+        }
+        
         return false
     }
     
@@ -73,6 +79,7 @@ struct DurationFilter {
         self.userSelectedTripMax = self.tripDurationmaxDuration
         self.userSelectedLayoverMin = self.layoverMinDuration
         self.userSelectedLayoverMax = self.layoverMaxDuration
+        self.qualityFilter.isSelected = false
     }
 }
 
@@ -80,6 +87,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     
     //MARK:- State Properties
     weak var delegate : FlightDurationFilterDelegate?
+    weak var qualityFilterDelegate : QualityFilterDelegate?
     var currentDurationFilter : DurationFilter
     var durationFilters = [DurationFilter]()
     var legsArray = [Leg]()
@@ -97,12 +105,21 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         return diff == 0 ? 1 : diff
     }
     
+    var isIntMCOrReturnVC = false
     private var multiLegSegmentControl = UISegmentedControl()
+    var enableOvernightFlightQualityFilter = [Bool]()
     
     //MARK:- multiLeg Outlets
     @IBOutlet weak var multiLegViewHeight: NSLayoutConstraint!
     @IBOutlet weak var multiLegView: UIView!
     @IBOutlet weak var multiLegSegmentView: UIView!
+    
+    @IBOutlet weak var avoidOvernightView: UIView!
+    @IBOutlet weak var avoidOvernightTitleLbl: UILabel!
+    @IBOutlet weak var allSectorsLbl: UILabel!
+    @IBOutlet weak var avoidOvernightDescLbl: UILabel!
+    @IBOutlet weak var avoidOvernightImgView: UIImageView!
+    @IBOutlet weak var avoidOvernightBtn: UIButton!
     
     //MARK:- Initializers
     convenience init(delegate : FlightDurationFilterDelegate, durationFilters : [DurationFilter]) {
@@ -191,6 +208,8 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     
     func initialSetup() {
         
+        allSectorsLbl.isHidden = !isIntMCOrReturnVC
+        
         currentDurationFilter.userSelectedTripMin = currentDurationFilter.tripDurationMinDuration
         currentDurationFilter.userSelectedTripMax = currentDurationFilter.tripDurationmaxDuration
         
@@ -199,9 +218,17 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         
         setupTripDurationValues()
         setupLayoutDurationValues()
+        setupOvernightFlightsView()
         
     }
     
+    private func setupOvernightFlightsView() {
+        avoidOvernightTitleLbl.font = AppFonts.Regular.withSize(18)
+        avoidOvernightDescLbl.font = AppFonts.Regular.withSize(14)
+        avoidOvernightDescLbl.textColor = AppColors.themeGray60
+        allSectorsLbl.font = AppFonts.Regular.withSize(14)
+        allSectorsLbl.textColor = AppColors.themeGray40
+    }
     
     func updateFiltersFromAPI() {
         currentDurationFilter = durationFilters[currentActiveIndex]
@@ -221,6 +248,8 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
             self.setupTripDurationValues()
             self.setupLayoutDurationValues()
         }
+        hideShowOvernightView()
+        resetAvoidOvernightBtn()
     }
     
     func updateUIPostLatestResults() {
@@ -252,7 +281,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         layoverDurationMaxLabelWidth.constant = layoverDurationMaxLabel.intrinsicContentSize.width + 16.0
         
         updateSegmentTitles()
-        
+        resetAvoidOvernightBtn()
     }
     
     
@@ -295,6 +324,8 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         updateSegmentTitles()
         addMarkersOnLayoverDuration()
         addMarkersOnTripDuration()
+        hideShowOvernightView()
+        resetAvoidOvernightBtn()
     }
     
     private func getSegmentTitleFor(_ index: Int) -> String {
@@ -424,6 +455,55 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         }
         else {
             delegate?.layoverDurationChangedAt(currentActiveIndex ,min:  currentDurationFilter.userSelectedLayoverMin, max:  currentDurationFilter.userSelectedLayoverMax)
+        }
+    }
+    
+    @IBAction func avoidOvernightBtnAction(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        toggleAvoidOvernight(sender.isSelected)
+        updateSegmentTitles()
+    }
+    
+    private func toggleAvoidOvernight(_ selected: Bool) {
+        currentDurationFilter.qualityFilter.isSelected = selected
+        durationFilters[currentActiveIndex] = currentDurationFilter
+        
+        if isIntMCOrReturnVC {
+            durationFilters = durationFilters.map {
+                var newFilter = $0
+                newFilter.qualityFilter = currentDurationFilter.qualityFilter
+                return newFilter
+            }
+        }
+        
+        if showingForReturnJourney {
+            qualityFilterDelegate?.qualityFiltersChanged(currentDurationFilter.qualityFilter)
+        } else {
+            qualityFilterDelegate?.qualityFilterChangedAt(currentActiveIndex, filter: currentDurationFilter.qualityFilter)
+        }
+        resetAvoidOvernightBtn()
+        
+    }
+    
+    private func resetAvoidOvernightBtn() {
+        avoidOvernightBtn.isSelected = currentDurationFilter.qualityFilter.isSelected
+        if currentDurationFilter.qualityFilter.isSelected {
+            avoidOvernightImgView.image = UIImage(named: "CheckedGreenRadioButton")
+        }
+        else {
+            avoidOvernightImgView.image = UIImage(named: "UncheckedGreenRadioButton")
+        }
+    }
+    
+    private func hideShowOvernightView() {
+        if isIntMCOrReturnVC {
+            if enableOvernightFlightQualityFilter.indices.contains(0) {
+                avoidOvernightView.isHidden = !enableOvernightFlightQualityFilter[0]
+            }
+        } else {
+            if enableOvernightFlightQualityFilter.indices.contains(currentActiveIndex) {
+                avoidOvernightView.isHidden = !enableOvernightFlightQualityFilter[currentActiveIndex]
+            }
         }
     }
     

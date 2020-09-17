@@ -1075,7 +1075,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         avoidOvernightDescLbl.font = AppFonts.Regular.withSize(14)
         avoidOvernightDescLbl.textColor = AppColors.themeGray60
         allSectorsLbl.font = AppFonts.Regular.withSize(14)
-        
+        allSectorsLbl.textColor = AppColors.themeGray40
     }
     
     @objc func buttonPressed(sender:UIButton)

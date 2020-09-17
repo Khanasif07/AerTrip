@@ -22,7 +22,7 @@ struct  FlightLegTimeFilter {
     var userSelectedArrivalStartTime : Date
     var userSelectedArrivalEndTime : Date
     
-    var qualityFilter = QualityFilter(name: "Overnight", filterKey: "ovgtf", isSelected: false, filterID: .hideOvernight)
+    var qualityFilter = QualityFilter(name: "Overnight Flights", filterKey: "ovgtf", isSelected: false, filterID: .hideOvernight)
     
     init ( leg : Leg , departureStartTime : Date , departureMaxTime : Date , arrivalStartTime: Date , arrivalEndTime: Date) {
         
