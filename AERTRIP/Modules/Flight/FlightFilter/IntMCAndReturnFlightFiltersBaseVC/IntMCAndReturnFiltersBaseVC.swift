@@ -95,7 +95,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     /// Method to setup BaseView ( view with white Background and rounded corner )
     private func initialSetup() {
         for filter in Filters.allCases {
-            if filter == .Quality { return }
+            if filter == .Quality { continue }
             self.addToParchment(filter: filter)
         }
         setUpViewPager()
@@ -200,8 +200,8 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         guard let filters = userAppliedFilters else { return }
         menuItems[Filters.sort.rawValue].isSelected = filters.appliedFilters[0].contains(.sort)
         menuItems[Filters.stops.rawValue].isSelected = filters.appliedFilters[0].contains(.stops)
-        menuItems[Filters.Times.rawValue].isSelected = filters.appliedFilters[0].contains(.Times)
-        menuItems[Filters.Duration.rawValue].isSelected = filters.appliedFilters[0].contains(.Duration)
+        menuItems[Filters.Times.rawValue].isSelected = filters.appliedFilters[0].contains(.Times) || filters.uiFilters[0].contains(.hideOvernight)
+        menuItems[Filters.Duration.rawValue].isSelected = filters.appliedFilters[0].contains(.Duration) || filters.uiFilters[0].contains(.hideOvernightLayover)
         menuItems[Filters.Airlines.rawValue].isSelected = filters.appliedFilters[0].contains(.Airlines)
         menuItems[Filters.Airport.rawValue].isSelected = filters.appliedFilters[0].contains(.Airport)
         menuItems[Filters.Quality.rawValue].isSelected = filters.appliedFilters[0].contains(.Quality)

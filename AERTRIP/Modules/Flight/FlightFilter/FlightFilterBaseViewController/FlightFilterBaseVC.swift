@@ -184,8 +184,12 @@ class FlightFilterBaseVC: UIViewController {
         guard let filters = userAppliedFilters else { return }
         menuItems[Filters.sort.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.sort) }
         menuItems[Filters.stops.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.stops) }
-        menuItems[Filters.Times.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Times) }
-        menuItems[Filters.Duration.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Duration) }
+        var timesCheck = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Times) }
+        timesCheck = timesCheck || (filters.uiFilters.reduce(false) { $0 || $1.contains(.hideOvernight) })
+        menuItems[Filters.Times.rawValue].isSelected = timesCheck
+        var durationCheck = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Duration) }
+        durationCheck = durationCheck || (filters.uiFilters.reduce(false) { $0 || $1.contains(.hideOvernightLayover) })
+        menuItems[Filters.Duration.rawValue].isSelected = durationCheck
         menuItems[Filters.Airlines.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Airlines) }
         menuItems[Filters.Airport.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Airport) }
         menuItems[Filters.Quality.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Quality) }
