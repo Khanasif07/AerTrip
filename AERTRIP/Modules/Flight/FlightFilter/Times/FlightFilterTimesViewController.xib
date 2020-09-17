@@ -15,6 +15,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FlightFilterTimesViewController" customModule="AERTRIP" customModuleProvider="target">
             <connections>
+                <outlet property="allSectorsLbl" destination="sox-9r-Z04" id="wC7-7k-hX6"/>
                 <outlet property="arrivalEndTime" destination="fBg-O1-NMI" id="Uqu-oU-nO0"/>
                 <outlet property="arrivalEndTimeWidth" destination="GT1-b7-oyx" id="Bra-nZ-UmB"/>
                 <outlet property="arrivalRangeSlider" destination="OAV-cO-fKE" id="UZX-JZ-u55"/>
@@ -73,7 +74,7 @@
                     <rect key="frame" x="0.0" y="50" width="420" height="514"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gwW-GS-Akm">
-                            <rect key="frame" x="0.0" y="0.0" width="420" height="330"/>
+                            <rect key="frame" x="0.0" y="0.0" width="420" height="455"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hUh-Qq-WQ0">
                                     <rect key="frame" x="0.0" y="0.0" width="420" height="330"/>
@@ -318,20 +319,31 @@
                                         <constraint firstItem="OAV-cO-fKE" firstAttribute="top" secondItem="nNk-2H-PbE" secondAttribute="bottom" constant="16" id="xRR-bI-LUv"/>
                                     </constraints>
                                 </view>
-                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qi7-vL-pkQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="420" height="43"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qi7-vL-pkQ">
+                                    <rect key="frame" x="0.0" y="330" width="420" height="125"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Cv1-eW-MUB">
-                                            <rect key="frame" x="16" y="20" width="350" height="3"/>
+                                            <rect key="frame" x="16" y="20" width="356" height="85"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Avoid Overnight Flights" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmC-kS-JcZ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="350" height="0.0"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="j4l-g0-khm">
+                                                    <rect key="frame" x="0.0" y="0.0" width="356" height="20.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Avoid Overnight Flights" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmC-kS-JcZ">
+                                                            <rect key="frame" x="0.0" y="0.0" width="268.5" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="All Sectors" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sox-9r-Z04">
+                                                            <rect key="frame" x="273.5" y="0.0" width="82.5" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Eliminates results with Arrive/depart at uncomfortable hours " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZaM-1b-WmA">
-                                                    <rect key="frame" x="0.0" y="3" width="350" height="0.0"/>
+                                                    <rect key="frame" x="0.0" y="23.5" width="356" height="61.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -339,14 +351,14 @@
                                             </subviews>
                                         </stackView>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UncheckedGreenRadioButton" translatesAutoresizingMaskIntoConstraints="NO" id="oRs-Vx-QcD">
-                                            <rect key="frame" x="382" y="9" width="22" height="22"/>
+                                            <rect key="frame" x="382" y="19.5" width="22" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="22" id="QKk-gP-Koq"/>
                                                 <constraint firstAttribute="height" constant="22" id="aFb-TJ-BYi"/>
                                             </constraints>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fl1-oV-1tF">
-                                            <rect key="frame" x="0.0" y="15" width="420" height="8"/>
+                                            <rect key="frame" x="0.0" y="15" width="420" height="90"/>
                                             <connections>
                                                 <action selector="avoidOvernightBtnAction:" destination="-1" eventType="touchUpInside" id="nUy-JF-c4b"/>
                                             </connections>
@@ -354,8 +366,9 @@
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <constraints>
-                                        <constraint firstItem="oRs-Vx-QcD" firstAttribute="leading" secondItem="Cv1-eW-MUB" secondAttribute="trailing" constant="16" id="3V4-l3-aTJ"/>
+                                        <constraint firstItem="oRs-Vx-QcD" firstAttribute="leading" secondItem="Cv1-eW-MUB" secondAttribute="trailing" constant="10" id="3V4-l3-aTJ"/>
                                         <constraint firstItem="Fl1-oV-1tF" firstAttribute="top" secondItem="Cv1-eW-MUB" secondAttribute="top" constant="-5" id="4vT-7k-wBR"/>
+                                        <constraint firstItem="oRs-Vx-QcD" firstAttribute="centerY" secondItem="jmC-kS-JcZ" secondAttribute="centerY" id="EmC-jT-W62"/>
                                         <constraint firstItem="Fl1-oV-1tF" firstAttribute="leading" secondItem="Qi7-vL-pkQ" secondAttribute="leading" id="IdW-3J-p59"/>
                                         <constraint firstItem="Cv1-eW-MUB" firstAttribute="leading" secondItem="Qi7-vL-pkQ" secondAttribute="leading" constant="16" id="NdB-qd-Nt4"/>
                                         <constraint firstItem="Cv1-eW-MUB" firstAttribute="top" secondItem="Qi7-vL-pkQ" secondAttribute="top" constant="20" id="Oyw-Yl-He2"/>
@@ -363,7 +376,6 @@
                                         <constraint firstItem="Fl1-oV-1tF" firstAttribute="bottom" secondItem="Cv1-eW-MUB" secondAttribute="bottom" id="WOd-Co-zUf"/>
                                         <constraint firstAttribute="trailing" secondItem="oRs-Vx-QcD" secondAttribute="trailing" constant="16" id="rBi-xw-JVK"/>
                                         <constraint firstAttribute="bottom" secondItem="Cv1-eW-MUB" secondAttribute="bottom" constant="20" id="sCn-em-Ky1"/>
-                                        <constraint firstItem="oRs-Vx-QcD" firstAttribute="centerY" secondItem="jmC-kS-JcZ" secondAttribute="centerY" id="z18-aD-1wD"/>
                                     </constraints>
                                 </view>
                             </subviews>

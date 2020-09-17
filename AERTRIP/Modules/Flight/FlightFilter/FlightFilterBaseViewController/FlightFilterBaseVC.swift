@@ -358,8 +358,12 @@ extension FlightFilterBaseVC {
         timesViewController.multiLegTimerFilter = getFlightLegTimeFilters( inputFilters)
         timesViewController.delegate = delegate as? FlightTimeFilterDelegate
         timesViewController.qualityFilterDelegate = delegate as? QualityFilterDelegate
-        if let qualityFilters = inputFilters.first?.fq {
-            timesViewController.enableOvernightFlightQualityFilter =  qualityFilters.values.contains(UIFilters.hideOvernight.title)
+        inputFilters.enumerated().forEach { (index, filter) in
+            if timesViewController.enableOvernightFlightQualityFilter.indices.contains(index) {
+                timesViewController.enableOvernightFlightQualityFilter[index] =  filter.fq.values.contains(UIFilters.hideOvernight.title)
+            } else {
+                timesViewController.enableOvernightFlightQualityFilter.insert(filter.fq.values.contains(UIFilters.hideOvernight.title), at: index)
+            }
         }
     }
     
@@ -436,8 +440,12 @@ extension FlightFilterBaseVC {
                 timesViewController.multiLegTimerFilter[index].qualityFilter = quality
             }
         }
-        if let qualityFilters = inputFilters.first?.fq {
-            timesViewController.enableOvernightFlightQualityFilter =  qualityFilters.values.contains(UIFilters.hideOvernight.title)
+        inputFilters.enumerated().forEach { (index, filter) in
+            if timesViewController.enableOvernightFlightQualityFilter.indices.contains(index) {
+                timesViewController.enableOvernightFlightQualityFilter[index] =  filter.fq.values.contains(UIFilters.hideOvernight.title)
+            } else {
+                timesViewController.enableOvernightFlightQualityFilter.insert(filter.fq.values.contains(UIFilters.hideOvernight.title), at: index)
+            }
         }
         timesViewController.updateFiltersFromAPI()
     }

@@ -49,7 +49,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     
     private var multiLegSegmentControl = UISegmentedControl()
     
-    var enableOvernightFlightQualityFilter = false
+    var enableOvernightFlightQualityFilter = [Bool]()
     
     /// Used for day segments pan gesture
     var panGesture: UIPanGestureRecognizer?
@@ -87,6 +87,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
    
     @IBOutlet weak var avoidOvernightView: UIView!
     @IBOutlet weak var avoidOvernightTitleLbl: UILabel!
+    @IBOutlet weak var allSectorsLbl: UILabel!
     @IBOutlet weak var avoidOvernightDescLbl: UILabel!
     @IBOutlet weak var avoidOvernightImgView: UIImageView!
     @IBOutlet weak var avoidOvernightBtn: UIButton!
@@ -119,7 +120,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             self.arrivalRangeSlider.layoutIfNeeded()
         }
         addDaysSeparatorInArrivalRangeSlider()
-        avoidOvernightView.isHidden = !enableOvernightFlightQualityFilter
+        hideShowOvernightView()
     }
     
     //MARK:- Departure feature methods
@@ -788,6 +789,18 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         }
     }
     
+    private func hideShowOvernightView() {
+        if isIntMCOrReturnVC {
+            if enableOvernightFlightQualityFilter.indices.contains(0) {
+                avoidOvernightView.isHidden = !enableOvernightFlightQualityFilter[0]
+            }
+        } else {
+            if enableOvernightFlightQualityFilter.indices.contains(currentActiveIndex) {
+                avoidOvernightView.isHidden = !enableOvernightFlightQualityFilter[currentActiveIndex]
+            }
+        }
+    }
+    
     //MARK:- Multi Leg Feature
     
     
@@ -833,6 +846,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         }
         setupDeparatureRangeButtons()
         addDaysSeparatorInArrivalRangeSlider()
+        hideShowOvernightView()
         resetAvoidOvernightBtn()
         updateSegmentTitles()
 
@@ -1023,7 +1037,8 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     
     func initialSetup() {
        
-        
+        allSectorsLbl.isHidden = !isIntMCOrReturnVC
+                
         if multiLegTimerFilter.count == 1 {
             multiLegViewHeight.constant = 0
             multiLegView.isHidden = true
