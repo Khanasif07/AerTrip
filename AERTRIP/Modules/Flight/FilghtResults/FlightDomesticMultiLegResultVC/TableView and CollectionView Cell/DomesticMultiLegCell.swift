@@ -34,8 +34,8 @@ class DomesticMultiLegCell: UITableViewCell {
     var smartIconsArray : [String]?
     var baggageSuperScript : NSAttributedString?
     var currentJourney : Journey?
+    
     //MARK:- Override methods
-   
 //    override func setSelected(_ selected: Bool, animated: Bool) {
 //        super.setSelected(selected, animated: animated)
 //
@@ -51,8 +51,6 @@ class DomesticMultiLegCell: UITableViewCell {
 //        }
 //
 //    }
-    
-    
     
     
     override func awakeFromNib() {
@@ -72,8 +70,6 @@ class DomesticMultiLegCell: UITableViewCell {
     }
     
     //MARK:- Methods
-    
-    
     fileprivate func setupGradientView( selectedColor : UIColor = UIColor.white) {
         
         let gradient = CAGradientLayer()
@@ -385,20 +381,22 @@ extension DomesticMultiLegCell : UICollectionViewDataSource , UICollectionViewDe
         return 2
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView
-    {
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                          withReuseIdentifier: "smartIconHeaderView",
                                                                          for: indexPath)
-        headerView.frame = CGRect(x: 33, y: 5, width: 1.0, height: collectionView.frame.height)
-        headerView.backgroundColor = UIColor(displayP3Red: ( 204.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 204 / 255.0), alpha: 1.0)
+//        headerView.frame = CGRect(x: 33, y: 5, width: 4.0, height: collectionView.frame.height)
+        
+//        headerView.backgroundColor = UIColor.yellow
+        
+//        headerView.backgroundColor = UIColor(displayP3Red: ( 204.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 204 / 255.0), alpha: 1.0)
 
         
         return headerView
     }
     
-    @objc func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize
-    {
+    @objc func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0 {
             return .zero
         }else {

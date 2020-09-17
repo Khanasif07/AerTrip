@@ -746,7 +746,6 @@ extension FlightResultDisplayGroup  {
 
 
 //MARK:- Flight Quality Filter
-
     
     func qualityFiltersChanged(_ filter : QualityFilter) {
         
@@ -758,9 +757,6 @@ extension FlightResultDisplayGroup  {
         
         applyFilters()
     }
-    
-    
-
 
     func clearAllFilters() {
         

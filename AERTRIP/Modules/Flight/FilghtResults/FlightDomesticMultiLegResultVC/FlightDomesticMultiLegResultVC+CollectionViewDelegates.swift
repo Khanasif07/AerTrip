@@ -57,7 +57,7 @@ extension FlightDomesticMultiLegResultVC : UICollectionViewDataSource , UICollec
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
 
-        collectionView.reloadData()
+//        collectionView.reloadData()
         
         let visibleRect = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 50)
         

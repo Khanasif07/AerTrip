@@ -31,10 +31,11 @@ class FlightPaymentBookingStatusVM{
     //Data For API And Details
     var apiBookingIds:[String] = []
     var isLoadingTicket:Bool = false
+    var isLoadingWallet = false
     var loadingIndex:Int = -1
     var bookingObject:BookFlightObject?
     var availableSeatMaps = [AvailableSeatMap]()
-    
+    var appleWalletDetails = [AppleWalletFlight]()
     var seatMapModels = [String: SeatMapModel]()
     var perAPIPersentage:Double{
         0.8/Double(self.apiBookingIds.count + 1)
@@ -115,6 +116,7 @@ class FlightPaymentBookingStatusVM{
             if success {
                 self.bookingDetail[index] = bookingDetail
                 self.setSeatMapAvailability(bookingId, booking: bookingDetail)
+                self.setAppleWalletFligh(bookingId, booking: bookingDetail)
             }
             self.bookingAPIGroup.notify(queue: .main) {
                 delay(seconds: 0.2) {
@@ -137,6 +139,12 @@ class FlightPaymentBookingStatusVM{
             seatMap.name = name
             self.availableSeatMaps.append(seatMap)
         }
+    }
+    
+    private func setAppleWalletFligh(_ bookingId: String, booking: BookingDetailModel?){
+        guard let bookingLegs = booking?.bookingDetail?.leg, self.itinerary.bookingStatus.status == "booked" else {return}
+        let flights = bookingLegs.flatMap{$0.flight}
+        self.appleWalletDetails.append(contentsOf: flights.map{AppleWalletFlight(bookingId: bookingId, flight: $0)})
     }
     
     func getPnrWith(_ indexPath:IndexPath)->String{

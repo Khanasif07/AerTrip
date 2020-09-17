@@ -29,7 +29,7 @@ import UIKit
                 messageWorkItem = DispatchWorkItem(block: {
                     self.hideToast(lastToast)
                 })
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: messageWorkItem!)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: messageWorkItem!)
                 return
             }
         }
@@ -47,7 +47,7 @@ import UIKit
             self.hideToast(toastView)
         })
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: messageWorkItem!)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: messageWorkItem!)
         
         lastMessage = msg
     }
