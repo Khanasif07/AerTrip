@@ -581,12 +581,11 @@ extension FlightFilterBaseVC {
         var layoverMaxDuration : CGFloat = 0.0
         
         var qualityFilter: QualityFilter?
+        if durationViewController.durationFilters.indices.contains(0) {
+            qualityFilter = durationViewController.durationFilters[0].qualityFilter
+        }
 
         for filter in inputFilters {
-            
-            if durationViewController.durationFilters.indices.contains(0) {
-                qualityFilter = durationViewController.durationFilters[0].qualityFilter
-            }
             
             let tripTime = filter.tt
             let layoverTime = filter.lott
