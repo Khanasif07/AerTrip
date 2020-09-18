@@ -119,7 +119,7 @@ extension FlightDomesticMultiLegResultVC {
         return visibleRect
     }
     
-    func animateJourneyCompactView(for tableView : UITableView) {
+    func animateJourneyCompactView(for tableView : UITableView, isHeaderNeedToSet: Bool = false) {
         guard let selectedIndex =  self.getSelectedIndex(for: tableView) else { return }//tableView.indexPathForSelectedRow
         let visibleRect = getVisibleAreaRectFor(tableView: tableView)
         let xCoordinate = tableView.frame.origin.x
@@ -129,15 +129,15 @@ extension FlightDomesticMultiLegResultVC {
         selectedRowRect.origin.x = xCoordinate
         if visibleRect.contains(selectedRowRect) {
             let index = tableView.tag - 1000
-            hideHeaderCellAt(index: index)
+            hideHeaderCellAt(index: index, isHeaderNeedSet: isHeaderNeedToSet)
         }
         else {
-            showHeaderCellAt(tableView: tableView)
+            showHeaderCellAt(tableView: tableView, isHeaderNeedSet: isHeaderNeedToSet)
         }
 //        setTableViewHeaderFor(tableView: tableView)
     }
         
-    func showHeaderCellAt(tableView : UITableView) {
+    func showHeaderCellAt(tableView : UITableView, isHeaderNeedSet: Bool = false) {
         
         let index = tableView.tag - 1000
         let headerView = journeyHeaderViewArray[index]
@@ -152,7 +152,7 @@ extension FlightDomesticMultiLegResultVC {
             }
             let headerJourneyRect  = CGRect(x: (width * CGFloat(index)), y: (-journeyCompactViewHeight) , width: width - 1 , height: journeyCompactViewHeight)
             headerView.frame = headerJourneyRect
-            UIView.animate(withDuration: 0.4) {
+            UIView.animate(withDuration: 0.4, animations: {
                 var rect = headerView.frame
                 var yCoordinate = max(self.headerCollectionViewTop.constant +  self.headerCollectionView.frame.size.height , self.headerCollectionView.frame.size.height )
                 if self.baseScrollView.contentOffset.y == 88.0 {
@@ -161,15 +161,27 @@ extension FlightDomesticMultiLegResultVC {
                 rect.origin.y = yCoordinate
                 rect.size.height = self.journeyCompactViewHeight
                 headerView.frame = rect
+            }){ _ in
+                if isHeaderNeedSet{
+                    self.setTableViewHeaderFor(tableView: tableView)
+                }
             }
+        }else if isHeaderNeedSet{
+            self.setTableViewHeaderFor(tableView: tableView)
         }
+        
     }
         
-    func hideHeaderCellAt(index : Int) {
+    func hideHeaderCellAt(index : Int, isHeaderNeedSet: Bool = false)  {
         
         let headerView = journeyHeaderViewArray[index]
         
         if headerView.isHidden {
+            if isHeaderNeedSet{
+                if let table = self.baseScrollView.viewWithTag(1000 + index) as? UITableView{
+                    self.setTableViewHeaderFor(tableView: table)
+                }
+            }
             return
         }
         
@@ -181,6 +193,11 @@ extension FlightDomesticMultiLegResultVC {
                 headerView.frame = frame
             }) { (completed) in
                 headerView.isHidden = true
+                if isHeaderNeedSet{
+                    if let table = self.baseScrollView.viewWithTag(1000 + index) as? UITableView{
+                        self.setTableViewHeaderFor(tableView: table)
+                    }
+                }
             }
         }
     }
@@ -217,7 +234,7 @@ extension FlightDomesticMultiLegResultVC {
         else {
             height = 188.0
         }
-        guard !((tableView.tableHeaderView?.height) == height) else {return}
+//        guard !((tableView.tableHeaderView?.height) == height) else {return}
         let rect = CGRect(x: 0, y: 0, width: width, height: height )
         let tableHeaderView = UIView(frame: rect)
         tableView.tableHeaderView = tableHeaderView
@@ -372,9 +389,9 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
         if scrollView != self.baseScrollView{
             if let tableView = scrollView as? UITableView{
                 tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .middle, animated: true)
-                delay(seconds: 0.4) {
-                    self.setTableViewHeaderFor(tableView: tableView)
-                }
+//                delay(seconds: 0.4) {
+//                    self.setTableViewHeaderFor(tableView: tableView)
+//                }
             }
         }
         return false
@@ -422,19 +439,6 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
         }
     }
     
-    
-    func stopScrollingOnSelection(scrollView: UIScrollView)-> Bool{
-        
-        if let table = scrollView as? UITableView{
-            return !table.isScrollEnabled
-        }else if baseScrollView == scrollView{
-             return !scrollView.isScrollEnabled
-        }
-        return false
-        
-    }
-    
-    
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         
         if scrollView.tag > 999 {
@@ -478,6 +482,14 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         if let tableView = scrollView as? UITableView{
             setTableViewHeaderFor(tableView: tableView)
+        }
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        if let tableView = scrollView as? UITableView{
+            delay(seconds: 0.3) {
+                self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
+            }
         }
     }
     
