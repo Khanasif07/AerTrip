@@ -16,7 +16,7 @@ protocol  FlightStopsFilterDelegate : FilterDelegate {
 
 
 struct StopsFilter{
-    let availableStops : [Int]
+    var availableStops : [Int]
     var userSelectedStops = [Int]()
     
     var leastStop : Int {

@@ -424,8 +424,70 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             stopsViewController.allLegNames = legList
             stopsViewController.showingForReturnJourney = false
         }
-        
+        stopsViewController.isIntMCOrReturnVC = true
         stopsViewController.delegate = delegate as? FlightStopsFilterDelegate
+        stopsViewController.qualityFilterDelegate = delegate as? QualityFilterDelegate
+        if let qualityFilters = inputFilters.first?.fq {
+            if stopsViewController.enableOvernightFlightQualityFilter.indices.contains(0) {
+            stopsViewController.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideChangeAirport.title)
+            } else {
+                stopsViewController.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideChangeAirport.title), at: 0)
+            }
+        }
+    }
+    
+    func updateStopsFilter(_ stopsViewController  : FlightStopsFilterViewController , inputFilters : [FiltersWS])
+    {
+        if searchType == RETURN_JOURNEY {
+            var allLegsStops = [StopsFilter]()
+            for fliter in inputFilters
+            {
+                let stopsStringArray = fliter.stp
+                let stops : [Int] = stopsStringArray.map({Int($0) ?? 0})
+                let stopFilter = StopsFilter(stops: stops)
+                allLegsStops.append(stopFilter)
+            }
+            var reducedStops  = allLegsStops.reduce([], { $0 + $1.availableStops })
+            let reducedStopsSet = Set(reducedStops)
+            reducedStops = Array(reducedStopsSet).sorted()
+            stopsViewController.allStopsFilters[0].availableStops = reducedStops
+            
+        } else {
+            for index in 0..<inputFilters.count {
+                
+                var qualityFilter: QualityFilter?
+                if stopsViewController.allStopsFilters.indices.contains(index) {
+                    qualityFilter = stopsViewController.allStopsFilters[index].qualityFilter
+                }
+                
+                let filter = inputFilters[index]
+                let stopsStringArray = filter.stp
+                let stops : [Int] = stopsStringArray.map({Int($0) ?? 0})
+                let stopFilter = StopsFilter(stops: stops)
+                
+                if let userFilters = userAppliedFilters, userFilters.appliedFilters[0].contains(.stops), stopsViewController.allStopsFilters.indices.contains(index) {
+                    stopsViewController.allStopsFilters[index].availableStops = stopFilter.availableStops
+                } else {
+                    if !stopsViewController.allStopsFilters.indices.contains(index) {
+                        stopsViewController.allStopsFilters.insert(stopFilter, at: index)
+                    } else {
+                        stopsViewController.allStopsFilters[index] = stopFilter
+                    }
+                }
+                if let quality = qualityFilter {
+                    stopsViewController.allStopsFilters[index].qualityFilter = quality
+                }
+            }
+        }
+        
+        if let qualityFilters = inputFilters.first?.fq {
+            if stopsViewController.enableOvernightFlightQualityFilter.indices.contains(0) {
+                stopsViewController.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideChangeAirport.title)
+            } else {
+                stopsViewController.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideChangeAirport.title), at: 0)
+            }
+        }
+        stopsViewController.updateUIPostLatestResults()
     }
     
     
