@@ -212,7 +212,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                     
                     let currentLegJourney = selectedJourneys[i]
                     let nextLegJourney = selectedJourneys[(i + 1)]
-                    
+                                
                     let fsr = currentLegJourney.fsr + nextLegJourney.fsr
                     
                     guard let currentLegArrival = currentLegJourney.arrivalDate else { return }
@@ -230,7 +230,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                                 frame.size.height = frame.size.height - 16
                             }
                             
-                            if shouldDisplayToast{
+                            if self.viewModel.shouldDisplayToast {
                                 AertripToastView.toast(in: parentVC.view , withText: "Flight timings are not compatible. Select a different flight." , parentRect: frame)
                             }
                             
@@ -251,7 +251,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                                 frame.size.height = frame.size.height - 16
                             }
                             
-                            if shouldDisplayToast{
+                            if self.viewModel.shouldDisplayToast {
                                 AertripToastView.toast(in: parentVC.view , withText: "Selected flights have less than 2 hrs of gap." , parentRect: frame)
                             }
                             
@@ -400,6 +400,7 @@ extension  FlightDomesticMultiLegResultVC {
                 
                 if progress >= 0.97 {
                     self.ApiProgress.isHidden = true
+                    self.hideBannerWhenAPIFails()
                 }
             }
         }

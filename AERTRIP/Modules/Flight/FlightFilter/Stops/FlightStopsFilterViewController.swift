@@ -16,7 +16,7 @@ protocol  FlightStopsFilterDelegate : FilterDelegate {
 
 
 struct StopsFilter{
-    let availableStops : [Int]
+    var availableStops : [Int]
     var userSelectedStops = [Int]()
     
     var leastStop : Int {
@@ -33,6 +33,8 @@ struct StopsFilter{
         return availableStops.count
     }
     
+    var qualityFilter = QualityFilter(name: "Change of Airports", filterKey: "coa", isSelected: false, filterID: .hideChangeAirport)
+    
     init( stops : [Int]) {
         availableStops = stops
     }
@@ -40,11 +42,10 @@ struct StopsFilter{
     
     mutating func resetFilter() {
         userSelectedStops.removeAll()
+        qualityFilter.isSelected = false
     }
-    
-    
-    
 }
+
 class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     
     //MARK:- Outlets
@@ -58,8 +59,16 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     @IBOutlet weak var LeastStopsTitle: UILabel!
     @IBOutlet weak var LeastStopsTitleWidth: NSLayoutConstraint!
     
+    @IBOutlet weak var avoidChangeOfAirportsView: UIView!
+    @IBOutlet weak var avoidChangeOfAirportsTitleLbl: UILabel!
+    @IBOutlet weak var allSectorsLbl: UILabel!
+    @IBOutlet weak var avoidChangeOfAirportsDescLbl: UILabel!
+    @IBOutlet weak var avoidChangeOfAirportsImgView: UIImageView!
+    @IBOutlet weak var avoidChangeOfAirportsBtn: UIButton!
+    
     //MARK:- State Properties
     weak var delegate : FlightStopsFilterDelegate?
+    weak var qualityFilterDelegate : QualityFilterDelegate?
     var currentActiveIndex = 0
     var allStopsFilters = [StopsFilter]()
     var currentStopFilter : StopsFilter!
@@ -68,10 +77,14 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     var showingForReturnJourney = false
     
     private var multiLegSegmentControl = UISegmentedControl()
+    var enableOvernightFlightQualityFilter = [Bool]()
+    var isIntMCOrReturnVC = false
     
     //MARK:- View Controller methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        allSectorsLbl.isHidden = !isIntMCOrReturnVC
         
         if allStopsFilters.count > 0 {
             currentStopFilter = allStopsFilters[0]
@@ -92,6 +105,15 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
             setupMultiLegSegmentControl()
             stopsBaseViewTopConstant.constant = 107
         }
+        setupOvernightFlightsView()
+    }
+    
+    private func setupOvernightFlightsView() {
+        avoidChangeOfAirportsTitleLbl.font = AppFonts.Regular.withSize(18)
+        avoidChangeOfAirportsDescLbl.font = AppFonts.Regular.withSize(14)
+        avoidChangeOfAirportsDescLbl.textColor = AppColors.themeGray60
+        allSectorsLbl.font = AppFonts.Regular.withSize(14)
+        allSectorsLbl.textColor = AppColors.themeGray40
     }
     
     func initialSetup() {
@@ -99,8 +121,8 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     }
     
     func updateUIPostLatestResults() {
+        currentStopFilter = allStopsFilters[currentActiveIndex]
         setupStopsBaseView()
-        
         if allStopsFilters.count == 1 {
             multiLegViewHeight.constant = 0
             multiLegJourney.isHidden = true
@@ -112,6 +134,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
             setLeastStopsTitle()
             setupMultiLegSegmentControl()
         }
+        hideShowOvernightView()
     }
     
     func resetFilter() {
@@ -275,6 +298,8 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         currentStopFilter = allStopsFilters[currentActiveIndex]
         setStopsSubviews()
         updateSegmentTitles()
+        hideShowOvernightView()
+        resetAvoidChangeOfAirportsBtn()
     }
     
     private func getSegmentTitleFor(_ index: Int) -> String {
@@ -489,5 +514,49 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
             }
         allStopsFilters[currentActiveIndex] = currentStopFilter
         updateSegmentTitles()
+    }
+    
+    @IBAction func avoidChangeOfAirportsBtnAction(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        toggleAvoidChangeOfAirports(sender.isSelected)
+        updateSegmentTitles()
+    }
+    
+    private func toggleAvoidChangeOfAirports(_ selected: Bool) {
+        currentStopFilter.qualityFilter.isSelected = selected
+        allStopsFilters[currentActiveIndex] = currentStopFilter
+        
+        if isIntMCOrReturnVC {
+            allStopsFilters = allStopsFilters.map {
+                var newFilter = $0
+                newFilter.qualityFilter = currentStopFilter.qualityFilter
+                return newFilter
+            }
+        }
+        qualityFilterDelegate?.qualityFilterChangedAt(currentActiveIndex, filter: currentStopFilter.qualityFilter)
+        resetAvoidChangeOfAirportsBtn()
+        
+    }
+    
+    private func resetAvoidChangeOfAirportsBtn() {
+        avoidChangeOfAirportsBtn.isSelected = currentStopFilter.qualityFilter.isSelected
+        if currentStopFilter.qualityFilter.isSelected {
+            avoidChangeOfAirportsImgView.image = UIImage(named: "CheckedGreenRadioButton")
+        }
+        else {
+            avoidChangeOfAirportsImgView.image = UIImage(named: "UncheckedGreenRadioButton")
+        }
+    }
+    
+    private func hideShowOvernightView() {
+        if isIntMCOrReturnVC {
+            if enableOvernightFlightQualityFilter.indices.contains(0) {
+                avoidChangeOfAirportsView.isHidden = !enableOvernightFlightQualityFilter[0]
+            }
+        } else {
+            if enableOvernightFlightQualityFilter.indices.contains(currentActiveIndex) {
+                avoidChangeOfAirportsView.isHidden = !enableOvernightFlightQualityFilter[currentActiveIndex]
+            }
+        }
     }
 }
