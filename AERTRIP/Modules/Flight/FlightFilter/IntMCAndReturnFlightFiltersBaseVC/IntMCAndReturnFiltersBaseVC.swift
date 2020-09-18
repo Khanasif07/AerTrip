@@ -199,7 +199,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     func updateMenuItems() {
         guard let filters = userAppliedFilters else { return }
         menuItems[Filters.sort.rawValue].isSelected = filters.appliedFilters[0].contains(.sort)
-        menuItems[Filters.stops.rawValue].isSelected = filters.appliedFilters[0].contains(.stops)
+        menuItems[Filters.stops.rawValue].isSelected = filters.appliedFilters[0].contains(.stops) || filters.uiFilters[0].contains(.hideChangeAirport)
         menuItems[Filters.Times.rawValue].isSelected = filters.appliedFilters[0].contains(.Times) || filters.uiFilters[0].contains(.hideOvernight)
         menuItems[Filters.Duration.rawValue].isSelected = filters.appliedFilters[0].contains(.Duration) || filters.uiFilters[0].contains(.hideOvernightLayover)
         menuItems[Filters.Airlines.rawValue].isSelected = filters.appliedFilters[0].contains(.Airlines)

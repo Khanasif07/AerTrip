@@ -183,7 +183,9 @@ class FlightFilterBaseVC: UIViewController {
     func updateMenuItems() {
         guard let filters = userAppliedFilters else { return }
         menuItems[Filters.sort.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.sort) }
-        menuItems[Filters.stops.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.stops) }
+        var stopsCheck = filters.appliedFilters.reduce(false) { $0 || $1.contains(.stops) }
+        stopsCheck = stopsCheck || (filters.uiFilters.reduce(false) { $0 || $1.contains(.hideChangeAirport) })
+        menuItems[Filters.stops.rawValue].isSelected = stopsCheck
         var timesCheck = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Times) }
         timesCheck = timesCheck || (filters.uiFilters.reduce(false) { $0 || $1.contains(.hideOvernight) })
         menuItems[Filters.Times.rawValue].isSelected = timesCheck
