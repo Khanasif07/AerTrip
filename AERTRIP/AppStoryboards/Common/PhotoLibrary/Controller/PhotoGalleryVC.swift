@@ -56,6 +56,7 @@ class PhotoGalleryVC: BaseVC {
                 AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
             }
         }
+        self.bottomContainerView.layoutIfNeeded()
     }
     
     override func initialSetup() {

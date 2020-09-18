@@ -13,12 +13,16 @@ extension HotlelBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelInfoAddressCell.reusableIdentifier, for: indexPath) as? HotelInfoAddressCell else { return UITableViewCell() }
         cell.configureNotesCell(notes: self.viewModel.bookingDetail?.bookingDetail?.note ?? "", isHiddenDivider: (self.viewModel.bookingDetail?.cases ?? []).isEmpty)
         cell.containerViewBottomConstraint.constant = (self.viewModel.bookingDetail?.cases.isEmpty ?? true) ? 14 : 0
+        cell.addressLblTopConst.constant = 16+3.5
         cell.clipsToBounds = true
         return cell
     }
     
     func getRequestsCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightBookingsRequestTitleTableViewCell.reusableIdentifier, for: indexPath) as? FlightBookingsRequestTitleTableViewCell else { return UITableViewCell() }
+        if let note = self.viewModel.bookingDetail?.bookingDetail?.note, !note.isEmpty {
+            cell.requestLabelTopConstraint.constant = 22+3.5
+        }
         cell.clipsToBounds = true
         return cell
     }

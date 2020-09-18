@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,10 +13,16 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FlightStopsFilterViewController" customModule="Aertrip" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FlightStopsFilterViewController" customModule="AERTRIP" customModuleProvider="target">
             <connections>
                 <outlet property="LeastStopsTitle" destination="M90-vP-OGF" id="IHS-Qv-ovo"/>
                 <outlet property="LeastStopsTitleWidth" destination="YT9-zo-ITE" id="fHs-AP-0bJ"/>
+                <outlet property="allSectorsLbl" destination="88M-UI-7sk" id="6uf-pH-tGv"/>
+                <outlet property="avoidChangeOfAirportsBtn" destination="ukZ-mW-Tgs" id="BgI-na-NOQ"/>
+                <outlet property="avoidChangeOfAirportsDescLbl" destination="WLr-cs-WMU" id="1W6-aV-ItI"/>
+                <outlet property="avoidChangeOfAirportsImgView" destination="sdg-Qa-P8m" id="EcK-bH-RJo"/>
+                <outlet property="avoidChangeOfAirportsTitleLbl" destination="NMQ-YS-asZ" id="409-2H-2R2"/>
+                <outlet property="avoidChangeOfAirportsView" destination="Asw-DW-IKm" id="twv-Vo-NJ6"/>
                 <outlet property="leastStopTapGestureView" destination="eVf-aY-xAL" id="uF4-ea-qr6"/>
                 <outlet property="leastStopsButton" destination="idb-mB-2vh" id="IbV-BM-sQu"/>
                 <outlet property="multiLegJourney" destination="cdt-Vs-JXG" id="hjV-Ux-XTq"/>
@@ -105,12 +111,74 @@
                         <constraint firstAttribute="height" constant="69" id="SqO-3w-fSY"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Asw-DW-IKm">
+                    <rect key="frame" x="0.0" y="176" width="375" height="124.5"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="CQE-ge-yHW">
+                            <rect key="frame" x="16" y="20" width="311" height="84.5"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="left" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YsB-zt-dAo">
+                                    <rect key="frame" x="0.0" y="0.0" width="311" height="20.5"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="Avoid Change of Airports" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMQ-YS-asZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="191.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Sectors" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="88M-UI-7sk">
+                                            <rect key="frame" x="201.5" y="0.0" width="109.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Eliminates results which requires travellers to travel from one airport to another" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLr-cs-WMU">
+                                    <rect key="frame" x="0.0" y="23.5" width="311" height="61"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UncheckedGreenRadioButton" translatesAutoresizingMaskIntoConstraints="NO" id="sdg-Qa-P8m">
+                            <rect key="frame" x="337" y="19.5" width="22" height="22"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="22" id="Yel-RD-sg3"/>
+                                <constraint firstAttribute="height" constant="22" id="aDD-rr-vdV"/>
+                            </constraints>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ukZ-mW-Tgs">
+                            <rect key="frame" x="0.0" y="15" width="375" height="89.5"/>
+                            <connections>
+                                <action selector="avoidChangeOfAirportsBtnAction:" destination="-1" eventType="touchUpInside" id="YvM-St-Sdn"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstItem="sdg-Qa-P8m" firstAttribute="centerY" secondItem="NMQ-YS-asZ" secondAttribute="centerY" id="3Hh-w4-IDQ"/>
+                        <constraint firstItem="CQE-ge-yHW" firstAttribute="leading" secondItem="Asw-DW-IKm" secondAttribute="leading" constant="16" id="4FG-hn-A5k"/>
+                        <constraint firstItem="ukZ-mW-Tgs" firstAttribute="bottom" secondItem="CQE-ge-yHW" secondAttribute="bottom" id="6HY-FR-gqK"/>
+                        <constraint firstItem="CQE-ge-yHW" firstAttribute="top" secondItem="Asw-DW-IKm" secondAttribute="top" constant="20" id="A5c-sp-shS"/>
+                        <constraint firstAttribute="trailing" secondItem="ukZ-mW-Tgs" secondAttribute="trailing" id="CFU-VQ-5UD"/>
+                        <constraint firstAttribute="trailing" secondItem="sdg-Qa-P8m" secondAttribute="trailing" constant="16" id="KVv-fy-KnZ"/>
+                        <constraint firstAttribute="bottom" secondItem="CQE-ge-yHW" secondAttribute="bottom" constant="20" id="bQO-Xh-eYE"/>
+                        <constraint firstItem="sdg-Qa-P8m" firstAttribute="leading" secondItem="CQE-ge-yHW" secondAttribute="trailing" constant="10" id="hbS-L4-aud"/>
+                        <constraint firstItem="ukZ-mW-Tgs" firstAttribute="top" secondItem="CQE-ge-yHW" secondAttribute="top" constant="-5" id="lEs-rT-Qlp"/>
+                        <constraint firstItem="ukZ-mW-Tgs" firstAttribute="leading" secondItem="Asw-DW-IKm" secondAttribute="leading" id="xof-n8-MnQ"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="jus-qh-ZhY" secondAttribute="trailing" constant="16" id="AG9-zP-Fb5"/>
+                <constraint firstItem="Asw-DW-IKm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="BCh-PA-CxT"/>
+                <constraint firstItem="Asw-DW-IKm" firstAttribute="top" secondItem="EXG-si-kgu" secondAttribute="bottom" id="I12-Ig-Za0"/>
                 <constraint firstItem="cdt-Vs-JXG" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="Run-NM-rtB"/>
                 <constraint firstItem="cdt-Vs-JXG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="XLM-1h-yXF"/>
+                <constraint firstAttribute="trailing" secondItem="Asw-DW-IKm" secondAttribute="trailing" id="XPf-cP-z5I"/>
                 <constraint firstItem="cdt-Vs-JXG" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="b3C-38-lfI"/>
                 <constraint firstItem="EXG-si-kgu" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="muL-Qc-bS8"/>
                 <constraint firstItem="EXG-si-kgu" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="107" id="pTj-ca-qaY"/>

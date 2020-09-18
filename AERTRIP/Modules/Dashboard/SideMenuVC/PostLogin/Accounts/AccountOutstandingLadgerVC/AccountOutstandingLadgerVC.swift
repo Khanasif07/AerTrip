@@ -215,6 +215,8 @@ class AccountOutstandingLadgerVC: BaseVC {
         if let object = note.object as? AccountDetailPostModel {
             printDebug("accountDetailFetched")
             self.viewModel.accountOutstanding = object.outstandingLadger
+            reloadList()
+            setupTexts()
         }
     }
     

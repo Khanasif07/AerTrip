@@ -58,7 +58,7 @@ class AccountOnlineDepositVC: BaseVC {
         delay(seconds: 0.8) { [weak self] in
             guard let strongSelf = self else {return}
             if let cell = strongSelf.checkOutTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AccountDepositAmountCell {
-                cell.amountTextField.becomeFirstResponder()
+                cell.amountTextField.selectAll(nil)
             }
         }
     }

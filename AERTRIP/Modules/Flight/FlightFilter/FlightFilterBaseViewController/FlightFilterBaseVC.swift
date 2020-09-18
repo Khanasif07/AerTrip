@@ -183,7 +183,9 @@ class FlightFilterBaseVC: UIViewController {
     func updateMenuItems() {
         guard let filters = userAppliedFilters else { return }
         menuItems[Filters.sort.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.sort) }
-        menuItems[Filters.stops.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.stops) }
+        var stopsCheck = filters.appliedFilters.reduce(false) { $0 || $1.contains(.stops) }
+        stopsCheck = stopsCheck || (filters.uiFilters.reduce(false) { $0 || $1.contains(.hideChangeAirport) })
+        menuItems[Filters.stops.rawValue].isSelected = stopsCheck
         var timesCheck = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Times) }
         timesCheck = timesCheck || (filters.uiFilters.reduce(false) { $0 || $1.contains(.hideOvernight) })
         menuItems[Filters.Times.rawValue].isSelected = timesCheck
@@ -294,8 +296,9 @@ extension FlightFilterBaseVC {
                 }
             case FlightStopsFilterViewController.className :
                 if let stopVC = viewController as? FlightStopsFilterViewController {
-                    setStopsVC(stopVC, inputFilters: filters)
-                    stopVC.updateUIPostLatestResults()
+//                    setStopsVC(stopVC, inputFilters: filters)
+//                    stopVC.updateUIPostLatestResults()
+                    updateStopsFilter(stopVC, inputFilters: filters)
                 }
             case AirportsFilterViewController.className :
                 if let airportFilter = viewController as? AirportsFilterViewController {
@@ -346,6 +349,69 @@ extension FlightFilterBaseVC {
         }
         
         stopsViewController.delegate = delegate as? FlightStopsFilterDelegate
+        stopsViewController.qualityFilterDelegate = delegate as? QualityFilterDelegate
+        inputFilters.enumerated().forEach { (index, filter) in
+            if stopsViewController.enableOvernightFlightQualityFilter.indices.contains(index) {
+                stopsViewController.enableOvernightFlightQualityFilter[index] =  filter.fq.values.contains(UIFilters.hideChangeAirport.title)
+            } else {
+                stopsViewController.enableOvernightFlightQualityFilter.insert(filter.fq.values.contains(UIFilters.hideChangeAirport.title), at: index)
+            }
+        }
+    }
+    
+    
+    func updateStopsFilter(_ stopsViewController  : FlightStopsFilterViewController , inputFilters : [FiltersWS])
+    {
+        if searchType == RETURN_JOURNEY {
+            var allLegsStops = [StopsFilter]()
+            for fliter in inputFilters
+            {
+                let stopsStringArray = fliter.stp
+                let stops : [Int] = stopsStringArray.map({Int($0) ?? 0})
+                let stopFilter = StopsFilter(stops: stops)
+                allLegsStops.append(stopFilter)
+            }
+            var reducedStops  = allLegsStops.reduce([], { $0 + $1.availableStops })
+            let reducedStopsSet = Set(reducedStops)
+            reducedStops = Array(reducedStopsSet).sorted()
+            stopsViewController.allStopsFilters[0].availableStops = reducedStops
+            
+        } else {
+            for index in 0..<inputFilters.count {
+                
+                var qualityFilter: QualityFilter?
+                if stopsViewController.allStopsFilters.indices.contains(index) {
+                    qualityFilter = stopsViewController.allStopsFilters[index].qualityFilter
+                }
+                
+                let filter = inputFilters[index]
+                let stopsStringArray = filter.stp
+                let stops : [Int] = stopsStringArray.map({Int($0) ?? 0})
+                let stopFilter = StopsFilter(stops: stops)
+                
+                if let userFilters = userAppliedFilters, userFilters.appliedFilters[index].contains(.stops), stopsViewController.allStopsFilters.indices.contains(index) {
+                    stopsViewController.allStopsFilters[index].availableStops = stopFilter.availableStops
+                } else {
+                    if !stopsViewController.allStopsFilters.indices.contains(index) {
+                        stopsViewController.allStopsFilters.insert(stopFilter, at: index)
+                    } else {
+                        stopsViewController.allStopsFilters[index] = stopFilter
+                    }
+                }
+                if let quality = qualityFilter {
+                    stopsViewController.allStopsFilters[index].qualityFilter = quality
+                }
+            }
+        }
+        
+        inputFilters.enumerated().forEach { (index, filter) in
+            if stopsViewController.enableOvernightFlightQualityFilter.indices.contains(index) {
+                stopsViewController.enableOvernightFlightQualityFilter[index] =  filter.fq.values.contains(UIFilters.hideChangeAirport.title)
+            } else {
+                stopsViewController.enableOvernightFlightQualityFilter.insert(filter.fq.values.contains(UIFilters.hideChangeAirport.title), at: index)
+            }
+        }
+        stopsViewController.updateUIPostLatestResults()
     }
     
     //MARK:- Times

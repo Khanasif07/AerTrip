@@ -149,7 +149,7 @@ class MyBookingsVC: BaseVC {
     }
     // Asif Change
     public func setUpViewPager() {
-        self.currentIndex = 0
+        
         self.allChildVCs.removeAll()
         if allTabsStr.contains("Upcoming"){
             let upcomingVC = UpcomingBookingsVC.instantiate(fromAppStoryboard: .Bookings)
@@ -219,11 +219,11 @@ class MyBookingsVC: BaseVC {
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
         self.parchmentView?.sizeDelegate = self
-        self.parchmentView?.select(index: 0)
-        
+        self.parchmentView?.select(index: self.currentIndex)
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
-        
+        self.parchmentView?.select(index: self.currentIndex)
+
         self.parchmentView?.menuBackgroundColor = UIColor.clear
         self.parchmentView?.collectionView.backgroundColor = UIColor.clear
     }

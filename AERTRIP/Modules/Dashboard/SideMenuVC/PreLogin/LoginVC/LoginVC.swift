@@ -133,7 +133,7 @@ class LoginVC: BaseVC {
         
         self.passwordTextField.isSecureTextEntry = !self.passwordTextField.isSecureTextEntry
         
-        if self.passwordTextField.isSecureTextEntry {
+        if !self.passwordTextField.isSecureTextEntry {
             self.showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 4, right: 0)
             sender.setImage(#imageLiteral(resourceName: "showPassword"), for: .normal)
         } else {
@@ -153,6 +153,17 @@ class LoginVC: BaseVC {
         if self.viewModel.isValidateData(vc: self) {
 
             self.viewModel.webserviceForLogin()
+        } else {
+            let isValidEmail = !self.viewModel.email.checkInvalidity(.Email)
+            let isValidPassword = !self.viewModel.password.isEmpty
+
+                self.emailTextField.isError = !isValidEmail
+                self.passwordTextField.isError = !isValidPassword //self.viewModel.password.checkInvalidity(.Password)  removed the validation because to match with website
+            let emailPlaceHolder = self.emailTextField.placeholder ?? ""
+            self.emailTextField.attributedPlaceholder = NSAttributedString(string: emailPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray40 :  AppColors.themeRed])
+            
+            let passwordPlaceHolder = self.passwordTextField.placeholder ?? ""
+            self.passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidPassword ? AppColors.themeGray40 :  AppColors.themeRed])
         }
     }
     
@@ -200,7 +211,7 @@ private extension LoginVC {
 //        self.emailTextField.isSingleTextField = false
 //        self.passwordTextField.isSingleTextField = false
        
-        self.loginButton.isEnabled = false
+        //self.loginButton.isEnabled = false
         self.loginButton.configureCommonGreenButton()
         
 //        self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
@@ -219,6 +230,11 @@ private extension LoginVC {
         paddingView.backgroundColor = .clear
         passwordTextField.rightView = paddingView
         passwordTextField.rightViewMode = .always
+        
+        passwordTextField.isSecureTextEntry = false
+        showPasswordButtonAction(self.showPasswordButton)
+        
+        self.loginButton.isEnabledShadow = true
     }
     
     func setupFontsAndText() {
@@ -291,18 +307,28 @@ extension LoginVC {
             
             self.viewModel.password = (textField.text ?? "").removeAllWhitespaces
         }
-         self.loginButton.isEnabled = self.viewModel.email.count > 0 && self.viewModel.password.count > 0 
+         //self.loginButton.isEnabled = self.viewModel.email.count > 0 && self.viewModel.password.count > 0
+        
+        self.loginButton.isEnabledShadow  = !self.viewModel.isLoginButtonEnable
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
+
         //for verify the data
         if textField === self.emailTextField {
-            self.emailTextField.isError = self.viewModel.email.checkInvalidity(.Email)
+            let isValidEmail = !self.viewModel.email.checkInvalidity(.Email)
+            self.emailTextField.isError = !isValidEmail
+            let emailPlaceHolder = self.emailTextField.placeholder ?? ""
+            self.emailTextField.attributedPlaceholder = NSAttributedString(string: emailPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray40 :  AppColors.themeRed])
         } else {
-            
-            self.passwordTextField.isError = self.viewModel.password.isEmpty //self.viewModel.password.checkInvalidity(.Password)  removed the validation because to match with website
+            let isValidPassword = !self.viewModel.password.isEmpty
+            self.passwordTextField.isError = !self.viewModel.password.isEmpty //self.viewModel.password.checkInvalidity(.Password)  removed the validation because to match with website
+            let passwordPlaceHolder = self.passwordTextField.placeholder ?? ""
+            self.passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidPassword ? AppColors.themeGray40 :  AppColors.themeRed])
         }
+        
+        
+        
     }
     
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {

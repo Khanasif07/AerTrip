@@ -131,7 +131,7 @@ class ChangePasswordVC: BaseVC {
     
     @IBAction func showOldPasswordButtonAction(_ sender: UIButton) {
         self.oldPasswordTextField.isSecureTextEntry = !self.oldPasswordTextField.isSecureTextEntry
-        if self.oldPasswordTextField.isSecureTextEntry {
+        if !self.oldPasswordTextField.isSecureTextEntry {
             self.showOldPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 4, right: 1.5)
             sender.setImage(#imageLiteral(resourceName: "showPassword"), for: .normal)
         } else {
@@ -142,7 +142,7 @@ class ChangePasswordVC: BaseVC {
     
     @IBAction func showPasswordButtonAction(_ sender: UIButton) {
         self.passwordTextField.isSecureTextEntry = !self.passwordTextField.isSecureTextEntry
-        if self.passwordTextField.isSecureTextEntry {
+        if !self.passwordTextField.isSecureTextEntry {
             self.showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 4, right: 1.5)
             sender.setImage(#imageLiteral(resourceName: "showPassword"), for: .normal)
         } else {
@@ -161,6 +161,16 @@ class ChangePasswordVC: BaseVC {
             } else {
                 self.viewModel.webserviceForChangePassword()
             }
+        } else {
+            let isValidOldPassword = !self.viewModel.oldPassword.checkInvalidity(.Password)
+            self.oldPasswordTextField.isError = !isValidOldPassword //self.viewModel.password.checkInvalidity(.Password)  removed the validation because to match with website
+            let oldPasswordPlaceHolder = self.oldPasswordTextField.placeholder ?? ""
+            self.oldPasswordTextField.attributedPlaceholder = NSAttributedString(string: oldPasswordPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidOldPassword ? AppColors.themeGray40 :  AppColors.themeRed])
+            
+            let isValidPassword = !self.viewModel.password.checkInvalidity(.Password)
+            self.passwordTextField.isError = !isValidPassword //self.viewModel.password.checkInvalidity(.Password)  removed the validation because to match with website
+            let passwordPlaceHolder = self.passwordTextField.placeholder ?? ""
+            self.passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidPassword ? AppColors.themeGray40 :  AppColors.themeRed])
         }
     }
 }
@@ -177,7 +187,7 @@ private extension ChangePasswordVC {
         self.topNavBar.delegate = self
         self.oldPasswordTextField.delegate = self
         self.passwordTextField.delegate = self
-        self.nextButton.isEnabled = false
+        //self.nextButton.isEnabled = false
         //        self.passwordTextField.titleYPadding = -5.0
         //        self.passwordTextField.lineViewBottomSpace = 10.0
         self.oldPasswordTextField.titleYPadding = 12.0
@@ -212,6 +222,14 @@ private extension ChangePasswordVC {
             self.oldPasswordTextField.isHidden = true
             self.showOldPasswordButton.isHidden = true
         }
+        
+        passwordTextField.isSecureTextEntry = false
+        showPasswordButtonAction(self.showPasswordButton)
+        
+        oldPasswordTextField.isSecureTextEntry = false
+        showOldPasswordButtonAction(self.showOldPasswordButton)
+        
+        self.nextButton.isEnabledShadow = true
     }
 }
 
@@ -233,6 +251,11 @@ extension ChangePasswordVC {
         }
         
         self.setupValidation()
+        if self.viewModel.isPasswordType == .setPassword {
+            self.nextButton.isEnabledShadow = self.viewModel.password.checkInvalidity(.Password)
+        } else {
+            self.nextButton.isEnabledShadow = (self.viewModel.password.checkInvalidity(.Password) || self.viewModel.oldPassword.checkValidity(.Password))
+        }
     }
     
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -244,7 +267,19 @@ extension ChangePasswordVC {
         self.nextButtonAction(self.nextButton)
         return true
     }
-    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == oldPasswordTextField {
+            let isValidPassword = !self.viewModel.oldPassword.checkInvalidity(.Password)
+            self.oldPasswordTextField.isError = !isValidPassword //self.viewModel.password.checkInvalidity(.Password)  removed the validation because to match with website
+            let oldPasswordPlaceHolder = self.oldPasswordTextField.placeholder ?? ""
+            self.oldPasswordTextField.attributedPlaceholder = NSAttributedString(string: oldPasswordPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidPassword ? AppColors.themeGray40 :  AppColors.themeRed])
+        } else {
+            let isValidPassword = !self.viewModel.password.checkInvalidity(.Password)
+            self.passwordTextField.isError = !isValidPassword //self.viewModel.password.checkInvalidity(.Password)  removed the validation because to match with website
+            let passwordPlaceHolder = self.passwordTextField.placeholder ?? ""
+            self.passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidPassword ? AppColors.themeGray40 :  AppColors.themeRed])
+        }
+    }
     
     
     func setupValidation() {
@@ -358,7 +393,7 @@ extension ChangePasswordVC {
             
         }
         
-        
+        /*
         if self.viewModel.isPasswordType == .setPassword {
             if self.viewModel.password.checkValidity(.Password) {
                 self.nextButton.isEnabled = true
@@ -373,6 +408,7 @@ extension ChangePasswordVC {
                 self.nextButton.isEnabled = false
             }
         }
+ */
     }
 }
 
