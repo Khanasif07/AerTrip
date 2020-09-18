@@ -264,7 +264,7 @@ class FlightResultSingleJourneyVM {
                                
                            } else{
                                
-                               guard let jour = journeyArrayToSort[index].getJourneysWithMaxArivalTime() else { return }
+                               guard let jour = journeyArrayToSort[index].getJourneysWithMinArivalTime() else { return }
                                journeyArrayToSort[index].selectedFK = jour.fk
                                              
                                if let ind = journeyArrayToSort[index].journeyArray.firstIndex(where: { (jrny) -> Bool in
