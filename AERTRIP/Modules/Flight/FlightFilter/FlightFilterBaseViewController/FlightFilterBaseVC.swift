@@ -346,6 +346,14 @@ extension FlightFilterBaseVC {
         }
         
         stopsViewController.delegate = delegate as? FlightStopsFilterDelegate
+        stopsViewController.qualityFilterDelegate = delegate as? QualityFilterDelegate
+        inputFilters.enumerated().forEach { (index, filter) in
+            if stopsViewController.enableOvernightFlightQualityFilter.indices.contains(index) {
+                stopsViewController.enableOvernightFlightQualityFilter[index] =  filter.fq.values.contains(UIFilters.hideChangeAirport.title)
+            } else {
+                stopsViewController.enableOvernightFlightQualityFilter.insert(filter.fq.values.contains(UIFilters.hideChangeAirport.title), at: index)
+            }
+        }
     }
     
     //MARK:- Times
