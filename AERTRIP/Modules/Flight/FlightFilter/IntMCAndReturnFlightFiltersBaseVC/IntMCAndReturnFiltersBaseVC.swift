@@ -302,8 +302,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                 }
             case FlightStopsFilterViewController.className :
                 if let stopVC = viewController as? FlightStopsFilterViewController {
-                    setStopsVC(stopVC, inputFilters: filters)
-                    stopVC.updateUIPostLatestResults()
+//                    setStopsVC(stopVC, inputFilters: filters)
+//                    stopVC.updateUIPostLatestResults()
+                    updateStopsFilter(stopVC, inputFilters: filters)
                 }
             case AirportsFilterViewController.className :
                 if let airportFilter = viewController as? AirportsFilterViewController {
@@ -436,7 +437,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         }
     }
     
-    func updateStopsFilter(_ stopsViewController  : FlightStopsFilterViewController , inputFilters : [FiltersWS])
+    func updateStopsFilter(_ stopsViewController  : FlightStopsFilterViewController , inputFilters : [IntMultiCityAndReturnWSResponse.Results.F])
     {
         if searchType == RETURN_JOURNEY {
             var allLegsStops = [StopsFilter]()

@@ -121,6 +121,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     }
     
     func updateUIPostLatestResults() {
+        currentStopFilter = allStopsFilters[currentActiveIndex]
         setupStopsBaseView()
         if allStopsFilters.count == 1 {
             multiLegViewHeight.constant = 0
