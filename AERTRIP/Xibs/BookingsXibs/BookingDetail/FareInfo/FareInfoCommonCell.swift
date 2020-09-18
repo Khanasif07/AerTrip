@@ -137,18 +137,18 @@ class FareInfoCommonCell: ATTableViewCell {
             if indexPath.row < adtAirlineCancellationSlab.count{
                 let airlineValue = adtAirlineCancellationSlab[indexPath.row].value!
                 
-                if let sla = adtAirlineCancellationSlab[indexPath.row].from, let slab = adtAirlineCancellationSlab[indexPath.row].to{
-                    /*
-                    let slaInHours = sla.hoursFrom(slab)
+                if let sla = adtAirlineCancellationSlab[indexPath.row].fromHour, let slab = adtAirlineCancellationSlab[indexPath.row].toHour{
                     
-                    let totalSlab = slaInHours //slaInHours + slab
+                    let slaInHours = minutesToHoursMinutes(seconds: sla) //sla.hoursFrom(slab)
+                    
+                    let totalSlab = slaInHours + slab
                     let strTotalSlab = String(totalSlab).replacingOccurrences(of: "-", with: "")
                     
                     if indexPath.row > 0{
-                        if let prevSla = adtAirlineCancellationSlab[indexPath.row-1].from, let prevSlab = adtAirlineCancellationSlab[indexPath.row-1].to {
+                        if let prevSla = adtAirlineCancellationSlab[indexPath.row-1].fromHour, let prevSlab = adtAirlineCancellationSlab[indexPath.row-1].toHour {
                             
-                            let prevSlaInHours = prevSla.hoursFrom(prevSlab) //minutesToHoursMinutes(seconds: prevSla!)
-                            let prevTotalSlab = prevSlaInHours //prevSlab! + prevSlaInHours
+                            let prevSlaInHours = minutesToHoursMinutes(seconds: prevSla)
+                            let prevTotalSlab = prevSlab + prevSlaInHours
                             
                             let strPrevTotalSlab = String(prevTotalSlab).replacingOccurrences(of: "-", with: "")
                             
@@ -167,8 +167,8 @@ class FareInfoCommonCell: ATTableViewCell {
                             self.slabTimeLabel.text = "\(strTotalSlab) hours or earlier"
                         }
                     }
- */
-                    self.slabTimeLabel.text = "\(sla.toString(dateFormat: "d MMM, HH:mm")) - \(slab.toString(dateFormat: "d MMM, HH:mm"))"
+ 
+                    //self.slabTimeLabel.text = "\(sla.toString(dateFormat: "d MMM, HH:mm")) - \(slab.toString(dateFormat: "d MMM, HH:mm"))"
 
                 }
                 
@@ -309,19 +309,19 @@ class FareInfoCommonCell: ATTableViewCell {
             //            }
             
             if indexPath.row < adtAirlineReschedulingSlab.count{
-                if let sla = adtAirlineReschedulingSlab[indexPath.row].from, let slab = adtAirlineReschedulingSlab[indexPath.row].to{
-                    /*
-                    let slaInHours = sla.hoursFrom(slab)
+                if let sla = adtAirlineReschedulingSlab[indexPath.row].fromHour, let slab = adtAirlineReschedulingSlab[indexPath.row].toHour{
                     
-                    let totalSlab = slaInHours //slaInHours + slab
+                    let slaInHours = minutesToHoursMinutes(seconds: sla) //sla.hoursFrom(slab)
+                    
+                    let totalSlab = slaInHours + slab
                     
                     let strTotalSlab = String(totalSlab).replacingOccurrences(of: "-", with: "")
                     
                     if indexPath.row > 0{
-                        if let prevSla = adtAirlineReschedulingSlab[indexPath.row-1].from, let prevSlab = adtAirlineReschedulingSlab[indexPath.row-1].to {
+                        if let prevSla = adtAirlineReschedulingSlab[indexPath.row-1].fromHour, let prevSlab = adtAirlineReschedulingSlab[indexPath.row-1].toHour {
                             
-                            let prevSlaInHours = prevSla.hoursFrom(prevSlab) //minutesToHoursMinutes(seconds: prevSla!)
-                            let prevTotalSlab = prevSlaInHours //prevSlab! + prevSlaInHours
+                            let prevSlaInHours = minutesToHoursMinutes(seconds: prevSla)
+                            let prevTotalSlab = prevSlab + prevSlaInHours
                             
                             let strPrevTotalSlab = String(prevTotalSlab).replacingOccurrences(of: "-", with: "")
                             
@@ -340,8 +340,8 @@ class FareInfoCommonCell: ATTableViewCell {
                             self.slabTimeLabel.text = "\(strTotalSlab) hours or earlier"
                         }
                     }
-                    */
-                    self.slabTimeLabel.text = "\(sla.toString(dateFormat: "d MMM, HH:mm")) - \(slab.toString(dateFormat: "d MMM, HH:mm"))"
+                    
+                   // self.slabTimeLabel.text = "\(sla.toString(dateFormat: "d MMM, HH:mm")) - \(slab.toString(dateFormat: "d MMM, HH:mm"))"
                 }
                 
                 let value = adtAirlineReschedulingSlab[indexPath.row].value
@@ -560,5 +560,9 @@ class FareInfoCommonCell: ATTableViewCell {
         finalString.append(NSMutableAttributedString(string: " + "))
         finalString.append(aPrice)
         return finalString
+    }
+    
+    func minutesToHoursMinutes (seconds : Int) -> (Int) {
+        return (seconds / 3600)
     }
 }

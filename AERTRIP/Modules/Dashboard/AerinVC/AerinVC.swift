@@ -25,12 +25,14 @@ class AerinVC: BaseVC {
     @IBOutlet weak var commandHintLabel: UILabel!
     @IBOutlet weak var aerinContainer: UIView!
     @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var weekendMessageLabel: UILabel!
+//    @IBOutlet weak var weekendMessageLabel: UILabel!
     @IBOutlet weak var bottomCollectionView: UIView!
-    @IBOutlet weak var bottomFirstView: UIView!
-    @IBOutlet weak var bottomSecondView: UIView!
+//    @IBOutlet weak var bottomFirstView: UIView!
+//    @IBOutlet weak var bottomSecondView: UIView!
     @IBOutlet weak var bottomViewImage: UIImageView!
     @IBOutlet weak var aerinViewContainer: UIView!
+    @IBOutlet weak var travelSafetyButton: UIButton!
+    @IBOutlet weak var travelSafetyLabel: UILabel!
     
     private var previousOffSet = CGPoint.zero
     private var aerInPulsAnimator: PKPulseAnimation = PKPulseAnimation()
@@ -59,14 +61,15 @@ class AerinVC: BaseVC {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        self.bottomViewImage.layer.cornerRadius = 20
-        self.bottomViewImage.layer.borderWidth = 7
-        self.bottomViewImage.layer.borderColor = AppColors.themeWhite.withAlphaComponent(0.4).cgColor
+//        self.bottomViewImage.layer.cornerRadius = 20
+//        self.bottomViewImage.layer.borderWidth = 7
+//        self.bottomViewImage.layer.borderColor = AppColors.themeWhite.withAlphaComponent(0.4).cgColor
         
-        self.bottomCollectionView.layer.cornerRadius = 20
-        self.bottomCollectionView.layer.borderWidth = 7
-        self.bottomCollectionView.layer.borderColor = AppColors.themeWhite.withAlphaComponent(0.4).cgColor
         
+        //self.bottomCollectionView.layer.cornerRadius = 10
+//        self.bottomCollectionView.layer.borderWidth = 7
+//        self.bottomCollectionView.layer.borderColor = AppColors.themeWhite.withAlphaComponent(0.4).cgColor
+        /*
         self.bottomFirstView.layer.cornerRadius = 10.3
         self.bottomFirstView.layer.borderWidth = 10
         self.bottomFirstView.layer.borderColor = AppColors.themeWhite.withAlphaComponent(0.3).cgColor
@@ -74,6 +77,7 @@ class AerinVC: BaseVC {
         self.bottomSecondView.layer.cornerRadius = 9
         self.bottomSecondView.layer.borderWidth = 8
         self.bottomSecondView.layer.borderColor = AppColors.themeWhite.withAlphaComponent(0.1).cgColor
+ */
     }
     
     override func initialSetup() {
@@ -84,15 +88,19 @@ class AerinVC: BaseVC {
         self.aerInPulsAnimator.lineColor = AppColors.themeBlackGreen
         self.aerInPulsAnimator.backgroundColor = AppColors.themeGray60.cgColor
         self.aerinContainer.layer.insertSublayer(self.aerInPulsAnimator, below: self.aerinButton.layer)
+        /*
         self.bottomFirstView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.3)
         self.bottomSecondView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.1)
-        
+        */
+        self.bottomViewImage.cornerradius = 10
+        self.bottomCollectionView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
         setupAnimation()
     }
     
     override func setupFonts() {
         self.messageLabel.font = AppFonts.Regular.withSize(16.0)
-        self.weekendMessageLabel.font = AppFonts.Regular.withSize(17.0)
+        //self.weekendMessageLabel.font = AppFonts.Regular.withSize(17.0)
+        self.travelSafetyLabel.font = AppFonts.SemiBold.withSize(28.0)
     }
     
     override func viewDidLayoutSubviews() {
@@ -126,41 +134,43 @@ class AerinVC: BaseVC {
         
         self.commandHintLabel.attributedText = attributedString
         
-        self.weekendMessageLabel.text = LocalizedString.weekendGetaway.localized
+        //self.weekendMessageLabel.text = LocalizedString.weekendGetaway.localized
+        self.travelSafetyLabel.text = LocalizedString.TravelSafetyGuidelines.localized
     }
     
     override func setupColors() {
         self.messageLabel.textColor = AppColors.themeTextColor
-        self.weekendMessageLabel.textColor = AppColors.themeWhite.withAlphaComponent(0.4)
+        //self.weekendMessageLabel.textColor = AppColors.themeWhite.withAlphaComponent(0.4)
+        self.travelSafetyLabel.textColor = AppColors.themeTextColor
     }
     
     func setupInitialAnimation() {
         self.bottomCollectionView.transform = CGAffineTransform(translationX: 0.0, y: 110.0)
-        self.bottomSecondView.transform = CGAffineTransform(translationX: 0.0, y: 110.0)
-        self.bottomFirstView.transform = CGAffineTransform(translationX: 0.0, y: 110.0)
-        self.weekendMessageLabel.transform = CGAffineTransform(translationX: 0.0, y: 110.0)
+        //self.bottomSecondView.transform = CGAffineTransform(translationX: 0.0, y: 110.0)
+        //self.bottomFirstView.transform = CGAffineTransform(translationX: 0.0, y: 110.0)
+        //self.weekendMessageLabel.transform = CGAffineTransform(translationX: 0.0, y: 110.0)
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: [.curveEaseOut], animations: {
             self.bottomCollectionView.transform = CGAffineTransform.identity
-            self.bottomSecondView.transform = CGAffineTransform.identity
-            self.bottomFirstView.transform = CGAffineTransform.identity
-            self.weekendMessageLabel.transform = CGAffineTransform.identity
+            //self.bottomSecondView.transform = CGAffineTransform.identity
+            //self.bottomFirstView.transform = CGAffineTransform.identity
+            //self.weekendMessageLabel.transform = CGAffineTransform.identity
         }, completion: nil)
     }
     
     private func setupAnimation() {
         aerinViewContainer.transform = .init(scaleX: 0, y: 0)
         self.bottomCollectionView.transform = CGAffineTransform(translationX: 0.0, y: 200)
-        self.bottomSecondView.transform = CGAffineTransform(translationX: 0.0, y: 200)
-        self.bottomFirstView.transform = CGAffineTransform(translationX: 0.0, y: 200)
-        self.weekendMessageLabel.transform = CGAffineTransform(translationX: 0.0, y: 200)
+        //self.bottomSecondView.transform = CGAffineTransform(translationX: 0.0, y: 200)
+        //self.bottomFirstView.transform = CGAffineTransform(translationX: 0.0, y: 200)
+        //self.weekendMessageLabel.transform = CGAffineTransform(translationX: 0.0, y: 200)
         
         UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveEaseOut], animations: {
             self.aerinViewContainer.transform = CGAffineTransform.identity
             self.bottomCollectionView.transform = CGAffineTransform.identity
-            self.bottomSecondView.transform = CGAffineTransform.identity
-            self.bottomFirstView.transform = CGAffineTransform.identity
-            self.weekendMessageLabel.transform = CGAffineTransform.identity
+            //self.bottomSecondView.transform = CGAffineTransform.identity
+            //self.bottomFirstView.transform = CGAffineTransform.identity
+            //self.weekendMessageLabel.transform = CGAffineTransform.identity
         }, completion: nil)
     }
     
@@ -248,5 +258,10 @@ class AerinVC: BaseVC {
         
             
 //        }
+    }
+    
+    
+    @IBAction func travelSafetyBtnTapped(_ sender: Any) {
+        AppToast.default.showToastMessage(message: LocalizedString.UnderDevelopment.localized)
     }
 }

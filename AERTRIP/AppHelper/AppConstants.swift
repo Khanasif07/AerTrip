@@ -42,7 +42,8 @@ enum AppConstants {
     static let termsOfUse = "https://beta.aertrip.com/terms"
     static let fareRules = "https://beta.aertrip.com/terms"
     static let walletAmountUrl = "https://beta.aertrip.com/wallet"
-    
+    static let tripsUrl = "https://aertrip.com/trips"
+
     static let kSearchTextLimit = 3
     static let kNameTextLimit = 30
     static let kAnimationDuration = 0.4

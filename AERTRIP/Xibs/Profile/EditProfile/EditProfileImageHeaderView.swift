@@ -73,6 +73,10 @@ class EditProfileImageHeaderView: UIView {
         
         firstNameTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
         lastNameTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
+        
+        firstNameTextField.addRightPaddingView(width: 16)
+        lastNameTextField.addRightPaddingView(width: 16)
+
     }
     
     // MARK: - Helper methods
