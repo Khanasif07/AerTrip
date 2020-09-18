@@ -400,6 +400,7 @@ extension  FlightDomesticMultiLegResultVC {
                 
                 if progress >= 0.97 {
                     self.ApiProgress.isHidden = true
+                    self.hideBannerWhenAPIFails()
                 }
             }
         }

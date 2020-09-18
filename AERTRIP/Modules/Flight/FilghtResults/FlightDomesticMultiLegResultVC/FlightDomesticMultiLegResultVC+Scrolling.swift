@@ -114,7 +114,7 @@ extension FlightDomesticMultiLegResultVC {
         let width = tableView.bounds.size.width
         let bottomInset = self.view.safeAreaInsets.bottom
         //FIXME :- magical no
-        let height = UIScreen.main.bounds.height - yCoordinate - bottomInset //- 50 - self.statusBarHeight
+        let height = UIScreen.main.bounds.height - yCoordinate - bottomInset + 25.0 //- 50 - self.statusBarHeight
         let visibleRect = CGRect(x: xCoordinate, y: yCoordinate, width: width, height: height)
         return visibleRect
     }
