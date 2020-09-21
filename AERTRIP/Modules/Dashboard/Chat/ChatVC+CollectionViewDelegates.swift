@@ -99,8 +99,8 @@ extension ChatVC : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
         } else {
             if let flight = object.flight {
                 printDebug("flight.quary: \(flight.quary)")
-                FlightWhatNextData.shared.isSettingForWhatNext = true
-                FlightWhatNextData.shared.recentSearch = flight.quary as NSDictionary
+//                FlightWhatNextData.shared.isSettingForWhatNext = true
+//                FlightWhatNextData.shared.recentSearch = flight.quary as NSDictionary
 //                AppFlowManager.default.goToDashboard(toBeSelect: .flight)
                 if let jsonDict = flight.quary as? JSONDictionary {
                     chatVm.createFlightSearchDictFromRecentSearches(jsonDict)
