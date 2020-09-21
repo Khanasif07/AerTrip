@@ -19,6 +19,11 @@ extension AccountDepositAmountCellDelegate{
 
 
 class AccountDepositAmountCell: UITableViewCell {
+    enum AmountCellType {
+        case onlineDeposite
+        case offlineDeposite
+    }
+    
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var titleLabel: UILabel!
@@ -28,6 +33,8 @@ class AccountDepositAmountCell: UITableViewCell {
     
     
     weak var delegate: AccountDepositAmountCellDelegate?
+    
+    var usingFor = AmountCellType.onlineDeposite
     
     var amount: Double = 0.0 {
         didSet {
@@ -44,13 +51,13 @@ class AccountDepositAmountCell: UITableViewCell {
         self.selectionStyle = .none
         
         self.amountTextField.keyboardType = .decimalPad
-
+        
         self.setFontAndColor()
         self.amountTextField.addTarget(self, action: #selector(self.textFieldDidEndEditing(_:)), for: .editingDidEnd)
         self.amountTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         self.amountTextField.delegate = self
         self.topDividerView.isHidden = true
-
+        
     }
     deinit {
         printDebug("deinit AccountDepositAmountCell")
@@ -60,7 +67,7 @@ class AccountDepositAmountCell: UITableViewCell {
         super.prepareForReuse()
         self.topDividerView.isHidden = true
         self.amountTextField.attributedText = nil
-       // self.amountTextField.font = AppFonts.SemiBold.withSize(40.0)
+        // self.amountTextField.font = AppFonts.SemiBold.withSize(40.0)
         self.amountTextField.keyboardType = .decimalPad
         
     }
@@ -70,11 +77,11 @@ class AccountDepositAmountCell: UITableViewCell {
             let value = txt.isEmpty ? "0" : txt
             if let amt = value.replacingOccurrences(of: ",", with: "").toDouble {
                 let value = amt.delimiterWithoutSymbol.removeAllWhiteSpacesAndNewLines
-//                if !value.contains(".") {
-//                    value.append(".00")
-//                }
-            self.amountTextField.text = value
-            self.delegate?.amountDidChanged(amount: amt, amountString: txt)
+                //                if !value.contains(".") {
+                //                    value.append(".00")
+                //                }
+                self.amountTextField.text = value
+                self.delegate?.amountDidChanged(amount: amt, amountString: txt)
             }
         }
     }
@@ -93,14 +100,14 @@ class AccountDepositAmountCell: UITableViewCell {
     
     private func setData() {
         let value = amount.delimiterWithoutSymbol.removeAllWhiteSpacesAndNewLines
-//        if !value.contains(".") {
-//            value.append(".00")
-//        }
+        //        if !value.contains(".") {
+        //            value.append(".00")
+        //        }
         self.amountTextField.text = value
         if !amountTextSetOnce {
             amountTextSetOnce = true
-//            self.amountTextField.selectAll(nil)
-        //self.amountTextField.AttributedBackgroundColorForText(text: value, textColor: AppColors.themeBlue.withAlphaComponent(0.26))
+            //            self.amountTextField.selectAll(nil)
+            //self.amountTextField.AttributedBackgroundColorForText(text: value, textColor: AppColors.themeBlue.withAlphaComponent(0.26))
         }
         
     }
@@ -134,33 +141,40 @@ extension AccountDepositAmountCell: UITextFieldDelegate {
         }
         
         let newString = NSString(string: textField.text!).replacingCharacters(in: range, with: string).removeAllWhiteSpacesAndNewLines.replacingOccurrences(of: ",", with: "")
-
+        
         if newString.count > 32 { //restrict input upto 32 characters
             return false
         } else {
-
+            
             let characterset = CharacterSet(charactersIn: "0123456789.") //0-9 digit and . is allowed
-
+            
             if newString.rangeOfCharacter(from: characterset.inverted) == nil {
-
+                
                 let fullNumberArray = newString.components(separatedBy: ".") //Convert string into array
-               if fullNumberArray.count > 2 { // more than 2 . exist
+                let amount = newString.toDouble ?? 0
+                if fullNumberArray.count > 2 { // more than 2 . exist
                     return false
                 }
-               else if fullNumberArray.count == 2 { // Fractional part exist
+                else if fullNumberArray.count == 2 { // Fractional part exist
                     if fullNumberArray[0].count <= 29 &&  fullNumberArray[1].count <= 2 {
+                        if (self.usingFor == .onlineDeposite && amount > AppConstants.OnlineDepositeAmountLimit) || (self.usingFor == .offlineDeposite && amount > AppConstants.OfflineDepositeAmountLimit) {
+                           return false
+                        }
                         return true
                     } }else {
-                            // Only No decimal point exist , numeric digits only entered so far
-                            if fullNumberArray[0].count <= 29 {
-                                return true
-                                }
+                    // Only No decimal point exist , numeric digits only entered so far
+                    if fullNumberArray[0].count <= 29 {
+                        if (self.usingFor == .onlineDeposite && amount > AppConstants.OnlineDepositeAmountLimit) || (self.usingFor == .offlineDeposite && amount > AppConstants.OfflineDepositeAmountLimit) {
+                           return false
+                        }
+                        return true
+                    }
                 }
-
+                
             }
-
+            
         }
-
+        
         return false
     }
 }

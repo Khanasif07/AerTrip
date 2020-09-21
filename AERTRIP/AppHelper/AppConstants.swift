@@ -60,6 +60,10 @@ enum AppConstants {
     static let AddOnRequestTextLimit = 60
     static let AbortRequestTextLimit = 500
 
+    static let OnlineDepositeAmountLimit: Double = 1100000 //11,00,000
+    static let OfflineDepositeAmountLimit: Double = 999999999 //99,99,99,999
+
+    
     static let profileViewBackgroundNameIntialsFont = AppFonts.Regular.withSize(40.0)
     
     static let kGoogleAPIKey = "AIzaSyD_W5hNOfKdR3xbEEkbX1rI2sJ3nDv1E64" // "AIzaSyBR5AMB7FJUqlRBZv93B4aVhY-Xt13weaU"

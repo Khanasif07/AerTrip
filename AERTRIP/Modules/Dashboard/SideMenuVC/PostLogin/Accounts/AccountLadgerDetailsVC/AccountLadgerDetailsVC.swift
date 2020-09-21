@@ -85,9 +85,11 @@ class AccountLadgerDetailsVC: BaseVC {
             self.viewModel.fetchLadgerDetails()
             self.setupParallexHeaderView()
             
+            /*
             self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
             self.refreshControl.tintColor = AppColors.themeGreen
             self.tableView.refreshControl = self.refreshControl
+ */
         }
         
         self.containerView.backgroundColor = AppColors.themeGray04
@@ -255,14 +257,14 @@ extension AccountLadgerDetailsVC: MXParallaxHeaderDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.updateForParallexProgress()
-        if (scrollView.contentOffset.y + 40) < -(self.parallexHeaderMaxHeight){
-            self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.top
-        } else {
-            self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
-        }
-        printDebug("self.parallexHeaderMaxHeight : \(self.parallexHeaderMaxHeight)")
-        printDebug("scrollView.contentOffset.y : \(scrollView.contentOffset.y)")
-        printDebug("scrollView.contentOffset.y : \((scrollView.contentOffset.y + 40))")
+//        if (scrollView.contentOffset.y + 40) < -(self.parallexHeaderMaxHeight){
+//            self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.top
+//        } else {
+//            self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
+//        }
+//        printDebug("self.parallexHeaderMaxHeight : \(self.parallexHeaderMaxHeight)")
+//        printDebug("scrollView.contentOffset.y : \(scrollView.contentOffset.y)")
+//        printDebug("scrollView.contentOffset.y : \((scrollView.contentOffset.y + 40))")
     }
     
     

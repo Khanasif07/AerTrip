@@ -28,6 +28,7 @@ class FareInfoCommonCell: ATTableViewCell {
     @IBOutlet weak var viewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var viewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var passengerStackView: UIStackView!
     
     // MARK: - Variables
     var isForPassenger : Bool = false
@@ -49,7 +50,7 @@ class FareInfoCommonCell: ATTableViewCell {
     override func setupFonts() {
         titleLabel.font = AppFonts.SemiBold.withSize(18)
         feeLabel.font = AppFonts.Regular.withSize(16)
-        slabTimeLabel.font = AppFonts.SemiBold.withSize(16)
+        slabTimeLabel.font = AppFonts.Regular.withSize(16)
         statusLabel.font = AppFonts.SemiBold.withSize(16)
         perAdultLabel.font = AppFonts.Regular.withSize(16)
         perAdultAmountLabel.font = AppFonts.SemiBold.withSize(16)
@@ -66,11 +67,11 @@ class FareInfoCommonCell: ATTableViewCell {
         feeLabel.textColor = AppColors.themeBlack
         slabTimeLabel.textColor = AppColors.themeBlack
         statusLabel.textColor = AppColors.themeBlack
-        perAdultLabel.textColor = AppColors.themeBlack
+        perAdultLabel.textColor = AppColors.themeGray60
         perAdultAmountLabel.textColor = AppColors.themeBlack
-        perChildLabel.textColor = AppColors.themeBlack
+        perChildLabel.textColor = AppColors.themeGray60
         perChildAmountLabel.textColor = AppColors.themeBlack
-        perInfantLabel.textColor = AppColors.themeBlack
+        perInfantLabel.textColor = AppColors.themeGray60
         perInfantAmountLabel.textColor = AppColors.themeBlack
     }
     
@@ -84,6 +85,7 @@ class FareInfoCommonCell: ATTableViewCell {
     }
     
     private func resetView() {
+        passengerStackView.isHidden = true
         adultView.isHidden = true
         childView.isHidden = true
         infrantView.isHidden = true
@@ -473,7 +475,7 @@ class FareInfoCommonCell: ATTableViewCell {
                 self.childView.isHidden = true
                 
                 self.infrantView.isHidden = true
-                
+                self.passengerStackView.isHidden = true
                 self.statusLabel.isHidden = false
                 self.statusLabel.textColor = .black
                 self.statusLabel.text = self.perAdultAmountLabel.text
@@ -485,6 +487,8 @@ class FareInfoCommonCell: ATTableViewCell {
                 self.childView.isHidden = false
                 
                 self.infrantView.isHidden = false
+                
+                self.passengerStackView.isHidden = false
             }
         }else if flightAdultCount > 0 && flightChildrenCount > 0{
             //            self.slabDataDisplayViewHeight.constant = 96
@@ -493,6 +497,8 @@ class FareInfoCommonCell: ATTableViewCell {
             self.childView.isHidden = false
             
             self.infrantView.isHidden = true
+            
+            self.passengerStackView.isHidden = false
         }else if flightAdultCount > 0 && flightInfantCount > 0{
             //            self.slabDataDisplayViewHeight.constant = 96
             self.adultView.isHidden = false
@@ -500,6 +506,8 @@ class FareInfoCommonCell: ATTableViewCell {
             self.childView.isHidden = true
             
             self.infrantView.isHidden = false
+            
+            self.passengerStackView.isHidden = false
         }else if self.perAdultAmountLabel.text == "Non-refundable" &&
             self.perChildAmountLabel.text == "Non-refundable" &&
             self.perInfantAmountLabel.text == "Non-refundable" ||
@@ -519,6 +527,8 @@ class FareInfoCommonCell: ATTableViewCell {
             self.childView.isHidden = true
             
             self.infrantView.isHidden = true
+            
+            self.passengerStackView.isHidden = false
             
             if self.perAdultAmountLabel.text == "Non-refundable"{
                 self.statusLabel.textColor = .black
@@ -542,6 +552,8 @@ class FareInfoCommonCell: ATTableViewCell {
             self.childView.isHidden = true
             
             self.infrantView.isHidden = true
+            
+            self.passengerStackView.isHidden = false
         }else{
             //            self.slabDataDisplayViewHeight.constant = 0
             self.adultView.isHidden = true
@@ -549,6 +561,8 @@ class FareInfoCommonCell: ATTableViewCell {
             self.childView.isHidden = true
             
             self.infrantView.isHidden = true
+            
+            self.passengerStackView.isHidden = false
         }
     }
     

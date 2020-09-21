@@ -25,14 +25,16 @@ class AerinVC: BaseVC {
     @IBOutlet weak var commandHintLabel: UILabel!
     @IBOutlet weak var aerinContainer: UIView!
     @IBOutlet weak var contentView: UIView!
-//    @IBOutlet weak var weekendMessageLabel: UILabel!
+    //    @IBOutlet weak var weekendMessageLabel: UILabel!
     @IBOutlet weak var bottomCollectionView: UIView!
-//    @IBOutlet weak var bottomFirstView: UIView!
-//    @IBOutlet weak var bottomSecondView: UIView!
+    //    @IBOutlet weak var bottomFirstView: UIView!
+    //    @IBOutlet weak var bottomSecondView: UIView!
     @IBOutlet weak var bottomViewImage: UIImageView!
     @IBOutlet weak var aerinViewContainer: UIView!
     @IBOutlet weak var travelSafetyButton: UIButton!
     @IBOutlet weak var travelSafetyLabel: UILabel!
+    @IBOutlet weak var travelSafetyViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var aerinViewTopConstraint: NSLayoutConstraint!
     
     private var previousOffSet = CGPoint.zero
     private var aerInPulsAnimator: PKPulseAnimation = PKPulseAnimation()
@@ -61,23 +63,33 @@ class AerinVC: BaseVC {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-//        self.bottomViewImage.layer.cornerRadius = 20
-//        self.bottomViewImage.layer.borderWidth = 7
-//        self.bottomViewImage.layer.borderColor = AppColors.themeWhite.withAlphaComponent(0.4).cgColor
+        //        self.bottomViewImage.layer.cornerRadius = 20
+        //        self.bottomViewImage.layer.borderWidth = 7
+        //        self.bottomViewImage.layer.borderColor = AppColors.themeWhite.withAlphaComponent(0.4).cgColor
         
         
         //self.bottomCollectionView.layer.cornerRadius = 10
-//        self.bottomCollectionView.layer.borderWidth = 7
-//        self.bottomCollectionView.layer.borderColor = AppColors.themeWhite.withAlphaComponent(0.4).cgColor
+        //        self.bottomCollectionView.layer.borderWidth = 7
+        //        self.bottomCollectionView.layer.borderColor = AppColors.themeWhite.withAlphaComponent(0.4).cgColor
         /*
-        self.bottomFirstView.layer.cornerRadius = 10.3
-        self.bottomFirstView.layer.borderWidth = 10
-        self.bottomFirstView.layer.borderColor = AppColors.themeWhite.withAlphaComponent(0.3).cgColor
+         self.bottomFirstView.layer.cornerRadius = 10.3
+         self.bottomFirstView.layer.borderWidth = 10
+         self.bottomFirstView.layer.borderColor = AppColors.themeWhite.withAlphaComponent(0.3).cgColor
+         
+         self.bottomSecondView.layer.cornerRadius = 9
+         self.bottomSecondView.layer.borderWidth = 8
+         self.bottomSecondView.layer.borderColor = AppColors.themeWhite.withAlphaComponent(0.1).cgColor
+         */
+        let aerinTop =  (self.view.height - aerinViewContainer.height - 120 - 80)/2
+        if  aerinTop > 0, self.aerinViewTopConstraint.constant != aerinTop  {
+            aerinViewTopConstraint.constant = aerinTop
+            
+            let value = self.view.height - aerinTop - aerinViewContainer.height - 84 - 80
+            if  value > 0, self.travelSafetyViewTopConstraint.constant != value  {
+                self.travelSafetyViewTopConstraint.constant = value
+            }
+        }
         
-        self.bottomSecondView.layer.cornerRadius = 9
-        self.bottomSecondView.layer.borderWidth = 8
-        self.bottomSecondView.layer.borderColor = AppColors.themeWhite.withAlphaComponent(0.1).cgColor
- */
     }
     
     override func initialSetup() {
@@ -89,9 +101,9 @@ class AerinVC: BaseVC {
         self.aerInPulsAnimator.backgroundColor = AppColors.themeGray60.cgColor
         self.aerinContainer.layer.insertSublayer(self.aerInPulsAnimator, below: self.aerinButton.layer)
         /*
-        self.bottomFirstView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.3)
-        self.bottomSecondView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.1)
-        */
+         self.bottomFirstView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.3)
+         self.bottomSecondView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.1)
+         */
         self.bottomViewImage.cornerradius = 10
         self.bottomCollectionView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
         setupAnimation()
@@ -124,7 +136,7 @@ class AerinVC: BaseVC {
         let attributedString = NSMutableAttributedString(string: "Try asking for \n“Flights from Mumbai to Delhi on Christmas”", attributes: [
             .font: AppFonts.Regular.withSize(16.0),
             .foregroundColor: AppColors.themeTextColor
-            ])
+        ])
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 6
         paragraphStyle.alignment = .center
@@ -213,51 +225,47 @@ class AerinVC: BaseVC {
     // MARK: - Action
     
     @IBAction func aerinButtonAction(_ sender: Any) {
-//        if !AppConstants.isReleasingToClient {
-            // move to Aerin VC
-            // AppFlowManager.default.showAerinTextToSpeechVC()
-            // AppFlowManager.default.moveToAerinTextSpeechDetailVC()
-            
-            // AppFlowManager.default.moveToOtherBookingsDetailsVC()
-            
-            // for  showing my booking
-            
-            //  AppFlowManager.default.moveToMyBookingsVC()
-            
-            //   --------  for showing Boking hotel Detail --------
-            /// AppFlowManager.default.moveToBookingHotelDetailVC()
-            
-            // for showing booking call VC
-            
-            // AppFlowManager.default.moveToBookingCallVC()
-            
-            // for showing bookig invoice VC
-            
-           // AppFlowManager.default.moveToTestViewController()
-            
-            //
-            
-          
-            
-//            let obj = CreateProfileVC.instantiate(fromAppStoryboard: .PreLogin)
-//            AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: true)
-           
-            
-            //****  Booking DirectionVC ******
-            
-            //AppFlowManager.default.moveToBookingDirectionVC()
-            
-            //             let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
-            //            AppFlowManager.default.mainNavigationController.present(obj, animated: true)
-            
-            let obj = ChatVC.instantiate(fromAppStoryboard: .Dashboard)
+        //        if !AppConstants.isReleasingToClient {
+        // move to Aerin VC
+        // AppFlowManager.default.showAerinTextToSpeechVC()
+        // AppFlowManager.default.moveToAerinTextSpeechDetailVC()
+        
+        // AppFlowManager.default.moveToOtherBookingsDetailsVC()
+        
+        // for  showing my booking
+        
+        //  AppFlowManager.default.moveToMyBookingsVC()
+        
+        //   --------  for showing Boking hotel Detail --------
+        /// AppFlowManager.default.moveToBookingHotelDetailVC()
+        
+        // for showing booking call VC
+        
+        // AppFlowManager.default.moveToBookingCallVC()
+        
+        // for showing bookig invoice VC
+        
+        // AppFlowManager.default.moveToTestViewController()
+        
+        //
+        
+        
+        
+        //            let obj = CreateProfileVC.instantiate(fromAppStoryboard: .PreLogin)
+        //            AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: true)
+        
+        
+        //****  Booking DirectionVC ******
+        
+        //AppFlowManager.default.moveToBookingDirectionVC()
+        
+        //             let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
+        //            AppFlowManager.default.mainNavigationController.present(obj, animated: true)
+        
+        let obj = ChatVC.instantiate(fromAppStoryboard: .Dashboard)
         AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: false)
-
         
-        
-        
-            
-//        }
+        //        }
     }
     
     

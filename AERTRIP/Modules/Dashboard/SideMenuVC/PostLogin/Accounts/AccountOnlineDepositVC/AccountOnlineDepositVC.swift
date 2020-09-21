@@ -61,6 +61,7 @@ class AccountOnlineDepositVC: BaseVC {
                 cell.amountTextField.selectAll(nil)
             }
         }
+        
     }
     
     override func setupFonts() {

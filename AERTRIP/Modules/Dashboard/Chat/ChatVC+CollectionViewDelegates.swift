@@ -59,10 +59,15 @@ extension ChatVC : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
         let object = self.chatVm.recentSearchesData[indexPath.item]
         if object.type == .hotel {
             var hotelData = HotelFormPreviosSearchData()
+            var roomCounter = 0
             for roomData in object.room ?? [] {
                 if roomData.isPresent {
                     if let adultCounts = roomData.adultCounts.toInt {
+                        if roomCounter == 0 {
+                           hotelData.adultsCount[0] = adultCounts
+                        } else {
                         hotelData.adultsCount.append(adultCounts)
+                        }
                     }
                     var childrenArray: [Int] = []
                     childrenArray.removeAll()
@@ -75,6 +80,7 @@ extension ChatVC : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
                     }
                     hotelData.childrenAge.append(childrenArray)
                     hotelData.childrenCounts.append(childrenCounter)
+                    roomCounter += 1
                 }
             }
             hotelData.ratingCount = object.filter?.stars ?? []
