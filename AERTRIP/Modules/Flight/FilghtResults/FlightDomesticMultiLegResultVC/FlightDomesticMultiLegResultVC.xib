@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -16,7 +16,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FlightDomesticMultiLegResultVC" customModule="Aertrip" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FlightDomesticMultiLegResultVC" customModule="AERTRIP" customModuleProvider="target">
             <connections>
                 <outlet property="baseScrollView" destination="LGB-Tb-cm6" id="rPb-Ec-Jqc"/>
                 <outlet property="baseScrollViewTop" destination="NqR-g7-dHz" id="01B-jb-YVG"/>
@@ -24,6 +24,8 @@
                 <outlet property="emailPinnedFlights" destination="nst-Xs-8A2" id="JGI-ED-fPE"/>
                 <outlet property="headerCollectionView" destination="H3z-RG-ZHe" id="rqF-Tx-eZF"/>
                 <outlet property="headerCollectionViewTop" destination="b6N-0p-KwW" id="tZI-7M-req"/>
+                <outlet property="miniHeaderScrollView" destination="LJS-OI-Y27" id="7OO-zY-vQE"/>
+                <outlet property="miniHeaderTopConstraint" destination="W9k-IP-Wm8" id="AJ7-2k-yhM"/>
                 <outlet property="pinOptionsViewWidth" destination="Lnr-fg-nY9" id="SEd-VN-4ga"/>
                 <outlet property="pinnedFlightOptionView" destination="DY9-cf-6Y2" id="E4P-sG-8Ku"/>
                 <outlet property="pinnedFlightOptionsTop" destination="eyK-ad-wfB" id="VMx-bQ-mUv"/>
@@ -81,7 +83,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="G19-0X-Cgk"/>
                     </constraints>
-                    <collectionViewLayout key="collectionViewLayout" id="u0s-pw-h05" customClass="FlightSectorCollectionViewLayout" customModule="Aertrip" customModuleProvider="target"/>
+                    <collectionViewLayout key="collectionViewLayout" id="u0s-pw-h05" customClass="FlightSectorCollectionViewLayout" customModule="AERTRIP" customModuleProvider="target"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="XBr-q2-eFn"/>
                         <outlet property="delegate" destination="-1" id="XfD-xK-ILg"/>
@@ -94,6 +96,15 @@
                         <constraint firstAttribute="height" constant="0.5" id="GbK-c4-Nyu"/>
                     </constraints>
                 </view>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LJS-OI-Y27">
+                    <rect key="frame" x="0.0" y="191" width="375" height="44"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="37U-EM-osb"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="I6a-tF-3xZ"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="yEG-O8-7Nv"/>
+                </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wWJ-fy-eFq">
                     <rect key="frame" x="0.0" y="812" width="375" height="0.0"/>
                     <subviews>
@@ -175,7 +186,7 @@
                                 <action selector="sharePinnedFlights:" destination="-1" eventType="touchUpInside" id="hVj-qQ-L8H"/>
                             </connections>
                         </button>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FKI-Sf-kMQ" customClass="AertripSwitch" customModule="Aertrip" customModuleProvider="target">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FKI-Sf-kMQ" customClass="AertripSwitch" customModule="AERTRIP" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="7" width="50" height="30"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -206,20 +217,25 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="wWJ-fy-eFq" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="3pU-2b-A2Z"/>
+                <constraint firstItem="LJS-OI-Y27" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" id="DF2-mu-FUC"/>
                 <constraint firstItem="St9-bl-9B9" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="GWM-Gj-JUS"/>
                 <constraint firstItem="ZLq-KE-sBb" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="Ky6-eJ-REW"/>
                 <constraint firstItem="ZLq-KE-sBb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="NPO-pr-Hux"/>
                 <constraint firstItem="YBb-x4-bGE" firstAttribute="top" secondItem="H3z-RG-ZHe" secondAttribute="bottom" constant="0.5" id="NlT-Ya-bE9"/>
                 <constraint firstItem="LGB-Tb-cm6" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="NqR-g7-dHz"/>
                 <constraint firstAttribute="bottom" secondItem="LGB-Tb-cm6" secondAttribute="bottom" id="QDy-P2-LXp"/>
+                <constraint firstItem="LJS-OI-Y27" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="R07-Ra-mKf"/>
                 <constraint firstItem="H3z-RG-ZHe" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="T8d-VQ-aGJ"/>
+                <constraint firstItem="LJS-OI-Y27" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="TGL-Ye-uv0"/>
                 <constraint firstItem="YBb-x4-bGE" firstAttribute="leading" secondItem="H3z-RG-ZHe" secondAttribute="leading" id="UAW-TP-kyJ"/>
+                <constraint firstItem="LJS-OI-Y27" firstAttribute="top" secondItem="YBb-x4-bGE" secondAttribute="bottom" id="W9k-IP-Wm8"/>
                 <constraint firstItem="St9-bl-9B9" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="YOQ-L5-aiC"/>
                 <constraint firstItem="H3z-RG-ZHe" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="88" id="b6N-0p-KwW"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="St9-bl-9B9" secondAttribute="bottom" id="b8z-uC-MWW"/>
                 <constraint firstItem="wWJ-fy-eFq" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="bOs-DN-zOg"/>
                 <constraint firstAttribute="bottom" secondItem="DY9-cf-6Y2" secondAttribute="top" id="eyK-ad-wfB"/>
                 <constraint firstItem="ZLq-KE-sBb" firstAttribute="top" secondItem="H3z-RG-ZHe" secondAttribute="top" id="gyt-cZ-1OD"/>
+                <constraint firstItem="LJS-OI-Y27" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="hRI-sb-Xog"/>
                 <constraint firstItem="LGB-Tb-cm6" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="kNf-Pm-hbe"/>
                 <constraint firstItem="LGB-Tb-cm6" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="kcx-wW-xNf"/>
                 <constraint firstItem="H3z-RG-ZHe" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="pmJ-bT-2Np"/>

@@ -150,7 +150,7 @@ extension FlightDomesticMultiLegResultVC {
             if let journey = self.viewModel.results[index].selectedJourney{
                 headerView.setValuesFrom(journey: journey)
             }
-            let hiddenHeaderY = (self.headerCollectionViewTop.constant + self.headerCollectionView.height + self.baseScrollView.contentOffset.y - 44)
+            let hiddenHeaderY:CGFloat = -44.0//(self.headerCollectionViewTop.constant + self.headerCollectionView.height + self.baseScrollView.contentOffset.y - 44)
             
             let headerJourneyRect  = CGRect(x: (width * CGFloat(index)), y: hiddenHeaderY , width: width - 1 , height: journeyCompactViewHeight)
             headerView.frame = headerJourneyRect
@@ -160,7 +160,7 @@ extension FlightDomesticMultiLegResultVC {
 //                if self.baseScrollView.contentOffset.y == 88.0 {
 //                    yCoordinate = yCoordinate + 88.0
 //                }
-                rect.origin.y = (self.headerCollectionViewTop.constant + self.headerCollectionView.height + self.baseScrollView.contentOffset.y)
+                rect.origin.y = 0.0//(self.headerCollectionViewTop.constant + self.headerCollectionView.height + self.baseScrollView.contentOffset.y)
                 rect.size.height = self.journeyCompactViewHeight
                 headerView.frame = rect
             }){ _ in
@@ -190,7 +190,7 @@ extension FlightDomesticMultiLegResultVC {
         if !headerView.isHidden {
             UIView.animate(withDuration: 0.4, animations: {
                 var frame = headerView.frame
-                frame.origin.y =  (self.headerCollectionViewTop.constant + self.headerCollectionView.height + self.baseScrollView.contentOffset.y - 44.0)//(-self.headerCollectionViewTop.constant - self.journeyCompactViewHeight)
+                frame.origin.y =  -44.0//(self.headerCollectionViewTop.constant + self.headerCollectionView.height + self.baseScrollView.contentOffset.y - 44.0)//(-self.headerCollectionViewTop.constant - self.journeyCompactViewHeight)
                 headerView.frame = frame
             }) { (completed) in
                 headerView.isHidden = true
@@ -311,7 +311,7 @@ extension FlightDomesticMultiLegResultVC {
         let tenPercentWidth = screenWidth * 0.1
         let halfWidth = screenWidth * 0.5
         let scrolledDistance =  scrolledView.contentOffset.x
-
+        self.miniHeaderScrollView.contentOffset.x = scrolledDistance
         if scrolledView == baseScrollView {
             
             let currentIndex = scrolledDistance/halfWidth
