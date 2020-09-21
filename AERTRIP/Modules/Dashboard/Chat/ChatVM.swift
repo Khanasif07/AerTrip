@@ -149,19 +149,34 @@ class ChatVM {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
-        let departDate = dateFormatter.date(from: model.depart)
-        let newDepartDate = departDate?.toString(dateFormat: "ddMMyyyy") ?? ""
+        var departDate = dateFormatter.date(from: model.depart)
+        if departDate == nil {
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            departDate = dateFormatter.date(from: model.depart)
+        }
+        let newDepartDate = departDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
         
         var jsonDict = JSONDictionary()
         jsonDict["adult"] = model.adult
         jsonDict["child"] = model.child
         jsonDict["infant"] = model.infant
         jsonDict["cabinclass"] = model.cabinclass
-        jsonDict["trip_type"] = "single"
+        jsonDict["trip_type"] = model.tripType.lowercased().isEmpty ? "single" : model.tripType.lowercased()
         jsonDict["origin"] = model.origin
         jsonDict["destination"] = model.destination
         jsonDict["depart"] = newDepartDate
-        jsonDict["totalLegs"] = 1
+        if model.tripType.lowercased() == "return" {
+            dateFormatter.dateFormat = "yyyyMMdd"
+            var returnDate = dateFormatter.date(from: model.returnDate)
+            if returnDate == nil {
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                returnDate = dateFormatter.date(from: model.returnDate)
+            }
+            let newReturnDate = returnDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
+            jsonDict["return"] = newReturnDate
+        } else {
+            jsonDict["totalLegs"] = 1
+        }
         
         SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
