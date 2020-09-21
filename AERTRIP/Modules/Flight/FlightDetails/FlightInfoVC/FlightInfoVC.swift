@@ -236,11 +236,12 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                     
                     var index = 0
                     if indexPath.row > 0{
-                        if indexPath.row <= count!{
-                            index = indexPath.row-1
-                        }else{
-                            index = indexPath.row-2
-                        }
+                        index = indexPath.row/2
+//                        if indexPath.row <= count!{
+//                            index = indexPath.row-1
+//                        }else{
+//                            index = indexPath.row-2
+//                        }
                     }else{
                         index = indexPath.row
                     }
@@ -728,11 +729,12 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                     
                     var index = 0
                     if indexPath.row > 0{
-                        if indexPath.row < count!{
-                            index = indexPath.row-1
-                        }else{
-                            index = indexPath.row-2
-                        }
+                        index = (indexPath.row - 1)/2
+//                        if indexPath.row < count!{
+//                            index = indexPath.row-1
+//                        }else{
+//                            index = indexPath.row-2
+//                        }
                     }else{
                         index = indexPath.row
                     }

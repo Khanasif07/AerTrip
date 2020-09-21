@@ -112,6 +112,7 @@ class ChatVC : BaseVC {
             cell.contentView.addSubview(self.dotsView ?? UIView())
             dotsView?.start()
             showTypingCell()
+
         }
     }
     
@@ -124,6 +125,7 @@ class ChatVC : BaseVC {
             UIView.animate(withDuration: 0.2) {
                 cell.contentView.alpha = 1
                 self.dotsView?.alpha = 1
+                printDebug("time5...\(Date().timeIntervalSince1970)")
             }
         }
     }
@@ -287,6 +289,7 @@ extension ChatVC {
     }
     
     private func animateCell(text : String = ""){
+
         let rectOfLastCell = self.chatTableView.rectForRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0))
         let rectWrtView = self.chatTableView.convert(rectOfLastCell, to: self.view)
         self.showAnimationViewWith(text: text)
@@ -301,7 +304,6 @@ extension ChatVC {
         let keyframeAnimationOptions: UIView.KeyframeAnimationOptions = UIView.KeyframeAnimationOptions(rawValue: animationOptions.rawValue)
         
         UIView.animateKeyframes(withDuration: 1.2, delay: 0.0, options: keyframeAnimationOptions, animations: {
-            
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1) {
                 self.animationBubbleImageView.transform = CGAffineTransform.identity
                 self.animationLabel.transform = CGAffineTransform.identity
@@ -315,9 +317,6 @@ extension ChatVC {
             self.hideShowSenderCellContent(ishidden: false)
             self.hideAnimationView()
             self.chatVm.messages[self.chatVm.messages.count - 1].isHidden = false
-            //                delay(seconds: 0.2) {
-            //                    self.sendButton.isEnabled = true
-            //                }
             self.scheduleTypingCell()
         }
     }
@@ -370,14 +369,28 @@ extension ChatVC {
     }
     
     private func insertTypingCell(){
+        
+        printDebug("time1...\(Date().timeIntervalSince1970)")
+        
         self.chatVm.messages.append(MessageModel(msg: "", source: MessageModel.MessageSource.typing))
-        self.chatTableView.beginUpdates()
-        self.chatTableView.insertRows(at: [IndexPath(row: self.chatVm.messages.count - 1, section: 0)], with: UITableView.RowAnimation.none)
-        self.chatTableView.endUpdates()
-        scrollTableViewToLast()
-        delay(seconds: 0.03) {
-            self.addDotViewToTypingCell()
-        }
+        
+//        self.chatTableView.beginUpdates()
+//        self.chatTableView.insertRows(at: [IndexPath(row: self.chatVm.messages.count - 1, section: 0)], with: UITableView.RowAnimation.none)
+//        self.chatTableView.endUpdates()
+     
+        self.chatTableView.reloadData()
+    
+        printDebug("time2...\(Date().timeIntervalSince1970)")
+      
+        self.scrollTableViewToLast(withAnimation: true)
+  
+        printDebug("time3...\(Date().timeIntervalSince1970)")
+ //       delay(seconds: 0.3) {
+//            self.addDotViewToTypingCell()
+
+//            printDebug("time4...\(Date().timeIntervalSince1970)")
+
+  //      }
     }
     
     private func removeTypingCell(){
