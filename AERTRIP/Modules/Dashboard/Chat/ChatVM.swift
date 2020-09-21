@@ -180,6 +180,25 @@ class ChatVM {
         
         SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
+    
+    func createFlightSearchDictFromRecentSearches(_ dict: JSONDictionary) {
+        var jsonDict = JSONDictionary()
+        jsonDict["adult"] = dict["adult"]
+        jsonDict["child"] = dict["child"]
+        jsonDict["infant"] = dict["infant"]
+        jsonDict["cabinclass"] = dict["cabinclass"]
+        jsonDict["trip_type"] = dict["trip_type"]
+        jsonDict["origin"] = dict["origin"]
+        jsonDict["destination"] = dict["destination"]
+        jsonDict["depart"] = dict["depart"]
+        if (dict["trip_type"] as? String) == "return" {
+            jsonDict["return"] = dict["return"]
+        } else {
+            jsonDict["totalLegs"] = dict["totalLegs"]
+        }
+        
+        SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
+    }
 }
 
 
