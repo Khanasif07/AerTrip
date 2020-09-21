@@ -1241,6 +1241,7 @@
 		84534ED52249E8FD009FF536 /* YouAreAllDoneFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84534ED42249E8FD009FF536 /* YouAreAllDoneFooterView.swift */; };
 		84534ED72249E906009FF536 /* YouAreAllDoneFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84534ED62249E906009FF536 /* YouAreAllDoneFooterView.xib */; };
 		845357CA246EDD1E0039FF63 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845357C9246EDD1E0039FF63 /* BlurView.swift */; };
+		845452232518B398003539B7 /* dot.json in Resources */ = {isa = PBXBuildFile; fileRef = 845452222518B398003539B7 /* dot.json */; };
 		8455A6762232784B00CEE2B3 /* TripAdvisorTravelerRatingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455A6742232784B00CEE2B3 /* TripAdvisorTravelerRatingTableViewCell.swift */; };
 		8455A6772232784B00CEE2B3 /* TripAdvisorTravelerRatingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8455A6752232784B00CEE2B3 /* TripAdvisorTravelerRatingTableViewCell.xib */; };
 		8455A67A223288C000CEE2B3 /* HotelDetailsAdvisorRatingSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455A678223288C000CEE2B3 /* HotelDetailsAdvisorRatingSummaryTableViewCell.swift */; };
@@ -3008,6 +3009,7 @@
 		84534ED42249E8FD009FF536 /* YouAreAllDoneFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouAreAllDoneFooterView.swift; sourceTree = "<group>"; };
 		84534ED62249E906009FF536 /* YouAreAllDoneFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YouAreAllDoneFooterView.xib; sourceTree = "<group>"; };
 		845357C9246EDD1E0039FF63 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		845452222518B398003539B7 /* dot.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dot.json; sourceTree = "<group>"; };
 		8455A6742232784B00CEE2B3 /* TripAdvisorTravelerRatingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripAdvisorTravelerRatingTableViewCell.swift; sourceTree = "<group>"; };
 		8455A6752232784B00CEE2B3 /* TripAdvisorTravelerRatingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripAdvisorTravelerRatingTableViewCell.xib; sourceTree = "<group>"; };
 		8455A678223288C000CEE2B3 /* HotelDetailsAdvisorRatingSummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailsAdvisorRatingSummaryTableViewCell.swift; sourceTree = "<group>"; };
@@ -3571,6 +3573,7 @@
 		0C162AC924233AC4001C2B10 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				845452222518B398003539B7 /* dot.json */,
 				0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */,
 				0C162ACB24233AC5001C2B10 /* ChatVC.swift */,
 				0C162ACE24233B24001C2B10 /* ChatVM.swift */,
@@ -9781,6 +9784,7 @@
 				18B57A1222AF523A00269410 /* BookingTravellerAddOnsTableViewCell.xib in Resources */,
 				840494F92253203900983F5E /* HCRoomTableViewCell.xib in Resources */,
 				182EB219228580B5001BFB20 /* EmptyDividerViewCellTableViewCell.xib in Resources */,
+				845452232518B398003539B7 /* dot.json in Resources */,
 				18193A9724A60C310066C518 /* AddonsPassangerCell.xib in Resources */,
 				84DD248A226715530013F77E /* BookingTravellersDetailsTableViewCell.xib in Resources */,
 				841AA53024744F0700B66720 /* HMSegmentedControl.xcconfig in Resources */,
