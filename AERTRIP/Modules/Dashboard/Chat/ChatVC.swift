@@ -304,7 +304,6 @@ extension ChatVC {
         let keyframeAnimationOptions: UIView.KeyframeAnimationOptions = UIView.KeyframeAnimationOptions(rawValue: animationOptions.rawValue)
         
         UIView.animateKeyframes(withDuration: 1.2, delay: 0.0, options: keyframeAnimationOptions, animations: {
-            
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1) {
                 self.animationBubbleImageView.transform = CGAffineTransform.identity
                 self.animationLabel.transform = CGAffineTransform.identity
@@ -389,7 +388,7 @@ extension ChatVC {
  //       delay(seconds: 0.3) {
 //            self.addDotViewToTypingCell()
 
-            printDebug("time4...\(Date().timeIntervalSince1970)")
+//            printDebug("time4...\(Date().timeIntervalSince1970)")
 
   //      }
     }
