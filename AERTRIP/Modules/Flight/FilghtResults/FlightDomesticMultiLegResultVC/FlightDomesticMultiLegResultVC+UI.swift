@@ -47,6 +47,7 @@ extension FlightDomesticMultiLegResultVC {
         baseScrollView.contentSize = CGSize( width: (CGFloat(self.viewModel.numberOfLegs) * width ), height:height + 88.0)
         baseScrollView.showsHorizontalScrollIndicator = false
         baseScrollView.showsVerticalScrollIndicator = false
+        baseScrollView.alwaysBounceVertical = false
         baseScrollView.delegate = self
         baseScrollView.bounces = false
         baseScrollView.isDirectionalLockEnabled = true
@@ -69,7 +70,7 @@ extension FlightDomesticMultiLegResultVC {
         tableView.delegate = self
         tableView.allowsMultipleSelection = false
         tableView.isScrollEnabled = false
-        tableView.scrollsToTop = true
+//        tableView.scrollsToTop = true
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
         tableView.separatorStyle = .none
@@ -77,10 +78,10 @@ extension FlightDomesticMultiLegResultVC {
         tableView.register(UINib(nibName: "DomesticMultiLegTemplateCell", bundle: nil), forCellReuseIdentifier: "DomesticMultiLegTemplateCell")
         
         
-        let headerRect = CGRect(x: 0, y: 0, width: width, height: 254.0)
+        let headerRect = CGRect(x: 0, y: 0, width: width, height: 303.0)
         let tableViewHeader = UIView(frame: headerRect)
         
-        let separatorView = UIView(frame:CGRect(x: 0, y: 253.5, width: width, height: 0.5))
+        let separatorView = UIView(frame:CGRect(x: 0, y: 302.5, width: width, height: 0.5))
         separatorView.backgroundColor = .TWO_ZERO_FOUR_COLOR
         tableViewHeader.addSubview(separatorView)
         tableView.tableHeaderView = tableViewHeader
@@ -496,6 +497,34 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
     
     func updateTaxesArray(_ results : [String : String]) {
         self.viewModel.taxesResult = results
+    }
+    
+    func hideBannerWhenAPIFails(){
+        guard let headerView = bannerView, !headerView.isHidden  else { return }
+        
+        var rect = headerView.frame
+        baseScrollViewTop.constant = 0
+        
+        UIView.animate(withDuration: 1.0 , animations: {
+            let y = rect.origin.y - rect.size.height - 20
+            rect.origin.y = y
+            headerView.frame = rect
+            self.view.layoutIfNeeded()
+            for subview in self.baseScrollView.subviews {
+                if let tableView = subview as? UITableView {
+                    let width = UIScreen.main.bounds.size.width / 2.0
+                    let headerRect = CGRect(x: 0, y: 0, width: width, height: 138.0)
+                    tableView.tableHeaderView = UIView(frame: headerRect)
+                }
+            }
+        }) { (bool) in
+            self.baseScrollView.setContentOffset(CGPoint(x: 0, y: 0) , animated: false)
+            self.bannerView?.isHidden = true
+            if ((self.viewModel.results.filter{$0.allJourneys.count == 0}).count == 0){
+                self.baseScrollView.isScrollEnabled = false
+            }
+        }
+        
     }
     
 }

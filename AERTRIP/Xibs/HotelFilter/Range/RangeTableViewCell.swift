@@ -56,8 +56,11 @@ class RangeTableViewCell: UITableViewCell {
     }
     
     func updateSliderValueOnLabel(range: Double) {
+        if range > 20 {
+           self.rangeLabel?.text = "All"
+        } else {
         let rangeValue = "\((range))"
         self.rangeLabel?.text = "\((rangeValue.replacingOccurrences(of: ".0", with: "")))" + "km" //range.toInt >= 20 ? "Beyond \(range.toInt)km" : "Within " + "\((range.toInt))" + "km"
-
+        }
     }
 }

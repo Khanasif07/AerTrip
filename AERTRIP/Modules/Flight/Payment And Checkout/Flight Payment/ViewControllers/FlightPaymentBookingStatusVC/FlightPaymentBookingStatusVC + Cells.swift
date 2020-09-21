@@ -17,7 +17,7 @@ extension FlightPaymentBookingStatusVC{
         
         cell.configCell(forBookingId: self.viewModel.itinerary.bookingNumber, forCid: LocalizedString.na.localized, isBookingPending: (self.viewModel.itinerary.bookingStatus.status.lowercased() != "booked"))
         cell.delegate = self
-
+        cell.addToAppleWalletButton.isLoading = self.viewModel.isLoadingWallet
         return cell
     }
     
@@ -144,6 +144,7 @@ extension FlightPaymentBookingStatusVC{
     private func updateCellForLoader(isStart: Bool, index: Int){
         self.viewModel.isLoadingTicket = isStart
         self.viewModel.loadingIndex = (self.viewModel.loadingIndex == index && !isStart) ? -1 : index
+        self.statusTableView.allowsSelection = !isStart
         self.statusTableView.reloadData()
     }
     
@@ -267,7 +268,7 @@ extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate{
 extension FlightPaymentBookingStatusVC : YouAreAllDoneTableViewCellDelegate, PKAddPassesViewControllerDelegate{
     
     func addToAppleWalletTapped() {
-        
+        self.addToAppleWalletSetup()
     }
     
     func addToCallendarTapped() {
@@ -276,33 +277,46 @@ extension FlightPaymentBookingStatusVC : YouAreAllDoneTableViewCellDelegate, PKA
         }
     }
     
-    func addToAppleWallet(_ bookingId: String, details: BookingDetailModel?) {
-        printDebug("Add To Apple Wallet")
-        let endPoints = "\(APIEndPoint.pass.path)?booking_id=\(bookingId)&flight_id=\(details?.bookingDetail?.leg.first?.flight.first?.flightId ?? "")"
-        printDebug("endPoints: \(endPoints)")
-        guard let url = URL(string: endPoints) else {return}
-        AppGlobals.shared.downloadWallet(fileURL: url) {[weak self] (passUrl) in
-
-            if let localURL = passUrl {
-                printDebug("localURL: \(localURL)")
-                self?.addWallet(passFilePath: localURL)
+    func addToAppleWalletSetup(){
+        if self.viewModel.appleWalletDetails.count > 1{//"\(leg.origin) → \(leg.destination)"
+            let names = self.viewModel.appleWalletDetails.map{$0.name}
+            let colors = self.viewModel.appleWalletDetails.map{$0.isAdded ? AppColors.themeGray40: AppColors.themeGreen}
+            let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: names, colors: colors)
+            let cencelBtn = PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeDarkGreen,titleFont: AppFonts.SemiBold.withSize(20))
+            _ = PKAlertController.default.presentActionSheet("Add Pass to wallet",titleFont: AppFonts.SemiBold.withSize(14), titleColor: AppColors.themeGray40, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: cencelBtn) { [weak self] _, index in
+                guard let self = self else {return}
+                 let detail = self.viewModel.appleWalletDetails[index]
+                self.addToAppleWallet(with: detail)
             }
+        }else{
+            guard let detail = self.viewModel.appleWalletDetails.first else {return}
+                self.addToAppleWallet(with: detail)
         }
     }
     
-    func addToAppleWalletSetup(){
-        if self.viewModel.apiBookingIds.count > 1{//"\(leg.origin) → \(leg.destination)"
-            let names = self.viewModel.bookingDetail.map{"\($0?.bookingDetail?.leg.first?.origin ?? "") → \($0?.bookingDetail?.leg.first?.destination ?? "")" }
-            let colors = self.viewModel.bookingDetail.map{_ in AppColors.themeGreen}
-            let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: names, colors: colors)
-            let cencelBtn = PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeDarkGreen,titleFont: AppFonts.SemiBold.withSize(20))
-            _ = PKAlertController.default.presentActionSheet("Add Pass for…",titleFont: AppFonts.SemiBold.withSize(14), titleColor: AppColors.themeGray40, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: cencelBtn) { [weak self] _, index in
-                guard let self = self , let detail = self.viewModel.bookingDetail[index] else {return}
-                self.addToAppleWallet(self.viewModel.apiBookingIds[index], details: detail)
+    
+    func addToAppleWallet(with flightDetails: AppleWalletFlight) {
+        printDebug("Add To Apple Wallet")
+        let endPoints = "\(APIEndPoint.pass.path)?booking_id=\(flightDetails.bookingId)&flight_id=\(flightDetails.flightId)"
+        printDebug("endPoints: \(endPoints)")
+        guard let url = URL(string: endPoints) else {return}
+        self.viewModel.isLoadingWallet = true
+        self.statusTableView.allowsSelection = false
+        UIView.performWithoutAnimation {
+            self.statusTableView.reloadRow(at: IndexPath(row: 0, section: 0), with: .none)
+        }
+        AppGlobals.shared.downloadWallet(fileURL: url, showLoader: false) {[weak self] (passUrl) in
+            if let localURL = passUrl {
+                guard let self = self else {return}
+                DispatchQueue.main.async {
+                    self.viewModel.isLoadingWallet = false
+                    self.statusTableView.allowsSelection = true
+                    UIView.performWithoutAnimation {
+                        self.statusTableView.reloadRow(at: IndexPath(row: 0, section: 0), with: .none)
+                    }
+                }
+                self.addWallet(passFilePath: localURL)
             }
-        }else{
-            guard let bookingId = self.viewModel.apiBookingIds.first,let detail = self.viewModel.bookingDetail.first else {return}
-                self.addToAppleWallet(bookingId, details: detail)
         }
     }
     
@@ -312,7 +326,9 @@ extension FlightPaymentBookingStatusVC : YouAreAllDoneTableViewCellDelegate, PKA
             let newpass = try PKPass.init(data: passData)
             let addController =  PKAddPassesViewController(pass: newpass)
             addController?.delegate = self
-            self.present(addController!, animated: true)
+            DispatchQueue.main.async {
+                self.present(addController!, animated: true)
+            }
         } catch {
             print(error)
         }

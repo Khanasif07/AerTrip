@@ -39,6 +39,7 @@ class HotlelBookingsDetailsVC: BaseVC {
     let headerHeightToAnimate: CGFloat = 30.0
     var isHeaderAnimating: Bool = false
     var isBackBtnTapped = false
+    let refreshControl = UIRefreshControl()
     
     // MARK: - IBOutlets
     
@@ -58,6 +59,9 @@ class HotlelBookingsDetailsVC: BaseVC {
     @IBOutlet weak var topNavBarHeightConstraint: NSLayoutConstraint!
     
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .bookingDetailFetched, object: nil)
+    }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -70,13 +74,18 @@ class HotlelBookingsDetailsVC: BaseVC {
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
         self.topNavBar.navTitleLabel.numberOfLines = 1
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
-        self.configureTableHeaderView()
+        self.configureTableHeaderView(hideDivider: true)
         self.setupParallaxHeader()
         self.registerNibs()
         
-     
+        self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        self.refreshControl.tintColor = AppColors.themeGreen
+        self.bookingDetailsTableView.refreshControl = refreshControl
+        
         // Call to get booking detail
-        self.viewModel.getBookingDetail()
+        self.viewModel.getBookingDetail(showProgress: true)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(bookingDetailFetched(_:)), name: .bookingDetailFetched, object: nil)
     }
     
     override func setupColors() {
@@ -99,41 +108,56 @@ class HotlelBookingsDetailsVC: BaseVC {
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
             if noti == .myBookingCasesRequestStatusChanged {
-                self.viewModel.getBookingDetail(shouldCallWillDelegate: false)
+                self.viewModel.getBookingDetail(showProgress: true)
+            }
+        }
+    }
+    @objc func bookingDetailFetched(_ note: Notification) {
+        if let object = note.object as? BookingDetailModel {
+            printDebug("BookingDetailModel")
+            if self.viewModel.bookingId == object.id {
+                self.viewModel.bookingDetail = object
+                self.getBookingDetailSucces(showProgress: false)
             }
         }
     }
     
     func getUpdatedTitle() -> String {
         var updatedTitle = self.viewModel.bookingDetail?.bookingDetail?.hotelName ?? ""
-//        if updatedTitle.count > 24 {
-//            updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.count)
-//        }
+        //        if updatedTitle.count > 24 {
+        //            updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.count)
+        //        }
         return updatedTitle
     }
     
     // MARK: - Functions
-    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.viewModel.getBookingDetail(showProgress: false)
+    }
     // MARK: -
     
     /// ConfigureCheckInOutView
     
-    private func configureTableHeaderView() {
+    private func configureTableHeaderView(hideDivider: Bool) {
         if let view = self.headerView {
             view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM''yy") ?? "")
-//            view.dividerView.isHidden = true
+            
+            //view.dividerView.isHidden = hideDivider //true
             view.isBottomStroke = false
             if let note = self.viewModel.bookingDetail?.bookingDetail?.note, !note.isEmpty {
-//                view.dividerView.isHidden = false
+                //                view.dividerView.isHidden = false
                 view.isBottomStroke = true
             }
             else if let cases = self.viewModel.bookingDetail?.cases, !cases.isEmpty {
-//                view.dividerView.isHidden = false
+                //                view.dividerView.isHidden = false
                 view.isBottomStroke = true
+            }
+            if !hideDivider {
+                view.dividerView.isHidden = !view.isBottomStroke
             }
         }
     }
-   
+    
     private func setupParallaxHeader() {
         let parallexHeaderHeight = CGFloat(147.0)
         let parallexHeaderMinHeight = CGFloat(0.0)//(navigationController?.navigationBar.bounds.height ?? 74) - 2
@@ -142,7 +166,7 @@ class HotlelBookingsDetailsVC: BaseVC {
         self.bookingDetailsTableView.parallaxHeader.view = self.headerView
         self.bookingDetailsTableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight
         self.bookingDetailsTableView.parallaxHeader.height = parallexHeaderHeight
-        self.bookingDetailsTableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
+        self.bookingDetailsTableView.parallaxHeader.mode = MXParallaxHeaderMode.top
         self.bookingDetailsTableView.parallaxHeader.delegate = self
         self.view.bringSubviewToFront(self.topNavBar)
     }
@@ -170,15 +194,20 @@ class HotlelBookingsDetailsVC: BaseVC {
 }
 
 extension HotlelBookingsDetailsVC: BookingProductDetailVMDelegate {
-    func willGetBookingDetail() {
+    func willGetBookingDetail(showProgress: Bool) {
         //AppGlobals.shared.startLoading()
-        self.headerView?.startProgress()
+        if showProgress {
+            self.headerView?.startProgress()
+        }
     }
     
-    func getBookingDetailSucces() {
+    func getBookingDetailSucces(showProgress: Bool) {
         //AppGlobals.shared.stopLoading()
-        self.headerView?.stopProgress()
-        self.configureTableHeaderView()
+        if showProgress {
+            self.headerView?.stopProgress()
+        }
+        self.refreshControl.endRefreshing()
+        self.configureTableHeaderView(hideDivider: showProgress)
         self.bookingDetailsTableView.delegate = self
         self.bookingDetailsTableView.dataSource = self
         self.viewModel.getSectionDataForHotelDetail()
@@ -187,9 +216,12 @@ extension HotlelBookingsDetailsVC: BookingProductDetailVMDelegate {
         self.viewModel.getTripOwnerApi()
     }
     
-    func getBookingDetailFaiure(error: ErrorCodes) {
+    func getBookingDetailFaiure(error: ErrorCodes,showProgress: Bool) {
         //AppGlobals.shared.stopLoading()
-        self.headerView?.stopProgress()
+        if showProgress {
+            self.headerView?.stopProgress()
+        }
+        self.refreshControl.endRefreshing()
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
     }
     
@@ -197,7 +229,7 @@ extension HotlelBookingsDetailsVC: BookingProductDetailVMDelegate {
         
     }
     func getBTripOwnerSucces() {
-       self.bookingDetailsTableView.reloadData()
+        self.bookingDetailsTableView.reloadData()
     }
     func getTripOwnerFaiure(error: ErrorCodes) {
         self.bookingDetailsTableView.reloadData()

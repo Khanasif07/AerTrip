@@ -14,7 +14,7 @@ protocol NoResultScreenDelegate : AnyObject {
 }
 
 
-class NoResultScreenView: UIView {
+class NoResultScreenView : UIView {
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var subTitle: UILabel!
@@ -43,13 +43,14 @@ class NoResultScreenView: UIView {
 
         clearFilter.isHidden = false
         TryAgain.isHidden = true
-
+        
+        
     }
     
     func showNoResultsMode(){
         
         headerLabel.text = "Flight Not Found"
-        subTitle.text = "Kindly re check your search or try looking for other routes or dates."
+        subTitle.text = "Try loading for other routes or dates."
         
         TryAgain.isHidden = false
         clearFilter.isHidden = true
@@ -63,11 +64,11 @@ class NoResultScreenView: UIView {
     
     func showNoFilteredResults(){
         
-        headerLabel.text = "No Results Available"
-        subTitle.text = "We couldn’t find flights to match your filters. Try changing the filters, or reset them."
+        headerLabel.text = "No results match your filters"
+        subTitle.text = "Try different filters, or clear all."
         clearFilter.isHidden = false
         TryAgain.isHidden = true
-        
+    
     }
     
     @IBAction func tryAgainTapped(_ sender: Any) {

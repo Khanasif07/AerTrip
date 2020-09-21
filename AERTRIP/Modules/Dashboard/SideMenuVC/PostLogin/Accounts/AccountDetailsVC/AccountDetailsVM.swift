@@ -9,9 +9,9 @@
 import UIKit
 
 protocol AccountDetailsVMDelegate: class {
-    func willGetAccountDetails()
-    func getAccountDetailsSuccess()
-    func getAccountDetailsFail()
+    func willGetAccountDetails(showProgres: Bool)
+    func getAccountDetailsSuccess(model: AccountDetailPostModel, showProgres: Bool)
+    func getAccountDetailsFail(showProgres: Bool)
     
     func searchEventsSuccess()
     func applyFilterSuccess()
@@ -138,14 +138,14 @@ class AccountDetailsVM: NSObject {
         //self.delegate?.getAccountDetailsSuccess()
     }
     
-    func getAccountDetails() {
-        self.delegate?.willGetAccountDetails()
+    func getAccountDetails(showProgres: Bool) {
+        self.delegate?.willGetAccountDetails(showProgres: showProgres)
         
-        guard self._accountDetails.isEmpty else {
-            //because the data has been send from previous screen
-            self.delegate?.getAccountDetailsSuccess()
-            return
-        }
+//        guard self._accountDetails.isEmpty else {
+//            //because the data has been send from previous screen
+//            self.delegate?.getAccountDetailsSuccess(model: AccountDetailPostModel(), showProgres: showProgres)
+//            return
+//        }
         
         //hit api to update the saved data and show it on screen
         APICaller.shared.getAccountDetailsAPI(params: [:]) { [weak self](success, accLad, accVchrs, outLad, periodic, errors) in
@@ -158,10 +158,20 @@ class AccountDetailsVM: NSObject {
                 sSelf._accountDetails = accLad
                 sSelf.setAccountDetails(data: accLad)
                 sSelf.allVouchers = accVchrs
-                sSelf.delegate?.getAccountDetailsSuccess()
+                
+                let model = AccountDetailPostModel()
+                model.accountLadger = accLad
+                model.periodicEvents = periodic
+                if let obj = outLad {
+                    model.outstandingLadger = obj
+                }
+                model.accVouchers = accVchrs
+                
+                sSelf.delegate?.getAccountDetailsSuccess(model: model, showProgres: showProgres)
+
             }
             else {
-                sSelf.delegate?.getAccountDetailsFail()
+                sSelf.delegate?.getAccountDetailsFail(showProgres: showProgres)
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
             }
         }

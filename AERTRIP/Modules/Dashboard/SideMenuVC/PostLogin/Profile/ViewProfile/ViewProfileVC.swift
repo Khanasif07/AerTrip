@@ -35,8 +35,9 @@ class ViewProfileVC: BaseVC {
     
     weak var delegate: ViewProfileVCDelegate?
     let cellIdentifier = "ViewProfileTableViewCell"
+    let viewProfileFooterView = "ViewProfileFooterView"
     var sections = ["details", "logOut"]
-    var details = [LocalizedString.TravellerList.localized, LocalizedString.HotelPreferences.localized, LocalizedString.GSTIN.localized,  LocalizedString.QuickPay.localized, LocalizedString.LinkedAccounts.localized]
+    var details = [LocalizedString.TravellerList.localized, LocalizedString.HotelPreferences.localized,  LocalizedString.QuickPay.localized, LocalizedString.LinkedAccounts.localized]
     var logOut = [LocalizedString.ChangePassword,LocalizedString.LogOut]
     var profileImageHeaderView: SlideMenuProfileImageHeaderView?
     
@@ -132,6 +133,8 @@ class ViewProfileVC: BaseVC {
         
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: self.cellIdentifier, bundle: nil), forCellReuseIdentifier: self.cellIdentifier)
+        tableView.register(UINib(nibName: viewProfileFooterView, bundle: nil), forHeaderFooterViewReuseIdentifier: viewProfileFooterView)
+
         
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .clear)
@@ -152,8 +155,8 @@ class ViewProfileVC: BaseVC {
         self.profileImageHeaderView?.delegate = self
         self.setupParallaxHeader()
         
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 17.0))
-        tableView.tableFooterView = footerView
+        //let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 17.0))
+        //tableView.tableFooterView = footerView
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.bounces = true
@@ -358,7 +361,17 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return section == 1 ? 201 : CGFloat.leastNormalMagnitude
+    }
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == 1 {
+            guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: viewProfileFooterView) as? ViewProfileFooterView else {return nil}
+            return footerView
+        }
+            return nil
+    }
 }
 
 

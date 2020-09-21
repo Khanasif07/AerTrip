@@ -114,12 +114,12 @@ extension FlightDomesticMultiLegResultVC {
         let width = tableView.bounds.size.width
         let bottomInset = self.view.safeAreaInsets.bottom
         //FIXME :- magical no
-        let height = UIScreen.main.bounds.height - yCoordinate - bottomInset //- 50 - self.statusBarHeight
+        let height = UIScreen.main.bounds.height - yCoordinate - bottomInset + 25.0 //- 50 - self.statusBarHeight
         let visibleRect = CGRect(x: xCoordinate, y: yCoordinate, width: width, height: height)
         return visibleRect
     }
     
-    func animateJourneyCompactView(for tableView : UITableView) {
+    func animateJourneyCompactView(for tableView : UITableView, isHeaderNeedToSet: Bool = false) {
         guard let selectedIndex =  self.getSelectedIndex(for: tableView) else { return }//tableView.indexPathForSelectedRow
         let visibleRect = getVisibleAreaRectFor(tableView: tableView)
         let xCoordinate = tableView.frame.origin.x
@@ -129,15 +129,15 @@ extension FlightDomesticMultiLegResultVC {
         selectedRowRect.origin.x = xCoordinate
         if visibleRect.contains(selectedRowRect) {
             let index = tableView.tag - 1000
-            hideHeaderCellAt(index: index)
+            hideHeaderCellAt(index: index, isHeaderNeedSet: isHeaderNeedToSet)
         }
         else {
-            showHeaderCellAt(tableView: tableView)
+            showHeaderCellAt(tableView: tableView, isHeaderNeedSet: isHeaderNeedToSet)
         }
-        setTableViewHeaderFor(tableView: tableView)
+//        setTableViewHeaderFor(tableView: tableView)
     }
         
-    func showHeaderCellAt(tableView : UITableView) {
+    func showHeaderCellAt(tableView : UITableView, isHeaderNeedSet: Bool = false) {
         
         let index = tableView.tag - 1000
         let headerView = journeyHeaderViewArray[index]
@@ -152,7 +152,7 @@ extension FlightDomesticMultiLegResultVC {
             }
             let headerJourneyRect  = CGRect(x: (width * CGFloat(index)), y: (-journeyCompactViewHeight) , width: width - 1 , height: journeyCompactViewHeight)
             headerView.frame = headerJourneyRect
-            UIView.animate(withDuration: 0.4) {
+            UIView.animate(withDuration: 0.4, animations: {
                 var rect = headerView.frame
                 var yCoordinate = max(self.headerCollectionViewTop.constant +  self.headerCollectionView.frame.size.height , self.headerCollectionView.frame.size.height )
                 if self.baseScrollView.contentOffset.y == 88.0 {
@@ -161,15 +161,27 @@ extension FlightDomesticMultiLegResultVC {
                 rect.origin.y = yCoordinate
                 rect.size.height = self.journeyCompactViewHeight
                 headerView.frame = rect
+            }){ _ in
+                if isHeaderNeedSet{
+                    self.setTableViewHeaderFor(tableView: tableView)
+                }
             }
+        }else if isHeaderNeedSet{
+            self.setTableViewHeaderFor(tableView: tableView)
         }
+        
     }
         
-    func hideHeaderCellAt(index : Int) {
+    func hideHeaderCellAt(index : Int, isHeaderNeedSet: Bool = false)  {
         
         let headerView = journeyHeaderViewArray[index]
         
         if headerView.isHidden {
+            if isHeaderNeedSet{
+                if let table = self.baseScrollView.viewWithTag(1000 + index) as? UITableView{
+                    self.setTableViewHeaderFor(tableView: table)
+                }
+            }
             return
         }
         
@@ -181,6 +193,11 @@ extension FlightDomesticMultiLegResultVC {
                 headerView.frame = frame
             }) { (completed) in
                 headerView.isHidden = true
+                if isHeaderNeedSet{
+                    if let table = self.baseScrollView.viewWithTag(1000 + index) as? UITableView{
+                        self.setTableViewHeaderFor(tableView: table)
+                    }
+                }
             }
         }
     }
@@ -205,11 +222,11 @@ extension FlightDomesticMultiLegResultVC {
     //MARK:- Setting TableView Header after showing/hiding journey compact view to avoid overlapping of first cell
     
     func setTableViewHeaderFor(tableView  : UITableView) {
-                
+        
         let width = tableView.bounds.size.width
         let index = tableView.tag - 1000
         let headerView = journeyHeaderViewArray[index]
-
+        
         let height : CGFloat
         if headerView.isHidden {
             height = 138.0
@@ -217,6 +234,7 @@ extension FlightDomesticMultiLegResultVC {
         else {
             height = 188.0
         }
+//        guard !((tableView.tableHeaderView?.height) == height) else {return}
         let rect = CGRect(x: 0, y: 0, width: width, height: height )
         let tableHeaderView = UIView(frame: rect)
         tableView.tableHeaderView = tableHeaderView
@@ -245,7 +263,7 @@ extension FlightDomesticMultiLegResultVC {
         }
 //        let headerView = journeyHeaderViewArray[index]
         
-        var height : CGFloat = 138.0
+        let height : CGFloat = 138.0
         journeyHeaderViewArray[index].isHidden = true
 //        if isFirstCellVisible {
 //
@@ -271,45 +289,7 @@ extension FlightDomesticMultiLegResultVC {
 
     
     //MARK:- ScrollView Delegate Methods
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        
-        scrollviewInitialYOffset = scrollView.contentOffset.y
-    }
-    
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        // Synchronizing scrolling of headerCollectionView to baseScrollView scroll movement
-        if scrollView == baseScrollView {
-            self.syncScrollView(headerCollectionView, toScrollView: baseScrollView)
-            if scrollView.contentOffset.y > 88.0{
-                scrollView.contentOffset.y = 88.0
-            }else{
-                self.changeContentOfssetWithMainScrollView()
-            }
-            return
-        }
-        
-        // Scrolling on tableviews
-        if scrollView.tag > 999 {
-            
-            for subview in baseScrollView.subviews.filter({ $0.tag > 999 }) {
-                
-                if subview == scrollView {
-                    animateTopViewOnScroll(scrollView)
-                    if let tableView = scrollView as? UITableView {
-                        animateJourneyCompactView(for: tableView)
-                    }
-                }
-                else {
-                    if let tableView = subview as? UIScrollView {
-                        tableView.setContentOffset(tableView.contentOffset, animated: false)
-                    }
-                }
-            }
-        }
-    }
+   
     
     func changeContentOfssetWithMainScrollView(_ isNeedToAnimate:Bool = false){
         guard let blurView = self.navigationController?.view.viewWithTag(500) else  {return}
@@ -341,21 +321,128 @@ extension FlightDomesticMultiLegResultVC {
         
     }
     
+   
+    
+    func getSelectedIndex(for table: UITableView)-> Int?{
+        let index = table.tag - 1000
+        let tableState = viewModel.resultsTableStates[index]
+        if tableState == .showPinnedFlights {
+            return self.viewModel.results[index].pinnedFlights.firstIndex(where: {$0.fk == (self.viewModel.results[index].selectedJourney?.fk ?? "")})
+        } else if tableState == .showExpensiveFlights {
+            return self.viewModel.results[index].allJourneys.firstIndex(where: {$0.fk == (self.viewModel.results[index].selectedJourney?.fk ?? "")})
+        } else if tableState == .showRegularResults{
+         return self.viewModel.results[index].suggestedJourneyArray.firstIndex(where: {$0.fk == (self.viewModel.results[index].selectedJourney?.fk ?? "")})
+        } else{
+            return nil
+        }
+    }
+}
+
+//MARK: ScrollView delegate
+extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        
+        scrollviewInitialYOffset = scrollView.contentOffset.y
+    }
+    
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        // Synchronizing scrolling of headerCollectionView to baseScrollView scroll movement
+        
+        if !scrollView.isScrollEnabled{
+            return
+        }
+        
+        if scrollView == baseScrollView {
+            self.syncScrollView(headerCollectionView, toScrollView: baseScrollView)
+            if scrollView.contentOffset.y > 88.0{
+                scrollView.contentOffset.y = 88.0
+            }else{
+                self.changeContentOfssetWithMainScrollView()
+            }
+            return
+        }
+        
+        // Scrolling on tableviews
+        if scrollView.tag > 999 {
+            
+            for subview in baseScrollView.subviews.filter({ $0.tag > 999 }) {
+                
+                if subview == scrollView {
+                    animateTopViewOnScroll(scrollView)
+                    if let tableView = scrollView as? UITableView {
+                        animateJourneyCompactView(for: tableView)
+                    }
+                }
+                else {
+                    if let tableView = subview as? UIScrollView {
+                        tableView.setContentOffset(tableView.contentOffset, animated: false)
+                    }
+                }
+            }
+        }
+    }
+    
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        return scrollView != self.baseScrollView
+        if scrollView != self.baseScrollView{
+            if let tableView = scrollView as? UITableView{
+                tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .middle, animated: true)
+//                delay(seconds: 0.4) {
+//                    self.setTableViewHeaderFor(tableView: tableView)
+//                }
+            }
+        }
+        return false
+    }
+    // For Horizontal Scrollig , snaping at the edge of tableview column
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        if scrollView == baseScrollView {
+            let currentOffset = scrollView.contentOffset.x
+            let targetOffset = CGFloat(targetContentOffset.pointee.x)
+            var newTargetOffset:CGFloat = 0.0
+            let legWidth = self.view.bounds.size.width / 2
+            var currentIndex =  currentOffset / legWidth
+            
+            // snap to closes , but gives jerk when pan is small
+            
+            let position = scrollView.panGestureRecognizer.translation(in: scrollView.superview )
+            if position.x < 0 {
+                
+                currentIndex.round(.awayFromZero)
+            }
+            else {
+                
+                if targetOffset > currentOffset {
+                    currentIndex.round(.awayFromZero)
+                }
+                else {
+                    currentIndex.round(.towardZero)
+                }
+            }
+            
+            newTargetOffset = CGFloat(currentIndex) * legWidth
+            
+            // To avoid going out of content size
+            if newTargetOffset < 0.0 {
+                newTargetOffset = 0.0
+            }
+            else if newTargetOffset > scrollView.contentSize.width {
+                newTargetOffset = scrollView.contentSize.width
+            }
+            
+            targetContentOffset.pointee = CGPoint(x: newTargetOffset, y: targetContentOffset.pointee.y)
+            
+            lastTargetContentOffsetX = targetContentOffset.pointee.x
+        }
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         
         if scrollView.tag > 999 {
             if let tableView = scrollView as? UITableView {
-                
-//                if let selectedIndex = tableView.indexPathForSelectedRow {
-//                    if selectedIndex == IndexPath(item: 0, section: 0) {
-//                        return
-//                    }
-//                }
-                setTableViewHeaderFor(tableView: tableView)
                 animateJourneyCompactView(for: tableView)
                 if !scrollView.isBouncingTop{
                     snapToTopOrBottomOnSlowScrollDragging(scrollView)
@@ -373,67 +460,37 @@ extension FlightDomesticMultiLegResultVC {
                 self.changeContentOfssetWithMainScrollView(true)
             }
         }
-
+        
     }
     
-    // For Horizontal Scrollig , snaping at the edge of tableview column
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-
-        if scrollView == baseScrollView {
-            let currentOffset = scrollView.contentOffset.x
-            let targetOffset = CGFloat(targetContentOffset.pointee.x)
-            var newTargetOffset:CGFloat = 0.0
-            let legWidth = self.view.bounds.size.width / 2
-            var currentIndex =  currentOffset / legWidth
-            
-            // snap to closes , but gives jerk when pan is small
-            
-            let position = scrollView.panGestureRecognizer.translation(in: scrollView.superview )
-            if position.x < 0 {
-
-                 currentIndex.round(.awayFromZero)
+    
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        printDebug("ended")
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if let tableView = scrollView as? UITableView{
+            let index = tableView.tag - 1000
+            let headerView = journeyHeaderViewArray[index]
+            guard headerView.isHidden || tableView.contentOffset.y == 0 else {return}
+            UIView.animate(withDuration: 0.3) {
+                self.setTableViewHeaderFor(tableView: tableView)
             }
-            else {
-
-                if targetOffset > currentOffset {
-                   currentIndex.round(.awayFromZero)
-                }
-                else {
-                  currentIndex.round(.towardZero)
-                }
-            }
-                                    
-            newTargetOffset = CGFloat(currentIndex) * legWidth
-            
-            // To avoid going out of content size
-             if newTargetOffset < 0.0 {
-                 newTargetOffset = 0.0
-             }
-             else if newTargetOffset > scrollView.contentSize.width {
-                 newTargetOffset = scrollView.contentSize.width
-             }
-            
-            targetContentOffset.pointee = CGPoint(x: newTargetOffset, y: targetContentOffset.pointee.y)
-            
-//            if velocity.x != 0 && lastTargetContentOffsetX == targetContentOffset.pointee.x {
-//                scrollView.setContentOffset(targetContentOffset.pointee, animated: true)
-//            }
-            
-            lastTargetContentOffsetX = targetContentOffset.pointee.x
         }
     }
     
-    func getSelectedIndex(for table: UITableView)-> Int?{
-        let index = table.tag - 1000
-        let tableState = viewModel.resultsTableStates[index]
-        if tableState == .showPinnedFlights {
-            return self.viewModel.results[index].pinnedFlights.firstIndex(where: {$0.fk == (self.viewModel.results[index].selectedJourney?.fk ?? "")})
-        } else if tableState == .showExpensiveFlights {
-            return self.viewModel.results[index].allJourneys.firstIndex(where: {$0.fk == (self.viewModel.results[index].selectedJourney?.fk ?? "")})
-        } else if tableState == .showRegularResults{
-         return self.viewModel.results[index].suggestedJourneyArray.firstIndex(where: {$0.fk == (self.viewModel.results[index].selectedJourney?.fk ?? "")})
-        } else{
-            return nil
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        if let tableView = scrollView as? UITableView{
+            setTableViewHeaderFor(tableView: tableView)
         }
     }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        if let tableView = scrollView as? UITableView{
+            delay(seconds: 0.3) {
+                self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
+            }
+        }
+    }
+    
 }

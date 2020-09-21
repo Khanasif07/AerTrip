@@ -12,18 +12,30 @@ protocol AccountLadgerDetailsVMDelegate: class {
     func willFetchLadgerDetails()
     func fetchLadgerDetailsSuccess()
     func fetchLadgerDetailsFail()
+    
+    func willFetchAccountDetail()
+    func fetchAccountDetailSuccess(model: AccountDetailPostModel)
+    func fetchAccountDetailFail()
 }
 
 class AccountLadgerDetailsVM {
+    
+    enum AccountLadgerDetailType {
+        case accountLadger
+        case outstandingLadger
+        
+    }
+    
     //MARK:- Properties
     //MARK:- Public
+    var detailType: AccountLadgerDetailType = .accountLadger
     weak var delegate:AccountLadgerDetailsVMDelegate?
     var ladgerEvent: AccountDetailEvent?
-  //  var ladgerDetails: JSONDictionary = [:]
+    //  var ladgerDetails: JSONDictionary = [:]
     var isDownloadingRecipt = false
     var sectionArray = [[(title: String, value: String, age: String, isEmptyCell: Bool)]]()
     //MARK:- Private
-
+    
     
     //MARK:- Methods
     //MARK:- Private
@@ -48,11 +60,11 @@ class AccountLadgerDetailsVM {
         }
         let suffix = self.ladgerEvent!.amount > 0 ? LocalizedString.CreditShort.localized : LocalizedString.DebitShort.localized
         section1.append((title: "Amount", value: "\(abs(self.ladgerEvent!.amount).amountInDelimeterWithSymbol) \(suffix)", age: "", isEmptyCell: false))
-//        section1.append((title: "Balance", value: "\(self.ladgerEvent!.balance)", age: "", isEmptyCell: false))
+        //        section1.append((title: "Balance", value: "\(self.ladgerEvent!.balance)", age: "", isEmptyCell: false))
         section1.append((title: "", value: "", age: "", isEmptyCell: true))
         self.sectionArray.append(section1)
-
-       // self.ladgerDetails["0"] = amountDetails
+        
+        // self.ladgerDetails["0"] = amountDetails
         
         if self.ladgerEvent!.receiptMethod == .offline{
             var section2 = [(title: String, value: String, age: String, isEmptyCell: Bool)]()
@@ -121,10 +133,10 @@ class AccountLadgerDetailsVM {
                 section4.append((title: "PNR", value: self.ladgerEvent!.pnr, age: "", isEmptyCell: false))
             }
             if  !self.ladgerEvent!.ticketNo.isEmpty{
-            section4.append((title: "Ticket No.", value: self.ladgerEvent!.ticketNo, age: "", isEmptyCell: false))
+                section4.append((title: "Ticket No.", value: self.ladgerEvent!.ticketNo, age: "", isEmptyCell: false))
             }
-
-
+            
+            
             for (idx, name) in self.ladgerEvent!.names.enumerated() {
                 var age = ""
                 if !name.dob.isEmpty {
@@ -151,7 +163,7 @@ class AccountLadgerDetailsVM {
             }
             let suffix = self.ladgerEvent!.amount > 0 ? LocalizedString.CreditShort.localized : LocalizedString.DebitShort.localized
             section1.append((title: "Amount", value: "\(abs(self.ladgerEvent!.amount).amountInDelimeterWithSymbol) \(suffix)", age: "", isEmptyCell: false))
-//            section1.append((title: "Balance", value: "\(self.ladgerEvent!.balance)", age: "", isEmptyCell: false))
+            //            section1.append((title: "Balance", value: "\(self.ladgerEvent!.balance)", age: "", isEmptyCell: false))
             section1.append((title: "", value: "", age: "", isEmptyCell: true))
             self.sectionArray.append(section1)
             
@@ -164,7 +176,7 @@ class AccountLadgerDetailsVM {
                 section2.append((title: "Airline", value: self.ladgerEvent!.airline, age: "", isEmptyCell: false))
             }
             if  !self.ladgerEvent!.sector.isEmpty{
-            section2.append((title: "Sector", age: "", value: self.ladgerEvent!.title, isEmptyCell: false))
+                section2.append((title: "Sector", age: "", value: self.ladgerEvent!.title, isEmptyCell: false))
             }
             if  !self.ladgerEvent!.pnr.isEmpty{
                 section2.append((title: "PNR", value: self.ladgerEvent!.pnr, age: "", isEmptyCell: false))
@@ -197,7 +209,7 @@ class AccountLadgerDetailsVM {
     
     private func parseDataForHotelSales() {
         //self.ladgerDetails.removeAll()
-
+        
         //amount details
         if self.ladgerEvent!.dueDate == nil{
             var section1 = [(title: String, value: String, age: String, isEmptyCell: Bool)]()
@@ -209,10 +221,10 @@ class AccountLadgerDetailsVM {
             let suffix = self.ladgerEvent!.amount > 0 ? LocalizedString.CreditShort.localized : LocalizedString.DebitShort.localized
             section1.append((title: "Amount", value: "\(abs(self.ladgerEvent!.amount).amountInDelimeterWithSymbol) \(suffix)", age: "",
                              isEmptyCell: false))
-//            section1.append((title: "Balance", value: "\(self.ladgerEvent!.balance)", age: "", isEmptyCell: false))
+            //            section1.append((title: "Balance", value: "\(self.ladgerEvent!.balance)", age: "", isEmptyCell: false))
             section1.append((title: "", value: "", age: "", isEmptyCell: true))
             self.sectionArray.append(section1)
-
+            
             
         }else{
             let days = self.ladgerEvent!.overDueDays
@@ -233,7 +245,7 @@ class AccountLadgerDetailsVM {
             section2.append((title: "Total Amount", value: "\(self.ladgerEvent!.amount.amountInDelimeterWithSymbol)", age: "", isEmptyCell: false))
             section2.append((title: "", value: "", age: "", isEmptyCell: true))
             self.sectionArray.append(section2)
-
+            
             
         }
         //booking details
@@ -245,12 +257,12 @@ class AccountLadgerDetailsVM {
         if !self.ladgerEvent!.confirmationId.isEmpty{
             section3.append((title: "Confirmation ID", value: self.ladgerEvent!.confirmationId, age: "", isEmptyCell: false))
         }
-
+        
         for (idx, name) in self.ladgerEvent!.names.enumerated() {
             var age = ""
-                           if !name.dob.isEmpty {
-                               age = AppGlobals.shared.getAgeLastString(dob: name.dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
-                           }
+            if !name.dob.isEmpty {
+                age = AppGlobals.shared.getAgeLastString(dob: name.dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+            }
             if idx == 0 {
                 section3.append((title: "Names", value: name.name, age: age, isEmptyCell: false))
             }
@@ -262,18 +274,18 @@ class AccountLadgerDetailsVM {
         //self.ladgerDetails["1"] = bookingDetails
         section3.append((title: "", value: "", age: "", isEmptyCell: true))
         self.sectionArray.append(section3)
-
+        
     }
     
     //MARK:- Public
     func fetchLadgerDetails() {
         self.delegate?.willFetchLadgerDetails()
-
+        
         guard let event = self.ladgerEvent else {
             self.delegate?.fetchLadgerDetailsFail()
             return
         }
-        
+        self.sectionArray.removeAll()
         if event.voucher == .sales || event.voucher == .journal {
             
             if event.productType == .hotel {
@@ -293,5 +305,51 @@ class AccountLadgerDetailsVM {
             self?.delegate?.fetchLadgerDetailsSuccess()
         }
         self.delegate?.fetchLadgerDetailsSuccess()
+    }
+    
+    func fetchAccountDetails() {
+        
+        self.delegate?.willFetchAccountDetail()
+        
+        
+        //hit api to update the saved data and show it on screen
+        APICaller.shared.getAccountDetailsAPI(params: [:]) { [weak self](success, accLad, accVchrs, outLad, periodic, errors) in
+            if success {
+                let model = AccountDetailPostModel()
+                model.accountLadger = accLad
+                model.periodicEvents = periodic
+                if let obj = outLad {
+                    model.outstandingLadger = obj
+                }
+                model.accVouchers = accVchrs
+                
+                if self?.detailType == .accountLadger {
+                    self?.updateFethedData(onData: model.accountLadger)
+                } else {
+                    self?.updateFethedData(onData: model.outstandingLadger.ladger)
+                }
+                self?.fetchLadgerDetails()
+                self?.delegate?.fetchAccountDetailSuccess(model: model)
+            }
+            else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+                self?.delegate?.fetchAccountDetailFail()
+            }
+        }
+    }
+    
+    func updateFethedData(onData: JSONDictionary) {
+        
+        for date in Array(onData.keys) {
+            if let events = onData[date] as? [AccountDetailEvent] {
+                //                    let fltrd = events.filter({ $0.title.lowercased().contains(forText.lowercased())})
+                if let firstEvent = events.first(where: { (event) -> Bool in
+                    return event.transactionId == (self.ladgerEvent?.transactionId ?? "")
+                }) {
+                    self.ladgerEvent = firstEvent
+                    break
+                }
+            }
+        }
     }
 }

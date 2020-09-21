@@ -58,19 +58,28 @@ class RangeVC: BaseVC {
         } else if value > 11 &&   value <= 12 {
            value = 15
             sliderPoint = 12
-        } else if value > 12  {
+        } else if value > 12 && value <= 13 {
             value = 20
             sliderPoint = 13
-        } else {
+        } else if value > 13 {
+            value = 25
+            sliderPoint = 14
+        }else {
             sliderPoint = Int(value)
 //            if value > 10 {
                 value = value - 1
 //            }
         }
+        var setValue = true
+        if HotelFilterVM.shared.distanceRange == value {
+            setValue = false
+        }
         HotelFilterVM.shared.distanceRange =  value
         HotelFilterVM.shared.delegate?.updateFiltersTabs()
         if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? RangeTableViewCell {
-            cell.stepSlider?.index = UInt(sliderPoint)
+            //cell.stepSlider?.index = UInt(sliderPoint)
+            cell.stepSlider?.enableHapticFeedback = setValue
+            cell.stepSlider?.setIndex(UInt(sliderPoint), animated: false)
             cell.updateSliderValueOnLabel(range: value)
         } else {
             tableView?.reloadData()
@@ -98,7 +107,9 @@ extension RangeVC: UITableViewDataSource, UITableViewDelegate {
         let filter = UserInfo.hotelFilter
         let range = filter?.distanceRange ?? HotelFilterVM.shared.distanceRange
         var value = 13
-        if range == 20 {
+        if range == 25 {
+            value = 14
+        }else if range == 20 {
             value = 13
         } else if range == 15 {
             value = 12
@@ -107,7 +118,7 @@ extension RangeVC: UITableViewDataSource, UITableViewDelegate {
         } else {
             value = Int(range + 1)
         }
-        
+        cell.stepSlider?.enableHapticFeedback = HotelFilterVM.shared.distanceRange != 0.5
         cell.stepSlider?.index = UInt(value) //UInt(value.toInt)
         cell.updateSliderValueOnLabel(range: range)
         return cell

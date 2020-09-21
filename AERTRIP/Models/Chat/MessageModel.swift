@@ -33,6 +33,8 @@ struct MessageModel {
     let tripType: String
     let returnDate: String
     
+    var shouldShowTypingContent = false
+        
     init(msg : String, source : MessageSource) {
         self.msg = msg
         msgSource = source

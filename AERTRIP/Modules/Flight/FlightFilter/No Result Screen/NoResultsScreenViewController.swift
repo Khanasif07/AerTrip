@@ -18,10 +18,12 @@ class NoResultsScreenViewController: UIViewController {
     
     weak var delegate : NoResultScreenDelegate?
     @IBOutlet weak var revolvingIndicatorView: UIImageView!
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         setupIndicatorView()
-    
+        header.font = AppFonts.Regular.withSize(22)
+        subTitle.font = AppFonts.Regular.withSize(18)
     }
 
 
@@ -35,22 +37,19 @@ class NoResultsScreenViewController: UIViewController {
     }
     
     func noResultsScreen() {
-        
         header.text = "Flight Not Found"
-        subTitle.text = "Kindly re check your search or try looking for other routes or dates."
+        subTitle.text = "Try loading for other routes or dates."
         button.setTitle("Try again", for: .normal)
         button.tag = 100
     }
     
     func noFilteredResults() {
-        
-        header.text = "No Results Available"
-        subTitle.text = "We couldn’t find flights to match your filters. Try changing the filters, or reset them."
+        header.text = "No results match your filters"
+        subTitle.text = "Try different filters, or clear all."
         button.setTitle("Clear Filters", for: .normal)
         button.tag = 200
     }
 
-    
     @IBAction func buttonTapped(_ sender: UIButton) {
         
         if sender.tag == 100 {

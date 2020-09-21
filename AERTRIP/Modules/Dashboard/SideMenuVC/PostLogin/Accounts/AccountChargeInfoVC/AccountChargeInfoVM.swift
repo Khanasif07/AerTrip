@@ -22,8 +22,7 @@ class AccountChargeInfoVM {
 
     private let statementTitles: [String] = [
                             "Opening Balance",
-                            "Recent Payments & Credits",
-                            "Recent Charges",
+                            "Recent Transactions",
                             "Total Outstanding",
                             "Current Balance",
                             "Available Credits",
@@ -32,8 +31,7 @@ class AccountChargeInfoVM {
     
     private let statementDescription: [String] = [
                             "Outstanding balance as per your last statement.",
-                            "Shows any payments & credits added to your account post your last statement generated.",
-                            "The total amount of all your purchases and charges incurred since your last statement.",
+                            "The total amount of all your payments, credits, purchases and charges incurred since your last statement.",
                             "This is your last Statement balance less any recent payments and credits that have been received plus any charges which have been applied to your Account since your last statement.",
                             "This is your last Statement balance less any recent payments and credits that have been received plus any charges which have been applied to your Account since your last statement.",
                             "It includes your total credit limit minus all billed, unbilled & pending charges. This amount is updated real time.",

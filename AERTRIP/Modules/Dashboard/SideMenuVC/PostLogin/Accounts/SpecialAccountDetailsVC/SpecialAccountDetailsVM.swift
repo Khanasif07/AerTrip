@@ -8,6 +8,13 @@
 
 import UIKit
 
+class AccountDetailPostModel {
+     var accVouchers: [String] = []
+     var accountLadger: JSONDictionary = JSONDictionary()
+     var periodicEvents: JSONDictionary = JSONDictionary()
+     var outstandingLadger: AccountOutstanding = AccountOutstanding(json: [:])
+}
+
 struct SpecialAccountEvent {
     var title: String = ""
     var description: String? = nil
@@ -41,9 +48,9 @@ struct SpecialAccountEvent {
 }
 
 protocol SpecialAccountDetailsVMDelegate: class {
-    func willFetchScreenDetails()
-    func fetchScreenDetailsSuccess()
-    func fetchScreenDetailsFail()
+    func willFetchScreenDetails(showProgress: Bool)
+    func fetchScreenDetailsSuccess(showProgress: Bool)
+    func fetchScreenDetailsFail(showProgress: Bool)
     
     func willGetOutstandingPayment()
     func getOutstandingPaymentSuccess()
@@ -143,7 +150,7 @@ class SpecialAccountDetailsVM {
             }
             else if idx == 1 {
                 obj.amount = (accountData.topup?.topupLimit ?? 0.0).amountInDelimeterWithSymbol
-                obj.height = tpupSummeryHeight[idx] - 10.0
+                obj.height = tpupSummeryHeight[idx] - 8.0
             }
             else if idx == 2 {
                 obj.symbol = "-"
@@ -248,7 +255,7 @@ class SpecialAccountDetailsVM {
     
     //MARK:- Methods
     //MARK:- Public
-    func formatDataForScreen() {
+    func formatDataForScreen(showProgress: Bool) {
         //************************//
         guard let usr = UserInfo.loggedInUser, let accountData = usr.accountData else {
             return
@@ -276,15 +283,24 @@ class SpecialAccountDetailsVM {
         
         //************************//
         
-        self.delegate?.fetchScreenDetailsSuccess()
+        self.delegate?.fetchScreenDetailsSuccess(showProgress: showProgress)
     }
     
-    func fetchScreenDetails() {
+    func setAccountDetail(model: AccountDetailPostModel) {
+        self.accountLadger = model.accountLadger
+        self.periodicEvents = model.periodicEvents
+        self.outstandingLadger = model.outstandingLadger
+        self.accVouchers = model.accVouchers
+        self.formatDataForScreen(showProgress: false)
+    }
+    
+    func fetchScreenDetails(showProgress: Bool) {
         
         //firstly show the saved data
-        self.formatDataForScreen()
-        
-        self.delegate?.willFetchScreenDetails()
+        if showProgress {
+            self.formatDataForScreen(showProgress: false)
+        }
+        self.delegate?.willFetchScreenDetails(showProgress: showProgress)
 
         
         //hit api to update the saved data and show it on screen
@@ -299,11 +315,13 @@ class SpecialAccountDetailsVM {
                 
                 self?.accVouchers = accVchrs
                 
-                self?.formatDataForScreen()
+                
+
+                self?.formatDataForScreen(showProgress: showProgress)
             }
             else {
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
-                self?.delegate?.fetchScreenDetailsFail()
+                self?.delegate?.fetchScreenDetailsFail(showProgress: showProgress)
             }
         }
     }
@@ -325,3 +343,6 @@ class SpecialAccountDetailsVM {
     
     //MARK:- Private
 }
+
+
+    

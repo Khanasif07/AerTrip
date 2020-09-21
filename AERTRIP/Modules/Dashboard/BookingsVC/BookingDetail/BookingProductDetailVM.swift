@@ -9,9 +9,9 @@
 import Foundation
 
 protocol BookingProductDetailVMDelegate: class {
-    func willGetBookingDetail()
-    func getBookingDetailSucces()
-    func getBookingDetailFaiure(error: ErrorCodes)
+    func willGetBookingDetail(showProgress: Bool)
+    func getBookingDetailSucces(showProgress: Bool)
+    func getBookingDetailFaiure(error: ErrorCodes,showProgress: Bool)
     
     func willGetTripOwner()
     func getBTripOwnerSucces()
@@ -197,7 +197,7 @@ class BookingProductDetailVM {
     // MARK: - Get Section For Flight Product Type.
     
     func getSectionDataForFlightProductType() {
-
+        
         // logic for add note cell
         self.sectionDataForFlightProductType.removeAll()
         if let note = self.bookingDetail?.bookingDetail?.note, !note.isEmpty {
@@ -266,12 +266,12 @@ class BookingProductDetailVM {
         }
         self.sectionDataForFlightProductType.append([.flightsOptionsCell])
         
-       
-         self.sectionDataForFlightProductType.append([.addToCalenderCell])
+        
+        self.sectionDataForFlightProductType.append([.addToCalenderCell])
         if self.bookingDetail?.tripInfo == nil {
             self.sectionDataForFlightProductType.append([.addToTripCell])
         }
-       
+        
         self.sectionDataForFlightProductType.append([.bookSameFlightCell])
         if self.bookingDetail?.bookingStatus == .booked {
             self.sectionDataForFlightProductType.append([.addToAppleWallet])
@@ -337,22 +337,22 @@ class BookingProductDetailVM {
         self.sectionDataForOtherProductType.append([.nameCell, .emailCell, .mobileCell, .gstCell, .billingAddressCell])
     }
     
-    func getBookingDetail(shouldCallWillDelegate: Bool = true) {
+    func getBookingDetail(showProgress: Bool) {
         var params: JSONDictionary = ["booking_id": bookingId]
         if UserInfo.loggedInUserId == nil{
             params["is_guest_user"] = true
         }
-//        if shouldCallWillDelegate {
-//            delegate?.willGetBookingDetail()
-//        }
-        delegate?.willGetBookingDetail()
+        //        if shouldCallWillDelegate {
+        //            delegate?.willGetBookingDetail()
+        //        }
+        delegate?.willGetBookingDetail(showProgress: showProgress)
         APICaller.shared.getBookingDetail(params: params) { [weak self] success, errors, bookingDetail in
             guard let sSelf = self else { return }
             if success {
                 sSelf.bookingDetail = bookingDetail
-                sSelf.delegate?.getBookingDetailSucces()
+                sSelf.delegate?.getBookingDetailSucces(showProgress: showProgress)
             } else {
-                sSelf.delegate?.getBookingDetailFaiure(error: errors)
+                sSelf.delegate?.getBookingDetailFaiure(error: errors, showProgress: showProgress)
                 printDebug(errors)
             }
         }

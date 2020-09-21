@@ -17,6 +17,7 @@ class FlightBookingsRequestTitleTableViewCell: UITableViewCell {
     //MARK:===========
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var requestTitleLabel: UILabel!
+    @IBOutlet weak var requestLabelTopConstraint: NSLayoutConstraint!
     
     //MARK:- LifeCycle
     //MARK:===========

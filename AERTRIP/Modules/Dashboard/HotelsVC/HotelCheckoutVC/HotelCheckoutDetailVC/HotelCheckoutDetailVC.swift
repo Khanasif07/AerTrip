@@ -89,9 +89,11 @@ class HotelCheckoutDetailVC: BaseVC {
             self.view.addGestureRecognizer(swipeGesture)
             self.view.backgroundColor = AppColors.clear
         }
-        self.downloadImages()
         DispatchQueue.main.async {
             self.configureUI()
+        }
+        delay(seconds: 0.2) {
+            self.downloadImages()
         }
     }
     
@@ -150,18 +152,19 @@ class HotelCheckoutDetailVC: BaseVC {
                 }
             }
         }
-        downloadGroup.notify(queue: .main) {
-            for image in (self.viewModel?.atImageData ?? []){
-                if image.image == nil, let index = self.viewModel?.atImageData.firstIndex(where: {$0.imagePath == image.imagePath}){
-                    self.viewModel?.atImageData.remove(at: index)
-                    self.viewModel?.photos.remove(at: index)
+        downloadGroup.notify(queue: .main) { [weak self] in
+            guard let strongSelf = self else {return}
+            for image in (strongSelf.viewModel?.atImageData ?? []){
+                if image.image == nil, let index = strongSelf.viewModel?.atImageData.firstIndex(where: {$0.imagePath == image.imagePath}){
+                    strongSelf.viewModel?.atImageData.remove(at: index)
+                    strongSelf.viewModel?.photos.remove(at: index)
                 }
             }
-            if self.viewModel?.atImageData.count != 0{
-                self.hotelDetailsTableView.reloadData()
+            if strongSelf.viewModel?.atImageData.count != 0{
+                strongSelf.hotelDetailsTableView.reloadData()
             }else{
-                self.removeImageCell()
-                self.hotelDetailsTableView.reloadData()
+                strongSelf.removeImageCell()
+                strongSelf.hotelDetailsTableView.reloadData()
             }
         }
     }

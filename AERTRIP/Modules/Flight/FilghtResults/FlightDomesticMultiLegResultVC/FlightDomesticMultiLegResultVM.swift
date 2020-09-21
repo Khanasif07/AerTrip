@@ -24,6 +24,7 @@ class FlightDomesticMultiLegResultVM {
     var isConditionReverced = false
     var isPinnedOn = false
     var isFewSeatsLeft = false
+    var shouldDisplayToast = false
     
     init() {
         
@@ -307,14 +308,20 @@ class FlightDomesticMultiLegResultVM {
     func selectFlightsInInitialFlow(tableIndex : Int){
         let currentDataSorce = self.currentDataSource(tableIndex: tableIndex)
         if currentDataSorce.isEmpty || self.resultsTableStates[tableIndex] == .showTemplateResults { return }
-        
+        self.shouldDisplayToast = false
         if self.results[tableIndex].selectedJourney == nil {
+            self.shouldDisplayToast = true
             self.results[tableIndex].selectedJourney = currentDataSorce.first
         } else  {
             
             let selectedJourney = currentDataSorce.filter { $0.fk == self.results[tableIndex].selectedJourney?.fk }
             
             if selectedJourney.isEmpty || !self.results[tableIndex].isJourneySelectedByUser {
+                
+                if self.results[tableIndex].selectedJourney?.fk != currentDataSorce.first?.fk{
+                    self.shouldDisplayToast = true
+                }
+                
                 self.results[tableIndex].selectedJourney = currentDataSorce.first
             }
             

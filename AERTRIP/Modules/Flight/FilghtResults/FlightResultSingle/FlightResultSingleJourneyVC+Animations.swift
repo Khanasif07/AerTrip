@@ -33,7 +33,6 @@ extension FlightResultSingleJourneyVC {
         }
     }
     
-    
     func collapseFlights(){
         
             var tempAllArray = self.viewModel.results.allJourneys

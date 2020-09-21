@@ -179,16 +179,9 @@ class FlightResultSingleJourneyVM {
                                let firstObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: firstObjDepartureTime)
                                
                                let secondObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: secondObjDepartureTime)
-                               
-                               if isConditionReverced {
-                                 
-                                 return firstObjTimeInterval > secondObjTimeInterval
 
-                               }else{
-                                 
                                  return firstObjTimeInterval < secondObjTimeInterval
 
-                               }
                            })
 
                 //departure sort
@@ -197,16 +190,94 @@ class FlightResultSingleJourneyVM {
                     let firstObjDepartureTime = obj1.dt
                     let secondObjDepartureTime = obj2.dt
                     
-                    if isConditionReverced {
-                        
-                        return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ) > self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
-                        
-                    }else{
-                      
                       return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
 
-                    }
                 })
+                
+                                
+                // SET SELECTED JOURNEY ON THE BASIS OF APPLIED SORT
+                
+                switch sortOrder {
+                    
+                       case .Smart, .Price :
+                           
+                           if let ind = journeyArrayToSort[index].journeyArray.firstIndex(where: { (jrny) -> Bool in
+                               jrny.fk == journeyArrayToSort[index].getJourneyWithLeastHumanScore().fk
+                           }){
+                            
+                            journeyArrayToSort[index].selectedFK = journeyArrayToSort[index].journeyArray[ind].fk
+                            journeyArrayToSort[index].currentSelectedIndex = ind
+                            
+                           }
+                           
+                       case .Duration:
+                           
+                           if isConditionReverced {
+                               
+                               guard let jour = journeyArrayToSort[index].getJourneysWithMaxDuration() else { return }
+                               journeyArrayToSort[index].selectedFK = jour.fk
+                                  
+                               if let ind = journeyArrayToSort[index].journeyArray.firstIndex(where: { (jrny) -> Bool in
+                                   jrny.fk == jour.fk
+                               }){
+                                   journeyArrayToSort[index].selectedFK = journeyArrayToSort[index].journeyArray[ind].fk
+                                journeyArrayToSort[index].currentSelectedIndex = ind
+                               }
+                               
+                           } else {
+                               
+                               guard let jour = journeyArrayToSort[index].getJourneysWithMinDuration() else { return }
+                               journeyArrayToSort[index].selectedFK = jour.fk
+                                            
+                               if let ind = journeyArrayToSort[index].journeyArray.firstIndex(where: { (jrny) -> Bool in
+                                   jrny.fk == jour.fk
+                               }){
+                                   journeyArrayToSort[index].selectedFK = journeyArrayToSort[index].journeyArray[ind].fk
+                                journeyArrayToSort[index].currentSelectedIndex = ind
+                               }
+                               
+                           }
+                           
+                       case .Depart:
+                           
+                           if isConditionReverced {
+                               journeyArrayToSort[index].selectedFK = journeyArrayToSort[index].journeyArray.last?.fk ?? ""
+                            journeyArrayToSort[index].currentSelectedIndex = journeyArrayToSort[index].journeyArray.count - 1
+                           }else{
+                               journeyArrayToSort[index].selectedFK = journeyArrayToSort[index].journeyArray.first?.fk ?? ""
+                            journeyArrayToSort[index].currentSelectedIndex = 0
+                           }
+                           
+                       case .Arrival:
+                           
+                           if isConditionReverced {
+                               
+                               guard let jour = journeyArrayToSort[index].getJourneysWithMaxArivalTime() else { return }
+                               journeyArrayToSort[index].selectedFK = jour.fk
+                               
+                               if let ind = journeyArrayToSort[index].journeyArray.firstIndex(where: { (jrny) -> Bool in
+                                   jrny.fk == jour.fk
+                               }){
+                                   journeyArrayToSort[index].selectedFK = journeyArrayToSort[index].journeyArray[ind].fk
+                                journeyArrayToSort[index].currentSelectedIndex = ind
+                               }
+                               
+                           } else{
+                               
+                               guard let jour = journeyArrayToSort[index].getJourneysWithMinArivalTime() else { return }
+                               journeyArrayToSort[index].selectedFK = jour.fk
+                                             
+                               if let ind = journeyArrayToSort[index].journeyArray.firstIndex(where: { (jrny) -> Bool in
+                                   jrny.fk == jour.fk
+                               }){
+                                   journeyArrayToSort[index].selectedFK = journeyArrayToSort[index].journeyArray[ind].fk
+                                journeyArrayToSort[index].currentSelectedIndex = ind
+                               }
+                           }
+                           
+                       default:
+                           break
+                       }
            }
         }
         
@@ -233,17 +304,17 @@ class FlightResultSingleJourneyVM {
               
               suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
                   if isConditionReverced {
-                      return (obj1.journeyArray.first?.price ?? 0) > (obj2.journeyArray.first?.price ?? 0)
+                    return (obj1.journeyArray[obj1.currentSelectedIndex].price) > (obj2.journeyArray[obj2.currentSelectedIndex].price)
                   }else{
-                      return (obj1.journeyArray.first?.price ?? 0) < (obj2.journeyArray.first?.price ?? 0)
+                    return (obj1.journeyArray[obj1.currentSelectedIndex].price) < (obj2.journeyArray[obj2.currentSelectedIndex].price)
                   }
               })
             
             journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
                      if isConditionReverced {
-                         return (obj1.journeyArray.first?.price ?? 0) > (obj2.journeyArray.first?.price ?? 0)
+                        return (obj1.journeyArray[obj1.currentSelectedIndex].price) > (obj2.journeyArray[obj2.currentSelectedIndex].price)
                      }else{
-                         return (obj1.journeyArray.first?.price ?? 0) < (obj2.journeyArray.first?.price ?? 0)
+                        return (obj1.journeyArray[obj1.currentSelectedIndex].price) < (obj2.journeyArray[obj2.currentSelectedIndex].price)
                      }
                  })
                  
@@ -252,17 +323,17 @@ class FlightResultSingleJourneyVM {
               
               suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
                   if isConditionReverced {
-                      return (obj1.journeyArray.first?.duration ?? 0) > (obj2.journeyArray.first?.duration ?? 0)
+                      return (obj1.journeyArray[obj1.currentSelectedIndex].duration) > (obj2.journeyArray[obj2.currentSelectedIndex].duration)
                   }else{
-                      return (obj1.journeyArray.first?.duration ?? 0) < (obj2.journeyArray.first?.duration ?? 0)
+                      return (obj1.journeyArray[obj1.currentSelectedIndex].duration) < (obj2.journeyArray[obj2.currentSelectedIndex].duration)
                   }
               })
             
             journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
                       if isConditionReverced {
-                          return (obj1.journeyArray.first?.duration ?? 0) > (obj2.journeyArray.first?.duration ?? 0)
+                          return (obj1.journeyArray[obj1.currentSelectedIndex].duration) > (obj2.journeyArray[obj2.currentSelectedIndex].duration)
                       }else{
-                          return (obj1.journeyArray.first?.duration ?? 0) < (obj2.journeyArray.first?.duration ?? 0)
+                          return (obj1.journeyArray[obj1.currentSelectedIndex].duration) < (obj2.journeyArray[obj2.currentSelectedIndex].duration)
                       }
                   })
               
@@ -270,33 +341,33 @@ class FlightResultSingleJourneyVM {
               
               suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
                   
-                  let firstObjDepartureTime = obj1.journeyArray.first?.leg[0].dt
-                  let secondObjDepartureTime = obj2.journeyArray.first?.leg[0].dt
+                let firstObjDepartureTime = obj1.journeyArray[obj1.currentSelectedIndex].leg[0].dt
+                let secondObjDepartureTime = obj2.journeyArray[obj2.currentSelectedIndex].leg[0].dt
                   
                   if isConditionReverced {
                       
-                      return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ?? "") > self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime ?? "")
+                    return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) > self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
 
                   }else{
                     
-                    return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ?? "") < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime ?? "")
+                    return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
 
                   }
               })
             
             journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
                 
-                let firstObjDepartureTime = obj1.journeyArray.first?.leg[0].dt
-                let secondObjDepartureTime = obj2.journeyArray.first?.leg[0].dt
+                let firstObjDepartureTime = obj1.journeyArray[obj1.currentSelectedIndex].leg[0].dt
+                let secondObjDepartureTime = obj2.journeyArray[obj2.currentSelectedIndex].leg[0].dt
                 
                 if isConditionReverced {
                     
-                    return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ?? "") > self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime ?? "")
+                    return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) > self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
 
                   
                 }else{
                   
-                  return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ?? "") < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime ?? "")
+                  return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
 
                     
                 }
@@ -305,9 +376,9 @@ class FlightResultSingleJourneyVM {
           case .Arrival:
               suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
                   
-                  let firstObjDepartureTime = (obj1.journeyArray.first?.leg[0].ad ?? "") + " " + (obj1.journeyArray.first?.leg[0].at ?? "")
+                  let firstObjDepartureTime = (obj1.journeyArray[obj1.currentSelectedIndex].leg[0].ad) + " " + (obj1.journeyArray[obj1.currentSelectedIndex].leg[0].at)
                   
-                  let secondObjDepartureTime = (obj2.journeyArray.first?.leg[0].ad ?? "") + " " + (obj2.journeyArray.first?.leg[0].at ?? "")
+                  let secondObjDepartureTime = (obj2.journeyArray[obj2.currentSelectedIndex].leg[0].ad) + " " + (obj2.journeyArray[obj2.currentSelectedIndex].leg[0].at)
                   
                   let firstObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: firstObjDepartureTime)
                   
@@ -327,9 +398,9 @@ class FlightResultSingleJourneyVM {
               
             journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
                 
-                let firstObjDepartureTime = (obj1.journeyArray.first?.leg[0].ad ?? "") + " " + (obj1.journeyArray.first?.leg[0].at ?? "")
+                let firstObjDepartureTime = (obj1.journeyArray[obj1.currentSelectedIndex].leg[0].ad) + " " + (obj1.journeyArray[obj1.currentSelectedIndex].leg[0].at)
                 
-                let secondObjDepartureTime = (obj2.journeyArray.first?.leg[0].ad ?? "") + " " + (obj2.journeyArray.first?.leg[0].at ?? "")
+                let secondObjDepartureTime = (obj2.journeyArray[obj2.currentSelectedIndex].leg[0].ad) + " " + (obj2.journeyArray[obj2.currentSelectedIndex].leg[0].at)
                 
                 let firstObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: firstObjDepartureTime)
                 

@@ -80,6 +80,12 @@ struct OtherFareModel {
         }
         return displayString
     }
+    
+    var descriptionTitle:String{
+        
+        let dexcription = descriptionShown.components(separatedBy: "\n•   ").first ?? ""
+        return dexcription
+    }
 
     init(_ json: JSON = JSON()){
         fk = json["fk"].stringValue
@@ -98,4 +104,13 @@ struct OtherFareModel {
         isDefault = json["default"].boolValue
         sortOrder = json["tax_sort"].stringValue
     }
+}
+
+
+struct OtherFareCache{
+    
+    var data:[OtherFareModel]?
+    var date:Date
+    var fk: String
+    
 }
