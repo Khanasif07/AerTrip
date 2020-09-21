@@ -30,6 +30,7 @@ struct MessageModel {
     let adult : Int
     let child : Int
     let infant : Int
+    var shouldShowTypingContent = false
     
     
     init(msg : String, source : MessageSource) {
