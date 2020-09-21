@@ -436,6 +436,10 @@
 
 -(NSAttributedString*)mainLabelStringFor:(NSString*)inputString
 {
+    if (inputString == nil) {
+        NSAttributedString *emptyStr = [[NSAttributedString alloc] initWithString:@""];
+        return emptyStr;
+    }
     NSDictionary *attributes = @{NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Regular" size:18]};
     NSMutableAttributedString * mainLabelAttributedString = [[NSMutableAttributedString alloc] initWithString:inputString attributes:attributes];
     NSRange range = [inputString rangeOfString:self.searchBar.text options:NSCaseInsensitiveSearch];
@@ -451,6 +455,10 @@
 
 -(NSAttributedString*)secondaryStringFor:(NSString*)inputString
 {
+    if (inputString == nil) {
+        NSAttributedString *emptyStr = [[NSAttributedString alloc] initWithString:@""];
+        return emptyStr;
+    }
     NSDictionary * attributes = @{NSForegroundColorAttributeName : [UIColor ONE_FIVE_THREE_COLOR],NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Regular" size:14]};
     NSMutableAttributedString * secondaryLabelAttributedString = [[NSMutableAttributedString alloc] initWithString:inputString attributes:attributes];
     
