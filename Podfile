@@ -50,6 +50,8 @@ target 'AERTRIP' do
   pod 'SnapKit', '~> 5.0.0'
 #  pod 'HMSegmentedControl' , '1.5.5'
   
+  pod 'lottie-ios'
+
   
 end
 #AertripCalendar.xcconfig

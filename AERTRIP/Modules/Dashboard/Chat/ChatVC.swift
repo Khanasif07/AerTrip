@@ -303,10 +303,7 @@ extension ChatVC {
         let animationOptions: UIView.AnimationOptions = .curveEaseOut
         let keyframeAnimationOptions: UIView.KeyframeAnimationOptions = UIView.KeyframeAnimationOptions(rawValue: animationOptions.rawValue)
         
-
-        
         UIView.animateKeyframes(withDuration: 1.2, delay: 0.0, options: keyframeAnimationOptions, animations: {
-            
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1) {
                 self.animationBubbleImageView.transform = CGAffineTransform.identity
                 self.animationLabel.transform = CGAffineTransform.identity
@@ -372,21 +369,28 @@ extension ChatVC {
     }
     
     private func insertTypingCell(){
+        
         printDebug("time1...\(Date().timeIntervalSince1970)")
+        
         self.chatVm.messages.append(MessageModel(msg: "", source: MessageModel.MessageSource.typing))
+        
 //        self.chatTableView.beginUpdates()
 //        self.chatTableView.insertRows(at: [IndexPath(row: self.chatVm.messages.count - 1, section: 0)], with: UITableView.RowAnimation.none)
 //        self.chatTableView.endUpdates()
+     
         self.chatTableView.reloadData()
+    
         printDebug("time2...\(Date().timeIntervalSince1970)")
+      
         self.scrollTableViewToLast(withAnimation: true)
+  
         printDebug("time3...\(Date().timeIntervalSince1970)")
-        delay(seconds: 0.3) {
-            self.addDotViewToTypingCell()
+ //       delay(seconds: 0.3) {
+//            self.addDotViewToTypingCell()
 
-            printDebug("time4...\(Date().timeIntervalSince1970)")
+//            printDebug("time4...\(Date().timeIntervalSince1970)")
 
-        }
+  //      }
     }
     
     private func removeTypingCell(){
