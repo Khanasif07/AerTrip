@@ -150,15 +150,17 @@ extension FlightDomesticMultiLegResultVC {
             if let journey = self.viewModel.results[index].selectedJourney{
                 headerView.setValuesFrom(journey: journey)
             }
-            let headerJourneyRect  = CGRect(x: (width * CGFloat(index)), y: (-journeyCompactViewHeight) , width: width - 1 , height: journeyCompactViewHeight)
+            let hiddenHeaderY = (self.headerCollectionViewTop.constant + self.headerCollectionView.height + self.baseScrollView.contentOffset.y - 44)
+            
+            let headerJourneyRect  = CGRect(x: (width * CGFloat(index)), y: hiddenHeaderY , width: width - 1 , height: journeyCompactViewHeight)
             headerView.frame = headerJourneyRect
             UIView.animate(withDuration: 0.4, animations: {
                 var rect = headerView.frame
-                var yCoordinate = max(self.headerCollectionViewTop.constant +  self.headerCollectionView.frame.size.height , self.headerCollectionView.frame.size.height )
-                if self.baseScrollView.contentOffset.y == 88.0 {
-                    yCoordinate = yCoordinate + 88.0
-                }
-                rect.origin.y = yCoordinate
+//                var yCoordinate = max(self.headerCollectionViewTop.constant +  self.headerCollectionView.frame.size.height , self.headerCollectionView.frame.size.height)
+//                if self.baseScrollView.contentOffset.y == 88.0 {
+//                    yCoordinate = yCoordinate + 88.0
+//                }
+                rect.origin.y = (self.headerCollectionViewTop.constant + self.headerCollectionView.height + self.baseScrollView.contentOffset.y)
                 rect.size.height = self.journeyCompactViewHeight
                 headerView.frame = rect
             }){ _ in
@@ -187,9 +189,8 @@ extension FlightDomesticMultiLegResultVC {
         
         if !headerView.isHidden {
             UIView.animate(withDuration: 0.4, animations: {
-                
                 var frame = headerView.frame
-                frame.origin.y =  (-self.headerCollectionViewTop.constant - self.journeyCompactViewHeight)
+                frame.origin.y =  (self.headerCollectionViewTop.constant + self.headerCollectionView.height + self.baseScrollView.contentOffset.y - 44.0)//(-self.headerCollectionViewTop.constant - self.journeyCompactViewHeight)
                 headerView.frame = frame
             }) { (completed) in
                 headerView.isHidden = true
@@ -242,12 +243,14 @@ extension FlightDomesticMultiLegResultVC {
                
 
     func setTableViewHeaderAfterSelection(tableView  : UITableView) {
-        let visibleRect = self.getVisibleAreaRectFor(tableView: tableView)
-        let xCoordinate = tableView.frame.origin.x
-        let zerothRowIndex = IndexPath(item: 0, section: 0)
-        var zerothRowRect = tableView.rectForRow(at: zerothRowIndex)
-        zerothRowRect.origin.x = xCoordinate
-        let width = tableView.bounds.size.width
+        
+        self.hideHeaderCellAt(index: tableView.tag - 1000, isHeaderNeedSet: true)
+//        let visibleRect = self.getVisibleAreaRectFor(tableView: tableView)
+//        let xCoordinate = tableView.frame.origin.x
+//        let zerothRowIndex = IndexPath(item: 0, section: 0)
+//        var zerothRowRect = tableView.rectForRow(at: zerothRowIndex)
+//        zerothRowRect.origin.x = xCoordinate
+//        let width = tableView.bounds.size.width
 //
 //        let isFirstCellVisible : Bool
 //        if visibleRect.contains(zerothRowRect) {
@@ -257,14 +260,14 @@ extension FlightDomesticMultiLegResultVC {
 //            isFirstCellVisible = false
 //        }
         
-        let index = tableView.tag - 1000
-        if let journey = self.viewModel.results[index].selectedJourney{
-            journeyHeaderViewArray[index].setValuesFrom(journey: journey)
-        }
-//        let headerView = journeyHeaderViewArray[index]
-        
-        let height : CGFloat = 138.0
-        journeyHeaderViewArray[index].isHidden = true
+//        let index = tableView.tag - 1000
+//        if let journey = self.viewModel.results[index].selectedJourney{
+//            journeyHeaderViewArray[index].setValuesFrom(journey: journey)
+//        }
+////        let headerView = journeyHeaderViewArray[index]
+//
+//        let height : CGFloat = 138.0
+//        journeyHeaderViewArray[index].isHidden = true
 //        if isFirstCellVisible {
 //
 //            if headerView.isHidden {
@@ -282,9 +285,9 @@ extension FlightDomesticMultiLegResultVC {
 //            }
 //        }
 //
-        let rect = CGRect(x: 0.0, y: 0.0, width: width, height: height )
-        let tableHeaderView = UIView(frame: rect)
-        tableView.tableHeaderView = tableHeaderView
+//        let rect = CGRect(x: 0.0, y: 0.0, width: width, height: height )
+//        let tableHeaderView = UIView(frame: rect)
+//        tableView.tableHeaderView = tableHeaderView
     }
 
     
@@ -487,7 +490,7 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         if let tableView = scrollView as? UITableView{
-            delay(seconds: 0.3) {
+            delay(seconds: 0.4) {
                 self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
             }
         }
