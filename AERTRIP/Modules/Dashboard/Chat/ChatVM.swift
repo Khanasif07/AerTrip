@@ -128,6 +128,20 @@ class ChatVM {
         self.recentSearchesData.sort { (object1, object2) -> Bool in
             return object1.added_on > object2.added_on
         }
+        filterRecentSearchesForElapsedDates()
+    }
+    
+    private func filterRecentSearchesForElapsedDates() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        let reverseDateFormatter = DateFormatter()
+        reverseDateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        self.recentSearchesData = self.recentSearchesData.filter({ (model) in
+            let startDateStr = model.startDate
+            guard let startDate = dateFormatter.date(from: startDateStr) ?? reverseDateFormatter.date(from: startDateStr) else { return false }
+            return startDate.daysFrom(Date()) >= 0
+        })
     }
     
     func getRecentHotels(){
