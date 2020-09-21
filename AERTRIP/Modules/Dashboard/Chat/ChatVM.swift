@@ -200,13 +200,13 @@ class ChatVM {
         jsonDict["adult"] = dict["adult"]
         jsonDict["child"] = dict["child"]
         jsonDict["infant"] = dict["infant"]
-        jsonDict["cabinclass"] = dict["cabinclass"]
-        jsonDict["trip_type"] = dict["trip_type"]
-        jsonDict["origin"] = dict["origin"]
-        jsonDict["destination"] = dict["destination"]
-        jsonDict["depart"] = dict["depart"]
+        jsonDict["cabinclass"] = "\(dict["cabinclass"] ?? "")"
+        jsonDict["trip_type"] = "\(dict["trip_type"] ?? "")"
+        jsonDict["origin"] = "\(dict["origin"] ?? "")"
+        jsonDict["destination"] = "\(dict["destination"] ?? "")"
+        jsonDict["depart"] = "\(dict["depart"] ?? "")"
         if (dict["trip_type"] as? String) == "return" {
-            jsonDict["return"] = dict["return"]
+            jsonDict["return"] = "\(dict["return"] ?? "")"
         } else {
             jsonDict["totalLegs"] = dict["totalLegs"]
         }
