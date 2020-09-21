@@ -159,7 +159,8 @@ enum APIKeys: String {
 //    case child = "child"
     case infant = "infant"
     case totalLegs = "totalLegs"
-    
+    case tripType = "trip_type"
+    case returnDate = "return"
     
     //HotelDetails
     case photos = "photos"

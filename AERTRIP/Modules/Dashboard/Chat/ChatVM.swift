@@ -128,6 +128,20 @@ class ChatVM {
         self.recentSearchesData.sort { (object1, object2) -> Bool in
             return object1.added_on > object2.added_on
         }
+        filterRecentSearchesForElapsedDates()
+    }
+    
+    private func filterRecentSearchesForElapsedDates() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        let reverseDateFormatter = DateFormatter()
+        reverseDateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        self.recentSearchesData = self.recentSearchesData.filter({ (model) in
+            let startDateStr = model.startDate
+            guard let startDate = dateFormatter.date(from: startDateStr) ?? reverseDateFormatter.date(from: startDateStr) else { return false }
+            return startDate.daysFrom(Date()) >= 0
+        })
     }
     
     func getRecentHotels(){
@@ -149,19 +163,53 @@ class ChatVM {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
-        let departDate = dateFormatter.date(from: model.depart)
-        let newDepartDate = departDate?.toString(dateFormat: "ddMMyyyy") ?? ""
+        var departDate = dateFormatter.date(from: model.depart)
+        if departDate == nil {
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            departDate = dateFormatter.date(from: model.depart)
+        }
+        let newDepartDate = departDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
         
         var jsonDict = JSONDictionary()
         jsonDict["adult"] = model.adult
         jsonDict["child"] = model.child
         jsonDict["infant"] = model.infant
         jsonDict["cabinclass"] = model.cabinclass
-        jsonDict["trip_type"] = "single"
+        jsonDict["trip_type"] = model.tripType.lowercased().isEmpty ? "single" : model.tripType.lowercased()
         jsonDict["origin"] = model.origin
         jsonDict["destination"] = model.destination
         jsonDict["depart"] = newDepartDate
-        jsonDict["totalLegs"] = 1
+        if model.tripType.lowercased() == "return" {
+            dateFormatter.dateFormat = "yyyyMMdd"
+            var returnDate = dateFormatter.date(from: model.returnDate)
+            if returnDate == nil {
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                returnDate = dateFormatter.date(from: model.returnDate)
+            }
+            let newReturnDate = returnDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
+            jsonDict["return"] = newReturnDate
+        } else {
+            jsonDict["totalLegs"] = 1
+        }
+        
+        SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
+    }
+    
+    func createFlightSearchDictFromRecentSearches(_ dict: JSONDictionary) {
+        var jsonDict = JSONDictionary()
+        jsonDict["adult"] = dict["adult"]
+        jsonDict["child"] = dict["child"]
+        jsonDict["infant"] = dict["infant"]
+        jsonDict["cabinclass"] = "\(dict["cabinclass"] ?? "")"
+        jsonDict["trip_type"] = "\(dict["trip_type"] ?? "")"
+        jsonDict["origin"] = "\(dict["origin"] ?? "")"
+        jsonDict["destination"] = "\(dict["destination"] ?? "")"
+        jsonDict["depart"] = "\(dict["depart"] ?? "")"
+        if (dict["trip_type"] as? String) == "return" {
+            jsonDict["return"] = "\(dict["return"] ?? "")"
+        } else {
+            jsonDict["totalLegs"] = dict["totalLegs"]
+        }
         
         SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
