@@ -1153,7 +1153,7 @@
 //MARK:- Loader functions
 
 -(void) removeActivityIndicator{
-
+    
 }
 
 -(void) removeActivityIndicatorClash{

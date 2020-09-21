@@ -229,6 +229,8 @@ extension HotelCheckoutDetailVC: HotelDetailsImgSlideCellDelegate, ImageDeletion
             gVC.imageNames = images
             gVC.startShowingFrom = index
         }
+        gVC.isTAAvailable = !(self.viewModel?.locid.isEmpty ?? true)
+        gVC.hid = self.viewModel?.hid ?? ""
         self.present(gVC, animated: true, completion: nil)
     }
     

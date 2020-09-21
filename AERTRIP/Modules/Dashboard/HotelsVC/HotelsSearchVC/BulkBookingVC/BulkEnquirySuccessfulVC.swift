@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol BulkEnquirySuccessfulVCDelegate: class {
+@objc protocol BulkEnquirySuccessfulVCDelegate: AnyObject {
     func doneButtonAction()
 }
 
@@ -327,4 +327,12 @@ class BulkEnquirySuccessfulVC: BaseVC {
         self.hide(animated: true, shouldRemove: true)
         self.delegate?.doneButtonAction()
     }
+}
+
+extension BulkEnquirySuccessfulVC {
+    
+    @objc func setConfigForFlightsBulkBooking() {
+        
+    }
+    
 }

@@ -30,8 +30,11 @@ struct MessageModel {
     let adult : Int
     let child : Int
     let infant : Int
+    let tripType: String
+    let returnDate: String
     
-    
+    var shouldShowTypingContent = false
+        
     init(msg : String, source : MessageSource) {
         self.msg = msg
         msgSource = source
@@ -45,6 +48,8 @@ struct MessageModel {
         adult = 0
         child = 0
         infant = 0
+        tripType = ""
+        returnDate = ""
     }
     
     init(json : JSON){
@@ -61,7 +66,8 @@ struct MessageModel {
         adult = json[APIKeys.adult.rawValue].intValue
         child = json[APIKeys.child.rawValue].intValue
         infant = json[APIKeys.infant.rawValue].intValue
-
+        tripType = json[APIKeys.tripType.rawValue].stringValue
+        returnDate = json[APIKeys.returnDate.rawValue].stringValue
     }
     
 }

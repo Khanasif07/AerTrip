@@ -65,6 +65,7 @@ class MyBookingsVC: BaseVC {
         self.searchBar.clipsToBounds = true
         self.hideAllData()
         MyBookingFilterVM.shared.searchText = ""
+        MyBookingsVM.shared.isFetchingBooking = false
     }
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
@@ -83,7 +84,7 @@ class MyBookingsVC: BaseVC {
                 MyBookingFilterVM.shared.setToDefault()
             }
             else if noti == .myBookingCasesRequestStatusChanged {
-                MyBookingsVM.shared.getBookings(shouldCallWillDelegate: false)
+                MyBookingsVM.shared.getBookings(showProgress: true)
             }
         }
     }
@@ -106,7 +107,7 @@ class MyBookingsVC: BaseVC {
         super.viewDidAppear(animated)
         if !isBookingApiRunned {
             isBookingApiRunned = true
-            MyBookingsVM.shared.getBookings()
+            MyBookingsVM.shared.getBookings(showProgress: true)
         }
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -148,7 +149,7 @@ class MyBookingsVC: BaseVC {
     }
     // Asif Change
     public func setUpViewPager() {
-        self.currentIndex = 0
+        
         self.allChildVCs.removeAll()
         if allTabsStr.contains("Upcoming"){
             let upcomingVC = UpcomingBookingsVC.instantiate(fromAppStoryboard: .Bookings)
@@ -218,11 +219,11 @@ class MyBookingsVC: BaseVC {
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
         self.parchmentView?.sizeDelegate = self
-        self.parchmentView?.select(index: 0)
-        
+        self.parchmentView?.select(index: self.currentIndex)
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
-        
+        self.parchmentView?.select(index: self.currentIndex)
+
         self.parchmentView?.menuBackgroundColor = UIColor.clear
         self.parchmentView?.collectionView.backgroundColor = UIColor.clear
     }

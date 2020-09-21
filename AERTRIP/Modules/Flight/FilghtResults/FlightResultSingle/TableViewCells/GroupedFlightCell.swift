@@ -49,8 +49,8 @@ struct TimeFK {
     var timeArray = [TimeFK]()
     var currentJourney : Journey?
     
-    var currentSelectedIndex : Int?
-//    var selectionViewFrame = CGRect(x: 0, y: 0, width: 58, height: 30)
+//    var currentSelectedIndex : Int?
+    
     let selectionView = UIView()
 
     
@@ -112,10 +112,9 @@ struct TimeFK {
         buttonTapped()
     }
     
-    func setVaulesFrom( journey: JourneyOnewayDisplay) {
+    func setVaulesFrom( journey: JourneyOnewayDisplay, sortOrder : Sort, isConditionReverced : Bool) {
        
         flightGroup = journey
-        
         let arrowImage = !flightGroup.isCollapsed ? UIImage(named:"DownArrow") : UIImage(named:"UpArrow")
         expandCollapseButton.setImage(arrowImage, for: .normal)
         
@@ -127,26 +126,28 @@ struct TimeFK {
         if flightGroup.selectedFK == String() {
 //            flightGroup.selectedFK = flightGroup.getJourneyWithLeastHumanScore().fk
             
-            flightGroup.selectedFK = flightGroup.first.fk
+//            flightGroup.selectedFK = flightGroup.first.fk
         }
         
-        if currentSelectedIndex == nil {
+       // if currentSelectedIndex == nil {
           //   if  let selectedDepartureIndex = timeArray.firstIndex(where: { $0.fk == flightGroup.selectedFK}) {
-                currentSelectedIndex = 0
+//                currentSelectedIndex = 0
           //  }
-        }
+            
+            
+            
+//            self.setCurrentSelectedIndex(sortOrder: sortOrder, isConditionReverced: isConditionReverced)
+      //  }
         
         updateViewConstraints()
         timeCollectionView.reloadData()
         collaspableTableView.reloadData()
         resultsCollectionView.reloadData()
        delay(seconds: 0.1) {
-            let indexPath = IndexPath(row: self.currentSelectedIndex ?? 0, section: 0)
-                   self.timeCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: UICollectionView.ScrollPosition.centeredHorizontally)
-            
-            self.resultsCollectionView.scrollToItem(at: IndexPath(item: self.currentSelectedIndex ?? 0, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
-            
-            self.setSelectionViewFrame(animate: false)
+        let indexPath = IndexPath(row: self.flightGroup.currentSelectedIndex, section: 0)
+        self.timeCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: UICollectionView.ScrollPosition.centeredHorizontally)
+        self.resultsCollectionView.scrollToItem(at: IndexPath(item: self.flightGroup.currentSelectedIndex, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
+        self.setSelectionViewFrame(animate: false)
 //            self.layoutIfNeeded()
 //            self.layoutSubviews()
 //            print("\(journey.fare)....\(self.currentSelectedIndex).....\(self.selectionView.frame)")
@@ -154,6 +155,91 @@ struct TimeFK {
        
         summaryLabel.text = String(journey.count) + " flights at same price"
     }
+    
+    
+//    func setCurrentSelectedIndex(sortOrder : Sort, isConditionReverced : Bool)  {
+//
+//        switch sortOrder {
+//        case .Smart, .Price :
+//
+//            if let ind = flightGroup.journeyArray.firstIndex(where: { (jrny) -> Bool in
+//                jrny.fk == flightGroup.getJourneyWithLeastHumanScore().fk
+//            }){
+//                flightGroup.selectedFK = flightGroup.journeyArray[ind].fk
+//                currentSelectedIndex = ind
+//            }
+//
+//        case .Duration:
+//
+//            if isConditionReverced {
+//
+//                guard let jour = flightGroup.getJourneysWithMaxDuration() else { return }
+//                flightGroup.selectedFK = jour.fk
+//
+//                if let ind = flightGroup.journeyArray.firstIndex(where: { (jrny) -> Bool in
+//                    jrny.fk == jour.fk
+//                }){
+//                    flightGroup.selectedFK = flightGroup.journeyArray[ind].fk
+//                    currentSelectedIndex = ind
+//                }
+//
+//            } else {
+//
+//                guard let jour = flightGroup.getJourneysWithMinDuration() else { return }
+//                flightGroup.selectedFK = jour.fk
+//
+//                if let ind = flightGroup.journeyArray.firstIndex(where: { (jrny) -> Bool in
+//                    jrny.fk == jour.fk
+//                }){
+//                    flightGroup.selectedFK = flightGroup.journeyArray[ind].fk
+//                    currentSelectedIndex = ind
+//                }
+//
+//            }
+//
+//        case .Depart:
+//
+//            if isConditionReverced {
+//                flightGroup.selectedFK = flightGroup.journeyArray.last?.fk ?? ""
+//                currentSelectedIndex = flightGroup.journeyArray.count - 1
+//            }else{
+//                flightGroup.selectedFK = flightGroup.journeyArray.first?.fk ?? ""
+//                currentSelectedIndex = 0
+//            }
+//
+//        case .Arrival:
+//
+//            if isConditionReverced {
+//
+//                guard let jour = flightGroup.getJourneysWithMaxArivalTime() else { return }
+//                flightGroup.selectedFK = jour.fk
+//
+//                if let ind = flightGroup.journeyArray.firstIndex(where: { (jrny) -> Bool in
+//                    jrny.fk == jour.fk
+//                }){
+//                    flightGroup.selectedFK = flightGroup.journeyArray[ind].fk
+//                    currentSelectedIndex = ind
+//                }
+//
+//            } else{
+//
+//                guard let jour = flightGroup.getJourneysWithMaxArivalTime() else { return }
+//                flightGroup.selectedFK = jour.fk
+//
+//                if let ind = flightGroup.journeyArray.firstIndex(where: { (jrny) -> Bool in
+//                    jrny.fk == jour.fk
+//                }){
+//                    flightGroup.selectedFK = flightGroup.journeyArray[ind].fk
+//                    currentSelectedIndex = ind
+//                }
+//            }
+//
+//        default:
+//            break
+//        }
+//
+//
+//    }
     
     
     func setImageto( imageView : UIImageView , url : String , index : Int ) {
@@ -210,7 +296,7 @@ struct TimeFK {
 //            print("Selected Cell not found")
 //            return }
         
-        let selectedIndex = IndexPath(item: currentSelectedIndex ?? 0, section: 0)
+        let selectedIndex = IndexPath(item: flightGroup.currentSelectedIndex ?? 0, section: 0)
     
         guard  let attributes = timeCollectionView.layoutAttributesForItem(at: selectedIndex) else {
             print("Attributed not found")
@@ -233,7 +319,7 @@ struct TimeFK {
     override func prepareForReuse() {
         super.prepareForReuse()
 //        self.currentSelectedIndex = 0
-        currentSelectedIndex = nil
+//        currentSelectedIndex = nil
         collaspableTableView.tableFooterView = nil
         expandCollapseButton.transform = .identity
 //        selectionView.alpha = 0.0
@@ -401,7 +487,7 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if collectionView == self.timeCollectionView {
-            currentSelectedIndex = indexPath.item
+            flightGroup.currentSelectedIndex = indexPath.item
             flightGroup.selectedFK = timeArray[indexPath.row].fk
             collaspableTableView.reloadData()
             setSelectionViewFrame(animate: true)
@@ -433,7 +519,7 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
                 if scrollView != self.resultsCollectionView { return }
                 guard let indexPath =  self.resultsCollectionView.indexPathForItem(at: scrollView.contentOffset) else { return }
                 print(indexPath.item)
-            currentSelectedIndex = indexPath.item
+        flightGroup.currentSelectedIndex = indexPath.item
                  flightGroup.selectedFK = timeArray[indexPath.item].fk
                  collaspableTableView.reloadData()
                  setSelectionViewFrame(animate: true)

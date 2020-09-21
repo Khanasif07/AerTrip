@@ -266,18 +266,39 @@ extension EmptyScreenView {
     }
     
     private func setupForNoAccountResult() {
+//        self.hideFirstButton(isHidden: true)
+//        self.mainImageView.image = nil
+//        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+//        self.messageLabel.textColor = AppColors.themeBlack
+//        self.messageLabel.text = LocalizedString.Oops.localized
+//
+//        self.searchTextLabel.isHidden = false
+//        self.searchTextLabel.font = AppFonts.Regular.withSize(18.0)
+//        self.searchTextLabel.textColor = AppColors.themeGray60
+//        self.searchTextLabel.text = LocalizedString.NoResultsFound.localized
+//
+//        self.hideBottomButton(isHidden: false)
+//        self.bottomButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
+//        self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .normal)
+//        self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .selected)
+//        self.bottomButton.setTitleColor(AppColors.themeGreen, for: .normal)
+//        self.bottomButton.setTitleColor(AppColors.themeGreen, for: .selected)
+        
+        self.mainImageView.isHidden = true
         self.hideFirstButton(isHidden: true)
-        self.mainImageView.image = nil
+        self.labelsStackView.spacing = 10
+        self.containerStackView.spacing = 16
+        
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
         self.messageLabel.textColor = AppColors.themeBlack
-        self.messageLabel.text = LocalizedString.Oops.localized
+        self.messageLabel.text = LocalizedString.NoTransactionsMatchYourFilters.localized
         
         self.searchTextLabel.isHidden = false
         self.searchTextLabel.font = AppFonts.Regular.withSize(18.0)
         self.searchTextLabel.textColor = AppColors.themeGray60
-        self.searchTextLabel.text = LocalizedString.NoResultsFound.localized
+        self.searchTextLabel.text = LocalizedString.TryDifferentFiltersOrClearAll.localized
         
-        self.hideBottomButton(isHidden: false)
+        self.bottomButton.isHidden = false
         self.bottomButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
         self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .normal)
         self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .selected)
@@ -470,17 +491,17 @@ extension EmptyScreenView {
 //        self.hideBottomButton(isHidden: false)
         
         self.hideFirstButton(isHidden: true)
-        self.labelsStackView.spacing = 6
+        self.labelsStackView.spacing = 10
         self.containerStackView.spacing = 16
         
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
         self.messageLabel.textColor = AppColors.themeBlack
-        self.messageLabel.text = LocalizedString.NoResultsAvailable.localized
+        self.messageLabel.text = LocalizedString.NoHotelMatchedYourFilters.localized
         
         self.searchTextLabel.isHidden = false
         self.searchTextLabel.font = AppFonts.Regular.withSize(18.0)
         self.searchTextLabel.textColor = AppColors.themeGray60
-        self.searchTextLabel.text = LocalizedString.NoHotelFoundFilter.localized
+        self.searchTextLabel.text = LocalizedString.TryDifferentFiltersOrClearAll.localized
         
         self.bottomButton.isHidden = false
         self.bottomButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
@@ -586,20 +607,21 @@ extension EmptyScreenView {
     }
     
     private func setUpNoUpCommingBookingFilter() {
-        self.hideFirstButton(isHidden: true)
-        self.mainImageView.image = nil
         self.mainImageView.isHidden = true
-  //      self.messageLabelTopConstraint.constant = 0
+        self.hideFirstButton(isHidden: true)
+        self.labelsStackView.spacing = 10
+        self.containerStackView.spacing = 16
+        
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
         self.messageLabel.textColor = AppColors.themeBlack
-        self.messageLabel.text = LocalizedString.NoBookingAvailable.localized
+        self.messageLabel.text = LocalizedString.NoBookingsMatchYourFilters.localized
         
         self.searchTextLabel.isHidden = false
         self.searchTextLabel.font = AppFonts.Regular.withSize(18.0)
         self.searchTextLabel.textColor = AppColors.themeGray60
-        self.searchTextLabel.text = LocalizedString.NoBookingAvailableMessage.localized
+        self.searchTextLabel.text = LocalizedString.TryDifferentFiltersOrClearAll.localized
         
-        self.hideBottomButton(isHidden: false)
+        self.bottomButton.isHidden = false
         self.bottomButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
         self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .normal)
         self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .selected)
@@ -608,20 +630,21 @@ extension EmptyScreenView {
     }
     
     private func setUpNoCompletedBookingFilter() {
-        self.hideFirstButton(isHidden: true)
-        self.mainImageView.image = nil
         self.mainImageView.isHidden = true
-        //self.messageLabelTopConstraint.constant = 0
+        self.hideFirstButton(isHidden: true)
+        self.labelsStackView.spacing = 10
+        self.containerStackView.spacing = 16
+        
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
         self.messageLabel.textColor = AppColors.themeBlack
-        self.messageLabel.text = LocalizedString.NoBookingAvailable.localized
+        self.messageLabel.text = LocalizedString.NoBookingsMatchYourFilters.localized
         
         self.searchTextLabel.isHidden = false
         self.searchTextLabel.font = AppFonts.Regular.withSize(18.0)
         self.searchTextLabel.textColor = AppColors.themeGray60
-        self.searchTextLabel.text = LocalizedString.NoBookingAvailableMessage.localized
+        self.searchTextLabel.text = LocalizedString.TryDifferentFiltersOrClearAll.localized
         
-        self.hideBottomButton(isHidden: false)
+        self.bottomButton.isHidden = false
         self.bottomButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
         self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .normal)
         self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .selected)
@@ -630,20 +653,21 @@ extension EmptyScreenView {
     }
     
     private func setUpNoCanceledBookingFilter() {
-        self.hideFirstButton(isHidden: true)
-        self.mainImageView.image = nil
         self.mainImageView.isHidden = true
-        //self.messageLabelTopConstraint.constant = 0
+        self.hideFirstButton(isHidden: true)
+        self.labelsStackView.spacing = 10
+        self.containerStackView.spacing = 16
+        
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
         self.messageLabel.textColor = AppColors.themeBlack
-        self.messageLabel.text = LocalizedString.NoBookingAvailable.localized
+        self.messageLabel.text = LocalizedString.NoBookingsMatchYourFilters.localized
         
         self.searchTextLabel.isHidden = false
         self.searchTextLabel.font = AppFonts.Regular.withSize(18.0)
         self.searchTextLabel.textColor = AppColors.themeGray60
-        self.searchTextLabel.text = LocalizedString.NoBookingAvailableMessage.localized
+        self.searchTextLabel.text = LocalizedString.TryDifferentFiltersOrClearAll.localized
         
-        self.hideBottomButton(isHidden: false)
+        self.bottomButton.isHidden = false
         self.bottomButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
         self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .normal)
         self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .selected)

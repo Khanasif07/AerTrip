@@ -591,21 +591,21 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     }
     
     func bookButtonTapped(journeyCombo: [CombinationJourney]?){
-        if #available(iOS 13.0, *) {
-            self.isModalInPresentation = true
-        }
         guard !self.isForCheckOut else {
             self.dismiss(animated: true, completion: nil)
             return
         }
-        if self.viewModel.journeyType == .domestic || self.intJourney == nil{
-            self.fareBreakup?.hideShowLoader(isHidden: false)
-            self.setupViewModel()
-        }else{
-            self.intFareBreakup?.hideShowLoader(isHidden: false)
-        }
         AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
             guard let self = self else {return}
+            if #available(iOS 13.0, *) {
+                self.isModalInPresentation = true
+            }
+            if self.viewModel.journeyType == .domestic || self.intJourney == nil{
+                self.fareBreakup?.hideShowLoader(isHidden: false)
+                self.setupViewModel()
+            }else{
+                self.intFareBreakup?.hideShowLoader(isHidden: false)
+            }
             let vc = PassengersSelectionVC.instantiate(fromAppStoryboard: .PassengersSelection)
             vc.viewModel.taxesResult = self.taxesResult
             vc.viewModel.sid = self.sid
@@ -654,7 +654,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
                     }
                 }
             }else{
-                AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .hotelsSearch)
+                AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .flights)
             }
         }
     }

@@ -95,6 +95,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     /// Method to setup BaseView ( view with white Background and rounded corner )
     private func initialSetup() {
         for filter in Filters.allCases {
+            if filter == .Quality { continue }
             self.addToParchment(filter: filter)
         }
         setUpViewPager()
@@ -198,13 +199,13 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     func updateMenuItems() {
         guard let filters = userAppliedFilters else { return }
         menuItems[Filters.sort.rawValue].isSelected = filters.appliedFilters[0].contains(.sort)
-        menuItems[Filters.stops.rawValue].isSelected = filters.appliedFilters[0].contains(.stops)
-        menuItems[Filters.Times.rawValue].isSelected = filters.appliedFilters[0].contains(.Times)
-        menuItems[Filters.Duration.rawValue].isSelected = filters.appliedFilters[0].contains(.Duration)
+        menuItems[Filters.stops.rawValue].isSelected = filters.appliedFilters[0].contains(.stops) || filters.uiFilters[0].contains(.hideChangeAirport)
+        menuItems[Filters.Times.rawValue].isSelected = filters.appliedFilters[0].contains(.Times) || filters.uiFilters[0].contains(.hideOvernight)
+        menuItems[Filters.Duration.rawValue].isSelected = filters.appliedFilters[0].contains(.Duration) || filters.uiFilters[0].contains(.hideOvernightLayover)
         menuItems[Filters.Airlines.rawValue].isSelected = filters.appliedFilters[0].contains(.Airlines)
         menuItems[Filters.Airport.rawValue].isSelected = filters.appliedFilters[0].contains(.Airport)
         menuItems[Filters.Quality.rawValue].isSelected = filters.appliedFilters[0].contains(.Quality)
-        menuItems[Filters.Price.rawValue].isSelected = filters.appliedFilters[0].contains(.Price)
+        menuItems[Filters.Price.rawValue - 1].isSelected = filters.appliedFilters[0].contains(.Price)
         parchmentView?.reloadMenu()
     }
     
@@ -301,8 +302,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                 }
             case FlightStopsFilterViewController.className :
                 if let stopVC = viewController as? FlightStopsFilterViewController {
-                    setStopsVC(stopVC, inputFilters: filters)
-                    stopVC.updateUIPostLatestResults()
+//                    setStopsVC(stopVC, inputFilters: filters)
+//                    stopVC.updateUIPostLatestResults()
+                    updateStopsFilter(stopVC, inputFilters: filters)
                 }
             case AirportsFilterViewController.className :
                 if let airportFilter = viewController as? AirportsFilterViewController {
@@ -423,8 +425,70 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             stopsViewController.allLegNames = legList
             stopsViewController.showingForReturnJourney = false
         }
-        
+        stopsViewController.isIntMCOrReturnVC = true
         stopsViewController.delegate = delegate as? FlightStopsFilterDelegate
+        stopsViewController.qualityFilterDelegate = delegate as? QualityFilterDelegate
+        if let qualityFilters = inputFilters.first?.fq {
+            if stopsViewController.enableOvernightFlightQualityFilter.indices.contains(0) {
+            stopsViewController.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideChangeAirport.title)
+            } else {
+                stopsViewController.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideChangeAirport.title), at: 0)
+            }
+        }
+    }
+    
+    func updateStopsFilter(_ stopsViewController  : FlightStopsFilterViewController , inputFilters : [IntMultiCityAndReturnWSResponse.Results.F])
+    {
+        if searchType == RETURN_JOURNEY {
+            var allLegsStops = [StopsFilter]()
+            for fliter in inputFilters
+            {
+                let stopsStringArray = fliter.stp
+                let stops : [Int] = stopsStringArray.map({Int($0) ?? 0})
+                let stopFilter = StopsFilter(stops: stops)
+                allLegsStops.append(stopFilter)
+            }
+            var reducedStops  = allLegsStops.reduce([], { $0 + $1.availableStops })
+            let reducedStopsSet = Set(reducedStops)
+            reducedStops = Array(reducedStopsSet).sorted()
+            stopsViewController.allStopsFilters[0].availableStops = reducedStops
+            
+        } else {
+            for index in 0..<inputFilters.count {
+                
+                var qualityFilter: QualityFilter?
+                if stopsViewController.allStopsFilters.indices.contains(index) {
+                    qualityFilter = stopsViewController.allStopsFilters[index].qualityFilter
+                }
+                
+                let filter = inputFilters[index]
+                let stopsStringArray = filter.stp
+                let stops : [Int] = stopsStringArray.map({Int($0) ?? 0})
+                let stopFilter = StopsFilter(stops: stops)
+                
+                if let userFilters = userAppliedFilters, userFilters.appliedFilters[0].contains(.stops), stopsViewController.allStopsFilters.indices.contains(index) {
+                    stopsViewController.allStopsFilters[index].availableStops = stopFilter.availableStops
+                } else {
+                    if !stopsViewController.allStopsFilters.indices.contains(index) {
+                        stopsViewController.allStopsFilters.insert(stopFilter, at: index)
+                    } else {
+                        stopsViewController.allStopsFilters[index] = stopFilter
+                    }
+                }
+                if let quality = qualityFilter {
+                    stopsViewController.allStopsFilters[index].qualityFilter = quality
+                }
+            }
+        }
+        
+        if let qualityFilters = inputFilters.first?.fq {
+            if stopsViewController.enableOvernightFlightQualityFilter.indices.contains(0) {
+                stopsViewController.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideChangeAirport.title)
+            } else {
+                stopsViewController.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideChangeAirport.title), at: 0)
+            }
+        }
+        stopsViewController.updateUIPostLatestResults()
     }
     
     
@@ -442,7 +506,16 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         }
         let timeFilters = getFlightLegTimeFilters(inputFilters)
         timesViewController.multiLegTimerFilter = timeFilters
+        timesViewController.isIntMCOrReturnVC = true
         timesViewController.delegate = delegate as? FlightTimeFilterDelegate
+        timesViewController.qualityFilterDelegate = delegate as? QualityFilterDelegate
+        if let qualityFilters = inputFilters.first?.fq {
+            if timesViewController.enableOvernightFlightQualityFilter.indices.contains(0) {
+            timesViewController.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideOvernight.title)
+            } else {
+                timesViewController.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideOvernight.title), at: 0)
+            }
+        }
     }
     
     
@@ -476,6 +549,11 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     func updateFlightLegTimeFilters(_ timesViewController : FlightFilterTimesViewController, inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]) {
         
         for index in 0 ..< inputFilters.count {
+            
+            var qualityFilter: QualityFilter?
+            if timesViewController.multiLegTimerFilter.indices.contains(index) {
+                qualityFilter = timesViewController.multiLegTimerFilter[index].qualityFilter
+            }
             
             let leg = legList[index]
             let filter = inputFilters[index]
@@ -512,6 +590,16 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                     timesViewController.multiLegTimerFilter[index] = newFlightLegFilter
                 }
             }
+            if let quality = qualityFilter {
+                timesViewController.multiLegTimerFilter[index].qualityFilter = quality
+            }
+        }
+        if let qualityFilters = inputFilters.first?.fq {
+            if timesViewController.enableOvernightFlightQualityFilter.indices.contains(0) {
+            timesViewController.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideOvernight.title)
+            } else {
+                timesViewController.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideOvernight.title), at: 0)
+            }
         }
         timesViewController.updateFiltersFromAPI()
     }
@@ -545,6 +633,10 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         var layoverDurationMin : CGFloat = CGFloat.greatestFiniteMagnitude
         var layoverMaxDuration : CGFloat = 0.0
         
+        var qualityFilter: QualityFilter?
+        if durationViewController.durationFilters.indices.contains(0) {
+            qualityFilter = durationViewController.durationFilters[0].qualityFilter
+        }
         
         for filter in inputFilters {
             
@@ -616,12 +708,29 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         } else {
             durationViewController.durationFilters = [durationFilter]
         }
+        
+        if let quality = qualityFilter {
+            durationViewController.durationFilters[0].qualityFilter = quality
+        }
+        
+        if let qualityFilters = inputFilters.first?.fq {
+            if durationViewController.enableOvernightFlightQualityFilter.indices.contains(0) {
+            durationViewController.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideOvernight.title)
+            } else {
+                durationViewController.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideOvernight.title), at: 0)
+            }
+        }
         durationViewController.updateFiltersFromAPI()
     }
     
     private func updateDurationFilter(_ durationViewController : FlightDurationFilterViewController , inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]) {
         
         for index in 0 ..< inputFilters.count {
+            
+            var qualityFilter: QualityFilter?
+            if durationViewController.durationFilters.indices.contains(index) {
+                qualityFilter = durationViewController.durationFilters[index].qualityFilter
+            }
             
             let filter = inputFilters[index]
             let tripTime = filter.tt
@@ -666,8 +775,18 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                 durationViewController.durationFilters[index] = durationFilter
                 }
             }
+            if let quality = qualityFilter {
+                durationViewController.durationFilters[index].qualityFilter = quality
+            }
         }
         guard durationViewController.durationFilters.count > 0 else { return }
+        if let qualityFilters = inputFilters.first?.fq {
+            if durationViewController.enableOvernightFlightQualityFilter.indices.contains(0) {
+            durationViewController.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideOvernight.title)
+            } else {
+                durationViewController.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideOvernight.title), at: 0)
+            }
+        }
         durationViewController.updateFiltersFromAPI()
     }
     
@@ -781,9 +900,18 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         durationViewController.showingForReturnJourney = false
         durationViewController.legsArray = legList
         let durationFilters = createDurationFilterArray(inputFilters: inputFilters)
+        durationViewController.isIntMCOrReturnVC = true
         durationViewController.durationFilters = durationFilters
         durationViewController.currentDurationFilter = durationFilters[0]
         durationViewController.delegate = delegate as? FlightDurationFilterDelegate
+        durationViewController.qualityFilterDelegate = delegate as? QualityFilterDelegate
+        if let qualityFilters = inputFilters.first?.fq {
+            if durationViewController.enableOvernightFlightQualityFilter.indices.contains(0) {
+            durationViewController.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideOvernight.title)
+            } else {
+                durationViewController.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideOvernight.title), at: 0)
+            }
+        }
     }
     
     func setDurationVCForReturnJourney(_ durationViewController : FlightDurationFilterViewController , inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]) {
@@ -795,7 +923,14 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         durationViewController.currentDurationFilter = durationFilter
         durationViewController.legsArray = [legList[0]]
         durationViewController.delegate = delegate as? FlightDurationFilterDelegate
-        
+        durationViewController.qualityFilterDelegate = delegate as? QualityFilterDelegate
+        if let qualityFilters = inputFilters.first?.fq {
+            if durationViewController.enableOvernightFlightQualityFilter.indices.contains(0) {
+            durationViewController.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideOvernight.title)
+            } else {
+                durationViewController.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideOvernight.title), at: 0)
+            }
+        }
     }
     
     //MARK:- Airline

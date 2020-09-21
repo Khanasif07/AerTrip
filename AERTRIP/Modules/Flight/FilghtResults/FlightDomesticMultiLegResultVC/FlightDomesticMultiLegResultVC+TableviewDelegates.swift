@@ -15,27 +15,6 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
         return 1
     }
     
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let index = tableView.tag - 1000
-//        if journeyHeaderViewArray.count > index{
-//            return journeyHeaderViewArray[index]
-//        }
-//        return nil
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        let index = tableView.tag - 1000
-//        if journeyHeaderViewArray.count > index{
-//            if journeyHeaderViewArray[index].isHidden{
-//                return 138
-//            }else{
-//                return 188
-//            }
-//        }
-//        return CGFloat.leastNonzeroMagnitude
-//    }
-
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
            
            let index = tableView.tag - 1000
@@ -77,8 +56,10 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
                    setPropertiesToCellAt(index:index, indexPath, cell: cell, tableView)
                    
                    if #available(iOS 13, *) {
+                    if cell.interactions.isEmpty{
                        let interaction = UIContextMenuInteraction(delegate: self)
                        cell.addInteraction(interaction)
+                    }
                    }
                    return cell
                }
@@ -90,13 +71,19 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
            return 130.0
        }
        
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        tableView.isScrollEnabled = false
+        baseScrollView.isScrollEnabled = false
+        return indexPath
+    }
+    
        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let tableIndex = tableView.tag - 1000
-     
+        self.viewModel.shouldDisplayToast = true
         self.viewModel.setSelectedJourney(tableIndex: tableIndex, journeyIndex: indexPath.row)
            
-           if flightSearchType == RETURN_JOURNEY {
+           if flightSearchType == RETURN_JOURNEY { 
                checkForComboFares()
            }
            checkForOverlappingFlights()
@@ -104,7 +91,10 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
         tableView.reloadData()
 //        animateJourneyCompactView(for: tableView)
         setTableViewHeaderAfterSelection(tableView: tableView)
-        
+        delay(seconds: 0.2) {
+            tableView.isScrollEnabled = true
+            self.baseScrollView.isScrollEnabled = true
+        }
        }
     
     fileprivate func setPropertiesToCellAt( index: Int, _ indexPath: IndexPath,  cell: DomesticMultiLegCell, _ tableView: UITableView) {
@@ -135,7 +125,6 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
                         
                          cell.iconOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
                          cell.iconTwo.setImageWithUrl(logoArray[1], placeholder: UIImage(), showIndicator: false)
-
 
                          
 //                         setImageto(tableView: tableView, imageView: cell.iconOne, url:logoArray[0] , index:  indexPath.row)

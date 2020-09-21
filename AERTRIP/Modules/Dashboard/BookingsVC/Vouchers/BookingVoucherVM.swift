@@ -14,6 +14,10 @@ protocol BookingVoucherVMDelegate: class {
     
     func getBookingOutstandingPaymentSuccess()
     func getBookingOutstandingPaymentFail()
+    
+    func willGetBookingDetail()
+    func getBookingDetailSucces(model: BookingDetailModel)
+    func getBookingDetailFaiure(error: ErrorCodes)
 }
 
 class BookingVoucherVM {
@@ -46,6 +50,28 @@ class BookingVoucherVM {
             else {
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
                 self?.delegate?.getBookingOutstandingPaymentFail()
+            }
+        }
+    }
+    
+    func getBookingDetail() {
+        var params: JSONDictionary = ["booking_id": bookingId]
+        if UserInfo.loggedInUserId == nil{
+            params["is_guest_user"] = true
+        }
+        //        if shouldCallWillDelegate {
+        //            delegate?.willGetBookingDetail()
+        //        }
+        delegate?.willGetBookingDetail()
+        APICaller.shared.getBookingDetail(params: params) { [weak self] success, errors, bookingDetail in
+            guard let sSelf = self else { return }
+            if success {
+                if let object = bookingDetail {
+                    sSelf.delegate?.getBookingDetailSucces(model: object)
+                }
+            } else {
+                sSelf.delegate?.getBookingDetailFaiure(error: errors)
+                printDebug(errors)
             }
         }
     }

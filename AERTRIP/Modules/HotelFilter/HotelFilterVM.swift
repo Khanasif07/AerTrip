@@ -32,7 +32,7 @@ class HotelFilterVM {
     var defaultRatingCount: [Int] = [1,2,3,4,5]
     var defaultTripAdvisorRatingCount: [Int] = [1,2,3,4,5]
     var defaultIsIncludeUnrated: Bool = true
-    var defaultDistanceRange: Double = 20
+    var defaultDistanceRange: Double = 25
     var defaultLeftRangePrice: Double = 0.0
     var defaultRightRangePrice: Double = 0.0
     var defaultAmenitites: [String] = []
@@ -45,7 +45,7 @@ class HotelFilterVM {
     var ratingCount: [Int] = [1,2,3,4,5]
     var tripAdvisorRatingCount: [Int] = [1,2,3,4,5]
     var isIncludeUnrated: Bool = true
-    var distanceRange: Double = 20
+    var distanceRange: Double = 25
     var minimumPrice: Double = 0.0
     var maximumPrice: Double = 0.0
     var leftRangePrice: Double = 0.0

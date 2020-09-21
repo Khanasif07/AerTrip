@@ -43,6 +43,7 @@
                     </imageView>
                 </subviews>
             </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="EyP-JG-Nav" firstAttribute="leading" secondItem="kU1-NV-xil" secondAttribute="leading" constant="16" id="B6k-7w-aul"/>
                 <constraint firstAttribute="top" secondItem="EyP-JG-Nav" secondAttribute="top" id="TW1-Vb-7AC"/>

@@ -11,6 +11,7 @@ import UIKit
 
 protocol  QualityFilterDelegate : FilterDelegate {
     func qualityFiltersChanged(_ filter : QualityFilter)
+    func qualityFilterChangedAt(_ index: Int, filter: QualityFilter)
 }
 
 class QualityFilterViewController: UIViewController ,UITableViewDataSource , UITableViewDelegate , FilterViewController {

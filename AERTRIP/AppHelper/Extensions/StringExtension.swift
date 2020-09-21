@@ -1015,6 +1015,14 @@ extension String {
 
         return formatedDate
     }
+    
+    func getTimeIntervalFromDateString(df : String) -> Date {
+        let dateFormatter = DateFormatter()
+         dateFormatter.dateFormat = df
+         guard let arrivalDate = dateFormatter.date(from: self) else { return Date() }
+         return arrivalDate
+     }
+    
 }
 
 extension String {

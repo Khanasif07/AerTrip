@@ -12,7 +12,7 @@ protocol SocialLoginVCDelegate: class {
     func backButtonTapped(_ sender: UIButton)
 }
 
-enum LoginFlowUsingFor {
+@objc enum LoginFlowUsingFor: NSInteger {
     case loginProcess, loginVerificationForCheckout, loginVerificationForBulkbooking
 }
 

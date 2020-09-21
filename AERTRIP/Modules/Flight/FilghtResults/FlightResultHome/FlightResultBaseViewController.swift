@@ -684,7 +684,6 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     }
     
     //MARK:- Navigation Bar Methods
-    
     @objc func popToPreviousScreen( sender : UIButton) {
         self.navigationController?.view.viewWithTag(500)?.removeFromSuperview()
         self.navigationController?.view.viewWithTag(2500)?.removeFromSuperview()

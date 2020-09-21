@@ -86,6 +86,16 @@ class TravelDateVC: BaseVC {
         self.toDateLabel.textColor = AppColors.themeGray40
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if let picker = fromDatePicker, picker.width !=  self.fromDatePickerContainer?.width {
+            self.fromDatePicker.width = self.fromDatePickerContainer.width
+        }
+        if let picker = toDatePicker, picker.width !=  self.fromDatePickerContainer?.width {
+            self.toDatePicker.width = self.toDatePickerContainer.width
+        }
+    }
+    
     // Mark:- Functions
     //================
     internal func setFilterValues() {

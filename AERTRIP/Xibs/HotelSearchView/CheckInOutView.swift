@@ -87,7 +87,7 @@ class CheckInOutView: UIView {
         self.checkOutDateLabel.text = checkOutDate
         
         var totalNights = 0, checkOutDayStr = ""
-        if !searchData.checkOutDate.isEmpty {
+        if !searchData.checkOutDate.isEmpty && !searchData.checkInDate.isEmpty {
             totalNights = searchData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd")!.daysFrom(searchData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date())
             checkOutDayStr = Date.getDateFromString(stringDate: searchData.checkOutDate, currentFormat: "yyyy-MM-dd", requiredFormat: "EEEE") ?? ""
         }

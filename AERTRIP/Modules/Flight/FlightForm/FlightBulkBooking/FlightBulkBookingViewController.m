@@ -10,7 +10,7 @@
 #import "FlightFormViewControllerHeader.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface FlightBulkBookingViewController () <CalendarDataHandler, AddFlightPassengerHandler, AddFlightClassHandler, AirportSelctionHandler,MultiCityFlightCellHandler , CLLocationManagerDelegate, UITableViewDelegate , UITableViewDataSource, UITextFieldDelegate>
+@interface FlightBulkBookingViewController () <CalendarDataHandler, AddFlightPassengerHandler, AddFlightClassHandler, AirportSelctionHandler,MultiCityFlightCellHandler , CLLocationManagerDelegate, UITableViewDelegate , UITableViewDataSource, UITextFieldDelegate, BulkEnquirySuccessfulVCDelegate>
 
 @property (weak, nonatomic) IBOutlet HMSegmentedControl *flightSegmentedControl;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -157,22 +157,20 @@ CGFloat animatedDistance;
 }
 
 -(void) handleLoginState{
-    if ([self exists:[self userID]]) {
-        
+    
+    BOOL isLoggedIn = [self isUserLoggedIn];
+    if (isLoggedIn) {
         [self.submitButton setTitle:@"Submit" forState:UIControlStateNormal];
         self.submitButtonWidth.constant = 150.0;
         self.submitWidth.constant = 150;
         [self.submitButtonOuterView.superview layoutIfNeeded];
         [self setCustomButtonViewEnabled:self.submitButton withOuterView:self.submitButtonOuterView];
-
-    }else{
-        
+    } else {
         [self.submitButton setTitle:@"Login and Submit" forState:UIControlStateNormal];
         self.submitButtonWidth.constant = 202;
         self.submitWidth.constant = 202;
         [self.submitButtonOuterView.superview layoutIfNeeded];
         [self setCustomButtonViewEnabled:self.submitButton withOuterView:self.submitButtonOuterView];
-
     }
 }
 
@@ -886,14 +884,11 @@ CGFloat animatedDistance;
         return;
     }
     
-    if ([self exists:[self userID]]) {
-        
+    BOOL isLoggedIn = [self isUserLoggedIn];
+    if (isLoggedIn) {
         [self performFlightSearch:[self buildDictionaryForFlightSearch]];
-
     }else{
-        
-
-
+        [self startLoginFlow];
     }
 }
 
@@ -1051,11 +1046,24 @@ CGFloat animatedDistance;
     
 
 - (void)handleDictionary:(NSDictionary *)dataDictionary {
-//    HomeBulkHotelSubmitViewController *controller = (HomeBulkHotelSubmitViewController *)[self getControllerForModule:HOME_BULK_HOTEL_SUBMIT_CONTROLLER];
-//    controller.delegate = self;
-//    [self presentViewController:controller animated:NO completion:nil];
-    [self removeActivityIndicator];
+    [self hideFlightLoaderIndicator];
+    [self showBulBookingSuccessViewCon];
 }
+
+-  (void)showBulBookingSuccessViewCon {
+    
+    BulkEnquirySuccessfulVC *viewCon = [[BulkEnquirySuccessfulVC alloc] init];
+    
+    [viewCon setConfigForFlightsBulkBooking];
+    
+    AppFlowManager *def = [AppFlowManager default];
+    
+    [def showFlightsBulkEnquiryVCWithDelegate:self mainView:self.bottomView viewHeight:self.view.bounds.size.height submitBtn:self.submitButton];
+    
+//    [AppFlowManager.defaul]
+//    AppFlowManager.default.showBulkEnquiryVC(buttonConfig: config, delegate: self)
+}
+
 - (void)submitBulkRoomsDoneAction {
     [self animateBackingImageOut];
     [self animateBottomViewOut];
@@ -1782,6 +1790,32 @@ CGFloat animatedDistance;
     
     return YES;
 
+}
+
+- (BOOL) isUserLoggedIn {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [prefs stringForKey:@"loggedInUserId"];
+    if ((userId != nil) && (userId.length != 0)) {
+        return true;
+    }
+    return false;
+}
+
+- (void)doneButtonAction {
+    [self dismissViewControllerAnimated:true completion:nil];
+}
+
+-(void) startLoginFlow {
+    UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleDefault;
+    __weak typeof(self) weakSelf = self;
+    AppFlowManager *def = [AppFlowManager default];
+    [def proccessIfUserLoggedInForFlightWithVerifyingFor:LoginFlowUsingForLoginVerificationForBulkbooking presentViewController:true vc:self completion:^(BOOL isGuest) {
+        UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleLightContent;
+        [def popToRootViewControllerWithAnimated:true];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [weakSelf submitAction:nil];
+        });
+    }];
 }
 
 @end

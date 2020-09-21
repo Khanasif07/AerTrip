@@ -541,5 +541,68 @@ class JourneyOnewayDisplay {
             return sorted.first!
     }
     
+    func getJourneysWithMinDuration() -> Journey? {
+        
+        let minJrny = journeyArray.min { (j1, j2) -> Bool in
+            return j1.duration < j2.duration
+        }
+        
+         return minJrny
+        
+    }
+    
+    func getJourneysWithMaxDuration() -> Journey? {
+           
+           let minJrny = journeyArray.min { (j1, j2) -> Bool in
+               return j1.duration > j2.duration
+           }
+           
+            return minJrny
+           
+       }
+    
+    func getJourneysWithMinArivalTime() -> Journey? {
+        
+        let minJrny = journeyArray.min { (j1, j2) -> Bool in
+            
+            
+            let firstObjDepartureTime = j1.ad + " " + j1.at
+                       
+            let secondObjDepartureTime = j2.ad + " " + j2.at
+          
+            let firstObjTimeInterval = firstObjDepartureTime.getTimeIntervalFromDateString(df: "yyyy-MM-dd HH:mm")
+                       
+            let secondObjTimeInterval = secondObjDepartureTime.getTimeIntervalFromDateString(df: "yyyy-MM-dd HH:mm")
+            
+            return firstObjTimeInterval < secondObjTimeInterval
+        }
+        
+         return minJrny
+
+    }
+    
+    func getJourneysWithMaxArivalTime() -> Journey? {
+         
+         let minJrny = journeyArray.min { (j1, j2) -> Bool in
+             
+             
+             let firstObjDepartureTime = j1.ad + " " + j1.at
+                        
+             let secondObjDepartureTime = j2.ad + " " + j2.at
+           
+             let firstObjTimeInterval = firstObjDepartureTime.getTimeIntervalFromDateString(df: "yyyy-MM-dd HH:mm")
+                        
+             let secondObjTimeInterval = secondObjDepartureTime.getTimeIntervalFromDateString(df: "yyyy-MM-dd HH:mm")
+             
+             return firstObjTimeInterval > secondObjTimeInterval
+         }
+         
+          return minJrny
+         
+     }
+    
     var selectedFK = String()
+    
+    var currentSelectedIndex = 0
+    
 }

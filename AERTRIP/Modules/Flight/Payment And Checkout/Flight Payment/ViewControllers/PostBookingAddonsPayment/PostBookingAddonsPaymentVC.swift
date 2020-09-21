@@ -610,6 +610,7 @@ extension PostBookingAddonsPaymentVC{
                 }
                 walletAmountCell.walletAmountLabel.text = "-" + abs(amountFromWallet).amountInDelimeterWithSymbol
                 walletAmountCell.clipsToBounds = true
+                walletAmountCell.labelTopConstraint.constant = 0.0
                 return walletAmountCell
             } else {
                 walletAmountCell.clipsToBounds = true
