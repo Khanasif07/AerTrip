@@ -19,10 +19,11 @@ class IntMCAndReturnDetailsVC: UIViewController {
     @IBOutlet weak var visualEffectsView: UIVisualEffectView!
     @IBOutlet weak var backNavigationView: UIView!
    
-    
     //Constraint Outlets
     @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var headerCollectionViewTop: NSLayoutConstraint!
+    
+    
     
     //MARK:-  Properties or variables.
     var viewModel = IntMCAndReturnDetailsVM()
@@ -46,6 +47,9 @@ class IntMCAndReturnDetailsVC: UIViewController {
     weak var refundDelegate:UpdateRefundStatusDelegate?
     
     var onJourneySelect: ((String) -> ())?
+    
+    let backButton = UIButton(type: .custom)
+
     
     //MARK:-  Life cycle and override methods
     override func viewDidLoad() {
@@ -124,7 +128,6 @@ class IntMCAndReturnDetailsVC: UIViewController {
         backView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
         backView.addSubview(visualEffectView)
         backView.tag = 200
-        let backButton = UIButton(type: .custom)
         let buttonImage = UIImage(named: "green")
         backButton.setImage(buttonImage, for: .normal)
         backButton.setImage(buttonImage, for: .selected)
@@ -157,7 +160,14 @@ class IntMCAndReturnDetailsVC: UIViewController {
     }
     
     @objc func popToPreviousScreen(_ sender: UIButton){
+        printDebug("back")
+        sender.isEnabled = false
+        sender.isUserInteractionEnabled = false
+        UIApplication.shared.beginIgnoringInteractionEvents()
         self.navigationController?.popViewController(animated: true)
+        delay(seconds: 0.5) {
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
     }
     
 }
