@@ -281,7 +281,6 @@ extension FlightFilterBaseVC {
                 }
             case FlightFilterTimesViewController.className :
                 if let timesFilterVC = viewController as? FlightFilterTimesViewController {
-                    //                    updateTimesVC(TimesFilterVC, inputFilters: filters  )
                     updateFlightLegTimeFilters(timesFilterVC, inputFilters: filters)
                 }
             case PriceFilterViewController.className :
@@ -377,6 +376,10 @@ extension FlightFilterBaseVC {
             reducedStops = Array(reducedStopsSet).sorted()
             stopsViewController.allStopsFilters[0].availableStops = reducedStops
             
+            let userStopsStringArray = userSelectedFilters[0].stp
+            let userStops : [Int] = userStopsStringArray.map({Int($0) ?? 0})
+            stopsViewController.allStopsFilters[0].userSelectedStops = userStops
+            
         } else {
             for index in 0..<inputFilters.count {
                 
@@ -392,6 +395,10 @@ extension FlightFilterBaseVC {
                 
                 if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[index].contains(.stops), stopsViewController.allStopsFilters.indices.contains(index) {
                     stopsViewController.allStopsFilters[index].availableStops = stopFilter.availableStops
+                   
+                    let userStopsStringArray = userSelectedFilters[index].stp
+                    let userStops : [Int] = userStopsStringArray.map({Int($0) ?? 0})
+                    stopsViewController.allStopsFilters[index].userSelectedStops = userStops
                 } else {
                     if !stopsViewController.allStopsFilters.indices.contains(index) {
                         stopsViewController.allStopsFilters.insert(stopFilter, at: index)
@@ -416,11 +423,6 @@ extension FlightFilterBaseVC {
     }
     
     //MARK:- Times
-    
-    func updateTimesVC(_ timesViewController : FlightFilterTimesViewController, inputFilters : [FiltersWS]){
-        timesViewController.multiLegTimerFilter = getFlightLegTimeFilters( inputFilters)
-        timesViewController.updateUIPostLatestResults()
-    }
     
     func setTimesVC(_ timesViewController : FlightFilterTimesViewController , inputFilters : [FiltersWS])
     {
@@ -899,7 +901,6 @@ extension FlightFilterBaseVC {
             }
             let leg = legList[index]
             let airlineLegFilter = AirlineLegFilter( leg: leg, airlinesArray: airlineArray, multiAl: multiAL ?? 0 )
-            
             airlineFilters.append(airlineLegFilter)
         }
         return airlineFilters
@@ -961,6 +962,9 @@ extension FlightFilterBaseVC {
         
         airlineVC.airlinesFilterArray = airlineFilters
         airlineVC.currentSelectedAirlineFilter = airlineFilters[0]
+        let selectedAirlines = userSelectedFilters.flatMap { $0.al }
+        airlineVC.selectedAirlineArray = selectedAirlines
+        print(selectedAirlines)
         airlineVC.updateUIPostLatestResults()
     }
     
