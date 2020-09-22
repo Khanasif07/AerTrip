@@ -1118,16 +1118,17 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                 }
             }
         }
-        clearAllFiltersButton?.isEnabled = isFilterApplied
-        filterButton.isSelected = isFilterApplied
         
-//        filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: true, selectedIndex: filterSegmentView.selectedSegmentIndex)
-        
-        flightFilterVC?.userAppliedFilters =  flightSearchResultVM.flightLegsAppliedFilters
-        flightFilterVC?.updateMenuItems()
-        
-        intMCAndReturnFilterVC?.userAppliedFilters =  flightSearchResultVM.intFlightLegsAppliedFilters
-        intMCAndReturnFilterVC?.updateMenuItems()
+        DispatchQueue.main.async {
+            self.clearAllFiltersButton?.isEnabled = isFilterApplied
+            self.filterButton.isSelected = isFilterApplied
+            
+            self.flightFilterVC?.appliedAndUIFilters =  self.flightSearchResultVM.flightLegsAppliedFilters
+            self.flightFilterVC?.updateMenuItems()
+            
+            self.intMCAndReturnFilterVC?.appliedAndUIFilters =  self.flightSearchResultVM.intFlightLegsAppliedFilters
+            self.intMCAndReturnFilterVC?.updateMenuItems()
+        }
     }
     
     
@@ -1180,13 +1181,20 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         }
         
         if isAPIResponseUpdated {
+            // for other searches except ones mentioned below
             self.flightFilterVC?.flightResultArray = self.flightSearchResultVM.flightResultArray
-            flightFilterVC?.userAppliedFilters =  flightSearchResultVM.flightLegsAppliedFilters
+            flightFilterVC?.appliedAndUIFilters =  flightSearchResultVM.flightLegsAppliedFilters
+            flightFilterVC?.userSelectedFilters = self.flightSearchResultVM.getUserSelectedFilters()
             self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
             
+            
+            // for international return and multicity
             self.intMCAndReturnFilterVC?.flightResultArray = self.flightSearchResultVM.intFlightResultArray
-            intMCAndReturnFilterVC?.userAppliedFilters = flightSearchResultVM.intFlightLegsAppliedFilters
+            intMCAndReturnFilterVC?.appliedAndUIFilters = flightSearchResultVM.intFlightLegsAppliedFilters
             self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)
+            
+            // To check if filters are pre applied and update dots
+            filtersApplied(true)
         }
         
         let flightType = flightSearchResultVM.flightSearchType

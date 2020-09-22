@@ -585,3 +585,17 @@ struct AppliedAndUIFilters {
     var appliedFilters: [Set<Filters>] = []
     var appliedSubFilters: [Set<FlightResultDisplayGroup.InitiatedFilters>] = []
 }
+
+
+// For Deep-linking/Aerin Filters
+extension FlightSearchResultVM {
+    func getUserSelectedFilters() -> [FiltersWS] {
+        var userSelectedFilters = [FiltersWS]()
+        self.flightLegs.forEach { (leg) in
+            if let userAppliedFilter = leg.userSelectedFilters {
+                userSelectedFilters.append(userAppliedFilter)
+            }
+        }
+        return userSelectedFilters
+    }
+}
