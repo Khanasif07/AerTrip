@@ -121,6 +121,22 @@ class FlightDetailsTableViewCell: UITableViewCell
 
         // Configure the view for the selected state
     }
+    
+    func setAirlineImage(with url: String){
+        
+        if let urlobj = URL(string: url){
+            let urlRequest = URLRequest(url: urlobj)
+            if let responseObj = URLCache.shared.cachedResponse(for: urlRequest) {
+                let image = UIImage(data: responseObj.data)
+                self.airlineImageView.image = image
+            }else{
+                self.airlineImageView.setImageWithUrl(url, placeholder: UIImage(), showIndicator: true)
+            }
+        }else{
+            self.airlineImageView.setImageWithUrl(url, placeholder: UIImage(), showIndicator: true)
+        }
+
+    }
 }
 
 extension FlightDetailsTableViewCell:UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout

@@ -98,21 +98,31 @@ struct AerlineCharge {
 }
 
 struct FEE {
-    var from: Date?
-    var to: Date?
+   // var from: Date?
+   // var to: Date?
     var value: Double?
-    
+    var toHour: Int?
+    var fromHour: Int?
+
     init(json: JSONDictionary) {
         if let obj = json["from"] {
-            self.from = "\(obj)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
+      //      self.from = "\(obj)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         
         if let obj = json["to"] {
-            self.to = "\(obj)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
+    //        self.to = "\(obj)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         
         if let obj = json["value"] {
             self.value = "\(obj)".toDouble
+        }
+        
+        if let obj = json["to_hour"] {
+            self.toHour = "\(obj)".toInt
+        }
+        
+        if let obj = json["from_hour"] {
+            self.fromHour = "\(obj)".toInt
         }
     }
     

@@ -1167,6 +1167,12 @@ enum LocalizedString: String {
     case Times = "Times"
     case Duration = "Duration"
     case Quality = "Quality"
+    
+    // TripsVC
+    case tripsComingSoon = "tripsComingSoon"
+    case tripsNote = "tripsNote"
+    case tripsLink = "tripsLink"
+
 }
 
 

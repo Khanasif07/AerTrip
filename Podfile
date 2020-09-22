@@ -17,7 +17,7 @@ target 'AERTRIP' do
   pod 'FBSDKLoginKit'
   pod  'FBSDKShareKit'
   pod 'GoogleSignIn'
-#  pod 'LinkedinSwift'
+  #  pod 'LinkedinSwift'
   pod 'Firebase/Core'
   pod 'Firebase/DynamicLinks'
   pod 'MXParallaxHeader'
@@ -30,7 +30,7 @@ target 'AERTRIP' do
   pod 'GoogleMaps', '~> 2.5.0'
   pod 'GooglePlaces'
   pod 'FlexiblePageControl'
-#  pod 'PKCategoryView'
+  #  pod 'PKCategoryView'
   pod 'Parchment'
   pod 'Shimmer'
   
@@ -40,18 +40,17 @@ target 'AERTRIP' do
   pod 'PKLoader'
   pod 'ActiveLabel'
   pod 'TransitionButton'
-#  pod 'AertripCalendarDataModel' , :git => 'git@gitlab.com:aertrip/ios-shared-rep.git' , :commit => '38ef98df8d00a76bf09f37fffd1905c60d22c58e'
-#  pod 'AertripCalendar' , :git => 'git@gitlab.com:aertrip/ios-calendar.git'
+  #  pod 'AertripCalendarDataModel' , :git => 'git@gitlab.com:aertrip/ios-shared-rep.git' , :commit => '38ef98df8d00a76bf09f37fffd1905c60d22c58e'
+  #  pod 'AertripCalendar' , :git => 'git@gitlab.com:aertrip/ios-calendar.git'
   pod 'FSCalendar'
   pod 'MLeaksFinder'
   pod "WSTagsField"
   
   # FLIGHTS PODS
   pod 'SnapKit', '~> 5.0.0'
-#  pod 'HMSegmentedControl' , '1.5.5'
+  #  pod 'HMSegmentedControl' , '1.5.5'
   
   pod 'lottie-ios'
-
   
 end
 #AertripCalendar.xcconfig

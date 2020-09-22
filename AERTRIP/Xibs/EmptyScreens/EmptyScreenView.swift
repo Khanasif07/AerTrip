@@ -471,11 +471,24 @@ extension EmptyScreenView {
         self.containerViewCenterYConstraint.constant = 0
     //    self.messageLabelTopConstraint.constant = 0
         self.mainImageView.image = #imageLiteral(resourceName: "noHotelFound")
+//        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+//        self.messageLabel.textColor = AppColors.themeBlack
+//        self.messageLabel.attributedText = getAttributedBoldText(text: LocalizedString.NoHotelFound.localized, boldText: LocalizedString.NoHotelFoundMessage.localized)
+//        self.bottomButton.isHidden = true
+//        self.searchTextLabel.isHidden = true
+        
+        self.hideFirstButton(isHidden: true)
+        self.labelsStackView.spacing = 10
+        self.containerStackView.spacing = 16
+        
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
         self.messageLabel.textColor = AppColors.themeBlack
-        self.messageLabel.attributedText = getAttributedBoldText(text: LocalizedString.NoHotelFound.localized, boldText: LocalizedString.NoHotelFoundMessage.localized)
-        self.bottomButton.isHidden = true
-        self.searchTextLabel.isHidden = true
+        self.messageLabel.text = LocalizedString.NoHotelFound.localized
+        
+        self.searchTextLabel.isHidden = false
+        self.searchTextLabel.font = AppFonts.Regular.withSize(18.0)
+        self.searchTextLabel.textColor = AppColors.themeGray60
+        self.searchTextLabel.text = LocalizedString.NoHotelFoundMessage.localized
     }
     
     private func setUpNoHotelFoundOnFilter() {

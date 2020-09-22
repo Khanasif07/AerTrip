@@ -241,10 +241,11 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         
-        depositCell.amountTextField.delegate = self
+        //depositCell.amountTextField.delegate = self
         depositCell.amountTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
         depositCell.amount = self.viewModel.userEnteredDetails.depositAmount
         depositCell.delegate = self
+        depositCell.usingFor = .offlineDeposite
         if self.currentUsingFor == .addOns{
             depositCell.amountTextField.backgroundColor = AppColors.clear
             depositCell.isUserInteractionEnabled = false
