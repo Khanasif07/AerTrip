@@ -60,7 +60,7 @@ enum AppConstants {
     static let AddOnRequestTextLimit = 60
     static let AbortRequestTextLimit = 500
 
-    static let OnlineDepositeAmountLimit: Double = 1100000 //11,00,000
+    static let OnlineDepositeAmountLimit: Double = 1050000 //10,50,000 in online (bcoz of Convenience fee)
     static let OfflineDepositeAmountLimit: Double = 999999999 //99,99,99,999
 
     

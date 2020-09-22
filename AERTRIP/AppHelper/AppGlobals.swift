@@ -677,7 +677,7 @@ extension AppGlobals {
                     
                     AppFlowManager.default.openDocument(atURL: url, screenTitle: screenTitle)
                     if showLoader {
-                        delay(seconds: 5) {
+                        delay(seconds: 2) {
                             AppGlobals.shared.stopLoading()
                         }
                     }
