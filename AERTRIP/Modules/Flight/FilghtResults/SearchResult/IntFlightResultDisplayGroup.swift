@@ -517,26 +517,31 @@ class IntFlightResultDisplayGroup {
                 
                 if let ar_dt = flightSearchParam["filters[\(self.index)][ar_dt][0]"]  as? String{
                     self.appliedFilters.insert(.Times)
+                    self.appliedSubFilters[self.index]?.insert(.arrivalTime)
                     self.userSelectedFilters[self.index].arDt.earliest = ar_dt
                 }
                 
                 if let ar_dt = flightSearchParam["filters[\(self.index)][ar_dt][1]"]  as? String{
                     self.appliedFilters.insert(.Times)
+                    self.appliedSubFilters[self.index]?.insert(.arrivalTime)
                     self.userSelectedFilters[self.index].arDt.latest = ar_dt
                 }
                 
                 if let dep_dt = flightSearchParam["filters[\(self.index)][dep_dt][0]"]  as? String{
                     self.appliedFilters.insert(.Times)
+                    self.appliedSubFilters[self.index]?.insert(.departureTime)
                     self.userSelectedFilters[self.index].depDt.earliest = dep_dt
                 }
                 
                 if let dep_dt = flightSearchParam["filters[\(self.index)][dep_dt][1]"]  as? String{
                     self.appliedFilters.insert(.Times)
+                    self.appliedSubFilters[self.index]?.insert(.departureTime)
                     self.userSelectedFilters[self.index].depDt.latest = dep_dt
                 }
                 
                 if let loap = flightSearchParam["filters[\(self.index)][loap][0]"]  as? String{
                     self.appliedFilters.insert(.Airport)
+                    self.UIFilters.insert(.layoverAirports)
                     self.userSelectedFilters[self.index].loap = [loap]
                 }
                 

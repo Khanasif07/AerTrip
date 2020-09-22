@@ -36,6 +36,8 @@ class FlightResultDisplayGroup {
     var inputFilter : FiltersWS?
     var updatedFilterResultCount = 0
     
+    private var filterUpdatedFromDeepLink = false
+    
     internal var isAPIResponseUpdated = false
 
     //MARK:- Computed Properties
@@ -364,16 +366,16 @@ class FlightResultDisplayGroup {
     
     func workingOnReceived( flightsArray: [Flights] ,searchType : FlightSearchType, flightSearchParam: JSONDictionary) {
         mergeFlightResults( flightsArray)
-//        if userSelectedFilters == nil {
-//            userSelectedFilters = flightsResults.f.last
-//        }
-//        inputFilter = flightsResults.f.last
         mergeFilters(flightsArray)
-        processingOnCombinedSearchResult(searchType : searchType)
         updateUserFiltersFromDeepLink(flightSearchParam)
+        processingOnCombinedSearchResult(searchType : searchType)
     }
     
     private func updateUserFiltersFromDeepLink(_ flightSearchParam: JSONDictionary) {
+        
+        guard !filterUpdatedFromDeepLink else { return }
+        filterUpdatedFromDeepLink = true
+        
         DispatchQueue.main.async
             {
                 
@@ -387,29 +389,33 @@ class FlightResultDisplayGroup {
                     self.userSelectedFilters?.al = [al]
                 }
                 
-                
                 if let ar_dt = flightSearchParam["filters[\(self.index)][ar_dt][0]"] as? String{
                     self.appliedFilters.insert(.Times)
+                    self.appliedSubFilters.insert(.arrivalTime)
                     self.userSelectedFilters?.arDt.earliest = ar_dt
                 }
                 
                 if let ar_dt = flightSearchParam["filters[\(self.index)][ar_dt][1]"] as? String{
                     self.appliedFilters.insert(.Times)
+                    self.appliedSubFilters.insert(.arrivalTime)
                     self.userSelectedFilters?.arDt.latest = ar_dt
                 }
                 
                 if let dep_dt = flightSearchParam["filters[\(self.index)][dep_dt][0]"] as? String{
                     self.appliedFilters.insert(.Times)
+                    self.appliedSubFilters.insert(.departureTime)
                     self.userSelectedFilters?.depDt.earliest = dep_dt
                 }
                 
                 if let dep_dt = flightSearchParam["filters[\(self.index)][dep_dt][1]"] as? String{
                     self.appliedFilters.insert(.Times)
+                    self.appliedSubFilters.insert(.departureTime)
                     self.userSelectedFilters?.depDt.latest = dep_dt
                 }
                 
                 if let loap = flightSearchParam["filters[\(self.index)][loap][0]"] as? String{
                     self.appliedFilters.insert(.Airport)
+                    self.UIFilters.insert(.layoverAirports)
                     self.userSelectedFilters?.loap = [loap]
                 }
                 

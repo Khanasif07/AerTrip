@@ -1110,7 +1110,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                     break
                 }
             }
-        } else {
+        } else if intMCAndReturnFilterVC != nil {
             for appliedFilters in flightSearchResultVM.intFlightLegsAppliedFilters.appliedFilters {
                 if !appliedFilters.isEmpty {
                     isFilterApplied = true
