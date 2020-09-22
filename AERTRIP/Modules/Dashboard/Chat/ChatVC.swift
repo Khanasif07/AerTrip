@@ -290,7 +290,7 @@ extension ChatVC {
     
     private func animateCell(text : String = ""){
 
-        let rectOfLastCell = self.chatTableView.rectForRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0))
+        let rectOfLastCell = self.chatTableView.rectForRow(at: IndexPath(row: self.chatVm.getMylastMessageIndex(), section: 0))
         let rectWrtView = self.chatTableView.convert(rectOfLastCell, to: self.view)
         self.showAnimationViewWith(text: text)
         self.animationView.frame = CGRect(x: 0, y: self.textViewBackView.frame.origin.y - 6, width: self.view.frame.width, height: self.animationLabel.frame.height + 28)
@@ -312,12 +312,21 @@ extension ChatVC {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.28) {
                 self.animationView.frame.origin.y = rectWrtView.origin.y
             }
-            
+            printDebug("animation..\(Date().timeIntervalSince1970)")
+      
+            delay(seconds: 0.35) {
+                self.hideShowSenderCellContent(ishidden: false)
+                self.hideAnimationView()
+                self.chatVm.messages[self.chatVm.getMylastMessageIndex()].isHidden = false
+                self.scheduleTypingCell()
+            }
+           
+        
         }) { (success) in
-            self.hideShowSenderCellContent(ishidden: false)
-            self.hideAnimationView()
-            self.chatVm.messages[self.chatVm.messages.count - 1].isHidden = false
-            self.scheduleTypingCell()
+            printDebug("animation..success\(Date().timeIntervalSince1970)")
+
+     
+            
         }
     }
     
@@ -337,7 +346,7 @@ extension ChatVC {
     }
     
     private func hideShowSenderCellContent(ishidden : Bool){
-        guard let cell = self.chatTableView.cellForRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0)) as? SenderChatCell else {
+        guard let cell = self.chatTableView.cellForRow(at: IndexPath(row: self.chatVm.getMylastMessageIndex(), section: 0)) as? SenderChatCell else {
             return }
         cell.contentView.isHidden = ishidden
     }
@@ -349,13 +358,14 @@ extension ChatVC {
     func scheduleTypingCell(){
         if self.chatVm.typingCellTimerCounter > 0 { return }
         self.insertTypingCell()
+        self.chatVm.sendMessageToChatBot(message: self.chatVm.msgToBeSent)
         self.typingCellTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(handleTypingCellTimer), userInfo: nil, repeats: true)
     }
     
     @objc func handleTypingCellTimer(){
         //        if self.chatVm.typingCellTimerCounter == 0{ self.insertTypingCell() }
         self.chatVm.typingCellTimerCounter += 1
-        if self.chatVm.typingCellTimerCounter == 1{self.chatVm.sendMessageToChatBot(message: self.chatVm.msgToBeSent) }
+//        if self.chatVm.typingCellTimerCounter == 1{self.chatVm.sendMessageToChatBot(message: self.chatVm.msgToBeSent) }
         if self.chatVm.typingCellTimerCounter == 10{
             invalidateTypingCellTimer()
         }
