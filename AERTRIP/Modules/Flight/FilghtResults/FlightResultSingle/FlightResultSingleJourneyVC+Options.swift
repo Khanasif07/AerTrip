@@ -84,9 +84,10 @@ extension FlightResultSingleJourneyVC {
         }
     }
     
-    func showPinnedFlightsOption2(_ show  : Bool) {
+    func showPinnedFlightsOption(_ show  : Bool) {
         manageSwitchContainer(isHidden: !show)
     }
+    
 }
 
 extension FlightResultSingleJourneyVC: ATSwitcherChangeValueDelegate {
