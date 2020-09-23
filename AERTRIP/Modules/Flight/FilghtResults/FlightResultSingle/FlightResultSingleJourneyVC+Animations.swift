@@ -75,7 +75,6 @@ extension FlightResultSingleJourneyVC {
              self.pinnedFlightsOptionsView.isHidden = isHidden
          }
         
-        
         func showPinnedButtons(withAnimation: Bool = true) {
               if withAnimation {
                   self.unpinnedAllButton.alpha = 0.0

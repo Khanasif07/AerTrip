@@ -15,7 +15,6 @@ class FlightResultSingleJourneyVM {
         var airportDetailsResult : [String : AirportDetailsWS]!
         var airlineDetailsResult : [String : AirlineMasterWS]!
         var taxesResult : [String : String]!
-        var airlineCode = ""
         var sid : String = ""
         var bookFlightObject = BookFlightObject()
         var scrollviewInitialYOffset = CGFloat(0.0)
@@ -23,7 +22,6 @@ class FlightResultSingleJourneyVM {
         var userSelectedFilters = [FiltersWS]()
         var updatedApiProgress : Float = 0
         var apiProgress : Float = 0
-    
     
         var resultTableState  = ResultTableViewState.showTemplateResults {
             didSet {
@@ -38,6 +36,10 @@ class FlightResultSingleJourneyVM {
         var sortOrder = Sort.Smart
         let dateFormatter = DateFormatter()
     
+        var airlineCode = ""
+    
+        var isSearchByAirlineCode = false
+
     
     func getOnewayDisplayArray( results : [Journey]) -> [JourneyOnewayDisplay] {
         
