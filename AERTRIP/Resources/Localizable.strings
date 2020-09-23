@@ -482,7 +482,7 @@
 "NoHotelFoundMessage" = "Choose another date for this location and try again.";
 "NoHotelFoundMessageOnFilter" = "Choose another filters try again.";
 "NoHotelFoundFilter" = "We couldn’t find hotels to match your filters. Try changing the filters, or reset them.";
-"NoHotelMatchedYourFilters" = "No hotel matched your filters";
+"NoHotelMatchedYourFilters" = "No hotel match your filters";
 "rupeesText" = "₹";
 "callingNotAvailable" = "Your device doesn't supports calling function!";
 "UnfavouriteAll" = "Unfavourite all";

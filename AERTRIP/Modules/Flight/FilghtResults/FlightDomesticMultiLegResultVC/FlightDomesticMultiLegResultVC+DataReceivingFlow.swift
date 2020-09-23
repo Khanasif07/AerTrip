@@ -98,9 +98,9 @@ extension FlightDomesticMultiLegResultVC {
                    
                    for subview in self.baseScrollView.subviews {
                        if let tableView = subview as? UITableView {
-                           let width = UIScreen.main.bounds.size.width / 2.0
-                           let headerRect = CGRect(x: 0, y: 0, width: width, height: 138.0)
-                           tableView.tableHeaderView = UIView(frame: headerRect)
+//                           let width = UIScreen.main.bounds.size.width / 2.0
+//                           let headerRect = CGRect(x: 0, y: 0, width: width, height: 138.0)
+                        tableView.origin.y = 0
                        }
                    }
                    

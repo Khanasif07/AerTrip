@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -18,7 +18,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FlightDetailsCell" rowHeight="435" id="KGk-i7-Jjw" customClass="FlightDetailsTableViewCell" customModule="Aertrip" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FlightDetailsCell" rowHeight="435" id="KGk-i7-Jjw" customClass="FlightDetailsTableViewCell" customModule="AERTRIP" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="372" height="435"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -180,8 +180,8 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="BOM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ftx-fi-nEf">
-                                                        <rect key="frame" x="18.5" y="1" width="46" height="29"/>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="BOM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ftx-fi-nEf">
+                                                        <rect key="frame" x="0.0" y="1" width="64.5" height="29"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="23"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -192,7 +192,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fri, 20 Nov 2019" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SE6-J8-pBo">
-                                                        <rect key="frame" x="32.5" y="32.5" width="92" height="18"/>
+                                                        <rect key="frame" x="0.0" y="32.5" width="124.5" height="18"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -218,7 +218,7 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="SE6-J8-pBo" firstAttribute="trailing" secondItem="scC-7a-Tk2" secondAttribute="trailing" id="0Rf-C0-g3b"/>
-                                                    <constraint firstItem="SE6-J8-pBo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aU3-uL-OzA" secondAttribute="leading" id="Eaz-hw-50a"/>
+                                                    <constraint firstItem="SE6-J8-pBo" firstAttribute="leading" secondItem="aU3-uL-OzA" secondAttribute="leading" id="Eaz-hw-50a"/>
                                                     <constraint firstItem="Lp4-op-5h6" firstAttribute="top" secondItem="SE6-J8-pBo" secondAttribute="bottom" constant="2" id="EdE-to-dig"/>
                                                     <constraint firstItem="6L1-bG-7wS" firstAttribute="top" secondItem="Lp4-op-5h6" secondAttribute="bottom" constant="2" id="JjG-9e-NvE"/>
                                                     <constraint firstAttribute="trailing" secondItem="scC-7a-Tk2" secondAttribute="trailing" id="Jpf-QP-k4S"/>
@@ -229,7 +229,7 @@
                                                     <constraint firstItem="SE6-J8-pBo" firstAttribute="top" secondItem="scC-7a-Tk2" secondAttribute="bottom" constant="2" id="dOg-ou-fPp"/>
                                                     <constraint firstItem="Lp4-op-5h6" firstAttribute="trailing" secondItem="scC-7a-Tk2" secondAttribute="trailing" id="fKH-Zv-iia"/>
                                                     <constraint firstItem="scC-7a-Tk2" firstAttribute="leading" secondItem="Ftx-fi-nEf" secondAttribute="trailing" constant="4" id="m0g-IN-P7D"/>
-                                                    <constraint firstItem="Ftx-fi-nEf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aU3-uL-OzA" secondAttribute="leading" id="uH7-6C-ROh"/>
+                                                    <constraint firstItem="Ftx-fi-nEf" firstAttribute="leading" secondItem="aU3-uL-OzA" secondAttribute="leading" id="uH7-6C-ROh"/>
                                                     <constraint firstItem="Ftx-fi-nEf" firstAttribute="centerY" secondItem="scC-7a-Tk2" secondAttribute="centerY" id="vnv-1j-YfL"/>
                                                 </constraints>
                                             </view>

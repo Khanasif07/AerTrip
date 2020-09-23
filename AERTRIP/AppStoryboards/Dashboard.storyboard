@@ -96,10 +96,13 @@
                                                                                         <rect key="frame" x="0.0" y="0.0" width="66" height="105"/>
                                                                                         <subviews>
                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Aerin Test66x66" translatesAutoresizingMaskIntoConstraints="NO" id="hKG-lk-EnP">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="66" height="84.5"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="66" height="66"/>
+                                                                                                <constraints>
+                                                                                                    <constraint firstAttribute="width" secondItem="hKG-lk-EnP" secondAttribute="height" id="ZWq-p4-0WU"/>
+                                                                                                </constraints>
                                                                                             </imageView>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Aerin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMz-6r-Sru">
-                                                                                                <rect key="frame" x="0.0" y="84.5" width="66" height="20.5"/>
+                                                                                                <rect key="frame" x="0.0" y="66" width="66" height="39"/>
                                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17.5"/>
                                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                 <nil key="highlightedColor"/>
@@ -135,17 +138,14 @@
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M6D-EY-y2X">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="66" height="105"/>
                                                                                         <subviews>
-                                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7NV-ir-5i6">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="56" height="83.5"/>
-                                                                                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="-8" maxY="0.0"/>
-                                                                                                <inset key="imageEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                                                                <state key="normal" image="FlightTest 66x66"/>
-                                                                                            </button>
                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FlightTest 66x66" translatesAutoresizingMaskIntoConstraints="NO" id="KsZ-Ga-z3J">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="66" height="85"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="66" height="66"/>
+                                                                                                <constraints>
+                                                                                                    <constraint firstAttribute="width" secondItem="KsZ-Ga-z3J" secondAttribute="height" id="OSH-Tt-ag7"/>
+                                                                                                </constraints>
                                                                                             </imageView>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Flights" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmS-2d-CXq">
-                                                                                                <rect key="frame" x="0.0" y="85" width="66" height="20"/>
+                                                                                                <rect key="frame" x="0.0" y="66" width="66" height="39"/>
                                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                 <nil key="highlightedColor"/>
@@ -162,25 +162,16 @@
                                                                                             <constraint firstItem="KsZ-Ga-z3J" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="M6D-EY-y2X" secondAttribute="leading" id="31u-F0-e8V"/>
                                                                                             <constraint firstItem="bmS-2d-CXq" firstAttribute="top" secondItem="KsZ-Ga-z3J" secondAttribute="bottom" id="Bq9-Ar-fVg"/>
                                                                                             <constraint firstAttribute="bottom" secondItem="bmS-2d-CXq" secondAttribute="bottom" id="DpL-If-Q3x"/>
-                                                                                            <constraint firstItem="bmS-2d-CXq" firstAttribute="top" secondItem="7NV-ir-5i6" secondAttribute="bottom" id="GDP-hw-eX7"/>
                                                                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="KsZ-Ga-z3J" secondAttribute="trailing" id="JrJ-qS-1Ma"/>
                                                                                             <constraint firstItem="KsZ-Ga-z3J" firstAttribute="centerX" secondItem="M6D-EY-y2X" secondAttribute="centerX" id="KPg-OL-Ktw"/>
-                                                                                            <constraint firstItem="7NV-ir-5i6" firstAttribute="leading" secondItem="M6D-EY-y2X" secondAttribute="leading" id="Pcw-To-Cec"/>
                                                                                             <constraint firstAttribute="trailing" secondItem="bmS-2d-CXq" secondAttribute="trailing" id="Rbb-bG-IHm"/>
                                                                                             <constraint firstItem="Ydp-pX-OEm" firstAttribute="top" secondItem="M6D-EY-y2X" secondAttribute="top" id="Srw-z0-Tzr"/>
-                                                                                            <constraint firstItem="7NV-ir-5i6" firstAttribute="top" secondItem="M6D-EY-y2X" secondAttribute="top" id="VvU-5e-eWk"/>
-                                                                                            <constraint firstAttribute="trailing" secondItem="7NV-ir-5i6" secondAttribute="trailing" id="hl4-nU-iuY"/>
                                                                                             <constraint firstItem="Ydp-pX-OEm" firstAttribute="leading" secondItem="M6D-EY-y2X" secondAttribute="leading" id="pRj-2c-qHQ"/>
                                                                                             <constraint firstAttribute="bottom" secondItem="Ydp-pX-OEm" secondAttribute="bottom" id="qJP-rA-zYM"/>
                                                                                             <constraint firstItem="KsZ-Ga-z3J" firstAttribute="top" secondItem="M6D-EY-y2X" secondAttribute="top" id="qat-Eb-bmN"/>
                                                                                             <constraint firstAttribute="trailing" secondItem="Ydp-pX-OEm" secondAttribute="trailing" id="uvN-bX-rcr"/>
                                                                                             <constraint firstItem="bmS-2d-CXq" firstAttribute="leading" secondItem="M6D-EY-y2X" secondAttribute="leading" id="yoQ-vZ-Fwq"/>
                                                                                         </constraints>
-                                                                                        <variation key="default">
-                                                                                            <mask key="subviews">
-                                                                                                <exclude reference="7NV-ir-5i6"/>
-                                                                                            </mask>
-                                                                                        </variation>
                                                                                     </view>
                                                                                 </subviews>
                                                                             </stackView>
@@ -191,10 +182,13 @@
                                                                                         <rect key="frame" x="0.0" y="0.0" width="66" height="105"/>
                                                                                         <subviews>
                                                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HotelTest 66x66" translatesAutoresizingMaskIntoConstraints="NO" id="BKX-kN-nNl">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="66" height="85"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="66" height="66"/>
+                                                                                                <constraints>
+                                                                                                    <constraint firstAttribute="width" secondItem="BKX-kN-nNl" secondAttribute="height" id="9gu-3O-7m4"/>
+                                                                                                </constraints>
                                                                                             </imageView>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Hotels" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Md-Fs-uVy">
-                                                                                                <rect key="frame" x="0.0" y="85" width="66" height="20"/>
+                                                                                                <rect key="frame" x="0.0" y="66" width="66" height="39"/>
                                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                 <nil key="highlightedColor"/>
@@ -231,10 +225,13 @@
                                                                                         <rect key="frame" x="0.0" y="0.0" width="66" height="105"/>
                                                                                         <subviews>
                                                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TripsTest 66x66" translatesAutoresizingMaskIntoConstraints="NO" id="ncO-p1-Aoc">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="66" height="85"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="66" height="66"/>
+                                                                                                <constraints>
+                                                                                                    <constraint firstAttribute="width" secondItem="ncO-p1-Aoc" secondAttribute="height" id="XtB-NV-6B6"/>
+                                                                                                </constraints>
                                                                                             </imageView>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Trips" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hM-k5-V70">
-                                                                                                <rect key="frame" x="0.0" y="85" width="66" height="20"/>
+                                                                                                <rect key="frame" x="0.0" y="66" width="66" height="39"/>
                                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                 <nil key="highlightedColor"/>
