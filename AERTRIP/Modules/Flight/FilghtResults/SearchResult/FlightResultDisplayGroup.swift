@@ -367,53 +367,91 @@ class FlightResultDisplayGroup {
     func workingOnReceived( flightsArray: [Flights] ,searchType : FlightSearchType, flightSearchParam: JSONDictionary) {
         mergeFlightResults( flightsArray)
         mergeFilters(flightsArray)
-        updateUserFiltersFromDeepLink(flightSearchParam)
+        updateUserFiltersFromDeepLinkForUI(flightSearchParam)
         processingOnCombinedSearchResult(searchType : searchType)
     }
     
-    private func updateUserFiltersFromDeepLink(_ flightSearchParam: JSONDictionary) {
+    private func updateUserFiltersFromDeepLinkForUI(_ flightSearchParam: JSONDictionary) {
         
         guard !filterUpdatedFromDeepLink else { return }
         filterUpdatedFromDeepLink = true
         
-        if let stop = flightSearchParam["filters[\(self.index)][stp][0]"] as? String{
+        let stops = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][stp]") }
+        
+        if stops.count > 0 {
             self.appliedFilters.insert(.stops)
-            self.userSelectedFilters?.stp = [stop]
+            self.userSelectedFilters?.stp = stops.map { $0.value as? String ?? "" }
         }
         
-        if let al = flightSearchParam["filters[\(self.index)][al][0]"] as? String{
+        let airlines = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][al]") }
+        
+        if airlines.count > 0 {
             self.appliedFilters.insert(.Airlines)
-            self.userSelectedFilters?.al = [al]
+            self.userSelectedFilters?.al = airlines.map { $0.value as? String ?? "" }
+        }
+        
+        if let tt = flightSearchParam["filters[\(self.index)][tt][0]"] as? String{
+            self.appliedFilters.insert(.Duration)
+            self.initiatedFilters.insert(.tripDuration)
+            self.appliedSubFilters.insert(.tripDuration)
+            self.userSelectedFilters?.tt.minTime = tt
+        }
+        
+        if let tt = flightSearchParam["filters[\(self.index)][tt][1]"] as? String{
+            self.appliedFilters.insert(.Duration)
+            self.initiatedFilters.insert(.tripDuration)
+            self.appliedSubFilters.insert(.tripDuration)
+            self.userSelectedFilters?.tt.maxTime = tt
+        }
+        
+        if let lott = flightSearchParam["filters[\(self.index)][lott][0]"] as? String{
+            self.appliedFilters.insert(.Duration)
+            self.initiatedFilters.insert(.layoverDuration)
+            self.appliedSubFilters.insert(.layoverDuration)
+            self.userSelectedFilters?.lott?.minTime = lott
+        }
+        
+        if let lott = flightSearchParam["filters[\(self.index)][lott][1]"] as? String{
+            self.appliedFilters.insert(.Duration)
+            self.initiatedFilters.insert(.layoverDuration)
+            self.appliedSubFilters.insert(.layoverDuration)
+            self.userSelectedFilters?.lott?.maxTime = lott
         }
         
         if let ar_dt = flightSearchParam["filters[\(self.index)][ar_dt][0]"] as? String{
             self.appliedFilters.insert(.Times)
+            self.initiatedFilters.insert(.arrivalTime)
             self.appliedSubFilters.insert(.arrivalTime)
             self.userSelectedFilters?.arDt.earliest = ar_dt
         }
         
         if let ar_dt = flightSearchParam["filters[\(self.index)][ar_dt][1]"] as? String{
             self.appliedFilters.insert(.Times)
+            self.initiatedFilters.insert(.arrivalTime)
             self.appliedSubFilters.insert(.arrivalTime)
             self.userSelectedFilters?.arDt.latest = ar_dt
         }
         
         if let dep_dt = flightSearchParam["filters[\(self.index)][dep_dt][0]"] as? String{
             self.appliedFilters.insert(.Times)
+            self.initiatedFilters.insert(.departureTime)
             self.appliedSubFilters.insert(.departureTime)
             self.userSelectedFilters?.depDt.earliest = dep_dt
         }
         
         if let dep_dt = flightSearchParam["filters[\(self.index)][dep_dt][1]"] as? String{
             self.appliedFilters.insert(.Times)
+            self.initiatedFilters.insert(.departureTime)
             self.appliedSubFilters.insert(.departureTime)
             self.userSelectedFilters?.depDt.latest = dep_dt
         }
         
-        if let loap = flightSearchParam["filters[\(self.index)][loap][0]"] as? String{
+        let loapAirports = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][loap]") }
+        
+        if loapAirports.count > 0 {
             self.appliedFilters.insert(.Airport)
             self.UIFilters.insert(.layoverAirports)
-            self.userSelectedFilters?.loap = [loap]
+            self.userSelectedFilters?.loap = loapAirports.map { $0.value as? String ?? "" }//[loap]
         }
         
         if let pr = flightSearchParam["filters[\(self.index)][pr][0]"] as? String{

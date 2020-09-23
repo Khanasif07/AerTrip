@@ -341,7 +341,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         let pinnedFlightsArray = self.viewModel.results.reduce([]) { $0 + $1.pinnedFlights }
 //        guard let postData = generatePostDataForEmail(for: pinnedFlightsArray) else { return }
 //        executeWebServiceForEmail(with: postData as Data, onCompletion:{ (view)  in
-//            
+
 //        DispatchQueue.main.async {
 //            self.showEmailViewController(body : view)
 //            }
