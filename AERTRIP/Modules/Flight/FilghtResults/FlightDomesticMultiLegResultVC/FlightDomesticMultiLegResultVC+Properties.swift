@@ -32,7 +32,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     @IBOutlet weak var unpinAllLeading: NSLayoutConstraint!
     @IBOutlet weak var emailPinnedFlightLeading: NSLayoutConstraint!
     @IBOutlet weak var sharePinnedFlightsLeading: NSLayoutConstraint!
-    
+    @IBOutlet weak var miniHeaderScrollView: UIScrollView!
+    @IBOutlet weak var miniHeaderTopConstraint: NSLayoutConstraint!
     
     //MARK:- State Properties
     
@@ -136,7 +137,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         let width =  UIScreen.main.bounds.size.width / 2.0
         let height = self.baseScrollView.frame.height + 88.0//statusBarHeight + 88.0
         baseScrollView.contentSize = CGSize( width: (CGFloat(self.viewModel.numberOfLegs) * width ), height:height)
-
+        self.miniHeaderTopConstraint.constant = 0.0
         for view in self.baseScrollView.subviews {
             
             if view is JourneyHeaderView {

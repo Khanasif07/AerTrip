@@ -8,11 +8,18 @@
 
 import UIKit
 
+import Lottie
+
+
 class TypingStatusChatCell: UITableViewCell {
     
     @IBOutlet weak var dotsView: UIView!
     
     @IBOutlet weak var bubbleImageView: UIImageView!
+    
+    let loader = AnimationView(name: "dot")
+
+    
     
 //    override func prepareForReuse() {
 //        self.prepareForReuse()
@@ -36,12 +43,24 @@ class TypingStatusChatCell: UITableViewCell {
 //        dotsView.aheadTime = 1
        // dotsView.stop()
 //        dotsView.start()
+        
+        setUpDots()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    
+    func setUpDots(){
+        loader.frame = dotsView.bounds
+        loader.contentMode = .scaleAspectFill
+        dotsView.addSubview(loader)
+        loader.loopMode = .loop
+//        loader.animationSpeed = 0.5
+        loader.play()
     }
     
 }

@@ -51,9 +51,21 @@ extension FlightDomesticMultiLegResultVC {
         baseScrollView.delegate = self
         baseScrollView.bounces = false
         baseScrollView.isDirectionalLockEnabled = true
+        self.setupHeaderScrollView()
         for i in 0 ..< self.viewModel.numberOfLegs {
             setupTableView(At: i)
         }
+    }
+    
+    func setupHeaderScrollView(){
+        let width =  UIScreen.width / 2.0
+        miniHeaderScrollView.contentSize = CGSize(width: (CGFloat(self.viewModel.numberOfLegs) * width ), height: 44.0)
+        miniHeaderScrollView.showsHorizontalScrollIndicator = false
+        miniHeaderScrollView.showsVerticalScrollIndicator = false
+        miniHeaderScrollView.alwaysBounceVertical = false
+        miniHeaderScrollView.delegate = nil
+        miniHeaderScrollView.bounces = false
+        miniHeaderScrollView.isScrollEnabled = false
     }
     
     
@@ -109,8 +121,8 @@ extension FlightDomesticMultiLegResultVC {
         let headerJourneyView = JourneyHeaderView(frame: headerJourneyRect)
         headerJourneyView.tag = 1000 + index
         journeyHeaderViewArray.append(headerJourneyView)
-        
-        baseScrollView.addSubview(headerJourneyView)
+        miniHeaderScrollView.addSubview(headerJourneyView)
+//        baseScrollView.addSubview(headerJourneyView)
         headerJourneyView.isHidden = true
         hideHeaderCellAt(index: index)
     }

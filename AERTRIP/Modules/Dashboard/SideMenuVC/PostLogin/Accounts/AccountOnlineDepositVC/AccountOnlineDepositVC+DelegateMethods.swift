@@ -23,11 +23,12 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
             
             depositCell.delegate = self
             depositCell.amount = self.viewModel.depositAmount
+            depositCell.usingFor = .onlineDeposite
             if self.currentUsingFor == .addOns || self.currentUsingFor == .booking || self.currentUsingFor == .outstandingLedger {
                 depositCell.amountTextField.backgroundColor = AppColors.clear
                 depositCell.isUserInteractionEnabled = false
             }
-//            depositCell.topDividerView.isHidden = false
+            //            depositCell.topDividerView.isHidden = false
             return depositCell
             
         case 1:
@@ -141,7 +142,7 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
             
         case 6:
             // Term and privacy Cell
-            return 110.0
+            return 58.0
             
         default:
             return 0.0
@@ -171,27 +172,31 @@ extension AccountOnlineDepositVC: AccountDepositAmountCellDelegate {
         self.viewModel.depositItinerary?.partPaymentAmount = amount
         self.updatePayButtonText()
         self.checkOutTableView.reloadData()
-        self.updateConvenienceFee(with: amount)
-    }
-    
-    func amountValueChanged(amount: Double, amountString: String) {
-//        self.viewModel.timer?.invalidate()
-//        self.viewModel.timer = nil
-//        self.viewModel.convenienceFeeUpdateTime = 1.0
-//        self.updateConvenienceFee(with: amount)
+        //self.updateConvenienceFee(with: amount)
         
     }
     
-    func updateConvenienceFee(with amount: Double){
-//        self.viewModel.timer?.invalidate()
-//        self.viewModel.timer = nil
-//        if amount != 0{
-//            self.viewModel.depositItinerary?.partPaymentAmount = amount
-//            self.viewModel.timer = Timer.scheduledTimer(withTimeInterval: self.viewModel.convenienceFeeUpdateTime, repeats: false, block: {[weak self] timer in
-//                guard let self = self else {return}
-                self.viewModel.updateConvenienceFee(amount: "\(amount)")
-//            })
-//        }
+    func amountValueChanged(amount: Double, amountString: String) {
+        //        self.viewModel.timer?.invalidate()
+        //        self.viewModel.timer = nil
+        //        self.viewModel.convenienceFeeUpdateTime = 1.0
+        //        self.updateConvenienceFee(with: amount)
+        printDebug("amount: \(amount)")
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        perform(#selector(self.updateConvenienceFee(_:)), with: "\(amount)", afterDelay: 0.4)
+    }
+    
+    @objc func updateConvenienceFee(_ amount: String){
+        //        self.viewModel.timer?.invalidate()
+        //        self.viewModel.timer = nil
+        //        if amount != 0{
+        //            self.viewModel.depositItinerary?.partPaymentAmount = amount
+        //            self.viewModel.timer = Timer.scheduledTimer(withTimeInterval: self.viewModel.convenienceFeeUpdateTime, repeats: false, block: {[weak self] timer in
+        //                guard let self = self else {return}
+        printDebug("updateConvenienceFee: \(amount)")
+        self.viewModel.updateConvenienceFee(amount: amount)
+        //            })
+        //        }
     }
     
 }
@@ -240,7 +245,16 @@ extension AccountOnlineDepositVC: AccountOnlineDepositVMDelegate {
     func didUpdateConvenienceFee() {
         self.manageLoader(shouldStart: false)
         self.updatePayButtonText()
-        self.checkOutTableView.reloadData()
+        
+        if let indexPaths =  self.checkOutTableView.indexPathsForVisibleRows {
+            indexPaths.forEach { (index) in
+                if index.row != 0 {
+                    self.checkOutTableView.reloadRow(at: index, with: .none)
+                }
+            }
+        } else {
+            self.checkOutTableView.reloadData()
+        }
     }
     
     func convenienceFeeFail() {

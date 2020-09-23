@@ -85,7 +85,7 @@ class DashboardVC: BaseVC {
         aerinView.alpha = 1.0
         // nitin change
         if isLaunchThroughSplash {
-            self.splashView.isHidden = false
+            self.splashView.isHidden = true
         } else {
             self.splashView.isHidden = true
             self.addOverlayView()

@@ -17,13 +17,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="288"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ViewProfileFooterImage" translatesAutoresizingMaskIntoConstraints="NO" id="EhC-Pl-cAZ">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="288"/>
+                            <rect key="frame" x="0.0" y="26" width="414" height="262"/>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
                         <constraint firstItem="EhC-Pl-cAZ" firstAttribute="leading" secondItem="raZ-I2-H9Z" secondAttribute="leading" id="Kys-lo-WWm"/>
-                        <constraint firstItem="EhC-Pl-cAZ" firstAttribute="top" secondItem="raZ-I2-H9Z" secondAttribute="top" id="L7N-Dg-nsC"/>
+                        <constraint firstItem="EhC-Pl-cAZ" firstAttribute="top" secondItem="raZ-I2-H9Z" secondAttribute="top" constant="26" id="L7N-Dg-nsC"/>
                         <constraint firstAttribute="trailing" secondItem="EhC-Pl-cAZ" secondAttribute="trailing" id="fmc-Uy-tdw"/>
                         <constraint firstAttribute="bottom" secondItem="EhC-Pl-cAZ" secondAttribute="bottom" id="ofT-7v-3Sy"/>
                     </constraints>

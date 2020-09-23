@@ -236,11 +236,12 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                     
                     var index = 0
                     if indexPath.row > 0{
-                        if indexPath.row <= count!{
-                            index = indexPath.row-1
-                        }else{
-                            index = indexPath.row-2
-                        }
+                        index = indexPath.row/2
+//                        if indexPath.row <= count!{
+//                            index = indexPath.row-1
+//                        }else{
+//                            index = indexPath.row-2
+//                        }
                     }else{
                         index = indexPath.row
                     }
@@ -327,8 +328,8 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                         flightDetailsCell.flightNameLabel.text = flightName
                         
                         let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + flight.al.uppercased() + ".png"
-                        setImageFromPath(urlPath : logoURL , to: flightDetailsCell.airlineImageView)
-                        
+//                        setImageFromPath(urlPath : logoURL , to: flightDetailsCell.airlineImageView)
+                        flightDetailsCell.setAirlineImage(with: logoURL)
                         if indexPath.row == 0{
                             let ap = journey[indexPath.section].ap
                             let departureAirportDetails = airportDetailsResult[ap[0]]
@@ -681,22 +682,8 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                         let totalRow = tableView.numberOfRows(inSection: indexPath.section)
                         if totalRow == 1{
                             flightDetailsCell.bottomSeperatorView.isHidden = false
-//                            if journey[indexPath.section].fsr == 1{
-//                                flightDetailsCell.displayViewBottom.constant = 35
-//                            }else{
-//                                if indexPath.section == journey.count - 1{
-//                                    flightDetailsCell.displayViewBottom.constant = 35
-//                                }else{
-//                                    flightDetailsCell.displayViewBottom.constant = 35
-//                                }
-//                            }
                             flightDetailsCell.displayViewBottom.constant = 35
                         }else if(indexPath.row == totalRow-1){
-//                            if journey[indexPath.section].fsr == 1{
-//                                flightDetailsCell.displayViewBottom.constant = 35
-//                            }else{
-//                                flightDetailsCell.displayViewBottom.constant = 35
-//                            }
                             flightDetailsCell.displayViewBottom.constant = 35
                             flightDetailsCell.bottomSeperatorView.isHidden = false
                         }else{
@@ -728,11 +715,12 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                     
                     var index = 0
                     if indexPath.row > 0{
-                        if indexPath.row < count!{
-                            index = indexPath.row-1
-                        }else{
-                            index = indexPath.row-2
-                        }
+                        index = (indexPath.row - 1)/2
+//                        if indexPath.row < count!{
+//                            index = indexPath.row-1
+//                        }else{
+//                            index = indexPath.row-2
+//                        }
                     }else{
                         index = indexPath.row
                     }
@@ -790,30 +778,30 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                             let attachmentString = NSAttributedString(attachment: imageAttachment)
                             completeText.append(attachmentString)
                         }
-                        let textAfterIcon = NSMutableAttributedString(string: displayText)
+                        let textAfterIcon = NSMutableAttributedString(string: displayText, attributes: [.font: AppFonts.Regular.withSize(14)])//NSMutableAttributedString(string: displayText)
                         
                         if flight.llo == 1 || flight.slo == 1{
                             if flight.isArrivalAirportChange == true{
                                 let range1 = (displayText as NSString).range(of: displayText)
                                 
                                 textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red , range: range1)
-                                textAfterIcon.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Semibold", size: 14.0)! , range: (displayText as NSString).range(of: layoverTime))
+                                textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14) , range: (displayText as NSString).range(of: layoverTime))
                             }else{
                                 let range1 = (displayText as NSString).range(of: layoverTime)
                                 
                                 textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red , range: range1)
-                                textAfterIcon.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Semibold", size: 14.0)! , range: range1)
+                                textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14) , range: range1)
                             }
                         }else if flight.isArrivalAirportChange == true{
                             let range1 = (displayText as NSString).range(of: displayText)
                             
                             textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red , range: range1)
-                            textAfterIcon.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Semibold", size: 14.0)! , range: (displayText as NSString).range(of: layoverTime))
+                            textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14) , range: (displayText as NSString).range(of: layoverTime))
                         }else{
                             let range1 = (displayText as NSString).range(of: layoverTime)
                             
                             textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: range1)
-                            textAfterIcon.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Semibold", size: 14.0)! , range: range1)
+                            textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14) , range: range1)
                         }
                         
                         completeText.append(NSMutableAttributedString(string: "  "))
@@ -863,17 +851,6 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     //MARK:- Set Image
-    func setImageFromPath(urlPath : String  , to imageView : UIImageView)
-    {
-        guard  let urlobj = URL(string: urlPath) else { return }
-        
-        let urlRequest = URLRequest(url: urlobj)
-        if let responseObj = URLCache.shared.cachedResponse(for: urlRequest) {
-            
-            let image = UIImage(data: responseObj.data)
-            imageView.image = image
-        }
-    }
     
     func getSelectedAmenities(amenitiesData: [String : String], index: Int)
     {
