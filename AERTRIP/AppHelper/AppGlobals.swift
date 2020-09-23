@@ -680,9 +680,9 @@ extension AppGlobals {
                     
                     AppFlowManager.default.openDocument(atURL: url, screenTitle: screenTitle)
                     if showLoader {
-                        delay(seconds: 2) {
+//                        delay(seconds: 2) {
                             AppGlobals.shared.stopLoading()
-                        }
+//                        }
                     }
                     delay(seconds: 1.5) {
                         complition?(true)

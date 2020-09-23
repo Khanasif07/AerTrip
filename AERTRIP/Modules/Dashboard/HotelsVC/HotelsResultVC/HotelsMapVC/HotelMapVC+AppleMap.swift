@@ -509,7 +509,7 @@ extension HotelsMapVC : MKMapViewDelegate{
     }
     
     func removeBlur(){
-        self.statusBarColor = AppColors.themeWhite
+        self.statusBarColor = AppColors.clear
         blurView.removeFromSuperview()
     }
     
