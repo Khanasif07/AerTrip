@@ -54,11 +54,11 @@ extension FlightResultSingleJourneyVC {
                         
                         let flightNum = firstFlight.al + firstFlight.fn
                         
-                        printDebug("flightNum...\(flightNum)")
+//                        printDebug("flightNum...\(flightNum)")
                         
                         if flightNum.uppercased() == self.viewModel.airlineCode.uppercased() {
                             
-                            printDebug("match...\(flightNum)....\(jour.airlinesSubString)")
+//                            printDebug("match...\(flightNum)....\(jour.airlinesSubString)")
                             
                             self.viewModel.results.currentPinnedJourneys.append(jour)
                             self.viewModel.results.currentPinnedJourneys = self.viewModel.results.currentPinnedJourneys.removeDuplicates()
@@ -70,7 +70,6 @@ extension FlightResultSingleJourneyVC {
                     }
                 }
             }
-            
             
             let groupedArray =   self.viewModel.getOnewayDisplayArray(results: modifiedResult)
             self.viewModel.results.journeyArray = groupedArray
