@@ -21,10 +21,7 @@ class DashboardVC: BaseVC {
     @IBOutlet weak var segmentContainerView: UIView!
     @IBOutlet weak var segmentCenterYConstraint: NSLayoutConstraint!
     @IBOutlet weak var segmentHeightConstraint: NSLayoutConstraint!
-    
-    
     @IBOutlet weak var aertripLogoImageView: UIImageView!
-    
     @IBOutlet weak var homeAertripLogoImageView: UIImageView!
     //segment views
     @IBOutlet weak var aerinView: UIView!
@@ -56,6 +53,7 @@ class DashboardVC: BaseVC {
     private var isInitialAminationDone: Bool = false
     
     private var isAnimatingButtons = false
+    var lastInnerScrollViewContentOffset = CGPoint.zero
     
     var itemWidth : CGFloat {
         return aerinView.width
@@ -342,11 +340,30 @@ extension DashboardVC  {
         
         isSelectingFromTabs = false
         previousSelected = selectedOption
+        if scrollView == innerScrollView {
+            lastInnerScrollViewContentOffset.x = scrollView.contentOffset.x
+            lastInnerScrollViewContentOffset.y = scrollView.contentOffset.y
+        }
     }
     
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        innerScrollDidEndDragging(scrollView)
+        if scrollView == innerScrollView {
+            
+            if lastInnerScrollViewContentOffset.x < scrollView.contentOffset.x {
+                // moved right
+                printDebug("right")
+            } else if lastInnerScrollViewContentOffset.x > scrollView.contentOffset.x {
+                // moved left
+                printDebug("left")
+            } else if lastInnerScrollViewContentOffset.y < scrollView.contentOffset.y {
+                printDebug("up")
+                innerScrollDidEndDragging(scrollView)
+            } else if lastInnerScrollViewContentOffset.y > scrollView.contentOffset.y {
+                printDebug("down")
+                innerScrollDidEndDragging(scrollView)
+            }
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -508,7 +525,7 @@ extension DashboardVC  {
         }
     }
     
-    /*
+    
     private func checkAndApplyTransform(_ view : UIView, transformValue : CGFloat, scrolledUp : Bool){
         
         let initialTransform = view.transform
@@ -532,25 +549,25 @@ extension DashboardVC  {
             
         }
     }
- */
-    private func checkAndApplyTransform(_ view : UIView, transformValue : CGFloat, scrolledUp : Bool){
-        
-        let initialTransform = view.transform
-        let transformedBounds = view.bounds.applying(initialTransform.scaledBy(x: transformValue, y: transformValue))
-        
-        if isSelectingFromTabs {
-            view.transform = (transformValue == 1.0) ? CGAffineTransform.identity : CGAffineTransform(scaleX: transformValue, y: transformValue)
-        }
-        else {
-            if transformedBounds.size.width >= identitySize.width && !scrolledUp{
-                view.transform = CGAffineTransform.identity
-            }else if transformedBounds.size.width < smallerSize.width && scrolledUp{
-                view.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-            }else{
-                view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
-            }
-        }
-    }
+    
+    //    private func checkAndApplyTransform(_ view : UIView, transformValue : CGFloat, scrolledUp : Bool){
+    //
+    //        let initialTransform = view.transform
+    //        let transformedBounds = view.bounds.applying(initialTransform.scaledBy(x: transformValue, y: transformValue))
+    //
+    //        if isSelectingFromTabs {
+    //            view.transform = (transformValue == 1.0) ? CGAffineTransform.identity : CGAffineTransform(scaleX: transformValue, y: transformValue)
+    //        }
+    //        else {
+    //            if transformedBounds.size.width >= identitySize.width && !scrolledUp{
+    //                view.transform = CGAffineTransform.identity
+    //            }else if transformedBounds.size.width < smallerSize.width && scrolledUp{
+    //                view.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+    //            }else{
+    //                view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
+    //            }
+    //        }
+    //    }
     
     private func updateUpLabels(with alpha : CGFloat){
         
@@ -695,7 +712,14 @@ extension DashboardVC {
         let midConstant: CGFloat = (maxYOffsetForMainScroll/2) + 3
         
         if mainScrollYOffset < midConstant {
-            UIView.animate(withDuration: duration, animations: {
+            //            UIView.animate(withDuration: duration, animations: {
+            //
+            //            }, completion: { _ in
+            //
+            //            })
+            let animator = UIViewPropertyAnimator(duration: duration, curve: .linear) { [weak self] in
+                guard let `self` = self else {return}
+                
                 for offset in stride(from: mainScrollYOffset, through: 0, by: -0.1) {
                     self.mainScrollView.contentOffset.y = offset
                     self.mainScrollView.layoutIfNeeded()
@@ -714,22 +738,45 @@ extension DashboardVC {
                     self.tripsView.transform = .identity
                     self.tripsView.alpha = 1
                 }
-            }, completion: { _ in
+            }
+            
+            animator.addCompletion { [weak self](pos) in
+                guard let `self` = self else {return}
                 if self.mainScrollView.contentOffset.y != 0 {
                     self.scrollToTopOrBottom(0.15)
                 }
-            })
+            }
+            
+            animator.startAnimation()
         } else {
-            UIView.animate(withDuration: duration, animations: {
+            //            UIView.animate(withDuration: duration, animations: {
+            //                for offset in stride(from: mainScrollYOffset, through: maxYOffsetForMainScroll, by: 0.1) {
+            //                    self.mainScrollView.contentOffset.y = offset
+            //                    self.mainScrollView.layoutIfNeeded()
+            //                }
+            //            }, completion: { _ in
+            //                if self.mainScrollView.contentOffset.y < maxYOffsetForMainScroll {
+            //                    self.scrollToTopOrBottom(0.15)
+            //                }
+            //            })
+            
+            let animator = UIViewPropertyAnimator(duration: duration, curve: .linear) { [weak self] in
+                guard let `self` = self else {return}
+                
                 for offset in stride(from: mainScrollYOffset, through: maxYOffsetForMainScroll, by: 0.1) {
                     self.mainScrollView.contentOffset.y = offset
                     self.mainScrollView.layoutIfNeeded()
                 }
-            }, completion: { _ in
+            }
+            
+            animator.addCompletion { [weak self](pos) in
+                guard let `self` = self else {return}
                 if self.mainScrollView.contentOffset.y < maxYOffsetForMainScroll {
                     self.scrollToTopOrBottom(0.15)
                 }
-            })
+            }
+            
+            animator.startAnimation()
         }
     }
 }

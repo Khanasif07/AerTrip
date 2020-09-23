@@ -80,7 +80,7 @@ extension FlightDomesticMultiLegResultVC {
             self.hidingAnimationOnNavigationBarOnScroll(offsetDifference : offsetDifference)
         } else if offsetDifference < 0{
             self.revealAnimationOfNavigationBarOnScroll(offsetDifference : offsetDifference)
-        }else{
+        }else if contentOffset.y == 0.0{
             self.baseScrollView.contentOffset.y = 0.0
         }
     }
@@ -134,7 +134,7 @@ extension FlightDomesticMultiLegResultVC {
         var selectedRowRect = tableView.rectForRow(at: selectedRowIndex)
         selectedRowRect.origin.y = selectedRowRect.origin.y - tableView.contentOffset.y
         selectedRowRect.origin.x = xCoordinate
-        if visibleRect.contains(selectedRowRect) {
+        if self.isRowCompletelyVisible(at: selectedRowIndex, for: tableView){//visibleRect.contains(selectedRowRect) {
             let index = tableView.tag - 1000
             hideHeaderCellAt(index: index, isHeaderNeedSet: isHeaderNeedToSet)
         }
@@ -250,8 +250,13 @@ extension FlightDomesticMultiLegResultVC {
                
 
     func setTableViewHeaderAfterSelection(tableView  : UITableView) {
+        let index = tableView.tag - 1000
+        if let journey = self.viewModel.results[index].selectedJourney{
+            self.journeyHeaderViewArray[index].setValuesFrom(journey: journey)
+        }
+        self.hideHeaderCellAt(index: index, isHeaderNeedSet: true)
         
-        self.hideHeaderCellAt(index: tableView.tag - 1000, isHeaderNeedSet: true)
+        
 //        let visibleRect = self.getVisibleAreaRectFor(tableView: tableView)
 //        let xCoordinate = tableView.frame.origin.x
 //        let zerothRowIndex = IndexPath(item: 0, section: 0)
@@ -399,9 +404,6 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
         if scrollView != self.baseScrollView{
             if let tableView = scrollView as? UITableView{
                 tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .middle, animated: true)
-//                delay(seconds: 0.4) {
-//                    self.setTableViewHeaderFor(tableView: tableView)
-//                }
             }
         }
         return false
@@ -454,7 +456,7 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
         if scrollView.tag > 999 {
             if let tableView = scrollView as? UITableView {
                 animateJourneyCompactView(for: tableView)
-                if !scrollView.isBouncingTop{
+                if !scrollView.isBouncingBottom{
                     snapToTopOrBottomOnSlowScrollDragging(scrollView)
                 }
                 if (scrollView.contentOffset.y == 0 && self.baseScrollView.contentOffset.y != 0){
@@ -506,6 +508,24 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
                 }
             }
         }
+    }
+    
+}
+
+
+extension FlightDomesticMultiLegResultVC{
+    
+    public func boundsWithoutInset(for tableView: UITableView)-> CGRect{
+        var boundsWithoutInset = tableView.bounds
+        let colletionSpace = self.headerCollectionViewTop.constant + self.headerCollectionView.height
+        boundsWithoutInset.origin.y += (tableView.contentInset.top + colletionSpace)
+        boundsWithoutInset.size.height -= (tableView.contentInset.top + tableView.contentInset.bottom + colletionSpace - 40)
+        return boundsWithoutInset
+    }
+
+    public func isRowCompletelyVisible(at indexPath: IndexPath, for tableView: UITableView) -> Bool {
+        let rect = tableView.rectForRow(at: indexPath)
+        return self.boundsWithoutInset(for: tableView).contains(rect)
     }
     
 }
