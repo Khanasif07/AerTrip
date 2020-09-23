@@ -495,8 +495,8 @@ extension FlightFilterBaseVC {
 
             let userDepartureMin = dateFromTime(arrivalInputStartDate: departureMin, interval: TimeInterval(userDepartureTime.earliest) ?? 0)
             let userDepartureMax = dateFromTime(arrivalInputStartDate: departureMin, interval: TimeInterval(userDepartureTime.latest) ?? 0)
-            let userArrivalMin = dateFromTime(arrivalInputStartDate: arrivalMin, interval: TimeInterval(userArrivalTime.earliest) ?? 0)
-            let userArrivalMax = dateFromTime(arrivalInputStartDate: arrivalMin, interval: TimeInterval(userArrivalTime.latest) ?? 0)
+            let userArrivalMin = userArrivalTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
+            let userArrivalMax = userArrivalTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
             
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[index].contains(.Times), timesViewController.multiLegTimerFilter.indices.contains(index) {
                 
@@ -548,7 +548,6 @@ extension FlightFilterBaseVC {
         var currentTimeInterval = startDate.timeIntervalSince1970
         currentTimeInterval = currentTimeInterval + (interval*60)
         return Date(timeIntervalSince1970: currentTimeInterval)
-        
     }
     
     //MARK:- Duration

@@ -422,14 +422,26 @@ class FlightResultDisplayGroup {
             self.appliedFilters.insert(.Times)
             self.initiatedFilters.insert(.arrivalTime)
             self.appliedSubFilters.insert(.arrivalTime)
-            self.userSelectedFilters?.arDt.earliest = ar_dt
+            let newTime = floor((Float(ar_dt) ?? 0)/60)*60
+//            self.userSelectedFilters?.arDt.earliest = "\(Int(newTime))"
+            
+            let arrivalMin = inputFilter?.arDt.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
+            let userArrivalMin = dateFromTime(arrivalInputStartDate: arrivalMin!, interval: TimeInterval(newTime))
+            self.userSelectedFilters?.arDt.earliest = userArrivalMin.toString(dateFormat: "yyyy-MM-dd HH:mm")
         }
         
         if let ar_dt = flightSearchParam["filters[\(self.index)][ar_dt][1]"] as? String{
             self.appliedFilters.insert(.Times)
             self.initiatedFilters.insert(.arrivalTime)
             self.appliedSubFilters.insert(.arrivalTime)
-            self.userSelectedFilters?.arDt.latest = ar_dt
+            let newTime = ceil((Float(ar_dt) ?? 0)/60)*60
+//            self.userSelectedFilters?.arDt.latest = "\(Int(newTime))"
+            
+            let arrivalMin = inputFilter?.arDt.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
+            
+            let userArrivalMin = dateFromTime(arrivalInputStartDate: arrivalMin!, interval: TimeInterval(newTime))
+            
+            self.userSelectedFilters?.arDt.latest = userArrivalMin.toString(dateFormat: "yyyy-MM-dd HH:mm")
         }
         
         if let dep_dt = flightSearchParam["filters[\(self.index)][dep_dt][0]"] as? String{
@@ -463,6 +475,14 @@ class FlightResultDisplayGroup {
             self.appliedFilters.insert(.Price)
             self.userSelectedFilters?.pr.maxPrice = Int(pr) ?? 0
         }
+    }
+    
+    fileprivate func dateFromTime(arrivalInputStartDate: Date, interval : TimeInterval) -> Date {
+        let calendar = Calendar.current
+        let startDate = calendar.startOfDay(for: arrivalInputStartDate)
+        var currentTimeInterval = startDate.timeIntervalSince1970
+        currentTimeInterval = currentTimeInterval + (interval*60)
+        return Date(timeIntervalSince1970: currentTimeInterval)
     }
     
     private func mergeFilters(_ flightsArray  : [Flights]) {
