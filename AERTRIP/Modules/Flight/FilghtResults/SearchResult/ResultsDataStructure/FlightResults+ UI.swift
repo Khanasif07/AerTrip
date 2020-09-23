@@ -34,6 +34,7 @@ struct OnewayJourneyResultsArray {
     var suggestedJourneyArray: [JourneyOnewayDisplay] = []
     
     var currentPinnedJourneys : [Journey] = []
+    
 
     var pinnedFlights : [Journey] = []
     

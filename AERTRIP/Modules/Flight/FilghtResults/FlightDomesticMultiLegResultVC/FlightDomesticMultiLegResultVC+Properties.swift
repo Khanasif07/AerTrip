@@ -339,24 +339,17 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
 //    MARK:- Email Flight code added by Monika
     @IBAction func emailPinnedFlights(_ sender: Any) {
 
-        let pinnedFlightsArray = self.viewModel.results.reduce([]) { $0 + $1.pinnedFlights }
-//        guard let postData = generatePostDataForEmail(for: pinnedFlightsArray) else { return }
-//        executeWebServiceForEmail(with: postData as Data, onCompletion:{ (view)  in
-//            
-//        DispatchQueue.main.async {
-//            self.showEmailViewController(body : view)
-//            }
-//        })
-        
-        let flightAdultCount = bookFlightObject.flightAdultCount
-        let flightChildrenCount = bookFlightObject.flightChildrenCount
-        let flightInfantCount = bookFlightObject.flightInfantCount
-        let isDomestic = bookFlightObject.isDomestic
+        let pinnedFlightsArray = viewModel.results.reduce([]) { $0 + $1.pinnedFlights }
           
-//        self.getSharableLink.getUrlForMail(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, journey: pinnedFlightsArray, sid: sid)
+          let flightAdultCount = bookFlightObject.flightAdultCount
+          let flightChildrenCount = bookFlightObject.flightChildrenCount
+          let flightInfantCount = bookFlightObject.flightInfantCount
+          let isDomestic = bookFlightObject.isDomestic
+          let tripType = (self.bookFlightObject.flightSearchType == RETURN_JOURNEY) ? "return" : "multi"
+
+          self.getSharableLink.getUrlForMail(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, sid: sid, isInternational: false, journeyArray: pinnedFlightsArray, valString: "", trip_type: tripType)
 
     }
-    
    
     //MARK:- Sharing Journey code added by Monika
 
@@ -372,8 +365,10 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         let flightChildrenCount = bookFlightObject.flightChildrenCount
         let flightInfantCount = bookFlightObject.flightInfantCount
         let isDomestic = bookFlightObject.isDomestic
-          
-//        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, journey: journeyArray)
+        let tripType = (self.bookFlightObject.flightSearchType == RETURN_JOURNEY) ? "return" : "multi"
+        let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM.flightLegs)
+
+        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journeyArray, valString: "", trip_type: tripType,filterString: filterStr)
 
     }
     
