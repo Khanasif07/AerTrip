@@ -592,7 +592,7 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                             
                             let range1 = (main_string1 as NSString).range(of: string_to_color1)
                             
-                            let attribute1 = NSMutableAttributedString.init(string: main_string1)
+                            let attribute1 = NSMutableAttributedString(string: main_string1, attributes: [.font: AppFonts.Regular.withSize(14), .foregroundColor: AppColors.themeGray40])
                             attribute1.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: range1)
                             flightDetailsCell.departureAirportAddressLabel.attributedText = attribute1
                         }else{
