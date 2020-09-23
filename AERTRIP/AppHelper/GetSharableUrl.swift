@@ -407,6 +407,8 @@ class GetSharableUrl
             
             let appliedFilters = legs[i].appliedFilters
             
+            print("appliedFilters=",appliedFilters)
+            
             //     Times
             if (appliedFilters.contains(.Times))
             {
@@ -544,6 +546,156 @@ class GetSharableUrl
                 filterString.append(stops)
             }
             
+        }
+        
+        
+        return filterString
+    }
+    
+    func getAppliedFiltersForSharingIntJourney(legs:[IntFlightResultDisplayGroup])->String
+    {
+        var filterString = ""
+        
+        if legs.count > 0{
+            let userSelectedFilters = legs[0].userSelectedFilters
+            let appliedFilters = legs[0].appliedFilters
+
+            for i in 0..<userSelectedFilters.count{
+                filterString.append("&")
+                
+                //     Times
+                if (appliedFilters.contains(.Times))
+                {
+                    //     Departure Time
+                    var depTime = ""
+                    let earliest = userSelectedFilters[i].dt.earliest
+                    let earliestTimeInverval = convertFrom(string: earliest)
+                    let intEarliestTime = Int(earliestTimeInverval!/60)
+                    depTime.append("filters[\(i)][dep_dt][0]=\(intEarliestTime)&")
+                    
+                    
+                    let latest = userSelectedFilters[i].dt.latest
+                    let latestTimeInverval = convertFrom(string: latest)
+                    let intLatestTime = Int(latestTimeInverval!/60)
+                    depTime.append("filters[\(i)][dep_dt][1]=\(intLatestTime)")
+                    
+                    
+                    
+                    //     Arrival Time
+                    var arrivalTime = ""
+                    let arrivalDateEarliest = userSelectedFilters[i].arDt.earliest
+                        let earliestArrival = arrivalDateEarliest.components(separatedBy: " ")
+                        let earliestArrivalTimeInverval = convertFrom(string: earliestArrival[1])
+                        let intArrivalTime = Int(earliestArrivalTimeInverval!/60)
+                        arrivalTime.append("filters[\(i)][ar_dt][0]=\(intArrivalTime)&")
+                    
+                    
+                    let arrivalDateLatest = userSelectedFilters[i].arDt.latest
+                        let latestArrival = arrivalDateLatest.components(separatedBy: " ")
+                        let latestArrivalTimeInverval = convertFrom(string: latestArrival[1])
+                        let intLatestArrivalTime = Int(latestArrivalTimeInverval!/60)
+                        arrivalTime.append("filters[\(i)][ar_dt][1]=\(intLatestArrivalTime)&")
+                    
+                    
+                    filterString.append("\(depTime)&\(arrivalTime)")
+                }
+                
+                
+                //     Duration
+                if (appliedFilters.contains(.Duration))
+                {
+                    //     Trip Duration
+                    var tripDuration = ""
+                    if let tripMinTime = Int(userSelectedFilters[i].tt.minTime!){
+                        let minTime = tripMinTime/60
+                        tripDuration.append("filters[\(i)][tt][0]=\(minTime)&")
+                    }
+                    if let tripMaxTime = Int(userSelectedFilters[i].tt.maxTime!){
+                        let maxTime = tripMaxTime/60
+                        tripDuration.append("filters[\(i)][tt][1]=\(maxTime)")
+                    }
+                    
+                    
+                    
+                    //     Layover Duration
+                    var layoverDuration = ""
+                    if let layoverMinTime = Int(userSelectedFilters[i].lott.minTime!){
+                        let minTime = layoverMinTime/60
+                        layoverDuration.append("filters[\(i)][lott][0]=\(minTime)&")
+                    }
+                    
+                    if let layoverMaxTime = Int(userSelectedFilters[i].lott.maxTime!){
+                        let maxTime = layoverMaxTime/60
+                        layoverDuration.append("filters[\(i)][lott][1]=\(maxTime)&")
+                    }
+                    
+                    filterString.append("\(tripDuration)&\(layoverDuration)")
+                }
+                
+                
+                //     Airline
+                if (appliedFilters.contains(.Airlines))
+                {
+                    var airline = ""
+                    for n in 0..<userSelectedFilters[i].al.count{
+                        airline.append("filters[\(i)][al][\(n)]=\(userSelectedFilters[i].al[n])&")
+                    }
+                    
+                    filterString.append(airline)
+                }
+                
+                
+                //     Airport
+                if (appliedFilters.contains(.Airport))
+                {
+                    var airport = ""
+                    for n in 0..<userSelectedFilters[i].loap.count{
+                        airport.append("filters[\(i)][loap][\(n)]=\(userSelectedFilters[i].loap[n])&")
+                    }
+                    
+                    filterString.append(airport)
+                }
+                
+                //     Quality
+                if (appliedFilters.contains(.Quality))
+                {
+                    var quality = ""
+                    
+                    let fqArray = Array(userSelectedFilters[i].fq.keys)
+                    for n in 0..<fqArray.count{
+                        quality.append("filters[\(i)][fq][\(n)]=\(fqArray[n])&")
+                    }
+                    
+                    filterString.append(quality)
+                }
+                
+                
+                //     Price
+                if (appliedFilters.contains(.Price))
+                {
+                    let price = "filters[\(i)][pr][0]=\(userSelectedFilters[i].pr.minPrice)&filters[\(i)][pr][1]=\(userSelectedFilters[i].pr.maxPrice)&"
+                    
+                    filterString.append(price)
+                }
+                
+                
+                //     Stops
+                if (appliedFilters.contains(.stops))
+                {
+                    var stops = ""
+                    
+                    for n in 0..<userSelectedFilters[i].stp.count{
+                        if n == userSelectedFilters[i].stp.count-1{
+                            stops.append("filters[\(i)][stp][\(n)]=\(userSelectedFilters[i].stp[n])")
+                        }else{
+                            stops.append("filters[\(i)][stp][\(n)]=\(userSelectedFilters[i].stp[n])&")
+                        }
+                    }
+                    
+                    filterString.append(stops)
+                }
+                
+            }
         }
         
         

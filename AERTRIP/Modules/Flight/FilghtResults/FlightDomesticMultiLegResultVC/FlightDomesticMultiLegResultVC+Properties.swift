@@ -366,13 +366,15 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     }
     
     func shareFlights( journeyArray : [Journey]) {
-
+        
         let flightAdultCount = bookFlightObject.flightAdultCount
         let flightChildrenCount = bookFlightObject.flightChildrenCount
         let flightInfantCount = bookFlightObject.flightInfantCount
         let isDomestic = bookFlightObject.isDomestic
-          
-//        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, journey: journeyArray)
+        let tripType = (self.bookFlightObject.flightSearchType == RETURN_JOURNEY) ? "return" : "multi"
+        let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM.flightLegs)
+
+        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journeyArray, valString: "", trip_type: tripType,filterString: filterStr)
 
     }
     

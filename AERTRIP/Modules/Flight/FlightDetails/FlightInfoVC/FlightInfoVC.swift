@@ -770,6 +770,7 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                             
                         }
                         
+                        
                         var layoverTime =  ""
                         if let lott = journey[indexPath.section].leg.first?.lott{
                             if lott.count > 0{
@@ -790,30 +791,30 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                             let attachmentString = NSAttributedString(attachment: imageAttachment)
                             completeText.append(attachmentString)
                         }
-                        let textAfterIcon = NSMutableAttributedString(string: displayText)
-                        
+                        let textAfterIcon = NSMutableAttributedString(string: displayText, attributes: [.font: AppFonts.Regular.withSize(14)])
+
                         if flight.llo == 1 || flight.slo == 1{
                             if flight.isArrivalAirportChange == true{
                                 let range1 = (displayText as NSString).range(of: displayText)
                                 
                                 textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red , range: range1)
-                                textAfterIcon.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Semibold", size: 14.0)! , range: (displayText as NSString).range(of: layoverTime))
+                                textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14) , range: (displayText as NSString).range(of: layoverTime))
                             }else{
                                 let range1 = (displayText as NSString).range(of: layoverTime)
                                 
                                 textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red , range: range1)
-                                textAfterIcon.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Semibold", size: 14.0)! , range: range1)
+                                textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14) , range: range1)
                             }
                         }else if flight.isArrivalAirportChange == true{
                             let range1 = (displayText as NSString).range(of: displayText)
                             
                             textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red , range: range1)
-                            textAfterIcon.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Semibold", size: 14.0)! , range: (displayText as NSString).range(of: layoverTime))
+                            textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14) , range: (displayText as NSString).range(of: layoverTime))
                         }else{
                             let range1 = (displayText as NSString).range(of: layoverTime)
                             
                             textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: range1)
-                            textAfterIcon.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Semibold", size: 14.0)! , range: range1)
+                            textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14) , range: range1)
                         }
                         
                         completeText.append(NSMutableAttributedString(string: "  "))
