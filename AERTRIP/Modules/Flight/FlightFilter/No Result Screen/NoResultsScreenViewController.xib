@@ -45,9 +45,8 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Results Available" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MCc-eg-RWt">
-                    <rect key="frame" x="94.5" y="419" width="186" height="28"/>
+                    <rect key="frame" x="16" y="419" width="343" height="28"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="186" id="C4u-PO-KsM"/>
                         <constraint firstAttribute="height" constant="28" id="sTi-lk-kBK"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
@@ -85,9 +84,11 @@
                 <constraint firstItem="kgj-Hz-ZSX" firstAttribute="centerY" secondItem="zST-cY-klk" secondAttribute="centerY" id="3z8-T0-cvP"/>
                 <constraint firstItem="MCc-eg-RWt" firstAttribute="top" secondItem="zST-cY-klk" secondAttribute="bottom" constant="15" id="9Sg-Wa-YVy"/>
                 <constraint firstItem="yYa-M0-e2g" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="BwG-Ke-JoJ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="MCc-eg-RWt" secondAttribute="trailing" constant="16" id="OPm-cR-34z"/>
                 <constraint firstItem="wjY-RV-Axa" firstAttribute="top" secondItem="MCc-eg-RWt" secondAttribute="bottom" constant="6" id="QVu-cd-N9e"/>
                 <constraint firstItem="zST-cY-klk" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="XDd-5Y-9j2"/>
                 <constraint firstItem="zST-cY-klk" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="108" id="bbc-vz-K1h"/>
+                <constraint firstItem="MCc-eg-RWt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="cHB-XH-702"/>
                 <constraint firstItem="wjY-RV-Axa" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="eWI-xq-WNG"/>
                 <constraint firstItem="MCc-eg-RWt" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="kdZ-w7-ULv"/>
                 <constraint firstItem="yYa-M0-e2g" firstAttribute="top" secondItem="wjY-RV-Axa" secondAttribute="bottom" constant="10" id="uy1-Et-lAX"/>
