@@ -48,6 +48,15 @@ class ChatVM {
     var recentSearchesData : [RecentSearchesModel] = []
     
     
+    func getMylastMessageIndex() -> Int {
+        
+        let lastIndex = messages.lastIndex { (msg) -> Bool in
+            msg.msgSource == .me
+        }
+        
+        return lastIndex ?? messages.count - 1
+    }
+    
     func getRandomSessionId(length : Int) -> String{
         let letters = "0123456789"
         return String((0..<length).map{ _ in letters.randomElement()! })

@@ -85,9 +85,11 @@ class AccountLadgerDetailsVC: BaseVC {
             self.viewModel.fetchLadgerDetails()
             self.setupParallexHeaderView()
             
+            /*
             self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
             self.refreshControl.tintColor = AppColors.themeGreen
             self.tableView.refreshControl = self.refreshControl
+ */
         }
         
         self.containerView.backgroundColor = AppColors.themeGray04
@@ -144,7 +146,7 @@ class AccountLadgerDetailsVC: BaseVC {
         self.tableView.parallaxHeader.view = self.headerView
         self.tableView.parallaxHeader.minimumHeight = self.parallexHeaderMinHeight
         self.tableView.parallaxHeader.height = self.parallexHeaderMaxHeight
-        self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.top
+        self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.tableView.parallaxHeader.delegate = self
         self.view.bringSubviewToFront(self.topNavView)
         self.tableView.layoutIfNeeded()
@@ -255,7 +257,16 @@ extension AccountLadgerDetailsVC: MXParallaxHeaderDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.updateForParallexProgress()
+//        if (scrollView.contentOffset.y + 40) < -(self.parallexHeaderMaxHeight){
+//            self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.top
+//        } else {
+//            self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
+//        }
+//        printDebug("self.parallexHeaderMaxHeight : \(self.parallexHeaderMaxHeight)")
+//        printDebug("scrollView.contentOffset.y : \(scrollView.contentOffset.y)")
+//        printDebug("scrollView.contentOffset.y : \((scrollView.contentOffset.y + 40))")
     }
+    
     
     //    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
     //        self.updateForParallexProgress()
@@ -286,10 +297,10 @@ extension AccountLadgerDetailsVC: MXParallaxHeaderDelegate {
            // printDebug("progress value \(prallexProgress)")
             let intValue =  finalMaxValue - Int(prallexProgress * 100)
             
-            printDebug(" int value \(intValue)")
+            //printDebug(" int value \(intValue)")
             let newProgress: Float = (Float(1) - (Float(1.3)  * (Float(intValue) / 100)))
             
-            printDebug("new progress value \(newProgress)")
+           // printDebug("new progress value \(newProgress)")
             
             
            // printDebug("CGFloat progress  Value is \(newProgress.toCGFloat.roundTo(places: 3))")

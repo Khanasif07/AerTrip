@@ -12,9 +12,15 @@ extension FlightResultSingleJourneyVC {
     
     func expandFlights(){
         
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0, animations: {
             self.resultsTableView.tableFooterView?.transform = CGAffineTransform(translationX: 0, y: 200)
+            
+            printDebug("time1..\(Date().timeIntervalSince1970)")
+            
         }) { (success) in
+            
+            printDebug("time2..\(Date().timeIntervalSince1970)")
+
             
             self.viewModel.resultTableState = .showExpensiveFlights
             self.viewModel.results.excludeExpensiveFlights = false
@@ -24,8 +30,9 @@ extension FlightResultSingleJourneyVC {
                 
                 self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: 0, completion: {
                     DispatchQueue.main.async {
-                        self.setExpandedStateFooter()
                         self.resultsTableView.reloadData()
+                        printDebug("time3..\(Date().timeIntervalSince1970)")
+                        self.setExpandedStateFooter()
                         self.resultsTableView.tableFooterView?.transform = CGAffineTransform.identity
                     }
                 })
@@ -67,7 +74,6 @@ extension FlightResultSingleJourneyVC {
         func manageFloatingView(isHidden: Bool) {
              self.pinnedFlightsOptionsView.isHidden = isHidden
          }
-        
         
         func showPinnedButtons(withAnimation: Bool = true) {
               if withAnimation {

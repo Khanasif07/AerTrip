@@ -44,9 +44,35 @@ extension FlightResultSingleJourneyVC {
                 }
             }
             
+                if !self.viewModel.airlineCode.isEmpty{
+                    
+                    printDebug("self.viewModel.airlineCode...\(self.viewModel.airlineCode)")
+                    
+                    modifiedResult.enumerated().forEach { (ind,jour) in
+                        
+                        let flightNum = jour.leg.first!.flights.first!.al + jour.leg.first!.flights.first!.fn
+                                                 
+                        printDebug("self.viewModel.airlineCode...\(flightNum)")
+
+                        
+                        if flightNum.uppercased() == self.viewModel.airlineCode.uppercased() {
+                            
+                            printDebug("match...\(flightNum)")
+
+                            
+                            self.viewModel.isSearchByAirlineCode = true
+                            modifiedResult[ind].isPinned = true
+                            self.viewModel.results.currentPinnedJourneys.append(modifiedResult[ind])
+
+                        }
+                    }
+           
+            }
+            
+            
             let groupedArray =   self.viewModel.getOnewayDisplayArray(results: modifiedResult)
             self.viewModel.results.journeyArray = groupedArray
-            self.viewModel.setPinnedFlights(shouldApplySorting: true)
+//            self.viewModel.setPinnedFlights(shouldApplySorting: true)
             
             self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: 0, completion: {
                 DispatchQueue.main.async {
@@ -66,19 +92,36 @@ extension FlightResultSingleJourneyVC {
                         self.noResultScreen = nil
                     }
                     
-                    if !self.viewModel.airlineCode.isEmpty{
-                        for journ in modifiedResult {
-                            let flightNum = journ.leg.first!.flights.first!.al + journ.leg.first!.flights.first!.fn
-                            
-                            if flightNum.uppercased() == self.viewModel.airlineCode.uppercased() {
-                                
-                                print("flightNum....\(flightNum.uppercased())")
-                                self.setPinnedFlightAt(journ.fk , isPinned: true)
-                                self.switchView.isOn = true
-                                self.switcherDidChangeValue(switcher: self.switchView, value: true)
-                            }
-                        }
+                    
+                    
+                    if self.viewModel.isSearchByAirlineCode {
+                        
+                        self.switchView.isOn = true
+                        self.switcherDidChangeValue(switcher: self.switchView, value: true)
+                        self.showPinnedFlightsOption(true)
+
                     }
+                    
+                    
+//
+//                    if !self.viewModel.airlineCode.isEmpty{
+//
+//                        printDebug("self.viewModel.airlineCode...\(self.viewModel.airlineCode)")
+//
+//                        for journ in modifiedResult {
+//                            let flightNum = journ.leg.first!.flights.first!.al + journ.leg.first!.flights.first!.fn
+//
+//                            printDebug("flightNum...\(flightNum)")
+//
+//                            if flightNum.uppercased() == self.viewModel.airlineCode.uppercased() {
+//
+//                                print("flightNum....matched\(flightNum.uppercased())")
+//                                self.setPinnedFlightAt(journ.fk , isPinned: true)
+//                                self.switchView.isOn = true
+//                                self.switcherDidChangeValue(switcher: self.switchView, value: true)
+//                            }
+//                        }
+//                    }
                 }
             })
         }

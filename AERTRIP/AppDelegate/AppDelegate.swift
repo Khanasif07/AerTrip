@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // CHECK FOR LAUNCH OF FLIGHT OR HOTEL MODULE        
         FirebaseApp.configure()
-        AppFlowManager.default.setupInitialFlow()
+        AppFlowManager.default.setupSplashAnimationFlow()
         window?.backgroundColor = UIColor.black
         
         GoogleLoginController.shared.configure()

@@ -126,6 +126,14 @@ class AppFlowManager: NSObject {
         //        }
     }
     
+    func setupSplashAnimationFlow() {
+        let splashAnimationScene = SplashAnimationVC.instantiate(fromAppStoryboard: .SplashAnimation)
+         self.window.rootViewController = splashAnimationScene
+         //self.window.becomeKey()
+         self.window.backgroundColor = .black
+         self.window.makeKeyAndVisible()
+    }
+    
     func setupInitialFlow() {
         self.goToDashboard(launchThroughSplash: true)
         

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -66,7 +66,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8lR-lo-CYo">
-                                                <rect key="frame" x="39" y="0.0" width="172" height="23"/>
+                                                <rect key="frame" x="39" y="0.0" width="156" height="23"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -81,7 +81,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="Fg6-YW-JXP" firstAttribute="leading" secondItem="8lR-lo-CYo" secondAttribute="trailing" id="0pY-5h-CvA"/>
+                                            <constraint firstItem="Fg6-YW-JXP" firstAttribute="leading" secondItem="8lR-lo-CYo" secondAttribute="trailing" constant="16" id="0pY-5h-CvA"/>
                                             <constraint firstItem="8lR-lo-CYo" firstAttribute="centerY" secondItem="d2X-iI-jYy" secondAttribute="centerY" id="6Ow-Of-Q72"/>
                                             <constraint firstItem="8lR-lo-CYo" firstAttribute="leading" secondItem="d2X-iI-jYy" secondAttribute="trailing" constant="16" id="RZ2-uH-PNO"/>
                                             <constraint firstItem="d2X-iI-jYy" firstAttribute="leading" secondItem="8mX-v8-5mC" secondAttribute="leading" id="STE-31-6Nr"/>
@@ -179,7 +179,7 @@
                                         <rect key="frame" x="145" y="0.0" width="145" height="57.5"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jpe-P4-5yG">
-                                                <rect key="frame" x="16" y="15" width="118.5" height="33.5"/>
+                                                <rect key="frame" x="16" y="15" width="75" height="33.5"/>
                                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -198,7 +198,7 @@
                                             <constraint firstAttribute="bottom" secondItem="jpe-P4-5yG" secondAttribute="bottom" constant="9" id="FCD-xi-eQk"/>
                                             <constraint firstAttribute="bottom" secondItem="U4u-BU-otD" secondAttribute="bottom" id="aw7-j2-MzG"/>
                                             <constraint firstAttribute="trailing" secondItem="U4u-BU-otD" secondAttribute="trailing" id="p8P-8H-6lv"/>
-                                            <constraint firstAttribute="trailing" secondItem="jpe-P4-5yG" secondAttribute="trailing" constant="10.5" id="pIq-M3-Hkb"/>
+                                            <constraint firstAttribute="trailing" secondItem="jpe-P4-5yG" secondAttribute="trailing" constant="54" id="pIq-M3-Hkb"/>
                                             <constraint firstItem="U4u-BU-otD" firstAttribute="leading" secondItem="AhZ-xv-TK9" secondAttribute="leading" id="qRW-dL-3FT"/>
                                             <constraint firstItem="jpe-P4-5yG" firstAttribute="leading" secondItem="AhZ-xv-TK9" secondAttribute="leading" constant="16" id="zk3-ce-hMo"/>
                                         </constraints>

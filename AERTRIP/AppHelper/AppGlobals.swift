@@ -49,11 +49,14 @@ func ==(lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
     return ((lhs.longitude == rhs.longitude) && (lhs.latitude == rhs.latitude))
 }
 
+
+
 class AppGlobals {
     static let shared = AppGlobals()
     private init() {}
     
-    
+    let appdelegate = UIApplication.shared.delegate as! AppDelegate
+
     //vcs used in mybooking filter screen
     var travelDateVC: TravelDateVC?
     var eventTypeVC: EventTypeVC?

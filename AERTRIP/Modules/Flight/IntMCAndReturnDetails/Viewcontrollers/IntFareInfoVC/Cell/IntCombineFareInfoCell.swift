@@ -624,4 +624,5 @@ extension IntCombineFareInfoCell{
         return slabCell
     }
     
+    
 }
