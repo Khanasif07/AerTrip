@@ -134,6 +134,7 @@ extension FlightResultSingleJourneyVC {
               self.showPinnedButtons()
           }
     
+    
      func manageSwitchContainer(isHidden: Bool, shouldOff: Bool = true) {
           
          manageFloatingView(isHidden: isHidden)
@@ -141,6 +142,8 @@ extension FlightResultSingleJourneyVC {
            DispatchQueue.main.async {
                let newFrame = CGRect(x: 0.0, y: isHidden ? 100.0 : 0.0, width: self.pinnedFlightsOptionsView.width, height: self.pinnedFlightsOptionsView.height)
                         
+            printDebug("manageSwitchContainer....\(isHidden)...\(newFrame)")
+            
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {[weak self] in
                    guard let sSelf = self else {return}
                    
@@ -155,11 +158,12 @@ extension FlightResultSingleJourneyVC {
                        }
                })
            }
-           
+        
+        printDebug("pinnedFlightsOptionsView.isHidden...\(pinnedFlightsOptionsView.isHidden)")
+        
            if isHidden, shouldOff {
                //if switch is hidden then it must be off, otherwise it should be as it is.
             self.hidePinnedButtons()
-              // tableViewVertical.setContentOffset(CGPoint(x: 0, y: -topContentSpace), animated: false)
                showBluredHeaderViewCompleted()
            }
            
