@@ -740,17 +740,30 @@ extension FlightFilterBaseVC {
         
         let durationFilter = DurationFilter(leg: legList[0], tripMin: tripDurationMin, tripMax: tripDurationMax, layoverMin: layoverDurationMin, layoverMax: layoverMaxDuration,layoverMinTimeFormat:"")
         
+        let userTripTime = userSelectedFilters[0].tt
+        let userLayoverTime = userSelectedFilters[0].lott
+        
         
         if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Duration) {
             
             if userFilters.appliedSubFilters[0].contains(.tripDuration) {
                 durationViewController.durationFilters[0].tripDurationMinDuration = tripDurationMin
                 durationViewController.durationFilters[0].tripDurationmaxDuration = tripDurationMax
+                
+                let minDuration = Float(userTripTime.minTime ?? "") ?? 0
+                let maxDuration = Float(userTripTime.maxTime ?? "") ?? 0
+                durationViewController.durationFilters[0].userSelectedTripMin = CGFloat(minDuration)
+                durationViewController.durationFilters[0].userSelectedTripMax = CGFloat(maxDuration)
             }
             
             if userFilters.appliedSubFilters[0].contains(.layoverDuration) {
                 durationViewController.durationFilters[0].layoverMinDuration = layoverDurationMin
                 durationViewController.durationFilters[0].layoverMaxDuration = layoverMaxDuration
+                
+                let minDuration = Float(userLayoverTime?.minTime ?? "") ?? 0
+                let maxDuration = Float(userLayoverTime?.maxTime ?? "") ?? 0
+                durationViewController.durationFilters[0].userSelectedLayoverMin = CGFloat(minDuration)
+                durationViewController.durationFilters[0].userSelectedLayoverMax = CGFloat(maxDuration)
             }
             
         } else {

@@ -367,11 +367,11 @@ class FlightResultDisplayGroup {
     func workingOnReceived( flightsArray: [Flights] ,searchType : FlightSearchType, flightSearchParam: JSONDictionary) {
         mergeFlightResults( flightsArray)
         mergeFilters(flightsArray)
-        updateUserFiltersFromDeepLinkForUI(flightSearchParam)
+        updateUserFiltersFromDeepLink(flightSearchParam)
         processingOnCombinedSearchResult(searchType : searchType)
     }
     
-    private func updateUserFiltersFromDeepLinkForUI(_ flightSearchParam: JSONDictionary) {
+    private func updateUserFiltersFromDeepLink(_ flightSearchParam: JSONDictionary) {
         
         guard !filterUpdatedFromDeepLink else { return }
         filterUpdatedFromDeepLink = true
