@@ -46,7 +46,11 @@ extension FlightResultSingleJourneyVC {
         
         if isPinned {
             showPinnedFlightsOption(true)
+        
             self.viewModel.results.currentPinnedJourneys.append(displayArray.journeyArray[journeyArrayIndex])
+            
+            self.viewModel.results.currentPinnedJourneys = self.viewModel.results.currentPinnedJourneys.removeDuplicates()
+
             
         } else {
             

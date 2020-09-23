@@ -157,6 +157,12 @@ class FlightResultSingleJourneyVM {
           }
           
           self.results.pinnedFlights = sortArray
+          self.results.pinnedFlights.removeDuplicates()
+
+        printDebug("self.results.currentPinnedJourneys.count...\(self.results.currentPinnedJourneys.count)")
+
+        printDebug("self.results.pinnedFlights.count...\(self.results.pinnedFlights.count)")
+        
       }
       
     
