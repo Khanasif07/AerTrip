@@ -1258,6 +1258,7 @@
 		845D3A1A228D724500062EE5 /* AccountOutstanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D3A19228D724500062EE5 /* AccountOutstanding.swift */; };
 		8460C0C421F34A38007768CC /* ATTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460C0C321F34A38007768CC /* ATTableView.swift */; };
 		8460C0C621F34D56007768CC /* ATCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460C0C521F34D56007768CC /* ATCollectionView.swift */; };
+		8460DCDE251C6FE400DDB7CB /* IntMCAndReturnVC+DataReceivingFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460DCDD251C6FE400DDB7CB /* IntMCAndReturnVC+DataReceivingFlow.swift */; };
 		8463A55A2456C7B200C70D8C /* GMUClusterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8463A5142456C7B200C70D8C /* GMUClusterManager.m */; };
 		8463A55B2456C7B200C70D8C /* GMUGridBasedClusterAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 8463A5182456C7B200C70D8C /* GMUGridBasedClusterAlgorithm.m */; };
 		8463A55C2456C7B200C70D8C /* GMUWrappingDictionaryKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 8463A51B2456C7B200C70D8C /* GMUWrappingDictionaryKey.m */; };
@@ -3029,6 +3030,7 @@
 		845D3A19228D724500062EE5 /* AccountOutstanding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOutstanding.swift; sourceTree = "<group>"; };
 		8460C0C321F34A38007768CC /* ATTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATTableView.swift; sourceTree = "<group>"; };
 		8460C0C521F34D56007768CC /* ATCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATCollectionView.swift; sourceTree = "<group>"; };
+		8460DCDD251C6FE400DDB7CB /* IntMCAndReturnVC+DataReceivingFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IntMCAndReturnVC+DataReceivingFlow.swift"; sourceTree = "<group>"; };
 		8463A5142456C7B200C70D8C /* GMUClusterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUClusterManager.m; sourceTree = "<group>"; };
 		8463A5152456C7B200C70D8C /* GMUStaticCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUStaticCluster.h; sourceTree = "<group>"; };
 		8463A5162456C7B200C70D8C /* GMUMarkerClustering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUMarkerClustering.h; sourceTree = "<group>"; };
@@ -6784,6 +6786,7 @@
 				843FF3EE24740230001F21B1 /* IntMCAndReturnVC+TableViewDelegates.swift */,
 				843FF3EF24740230001F21B1 /* IntMCAndReturnVM.swift */,
 				0CB5A79B24EAA20F00C59536 /* IntMCAndReturnVC+Animation.swift */,
+				8460DCDD251C6FE400DDB7CB /* IntMCAndReturnVC+DataReceivingFlow.swift */,
 			);
 			path = IntMCAndReturnVC;
 			sourceTree = "<group>";
@@ -10236,6 +10239,7 @@
 				18E09F9F22EB089E0065CEB2 /* PKCategoryButton.swift in Sources */,
 				18FD917622968CF300D005E9 /* BookingSchedulingPassengerDetailTableViewCell.swift in Sources */,
 				186FD6EB2489019B00335353 /* FlightPaymentBookingStatusVM.swift in Sources */,
+				8460DCDE251C6FE400DDB7CB /* IntMCAndReturnVC+DataReceivingFlow.swift in Sources */,
 				1870AD1D220C769400FB32C8 /* TravellerData+CoreDataClass.swift in Sources */,
 				840DDE91220D7C0800F8BA92 /* HotelDetailsImageCollectionCell.swift in Sources */,
 				180A3D7221C0DA53001A1E6A /* SideMenuOptionsLabelCell.swift in Sources */,
