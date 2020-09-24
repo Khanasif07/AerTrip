@@ -163,7 +163,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          return LinkedinSwiftHelper.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
          }
          */
-        
         return true
     }
     

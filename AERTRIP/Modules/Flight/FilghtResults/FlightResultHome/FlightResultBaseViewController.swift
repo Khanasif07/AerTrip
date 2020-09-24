@@ -66,6 +66,8 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     @objc convenience init(flightSearchResultVM : FlightSearchResultVM , flightSearchParameters: NSDictionary, isIntReturnOrMCJourney: Bool, airlineCode:String) {
         self.init(nibName:nil, bundle:nil)
         self.flightSearchResultVM = flightSearchResultVM
+        let new = flightSearchResultVM
+        print(new.flightLegs.count)
         flightSearchResultVM.delegate = self
         flightSearchResultVM.initiateResultWebService()
         self.flightSearchParameters = flightSearchParameters
@@ -422,6 +424,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         resultBaseVC.bookFlightObject = flightSearchResultVM.bookFlightObject
         resultBaseVC.headerTitles = headerTitles
         resultBaseVC.numberOfLegs = self.numberOfLegs
+        resultBaseVC.flightSearchResultVM = self.flightSearchResultVM
         addChildView(resultBaseVC)
         self.intMultiLegResultVC = resultBaseVC
     }
@@ -1180,18 +1183,28 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             createFiltersBaseView(index: 0)
         }
         
+        singleJourneyResultVC?.flightSearchResultVM = resultVM
+        
+        
         if isAPIResponseUpdated {
             // for other searches except ones mentioned below
             self.flightFilterVC?.flightResultArray = self.flightSearchResultVM.flightResultArray
-            flightFilterVC?.appliedAndUIFilters =  flightSearchResultVM.flightLegsAppliedFilters
-            flightFilterVC?.userSelectedFilters = self.flightSearchResultVM.getUserSelectedFilters()
-            self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
+            DispatchQueue.main.async {
+                self.flightFilterVC?.appliedAndUIFilters =  self.flightSearchResultVM.flightLegsAppliedFilters
+                self.flightFilterVC?.userSelectedFilters = self.flightSearchResultVM.getUserSelectedFilters()
+                self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
+            }
             
+            // For updating UI from deep linking filters // might not get set at the first time
+            DispatchQueue.delay(0.2, closure: {
+                self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
+            })
             
-            // for international return and multicity
             self.intMCAndReturnFilterVC?.flightResultArray = self.flightSearchResultVM.intFlightResultArray
-            intMCAndReturnFilterVC?.appliedAndUIFilters = flightSearchResultVM.intFlightLegsAppliedFilters
+            DispatchQueue.main.async {
+                self.intMCAndReturnFilterVC?.appliedAndUIFilters = self.flightSearchResultVM.intFlightLegsAppliedFilters
             self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)
+            }
             
             // To check if filters are pre applied and update dots
             filtersApplied(true)

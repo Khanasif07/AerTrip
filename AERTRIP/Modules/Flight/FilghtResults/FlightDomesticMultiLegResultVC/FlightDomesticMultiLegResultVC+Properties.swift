@@ -361,7 +361,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     }
     
     func shareFlights( journeyArray : [Journey]) {
-
+        
         let flightAdultCount = bookFlightObject.flightAdultCount
         let flightChildrenCount = bookFlightObject.flightChildrenCount
         let flightInfantCount = bookFlightObject.flightInfantCount

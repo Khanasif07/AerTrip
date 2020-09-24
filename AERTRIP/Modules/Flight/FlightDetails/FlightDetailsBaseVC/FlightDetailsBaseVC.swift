@@ -116,7 +116,9 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         }else{
            self.setFlightDetailsForDomestic()
         }
-//        flightInfoVC.arrivalPerformanceDelegate = self
+
+        getSharableLink.delegate = self
+        
         setupInitialViews()
         setupParchmentPageController()
         self.setupViewModel()
@@ -545,23 +547,44 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     // Monika
     @IBAction func shareButtonClicked(_ sender: Any)
     {
-        guard !isInternational else {return}
-        let flightAdultCount = bookFlightObject.flightAdultCount
-        let flightChildrenCount = bookFlightObject.flightChildrenCount
-        let flightInfantCount = bookFlightObject.flightInfantCount
         
-        let isDomestic = bookFlightObject.isDomestic
-
-        let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM?.flightLegs ?? [])
         
-        var tripType = ""
-        if bookFlightObject.isReturn == false && bookFlightObject.isMultyCity == false{
-            tripType = "single"
+        
+        if isInternational{
+            let intVC = IntMCAndReturnVC()
+            let flightAdultCount = bookFlightObject.flightAdultCount
+            let flightChildrenCount = bookFlightObject.flightChildrenCount
+            let flightInfantCount = bookFlightObject.flightInfantCount
+            let isDomestic = bookFlightObject.isDomestic
+            var valStr = ""
+            if #available(iOS 13.0, *) {
+                valStr = intVC.generateCommonString(for: intJourney, flightObject: self.bookFlightObject)
+            }
+            
+            let filterStr = self.getSharableLink.getAppliedFiltersForSharingIntJourney(legs: self.flightSearchResultVM?.intFlightLegs ?? [])
+            valStr.append(filterStr)
+            
+            self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: true, journeyArray: [], valString: valStr, trip_type: "",filterString: filterStr)
         }else{
-            tripType = (self.bookFlightObject.flightSearchType == RETURN_JOURNEY) ? "return" : "multi"
+            let flightAdultCount = bookFlightObject.flightAdultCount
+            let flightChildrenCount = bookFlightObject.flightChildrenCount
+            let flightInfantCount = bookFlightObject.flightInfantCount
+            
+            let isDomestic = bookFlightObject.isDomestic
+
+            let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM?.flightLegs ?? [])
+            
+            var tripType = ""
+            if bookFlightObject.isReturn == false && bookFlightObject.isMultyCity == false{
+                tripType = "single"
+            }else{
+                tripType = (self.bookFlightObject.flightSearchType == RETURN_JOURNEY) ? "return" : "multi"
+            }
+            
+            self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journey, valString: "", trip_type: tripType,filterString: filterStr)
         }
+//        guard !isInternational else {return}
         
-        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journey, valString: "", trip_type: tripType,filterString: filterStr)
     }
     
     func returnSharableUrl(url: String)
