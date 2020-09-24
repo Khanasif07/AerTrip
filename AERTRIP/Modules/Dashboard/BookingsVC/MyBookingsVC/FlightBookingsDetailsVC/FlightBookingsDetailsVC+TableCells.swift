@@ -163,7 +163,7 @@ extension FlightBookingsDetailsVC {
         if (self.viewModel.bookingDetail?.documents ?? []).count != 0{
             cell.paymentInfoTopConstraint.constant = 26
         }else{
-            cell.paymentInfoTopConstraint.constant = 5
+            cell.paymentInfoTopConstraint.constant = 10//5
         }
         cell.changeShadow()
         cell.clipsToBounds = true

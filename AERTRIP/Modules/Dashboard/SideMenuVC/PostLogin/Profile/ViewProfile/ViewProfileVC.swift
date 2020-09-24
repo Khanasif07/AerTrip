@@ -253,9 +253,11 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             return 1
         }
     }
-    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
+    }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
+        if indexPath.row == 0  {
             return 79.0
         } else if indexPath.row == self.details.count - 1 && indexPath.section == 0 {
             return 79.0

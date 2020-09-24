@@ -26,6 +26,14 @@ class HotelDetailsCheckOutTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.configureUI()
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        self.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: AppConstants.appthemeGradientColors)
+    }
 
     //Mark:- PrivateFunctions
     //=======================
@@ -56,7 +64,6 @@ class HotelDetailsCheckOutTableViewCell: UITableViewCell {
         self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
 //        layer.shouldRasterize = true
 //        layer.rasterizationScale = UIScreen.main.scale
-        self.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
         self.containerView.backgroundColor = AppColors.themeGreen
         self.hotelFeesLabel.textColor = AppColors.themeWhite
         self.bookLabel.textColor = AppColors.themeWhite

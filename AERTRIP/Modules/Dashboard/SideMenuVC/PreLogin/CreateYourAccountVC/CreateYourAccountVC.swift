@@ -67,6 +67,8 @@ class CreateYourAccountVC: BaseVC {
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         
         self.registerButton.isEnabledShadow = true
+        self.textFieldValueChanged(emailTextField)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

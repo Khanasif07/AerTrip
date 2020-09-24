@@ -66,7 +66,7 @@ class BookingPaymentDetailsTableViewCell: UITableViewCell {
         if isLastCell {
             self.cellHeight.constant = 41.5
             self.dividerView.isHidden = false
-            self.containerView.addShadow(cornerRadius: 15.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 15.0)
+            self.containerView.addShadow(cornerRadius: 15.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
             
         } else {
             self.cellHeight.constant = cellHeight // 43.0

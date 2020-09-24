@@ -192,7 +192,7 @@ class HotelDetailsVC: BaseVC {
             //            self.hotelTableView.tableFooterView?.isHidden = false
             if let stickyView = self.stickyView {
                 stickyView.containerView.backgroundColor = AppColors.themeGreen
-                stickyView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+                stickyView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: AppConstants.appthemeGradientColors)
                 stickyView.noRoomsAvailable.isHidden = true
                 stickyView.fromLabel.isHidden = false
                 stickyView.hotelFeesLabel.isHidden = false

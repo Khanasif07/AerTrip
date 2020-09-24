@@ -21,7 +21,7 @@ extension UIView {
         }
     }
     
-    func addGredient(isVertical: Bool = true, cornerRadius: CGFloat = 0.0, colors: [UIColor] = [AppColors.themeGreen, AppColors.shadowBlue]) {
+    func addGredient(isVertical: Bool = true, cornerRadius: CGFloat = 0.0, colors: [UIColor] = AppConstants.appthemeGradientColors) {
         removeGredient()
         let gradientLayer = CAGradientLayer()
         gradientLayer.name = "gradientLayer"
@@ -38,7 +38,7 @@ extension UIView {
             gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
             gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
             gradientLayer.locations = [0.0, 1.0]
-            cgColors.reverse()
+            //cgColors.reverse()
         }
         
 //        gradientLayer.cornerRadius = cornerRadius
@@ -49,7 +49,7 @@ extension UIView {
         self.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    func addGredientWithScreenWidth(isVertical: Bool = true, cornerRadius: CGFloat = 0.0, colors: [UIColor] = [AppColors.themeGreen, AppColors.shadowBlue], spacing:CGFloat = 0.0) {
+    func addGredientWithScreenWidth(isVertical: Bool = true, cornerRadius: CGFloat = 0.0, colors: [UIColor] = AppConstants.appthemeGradientColors, spacing:CGFloat = 0.0) {
             removeGredient()
             let gradientLayer = CAGradientLayer()
             gradientLayer.name = "gradientLayer"
@@ -66,7 +66,7 @@ extension UIView {
             else {
                 gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
                 gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
-                cgColors.reverse()
+                //cgColors.reverse()
             }
             
     //        gradientLayer.cornerRadius = cornerRadius
