@@ -66,6 +66,8 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     @objc convenience init(flightSearchResultVM : FlightSearchResultVM , flightSearchParameters: NSDictionary, isIntReturnOrMCJourney: Bool, airlineCode:String) {
         self.init(nibName:nil, bundle:nil)
         self.flightSearchResultVM = flightSearchResultVM
+        let new = flightSearchResultVM
+        print(new.flightLegs.count)
         flightSearchResultVM.delegate = self
         flightSearchResultVM.initiateResultWebService()
         self.flightSearchParameters = flightSearchParameters
@@ -1179,6 +1181,9 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         if flightFilterVC == nil && intMCAndReturnFilterVC == nil {
             createFiltersBaseView(index: 0)
         }
+        
+        singleJourneyResultVC?.flightSearchResultVM = resultVM
+        
         
         if isAPIResponseUpdated {
             // for other searches except ones mentioned below
