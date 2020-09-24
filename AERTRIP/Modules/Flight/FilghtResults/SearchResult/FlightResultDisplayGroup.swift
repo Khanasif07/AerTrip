@@ -449,6 +449,7 @@ class FlightResultDisplayGroup {
             let departureMin = inputFilter?.depDt.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
             let userDepartureMin = dateFromTime(arrivalInputStartDate: departureMin!, interval: TimeInterval(newTime))
             self.userSelectedFilters?.depDt.earliest = userDepartureMin.toString(dateFormat: "yyyy-MM-dd HH:mm")
+            self.userSelectedFilters?.dt.earliest = userDepartureMin.toString(dateFormat: "HH:mm")
         }
         
         if let dep_dt = flightSearchParam["filters[\(self.index)][dep_dt][1]"] as? String{
@@ -460,6 +461,7 @@ class FlightResultDisplayGroup {
             let departureMin = inputFilter?.depDt.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
             let userDepartureMin = dateFromTime(arrivalInputStartDate: departureMin!, interval: TimeInterval(newTime))
             self.userSelectedFilters?.depDt.latest = userDepartureMin.toString(dateFormat: "yyyy-MM-dd HH:mm")
+            self.userSelectedFilters?.dt.latest = userDepartureMin.toString(dateFormat: "HH:mm")
         }
         
         let loapAirports = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][loap]") }

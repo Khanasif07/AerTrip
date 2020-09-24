@@ -495,7 +495,6 @@ extension FlightResultDisplayGroup  {
     }
     
     func applyDepartureTimeFilter(_ inputArray : [Journey]) -> [Journey] {
-        
         guard initiatedFilters.contains(.departureTime) else { return inputArray }
         
         guard let minDepartureTime = userSelectedFilters?.dt.earliestTimeInteval else { return inputArray}
