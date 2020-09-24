@@ -618,14 +618,6 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     //MARK:- Button Action
     @objc func fareRulesButtonClicked(_ sender:UIButton)
     {
-//        let fareRulesVC = FareRulesVC(nibName: "FareRulesVC", bundle: nil)
-//        if self.fareRulesData.count > 0{
-//            fareRulesVC.fareRulesData = [self.fareRulesData[sender.tag]]
-//        }
-//        self.present(fareRulesVC, animated: true, completion: nil)
-        
-        
-
         if self.fareRulesData.count > 0{
             self.fareRulesDelegate?.getFareRulesData(fareRules: [self.fareRulesData[sender.tag]])
         }
