@@ -398,157 +398,184 @@ class GetSharableUrl
     
     
     func getAppliedFiltersForSharingDomesticJourney(legs:[FlightResultDisplayGroup])->String
-    {
-        var filterString = ""
-        
-        for i in 0..<legs.count{
-            filterString.append("&")
-            let userSelectedFilters = legs[i].userSelectedFilters
-            
-            let appliedFilters = legs[i].appliedFilters
-            
-            //     Times
-            if (appliedFilters.contains(.Times))
-            {
-                //     Departure Time
-                var depTime = ""
-                if let earliest = userSelectedFilters?.dt.earliest{
-                    let earliestTimeInverval = convertFrom(string: earliest)
-                    let intTime = Int(earliestTimeInverval!/60)
-                    depTime.append("filters[\(i)][dep_dt][0]=\(intTime)&")
-                }
-                
-                if let latest = userSelectedFilters?.dt.latest{
-                    let latestTimeInverval = convertFrom(string: latest)
-                    let intTime = Int(latestTimeInverval!/60)
-                    depTime.append("filters[\(i)][dep_dt][1]=\(intTime)")
-                }
-                
-                
-                //     Arrival Time
-                var arrivalTime = ""
-                if let arrivalDateEarliest = userSelectedFilters?.arDt.earliest{
-                    let earliest = arrivalDateEarliest.components(separatedBy: " ")
-                    var earliestTimeInverval = TimeInterval()
-                    if earliest.count > 1{
-                        earliestTimeInverval = convertFrom(string: earliest[1])!
-                    }else{
-                        earliestTimeInverval = convertFrom(string: earliest[0])!
-                    }
-                    let intTime = Int(earliestTimeInverval/60)
-                    arrivalTime.append("filters[\(i)][ar_dt][0]=\(intTime)&")
-                }
-                
-                if let arrivalDateLatest = userSelectedFilters?.arDt.latest{
-                    let latest = arrivalDateLatest.components(separatedBy: " ")
-                    let latestTimeInverval = convertFrom(string: latest[1])
-                    let intTime = Int(latestTimeInverval!/60)
-                    arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
-                }
-                
-                filterString.append("\(depTime)&\(arrivalTime)")
-            }
-            
-            
-            //     Duration
-            if (appliedFilters.contains(.Duration))
-            {
-                //     Trip Duration
-                var tripDuration = ""
-                if let tripMinTime = Int(userSelectedFilters!.tt.minTime!){
-                    let minTime = tripMinTime/60
-                    tripDuration.append("filters[\(i)][tt][0]=\(minTime)&")
-                }
-                if let tripMaxTime = Int(userSelectedFilters!.tt.maxTime!){
-                    let maxTime = tripMaxTime/60
-                    tripDuration.append("filters[\(i)][tt][1]=\(maxTime)")
-                }
-                
-                
-                
-                //     Layover Duration
-                var layoverDuration = ""
-                if let layoverMinTime = Int(userSelectedFilters!.lott!.minTime!){
-                    let minTime = layoverMinTime/60
-                    layoverDuration.append("filters[\(i)][lott][0]=\(minTime)&")
-                }
-                
-                if let layoverMaxTime = Int(userSelectedFilters!.lott!.maxTime!){
-                    let maxTime = layoverMaxTime/60
-                    layoverDuration.append("filters[\(i)][lott][1]=\(maxTime)&")
-                }
-                
-                filterString.append("\(tripDuration)&\(layoverDuration)")
-            }
-            
-            
-            //     Airline
-            if (appliedFilters.contains(.Airlines))
-            {
-                var airline = ""
-                for n in 0..<userSelectedFilters!.al.count{
-                    airline.append("filters[\(i)][al][\(n)]=\(userSelectedFilters!.al[n])&")
-                }
-                
-                filterString.append(airline)
-            }
-            
-            
-            //     Airport
-            if (appliedFilters.contains(.Airport))
-            {
-                var airport = ""
-                for n in 0..<userSelectedFilters!.loap.count{
-                    airport.append("filters[\(i)][loap][\(n)]=\(userSelectedFilters!.loap[n])&")
-                }
-                
-                filterString.append(airport)
-            }
-            
-            //     Quality
-            if (appliedFilters.contains(.Quality))
-            {
-                var quality = ""
-                
-                let fqArray = Array(userSelectedFilters!.fq.keys)
-                for n in 0..<fqArray.count{
-                    quality.append("filters[\(i)][fq][\(n)]=\(fqArray[n])&")
-                }
-                
-                filterString.append(quality)
-            }
-            
-            
-            //     Price
-            if (appliedFilters.contains(.Price))
-            {
-                let price = "filters[\(i)][pr][0]=\(userSelectedFilters!.pr.minPrice)&filters[\(i)][pr][1]=\(userSelectedFilters!.pr.maxPrice)&"
-                
-                filterString.append(price)
-            }
-            
-            
-            //     Stops
-            if (appliedFilters.contains(.stops))
-            {
-                var stops = ""
-                
-                for n in 0..<userSelectedFilters!.stp.count{
-                    if n == userSelectedFilters!.stp.count-1{
-                        stops.append("filters[\(i)][stp][\(n)]=\(userSelectedFilters!.stp[n])")
-                    }else{
-                        stops.append("filters[\(i)][stp][\(n)]=\(userSelectedFilters!.stp[n])&")
-                    }
-                }
-                
-                filterString.append(stops)
-            }
-            
-        }
-        
-        
-        return filterString
-    }
+     {
+         var filterString = ""
+         
+         for i in 0..<legs.count{
+             filterString.append("&")
+             let userSelectedFilters = legs[i].userSelectedFilters
+             
+             let appliedFilters = legs[i].appliedFilters
+             let appliedSubFilters = legs[i].appliedSubFilters
+             
+             print("appliedFilters=",appliedFilters)
+             
+             //     Times
+             if (appliedFilters.contains(.Times))
+             {
+                 
+                 //     Departure Time
+                 
+                 if appliedSubFilters.contains(.departureTime){
+                     var depTime = ""
+                     if let earliest = userSelectedFilters?.dt.earliest{
+                         let earliestTimeInverval = convertFrom(string: earliest)
+                         let intTime = Int(earliestTimeInverval!/60)
+                         depTime.append("filters[\(i)][dep_dt][0]=\(intTime)&")
+                     }
+                     
+                     if let latest = userSelectedFilters?.dt.latest{
+                         let latestTimeInverval = convertFrom(string: latest)
+                         let intTime = Int(latestTimeInverval!/60)
+                         depTime.append("filters[\(i)][dep_dt][1]=\(intTime)")
+                     }
+                     
+                     filterString.append("\(depTime)&")
+                 }
+                 
+
+                 
+                 //     Arrival Time
+                 
+                 if appliedSubFilters.contains(.arrivalTime){
+                     var arrivalTime = ""
+                     if let arrivalDateEarliest = userSelectedFilters?.arDt.earliest{
+                         let earliest = arrivalDateEarliest.components(separatedBy: " ")
+                         var earliestTimeInverval = TimeInterval()
+                         if earliest.count > 1{
+                             earliestTimeInverval = convertFrom(string: earliest[1])!
+                         }else{
+                             earliestTimeInverval = convertFrom(string: earliest[0])!
+                         }
+                         let intTime = Int(earliestTimeInverval/60)
+                         arrivalTime.append("filters[\(i)][ar_dt][0]=\(intTime)&")
+                     }
+                     
+                     if let arrivalDateLatest = userSelectedFilters?.arDt.latest{
+                         let latest = arrivalDateLatest.components(separatedBy: " ")
+                         let latestTimeInverval = convertFrom(string: latest[1])
+                         let intTime = Int(latestTimeInverval!/60)
+                         arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
+                     }
+                     
+                     filterString.append("\(arrivalTime)")
+                 }
+                 
+             }
+             
+             
+             //     Duration
+             if (appliedFilters.contains(.Duration))
+             {
+                 //     Trip Duration
+
+                 if appliedSubFilters.contains(.tripDuration){
+                     var tripDuration = ""
+                     if let tripMinTime = Int(userSelectedFilters!.tt.minTime!){
+                         let minTime = tripMinTime/3600
+                         tripDuration.append("filters[\(i)][tt][0]=\(minTime)&")
+                     }
+                     if let tripMaxTime = Int(userSelectedFilters!.tt.maxTime!){
+                         let maxTime = tripMaxTime/3600
+                         tripDuration.append("filters[\(i)][tt][1]=\(maxTime)")
+                     }
+                     
+                     
+                     filterString.append("\(tripDuration)&")
+
+                 }
+                 
+                 
+                 
+                 
+                 //     Layover Duration
+                 if appliedSubFilters.contains(.layoverDuration){
+                     var layoverDuration = ""
+                     if let layoverMinTime = Int(userSelectedFilters!.lott!.minTime!){
+                         let minTime = layoverMinTime/3600
+                         layoverDuration.append("filters[\(i)][lott][0]=\(minTime)&")
+                     }
+                     
+                     if let layoverMaxTime = Int(userSelectedFilters!.lott!.maxTime!){
+                         let maxTime = layoverMaxTime/3600
+                         layoverDuration.append("filters[\(i)][lott][1]=\(maxTime)")
+                     }
+                     
+                     filterString.append("\(layoverDuration)")
+
+                 }
+                 
+                 
+             }
+             
+             
+             //     Airline
+             if (appliedFilters.contains(.Airlines))
+             {
+                 var airline = ""
+                 for n in 0..<userSelectedFilters!.al.count{
+                     airline.append("filters[\(i)][al][\(n)]=\(userSelectedFilters!.al[n])&")
+                 }
+                 
+                 filterString.append(airline)
+             }
+             
+             
+             //     Airport
+             if (appliedFilters.contains(.Airport))
+             {
+                 var airport = ""
+                 for n in 0..<userSelectedFilters!.loap.count{
+                     airport.append("filters[\(i)][loap][\(n)]=\(userSelectedFilters!.loap[n])&")
+                 }
+                 
+                 filterString.append(airport)
+             }
+             
+             //     Quality
+             if (appliedFilters.contains(.Quality))
+             {
+                 var quality = ""
+                 
+                 let fqArray = Array(userSelectedFilters!.fq.keys)
+                 for n in 0..<fqArray.count{
+                     quality.append("filters[\(i)][fq][\(n)]=\(fqArray[n])&")
+                 }
+                 
+                 filterString.append(quality)
+             }
+             
+             
+             //     Price
+             if (appliedFilters.contains(.Price))
+             {
+                 let price = "filters[\(i)][pr][0]=\(userSelectedFilters!.pr.minPrice)&filters[\(i)][pr][1]=\(userSelectedFilters!.pr.maxPrice)&"
+                 
+                 filterString.append(price)
+             }
+             
+             
+             //     Stops
+             if (appliedFilters.contains(.stops))
+             {
+                 var stops = ""
+                 
+                 for n in 0..<userSelectedFilters!.stp.count{
+                     if n == userSelectedFilters!.stp.count-1{
+                         stops.append("filters[\(i)][stp][\(n)]=\(userSelectedFilters!.stp[n])")
+                     }else{
+                         stops.append("filters[\(i)][stp][\(n)]=\(userSelectedFilters!.stp[n])&")
+                     }
+                 }
+                 
+                 filterString.append(stops)
+             }
+             
+         }
+         
+         
+         return filterString
+     }
     
     func convertFrom(string : String) ->  TimeInterval? {
         

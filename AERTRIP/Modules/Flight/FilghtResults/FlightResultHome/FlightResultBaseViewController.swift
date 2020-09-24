@@ -1189,8 +1189,12 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             // for other searches except ones mentioned below
             self.flightFilterVC?.flightResultArray = self.flightSearchResultVM.flightResultArray
             flightFilterVC?.appliedAndUIFilters =  flightSearchResultVM.flightLegsAppliedFilters
-            flightFilterVC?.userSelectedFilters = self.flightSearchResultVM.getUserSelectedFilters()
-            self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
+            DispatchQueue.main.async {
+                self.flightFilterVC?.userSelectedFilters = self.flightSearchResultVM.getUserSelectedFilters()
+                self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
+            }
+//            flightFilterVC?.userSelectedFilters = self.flightSearchResultVM.getUserSelectedFilters()
+//            self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
             
             
             // for international return and multicity
