@@ -450,35 +450,43 @@ extension IntFlightResultDisplayGroup  {
         
         var outputArray = inputArray
         
-        userSelectedFilters.enumerated().forEach { (legIndex, obj) in
-            
-            let minTripDuration = Int(obj.tt.minTime ?? "") ?? 0
-            let maxTripDuration = Int(obj.tt.maxTime ?? "") ?? 0
-            
-            outputArray = outputArray.filter { (journey) -> Bool in
+        if appliedSubFilters[index]?.contains(.tripDuration) ?? false {
+        
+            userSelectedFilters.enumerated().forEach { (legIndex, obj) in
                 
-                let journeyDuration = journey.legsWithDetail[legIndex].duration
-                return journeyDuration >= minTripDuration && journeyDuration <= maxTripDuration
+                let minTripDuration = Int(obj.tt.minTime ?? "") ?? 0
+                let maxTripDuration = Int(obj.tt.maxTime ?? "") ?? 0
+                
+                outputArray = outputArray.filter { (journey) -> Bool in
+                    
+                    let journeyDuration = journey.legsWithDetail[legIndex].duration
+                    return journeyDuration >= minTripDuration && journeyDuration <= maxTripDuration
+                }
             }
+            
         }
         
-        userSelectedFilters.enumerated().forEach { (legIndex, obj) in
+        if appliedSubFilters[index]?.contains(.layoverDuration) ?? false {
             
-            let minLayoverDuration = Int(obj.lott.minTime ?? "") ?? 0
-            let maxLayoverDuration = Int(obj.lott.maxTime ?? "") ?? 0
-            
-            outputArray = outputArray.filter { (journey) -> Bool in
+            userSelectedFilters.enumerated().forEach { (legIndex, obj) in
                 
-                if journey.legsWithDetail[legIndex].totalLayOver == 0{
-                    return true
+                let minLayoverDuration = Int(obj.lott.minTime ?? "") ?? 0
+                let maxLayoverDuration = Int(obj.lott.maxTime ?? "") ?? 0
+                
+                outputArray = outputArray.filter { (journey) -> Bool in
+                    
+                    if journey.legsWithDetail[legIndex].totalLayOver == 0{
+                        return true
+                    }
+                    
+                    if journey.legsWithDetail[legIndex].totalLayOver >= minLayoverDuration && journey.legsWithDetail[legIndex].totalLayOver <= maxLayoverDuration {
+                        return true
+                    }
+                    
+                    return false
                 }
-                
-                if journey.legsWithDetail[legIndex].totalLayOver >= minLayoverDuration && journey.legsWithDetail[legIndex].totalLayOver <= maxLayoverDuration {
-                    return true
-                }
-                
-                return false
             }
+            
         }
         
         return outputArray
@@ -636,6 +644,10 @@ extension IntFlightResultDisplayGroup  {
         
         var outputArray = inputArray
         
+        guard appliedSubFilters[index]?.contains(.departureTime) ?? false else {
+            return outputArray
+        }
+        
         userSelectedFilters.enumerated().forEach { (legIndex, obj) in
             
             if let minDepartureTime = obj.dt.earliestTimeInteval, let maxDepartureTime = obj.dt.latestTimeInterval, let appliedSubFilters = appliedSubFilters[legIndex], appliedSubFilters.contains(.departureTime){
@@ -663,6 +675,11 @@ extension IntFlightResultDisplayGroup  {
     func applyArrivalTimeFilter(index : Int, _ inputArray : [ IntMultiCityAndReturnWSResponse.Results.J]) ->  [ IntMultiCityAndReturnWSResponse.Results.J] {
         
         var outputArray = inputArray
+        
+        guard appliedSubFilters[index]?.contains(.arrivalTime) ?? false else {
+            return outputArray
+        }
+        
         userSelectedFilters.enumerated().forEach { (legIndex, obj) in
             
             let dateFormatter = DateFormatter()

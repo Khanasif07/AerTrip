@@ -126,6 +126,11 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     }
     
     private func initSetupForMLSubViews() {
+        if isInternational {
+            multicityViewHeight.constant = 0
+            multiLegView.isHidden = true
+            return
+        }
         switch  allPriceFilters.count {
         case 1:
             multicityViewHeight.constant = 0
@@ -264,32 +269,34 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         setupPriceLabels()
         refundableFaresButton.isSelected = false
         
-        switch  allPriceFilters.count {
-        case 1:
-            multicityViewHeight.constant = 0
-            multiLegView.isHidden = true
-        case 2:
-            JourneyTitle.isHidden = true
-            multicityViewHeight.constant = 60.0
-            setupMultiLegSegmentControl()
-        case 3:
-            multiLegView.isHidden = false
-            multicityViewHeight.constant = 60.0
-            setupMultiLegSegmentControl()
-            JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
-        case 4 , 5 :
-            multiLegView.isHidden = false
-            multicityViewHeight.constant = 90.0
-            setupMultiLegSegmentControl()
-            JourneyTitle.isHidden = false
-            JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
-        default:
-            multicityViewHeight.constant = 90.0
-            setupMultiLegSegmentControl()
-            multiLegView.isHidden = false
-            JourneyTitle.isHidden = false
-            JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
-        }
+        initSetupForMLSubViews()
+        
+//        switch  allPriceFilters.count {
+//        case 1:
+//            multicityViewHeight.constant = 0
+//            multiLegView.isHidden = true
+//        case 2:
+//            JourneyTitle.isHidden = true
+//            multicityViewHeight.constant = 60.0
+//            setupMultiLegSegmentControl()
+//        case 3:
+//            multiLegView.isHidden = false
+//            multicityViewHeight.constant = 60.0
+//            setupMultiLegSegmentControl()
+//            JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
+//        case 4 , 5 :
+//            multiLegView.isHidden = false
+//            multicityViewHeight.constant = 90.0
+//            setupMultiLegSegmentControl()
+//            JourneyTitle.isHidden = false
+//            JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
+//        default:
+//            multicityViewHeight.constant = 90.0
+//            setupMultiLegSegmentControl()
+//            multiLegView.isHidden = false
+//            JourneyTitle.isHidden = false
+//            JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
+//        }
         
     }
     
