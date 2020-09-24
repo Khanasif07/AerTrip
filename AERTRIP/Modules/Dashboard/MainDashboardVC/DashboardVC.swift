@@ -178,7 +178,6 @@ class DashboardVC: BaseVC {
     @objc final func bulkEnguirySent() {
         if selectedOption == .hotels {return}
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.hotels.rawValue), y: innerScrollView.contentOffset.y), animated: true)
-        
     }
     
     //MARK:- IBAction

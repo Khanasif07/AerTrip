@@ -16,18 +16,18 @@ extension FlightResultSingleJourneyVC {
             viewModel.resultTableState = .showRegularResults
         }
         
-//        var sharedUrlPF = ""
-//        if ((self.flightSearchParameters?["PF[]"] as? String) != nil){
-//            sharedUrlPF = self.flightSearchParameters?["PF[]"] as? String ?? ""
-//        }
-//
-//        if sharedUrlPF != ""{
-//            for j in results{
-//                if j.fk == sharedUrlPF{
-//                    j.isPinned = true
-//                }
-//            }
-//        }
+        //        var sharedUrlPF = ""
+        //        if ((self.flightSearchParameters?["PF[]"] as? String) != nil){
+        //            sharedUrlPF = self.flightSearchParameters?["PF[]"] as? String ?? ""
+        //        }
+        //
+        //        if sharedUrlPF != ""{
+        //            for j in results{
+        //                if j.fk == sharedUrlPF{
+        //                    j.isPinned = true
+        //                }
+        //            }
+        //        }
         
         let modifiedResult = results
         
@@ -44,9 +44,36 @@ extension FlightResultSingleJourneyVC {
                 }
             }
             
+            if !self.viewModel.airlineCode.isEmpty{
+                
+                printDebug("self.viewModel.airlineCode...\(self.viewModel.airlineCode)")
+                
+                modifiedResult.enumerated().forEach { (ind,jour) in
+                    
+                    if let firstleg = jour.leg.first, let firstFlight = firstleg.flights.first {
+                        
+                        let flightNum = firstFlight.al + firstFlight.fn
+                        
+//                        printDebug("flightNum...\(flightNum)")
+                        
+                        if flightNum.uppercased() == self.viewModel.airlineCode.uppercased() {
+                            
+//                            printDebug("match...\(flightNum)....\(jour.airlinesSubString)")
+                            
+                            self.viewModel.results.currentPinnedJourneys.append(jour)
+                            self.viewModel.results.currentPinnedJourneys = self.viewModel.results.currentPinnedJourneys.removeDuplicates()
+                            self.viewModel.isSearchByAirlineCode = true
+                            modifiedResult[ind].isPinned = true
+                            self.viewModel.results.currentPinnedJourneys.append(modifiedResult[ind])
+                            
+                        }
+                    }
+                }
+            }
+            
             let groupedArray =   self.viewModel.getOnewayDisplayArray(results: modifiedResult)
             self.viewModel.results.journeyArray = groupedArray
-            self.viewModel.setPinnedFlights(shouldApplySorting: true)
+            //            self.viewModel.setPinnedFlights(shouldApplySorting: true)
             
             self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: 0, completion: {
                 DispatchQueue.main.async {
@@ -66,19 +93,34 @@ extension FlightResultSingleJourneyVC {
                         self.noResultScreen = nil
                     }
                     
-                    if !self.viewModel.airlineCode.isEmpty{
-                        for journ in modifiedResult {
-                            let flightNum = journ.leg.first!.flights.first!.al + journ.leg.first!.flights.first!.fn
-                            
-                            if flightNum.uppercased() == self.viewModel.airlineCode.uppercased() {
-                                
-                                print("flightNum....\(flightNum.uppercased())")
-                                self.setPinnedFlightAt(journ.fk , isPinned: true)
-                                self.switchView.isOn = true
-                                self.switcherDidChangeValue(switcher: self.switchView, value: true)
-                            }
+                    if self.viewModel.isSearchByAirlineCode {
+                        delay(seconds: 1) {
+                            self.switchView.isOn = true
+                            self.switcherDidChangeValue(switcher: self.switchView, value: true)
+                            self.showPinnedFlightsOption(true)
                         }
                     }
+                    
+                    
+                    //
+                    //                    if !self.viewModel.airlineCode.isEmpty{
+                    //
+                    //                        printDebug("self.viewModel.airlineCode...\(self.viewModel.airlineCode)")
+                    //
+                    //                        for journ in modifiedResult {
+                    //                            let flightNum = journ.leg.first!.flights.first!.al + journ.leg.first!.flights.first!.fn
+                    //
+                    //                            printDebug("flightNum...\(flightNum)")
+                    //
+                    //                            if flightNum.uppercased() == self.viewModel.airlineCode.uppercased() {
+                    //
+                    //                                print("flightNum....matched\(flightNum.uppercased())")
+                    //                                self.setPinnedFlightAt(journ.fk , isPinned: true)
+                    //                                self.switchView.isOn = true
+                    //                                self.switcherDidChangeValue(switcher: self.switchView, value: true)
+                    //                            }
+                    //                        }
+                    //                    }
                 }
             })
         }
@@ -139,12 +181,12 @@ extension FlightResultSingleJourneyVC {
         self.resultsTableView.scrollsToTop = true
         self.resultsTableView.reloadData()
     }
-
+    
     func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int, shouldReload : Bool = false, completion : (()-> Void)){
         previousRequest?.cancel()
         self.viewModel.sortOrder = sortOrder
         self.viewModel.isConditionReverced = isConditionReverced
-      //  self.viewModel.prevLegIndex = legIndex
+        //  self.viewModel.prevLegIndex = legIndex
         
         self.viewModel.applySortingOnGroups(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex)
         self.viewModel.setPinnedFlights(shouldApplySorting: true)

@@ -119,7 +119,7 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
         
         for i in 0..<currentSelectedAirlineFilter.airlinesArray.count{
             for airline in selectedAirlineArray{
-                if currentSelectedAirlineFilter.airlinesArray[i].name == airline{
+                if (currentSelectedAirlineFilter.airlinesArray[i].name == airline) || (currentSelectedAirlineFilter.airlinesArray[i].code == airline){
                     currentSelectedAirlineFilter.airlinesArray[i].isSelected = true
                 }else{
                     //                    currentSelectedAirlineFilter.airlinesArray[i].isSelected = false

@@ -328,7 +328,10 @@ extension HotelDetailsVC: HotelDetailDelegate {
 //==========================
 extension HotelDetailsVC {
     func manageHeaderView() {
-        //guard hotelTableView.isDragging else {return}
+        if #available(iOS 14.0, *) {
+            guard hotelTableView.isDragging else {return}
+        }
+        
         let yOffset = self.hotelTableView.contentOffset.y
         printDebug("yOffset \(yOffset)")
         printDebug("headerView.height \(headerView.height)")
@@ -444,9 +447,9 @@ extension HotelDetailsVC {
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if decelerate {
+       // if decelerate {
             self.manageBottomRateView()
-        }
+       // }
     }
     //
     

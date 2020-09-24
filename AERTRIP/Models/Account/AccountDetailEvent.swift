@@ -266,7 +266,8 @@ struct AccountDetailEvent {
 //                    self.title = self._receiptMethod.isEmpty ? bankName : "\(self._receiptMethod.capitalizedFirst()): \(bankName)"
                 case .wallet:
                     self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
-                    let walletName = (info["wallet_name"] as? String) ?? ""
+//                    let walletName = (info["wallet_name"] as? String) ?? ""
+                    let walletName = (info["pg_wallet_alias"] as? String) ?? ""
                     if walletName.isEmpty{
                         self.title = "Wallet"
                     }else{

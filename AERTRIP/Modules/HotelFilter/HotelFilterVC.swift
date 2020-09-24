@@ -13,7 +13,7 @@ protocol HotelFilteVCDelegate: class {
     func doneButtonTapped()
     func clearAllButtonTapped()
     func collectionViewContentOffset(offsetX: CGFloat)
-
+    
 }
 
 class HotelFilterVC: BaseVC {
@@ -129,7 +129,7 @@ class HotelFilterVC: BaseVC {
         }
         blurBackGroundView.addBlurEffect(backgroundColor: AppColors.themeWhite.withAlphaComponent(0.85), style:  UIBlurEffect.Style.light, alpha: 1)
         filterContainerView.addBlurEffect(backgroundColor: AppColors.themeWhite.withAlphaComponent(0.85), style:  UIBlurEffect.Style.light, alpha: 1)
-
+        
     }
     
     private func setNavigationTitle() {
@@ -191,7 +191,7 @@ class HotelFilterVC: BaseVC {
     
     private func setupPagerView() {
         self.allChildVCs.removeAll()
-//        self.selectedIndex = HotelFilterVM.shared.lastSelectedIndex
+        //        self.selectedIndex = HotelFilterVM.shared.lastSelectedIndex
         
         for i in 0..<HotelFilterVM.shared.allTabsStr.count {
             if i == 1 {
@@ -237,13 +237,13 @@ class HotelFilterVC: BaseVC {
             zIndex: Int.max - 1,
             insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
-//        self.parchmentView?.menuItemSource = PagingMenuItemSource.nib(nib: nib)
+        //        self.parchmentView?.menuItemSource = PagingMenuItemSource.nib(nib: nib)
         self.parchmentView?.register(nib, for: MenuItem.self)
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
-       // self.parchmentView?.borderColor = AppColors.divider.color
+        // self.parchmentView?.borderColor = AppColors.divider.color
         self.dataContainerView.addSubview(self.parchmentView!.view)
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
@@ -333,9 +333,9 @@ class HotelFilterVC: BaseVC {
     }
     
     private func saveAndApplyFilter() {
-//        if UserInfo.hotelFilter == nil {
-//            HotelFilterVM.shared.lastSelectedIndex = 0
-//        }
+        //        if UserInfo.hotelFilter == nil {
+        //            HotelFilterVM.shared.lastSelectedIndex = 0
+        //        }
         HotelFilterVM.shared.saveDataToUserDefaults()
         delegate?.doneButtonTapped()
         delegate?.collectionViewContentOffset(offsetX: self.parchmentView?.collectionView.contentOffset.x ?? 0)
@@ -344,7 +344,7 @@ class HotelFilterVC: BaseVC {
     // MARK: - IB Action
     
     @IBAction func clearAllButtonTapped(_ sender: Any) {
-       // self.hide(animated: true, shouldRemove: true)
+        // self.hide(animated: true, shouldRemove: true)
         delegate?.clearAllButtonTapped()
         reloadMenu()
         self.allChildVCs.forEach { (viewController) in
@@ -381,7 +381,7 @@ class HotelFilterVC: BaseVC {
     @IBAction func filterBtnTapped(_ sender: Any) {
         outsideAreaTapped()
     }
-     
+    
 }
 
 extension HotelFilterVC: HotelFilterVMDelegate {
@@ -402,12 +402,12 @@ extension HotelFilterVC: HotelFilterVMDelegate {
     }
     
     func reloadMenu(){
-       self.setBadgesOnAllCategories()
+        self.setBadgesOnAllCategories()
         UIView.setAnimationsEnabled(false)
         UIView.animate(withDuration: 0, animations: {
             self.parchmentView?.reloadMenu()
         }) { (_) in
-                    UIView.setAnimationsEnabled(true)
+            UIView.setAnimationsEnabled(true)
         }
     }
 }
