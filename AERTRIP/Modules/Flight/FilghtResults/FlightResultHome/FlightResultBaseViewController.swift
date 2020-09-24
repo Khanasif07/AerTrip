@@ -424,6 +424,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         resultBaseVC.bookFlightObject = flightSearchResultVM.bookFlightObject
         resultBaseVC.headerTitles = headerTitles
         resultBaseVC.numberOfLegs = self.numberOfLegs
+        resultBaseVC.flightSearchResultVM = self.flightSearchResultVM
         addChildView(resultBaseVC)
         self.intMultiLegResultVC = resultBaseVC
     }

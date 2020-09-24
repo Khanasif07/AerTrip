@@ -758,6 +758,7 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                             
                         }
                         
+                        
                         var layoverTime =  ""
                         if let lott = journey[indexPath.section].leg.first?.lott{
                             if lott.count > 0{
@@ -778,8 +779,7 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                             let attachmentString = NSAttributedString(attachment: imageAttachment)
                             completeText.append(attachmentString)
                         }
-                        let textAfterIcon = NSMutableAttributedString(string: displayText, attributes: [.font: AppFonts.Regular.withSize(14)])//NSMutableAttributedString(string: displayText)
-                        
+                        let textAfterIcon = NSMutableAttributedString(string: displayText, attributes: [.font: AppFonts.Regular.withSize(14)])
                         if flight.llo == 1 || flight.slo == 1{
                             if flight.isArrivalAirportChange == true{
                                 let range1 = (displayText as NSString).range(of: displayText)
