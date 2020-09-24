@@ -109,6 +109,7 @@ PODS:
   - Kingfisher (5.15.0):
     - Kingfisher/Core (= 5.15.0)
   - Kingfisher/Core (5.15.0)
+  - lottie-ios (3.1.8)
   - MiniLayout (1.4.2)
   - MXParallaxHeader (1.1.0)
   - nanopb (1.30905.0):
@@ -150,6 +151,7 @@ DEPENDENCIES:
   - GoogleSignIn
   - IQKeyboardManager
   - Kingfisher
+  - lottie-ios
   - MiniLayout
   - MXParallaxHeader
   - Parchment
@@ -191,6 +193,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - IQKeyboardManager
     - Kingfisher
+    - lottie-ios
     - MiniLayout
     - MXParallaxHeader
     - nanopb
@@ -233,6 +236,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   IQKeyboardManager: 2a6e97afdafc7becf0cb17a9a8d795e3a980717f
   Kingfisher: 1acb67597a520c2d0310677e66d6e0af455ef757
+  lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
   MiniLayout: f819ad87432712e6b2596081a62e633a4961bfc6
   MXParallaxHeader: de3c867e10ba46e8f6e20c8ee1f2a910372b3b94
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
@@ -247,6 +251,6 @@ SPEC CHECKSUMS:
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
   WSTagsField: a4e91b7d866e8c9755332ebcf8123f42f2abd4a0
 
-PODFILE CHECKSUM: dff40a751828f5ca6c74967fb5fddc2f90881ce0
+PODFILE CHECKSUM: 81a43ee6cc90f037ec3c448c41877bca2119658f
 
-COCOAPODS: 1.9.2
+COCOAPODS: 1.9.3

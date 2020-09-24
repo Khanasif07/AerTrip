@@ -42,7 +42,8 @@ enum AppConstants {
     static let termsOfUse = "https://beta.aertrip.com/terms"
     static let fareRules = "https://beta.aertrip.com/terms"
     static let walletAmountUrl = "https://beta.aertrip.com/wallet"
-    
+    static let tripsUrl = "https://aertrip.com/trips"
+
     static let kSearchTextLimit = 3
     static let kNameTextLimit = 30
     static let kAnimationDuration = 0.4
@@ -59,6 +60,10 @@ enum AppConstants {
     static let AddOnRequestTextLimit = 60
     static let AbortRequestTextLimit = 500
 
+    static let OnlineDepositeAmountLimit: Double = 1050000 //10,50,000 in online (bcoz of Convenience fee)
+    static let OfflineDepositeAmountLimit: Double = 999999999 //99,99,99,999
+
+    
     static let profileViewBackgroundNameIntialsFont = AppFonts.Regular.withSize(40.0)
     
     static let kGoogleAPIKey = "AIzaSyD_W5hNOfKdR3xbEEkbX1rI2sJ3nDv1E64" // "AIzaSyBR5AMB7FJUqlRBZv93B4aVhY-Xt13weaU"

@@ -478,7 +478,7 @@
 "SharedMessage" = "has shared his favorite hotels with you…";
 "CheckOutMessage" = "Checkout my favorite hotels on Aertrip!";
 "HotelResultFor" = "Hotel results for…";
-"NoHotelFound" = "No Hotel Found\nChoose another date for this location and try again.";
+"NoHotelFound" = "No Hotel Found";
 "NoHotelFoundMessage" = "Choose another date for this location and try again.";
 "NoHotelFoundMessageOnFilter" = "Choose another filters try again.";
 "NoHotelFoundFilter" = "We couldn’t find hotels to match your filters. Try changing the filters, or reset them.";
@@ -565,7 +565,9 @@
 "FareRules" = "Fare Rules";
 "CheckOutPrivacyAndPolicyTerms" = "By proceeding you agree to the Privacy Policy and Terms of Use of Aertrip. \n \nYou will be re-directed to a Payment Gateway website and returned back on completing the payment transaction.";
 "CheckOutPrivacyAndPolicyTermsFlight" = "By proceeding, you agree to the Privacy Policy and Terms of Use of Aertrip.";
-"CheckOutFareRulesPrivacyAndPolicyTerms" = "By proceeding you agree to the Fare Rules, Privacy Policy and Terms of Use of Aertrip. \n \nYou will be re-directed to a Payment Gateway website and returned back on completing the payment transaction.";
+"CheckOutFareRulesPrivacyAndPolicyTerms" = "By proceeding, you agree to the Privacy Policy and Terms of Use of Aertrip.";
+//"CheckOutFareRulesPrivacyAndPolicyTerms" = "By proceeding you agree to the Fare Rules, Privacy Policy and Terms of Use of Aertrip. \n \nYou will be re-directed to a Payment Gateway website and returned back on completing the payment transaction.";
+
 "PayableWalletMessage" = " will be credited to Aertrip wallet within 24 hours of successful payment / travel date";
 "NetEffectiveFare" = "Net Effective Fare: ";
 "GrossFare" = "Gross Fare";
@@ -1087,3 +1089,10 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "Times" = "Times";
 "Duration" = "Duration";
 "Quality" = "Quality";
+
+// TripsVC
+"tripsComingSoon" = "Coming soon…
+Planning your trip will be easier than ever.\nStay tuned for the next update 👍🏻";
+"tripsNote" = "Note: you can still plan, manage and create new trips from Aertrip website
+www.aertrip.com/trip";
+"tripsLink" = "www.aertrip.com/trip";

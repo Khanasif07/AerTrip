@@ -362,7 +362,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return section == 1 ? 201 : CGFloat.leastNormalMagnitude
+        return section == 1 ? 227 : CGFloat.leastNormalMagnitude
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

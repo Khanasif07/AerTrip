@@ -223,11 +223,11 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     
                     var index = 0
                     if indexPath.row > 0{
-                        if indexPath.row <= count{
-                            index = indexPath.row-1
-                        }else{
-                            index = indexPath.row-2
-                        }
+//                        if indexPath.row <= count{
+                            index = indexPath.row/2//indexPath.row-1
+//                        }else{
+//                            index = indexPath.row-2
+//                        }
                     }else{
                         index = indexPath.row
                     }
@@ -296,7 +296,8 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     
                     
                     let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + flight.al.uppercased() + ".png"
-                    setImageFromPath(urlPath : logoURL , to: cell.airlineImageView)
+//                    setImageFromPath(urlPath : logoURL , to: cell.airlineImageView)
+                    cell.setAirlineImage(with: logoURL)
                     
                     if indexPath.row == 0{
                         let ap = legs[indexPath.section].ap
@@ -568,7 +569,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     
                     var index = 0
                     if indexPath.row > 0{
-                        index = (indexPath.row < count) ? indexPath.row-1 : indexPath.row-2
+                        index = (indexPath.row - 1)/2//(indexPath.row < count) ? indexPath.row-1 : indexPath.row-2
                     }else{
                         index = indexPath.row
                     }

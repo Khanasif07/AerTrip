@@ -372,11 +372,17 @@ extension FlightResultDisplayGroup  {
                 
                 let journeyDuration = $0.duration
                 
-                let minTripDuration = Int(userSelectedFilters?.tt.minTime ?? "0" )
-                let maxTripDuration = Int(userSelectedFilters?.tt.maxTime ?? "0" )
+                var minTripDuration = Int(userSelectedFilters?.tt.minTime ?? "0" ) ?? 0
+                var maxTripDuration = Int(userSelectedFilters?.tt.maxTime ?? "0" ) ?? 0
+                
+                // Check for deep-linking as time comes in hours
+                if minTripDuration - 3600 < 0 && maxTripDuration - 3600 < 0 {
+                    minTripDuration *= 3600
+                    maxTripDuration *= 3600
+                }
                 
                 
-                if journeyDuration >= minTripDuration! && journeyDuration <= maxTripDuration! {
+                if journeyDuration >= minTripDuration && journeyDuration <= maxTripDuration {
                     return true
                 }
                 return false
@@ -393,10 +399,16 @@ extension FlightResultDisplayGroup  {
                     return true
                 }
                 
-                let minLayoverDuration = Int(userSelectedFilters?.lott?.minTime ?? "0" )
-                let maxLayoverDuration = Int(userSelectedFilters?.lott?.maxTime ?? "0" )
+                var minLayoverDuration = Int(userSelectedFilters?.lott?.minTime ?? "0" ) ?? 0
+                var maxLayoverDuration = Int(userSelectedFilters?.lott?.maxTime ?? "0" ) ?? 0
                 
-                if journeyLayoverDuration >= minLayoverDuration! && journeyLayoverDuration <= maxLayoverDuration! {
+                // Check for deep-linking as time comes in hours
+                if minLayoverDuration - 3600 < 0 && maxLayoverDuration - 3600 < 0 {
+                    minLayoverDuration *= 3600
+                    maxLayoverDuration *= 3600
+                }
+                
+                if journeyLayoverDuration >= minLayoverDuration && journeyLayoverDuration <= maxLayoverDuration {
                     return true
                 }
                 return false
@@ -483,7 +495,6 @@ extension FlightResultDisplayGroup  {
     }
     
     func applyDepartureTimeFilter(_ inputArray : [Journey]) -> [Journey] {
-        
         guard initiatedFilters.contains(.departureTime) else { return inputArray }
         
         guard let minDepartureTime = userSelectedFilters?.dt.earliestTimeInteval else { return inputArray}

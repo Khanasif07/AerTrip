@@ -376,9 +376,6 @@ class GetSharableUrl
 //            }
         }
             
-        
-        
-        
         return destination
     }
     

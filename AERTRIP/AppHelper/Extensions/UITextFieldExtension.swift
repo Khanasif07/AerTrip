@@ -106,4 +106,18 @@ extension UITextField {
         // attribute.addAttribute(NSBaselineOffsetAttributeName, value: 0, range: range)
         self.attributedText = attribute
     }
+    
+    func addLeftPaddingView(width: CGFloat) {
+        self.leftViewMode = UITextField.ViewMode.always
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: self.frame.height))
+        self.leftView = paddingView
+        self.layoutSubviews()
+    }
+    
+    func addRightPaddingView(width: CGFloat) {
+        self.rightViewMode = UITextField.ViewMode.always
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: self.frame.height))
+        self.rightView = paddingView
+        self.layoutSubviews()
+    }
 }

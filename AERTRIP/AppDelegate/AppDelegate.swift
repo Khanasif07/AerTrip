@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // CHECK FOR LAUNCH OF FLIGHT OR HOTEL MODULE        
         FirebaseApp.configure()
-        AppFlowManager.default.setupInitialFlow()
+        AppFlowManager.default.setupSplashAnimationFlow()
         window?.backgroundColor = UIColor.black
         
         GoogleLoginController.shared.configure()
@@ -53,6 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(checkForReachability(_:)), name: Notification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
         self.reachability = Reachability.networkReachabilityForInternetConnection()
         let _ = self.reachability?.startNotifier()
+        UserDefaults.standard.set(false, forKey: "NSAllowsDefaultLineBreakStrategy")
         return true
     }
     

@@ -51,7 +51,7 @@ extension TermAndPrivacyTableViewCell {
         var allTypes: [ActiveType] = []
         var textToDisplay = ""
         if self.currentUsingFrom == .accountCheckout {
-            allTypes = [fareRules, privacyPolicy, termsOfUse]
+            allTypes = [privacyPolicy, termsOfUse]
             textToDisplay = LocalizedString.CheckOutFareRulesPrivacyAndPolicyTerms.localized
         }else{
             allTypes = [privacyPolicy, termsOfUse]

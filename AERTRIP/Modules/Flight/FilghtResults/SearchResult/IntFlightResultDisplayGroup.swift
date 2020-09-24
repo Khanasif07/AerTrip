@@ -33,6 +33,8 @@ class IntFlightResultDisplayGroup {
     
     internal var isAPIResponseUpdated = false
     
+    private var filterUpdatedFromDeepLink = false
+    
     //MARK:- Computed Properties
     var appliedFilters = Set<Filters>() {
         didSet{
@@ -501,54 +503,59 @@ class IntFlightResultDisplayGroup {
     }
     
     private func updateUserFiltersFromDeepLink(_ flightSearchParam: JSONDictionary) {
-        DispatchQueue.main.async
-            {
-                
-                if let stop = flightSearchParam["filters[\(self.index)][stp][0]"] as? String{
-                    self.appliedFilters.insert(.stops)
-                    self.userSelectedFilters[self.index].stp = [stop]
-                }
-                
-                if let al = flightSearchParam["filters[\(self.index)][al][0]"] as? String{
-                    self.appliedFilters.insert(.Airlines)
-                    self.userSelectedFilters[self.index].al = [al]
-                }
-                
-                
-                if let ar_dt = flightSearchParam["filters[\(self.index)][ar_dt][0]"]  as? String{
-                    self.appliedFilters.insert(.Times)
-                    self.userSelectedFilters[self.index].arDt.earliest = ar_dt
-                }
-                
-                if let ar_dt = flightSearchParam["filters[\(self.index)][ar_dt][1]"]  as? String{
-                    self.appliedFilters.insert(.Times)
-                    self.userSelectedFilters[self.index].arDt.latest = ar_dt
-                }
-                
-                if let dep_dt = flightSearchParam["filters[\(self.index)][dep_dt][0]"]  as? String{
-                    self.appliedFilters.insert(.Times)
-                    self.userSelectedFilters[self.index].depDt.earliest = dep_dt
-                }
-                
-                if let dep_dt = flightSearchParam["filters[\(self.index)][dep_dt][1]"]  as? String{
-                    self.appliedFilters.insert(.Times)
-                    self.userSelectedFilters[self.index].depDt.latest = dep_dt
-                }
-                
-                if let loap = flightSearchParam["filters[\(self.index)][loap][0]"]  as? String{
-                    self.appliedFilters.insert(.Airport)
-                    self.userSelectedFilters[self.index].loap = [loap]
-                }
-                
-                if let price = flightSearchParam["filters[\(self.index)][pr][0]"]  as? String{
-                    self.appliedFilters.insert(.Price)
-                    self.userSelectedFilters[self.index].pr.minPrice = Int(price) ?? 0
-                }
-                
-                if let price = flightSearchParam["filters[\(self.index)][pr][1]"] as? String{
-                    self.appliedFilters.insert(.Price)
-                    self.userSelectedFilters[self.index].pr.maxPrice = Int(price) ?? 0
-                }
+        
+        guard !filterUpdatedFromDeepLink else { return }
+        filterUpdatedFromDeepLink = true
+        
+        if let stop = flightSearchParam["filters[\(self.index)][stp][0]"] as? String{
+            self.appliedFilters.insert(.stops)
+            self.userSelectedFilters[self.index].stp = [stop]
+        }
+        
+        if let al = flightSearchParam["filters[\(self.index)][al][0]"] as? String{
+            self.appliedFilters.insert(.Airlines)
+            self.userSelectedFilters[self.index].al = [al]
+        }
+        
+        
+        if let ar_dt = flightSearchParam["filters[\(self.index)][ar_dt][0]"]  as? String{
+            self.appliedFilters.insert(.Times)
+            self.appliedSubFilters[self.index]?.insert(.arrivalTime)
+            self.userSelectedFilters[self.index].arDt.earliest = ar_dt
+        }
+        
+        if let ar_dt = flightSearchParam["filters[\(self.index)][ar_dt][1]"]  as? String{
+            self.appliedFilters.insert(.Times)
+            self.appliedSubFilters[self.index]?.insert(.arrivalTime)
+            self.userSelectedFilters[self.index].arDt.latest = ar_dt
+        }
+        
+        if let dep_dt = flightSearchParam["filters[\(self.index)][dep_dt][0]"]  as? String{
+            self.appliedFilters.insert(.Times)
+            self.appliedSubFilters[self.index]?.insert(.departureTime)
+            self.userSelectedFilters[self.index].depDt.earliest = dep_dt
+        }
+        
+        if let dep_dt = flightSearchParam["filters[\(self.index)][dep_dt][1]"]  as? String{
+            self.appliedFilters.insert(.Times)
+            self.appliedSubFilters[self.index]?.insert(.departureTime)
+            self.userSelectedFilters[self.index].depDt.latest = dep_dt
+        }
+        
+        if let loap = flightSearchParam["filters[\(self.index)][loap][0]"]  as? String{
+            self.appliedFilters.insert(.Airport)
+            self.UIFilters.insert(.layoverAirports)
+            self.userSelectedFilters[self.index].loap = [loap]
+        }
+        
+        if let price = flightSearchParam["filters[\(self.index)][pr][0]"]  as? String{
+            self.appliedFilters.insert(.Price)
+            self.userSelectedFilters[self.index].pr.minPrice = Int(price) ?? 0
+        }
+        
+        if let price = flightSearchParam["filters[\(self.index)][pr][1]"] as? String{
+            self.appliedFilters.insert(.Price)
+            self.userSelectedFilters[self.index].pr.maxPrice = Int(price) ?? 0
         }
     }
     

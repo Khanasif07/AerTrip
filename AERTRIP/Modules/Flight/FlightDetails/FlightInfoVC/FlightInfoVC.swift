@@ -236,11 +236,12 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                     
                     var index = 0
                     if indexPath.row > 0{
-                        if indexPath.row <= count!{
-                            index = indexPath.row-1
-                        }else{
-                            index = indexPath.row-2
-                        }
+                        index = indexPath.row/2
+//                        if indexPath.row <= count!{
+//                            index = indexPath.row-1
+//                        }else{
+//                            index = indexPath.row-2
+//                        }
                     }else{
                         index = indexPath.row
                     }
@@ -327,8 +328,8 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                         flightDetailsCell.flightNameLabel.text = flightName
                         
                         let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + flight.al.uppercased() + ".png"
-                        setImageFromPath(urlPath : logoURL , to: flightDetailsCell.airlineImageView)
-                        
+//                        setImageFromPath(urlPath : logoURL , to: flightDetailsCell.airlineImageView)
+                        flightDetailsCell.setAirlineImage(with: logoURL)
                         if indexPath.row == 0{
                             let ap = journey[indexPath.section].ap
                             let departureAirportDetails = airportDetailsResult[ap[0]]
@@ -591,7 +592,7 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                             
                             let range1 = (main_string1 as NSString).range(of: string_to_color1)
                             
-                            let attribute1 = NSMutableAttributedString.init(string: main_string1)
+                            let attribute1 = NSMutableAttributedString(string: main_string1, attributes: [.font: AppFonts.Regular.withSize(14), .foregroundColor: AppColors.themeGray40])
                             attribute1.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: range1)
                             flightDetailsCell.departureAirportAddressLabel.attributedText = attribute1
                         }else{
@@ -681,22 +682,8 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                         let totalRow = tableView.numberOfRows(inSection: indexPath.section)
                         if totalRow == 1{
                             flightDetailsCell.bottomSeperatorView.isHidden = false
-//                            if journey[indexPath.section].fsr == 1{
-//                                flightDetailsCell.displayViewBottom.constant = 35
-//                            }else{
-//                                if indexPath.section == journey.count - 1{
-//                                    flightDetailsCell.displayViewBottom.constant = 35
-//                                }else{
-//                                    flightDetailsCell.displayViewBottom.constant = 35
-//                                }
-//                            }
                             flightDetailsCell.displayViewBottom.constant = 35
                         }else if(indexPath.row == totalRow-1){
-//                            if journey[indexPath.section].fsr == 1{
-//                                flightDetailsCell.displayViewBottom.constant = 35
-//                            }else{
-//                                flightDetailsCell.displayViewBottom.constant = 35
-//                            }
                             flightDetailsCell.displayViewBottom.constant = 35
                             flightDetailsCell.bottomSeperatorView.isHidden = false
                         }else{
@@ -728,11 +715,12 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                     
                     var index = 0
                     if indexPath.row > 0{
-                        if indexPath.row < count!{
-                            index = indexPath.row-1
-                        }else{
-                            index = indexPath.row-2
-                        }
+                        index = (indexPath.row - 1)/2
+//                        if indexPath.row < count!{
+//                            index = indexPath.row-1
+//                        }else{
+//                            index = indexPath.row-2
+//                        }
                     }else{
                         index = indexPath.row
                     }
@@ -792,7 +780,6 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                             completeText.append(attachmentString)
                         }
                         let textAfterIcon = NSMutableAttributedString(string: displayText, attributes: [.font: AppFonts.Regular.withSize(14)])
-
                         if flight.llo == 1 || flight.slo == 1{
                             if flight.isArrivalAirportChange == true{
                                 let range1 = (displayText as NSString).range(of: displayText)
@@ -864,17 +851,6 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     //MARK:- Set Image
-    func setImageFromPath(urlPath : String  , to imageView : UIImageView)
-    {
-        guard  let urlobj = URL(string: urlPath) else { return }
-        
-        let urlRequest = URLRequest(url: urlobj)
-        if let responseObj = URLCache.shared.cachedResponse(for: urlRequest) {
-            
-            let image = UIImage(data: responseObj.data)
-            imageView.image = image
-        }
-    }
     
     func getSelectedAmenities(amenitiesData: [String : String], index: Int)
     {

@@ -51,9 +51,21 @@ extension FlightDomesticMultiLegResultVC {
         baseScrollView.delegate = self
         baseScrollView.bounces = false
         baseScrollView.isDirectionalLockEnabled = true
+        self.setupHeaderScrollView()
         for i in 0 ..< self.viewModel.numberOfLegs {
             setupTableView(At: i)
         }
+    }
+    
+    func setupHeaderScrollView(){
+        let width =  UIScreen.width / 2.0
+        miniHeaderScrollView.contentSize = CGSize(width: (CGFloat(self.viewModel.numberOfLegs) * width ), height: 44.0)
+        miniHeaderScrollView.showsHorizontalScrollIndicator = false
+        miniHeaderScrollView.showsVerticalScrollIndicator = false
+        miniHeaderScrollView.alwaysBounceVertical = false
+        miniHeaderScrollView.delegate = nil
+        miniHeaderScrollView.bounces = false
+        miniHeaderScrollView.isScrollEnabled = false
     }
     
     
@@ -61,7 +73,7 @@ extension FlightDomesticMultiLegResultVC {
         
         let width = UIScreen.main.bounds.width / 2.0
         let height = UIScreen.main.bounds.height
-        let rect = CGRect(x: (width * CGFloat(index)), y: 0, width: width, height: height)
+        let rect = CGRect(x: (width * CGFloat(index)), y: 165, width: width, height: height)
         
         
         let tableView = UITableView(frame: rect)
@@ -78,10 +90,10 @@ extension FlightDomesticMultiLegResultVC {
         tableView.register(UINib(nibName: "DomesticMultiLegTemplateCell", bundle: nil), forCellReuseIdentifier: "DomesticMultiLegTemplateCell")
         
         
-        let headerRect = CGRect(x: 0, y: 0, width: width, height: 303.0)
+        let headerRect = CGRect(x: 0, y: 0, width: width, height: 138)
         let tableViewHeader = UIView(frame: headerRect)
         
-        let separatorView = UIView(frame:CGRect(x: 0, y: 302.5, width: width, height: 0.5))
+        let separatorView = UIView(frame:CGRect(x: 0, y: 137.5, width: width, height: 0.5))
         separatorView.backgroundColor = .TWO_ZERO_FOUR_COLOR
         tableViewHeader.addSubview(separatorView)
         tableView.tableHeaderView = tableViewHeader
@@ -109,8 +121,8 @@ extension FlightDomesticMultiLegResultVC {
         let headerJourneyView = JourneyHeaderView(frame: headerJourneyRect)
         headerJourneyView.tag = 1000 + index
         journeyHeaderViewArray.append(headerJourneyView)
-        
-        baseScrollView.addSubview(headerJourneyView)
+        miniHeaderScrollView.addSubview(headerJourneyView)
+//        baseScrollView.addSubview(headerJourneyView)
         headerJourneyView.isHidden = true
         hideHeaderCellAt(index: index)
     }
