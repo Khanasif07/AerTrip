@@ -41,18 +41,18 @@ class GetSharableUrl
         var parameters = [[String : Any]]()
         if isInternational{
             parameters = [
-            [
-                "key": "u",
-                "value": valString,
-                "type": "text"
-            ]] as [[String : Any]]
+                [
+                    "key": "u",
+                    "value": valString,
+                    "type": "text"
+                ]] as [[String : Any]]
         }else{
             parameters = [
-            [
-                "key": "u",
-                "value": valueString,
-                "type": "text"
-            ]] as [[String : Any]]
+                [
+                    "key": "u",
+                    "value": valueString,
+                    "type": "text"
+                ]] as [[String : Any]]
         }
         
         
@@ -96,9 +96,9 @@ class GetSharableUrl
             
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
-
+            
             print(String(data: data, encoding: .utf8)!)
-
+            
             do{
                 let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
                 
@@ -111,9 +111,9 @@ class GetSharableUrl
                                     self.delegate?.returnSharableUrl(url: link)
                                 }
                             }
-//                            if let link = (result["data"] as? [String:Any])?.value(forKey: "u") as? String{
-//                                self.delegate?.returnSharableUrl(url: link)
-//                            }
+                            //                            if let link = (result["data"] as? [String:Any])?.value(forKey: "u") as? String{
+                            //                                self.delegate?.returnSharableUrl(url: link)
+                            //                            }
                         }
                     }
                 }
@@ -133,11 +133,11 @@ class GetSharableUrl
     {
         tripType = trip_type
         let tempelteUrl = flightBaseUrl+"get-pinned-template"
-
+        
         var valueString = ""
         if !isInternational{
             let cc = (journeyArray as! [Journey]).first!.cc
-//            let trip_type = getTripType(journey: (journeyArray as! [Journey]))
+            //            let trip_type = getTripType(journey: (journeyArray as! [Journey]))
             let origin = getOrigin(journey: (journeyArray as! [Journey]))
             let destination = getDestination(journey: (journeyArray as! [Journey]))
             let departureDate = getDepartureDate(journey: (journeyArray as! [Journey]))
@@ -146,7 +146,7 @@ class GetSharableUrl
             
             valueString = "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(adult)&child=\(child)&infant=\(infant)&\(origin)\(destination)\(departureDate)\(returnDate)&cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)"
         }
-
+        
         var parameters = [[String : Any]]()
         for i in 0..<journeyArray.count{
             if isInternational{
@@ -252,16 +252,6 @@ class GetSharableUrl
         semaphore.wait()
     }
     
-//    func getTripType(journey:[Journey])->String{
-//        if journey.count == 1{
-//            return "single"
-//        }else if journey.count > 2{
-//            return "multi"
-//        }else{
-//            return "return"
-//        }
-//    }
-    
     func getReturnDate(journey:[Journey])->String{
         var showDate = Date()
         var returnDate = ""
@@ -276,28 +266,18 @@ class GetSharableUrl
             let newDd = inputFormatter.string(from: showDate)
             returnDate.append("return=\(newDd)&")
         }else{
-//            if journey.count == 1{
-//                returnDate.append("return=&")
-//            }else if journey.count > 2{
-                for i in 0..<journey.count{
-
-                    inputFormatter.dateFormat = "yyyy-MM-dd"
-                    showDate = inputFormatter.date(from: journey[i].dd)!
-                    inputFormatter.dateFormat = "dd-MM-yyyy"
-                    let newDd = inputFormatter.string(from: showDate)
-                    returnDate.append("return[\(i)]=\(newDd)&")
-                }
-//            }else{
-//                inputFormatter.dateFormat = "yyyy-MM-dd"
-//                showDate = inputFormatter.date(from: journey[1].dd)!
-//                inputFormatter.dateFormat = "dd-MM-yyyy"
-//                let newDd = inputFormatter.string(from: showDate)
-//                returnDate.append("return=\(newDd)&")
-//            }
+            for i in 0..<journey.count{
+                
+                inputFormatter.dateFormat = "yyyy-MM-dd"
+                showDate = inputFormatter.date(from: journey[i].dd)!
+                inputFormatter.dateFormat = "dd-MM-yyyy"
+                let newDd = inputFormatter.string(from: showDate)
+                returnDate.append("return[\(i)]=\(newDd)&")
+            }
         }
-            
         
-
+        
+        
         return returnDate
     }
     
@@ -305,7 +285,7 @@ class GetSharableUrl
         var departureDate = ""
         let inputFormatter = DateFormatter()
         var showDate = Date()
-
+        
         if tripType == "single" || tripType == "return"{
             inputFormatter.dateFormat = "yyyy-MM-dd"
             showDate = inputFormatter.date(from: journey[0].ad)!
@@ -313,28 +293,13 @@ class GetSharableUrl
             let newAd = inputFormatter.string(from: showDate)
             departureDate.append("depart=\(newAd)&")
         }else{
-//            if journey.count == 1{
-//                inputFormatter.dateFormat = "yyyy-MM-dd"
-//                showDate = inputFormatter.date(from: journey[0].ad)!
-//                inputFormatter.dateFormat = "dd-MM-yyyy"
-//                let newAd = inputFormatter.string(from: showDate)
-//                departureDate.append("depart=\(newAd)&")
-//
-//            }else if journey.count > 2{
-                for i in 0..<journey.count{
-                    inputFormatter.dateFormat = "yyyy-MM-dd"
-                    showDate = inputFormatter.date(from: journey[i].ad)!
-                    inputFormatter.dateFormat = "dd-MM-yyyy"
-                    let newAd = inputFormatter.string(from: showDate)
-                    departureDate.append("depart[\(i)]=\(newAd)&")
-                }
-//            }else{
-//                inputFormatter.dateFormat = "yyyy-MM-dd"
-//                showDate = inputFormatter.date(from: journey[0].ad)!
-//                inputFormatter.dateFormat = "dd-MM-yyyy"
-//                let newAd = inputFormatter.string(from: showDate)
-//                departureDate.append("depart=\(newAd)&")
-//            }
+            for i in 0..<journey.count{
+                inputFormatter.dateFormat = "yyyy-MM-dd"
+                showDate = inputFormatter.date(from: journey[i].ad)!
+                inputFormatter.dateFormat = "dd-MM-yyyy"
+                let newAd = inputFormatter.string(from: showDate)
+                departureDate.append("depart[\(i)]=\(newAd)&")
+            }
         }
         
         return departureDate
@@ -346,15 +311,9 @@ class GetSharableUrl
         if tripType == "single" || tripType == "return"{
             origin.append("origin=\(journey[0].ap[0])&")
         }else{
-//            if journey.count == 1{
-//                origin.append("origin=\(journey[0].ap[0])&")
-//            }else if journey.count > 2{
-                for i in 0..<journey.count{
-                    origin.append("origin[\(i)]=\(journey[i].ap[0])&")
-                }
-//            }else{
-//                origin.append("origin=\(journey[0].ap[0])&")
-//            }
+            for i in 0..<journey.count{
+                origin.append("origin[\(i)]=\(journey[i].ap[0])&")
+            }
         }
         
         return origin
@@ -365,17 +324,11 @@ class GetSharableUrl
         if tripType == "single" || tripType == "return"{
             destination.append("destination=\(journey[0].ap[1])&")
         }else{
-//            if journey.count == 1{
-//                destination.append("destination=\(journey[0].ap[1])&")
-//            }else if journey.count > 2{
-                for i in 0..<journey.count{
-                    destination.append("destination[\(i)]=\(journey[i].ap[1])&")
-                }
-//            }else{
-//                destination.append("destination=\(journey[0].ap[1])&")
-//            }
+            for i in 0..<journey.count{
+                destination.append("destination[\(i)]=\(journey[i].ap[1])&")
+            }
         }
-            
+        
         return destination
     }
     
@@ -384,9 +337,9 @@ class GetSharableUrl
         
         for i in 0..<journey.count{
             if i == journey.count-1{
-                    pinnedFlightFK.append("PF[\(i)]=\(journey[i].fk)")
+                pinnedFlightFK.append("PF[\(i)]=\(journey[i].fk)")
             }else{
-                    pinnedFlightFK.append("PF[\(i)]=\(journey[i].fk)&")
+                pinnedFlightFK.append("PF[\(i)]=\(journey[i].fk)&")
             }
         }
         
@@ -403,49 +356,61 @@ class GetSharableUrl
             let userSelectedFilters = legs[i].userSelectedFilters
             
             let appliedFilters = legs[i].appliedFilters
+            let appliedSubFilters = legs[i].appliedSubFilters
             
             print("appliedFilters=",appliedFilters)
             
             //     Times
             if (appliedFilters.contains(.Times))
             {
+                
                 //     Departure Time
-                var depTime = ""
-                if let earliest = userSelectedFilters?.dt.earliest{
-                    let earliestTimeInverval = convertFrom(string: earliest)
-                    let intTime = Int(earliestTimeInverval!/60)
-                    depTime.append("filters[\(i)][dep_dt][0]=\(intTime)&")
+                
+                if appliedSubFilters.contains(.departureTime){
+                    var depTime = ""
+                    if let earliest = userSelectedFilters?.dt.earliest{
+                        let earliestTimeInverval = convertFrom(string: earliest)
+                        let intTime = Int(earliestTimeInverval!/60)
+                        depTime.append("filters[\(i)][dep_dt][0]=\(intTime)&")
+                    }
+                    
+                    if let latest = userSelectedFilters?.dt.latest{
+                        let latestTimeInverval = convertFrom(string: latest)
+                        let intTime = Int(latestTimeInverval!/60)
+                        depTime.append("filters[\(i)][dep_dt][1]=\(intTime)")
+                    }
+                    
+                    filterString.append("\(depTime)&")
                 }
                 
-                if let latest = userSelectedFilters?.dt.latest{
-                    let latestTimeInverval = convertFrom(string: latest)
-                    let intTime = Int(latestTimeInverval!/60)
-                    depTime.append("filters[\(i)][dep_dt][1]=\(intTime)")
-                }
                 
                 
                 //     Arrival Time
-                var arrivalTime = ""
-                if let arrivalDateEarliest = userSelectedFilters?.arDt.earliest{
-                    let earliest = arrivalDateEarliest.components(separatedBy: " ")
-                    var earliestTimeInverval = TimeInterval()
-                    if earliest.count > 1{
-                        earliestTimeInverval = convertFrom(string: earliest[1])!
-                    }else{
-                        earliestTimeInverval = convertFrom(string: earliest[0])!
+                
+                if appliedSubFilters.contains(.arrivalTime){
+                    var arrivalTime = ""
+                    if let arrivalDateEarliest = userSelectedFilters?.arDt.earliest{
+                        let earliest = arrivalDateEarliest.components(separatedBy: " ")
+                        var earliestTimeInverval = TimeInterval()
+                        if earliest.count > 1{
+                            earliestTimeInverval = convertFrom(string: earliest[1])!
+                        }else{
+                            earliestTimeInverval = convertFrom(string: earliest[0])!
+                        }
+                        let intTime = Int(earliestTimeInverval/60)
+                        arrivalTime.append("filters[\(i)][ar_dt][0]=\(intTime)&")
                     }
-                    let intTime = Int(earliestTimeInverval/60)
-                    arrivalTime.append("filters[\(i)][ar_dt][0]=\(intTime)&")
+                    
+                    if let arrivalDateLatest = userSelectedFilters?.arDt.latest{
+                        let latest = arrivalDateLatest.components(separatedBy: " ")
+                        let latestTimeInverval = convertFrom(string: latest[1])
+                        let intTime = Int(latestTimeInverval!/60)
+                        arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
+                    }
+                    
+                    filterString.append("\(arrivalTime)")
                 }
                 
-                if let arrivalDateLatest = userSelectedFilters?.arDt.latest{
-                    let latest = arrivalDateLatest.components(separatedBy: " ")
-                    let latestTimeInverval = convertFrom(string: latest[1])
-                    let intTime = Int(latestTimeInverval!/60)
-                    arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
-                }
-                
-                filterString.append("\(depTime)&\(arrivalTime)")
             }
             
             
@@ -453,31 +418,37 @@ class GetSharableUrl
             if (appliedFilters.contains(.Duration))
             {
                 //     Trip Duration
-                var tripDuration = ""
-                if let tripMinTime = Int(userSelectedFilters!.tt.minTime!){
-                    let minTime = tripMinTime/60
-                    tripDuration.append("filters[\(i)][tt][0]=\(minTime)&")
-                }
-                if let tripMaxTime = Int(userSelectedFilters!.tt.maxTime!){
-                    let maxTime = tripMaxTime/60
-                    tripDuration.append("filters[\(i)][tt][1]=\(maxTime)")
-                }
                 
-                
+                if appliedSubFilters.contains(.tripDuration){
+                    var tripDuration = ""
+                    if let tripMinTime = Int(userSelectedFilters!.tt.minTime!){
+                        let minTime = tripMinTime/3600
+                        tripDuration.append("filters[\(i)][tt][0]=\(minTime)&")
+                    }
+                    if let tripMaxTime = Int(userSelectedFilters!.tt.maxTime!){
+                        let maxTime = tripMaxTime/3600
+                        tripDuration.append("filters[\(i)][tt][1]=\(maxTime)")
+                    }
+                    
+                    filterString.append("\(tripDuration)&")
+                    
+                }
                 
                 //     Layover Duration
-                var layoverDuration = ""
-                if let layoverMinTime = Int(userSelectedFilters!.lott!.minTime!){
-                    let minTime = layoverMinTime/60
-                    layoverDuration.append("filters[\(i)][lott][0]=\(minTime)&")
+                if appliedSubFilters.contains(.layoverDuration){
+                    var layoverDuration = ""
+                    if let layoverMinTime = Int(userSelectedFilters!.lott!.minTime!){
+                        let minTime = layoverMinTime/3600
+                        layoverDuration.append("filters[\(i)][lott][0]=\(minTime)&")
+                    }
+                    
+                    if let layoverMaxTime = Int(userSelectedFilters!.lott!.maxTime!){
+                        let maxTime = layoverMaxTime/3600
+                        layoverDuration.append("filters[\(i)][lott][1]=\(maxTime)")
+                    }
+                    
+                    filterString.append("\(layoverDuration)")
                 }
-                
-                if let layoverMaxTime = Int(userSelectedFilters!.lott!.maxTime!){
-                    let maxTime = layoverMaxTime/60
-                    layoverDuration.append("filters[\(i)][lott][1]=\(maxTime)&")
-                }
-                
-                filterString.append("\(tripDuration)&\(layoverDuration)")
             }
             
             
@@ -542,9 +513,7 @@ class GetSharableUrl
                 
                 filterString.append(stops)
             }
-            
         }
-        
         
         return filterString
     }
@@ -556,6 +525,7 @@ class GetSharableUrl
         if legs.count > 0{
             let userSelectedFilters = legs[0].userSelectedFilters
             let appliedFilters = legs[0].appliedFilters
+            let appliedSubFilters = legs[0].appliedSubFilters
 
             for i in 0..<userSelectedFilters.count{
                 filterString.append("&")
@@ -577,21 +547,20 @@ class GetSharableUrl
                     depTime.append("filters[\(i)][dep_dt][1]=\(intLatestTime)")
                     
                     
-                    
                     //     Arrival Time
                     var arrivalTime = ""
                     let arrivalDateEarliest = userSelectedFilters[i].arDt.earliest
-                        let earliestArrival = arrivalDateEarliest.components(separatedBy: " ")
-                        let earliestArrivalTimeInverval = convertFrom(string: earliestArrival[1])
-                        let intArrivalTime = Int(earliestArrivalTimeInverval!/60)
-                        arrivalTime.append("filters[\(i)][ar_dt][0]=\(intArrivalTime)&")
+                    let earliestArrival = arrivalDateEarliest.components(separatedBy: " ")
+                    let earliestArrivalTimeInverval = convertFrom(string: earliestArrival[1])
+                    let intArrivalTime = Int(earliestArrivalTimeInverval!/60)
+                    arrivalTime.append("filters[\(i)][ar_dt][0]=\(intArrivalTime)&")
                     
                     
                     let arrivalDateLatest = userSelectedFilters[i].arDt.latest
-                        let latestArrival = arrivalDateLatest.components(separatedBy: " ")
-                        let latestArrivalTimeInverval = convertFrom(string: latestArrival[1])
-                        let intLatestArrivalTime = Int(latestArrivalTimeInverval!/60)
-                        arrivalTime.append("filters[\(i)][ar_dt][1]=\(intLatestArrivalTime)&")
+                    let latestArrival = arrivalDateLatest.components(separatedBy: " ")
+                    let latestArrivalTimeInverval = convertFrom(string: latestArrival[1])
+                    let intLatestArrivalTime = Int(latestArrivalTimeInverval!/60)
+                    arrivalTime.append("filters[\(i)][ar_dt][1]=\(intLatestArrivalTime)&")
                     
                     
                     filterString.append("\(depTime)&\(arrivalTime)")
@@ -611,7 +580,6 @@ class GetSharableUrl
                         let maxTime = tripMaxTime/60
                         tripDuration.append("filters[\(i)][tt][1]=\(maxTime)")
                     }
-                    
                     
                     
                     //     Layover Duration
@@ -691,10 +659,8 @@ class GetSharableUrl
                     
                     filterString.append(stops)
                 }
-                
             }
         }
-        
         
         return filterString
     }
@@ -715,7 +681,6 @@ class GetSharableUrl
         return timeInverval
         
     }
-    
 }
 
 
