@@ -157,7 +157,7 @@ enum APIEndPoint: String {
     case applyFlightCouponCode = "flights/itinerary?action=coupons"
     case flightReconfirmationApi = "flights/re-confirmation"
     case flightItinerary = "flights/itinerary"
-    case refundCase = "/itinerary/refund-case"
+    case refundCase = "itinerary/refund-case"
     case otherFare = "flights/otherfares"
     
     //FlightAddOns
