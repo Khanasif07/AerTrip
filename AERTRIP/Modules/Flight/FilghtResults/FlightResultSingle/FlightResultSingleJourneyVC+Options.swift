@@ -80,17 +80,7 @@ extension FlightResultSingleJourneyVC {
         showFooterView()
     }
     
-    func hideOrShowPinnedButtons(show : Bool){
-        if show {
-            self.showPinnedButtons(withAnimation : true)
-        } else {
-            self.hidePinnedButtons(withAnimation : true)
-        }
-    }
-    
-    func showPinnedFlightsOption(_ show  : Bool) {
-        manageSwitchContainer(isHidden: !show)
-    }
+
     
 }
 
@@ -134,6 +124,19 @@ extension FlightResultSingleJourneyVC: ATSwitcherChangeValueDelegate {
     //    func switchTogggled(switcher: ATSwitcher, value: Bool, shouldaddNoDataView : Bool = true){
     //
     //    }
+    
+    
+    func hideOrShowPinnedButtons(show : Bool){
+        if show {
+            self.showPinnedButtons(withAnimation : true)
+        } else {
+            self.hidePinnedButtons(withAnimation : true)
+        }
+    }
+    
+    func showPinnedFlightsOption(_ show  : Bool) {
+        manageSwitchContainer(isHidden: !show)
+    }
     
 }
 
@@ -203,15 +206,14 @@ extension FlightResultSingleJourneyVC {
                 
             }
             
-            let addToTrip = UIAction(title: "Add To Trip", image: UIImage(systemName: "map" ), identifier: nil) { (action) in
+            let addToTrip = UIAction(title: "Add To Trip" , image: UIImage(systemName: "map" ), identifier: nil) { (action) in
                 
                 self.addToTrip(journey: currentJourney)
             }
             
             // Create and return a UIMenu with all of the actions as children
             return UIMenu(title: "", children: [pin, share, addToTrip])
-        
-        
+    
     }
     
     func performUnpinnedAllAction() {

@@ -22,6 +22,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     @IBOutlet weak var emailPinnedFlights: UIButton!
     @IBOutlet weak var sharePinnedFilghts: UIButton!
     @IBOutlet weak var pinnedFlightOptionView: UIView!
+    @IBOutlet weak var pinnedSwitchOptionsBackViewHeight: NSLayoutConstraint!
+    
     
     //MARK:- NSLayoutConstraints
 //    @IBOutlet weak var pinnedFlightOptionsTop: NSLayoutConstraint!
@@ -277,6 +279,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         if sender.isOn  {
             viewModel.stateBeforePinnedFlight = viewModel.resultsTableStates
             viewModel.resultsTableStates = Array(repeating: .showPinnedFlights, count: self.viewModel.numberOfLegs)
+           
             for subView in self.baseScrollView.subviews {
                 if let tableview = subView as? UITableView {
                     let index = tableview.tag - 1000
@@ -296,9 +299,13 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                     }
                 }
             }
+       
             self.baseScrollView.setContentOffset(.zero, animated: true)
-            hidePinnedFlightOptions(false)
+        
+//            hidePinnedFlightOptions(false)
+      
         } else {
+            
             viewModel.resultsTableStates = viewModel.stateBeforePinnedFlight
             for index in 0 ..< self.viewModel.numberOfLegs {
                 if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
@@ -306,12 +313,12 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                 }
                 self.updateUIForTableviewAt(index)
             }
-            hidePinnedFlightOptions(true)
+//            hidePinnedFlightOptions(true)
         }
         self.viewModel.isPinnedOn = sender.isOn
         self.setTotalFare()
         let containsPinnedFlight = self.viewModel.results.reduce(false) { $0 || $1.containsPinnedFlight }
-        showPinnedFlightSwitch(containsPinnedFlight)
+//        showPinnedFlightSwitch(containsPinnedFlight)
         self.checkForOverlappingFlights()
         
     }
