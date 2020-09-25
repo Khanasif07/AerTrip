@@ -17,21 +17,21 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     var bannerView : ResultHeaderView?
     @IBOutlet weak var headerCollectionView: UICollectionView!
     @IBOutlet weak var baseScrollView: UIScrollView!
-    @IBOutlet weak var showPinnedSwitch: AertripSwitch!
+    @IBOutlet weak var switchView : ATSwitcher!
     @IBOutlet weak var unpinnedAllButton: UIButton!
     @IBOutlet weak var emailPinnedFlights: UIButton!
     @IBOutlet weak var sharePinnedFilghts: UIButton!
     @IBOutlet weak var pinnedFlightOptionView: UIView!
     
     //MARK:- NSLayoutConstraints
-    @IBOutlet weak var pinnedFlightOptionsTop: NSLayoutConstraint!
+//    @IBOutlet weak var pinnedFlightOptionsTop: NSLayoutConstraint!
     @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var baseScrollViewTop: NSLayoutConstraint!
     @IBOutlet weak var headerCollectionViewTop: NSLayoutConstraint!
-    @IBOutlet weak var pinOptionsViewWidth: NSLayoutConstraint!
-    @IBOutlet weak var unpinAllLeading: NSLayoutConstraint!
-    @IBOutlet weak var emailPinnedFlightLeading: NSLayoutConstraint!
-    @IBOutlet weak var sharePinnedFlightsLeading: NSLayoutConstraint!
+//    @IBOutlet weak var pinOptionsViewWidth: NSLayoutConstraint!
+//    @IBOutlet weak var unpinAllLeading: NSLayoutConstraint!
+//    @IBOutlet weak var emailPinnedFlightLeading: NSLayoutConstraint!
+//    @IBOutlet weak var sharePinnedFlightsLeading: NSLayoutConstraint!
     @IBOutlet weak var miniHeaderScrollView: UIScrollView!
     @IBOutlet weak var miniHeaderTopConstraint: NSLayoutConstraint!
     

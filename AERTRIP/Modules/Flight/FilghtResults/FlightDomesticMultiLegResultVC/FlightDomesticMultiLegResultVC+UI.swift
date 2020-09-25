@@ -20,16 +20,26 @@ extension FlightDomesticMultiLegResultVC {
     
     func setupPinnedFlightsOptionsView() {
         
-        pinnedFlightOptionsTop.constant = 0
+//        pinnedFlightOptionsTop.constant = 0
         
-        showPinnedSwitch.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
-        showPinnedSwitch.isOn = false
-        showPinnedSwitch.setupUI()
-        
-        hidePinnedFlightOptions(true)
-        addShadowTo(unpinnedAllButton)
-        addShadowTo(emailPinnedFlights)
-        addShadowTo(sharePinnedFilghts)
+            SwitchView.delegate = self
+            switchView.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
+            switchView.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
+            switchView.onTintColor = AppColors.themeGreen
+            switchView.onThumbImage = #imageLiteral(resourceName: "pushpin")
+            switchView.offThumbImage = #imageLiteral(resourceName: "pushpin-gray")
+            switchView.setupUI()
+            delay(seconds: 0.6) {
+                self.switchView.isOn = false
+            }
+               
+            showPinnedFlightsOption(false)
+               
+            hideOrShowPinnedButtons(show : false)
+               
+            addShadowTo(unpinnedAllButton)
+            addShadowTo(emailPinnedFlights)
+            addShadowTo(sharePinnedFilghts)
     }
     
     func addShadowTo(_ view : UIView)
