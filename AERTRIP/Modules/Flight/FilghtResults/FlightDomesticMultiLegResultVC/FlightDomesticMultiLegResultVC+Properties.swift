@@ -70,6 +70,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
 
     let getSharableLink = GetSharableUrl()
     var previousRequest : [DispatchWorkItem?] = []
+    var isNeedToUpdateLayout = true
 
     
     //MARK:-  Initializers
@@ -135,6 +136,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        guard isNeedToUpdateLayout else {return}
         let width =  UIScreen.main.bounds.size.width / 2.0
         let height = self.baseScrollView.frame.height + 88.0//statusBarHeight + 88.0
         baseScrollView.contentSize = CGSize( width: (CGFloat(self.viewModel.numberOfLegs) * width ), height:height)

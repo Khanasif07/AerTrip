@@ -245,6 +245,7 @@ extension FlightDomesticMultiLegResultVC {
         DispatchQueue.main.async {
             let bottomInset = self.view.safeAreaInsets.bottom
             let scrollBottom = ((self.viewModel.results.map{$0.selectedJourney}.filter{($0?.fsr ?? 0) == 1}).count == 0) ? (50 + bottomInset) : (90 + bottomInset)
+            self.isNeedToUpdateLayout = false
             UIView.animate(withDuration: 0.2) {
                 self.scrollViewBottomConstraint.constant = scrollBottom
                 self.baseScrollView.layoutIfNeeded()

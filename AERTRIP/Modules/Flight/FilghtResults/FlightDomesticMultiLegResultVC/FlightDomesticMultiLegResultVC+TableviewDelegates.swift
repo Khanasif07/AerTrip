@@ -94,6 +94,7 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
         delay(seconds: 0.2) {
             tableView.isScrollEnabled = true
             self.baseScrollView.isScrollEnabled = true
+            self.isNeedToUpdateLayout = true
         }
        }
     
