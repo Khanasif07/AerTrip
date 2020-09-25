@@ -19,6 +19,7 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
     deinit {
         printDebug("deinit PKMultiPicker")
         doneBlock = nil
+        self.removeFromSuperview()
     }
     
     class func openMultiPickerIn(_ textField: UITextField? , firstComponentArray: [String], secondComponentArray: [String], firstComponent: String?, secondComponent: String?, titles: [String]?, toolBarTint: UIColor = UIColor.black, doneBlock: @escaping PickerDone) {
@@ -174,6 +175,7 @@ class PKDatePicker: UIDatePicker {
     deinit {
         printDebug("deinit PKDatePicker")
         doneBlock = nil
+        self.removeFromSuperview()
     }
     
     class func openDatePickerIn(_ textField: UITextField?, outPutFormate: String, mode: UIDatePicker.Mode, minimumDate: Date? = nil, maximumDate: Date? = nil, minuteInterval: Int = 1, selectedDate: Date?, appearance: Appearance = .light, toolBarTint: UIColor? = nil, doneBlock: @escaping PickerDone) {

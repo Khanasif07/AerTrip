@@ -36,6 +36,7 @@ class PassengerDetailsVM {
         let ff = GuestDetailsVM.shared.guests[0][index].frequentFlyer
         let code = object.countryCode
         GuestDetailsVM.shared.guests[0][index] = object
+        /*
         if let country = GuestDetailsVM.shared.countries?[code]{
             GuestDetailsVM.shared.guests[0][index].nationality = country
         }else if let countryCode = GuestDetailsVM.shared.countries?.someKey(forValue: code){
@@ -44,6 +45,12 @@ class PassengerDetailsVM {
         }else{
             GuestDetailsVM.shared.guests[0][index].nationality = ""
             GuestDetailsVM.shared.guests[0][index].countryCode = ""
+        }
+         */
+        let prevSelectedCountry = PKCountryPicker.default.getCountryData(forISOCode: code.isEmpty ? "IN" : code )
+        if let country = prevSelectedCountry{
+            GuestDetailsVM.shared.guests[0][index].nationality = country.countryEnglishName
+            GuestDetailsVM.shared.guests[0][index].countryCode = country.ISOCode
         }
         GuestDetailsVM.shared.guests[0][index].passengerType = type
         GuestDetailsVM.shared.guests[0][index].numberInRoom = numberInRoom

@@ -63,10 +63,10 @@ class AddPassengerDetailsCell: UITableViewCell {
     
     
     // MARK: - Properties
-//    weak var delegate: GuestDetailTableViewCellDelegate?
+    //    weak var delegate: GuestDetailTableViewCellDelegate?
     var canShowSalutationError = false
     
-//    var passenger = ATContact()
+    //    var passenger = ATContact()
     weak var delegate: UpdatePassengerDetailsDelegate?
     weak var txtFldEditDelegate:GuestDetailTableViewCellDelegate?
     var cellIndexPath = IndexPath()
@@ -139,13 +139,13 @@ class AddPassengerDetailsCell: UITableViewCell {
         
         
     }
-
+    
     @IBAction func tapOptionalDetailsBtn(_ sender: UIButton) {
         
         self.delegate?.tapOptionalDetailsBtn(at: self.cellIndexPath)
         
     }
-
+    
     @IBAction func tappedISDButton(_ sender: UIButton) {
         delegate?.countryCodeBtnTapped(sender)
         if let vc = self.viewContainingController {
@@ -290,7 +290,7 @@ class AddPassengerDetailsCell: UITableViewCell {
             GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].minContactLimit = current.minNSN
             
         }
-         self.mobileTextField.text = GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].contact
+        self.mobileTextField.text = GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].contact
     }
     
     
@@ -326,14 +326,14 @@ class AddPassengerDetailsCell: UITableViewCell {
         }
         
         
-//
-//        let firstName = self.firstNameTextField.placeholder ?? ""
-//        self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidFirstName ? AppColors.themeGray40 :  AppColors.themeRed])
+        //
+        //        let firstName = self.firstNameTextField.placeholder ?? ""
+        //        self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidFirstName ? AppColors.themeGray40 :  AppColors.themeRed])
         
-//        let isValidLastName = !((self.lastNameTextField.text ?? "").count < 3)
-//        self.lastNameTextField.isError = !isValidLastName
-//        let lastName = self.lastNameTextField.placeholder ?? ""
-//        self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: lastName, attributes: [NSAttributedString.Key.foregroundColor: isValidLastName ? AppColors.themeGray40 :  AppColors.themeRed])
+        //        let isValidLastName = !((self.lastNameTextField.text ?? "").count < 3)
+        //        self.lastNameTextField.isError = !isValidLastName
+        //        let lastName = self.lastNameTextField.placeholder ?? ""
+        //        self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: lastName, attributes: [NSAttributedString.Key.foregroundColor: isValidLastName ? AppColors.themeGray40 :  AppColors.themeRed])
         
         if self.journeyType == .domestic{
             self.domesticValidations()
@@ -366,15 +366,15 @@ class AddPassengerDetailsCell: UITableViewCell {
     }
     
     func internationalValidations(){
-//        guard let type = self.guestDetail?.passengerType  else {return}
+        //        guard let type = self.guestDetail?.passengerType  else {return}
         let txtFlds = [dobTextField, nationalityTextField, passportNumberTextField, passportExpiryTextField]
-            ///Uncomment if infant dont required passport details and nationality.
-//        switch type {
-//        case .Adult, .child:
-//            txtFlds = [dobTextField, nationalityTextField, passportNumberTextField, passportExpiryTextField]
-//        case .infant:
-//            txtFlds = [dobTextField]
-//        }
+        ///Uncomment if infant dont required passport details and nationality.
+        //        switch type {
+        //        case .Adult, .child:
+        //            txtFlds = [dobTextField, nationalityTextField, passportNumberTextField, passportExpiryTextField]
+        //        case .infant:
+        //            txtFlds = [dobTextField]
+        //        }
         txtFlds.forEach { txt in
             guard let txt = txt else {return}
             let isValid = !((txt.text ?? "").isEmpty)
@@ -470,9 +470,10 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
     
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        PKCountryPicker.default.closePicker()
+        
         switch textField {
         case self.dobTextField:
+            PKCountryPicker.default.closePicker()
             self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
             let selected = (textField.text ?? "").toDate(dateFormat: "dd MMM YYYY")
             var minimumDate:Date? = Date()
@@ -496,18 +497,32 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
             textField.tintColor = AppColors.clear
         case self.nationalityTextField:
             self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
-            var countries = [String]()
-            if let country = GuestDetailsVM.shared.countries{
-                countries = Array(country.values).sorted()
+            /*
+             var countries = [String]()
+             if let country = GuestDetailsVM.shared.countries{
+             countries = Array(country.values).sorted()
+             }
+             PKMultiPicker.noOfComponent = 1
+             PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: countries, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self]  (firstSelect, secondSelect) in
+             GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].nationality = firstSelect
+             GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].countryCode = GuestDetailsVM.shared.countries?.someKey(forValue: firstSelect) ?? ""
+             textField.text = firstSelect
+             }
+             */
+            if let vc = self.parentViewController {
+            let prevSectdContry = PKCountryPicker.default.getCountryData(forISOCode: GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].countryCode.isEmpty ? "IN" : GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].countryCode )
+            PKCountryPicker.default.chooseCountry(onViewController: vc, preSelectedCountry: prevSectdContry) { [weak self] (selectedCountry,closePicker)  in
+                printDebug("selected country data: \(selectedCountry)")
+                guard let strongSelf = self else {return}
+                GuestDetailsVM.shared.guests[0][strongSelf.cellIndexPath.section].nationality = selectedCountry.countryEnglishName
+                GuestDetailsVM.shared.guests[0][strongSelf.cellIndexPath.section].countryCode = selectedCountry.ISOCode
+                textField.text = selectedCountry.countryEnglishName
             }
-            PKMultiPicker.noOfComponent = 1
-            PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: countries, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self]  (firstSelect, secondSelect) in
-                GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].nationality = firstSelect
-                GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].countryCode = GuestDetailsVM.shared.countries?.someKey(forValue: firstSelect) ?? ""
-                textField.text = firstSelect
             }
             textField.tintColor = AppColors.clear
+            return false
         case self.passportExpiryTextField:
+            PKCountryPicker.default.closePicker()
             self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
             let selected = (textField.text ?? "").toDate(dateFormat: "dd MMM YYYY")
             let minDate = self.journeyEndDate//.add(days: 1)
@@ -519,8 +534,10 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
             }
             textField.tintColor = AppColors.clear
         case self.passportNumberTextField, self.mobileTextField, self.emailTextField:
+            PKCountryPicker.default.closePicker()
             self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
         default:
+            PKCountryPicker.default.closePicker()
             self.delegate?.shouldSetupBottom(isNeedToSetUp: false)
             return true
         }
@@ -528,16 +545,16 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-//        switch textField {
-//        case self.firstNameTextField:
-//            self.txtFldEditDelegate?.textField(self.firstNameTextField)
-//            break
-//        case self.lastNameTextField:
-//            self.txtFldEditDelegate?.textField(self.lastNameTextField)
-//            break
-//        default:
-//            break
-//        }
+        //        switch textField {
+        //        case self.firstNameTextField:
+        //            self.txtFldEditDelegate?.textField(self.firstNameTextField)
+        //            break
+        //        case self.lastNameTextField:
+        //            self.txtFldEditDelegate?.textField(self.lastNameTextField)
+        //            break
+        //        default:
+        //            break
+        //        }
         self.txtFldEditDelegate?.textField(textField)
     }
     
