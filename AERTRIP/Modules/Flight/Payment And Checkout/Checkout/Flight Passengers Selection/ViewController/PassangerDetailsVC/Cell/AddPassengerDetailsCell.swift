@@ -511,6 +511,7 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
              */
             if let vc = self.parentViewController {
             let prevSectdContry = PKCountryPicker.default.getCountryData(forISOCode: GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].countryCode.isEmpty ? "IN" : GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].countryCode )
+                PKCountryPickerSettings.shouldShowCountryCode = false
             PKCountryPicker.default.chooseCountry(onViewController: vc, preSelectedCountry: prevSectdContry) { [weak self] (selectedCountry,closePicker)  in
                 printDebug("selected country data: \(selectedCountry)")
                 guard let strongSelf = self else {return}
