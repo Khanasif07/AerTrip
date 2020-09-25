@@ -449,46 +449,54 @@ extension IntFlightResultDisplayGroup  {
     func applyDurationFilter(index : Int, _ inputArray : [IntMultiCityAndReturnWSResponse.Results.J] ) -> [IntMultiCityAndReturnWSResponse.Results.J] {
         
         var outputArray = inputArray
-        
-        if appliedSubFilters[index]?.contains(.tripDuration) ?? false {
-        
+                
             userSelectedFilters.enumerated().forEach { (legIndex, obj) in
                 
-                let minTripDuration = Int(obj.tt.minTime ?? "") ?? 0
-                let maxTripDuration = Int(obj.tt.maxTime ?? "") ?? 0
+                var minTripDuration = Int(obj.tt.minTime ?? "") ?? 0
+                var maxTripDuration = Int(obj.tt.maxTime ?? "") ?? 0
                 
-                outputArray = outputArray.filter { (journey) -> Bool in
+                if minTripDuration < 3600 && maxTripDuration < 3600 {
+                    minTripDuration *= 3600
+                    maxTripDuration *= 3600
+                }
+                
+                if appliedSubFilters[legIndex]?.contains(.tripDuration) ?? false {
                     
-                    let journeyDuration = journey.legsWithDetail[legIndex].duration
-                    return journeyDuration >= minTripDuration && journeyDuration <= maxTripDuration
+                    outputArray = outputArray.filter { (journey) -> Bool in
+                        
+                        let journeyDuration = journey.legsWithDetail[legIndex].duration
+                        return journeyDuration >= minTripDuration && journeyDuration <= maxTripDuration
+                    }
                 }
             }
             
-        }
-        
-        if appliedSubFilters[index]?.contains(.layoverDuration) ?? false {
-            
             userSelectedFilters.enumerated().forEach { (legIndex, obj) in
                 
-                let minLayoverDuration = Int(obj.lott.minTime ?? "") ?? 0
-                let maxLayoverDuration = Int(obj.lott.maxTime ?? "") ?? 0
+                var minLayoverDuration = Int(obj.lott.minTime ?? "") ?? 0
+                var maxLayoverDuration = Int(obj.lott.maxTime ?? "") ?? 0
                 
-                outputArray = outputArray.filter { (journey) -> Bool in
+                if minLayoverDuration < 3600 && maxLayoverDuration < 3600 {
+                    minLayoverDuration *= 3600
+                    maxLayoverDuration *= 3600
+                }
+                
+                if appliedSubFilters[legIndex]?.contains(.tripDuration) ?? false {
                     
-                    if journey.legsWithDetail[legIndex].totalLayOver == 0{
-                        return true
+                    outputArray = outputArray.filter { (journey) -> Bool in
+                        
+                        if journey.legsWithDetail[legIndex].totalLayOver == 0{
+                            return true
+                        }
+                        
+                        if journey.legsWithDetail[legIndex].totalLayOver >= minLayoverDuration && journey.legsWithDetail[legIndex].totalLayOver <= maxLayoverDuration {
+                            return true
+                        }
+                        
+                        return false
                     }
-                    
-                    if journey.legsWithDetail[legIndex].totalLayOver >= minLayoverDuration && journey.legsWithDetail[legIndex].totalLayOver <= maxLayoverDuration {
-                        return true
-                    }
-                    
-                    return false
                 }
             }
-            
-        }
-        
+                    
         return outputArray
     }
     
@@ -644,13 +652,18 @@ extension IntFlightResultDisplayGroup  {
         
         var outputArray = inputArray
         
-        guard appliedSubFilters[index]?.contains(.departureTime) ?? false else {
-            return outputArray
-        }
-        
         userSelectedFilters.enumerated().forEach { (legIndex, obj) in
             
-            if let minDepartureTime = obj.dt.earliestTimeInteval, let maxDepartureTime = obj.dt.latestTimeInterval, let appliedSubFilters = appliedSubFilters[legIndex], appliedSubFilters.contains(.departureTime){
+            let dateFormatterForDepDt = DateFormatter()
+            dateFormatterForDepDt.dateFormat = "yyyy-MM-dd HH:mm"
+            let ear = dateFormatterForDepDt.date(from: obj.depDt.earliest)?.day ?? 0
+            let lat = dateFormatterForDepDt.date(from: obj.depDt.latest)?.day ?? 0
+            
+            if let minDepartureTime = obj.dt.earliestTimeInteval, var maxDepartureTime = obj.dt.latestTimeInterval, let appliedSubFilters = appliedSubFilters[legIndex], appliedSubFilters.contains(.departureTime){
+                
+                if lat - ear > 0 {
+                    maxDepartureTime = 86400
+                }
                 
                 outputArray = outputArray.filter {
                     
@@ -675,10 +688,6 @@ extension IntFlightResultDisplayGroup  {
     func applyArrivalTimeFilter(index : Int, _ inputArray : [ IntMultiCityAndReturnWSResponse.Results.J]) ->  [ IntMultiCityAndReturnWSResponse.Results.J] {
         
         var outputArray = inputArray
-        
-        guard appliedSubFilters[index]?.contains(.arrivalTime) ?? false else {
-            return outputArray
-        }
         
         userSelectedFilters.enumerated().forEach { (legIndex, obj) in
             

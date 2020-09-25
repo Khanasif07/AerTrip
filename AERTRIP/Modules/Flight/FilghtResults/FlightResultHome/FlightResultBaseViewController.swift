@@ -1203,8 +1203,14 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             self.intMCAndReturnFilterVC?.flightResultArray = self.flightSearchResultVM.intFlightResultArray
             DispatchQueue.main.async {
                 self.intMCAndReturnFilterVC?.appliedAndUIFilters = self.flightSearchResultVM.intFlightLegsAppliedFilters
+                self.intMCAndReturnFilterVC?.userSelectedFilters = self.flightSearchResultVM.getIntUserSelectedFilters()
             self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)
             }
+            
+            // For updating UI from deep linking filters // might not get set at the first time
+            DispatchQueue.delay(0.2, closure: {
+                self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)
+            })
             
             // To check if filters are pre applied and update dots
             filtersApplied(true)
