@@ -1171,9 +1171,6 @@
 		843FF694247409E4001F21B1 /* Singleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FF62B247409E2001F21B1 /* Singleton.m */; };
 		843FF695247409E4001F21B1 /* Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FF62E247409E2001F21B1 /* Parser.m */; };
 		843FF697247409E4001F21B1 /* SCRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FF636247409E2001F21B1 /* SCRatingView.m */; };
-		843FF698247409E4001F21B1 /* SkyFloatingLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF638247409E2001F21B1 /* SkyFloatingLabelTextField.swift */; };
-		843FF699247409E4001F21B1 /* UITextField+fixCaretPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF639247409E2001F21B1 /* UITextField+fixCaretPosition.swift */; };
-		843FF69A247409E4001F21B1 /* SkyFloatingLabelTextFieldWithIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF63A247409E2001F21B1 /* SkyFloatingLabelTextFieldWithIcon.swift */; };
 		843FF69B247409E4001F21B1 /* LoginRegisterComplete copy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843FF63D247409E2001F21B1 /* LoginRegisterComplete copy.storyboard */; };
 		843FF69C247409E4001F21B1 /* TravellerListImportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FF640247409E2001F21B1 /* TravellerListImportViewController.m */; };
 		843FF69D247409E4001F21B1 /* TravellerListImport.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843FF641247409E2001F21B1 /* TravellerListImport.storyboard */; };
@@ -2935,9 +2932,6 @@
 		843FF62F247409E2001F21B1 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		843FF635247409E2001F21B1 /* SCRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRatingView.h; sourceTree = "<group>"; };
 		843FF636247409E2001F21B1 /* SCRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRatingView.m; sourceTree = "<group>"; };
-		843FF638247409E2001F21B1 /* SkyFloatingLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkyFloatingLabelTextField.swift; sourceTree = "<group>"; };
-		843FF639247409E2001F21B1 /* UITextField+fixCaretPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+fixCaretPosition.swift"; sourceTree = "<group>"; };
-		843FF63A247409E2001F21B1 /* SkyFloatingLabelTextFieldWithIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkyFloatingLabelTextFieldWithIcon.swift; sourceTree = "<group>"; };
 		843FF63D247409E2001F21B1 /* LoginRegisterComplete copy.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "LoginRegisterComplete copy.storyboard"; sourceTree = "<group>"; };
 		843FF63F247409E2001F21B1 /* TravellerListImportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravellerListImportViewController.h; sourceTree = "<group>"; };
 		843FF640247409E2001F21B1 /* TravellerListImportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravellerListImportViewController.m; sourceTree = "<group>"; };
@@ -7438,7 +7432,6 @@
 			isa = PBXGroup;
 			children = (
 				843FF634247409E2001F21B1 /* SCRatingView */,
-				843FF637247409E2001F21B1 /* Floating */,
 			);
 			path = ThirdParty;
 			sourceTree = "<group>";
@@ -7450,16 +7443,6 @@
 				843FF636247409E2001F21B1 /* SCRatingView.m */,
 			);
 			path = SCRatingView;
-			sourceTree = "<group>";
-		};
-		843FF637247409E2001F21B1 /* Floating */ = {
-			isa = PBXGroup;
-			children = (
-				843FF638247409E2001F21B1 /* SkyFloatingLabelTextField.swift */,
-				843FF639247409E2001F21B1 /* UITextField+fixCaretPosition.swift */,
-				843FF63A247409E2001F21B1 /* SkyFloatingLabelTextFieldWithIcon.swift */,
-			);
-			path = Floating;
 			sourceTree = "<group>";
 		};
 		843FF63B247409E2001F21B1 /* Login */ = {
@@ -10067,7 +10050,6 @@
 				1870AD1B220C769400FB32C8 /* TravelDetailModel.swift in Sources */,
 				843FF48024740230001F21B1 /* AirportSelectionVM.swift in Sources */,
 				84741B7A22A680E5009E304B /* QueryStatusCollectionCell.swift in Sources */,
-				843FF699247409E4001F21B1 /* UITextField+fixCaretPosition.swift in Sources */,
 				84BBFF8D24CAC784008010EB /* MenuItemWithLogoCollCell.swift in Sources */,
 				0C162ACF24233B24001C2B10 /* ChatVM.swift in Sources */,
 				843FF675247409E3001F21B1 /* Fare.m in Sources */,
@@ -10075,7 +10057,6 @@
 				8472F21323E4160E00993B08 /* MailComposerVM.swift in Sources */,
 				843FF50324740231001F21B1 /* IntMCAndReturnDetailsVC+TableAndCollectionDelegates.swift in Sources */,
 				18F968022233BF0400B163C8 /* GrowingTextView.swift in Sources */,
-				843FF69A247409E4001F21B1 /* SkyFloatingLabelTextFieldWithIcon.swift in Sources */,
 				84D5F22822A644F600824A9F /* HotelBookingDetailsVC+TableCells.swift in Sources */,
 				188A4DC1242DF23800F871ED /* PhotoGalleryCell.swift in Sources */,
 				843FF4B124740231001F21B1 /* IntReturnAndMCSortVC.swift in Sources */,
@@ -10855,7 +10836,6 @@
 				843FF694247409E4001F21B1 /* Singleton.m in Sources */,
 				842EDE7D2238E7D600E99409 /* HotelDetailsOverviewVC.swift in Sources */,
 				84F4DB8F226DCC0500B68171 /* ADEventFilterVC.swift in Sources */,
-				843FF698247409E4001F21B1 /* SkyFloatingLabelTextField.swift in Sources */,
 				84F983E721B51A070018DFED /* AppGlobals.swift in Sources */,
 				18A793DD23F3E9FB008A40F4 /* UPCarouselFlowLayout.swift in Sources */,
 				18AE8F5A22A4F4E8009D625E /* BookingReviewCancellationVC.swift in Sources */,
