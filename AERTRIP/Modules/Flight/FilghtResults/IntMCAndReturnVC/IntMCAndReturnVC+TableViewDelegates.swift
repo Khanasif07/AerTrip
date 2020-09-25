@@ -175,7 +175,6 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
         }
         if state == .showRegularResults {
              self.viewModel.results.suggestedJourneyArray[jArrayIndex].journeyArray = jArr
-            
         } else if state == .showExpensiveFlights {
             self.viewModel.results.allJourneys[jArrayIndex].journeyArray = jArr
         }
