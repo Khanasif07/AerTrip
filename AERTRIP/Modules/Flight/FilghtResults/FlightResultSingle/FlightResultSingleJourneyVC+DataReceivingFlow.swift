@@ -64,7 +64,6 @@ extension FlightResultSingleJourneyVC {
                             self.viewModel.results.currentPinnedJourneys = self.viewModel.results.currentPinnedJourneys.removeDuplicates()
                             self.viewModel.isSearchByAirlineCode = true
                             modifiedResult[ind].isPinned = true
-                            self.viewModel.results.currentPinnedJourneys.append(modifiedResult[ind])
                             
                         }
                     }

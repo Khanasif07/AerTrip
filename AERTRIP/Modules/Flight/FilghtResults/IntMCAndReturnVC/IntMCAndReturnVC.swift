@@ -46,7 +46,7 @@ class IntMCAndReturnVC : UIViewController {
     
 //    var isConditionReverced = false
 //    var prevLegIndex = 0
-    private var noResultScreen : NoResultsScreenViewController?
+    var noResultScreen : NoResultsScreenViewController?
     let viewModel = IntMCAndReturnVM()
     var previousRequest : DispatchWorkItem?
     var updateResultWorkItem: DispatchWorkItem?
@@ -148,7 +148,7 @@ extension IntMCAndReturnVC {
         //        self.noResultScreen = noResultScreenForFilter
     }
     
-    fileprivate func animateTableHeader() {
+     func animateTableHeader() {
         if bannerView?.isHidden == false {
             guard let headerView = bannerView  else { return }
             
@@ -261,133 +261,13 @@ extension IntMCAndReturnVC {
 
 extension IntMCAndReturnVC {
     
-    func updateWithArray(_ results : [IntMultiCityAndReturnWSResponse.Results.J] , sortOrder: Sort ) {
-        
-        if viewModel.resultTableState == .showTemplateResults {
-            viewModel.resultTableState = .showRegularResults
-        }
-        
-        var modifiedResult = results
-        
-//        for i in 0..<modifiedResult.count {
-//            var isFlightCodeSame = false
-//            for leg in modifiedResult[i].legsWithDetail{
-//                for flight in leg.flightsWithDetails{
-//                    let flightNum = flight.al + flight.fn
-//                    if flightNum.uppercased() == airlineCode.uppercased(){
-//                        isFlightCodeSame = true
-//                    }
-//                }
-//            }
-//
-//            if isFlightCodeSame == true{
-//                modifiedResult[i].isPinned = true
-//
-//            }
-//        }
-        
-        DispatchQueue.global(qos: .userInteractive).async {
-            self.viewModel.sortOrder = sortOrder
-            self.viewModel.results.sort = sortOrder
-            
-            self.viewModel.results.currentPinnedJourneys.forEach { (pinedJourney) in
-                
-                if let resultIndex = results.firstIndex(where: { (resultJourney) -> Bool in
-                    return pinedJourney.id == resultJourney.id
-                }){
-                    modifiedResult[resultIndex].isPinned = true
-                }
-            }
-            
-            let groupedArray =  self.viewModel.getInternationalDisplayArray(results: modifiedResult)
-            self.viewModel.results.journeyArray = groupedArray
-            self.sortedArray = Array(self.viewModel.results.sortedArray)
-            self.viewModel.setPinnedFlights(shouldApplySorting: true)
-            
-            self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: self.viewModel.prevLegIndex, completion: {
-                DispatchQueue.main.async {
-                    self.animateTableHeader()
-                    
-                    if self.viewModel.resultTableState == .showPinnedFlights{
-                        self.resultsTableView.tableFooterView = nil
-                    }
-                    
-                    if self.viewModel.results.suggestedJourneyArray.isEmpty {
-                        self.resultsTableView.tableFooterView = nil
-                    }
-                    
-                    if self.viewModel.resultTableState == .showPinnedFlights && self.viewModel.results.pinnedFlights.isEmpty {
-                        self.showNoFilteredResults()
-                    } else if modifiedResult.count > 0 {
-                        self.noResultScreen?.view.removeFromSuperview()
-                        self.noResultScreen?.removeFromParent()
-                        self.noResultScreen = nil
-                    }
-                    
-                    if !self.airlineCode.isEmpty{
-                        
-                        for i in 0..<modifiedResult.count {
-                              var isFlightCodeSame = false
-                              for leg in modifiedResult[i].legsWithDetail{
-                                  for flight in leg.flightsWithDetails{
-                                      let flightNum = flight.al + flight.fn
-                                    if flightNum.uppercased() == self.airlineCode.uppercased(){
-                                          isFlightCodeSame = true
-                                      }
-                                  }
-                              }
-
-                              if isFlightCodeSame == true{
-//                                  modifiedResult[i].isPinned = true
-                                self.setPinnedFlightAt(modifiedResult[i].fk , isPinned: true)
-                                self.switchView.isOn = true
-                                self.switcherDidChangeValue(switcher: self.switchView, value: true)
-                              }
-                          }
-                    }
-                    
-                }
-            })
-        }
-    }
-    
-    func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int, shouldReload : Bool = false, completion : (()-> Void)){
-        previousRequest?.cancel()
-        self.viewModel.sortOrder = sortOrder
-        self.viewModel.isConditionReverced = isConditionReverced
-        self.viewModel.prevLegIndex = legIndex
-        self.viewModel.setPinnedFlights(shouldApplySorting: true)
-        self.viewModel.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex)
-       
-            let newRequest = DispatchWorkItem {
-                if shouldReload {
-                    self.resultsTableView.reloadData()
-                }
-            }
-        
-        completion()
-        previousRequest = newRequest
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0, execute: newRequest)
-    }
-    
-    func updateAirportDetailsArray(_ results : [String : IntAirportDetailsWS]) {
-        airportDetailsResult = results
-    }
-    
-    func updateAirlinesDetailsArray(_ results : [String : IntAirlineMasterWS]) {
-        airlineDetailsResult = results
-    }
-    
-    func updateTaxesArray(_ results : [String : String]){
-        self.taxesResult = results
-    }
-    
-    func addPlaceholderTableHeaderView() {
-        DispatchQueue.main.async {
-            let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 96))
-            self.resultsTableView.tableHeaderView = headerView
-        }
-    }
+      func addPlaceholderTableHeaderView() {
+          DispatchQueue.main.async {
+              let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 96))
+              self.resultsTableView.tableHeaderView = headerView
+          }
+      }
+  
 }
 
 //MARK:- Pinned and RefundStatus Delegate.

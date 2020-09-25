@@ -22,6 +22,7 @@ class IntMCAndReturnVM {
     var prevLegIndex = 0
     var sortOrder = Sort.Smart
     let dateFormatter = DateFormatter()
+    var isSearchByAirlineCode = false
 
     
      func getInternationalDisplayArray( results : [IntMultiCityAndReturnWSResponse.Results.J]) -> [IntMultiCityAndReturnDisplay] {
@@ -138,6 +139,8 @@ class IntMCAndReturnVM {
         }
         
         self.results.pinnedFlights = sortArray
+        self.results.pinnedFlights = self.results.pinnedFlights.removeDuplicates()
+
     }
     
     func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int){
