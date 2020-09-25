@@ -688,8 +688,8 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 fewSeatsLeftLabel.text = "Seat left at this price. Hurry up!"
             }
             
-            self.fareDataDisplayViewHeight.constant = 95 + CGFloat(bottomInset!)
-            self.bookingDataDisplayViewHeight.constant = 55 + CGFloat(bottomInset!)
+            self.fareDataDisplayViewHeight.constant = 91 + CGFloat(bottomInset!)
+            self.bookingDataDisplayViewHeight.constant = 51 + CGFloat(bottomInset!)
         }else{
             fewSeatsLeftView.isHidden = true
             fewSeatsLeftViewHeight.constant = 0
@@ -784,8 +784,8 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                     self.fewSeatsLeftView.isHidden = false
                     self.fewSeatsLeftViewHeight.constant = 40
                     
-                    self.fareDataDisplayViewHeight.constant = 95 + CGFloat(bottomInset!)
-                    self.bookingDataDisplayViewHeight.constant = 55 + CGFloat(bottomInset!)
+                    self.fareDataDisplayViewHeight.constant = 91 + CGFloat(bottomInset!)
+                    self.bookingDataDisplayViewHeight.constant = 51 + CGFloat(bottomInset!)
                 }else{
                     self.fewSeatsLeftView.isHidden = true
                     self.fewSeatsLeftViewHeight.constant = 0

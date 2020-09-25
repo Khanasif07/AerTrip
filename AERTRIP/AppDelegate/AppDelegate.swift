@@ -163,7 +163,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          return LinkedinSwiftHelper.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
          }
          */
-        
         return true
     }
     
@@ -222,9 +221,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
             DispatchQueue.main.async {
-                if let rootVC = self.window?.rootViewController as? UINavigationController, let _ = rootVC.viewControllers.last as? FlightResultBaseViewController {
-                    rootVC.popViewController(animated: true)
-                    rootVC.dismiss(animated: true, completion: nil)
+                
+                if let rootVC = self.window?.rootViewController as? UINavigationController {
+                    if let vc = rootVC.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
+                        vc.popToPreviousScreen(sender: UIButton())
+                        rootVC.dismiss(animated: true, completion: nil)
+                    }
                 }
             }
             

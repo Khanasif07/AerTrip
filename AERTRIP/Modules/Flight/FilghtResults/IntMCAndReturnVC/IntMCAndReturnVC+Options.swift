@@ -109,7 +109,13 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
             
         } else {
             self.hideFavsButtons(isAnimated: true)
+            
+            if stateBeforePinnedFlight == .showPinnedFlights{
+                stateBeforePinnedFlight = .showRegularResults
+            }
+            
            viewModel.resultTableState = stateBeforePinnedFlight
+            
             showFooterView()
         }
         
@@ -229,16 +235,16 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
             })
         }
     
-    func generateCommonString(for journey: [IntMultiCityAndReturnWSResponse.Results.J])-> String{
+    func generateCommonString(for journey: [IntMultiCityAndReturnWSResponse.Results.J],flightObject:BookFlightObject)-> String{
         
         
-        let tripType = (self.bookFlightObject.flightSearchType == RETURN_JOURNEY) ? "return" : "multi"
+        let tripType = (flightObject.flightSearchType == RETURN_JOURNEY) ? "return" : "multi"
         var valueString = "https://beta.aertrip.com/flights?trip_type=\(tripType)&"
         
         // Adding Passanger Count
-        let flightAdultCount = bookFlightObject.flightAdultCount
-        let flightChildrenCount = bookFlightObject.flightChildrenCount
-        let flightInfantCount = bookFlightObject.flightInfantCount
+        let flightAdultCount = flightObject.flightAdultCount
+        let flightChildrenCount = flightObject.flightChildrenCount
+        let flightInfantCount = flightObject.flightInfantCount
         valueString += "adult=\(flightAdultCount)&child=\(flightChildrenCount)&infant=\(flightInfantCount)"
         guard let firstJourney = journey.first else { return ""}
         var origin = ""
@@ -246,7 +252,7 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
         var dprtDate = ""
         var rtrnDate = ""
         var cabinclass = firstJourney.cc
-        if (self.bookFlightObject.flightSearchType == RETURN_JOURNEY){
+        if (flightObject.flightSearchType == RETURN_JOURNEY){
             if let searchParam = (self.parent as? FlightResultBaseViewController)?.flightSearchParameters as? [String: Any]{
                 origin += "&origin=\(searchParam["origin"] ?? "")"
                 destination += "&destination=\(searchParam["destination"] ?? "")"
@@ -296,7 +302,7 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
     
     func generatePostData( for journey : [IntMultiCityAndReturnWSResponse.Results.J] ) -> NSData? {
         
-        var valueString  = self.generateCommonString(for: journey)
+        var valueString  = self.generateCommonString(for: journey, flightObject: self.bookFlightObject)
         let postData = NSMutableData()
         for i in 0 ..< journey.count {
             let tempJourney = journey[i]
@@ -362,7 +368,7 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
 //        }
     
     func generatePostDataForEmail( for journey : [IntMultiCityAndReturnWSResponse.Results.J] ) -> Data? {
-        var valueString  = self.generateCommonString(for: journey)
+        var valueString  = self.generateCommonString(for: journey,flightObject: self.bookFlightObject)
         for i in 0 ..< journey.count {
             let tempJourney = journey[i]
             valueString = valueString + "&PF[\(i)]=\(tempJourney.fk)"

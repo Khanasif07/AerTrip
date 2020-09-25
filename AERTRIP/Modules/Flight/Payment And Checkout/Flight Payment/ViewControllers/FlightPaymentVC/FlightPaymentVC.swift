@@ -418,7 +418,7 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
     
     func makePaymentFail(error: ErrorCodes) {
         self.hideShowLoader(isHidden:true)
-        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
     }
     
     func willGetPaymentResonse() {

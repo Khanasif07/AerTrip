@@ -175,7 +175,6 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
         }
         if state == .showRegularResults {
              self.viewModel.results.suggestedJourneyArray[jArrayIndex].journeyArray = jArr
-            
         } else if state == .showExpensiveFlights {
             self.viewModel.results.allJourneys[jArrayIndex].journeyArray = jArr
         }
@@ -226,6 +225,7 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
             vc.selectedJourneyFK = [curJourney.fk]
             vc.journeyTitle = self.titleString
             vc.journeyDate = self.subtitleString
+            vc.flightSearchResultVM = self.flightSearchResultVM
             self.present(vc, animated: true, completion: nil)
         }
     }

@@ -493,8 +493,8 @@ extension FlightFilterBaseVC {
             let userDepartureTime = userSelectedFilter.depDt
             let userArrivalTime = userSelectedFilter.arDt
 
-            let userDepartureMin = dateFromTime(arrivalInputStartDate: departureMin, interval: TimeInterval(userDepartureTime.earliest) ?? 0)
-            let userDepartureMax = dateFromTime(arrivalInputStartDate: departureMin, interval: TimeInterval(userDepartureTime.latest) ?? 0)
+            let userDepartureMin = userDepartureTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
+            let userDepartureMax = userDepartureTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
             let userArrivalMin = userArrivalTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
             let userArrivalMax = userArrivalTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
             
@@ -541,15 +541,7 @@ extension FlightFilterBaseVC {
         }
         timesViewController.updateFiltersFromAPI()
     }
-    
-    fileprivate func dateFromTime(arrivalInputStartDate: Date, interval : TimeInterval) -> Date {
-        let calendar = Calendar.current
-        let startDate = calendar.startOfDay(for: arrivalInputStartDate)
-        var currentTimeInterval = startDate.timeIntervalSince1970
-        currentTimeInterval = currentTimeInterval + (interval*60)
-        return Date(timeIntervalSince1970: currentTimeInterval)
-    }
-    
+
     //MARK:- Duration
     func updateDurationVC(_ durationVC : FlightDurationFilterViewController , inputFilters : [FiltersWS])
     {
