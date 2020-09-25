@@ -541,8 +541,9 @@ void withoutCAAnimation(withoutAnimationBlock code)
         _index = newIndex;
         [self sendActionsForControlEvents:UIControlEventValueChanged];
     }
-    
-    animateLayouts = YES;
+    if (@available(iOS 14, *)) {
+        animateLayouts = NO;
+    }
     [self setNeedsLayout];
     _selectFeedback = nil;
 }

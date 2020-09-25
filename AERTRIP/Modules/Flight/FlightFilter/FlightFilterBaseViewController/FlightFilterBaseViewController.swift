@@ -239,7 +239,6 @@ class FlightFilterBaseViewController: UIViewController
                 }
             case FlightFilterTimesViewController.className :
                 if let timesFilterVC = viewController as? FlightFilterTimesViewController {
-//                    updateTimesVC(TimesFilterVC, inputFilters: filters  )
                     updateFlightLegTimeFilters(timesFilterVC, inputFilters: filters)
                 }
             case PriceFilterViewController.className :

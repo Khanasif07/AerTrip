@@ -225,6 +225,7 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
             vc.selectedJourneyFK = [curJourney.fk]
             vc.journeyTitle = self.titleString
             vc.journeyDate = self.subtitleString
+            vc.flightSearchResultVM = self.flightSearchResultVM
             self.present(vc, animated: true, completion: nil)
         }
     }

@@ -141,7 +141,7 @@ class FareInfoCommonCell: ATTableViewCell {
                 
                 if let sla = adtAirlineCancellationSlab[indexPath.row].fromHour, let slab = adtAirlineCancellationSlab[indexPath.row].toHour{
                     
-                    let slaInHours = minutesToHoursMinutes(seconds: sla) //sla.hoursFrom(slab)
+                    let slaInHours = minutesToHoursMinutes(seconds: sla) //sla.hrsFrom(slab)
                     
                     let totalSlab = slaInHours + slab
                     let strTotalSlab = String(totalSlab).replacingOccurrences(of: "-", with: "")
@@ -155,18 +155,18 @@ class FareInfoCommonCell: ATTableViewCell {
                             let strPrevTotalSlab = String(prevTotalSlab).replacingOccurrences(of: "-", with: "")
                             
                             if prevTotalSlab == 0 && totalSlab == 0{
-                                self.slabTimeLabel.text = "\(strTotalSlab) hour"
+                                self.slabTimeLabel.text = "\(strTotalSlab) hrs"
                             }else{
-                                self.slabTimeLabel.text = "\(strTotalSlab) - \(strPrevTotalSlab) hours"
+                                self.slabTimeLabel.text = "\(strTotalSlab) - \(strPrevTotalSlab) hrs"
                             }
                         }
                     }else{
                         if strTotalSlab == "0"{
-                            self.slabTimeLabel.text = "\(strTotalSlab) hour"
+                            self.slabTimeLabel.text = "\(strTotalSlab) hrs"
                         }else if strTotalSlab == "1"{
-                            self.slabTimeLabel.text = "\(strTotalSlab) hour or earlier"
+                            self.slabTimeLabel.text = "\(strTotalSlab) hrs or earlier"
                         }else{
-                            self.slabTimeLabel.text = "\(strTotalSlab) hours or earlier"
+                            self.slabTimeLabel.text = "\(strTotalSlab) hrs or earlier"
                         }
                     }
  
@@ -313,7 +313,7 @@ class FareInfoCommonCell: ATTableViewCell {
             if indexPath.row < adtAirlineReschedulingSlab.count{
                 if let sla = adtAirlineReschedulingSlab[indexPath.row].fromHour, let slab = adtAirlineReschedulingSlab[indexPath.row].toHour{
                     
-                    let slaInHours = minutesToHoursMinutes(seconds: sla) //sla.hoursFrom(slab)
+                    let slaInHours = minutesToHoursMinutes(seconds: sla) //sla.hrsFrom(slab)
                     
                     let totalSlab = slaInHours + slab
                     
@@ -328,18 +328,18 @@ class FareInfoCommonCell: ATTableViewCell {
                             let strPrevTotalSlab = String(prevTotalSlab).replacingOccurrences(of: "-", with: "")
                             
                             if prevTotalSlab == 0 && totalSlab == 0{
-                                self.slabTimeLabel.text = "\(strTotalSlab) hour"
+                                self.slabTimeLabel.text = "\(strTotalSlab) hrs"
                             }else{
-                                self.slabTimeLabel.text = "\(strTotalSlab) - \(strPrevTotalSlab) hours"
+                                self.slabTimeLabel.text = "\(strTotalSlab) - \(strPrevTotalSlab) hrs"
                             }
                         }
                     }else{
                         if strTotalSlab == "0"{
-                            self.slabTimeLabel.text = "\(strTotalSlab) hour"
+                            self.slabTimeLabel.text = "\(strTotalSlab) hrs"
                         }else if strTotalSlab == "1"{
-                            self.slabTimeLabel.text = "\(strTotalSlab) hour or earlier"
+                            self.slabTimeLabel.text = "\(strTotalSlab) hrs or earlier"
                         }else{
-                            self.slabTimeLabel.text = "\(strTotalSlab) hours or earlier"
+                            self.slabTimeLabel.text = "\(strTotalSlab) hrs or earlier"
                         }
                     }
                     
@@ -528,7 +528,7 @@ class FareInfoCommonCell: ATTableViewCell {
             
             self.infrantView.isHidden = true
             
-            self.passengerStackView.isHidden = false
+            self.passengerStackView.isHidden = true
             
             if self.perAdultAmountLabel.text == "Non-refundable"{
                 self.statusLabel.textColor = .black
@@ -553,7 +553,7 @@ class FareInfoCommonCell: ATTableViewCell {
             
             self.infrantView.isHidden = true
             
-            self.passengerStackView.isHidden = false
+            self.passengerStackView.isHidden = true
         }else{
             //            self.slabDataDisplayViewHeight.constant = 0
             self.adultView.isHidden = true
@@ -562,7 +562,7 @@ class FareInfoCommonCell: ATTableViewCell {
             
             self.infrantView.isHidden = true
             
-            self.passengerStackView.isHidden = false
+            self.passengerStackView.isHidden = true
         }
     }
     

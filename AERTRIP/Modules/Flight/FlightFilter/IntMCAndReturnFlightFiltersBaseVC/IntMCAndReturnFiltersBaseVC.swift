@@ -19,7 +19,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     var searchType : FlightSearchType!
     var flightResultArray : [IntMultiCityAndReturnWSResponse.Results]!
     var selectedIndex : Int!
-    var userAppliedFilters: AppliedAndUIFilters?
+    var appliedAndUIFilters: AppliedAndUIFilters?
     
     var showDepartReturnSame = false {
         didSet {
@@ -197,7 +197,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     }
     
     func updateMenuItems() {
-        guard let filters = userAppliedFilters else { return }
+        guard let filters = appliedAndUIFilters else { return }
         menuItems[Filters.sort.rawValue].isSelected = filters.appliedFilters[0].contains(.sort)
         menuItems[Filters.stops.rawValue].isSelected = filters.appliedFilters[0].contains(.stops) || filters.uiFilters[0].contains(.hideChangeAirport)
         menuItems[Filters.Times.rawValue].isSelected = filters.appliedFilters[0].contains(.Times) || filters.uiFilters[0].contains(.hideOvernight)
@@ -466,7 +466,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                 let stops : [Int] = stopsStringArray.map({Int($0) ?? 0})
                 let stopFilter = StopsFilter(stops: stops)
                 
-                if let userFilters = userAppliedFilters, userFilters.appliedFilters[0].contains(.stops), stopsViewController.allStopsFilters.indices.contains(index) {
+                if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.stops), stopsViewController.allStopsFilters.indices.contains(index) {
                     stopsViewController.allStopsFilters[index].availableStops = stopFilter.availableStops
                 } else {
                     if !stopsViewController.allStopsFilters.indices.contains(index) {
@@ -568,7 +568,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             
             let newFlightLegFilter =  FlightLegTimeFilter(leg:leg, departureStartTime:  departureMin!, departureMaxTime: departureMax, arrivalStartTime: arrivalMin, arrivalEndTime: arrivalMax! )
             
-            if let userFilters = userAppliedFilters, userFilters.appliedFilters[0].contains(.Times),
+            if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Times),
                 userFilters.appliedSubFilters.indices.contains(index), timesViewController.multiLegTimerFilter.indices.contains(index) {
                 
                 if userFilters.appliedSubFilters[index].contains(.departureTime) {
@@ -693,7 +693,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         let durationFilter = DurationFilter(leg: legList[0], tripMin: tripDurationMin, tripMax: tripDurationMax, layoverMin: layoverDurationMin, layoverMax: layoverMaxDuration,layoverMinTimeFormat:"")
         
         
-        if let userFilters = userAppliedFilters, userFilters.appliedFilters[0].contains(.Duration) {
+        if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Duration) {
             
             if userFilters.appliedSubFilters[0].contains(.tripDuration) {
                 durationViewController.durationFilters[0].tripDurationMinDuration = tripDurationMin
@@ -756,7 +756,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             let leg = legList[index]
             let durationFilter = DurationFilter(leg: leg, tripMin: tripMinDuration, tripMax: tripMaxDuration, layoverMin: layoverMin, layoverMax: layoverMax, layoverMinTimeFormat: "")
             
-            if let userFilters = userAppliedFilters, userFilters.appliedFilters[0].contains(.Duration), durationViewController.durationFilters.indices.contains(index) {
+            if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Duration), durationViewController.durationFilters.indices.contains(index) {
                 
                 if userFilters.appliedSubFilters[index].contains(.tripDuration) {
                     durationViewController.durationFilters[index].tripDurationMinDuration = tripMinDuration
@@ -1049,7 +1049,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                                              userSelectedFareMinValue: CGFloat(newPriceWS.minPrice) ,
                                              userSelectedFareMaxValue: CGFloat(newPriceWS.maxPrice) )
             
-            if let userFilters = userAppliedFilters, userFilters.appliedFilters[0].contains(.Price), priceViewController.allPriceFilters.indices.contains(index) {
+            if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Price), priceViewController.allPriceFilters.indices.contains(index) {
                 priceViewController.allPriceFilters[index].inputFareMinValue = newPriceFilter.inputFareMinValue
                 
                 priceViewController.allPriceFilters[index].inputFareMaxVaule = newPriceFilter.inputFareMaxVaule
@@ -1372,7 +1372,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             }
             
             
-            if let userFilters = userAppliedFilters, userFilters.appliedFilters[0].contains(.Airport), airportViewController.airportFilterArray.indices.contains(index) {
+            if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Airport), airportViewController.airportFilterArray.indices.contains(index) {
                 let curAiportFilter = airportViewController.airportFilterArray[index]
                 let selectedAirports = curAiportFilter.allSelectedAirports
                 

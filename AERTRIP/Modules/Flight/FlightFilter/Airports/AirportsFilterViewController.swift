@@ -180,6 +180,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
             currentAirportFilter.destinationCities.sort(by: { $0.name < $1.name })
             
         } else {
+            currentAirportFilter = airportFilterArray[currentActiveIndex]
             currentAirportFilter.originCities = currentAirportFilter.originCitiesSortedArray
             currentAirportFilter.destinationCities = currentAirportFilter.destinationCitiesSortedArray
             currentAirportFilter.layoverCities = currentAirportFilter.layoverCities.sorted(by: {$0.country < $1.country})
