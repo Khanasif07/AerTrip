@@ -52,6 +52,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var fewSeatsLeftViewHeight = 0
     var selectedIndex : IndexPath?
     var indexFromDelegate = 0
+    var alLogoArray = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,6 +88,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 
                 if let flight = journey[i].leg.first?.flights{
                     flights?.append(flight.first!)
+                    alLogoArray.append(flight.first?.al ?? "")
                 }
             }
         }
@@ -179,36 +181,78 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     if journey.count > 0{
                         var location = ""
                         
+                        //                        if journey.count == 1{
+                        //                            location = displayTitle
+                        //                            fareInfoCell.titleLabel.text = location
+                        //                        }else{
+                        //                            let ap = self.journey[indexPath.section].ap
+                        //                            let departureAirportDetails = self.airportDetailsResult[ap[0]]
+                        //                            let arrivalAirportDetails = self.airportDetailsResult[ap[1]]
+                        //
+                        //                            if departureAirportDetails != nil && arrivalAirportDetails != nil{
+                        //                                location = departureAirportDetails!.c! + " → " + arrivalAirportDetails!.c! + "\n" + displayTitle
+                        //                            }else if departureAirportDetails != nil{
+                        //                                location = departureAirportDetails!.c! + "\n" + displayTitle
+                        //                            }else if arrivalAirportDetails != nil{
+                        //                                location = arrivalAirportDetails!.c! + "\n" + displayTitle
+                        //                            }else{
+                        //                                location = displayTitle
+                        //                            }
+                        //
+                        //                            let completeText = NSMutableAttributedString(string: location)
+                        //                            let range1 = (location as NSString).range(of: displayTitle)
+                        //
+                        //                            completeText.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Regular", size: 16.0)! , range: range1)
+                        //                            fareInfoCell.titleLabel.attributedText = completeText
+                        //                        }
+                        //
+                        //                        if location.contains("\n"){
+                        //                            fareInfoCell.titleViewHeight.constant = 76
+                        //                            titleViewHeight = 76
+                        //                        }else{
+                        //                            titleViewHeight = 50
+                        //                        }
+                        
+                        //                        fareInfoCell.fareRulesViewHeight.constant = 50
+                        fareInfoCell.titleLabel.text = displayTitle
                         if journey.count == 1{
-                            location = displayTitle
-                            fareInfoCell.titleLabel.text = location
+                            fareInfoCell.titleLabelTop.constant = 16
+                            fareInfoCell.titleViewHeight.constant = 50
+                            fareInfoCell.journeyNameLbl.isHidden = true
+                            fareInfoCell.carrierImgView.isHidden = true
+                            fareInfoCell.journeyNameSeperatorLabel.isHidden = true
+                            
+                            titleViewHeight = 50
                         }else{
+                            fareInfoCell.titleLabelTop.constant = 73.5
+                            fareInfoCell.titleViewHeight.constant = 100
+                            fareInfoCell.journeyNameLbl.isHidden = false
+                            fareInfoCell.carrierImgView.isHidden = false
+                            fareInfoCell.journeyNameSeperatorLabel.isHidden = false
+                            
+                            
                             let ap = self.journey[indexPath.section].ap
                             let departureAirportDetails = self.airportDetailsResult[ap[0]]
                             let arrivalAirportDetails = self.airportDetailsResult[ap[1]]
                             
                             if departureAirportDetails != nil && arrivalAirportDetails != nil{
-                                location = departureAirportDetails!.c! + " → " + arrivalAirportDetails!.c! + "\n" + displayTitle
+                                location = departureAirportDetails!.c! + " → " + arrivalAirportDetails!.c!
                             }else if departureAirportDetails != nil{
-                                location = departureAirportDetails!.c! + "\n" + displayTitle
+                                location = departureAirportDetails!.c!
                             }else if arrivalAirportDetails != nil{
-                                location = arrivalAirportDetails!.c! + "\n" + displayTitle
+                                location = arrivalAirportDetails!.c!
                             }else{
                                 location = displayTitle
                             }
                             
-                            let completeText = NSMutableAttributedString(string: location)
-                            let range1 = (location as NSString).range(of: displayTitle)
+                            fareInfoCell.journeyNameLbl.text = location
                             
-                            completeText.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Regular", size: 16.0)! , range: range1)
-                            fareInfoCell.titleLabel.attributedText = completeText
-                        }
-                        
-                        if location.contains("\n"){
-                            fareInfoCell.titleViewHeight.constant = 76
-                            titleViewHeight = 76
-                        }else{
-                            titleViewHeight = 50
+                            let al = self.journey[indexPath.section].al.first ?? ""
+                            
+                            let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + al.uppercased() + ".png"
+                            fareInfoCell.setAirlineImage(with: logoURL)
+                            
+                            titleViewHeight = 110
                         }
                     }
                     
@@ -268,12 +312,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                             let rafFeesData = updatedFareInfo[indexPath.section].cp.details.RAF
                             
                             fareInfoCell.rafFees = rafFeesData
-                            
-//                            if isTableViewReloaded == false{
-                                fareInfoCell.combineFareTableView.reloadData()
-//                                isTableViewReloaded = true
-//                            }
-                            
+                            fareInfoCell.combineFareTableView.reloadData()
                         }else{
                             fareInfoCell.isNoInfoViewVisible = true
                             fareInfoCell.combineFareTableView.isHidden = true
@@ -302,7 +341,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     
                     fareInfoCell.cellHeightDelegate = self
                     tableView.layoutIfNeeded()
-
+                    
                     return fareInfoCell
                 }
             }else{
@@ -351,36 +390,79 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     if journey.count > 0{
                         var location = ""
                         
+                        //                        if journey.count == 1{
+                        //                            location = displayTitle
+                        //                            fareInfoCell.titleLabel.text = location
+                        //                        }else{
+                        //                            let ap = self.journey[indexPath.section].ap
+                        //                            let departureAirportDetails = self.airportDetailsResult[ap[0]]
+                        //                            let arrivalAirportDetails = self.airportDetailsResult[ap[1]]
+                        //
+                        //                            if departureAirportDetails != nil && arrivalAirportDetails != nil{
+                        //                                location = departureAirportDetails!.c! + " → " + arrivalAirportDetails!.c! + "\n" + displayTitle
+                        //                            }else if departureAirportDetails != nil{
+                        //                                location = departureAirportDetails!.c! + "\n" + displayTitle
+                        //                            }else if arrivalAirportDetails != nil{
+                        //                                location = arrivalAirportDetails!.c! + "\n" + displayTitle
+                        //                            }else{
+                        //                                location = displayTitle
+                        //                            }
+                        //
+                        //                            let completeText = NSMutableAttributedString(string: location)
+                        //                            let range1 = (location as NSString).range(of: displayTitle)
+                        //
+                        //                            completeText.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Regular", size: 16.0)! , range: range1)
+                        //                            fareInfoCell.titleLabel.attributedText = completeText
+                        //                        }
+                        //
+                        //                        if location.contains("\n"){
+                        //                            fareInfoCell.titleViewHeight.constant = 76
+                        //                            titleViewHeight = 76
+                        //                        }else{
+                        //                            titleViewHeight = 50
+                        //                        }
+                        
+                        
+                        
+                        fareInfoCell.titleLabel.text = displayTitle
+                        
                         if journey.count == 1{
-                            location = displayTitle
-                            fareInfoCell.titleLabel.text = location
+                            fareInfoCell.titleViewHeight.constant = 50
+                            fareInfoCell.titleLabelTop.constant = 16
+                            fareInfoCell.journeyNameLbl.isHidden = true
+                            fareInfoCell.carrierImgView.isHidden = true
+                            fareInfoCell.journeyNameSeperatorLabel.isHidden = true
+                            
+                            titleViewHeight = 50
                         }else{
+                            fareInfoCell.titleViewHeight.constant = 100
+                            fareInfoCell.titleLabelTop.constant = 73.5
+                            fareInfoCell.journeyNameLbl.isHidden = false
+                            fareInfoCell.carrierImgView.isHidden = false
+                            fareInfoCell.journeyNameSeperatorLabel.isHidden = false
+                            
                             let ap = self.journey[indexPath.section].ap
                             let departureAirportDetails = self.airportDetailsResult[ap[0]]
                             let arrivalAirportDetails = self.airportDetailsResult[ap[1]]
                             
                             if departureAirportDetails != nil && arrivalAirportDetails != nil{
-                                location = departureAirportDetails!.c! + " → " + arrivalAirportDetails!.c! + "\n" + displayTitle
+                                location = departureAirportDetails!.c! + " → " + arrivalAirportDetails!.c!
                             }else if departureAirportDetails != nil{
-                                location = departureAirportDetails!.c! + "\n" + displayTitle
+                                location = departureAirportDetails!.c!
                             }else if arrivalAirportDetails != nil{
-                                location = arrivalAirportDetails!.c! + "\n" + displayTitle
+                                location = arrivalAirportDetails!.c!
                             }else{
                                 location = displayTitle
                             }
                             
-                            let completeText = NSMutableAttributedString(string: location)
-                            let range1 = (location as NSString).range(of: displayTitle)
+                            fareInfoCell.journeyNameLbl.text = location
                             
-                            completeText.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Regular", size: 16.0)! , range: range1)
-                            fareInfoCell.titleLabel.attributedText = completeText
-                        }
-                        
-                        if location.contains("\n"){
-                            fareInfoCell.titleViewHeight.constant = 76
-                            titleViewHeight = 76
-                        }else{
-                            titleViewHeight = 50
+                            let al = self.journey[indexPath.section].al.first ?? ""
+                            
+                            let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + al.uppercased() + ".png"
+                            fareInfoCell.setAirlineImage(with: logoURL)
+                            
+                            titleViewHeight = 110
                         }
                     }
                     
@@ -402,7 +484,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     fareInfoCell.flightChildrenCount = flightChildrenCount
                     fareInfoCell.flightInfantCount = flightInfantCount
                     fareInfoCell.indexOfCell = indexPath.section
-
+                    
                     if journey[indexPath.section].leg[0].fcp == 1{
                         if updatedFareInfo.count > 0
                         {
@@ -446,10 +528,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                             fareInfoCell.combineAirlineCancellationFees = combineAirlineCancellationFees
                             fareInfoCell.combineAirlineReschedulingFees = combineAirlineReschedulingFees
                             
-//                            if isTableViewReloaded == false{
-                                fareInfoCell.combineFareTableView.reloadData()
-//                                isTableViewReloaded = true
-//                            }
+                            fareInfoCell.combineFareTableView.reloadData()
                         }else{
                             fareInfoCell.isNoInfoViewVisible = true
                             fareInfoCell.combineFareTableView.isHidden = true
@@ -481,7 +560,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     fareInfoCell.cellHeightDelegate = self
                     
                     tableView.layoutIfNeeded()
-
+                    
                     return fareInfoCell
                 }
             }
