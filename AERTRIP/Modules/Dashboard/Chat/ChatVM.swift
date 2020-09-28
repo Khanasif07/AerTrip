@@ -225,7 +225,10 @@ class ChatVM {
             jsonDict["totalLegs"] = dict["totalLegs"]
         }
         
-        
+        let filtersDict = dict.filter { $0.key.contains("filters") }
+        filtersDict.forEach { (key, val) in
+            jsonDict[key] = "\(val)"
+        }
         
         SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
