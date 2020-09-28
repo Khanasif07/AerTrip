@@ -28,13 +28,14 @@ extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
         self.viewModel.results[tableIndex].journeyArray = journeyArray
         
         if isPinned {
-        showPinnedFlightSwitch(true)
+        showPinnedFlightsOption(true)
         self.viewModel.results[tableIndex].currentPinnedJourneys.append(journeyToToggle)
 
         } else {
             
             let containsPinnedFlight = self.viewModel.results.reduce(false) { $0 || $1.containsPinnedFlight }
-            showPinnedFlightSwitch(containsPinnedFlight)
+            
+//            showPinnedFlightSwitch(containsPinnedFlight)
             
             if !containsPinnedFlight {
                 viewModel.resultsTableStates = viewModel.stateBeforePinnedFlight
@@ -48,8 +49,10 @@ extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
                     // updating UITableview state
                     self.updateUIForTableviewAt(index)
                 }
-                showPinnedSwitch.isOn = false
-                hidePinnedFlightOptions(true)
+                switchView.isOn = false
+                showPinnedFlightsOption(containsPinnedFlight)
+
+//                hidePinnedFlightOptions(true)
             }
             
             if let index = self.viewModel.results[tableIndex].currentPinnedJourneys.firstIndex(where: { (obj) -> Bool in
@@ -103,9 +106,14 @@ extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
                
            }
            
-           showPinnedSwitch.isOn = false
-           hidePinnedFlightOptions(true)
-           showPinnedFlightSwitch(showPinnedSwitch.isOn)
+           self.setPinedSwitchState(isOn: false)
+           
+            hideOrShowPinnedButtons(show : false)
+
+        self.showPinnedFlightsOption(false)
+        
+//           showPinnedFlightSwitch(switchView.isOn)
+        
            self.setTotalFare()
            self.checkForOverlappingFlights()
        }
@@ -154,5 +162,89 @@ extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
 //            hideFareBreakupView()
 //        }
 //    }
+    
+}
+
+extension FlightDomesticMultiLegResultVC: ATSwitcherChangeValueDelegate {
+    
+    func switcherDidChangeValue(switcher: ATSwitcher, value: Bool) {
+        
+        if value {
+            
+            self.unpinnedAllButton.isHidden = false
+            self.emailPinnedFlights.isHidden = false
+            self.sharePinnedFilghts.isHidden = false
+            self.animateButton()
+            
+            
+            viewModel.stateBeforePinnedFlight = viewModel.resultsTableStates
+            viewModel.resultsTableStates = Array(repeating: .showPinnedFlights, count: self.viewModel.numberOfLegs)
+           
+            for subView in self.baseScrollView.subviews {
+                    if let tableview = subView as? UITableView {
+                        let index = tableview.tag - 1000
+                        let count = self.viewModel.results[index].pinnedFlights.count
+                        
+                        if count > 0 {
+                            tableview.reloadData()
+                            tableview.tableFooterView = nil
+                            
+                            let indexPath = IndexPath(row: 0, section: 0)
+                            tableview.scrollToRow(at: indexPath, at: .top, animated: true)
+                            tableview.selectRow(at: indexPath , animated: false, scrollPosition: .none)
+                        } else {
+                            addErrorScreenAtIndex(index: index , forFilteredResults: true)
+                        }
+                    }
+                }
+            
+            self.baseScrollView.setContentOffset(.zero, animated: true)
+
+            
+        } else {
+            self.hidePinnedButtons(withAnimation: true)
+         
+            
+            viewModel.resultsTableStates = viewModel.stateBeforePinnedFlight
+              
+            for index in 0 ..< self.viewModel.numberOfLegs {
+                      if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
+                          errorView.removeFromSuperview()
+                      }
+                      self.updateUIForTableviewAt(index)
+                  }
+            
+        }
+        
+        self.viewModel.isPinnedOn = value
+        self.setTotalFare()
+        let containsPinnedFlight = self.viewModel.results.reduce(false) { $0 || $1.containsPinnedFlight }
+//        self.showPinnedFlightSwitch(containsPinnedFlight)
+        self.showPinnedFlightsOption(containsPinnedFlight)
+
+        self.checkForOverlappingFlights()
+        
+        
+        
+        
+        //        hidePinnedFlightOptions(!value)
+//        showBluredHeaderViewCompleted()
+        
+        //        tableViewVertical.setContentOffset(CGPoint(x: 0, y: -topContentSpace), animated: false)
+        //showBluredHeaderViewCompleted()
+    }
+    
+    func hideOrShowPinnedButtons(show : Bool){
+        if show {
+            self.showPinnedButtons(withAnimation : true)
+        } else {
+            self.hidePinnedButtons(withAnimation : true)
+        }
+    }
+    
+        func showPinnedFlightsOption(_ show  : Bool) {
+              manageSwitchContainer(isHidden: !show)
+              
+          }
     
 }

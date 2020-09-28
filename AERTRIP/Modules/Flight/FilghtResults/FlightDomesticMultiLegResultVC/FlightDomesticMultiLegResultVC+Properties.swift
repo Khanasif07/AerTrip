@@ -17,21 +17,23 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     var bannerView : ResultHeaderView?
     @IBOutlet weak var headerCollectionView: UICollectionView!
     @IBOutlet weak var baseScrollView: UIScrollView!
-    @IBOutlet weak var showPinnedSwitch: AertripSwitch!
+    @IBOutlet weak var switchView : ATSwitcher!
     @IBOutlet weak var unpinnedAllButton: UIButton!
     @IBOutlet weak var emailPinnedFlights: UIButton!
     @IBOutlet weak var sharePinnedFilghts: UIButton!
     @IBOutlet weak var pinnedFlightOptionView: UIView!
+    @IBOutlet weak var pinnedSwitchOptionsBackViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var pinedswitchOptionsBackViewBottom: NSLayoutConstraint!
     
     //MARK:- NSLayoutConstraints
-    @IBOutlet weak var pinnedFlightOptionsTop: NSLayoutConstraint!
+//    @IBOutlet weak var pinnedFlightOptionsTop: NSLayoutConstraint!
     @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var baseScrollViewTop: NSLayoutConstraint!
     @IBOutlet weak var headerCollectionViewTop: NSLayoutConstraint!
-    @IBOutlet weak var pinOptionsViewWidth: NSLayoutConstraint!
-    @IBOutlet weak var unpinAllLeading: NSLayoutConstraint!
-    @IBOutlet weak var emailPinnedFlightLeading: NSLayoutConstraint!
-    @IBOutlet weak var sharePinnedFlightsLeading: NSLayoutConstraint!
+//    @IBOutlet weak var pinOptionsViewWidth: NSLayoutConstraint!
+//    @IBOutlet weak var unpinAllLeading: NSLayoutConstraint!
+//    @IBOutlet weak var emailPinnedFlightLeading: NSLayoutConstraint!
+//    @IBOutlet weak var sharePinnedFlightsLeading: NSLayoutConstraint!
     @IBOutlet weak var miniHeaderScrollView: UIScrollView!
     @IBOutlet weak var miniHeaderTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var collectionContainerView: UIView!
@@ -280,6 +282,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         if sender.isOn  {
             viewModel.stateBeforePinnedFlight = viewModel.resultsTableStates
             viewModel.resultsTableStates = Array(repeating: .showPinnedFlights, count: self.viewModel.numberOfLegs)
+           
             for subView in self.baseScrollView.subviews {
                 if let tableview = subView as? UITableView {
                     let index = tableview.tag - 1000
@@ -299,9 +302,13 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                     }
                 }
             }
+       
             self.baseScrollView.setContentOffset(.zero, animated: true)
-            hidePinnedFlightOptions(false)
+        
+//            hidePinnedFlightOptions(false)
+      
         } else {
+            
             viewModel.resultsTableStates = viewModel.stateBeforePinnedFlight
             for index in 0 ..< self.viewModel.numberOfLegs {
                 if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
@@ -309,12 +316,12 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                 }
                 self.updateUIForTableviewAt(index)
             }
-            hidePinnedFlightOptions(true)
+//            hidePinnedFlightOptions(true)
         }
         self.viewModel.isPinnedOn = sender.isOn
         self.setTotalFare()
         let containsPinnedFlight = self.viewModel.results.reduce(false) { $0 || $1.containsPinnedFlight }
-        showPinnedFlightSwitch(containsPinnedFlight)
+//        showPinnedFlightSwitch(containsPinnedFlight)
         self.checkForOverlappingFlights()
         
     }
