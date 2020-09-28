@@ -84,18 +84,22 @@ extension FlightDomesticMultiLegResultVC {
           
          manageFloatingView(isHidden: isHidden)
         
-        var yOfset : CGFloat = 0
+//        var yOfset : CGFloat = 0
         
-        if self.viewModel.isFewSeatsLeft {
-            yOfset = -50
-            pinnedSwitchOptionsBackViewHeight.constant = 127
-        } else{
-            yOfset = 0
-            pinnedSwitchOptionsBackViewHeight.constant = 76
+        UIView.animate(withDuration: AppConstants.kAnimationDuration) {
+            if self.viewModel.isFewSeatsLeft {
+               self.pinedswitchOptionsBackViewBottom.constant = 100
+            } else{
+//                yOfset = 0
+                self.pinedswitchOptionsBackViewBottom.constant = 51
+            }
+            self.view.layoutIfNeeded()
+
         }
         
+
            DispatchQueue.main.async {
-               let newFrame = CGRect(x: 0.0, y: isHidden ? 400 : yOfset, width: self.pinnedFlightOptionView.width, height: self.pinnedFlightOptionView.height)
+               let newFrame = CGRect(x: 0.0, y: isHidden ? 400 : 0, width: self.pinnedFlightOptionView.width, height: self.pinnedFlightOptionView.height)
                         
             printDebug("manageSwitchContainer....\(isHidden)...\(newFrame)")
             

@@ -25,6 +25,7 @@
                 <outlet property="headerCollectionViewTop" destination="b6N-0p-KwW" id="tZI-7M-req"/>
                 <outlet property="miniHeaderScrollView" destination="LJS-OI-Y27" id="7OO-zY-vQE"/>
                 <outlet property="miniHeaderTopConstraint" destination="W9k-IP-Wm8" id="AJ7-2k-yhM"/>
+                <outlet property="pinedswitchOptionsBackViewBottom" destination="bfd-QT-7Oh" id="tbx-UW-Haa"/>
                 <outlet property="pinnedFlightOptionView" destination="gN9-4w-we1" id="Bnk-1Q-cCM"/>
                 <outlet property="pinnedSwitchOptionsBackViewHeight" destination="1hU-eP-lIC" id="vMj-ll-rMJ"/>
                 <outlet property="scrollViewBottomConstraint" destination="QDy-P2-LXp" id="ZaM-nH-Fki"/>
@@ -197,7 +198,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="tod-AT-Cvz" firstAttribute="top" secondItem="DQs-Dn-FqB" secondAttribute="top" id="0EB-7f-G4D"/>
                                 <constraint firstItem="MSM-jo-nkg" firstAttribute="top" secondItem="tod-AT-Cvz" secondAttribute="top" id="1vp-G1-Ff7"/>
@@ -223,7 +224,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="gN9-4w-we1" firstAttribute="top" secondItem="tll-1e-5pm" secondAttribute="top" id="10Y-Ha-AsY"/>
                         <constraint firstAttribute="height" constant="76" id="1hU-eP-lIC"/>

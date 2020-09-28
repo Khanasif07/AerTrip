@@ -23,7 +23,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     @IBOutlet weak var sharePinnedFilghts: UIButton!
     @IBOutlet weak var pinnedFlightOptionView: UIView!
     @IBOutlet weak var pinnedSwitchOptionsBackViewHeight: NSLayoutConstraint!
-    
+    @IBOutlet weak var pinedswitchOptionsBackViewBottom: NSLayoutConstraint!
     
     //MARK:- NSLayoutConstraints
 //    @IBOutlet weak var pinnedFlightOptionsTop: NSLayoutConstraint!
