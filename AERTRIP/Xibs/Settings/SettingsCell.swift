@@ -12,7 +12,7 @@ class SettingsCell: UITableViewCell {
 
     @IBOutlet weak var arrowImageView: UIImageView!
     @IBOutlet weak var settingsValueLavel: UILabel!
-    @IBOutlet weak var sepratorView: UIView!
+    @IBOutlet weak var sepratorView: ATDividerView!
     @IBOutlet weak var settingsLabel: UILabel!
     @IBOutlet weak var `switch`: UISwitch!
     

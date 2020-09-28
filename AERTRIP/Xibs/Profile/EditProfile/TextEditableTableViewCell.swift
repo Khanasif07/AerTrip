@@ -48,6 +48,7 @@ class TextEditableTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.editableTextField.inputView = nil
         self.editableTextField.inputAccessoryView = nil
     }
     

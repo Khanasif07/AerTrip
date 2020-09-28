@@ -67,7 +67,7 @@
 
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *switcherButtonBlurBackground;
 
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet ATSearchBar *searchBar; // nitin change
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *noResultViewHeight;
 @property (weak, nonatomic) IBOutlet UIView *noResultView;
@@ -323,15 +323,18 @@
 }
 
 - (void)addSearchBar {
-    self.searchBar.showsCancelButton = NO;
+   // self.searchBar.showsCancelButton = NO; // nitin change
     self.searchBar.delegate = self;
-    
+    self.dictationButton.hidden = YES;
+    // nitin change
+    /*
     if (@available(iOS 13, *)) {
         self.searchBar.searchTextField.font = [UIFont fontWithName:@"SourceSansPro-Regular" size:18.0];
     }else{
         UITextField *textField = [self.searchBar valueForKey: @"_searchField"];
         [textField setFont:[UIFont fontWithName:@"SourceSansPro-Regular" size:18.0]];
     }
+     */
 }
 
 - (void)setupTableView {
@@ -978,7 +981,7 @@
     });
     
     if ([searchText length] > 1 ){
-        self.dictationButton.hidden = YES;
+        //self.dictationButton.hidden = YES; // nitin change
         
         self.NoResultLabel.text = @"Searching..";
         
@@ -986,11 +989,14 @@
         
 //        [self performSelector:@selector(sendSearchRequest) withObject:searchText afterDelay:0.35f];
     }else {
+        // nitin change
+        /*
         if ([searchText length] > 0) {
             self.dictationButton.hidden = YES;
         } else {
             self.dictationButton.hidden = NO;
         }
+         */
         [self hideTableViewHeader:YES];
     }
     

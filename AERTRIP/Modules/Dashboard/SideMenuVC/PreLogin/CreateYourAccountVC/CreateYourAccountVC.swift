@@ -170,17 +170,19 @@ private extension CreateYourAccountVC {
             label.handleCustomTap(for: privacyPolicy) { element in
                 
                 guard let url = URL(string: AppConstants.privacyPolicy) else {return}
-                let safariVC = SFSafariViewController(url: url)
-                self.present(safariVC, animated: true, completion: nil)
-                safariVC.delegate = self
+//                let safariVC = SFSafariViewController(url: url)
+//                self.present(safariVC, animated: true, completion: nil)
+//                safariVC.delegate = self
+                AppFlowManager.default.showURLOnATWebView(url, screenTitle: LocalizedString.privacy_policy.localized)
             }
             
             label.handleCustomTap(for: termsOfUse) { element in
                 
                 guard let url = URL(string: AppConstants.termsOfUse) else {return}
-                let safariVC = SFSafariViewController(url: url)
-                self.present(safariVC, animated: true, completion: nil)
-                safariVC.delegate = self
+//                let safariVC = SFSafariViewController(url: url)
+//                self.present(safariVC, animated: true, completion: nil)
+//                safariVC.delegate = self
+                AppFlowManager.default.showURLOnATWebView(url, screenTitle: LocalizedString.terms_of_use.localized)
             }
         }
     }

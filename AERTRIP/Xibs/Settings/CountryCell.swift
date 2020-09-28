@@ -13,7 +13,7 @@ class CountryCell: UITableViewCell {
     @IBOutlet weak var tickImageView: UIImageView!
     @IBOutlet weak var flagImageView: UIImageView!
     @IBOutlet weak var countryLabel: UILabel!
-    @IBOutlet weak var sepratorView: UIView!
+    @IBOutlet weak var sepratorView: ATDividerView!
     
     
     override func awakeFromNib() {
