@@ -614,6 +614,24 @@ class IntFlightResultDisplayGroup {
                 self.appliedFilters.insert(.Price)
                 self.userSelectedFilters[index].pr.maxPrice = Int(price) ?? 0
             }
+            
+            let quality = flightSearchParam.filter { $0.key.contains("filters[\(index)][fq]") }
+            let qualityValues = quality.map { $0.value as? String ?? "" }
+            
+            if quality.count > 0 {
+                if qualityValues.contains("ovgtlo") {
+                    self.UIFilters.insert(.hideOvernightLayover)
+                    self.userSelectedFilters[index].fq["ovgtlo"] = ""
+                }
+                if qualityValues.contains("ovgtf") {
+                    self.UIFilters.insert(.hideOvernight)
+                    self.userSelectedFilters[index].fq["ovgtf"] = ""
+                }
+                if qualityValues.contains("coa") {
+                    self.UIFilters.insert(.hideChangeAirport)
+                    self.userSelectedFilters[index].fq["coa"] = ""
+                }
+            }
         }
     }
     

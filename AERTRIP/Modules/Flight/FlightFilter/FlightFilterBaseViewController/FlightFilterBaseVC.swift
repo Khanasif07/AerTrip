@@ -367,7 +367,7 @@ extension FlightFilterBaseVC {
             if stopsViewController.allStopsFilters.indices.contains(0) {
                 qualityFilter = stopsViewController.allStopsFilters[0].qualityFilter
                 if userSelectedFilters[0].fq.keys.contains("coa") {
-                    qualityFilter?.isSelected = true
+                    qualityFilter?.isSelected = userSelectedFilters[0].fq["coa"] == ""
                 }
             }
             var allLegsStops = [StopsFilter]()
@@ -398,7 +398,7 @@ extension FlightFilterBaseVC {
                 if stopsViewController.allStopsFilters.indices.contains(index) {
                     qualityFilter = stopsViewController.allStopsFilters[index].qualityFilter
                     if userSelectedFilters[index].fq.keys.contains("coa") {
-                        qualityFilter?.isSelected = true
+                        qualityFilter?.isSelected = userSelectedFilters[index].fq["ovgtlo"] == ""
                     }
                 }
                 
@@ -488,7 +488,7 @@ extension FlightFilterBaseVC {
             if timesViewController.multiLegTimerFilter.indices.contains(index) {
                 qualityFilter = timesViewController.multiLegTimerFilter[index].qualityFilter
                 if userSelectedFilters[index].fq.keys.contains("ovgtf") {
-                    qualityFilter?.isSelected = true
+                    qualityFilter?.isSelected = userSelectedFilters[index].fq["ovgtf"] == ""
                 }
             }
             
@@ -691,6 +691,9 @@ extension FlightFilterBaseVC {
         var qualityFilter: QualityFilter?
         if durationViewController.durationFilters.indices.contains(0) {
             qualityFilter = durationViewController.durationFilters[0].qualityFilter
+            if userSelectedFilters[0].fq.keys.contains("ovgtlo") {
+                qualityFilter?.isSelected = userSelectedFilters[0].fq["ovgtlo"] == ""
+            }
         }
 
         for filter in inputFilters {
@@ -801,7 +804,7 @@ extension FlightFilterBaseVC {
             if durationViewController.durationFilters.indices.contains(index) {
                 qualityFilter = durationViewController.durationFilters[index].qualityFilter
                 if userSelectedFilters[index].fq.keys.contains("ovgtlo") {
-                    qualityFilter?.isSelected = true
+                    qualityFilter?.isSelected = userSelectedFilters[index].fq["ovgtlo"] == ""
                 }
             }
             
