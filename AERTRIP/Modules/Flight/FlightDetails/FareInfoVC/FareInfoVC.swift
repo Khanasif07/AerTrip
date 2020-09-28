@@ -52,7 +52,6 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var fewSeatsLeftViewHeight = 0
     var selectedIndex : IndexPath?
     var indexFromDelegate = 0
-    var alLogoArray = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,7 +87,6 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 
                 if let flight = journey[i].leg.first?.flights{
                     flights?.append(flight.first!)
-                    alLogoArray.append(flight.first?.al ?? "")
                 }
             }
         }

@@ -39,14 +39,37 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZK-n7-Y8b" userLabel="TitleView">
                                 <rect key="frame" x="0.0" y="0.5" width="451" height="328"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Economy Saver (SS50322)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8vd-If-TC9">
-                                        <rect key="frame" x="16" y="16" width="328" height="296"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ly4-sx-ERy">
+                                        <rect key="frame" x="16" y="16" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="4Ol-jJ-H5b"/>
+                                            <constraint firstAttribute="height" constant="25" id="Vyd-7P-SCj"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Economy Saver (SS50322)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SFE-Ru-U88">
+                                        <rect key="frame" x="51" y="16" width="384" height="23"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BjA-bC-PQm">
+                                        <rect key="frame" x="16" y="57" width="435" height="0.5"/>
+                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="IJZ-Ps-WU1"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Economy Saver (SS50322)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8vd-If-TC9">
+                                        <rect key="frame" x="16" y="73.5" width="328" height="238.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6K9-Cb-aWs">
-                                        <rect key="frame" x="360" y="147.5" width="75" height="33"/>
+                                        <rect key="frame" x="360" y="176.5" width="75" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="53r-8R-WDd"/>
                                         </constraints>
@@ -58,13 +81,20 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="6K9-Cb-aWs" firstAttribute="centerY" secondItem="8vd-If-TC9" secondAttribute="centerY" id="FS5-M4-SzZ"/>
-                                    <constraint firstItem="8vd-If-TC9" firstAttribute="centerY" secondItem="DZK-n7-Y8b" secondAttribute="centerY" id="IVs-go-S5Z"/>
+                                    <constraint firstItem="SFE-Ru-U88" firstAttribute="top" secondItem="DZK-n7-Y8b" secondAttribute="top" constant="16" id="00A-a8-NWM"/>
+                                    <constraint firstItem="Ly4-sx-ERy" firstAttribute="leading" secondItem="DZK-n7-Y8b" secondAttribute="leading" constant="16" id="0w9-ua-PcB"/>
+                                    <constraint firstItem="8vd-If-TC9" firstAttribute="top" secondItem="BjA-bC-PQm" secondAttribute="bottom" constant="16" id="Cer-Ik-R9A"/>
+                                    <constraint firstItem="Ly4-sx-ERy" firstAttribute="top" secondItem="DZK-n7-Y8b" secondAttribute="top" constant="16" id="Kjp-7J-2EP"/>
                                     <constraint firstAttribute="trailing" secondItem="6K9-Cb-aWs" secondAttribute="trailing" constant="16" id="QYP-zG-Thv"/>
                                     <constraint firstItem="6K9-Cb-aWs" firstAttribute="leading" secondItem="8vd-If-TC9" secondAttribute="trailing" constant="16" id="arP-64-UDn"/>
+                                    <constraint firstItem="BjA-bC-PQm" firstAttribute="leading" secondItem="DZK-n7-Y8b" secondAttribute="leading" constant="16" id="bro-2D-8eE"/>
                                     <constraint firstAttribute="bottom" secondItem="8vd-If-TC9" secondAttribute="bottom" constant="16" id="iN7-Uu-hvs"/>
-                                    <constraint firstItem="8vd-If-TC9" firstAttribute="top" secondItem="DZK-n7-Y8b" secondAttribute="top" constant="16" id="plo-Q6-7kC"/>
+                                    <constraint firstAttribute="trailing" secondItem="SFE-Ru-U88" secondAttribute="trailing" constant="16" id="k4d-kU-MMp"/>
+                                    <constraint firstItem="6K9-Cb-aWs" firstAttribute="centerY" secondItem="8vd-If-TC9" secondAttribute="centerY" id="lkR-23-UKF"/>
+                                    <constraint firstAttribute="trailing" secondItem="BjA-bC-PQm" secondAttribute="trailing" id="s9S-Rv-4fT"/>
                                     <constraint firstItem="8vd-If-TC9" firstAttribute="leading" secondItem="DZK-n7-Y8b" secondAttribute="leading" constant="16" id="uM6-6j-ZeM"/>
+                                    <constraint firstItem="BjA-bC-PQm" firstAttribute="top" secondItem="Ly4-sx-ERy" secondAttribute="bottom" constant="16" id="wQS-ep-7nd"/>
+                                    <constraint firstItem="SFE-Ru-U88" firstAttribute="leading" secondItem="Ly4-sx-ERy" secondAttribute="trailing" constant="10" id="we3-Nk-tEk"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oS8-vl-knS">
@@ -105,7 +135,9 @@
                 <outlet property="bottomSeparatorLabel" destination="oS8-vl-knS" id="8QT-5Z-RpR"/>
                 <outlet property="bottomSeparatorLabelHeight" destination="IO4-db-Qkp" id="1Mr-tg-Zjp"/>
                 <outlet property="bottomSeparatorLabelLeading" destination="dNC-KO-qAQ" id="egm-uo-wbE"/>
+                <outlet property="carrierImgView" destination="Ly4-sx-ERy" id="UDB-Fa-0Lt"/>
                 <outlet property="fareRulesButton" destination="6K9-Cb-aWs" id="bLv-MU-lyD"/>
+                <outlet property="journeyNameLabel" destination="SFE-Ru-U88" id="ysV-vo-atV"/>
                 <outlet property="titleLabel" destination="8vd-If-TC9" id="3aq-dt-sUU"/>
                 <outlet property="titleView" destination="DZK-n7-Y8b" id="0p1-fd-0yh"/>
                 <outlet property="topSeperatorLabel" destination="7ZR-sk-Ug5" id="lec-NC-olg"/>

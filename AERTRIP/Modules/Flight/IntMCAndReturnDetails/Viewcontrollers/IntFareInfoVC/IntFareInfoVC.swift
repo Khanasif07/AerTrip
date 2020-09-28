@@ -389,8 +389,8 @@ extension IntFareInfoVC{
         if displayTitle.suffix(2) == ", "{
             displayTitle.removeLast(2)
         }
-        let location = displayTitle
-        fareInfoCell.titleLabel.text = location
+//        let location = displayTitle
+//        fareInfoCell.titleLabel.text = location
         fareInfoCell.bottomSeparatorLabel.isHidden = true
         fareInfoCell.bottomSeparatorLabelLeading.constant = 16
         if indexPath.section != 0{
@@ -400,6 +400,34 @@ extension IntFareInfoVC{
             fareInfoCell.topSeperatorLabel.isHidden = true
             fareInfoCell.topSeperatorLabelHeight.constant = 0
         }
+        
+        
+        
+        let ap = self.journey[indexPath.section].ap
+        let departureAirportDetails = self.airportDetailsResult[ap[0]]
+        let arrivalAirportDetails = self.airportDetailsResult[ap[1]]
+        var loc = ""
+        
+        if departureAirportDetails != nil && arrivalAirportDetails != nil{
+            loc = departureAirportDetails!.c + " → " + arrivalAirportDetails!.c
+        }else if departureAirportDetails != nil{
+            loc = departureAirportDetails!.c
+        }else if arrivalAirportDetails != nil{
+            loc = arrivalAirportDetails!.c
+        }else{
+            loc = displayTitle
+        }
+        
+        fareInfoCell.titleLabel.text = displayTitle
+        fareInfoCell.journeyNameLabel.text = loc
+        
+        let al = self.journey[indexPath.section].al.first ?? ""
+        let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + al.uppercased() + ".png"
+        fareInfoCell.setAirlineImage(with: logoURL)
+
+        
+        
+        
         return fareInfoCell
     }
     
@@ -550,21 +578,41 @@ extension IntFareInfoVC{
                 let departureAirportDetails = self.airportDetailsResult[ap[0]]
                 let arrivalAirportDetails = self.airportDetailsResult[ap[1]]
                 
+//                if departureAirportDetails != nil && arrivalAirportDetails != nil{
+//                    location = departureAirportDetails!.c + " → " + arrivalAirportDetails!.c + "\n" + displayTitle
+//                }else if departureAirportDetails != nil{
+//                    location = departureAirportDetails!.c + "\n" + displayTitle
+//                }else if arrivalAirportDetails != nil{
+//                    location = arrivalAirportDetails!.c + "\n" + displayTitle
+//                }else{
+//                    location = displayTitle
+//                }
+//
+//                let completeText = NSMutableAttributedString(string: location)
+//                let range1 = (location as NSString).range(of: displayTitle)
+//
+//                completeText.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Regular", size: 16.0)! , range: range1)
+//                fareInfoCell.titleLabel.attributedText = completeText
+                
+                
+                
                 if departureAirportDetails != nil && arrivalAirportDetails != nil{
-                    location = departureAirportDetails!.c + " → " + arrivalAirportDetails!.c + "\n" + displayTitle
+                    location = departureAirportDetails!.c + " → " + arrivalAirportDetails!.c
                 }else if departureAirportDetails != nil{
-                    location = departureAirportDetails!.c + "\n" + displayTitle
+                    location = departureAirportDetails!.c
                 }else if arrivalAirportDetails != nil{
-                    location = arrivalAirportDetails!.c + "\n" + displayTitle
+                    location = arrivalAirportDetails!.c
                 }else{
                     location = displayTitle
                 }
                 
-                let completeText = NSMutableAttributedString(string: location)
-                let range1 = (location as NSString).range(of: displayTitle)
+                fareInfoCell.titleLabel.text = displayTitle
+                fareInfoCell.journeyNameLabel.text = location
                 
-                completeText.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Regular", size: 16.0)! , range: range1)
-                fareInfoCell.titleLabel.attributedText = completeText
+                let al = legs[indexPath.section].al.first ?? ""
+                let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + al.uppercased() + ".png"
+                fareInfoCell.setAirlineImage(with: logoURL)
+                
             }
         }
         
