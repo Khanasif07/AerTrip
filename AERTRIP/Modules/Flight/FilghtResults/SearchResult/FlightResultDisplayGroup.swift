@@ -464,6 +464,13 @@ class FlightResultDisplayGroup {
             self.userSelectedFilters?.dt.latest = userDepartureMin.toString(dateFormat: "HH:mm")
         }
         
+        let airports = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][ap]") }
+        
+        if airports.count > 0 {
+            self.appliedFilters.insert(.Airport)
+            self.userSelectedFilters?.ap = airports.map { $0.value as? String ?? "" }//[loap]
+        }
+        
         let loapAirports = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][loap]") }
         
         if loapAirports.count > 0 {
