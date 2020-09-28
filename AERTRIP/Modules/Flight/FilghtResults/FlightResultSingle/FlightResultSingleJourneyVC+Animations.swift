@@ -65,7 +65,7 @@ extension FlightResultSingleJourneyVC {
                     DispatchQueue.main.async {
                         self.setGroupedFooterView()
                         self.showBluredHeaderViewCompleted()
-                        self.resultsTableView.reloadSections([0], with: .none)
+                        self.resultsTableView.reloadData()
                     }
                 })
             }

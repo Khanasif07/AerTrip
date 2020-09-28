@@ -33,6 +33,16 @@ class ReceiverChatCell : UITableViewCell {
     }
     
     func populateMsg(msgObj : MessageModel){
-        self.messageLabel.text = !msgObj.delta.isEmpty ? "\(msgObj.delta)\n\(msgObj.msg)" : msgObj.msg
+        
+        if !msgObj.delta.isEmpty && !msgObj.msg.isEmpty {
+            self.messageLabel.text = "\(msgObj.delta)\n\(msgObj.msg)"
+        } else if !msgObj.delta.isEmpty {
+             self.messageLabel.text = "\(msgObj.delta)"
+        }else {
+            self.messageLabel.text = msgObj.msg
+        }
+        
+        
+//        self.messageLabel.text = !msgObj.delta.isEmpty ? "\(msgObj.delta)\n\(msgObj.msg)" : msgObj.msg
     }
 }
