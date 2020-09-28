@@ -112,6 +112,7 @@ enum APIKeys: String {
     case radius = "r"
     case underScore = "_"
     case search_nearby = "search_nearby"
+    case filters = "filters"
 
 
     

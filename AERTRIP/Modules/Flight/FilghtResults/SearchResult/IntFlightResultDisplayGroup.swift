@@ -607,12 +607,18 @@ class IntFlightResultDisplayGroup {
             
             if let price = flightSearchParam["filters[\(index)][pr][0]"]  as? String{
                 self.appliedFilters.insert(.Price)
-                self.userSelectedFilters[index].pr.minPrice = Int(price) ?? 0
+                let userMin = Int(price) ?? 0
+                let inputMin = self.inputFilter[index].pr.minPrice
+                let pr = userMin < inputMin ? inputMin : userMin
+                self.userSelectedFilters[index].pr.minPrice = Int(pr)
             }
             
             if let price = flightSearchParam["filters[\(index)][pr][1]"] as? String{
                 self.appliedFilters.insert(.Price)
-                self.userSelectedFilters[index].pr.maxPrice = Int(price) ?? 0
+                let userMax = Int(price) ?? 0
+                let inputMax = self.inputFilter[index].pr.maxPrice
+                let pr = userMax > inputMax ? inputMax : userMax
+                self.userSelectedFilters[index].pr.maxPrice = Int(pr)
             }
             
             let quality = flightSearchParam.filter { $0.key.contains("filters[\(index)][fq]") }
