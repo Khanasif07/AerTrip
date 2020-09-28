@@ -135,6 +135,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
             setupMultiLegSegmentControl()
         }
         hideShowOvernightView()
+        resetAvoidChangeOfAirportsBtn()
     }
     
     func resetFilter() {

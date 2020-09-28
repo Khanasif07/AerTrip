@@ -121,6 +121,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         }
         addDaysSeparatorInArrivalRangeSlider()
         hideShowOvernightView()
+        resetAvoidOvernightBtn()
     }
     
     //MARK:- Departure feature methods

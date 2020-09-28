@@ -387,6 +387,9 @@ extension FlightFilterBaseVC {
                 var qualityFilter: QualityFilter?
                 if stopsViewController.allStopsFilters.indices.contains(index) {
                     qualityFilter = stopsViewController.allStopsFilters[index].qualityFilter
+                    if userSelectedFilters[index].fq.keys.contains("coa") {
+                        qualityFilter?.isSelected = true
+                    }
                 }
                 
                 let filter = inputFilters[index]
@@ -474,6 +477,9 @@ extension FlightFilterBaseVC {
             var qualityFilter: QualityFilter?
             if timesViewController.multiLegTimerFilter.indices.contains(index) {
                 qualityFilter = timesViewController.multiLegTimerFilter[index].qualityFilter
+                if userSelectedFilters[index].fq.keys.contains("ovgtf") {
+                    qualityFilter?.isSelected = true
+                }
             }
             
             let leg = legList[index]
@@ -784,6 +790,9 @@ extension FlightFilterBaseVC {
             var qualityFilter: QualityFilter?
             if durationViewController.durationFilters.indices.contains(index) {
                 qualityFilter = durationViewController.durationFilters[index].qualityFilter
+                if userSelectedFilters[index].fq.keys.contains("ovgtlo") {
+                    qualityFilter?.isSelected = true
+                }
             }
             
             let filter = inputFilters[index]

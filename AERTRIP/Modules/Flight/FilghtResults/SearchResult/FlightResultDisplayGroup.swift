@@ -481,6 +481,24 @@ class FlightResultDisplayGroup {
             self.appliedFilters.insert(.Price)
             self.userSelectedFilters?.pr.maxPrice = Int(pr) ?? 0
         }
+        
+        let quality = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][fq]") }
+        let qualityValues = quality.map { $0.value as? String ?? "" }
+        
+        if quality.count > 0 {
+            if qualityValues.contains("ovgtlo") {
+                self.UIFilters.insert(.hideOvernightLayover)
+                self.userSelectedFilters?.fq["ovgtlo"] = ""
+            }
+            if qualityValues.contains("ovgtf") {
+                self.UIFilters.insert(.hideOvernight)
+                self.userSelectedFilters?.fq["ovgtf"] = ""
+            }
+            if qualityValues.contains("coa") {
+                self.UIFilters.insert(.hideChangeAirport)
+                self.userSelectedFilters?.fq["coa"] = ""
+            }
+        }
     }
     
     fileprivate func dateFromTime(arrivalInputStartDate: Date, interval : TimeInterval) -> Date {
