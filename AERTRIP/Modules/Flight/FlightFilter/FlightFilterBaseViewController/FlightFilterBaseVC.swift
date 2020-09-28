@@ -363,6 +363,13 @@ extension FlightFilterBaseVC {
     func updateStopsFilter(_ stopsViewController  : FlightStopsFilterViewController , inputFilters : [FiltersWS])
     {
         if searchType == RETURN_JOURNEY {
+            var qualityFilter: QualityFilter?
+            if stopsViewController.allStopsFilters.indices.contains(0) {
+                qualityFilter = stopsViewController.allStopsFilters[0].qualityFilter
+                if userSelectedFilters[0].fq.keys.contains("coa") {
+                    qualityFilter?.isSelected = true
+                }
+            }
             var allLegsStops = [StopsFilter]()
             for fliter in inputFilters
             {
@@ -380,6 +387,9 @@ extension FlightFilterBaseVC {
                 let userStopsStringArray = userSelectedFilters[0].stp
                 let userStops : [Int] = userStopsStringArray.map({Int($0) ?? 0})
                 stopsViewController.allStopsFilters[0].userSelectedStops = userStops
+            }
+            if let quality = qualityFilter {
+                stopsViewController.allStopsFilters[0].qualityFilter = quality
             }
         } else {
             for index in 0..<inputFilters.count {
