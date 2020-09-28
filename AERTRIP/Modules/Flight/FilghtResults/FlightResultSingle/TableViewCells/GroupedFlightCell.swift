@@ -48,6 +48,7 @@ struct TimeFK {
     weak var delegate : GroupedFlightCellDelegate?
     var timeArray = [TimeFK]()
     var currentJourney : Journey?
+    var initialOffsetX: CGFloat = 0.0
     
 //    var currentSelectedIndex : Int?
     
@@ -502,9 +503,14 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
         }
     }
     
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if scrollView != self.resultsCollectionView { return }
+        self.initialOffsetX = scrollView.contentOffset.x
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView != self.resultsCollectionView { return }
-
+        updateColoredView(scrollView)
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
@@ -525,6 +531,43 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
                  setSelectionViewFrame(animate: true)
         self.timeCollectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
 
+    }
+    
+    
+    func updateColoredView(_ scrollView: UIScrollView){
+//        let scrollContentSizeWidth = (scrollView.contentSize.width)
+        let mainContentRatio = (scrollView.contentSize.width)/(self.resultsCollectionView.width)
+        let timeRatio = (timeCollectionView.contentSize.width)/(self.timeCollectionView.width)
+        
+        let scrollX = (self.resultsCollectionView.width) / 65.0
+        
+        if ((scrollView.contentOffset.x) / scrollX) < 16{
+            self.selectionView.origin.x = 16.0
+        }else{
+            self.selectionView.origin.x = ((scrollView.contentOffset.x) / scrollX)
+        }
+        
+//        let xDifference = (self.initialOffsetX - scrollView.contentOffset.x)
+//        if self.initialOffsetX < scrollView.contentOffset.x{
+//
+//            if self.timeCollectionView.contentOffset.x >= (self.timeCollectionView.contentSize.width - self.timeCollectionView.width){
+//
+//            }else{
+//                print("currentOffset \(timeCollectionView.contentOffset.x)", "change value\(((scrollView.contentOffset.x) * scrollX))","multiplier \(scrollX)", "Difference \(xDifference)")
+//                self.timeCollectionView.contentOffset.x = ((scrollView.contentOffset.x) / scrollX)
+//            }
+//
+//        }else{
+//            if self.timeCollectionView.contentOffset.x <= 0 {
+//
+//            }else{
+//                print("currentOffset \(timeCollectionView.contentOffset.x)", "change value\(((scrollView.contentOffset.x) * scrollX))","multiplier \(scrollX)", "Difference \(xDifference)")
+//                self.timeCollectionView.contentOffset.x = ((scrollView.contentOffset.x) / scrollX)
+//            }
+//
+//
+//        }
+        
     }
     
 }
