@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 protocol ChatBotDelegatesDelegate: class {
     
     func willstarttChatBotSession()
@@ -46,8 +45,9 @@ class ChatVM {
     weak var delegate : ChatBotDelegatesDelegate?
     var msgToBeSent : String = ""
     var recentSearchesData : [RecentSearchesModel] = []
-    private var updatedFiltersJSON = JSON()
     
+    private var updatedFiltersJSON = JSON()
+    private let locationManager = CLLocationManager()
     
     func getMylastMessageIndex() -> Int {
         
@@ -71,7 +71,15 @@ class ChatVM {
         
         self.delegate?.willstarttChatBotSession()
         
-        let params : JSONDictionary = [APIKeys.session_id.rawValue : getRandomSessionId(length : 13), "q" : message]
+        var params : JSONDictionary = [APIKeys.session_id.rawValue : getRandomSessionId(length : 13), "q" : message]
+        
+        let curLoc = LocationManager.getMyLocation
+        let defaultLoc = LocationManager.defaultCoordinate
+        
+        if curLoc.latitude != defaultLoc.latitude || curLoc.longitude != defaultLoc.longitude {
+            
+        }
+        
         APICaller.shared.startChatBotSession(params: params) { (success, message, sessionId, filters) in
             
             if success {
@@ -206,7 +214,6 @@ class ChatVM {
         
         addFiltersAndPushToResults(jsonDict)
         
-//        SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
     
     func createFlightSearchDictFromRecentSearches(_ dict: JSONDictionary) {
@@ -363,11 +370,3 @@ class ChatVM {
         SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
 }
-
-
-
-
-
-
-
-
