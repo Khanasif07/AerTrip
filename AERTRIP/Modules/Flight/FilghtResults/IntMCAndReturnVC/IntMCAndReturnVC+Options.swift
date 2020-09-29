@@ -109,7 +109,13 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
             
         } else {
             self.hideFavsButtons(isAnimated: true)
+            
+            if stateBeforePinnedFlight == .showPinnedFlights{
+                stateBeforePinnedFlight = .showRegularResults
+            }
+            
            viewModel.resultTableState = stateBeforePinnedFlight
+            
             showFooterView()
         }
         

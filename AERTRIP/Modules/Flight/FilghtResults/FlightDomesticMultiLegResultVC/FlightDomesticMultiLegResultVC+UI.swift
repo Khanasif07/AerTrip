@@ -186,7 +186,9 @@ extension FlightDomesticMultiLegResultVC {
     func setupBottomView() {
         testView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         testView.tag = 5100
-        self.navigationController?.view.addSubview(testView)
+        if self.navigationController?.view.viewWithTag(5100) == nil{
+            self.navigationController?.view.addSubview(testView)
+        }
         let fareBreakupVC = FareBreakupVC(nibName: "FareBreakupVC", bundle: nil)
         fareBreakupVC.taxesResult = self.viewModel.taxesResult
         fareBreakupVC.journey = self.viewModel.getSelectedJourneyForAllLegs()

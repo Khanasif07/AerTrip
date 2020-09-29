@@ -34,6 +34,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     @IBOutlet weak var sharePinnedFlightsLeading: NSLayoutConstraint!
     @IBOutlet weak var miniHeaderScrollView: UIScrollView!
     @IBOutlet weak var miniHeaderTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionContainerView: UIView!
     
     //MARK:- State Properties
     
@@ -123,7 +124,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         ApiProgress.progress = 0.25
         
         ApiProgress.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 10.0)
-        self.headerCollectionView.addSubview(ApiProgress)
+        self.collectionContainerView.addSubview(ApiProgress)
         
         getSharableLink.delegate = self
     }

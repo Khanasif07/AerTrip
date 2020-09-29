@@ -20,6 +20,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     var flightResultArray : [IntMultiCityAndReturnWSResponse.Results]!
     var selectedIndex : Int!
     var appliedAndUIFilters: AppliedAndUIFilters?
+    var userSelectedFilters = [IntMultiCityAndReturnWSResponse.Results.F]()
     
     var showDepartReturnSame = false {
         didSet {
@@ -440,6 +441,13 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     func updateStopsFilter(_ stopsViewController  : FlightStopsFilterViewController , inputFilters : [IntMultiCityAndReturnWSResponse.Results.F])
     {
         if searchType == RETURN_JOURNEY {
+            var qualityFilter: QualityFilter?
+            if stopsViewController.allStopsFilters.indices.contains(0) {
+                qualityFilter = stopsViewController.allStopsFilters[0].qualityFilter
+                if userSelectedFilters[0].fq.keys.contains("coa") {
+                    qualityFilter?.isSelected = userSelectedFilters[0].fq["coa"] == ""
+                }
+            }
             var allLegsStops = [StopsFilter]()
             for fliter in inputFilters
             {
@@ -453,12 +461,23 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             reducedStops = Array(reducedStopsSet).sorted()
             stopsViewController.allStopsFilters[0].availableStops = reducedStops
             
+            if appliedAndUIFilters?.appliedFilters[0].contains(.stops) ?? false {
+                let userStopsStringArray = userSelectedFilters[0].stp
+                let userStops : [Int] = userStopsStringArray.map({Int($0) ?? 0})
+                stopsViewController.allStopsFilters[0].userSelectedStops = userStops
+            }
+            if let quality = qualityFilter {
+                stopsViewController.allStopsFilters[0].qualityFilter = quality
+            }
         } else {
             for index in 0..<inputFilters.count {
                 
                 var qualityFilter: QualityFilter?
                 if stopsViewController.allStopsFilters.indices.contains(index) {
                     qualityFilter = stopsViewController.allStopsFilters[index].qualityFilter
+                    if userSelectedFilters[index].fq.keys.contains("coa") {
+                        qualityFilter?.isSelected = userSelectedFilters[index].fq["coa"] == ""
+                    }
                 }
                 
                 let filter = inputFilters[index]
@@ -468,6 +487,10 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                 
                 if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.stops), stopsViewController.allStopsFilters.indices.contains(index) {
                     stopsViewController.allStopsFilters[index].availableStops = stopFilter.availableStops
+                    
+                    let userStopsStringArray = userSelectedFilters[index].stp
+                    let userStops : [Int] = userStopsStringArray.map({Int($0) ?? 0})
+                    stopsViewController.allStopsFilters[index].userSelectedStops = userStops
                 } else {
                     if !stopsViewController.allStopsFilters.indices.contains(index) {
                         stopsViewController.allStopsFilters.insert(stopFilter, at: index)
@@ -553,6 +576,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             var qualityFilter: QualityFilter?
             if timesViewController.multiLegTimerFilter.indices.contains(index) {
                 qualityFilter = timesViewController.multiLegTimerFilter[index].qualityFilter
+                if userSelectedFilters[index].fq.keys.contains("ovgtf") {
+                    qualityFilter?.isSelected = userSelectedFilters[index].fq["ovgtf"] == ""
+                }
             }
             
             let leg = legList[index]
@@ -568,6 +594,15 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             
             let newFlightLegFilter =  FlightLegTimeFilter(leg:leg, departureStartTime:  departureMin!, departureMaxTime: departureMax, arrivalStartTime: arrivalMin, arrivalEndTime: arrivalMax! )
             
+            let userSelectedFilter = userSelectedFilters[index]
+            let userDepartureTime = userSelectedFilter.depDt
+            let userArrivalTime = userSelectedFilter.arDt
+
+            let userDepartureMin = userDepartureTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
+            let userDepartureMax = userDepartureTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
+            let userArrivalMin = userArrivalTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
+            let userArrivalMax = userArrivalTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
+            
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Times),
                 userFilters.appliedSubFilters.indices.contains(index), timesViewController.multiLegTimerFilter.indices.contains(index) {
                 
@@ -575,12 +610,20 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                     timesViewController.multiLegTimerFilter[index].departureMinTime = newFlightLegFilter.departureMinTime
                     
                     timesViewController.multiLegTimerFilter[index].departureTimeMax = newFlightLegFilter.departureTimeMax
+                    
+                    timesViewController.multiLegTimerFilter[index].userSelectedStartTime = userDepartureMin
+
+                    timesViewController.multiLegTimerFilter[index].userSelectedEndTime = userDepartureMax
                 }
                 
                 if userFilters.appliedSubFilters[index].contains(.arrivalTime) {
                     timesViewController.multiLegTimerFilter[index].arrivalStartTime = newFlightLegFilter.arrivalStartTime
                     
                     timesViewController.multiLegTimerFilter[index].arrivalEndTime = newFlightLegFilter.arrivalEndTime
+                    
+                    timesViewController.multiLegTimerFilter[index].userSelectedArrivalStartTime = userArrivalMin
+
+                    timesViewController.multiLegTimerFilter[index].userSelectedArrivalEndTime = userArrivalMax
                 }
                 
             } else {
@@ -636,6 +679,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         var qualityFilter: QualityFilter?
         if durationViewController.durationFilters.indices.contains(0) {
             qualityFilter = durationViewController.durationFilters[0].qualityFilter
+            if userSelectedFilters[0].fq.keys.contains("ovgtlo") {
+                qualityFilter?.isSelected = userSelectedFilters[0].fq["ovgtlo"] == ""
+            }
         }
         
         for filter in inputFilters {
@@ -692,17 +738,30 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         
         let durationFilter = DurationFilter(leg: legList[0], tripMin: tripDurationMin, tripMax: tripDurationMax, layoverMin: layoverDurationMin, layoverMax: layoverMaxDuration,layoverMinTimeFormat:"")
         
+        let userTripTime = userSelectedFilters[0].tt
+        let userLayoverTime = userSelectedFilters[0].lott
+        
         
         if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Duration) {
             
             if userFilters.appliedSubFilters[0].contains(.tripDuration) {
                 durationViewController.durationFilters[0].tripDurationMinDuration = tripDurationMin
                 durationViewController.durationFilters[0].tripDurationmaxDuration = tripDurationMax
+                
+                let minDuration = Float(userTripTime.minTime ?? "") ?? 0
+                let maxDuration = Float(userTripTime.maxTime ?? "") ?? 0
+                durationViewController.durationFilters[0].userSelectedTripMin = CGFloat(minDuration)
+                durationViewController.durationFilters[0].userSelectedTripMax = CGFloat(maxDuration)
             }
             
             if userFilters.appliedSubFilters[0].contains(.layoverDuration) {
                 durationViewController.durationFilters[0].layoverMinDuration = layoverDurationMin
                 durationViewController.durationFilters[0].layoverMaxDuration = layoverMaxDuration
+                
+                let minDuration = Float(userLayoverTime.minTime ?? "") ?? 0
+                let maxDuration = Float(userLayoverTime.maxTime ?? "") ?? 0
+                durationViewController.durationFilters[0].userSelectedLayoverMin = CGFloat(minDuration)
+                durationViewController.durationFilters[0].userSelectedLayoverMax = CGFloat(maxDuration)
             }
             
         } else {
@@ -730,6 +789,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             var qualityFilter: QualityFilter?
             if durationViewController.durationFilters.indices.contains(index) {
                 qualityFilter = durationViewController.durationFilters[index].qualityFilter
+                if userSelectedFilters[index].fq.keys.contains("ovgtlo") {
+                    qualityFilter?.isSelected = userSelectedFilters[index].fq["ovgtlo"] == ""
+                }
             }
             
             let filter = inputFilters[index]
@@ -756,16 +818,29 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             let leg = legList[index]
             let durationFilter = DurationFilter(leg: leg, tripMin: tripMinDuration, tripMax: tripMaxDuration, layoverMin: layoverMin, layoverMax: layoverMax, layoverMinTimeFormat: "")
             
+            let userTripTime = userSelectedFilters[index].tt
+            let userLayoverTime = userSelectedFilters[index].lott
+            
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Duration), durationViewController.durationFilters.indices.contains(index) {
                 
                 if userFilters.appliedSubFilters[index].contains(.tripDuration) {
                     durationViewController.durationFilters[index].tripDurationMinDuration = tripMinDuration
                     durationViewController.durationFilters[index].tripDurationmaxDuration = tripMaxDuration
+                    
+                    let minDuration = Float(userTripTime.minTime ?? "") ?? 0
+                    let maxDuration = Float(userTripTime.maxTime ?? "") ?? 0
+                    durationViewController.durationFilters[index].userSelectedTripMin = CGFloat(minDuration)
+                    durationViewController.durationFilters[index].userSelectedTripMax = CGFloat(maxDuration)
                 }
                 
                 if userFilters.appliedSubFilters[index].contains(.layoverDuration) {
                     durationViewController.durationFilters[index].layoverMinDuration = layoverMin
                     durationViewController.durationFilters[index].layoverMaxDuration = layoverMax
+                    
+                    let minDuration = Float(userLayoverTime.minTime ?? "") ?? 0
+                    let maxDuration = Float(userLayoverTime.maxTime ?? "") ?? 0
+                    durationViewController.durationFilters[index].userSelectedLayoverMin = CGFloat(minDuration)
+                    durationViewController.durationFilters[index].userSelectedLayoverMax = CGFloat(maxDuration)
                 }
                 
             } else {
@@ -1016,6 +1091,10 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         
         airlineVC.airlinesFilterArray = airlineFilters
         airlineVC.currentSelectedAirlineFilter = airlineFilters[0]
+        if appliedAndUIFilters?.appliedFilters[0].contains(.Airlines) ?? false {
+            let selectedAirlines = userSelectedFilters.flatMap { $0.al }
+            airlineVC.selectedAirlineArray = selectedAirlines
+        }
         airlineVC.updateUIPostLatestResults()
     }
     
@@ -1049,10 +1128,15 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                                              userSelectedFareMinValue: CGFloat(newPriceWS.minPrice) ,
                                              userSelectedFareMaxValue: CGFloat(newPriceWS.maxPrice) )
             
+            let userFilter = userSelectedFilters[index].pr
+            
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Price), priceViewController.allPriceFilters.indices.contains(index) {
                 priceViewController.allPriceFilters[index].inputFareMinValue = newPriceFilter.inputFareMinValue
                 
                 priceViewController.allPriceFilters[index].inputFareMaxVaule = newPriceFilter.inputFareMaxVaule
+                priceViewController.allPriceFilters[index].userSelectedFareMinValue = CGFloat(userFilter.minPrice)
+                
+                priceViewController.allPriceFilters[index].userSelectedFareMaxValue = CGFloat(userFilter.maxPrice)
             } else {
                 if !priceViewController.allPriceFilters.indices.contains(index) {
                     priceViewController.allPriceFilters.insert(newPriceFilter, at: index)
@@ -1375,6 +1459,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Airport), airportViewController.airportFilterArray.indices.contains(index) {
                 let curAiportFilter = airportViewController.airportFilterArray[index]
                 let selectedAirports = curAiportFilter.allSelectedAirports
+                let userSelectedLayoverAirports = userSelectedFilters[index].loap
                 
                 airportLegFilter.originCities = airportLegFilter.originCities.map { (city) in
                     var newCity = city
@@ -1405,6 +1490,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                     newCity.airports = newCity.airports.map({ (airport) in
                         var newAirport = airport
                         if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
+                            newAirport.isSelected = true
+                        }
+                        if userSelectedLayoverAirports.contains(newAirport.IATACode) {
                             newAirport.isSelected = true
                         }
                         return newAirport

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,7 +31,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AVB-Hf-qqV" customClass="AppGradientView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashBackground" translatesAutoresizingMaskIntoConstraints="NO" id="oLe-ql-yRs">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -107,7 +108,7 @@
                                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                 <nil key="highlightedColor"/>
                                                                                             </label>
-                                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G5c-jg-G8V">
+                                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G5c-jg-G8V">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="66" height="105"/>
                                                                                                 <connections>
                                                                                                     <action selector="aerinAction:" destination="LpR-ft-Vpd" eventType="touchUpInside" id="XEC-2x-8PM"/>
@@ -150,7 +151,7 @@
                                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                 <nil key="highlightedColor"/>
                                                                                             </label>
-                                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ydp-pX-OEm">
+                                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ydp-pX-OEm">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="66" height="105"/>
                                                                                                 <connections>
                                                                                                     <action selector="flightsAction:" destination="LpR-ft-Vpd" eventType="touchUpInside" id="m6B-7i-DW0"/>
@@ -193,7 +194,7 @@
                                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                 <nil key="highlightedColor"/>
                                                                                             </label>
-                                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5d-ya-Wwi">
+                                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5d-ya-Wwi">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="66" height="105"/>
                                                                                                 <connections>
                                                                                                     <action selector="hotelsAction:" destination="LpR-ft-Vpd" eventType="touchUpInside" id="k4Q-ft-cuS"/>
@@ -236,7 +237,7 @@
                                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                 <nil key="highlightedColor"/>
                                                                                             </label>
-                                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aja-V4-2aL">
+                                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aja-V4-2aL">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="66" height="105"/>
                                                                                                 <connections>
                                                                                                     <action selector="tripsAction:" destination="LpR-ft-Vpd" eventType="touchUpInside" id="m3v-5u-bRz"/>
@@ -428,6 +429,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="O8V-oo-rnK"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="EIt-yX-B3o" firstAttribute="top" secondItem="bO0-Bl-9pr" secondAttribute="top" id="42f-y6-YzG"/>
@@ -447,7 +449,6 @@
                             <constraint firstItem="AVB-Hf-qqV" firstAttribute="bottom" secondItem="bO0-Bl-9pr" secondAttribute="bottom" id="yxY-gK-Nw8"/>
                             <constraint firstItem="EIt-yX-B3o" firstAttribute="bottom" secondItem="O8V-oo-rnK" secondAttribute="bottom" id="zL5-4e-yel"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="O8V-oo-rnK"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
@@ -566,7 +567,7 @@ on Christmas”</string>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O2y-wf-P4G">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O2y-wf-P4G">
                                                         <rect key="frame" x="0.0" y="0.0" width="382" height="359"/>
                                                         <connections>
                                                             <action selector="travelSafetyBtnTapped:" destination="bYL-Ms-OZy" eventType="touchUpInside" id="Aq8-JP-ahr"/>
@@ -616,6 +617,7 @@ on Christmas”</string>
                                 </connections>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="MMG-Cx-hiS"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="fHU-LR-LWt" secondAttribute="bottom" id="3xz-dY-GgU"/>
@@ -623,7 +625,6 @@ on Christmas”</string>
                             <constraint firstItem="fHU-LR-LWt" firstAttribute="top" secondItem="MMG-Cx-hiS" secondAttribute="top" id="IpJ-IK-EMx"/>
                             <constraint firstAttribute="trailing" secondItem="fHU-LR-LWt" secondAttribute="trailing" id="d5B-bO-ind"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="MMG-Cx-hiS"/>
                     </view>
                     <connections>
                         <outlet property="aerinButton" destination="Jou-eF-3hM" id="IPK-TE-OwC"/>
@@ -722,13 +723,13 @@ on Christmas”</string>
                                                     <rect key="frame" x="10" y="0.0" width="389" height="50"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Amount Due" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UTm-27-Lt8">
-                                                            <rect key="frame" x="0.0" y="2" width="286.5" height="20"/>
+                                                            <rect key="frame" x="0.0" y="2" width="274.5" height="20"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZt-tb-ePj">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZt-tb-ePj">
                                                             <rect key="frame" x="0.0" y="8" width="100" height="44"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="44" id="FQa-U9-jkR"/>
@@ -740,17 +741,17 @@ on Christmas”</string>
                                                             </state>
                                                         </button>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="z3B-zb-52K">
-                                                            <rect key="frame" x="291.5" y="-0.5" width="97.5" height="45"/>
+                                                            <rect key="frame" x="279.5" y="-0.5" width="109.5" height="45"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="₹ 18,99545" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K55-7N-Anf">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="97.5" height="22.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="109.5" height="22.5"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="sJu-Ck-BcL">
-                                                                    <rect key="frame" x="0.0" y="22.5" width="97.5" height="22.5"/>
+                                                                    <rect key="frame" x="0.0" y="22.5" width="109.5" height="22.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -803,6 +804,7 @@ on Christmas”</string>
                                 </prototypes>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="tYV-0J-82w"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Nk2-kJ-uNo" firstAttribute="leading" secondItem="tYV-0J-82w" secondAttribute="leading" id="3d2-8h-COt"/>
@@ -810,7 +812,6 @@ on Christmas”</string>
                             <constraint firstItem="Nk2-kJ-uNo" firstAttribute="top" secondItem="tYV-0J-82w" secondAttribute="top" id="ged-fM-RP1"/>
                             <constraint firstItem="tYV-0J-82w" firstAttribute="trailing" secondItem="Nk2-kJ-uNo" secondAttribute="trailing" id="p1e-In-4Yu"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="tYV-0J-82w"/>
                     </view>
                     <connections>
                         <outlet property="sideMenuTableView" destination="Nk2-kJ-uNo" id="ZjC-S5-Okz"/>
@@ -851,13 +852,13 @@ on Christmas”</string>
                             </constraints>
                         </stackView>
                     </subviews>
+                    <viewLayoutGuide key="safeArea" id="MMV-HB-2Nf"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="MMV-HB-2Nf" firstAttribute="trailing" secondItem="sET-rL-PFF" secondAttribute="trailing" constant="50" id="aqS-kM-rpe"/>
                         <constraint firstItem="sET-rL-PFF" firstAttribute="top" secondItem="mEQ-BN-39k" secondAttribute="top" constant="21.5" id="gyg-XB-Ve0"/>
                         <constraint firstItem="sET-rL-PFF" firstAttribute="leading" secondItem="MMV-HB-2Nf" secondAttribute="leading" constant="50" id="jgC-G7-a01"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="MMV-HB-2Nf"/>
                 </view>
             </objects>
             <point key="canvasLocation" x="548" y="160"/>
@@ -891,6 +892,7 @@ on Christmas”</string>
                                         </constraints>
                                     </scrollView>
                                 </subviews>
+                                <viewLayoutGuide key="safeArea" id="BUh-Ia-eDe"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="urm-vA-FHu" firstAttribute="top" secondItem="g8A-fz-WR4" secondAttribute="top" id="3xo-Nm-gqM"/>
@@ -898,9 +900,9 @@ on Christmas”</string>
                                     <constraint firstItem="urm-vA-FHu" firstAttribute="leading" secondItem="BUh-Ia-eDe" secondAttribute="leading" id="enz-4L-99p"/>
                                     <constraint firstItem="urm-vA-FHu" firstAttribute="bottom" secondItem="g8A-fz-WR4" secondAttribute="bottom" id="jmt-SH-bEp"/>
                                 </constraints>
-                                <viewLayoutGuide key="safeArea" id="BUh-Ia-eDe"/>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="7Lt-Eu-xxm"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="g8A-fz-WR4" firstAttribute="bottom" secondItem="Zvn-X6-00j" secondAttribute="bottom" id="6Id-Pp-aXa"/>
@@ -908,7 +910,6 @@ on Christmas”</string>
                             <constraint firstItem="g8A-fz-WR4" firstAttribute="top" secondItem="Zvn-X6-00j" secondAttribute="top" id="eMN-xb-Xir"/>
                             <constraint firstItem="g8A-fz-WR4" firstAttribute="leading" secondItem="7Lt-Eu-xxm" secondAttribute="leading" id="tVn-US-mgH"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="7Lt-Eu-xxm"/>
                     </view>
                     <connections>
                         <outlet property="contentView" destination="8wy-VH-oZS" id="7Ld-gF-Gsz"/>
@@ -960,7 +961,7 @@ on Christmas”</string>
                                             <constraint firstAttribute="height" constant="128" id="UAa-Ff-rhN"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2b-mR-d8D">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2b-mR-d8D">
                                         <rect key="frame" x="374" y="20" width="20" height="28"/>
                                         <color key="backgroundColor" red="1" green="0.52120530610000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
@@ -968,7 +969,7 @@ on Christmas”</string>
                                             <action selector="closeButtonAction:" destination="5O9-Ns-cNh" eventType="touchUpInside" id="EWN-xg-lrE"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V4c-VL-6kM">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V4c-VL-6kM">
                                         <rect key="frame" x="357" y="788" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="V4c-VL-6kM" secondAttribute="height" multiplier="1:1" id="7NB-6k-t9e"/>
@@ -1009,6 +1010,7 @@ on Christmas”</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="6e5-Sq-lRc"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6e5-Sq-lRc" firstAttribute="trailing" secondItem="F0W-FG-3d7" secondAttribute="trailing" id="Gag-9n-mNa"/>
@@ -1016,7 +1018,6 @@ on Christmas”</string>
                             <constraint firstItem="F0W-FG-3d7" firstAttribute="top" secondItem="uqg-8m-oNn" secondAttribute="top" id="nGO-jH-xwp"/>
                             <constraint firstItem="6e5-Sq-lRc" firstAttribute="bottom" secondItem="F0W-FG-3d7" secondAttribute="bottom" id="oDd-jL-G0c"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6e5-Sq-lRc"/>
                     </view>
                     <connections>
                         <outlet property="closeButton" destination="J2b-mR-d8D" id="TPy-Qy-6tx"/>
@@ -1103,6 +1104,7 @@ on Christmas”</string>
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Rks-F0-sBa"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="YHo-d9-8jc" firstAttribute="leading" secondItem="Rks-F0-sBa" secondAttribute="leading" id="0P5-Fh-cfQ"/>
@@ -1110,7 +1112,6 @@ on Christmas”</string>
                             <constraint firstItem="Rks-F0-sBa" firstAttribute="trailing" secondItem="YHo-d9-8jc" secondAttribute="trailing" id="S52-WH-wYU"/>
                             <constraint firstItem="YHo-d9-8jc" firstAttribute="top" secondItem="Rks-F0-sBa" secondAttribute="top" id="dcx-CV-guL"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Rks-F0-sBa"/>
                     </view>
                     <connections>
                         <outlet property="comingSoonLabel" destination="1zF-WQ-CH0" id="VZg-k3-Jnx"/>
@@ -1215,6 +1216,7 @@ on Christmas”</string>
                                 </prototypes>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="wop-KK-YUg"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="7ce-43-ctO" firstAttribute="leading" secondItem="wop-KK-YUg" secondAttribute="leading" id="0la-Wb-rOI"/>
@@ -1226,7 +1228,6 @@ on Christmas”</string>
                             <constraint firstItem="2it-cr-R7Y" firstAttribute="leading" secondItem="wop-KK-YUg" secondAttribute="leading" id="gk9-7D-8bT"/>
                             <constraint firstAttribute="bottom" secondItem="7ce-43-ctO" secondAttribute="bottom" id="pPM-WV-HEp"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="wop-KK-YUg"/>
                     </view>
                     <connections>
                         <outlet property="aerinContainerView" destination="BEO-xY-MJX" id="ZQ9-Yr-zVs"/>
@@ -1261,7 +1262,7 @@ on Christmas”</string>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A E R T R I P" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LJC-Bd-vpK">
-                            <rect key="frame" x="60" y="38" width="85" height="18"/>
+                            <rect key="frame" x="60" y="38" width="84" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -1278,6 +1279,7 @@ on Christmas”</string>
                             </connections>
                         </button>
                     </subviews>
+                    <viewLayoutGuide key="safeArea" id="oFL-Tu-ChT"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="Pb7-Ev-yW3" firstAttribute="trailing" secondItem="oFL-Tu-ChT" secondAttribute="trailing" constant="-15" id="7jg-Xs-lVG"/>
@@ -1287,7 +1289,6 @@ on Christmas”</string>
                         <constraint firstItem="LJC-Bd-vpK" firstAttribute="centerY" secondItem="4Ce-Br-bjb" secondAttribute="centerY" id="sSD-lD-eNz"/>
                         <constraint firstItem="Pb7-Ev-yW3" firstAttribute="centerY" secondItem="LJC-Bd-vpK" secondAttribute="centerY" id="vUg-tx-Ya1"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="oFL-Tu-ChT"/>
                 </view>
                 <view contentMode="scaleToFill" id="sEC-GF-bOR">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="102"/>
@@ -1315,7 +1316,7 @@ on Christmas”</string>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="08y-wy-2sb">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="08y-wy-2sb">
                                             <rect key="frame" x="0.0" y="0.0" width="75" height="88"/>
                                             <connections>
                                                 <action selector="aerinButtonAction:" destination="lW0-DT-hSe" eventType="touchUpInside" id="R1H-KU-iGS"/>
@@ -1352,7 +1353,7 @@ on Christmas”</string>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4su-PO-kUp">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4su-PO-kUp">
                                             <rect key="frame" x="0.0" y="0.0" width="75" height="88"/>
                                             <connections>
                                                 <action selector="flightsButtonAction:" destination="lW0-DT-hSe" eventType="touchUpInside" id="1cS-gp-uej"/>
@@ -1389,7 +1390,7 @@ on Christmas”</string>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1k4-jc-Hb5">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1k4-jc-Hb5">
                                             <rect key="frame" x="0.0" y="0.0" width="75" height="88"/>
                                             <connections>
                                                 <action selector="hotelsButtonAction:" destination="lW0-DT-hSe" eventType="touchUpInside" id="Ggm-lt-Rwv"/>
@@ -1426,7 +1427,7 @@ on Christmas”</string>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mWv-Bg-OsW">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mWv-Bg-OsW">
                                             <rect key="frame" x="0.0" y="0.0" width="75" height="88"/>
                                             <connections>
                                                 <action selector="tripsButtonAction:" destination="lW0-DT-hSe" eventType="touchUpInside" id="1ef-7i-Jz4"/>
@@ -1465,6 +1466,7 @@ on Christmas”</string>
                             </constraints>
                         </view>
                     </subviews>
+                    <viewLayoutGuide key="safeArea" id="wRG-BD-Qb1"/>
                     <constraints>
                         <constraint firstItem="tR6-99-Y7E" firstAttribute="leading" secondItem="sEC-GF-bOR" secondAttribute="leading" id="03F-51-hw5"/>
                         <constraint firstAttribute="bottom" secondItem="tR6-99-Y7E" secondAttribute="bottom" id="0aQ-aE-y4J"/>
@@ -1477,7 +1479,6 @@ on Christmas”</string>
                         <constraint firstItem="9LK-ei-5Yw" firstAttribute="trailing" secondItem="wRG-BD-Qb1" secondAttribute="trailing" id="eLB-yI-ds9"/>
                         <constraint firstItem="9LK-ei-5Yw" firstAttribute="leading" secondItem="wRG-BD-Qb1" secondAttribute="leading" id="nDV-js-dkP"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="wRG-BD-Qb1"/>
                 </view>
             </objects>
             <point key="canvasLocation" x="-380" y="702"/>
@@ -1506,13 +1507,13 @@ on Christmas”</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Uzr-PD-bSd"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Uzr-PD-bSd" firstAttribute="trailing" secondItem="N3M-D8-pRG" secondAttribute="trailing" id="gII-OM-0gT"/>
                             <constraint firstItem="N3M-D8-pRG" firstAttribute="top" secondItem="Uzr-PD-bSd" secondAttribute="top" id="pP3-kh-M2g"/>
                             <constraint firstItem="N3M-D8-pRG" firstAttribute="leading" secondItem="Uzr-PD-bSd" secondAttribute="leading" id="vad-QI-eH0"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Uzr-PD-bSd"/>
                     </view>
                     <connections>
                         <outlet property="topNavView" destination="N3M-D8-pRG" id="wK7-xl-T88"/>
@@ -1535,7 +1536,7 @@ on Christmas”</string>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="SLf-BI-2BE">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="6Du-QQ-t9s">
                                             <size key="itemSize" width="241" height="193"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1579,7 +1580,7 @@ on Christmas”</string>
                                     </collectionView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sd6-Eh-QXA" customClass="PhotoGalleryBottomView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="800" width="414" height="96"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="96" id="QaC-Au-3dI"/>
                                         </constraints>
@@ -1593,7 +1594,7 @@ on Christmas”</string>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="SLf-BI-2BE" firstAttribute="leading" secondItem="Ve7-RH-k2J" secondAttribute="leading" id="1PZ-05-wzA"/>
                                     <constraint firstAttribute="trailing" secondItem="3MG-jE-qxZ" secondAttribute="trailing" id="Kaj-Z8-gOW"/>
@@ -1607,14 +1608,14 @@ on Christmas”</string>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="eJM-IY-SAR"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="Ve7-RH-k2J" secondAttribute="bottom" id="8px-P6-8Jj"/>
                             <constraint firstAttribute="trailing" secondItem="Ve7-RH-k2J" secondAttribute="trailing" id="GpD-q8-QLD"/>
                             <constraint firstItem="Ve7-RH-k2J" firstAttribute="leading" secondItem="5Zh-iv-2NE" secondAttribute="leading" id="hbC-26-i6H"/>
                             <constraint firstItem="Ve7-RH-k2J" firstAttribute="top" secondItem="5Zh-iv-2NE" secondAttribute="top" id="sVH-Tm-VrS"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="eJM-IY-SAR"/>
                     </view>
                     <connections>
                         <outlet property="bottomContainerHeightConstraint" destination="QaC-Au-3dI" id="3Ik-9v-jQj"/>
@@ -1660,13 +1661,13 @@ on Christmas”</string>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ssdasdasdas" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oki-2L-vFl">
-                                        <rect key="frame" x="157" y="18" width="100" height="20.5"/>
+                                        <rect key="frame" x="157.5" y="18" width="99.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="oki-2L-vFl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mcN-Gz-F1r" secondAttribute="leading" constant="10" id="10G-DY-4nY"/>
                                     <constraint firstItem="oki-2L-vFl" firstAttribute="centerY" secondItem="mcN-Gz-F1r" secondAttribute="centerY" id="IFL-ER-bg7"/>
@@ -1682,10 +1683,11 @@ on Christmas”</string>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="jIh-pT-yiA">
                                 <rect key="frame" x="0.0" y="100" width="414" height="762"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="mku-zu-9tE"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="mcN-Gz-F1r" firstAttribute="leading" secondItem="mku-zu-9tE" secondAttribute="leading" id="1FT-eZ-HOY"/>
                             <constraint firstItem="mku-zu-9tE" firstAttribute="trailing" secondItem="mcN-Gz-F1r" secondAttribute="trailing" id="2FI-R2-q0w"/>
@@ -1695,7 +1697,6 @@ on Christmas”</string>
                             <constraint firstItem="jIh-pT-yiA" firstAttribute="top" secondItem="mcN-Gz-F1r" secondAttribute="bottom" id="qHy-3P-2kX"/>
                             <constraint firstItem="mku-zu-9tE" firstAttribute="trailing" secondItem="jIh-pT-yiA" secondAttribute="trailing" id="wyB-FR-YaO"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="mku-zu-9tE"/>
                     </view>
                     <connections>
                         <outlet property="closeButton" destination="5Ao-v2-3Ta" id="uxv-hl-Z7d"/>
@@ -1756,11 +1757,11 @@ on Christmas”</string>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eq3-DZ-luL">
                                 <rect key="frame" x="0.0" y="88" width="414" height="730"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PHz-iV-XBE">
                                 <rect key="frame" x="0.0" y="725" width="414" height="93"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="93" id="x0H-kc-NEq"/>
                                 </constraints>
@@ -1783,14 +1784,14 @@ on Christmas”</string>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lT4-gI-skA" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="KqN-2b-dej"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qTs-Qh-wSH">
                                 <rect key="frame" x="0.0" y="818" width="414" height="44"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kaX-pv-2mw">
                                 <rect key="frame" x="0.0" y="818" width="414" height="44"/>
@@ -1843,7 +1844,8 @@ on Christmas”</string>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="OKg-CX-3ik"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="PHz-iV-XBE" firstAttribute="leading" secondItem="OKg-CX-3ik" secondAttribute="leading" id="4Hq-vu-IMp"/>
                             <constraint firstItem="eq3-DZ-luL" firstAttribute="top" secondItem="lT4-gI-skA" secondAttribute="bottom" id="5XI-r8-DKK"/>
@@ -1868,7 +1870,6 @@ on Christmas”</string>
                             <constraint firstItem="qTs-Qh-wSH" firstAttribute="top" secondItem="kaX-pv-2mw" secondAttribute="top" id="v1q-HP-7D5"/>
                             <constraint firstItem="kaX-pv-2mw" firstAttribute="top" secondItem="PHz-iV-XBE" secondAttribute="bottom" id="wNT-zn-9kk"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="OKg-CX-3ik"/>
                     </view>
                     <connections>
                         <outlet property="animationBubbleImageView" destination="rFb-1q-Szc" id="Tqu-FK-IVg"/>
@@ -1898,16 +1899,17 @@ on Christmas”</string>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="outgoing-message-bubble" translatesAutoresizingMaskIntoConstraints="NO" id="rFb-1q-Szc">
-                            <rect key="frame" x="101.5" y="48" width="267.5" height="101.5"/>
+                            <rect key="frame" x="103" y="48" width="266" height="101.5"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dsfsd fsd fsd rewr wer we rw er we r ewrw erwer dfjdfghnd fgjkdfhgdf gkjdfhg dfgkjhdfg dfgdfg" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y5c-9e-bMe">
-                            <rect key="frame" x="116.5" y="58" width="228.5" height="81.5"/>
+                            <rect key="frame" x="118" y="58" width="227" height="81.5"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
+                    <viewLayoutGuide key="safeArea" id="jTY-GH-lhj"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="Y5c-9e-bMe" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="jTY-GH-lhj" secondAttribute="leading" constant="110" id="6Pj-7p-yAX"/>
@@ -1918,7 +1920,6 @@ on Christmas”</string>
                         <constraint firstItem="rFb-1q-Szc" firstAttribute="bottom" secondItem="Y5c-9e-bMe" secondAttribute="bottom" constant="10" id="we8-wf-mCV"/>
                         <constraint firstItem="Y5c-9e-bMe" firstAttribute="top" secondItem="jTY-GH-lhj" secondAttribute="top" constant="14" id="xam-bm-Mbk"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="jTY-GH-lhj"/>
                 </view>
             </objects>
             <point key="canvasLocation" x="2304.8000000000002" y="1558.4707646176912"/>
@@ -1930,8 +1931,8 @@ on Christmas”</string>
                     <view key="view" contentMode="scaleToFill" id="zfL-C7-WBo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="494.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="sXC-Ib-YgW"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="46V-G6-ruV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1939,6 +1940,11 @@ on Christmas”</string>
             <point key="canvasLocation" x="2098" y="-222"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="MbY-QM-mnp">
+            <size key="intrinsicContentSize" width="42" height="21"/>
+        </designable>
+    </designables>
     <resources>
         <image name="Aerin Test66x66" width="66" height="66"/>
         <image name="AertripHomeIcon" width="25" height="28"/>
@@ -7923,5 +7929,8 @@ AAL8JAAC/CcAAvxMAAL8UQAC/FkAAAAAAAAEAQAAAAAAAABqAAAAAAAAAAAAAAAAAAL8XA
         <image name="trips" width="43" height="32"/>
         <image name="twitterIcon" width="24" height="24"/>
         <image name="userPlaceholder" width="16.5" height="20.5"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

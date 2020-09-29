@@ -1189,15 +1189,28 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         if isAPIResponseUpdated {
             // for other searches except ones mentioned below
             self.flightFilterVC?.flightResultArray = self.flightSearchResultVM.flightResultArray
-            flightFilterVC?.appliedAndUIFilters =  flightSearchResultVM.flightLegsAppliedFilters
-            flightFilterVC?.userSelectedFilters = self.flightSearchResultVM.getUserSelectedFilters()
-            self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
+            DispatchQueue.main.async {
+                self.flightFilterVC?.appliedAndUIFilters =  self.flightSearchResultVM.flightLegsAppliedFilters
+                self.flightFilterVC?.userSelectedFilters = self.flightSearchResultVM.getUserSelectedFilters()
+                self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
+            }
             
+            // For updating UI from deep linking filters // might not get set at the first time
+            DispatchQueue.delay(0.2, closure: {
+                self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
+            })
             
-            // for international return and multicity
             self.intMCAndReturnFilterVC?.flightResultArray = self.flightSearchResultVM.intFlightResultArray
-            intMCAndReturnFilterVC?.appliedAndUIFilters = flightSearchResultVM.intFlightLegsAppliedFilters
+            DispatchQueue.main.async {
+                self.intMCAndReturnFilterVC?.appliedAndUIFilters = self.flightSearchResultVM.intFlightLegsAppliedFilters
+                self.intMCAndReturnFilterVC?.userSelectedFilters = self.flightSearchResultVM.getIntUserSelectedFilters()
             self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)
+            }
+            
+            // For updating UI from deep linking filters // might not get set at the first time
+            DispatchQueue.delay(0.2, closure: {
+                self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)
+            })
             
             // To check if filters are pre applied and update dots
             filtersApplied(true)

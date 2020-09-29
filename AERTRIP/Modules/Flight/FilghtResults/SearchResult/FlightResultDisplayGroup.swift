@@ -464,6 +464,13 @@ class FlightResultDisplayGroup {
             self.userSelectedFilters?.dt.latest = userDepartureMin.toString(dateFormat: "HH:mm")
         }
         
+        let airports = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][ap]") }
+        
+        if airports.count > 0 {
+            self.appliedFilters.insert(.Airport)
+            self.userSelectedFilters?.ap = airports.map { $0.value as? String ?? "" }//[loap]
+        }
+        
         let loapAirports = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][loap]") }
         
         if loapAirports.count > 0 {
@@ -474,12 +481,36 @@ class FlightResultDisplayGroup {
         
         if let pr = flightSearchParam["filters[\(self.index)][pr][0]"] as? String{
             self.appliedFilters.insert(.Price)
-            self.userSelectedFilters?.pr.minPrice = Int(pr) ?? 0
+            let userMin = Int(pr) ?? 0
+            let inputMin = self.inputFilter?.pr.minPrice ?? 0
+            let price = userMin < inputMin ? inputMin : userMin
+            self.userSelectedFilters?.pr.minPrice = price
         }
         
         if let pr = flightSearchParam["filters[\(self.index)][pr][1]"] as? String{
             self.appliedFilters.insert(.Price)
-            self.userSelectedFilters?.pr.maxPrice = Int(pr) ?? 0
+            let userMax = Int(pr) ?? 0
+            let inputMax = self.inputFilter?.pr.maxPrice ?? 0
+            let price = userMax > inputMax ? inputMax : userMax
+            self.userSelectedFilters?.pr.maxPrice = price
+        }
+        
+        let quality = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][fq]") }
+        let qualityValues = quality.map { $0.value as? String ?? "" }
+        
+        if quality.count > 0 {
+            if qualityValues.contains("ovgtlo") {
+                self.UIFilters.insert(.hideOvernightLayover)
+                self.userSelectedFilters?.fq["ovgtlo"] = ""
+            }
+            if qualityValues.contains("ovgtf") {
+                self.UIFilters.insert(.hideOvernight)
+                self.userSelectedFilters?.fq["ovgtf"] = ""
+            }
+            if qualityValues.contains("coa") {
+                self.UIFilters.insert(.hideChangeAirport)
+                self.userSelectedFilters?.fq["coa"] = ""
+            }
         }
     }
     

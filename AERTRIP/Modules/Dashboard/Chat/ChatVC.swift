@@ -74,6 +74,13 @@ class ChatVC : BaseVC {
     
     //MARK:- Send Button Tapped
     @IBAction func sendButton(_ sender: UIButton) {
+        
+        UIApplication.shared.beginIgnoringInteractionEvents()
+    
+        delay(seconds: 1) {
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
+        
         self.messageTextView.placeholder = ""
         self.invalidateTypingCellTimer()
         guard  let msg = self.messageTextView.text, !msg.isEmpty else { return }

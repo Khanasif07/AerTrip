@@ -598,4 +598,8 @@ extension FlightSearchResultVM {
         }
         return userSelectedFilters
     }
+    
+    func getIntUserSelectedFilters() -> [IntMultiCityAndReturnWSResponse.Results.F] {
+        return self.intFlightLegs[0].userSelectedFilters
+    }
 }
