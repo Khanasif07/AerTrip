@@ -73,6 +73,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     let getSharableLink = GetSharableUrl()
     var previousRequest : [DispatchWorkItem?] = []
     var isNeedToUpdateLayout = true
+    var isHiddingHeader = false
 
     
     //MARK:-  Initializers

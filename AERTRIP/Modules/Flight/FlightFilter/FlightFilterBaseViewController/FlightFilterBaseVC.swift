@@ -363,6 +363,13 @@ extension FlightFilterBaseVC {
     func updateStopsFilter(_ stopsViewController  : FlightStopsFilterViewController , inputFilters : [FiltersWS])
     {
         if searchType == RETURN_JOURNEY {
+            var qualityFilter: QualityFilter?
+            if stopsViewController.allStopsFilters.indices.contains(0) {
+                qualityFilter = stopsViewController.allStopsFilters[0].qualityFilter
+                if userSelectedFilters[0].fq.keys.contains("coa") {
+                    qualityFilter?.isSelected = userSelectedFilters[0].fq["coa"] == ""
+                }
+            }
             var allLegsStops = [StopsFilter]()
             for fliter in inputFilters
             {
@@ -381,12 +388,18 @@ extension FlightFilterBaseVC {
                 let userStops : [Int] = userStopsStringArray.map({Int($0) ?? 0})
                 stopsViewController.allStopsFilters[0].userSelectedStops = userStops
             }
+            if let quality = qualityFilter {
+                stopsViewController.allStopsFilters[0].qualityFilter = quality
+            }
         } else {
             for index in 0..<inputFilters.count {
                 
                 var qualityFilter: QualityFilter?
                 if stopsViewController.allStopsFilters.indices.contains(index) {
                     qualityFilter = stopsViewController.allStopsFilters[index].qualityFilter
+                    if userSelectedFilters[index].fq.keys.contains("coa") {
+                        qualityFilter?.isSelected = userSelectedFilters[index].fq["ovgtlo"] == ""
+                    }
                 }
                 
                 let filter = inputFilters[index]
@@ -474,6 +487,9 @@ extension FlightFilterBaseVC {
             var qualityFilter: QualityFilter?
             if timesViewController.multiLegTimerFilter.indices.contains(index) {
                 qualityFilter = timesViewController.multiLegTimerFilter[index].qualityFilter
+                if userSelectedFilters[index].fq.keys.contains("ovgtf") {
+                    qualityFilter?.isSelected = userSelectedFilters[index].fq["ovgtf"] == ""
+                }
             }
             
             let leg = legList[index]
@@ -489,14 +505,17 @@ extension FlightFilterBaseVC {
             
             let newFlightLegFilter =  FlightLegTimeFilter(leg:leg, departureStartTime:  departureMin, departureMaxTime: departureMax, arrivalStartTime: arrivalMin, arrivalEndTime: arrivalMax )
             
-            let userSelectedFilter = userSelectedFilters[index]
-            let userDepartureTime = userSelectedFilter.depDt
-            let userArrivalTime = userSelectedFilter.arDt
+            var userSelectedFilter: FiltersWS?
+            if userSelectedFilters.indices.contains(index) {
+                userSelectedFilter = userSelectedFilters[index]
+            }
+            let userDepartureTime = userSelectedFilter?.depDt
+            let userArrivalTime = userSelectedFilter?.arDt
 
-            let userDepartureMin = userDepartureTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
-            let userDepartureMax = userDepartureTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
-            let userArrivalMin = userArrivalTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
-            let userArrivalMax = userArrivalTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
+            let userDepartureMin = userDepartureTime?.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
+            let userDepartureMax = userDepartureTime?.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
+            let userArrivalMin = userArrivalTime?.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
+            let userArrivalMax = userArrivalTime?.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
             
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[index].contains(.Times), timesViewController.multiLegTimerFilter.indices.contains(index) {
                 
@@ -505,9 +524,13 @@ extension FlightFilterBaseVC {
                     
                     timesViewController.multiLegTimerFilter[index].departureTimeMax = newFlightLegFilter.departureTimeMax
                     
-                    timesViewController.multiLegTimerFilter[index].userSelectedStartTime = userDepartureMin
-
-                    timesViewController.multiLegTimerFilter[index].userSelectedEndTime = userDepartureMax
+                    if let userMin = userDepartureMin {
+                        timesViewController.multiLegTimerFilter[index].userSelectedStartTime = userMin
+                    }
+                    
+                    if let userMax = userDepartureMax {
+                        timesViewController.multiLegTimerFilter[index].userSelectedEndTime = userMax
+                    }
                 }
                 
                 if userFilters.appliedSubFilters[index].contains(.arrivalTime) {
@@ -515,9 +538,13 @@ extension FlightFilterBaseVC {
                     
                     timesViewController.multiLegTimerFilter[index].arrivalEndTime = newFlightLegFilter.arrivalEndTime
                     
-                    timesViewController.multiLegTimerFilter[index].userSelectedArrivalStartTime = userArrivalMin
-
-                    timesViewController.multiLegTimerFilter[index].userSelectedArrivalEndTime = userArrivalMax
+                    if let userMin = userArrivalMin {
+                        timesViewController.multiLegTimerFilter[index].userSelectedArrivalStartTime = userMin
+                    }
+                    
+                    if let userMax = userArrivalMax {
+                        timesViewController.multiLegTimerFilter[index].userSelectedArrivalEndTime = userMax
+                    }
                 }
                 
             } else {
@@ -675,6 +702,9 @@ extension FlightFilterBaseVC {
         var qualityFilter: QualityFilter?
         if durationViewController.durationFilters.indices.contains(0) {
             qualityFilter = durationViewController.durationFilters[0].qualityFilter
+            if userSelectedFilters[0].fq.keys.contains("ovgtlo") {
+                qualityFilter?.isSelected = userSelectedFilters[0].fq["ovgtlo"] == ""
+            }
         }
 
         for filter in inputFilters {
@@ -784,6 +814,9 @@ extension FlightFilterBaseVC {
             var qualityFilter: QualityFilter?
             if durationViewController.durationFilters.indices.contains(index) {
                 qualityFilter = durationViewController.durationFilters[index].qualityFilter
+                if userSelectedFilters[index].fq.keys.contains("ovgtlo") {
+                    qualityFilter?.isSelected = userSelectedFilters[index].fq["ovgtlo"] == ""
+                }
             }
             
             let filter = inputFilters[index]

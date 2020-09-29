@@ -16,30 +16,30 @@ extension FlightDomesticMultiLegResultVC {
         self.bannerView = ResultHeaderView(frame: rect)
         self.bannerView?.frame = rect
         self.view.addSubview(self.bannerView!)
+        self.baseScrollView.isScrollEnabled = false
+        self.view.bringSubviewToFront(self.collectionContainerView)
     }
     
     func setupPinnedFlightsOptionsView() {
         
-//        pinnedFlightOptionsTop.constant = 0
+        switchView.delegate = self
+        switchView.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
+        switchView.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
+        switchView.onTintColor = AppColors.themeGreen
+        switchView.onThumbImage = #imageLiteral(resourceName: "pushpin")
+        switchView.offThumbImage = #imageLiteral(resourceName: "pushpin-gray")
+        switchView.setupUI()
+        delay(seconds: 0.6) {
+            self.switchView.isOn = false
+        }
         
-            switchView.delegate = self
-            switchView.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
-            switchView.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
-            switchView.onTintColor = AppColors.themeGreen
-            switchView.onThumbImage = #imageLiteral(resourceName: "pushpin")
-            switchView.offThumbImage = #imageLiteral(resourceName: "pushpin-gray")
-            switchView.setupUI()
-            delay(seconds: 0.6) {
-                self.switchView.isOn = false
-            }
-               
-            showPinnedFlightsOption(false)
-               
-            hideOrShowPinnedButtons(show : false)
-               
-            addShadowTo(unpinnedAllButton)
-            addShadowTo(emailPinnedFlights)
-            addShadowTo(sharePinnedFilghts)
+        showPinnedFlightsOption(false)
+        
+        hideOrShowPinnedButtons(show : false)
+        
+        addShadowTo(unpinnedAllButton)
+        addShadowTo(emailPinnedFlights)
+        addShadowTo(sharePinnedFilghts)
     }
     
     func addShadowTo(_ view : UIView)
@@ -50,8 +50,7 @@ extension FlightDomesticMultiLegResultVC {
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
     }
     
-    func setupScrollView()
-    {
+    func setupScrollView(){
         let width =  UIScreen.main.bounds.size.width / 2.0
         let height = self.baseScrollView.frame.height
         baseScrollView.contentSize = CGSize( width: (CGFloat(self.viewModel.numberOfLegs) * width ), height:height + 88.0)
@@ -84,15 +83,13 @@ extension FlightDomesticMultiLegResultVC {
         let width = UIScreen.main.bounds.width / 2.0
         let height = UIScreen.main.bounds.height
         let rect = CGRect(x: (width * CGFloat(index)), y: 165, width: width, height: height)
-        
-        
         let tableView = UITableView(frame: rect)
         tableView.dataSource = self
         tableView.tag = 1000 + index
         tableView.delegate = self
         tableView.allowsMultipleSelection = false
         tableView.isScrollEnabled = false
-//        tableView.scrollsToTop = true
+        //        tableView.scrollsToTop = true
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
         tableView.separatorStyle = .none
@@ -255,7 +252,6 @@ extension FlightDomesticMultiLegResultVC {
         DispatchQueue.main.async {
             let bottomInset = self.view.safeAreaInsets.bottom
             let scrollBottom = ((self.viewModel.results.map{$0.selectedJourney}.filter{($0?.fsr ?? 0) == 1}).count == 0) ? (50 + bottomInset) : (90 + bottomInset)
-            self.isNeedToUpdateLayout = false
             UIView.animate(withDuration: 0.2) {
                 self.scrollViewBottomConstraint.constant = scrollBottom
                 self.baseScrollView.layoutIfNeeded()
@@ -498,7 +494,7 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
         
         var rect = headerView.frame
         baseScrollViewTop.constant = 0
-        
+        self.baseScrollView.isScrollEnabled = true
         UIView.animate(withDuration: 1.0 , animations: {
             let y = rect.origin.y - rect.size.height - 20
             rect.origin.y = y

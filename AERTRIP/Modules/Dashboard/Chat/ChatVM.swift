@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 protocol ChatBotDelegatesDelegate: class {
     
     func willstarttChatBotSession()
@@ -47,6 +46,8 @@ class ChatVM {
     var msgToBeSent : String = ""
     var recentSearchesData : [RecentSearchesModel] = []
     
+    private var updatedFiltersJSON = JSON()
+    private let locationManager = CLLocationManager()
     
     func getMylastMessageIndex() -> Int {
         
@@ -70,14 +71,24 @@ class ChatVM {
         
         self.delegate?.willstarttChatBotSession()
         
-        let params : JSONDictionary = [APIKeys.session_id.rawValue : getRandomSessionId(length : 13), "q" : message]
-        APICaller.shared.startChatBotSession(params: params) { (success, message, sessionId) in
+        var params : JSONDictionary = [APIKeys.session_id.rawValue : getRandomSessionId(length : 13), "q" : message]
+        
+        let curLoc = LocationManager.getMyLocation
+        let defaultLoc = LocationManager.defaultCoordinate
+        
+        if curLoc.latitude != defaultLoc.latitude || curLoc.longitude != defaultLoc.longitude {
+            params["latitude"] = curLoc.latitude
+            params["longitude"] = curLoc.longitude
+        }
+        
+        APICaller.shared.startChatBotSession(params: params) { (success, message, sessionId, filters) in
             
             if success {
                 //                self.delegate?.hideTypingCell()
                 self.sessionId = sessionId
                 guard let msg = message else { return }
                 self.messages.append(msg)
+                self.updatedFiltersJSON = filters
                 self.delegate?.chatBotSessionCreatedSuccessfully()
                 if !msg.depart.isEmpty && !msg.origin.isEmpty && !msg.destination.isEmpty {
                     self.delegate?.moveFurtherWhenallRequiredInformationSubmited(data: msg)
@@ -94,15 +105,24 @@ class ChatVM {
         
         self.delegate?.willCommunicateWithChatBot()
         
-        let params : JSONDictionary = [APIKeys.session_id.rawValue : self.sessionId, "q" : message]
+        var params : JSONDictionary = [APIKeys.session_id.rawValue : self.sessionId, "q" : message]
         
-        APICaller.shared.communicateWithChatBot(params: params) { (success, message, sessionId) in
+        let curLoc = LocationManager.getMyLocation
+        let defaultLoc = LocationManager.defaultCoordinate
+        
+        if curLoc.latitude != defaultLoc.latitude || curLoc.longitude != defaultLoc.longitude {
+            params["latitude"] = curLoc.latitude
+            params["longitude"] = curLoc.longitude
+        }
+        
+        APICaller.shared.communicateWithChatBot(params: params) { (success, message, sessionId, filters) in
             
             if success {
                 //                self.delegate?.hideTypingCell()
                 self.sessionId = sessionId
                 guard let msg = message else { return }
                 self.messages.append(msg)
+                self.updatedFiltersJSON = filters
                 self.delegate?.chatBotCommunicatedSuccessfully()
                 if !msg.depart.isEmpty && !msg.origin.isEmpty && !msg.destination.isEmpty {
                     self.delegate?.moveFurtherWhenallRequiredInformationSubmited(data: msg)
@@ -201,7 +221,8 @@ class ChatVM {
             jsonDict["totalLegs"] = 1
         }
         
-        SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
+        addFiltersAndPushToResults(jsonDict)
+        
     }
     
     func createFlightSearchDictFromRecentSearches(_ dict: JSONDictionary) {
@@ -220,14 +241,141 @@ class ChatVM {
             jsonDict["totalLegs"] = dict["totalLegs"]
         }
         
+        let filtersDict = dict.filter { $0.key.contains("filters") }
+        filtersDict.forEach { (key, val) in
+            jsonDict[key] = "\(val)"
+        }
+        
+        SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
+    }
+    
+    private func addFiltersAndPushToResults(_ dict: JSONDictionary) {
+        var jsonDict = dict
+        let oneWayFilters = updatedFiltersJSON["0"]
+        let returnFilters = updatedFiltersJSON["1"]
+        if let stops = oneWayFilters["stp"].array {
+            stops.enumerated().forEach { (index, stop) in
+                jsonDict["filters[0][stp][\(index)]"] = stop.stringValue
+            }
+        }
+        if let stops = returnFilters["stp"].array {
+            stops.enumerated().forEach { (index, stop) in
+                jsonDict["filters[1][stp][\(index)]"] = stop.stringValue
+            }
+        }
+        
+        if let depDt = oneWayFilters["dep_dt"].array {
+            if let leftVal = depDt[0].int {
+                jsonDict["filters[0][dep_dt][0]"] = leftVal.toString
+            }
+            if let rightVal = depDt[1].int {
+                let convertedVal = rightVal == 0 ? 1440 : rightVal
+                jsonDict["filters[0][dep_dt][1]"] = convertedVal.toString
+            }
+        }
+        
+        if let depDt = returnFilters["dep_dt"].array {
+            if let leftVal = depDt[0].int {
+                jsonDict["filters[1][dep_dt][0]"] = leftVal.toString
+            }
+            if let rightVal = depDt[1].int {
+                let convertedVal = rightVal == 0 ? 1440 : rightVal
+                jsonDict["filters[1][dep_dt][1]"] = convertedVal.toString
+            }
+        }
+        
+        if let arDt = oneWayFilters["ar_dt"].array {
+            if let leftVal = arDt[0].int {
+                jsonDict["filters[0][ar_dt][0]"] = leftVal.toString
+            }
+            if let rightVal = arDt[1].int {
+                jsonDict["filters[0][ar_dt][1]"] = rightVal.toString
+            }
+        }
+        
+        if let arDt = returnFilters["ar_dt"].array {
+            if let leftVal = arDt[0].int {
+                jsonDict["filters[1][ar_dt][0]"] = leftVal.toString
+            }
+            if let rightVal = arDt[1].int {
+                jsonDict["filters[1][ar_dt][1]"] = rightVal.toString
+            }
+        }
+        
+        if let airlines = oneWayFilters["al"].array {
+            airlines.enumerated().forEach { (index, airline) in
+                jsonDict["filters[0][al][\(index)]"] = airline.stringValue
+            }
+        }
+        
+        if let airlines = returnFilters["al"].array {
+            airlines.enumerated().forEach { (index, airline) in
+                jsonDict["filters[1][al][\(index)]"] = airline.stringValue
+            }
+        }
+        
+        if let minTime = oneWayFilters["duration"]["min"].int {
+            jsonDict["filters[0][tt][0]"] = ((minTime)/216000).toString
+        }
+        
+        if let maxTime = oneWayFilters["duration"]["max"].int {
+            jsonDict["filters[0][tt][1]"] = ((maxTime)/216000).toString
+        }
+        
+        if let minTime = oneWayFilters["layoverDuration"]["min"].int {
+            jsonDict["filters[0][lott][0]"] = ((minTime)/216000).toString
+        }
+        
+        if let maxTime = oneWayFilters["layoverDuration"]["max"].int {
+            jsonDict["filters[0][lott][1]"] = ((maxTime)/216000).toString
+        }
+        
+        if let minTime = returnFilters["duration"]["min"].int {
+            jsonDict["filters[1][tt][0]"] = ((minTime)/216000).toString
+        }
+        
+        if let maxTime = returnFilters["duration"]["max"].int {
+            jsonDict["filters[1][tt][1]"] = ((maxTime)/216000).toString
+        }
+        
+        if let minTime = returnFilters["layoverDuration"]["min"].int {
+            jsonDict["filters[1][lott][0]"] = ((minTime)/216000).toString
+        }
+        
+        if let maxTime = returnFilters["layoverDuration"]["max"].int {
+            jsonDict["filters[1][lott][1]"] = ((maxTime)/216000).toString
+        }
+        
+        if let price = oneWayFilters["pr"].array {
+            if let leftVal = price[0].int {
+                jsonDict["filters[0][pr][0]"] = leftVal.toString
+            }
+            if let rightVal = price[1].int {
+                jsonDict["filters[0][pr][1]"] = rightVal.toString
+            }
+        }
+        
+        if let price = returnFilters["pr"].array {
+            if let leftVal = price[0].int {
+                jsonDict["filters[1][pr][0]"] = leftVal.toString
+            }
+            if let rightVal = price[1].int {
+                jsonDict["filters[1][pr][1]"] = rightVal.toString
+            }
+        }
+        
+        if let loap = oneWayFilters["loap"].array {
+            loap.enumerated().forEach { (index, airline) in
+                jsonDict["filters[0][loap][\(index)]"] = airline.stringValue
+            }
+        }
+        
+        if let loap = returnFilters["loap"].array {
+            loap.enumerated().forEach { (index, airline) in
+                jsonDict["filters[1][loap][\(index)]"] = airline.stringValue
+            }
+        }
+        
         SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
 }
-
-
-
-
-
-
-
-

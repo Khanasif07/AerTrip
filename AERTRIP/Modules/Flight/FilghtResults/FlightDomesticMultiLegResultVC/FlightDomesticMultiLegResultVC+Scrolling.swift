@@ -194,13 +194,15 @@ extension FlightDomesticMultiLegResultVC {
             return
         }
         
-        if !headerView.isHidden {
+        if !headerView.isHidden && !isHiddingHeader {
+            isHiddingHeader = true
             UIView.animate(withDuration: 0.4, animations: {
                 var frame = headerView.frame
                 frame.origin.y =  -44.0//(self.headerCollectionViewTop.constant + self.headerCollectionView.height + self.baseScrollView.contentOffset.y - 44.0)//(-self.headerCollectionViewTop.constant - self.journeyCompactViewHeight)
                 headerView.frame = frame
             }) { (completed) in
                 headerView.isHidden = true
+                self.isHiddingHeader = false
                 if isHeaderNeedSet{
                     if let table = self.baseScrollView.viewWithTag(1000 + index) as? UITableView{
                         self.setTableViewHeaderFor(tableView: table)
@@ -308,11 +310,12 @@ extension FlightDomesticMultiLegResultVC {
     
     func changeContentOfssetWithMainScrollView(_ isNeedToAnimate:Bool = false){
         guard let blurView = self.navigationController?.view.viewWithTag(500) else  {return}
-        UIView.animate(withDuration: isNeedToAnimate ? 0.3 : 0.0) {
-            blurView.frame.origin.y = -self.baseScrollView.contentOffset.y
-//            self.headerCollectionView.frame.origin.y = (88.0 - self.baseScrollView.contentOffset.y)
-            self.headerCollectionViewTop.constant = (88.0 - self.baseScrollView.contentOffset.y)
-            self.view.layoutIfNeeded()
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: isNeedToAnimate ? 0.3 : 0.0) {
+                blurView.frame.origin.y = -self.baseScrollView.contentOffset.y
+                self.headerCollectionViewTop.constant = (88.0 - self.baseScrollView.contentOffset.y)
+                self.view.layoutIfNeeded()
+            }
         }
     }
     
@@ -461,6 +464,7 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
                 }
                 if (scrollView.contentOffset.y == 0 && self.baseScrollView.contentOffset.y != 0){
                     self.baseScrollView.contentOffset.y = 0.0
+                    self.setAllTableViewHeader()
                 }
                 return
             }
@@ -505,6 +509,17 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
                 self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
                 UIView.animate(withDuration: 0.3) {
                     self.baseScrollView.contentOffset.y = 0.0
+                    self.setAllTableViewHeader()
+                }
+            }
+        }
+    }
+    
+    func setAllTableViewHeader(){
+        delay(seconds: 0.2) {
+            for subView in self.baseScrollView.subviews{
+                if let tableView = subView as? UITableView{
+                    self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
                 }
             }
         }
@@ -518,14 +533,15 @@ extension FlightDomesticMultiLegResultVC{
     public func boundsWithoutInset(for tableView: UITableView)-> CGRect{
         var boundsWithoutInset = tableView.bounds
         let colletionSpace = self.headerCollectionViewTop.constant + self.headerCollectionView.height
-        boundsWithoutInset.origin.y += (tableView.contentInset.top + colletionSpace)
-        boundsWithoutInset.size.height -= (tableView.contentInset.top + tableView.contentInset.bottom + colletionSpace - 40)
+        let bottom = UIApplication.shared.statusBarFrame.height
+        boundsWithoutInset.origin.y += (tableView.contentInset.top + colletionSpace + self.baseScrollView.contentOffset.y)
+        boundsWithoutInset.size.height -= (tableView.contentInset.top + tableView.contentInset.bottom + colletionSpace + 50 + self.baseScrollView.contentOffset.y)
         return boundsWithoutInset
     }
 
     public func isRowCompletelyVisible(at indexPath: IndexPath, for tableView: UITableView) -> Bool {
         let rect = tableView.rectForRow(at: indexPath)
-        return self.boundsWithoutInset(for: tableView).contains(rect)
+        return self.boundsWithoutInset(for: tableView).intersects(rect)
     }
     
 }
