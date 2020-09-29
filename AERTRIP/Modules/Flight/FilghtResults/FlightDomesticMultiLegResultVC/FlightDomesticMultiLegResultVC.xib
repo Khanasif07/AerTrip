@@ -51,7 +51,7 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LGB-Tb-cm6">
                     <rect key="frame" x="0.0" y="44" width="375" height="768"/>
                 </scrollView>
-                <visualEffectView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZLq-KE-sBb">
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZLq-KE-sBb">
                     <rect key="frame" x="0.0" y="132" width="375" height="50"/>
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Rqv-pc-faS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -100,7 +100,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YBb-x4-bGE">
-                    <rect key="frame" x="0.0" y="182.66666666666666" width="375" height="0.33333333333334281"/>
+                    <rect key="frame" x="0.0" y="182" width="375" height="0.66666666666665719"/>
                     <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="0.5" id="GbK-c4-Nyu"/>
@@ -250,10 +250,11 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="wWJ-fy-eFq" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="3pU-2b-A2Z"/>
+                <constraint firstItem="ZLq-KE-sBb" firstAttribute="top" secondItem="McG-bv-SUO" secondAttribute="top" id="5LK-eQ-Cra"/>
                 <constraint firstItem="McG-bv-SUO" firstAttribute="top" secondItem="St9-bl-9B9" secondAttribute="bottom" constant="88" id="7g4-o1-5cj"/>
                 <constraint firstAttribute="trailing" secondItem="tll-1e-5pm" secondAttribute="trailing" id="7sR-a8-5zY"/>
                 <constraint firstItem="LJS-OI-Y27" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" id="DF2-mu-FUC"/>
-                <constraint firstItem="YBb-x4-bGE" firstAttribute="top" secondItem="McG-bv-SUO" secondAttribute="bottom" constant="0.5" id="Dqu-wX-IWy"/>
+                <constraint firstItem="YBb-x4-bGE" firstAttribute="top" secondItem="McG-bv-SUO" secondAttribute="bottom" id="Dqu-wX-IWy"/>
                 <constraint firstItem="St9-bl-9B9" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="GWM-Gj-JUS"/>
                 <constraint firstItem="YBb-x4-bGE" firstAttribute="leading" secondItem="McG-bv-SUO" secondAttribute="leading" id="Goa-V5-bnm"/>
                 <constraint firstAttribute="trailing" secondItem="McG-bv-SUO" secondAttribute="trailing" id="Jkz-8f-MFf"/>
