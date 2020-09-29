@@ -348,6 +348,18 @@ class ChatVM {
             }
         }
         
+        if let loap = oneWayFilters["loap"].array {
+            loap.enumerated().forEach { (index, airline) in
+                jsonDict["filters[0][loap][\(index)]"] = airline.stringValue
+            }
+        }
+        
+        if let loap = returnFilters["loap"].array {
+            loap.enumerated().forEach { (index, airline) in
+                jsonDict["filters[1][loap][\(index)]"] = airline.stringValue
+            }
+        }
+        
         SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
 }
