@@ -9,8 +9,7 @@
 import UIKit
 
 
-class InternationalReturnTableViewCell: UITableViewCell
-{
+class InternationalReturnTableViewCell: UITableViewCell {
     //MARK:- Outlets
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var baseView: UIView!
@@ -260,16 +259,16 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
         if smartIconsArray?.count == 0  || baggageSuperScript?.string == "?" || baggageSuperScript?.string == "0P" {
             return .zero
         }
-        return CGSize(width: 21.0, height:  23.0)
+        return CGSize(width: 16.0, height:  23.0)
       }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
          let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,withReuseIdentifier: "smartIconHeaderView", for: indexPath)
         
-        headerView.frame = CGRect(x: 33, y: 5, width: 1.0, height: collectionView.frame.height)
+//        headerView.frame = CGRect(x: 0, y: 5, width: 1.0, height: collectionView.frame.height)
 
-        headerView.backgroundColor = UIColor(displayP3Red: ( 204.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 204 / 255.0), alpha: 1.0)
+//        headerView.backgroundColor = UIColor(displayP3Red: ( 204.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 204 / 255.0), alpha: 1.0)
      
         return headerView
      }
@@ -300,6 +299,10 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
             }
         }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 26, height: 23)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

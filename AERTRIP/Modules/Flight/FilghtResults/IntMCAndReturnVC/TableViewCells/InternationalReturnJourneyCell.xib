@@ -93,7 +93,7 @@
                             <constraint firstAttribute="height" constant="23" id="S9S-JJ-HMY"/>
                         </constraints>
                     </stackView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="szcxzczxcxz" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oul-ao-EqI">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="British Airways" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oul-ao-EqI">
                         <rect key="frame" x="0.0" y="39.5" width="73" height="15.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="73" id="Qr4-1S-L6Q"/>
