@@ -66,7 +66,7 @@ open class ATDividerView: UIView {
     
     private func updatedBackgroundColor() {
         self.backgroundColor = .clear
-        dividerView.backgroundColor = AppColors.divider.color //defaultBackgroundColor
+        dividerView.backgroundColor = AppColors.themeRed //defaultBackgroundColor
     }
     
     private func updatedFrame() {

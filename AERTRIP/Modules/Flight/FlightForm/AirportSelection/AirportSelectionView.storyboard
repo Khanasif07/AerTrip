@@ -185,7 +185,7 @@
                                                     <constraint firstItem="bY4-wY-Bdt" firstAttribute="height" secondItem="TQc-af-aOY" secondAttribute="height" id="umu-R3-Mub"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fvx-yg-FiA" userLabel="LineView">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fvx-yg-FiA" userLabel="LineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="92.5" width="414" height="0.5"/>
                                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -269,11 +269,11 @@
                                                 </constraints>
                                                 <state key="normal" image="microphone"/>
                                             </button>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tep-5t-fE7" userLabel="LineView">
-                                                <rect key="frame" x="0.0" y="52" width="414" height="0.0"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tep-5t-fE7" userLabel="LineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="51.5" width="414" height="0.5"/>
                                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="0.20000000000000001" id="gqh-DY-SgZ"/>
+                                                    <constraint firstAttribute="height" constant="0.5" id="gqh-DY-SgZ"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -337,7 +337,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dA7-Fi-St5" userLabel="LineView">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dA7-Fi-St5" userLabel="LineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
                                                             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
@@ -353,7 +353,7 @@
                                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gXu-UI-fft" userLabel="LineView">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gXu-UI-fft" userLabel="LineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="43.5" width="414" height="0.5"/>
                                                             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
@@ -445,7 +445,7 @@
                                                     <action selector="doneAction:" destination="mEn-qe-GG0" eventType="touchUpInside" id="AQk-ak-D7z"/>
                                                 </connections>
                                             </button>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gZq-gy-hAS">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gZq-gy-hAS" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
                                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
