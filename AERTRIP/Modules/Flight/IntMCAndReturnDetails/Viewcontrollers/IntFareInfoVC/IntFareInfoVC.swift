@@ -88,10 +88,11 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         indicator.color = AppColors.themeGreen
     }
     
-    private func addIndicator(){
+    private func addIndicator()
+    {
         indicator.frame = CGRect(x: 0, y: 200, width: 40, height: 40)
         indicator.center.x = self.view.center.x
-        indicator.center.y = 80
+        indicator.center.y = self.view.center.y-150
         if !self.view.contains(indicator){
             self.view.addSubview(indicator)
         }
