@@ -153,12 +153,23 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                                     journey[j].leg[0].flights[k-1].isArrivalTerminalChange = false
                                 }
                             }
+                            
+                            
+                            if flight.dd != prevFlight.ad{
+                                journey[j].leg[0].flights[k].isDepartureDateChange = true
+                            }else{
+                                journey[j].leg[0].flights[k].isDepartureDateChange = false
+                            }
+
                         }else{
                             journey[j].leg[0].flights[k].isDepartureTerminalChange = false
                             journey[j].leg[0].flights[k].isArrivalTerminalChange = false
                             
                             journey[j].leg[0].flights[k].isDepartureAirportChange = false
                             journey[j].leg[0].flights[k].isArrivalAirportChange = false
+                            
+                            journey[j].leg[0].flights[k].isDepartureDateChange = false
+
                         }
                     }
                 }
@@ -522,7 +533,31 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                         }
                         
                         
-                        flightDetailsCell.departureDateLabel.text = departureDateString
+//                        flightDetailsCell.departureDateLabel.text = departureDateString
+                        
+                        if flight.isDepartureDateChange!{
+                            let string_to_color111 = "  \(departureDateString) ."
+                            let string_to_color1111 = "  \(departureDateString) "
+
+                            let arrivalAirportRange = (string_to_color111 as NSString).range(of: string_to_color1111)
+                            let haltAtAttributedString = NSMutableAttributedString(string:string_to_color111)
+                            haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: arrivalAirportRange)
+                            haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0), range: arrivalAirportRange)
+                            haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (string_to_color111 as NSString).range(of: "."))
+
+                            flightDetailsCell.departureDateLabel.attributedText = haltAtAttributedString
+
+                        }else{
+                            let string_to_color111 = "\(departureDateString)"
+                            
+                            let arrivalAirportRange = (string_to_color111 as NSString).range(of: string_to_color111)
+                            let haltAtAttributedString = NSMutableAttributedString(string:string_to_color111)
+                            haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: arrivalAirportRange)
+                            haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.clear, range: arrivalAirportRange)
+                            
+                            flightDetailsCell.departureDateLabel.attributedText = haltAtAttributedString
+                            
+                        }
                         
                         flightDetailsCell.arrivalTerminalLabel.text = flight.atm
                         flightDetailsCell.departureTerminalLabel.text = flight.dtm
