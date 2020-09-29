@@ -237,7 +237,12 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
         if indexPath.section == journey.count{
             let changeAirportCell = tableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as! ChangeAirportTableViewCell
             changeAirportCell.titleLabel.text = "Change of Airport"
-            changeAirportCell.dataLabel.text = "While changing airports, re-checking baggage and going back through security may be necessary. Ensure you have ample time between transfers. Kindly check all terms regarding connection, baggage transfer, visas, etc. with the airlines directly before booking this itinerary."
+               
+            let myMutableString = NSMutableAttributedString(string: "While changing airports, re-checking baggage and going back through security may be necessary. Ensure you have ample time between transfers. Kindly check all terms regarding connection, baggage transfer, visas, etc. with the airlines directly before booking this itinerary. While changing airports While changing airports.")
+           
+            myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear, range: NSRange(location:273,length:48))
+            changeAirportCell.dataLabel.attributedText = myMutableString
+        
             return changeAirportCell
         }else{
             let count = journey[indexPath.section].leg.first?.flights.count
@@ -1019,5 +1024,18 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
         } , failureHandler : { (error ) in
             print(error)
         })
+    }
+}
+
+
+
+extension UILabel {
+    func calculateMaxLines() -> Int {
+        let maxSize = CGSize(width: frame.size.width, height: CGFloat(Float.infinity))
+        let charSize = font.lineHeight
+        let text = (self.text ?? "") as NSString
+        let textSize = text.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+        let linesRoundedUp = Int(ceil(textSize.height/charSize))
+        return linesRoundedUp
     }
 }
