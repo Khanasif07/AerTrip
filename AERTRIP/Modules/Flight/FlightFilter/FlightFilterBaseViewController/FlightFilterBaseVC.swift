@@ -505,14 +505,17 @@ extension FlightFilterBaseVC {
             
             let newFlightLegFilter =  FlightLegTimeFilter(leg:leg, departureStartTime:  departureMin, departureMaxTime: departureMax, arrivalStartTime: arrivalMin, arrivalEndTime: arrivalMax )
             
-            let userSelectedFilter = userSelectedFilters[index]
-            let userDepartureTime = userSelectedFilter.depDt
-            let userArrivalTime = userSelectedFilter.arDt
+            var userSelectedFilter: FiltersWS?
+            if userSelectedFilters.indices.contains(index) {
+                userSelectedFilter = userSelectedFilters[index]
+            }
+            let userDepartureTime = userSelectedFilter?.depDt
+            let userArrivalTime = userSelectedFilter?.arDt
 
-            let userDepartureMin = userDepartureTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
-            let userDepartureMax = userDepartureTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
-            let userArrivalMin = userArrivalTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
-            let userArrivalMax = userArrivalTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
+            let userDepartureMin = userDepartureTime?.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
+            let userDepartureMax = userDepartureTime?.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
+            let userArrivalMin = userArrivalTime?.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
+            let userArrivalMax = userArrivalTime?.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
             
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[index].contains(.Times), timesViewController.multiLegTimerFilter.indices.contains(index) {
                 
@@ -521,9 +524,13 @@ extension FlightFilterBaseVC {
                     
                     timesViewController.multiLegTimerFilter[index].departureTimeMax = newFlightLegFilter.departureTimeMax
                     
-                    timesViewController.multiLegTimerFilter[index].userSelectedStartTime = userDepartureMin
-
-                    timesViewController.multiLegTimerFilter[index].userSelectedEndTime = userDepartureMax
+                    if let userMin = userDepartureMin {
+                        timesViewController.multiLegTimerFilter[index].userSelectedStartTime = userMin
+                    }
+                    
+                    if let userMax = userDepartureMax {
+                        timesViewController.multiLegTimerFilter[index].userSelectedEndTime = userMax
+                    }
                 }
                 
                 if userFilters.appliedSubFilters[index].contains(.arrivalTime) {
@@ -531,9 +538,13 @@ extension FlightFilterBaseVC {
                     
                     timesViewController.multiLegTimerFilter[index].arrivalEndTime = newFlightLegFilter.arrivalEndTime
                     
-                    timesViewController.multiLegTimerFilter[index].userSelectedArrivalStartTime = userArrivalMin
-
-                    timesViewController.multiLegTimerFilter[index].userSelectedArrivalEndTime = userArrivalMax
+                    if let userMin = userArrivalMin {
+                        timesViewController.multiLegTimerFilter[index].userSelectedArrivalStartTime = userMin
+                    }
+                    
+                    if let userMax = userArrivalMax {
+                        timesViewController.multiLegTimerFilter[index].userSelectedArrivalEndTime = userMax
+                    }
                 }
                 
             } else {
