@@ -232,7 +232,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                         index = indexPath.row
                     }
                     
-                    let flight = legs[indexPath.section].flightsWithDetails[index]
+                    var flight = legs[indexPath.section].flightsWithDetails[index]
                     var amenitiesData = [String]()
                     
                     //let bgWeight = flight.bg?["ADT"]?.weight
@@ -508,6 +508,10 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     }
                     
                     var travellingTime = NSAttributedString()
+                    if flight.halt.contains(","){
+                        flight.halt = flight.halt.replacingOccurrences(of: ",", with: ", ")
+                    }
+
                     if count == 1{
                         if flight.halt != ""{
                             travellingTime = self.getAttributedTitle(with: legs[indexPath.section].durationTitle, subTitle: flight.halt)

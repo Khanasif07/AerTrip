@@ -39,6 +39,7 @@ class FlightResultDisplayGroup {
     private var filterUpdatedFromDeepLink = false
     
     internal var isAPIResponseUpdated = false
+    internal var selectedDeepLinkAirports = [String]()
 
     //MARK:- Computed Properties
     var appliedFilters = Set<Filters>() {
@@ -394,28 +395,40 @@ class FlightResultDisplayGroup {
             self.appliedFilters.insert(.Duration)
             self.initiatedFilters.insert(.tripDuration)
             self.appliedSubFilters.insert(.tripDuration)
-            self.userSelectedFilters?.tt.minTime = tt
+            let userMin = Int(tt) ?? 0
+            let inputMin = (Int(self.inputFilter?.tt.minTime ?? "") ?? 0)/3600
+            let minTime = userMin < inputMin ? inputMin : userMin
+            self.userSelectedFilters?.tt.minTime = "\(minTime)"
         }
         
         if let tt = flightSearchParam["filters[\(self.index)][tt][1]"] as? String{
             self.appliedFilters.insert(.Duration)
             self.initiatedFilters.insert(.tripDuration)
             self.appliedSubFilters.insert(.tripDuration)
-            self.userSelectedFilters?.tt.maxTime = tt
+            let userMax = Int(tt) ?? 0
+            let inputMax = (Int(self.inputFilter?.tt.maxTime ?? "") ?? 0)/3600
+            let maxTime = userMax > inputMax ? inputMax : userMax
+            self.userSelectedFilters?.tt.maxTime = "\(maxTime)"
         }
         
         if let lott = flightSearchParam["filters[\(self.index)][lott][0]"] as? String{
             self.appliedFilters.insert(.Duration)
             self.initiatedFilters.insert(.layoverDuration)
             self.appliedSubFilters.insert(.layoverDuration)
-            self.userSelectedFilters?.lott?.minTime = lott
+            let userMin = Int(lott) ?? 0
+            let inputMin = (Int(self.inputFilter?.lott?.minTime ?? "") ?? 0)/3600
+            let minTime = userMin < inputMin ? inputMin : userMin
+            self.userSelectedFilters?.lott?.minTime = "\(minTime)"
         }
         
         if let lott = flightSearchParam["filters[\(self.index)][lott][1]"] as? String{
             self.appliedFilters.insert(.Duration)
             self.initiatedFilters.insert(.layoverDuration)
             self.appliedSubFilters.insert(.layoverDuration)
-            self.userSelectedFilters?.lott?.maxTime = lott
+            let userMax = Int(lott) ?? 0
+            let inputMax = (Int(self.inputFilter?.lott?.maxTime ?? "") ?? 0)/3600
+            let maxTime = userMax > inputMax ? inputMax : userMax
+            self.userSelectedFilters?.lott?.maxTime = "\(maxTime)"
         }
         
         if let ar_dt = flightSearchParam["filters[\(self.index)][ar_dt][0]"] as? String{
@@ -464,6 +477,15 @@ class FlightResultDisplayGroup {
             self.userSelectedFilters?.dt.latest = userDepartureMin.toString(dateFormat: "HH:mm")
         }
         
+//        let airports = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][ap]") }
+//
+//        if airports.count > 0 {
+//            self.appliedFilters.insert(.Airport)
+//            self.UIFilters.insert(.originAirports)
+//            self.UIFilters.insert(.destinationAirports)
+//            self.selectedDeepLinkAirports = airports.map { $0.value as? String ?? "" }
+//        }
+        
         let loapAirports = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][loap]") }
         
         if loapAirports.count > 0 {
@@ -474,12 +496,36 @@ class FlightResultDisplayGroup {
         
         if let pr = flightSearchParam["filters[\(self.index)][pr][0]"] as? String{
             self.appliedFilters.insert(.Price)
-            self.userSelectedFilters?.pr.minPrice = Int(pr) ?? 0
+            let userMin = Int(pr) ?? 0
+            let inputMin = self.inputFilter?.pr.minPrice ?? 0
+            let price = userMin < inputMin ? inputMin : userMin
+            self.userSelectedFilters?.pr.minPrice = price
         }
         
         if let pr = flightSearchParam["filters[\(self.index)][pr][1]"] as? String{
             self.appliedFilters.insert(.Price)
-            self.userSelectedFilters?.pr.maxPrice = Int(pr) ?? 0
+            let userMax = Int(pr) ?? 0
+            let inputMax = self.inputFilter?.pr.maxPrice ?? 0
+            let price = userMax > inputMax ? inputMax : userMax
+            self.userSelectedFilters?.pr.maxPrice = price
+        }
+        
+        let quality = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][fq]") }
+        let qualityValues = quality.map { $0.value as? String ?? "" }
+        
+        if quality.count > 0 {
+            if qualityValues.contains("ovgtlo") {
+                self.UIFilters.insert(.hideOvernightLayover)
+                self.userSelectedFilters?.fq["ovgtlo"] = ""
+            }
+            if qualityValues.contains("ovgtf") {
+                self.UIFilters.insert(.hideOvernight)
+                self.userSelectedFilters?.fq["ovgtf"] = ""
+            }
+            if qualityValues.contains("coa") {
+                self.UIFilters.insert(.hideChangeAirport)
+                self.userSelectedFilters?.fq["coa"] = ""
+            }
         }
     }
     

@@ -441,6 +441,13 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     func updateStopsFilter(_ stopsViewController  : FlightStopsFilterViewController , inputFilters : [IntMultiCityAndReturnWSResponse.Results.F])
     {
         if searchType == RETURN_JOURNEY {
+            var qualityFilter: QualityFilter?
+            if stopsViewController.allStopsFilters.indices.contains(0) {
+                qualityFilter = stopsViewController.allStopsFilters[0].qualityFilter
+                if userSelectedFilters[0].fq.keys.contains("coa") {
+                    qualityFilter?.isSelected = userSelectedFilters[0].fq["coa"] == ""
+                }
+            }
             var allLegsStops = [StopsFilter]()
             for fliter in inputFilters
             {
@@ -459,13 +466,18 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                 let userStops : [Int] = userStopsStringArray.map({Int($0) ?? 0})
                 stopsViewController.allStopsFilters[0].userSelectedStops = userStops
             }
-            
+            if let quality = qualityFilter {
+                stopsViewController.allStopsFilters[0].qualityFilter = quality
+            }
         } else {
             for index in 0..<inputFilters.count {
                 
                 var qualityFilter: QualityFilter?
                 if stopsViewController.allStopsFilters.indices.contains(index) {
                     qualityFilter = stopsViewController.allStopsFilters[index].qualityFilter
+                    if userSelectedFilters[index].fq.keys.contains("coa") {
+                        qualityFilter?.isSelected = userSelectedFilters[index].fq["coa"] == ""
+                    }
                 }
                 
                 let filter = inputFilters[index]
@@ -564,6 +576,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             var qualityFilter: QualityFilter?
             if timesViewController.multiLegTimerFilter.indices.contains(index) {
                 qualityFilter = timesViewController.multiLegTimerFilter[index].qualityFilter
+                if userSelectedFilters[index].fq.keys.contains("ovgtf") {
+                    qualityFilter?.isSelected = userSelectedFilters[index].fq["ovgtf"] == ""
+                }
             }
             
             let leg = legList[index]
@@ -664,6 +679,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         var qualityFilter: QualityFilter?
         if durationViewController.durationFilters.indices.contains(0) {
             qualityFilter = durationViewController.durationFilters[0].qualityFilter
+            if userSelectedFilters[0].fq.keys.contains("ovgtlo") {
+                qualityFilter?.isSelected = userSelectedFilters[0].fq["ovgtlo"] == ""
+            }
         }
         
         for filter in inputFilters {
@@ -771,6 +789,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             var qualityFilter: QualityFilter?
             if durationViewController.durationFilters.indices.contains(index) {
                 qualityFilter = durationViewController.durationFilters[index].qualityFilter
+                if userSelectedFilters[index].fq.keys.contains("ovgtlo") {
+                    qualityFilter?.isSelected = userSelectedFilters[index].fq["ovgtlo"] == ""
+                }
             }
             
             let filter = inputFilters[index]
