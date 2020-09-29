@@ -253,7 +253,8 @@ class ChatVM {
                 jsonDict["filters[0][dep_dt][0]"] = leftVal.toString
             }
             if let rightVal = depDt[1].int {
-                jsonDict["filters[0][dep_dt][1]"] = rightVal.toString
+                let convertedVal = rightVal == 0 ? 1440 : rightVal
+                jsonDict["filters[0][dep_dt][1]"] = convertedVal.toString
             }
         }
         
@@ -262,7 +263,8 @@ class ChatVM {
                 jsonDict["filters[1][dep_dt][0]"] = leftVal.toString
             }
             if let rightVal = depDt[1].int {
-                jsonDict["filters[1][dep_dt][1]"] = rightVal.toString
+                let convertedVal = rightVal == 0 ? 1440 : rightVal
+                jsonDict["filters[1][dep_dt][1]"] = convertedVal.toString
             }
         }
         
@@ -345,7 +347,7 @@ class ChatVM {
                 jsonDict["filters[1][pr][1]"] = rightVal.toString
             }
         }
-
+        
         SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
 }
