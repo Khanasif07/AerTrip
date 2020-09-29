@@ -498,8 +498,16 @@ extension FlightResultDisplayGroup  {
         guard initiatedFilters.contains(.departureTime) else { return inputArray }
         
         guard let minDepartureTime = userSelectedFilters?.dt.earliestTimeInteval else { return inputArray}
-        guard let maxDepartureTime = userSelectedFilters?.dt.latestTimeInterval else { return inputArray}
+        guard var maxDepartureTime = userSelectedFilters?.dt.latestTimeInterval else { return inputArray}
         
+        let dateFormatterForDepDt = DateFormatter()
+        dateFormatterForDepDt.dateFormat = "yyyy-MM-dd HH:mm"
+        let ear = dateFormatterForDepDt.date(from: userSelectedFilters?.depDt.earliest ?? "")?.day ?? 0
+        let lat = dateFormatterForDepDt.date(from: userSelectedFilters?.depDt.latest ?? "")?.day ?? 0
+        
+        if lat - ear > 0 {
+            maxDepartureTime = 86400
+        }
     
         let outputArray = inputArray.filter {
             

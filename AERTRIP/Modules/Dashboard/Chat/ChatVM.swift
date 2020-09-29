@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 protocol ChatBotDelegatesDelegate: class {
     
     func willstarttChatBotSession()
@@ -46,8 +45,9 @@ class ChatVM {
     weak var delegate : ChatBotDelegatesDelegate?
     var msgToBeSent : String = ""
     var recentSearchesData : [RecentSearchesModel] = []
-    private var updatedFiltersJSON = JSON()
     
+    private var updatedFiltersJSON = JSON()
+    private let locationManager = CLLocationManager()
     
     func getMylastMessageIndex() -> Int {
         
@@ -71,7 +71,15 @@ class ChatVM {
         
         self.delegate?.willstarttChatBotSession()
         
-        let params : JSONDictionary = [APIKeys.session_id.rawValue : getRandomSessionId(length : 13), "q" : message]
+        var params : JSONDictionary = [APIKeys.session_id.rawValue : getRandomSessionId(length : 13), "q" : message]
+        
+        let curLoc = LocationManager.getMyLocation
+        let defaultLoc = LocationManager.defaultCoordinate
+        
+        if curLoc.latitude != defaultLoc.latitude || curLoc.longitude != defaultLoc.longitude {
+            
+        }
+        
         APICaller.shared.startChatBotSession(params: params) { (success, message, sessionId, filters) in
             
             if success {
@@ -206,7 +214,6 @@ class ChatVM {
         
         addFiltersAndPushToResults(jsonDict)
         
-//        SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
     
     func createFlightSearchDictFromRecentSearches(_ dict: JSONDictionary) {
@@ -253,7 +260,8 @@ class ChatVM {
                 jsonDict["filters[0][dep_dt][0]"] = leftVal.toString
             }
             if let rightVal = depDt[1].int {
-                jsonDict["filters[0][dep_dt][1]"] = rightVal.toString
+                let convertedVal = rightVal == 0 ? 1440 : rightVal
+                jsonDict["filters[0][dep_dt][1]"] = convertedVal.toString
             }
         }
         
@@ -262,7 +270,8 @@ class ChatVM {
                 jsonDict["filters[1][dep_dt][0]"] = leftVal.toString
             }
             if let rightVal = depDt[1].int {
-                jsonDict["filters[1][dep_dt][1]"] = rightVal.toString
+                let convertedVal = rightVal == 0 ? 1440 : rightVal
+                jsonDict["filters[1][dep_dt][1]"] = convertedVal.toString
             }
         }
         
@@ -345,15 +354,19 @@ class ChatVM {
                 jsonDict["filters[1][pr][1]"] = rightVal.toString
             }
         }
-
+        
+        if let loap = oneWayFilters["loap"].array {
+            loap.enumerated().forEach { (index, airline) in
+                jsonDict["filters[0][loap][\(index)]"] = airline.stringValue
+            }
+        }
+        
+        if let loap = returnFilters["loap"].array {
+            loap.enumerated().forEach { (index, airline) in
+                jsonDict["filters[1][loap][\(index)]"] = airline.stringValue
+            }
+        }
+        
         SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
 }
-
-
-
-
-
-
-
-
