@@ -246,7 +246,7 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                         index = indexPath.row
                     }
                     
-                    if let flight = journey[indexPath.section].leg.first?.flights[index]{
+                    if var flight = journey[indexPath.section].leg.first?.flights[index]{
                         var amenitiesData = [String]()
                         
                         if let bgWeight = flight.bg?["ADT"]?.weight, let bgPieces = flight.bg?["ADT"]?.pieces
@@ -625,6 +625,9 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                         var travellingTime = NSAttributedString()
                         if count == 1{
                             if flight.halt != ""{
+                                if flight.halt.contains(","){
+                                    flight.halt = flight.halt.replacingOccurrences(of: ",", with: ", ")
+                                }
                                 let main_string111 = "  \(journey.first!.durationTitle) \n   Via \(flight.halt)  ."
                                 let string_to_color111 = "   Via \(flight.halt)  "
                                 
