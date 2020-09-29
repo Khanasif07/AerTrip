@@ -89,7 +89,7 @@ extension FlightDomesticMultiLegResultVC {
                
                var rect = headerView.frame
                baseScrollViewTop.constant = 0
-               
+               self.baseScrollView.isScrollEnabled = true
                UIView.animate(withDuration: 1.0 , animations: {
                    let y = rect.origin.y - rect.size.height - 20
                    rect.origin.y = y

@@ -141,7 +141,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="23" id="XMC-Pw-Za9"/>
                         </constraints>
-                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="3" minimumInteritemSpacing="3" id="Ue0-7w-iga">
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Ue0-7w-iga">
                             <size key="itemSize" width="26" height="23"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>

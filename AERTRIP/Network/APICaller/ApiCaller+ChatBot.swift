@@ -10,37 +10,37 @@ import Foundation
 
 extension APICaller {
 
-    func startChatBotSession(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: MessageModel?, _ sessionId : String) -> Void) {
+    func startChatBotSession(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: MessageModel?, _ sessionId : String,_ filterJSON: JSON) -> Void) {
         AppNetworking.GET(endPoint: APIEndPoint.chatBotStart, parameters: params, success: { [weak self] json in
             guard let sSelf = self else { return }
             printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
 
                 if sucess {
-                    completionBlock(true, MessageModel(json: jsonData[APIKeys.data.rawValue]),jsonData[APIKeys.data.rawValue][APIKeys.session_id.rawValue].stringValue)
+                    completionBlock(true, MessageModel(json: jsonData[APIKeys.data.rawValue]),jsonData[APIKeys.data.rawValue][APIKeys.session_id.rawValue].stringValue, jsonData[APIKeys.data.rawValue][APIKeys.filters.rawValue])
                 }else{
-                    completionBlock(false,nil,"")
+                    completionBlock(false,nil,"", JSON())
                 }
                 
             }, failure: { error in
                 ATErrorManager.default.logError(forCodes: error, fromModule: .chatBot)
                 
-                completionBlock(false,nil,"")
+                completionBlock(false,nil,"", JSON())
             })
         }) { (error) in
             if error.code == AppNetworking.noInternetError.code {
 //                AppGlobals.shared.stopLoading()
                 AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
-                completionBlock(false, nil,"")
+                completionBlock(false, nil,"", JSON())
             }
             else {
-                completionBlock(false, nil,"")
+                completionBlock(false, nil,"", JSON())
             }
         }
     }
     
     
-        func communicateWithChatBot(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: MessageModel?, _ sessionId : String) -> Void) {
+        func communicateWithChatBot(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: MessageModel?, _ sessionId : String,_ filterJSON: JSON) -> Void) {
             AppNetworking.GET(endPoint: APIEndPoint.chatBotStart, parameters: params, success: { [weak self] json in
                 guard let sSelf = self else { return }
                 printDebug(json)
@@ -50,24 +50,24 @@ extension APICaller {
                         
                         print("jsonData...\(jsonData)")
                         
-                        completionBlock(true, MessageModel(json: jsonData[APIKeys.data.rawValue]),jsonData[APIKeys.data.rawValue][APIKeys.session_id.rawValue].stringValue)
+                        completionBlock(true, MessageModel(json: jsonData[APIKeys.data.rawValue]),jsonData[APIKeys.data.rawValue][APIKeys.session_id.rawValue].stringValue, jsonData[APIKeys.data.rawValue][APIKeys.filters.rawValue])
                     }else{
-                        completionBlock(false,nil,"")
+                        completionBlock(false,nil,"", JSON())
                     }
                     
                 }, failure: { error in
                     ATErrorManager.default.logError(forCodes: error, fromModule: .chatBot)
                     
-                    completionBlock(false,nil,"")
+                    completionBlock(false,nil,"", JSON())
                 })
             }) { (error) in
                 if error.code == AppNetworking.noInternetError.code {
     //                AppGlobals.shared.stopLoading()
                     AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
-                    completionBlock(false, nil,"")
+                    completionBlock(false, nil,"", JSON())
                 }
                 else {
-                    completionBlock(false, nil,"")
+                    completionBlock(false, nil,"", JSON())
                 }
             }
         }

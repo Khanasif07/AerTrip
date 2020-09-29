@@ -203,7 +203,7 @@ public struct FlightDetail : Codable {
     let lo : Int
     let ovgtlo : Int
     let ovgtf : Int
-    let halt : String
+    var halt : String
     let fbn : String
 
     let slo : Int

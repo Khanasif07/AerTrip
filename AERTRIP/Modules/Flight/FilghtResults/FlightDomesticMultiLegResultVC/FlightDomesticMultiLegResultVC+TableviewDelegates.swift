@@ -74,6 +74,7 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         tableView.isScrollEnabled = false
         baseScrollView.isScrollEnabled = false
+        isNeedToUpdateLayout = false
         return indexPath
     }
     
@@ -94,6 +95,7 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
         delay(seconds: 0.2) {
             tableView.isScrollEnabled = true
             self.baseScrollView.isScrollEnabled = true
+            self.isNeedToUpdateLayout = true
         }
        }
     

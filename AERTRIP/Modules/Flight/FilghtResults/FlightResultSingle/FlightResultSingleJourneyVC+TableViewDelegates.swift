@@ -171,11 +171,9 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
     }
     
     func reloadTableCell(_ indexPath: IndexPath) {
-        
         DispatchQueue.main.async {
             self.resultsTableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

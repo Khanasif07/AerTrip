@@ -1236,6 +1236,7 @@
 		8455A6A52232D01B00CEE2B3 /* PKProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455A6A42232D01B00CEE2B3 /* PKProgressView.swift */; };
 		8459208D24E2CA710001ED28 /* GetSharableUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459208C24E2CA710001ED28 /* GetSharableUrl.swift */; };
 		8459208F24E2D3490001ED28 /* APIURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459208E24E2D3490001ED28 /* APIURLs.swift */; };
+		845A951E251DF1C20018B7D9 /* FlightDomesticMultiLegResultVC+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A951D251DF1C20018B7D9 /* FlightDomesticMultiLegResultVC+Animation.swift */; };
 		845B619224C0226C00369CC1 /* WebCheckinVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B619024C0226C00369CC1 /* WebCheckinVM.swift */; };
 		845B619324C0226C00369CC1 /* WebCheckinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B619124C0226C00369CC1 /* WebCheckinVC.swift */; };
 		845D3A1A228D724500062EE5 /* AccountOutstanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D3A19228D724500062EE5 /* AccountOutstanding.swift */; };
@@ -2984,6 +2985,7 @@
 		8455A6A42232D01B00CEE2B3 /* PKProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKProgressView.swift; sourceTree = "<group>"; };
 		8459208C24E2CA710001ED28 /* GetSharableUrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetSharableUrl.swift; sourceTree = "<group>"; };
 		8459208E24E2D3490001ED28 /* APIURLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIURLs.swift; sourceTree = "<group>"; };
+		845A951D251DF1C20018B7D9 /* FlightDomesticMultiLegResultVC+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightDomesticMultiLegResultVC+Animation.swift"; sourceTree = "<group>"; };
 		845B619024C0226C00369CC1 /* WebCheckinVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebCheckinVM.swift; sourceTree = "<group>"; };
 		845B619124C0226C00369CC1 /* WebCheckinVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebCheckinVC.swift; sourceTree = "<group>"; };
 		845D3A19228D724500062EE5 /* AccountOutstanding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOutstanding.swift; sourceTree = "<group>"; };
@@ -6781,6 +6783,7 @@
 				0C17B2A324F7C208004B721C /* FlightDomesticMultiLegResultVC+TableviewDelegates.swift */,
 				0C17B2A524F7E0B6004B721C /* FlightDomesticMultiLegResultVC+CollectionViewDelegates.swift */,
 				0C17B2A724F7EEFA004B721C /* FlightDomesticMultiLegResultVC+Options.swift */,
+				845A951D251DF1C20018B7D9 /* FlightDomesticMultiLegResultVC+Animation.swift */,
 			);
 			path = FlightDomesticMultiLegResultVC;
 			sourceTree = "<group>";
@@ -10399,6 +10402,7 @@
 				1870AD16220C769400FB32C8 /* FlyerModel.swift in Sources */,
 				843FF57A24740232001F21B1 /* FareBreakupTableViewCell.swift in Sources */,
 				843FF4FC24740231001F21B1 /* IntMCAndReturnDetailsVC+HelperMethods.swift in Sources */,
+				845A951E251DF1C20018B7D9 /* FlightDomesticMultiLegResultVC+Animation.swift in Sources */,
 				843FF48A24740230001F21B1 /* RecentSearchCellCollectionViewCell.swift in Sources */,
 				8417208A249A3ABD005672F3 /* SeatMapContainerVC+PagingViewController.swift in Sources */,
 				84B6DEA922805D770042D902 /* AccountChargeInfoVC+Delegate.swift in Sources */,

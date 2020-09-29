@@ -1,78 +1,23 @@
 //
-//  FlightResultSingleJourneyVC+Animations.swift
+//  FlightDomesticMultiLegResultVC+Animation.swift
 //  AERTRIP
 //
-//  Created by Appinventiv on 17/08/20.
+//  Created by Admin on 25/09/20.
 //  Copyright © 2020 Pramod Kumar. All rights reserved.
 //
 
 import Foundation
 
-extension FlightResultSingleJourneyVC {
+
+extension FlightDomesticMultiLegResultVC {
     
-    func expandFlights(){
-        
-        UIView.animate(withDuration: 0.1, animations: {
-            self.resultsTableView.tableFooterView?.transform = CGAffineTransform(translationX: 0, y: 200)
-            
-            printDebug("time1..\(Date().timeIntervalSince1970)")
-            
-        }) { (success) in
-            
-            printDebug("time2..\(Date().timeIntervalSince1970)")
-            
-            self.viewModel.resultTableState = .showExpensiveFlights
-            self.viewModel.results.excludeExpensiveFlights = false
-   
-            DispatchQueue.global(qos: .default).async {
-                
-//                self.sortedArray = Array(self.viewModel.results.sortedArray)
-                
-                self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: 0, completion: {
-                    DispatchQueue.main.async {
-                        self.resultsTableView.reloadData()
-                        printDebug("time3..\(Date().timeIntervalSince1970)")
-                        self.setExpandedStateFooter()
-                        self.resultsTableView.tableFooterView?.transform = CGAffineTransform.identity
-                    }
-                })
-            }
-        }
-    }
     
-    func collapseFlights(){
-        
-            var tempAllArray = self.viewModel.results.allJourneys
-            var indexPathsToBedeleted : [IndexPath] = []
-            let suggestedArrayCount = self.viewModel.results.suggestedJourneyArray.count
-            
-            for (index, _) in tempAllArray.reversed().enumerated() {
-                if index >= suggestedArrayCount{
-                    tempAllArray.removeLast()
-                    indexPathsToBedeleted.append(IndexPath(row: index, section: 0))
-                }
-            }
-            
-            self.viewModel.results.allJourneys = tempAllArray
-            self.resultsTableView.deleteRows(at: indexPathsToBedeleted, with: UITableView.RowAnimation.fade)
-            
-        self.viewModel.resultTableState = .showRegularResults
-            self.viewModel.results.excludeExpensiveFlights = false
-            
-            DispatchQueue.global(qos: .background).async {
-//                self.sortedArray = Array(self.viewModel.results.sortedArray)
-                self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: 0, completion: {
-                    DispatchQueue.main.async {
-                        self.setGroupedFooterView()
-                        self.showBluredHeaderViewCompleted()
-                        self.resultsTableView.reloadData()
-                    }
-                })
-            }
-        }
+//    func animateButton() {
+//        self.animateFloatingButtonOnListView()
+//    }
     
         func manageFloatingView(isHidden: Bool) {
-             self.pinnedFlightsOptionsView.isHidden = isHidden
+             self.pinnedFlightOptionView.isHidden = isHidden
          }
         
         func showPinnedButtons(withAnimation: Bool = true) {
@@ -138,44 +83,60 @@ extension FlightResultSingleJourneyVC {
      func manageSwitchContainer(isHidden: Bool, shouldOff: Bool = true) {
           
          manageFloatingView(isHidden: isHidden)
-           
+        
+//        var yOfset : CGFloat = 0
+        
+        UIView.animate(withDuration: AppConstants.kAnimationDuration) {
+            if self.viewModel.isFewSeatsLeft {
+               self.pinedswitchOptionsBackViewBottom.constant = 100
+            } else{
+//                yOfset = 0
+                self.pinedswitchOptionsBackViewBottom.constant = 51
+            }
+            self.view.layoutIfNeeded()
+
+        }
+        
+
            DispatchQueue.main.async {
-               let newFrame = CGRect(x: 0.0, y: isHidden ? 100.0 : 0.0, width: self.pinnedFlightsOptionsView.width, height: self.pinnedFlightsOptionsView.height)
+               let newFrame = CGRect(x: 0.0, y: isHidden ? 400 : 0, width: self.pinnedFlightOptionView.width, height: self.pinnedFlightOptionView.height)
                         
             printDebug("manageSwitchContainer....\(isHidden)...\(newFrame)")
             
-            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {[weak self] in
-                   guard let sSelf = self else {return}
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: { [weak self] in
                    
-                   sSelf.pinnedFlightsOptionsView.frame = newFrame
+                   guard let sSelf = self else { return }
+                   
+                   sSelf.pinnedFlightOptionView.frame = newFrame
+               
                    sSelf.view.layoutIfNeeded()
                    
                    }, completion: { [weak self](isDone) in
-                       guard let sSelf = self else {return}
+                       
+                        guard let sSelf = self else { return }
                        
                        if isHidden {
-                           sSelf.pinnedFlightsOptionsView.isHidden = true
+                           sSelf.pinnedFlightOptionView.isHidden = true
                        }
+                    
                })
+            
            }
         
-        printDebug("pinnedFlightsOptionsView.isHidden...\(pinnedFlightsOptionsView.isHidden)")
+        printDebug("pinnedFlightsOptionsView.isHidden...\(pinnedFlightOptionView.isHidden)")
         
            if isHidden, shouldOff {
                //if switch is hidden then it must be off, otherwise it should be as it is.
             self.hidePinnedButtons()
-               showBluredHeaderViewCompleted()
+//               showBluredHeaderViewCompleted()
            }
            
        }
     
+
+    
     func setPinedSwitchState(isOn : Bool){
-         switchView.isOn = isOn
-     }
+            switchView.isOn = isOn
+        }
     
 }
-
-
-
-
-

@@ -16,17 +16,27 @@ extension FlightDomesticMultiLegResultVC {
         self.bannerView = ResultHeaderView(frame: rect)
         self.bannerView?.frame = rect
         self.view.addSubview(self.bannerView!)
+        self.baseScrollView.isScrollEnabled = false
+        self.view.bringSubviewToFront(self.collectionContainerView)
     }
     
     func setupPinnedFlightsOptionsView() {
         
-        pinnedFlightOptionsTop.constant = 0
+        switchView.delegate = self
+        switchView.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
+        switchView.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
+        switchView.onTintColor = AppColors.themeGreen
+        switchView.onThumbImage = #imageLiteral(resourceName: "pushpin")
+        switchView.offThumbImage = #imageLiteral(resourceName: "pushpin-gray")
+        switchView.setupUI()
+        delay(seconds: 0.6) {
+            self.switchView.isOn = false
+        }
         
-        showPinnedSwitch.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
-        showPinnedSwitch.isOn = false
-        showPinnedSwitch.setupUI()
+        showPinnedFlightsOption(false)
         
-        hidePinnedFlightOptions(true)
+        hideOrShowPinnedButtons(show : false)
+        
         addShadowTo(unpinnedAllButton)
         addShadowTo(emailPinnedFlights)
         addShadowTo(sharePinnedFilghts)
@@ -40,8 +50,7 @@ extension FlightDomesticMultiLegResultVC {
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
     }
     
-    func setupScrollView()
-    {
+    func setupScrollView(){
         let width =  UIScreen.main.bounds.size.width / 2.0
         let height = self.baseScrollView.frame.height
         baseScrollView.contentSize = CGSize( width: (CGFloat(self.viewModel.numberOfLegs) * width ), height:height + 88.0)
@@ -74,15 +83,13 @@ extension FlightDomesticMultiLegResultVC {
         let width = UIScreen.main.bounds.width / 2.0
         let height = UIScreen.main.bounds.height
         let rect = CGRect(x: (width * CGFloat(index)), y: 165, width: width, height: height)
-        
-        
         let tableView = UITableView(frame: rect)
         tableView.dataSource = self
         tableView.tag = 1000 + index
         tableView.delegate = self
         tableView.allowsMultipleSelection = false
         tableView.isScrollEnabled = false
-//        tableView.scrollsToTop = true
+        //        tableView.scrollsToTop = true
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
         tableView.separatorStyle = .none
@@ -290,7 +297,8 @@ extension FlightDomesticMultiLegResultVC {
             let containsPinnedFlight = self.viewModel.results.reduce(false) { $0 || $1.containsPinnedFlight }
 
             if containsPinnedFlight {
-                self.showPinnedFlightSwitch(true)
+                self.showPinnedFlightsOption(true)
+//                self.showPinnedFlightSwitch(true)
             }
             
             self.checkForComboFares()
@@ -314,125 +322,93 @@ extension FlightDomesticMultiLegResultVC {
     }
     
     //MARK:- PinnedFlightsOption View Methods
-    func hidePinnedFlightOptions( _ hide : Bool) {
-        //*******************Haptic Feedback code********************
-           let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-           selectionFeedbackGenerator.selectionChanged()
-        //*******************Haptic Feedback code********************
-
-        print("hide=\(hide)")
-        if hide{
-            
-            //true - hideOption
-            
-            UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: .curveEaseOut, animations: { [weak self] in
-                self?.showPinnedSwitch.isUserInteractionEnabled = false
-
-                   self?.unpinnedAllButton.alpha = 0.0
-                   self?.emailPinnedFlights.alpha = 0.0
-                   self?.sharePinnedFilghts.alpha = 0.0
-                   self?.unpinnedAllButton.transform = CGAffineTransform(translationX: 0, y: 0)
-                   self?.emailPinnedFlights.transform = CGAffineTransform(translationX: 0, y: 0)
-                   self?.sharePinnedFilghts.transform = CGAffineTransform(translationX: 0, y: 0)
-                   }, completion: { [weak self] (success)
-            in
-                       self?.unpinnedAllButton.isHidden = true
-                       self?.emailPinnedFlights.isHidden = true
-                       self?.sharePinnedFilghts.isHidden = true
-                       self?.unpinnedAllButton.alpha = 1.0
-                       self?.emailPinnedFlights.alpha = 1.0
-                       self?.sharePinnedFilghts.alpha = 1.0
-                    self?.showPinnedSwitch.isUserInteractionEnabled = true
-               })
-        }else{
-            //false - showOption
-            self.unpinnedAllButton.alpha = 0.0
-            self.emailPinnedFlights.alpha = 0.0
-            self.sharePinnedFilghts.alpha = 0.0
-            UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: [.curveEaseOut, ], animations: { [weak self] in
-                self?.showPinnedSwitch.isUserInteractionEnabled = false
-
-                self?.unpinnedAllButton.isHidden = false
-                self?.emailPinnedFlights.isHidden = false
-                self?.sharePinnedFilghts.isHidden = false
-
-                self?.unpinnedAllButton.alpha = 1.0
-                self?.emailPinnedFlights.alpha = 1.0
-                self?.sharePinnedFilghts.alpha = 1.0
-                self?.unpinnedAllButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                self?.emailPinnedFlights.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                self?.sharePinnedFilghts.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                self?.emailPinnedFlights.transform = CGAffineTransform(translationX: 60, y: 0)
-                self?.sharePinnedFilghts.transform = CGAffineTransform(translationX: 114, y: 0)
-                self?.unpinnedAllButton.transform = CGAffineTransform(translationX: 168, y: 0)
-                }, completion: { [weak self] (success)
-                    in
-                    self?.showPinnedSwitch.isUserInteractionEnabled = true
-            })
-        }
-    }
-//    {
+//    func hidePinnedFlightOptions( _ hide : Bool) {
+//        //*******************Haptic Feedback code********************
+//           let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+//           selectionFeedbackGenerator.selectionChanged()
+//        //*******************Haptic Feedback code********************
 //
-//        let optionViewWidth : CGFloat =  hide ? 50.0 : 212.0
-//        let unpinButtonLeading : CGFloat = hide ? 0.0 : 60.0
-//        let emailButton : CGFloat = hide ? 0.0 : 114.0
-//        let shareButtonLeading : CGFloat =
-//            hide ?  0.0 : 168.0
+//        print("hide=\(hide)")
+//        if hide{
 //
-//        if !hide {
-//            self.emailPinnedFlights.isHidden = hide
-//            self.unpinnedAllButton.isHidden = hide
-//            self.sharePinnedFilghts.isHidden = hide
-//        }
+//            //true - hideOption
 //
-//        pinOptionsViewWidth.constant = optionViewWidth
-//        unpinAllLeading.constant = unpinButtonLeading
-//        emailPinnedFlightLeading.constant = emailButton
-//        sharePinnedFlightsLeading.constant = shareButtonLeading
+//            UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: .curveEaseOut, animations: { [weak self] in
+//                self?.showPinnedSwitch.isUserInteractionEnabled = false
 //
-//        UIView.animate(withDuration: 0.1, delay: 0.0 ,
-//                       options: []
-//            , animations: {
+//                   self?.unpinnedAllButton.alpha = 0.0
+//                   self?.emailPinnedFlights.alpha = 0.0
+//                   self?.sharePinnedFilghts.alpha = 0.0
+//                   self?.unpinnedAllButton.transform = CGAffineTransform(translationX: 0, y: 0)
+//                   self?.emailPinnedFlights.transform = CGAffineTransform(translationX: 0, y: 0)
+//                   self?.sharePinnedFilghts.transform = CGAffineTransform(translationX: 0, y: 0)
+//                   }, completion: { [weak self] (success)
+//            in
+//                       self?.unpinnedAllButton.isHidden = true
+//                       self?.emailPinnedFlights.isHidden = true
+//                       self?.sharePinnedFilghts.isHidden = true
+//                       self?.unpinnedAllButton.alpha = 1.0
+//                       self?.emailPinnedFlights.alpha = 1.0
+//                       self?.sharePinnedFilghts.alpha = 1.0
+//                    self?.showPinnedSwitch.isUserInteractionEnabled = true
+//               })
+//        }else{
+//            //false - showOption
+//            self.unpinnedAllButton.alpha = 0.0
+//            self.emailPinnedFlights.alpha = 0.0
+//            self.sharePinnedFilghts.alpha = 0.0
+//            UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: [.curveEaseOut, ], animations: { [weak self] in
+//                self?.showPinnedSwitch.isUserInteractionEnabled = false
 //
-//                self.view.layoutIfNeeded()
+//                self?.unpinnedAllButton.isHidden = false
+//                self?.emailPinnedFlights.isHidden = false
+//                self?.sharePinnedFilghts.isHidden = false
 //
-//        }) { (onCompletion) in
-//            if hide {
-//                self.emailPinnedFlights.isHidden = hide
-//                self.unpinnedAllButton.isHidden = hide
-//                self.sharePinnedFilghts.isHidden = hide
-//            }
+//                self?.unpinnedAllButton.alpha = 1.0
+//                self?.emailPinnedFlights.alpha = 1.0
+//                self?.sharePinnedFilghts.alpha = 1.0
+//                self?.unpinnedAllButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+//                self?.emailPinnedFlights.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+//                self?.sharePinnedFilghts.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+//                self?.emailPinnedFlights.transform = CGAffineTransform(translationX: 60, y: 0)
+//                self?.sharePinnedFilghts.transform = CGAffineTransform(translationX: 114, y: 0)
+//                self?.unpinnedAllButton.transform = CGAffineTransform(translationX: 168, y: 0)
+//                }, completion: { [weak self] (success)
+//                    in
+//                    self?.showPinnedSwitch.isUserInteractionEnabled = true
+//            })
 //        }
 //    }
+
     
-    func showPinnedFlightSwitch(_ show  : Bool) {
-        
-        DispatchQueue.main.async {
-            
-            let bottomInset = self.view.safeAreaInsets.bottom
-            var height :  CGFloat = 0.0
-            
-           let fewSeatsLeftViewHeight = self.viewModel.isFewSeatsLeft ? 40 : 0
-            
-            if show {
-                height =  60.0
-                height = height + bottomInset + CGFloat(fewSeatsLeftViewHeight)
-                
-                if self.fareBreakupVC?.view.isHidden == false {
-                    height = height + 50
-                }
-            }
-            else {
-                height = 0.0
-            }
-            
-            self.pinnedFlightOptionsTop.constant = CGFloat(height)
-            
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
-                self.view.layoutIfNeeded()
-            }, completion: nil)
-        }
-    }
+//    func showPinnedFlightSwitch(_ show  : Bool) {
+//
+//        DispatchQueue.main.async {
+//
+//            let bottomInset = self.view.safeAreaInsets.bottom
+//            var height :  CGFloat = 0.0
+//
+//           let fewSeatsLeftViewHeight = self.viewModel.isFewSeatsLeft ? 40 : 0
+//
+//            if show {
+//                height =  60.0
+//                height = height + bottomInset + CGFloat(fewSeatsLeftViewHeight)
+//
+//                if self.fareBreakupVC?.view.isHidden == false {
+//                    height = height + 50
+//                }
+//            }
+//            else {
+//                height = 0.0
+//            }
+//
+//            self.pinnedFlightOptionsTop.constant = CGFloat(height)
+//
+//            UIView.animate(withDuration: 0.5, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+//                self.view.layoutIfNeeded()
+//            }, completion: nil)
+//        }
+//    }
     
 }
 
@@ -518,7 +494,7 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
         
         var rect = headerView.frame
         baseScrollViewTop.constant = 0
-        
+        self.baseScrollView.isScrollEnabled = true
         UIView.animate(withDuration: 1.0 , animations: {
             let y = rect.origin.y - rect.size.height - 20
             rect.origin.y = y
