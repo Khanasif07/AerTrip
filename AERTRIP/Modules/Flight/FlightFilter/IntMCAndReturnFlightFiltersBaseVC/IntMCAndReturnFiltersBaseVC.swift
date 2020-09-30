@@ -145,7 +145,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         self.parchmentView = FiltersCustomPagingViewController()
         self.parchmentView?.menuItemSpacing = 17.5
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 0, bottom: 0.0, right: 10)
-        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 45)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 45.5)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.borderOptions = PagingBorderOptions.hidden
         let nib = UINib(nibName: "MenuItemFilterCollCell", bundle: nil)
