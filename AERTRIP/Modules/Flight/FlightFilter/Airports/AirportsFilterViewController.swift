@@ -644,9 +644,7 @@ extension AirportsFilterViewController : UITableViewDataSource , UITableViewDele
                 cell.backgroundColor = .clear
                 return cell
             }
-        }
-        
-        if tableView == destinationsTableView {
+        } else if tableView == destinationsTableView {
 
             if let cell = destinationsTableView.dequeueReusableCell(withIdentifier: "DestinationCells") as? AirportSelectionCell {
                 cell.selectionStyle = .none
@@ -661,9 +659,7 @@ extension AirportsFilterViewController : UITableViewDataSource , UITableViewDele
                 cell.backgroundColor = .clear
                 return cell
             }
-        }
-        
-        if tableView == layoverTableview {
+        } else if tableView == layoverTableview {
             
             if let cell = layoverTableview.dequeueReusableCell(withIdentifier: "LayOverCells") as? AirportSelectionCell {
                 cell.selectionStyle = .none
@@ -672,9 +668,11 @@ extension AirportsFilterViewController : UITableViewDataSource , UITableViewDele
                 let currentAirport = airports[indexPath.row]
                 cell.airportCode.text = currentAirport.IATACode
                 cell.airportName?.text = currentAirport.city
-                cell.radioButton.isSelected = currentAirport.isSelected
                 if allLayoverSelectedByUserInteraction {
                    cell.radioButton.isSelected  = true
+                } else {
+                    print(currentAirport.isSelected)
+                    cell.radioButton.isSelected = currentAirport.isSelected
                 }
                 cell.radioButton.addTarget(self, action: #selector(layoverAirportTapped(sender:)), for: .touchDown)
                 cell.radioButton.tag = indexPath.section * 100 + indexPath.row

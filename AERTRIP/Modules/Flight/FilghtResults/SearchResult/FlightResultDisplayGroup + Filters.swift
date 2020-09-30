@@ -611,13 +611,13 @@ extension FlightResultDisplayGroup  {
         UIFilters.remove(.destinationAirports)
         
         userSelectedFilters?.cityapN = inputFil.cityapN
+        
+        checkForAirportsFilter()
         applyFilters()
     }
     
     func originSelectionChanged(selection: [AirportsGroupedByCity]) {
-        
-        selectedDeepLinkAirports.removeAll()
-        
+                
         let origins = selection.reduce([] , { $0 + $1.airports })
         let selectedOrigins = origins.filter{  $0.isSelected == true }
         let groupedByCity = Dictionary(grouping: selectedOrigins, by: { $0.city } )
@@ -636,14 +636,12 @@ extension FlightResultDisplayGroup  {
         else {
             UIFilters.insert(.originAirports)
         }
-        
+        checkForAirportsFilter()
         applyFilters()
     }
     
     func destinationSelectionChanged(selection: [AirportsGroupedByCity]) {
-        
-        selectedDeepLinkAirports.removeAll()
-        
+                
         let destinations = selection.reduce([] , { $0 + $1.airports })
         let selectedDestinations = destinations.filter{  $0.isSelected == true }
         let groupedByCity = Dictionary(grouping: selectedDestinations, by: { $0.city } )
@@ -661,7 +659,7 @@ extension FlightResultDisplayGroup  {
         else {
             UIFilters.insert(.destinationAirports)
         }
-        
+        checkForAirportsFilter()
         applyFilters()
     }
     
@@ -679,17 +677,22 @@ extension FlightResultDisplayGroup  {
         else {
             UIFilters.insert(.layoverAirports)
         }
-        
+        checkForAirportsFilter()
         applyFilters()
         
     }
     
+    private func checkForAirportsFilter() {
+        if UIFilters.contains(.originAirports) || UIFilters.contains(.destinationAirports) || UIFilters.contains(.layoverAirports) {
+            appliedFilters.insert(.Airport)
+        } else {
+            appliedFilters.remove(.Airport)
+        }
+    }
+    
     func applyOriginFilter(_ inputArray: [Journey]) -> [Journey] {
         guard let userFil = userSelectedFilters else { return inputArray }
-        var selectedOrigins = userFil.cityapN.fr.reduce([]){ $0 +  $1.value }
-        if !selectedDeepLinkAirports.isEmpty {
-            selectedOrigins = selectedDeepLinkAirports
-        }
+        let selectedOrigins = userFil.cityapN.fr.reduce([]){ $0 +  $1.value }
         let originSet = Set(selectedOrigins)
         if selectedOrigins.count == 0 {
             return inputArray
@@ -710,10 +713,8 @@ extension FlightResultDisplayGroup  {
     func applyDestinationFilter(_ inputArray: [Journey]) -> [Journey] {
         guard let userFil = userSelectedFilters else { return inputArray }
         
-        var selectedDestinations = userFil.cityapN.to.reduce([]){ $0 +  $1.value }
-        if !selectedDeepLinkAirports.isEmpty {
-            selectedDestinations = selectedDeepLinkAirports
-        }
+        let selectedDestinations = userFil.cityapN.to.reduce([]){ $0 +  $1.value }
+
         let destinationSet = Set(selectedDestinations)
         if selectedDestinations.count == 0 {
             return inputArray
