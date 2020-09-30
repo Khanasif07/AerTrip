@@ -15,7 +15,7 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KQz-c7-f6K">
-                    <rect key="frame" x="9.5" y="0.0" width="0.5" height="23"/>
+                    <rect key="frame" x="10" y="5" width="0.5" height="18"/>
                     <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="0.5" id="ADp-Ha-fX6"/>
@@ -25,9 +25,8 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="KQz-c7-f6K" secondAttribute="bottom" id="6ud-4n-D1t"/>
-                <constraint firstItem="KQz-c7-f6K" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="UdH-6a-HMp"/>
-                <constraint firstItem="KQz-c7-f6K" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="a1x-XI-Yxp"/>
-                <constraint firstAttribute="trailing" secondItem="KQz-c7-f6K" secondAttribute="trailing" constant="10" id="dxM-Mm-NAz"/>
+                <constraint firstItem="KQz-c7-f6K" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="5" id="a1x-XI-Yxp"/>
+                <constraint firstItem="KQz-c7-f6K" firstAttribute="centerX" secondItem="VXr-Tz-HHm" secondAttribute="centerX" id="gAv-zv-tw9"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
             <connections>

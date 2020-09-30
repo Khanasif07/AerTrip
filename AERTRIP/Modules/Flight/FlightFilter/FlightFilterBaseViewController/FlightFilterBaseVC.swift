@@ -505,14 +505,17 @@ extension FlightFilterBaseVC {
             
             let newFlightLegFilter =  FlightLegTimeFilter(leg:leg, departureStartTime:  departureMin, departureMaxTime: departureMax, arrivalStartTime: arrivalMin, arrivalEndTime: arrivalMax )
             
-            let userSelectedFilter = userSelectedFilters[index]
-            let userDepartureTime = userSelectedFilter.depDt
-            let userArrivalTime = userSelectedFilter.arDt
+            var userSelectedFilter: FiltersWS?
+            if userSelectedFilters.indices.contains(index) {
+                userSelectedFilter = userSelectedFilters[index]
+            }
+            let userDepartureTime = userSelectedFilter?.depDt
+            let userArrivalTime = userSelectedFilter?.arDt
 
-            let userDepartureMin = userDepartureTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
-            let userDepartureMax = userDepartureTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
-            let userArrivalMin = userArrivalTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
-            let userArrivalMax = userArrivalTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
+            let userDepartureMin = userDepartureTime?.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
+            let userDepartureMax = userDepartureTime?.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
+            let userArrivalMin = userArrivalTime?.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
+            let userArrivalMax = userArrivalTime?.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
             
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[index].contains(.Times), timesViewController.multiLegTimerFilter.indices.contains(index) {
                 
@@ -521,9 +524,13 @@ extension FlightFilterBaseVC {
                     
                     timesViewController.multiLegTimerFilter[index].departureTimeMax = newFlightLegFilter.departureTimeMax
                     
-                    timesViewController.multiLegTimerFilter[index].userSelectedStartTime = userDepartureMin
-
-                    timesViewController.multiLegTimerFilter[index].userSelectedEndTime = userDepartureMax
+                    if let userMin = userDepartureMin {
+                        timesViewController.multiLegTimerFilter[index].userSelectedStartTime = userMin
+                    }
+                    
+                    if let userMax = userDepartureMax {
+                        timesViewController.multiLegTimerFilter[index].userSelectedEndTime = userMax
+                    }
                 }
                 
                 if userFilters.appliedSubFilters[index].contains(.arrivalTime) {
@@ -531,9 +538,13 @@ extension FlightFilterBaseVC {
                     
                     timesViewController.multiLegTimerFilter[index].arrivalEndTime = newFlightLegFilter.arrivalEndTime
                     
-                    timesViewController.multiLegTimerFilter[index].userSelectedArrivalStartTime = userArrivalMin
-
-                    timesViewController.multiLegTimerFilter[index].userSelectedArrivalEndTime = userArrivalMax
+                    if let userMin = userArrivalMin {
+                        timesViewController.multiLegTimerFilter[index].userSelectedArrivalStartTime = userMin
+                    }
+                    
+                    if let userMax = userArrivalMax {
+                        timesViewController.multiLegTimerFilter[index].userSelectedArrivalEndTime = userMax
+                    }
                 }
                 
             } else {
@@ -1279,51 +1290,60 @@ extension FlightFilterBaseVC {
             
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[index].contains(.Airport), airportViewController.airportFilterArray.indices.contains(index) {
                 let curAiportFilter = airportViewController.airportFilterArray[index]
-                let selectedAirports = curAiportFilter.allSelectedAirports
+//                let selectedAirports = curAiportFilter.allSelectedAirports
+                
+                let inputOriginAirports = inputFilters[index].cityapN.fr.values.flatMap { $0.map { $0 } }
+                let originSelectedAirports = userSelectedFilters[index].cityapN.fr.values.flatMap { $0.map { $0 } }
+                
+                let inputDestAirports = inputFilters[index].cityapN.to.values.flatMap { $0.map { $0 } }
+                let destSelectedAirports = userSelectedFilters[index].cityapN.to.values.flatMap { $0.map { $0 } }
+                
+                let inputLayoverAirports = inputFilters[index].loap
                 let userSelectedLayoverAirports = userSelectedFilters[index].loap
                 
-                airportLegFilter.originCities = airportLegFilter.originCities.map { (city) in
-                    var newCity = city
-                    newCity.airports = newCity.airports.map({ (airport) in
-                        var newAirport = airport
-                        if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
-                            newAirport.isSelected = true
-                        }
-                        if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
-                            newAirport.isSelected = true
-                        }
-                        return newAirport
-                    })
-                    return newCity
+                if inputOriginAirports.count != originSelectedAirports.count  && userFilters.uiFilters[index].contains(.originAirports) {
+                    airportLegFilter.originCities = airportLegFilter.originCities.map { (city) in
+                        var newCity = city
+                        newCity.airports = newCity.airports.map({ (airport) in
+                            var newAirport = airport
+//                            if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
+                            if originSelectedAirports.contains(newAirport.IATACode) {
+                                newAirport.isSelected = true
+                            }
+                            return newAirport
+                        })
+                        return newCity
+                    }
                 }
                 
-                airportLegFilter.destinationCities = airportLegFilter.destinationCities.map { (city) in
-                    var newCity = city
-                    newCity.airports = newCity.airports.map({ (airport) in
-                        var newAirport = airport
-                        if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
-                            newAirport.isSelected = true
-                        }
-                        return newAirport
-                    })
-                    return newCity
+                if inputDestAirports.count != destSelectedAirports.count  && userFilters.uiFilters[index].contains(.destinationAirports) {
+                    airportLegFilter.destinationCities = airportLegFilter.destinationCities.map { (city) in
+                        var newCity = city
+                        newCity.airports = newCity.airports.map({ (airport) in
+                            var newAirport = airport
+//                            if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
+                            if destSelectedAirports.contains(newAirport.IATACode) {
+                                newAirport.isSelected = true
+                            }
+                            return newAirport
+                        })
+                        return newCity
+                    }
                 }
                 
-                airportLegFilter.layoverCities = airportLegFilter.layoverCities.map { (city) in
-                    var newCity = city
-                    newCity.airports = newCity.airports.map({ (airport) in
-                        var newAirport = airport
-                        if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
-                            newAirport.isSelected = true
-                        }
-                        if userSelectedLayoverAirports.contains(newAirport.IATACode) {
-                            newAirport.isSelected = true
-                        }
-                        return newAirport
-                    })
-                    return newCity
+                if (userSelectedLayoverAirports.count != inputLayoverAirports.count) && userFilters.uiFilters[index].contains(.layoverAirports) {
+                    airportLegFilter.layoverCities = airportLegFilter.layoverCities.map { (city) in
+                        var newCity = city
+                        newCity.airports = newCity.airports.map({ (airport) in
+                            var newAirport = airport
+                            if userSelectedLayoverAirports.contains(newAirport.IATACode) {
+                                newAirport.isSelected = true
+                            }
+                            return newAirport
+                        })
+                        return newCity
+                    }
                 }
-                
                 airportViewController.airportFilterArray[index] = airportLegFilter
                 
             } else {

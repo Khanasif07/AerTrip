@@ -314,7 +314,7 @@ class DomesticMultiLegCell: UITableViewCell {
 }
 
 
-extension DomesticMultiLegCell : UICollectionViewDataSource , UICollectionViewDelegate {
+extension DomesticMultiLegCell : UICollectionViewDataSource , UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         
@@ -386,7 +386,7 @@ extension DomesticMultiLegCell : UICollectionViewDataSource , UICollectionViewDe
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                          withReuseIdentifier: "smartIconHeaderView",
                                                                          for: indexPath)
-//        headerView.frame = CGRect(x: 33, y: 5, width: 4.0, height: collectionView.frame.height)
+//        headerView.frame = CGRect(x: 0, y: 5, width: 1.0, height: collectionView.frame.height)
         
 //        headerView.backgroundColor = UIColor.yellow
         
@@ -396,7 +396,7 @@ extension DomesticMultiLegCell : UICollectionViewDataSource , UICollectionViewDe
         return headerView
     }
     
-    @objc func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0 {
             return .zero
         }else {
@@ -406,4 +406,17 @@ extension DomesticMultiLegCell : UICollectionViewDataSource , UICollectionViewDe
             return CGSize(width: 16.0, height:  23.0)
         }
     }
+    
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 26, height: 23)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
 }

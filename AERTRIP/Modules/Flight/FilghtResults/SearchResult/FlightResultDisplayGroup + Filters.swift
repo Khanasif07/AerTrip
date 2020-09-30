@@ -611,11 +611,13 @@ extension FlightResultDisplayGroup  {
         UIFilters.remove(.destinationAirports)
         
         userSelectedFilters?.cityapN = inputFil.cityapN
+        
+        checkForAirportsFilter()
         applyFilters()
     }
     
     func originSelectionChanged(selection: [AirportsGroupedByCity]) {
-        
+                
         let origins = selection.reduce([] , { $0 + $1.airports })
         let selectedOrigins = origins.filter{  $0.isSelected == true }
         let groupedByCity = Dictionary(grouping: selectedOrigins, by: { $0.city } )
@@ -634,13 +636,12 @@ extension FlightResultDisplayGroup  {
         else {
             UIFilters.insert(.originAirports)
         }
-        
+        checkForAirportsFilter()
         applyFilters()
     }
     
     func destinationSelectionChanged(selection: [AirportsGroupedByCity]) {
-        
-        
+                
         let destinations = selection.reduce([] , { $0 + $1.airports })
         let selectedDestinations = destinations.filter{  $0.isSelected == true }
         let groupedByCity = Dictionary(grouping: selectedDestinations, by: { $0.city } )
@@ -658,7 +659,7 @@ extension FlightResultDisplayGroup  {
         else {
             UIFilters.insert(.destinationAirports)
         }
-        
+        checkForAirportsFilter()
         applyFilters()
     }
     
@@ -676,9 +677,17 @@ extension FlightResultDisplayGroup  {
         else {
             UIFilters.insert(.layoverAirports)
         }
-        
+        checkForAirportsFilter()
         applyFilters()
         
+    }
+    
+    private func checkForAirportsFilter() {
+        if UIFilters.contains(.originAirports) || UIFilters.contains(.destinationAirports) || UIFilters.contains(.layoverAirports) {
+            appliedFilters.insert(.Airport)
+        } else {
+            appliedFilters.remove(.Airport)
+        }
     }
     
     func applyOriginFilter(_ inputArray: [Journey]) -> [Journey] {
@@ -705,6 +714,7 @@ extension FlightResultDisplayGroup  {
         guard let userFil = userSelectedFilters else { return inputArray }
         
         let selectedDestinations = userFil.cityapN.to.reduce([]){ $0 +  $1.value }
+
         let destinationSet = Set(selectedDestinations)
         if selectedDestinations.count == 0 {
             return inputArray

@@ -77,7 +77,8 @@ class ChatVM {
         let defaultLoc = LocationManager.defaultCoordinate
         
         if curLoc.latitude != defaultLoc.latitude || curLoc.longitude != defaultLoc.longitude {
-            
+            params["latitude"] = curLoc.latitude
+            params["longitude"] = curLoc.longitude
         }
         
         APICaller.shared.startChatBotSession(params: params) { (success, message, sessionId, filters) in
@@ -104,7 +105,15 @@ class ChatVM {
         
         self.delegate?.willCommunicateWithChatBot()
         
-        let params : JSONDictionary = [APIKeys.session_id.rawValue : self.sessionId, "q" : message]
+        var params : JSONDictionary = [APIKeys.session_id.rawValue : self.sessionId, "q" : message]
+        
+        let curLoc = LocationManager.getMyLocation
+        let defaultLoc = LocationManager.defaultCoordinate
+        
+        if curLoc.latitude != defaultLoc.latitude || curLoc.longitude != defaultLoc.longitude {
+            params["latitude"] = curLoc.latitude
+            params["longitude"] = curLoc.longitude
+        }
         
         APICaller.shared.communicateWithChatBot(params: params) { (success, message, sessionId, filters) in
             

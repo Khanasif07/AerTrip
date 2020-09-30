@@ -115,6 +115,7 @@ struct TimeFK {
     func setVaulesFrom( journey: JourneyOnewayDisplay, sortOrder : Sort, isConditionReverced : Bool) {
        
         flightGroup = journey
+        
         let arrowImage = !flightGroup.isCollapsed ? UIImage(named:"DownArrow") : UIImage(named:"UpArrow")
         expandCollapseButton.setImage(arrowImage, for: .normal)
         
@@ -277,16 +278,15 @@ struct TimeFK {
         
         var selectedJourney  : Journey?
 
-//        if self.flightGroup.isCollapsed {
-//            let flightGroup = self.flightGroup
-//            let departureTime = flightGroup.selectedFK
-//            if let journey = flightGroup.getJourneyWith(fk: departureTime) {
-//                selectedJourney = journey
-//            }
-//        }
-//        else {
+        if self.flightGroup.isCollapsed {
+            let flightGroup = self.flightGroup
+            let departureTime = flightGroup.selectedFK
+            if let journey = flightGroup.getJourneyWith(fk: departureTime) {
+                selectedJourney = journey
+            }
+        } else {
             selectedJourney = flightGroup.journeyArray[indexPath.row]
-       // }
+        }
         return selectedJourney
     }
     
@@ -390,7 +390,7 @@ extension GroupedFlightCell : UITableViewDataSource, UITableViewDelegate {
      }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-           if let selectedJourney = getJourneyObj(indexPath: indexPath) {
+        if let selectedJourney = getJourneyObj(indexPath: indexPath) {
                self.currentJourney = selectedJourney
                self.delegate?.navigateToFlightDetailFor(journey: selectedJourney, selectedIndex: indexPath)
            }

@@ -148,7 +148,7 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
 //        }else if airlineTitle.text!.count > 12 {
 //            airlineTitleWidth.constant = 85
 //        }else{
-            airlineTitleWidth.constant = 70
+//            airlineTitleWidth.constant = 70
 //        }
 
         
@@ -227,7 +227,7 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
 
 
 
-extension SingleJourneyResultTableViewCell : UICollectionViewDataSource , UICollectionViewDelegate {
+extension SingleJourneyResultTableViewCell : UICollectionViewDataSource , UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         
@@ -301,8 +301,8 @@ extension SingleJourneyResultTableViewCell : UICollectionViewDataSource , UIColl
                                withReuseIdentifier: "smartIconHeaderView",
                                for: indexPath)
         
-        headerView.frame = CGRect(x: 33, y: 5, width: 1.0, height: collectionView.frame.height)
-        headerView.backgroundColor = UIColor(displayP3Red: ( 204.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 204 / 255.0), alpha: 1.0)
+//        headerView.frame = CGRect(x: 33, y: 5, width: 1.0, height: collectionView.frame.height)
+//        headerView.backgroundColor = UIColor(displayP3Red: ( 204.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 204 / 255.0), alpha: 1.0)
 
         return headerView
     }
@@ -320,6 +320,18 @@ extension SingleJourneyResultTableViewCell : UICollectionViewDataSource , UIColl
         }
         return CGSize(width: 16.0, height:  23.0)
     }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+           return CGSize(width: 26, height: 23)
+       }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
     
 }

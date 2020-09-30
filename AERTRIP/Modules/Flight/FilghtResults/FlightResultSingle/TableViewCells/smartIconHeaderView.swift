@@ -14,7 +14,7 @@ class smartIconHeaderView: UICollectionReusableView {
    
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+//        self.backgroundColor = UIColor.blue
         lineView.backgroundColor = UIColor(displayP3Red: ( 204.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 204 / 255.0), alpha: 1.0)
     }
     
