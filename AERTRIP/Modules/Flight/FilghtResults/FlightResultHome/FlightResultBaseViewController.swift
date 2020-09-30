@@ -47,7 +47,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     var updatedApiProgress : Float = 0
     var isSearchByAirline = false
     var airlineCode = ""
-    let separatorView = UIView()
+    let separatorView = ATDividerView()
     
     private var filterBackView = UIView()
     
