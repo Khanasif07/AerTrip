@@ -605,7 +605,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         if let intFilterBaseView = self.intMCAndReturnFilterVC {
             if intFilterBaseView.parent == nil {
                 var frame = self.view.frame
-                frame.origin.y = visualEffectViewHeight - 45
+                frame.origin.y = visualEffectViewHeight - 46
                 frame.size.height = 36//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
                 intFilterBaseView.view.frame = frame
                 backView.addSubview(intFilterBaseView.view)
@@ -620,7 +620,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         if let FilterBaseView = self.flightFilterVC {
             if FilterBaseView.parent == nil {
                 var frame = self.view.frame
-                frame.origin.y = visualEffectViewHeight - 45
+                frame.origin.y = visualEffectViewHeight - 46
                 frame.size.height = 36//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
                 FilterBaseView.view.frame = frame
                 backView.addSubview(FilterBaseView.view)
