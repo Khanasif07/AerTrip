@@ -1459,45 +1459,58 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Airport), airportViewController.airportFilterArray.indices.contains(index) {
                 let curAiportFilter = airportViewController.airportFilterArray[index]
                 let selectedAirports = curAiportFilter.allSelectedAirports
+                
+                let inputOriginAirports = inputFilters[index].cityapn.fr.values.flatMap { $0.map { $0 } }
+                let originSelectedAirports = userSelectedFilters[index].cityapn.fr.values.flatMap { $0.map { $0 } }
+                
+                let inputDestAirports = inputFilters[index].cityapn.to.values.flatMap { $0.map { $0 } }
+                let destSelectedAirports = userSelectedFilters[index].cityapn.to.values.flatMap { $0.map { $0 } }
+                
+                let inputLayoverAirports = inputFilters[index].loap
                 let userSelectedLayoverAirports = userSelectedFilters[index].loap
                 
-                airportLegFilter.originCities = airportLegFilter.originCities.map { (city) in
-                    var newCity = city
-                    newCity.airports = newCity.airports.map({ (airport) in
-                        var newAirport = airport
-                        if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
-                            newAirport.isSelected = true
-                        }
-                        return newAirport
-                    })
-                    return newCity
+                if inputOriginAirports.count != originSelectedAirports.count  && (userFilters.uiFilters[0].contains(.originAirports)  || userFilters.uiFilters[0].contains(.originDestinationSelectedForReturnJourney)) {
+                    airportLegFilter.originCities = airportLegFilter.originCities.map { (city) in
+                        var newCity = city
+                        newCity.airports = newCity.airports.map({ (airport) in
+                            var newAirport = airport
+//                            if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
+                            if originSelectedAirports.contains(newAirport.IATACode) {
+                                newAirport.isSelected = true
+                            }
+                            return newAirport
+                        })
+                        return newCity
+                    }
                 }
                 
-                airportLegFilter.destinationCities = airportLegFilter.destinationCities.map { (city) in
-                    var newCity = city
-                    newCity.airports = newCity.airports.map({ (airport) in
-                        var newAirport = airport
-                        if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
-                            newAirport.isSelected = true
-                        }
-                        return newAirport
-                    })
-                    return newCity
+                if inputDestAirports.count != destSelectedAirports.count  && (userFilters.uiFilters[0].contains(.destinationAirports)  || userFilters.uiFilters[0].contains(.originDestinationSelectedForReturnJourney)) {
+                    airportLegFilter.destinationCities = airportLegFilter.destinationCities.map { (city) in
+                        var newCity = city
+                        newCity.airports = newCity.airports.map({ (airport) in
+                            var newAirport = airport
+//                            if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
+                            if destSelectedAirports.contains(newAirport.IATACode) {
+                                newAirport.isSelected = true
+                            }
+                            return newAirport
+                        })
+                        return newCity
+                    }
                 }
                 
-                airportLegFilter.layoverCities = airportLegFilter.layoverCities.map { (city) in
-                    var newCity = city
-                    newCity.airports = newCity.airports.map({ (airport) in
-                        var newAirport = airport
-                        if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
-                            newAirport.isSelected = true
-                        }
-                        if userSelectedLayoverAirports.contains(newAirport.IATACode) {
-                            newAirport.isSelected = true
-                        }
-                        return newAirport
-                    })
-                    return newCity
+                if (userSelectedLayoverAirports.count != inputLayoverAirports.count) && userFilters.uiFilters[0].contains(.layoverAirports) {
+                    airportLegFilter.layoverCities = airportLegFilter.layoverCities.map { (city) in
+                        var newCity = city
+                        newCity.airports = newCity.airports.map({ (airport) in
+                            var newAirport = airport
+                            if userSelectedLayoverAirports.contains(newAirport.IATACode) {
+                                newAirport.isSelected = true
+                            }
+                            return newAirport
+                        })
+                        return newCity
+                    }
                 }
                 
                 airportViewController.airportFilterArray[index] = airportLegFilter

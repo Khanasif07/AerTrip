@@ -634,13 +634,23 @@ class IntFlightResultDisplayGroup {
                 }
                 
                 if !fromCities.isEmpty {
-                    self.appliedFilters.insert(.Airport)
-                    self.UIFilters.insert(.originAirports)
+                    if isReturnJourney {
+                        self.UIFilters.insert(.originDestinationSelectedForReturnJourney)
+                    } else {
+                        self.appliedFilters.insert(.Airport)
+                        self.UIFilters.insert(.originAirports)
+                    }
+                    userSelectedFilters[index].cityapn.returnOriginAirports = fromCities.values.flatMap { $0 }
                     userSelectedFilters[index].cityapn.fr = fromCities
                 }
                 if !toCities.isEmpty {
-                    self.appliedFilters.insert(.Airport)
-                    self.UIFilters.insert(.destinationAirports)
+                    if isReturnJourney {
+                        self.UIFilters.insert(.originDestinationSelectedForReturnJourney)
+                    } else {
+                        self.appliedFilters.insert(.Airport)
+                        self.UIFilters.insert(.destinationAirports)
+                    }
+                    userSelectedFilters[index].cityapn.returnDestinationAirports = toCities.values.flatMap { $0 }
                     userSelectedFilters[index].cityapn.to = toCities
                 }
             }
