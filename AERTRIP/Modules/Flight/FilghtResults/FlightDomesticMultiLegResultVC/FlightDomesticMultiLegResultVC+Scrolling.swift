@@ -60,14 +60,13 @@ extension FlightDomesticMultiLegResultVC {
                     blurEffectView.frame = rect
                     var baseViewContentOffset = self.baseScrollView.contentOffset
                     baseViewContentOffset.y = min( 0 , invertedOffset)
-//                    self.baseScrollView.setContentOffset(baseViewContentOffset, animated: false )
-                    
+                    self.baseScrollView.setContentOffset(baseViewContentOffset, animated: false )
                     rect = self.collectionContainerView.frame
                     var yCordinateForHeaderView = rect.origin.y + invertedOffset
                     yCordinateForHeaderView = min(88.0 , yCordinateForHeaderView)
                     self.headerCollectionViewTop.constant = yCordinateForHeaderView
                 }
-            } ,completion: {_ in self.setAllTableViewHeader()})
+            } ,completion: nil)//{_ in self.setAllTableViewHeader()}
         }
     }
     
@@ -81,7 +80,7 @@ extension FlightDomesticMultiLegResultVC {
         } else if offsetDifference < 0{
             self.revealAnimationOfNavigationBarOnScroll(offsetDifference : offsetDifference)
         }else if contentOffset.y == 0.0{
-            self.baseScrollView.contentOffset.y = 0.0
+//            self.baseScrollView.contentOffset.y = 0.0
         }
     }
     
@@ -308,11 +307,12 @@ extension FlightDomesticMultiLegResultVC {
     //MARK:- ScrollView Delegate Methods
    
     
-    func changeContentOfssetWithMainScrollView(_ isNeedToAnimate:Bool = false){
+    func changeContentOfssetWithMainScrollView(_ isNeedToAnimate:Bool = true){
         guard let blurView = self.navigationController?.view.viewWithTag(500) else  {return}
         DispatchQueue.main.async {
             UIView.animate(withDuration: isNeedToAnimate ? 0.3 : 0.0) {
                 blurView.frame.origin.y = -self.baseScrollView.contentOffset.y
+                self.collectionContainerView.origin.y = (88.0 - self.baseScrollView.contentOffset.y)
                 self.headerCollectionViewTop.constant = (88.0 - self.baseScrollView.contentOffset.y)
                 self.view.layoutIfNeeded()
             }
@@ -463,7 +463,7 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
                     snapToTopOrBottomOnSlowScrollDragging(scrollView)
                 }
                 if (scrollView.contentOffset.y == 0 && self.baseScrollView.contentOffset.y != 0){
-                    self.baseScrollView.contentOffset.y = 0.0
+//                    self.baseScrollView.contentOffset.y = 0.0
 //                    self.setAllTableViewHeader()
                 }
                 return
@@ -471,6 +471,9 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
         }
         else{
             if scrollView == self.baseScrollView && scrollView.contentOffset.y < 88.0{
+                if scrollView.contentOffset.y == 0 || scrollView.contentOffset.y == 88.0{
+                    self.setAllTableViewHeader()
+                }
                 if scrollView.contentOffset.y < 44{
                     scrollView.contentOffset.y = 0.0
                 }else{
@@ -491,9 +494,11 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
             UIView.animate(withDuration: 0.3) {
                 self.setTableViewHeaderFor(tableView: tableView)
                 if scrollView.contentOffset.y == 0{
-                    self.baseScrollView.contentOffset.y = 0
+//                    self.baseScrollView.contentOffset.y = 0
                 }
             }
+        } else if scrollView == self.baseScrollView{
+            setAllTableViewHeader()
         }
     }
     
@@ -508,14 +513,19 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
             delay(seconds: 0.4) {
                 self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
                 UIView.animate(withDuration: 0.3) {
-                    self.baseScrollView.contentOffset.y = 0.0
+//                    self.baseScrollView.contentOffset.y = 0.0
                 }
             }
+        }else if scrollView == self.baseScrollView{
+            setAllTableViewHeader()
         }
     }
     
     func setAllTableViewHeader(){
+        guard !isSettingupHeader else {return}
+        isSettingupHeader  = true
         delay(seconds: 0.4) {
+            self.isSettingupHeader  = false
             for subView in self.baseScrollView.subviews{
                 if let tableView = subView as? UITableView{
                     self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
@@ -533,7 +543,7 @@ extension FlightDomesticMultiLegResultVC{
         var boundsWithoutInset = tableView.bounds
         let colletionSpace = self.headerCollectionViewTop.constant + self.headerCollectionView.height
         boundsWithoutInset.origin.y += (tableView.contentInset.top + colletionSpace + self.baseScrollView.contentOffset.y)
-        let insetOnTop:CGFloat = (colletionSpace <= 50) ? 10 : (colletionSpace - 10)
+        let insetOnTop:CGFloat = (colletionSpace <= 50) ? 10 : (colletionSpace + 40)
         boundsWithoutInset.size.height -= (tableView.contentInset.top + tableView.contentInset.bottom + insetOnTop + 50 + self.baseScrollView.contentOffset.y)
         return boundsWithoutInset
     }
