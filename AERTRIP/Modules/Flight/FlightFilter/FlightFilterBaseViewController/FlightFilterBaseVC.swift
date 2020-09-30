@@ -1289,7 +1289,7 @@ extension FlightFilterBaseVC {
             var airportLegFilter =  AirportLegFilter(leg:leg, originCities: originAirports, destinationCities: destinationAirports, layoverCities: layoverAirportsDisplayModelArray)
             
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[index].contains(.Airport), airportViewController.airportFilterArray.indices.contains(index) {
-                let curAiportFilter = airportViewController.airportFilterArray[index]
+//                let curAiportFilter = airportViewController.airportFilterArray[index]
 //                let selectedAirports = curAiportFilter.allSelectedAirports
                 
                 let inputOriginAirports = inputFilters[index].cityapN.fr.values.flatMap { $0.map { $0 } }
