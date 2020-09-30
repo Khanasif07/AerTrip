@@ -50,9 +50,9 @@ class IntMCAndReturnVC : UIViewController {
     let viewModel = IntMCAndReturnVM()
     var previousRequest : DispatchWorkItem?
     var updateResultWorkItem: DispatchWorkItem?
-    
     var flightSearchResultVM  : FlightSearchResultVM?
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.results = InternationalJourneyResultsArray(sort: .Smart)

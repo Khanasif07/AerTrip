@@ -114,6 +114,9 @@ extension UIImage {
 extension UIImageView {
     
     func setImageWithUrl(_ imageUrl: String, placeholder: UIImage, showIndicator:Bool) {
+        
+        printDebug("imageUrl...\(imageUrl)")
+        
         var imageUrl = imageUrl
         guard imageUrl.count > 0 else {
             self.image = placeholder
