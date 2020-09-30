@@ -1291,15 +1291,14 @@ extension FlightFilterBaseVC {
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[index].contains(.Airport), airportViewController.airportFilterArray.indices.contains(index) {
                 let curAiportFilter = airportViewController.airportFilterArray[index]
                 let selectedAirports = curAiportFilter.allSelectedAirports
+                
+                let inputLayoverAirports = inputFilters[index].loap
                 let userSelectedLayoverAirports = userSelectedFilters[index].loap
                 
                 airportLegFilter.originCities = airportLegFilter.originCities.map { (city) in
                     var newCity = city
                     newCity.airports = newCity.airports.map({ (airport) in
                         var newAirport = airport
-                        if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
-                            newAirport.isSelected = true
-                        }
                         if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
                             newAirport.isSelected = true
                         }
@@ -1320,21 +1319,19 @@ extension FlightFilterBaseVC {
                     return newCity
                 }
                 
-                airportLegFilter.layoverCities = airportLegFilter.layoverCities.map { (city) in
-                    var newCity = city
-                    newCity.airports = newCity.airports.map({ (airport) in
-                        var newAirport = airport
-                        if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
-                            newAirport.isSelected = true
-                        }
-                        if userSelectedLayoverAirports.contains(newAirport.IATACode) {
-                            newAirport.isSelected = true
-                        }
-                        return newAirport
-                    })
-                    return newCity
+                if (userSelectedLayoverAirports.count != inputLayoverAirports.count) {
+                    airportLegFilter.layoverCities = airportLegFilter.layoverCities.map { (city) in
+                        var newCity = city
+                        newCity.airports = newCity.airports.map({ (airport) in
+                            var newAirport = airport
+                            if userSelectedLayoverAirports.contains(newAirport.IATACode) {
+                                newAirport.isSelected = true
+                            }
+                            return newAirport
+                        })
+                        return newCity
+                    }
                 }
-                
                 airportViewController.airportFilterArray[index] = airportLegFilter
                 
             } else {

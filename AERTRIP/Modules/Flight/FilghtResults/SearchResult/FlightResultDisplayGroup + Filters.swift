@@ -611,6 +611,8 @@ extension FlightResultDisplayGroup  {
         UIFilters.remove(.destinationAirports)
         
         userSelectedFilters?.cityapN = inputFil.cityapN
+        
+        checkForAirportsFilter()
         applyFilters()
     }
     
@@ -634,7 +636,7 @@ extension FlightResultDisplayGroup  {
         else {
             UIFilters.insert(.originAirports)
         }
-        
+        checkForAirportsFilter()
         applyFilters()
     }
     
@@ -657,7 +659,7 @@ extension FlightResultDisplayGroup  {
         else {
             UIFilters.insert(.destinationAirports)
         }
-        
+        checkForAirportsFilter()
         applyFilters()
     }
     
@@ -675,14 +677,22 @@ extension FlightResultDisplayGroup  {
         else {
             UIFilters.insert(.layoverAirports)
         }
-        
+        checkForAirportsFilter()
         applyFilters()
         
     }
     
+    private func checkForAirportsFilter() {
+        if UIFilters.contains(.originAirports) || UIFilters.contains(.destinationAirports) || UIFilters.contains(.layoverAirports) {
+            appliedFilters.insert(.Airport)
+        } else {
+            appliedFilters.remove(.Airport)
+        }
+    }
+    
     func applyOriginFilter(_ inputArray: [Journey]) -> [Journey] {
         guard let userFil = userSelectedFilters else { return inputArray }
-        var selectedOrigins = userFil.cityapN.fr.reduce([]){ $0 +  $1.value }
+        let selectedOrigins = userFil.cityapN.fr.reduce([]){ $0 +  $1.value }
         let originSet = Set(selectedOrigins)
         if selectedOrigins.count == 0 {
             return inputArray
@@ -703,7 +713,7 @@ extension FlightResultDisplayGroup  {
     func applyDestinationFilter(_ inputArray: [Journey]) -> [Journey] {
         guard let userFil = userSelectedFilters else { return inputArray }
         
-        var selectedDestinations = userFil.cityapN.to.reduce([]){ $0 +  $1.value }
+        let selectedDestinations = userFil.cityapN.to.reduce([]){ $0 +  $1.value }
 
         let destinationSet = Set(selectedDestinations)
         if selectedDestinations.count == 0 {
