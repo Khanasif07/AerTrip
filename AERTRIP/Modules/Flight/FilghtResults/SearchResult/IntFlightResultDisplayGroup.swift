@@ -609,6 +609,42 @@ class IntFlightResultDisplayGroup {
                 self.userSelectedFilters[index].dt.latest = userDepartureMin.toString(dateFormat: "HH:mm")
             }
             
+            let airportsDict = flightSearchParam.filter { $0.key.contains("filters[\(index)][ap]") }
+            let airports = airportsDict.map { $0.value as? String ?? "" }
+
+            if airports.count > 0 {
+                let cityApn = userSelectedFilters[index].cityapn
+                var fromCities = [String: [String]]()
+                cityApn.fr.forEach {
+                    let city = $0.key
+                    let cityAirports = $0.value
+                    let newAirports = cityAirports.filter { airports.contains($0) }
+                    if newAirports.count > 0 {
+                        fromCities[city] = newAirports
+                    }
+                }
+                var toCities = [String: [String]]()
+                cityApn.to.forEach {
+                    let city = $0.key
+                    let cityAirports = $0.value
+                    let newAirports = cityAirports.filter { airports.contains($0) }
+                    if newAirports.count > 0 {
+                        toCities[city] = newAirports
+                    }
+                }
+                
+                if !fromCities.isEmpty {
+                    self.appliedFilters.insert(.Airport)
+                    self.UIFilters.insert(.originAirports)
+                    userSelectedFilters[index].cityapn.fr = fromCities
+                }
+                if !toCities.isEmpty {
+                    self.appliedFilters.insert(.Airport)
+                    self.UIFilters.insert(.destinationAirports)
+                    userSelectedFilters[index].cityapn.to = toCities
+                }
+            }
+            
             let loapAirports = flightSearchParam.filter { $0.key.contains("filters[\(index)][loap]") }
             
             if loapAirports.count > 0 {
