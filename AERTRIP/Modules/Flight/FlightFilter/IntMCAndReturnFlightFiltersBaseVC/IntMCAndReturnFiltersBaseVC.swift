@@ -1418,6 +1418,8 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                     return newCity
                 })
                 
+                airportViewController.airportFilterArray[0].originCities = airportViewController.airportFilterArray[0].originCities.filter { !$0.airports.isEmpty }
+                
                 airportViewController.airportFilterArray[0].destinationCities = airportViewController.airportFilterArray[0].destinationCities.map({ (city) in
                     var newCity = city
                     if let cityInReturnLeg = airportLegFilter.originCities.first(where: { $0.name == newCity.name }) {
@@ -1431,6 +1433,8 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                     }
                     return newCity
                 })
+                
+                airportViewController.airportFilterArray[0].destinationCities = airportViewController.airportFilterArray[0].destinationCities.filter { !$0.airports.isEmpty }
                 
                 airportViewController.airportFilterArray[0].layoverCities = airportViewController.airportFilterArray[0].layoverCities.map({ (city) in
                     var newCity = city
