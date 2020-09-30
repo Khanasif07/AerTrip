@@ -38,6 +38,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     var fewSeatsLeftViewHeight = 0
     var selectedIndex : IndexPath?
     var isAPIFailed = false
+    var isIndicatorHidden = true
     //Indicator:---
     var indicator = UIActivityIndicatorView()
     
@@ -90,6 +91,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     private func addIndicator()
     {
+        isIndicatorHidden = false
         indicator.frame = CGRect(x: 0, y: 200, width: 40, height: 40)
         indicator.center.x = self.view.center.x
         indicator.center.y = self.view.center.y-150
@@ -101,6 +103,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     func removeIndicator(){
         DispatchQueue.main.async {
+            self.isIndicatorHidden = true
             self.indicator.removeFromSuperview()
             self.indicator.stopAnimating()
         }
@@ -481,9 +484,16 @@ extension IntFareInfoVC{
 
                 
             }else{
-                fareInfoCell.isNoInfoViewVisible = true
-                fareInfoCell.combineFareTableView.isHidden = true
-                fareInfoCell.noInfoView.isHidden = false
+                if isIndicatorHidden{
+                    fareInfoCell.isNoInfoViewVisible = true
+                    fareInfoCell.combineFareTableView.isHidden = true
+                    fareInfoCell.noInfoView.isHidden = false
+                }else{
+                    fareInfoCell.isNoInfoViewVisible = false
+//                    fareInfoCell.combineFareTableView.isHidden = false
+                    fareInfoCell.noInfoView.isHidden = true
+                }
+                
             }
         }else{
             fareInfoCell.withApi = false
