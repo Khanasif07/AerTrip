@@ -242,13 +242,17 @@ extension IntMCAndReturnVC {
     }
     
     @IBAction func sharePinnedFlights(_ sender: Any) {
-        
+        sharePinnedFilghts.displayLoadingIndicator(true)
+
         if #available(iOS 13.0, *) {
             guard let postData = generatePostData(for: viewModel.results.pinnedFlights ) else { return }
             
             executeWebServiceForShare(with: postData as Data, onCompletion:{ (link)  in
                 
                 DispatchQueue.main.async {
+                    
+                    self.sharePinnedFilghts.displayLoadingIndicator(false)
+
                     let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(link)" ]
                     let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
                     activityViewController.popoverPresentationController?.sourceView = self.view

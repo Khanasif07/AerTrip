@@ -580,7 +580,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                         return CGFloat(rowHeight)
                     }else{
 //                        return UITableView.automaticDimension
-                        return 50
+                        return 150
                     }
                 }
             }else{
@@ -591,7 +591,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                         return CGFloat(rowHeight)
                     }else{
 //                        return UITableView.automaticDimension
-                        return 50
+                        return 150
                     }
                 }
             }

@@ -370,7 +370,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     }
     
     func shareFlights( journeyArray : [Journey]) {
-        
+        sharePinnedFilghts.displayLoadingIndicator(true)
+
         let flightAdultCount = bookFlightObject.flightAdultCount
         let flightChildrenCount = bookFlightObject.flightChildrenCount
         let flightInfantCount = bookFlightObject.flightInfantCount
@@ -384,6 +385,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     
     func returnSharableUrl(url: String)
     {
+        sharePinnedFilghts.displayLoadingIndicator(false)
+
         let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]
         let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view
