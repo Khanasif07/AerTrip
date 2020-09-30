@@ -67,7 +67,7 @@ extension FlightDomesticMultiLegResultVC {
                     yCordinateForHeaderView = min(88.0 , yCordinateForHeaderView)
                     self.headerCollectionViewTop.constant = yCordinateForHeaderView
                 }
-            } ,completion: nil)
+            } ,completion: {_ in self.setAllTableViewHeader()})
         }
     }
     
@@ -464,7 +464,7 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
                 }
                 if (scrollView.contentOffset.y == 0 && self.baseScrollView.contentOffset.y != 0){
                     self.baseScrollView.contentOffset.y = 0.0
-                    self.setAllTableViewHeader()
+//                    self.setAllTableViewHeader()
                 }
                 return
             }
@@ -509,14 +509,13 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
                 self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
                 UIView.animate(withDuration: 0.3) {
                     self.baseScrollView.contentOffset.y = 0.0
-                    self.setAllTableViewHeader()
                 }
             }
         }
     }
     
     func setAllTableViewHeader(){
-        delay(seconds: 0.2) {
+        delay(seconds: 0.4) {
             for subView in self.baseScrollView.subviews{
                 if let tableView = subView as? UITableView{
                     self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
@@ -533,9 +532,9 @@ extension FlightDomesticMultiLegResultVC{
     public func boundsWithoutInset(for tableView: UITableView)-> CGRect{
         var boundsWithoutInset = tableView.bounds
         let colletionSpace = self.headerCollectionViewTop.constant + self.headerCollectionView.height
-        let bottom = UIApplication.shared.statusBarFrame.height
         boundsWithoutInset.origin.y += (tableView.contentInset.top + colletionSpace + self.baseScrollView.contentOffset.y)
-        boundsWithoutInset.size.height -= (tableView.contentInset.top + tableView.contentInset.bottom + colletionSpace + 50 + self.baseScrollView.contentOffset.y)
+        let insetOnTop:CGFloat = (colletionSpace <= 50) ? 10 : (colletionSpace - 10)
+        boundsWithoutInset.size.height -= (tableView.contentInset.top + tableView.contentInset.bottom + insetOnTop + 50 + self.baseScrollView.contentOffset.y)
         return boundsWithoutInset
     }
 
