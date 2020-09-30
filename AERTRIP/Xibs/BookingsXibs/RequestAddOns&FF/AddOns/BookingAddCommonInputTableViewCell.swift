@@ -27,6 +27,7 @@ class BookingAddCommonInputTableViewCell: ATTableViewCell {
         self.inputTextField.text = ""
         self.titleLabel.text = ""
         self.characterCountLabel.isHidden = true
+        self.dividerView.isHidden = false
     }
     
     override func doInitialSetup() {

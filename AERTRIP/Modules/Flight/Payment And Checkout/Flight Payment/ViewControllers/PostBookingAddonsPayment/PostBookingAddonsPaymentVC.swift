@@ -30,13 +30,13 @@ class PostBookingAddonsPaymentVC: BaseVC{
     
     let cellIdentifier = "HotelFareSectionHeader"
     var isWallet: Bool = true // To check if using wallet or Not
-    var gradientColors: [UIColor] = [AppColors.shadowBlue, AppColors.themeGreen] {
+    var gradientColors: [UIColor] = AppConstants.appthemeGradientColors {
         didSet {
             self.viewDidLayoutSubviews()
         }
     }
     
-    var disabledGradientColors: [UIColor] = [AppColors.themeGray20, AppColors.themeGray20] {
+    var disabledGradientColors: [UIColor] = AppConstants.appthemeDisableGradientColors {
         didSet {
             self.viewDidLayoutSubviews()
         }

@@ -25,9 +25,9 @@ class ForgotPasswordVM  {
         if self.email.isEmpty {
             return false
         }
-//        else if self.email.checkInvalidity(.Email) {
-//            return false
-//        }
+        else if self.email.checkInvalidity(.Email) {
+            return false
+        }
         return true
     }
     

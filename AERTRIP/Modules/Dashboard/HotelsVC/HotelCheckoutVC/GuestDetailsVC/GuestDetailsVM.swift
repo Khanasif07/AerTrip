@@ -22,7 +22,7 @@ class GuestDetailsVM: NSObject {
     var selectedIndexPath: IndexPath = IndexPath()
     var salutation = [String]()
     var canShowSalutationError = false
-    var countries:[String:String]?
+   // var countries:[String:String]?
     // GuestModalArray for travellers
     var guests: [[ATContact]] = [[]]
     var selectedGuest: ATContact?

@@ -125,6 +125,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             
             if isFareBreakupExpanded == true{
                 self.fareDataDisplayView.backgroundColor = .white
+                /*
                 let gradient = CAGradientLayer()
                 gradient.frame = bookingDataDisplayView.bounds
                 gradient.frame.size.height = bookingDataDisplayView.frame.height
@@ -136,8 +137,11 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 gradient.colors = [colorTwo.cgColor, colorOne.cgColor]
                 gradient.name = "bookingGradient"
                 bookingDataDisplayView.layer.insertSublayer(gradient, at: 0)
+ */
+                self.bookingDataDisplayView.addGredient(isVertical: false)
             }else{
                 self.fareDataDisplayView.backgroundColor = .clear
+                /*
                 if let subLayers = bookingDataDisplayView.layer.sublayers{
                     if subLayers.count > 0{
                         for layer in subLayers {
@@ -147,6 +151,8 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                         }
                     }
                 }
+ */
+                bookingDataDisplayView.removeGredient()
             }
             
             
@@ -157,6 +163,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             if isFareBreakupExpanded == false{
                 
                 UIView.animate(withDuration: 0.2, delay: 0.1, options: [.curveEaseOut], animations: {
+                    /*
                     let gradient = CAGradientLayer()
                     gradient.frame = self.fareDataDisplayView.bounds
                     let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom
@@ -169,9 +176,12 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                     gradient.colors = [colorTwo.cgColor, colorOne.cgColor]
                     gradient.name = "bookingGradient"
                     self.fareDataDisplayView.layer.insertSublayer(gradient, at: 0)
+                    */
+                    self.fareDataDisplayView.addGredient(isVertical: false)
                 })
                 
             }else{
+                /*
                 if let subLayers = fareDataDisplayView.layer.sublayers{
                     if subLayers.count > 0{
                         for layer in subLayers {
@@ -181,8 +191,11 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                         }
                     }
                 }
-                
+                */
+                fareDataDisplayView.removeGredient()
+
                 fareDataDisplayView.backgroundColor = .white
+                /*
                 let gradient = CAGradientLayer()
                 gradient.frame = bookingDataDisplayView.bounds
                 gradient.frame.size.height = bookingDataDisplayView.frame.height
@@ -194,6 +207,8 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 gradient.colors = [colorTwo.cgColor, colorOne.cgColor]
                 gradient.name = "fareGradient"
                 bookingDataDisplayView.layer.insertSublayer(gradient, at: 0)
+                */
+                self.bookingDataDisplayView.addGredient(isVertical: false)
             }
         }
     }
