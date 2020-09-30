@@ -26,6 +26,7 @@ class ChangeAirportTableViewCell: UITableViewCell
         super.awakeFromNib()
         // Initialization code
         
+        dataLabel.clipsToBounds = true
         dataLabel.sizeToFit()
     }
 
