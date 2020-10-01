@@ -55,7 +55,7 @@ extension FlightDomesticMultiLegResultVC {
         let height = self.baseScrollView.frame.height
         baseScrollView.contentSize = CGSize( width: (CGFloat(self.viewModel.numberOfLegs) * width ), height:height + 88.0)
         baseScrollView.showsHorizontalScrollIndicator = false
-        baseScrollView.showsVerticalScrollIndicator = false
+        baseScrollView.showsVerticalScrollIndicator = true
         baseScrollView.alwaysBounceVertical = false
         baseScrollView.delegate = self
         baseScrollView.bounces = false
