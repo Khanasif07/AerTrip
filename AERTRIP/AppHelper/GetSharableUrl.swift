@@ -241,6 +241,11 @@ class GetSharableUrl
                                 }
                             }
                         }
+//                        else{
+//                            if let errors = result["errors"] as? [String]{
+//                                self.delegate?.returnEmailView(view: errors.first ?? "")
+//                            }
+//                        }
                     }
                 }
             }catch{

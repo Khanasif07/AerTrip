@@ -348,6 +348,10 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     
 //    MARK:- Email Flight code added by Monika
     @IBAction func emailPinnedFlights(_ sender: Any) {
+        
+        emailPinnedFlights.setImage(nil, for: .normal)
+        emailPinnedFlights.displayLoadingIndicator(true)
+
 
         let pinnedFlightsArray = viewModel.results.reduce([]) { $0 + $1.pinnedFlights }
           
