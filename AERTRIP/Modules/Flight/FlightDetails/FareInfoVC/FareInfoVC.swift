@@ -67,6 +67,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         fareInfoTableView.register(UINib(nibName: "CombineFareInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "CombineFareInfoCell")
         fareInfoTableView.alwaysBounceVertical = true
         self.fareInfoTableViewBottom.constant = 0.0
+        
         if journey != nil{
             if journey.count > 1{
                 isReturnJourney = true

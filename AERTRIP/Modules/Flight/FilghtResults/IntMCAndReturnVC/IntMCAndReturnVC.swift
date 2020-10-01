@@ -241,7 +241,9 @@ extension IntMCAndReturnVC {
         }
     }
     
-    @IBAction func sharePinnedFlights(_ sender: Any) {
+    @IBAction func sharePinnedFlights(_ sender: Any)
+    {
+        self.sharePinnedFilghts.setImage(nil, for: .normal)
         sharePinnedFilghts.displayLoadingIndicator(true)
 
         if #available(iOS 13.0, *) {
@@ -250,7 +252,7 @@ extension IntMCAndReturnVC {
             executeWebServiceForShare(with: postData as Data, onCompletion:{ (link)  in
                 
                 DispatchQueue.main.async {
-                    
+                    self.sharePinnedFilghts.setImage(UIImage(named: "SharePinned"), for: .normal)
                     self.sharePinnedFilghts.displayLoadingIndicator(false)
 
                     let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(link)" ]

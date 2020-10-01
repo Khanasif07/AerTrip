@@ -397,6 +397,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     // Monika
     @IBAction func shareButtonClicked(_ sender: UIButton)
     {
+        shareButton.setImage(nil, for: .normal)
         sender.displayLoadingIndicator(true)
         
         if isInternational{
@@ -438,6 +439,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     
     func returnSharableUrl(url: String)
     {
+        shareButton.setImage(UIImage(named: "ShareGreen"), for: .normal)
         shareButton.displayLoadingIndicator(false)
 
         let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]
@@ -725,6 +727,7 @@ extension FlightDetailsBaseVC{
         }else{
             vc.fewSeatsLeftViewHeight = 0
         }
+        vc.dimensionDelegate = self
         vc.isForDomestic = (self.bookFlightObject.isDomestic)
         vc.airportDetailsResult = intAirportDetailsResult
         return vc
@@ -742,6 +745,7 @@ extension FlightDetailsBaseVC{
             vc.fewSeatsLeftViewHeight = 0
         }
         vc.delegate = self
+        vc.fareRulesDelegate = self
         vc.selectedIndex = selectedIndex
         vc.refundDelegate = refundDelegate
         vc.flightAdultCount = bookFlightObject.flightAdultCount

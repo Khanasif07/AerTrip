@@ -20,6 +20,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     //MARK:- Variable Declaration
     weak var delegate : flightDetailsSmartIconsDelegate?
+    var fareRulesDelegate : getFareRulesDelegate?
 
     var journey = [IntJourney]()
     var flights : [IntFlightDetail]?
@@ -304,19 +305,22 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     //MARK:- Button Action
     @objc func fareRulesButtonClicked(_ sender:UIButton)
     {
-        let fareRulesVC = FareRulesVC(nibName: "FareRulesVC", bundle: nil)
+//        let fareRulesVC = FareRulesVC(nibName: "FareRulesVC", bundle: nil)
+//        if self.fareRulesData.count > 0{
+//            if fareRulesData.count > sender.tag{
+//                fareRulesVC.fareRulesData = [self.fareRulesData[sender.tag]]
+//            }else{
+//                fareRulesVC.fareRulesData = [self.fareRulesData[0]]
+//            }
+//
+//        }
+//        self.present(fareRulesVC, animated: true, completion: nil)
+                
         if self.fareRulesData.count > 0{
-            if fareRulesData.count > sender.tag{
-                fareRulesVC.fareRulesData = [self.fareRulesData[sender.tag]]
-            }else{
-                fareRulesVC.fareRulesData = [self.fareRulesData[0]]
-            }
-            
+            self.fareRulesDelegate?.getFareRulesData(fareRules: [self.fareRulesData[sender.tag]])
         }
-//        fareRulesVC.view.frame = self.parent!.view.bounds
-////        fareRulesVC.modalPresentationStyle = .overCurrentContext
-        self.present(fareRulesVC, animated: true, completion: nil)
     }
+    
     
     func getAttributedNote() -> NSMutableAttributedString
     {

@@ -371,6 +371,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     
     func shareFlights( journeyArray : [Journey]) {
         sharePinnedFilghts.displayLoadingIndicator(true)
+        self.sharePinnedFilghts.setImage(nil, for: .normal)
 
         let flightAdultCount = bookFlightObject.flightAdultCount
         let flightChildrenCount = bookFlightObject.flightChildrenCount
@@ -386,6 +387,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     func returnSharableUrl(url: String)
     {
         sharePinnedFilghts.displayLoadingIndicator(false)
+        self.sharePinnedFilghts.setImage(UIImage(named: "SharePinned"), for: .normal)
 
         let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]
         let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
