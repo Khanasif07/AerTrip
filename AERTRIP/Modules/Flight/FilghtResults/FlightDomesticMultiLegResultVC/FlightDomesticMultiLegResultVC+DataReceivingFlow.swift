@@ -40,6 +40,45 @@ extension FlightDomesticMultiLegResultVC {
                                }
                            }
                 
+                
+                
+                            if !self.viewModel.airlineCode.isEmpty {
+                                
+                //                printDebug("self.viewModel.airlineCode...\(self.viewModel.airlineCode)")
+                                
+                                modifiedResult.enumerated().forEach { (ind,jour) in
+                                    
+                                    if let firstleg = jour.leg.first, let firstFlight = firstleg.flights.first {
+                                        
+                                        let flightNum = firstFlight.al + firstFlight.fn
+                                        
+                //                        printDebug("flightNum...\(flightNum)")
+                                        
+                                        if flightNum.uppercased() == self.viewModel.airlineCode.uppercased() {
+                                            
+                //                            printDebug("match...\(flightNum)....\(jour.airlinesSubString)")
+                                            
+                                            self.viewModel.results[index].currentPinnedJourneys.append(jour)
+                                            self.viewModel.results[index].currentPinnedJourneys = self.viewModel.results[index].currentPinnedJourneys.removeDuplicates()
+                                            self.viewModel.isSearchByAirlineCode = true
+                                            modifiedResult[ind].isPinned = true
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 self.viewModel.results[index].journeyArray = modifiedResult
                 
 //                self.viewModel.setPinnedFlights(tableIndex: index)
@@ -54,6 +93,19 @@ extension FlightDomesticMultiLegResultVC {
 //                            self.resultsTableView.tableFooterView = nil
 //                        }
                         
+                        
+                        
+                        if self.viewModel.isSearchByAirlineCode {
+                            delay(seconds: 1) {
+                                self.switchView.isOn = true
+                                self.switcherDidChangeValue(switcher: self.switchView, value: true)
+                                self.showPinnedFlightsOption(true)
+                            }
+                        }
+                        
+                        
+                        
+                        
                     NotificationCenter.default.post(name:NSNotification.Name("updateFilterScreenText"), object: nil)
                     }
                 })
@@ -65,7 +117,7 @@ extension FlightDomesticMultiLegResultVC {
         self.viewModel.sortOrder = sortOrder
         self.viewModel.isConditionReverced = isConditionReverced
         self.viewModel.prevLegIndex = legIndex
-//        self.viewModel.setPinnedFlights(tableIndex: legIndex)
+        self.viewModel.setPinnedFlights(tableIndex: legIndex)
 
         self.viewModel.applySorting(tableIndex: legIndex, sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex)
                 
