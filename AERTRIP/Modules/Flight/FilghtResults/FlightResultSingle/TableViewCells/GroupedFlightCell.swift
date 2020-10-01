@@ -487,7 +487,7 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-       return collectionView == self.timeCollectionView ? CGSize(width: 58, height: 30) : CGSize(width: collectionView.frame.width, height: 139)
+       return collectionView == self.timeCollectionView ? CGSize(width: 58, height: 30) : CGSize(width: collectionView.frame.width, height: 131)
     
     }
     
