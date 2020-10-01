@@ -244,6 +244,8 @@ extension FlightResultSingleJourneyVC {
     
     func shareJourney(journey : [Journey]) {
         
+        sharePinnedFilghts.displayLoadingIndicator(true)
+
         let flightAdultCount = self.viewModel.bookFlightObject.flightAdultCount
         let flightChildrenCount = self.viewModel.bookFlightObject.flightChildrenCount
         let flightInfantCount = self.viewModel.bookFlightObject.flightInfantCount
@@ -260,7 +262,8 @@ extension FlightResultSingleJourneyVC : MFMailComposeViewControllerDelegate {
     
     func returnSharableUrl(url: String)
     {
-        
+        sharePinnedFilghts.displayLoadingIndicator(false)
+
         let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]
         let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view
