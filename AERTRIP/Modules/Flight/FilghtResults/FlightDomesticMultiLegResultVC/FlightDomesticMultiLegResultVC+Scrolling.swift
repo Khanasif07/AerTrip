@@ -555,8 +555,8 @@ extension FlightDomesticMultiLegResultVC{
     public func boundsWithoutInset(for tableView: UITableView)-> CGRect{
         var boundsWithoutInset = tableView.bounds
         let colletionSpace = self.headerCollectionViewTop.constant + self.headerCollectionView.height
-        boundsWithoutInset.origin.y += (tableView.contentInset.top + colletionSpace + self.baseScrollView.contentOffset.y)
-        let insetOnTop:CGFloat = (colletionSpace <= 50) ? 10 : (colletionSpace + 40)
+        boundsWithoutInset.origin.y += (tableView.contentInset.top + colletionSpace + self.baseScrollView.contentOffset.y) + 10
+        let insetOnTop:CGFloat = (colletionSpace <= 50) ? 20 : (colletionSpace + 50)
         boundsWithoutInset.size.height -= (tableView.contentInset.top + tableView.contentInset.bottom + insetOnTop + 50 + self.baseScrollView.contentOffset.y)
         return boundsWithoutInset
     }

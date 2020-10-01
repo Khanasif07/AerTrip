@@ -82,7 +82,7 @@ extension FlightDomesticMultiLegResultVC {
         
         let width = UIScreen.main.bounds.width / 2.0
         let height = UIScreen.main.bounds.height
-        let rect = CGRect(x: (width * CGFloat(index)), y: 165, width: width, height: height)
+        let rect = CGRect(x: (width * CGFloat(index)), y: 170, width: width, height: height)
         let tableView = UITableView(frame: rect)
         tableView.dataSource = self
         tableView.tag = 1000 + index
@@ -100,9 +100,9 @@ extension FlightDomesticMultiLegResultVC {
         let headerRect = CGRect(x: 0, y: 0, width: width, height: 138)
         let tableViewHeader = UIView(frame: headerRect)
         
-        let separatorView = UIView(frame:CGRect(x: 0, y: 137.5, width: width, height: 0.5))
-        separatorView.backgroundColor = .TWO_ZERO_FOUR_COLOR
-        tableViewHeader.addSubview(separatorView)
+//        let separatorView = UIView(frame:CGRect(x: 0, y: 137.5, width: width, height: 0.5))
+//        separatorView.backgroundColor = .TWO_ZERO_FOUR_COLOR
+//        tableViewHeader.addSubview(separatorView)
         tableView.tableHeaderView = tableViewHeader
         
         let boarderRect = CGRect(x: ((width * CGFloat(index + 1)) - 1), y: 0, width: 0.5, height: height)

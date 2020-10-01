@@ -329,8 +329,9 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                                 
                                 flightDetailsCell.amenitiesData = amenitiesData
                                 flightDetailsCell.amenitiesDisplayView.isHidden = false
-                                flightDetailsCell.amenitiesDisplayViewHeight.constant = 100
                                 flightDetailsCell.amenitiesCollectionView.reloadData()
+                                flightDetailsCell.amenitiesDisplayViewHeight.constant = 100
+                                
                             }else{
                                 flightDetailsCell.amenitiesDisplayView.isHidden = true
                                 flightDetailsCell.amenitiesDisplayViewHeight.constant = 0
