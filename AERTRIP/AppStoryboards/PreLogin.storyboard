@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qt3-bg-yqI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qt3-bg-yqI">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -928,29 +928,29 @@ activation link on</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upwardAertripLogo" translatesAutoresizingMaskIntoConstraints="NO" id="whD-cN-46r">
-                                <rect key="frame" x="175" y="44" width="25" height="28"/>
+                                <rect key="frame" x="162.5" y="44" width="50" height="56"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Successful" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="soF-hB-etE">
-                                <rect key="frame" x="20" y="88" width="335" height="45.5"/>
+                                <rect key="frame" x="20" y="116" width="335" height="45.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="38"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenOvLogin" translatesAutoresizingMaskIntoConstraints="NO" id="BGA-dP-08B">
-                                <rect key="frame" x="156.5" y="159.5" width="62" height="62"/>
+                                <rect key="frame" x="156.5" y="187.5" width="62" height="62"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="62" id="e3z-rs-C8d"/>
                                     <constraint firstAttribute="width" constant="62" id="p2b-aD-TJo"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your password has been reset successfully." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHv-9D-IBk">
-                                <rect key="frame" x="20" y="242.5" width="335" height="20.5"/>
+                                <rect key="frame" x="20" y="270.5" width="335" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ztg-3b-vAo" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="112.5" y="289" width="150" height="50"/>
+                                <rect key="frame" x="112.5" y="317" width="150" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="TR8-sp-Oj8"/>
                                     <constraint firstAttribute="height" constant="50" id="bNH-z4-vc1"/>
@@ -963,7 +963,7 @@ activation link on</string>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenCheckMark" translatesAutoresizingMaskIntoConstraints="NO" id="ct2-Nn-Ece">
-                                <rect key="frame" x="172" y="178.5" width="31.5" height="24.5"/>
+                                <rect key="frame" x="156" y="194" width="63" height="49"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

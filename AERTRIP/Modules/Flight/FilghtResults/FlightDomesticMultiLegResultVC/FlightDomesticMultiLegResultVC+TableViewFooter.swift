@@ -83,7 +83,7 @@ extension FlightDomesticMultiLegResultVC {
         guard let tableIndex = sender.view?.tag else { return }
         guard let tableView = baseScrollView.viewWithTag( 1000 + tableIndex) as? UITableView else { return }
 
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.1, animations: {
                    tableView.tableFooterView?.transform = CGAffineTransform(translationX: 0, y: 200)
                }) { (success) in
                 

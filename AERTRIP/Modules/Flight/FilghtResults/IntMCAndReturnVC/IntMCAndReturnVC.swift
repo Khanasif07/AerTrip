@@ -51,7 +51,6 @@ class IntMCAndReturnVC : UIViewController, getSharableUrlDelegate
     let viewModel = IntMCAndReturnVM()
     var previousRequest : DispatchWorkItem?
     var updateResultWorkItem: DispatchWorkItem?
-    
     var flightSearchResultVM  : FlightSearchResultVM?
     let getSharableLink = GetSharableUrl()
 
