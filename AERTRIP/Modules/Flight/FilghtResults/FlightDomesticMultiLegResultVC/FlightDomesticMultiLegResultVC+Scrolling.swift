@@ -317,9 +317,9 @@ extension FlightDomesticMultiLegResultVC {
         guard let blurView = self.navigationController?.view.viewWithTag(500) else  {return}
         DispatchQueue.main.async {
             UIView.animate(withDuration: isNeedToAnimate ? 0.3 : 0.0) {
-                blurView.frame.origin.y = -self.baseScrollView.contentOffset.y
                 self.collectionContainerView.origin.y = (88.0 - self.baseScrollView.contentOffset.y)
                 self.headerCollectionViewTop.constant = (88.0 - self.baseScrollView.contentOffset.y)
+                blurView.frame.origin.y = -self.baseScrollView.contentOffset.y
                 if ((self.headerCollectionViewTop.constant == 88.0) || (self.headerCollectionViewTop.constant == 0.0)){
                     self.setAllTableViewHeader()
                 }
