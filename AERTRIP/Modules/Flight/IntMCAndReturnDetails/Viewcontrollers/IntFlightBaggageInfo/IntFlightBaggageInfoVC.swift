@@ -37,6 +37,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
     weak var tostDelegate:ShowTostDelegate?
     //Indicator:---
     var indicator = UIActivityIndicatorView()
+    var dimensionDelegate : getBaggageDimentionsDelegate?
 
     //MARK:- Initialise Views
     override func viewDidLoad() {
@@ -851,36 +852,38 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
     }
     
     //MARK:- Button Actions
-    @objc func dimensionsButtonClicked(_ sender:UIButton)
-    {
-        let baggageDimensionVC = BaggageDimensionsVC(nibName: "BaggageDimensionsVC", bundle: nil)
-        
-        let section = sender.tag / 100
-        let row = sender.tag % 100
-        if let baggageData = evaluatedBaggageResp[section][row].value(forKey: "baggageData") as? NSDictionary{
-            if let cbgData = baggageData.value(forKey: "cbg") as? NSDictionary{
-                if let adtCabinBaggage = cbgData.value(forKey: "ADT") as? NSDictionary{
-                    if let weight = adtCabinBaggage.value(forKey: "weight") as? String{
-                        baggageDimensionVC.weight = weight
-                    }
-                    if let dimension = adtCabinBaggage.value(forKey: "dimension") as? NSDictionary{
-                        if let cm = dimension.value(forKey: "cm") as? NSDictionary{
-                            baggageDimensionVC.dimensions = cm
-                        }
-                        
-                        if let inch = dimension.value(forKey: "in") as? NSDictionary{
-                            baggageDimensionVC.dimensions_inch = inch
-                        }
-                    }
-                    
-                    if let note = adtCabinBaggage.value(forKey: "note") as? String{
-                        baggageDimensionVC.note = note
-                    }
-                }
-            }
-        }
-        self.present(baggageDimensionVC, animated: true, completion: nil)
+    @objc func dimensionsButtonClicked(_ sender:UIButton){
+        self.dimensionDelegate?.getBaggageDimentions(baggage: evaluatedBaggageResp, sender: sender)
     }
+//    {
+//        let baggageDimensionVC = BaggageDimensionsVC(nibName: "BaggageDimensionsVC", bundle: nil)
+//
+//        let section = sender.tag / 100
+//        let row = sender.tag % 100
+//        if let baggageData = evaluatedBaggageResp[section][row].value(forKey: "baggageData") as? NSDictionary{
+//            if let cbgData = baggageData.value(forKey: "cbg") as? NSDictionary{
+//                if let adtCabinBaggage = cbgData.value(forKey: "ADT") as? NSDictionary{
+//                    if let weight = adtCabinBaggage.value(forKey: "weight") as? String{
+//                        baggageDimensionVC.weight = weight
+//                    }
+//                    if let dimension = adtCabinBaggage.value(forKey: "dimension") as? NSDictionary{
+//                        if let cm = dimension.value(forKey: "cm") as? NSDictionary{
+//                            baggageDimensionVC.dimensions = cm
+//                        }
+//
+//                        if let inch = dimension.value(forKey: "in") as? NSDictionary{
+//                            baggageDimensionVC.dimensions_inch = inch
+//                        }
+//                    }
+//
+//                    if let note = adtCabinBaggage.value(forKey: "note") as? String{
+//                        baggageDimensionVC.note = note
+//                    }
+//                }
+//            }
+//        }
+//        self.present(baggageDimensionVC, animated: true, completion: nil)
+//    }
     
     //MARK:- API Call
     func callAPIforBaggageInfo(sid:String, fk:String, journeyObj:IntJourney, count:Int = 3){

@@ -16,9 +16,11 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     //MARK:- Outlets
     @IBOutlet weak var fareInfoTableView: UITableView!
     @IBOutlet weak var fareInfoTableViewBottom: NSLayoutConstraint!
+    @IBOutlet weak var progressBar: UIProgressView!
     
     //MARK:- Variable Declaration
     weak var delegate : flightDetailsSmartIconsDelegate?
+    var fareRulesDelegate : getFareRulesDelegate?
 
     var journey = [IntJourney]()
     var flights : [IntFlightDetail]?
@@ -42,9 +44,15 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     //Indicator:---
     var indicator = UIActivityIndicatorView()
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-        setLoader()
+     
+//        setLoader()
+        
+        progressBar.progress = 0.25
+        progressBar.tintColor = .AertripColor
+
         self.fareInfoTableView.backgroundColor = AppColors.themeGray04
         fareInfoTableView.register(UINib(nibName: "IntFareInfoCell", bundle: nil), forCellReuseIdentifier: "IntFareInfoCell")
         fareInfoTableView.register(UINib(nibName: "ChangeAirportTableViewCell", bundle: nil), forCellReuseIdentifier: "ChangeAirportCell")
@@ -53,7 +61,10 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         self.fareInfoTableView.separatorStyle = .none
         self.fareInfoTableViewBottom.constant = 0.0
         guard let journey = self.journey.first else {return}
-        if journey.legsWithDetail.first?.fcp == 0{
+        if journey.legsWithDetail.first?.fcp == 0
+        {
+            self.progressBar.isHidden = true
+
             var fareInfo = IntFareInfo(JSON())
             fareInfo.cp = journey.fare.cancellationCharges
             fareInfo.rscp = journey.fare.reschedulingCharges
@@ -67,6 +78,8 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 self.fareInfoTableView.reloadData()
             }
         }else{
+            self.progressBar.isHidden = false
+
             self.getFareInfoAPICall(sid: self.sid, fk: journey.fk)
         }
         self.getFareRulesAPICall(sid: self.sid, fk: journey.fk)
@@ -207,7 +220,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             return
         }
         let webservice = WebAPIService()
-        self.addIndicator()
+//        self.addIndicator()
         webservice.executeAPI(apiServive: .fareInfoResult(sid: sid, fk: fk), completionHandler: {[weak self](data) in
             guard let self = self else {return}
             self.removeIndicator()
@@ -219,6 +232,16 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                     if currentParsedResponse.success == true{
                         self.updatedFareInfo = IntFlightFareInfoResponse(json)
                         self.showAccordingTolegs = (self.updatedFareInfo?.updatedFareInfo.first?.cp.details.spcFee["ADT"]?.feeDetail.values.count == self.journey.first?.legsWithDetail.count)
+                        
+                        
+                        
+                        let num = 0.75/Float(self.journey.count)
+                        self.progressBar.progress = Float(num+self.progressBar.progress)
+                        
+                        if self.progressBar.progress == 1.0{
+                            self.progressBar.isHidden = true
+                        }
+                        
                         self.fareInfoTableView.reloadData()
                         DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
                          self.fareInfoTableView.reloadData()
@@ -229,6 +252,10 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                         let rfd = (currentParsedResponse.data.values.first?.rfd ?? 0)
                         let rsc = currentParsedResponse.data.values.first?.rsc ?? 0
                         self.refundDelegate?.updateRefundStatus(for: self.journey.first!.fk, rfd: rfd, rsc:rsc)
+                        
+                        
+                        
+                        
                     }
                 }
             }
@@ -278,19 +305,22 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     //MARK:- Button Action
     @objc func fareRulesButtonClicked(_ sender:UIButton)
     {
-        let fareRulesVC = FareRulesVC(nibName: "FareRulesVC", bundle: nil)
+//        let fareRulesVC = FareRulesVC(nibName: "FareRulesVC", bundle: nil)
+//        if self.fareRulesData.count > 0{
+//            if fareRulesData.count > sender.tag{
+//                fareRulesVC.fareRulesData = [self.fareRulesData[sender.tag]]
+//            }else{
+//                fareRulesVC.fareRulesData = [self.fareRulesData[0]]
+//            }
+//
+//        }
+//        self.present(fareRulesVC, animated: true, completion: nil)
+                
         if self.fareRulesData.count > 0{
-            if fareRulesData.count > sender.tag{
-                fareRulesVC.fareRulesData = [self.fareRulesData[sender.tag]]
-            }else{
-                fareRulesVC.fareRulesData = [self.fareRulesData[0]]
-            }
-            
+            self.fareRulesDelegate?.getFareRulesData(fareRules: [self.fareRulesData[sender.tag]])
         }
-//        fareRulesVC.view.frame = self.parent!.view.bounds
-////        fareRulesVC.modalPresentationStyle = .overCurrentContext
-        self.present(fareRulesVC, animated: true, completion: nil)
     }
+    
     
     func getAttributedNote() -> NSMutableAttributedString
     {
@@ -393,8 +423,8 @@ extension IntFareInfoVC{
         if displayTitle.suffix(2) == ", "{
             displayTitle.removeLast(2)
         }
-//        let location = displayTitle
-//        fareInfoCell.titleLabel.text = location
+        let location = displayTitle
+        fareInfoCell.titleLabel.text = location
         fareInfoCell.bottomSeparatorLabel.isHidden = true
         fareInfoCell.bottomSeparatorLabelLeading.constant = 16
         if indexPath.section != 0{
@@ -407,27 +437,33 @@ extension IntFareInfoVC{
         
         
         
-        let ap = self.journey[indexPath.section].ap
-        let departureAirportDetails = self.airportDetailsResult[ap[0]]
-        let arrivalAirportDetails = self.airportDetailsResult[ap[1]]
-        var loc = ""
+        fareInfoCell.titleLabelTop.constant = 16
+        fareInfoCell.carrierImgView.isHidden = true
+        fareInfoCell.journeyNameLabel.isHidden = true
+        fareInfoCell.journeyNameDividerLabel.isHidden = true
         
-        if departureAirportDetails != nil && arrivalAirportDetails != nil{
-            loc = departureAirportDetails!.c + " → " + arrivalAirportDetails!.c
-        }else if departureAirportDetails != nil{
-            loc = departureAirportDetails!.c
-        }else if arrivalAirportDetails != nil{
-            loc = arrivalAirportDetails!.c
-        }else{
-            loc = displayTitle
-        }
         
-        fareInfoCell.titleLabel.text = displayTitle
-        fareInfoCell.journeyNameLabel.text = loc
-        
-        let al = self.journey[indexPath.section].al.first ?? ""
-        let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + al.uppercased() + ".png"
-        fareInfoCell.setAirlineImage(with: logoURL)
+//        let ap = self.journey[indexPath.section].ap
+//        let departureAirportDetails = self.airportDetailsResult[ap[0]]
+//        let arrivalAirportDetails = self.airportDetailsResult[ap[1]]
+//        var loc = ""
+//
+//        if departureAirportDetails != nil && arrivalAirportDetails != nil{
+//            loc = departureAirportDetails!.c + " → " + arrivalAirportDetails!.c
+//        }else if departureAirportDetails != nil{
+//            loc = departureAirportDetails!.c
+//        }else if arrivalAirportDetails != nil{
+//            loc = arrivalAirportDetails!.c
+//        }else{
+//            loc = displayTitle
+//        }
+//
+//        fareInfoCell.titleLabel.text = displayTitle
+//        fareInfoCell.journeyNameLabel.text = loc
+//
+//        let al = self.journey[indexPath.section].al.first ?? ""
+//        let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + al.uppercased() + ".png"
+//        fareInfoCell.setAirlineImage(with: logoURL)
 
         
         
@@ -459,60 +495,63 @@ extension IntFareInfoVC{
         fareInfoCell.flightInfantCount = flightInfantCount
         fareInfoCell.indexOfCell = indexPath.section
         
-        if journey[indexPath.section].legsWithDetail.first?.fcp == 1{
-            fareInfoCell.withApi = true
-            if (updatedFareInfo?.updatedFareInfo.count ?? 0) > 0{
-                fareInfoCell.isNoInfoViewVisible = false
-                fareInfoCell.combineFareTableView.isHidden = false
-                fareInfoCell.noInfoView.isHidden = true
-                
-                let airlineCancellationData = updatedFareInfo?.updatedFareInfo.first?.cp.details.spcFee
-                
-                fareInfoCell.intAirlineCancellationFees = airlineCancellationData ?? [:]
-                
-                let aertripCancellationData = updatedFareInfo?.updatedFareInfo.first?.cp.details.sucFee
-                fareInfoCell.intAertripCancellationFees = aertripCancellationData ?? [:]
-                
-                let airlineReschedulingData = updatedFareInfo?.updatedFareInfo.first?.rscp.details.spcFee
-                fareInfoCell.intAirlineReschedulingFees = airlineReschedulingData ?? [:]
-                
-                let aertripReschedulingData = updatedFareInfo?.updatedFareInfo.first?.rscp.details.sucFee
-                fareInfoCell.intAertripReschedulingFees = aertripReschedulingData ?? [:]
-                let rafFeesData = updatedFareInfo?.updatedFareInfo.first?.cp.details.raf
-                fareInfoCell.rafFees = rafFeesData ?? [:]
-                fareInfoCell.isNoInfoViewVisible = false
-
-                
-            }else{
-                if isIndicatorHidden{
-                    fareInfoCell.isNoInfoViewVisible = true
-                    fareInfoCell.combineFareTableView.isHidden = true
-                    fareInfoCell.noInfoView.isHidden = false
-                }else{
+        if journey.count > 0{
+            if journey[indexPath.section].legsWithDetail.first?.fcp == 1{
+                fareInfoCell.withApi = true
+                if (updatedFareInfo?.updatedFareInfo.count ?? 0) > 0{
                     fareInfoCell.isNoInfoViewVisible = false
-//                    fareInfoCell.combineFareTableView.isHidden = false
+                    fareInfoCell.combineFareTableView.isHidden = false
                     fareInfoCell.noInfoView.isHidden = true
+                    
+                    let airlineCancellationData = updatedFareInfo?.updatedFareInfo.first?.cp.details.spcFee
+                    
+                    fareInfoCell.intAirlineCancellationFees = airlineCancellationData ?? [:]
+                    
+                    let aertripCancellationData = updatedFareInfo?.updatedFareInfo.first?.cp.details.sucFee
+                    fareInfoCell.intAertripCancellationFees = aertripCancellationData ?? [:]
+                    
+                    let airlineReschedulingData = updatedFareInfo?.updatedFareInfo.first?.rscp.details.spcFee
+                    fareInfoCell.intAirlineReschedulingFees = airlineReschedulingData ?? [:]
+                    
+                    let aertripReschedulingData = updatedFareInfo?.updatedFareInfo.first?.rscp.details.sucFee
+                    fareInfoCell.intAertripReschedulingFees = aertripReschedulingData ?? [:]
+                    let rafFeesData = updatedFareInfo?.updatedFareInfo.first?.cp.details.raf
+                    fareInfoCell.rafFees = rafFeesData ?? [:]
+                    fareInfoCell.isNoInfoViewVisible = false
+
+                    
+                }else{
+                    if progressBar.isHidden{
+                        fareInfoCell.isNoInfoViewVisible = true
+                        fareInfoCell.combineFareTableView.isHidden = true
+                        fareInfoCell.noInfoView.isHidden = false
+                    }else{
+                        fareInfoCell.isNoInfoViewVisible = false
+    //                    fareInfoCell.combineFareTableView.isHidden = false
+                        fareInfoCell.noInfoView.isHidden = true
+                    }
+                    
                 }
+            }else{
+                fareInfoCell.withApi = false
+                let airlineCancellationData = journey[indexPath.section].fare.cancellationCharges.details.spcFee
+                fareInfoCell.intAirlineCancellationFees = airlineCancellationData
                 
+                let aertripCancellationData = journey[indexPath.section].fare.cancellationCharges.details.sucFee
+                fareInfoCell.intAertripCancellationFees = aertripCancellationData
+                
+                let airlineReschedulingData = journey[indexPath.section].fare.reschedulingCharges.details.spcFee
+                fareInfoCell.intAirlineReschedulingFees = airlineReschedulingData
+                
+                let aertripReschedulingData = journey[indexPath.section].fare.reschedulingCharges.details.sucFee
+                fareInfoCell.intAertripReschedulingFees = aertripReschedulingData
+                
+                let rafFeesData = journey[indexPath.section].fare.cancellationCharges.details.raf
+                
+                fareInfoCell.rafFees = rafFeesData
             }
-        }else{
-            fareInfoCell.withApi = false
-            let airlineCancellationData = journey[indexPath.section].fare.cancellationCharges.details.spcFee
-            fareInfoCell.intAirlineCancellationFees = airlineCancellationData
-            
-            let aertripCancellationData = journey[indexPath.section].fare.cancellationCharges.details.sucFee
-            fareInfoCell.intAertripCancellationFees = aertripCancellationData
-            
-            let airlineReschedulingData = journey[indexPath.section].fare.reschedulingCharges.details.spcFee
-            fareInfoCell.intAirlineReschedulingFees = airlineReschedulingData
-            
-            let aertripReschedulingData = journey[indexPath.section].fare.reschedulingCharges.details.sucFee
-            fareInfoCell.intAertripReschedulingFees = aertripReschedulingData
-            
-            let rafFeesData = journey[indexPath.section].fare.cancellationCharges.details.raf
-            
-            fareInfoCell.rafFees = rafFeesData
         }
+        
         fareInfoCell.combineFareTableView.reloadData()
         fareInfoCell.cellHeightDelegate = self
         fareInfoCell.layoutSubviews()
@@ -606,7 +645,11 @@ extension IntFareInfoVC{
 //                fareInfoCell.titleLabel.attributedText = completeText
                 
                 
-                
+                fareInfoCell.titleLabelTop.constant = 73.5
+                fareInfoCell.carrierImgView.isHidden = false
+                fareInfoCell.journeyNameLabel.isHidden = false
+                fareInfoCell.journeyNameDividerLabel.isHidden = false
+
                 if departureAirportDetails != nil && arrivalAirportDetails != nil{
                     location = departureAirportDetails!.c + " → " + arrivalAirportDetails!.c
                 }else if departureAirportDetails != nil{

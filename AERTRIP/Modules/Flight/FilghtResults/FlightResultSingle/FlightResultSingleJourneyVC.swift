@@ -254,16 +254,42 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         }
     }
     
-    @IBAction func emailPinnedFlights(_ sender: Any) {
+    @IBAction func emailPinnedFlights(_ sender: Any)
+    {
+        emailPinnedFlights.setImage(nil, for: .normal)
+        emailPinnedFlights.displayLoadingIndicator(true)
+        let flightAdultCount = viewModel.bookFlightObject.flightAdultCount
+        let flightChildrenCount = viewModel.bookFlightObject.flightChildrenCount
+        let flightInfantCount = viewModel.bookFlightObject.flightInfantCount
+        let isDomestic = viewModel.bookFlightObject.isDomestic
         
-        guard let postData = generatePostDataForEmail(for: self.viewModel.results.pinnedFlights) else { return }
-        executeWebServiceForEmail(with: postData as Data, onCompletion:{ (view)  in
+        self.getSharableLink.getUrlForMail(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, sid: viewModel.sid, isInternational: false, journeyArray: self.viewModel.results.pinnedFlights, valString: "", trip_type: "single")
+        
+    }
+    //    {
+    //
+    //        guard let postData = generatePostDataForEmail(for: self.viewModel.results.pinnedFlights) else { return }
+    //        executeWebServiceForEmail(with: postData as Data, onCompletion:{ (view)  in
+    //
+    //            DispatchQueue.main.async {
+    //                self.showEmailViewController(body : view)
+    //            }
+    //        })
+    //    }
+    
+    func returnEmailView(view: String)
+    {
+        DispatchQueue.main.async {
             
-            DispatchQueue.main.async {
+            self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+            self.emailPinnedFlights.displayLoadingIndicator(false)
+
+            if #available(iOS 13.0, *) {
                 self.showEmailViewController(body : view)
             }
-        })
+        }
     }
+
     
     // Monika
     @IBAction func sharePinnedFlights(_ sender: Any) {
@@ -496,11 +522,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         } else {
             // Fallback on earlier versions
         }
-    }
-    
-    // Monika
-    func returnEmailView(view: String) {
-        
     }
     
     func navigateToFlightDetailFor(journey: Journey) {

@@ -83,7 +83,6 @@
                                 <constraints>
                                     <constraint firstItem="SFE-Ru-U88" firstAttribute="top" secondItem="DZK-n7-Y8b" secondAttribute="top" constant="16" id="00A-a8-NWM"/>
                                     <constraint firstItem="Ly4-sx-ERy" firstAttribute="leading" secondItem="DZK-n7-Y8b" secondAttribute="leading" constant="16" id="0w9-ua-PcB"/>
-                                    <constraint firstItem="8vd-If-TC9" firstAttribute="top" secondItem="BjA-bC-PQm" secondAttribute="bottom" constant="16" id="Cer-Ik-R9A"/>
                                     <constraint firstItem="Ly4-sx-ERy" firstAttribute="top" secondItem="DZK-n7-Y8b" secondAttribute="top" constant="16" id="Kjp-7J-2EP"/>
                                     <constraint firstAttribute="trailing" secondItem="6K9-Cb-aWs" secondAttribute="trailing" constant="16" id="QYP-zG-Thv"/>
                                     <constraint firstItem="6K9-Cb-aWs" firstAttribute="leading" secondItem="8vd-If-TC9" secondAttribute="trailing" constant="16" id="arP-64-UDn"/>
@@ -93,6 +92,7 @@
                                     <constraint firstItem="6K9-Cb-aWs" firstAttribute="centerY" secondItem="8vd-If-TC9" secondAttribute="centerY" id="lkR-23-UKF"/>
                                     <constraint firstAttribute="trailing" secondItem="BjA-bC-PQm" secondAttribute="trailing" id="s9S-Rv-4fT"/>
                                     <constraint firstItem="8vd-If-TC9" firstAttribute="leading" secondItem="DZK-n7-Y8b" secondAttribute="leading" constant="16" id="uM6-6j-ZeM"/>
+                                    <constraint firstItem="8vd-If-TC9" firstAttribute="top" secondItem="DZK-n7-Y8b" secondAttribute="top" constant="73.5" id="uVg-FX-d8n"/>
                                     <constraint firstItem="BjA-bC-PQm" firstAttribute="top" secondItem="Ly4-sx-ERy" secondAttribute="bottom" constant="16" id="wQS-ep-7nd"/>
                                     <constraint firstItem="SFE-Ru-U88" firstAttribute="leading" secondItem="Ly4-sx-ERy" secondAttribute="trailing" constant="10" id="we3-Nk-tEk"/>
                                 </constraints>
@@ -137,8 +137,10 @@
                 <outlet property="bottomSeparatorLabelLeading" destination="dNC-KO-qAQ" id="egm-uo-wbE"/>
                 <outlet property="carrierImgView" destination="Ly4-sx-ERy" id="UDB-Fa-0Lt"/>
                 <outlet property="fareRulesButton" destination="6K9-Cb-aWs" id="bLv-MU-lyD"/>
+                <outlet property="journeyNameDividerLabel" destination="BjA-bC-PQm" id="kcp-k7-cp9"/>
                 <outlet property="journeyNameLabel" destination="SFE-Ru-U88" id="ysV-vo-atV"/>
                 <outlet property="titleLabel" destination="8vd-If-TC9" id="3aq-dt-sUU"/>
+                <outlet property="titleLabelTop" destination="uVg-FX-d8n" id="Vm5-03-wh7"/>
                 <outlet property="titleView" destination="DZK-n7-Y8b" id="0p1-fd-0yh"/>
                 <outlet property="topSeperatorLabel" destination="7ZR-sk-Ug5" id="lec-NC-olg"/>
                 <outlet property="topSeperatorLabelHeight" destination="K7v-Kk-BZI" id="dj5-xA-Bku"/>

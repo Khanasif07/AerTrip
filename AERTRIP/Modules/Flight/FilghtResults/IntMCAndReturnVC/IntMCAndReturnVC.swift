@@ -8,7 +8,8 @@
 
 import UIKit
 
-class IntMCAndReturnVC : UIViewController {
+class IntMCAndReturnVC : UIViewController, getSharableUrlDelegate
+{
     
     @IBOutlet weak var resultsTableView: UITableView!
     @IBOutlet weak var pinnedFlightsOptionsView : UIView!
@@ -52,11 +53,13 @@ class IntMCAndReturnVC : UIViewController {
     var updateResultWorkItem: DispatchWorkItem?
     
     var flightSearchResultVM  : FlightSearchResultVM?
+    let getSharableLink = GetSharableUrl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.results = InternationalJourneyResultsArray(sort: .Smart)
         setUpSubView()
+        getSharableLink.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -229,19 +232,55 @@ extension IntMCAndReturnVC {
         self.present(alert, animated: true, completion: nil)
     }
     
-    @IBAction func emailPinnedFlights(_ sender: Any) {
+    @IBAction func emailPinnedFlights(_ sender: Any)
+    {
         
+        emailPinnedFlights.setImage(nil, for: .normal)
+        emailPinnedFlights.displayLoadingIndicator(true)
+
+        let flightAdultCount = bookFlightObject.flightAdultCount
+        let flightChildrenCount = bookFlightObject.flightChildrenCount
+        let flightInfantCount = bookFlightObject.flightInfantCount
+        let isDomestic = bookFlightObject.isDomestic
+        var valStr = ""
         if #available(iOS 13.0, *) {
-            guard let postData = generatePostDataForEmail(for: viewModel.results.pinnedFlights) else { return }
-            executeWebServiceForEmail(with: postData as Data, onCompletion:{ (view)  in
-                DispatchQueue.main.async {
-                    self.showEmailViewController(body : view)
-                }
-            })
+            valStr = generateCommonString(for: viewModel.results.pinnedFlights, flightObject: bookFlightObject)
+        }
+
+        self.getSharableLink.getUrlForMail(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, sid: sid, isInternational: true, journeyArray: viewModel.results.pinnedFlights, valString: valStr, trip_type: "")
+
+    }
+//    {
+//
+//        if #available(iOS 13.0, *) {
+//            guard let postData = generatePostDataForEmail(for: viewModel.results.pinnedFlights) else { return }
+//            executeWebServiceForEmail(with: postData as Data, onCompletion:{ (view)  in
+//                DispatchQueue.main.async {
+//                    self.showEmailViewController(body : view)
+//                }
+//            })
+//        }
+//    }
+    
+    func returnEmailView(view: String)
+    {
+        DispatchQueue.main.async {
+            self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+            self.emailPinnedFlights.displayLoadingIndicator(false)
+
+            if #available(iOS 13.0, *) {
+                self.showEmailViewController(body : view)
+            }
         }
     }
     
-    @IBAction func sharePinnedFlights(_ sender: Any) {
+    func returnSharableUrl(url: String) {
+        
+    }
+    
+    @IBAction func sharePinnedFlights(_ sender: Any)
+    {
+        self.sharePinnedFilghts.setImage(nil, for: .normal)
         sharePinnedFilghts.displayLoadingIndicator(true)
 
         if #available(iOS 13.0, *) {
@@ -250,7 +289,7 @@ extension IntMCAndReturnVC {
             executeWebServiceForShare(with: postData as Data, onCompletion:{ (link)  in
                 
                 DispatchQueue.main.async {
-                    
+                    self.sharePinnedFilghts.setImage(UIImage(named: "SharePinned"), for: .normal)
                     self.sharePinnedFilghts.displayLoadingIndicator(false)
 
                     let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(link)" ]

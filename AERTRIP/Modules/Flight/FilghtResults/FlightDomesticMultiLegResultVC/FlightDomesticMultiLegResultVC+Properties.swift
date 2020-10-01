@@ -349,6 +349,10 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     
 //    MARK:- Email Flight code added by Monika
     @IBAction func emailPinnedFlights(_ sender: Any) {
+        
+        emailPinnedFlights.setImage(nil, for: .normal)
+        emailPinnedFlights.displayLoadingIndicator(true)
+
 
         let pinnedFlightsArray = viewModel.results.reduce([]) { $0 + $1.pinnedFlights }
           
@@ -372,6 +376,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     
     func shareFlights( journeyArray : [Journey]) {
         sharePinnedFilghts.displayLoadingIndicator(true)
+        self.sharePinnedFilghts.setImage(nil, for: .normal)
 
         let flightAdultCount = bookFlightObject.flightAdultCount
         let flightChildrenCount = bookFlightObject.flightChildrenCount
@@ -387,6 +392,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     func returnSharableUrl(url: String)
     {
         sharePinnedFilghts.displayLoadingIndicator(false)
+        self.sharePinnedFilghts.setImage(UIImage(named: "SharePinned"), for: .normal)
 
         let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]
         let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
