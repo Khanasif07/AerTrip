@@ -46,7 +46,7 @@ extension FlightResultSingleJourneyVC {
             
             if !self.viewModel.airlineCode.isEmpty{
                 
-                printDebug("self.viewModel.airlineCode...\(self.viewModel.airlineCode)")
+//                printDebug("self.viewModel.airlineCode...\(self.viewModel.airlineCode)")
                 
                 modifiedResult.enumerated().forEach { (ind,jour) in
                     
