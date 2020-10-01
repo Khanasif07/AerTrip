@@ -69,16 +69,7 @@ extension FlightDomesticMultiLegResultVC {
                             }
                 
                 
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+
                 self.viewModel.results[index].journeyArray = modifiedResult
                 
 //                self.viewModel.setPinnedFlights(tableIndex: index)
@@ -103,10 +94,7 @@ extension FlightDomesticMultiLegResultVC {
                             }
                         }
                         
-                        
-                        
-                        
-                    NotificationCenter.default.post(name:NSNotification.Name("updateFilterScreenText"), object: nil)
+                        NotificationCenter.default.post(name:NSNotification.Name("updateFilterScreenText"), object: nil)
                     }
                 })
             }
