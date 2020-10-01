@@ -291,22 +291,22 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                             fareInfoCell.combineFareTableView.reloadData()
                         }else{
 //                            if isProgressBarHidden == true{
-//                                fareInfoCell.isNoInfoViewVisible = true
-//                                fareInfoCell.combineFareTableView.isHidden = true
-//                                fareInfoCell.noInfoView.isHidden = false
+                                fareInfoCell.isNoInfoViewVisible = true
+                                fareInfoCell.combineFareTableView.isHidden = true
+                                fareInfoCell.noInfoView.isHidden = false
 //                            }else{
 //                                fareInfoCell.isNoInfoViewVisible = false
 ////                                fareInfoCell.combineFareTableView.isHidden = true
 //                                fareInfoCell.noInfoView.isHidden = true
 //                            }
                             
-                            fareInfoCell.contentView.backgroundColor = .white
+//                            fareInfoCell.contentView.backgroundColor = .white
                             
-                            DispatchQueue.delay(0.35, closure: {
-                                fareInfoCell.isNoInfoViewVisible = true
-                                fareInfoCell.combineFareTableView.isHidden = true
-                                fareInfoCell.noInfoView.isHidden = false
-                            })
+//                            DispatchQueue.delay(0.35, closure: {
+//                                fareInfoCell.isNoInfoViewVisible = true
+//                                fareInfoCell.combineFareTableView.isHidden = true
+//                                fareInfoCell.noInfoView.isHidden = false
+//                            })
                         }
                     }else{
                         
@@ -604,32 +604,18 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             DispatchQueue.main.async {
                 if let currentParsedResponse = parse(data: data, into: updatedFareInfoStruct.self, with:decoder) {
                     
-                    if currentParsedResponse.success == true{
-                        
-                       
-                        
+                    if currentParsedResponse.success == true
+                    {
                         self.updatedFareInfo.append(currentParsedResponse.data.first!.value)
-                        DispatchQueue.delay(0.1, closure: {
-                            self.progressBar.progress = 0.5
-                        })
                         
-                        DispatchQueue.delay(0.2, closure: {
-                            self.progressBar.progress = 0.75
-                        })
-                        
-                        DispatchQueue.delay(0.3, closure: {
-                            self.progressBar.progress = 1.0
+                        let num = 0.75/Float(self.journey.count)
+                        self.progressBar.progress = Float(num+self.progressBar.progress)
+
+                        if self.progressBar.progress == 1.0{
                             self.progressBar.isHidden = true
-                            self.isProgressBarHidden = true
-                            
-//                            if self.journey.count == 1{
-//                                let index = IndexPath(row: 0, section: 0)
-//                                self.fareInfoTableView.reloadRow(at: index, with: .none)
-//                            }
-                            
-                        })
-                        self.fareInfoTableView.reloadData()
+                        }
                         
+                        self.fareInfoTableView.reloadData()
                         
                         if self.journey[i].smartIconArray.contains("refundStatusPending")
                         {
