@@ -269,7 +269,11 @@ extension IntMCAndReturnVC {
             self.emailPinnedFlights.displayLoadingIndicator(false)
 
             if #available(iOS 13.0, *) {
-                self.showEmailViewController(body : view)
+                if view == "Pinned template data not found"{
+                    AppToast.default.showToastMessage(message: view)
+                }else{
+                    self.showEmailViewController(body : view)
+                }
             }
         }
     }
