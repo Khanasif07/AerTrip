@@ -240,12 +240,11 @@ class GetSharableUrl
                                     self.delegate?.returnEmailView(view: view)
                                 }
                             }
+                        }else{
+                            if let errors = result["errors"] as? [String]{
+                                self.delegate?.returnEmailView(view: errors.first ?? "")
+                            }
                         }
-//                        else{
-//                            if let errors = result["errors"] as? [String]{
-//                                self.delegate?.returnEmailView(view: errors.first ?? "")
-//                            }
-//                        }
                     }
                 }
             }catch{
