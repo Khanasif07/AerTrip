@@ -151,8 +151,8 @@ class SeatMapContainerVC: UIViewController {
     
     private func setupNavBar() {
         topNavBarView.configureNavBar(title: LocalizedString.seatMap.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .clear)
-        
-        topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen)
+        let clearStr = "  \(LocalizedString.ClearAll.localized)"
+        topNavBarView.configureLeftButton(normalTitle: clearStr, normalColor: AppColors.themeGreen)
         
         topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen)
         

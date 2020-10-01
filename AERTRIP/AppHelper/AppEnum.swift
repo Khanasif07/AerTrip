@@ -34,6 +34,7 @@ extension Notification.Name {
     static let checkoutSessionExpired = Notification.Name("checkoutSessionExpired")
     static let accountDetailFetched = Notification.Name("accountDetailFetched")
     static let bookingDetailFetched = Notification.Name("bookingDetailFetched")
+    static let statusBarTouched = Notification.Name("statusBarTouched")
 
 }
 

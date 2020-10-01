@@ -79,7 +79,7 @@
                                         <color key="textColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zos-3Q-EjU">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zos-3Q-EjU" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="528" height="0.5"/>
                                         <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -158,6 +158,7 @@
             <connections>
                 <outlet property="arrowImage" destination="kOW-eg-f8q" id="ghG-OU-6MC"/>
                 <outlet property="baseView" destination="sKE-jK-RdL" id="TxP-xM-UzA"/>
+                <outlet property="dividerView" destination="Zos-3Q-EjU" id="RFE-oB-hVS"/>
                 <outlet property="gradientView" destination="dx2-Xd-1eo" id="w3a-cO-piX"/>
                 <outlet property="indexLabel" destination="vk1-gf-3Mb" id="jEg-eC-Fc8"/>
                 <outlet property="multiFlighrsTableViewHeight" destination="kzb-s4-yh6" id="QcE-QC-icY"/>

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -20,11 +18,11 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="88B-jX-xZo" id="c8V-2P-zkb">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="45.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kTc-Fq-xZ9">
-                        <rect key="frame" x="0.0" y="0.5" width="375" height="45"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Default" placeholder="Default" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9ze-KV-7bt">
                                 <rect key="frame" x="0.0" y="10" width="90" height="25"/>
@@ -33,12 +31,11 @@
                                     <constraint firstAttribute="height" constant="25" id="Cd9-JI-a2y"/>
                                     <constraint firstAttribute="width" constant="90" id="jGV-Mu-4oZ"/>
                                 </constraints>
-                                <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                             </textField>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nF6-Zt-ZVP" userLabel="LineView">
-                                <rect key="frame" x="0.0" y="41.5" width="90" height="1"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nF6-Zt-ZVP" userLabel="LineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="41.5" width="90" height="0.5"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="BKo-Zn-L7z"/>
@@ -52,20 +49,19 @@
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IN" translatesAutoresizingMaskIntoConstraints="NO" id="SpF-zj-fps">
-                                <rect key="frame" x="106" y="14.5" width="20" height="15"/>
+                                <rect key="frame" x="106" y="15" width="20" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="MPQ-I8-fBZ"/>
                                     <constraint firstAttribute="height" constant="15" id="Uu7-pX-WeV"/>
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="+91" placeholder="Default" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vGb-Ze-HqT">
-                                <rect key="frame" x="130" y="9.5" width="58" height="25"/>
+                                <rect key="frame" x="130" y="10" width="58" height="25"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="58" id="I44-ra-zFs"/>
                                     <constraint firstAttribute="height" constant="25" id="pNk-0d-eyH"/>
                                 </constraints>
-                                <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                             </textField>
@@ -76,25 +72,24 @@
                                     <constraint firstAttribute="height" constant="6" id="wye-HH-teI"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3hZ-Z0-L3M" userLabel="LineView">
-                                <rect key="frame" x="106" y="41.5" width="82" height="1"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3hZ-Z0-L3M" userLabel="LineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="106" y="41.5" width="82" height="0.5"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="koT-Hp-6vM"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1234567890" placeholder="Phone" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zWV-bS-Xk8">
-                                <rect key="frame" x="204" y="9.5" width="123" height="25"/>
+                                <rect key="frame" x="204" y="10" width="123" height="25"/>
                                 <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="Uob-qB-Cw4"/>
                                 </constraints>
-                                <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lIf-l0-Iyr">
-                                <rect key="frame" x="337" y="11" width="22" height="22"/>
+                                <rect key="frame" x="337" y="11.5" width="22" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="8YB-5u-gar"/>
                                     <constraint firstAttribute="width" constant="22" id="Lo0-su-KQw"/>
@@ -106,8 +101,8 @@
                                     <action selector="deleteAction:" destination="88B-jX-xZo" eventType="touchUpInside" id="1WO-3D-NLa"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="waT-D1-7eL" userLabel="LineView">
-                                <rect key="frame" x="204" y="41.5" width="170.5" height="1"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="waT-D1-7eL" userLabel="LineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="204" y="41.5" width="171" height="0.5"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="cpp-sp-CFE"/>
@@ -162,6 +157,7 @@
                 <outlet property="downArrowCountryCodeImageView" destination="sJe-sn-XDT" id="b5U-Lr-8KW"/>
                 <outlet property="downArrowTypeImageView" destination="UAi-4e-Tyf" id="VCz-uu-ceF"/>
             </connections>
+            <point key="canvasLocation" x="138" y="154"/>
         </tableViewCell>
     </objects>
     <resources>
