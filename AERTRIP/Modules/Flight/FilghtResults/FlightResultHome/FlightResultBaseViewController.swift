@@ -605,8 +605,8 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         if let intFilterBaseView = self.intMCAndReturnFilterVC {
             if intFilterBaseView.parent == nil {
                 var frame = self.view.frame
-                frame.origin.y = visualEffectViewHeight - 45
-                frame.size.height = 36//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
+                frame.origin.y = visualEffectViewHeight - 46
+                frame.size.height = 36.5//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
                 intFilterBaseView.view.frame = frame
                 backView.addSubview(intFilterBaseView.view)
                 backView.bringSubviewToFront(filterButton)
@@ -620,8 +620,8 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         if let FilterBaseView = self.flightFilterVC {
             if FilterBaseView.parent == nil {
                 var frame = self.view.frame
-                frame.origin.y = visualEffectViewHeight - 45
-                frame.size.height = 36//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
+                frame.origin.y = visualEffectViewHeight - 46
+                frame.size.height = 36.5//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
                 FilterBaseView.view.frame = frame
                 backView.addSubview(FilterBaseView.view)
                 backView.bringSubviewToFront(filterButton)
@@ -912,11 +912,19 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             UIView.animate(withDuration: 0.3) {
                 self.backView.height = self.view.height + 100
             }
+            self.separatorView.snp.updateConstraints { (make) in
+                make.bottom.equalTo(self.visualEffectView.contentView).offset(0.0)
+            }
         } else {
             removeFilterHeader()
             backView.bringSubviewToFront(ApiProgress)
             UIView.animate(withDuration: 0.3) {
                 self.backView.height = self.visualEffectViewHeight
+            }
+            if updatedApiProgress < 0.97 {
+                self.separatorView.snp.updateConstraints { (make) in
+                    make.bottom.equalTo(self.visualEffectView.contentView).offset(-2.0)
+                }
             }
         }
         backView.layoutIfNeeded()
@@ -1325,7 +1333,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                 }
                 
                 if progress >= 0.97 {
-                    self.ApiProgress.isHidden = true
+//                    self.ApiProgress.isHidden = true
                     self.singleJourneyResultVC?.addPlaceholderTableHeaderView()
                     
                     self.separatorView.snp.updateConstraints { (make) in

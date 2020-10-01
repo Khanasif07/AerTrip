@@ -39,7 +39,6 @@ class FlightResultDisplayGroup {
     private var filterUpdatedFromDeepLink = false
     
     internal var isAPIResponseUpdated = false
-    internal var selectedDeepLinkAirports = [String]()
 
     //MARK:- Computed Properties
     var appliedFilters = Set<Filters>() {
@@ -477,14 +476,43 @@ class FlightResultDisplayGroup {
             self.userSelectedFilters?.dt.latest = userDepartureMin.toString(dateFormat: "HH:mm")
         }
         
-//        let airports = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][ap]") }
-//
-//        if airports.count > 0 {
-//            self.appliedFilters.insert(.Airport)
-//            self.UIFilters.insert(.originAirports)
-//            self.UIFilters.insert(.destinationAirports)
-//            self.selectedDeepLinkAirports = airports.map { $0.value as? String ?? "" }
-//        }
+        
+        let airportsDict = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][ap]") }
+        let airports = airportsDict.map { $0.value as? String ?? "" }
+
+        if airports.count > 0 {
+            if let cityApn = userSelectedFilters?.cityapN {
+                var fromCities = [String: [String]]()
+                cityApn.fr.forEach {
+                    let city = $0.key
+                    let cityAirports = $0.value
+                    let newAirports = cityAirports.filter { airports.contains($0) }
+                    if newAirports.count > 0 {
+                        fromCities[city] = newAirports
+                    }
+                }
+                var toCities = [String: [String]]()
+                cityApn.to.forEach {
+                    let city = $0.key
+                    let cityAirports = $0.value
+                    let newAirports = cityAirports.filter { airports.contains($0) }
+                    if newAirports.count > 0 {
+                        toCities[city] = newAirports
+                    }
+                }
+                
+                if !fromCities.isEmpty {
+                    self.appliedFilters.insert(.Airport)
+                    self.UIFilters.insert(.originAirports)
+                    userSelectedFilters?.cityapN.fr = fromCities
+                }
+                if !toCities.isEmpty {
+                    self.appliedFilters.insert(.Airport)
+                    self.UIFilters.insert(.destinationAirports)
+                    userSelectedFilters?.cityapN.to = toCities
+                }
+            }
+        }
         
         let loapAirports = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][loap]") }
         

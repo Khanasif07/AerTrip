@@ -219,6 +219,8 @@ public struct FlightDetail : Codable {
     var isArrivalAirportChange:Bool?
     var isDepartureAirportChange:Bool?
     
+    var isDepartureDateChange:Bool?
+
     var ontimePerformance:Int?
     var latePerformance:Int?
     var cancelledPerformance:Int?

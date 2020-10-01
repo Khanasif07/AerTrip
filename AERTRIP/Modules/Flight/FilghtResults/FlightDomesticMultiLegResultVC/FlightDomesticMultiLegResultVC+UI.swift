@@ -55,7 +55,7 @@ extension FlightDomesticMultiLegResultVC {
         let height = self.baseScrollView.frame.height
         baseScrollView.contentSize = CGSize( width: (CGFloat(self.viewModel.numberOfLegs) * width ), height:height + 88.0)
         baseScrollView.showsHorizontalScrollIndicator = false
-        baseScrollView.showsVerticalScrollIndicator = false
+        baseScrollView.showsVerticalScrollIndicator = true
         baseScrollView.alwaysBounceVertical = false
         baseScrollView.delegate = self
         baseScrollView.bounces = false
@@ -82,7 +82,7 @@ extension FlightDomesticMultiLegResultVC {
         
         let width = UIScreen.main.bounds.width / 2.0
         let height = UIScreen.main.bounds.height
-        let rect = CGRect(x: (width * CGFloat(index)), y: 165, width: width, height: height)
+        let rect = CGRect(x: (width * CGFloat(index)), y: 170, width: width, height: height)
         let tableView = UITableView(frame: rect)
         tableView.dataSource = self
         tableView.tag = 1000 + index

@@ -86,12 +86,13 @@ extension FlightDomesticMultiLegResultVC {
         
 //        var yOfset : CGFloat = 0
         
+        
         UIView.animate(withDuration: AppConstants.kAnimationDuration) {
             if self.viewModel.isFewSeatsLeft {
-               self.pinedswitchOptionsBackViewBottom.constant = 100
+               self.pinedswitchOptionsBackViewBottom.constant = 100 + self.view.safeAreaInsets.bottom
             } else{
 //                yOfset = 0
-                self.pinedswitchOptionsBackViewBottom.constant = 51
+                self.pinedswitchOptionsBackViewBottom.constant = 51 + self.view.safeAreaInsets.bottom
             }
             self.view.layoutIfNeeded()
 

@@ -860,7 +860,7 @@ extension IntFlightResultDisplayGroup  {
         }
         
 //        print("UIFilters...\(UIFilters)")
-        
+        checkForAirportsFilter()
         applyFilters(index: index)
         
     }
@@ -912,6 +912,7 @@ extension IntFlightResultDisplayGroup  {
             //working fine
             UIFilters.remove(.destinationAirports)
         }
+        checkForAirportsFilter()
         applyFilters(index: index)
     }
     
@@ -948,9 +949,17 @@ extension IntFlightResultDisplayGroup  {
         if let _ = userSelectedFilters.first(where: { $0.allLayoversSelected }) {
             UIFilters.insert(.layoverAirports)
         }
-        
+        checkForAirportsFilter()
         applyFilters(index: index)
         
+    }
+    
+    private func checkForAirportsFilter() {
+        if UIFilters.contains(.originAirports) || UIFilters.contains(.destinationAirports) || UIFilters.contains(.layoverAirports) {
+            appliedFilters.insert(.Airport)
+        } else {
+            appliedFilters.remove(.Airport)
+        }
     }
     
     func applyOriginFilter(index : Int, _ inputArray: [IntMultiCityAndReturnWSResponse.Results.J]) -> [IntMultiCityAndReturnWSResponse.Results.J] {

@@ -153,12 +153,23 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                                     journey[j].leg[0].flights[k-1].isArrivalTerminalChange = false
                                 }
                             }
+                            
+                            
+                            if flight.dd != prevFlight.ad{
+                                journey[j].leg[0].flights[k].isDepartureDateChange = true
+                            }else{
+                                journey[j].leg[0].flights[k].isDepartureDateChange = false
+                            }
+
                         }else{
                             journey[j].leg[0].flights[k].isDepartureTerminalChange = false
                             journey[j].leg[0].flights[k].isArrivalTerminalChange = false
                             
                             journey[j].leg[0].flights[k].isDepartureAirportChange = false
                             journey[j].leg[0].flights[k].isArrivalAirportChange = false
+                            
+                            journey[j].leg[0].flights[k].isDepartureDateChange = false
+
                         }
                     }
                 }
@@ -226,7 +237,12 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
         if indexPath.section == journey.count{
             let changeAirportCell = tableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as! ChangeAirportTableViewCell
             changeAirportCell.titleLabel.text = "Change of Airport"
-            changeAirportCell.dataLabel.text = "While changing airports, re-checking baggage and going back through security may be necessary. Ensure you have ample time between transfers. Kindly check all terms regarding connection, baggage transfer, visas, etc. with the airlines directly before booking this itinerary."
+               
+            let myMutableString = NSMutableAttributedString(string: "While changing airports, re-checking baggage and going back through security may be necessary. Ensure you have ample time between transfers. Kindly check all terms regarding connection, baggage transfer, visas, etc. with the airlines directly before booking this itinerary. While changing airports While changing airports.")
+           
+            myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear, range: NSRange(location:273,length:48))
+            changeAirportCell.dataLabel.attributedText = myMutableString
+        
             return changeAirportCell
         }else{
             let count = journey[indexPath.section].leg.first?.flights.count
@@ -313,8 +329,9 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                                 
                                 flightDetailsCell.amenitiesData = amenitiesData
                                 flightDetailsCell.amenitiesDisplayView.isHidden = false
-                                flightDetailsCell.amenitiesDisplayViewHeight.constant = 100
                                 flightDetailsCell.amenitiesCollectionView.reloadData()
+                                flightDetailsCell.amenitiesDisplayViewHeight.constant = 100
+                                
                             }else{
                                 flightDetailsCell.amenitiesDisplayView.isHidden = true
                                 flightDetailsCell.amenitiesDisplayViewHeight.constant = 0
@@ -522,7 +539,31 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                         }
                         
                         
-                        flightDetailsCell.departureDateLabel.text = departureDateString
+//                        flightDetailsCell.departureDateLabel.text = departureDateString
+                        
+                        if flight.isDepartureDateChange!{
+                            let string_to_color111 = "  \(departureDateString) ."
+                            let string_to_color1111 = "  \(departureDateString) "
+
+                            let arrivalAirportRange = (string_to_color111 as NSString).range(of: string_to_color1111)
+                            let haltAtAttributedString = NSMutableAttributedString(string:string_to_color111)
+                            haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: arrivalAirportRange)
+                            haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0), range: arrivalAirportRange)
+                            haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (string_to_color111 as NSString).range(of: "."))
+
+                            flightDetailsCell.departureDateLabel.attributedText = haltAtAttributedString
+
+                        }else{
+                            let string_to_color111 = "\(departureDateString)"
+                            
+                            let arrivalAirportRange = (string_to_color111 as NSString).range(of: string_to_color111)
+                            let haltAtAttributedString = NSMutableAttributedString(string:string_to_color111)
+                            haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: arrivalAirportRange)
+                            haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.clear, range: arrivalAirportRange)
+                            
+                            flightDetailsCell.departureDateLabel.attributedText = haltAtAttributedString
+                            
+                        }
                         
                         flightDetailsCell.arrivalTerminalLabel.text = flight.atm
                         flightDetailsCell.departureTerminalLabel.text = flight.dtm
@@ -984,5 +1025,18 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
         } , failureHandler : { (error ) in
             print(error)
         })
+    }
+}
+
+
+
+extension UILabel {
+    func calculateMaxLines() -> Int {
+        let maxSize = CGSize(width: frame.size.width, height: CGFloat(Float.infinity))
+        let charSize = font.lineHeight
+        let text = (self.text ?? "") as NSString
+        let textSize = text.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+        let linesRoundedUp = Int(ceil(textSize.height/charSize))
+        return linesRoundedUp
     }
 }

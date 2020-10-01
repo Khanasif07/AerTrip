@@ -95,7 +95,7 @@ extension IntMCAndReturnVC {
     
     @objc func tappedOnGroupedFooterView(_ sender : UITapGestureRecognizer) {
             
-            UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate(withDuration: 0.1, animations: {
                 self.resultsTableView.tableFooterView?.transform = CGAffineTransform(translationX: 0, y: 200)
             }) { (success) in
                 self.viewModel.resultTableState = .showExpensiveFlights
