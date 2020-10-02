@@ -194,7 +194,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                         fareInfoCell.titleLabel.text = displayTitle
                         if journey.count == 1{
                             fareInfoCell.titleLabelTop.constant = 16
-                            fareInfoCell.titleViewHeight.constant = 50
+//                            fareInfoCell.titleViewHeight.constant = 50
                             fareInfoCell.journeyNameLbl.isHidden = true
                             fareInfoCell.carrierImgView.isHidden = true
                             fareInfoCell.journeyNameSeperatorLabel.isHidden = true
@@ -202,7 +202,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                             titleViewHeight = 50
                         }else{
                             fareInfoCell.titleLabelTop.constant = 73.5
-                            fareInfoCell.titleViewHeight.constant = 100
+//                            fareInfoCell.titleViewHeight.constant = 100
                             fareInfoCell.journeyNameLbl.isHidden = false
                             fareInfoCell.carrierImgView.isHidden = false
                             fareInfoCell.journeyNameSeperatorLabel.isHidden = false
@@ -332,8 +332,18 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                         fareInfoCell.rafFees = rafFeesData
                     }
                     
+//                    fareInfoCell.cellHeightDelegate = self
+//                    tableView.layoutIfNeeded()
+                    
+                    fareInfoCell.combineFareTableView.reloadData()
                     fareInfoCell.cellHeightDelegate = self
-                    tableView.layoutIfNeeded()
+                    fareInfoCell.layoutSubviews()
+                    fareInfoCell.layoutIfNeeded()
+                    let height = fareInfoCell.combineFareTableView.contentSize.height
+                    fareInfoCell.tableViewHeight.constant = (height < 150) ? 150 : height
+                    fareInfoCell.layoutSubviews()
+                    fareInfoCell.layoutIfNeeded()
+                    fareInfoCell.combineFareTableView.reloadData()
                     
                     return fareInfoCell
                 }
@@ -385,7 +395,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                         fareInfoCell.titleLabel.text = displayTitle
                         
                         if journey.count == 1{
-                            fareInfoCell.titleViewHeight.constant = 50
+//                            fareInfoCell.titleViewHeight.constant = 50
                             fareInfoCell.titleLabelTop.constant = 16
                             fareInfoCell.journeyNameLbl.isHidden = true
                             fareInfoCell.carrierImgView.isHidden = true
@@ -393,7 +403,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                             
                             titleViewHeight = 50
                         }else{
-                            fareInfoCell.titleViewHeight.constant = 100
+//                            fareInfoCell.titleViewHeight.constant = 100
                             fareInfoCell.titleLabelTop.constant = 73.5
                             fareInfoCell.journeyNameLbl.isHidden = false
                             fareInfoCell.carrierImgView.isHidden = false
@@ -526,9 +536,20 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                         fareInfoCell.rafFees = rafFeesData
                     }
                     
-                    fareInfoCell.cellHeightDelegate = self
+//                    fareInfoCell.cellHeightDelegate = self
                     
-                    tableView.layoutIfNeeded()
+//                    tableView.layoutIfNeeded()
+                    
+                    
+                    fareInfoCell.combineFareTableView.reloadData()
+                    fareInfoCell.cellHeightDelegate = self
+                    fareInfoCell.layoutSubviews()
+                    fareInfoCell.layoutIfNeeded()
+                    let height = fareInfoCell.combineFareTableView.contentSize.height
+                    fareInfoCell.tableViewHeight.constant = (height < 150) ? 150 : height
+                    fareInfoCell.layoutSubviews()
+                    fareInfoCell.layoutIfNeeded()
+                    fareInfoCell.combineFareTableView.reloadData()
                     
                     return fareInfoCell
                 }
@@ -536,44 +557,55 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-    {
-        if indexPath.section == journey.count {
-            return UITableView.automaticDimension
-        }else{
-            if journey.count == 1{
-                if indexPath.row == 0{
-                    return CGFloat(titleViewHeight)
-                }else if indexPath.row == 2{
-                    return UITableView.automaticDimension
-                }else{
-                    if rowHeight != 0{
-                        return CGFloat(rowHeight)
-                    }else{
-//                        return UITableView.automaticDimension
-                        return 150
-                    }
-                }
-            }else{
-                if indexPath.row == 0{
-                    return CGFloat(titleViewHeight)
-                }else{
-                    if rowHeight != 0{
-                        return CGFloat(rowHeight)
-                    }else{
-//                        return UITableView.automaticDimension
-                        return 150
-                    }
-                }
-            }
-        }
-    }
-    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+//    {
+//        if indexPath.section == journey.count {
+//            return UITableView.automaticDimension
+//        }else{
+//            if journey.count == 1{
+//                if indexPath.row == 0{
+//                    return CGFloat(titleViewHeight)
+//                }else if indexPath.row == 2{
+//                    return UITableView.automaticDimension
+//                }else{
+//                    if rowHeight != 0{
+//                        return CGFloat(rowHeight)
+//                    }else{
+////                        return UITableView.automaticDimension
+//                        return 150
+//                    }
+//                }
+//            }else{
+//                if indexPath.row == 0{
+//                    return CGFloat(titleViewHeight)
+//                }else{
+//                    if rowHeight != 0{
+//                        return CGFloat(rowHeight)
+//                    }else{
+////                        return UITableView.automaticDimension
+//                        return 150
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
     func getCellHeight(height: Int,section:Int)
     {
-        rowHeight = height
-        indexFromDelegate = section
-        fareInfoTableView.reloadData()
+//        rowHeight = height
+//        indexFromDelegate = section
+//        fareInfoTableView.reloadData()
+    }
+    
+    
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+        
+            return UITableView.automaticDimension
     }
     
     //MARK:- Scrollview Delegate
