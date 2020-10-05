@@ -123,10 +123,6 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         setupParchmentPageController()
         self.setupViewModel()
         self.manageLoader()
-        
-        
-//        shareButton.backgroundColor = .clear
-//        shareButton.setImage(UIImage(named: "ShareGreen"), for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
