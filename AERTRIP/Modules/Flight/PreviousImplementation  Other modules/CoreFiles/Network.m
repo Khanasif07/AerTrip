@@ -72,9 +72,6 @@
             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
             
             [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
-            
-            NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",textLog.getCurrentDateTime, manager.requestSerializer.HTTPRequestHeaders.description];
-            [textLog logTextToFile:headers];
 
         [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *responseDictionary = (NSDictionary *)responseObject;
@@ -94,6 +91,9 @@
                 NSString *param=[NSString stringWithFormat:@"parameters ::::::::    %@   ::::::::\n%@",requestDate,parameters.description];
                 [textLog logTextToFile:param];
                 
+                NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
+                [textLog logTextToFile:headers];
+                
                 // Logger response
                 NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,dataDictionary.description];
                 [textLog logTextToFile:response];
@@ -111,6 +111,9 @@
 
                 NSString *param=[NSString stringWithFormat:@"parameters ::::::::    %@   ::::::::\n%@",requestDate,parameters.description];
                 [textLog logTextToFile:param];
+                
+                NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
+                [textLog logTextToFile:headers];
                 
                 // Logger response
                 NSString *fail=[NSString stringWithFormat:@"Failure=\n%@\n##########################################################################################",failureText];
@@ -130,6 +133,9 @@
 
             NSString *param=[NSString stringWithFormat:@"parameters ::::::::    %@   ::::::::\n%@",requestDate,parameters.description];
             [textLog logTextToFile:param];
+            
+            NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
+            [textLog logTextToFile:headers];
             
             // Logger response
             NSString *fail=[NSString stringWithFormat:@"Failure=\n%@\n##########################################################################################",ErrorResponse];
@@ -175,9 +181,6 @@
           //  manager.requestSerializer = [AFJSONRequestSerializer serializer];
 
             [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
-            
-            NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",textLog.getCurrentDateTime, manager.requestSerializer.HTTPRequestHeaders.description];
-            [textLog logTextToFile:headers];
 
             [manager GET:url parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                 NSDictionary *responseDictionary = (NSDictionary *)responseObject;
@@ -194,6 +197,9 @@
                     NSString *param=[NSString stringWithFormat:@"parameters ::::::::    %@   ::::::::\n%@",requestDate,parameters.description];
                     [textLog logTextToFile:param];
                     
+                    NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
+                    [textLog logTextToFile:headers];
+                    
                     NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,dataDictionary.description];
                     [textLog logTextToFile:response];
 
@@ -208,6 +214,9 @@
 
                     NSString *param=[NSString stringWithFormat:@"parameters ::::::::    %@   ::::::::\n%@",requestDate,parameters.description];
                     [textLog logTextToFile:param];
+                    
+                    NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
+                    [textLog logTextToFile:headers];
 
                     NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,failureText];
                     [textLog logTextToFile:response];
@@ -225,6 +234,9 @@
 
                 NSString *param=[NSString stringWithFormat:@"parameters ::::::::    %@   ::::::::\n%@",requestDate,parameters.description];
                 [textLog logTextToFile:param];
+                
+                NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
+                [textLog logTextToFile:headers];
                 
                 NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,ErrorResponse];
                 [textLog logTextToFile:response];
@@ -251,10 +263,6 @@
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
-
-    NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",textLog.getCurrentDateTime, manager.requestSerializer.HTTPRequestHeaders.description];
-    [textLog logTextToFile:headers];
-
     
     [manager GET:url parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *responseDictionary = (NSDictionary *)responseObject;
@@ -267,6 +275,9 @@
 
             NSString *param=[NSString stringWithFormat:@"parameters ::::::::    %@   ::::::::\n%@",requestDate,parameters.description];
             [textLog logTextToFile:param];
+            
+            NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
+            [textLog logTextToFile:headers];
             
             NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,dataDictionary.description];
             [textLog logTextToFile:response];
@@ -284,6 +295,9 @@
 
         NSString *param=[NSString stringWithFormat:@"parameters ::::::::    %@   ::::::::\n%@",requestDate,parameters.description];
         [textLog logTextToFile:param];
+        
+        NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
+        [textLog logTextToFile:headers];
         
         NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,ErrorResponse];
         [textLog logTextToFile:response];
@@ -308,9 +322,6 @@
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
 
-    NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",textLog.getCurrentDateTime, manager.requestSerializer.HTTPRequestHeaders.description];
-    [textLog logTextToFile:headers];
-
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *responseDictionary = (NSDictionary *)responseObject;
         if ([Parser checkForSuccess:responseDictionary]) {
@@ -322,6 +333,9 @@
 
             NSString *param=[NSString stringWithFormat:@"parameters ::::::::    %@   ::::::::\n%@",requestDate,parameters.description];
             [textLog logTextToFile:param];
+            
+            NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
+            [textLog logTextToFile:headers];
             
             NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,dataDictionary.description];
             [textLog logTextToFile:response];
@@ -337,6 +351,9 @@
 
         NSString *param=[NSString stringWithFormat:@"parameters ::::::::    %@   ::::::::\n%@",requestDate,parameters.description];
         [textLog logTextToFile:param];
+        
+        NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
+        [textLog logTextToFile:headers];
         
         NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,ErrorResponse];
         [textLog logTextToFile:response];
