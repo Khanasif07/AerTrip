@@ -268,6 +268,8 @@ enum AppNetworking {
         
         printDebug("headers: \(header)")
         AF.sessionConfiguration.timeoutIntervalForRequest = 200
+        AF.sessionConfiguration.timeoutIntervalForResource = 200
+        
        let request = AF.request(URLString,
                           method: httpMethod,
                           parameters: isLocalServerUrl ? addMandatoryParams(toExistingParams: parameters):parameters,
@@ -339,7 +341,7 @@ enum AppNetworking {
                                 }
                                 else{
                                     printDebug("response: some error occured\nresponse url: \(URLString)")
-                                                                        self.textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) :::::::: response: some error occured\nresponse url: \(URLString)\n##########################################################################################\n")
+                                                                        self.textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) :::::::: response: some error occured\nresponse url: \(URLString)error: \(e as NSError)\n##########################################################################################\n")
                                 }
                                 failure(e as NSError)
                             }
