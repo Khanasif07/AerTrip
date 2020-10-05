@@ -1325,7 +1325,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                 }
                 
                 if progress >= 0.97 {
-//                    self.ApiProgress.isHidden = true
+                    self.ApiProgress.isHidden = true
                     self.singleJourneyResultVC?.addPlaceholderTableHeaderView()
                     
                     self.separatorView.snp.updateConstraints { (make) in
