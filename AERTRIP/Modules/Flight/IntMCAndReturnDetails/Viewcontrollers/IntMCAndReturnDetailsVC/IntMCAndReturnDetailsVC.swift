@@ -41,7 +41,7 @@ class IntMCAndReturnDetailsVC: UIViewController {
     var resultTitle : UILabel!
     var resultsubTitle: UILabel!
     var infoButton : UIButton!
-    let separatorView = UIView()
+    let separatorView = ATDividerView()
     weak var selectionDelegate:UpdateSelectedJourneyDelegate?
     weak var pinnedDelegate:flightDetailsPinFlightDelegate?
     weak var refundDelegate:UpdateRefundStatusDelegate?
@@ -213,7 +213,8 @@ extension IntMCAndReturnDetailsVC{
         tableView.tableHeaderView = tableViewHeader
         
         let boarderRect = CGRect(x: ((width * CGFloat(index + 1)) - 1), y: 0, width: 0.5, height: height)
-        let borderView = UIView(frame: boarderRect)
+        let borderView = ATVerticalDividerView()
+        borderView.frame = boarderRect //UIView(frame: boarderRect)
         borderView.backgroundColor = .TWO_ZERO_FOUR_COLOR
         
         baseScrollView.addSubview(tableView)

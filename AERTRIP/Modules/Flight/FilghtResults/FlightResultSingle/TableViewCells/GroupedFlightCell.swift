@@ -362,22 +362,25 @@ extension GroupedFlightCell : UITableViewDataSource, UITableViewDelegate {
                      cell.logoOne.isHidden = false
                      cell.logoTwo.isHidden = true
                      cell.logoThree.isHidden = true
-                     setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
+                     cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
 
                  case 2 :
                      cell.logoOne.isHidden = false
                      cell.logoTwo.isHidden = false
                      cell.logoThree.isHidden = true
-                     setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
-                     setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
+                     cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
+                    cell.logoTwo.setImageWithUrl(logoArray[1], placeholder: UIImage(), showIndicator: false)
                      
                  case 3 :
                     cell.logoOne.isHidden = false
                     cell.logoTwo.isHidden = false
                     cell.logoThree.isHidden = false
-                     setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
-                     setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
-                     setImageto(imageView: cell.logoThree, url:logoArray[2] , index:  indexPath.row)
+
+                    cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
+                    cell.logoTwo.setImageWithUrl(logoArray[1], placeholder: UIImage(), showIndicator: false)
+                    cell.logoThree.setImageWithUrl(logoArray[2], placeholder: UIImage(), showIndicator: false)
+                 
+                 
                  default:
                      break
                  }
@@ -440,23 +443,27 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
                             cell.logoOne.isHidden = false
                             cell.logoTwo.isHidden = true
                             cell.logoThree.isHidden = true
-                            setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
-                  
+                            cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
+
                         case 2 :
                             cell.logoOne.isHidden = false
                             cell.logoTwo.isHidden = false
                             cell.logoThree.isHidden = true
-                            setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
-                            setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
-                        
+                            cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
+                            cell.logoTwo.setImageWithUrl(logoArray[1], placeholder: UIImage(), showIndicator: false)
                         case 3 :
                             cell.logoOne.isHidden = false
                             cell.logoTwo.isHidden = false
                             cell.logoThree.isHidden = false
-                            setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
-                            setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
-                            setImageto(imageView: cell.logoThree, url:logoArray[2] , index:  indexPath.row)
-                        default:
+                           
+                    cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
+                    cell.logoTwo.setImageWithUrl(logoArray[1], placeholder: UIImage(), showIndicator: false)
+                    cell.logoThree.setImageWithUrl(logoArray[2], placeholder: UIImage(), showIndicator: false)
+                    
+                    
+                    
+                    
+                    default:
                             break
                     }
                     
@@ -480,7 +487,7 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-       return collectionView == self.timeCollectionView ? CGSize(width: 58, height: 30) : CGSize(width: collectionView.frame.width, height: 139)
+       return collectionView == self.timeCollectionView ? CGSize(width: 58, height: 30) : CGSize(width: collectionView.frame.width, height: 131)
     
     }
     

@@ -10,7 +10,7 @@ import UIKit
 
 protocol EditProfileTwoPartTableViewCellDelegate: class {
     func deleteCellTapped(_ indexPath: IndexPath)
-    func leftViewTap(_ indexPath: IndexPath, _ gesture: UITapGestureRecognizer)
+    func leftViewTap(_ indexPath: IndexPath, _ gesture: UITapGestureRecognizer, textField: UITextField)
     func textFieldText(_ indexPath: IndexPath, _ text: String)
     func textFieldEndEditing(_ indexPath: IndexPath, _ text: String)
 }
@@ -25,6 +25,7 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
     @IBOutlet weak var rightViewTextField: UITextField!
     @IBOutlet weak var rightSeparatorView: ATDividerView!
     @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var leftViewTextField: UITextField!
     
     // MARK: - Variables
     
@@ -87,7 +88,7 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
     
     @objc func leftViewTap(gesture: UITapGestureRecognizer) {
         if let idxPath = indexPath {
-            editProfilTwoPartTableViewCelldelegate?.leftViewTap(idxPath, gesture)
+            editProfilTwoPartTableViewCelldelegate?.leftViewTap(idxPath, gesture, textField: self.leftViewTextField)
         }
     }
     

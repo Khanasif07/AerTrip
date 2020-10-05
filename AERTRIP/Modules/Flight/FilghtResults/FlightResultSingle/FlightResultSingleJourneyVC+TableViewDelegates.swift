@@ -110,24 +110,26 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
                     cell.logoOne.isHidden = false
                     cell.logoTwo.isHidden = true
                     cell.logoThree.isHidden = true
-                    setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
+                    cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
 
                 case 2 :
                     
                     cell.logoOne.isHidden = false
                     cell.logoTwo.isHidden = false
                     cell.logoThree.isHidden = true
-                    setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
-                    setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
+                    cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
+                    cell.logoTwo.setImageWithUrl(logoArray[1], placeholder: UIImage(), showIndicator: false)
 
+                
                 case 3 :
                     
                     cell.logoOne.isHidden = false
                     cell.logoTwo.isHidden = false
                     cell.logoThree.isHidden = false
-                    setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
-                    setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
-                    setImageto(imageView: cell.logoThree, url:logoArray[2] , index:  indexPath.row)
+                    cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
+                    cell.logoTwo.setImageWithUrl(logoArray[1], placeholder: UIImage(), showIndicator: false)
+                    cell.logoThree.setImageWithUrl(logoArray[2], placeholder: UIImage(), showIndicator: false)
+
                     
                 default:
                     break

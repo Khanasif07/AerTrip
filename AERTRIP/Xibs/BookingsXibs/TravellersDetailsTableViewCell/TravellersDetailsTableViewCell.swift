@@ -54,7 +54,7 @@ class TravellersDetailsTableViewCell: UITableViewCell {
     internal func configCell(travellersImage: String, travellerName: String,firstName: String,lastName: String, isLastTravellerInRoom: Bool, isLastTraveller: Bool, isOtherBookingData: Bool = false, dob: String, salutation: String, age: String, congigureForHotelDetail: Bool ) {
         //self.travellerName.text = travellerName
         self.travellerImgViewBottomConstraint.constant = (isLastTraveller || isLastTravellerInRoom) ? 16.0 : 4.0
-        self.containerViewBottomConstraint.constant = isLastTraveller ? 26.0 : 0.0
+        self.containerViewBottomConstraint.constant = isLastTraveller ? 16 : 0.0 // 21 : 0.0
         if !isOtherBookingData {
             self.lastCellShadowSetUp(isLastCell: isLastTraveller)
         }

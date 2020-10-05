@@ -74,6 +74,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     var previousRequest : [DispatchWorkItem?] = []
     var isNeedToUpdateLayout = true
     var isHiddingHeader = false
+    var isSettingupHeader = false
 
     
     //MARK:-  Initializers

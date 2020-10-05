@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AddAddressTableViewCellDelegate:class {
-    func addressTypeViewTapped(_ indexPath: IndexPath)
+    func addressTypeViewTapped(_ indexPath: IndexPath, textField: UITextField)
     func countryViewTapped(_ indexPath:IndexPath)
     func addAddressTextField(_ textfield:UITextField,_ indexPath:IndexPath,_ fullString:String)
     func deleteAddressCellTapped(_ indexPath:IndexPath)
@@ -19,6 +19,7 @@ class AddAddressTableViewCell: UITableViewCell {
     
     // MARK: - IB Outlets
     
+    @IBOutlet weak var addressTypeTextField: UITextField!
     @IBOutlet weak var addressTypeLabel: UILabel!
     @IBOutlet weak var addressLineOneTextField: UITextField!
     
@@ -103,7 +104,7 @@ class AddAddressTableViewCell: UITableViewCell {
     
     @objc func addressTypeTapped(gesture: UITapGestureRecognizer) {
         if let idxPath = indexPath {
-          delegate?.addressTypeViewTapped(idxPath)
+            delegate?.addressTypeViewTapped(idxPath, textField: self.addressTypeTextField)
         }
     }
     

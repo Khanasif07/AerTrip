@@ -115,7 +115,7 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
             self.travellerPnrStatusLabel.textColor = AppColors.themeGray40
         }
         self.travellerImgViewBottomConstraint.constant = isLastTraveller ? 16.0 : 4.0
-        self.containerViewBottomConstraint.constant = isLastTraveller ? 21.0 : 0.0
+        self.containerViewBottomConstraint.constant = isLastTraveller ? 16 : 0.0 // 21 : 0.0
         self.lastCellShadowSetUp(isLastCell: isLastTraveller)
     }
     

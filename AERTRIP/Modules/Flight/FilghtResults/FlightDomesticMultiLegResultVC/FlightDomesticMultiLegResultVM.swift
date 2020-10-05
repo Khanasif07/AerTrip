@@ -25,6 +25,7 @@ class FlightDomesticMultiLegResultVM {
     var isPinnedOn = false
     var isFewSeatsLeft = false
     var shouldDisplayToast = false
+    var isSearchByAirlineCode = false
     
     init() {
         

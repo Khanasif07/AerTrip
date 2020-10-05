@@ -47,6 +47,7 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
         airlinesTableView.separatorStyle = .none
         airlinesTableView.tableFooterView = UIView(frame: .zero)
         airlinesTableView.register(UINib(nibName: "RadioButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "RadioButtonCell")
+        airlinesTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
     }
     
     
@@ -357,8 +358,8 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
             
             let footerView = UIView()
             
-            
-            let view = UIView(frame: CGRect(x: 16, y: 0, width: self.view.frame.size.width - 16, height: 0.5))
+            let view = ATDividerView()
+            view.frame = CGRect(x: 16, y: 0, width: self.view.frame.size.width - 16, height: 0.5)
             view.backgroundColor = UIColor.TWO_ZERO_FOUR_COLOR
             footerView.addSubview(view)
             return footerView

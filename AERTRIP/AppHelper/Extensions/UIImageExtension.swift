@@ -114,6 +114,9 @@ extension UIImage {
 extension UIImageView {
     
     func setImageWithUrl(_ imageUrl: String, placeholder: UIImage, showIndicator:Bool) {
+        
+//        printDebug("imageUrl...\(imageUrl)")
+        
         var imageUrl = imageUrl
         guard imageUrl.count > 0 else {
             self.image = placeholder
@@ -133,8 +136,7 @@ extension UIImageView {
         }
         if imageUrl.hasPrefix("http://") || imageUrl.hasPrefix("https://"), let url = URL(string: imageUrl){
             setImage(url: url, showIndicator:showIndicator)
-        }
-        else {
+        } else {
             setImage(url: URL(fileURLWithPath: imageUrl), showIndicator:showIndicator)
         }
     }
@@ -264,6 +266,7 @@ extension UIImage {
 // FLIGHTS
 
 extension UIImage {
+    
     func resizeImage(_ dimension: CGFloat, opaque: Bool, contentMode: UIView.ContentMode = .scaleAspectFit) -> UIImage {
         var width: CGFloat
         var height: CGFloat
