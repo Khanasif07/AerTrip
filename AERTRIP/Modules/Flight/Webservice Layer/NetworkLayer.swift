@@ -30,13 +30,17 @@ protocol APIProtocol {
 }
 
 class WebAPIService
-{    
+{
+    var textLog = TextLog()
+
     func executeAPI(apiServive : WebService, completionHandler : @escaping (Data) -> Void , failureHandler: @escaping (Error) -> Void )
     {
         var urlRequest = apiServive.getUrlRequest()
         urlRequest.httpBody = apiServive.data
         urlRequest.httpMethod = apiServive.httpMethod
-            
+        
+        let requestDate = Date.getCurrentDate()
+
         let session = URLSession.shared
         let task = session.dataTask(with: urlRequest) {  (data, response, error) in
             
@@ -60,6 +64,19 @@ class WebAPIService
                 return
             }
             
+            do{
+                let jsonResult:AnyObject  = try JSONSerialization.jsonObject(with: responseData, options: []) as AnyObject
+                
+                self.textLog.write("\n##########################################################################################\nAPI URL :::\(String(describing: urlRequest.url))")
+
+                self.textLog.write("\nREQUEST HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: urlRequest.allHTTPHeaderFields))\n")
+
+                self.textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) ::::::::\(jsonResult)\n##########################################################################################\n")
+            }catch{
+                
+            }
+
+            
             completionHandler (responseData)
         }
         task.resume()
@@ -73,6 +90,7 @@ class WebAPIService
         
         let session = URLSession.shared
         let task = session.downloadTask(with: urlRequest){ url , response, error in
+            
             
             guard error == nil else {
                 failureHandler( error!)

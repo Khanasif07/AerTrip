@@ -1369,6 +1369,8 @@
 		84816E622518863300D0C256 /* aertripSplashAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 84816E612518863200D0C256 /* aertripSplashAnimation.json */; };
 		8482373F25139E8800704B22 /* ViewProfileFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8482373E25139E8800704B22 /* ViewProfileFooterView.swift */; };
 		8482374125139E9A00704B22 /* ViewProfileFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8482374025139E9A00704B22 /* ViewProfileFooterView.xib */; };
+		848259FA252B030900F87D6E /* TextLogObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 848259F7252B030800F87D6E /* TextLogObjC.m */; };
+		848259FB252B030900F87D6E /* TextLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848259F9252B030900F87D6E /* TextLog.swift */; };
 		84827650223A6DA5007B6A27 /* GuestDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8482764F223A6DA5007B6A27 /* GuestDetailsVC.swift */; };
 		84827652223A6DBD007B6A27 /* GuestDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827651223A6DBD007B6A27 /* GuestDetailsVM.swift */; };
 		8483806C2249EC8000202828 /* APICaller+Trips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8483806B2249EC8000202828 /* APICaller+Trips.swift */; };
@@ -3183,6 +3185,9 @@
 		84816E612518863200D0C256 /* aertripSplashAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = aertripSplashAnimation.json; sourceTree = "<group>"; };
 		8482373E25139E8800704B22 /* ViewProfileFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileFooterView.swift; sourceTree = "<group>"; };
 		8482374025139E9A00704B22 /* ViewProfileFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewProfileFooterView.xib; sourceTree = "<group>"; };
+		848259F7252B030800F87D6E /* TextLogObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextLogObjC.m; sourceTree = "<group>"; };
+		848259F8252B030800F87D6E /* TextLogObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextLogObjC.h; sourceTree = "<group>"; };
+		848259F9252B030900F87D6E /* TextLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextLog.swift; sourceTree = "<group>"; };
 		8482764F223A6DA5007B6A27 /* GuestDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestDetailsVC.swift; sourceTree = "<group>"; };
 		84827651223A6DBD007B6A27 /* GuestDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestDetailsVM.swift; sourceTree = "<group>"; };
 		8483806B2249EC8000202828 /* APICaller+Trips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+Trips.swift"; sourceTree = "<group>"; };
@@ -8139,6 +8144,16 @@
 			path = SplashAnimation;
 			sourceTree = "<group>";
 		};
+		848259F6252B02F400F87D6E /* APILogger */ = {
+			isa = PBXGroup;
+			children = (
+				848259F9252B030900F87D6E /* TextLog.swift */,
+				848259F8252B030800F87D6E /* TextLogObjC.h */,
+				848259F7252B030800F87D6E /* TextLogObjC.m */,
+			);
+			path = APILogger;
+			sourceTree = "<group>";
+		};
 		8482764E223A6DA5007B6A27 /* GuestDetailsVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -9098,6 +9113,7 @@
 		84F9838421B51A070018DFED /* AppHelper */ = {
 			isa = PBXGroup;
 			children = (
+				848259F6252B02F400F87D6E /* APILogger */,
 				8459208C24E2CA710001ED28 /* GetSharableUrl.swift */,
 				847790BF23ED70A6004EBC45 /* AppGradientView.swift */,
 				1835E4FC23EAC11300F6EEA1 /* PresetationTransition */,
@@ -10553,6 +10569,7 @@
 				843FF55E24740232001F21B1 /* TripListVC.swift in Sources */,
 				1804889421CA7AC300437C81 /* APICaller+ViewProfile.swift in Sources */,
 				18FD91672296695B00D005E9 /* BookingReschedulingVM.swift in Sources */,
+				848259FB252B030900F87D6E /* TextLog.swift in Sources */,
 				84956FBF21B667D200BF1183 /* ATButton.swift in Sources */,
 				0C272E292422601300133B50 /* SenderChatCell.swift in Sources */,
 				84F983CF21B51A070018DFED /* AppProtocols.swift in Sources */,
@@ -10854,6 +10871,7 @@
 				843FF52424740231001F21B1 /* FlightSectorCollectionViewLayout.swift in Sources */,
 				1879C4932292ACEE00897CED /* BookingInvoiceVC.swift in Sources */,
 				842EDE772238E7D600E99409 /* HotelDetails.swift in Sources */,
+				848259FA252B030900F87D6E /* TextLogObjC.m in Sources */,
 				18020AF92281A6FB00DE5FE0 /* AerinInfoTableViewCell.swift in Sources */,
 				8472F20923E4078100993B08 /* HotelsMapVC+animations.swift in Sources */,
 				0C6E393D24FE7B4C00D7383F /* IntMCAndReturnFiltersBaseVC+Parchment.swift in Sources */,
