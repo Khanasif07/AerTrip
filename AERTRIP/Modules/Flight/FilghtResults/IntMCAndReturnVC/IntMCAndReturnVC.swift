@@ -295,10 +295,14 @@ extension IntMCAndReturnVC {
                     self.sharePinnedFilghts.setImage(UIImage(named: "SharePinned"), for: .normal)
                     self.sharePinnedFilghts.displayLoadingIndicator(false)
 
-                    let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(link)" ]
-                    let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-                    activityViewController.popoverPresentationController?.sourceView = self.view
-                    self.present(activityViewController, animated: true, completion: nil)
+                    if link == "No Data"{
+                        AertripToastView.toast(in: self.view, withText: "Something went wrong. Please try again.")
+                    }else{
+                        let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(link)" ]
+                        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+                        activityViewController.popoverPresentationController?.sourceView = self.view
+                        self.present(activityViewController, animated: true, completion: nil)
+                    }
                 }
             })
         }

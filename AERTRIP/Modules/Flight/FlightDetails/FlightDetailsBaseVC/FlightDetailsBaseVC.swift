@@ -437,12 +437,16 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     {
         shareButton.setImage(UIImage(named: "ShareGreen"), for: .normal)
         shareButton.displayLoadingIndicator(false)
-
-        let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]
-        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view
-
-        self.present(activityViewController, animated: true, completion: nil)
+        
+        if url == "No Data"{
+            AertripToastView.toast(in: self.view, withText: "Something went wrong. Please try again.")
+        }else{
+            let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            
+            self.present(activityViewController, animated: true, completion: nil)
+        }
     }
     
     func infoButtonTapped(isViewExpanded: Bool)

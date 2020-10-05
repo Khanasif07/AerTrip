@@ -439,6 +439,8 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
                                     
                   if let link = data["u"] {
                       onCompletion(link)
+                  }else{
+                    onCompletion("No Data")
                   }
               }
             } , failureHandler : { (error ) in

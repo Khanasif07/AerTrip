@@ -111,9 +111,8 @@ class GetSharableUrl
                                     self.delegate?.returnSharableUrl(url: link)
                                 }
                             }
-                            //                            if let link = (result["data"] as? [String:Any])?.value(forKey: "u") as? String{
-                            //                                self.delegate?.returnSharableUrl(url: link)
-                            //                            }
+                        }else{
+                            self.delegate?.returnSharableUrl(url: "No Data")
                         }
                     }
                 }
