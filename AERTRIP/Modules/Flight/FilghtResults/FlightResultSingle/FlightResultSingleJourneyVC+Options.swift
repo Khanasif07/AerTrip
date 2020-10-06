@@ -11,7 +11,7 @@ import MessageUI
 
 extension FlightResultSingleJourneyVC {
     
-    func setPinnedFlightAt(_ flightKey: String , isPinned : Bool) {
+    func setPinnedFlightAt(_ flightKey: String , isPinned : Bool, indexpath : IndexPath?) {
         
         var curJourneyArr = [JourneyOnewayDisplay]()
         
@@ -72,9 +72,20 @@ extension FlightResultSingleJourneyVC {
         }
         
         self.viewModel.setPinnedFlights()
+      
         resultsTableView.tableFooterView?.isHidden = true
-        self.resultsTableView.reloadData()
+      
+        if let ind = indexpath {
+            self.resultsTableView.reloadRow(at: ind, with: UITableView.RowAnimation.none)
+        }else{
+            self.resultsTableView.reloadData()
+        }
+        
+//        self.resultsTableView.reloadData()
+
+        
         delay(seconds: 0.5) {
+
             self.resultsTableView.tableFooterView?.isHidden = false
         }
         showFooterView()
@@ -176,13 +187,18 @@ extension FlightResultSingleJourneyVC {
                     currentJourney = journey
                     
                 }
+                
+                return self.makeMenusFor(journey : currentJourney ,fk : fk , markPinned : isPinned, indexpath: indexPath)
+
             }
             
-            return self.makeMenusFor(journey : currentJourney ,fk : fk , markPinned : isPinned)
+            return self.makeMenusFor(journey : currentJourney ,fk : fk , markPinned : isPinned, indexpath: nil)
+
+            
         }
     }
     
-    func makeMenusFor(journey : Journey? ,  fk: String? , markPinned : Bool) -> UIMenu {
+    func makeMenusFor(journey : Journey? ,  fk: String? , markPinned : Bool, indexpath : IndexPath?) -> UIMenu {
         
         guard let currentJourney = journey else {
             return UIMenu(title: "", children: [])
@@ -194,7 +210,7 @@ extension FlightResultSingleJourneyVC {
                 guard let flightKey = fk else {
                     return
                 }
-                self.setPinnedFlightAt(flightKey, isPinned: markPinned)
+                self.setPinnedFlightAt(flightKey, isPinned: markPinned, indexpath: indexpath)
             }
             let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up"), identifier: nil) {[weak self] (action) in
                 
