@@ -872,7 +872,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         baseFareTableview.bounces = true
         baseFareTableview.alwaysBounceVertical = true
 
-        if isTaxesSectionHidden == true{
+        if isTaxesSectionHidden{
 //            baseFareTableview.bounces = true
 //            baseFareTableview.alwaysBounceVertical = true
             sectionHeight = self.baseFareTableview.numberOfSections * 34
@@ -883,19 +883,19 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         }
         
         var cellHeight = 0
-        
-        if self.baseFareTableview.numberOfRows(inSection: 2) == 2{
+        let cellsCount = self.baseFareTableview.numberOfRows(inSection: 2)
+        if cellsCount == 2{
             cellHeight = 24
         }else{
-            let cellsCount = self.baseFareTableview.numberOfRows(inSection: 2)
             cellHeight = (cellsCount-2) * 24
         }
         
         var totalHeight = 0
         let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom
         
-        if isTaxesSectionHidden == false{
-            totalHeight = sectionHeight + cellHeight + Int(bottomInset!) + 17
+        if (isTaxesSectionHidden == false){
+            let extraHeight = ((cellsCount - 2) > 2) ? 17 : -5
+            totalHeight = sectionHeight + cellHeight + Int(bottomInset!) + extraHeight
         }else{
             totalHeight = sectionHeight + Int(bottomInset!)
         }
