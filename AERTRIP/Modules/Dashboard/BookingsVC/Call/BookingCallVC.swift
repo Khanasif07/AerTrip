@@ -25,9 +25,7 @@ class BookingCallVC: BaseVC {
     // MARK: - Override methods
     
     override func initialSetup() {
-        self.callTableView.dataSource = self
-        self.callTableView.delegate = self
-        self.callTableView.reloadData()
+        
         topNavBar.backgroundColor = .clear
         self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         if #available(iOS 13.0, *) {
@@ -35,6 +33,10 @@ class BookingCallVC: BaseVC {
         } else {
             self.view.backgroundColor = AppColors.themeWhite
         }
+        self.callTableView.contentInset = UIEdgeInsets(top: topNavBar.height , left: 0.0, bottom: 0.0, right: 0.0)
+        self.callTableView.dataSource = self
+        self.callTableView.delegate = self
+        self.callTableView.reloadData()
         self.viewModel.getIntialData()
         
         self.setupNavBar()
