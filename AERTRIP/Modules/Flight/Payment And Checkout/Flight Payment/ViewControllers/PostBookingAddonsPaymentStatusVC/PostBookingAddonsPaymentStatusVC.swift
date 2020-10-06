@@ -111,22 +111,23 @@ class PostBookingAddonsPaymentStatusVC: BaseVC {
     
     private func openBookingDetails(for index: Int){
         
-        var bookingModel:BookingDetailModel?
+        var bookingId = ""
         if index < self.viewModel.bookingDetails.count{
             if let booking = self.viewModel.bookingDetails[index]{
-                bookingModel = booking
+                bookingId = booking.id
             }else{
                 return
             }
         }else{
             if let booking = self.viewModel.bookingDetails.first{
-                bookingModel = booking
+                bookingId = booking?.id ?? ""
             }else{
                 return
             }
         }
         let tripCity = NSMutableAttributedString(string: self.viewModel.availableSeatMaps[index].name)
-        AppFlowManager.default.moveToBookingDetail(bookingDetail: bookingModel, tripCities: tripCity, legSectionTap: index)
+        AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: bookingId, tripCitiesStr: tripCity)
+//        AppFlowManager.default.moveToBookingDetail(bookingDetail: bookingModel, tripCities: tripCity, legSectionTap: index)
     }
     
     

@@ -234,7 +234,7 @@ class FacebookController {
                 failure(err)
             })
         }else{
-            self.loginWithFacebook(fromViewController: vc,isSilentLogin: true, completion: { (result, err) in
+            self.loginWithFacebook(fromViewController: vc,isSilentLogin: true, shouldFetchFriends: true, completion: { (result, err) in
                 
                 self.fetchFriends(success: { (result) in
                     
