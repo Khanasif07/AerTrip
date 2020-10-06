@@ -396,11 +396,22 @@ class GetSharableUrl
                 
                 if appliedSubFilters.contains(.arrivalTime){
                     var arrivalTime = ""
-                    if let arrivalDateEarliest = userSelectedFilters?.arDt.earliest{
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    var earlistDate = Date()
+                    var latestDate = Date()
+
+                    if let arrivalDateEarliest = userSelectedFilters?.arDt.earliest
+                    {
                         let earliest = arrivalDateEarliest.components(separatedBy: " ")
                         var earliestTimeInverval = TimeInterval()
                         if earliest.count > 1{
                             earliestTimeInverval = convertFrom(string: earliest[1])!
+                                                        
+                            if let date = dateFormatter.date(from:earliest[0]){
+                                earlistDate = date
+                            }
+                            
                         }else{
                             earliestTimeInverval = convertFrom(string: earliest[0])!
                         }
@@ -408,16 +419,39 @@ class GetSharableUrl
                         arrivalTime.append("filters[\(i)][ar_dt][0]=\(intTime)&")
                     }
                     
-                    if let arrivalDateLatest = userSelectedFilters?.arDt.latest{
+                    
+
+                    if let arrivalDateLatest = userSelectedFilters?.arDt.latest
+                    {
                         let latest = arrivalDateLatest.components(separatedBy: " ")
-                        let latestTimeInverval = convertFrom(string: latest[1])
-                        let intTime = Int(latestTimeInverval!/60)
-                        arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
+                        if let date = dateFormatter.date(from:latest[0]){
+                            latestDate = date
+                        }
+                        
+                        let dayHourMinuteSecond: Set<Calendar.Component> = [.day]
+                        let difference = NSCalendar.current.dateComponents(dayHourMinuteSecond, from: earlistDate, to: latestDate)
+
+                        let day = difference.day ?? 0
+                        
+                        if day > 0{
+
+                            //Add 1440 to time to add 24 hours
+                            let newDay = 1440*day
+                            if let latestTimeInverval = convertFrom(string: latest[1]){
+                                var intTime = Int(latestTimeInverval/60)
+                                intTime = intTime+newDay
+                                arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
+                            }
+                        }else{
+                            if let latestTimeInverval = convertFrom(string: latest[1]){
+                                let intTime = Int(latestTimeInverval/60)
+                                arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
+                            }
+                        }
                     }
                     
                     filterString.append("\(arrivalTime)")
                 }
-                
             }
             
             
@@ -451,7 +485,7 @@ class GetSharableUrl
                     
                     if let layoverMaxTime = Int(userSelectedFilters!.lott!.maxTime!){
                         let maxTime = layoverMaxTime/3600
-                        layoverDuration.append("filters[\(i)][lott][1]=\(maxTime)")
+                        layoverDuration.append("filters[\(i)][lott][1]=\(maxTime)&")
                     }
                     
                     filterString.append("\(layoverDuration)")
@@ -556,19 +590,56 @@ class GetSharableUrl
                     
                     //     Arrival Time
                     var arrivalTime = ""
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    var earlistDate = Date()
+                    var latestDate = Date()
+
                     let arrivalDateEarliest = userSelectedFilters[i].arDt.earliest
                     let earliestArrival = arrivalDateEarliest.components(separatedBy: " ")
+                    if let date = dateFormatter.date(from:earliestArrival[0]){
+                        earlistDate = date
+                    }
                     let earliestArrivalTimeInverval = convertFrom(string: earliestArrival[1])
                     let intArrivalTime = Int(earliestArrivalTimeInverval!/60)
                     arrivalTime.append("filters[\(i)][ar_dt][0]=\(intArrivalTime)&")
                     
                     
                     let arrivalDateLatest = userSelectedFilters[i].arDt.latest
-                    let latestArrival = arrivalDateLatest.components(separatedBy: " ")
-                    let latestArrivalTimeInverval = convertFrom(string: latestArrival[1])
-                    let intLatestArrivalTime = Int(latestArrivalTimeInverval!/60)
-                    arrivalTime.append("filters[\(i)][ar_dt][1]=\(intLatestArrivalTime)&")
+//                    let latestArrival = arrivalDateLatest.components(separatedBy: " ")
+//                    let latestArrivalTimeInverval = convertFrom(string: latestArrival[1])
+//                    let intLatestArrivalTime = Int(latestArrivalTimeInverval!/60)
+//                    arrivalTime.append("filters[\(i)][ar_dt][1]=\(intLatestArrivalTime)&")
                     
+                    
+                    
+                    
+                    
+                        let latestArrival = arrivalDateLatest.components(separatedBy: " ")
+                        if let date = dateFormatter.date(from:latestArrival[0]){
+                            latestDate = date
+                        }
+                        
+                        let dayHourMinuteSecond: Set<Calendar.Component> = [.day]
+                        let difference = NSCalendar.current.dateComponents(dayHourMinuteSecond, from: earlistDate, to: latestDate)
+
+                        let day = difference.day ?? 0
+                        
+                        if day > 0{
+
+                            //Add 1440 to time to add 24 hours
+                            let newDay = 1440*day
+                            if let latestTimeInverval = convertFrom(string: latestArrival[1]){
+                                var intTime = Int(latestTimeInverval/60)
+                                intTime = intTime+newDay
+                                arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
+                            }
+                        }else{
+                            if let latestTimeInverval = convertFrom(string: latestArrival[1]){
+                                let intTime = Int(latestTimeInverval/60)
+                                arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
+                            }
+                        }
                     
                     filterString.append("\(depTime)&\(arrivalTime)")
                 }

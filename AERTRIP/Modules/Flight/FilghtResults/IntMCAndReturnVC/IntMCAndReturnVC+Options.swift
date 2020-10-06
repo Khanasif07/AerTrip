@@ -183,7 +183,7 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
              }
              let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up"), identifier: nil) {[weak self] (action) in
                  guard let strongSelf = self else { return }
-                 strongSelf.shareJourney(journey: journey)
+                 strongSelf.shareJourney(journey: [journey])
              }
              let addToTrip = UIAction(title: "Add To Trip", image: UIImage(systemName: "map" ), identifier: nil) { (action) in
                  
@@ -220,20 +220,42 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
            resultsTableView.setContentOffset(.zero, animated: true)
        }
     
-    func shareJourney(journey : IntMultiCityAndReturnWSResponse.Results.J) {
-             
-            guard let postData = generatePostData(for: [journey]) else { return }
-            
-            executeWebServiceForShare(with: postData as Data, onCompletion:{ (link)  in
-                
-                DispatchQueue.main.async {
-                        let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(link)" ]
-                        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-                        activityViewController.popoverPresentationController?.sourceView = self.view
-                        self.present(activityViewController, animated: true, completion: nil)
-                }
-            })
-        }
+    
+   
+    
+    func shareJourney(journey : [IntMultiCityAndReturnWSResponse.Results.J])
+    {
+        let flightAdultCount = bookFlightObject.flightAdultCount
+        let flightChildrenCount = bookFlightObject.flightChildrenCount
+        let flightInfantCount = bookFlightObject.flightInfantCount
+        let isDomestic = bookFlightObject.isDomestic
+        var valStr = generateCommonString(for: journey, flightObject: bookFlightObject)
+        
+        let filterStr = self.getSharableLink.getAppliedFiltersForSharingIntJourney(legs: self.flightSearchResultVM?.intFlightLegs ?? [])
+        valStr.append(filterStr)
+        
+        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: true, journeyArray: [], valString: valStr, trip_type: "",filterString: filterStr)
+        
+    }
+//    {
+//
+//            guard let postData = generatePostData(for: [journey]) else { return }
+//
+//            executeWebServiceForShare(with: postData as Data, onCompletion:{ (link)  in
+//
+//                if link == "No Data"{
+//                    AertripToastView.toast(in: self.view, withText: "Something went wrong. Please try again.")
+//                }else{
+//                    DispatchQueue.main.async {
+//                            let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(link)" ]
+//                            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+//                            activityViewController.popoverPresentationController?.sourceView = self.view
+//                            self.present(activityViewController, animated: true, completion: nil)
+//                    }
+//                }
+//
+//            })
+//        }
     
     func generateCommonString(for journey: [IntMultiCityAndReturnWSResponse.Results.J],flightObject:BookFlightObject)-> String{
         
@@ -386,67 +408,67 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
 //        return valueString
 //    }
     
-    func generatePostData( for journey : [IntMultiCityAndReturnWSResponse.Results.J] ) -> NSData? {
-        
-        var valueString  = self.generateCommonString(for: journey, flightObject: self.bookFlightObject)
-        let postData = NSMutableData()
-        for i in 0 ..< journey.count {
-            let tempJourney = journey[i]
-            valueString = valueString + "&PF[\(i)]=\(tempJourney.fk)"
-        }
-        let parameters = [
-            [
-                "name": "u",
-                "value": valueString
-            ]
-        ]
-        let boundary = "----WebKitFormBoundary7MA4YWxkTrZu0gW"
-        var body = ""
-        let _: NSError? = nil
-        for param in parameters {
-            let paramName = param["name"]!
-            body += "--\(boundary)\r\n"
-            body += "Content-Disposition:form-data; name=\"\(paramName)\""
-            if let filename = param["fileName"] {
-                let contentType = param["content-type"]!
-                let fileContent = try! String(contentsOfFile: filename, encoding: String.Encoding.utf8)
-                body += "; filename=\"\(filename)\"\r\n"
-                body += "Content-Type: \(contentType)\r\n\r\n"
-                body += fileContent
-            } else if let paramValue = param["value"] {
-                body += "\r\n\r\n\(paramValue)"
-            }
-        }
-        
-        
-        guard let bodyData = body.data(using: String.Encoding.utf8) else { return nil }
-        postData.append(bodyData)
-        
-        return postData
-    }
+//    func generatePostData( for journey : [IntMultiCityAndReturnWSResponse.Results.J] ) -> NSData? {
+//
+//        var valueString  = self.generateCommonString(for: journey, flightObject: self.bookFlightObject)
+//        let postData = NSMutableData()
+//        for i in 0 ..< journey.count {
+//            let tempJourney = journey[i]
+//            valueString = valueString + "&PF[\(i)]=\(tempJourney.fk)"
+//        }
+//        let parameters = [
+//            [
+//                "name": "u",
+//                "value": valueString
+//            ]
+//        ]
+//        let boundary = "----WebKitFormBoundary7MA4YWxkTrZu0gW"
+//        var body = ""
+//        let _: NSError? = nil
+//        for param in parameters {
+//            let paramName = param["name"]!
+//            body += "--\(boundary)\r\n"
+//            body += "Content-Disposition:form-data; name=\"\(paramName)\""
+//            if let filename = param["fileName"] {
+//                let contentType = param["content-type"]!
+//                let fileContent = try! String(contentsOfFile: filename, encoding: String.Encoding.utf8)
+//                body += "; filename=\"\(filename)\"\r\n"
+//                body += "Content-Type: \(contentType)\r\n\r\n"
+//                body += fileContent
+//            } else if let paramValue = param["value"] {
+//                body += "\r\n\r\n\(paramValue)"
+//            }
+//        }
+//
+//
+//        guard let bodyData = body.data(using: String.Encoding.utf8) else { return nil }
+//        postData.append(bodyData)
+//
+//        return postData
+//    }
         
         //MARK:- Sharing Journey
-         func executeWebServiceForShare(with postData: Data , onCompletion:@escaping (String) -> ()) {
-            let webservice = WebAPIService()
-            
-            webservice.executeAPI(apiServive: .getShareUrl(postData: postData ) , completionHandler: {    (data) in
-                
-              let decoder = JSONDecoder()
-              decoder.keyDecodingStrategy = .convertFromSnakeCase
-
-              if let currentParsedResponse = parse(data: data, into: getPinnedURLResponse.self, with:decoder) {
-                  let data = currentParsedResponse.data
-                                    
-                  if let link = data["u"] {
-                      onCompletion(link)
-                  }else{
-                    onCompletion("No Data")
-                  }
-              }
-            } , failureHandler : { (error ) in
-                print(error)
-            })
-        }
+//         func executeWebServiceForShare(with postData: Data , onCompletion:@escaping (String) -> ()) {
+//            let webservice = WebAPIService()
+//            
+//            webservice.executeAPI(apiServive: .getShareUrl(postData: postData ) , completionHandler: {    (data) in
+//                
+//              let decoder = JSONDecoder()
+//              decoder.keyDecodingStrategy = .convertFromSnakeCase
+//
+//              if let currentParsedResponse = parse(data: data, into: getPinnedURLResponse.self, with:decoder) {
+//                  let data = currentParsedResponse.data
+//                                    
+//                  if let link = data["u"] {
+//                      onCompletion(link)
+//                  }else{
+//                    onCompletion("No Data")
+//                  }
+//              }
+//            } , failureHandler : { (error ) in
+//                print(error)
+//            })
+//        }
         
 //        func addToTrip(journey : IntMultiCityAndReturnWSResponse.Results.J) {
     //            let tripListVC = TripListVC(nibName: "TripListVC", bundle: nil)
@@ -455,26 +477,26 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
     //            self.present(tripListVC, animated: true, completion: nil)
 //        }
     
-    func generatePostDataForEmail( for journey : [IntMultiCityAndReturnWSResponse.Results.J] ) -> Data? {
-        var valueString  = self.generateCommonString(for: journey,flightObject: self.bookFlightObject)
-        for i in 0 ..< journey.count {
-            let tempJourney = journey[i]
-            valueString = valueString + "&PF[\(i)]=\(tempJourney.fk)"
-        }
-        var parameters = [ "u": valueString , "sid": bookFlightObject.sid ]
-        let fkArray = journey.map{ $0.fk }
-        for i in 0 ..< fkArray.count {
-            let key = "fk%5B\(i)%5D"
-            parameters[key] = fkArray[i]
-        }
-        let parameterArray = parameters.map { (arg) -> String in
-            let (key, value) = arg
-            let percentEscapeString = self.percentEscapeString(value!)
-            return "\(key)=\(percentEscapeString)"
-        }
-        let data = parameterArray.joined(separator: "&").data(using: String.Encoding.utf8)
-        return data
-    }
+//    func generatePostDataForEmail( for journey : [IntMultiCityAndReturnWSResponse.Results.J] ) -> Data? {
+//        var valueString  = self.generateCommonString(for: journey,flightObject: self.bookFlightObject)
+//        for i in 0 ..< journey.count {
+//            let tempJourney = journey[i]
+//            valueString = valueString + "&PF[\(i)]=\(tempJourney.fk)"
+//        }
+//        var parameters = [ "u": valueString , "sid": bookFlightObject.sid ]
+//        let fkArray = journey.map{ $0.fk }
+//        for i in 0 ..< fkArray.count {
+//            let key = "fk%5B\(i)%5D"
+//            parameters[key] = fkArray[i]
+//        }
+//        let parameterArray = parameters.map { (arg) -> String in
+//            let (key, value) = arg
+//            let percentEscapeString = self.percentEscapeString(value!)
+//            return "\(key)=\(percentEscapeString)"
+//        }
+//        let data = parameterArray.joined(separator: "&").data(using: String.Encoding.utf8)
+//        return data
+//    }
     
     
     func converDateFormate(dateStr: String)-> String{
@@ -496,25 +518,25 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
          }
      }
            
-       func executeWebServiceForEmail(with postData: Data , onCompletion:@escaping (String) -> ()) {
-          let webservice = WebAPIService()
-          
-          webservice.executeAPI(apiServive: .getEmailUrl(postData: postData ) , completionHandler: {    (receivedData) in
-    
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-
-            if let currentParsedResponse = parse(data: receivedData, into: getPinnedURLResponse.self, with:decoder) {
-                let data = currentParsedResponse.data
-                 
-                if let view = data["view"] {
-                  onCompletion(view)
-                }
-            }
-          } , failureHandler : { (error ) in
-              print(error)
-          })
-      }
+//       func executeWebServiceForEmail(with postData: Data , onCompletion:@escaping (String) -> ()) {
+//          let webservice = WebAPIService()
+//          
+//          webservice.executeAPI(apiServive: .getEmailUrl(postData: postData ) , completionHandler: {    (receivedData) in
+//    
+//            let decoder = JSONDecoder()
+//            decoder.keyDecodingStrategy = .convertFromSnakeCase
+//
+//            if let currentParsedResponse = parse(data: receivedData, into: getPinnedURLResponse.self, with:decoder) {
+//                let data = currentParsedResponse.data
+//                 
+//                if let view = data["view"] {
+//                  onCompletion(view)
+//                }
+//            }
+//          } , failureHandler : { (error ) in
+//              print(error)
+//          })
+//      }
     
 }
 

@@ -350,7 +350,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
 //    MARK:- Email Flight code added by Monika
     @IBAction func emailPinnedFlights(_ sender: Any) {
         
-        emailPinnedFlights.setImage(nil, for: .normal)
+        emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
         emailPinnedFlights.displayLoadingIndicator(true)
 
 
@@ -376,7 +376,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     
     func shareFlights( journeyArray : [Journey]) {
         sharePinnedFilghts.displayLoadingIndicator(true)
-        self.sharePinnedFilghts.setImage(nil, for: .normal)
+        self.sharePinnedFilghts.setImage(UIImage(named: "OvHotelResult"), for: .normal)
 
         let flightAdultCount = bookFlightObject.flightAdultCount
         let flightChildrenCount = bookFlightObject.flightChildrenCount

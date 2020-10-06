@@ -259,7 +259,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     @IBAction func emailPinnedFlights(_ sender: Any)
     {
-        emailPinnedFlights.setImage(nil, for: .normal)
+        emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
         emailPinnedFlights.displayLoadingIndicator(true)
         let flightAdultCount = viewModel.bookFlightObject.flightAdultCount
         let flightChildrenCount = viewModel.bookFlightObject.flightChildrenCount
