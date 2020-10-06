@@ -47,6 +47,7 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
         airlinesTableView.separatorStyle = .none
         airlinesTableView.tableFooterView = UIView(frame: .zero)
         airlinesTableView.register(UINib(nibName: "RadioButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "RadioButtonCell")
+        airlinesTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
     }
     
     

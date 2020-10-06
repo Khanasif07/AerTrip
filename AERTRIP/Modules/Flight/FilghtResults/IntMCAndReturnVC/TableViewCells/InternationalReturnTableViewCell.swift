@@ -23,6 +23,7 @@ class InternationalReturnTableViewCell: UITableViewCell {
     @IBOutlet weak var optionsViewHeight: NSLayoutConstraint!
     @IBOutlet weak var indexLabel: UILabel!
     @IBOutlet weak var arrowImage: UIImageView!
+    @IBOutlet weak var dividerView: ATDividerView!
     
     var pinnedRoundedLayer : CALayer?
     var smartIconsArray : [String]?
@@ -45,11 +46,11 @@ class InternationalReturnTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.layer.masksToBounds = false
         setupBaseView()
-//        dashedView.setupDashedView()
-//        let img = #imageLiteral(resourceName: "BackWhite")
-//        let templetImage = img.withRenderingMode(.alwaysTemplate)
-//        arrowImage.image = templetImage
-//        arrowImage.tintColor = AppColors.themeGreen
+        //        dashedView.setupDashedView()
+        //        let img = #imageLiteral(resourceName: "BackWhite")
+        //        let templetImage = img.withRenderingMode(.alwaysTemplate)
+        //        arrowImage.image = templetImage
+        //        arrowImage.tintColor = AppColors.themeGreen
         self.arrowImage.transform = CGAffineTransform(rotationAngle: CGFloat(3 * (Double.pi)/2))
         setupGradientView()
         setupCollectionView()
@@ -60,21 +61,21 @@ class InternationalReturnTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-        override func prepareForReuse() {
-
-    //        logoOne.isHidden = false
-    //        logoTwo.isHidden = false
-    //        logoThree.isHidden = false
-    //        self.immediateAirportWidth.constant = 100
-    //        self.intermediateAirports.isHidden = false
-
-            self.baseView.layer.borderWidth = 0.0
-    //        durationTime.textColor = UIColor.ONE_ZORE_TWO_COLOR
-            price.textColor = .black
-            priceWidth.constant = 170
-            pinnedRoundedLayer?.removeFromSuperlayer()
-            super.prepareForReuse()
-        }
+    override func prepareForReuse() {
+        
+        //        logoOne.isHidden = false
+        //        logoTwo.isHidden = false
+        //        logoThree.isHidden = false
+        //        self.immediateAirportWidth.constant = 100
+        //        self.intermediateAirports.isHidden = false
+        
+        self.baseView.layer.borderWidth = 0.0
+        //        durationTime.textColor = UIColor.ONE_ZORE_TWO_COLOR
+        price.textColor = .black
+        priceWidth.constant = 170
+        pinnedRoundedLayer?.removeFromSuperlayer()
+        super.prepareForReuse()
+    }
     
     func setupCollectionView() {
         smartIconCollectionView.register(UINib(nibName: "SmartIconCell", bundle: nil), forCellWithReuseIdentifier: "SmartIconCell")
@@ -84,11 +85,11 @@ class InternationalReturnTableViewCell: UITableViewCell {
         smartIconCollectionView.dataSource = self
         smartIconCollectionView.delegate = self
     }
-
+    
     func setUpTableView(){
         multiFlightsTableView.register(UINib(nibName: "InternationalReturnJourneyCell", bundle: nil), forCellReuseIdentifier: "InternationalReturnJourneyCell")
         multiFlightsTableView.separatorStyle = .none
-//        multiFlightsTableView.estimatedRowHeight  = 50
+        //        multiFlightsTableView.estimatedRowHeight  = 50
         multiFlightsTableView.rowHeight = UITableView.automaticDimension
         multiFlightsTableView.separatorStyle = .none
         multiFlightsTableView.isScrollEnabled = false
@@ -168,32 +169,33 @@ class InternationalReturnTableViewCell: UITableViewCell {
     }
     
     func populateData(journey : IntMultiCityAndReturnDisplay, indexPath : IndexPath){
-          currentJourney = journey.first
-            if currentJourney.isPinned {
-                setPinnedFlight()
-           }
-          self.price.text = currentJourney.priceAsString
-          multiFlightsTableView.reloadData()
-          self.multiFlighrsTableViewHeight.constant = CGFloat(66 * currentJourney.legsWithDetail.count)
-          smartIconCollectionView.reloadData()
-          self.optionsViewHeight.constant = journey.count > 1 ? 45 : 0
-          self.samePriceOptionsLabel.text = "\(journey.count) options at same price"
-          price.textColor = journey.isCheapest ? .AERTRIP_ORAGE_COLOR : UIColor.black
-          self.priceWidth.constant =  self.price.intrinsicContentSize.width
-          smartIconsArray = currentJourney.smartIconArray
-          baggageSuperScript = currentJourney.baggageSuperScript
+        currentJourney = journey.first
+        if currentJourney.isPinned {
+            setPinnedFlight()
+        }
+        self.price.text = currentJourney.priceAsString
+        multiFlightsTableView.reloadData()
+        self.multiFlighrsTableViewHeight.constant = CGFloat(66 * currentJourney.legsWithDetail.count)
+        smartIconCollectionView.reloadData()
+        self.optionsViewHeight.constant = journey.count > 1 ? 45 : 0
+        self.samePriceOptionsLabel.text = "\(journey.count) options at same price"
+        self.dividerView.isHidden = !(journey.count > 1)
+        price.textColor = journey.isCheapest ? .AERTRIP_ORAGE_COLOR : UIColor.black
+        self.priceWidth.constant =  self.price.intrinsicContentSize.width
+        smartIconsArray = currentJourney.smartIconArray
+        baggageSuperScript = currentJourney.baggageSuperScript
         self.indexLabel.isHidden = true
-      }
+    }
 }
 
 //MARK:- Tableview DataSource , Delegate Methods
 extension InternationalReturnTableViewCell : UITableViewDataSource , UITableViewDelegate {
-
-     func numberOfSections(in tableView: UITableView) -> Int {
-            return 1
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currentJourney.legsWithDetail.count
     }
     
@@ -214,7 +216,7 @@ extension InternationalReturnTableViewCell : UITableViewDataSource , UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            return getSingleJourneyCell(indexPath: indexPath)
+        return getSingleJourneyCell(indexPath: indexPath)
     }
     
     func getSingleJourneyCell (indexPath : IndexPath) -> UITableViewCell {
@@ -225,17 +227,17 @@ extension InternationalReturnTableViewCell : UITableViewDataSource , UITableView
         
         return cell
     }
-
+    
 }
 
 extension InternationalReturnTableViewCell : UICollectionViewDataSource , UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-   
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    
+        
         if section == 0 {
             if baggageSuperScript?.string == "?" || baggageSuperScript?.string == "0P" {
                 return 0
@@ -251,27 +253,27 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
     
     
     @objc func collectionView(_ collectionView: UICollectionView,
-                          layout collectionViewLayout: UICollectionViewLayout,
-                          referenceSizeForHeaderInSection section: Int) -> CGSize {
-    if section == 0 {
-        return .zero
-    }else {
-        if smartIconsArray?.count == 0  || baggageSuperScript?.string == "?" || baggageSuperScript?.string == "0P" {
+                              layout collectionViewLayout: UICollectionViewLayout,
+                              referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if section == 0 {
             return .zero
+        }else {
+            if smartIconsArray?.count == 0  || baggageSuperScript?.string == "?" || baggageSuperScript?.string == "0P" {
+                return .zero
+            }
+            return CGSize(width: 16.0, height:  23.0)
         }
-        return CGSize(width: 16.0, height:  23.0)
-      }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,withReuseIdentifier: "smartIconHeaderView", for: indexPath)
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,withReuseIdentifier: "smartIconHeaderView", for: indexPath)
         
-//        headerView.frame = CGRect(x: 0, y: 5, width: 1.0, height: collectionView.frame.height)
-
-//        headerView.backgroundColor = UIColor(displayP3Red: ( 204.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 204 / 255.0), alpha: 1.0)
-     
+        //        headerView.frame = CGRect(x: 0, y: 5, width: 1.0, height: collectionView.frame.height)
+        
+        //        headerView.backgroundColor = UIColor(displayP3Red: ( 204.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 204 / 255.0), alpha: 1.0)
+        
         return headerView
-     }
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = smartIconCollectionView.dequeueReusableCell(withReuseIdentifier: "SmartIconCell", for: indexPath) as! SmartIconCell
@@ -284,8 +286,8 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
             if  imageName == "fsr" {
                 let color = UIColor(displayP3Red:1.0 , green: ( 88.0/255.0), blue:( 77.0/255.0) , alpha: 1.0)
                 let seats = currentJourney.seats
-                    let tempImage = textToImage(drawText: seats, diameter:20.0 , color: color)
-                    cell.imageView.image = tempImage
+                let tempImage = textToImage(drawText: seats, diameter:20.0 , color: color)
+                cell.imageView.image = tempImage
             }else{
                 cell.imageView.image = UIImage(named: imageName)
             }
@@ -304,7 +306,7 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 26, height: 23)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }

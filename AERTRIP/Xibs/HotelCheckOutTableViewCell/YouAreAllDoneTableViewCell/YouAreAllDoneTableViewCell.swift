@@ -8,7 +8,7 @@
 
 import UIKit
 protocol YouAreAllDoneTableViewCellDelegate: class {
-    func addToAppleWalletTapped()
+    func addToAppleWalletTapped(button: ATButton)
     func addToCallendarTapped()
 }
 
@@ -166,8 +166,8 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
     
     //Mark:- IBActions
     //================
-    @IBAction func addToAppleWalletButtonAction(_ sender: UIButton) {
-        self.delegate?.addToAppleWalletTapped()
+    @IBAction func addToAppleWalletButtonAction(_ sender: ATButton) {
+        self.delegate?.addToAppleWalletTapped(button: sender)
     }
     @IBAction func addToCallendarButtonAction(_ sender: Any) {
         self.delegate?.addToCallendarTapped()

@@ -47,7 +47,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     var updatedApiProgress : Float = 0
     var isSearchByAirline = false
     var airlineCode = ""
-    let separatorView = UIView()
+    let separatorView = ATDividerView()
     
     private var filterBackView = UIView()
     
@@ -90,7 +90,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     //MARK:- View Controller Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNagationBar()
+        setupNavigationBar()
         createFilterTitle()
         
         setupSegmentView()
@@ -605,8 +605,8 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         if let intFilterBaseView = self.intMCAndReturnFilterVC {
             if intFilterBaseView.parent == nil {
                 var frame = self.view.frame
-                frame.origin.y = visualEffectViewHeight - 45
-                frame.size.height = 36//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
+                frame.origin.y = visualEffectViewHeight - 46
+                frame.size.height = 36.5//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
                 intFilterBaseView.view.frame = frame
                 backView.addSubview(intFilterBaseView.view)
                 backView.bringSubviewToFront(filterButton)
@@ -620,8 +620,8 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         if let FilterBaseView = self.flightFilterVC {
             if FilterBaseView.parent == nil {
                 var frame = self.view.frame
-                frame.origin.y = visualEffectViewHeight - 45
-                frame.size.height = 36//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
+                frame.origin.y = visualEffectViewHeight - 46
+                frame.size.height = 36.5//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
                 FilterBaseView.view.frame = frame
                 backView.addSubview(FilterBaseView.view)
                 backView.bringSubviewToFront(filterButton)
@@ -695,7 +695,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         self.navigationController?.popViewController(animated: true)
     }
     
-    func setupNagationBar() {
+    func setupNavigationBar() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         addTitleToNavigationController()
         addSubTitleToNavigationController()
@@ -912,11 +912,25 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             UIView.animate(withDuration: 0.3) {
                 self.backView.height = self.view.height + 100
             }
+            self.separatorView.snp.updateConstraints { (make) in
+                make.bottom.equalTo(self.visualEffectView.contentView).offset(0.0)
+            }
         } else {
             removeFilterHeader()
             backView.bringSubviewToFront(ApiProgress)
             UIView.animate(withDuration: 0.3) {
                 self.backView.height = self.visualEffectViewHeight
+            }
+            if updatedApiProgress < 0.97 {
+                self.separatorView.snp.updateConstraints { (make) in
+                    
+                    let flightType = self.flightSearchResultVM.flightSearchType
+                    if flightType == SINGLE_JOURNEY || isIntReturnOrMCJourney{
+                        make.bottom.equalTo(self.visualEffectView.contentView).offset(-2.0)
+                    } else {
+                        make.bottom.equalTo(self.visualEffectView.contentView).offset(0.0)
+                    }
+                }
             }
         }
         backView.layoutIfNeeded()

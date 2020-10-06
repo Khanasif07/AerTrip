@@ -330,11 +330,11 @@ extension FlightPaymentVC{
             }
             walletAmountCell.callForReuse()
             if self.isWallet {
-                var amount = Double(self.viewModel.itinerary.details.farepr)
+                let amount = Double(self.viewModel.itinerary.details.farepr)
                 var amountFromWallet: Double = 0.0
-                if self.isCouponApplied, let discountBreakUp = self.viewModel.appliedCouponData.discountsBreakup {
-                    amount -= discountBreakUp.CPD
-                }
+//                if self.isCouponApplied, let discountBreakUp = self.viewModel.appliedCouponData.discountsBreakup {
+//                    amount -= discountBreakUp.CPD
+//                }
                 if amount > self.getWalletAmount() {
                     amountFromWallet = self.getWalletAmount()
                 } else {

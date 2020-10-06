@@ -123,6 +123,10 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         setupParchmentPageController()
         self.setupViewModel()
         self.manageLoader()
+        
+        
+//        shareButton.backgroundColor = .clear
+//        shareButton.setImage(UIImage(named: "ShareGreen"), for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -390,165 +394,11 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         
     }
     
-//    @IBAction func shareButtonClicked(_ sender: Any){
-//        guard !isInternational else {return}
-//        let flightAdultCount = bookFlightObject.flightAdultCount
-//        let flightChildrenCount = bookFlightObject.flightChildrenCount
-//        let flightInfantCount = bookFlightObject.flightInfantCount
-//
-//        let isDomestic = bookFlightObject.isDomestic
-//
-//        let cc = journey.first?.cc
-//        var trip_type = ""
-//
-//        var origin = ""
-//        var destination = ""
-//        var departureDate = ""
-//        var returnDate = ""
-//
-//        if journey.count == 1{
-//            origin.append("origin=\(journey[0].ap[0])&")
-//            destination.append("destination=\(journey[0].ap[1])&")
-//
-//            let inputFormatter = DateFormatter()
-//            inputFormatter.dateFormat = "yyyy-MM-dd"
-//            let showDate = inputFormatter.date(from: journey[0].ad)
-//            inputFormatter.dateFormat = "dd-MM-yyyy"
-//            let newAd = inputFormatter.string(from: showDate!)
-//
-//            departureDate.append("depart=\(newAd)&")
-//
-//            returnDate.append("return=&")
-//        }else{
-//            for i in 0..<journey.count{
-//                origin.append("origin[\(i)]=\(journey[i].ap[0])&")
-//                destination.append("destination[\(i)]=\(journey[i].ap[1])&")
-//
-//                let inputFormatter = DateFormatter()
-//                inputFormatter.dateFormat = "yyyy-MM-dd"
-//                let showDate = inputFormatter.date(from: journey[i].ad)
-//                inputFormatter.dateFormat = "dd-MM-yyyy"
-//                let newAd = inputFormatter.string(from: showDate!)
-//
-//                departureDate.append("depart[\(i)]=\(newAd)&")
-//
-//
-//                inputFormatter.dateFormat = "yyyy-MM-dd"
-//                let showDate1 = inputFormatter.date(from: journey[i].dd)
-//                inputFormatter.dateFormat = "dd-MM-yyyy"
-//                let newDd = inputFormatter.string(from: showDate1!)
-//
-//                returnDate.append("return[\(i)]=\(newDd)&")
-//            }
-//        }
-//
-//        if journey.count == 1{
-//            trip_type = "single"
-//        }else if journey.count > 2{
-//            trip_type = "multi"
-//        }else{
-//            trip_type = "return"
-//        }
-//
-//        if trip_type == "return"{
-//            origin.append("origin=\(journey[0].ap[0])&")
-//            destination.append("destination=\(journey[0].ap[1])&")
-//
-//            let inputFormatter = DateFormatter()
-//            inputFormatter.dateFormat = "yyyy-MM-dd"
-//            let showDate = inputFormatter.date(from: journey[0].ad)
-//            inputFormatter.dateFormat = "dd-MM-yyyy"
-//            let newAd = inputFormatter.string(from: showDate!)
-//
-//            departureDate.append("depart=\(newAd)&")
-//
-//            inputFormatter.dateFormat = "yyyy-MM-dd"
-//            let showDate1 = inputFormatter.date(from: journey[1].dd)
-//            inputFormatter.dateFormat = "dd-MM-yyyy"
-//            let newDd = inputFormatter.string(from: showDate1!)
-//
-//            returnDate.append("return=\(newDd)&")
-//        }
-//
-//        var pinnedFlightFK = ""
-//
-//        for i in 0..<journey.count{
-//            if i == journey.count-1{
-//                pinnedFlightFK.append("PF[\(i)]=\(journey[i].fk)")
-//            }else{
-//                pinnedFlightFK.append("PF[\(i)]=\(journey[i].fk)&")
-//            }
-//        }
-//
-//        let postData = NSMutableData()
-//        print("https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(flightAdultCount)&child=\(flightChildrenCount)&infant=\(flightInfantCount)&\(origin)\(destination)\(departureDate)\(returnDate)cabinclass=\(cc!)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)")
-//
-//        let parameters = [
-//            [
-//                "name": "u",
-//                "value": "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(flightAdultCount)&child=\(flightChildrenCount)&infant=\(flightInfantCount)&\(origin)\(destination)\(departureDate)\(returnDate)cabinclass=\(cc!)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)"
-//            ]
-//        ]
-//
-//        let boundary = "----WebKitFormBoundary7MA4YWxkTrZu0gW"
-//
-//        var body = ""
-//        let _: NSError? = nil
-//        for param in parameters {
-//            let paramName = param["name"]!
-//            body += "--\(boundary)\r\n"
-//            body += "Content-Disposition:form-data; name=\"\(paramName)\""
-//            if let filename = param["fileName"] {
-//                let contentType = param["content-type"]!
-//                let fileContent = try! String(contentsOfFile: filename, encoding: String.Encoding.utf8)
-//                body += "; filename=\"\(filename)\"\r\n"
-//                body += "Content-Type: \(contentType)\r\n\r\n"
-//                body += fileContent
-//            } else if let paramValue = param["value"] {
-//                body += "\r\n\r\n\(paramValue)"
-//            }
-//        }
-//
-//        postData.append(body.data(using: String.Encoding.utf8)!)
-//
-//        let webservice = WebAPIService()
-//        webservice.executeAPI(apiServive: .getShareUrl(postData: postData as Data) , completionHandler: {    (data) in
-//
-//            let decoder = JSONDecoder()
-//            decoder.keyDecodingStrategy = .convertFromSnakeCase
-//
-//            do{
-//                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
-//
-//                DispatchQueue.main.async {
-//                    if let result = jsonResult as? [String: AnyObject] {
-////                        print("result= ", result)
-//
-//                        if result["success"] as? Bool == true{
-//                            if let link = (result["data"] as? NSDictionary)?.value(forKey: "u") as? String{
-//
-//
-//                                let textToShare = [ link ]
-//                                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-//                                activityViewController.popoverPresentationController?.sourceView = self.view
-//
-//                                self.present(activityViewController, animated: true, completion: nil)
-//                            }
-//                        }
-//                    }
-//                }
-//            }catch{
-//            }
-//        } , failureHandler : { (error ) in
-//            print(error)
-//        })
-//    }
-    
     // Monika
-    @IBAction func shareButtonClicked(_ sender: Any)
+    @IBAction func shareButtonClicked(_ sender: UIButton)
     {
-        
-        
+        shareButton.setImage(nil, for: .normal)
+        sender.displayLoadingIndicator(true)
         
         if isInternational{
             let intVC = IntMCAndReturnVC()
@@ -589,6 +439,9 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     
     func returnSharableUrl(url: String)
     {
+        shareButton.setImage(UIImage(named: "ShareGreen"), for: .normal)
+        shareButton.displayLoadingIndicator(false)
+
         let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]
         let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view
@@ -874,6 +727,7 @@ extension FlightDetailsBaseVC{
         }else{
             vc.fewSeatsLeftViewHeight = 0
         }
+        vc.dimensionDelegate = self
         vc.isForDomestic = (self.bookFlightObject.isDomestic)
         vc.airportDetailsResult = intAirportDetailsResult
         return vc
@@ -891,6 +745,7 @@ extension FlightDetailsBaseVC{
             vc.fewSeatsLeftViewHeight = 0
         }
         vc.delegate = self
+        vc.fareRulesDelegate = self
         vc.selectedIndex = selectedIndex
         vc.refundDelegate = refundDelegate
         vc.flightAdultCount = bookFlightObject.flightAdultCount

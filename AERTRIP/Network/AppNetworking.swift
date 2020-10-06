@@ -22,6 +22,8 @@ enum AppNetworking {
         case image, video
     }
     
+    static var textLog = TextLog()
+        
     static let username = ""
     static let password = ""
     //static var manager:AFHTTPSessionManager?
@@ -266,6 +268,8 @@ enum AppNetworking {
         
         printDebug("headers: \(header)")
         AF.sessionConfiguration.timeoutIntervalForRequest = 200
+        AF.sessionConfiguration.timeoutIntervalForResource = 200
+        
        let request = AF.request(URLString,
                           method: httpMethod,
                           parameters: isLocalServerUrl ? addMandatoryParams(toExistingParams: parameters):parameters,
@@ -277,6 +281,8 @@ enum AppNetworking {
         }
         
         self.addCookies(forUrl: request.request?.url)
+        
+        let requestDate = Date.getCurrentDate()
         
         request.responseData { (response:DataResponse) in
                             
@@ -300,14 +306,33 @@ enum AppNetworking {
                                 else {
                                     printDebug("response: \(value)\nresponse url: \(URLString)")
                                 }
-                                printDebug(JSON(value))
-                                success(JSON(value))
+                                
+                                let jsonVal = JSON(value)
+                                
+                                // Logger for request
+                                self.textLog.write("\n##########################################################################################\nAPI URL :::\(String(describing: request.request?.url))")
+
+                                self.textLog.write("\nREQUEST HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: request.request?.allHTTPHeaderFields))\n")
+                                
+                                // Logger for response
+                                self.textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) ::::::::\(jsonVal)\n##########################################################################################\n")
+                                
+                                printDebug(jsonVal)
+                                success(jsonVal)
                                 
                             case .failure(let e):
+                                
+                                // Logger for request
+                                self.textLog.write("\n##########################################################################################\nAPI URL :::\(String(describing: request.request?.url))")
+
+                                self.textLog.write("\nREQUEST HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: request.request?.allHTTPHeaderFields))\n")
                                 
                                 if (e as NSError).code == NSURLErrorNotConnectedToInternet {
                                     
                                     printDebug("response: \(e)\nresponse url: \(URLString)")
+                                    
+                                    // Logger for response
+                                    self.textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) :::::::: response: \(e)\nresponse url: \(URLString)\n##########################################################################################\n")
                                     
                                     // Handle Internet Not available UI
                                     if loader {
@@ -316,6 +341,7 @@ enum AppNetworking {
                                 }
                                 else{
                                     printDebug("response: some error occured\nresponse url: \(URLString)")
+                                                                        self.textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) :::::::: response: some error occured\nresponse url: \(URLString)error: \(e as NSError)\n##########################################################################################\n")
                                 }
                                 failure(e as NSError)
                             }

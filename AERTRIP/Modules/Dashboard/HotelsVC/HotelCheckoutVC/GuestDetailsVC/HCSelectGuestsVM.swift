@@ -224,7 +224,7 @@ class HCSelectGuestsVM: NSObject {
     func fetchFacebookContacts(forVC: UIViewController,sender: ATButton? = nil) {
         self.delegateList?.willFetchPhoneContacts()
         self.delegateCollection?.willFetchPhoneContacts()
-        FacebookController.shared.facebookLogout()
+//        FacebookController.shared.facebookLogout()
         FacebookController.shared.fetchFacebookFriendsUsingThisAPP(withViewController: forVC, success: { [weak self] (friends) in
             if let fbContacts = friends["data"] as? [JSONDictionary] {
                 if let obj = self?.delegateCollection as? BaseVC {

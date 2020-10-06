@@ -239,6 +239,10 @@ class GetSharableUrl
                                     self.delegate?.returnEmailView(view: view)
                                 }
                             }
+                        }else{
+                            if let errors = result["errors"] as? [String]{
+                                self.delegate?.returnEmailView(view: errors.first ?? "")
+                            }
                         }
                     }
                 }
@@ -259,11 +263,15 @@ class GetSharableUrl
         if tripType == "single"{
             returnDate.append("return=&")
         }else if tripType == "return"{
-            inputFormatter.dateFormat = "yyyy-MM-dd"
-            showDate = inputFormatter.date(from: journey[1].dd)!
-            inputFormatter.dateFormat = "dd-MM-yyyy"
-            let newDd = inputFormatter.string(from: showDate)
-            returnDate.append("return=\(newDd)&")
+            if journey.count == 2{
+                inputFormatter.dateFormat = "yyyy-MM-dd"
+                showDate = inputFormatter.date(from: journey[1].dd)!
+                inputFormatter.dateFormat = "dd-MM-yyyy"
+                let newDd = inputFormatter.string(from: showDate)
+                returnDate.append("return=\(newDd)&")
+            }else{
+                returnDate.append("return=&")
+            }
         }else{
             for i in 0..<journey.count{
                 

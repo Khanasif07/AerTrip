@@ -578,13 +578,47 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
 //Mark:- HCWhatNextTableViewCell Delegate
 //=========================================
 extension YouAreAllDoneVC: YouAreAllDoneTableViewCellDelegate {
-    func addToAppleWalletTapped() {
-//        if (!PKAddPaymentPassViewController.canAddPaymentPass()){
-//          // use other payment method / alert user
-//        }
-//        let config = PKAddPaymentPassRequestConfiguration.init(encryptionScheme: PKEncryptionScheme.ECC_V2)
-//        let addPaymentPassVC = PKAddPaymentPassViewController.init(requestConfiguration: config!, delegate: self)
-//        self.present(addPaymentPassVC!, animated: true, completion: nil)
+    func addToAppleWalletTapped(button: ATButton) {
+        guard let indexPath = self.allDoneTableView.indexPath(forItem: button) else {return}
+        
+        printDebug("Add To Apple Wallet")
+        let endPoints = "\(APIEndPoint.pass.path)?booking_id=\(self.viewModel.bookingDetail?.id ?? "")"
+        printDebug("endPoints: \(endPoints)")
+        guard let url = URL(string: endPoints) else {return}
+        self.viewModel.showWaletLoader = true
+        if let cell = self.allDoneTableView.cellForRow(at: indexPath) as? YouAreAllDoneTableViewCell {
+            cell.addToAppleWalletButton.isLoading = true
+        } else {
+            self.allDoneTableView.reloadRow(at: indexPath, with: .none)
+        }
+        AppGlobals.shared.downloadWallet(fileURL: url, showLoader: false) {[weak self] (passUrl) in
+            DispatchQueue.main.async {
+                if let localURL = passUrl {
+                    printDebug("localURL: \(localURL)")
+                    self?.addWallet(passFilePath: localURL)
+                }
+                self?.viewModel.showWaletLoader = false
+                if let cell = self?.allDoneTableView.cellForRow(at: indexPath) as? YouAreAllDoneTableViewCell {
+                    cell.addToAppleWalletButton.isLoading = false
+                } else {
+                    self?.allDoneTableView.reloadRow(at: indexPath, with: .none)
+                }
+            }
+        }
+        
+    }
+    
+    private func addWallet(passFilePath: URL) {
+        // let filePath = Bundle.main.path(forResource: "DealsPasses", ofType: "pkpass")!
+        guard let passData = try? Data(contentsOf: passFilePath) else {return}
+        do {
+            let newpass = try PKPass.init(data: passData)
+            let addController =  PKAddPassesViewController(pass: newpass)
+            addController?.delegate = self
+            self.present(addController!, animated: true)
+        } catch {
+            print(error)
+        }
     }
     
     func addToCallendarTapped() {
@@ -604,15 +638,7 @@ extension YouAreAllDoneVC: YouAreAllDoneTableViewCellDelegate {
     
     
 }
-extension YouAreAllDoneVC: PKAddPaymentPassViewControllerDelegate {
-    func addPaymentPassViewController(_ controller: PKAddPaymentPassViewController, generateRequestWithCertificateChain certificates: [Data], nonce: Data, nonceSignature: Data, completionHandler handler: @escaping (PKAddPaymentPassRequest) -> Void) {
 
-    }
-
-    func addPaymentPassViewController(_ controller: PKAddPaymentPassViewController, didFinishAdding pass: PKPaymentPass?, error: Error?) {
-      // pass added
-    }
-}
 //Mark:- HCBookingDetailsTableViewHeaderFooterView Delegate
 //=========================================================
 extension YouAreAllDoneVC: HCBookingDetailsTableViewHeaderFooterViewDelegate {
@@ -678,6 +704,9 @@ extension YouAreAllDoneVC{
         AppFlowManager.default.goToDashboard(toBeSelect: .flight)
         
     }
+}
+extension YouAreAllDoneVC: PKAddPassesViewControllerDelegate {
+    
 }
 /*
  how to call the apple wallet from ios app using swift

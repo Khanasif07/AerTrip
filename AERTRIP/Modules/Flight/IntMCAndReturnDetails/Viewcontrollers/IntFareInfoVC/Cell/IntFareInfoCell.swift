@@ -16,6 +16,7 @@ class IntFareInfoCell: UITableViewCell {
 //    @IBOutlet weak var titleViewHeight: NSLayoutConstraint!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var fareRulesButton: UIButton!
+    @IBOutlet weak var titleLabelTop: NSLayoutConstraint!
     
     @IBOutlet weak var nonReschedulableView: UIView!
     @IBOutlet weak var nonReschedulableViewHeight: NSLayoutConstraint!
@@ -36,6 +37,7 @@ class IntFareInfoCell: UITableViewCell {
     @IBOutlet weak var journeyNameLabel: UILabel!
     @IBOutlet weak var carrierImgView: UIImageView!
     
+    @IBOutlet weak var journeyNameDividerLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
 
