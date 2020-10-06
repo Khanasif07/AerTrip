@@ -363,17 +363,45 @@ class GetSharableUrl
             
             let appliedFilters = legs[i].appliedFilters
             let appliedSubFilters = legs[i].appliedSubFilters
-            
             let uiFilters = legs[i].UIFilters
-//            uiFilters.contains(.)
+            
             print("appliedFilters=",appliedFilters)
+            print("uiFilters=",uiFilters)
+
+            var fqArray = [String]()
+            
+            if uiFilters.contains(.hideOvernightLayover){
+                fqArray.append("ovgtlo")
+            }
+            
+            if uiFilters.contains(.hideOvernight){
+                fqArray.append("ovgtf")
+            }
+            
+            if uiFilters.contains(.hideChangeAirport){
+                fqArray.append("coa")
+            }
+            
+            if uiFilters.contains(.hideLongerOrExpensive){
+                fqArray.append("aht")
+            }
+            
+            var quality = ""
+
+            if fqArray.count > 0{
+                for n in 0..<fqArray.count{
+                    quality.append("filters[\(i)][fq][\(n)]=\(fqArray[n])&")
+                }
+                filterString.append(quality)
+            }
+
+            
             
             //     Times
             if (appliedFilters.contains(.Times))
             {
                 
                 //     Departure Time
-                
                 if appliedSubFilters.contains(.departureTime){
                     var depTime = ""
                     if let earliest = userSelectedFilters?.dt.earliest{
@@ -394,7 +422,6 @@ class GetSharableUrl
                 
                 
                 //     Arrival Time
-                
                 if appliedSubFilters.contains(.arrivalTime){
                     var arrivalTime = ""
                     let dateFormatter = DateFormatter()
@@ -568,9 +595,41 @@ class GetSharableUrl
             let userSelectedFilters = legs[0].userSelectedFilters
             let appliedFilters = legs[0].appliedFilters
             let appliedSubFilters = legs[0].appliedSubFilters
-    
-            for i in 0..<userSelectedFilters.count{
+            let uiFilters = legs[0].UIFilters
+
+            for i in 0..<userSelectedFilters.count
+            {
                 filterString.append("&")
+                
+                //Quality
+                var fqArray = [String]()
+                
+                if uiFilters.contains(.hideOvernightLayover){
+                    fqArray.append("ovgtlo")
+                }
+                
+                if uiFilters.contains(.hideOvernight){
+                    fqArray.append("ovgtf")
+                }
+                
+                if uiFilters.contains(.hideChangeAirport){
+                    fqArray.append("coa")
+                }
+                
+                if uiFilters.contains(.hideLongerOrExpensive){
+                    fqArray.append("aht")
+                }
+                
+                var quality = ""
+
+                if fqArray.count > 0{
+                    for n in 0..<fqArray.count{
+                        quality.append("filters[\(i)][fq][\(n)]=\(fqArray[n])&")
+                    }
+                    filterString.append(quality)
+                }
+                
+                
                 
                 //     Times
                 if (appliedFilters.contains(.Times))
