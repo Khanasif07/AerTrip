@@ -213,8 +213,10 @@ class FlightPaymentVC: BaseVC {
         }
         if diff > 0 {
             // increased
+            self.view.isUserInteractionEnabled = true
             FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: Double(diff), totalUpdatedAmount: Double(amount), continueButtonAction: { [weak self] in
                 guard let self = self else { return }
+                self.view.isUserInteractionEnabled = false
                 self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
                 }, goBackButtonAction: { [weak self] in
                     guard let self = self else { return }

@@ -15,7 +15,7 @@ extension APICaller{
         let url = "\(APIEndPoint.baseUrlPath.rawValue)flights/itinerary?action=\(action)&it_id=\(itId)"
         AppNetworking.POST(endPointPath: url, parameters: params, success: { [weak self] (json) in
             guard let sSelf = self else {return}
-            printDebug(json)
+//            printDebug(json)
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
                 if sucess {
                     completionBlock(true, [], FlightItineraryData(json[APIKeys.data.rawValue]))
@@ -26,7 +26,7 @@ extension APICaller{
                 
             }, failure: { (errors) in
                 ATErrorManager.default.logError(forCodes: errors, fromModule: .flights)
-                printDebug(json)
+//                printDebug(json)
                 completionBlock(false, errors, nil)
             })
         }) { (error) in
@@ -97,7 +97,7 @@ extension APICaller{
     func flightReconfirmationApi(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ couponDetails : FlightItineraryData?)->Void) {
         AppNetworking.GET(endPoint:APIEndPoint.flightReconfirmationApi, parameters: params, loader: loader, success: { [weak self] (json) in
             guard let sSelf = self else {return}
-            printDebug(json)
+//            printDebug(json)
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
                 if sucess {
                     let appliedCouponData = FlightItineraryData(jsonData[APIKeys.data.rawValue])
@@ -181,9 +181,9 @@ extension APICaller{
     func flightPaymentResponseAPI(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ json: JSON?)->Void) {
         AppNetworking.POST(endPoint:APIEndPoint.paymentResponse, parameters: params, loader: loader, success: { [weak self] (json) in
             guard let sSelf = self else {return}
-            printDebug(json)
+//            printDebug(json)
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
-                printDebug(json)
+//                printDebug(json)
                 if sucess {
                     
                     completionBlock(true, [], jsonData[APIKeys.data.rawValue])

@@ -9,6 +9,7 @@
 
 #import "Network.h"
 #import "CCache.h"
+#import "TextLogObjC.h"
 
 @implementation Network
 
@@ -51,6 +52,11 @@
          failure:(void (^)(NSString *error,BOOL popup))failure {
    
     NSLog(@"Parameter: %@ API: %@", parameters, apiName);
+    NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName];
+
+    TextLogObjC *textLog = [[TextLogObjC alloc] init];
+    
+    NSString *requestDate = textLog.getCurrentDateTime;
 
     if ([BaseViewController isReachable]) {
         
@@ -61,13 +67,12 @@
             success(responseObject);
         }
         else{
-        NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName];
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
        // manager.responseSerializer = [AFJSONResponseSerializer serializer];
             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
             
             [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
-            
+
         [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *responseDictionary = (NSDictionary *)responseObject;
             NSLog(@"%@",responseDictionary);
@@ -77,15 +82,65 @@
                     [CCache saveDictionary:dataDictionary forKey:cacheKey expires:expires];
                 }
                 success(dataDictionary);
+                
+                // Logger request
+                NSString *apiUrl=[NSString stringWithFormat:@"##########################################################################################\nAPI URL :::\n%@",url];
+                [textLog logTextToFile:apiUrl];
+
+
+                NSString *param=[NSString stringWithFormat:@"parameters ::::::::    %@   ::::::::\n%@",requestDate,parameters.description];
+                [textLog logTextToFile:param];
+                
+                NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
+                [textLog logTextToFile:headers];
+                
+                // Logger response
+                NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,dataDictionary.description];
+                [textLog logTextToFile:response];
+
             }
             else{
                 NSString *failureText = [Parser getErrorFromDictionary:responseDictionary];
                 failure(failureText,YES);
+                
+                
+                // Logger request
+                NSString *apiUrl=[NSString stringWithFormat:@"##########################################################################################\nAPI URL :::\n%@",url];
+                [textLog logTextToFile:apiUrl];
+
+
+                NSString *param=[NSString stringWithFormat:@"parameters ::::::::    %@   ::::::::\n%@",requestDate,parameters.description];
+                [textLog logTextToFile:param];
+                
+                NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
+                [textLog logTextToFile:headers];
+                
+                // Logger response
+                NSString *fail=[NSString stringWithFormat:@"Failure=\n%@\n##########################################################################################",failureText];
+                [textLog logTextToFile:fail];
+
             }
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSString* ErrorResponse = [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding];
             NSLog(@"Error : %@", ErrorResponse);
             failure(OOPS_ERROR_MESSAGE,NO);
+            
+            
+            // Logger request
+            NSString *apiUrl=[NSString stringWithFormat:@"##########################################################################################\nAPI URL :::\n%@",url];
+            [textLog logTextToFile:apiUrl];
+
+
+            NSString *param=[NSString stringWithFormat:@"parameters ::::::::    %@   ::::::::\n%@",requestDate,parameters.description];
+            [textLog logTextToFile:param];
+            
+            NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
+            [textLog logTextToFile:headers];
+            
+            // Logger response
+            NSString *fail=[NSString stringWithFormat:@"Failure=\n%@\n##########################################################################################",ErrorResponse];
+            [textLog logTextToFile:fail];
+
         }];
         }
     }
@@ -104,7 +159,11 @@
          success:(void (^)(NSDictionary* dataDictionary))success
          failure:(void (^)(NSString *error,BOOL popup))failure {
     
-    //printf(@"%@",apiName);
+    NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName];
+
+    TextLogObjC *textLog = [[TextLogObjC alloc] init];
+    
+    NSString* requestDate = textLog.getCurrentDateTime;
     
     if ([BaseViewController isReachable]) {
         
@@ -117,15 +176,12 @@
             success(responseObject);
         }
         else{
-            NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName];
-         //  printf(@"%@",url);
-
             AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
           //  manager.requestSerializer = [AFJSONRequestSerializer serializer];
 
             [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
-            
+
             [manager GET:url parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                 NSDictionary *responseDictionary = (NSDictionary *)responseObject;
                 if ([Parser checkForSuccess:responseDictionary]) {
@@ -134,16 +190,57 @@
                         [CCache saveDictionary:dataDictionary forKey:cacheKey expires:expires];
                     }
 //                    NSLog(@"Response:%@",dataDictionary);
+                    
+                    NSString *apiUrl=[NSString stringWithFormat:@"##########################################################################################\nAPI URL :::\n%@",url];
+                    [textLog logTextToFile:apiUrl];
+
+                    NSString *param=[NSString stringWithFormat:@"parameters ::::::::    %@   ::::::::\n%@",requestDate,parameters.description];
+                    [textLog logTextToFile:param];
+                    
+                    NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
+                    [textLog logTextToFile:headers];
+                    
+                    NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,dataDictionary.description];
+                    [textLog logTextToFile:response];
+
                     success(dataDictionary);
                 }
                 else{
                     NSString *failureText = [Parser getErrorFromDictionary:responseDictionary];
                     failure(failureText,YES);
+                    
+                    NSString *apiUrl=[NSString stringWithFormat:@"##########################################################################################\nAPI URL :::\n%@",url];
+                    [textLog logTextToFile:apiUrl];
+
+                    NSString *param=[NSString stringWithFormat:@"parameters ::::::::    %@   ::::::::\n%@",requestDate,parameters.description];
+                    [textLog logTextToFile:param];
+                    
+                    NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
+                    [textLog logTextToFile:headers];
+
+                    NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,failureText];
+                    [textLog logTextToFile:response];
+
+
+
                 }
             } failure:^(NSURLSessionDataTask *task, NSError *error) {
                 NSString* ErrorResponse = [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding];
                 NSLog(@"Error : %@", ErrorResponse);
                 failure(OOPS_ERROR_MESSAGE,NO);
+                
+                NSString *apiUrl=[NSString stringWithFormat:@"##########################################################################################\nAPI URL :::\n%@",url];
+                [textLog logTextToFile:apiUrl];
+
+                NSString *param=[NSString stringWithFormat:@"parameters ::::::::    %@   ::::::::\n%@",requestDate,parameters.description];
+                [textLog logTextToFile:param];
+                
+                NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
+                [textLog logTextToFile:headers];
+                
+                NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,ErrorResponse];
+                [textLog logTextToFile:response];
+
             }];
         }
     }
@@ -158,16 +255,33 @@
     NSString *cacheKey = [CCache getKeyForParameters:parameters andAPI:apiName];
     NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName];
 
+    TextLogObjC *textLog = [[TextLogObjC alloc] init];
+    
+    NSString* requestDate = textLog.getCurrentDateTime;
+
 //    manager.responseSerializer = [AFJSONResponseSerializer serializer];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
-
+    
     [manager GET:url parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *responseDictionary = (NSDictionary *)responseObject;
         if ([Parser checkForSuccess:responseDictionary]) {
             NSDictionary *dataDictionary = [Parser getData:responseDictionary];
             [CCache saveDictionary:dataDictionary forKey:cacheKey expires:expires];
+            
+            NSString *apiUrl=[NSString stringWithFormat:@"##########################################################################################\nAPI URL :::%@",url];
+            [textLog logTextToFile:apiUrl];
+
+            NSString *param=[NSString stringWithFormat:@"parameters ::::::::    %@   ::::::::\n%@",requestDate,parameters.description];
+            [textLog logTextToFile:param];
+            
+            NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
+            [textLog logTextToFile:headers];
+            
+            NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,dataDictionary.description];
+            [textLog logTextToFile:response];
+
         }
         NSLog(@"Response:%@",responseDictionary);
 
@@ -175,6 +289,19 @@
         NSLog(@"failure!");
         NSString* ErrorResponse = [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding];
         NSLog(@"Error : %@", ErrorResponse);
+        
+        NSString *apiUrl=[NSString stringWithFormat:@"##########################################################################################\nAPI URL :::%@",url];
+        [textLog logTextToFile:apiUrl];
+
+        NSString *param=[NSString stringWithFormat:@"parameters ::::::::    %@   ::::::::\n%@",requestDate,parameters.description];
+        [textLog logTextToFile:param];
+        
+        NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
+        [textLog logTextToFile:headers];
+        
+        NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,ErrorResponse];
+        [textLog logTextToFile:response];
+
         
     }];
 }
@@ -186,6 +313,10 @@
     NSString *cacheKey = [CCache getKeyForParameters:parameters andAPI:apiName];
     NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName];
     
+    TextLogObjC *textLog = [[TextLogObjC alloc] init];
+    
+    NSString* requestDate = textLog.getCurrentDateTime;
+
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     // manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -196,11 +327,37 @@
         if ([Parser checkForSuccess:responseDictionary]) {
             NSDictionary *dataDictionary = [Parser getData:responseDictionary];
             [CCache saveDictionary:dataDictionary forKey:cacheKey expires:expires];
+            
+            NSString *apiUrl=[NSString stringWithFormat:@"##########################################################################################\nAPI URL :::\n%@",url];
+            [textLog logTextToFile:apiUrl];
+
+            NSString *param=[NSString stringWithFormat:@"parameters ::::::::    %@   ::::::::\n%@",requestDate,parameters.description];
+            [textLog logTextToFile:param];
+            
+            NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
+            [textLog logTextToFile:headers];
+            
+            NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,dataDictionary.description];
+            [textLog logTextToFile:response];
+
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"failure!");
         NSString* ErrorResponse = [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding];
         NSLog(@"Error : %@", ErrorResponse);
+        
+        NSString *apiUrl=[NSString stringWithFormat:@"##########################################################################################\nAPI URL :::\n%@",url];
+        [textLog logTextToFile:apiUrl];
+
+        NSString *param=[NSString stringWithFormat:@"parameters ::::::::    %@   ::::::::\n%@",requestDate,parameters.description];
+        [textLog logTextToFile:param];
+        
+        NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
+        [textLog logTextToFile:headers];
+        
+        NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,ErrorResponse];
+        [textLog logTextToFile:response];
+
         
     }];
 }

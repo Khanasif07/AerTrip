@@ -20,8 +20,7 @@ class GetSharableUrl
     var semaphore = DispatchSemaphore (value: 0)
     var tripType = ""
     
-    func getUrl(adult:String, child:String, infant:String,isDomestic:Bool, isInternational:Bool, journeyArray:[Journey], valString:String,trip_type:String, filterString:String)
-    {
+    func getUrl(adult:String, child:String, infant:String,isDomestic:Bool, isInternational:Bool, journeyArray:[Journey], valString:String,trip_type:String, filterString:String) {
         tripType = trip_type
         var valueString = ""
         if !isInternational{
