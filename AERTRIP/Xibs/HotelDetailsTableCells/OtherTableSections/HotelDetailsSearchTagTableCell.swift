@@ -34,6 +34,8 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
 //    var initialTagsForFiltration: [String] = ["Breakfast","Refundable"]
     var initialTagsForFiltration: [String] = ["Breakfast","Free Cancellation"]
     
+    var statusBarStyle: UIStatusBarStyle = .darkContent
+    
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var containerView: UIView!
@@ -139,7 +141,7 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
             printDebug(parentVC.className)
             // Commented because we have to use the roomTags key that is coming empty
             //AppFlowManager.default.presentSearchHotelTagVC(tagButtons: self.allTagsForFilteration, superView: self)
-            AppFlowManager.default.presentSearchHotelTagVC(tagButtons: AppConstants.staticRoomTags, superView: self)
+            AppFlowManager.default.presentSearchHotelTagVC(tagButtons: AppConstants.staticRoomTags, superView: self, presentingStatusBarStyle: statusBarStyle, dismissingStatusBarStyle: statusBarStyle)
 
         }
     }

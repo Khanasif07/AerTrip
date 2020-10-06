@@ -54,7 +54,7 @@ class YouAreAllDoneVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
         
         AppFlowManager.default.mainNavigationController.interactivePopGestureRecognizer?.isEnabled = false
     }
@@ -425,7 +425,7 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
 //            AppGlobals.shared.redirectToMap(sourceView: view, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong, destLat: self.viewModel.hotelReceiptData?.lat ?? "", destLong: self.viewModel.hotelReceiptData?.long ?? "")
 //        }else
             if (indexPath.section != 0) && (indexPath.section < tableView.numberOfSections - 1){
-            AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: nil, hotelTitle: getUpdatedTitle(), bookingId: self.viewModel.bookingIds.first ?? "", hotelName: self.viewModel.hotelReceiptData?.hname ?? "", taRating: self.viewModel.hotelReceiptData?.rating ?? 0.0, hotelStarRating: self.viewModel.hotelReceiptData?.star ?? 0.0)
+            AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: nil, hotelTitle: getUpdatedTitle(), bookingId: self.viewModel.bookingIds.first ?? "", hotelName: self.viewModel.hotelReceiptData?.hname ?? "", taRating: self.viewModel.hotelReceiptData?.rating ?? 0.0, hotelStarRating: self.viewModel.hotelReceiptData?.star ?? 0.0, presentingStatusBarStyle: statusBarStyle, dismissalStatusBarStyle: statusBarStyle)
         }
         
         
@@ -643,7 +643,7 @@ extension YouAreAllDoneVC: YouAreAllDoneTableViewCellDelegate {
 //=========================================================
 extension YouAreAllDoneVC: HCBookingDetailsTableViewHeaderFooterViewDelegate {
     func emailIternaryButtonTapped() {
-        AppFlowManager.default.presentHCEmailItinerariesVC(forBookingId: self.viewModel.bookingIds.first ?? "", travellers: self.viewModel.hotelReceiptData?.travellers.flatMap({ $0 }) ?? [])
+        AppFlowManager.default.presentHCEmailItinerariesVC(forBookingId: self.viewModel.bookingIds.first ?? "", travellers: self.viewModel.hotelReceiptData?.travellers.flatMap({ $0 }) ?? [], presentingStatusBarStyle: statusBarStyle, dismissalStatusBarStyle: statusBarStyle)
     }
     
 }
