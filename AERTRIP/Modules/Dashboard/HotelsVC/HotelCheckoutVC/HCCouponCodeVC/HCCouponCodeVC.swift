@@ -86,7 +86,7 @@ class HCCouponCodeVC: BaseVC {
         self.registerNibs()
         self.couponTableView.delegate = self
         self.couponTableView.dataSource = self
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
 //        if self.viewModel.product != .flights{
 //            self.viewModel.getCouponsDetailsApi()
 //        }

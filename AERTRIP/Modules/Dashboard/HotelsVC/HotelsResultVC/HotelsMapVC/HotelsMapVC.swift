@@ -236,7 +236,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.statusBarColor = AppColors.clear
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
         
         addCustomBackgroundBlurView()
     }

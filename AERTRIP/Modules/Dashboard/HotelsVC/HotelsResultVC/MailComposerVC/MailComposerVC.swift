@@ -30,6 +30,9 @@ class MailComposerVC: BaseVC {
     private var time: Float = 0.0
     private var timer: Timer?
     
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent,
+    dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
+    
     // MARK: - View Life cycle
     
     override func viewDidLoad() {
@@ -43,14 +46,14 @@ class MailComposerVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //self.statusBarColor = AppColors.clear
-        self.statusBarStyle = .default
+        self.statusBarStyle = presentingStatusBarStyle
     }
     
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         //self.statusBarColor = AppColors.clear
-        self.statusBarStyle = .default
+        self.statusBarStyle = dismissalStatusBarStyle
     }
     
     

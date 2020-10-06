@@ -44,6 +44,7 @@ class SelectTripVC: BaseVC {
     weak var delegate: SelectTripVCDelegate?
     weak var cancelDelegate:TripCancelDelegate?
     var selectionComplition: ((TripModel, TripDetails?) -> Void)?
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent
     var dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
     
     // MARK: - Private
@@ -100,7 +101,7 @@ class SelectTripVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        statusBarStyle = .lightContent
+        statusBarStyle = presentingStatusBarStyle
     }
     
     override func viewWillDisappear(_ animated: Bool) {

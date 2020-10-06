@@ -14,6 +14,9 @@ class HCEmailItinerariesVC: BaseVC {
     //================
     let viewModel = HCEmailItinerariesVM()
     
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent,
+    dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
+    
     
     //Mark:- IBOutlets
     //================
@@ -39,6 +42,17 @@ class HCEmailItinerariesVC: BaseVC {
             self.viewModel.fillData()
         }
 //        self.viewModel.fillData()
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        statusBarStyle = presentingStatusBarStyle
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = dismissalStatusBarStyle
     }
     
     override func initialSetup() {

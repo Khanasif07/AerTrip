@@ -454,7 +454,7 @@ class HotelResultVC: BaseVC {
 //                strongSelf.emailButton.isLoading = false
 //                if status {
                     // url fetched
-                    AppFlowManager.default.presentMailComposerVC(self.viewModel.favouriteHotels, self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), self.viewModel.shortUrl)
+            AppFlowManager.default.presentMailComposerVC(self.viewModel.favouriteHotels, self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), self.viewModel.shortUrl, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: statusBarStyle)
                     AppFlowManager.default.removeLoginConfirmationScreenFromStack()
 //                }
 //            }

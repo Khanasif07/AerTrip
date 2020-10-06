@@ -116,7 +116,7 @@ class HCDataSelectionVC: BaseVC {
         super.viewWillAppear(animated)
         delay(seconds: 0.2) {
             self.statusBarColor = AppColors.clear
-            self.statusBarStyle = .default
+            self.statusBarStyle = .darkContent
         }
         
     }
