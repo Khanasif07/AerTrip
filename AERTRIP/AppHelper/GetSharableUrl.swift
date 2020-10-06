@@ -110,9 +110,8 @@ class GetSharableUrl
                                     self.delegate?.returnSharableUrl(url: link)
                                 }
                             }
-                            //                            if let link = (result["data"] as? [String:Any])?.value(forKey: "u") as? String{
-                            //                                self.delegate?.returnSharableUrl(url: link)
-                            //                            }
+                        }else{
+                            self.delegate?.returnSharableUrl(url: "No Data")
                         }
                     }
                 }
@@ -364,15 +363,45 @@ class GetSharableUrl
             
             let appliedFilters = legs[i].appliedFilters
             let appliedSubFilters = legs[i].appliedSubFilters
+            let uiFilters = legs[i].UIFilters
             
             print("appliedFilters=",appliedFilters)
+            print("uiFilters=",uiFilters)
+
+            var fqArray = [String]()
+            
+            if uiFilters.contains(.hideOvernightLayover){
+                fqArray.append("ovgtlo")
+            }
+            
+            if uiFilters.contains(.hideOvernight){
+                fqArray.append("ovgtf")
+            }
+            
+            if uiFilters.contains(.hideChangeAirport){
+                fqArray.append("coa")
+            }
+            
+            if uiFilters.contains(.hideLongerOrExpensive){
+                fqArray.append("aht")
+            }
+            
+            var quality = ""
+
+            if fqArray.count > 0{
+                for n in 0..<fqArray.count{
+                    quality.append("filters[\(i)][fq][\(n)]=\(fqArray[n])&")
+                }
+                filterString.append(quality)
+            }
+
+            
             
             //     Times
             if (appliedFilters.contains(.Times))
             {
                 
                 //     Departure Time
-                
                 if appliedSubFilters.contains(.departureTime){
                     var depTime = ""
                     if let earliest = userSelectedFilters?.dt.earliest{
@@ -393,14 +422,24 @@ class GetSharableUrl
                 
                 
                 //     Arrival Time
-                
                 if appliedSubFilters.contains(.arrivalTime){
                     var arrivalTime = ""
-                    if let arrivalDateEarliest = userSelectedFilters?.arDt.earliest{
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    var earlistDate = Date()
+                    var latestDate = Date()
+
+                    if let arrivalDateEarliest = userSelectedFilters?.arDt.earliest
+                    {
                         let earliest = arrivalDateEarliest.components(separatedBy: " ")
                         var earliestTimeInverval = TimeInterval()
                         if earliest.count > 1{
                             earliestTimeInverval = convertFrom(string: earliest[1])!
+                                                        
+                            if let date = dateFormatter.date(from:earliest[0]){
+                                earlistDate = date
+                            }
+                            
                         }else{
                             earliestTimeInverval = convertFrom(string: earliest[0])!
                         }
@@ -408,16 +447,39 @@ class GetSharableUrl
                         arrivalTime.append("filters[\(i)][ar_dt][0]=\(intTime)&")
                     }
                     
-                    if let arrivalDateLatest = userSelectedFilters?.arDt.latest{
+                    
+
+                    if let arrivalDateLatest = userSelectedFilters?.arDt.latest
+                    {
                         let latest = arrivalDateLatest.components(separatedBy: " ")
-                        let latestTimeInverval = convertFrom(string: latest[1])
-                        let intTime = Int(latestTimeInverval!/60)
-                        arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
+                        if let date = dateFormatter.date(from:latest[0]){
+                            latestDate = date
+                        }
+                        
+                        let dayHourMinuteSecond: Set<Calendar.Component> = [.day]
+                        let difference = NSCalendar.current.dateComponents(dayHourMinuteSecond, from: earlistDate, to: latestDate)
+
+                        let day = difference.day ?? 0
+                        
+                        if day > 0{
+
+                            //Add 1440 to time to add 24 hours
+                            let newDay = 1440*day
+                            if let latestTimeInverval = convertFrom(string: latest[1]){
+                                var intTime = Int(latestTimeInverval/60)
+                                intTime = intTime+newDay
+                                arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
+                            }
+                        }else{
+                            if let latestTimeInverval = convertFrom(string: latest[1]){
+                                let intTime = Int(latestTimeInverval/60)
+                                arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
+                            }
+                        }
                     }
                     
                     filterString.append("\(arrivalTime)")
                 }
-                
             }
             
             
@@ -451,7 +513,7 @@ class GetSharableUrl
                     
                     if let layoverMaxTime = Int(userSelectedFilters!.lott!.maxTime!){
                         let maxTime = layoverMaxTime/3600
-                        layoverDuration.append("filters[\(i)][lott][1]=\(maxTime)")
+                        layoverDuration.append("filters[\(i)][lott][1]=\(maxTime)&")
                     }
                     
                     filterString.append("\(layoverDuration)")
@@ -533,44 +595,117 @@ class GetSharableUrl
             let userSelectedFilters = legs[0].userSelectedFilters
             let appliedFilters = legs[0].appliedFilters
             let appliedSubFilters = legs[0].appliedSubFilters
+            let uiFilters = legs[0].UIFilters
 
-            for i in 0..<userSelectedFilters.count{
+            for i in 0..<userSelectedFilters.count
+            {
                 filterString.append("&")
+                
+                //Quality
+                var fqArray = [String]()
+                
+                if uiFilters.contains(.hideOvernightLayover){
+                    fqArray.append("ovgtlo")
+                }
+                
+                if uiFilters.contains(.hideOvernight){
+                    fqArray.append("ovgtf")
+                }
+                
+                if uiFilters.contains(.hideChangeAirport){
+                    fqArray.append("coa")
+                }
+                
+                if uiFilters.contains(.hideLongerOrExpensive){
+                    fqArray.append("aht")
+                }
+                
+                var quality = ""
+
+                if fqArray.count > 0{
+                    for n in 0..<fqArray.count{
+                        quality.append("filters[\(i)][fq][\(n)]=\(fqArray[n])&")
+                    }
+                    filterString.append(quality)
+                }
+                
+                
                 
                 //     Times
                 if (appliedFilters.contains(.Times))
                 {
                     //     Departure Time
-                    var depTime = ""
-                    let earliest = userSelectedFilters[i].dt.earliest
-                    let earliestTimeInverval = convertFrom(string: earliest)
-                    let intEarliestTime = Int(earliestTimeInverval!/60)
-                    depTime.append("filters[\(i)][dep_dt][0]=\(intEarliestTime)&")
-                    
-                    
-                    let latest = userSelectedFilters[i].dt.latest
-                    let latestTimeInverval = convertFrom(string: latest)
-                    let intLatestTime = Int(latestTimeInverval!/60)
-                    depTime.append("filters[\(i)][dep_dt][1]=\(intLatestTime)")
+                    if ((appliedSubFilters[0]?.contains(.departureTime)) != nil){
+                        var depTime = ""
+                        let earliest = userSelectedFilters[i].dt.earliest
+                        let earliestTimeInverval = convertFrom(string: earliest)
+                        let intEarliestTime = Int(earliestTimeInverval!/60)
+                        depTime.append("filters[\(i)][dep_dt][0]=\(intEarliestTime)&")
+                        
+                        
+                        let latest = userSelectedFilters[i].dt.latest
+                        let latestTimeInverval = convertFrom(string: latest)
+                        let intLatestTime = Int(latestTimeInverval!/60)
+                        depTime.append("filters[\(i)][dep_dt][1]=\(intLatestTime)")
+
+                        filterString.append("\(depTime)&")
+
+                    }
                     
                     
                     //     Arrival Time
-                    var arrivalTime = ""
-                    let arrivalDateEarliest = userSelectedFilters[i].arDt.earliest
-                    let earliestArrival = arrivalDateEarliest.components(separatedBy: " ")
-                    let earliestArrivalTimeInverval = convertFrom(string: earliestArrival[1])
-                    let intArrivalTime = Int(earliestArrivalTimeInverval!/60)
-                    arrivalTime.append("filters[\(i)][ar_dt][0]=\(intArrivalTime)&")
+
+                    if ((appliedSubFilters[0]?.contains(.arrivalTime)) != nil)
+                    {
+                        var arrivalTime = ""
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd"
+                        var earlistDate = Date()
+                        var latestDate = Date()
+
+                        let arrivalDateEarliest = userSelectedFilters[i].arDt.earliest
+                        let earliestArrival = arrivalDateEarliest.components(separatedBy: " ")
+                        if let date = dateFormatter.date(from:earliestArrival[0]){
+                            earlistDate = date
+                        }
+                        let earliestArrivalTimeInverval = convertFrom(string: earliestArrival[1])
+                        let intArrivalTime = Int(earliestArrivalTimeInverval!/60)
+                        arrivalTime.append("filters[\(i)][ar_dt][0]=\(intArrivalTime)&")
+                        
+                        
+                        let arrivalDateLatest = userSelectedFilters[i].arDt.latest
+                        
+                            let latestArrival = arrivalDateLatest.components(separatedBy: " ")
+                            if let date = dateFormatter.date(from:latestArrival[0]){
+                                latestDate = date
+                            }
+                            
+                            let dayHourMinuteSecond: Set<Calendar.Component> = [.day]
+                            let difference = NSCalendar.current.dateComponents(dayHourMinuteSecond, from: earlistDate, to: latestDate)
+
+                            let day = difference.day ?? 0
+                            
+                            if day > 0{
+
+                                //Add 1440 to time to add 24 hours
+                                let newDay = 1440*day
+                                if let latestTimeInverval = convertFrom(string: latestArrival[1]){
+                                    var intTime = Int(latestTimeInverval/60)
+                                    intTime = intTime+newDay
+                                    arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
+                                }
+                            }else{
+                                if let latestTimeInverval = convertFrom(string: latestArrival[1]){
+                                    let intTime = Int(latestTimeInverval/60)
+                                    arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
+                                }
+                            }
+                        
+                        filterString.append("\(arrivalTime)&")
+
+                    }
                     
                     
-                    let arrivalDateLatest = userSelectedFilters[i].arDt.latest
-                    let latestArrival = arrivalDateLatest.components(separatedBy: " ")
-                    let latestArrivalTimeInverval = convertFrom(string: latestArrival[1])
-                    let intLatestArrivalTime = Int(latestArrivalTimeInverval!/60)
-                    arrivalTime.append("filters[\(i)][ar_dt][1]=\(intLatestArrivalTime)&")
-                    
-                    
-                    filterString.append("\(depTime)&\(arrivalTime)")
                 }
                 
                 
@@ -578,30 +713,38 @@ class GetSharableUrl
                 if (appliedFilters.contains(.Duration))
                 {
                     //     Trip Duration
-                    var tripDuration = ""
-                    if let tripMinTime = Int(userSelectedFilters[i].tt.minTime!){
-                        let minTime = tripMinTime/60
-                        tripDuration.append("filters[\(i)][tt][0]=\(minTime)&")
+                    if ((appliedSubFilters[0]?.contains(.tripDuration)) != nil)
+                    {
+                        var tripDuration = ""
+                        if let tripMinTime = Int(userSelectedFilters[i].tt.minTime!){
+                            let minTime = tripMinTime/3600
+                            tripDuration.append("filters[\(i)][tt][0]=\(minTime)&")
+                        }
+                        if let tripMaxTime = Int(userSelectedFilters[i].tt.maxTime!){
+                            let maxTime = tripMaxTime/3600
+                            tripDuration.append("filters[\(i)][tt][1]=\(maxTime)")
+                        }
+                        filterString.append("\(tripDuration)&")
                     }
-                    if let tripMaxTime = Int(userSelectedFilters[i].tt.maxTime!){
-                        let maxTime = tripMaxTime/60
-                        tripDuration.append("filters[\(i)][tt][1]=\(maxTime)")
-                    }
+                    
                     
                     
                     //     Layover Duration
-                    var layoverDuration = ""
-                    if let layoverMinTime = Int(userSelectedFilters[i].lott.minTime!){
-                        let minTime = layoverMinTime/60
-                        layoverDuration.append("filters[\(i)][lott][0]=\(minTime)&")
+                    if ((appliedSubFilters[0]?.contains(.layoverDuration)) != nil)
+                    {
+                        var layoverDuration = ""
+                        if let layoverMinTime = Int(userSelectedFilters[i].lott.minTime!){
+                            let minTime = layoverMinTime/3600
+                            layoverDuration.append("filters[\(i)][lott][0]=\(minTime)&")
+                        }
+                        
+                        if let layoverMaxTime = Int(userSelectedFilters[i].lott.maxTime!){
+                            let maxTime = layoverMaxTime/3600
+                            layoverDuration.append("filters[\(i)][lott][1]=\(maxTime)&")
+                        }
+                        
+                        filterString.append("\(layoverDuration)&")
                     }
-                    
-                    if let layoverMaxTime = Int(userSelectedFilters[i].lott.maxTime!){
-                        let maxTime = layoverMaxTime/60
-                        layoverDuration.append("filters[\(i)][lott][1]=\(maxTime)&")
-                    }
-                    
-                    filterString.append("\(tripDuration)&\(layoverDuration)")
                 }
                 
                 
