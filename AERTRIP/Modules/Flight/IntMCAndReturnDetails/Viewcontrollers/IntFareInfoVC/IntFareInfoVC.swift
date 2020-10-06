@@ -557,7 +557,7 @@ extension IntFareInfoVC{
         fareInfoCell.layoutSubviews()
         fareInfoCell.layoutIfNeeded()
         let height = fareInfoCell.combineFareTableView.contentSize.height
-        fareInfoCell.tableViewHeight.constant = (height < 30) ? 30 : height
+        fareInfoCell.tableViewHeight.constant = (height < 150) ? 150 : height
         fareInfoCell.layoutSubviews()
         fareInfoCell.layoutIfNeeded()
         fareInfoCell.combineFareTableView.reloadData()
@@ -764,7 +764,7 @@ extension IntFareInfoVC{
         fareInfoCell.layoutSubviews()
         fareInfoCell.layoutIfNeeded()
         let height = (fareInfoCell.combineFareTableView.contentSize.height)
-        fareInfoCell.tableViewHeight.constant = (height < 30) ? 30 : height
+        fareInfoCell.tableViewHeight.constant = (height < 150) ? 150 : height
         fareInfoCell.layoutSubviews()
         fareInfoCell.layoutIfNeeded()
         fareInfoCell.combineFareTableView.reloadData()
