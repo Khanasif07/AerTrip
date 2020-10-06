@@ -533,12 +533,16 @@ class IntFareBreakupVC: UIViewController {
 
         var cellHeight = 0
         var totalAddonsCellHeight = 0
-
+        var extraSpace = 17
         if self.baseFareTableview.numberOfRows(inSection: 2) == 2{
             cellHeight = 24
+            extraSpace = -5
         }else{
             let cellsCount = self.baseFareTableview.numberOfRows(inSection: 2)
             cellHeight = (cellsCount-2) * 24
+            if ((cellsCount-2) < 2){
+                extraSpace = -5
+            }
         }
         
         if self.addonsData.count != 0{
@@ -548,13 +552,14 @@ class IntFareBreakupVC: UIViewController {
                 let cellsCount = self.baseFareTableview.numberOfRows(inSection: 3)
                 totalAddonsCellHeight = (cellsCount-2) * 24
             }
+            extraSpace = 17
         }
 
         var totalHeight = 0
         let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
         
         if !isTaxesSectionHidden{
-            totalHeight = sectionHeight + cellHeight + Int(bottomInset) + 17
+            totalHeight = sectionHeight + cellHeight + Int(bottomInset) + extraSpace
         }else{
             totalHeight = sectionHeight + Int(bottomInset)
         }

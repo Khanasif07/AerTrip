@@ -183,6 +183,11 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
         logoOne.isHidden = false
         logoTwo.isHidden = false
         logoThree.isHidden = false
+        
+        logoOne.image = nil
+        logoTwo.image = nil
+        logoTwo.image = nil
+
         self.immediateAirportWidth.constant = 100
         self.intermediateAirports.isHidden = false
         

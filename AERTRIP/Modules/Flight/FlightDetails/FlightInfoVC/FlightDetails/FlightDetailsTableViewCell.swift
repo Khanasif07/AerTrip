@@ -61,7 +61,6 @@ class FlightDetailsTableViewCell: UITableViewCell
     @IBOutlet weak var displayViewBottom: NSLayoutConstraint!
     
     //MARK:- Variable Declaration
-
     var amenitiesData = [String]()
     weak var amenitiesDelegate:getSelectedAmenitiesDelegate?
     
@@ -73,7 +72,6 @@ class FlightDetailsTableViewCell: UITableViewCell
     var onTimePerformanceInPercent = 0
     var delayedPerformanceInPercent = 0
     var cancelledPerformanceInPercent = 0
-
     
     //MARK:- Init Methods
 
@@ -107,7 +105,6 @@ class FlightDetailsTableViewCell: UITableViewCell
         departureDateLabel.layer.cornerRadius = 3
         departureAirportLabel.layer.cornerRadius = 3
         departureTerminalLabel.layer.cornerRadius = 3
-        
     }
     
     override func prepareForReuse() {
@@ -122,8 +119,8 @@ class FlightDetailsTableViewCell: UITableViewCell
         // Configure the view for the selected state
     }
     
-    func setAirlineImage(with url: String){
-        
+    func setAirlineImage(with url: String)
+    {
         if let urlobj = URL(string: url){
             let urlRequest = URLRequest(url: urlobj)
             if let responseObj = URLCache.shared.cachedResponse(for: urlRequest) {
@@ -135,7 +132,6 @@ class FlightDetailsTableViewCell: UITableViewCell
         }else{
             self.airlineImageView.setImageWithUrl(url, placeholder: UIImage(), showIndicator: true)
         }
-
     }
 }
 
@@ -151,7 +147,6 @@ extension FlightDetailsTableViewCell:UICollectionViewDelegate, UICollectionViewD
     {
         let amenitiesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "FlightAmenitiesCell", for: indexPath) as! FlightAmenitiesCollectionViewCell
         
-//        if amenitiesData[indexPath.row]
         amenitiesCell.amenitiTitleLabel.textColor = AppColors.themeGray60
         amenitiesCell.amenitiTitleLabel.text = amenitiesData[indexPath.row]
         if amenitiesData[indexPath.row].contains(find: "Cabbin"){

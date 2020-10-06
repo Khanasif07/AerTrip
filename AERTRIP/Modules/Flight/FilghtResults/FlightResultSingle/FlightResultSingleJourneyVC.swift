@@ -15,6 +15,8 @@ import MessageUI
 }
 
 class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDelegate , GroupedFlightCellDelegate, getSharableUrlDelegate {
+   
+    
     
     //MARK:- Outlets
     var bannerView : ResultHeaderView?
@@ -259,7 +261,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     @IBAction func emailPinnedFlights(_ sender: Any)
     {
-        emailPinnedFlights.setImage(nil, for: .normal)
+        emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
         emailPinnedFlights.displayLoadingIndicator(true)
         let flightAdultCount = viewModel.bookFlightObject.flightAdultCount
         let flightChildrenCount = viewModel.bookFlightObject.flightChildrenCount
@@ -341,7 +343,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool,isPinnedButtonClicked:Bool) {
         if isPinnedButtonClicked == true{
-            setPinnedFlightAt(fk, isPinned: isPinned)
+            setPinnedFlightAt(fk, isPinned: isPinned, indexpath: nil)
         }
         
         if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "SingleJourneyResultTableViewCell") as? SingleJourneyResultTableViewCell{

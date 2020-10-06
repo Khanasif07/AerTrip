@@ -277,14 +277,14 @@ class HotelResultVC: BaseVC {
         super.viewDidAppear(animated)
         self.isViewDidAppear = true
         self.statusBarColor = AppColors.clear
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)        
         // addCustomBackgroundBlurView()
         self.statusBarColor = AppColors.clear
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -454,7 +454,7 @@ class HotelResultVC: BaseVC {
 //                strongSelf.emailButton.isLoading = false
 //                if status {
                     // url fetched
-                    AppFlowManager.default.presentMailComposerVC(self.viewModel.favouriteHotels, self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), self.viewModel.shortUrl)
+            AppFlowManager.default.presentMailComposerVC(self.viewModel.favouriteHotels, self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), self.viewModel.shortUrl, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: statusBarStyle)
                     AppFlowManager.default.removeLoginConfirmationScreenFromStack()
 //                }
 //            }

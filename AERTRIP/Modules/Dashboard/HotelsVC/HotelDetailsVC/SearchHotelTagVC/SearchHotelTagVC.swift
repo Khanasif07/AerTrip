@@ -20,6 +20,9 @@ class SearchHotelTagVC: BaseVC {
     internal weak var delegate: AddTagButtonDelegate?
     internal var initialTouchPoint: CGPoint = CGPoint(x: 0.0, y: 0.0)
     
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent
+    var dismissingStatusBarStyle: UIStatusBarStyle = .darkContent
+    
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var tagTableView: UITableView! {
@@ -56,6 +59,17 @@ class SearchHotelTagVC: BaseVC {
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().isEnableAutoToolbar = true
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.statusBarStyle = presentingStatusBarStyle
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.statusBarStyle = dismissingStatusBarStyle
+    }
+    
     override func setupTexts() {
         self.cancelBtnOutlet.setTitle(LocalizedString.Cancel.localized, for: .normal)
     }

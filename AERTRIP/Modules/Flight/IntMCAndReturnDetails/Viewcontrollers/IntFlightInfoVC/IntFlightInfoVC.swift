@@ -280,6 +280,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                             cell.amenitiesDelegate = self
                             cell.amenitiesData = amenitiesData
                             cell.amenitiesDisplayView.isHidden = false
+                            cell.amenitiesCollectionView.reloadData()
                             cell.amenitiesDisplayViewHeight.constant = 100
                             cell.amenitiesCollectionView.reloadData()
                         }else{
@@ -863,6 +864,9 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                         "BaggageDataResponse":self.baggageData] as [String : Any]
                     self.appdelegate.flightBaggageMutableArray.add(newArr)
                     self.flightInfoTableView.reloadData()
+                    delay(seconds: 0.3) {
+                        self.flightInfoTableView.reloadData()
+                    }
                 }
             }catch{
             }

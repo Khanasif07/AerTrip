@@ -223,10 +223,12 @@ class AppFlowManager: NSObject {
 extension AppFlowManager {
     func moveToLogoutNavigation() {}
     
-    func showURLOnATWebView(_ url: URL, screenTitle: String) {
+    func showURLOnATWebView(_ url: URL, screenTitle: String, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let obj = ATWebViewVC.instantiate(fromAppStoryboard: .Common)
         obj.urlToLoad = url
         obj.navTitle = screenTitle
+        obj.presentingStatusBarStyle = presentingStatusBarStyle
+        obj.dismissalStatusBarStyle = dismissalStatusBarStyle
         //        self.mainNavigationController.present(obj, animated: true, completion: nil)
         UIApplication.topViewController()?.present(obj, animated: true, completion: nil)
     }
@@ -581,12 +583,15 @@ extension AppFlowManager {
         }
     }
     
-    func presentSearchHotelTagVC(tagButtons: [String], superView: HotelDetailsSearchTagTableCell) {
+    func presentSearchHotelTagVC(tagButtons: [String], superView: HotelDetailsSearchTagTableCell, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissingStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let ob = SearchHotelTagVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.delegate = superView
         ob.tagButtons = tagButtons
-        ob.modalPresentationStyle = .overFullScreen
-        ob.modalPresentationCapturesStatusBarAppearance = true
+        ob.presentingStatusBarStyle = presentingStatusBarStyle
+        ob.dismissingStatusBarStyle = dismissingStatusBarStyle
+//        ob.modalPresentationStyle = .overFullScreen
+//        ob.modalPresentationCapturesStatusBarAppearance = true
+        ob.modalPresentationStyle = .popover
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
@@ -612,9 +617,11 @@ extension AppFlowManager {
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
-    func presentHotelDetailsTripAdvisorVC(hotelId: String) {
+    func presentHotelDetailsTripAdvisorVC(hotelId: String, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let ob = HotelDetailsReviewsVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.hotelId = hotelId
+        ob.presentingStatusBarStyle = presentingStatusBarStyle
+        ob.dismissalStatusBarStyle = dismissalStatusBarStyle
         //        ob.modalPresentationStyle = .overFullScreen
         //        ob.modalPresentationCapturesStatusBarAppearance = true
         //        ob.statusBarColor = AppColors.themeWhite
@@ -699,7 +706,7 @@ extension AppFlowManager {
         self.currentNavigation?.present(obj, animated: true)
     }
     
-    func presentHCEmailItinerariesVC(forBookingId bId: String, travellers: [TravellersList]) {
+    func presentHCEmailItinerariesVC(forBookingId bId: String, travellers: [TravellersList], presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let obj = HCEmailItinerariesVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.bookingId = bId
         obj.viewModel.travellers = travellers
@@ -719,16 +726,18 @@ extension AppFlowManager {
     
     // Mail Composer
     
-    func presentMailComposerVC(_ favouriteHotels: [HotelSearched], _ hotelSearchRequest: HotelSearchRequestModel, _ pinnedTemplateUrl: String) {
+    func presentMailComposerVC(_ favouriteHotels: [HotelSearched], _ hotelSearchRequest: HotelSearchRequestModel, _ pinnedTemplateUrl: String, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let obj = MailComposerVC.instantiate(fromAppStoryboard: .HotelResults)
         obj.viewModel.favouriteHotels = favouriteHotels
         obj.viewModel.shortUrl = pinnedTemplateUrl
         obj.viewModel.hotelSearchRequest = hotelSearchRequest
+        obj.presentingStatusBarStyle = presentingStatusBarStyle
+        obj.dismissalStatusBarStyle = dismissalStatusBarStyle
         //obj.modalPresentationStyle = .overFullScreen
         self.currentNavigation?.present(obj, animated: true)
     }
     
-    func presentSelectTripVC(delegate: SelectTripVCDelegate, usingFor: TripUsingFor = .hotel,allTrips: [TripModel] = [],tripInfo: TripInfo = TripInfo()) {
+    func presentSelectTripVC(delegate: SelectTripVCDelegate, usingFor: TripUsingFor = .hotel,allTrips: [TripModel] = [],tripInfo: TripInfo = TripInfo(), dismissalStatusBarStyle: UIStatusBarStyle = .lightContent) {
         /* Don't call this method directly if you want to get the default trip or select the trip if there is no default trip.
          In that case use `AppFlowManager.default.selectTrip()` method.
          */
@@ -738,6 +747,7 @@ extension AppFlowManager {
         obj.viewModel.tripInfo = tripInfo
         obj.delegate = delegate
         obj.modalPresentationStyle = .overFullScreen
+        obj.dismissalStatusBarStyle = dismissalStatusBarStyle
         self.currentNavigation?.present(obj, animated: true)
     }
     
@@ -1045,7 +1055,7 @@ extension AppFlowManager {
     }
     
     // Complete Hotel Booking Details VC
-    func moveToBookingHotelDetailVC(bookingDetail: BookingDetailModel?,hotelTitle: String,bookingId: String = "", hotelName: String = "", taRating: Double = 0, hotelStarRating: Double = 0) {
+    func moveToBookingHotelDetailVC(bookingDetail: BookingDetailModel?,hotelTitle: String,bookingId: String = "", hotelName: String = "", taRating: Double = 0, hotelStarRating: Double = 0, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let ob = BookingHotelDetailVC.instantiate(fromAppStoryboard: .Bookings)
         ob.viewModel.bookingDetail = bookingDetail
         ob.viewModel.hotelTitle = hotelTitle
@@ -1267,7 +1277,7 @@ extension AppFlowManager {
 // MARK: - Select Trip Flow Methods
 
 extension AppFlowManager {
-    func selectTrip(_ tripDetails: TripDetails?, tripType: TripUsingFor, cancelDelegate:TripCancelDelegate? = nil ,complition: @escaping ((TripModel, TripDetails?) -> Void)) {
+    func selectTrip(_ tripDetails: TripDetails?, tripType: TripUsingFor, cancelDelegate:TripCancelDelegate? = nil, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .lightContent ,complition: @escaping ((TripModel, TripDetails?) -> Void)) {
         func openSelectTripScreen(trips: [TripModel]) {
             let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
             obj.selectionComplition = complition
@@ -1280,6 +1290,9 @@ extension AppFlowManager {
             obj.modalPresentationCapturesStatusBarAppearance = true
             obj.statusBarColor = AppColors.themeWhite
             }
+            obj.presentingStatusBarStyle = presentingStatusBarStyle
+            obj.dismissalStatusBarStyle = dismissalStatusBarStyle
+
             if self.currentNavigation != nil{
                 self.currentNavigation?.present(obj, animated: true)
             }else{

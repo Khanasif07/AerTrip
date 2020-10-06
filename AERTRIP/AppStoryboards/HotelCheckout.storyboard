@@ -1058,12 +1058,21 @@
                                             <constraint firstAttribute="height" constant="0.5" id="vUS-Qy-EAw"/>
                                         </constraints>
                                     </view>
+                                    <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="paY-TA-lCR">
+                                        <rect key="frame" x="0.0" y="0.5" width="375" height="3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="2" id="wt7-Yr-f2p"/>
+                                        </constraints>
+                                    </progressView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="paY-TA-lCR" firstAttribute="top" secondItem="ipo-DC-tu6" secondAttribute="bottom" id="0lF-Ff-gam"/>
                                     <constraint firstAttribute="bottom" secondItem="Ido-g2-4IG" secondAttribute="bottom" id="6pC-C7-P55"/>
                                     <constraint firstAttribute="trailing" secondItem="Ido-g2-4IG" secondAttribute="trailing" id="8b8-dP-tLs"/>
                                     <constraint firstAttribute="trailing" secondItem="ipo-DC-tu6" secondAttribute="trailing" id="EBX-i7-pJ1"/>
+                                    <constraint firstAttribute="trailing" secondItem="paY-TA-lCR" secondAttribute="trailing" id="H0C-Qa-RxB"/>
+                                    <constraint firstItem="paY-TA-lCR" firstAttribute="leading" secondItem="Gdv-T8-57J" secondAttribute="leading" id="Rkr-JY-b3k"/>
                                     <constraint firstItem="dJx-iN-IW4" firstAttribute="leading" secondItem="Gdv-T8-57J" secondAttribute="leading" id="UTJ-aL-PH4"/>
                                     <constraint firstItem="Ido-g2-4IG" firstAttribute="leading" secondItem="Gdv-T8-57J" secondAttribute="leading" id="cdA-h3-leR"/>
                                     <constraint firstItem="ipo-DC-tu6" firstAttribute="leading" secondItem="Gdv-T8-57J" secondAttribute="leading" id="fWo-ex-qCw"/>
@@ -1083,6 +1092,7 @@
                         <viewLayoutGuide key="safeArea" id="SH6-Rl-CrG"/>
                     </view>
                     <connections>
+                        <outlet property="apiProgressBar" destination="paY-TA-lCR" id="ahe-9E-9pu"/>
                         <outlet property="containerBottomConstraint" destination="bMg-CA-FuT" id="u0u-Tf-xdl"/>
                         <outlet property="tableView" destination="dJx-iN-IW4" id="Xfr-Yb-7ZH"/>
                     </connections>

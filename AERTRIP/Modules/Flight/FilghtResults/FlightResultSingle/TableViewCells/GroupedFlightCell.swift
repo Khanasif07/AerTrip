@@ -18,11 +18,12 @@ struct TimeFK {
 
 @available(iOS 13.0, *) protocol  GroupedFlightCellDelegate : AnyObject {
     func addToTrip(journey : Journey)
-    func setPinnedFlightAt(_ flightKey: String , isPinned : Bool)
+    func setPinnedFlightAt(_ flightKey: String , isPinned : Bool, indexpath : IndexPath?)
     func shareFlightAt(_ indexPath : IndexPath)
     func navigateToFlightDetailFor(journey : Journey, selectedIndex: IndexPath)
     func shareJourney(journey : [Journey])
     func navigateToFlightDetailFor(journey : Journey)
+    
 }
 
 @available(iOS 13.0, *) class GroupedFlightCell: UITableViewCell {
@@ -98,14 +99,21 @@ struct TimeFK {
         UIView.animate(withDuration: 0.4) {
             
             if sender.transform ==  .identity {
+            
                 sender.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 0.999)
-            }
-            else {
+          
+            } else {
+                
                 sender.transform = CGAffineTransform.identity;
+            
             }
+            
         }
+        
         buttonTapped()
+        
     }
+    
     
     @IBAction func collapseTableButtonTapped(_ sender: UIButton) {
         flightGroup.isCollapsed = !flightGroup.isCollapsed
@@ -157,92 +165,6 @@ struct TimeFK {
         summaryLabel.text = String(journey.count) + " flights at same price"
     }
     
-    
-//    func setCurrentSelectedIndex(sortOrder : Sort, isConditionReverced : Bool)  {
-//
-//        switch sortOrder {
-//        case .Smart, .Price :
-//
-//            if let ind = flightGroup.journeyArray.firstIndex(where: { (jrny) -> Bool in
-//                jrny.fk == flightGroup.getJourneyWithLeastHumanScore().fk
-//            }){
-//                flightGroup.selectedFK = flightGroup.journeyArray[ind].fk
-//                currentSelectedIndex = ind
-//            }
-//
-//        case .Duration:
-//
-//            if isConditionReverced {
-//
-//                guard let jour = flightGroup.getJourneysWithMaxDuration() else { return }
-//                flightGroup.selectedFK = jour.fk
-//
-//                if let ind = flightGroup.journeyArray.firstIndex(where: { (jrny) -> Bool in
-//                    jrny.fk == jour.fk
-//                }){
-//                    flightGroup.selectedFK = flightGroup.journeyArray[ind].fk
-//                    currentSelectedIndex = ind
-//                }
-//
-//            } else {
-//
-//                guard let jour = flightGroup.getJourneysWithMinDuration() else { return }
-//                flightGroup.selectedFK = jour.fk
-//
-//                if let ind = flightGroup.journeyArray.firstIndex(where: { (jrny) -> Bool in
-//                    jrny.fk == jour.fk
-//                }){
-//                    flightGroup.selectedFK = flightGroup.journeyArray[ind].fk
-//                    currentSelectedIndex = ind
-//                }
-//
-//            }
-//
-//        case .Depart:
-//
-//            if isConditionReverced {
-//                flightGroup.selectedFK = flightGroup.journeyArray.last?.fk ?? ""
-//                currentSelectedIndex = flightGroup.journeyArray.count - 1
-//            }else{
-//                flightGroup.selectedFK = flightGroup.journeyArray.first?.fk ?? ""
-//                currentSelectedIndex = 0
-//            }
-//
-//        case .Arrival:
-//
-//            if isConditionReverced {
-//
-//                guard let jour = flightGroup.getJourneysWithMaxArivalTime() else { return }
-//                flightGroup.selectedFK = jour.fk
-//
-//                if let ind = flightGroup.journeyArray.firstIndex(where: { (jrny) -> Bool in
-//                    jrny.fk == jour.fk
-//                }){
-//                    flightGroup.selectedFK = flightGroup.journeyArray[ind].fk
-//                    currentSelectedIndex = ind
-//                }
-//
-//            } else{
-//
-//                guard let jour = flightGroup.getJourneysWithMaxArivalTime() else { return }
-//                flightGroup.selectedFK = jour.fk
-//
-//                if let ind = flightGroup.journeyArray.firstIndex(where: { (jrny) -> Bool in
-//                    jrny.fk == jour.fk
-//                }){
-//                    flightGroup.selectedFK = flightGroup.journeyArray[ind].fk
-//                    currentSelectedIndex = ind
-//                }
-//            }
-//
-//        default:
-//            break
-//        }
-//
-//
-//    }
-    
-    
     func setImageto( imageView : UIImageView , url : String , index : Int ) {
         if let image = collaspableTableView.resourceFor(urlPath: url , forView: index) {
             
@@ -264,7 +186,7 @@ struct TimeFK {
             self.selectionView.alpha = 0
         }else{
             self.timeSegmentBGViewHeight.constant = 30
-            self.tableViewHeight.constant = 147
+            self.tableViewHeight.constant = 139
             tableViewTop.constant = 90.0
             downArrowButtonHeight.constant = 0
             bottomWhitePatchVIewHeight.constant = 0
@@ -278,15 +200,16 @@ struct TimeFK {
         
         var selectedJourney  : Journey?
 
-        if self.flightGroup.isCollapsed {
-            let flightGroup = self.flightGroup
-            let departureTime = flightGroup.selectedFK
-            if let journey = flightGroup.getJourneyWith(fk: departureTime) {
-                selectedJourney = journey
-            }
-        } else {
+//        if self.flightGroup.isCollapsed {
+//            let flightGroup = self.flightGroup
+//            let departureTime = flightGroup.selectedFK
+//            if let journey = flightGroup.getJourneyWith(fk: departureTime) {
+//                selectedJourney = journey
+//            }
+//        } else {
+        
             selectedJourney = flightGroup.journeyArray[indexPath.row]
-        }
+       // }
         return selectedJourney
     }
     
@@ -296,7 +219,7 @@ struct TimeFK {
 //            print("Selected Cell not found")
 //            return }
         
-        let selectedIndex = IndexPath(item: flightGroup.currentSelectedIndex ?? 0, section: 0)
+        let selectedIndex = IndexPath(item: flightGroup.currentSelectedIndex, section: 0)
     
         guard  let attributes = timeCollectionView.layoutAttributesForItem(at: selectedIndex) else {
             print("Attributed not found")
@@ -336,10 +259,9 @@ extension GroupedFlightCell : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let journey = getJourneyObj(indexPath: indexPath) {
+                let journey = flightGroup.journeyArray[indexPath.row]
                 return getSingleJourneyCell(indexPath: indexPath, journey: journey)
-        }
-        return UITableViewCell()
+        
     }
     
     func getSingleJourneyCell (indexPath : IndexPath , journey : Journey?  ) -> UITableViewCell {
@@ -432,7 +354,7 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
                               cell.baseView.addInteraction(interaction)
                           }
                       }
-            if let journey = getJourneyObj(indexPath: indexPath) {
+             let journey = flightGroup.journeyArray[indexPath.item]
                 cell.setTitlesFrom(journey: journey)
                 
                 if let logoArray = journey.airlineLogoArray {
@@ -468,7 +390,7 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
                     }
                     
                 }
-            }
+            
             return cell
         }
     }
@@ -524,7 +446,8 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
                 if scrollView != self.resultsCollectionView { return }
-                guard let indexPath =  self.resultsCollectionView.indexPathForItem(at: scrollView.contentOffset) else { return }
+        
+                guard let indexPath =  self.resultsCollectionView.indexPathForItem(at: self.resultsCollectionView.contentOffset) else { return }
                 print(indexPath.item)
         flightGroup.currentSelectedIndex = indexPath.item
                  flightGroup.selectedFK = timeArray[indexPath.item].fk
@@ -580,7 +503,7 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
         }
         let pin = UIAction(title:  pinTitle , image: UIImage(systemName: "pin" ), identifier: nil) { [weak self] (action) in
             
-            self?.delegate?.setPinnedFlightAt(flightKey, isPinned: !markPinned)
+            self?.delegate?.setPinnedFlightAt(flightKey, isPinned: !markPinned, indexpath: nil)
             self?.collaspableTableView.reloadData()
             self?.timeCollectionView.reloadData()
         }
@@ -598,110 +521,4 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
     }
 }
 
-@available(iOS 13.0, *)
-extension GroupedFlightCell  {
 
-    //    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-    //
-    //            let configuration = UISwipeActionsConfiguration(actions: createSwipeActionForLeftOrientation(indexPath))
-    //            return configuration
-    //    }
-    //
-    //    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-    //
-    //        let configuration = UISwipeAc tionsConfiguration(actions: createSwipeActionsForRightOrientation(indexPath))
-    //        return configuration
-    //    }
-    
-    //MARK:-  Methods for TableviewCell Swipe Implementation
-
-//      fileprivate func createSwipeActionForLeftOrientation(_ indexPath: IndexPath) -> [UIContextualAction] {
-//
-//          guard let currentJourney = getJourneyObj(indexPath: indexPath) else {
-//              return [UIContextualAction]()
-//          }
-//
-//          let flightKey = currentJourney.fk
-//          let isPinned = currentJourney.isPinned ?? false
-//          let backgroundColor = UIColor.OffWhiteColor
-//
-//              if currentJourney.isPinned ?? false {
-//
-//                  let pinAction = UIContextualAction(style: .normal, title: nil , handler: { [weak self] (action, view , completionHandler)  in
-//
-//                      if let strongSelf = self {
-//
-//                          strongSelf.delegate?.setPinnedFlightAt(flightKey, isPinned: !isPinned)
-//                          strongSelf.collaspableTableView.reloadData()
-//                          strongSelf.timeCollectionView.reloadData()
-//                      }
-//
-//                     completionHandler(true)
-//                  })
-//                  pinAction.backgroundColor = backgroundColor
-//                  if let cgImageX =  UIImage(named: "Unpin")?.cgImage {
-//                      pinAction.image = ImageWithoutRender(cgImage: cgImageX, scale: UIScreen.main.nativeScale, orientation: .up)
-//                  }
-//
-//                  return [pinAction]
-//
-//              }
-//              else {
-//
-//                  let pinAction = UIContextualAction(style: .normal, title: nil , handler: { [weak self] (action, view , completionHandler)  in
-//
-//                      if let strongSelf = self {
-//
-//                          strongSelf.delegate?.setPinnedFlightAt(flightKey, isPinned: !isPinned)
-//                          strongSelf.collaspableTableView.reloadData()
-//                          strongSelf.timeCollectionView.reloadData()
-//
-//                      }
-//                      completionHandler(true)
-//                  })
-//
-//                  pinAction.backgroundColor = backgroundColor
-//                  if let cgImageX =  UIImage(named: "Pin")?.cgImage {
-//                      pinAction.image = ImageWithoutRender(cgImage: cgImageX, scale: UIScreen.main.nativeScale, orientation: .up)
-//                  }
-//
-//                  return [pinAction]
-//
-//              }
-//      }
-//
-//
-//
-//      fileprivate func createSwipeActionsForRightOrientation(_ indexPath: IndexPath) -> [UIContextualAction] {
-//
-//          let currentJourney = flightGroup.journeyArray[indexPath.row]
-//          let backgroundColor = UIColor.OffWhiteColor
-//
-//          let shareAction = UIContextualAction(style: .normal, title: nil , handler: { (action, view , completionHandler) in
-//              self.delegate?.shareJourney(journey: currentJourney)
-//              completionHandler(true)
-//          })
-//
-//          if let cgImageX =  UIImage(named: "Share")?.cgImage {
-//              shareAction.image = ImageWithoutRender(cgImage: cgImageX, scale: UIScreen.main.nativeScale, orientation: .up)
-//          }
-//
-//          shareAction.backgroundColor =  backgroundColor
-//
-//          let addToTripAction = UIContextualAction(style: .normal, title: nil, handler: { [weak self]  (action, view , completionHandler)  in
-//
-//              if let strongSelf = self {
-//                  strongSelf.delegate?.addToTrip(journey: currentJourney)
-//              }
-//              completionHandler(true)
-//          })
-//          addToTripAction.backgroundColor = backgroundColor
-//
-//          if let cgImageX =  UIImage(named: "AddToTrip")?.cgImage {
-//              addToTripAction.image = ImageWithoutRender(cgImage: cgImageX, scale: UIScreen.main.nativeScale, orientation: .up)
-//          }
-//
-//          return [addToTripAction, shareAction]
-//      }
-    
-}
