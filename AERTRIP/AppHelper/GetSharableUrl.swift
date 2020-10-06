@@ -365,6 +365,8 @@ class GetSharableUrl
             let appliedFilters = legs[i].appliedFilters
             let appliedSubFilters = legs[i].appliedSubFilters
             
+            let uiFilters = legs[i].UIFilters
+//            uiFilters.contains(.)
             print("appliedFilters=",appliedFilters)
             
             //     Times
@@ -657,11 +659,11 @@ class GetSharableUrl
                     {
                         var tripDuration = ""
                         if let tripMinTime = Int(userSelectedFilters[i].tt.minTime!){
-                            let minTime = tripMinTime/60
+                            let minTime = tripMinTime/3600
                             tripDuration.append("filters[\(i)][tt][0]=\(minTime)&")
                         }
                         if let tripMaxTime = Int(userSelectedFilters[i].tt.maxTime!){
-                            let maxTime = tripMaxTime/60
+                            let maxTime = tripMaxTime/3600
                             tripDuration.append("filters[\(i)][tt][1]=\(maxTime)")
                         }
                         filterString.append("\(tripDuration)&")
@@ -674,12 +676,12 @@ class GetSharableUrl
                     {
                         var layoverDuration = ""
                         if let layoverMinTime = Int(userSelectedFilters[i].lott.minTime!){
-                            let minTime = layoverMinTime/60
+                            let minTime = layoverMinTime/3600
                             layoverDuration.append("filters[\(i)][lott][0]=\(minTime)&")
                         }
                         
                         if let layoverMaxTime = Int(userSelectedFilters[i].lott.maxTime!){
-                            let maxTime = layoverMaxTime/60
+                            let maxTime = layoverMaxTime/3600
                             layoverDuration.append("filters[\(i)][lott][1]=\(maxTime)&")
                         }
                         
