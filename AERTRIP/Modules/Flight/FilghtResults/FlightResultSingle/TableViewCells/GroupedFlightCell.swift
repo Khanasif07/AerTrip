@@ -99,14 +99,21 @@ struct TimeFK {
         UIView.animate(withDuration: 0.4) {
             
             if sender.transform ==  .identity {
+            
                 sender.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 0.999)
-            }
-            else {
+          
+            } else {
+                
                 sender.transform = CGAffineTransform.identity;
+            
             }
+            
         }
+        
         buttonTapped()
+        
     }
+    
     
     @IBAction func collapseTableButtonTapped(_ sender: UIButton) {
         flightGroup.isCollapsed = !flightGroup.isCollapsed
