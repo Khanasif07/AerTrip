@@ -80,8 +80,6 @@ extension FlightResultSingleJourneyVC {
         showFooterView()
     }
     
-
-    
 }
 
 extension FlightResultSingleJourneyVC: ATSwitcherChangeValueDelegate {
@@ -240,13 +238,8 @@ extension FlightResultSingleJourneyVC {
         resultsTableView.setContentOffset(.zero, animated: true)
     }
     
- 
-    
     func shareJourney(journey : [Journey]) {
         
-        self.sharePinnedFilghts.setImage(nil, for: .normal)
-        sharePinnedFilghts.displayLoadingIndicator(true)
-
         let flightAdultCount = self.viewModel.bookFlightObject.flightAdultCount
         let flightChildrenCount = self.viewModel.bookFlightObject.flightChildrenCount
         let flightInfantCount = self.viewModel.bookFlightObject.flightInfantCount
@@ -261,21 +254,19 @@ extension FlightResultSingleJourneyVC {
 
 extension FlightResultSingleJourneyVC : MFMailComposeViewControllerDelegate {
     
-    func returnSharableUrl(url: String)
-    {
-        sharePinnedFilghts.displayLoadingIndicator(false)
-        self.sharePinnedFilghts.setImage(UIImage(named: "SharePinned"), for: .normal)
-
+    func returnSharableUrl(url: String) {
+        
         let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]
         let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view
-        
         self.present(activityViewController, animated: true, completion: nil)
+        
     }
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
     }
+    
 }
 
 
@@ -318,7 +309,7 @@ extension FlightResultSingleJourneyVC {
             }
         } , failureHandler : { (error ) in
             print(error)
-        })
+        } )
     }
     
     

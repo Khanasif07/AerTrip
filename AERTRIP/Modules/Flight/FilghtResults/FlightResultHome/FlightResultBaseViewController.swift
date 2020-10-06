@@ -90,7 +90,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     //MARK:- View Controller Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNagationBar()
+        setupNavigationBar()
         createFilterTitle()
         
         setupSegmentView()
@@ -695,7 +695,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         self.navigationController?.popViewController(animated: true)
     }
     
-    func setupNagationBar() {
+    func setupNavigationBar() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         addTitleToNavigationController()
         addSubTitleToNavigationController()
@@ -923,7 +923,13 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             }
             if updatedApiProgress < 0.97 {
                 self.separatorView.snp.updateConstraints { (make) in
-                    make.bottom.equalTo(self.visualEffectView.contentView).offset(-2.0)
+                    
+                    let flightType = self.flightSearchResultVM.flightSearchType
+                    if flightType == SINGLE_JOURNEY || isIntReturnOrMCJourney{
+                        make.bottom.equalTo(self.visualEffectView.contentView).offset(-2.0)
+                    } else {
+                        make.bottom.equalTo(self.visualEffectView.contentView).offset(0.0)
+                    }
                 }
             }
         }
@@ -1322,7 +1328,9 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
     
     
     func webserviceProgressUpdated(progress: Float) {
+       
         if progress > 0.25 {
+            
             DispatchQueue.main.async {
                 
                 self.updatedApiProgress = progress

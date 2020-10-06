@@ -264,7 +264,7 @@ struct TimeFK {
             self.selectionView.alpha = 0
         }else{
             self.timeSegmentBGViewHeight.constant = 30
-            self.tableViewHeight.constant = 147
+            self.tableViewHeight.constant = 139
             tableViewTop.constant = 90.0
             downArrowButtonHeight.constant = 0
             bottomWhitePatchVIewHeight.constant = 0
@@ -278,15 +278,16 @@ struct TimeFK {
         
         var selectedJourney  : Journey?
 
-        if self.flightGroup.isCollapsed {
-            let flightGroup = self.flightGroup
-            let departureTime = flightGroup.selectedFK
-            if let journey = flightGroup.getJourneyWith(fk: departureTime) {
-                selectedJourney = journey
-            }
-        } else {
+//        if self.flightGroup.isCollapsed {
+//            let flightGroup = self.flightGroup
+//            let departureTime = flightGroup.selectedFK
+//            if let journey = flightGroup.getJourneyWith(fk: departureTime) {
+//                selectedJourney = journey
+//            }
+//        } else {
+        
             selectedJourney = flightGroup.journeyArray[indexPath.row]
-        }
+       // }
         return selectedJourney
     }
     
@@ -296,7 +297,7 @@ struct TimeFK {
 //            print("Selected Cell not found")
 //            return }
         
-        let selectedIndex = IndexPath(item: flightGroup.currentSelectedIndex ?? 0, section: 0)
+        let selectedIndex = IndexPath(item: flightGroup.currentSelectedIndex, section: 0)
     
         guard  let attributes = timeCollectionView.layoutAttributesForItem(at: selectedIndex) else {
             print("Attributed not found")
@@ -524,7 +525,8 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
                 if scrollView != self.resultsCollectionView { return }
-                guard let indexPath =  self.resultsCollectionView.indexPathForItem(at: scrollView.contentOffset) else { return }
+        
+                guard let indexPath =  self.resultsCollectionView.indexPathForItem(at: self.resultsCollectionView.contentOffset) else { return }
                 print(indexPath.item)
         flightGroup.currentSelectedIndex = indexPath.item
                  flightGroup.selectedFK = timeArray[indexPath.item].fk
