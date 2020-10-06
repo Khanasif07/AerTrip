@@ -18,11 +18,12 @@ struct TimeFK {
 
 @available(iOS 13.0, *) protocol  GroupedFlightCellDelegate : AnyObject {
     func addToTrip(journey : Journey)
-    func setPinnedFlightAt(_ flightKey: String , isPinned : Bool)
+    func setPinnedFlightAt(_ flightKey: String , isPinned : Bool, indexpath : IndexPath?)
     func shareFlightAt(_ indexPath : IndexPath)
     func navigateToFlightDetailFor(journey : Journey, selectedIndex: IndexPath)
     func shareJourney(journey : [Journey])
     func navigateToFlightDetailFor(journey : Journey)
+    
 }
 
 @available(iOS 13.0, *) class GroupedFlightCell: UITableViewCell {
@@ -582,7 +583,7 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
         }
         let pin = UIAction(title:  pinTitle , image: UIImage(systemName: "pin" ), identifier: nil) { [weak self] (action) in
             
-            self?.delegate?.setPinnedFlightAt(flightKey, isPinned: !markPinned)
+            self?.delegate?.setPinnedFlightAt(flightKey, isPinned: !markPinned, indexpath: nil)
             self?.collaspableTableView.reloadData()
             self?.timeCollectionView.reloadData()
         }
