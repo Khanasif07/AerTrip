@@ -76,6 +76,14 @@ extension FlightDomesticMultiLegResultVC {
         }
     }
     
+    func changeAllTableScrolling(enable: Bool){
+        
+//        for views in self.baseScrollView.subviews{
+//            if views as? UITableView
+//        }
+        
+    }
+    
     func animateTopViewOnScroll(_ scrollView: UIScrollView) {
         
         let contentOffset = scrollView.contentOffset
