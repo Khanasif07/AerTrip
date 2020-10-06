@@ -52,6 +52,8 @@ class NotificationSettingsVC: BaseVC {
             self.topNavView.configureNavBar(title: LocalizedString.Notifications.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true)
             configureTableView()
             setUpViewAttributes()
+            self.notificationSettingsTableView.contentInset = UIEdgeInsets(top: topNavView.height , left: 0, bottom: 0, right: 0)
+
         }
         
         func setUpViewAttributes(){

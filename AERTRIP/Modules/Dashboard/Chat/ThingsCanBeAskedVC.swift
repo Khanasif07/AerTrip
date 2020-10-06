@@ -10,10 +10,11 @@ import UIKit
 import IQKeyboardManager
 
 class ThingsCanBeAskedVC : BaseVC {
-
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var thingsCanBeAskedTableView: UITableView!
+    @IBOutlet weak var headerViewContainer: UIView!
     
     
     let thingsCanBeAskedVm = ThingsCanBeAskedVM()
@@ -48,29 +49,26 @@ class ThingsCanBeAskedVC : BaseVC {
         self.dismiss(animated: true, completion: nil)
     }
     
-
 }
 
 extension ThingsCanBeAskedVC {
     
     
-   private func initialSetUp(){
+    private func initialSetUp(){
+        self.thingsCanBeAskedTableView.contentInset = UIEdgeInsets(top: headerViewContainer.height, left: 0, bottom: 0, right: 0)
         configureTableView()
     }
     
-      private func configureTableView(){
-          self.thingsCanBeAskedTableView.register(UINib(nibName: "ThingsCanBeAskedCell", bundle: nil), forCellReuseIdentifier: "ThingsCanBeAskedCell")
+    private func configureTableView(){
+        self.thingsCanBeAskedTableView.register(UINib(nibName: "ThingsCanBeAskedCell", bundle: nil), forCellReuseIdentifier: "ThingsCanBeAskedCell")
         
         self.thingsCanBeAskedTableView.register(UINib(nibName: "ThingsToAskHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "ThingsToAskHeader")
-
-        
-
         
         self.thingsCanBeAskedTableView.rowHeight = 100
         self.thingsCanBeAskedTableView.estimatedRowHeight = UITableView.automaticDimension
-          self.thingsCanBeAskedTableView.dataSource = self
-          self.thingsCanBeAskedTableView.delegate = self
-      }
+        self.thingsCanBeAskedTableView.dataSource = self
+        self.thingsCanBeAskedTableView.delegate = self
+    }
     
 }
 
@@ -97,16 +95,16 @@ extension ThingsCanBeAskedVC : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-                          
-             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ThingsToAskHeader") as? ThingsToAskHeader else {
-                 fatalError("ThingsToAskHeader not found")
-             }
-            headerView.populateData(section: section)
-             return headerView
-         }
-         
+        
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ThingsToAskHeader") as? ThingsToAskHeader else {
+            fatalError("ThingsToAskHeader not found")
+        }
+        headerView.populateData(section: section)
+        return headerView
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ThingsCanBeAskedCell", for: indexPath) as? ThingsCanBeAskedCell else { fatalError("ThingsCanBeAskedCell not found") }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ThingsCanBeAskedCell", for: indexPath) as? ThingsCanBeAskedCell else { fatalError("ThingsCanBeAskedCell not found") }
         cell.populateData(indexpath: indexPath, data: self.thingsCanBeAskedVm.dataSource[indexPath.section] ?? [])
         return cell
     }

@@ -13,7 +13,7 @@ class CountryVC : BaseVC {
     //@IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var countryTableView: UITableView!
-//    @IBOutlet weak var searchBarBackView: UIView!
+    @IBOutlet weak var searchBarContainer: UIView!
     @IBOutlet weak var searchBarSepratorView: ATDividerView!
     @IBOutlet weak var searchBar: ATSearchBar! {
         didSet {
@@ -43,6 +43,7 @@ class CountryVC : BaseVC {
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
+        self.countryTableView.contentInset = UIEdgeInsets(top: topNavView.height + self.searchBarContainer.height, left: 0, bottom: 0, right: 0)
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.Country.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false,isDivider : false)
         configureTableView()
