@@ -56,6 +56,17 @@ class SearchHotelTagVC: BaseVC {
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().isEnableAutoToolbar = true
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        self.statusBarStyle = .darkContent
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+    }
+    
     override func setupTexts() {
         self.cancelBtnOutlet.setTitle(LocalizedString.Cancel.localized, for: .normal)
     }

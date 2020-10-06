@@ -106,6 +106,7 @@ class HotelDetailsReviewsVC: BaseVC {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.statusBarColor = AppColors.clear
+        self.statusBarStyle = .lightContent
     }
     
     //Mark:- Functions
@@ -265,7 +266,7 @@ extension HotelDetailsReviewsVC: UITableViewDelegate , UITableViewDataSource {
             default:
                 return
             }
-            AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+            AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle, dismissalStatusBarStyle: .lightContent)
             //UIApplication.openSafariViewController(forUrlPath: urlString, delegate: nil, completion: nil)
         }
     }
@@ -362,7 +363,7 @@ extension HotelDetailsReviewsVC {
     @objc func tapCellReviewBtn(_ sender: UIButton){
         let urlString = "https:\(self.viewModel.hotelTripAdvisorDetails?.webUrl ?? "")"
         let screenTitle = LocalizedString.ReadReviews.localized
-        AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+        AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle, dismissalStatusBarStyle: .lightContent)
     }
     
 }

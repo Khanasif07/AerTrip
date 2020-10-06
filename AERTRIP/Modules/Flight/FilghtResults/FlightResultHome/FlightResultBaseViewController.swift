@@ -14,7 +14,7 @@ import UIKit
 //import HMSegmentedControl
 import SnapKit
 
-class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
+class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     
     var flightSearchResultVM  : FlightSearchResultVM!
     var flightSearchParameters : NSDictionary!
@@ -105,6 +105,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         super.viewWillAppear(animated)
         addCustomBackgroundBlurView()
         createFilters(curSelectedFilterIndex)
+        
     }
     
     func addSwipeLeftGuesture(){

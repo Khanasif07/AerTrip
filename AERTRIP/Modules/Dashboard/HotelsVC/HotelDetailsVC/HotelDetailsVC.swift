@@ -110,7 +110,7 @@ class HotelDetailsVC: BaseVC {
         self.statusBarColor = AppColors.clear
         if #available(iOS 13.0, *) {
             //            self.isModalInPresentation = true
-            self.statusBarStyle = .default
+            self.statusBarStyle = .darkContent
         }
     }
     

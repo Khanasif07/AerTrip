@@ -34,6 +34,23 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         return self.statusBarStyle
     }
     
+//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+//        super.traitCollectionDidChange(previousTraitCollection)
+//
+//        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+//            updateStatusBarColor()
+//        }
+//    }
+//    
+//    func updateStatusBarColor() {
+//        switch traitCollection.userInterfaceStyle {
+//        case .unspecified: statusBarStyle = .default
+//        case .light:       statusBarStyle = .darkContent
+//        case .dark:        statusBarStyle = .lightContent
+//        @unknown default:  statusBarStyle = .default
+//        }
+//    }
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         

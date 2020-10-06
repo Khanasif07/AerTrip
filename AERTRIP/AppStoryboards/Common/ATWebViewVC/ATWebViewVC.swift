@@ -36,7 +36,7 @@ class ATWebViewVC: BaseVC {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if #available(iOS 13.0, *) {
-            self.statusBarStyle = .default
+            self.statusBarStyle = dismissalStatusBarStyle
         }
     }
     
@@ -48,6 +48,7 @@ class ATWebViewVC: BaseVC {
     
     //MARK:- Private
     private var webView: WKWebView!
+    var dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
     
     //MARK:- ViewLifeCycle
     //MARK:-
