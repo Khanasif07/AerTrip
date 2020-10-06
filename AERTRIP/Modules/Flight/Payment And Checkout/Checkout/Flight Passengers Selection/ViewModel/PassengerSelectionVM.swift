@@ -143,7 +143,7 @@ class PassengerSelectionVM  {
         APICaller.shared.callGetCountriesListApi {[weak self] success, countries, errorCode in
             guard let _ = self else {return}
             if success {
-                GuestDetailsVM.shared.countries = countries
+               // GuestDetailsVM.shared.countries = countries
             } else {
                 debugPrint(errorCode)
             }

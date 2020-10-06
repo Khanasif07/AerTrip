@@ -47,12 +47,13 @@ public struct  FlightsResults : Codable {
         taxSort = ""
     }
     
-    
     func setAirlinesToJourney (_ journey : [Journey] ,  airlineMasterTable : [ String :AirlineMasterWS] ) -> [Journey] {
         
         let modifiedJourneyArray = journey.map({ (journey) -> Journey in
             let newJourney = journey
             let airlineArray = journey.al
+            
+            printDebug("airlineArray...\(airlineArray)")
             
             switch airlineArray.count {
             case 1 :

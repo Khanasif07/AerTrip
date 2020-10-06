@@ -124,6 +124,8 @@ private extension ForgotPasswordVC {
         //topNavBar.leftButton.isHidden = true
         
         self.continueButton.isEnabledShadow = true
+        textFieldValueChanged(emailTextField)
+        
     }
 }
 
@@ -141,7 +143,7 @@ extension ForgotPasswordVC {
         
         self.viewModel.email = textField.text ?? ""
         //self.continueButton.isEnabled = self.viewModel.isValidateForContinueButtonSelection
-        self.continueButton.isEnabledShadow = self.viewModel.isValidateForContinueButtonSelection
+        self.continueButton.isEnabledShadow = !self.viewModel.isValidateForContinueButtonSelection
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

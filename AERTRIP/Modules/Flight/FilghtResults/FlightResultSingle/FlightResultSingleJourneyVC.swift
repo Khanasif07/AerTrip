@@ -29,16 +29,16 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     //MARK:- Properties
     var noResultScreen : NoResultsScreenViewController?
-
-//    var sortedArray: [Journey]!
-
+    
+    //    var sortedArray: [Journey]!
+    
     var visualEffectViewHeight : CGFloat {
         return statusBarHeight + 88.0
     }
     var statusBarHeight : CGFloat {
         return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
     }
-  
+    
     var ApiProgress: UIProgressView!
     var previousRequest : DispatchWorkItem?
     let getSharableLink = GetSharableUrl()
@@ -159,8 +159,11 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             
             // If blurEffectView yCoodinate is close to top of the screen
             if  ( yCoordinate > ( visualEffectViewHeight / 2.0 ) ){
-                rect.origin.y = -visualEffectViewHeight
                 
+                let progressBarrStopPositionValue : CGFloat = UIDevice.isIPhoneX ? 46 : 22
+
+                rect.origin.y = -visualEffectViewHeight + progressBarrStopPositionValue
+
                 
                 if scrollView.contentOffset.y < 100 {
                     let zeroPoint = CGPoint(x: 0, y: 96.0)
@@ -330,6 +333,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             yCordinate = max (  -self.visualEffectViewHeight ,  -offsetDifference )
             yCordinate = min ( 0,  yCordinate)
             
+            let progressBarrStopPositionValue : CGFloat = UIDevice.isIPhoneX ? 46 : 22
             
             UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseOut], animations: {
                 
@@ -338,8 +342,9 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                     let yCordinateOfView = rect.origin.y
                     if ( yCordinateOfView  > yCordinate ) {
                         rect.origin.y = yCordinate
-                        blurEffectView.frame = rect
-                    }
+                        if (self.visualEffectViewHeight + yCordinate) > progressBarrStopPositionValue {
+                            blurEffectView.frame = rect
+                        }                    }
                 }
             } ,completion: nil)
         }
@@ -404,36 +409,36 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     func addToTripFlightAt(_ indexPath : IndexPath){
         
-//        if viewModel.sortOrder == .Smart{
-            var arrayForDisplay = viewModel.results.suggestedJourneyArray
-            
-            if viewModel.resultTableState == .showExpensiveFlights && indexPath.section == 1 {
-                arrayForDisplay = viewModel.results.allJourneys
-            }
-            
-            let journey = arrayForDisplay[indexPath.row]
-            
-            if journey.cellType == .singleJourneyCell {
-                addToTrip(journey: journey.first )
-            }
-            else {
-                addToTrip(journey: journey.first)
-            }
-            
-//        }
-//        else {
-//            let currentJourney =  self.sortedArray[indexPath.row]
-//            addToTrip(journey: currentJourney)
-//        }
+        //        if viewModel.sortOrder == .Smart{
+        var arrayForDisplay = viewModel.results.suggestedJourneyArray
+        
+        if viewModel.resultTableState == .showExpensiveFlights && indexPath.section == 1 {
+            arrayForDisplay = viewModel.results.allJourneys
+        }
+        
+        let journey = arrayForDisplay[indexPath.row]
+        
+        if journey.cellType == .singleJourneyCell {
+            addToTrip(journey: journey.first )
+        }
+        else {
+            addToTrip(journey: journey.first)
+        }
+        
+        //        }
+        //        else {
+        //            let currentJourney =  self.sortedArray[indexPath.row]
+        //            addToTrip(journey: currentJourney)
+        //        }
     }
     
-//    func addToTrip(journey : Journey) {
-//        let tripListVC = TripListVC(nibName: "TripListVC", bundle: nil)
-//        tripListVC.journey = [journey]
-//        tripListVC.modalPresentationStyle = .overCurrentContext
-//        self.present(tripListVC, animated: true, completion: nil)
-//    }
-//
+    //    func addToTrip(journey : Journey) {
+    //        let tripListVC = TripListVC(nibName: "TripListVC", bundle: nil)
+    //        tripListVC.journey = [journey]
+    //        tripListVC.modalPresentationStyle = .overCurrentContext
+    //        self.present(tripListVC, animated: true, completion: nil)
+    //    }
+    //
     
     func addToTrip(journey : Journey) {
         AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in

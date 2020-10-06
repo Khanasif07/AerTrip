@@ -1328,7 +1328,9 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
     
     
     func webserviceProgressUpdated(progress: Float) {
+       
         if progress > 0.25 {
+            
             DispatchQueue.main.async {
                 
                 self.updatedApiProgress = progress

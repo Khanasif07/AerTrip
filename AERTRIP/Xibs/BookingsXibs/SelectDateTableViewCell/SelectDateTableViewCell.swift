@@ -17,13 +17,14 @@ class SelectDateTableViewCell: UITableViewCell {
     //MARK:- Variables
     //MARK:===========
     weak var delegate: SelectDateTableViewCellDelegate?
-    private var datePicker = UIDatePicker()
-    var genericPickerView: UIView = UIView()
-    let pickerSize: CGSize = UIPickerView.pickerSize
+    //private var datePicker = UIDatePicker()
+    //var genericPickerView: UIView = UIView()
+    //let pickerSize: CGSize = UIPickerView.pickerSize
     var minimumDate:Date = Date(){
         didSet{
-            self.datePicker.minimumDate = minimumDate
-            self.datePicker.date = minimumDate
+//            self.datePicker.minimumDate = minimumDate
+//            self.datePicker.date = minimumDate
+            configureDatePickerView()
         }
     }
     
@@ -71,6 +72,7 @@ class SelectDateTableViewCell: UITableViewCell {
     }
     
     ///COnfigure date picker view
+    /*
     private func configureDatePickerView() {
         let toolbar = UIToolbar()
         toolbar.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - 44.0 + 216.0, width: UIScreen.main.bounds.width, height: 44.35)
@@ -105,18 +107,30 @@ class SelectDateTableViewCell: UITableViewCell {
         self.datePicker.addTarget(self, action: #selector(self.datePickerValueChanged), for: .valueChanged)
         self.selectDateTextField.text = LocalizedString.Select.localized//Date().toString(dateFormat: "dd MMM YYYY")
     }
+    */
+    func configureDatePickerView() {
+        let maximumDate = Date().add(years: 1, months: 0, days: -1, hours: 0, minutes: 0, seconds: 0)
+        PKDatePicker.openDatePickerIn(selectDateTextField, outPutFormate: "dd-MM-yyyy", mode: .date, minimumDate: minimumDate, maximumDate: maximumDate, selectedDate: minimumDate, appearance: .light, toolBarTint: AppColors.themeGreen) { [unowned self] (dateStr) in
+            //textField.text = dateStr
+            printDebug("dateStr: \(dateStr)")
+            self.datePickerValueChanged(dateStr)
+        }
+        selectDateTextField.tintColor = AppColors.clear
+    }
     
     
     //MARK:- IBActions
     //MARK:===========
     @objc func doneDatePicker(){
-        self.selectDateTextField.text = datePicker.date.toString(dateFormat: "dd MMM YYYY")
-        self.delegate?.didSelect(self, date: datePicker.date)
+        //self.selectDateTextField.text = datePicker.date.toString(dateFormat: "dd MMM YYYY")
+        //self.delegate?.didSelect(self, date: datePicker.date)
         self.endEditing(true)
     }
     
-    @objc func datePickerValueChanged (_ datePicker: UIDatePicker) {
-        self.selectDateTextField.text = datePicker.date.toString(dateFormat: "dd MMM YYYY")
+    @objc func datePickerValueChanged (_ date: String) {
+        guard let selectedDate = date.toDate(dateFormat: "dd-MM-yyyy") else {return}
+        self.selectDateTextField.text = selectedDate.toString(dateFormat: "dd MMM YYYY")
+        self.delegate?.didSelect(self, date: selectedDate)
 //        self.delegate?.didSelect(self, date: datePicker.date)
     }
 }
@@ -127,7 +141,7 @@ class SelectDateTableViewCell: UITableViewCell {
 extension SelectDateTableViewCell: UITextFieldDelegate {
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        self.selectDateTextField.inputView = self.datePicker
+        //self.selectDateTextField.inputView = self.datePicker
         return false
     }
     

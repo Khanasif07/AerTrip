@@ -46,7 +46,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.parchmentView?.view.frame = self.containerView.bounds
-        self.view.addGredient(isVertical: true, cornerRadius: 0, colors: [AppColors.themeGreen, AppColors.dashboardGradientColor])
+        self.view.addGredient(isVertical: true, cornerRadius: 0, colors: AppConstants.appthemeGradientColors.reversed()) // [AppColors.themeGreen, AppColors.dashboardGradientColor] To be Check Gradient Nitin
         self.parchmentView?.view.frame.size.height = self.containerView.height - innerControllerBottomConstraint
         self.parchmentView?.loadViewIfNeeded()
     }

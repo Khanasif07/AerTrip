@@ -16,7 +16,7 @@
 #import <CoreText/CoreText.h>
 #import "AertripToastView.h"
 
-@interface AertripCalendarViewController () <FSCalendarDelegate, FSCalendarDataSource>
+@interface AertripCalendarViewController () <FSCalendarDelegate, FSCalendarDataSource, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet FSCalendar *customCalenderView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *customCalenderViewWidth;
@@ -164,8 +164,8 @@
         self.customCalenderViewTrailing.constant = 0;
         self.customCalenderViewLeading.constant = 0;
     }else{
-        self.customCalenderViewLeading.constant = 2;
-        self.customCalenderViewTrailing.constant = 2;
+        self.customCalenderViewLeading.constant = 0;
+        self.customCalenderViewTrailing.constant = 0;
     }
 
     [self.view layoutIfNeeded];
@@ -741,8 +741,8 @@
         self.customCalenderViewTrailing.constant = 0;
         self.customCalenderViewLeading.constant = 0;
     }else{
-        self.customCalenderViewLeading.constant = 2;
-        self.customCalenderViewTrailing.constant = 2;
+        self.customCalenderViewLeading.constant = 0;
+        self.customCalenderViewTrailing.constant = 0;
     }
     
     [self.view layoutIfNeeded];
@@ -1290,4 +1290,8 @@
     [self SwitchTapOfSingleLegTypeJourney];
 }
 
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+    NSLog(@"scrollViewShouldScrollToTop");
+    return true;
+}
 @end

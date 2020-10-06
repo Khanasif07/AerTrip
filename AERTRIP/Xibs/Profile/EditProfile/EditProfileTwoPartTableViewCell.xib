@@ -28,6 +28,15 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pov-aj-Hsf">
                                 <rect key="frame" x="0.0" y="0.0" width="111" height="44"/>
                                 <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S7s-WI-Jco">
+                                        <rect key="frame" x="0.0" y="0.0" width="111" height="43.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WB0-JF-vzx">
+                                        <rect key="frame" x="0.0" y="0.0" width="111" height="44"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZRi-5t-3he">
                                         <rect key="frame" x="16" y="10" width="41.5" height="23"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
@@ -53,12 +62,20 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Qcu-Ki-tRm" secondAttribute="trailing" id="0Qg-dl-uUY"/>
                                     <constraint firstItem="ZRi-5t-3he" firstAttribute="leading" secondItem="pov-aj-Hsf" secondAttribute="leading" constant="16" id="52E-no-1ZM"/>
+                                    <constraint firstAttribute="trailing" secondItem="S7s-WI-Jco" secondAttribute="trailing" id="5Zx-i2-j11"/>
                                     <constraint firstAttribute="trailing" secondItem="hMe-bn-saE" secondAttribute="trailing" id="6qf-CB-aV3"/>
                                     <constraint firstItem="hMe-bn-saE" firstAttribute="leading" secondItem="pov-aj-Hsf" secondAttribute="leading" constant="16" id="9TU-uQ-BG3"/>
+                                    <constraint firstItem="hMe-bn-saE" firstAttribute="top" secondItem="S7s-WI-Jco" secondAttribute="bottom" id="Fwz-HR-vzK"/>
                                     <constraint firstAttribute="bottom" secondItem="ZRi-5t-3he" secondAttribute="bottom" constant="11" id="I3s-A5-VHt"/>
+                                    <constraint firstItem="WB0-JF-vzx" firstAttribute="top" secondItem="pov-aj-Hsf" secondAttribute="top" id="OvF-on-Orb"/>
                                     <constraint firstAttribute="bottom" secondItem="hMe-bn-saE" secondAttribute="bottom" id="VH5-Ad-rgm"/>
                                     <constraint firstItem="Qcu-Ki-tRm" firstAttribute="centerY" secondItem="ZRi-5t-3he" secondAttribute="centerY" id="ZcZ-9g-iAK"/>
                                     <constraint firstItem="ZRi-5t-3he" firstAttribute="top" secondItem="pov-aj-Hsf" secondAttribute="top" constant="10" id="aaX-Iv-cpi"/>
+                                    <constraint firstItem="WB0-JF-vzx" firstAttribute="leading" secondItem="pov-aj-Hsf" secondAttribute="leading" id="b1O-yt-UDx"/>
+                                    <constraint firstItem="S7s-WI-Jco" firstAttribute="leading" secondItem="pov-aj-Hsf" secondAttribute="leading" id="m8H-aa-ae0"/>
+                                    <constraint firstAttribute="bottom" secondItem="WB0-JF-vzx" secondAttribute="bottom" id="maj-7E-SGR"/>
+                                    <constraint firstItem="S7s-WI-Jco" firstAttribute="top" secondItem="pov-aj-Hsf" secondAttribute="top" id="muo-14-BHm"/>
+                                    <constraint firstAttribute="trailing" secondItem="WB0-JF-vzx" secondAttribute="trailing" id="w1J-7s-BxY"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iX4-eP-Jk1">
@@ -132,6 +149,7 @@
                 <outlet property="leftSeparatorView" destination="hMe-bn-saE" id="nDE-kV-7A9"/>
                 <outlet property="leftTitleLabel" destination="ZRi-5t-3he" id="11n-2o-XIH"/>
                 <outlet property="leftView" destination="pov-aj-Hsf" id="Ixb-Tr-by2"/>
+                <outlet property="leftViewTextField" destination="S7s-WI-Jco" id="4KZ-HQ-hFJ"/>
                 <outlet property="rightSeparatorView" destination="l1U-RB-rHW" id="K1e-Ya-cnc"/>
                 <outlet property="rightViewTextField" destination="ugU-hz-neE" id="QGs-3L-BEJ"/>
             </connections>

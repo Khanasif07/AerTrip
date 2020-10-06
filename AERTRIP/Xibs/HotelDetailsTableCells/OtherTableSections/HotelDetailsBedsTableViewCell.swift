@@ -17,7 +17,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     //Mark:- Variables
     //================
     private var typesOfBed = [String]()
-    private var bedPickerView = UIPickerView()
+    //private var bedPickerView = UIPickerView()
     private var selectedRow: Int?
     weak var delegate: HotelDetailsBedsTableViewCellDelegate? = nil
     var genericPickerView: UIView = UIView()
@@ -70,39 +70,39 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         self.bedsLabel.font = AppFonts.Regular.withSize(14.0)
         self.dropDownTextField.font = AppFonts.SemiBold.withSize(16.0)
         self.bedSelectionTitleImgSetUp()
-        self.configurePickerView()
+        self.configureViewForPicker()
     }
     
     ///Configure PickerView
-    private func configurePickerView() {
-        let bedPickerViewHeight: CGFloat = 217
-        let toolbar = UIToolbar()
-        toolbar.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - 44.0 + 216.0, width: UIScreen.main.bounds.width, height: 44.35)
-        let bottomView = UIView()
-        bottomView.frame = CGRect(x: 0.0, y: 44.00, width: UIScreen.main.bounds.width, height: 0.35)
-        bottomView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
-        toolbar.addSubview(bottomView)
-        toolbar.layer.borderColor = AppColors.themeBlack.withAlphaComponent(0.3).cgColor
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: LocalizedString.Done.localized, style: .plain, target: self, action: #selector(doneBedPicker))
-        let greenAttribute = [NSAttributedString.Key.font: AppFonts.SemiBold.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeGreen] as [NSAttributedString.Key : Any]
-        doneButton.setTitleTextAttributes(greenAttribute , for: .normal)
-        toolbar.setItems([spaceButton,doneButton], animated: true)
-        toolbar.backgroundColor = .clear
-        toolbar.barTintColor = AppColors.secondarySystemFillColor
-        self.bedPickerView.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - bedPickerViewHeight, width: UIScreen.main.bounds.width , height: bedPickerViewHeight)
-        self.bedPickerView.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
-        genericPickerView.addSubview(self.bedPickerView)
-        genericPickerView.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
-        self.genericPickerView.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
-        genericPickerView.backgroundColor = AppColors.quaternarySystemFillColor
-        
-        self.bedPickerView.delegate = self
-        self.bedPickerView.dataSource = self
-        self.bedPickerView.backgroundColor = AppColors.themeWhite
-        self.dropDownTextField.inputAccessoryView = toolbar
-        self.dropDownTextField.inputView = self.genericPickerView
-    }
+//    private func configurePickerView() {
+//        let bedPickerViewHeight: CGFloat = 217
+//        let toolbar = UIToolbar()
+//        toolbar.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - 44.0 + 216.0, width: UIScreen.main.bounds.width, height: 44.35)
+//        let bottomView = UIView()
+//        bottomView.frame = CGRect(x: 0.0, y: 44.00, width: UIScreen.main.bounds.width, height: 0.35)
+//        bottomView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+//        toolbar.addSubview(bottomView)
+//        toolbar.layer.borderColor = AppColors.themeBlack.withAlphaComponent(0.3).cgColor
+//        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+//        let doneButton = UIBarButtonItem(title: LocalizedString.Done.localized, style: .plain, target: self, action: #selector(doneBedPicker))
+//        let greenAttribute = [NSAttributedString.Key.font: AppFonts.SemiBold.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeGreen] as [NSAttributedString.Key : Any]
+//        doneButton.setTitleTextAttributes(greenAttribute , for: .normal)
+//        toolbar.setItems([spaceButton,doneButton], animated: true)
+//        toolbar.backgroundColor = .clear
+//        toolbar.barTintColor = AppColors.secondarySystemFillColor
+//        self.bedPickerView.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - bedPickerViewHeight, width: UIScreen.main.bounds.width , height: bedPickerViewHeight)
+//        self.bedPickerView.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
+//        genericPickerView.addSubview(self.bedPickerView)
+//        genericPickerView.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
+//        self.genericPickerView.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
+//        genericPickerView.backgroundColor = AppColors.quaternarySystemFillColor
+//
+//        self.bedPickerView.delegate = self
+//        self.bedPickerView.dataSource = self
+//        self.bedPickerView.backgroundColor = AppColors.themeWhite
+//        self.dropDownTextField.inputAccessoryView = toolbar
+//        self.dropDownTextField.inputView = self.genericPickerView
+//    }
     
     ///Configure BedSelection Title ImgSetUp
     private func bedSelectionTitleImgSetUp() {
@@ -179,6 +179,16 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         }
         self.endEditing(true)
     }
+    
+    private func configureViewForPicker() {
+        PKMultiPicker.noOfComponent = 1
+        PKMultiPicker.openMultiPickerIn(dropDownTextField, firstComponentArray: self.typesOfBed, secondComponentArray: [], firstComponent: dropDownTextField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self] (firstSelect, secondSelect) in
+            //textField.text = firstSelect
+            //self.selectedRow = row
+            self.dropDownTextField.text = firstSelect
+        }
+        dropDownTextField.tintColor = AppColors.clear
+    }
 }
 
 //Mark:- UIPickerView Delegate And DataSource
@@ -219,7 +229,7 @@ extension HotelDetailsBedsTableViewCell: UIPickerViewDelegate , UIPickerViewData
 extension HotelDetailsBedsTableViewCell: UITextFieldDelegate {
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        self.dropDownTextField.inputView = self.bedPickerView
+        //self.dropDownTextField.inputView = self.bedPickerView
         return false
     }
     

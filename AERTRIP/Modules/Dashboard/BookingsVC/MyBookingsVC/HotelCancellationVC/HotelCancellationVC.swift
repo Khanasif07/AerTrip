@@ -55,7 +55,7 @@ class HotelCancellationVC: BaseVC {
     }
     
     override func setupColors() {
-        self.cancellationButtonOutlet.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+        self.cancellationButtonOutlet.addGredient(isVertical: false, cornerRadius: 0.0, colors: AppConstants.appthemeGradientColors)
         self.cancellationButtonOutlet.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
         self.hotelCancellationTableView.backgroundColor = AppColors.themeGray04
         self.totalNetRefundTitleLabel.textColor = AppColors.themeBlack

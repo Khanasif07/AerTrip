@@ -119,6 +119,13 @@ enum AppConstants {
     
     static let airlineMasterBaseUrl = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/"
     
+    
+    // color for aap theme gradient color
+    static let appthemeGradientColors: [UIColor] = [AppColors.shadowBlue, AppColors.themeGreen] //AppColors.themeGreen
+    // color for aap disable gradient color
+    static let appthemeDisableGradientColors: [UIColor] = [AppColors.themeGray20, AppColors.themeGray20]
+
 }
+
 
 

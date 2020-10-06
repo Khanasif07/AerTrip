@@ -142,6 +142,7 @@ class IntFareBreakupVC: UIViewController {
     override func viewDidLayoutSubviews(){
         if fromScreen == "upgradePlanCollapse"
         {
+            /*
             if let subLayers = bookingDataDisplayView.layer.sublayers{
                 if subLayers.count > 0{
                     for layer in subLayers {
@@ -151,7 +152,8 @@ class IntFareBreakupVC: UIViewController {
                     }
                 }
             }
-            
+            */
+            bookingDataDisplayView.removeGredient()
             fromScreen = "upgradePlan"
 
         }else if fromScreen == "upgradePlan" {
@@ -159,19 +161,21 @@ class IntFareBreakupVC: UIViewController {
             
             if isFareBreakupExpanded == true{
                 self.fareDataDisplayView.backgroundColor = .white
-                let gradient = CAGradientLayer()
-                gradient.frame = bookingDataDisplayView.bounds
-                gradient.frame.size.height = bookingDataDisplayView.frame.height
-                
-                gradient.startPoint = CGPoint(x: 0, y: 1)
-                gradient.endPoint = CGPoint(x: 1, y: 1)
-                let colorOne = UIColor(displayP3Red: ( 0.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 153 / 255.0), alpha: 1.0)
-                let colorTwo = UIColor(displayP3Red: (41.0/255.0), green: ( 176.0 / 255.0) , blue: ( 182 / 255.0), alpha: 1.0)
-                gradient.colors = [colorTwo.cgColor, colorOne.cgColor]
-                gradient.name = "bookingGradient"
-                bookingDataDisplayView.layer.insertSublayer(gradient, at: 0)
+//                let gradient = CAGradientLayer()
+//                gradient.frame = bookingDataDisplayView.bounds
+//                gradient.frame.size.height = bookingDataDisplayView.frame.height
+//
+//                gradient.startPoint = CGPoint(x: 0, y: 1)
+//                gradient.endPoint = CGPoint(x: 1, y: 1)
+//                let colorOne = UIColor(displayP3Red: ( 0.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 153 / 255.0), alpha: 1.0)
+//                let colorTwo = UIColor(displayP3Red: (41.0/255.0), green: ( 176.0 / 255.0) , blue: ( 182 / 255.0), alpha: 1.0)
+//                gradient.colors = [colorTwo.cgColor, colorOne.cgColor]
+//                gradient.name = "bookingGradient"
+//                bookingDataDisplayView.layer.insertSublayer(gradient, at: 0)
+                bookingDataDisplayView.addGredient(isVertical: false)
             }else{
                 self.fareDataDisplayView.backgroundColor = .clear
+                /*
                 if let subLayers = bookingDataDisplayView.layer.sublayers{
                     if subLayers.count > 0{
                         for layer in subLayers {
@@ -181,6 +185,8 @@ class IntFareBreakupVC: UIViewController {
                         }
                     }
                 }
+                */
+                bookingDataDisplayView.removeGredient()
             }
         }else{
             bookingDataDisplayView.frame.size.width = self.view.frame.width
@@ -189,6 +195,7 @@ class IntFareBreakupVC: UIViewController {
                 
                 UIView.animate(withDuration: 0.2, delay: 0.1, options: [.curveEaseOut], animations: {[weak self] in
                     guard let self = self else {return}
+                    /*
                     let gradient = CAGradientLayer()
                     gradient.frame = self.fareDataDisplayView.bounds
                     let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
@@ -201,9 +208,12 @@ class IntFareBreakupVC: UIViewController {
                     gradient.colors = [colorTwo.cgColor, colorOne.cgColor]
                     gradient.name = "bookingGradient"
                     self.fareDataDisplayView.layer.insertSublayer(gradient, at: 0)
+ */
+                    self.fareDataDisplayView.addGredient(isVertical: false)
                 })
                 
             }else{
+                /*
                 if let subLayers = fareDataDisplayView.layer.sublayers{
                     if subLayers.count > 0{
                         for layer in subLayers {
@@ -213,8 +223,11 @@ class IntFareBreakupVC: UIViewController {
                         }
                     }
                 }
-                
+                */
+                fareDataDisplayView.removeGredient()
+
                 fareDataDisplayView.backgroundColor = .white
+                /*
                 let gradient = CAGradientLayer()
                 gradient.frame = bookingDataDisplayView.bounds
                 gradient.frame.size.height = bookingDataDisplayView.frame.height
@@ -226,6 +239,8 @@ class IntFareBreakupVC: UIViewController {
                 gradient.colors = [colorTwo.cgColor, colorOne.cgColor]
                 gradient.name = "fareGradient"
                 bookingDataDisplayView.layer.insertSublayer(gradient, at: 0)
+    */
+                self.bookingDataDisplayView.addGredient(isVertical: false)
             }
         }
     }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17147" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17120"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -32,7 +32,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="768"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y3O-Yu-V2p" customClass="FSCalendar">
-                                        <rect key="frame" x="2" y="93" width="371" height="625"/>
+                                        <rect key="frame" x="0.0" y="93" width="375" height="625"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="allowsMultipleSelection" value="YES"/>
@@ -167,7 +167,7 @@
                                                 <color key="backgroundColor" white="1" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <blurEffect style="light"/>
                                             </visualEffectView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s3f-d3-VEI">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s3f-d3-VEI">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="MiI-HS-3gt"/>
@@ -263,7 +263,7 @@
                                                             <constraint firstAttribute="bottom" secondItem="kIa-tS-Xqf" secondAttribute="bottom" id="pcn-Hh-z8Y"/>
                                                         </constraints>
                                                     </stackView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFL-3R-Mm6">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFL-3R-Mm6">
                                                         <rect key="frame" x="0.0" y="0.0" width="187.66666666666666" height="93"/>
                                                         <state key="normal">
                                                             <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -323,7 +323,7 @@
                                                             <constraint firstItem="qgO-HX-HpU" firstAttribute="top" secondItem="48r-6o-gR7" secondAttribute="top" id="jFi-gR-q3s"/>
                                                         </constraints>
                                                     </stackView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cm9-WO-Idc">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cm9-WO-Idc">
                                                         <rect key="frame" x="0.0" y="0.0" width="187.33333333333334" height="93"/>
                                                         <state key="normal">
                                                             <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -412,10 +412,10 @@
                                     <constraint firstItem="amJ-Pb-AiP" firstAttribute="centerX" secondItem="eqA-tP-Q3m" secondAttribute="centerX" id="2Tq-iE-Udn"/>
                                     <constraint firstItem="dYr-na-eko" firstAttribute="width" secondItem="eqA-tP-Q3m" secondAttribute="width" id="5jY-Yy-ckh"/>
                                     <constraint firstItem="dYr-na-eko" firstAttribute="centerX" secondItem="eqA-tP-Q3m" secondAttribute="centerX" id="7XO-5p-2lN"/>
-                                    <constraint firstItem="y3O-Yu-V2p" firstAttribute="width" secondItem="eqA-tP-Q3m" secondAttribute="width" constant="-4" id="9Uz-ku-4qQ"/>
+                                    <constraint firstItem="y3O-Yu-V2p" firstAttribute="width" secondItem="eqA-tP-Q3m" secondAttribute="width" id="9Uz-ku-4qQ"/>
                                     <constraint firstItem="LUz-wx-DOC" firstAttribute="centerX" secondItem="dYr-na-eko" secondAttribute="centerX" id="FXC-aP-ysX"/>
                                     <constraint firstItem="y3O-Yu-V2p" firstAttribute="top" secondItem="LUz-wx-DOC" secondAttribute="top" id="GiR-3F-Hpz"/>
-                                    <constraint firstItem="y3O-Yu-V2p" firstAttribute="leading" secondItem="eqA-tP-Q3m" secondAttribute="leading" constant="2" id="Grp-kg-TLx"/>
+                                    <constraint firstItem="y3O-Yu-V2p" firstAttribute="leading" secondItem="eqA-tP-Q3m" secondAttribute="leading" id="Grp-kg-TLx"/>
                                     <constraint firstItem="LUz-wx-DOC" firstAttribute="width" secondItem="dYr-na-eko" secondAttribute="width" id="It5-Ma-Okg"/>
                                     <constraint firstItem="DkQ-Na-Bb9" firstAttribute="trailing" secondItem="LUz-wx-DOC" secondAttribute="trailing" id="JX8-pZ-2Cf"/>
                                     <constraint firstItem="y3O-Yu-V2p" firstAttribute="centerX" secondItem="eqA-tP-Q3m" secondAttribute="centerX" id="LnA-gV-It5"/>
@@ -428,7 +428,7 @@
                                     <constraint firstItem="LUz-wx-DOC" firstAttribute="top" secondItem="eqA-tP-Q3m" secondAttribute="top" constant="93" id="jCb-Ap-Qzh"/>
                                     <constraint firstItem="if4-5O-9LW" firstAttribute="centerX" secondItem="eqA-tP-Q3m" secondAttribute="centerX" id="jGa-n2-X6Q"/>
                                     <constraint firstItem="if4-5O-9LW" firstAttribute="width" secondItem="eqA-tP-Q3m" secondAttribute="width" id="lNr-3k-tdp"/>
-                                    <constraint firstAttribute="trailing" secondItem="y3O-Yu-V2p" secondAttribute="trailing" constant="2" id="odh-If-XbQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="y3O-Yu-V2p" secondAttribute="trailing" id="odh-If-XbQ"/>
                                     <constraint firstItem="if4-5O-9LW" firstAttribute="top" secondItem="y3O-Yu-V2p" secondAttribute="bottom" id="p4J-az-tcd"/>
                                     <constraint firstItem="DkQ-Na-Bb9" firstAttribute="bottom" secondItem="LUz-wx-DOC" secondAttribute="bottom" id="tXS-dJ-fby"/>
                                 </constraints>
@@ -440,7 +440,6 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="ONL-TV-56Q"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="eqA-tP-Q3m" firstAttribute="centerX" secondItem="ONL-TV-56Q" secondAttribute="centerX" id="7lr-Gd-wMH"/>
@@ -452,6 +451,7 @@
                             <constraint firstItem="eqA-tP-Q3m" firstAttribute="width" secondItem="813-n6-y8n" secondAttribute="width" id="maB-oR-AG6"/>
                             <constraint firstAttribute="bottom" secondItem="eqA-tP-Q3m" secondAttribute="bottom" id="tcx-uO-Ytu"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="ONL-TV-56Q"/>
                     </view>
                     <connections>
                         <outlet property="TapStackView" destination="amJ-Pb-AiP" id="DZz-uG-kEQ"/>

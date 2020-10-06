@@ -264,7 +264,7 @@ struct TimeFK {
             self.selectionView.alpha = 0
         }else{
             self.timeSegmentBGViewHeight.constant = 30
-            self.tableViewHeight.constant = 147
+            self.tableViewHeight.constant = 139
             tableViewTop.constant = 90.0
             downArrowButtonHeight.constant = 0
             bottomWhitePatchVIewHeight.constant = 0
@@ -278,15 +278,16 @@ struct TimeFK {
         
         var selectedJourney  : Journey?
 
-        if self.flightGroup.isCollapsed {
-            let flightGroup = self.flightGroup
-            let departureTime = flightGroup.selectedFK
-            if let journey = flightGroup.getJourneyWith(fk: departureTime) {
-                selectedJourney = journey
-            }
-        } else {
+//        if self.flightGroup.isCollapsed {
+//            let flightGroup = self.flightGroup
+//            let departureTime = flightGroup.selectedFK
+//            if let journey = flightGroup.getJourneyWith(fk: departureTime) {
+//                selectedJourney = journey
+//            }
+//        } else {
+        
             selectedJourney = flightGroup.journeyArray[indexPath.row]
-        }
+       // }
         return selectedJourney
     }
     
@@ -296,7 +297,7 @@ struct TimeFK {
 //            print("Selected Cell not found")
 //            return }
         
-        let selectedIndex = IndexPath(item: flightGroup.currentSelectedIndex ?? 0, section: 0)
+        let selectedIndex = IndexPath(item: flightGroup.currentSelectedIndex, section: 0)
     
         guard  let attributes = timeCollectionView.layoutAttributesForItem(at: selectedIndex) else {
             print("Attributed not found")
@@ -362,22 +363,25 @@ extension GroupedFlightCell : UITableViewDataSource, UITableViewDelegate {
                      cell.logoOne.isHidden = false
                      cell.logoTwo.isHidden = true
                      cell.logoThree.isHidden = true
-                     setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
+                     cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
 
                  case 2 :
                      cell.logoOne.isHidden = false
                      cell.logoTwo.isHidden = false
                      cell.logoThree.isHidden = true
-                     setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
-                     setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
+                     cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
+                    cell.logoTwo.setImageWithUrl(logoArray[1], placeholder: UIImage(), showIndicator: false)
                      
                  case 3 :
                     cell.logoOne.isHidden = false
                     cell.logoTwo.isHidden = false
                     cell.logoThree.isHidden = false
-                     setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
-                     setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
-                     setImageto(imageView: cell.logoThree, url:logoArray[2] , index:  indexPath.row)
+
+                    cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
+                    cell.logoTwo.setImageWithUrl(logoArray[1], placeholder: UIImage(), showIndicator: false)
+                    cell.logoThree.setImageWithUrl(logoArray[2], placeholder: UIImage(), showIndicator: false)
+                 
+                 
                  default:
                      break
                  }
@@ -440,23 +444,27 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
                             cell.logoOne.isHidden = false
                             cell.logoTwo.isHidden = true
                             cell.logoThree.isHidden = true
-                            setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
-                  
+                            cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
+
                         case 2 :
                             cell.logoOne.isHidden = false
                             cell.logoTwo.isHidden = false
                             cell.logoThree.isHidden = true
-                            setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
-                            setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
-                        
+                            cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
+                            cell.logoTwo.setImageWithUrl(logoArray[1], placeholder: UIImage(), showIndicator: false)
                         case 3 :
                             cell.logoOne.isHidden = false
                             cell.logoTwo.isHidden = false
                             cell.logoThree.isHidden = false
-                            setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
-                            setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
-                            setImageto(imageView: cell.logoThree, url:logoArray[2] , index:  indexPath.row)
-                        default:
+                           
+                    cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
+                    cell.logoTwo.setImageWithUrl(logoArray[1], placeholder: UIImage(), showIndicator: false)
+                    cell.logoThree.setImageWithUrl(logoArray[2], placeholder: UIImage(), showIndicator: false)
+                    
+                    
+                    
+                    
+                    default:
                             break
                     }
                     
@@ -480,7 +488,7 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-       return collectionView == self.timeCollectionView ? CGSize(width: 58, height: 30) : CGSize(width: collectionView.frame.width, height: 139)
+       return collectionView == self.timeCollectionView ? CGSize(width: 58, height: 30) : CGSize(width: collectionView.frame.width, height: 131)
     
     }
     
@@ -517,7 +525,8 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
                 if scrollView != self.resultsCollectionView { return }
-                guard let indexPath =  self.resultsCollectionView.indexPathForItem(at: scrollView.contentOffset) else { return }
+        
+                guard let indexPath =  self.resultsCollectionView.indexPathForItem(at: self.resultsCollectionView.contentOffset) else { return }
                 print(indexPath.item)
         flightGroup.currentSelectedIndex = indexPath.item
                  flightGroup.selectedFK = timeArray[indexPath.item].fk
