@@ -27,6 +27,12 @@ class ThingsCanBeAskedVC : BaseVC {
         super.viewWillAppear(animated)
         IQKeyboardManager.shared().isEnabled = false
         IQKeyboardManager.shared().isEnableAutoToolbar = false
+        self.statusBarStyle = .lightContent
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.statusBarStyle = .darkContent
     }
     
     override func setupFonts() {
