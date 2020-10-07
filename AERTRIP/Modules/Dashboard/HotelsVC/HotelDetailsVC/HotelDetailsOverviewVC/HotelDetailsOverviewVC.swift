@@ -26,7 +26,6 @@ class HotelDetailsOverviewVC: BaseVC {
     @IBOutlet weak var mainContainerViewHeightConst: NSLayoutConstraint!
     @IBOutlet weak var overViewTextViewOutlet: UITextView! {
         didSet {
-            self.overViewTextViewOutlet.contentInset = UIEdgeInsets(top: 10.0, left: 4.0, bottom: 20.0, right: 4.0)
             self.overViewTextViewOutlet.delegate = self
             self.overViewTextViewOutlet.backgroundColor = AppColors.themeWhite
         }
@@ -71,21 +70,23 @@ class HotelDetailsOverviewVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.overViewTextViewOutlet.contentInset = UIEdgeInsets(top: headerContainerView.height + 10.0, left: 4.0, bottom: 20.0, right: 4.0)
+        
         headerContainerView.backgroundColor = .clear
-               mainContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
-               self.view.backgroundColor = .clear
+        mainContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        self.view.backgroundColor = .clear
         
         if #available(iOS 13.0, *) {} else {
-        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        mainContainerView.isUserInteractionEnabled = true
-        swipeGesture.delegate = self
+            let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+            mainContainerView.isUserInteractionEnabled = true
+            swipeGesture.delegate = self
             self.view.addGestureRecognizer(swipeGesture)
             self.view.backgroundColor = .white
         }
         //self.dividerView.isHidden = true
         self.overViewTextViewOutlet.attributedText = self.viewModel.overViewInfo.htmlToAttributedString(withFontSize: 18.0, fontFamily: AppFonts.Regular.rawValue, fontColor: AppColors.themeBlack)
         
-       
+        
         //Heading
         //        self.overViewTextViewOutlet.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.subheadline).withSize(16.0)
         //        // subheadline
@@ -116,7 +117,7 @@ extension HotelDetailsOverviewVC {
         let toDeduct = AppFlowManager.default.safeAreaInsets.top
         var finalValue =  (self.view.height - toDeduct)
         if #available(iOS 13.0, *) {
-           finalValue = self.view.height
+            finalValue = self.view.height
         }
         self.mainContainerBottomConst.constant = 0.0
         self.mainContainerViewHeightConst.constant = finalValue
@@ -165,8 +166,8 @@ extension HotelDetailsOverviewVC {
         
         guard let direction = sender.direction, direction.isVertical, direction == .down, self.overViewTextViewOutlet.contentOffset.y <= 0
             else {
-            reset()
-            return
+                reset()
+                return
         }
         
         switch sender.state {

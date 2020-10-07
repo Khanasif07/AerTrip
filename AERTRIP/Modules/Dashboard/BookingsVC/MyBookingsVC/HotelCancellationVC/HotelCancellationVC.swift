@@ -21,7 +21,7 @@ class HotelCancellationVC: BaseVC {
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var hotelCancellationTableView: UITableView! {
         didSet {
-            self.hotelCancellationTableView.contentInset = UIEdgeInsets.zero
+            //self.hotelCancellationTableView.contentInset = UIEdgeInsets.zero
         }
     }
     @IBOutlet weak var cancellationButtonOutlet: UIButton!
@@ -36,6 +36,8 @@ class HotelCancellationVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.hotelCancellationTableView.contentInset = UIEdgeInsets(top: topNavBar.height, left: 0.0, bottom: 0.0, right: 0.0)
+
         self.topNavBar.configureView(title: LocalizedString.Cancellation.localized, subTitle: LocalizedString.SelectHotelOrRoomsForCancellation.localized, isleftButton: false, isRightButton: true)
         self.registerXibs()
         self.hotelCancellationTableView.delegate = self

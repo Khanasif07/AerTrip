@@ -40,6 +40,7 @@ class SearchHotelTagVC: BaseVC {
             //            self.dividerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.5)
         }
     }
+    @IBOutlet weak var headerContainer: UIView!
     
     //Mark:- LifeCycle
     //================
@@ -83,12 +84,14 @@ class SearchHotelTagVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.tagTableView.contentInset = UIEdgeInsets(top: headerContainer.height, left: 0.0, bottom: 0.0, right: 0.0)
         self.copyOfTagButtons = self.tagButtons
-        
+        if #available(iOS 13.0, *) {} else {
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         swipeGesture.delegate = self
         self.view.addGestureRecognizer(swipeGesture)
         searchBar.placeholder = LocalizedString.hotelFilterSearchBar.localized
+        }
     }
     
     override func bindViewModel() {

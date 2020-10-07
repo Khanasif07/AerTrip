@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -501,6 +500,10 @@ with us!</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0na-82-Y4e" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EuX-20-8iN" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -512,14 +515,9 @@ with us!</string>
                                     <constraint firstAttribute="height" constant="44" id="wGD-WC-MXu"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0na-82-Y4e" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="0na-82-Y4e" firstAttribute="top" secondItem="BaI-np-mZL" secondAttribute="bottom" id="9jN-pz-MvA"/>
                             <constraint firstItem="BaI-np-mZL" firstAttribute="top" secondItem="A6t-RC-zBN" secondAttribute="top" id="Cqv-Tj-1gW"/>
                             <constraint firstItem="A6t-RC-zBN" firstAttribute="trailing" secondItem="0na-82-Y4e" secondAttribute="trailing" id="J0o-65-OuI"/>
                             <constraint firstItem="0na-82-Y4e" firstAttribute="leading" secondItem="A6t-RC-zBN" secondAttribute="leading" id="TD7-ht-ALE"/>
@@ -530,6 +528,7 @@ with us!</string>
                             <constraint firstItem="A6t-RC-zBN" firstAttribute="trailing" secondItem="BaI-np-mZL" secondAttribute="trailing" id="ib7-Fh-F2s"/>
                             <constraint firstItem="A6t-RC-zBN" firstAttribute="bottom" secondItem="0na-82-Y4e" secondAttribute="bottom" id="kVP-jh-Nbs"/>
                             <constraint firstItem="EuX-20-8iN" firstAttribute="trailing" secondItem="A6t-RC-zBN" secondAttribute="trailing" id="sci-hL-3vw"/>
+                            <constraint firstItem="0na-82-Y4e" firstAttribute="top" secondItem="A6t-RC-zBN" secondAttribute="top" id="zs3-oV-g8b"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="A6t-RC-zBN"/>
                     </view>
@@ -595,6 +594,10 @@ with us!</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5dH-N9-T8X" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vir-db-N3x" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -641,14 +644,11 @@ with us!</string>
                                     <constraint firstAttribute="bottom" secondItem="KYL-pn-q1X" secondAttribute="bottom" id="y5R-O5-nTu"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5dH-N9-T8X" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="5dH-N9-T8X" firstAttribute="leading" secondItem="GRd-dR-2oX" secondAttribute="leading" id="0jO-lS-CJH"/>
+                            <constraint firstItem="5dH-N9-T8X" firstAttribute="top" secondItem="GRd-dR-2oX" secondAttribute="top" id="1EC-yh-K5V"/>
                             <constraint firstItem="Csy-94-hWi" firstAttribute="leading" secondItem="GRd-dR-2oX" secondAttribute="leading" id="1nD-Kp-PWV"/>
                             <constraint firstAttribute="bottom" secondItem="5dH-N9-T8X" secondAttribute="bottom" id="K5N-B3-dbe"/>
                             <constraint firstItem="Csy-94-hWi" firstAttribute="top" secondItem="GRd-dR-2oX" secondAttribute="top" id="QMv-wI-Ekz"/>
@@ -658,7 +658,6 @@ with us!</string>
                             <constraint firstItem="Vir-db-N3x" firstAttribute="top" secondItem="vti-8W-jdC" secondAttribute="top" id="d0l-eN-een"/>
                             <constraint firstItem="Vir-db-N3x" firstAttribute="bottom" secondItem="Csy-94-hWi" secondAttribute="bottom" id="iIe-33-uIu"/>
                             <constraint firstItem="Vir-db-N3x" firstAttribute="leading" secondItem="GRd-dR-2oX" secondAttribute="leading" id="qbZ-8f-3Yf"/>
-                            <constraint firstItem="5dH-N9-T8X" firstAttribute="top" secondItem="Csy-94-hWi" secondAttribute="bottom" id="rsC-WV-hKT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GRd-dR-2oX"/>
                     </view>
@@ -1212,6 +1211,10 @@ with us!</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Baw-lv-2xG" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sLN-Zg-Bp3" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -1223,10 +1226,6 @@ with us!</string>
                                     <constraint firstAttribute="height" constant="44" id="eYr-eq-qr9"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Baw-lv-2xG" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -1236,10 +1235,10 @@ with us!</string>
                             <constraint firstItem="Baw-lv-2xG" firstAttribute="leading" secondItem="xeM-wX-3Vq" secondAttribute="leading" id="It9-3h-Thy"/>
                             <constraint firstItem="sLN-Zg-Bp3" firstAttribute="leading" secondItem="xeM-wX-3Vq" secondAttribute="leading" id="LD4-Ao-212"/>
                             <constraint firstItem="1sj-WR-1XK" firstAttribute="bottom" secondItem="sLN-Zg-Bp3" secondAttribute="bottom" id="OB5-tt-IWS"/>
-                            <constraint firstItem="Baw-lv-2xG" firstAttribute="top" secondItem="1sj-WR-1XK" secondAttribute="bottom" id="QWb-rO-g4p"/>
                             <constraint firstItem="1sj-WR-1XK" firstAttribute="leading" secondItem="xeM-wX-3Vq" secondAttribute="leading" id="cTW-pK-PnO"/>
                             <constraint firstItem="sLN-Zg-Bp3" firstAttribute="trailing" secondItem="xeM-wX-3Vq" secondAttribute="trailing" id="q3a-VU-Wtq"/>
                             <constraint firstItem="sLN-Zg-Bp3" firstAttribute="top" secondItem="DNR-wX-Ngm" secondAttribute="top" id="riE-AJ-wEU"/>
+                            <constraint firstItem="Baw-lv-2xG" firstAttribute="top" secondItem="xeM-wX-3Vq" secondAttribute="top" id="sEy-pP-H26"/>
                             <constraint firstItem="xeM-wX-3Vq" firstAttribute="trailing" secondItem="Baw-lv-2xG" secondAttribute="trailing" id="zfy-6S-uaj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xeM-wX-3Vq"/>
@@ -1710,6 +1709,14 @@ with us!</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="35" translatesAutoresizingMaskIntoConstraints="NO" id="B6p-KS-kHc" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="724"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Szu-KQ-ejt" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="132"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3FH-rM-Xb1">
                                 <rect key="frame" x="0.0" y="44" width="414" height="88"/>
                                 <subviews>
@@ -1734,7 +1741,7 @@ with us!</string>
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Rz5-CJ-M9I" secondAttribute="trailing" constant="10" id="02M-wM-29e"/>
                                     <constraint firstAttribute="trailing" secondItem="3gf-7P-PE4" secondAttribute="trailing" id="41s-yo-Gu2"/>
@@ -1749,10 +1756,6 @@ with us!</string>
                                     <constraint firstItem="Rz5-CJ-M9I" firstAttribute="top" secondItem="3gf-7P-PE4" secondAttribute="bottom" constant="3" id="gnl-of-ID0"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="35" translatesAutoresizingMaskIntoConstraints="NO" id="B6p-KS-kHc" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="132" width="414" height="636"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6uJ-Tg-adQ">
                                 <rect key="frame" x="0.0" y="812" width="414" height="84"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -1820,6 +1823,9 @@ with us!</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Szu-KQ-ejt" firstAttribute="top" secondItem="l3G-g4-q2b" secondAttribute="top" id="28n-Ds-216"/>
+                            <constraint firstItem="Szu-KQ-ejt" firstAttribute="leading" secondItem="c1t-8m-vgW" secondAttribute="leading" id="5oN-zb-Oa7"/>
+                            <constraint firstItem="B6p-KS-kHc" firstAttribute="top" secondItem="c1t-8m-vgW" secondAttribute="top" id="Ady-u1-Ned"/>
                             <constraint firstItem="3Xh-hk-UEH" firstAttribute="top" secondItem="B6p-KS-kHc" secondAttribute="bottom" id="BMr-HJ-gnv"/>
                             <constraint firstItem="3FH-rM-Xb1" firstAttribute="leading" secondItem="c1t-8m-vgW" secondAttribute="leading" id="Edp-jE-yc4"/>
                             <constraint firstItem="3FH-rM-Xb1" firstAttribute="top" secondItem="c1t-8m-vgW" secondAttribute="top" id="Hyq-7K-Axu"/>
@@ -1830,9 +1836,10 @@ with us!</string>
                             <constraint firstAttribute="trailing" secondItem="g8v-7A-Rws" secondAttribute="trailing" id="VZG-1d-xaD"/>
                             <constraint firstItem="c1t-8m-vgW" firstAttribute="trailing" secondItem="3FH-rM-Xb1" secondAttribute="trailing" id="W0n-nb-kgQ"/>
                             <constraint firstAttribute="bottom" secondItem="6uJ-Tg-adQ" secondAttribute="bottom" id="WNm-jW-Gs9"/>
+                            <constraint firstItem="c1t-8m-vgW" firstAttribute="trailing" secondItem="Szu-KQ-ejt" secondAttribute="trailing" id="bvt-wo-AQV"/>
                             <constraint firstItem="g8v-7A-Rws" firstAttribute="leading" secondItem="6uJ-Tg-adQ" secondAttribute="leading" id="dUD-L4-0b6"/>
-                            <constraint firstItem="B6p-KS-kHc" firstAttribute="top" secondItem="3FH-rM-Xb1" secondAttribute="bottom" id="eyt-Pg-bRA"/>
                             <constraint firstAttribute="leading" secondItem="g8v-7A-Rws" secondAttribute="leading" id="kYk-ds-Hgk"/>
+                            <constraint firstItem="3FH-rM-Xb1" firstAttribute="bottom" secondItem="Szu-KQ-ejt" secondAttribute="bottom" id="nJg-ix-HHW"/>
                             <constraint firstItem="B6p-KS-kHc" firstAttribute="leading" secondItem="c1t-8m-vgW" secondAttribute="leading" id="qhV-tO-Aiy"/>
                             <constraint firstItem="3Xh-hk-UEH" firstAttribute="leading" secondItem="c1t-8m-vgW" secondAttribute="leading" id="qry-UH-DHL"/>
                             <constraint firstItem="g8v-7A-Rws" firstAttribute="top" secondItem="6uJ-Tg-adQ" secondAttribute="top" id="tzT-yt-KBN"/>
@@ -1842,6 +1849,7 @@ with us!</string>
                     <connections>
                         <outlet property="continueButton" destination="g8v-7A-Rws" id="3Al-lT-JLV"/>
                         <outlet property="gradientView" destination="6uJ-Tg-adQ" id="U2E-xu-Ylp"/>
+                        <outlet property="headerContainer" destination="3FH-rM-Xb1" id="HZH-0m-UAI"/>
                         <outlet property="passengerLabel" destination="Rz5-CJ-M9I" id="yd4-Sa-mj0"/>
                         <outlet property="priceView" destination="O8x-ms-HpG" id="oyf-lB-hcf"/>
                         <outlet property="priceViewAndButtonContainerHeight" destination="xzL-hK-RJN" id="sld-qf-MS1"/>
@@ -1879,13 +1887,13 @@ with us!</string>
                                 <rect key="frame" x="0.0" y="88" width="414" height="43.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFQ-HM-0yQ">
-                                        <rect key="frame" x="16" y="11.5" width="23.5" height="21"/>
+                                        <rect key="frame" x="16" y="11.5" width="23" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hdl-CV-WIO">
-                                        <rect key="frame" x="39.5" y="7.5" width="324.5" height="20"/>
+                                        <rect key="frame" x="39" y="7.5" width="325" height="20"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="CtY-eE-oZj"/>
@@ -2312,17 +2320,21 @@ with us!</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="heH-9b-SUq" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="725"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AA0-SS-TG1" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="132"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EQ2-en-J8z" customClass="BookingTopNavBarWithSubtitle" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="88"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="88" id="KJz-pm-TdA"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="heH-9b-SUq" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="132" width="414" height="637"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bbw-vB-K01">
                                 <rect key="frame" x="0.0" y="813" width="414" height="83"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -2384,8 +2396,10 @@ with us!</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="EQ2-en-J8z" firstAttribute="bottom" secondItem="AA0-SS-TG1" secondAttribute="bottom" id="2Ai-a2-ZMD"/>
                             <constraint firstItem="EQ2-en-J8z" firstAttribute="leading" secondItem="LlE-o1-db6" secondAttribute="leading" id="2JE-Ie-905"/>
                             <constraint firstItem="LlE-o1-db6" firstAttribute="trailing" secondItem="B5k-SN-QxH" secondAttribute="trailing" id="3mD-Qj-3Jv"/>
+                            <constraint firstItem="AA0-SS-TG1" firstAttribute="leading" secondItem="LlE-o1-db6" secondAttribute="leading" id="7U7-oj-67a"/>
                             <constraint firstItem="Xng-Lg-79B" firstAttribute="top" secondItem="heH-9b-SUq" secondAttribute="bottom" id="9n8-w9-udw"/>
                             <constraint firstAttribute="leading" secondItem="B5k-SN-QxH" secondAttribute="leading" id="ACs-P3-dOI"/>
                             <constraint firstItem="Xng-Lg-79B" firstAttribute="leading" secondItem="LlE-o1-db6" secondAttribute="leading" id="FKN-wI-cha"/>
@@ -2395,13 +2409,15 @@ with us!</string>
                             <constraint firstAttribute="bottom" secondItem="Bbw-vB-K01" secondAttribute="bottom" id="QEu-PN-ZaK"/>
                             <constraint firstItem="LlE-o1-db6" firstAttribute="trailing" secondItem="heH-9b-SUq" secondAttribute="trailing" id="ROi-Zq-gOs"/>
                             <constraint firstItem="LlE-o1-db6" firstAttribute="trailing" secondItem="Xng-Lg-79B" secondAttribute="trailing" id="TIV-gW-oDz"/>
-                            <constraint firstItem="heH-9b-SUq" firstAttribute="top" secondItem="EQ2-en-J8z" secondAttribute="bottom" id="cXb-rJ-LHh"/>
                             <constraint firstItem="B5k-SN-QxH" firstAttribute="trailing" secondItem="Bbw-vB-K01" secondAttribute="trailing" id="d6L-UZ-yQr"/>
                             <constraint firstItem="EQ2-en-J8z" firstAttribute="top" secondItem="LlE-o1-db6" secondAttribute="top" id="eya-0o-CvS"/>
+                            <constraint firstItem="LlE-o1-db6" firstAttribute="trailing" secondItem="AA0-SS-TG1" secondAttribute="trailing" id="h6q-dU-TH4"/>
                             <constraint firstItem="LlE-o1-db6" firstAttribute="bottom" secondItem="B5k-SN-QxH" secondAttribute="bottom" id="iZL-ZA-S0a"/>
                             <constraint firstItem="LlE-o1-db6" firstAttribute="trailing" secondItem="EQ2-en-J8z" secondAttribute="trailing" id="ibn-Eh-d0v"/>
                             <constraint firstItem="B5k-SN-QxH" firstAttribute="leading" secondItem="LlE-o1-db6" secondAttribute="leading" id="mDG-pm-32G"/>
+                            <constraint firstItem="AA0-SS-TG1" firstAttribute="top" secondItem="rEo-V5-9VM" secondAttribute="top" id="pgO-XA-rUR"/>
                             <constraint firstItem="heH-9b-SUq" firstAttribute="leading" secondItem="LlE-o1-db6" secondAttribute="leading" id="qKE-Rk-IcU"/>
+                            <constraint firstItem="heH-9b-SUq" firstAttribute="top" secondItem="LlE-o1-db6" secondAttribute="top" id="vBo-oX-f5f"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LlE-o1-db6"/>
                     </view>
@@ -2468,22 +2484,15 @@ with us!</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eQY-xz-Jff" customClass="BookingTopNavBarWithSubtitle" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="88"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="88" id="Lxi-qT-YHt"/>
-                                </constraints>
-                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Suh-a8-eij">
-                                <rect key="frame" x="0.0" y="132" width="414" height="681"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WgX-Xa-Hq1" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="637"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pch-xg-0wy">
-                                        <rect key="frame" x="0.0" y="637" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="725" width="414" height="44"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GvP-X4-Jbt" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
@@ -2524,6 +2533,17 @@ with us!</string>
                                     </view>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="buH-2e-nDP">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="132"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eQY-xz-Jff" customClass="BookingTopNavBarWithSubtitle" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="88"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="88" id="Lxi-qT-YHt"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Iv-gH-gGc">
                                 <rect key="frame" x="0.0" y="813" width="414" height="83"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -2545,20 +2565,24 @@ with us!</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Suh-a8-eij" firstAttribute="top" secondItem="UN3-ei-9OI" secondAttribute="top" id="4Bc-w8-iDC"/>
+                            <constraint firstItem="UN3-ei-9OI" firstAttribute="trailing" secondItem="buH-2e-nDP" secondAttribute="trailing" id="5Oo-Ws-2im"/>
                             <constraint firstItem="Suh-a8-eij" firstAttribute="trailing" secondItem="UN3-ei-9OI" secondAttribute="trailing" id="8no-Ix-dQb"/>
                             <constraint firstItem="UN3-ei-9OI" firstAttribute="bottom" secondItem="fXs-r7-uDg" secondAttribute="bottom" id="DCR-Wb-9fg"/>
                             <constraint firstItem="eQY-xz-Jff" firstAttribute="top" secondItem="UN3-ei-9OI" secondAttribute="top" id="IAo-AG-AqK"/>
                             <constraint firstItem="UN3-ei-9OI" firstAttribute="trailing" secondItem="eQY-xz-Jff" secondAttribute="trailing" id="IPG-mP-EPJ"/>
                             <constraint firstItem="4Iv-gH-gGc" firstAttribute="top" secondItem="fXs-r7-uDg" secondAttribute="top" id="JD9-dI-NAn"/>
+                            <constraint firstItem="buH-2e-nDP" firstAttribute="top" secondItem="CSh-J5-4SX" secondAttribute="top" id="N1g-ZX-3nu"/>
                             <constraint firstItem="4Iv-gH-gGc" firstAttribute="leading" secondItem="fXs-r7-uDg" secondAttribute="leading" id="Otp-zA-qsR"/>
-                            <constraint firstItem="Suh-a8-eij" firstAttribute="top" secondItem="eQY-xz-Jff" secondAttribute="bottom" id="SuO-PJ-3oJ"/>
                             <constraint firstItem="fXs-r7-uDg" firstAttribute="leading" secondItem="UN3-ei-9OI" secondAttribute="leading" id="W21-ys-68e"/>
                             <constraint firstItem="4Iv-gH-gGc" firstAttribute="trailing" secondItem="fXs-r7-uDg" secondAttribute="trailing" id="Y8q-so-xCz"/>
                             <constraint firstItem="Suh-a8-eij" firstAttribute="leading" secondItem="UN3-ei-9OI" secondAttribute="leading" id="a8Z-Ej-xrS"/>
                             <constraint firstItem="eQY-xz-Jff" firstAttribute="leading" secondItem="UN3-ei-9OI" secondAttribute="leading" id="aFj-MH-rEO"/>
+                            <constraint firstItem="eQY-xz-Jff" firstAttribute="bottom" secondItem="buH-2e-nDP" secondAttribute="bottom" id="b0Q-CB-G2n"/>
                             <constraint firstItem="UN3-ei-9OI" firstAttribute="trailing" secondItem="fXs-r7-uDg" secondAttribute="trailing" id="cr8-eU-TcZ"/>
                             <constraint firstItem="fXs-r7-uDg" firstAttribute="top" secondItem="Suh-a8-eij" secondAttribute="bottom" id="fjp-Rb-rjf"/>
                             <constraint firstAttribute="bottom" secondItem="4Iv-gH-gGc" secondAttribute="bottom" id="gVL-WD-Bo9"/>
+                            <constraint firstItem="buH-2e-nDP" firstAttribute="leading" secondItem="UN3-ei-9OI" secondAttribute="leading" id="kPl-mT-XjZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UN3-ei-9OI"/>
                     </view>

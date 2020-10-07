@@ -30,6 +30,8 @@ class BaggageInfoVC: BaseVC {
         } else {
             self.view.backgroundColor = AppColors.themeWhite
         }
+        self.tableView.contentInset = UIEdgeInsets(top: topNavigationView.height, left: 0.0, bottom: 0.0, right: 0.0)
+
     }
     
     

@@ -103,9 +103,9 @@ class HCCouponCodeVC: BaseVC {
         offerTermsView.isUserInteractionEnabled = true
         swipeGesture.delegate = self
         self.offerTermsView.addGestureRecognizer(swipeGesture)
-        if self.viewModel.searcedCouponsData.count == 0{
+//        if self.viewModel.searcedCouponsData.count == 0{
             self.emptyStateSetUp()
-        }
+//        }
     }
     
     override func setupFonts() {
