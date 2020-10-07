@@ -14,7 +14,7 @@ protocol JourneyDetailsTapDelegate: NSObjectProtocol {
 }
 
 
-class IntFareBreakupVC: UIViewController {
+class IntFareBreakupVC: BaseVC {
     //MARK:- Outlets
     @IBOutlet weak var backgroundDisplayView: UIView!
     @IBOutlet weak var fareDataDisplayView: UIView!

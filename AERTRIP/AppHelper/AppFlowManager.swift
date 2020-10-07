@@ -1039,11 +1039,13 @@ extension AppFlowManager {
         self.mainNavigationController.present(ob, animated: true)
     }
     
-    func moveToBookingDetail(bookingDetail: BookingDetailModel?,tripCities: NSMutableAttributedString = NSMutableAttributedString(string: ""),legSectionTap: Int = 0) {
+    func moveToBookingDetail(bookingDetail: BookingDetailModel?,tripCities: NSMutableAttributedString = NSMutableAttributedString(string: ""),legSectionTap: Int = 0, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let ob = BookingFlightDetailVC.instantiate(fromAppStoryboard: .Bookings)
         ob.viewModel.bookingDetail = bookingDetail
         ob.viewModel.tripStr = tripCities
         ob.viewModel.legSectionTap = legSectionTap
+        ob.presentingStatusBarStyle = presentingStatusBarStyle
+        ob.dismissalStatusBarStyle = dismissalStatusBarStyle
         self.currentNavigation?.present(ob, animated: true, completion: nil)
     }
     

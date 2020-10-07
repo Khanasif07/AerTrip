@@ -32,7 +32,7 @@ import UIKit
 //import HMSegmentedControl
 import Parchment
 
-class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetailsSmartIconsDelegate, FareBreakupVCDelegate, flightDetailsBaggageDelegate, getBaggageDimentionsDelegate, getFareRulesDelegate, getSharableUrlDelegate, getArrivalPerformanceDelegate
+class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupVCDelegate, flightDetailsBaggageDelegate, getBaggageDimentionsDelegate, getFareRulesDelegate, getSharableUrlDelegate, getArrivalPerformanceDelegate
 {
     
     //MARK:- Outlets
@@ -131,6 +131,18 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         clearCache.checkTimeAndClearUpgradeDataCache()
         clearCache.checkTimeAndClearFlightPerformanceResultCache(journey: journey)
         clearCache.checkTimeAndClearFlightBaggageResultCache()
+        let presentationStyle = presentingViewController?.modalPresentationStyle
+        
+        if presentationStyle == .overFullScreen {
+            statusBarStyle = .darkContent
+        } else {
+            statusBarStyle = .lightContent
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = .darkContent
     }
     
     override func viewDidLayoutSubviews() {

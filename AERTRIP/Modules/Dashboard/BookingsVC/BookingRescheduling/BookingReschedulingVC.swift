@@ -43,6 +43,17 @@ class BookingReschedulingVC: BaseVC {
         super.viewWillLayoutSubviews()
         self.gradientView.addGredient(isVertical: false)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        statusBarStyle = .lightContent
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = .darkContent
+    }
+    
     override func initialSetup() {
         self.continueButton.shadowColor = AppColors.clear
         self.priceViewAndButtonContainerView.backgroundColor = AppColors.clear

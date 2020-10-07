@@ -16,7 +16,7 @@ protocol flightDetailsSmartIconsDelegate : AnyObject {
 
 import UIKit
 
-class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, cellHeightDelegate
+class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource, cellHeightDelegate
 {
     //MARK:- Outlets
     @IBOutlet weak var fareInfoTableView: UITableView!

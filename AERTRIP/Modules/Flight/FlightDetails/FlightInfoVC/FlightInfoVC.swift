@@ -37,7 +37,7 @@ public struct flightPerfomanceResultData : Codable {
 
 import UIKit
 
-final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDelegate, getSelectedAmenitiesDelegate, UIScrollViewDelegate
+final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, getSelectedAmenitiesDelegate
 {
     //MARK:- Outlets
     @IBOutlet weak var flightInfoTableView: UITableView!
