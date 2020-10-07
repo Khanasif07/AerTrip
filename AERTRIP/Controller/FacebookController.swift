@@ -228,6 +228,7 @@ class FacebookController {
                               failure: @escaping ((Error?) -> Void)){
 
         if AccessToken.isCurrentAccessTokenActive{
+            printDebug("++++++++++++++++ \(AccessToken.current?.permissions)++++++++++++")
             self.fetchFriends(success: { (result) in
                 success(result)
             }, failure: { (err) in

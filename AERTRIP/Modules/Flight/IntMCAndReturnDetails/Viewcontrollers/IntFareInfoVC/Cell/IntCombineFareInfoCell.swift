@@ -85,7 +85,7 @@ extension IntCombineFareInfoCell:UITableViewDataSource, UITableViewDelegate
             
             return footerView
         }else{
-            return UIView()
+            return nil
         }
     }
     
@@ -94,7 +94,7 @@ extension IntCombineFareInfoCell:UITableViewDataSource, UITableViewDelegate
         if section == 1{
             return 55
         }else{
-            return 0
+            return CGFloat.leastNonzeroMagnitude
         }
     }
     //
