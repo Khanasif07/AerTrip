@@ -114,7 +114,7 @@ class MyBookingsVC: BaseVC {
         super.viewWillAppear(animated)
         //addCustomBackgroundBlurView()
         self.statusBarColor = AppColors.clear
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
     }
         
     override func viewWillDisappear(_ animated: Bool) {
