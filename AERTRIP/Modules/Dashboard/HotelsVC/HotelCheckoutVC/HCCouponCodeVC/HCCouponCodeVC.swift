@@ -34,7 +34,6 @@ class HCCouponCodeVC: BaseVC {
     //================
     @IBOutlet weak var couponTableView: UITableView! {
         didSet {
-            self.couponTableView.contentInset = UIEdgeInsets(top: 0, left: 0.0, bottom: 10.0, right: 0.0)
             self.couponTableView.estimatedRowHeight = UITableView.automaticDimension
             self.couponTableView.rowHeight = UITableView.automaticDimension
         }
@@ -65,6 +64,8 @@ class HCCouponCodeVC: BaseVC {
     @IBOutlet weak var couponInfoTextView: UITextView!
     @IBOutlet weak var dividerView: ATDividerView! 
     @IBOutlet weak var applyCouponButton: UIButton!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var textFieldContainer: UIView!
     
     //Mark:- LifeCycle
     //================
@@ -82,6 +83,8 @@ class HCCouponCodeVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.couponTableView.contentInset = UIEdgeInsets(top: headerView.height + textFieldContainer.height, left: 0.0, bottom: 0.0, right: 0.0)
+
         self.manageLoader()
         self.registerNibs()
         self.couponTableView.delegate = self

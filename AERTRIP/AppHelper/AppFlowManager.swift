@@ -48,7 +48,7 @@ class AppFlowManager: NSObject {
         
     }
     
-    var mainNavigationController: SwipeNavigationController! {
+    var mainNavigationController: UINavigationController! {
         didSet {
             let textAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(17.0),
                                   NSAttributedString.Key.foregroundColor: AppColors.themeWhite]
@@ -60,6 +60,7 @@ class AppFlowManager: NSObject {
             mainNavigationController.navigationBar.backgroundColor = AppColors.themeWhite
             mainNavigationController.navigationBar.tintColor = AppColors.themeGreen
             mainNavigationController.navigationBar.isTranslucent = false
+            mainNavigationController.interactivePopGestureRecognizer?.delegate = self
         }
     }
     
@@ -79,7 +80,8 @@ class AppFlowManager: NSObject {
         nav.navigationBar.backgroundColor = AppColors.themeWhite
         nav.navigationBar.tintColor = AppColors.themeGreen
         nav.navigationBar.isTranslucent = false
-        
+        nav.interactivePopGestureRecognizer?.delegate = self
+
         return nav
     }
     
@@ -145,7 +147,7 @@ class AppFlowManager: NSObject {
         self.mainHomeVC = mainHome
         self.mainHomeVC?.isLaunchThroughSplash = launchThroughSplash
         self.mainHomeVC?.toBeSelect = toBeSelect
-        let nvc = SwipeNavigationController(rootViewController: mainHome)
+        let nvc = UINavigationController(rootViewController: mainHome)
        // nvc.delegate = AppDelegate.shared.transitionCoordinator
         self.mainNavigationController = nvc
         self.window.rootViewController = nvc
@@ -270,7 +272,7 @@ extension AppFlowManager {
         ob.viewModel.refId = refId
         ob.viewModel.token = token
         
-        let nvc = SwipeNavigationController(rootViewController: ob)
+        let nvc = UINavigationController(rootViewController: ob)
         self.mainNavigationController = nvc
         self.window.rootViewController = nvc
         self.window.becomeKey()
@@ -1479,4 +1481,13 @@ extension AppFlowManager {
         
     }
     
+}
+
+extension AppFlowManager : UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if let navi = self.mainNavigationController {
+            return navi.viewControllers.count > 1 ? true : false
+        }
+        return false
+    }
 }

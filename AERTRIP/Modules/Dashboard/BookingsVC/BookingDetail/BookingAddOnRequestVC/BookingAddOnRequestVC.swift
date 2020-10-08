@@ -54,6 +54,8 @@ class BookingAddOnRequestVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.requestTableView.contentInset = UIEdgeInsets(top: topNavigationView.height + bookingStatusViewHeight.constant - 0.5, left: 0.0, bottom: 0.0, right: 0.0)
+
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.progressView?.isHidden = true
         self.requestTableView.backgroundColor = AppColors.themeGray04
@@ -159,6 +161,7 @@ class BookingAddOnRequestVC: BaseVC {
             bookingRequestStatusView.isHidden = true
             bookingStatusViewHeight.constant = 0
         }
+        self.requestTableView.contentInset = UIEdgeInsets(top: topNavigationView.height + bookingStatusViewHeight.constant - 0.5, left: 0.0, bottom: 0.0, right: 0.0)
         self.view.layoutIfNeeded()
     }
     func seupMakePaymentButton() {

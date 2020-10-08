@@ -143,6 +143,7 @@ extension ChatVC {
     
     //MARK:- Setup view
     private func setUpSubView(){
+        self.chatTableView.contentInset = UIEdgeInsets(top: topNavView.height, left: 0, bottom: 0, right: 0)
         self.setUpNavigationView()
         self.setUpAttributes()
         self.performInitialAnimation()

@@ -77,6 +77,7 @@ class HCDataSelectionVC: BaseVC {
     // MARK: -
     
     override func initialSetup() {
+        self.tableView.contentInset = UIEdgeInsets(top: topNavView.height - 0.5, left: 0, bottom: 0, right: 0)
         setupNavView()
         setUpIndicatorView()
         

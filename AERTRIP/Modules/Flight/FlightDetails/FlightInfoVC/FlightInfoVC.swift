@@ -452,7 +452,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         let fontAttributes = [NSAttributedString.Key.font: font]
                         let myText = flightDetailsCell.classNameLabel.text
                         let size = (myText! as NSString).size(withAttributes: fontAttributes as [NSAttributedString.Key : Any])
-                        flightDetailsCell.classNameLabelWidth.constant = size.width
+//                        flightDetailsCell.classNameLabelWidth.constant = size.width
                         
                         flightDetailsCell.arrivalPerformaceButton.isUserInteractionEnabled = false
                         flightDetailsCell.onArrivalPerformanceLabel.text = ""

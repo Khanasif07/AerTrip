@@ -56,7 +56,8 @@ class SelectTripVC: BaseVC {
     // MARK: -
     
     override func initialSetup() {
-        
+        self.tableView.contentInset = UIEdgeInsets(top: topNavView.height , left: 0.0, bottom: 10.0, right: 0.0)
+
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         swipeGesture.delegate = self
         self.view.addGestureRecognizer(swipeGesture)

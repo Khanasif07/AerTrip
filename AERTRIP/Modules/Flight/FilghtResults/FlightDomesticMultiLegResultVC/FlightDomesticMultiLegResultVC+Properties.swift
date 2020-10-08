@@ -205,7 +205,11 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
             
             if let comboResultFiltered = comboResults.first(where: {$0.fk == fkArray }) {
                 fareBreakupVC?.journeyCombo = [comboResultFiltered]
+            }else{
+                fareBreakupVC?.journeyCombo = nil
             }
+        }else{
+            fareBreakupVC?.journeyCombo = nil
         }
         
     }

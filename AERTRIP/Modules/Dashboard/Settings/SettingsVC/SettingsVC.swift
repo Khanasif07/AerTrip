@@ -52,6 +52,7 @@ class SettingsVC: BaseVC {
         self.topNavView.configureNavBar(title: LocalizedString.Settings.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false,isDivider : true)
         configureTableView()
         self.settingsTableView.backgroundColor = AppColors.themeGray04
+        self.settingsTableView.contentInset = UIEdgeInsets(top: topNavView.height, left: 0, bottom: 0, right: 0)
     }
     
     private func configureTableView(){

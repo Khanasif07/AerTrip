@@ -252,10 +252,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                         let rfd = (currentParsedResponse.data.values.first?.rfd ?? 0)
                         let rsc = currentParsedResponse.data.values.first?.rsc ?? 0
                         self.refundDelegate?.updateRefundStatus(for: self.journey.first!.fk, rfd: rfd, rsc:rsc)
-                        
-                        
-                        
-                        
+
                     }
                 }
             }
@@ -434,40 +431,10 @@ extension IntFareInfoVC{
             fareInfoCell.topSeperatorLabel.isHidden = true
             fareInfoCell.topSeperatorLabelHeight.constant = 0
         }
-        
-        
-        
         fareInfoCell.titleLabelTop.constant = 16
         fareInfoCell.carrierImgView.isHidden = true
         fareInfoCell.journeyNameLabel.isHidden = true
         fareInfoCell.journeyNameDividerLabel.isHidden = true
-        
-        
-//        let ap = self.journey[indexPath.section].ap
-//        let departureAirportDetails = self.airportDetailsResult[ap[0]]
-//        let arrivalAirportDetails = self.airportDetailsResult[ap[1]]
-//        var loc = ""
-//
-//        if departureAirportDetails != nil && arrivalAirportDetails != nil{
-//            loc = departureAirportDetails!.c + " → " + arrivalAirportDetails!.c
-//        }else if departureAirportDetails != nil{
-//            loc = departureAirportDetails!.c
-//        }else if arrivalAirportDetails != nil{
-//            loc = arrivalAirportDetails!.c
-//        }else{
-//            loc = displayTitle
-//        }
-//
-//        fareInfoCell.titleLabel.text = displayTitle
-//        fareInfoCell.journeyNameLabel.text = loc
-//
-//        let al = self.journey[indexPath.section].al.first ?? ""
-//        let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + al.uppercased() + ".png"
-//        fareInfoCell.setAirlineImage(with: logoURL)
-
-        
-        
-        
         return fareInfoCell
     }
     

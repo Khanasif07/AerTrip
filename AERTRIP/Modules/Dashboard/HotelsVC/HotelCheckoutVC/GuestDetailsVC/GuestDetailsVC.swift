@@ -45,6 +45,7 @@ class GuestDetailsVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.guestDetailTableView.contentInset = UIEdgeInsets(top: topNavView.height, left: 0, bottom: 0, right: 0)
         self.viewModel.resetData()
         self.registerXib()
         self.doInitialSetup()
@@ -462,7 +463,7 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
             if let index = self.indexPath {
                 yValue = index.row ==  GuestDetailsVM.shared.guests[index.section].count - 1 ? 81 : 83
             }
-            let offsetYValue = itemPosition.y - CGFloat(yValue)
+            let offsetYValue = itemPosition.y - CGFloat(CGFloat(yValue) + self.guestDetailTableView.contentInset.top)
             
             printDebug("self.guestDetailTableView.contentOffset: \(self.guestDetailTableView.contentOffset)")
             printDebug("itemPosition.y - CGFloat(yValue): \(offsetYValue)")
