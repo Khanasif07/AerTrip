@@ -186,9 +186,8 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
         guard let journeyCell = tableView.cellForRow(at: indexPath) as? SingleJourneyResultTableViewCell, let currentJourney = journeyCell.currentJourney  else {
             return
         }
+        
         navigateToFlightDetailFor(journey: currentJourney, selectedIndex: indexPath)
     }
-    
-    
     
 }

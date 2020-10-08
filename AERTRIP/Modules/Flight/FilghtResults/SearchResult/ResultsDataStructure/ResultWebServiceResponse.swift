@@ -53,7 +53,7 @@ public struct  FlightsResults : Codable {
             let newJourney = journey
             let airlineArray = journey.al
             
-            printDebug("airlineArray...\(airlineArray)")
+//            printDebug("airlineArray...\(airlineArray)")
             
             switch airlineArray.count {
             case 1 :

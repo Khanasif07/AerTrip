@@ -39,7 +39,14 @@ class FlightResultSingleJourneyVM {
         var airlineCode = ""
     
         var isSearchByAirlineCode = false
-
+    
+        var flightSearchParameters : NSDictionary?
+    
+        var sharedFks : [String] = []
+    
+    
+        var isSharedFkmatched = false
+    
     
     func getOnewayDisplayArray( results : [Journey]) -> [JourneyOnewayDisplay] {
         
@@ -487,6 +494,35 @@ extension FlightResultSingleJourneyVM{
                 AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
             }
         }
+
+    }
+    
+    
+    func setSharedFks(){
+        
+        guard let dict = flightSearchParameters as? JSONDictionary else { return }
+        
+        let pfKeys = dict.keys.filter( { $0.contains("PF") } )
+       
+        printDebug("pfKeys...\(pfKeys)")
+        
+        pfKeys.forEach { (key) in
+            if let fk = dict[key] as? String {
+                self.sharedFks.append(fk)
+            }
+        }
+
+//
+//        sharedData.filter( { $0.key. })
+//
+//        let airlines = sharedData.filter { $0.key.contains("filters[\(self.index)][al]") }
+
+        
+        
+ 
+
         
     }
+    
+    
 }

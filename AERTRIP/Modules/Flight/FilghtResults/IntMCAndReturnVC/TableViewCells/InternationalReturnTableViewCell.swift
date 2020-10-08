@@ -239,7 +239,7 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if section == 0 {
-            if baggageSuperScript?.string == "?" || baggageSuperScript?.string == "0P" {
+            if baggageSuperScript?.string == "?" || baggageSuperScript?.string == "0P" || baggageSuperScript?.string == "0" {
                 return 0
             }
             else {
@@ -258,7 +258,7 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
         if section == 0 {
             return .zero
         }else {
-            if smartIconsArray?.count == 0  || baggageSuperScript?.string == "?" || baggageSuperScript?.string == "0P" {
+            if smartIconsArray?.count == 0  || baggageSuperScript?.string == "?" || baggageSuperScript?.string == "0P" || baggageSuperScript?.string == "0" {
                 return .zero
             }
             return CGSize(width: 16.0, height:  23.0)
