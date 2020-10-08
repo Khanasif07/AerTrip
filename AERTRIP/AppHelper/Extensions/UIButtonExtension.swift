@@ -30,6 +30,29 @@ extension UIButton {
     @objc private func buttonTappedReleased(_ sender: UIButton) {
         self.transform = CGAffineTransform.identity
     }
+    
+    func displayLoadingIndicator(_ show: Bool)
+    {
+        let tag = 808404
+        
+        if show {
+            self.isEnabled = false
+            let indicator = UIActivityIndicatorView()
+            let buttonHeight = self.bounds.size.height
+            let buttonWidth = self.bounds.size.width
+            indicator.center = CGPoint(x: buttonWidth/2, y: buttonHeight/2)
+            indicator.color = .AertripColor
+            indicator.tag = tag
+            self.addSubview(indicator)
+            indicator.startAnimating()
+        } else {
+            self.isEnabled = true
+            if let indicator = self.viewWithTag(tag) as? UIActivityIndicatorView {
+                indicator.stopAnimating()
+                indicator.removeFromSuperview()
+            }
+        }
+    }
 }
 
 public extension UIBarButtonItem {

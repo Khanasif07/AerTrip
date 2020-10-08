@@ -37,6 +37,7 @@ class YouAreAllDoneVM: NSObject {
     var whatNextValues: [String] = []
     var itId: String = "", bookingIds: [String] = [], cId: [String] = []
     var bookingDetail: BookingDetailModel?
+    var showWaletLoader = false
     
     //Mark:- Functions
     //================

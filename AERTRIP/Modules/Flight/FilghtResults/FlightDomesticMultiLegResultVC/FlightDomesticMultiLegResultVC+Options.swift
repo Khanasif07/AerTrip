@@ -132,7 +132,18 @@ extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
     
     func returnEmailView(view: String) {
           DispatchQueue.main.async {
-          self.showEmailViewController(body : view)
+            self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+            self.emailPinnedFlights.displayLoadingIndicator(false)
+
+//          self.showEmailViewController(body : view)
+            
+          
+              if view == "Pinned template data not found"{
+                  AppToast.default.showToastMessage(message: view)
+              }else{
+                  self.showEmailViewController(body : view)
+              }
+          
           }
       }
       

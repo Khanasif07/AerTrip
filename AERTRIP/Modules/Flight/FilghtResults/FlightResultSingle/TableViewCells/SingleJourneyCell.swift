@@ -229,14 +229,14 @@ class SingleJourneyCell: UITableViewCell
 
 
 extension SingleJourneyCell : UICollectionViewDataSource , UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         
         if section == 0 {
-            if baggageSuperScript?.string == "0P" {
+            if baggageSuperScript?.string == "0P" || baggageSuperScript?.string == "0" {
                 return 0
-            }
-            else {
+            } else {
                 return 1
             }
         }
@@ -318,7 +318,7 @@ extension SingleJourneyCell : UICollectionViewDataSource , UICollectionViewDeleg
         return .zero
     }
     else {
-        if smartIconsArray?.count == 0  || baggageSuperScript?.string == "0P" {
+        if smartIconsArray?.count == 0  || baggageSuperScript?.string == "0P" || baggageSuperScript?.string == "0" {
             return .zero
         }
         return CGSize(width: 16.0, height:  23.0)

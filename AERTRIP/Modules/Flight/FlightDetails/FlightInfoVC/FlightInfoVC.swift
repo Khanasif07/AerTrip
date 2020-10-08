@@ -329,8 +329,10 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                                 
                                 flightDetailsCell.amenitiesData = amenitiesData
                                 flightDetailsCell.amenitiesDisplayView.isHidden = false
+                                flightDetailsCell.amenitiesCollectionView.reloadData()
                                 flightDetailsCell.amenitiesDisplayViewHeight.constant = 100
                                 flightDetailsCell.amenitiesCollectionView.reloadData()
+                                
                             }else{
                                 flightDetailsCell.amenitiesDisplayView.isHidden = true
                                 flightDetailsCell.amenitiesDisplayViewHeight.constant = 0
@@ -1016,8 +1018,10 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         "selectedJourneyFK":self.selectedJourneyFK,
                         "BaggageDataResponse":self.baggageData] as [String : Any]
                     self.appdelegate.flightBaggageMutableArray.add(newArr)
-                    
                     self.flightInfoTableView.reloadData()
+                    delay(seconds: 0.3) {
+                        self.flightInfoTableView.reloadData()
+                    }
                 }
             }catch{
             }

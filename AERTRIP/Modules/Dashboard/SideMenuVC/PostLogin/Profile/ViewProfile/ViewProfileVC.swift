@@ -525,6 +525,7 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
         CoreDataManager.shared.deleteData("TravellerData")
         CoreDataManager.shared.deleteData("BookingData")
         CoreDataManager.shared.deleteData("HotelSearched")
+        FacebookController.shared.facebookLogout()
         UserDefaults.removeObject(forKey: UserDefaults.Key.currentUserCookies.rawValue)
         UserDefaults.removeObject(forKey: UserDefaults.Key.xAuthToken.rawValue)
         UserInfo.hotelFilterApplied = nil

@@ -21,6 +21,7 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource, cellHeight
     //MARK:- Outlets
     @IBOutlet weak var fareInfoTableView: UITableView!
     @IBOutlet weak var fareInfoTableViewBottom: NSLayoutConstraint!
+    @IBOutlet weak var progressBar: UIProgressView!
     
     //MARK:- Variable Declaration
     weak var delegate : flightDetailsSmartIconsDelegate?
@@ -52,15 +53,21 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource, cellHeight
     var fewSeatsLeftViewHeight = 0
     var selectedIndex : IndexPath?
     var indexFromDelegate = 0
+    var isProgressBarHidden = false
+    var isAPICalled = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        progressBar.progress = 0.25
+        progressBar.tintColor = .AertripColor
         
         fareInfoTableView.register(UINib(nibName: "FareInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "FareInfoCell")
         fareInfoTableView.register(UINib(nibName: "ChangeAirportTableViewCell", bundle: nil), forCellReuseIdentifier: "ChangeAirportCell")
         fareInfoTableView.register(UINib(nibName: "CombineFareInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "CombineFareInfoCell")
         fareInfoTableView.alwaysBounceVertical = true
         self.fareInfoTableViewBottom.constant = 0.0
+        
         if journey != nil{
             if journey.count > 1{
                 isReturnJourney = true
@@ -72,7 +79,13 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource, cellHeight
             for i in 0..<journey.count{
                 
                 if journey[i].leg[0].fcp == 1{
+                    self.isAPICalled = true
                     self.getFareInfoAPICall(sid: self.sid, fk: self.journey[i].fk,i:i)
+                }else{
+                    progressBar.progress = 1.0
+                    self.progressBar.isHidden = true
+                    isProgressBarHidden = true
+                    isAPICalled = false
                 }
                 
                 let fare = self.journey[i].fare
@@ -178,44 +191,10 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource, cellHeight
                     
                     if journey.count > 0{
                         var location = ""
-                        
-                        //                        if journey.count == 1{
-                        //                            location = displayTitle
-                        //                            fareInfoCell.titleLabel.text = location
-                        //                        }else{
-                        //                            let ap = self.journey[indexPath.section].ap
-                        //                            let departureAirportDetails = self.airportDetailsResult[ap[0]]
-                        //                            let arrivalAirportDetails = self.airportDetailsResult[ap[1]]
-                        //
-                        //                            if departureAirportDetails != nil && arrivalAirportDetails != nil{
-                        //                                location = departureAirportDetails!.c! + " → " + arrivalAirportDetails!.c! + "\n" + displayTitle
-                        //                            }else if departureAirportDetails != nil{
-                        //                                location = departureAirportDetails!.c! + "\n" + displayTitle
-                        //                            }else if arrivalAirportDetails != nil{
-                        //                                location = arrivalAirportDetails!.c! + "\n" + displayTitle
-                        //                            }else{
-                        //                                location = displayTitle
-                        //                            }
-                        //
-                        //                            let completeText = NSMutableAttributedString(string: location)
-                        //                            let range1 = (location as NSString).range(of: displayTitle)
-                        //
-                        //                            completeText.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Regular", size: 16.0)! , range: range1)
-                        //                            fareInfoCell.titleLabel.attributedText = completeText
-                        //                        }
-                        //
-                        //                        if location.contains("\n"){
-                        //                            fareInfoCell.titleViewHeight.constant = 76
-                        //                            titleViewHeight = 76
-                        //                        }else{
-                        //                            titleViewHeight = 50
-                        //                        }
-                        
-                        //                        fareInfoCell.fareRulesViewHeight.constant = 50
                         fareInfoCell.titleLabel.text = displayTitle
                         if journey.count == 1{
                             fareInfoCell.titleLabelTop.constant = 16
-                            fareInfoCell.titleViewHeight.constant = 50
+//                            fareInfoCell.titleViewHeight.constant = 50
                             fareInfoCell.journeyNameLbl.isHidden = true
                             fareInfoCell.carrierImgView.isHidden = true
                             fareInfoCell.journeyNameSeperatorLabel.isHidden = true
@@ -223,7 +202,7 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource, cellHeight
                             titleViewHeight = 50
                         }else{
                             fareInfoCell.titleLabelTop.constant = 73.5
-                            fareInfoCell.titleViewHeight.constant = 100
+//                            fareInfoCell.titleViewHeight.constant = 100
                             fareInfoCell.journeyNameLbl.isHidden = false
                             fareInfoCell.carrierImgView.isHidden = false
                             fareInfoCell.journeyNameSeperatorLabel.isHidden = false
@@ -312,11 +291,27 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource, cellHeight
                             fareInfoCell.rafFees = rafFeesData
                             fareInfoCell.combineFareTableView.reloadData()
                         }else{
-                            fareInfoCell.isNoInfoViewVisible = true
-                            fareInfoCell.combineFareTableView.isHidden = true
-                            fareInfoCell.noInfoView.isHidden = false
+//                            if isProgressBarHidden == true{
+                                fareInfoCell.isNoInfoViewVisible = true
+                                fareInfoCell.combineFareTableView.isHidden = true
+                                fareInfoCell.noInfoView.isHidden = false
+//                            }else{
+//                                fareInfoCell.isNoInfoViewVisible = false
+////                                fareInfoCell.combineFareTableView.isHidden = true
+//                                fareInfoCell.noInfoView.isHidden = true
+//                            }
+                            
+//                            fareInfoCell.contentView.backgroundColor = .white
+                            
+//                            DispatchQueue.delay(0.35, closure: {
+//                                fareInfoCell.isNoInfoViewVisible = true
+//                                fareInfoCell.combineFareTableView.isHidden = true
+//                                fareInfoCell.noInfoView.isHidden = false
+//                            })
                         }
                     }else{
+                        
+                        
                         let airlineCancellationData = journey[indexPath.section].fare.cancellationCharges.details.getAirlineCancellationDataForAllFlights()
                         fareInfoCell.airlineCancellationFees = airlineCancellationData
                         
@@ -337,8 +332,18 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource, cellHeight
                         fareInfoCell.rafFees = rafFeesData
                     }
                     
+//                    fareInfoCell.cellHeightDelegate = self
+//                    tableView.layoutIfNeeded()
+                    
+                    fareInfoCell.combineFareTableView.reloadData()
                     fareInfoCell.cellHeightDelegate = self
-                    tableView.layoutIfNeeded()
+                    fareInfoCell.layoutSubviews()
+                    fareInfoCell.layoutIfNeeded()
+                    let height = fareInfoCell.combineFareTableView.contentSize.height
+                    fareInfoCell.tableViewHeight.constant = (height < 150) ? 150 : height
+                    fareInfoCell.layoutSubviews()
+                    fareInfoCell.layoutIfNeeded()
+                    fareInfoCell.combineFareTableView.reloadData()
                     
                     return fareInfoCell
                 }
@@ -387,45 +392,10 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource, cellHeight
                     
                     if journey.count > 0{
                         var location = ""
-                        
-                        //                        if journey.count == 1{
-                        //                            location = displayTitle
-                        //                            fareInfoCell.titleLabel.text = location
-                        //                        }else{
-                        //                            let ap = self.journey[indexPath.section].ap
-                        //                            let departureAirportDetails = self.airportDetailsResult[ap[0]]
-                        //                            let arrivalAirportDetails = self.airportDetailsResult[ap[1]]
-                        //
-                        //                            if departureAirportDetails != nil && arrivalAirportDetails != nil{
-                        //                                location = departureAirportDetails!.c! + " → " + arrivalAirportDetails!.c! + "\n" + displayTitle
-                        //                            }else if departureAirportDetails != nil{
-                        //                                location = departureAirportDetails!.c! + "\n" + displayTitle
-                        //                            }else if arrivalAirportDetails != nil{
-                        //                                location = arrivalAirportDetails!.c! + "\n" + displayTitle
-                        //                            }else{
-                        //                                location = displayTitle
-                        //                            }
-                        //
-                        //                            let completeText = NSMutableAttributedString(string: location)
-                        //                            let range1 = (location as NSString).range(of: displayTitle)
-                        //
-                        //                            completeText.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Regular", size: 16.0)! , range: range1)
-                        //                            fareInfoCell.titleLabel.attributedText = completeText
-                        //                        }
-                        //
-                        //                        if location.contains("\n"){
-                        //                            fareInfoCell.titleViewHeight.constant = 76
-                        //                            titleViewHeight = 76
-                        //                        }else{
-                        //                            titleViewHeight = 50
-                        //                        }
-                        
-                        
-                        
                         fareInfoCell.titleLabel.text = displayTitle
                         
                         if journey.count == 1{
-                            fareInfoCell.titleViewHeight.constant = 50
+//                            fareInfoCell.titleViewHeight.constant = 50
                             fareInfoCell.titleLabelTop.constant = 16
                             fareInfoCell.journeyNameLbl.isHidden = true
                             fareInfoCell.carrierImgView.isHidden = true
@@ -433,7 +403,7 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource, cellHeight
                             
                             titleViewHeight = 50
                         }else{
-                            fareInfoCell.titleViewHeight.constant = 100
+//                            fareInfoCell.titleViewHeight.constant = 100
                             fareInfoCell.titleLabelTop.constant = 73.5
                             fareInfoCell.journeyNameLbl.isHidden = false
                             fareInfoCell.carrierImgView.isHidden = false
@@ -528,9 +498,20 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource, cellHeight
                             
                             fareInfoCell.combineFareTableView.reloadData()
                         }else{
-                            fareInfoCell.isNoInfoViewVisible = true
-                            fareInfoCell.combineFareTableView.isHidden = true
-                            fareInfoCell.noInfoView.isHidden = false
+//                            fareInfoCell.isNoInfoViewVisible = true
+//                            fareInfoCell.combineFareTableView.isHidden = true
+//                            fareInfoCell.noInfoView.isHidden = false
+                            
+                            
+                            if isProgressBarHidden == true{
+                                fareInfoCell.isNoInfoViewVisible = true
+                                fareInfoCell.combineFareTableView.isHidden = true
+                                fareInfoCell.noInfoView.isHidden = false
+                            }else{
+                                fareInfoCell.isNoInfoViewVisible = false
+//                                fareInfoCell.combineFareTableView.isHidden = true
+                                fareInfoCell.noInfoView.isHidden = true
+                            }
                         }
                     }else{
                         
@@ -555,9 +536,20 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource, cellHeight
                         fareInfoCell.rafFees = rafFeesData
                     }
                     
-                    fareInfoCell.cellHeightDelegate = self
+//                    fareInfoCell.cellHeightDelegate = self
                     
-                    tableView.layoutIfNeeded()
+//                    tableView.layoutIfNeeded()
+                    
+                    
+                    fareInfoCell.combineFareTableView.reloadData()
+                    fareInfoCell.cellHeightDelegate = self
+                    fareInfoCell.layoutSubviews()
+                    fareInfoCell.layoutIfNeeded()
+                    let height = fareInfoCell.combineFareTableView.contentSize.height
+                    fareInfoCell.tableViewHeight.constant = (height < 150) ? 150 : height
+                    fareInfoCell.layoutSubviews()
+                    fareInfoCell.layoutIfNeeded()
+                    fareInfoCell.combineFareTableView.reloadData()
                     
                     return fareInfoCell
                 }
@@ -565,42 +557,55 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource, cellHeight
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-    {
-        if indexPath.section == journey.count {
-            return UITableView.automaticDimension
-        }else{
-            if journey.count == 1{
-                if indexPath.row == 0{
-                    return CGFloat(titleViewHeight)
-                }else if indexPath.row == 2{
-                    return UITableView.automaticDimension
-                }else{
-                    if rowHeight != 0{
-                        return CGFloat(rowHeight)
-                    }else{
-                        return UITableView.automaticDimension
-                    }
-                }
-            }else{
-                if indexPath.row == 0{
-                    return CGFloat(titleViewHeight)
-                }else{
-                    if rowHeight != 0{
-                        return CGFloat(rowHeight)
-                    }else{
-                        return UITableView.automaticDimension
-                    }
-                }
-            }
-        }
-    }
-    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+//    {
+//        if indexPath.section == journey.count {
+//            return UITableView.automaticDimension
+//        }else{
+//            if journey.count == 1{
+//                if indexPath.row == 0{
+//                    return CGFloat(titleViewHeight)
+//                }else if indexPath.row == 2{
+//                    return UITableView.automaticDimension
+//                }else{
+//                    if rowHeight != 0{
+//                        return CGFloat(rowHeight)
+//                    }else{
+////                        return UITableView.automaticDimension
+//                        return 150
+//                    }
+//                }
+//            }else{
+//                if indexPath.row == 0{
+//                    return CGFloat(titleViewHeight)
+//                }else{
+//                    if rowHeight != 0{
+//                        return CGFloat(rowHeight)
+//                    }else{
+////                        return UITableView.automaticDimension
+//                        return 150
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
     func getCellHeight(height: Int,section:Int)
     {
-        rowHeight = height
-        indexFromDelegate = section
-        fareInfoTableView.reloadData()
+//        rowHeight = height
+//        indexFromDelegate = section
+//        fareInfoTableView.reloadData()
+    }
+    
+    
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+        
+            return UITableView.automaticDimension
     }
     
     //MARK:- Scrollview Delegate
@@ -632,16 +637,24 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource, cellHeight
             DispatchQueue.main.async {
                 if let currentParsedResponse = parse(data: data, into: updatedFareInfoStruct.self, with:decoder) {
                     
-                    if currentParsedResponse.success == true{
+                    if currentParsedResponse.success == true
+                    {
+                        self.updatedFareInfo.append(currentParsedResponse.data.first!.value)
+                        
+                        let num = 0.75/Float(self.journey.count)
+                        self.progressBar.progress = Float(num+self.progressBar.progress)
+
+                        if self.progressBar.progress == 1.0{
+                            self.progressBar.isHidden = true
+                        }
+                        
+                        self.fareInfoTableView.reloadData()
                         
                         if self.journey[i].smartIconArray.contains("refundStatusPending")
                         {
                             self.journey[i].leg[0].fcp = 0
                             self.delegate?.reloadSmartIconsAtIndexPath()
                         }
-                        
-                        self.updatedFareInfo.append(currentParsedResponse.data.first!.value)
-                        self.fareInfoTableView.reloadData()
                     }
                 }
             }

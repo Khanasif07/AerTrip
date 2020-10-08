@@ -266,8 +266,7 @@ extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate{
 }
 
 extension FlightPaymentBookingStatusVC : YouAreAllDoneTableViewCellDelegate, PKAddPassesViewControllerDelegate{
-    
-    func addToAppleWalletTapped() {
+    func addToAppleWalletTapped(button: ATButton) {
         self.addToAppleWalletSetup()
     }
     

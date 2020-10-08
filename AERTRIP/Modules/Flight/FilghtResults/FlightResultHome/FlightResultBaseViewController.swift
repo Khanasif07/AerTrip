@@ -47,7 +47,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     var updatedApiProgress : Float = 0
     var isSearchByAirline = false
     var airlineCode = ""
-    let separatorView = UIView()
+    let separatorView = ATDividerView()
     
     private var filterBackView = UIView()
     
@@ -439,6 +439,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         resultBaseVC.viewModel.sid = flightSearchResultVM.sid
         resultBaseVC.viewModel.bookFlightObject = flightSearchResultVM.bookFlightObject
         resultBaseVC.viewModel.flightSearchResultVM = flightSearchResultVM
+        resultBaseVC.viewModel.flightSearchParameters = self.flightSearchParameters
         addChildView(resultBaseVC)
         singleJourneyResultVC = resultBaseVC
     }
@@ -1238,7 +1239,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             if let singleJourneyVC = self.singleJourneyResultVC {
                 singleJourneyVC.viewModel.updatedApiProgress = updatedApiProgress
                 singleJourneyVC.viewModel.airlineCode = airlineCode
-                singleJourneyVC.flightSearchParameters = self.flightSearchParameters
+//                singleJourneyVC.viewModel.flightSearchParameters = self.flightSearchParameters
                 singleJourneyVC.updateWithArray( resultVM.getOnewayJourneyDisplayArray(), sortOrder: resultVM.getSortOrder())
                 singleJourneyVC.updateAirportDetailsArray(resultVM.getOnewayAirportArray())
                 singleJourneyVC.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())

@@ -8,7 +8,8 @@
 
 import UIKit
 
-class IntMCAndReturnVC : UIViewController {
+class IntMCAndReturnVC : UIViewController, getSharableUrlDelegate
+{
     
     @IBOutlet weak var resultsTableView: UITableView!
     @IBOutlet weak var pinnedFlightsOptionsView : UIView!
@@ -51,12 +52,13 @@ class IntMCAndReturnVC : UIViewController {
     var previousRequest : DispatchWorkItem?
     var updateResultWorkItem: DispatchWorkItem?
     var flightSearchResultVM  : FlightSearchResultVM?
-    
-    
+    let getSharableLink = GetSharableUrl()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.results = InternationalJourneyResultsArray(sort: .Smart)
         setUpSubView()
+        getSharableLink.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -229,34 +231,105 @@ extension IntMCAndReturnVC {
         self.present(alert, animated: true, completion: nil)
     }
     
-    @IBAction func emailPinnedFlights(_ sender: Any) {
+    @IBAction func emailPinnedFlights(_ sender: Any)
+    {
         
+        emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
+        emailPinnedFlights.displayLoadingIndicator(true)
+
+        let flightAdultCount = bookFlightObject.flightAdultCount
+        let flightChildrenCount = bookFlightObject.flightChildrenCount
+        let flightInfantCount = bookFlightObject.flightInfantCount
+        let isDomestic = bookFlightObject.isDomestic
+        var valStr = ""
         if #available(iOS 13.0, *) {
-            guard let postData = generatePostDataForEmail(for: viewModel.results.pinnedFlights) else { return }
-            executeWebServiceForEmail(with: postData as Data, onCompletion:{ (view)  in
-                DispatchQueue.main.async {
+            valStr = generateCommonString(for: viewModel.results.pinnedFlights, flightObject: bookFlightObject)
+        }
+
+        self.getSharableLink.getUrlForMail(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, sid: sid, isInternational: true, journeyArray: viewModel.results.pinnedFlights, valString: valStr, trip_type: "")
+
+    }
+//    {
+//
+//        if #available(iOS 13.0, *) {
+//            guard let postData = generatePostDataForEmail(for: viewModel.results.pinnedFlights) else { return }
+//            executeWebServiceForEmail(with: postData as Data, onCompletion:{ (view)  in
+//                DispatchQueue.main.async {
+//                    self.showEmailViewController(body : view)
+//                }
+//            })
+//        }
+//    }
+    
+    func returnEmailView(view: String)
+    {
+        DispatchQueue.main.async {
+            self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+            self.emailPinnedFlights.displayLoadingIndicator(false)
+
+            if #available(iOS 13.0, *) {
+                if view == "Pinned template data not found"{
+                    AppToast.default.showToastMessage(message: view)
+                }else{
                     self.showEmailViewController(body : view)
                 }
-            })
+            }
         }
     }
     
-    @IBAction func sharePinnedFlights(_ sender: Any) {
-        
-        if #available(iOS 13.0, *) {
-            guard let postData = generatePostData(for: viewModel.results.pinnedFlights ) else { return }
+//    func returnSharableUrl(url: String)
+//    {
+//
+//    }
+    
+    func returnSharableUrl(url: String) {
+        sharePinnedFilghts.displayLoadingIndicator(false)
+        self.sharePinnedFilghts.setImage(UIImage(named: "SharePinned"), for: .normal)
+
+        if url == "No Data"{
+            AertripToastView.toast(in: self.view, withText: "Something went wrong. Please try again.")
+        }else{
+            let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
             
-            executeWebServiceForShare(with: postData as Data, onCompletion:{ (link)  in
-                
-                DispatchQueue.main.async {
-                    let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(link)" ]
-                    let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-                    activityViewController.popoverPresentationController?.sourceView = self.view
-                    self.present(activityViewController, animated: true, completion: nil)
-                }
-            })
+            self.present(activityViewController, animated: true, completion: nil)
         }
     }
+    
+    @IBAction func sharePinnedFlights(_ sender: Any){
+        if #available(iOS 13.0, *) {
+            shareJourney(journey: viewModel.results.pinnedFlights)
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
+//    {
+//        self.sharePinnedFilghts.setImage(UIImage(named: "OvHotelResult"), for: .normal)
+//        sharePinnedFilghts.displayLoadingIndicator(true)
+//
+//        if #available(iOS 13.0, *) {
+//            guard let postData = generatePostData(for: viewModel.results.pinnedFlights ) else { return }
+//
+//            executeWebServiceForShare(with: postData as Data, onCompletion:{ (link)  in
+//
+//                DispatchQueue.main.async {
+//                    self.sharePinnedFilghts.setImage(UIImage(named: "SharePinned"), for: .normal)
+//                    self.sharePinnedFilghts.displayLoadingIndicator(false)
+//
+//                    if link == "No Data"{
+//                        AertripToastView.toast(in: self.view, withText: "Something went wrong. Please try again.")
+//                    }else{
+//                        let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(link)" ]
+//                        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+//                        activityViewController.popoverPresentationController?.sourceView = self.view
+//                        self.present(activityViewController, animated: true, completion: nil)
+//                    }
+//                }
+//            })
+//        }
+//    }
 }
 
 extension IntMCAndReturnVC {

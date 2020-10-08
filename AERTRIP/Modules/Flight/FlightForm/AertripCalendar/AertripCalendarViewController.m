@@ -67,6 +67,10 @@
     else {
         [self configureInitialBottomViewPosition];
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self
+    selector:@selector(statusBarTappedAction:)
+        name:@"statusBarTouched"
+      object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -88,6 +92,8 @@
     if ([self isBeingDismissed]) {
         [self applyCalendarChanges];
     }
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"statusBarTouched" object:nil];
+
 }
 
 -(void)viewDidLayoutSubviews {
@@ -1290,8 +1296,22 @@
     [self SwitchTapOfSingleLegTypeJourney];
 }
 
-- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
-    NSLog(@"scrollViewShouldScrollToTop");
-    return true;
+- (void)statusBarTappedAction:(NSNotification*)notification {
+    NSLog(@"StatusBar tapped");
+    //handle StatusBar tap here.
+    NSDate *Date = [[NSDate alloc] init];
+    //let month = Calendar.current.component(.month, from: currentPageDate)
+    [self.customCalenderView setCurrentPage:Date];
+}
+
+
+@end
+
+@implementation UIStatusBarManager (CAPHandleTapAction)
+-(void)handleTapAction:(id)arg1 {
+    // Your code here
+    NSLog(@"StatusBar tapped");
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"statusBarTouched"
+    object:nil];
 }
 @end

@@ -15,6 +15,8 @@ import MessageUI
 }
 
 class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDelegate , GroupedFlightCellDelegate, getSharableUrlDelegate {
+   
+    
     
     //MARK:- Outlets
     var bannerView : ResultHeaderView?
@@ -44,7 +46,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     let getSharableLink = GetSharableUrl()
     let viewModel = FlightResultSingleJourneyVM()
     var flightSearchResultVM: FlightSearchResultVM?
-    var flightSearchParameters: NSDictionary?
+    
     
     //MARK:- View Controller Methods
     override func viewDidLoad() {
@@ -53,6 +55,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         self.viewModel.results = OnewayJourneyResultsArray(sort: .Smart)
         setupTableView()
         setupPinnedFlightsOptionsView()
+        self.viewModel.setSharedFks()
     }
     
     deinit {
@@ -257,16 +260,46 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         }
     }
     
-    @IBAction func emailPinnedFlights(_ sender: Any) {
+    @IBAction func emailPinnedFlights(_ sender: Any)
+    {
+        emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
+        emailPinnedFlights.displayLoadingIndicator(true)
+        let flightAdultCount = viewModel.bookFlightObject.flightAdultCount
+        let flightChildrenCount = viewModel.bookFlightObject.flightChildrenCount
+        let flightInfantCount = viewModel.bookFlightObject.flightInfantCount
+        let isDomestic = viewModel.bookFlightObject.isDomestic
         
-        guard let postData = generatePostDataForEmail(for: self.viewModel.results.pinnedFlights) else { return }
-        executeWebServiceForEmail(with: postData as Data, onCompletion:{ (view)  in
-            
-            DispatchQueue.main.async {
-                self.showEmailViewController(body : view)
-            }
-        })
+        self.getSharableLink.getUrlForMail(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, sid: viewModel.sid, isInternational: false, journeyArray: self.viewModel.results.pinnedFlights, valString: "", trip_type: "single")
+        
     }
+    //    {
+    //
+    //        guard let postData = generatePostDataForEmail(for: self.viewModel.results.pinnedFlights) else { return }
+    //        executeWebServiceForEmail(with: postData as Data, onCompletion:{ (view)  in
+    //
+    //            DispatchQueue.main.async {
+    //                self.showEmailViewController(body : view)
+    //            }
+    //        })
+    //    }
+    
+    func returnEmailView(view: String)
+    {
+        DispatchQueue.main.async {
+            
+            self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+            self.emailPinnedFlights.displayLoadingIndicator(false)
+
+            if #available(iOS 13.0, *) {
+                if view == "Pinned template data not found"{
+                    AppToast.default.showToastMessage(message: view)
+                }else{
+                    self.showEmailViewController(body : view)
+                }
+            }
+        }
+    }
+
     
     // Monika
     @IBAction func sharePinnedFlights(_ sender: Any) {
@@ -311,7 +344,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool,isPinnedButtonClicked:Bool) {
         if isPinnedButtonClicked == true{
-            setPinnedFlightAt(fk, isPinned: isPinned)
+            setPinnedFlightAt(fk, isPinned: isPinned, indexpath: nil)
         }
         
         if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "SingleJourneyResultTableViewCell") as? SingleJourneyResultTableViewCell{
@@ -501,11 +534,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         } else {
             // Fallback on earlier versions
         }
-    }
-    
-    // Monika
-    func returnEmailView(view: String) {
-        
     }
     
     func navigateToFlightDetailFor(journey: Journey) {
