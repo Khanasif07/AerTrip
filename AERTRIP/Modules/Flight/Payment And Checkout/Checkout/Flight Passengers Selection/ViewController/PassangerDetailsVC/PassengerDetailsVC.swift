@@ -15,7 +15,6 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var showPassportView: UIView!
     @IBOutlet weak var travellersTableView: ATTableView!
     @IBOutlet weak var passengerTable: ATTableView!
     
@@ -25,6 +24,8 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     var offsetPoint = CGPoint(x: 0, y: 0)
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.passengerTable.contentInset = UIEdgeInsets(top: topNavigationView.height, left: 0, bottom: 0, right: 0)
+
         self.registerCells()
         //        self.setupTextView()
         self.doInitialSetup()
@@ -469,7 +470,7 @@ extension PassengerDetailsVC: GuestDetailTableViewCellDelegate {
         //  get item position
         let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: passengerTable)
         
-        let pointToScroll = CGPoint(x: 0, y: itemPosition.y - 125)
+        let pointToScroll = CGPoint(x: 0, y: itemPosition.y - (125 + self.passengerTable.contentInset.top))
         if passengerTable.contentOffset.y < pointToScroll.y {
             
             DispatchQueue.delay(0.3) { [weak self] in
