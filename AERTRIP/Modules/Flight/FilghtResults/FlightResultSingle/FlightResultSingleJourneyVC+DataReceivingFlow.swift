@@ -73,6 +73,8 @@ extension FlightResultSingleJourneyVC {
             }
             
             
+            
+            
             if !self.viewModel.sharedFks.isEmpty {
                 
                     modifiedResult.enumerated().forEach { (ind,jour) in
