@@ -69,7 +69,7 @@ class SocialLoginVC: BaseVC {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.topNavView.leftButton.isHidden = true
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
     }
     
     override func viewDidAppear(_ animated: Bool) {

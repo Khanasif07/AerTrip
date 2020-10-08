@@ -120,9 +120,9 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row - 1], receipt: rcpt)
             }
         case .flightCarriersCell, .flightBoardingAndDestinationCell, .travellersPnrStatusTitleCell, .travellersPnrStatusCell:
-            AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail,tripCities: self.viewModel.tripCitiesStr,legSectionTap: indexPath.section - self.viewModel.noOfLegCellAboveLeg)
+            AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail,tripCities: self.viewModel.tripCitiesStr,legSectionTap: indexPath.section - self.viewModel.noOfLegCellAboveLeg, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
         case .tripChangeCell:
-            AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips,tripInfo: self.viewModel.bookingDetail?.tripInfo ?? TripInfo())
+            AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips,tripInfo: self.viewModel.bookingDetail?.tripInfo ?? TripInfo(), dismissalStatusBarStyle: .darkContent)
             self.tripChangeIndexPath = indexPath
         case .addToAppleWallet:
             addToAppleWallet(indexPath: indexPath)
@@ -224,7 +224,7 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
                 AppGlobals.shared.viewPdf(urlPath: endPoints, screenTitle: LocalizedString.ETicket.localized)
             } else if index == 4 {
                 // Present Resend Confirmation Email  
-                AppFlowManager.default.presentConfirmationMailVC(bookindId: self?.viewModel.bookingDetail?.id ?? "")
+                AppFlowManager.default.presentConfirmationMailVC(bookindId: self?.viewModel.bookingDetail?.id ?? "", presentingStatusBarStyle: .lightContent)
             }
         }
     }
@@ -437,7 +437,7 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     
     func openCallDetail() {
         printDebug("open call detail  ")
-        AppFlowManager.default.moveToBookingCallVC(contactInfo: self.viewModel.bookingDetail?.additionalInformation?.contactInfo)
+        AppFlowManager.default.moveToBookingCallVC(contactInfo: self.viewModel.bookingDetail?.additionalInformation?.contactInfo, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
     }
     
     func addToCalender() {

@@ -105,7 +105,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         super.viewWillAppear(animated)
         addCustomBackgroundBlurView()
         createFilters(curSelectedFilterIndex)
-        
+        statusBarStyle = .darkContent
     }
     
     func addSwipeLeftGuesture(){
@@ -175,7 +175,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             make.height.equalTo(42)
         }
         
-        ApiProgress = UIProgressView()
+        ApiProgress = UIProgressView(progressViewStyle: .bar)
         ApiProgress.progressTintColor = UIColor.AertripColor
         ApiProgress.trackTintColor = .clear
         

@@ -852,10 +852,11 @@ extension AppFlowManager {
         (onNavController ?? self.mainNavigationController).pushViewController(obj, animated: true)
     }
     
-    func presentToHotelCancellationVC(bookingDetail: BookingDetailModel) {
+    func presentToHotelCancellationVC(bookingDetail: BookingDetailModel, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let obj = HotelCancellationVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.bookingDetail = bookingDetail
-        
+        obj.presentingStatusBarStyle = presentingStatusBarStyle
+        obj.dismissalStatusBarStyle = dismissalStatusBarStyle
         let nav = UINavigationController(rootViewController: obj)
         nav.isNavigationBarHidden = true
         self.currentNavigation?.present(nav, animated: true, completion: nil)
@@ -1038,11 +1039,13 @@ extension AppFlowManager {
         self.mainNavigationController.present(ob, animated: true)
     }
     
-    func moveToBookingDetail(bookingDetail: BookingDetailModel?,tripCities: NSMutableAttributedString = NSMutableAttributedString(string: ""),legSectionTap: Int = 0) {
+    func moveToBookingDetail(bookingDetail: BookingDetailModel?,tripCities: NSMutableAttributedString = NSMutableAttributedString(string: ""),legSectionTap: Int = 0, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let ob = BookingFlightDetailVC.instantiate(fromAppStoryboard: .Bookings)
         ob.viewModel.bookingDetail = bookingDetail
         ob.viewModel.tripStr = tripCities
         ob.viewModel.legSectionTap = legSectionTap
+        ob.presentingStatusBarStyle = presentingStatusBarStyle
+        ob.dismissalStatusBarStyle = dismissalStatusBarStyle
         self.currentNavigation?.present(ob, animated: true, completion: nil)
     }
     
@@ -1061,6 +1064,8 @@ extension AppFlowManager {
         ob.viewModel.hotelName = hotelName
         ob.viewModel.taRating = taRating
         ob.viewModel.hotelStarRating = hotelStarRating
+        ob.presentingStatusBarStyle = presentingStatusBarStyle
+        ob.dismissalStatusBarStyle = dismissalStatusBarStyle
         self.currentNavigation?.present(ob, animated: true)
     }
     
@@ -1100,11 +1105,13 @@ extension AppFlowManager {
     
     // Move To Booking Call VC
     
-    func moveToBookingCallVC(contactInfo: ContactInfo?,usingFor: BookingCallVCUsingFor = .flight,hotel: String = "" ) {
+    func moveToBookingCallVC(contactInfo: ContactInfo?,usingFor: BookingCallVCUsingFor = .flight,hotel: String = "", presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent ) {
         let obj = BookingCallVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.contactInfo = contactInfo
         obj.viewModel.usingFor = usingFor
         obj.viewModel.hotelName = hotel
+        obj.presentingStatusBarStyle = presentingStatusBarStyle
+        obj.dismissalStatusBarStyle = dismissalStatusBarStyle
         self.currentNavigation?.present(obj, animated: true, completion: nil)
     }
     
@@ -1176,20 +1183,24 @@ extension AppFlowManager {
         (onNavController ?? self.mainNavigationController).pushViewController(obj, animated: true)
     }
     
-    func moveToSpecialRequestVC(forBookingId: String) {
+    func moveToSpecialRequestVC(forBookingId: String, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let obj = BookingReviewCancellationVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.legsWithSelection = []
         obj.viewModel.currentUsingAs = .specialRequest
         obj.viewModel.selectedRooms = []
         obj.viewModel.bookingId = forBookingId
+        obj.presentingStatusBarStyle = presentingStatusBarStyle
+        obj.dismissalStatusBarStyle = dismissalStatusBarStyle
         self.currentNavigation?.present(obj, animated: true, completion: nil)
     }
     
     // Move to Booking confirm email
     
-    func presentConfirmationMailVC(bookindId: String) {
+    func presentConfirmationMailVC(bookindId: String, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let obj = BookingConfimationMailVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.bookingId = bookindId
+        obj.presentingStatusBarStyle = presentingStatusBarStyle
+        obj.dismissalStatusBarStyle = dismissalStatusBarStyle
         self.currentNavigation?.present(obj, animated: true)
     }
     

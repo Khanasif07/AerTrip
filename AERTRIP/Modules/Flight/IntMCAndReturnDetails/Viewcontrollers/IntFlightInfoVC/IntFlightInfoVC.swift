@@ -61,8 +61,8 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         super.viewWillAppear(animated)
         
         if #available(iOS 13, *) {
-            UIApplication.shared.statusBarStyle = .lightContent
-            setNeedsStatusBarAppearanceUpdate()
+//            UIApplication.shared.statusBarStyle = .lightContent
+//            setNeedsStatusBarAppearanceUpdate()
         }
     }
     
@@ -70,8 +70,8 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         super.viewWillDisappear(animated)
         
         if #available(iOS 13, *) {
-            UIApplication.shared.statusBarStyle = .default
-            setNeedsStatusBarAppearanceUpdate()
+//            UIApplication.shared.statusBarStyle = .default
+//            setNeedsStatusBarAppearanceUpdate()
         }
     }
     

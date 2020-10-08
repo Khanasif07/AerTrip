@@ -54,7 +54,7 @@ class MainHomeVC: BaseVC {
         super.viewWillAppear(animated)
         
         if let sideMenu = AppFlowManager.default.sideMenuController, sideMenu.isOpen {
-            self.statusBarStyle = .default
+            self.statusBarStyle = .darkContent
         }
         else {
             self.statusBarStyle = .lightContent
@@ -297,7 +297,7 @@ class MainHomeVC: BaseVC {
     }
     
     private func popProfileAnimation() {
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
         let popPoint = CGPoint(x: 0.0, y: 0.0)
         
         viewProfileVC?.profileImageHeaderView?.profileImageView.isHidden = true
@@ -452,7 +452,7 @@ extension MainHomeVC: PKSideMenuControllerDelegate {
     func willOpenSideMenu() {
 //        self.sideMenuVC?.sideMenuTableView.setContentOffset(CGPoint(x: 0.0, y: -UIApplication.shared.statusBarFrame.height), animated: false)
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: (UserInfo.loggedInUserId != nil), onView: self.view)
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
         self.sideMenuVC?.getAccountSummary()
     }
 }

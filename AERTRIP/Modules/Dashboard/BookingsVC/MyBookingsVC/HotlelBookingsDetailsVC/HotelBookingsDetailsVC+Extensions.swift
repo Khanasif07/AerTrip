@@ -155,14 +155,14 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         let currentSection = self.viewModel.sectionDataForHotelDetail[indexPath.section]
         switch currentSection[indexPath.row] {
         case .hotelBookingInfoCell, .roomNameAndTypeCell, .travellersCell :
-            AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: self.viewModel.bookingDetail,hotelTitle: self.navigationTitleText)
+            AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: self.viewModel.bookingDetail,hotelTitle: self.navigationTitleText, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
         case .cancellationsReqCell, .addOnRequestCell, .reschedulingRequestCell :
             if let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
                 AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row - 1], receipt: rcpt)
             }
         case .tripChangeCell:
             self.tripChangeIndexPath = indexPath
-            AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips,tripInfo: self.viewModel.bookingDetail?.tripInfo ?? TripInfo())
+            AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips,tripInfo: self.viewModel.bookingDetail?.tripInfo ?? TripInfo(), dismissalStatusBarStyle: .darkContent)
         case .addToAppleWallet :
             self.addToAppleWallet(indexPath: indexPath)
         case .addToCalenderCell:
@@ -232,7 +232,7 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
             case 0:
                 if let bdtl = self?.viewModel.bookingDetail, bdtl.cancellationRequestAllowed {
                     printDebug("Process Cancellation")
-                    AppFlowManager.default.presentToHotelCancellationVC(bookingDetail: bdtl)
+                    AppFlowManager.default.presentToHotelCancellationVC(bookingDetail: bdtl, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                 }
                 else {
                     printDebug("Process Cancellation not allowed")
@@ -240,7 +240,7 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
                 
             case 1:
                 if let bdtl = self?.viewModel.bookingDetail, bdtl.specialRequestAllowed {
-                    AppFlowManager.default.moveToSpecialRequestVC(forBookingId: bdtl.bookingDetail?.bookingId ?? "")
+                    AppFlowManager.default.moveToSpecialRequestVC(forBookingId: bdtl.bookingDetail?.bookingId ?? "", presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                     printDebug("Special Request")
                 }
                 else {
@@ -253,7 +253,7 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
                 AppGlobals.shared.viewPdf(urlPath: endPoint, screenTitle: LocalizedString.Voucher.localized)
             case 3:
                 printDebug("Resend Confirmation mail ")
-                AppFlowManager.default.presentConfirmationMailVC(bookindId: self?.viewModel.bookingDetail?.id ?? "")
+                AppFlowManager.default.presentConfirmationMailVC(bookindId: self?.viewModel.bookingDetail?.id ?? "", presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
             default:
                 printDebug("default")
             }
@@ -440,7 +440,7 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     }
     
     func openCallDetail() {
-        AppFlowManager.default.moveToBookingCallVC(contactInfo: self.viewModel.bookingDetail?.additionalInformation?.contactInfo,usingFor: .hotel,hotel: self.viewModel.bookingDetail?.bookingDetail?.hotelName ?? "")
+        AppFlowManager.default.moveToBookingCallVC(contactInfo: self.viewModel.bookingDetail?.additionalInformation?.contactInfo,usingFor: .hotel,hotel: self.viewModel.bookingDetail?.bookingDetail?.hotelName ?? "", presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
     }
     
     func addToCalender() {

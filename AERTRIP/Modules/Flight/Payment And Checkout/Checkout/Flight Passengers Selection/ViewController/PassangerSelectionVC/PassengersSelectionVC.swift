@@ -45,7 +45,7 @@ class PassengersSelectionVC: BaseVC {
         self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
         self.navigationController?.navigationBar.isHidden = true
         
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
     }
     
     func apiCall(){
