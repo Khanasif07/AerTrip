@@ -750,8 +750,8 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                 
                 let minDuration = Float(userTripTime.minTime ?? "") ?? 0
                 let maxDuration = Float(userTripTime.maxTime ?? "") ?? 0
-                durationViewController.durationFilters[0].userSelectedTripMin = CGFloat(minDuration)
-                durationViewController.durationFilters[0].userSelectedTripMax = CGFloat(maxDuration)
+                durationViewController.durationFilters[0].userSelectedTripMin = CGFloat(minDuration/3600)
+                durationViewController.durationFilters[0].userSelectedTripMax = CGFloat(maxDuration/3600)
             }
             
             if userFilters.appliedSubFilters[0].contains(.layoverDuration) {
@@ -760,8 +760,8 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                 
                 let minDuration = Float(userLayoverTime.minTime ?? "") ?? 0
                 let maxDuration = Float(userLayoverTime.maxTime ?? "") ?? 0
-                durationViewController.durationFilters[0].userSelectedLayoverMin = CGFloat(minDuration)
-                durationViewController.durationFilters[0].userSelectedLayoverMax = CGFloat(maxDuration)
+                durationViewController.durationFilters[0].userSelectedLayoverMin = CGFloat(minDuration/3600)
+                durationViewController.durationFilters[0].userSelectedLayoverMax = CGFloat(maxDuration/3600)
             }
             
         } else {
