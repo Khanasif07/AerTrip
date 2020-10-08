@@ -19,6 +19,16 @@ class BookingDirectionVC: BaseVC {
     
     let viewModel = BookingDirectionVM()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        statusBarStyle = .lightContent
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = .darkContent
+    }
+    
     override func initialSetup() {
         self.setupNavBar()
         self.registerXib()

@@ -21,8 +21,19 @@ class BookingCallVC: BaseVC {
     
     let viewModel = BookingCallVM()
   
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
     
     // MARK: - Override methods
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        statusBarStyle = presentingStatusBarStyle
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = dismissalStatusBarStyle
+    }
     
     override func initialSetup() {
         

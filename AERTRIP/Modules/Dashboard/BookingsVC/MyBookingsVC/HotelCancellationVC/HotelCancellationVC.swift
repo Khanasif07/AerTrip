@@ -14,6 +14,7 @@ class HotelCancellationVC: BaseVC {
     //MARK:===========
     let viewModel = HotelCancellationVM()
     var expandedIndexPaths = [IndexPath]() // Array for storing indexPath
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
     
     //MARK:- IBOutlets
     //MARK:===========
@@ -33,6 +34,16 @@ class HotelCancellationVC: BaseVC {
     //MARK:===========
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        statusBarStyle = presentingStatusBarStyle
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = dismissalStatusBarStyle
     }
     
     override func initialSetup() {

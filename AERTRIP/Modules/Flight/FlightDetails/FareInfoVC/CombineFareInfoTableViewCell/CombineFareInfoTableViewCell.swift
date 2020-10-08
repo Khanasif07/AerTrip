@@ -50,6 +50,7 @@ class CombineFareInfoTableViewCell: UITableViewCell
     }
     
     override func layoutSubviews() {
+        super.layoutSubviews()
         self.combineFareTableView.layoutIfNeeded()
     }
 
@@ -531,31 +532,9 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
             slabCell.perInfantDataDisplayViewHeight.constant = 0
             slabCell.perInfantDataDisplayView.isHidden = true
         }
-        
-        
-//        var newCount = airlineCancellationFees[0]["ADT"]!.values.first!.count
-//        newCount += airlineReschedulingFees[0]["ADT"]!.values.first!.count
-//        let height = Int(slabCell.slabDataDisplayViewHeight.constant) * newCount
-
-
-//        let height = Int(slabCell.contentView.frame.height) * newCount
-//        print("height= ", height)
-//        print("Int(slabCell.contentView.frame.height)= ", Int(slabCell.contentView.frame.height))
-//        cellHeightDelegate?.getCellHeight(height: Int(height))
-        
-//        tableView.layoutIfNeeded()
+//
+//
         self.combineFareTableView.layoutIfNeeded()
-
-//        var heightOfTableView = 0
-//        let cells = tableView.visibleCells
-//        for cell in cells {
-//            heightOfTableView += Int(cell.contentView.frame.height)
-//        }
-        
-//        let height = tableView.contentSize.height
-//        print("heightOfTableView= ", heightOfTableView)
-//        cellHeightDelegate?.getCellHeight(height: Int(height))
-
 
         return slabCell
     }
@@ -567,8 +546,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
 ////
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
     {
-        if section == 1 && journey.count > 1
-        {
+        if section == 1{
             let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 55))
             footerView.backgroundColor = .white
 
@@ -583,111 +561,19 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
 
             return footerView
         }else{
-            return UIView()
+            return nil
         }
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
     {
-        if section == 1 && journey.count > 1{
+        if section == 1{
             return 60
         }else{
-            return 0
+            return CGFloat.leastNonzeroMagnitude
         }
     }
-////
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
-////    {
-//////        if let myCell = cell as? PerSlabFareInfoTableViewCell
-//////        {
-//////                   //perform your code to cell
-//////                   print("slabDataDisplayViewHeight= ", myCell.slabDataDisplayViewHeight.constant)
-//////
-//////                var count = combineAirlineCancellationFees[0][0]["ADT"]!.values.first!.count
-//////            print("count= ", count)
-//////                count += combineAirlineReschedulingFees[0][0]["ADT"]!.values.first!.count
-//////            print("count= ", count)
-//////
-//////            count += flightAdultCount + flightChildrenCount + flightInfantCount
-//////
-//////            let height = Int(myCell.slabDataDisplayViewHeight.constant) * count
-////////            print("height= ", height)
-//////            cellHeightDelegate?.getCellHeight(height: height+150)
-//////
-//////
-//////        }
-//////        if isFCP1 == false{
-//////            var count = combineAirlineCancellationFees[0][0]["ADT"]!.values.first!.count
-//////        print("count= ", count)
-//////            count += combineAirlineReschedulingFees[0][0]["ADT"]!.values.first!.count
-//////        print("count= ", count)
-//////
-//////         count += flightAdultCount + flightChildrenCount + flightInfantCount
-//////
-//////            var height  = Int(cell.contentView.frame.height)*count
-//////            height += 150
-//////
-//////            cellHeightDelegate?.getCellHeight(height: height)
-//////        }else{
-//////            let adtCount = airlineCancellationFees[0]["ADT"]!.values.first?.count
-//////
-////////            let adtCount = ((FCP1_airlineCancellationFees["ADT"] as? NSDictionary)?.allValues[0] as? NSArray)?.count
-//////            var height  = Int(cell.contentView.frame.height)*adtCount!
-//////            height += 130
-//////
-//////            cellHeightDelegate?.getCellHeight(height: height)
-//////        }
-////
-////    }
-//    {
-//        tableView.layoutIfNeeded()
-//        tableView.layoutSubviews()
-//        tableView.setNeedsDisplay()
-//
-//        if indexPath.row == (tableView.indexPathsForVisibleRows!.last! as NSIndexPath).row {
-//            let height = tableView.contentSize.height
-//            if isNoInfoViewVisible == false{
-////                print("height= ", height)
-//                cellHeightDelegate?.getCellHeight(height: Int(height), section: indexOfCell)
-//            }else{
-//
-//                cellHeightDelegate?.getCellHeight(height: 40, section: indexOfCell)
-//            }
-//        }
-//    }
     
-    
-    
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
-//    {
-//        if section == 1{
-//            let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 55))
-//            footerView.backgroundColor = .white
-//
-//            let innerView = UIView(frame: CGRect(x: 0, y: 20, width: UIScreen.main.bounds.width, height:45))
-//            innerView.backgroundColor = UIColor(displayP3Red: (246.0/255.0), green: (246.0/255.0), blue: (246.0/255.0), alpha: 1.0)
-//            footerView.addSubview(innerView)
-//
-//
-//            let seperatorView = UIView(frame:CGRect(x: 0, y: 20, width: UIScreen.main.bounds.width, height: 0.6))
-//            seperatorView.backgroundColor = UIColor(displayP3Red: (204.0/255.0), green: (204.0/255.0), blue: (204.0/255.0), alpha: 1.0)
-//            footerView.addSubview(seperatorView)
-//
-//            return footerView
-//        }else{
-//            return UIView()
-//        }
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
-//    {
-//        if section == 1{
-//            return 55
-//        }else{
-//            return 0
-//        }
-//    }
-    //
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
                 tableView.layoutIfNeeded()
                 tableView.layoutSubviews()

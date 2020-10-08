@@ -773,8 +773,11 @@ extension FlightFilterBaseVC {
                 
                 let minDuration = Float(userTripTime.minTime ?? "") ?? 0
                 let maxDuration = Float(userTripTime.maxTime ?? "") ?? 0
-                durationViewController.durationFilters[0].userSelectedTripMin = CGFloat(minDuration)
-                durationViewController.durationFilters[0].userSelectedTripMax = CGFloat(maxDuration)
+                durationViewController.durationFilters[0].userSelectedTripMin = CGFloat(minDuration/3600)
+                durationViewController.durationFilters[0].userSelectedTripMax = CGFloat(maxDuration/3600)
+            } else {
+                durationViewController.durationFilters[0].tripDurationMinDuration = tripDurationMin
+                durationViewController.durationFilters[0].tripDurationmaxDuration = tripDurationMax
             }
             
             if userFilters.appliedSubFilters[0].contains(.layoverDuration) {
@@ -783,8 +786,11 @@ extension FlightFilterBaseVC {
                 
                 let minDuration = Float(userLayoverTime?.minTime ?? "") ?? 0
                 let maxDuration = Float(userLayoverTime?.maxTime ?? "") ?? 0
-                durationViewController.durationFilters[0].userSelectedLayoverMin = CGFloat(minDuration)
-                durationViewController.durationFilters[0].userSelectedLayoverMax = CGFloat(maxDuration)
+                durationViewController.durationFilters[0].userSelectedLayoverMin = CGFloat(minDuration/3600)
+                durationViewController.durationFilters[0].userSelectedLayoverMax = CGFloat(maxDuration/3600)
+            } else {
+                durationViewController.durationFilters[0].layoverMinDuration = layoverDurationMin
+                durationViewController.durationFilters[0].layoverMaxDuration = layoverMaxDuration
             }
             
         } else {
@@ -854,9 +860,13 @@ extension FlightFilterBaseVC {
                     
                     let minDuration = Float(userTripTime.minTime ?? "") ?? 0
                     let maxDuration = Float(userTripTime.maxTime ?? "") ?? 0
-                    durationViewController.durationFilters[index].userSelectedTripMin = CGFloat(minDuration)
-                    durationViewController.durationFilters[index].userSelectedTripMax = CGFloat(maxDuration)
+                    durationViewController.durationFilters[index].userSelectedTripMin = CGFloat(minDuration/3600)
+                    durationViewController.durationFilters[index].userSelectedTripMax = CGFloat(maxDuration/3600)
                 }
+//                else {
+//                    durationViewController.durationFilters[index].tripDurationMinDuration = tripMinDuration
+//                    durationViewController.durationFilters[index].tripDurationmaxDuration = tripMaxDuration
+//                }
                 
                 if userFilters.appliedSubFilters[index].contains(.layoverDuration) {
                     durationViewController.durationFilters[index].layoverMinDuration = layoverMin
@@ -864,9 +874,13 @@ extension FlightFilterBaseVC {
                     
                     let minDuration = Float(userLayoverTime?.minTime ?? "") ?? 0
                     let maxDuration = Float(userLayoverTime?.maxTime ?? "") ?? 0
-                    durationViewController.durationFilters[index].userSelectedLayoverMin = CGFloat(minDuration)
-                    durationViewController.durationFilters[index].userSelectedLayoverMax = CGFloat(maxDuration)
+                    durationViewController.durationFilters[index].userSelectedLayoverMin = CGFloat(minDuration/3600)
+                    durationViewController.durationFilters[index].userSelectedLayoverMax = CGFloat(maxDuration/3600)
                 }
+//                else {
+//                    durationViewController.durationFilters[index].layoverMinDuration = layoverMin
+//                    durationViewController.durationFilters[index].layoverMaxDuration = layoverMax
+//                }
                 
             } else {
                 if !durationViewController.durationFilters.indices.contains(index), durationViewController.durationFilters.count >= index {
@@ -889,7 +903,6 @@ extension FlightFilterBaseVC {
             }
         }
         durationViewController.updateFiltersFromAPI()
-        
     }
     
     func setDurationVC(_ durationViewController : FlightDurationFilterViewController , inputFilters : [FiltersWS])
@@ -1054,16 +1067,21 @@ extension FlightFilterBaseVC {
                                              userSelectedFareMinValue: CGFloat(newPriceWS.minPrice) ,
                                              userSelectedFareMaxValue: CGFloat(newPriceWS.maxPrice) )
             
-            let userFilter = userSelectedFilters[index].pr
-            
+            var userFilter: priceWS?
+            if userSelectedFilters.indices.contains(index) {
+                userFilter = userSelectedFilters[index].pr
+            }
+                
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[index].contains(.Price), priceViewController.allPriceFilters.indices.contains(index) {
                 priceViewController.allPriceFilters[index].inputFareMinValue = newPriceFilter.inputFareMinValue
                 
                 priceViewController.allPriceFilters[index].inputFareMaxVaule = newPriceFilter.inputFareMaxVaule
                 
-                priceViewController.allPriceFilters[index].userSelectedFareMinValue = CGFloat(userFilter.minPrice)
-                
-                priceViewController.allPriceFilters[index].userSelectedFareMaxValue = CGFloat(userFilter.maxPrice)
+                if let userFil = userFilter {
+                    priceViewController.allPriceFilters[index].userSelectedFareMinValue = CGFloat(userFil.minPrice)
+                    
+                    priceViewController.allPriceFilters[index].userSelectedFareMaxValue = CGFloat(userFil.maxPrice)
+                }
             } else {
                 if !priceViewController.allPriceFilters.indices.contains(index) {
                     priceViewController.allPriceFilters.insert(newPriceFilter, at: index)

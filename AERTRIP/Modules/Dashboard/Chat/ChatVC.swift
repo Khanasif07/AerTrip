@@ -50,7 +50,7 @@ class ChatVC : BaseVC {
         IQKeyboardManager.shared().isEnableAutoToolbar = false
         IQKeyboardManager.shared().shouldResignOnTouchOutside = false
         addKeyboard()
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -64,7 +64,7 @@ class OtherBookingsDetailsVC: BaseVC {
     override func initialSetup() {
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
         self.viewModel.getBookingDetail(showProgress: true)
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
         self.topNavBarHeightConstraint.constant = self.navBarHeight
         self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: .white))
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))

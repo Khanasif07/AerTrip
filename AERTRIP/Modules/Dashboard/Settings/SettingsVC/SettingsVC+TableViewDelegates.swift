@@ -86,17 +86,17 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
 
         case .aboutUs:
             if let pageUrl = URL(string: APIEndPoint.about.rawValue) {
-                AppFlowManager.default.showURLOnATWebView(pageUrl, screenTitle:  self.settingsVm.getSettingsType(key: indexPath.section, index: indexPath.row).rawValue)
+                AppFlowManager.default.showURLOnATWebView(pageUrl, screenTitle:  self.settingsVm.getSettingsType(key: indexPath.section, index: indexPath.row).rawValue, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
             }
             
         case .privacyPolicy:
             if let pageUrl = URL(string: APIEndPoint.privacy.rawValue) {
-                AppFlowManager.default.showURLOnATWebView(pageUrl, screenTitle:  self.settingsVm.getSettingsType(key: indexPath.section, index: indexPath.row).rawValue)
+                AppFlowManager.default.showURLOnATWebView(pageUrl, screenTitle:  self.settingsVm.getSettingsType(key: indexPath.section, index: indexPath.row).rawValue, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
             }
             
         case .legal:
             if let pageUrl = URL(string: APIEndPoint.legal.rawValue) {
-                AppFlowManager.default.showURLOnATWebView(pageUrl, screenTitle:  self.settingsVm.getSettingsType(key: indexPath.section, index: indexPath.row).rawValue)
+                AppFlowManager.default.showURLOnATWebView(pageUrl, screenTitle:  self.settingsVm.getSettingsType(key: indexPath.section, index: indexPath.row).rawValue, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
             }
             
             

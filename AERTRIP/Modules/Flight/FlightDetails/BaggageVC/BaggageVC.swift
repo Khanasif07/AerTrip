@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaggageVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate
+class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
 {
     //MARK:- Outlets
     @IBOutlet weak var baggageTableView: UITableView!

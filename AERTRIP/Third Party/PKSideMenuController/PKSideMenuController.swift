@@ -38,6 +38,17 @@ public protocol PKSideMenuControllerDelegate: class {
 open class PKSideMenuController: UIViewController {
     
     //MARK:- Properties
+    
+//    var statusBarStyle: UIStatusBarStyle = .darkContent {
+//        didSet{
+//            /*HINT:
+//             Open your info.plist and insert a new key named "View controller-based status bar appearance" to NO
+//            */
+//            UIApplication.shared.statusBarStyle = statusBarStyle
+//            setNeedsStatusBarAppearanceUpdate()
+//        }
+//    }
+    
     //MARK:- Public
     public var isOpen: Bool {
         
@@ -92,10 +103,10 @@ open class PKSideMenuController: UIViewController {
         }
         
         if self.mainViewController != nil {
-            return .default
+            return .darkContent
         }
        
-         return .default
+         return .darkContent
      }
     
     //MARK:- Methods
@@ -316,6 +327,8 @@ open class PKSideMenuController: UIViewController {
         case .curveLinear:
             self.openWithCurveLinear(mainFrame: fMain)
         }
+        updateStatusBarColor()
+        
     }
     
     func closeMenu(){
@@ -337,6 +350,16 @@ open class PKSideMenuController: UIViewController {
         case .curveLinear:
             self.closeWithCurveLinear(mainFrame: fMain)
         }
+        
+        updateStatusBarColor()
+    }
+    
+    private func updateStatusBarColor() {
+//        if isOpen {
+//            statusBarStyle = .lightContent
+//        } else {
+//            statusBarStyle = .darkContent
+//        }
     }
     
     func addTapGestures(){

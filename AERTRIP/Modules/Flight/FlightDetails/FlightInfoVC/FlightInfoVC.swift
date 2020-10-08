@@ -37,7 +37,7 @@ public struct flightPerfomanceResultData : Codable {
 
 import UIKit
 
-final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDelegate, getSelectedAmenitiesDelegate, UIScrollViewDelegate
+final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, getSelectedAmenitiesDelegate
 {
     //MARK:- Outlets
     @IBOutlet weak var flightInfoTableView: UITableView!
@@ -452,7 +452,7 @@ final class FlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDe
                         let fontAttributes = [NSAttributedString.Key.font: font]
                         let myText = flightDetailsCell.classNameLabel.text
                         let size = (myText! as NSString).size(withAttributes: fontAttributes as [NSAttributedString.Key : Any])
-                        flightDetailsCell.classNameLabelWidth.constant = size.width
+//                        flightDetailsCell.classNameLabelWidth.constant = size.width
                         
                         flightDetailsCell.arrivalPerformaceButton.isUserInteractionEnabled = false
                         flightDetailsCell.onArrivalPerformanceLabel.text = ""

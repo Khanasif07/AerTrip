@@ -33,7 +33,7 @@ struct SocialNetworkUrl {
                 UIApplication.shared.open(appUrl, options: [:], completionHandler: nil)
             } else {
                 if let pageUrl = URL(string: pageURL) {
-                    AppFlowManager.default.showURLOnATWebView(pageUrl, screenTitle:  title)
+                    AppFlowManager.default.showURLOnATWebView(pageUrl, screenTitle:  title, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
 
                 }
             }

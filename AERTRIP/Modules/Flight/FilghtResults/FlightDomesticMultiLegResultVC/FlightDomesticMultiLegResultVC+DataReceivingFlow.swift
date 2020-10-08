@@ -69,6 +69,24 @@ extension FlightDomesticMultiLegResultVC {
                             }
                 
                 
+                if !self.viewModel.sharedFks.isEmpty {
+                    
+                        modifiedResult.enumerated().forEach { (ind,jour) in
+                                        
+                            if self.viewModel.sharedFks.contains(jour.fk) {
+                                
+                                self.viewModel.results[index].currentPinnedJourneys.append(jour)
+                                self.viewModel.results[index].currentPinnedJourneys = self.viewModel.results[index].currentPinnedJourneys.removeDuplicates()
+                                self.viewModel.isSharedFkmatched = true
+                                modifiedResult[ind].isPinned = true
+                                
+                            }
+                            
+                    }
+                    
+                }
+                
+                
 
                 self.viewModel.results[index].journeyArray = modifiedResult
                 
@@ -84,9 +102,7 @@ extension FlightDomesticMultiLegResultVC {
 //                            self.resultsTableView.tableFooterView = nil
 //                        }
                         
-                        
-                        
-                        if self.viewModel.isSearchByAirlineCode {
+                        if self.viewModel.isSearchByAirlineCode || self.viewModel.isSharedFkmatched {
                             delay(seconds: 1) {
                                 self.switchView.isOn = true
                                 self.switcherDidChangeValue(switcher: self.switchView, value: true)

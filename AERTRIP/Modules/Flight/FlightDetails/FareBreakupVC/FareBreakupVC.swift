@@ -228,7 +228,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             
             for i in 0..<journeyCombo.count{
                 if let otherFare = journeyCombo[i].otherfares{
-                    if otherFare == true{
+                    if otherFare{
                         isOtherFareVisible = true
                     }
                 }
@@ -272,7 +272,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 taxAndFeesDataDict.removeAll()
                 for i in 0..<journey.count{
                     if let otherFare = journey[i].otherfares{
-                        if otherFare == true{
+                        if otherFare{
                             isOtherFareVisible = true
                         }
                     }
@@ -297,13 +297,13 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 
                 let price1 = displayPriceInFormat(price: Double(totalFare), fromOption : "BookingAmount")
                 bookingAmountLabel.attributedText = price1
-                
+                strikeOutAmountLabel.attributedText = nil
                 baseFareTableview.reloadData()
             }
         }
         
         
-        if isUpgradePlanScreenVisible == false{
+        if !isUpgradePlanScreenVisible{
             upgradeButton.isHidden = false
             upgradeButtonWidth.constant = 32
             bookButtonTrailing.constant = 44
@@ -315,7 +315,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
         
         if fromScreen != "upgradePlan"{
-            if isOtherFareVisible == true{
+            if isOtherFareVisible{
                 upgradeButton.isHidden = false
                 upgradeButtonWidth.constant = 32
                 dividerView.isHidden = false

@@ -561,7 +561,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
                         self?.topNavView.dividerView.isHidden = true
                        }
             } else {
-                self.statusBarStyle = .default
+                self.statusBarStyle = .darkContent
                            self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
                                self?.topNavView.firstRightButton.isSelected = true
                                self?.topNavView.leftButton.isSelected = true

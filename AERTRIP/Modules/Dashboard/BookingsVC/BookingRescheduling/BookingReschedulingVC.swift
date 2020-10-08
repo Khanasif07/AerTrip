@@ -42,6 +42,17 @@ class BookingReschedulingVC: BaseVC {
         super.viewWillLayoutSubviews()
         self.gradientView.addGredient(isVertical: false)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        statusBarStyle = .lightContent
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = .darkContent
+    }
+    
     override func initialSetup() {
         self.reschedulingTableView.contentInset = UIEdgeInsets(top: headerContainer.height, left: 0, bottom: 0, right: 0)
         self.continueButton.shadowColor = AppColors.clear
