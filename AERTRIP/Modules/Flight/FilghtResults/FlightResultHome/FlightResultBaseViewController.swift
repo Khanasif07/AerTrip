@@ -395,6 +395,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         resultBaseVC.bookFlightObject = flightSearchResultVM.bookFlightObject
         resultBaseVC.flightSearchType = flightSearchResultVM.flightSearchType
         resultBaseVC.flightSearchResultVM = flightSearchResultVM
+        resultBaseVC.viewModel.flightSearchParameters = self.flightSearchParameters
         domesticMultiLegResultVC = resultBaseVC
         addChildView(resultBaseVC)
     }
@@ -426,6 +427,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         resultBaseVC.headerTitles = headerTitles
         resultBaseVC.numberOfLegs = self.numberOfLegs
         resultBaseVC.flightSearchResultVM = self.flightSearchResultVM
+        resultBaseVC.viewModel.flightSearchParameters = self.flightSearchParameters
         addChildView(resultBaseVC)
         self.intMultiLegResultVC = resultBaseVC
     }

@@ -512,16 +512,6 @@ extension FlightResultSingleJourneyVM{
             }
         }
 
-//
-//        sharedData.filter( { $0.key. })
-//
-//        let airlines = sharedData.filter { $0.key.contains("filters[\(self.index)][al]") }
-
-        
-        
- 
-
-        
     }
     
     
