@@ -41,7 +41,8 @@ class AccountOfflineDepositVC: BaseVC {
     }
     
     override func initialSetup() {
-        
+        checkOutTableView.contentInset = UIEdgeInsets(top: topNavView.height - 0.5, left: 0.0, bottom: 0.0, right: 0.0)
+
         self.view.backgroundColor = AppColors.themeWhite
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self

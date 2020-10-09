@@ -31,7 +31,6 @@ class HotelDetailsReviewsVC: BaseVC {
     @IBOutlet weak var cancelButtonOutlet: UIButton!
     @IBOutlet weak var reviewsTblView: UITableView! {
         didSet {
-            self.reviewsTblView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.reviewsTblView.delegate = self
             self.reviewsTblView.dataSource = self
             self.reviewsTblView.estimatedRowHeight = UITableView.automaticDimension
@@ -80,6 +79,7 @@ class HotelDetailsReviewsVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.reviewsTblView.contentInset = UIEdgeInsets(top: headerContainerView.height, left: 0.0, bottom: 0.0, right: 0.0)
         headerContainerView.backgroundColor = .clear
         mainContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.view.backgroundColor = .clear

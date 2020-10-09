@@ -27,7 +27,6 @@ class HCEmailItinerariesVC: BaseVC {
             self.tableView.dataSource = self
             self.tableView.estimatedRowHeight = UITableView.automaticDimension
             self.tableView.rowHeight = UITableView.automaticDimension
-            self.tableView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 10.0)
         }
     }
     @IBOutlet weak var headerHeightConstraint: NSLayoutConstraint!
@@ -64,6 +63,7 @@ class HCEmailItinerariesVC: BaseVC {
         } else {
             self.view.backgroundColor = .white
         }
+        self.tableView.contentInset = UIEdgeInsets(top: headerHeightConstraint.constant, left: 0.0, bottom: 0.0, right: 0)
         self.headerViewSetUp()
         self.registerNibs()
     }

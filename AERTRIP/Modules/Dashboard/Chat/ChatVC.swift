@@ -38,10 +38,13 @@ class ChatVC : BaseVC {
     var dotsView: AMDots?
     var typingCellTimer : Timer?
     
+    private let speechRecognizer = SpeechRecognizer()
+    
     //MARK:- View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpSubView()
+        speechRecognizer.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +60,10 @@ class ChatVC : BaseVC {
         super.viewWillDisappear(animated)
         IQKeyboardManager.shared().isEnabled = true
         removeKeyboard()
+    }
+    
+    deinit {
+        speechRecognizer.stop()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -208,9 +215,10 @@ extension ChatVC {
     //MARK:- Set navigation view
     private func setUpNavigationView(){
         topNavView.delegate = self
-        topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: false)
         topNavView.configureLeftButton(normalImage: #imageLiteral(resourceName: "back"), selectedImage:  #imageLiteral(resourceName: "back"), normalTitle: "", selectedTitle: "", normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "green_2"), selectedImage: #imageLiteral(resourceName: "green_2"), normalTitle: "", selectedTitle: "", normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+        topNavView.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "dictationIcon"), selectedImage: #imageLiteral(resourceName: "searchBarClearButton"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil, font: AppFonts.Regular.withSize(18.0))
     }
     
     private func scrollTableViewToLast(withAnimation : Bool = true){
@@ -229,6 +237,20 @@ extension ChatVC : TopNavigationViewDelegate {
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         let vc = ThingsCanBeAskedVC.instantiate(fromAppStoryboard: AppStoryboard.Dashboard)
         self.present(vc, animated: true, completion: nil)
+    }
+    
+    func topNavBarSecondRightButtonAction(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        
+        if sender.isSelected {
+            speechRecognizer.start()
+        } else {
+            speechRecognizer.stop()
+            if !messageTextView.text.isEmpty {
+                sendButton(sendButton)
+                messageTextView.text.removeAll()
+            }
+        }
     }
 }
 
@@ -571,4 +593,16 @@ extension ChatVC : ChatBotDelegatesDelegate {
         
     }
     
+}
+
+extension ChatVC: SpeechRecognizerDelegate {
+    func recordedText(_ text: String) {
+        if topNavView.secondRightButton.isSelected {
+            messageTextView.text = text
+        }
+    }
+    
+    func recordButtonState(_ toEnable: Bool) {
+        topNavView.secondRightButton.isEnabled = toEnable
+    }
 }

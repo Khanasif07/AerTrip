@@ -17,7 +17,6 @@ class CreateNewTripVC: BaseVC {
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var popUpContainerView: UIView!
-    @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var inputContainerView: UIView!
     @IBOutlet weak var tripImageView: UIImageView!
     @IBOutlet weak var tripImageShadowView: UIView!
@@ -25,7 +24,9 @@ class CreateNewTripVC: BaseVC {
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var createButton: ATButton!
     @IBOutlet weak var inputContainerShadowView: UIView!
-    
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var stickyLabel: UILabel!
+    @IBOutlet weak var closeButton: UIButton!
     
     //MARK:- Properties
     //MARK:- Public
@@ -45,7 +46,7 @@ class CreateNewTripVC: BaseVC {
         editButton.cornerradius = editButton.height / 2.0
 //        createButton.layer.masksToBounds = true
         
-        popUpContainerView.roundTopCorners(cornerRadius: 10.0)
+       // popUpContainerView.roundTopCorners(cornerRadius: 10.0)
         inputContainerView.cornerradius = 10.0
         inputContainerShadowView.addShadow(cornerRadius: inputContainerView.cornerradius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
         inputContainerShadowView.clipsToBounds = false
@@ -63,15 +64,16 @@ class CreateNewTripVC: BaseVC {
     }
     
     override func initialSetup() {
-        if #available(iOS 13.0, *) {} else {
-        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        swipeGesture.delegate = self
-        self.popUpContainerView.addGestureRecognizer(swipeGesture)
-        }
-        topNavView.delegate = self
-        topNavView.configureNavBar(title: LocalizedString.CreateNewTrip.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
+//        if #available(iOS 13.0, *) {} else {
+//        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+//        swipeGesture.delegate = self
+//        self.popUpContainerView.addGestureRecognizer(swipeGesture)
+//        }
         
-        topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"))
+        headerView.backgroundColor = .clear
+        popUpContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        self.view.backgroundColor = .clear
+        
         
         titleTextField.becomeFirstResponder()
         titleTextField.autocorrectionType = .no
@@ -90,6 +92,8 @@ class CreateNewTripVC: BaseVC {
         createButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
         editButton.titleLabel?.font = AppFonts.SemiBold.withSize(16.0)
         titleTextField.font = AppFonts.Regular.withSize(18.0)
+        self.stickyLabel.font = AppFonts.SemiBold.withSize(18.0)
+
     }
     
     override func setupTexts() {
@@ -97,6 +101,8 @@ class CreateNewTripVC: BaseVC {
         
         editButton.setTitle(LocalizedString.Edit.localized, for: .normal)
         titleTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.NameYourTrip.localized, with: "")
+        self.stickyLabel.text = LocalizedString.CreateNewTrip.localized
+
     }
     
     override func setupColors() {
@@ -110,6 +116,8 @@ class CreateNewTripVC: BaseVC {
         editButton.setTitleColor(AppColors.themeWhite, for: .normal)
         
         tripImageShadowView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.5)
+        
+        self.stickyLabel.textColor = AppColors.themeBlack
     }
     
     //MARK:- Methods
@@ -136,6 +144,10 @@ class CreateNewTripVC: BaseVC {
             trip.image = tripImageView.image
             viewModel.add(trip: trip)
         }
+    }
+    @IBAction func closeBtnTapped(_ sender: Any) {
+        //cross button
+        self.dismiss(animated: true)
     }
 }
 
@@ -174,54 +186,41 @@ extension CreateNewTripVC: CreateNewTripVMDelegate {
     }
 }
 
-//MARK:- Navigation View delegat methods
-//MARK:-
-extension CreateNewTripVC: TopNavigationViewDelegate {
-    func topNavBarLeftButtonAction(_ sender: UIButton) {
-        // no need to implement
-    }
-    
-    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        //cross button
-        self.dismiss(animated: true)
-    }
-}
-
 extension CreateNewTripVC {
-    @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-        
-        func reset() {
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.popUpContainerView.transform = .identity
-            })
-        }
-        
-        func moveView() {
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.popUpContainerView.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
-            })
-        }
-        
-        guard let direction = sender.direction, direction.isVertical, direction == .down
-            else {
-            reset()
-            return
-        }
-        
-        switch sender.state {
-        case .changed:
-            viewTranslation = sender.translation(in: popUpContainerView)
-            moveView()
-        case .ended:
-            if viewTranslation.y < 200 {
-                reset()
-            } else {
-                dismiss(animated: true, completion: nil)
-            }
-        case .cancelled:
-            reset()
-        default:
-            break
-        }
-    }
+//    @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+//
+//        func reset() {
+//            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+//                self.popUpContainerView.transform = .identity
+//            })
+//        }
+//
+//        func moveView() {
+//            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+//                self.popUpContainerView.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
+//            })
+//        }
+//
+//        guard let direction = sender.direction, direction.isVertical, direction == .down
+//            else {
+//            reset()
+//            return
+//        }
+//
+//        switch sender.state {
+//        case .changed:
+//            viewTranslation = sender.translation(in: popUpContainerView)
+//            moveView()
+//        case .ended:
+//            if viewTranslation.y < 200 {
+//                reset()
+//            } else {
+//                dismiss(animated: true, completion: nil)
+//            }
+//        case .cancelled:
+//            reset()
+//        default:
+//            break
+//        }
+//    }
 }

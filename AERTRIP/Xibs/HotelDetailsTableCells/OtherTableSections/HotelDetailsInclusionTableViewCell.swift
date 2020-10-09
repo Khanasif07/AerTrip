@@ -19,6 +19,7 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
     @IBOutlet weak var inclusionTypeLabel: UILabel!
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var inclusionTypeLabelTopConstraints: NSLayoutConstraint!
     @IBOutlet weak var inclusionTypeLabelBottomConstraints: NSLayoutConstraint!
     @IBOutlet weak var shadowViewLeadingConstraints: NSLayoutConstraint!
     @IBOutlet weak var shadowViewTrailingConstraints: NSLayoutConstraint!
@@ -28,6 +29,11 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureUI()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        inclusionTypeLabelTopConstraints.constant = 12
     }
     
     //Mark:- Methods
@@ -91,6 +97,7 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
     
     internal func configureOtherInclusionCell(otherInclusion: [String]) {
        // self.inclusionLabel.text = LocalizedString.OtherInclusions.localized
+        inclusionTypeLabelTopConstraints.constant = 0
         self.inclusionTypeLabel.text = otherInclusion.joined(separator: ", ")
     }
     

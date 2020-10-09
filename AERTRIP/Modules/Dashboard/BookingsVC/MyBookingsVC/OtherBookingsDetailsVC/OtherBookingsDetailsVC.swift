@@ -74,7 +74,7 @@ class OtherBookingsDetailsVC: BaseVC {
         
         self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         self.refreshControl.tintColor = AppColors.themeGreen
-        self.dataTableView.refreshControl = refreshControl
+        //self.dataTableView.refreshControl = refreshControl
         
         NotificationCenter.default.addObserver(self, selector: #selector(bookingDetailFetched(_:)), name: .bookingDetailFetched, object: nil)
 
@@ -141,7 +141,7 @@ class OtherBookingsDetailsVC: BaseVC {
         self.dataTableView.parallaxHeader.view = self.headerView
         self.dataTableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight
         self.dataTableView.parallaxHeader.height = parallexHeaderHeight
-        self.dataTableView.parallaxHeader.mode = MXParallaxHeaderMode.top
+        self.dataTableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.dataTableView.parallaxHeader.delegate = self
         self.view.bringSubviewToFront(self.topNavBar)
     }
