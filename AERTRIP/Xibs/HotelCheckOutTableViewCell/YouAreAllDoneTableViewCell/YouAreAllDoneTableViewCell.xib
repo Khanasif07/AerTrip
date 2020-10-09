@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -108,6 +107,7 @@ Your booking ID is 2324354657 and all details have been sent to your email.</str
                     </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="FTr-tR-uPT" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="0kA-gv-gWk"/>
                     <constraint firstItem="nbM-hh-hIc" firstAttribute="top" secondItem="NZh-1Y-5dq" secondAttribute="bottom" constant="16" id="9HO-zU-lIy"/>
                     <constraint firstAttribute="trailing" secondItem="NZh-1Y-5dq" secondAttribute="trailing" constant="16" id="A2w-8t-lQS"/>
                     <constraint firstItem="FTr-tR-uPT" firstAttribute="trailing" secondItem="NZh-1Y-5dq" secondAttribute="trailing" id="DOJ-16-0XC"/>

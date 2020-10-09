@@ -29,26 +29,28 @@
 //@end
 
 
+
+
 @implementation TextLogObjC
 - (void)logTextToFile:(NSString *)data
 {
-    if(data){
-
-        NSArray       *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString  *documentsDirectory = [paths objectAtIndex:0];
-        NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,@"log.txt"];
-        NSString *contents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-
-        if(contents == nil){
-            contents = data;
-        }else{
-            contents = [contents stringByAppendingString:data];
-        }
-
-        contents = [contents stringByAppendingString:@"\n\n"];
-
-        [contents writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    }
+//    if(data){
+//        
+//        NSArray       *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//        NSString  *documentsDirectory = [paths objectAtIndex:0];
+//        NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,@"log.txt"];
+//        NSString *contents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+//
+//        if(contents == nil){
+//            contents = data;
+//        }else{
+//            contents = [contents stringByAppendingString:data];
+//        }
+//        
+//        contents = [contents stringByAppendingString:@"\n\n"];
+//
+//        [contents writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+//    }
 }
 
 

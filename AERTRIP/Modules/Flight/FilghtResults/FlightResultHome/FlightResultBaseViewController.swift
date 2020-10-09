@@ -21,6 +21,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     var visualEffectViewHeight : CGFloat {
         return statusBarHeight + 88.0
     }
+
     var ApiProgress: UIProgressView!
     @IBOutlet weak var resultContainerTopOffset: NSLayoutConstraint!
     @IBOutlet weak var headerImageViewHeight: NSLayoutConstraint!
@@ -132,7 +133,12 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         visualEffectView.effect = UIBlurEffect(style: .prominent)
         visualEffectView.contentView.backgroundColor = .clear//UIColor.white.withAlphaComponent(0.4)
         
-        backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
+        let flightType = self.flightSearchResultVM.flightSearchType
+        if flightType == SINGLE_JOURNEY || self.isIntReturnOrMCJourney{
+            backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight + 1))
+        } else {
+            backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
+        }
         backView.addSubview(visualEffectView)
         backView.tag = 500
         backView.clipsToBounds = true
@@ -185,6 +191,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             ApiProgress.progress = flightSearchResultVM.containsJourneyResuls ? 0 : 0.25
         }
         
+        ApiProgress.transform = CGAffineTransform(scaleX: 1, y: 0.7)
+        
         backView.addSubview(ApiProgress)
         ApiProgress.snp.makeConstraints { (make) in
             make.bottom.equalTo(visualEffectView.contentView).offset(0)
@@ -203,7 +211,6 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         //        }
         
         
-        let flightType = flightSearchResultVM.flightSearchType
         if flightType == SINGLE_JOURNEY || isIntReturnOrMCJourney{
             ApiProgress.isHidden = false
             
@@ -874,7 +881,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     }
     
     func selectedIndexChanged(index: UInt) {
-        if index == curSelectedFilterIndex && backView.height > visualEffectViewHeight {
+        
+        if index == curSelectedFilterIndex && backView.height > visualEffectViewHeight + 2 {
             toggleFiltersView(hidden: true)
         } else {
             toggleFiltersView(hidden: false)
@@ -923,7 +931,12 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             removeFilterHeader()
             backView.bringSubviewToFront(ApiProgress)
             UIView.animate(withDuration: 0.3) {
-                self.backView.height = self.visualEffectViewHeight
+                let flightType = self.flightSearchResultVM.flightSearchType
+                if flightType == SINGLE_JOURNEY || self.isIntReturnOrMCJourney{
+                    self.backView.height = self.visualEffectViewHeight + 1
+                } else {
+                    self.backView.height = self.visualEffectViewHeight
+                }
             }
             if updatedApiProgress < 0.97 {
                 self.separatorView.snp.updateConstraints { (make) in
@@ -961,6 +974,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     
     func removeFilterHeader() {
         flightResultHeadersViews(isHidden: false)
+        
+        guard doneButton != nil else { return }
         
         doneButton.removeFromSuperview()
         doneButton = nil

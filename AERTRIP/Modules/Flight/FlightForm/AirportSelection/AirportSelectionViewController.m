@@ -129,6 +129,7 @@
     else {
         [self configureInitialBottomViewPosition];
     }
+    [self.searchBar becomeFirstResponder];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

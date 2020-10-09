@@ -76,7 +76,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     var taxesData : Taxes?
     var taxesDetails : [String:Int] = [String:Int]()
-    var taxAndFeesData = [NSDictionary]()
+    var taxAndFeesData = [JSONDictionary]()
     var taxAndFeesDataDict = [taxStruct]()
     var bookingObject:BookFlightObject?
     var isTaxesSectionHidden = true
@@ -385,7 +385,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 }
                 
                 let newArr = ["name" : key,
-                              "value":newTaxVal] as NSDictionary
+                              "value":newTaxVal] as JSONDictionary
                 taxAndFeesData.append(newArr)
                 
             }
@@ -400,7 +400,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 }
                 
                 let newArr = ["name" : key,
-                              "value":newTaxVal] as NSDictionary
+                              "value":newTaxVal] as JSONDictionary
                 taxAndFeesData.append(newArr)
                 
             }
@@ -574,9 +574,9 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 
                 baseFareCell.titleLabelLeading.constant = 31
                     if taxAndFeesData.count > 0{
-                        baseFareCell.titleLabel.text = (taxAndFeesData[indexPath.row-1].value(forKey: "name") as! String)
-                        if (taxAndFeesData[indexPath.row-1].value(forKey: "value") as? Int) != nil{
-                            let amount : Double = Double(taxAndFeesData[indexPath.row-1].value(forKey: "value")! as! Int)
+                        baseFareCell.titleLabel.text = (taxAndFeesData[indexPath.row-1]["name"] as! String)
+                        if (taxAndFeesData[indexPath.row-1]["value"] as? Int) != nil{
+                            let amount : Double = Double(taxAndFeesData[indexPath.row-1]["value"]! as! Int)
                             
                             let price = displayPriceInFormat(price: amount, fromOption : "FareAmount")
                             baseFareCell.amountLable.attributedText = price
@@ -589,10 +589,8 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                     }
 
                 if indexPath.row == taxAndFeesData.count{
-                    //                    baseFareCell.dataDisplayViewBottom.constant = 15
                     baseFareCell.titleLabelYPosition.constant = -7
                 }else{
-                    //                    baseFareCell.dataDisplayViewBottom.constant = 0
                     baseFareCell.titleLabelYPosition.constant = 0
                 }
                 return baseFareCell

@@ -33,9 +33,7 @@ class CombineFareInfoTableViewCell: UITableViewCell
     var count = 0
     var isNoInfoViewVisible = false
     var indexOfCell = 0
-    
-    weak var cellHeightDelegate:cellHeightDelegate?
-    
+        
     override func awakeFromNib()
     {
         super.awakeFromNib()
@@ -532,18 +530,11 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
             slabCell.perInfantDataDisplayViewHeight.constant = 0
             slabCell.perInfantDataDisplayView.isHidden = true
         }
-//
-//
         self.combineFareTableView.layoutIfNeeded()
 
         return slabCell
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-//    {
-//        return UITableView.automaticDimension
-//    }
-////
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
     {
         if section == 1{

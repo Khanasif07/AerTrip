@@ -46,6 +46,12 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
         self.addToAppleWalletButton.isLoading = false
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.addToAppleWalletButton.layoutSubviews()
+        self.addToAppleWalletButton.layoutIfNeeded()
+    }
+    
     //Mark:- Functions
     //================
     private func configUI() {

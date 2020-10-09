@@ -61,7 +61,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     var flightsResults  =  FlightsResults()
     
     //    var amenitiesData = ["DirecTV", "Free Wi-Fi", "Personal televisions", "Open and closed suite", "The airline meal"]
-    var baggageData = [NSDictionary]()
+    var baggageData = [JSONDictionary]()
     var isChangeOfAirport = false
     var sid = ""
     var isTableviewScrolledDown = false
@@ -103,11 +103,11 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                     callAPIforBaggageInfo(sid: sid, fk: journey[j].fk)
                 }else{
                     for i in 0..<self.appdelegate.flightBaggageMutableArray.count{
-                        if let baggageArray = self.appdelegate.flightBaggageMutableArray[i] as? NSDictionary
+                        if let baggageArray = self.appdelegate.flightBaggageMutableArray[i] as? JSONDictionary
                         {
-                            let selectedIndex = baggageArray.value(forKey: "selectedJourneyFK") as! [String]
+                            let selectedIndex = baggageArray["selectedJourneyFK"] as! [String]
                             if self.selectedJourneyFK == selectedIndex{
-                                let baggageDataResponse = baggageArray.value(forKey: "BaggageDataResponse") as! [NSDictionary]
+                                let baggageDataResponse = baggageArray["BaggageDataResponse"] as! [JSONDictionary]
                                 self.baggageData = baggageDataResponse
                             }
                         }
@@ -253,11 +253,6 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                     var index = 0
                     if indexPath.row > 0{
                         index = indexPath.row/2
-//                        if indexPath.row <= count!{
-//                            index = indexPath.row-1
-//                        }else{
-//                            index = indexPath.row-2
-//                        }
                     }else{
                         index = indexPath.row
                     }
@@ -281,9 +276,9 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         if baggageData.count > 0{
                             if index < baggageData.count{
                                 if amenitiesData.count == 0{
-                                    if let bgData = baggageData[index].value(forKey: "bg") as? NSDictionary{
-                                        if let adtBaggage = bgData.value(forKey: "ADT") as? NSDictionary{
-                                            if let weight = adtBaggage.value(forKey: "weight") as? String, let pieces = adtBaggage.value(forKey: "pieces") as? String
+                                    if let bgData = baggageData[index]["bg"] as? JSONDictionary{
+                                        if let adtBaggage = bgData["ADT"] as? JSONDictionary{
+                                            if let weight = adtBaggage["weight"] as? String, let pieces = adtBaggage["pieces"] as? String
                                             {
                                                 self.journey[indexPath.section].leg[0].flights[index].bg = ["ADT":baggageStruct.init(weight: weight, pieces: pieces, note: "")]
                                                 
@@ -303,9 +298,9 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                                 }
                                 
                                 
-                                if let cbgData = baggageData[index].value(forKey: "cbg") as? NSDictionary{
-                                    if let adtCabinBaggage = cbgData.value(forKey: "ADT") as? NSDictionary{
-                                        if let weight = adtCabinBaggage.value(forKey: "weight") as? String, let pieces = adtCabinBaggage.value(forKey: "pieces") as? String
+                                if let cbgData = baggageData[index]["cbg"] as? JSONDictionary{
+                                    if let adtCabinBaggage = cbgData["ADT"] as? JSONDictionary{
+                                        if let weight = adtCabinBaggage["weight"] as? String, let pieces = adtCabinBaggage["pieces"] as? String
                                         {
                                             if weight != "" && weight != "-9" && weight != "-1" && weight != "0 kg"{
                                                 amenitiesData.append("Cabbin Baggage \n(\(weight))")
@@ -346,8 +341,8 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         flightDetailsCell.flightNameLabel.text = flightName
                         
                         let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + flight.al.uppercased() + ".png"
-//                        setImageFromPath(urlPath : logoURL , to: flightDetailsCell.airlineImageView)
                         flightDetailsCell.setAirlineImage(with: logoURL)
+
                         if indexPath.row == 0{
                             let ap = journey[indexPath.section].ap
                             let departureAirportDetails = airportDetailsResult[ap[0]]
@@ -380,27 +375,16 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                             bc =  " (" + bc + ")"
                             if flight.ccChg == 1{
                                 flightDetailsCell.classLabel.text = flight.al + " - " + flight.fn + "・"
-                                let main_string11 = " " + flight.cc + bc + " "
-                                let string_to_color11 = " " + flight.cc + bc + " "
                                 
-                                let range = (main_string11 as NSString).range(of: string_to_color11)
-                                
-                                let attribute = NSMutableAttributedString.init(string: main_string11)
-                                attribute.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0) , range: range)
-                                flightDetailsCell.classNameLabel.attributedText = attribute
+                                flightDetailsCell.classNameLabel.attributedText = flightDetailsCell.addAttributsForRange((" " + flight.cc + bc + " "), coloredString: (" " + flight.cc + bc + " "), color: AppColors.lightYellow)
                                 flightDetailsCell.classNameLabel.textColor = UIColor.black
+
                             }else{
                                 flightDetailsCell.classLabel.text = flight.al + " - " + flight.fn + "・"
                                 
-                                let main_string11 = " " + flight.cc + bc + " "
-                                let string_to_color11 = flight.cc
-                                
-                                let range = (main_string11 as NSString).range(of: string_to_color11)
-                                
-                                let attribute = NSMutableAttributedString.init(string: main_string11)
-                                attribute.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.clear , range: range)
-                                flightDetailsCell.classNameLabel.attributedText = attribute
-                                flightDetailsCell.classNameLabel.textColor = UIColor(displayP3Red: 153.0/255.0, green: 153.0/255.0, blue: 153.0/255.0, alpha: 1.0)
+                                flightDetailsCell.classNameLabel.attributedText = flightDetailsCell.addAttributsForRange(" " + flight.cc + bc + " ", coloredString: flight.cc, color: UIColor.clear)
+                                flightDetailsCell.classNameLabel.textColor = AppColors.themeGray40
+
                             }
                         }else{
                             flightDetailsCell.classLabel.text = flight.al + " - " + flight.fn + "・"
@@ -415,44 +399,20 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         flightDetailsCell.departureTimeLbl.text = flight.dt
                         
                         if flight.isDepartureAirportChange == true{
-                            let departureAirport = "  \(flight.fr)  "
-                            let departureAirportRange = (departureAirport as NSString).range(of: "  \(flight.fr)  ")
-                            let departureAirportAttributedString = NSMutableAttributedString(string:departureAirport)
-                            departureAirportAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0), range: departureAirportRange)
-                            flightDetailsCell.departureAirportLabel.attributedText = departureAirportAttributedString
+                            let departureAirport = " \(flight.fr) "
+                            flightDetailsCell.departureAirportLabel.attributedText = flightDetailsCell.addAttributsForRange(departureAirport, coloredString: " \(flight.fr) ", color: AppColors.lightYellow)
+
                         }else{
-                            let main_string11 = flight.fr
-                            let string_to_color11 = flight.fr
-                            
-                            let range = (main_string11 as NSString).range(of: string_to_color11)
-                            
-                            let attribute = NSMutableAttributedString.init(string: main_string11)
-                            attribute.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.clear , range: range)
-                            flightDetailsCell.departureAirportLabel.attributedText = attribute
+                            flightDetailsCell.departureAirportLabel.attributedText = flightDetailsCell.addAttributsForRange(flight.fr, coloredString: flight.fr, color: UIColor.clear)
                         }
                         
                         if flight.isArrivalAirportChange == true{
-                            let arrivalAirport = "  \(flight.to)  "
-                            let arrivalAirportRange = (arrivalAirport as NSString).range(of: "  \(flight.to)  ")
-                            let arrivalAirportAttributedString = NSMutableAttributedString(string:arrivalAirport)
-                            arrivalAirportAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0), range: arrivalAirportRange)
-                            flightDetailsCell.arrivalAirportLabel.attributedText = arrivalAirportAttributedString
+                            flightDetailsCell.arrivalAirportLabel.attributedText = flightDetailsCell.addAttributsForRange(" \(flight.to) ", coloredString: " \(flight.to) ", color: AppColors.lightYellow)
                         }else{
-                            let main_string11 = flight.to
-                            let string_to_color11 = flight.to
-                            
-                            let range = (main_string11 as NSString).range(of: string_to_color11)
-                            
-                            let attribute = NSMutableAttributedString.init(string: main_string11)
-                            attribute.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.clear , range: range)
-                            flightDetailsCell.arrivalAirportLabel.attributedText = attribute
+                            flightDetailsCell.arrivalAirportLabel.attributedText = flightDetailsCell.addAttributsForRange(flight.to, coloredString: flight.to, color: AppColors.clear)
                         }
-                        
-                        let font = UIFont(name: "SourceSansPro-Regular", size: 14)
-                        let fontAttributes = [NSAttributedString.Key.font: font]
-                        let myText = flightDetailsCell.classNameLabel.text
-                        let size = (myText! as NSString).size(withAttributes: fontAttributes as [NSAttributedString.Key : Any])
-//                        flightDetailsCell.classNameLabelWidth.constant = size.width
+
+//                        flightDetailsCell.setClassNameLabelWidth()
                         
                         flightDetailsCell.arrivalPerformaceButton.isUserInteractionEnabled = false
                         flightDetailsCell.onArrivalPerformanceLabel.text = ""
@@ -492,125 +452,44 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         }
                         
                         if flight.eqQuality == 1{
-                            let main_string11 = "⭑ " + flight.eq!
-                            let string_to_color11 = "⭑"
-                            let range = (main_string11 as NSString).range(of: string_to_color11)
-                            
-                            let attribute = NSMutableAttributedString.init(string: main_string11)
-                            attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(displayP3Red: 102.0/255.0, green: 102.0/255.0, blue: 102.0/255.0, alpha: 1.0), range: range)
-                            flightDetailsCell.equipmentsLabel.attributedText = attribute
+                            flightDetailsCell.equipmentsLabel.attributedText = flightDetailsCell.addAttributsForRange("⭑ " + flight.eq!, coloredString: "⭑", color: AppColors.themeGray60, isForground: true)
                         }else{
                             flightDetailsCell.equipmentsLabel.text = flight.eq
                         }
                         
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "yyyy-MM-dd"
-                        let arrivalDate = dateFormatter.date(from: flight.ad)
-                        let departureDate = dateFormatter.date(from: flight.dd)
+                        let arrivalDateString = flightDetailsCell.dateConverter(dateStr: flight.ad)
+                        let departureDateString = flightDetailsCell.dateConverter(dateStr: flight.dd)
                         
-                        dateFormatter.dateFormat = "E, d MMM yyyy"
-                        
-                        
-                        let arrivalDateString = dateFormatter.string(from: arrivalDate!)
-                        let departureDateString = dateFormatter.string(from: departureDate!)
-
                         if arrivalDateString != departureDateString{
-                            let string_to_color111 = "  \(arrivalDateString)  "
+                            let str = "  \(arrivalDateString)  "
                             
-                            let arrivalAirportRange = (string_to_color111 as NSString).range(of: string_to_color111)
-                            let haltAtAttributedString = NSMutableAttributedString(string:string_to_color111)
-                            haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: arrivalAirportRange)
-                            haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0), range: arrivalAirportRange)
-                            
-                            flightDetailsCell.arrivalDateLabel.attributedText = haltAtAttributedString
-
+                            flightDetailsCell.arrivalDateLabel.attributedText = flightDetailsCell.addAttributsForRange(str, coloredString: str, color: AppColors.lightYellow)
                         }else{
-//                            flightDetailsCell.arrivalDateLabel.text = arrivalDateString
-//                            flightDetailsCell.arrivalDateLabel.backgroundColor = .clear
-                            
-                             let string_to_color111 = "\(arrivalDateString)"
-                             
-                             let arrivalAirportRange = (string_to_color111 as NSString).range(of: string_to_color111)
-                             let haltAtAttributedString = NSMutableAttributedString(string:string_to_color111)
-                             haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: arrivalAirportRange)
-                            haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.clear, range: arrivalAirportRange)
-                             
-                             flightDetailsCell.arrivalDateLabel.attributedText = haltAtAttributedString
-
+                            flightDetailsCell.arrivalDateLabel.attributedText = nil
+                            flightDetailsCell.arrivalDateLabel.text = "\(arrivalDateString)"
                         }
-                        
-                        
-//                        flightDetailsCell.departureDateLabel.text = departureDateString
                         
                         if flight.isDepartureDateChange!{
-                            let string_to_color111 = "  \(departureDateString) ."
-                            let string_to_color1111 = "  \(departureDateString) "
-
-                            let arrivalAirportRange = (string_to_color111 as NSString).range(of: string_to_color1111)
-                            let haltAtAttributedString = NSMutableAttributedString(string:string_to_color111)
-                            haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: arrivalAirportRange)
-                            haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0), range: arrivalAirportRange)
-                            haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (string_to_color111 as NSString).range(of: "."))
-
-                            flightDetailsCell.departureDateLabel.attributedText = haltAtAttributedString
-
+                            flightDetailsCell.setDepartureDate(str:"  \(departureDateString) .",str1:"  \(departureDateString) ")
                         }else{
-                            let string_to_color111 = "\(departureDateString)"
-                            
-                            let arrivalAirportRange = (string_to_color111 as NSString).range(of: string_to_color111)
-                            let haltAtAttributedString = NSMutableAttributedString(string:string_to_color111)
-                            haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: arrivalAirportRange)
-                            haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.clear, range: arrivalAirportRange)
-                            
-                            flightDetailsCell.departureDateLabel.attributedText = haltAtAttributedString
-                            
+                            flightDetailsCell.departureDateLabel.attributedText = nil
+                            flightDetailsCell.departureDateLabel.text = "\(departureDateString)"
                         }
-                        
-                        flightDetailsCell.arrivalTerminalLabel.text = flight.atm
-                        flightDetailsCell.departureTerminalLabel.text = flight.dtm
                         
                         if flight.atm != ""{
                             if flight.isArrivalTerminalChange == true{
-                                
-                                let main_string11 = "  \(flight.atm)  "
-                                let string_to_color11 = "  \(flight.atm)  "
-                                
-                                let range = (main_string11 as NSString).range(of: string_to_color11)
-                                
-                                let attribute = NSMutableAttributedString.init(string: main_string11)
-                                attribute.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0) , range: range)
-                                flightDetailsCell.arrivalTerminalLabel.attributedText = attribute
+                                flightDetailsCell.arrivalTerminalLabel.attributedText = flightDetailsCell.addAttributsForRange(" \(flight.atm) ", coloredString: " \(flight.atm) ", color: AppColors.lightYellow)
                             }else{
-                                let main_string11 = flight.atm
-                                let string_to_color11 = flight.atm
-                                
-                                let range = (main_string11 as NSString).range(of: string_to_color11)
-                                
-                                let attribute = NSMutableAttributedString.init(string: main_string11)
-                                attribute.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.clear, range: range)
-                                flightDetailsCell.arrivalTerminalLabel.attributedText = attribute
+                                flightDetailsCell.arrivalTerminalLabel.attributedText = flightDetailsCell.addAttributsForRange(flight.atm, coloredString: flight.atm, color: AppColors.clear)
                             }
                         }
                         
                         if flight.dtm != ""{
                             if flight.isDepartureTerminalChange == true
                             {
-                                let main_string111 = "  \(flight.dtm)  "
-                                let string_to_color111 = "  \(flight.dtm)  "
-                                
-                                let range1 = (main_string111 as NSString).range(of: string_to_color111)
-                                let attribute1 = NSMutableAttributedString.init(string: main_string111)
-                                attribute1.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0) , range: range1)
-                                flightDetailsCell.departureTerminalLabel.attributedText = attribute1
+                                flightDetailsCell.departureTerminalLabel.attributedText = flightDetailsCell.addAttributsForRange(" \(flight.dtm) ", coloredString: " \(flight.dtm) ", color: AppColors.lightYellow)
                             }else{
-                                let main_string111 = flight.dtm
-                                let string_to_color111 = flight.dtm
-                                
-                                let range1 = (main_string111 as NSString).range(of: string_to_color111)
-                                
-                                let attribute1 = NSMutableAttributedString.init(string: main_string111)
-                                attribute1.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.clear , range: range1)
-                                flightDetailsCell.departureTerminalLabel.attributedText = attribute1
+                                flightDetailsCell.departureTerminalLabel.attributedText = flightDetailsCell.addAttributsForRange(flight.dtm, coloredString: flight.dtm, color: AppColors.clear)
                             }
                         }
                         
@@ -619,11 +498,8 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                             let main_string = arrivalAirportDetails.n! + "\n" + arrivalAirportDetails.c! + ", " + arrivalAirportDetails.cn!
                             let string_to_color = arrivalAirportDetails.c! + ", " + arrivalAirportDetails.cn!
                             
-                            let range = (main_string as NSString).range(of: string_to_color)
-                            
-                            let attribute = NSMutableAttributedString.init(string: main_string)
-                            attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: range)
-                            flightDetailsCell.arrivalAirportAddressLabel.attributedText = attribute
+                            flightDetailsCell.arrivalAirportAddressLabel.attributedText = flightDetailsCell.addAttributsForRange(main_string, coloredString: string_to_color, color: AppColors.themeBlack, isForground: true)
+
                         }else{
                             flightDetailsCell.arrivalAirportAddressLabel.text = ""
                         }
@@ -631,12 +507,9 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         if let departureAirportDetails = airportDetailsResult[flight.fr]{
                             let main_string1 = departureAirportDetails.n! + "\n" + departureAirportDetails.c! + ", " + departureAirportDetails.cn!
                             let string_to_color1 = departureAirportDetails.c! + ", " + departureAirportDetails.cn!
-                            
-                            let range1 = (main_string1 as NSString).range(of: string_to_color1)
-                            
-                            let attribute1 = NSMutableAttributedString(string: main_string1, attributes: [.font: AppFonts.Regular.withSize(14), .foregroundColor: AppColors.themeGray40])
-                            attribute1.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: range1)
-                            flightDetailsCell.departureAirportAddressLabel.attributedText = attribute1
+
+                            flightDetailsCell.departureAirportAddressLabel.attributedText = flightDetailsCell.addAttributsForRange(main_string1, coloredString: string_to_color1, color: AppColors.themeBlack, isForground: true)
+
                         }else{
                             flightDetailsCell.departureAirportAddressLabel.text = ""
                         }
@@ -647,82 +520,26 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                             let arrivalAirportDetails = airportDetailsResult[ap[1]]
                             
                             if departureAirportDetails != nil && arrivalAirportDetails != nil{
-                                flightDetailsCell.titleLabel.text = departureAirportDetails!.c! + " → " + arrivalAirportDetails!.c!
-                                flightDetailsCell.titleLabelHeight.constant = 25
+                                flightDetailsCell.journeyTitle = departureAirportDetails!.c! + " → " + arrivalAirportDetails!.c!
                             }else if departureAirportDetails != nil{
-                                flightDetailsCell.titleLabelHeight.constant = 25
-                                flightDetailsCell.titleLabel.text = departureAirportDetails!.c!
+                                flightDetailsCell.journeyTitle = departureAirportDetails!.c!
                             }else if arrivalAirportDetails != nil{
-                                flightDetailsCell.titleLabelHeight.constant = 25
-                                flightDetailsCell.titleLabel.text = arrivalAirportDetails!.c!
+                                flightDetailsCell.journeyTitle = arrivalAirportDetails!.c!
                             }else{
-                                flightDetailsCell.titleLabelHeight.constant = 0
-                                flightDetailsCell.titleLabel.text = ""
+                                flightDetailsCell.journeyTitle = ""
                             }
                         }else{
-                            flightDetailsCell.titleLabelHeight.constant = 0
-                            flightDetailsCell.titleLabel.text = ""
+                            flightDetailsCell.journeyTitle = ""
                         }
                         
-                        var travellingTime = NSAttributedString()
-                        if count == 1{
-                            if flight.halt != ""{
-                                if flight.halt.contains(","){
-                                    flight.halt = flight.halt.replacingOccurrences(of: ",", with: ", ")
-                                }
-                                let main_string111 = "  \(journey.first!.durationTitle) \n   Via \(flight.halt)  ."
-                                let string_to_color111 = "   Via \(flight.halt)  "
-                                
-                                let arrivalAirportRange = (main_string111 as NSString).range(of: string_to_color111)
-                                let haltAtAttributedString = NSMutableAttributedString(string:main_string111)
-                                haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (main_string111 as NSString).range(of: "."))
-
-                                haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: arrivalAirportRange)
-                                haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0), range: arrivalAirportRange)
-                                haltAtAttributedString.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Regular", size: 14.0)! , range: (main_string111 as NSString).range(of: main_string111))
-
-                                travellingTime = haltAtAttributedString
-                            }else{
-                                travellingTime = NSAttributedString(string: journey.first!.durationTitle)
-                            }
-                        }else{
-                            if flight.halt != ""{
-                                let main_string111 = "\(getTravellingTiming(duration: flight.ft)) \n    Via \(flight.halt)  ."
-                                let string_to_color111 = "   Via \(flight.halt)  "
-                                
-                                let arrivalAirportRange = (main_string111 as NSString).range(of: string_to_color111)
-                                let haltAtAttributedString = NSMutableAttributedString(string:main_string111)
-                                haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: arrivalAirportRange)
-                                haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0), range: arrivalAirportRange)
-                                haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (main_string111 as NSString).range(of: "."))
-                                haltAtAttributedString.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Regular", size: 14.0)! , range: (main_string111 as NSString).range(of: main_string111))
-
-                                travellingTime = haltAtAttributedString
-                            }else{
-                                travellingTime = NSAttributedString(string:getTravellingTiming(duration: flight.ft))
-                            }
-                        }
-                        
-                        if flight.ovgtf == 1{
-                            let displayText = NSMutableAttributedString(string: "  ")
-                            displayText.append(travellingTime)
-                            let completeText = NSMutableAttributedString(string: "")
-                            
-                            let imageAttachment =  NSTextAttachment()
-                            
-                            imageAttachment.image = UIImage(named:"overnight.png")
-                            let imageOffsetY:CGFloat = -2.0;
-                            imageAttachment.bounds = CGRect(x: 0, y: imageOffsetY, width: 12, height: 12)
-                            let attachmentString = NSAttributedString(attachment: imageAttachment)
-                            completeText.append(attachmentString)
-                            
-                            completeText.append(displayText)
-                            flightDetailsCell.travelingtimeLabel.attributedText = completeText
-                        }else{
-                            flightDetailsCell.travelingtimeLabel.attributedText = travellingTime
-                        }
-                        
-                        flightDetailsCell.travelingtimeLabel.textAlignment = .center
+                        flightDetailsCell.setJourneyTitle()
+                                                
+                        flightDetailsCell.count = count ?? 0
+                        flightDetailsCell.halt = flight.halt
+                        flightDetailsCell.durationTitle = journey.first?.durationTitle ?? ""
+                        flightDetailsCell.ovgtf = flight.ovgtf
+                        flightDetailsCell.travellingTiming = getTravellingTiming(duration: flight.ft)
+                        flightDetailsCell.setTravellingTime()
                         
                         let totalRow = tableView.numberOfRows(inSection: indexPath.section)
                         if totalRow == 1{
@@ -761,19 +578,12 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                     var index = 0
                     if indexPath.row > 0{
                         index = (indexPath.row - 1)/2
-//                        if indexPath.row < count!{
-//                            index = indexPath.row-1
-//                        }else{
-//                            index = indexPath.row-2
-//                        }
                     }else{
                         index = indexPath.row
                     }
                     
                     if let flight = journey[indexPath.section].leg.first?.flights[index]{
-                        var displayText = ""
-                        var displayImgName = ""
-                        
+
                         if airportDetailsResult != nil{
                             
                             var layoverCityName = ""
@@ -781,25 +591,8 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                                 layoverCityName = arrivalAirportDetails.c!
                             }
                             
-
-                            if layoverCityName == "" || layoverCityName == " "{
-                                displayText = "Layover  • "
-                                displayImgName = ""
-                            }else{
-                                if flight.isArrivalAirportChange == true{
-                                    displayText = "Change Airport in \(layoverCityName)  • "
-                                    displayImgName = "redchangeAirport"
-                                }else if flight.isArrivalTerminalChange == true{
-                                    displayText = "Change Terminal in \(layoverCityName)  • "
-                                    displayImgName = "changeOfTerminal"
-                                }else if flight.ovgtlo == 1{
-                                    displayText = "Overnight layover in \(layoverCityName)  • "
-                                    displayImgName = "overnight"
-                                }else {
-                                    displayText = "Layover in \(layoverCityName)  • "
-                                    displayImgName = ""
-                                }
-                            }
+                            layoverCell.layoverCityName = layoverCityName
+                            layoverCell.ovgtlo = flight.ovgtlo
                             
                         }
                         
@@ -813,46 +606,15 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                             }
                         }
                         
-                        displayText = displayText + " " + layoverTime
-                        let completeText = NSMutableAttributedString(string: "")
+                        layoverCell.layoverTime = layoverTime
+                        layoverCell.llo = flight.llo
+                        layoverCell.slo = flight.slo
+                        layoverCell.isArrivalAirportChange = flight.isArrivalAirportChange ?? false
+                        layoverCell.isArrivalTerminalChange = flight.isArrivalTerminalChange ?? false
                         
-                        let imageAttachment =  NSTextAttachment()
-                        if displayImgName != ""{
-                            imageAttachment.image = UIImage(named:displayImgName)
-                            let imageOffsetY:CGFloat = -4.0;
-                            imageAttachment.bounds = CGRect(x: 0, y: imageOffsetY, width: 16, height: 16)
-                            let attachmentString = NSAttributedString(attachment: imageAttachment)
-                            completeText.append(attachmentString)
-                        }
-                        let textAfterIcon = NSMutableAttributedString(string: displayText, attributes: [.font: AppFonts.Regular.withSize(14)])
-                        if flight.llo == 1 || flight.slo == 1{
-                            if flight.isArrivalAirportChange == true{
-                                let range1 = (displayText as NSString).range(of: displayText)
-                                
-                                textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red , range: range1)
-                                textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14) , range: (displayText as NSString).range(of: layoverTime))
-                            }else{
-                                let range1 = (displayText as NSString).range(of: layoverTime)
-                                
-                                textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red , range: range1)
-                                textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14) , range: range1)
-                            }
-                        }else if flight.isArrivalAirportChange == true{
-                            let range1 = (displayText as NSString).range(of: displayText)
-                            
-                            textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red , range: range1)
-                            textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14) , range: (displayText as NSString).range(of: layoverTime))
-                        }else{
-                            let range1 = (displayText as NSString).range(of: layoverTime)
-                            
-                            textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: range1)
-                            textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14) , range: range1)
-                        }
                         
-                        completeText.append(NSMutableAttributedString(string: "  "))
-                        completeText.append(textAfterIcon)
-                        layoverCell.layoverLabel.textAlignment = .center;
-                        layoverCell.layoverLabel.attributedText = completeText;
+                        layoverCell.layoverLabel.attributedText = layoverCell.getLayoverString()
+                        
                     }
                     return layoverCell
                 }
@@ -991,13 +753,13 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                 
                 DispatchQueue.main.async {
                     if let result = jsonResult as? [String: AnyObject] {
-                        if let data = result["data"] as? NSDictionary {
+                        if let data = result["data"] as? JSONDictionary {
                             
-                            let keys = data.allKeys
+                            let keys = data.keys
                             if keys.count > 0{
-                                for j in 0...keys.count-1{
-                                    let str = keys[j] as! String
-                                    if let datas = data.value(forKey: str) as? NSDictionary
+                                
+                                for key in keys{
+                                    if let datas = data["\(key)"] as? JSONDictionary
                                     {
                                         self.baggageData += [datas]
                                     }
@@ -1006,8 +768,6 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         }
                     }
                     
-                    
-//                    self.baggageData = self.baggageData.reversed()
                     let date = Date()
                     let calendar = Calendar.current
                     let hour = calendar.component(.hour, from: date)

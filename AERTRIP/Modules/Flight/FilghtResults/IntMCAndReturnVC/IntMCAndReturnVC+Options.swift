@@ -225,6 +225,9 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
     
     func shareJourney(journey : [IntMultiCityAndReturnWSResponse.Results.J])
     {
+        self.sharePinnedFilghts.setImage(UIImage(named: "OvHotelResult"), for: .normal)
+        sharePinnedFilghts.displayLoadingIndicator(true)
+
         let flightAdultCount = bookFlightObject.flightAdultCount
         let flightChildrenCount = bookFlightObject.flightChildrenCount
         let flightInfantCount = bookFlightObject.flightInfantCount
@@ -237,25 +240,6 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
         self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: true, journeyArray: [], valString: valStr, trip_type: "",filterString: filterStr)
         
     }
-//    {
-//
-//            guard let postData = generatePostData(for: [journey]) else { return }
-//
-//            executeWebServiceForShare(with: postData as Data, onCompletion:{ (link)  in
-//
-//                if link == "No Data"{
-//                    AertripToastView.toast(in: self.view, withText: "Something went wrong. Please try again.")
-//                }else{
-//                    DispatchQueue.main.async {
-//                            let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(link)" ]
-//                            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-//                            activityViewController.popoverPresentationController?.sourceView = self.view
-//                            self.present(activityViewController, animated: true, completion: nil)
-//                    }
-//                }
-//
-//            })
-//        }
     
     func generateCommonString(for journey: [IntMultiCityAndReturnWSResponse.Results.J],flightObject:BookFlightObject)-> String{
         
@@ -338,167 +322,7 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
         return valueString
 
     }
-//    {
-//
-//
-//        let tripType = (flightObject.flightSearchType == RETURN_JOURNEY) ? "return" : "multi"
-//        var valueString = "https://beta.aertrip.com/flights?trip_type=\(tripType)&"
-//
-//        // Adding Passanger Count
-//        let flightAdultCount = flightObject.flightAdultCount
-//        let flightChildrenCount = flightObject.flightChildrenCount
-//        let flightInfantCount = flightObject.flightInfantCount
-//        valueString += "adult=\(flightAdultCount)&child=\(flightChildrenCount)&infant=\(flightInfantCount)"
-//        guard let firstJourney = journey.first else { return ""}
-//        var origin = ""
-//        var destination = ""
-//        var dprtDate = ""
-//        var rtrnDate = ""
-//        var cabinclass = firstJourney.cc
-//        if (flightObject.flightSearchType == RETURN_JOURNEY){
-//            if let searchParam = (self.parent as? FlightResultBaseViewController)?.flightSearchParameters as? [String: Any]{
-//                origin += "&origin=\(searchParam["origin"] ?? "")"
-//                destination += "&destination=\(searchParam["destination"] ?? "")"
-//                dprtDate += "&depart=\(searchParam["depart"] ?? "")"
-//                rtrnDate += "&return=\(searchParam["return"] ?? "")"
-//            }else{
-//
-//                origin += "&origin=\(firstJourney.legsWithDetail.first?.originIATACode ?? "")"
-//                destination += "&destination=\(firstJourney.legsWithDetail.first?.destinationIATACode ?? "")"
-//                dprtDate += "&depart=\(self.converDateFormate(dateStr:firstJourney.legsWithDetail.first?.dd ?? ""))"
-//                rtrnDate = "&return=\(self.converDateFormate(dateStr:firstJourney.legsWithDetail.last?.ad ?? ""))"
-//            }
-//        }else{
-//            if let searchParam = (self.parent as? FlightResultBaseViewController)?.flightSearchParameters{
-//
-//                let departKey = (searchParam.allKeys as? [String] ?? []).map{$0.contains("depart")}
-//                cabinclass = searchParam["cabinclass"] as? String ?? cabinclass
-//                for i in 0..<departKey.count{
-//                    let key = "%5B\(i)%5D"
-//                    origin += "&origin\(key)=\(searchParam["origin[\(i)]"] ?? "")"
-//                    destination += "&destination\(key)=\(searchParam["destination[\(i)]"] ?? "")"
-//                    dprtDate += "&depart\(key)=\(searchParam["depart[\(i)]"] ?? "")"
-//                    if (rtrnDate == ""){
-//                        rtrnDate = "&return=\(self.converDateFormate(dateStr:firstJourney.legsWithDetail[i].ad))"
-//                    }
-//                }
-//            }else{
-//                for i in 0..<firstJourney.legsWithDetail.count{
-//                    let key = "%5B\(i)%5D"
-//                    origin += "&origin\(key)=\(firstJourney.legsWithDetail[i].originIATACode)"
-//                    destination += "&destination\(key)=\(firstJourney.legsWithDetail[i].destinationIATACode)"
-//                    dprtDate += "&depart\(key)=\(self.converDateFormate(dateStr:firstJourney.legsWithDetail[i].dd))"
-//                    if (rtrnDate == ""){
-//                        rtrnDate = "&return=\(self.converDateFormate(dateStr:firstJourney.legsWithDetail[i].ad))"
-//                    }
-//                }
-//            }
-//        }
-//        valueString += origin
-//        valueString += destination
-//        valueString += dprtDate
-//        valueString += rtrnDate
-//        let isDomestic = false
-//        valueString = valueString + "&cabinclass=\(cabinclass)&pType=flight&isDomestic=\(isDomestic)"
-//
-//        for i in 0 ..< journey.count {
-//            let tempJourney = journey[i]
-//            valueString = valueString + "&PF[\(i)]=\(tempJourney.fk)"
-//        }
-//        return valueString
-//    }
-    
-//    func generatePostData( for journey : [IntMultiCityAndReturnWSResponse.Results.J] ) -> NSData? {
-//
-//        var valueString  = self.generateCommonString(for: journey, flightObject: self.bookFlightObject)
-//        let postData = NSMutableData()
-//        for i in 0 ..< journey.count {
-//            let tempJourney = journey[i]
-//            valueString = valueString + "&PF[\(i)]=\(tempJourney.fk)"
-//        }
-//        let parameters = [
-//            [
-//                "name": "u",
-//                "value": valueString
-//            ]
-//        ]
-//        let boundary = "----WebKitFormBoundary7MA4YWxkTrZu0gW"
-//        var body = ""
-//        let _: NSError? = nil
-//        for param in parameters {
-//            let paramName = param["name"]!
-//            body += "--\(boundary)\r\n"
-//            body += "Content-Disposition:form-data; name=\"\(paramName)\""
-//            if let filename = param["fileName"] {
-//                let contentType = param["content-type"]!
-//                let fileContent = try! String(contentsOfFile: filename, encoding: String.Encoding.utf8)
-//                body += "; filename=\"\(filename)\"\r\n"
-//                body += "Content-Type: \(contentType)\r\n\r\n"
-//                body += fileContent
-//            } else if let paramValue = param["value"] {
-//                body += "\r\n\r\n\(paramValue)"
-//            }
-//        }
-//
-//
-//        guard let bodyData = body.data(using: String.Encoding.utf8) else { return nil }
-//        postData.append(bodyData)
-//
-//        return postData
-//    }
-        
-        //MARK:- Sharing Journey
-//         func executeWebServiceForShare(with postData: Data , onCompletion:@escaping (String) -> ()) {
-//            let webservice = WebAPIService()
-//            
-//            webservice.executeAPI(apiServive: .getShareUrl(postData: postData ) , completionHandler: {    (data) in
-//                
-//              let decoder = JSONDecoder()
-//              decoder.keyDecodingStrategy = .convertFromSnakeCase
-//
-//              if let currentParsedResponse = parse(data: data, into: getPinnedURLResponse.self, with:decoder) {
-//                  let data = currentParsedResponse.data
-//                                    
-//                  if let link = data["u"] {
-//                      onCompletion(link)
-//                  }else{
-//                    onCompletion("No Data")
-//                  }
-//              }
-//            } , failureHandler : { (error ) in
-//                print(error)
-//            })
-//        }
-        
-//        func addToTrip(journey : IntMultiCityAndReturnWSResponse.Results.J) {
-    //            let tripListVC = TripListVC(nibName: "TripListVC", bundle: nil)
-    //            tripListVC.journey = [journey]
-    //            tripListVC.modalPresentationStyle = .overCurrentContext
-    //            self.present(tripListVC, animated: true, completion: nil)
-//        }
-    
-//    func generatePostDataForEmail( for journey : [IntMultiCityAndReturnWSResponse.Results.J] ) -> Data? {
-//        var valueString  = self.generateCommonString(for: journey,flightObject: self.bookFlightObject)
-//        for i in 0 ..< journey.count {
-//            let tempJourney = journey[i]
-//            valueString = valueString + "&PF[\(i)]=\(tempJourney.fk)"
-//        }
-//        var parameters = [ "u": valueString , "sid": bookFlightObject.sid ]
-//        let fkArray = journey.map{ $0.fk }
-//        for i in 0 ..< fkArray.count {
-//            let key = "fk%5B\(i)%5D"
-//            parameters[key] = fkArray[i]
-//        }
-//        let parameterArray = parameters.map { (arg) -> String in
-//            let (key, value) = arg
-//            let percentEscapeString = self.percentEscapeString(value!)
-//            return "\(key)=\(percentEscapeString)"
-//        }
-//        let data = parameterArray.joined(separator: "&").data(using: String.Encoding.utf8)
-//        return data
-//    }
-    
-    
+
     func converDateFormate(dateStr: String)-> String{
         let dateFormatter  = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -517,27 +341,6 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
              self.present(composeVC, animated: true, completion: nil)
          }
      }
-           
-//       func executeWebServiceForEmail(with postData: Data , onCompletion:@escaping (String) -> ()) {
-//          let webservice = WebAPIService()
-//          
-//          webservice.executeAPI(apiServive: .getEmailUrl(postData: postData ) , completionHandler: {    (receivedData) in
-//    
-//            let decoder = JSONDecoder()
-//            decoder.keyDecodingStrategy = .convertFromSnakeCase
-//
-//            if let currentParsedResponse = parse(data: receivedData, into: getPinnedURLResponse.self, with:decoder) {
-//                let data = currentParsedResponse.data
-//                 
-//                if let view = data["view"] {
-//                  onCompletion(view)
-//                }
-//            }
-//          } , failureHandler : { (error ) in
-//              print(error)
-//          })
-//      }
-    
 }
 
 

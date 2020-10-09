@@ -124,8 +124,8 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 
                 DispatchQueue.main.async {
                     if let result = jsonResult as? [String: AnyObject] {
-                        if let dataVal = result["data"] as? NSDictionary {
-                            if let activeArray = dataVal.value(forKey: "active") as? NSArray{
+                        if let dataVal = result["data"] as? JSONDictionary {
+                            if let activeArray = dataVal["active"] as? NSArray{
                                 for i in 0...activeArray.count-1{
                                     let name = (activeArray[i] as AnyObject).value(forKey: "name") as? String
                                     let id = (activeArray[i] as AnyObject).value(forKey: "id") as? Int
