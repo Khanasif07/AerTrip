@@ -275,6 +275,12 @@ import UIKit
             
             self.loaderContainer.addSubview(self.loaderIndicator)
             self.addSubview(self.loaderContainer)
+        }else{
+            self.loaderContainer.frame = self.bounds
+              let size = min(self.frame.size.width, self.frame.size.height)
+            loaderIndicator.frame = CGRect(x: (self.frame.size.width - size) / 2.0, y: 0.0, width: size, height: size)
+            self.loaderContainer.center = self.center
+            loaderIndicator.center = self.loaderContainer.center
         }
         
         self.loaderContainer.layer.cornerRadius = self.cornerradius
