@@ -849,8 +849,12 @@ extension FlightFilterBaseVC {
             let leg = legList[index]
             let durationFilter = DurationFilter(leg: leg, tripMin: tripMinDuration, tripMax: tripMaxDuration, layoverMin: layoverMin, layoverMax: layoverMax, layoverMinTimeFormat: "")
             
-            let userTripTime = userSelectedFilters[index].tt
-            let userLayoverTime = userSelectedFilters[index].lott
+            var userFil: FiltersWS?
+            if userSelectedFilters.indices.contains(index) {
+                userFil = userSelectedFilters[index]
+            }
+            let userTripTime = userFil?.tt
+            let userLayoverTime = userFil?.lott
             
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[index].contains(.Duration), durationViewController.durationFilters.indices.contains(index) {
                 
@@ -858,8 +862,8 @@ extension FlightFilterBaseVC {
                     durationViewController.durationFilters[index].tripDurationMinDuration = tripMinDuration
                     durationViewController.durationFilters[index].tripDurationmaxDuration = tripMaxDuration
                     
-                    let minDuration = Float(userTripTime.minTime ?? "") ?? 0
-                    let maxDuration = Float(userTripTime.maxTime ?? "") ?? 0
+                    let minDuration = Float(userTripTime?.minTime ?? "") ?? 0
+                    let maxDuration = Float(userTripTime?.maxTime ?? "") ?? 0
                     durationViewController.durationFilters[index].userSelectedTripMin = CGFloat(minDuration/3600)
                     durationViewController.durationFilters[index].userSelectedTripMax = CGFloat(maxDuration/3600)
                 }
