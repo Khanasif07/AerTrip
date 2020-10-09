@@ -135,9 +135,9 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 baseFareCell.titleLabelLeading.constant = 31
                 
                 if taxAndFeesData.count > 0{
-                    baseFareCell.titleLabel.text = (taxAndFeesData[indexPath.row-1].value(forKey: "name") as! String)
-                    if (taxAndFeesData[indexPath.row-1].value(forKey: "value") as? Int) != nil{
-                        let amount : Double = Double(taxAndFeesData[indexPath.row-1].value(forKey: "value") as? Int ?? 0)
+                    baseFareCell.titleLabel.text = (taxAndFeesData[indexPath.row-1]["name"] as! String)
+                    if (taxAndFeesData[indexPath.row-1]["value"] as? Int) != nil{
+                        let amount : Double = Double(taxAndFeesData[indexPath.row-1]["value"] as? Int ?? 0)
                         
                         let price = displayPriceInFormat(price: amount, fromOption : "FareAmount")
                         baseFareCell.amountLable.attributedText = price
