@@ -17,7 +17,6 @@ extension FlightDomesticMultiLegResultVC : UICollectionViewDataSource , UICollec
         return self.viewModel.numberOfLegs
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HeaderCollectionView", for: indexPath) as? FlightSectorHeaderCell {

@@ -26,10 +26,9 @@ class IntHeaderCollectionCell: UICollectionViewCell {
     func setUI(_ header : MultiLegHeader ) {
         self.headerValue = header
 
-        if textColor == .black {
+        if header.isInCompatable {
              self.title.attributedText = self.headerValue?.title
-        }
-        else {
+        } else {
              self.title.attributedText = self.headerValue?.redTitle
         }
         if header.subTitle == "Onward" || header.subTitle == "Return"{
