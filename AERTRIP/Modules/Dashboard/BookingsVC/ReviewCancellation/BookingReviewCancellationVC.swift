@@ -45,6 +45,7 @@ class BookingReviewCancellationVC: BaseVC {
     //MARK: - Variables
     let viewModel = BookingReviewCancellationVM()
     private var keyboardHeight: CGFloat = 0.0
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
 
     // MARK: - Override methods
     
@@ -52,9 +53,15 @@ class BookingReviewCancellationVC: BaseVC {
         super.viewWillAppear(animated)
         
         self.commentTextView.delegate = self
-
+        statusBarStyle = presentingStatusBarStyle
         
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = dismissalStatusBarStyle
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.gradientView.addGredient(isVertical: false)

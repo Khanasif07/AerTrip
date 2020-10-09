@@ -14,7 +14,6 @@ class FlightPaymentVC: BaseVC {
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var checkOutTableView: ATTableView!{
         didSet{
-            self.checkOutTableView.contentInset = UIEdgeInsets.zero
             self.checkOutTableView.delegate = self
             self.checkOutTableView.dataSource = self
             self.checkOutTableView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
@@ -60,6 +59,7 @@ class FlightPaymentVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.checkOutTableView.contentInset = UIEdgeInsets(top: topNavView.height - 1, left: 0, bottom: 0, right: 0)
         self.viewModel.taxesDataDisplay()
         self.checkOutTableView.separatorStyle = .none
         self.viewModel.taxesDataDisplay()

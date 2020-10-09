@@ -50,7 +50,7 @@ class ChatVC : BaseVC {
         IQKeyboardManager.shared().isEnableAutoToolbar = false
         IQKeyboardManager.shared().shouldResignOnTouchOutside = false
         addKeyboard()
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -143,6 +143,7 @@ extension ChatVC {
     
     //MARK:- Setup view
     private func setUpSubView(){
+        self.chatTableView.contentInset = UIEdgeInsets(top: topNavView.height, left: 0, bottom: 0, right: 0)
         self.setUpNavigationView()
         self.setUpAttributes()
         self.performInitialAnimation()

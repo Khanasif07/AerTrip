@@ -46,7 +46,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     let getSharableLink = GetSharableUrl()
     let viewModel = FlightResultSingleJourneyVM()
     var flightSearchResultVM: FlightSearchResultVM?
-    var flightSearchParameters: NSDictionary?
+    
     
     //MARK:- View Controller Methods
     override func viewDidLoad() {
@@ -55,6 +55,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         self.viewModel.results = OnewayJourneyResultsArray(sort: .Smart)
         setupTableView()
         setupPinnedFlightsOptionsView()
+        self.viewModel.setSharedFks()
     }
     
     deinit {

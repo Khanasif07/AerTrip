@@ -103,7 +103,7 @@ class TravellerListVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        statusBarStyle = .default
+        statusBarStyle = .darkContent
         setUpTravellerHeader()
         
     }

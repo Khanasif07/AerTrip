@@ -58,6 +58,7 @@ class AerinVC: BaseVC {
         if !(AppFlowManager.default.sideMenuController?.isOpen ?? true) {
             // self.setupInitialAnimation()
         }
+        
     }
     
     override func viewWillLayoutSubviews() {

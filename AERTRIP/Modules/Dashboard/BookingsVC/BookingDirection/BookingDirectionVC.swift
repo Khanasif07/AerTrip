@@ -19,6 +19,16 @@ class BookingDirectionVC: BaseVC {
     
     let viewModel = BookingDirectionVM()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        statusBarStyle = .lightContent
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = .darkContent
+    }
+    
     override func initialSetup() {
         self.setupNavBar()
         self.registerXib()
@@ -29,6 +39,7 @@ class BookingDirectionVC: BaseVC {
         } else {
             self.view.backgroundColor = AppColors.themeWhite
         }
+        self.directionTableView.contentInset = UIEdgeInsets(top: topNavigationView.height , left: 0.0, bottom: 0.0, right: 0.0)
         self.directionTableView.dataSource = self
         self.directionTableView.delegate = self
         self.directionTableView.reloadData()

@@ -80,7 +80,7 @@ class HotlelBookingsDetailsVC: BaseVC {
         
         self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         self.refreshControl.tintColor = AppColors.themeGreen
-        self.bookingDetailsTableView.refreshControl = refreshControl
+        //self.bookingDetailsTableView.refreshControl = refreshControl
         
         // Call to get booking detail
         self.viewModel.getBookingDetail(showProgress: true)
@@ -166,7 +166,7 @@ class HotlelBookingsDetailsVC: BaseVC {
         self.bookingDetailsTableView.parallaxHeader.view = self.headerView
         self.bookingDetailsTableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight
         self.bookingDetailsTableView.parallaxHeader.height = parallexHeaderHeight
-        self.bookingDetailsTableView.parallaxHeader.mode = MXParallaxHeaderMode.top
+        self.bookingDetailsTableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.bookingDetailsTableView.parallaxHeader.delegate = self
         self.view.bringSubviewToFront(self.topNavBar)
     }

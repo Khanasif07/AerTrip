@@ -14,7 +14,7 @@ import UIKit
 //import HMSegmentedControl
 import SnapKit
 
-class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
+class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     
     var flightSearchResultVM  : FlightSearchResultVM!
     var flightSearchParameters : NSDictionary!
@@ -105,6 +105,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         super.viewWillAppear(animated)
         addCustomBackgroundBlurView()
         createFilters(curSelectedFilterIndex)
+        statusBarStyle = .darkContent
     }
     
     func addSwipeLeftGuesture(){
@@ -174,7 +175,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             make.height.equalTo(42)
         }
         
-        ApiProgress = UIProgressView()
+        ApiProgress = UIProgressView(progressViewStyle: .bar)
         ApiProgress.progressTintColor = UIColor.AertripColor
         ApiProgress.trackTintColor = .clear
         
@@ -394,6 +395,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         resultBaseVC.bookFlightObject = flightSearchResultVM.bookFlightObject
         resultBaseVC.flightSearchType = flightSearchResultVM.flightSearchType
         resultBaseVC.flightSearchResultVM = flightSearchResultVM
+        resultBaseVC.viewModel.flightSearchParameters = self.flightSearchParameters
         domesticMultiLegResultVC = resultBaseVC
         addChildView(resultBaseVC)
     }
@@ -425,6 +427,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         resultBaseVC.headerTitles = headerTitles
         resultBaseVC.numberOfLegs = self.numberOfLegs
         resultBaseVC.flightSearchResultVM = self.flightSearchResultVM
+        resultBaseVC.viewModel.flightSearchParameters = self.flightSearchParameters
         addChildView(resultBaseVC)
         self.intMultiLegResultVC = resultBaseVC
     }
@@ -438,6 +441,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         resultBaseVC.viewModel.sid = flightSearchResultVM.sid
         resultBaseVC.viewModel.bookFlightObject = flightSearchResultVM.bookFlightObject
         resultBaseVC.viewModel.flightSearchResultVM = flightSearchResultVM
+        resultBaseVC.viewModel.flightSearchParameters = self.flightSearchParameters
         addChildView(resultBaseVC)
         singleJourneyResultVC = resultBaseVC
     }
@@ -1237,7 +1241,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             if let singleJourneyVC = self.singleJourneyResultVC {
                 singleJourneyVC.viewModel.updatedApiProgress = updatedApiProgress
                 singleJourneyVC.viewModel.airlineCode = airlineCode
-                singleJourneyVC.flightSearchParameters = self.flightSearchParameters
+//                singleJourneyVC.viewModel.flightSearchParameters = self.flightSearchParameters
                 singleJourneyVC.updateWithArray( resultVM.getOnewayJourneyDisplayArray(), sortOrder: resultVM.getSortOrder())
                 singleJourneyVC.updateAirportDetailsArray(resultVM.getOnewayAirportArray())
                 singleJourneyVC.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())

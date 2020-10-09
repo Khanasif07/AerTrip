@@ -64,7 +64,7 @@ class OtherBookingsDetailsVC: BaseVC {
     override func initialSetup() {
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
         self.viewModel.getBookingDetail(showProgress: true)
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
         self.topNavBarHeightConstraint.constant = self.navBarHeight
         self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: .white))
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
@@ -74,7 +74,7 @@ class OtherBookingsDetailsVC: BaseVC {
         
         self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         self.refreshControl.tintColor = AppColors.themeGreen
-        self.dataTableView.refreshControl = refreshControl
+        //self.dataTableView.refreshControl = refreshControl
         
         NotificationCenter.default.addObserver(self, selector: #selector(bookingDetailFetched(_:)), name: .bookingDetailFetched, object: nil)
 
@@ -141,7 +141,7 @@ class OtherBookingsDetailsVC: BaseVC {
         self.dataTableView.parallaxHeader.view = self.headerView
         self.dataTableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight
         self.dataTableView.parallaxHeader.height = parallexHeaderHeight
-        self.dataTableView.parallaxHeader.mode = MXParallaxHeaderMode.top
+        self.dataTableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.dataTableView.parallaxHeader.delegate = self
         self.view.bringSubviewToFront(self.topNavBar)
     }

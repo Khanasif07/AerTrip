@@ -71,6 +71,7 @@ class FinalCheckOutVC: BaseVC {
     
     
     override func initialSetup() {
+        self.checkOutTableView.contentInset = UIEdgeInsets(top: topNavView.height - 0.5 , left: 0.0, bottom: 10.0, right: 0.0)
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
         self.addFooterView()

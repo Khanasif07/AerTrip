@@ -1173,6 +1173,8 @@ enum LocalizedString: String {
     case tripsNote = "tripsNote"
     case tripsLink = "tripsLink"
 
+    case reloadDetail = "reloadDetail"
+
 }
 
 

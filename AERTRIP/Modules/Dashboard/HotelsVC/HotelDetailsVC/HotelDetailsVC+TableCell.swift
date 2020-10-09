@@ -116,6 +116,7 @@ extension HotelDetailsVC {
 //            cell.allTagsForFilteration = tags
 //        }
         cell.allTagsForFilteration = AppConstants.staticRoomTags
+        cell.statusBarStyle = statusBarStyle
         cell.tagCollectionView.reloadData()
         return cell
     }

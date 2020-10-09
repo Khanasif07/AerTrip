@@ -21,5 +21,11 @@ class SettingsHeaderView: UITableViewHeaderFooterView {
         titleLabel.numberOfLines = 0
         titleLabel.font = AppFonts.Regular.withSize(14)
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        topSepratorView.isHidden = false
+        bottomSepratorView.isHidden = false
+    }
 
 }

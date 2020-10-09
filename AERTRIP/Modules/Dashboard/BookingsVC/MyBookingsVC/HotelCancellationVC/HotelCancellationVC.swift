@@ -14,6 +14,7 @@ class HotelCancellationVC: BaseVC {
     //MARK:===========
     let viewModel = HotelCancellationVM()
     var expandedIndexPaths = [IndexPath]() // Array for storing indexPath
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
     
     //MARK:- IBOutlets
     //MARK:===========
@@ -21,7 +22,7 @@ class HotelCancellationVC: BaseVC {
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var hotelCancellationTableView: UITableView! {
         didSet {
-            self.hotelCancellationTableView.contentInset = UIEdgeInsets.zero
+            //self.hotelCancellationTableView.contentInset = UIEdgeInsets.zero
         }
     }
     @IBOutlet weak var cancellationButtonOutlet: UIButton!
@@ -35,7 +36,19 @@ class HotelCancellationVC: BaseVC {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        statusBarStyle = presentingStatusBarStyle
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = dismissalStatusBarStyle
+    }
+    
     override func initialSetup() {
+        self.hotelCancellationTableView.contentInset = UIEdgeInsets(top: topNavBar.height, left: 0.0, bottom: 0.0, right: 0.0)
+
         self.topNavBar.configureView(title: LocalizedString.Cancellation.localized, subTitle: LocalizedString.SelectHotelOrRoomsForCancellation.localized, isleftButton: false, isRightButton: true)
         self.registerXibs()
         self.hotelCancellationTableView.delegate = self

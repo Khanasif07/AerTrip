@@ -1301,7 +1301,7 @@
     //handle StatusBar tap here.
     NSDate *Date = [[NSDate alloc] init];
     //let month = Calendar.current.component(.month, from: currentPageDate)
-    [self.customCalenderView setCurrentPage:Date];
+    [self.customCalenderView setCurrentPage:Date animated:TRUE];
 }
 
 

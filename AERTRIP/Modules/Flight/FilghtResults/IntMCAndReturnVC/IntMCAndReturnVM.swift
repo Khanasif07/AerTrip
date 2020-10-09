@@ -23,7 +23,10 @@ class IntMCAndReturnVM {
     var sortOrder = Sort.Smart
     let dateFormatter = DateFormatter()
     var isSearchByAirlineCode = false
-
+    var flightSearchParameters : NSDictionary?
+    var sharedFks : [String] = []
+    var isSharedFkmatched = false
+    
     
      func getInternationalDisplayArray( results : [IntMultiCityAndReturnWSResponse.Results.J]) -> [IntMultiCityAndReturnDisplay] {
         
@@ -280,4 +283,23 @@ extension IntMCAndReturnVM{
         }
         
     }
+    
+    
+    func setSharedFks() {
+        
+        guard let dict = flightSearchParameters as? JSONDictionary else { return }
+        
+        let pfKeys = dict.keys.filter( { $0.contains("PF") } )
+       
+        printDebug("pfKeys...\(pfKeys)")
+        
+        pfKeys.forEach { (key) in
+            if let fk = dict[key] as? String {
+                self.sharedFks.append(fk)
+            }
+        }
+
+    }
+    
+    
 }

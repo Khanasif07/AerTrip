@@ -131,11 +131,14 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         ApiProgress.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 10.0)
         self.collectionContainerView.addSubview(ApiProgress)
         getSharableLink.delegate = self
+        self.viewModel.setSharedFks()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -202,8 +205,13 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
             
             if let comboResultFiltered = comboResults.first(where: {$0.fk == fkArray }) {
                 fareBreakupVC?.journeyCombo = [comboResultFiltered]
+            }else{
+                fareBreakupVC?.journeyCombo = nil
             }
+        }else{
+            fareBreakupVC?.journeyCombo = nil
         }
+        
     }
     
     func checkForOverlappingFlights(shouldDisplayToast : Bool = true) {

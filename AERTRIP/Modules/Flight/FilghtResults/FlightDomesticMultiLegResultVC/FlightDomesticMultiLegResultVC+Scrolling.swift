@@ -166,7 +166,7 @@ extension FlightDomesticMultiLegResultVC {
             headerView.isHidden = false
             
             let width = UIScreen.main.bounds.size.width / 2.0
-            
+             
             if let journey = self.viewModel.results[index].selectedJourney{
                 headerView.setValuesFrom(journey: journey)
             }
@@ -389,6 +389,14 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
         if !scrollView.isScrollEnabled{
             return
         }
+//        let diff = scrollviewInitialYOffset - scrollView.contentOffset.y
+//        if scrollView.tag > 999{
+//            if (diff < 0 && self.baseScrollView.contentOffset.y < 88) || (diff > 0 && self.baseScrollView.contentOffset.y > 0){
+//                self.baseScrollView.contentOffset.y = (diff * -1)
+//                self.changeContentOfssetWithMainScrollView()
+//                return
+//            }
+//        }
         
         if scrollView == baseScrollView {
             self.syncScrollView(headerCollectionView, toScrollView: baseScrollView)

@@ -48,6 +48,7 @@ class CombineFareInfoTableViewCell: UITableViewCell
     }
     
     override func layoutSubviews() {
+        super.layoutSubviews()
         self.combineFareTableView.layoutIfNeeded()
     }
 
@@ -529,7 +530,6 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
             slabCell.perInfantDataDisplayViewHeight.constant = 0
             slabCell.perInfantDataDisplayView.isHidden = true
         }
-        
         self.combineFareTableView.layoutIfNeeded()
 
         return slabCell
@@ -537,8 +537,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
     {
-        if section == 1 && journey.count > 1
-        {
+        if section == 1{
             let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 55))
             footerView.backgroundColor = .white
 
@@ -553,16 +552,16 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
 
             return footerView
         }else{
-            return UIView()
+            return nil
         }
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
     {
-        if section == 1 && journey.count > 1{
+        if section == 1{
             return 60
         }else{
-            return 0
+            return CGFloat.leastNonzeroMagnitude
         }
     }
     

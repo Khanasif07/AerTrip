@@ -30,11 +30,11 @@ class FacebookController {
             facebookLogout()
         }
         
-        var permissions = [ "email", "public_profile" ]
+        var permissions = [ "email", "public_profile", "user_friends"]
         
-        if shouldFetchFriends {
-            permissions.append("user_friends")
-        }
+//        if shouldFetchFriends {
+//            permissions.append("user_friends")
+//        }
         let login = LoginManager()
         
         login.logIn(permissions: permissions, from: viewController, handler: {
@@ -228,6 +228,7 @@ class FacebookController {
                               failure: @escaping ((Error?) -> Void)){
 
         if AccessToken.isCurrentAccessTokenActive{
+            printDebug("++++++++++++++++ \(AccessToken.current?.permissions)++++++++++++")
             self.fetchFriends(success: { (result) in
                 success(result)
             }, failure: { (err) in

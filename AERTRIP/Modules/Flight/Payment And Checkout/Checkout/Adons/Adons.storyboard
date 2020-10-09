@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,16 +26,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4VS-iD-FFh" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="zvt-BT-j5d"/>
-                                </constraints>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MMv-5k-dtX">
-                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="wec-DQ-fvU">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="138"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -54,7 +48,7 @@ get upto 20% off </string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
                                         <constraint firstItem="XQi-Xb-5yA" firstAttribute="leading" secondItem="wec-DQ-fvU" secondAttribute="leading" id="FQF-ut-IuQ"/>
                                         <constraint firstAttribute="trailing" secondItem="XQi-Xb-5yA" secondAttribute="trailing" id="awU-Eh-dkx"/>
@@ -75,18 +69,33 @@ get upto 20% off </string>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ibz-Mk-jdq" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4VS-iD-FFh" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="zvt-BT-j5d"/>
+                                </constraints>
+                            </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Ea2-4X-12L"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="4VS-iD-FFh" firstAttribute="leading" secondItem="Ea2-4X-12L" secondAttribute="leading" id="3pj-DV-HiS"/>
+                            <constraint firstItem="Ea2-4X-12L" firstAttribute="trailing" secondItem="Ibz-Mk-jdq" secondAttribute="trailing" id="Iba-B8-SoR"/>
                             <constraint firstItem="MMv-5k-dtX" firstAttribute="leading" secondItem="Ea2-4X-12L" secondAttribute="leading" id="Kj8-a4-6bc"/>
+                            <constraint firstItem="MMv-5k-dtX" firstAttribute="top" secondItem="Ea2-4X-12L" secondAttribute="top" id="MbL-bl-ley"/>
+                            <constraint firstItem="Ibz-Mk-jdq" firstAttribute="top" secondItem="f1r-Ym-ZkH" secondAttribute="top" id="N4q-ie-5XX"/>
                             <constraint firstItem="4VS-iD-FFh" firstAttribute="top" secondItem="Ea2-4X-12L" secondAttribute="top" id="SIr-Jn-fSj"/>
-                            <constraint firstItem="MMv-5k-dtX" firstAttribute="top" secondItem="4VS-iD-FFh" secondAttribute="bottom" id="jtF-Hw-Vqm"/>
+                            <constraint firstItem="Ibz-Mk-jdq" firstAttribute="leading" secondItem="Ea2-4X-12L" secondAttribute="leading" id="cal-7h-ODF"/>
+                            <constraint firstItem="4VS-iD-FFh" firstAttribute="bottom" secondItem="Ibz-Mk-jdq" secondAttribute="bottom" id="mFC-Y8-5rs"/>
                             <constraint firstItem="Ea2-4X-12L" firstAttribute="trailing" secondItem="MMv-5k-dtX" secondAttribute="trailing" id="oim-5f-NFX"/>
                             <constraint firstItem="Ea2-4X-12L" firstAttribute="bottom" secondItem="MMv-5k-dtX" secondAttribute="bottom" id="qsW-0J-ysr"/>
                             <constraint firstItem="Ea2-4X-12L" firstAttribute="trailing" secondItem="4VS-iD-FFh" secondAttribute="trailing" id="tEy-Za-xQv"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Ea2-4X-12L"/>
                     </view>
                     <connections>
                         <outlet property="adonsTableView" destination="MMv-5k-dtX" id="oju-fo-U3s"/>
@@ -108,14 +117,14 @@ get upto 20% off </string>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cPt-Li-nGC" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="2yc-YW-2o7"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MsC-te-KqM">
                                 <rect key="frame" x="0.0" y="44" width="375" height="573"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LgN-Mq-e2q">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
@@ -137,7 +146,7 @@ get upto 20% off </string>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹ 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gwm-kP-ylh">
-                                        <rect key="frame" x="16" y="23.5" width="25.5" height="20.5"/>
+                                        <rect key="frame" x="16" y="23.5" width="25" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -149,7 +158,7 @@ get upto 20% off </string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="IQf-YE-BrO" firstAttribute="leading" secondItem="LgN-Mq-e2q" secondAttribute="leading" id="1Yw-4J-sbd"/>
                                     <constraint firstItem="5k1-lY-bl9" firstAttribute="top" secondItem="LgN-Mq-e2q" secondAttribute="top" id="CSw-sM-bvl"/>
@@ -169,7 +178,8 @@ get upto 20% off </string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="vn5-ki-PPF"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="vn5-ki-PPF" firstAttribute="trailing" secondItem="MsC-te-KqM" secondAttribute="trailing" id="0jU-hL-z8S"/>
                             <constraint firstItem="MsC-te-KqM" firstAttribute="top" secondItem="cPt-Li-nGC" secondAttribute="bottom" id="4Lv-do-dlr"/>
@@ -186,7 +196,6 @@ get upto 20% off </string>
                             <constraint firstItem="B3Y-Pn-xkD" firstAttribute="top" secondItem="LgN-Mq-e2q" secondAttribute="bottom" id="oNz-Dp-5kQ"/>
                             <constraint firstItem="cPt-Li-nGC" firstAttribute="top" secondItem="vn5-ki-PPF" secondAttribute="top" id="qF8-gs-aTz"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="vn5-ki-PPF"/>
                     </view>
                     <connections>
                         <outlet property="MealTotalLabel" destination="4bv-F4-7gA" id="laC-ab-i8r"/>
@@ -211,9 +220,10 @@ get upto 20% off </string>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ik1-L7-daa">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="6sb-7p-Xbg"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Ik1-L7-daa" firstAttribute="trailing" secondItem="6sb-7p-Xbg" secondAttribute="trailing" id="NF4-Da-Tbp"/>
@@ -221,7 +231,6 @@ get upto 20% off </string>
                             <constraint firstItem="Ik1-L7-daa" firstAttribute="top" secondItem="6sb-7p-Xbg" secondAttribute="top" id="Xka-Oe-1FK"/>
                             <constraint firstItem="Ik1-L7-daa" firstAttribute="leading" secondItem="6sb-7p-Xbg" secondAttribute="leading" id="YTy-MS-1ob"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6sb-7p-Xbg"/>
                     </view>
                     <connections>
                         <outlet property="mealsTableView" destination="Ik1-L7-daa" id="PBI-lY-wRI"/>
@@ -242,7 +251,7 @@ get upto 20% off </string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VkO-GU-MSo">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BjM-Tr-wIw" userLabel="DismissBtn">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BjM-Tr-wIw" userLabel="DismissBtn">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <connections>
                                             <action selector="doneButtonTapped:" destination="kq5-sh-YrP" eventType="touchUpInside" id="nRe-83-6RX"/>
@@ -298,7 +307,7 @@ get upto 20% off </string>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eAq-kY-wz1">
                                                         <rect key="frame" x="0.0" y="20.5" width="323" height="6"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="6" id="FU5-Im-xts"/>
                                                         </constraints>
@@ -318,7 +327,7 @@ get upto 20% off </string>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="TJD-kY-x5n" secondAttribute="trailing" constant="16" id="3ZK-Fd-YtV"/>
                                             <constraint firstAttribute="trailing" secondItem="0h1-XC-4s6" secondAttribute="trailing" id="a57-CW-ohA"/>
@@ -345,6 +354,7 @@ get upto 20% off </string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="65z-Eg-u5X"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="65z-Eg-u5X" firstAttribute="bottom" secondItem="VkO-GU-MSo" secondAttribute="bottom" id="TmX-EN-J00"/>
@@ -352,7 +362,6 @@ get upto 20% off </string>
                             <constraint firstItem="VkO-GU-MSo" firstAttribute="leading" secondItem="65z-Eg-u5X" secondAttribute="leading" id="koj-4e-f74"/>
                             <constraint firstItem="65z-Eg-u5X" firstAttribute="trailing" secondItem="VkO-GU-MSo" secondAttribute="trailing" id="uAx-ew-YZP"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="65z-Eg-u5X"/>
                     </view>
                     <connections>
                         <outlet property="doneButton" destination="gfu-FW-2eL" id="iWf-dm-2dm"/>
@@ -380,7 +389,7 @@ get upto 20% off </string>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJW-Ng-LPl" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="cWc-LF-vbP"/>
                                 </constraints>
@@ -422,7 +431,7 @@ get upto 20% off </string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="RIx-sk-7Gh" firstAttribute="leading" secondItem="Giu-ht-SKe" secondAttribute="leading" constant="16" id="0HC-xI-cza"/>
                                     <constraint firstItem="uXu-nE-Cx2" firstAttribute="top" secondItem="Giu-ht-SKe" secondAttribute="top" constant="7" id="76Z-PT-Ptm"/>
@@ -442,7 +451,8 @@ get upto 20% off </string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="UQG-dr-eC1"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Giu-ht-SKe" firstAttribute="leading" secondItem="UQG-dr-eC1" secondAttribute="leading" id="459-KQ-dTJ"/>
                             <constraint firstItem="j0X-dL-q0J" firstAttribute="leading" secondItem="UQG-dr-eC1" secondAttribute="leading" id="8Gt-8H-IbO"/>
@@ -459,7 +469,6 @@ get upto 20% off </string>
                             <constraint firstItem="UQG-dr-eC1" firstAttribute="trailing" secondItem="xgj-ke-c0v" secondAttribute="trailing" id="vLV-KF-JPg"/>
                             <constraint firstItem="xgj-ke-c0v" firstAttribute="leading" secondItem="UQG-dr-eC1" secondAttribute="leading" id="zmQ-Bl-0kT"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="UQG-dr-eC1"/>
                     </view>
                     <connections>
                         <outlet property="MealTotalLabel" destination="uXu-nE-Cx2" id="Mfy-R2-2xy"/>
@@ -484,9 +493,10 @@ get upto 20% off </string>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yXU-ui-NKd">
                                 <rect key="frame" x="0.0" y="-1" width="375" height="668"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="69b-aS-LoE"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="yXU-ui-NKd" firstAttribute="leading" secondItem="69b-aS-LoE" secondAttribute="leading" id="Lfd-pl-M2G"/>
@@ -494,7 +504,6 @@ get upto 20% off </string>
                             <constraint firstItem="yXU-ui-NKd" firstAttribute="trailing" secondItem="69b-aS-LoE" secondAttribute="trailing" id="i3T-bo-lYn"/>
                             <constraint firstAttribute="bottom" secondItem="yXU-ui-NKd" secondAttribute="bottom" id="ulN-1H-ybu"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="69b-aS-LoE"/>
                     </view>
                     <connections>
                         <outlet property="bagageTableView" destination="yXU-ui-NKd" id="NPp-PK-Kh7"/>
@@ -514,7 +523,7 @@ get upto 20% off </string>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yX8-Dl-t3M" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Myw-Cw-9ub"/>
                                 </constraints>
@@ -544,7 +553,7 @@ get upto 20% off </string>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹ 034534" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5IW-e7-i9p">
-                                        <rect key="frame" x="16" y="23.5" width="77.5" height="20.5"/>
+                                        <rect key="frame" x="16" y="23.5" width="76.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -556,13 +565,13 @@ get upto 20% off </string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" + Special Request" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ggm-Oe-DKt">
-                                        <rect key="frame" x="93.5" y="23.5" width="142.5" height="20.5"/>
+                                        <rect key="frame" x="92.5" y="23.5" width="141.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="wlN-Wr-yjZ" secondAttribute="trailing" id="7GL-ZI-I42"/>
                                     <constraint firstItem="wlN-Wr-yjZ" firstAttribute="top" secondItem="NWW-jW-zXS" secondAttribute="top" id="CAD-f6-Ozs"/>
@@ -584,7 +593,8 @@ get upto 20% off </string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="oV3-wK-Qxm"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="BqJ-5h-moK" firstAttribute="leading" secondItem="oV3-wK-Qxm" secondAttribute="leading" id="77s-mr-AVI"/>
                             <constraint firstAttribute="bottom" secondItem="Nq6-Og-HPF" secondAttribute="bottom" id="B6q-JV-Gtf"/>
@@ -601,7 +611,6 @@ get upto 20% off </string>
                             <constraint firstItem="oV3-wK-Qxm" firstAttribute="bottom" secondItem="NWW-jW-zXS" secondAttribute="bottom" id="xH7-RG-d3q"/>
                             <constraint firstItem="Nq6-Og-HPF" firstAttribute="top" secondItem="NWW-jW-zXS" secondAttribute="bottom" id="yfo-5T-XFg"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="oV3-wK-Qxm"/>
                     </view>
                     <connections>
                         <outlet property="MealTotalLabel" destination="HOB-HN-7f3" id="2yU-HL-kRU"/>
@@ -627,7 +636,7 @@ get upto 20% off </string>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lQJ-64-elP">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="Jf1-lq-BgG">
                                     <rect key="frame" x="0.0" y="99.5" width="375" height="179"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -644,7 +653,7 @@ get upto 20% off </string>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="56" id="i2o-rA-rP8"/>
                                             </constraints>
-                                            <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" systemColor="labelColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
@@ -677,7 +686,7 @@ get upto 20% off </string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
                                         <constraint firstItem="ZcR-Q9-RV0" firstAttribute="top" secondItem="HjX-9e-u0h" secondAttribute="bottom" id="8ft-Th-tl5"/>
                                         <constraint firstItem="HjX-9e-u0h" firstAttribute="leading" secondItem="Jf1-lq-BgG" secondAttribute="leading" constant="16" id="APP-1V-HX1"/>
@@ -708,6 +717,7 @@ get upto 20% off </string>
                                 </prototypes>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="ZSj-QA-KKx"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="lQJ-64-elP" secondAttribute="bottom" id="7UF-Bo-PYW"/>
@@ -715,7 +725,6 @@ get upto 20% off </string>
                             <constraint firstItem="lQJ-64-elP" firstAttribute="top" secondItem="ZSj-QA-KKx" secondAttribute="top" id="Bf2-eJ-BTk"/>
                             <constraint firstItem="lQJ-64-elP" firstAttribute="leading" secondItem="ZSj-QA-KKx" secondAttribute="leading" id="EtW-zH-sFO"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="ZSj-QA-KKx"/>
                     </view>
                     <connections>
                         <outlet property="clearButton" destination="oAw-T7-3zw" id="Iy0-LQ-CaG"/>
@@ -758,7 +767,7 @@ get upto 20% off </string>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="bSm-xQ-HG7" secondAttribute="trailing" id="Bpi-iO-uq7"/>
                                     <constraint firstAttribute="trailing" secondItem="R4B-c1-aXs" secondAttribute="trailing" constant="16" id="UjE-jD-RZb"/>
@@ -769,7 +778,7 @@ get upto 20% off </string>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufn-6L-dnD">
-                                <rect key="frame" x="16" y="628.5" width="61" height="34"/>
+                                <rect key="frame" x="16" y="628.5" width="60" height="34"/>
                                 <state key="normal" title="Decline">
                                     <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -779,7 +788,7 @@ get upto 20% off </string>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IAb-ZG-vPF">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="623.5"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="o7A-ND-1du">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="184"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -798,7 +807,7 @@ get upto 20% off </string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
                                         <constraint firstItem="dDn-bT-m6s" firstAttribute="top" secondItem="GB1-nF-hV6" secondAttribute="bottom" constant="22" id="2W2-SX-bAX"/>
                                         <constraint firstAttribute="trailing" secondItem="GB1-nF-hV6" secondAttribute="trailing" constant="16" id="6jz-Nj-6WI"/>
@@ -820,7 +829,8 @@ get upto 20% off </string>
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="7GQ-v9-bh2"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="IAb-ZG-vPF" firstAttribute="leading" secondItem="7GQ-v9-bh2" secondAttribute="leading" id="4mp-Gw-kl3"/>
                             <constraint firstItem="7GQ-v9-bh2" firstAttribute="trailing" secondItem="IAb-ZG-vPF" secondAttribute="trailing" id="DeN-Yq-X5Y"/>
@@ -832,7 +842,6 @@ get upto 20% off </string>
                             <constraint firstItem="ufn-6L-dnD" firstAttribute="leading" secondItem="7GQ-v9-bh2" secondAttribute="leading" constant="16" id="mLG-gH-4sY"/>
                             <constraint firstItem="sRS-PF-csH" firstAttribute="top" secondItem="IAb-ZG-vPF" secondAttribute="bottom" id="zo8-pC-OLb"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="7GQ-v9-bh2"/>
                     </view>
                     <connections>
                         <outlet property="agreeButton" destination="R4B-c1-aXs" id="0Sh-Ft-Wwy"/>
@@ -848,4 +857,21 @@ get upto 20% off </string>
             <point key="canvasLocation" x="-818.39999999999998" y="2508.3958020989508"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

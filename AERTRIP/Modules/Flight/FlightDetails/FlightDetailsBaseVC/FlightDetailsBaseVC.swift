@@ -32,7 +32,7 @@ import UIKit
 //import HMSegmentedControl
 import Parchment
 
-class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetailsSmartIconsDelegate, FareBreakupVCDelegate, flightDetailsBaggageDelegate, getBaggageDimentionsDelegate, getFareRulesDelegate, getSharableUrlDelegate, getArrivalPerformanceDelegate
+class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupVCDelegate, flightDetailsBaggageDelegate, getBaggageDimentionsDelegate, getFareRulesDelegate, getSharableUrlDelegate, getArrivalPerformanceDelegate
 {
     
     //MARK:- Outlets
@@ -131,6 +131,18 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         clearCache.checkTimeAndClearUpgradeDataCache()
         clearCache.checkTimeAndClearFlightPerformanceResultCache(journey: journey)
         clearCache.checkTimeAndClearFlightBaggageResultCache()
+        let presentationStyle = presentingViewController?.modalPresentationStyle
+        
+        if presentationStyle == .overFullScreen {
+            statusBarStyle = .darkContent
+        } else {
+            statusBarStyle = .lightContent
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = .darkContent
     }
     
     override func viewDidLayoutSubviews() {
@@ -786,7 +798,7 @@ extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
     }
     
     func addToTrip(){
-        self.hideShowLoader(isHidden: false)
+//        self.hideShowLoader(isHidden: false)
          AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
                    guard let self = self else {return}
             AppFlowManager.default.removeLoginConfirmationScreenFromStack()
@@ -795,6 +807,7 @@ extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
                 self.hideShowLoader(isHidden: true)
                 return
             }
+            self.hideShowLoader(isHidden: false)
             AppFlowManager.default.selectTrip(nil, tripType: .flight, cancelDelegate: self) { [weak self] (trip, details)  in
                 delay(seconds: 0.3, completion: { [weak self] in
                     guard let self = self else {return}

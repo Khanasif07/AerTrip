@@ -25,6 +25,8 @@ class BookingInvoiceVC: BaseVC {
     // MARK: - Override methods
     
     override func initialSetup() {
+        self.invoiceTableView.contentInset = UIEdgeInsets(top: topNavBar.height - 0.5 , left: 0.0, bottom: 10.0, right: 0.0)
+
         self.setupNavBar()
         self.registerXib()
         

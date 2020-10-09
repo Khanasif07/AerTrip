@@ -245,7 +245,6 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                         let rfd = (currentParsedResponse.data.values.first?.rfd ?? 0)
                         let rsc = currentParsedResponse.data.values.first?.rsc ?? 0
                         self.refundDelegate?.updateRefundStatus(for: self.journey.first!.fk, rfd: rfd, rsc:rsc)
-                        
                     }
                 }
             }
@@ -397,12 +396,11 @@ extension IntFareInfoVC{
             fareInfoCell.topSeperatorLabel.isHidden = true
             fareInfoCell.topSeperatorLabelHeight.constant = 0
         }
-        
         fareInfoCell.titleLabelTop.constant = 16
         fareInfoCell.carrierImgView.isHidden = true
         fareInfoCell.journeyNameLabel.isHidden = true
         fareInfoCell.journeyNameDividerLabel.isHidden = true
-        
+
         return fareInfoCell
     }
     

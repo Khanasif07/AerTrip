@@ -121,7 +121,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        statusBarStyle = .default
+        statusBarStyle = .darkContent
     }
     
   
@@ -223,7 +223,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         tableView.sectionFooterHeight = CGFloat.leastNormalMagnitude
         tableView.backgroundColor = AppColors.themeGray04
         
-        self.tableView.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
+        self.tableView.contentInset = UIEdgeInsets(top: topNavView.height, left: 0, bottom: 0, right: 0)
         
         let dismissKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
         dismissKeyboardGesture.cancelsTouchesInView = false

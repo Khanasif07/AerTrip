@@ -20,7 +20,8 @@ class CurrencyVC: BaseVC {
             self.searchBar.placeholder = LocalizedString.search.localized
         }
     }
-    
+    @IBOutlet weak var searchBarContainer: UIView!
+
     //MARK:- Properties
     let currencyVm = CurrencyVM()
     lazy var noResultemptyView: EmptyScreenView = {
@@ -47,6 +48,8 @@ class CurrencyVC: BaseVC {
         self.currencyVm.getCurrenciesFromApi()
         self.searchBar.cornerradius = 10.0
         self.searchBar.clipsToBounds = true
+        self.currencyTableView.contentInset = UIEdgeInsets(top: topNavView.height + self.searchBarContainer.height, left: 0, bottom: 0, right: 0)
+
     }
     
     func setUpViewAttributes(){

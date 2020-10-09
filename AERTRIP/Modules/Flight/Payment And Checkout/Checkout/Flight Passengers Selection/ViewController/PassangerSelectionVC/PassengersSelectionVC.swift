@@ -38,6 +38,8 @@ class PassengersSelectionVC: BaseVC {
         self.passengerTableview.dataSource = self
         self.progressView.progressTintColor = UIColor.AertripColor
         self.progressView.trackTintColor = .clear
+        self.passengerTableview.contentInset = UIEdgeInsets(top: backNavigationView.height, left: 0, bottom: 0, right: 0)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,7 +47,7 @@ class PassengersSelectionVC: BaseVC {
         self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
         self.navigationController?.navigationBar.isHidden = true
         
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
     }
     
     func apiCall(){

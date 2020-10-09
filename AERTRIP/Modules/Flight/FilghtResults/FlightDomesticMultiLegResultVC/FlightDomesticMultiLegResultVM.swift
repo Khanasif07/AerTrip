@@ -26,6 +26,9 @@ class FlightDomesticMultiLegResultVM {
     var isFewSeatsLeft = false
     var shouldDisplayToast = false
     var isSearchByAirlineCode = false
+    var flightSearchParameters : NSDictionary?
+    var sharedFks : [String] = []
+    var isSharedFkmatched = false
     
     init() {
         
@@ -419,5 +422,23 @@ class FlightDomesticMultiLegResultVM {
          return formatter.string(from: NSNumber(value: fare)) ?? ""
          
      }
+    
+    
+    func setSharedFks() {
+        
+        guard let dict = flightSearchParameters as? JSONDictionary else { return }
+        
+        let pfKeys = dict.keys.filter( { $0.contains("PF") } )
+       
+        printDebug("pfKeys...\(pfKeys)")
+        
+        pfKeys.forEach { (key) in
+            if let fk = dict[key] as? String {
+                self.sharedFks.append(fk)
+            }
+        }
+
+    }
+    
     
 }

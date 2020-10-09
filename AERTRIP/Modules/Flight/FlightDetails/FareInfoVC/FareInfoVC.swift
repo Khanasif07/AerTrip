@@ -98,7 +98,19 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     flights?.append(flight.first!)
                 }
             }
+            self.fareInfoTableView.reloadData()
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
+             self.fareInfoTableView.reloadData()
+            }
+            DispatchQueue.main.async {
+                self.fareInfoTableView.reloadData()
+            }
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.fareInfoTableView.layoutIfNeeded()
     }
     
     //MARK:- Tableview Methods
@@ -175,7 +187,8 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     
                     changeAirportCell.dataLabel.attributedText = getAttributedNote()
                     changeAirportCell.topSeperatorLabelLeading.constant = 16
-                    changeAirportCell.topSeperatorLabelTop.constant = 12
+//                    changeAirportCell.topSeperatorLabelTop.constant = 0
+                    changeAirportCell.bottomStrokeHeight.constant = 0.7
                     changeAirportCell.seperatorBottom.constant = 35
                     return changeAirportCell
                 }else{
@@ -245,7 +258,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     fareInfoCell.layoutSubviews()
                     fareInfoCell.layoutIfNeeded()
                     let height = fareInfoCell.combineFareTableView.contentSize.height
-                    fareInfoCell.tableViewHeight.constant = (height < 150) ? 150 : height
+                    fareInfoCell.tableViewHeight.constant = (height < 170) ? 170 : height
                     fareInfoCell.layoutSubviews()
                     fareInfoCell.layoutIfNeeded()
                     fareInfoCell.combineFareTableView.reloadData()
@@ -366,7 +379,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     fareInfoCell.layoutSubviews()
                     fareInfoCell.layoutIfNeeded()
                     let height = fareInfoCell.combineFareTableView.contentSize.height
-                    fareInfoCell.tableViewHeight.constant = (height < 150) ? 150 : height
+                    fareInfoCell.tableViewHeight.constant = (height < 170) ? 170 : height
                     fareInfoCell.layoutSubviews()
                     fareInfoCell.layoutIfNeeded()
                     fareInfoCell.combineFareTableView.reloadData()
@@ -428,10 +441,16 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                         
                         self.fareInfoTableView.reloadData()
                         
-                        if self.journey[i].smartIconArray.contains("refundStatusPending")
-                        {
-                            self.journey[i].leg[0].fcp = 0
-                            self.delegate?.reloadSmartIconsAtIndexPath()
+//                        if self.journey[i].smartIconArray.contains("refundStatusPending"){
+//                            self.journey[i].leg[0].fcp = 0
+//                            self.delegate?.reloadSmartIconsAtIndexPath()
+//                        }
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                         self.fareInfoTableView.reloadData()
+                        }
+                        DispatchQueue.main.async {
+                            self.fareInfoTableView.reloadData()
                         }
                     }
                 }
@@ -480,6 +499,21 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         } , failureHandler : { (error ) in
             print(error)
         })
+    }
+    
+    
+    func calculateTableHeight(table: UITableView)-> CGFloat{
+        var height: CGFloat = 0
+        for i in 0..<table.numberOfSections{
+            height += table.headerView(forSection: i)?.height ?? 0
+            height += table.footerView(forSection: i)?.height ?? 0
+            if table.numberOfRows(inSection: i) > 0{
+                for j in 0..<table.numberOfRows(inSection: i){
+                    height += table.rectForRow(at: IndexPath(row: j, section: i)).height
+                }
+            }
+        }
+        return height
     }
     
     //MARK:- Button Action

@@ -37,6 +37,8 @@ class AertripBankDetailsVC: BaseVC {
         } else {
             self.view.backgroundColor = AppColors.themeWhite
         }
+        tableView.contentInset = UIEdgeInsets(top: topNavBar.height, left: 0.0, bottom: 0.0, right: 0.0)
+
         self.tableView.registerCell(nibName: OfflineDepositeTextImageCell.reusableIdentifier)
         self.tableView.registerCell(nibName: EmptyTableViewCell.reusableIdentifier)
         

@@ -31,7 +31,6 @@ class HotelDetailsReviewsVC: BaseVC {
     @IBOutlet weak var cancelButtonOutlet: UIButton!
     @IBOutlet weak var reviewsTblView: UITableView! {
         didSet {
-            self.reviewsTblView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.reviewsTblView.delegate = self
             self.reviewsTblView.dataSource = self
             self.reviewsTblView.estimatedRowHeight = UITableView.automaticDimension
@@ -49,6 +48,9 @@ class HotelDetailsReviewsVC: BaseVC {
     private let maxHeaderHeight: CGFloat = 58.0
     private var time: Float = 0.0
     private var timer: Timer?
+    
+    var dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent
     
     //Mark:- LifeCycle
     //================
@@ -77,6 +79,7 @@ class HotelDetailsReviewsVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.reviewsTblView.contentInset = UIEdgeInsets(top: headerContainerView.height, left: 0.0, bottom: 0.0, right: 0.0)
         headerContainerView.backgroundColor = .clear
         mainContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.view.backgroundColor = .clear
@@ -103,9 +106,15 @@ class HotelDetailsReviewsVC: BaseVC {
         self.viewModel.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.statusBarStyle = presentingStatusBarStyle
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.statusBarColor = AppColors.clear
+        self.statusBarStyle = dismissalStatusBarStyle
     }
     
     //Mark:- Functions
@@ -265,7 +274,7 @@ extension HotelDetailsReviewsVC: UITableViewDelegate , UITableViewDataSource {
             default:
                 return
             }
-            AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+            AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle, presentingStatusBarStyle: statusBarStyle, dismissalStatusBarStyle: statusBarStyle)
             //UIApplication.openSafariViewController(forUrlPath: urlString, delegate: nil, completion: nil)
         }
     }
@@ -362,7 +371,7 @@ extension HotelDetailsReviewsVC {
     @objc func tapCellReviewBtn(_ sender: UIButton){
         let urlString = "https:\(self.viewModel.hotelTripAdvisorDetails?.webUrl ?? "")"
         let screenTitle = LocalizedString.ReadReviews.localized
-        AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+        AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle, presentingStatusBarStyle: statusBarStyle, dismissalStatusBarStyle: statusBarStyle)
     }
     
 }

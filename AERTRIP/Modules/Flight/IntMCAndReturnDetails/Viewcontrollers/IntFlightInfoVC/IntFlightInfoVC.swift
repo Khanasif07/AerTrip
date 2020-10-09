@@ -61,8 +61,8 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         super.viewWillAppear(animated)
         
         if #available(iOS 13, *) {
-            UIApplication.shared.statusBarStyle = .lightContent
-            setNeedsStatusBarAppearanceUpdate()
+//            UIApplication.shared.statusBarStyle = .lightContent
+//            setNeedsStatusBarAppearanceUpdate()
         }
     }
     
@@ -70,8 +70,8 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         super.viewWillDisappear(animated)
         
         if #available(iOS 13, *) {
-            UIApplication.shared.statusBarStyle = .default
-            setNeedsStatusBarAppearanceUpdate()
+//            UIApplication.shared.statusBarStyle = .default
+//            setNeedsStatusBarAppearanceUpdate()
         }
     }
     
@@ -363,11 +363,6 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     }else{
                         cell.arrivalAirportLabel.attributedText = cell.addAttributsForRange(flight.to, coloredString: flight.to, color: AppColors.clear)
                     }
-//                    let fontAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14)]
-//                    let myText = cell.classNameLabel.text
-//                    let size = (myText! as NSString).size(withAttributes: fontAttributes as [NSAttributedString.Key : Any])
-//                    cell.classNameLabelWidth.constant = size.width
-  
                     cell.setClassNameLabelWidth()
                     
                     cell.arrivalPerformaceButton.isUserInteractionEnabled = false

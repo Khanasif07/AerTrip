@@ -80,7 +80,7 @@ class ViewProfileVC: BaseVC {
             self.statusBarStyle = .lightContent
         }
         else {
-            self.statusBarStyle = .default
+            self.statusBarStyle = .darkContent
         }
         
         // self.topNavView.backgroundType = .blurAnimatedView(isDark: false)
@@ -306,7 +306,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
         
         switch self.sections[indexPath.section] {
         case "details":
-            self.statusBarStyle = .default
+            self.statusBarStyle = .darkContent
             switch self.details[indexPath.row] {
             // Open traveller detail listing
             case LocalizedString.TravellerList.localized:
@@ -440,7 +440,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
                 
             } else {
                 if let parent = self.parent as? BaseVC {
-                    parent.statusBarStyle = .default
+                    parent.statusBarStyle = .darkContent
                 }
                 
                 self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
@@ -457,7 +457,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
             }
         } else {
             if let parent = self.parent as? BaseVC {
-                parent.statusBarStyle = isBackBtnTapped ? .default : .lightContent
+                parent.statusBarStyle = isBackBtnTapped ? .darkContent : .lightContent
             }
             
             self.topNavView.animateBackView(isHidden: true) { [weak self](isDone) in
@@ -525,6 +525,7 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
         CoreDataManager.shared.deleteData("TravellerData")
         CoreDataManager.shared.deleteData("BookingData")
         CoreDataManager.shared.deleteData("HotelSearched")
+        FacebookController.shared.facebookLogout()
         UserDefaults.removeObject(forKey: UserDefaults.Key.currentUserCookies.rawValue)
         UserDefaults.removeObject(forKey: UserDefaults.Key.xAuthToken.rawValue)
         UserInfo.hotelFilterApplied = nil

@@ -33,7 +33,7 @@ class BookingConfimationMailVC: BaseVC {
     // MARK: - Properties
     let viewModel  = BookingConfirmationMailVM()
     let tagsField = WSTagsField()
-    
+    var  presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
     
     
     // MARK: - Override methods
@@ -41,12 +41,14 @@ class BookingConfimationMailVC: BaseVC {
         super.viewWillAppear(animated)
         IQKeyboardManager.shared().isEnabled = false
         IQKeyboardManager.shared().isEnableAutoToolbar = false
+        statusBarStyle = presentingStatusBarStyle
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().isEnableAutoToolbar = true
+        statusBarStyle = dismissalStatusBarStyle
     }
     
     override func initialSetup() {

@@ -228,7 +228,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             
             for i in 0..<journeyCombo.count{
                 if let otherFare = journeyCombo[i].otherfares{
-                    if otherFare == true{
+                    if otherFare{
                         isOtherFareVisible = true
                     }
                 }
@@ -272,7 +272,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 taxAndFeesDataDict.removeAll()
                 for i in 0..<journey.count{
                     if let otherFare = journey[i].otherfares{
-                        if otherFare == true{
+                        if otherFare{
                             isOtherFareVisible = true
                         }
                     }
@@ -297,13 +297,13 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 
                 let price1 = displayPriceInFormat(price: Double(totalFare), fromOption : "BookingAmount")
                 bookingAmountLabel.attributedText = price1
-                
+                strikeOutAmountLabel.attributedText = nil
                 baseFareTableview.reloadData()
             }
         }
         
         
-        if isUpgradePlanScreenVisible == false{
+        if !isUpgradePlanScreenVisible{
             upgradeButton.isHidden = false
             upgradeButtonWidth.constant = 32
             bookButtonTrailing.constant = 44
@@ -315,7 +315,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
         
         if fromScreen != "upgradePlan"{
-            if isOtherFareVisible == true{
+            if isOtherFareVisible{
                 upgradeButton.isHidden = false
                 upgradeButtonWidth.constant = 32
                 dividerView.isHidden = false
@@ -872,7 +872,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         baseFareTableview.bounces = true
         baseFareTableview.alwaysBounceVertical = true
 
-        if isTaxesSectionHidden == true{
+        if isTaxesSectionHidden{
 //            baseFareTableview.bounces = true
 //            baseFareTableview.alwaysBounceVertical = true
             sectionHeight = self.baseFareTableview.numberOfSections * 34
@@ -883,19 +883,19 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         }
         
         var cellHeight = 0
-        
-        if self.baseFareTableview.numberOfRows(inSection: 2) == 2{
+        let cellsCount = self.baseFareTableview.numberOfRows(inSection: 2)
+        if cellsCount == 2{
             cellHeight = 24
         }else{
-            let cellsCount = self.baseFareTableview.numberOfRows(inSection: 2)
             cellHeight = (cellsCount-2) * 24
         }
         
         var totalHeight = 0
         let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom
         
-        if isTaxesSectionHidden == false{
-            totalHeight = sectionHeight + cellHeight + Int(bottomInset!) + 17
+        if (isTaxesSectionHidden == false){
+            let extraHeight = ((cellsCount - 2) > 2) ? 17 : -5
+            totalHeight = sectionHeight + cellHeight + Int(bottomInset!) + extraHeight
         }else{
             totalHeight = sectionHeight + Int(bottomInset!)
         }

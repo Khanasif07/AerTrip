@@ -21,10 +21,12 @@ extension FlightResultSingleJourneyVC {
 //                    sharedUrlPF = self.flightSearchParameters?["PF[]"] as? String ?? ""
 //                }
 //
+//        printDebug("flightSearchParameters...\(self.flightSearchParameters)")
+//
 //                if sharedUrlPF != ""{
 //                    for j in results{
 //                        if j.fk == sharedUrlPF{
-//                            j.isPinned = true
+//                         //   j.isPinned = true
 //                        }
 //                    }
 //                }
@@ -70,6 +72,27 @@ extension FlightResultSingleJourneyVC {
                 }
             }
             
+            
+            
+            
+            if !self.viewModel.sharedFks.isEmpty {
+                
+                    modifiedResult.enumerated().forEach { (ind,jour) in
+                                    
+                        if self.viewModel.sharedFks.contains(jour.fk){
+                            
+                            self.viewModel.results.currentPinnedJourneys.append(jour)
+                            self.viewModel.results.currentPinnedJourneys = self.viewModel.results.currentPinnedJourneys.removeDuplicates()
+                            self.viewModel.isSharedFkmatched = true
+                            modifiedResult[ind].isPinned = true
+                            
+                        }
+                        
+                }
+                
+            }
+            
+
             let groupedArray =   self.viewModel.getOnewayDisplayArray(results: modifiedResult)
             self.viewModel.results.journeyArray = groupedArray
             //            self.viewModel.setPinnedFlights(shouldApplySorting: true)
@@ -92,7 +115,7 @@ extension FlightResultSingleJourneyVC {
                         self.noResultScreen = nil
                     }
                     
-                    if self.viewModel.isSearchByAirlineCode {
+                    if self.viewModel.isSearchByAirlineCode || self.viewModel.isSharedFkmatched {
                         delay(seconds: 1) {
                             self.switchView.isOn = true
                             self.switcherDidChangeValue(switcher: self.switchView, value: true)

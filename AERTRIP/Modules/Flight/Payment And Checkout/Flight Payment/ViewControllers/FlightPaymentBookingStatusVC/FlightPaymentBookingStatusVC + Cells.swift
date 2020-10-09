@@ -27,7 +27,7 @@ extension FlightPaymentBookingStatusVC{
         cell.configCell(tripName: self.viewModel.itinerary.tripDetails.name)
         cell.changeBtnHandler = {[weak self] in
             guard let self = self else {return}
-            AppFlowManager.default.selectTrip(self.viewModel.itinerary.tripDetails, tripType: .bookingTripChange) { [weak self] (tripModel, tripDetail) in
+            AppFlowManager.default.selectTrip(self.viewModel.itinerary.tripDetails, tripType: .bookingTripChange, presentingStatusBarStyle: .darkContent, dismissalStatusBarStyle: .darkContent) { [weak self] (tripModel, tripDetail) in
                 guard let self = self else {return}
                 printDebug(tripDetail)
                 if let detail = tripDetail {
