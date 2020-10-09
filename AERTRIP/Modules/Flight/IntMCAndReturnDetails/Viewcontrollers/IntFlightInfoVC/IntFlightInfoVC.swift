@@ -363,7 +363,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     }else{
                         cell.arrivalAirportLabel.attributedText = cell.addAttributsForRange(flight.to, coloredString: flight.to, color: AppColors.clear)
                     }
-                    cell.setClassNameLabelWidth()
+//                    cell.setClassNameLabelWidth()
                     
                     cell.arrivalPerformaceButton.isUserInteractionEnabled = false
                     cell.onArrivalPerformanceLabel.text = ""
