@@ -29,9 +29,7 @@ class IntCombineFareInfoCell: UITableViewCell {
     var count = 0
     var isNoInfoViewVisible = false
     var indexOfCell = 0
-    
-    weak var cellHeightDelegate:cellHeightDelegate?
-    
+        
     override func awakeFromNib()
     {
         super.awakeFromNib()

@@ -464,15 +464,8 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                                     if let datas = data["\(key)"] as? JSONDictionary{
                                         self.dataResp += [datas]
                                     }
-
                                 }
                                 
-//                                for j in 0..<keys.count{
-//                                    let str = keys[j] as! String
-//                                    if let datas = data["\(str)"] as? JSONDictionary{
-//                                        self.dataResp += [datas]
-//                                    }
-//                                }
                                 if self.dataResp.count != 0{
                                     self.displaySetValues(baggage: self.dataResp)
                                 }

@@ -19,7 +19,7 @@ protocol getBaggageDimentionsDelegate :AnyObject{
 }
 
 protocol getFareRulesDelegate:AnyObject {
-    func getFareRulesData(fareRules:[NSDictionary])
+    func getFareRulesData(fareRules:[JSONDictionary])
 }
 
 protocol getArrivalPerformanceDelegate:AnyObject {
@@ -593,7 +593,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         }
     
     //Present Fare Rules Screen
-    func getFareRulesData(fareRules: [NSDictionary]) {
+    func getFareRulesData(fareRules: [JSONDictionary]) {
         let fareRulesVC = FareRulesVC(nibName: "FareRulesVC", bundle: nil)
         fareRulesVC.fareRulesData = fareRules
         self.present(fareRulesVC, animated: true, completion: nil)

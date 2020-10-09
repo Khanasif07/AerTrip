@@ -12,7 +12,7 @@ protocol  UpdateRefundStatusDelegate : NSObjectProtocol{
     func updateRefundStatus(for fk:String, rfd:Int, rsc:Int)
 }
 
-class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, cellHeightDelegate{
+class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate{
     //MARK:- Outlets
     @IBOutlet weak var fareInfoTableView: UITableView!
     @IBOutlet weak var fareInfoTableViewBottom: NSLayoutConstraint!
@@ -31,8 +31,8 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     var flightInfantCount = 0
     var cellDataHeight = 0
     var showAccordingTolegs = false
-    var fareInfoData = [NSDictionary]()
-    var fareRulesData = [NSDictionary]()
+    var fareInfoData = [JSONDictionary]()
+    var fareRulesData = [JSONDictionary]()
     weak var refundDelegate:UpdateRefundStatusDelegate?
     var rafFees = [[String:Int]]()
     var updatedFareInfo:IntFlightFareInfoResponse?
@@ -185,13 +185,6 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             return UITableView.automaticDimension
     }
     
-    func getCellHeight(height: Int,section:Int)
-    {
-//        rowHeight = height
-//        indexFromDelegate = section
-//        fareInfoTableView.reloadData()
-    }
-    
     //MARK:- Scrollview Delegate
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
@@ -253,9 +246,6 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                         let rsc = currentParsedResponse.data.values.first?.rsc ?? 0
                         self.refundDelegate?.updateRefundStatus(for: self.journey.first!.fk, rfd: rfd, rsc:rsc)
                         
-                        
-                        
-                        
                     }
                 }
             }
@@ -282,10 +272,10 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 DispatchQueue.main.async {
                     if let result = jsonResult as? [String: AnyObject] {
                         
-                        if let data = result["data"] as? NSDictionary {
+                        if let data = result["data"] as? JSONDictionary {
                             
-                            let keys = data.allKeys
-                            if let datas = data[keys.first ?? ""] as? NSDictionary{
+                            let keys = data.keys
+                            if let datas = data[keys.first ?? ""] as? JSONDictionary{
                                 self.fareRulesData.insert(datas, at: 0)
                             }
                             self.fareInfoTableView.reloadData()
@@ -305,17 +295,6 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     //MARK:- Button Action
     @objc func fareRulesButtonClicked(_ sender:UIButton)
     {
-//        let fareRulesVC = FareRulesVC(nibName: "FareRulesVC", bundle: nil)
-//        if self.fareRulesData.count > 0{
-//            if fareRulesData.count > sender.tag{
-//                fareRulesVC.fareRulesData = [self.fareRulesData[sender.tag]]
-//            }else{
-//                fareRulesVC.fareRulesData = [self.fareRulesData[0]]
-//            }
-//
-//        }
-//        self.present(fareRulesVC, animated: true, completion: nil)
-                
         if self.fareRulesData.count > 0{
             self.fareRulesDelegate?.getFareRulesData(fareRules: [self.fareRulesData[sender.tag]])
         }
@@ -376,30 +355,14 @@ extension IntFareInfoVC{
     func getFareInfoCellWithJourney(with indexPath:IndexPath)->UITableViewCell{
         let fareInfoCell = fareInfoTableView.dequeueReusableCell(withIdentifier: "IntFareInfoCell") as! IntFareInfoCell
         
-        if self.fareRulesData.count > 0{
-            //                            if self.fareRulesData.count > indexPath.section{
-            let data = (self.fareRulesData.count > indexPath.section) ? [self.fareRulesData[indexPath.section]] :  [self.fareRulesData[0]]
-            let val = data.first ?? [:]
-            if val.count > 0{
-                
-                let vall = val.allValues
-                if vall.count > 0{
-                    if !(vall[0] as? String ?? "").isEmpty{
-                        
-                        fareInfoCell.fareRulesButton.isHidden = false
-                        fareInfoCell.fareRulesButton.isUserInteractionEnabled = true
-                        
-                        fareInfoCell.fareRulesButton.tag = indexPath.section
-                        fareInfoCell.fareRulesButton.addTarget(self, action: #selector(fareRulesButtonClicked(_:)), for: .touchUpInside)
-                        
-                    }
-                }
-            }
-            
-        }else{
-            fareInfoCell.fareRulesButton.isHidden = true
-            fareInfoCell.fareRulesButton.isUserInteractionEnabled = false
+        let isFareRulesButtonVisible = fareInfoCell.setupFareRulesButton(fareRulesData: fareRulesData, index: indexPath.section)
+        
+        if isFareRulesButtonVisible {
+            fareInfoCell.fareRulesButton.tag = indexPath.section
+            fareInfoCell.fareRulesButton.addTarget(self, action: #selector(fareRulesButtonClicked(_:)), for: .touchUpInside)
+
         }
+
         
         let allflight = (self.journey.flatMap{$0.legsWithDetail}).flatMap{$0.flightsWithDetails}//flights![indexPath.row]
         var displayTitle = ""
@@ -435,38 +398,10 @@ extension IntFareInfoVC{
             fareInfoCell.topSeperatorLabelHeight.constant = 0
         }
         
-        
-        
         fareInfoCell.titleLabelTop.constant = 16
         fareInfoCell.carrierImgView.isHidden = true
         fareInfoCell.journeyNameLabel.isHidden = true
         fareInfoCell.journeyNameDividerLabel.isHidden = true
-        
-        
-//        let ap = self.journey[indexPath.section].ap
-//        let departureAirportDetails = self.airportDetailsResult[ap[0]]
-//        let arrivalAirportDetails = self.airportDetailsResult[ap[1]]
-//        var loc = ""
-//
-//        if departureAirportDetails != nil && arrivalAirportDetails != nil{
-//            loc = departureAirportDetails!.c + " → " + arrivalAirportDetails!.c
-//        }else if departureAirportDetails != nil{
-//            loc = departureAirportDetails!.c
-//        }else if arrivalAirportDetails != nil{
-//            loc = arrivalAirportDetails!.c
-//        }else{
-//            loc = displayTitle
-//        }
-//
-//        fareInfoCell.titleLabel.text = displayTitle
-//        fareInfoCell.journeyNameLabel.text = loc
-//
-//        let al = self.journey[indexPath.section].al.first ?? ""
-//        let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + al.uppercased() + ".png"
-//        fareInfoCell.setAirlineImage(with: logoURL)
-
-        
-        
         
         return fareInfoCell
     }
@@ -485,7 +420,8 @@ extension IntFareInfoVC{
     }
     
     
-    func getCombineFareInfoWithJourney(with indexPath: IndexPath)-> UITableViewCell{
+    func getCombineFareInfoWithJourney(with indexPath: IndexPath)-> UITableViewCell
+    {
         let fareInfoCell = fareInfoTableView.dequeueReusableCell(withIdentifier: "IntCombineFareInfoCell") as! IntCombineFareInfoCell
         
         fareInfoCell.journey = journey
@@ -527,10 +463,8 @@ extension IntFareInfoVC{
                         fareInfoCell.noInfoView.isHidden = false
                     }else{
                         fareInfoCell.isNoInfoViewVisible = false
-    //                    fareInfoCell.combineFareTableView.isHidden = false
                         fareInfoCell.noInfoView.isHidden = true
                     }
-                    
                 }
             }else{
                 fareInfoCell.withApi = false
@@ -553,7 +487,6 @@ extension IntFareInfoVC{
         }
         
         fareInfoCell.combineFareTableView.reloadData()
-        fareInfoCell.cellHeightDelegate = self
         fareInfoCell.layoutSubviews()
         fareInfoCell.layoutIfNeeded()
         let height = fareInfoCell.combineFareTableView.contentSize.height
@@ -563,7 +496,6 @@ extension IntFareInfoVC{
         fareInfoCell.combineFareTableView.reloadData()
         return fareInfoCell
     }
-    
 }
 
 //MARK:- Cell For Multiple ADT object.
@@ -572,28 +504,37 @@ extension IntFareInfoVC{
     func getFareInfoWithLegs(at indexPath:IndexPath)-> UITableViewCell{
         guard let legs = self.journey.first?.legsWithDetail else {return UITableViewCell()}
         let fareInfoCell = self.fareInfoTableView.dequeueReusableCell(withIdentifier: "IntFareInfoCell") as! IntFareInfoCell
-        if self.fareRulesData.count > 0{
-            let data = (self.fareRulesData.count > indexPath.section) ? [self.fareRulesData[indexPath.section]] :  [self.fareRulesData[0]]
-            let val = data.first ?? [:]
-            if val.count > 0{
-                
-                let vall = val.allValues
-                if vall.count > 0{
-                    if !(vall[0] as? String ?? "").isEmpty{
-                        
-                        fareInfoCell.fareRulesButton.isHidden = false
-                        fareInfoCell.fareRulesButton.isUserInteractionEnabled = true
-                        
-                        fareInfoCell.fareRulesButton.tag = indexPath.section
-                        fareInfoCell.fareRulesButton.addTarget(self, action: #selector(fareRulesButtonClicked(_:)), for: .touchUpInside)
-                        
-                    }
-                }
-            }
-        }else{
-            fareInfoCell.fareRulesButton.isHidden = true
-            fareInfoCell.fareRulesButton.isUserInteractionEnabled = false
+//        if self.fareRulesData.count > 0{
+//            let data = (self.fareRulesData.count > indexPath.section) ? [self.fareRulesData[indexPath.section]] :  [self.fareRulesData[0]]
+//            let val = data.first ?? [:]
+//            if val.count > 0{
+//
+//                let vall = val.allValues
+//                if vall.count > 0{
+//                    if !(vall[0] as? String ?? "").isEmpty{
+//
+//                        fareInfoCell.fareRulesButton.isHidden = false
+//                        fareInfoCell.fareRulesButton.isUserInteractionEnabled = true
+//
+//                        fareInfoCell.fareRulesButton.tag = indexPath.section
+//                        fareInfoCell.fareRulesButton.addTarget(self, action: #selector(fareRulesButtonClicked(_:)), for: .touchUpInside)
+//
+//                    }
+//                }
+//            }
+//        }else{
+//            fareInfoCell.fareRulesButton.isHidden = true
+//            fareInfoCell.fareRulesButton.isUserInteractionEnabled = false
+//        }
+        
+        let isFareRulesButtonVisible = fareInfoCell.setupFareRulesButton(fareRulesData: fareRulesData, index: indexPath.section)
+        
+        if isFareRulesButtonVisible {
+            fareInfoCell.fareRulesButton.tag = indexPath.section
+            fareInfoCell.fareRulesButton.addTarget(self, action: #selector(fareRulesButtonClicked(_:)), for: .touchUpInside)
+
         }
+
         
         let allflight = legs.flatMap{$0.flightsWithDetails}//flights![indexPath.row]
         var displayTitle = ""
@@ -760,7 +701,6 @@ extension IntFareInfoVC{
             fareInfoCell.rafFees = rafFeesData
         }
         fareInfoCell.combineFareTableView.reloadData()
-        fareInfoCell.cellHeightDelegate = self
         fareInfoCell.layoutSubviews()
         fareInfoCell.layoutIfNeeded()
         let height = (fareInfoCell.combineFareTableView.contentSize.height)
