@@ -15,7 +15,7 @@ protocol flightDetailsPinFlightDelegate : AnyObject {
 //}
 
 protocol getBaggageDimentionsDelegate :AnyObject{
-    func getBaggageDimentions(baggage:[[NSDictionary]],sender:UIButton)
+    func getBaggageDimentions(baggage:[[JSONDictionary]],sender:UIButton)
 }
 
 protocol getFareRulesDelegate:AnyObject {
@@ -561,12 +561,12 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     }
     
     //Present Baggage Dimensions screen
-    func getBaggageDimentions(baggage: [[NSDictionary]], sender: UIButton) {
+    func getBaggageDimentions(baggage: [[JSONDictionary]], sender: UIButton) {
             let baggageDimensionVC = BaggageDimensionsVC(nibName: "BaggageDimensionsVC", bundle: nil)
             
             let section = sender.tag / 100
             let row = sender.tag % 100
-            if let baggageData = baggage[section][row].value(forKey: "baggageData") as? NSDictionary{
+            if let baggageData = baggage[section][row]["baggageData"] as? NSDictionary{
                 if let cbgData = baggageData.value(forKey: "cbg") as? NSDictionary{
                     if let adtCabinBaggage = cbgData.value(forKey: "ADT") as? NSDictionary{
                         if let weight = adtCabinBaggage.value(forKey: "weight") as? String{
