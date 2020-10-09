@@ -42,7 +42,7 @@ extension FlightPaymentBookingStatusVC{
     func getCarriarTableCell(_ indexPath: IndexPath)-> UITableViewCell{
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: FlightCarriersTableViewCell.reusableIdentifier) as? FlightCarriersTableViewCell else {return UITableViewCell()}
         cell.configureCellWith(self.viewModel.itinerary.details.legsWithDetail[indexPath.section - 1], airLineDetail: self.viewModel.itinerary.details.aldet ?? [:])
-        cell.containerTopConstraints.constant = ((indexPath.section - 1) == 0) ? 5.0 : 13.0
+        cell.containerTopConstraints.constant = ((indexPath.section - 1) == 0) ? 8.5 : 13.0
         return cell
     }
     

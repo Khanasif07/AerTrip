@@ -38,6 +38,7 @@
 37,users/save-general-preferences,53,failed to update General Preferences,Failed to update General Preferences,
 38,,54,failed to remove label of passenger,Failed to update General Preferences,
 39,,55,error to save general preferance,Failed to update General Preferences,
+,,58,Others cannot be deleted,Others Label cannot be deleted,
 40,,,,,
 41,users/change-login,2,Invalid Email ID,Please provide a valid Email ID,
 42,,7,Invalid password,Please provide a valid password,

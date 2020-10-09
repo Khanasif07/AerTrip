@@ -175,8 +175,14 @@ extension HotelDetailsVC {
     
     internal func otherInclusionCell(indexPath: IndexPath, ratesData: Rates) -> UITableViewCell? {
         if let otherInclusion =  ratesData.inclusion_array[APIKeys.other_inclusions.rawValue] as? [String], !otherInclusion.isEmpty {
+            var isInclusionPresent = false
+            if let boardInclusion =  ratesData.inclusion_array[APIKeys.boardType.rawValue] as? [String], !boardInclusion.isEmpty {
+                isInclusionPresent = true
+            }else if let internetInclusion =  ratesData.inclusion_array[APIKeys.internet.rawValue] as? [String], !internetInclusion.isEmpty {
+                isInclusionPresent = true
+            }
             guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
-            cell.configureOtherInclusionCell(otherInclusion: otherInclusion)
+            cell.configureOtherInclusionCell(otherInclusion: otherInclusion,isInclusionPresent: isInclusionPresent)
             cell.clipsToBounds = true
             return cell
         }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -152,6 +152,7 @@
                 <outlet property="arrivalAirports" destination="wh7-Hj-y3O" id="YPi-xZ-Znb"/>
                 <outlet property="arrivalTime" destination="ZRK-NT-rhG" id="qd1-Jh-Gz3"/>
                 <outlet property="baseView" destination="NFA-Be-YnR" id="fMp-GB-Ntm"/>
+                <outlet property="baseViewTopConstraint" destination="FLO-8a-eWD" id="htl-u4-dnT"/>
                 <outlet property="dashedView" destination="fxt-QT-oy3" id="MoD-rc-Zua"/>
                 <outlet property="departureAirports" destination="l1R-gk-T0h" id="1jI-hA-rx4"/>
                 <outlet property="price" destination="nDe-EN-ifF" id="F3S-jh-rAh"/>

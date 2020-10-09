@@ -185,7 +185,12 @@ class PKDatePicker: UIDatePicker {
         picker.datePickerFormat = outPutFormate
         picker.datePickerMode = mode
         picker.dateFormatter.dateFormat = outPutFormate
-        
+        if #available(iOS 13.4, *) {
+            picker.preferredDatePickerStyle = .wheels
+        } else {
+            // Fallback on earlier versions
+        }
+
         if let sDate = selectedDate {
             picker.setDate(sDate, animated: false)
         }

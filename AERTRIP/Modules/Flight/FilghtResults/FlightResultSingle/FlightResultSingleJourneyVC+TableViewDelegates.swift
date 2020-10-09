@@ -44,7 +44,7 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
         
         if viewModel.resultTableState == .showTemplateResults {
            
-            return getTemplateCell()
+            return getTemplateCell(isFirstCell: indexPath.row == 0)
         
         } else if viewModel.resultTableState == .showPinnedFlights {
           
@@ -78,10 +78,11 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
     }
     
     //MARK:- Methods to get different types of cells
-    func getTemplateCell () -> UITableViewCell {
+    func getTemplateCell (isFirstCell: Bool) -> UITableViewCell {
         
-        if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "SingleJourneyTemplateCell") {
+        if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "SingleJourneyTemplateCell") as? SingleJourneyResultTemplateCell {
             cell.selectionStyle = .none
+            cell.isFirstCell = isFirstCell
             return cell
         }
         
