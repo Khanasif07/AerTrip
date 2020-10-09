@@ -123,12 +123,13 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         setupPinnedFlightsOptionsView()
         showHintAnimation()
         
-        ApiProgress = UIProgressView()
+        ApiProgress = UIProgressView(progressViewStyle: .bar)
         ApiProgress.progressTintColor = UIColor.AertripColor
         ApiProgress.trackTintColor = .clear
         ApiProgress.progress = 0.25
         
         ApiProgress.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 10.0)
+        ApiProgress.transform = CGAffineTransform(scaleX: 1, y: 0.8)
         self.collectionContainerView.addSubview(ApiProgress)
         getSharableLink.delegate = self
         self.viewModel.setSharedFks()
