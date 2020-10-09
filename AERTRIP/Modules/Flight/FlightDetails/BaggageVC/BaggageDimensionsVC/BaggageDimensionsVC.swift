@@ -37,8 +37,8 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
     @IBOutlet weak var breadthLabelCM: UILabel!
     
     var weight = ""
-    var dimensions = NSDictionary()
-    var dimensions_inch = NSDictionary()
+    var dimensions = JSONDictionary()
+    var dimensions_inch = JSONDictionary()
 
     var note = ""
     
@@ -79,15 +79,15 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
             let weights = weight.components(separatedBy: " ")
             weightLabel.text = weights[0]
 
-            let height = dimensions.value(forKey: "height") as! String
+            let height = dimensions["height"] as? String ?? ""
             let height_double = Double(height)
             heightLabel.text = "\(String(describing: Int(height_double!)))"
             
-            let width = dimensions.value(forKey: "width") as! String
+            let width = dimensions["width"] as? String ?? ""
             let width_double = Double(width)
             widthLabel.text = "\(String(describing: Int(width_double!)))"
             
-            let depth = dimensions.value(forKey: "depth") as! String
+            let depth = dimensions["depth"] as? String ?? ""
             let depth_double = Double(depth)
             breadthLabel.text = "\(String(describing: Int(depth_double!)))"
             
@@ -95,9 +95,9 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
             
             if dimensions_inch.count > 0{
                 //Crash
-                let height_inch = dimensions_inch.value(forKey: "height") as! String
-                let width_inch = dimensions_inch.value(forKey: "width") as! String
-                let depth_inch = dimensions_inch.value(forKey: "depth") as! String
+                let height_inch = dimensions_inch["height"] as? String ?? ""
+                let width_inch = dimensions_inch["width"] as? String ?? ""
+                let depth_inch = dimensions_inch["depth"] as? String ?? ""
 
                 let inch = Double(height_inch)! + Double(width_inch)! + Double(depth_inch)!
 

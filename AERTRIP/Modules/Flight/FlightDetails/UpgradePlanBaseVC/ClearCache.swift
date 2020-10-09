@@ -22,9 +22,9 @@ class ClearCache: NSObject
             
             for i in 0..<self.appdelegate.upgradeDataMutableArray.count{
                 if i < appdelegate.upgradeDataMutableArray.count{
-                    if let ass = self.appdelegate.upgradeDataMutableArray[i] as? NSDictionary
+                    if let ass = self.appdelegate.upgradeDataMutableArray[i] as? JSONDictionary
                     {
-                        let storedTime = ass.value(forKey: "Time") as! String
+                        let storedTime = ass["Time"] as! String
                         
                         let currTime = "\(hour):\(minutes):\(seconds)"
                         
@@ -99,9 +99,9 @@ class ClearCache: NSObject
             
             for i in 0..<self.appdelegate.flightBaggageMutableArray.count{
                 if i < appdelegate.flightBaggageMutableArray.count{
-                    if let ass = self.appdelegate.flightBaggageMutableArray[i] as? NSDictionary
+                    if let ass = self.appdelegate.flightBaggageMutableArray[i] as? JSONDictionary
                     {
-                        let storedTime = ass.value(forKey: "Time") as! String
+                        let storedTime = ass["Time"] as! String
                         
                         let currTime = "\(hour):\(minutes):\(seconds)"
                         

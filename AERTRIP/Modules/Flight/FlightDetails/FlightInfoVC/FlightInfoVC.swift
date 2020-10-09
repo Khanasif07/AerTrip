@@ -61,7 +61,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     var flightsResults  =  FlightsResults()
     
     //    var amenitiesData = ["DirecTV", "Free Wi-Fi", "Personal televisions", "Open and closed suite", "The airline meal"]
-    var baggageData = [NSDictionary]()
+    var baggageData = [JSONDictionary]()
     var isChangeOfAirport = false
     var sid = ""
     var isTableviewScrolledDown = false
@@ -103,11 +103,11 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                     callAPIforBaggageInfo(sid: sid, fk: journey[j].fk)
                 }else{
                     for i in 0..<self.appdelegate.flightBaggageMutableArray.count{
-                        if let baggageArray = self.appdelegate.flightBaggageMutableArray[i] as? NSDictionary
+                        if let baggageArray = self.appdelegate.flightBaggageMutableArray[i] as? JSONDictionary
                         {
-                            let selectedIndex = baggageArray.value(forKey: "selectedJourneyFK") as! [String]
+                            let selectedIndex = baggageArray["selectedJourneyFK"] as! [String]
                             if self.selectedJourneyFK == selectedIndex{
-                                let baggageDataResponse = baggageArray.value(forKey: "BaggageDataResponse") as! [NSDictionary]
+                                let baggageDataResponse = baggageArray["BaggageDataResponse"] as! [JSONDictionary]
                                 self.baggageData = baggageDataResponse
                             }
                         }
@@ -276,9 +276,9 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         if baggageData.count > 0{
                             if index < baggageData.count{
                                 if amenitiesData.count == 0{
-                                    if let bgData = baggageData[index].value(forKey: "bg") as? NSDictionary{
-                                        if let adtBaggage = bgData.value(forKey: "ADT") as? NSDictionary{
-                                            if let weight = adtBaggage.value(forKey: "weight") as? String, let pieces = adtBaggage.value(forKey: "pieces") as? String
+                                    if let bgData = baggageData[index]["bg"] as? JSONDictionary{
+                                        if let adtBaggage = bgData["ADT"] as? JSONDictionary{
+                                            if let weight = adtBaggage["weight"] as? String, let pieces = adtBaggage["pieces"] as? String
                                             {
                                                 self.journey[indexPath.section].leg[0].flights[index].bg = ["ADT":baggageStruct.init(weight: weight, pieces: pieces, note: "")]
                                                 
@@ -298,9 +298,9 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                                 }
                                 
                                 
-                                if let cbgData = baggageData[index].value(forKey: "cbg") as? NSDictionary{
-                                    if let adtCabinBaggage = cbgData.value(forKey: "ADT") as? NSDictionary{
-                                        if let weight = adtCabinBaggage.value(forKey: "weight") as? String, let pieces = adtCabinBaggage.value(forKey: "pieces") as? String
+                                if let cbgData = baggageData[index]["cbg"] as? JSONDictionary{
+                                    if let adtCabinBaggage = cbgData["ADT"] as? JSONDictionary{
+                                        if let weight = adtCabinBaggage["weight"] as? String, let pieces = adtCabinBaggage["pieces"] as? String
                                         {
                                             if weight != "" && weight != "-9" && weight != "-1" && weight != "0 kg"{
                                                 amenitiesData.append("Cabbin Baggage \n(\(weight))")
@@ -753,13 +753,13 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                 
                 DispatchQueue.main.async {
                     if let result = jsonResult as? [String: AnyObject] {
-                        if let data = result["data"] as? NSDictionary {
+                        if let data = result["data"] as? JSONDictionary {
                             
-                            let keys = data.allKeys
+                            let keys = data.keys
                             if keys.count > 0{
-                                for j in 0...keys.count-1{
-                                    let str = keys[j] as! String
-                                    if let datas = data.value(forKey: str) as? NSDictionary
+                                
+                                for key in keys{
+                                    if let datas = data["\(key)"] as? JSONDictionary
                                     {
                                         self.baggageData += [datas]
                                     }
@@ -768,8 +768,6 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         }
                     }
                     
-                    
-//                    self.baggageData = self.baggageData.reversed()
                     let date = Date()
                     let calendar = Calendar.current
                     let hour = calendar.component(.hour, from: date)

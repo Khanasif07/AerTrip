@@ -631,11 +631,11 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
             }
             
             //Display Few Seats Left view
-            if let flightResults = (upgardeResult[indexPath.row] as AnyObject).value(forKey: "flight_result") as? NSDictionary{
+            if let flightResults = (upgardeResult[indexPath.row] as AnyObject).value(forKey: "flight_result") as? JSONDictionary{
                 
-                let remainingSeats = flightResults.value(forKey: "seats") as? String
+                let remainingSeats = flightResults["seats"] as? String
                 
-                if let fsr = flightResults.value(forKey: "fsr") as? Int{
+                if let fsr = flightResults["fsr"] as? Int{
                     if fsr == 1 && remainingSeats != nil{
                         
                         cell.fewSeatsLeftView.isHidden = false
@@ -649,7 +649,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                         cell.fewSeatsLeftView.isHidden = true
                         cell.fewSeatsLeftViewHeight.constant = 0
                     }
-                }else if let fsr = flightResults.value(forKey: "fsr") as? String {
+                }else if let fsr = flightResults["fsr"] as? String {
                     if fsr == "1" && remainingSeats != nil{
                         
                         cell.fewSeatsLeftView.isHidden = false
@@ -714,10 +714,10 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
     //MARK:- Button Action
     @objc func selectPlanButtonClicked(_ sender:UIButton)
     {
-        var dict = NSDictionary()
+        var dict = JSONDictionary()
         if selectedPlanIndex != sender.tag{
             let upgardeResult = apiResp[selectedLocationIndex]
-            dict = (upgardeResult[sender.tag] as AnyObject).value(forKey: "fare") as! NSDictionary
+            dict = (upgardeResult[sender.tag] as AnyObject).value(forKey: "fare") as! JSONDictionary
             if let fareTypeName = (upgardeResult[sender.tag] as AnyObject).value(forKey: "FareTypeName") as? NSArray
             {
                 if fareTypeName.count > 0{
@@ -770,9 +770,9 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                 DispatchQueue.main.async {
                     if let result = jsonResult as? [String: AnyObject] {
                         if result["success"] as? Bool == true{
-                            if let data = result["data"] as? NSDictionary {
+                            if let data = result["data"] as? JSONDictionary {
                                 
-                                if let other_fares = data.value(forKey: "other_fares") as? NSArray{
+                                if let other_fares = data["other_fares"] as? NSArray{
                                     
                                     if other_fares.count > 0
                                     {
@@ -801,9 +801,9 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                         var cachedFKArray = [String]()
                                         
                                         for i in 0..<self.appdelegate.upgradeDataMutableArray.count{
-                                            if let ass = self.appdelegate.upgradeDataMutableArray[i] as? NSDictionary
+                                            if let ass = self.appdelegate.upgradeDataMutableArray[i] as? JSONDictionary
                                             {
-                                                let index = ass.value(forKey: "selectedJourneyFK") as! String
+                                                let index = ass["selectedJourneyFK"] as? String ?? ""
                                                 cachedFKArray.append(index)
                                             }
                                         }
@@ -817,7 +817,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                             
                                             let arr = ["Time" : "\(hour):\(minutes):\(seconds)",
                                                 "selectedJourneyFK" : fk,
-                                                "upgradeArray":fareArray] as NSDictionary
+                                                "upgradeArray":fareArray] as JSONDictionary
                                             
                                             self.appdelegate.upgradeDataMutableArray.add(arr)
                                         }
@@ -964,11 +964,11 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
     
     func getDataFromCache(){
         for i in 0..<self.appdelegate.upgradeDataMutableArray.count{
-            if let ass = self.appdelegate.upgradeDataMutableArray[i] as? NSDictionary
+            if let ass = self.appdelegate.upgradeDataMutableArray[i] as? JSONDictionary
             {
-                let storedFK = ass.value(forKey: "selectedJourneyFK") as! String
+                let storedFK = ass["selectedJourneyFK"] as! String
                 
-                let storedUpgradeArray = ass.value(forKey: "upgradeArray") as! NSArray
+                let storedUpgradeArray = ass["upgradeArray"] as! NSArray
                 
                 let newDict = [storedFK:storedUpgradeArray]
                 self.newTestDict.append(newDict)

@@ -578,23 +578,23 @@ class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupV
             
             let section = sender.tag / 100
             let row = sender.tag % 100
-            if let baggageData = baggage[section][row]["baggageData"] as? NSDictionary{
-                if let cbgData = baggageData.value(forKey: "cbg") as? NSDictionary{
-                    if let adtCabinBaggage = cbgData.value(forKey: "ADT") as? NSDictionary{
-                        if let weight = adtCabinBaggage.value(forKey: "weight") as? String{
+            if let baggageData = baggage[section][row]["baggageData"] as? JSONDictionary{
+                if let cbgData = baggageData["cbg"] as? JSONDictionary{
+                    if let adtCabinBaggage = cbgData["ADT"] as? JSONDictionary{
+                        if let weight = adtCabinBaggage["weight"] as? String{
                             baggageDimensionVC.weight = weight
                         }
-                        if let dimension = adtCabinBaggage.value(forKey: "dimension") as? NSDictionary{
-                            if let cm = dimension.value(forKey: "cm") as? NSDictionary{
+                        if let dimension = adtCabinBaggage["dimension"]as? JSONDictionary{
+                            if let cm = dimension["cm"] as? JSONDictionary{
                                 baggageDimensionVC.dimensions = cm
                             }
                             
-                            if let inch = dimension.value(forKey: "in") as? NSDictionary{
+                            if let inch = dimension["in"] as? JSONDictionary{
                                 baggageDimensionVC.dimensions_inch = inch
                             }
                         }
                         
-                        if let note = adtCabinBaggage.value(forKey: "note") as? String{
+                        if let note = adtCabinBaggage["note"] as? String{
                             baggageDimensionVC.note = note
                         }
                     }

@@ -71,7 +71,7 @@ class IntFareBreakupVC: BaseVC {
 
     var taxesData : IntTaxes?
     var taxesDetails : [String:Int] = [String:Int]()
-    var taxAndFeesData = [NSDictionary]()
+    var taxAndFeesData = [JSONDictionary]()
     var taxAndFeesDataDict = [taxStruct]()
     
     var isTaxesSectionHidden = true
@@ -374,7 +374,7 @@ class IntFareBreakupVC: BaseVC {
                     }
                     
                     let newArr = ["name" : key,
-                                  "value":newTaxVal] as NSDictionary
+                                  "value":newTaxVal] as JSONDictionary
                     taxAndFeesData.append(newArr)
                     
                 }
@@ -389,7 +389,7 @@ class IntFareBreakupVC: BaseVC {
                     }
                     
                     let newArr = ["name" : key,
-                                  "value":newTaxVal] as NSDictionary
+                                  "value":newTaxVal] as JSONDictionary
                     taxAndFeesData.append(newArr)
                     
                 }
