@@ -291,9 +291,10 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                         
 //                        AertripToastView.hideToast()
             }
+                    headerCollectionView.reloadData()
+
        }
         
-        headerCollectionView.reloadData()
         
     }
     

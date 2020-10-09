@@ -27,9 +27,12 @@ class IntHeaderCollectionCell: UICollectionViewCell {
         self.headerValue = header
 
         if header.isInCompatable {
-             self.title.attributedText = self.headerValue?.title
+            self.title.attributedText = self.headerValue?.redTitle
+            self.subtitle.textColor = .AERTRIP_RED_COLOR
         } else {
-             self.title.attributedText = self.headerValue?.redTitle
+            self.title.attributedText = self.headerValue?.title
+            self.subtitle.textColor = .black
+
         }
         if header.subTitle == "Onward" || header.subTitle == "Return"{
             titleLeadingContraint.constant = 15
@@ -40,19 +43,19 @@ class IntHeaderCollectionCell: UICollectionViewCell {
         self.subtitle.textColor = textColor
     }
 
-    func setTitleColor(_ color : UIColor ) {
+    func setTitleColor2(_ color : UIColor ) {
         self.title.textColor = color
         self.subtitle.textColor = color
     }
     
     
-    func setRedColoredTitles() {
+    func setRedColoredTitles2() {
         textColor = .AERTRIP_RED_COLOR
         self.title.attributedText = self.headerValue?.redTitle
         self.subtitle.textColor = .AERTRIP_RED_COLOR
     }
     
-    func setBlackColoredTitles(){
+    func setBlackColoredTitles2(){
         textColor = .black
         self.title.attributedText = self.headerValue?.title
         self.subtitle.textColor = .black
