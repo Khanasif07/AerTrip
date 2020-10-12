@@ -81,7 +81,7 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if viewModel.resultTableState == .showTemplateResults {
-            return getTemplateCell()
+            return getTemplateCell(isFirstCell: indexPath.row == 0)
         } else if viewModel.resultTableState == .showPinnedFlights {
             let journey = viewModel.results.pinnedFlights[indexPath.row]
             return getSingleJourneyCell(indexPath: indexPath ,journey: IntMultiCityAndReturnDisplay([journey]) )
@@ -184,11 +184,12 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
     }
     
     //MARK:- Methods to get different types of cells
-    func getTemplateCell() -> UITableViewCell {
+    func getTemplateCell(isFirstCell: Bool) -> UITableViewCell {
         if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "InternationalReturnTemplateTableViewCell") as? InternationalReturnTemplateTableViewCell {
             cell.numberOfLegs = self.numberOfLegs
             cell.selectionStyle = .none
             cell.populateData()
+            cell.isFirstCell = isFirstCell
             return cell
         }
         return UITableViewCell()
