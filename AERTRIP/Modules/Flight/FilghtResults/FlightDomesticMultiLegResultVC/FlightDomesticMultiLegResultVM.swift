@@ -26,7 +26,7 @@ class FlightDomesticMultiLegResultVM {
     var isFewSeatsLeft = false
     var shouldDisplayToast = false
     var isSearchByAirlineCode = false
-    var flightSearchParameters : NSDictionary?
+    var flightSearchParameters = JSONDictionary()
     var sharedFks : [String] = []
     var isSharedFkmatched = false
     

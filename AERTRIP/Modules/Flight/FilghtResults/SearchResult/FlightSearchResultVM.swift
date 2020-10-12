@@ -208,15 +208,9 @@ extension FlightResultViewModelDelegate {
         self.isIntMCOrReturnJourney = isInternationalJourney
         self.numberOfLegs = numberOfLegs
         
-        var flightSearchParamsDict = JSONDictionary()
-        
-        flightSearchParameters.forEach {
-            if let key = $0.key as? String {
-                flightSearchParamsDict[key] = $0.value
-            }
-        }
-        
-        self.flightSearchParametersFromDeepLink = flightSearchParamsDict
+        guard let dict = flightSearchParameters as? JSONDictionary else { return }
+        self.flightSearchParametersFromDeepLink = dict
+
     }
     
     func segmentTitles(showSelection : Bool , selectedIndex: Int) ->  [NSAttributedString]

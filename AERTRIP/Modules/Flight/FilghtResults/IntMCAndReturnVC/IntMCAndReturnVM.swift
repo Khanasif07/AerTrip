@@ -23,7 +23,7 @@ class IntMCAndReturnVM {
     var sortOrder = Sort.Smart
     let dateFormatter = DateFormatter()
     var isSearchByAirlineCode = false
-    var flightSearchParameters : NSDictionary?
+    var flightSearchParameters = JSONDictionary()
     var sharedFks : [String] = []
     var isSharedFkmatched = false
 

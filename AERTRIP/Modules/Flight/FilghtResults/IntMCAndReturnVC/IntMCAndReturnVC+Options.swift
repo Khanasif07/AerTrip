@@ -275,11 +275,11 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
             if let searchParam = (self.parent as? FlightResultBaseViewController)?.flightSearchParameters{
 
                 
-                let departKey : NSArray = searchParam.allKeys as NSArray
+                let departKey = searchParam.keys// as NSArray
                 var departKeyArray = [String]()
                 for key in departKey{
                     if (key as AnyObject).contains("depart"){
-                        departKeyArray.append(key as! String)
+                        departKeyArray.append(key )
                     }
                 }
 
