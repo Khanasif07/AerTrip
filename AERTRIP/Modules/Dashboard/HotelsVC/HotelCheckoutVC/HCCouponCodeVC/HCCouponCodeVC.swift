@@ -48,7 +48,7 @@ class HCCouponCodeVC: BaseVC {
             self.couponTextField.autocorrectionType = .no
             self.couponTextField.autocapitalizationType = .allCharacters
             self.couponTextField.adjustsFontSizeToFitWidth = true
-            self.couponTextField.textFieldClearBtnSetUp()
+            self.couponTextField.textFieldClearBtnSetUp(with: UIImage(named: "BlurCross"))
             self.couponTextField.clearButtonMode = .always
         }
     }
