@@ -294,7 +294,7 @@ class GetSharableUrl
         
         if tripType == "single" || tripType == "return"{
             inputFormatter.dateFormat = "yyyy-MM-dd"
-            showDate = inputFormatter.date(from: journey[0].ad)!
+            showDate = inputFormatter.date(from: journey[0].dd)!//ad
             inputFormatter.dateFormat = "dd-MM-yyyy"
             let newAd = inputFormatter.string(from: showDate)
             departureDate.append("depart=\(newAd)&")

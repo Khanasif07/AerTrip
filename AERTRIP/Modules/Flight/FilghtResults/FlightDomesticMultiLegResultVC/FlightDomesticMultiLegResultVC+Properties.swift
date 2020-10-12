@@ -382,8 +382,18 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
           let flightChildrenCount = bookFlightObject.flightChildrenCount
           let flightInfantCount = bookFlightObject.flightInfantCount
           let isDomestic = bookFlightObject.isDomestic
-          let tripType = (self.bookFlightObject.flightSearchType == RETURN_JOURNEY) ? "return" : "multi"
+//          let tripType = (self.bookFlightObject.flightSearchType == RETURN_JOURNEY) ? "return" : "multi"
 
+        var tripType = ""
+        if self.bookFlightObject.flightSearchType == SINGLE_JOURNEY{
+            tripType = "single"
+        }else if self.bookFlightObject.flightSearchType == RETURN_JOURNEY{
+            tripType = "return"
+        }else{
+            tripType = "multi"
+        }
+
+        
           self.getSharableLink.getUrlForMail(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, sid: sid, isInternational: false, journeyArray: pinnedFlightsArray, valString: "", trip_type: tripType)
 
     }
@@ -404,7 +414,18 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         let flightChildrenCount = bookFlightObject.flightChildrenCount
         let flightInfantCount = bookFlightObject.flightInfantCount
         let isDomestic = bookFlightObject.isDomestic
-        let tripType = (self.bookFlightObject.flightSearchType == RETURN_JOURNEY) ? "return" : "multi"
+//        let tripType = (self.bookFlightObject.flightSearchType == RETURN_JOURNEY) ? "return" : "multi"
+        
+        var tripType = ""
+        if self.bookFlightObject.flightSearchType == SINGLE_JOURNEY{
+            tripType = "single"
+        }else if self.bookFlightObject.flightSearchType == RETURN_JOURNEY{
+            tripType = "return"
+        }else{
+            tripType = "multi"
+        }
+
+        
         let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM.flightLegs)
 
         self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journeyArray, valString: "", trip_type: tripType,filterString: filterStr)

@@ -259,7 +259,7 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
         var rtrnDate = ""
         var cabinclass = firstJourney.cc
         if (flightObject.flightSearchType == RETURN_JOURNEY){
-            if let searchParam = (self.parent as? FlightResultBaseViewController)?.flightSearchParameters as? [String: Any]{
+            if let searchParam = (self.parent as? FlightResultBaseViewController)?.flightSearchParameters{
                 origin += "&origin=\(searchParam["origin"] ?? "")"
                 destination += "&destination=\(searchParam["destination"] ?? "")"
                 dprtDate += "&depart=\(searchParam["depart"] ?? "")"
