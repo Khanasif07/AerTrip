@@ -78,7 +78,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
 
     
     //MARK:-  Initializers
-    
+
     convenience init(numberOfLegs  : Int , headerArray : [MultiLegHeader]) {
         self.init(nibName:nil, bundle:nil)
         self.viewModel.numberOfLegs = numberOfLegs
@@ -123,12 +123,13 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         setupPinnedFlightsOptionsView()
         showHintAnimation()
         
-        ApiProgress = UIProgressView()
+        ApiProgress = UIProgressView(progressViewStyle: .bar)
         ApiProgress.progressTintColor = UIColor.AertripColor
         ApiProgress.trackTintColor = .clear
         ApiProgress.progress = 0.25
         
         ApiProgress.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 10.0)
+        ApiProgress.transform = CGAffineTransform(scaleX: 1, y: 0.8)
         self.collectionContainerView.addSubview(ApiProgress)
         getSharableLink.delegate = self
         self.viewModel.setSharedFks()
@@ -251,10 +252,18 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                             
                             setTextColorToHeader(.AERTRIP_RED_COLOR, indexPath: i)
                             setTextColorToHeader(.AERTRIP_RED_COLOR, indexPath: (i + 1 ))
+                            
+                            self.headerArray[i].isInCompatable = true
+                            self.headerArray[i+1].isInCompatable = true
+
                             fareBreakupVC?.bookButton.isEnabled = false
                             
                         }
                     } else if nextLegDeparture.timeIntervalSince(currentLegArrival) <= 7200 {
+                       
+                        self.headerArray[i].isInCompatable = false
+                        self.headerArray[i+1].isInCompatable = false
+                        
                         if let parentVC = self.parent {
                             
                             var frame = parentVC.view.frame
@@ -273,7 +282,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                             fareBreakupVC?.bookButton.isEnabled = true
                         }
                     } else {
-                        
+                        self.headerArray[i].isInCompatable = false
+                        self.headerArray[i+1].isInCompatable = false
                         CustomToast.shared.fadeAllToasts()
                         
 //                        setTextColorToHeader(.black, indexPath: i)
@@ -281,7 +291,11 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                         
 //                        AertripToastView.hideToast()
             }
+                    headerCollectionView.reloadData()
+
        }
+        
+        
     }
     
     

@@ -12,4 +12,6 @@ struct MultiLegHeader {
     let title : NSAttributedString
     let redTitle : NSAttributedString
     let subTitle : String
+    var isInCompatable = false
+    
 }

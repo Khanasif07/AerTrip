@@ -1331,6 +1331,7 @@
 		84791EE22281BB8000472E54 /* AccountLadgerDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84791EE02281BB7F00472E54 /* AccountLadgerDetailHeader.swift */; };
 		84791EE32281BB8000472E54 /* AccountLadgerDetailHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84791EE12281BB7F00472E54 /* AccountLadgerDetailHeader.xib */; };
 		84795B37241B7254004CCA36 /* UISegmentedControlExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84795B36241B7254004CCA36 /* UISegmentedControlExtension.swift */; };
+		847A3CC525306380004C7382 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847A3CC425306380004C7382 /* SpeechRecognizer.swift */; };
 		847C2240247BCBEE004F32D6 /* SeatMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847C2238247BCBED004F32D6 /* SeatMapVC.swift */; };
 		847C2241247BCBEE004F32D6 /* SeatMapVC+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847C2239247BCBED004F32D6 /* SeatMapVC+CollectionView.swift */; };
 		847C2242247BCBEE004F32D6 /* SeatMapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847C223A247BCBED004F32D6 /* SeatMapVM.swift */; };
@@ -3123,6 +3124,7 @@
 		84791EE02281BB7F00472E54 /* AccountLadgerDetailHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountLadgerDetailHeader.swift; sourceTree = "<group>"; };
 		84791EE12281BB7F00472E54 /* AccountLadgerDetailHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountLadgerDetailHeader.xib; sourceTree = "<group>"; };
 		84795B36241B7254004CCA36 /* UISegmentedControlExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControlExtension.swift; sourceTree = "<group>"; };
+		847A3CC425306380004C7382 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 		847C2238247BCBED004F32D6 /* SeatMapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatMapVC.swift; sourceTree = "<group>"; };
 		847C2239247BCBED004F32D6 /* SeatMapVC+CollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SeatMapVC+CollectionView.swift"; sourceTree = "<group>"; };
 		847C223A247BCBED004F32D6 /* SeatMapVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatMapVM.swift; sourceTree = "<group>"; };
@@ -9016,6 +9018,7 @@
 		84F9838421B51A070018DFED /* AppHelper */ = {
 			isa = PBXGroup;
 			children = (
+				847A3CC425306380004C7382 /* SpeechRecognizer.swift */,
 				848259F6252B02F400F87D6E /* APILogger */,
 				8459208C24E2CA710001ED28 /* GetSharableUrl.swift */,
 				847790BF23ED70A6004EBC45 /* AppGradientView.swift */,
@@ -10994,6 +10997,7 @@
 				843FF4EC24740231001F21B1 /* FlightFareRulesTableViewCell.m in Sources */,
 				843FF65C247409E3001F21B1 /* GeneralUserPreferences.m in Sources */,
 				182C38AA24CB4D03000412CB /* FlightWhatNextData.swift in Sources */,
+				847A3CC525306380004C7382 /* SpeechRecognizer.swift in Sources */,
 				8483AFAA22119A44009F7600 /* HotelInfoAddressCell.swift in Sources */,
 				84E4BC6422A0EE6D00B72306 /* FlightBookingsDetailsVC+TableCells.swift in Sources */,
 				1809A47621CD057D0018AB2F /* EditProfileImageHeaderView.swift in Sources */,
@@ -11136,7 +11140,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 167;
+				CURRENT_PROJECT_VERSION = 168;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11345,7 +11349,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 167;
+				CURRENT_PROJECT_VERSION = 168;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;

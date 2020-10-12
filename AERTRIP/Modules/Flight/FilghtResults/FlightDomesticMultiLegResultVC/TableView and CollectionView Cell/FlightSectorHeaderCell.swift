@@ -27,14 +27,16 @@ class FlightSectorHeaderCell: UICollectionViewCell {
     func setUI(_ header : MultiLegHeader ) {
         self.headerValue = header
 
-        if textColor == .black {
-             self.title.attributedText = self.headerValue?.title
+        if header.isInCompatable {
+            self.title.attributedText = self.headerValue?.redTitle
+            self.subtitle.textColor = .AERTRIP_RED_COLOR
         }
         else {
-             self.title.attributedText = self.headerValue?.redTitle
+            self.title.attributedText = self.headerValue?.title
+            self.subtitle.textColor = .black
         }
         self.subtitle.text = header.subTitle
-        self.subtitle.textColor = textColor
+//        self.subtitle.textColor = textColor
     }
 
     func setTitleColor(_ color : UIColor ) {

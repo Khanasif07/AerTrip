@@ -41,10 +41,7 @@ class FlightResultSingleJourneyVM {
         var isSearchByAirlineCode = false
     
         var flightSearchParameters : NSDictionary?
-    
         var sharedFks : [String] = []
-    
-    
         var isSharedFkmatched = false
     
     
