@@ -67,4 +67,38 @@ class IntFareInfoCell: UITableViewCell {
 
     }
     
+    func setupFareRulesButton(fareRulesData:[JSONDictionary],index:Int)->Bool
+    {
+        var isFareRulesButtonVisble = false
+        
+        if fareRulesData.count > 0{
+            if fareRulesData.count > index{
+                let data = [fareRulesData[index]]
+                let val = data[0]
+                if val.count > 0{
+                    
+                    let vall = val.values
+                    if vall.count > 0{
+                        if vall.first as? String != nil{
+                            if vall.first as! String != ""
+                            {
+                                fareRulesButton.isHidden = false
+                                fareRulesButton.isUserInteractionEnabled = true
+                                
+                                isFareRulesButtonVisble = true
+                            }
+                        }
+                    }
+                }
+            }
+        }else{
+            fareRulesButton.isHidden = true
+            fareRulesButton.isUserInteractionEnabled = false
+            
+            isFareRulesButtonVisble = false
+        }
+        
+        return isFareRulesButtonVisble
+    }
+    
 }

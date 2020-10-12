@@ -59,6 +59,7 @@ class IntMCAndReturnVC : UIViewController, getSharableUrlDelegate
         viewModel.results = InternationalJourneyResultsArray(sort: .Smart)
         setUpSubView()
         getSharableLink.delegate = self
+        self.viewModel.setSharedFks()
     }
     
     override func viewWillAppear(_ animated: Bool) {

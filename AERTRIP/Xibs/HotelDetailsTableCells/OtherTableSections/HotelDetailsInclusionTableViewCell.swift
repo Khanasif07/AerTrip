@@ -95,9 +95,9 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
     }
     
     
-    internal func configureOtherInclusionCell(otherInclusion: [String]) {
+    internal func configureOtherInclusionCell(otherInclusion: [String], isInclusionPresent: Bool) {
        // self.inclusionLabel.text = LocalizedString.OtherInclusions.localized
-        inclusionTypeLabelTopConstraints.constant = 0
+        inclusionTypeLabelTopConstraints.constant = isInclusionPresent ? 0 : 12
         self.inclusionTypeLabel.text = otherInclusion.joined(separator: ", ")
     }
     

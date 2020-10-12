@@ -26,6 +26,7 @@ class IntMCAndReturnVM {
     var flightSearchParameters : NSDictionary?
     var sharedFks : [String] = []
     var isSharedFkmatched = false
+
     
     
      func getInternationalDisplayArray( results : [IntMultiCityAndReturnWSResponse.Results.J]) -> [IntMultiCityAndReturnDisplay] {

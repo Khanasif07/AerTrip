@@ -42,7 +42,7 @@ extension FlightPaymentBookingStatusVC{
     func getCarriarTableCell(_ indexPath: IndexPath)-> UITableViewCell{
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: FlightCarriersTableViewCell.reusableIdentifier) as? FlightCarriersTableViewCell else {return UITableViewCell()}
         cell.configureCellWith(self.viewModel.itinerary.details.legsWithDetail[indexPath.section - 1], airLineDetail: self.viewModel.itinerary.details.aldet ?? [:])
-        cell.containerTopConstraints.constant = ((indexPath.section - 1) == 0) ? 5.0 : 13.0
+        cell.containerTopConstraints.constant = ((indexPath.section - 1) == 0) ? 8.5 : 13.0
         return cell
     }
     
@@ -208,12 +208,12 @@ extension FlightPaymentBookingStatusVC{
     
     func openActionSheetForBooking(){
         
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: self.viewModel.availableSeatMaps.map{$0.name}, colors: self.viewModel.availableSeatMaps.map{$0.isSelectedForall ? AppColors.themeGray40 : AppColors.themeGreen})
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: self.viewModel.availableBookingMaps.map{$0.name}, colors: self.viewModel.availableBookingMaps.map{$0.isSelectedForall ? AppColors.themeGray40 : AppColors.themeGreen})
         let cencelBtn = PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeDarkGreen,titleFont: AppFonts.SemiBold.withSize(20))
         _ = PKAlertController.default.presentActionSheet("View details for...",titleFont: AppFonts.SemiBold.withSize(14), titleColor: AppColors.themeGray40, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: cencelBtn) { [weak self] _, index in
             guard let self = self else {return}
-            let tripCity = NSMutableAttributedString(string: self.viewModel.availableSeatMaps[index].name)
-            AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: self.viewModel.availableSeatMaps[index].bookingId, tripCitiesStr: tripCity)
+            let tripCity = NSMutableAttributedString(string: self.viewModel.availableBookingMaps[index].name)
+            AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: self.viewModel.availableBookingMaps[index].bookingId, tripCitiesStr: tripCity)
         }
         
     }
