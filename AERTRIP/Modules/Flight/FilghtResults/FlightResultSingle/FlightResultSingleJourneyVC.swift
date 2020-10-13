@@ -392,6 +392,9 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                     var rect = blurEffectView.frame
                     var yCordinate = invertedOffset - 88
                     yCordinate = min ( 0,  yCordinate)
+                    if self.resultsTableView.contentOffset.y <= 0{
+                        yCordinate = 0
+                    }
                     print("rect.origin.y \(rect.origin.y)\n","invertedOffset \(invertedOffset)\n","yCordinate \(yCordinate)\n")
                     rect.origin.y = yCordinate
                     blurEffectView.frame = rect
