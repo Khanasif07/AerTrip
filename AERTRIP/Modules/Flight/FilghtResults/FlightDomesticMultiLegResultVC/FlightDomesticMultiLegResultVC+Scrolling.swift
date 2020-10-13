@@ -268,7 +268,7 @@ extension FlightDomesticMultiLegResultVC {
         if  (height != initialHeader) || (!self.isSettingupHeader){
             self.isSettingupHeader = true
             self.initialHeader = height
-            UIView.animate(withDuration: 0.2, animations: {
+            UIView.animate(withDuration: 0.1, animations: {
                 tableView.contentInset = UIEdgeInsets(top: height, left: 0, bottom: 0, right: 0)
             }) { (_) in
                 self.isSettingupHeader = false
@@ -541,11 +541,11 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         if let tableView = scrollView as? UITableView{
             delay(seconds: 0.4) {
-//                self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
-//                self.setAllTableViewHeader()
-                UIView.animate(withDuration: 0.3) {
-//                    self.baseScrollView.contentOffset.y = 0.0
-                }
+                self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
+                self.setAllTableViewHeader()
+//                UIView.animate(withDuration: 0.3) {
+////                    self.baseScrollView.contentOffset.y = 0.0
+//                }
             }
         }
 //        else if scrollView == self.baseScrollView{

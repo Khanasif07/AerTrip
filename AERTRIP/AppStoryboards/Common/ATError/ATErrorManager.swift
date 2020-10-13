@@ -18,6 +18,7 @@ class ATErrorManager {
         case hotelsSearch
         case chatBot
         case flights
+        case flightConfirmation
     }
     
     enum LocalError: Int {

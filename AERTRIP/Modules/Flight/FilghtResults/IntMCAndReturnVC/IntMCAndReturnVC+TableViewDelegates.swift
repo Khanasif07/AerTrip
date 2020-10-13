@@ -196,23 +196,16 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-//        let vc = SelectOtherAdonsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-//        self.navigationController?.pushViewController(vc, animated: true)
-        
-//        let vc = AddOnVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-//        self.navigationController?.pushViewController(vc, animated: true)
-        
-//        let vc = BagageContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-//
-//        self.navigationController?.pushViewController(vc, animated: true)
-        
-//        let vc = MealsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-//        self.navigationController?.pushViewController(vc, animated: true)
-        
+                
         
         if let journeyCell = tableView.cellForRow(at: indexPath) as? InternationalReturnTableViewCell {
             let curJourney = journeyCell.currentJourney
+            
+//            printDebug("curJourney.fk...\(curJourney.fk)")
+//
+            printDebug("curJourney.coa....\(curJourney.coa)")
+
+            
             let vc = FlightDetailsBaseVC.instantiate(fromAppStoryboard: .FlightDetailsBaseVC)
             vc.delegate = self
             vc.isInternational = true

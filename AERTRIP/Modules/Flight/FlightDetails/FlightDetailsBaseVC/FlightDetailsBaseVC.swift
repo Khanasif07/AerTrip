@@ -433,10 +433,12 @@ class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupV
             let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM?.flightLegs ?? [])
             
             var tripType = ""
-            if bookFlightObject.isReturn == false && bookFlightObject.isMultyCity == false{
+            if self.bookFlightObject.flightSearchType == SINGLE_JOURNEY{
                 tripType = "single"
+            }else if self.bookFlightObject.flightSearchType == RETURN_JOURNEY{
+                tripType = "return"
             }else{
-                tripType = (self.bookFlightObject.flightSearchType == RETURN_JOURNEY) ? "return" : "multi"
+                tripType = "multi"
             }
             
             self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journey, valString: "", trip_type: tripType,filterString: filterStr)
@@ -542,7 +544,7 @@ class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupV
                     }
                 }
             }else{
-                AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .flights)
+                AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .flightConfirmation)
             }
         }
     }

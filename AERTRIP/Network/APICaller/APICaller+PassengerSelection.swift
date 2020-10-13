@@ -15,10 +15,10 @@ extension APICaller{
          let endPoints = "https://beta.aertrip.com/api/v1/flights/addons-master?\(APIKeys.it_id.rawValue)=\(params[APIKeys.it_id.rawValue] as? String ?? "")"
         AppNetworking.GET(endPoint: endPoints,success: { [weak self] (json) in
             guard let sSelf = self else {return}
-            
+            printDebug(json)
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
                 if sucess {
-                    printDebug(jsonData)
+//                    printDebug(jsonData)
                     completionBlock(true, [], AddonsMaster(json[APIKeys.data.rawValue]))
                 }
                 else {
@@ -55,7 +55,7 @@ extension APICaller{
                 }
                 
             }, failure: { (errors) in
-                ATErrorManager.default.logError(forCodes: errors, fromModule: .flights)
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .flightConfirmation)
                 completionBlock(false, errors, nil)
             })
         }) { (error) in

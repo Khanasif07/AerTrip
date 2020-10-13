@@ -378,7 +378,7 @@ extension UpgradePlanContrainerVC : FareBreakupVCDelegate{
                     }
                 }
             }else{
-                AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .hotelsSearch)
+                AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .flightConfirmation)
             }
 
         }
