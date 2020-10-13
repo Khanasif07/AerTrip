@@ -702,7 +702,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         self.navigationController?.view.viewWithTag(500)?.removeFromSuperview()
         self.navigationController?.view.viewWithTag(2500)?.removeFromSuperview()
         statusBarBlurView.removeFromSuperview()
-        self.navigationController?.viewControllers.removeLast()
+        //self.navigationController?.viewControllers.removeLast()
         self.navigationController?.popViewController(animated: true)
     }
     

@@ -161,6 +161,10 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         }
     }
     
+    deinit {
+        self.fareBreakupVC?.view.removeFromSuperview()
+    }
+    
     //MARK:- Additional UI Methods
     
     func showNoResultScreenAt(index: Int) {
