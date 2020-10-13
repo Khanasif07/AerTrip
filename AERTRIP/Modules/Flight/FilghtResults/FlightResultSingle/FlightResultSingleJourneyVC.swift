@@ -375,9 +375,10 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                     let yCordinateOfView = rect.origin.y
                     if ( yCordinateOfView  > yCordinate ) {
                         rect.origin.y = yCordinate
-                        if (self.visualEffectViewHeight + yCordinate) > progressBarrStopPositionValue {
+                        if ((blurEffectView.height + yCordinate) > progressBarrStopPositionValue) || (blurEffectView.origin.y > -86.0) {
                             blurEffectView.frame = rect
-                        }                    }
+                        }
+                    }
                 }
             } ,completion: nil)
         }
@@ -390,9 +391,11 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                 
                 if let blurEffectView = self.navigationController?.view.viewWithTag(500) {
                     var rect = blurEffectView.frame
-                    
-                    var yCordinate = rect.origin.y + invertedOffset
+                    var yCordinate = invertedOffset - 86
                     yCordinate = min ( 0,  yCordinate)
+                    if self.resultsTableView.contentOffset.y <= 0{
+                        yCordinate = 0
+                    }
                     rect.origin.y = yCordinate
                     blurEffectView.frame = rect
                 }
@@ -419,6 +422,18 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             revealBlurredHeaderView(invertedOffset)
         }
     }
+    
+    
+//    func changeContentOfssetWithMainScrollView(with offset: CGFloat){
+//        guard let blurView = self.navigationController?.view.viewWithTag(500) else  {return}
+//        DispatchQueue.main.async {
+//            var y = 88 - offset
+//            y = (y < 0) ? y : 0
+//            printDebug(y)
+//            blurView.frame.origin.y = y//-self.resultsTableView.contentOffset.y
+////            self.view.layoutIfNeeded()
+//        }
+//    }
     
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView){
         
