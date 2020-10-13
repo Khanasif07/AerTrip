@@ -178,6 +178,10 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                                     }
                                 }
                             }
+                        }else{
+                            baggageCell.perAdultView.isHidden = true
+                            baggageCell.perAdultViewHeight.constant = 0
+                            baggageCell.perAdultCheckinLabel.text = "NA"
                         }
                         
                         if let chdCheckinBaggage = bgData["CHD"] as? JSONDictionary{
@@ -255,7 +259,10 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                                     }
                                 }
                             }
-
+                        }else{
+                            baggageCell.perChildView.isHidden = true
+                            baggageCell.perChildViewHeight.constant = 0
+                            baggageCell.perChildCheckInLabel.text = "NA"
                         }
 
                         
@@ -294,6 +301,10 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                                     }
                                 }
                             }
+                        }else{
+                            baggageCell.perInfantView.isHidden = true
+                            baggageCell.perInfantViewHeight.constant = 0
+                            baggageCell.perInfantCheckInLabel.text = "NA"
                         }
                     }
                     

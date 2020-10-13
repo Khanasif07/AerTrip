@@ -91,7 +91,7 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                         }
                     }
                     
-                    if weight != "0 Kg" || weight != "" || weight != "0 kg"{
+                    if weight != "0 Kg" || weight != "" || weight != "0 kg" || weight != "-9"{
                         perAdultCheckinLabel.text = weight
                     }
                     
@@ -110,29 +110,37 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                         }
                     }
                     
-                    if pieces != "" && max_weight != ""{
-                        let pc = pieces.components(separatedBy: " ")
-                        let weights = max_weight.components(separatedBy: " ")
-                        
-                        if pc.count > 0, weights.count > 0{
-                            if let intmax_weight = Int(weights[0]), let intPieces = Int(pc[0]){
-                                if intmax_weight != 0{
-                                    let str1 = "\(intmax_weight*intPieces) kg"
-                                    let str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
-                                    let font:UIFont? = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(16))
-                                    let fontSuper:UIFont? = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
-                                    let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font!])
-                                    let attString1:NSMutableAttributedString = NSMutableAttributedString(string: str2, attributes: [.font:fontSuper!])
-                                    
-                                    attString.append(attString1)
-                                    perAdultCheckinLabel.attributedText = attString
-                                }else{
-                                    perAdultCheckinLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
-                                    perAdultCheckinLabel.textColor = .red
-                                    perAdultCheckinLabel.text = "No Baggage"
+                    if pieces != "" && max_weight != ""
+                    {
+                        if pieces != "0 pc"{
+                            let pc = pieces.components(separatedBy: " ")
+                            let weights = max_weight.components(separatedBy: " ")
+                            
+                            if pc.count > 0, weights.count > 0{
+                                if let intmax_weight = Int(weights[0]), let intPieces = Int(pc[0]){
+                                    if intmax_weight != 0{
+                                        let str1 = "\(intmax_weight*intPieces) kg"
+                                        let str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
+                                        let font:UIFont? = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(16))
+                                        let fontSuper:UIFont? = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
+                                        let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font!])
+                                        let attString1:NSMutableAttributedString = NSMutableAttributedString(string: str2, attributes: [.font:fontSuper!])
+                                        
+                                        attString.append(attString1)
+                                        perAdultCheckinLabel.attributedText = attString
+                                    }else{
+                                        perAdultCheckinLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
+                                        perAdultCheckinLabel.textColor = .red
+                                        perAdultCheckinLabel.text = "No Baggage"
+                                    }
                                 }
                             }
+                        }else{
+                            perAdultCheckinLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
+                            perAdultCheckinLabel.textColor = .red
+                            perAdultCheckinLabel.text = "No Baggage"
                         }
+                        
                     }
                     
                     if weight != "" && max_pieces != ""{
@@ -221,29 +229,36 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                     }
                     
                     if pieces != "" && max_weight != ""{
-                        let pc = pieces.components(separatedBy: " ")
-                        let weights = max_weight.components(separatedBy: " ")
-                        
-                        if pc.count > 0, weights.count > 0{
-                            if let intPieces = Int(pc[0]), let intmax_weight = Int(weights[0])
-                            {
-                                if intmax_weight != 0{
-                                    let str1 = "\(intmax_weight*intPieces) kg"
-                                    let str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
-                                    let font:UIFont? = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(16))
-                                    let fontSuper:UIFont? = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
-                                    let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font!])
-                                    let attString1:NSMutableAttributedString = NSMutableAttributedString(string: str2, attributes: [.font:fontSuper!])
-                                    
-                                    attString.append(attString1)
-                                    perChildCheckInLabel.attributedText = attString
-                                }else{
-                                    perChildCheckInLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
-                                    perChildCheckInLabel.textColor = .red
-                                    perChildCheckInLabel.text = "No Baggage"
+                        if pieces != "0 pc"{
+                            let pc = pieces.components(separatedBy: " ")
+                            let weights = max_weight.components(separatedBy: " ")
+                            
+                            if pc.count > 0, weights.count > 0{
+                                if let intPieces = Int(pc[0]), let intmax_weight = Int(weights[0])
+                                {
+                                    if intmax_weight != 0{
+                                        let str1 = "\(intmax_weight*intPieces) kg"
+                                        let str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
+                                        let font:UIFont? = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(16))
+                                        let fontSuper:UIFont? = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
+                                        let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font!])
+                                        let attString1:NSMutableAttributedString = NSMutableAttributedString(string: str2, attributes: [.font:fontSuper!])
+                                        
+                                        attString.append(attString1)
+                                        perChildCheckInLabel.attributedText = attString
+                                    }else{
+                                        perChildCheckInLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
+                                        perChildCheckInLabel.textColor = .red
+                                        perChildCheckInLabel.text = "No Baggage"
+                                    }
                                 }
                             }
+                        }else{
+                            perChildCheckInLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
+                            perChildCheckInLabel.textColor = .red
+                            perChildCheckInLabel.text = "No Baggage"
                         }
+                        
                     }
                     
                     if weight != "" && max_pieces != ""{
@@ -359,29 +374,37 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                         }
                     }
                     
-                    if pieces != "" && max_weight != ""{
-                        let pc = pieces.components(separatedBy: " ")
-                        let weights = max_weight.components(separatedBy: " ")
-                        if pc.count > 0, weights.count > 0{
-                            if let intPieces = Int(pc[0]), let intmax_weight = Int(weights[0]){
-                                
-                                if intmax_weight != 0{
-                                    let str1 = "\(intmax_weight*intPieces) kg"
-                                    let str2 = " (\(intPieces) pc X \(intmax_weight)) kg)"
-                                    let font:UIFont? = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(16))
-                                    let fontSuper:UIFont? = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
-                                    let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font!])
-                                    let attString1:NSMutableAttributedString = NSMutableAttributedString(string: str2, attributes: [.font:fontSuper!])
+                    if pieces != "" && max_weight != ""
+                    {
+                        if pieces != "0 pc"{
+                            let pc = pieces.components(separatedBy: " ")
+                            let weights = max_weight.components(separatedBy: " ")
+                            if pc.count > 0, weights.count > 0{
+                                if let intPieces = Int(pc[0]), let intmax_weight = Int(weights[0]){
                                     
-                                    attString.append(attString1)
-                                    perInfantCheckInLabel.attributedText = attString
-                                }else{
-                                    perInfantCheckInLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
-                                    perInfantCheckInLabel.textColor = .red
-                                    perInfantCheckInLabel.text = "No Baggage"
+                                    if intmax_weight != 0{
+                                        let str1 = "\(intmax_weight*intPieces) kg"
+                                        let str2 = " (\(intPieces) pc X \(intmax_weight)) kg)"
+                                        let font:UIFont? = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(16))
+                                        let fontSuper:UIFont? = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
+                                        let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font!])
+                                        let attString1:NSMutableAttributedString = NSMutableAttributedString(string: str2, attributes: [.font:fontSuper!])
+                                        
+                                        attString.append(attString1)
+                                        perInfantCheckInLabel.attributedText = attString
+                                    }else{
+                                        perInfantCheckInLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
+                                        perInfantCheckInLabel.textColor = .red
+                                        perInfantCheckInLabel.text = "No Baggage"
+                                    }
                                 }
                             }
+                        }else{
+                            perInfantCheckInLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
+                            perInfantCheckInLabel.textColor = .red
+                            perInfantCheckInLabel.text = "No Baggage"
                         }
+                        
                     }
                     
                     if weight != "" && max_pieces != ""{
@@ -438,28 +461,35 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                 }else if pieces == "" && weight == "" {
                     perAdultCabinLabel.text = "No Info"
                 }else{
-                    let pc = pieces.components(separatedBy: " ")
-                    let weights = weight.components(separatedBy: " ")
-                    
-                    if pc.count > 0, weights.count > 0{
-                        if let intPieces = Int(pc[0]), let intWeight = Int(weights[0]){
-                            if intWeight != 0{
-                                let str1 = "\(intWeight*intPieces) kg"
-                                let str2 = " (\(intPieces) pc X \(intWeight) kg)"
-                                let font:UIFont? = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(16))
-                                let fontSuper:UIFont? = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
-                                let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font!])
-                                let attString1:NSMutableAttributedString = NSMutableAttributedString(string: str2, attributes: [.font:fontSuper!])
-                                
-                                attString.append(attString1)
-                                perAdultCabinLabel.attributedText = attString
-                            }else{
-                                perAdultCabinLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
-                                perAdultCabinLabel.textColor = .red
-                                perAdultCabinLabel.text = "No Baggage"
+                    if pieces != "0 pc"{
+                        let pc = pieces.components(separatedBy: " ")
+                        let weights = weight.components(separatedBy: " ")
+                        
+                        if pc.count > 0, weights.count > 0{
+                            if let intPieces = Int(pc[0]), let intWeight = Int(weights[0]){
+                                if intWeight != 0{
+                                    let str1 = "\(intWeight*intPieces) kg"
+                                    let str2 = " (\(intPieces) pc X \(intWeight) kg)"
+                                    let font:UIFont? = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(16))
+                                    let fontSuper:UIFont? = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
+                                    let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font!])
+                                    let attString1:NSMutableAttributedString = NSMutableAttributedString(string: str2, attributes: [.font:fontSuper!])
+                                    
+                                    attString.append(attString1)
+                                    perAdultCabinLabel.attributedText = attString
+                                }else{
+                                    perAdultCabinLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
+                                    perAdultCabinLabel.textColor = .red
+                                    perAdultCabinLabel.text = "No Baggage"
+                                }
                             }
                         }
+                    }else{
+                        perAdultCabinLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
+                        perAdultCabinLabel.textColor = .red
+                        perAdultCabinLabel.text = "No Baggage"
                     }
+
                 }
             }else if let weight = adtCabinBaggage["weight"] as? Int{
                 if weight == 0{
@@ -502,28 +532,35 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                 }else if pieces == "" && weight == "" {
                     perChildCabinLabel.text = "No Info"
                 }else{
-                    let pc = pieces.components(separatedBy: " ")
-                    let weights = weight.components(separatedBy: " ")
-                    
-                    if pc.count > 0, weights.count > 0{
-                        if let intPieces = Int(pc[0]), let intWeight = Int(weights[0]){
-                            if intWeight != 0{
-                                let str1 = "\(intWeight*intPieces) kg"
-                                let str2 = " (\(intPieces) pc X \(intWeight) kg)"
-                                let font:UIFont? = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(16))
-                                let fontSuper:UIFont? = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
-                                let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font!])
-                                let attString1:NSMutableAttributedString = NSMutableAttributedString(string: str2, attributes: [.font:fontSuper!])
-                                
-                                attString.append(attString1)
-                                perChildCabinLabel.attributedText = attString
-                            }else{
-                                perChildCabinLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
-                                perChildCabinLabel.textColor = .red
-                                perChildCabinLabel.text = "No Baggage"
+                    if pieces != "0 pc"{
+                        let pc = pieces.components(separatedBy: " ")
+                        let weights = weight.components(separatedBy: " ")
+                        
+                        if pc.count > 0, weights.count > 0{
+                            if let intPieces = Int(pc[0]), let intWeight = Int(weights[0]){
+                                if intWeight != 0{
+                                    let str1 = "\(intWeight*intPieces) kg"
+                                    let str2 = " (\(intPieces) pc X \(intWeight) kg)"
+                                    let font:UIFont? = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(16))
+                                    let fontSuper:UIFont? = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
+                                    let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font!])
+                                    let attString1:NSMutableAttributedString = NSMutableAttributedString(string: str2, attributes: [.font:fontSuper!])
+                                    
+                                    attString.append(attString1)
+                                    perChildCabinLabel.attributedText = attString
+                                }else{
+                                    perChildCabinLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
+                                    perChildCabinLabel.textColor = .red
+                                    perChildCabinLabel.text = "No Baggage"
+                                }
                             }
                         }
+                    }else{
+                        perChildCabinLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
+                        perChildCabinLabel.textColor = .red
+                        perChildCabinLabel.text = "No Baggage"
                     }
+                    
                 }
             }else if let weight = chdCabinBaggage["weight"] as? Int{
                 if weight == 0{
@@ -565,28 +602,35 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                 }else if pieces == "" && weight == "" {
                     perInfantCabinLabel.text = "No Info"
                 }else{
-                    let pc = pieces.components(separatedBy: " ")
-                    let weights = weight.components(separatedBy: " ")
-                    
-                    if pc.count > 0, weights.count > 0{
-                        if let intPieces = Int(pc[0]), let intWeight = Int(weights[0]){
-                            if intWeight != 0{
-                                let str1 = "\(intWeight*intPieces) kg"
-                                let str2 = " (\(intPieces) pc X \(intWeight) kg)"
-                                let font:UIFont? = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(16))
-                                let fontSuper:UIFont? = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
-                                let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font!])
-                                let attString1:NSMutableAttributedString = NSMutableAttributedString(string: str2, attributes: [.font:fontSuper!])
-                                
-                                attString.append(attString1)
-                                perInfantCabinLabel.attributedText = attString
-                            }else{
-                                perInfantCabinLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
-                                perInfantCabinLabel.textColor = .red
-                                perInfantCabinLabel.text = "No Baggage"
+                    if pieces != "0 pc"{
+                        let pc = pieces.components(separatedBy: " ")
+                        let weights = weight.components(separatedBy: " ")
+                        
+                        if pc.count > 0, weights.count > 0{
+                            if let intPieces = Int(pc[0]), let intWeight = Int(weights[0]){
+                                if intWeight != 0{
+                                    let str1 = "\(intWeight*intPieces) kg"
+                                    let str2 = " (\(intPieces) pc X \(intWeight) kg)"
+                                    let font:UIFont? = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(16))
+                                    let fontSuper:UIFont? = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
+                                    let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font!])
+                                    let attString1:NSMutableAttributedString = NSMutableAttributedString(string: str2, attributes: [.font:fontSuper!])
+                                    
+                                    attString.append(attString1)
+                                    perInfantCabinLabel.attributedText = attString
+                                }else{
+                                    perInfantCabinLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
+                                    perInfantCabinLabel.textColor = .red
+                                    perInfantCabinLabel.text = "No Baggage"
+                                }
                             }
                         }
+                    }else{
+                        perInfantCabinLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
+                        perInfantCabinLabel.textColor = .red
+                        perInfantCabinLabel.text = "No Baggage"
                     }
+                    
                 }
             }else if let weight = infCabinBaggage["weight"] as? Int{
                 if weight == 0{
