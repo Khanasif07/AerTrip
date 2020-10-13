@@ -142,7 +142,8 @@ class GetSharableUrl
             let returnDate = getReturnDate(journey: (journeyArray as! [Journey]))
             let pinnedFlightFK = getPinnedFlightFK(journey: (journeyArray as! [Journey]))
             
-            valueString = "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(adult)&child=\(child)&infant=\(infant)&\(origin)\(destination)\(departureDate)\(returnDate)&cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)"
+            
+            valueString = "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(adult)&child=\(child)&infant=\(infant)&\(origin)\(destination)\(departureDate)\(returnDate)cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)"
         }
         
         var parameters = [[String : Any]]()
@@ -210,6 +211,9 @@ class GetSharableUrl
             }
         }
         body += "--\(boundary)--\r\n";
+        
+        print("body= ",body)
+        
         let postData = body.data(using: .utf8)
         
         var request = URLRequest(url: URL(string: tempelteUrl)!,timeoutInterval: Double.infinity)
@@ -219,6 +223,11 @@ class GetSharableUrl
         
         request.httpMethod = "POST"
         request.httpBody = postData
+        
+        
+        print("postData=", String(data: postData!, encoding: .utf8)!)
+
+        print("request= ",request)
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
