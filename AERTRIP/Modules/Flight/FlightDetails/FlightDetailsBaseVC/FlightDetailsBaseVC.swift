@@ -542,7 +542,7 @@ class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupV
                     }
                 }
             }else{
-                AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .flights)
+                AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .flightConfirmation)
             }
         }
     }
