@@ -342,7 +342,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 
             case 896: //11 & 11 Pro Max & Xs Max & Xr
                 if #available(iOS 13.0, *) {
-                    self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 60, width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
+                    self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 54, width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
                 }else{
                     self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight, width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
                 }
