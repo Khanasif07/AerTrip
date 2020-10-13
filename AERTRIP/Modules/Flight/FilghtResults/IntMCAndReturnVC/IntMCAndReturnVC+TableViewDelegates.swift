@@ -212,6 +212,12 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
         
         if let journeyCell = tableView.cellForRow(at: indexPath) as? InternationalReturnTableViewCell {
             let curJourney = journeyCell.currentJourney
+            
+            printDebug("curJourney.fk...\(curJourney.fk)")
+            
+            printDebug("curJourney.coa....\(curJourney.coa)")
+
+            
             let vc = FlightDetailsBaseVC.instantiate(fromAppStoryboard: .FlightDetailsBaseVC)
             vc.delegate = self
             vc.isInternational = true
