@@ -515,18 +515,20 @@ class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupV
     func pushToPassenserSelectionVC(_ vc: PassengersSelectionVC){
         self.presentedViewController?.dismiss(animated: false, completion: nil)
         self.view.isUserInteractionEnabled = false
+        (UIApplication.shared.delegate as? AppDelegate)?.window?.isUserInteractionEnabled = false
         self.viewModel.fetchConfirmationData(){[weak self] success, errorCodes in
             guard let self = self else {return}
             self.view.isUserInteractionEnabled = true
+            (UIApplication.shared.delegate as? AppDelegate)?.window?.isUserInteractionEnabled = true
+            if #available(iOS 13.0, *) {
+                self.isModalInPresentation = false
+            }
             if self.viewModel.journeyType == .domestic || self.intJourney == nil{
                 self.fareBreakup?.hideShowLoader(isHidden: true)
             }else{
                 self.intFareBreakup?.hideShowLoader(isHidden: true)
             }
             if success{
-                if #available(iOS 13.0, *) {
-                    self.isModalInPresentation = false
-                }
                 DispatchQueue.main.async{[weak self] in
                     guard let self = self else {return}
                     vc.viewModel.newItineraryData = self.viewModel.itineraryData

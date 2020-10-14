@@ -13,6 +13,18 @@ class IntCombineFareInfoCell: UITableViewCell {
     @IBOutlet weak var noInfoView: UIView!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     
+    
+    
+    @IBOutlet weak var nonRefundableLabel: UILabel!//Non-refundable
+    @IBOutlet weak var nonReschedulableLabel: UILabel!//Non-reschedulable
+    @IBOutlet weak var messageLabel: UILabel!//*Cancellation Information is currently not available online. This itinerary may be non-reschedulable
+    @IBOutlet weak var nonRefundableImgTop: NSLayoutConstraint!
+    @IBOutlet weak var nonRefundableImgHeight: NSLayoutConstraint!
+    @IBOutlet weak var nonRefundableImgBottom: NSLayoutConstraint!
+    @IBOutlet weak var nonReschedulableImgHeight: NSLayoutConstraint!
+    @IBOutlet weak var nonReschedulableImgBottom: NSLayoutConstraint!
+    @IBOutlet weak var messageBottom: NSLayoutConstraint!
+
     var intAirlineCancellationFees = [String:IntTaxes.SubFares.Details.Fee]()
     var intAertripCancellationFees = [String:IntTaxes.SubFares.Details.Fee]()
     var intAirlineReschedulingFees = [String:IntTaxes.SubFares.Details.Fee]()
@@ -46,6 +58,31 @@ class IntCombineFareInfoCell: UITableViewCell {
     override func layoutSubviews() {
         self.combineFareTableView.layoutIfNeeded()
     }
+    
+    func setConstraint(isHidden: Bool){
+        if isHidden{
+            nonRefundableImgTop.constant = 0
+            nonRefundableImgHeight.constant = 0
+            nonRefundableImgBottom.constant = 0
+            nonReschedulableImgHeight.constant = 0
+            nonReschedulableImgBottom.constant = 0
+            messageBottom.constant = 0
+            nonRefundableLabel.text = ""
+            nonReschedulableLabel.text = ""
+            messageLabel.text = ""
+        }else{
+            nonRefundableImgTop.constant = 16
+            nonRefundableImgHeight.constant = 20
+            nonRefundableImgBottom.constant = 16
+            nonReschedulableImgHeight.constant = 20
+            nonReschedulableImgBottom.constant = 26
+            messageBottom.constant = 16
+            nonRefundableLabel.text = "Non-refundable"
+            nonReschedulableLabel.text = "Non-reschedulable"
+            messageLabel.text = "*Cancellation Information is currently not available online. This itinerary may be non-reschedulable"
+        }
+    }
+    
 }
 
 extension IntCombineFareInfoCell:UITableViewDataSource, UITableViewDelegate
@@ -81,7 +118,7 @@ extension IntCombineFareInfoCell:UITableViewDataSource, UITableViewDelegate
             seperatorView.backgroundColor = UIColor(displayP3Red: (204.0/255.0), green: (204.0/255.0), blue: (204.0/255.0), alpha: 1.0)
             footerView.addSubview(seperatorView)
             
-            return footerView
+            return (getNumberOfRowWithoutApi(section) != 0) ? footerView : nil
         }else{
             return nil
         }
@@ -90,7 +127,8 @@ extension IntCombineFareInfoCell:UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
     {
         if section == 1{
-            return 55
+            
+            return (getNumberOfRowWithoutApi(section) != 0) ? 55 : CGFloat.leastNonzeroMagnitude
         }else{
             return CGFloat.leastNonzeroMagnitude
         }
