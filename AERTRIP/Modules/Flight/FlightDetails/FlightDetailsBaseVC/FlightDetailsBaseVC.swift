@@ -99,6 +99,8 @@ class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupV
     
     let getSharableLink = GetSharableUrl()
     
+    private var parchmentLoaded = false
+    
     //MARK:- Initial Display
     
     override func viewDidLoad()
@@ -147,9 +149,12 @@ class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupV
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.parchmentView?.view.frame = self.displayView.bounds
-        self.parchmentView?.view.frame.size.height = self.dataDisplayView.height - innerControllerBottomConstraint
-        self.parchmentView?.loadViewIfNeeded()
+        if !parchmentLoaded {
+            parchmentLoaded = true
+            self.parchmentView?.view.frame = self.displayView.bounds
+            self.parchmentView?.view.frame.size.height = self.dataDisplayView.height - innerControllerBottomConstraint
+            self.parchmentView?.loadViewIfNeeded()
+        }
     }
     
     //MARK:- Initialise Views
