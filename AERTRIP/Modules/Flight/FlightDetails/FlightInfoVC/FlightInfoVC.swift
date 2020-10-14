@@ -89,6 +89,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
         flightInfoTableView.register(UINib(nibName: "LayoverViewTableViewCell", bundle: nil), forCellReuseIdentifier: "LayoverViewCell")
         flightInfoTableView.register(UINib(nibName: "ChangeAirportTableViewCell", bundle: nil), forCellReuseIdentifier: "ChangeAirportCell")
         self.flightInfoTableViewBottom.constant = 0.0
+        self.flightInfoTableView.contentInset = UIEdgeInsets(top: -0.5, left: 0, bottom: 0, right: 0)
         
     }
     
@@ -551,21 +552,21 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         
                         
                         
-                        if indexPath.section == 0 && indexPath.row == 0{
-                            flightDetailsCell.topSeperatorViewHeight.constant = 0
-                            flightDetailsCell.topSeperatorView.isHidden = true
-                        }else if tableView.numberOfRows(inSection: indexPath.section) > 1{
-                            if indexPath.row == 0{
-                                flightDetailsCell.topSeperatorView.isHidden = false
-                                flightDetailsCell.topSeperatorViewHeight.constant = 0.5
-                            }else{
-                                flightDetailsCell.topSeperatorView.isHidden = true
-                                flightDetailsCell.topSeperatorViewHeight.constant = 0
-                            }
-                        }else{
+//                        if indexPath.section == 0 && indexPath.row == 0{
+//                            flightDetailsCell.topSeperatorViewHeight.constant = 0
+//                            flightDetailsCell.topSeperatorView.isHidden = true
+//                        }else if tableView.numberOfRows(inSection: indexPath.section) > 1{
+//                            if indexPath.row == 0{
+//                                flightDetailsCell.topSeperatorView.isHidden = false
+//                                flightDetailsCell.topSeperatorViewHeight.constant = 0.5
+//                            }else{
+//                                flightDetailsCell.topSeperatorView.isHidden = true
+//                                flightDetailsCell.topSeperatorViewHeight.constant = 0
+//                            }
+//                        }else{
                             flightDetailsCell.topSeperatorViewHeight.constant = 0.5
                             flightDetailsCell.topSeperatorView.isHidden = false
-                        }
+//                        }
                     }
                     return flightDetailsCell
                 }else{
@@ -628,19 +629,19 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     //MARK:- Scrollview Delegate
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
-        var isHidden = false
-        var viewHeight = 0.0
-        if scrollView.contentOffset.y < 0{
-            isHidden = false
-            viewHeight = 0.5
-        }else{
-            isHidden = true
-            viewHeight = 0
-        }
-        if let cell = flightInfoTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? FlightDetailsTableViewCell {
-            cell.topSeperatorView.isHidden = isHidden
-            cell.topSeperatorViewHeight.constant = CGFloat(viewHeight)
-        }
+//        var isHidden = false
+//        var viewHeight = 0.0
+//        if scrollView.contentOffset.y < 0{
+//            isHidden = false
+//            viewHeight = 0.5
+//        }else{
+//            isHidden = true
+//            viewHeight = 0
+//        }
+//        if let cell = flightInfoTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? FlightDetailsTableViewCell {
+//            cell.topSeperatorView.isHidden = isHidden
+//            cell.topSeperatorViewHeight.constant = CGFloat(viewHeight)
+//        }
     }
     
     //MARK:- Calculate Travelling Time
