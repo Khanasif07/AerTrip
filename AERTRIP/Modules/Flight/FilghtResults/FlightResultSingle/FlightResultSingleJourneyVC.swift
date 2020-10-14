@@ -318,6 +318,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         }
         
     }
+
     
     func reloadRowAtIndex(indexPath: IndexPath , with journeyDisplay: JourneyOnewayDisplay ) {
         
@@ -342,16 +343,30 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         //         self.resultsTableView.reloadRows(at: [indexPath], with: .none)
     }
     
+    
+    func updateRefundStatusIfPending(fk: String) {
+        
+        
+//        printDebug(fk)
+        
+        self.resultsTableView.reloadData()
+        
+    }
+    
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool,isPinnedButtonClicked:Bool) {
+     
         if isPinnedButtonClicked == true{
             setPinnedFlightAt(fk, isPinned: isPinned, indexpath: nil)
         }
         
-        if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "SingleJourneyResultTableViewCell") as? SingleJourneyResultTableViewCell{
-            
-            cell.smartIconsArray = cell.currentJourney?.smartIconArray
-            cell.smartIconCollectionView.reloadData()
-        }
+
+//        if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "SingleJourneyResultTableViewCell") as? SingleJourneyResultTableViewCell{
+//
+//            printDebug("journey.baggageSuperScript....updated..\(String(describing: cell.currentJourney?.leg.first?.fcp))")
+//
+//            cell.smartIconsArray = cell.currentJourney?.smartIconArray
+//            cell.smartIconCollectionView.reloadData()
+//        }
     }
     
     //MARK:- Scroll related methods
@@ -560,7 +575,10 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     func navigateToFlightDetailFor(journey : Journey, selectedIndex:IndexPath) {
         
-        printDebug("journey.baggageSuperScript....\(journey.baggageSuperScript)")
+//        printDebug("journey.baggageSuperScript....\(journey.baggageSuperScript)")
+//
+//        printDebug("journey.baggageSuperScript....\(journey.leg.first?.fcp)")
+
         
         let storyboard = UIStoryboard(name: "FlightDetailsBaseVC", bundle: nil)
         let flightDetailsVC:FlightDetailsBaseVC =

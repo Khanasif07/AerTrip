@@ -347,8 +347,21 @@ extension IntMCAndReturnVC {
 //MARK:- Pinned and RefundStatus Delegate.
 
 extension IntMCAndReturnVC : flightDetailsPinFlightDelegate, UpdateRefundStatusDelegate{
+   
     func updateRefundStatus(for fk: String, rfd: Int, rsc: Int) {
         print(fk, rfd, rsc)
+    }
+    
+    
+    func updateRefundStatusIfPending(fk: String) {
+        
+//        printDebug("fk..\(fk)")
+        
+        self.resultsTableView.reloadData()
+        
+        
+        
+        
     }
     
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool, isPinnedButtonClicked: Bool) {

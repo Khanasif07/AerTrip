@@ -240,7 +240,7 @@ public class Journey: Codable , Equatable {
         if coa == 0 && cot > 0 { logoArray.append("changeOfTerminal") }
         if ovngt > 0 { logoArray.append("overnight")}
         if llow > 0 { logoArray.append("longLayover") }
-        if leg.first?.fcp == 1 && !isRefundUpdated { logoArray.append("refundStatusPending")}
+        if leg.first?.fcp == 1 { logoArray.append("refundStatusPending")}
         
         return logoArray
     }
@@ -313,10 +313,10 @@ public class Journey: Codable , Equatable {
     var isPinned : Bool? = false
     var groupID : Int?
     var noBaggage : Bool?
-    var isRefundUpdated : Bool {
-        
-        return false
-    }
+//    var isRefundUpdated : Bool {
+//
+//        return false
+//    }
     
     public static func == (lhs: Journey, rhs: Journey) -> Bool {
         
@@ -381,7 +381,6 @@ public class Journey: Codable , Equatable {
                                 return attributedSuperScript
                     }
                 }
-                
                 
                 if let weight = ADTBaggage.weight {
                     

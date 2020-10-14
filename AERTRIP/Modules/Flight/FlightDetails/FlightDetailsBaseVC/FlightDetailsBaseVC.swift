@@ -8,6 +8,7 @@
 
 protocol flightDetailsPinFlightDelegate : AnyObject {
     func reloadRowFromFlightDetails(fk:String,isPinned:Bool,isPinnedButtonClicked:Bool)
+    func updateRefundStatusIfPending(fk:String)
 }
 
 //protocol flightInfoViewDisplayDelegate:AnyObject {
@@ -32,8 +33,8 @@ import UIKit
 //import HMSegmentedControl
 import Parchment
 
-class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupVCDelegate, flightDetailsBaggageDelegate, getBaggageDimentionsDelegate, getFareRulesDelegate, getSharableUrlDelegate, getArrivalPerformanceDelegate
-{
+
+class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupVCDelegate, flightDetailsBaggageDelegate, getBaggageDimentionsDelegate, getFareRulesDelegate, getSharableUrlDelegate, getArrivalPerformanceDelegate {
     
     //MARK:- Outlets
     @IBOutlet weak var blurView: UIView!
@@ -299,9 +300,9 @@ class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupV
         return fareInfoVc
     }
     
-    
-
-    
+    func updateRefundStatusIfPending() {
+        self.delegate?.updateRefundStatusIfPending(fk: journey.first!.fk)
+    }
     
     func reloadSmartIconsAtIndexPath() {
         self.delegate?.reloadRowFromFlightDetails(fk: journey.first!.fk, isPinned: false, isPinnedButtonClicked:false)

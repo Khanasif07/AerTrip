@@ -416,8 +416,18 @@ extension FlightDomesticMultiLegResultVC {
     
 }
 
-extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetailsPinFlightDelegate
-{
+extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetailsPinFlightDelegate {
+    
+    func updateRefundStatusIfPending(fk: String) {
+        
+        for index in 0 ..< self.viewModel.numberOfLegs {
+            if let tableView = baseScrollView.viewWithTag( 1000 + index ) as? UITableView {
+                tableView.reloadData()
+            }
+        }
+        
+    }
+    
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool, isPinnedButtonClicked: Bool) {
         for index in 0 ..< self.viewModel.numberOfLegs {
                    

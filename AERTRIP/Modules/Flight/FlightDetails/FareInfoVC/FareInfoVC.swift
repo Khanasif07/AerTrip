@@ -7,13 +7,13 @@
 //
 protocol flightDetailsSmartIconsDelegate : AnyObject {
     func reloadSmartIconsAtIndexPath()
+    func updateRefundStatusIfPending()
 }
 
 
 import UIKit
 
-class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate
-{
+class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     //MARK:- Outlets
     @IBOutlet weak var fareInfoTableView: UITableView!
     @IBOutlet weak var fareInfoTableViewBottom: NSLayoutConstraint!
@@ -427,8 +427,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             DispatchQueue.main.async {
                 if let currentParsedResponse = parse(data: data, into: updatedFareInfoStruct.self, with:decoder) {
                     
-                    if currentParsedResponse.success == true
-                    {
+                    if currentParsedResponse.success == true {
                         self.updatedFareInfo.append(currentParsedResponse.data.first!.value)
                         
                         let num = 0.75/Float(self.journey.count)
@@ -442,7 +441,8 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                         
                         if self.journey[i].smartIconArray.contains("refundStatusPending"){
                             self.journey[i].leg[0].fcp = 0
-                            self.delegate?.reloadSmartIconsAtIndexPath()
+                            self.delegate?.updateRefundStatusIfPending()
+//                            self.delegate?.reloadSmartIconsAtIndexPath()
                         }
                         
                         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
