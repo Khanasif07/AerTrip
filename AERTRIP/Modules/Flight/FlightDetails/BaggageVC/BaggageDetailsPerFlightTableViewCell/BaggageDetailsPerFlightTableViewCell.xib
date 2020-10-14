@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -18,25 +19,22 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BaggageDetailsPerFlightCell" id="KGk-i7-Jjw" customClass="BaggageDetailsPerFlightTableViewCell" customModule="Aertrip" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="326"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BaggageDetailsPerFlightCell" rowHeight="349" id="KGk-i7-Jjw" customClass="BaggageDetailsPerFlightTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="349"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="326"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="349"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDn-Zl-s6q">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PhE-a6-Wyh" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="0.0"/>
-                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="height" id="0hW-kI-kA3"/>
+                            <constraint firstAttribute="height" id="7Rq-ms-Q2t"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    </view>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2jE-4E-DiK">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="286"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="308.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1OO-eB-2EU">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
@@ -54,7 +52,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qeF-33-pKR">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qeF-33-pKR">
                                         <rect key="frame" x="223" y="13.5" width="81" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="81" id="bpG-NT-Qwd"/>
@@ -108,7 +106,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="rUb-6A-FjR" firstAttribute="centerY" secondItem="oQN-8i-9ar" secondAttribute="centerY" id="6d3-yH-g2T"/>
                                             <constraint firstItem="nKJ-7S-jWF" firstAttribute="centerY" secondItem="oQN-8i-9ar" secondAttribute="centerY" id="EBI-u6-gWc"/>
@@ -148,7 +146,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="gRC-Et-KTH" secondAttribute="trailing" id="1oz-CX-iue"/>
                                             <constraint firstItem="cfd-MQ-YbA" firstAttribute="centerY" secondItem="MAO-Dj-tuX" secondAttribute="centerY" id="NSV-2k-Apq"/>
@@ -188,7 +186,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="yNL-gm-Wf5" secondAttribute="trailing" id="2Q3-IL-wdE"/>
                                             <constraint firstItem="yNL-gm-Wf5" firstAttribute="leading" secondItem="dEM-HF-jq9" secondAttribute="trailing" constant="16" id="7FY-sD-WMc"/>
@@ -228,7 +226,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="pVM-Qv-CuK" firstAttribute="centerY" secondItem="cGe-bQ-EPD" secondAttribute="centerY" id="1Jn-4U-kfU"/>
                                             <constraint firstItem="pVM-Qv-CuK" firstAttribute="leading" secondItem="agQ-ej-6rh" secondAttribute="trailing" constant="5" id="A6U-8o-FbW"/>
@@ -260,10 +258,10 @@
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vQK-c9-LN2">
-                                <rect key="frame" x="0.0" y="180" width="320" height="80"/>
+                                <rect key="frame" x="0.0" y="180" width="320" height="102.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwY-cL-q1E">
-                                        <rect key="frame" x="16" y="19" width="288" height="61"/>
+                                        <rect key="frame" x="16" y="19" width="288" height="83.5"/>
                                         <string key="text">Most airline typically allow 23 kgs per person.
 Baggage details are indicative and subject to change without prior notice.Most airline typically allow 23 kgs per person.
 Baggage details are indicative and subject to change without prior notice.Most airline typically allow 23 kgs per person.
@@ -299,29 +297,26 @@ Baggage details are indicative and subject to change without prior notice.</stri
                             <constraint firstAttribute="trailing" secondItem="1OO-eB-2EU" secondAttribute="trailing" id="xC6-zO-HVM"/>
                         </constraints>
                     </view>
-                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7o-4r-Ibf">
-                        <rect key="frame" x="0.0" y="286" width="320" height="0.0"/>
-                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKD-ah-Zkr" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="308.5" width="320" height="0.5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="height" id="xTA-ss-lyS"/>
+                            <constraint firstAttribute="height" constant="0.5" id="Nbv-um-aXe"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                 <constraints>
-                    <constraint firstItem="gDn-Zl-s6q" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="07u-Rl-vDK"/>
-                    <constraint firstAttribute="trailing" secondItem="gDn-Zl-s6q" secondAttribute="trailing" id="65M-6a-kjo"/>
+                    <constraint firstAttribute="trailing" secondItem="cKD-ah-Zkr" secondAttribute="trailing" id="0od-ko-wkM"/>
                     <constraint firstItem="2jE-4E-DiK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="BLJ-rA-ZXw"/>
-                    <constraint firstItem="T7o-4r-Ibf" firstAttribute="top" secondItem="2jE-4E-DiK" secondAttribute="bottom" id="Gbh-KU-7lr"/>
-                    <constraint firstItem="2jE-4E-DiK" firstAttribute="top" secondItem="gDn-Zl-s6q" secondAttribute="bottom" id="SdS-Kv-j8F"/>
-                    <constraint firstAttribute="bottom" secondItem="T7o-4r-Ibf" secondAttribute="bottom" constant="40" id="fNc-1A-Dd0"/>
-                    <constraint firstItem="gDn-Zl-s6q" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="fmq-Z4-aEb"/>
-                    <constraint firstItem="T7o-4r-Ibf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="l4L-L2-bTl"/>
-                    <constraint firstAttribute="trailing" secondItem="T7o-4r-Ibf" secondAttribute="trailing" id="oTz-SO-drK"/>
+                    <constraint firstItem="cKD-ah-Zkr" firstAttribute="top" secondItem="2jE-4E-DiK" secondAttribute="bottom" id="UlC-2e-IQG"/>
+                    <constraint firstItem="PhE-a6-Wyh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="W89-af-uUw"/>
+                    <constraint firstItem="PhE-a6-Wyh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="WLA-Ia-6iG"/>
+                    <constraint firstItem="cKD-ah-Zkr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Xa8-6Y-uDU"/>
+                    <constraint firstAttribute="trailing" secondItem="PhE-a6-Wyh" secondAttribute="trailing" id="aYZ-1u-3UM"/>
+                    <constraint firstAttribute="bottom" secondItem="cKD-ah-Zkr" secondAttribute="bottom" constant="40" id="lVN-Lt-Ion"/>
                     <constraint firstAttribute="trailing" secondItem="2jE-4E-DiK" secondAttribute="trailing" id="pAN-bl-Cpx"/>
+                    <constraint firstItem="2jE-4E-DiK" firstAttribute="top" secondItem="PhE-a6-Wyh" secondAttribute="bottom" id="seH-Y0-fCV"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -329,9 +324,9 @@ Baggage details are indicative and subject to change without prior notice.</stri
                 <outlet property="airlineLogoImageView" destination="vCA-M7-Fgg" id="h1G-xl-IeQ"/>
                 <outlet property="baggageDataDisplayView" destination="mBf-YN-zre" id="NNI-7S-tXj"/>
                 <outlet property="baggageDataDisplayViewHeight" destination="sHb-qz-4sk" id="Jmz-b6-cqJ"/>
-                <outlet property="bottomSeperator" destination="T7o-4r-Ibf" id="Pbw-pT-kx9"/>
-                <outlet property="bottomSeperatorBottom" destination="fNc-1A-Dd0" id="ctN-bT-IeM"/>
-                <outlet property="bottomSeperatorHeight" destination="xTA-ss-lyS" id="Rwi-xh-9i7"/>
+                <outlet property="bottomSeperator" destination="cKD-ah-Zkr" id="HaA-2a-rzk"/>
+                <outlet property="bottomSeperatorBottom" destination="lVN-Lt-Ion" id="qgX-Es-SKL"/>
+                <outlet property="bottomSeperatorHeight" destination="Nbv-um-aXe" id="SoQ-yr-v6K"/>
                 <outlet property="dataDisplayViewHeight" destination="QDn-Tu-z81" id="wBp-JT-grL"/>
                 <outlet property="dimensionsButton" destination="qeF-33-pKR" id="qcj-NR-JS4"/>
                 <outlet property="flightDetailsView" destination="1OO-eB-2EU" id="UUe-Mk-YaU"/>
@@ -354,10 +349,15 @@ Baggage details are indicative and subject to change without prior notice.</stri
                 <outlet property="perInfantCheckInLabel" destination="pVM-Qv-CuK" id="fXg-MX-VWk"/>
                 <outlet property="perInfantView" destination="cGe-bQ-EPD" id="9TA-dj-iTC"/>
                 <outlet property="perInfantViewHeight" destination="Ny3-Z8-Ge7" id="aaL-aZ-7X4"/>
-                <outlet property="topSeperatorView" destination="gDn-Zl-s6q" id="i4G-XB-Uc3"/>
-                <outlet property="topSeperatorViewHeight" destination="0hW-kI-kA3" id="XEQ-hd-wHu"/>
+                <outlet property="topSeperatorView" destination="PhE-a6-Wyh" id="oNm-GO-ZSg"/>
+                <outlet property="topSeperatorViewHeight" destination="7Rq-ms-Q2t" id="Pj0-lJ-k9r"/>
             </connections>
-            <point key="canvasLocation" x="144.92753623188406" y="206.25"/>
+            <point key="canvasLocation" x="144.92753623188406" y="198.54910714285714"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

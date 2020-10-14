@@ -7,13 +7,13 @@
 //
 protocol flightDetailsSmartIconsDelegate : AnyObject {
     func reloadSmartIconsAtIndexPath()
+    func updateRefundStatusIfPending()
 }
 
 
 import UIKit
 
-class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate
-{
+class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     //MARK:- Outlets
     @IBOutlet weak var fareInfoTableView: UITableView!
     @IBOutlet weak var fareInfoTableViewBottom: NSLayoutConstraint!
@@ -31,6 +31,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var flightChildrenCount = 0
     var flightInfantCount = 0
     var cellDataHeight = 0
+    var initialFCPArry = [Int]()
     
     var isReturnJourney = false
     var fareInfoData = [JSONDictionary]()
@@ -77,8 +78,10 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 if journey[i].leg[0].fcp == 1{
                     self.isAPICalled = true
                     self.getFareInfoAPICall(sid: self.sid, fk: self.journey[i].fk,i:i)
+                    self.initialFCPArry.append(1)
                 }else{
                     progressBar.progress = 1.0
+                    self.initialFCPArry.append(0)
                     self.progressBar.isHidden = true
                     isProgressBarHidden = true
                     isAPICalled = false
@@ -98,6 +101,8 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     flights?.append(flight.first!)
                 }
             }
+            self.fareInfoTableView.delegate = self
+            self.fareInfoTableView.dataSource = self
             self.fareInfoTableView.reloadData()
             DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
              self.fareInfoTableView.reloadData()
@@ -169,8 +174,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
 
                     
                     fareInfoCell.bottomSeparatorLabel.isHidden = true
-                    fareInfoCell.bottomSeparatorLabelLeading.constant = 16
-                    
+ 
                     if indexPath.section != 0{
                         fareInfoCell.topSeperatorLabel.isHidden = false
                         fareInfoCell.topSeperatorLabelHeight.constant = 0.5
@@ -186,7 +190,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     changeAirportCell.dataLabelTop.constant = 0
                     
                     changeAirportCell.dataLabel.attributedText = getAttributedNote()
-                    changeAirportCell.topSeperatorLabelLeading.constant = 16
+                    changeAirportCell.topSeperatorLabelLeading.constant = 0
 //                    changeAirportCell.topSeperatorLabelTop.constant = 0
                     changeAirportCell.bottomStrokeHeight.constant = 0.7
                     changeAirportCell.seperatorBottom.constant = 35
@@ -200,7 +204,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     fareInfoCell.flightInfantCount = flightInfantCount
                     fareInfoCell.indexOfCell = indexPath.section
                     
-                    if journey[indexPath.section].leg[0].fcp == 1{
+                    if self.initialFCPArry[indexPath.section] == 1{
                         if updatedFareInfo.count > 0 {
                             fareInfoCell.isNoInfoViewVisible = false
                             fareInfoCell.combineFareTableView.isHidden = false
@@ -258,7 +262,11 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     fareInfoCell.layoutSubviews()
                     fareInfoCell.layoutIfNeeded()
                     let height = fareInfoCell.combineFareTableView.contentSize.height
-                    fareInfoCell.tableViewHeight.constant = (height < 170) ? 170 : height
+                    if fareInfoCell.isNoInfoViewVisible{
+                        fareInfoCell.tableViewHeight.constant = (height < 170) ? 170 : height
+                    }else{
+                        fareInfoCell.tableViewHeight.constant = height
+                    }
                     fareInfoCell.layoutSubviews()
                     fareInfoCell.layoutIfNeeded()
                     fareInfoCell.combineFareTableView.reloadData()
@@ -298,7 +306,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     fareInfoCell.flightInfantCount = flightInfantCount
                     fareInfoCell.indexOfCell = indexPath.section
                     
-                    if journey[indexPath.section].leg[0].fcp == 1{
+                    if initialFCPArry[indexPath.section] == 1{
                         if updatedFareInfo.count > 0
                         {
                             fareInfoCell.isNoInfoViewVisible = false
@@ -343,14 +351,14 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                             
                             fareInfoCell.combineFareTableView.reloadData()
                         }else{
-                            if isProgressBarHidden == true{
+//                            if isProgressBarHidden == true{
                                 fareInfoCell.isNoInfoViewVisible = true
                                 fareInfoCell.combineFareTableView.isHidden = true
                                 fareInfoCell.noInfoView.isHidden = false
-                            }else{
-                                fareInfoCell.isNoInfoViewVisible = false
-                                fareInfoCell.noInfoView.isHidden = true
-                            }
+//                            }else{
+//                                fareInfoCell.isNoInfoViewVisible = false
+//                                fareInfoCell.noInfoView.isHidden = true
+//                            }
                         }
                     }else{
                         
@@ -379,7 +387,12 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     fareInfoCell.layoutSubviews()
                     fareInfoCell.layoutIfNeeded()
                     let height = fareInfoCell.combineFareTableView.contentSize.height
-                    fareInfoCell.tableViewHeight.constant = (height < 170) ? 170 : height
+                    if fareInfoCell.isNoInfoViewVisible{
+                        fareInfoCell.tableViewHeight.constant = (height < 170) ? 170 : height
+                    }else{
+                        fareInfoCell.tableViewHeight.constant = height
+                    }
+                    
                     fareInfoCell.layoutSubviews()
                     fareInfoCell.layoutIfNeeded()
                     fareInfoCell.combineFareTableView.reloadData()
@@ -428,8 +441,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             DispatchQueue.main.async {
                 if let currentParsedResponse = parse(data: data, into: updatedFareInfoStruct.self, with:decoder) {
                     
-                    if currentParsedResponse.success == true
-                    {
+                    if currentParsedResponse.success == true {
                         self.updatedFareInfo.append(currentParsedResponse.data.first!.value)
                         
                         let num = 0.75/Float(self.journey.count)
@@ -441,10 +453,11 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                         
                         self.fareInfoTableView.reloadData()
                         
-//                        if self.journey[i].smartIconArray.contains("refundStatusPending"){
-//                            self.journey[i].leg[0].fcp = 0
+                        if self.journey[i].smartIconArray.contains("refundStatusPending"){
+                            self.journey[i].leg[0].fcp = 0
+                            self.delegate?.updateRefundStatusIfPending()
 //                            self.delegate?.reloadSmartIconsAtIndexPath()
-//                        }
+                        }
                         
                         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
                          self.fareInfoTableView.reloadData()

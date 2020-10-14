@@ -54,11 +54,11 @@ class FlightDetailsTableViewCell: UITableViewCell
     @IBOutlet weak var delayedPerformanceSubViewWidth: NSLayoutConstraint!
     @IBOutlet weak var cancelledPerformanceSubView: UIView!
     @IBOutlet weak var cancelledPerformanceSubViewWidth: NSLayoutConstraint!
-    
-    @IBOutlet weak var topSeperatorView: UILabel!
-    @IBOutlet weak var topSeperatorViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var bottomSeperatorView: UILabel!
     @IBOutlet weak var displayViewBottom: NSLayoutConstraint!
+
+    @IBOutlet weak var topSeperatorView: ATDividerView!
+    @IBOutlet weak var topSeperatorViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var bottomSeperatorView: ATDividerView!
     
     //MARK:- Variable Declaration
     var amenitiesData = [String]()
@@ -215,6 +215,17 @@ class FlightDetailsTableViewCell: UITableViewCell
             titleLabelHeight.constant = 0
             titleLabel.text = ""
         }
+    }
+    
+    func setDepartureAirportLabel(str:String)
+    {
+        let deptDateRange = (str as NSString).range(of: str)
+        let deptDateAttrStr = NSMutableAttributedString(string:str)
+        deptDateAttrStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: deptDateRange)
+        deptDateAttrStr.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0), range: deptDateRange)
+        deptDateAttrStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (str as NSString).range(of: "."))
+        departureAirportLabel.attributedText = deptDateAttrStr
+
     }
     
     

@@ -26,16 +26,13 @@
                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s0h-9d-mdY">
                         <rect key="frame" x="0.0" y="0.0" width="451" height="329"/>
                         <subviews>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ZR-sk-Ug5">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m9A-rO-c4f" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="451" height="0.5"/>
-                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="K7v-Kk-BZI"/>
+                                    <constraint firstAttribute="height" constant="0.5" id="Jea-Rh-BgC"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZK-n7-Y8b" userLabel="TitleView">
                                 <rect key="frame" x="0.0" y="0.5" width="451" height="328"/>
                                 <subviews>
@@ -97,29 +94,26 @@
                                     <constraint firstItem="SFE-Ru-U88" firstAttribute="leading" secondItem="Ly4-sx-ERy" secondAttribute="trailing" constant="10" id="we3-Nk-tEk"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oS8-vl-knS">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8yH-F0-ED5" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="328.5" width="451" height="0.5"/>
-                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="IO4-db-Qkp"/>
+                                    <constraint firstAttribute="height" constant="0.5" id="mA3-2D-ng5"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="8yH-F0-ED5" secondAttribute="trailing" id="00V-yN-k3c"/>
+                            <constraint firstItem="8yH-F0-ED5" firstAttribute="leading" secondItem="s0h-9d-mdY" secondAttribute="leading" id="2WF-7L-sGT"/>
+                            <constraint firstAttribute="bottom" secondItem="8yH-F0-ED5" secondAttribute="bottom" id="B3B-fM-Ruf"/>
+                            <constraint firstAttribute="trailing" secondItem="m9A-rO-c4f" secondAttribute="trailing" id="CfZ-gE-VJV"/>
                             <constraint firstItem="DZK-n7-Y8b" firstAttribute="leading" secondItem="s0h-9d-mdY" secondAttribute="leading" id="EUo-Mc-I0v"/>
-                            <constraint firstAttribute="trailing" secondItem="7ZR-sk-Ug5" secondAttribute="trailing" id="PcR-mn-P6L"/>
+                            <constraint firstItem="8yH-F0-ED5" firstAttribute="top" secondItem="DZK-n7-Y8b" secondAttribute="bottom" id="TZ5-jv-dZk"/>
                             <constraint firstAttribute="trailing" secondItem="DZK-n7-Y8b" secondAttribute="trailing" id="X6s-SB-erw"/>
-                            <constraint firstAttribute="trailing" secondItem="oS8-vl-knS" secondAttribute="trailing" id="XEN-8z-vkU"/>
-                            <constraint firstItem="7ZR-sk-Ug5" firstAttribute="top" secondItem="s0h-9d-mdY" secondAttribute="top" id="bum-9f-BR5"/>
-                            <constraint firstItem="oS8-vl-knS" firstAttribute="leading" secondItem="s0h-9d-mdY" secondAttribute="leading" id="dNC-KO-qAQ"/>
-                            <constraint firstItem="7ZR-sk-Ug5" firstAttribute="leading" secondItem="s0h-9d-mdY" secondAttribute="leading" id="f4M-Tl-OHL"/>
-                            <constraint firstAttribute="bottom" secondItem="oS8-vl-knS" secondAttribute="bottom" id="o8o-Hj-h16"/>
-                            <constraint firstItem="oS8-vl-knS" firstAttribute="top" secondItem="DZK-n7-Y8b" secondAttribute="bottom" id="yKc-rt-Dz4"/>
-                            <constraint firstItem="DZK-n7-Y8b" firstAttribute="top" secondItem="7ZR-sk-Ug5" secondAttribute="bottom" id="zZ6-Kp-JAz"/>
+                            <constraint firstItem="m9A-rO-c4f" firstAttribute="top" secondItem="s0h-9d-mdY" secondAttribute="top" id="rpx-4e-dqe"/>
+                            <constraint firstItem="DZK-n7-Y8b" firstAttribute="top" secondItem="m9A-rO-c4f" secondAttribute="bottom" id="uxa-73-h2Z"/>
+                            <constraint firstItem="m9A-rO-c4f" firstAttribute="leading" secondItem="s0h-9d-mdY" secondAttribute="leading" id="yDn-IW-5mO"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -132,9 +126,9 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="Yhv-4Z-CLR"/>
             <connections>
-                <outlet property="bottomSeparatorLabel" destination="oS8-vl-knS" id="8QT-5Z-RpR"/>
-                <outlet property="bottomSeparatorLabelHeight" destination="IO4-db-Qkp" id="1Mr-tg-Zjp"/>
-                <outlet property="bottomSeparatorLabelLeading" destination="dNC-KO-qAQ" id="egm-uo-wbE"/>
+                <outlet property="bottomSeparatorLabel" destination="8yH-F0-ED5" id="FKE-XT-MDG"/>
+                <outlet property="bottomSeparatorLabelHeight" destination="mA3-2D-ng5" id="Ef2-Hk-cGJ"/>
+                <outlet property="bottomSeparatorLabelLeading" destination="2WF-7L-sGT" id="2L0-FR-suA"/>
                 <outlet property="carrierImgView" destination="Ly4-sx-ERy" id="UDB-Fa-0Lt"/>
                 <outlet property="fareRulesButton" destination="6K9-Cb-aWs" id="bLv-MU-lyD"/>
                 <outlet property="journeyNameDividerLabel" destination="BjA-bC-PQm" id="kcp-k7-cp9"/>
@@ -142,8 +136,8 @@
                 <outlet property="titleLabel" destination="8vd-If-TC9" id="3aq-dt-sUU"/>
                 <outlet property="titleLabelTop" destination="uVg-FX-d8n" id="Vm5-03-wh7"/>
                 <outlet property="titleView" destination="DZK-n7-Y8b" id="0p1-fd-0yh"/>
-                <outlet property="topSeperatorLabel" destination="7ZR-sk-Ug5" id="lec-NC-olg"/>
-                <outlet property="topSeperatorLabelHeight" destination="K7v-Kk-BZI" id="dj5-xA-Bku"/>
+                <outlet property="topSeperatorLabel" destination="m9A-rO-c4f" id="2rP-5e-VwX"/>
+                <outlet property="topSeperatorLabelHeight" destination="Jea-Rh-BgC" id="wbP-qj-Ifv"/>
             </connections>
             <point key="canvasLocation" x="225.36231884057972" y="63.950892857142854"/>
         </tableViewCell>

@@ -89,6 +89,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
         flightInfoTableView.register(UINib(nibName: "LayoverViewTableViewCell", bundle: nil), forCellReuseIdentifier: "LayoverViewCell")
         flightInfoTableView.register(UINib(nibName: "ChangeAirportTableViewCell", bundle: nil), forCellReuseIdentifier: "ChangeAirportCell")
         self.flightInfoTableViewBottom.constant = 0.0
+        self.flightInfoTableView.contentInset = UIEdgeInsets(top: -0.5, left: 0, bottom: 0, right: 0)
         
     }
     
@@ -238,9 +239,9 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
             let changeAirportCell = tableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as! ChangeAirportTableViewCell
             changeAirportCell.titleLabel.text = "Change of Airport"
                
-            let myMutableString = NSMutableAttributedString(string: "While changing airports, re-checking baggage and going back through security may be necessary. Ensure you have ample time between transfers. Kindly check all terms regarding connection, baggage transfer, visas, etc. with the airlines directly before booking this itinerary. While changing airports While changing airports.")
+            let myMutableString = NSMutableAttributedString(string: "While changing airports, re-checking baggage and going back through security may be necessary. Ensure you have ample time between transfers. Kindly check all terms regarding connection, baggage transfer, visas, etc. with the airlines directly before booking this itinerary.")// While changing airports While changing airports.")
            
-            myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear, range: NSRange(location:273,length:48))
+//            myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear, range: NSRange(location:273,length:48))
             changeAirportCell.dataLabel.attributedText = myMutableString
         
             return changeAirportCell
@@ -257,15 +258,13 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         index = indexPath.row
                     }
                     
-                    if var flight = journey[indexPath.section].leg.first?.flights[index]{
+                    if var flight = journey[indexPath.section].leg.first?.flights[index] {
                         var amenitiesData = [String]()
                         
-                        if let bgWeight = flight.bg?["ADT"]?.weight, let bgPieces = flight.bg?["ADT"]?.pieces
-                        {
-                            if bgPieces != "" && bgPieces != "-9" && bgPieces != "-1" && bgPieces != "0 pc" && bgPieces != "0"
-                            {
+                        if let bgWeight = flight.bg?["ADT"]?.weight, let bgPieces = flight.bg?["ADT"]?.pieces {
+                            if bgPieces != "" && bgPieces != "-9" && bgPieces != "-1" && bgPieces != "0 pc" && bgPieces != "0" {
                                 amenitiesData.append("Check-in Baggage \n(\(bgPieces))")
-                            }else{
+                            } else {
                                 if bgWeight != "" && bgWeight != "-9" && bgWeight != "-1" && bgWeight != "0 kg"{
                                     amenitiesData.append("Check-in Baggage \n(\(bgWeight))")
                                 }
@@ -395,15 +394,13 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         flightDetailsCell.arrivalAirportLabel.text = flight.to
                         flightDetailsCell.arrivalTimeLabel.text = flight.at
                         
-                        flightDetailsCell.departureAirportLabel.text = flight.fr
                         flightDetailsCell.departureTimeLbl.text = flight.dt
                         
                         if flight.isDepartureAirportChange == true{
-                            let departureAirport = " \(flight.fr) "
-                            flightDetailsCell.departureAirportLabel.attributedText = flightDetailsCell.addAttributsForRange(departureAirport, coloredString: " \(flight.fr) ", color: AppColors.lightYellow)
-
+                            flightDetailsCell.setDepartureAirportLabel(str: " \(flight.fr).")
                         }else{
-                            flightDetailsCell.departureAirportLabel.attributedText = flightDetailsCell.addAttributsForRange(flight.fr, coloredString: flight.fr, color: UIColor.clear)
+                            flightDetailsCell.departureAirportLabel.attributedText = nil
+                            flightDetailsCell.departureAirportLabel.text = flight.fr
                         }
                         
                         if flight.isArrivalAirportChange == true{
@@ -555,21 +552,21 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         
                         
                         
-                        if indexPath.section == 0 && indexPath.row == 0{
-                            flightDetailsCell.topSeperatorViewHeight.constant = 0
-                            flightDetailsCell.topSeperatorView.isHidden = true
-                        }else if tableView.numberOfRows(inSection: indexPath.section) > 1{
-                            if indexPath.row == 0{
-                                flightDetailsCell.topSeperatorView.isHidden = false
-                                flightDetailsCell.topSeperatorViewHeight.constant = 0.5
-                            }else{
-                                flightDetailsCell.topSeperatorView.isHidden = true
-                                flightDetailsCell.topSeperatorViewHeight.constant = 0
-                            }
-                        }else{
+//                        if indexPath.section == 0 && indexPath.row == 0{
+//                            flightDetailsCell.topSeperatorViewHeight.constant = 0
+//                            flightDetailsCell.topSeperatorView.isHidden = true
+//                        }else if tableView.numberOfRows(inSection: indexPath.section) > 1{
+//                            if indexPath.row == 0{
+//                                flightDetailsCell.topSeperatorView.isHidden = false
+//                                flightDetailsCell.topSeperatorViewHeight.constant = 0.5
+//                            }else{
+//                                flightDetailsCell.topSeperatorView.isHidden = true
+//                                flightDetailsCell.topSeperatorViewHeight.constant = 0
+//                            }
+//                        }else{
                             flightDetailsCell.topSeperatorViewHeight.constant = 0.5
                             flightDetailsCell.topSeperatorView.isHidden = false
-                        }
+//                        }
                     }
                     return flightDetailsCell
                 }else{
@@ -632,19 +629,19 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     //MARK:- Scrollview Delegate
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
-        var isHidden = false
-        var viewHeight = 0.0
-        if scrollView.contentOffset.y < 0{
-            isHidden = false
-            viewHeight = 0.5
-        }else{
-            isHidden = true
-            viewHeight = 0
-        }
-        if let cell = flightInfoTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? FlightDetailsTableViewCell {
-            cell.topSeperatorView.isHidden = isHidden
-            cell.topSeperatorViewHeight.constant = CGFloat(viewHeight)
-        }
+//        var isHidden = false
+//        var viewHeight = 0.0
+//        if scrollView.contentOffset.y < 0{
+//            isHidden = false
+//            viewHeight = 0.5
+//        }else{
+//            isHidden = true
+//            viewHeight = 0
+//        }
+//        if let cell = flightInfoTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? FlightDetailsTableViewCell {
+//            cell.topSeperatorView.isHidden = isHidden
+//            cell.topSeperatorViewHeight.constant = CGFloat(viewHeight)
+//        }
     }
     
     //MARK:- Calculate Travelling Time
