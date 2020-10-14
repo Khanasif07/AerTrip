@@ -77,8 +77,11 @@ extension IntCombineFareInfoCell:UITableViewDataSource, UITableViewDelegate
             footerView.addSubview(innerView)
             
             
-            let seperatorView = UIView(frame:CGRect(x: 0, y: 20, width: UIScreen.main.bounds.width, height: 0.6))
-            seperatorView.backgroundColor = UIColor(displayP3Red: (204.0/255.0), green: (204.0/255.0), blue: (204.0/255.0), alpha: 1.0)
+//            let seperatorView = UIView(frame:CGRect(x: 0, y: 20, width: UIScreen.main.bounds.width, height: 0.6))
+//            seperatorView.backgroundColor = UIColor(displayP3Red: (204.0/255.0), green: (204.0/255.0), blue: (204.0/255.0), alpha: 1.0)
+            
+            let seperatorView = ATDividerView()
+            seperatorView.frame = CGRect(x: 0, y: 20, width: UIScreen.main.bounds.width, height: 0.5)            
             footerView.addSubview(seperatorView)
             
             return footerView

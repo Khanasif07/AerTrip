@@ -26,16 +26,13 @@
                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LUS-tu-CHI">
                         <rect key="frame" x="0.0" y="0.0" width="451" height="329"/>
                         <subviews>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i9v-56-n6H">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1vj-fA-Kdv" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="451" height="0.5"/>
-                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="fF9-DV-mUG"/>
+                                    <constraint firstAttribute="height" constant="0.5" id="s79-wZ-2kG"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ckH-oJ-MUJ" userLabel="TitleView">
                                 <rect key="frame" x="0.0" y="0.5" width="451" height="328"/>
                                 <subviews>
@@ -96,29 +93,26 @@
                                     <constraint firstItem="kjH-hz-cbX" firstAttribute="leading" secondItem="ckH-oJ-MUJ" secondAttribute="leading" constant="16" id="xh0-CW-wUF"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dXS-sN-s1s">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KX8-Q4-aZU" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="328.5" width="451" height="0.5"/>
-                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="6Ap-2F-to2"/>
+                                    <constraint firstAttribute="height" constant="0.5" id="BLx-up-c0R"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="KX8-Q4-aZU" secondAttribute="bottom" id="1iY-dq-kVe"/>
                             <constraint firstAttribute="trailing" secondItem="ckH-oJ-MUJ" secondAttribute="trailing" id="40p-n3-vF9"/>
-                            <constraint firstAttribute="trailing" secondItem="i9v-56-n6H" secondAttribute="trailing" id="4o1-qf-JZt"/>
-                            <constraint firstAttribute="bottom" secondItem="dXS-sN-s1s" secondAttribute="bottom" id="51p-Xw-psA"/>
-                            <constraint firstItem="ckH-oJ-MUJ" firstAttribute="top" secondItem="i9v-56-n6H" secondAttribute="bottom" id="KqU-Kg-Mwg"/>
-                            <constraint firstItem="i9v-56-n6H" firstAttribute="leading" secondItem="LUS-tu-CHI" secondAttribute="leading" id="ODN-rU-nAf"/>
+                            <constraint firstItem="1vj-fA-Kdv" firstAttribute="leading" secondItem="LUS-tu-CHI" secondAttribute="leading" id="C27-sp-00P"/>
+                            <constraint firstAttribute="trailing" secondItem="KX8-Q4-aZU" secondAttribute="trailing" id="FRg-Wa-B3C"/>
+                            <constraint firstItem="ckH-oJ-MUJ" firstAttribute="top" secondItem="1vj-fA-Kdv" secondAttribute="bottom" id="J7S-sL-EKK"/>
                             <constraint firstItem="ckH-oJ-MUJ" firstAttribute="leading" secondItem="LUS-tu-CHI" secondAttribute="leading" id="Rz8-cj-779"/>
-                            <constraint firstItem="dXS-sN-s1s" firstAttribute="top" secondItem="ckH-oJ-MUJ" secondAttribute="bottom" id="dlw-QU-QNW"/>
-                            <constraint firstItem="i9v-56-n6H" firstAttribute="top" secondItem="LUS-tu-CHI" secondAttribute="top" id="pRG-7Q-2qV"/>
-                            <constraint firstAttribute="trailing" secondItem="dXS-sN-s1s" secondAttribute="trailing" id="sV3-PJ-iYm"/>
-                            <constraint firstItem="dXS-sN-s1s" firstAttribute="leading" secondItem="LUS-tu-CHI" secondAttribute="leading" id="tl0-Rt-895"/>
+                            <constraint firstItem="1vj-fA-Kdv" firstAttribute="top" secondItem="LUS-tu-CHI" secondAttribute="top" id="Z8v-od-6Dt"/>
+                            <constraint firstItem="KX8-Q4-aZU" firstAttribute="leading" secondItem="LUS-tu-CHI" secondAttribute="leading" id="kMK-04-UJ9"/>
+                            <constraint firstAttribute="trailing" secondItem="1vj-fA-Kdv" secondAttribute="trailing" id="mQ2-Rh-vs8"/>
+                            <constraint firstItem="KX8-Q4-aZU" firstAttribute="top" secondItem="ckH-oJ-MUJ" secondAttribute="bottom" id="ymU-3t-yiz"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -131,9 +125,9 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="bottomSeparatorLabel" destination="dXS-sN-s1s" id="uGz-jb-pym"/>
-                <outlet property="bottomSeparatorLabelHeight" destination="6Ap-2F-to2" id="lWX-w3-mkT"/>
-                <outlet property="bottomSeparatorLabelLeading" destination="tl0-Rt-895" id="TDR-mU-7sH"/>
+                <outlet property="bottomSeparatorLabel" destination="KX8-Q4-aZU" id="RHX-B4-Cr2"/>
+                <outlet property="bottomSeparatorLabelHeight" destination="BLx-up-c0R" id="M6x-dc-kdc"/>
+                <outlet property="bottomSeparatorLabelLeading" destination="kMK-04-UJ9" id="odP-9G-oJM"/>
                 <outlet property="carrierImgView" destination="CWD-Hb-fte" id="ZNO-7t-EUf"/>
                 <outlet property="fareRulesButton" destination="qdA-5j-iAh" id="4WC-qd-nlD"/>
                 <outlet property="journeyNameLbl" destination="0nO-CB-7K2" id="iKu-7o-bVa"/>
@@ -141,8 +135,8 @@
                 <outlet property="titleLabel" destination="kjH-hz-cbX" id="bjI-7r-of2"/>
                 <outlet property="titleLabelTop" destination="QN7-bx-tBu" id="3Mf-7f-2Ow"/>
                 <outlet property="titleView" destination="ckH-oJ-MUJ" id="WVn-N7-K49"/>
-                <outlet property="topSeperatorLabel" destination="i9v-56-n6H" id="zBl-BR-ViX"/>
-                <outlet property="topSeperatorLabelHeight" destination="fF9-DV-mUG" id="Nr6-2s-gwE"/>
+                <outlet property="topSeperatorLabel" destination="1vj-fA-Kdv" id="Sj1-u2-zWj"/>
+                <outlet property="topSeperatorLabelHeight" destination="s79-wZ-2kG" id="ToF-DZ-rr2"/>
             </connections>
             <point key="canvasLocation" x="225.36231884057972" y="63.950892857142854"/>
         </tableViewCell>

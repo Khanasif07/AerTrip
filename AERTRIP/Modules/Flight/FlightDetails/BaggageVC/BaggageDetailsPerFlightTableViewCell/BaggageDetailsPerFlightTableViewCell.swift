@@ -38,10 +38,11 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
     @IBOutlet weak var notesLabelBottom: NSLayoutConstraint!
     @IBOutlet weak var notesLabelTop: NSLayoutConstraint!
     
-    @IBOutlet weak var bottomSeperator: UILabel!
+    @IBOutlet weak var bottomSeperator: ATDividerView!
     @IBOutlet weak var bottomSeperatorHeight: NSLayoutConstraint!
     @IBOutlet weak var bottomSeperatorBottom: NSLayoutConstraint!
-    @IBOutlet weak var topSeperatorView: UILabel!
+    
+    @IBOutlet weak var topSeperatorView: ATDividerView!
     @IBOutlet weak var topSeperatorViewHeight: NSLayoutConstraint!
     
     @IBOutlet weak var flightDetailsView: UIView!

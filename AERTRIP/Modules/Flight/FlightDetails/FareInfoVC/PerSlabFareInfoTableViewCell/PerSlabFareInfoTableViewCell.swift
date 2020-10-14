@@ -12,9 +12,11 @@ class PerSlabFareInfoTableViewCell: UITableViewCell
 {
     @IBOutlet weak var dataDisplayView: UIView!
     @IBOutlet weak var dataDisplayViewBottom: NSLayoutConstraint!
-    @IBOutlet weak var topSeperatorLabel: UILabel!
+    
+    @IBOutlet weak var topSeperatorLabel: ATDividerView!
     @IBOutlet weak var topSeperatorLabelBottom: NSLayoutConstraint!
     @IBOutlet weak var topSeperatorLabelTop: NSLayoutConstraint!
+    
     @IBOutlet weak var slabTitleView: UIView!
     @IBOutlet weak var slabTitleViewHeight: NSLayoutConstraint!
     @IBOutlet weak var titleView: UIView!
@@ -38,7 +40,7 @@ class PerSlabFareInfoTableViewCell: UITableViewCell
     @IBOutlet weak var perInfantDataDisplayViewHeight: NSLayoutConstraint!
     @IBOutlet weak var perInfantAmountLabel: UILabel!
     
-    @IBOutlet weak var bottomSeparatorLabel: UILabel!
+    @IBOutlet weak var bottomSeparatorLabel: ATDividerView!
     @IBOutlet weak var bottomSeparatorLabelTop: NSLayoutConstraint!
     
     @IBOutlet weak var seperatorView: UIView!
