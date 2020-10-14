@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -35,7 +35,7 @@
                                             <constraint firstAttribute="height" constant="25" id="E3E-Ii-Wa3"/>
                                             <constraint firstAttribute="width" secondItem="WS3-Oi-NfB" secondAttribute="height" multiplier="1:1" id="rUc-q8-51F"/>
                                         </constraints>
-                                        <state key="normal" image="add_icon"/>
+                                        <state key="normal" image="greenFilledAdd"/>
                                         <connections>
                                             <action selector="addRoomBtnAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="IyR-fA-BCI"/>
                                         </connections>
@@ -60,6 +60,7 @@
                     </view>
                 </subviews>
             </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="2e4-n0-bLQ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="0kw-7g-BNW"/>
@@ -67,7 +68,6 @@
                 <constraint firstItem="2e4-n0-bLQ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="rA7-ik-65q"/>
                 <constraint firstAttribute="bottom" secondItem="2e4-n0-bLQ" secondAttribute="bottom" id="s4d-7h-RCG"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="355" height="100.5"/>
             <connections>
                 <outlet property="addRoomBtnOutlet" destination="WS3-Oi-NfB" id="KdD-Vr-o4w"/>
@@ -77,6 +77,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="add_icon" width="22" height="22"/>
+        <image name="greenFilledAdd" width="22" height="22"/>
     </resources>
 </document>

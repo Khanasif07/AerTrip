@@ -274,7 +274,7 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
     private func configData() {
         
         func setupForAdd() {
-            infoImageView.image = #imageLiteral(resourceName: "add_icon")
+            infoImageView.image = #imageLiteral(resourceName: "greenFilledAdd")
             var finalText = ""
             if let type = self.contact?.passengerType {
                 iconImageView.image = (type == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")

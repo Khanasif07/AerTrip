@@ -134,9 +134,9 @@ extension HCSpecialRequestsVC {
     internal func getRoomTableViewCell(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RoomTableViewCell.reusableIdentifier, for: indexPath) as? RoomTableViewCell else { return UITableViewCell() }
         if self.viewModel.selectedRequestsId.contains(self.viewModel.specialRequests[indexPath.row].id) {
-           cell.statusButton.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+           cell.statusButton.setImage(#imageLiteral(resourceName: "CheckedGreenRadioButton"), for: .normal)
         } else {
-            cell.statusButton.setImage(#imageLiteral(resourceName: "untick"), for: .normal)
+            cell.statusButton.setImage(#imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
         }
         cell.configCell(title: self.viewModel.specialRequests[indexPath.row].name)
         return cell

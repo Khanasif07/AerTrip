@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -39,8 +39,8 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="FqT-MO-gqr" secondAttribute="height" multiplier="1:1" id="UiR-OU-nlu"/>
                                                         </constraints>
-                                                        <state key="normal" image="untick"/>
-                                                        <state key="selected" image="tick"/>
+                                                        <state key="normal" image="UncheckedGreenRadioButton"/>
+                                                        <state key="selected" image="CheckedGreenRadioButton"/>
                                                         <connections>
                                                             <action selector="arrowButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="rPH-1K-ftI"/>
                                                         </connections>
@@ -223,8 +223,8 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="CheckedGreenRadioButton" width="22" height="22"/>
+        <image name="UncheckedGreenRadioButton" width="22" height="22"/>
         <image name="downArrowCheckOut" width="20" height="20"/>
-        <image name="tick" width="22" height="22"/>
-        <image name="untick" width="22" height="22"/>
     </resources>
 </document>

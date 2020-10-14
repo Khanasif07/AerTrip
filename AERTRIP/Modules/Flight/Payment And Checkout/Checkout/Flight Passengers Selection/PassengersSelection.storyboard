@@ -190,7 +190,7 @@
                                             <constraint firstAttribute="height" constant="27" id="a8x-yT-Obh"/>
                                             <constraint firstAttribute="width" constant="27" id="ip0-tm-q06"/>
                                         </constraints>
-                                        <state key="normal" image="backThick"/>
+                                        <state key="normal" image="backGreen"/>
                                         <connections>
                                             <action selector="tapBackButton:" destination="bs2-rK-aRj" eventType="touchUpInside" id="EDg-c6-iYf"/>
                                         </connections>
@@ -334,7 +334,7 @@
                                             <constraint firstAttribute="height" constant="27" id="dBo-V0-5EB"/>
                                             <constraint firstAttribute="width" constant="27" id="diF-hF-qLJ"/>
                                         </constraints>
-                                        <state key="normal" image="backThick"/>
+                                        <state key="normal" image="backGreen"/>
                                         <connections>
                                             <action selector="tapBackBtn:" destination="393-Uc-xEC" eventType="touchUpInside" id="4w8-Hv-Di8"/>
                                             <action selector="tapBackButton:" destination="bs2-rK-aRj" eventType="touchUpInside" id="R6w-2b-KOS"/>
@@ -684,7 +684,7 @@
         <image name="FreeMealAndSeat" width="281" height="237"/>
         <image name="GrayCross" width="24" height="24"/>
         <image name="adultPassengers" width="56" height="56"/>
-        <image name="backThick" width="27" height="27"/>
+        <image name="backGreen" width="27" height="27"/>
         <image name="greenFilledAdd" width="22" height="22"/>
         <image name="passportExample" width="341" height="334"/>
         <systemColor name="systemBackgroundColor">

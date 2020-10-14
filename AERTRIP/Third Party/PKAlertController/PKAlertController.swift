@@ -134,7 +134,7 @@ open class PKAlertController {
             alertAction.setValue(button.titleColor, forKey: "titleTextColor")
 //            alertAction.setValue(textAlignment, forKey: "titleTextAlignment")
             if index == selectedButtonIndex {
-                alertAction.setValue(#imageLiteral(resourceName: "buttonCheckIcon"), forKey: "image")
+                alertAction.setValue(#imageLiteral(resourceName: "checkIcon"), forKey: "image")
             } else {
                 alertAction.setValue(nil, forKey: "image")
             }

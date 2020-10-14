@@ -185,8 +185,8 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
             self.topNavigationView.firstRightButtonTrailingConstraint.constant = 0
         } else {
             self.topNavigationView.animateBackView(isHidden: true, completion: nil)
-             //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "whiteBackIcon"), for: .normal)
-            // sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "whiteBackIcon"), for: .selected)
+             //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "Back"), for: .normal)
+            // sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "Back"), for: .selected)
              self.topNavigationView.navTitleLabel.text = " "
              self.topNavigationView.dividerView.isHidden = true
              self.topNavigationView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
@@ -199,8 +199,8 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
                 guard let sSelf = self else { return }
                 //sSelf.topNavigationView.backView.backgroundColor = AppColors.clear
                 sSelf.topNavigationView.animateBackView(isHidden: true, completion: nil)
-                //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "whiteBackIcon"), for: .normal)
-               // sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "whiteBackIcon"), for: .selected)
+                //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "Back"), for: .normal)
+               // sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "Back"), for: .selected)
                 sSelf.topNavigationView.navTitleLabel.text = " "
                 sSelf.topNavigationView.dividerView.isHidden = true
                 sSelf.topNavigationView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)

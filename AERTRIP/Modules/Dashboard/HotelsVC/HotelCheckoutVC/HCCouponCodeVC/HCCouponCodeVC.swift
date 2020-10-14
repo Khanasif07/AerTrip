@@ -288,13 +288,13 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
         cell.delegate = self
         let model = self.viewModel.searcedCouponsData[indexPath.item]
         if !self.viewModel.couponCode.isEmpty, self.viewModel.couponCode.lowercased() == model.couponCode.lowercased()  {
-            cell.checkMarkImageView.image =  #imageLiteral(resourceName: "tick")
+            cell.checkMarkImageView.image =  #imageLiteral(resourceName: "CheckedGreenRadioButton")
             self.viewModel.couponCode = model.couponCode
             self.couponTextField.text = model.couponCode
            // self.couponValidationTextSetUp(isCouponValid: true)
             self.couponTextField.becomeFirstResponder()
         } else {
-            cell.checkMarkImageView.image = #imageLiteral(resourceName: "untick")
+            cell.checkMarkImageView.image = #imageLiteral(resourceName: "UncheckedGreenRadioButton")
         }
         cell.configCell(currentCoupon: model)
         return cell

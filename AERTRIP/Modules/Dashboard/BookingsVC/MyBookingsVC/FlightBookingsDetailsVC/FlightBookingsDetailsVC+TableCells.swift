@@ -261,7 +261,7 @@ extension FlightBookingsDetailsVC {
     func getAddToTripsCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingCommonActionTableViewCell.reusableIdentifier, for: indexPath) as? BookingCommonActionTableViewCell else { return UITableViewCell() }
         cell.usingFor = .addToTrips
-        cell.configureCell(buttonImage: #imageLiteral(resourceName: "greenAddToTripIcon"), buttonTitle: LocalizedString.AddToTrips.localized)
+        cell.configureCell(buttonImage: #imageLiteral(resourceName: "addToTripgreen"), buttonTitle: LocalizedString.AddToTrips.localized)
         return cell
     }
     

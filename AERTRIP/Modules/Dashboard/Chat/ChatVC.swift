@@ -216,7 +216,7 @@ extension ChatVC {
     private func setUpNavigationView(){
         topNavView.delegate = self
         topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: false)
-        topNavView.configureLeftButton(normalImage: #imageLiteral(resourceName: "back"), selectedImage:  #imageLiteral(resourceName: "back"), normalTitle: "", selectedTitle: "", normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
+        topNavView.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage:  #imageLiteral(resourceName: "backGreen"), normalTitle: "", selectedTitle: "", normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "green_2"), selectedImage: #imageLiteral(resourceName: "green_2"), normalTitle: "", selectedTitle: "", normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         topNavView.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "dictationIcon"), selectedImage: #imageLiteral(resourceName: "searchBarClearButton"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil, font: AppFonts.Regular.withSize(18.0))
     }

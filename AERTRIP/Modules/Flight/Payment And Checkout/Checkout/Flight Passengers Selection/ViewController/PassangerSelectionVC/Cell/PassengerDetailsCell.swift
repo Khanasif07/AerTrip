@@ -77,7 +77,7 @@ class PassengerDetailsCell: UICollectionViewCell {
     private func configData() {
         
         func setupForAdd() {
-            infoImageView.image = #imageLiteral(resourceName: "add_icon")
+            infoImageView.image = #imageLiteral(resourceName: "greenFilledAdd")
             var finalText = ""
             if let type = self.contact?.passengerType {
                 switch type{

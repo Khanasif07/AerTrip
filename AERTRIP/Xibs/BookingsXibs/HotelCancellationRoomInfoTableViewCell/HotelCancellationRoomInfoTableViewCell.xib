@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,7 +34,7 @@
                                             <constraint firstAttribute="height" constant="44" id="Fwe-k1-9QJ"/>
                                             <constraint firstAttribute="width" constant="56" id="qlb-VQ-Mi2"/>
                                         </constraints>
-                                        <state key="normal" image="untick"/>
+                                        <state key="normal" image="UncheckedGreenRadioButton"/>
                                         <connections>
                                             <action selector="selectRoomButtonAction:" destination="OEp-Xj-yi4" eventType="touchUpInside" id="NA8-gc-RtD"/>
                                         </connections>
@@ -66,7 +66,7 @@
                                             <constraint firstAttribute="bottom" secondItem="NnA-m8-WrQ" secondAttribute="bottom" id="syJ-V0-0bh"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gXq-fk-blA">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gXq-fk-blA">
                                         <rect key="frame" x="56" y="7" width="319" height="46"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal">
@@ -194,7 +194,7 @@ Mr. Clifford Hudson</string>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="UncheckedGreenRadioButton" width="22" height="22"/>
         <image name="rightArrow" width="40" height="44"/>
-        <image name="untick" width="22" height="22"/>
     </resources>
 </document>

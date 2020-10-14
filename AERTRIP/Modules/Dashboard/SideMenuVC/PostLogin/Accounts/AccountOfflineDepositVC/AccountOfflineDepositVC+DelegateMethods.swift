@@ -306,7 +306,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         }
         cell.dividerView.isHidden = true
         cell.isHiddenButton = false
-        cell.selectionButton.setImage(self.viewModel.userEnteredDetails.isAgreeToTerms ? #imageLiteral(resourceName: "tick") : #imageLiteral(resourceName: "untick"), for: .normal)
+        cell.selectionButton.setImage(self.viewModel.userEnteredDetails.isAgreeToTerms ? #imageLiteral(resourceName: "CheckedGreenRadioButton") : #imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
         cell.selectButtonTopConstraint.constant = 26.0
         let termsOfUse = ActiveType.custom(pattern: "\\s\(LocalizedString.terms_of_use.localized)\\b")
         
