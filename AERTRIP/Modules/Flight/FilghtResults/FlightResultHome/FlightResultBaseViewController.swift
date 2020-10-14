@@ -17,7 +17,7 @@ import SnapKit
 class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     
     var flightSearchResultVM  : FlightSearchResultVM!
-    var flightSearchParameters : NSDictionary!
+    var flightSearchParameters = JSONDictionary()
     var visualEffectViewHeight : CGFloat {
         return statusBarHeight + 88.0
     }
@@ -71,9 +71,13 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         print(new.flightLegs.count)
         flightSearchResultVM.delegate = self
         flightSearchResultVM.initiateResultWebService()
-        self.flightSearchParameters = flightSearchParameters
+//        self.flightSearchParameters = flightSearchParameters
         self.isIntReturnOrMCJourney = isIntReturnOrMCJourney
         self.airlineCode = airlineCode
+                
+        guard let dict = flightSearchParameters as? JSONDictionary else { return }
+        self.flightSearchParameters = dict
+        
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -289,7 +293,9 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     
     func headerTitlesForIntMultiCityJourney()-> [MultiLegHeader]{
         
-        guard let allKey = (self.flightSearchParameters.allKeys as? [String]) else {return []}
+//        guard let allKey = (self.flightSearchParameters.keys as? [String]) else {return []}
+        
+        let allKey = self.flightSearchParameters.keys
         var headerTitles = [MultiLegHeader]()
         let departArray = allKey.map{$0.contains("depart")}
         for i in 0..<departArray.count{
@@ -576,8 +582,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         let flightType = flightSearchResultVM.flightSearchType
         
         if flightType == SINGLE_JOURNEY {
-            let origin = self.flightSearchParameters.value(forKey: "origin") as! String
-            let destination = self.flightSearchParameters.value(forKey: "destination") as! String
+            let origin = self.flightSearchParameters["origin"] as! String
+            let destination = self.flightSearchParameters["destination"] as! String
             let journey = Leg(origin: origin, destination: destination)
             legList = [journey]
         }
@@ -702,7 +708,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         self.navigationController?.view.viewWithTag(500)?.removeFromSuperview()
         self.navigationController?.view.viewWithTag(2500)?.removeFromSuperview()
         statusBarBlurView.removeFromSuperview()
-        self.navigationController?.viewControllers.removeLast()
+        //self.navigationController?.viewControllers.removeLast()
         self.navigationController?.popViewController(animated: true)
     }
     

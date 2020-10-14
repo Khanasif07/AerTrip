@@ -22,16 +22,14 @@ import UIKit
     @objc func showToast(_ msg: String) {
         guard let window = AppDelegate.shared.window else { return }
         
-        if msg == lastMessage {
-            if let toast = window.subviews.first(where: { $0 is CustomToastView }) {
-                guard let lastToast = toast as? CustomToastView else { return }
-                messageWorkItem?.cancel()
-                messageWorkItem = DispatchWorkItem(block: {
-                    self.hideToast(lastToast)
-                })
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: messageWorkItem!)
-                return
-            }
+        if let toast = window.subviews.first(where: { $0 is CustomToastView }), msg == lastMessage {
+            guard let lastToast = toast as? CustomToastView else { return }
+            messageWorkItem?.cancel()
+            messageWorkItem = DispatchWorkItem(block: {
+                self.hideToast(lastToast)
+            })
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: messageWorkItem!)
+            return
         }
         
         fadeAllToasts()

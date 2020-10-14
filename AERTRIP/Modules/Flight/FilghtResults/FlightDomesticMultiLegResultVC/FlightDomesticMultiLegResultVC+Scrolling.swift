@@ -268,7 +268,7 @@ extension FlightDomesticMultiLegResultVC {
         if  (height != initialHeader) || (!self.isSettingupHeader){
             self.isSettingupHeader = true
             self.initialHeader = height
-            UIView.animate(withDuration: 0.2, animations: {
+            UIView.animate(withDuration: 0.1, animations: {
                 tableView.contentInset = UIEdgeInsets(top: height, left: 0, bottom: 0, right: 0)
             }) { (_) in
                 self.isSettingupHeader = false
