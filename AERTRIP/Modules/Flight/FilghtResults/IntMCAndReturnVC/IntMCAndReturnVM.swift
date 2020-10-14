@@ -301,10 +301,79 @@ extension IntMCAndReturnVM{
     }
     
     
-    func updateRefundStatusInJourneys(fk : String){
+    func updateRefundStatusInJourneys(fk: String, rfd: Int, rsc: Int) {
+        
+        self.results.journeyArray.enumerated().forEach { (index,journey) in
+            
+            if let jourInd = journey.journeyArray.firstIndex(where: { (jour) -> Bool in
+                return jour.fk == fk
+            }){
+         
+                self.results.journeyArray[index].journeyArray[jourInd].legsWithDetail.enumerated().forEach { (legInd, leg) in
+                    
+                    self.results.journeyArray[index].journeyArray[jourInd].legsWithDetail[legInd].fcp = 0
+                    
+                }
+            }
+            
+        }
         
         
+        self.results.allJourneys.enumerated().forEach { (index,journey) in
+            
+            if let jourInd = journey.journeyArray.firstIndex(where: { (jour) -> Bool in
+                return jour.fk == fk
+            }){
+         
+                self.results.journeyArray[index].journeyArray[jourInd].legsWithDetail.enumerated().forEach { (legInd, leg) in
+                    
+                    self.results.journeyArray[index].journeyArray[jourInd].legsWithDetail[legInd].fcp = 0
+                    
+                }
+            }
+            
+        }
         
+        self.results.suggestedJourneyArray.enumerated().forEach { (index,journey) in
+            
+            if let jourInd = journey.journeyArray.firstIndex(where: { (jour) -> Bool in
+                return jour.fk == fk
+            }){
+         
+                self.results.journeyArray[index].journeyArray[jourInd].legsWithDetail.enumerated().forEach { (legInd, leg) in
+                    
+                    self.results.journeyArray[index].journeyArray[jourInd].legsWithDetail[legInd].fcp = 0
+                    
+                }
+            }
+            
+        }
+        
+        
+        if let jourInd = self.results.pinnedFlights.firstIndex(where: { (jour) -> Bool in
+                return jour.fk == fk
+            
+            }){
+            
+                self.results.pinnedFlights[jourInd].legsWithDetail.enumerated().forEach { (legInd, leg) in
+                self.results.pinnedFlights[jourInd].legsWithDetail[legInd].fcp = 0
+                            
+            }
+         }
+        
+        
+        if let jourInd = self.results.currentPinnedJourneys.firstIndex(where: { (jour) -> Bool in
+                 return jour.fk == fk
+             
+             }){
+             
+                 self.results.pinnedFlights[jourInd].legsWithDetail.enumerated().forEach { (legInd, leg) in
+                 self.results.pinnedFlights[jourInd].legsWithDetail[legInd].fcp = 0
+                             
+             }
+          }
+        
+    
     }
     
     

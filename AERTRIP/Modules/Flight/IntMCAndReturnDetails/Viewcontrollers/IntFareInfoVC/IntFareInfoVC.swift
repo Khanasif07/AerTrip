@@ -226,8 +226,6 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                         self.updatedFareInfo = IntFlightFareInfoResponse(json)
                         self.showAccordingTolegs = (self.updatedFareInfo?.updatedFareInfo.first?.cp.details.spcFee["ADT"]?.feeDetail.values.count == self.journey.first?.legsWithDetail.count)
                         
-                        
-                        
                         let num = 0.75/Float(self.journey.count)
                         self.progressBar.progress = Float(num+self.progressBar.progress)
                         
