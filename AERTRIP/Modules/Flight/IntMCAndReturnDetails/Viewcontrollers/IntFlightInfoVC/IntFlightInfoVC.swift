@@ -348,14 +348,14 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     }
                     cell.arrivalAirportLabel.text = flight.to
                     cell.arrivalTimeLabel.text = flight.at
-                    cell.departureAirportLabel.text = flight.fr
                     cell.departureTimeLbl.text = flight.dt
                     
-                    if flight.isDepartureAirportChange == true{
-                        let departureAirport = " \(flight.fr) "
-                        cell.departureAirportLabel.attributedText = cell.addAttributsForRange(departureAirport, coloredString: " \(flight.fr) ", color: AppColors.lightYellow)
+                    if flight.isDepartureAirportChange == true
+                    {
+                        cell.setDepartureAirportLabel(str: " \(flight.fr).")
                     }else{
-                        cell.departureAirportLabel.attributedText = cell.addAttributsForRange(flight.fr, coloredString: flight.fr, color: UIColor.clear)
+                        cell.departureAirportLabel.attributedText = nil
+                        cell.departureAirportLabel.text = flight.fr
                     }
                     
                     if flight.isArrivalAirportChange == true{

@@ -217,6 +217,17 @@ class FlightDetailsTableViewCell: UITableViewCell
         }
     }
     
+    func setDepartureAirportLabel(str:String)
+    {
+        let deptDateRange = (str as NSString).range(of: str)
+        let deptDateAttrStr = NSMutableAttributedString(string:str)
+        deptDateAttrStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: deptDateRange)
+        deptDateAttrStr.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0), range: deptDateRange)
+        deptDateAttrStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (str as NSString).range(of: "."))
+        departureAirportLabel.attributedText = deptDateAttrStr
+
+    }
+    
     
     func setArrivalAirportAddress(mainString:String,stringToColor:String)
     {

@@ -395,15 +395,13 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         flightDetailsCell.arrivalAirportLabel.text = flight.to
                         flightDetailsCell.arrivalTimeLabel.text = flight.at
                         
-                        flightDetailsCell.departureAirportLabel.text = flight.fr
                         flightDetailsCell.departureTimeLbl.text = flight.dt
                         
                         if flight.isDepartureAirportChange == true{
-                            let departureAirport = " \(flight.fr) "
-                            flightDetailsCell.departureAirportLabel.attributedText = flightDetailsCell.addAttributsForRange(departureAirport, coloredString: " \(flight.fr) ", color: AppColors.lightYellow)
-
+                            flightDetailsCell.setDepartureAirportLabel(str: " \(flight.fr).")
                         }else{
-                            flightDetailsCell.departureAirportLabel.attributedText = flightDetailsCell.addAttributsForRange(flight.fr, coloredString: flight.fr, color: UIColor.clear)
+                            flightDetailsCell.departureAirportLabel.attributedText = nil
+                            flightDetailsCell.departureAirportLabel.text = flight.fr
                         }
                         
                         if flight.isArrivalAirportChange == true{
