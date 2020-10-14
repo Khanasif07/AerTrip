@@ -370,6 +370,19 @@ public class Journey: Codable , Equatable {
                 
                 let attributedSuperScript : NSAttributedString
                 
+                if let pieces = ADTBaggage.pieces {
+                            
+                            if pieces.containsIgnoringCase(find: " ") {
+                                let numbers = pieces.components(separatedBy: " ")
+                                attributedSuperScript = NSAttributedString(string:numbers.first! + "P" , attributes: attributes)
+                                return attributedSuperScript
+                            } else {
+                                attributedSuperScript = NSAttributedString(string: pieces + "P" , attributes: attributes)
+                                return attributedSuperScript
+                    }
+                }
+                
+                
                 if let weight = ADTBaggage.weight {
                     
                     if weight.containsIgnoringCase(find: " ") {
@@ -379,14 +392,7 @@ public class Journey: Codable , Equatable {
                     }
                 }
                 
-                if let pieces = ADTBaggage.pieces {
-                    
-                    if pieces.containsIgnoringCase(find: " ") {
-                        let numbers = pieces.components(separatedBy: " ")
-                        attributedSuperScript = NSAttributedString(string:numbers.first! + "P" , attributes: attributes)
-                        return attributedSuperScript
-                    }
-                }
+        
             }
         }
          else {

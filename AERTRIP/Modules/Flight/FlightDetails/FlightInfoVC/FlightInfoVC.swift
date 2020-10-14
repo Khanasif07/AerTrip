@@ -257,15 +257,13 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         index = indexPath.row
                     }
                     
-                    if var flight = journey[indexPath.section].leg.first?.flights[index]{
+                    if var flight = journey[indexPath.section].leg.first?.flights[index] {
                         var amenitiesData = [String]()
                         
-                        if let bgWeight = flight.bg?["ADT"]?.weight, let bgPieces = flight.bg?["ADT"]?.pieces
-                        {
-                            if bgPieces != "" && bgPieces != "-9" && bgPieces != "-1" && bgPieces != "0 pc" && bgPieces != "0"
-                            {
+                        if let bgWeight = flight.bg?["ADT"]?.weight, let bgPieces = flight.bg?["ADT"]?.pieces {
+                            if bgPieces != "" && bgPieces != "-9" && bgPieces != "-1" && bgPieces != "0 pc" && bgPieces != "0" {
                                 amenitiesData.append("Check-in Baggage \n(\(bgPieces))")
-                            }else{
+                            } else {
                                 if bgWeight != "" && bgWeight != "-9" && bgWeight != "-1" && bgWeight != "0 kg"{
                                     amenitiesData.append("Check-in Baggage \n(\(bgWeight))")
                                 }

@@ -559,6 +559,9 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     //MARK:- Methods for naviagating to other View Controller
     
     func navigateToFlightDetailFor(journey : Journey, selectedIndex:IndexPath) {
+        
+        printDebug("journey.baggageSuperScript....\(journey.baggageSuperScript)")
+        
         let storyboard = UIStoryboard(name: "FlightDetailsBaseVC", bundle: nil)
         let flightDetailsVC:FlightDetailsBaseVC =
             storyboard.instantiateViewController(withIdentifier: "FlightDetailsBaseVC") as! FlightDetailsBaseVC
