@@ -169,8 +169,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
 
                     
                     fareInfoCell.bottomSeparatorLabel.isHidden = true
-                    fareInfoCell.bottomSeparatorLabelLeading.constant = 16
-                    
+ 
                     if indexPath.section != 0{
                         fareInfoCell.topSeperatorLabel.isHidden = false
                         fareInfoCell.topSeperatorLabelHeight.constant = 0.5
@@ -186,7 +185,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     changeAirportCell.dataLabelTop.constant = 0
                     
                     changeAirportCell.dataLabel.attributedText = getAttributedNote()
-                    changeAirportCell.topSeperatorLabelLeading.constant = 16
+                    changeAirportCell.topSeperatorLabelLeading.constant = 0
 //                    changeAirportCell.topSeperatorLabelTop.constant = 0
                     changeAirportCell.bottomStrokeHeight.constant = 0.7
                     changeAirportCell.seperatorBottom.constant = 35
@@ -441,10 +440,10 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                         
                         self.fareInfoTableView.reloadData()
                         
-//                        if self.journey[i].smartIconArray.contains("refundStatusPending"){
-//                            self.journey[i].leg[0].fcp = 0
-//                            self.delegate?.reloadSmartIconsAtIndexPath()
-//                        }
+                        if self.journey[i].smartIconArray.contains("refundStatusPending"){
+                            self.journey[i].leg[0].fcp = 0
+                            self.delegate?.reloadSmartIconsAtIndexPath()
+                        }
                         
                         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
                          self.fareInfoTableView.reloadData()
