@@ -214,9 +214,9 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             let changeAirportCell = tableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as! ChangeAirportTableViewCell
             changeAirportCell.titleLabel.text = "Change of Airport"
                
-            let myMutableString = NSMutableAttributedString(string: "While changing airports, re-checking baggage and going back through security may be necessary. Ensure you have ample time between transfers. Kindly check all terms regarding connection, baggage transfer, visas, etc. with the airlines directly before booking this itinerary. While changing airports While changing airports.")
+            let myMutableString = NSMutableAttributedString(string: "While changing airports, re-checking baggage and going back through security may be necessary. Ensure you have ample time between transfers. Kindly check all terms regarding connection, baggage transfer, visas, etc. with the airlines directly before booking this itinerary.")//. While changing airports While changing airports.")
            
-            myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear, range: NSRange(location:273,length:48))
+//            myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear, range: NSRange(location:273,length:49))
             changeAirportCell.dataLabel.attributedText = myMutableString
         
             return changeAirportCell

@@ -10,7 +10,7 @@ import UIKit
 
 class FareInfoTableViewCell: UITableViewCell
 {
-    @IBOutlet weak var topSeperatorLabel: UILabel!
+    @IBOutlet weak var topSeperatorLabel: ATDividerView!
     @IBOutlet weak var topSeperatorLabelHeight: NSLayoutConstraint!
     
     @IBOutlet weak var titleView: UIView!
@@ -27,7 +27,7 @@ class FareInfoTableViewCell: UITableViewCell
     @IBOutlet weak var cancellationNoteDisplayView: UIView!
     @IBOutlet weak var cancellationNoteDisplayViewHeight: NSLayoutConstraint!
     
-    @IBOutlet weak var bottomSeparatorLabel: UILabel!
+    @IBOutlet weak var bottomSeparatorLabel: ATDividerView!
     @IBOutlet weak var bottomSeparatorLabelHeight: NSLayoutConstraint!
     @IBOutlet weak var bottomSeparatorLabelLeading: NSLayoutConstraint!
     

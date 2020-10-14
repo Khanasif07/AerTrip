@@ -10,18 +10,20 @@ import UIKit
 
 class ChangeAirportTableViewCell: UITableViewCell
 {
-    @IBOutlet weak var topSeperatorLabel: UILabel!
+    @IBOutlet weak var topSeperatorLabel: ATDividerView!
     @IBOutlet weak var topSeperatorLabelTop: NSLayoutConstraint!
     @IBOutlet weak var topSeperatorLabelHeight: NSLayoutConstraint!
     @IBOutlet weak var topSeperatorLabelLeading: NSLayoutConstraint!
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var titleLabelHeight: NSLayoutConstraint!
     @IBOutlet weak var dataLabel: UILabel!
     @IBOutlet weak var dataLabelTop: NSLayoutConstraint!
-    @IBOutlet weak var seperatorBottom: NSLayoutConstraint!
-    @IBOutlet weak var bottomStroke: UILabel!
-    @IBOutlet weak var bottomStrokeHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var bottomStroke: ATDividerView!
+    @IBOutlet weak var bottomStrokeHeight: NSLayoutConstraint!
+    @IBOutlet weak var seperatorBottom: NSLayoutConstraint!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

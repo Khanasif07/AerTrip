@@ -54,11 +54,11 @@ class FlightDetailsTableViewCell: UITableViewCell
     @IBOutlet weak var delayedPerformanceSubViewWidth: NSLayoutConstraint!
     @IBOutlet weak var cancelledPerformanceSubView: UIView!
     @IBOutlet weak var cancelledPerformanceSubViewWidth: NSLayoutConstraint!
-    
-    @IBOutlet weak var topSeperatorView: UILabel!
-    @IBOutlet weak var topSeperatorViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var bottomSeperatorView: UILabel!
     @IBOutlet weak var displayViewBottom: NSLayoutConstraint!
+
+    @IBOutlet weak var topSeperatorView: ATDividerView!
+    @IBOutlet weak var topSeperatorViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var bottomSeperatorView: ATDividerView!
     
     //MARK:- Variable Declaration
     var amenitiesData = [String]()
