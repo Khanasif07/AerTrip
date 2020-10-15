@@ -1446,8 +1446,8 @@
 - (void)setupStarRatingView: (SCRatingView *)ratingView isEditable:(BOOL)isEditable{
     
     
-    UIImage *emptyImage = [UIImage imageNamed:@"ratingUnSelectedStar"];
-    UIImage *filledImage = [UIImage imageNamed:@"ratingSelectedStar"];
+    UIImage *emptyImage = [UIImage imageNamed:@"starRatingUnfill"];
+    UIImage *filledImage = [UIImage imageNamed:@"starRatingFilled"];
     
     NSMutableArray *emptyArray = [[NSMutableArray alloc] init];
     NSMutableArray *filledArray = [[NSMutableArray alloc] init];
@@ -1471,8 +1471,8 @@
 - (void)setupDotRatingView: (SCRatingView *)ratingView isEditable:(BOOL)isEditable{
     
     
-    UIImage *emptyImage = [UIImage imageNamed:@"tripAdviserUnSelectedDot"];
-    UIImage *filledImage = [UIImage imageNamed:@"tripAdviserSelectedDot"];
+    UIImage *emptyImage = [UIImage imageNamed:@"deselectedAdvisorRating"];
+    UIImage *filledImage = [UIImage imageNamed:@"selectedAdvisorRating"];
     
     NSMutableArray *emptyArray = [[NSMutableArray alloc] init];
     NSMutableArray *filledArray = [[NSMutableArray alloc] init];

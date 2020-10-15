@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,8 +23,8 @@
                                 <constraint firstAttribute="width" constant="54" id="9Gp-J9-qvC"/>
                                 <constraint firstAttribute="width" secondItem="sWE-ub-doU" secondAttribute="height" multiplier="1:1" id="Vrx-qZ-GcW"/>
                             </constraints>
-                            <state key="normal" image="untick"/>
-                            <state key="selected" image="tick"/>
+                            <state key="normal" image="UncheckedGreenRadioButton"/>
+                            <state key="selected" image="CheckedGreenRadioButton"/>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label dfhgj fsdf sdf sdf sdfsdfsd fs fsfd fs dfs df sdf" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySg-3s-C6E">
                             <rect key="frame" x="59" y="13.000000000000002" width="339" height="19.666666666666671"/>
@@ -53,6 +53,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="vxA-Eg-DnU" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Eom-85-EpD"/>
@@ -61,7 +62,6 @@
                 <constraint firstItem="vxA-Eg-DnU" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="p8s-xU-YHq"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="infoLabel" destination="vIE-uq-1aZ" id="b7G-W0-Ehc"/>
                 <outlet property="routeLabel" destination="ySg-3s-C6E" id="hKg-z1-ebJ"/>
@@ -72,7 +72,7 @@
         </view>
     </objects>
     <resources>
-        <image name="tick" width="22" height="22"/>
-        <image name="untick" width="22" height="22"/>
+        <image name="CheckedGreenRadioButton" width="22" height="22"/>
+        <image name="UncheckedGreenRadioButton" width="22" height="22"/>
     </resources>
 </document>

@@ -82,9 +82,9 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
         }
         self.guestNamesLabel.text = nameArray.joined(separator: ", ")
         if isRoomSelected {
-            self.selectRoomButtonOutlet.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+            self.selectRoomButtonOutlet.setImage(#imageLiteral(resourceName: "CheckedGreenRadioButton"), for: .normal)
         } else {
-            self.selectRoomButtonOutlet.setImage(#imageLiteral(resourceName: "untick"), for: .normal)
+            self.selectRoomButtonOutlet.setImage(#imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
         }
         self.topDividerView.isHidden = isExpanded
         self.bottomDividerView.isHidden = !isExpanded

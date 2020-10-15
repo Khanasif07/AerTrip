@@ -143,7 +143,7 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
                 }
             }
             
-            // view.image = UIImage(named: "tickIcon")
+            // view.image = UIImage(named: "CheckedGreenRadioButton")
             scrollView.addSubview(view)
         }
     }

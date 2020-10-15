@@ -130,8 +130,13 @@ class BulkRoomSelectionVC: BaseVC {
 //        delay(seconds: 0.05) { [weak self] in
 //            self?.show(animated: true)
 //        }
+        
+        if #available(iOS 14.0, *) {
+            self.firstLineView.isHidden = true
+            self.secondLineView.isHidden = true
+        }
     }
-    
+     
     private func show(animated: Bool) {
         self.safeAreaBackView.isHidden = false
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, delay: 0, options: .curveEaseInOut, animations: {

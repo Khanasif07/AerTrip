@@ -552,7 +552,13 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         
                         
                         
-//                        if indexPath.section == 0 && indexPath.row == 0{
+                        if indexPath.row == 0{
+                            flightDetailsCell.topSeperatorViewHeight.constant = 0.5
+                            flightDetailsCell.topSeperatorView.isHidden = false
+                        }else{
+                            flightDetailsCell.topSeperatorViewHeight.constant = 0.0
+                            flightDetailsCell.topSeperatorView.isHidden = true
+                        }
 //                            flightDetailsCell.topSeperatorViewHeight.constant = 0
 //                            flightDetailsCell.topSeperatorView.isHidden = true
 //                        }else if tableView.numberOfRows(inSection: indexPath.section) > 1{
@@ -564,8 +570,8 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
 //                                flightDetailsCell.topSeperatorViewHeight.constant = 0
 //                            }
 //                        }else{
-                            flightDetailsCell.topSeperatorViewHeight.constant = 0.5
-                            flightDetailsCell.topSeperatorView.isHidden = false
+//                            flightDetailsCell.topSeperatorViewHeight.constant = 0.5
+//                            flightDetailsCell.topSeperatorView.isHidden = false
 //                        }
                     }
                     return flightDetailsCell

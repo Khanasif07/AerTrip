@@ -144,7 +144,7 @@ class HotelFilterVC: BaseVC {
                 self.isFilterApplied = true
             }
         }
-        self.isFilterAppliedBtn.setImage(isFilterApplied  ? #imageLiteral(resourceName: "ic_hotel_filter_applied") : #imageLiteral(resourceName: "ic_hotel_filter"), for: .normal)
+      //  self.isFilterAppliedBtn.setImage(isFilterApplied  ? #imageLiteral(resourceName: "ic_hotel_filter_applied") : #imageLiteral(resourceName: "ic_hotel_filter"), for: .normal)
         self.isFilterAppliedBtn.setImage(isFilterApplied  ? #imageLiteral(resourceName: "ic_hotel_filter_applied") : #imageLiteral(resourceName: "ic_hotel_filter"), for: .selected)
         
         if  isFilterApplied {

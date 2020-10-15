@@ -122,7 +122,7 @@ class BookingHotelDetailVC: BaseVC {
         self.topNavigationView.firstRightButton.imageEdgeInsets = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
         self.topNavigationView.navTitleLabel.numberOfLines = 1
         self.topNavigationView.firstRightButtonTrailingConstraint.constant = -3
-        //self.topNavigationView.configureLeftButton(normalImage: UIImage(named: "whiteBackIcon"), selectedImage: UIImage(named: "whiteBackIcon"))
+        //self.topNavigationView.configureLeftButton(normalImage: UIImage(named: "Back"), selectedImage: UIImage(named: "Back"))
         self.topNavigationView.delegate = self
         self.topNavigationView.backgroundColor = .clear
         self.view.bringSubviewToFront(self.topNavigationView)

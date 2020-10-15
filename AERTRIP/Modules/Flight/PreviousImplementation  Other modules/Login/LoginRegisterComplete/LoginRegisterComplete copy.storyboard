@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,25 +28,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5n-qX-OD6">
-                                <rect key="frame" x="8" y="30" width="27" height="27"/>
+                                <rect key="frame" x="8" y="10" width="27" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="85C-iu-wkq"/>
                                     <constraint firstAttribute="width" constant="27" id="oKW-2b-Dex"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="backThick"/>
+                                <state key="normal" backgroundImage="backGreen"/>
                                 <connections>
                                     <action selector="backAction:" destination="oJj-RP-d0b" eventType="touchUpInside" id="UVw-YP-nnP"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AertripIconHBlack" translatesAutoresizingMaskIntoConstraints="NO" id="fW3-UM-A5P">
-                                <rect key="frame" x="173" y="60" width="29" height="26"/>
+                                <rect key="frame" x="173" y="40" width="29" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="26" id="W0f-O1-pOu"/>
                                     <constraint firstAttribute="width" constant="29" id="Y94-J1-YGl"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you for registering." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S78-rc-qIL">
-                                <rect key="frame" x="49" y="101" width="277" height="96"/>
+                                <rect key="frame" x="49" y="81" width="277" height="96"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="277" id="MFn-V6-Kox"/>
                                 </constraints>
@@ -56,7 +54,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sXj-Av-2oJ">
-                                <rect key="frame" x="49" y="212" width="277" height="40.5"/>
+                                <rect key="frame" x="49" y="192" width="277" height="40.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="277" id="AlG-KK-9bg"/>
                                 </constraints>
@@ -66,7 +64,7 @@ activation link on</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pritesh.chavan@aertrip.com " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7sg-Ff-ERV">
-                                <rect key="frame" x="49" y="261.5" width="277" height="25"/>
+                                <rect key="frame" x="49" y="241.5" width="277" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="277" id="KmK-oH-l2M"/>
                                     <constraint firstAttribute="height" constant="25" id="bdU-qd-gLB"/>
@@ -76,7 +74,7 @@ activation link on</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wY5-KB-210">
-                                <rect key="frame" x="49" y="294.5" width="277" height="40.5"/>
+                                <rect key="frame" x="49" y="274.5" width="277" height="40.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="277" id="C5Y-ZB-D5H"/>
                                 </constraints>
@@ -86,10 +84,10 @@ activation link on</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IbC-wb-kXM">
-                                <rect key="frame" x="-0.5" y="335" width="375" height="263"/>
+                                <rect key="frame" x="0.0" y="315" width="375" height="283"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbP-Bq-Jd5">
-                                        <rect key="frame" x="125.5" y="114" width="123" height="35"/>
+                                        <rect key="frame" x="126" y="124" width="123" height="35"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                                         <state key="normal" title="Open Email App">
                                             <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -116,6 +114,7 @@ activation link on</string>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Ll1-71-5qh"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Ll1-71-5qh" firstAttribute="bottom" secondItem="b2X-WU-2jH" secondAttribute="bottom" constant="16" id="0aL-BM-vkH"/>
@@ -137,7 +136,6 @@ activation link on</string>
                             <constraint firstItem="b2X-WU-2jH" firstAttribute="top" secondItem="IbC-wb-kXM" secondAttribute="bottom" id="xEc-hi-pvf"/>
                             <constraint firstItem="wY5-KB-210" firstAttribute="top" secondItem="7sg-Ff-ERV" secondAttribute="bottom" constant="8" id="zbh-Mw-cI5"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Ll1-71-5qh"/>
                     </view>
                     <connections>
                         <outlet property="bottomLabel" destination="b2X-WU-2jH" id="TYu-IG-x38"/>
@@ -154,6 +152,6 @@ activation link on</string>
     </scenes>
     <resources>
         <image name="AertripIconHBlack" width="29" height="26"/>
-        <image name="backThick" width="27" height="27"/>
+        <image name="backGreen" width="27" height="27"/>
     </resources>
 </document>

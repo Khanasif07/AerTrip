@@ -151,7 +151,9 @@ class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupV
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if !parchmentLoaded {
-            parchmentLoaded = true
+            DispatchQueue.delay(1) {
+                self.parchmentLoaded = true
+            }
             self.parchmentView?.view.frame = self.displayView.bounds
             self.parchmentView?.view.frame.size.height = self.dataDisplayView.height - innerControllerBottomConstraint
             self.parchmentView?.loadViewIfNeeded()
