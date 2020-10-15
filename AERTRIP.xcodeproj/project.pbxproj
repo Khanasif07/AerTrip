@@ -125,6 +125,7 @@
 		0C9D3FEA24E2C0EE00238A18 /* SingleJourneyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9D3FE824E2C0EE00238A18 /* SingleJourneyCollectionViewCell.swift */; };
 		0C9D3FEB24E2C0EE00238A18 /* SingleJourneyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C9D3FE924E2C0EE00238A18 /* SingleJourneyCollectionViewCell.xib */; };
 		0CAC8C8222E1E0620039D612 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F983A221B51A070018DFED /* UIImageExtension.swift */; };
+		0CACCAC725357DCE00975582 /* flightConfirmation.csv in Resources */ = {isa = PBXBuildFile; fileRef = 0CACCAC625357DCD00975582 /* flightConfirmation.csv */; };
 		0CAD5FE32338B32D0086F58D /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD5FE22338B32C0086F58D /* UILabel+Extension.swift */; };
 		0CB5A79A24EA8C3B00C59536 /* FlightResultSingleJourneyVC+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB5A79924EA8C3B00C59536 /* FlightResultSingleJourneyVC+Animations.swift */; };
 		0CB5A79C24EAA20F00C59536 /* IntMCAndReturnVC+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB5A79B24EAA20F00C59536 /* IntMCAndReturnVC+Animation.swift */; };
@@ -1772,6 +1773,7 @@
 		0C9CD039247E4F49002D1073 /* SelectOtherAdonsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOtherAdonsVM.swift; sourceTree = "<group>"; };
 		0C9D3FE824E2C0EE00238A18 /* SingleJourneyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleJourneyCollectionViewCell.swift; sourceTree = "<group>"; };
 		0C9D3FE924E2C0EE00238A18 /* SingleJourneyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleJourneyCollectionViewCell.xib; sourceTree = "<group>"; };
+		0CACCAC625357DCD00975582 /* flightConfirmation.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flightConfirmation.csv; sourceTree = "<group>"; };
 		0CAD5FE22338B32C0086F58D /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		0CB5A79924EA8C3B00C59536 /* FlightResultSingleJourneyVC+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightResultSingleJourneyVC+Animations.swift"; sourceTree = "<group>"; };
 		0CB5A79B24EAA20F00C59536 /* IntMCAndReturnVC+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IntMCAndReturnVC+Animation.swift"; sourceTree = "<group>"; };
@@ -8214,6 +8216,7 @@
 			isa = PBXGroup;
 			children = (
 				8417772B223F6DF600DAC087 /* hotelsSearch.csv */,
+				0CACCAC625357DCD00975582 /* flightConfirmation.csv */,
 				849F31ED21FF1AC60076BB3D /* profile.csv */,
 				18AAAC2024B4CE3A00025ABF /* flights.csv */,
 				849F31EE21FF1AC60076BB3D /* login.csv */,
@@ -9727,6 +9730,7 @@
 				845452232518B398003539B7 /* dot.json in Resources */,
 				18193A9724A60C310066C518 /* AddonsPassangerCell.xib in Resources */,
 				84DD248A226715530013F77E /* BookingTravellersDetailsTableViewCell.xib in Resources */,
+				0CACCAC725357DCE00975582 /* flightConfirmation.csv in Resources */,
 				841AA53024744F0700B66720 /* HMSegmentedControl.xcconfig in Resources */,
 				187684A522844C2C009637D6 /* BookingInfoEmptyFooterView.xib in Resources */,
 				843FF56524740232001F21B1 /* ArrivalPerformaceVC.xib in Resources */,
@@ -11140,7 +11144,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 168;
+				CURRENT_PROJECT_VERSION = 170;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11349,7 +11353,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 168;
+				CURRENT_PROJECT_VERSION = 170;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;

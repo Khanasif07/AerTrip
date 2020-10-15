@@ -194,12 +194,10 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         if flightSearchResultVM.isIntMCOrReturnJourney {
             ApiProgress.progress = flightSearchResultVM.containsJourneyResuls ? 0 : 0.25
         }
-        
-        ApiProgress.transform = CGAffineTransform(scaleX: 1, y: 0.7)
-        
+                
         backView.addSubview(ApiProgress)
         ApiProgress.snp.makeConstraints { (make) in
-            make.bottom.equalTo(visualEffectView.contentView).offset(0)
+            make.bottom.equalTo(visualEffectView.contentView).offset(-0.4)
             make.width.equalToSuperview()
             make.left.equalToSuperview()
         }
@@ -708,7 +706,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         self.navigationController?.view.viewWithTag(500)?.removeFromSuperview()
         self.navigationController?.view.viewWithTag(2500)?.removeFromSuperview()
         statusBarBlurView.removeFromSuperview()
-        self.navigationController?.viewControllers.removeLast()
+        //self.navigationController?.viewControllers.removeLast()
         self.navigationController?.popViewController(animated: true)
     }
     

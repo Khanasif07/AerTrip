@@ -243,6 +243,17 @@ extension IntMCAndReturnDetailsVC{
 }
 
 extension IntMCAndReturnDetailsVC : flightDetailsPinFlightDelegate{
+    
+    func updateRefundStatusIfPending(fk: String) {
+        
+        if let _ = self.viewModel.internationalDataArray!.firstIndex(where: {$0.fk == fk}){
+
+            self.pinnedDelegate?.updateRefundStatusIfPending(fk: fk)
+            
+        }
+        
+    }
+    
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool, isPinnedButtonClicked: Bool) {
         guard self.viewModel.internationalDataArray != nil else {return}
         if let index = self.viewModel.internationalDataArray!.firstIndex(where: {$0.fk == fk}){

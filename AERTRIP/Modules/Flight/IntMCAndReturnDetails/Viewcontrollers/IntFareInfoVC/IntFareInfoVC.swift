@@ -181,7 +181,6 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
-        
             return UITableView.automaticDimension
     }
     
@@ -225,8 +224,6 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                     if currentParsedResponse.success == true{
                         self.updatedFareInfo = IntFlightFareInfoResponse(json)
                         self.showAccordingTolegs = (self.updatedFareInfo?.updatedFareInfo.first?.cp.details.spcFee["ADT"]?.feeDetail.values.count == self.journey.first?.legsWithDetail.count)
-                        
-                        
                         
                         let num = 0.75/Float(self.journey.count)
                         self.progressBar.progress = Float(num+self.progressBar.progress)
@@ -455,14 +452,15 @@ extension IntFareInfoVC{
 
                     
                 }else{
-                    if progressBar.isHidden{
+//                    if progressBar.isHidden{
                         fareInfoCell.isNoInfoViewVisible = true
                         fareInfoCell.combineFareTableView.isHidden = true
                         fareInfoCell.noInfoView.isHidden = false
-                    }else{
-                        fareInfoCell.isNoInfoViewVisible = false
-                        fareInfoCell.noInfoView.isHidden = true
-                    }
+//                    }else{
+//                        fareInfoCell.isNoInfoViewVisible = false
+//                        fareInfoCell.combineFareTableView.isHidden = false
+//                        fareInfoCell.noInfoView.isHidden = true
+//                    }
                 }
             }else{
                 fareInfoCell.withApi = false
@@ -488,7 +486,18 @@ extension IntFareInfoVC{
         fareInfoCell.layoutSubviews()
         fareInfoCell.layoutIfNeeded()
         let height = fareInfoCell.combineFareTableView.contentSize.height
-        fareInfoCell.tableViewHeight.constant = (height < 150) ? 150 : height
+        if (fareInfoCell.isNoInfoViewVisible){
+            fareInfoCell.setConstraint(isHidden: false)
+            fareInfoCell.tableViewHeight.constant = (height < 170) ? 170 : height
+            
+        }else{
+            fareInfoCell.setConstraint(isHidden: true)
+            if height < 20{
+                fareInfoCell.tableViewHeight.constant = 0
+            }else{
+                fareInfoCell.tableViewHeight.constant = height
+            }
+        }
         fareInfoCell.layoutSubviews()
         fareInfoCell.layoutIfNeeded()
         fareInfoCell.combineFareTableView.reloadData()
@@ -702,7 +711,18 @@ extension IntFareInfoVC{
         fareInfoCell.layoutSubviews()
         fareInfoCell.layoutIfNeeded()
         let height = (fareInfoCell.combineFareTableView.contentSize.height)
-        fareInfoCell.tableViewHeight.constant = (height < 150) ? 150 : height
+        if (fareInfoCell.isNoInfoViewVisible){
+            fareInfoCell.setConstraint(isHidden: false)
+            fareInfoCell.tableViewHeight.constant = (height < 170) ? 170 : height
+            
+        }else{
+            if height < 20{
+                fareInfoCell.tableViewHeight.constant = 0
+            }else{
+                fareInfoCell.tableViewHeight.constant = height
+            }
+            fareInfoCell.setConstraint(isHidden: true)
+        }
         fareInfoCell.layoutSubviews()
         fareInfoCell.layoutIfNeeded()
         fareInfoCell.combineFareTableView.reloadData()

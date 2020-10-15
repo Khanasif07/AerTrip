@@ -55,6 +55,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         flightInfoTableView.sectionFooterHeight = .zero
         flightInfoTableViewBottom.constant = 0.0
+        self.flightInfoTableView.contentInset = UIEdgeInsets(top: -0.5, left: 0, bottom: 0, right: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -504,16 +505,16 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                         cell.bottomSeperatorView.isHidden = true
                     }
                     
-                    if indexPath.section == 0 && indexPath.row == 0{
-                        cell.topSeperatorViewHeight.constant = 0
-                        cell.topSeperatorView.isHidden = true
-                    }else if tableView.numberOfRows(inSection: indexPath.section) > 1{
-                        cell.topSeperatorView.isHidden = !(indexPath.row == 0)
-                        cell.topSeperatorViewHeight.constant = (indexPath.row == 0) ? 0.5 : 0
-                    }else{
+//                    if indexPath.section == 0 && indexPath.row == 0{
+//                        cell.topSeperatorViewHeight.constant = 0
+//                        cell.topSeperatorView.isHidden = true
+//                    }else if tableView.numberOfRows(inSection: indexPath.section) > 1{
+//                        cell.topSeperatorView.isHidden = !(indexPath.row == 0)
+//                        cell.topSeperatorViewHeight.constant = (indexPath.row == 0) ? 0.5 : 0
+//                    }else{
                         cell.topSeperatorViewHeight.constant = 0.5
                         cell.topSeperatorView.isHidden = false
-                    }
+//                    }
                     return cell
                 }else{
                     let layoverCell = tableView.dequeueReusableCell(withIdentifier: "LayoverViewCell") as! LayoverViewTableViewCell
@@ -569,19 +570,19 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     //MARK:- Scrollview Delegate
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
-        var isHidden = false
-        var viewHeight = 0.0
-        if scrollView.contentOffset.y < 0{
-            isHidden = false
-            viewHeight = 0.5
-        }else{
-            isHidden = true
-            viewHeight = 0
-        }
-        if let cell = flightInfoTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? FlightDetailsTableViewCell {
-            cell.topSeperatorView.isHidden = isHidden
-            cell.topSeperatorViewHeight.constant = CGFloat(viewHeight)
-        }
+//        var isHidden = false
+//        var viewHeight = 0.0
+//        if scrollView.contentOffset.y < 0{
+//            isHidden = false
+//            viewHeight = 0.5
+//        }else{
+//            isHidden = true
+//            viewHeight = 0
+//        }
+//        if let cell = flightInfoTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? FlightDetailsTableViewCell {
+//            cell.topSeperatorView.isHidden = isHidden
+//            cell.topSeperatorViewHeight.constant = CGFloat(viewHeight)
+//        }
     }
     
     //MARK:- Calculate Travelling Time

@@ -128,7 +128,10 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         UIView.appearance().semanticContentAttribute = LanguageEnum.isLanguageEnglish ? .forceLeftToRight : .forceRightToLeft
 
         if let nav = self.navigationController {
+            //nav.isNavigationBarHidden = true
             nav.isNavigationBarHidden = true
+            nav.navigationBar.isHidden = true
+            nav.setNavigationBarHidden(true, animated: false)
         }
     }
 

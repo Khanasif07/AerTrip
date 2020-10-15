@@ -252,15 +252,28 @@ extension FlightDomesticMultiLegResultVC {
         
         let height : CGFloat
         if headerView.isHidden {
-            height = 138.0
+            height = 0.0//138.0
         }
         else {
-            height = 188.0
+            height = 44.0//188.0
         }
+        
+//        tableView.contentInset = UIEdgeInsets(top: height, left: 0, bottom: 0, right: 0)
+        
 //        guard !((tableView.tableHeaderView?.height) == height) else {return}
-        let rect = CGRect(x: 0, y: 0, width: width, height: height )
-        let tableHeaderView = UIView(frame: rect)
-        tableView.tableHeaderView = tableHeaderView
+//        let rect = CGRect(x: 0, y: 0, width: width, height: height )
+//        let tableHeaderView = UIView(frame: rect)
+//        tableView.tableHeaderView = tableHeaderView
+        
+        if  (height != initialHeader) || (!self.isSettingupHeader){
+            self.isSettingupHeader = true
+            self.initialHeader = height
+            UIView.animate(withDuration: 0.1, animations: {
+                tableView.contentInset = UIEdgeInsets(top: height, left: 0, bottom: 0, right: 0)
+            }) { (_) in
+                self.isSettingupHeader = false
+            }
+        }
     }
                
 
@@ -389,15 +402,6 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
         if !scrollView.isScrollEnabled{
             return
         }
-//        let diff = scrollviewInitialYOffset - scrollView.contentOffset.y
-//        if scrollView.tag > 999{
-//            if (diff < 0 && self.baseScrollView.contentOffset.y < 88) || (diff > 0 && self.baseScrollView.contentOffset.y > 0){
-//                self.baseScrollView.contentOffset.y = (diff * -1)
-//                self.changeContentOfssetWithMainScrollView()
-//                return
-//            }
-//        }
-        
         if scrollView == baseScrollView {
             self.syncScrollView(headerCollectionView, toScrollView: baseScrollView)
             if scrollView.contentOffset.y > 88.0{
@@ -417,6 +421,7 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
                     animateTopViewOnScroll(scrollView)
                     if let tableView = scrollView as? UITableView {
                         animateJourneyCompactView(for: tableView)
+                        self.setTableViewHeaderFor(tableView: tableView)
                     }
                 }
                 else {
@@ -536,11 +541,11 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         if let tableView = scrollView as? UITableView{
             delay(seconds: 0.4) {
-//                self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
-//                self.setAllTableViewHeader()
-                UIView.animate(withDuration: 0.3) {
-//                    self.baseScrollView.contentOffset.y = 0.0
-                }
+                self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
+                self.setAllTableViewHeader()
+//                UIView.animate(withDuration: 0.3) {
+////                    self.baseScrollView.contentOffset.y = 0.0
+//                }
             }
         }
 //        else if scrollView == self.baseScrollView{
@@ -579,8 +584,8 @@ extension FlightDomesticMultiLegResultVC{
 
     public func isRowCompletelyVisible(at indexPath: IndexPath, for tableView: UITableView) -> Bool {
         let rect = tableView.rectForRow(at: indexPath)
-        let rectWithRespectToView = tableView.convert(rect, from: self.view)
-        printDebug("rectWithRespectToView\(rectWithRespectToView)")
+//        let rectWithRespectToView = tableView.convert(rect, from: self.view)
+//        printDebug("rectWithRespectToView\(rectWithRespectToView)")
         return self.boundsWithoutInset(for: tableView).intersects(rect)
     }
     

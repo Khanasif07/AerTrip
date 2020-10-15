@@ -8,6 +8,7 @@
 
 protocol flightDetailsPinFlightDelegate : AnyObject {
     func reloadRowFromFlightDetails(fk:String,isPinned:Bool,isPinnedButtonClicked:Bool)
+    func updateRefundStatusIfPending(fk:String)
 }
 
 //protocol flightInfoViewDisplayDelegate:AnyObject {
@@ -32,8 +33,8 @@ import UIKit
 //import HMSegmentedControl
 import Parchment
 
-class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupVCDelegate, flightDetailsBaggageDelegate, getBaggageDimentionsDelegate, getFareRulesDelegate, getSharableUrlDelegate, getArrivalPerformanceDelegate
-{
+
+class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupVCDelegate, flightDetailsBaggageDelegate, getBaggageDimentionsDelegate, getFareRulesDelegate, getSharableUrlDelegate, getArrivalPerformanceDelegate {
     
     //MARK:- Outlets
     @IBOutlet weak var blurView: UIView!
@@ -99,6 +100,8 @@ class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupV
     
     let getSharableLink = GetSharableUrl()
     
+    private var parchmentLoaded = false
+    
     //MARK:- Initial Display
     
     override func viewDidLoad()
@@ -147,9 +150,12 @@ class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupV
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.parchmentView?.view.frame = self.displayView.bounds
-        self.parchmentView?.view.frame.size.height = self.dataDisplayView.height - innerControllerBottomConstraint
-        self.parchmentView?.loadViewIfNeeded()
+        if !parchmentLoaded {
+            parchmentLoaded = true
+            self.parchmentView?.view.frame = self.displayView.bounds
+            self.parchmentView?.view.frame.size.height = self.dataDisplayView.height - innerControllerBottomConstraint
+            self.parchmentView?.loadViewIfNeeded()
+        }
     }
     
     //MARK:- Initialise Views
@@ -299,9 +305,9 @@ class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupV
         return fareInfoVc
     }
     
-    
-
-    
+    func updateRefundStatusIfPending() {
+        self.delegate?.updateRefundStatusIfPending(fk: journey.first!.fk)
+    }
     
     func reloadSmartIconsAtIndexPath() {
         self.delegate?.reloadRowFromFlightDetails(fk: journey.first!.fk, isPinned: false, isPinnedButtonClicked:false)
@@ -515,18 +521,20 @@ class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupV
     func pushToPassenserSelectionVC(_ vc: PassengersSelectionVC){
         self.presentedViewController?.dismiss(animated: false, completion: nil)
         self.view.isUserInteractionEnabled = false
+        (UIApplication.shared.delegate as? AppDelegate)?.window?.isUserInteractionEnabled = false
         self.viewModel.fetchConfirmationData(){[weak self] success, errorCodes in
             guard let self = self else {return}
             self.view.isUserInteractionEnabled = true
+            (UIApplication.shared.delegate as? AppDelegate)?.window?.isUserInteractionEnabled = true
+            if #available(iOS 13.0, *) {
+                self.isModalInPresentation = false
+            }
             if self.viewModel.journeyType == .domestic || self.intJourney == nil{
                 self.fareBreakup?.hideShowLoader(isHidden: true)
             }else{
                 self.intFareBreakup?.hideShowLoader(isHidden: true)
             }
             if success{
-                if #available(iOS 13.0, *) {
-                    self.isModalInPresentation = false
-                }
                 DispatchQueue.main.async{[weak self] in
                     guard let self = self else {return}
                     vc.viewModel.newItineraryData = self.viewModel.itineraryData
@@ -544,7 +552,7 @@ class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupV
                     }
                 }
             }else{
-                AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .flights)
+                AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .flightConfirmation)
             }
         }
     }

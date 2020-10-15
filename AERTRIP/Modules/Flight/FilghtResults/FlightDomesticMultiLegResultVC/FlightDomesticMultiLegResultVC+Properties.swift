@@ -73,6 +73,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     let getSharableLink = GetSharableUrl()
     var previousRequest : [DispatchWorkItem?] = []
     var isNeedToUpdateLayout = true
+    var initialHeader:CGFloat = 138.0
     var isHiddingHeader = false
     var isSettingupHeader = false
 
@@ -128,8 +129,9 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         ApiProgress.trackTintColor = .clear
         ApiProgress.progress = 0.25
         
-        ApiProgress.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 10.0)
-        ApiProgress.transform = CGAffineTransform(scaleX: 1, y: 0.8)
+        ApiProgress.transform = CGAffineTransform(scaleX: 1, y: 0.3)
+        ApiProgress.frame = CGRect(x: -2, y: 0, width: UIScreen.main.bounds.size.width, height: 0.5)
+
         self.collectionContainerView.addSubview(ApiProgress)
         getSharableLink.delegate = self
         self.viewModel.setSharedFks()
@@ -158,6 +160,10 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
             frame.size.height = height
             view.frame = frame
         }
+    }
+    
+    deinit {
+        self.fareBreakupVC?.view.removeFromSuperview()
     }
     
     //MARK:- Additional UI Methods

@@ -198,6 +198,7 @@ extension FlightDomesticMultiLegResultVC {
         if self.navigationController?.view.viewWithTag(5100) == nil{
             self.navigationController?.view.addSubview(testView)
         }
+
         let fareBreakupVC = FareBreakupVC(nibName: "FareBreakupVC", bundle: nil)
         fareBreakupVC.taxesResult = self.viewModel.taxesResult
         fareBreakupVC.journey = self.viewModel.getSelectedJourneyForAllLegs()
@@ -206,7 +207,7 @@ extension FlightDomesticMultiLegResultVC {
         fareBreakupVC.flightAdultCount = bookFlightObject.flightAdultCount
         fareBreakupVC.flightChildrenCount = bookFlightObject.flightChildrenCount
         fareBreakupVC.flightInfantCount = bookFlightObject.flightInfantCount
-        fareBreakupVC.view.autoresizingMask = []
+        fareBreakupVC.view.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleBottomMargin]
         fareBreakupVC.delegate = self
         fareBreakupVC.view.tag = 2500
         fareBreakupVC.modalPresentationStyle = .overCurrentContext
@@ -235,17 +236,18 @@ extension FlightDomesticMultiLegResultVC {
             fareBreakupVC.fewSeatsLeftViewHeightFromFlightDetails = 0
             self.viewModel.isFewSeatsLeft = false
         }
-        
         let ts = CATransition()
         ts.type = .moveIn
         ts.subtype = .fromTop
         ts.duration = 0.4
         ts.timingFunction = .init(name: CAMediaTimingFunctionName.easeOut)
         fareBreakupVC.view.layer.add(ts, forKey: nil)
-        self.navigationController?.view.addSubview(fareBreakupVC.view)
-        self.navigationController?.addChild(fareBreakupVC)
-        fareBreakupVC.didMove(toParent: self.navigationController)
-        
+        //self.navigationController?.view.addSubview(fareBreakupVC.view)
+        //self.navigationController?.addChild(fareBreakupVC)
+        //fareBreakupVC.didMove(toParent: self.navigationController)
+        if let parent = self.parent {
+            parent.view.addSubview(fareBreakupVC.view)
+        }
         self.fareBreakupVC = fareBreakupVC
     }
     
@@ -414,8 +416,18 @@ extension FlightDomesticMultiLegResultVC {
     
 }
 
-extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetailsPinFlightDelegate
-{
+extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetailsPinFlightDelegate {
+    
+    func updateRefundStatusIfPending(fk: String) {
+        
+        for index in 0 ..< self.viewModel.numberOfLegs {
+            if let tableView = baseScrollView.viewWithTag( 1000 + index ) as? UITableView {
+                tableView.reloadData()
+            }
+        }
+        
+    }
+    
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool, isPinnedButtonClicked: Bool) {
         for index in 0 ..< self.viewModel.numberOfLegs {
                    
@@ -442,6 +454,7 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
         
         if isViewExpanded == true{
             testView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            self.navigationController?.view.addSubview(fareBreakupVC!.view)
             
             UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
                 self.testView.backgroundColor = UIColor(displayP3Red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 0.2)
@@ -451,6 +464,9 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
                 self.testView.backgroundColor = UIColor(displayP3Red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 0.0)
             },completion: { _ in
                 self.testView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+                if let parent = self.parent {
+                    parent.view.addSubview(self.fareBreakupVC!.view)
+                }
             })
         }
     }
