@@ -90,7 +90,6 @@ class BaggageContainerVM {
                         vc.selectBaggageVM.getCurrentFlightKey() == flight.flightId
                     }) {
                         
-                        
                         allChildVCs[calculatedVcIndex].selectBaggageVM.addonsDetails.addonsArray.enumerated().forEach { (baggageInd,bag) in
                         contacts.forEach { (contact) in
                             if let contIndex = allChildVCs[calculatedVcIndex].selectBaggageVM.addonsDetails.addonsArray[baggageInd].bagageSelectedFor.lastIndex(where: { (cont) -> Bool in

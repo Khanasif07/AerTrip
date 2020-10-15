@@ -54,7 +54,7 @@ class SelectOtherAdonsVC: UIViewController {
         self.specialRequestTextView.text = ""
         self.clearButton.isHidden = true
         self.otherAdonsVm.specialRequest = ""
-        self.delegate?.specialRequestUpdated()
+        self.delegate?.specialRequestUpdated(txt: "", currentFk: otherAdonsVm.getCurrentFlightKey(), vcIndex: otherAdonsVm.getVcIndex())
 //        self.specialRequestPlaceHolderLabel.isHidden = false
         self.showHideClearButton()
     }
@@ -173,7 +173,7 @@ extension SelectOtherAdonsVC : UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let txt = textView.text else { return }
         self.otherAdonsVm.specialRequest = txt
-        self.delegate?.specialRequestUpdated()
+        self.delegate?.specialRequestUpdated(txt: txt, currentFk: otherAdonsVm.getCurrentFlightKey(), vcIndex: otherAdonsVm.getVcIndex())
     }
     
 }

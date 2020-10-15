@@ -228,7 +228,7 @@ extension MealsContainerVC : SelectMealDelegate {
         
         if allowedPassengers.count == 0 { return }
         
-        if allowedPassengers.count == 1{
+        if allowedPassengers.count == 1 {
             
             let passengersToBeAdded = !selectedContacts.isEmpty ? [] : allowedPassengers
             
@@ -243,7 +243,7 @@ extension MealsContainerVC : SelectMealDelegate {
                     vc.selectPassengersVM.setupFor = .meals
                     vc.selectPassengersVM.currentFlightKey = currentFlightKey
                     vc.selectPassengersVM.freeMeal = self.mealsContainerVM.allChildVCs[vcIndex].selectMealsVM.freeMeal
-                    vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
+                    vc.selectPassengersVM.contactsComplition = { [weak self] (contacts) in
                     guard let weakSelf = self else { return }
                     weakSelf.mealsContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: contacts)
                         weakSelf.calculateTotalAmount()

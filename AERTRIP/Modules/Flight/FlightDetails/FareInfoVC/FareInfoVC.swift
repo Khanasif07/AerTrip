@@ -458,6 +458,11 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                             let rfd = currentParsedResponse.data.first?.value.rfd ?? 0
                             let rsc = currentParsedResponse.data.first?.value.rsc ?? 0
                             printDebug("\(fk)  \(rfd)   \(rsc)")
+                            
+                            self.journey[i].rfdPlcy.rfd.keys.forEach { (key) in
+                                self.journey[i].rfdPlcy.rfd[key] = rfd
+                            }
+                            
                             self.delegate?.updateRefundStatusIfPending()
 //                            self.delegate?.reloadSmartIconsAtIndexPath()
                         }

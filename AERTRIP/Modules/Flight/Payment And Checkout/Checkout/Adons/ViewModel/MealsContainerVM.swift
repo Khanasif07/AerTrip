@@ -64,6 +64,7 @@ class MealsContainerVM {
         
         if self.checkIfReadOnlyValuesAreDifferent(flights: flightsWithCurrentAddon, forAdon: forAdon) {
             flightsToModify = flightsWithCurrentAddon
+           
             flightsToModify.forEach { (flight) in
                 
                 if let calculatedVcIndex = self.allChildVCs.firstIndex(where: { (vc) -> Bool in

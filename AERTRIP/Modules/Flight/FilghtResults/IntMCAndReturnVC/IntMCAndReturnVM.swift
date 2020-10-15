@@ -313,6 +313,12 @@ extension IntMCAndReturnVM{
                     
                     self.results.journeyArray[index].journeyArray[jourInd].legsWithDetail[legInd].fcp = 0
                     
+                    self.results.journeyArray[index].journeyArray[jourInd].rfdPlcy.rfd.keys.forEach { (key) in
+                        
+                        self.results.journeyArray[index].journeyArray[jourInd].rfdPlcy.rfd[key] = rfd
+                        
+                    }
+                    
                 }
             }
             
@@ -329,6 +335,11 @@ extension IntMCAndReturnVM{
                     
                     self.results.journeyArray[index].journeyArray[jourInd].legsWithDetail[legInd].fcp = 0
                     
+                    self.results.journeyArray[index].journeyArray[jourInd].rfdPlcy.rfd.keys.forEach { (key) in
+                            
+                            self.results.journeyArray[index].journeyArray[jourInd].rfdPlcy.rfd[key] = rfd
+                            
+                        }
                 }
             }
             
@@ -344,6 +355,11 @@ extension IntMCAndReturnVM{
                     
                     self.results.journeyArray[index].journeyArray[jourInd].legsWithDetail[legInd].fcp = 0
                     
+                    self.results.journeyArray[index].journeyArray[jourInd].rfdPlcy.rfd.keys.forEach { (key) in
+                            
+                            self.results.journeyArray[index].journeyArray[jourInd].rfdPlcy.rfd[key] = rfd
+                            
+                        }
                 }
             }
             
@@ -358,6 +374,11 @@ extension IntMCAndReturnVM{
                 self.results.pinnedFlights[jourInd].legsWithDetail.enumerated().forEach { (legInd, leg) in
                 self.results.pinnedFlights[jourInd].legsWithDetail[legInd].fcp = 0
                             
+                    self.results.pinnedFlights[jourInd].rfdPlcy.rfd.keys.forEach { (key) in
+                            
+                            self.results.pinnedFlights[jourInd].rfdPlcy.rfd[key] = rfd
+                            
+                        }
             }
          }
         
@@ -367,13 +388,18 @@ extension IntMCAndReturnVM{
              
              }){
              
-                 self.results.pinnedFlights[jourInd].legsWithDetail.enumerated().forEach { (legInd, leg) in
-                 self.results.pinnedFlights[jourInd].legsWithDetail[legInd].fcp = 0
+                 self.results.currentPinnedJourneys[jourInd].legsWithDetail.enumerated().forEach { (legInd, leg) in
+                 self.results.currentPinnedJourneys[jourInd].legsWithDetail[legInd].fcp = 0
                              
+                     self.results.currentPinnedJourneys[jourInd].rfdPlcy.rfd.keys.forEach { (key) in
+                                        
+                        self.results.currentPinnedJourneys[jourInd].rfdPlcy.rfd[key] = rfd
+                                        
+                 }
              }
-          }
         
-    
+        }
+        
     }
     
     

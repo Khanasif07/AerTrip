@@ -30,7 +30,7 @@ public class Journey: Codable , Equatable {
     let displaySeat : Bool
     var fare : Taxes
 //    let rfd : Int
-    let rfdPlcy:refundPolicyStruct
+    var rfdPlcy:refundPolicyStruct
 //    let rsc : Int
     let dt : String
     let at : String
