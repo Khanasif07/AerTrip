@@ -102,8 +102,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         indicator.color = AppColors.themeGreen
     }
     
-    private func addIndicator()
-    {
+    private func addIndicator() {
         isIndicatorHidden = false
         indicator.frame = CGRect(x: 0, y: 200, width: 40, height: 40)
         indicator.center.x = self.view.center.x

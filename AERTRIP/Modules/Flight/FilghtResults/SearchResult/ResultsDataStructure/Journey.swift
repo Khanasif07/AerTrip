@@ -335,7 +335,6 @@ public class Journey: Codable , Equatable {
         return false
     }
     
-        
     
     var baggageSuperScript : NSAttributedString? {
         
@@ -360,7 +359,7 @@ public class Journey: Codable , Equatable {
             return attributedSuperScript
         }
         
-
+        
         if baggageArray.allSatisfy({ $0 == firstValue }) {
             
             let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
@@ -376,9 +375,6 @@ public class Journey: Codable , Equatable {
                                 let numbers = pieces.components(separatedBy: " ")
                                 attributedSuperScript = NSAttributedString(string:numbers.first! + "P" , attributes: attributes)
                                 return attributedSuperScript
-                            } else {
-                                attributedSuperScript = NSAttributedString(string: pieces + "P" , attributes: attributes)
-                                return attributedSuperScript
                     }
                 }
                 
@@ -389,6 +385,7 @@ public class Journey: Codable , Equatable {
                         attributedSuperScript = NSAttributedString(string:numbers.first!, attributes: attributes)
                         return attributedSuperScript
                     }
+                    
                 }
                 
         

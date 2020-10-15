@@ -415,7 +415,7 @@ struct IntMultiCityAndReturnWSResponse {
                 
                 var logoArray = [ String]()
                 
-                if coa >= 1 { logoArray.append("redchangeAirport") }
+                if coa > 0 { logoArray.append("redchangeAirport") }
                             
                 if let changeOfflightClass = fcc {
                     
@@ -431,6 +431,7 @@ struct IntMultiCityAndReturnWSResponse {
                     default :
                         break
                     }
+                    
                 }
                 
                 if fsr > 0 {
