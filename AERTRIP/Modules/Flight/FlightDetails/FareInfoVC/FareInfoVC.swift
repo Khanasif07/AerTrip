@@ -437,7 +437,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
+
             DispatchQueue.main.async {
                 if let currentParsedResponse = parse(data: data, into: updatedFareInfoStruct.self, with:decoder) {
                     
@@ -455,6 +455,9 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                         
                         if self.journey[i].smartIconArray.contains("refundStatusPending"){
                             self.journey[i].leg[0].fcp = 0
+                            let rfd = currentParsedResponse.data.first?.value.rfd ?? 0
+                            let rsc = currentParsedResponse.data.first?.value.rsc ?? 0
+                            printDebug("\(fk)  \(rfd)   \(rsc)")
                             self.delegate?.updateRefundStatusIfPending()
 //                            self.delegate?.reloadSmartIconsAtIndexPath()
                         }

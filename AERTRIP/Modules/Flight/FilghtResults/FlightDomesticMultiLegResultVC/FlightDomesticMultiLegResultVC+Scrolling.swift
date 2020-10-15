@@ -428,8 +428,13 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
         if scrollView != self.baseScrollView{
             if let tableView = scrollView as? UITableView{
-                if let index = self.getSelectedIndex(for: tableView), index < 5{
-                    tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                if let index = self.getSelectedIndex(for: tableView){
+                    if index < 5{
+                        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                    }else{
+                        tableView.contentInset = UIEdgeInsets(top: 44.0, left: 0, bottom: 0, right: 0)
+                    }
+                    
                 }
                 tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .middle, animated: true)
             }
@@ -487,18 +492,11 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
                 if !scrollView.isBouncingBottom{
                     snapToTopOrBottomOnSlowScrollDragging(scrollView)
                 }
-//                if (scrollView.contentOffset.y == 0 && self.baseScrollView.contentOffset.y != 0){
-//                    self.baseScrollView.contentOffset.y = 0.0
-//                    self.setAllTableViewHeader()
-//                }
                 return
             }
         }
         else{
             if scrollView == self.baseScrollView && scrollView.contentOffset.y < 88.0{
-//                if scrollView.contentOffset.y == 0 || scrollView.contentOffset.y == 88.0{
-//                    self.setAllTableViewHeader()
-//                }
                 if scrollView.contentOffset.y < 44{
                     scrollView.contentOffset.y = 0.0
                 }else{
@@ -535,24 +533,15 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         if let tableView = scrollView as? UITableView{
-            delay(seconds: 0.4) {
+            delay(seconds: 0.2) {
                 self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
                 self.setAllTableViewHeader()
-//                UIView.animate(withDuration: 0.3) {
-////                    self.baseScrollView.contentOffset.y = 0.0
-//                }
             }
         }
-//        else if scrollView == self.baseScrollView{
-//            setAllTableViewHeader()
-//        }
     }
     
     func setAllTableViewHeader(){
-//        guard !isSettingupHeader else {return}
-//        isSettingupHeader  = true
         delay(seconds: 0.2) {
-//            self.isSettingupHeader  = false
             for subView in self.baseScrollView.subviews{
                 if let tableView = subView as? UITableView{
                     DispatchQueue.main.async {
