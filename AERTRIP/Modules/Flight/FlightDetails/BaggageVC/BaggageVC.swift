@@ -436,6 +436,8 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
         {
             let image = UIImage(data: responseObj.data)
             imageView.image = image
+        }else{
+            imageView.setImageWithUrl(urlPath, placeholder: UIImage(), showIndicator: false)
         }
     }
     
