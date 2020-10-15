@@ -164,11 +164,20 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                                 }
                                 
                                 
-                                if weight != "" && max_pieces != ""{
+                                if weight != "" && max_pieces != ""
+                                {
                                     isAdultBaggageWithPiece = true
-                                    adultBaggage = "Max \(max_pieces) pieces can be carried weighing total \(weight)"
+                                    var pc = ""
+                                    if max_pieces.contains(find: " "){
+                                        let pieces = max_pieces.components(separatedBy: " ")
+                                        if pieces.count > 0{
+                                            pc = pieces[0]
+                                        }
+                                    }
+
+                                    adultBaggage = "Max \(pc) pieces can be carried weighing total \(weight)"
                                     
-                                    let str = "\(weight) : Max \(max_pieces) pieces can be carried weighing total \(weight)"
+                                    let str = "\(weight) : Max \(pc) pieces can be carried weighing total \(weight)"
                                     if !attStringArray.contains(str){
                                         attStringArray.append(str)
                                         if combineString != ""{
@@ -205,9 +214,18 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                                 
                                 if weight != "0 Kg" && weight != "" && weight != "-9" && max_pieces != ""{
                                     isChildBaggageWithPiece = true
-                                    childBaggage = "Max \(max_pieces) pieces can be carried weighing total \(weight)"
                                     
-                                    let str = "\(weight) : Max \(max_pieces) pieces can be carried weighing total \(weight)"
+                                    var pc = ""
+                                    if max_pieces.contains(find: " "){
+                                        let pieces = max_pieces.components(separatedBy: " ")
+                                        if pieces.count > 0{
+                                            pc = pieces[0]
+                                        }
+                                    }
+                                    
+                                    childBaggage = "Max \(pc) pieces can be carried weighing total \(weight)"
+                                    
+                                    let str = "\(weight) : Max \(pc) pieces can be carried weighing total \(weight)"
                                     if !attStringArray.contains(str){
                                         attStringArray.append(str)
                                         if combineString != ""{
@@ -247,9 +265,18 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                                 
                                 if weight != "0 Kg" && weight != "" && weight != "-9" && max_pieces != ""{
                                     isChildBaggageWithPiece = true
-                                    childBaggage = "Max \(max_pieces) pieces can be carried weighing total \(weight)"
                                     
-                                    let str = "\(weight) : Max \(max_pieces) pieces can be carried weighing total \(weight)"
+                                    var pc = ""
+                                    if max_pieces.contains(find: " "){
+                                        let pieces = max_pieces.components(separatedBy: " ")
+                                        if pieces.count > 0{
+                                            pc = pieces[0]
+                                        }
+                                    }
+                                    
+                                    childBaggage = "Max \(pc) pieces can be carried weighing total \(weight)"
+                                    
+                                    let str = "\(weight) : Max \(pc) pieces can be carried weighing total \(weight)"
                                     if !attStringArray.contains(str){
                                         attStringArray.append(str)
                                         if combineString != ""{
@@ -288,10 +315,18 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                                 if weight != "" && max_pieces != "" && weight != "0 kg"{
                                     
                                     isInfantBaggageWithPiece = true
-                                    infantBaggage = "Max \(max_pieces) pieces can be carried weighing total \(weight)"
+                                    
+                                    var pc = ""
+                                    if max_pieces.contains(find: " "){
+                                        let pieces = max_pieces.components(separatedBy: " ")
+                                        if pieces.count > 0{
+                                            pc = pieces[0]
+                                        }
+                                    }
+                                    infantBaggage = "Max \(pc) pieces can be carried weighing total \(weight)"
 
                                     
-                                    let str = "\(weight) : Max \(max_pieces) pieces can be carried weighing total \(weight)"
+                                    let str = "\(weight) : Max \(pc) pieces can be carried weighing total \(weight)"
                                     if !attStringArray.contains(str){
                                         attStringArray.append(str)
                                         if combineString != ""{
