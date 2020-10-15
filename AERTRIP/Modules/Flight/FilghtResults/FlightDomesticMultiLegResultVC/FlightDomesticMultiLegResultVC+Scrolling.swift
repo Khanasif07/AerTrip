@@ -75,15 +75,7 @@ extension FlightDomesticMultiLegResultVC {
             } ,completion: nil)//{_ in self.setAllTableViewHeader()}
         }
     }
-    
-    func changeAllTableScrolling(enable: Bool){
-        
-//        for views in self.baseScrollView.subviews{
-//            if views as? UITableView
-//        }
-        
-    }
-    
+
     func animateTopViewOnScroll(_ scrollView: UIScrollView) {
         
         let contentOffset = scrollView.contentOffset
@@ -268,7 +260,7 @@ extension FlightDomesticMultiLegResultVC {
         if  (height != initialHeader) || (!self.isSettingupHeader){
             self.isSettingupHeader = true
             self.initialHeader = height
-            UIView.animate(withDuration: 0.1, animations: {
+            UIView.animate(withDuration: 0.05, animations: {
                 tableView.contentInset = UIEdgeInsets(top: height, left: 0, bottom: 0, right: 0)
             }) { (_) in
                 self.isSettingupHeader = false
@@ -436,6 +428,9 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
         if scrollView != self.baseScrollView{
             if let tableView = scrollView as? UITableView{
+                if let index = self.getSelectedIndex(for: tableView), index < 5{
+                    tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                }
                 tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .middle, animated: true)
             }
         }
@@ -492,10 +487,10 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
                 if !scrollView.isBouncingBottom{
                     snapToTopOrBottomOnSlowScrollDragging(scrollView)
                 }
-                if (scrollView.contentOffset.y == 0 && self.baseScrollView.contentOffset.y != 0){
+//                if (scrollView.contentOffset.y == 0 && self.baseScrollView.contentOffset.y != 0){
 //                    self.baseScrollView.contentOffset.y = 0.0
 //                    self.setAllTableViewHeader()
-                }
+//                }
                 return
             }
         }

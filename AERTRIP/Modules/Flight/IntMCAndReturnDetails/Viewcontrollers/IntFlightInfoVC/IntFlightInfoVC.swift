@@ -505,6 +505,16 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                         cell.bottomSeperatorView.isHidden = true
                     }
                     
+                    if indexPath.row == 0{
+                        cell.topSeperatorViewHeight.constant = 0.5
+                        cell.topSeperatorView.isHidden = false
+
+                    }else{
+                        cell.topSeperatorViewHeight.constant = 0
+                        cell.topSeperatorView.isHidden = true
+
+                    }
+                    
 //                    if indexPath.section == 0 && indexPath.row == 0{
 //                        cell.topSeperatorViewHeight.constant = 0
 //                        cell.topSeperatorView.isHidden = true
@@ -512,8 +522,8 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 //                        cell.topSeperatorView.isHidden = !(indexPath.row == 0)
 //                        cell.topSeperatorViewHeight.constant = (indexPath.row == 0) ? 0.5 : 0
 //                    }else{
-                        cell.topSeperatorViewHeight.constant = 0.5
-                        cell.topSeperatorView.isHidden = false
+//                        cell.topSeperatorViewHeight.constant = 0.5
+//                        cell.topSeperatorView.isHidden = false
 //                    }
                     return cell
                 }else{
