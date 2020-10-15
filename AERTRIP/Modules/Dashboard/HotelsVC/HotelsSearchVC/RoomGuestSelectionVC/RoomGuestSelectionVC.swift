@@ -438,11 +438,11 @@ extension RoomGuestSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if #available(iOS 14.0, *) {} else {
+//        if #available(iOS 14.0, *) {} else {
         pickerView.subviews.forEach({
             $0.isHidden = $0.frame.height < 1.0
         })
-        }
+//        }
         return 13
     }
     
