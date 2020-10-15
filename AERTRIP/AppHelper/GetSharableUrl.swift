@@ -227,7 +227,7 @@ class GetSharableUrl
         
         print("postData=", String(data: postData!, encoding: .utf8)!)
 
-        print("request= ",request)
+        print("request= ",request.allHTTPHeaderFields)
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {

@@ -45,11 +45,6 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     
     //MARK:- Variable Declaration
     weak var delegate : flightDetailsBaggageDelegate?
-
-    
-    // Monika
-    
-//    var flightInfoDelegate : flightInfoViewDisplayDelegate?
     
     var arrivalPerformanceDelegate : getArrivalPerformanceDelegate?
     

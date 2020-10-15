@@ -268,20 +268,22 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         let flightChildrenCount = viewModel.bookFlightObject.flightChildrenCount
         let flightInfantCount = viewModel.bookFlightObject.flightInfantCount
         let isDomestic = viewModel.bookFlightObject.isDomestic
-        
+
         self.getSharableLink.getUrlForMail(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, sid: viewModel.sid, isInternational: false, journeyArray: self.viewModel.results.pinnedFlights, valString: "", trip_type: "single")
-        
+
     }
-    //    {
-    //
-    //        guard let postData = generatePostDataForEmail(for: self.viewModel.results.pinnedFlights) else { return }
-    //        executeWebServiceForEmail(with: postData as Data, onCompletion:{ (view)  in
-    //
-    //            DispatchQueue.main.async {
-    //                self.showEmailViewController(body : view)
-    //            }
-    //        })
-    //    }
+//    {
+//        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
+//            guard let self = self else {return}
+//            AppFlowManager.default.removeLoginConfirmationScreenFromStack()
+//            self.presentedViewController?.dismiss(animated: false, completion: nil)
+//            guard !isGuest else {
+//
+//                return
+//            }
+//        }
+//    }
+    
     
     func returnEmailView(view: String)
     {

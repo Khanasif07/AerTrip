@@ -334,7 +334,7 @@ class FlightDetailsBaseVC: BaseVC {
                 }
             }
             
-            self.delegate?.reloadRowFromFlightDetails(fk: journey.first!.fk, isPinned: isPinned, isPinnedButtonClicked: true)
+            self.delegate?.reloadRowFromFlightDetails(fk: journey.first?.fk ?? "", isPinned: isPinned, isPinnedButtonClicked: true)
         }else{
             if let journey = self.intJourney?.first{
                 if journey.isPinned{
@@ -630,7 +630,7 @@ extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
 extension FlightDetailsBaseVC : flightDetailsSmartIconsDelegate{
     
     func updateRefundStatusIfPending() {
-        self.delegate?.updateRefundStatusIfPending(fk: journey.first!.fk)
+        self.delegate?.updateRefundStatusIfPending(fk: journey.first?.fk ?? "")
     }
     
     func reloadSmartIconsAtIndexPath() {
