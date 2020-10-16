@@ -168,11 +168,17 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     func toggleSelectedState(hidden: Bool) {
         showSelectedFontOnMenu = !hidden
         if hidden {
-            self.parchmentView?.selectedFont = AppFonts.Regular.withSize(16.0)//AppFonts.SemiBold.withSize(16.0)
-            self.parchmentView?.indicatorColor = .clear//AppColors.themeGreen
+            self.parchmentView?.selectedFont = AppFonts.Regular.withSize(16.0)
+            self.parchmentView?.indicatorColor = .clear
+            
+            // to hide contents of filter children views
+            UIView.animate(withDuration: 0.3) {
+                self.parchmentView?.view.subviews[0].alpha = 0
+            }
         } else {
             self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
             self.parchmentView?.indicatorColor = AppColors.themeGreen
+            self.parchmentView?.view.subviews[0].alpha = 1
         }
         parchmentView?.reloadMenu()
     }
