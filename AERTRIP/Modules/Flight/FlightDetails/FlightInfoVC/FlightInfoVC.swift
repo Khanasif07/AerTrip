@@ -6,8 +6,11 @@
 //  Copyright © 2019 Monika Sonawane. All rights reserved.
 //
 
+
+import Parchment
+
 protocol getSelectedAmenitiesDelegate: class {
-    func getSelectedAmenities(amenitiesData:[String:String], index:Int)
+    func getSelectedAmenities(amenitiesData:[String:String], index:Int, cellIndexPath: IndexPath)
 }
 
 protocol flightDetailsBaggageDelegate : AnyObject {
@@ -662,8 +665,8 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     
     //MARK:- Set Image
     
-    func getSelectedAmenities(amenitiesData: [String : String], index: Int)
-    {
+    func getSelectedAmenities(amenitiesData: [String : String], index: Int, cellIndexPath: IndexPath){
+        (self.parent?.parent as? PagingViewController)?.select(index: 1)
     }
     
     //MARK:- Button Actions

@@ -264,9 +264,9 @@ extension IntMCAndReturnDetailsVC {
                     }
                 }
                 else {
-                    if let tableView = subview as? UIScrollView {
-                        tableView.setContentOffset(tableView.contentOffset, animated: false)
-                    }
+//                    if let tableView = subview as? UIScrollView {
+//                        tableView.setContentOffset(tableView.contentOffset, animated: false)
+//                    }
                 }
             }
         }

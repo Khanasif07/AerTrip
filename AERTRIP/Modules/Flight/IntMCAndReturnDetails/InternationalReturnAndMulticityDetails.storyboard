@@ -578,11 +578,10 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="emK-qS-V6J">
                                 <rect key="frame" x="0.0" y="45" width="414" height="851"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="Kd2-Go-JDi" id="iSc-aR-eNI"/>
-                                    <outlet property="delegate" destination="Kd2-Go-JDi" id="jy1-1H-XQE"/>
-                                </connections>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="8fd-yp-yvW">
+                                <rect key="frame" x="188.5" y="434.5" width="37" height="37"/>
+                            </activityIndicatorView>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="6TU-uN-Ka7">
                                 <rect key="frame" x="0.0" y="44" width="414" height="2"/>
                                 <constraints>
@@ -593,18 +592,21 @@
                         <viewLayoutGuide key="safeArea" id="FB5-cu-TIX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="8fd-yp-yvW" firstAttribute="centerX" secondItem="FB5-cu-TIX" secondAttribute="centerX" id="8tN-LL-IiR"/>
                             <constraint firstItem="6TU-uN-Ka7" firstAttribute="leading" secondItem="FB5-cu-TIX" secondAttribute="leading" id="CHb-mK-uh6"/>
                             <constraint firstItem="FB5-cu-TIX" firstAttribute="trailing" secondItem="emK-qS-V6J" secondAttribute="trailing" id="J1i-Mz-vbW"/>
                             <constraint firstItem="emK-qS-V6J" firstAttribute="top" secondItem="6TU-uN-Ka7" secondAttribute="bottom" id="Rs8-Mg-ozf"/>
                             <constraint firstAttribute="bottom" secondItem="emK-qS-V6J" secondAttribute="bottom" id="fB6-vz-64m"/>
                             <constraint firstItem="emK-qS-V6J" firstAttribute="leading" secondItem="FB5-cu-TIX" secondAttribute="leading" id="kMp-xv-3mD"/>
                             <constraint firstItem="FB5-cu-TIX" firstAttribute="trailing" secondItem="6TU-uN-Ka7" secondAttribute="trailing" id="nyr-du-HBO"/>
+                            <constraint firstItem="8fd-yp-yvW" firstAttribute="centerY" secondItem="FB5-cu-TIX" secondAttribute="centerY" id="olA-p9-jz1"/>
                             <constraint firstItem="6TU-uN-Ka7" firstAttribute="top" secondItem="FB5-cu-TIX" secondAttribute="top" id="qhC-xA-ToF"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="fareInfoTableView" destination="emK-qS-V6J" id="5Yq-Pw-3fc"/>
                         <outlet property="fareInfoTableViewBottom" destination="fB6-vz-64m" id="bZN-69-u3N"/>
+                        <outlet property="indicator" destination="8fd-yp-yvW" id="bLK-cS-eCG"/>
                         <outlet property="progressBar" destination="6TU-uN-Ka7" id="fRU-oq-jM9"/>
                     </connections>
                 </viewController>

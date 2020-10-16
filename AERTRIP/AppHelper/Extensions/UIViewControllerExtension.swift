@@ -518,6 +518,17 @@ extension UIViewController {
         dismiss(animated: false, completion: complition)
     }
     
+    func dismissAsPopAnimationWithReveal(complition: (()->())? = nil) {
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.type = CATransitionType.reveal
+        transition.subtype = CATransitionSubtype.fromBottom
+        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+        self.view.window?.layer.add(transition, forKey: kCATransition)
+        dismiss(animated: false, completion: complition)
+    }
+    
+    
     func openUrl(_ urlString: String) {
         if let url = URL(string: urlString)
         {
