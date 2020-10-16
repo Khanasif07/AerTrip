@@ -171,7 +171,7 @@ class HotelDetailsVC: BaseVC {
         guard self.hotelTableView.numberOfSections > 1 else{return}
         self.hotelTableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
         delay(seconds: 0.6) { [weak self] in
-            self?.manageHeaderView()
+            //self?.manageHeaderView()
             self?.manageBottomRateView()
         }
         

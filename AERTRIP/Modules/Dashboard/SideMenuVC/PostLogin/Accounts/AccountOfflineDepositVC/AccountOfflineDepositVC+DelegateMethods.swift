@@ -490,7 +490,7 @@ extension AccountOfflineDepositVC {
                 case 8:
                     
                     if self.currentUsingAs == .fundTransfer {
-                        var pickerValue = ["NEFT", "IMPS"]
+                        var pickerValue = ["Same Bank Transfer", "NEFT", "IMPS"]
                         if self.viewModel.userEnteredDetails.depositAmount >= 200000{
                             pickerValue.append("RTGS")
                         }

@@ -328,9 +328,9 @@ extension HotelDetailsVC: HotelDetailDelegate {
 //==========================
 extension HotelDetailsVC {
     func manageHeaderView() {
-        if #available(iOS 14.0, *) {
-            guard hotelTableView.isDragging else {return}
-        }
+//        if #available(iOS 14.0, *) {
+//            guard hotelTableView.isDragging else {return}
+//        }
         
         let yOffset = self.hotelTableView.contentOffset.y
         printDebug("yOffset \(yOffset)")

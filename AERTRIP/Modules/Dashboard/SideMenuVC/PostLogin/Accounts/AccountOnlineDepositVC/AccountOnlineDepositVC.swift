@@ -87,7 +87,7 @@ class AccountOnlineDepositVC: BaseVC {
     // Set up Navigation header
     private func setUpNavigationView() {
         self.topNavView.delegate = self
-        self.topNavView.configureNavBar(title: LocalizedString.CheckoutTitle.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
+        self.topNavView.configureNavBar(title: LocalizedString.CheckoutTitle.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true)
     }
     
     // Registe all Xib file to checkOut table view

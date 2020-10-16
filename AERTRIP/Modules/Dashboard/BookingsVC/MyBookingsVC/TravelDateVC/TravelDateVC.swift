@@ -163,6 +163,9 @@ class TravelDateVC: BaseVC {
         self.fromDatePicker = UIDatePicker(frame: self.fromDatePickerContainer.bounds)
         self.fromDatePickerContainer.addSubview(self.fromDatePicker)
         self.fromDatePicker.datePickerMode = .date
+        if #available(iOS 13.4, *) {
+            self.fromDatePicker.preferredDatePickerStyle = .wheels
+        }
         
         self.fromDatePicker.locale = UserInfo.loggedInUser?.currentLocale
         
@@ -172,6 +175,9 @@ class TravelDateVC: BaseVC {
         self.toDatePicker = UIDatePicker(frame: self.toDatePickerContainer.bounds)
         self.toDatePickerContainer.addSubview(self.toDatePicker)
         self.toDatePicker.datePickerMode = .date
+        if #available(iOS 13.4, *) {
+            self.toDatePicker.preferredDatePickerStyle = .wheels
+        }
         
         self.toDatePicker.locale = UserInfo.loggedInUser?.currentLocale
         

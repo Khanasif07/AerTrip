@@ -315,17 +315,23 @@ class ImportContactVM: NSObject {
                 params["contacts[google][\(idx)][name]"] = contact.fullName
                 params["contacts[google][\(idx)][picture]"] = contact.image
                 if !contact.email.isEmpty {
-                    params["contacts[google][\(idx)][email][\(idx)][contact_label]"] = "home"
-                    params["contacts[google][\(idx)][email][\(idx)][contact_type]"]  = "email"
-                    params["contacts[google][\(idx)][email][\(idx)][contact_value]"] = contact.email
+//                    params["contacts[google][\(idx)][email][\(idx)][contact_label]"] = "home"
+//                    params["contacts[google][\(idx)][email][\(idx)][contact_type]"]  = "email"
+//                    params["contacts[google][\(idx)][email][\(idx)][contact_value]"] = contact.email
+                    params["contacts[google][\(idx)][contact_label]"] = "home"
+                    params["contacts[google][\(idx)][contact_type]"]  = "email"
+                    params["contacts[google][\(idx)][email]"] = contact.email
                 }
                 
                 if !contact.contact.isEmpty {
-                    params["contacts[google][\(idx)][mobile][\(idx)][contact_label]"] = "home"
-                    params["contacts[google][\(idx)][mobile][\(idx)][contact_type]"]  = "mobile"
-                    params["contacts[google][\(idx)][mobile][\(idx)][contact_value]"] = contact.contact // phone number without isd
-                    params["contacts[google][\(idx)][mobile][\(idx)][isd]"] = contact.isd // isd
-                    
+//                    params["contacts[google][\(idx)][mobile][\(idx)][contact_label]"] = "home"
+//                    params["contacts[google][\(idx)][mobile][\(idx)][contact_type]"]  = "mobile"
+//                    params["contacts[google][\(idx)][mobile][\(idx)][contact_value]"] = contact.contact // phone number without isd
+//                    params["contacts[google][\(idx)][mobile][\(idx)][isd]"] = contact.isd // isd
+                    params["contacts[google][\(idx)][contact_label]"] = "home"
+                    params["contacts[google][\(idx)][contact_type]"]  = "mobile"
+                    params["contacts[google][\(idx)][mobile]"] = contact.contact // phone number without isd
+                    params["contacts[google][\(idx)][isd]"] = contact.isd // isd
                     
                 }
                 

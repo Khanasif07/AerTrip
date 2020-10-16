@@ -98,6 +98,8 @@ public class TravellerData: NSManagedObject {
                     userData!.firstNameFirstChar = "#".lowercased()
                     userData!.lastNameFirstChar = "#".lowercased()
                 }
+            } else {
+                printDebug("First Name not found")
             }
             /*
              printDebug("firstNameFirstChar: \(userData!.firstNameFirstChar)")
@@ -120,6 +122,13 @@ public class TravellerData: NSManagedObject {
             if let prio = allData[userData!.label!] {
                 userData!.labelLocPrio = Int16(prio)
             } else if let prio = allData[defaultLabel] {
+                userData!.label = defaultLabel
+                userData!.labelLocPrio = Int16(prio)
+            }
+        } else {
+            let defaultLabel = "Others"
+            let allData = UserInfo.loggedInUser?.generalPref?.labelsWithPriority ?? [:]
+             if let prio = allData[defaultLabel] {
                 userData!.label = defaultLabel
                 userData!.labelLocPrio = Int16(prio)
             }
