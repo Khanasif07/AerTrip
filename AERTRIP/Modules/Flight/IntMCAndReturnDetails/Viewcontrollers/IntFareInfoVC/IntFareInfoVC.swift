@@ -17,6 +17,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     @IBOutlet weak var fareInfoTableView: UITableView!
     @IBOutlet weak var fareInfoTableViewBottom: NSLayoutConstraint!
     @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     //MARK:- Variable Declaration
     weak var delegate : flightDetailsSmartIconsDelegate?
@@ -40,19 +41,18 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     var fewSeatsLeftViewHeight = 0
     var selectedIndex : IndexPath?
     var isAPIFailed = false
-    var isIndicatorHidden = true
     //Indicator:---
-    var indicator = UIActivityIndicatorView()
+//    var indicator = UIActivityIndicatorView()
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
      
-//        setLoader()
+        setLoader()
         
         progressBar.progress = 0.25
+        progressBar.isHidden = true
         progressBar.tintColor = .AertripColor
-
         self.fareInfoTableView.backgroundColor = AppColors.themeGray04
         fareInfoTableView.register(UINib(nibName: "IntFareInfoCell", bundle: nil), forCellReuseIdentifier: "IntFareInfoCell")
         fareInfoTableView.register(UINib(nibName: "ChangeAirportTableViewCell", bundle: nil), forCellReuseIdentifier: "ChangeAirportCell")
@@ -71,6 +71,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             self.updatedFareInfo = IntFlightFareInfoResponse(JSON())
             updatedFareInfo?.updatedFareInfo = [fareInfo]
             self.showAccordingTolegs = (self.updatedFareInfo?.updatedFareInfo.first?.cp.details.spcFee["ADT"]?.feeDetail.values.count == self.journey.first?.legsWithDetail.count)
+            self.confirmDelegate()
             DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
              self.fareInfoTableView.reloadData()
             }
@@ -79,7 +80,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             }
         }else{
             self.progressBar.isHidden = false
-
+            self.addIndicator()
             self.getFareInfoAPICall(sid: self.sid, fk: journey.fk)
         }
         self.getFareRulesAPICall(sid: self.sid, fk: journey.fk)
@@ -102,22 +103,14 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         indicator.color = AppColors.themeGreen
     }
     
-    private func addIndicator()
-    {
-        isIndicatorHidden = false
-        indicator.frame = CGRect(x: 0, y: 200, width: 40, height: 40)
-        indicator.center.x = self.view.center.x
-        indicator.center.y = self.view.center.y-150
-        if !self.view.contains(indicator){
-            self.view.addSubview(indicator)
-        }
+    private func addIndicator() {
+        indicator.isHidden = false
         indicator.startAnimating()
     }
     
     func removeIndicator(){
         DispatchQueue.main.async {
-            self.isIndicatorHidden = true
-            self.indicator.removeFromSuperview()
+            self.indicator.isHidden = true
             self.indicator.stopAnimating()
         }
     }
@@ -131,6 +124,12 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         }
         
         
+    }
+    
+    private func confirmDelegate(){
+        self.fareInfoTableView.delegate = self
+        self.fareInfoTableView.dataSource = self
+        self.removeIndicator()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
@@ -207,12 +206,12 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         guard count > 0 else {
             isAPIFailed = true
             DispatchQueue.main.async {
+                self.confirmDelegate()
                 self.fareInfoTableView.reloadData()
             }
             return
         }
         let webservice = WebAPIService()
-//        self.addIndicator()
         webservice.executeAPI(apiServive: .fareInfoResult(sid: sid, fk: fk), completionHandler: {[weak self](data) in
             guard let self = self else {return}
             self.removeIndicator()
@@ -225,13 +224,15 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                         self.updatedFareInfo = IntFlightFareInfoResponse(json)
                         self.showAccordingTolegs = (self.updatedFareInfo?.updatedFareInfo.first?.cp.details.spcFee["ADT"]?.feeDetail.values.count == self.journey.first?.legsWithDetail.count)
                         
-                        let num = 0.75/Float(self.journey.count)
-                        self.progressBar.progress = Float(num+self.progressBar.progress)
-                        
-                        if self.progressBar.progress == 1.0{
-                            self.progressBar.isHidden = true
+                        let num:Float = 0.75/Float(self.journey.count)
+                        UIView.animate(withDuration: 2, animations: {
+                            self.progressBar.setProgress((num+self.progressBar.progress), animated: true)
+                        }) { (_) in
+                            if self.progressBar.progress == 1.0{
+                                    self.progressBar.isHidden = true
+                            }
                         }
-                        
+                        self.confirmDelegate()
                         self.fareInfoTableView.reloadData()
                         DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
                          self.fareInfoTableView.reloadData()

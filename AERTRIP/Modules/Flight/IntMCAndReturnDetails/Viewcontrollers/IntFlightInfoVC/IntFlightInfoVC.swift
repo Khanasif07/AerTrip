@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parchment
 
 class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDelegate, getSelectedAmenitiesDelegate, UIScrollViewDelegate
 {
@@ -652,8 +653,8 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 //        }
     }
     
-    func getSelectedAmenities(amenitiesData: [String : String], index: Int)
-    {
+    func getSelectedAmenities(amenitiesData:[String:String], index:Int, cellIndexPath: IndexPath){
+        (self.parent?.parent as? PagingViewController)?.select(index: 1)
     }
     
     //MARK:- Button Actions

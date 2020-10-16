@@ -100,13 +100,13 @@ extension FlightDomesticMultiLegResultVC {
         let headerRect = CGRect(x: 0, y: 0, width: width, height: 138)
         let tableViewHeader = UIView(frame: headerRect)
         
-        let separatorView = ATDividerView()//UIView(frame:CGRect(x: 0, y: 137.5, width: width, height: 0.5))
-        separatorView.frame = CGRect(x: 0, y: 137.5, width: width, height: 0.5)
-        separatorView.backgroundColor = .TWO_ZERO_FOUR_COLOR
-        tableViewHeader.addSubview(separatorView)
+//        let separatorView = ATDividerView()//UIView(frame:CGRect(x: 0, y: 137.5, width: width, height: 0.5))
+//        separatorView.frame = CGRect(x: 0, y: 137.5, width: width, height: 0.5)
+//        separatorView.backgroundColor = .TWO_ZERO_FOUR_COLOR
+//        tableViewHeader.addSubview(separatorView)
         tableView.tableHeaderView = tableViewHeader
         
-        let boarderRect = CGRect(x: ((width * CGFloat(index + 1)) - 1), y: 0, width: 0.5, height: height)
+        let boarderRect = CGRect(x: ((width * CGFloat(index + 1)) - 1), y: 0.5, width: 0.5, height: height)
         let borderView = ATVerticalDividerView()
         borderView.frame = boarderRect//UIView(frame: boarderRect)
         borderView.backgroundColor = .TWO_ZERO_FOUR_COLOR

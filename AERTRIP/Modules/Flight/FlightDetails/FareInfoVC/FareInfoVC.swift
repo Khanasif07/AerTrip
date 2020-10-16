@@ -18,6 +18,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     @IBOutlet weak var fareInfoTableView: UITableView!
     @IBOutlet weak var fareInfoTableViewBottom: NSLayoutConstraint!
     @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     //MARK:- Variable Declaration
     weak var delegate : flightDetailsSmartIconsDelegate?
@@ -31,7 +32,8 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var flightChildrenCount = 0
     var flightInfantCount = 0
     var cellDataHeight = 0
-    var initialFCPArry = [Int]()
+    var initialFCPArray = [Int]()
+    var apiCallCount = 0
     
     var isReturnJourney = false
     var fareInfoData = [JSONDictionary]()
@@ -44,12 +46,12 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     var updatedFareInfo = [updatedFareInfoDataStruct]()
     
-    var rowHeight = 0
-    var titleViewHeight = 0
-    var isTableViewReloaded = false
+//    var rowHeight = 0
+//    var titleViewHeight = 0
+//    var isTableViewReloaded = false
     var fewSeatsLeftViewHeight = 0
     var selectedIndex : IndexPath?
-    var indexFromDelegate = 0
+//    var indexFromDelegate = 0
     var isProgressBarHidden = false
     var isAPICalled = false
     
@@ -58,7 +60,9 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         
         progressBar.progress = 0.25
         progressBar.tintColor = .AertripColor
-        
+        progressBar.isHidden = true
+        self.setLoader()
+        self.addIndicator()
         fareInfoTableView.register(UINib(nibName: "FareInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "FareInfoCell")
         fareInfoTableView.register(UINib(nibName: "ChangeAirportTableViewCell", bundle: nil), forCellReuseIdentifier: "ChangeAirportCell")
         fareInfoTableView.register(UINib(nibName: "CombineFareInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "CombineFareInfoCell")
@@ -78,10 +82,11 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 if journey[i].leg[0].fcp == 1{
                     self.isAPICalled = true
                     self.getFareInfoAPICall(sid: self.sid, fk: self.journey[i].fk,i:i)
-                    self.initialFCPArry.append(1)
+                    self.initialFCPArray.append(1)
                 }else{
-                    progressBar.progress = 1.0
-                    self.initialFCPArry.append(0)
+//                    progressBar.progress = 1.0
+                    self.apiCallCount += 1
+                    self.initialFCPArray.append(0)
                     self.progressBar.isHidden = true
                     isProgressBarHidden = true
                     isAPICalled = false
@@ -101,8 +106,9 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     flights?.append(flight.first!)
                 }
             }
-            self.fareInfoTableView.delegate = self
-            self.fareInfoTableView.dataSource = self
+            if self.apiCallCount == self.journey.count{
+                self.confirmDelegate()
+            }
             self.fareInfoTableView.reloadData()
             DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
              self.fareInfoTableView.reloadData()
@@ -116,6 +122,37 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.fareInfoTableView.layoutIfNeeded()
+    }
+    
+    
+    private func setLoader(){
+        if #available(iOS 13.0, *) {
+            indicator.style = .large
+        } else {
+             indicator.style = .whiteLarge
+        }
+        indicator.hidesWhenStopped = true
+        indicator.tintColor = AppColors.themeGreen
+        indicator.color = AppColors.themeGreen
+    }
+    
+    private func addIndicator() {
+        indicator.isHidden = false
+        indicator.startAnimating()
+    }
+    
+    func removeIndicator(){
+        DispatchQueue.main.async {
+            self.indicator.isHidden = true
+            self.indicator.stopAnimating()
+        }
+    }
+    
+    
+    func confirmDelegate(){
+        self.fareInfoTableView.delegate = self
+        self.fareInfoTableView.dataSource = self
+        self.removeIndicator()
     }
     
     //MARK:- Tableview Methods
@@ -204,7 +241,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     fareInfoCell.flightInfantCount = flightInfantCount
                     fareInfoCell.indexOfCell = indexPath.section
                     
-                    if self.initialFCPArry[indexPath.section] == 1{
+                    if self.initialFCPArray[indexPath.section] == 1{
                         if updatedFareInfo.count > 0 {
                             fareInfoCell.isNoInfoViewVisible = false
                             fareInfoCell.combineFareTableView.isHidden = false
@@ -306,7 +343,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     fareInfoCell.flightInfantCount = flightInfantCount
                     fareInfoCell.indexOfCell = indexPath.section
                     
-                    if initialFCPArry[indexPath.section] == 1{
+                    if initialFCPArray[indexPath.section] == 1{
                         if updatedFareInfo.count > 0
                         {
                             fareInfoCell.isNoInfoViewVisible = false
@@ -450,7 +487,10 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                         if self.progressBar.progress == 1.0{
                             self.progressBar.isHidden = true
                         }
-                        
+                        self.apiCallCount += 1
+                        if self.apiCallCount == self.journey.count{
+                            self.confirmDelegate()
+                        }
                         self.fareInfoTableView.reloadData()
                         
                         if self.journey[i].smartIconArray.contains("refundStatusPending"){

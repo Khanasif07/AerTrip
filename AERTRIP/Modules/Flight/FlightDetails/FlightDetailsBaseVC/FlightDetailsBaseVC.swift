@@ -513,7 +513,8 @@ class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupV
             vc.viewModel.journeyTitle = self.journeyTitle
             vc.viewModel.journeyDate = self.journeyDate
 //            self.pushToPassenserSelectionVC(vc)
-            AppFlowManager.default.removeLoginConfirmationScreenFromStack()
+            self.presentedViewController?.dismissAsPopAnimationWithReveal()
+//            AppFlowManager.default.removeLoginConfirmationScreenFromStack()
             self.pushToPassenserSelectionVC(vc)
 //            AppGlobals.shared.stopLoading()
         }
@@ -521,7 +522,7 @@ class FlightDetailsBaseVC: BaseVC, flightDetailsSmartIconsDelegate, FareBreakupV
 
 
     func pushToPassenserSelectionVC(_ vc: PassengersSelectionVC){
-        self.presentedViewController?.dismiss(animated: false, completion: nil)
+//        self.presentedViewController?.dismiss(animated: false, completion: nil)
         self.view.isUserInteractionEnabled = false
         (UIApplication.shared.delegate as? AppDelegate)?.window?.isUserInteractionEnabled = false
         self.viewModel.fetchConfirmationData(){[weak self] success, errorCodes in

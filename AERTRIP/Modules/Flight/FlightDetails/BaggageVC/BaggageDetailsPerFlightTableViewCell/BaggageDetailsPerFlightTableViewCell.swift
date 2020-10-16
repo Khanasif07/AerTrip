@@ -75,7 +75,7 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
         if adtCheckinBaggage.count > 0{
             if let weight = adtCheckinBaggage["weight"] as? String, let pieces = adtCheckinBaggage["pieces"] as? String, let max_pieces = adtCheckinBaggage["max_pieces"] as? String, let max_weight = adtCheckinBaggage["max_weight"] as? String
             {
-                if weight == "0 Kg" || weight == "0 kg"{
+                if weight.lowercased() == "0 kg"{
                     perAdultCheckinLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
                     perAdultCheckinLabel.textColor = .black
                     perAdultCheckinLabel.text = "No Baggage"
