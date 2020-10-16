@@ -162,9 +162,9 @@ class HCDataSelectionVM {
                 params["t[\(i)][_t][\(j)][lname]"] = guest.lastName
                 params["t[\(i)][_t][\(j)][sal]"] = guest.salutation
                 if guest.passengerType == .Adult {
-                    params["t[\(i)][_t][\(j)][ptype]"] = guest.passengerType
+                    params["t[\(i)][_t][\(j)][ptype]"] = guest.passengerType.rawValue
                 } else {
-                    params["t[\(i)][_t][\(j)][ptype]"] = guest.passengerType
+                    params["t[\(i)][_t][\(j)][ptype]"] = guest.passengerType.rawValue
                     params["t[\(i)][_t][\(j)][age]"] = guest.age
                 }
                 params["t[\(i)][_t][\(j)][id]"] = guest.id

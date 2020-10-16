@@ -459,6 +459,7 @@ class TravellerListVC: BaseVC {
             }
             fetchRequest.sortDescriptors = sortDes
             fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "labelLocPrio", cacheName: nil)
+            
         } else {
             if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
                 fetchRequest.sortDescriptors = [NSSortDescriptor(key: "lastNameSorting", ascending: true, selector: #selector(NSString.caseInsensitiveCompare)),NSSortDescriptor(key: "firstNameSorting", ascending: true, selector: #selector(NSString.caseInsensitiveCompare))]
@@ -492,7 +493,8 @@ class TravellerListVC: BaseVC {
             for section in fetchedResultsController.sections ?? [] {
                 if section.numberOfObjects > 0 {
                     tableDataArray.append(section.objects as! [TravellerData])
-                    tableSectionArray.append(section.indexTitle ?? "")
+                    tableSectionArray.append(section.name )
+                    printDebug("indexTitle: \(section.name)")
                 }
             }
             if tableSectionArray.contains("#") {
@@ -705,6 +707,8 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
                 //cell.setSelected(false, animated: false)
             }
         }
+        
+        print("labelLocPrio: \(travellerData?.labelLocPrio)")
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
