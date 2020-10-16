@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -22,6 +23,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="544" height="249"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="74a-0s-a07">
+                        <rect key="frame" x="16" y="16" width="512" height="217"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sKE-jK-RdL">
                         <rect key="frame" x="8" y="8" width="528" height="233"/>
                         <subviews>
@@ -40,7 +45,7 @@
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dx2-Xd-1eo">
                                 <rect key="frame" x="308" y="135" width="40" height="44"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="BXv-65-gve"/>
                                 </constraints>
@@ -65,7 +70,7 @@
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cbl-QF-MXv">
                                 <rect key="frame" x="8" y="0.0" width="510" height="137"/>
-                                <color key="backgroundColor" systemColor="systemBrownColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemBrownColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="137" id="kzb-s4-yh6"/>
                                 </constraints>
@@ -151,7 +156,11 @@
                     <constraint firstItem="sKE-jK-RdL" firstAttribute="top" secondItem="wC3-hn-qxc" secondAttribute="top" constant="8" id="1cG-ZS-c2c"/>
                     <constraint firstAttribute="bottom" secondItem="sKE-jK-RdL" secondAttribute="bottom" constant="8" id="5BU-Bb-2y1"/>
                     <constraint firstAttribute="trailing" secondItem="sKE-jK-RdL" secondAttribute="trailing" constant="8" id="5wm-ku-3xC"/>
+                    <constraint firstAttribute="bottom" secondItem="74a-0s-a07" secondAttribute="bottom" constant="16" id="NOt-8C-r1Q"/>
                     <constraint firstItem="sKE-jK-RdL" firstAttribute="leading" secondItem="wC3-hn-qxc" secondAttribute="leading" constant="8" id="Ooj-ab-ZFp"/>
+                    <constraint firstAttribute="trailing" secondItem="74a-0s-a07" secondAttribute="trailing" constant="16" id="Yj4-nV-d81"/>
+                    <constraint firstItem="74a-0s-a07" firstAttribute="leading" secondItem="wC3-hn-qxc" secondAttribute="leading" constant="16" id="dTW-KQ-Ncx"/>
+                    <constraint firstItem="74a-0s-a07" firstAttribute="top" secondItem="wC3-hn-qxc" secondAttribute="top" constant="16" id="x3F-AD-0PD"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="EV4-j1-mNJ"/>
@@ -168,6 +177,7 @@
                 <outlet property="priceWidth" destination="Edc-Bs-aTU" id="xJv-90-1TP"/>
                 <outlet property="samePriceOptionButton" destination="tCm-NC-nYR" id="swI-jQ-to0"/>
                 <outlet property="samePriceOptionsLabel" destination="fHs-G0-HcR" id="7rd-du-7Nf"/>
+                <outlet property="shadowBackView" destination="74a-0s-a07" id="DZk-Fh-D67"/>
                 <outlet property="smartIconCollectionView" destination="gKT-5X-zt3" id="Bkm-Mo-jPL"/>
             </connections>
             <point key="canvasLocation" x="210.1449275362319" y="-80.691964285714278"/>
@@ -175,5 +185,11 @@
     </objects>
     <resources>
         <image name="greenDownArrow" width="24" height="24"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBrownColor">
+            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

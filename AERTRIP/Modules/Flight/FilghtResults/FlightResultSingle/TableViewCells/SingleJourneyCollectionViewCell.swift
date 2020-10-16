@@ -226,7 +226,7 @@ class SingleJourneyCollectionViewCell: UICollectionViewCell {
 }
 
 
-extension SingleJourneyCollectionViewCell : UICollectionViewDataSource , UICollectionViewDelegate {
+extension SingleJourneyCollectionViewCell : UICollectionViewDataSource , UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         
@@ -249,7 +249,10 @@ extension SingleJourneyCollectionViewCell : UICollectionViewDataSource , UIColle
         if indexPath.section == 0 {
             cell.imageView.image = UIImage(named: "checkingBaggageKg")
             cell.superScript.attributedText = baggageSuperScript
-            cell.superScriptWidth.constant = 14
+//            printDebug("baggageSuperScript..\(baggageSuperScript?.string)")
+//            cell.contentView.backgroundColor = UIColor.blue
+//            cell.superScript.backgroundColor = UIColor.yellow
+            cell.superScriptWidth.constant = 20
             cell.imageViewLeading.constant = 0
         }
         else {
@@ -324,7 +327,7 @@ extension SingleJourneyCollectionViewCell : UICollectionViewDataSource , UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 26, height: 23)
+        return CGSize(width: indexPath.section == 0 ? 30 : 26, height: 23)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

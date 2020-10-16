@@ -367,8 +367,8 @@ struct sucfeeValueStruct:Codable{
 }
 
 struct refundPolicyStruct:Codable {
-    let rfd:[String:Int]
-    let rsc:[String:Int]
+    var rfd:[String:Int]
+    var rsc:[String:Int]
 }
 
 

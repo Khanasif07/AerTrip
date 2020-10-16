@@ -24,6 +24,7 @@ class InternationalReturnTableViewCell: UITableViewCell {
     @IBOutlet weak var indexLabel: UILabel!
     @IBOutlet weak var arrowImage: UIImageView!
     @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var shadowBackView: UIView!
     
     var pinnedRoundedLayer : CALayer?
     var smartIconsArray : [String]?
@@ -40,6 +41,7 @@ class InternationalReturnTableViewCell: UITableViewCell {
         layer.shadowOffset = CGSize(width: 0, height: 0)
         layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
         self.baseView.layer.cornerRadius = 10
+        //        shadowBackView.addGrayShadow(ofColor: UIColor.black.withAlphaComponent(0.8), radius: 8, opacity: 0.7)
     }
     
     override func awakeFromNib() {
@@ -304,7 +306,7 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 26, height: 23)
+        return CGSize(width: indexPath.section == 0 ? 30 : 26, height: 23)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

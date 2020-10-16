@@ -81,6 +81,7 @@ class FlightDetailsTableViewCell: UITableViewCell
     var travellingTiming = ""
     
     var journeyTitle = ""
+    var cellIndex:IndexPath = IndexPath()
     //MARK:- Init Methods
 
     override func awakeFromNib() {
@@ -319,7 +320,7 @@ extension FlightDetailsTableViewCell:UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        amenitiesDelegate?.getSelectedAmenities(amenitiesData: ["amenityName":amenitiesData[indexPath.row]], index: indexPath.row)
+        amenitiesDelegate?.getSelectedAmenities(amenitiesData: ["amenityName":amenitiesData[indexPath.row]], index: indexPath.row, cellIndexPath: cellIndex)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize

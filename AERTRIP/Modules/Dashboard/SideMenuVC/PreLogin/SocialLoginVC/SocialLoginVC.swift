@@ -13,7 +13,7 @@ protocol SocialLoginVCDelegate: class {
 }
 
 @objc enum LoginFlowUsingFor: NSInteger {
-    case loginProcess, loginVerificationForCheckout, loginVerificationForBulkbooking
+    case loginProcess, loginVerificationForCheckout, loginVerificationForBulkbooking, loginFromEmailShare
 }
 
 class SocialLoginVC: BaseVC {

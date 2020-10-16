@@ -146,4 +146,28 @@ class SelectOtherAdonsContainerVM {
     }
     
     
+    func updateSpecialRequest(txt: String, currentFk: String, vcIndex: Int) {
+        
+           let dataStore = AddonsDataStore.shared
+        
+            let currentLegId = dataStore.flightsWithData[vcIndex].legId
+            let flightsWithSameLegId = dataStore.flightsWithData.filter { $0.legId == currentLegId }
+            
+            flightsWithSameLegId.enumerated().forEach { (index, flight) in
+                
+                if let vcIndexWithFk = self.allChildVCs.firstIndex(where: { (vc) -> Bool in
+                    return vc.otherAdonsVm.getCurrentFlightKey() == flight.flightId
+                }) {
+                    
+                        self.allChildVCs[vcIndexWithFk].otherAdonsVm.specialRequest = txt
+                        self.allChildVCs[vcIndexWithFk].specialRequestTextView.text = txt
+                        self.allChildVCs[vcIndexWithFk].showHideClearButton()
+                    
+                    //  self.allChildVCs[index].otherAdonsTableView.reloadData()
+                }
+                
+            }
+        
+    }
+    
 }

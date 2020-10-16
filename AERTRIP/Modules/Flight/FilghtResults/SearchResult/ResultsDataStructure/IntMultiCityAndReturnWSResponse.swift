@@ -378,6 +378,20 @@ struct IntMultiCityAndReturnWSResponse {
                         
                         let attributedSuperScript : NSAttributedString
                         
+                        if let pieces = ADTBaggage.pieces, pieces != "" && pieces != "-9" && pieces != "-1" && pieces != "0 pc" && pieces != "0" {
+
+                              if pieces.containsIgnoringCase(find: " ") {
+                                  let numbers = pieces.components(separatedBy: " ")
+                                  attributedSuperScript = NSAttributedString(string:numbers.first! + "Pc" , attributes: attributes)
+                                  return attributedSuperScript
+                              } else {
+                                          attributedSuperScript = NSAttributedString(string: pieces + "Pc" , attributes: attributes)
+                                          return attributedSuperScript
+                              }
+                            
+                          }
+                        
+                        
                         if let weight = ADTBaggage.weight {
                             
                             if weight.containsIgnoringCase(find: " ") {
@@ -387,14 +401,7 @@ struct IntMultiCityAndReturnWSResponse {
                             }
                         }
                         
-                        if let pieces = ADTBaggage.pieces {
-                            
-                            if pieces.containsIgnoringCase(find: " ") {
-                                let numbers = pieces.components(separatedBy: " ")
-                                attributedSuperScript = NSAttributedString(string:numbers.first! + "P" , attributes: attributes)
-                                return attributedSuperScript
-                            }
-                        }
+  
                     }
                 } else {
 
@@ -415,7 +422,7 @@ struct IntMultiCityAndReturnWSResponse {
                 
                 var logoArray = [ String]()
                 
-                if coa >= 1 { logoArray.append("redchangeAirport") }
+                if coa > 0 { logoArray.append("redchangeAirport") }
                             
                 if let changeOfflightClass = fcc {
                     
@@ -431,6 +438,7 @@ struct IntMultiCityAndReturnWSResponse {
                     default :
                         break
                     }
+                    
                 }
                 
                 if fsr > 0 {

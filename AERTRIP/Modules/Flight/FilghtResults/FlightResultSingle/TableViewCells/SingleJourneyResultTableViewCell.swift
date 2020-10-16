@@ -172,6 +172,8 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
         }
         
         baggageSuperScript = journey.baggageSuperScript
+        
+        
         smartIconsArray = journey.smartIconArray
         smartIconCollectionView.reloadData()
 
@@ -255,10 +257,12 @@ extension SingleJourneyResultTableViewCell : UICollectionViewDataSource , UIColl
         if indexPath.section == 0 {
             cell.imageView.image = UIImage(named: "checkingBaggageKg")
             cell.superScript.attributedText = baggageSuperScript
+//                    printDebug("baggageSuperScript...\(baggageSuperScript?.string)")
+//            cell.superScript.backgroundColor = UIColor.yellow
+//            cell.contentView.backgroundColor = UIColor.red
             cell.superScriptWidth.constant = 14
             cell.imageViewLeading.constant = 0
-        }
-        else {
+        } else {
             
             guard let imageName = smartIconsArray?[indexPath.row] else { return UICollectionViewCell() }
             
@@ -328,7 +332,7 @@ extension SingleJourneyResultTableViewCell : UICollectionViewDataSource , UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-           return CGSize(width: 26, height: 23)
+        return CGSize(width: indexPath.section == 0 ? 30 : 26, height: 23)
        }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

@@ -12,6 +12,7 @@
             <connections>
                 <outlet property="fareInfoTableView" destination="ebh-NU-9iG" id="t86-9J-Fgl"/>
                 <outlet property="fareInfoTableViewBottom" destination="EUI-sr-oxV" id="QfV-ZQ-k2z"/>
+                <outlet property="indicator" destination="Lvl-Dm-em9" id="LuV-WF-lkW"/>
                 <outlet property="progressBar" destination="61V-sw-pvF" id="1TI-EF-dMv"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -25,6 +26,9 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </tableView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Lvl-Dm-em9">
+                    <rect key="frame" x="141.5" y="221.5" width="37" height="37"/>
+                </activityIndicatorView>
                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="61V-sw-pvF">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
                     <constraints>
@@ -38,10 +42,12 @@
                 <constraint firstItem="ebh-NU-9iG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="12V-2z-Wdd"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ebh-NU-9iG" secondAttribute="trailing" id="C80-lf-UbC"/>
                 <constraint firstAttribute="bottom" secondItem="ebh-NU-9iG" secondAttribute="bottom" id="EUI-sr-oxV"/>
+                <constraint firstItem="Lvl-Dm-em9" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="FA1-pa-OYo"/>
                 <constraint firstItem="61V-sw-pvF" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="fUq-5S-9KJ"/>
                 <constraint firstItem="61V-sw-pvF" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="iZ5-iA-bQg"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="61V-sw-pvF" secondAttribute="trailing" id="rLf-QT-68u"/>
                 <constraint firstItem="ebh-NU-9iG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="sPu-6d-bxZ"/>
+                <constraint firstItem="Lvl-Dm-em9" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="vF6-go-rQg"/>
             </constraints>
             <point key="canvasLocation" x="139" y="137"/>
         </view>

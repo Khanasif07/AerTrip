@@ -6,8 +6,11 @@
 //  Copyright © 2019 Monika Sonawane. All rights reserved.
 //
 
+
+import Parchment
+
 protocol getSelectedAmenitiesDelegate: class {
-    func getSelectedAmenities(amenitiesData:[String:String], index:Int)
+    func getSelectedAmenities(amenitiesData:[String:String], index:Int, cellIndexPath: IndexPath)
 }
 
 protocol flightDetailsBaggageDelegate : AnyObject {
@@ -45,11 +48,6 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     
     //MARK:- Variable Declaration
     weak var delegate : flightDetailsBaggageDelegate?
-
-    
-    // Monika
-    
-//    var flightInfoDelegate : flightInfoViewDisplayDelegate?
     
     var arrivalPerformanceDelegate : getArrivalPerformanceDelegate?
     
@@ -324,7 +322,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                                 flightDetailsCell.amenitiesData = amenitiesData
                                 flightDetailsCell.amenitiesDisplayView.isHidden = false
                                 flightDetailsCell.amenitiesCollectionView.reloadData()
-                                flightDetailsCell.amenitiesDisplayViewHeight.constant = 100
+                                flightDetailsCell.amenitiesDisplayViewHeight.constant = 90
                                 flightDetailsCell.amenitiesCollectionView.reloadData()
                                 
                             }else{
@@ -552,7 +550,13 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         
                         
                         
-//                        if indexPath.section == 0 && indexPath.row == 0{
+                        if indexPath.row == 0{
+                            flightDetailsCell.topSeperatorViewHeight.constant = 0.5
+                            flightDetailsCell.topSeperatorView.isHidden = false
+                        }else{
+                            flightDetailsCell.topSeperatorViewHeight.constant = 0.0
+                            flightDetailsCell.topSeperatorView.isHidden = true
+                        }
 //                            flightDetailsCell.topSeperatorViewHeight.constant = 0
 //                            flightDetailsCell.topSeperatorView.isHidden = true
 //                        }else if tableView.numberOfRows(inSection: indexPath.section) > 1{
@@ -564,8 +568,8 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
 //                                flightDetailsCell.topSeperatorViewHeight.constant = 0
 //                            }
 //                        }else{
-                            flightDetailsCell.topSeperatorViewHeight.constant = 0.5
-                            flightDetailsCell.topSeperatorView.isHidden = false
+//                            flightDetailsCell.topSeperatorViewHeight.constant = 0.5
+//                            flightDetailsCell.topSeperatorView.isHidden = false
 //                        }
                     }
                     return flightDetailsCell
@@ -656,8 +660,8 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     
     //MARK:- Set Image
     
-    func getSelectedAmenities(amenitiesData: [String : String], index: Int)
-    {
+    func getSelectedAmenities(amenitiesData: [String : String], index: Int, cellIndexPath: IndexPath){
+        (self.parent?.parent as? PagingViewController)?.select(index: 1)
     }
     
     //MARK:- Button Actions

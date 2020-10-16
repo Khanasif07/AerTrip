@@ -30,7 +30,7 @@ public class Journey: Codable , Equatable {
     let displaySeat : Bool
     var fare : Taxes
 //    let rfd : Int
-    let rfdPlcy:refundPolicyStruct
+    var rfdPlcy:refundPolicyStruct
 //    let rsc : Int
     let dt : String
     let at : String
@@ -335,7 +335,6 @@ public class Journey: Codable , Equatable {
         return false
     }
     
-        
     
     var baggageSuperScript : NSAttributedString? {
         
@@ -360,7 +359,7 @@ public class Journey: Codable , Equatable {
             return attributedSuperScript
         }
         
-
+        
         if baggageArray.allSatisfy({ $0 == firstValue }) {
             
             let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
@@ -370,14 +369,14 @@ public class Journey: Codable , Equatable {
                 
                 let attributedSuperScript : NSAttributedString
                 
-                if let pieces = ADTBaggage.pieces {
-                            
+                if let pieces = ADTBaggage.pieces, pieces != "" && pieces != "-9" && pieces != "-1" && pieces != "0 pc" && pieces != "0" {
+            
                             if pieces.containsIgnoringCase(find: " ") {
                                 let numbers = pieces.components(separatedBy: " ")
-                                attributedSuperScript = NSAttributedString(string:numbers.first! + "P" , attributes: attributes)
+                                attributedSuperScript = NSAttributedString(string:numbers.first! + "Pc" , attributes: attributes)
                                 return attributedSuperScript
                             } else {
-                                attributedSuperScript = NSAttributedString(string: pieces + "P" , attributes: attributes)
+                                attributedSuperScript = NSAttributedString(string: pieces + "Pc" , attributes: attributes)
                                 return attributedSuperScript
                     }
                 }
@@ -389,6 +388,7 @@ public class Journey: Codable , Equatable {
                         attributedSuperScript = NSAttributedString(string:numbers.first!, attributes: attributes)
                         return attributedSuperScript
                     }
+                    
                 }
                 
         

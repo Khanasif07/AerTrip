@@ -228,7 +228,7 @@ class SingleJourneyCell: UITableViewCell
 }
 
 
-extension SingleJourneyCell : UICollectionViewDataSource , UICollectionViewDelegate {
+extension SingleJourneyCell : UICollectionViewDataSource , UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
@@ -326,7 +326,7 @@ extension SingleJourneyCell : UICollectionViewDataSource , UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-           return CGSize(width: 26, height: 23)
+        return CGSize(width: indexPath.section == 0 ? 30 : 26, height: 23)
        }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

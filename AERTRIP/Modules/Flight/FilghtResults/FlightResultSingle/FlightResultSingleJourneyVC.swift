@@ -264,24 +264,30 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     {
         emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
         emailPinnedFlights.displayLoadingIndicator(true)
+
+        if let _ = UserInfo.loggedInUserId{
+            callAPIToGetMailTemplate()
+        }else{
+            AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginFromEmailShare, completion: {_ in
+                
+                if let vc = self.parent{
+                    AppFlowManager.default.popToViewController(vc, animated: true)
+                }
+                
+                self.callAPIToGetMailTemplate()
+            })
+        }
+    }
+    
+    
+    func callAPIToGetMailTemplate(){
         let flightAdultCount = viewModel.bookFlightObject.flightAdultCount
         let flightChildrenCount = viewModel.bookFlightObject.flightChildrenCount
         let flightInfantCount = viewModel.bookFlightObject.flightInfantCount
         let isDomestic = viewModel.bookFlightObject.isDomestic
-        
+
         self.getSharableLink.getUrlForMail(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, sid: viewModel.sid, isInternational: false, journeyArray: self.viewModel.results.pinnedFlights, valString: "", trip_type: "single")
-        
     }
-    //    {
-    //
-    //        guard let postData = generatePostDataForEmail(for: self.viewModel.results.pinnedFlights) else { return }
-    //        executeWebServiceForEmail(with: postData as Data, onCompletion:{ (view)  in
-    //
-    //            DispatchQueue.main.async {
-    //                self.showEmailViewController(body : view)
-    //            }
-    //        })
-    //    }
     
     func returnEmailView(view: String)
     {
@@ -597,5 +603,3 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         self.present(flightDetailsVC, animated: true, completion: nil)
     }
 }
-
-

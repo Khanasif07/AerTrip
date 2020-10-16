@@ -54,7 +54,7 @@ class SelectOtherAdonsVC: UIViewController {
         self.specialRequestTextView.text = ""
         self.clearButton.isHidden = true
         self.otherAdonsVm.specialRequest = ""
-        self.delegate?.specialRequestUpdated()
+        self.delegate?.specialRequestUpdated(txt: "", currentFk: otherAdonsVm.getCurrentFlightKey(), vcIndex: otherAdonsVm.getVcIndex())
 //        self.specialRequestPlaceHolderLabel.isHidden = false
         self.showHideClearButton()
     }
@@ -107,7 +107,7 @@ extension SelectOtherAdonsVC {
         self.otherAdonsTableView.reloadData()
     }
     
-    private func showHideClearButton(){
+     func showHideClearButton(){
          guard let txt = specialRequestTextView.text else { return  }
          self.clearButton.isHidden = txt.isEmpty
         
@@ -170,10 +170,15 @@ extension SelectOtherAdonsVC : UITextViewDelegate {
         self.showHideClearButton()
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        guard let txt = textView.text else { return }
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        guard let txt = textView.text else { return false }
         self.otherAdonsVm.specialRequest = txt
-        self.delegate?.specialRequestUpdated()
+        self.delegate?.specialRequestUpdated(txt: txt, currentFk: otherAdonsVm.getCurrentFlightKey(), vcIndex: otherAdonsVm.getVcIndex())
+        return true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+
     }
     
 }
