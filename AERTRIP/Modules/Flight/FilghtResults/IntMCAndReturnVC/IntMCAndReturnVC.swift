@@ -251,11 +251,8 @@ extension IntMCAndReturnVC {
         }
     }
     
-    func callAPIToGetMailTemplate(){
-        
-//        emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
-//        emailPinnedFlights.displayLoadingIndicator(true)
-
+    func callAPIToGetMailTemplate()
+    {
         let flightAdultCount = bookFlightObject.flightAdultCount
         let flightChildrenCount = bookFlightObject.flightChildrenCount
         let flightInfantCount = bookFlightObject.flightInfantCount
@@ -268,17 +265,6 @@ extension IntMCAndReturnVC {
         self.getSharableLink.getUrlForMail(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, sid: sid, isInternational: true, journeyArray: viewModel.results.pinnedFlights, valString: valStr, trip_type: "")
 
     }
-//    {
-//
-//        if #available(iOS 13.0, *) {
-//            guard let postData = generatePostDataForEmail(for: viewModel.results.pinnedFlights) else { return }
-//            executeWebServiceForEmail(with: postData as Data, onCompletion:{ (view)  in
-//                DispatchQueue.main.async {
-//                    self.showEmailViewController(body : view)
-//                }
-//            })
-//        }
-//    }
     
     func returnEmailView(view: String)
     {

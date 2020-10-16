@@ -397,10 +397,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     
     func callAPIToGetMailTemplate(){
         
-//        emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
-//        emailPinnedFlights.displayLoadingIndicator(true)
-
-
         let pinnedFlightsArray = viewModel.results.reduce([]) { $0 + $1.pinnedFlights }
           
           let flightAdultCount = bookFlightObject.flightAdultCount
@@ -417,7 +413,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
             tripType = "multi"
         }
 
-        
           self.getSharableLink.getUrlForMail(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, sid: sid, isInternational: false, journeyArray: pinnedFlightsArray, valString: "", trip_type: tripType)
 
     }
