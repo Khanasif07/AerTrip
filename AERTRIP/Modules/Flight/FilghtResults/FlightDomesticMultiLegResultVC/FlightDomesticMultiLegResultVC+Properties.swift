@@ -376,10 +376,29 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
    
     
 //    MARK:- Email Flight code added by Monika
-    @IBAction func emailPinnedFlights(_ sender: Any) {
-        
+    @IBAction func emailPinnedFlights(_ sender: Any)
+    {
         emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
         emailPinnedFlights.displayLoadingIndicator(true)
+
+        if let _ = UserInfo.loggedInUserId{
+            callAPIToGetMailTemplate()
+        }else{
+            AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginFromEmailShare, completion: {_ in
+                
+                if let vc = self.parent{
+                    AppFlowManager.default.popToViewController(vc, animated: true)
+                }
+                
+                self.callAPIToGetMailTemplate()
+            })
+        }
+    }
+    
+    func callAPIToGetMailTemplate(){
+        
+//        emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
+//        emailPinnedFlights.displayLoadingIndicator(true)
 
 
         let pinnedFlightsArray = viewModel.results.reduce([]) { $0 + $1.pinnedFlights }
@@ -388,7 +407,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
           let flightChildrenCount = bookFlightObject.flightChildrenCount
           let flightInfantCount = bookFlightObject.flightInfantCount
           let isDomestic = bookFlightObject.isDomestic
-//          let tripType = (self.bookFlightObject.flightSearchType == RETURN_JOURNEY) ? "return" : "multi"
 
         var tripType = ""
         if self.bookFlightObject.flightSearchType == SINGLE_JOURNEY{

@@ -234,9 +234,27 @@ extension IntMCAndReturnVC {
     
     @IBAction func emailPinnedFlights(_ sender: Any)
     {
-        
         emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
         emailPinnedFlights.displayLoadingIndicator(true)
+
+        if let _ = UserInfo.loggedInUserId{
+            callAPIToGetMailTemplate()
+        }else{
+            AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginFromEmailShare, completion: {_ in
+                
+                if let vc = self.parent{
+                    AppFlowManager.default.popToViewController(vc, animated: true)
+                }
+                
+                self.callAPIToGetMailTemplate()
+            })
+        }
+    }
+    
+    func callAPIToGetMailTemplate(){
+        
+//        emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
+//        emailPinnedFlights.displayLoadingIndicator(true)
 
         let flightAdultCount = bookFlightObject.flightAdultCount
         let flightChildrenCount = bookFlightObject.flightChildrenCount
