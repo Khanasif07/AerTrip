@@ -48,11 +48,6 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     
     //MARK:- Variable Declaration
     weak var delegate : flightDetailsBaggageDelegate?
-
-    
-    // Monika
-    
-//    var flightInfoDelegate : flightInfoViewDisplayDelegate?
     
     var arrivalPerformanceDelegate : getArrivalPerformanceDelegate?
     
@@ -327,7 +322,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                                 flightDetailsCell.amenitiesData = amenitiesData
                                 flightDetailsCell.amenitiesDisplayView.isHidden = false
                                 flightDetailsCell.amenitiesCollectionView.reloadData()
-                                flightDetailsCell.amenitiesDisplayViewHeight.constant = 100
+                                flightDetailsCell.amenitiesDisplayViewHeight.constant = 90
                                 flightDetailsCell.amenitiesCollectionView.reloadData()
                                 
                             }else{

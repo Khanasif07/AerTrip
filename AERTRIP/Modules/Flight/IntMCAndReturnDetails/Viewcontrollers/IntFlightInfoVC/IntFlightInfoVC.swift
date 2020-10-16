@@ -279,7 +279,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                             cell.amenitiesData = amenitiesData
                             cell.amenitiesDisplayView.isHidden = false
                             cell.amenitiesCollectionView.reloadData()
-                            cell.amenitiesDisplayViewHeight.constant = 100
+                            cell.amenitiesDisplayViewHeight.constant = 90
                             cell.amenitiesCollectionView.reloadData()
                         }else{
                             cell.amenitiesDisplayView.isHidden = true
