@@ -576,7 +576,7 @@ extension AdonsVM {
                 return
             }
             
-            self.parmsForItinerary["flight_special_request[\(flight.flightId)]"] = flight.specialRequest
+            self.parmsForItinerary["flight_special_request[\(flight.legId)]"] = flight.specialRequest
             
 //                  let others = flight.special.addonsArray.filter { !$0.othersSelectedFor.isEmpty }
                  

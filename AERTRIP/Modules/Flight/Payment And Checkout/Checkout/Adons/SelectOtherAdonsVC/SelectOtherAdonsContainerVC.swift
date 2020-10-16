@@ -215,6 +215,15 @@ extension SelectOtherAdonsContainerVC: PagingViewControllerDataSource , PagingVi
             self.othersContainerVM.currentIndex = pagingIndexItem.index
         }
     }
+    
+    func pagingViewController(_ pagingViewController: PagingViewController, willScrollToItem pagingItem: PagingItem, startingViewController: UIViewController, destinationViewController: UIViewController) {
+
+        guard let startVc = startingViewController as? SelectOtherAdonsVC else { return }
+//
+//        self.othersContainerVM.updateSpecialRequest(txt: startVc.otherAdonsVm.specialRequest, currentFk: startVc.otherAdonsVm.getCurrentFlightKey(), vcIndex: startVc.otherAdonsVm.getVcIndex())
+
+    }
+    
 }
 
 
@@ -223,10 +232,9 @@ extension SelectOtherAdonsContainerVC : SelectOtherDelegate {
     func specialRequestUpdated(txt: String, currentFk: String, vcIndex: Int) {
         self.specialRequestLabel.isHidden = !self.othersContainerVM.containsSpecialRequest()
 
-        self.othersContainerVM.updateSpecialRequest(txt: txt, currentFk: currentFk, vcIndex: vcIndex)
+      self.othersContainerVM.updateSpecialRequest(txt: txt, currentFk: currentFk, vcIndex: vcIndex)
         
     }
-    
     
     func addPassengerToMeal(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, othersIndex: Int, selectedContacts: [ATContact]) {
         

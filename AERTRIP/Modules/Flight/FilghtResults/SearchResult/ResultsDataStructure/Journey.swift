@@ -369,11 +369,14 @@ public class Journey: Codable , Equatable {
                 
                 let attributedSuperScript : NSAttributedString
                 
-                if let pieces = ADTBaggage.pieces {
-                            
+                if let pieces = ADTBaggage.pieces, pieces != "" && pieces != "-9" && pieces != "-1" && pieces != "0 pc" && pieces != "0" {
+            
                             if pieces.containsIgnoringCase(find: " ") {
                                 let numbers = pieces.components(separatedBy: " ")
-                                attributedSuperScript = NSAttributedString(string:numbers.first! + "P" , attributes: attributes)
+                                attributedSuperScript = NSAttributedString(string:numbers.first! + "Pc" , attributes: attributes)
+                                return attributedSuperScript
+                            } else {
+                                attributedSuperScript = NSAttributedString(string: pieces + "Pc" , attributes: attributes)
                                 return attributedSuperScript
                     }
                 }
