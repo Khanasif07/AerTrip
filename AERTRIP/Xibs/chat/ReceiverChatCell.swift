@@ -63,11 +63,15 @@ class ReceiverChatCell : UITableViewCell {
         let deltaAttStr = NSMutableAttributedString(string: paragraphDeltaText, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeBlack.withAlphaComponent(0.6), NSAttributedString.Key.font: AppFonts.Regular.withSize(14)])
         
         if !msgObj.depart.isEmpty && !msgObj.origin.isEmpty && !msgObj.destination.isEmpty {
-            let resultStr = NSMutableAttributedString(string: "Here are your results...\n", attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(18)])
+            let resultStr = "Here are your results..."
+            var resultMutableStr = NSMutableAttributedString()
             if !deltaAttStr.string.isEmpty {
-                resultStr.append(deltaAttStr)
+                resultMutableStr = NSMutableAttributedString(string: resultStr + "\n", attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(18)])
+                resultMutableStr.append(deltaAttStr)
+            } else {
+                resultMutableStr = NSMutableAttributedString(string: resultStr, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(18)])
             }
-            finalStr = resultStr
+            finalStr = resultMutableStr
         } else {
             let resultStr = NSMutableAttributedString(string: msgObj.msg, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(18)])
             if msgObj.showDetails {
