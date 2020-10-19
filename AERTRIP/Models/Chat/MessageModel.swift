@@ -15,6 +15,7 @@ struct MessageModel {
         case me
         case other
         case typing
+        case seeResultsAgain
     }
     
     var msg : String

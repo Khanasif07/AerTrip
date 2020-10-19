@@ -45,6 +45,7 @@ class ChatVM {
     weak var delegate : ChatBotDelegatesDelegate?
     var msgToBeSent : String = ""
     var recentSearchesData : [RecentSearchesModel] = []
+    var lastCachedResultModel: MessageModel?
     
     private var updatedFiltersJSON = JSON()
     private let locationManager = CLLocationManager()

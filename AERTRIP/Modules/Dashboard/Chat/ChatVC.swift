@@ -82,6 +82,8 @@ class ChatVC : BaseVC {
     //MARK:- Send Button Tapped
     @IBAction func sendButton(_ sender: UIButton) {
         
+        removeSeeResultsAgainCell()
+        
         UIApplication.shared.beginIgnoringInteractionEvents()
     
         delay(seconds: 1) {
@@ -106,6 +108,11 @@ class ChatVC : BaseVC {
             self.animateCell(text : msg)
         }
         //MARK:- Here i had used insert row due to some issue with the yIndex of the cell i had used reload
+    }
+    
+    private func removeSeeResultsAgainCell() {
+        chatVm.messages.removeAll(where: { $0.msgSource == .seeResultsAgain })
+        chatTableView.reloadData()
     }
     
     //MARK:- Add dot animation to tableview cell
@@ -200,6 +207,7 @@ extension ChatVC {
         chatTableView.register(UINib(nibName: "SenderChatCell", bundle: nil), forCellReuseIdentifier: "SenderChatCell")
         chatTableView.register(UINib(nibName: "TypingStatusChatCell", bundle: nil), forCellReuseIdentifier: "TypingStatusChatCell")
         chatTableView.register(UINib(nibName: "ReceiverChatCell", bundle: nil), forCellReuseIdentifier: "ReceiverChatCell")
+        chatTableView.register(UINib(nibName: "SeeResultsAgainCell", bundle: nil), forCellReuseIdentifier: "SeeResultsAgainCell")
         chatTableView.estimatedRowHeight = 100
         chatTableView.rowHeight = UITableView.automaticDimension
     }
@@ -565,8 +573,16 @@ extension ChatVC : ChatBotDelegatesDelegate {
     func moveFurtherWhenallRequiredInformationSubmited(data: MessageModel) {
         invalidateTypingCellTimer()
         print("lets go...\(data)")
+        chatVm.lastCachedResultModel = data
         chatVm.createFlightSearchDictionaryAndPushToVC(data)
-       }
+        if chatVm.messages.last?.msgSource != .seeResultsAgain {
+            let seeAgainMsgModel = MessageModel(msg: LocalizedString.seeResultsAgain.localized, source: .seeResultsAgain)
+            chatVm.messages.append(seeAgainMsgModel)
+            DispatchQueue.delay(1) { [weak self] in
+                self?.chatTableView.reloadData()
+            }
+        }
+    }
     
     func willGetRecentSearchHotel(){
         

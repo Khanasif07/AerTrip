@@ -714,6 +714,8 @@
 		841E75C72282E6BA003CE1CF /* AccountOutstandingLadgerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841E75C42282E6BA003CE1CF /* AccountOutstandingLadgerVM.swift */; };
 		841E75C82282E6BA003CE1CF /* AccountOutstandingLadgerVC+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841E75C52282E6BA003CE1CF /* AccountOutstandingLadgerVC+Delegates.swift */; };
 		841E75C92282E6BA003CE1CF /* AccountOutstandingLadgerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841E75C62282E6BA003CE1CF /* AccountOutstandingLadgerVC.swift */; };
+		841F397C253DB273007C99B6 /* SeeResultsAgainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F397A253DB273007C99B6 /* SeeResultsAgainCell.swift */; };
+		841F397D253DB273007C99B6 /* SeeResultsAgainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841F397B253DB273007C99B6 /* SeeResultsAgainCell.xib */; };
 		841FA50B22324F3300DE9FE9 /* TripModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841FA50A22324F3300DE9FE9 /* TripModel.swift */; };
 		8422727722115DEC00D4F065 /* ATGalleryViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422727622115DEC00D4F065 /* ATGalleryViewConfiguration.swift */; };
 		8422727D2211631D00D4F065 /* ATGalleryImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422727C2211631D00D4F065 /* ATGalleryImage.swift */; };
@@ -2377,6 +2379,8 @@
 		841E75C42282E6BA003CE1CF /* AccountOutstandingLadgerVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountOutstandingLadgerVM.swift; sourceTree = "<group>"; };
 		841E75C52282E6BA003CE1CF /* AccountOutstandingLadgerVC+Delegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AccountOutstandingLadgerVC+Delegates.swift"; sourceTree = "<group>"; };
 		841E75C62282E6BA003CE1CF /* AccountOutstandingLadgerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountOutstandingLadgerVC.swift; sourceTree = "<group>"; };
+		841F397A253DB273007C99B6 /* SeeResultsAgainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeResultsAgainCell.swift; sourceTree = "<group>"; };
+		841F397B253DB273007C99B6 /* SeeResultsAgainCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeeResultsAgainCell.xib; sourceTree = "<group>"; };
 		841FA50A22324F3300DE9FE9 /* TripModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripModel.swift; sourceTree = "<group>"; };
 		8422727622115DEC00D4F065 /* ATGalleryViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATGalleryViewConfiguration.swift; sourceTree = "<group>"; };
 		8422727C2211631D00D4F065 /* ATGalleryImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATGalleryImage.swift; sourceTree = "<group>"; };
@@ -3645,6 +3649,7 @@
 		0C272E2424225FCF00133B50 /* chat */ = {
 			isa = PBXGroup;
 			children = (
+				841F3979253DB241007C99B6 /* SeeResultsAgainCell */,
 				0C272E272422601300133B50 /* SenderChatCell.swift */,
 				0C272E282422601300133B50 /* SenderChatCell.xib */,
 				0CBDEA412429CD3F009D7849 /* TypingStatusChatCell.swift */,
@@ -5606,6 +5611,15 @@
 				841E75C52282E6BA003CE1CF /* AccountOutstandingLadgerVC+Delegates.swift */,
 			);
 			path = AccountOutstandingLadgerVC;
+			sourceTree = "<group>";
+		};
+		841F3979253DB241007C99B6 /* SeeResultsAgainCell */ = {
+			isa = PBXGroup;
+			children = (
+				841F397A253DB273007C99B6 /* SeeResultsAgainCell.swift */,
+				841F397B253DB273007C99B6 /* SeeResultsAgainCell.xib */,
+			);
+			path = SeeResultsAgainCell;
 			sourceTree = "<group>";
 		};
 		8422727122115B7E00D4F065 /* ATGalleryViewController */ = {
@@ -9704,6 +9718,7 @@
 				843FF4A524740231001F21B1 /* PriceFilterViewController.xib in Resources */,
 				18FD916B229678FE00D005E9 /* BookingReschedulingHeaderView.xib in Resources */,
 				1853A37322975BD600891E53 /* BookingReschedulingPassengerAccordionTableViewCell.xib in Resources */,
+				841F397D253DB273007C99B6 /* SeeResultsAgainCell.xib in Resources */,
 				1800FC6621EF1FA20006D6D1 /* AddNotesTableViewCell.xib in Resources */,
 				84EAABEB21DA09EC006B757F /* SideMenuLogoView.xib in Resources */,
 				182D4859228AECCF004796A2 /* BookingHDWebPhoneTableViewCell.xib in Resources */,
@@ -10077,6 +10092,7 @@
 				188A4DB3242DE9B800F871ED /* SwiftPhotoGallery.swift in Sources */,
 				843FF66F247409E3001F21B1 /* FlightClass.m in Sources */,
 				847790C023ED70A6004EBC45 /* AppGradientView.swift in Sources */,
+				841F397C253DB273007C99B6 /* SeeResultsAgainCell.swift in Sources */,
 				187684B022845A44009637D6 /* NightStateTableViewCell.swift in Sources */,
 				1820F0E8228D43240019B8BB /* BookingRequestNoteTableViewCell.swift in Sources */,
 				843FF50B24740231001F21B1 /* FlightResultBaseViewController.swift in Sources */,

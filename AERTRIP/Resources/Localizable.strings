@@ -791,6 +791,8 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "HelpMessage" = "How can I help you?";
 
 "ShowPendingActionsOnly" = "Show pending actions only";
+"hereAreYourResults" = "Here are your results...";
+"seeResultsAgain" = "See results again";
 
 //MARK: - Import Contact Screen
 "NoContactFoundInDevice" = "No contacts found in this phone.";
