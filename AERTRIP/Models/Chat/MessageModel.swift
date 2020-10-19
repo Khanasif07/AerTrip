@@ -34,6 +34,9 @@ struct MessageModel {
     let returnDate: String
     
     var shouldShowTypingContent = false
+    
+    /// To be enabled on tap to show extra details
+    var showDetails = false
         
     init(msg : String, source : MessageSource) {
         self.msg = msg

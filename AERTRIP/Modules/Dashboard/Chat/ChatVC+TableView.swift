@@ -56,6 +56,12 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.view.endEditing(true)
+        
+        guard let receiverCell = tableView.cellForRow(at: indexPath) as? ReceiverChatCell else { return }
+        self.chatVm.messages[indexPath.row].showDetails = !self.chatVm.messages[indexPath.row].showDetails
+        receiverCell.populateMsg(msgObj: self.chatVm.messages[indexPath.row])
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
