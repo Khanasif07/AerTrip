@@ -217,6 +217,9 @@ class FlightFilterBaseViewController: UIViewController
             if uiViewController is QualityFilterViewController {
                 setQualityFilterVC(uiViewController as! QualityFilterViewController)
             }
+            
+        case .Aircraft:
+            return
         }
     }
     
