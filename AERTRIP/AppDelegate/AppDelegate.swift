@@ -69,10 +69,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NotificationCenter.default.post(name: Notification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
         }
         else if remoteHostStatus == .reachableViaWiFi {
-            print("Reachable via Wifi")
+            printDebug("Reachable via Wifi")
         }
         else {
-            print("Reachable")
+            printDebug("Reachable")
         }
     }
     
@@ -186,7 +186,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         newUrl?.expandURLWithCompletionHandler(completionHandler: { url in
             if let url = url {
-                print("expandedUrl=\(url)")
+                printDebug("expandedUrl=\(url)")
             }
             
             let str = url?.query

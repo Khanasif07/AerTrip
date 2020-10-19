@@ -286,7 +286,7 @@ extension HotelsGroupExpendedVC: HotelCardCollectionViewCellDelegate {
 
 extension HotelsGroupExpendedVC: HotelDetailsVCDelegate {
     func hotelFavouriteUpdated() {
-        print("favourite updated")
+        printDebug("favourite updated")
     }
     
     func imageUpdated() {

@@ -708,7 +708,6 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         
-        print("labelLocPrio: \(travellerData?.labelLocPrio)")
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

@@ -598,15 +598,15 @@ class HotelResultVC: BaseVC {
         let remoteHostStatus = networkReachability.currentReachabilityStatus
         
         if remoteHostStatus == .notReachable {
-            print("Not Reachable")
+            printDebug("Not Reachable")
             // self.noHotelFound()
             
         }
         else if remoteHostStatus == .reachableViaWiFi {
-            print("Reachable via Wifi")
+            printDebug("Reachable via Wifi")
         }
         else {
-            print("Reachable")
+            printDebug("Reachable")
         }
     }
     

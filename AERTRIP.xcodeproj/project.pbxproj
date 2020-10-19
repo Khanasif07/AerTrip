@@ -11330,6 +11330,7 @@
 					"-debug-time-function-bodies",
 					"-Xfrontend",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aertrip.app;
 				PRODUCT_MODULE_NAME = AERTRIP;
 				PRODUCT_NAME = Aertrip;
@@ -11540,10 +11541,12 @@
 					"-debug-time-function-bodies",
 					"-Xfrontend",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aertrip.app;
 				PRODUCT_MODULE_NAME = AERTRIP;
 				PRODUCT_NAME = Aertrip;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AERTRIP/Resources/AERTRIP-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
