@@ -1014,11 +1014,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
             self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height:UIScreen.main.bounds.height)
 
-//            if self.isTaxesSectionHidden == true{
-//                self.view.layoutSubviews()
-//            }else{
-                self.view.layoutIfNeeded()
-//            }
+            self.view.layoutIfNeeded()
             self.view.setNeedsLayout()
         })
     }

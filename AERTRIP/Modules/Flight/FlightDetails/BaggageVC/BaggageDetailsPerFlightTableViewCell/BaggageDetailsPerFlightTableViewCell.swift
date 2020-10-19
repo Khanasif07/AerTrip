@@ -356,11 +356,11 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                         }
                     }
                     
-                    if weight != "0 Kg" || weight != "" || weight != "0 kg"{
+                    if weight != "0 Kg" || weight != "" || weight != "0 kg" || weight != "-9"{
                         perInfantCheckInLabel.text = weight
                     }
                     
-                    if weight == "" && max_pieces == "" && max_weight == ""{
+                    if (weight == "0 Kg" && max_pieces == "" && max_weight == "") || (weight == "" && max_pieces == "" && max_weight == "") || (weight == "-9" && max_pieces == "" && max_weight == ""){
                         if pieces == "0 pc"{
                             perInfantCheckInLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
                             perInfantCheckInLabel.textColor = .black
