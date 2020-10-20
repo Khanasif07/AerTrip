@@ -144,11 +144,18 @@ extension FlightDomesticMultiLegResultVC {
                 if !newArray.contains(where: {$0.fk == selectedResult.fk}){
                     self.viewModel.setSelectedJourney(tableIndex: index, journeyIndex: 0)
                     self.setTotalFare()
+                    self.isHiddingHeader = false
                     if let tableView = self.baseScrollView.viewWithTag(1000 + index) as? UITableView{
+                        tableView.reloadData()
                         self.setTableViewHeaderAfterSelection(tableView: tableView)
                         self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
                     }
-                }else if let tableView = self.baseScrollView.viewWithTag(1000 + index) as? UITableView{
+                }else if let tableView = self.baseScrollView.viewWithTag(1000 + index) as? UITableView, let selectedIndex = newArray.firstIndex(where:{$0.fk == selectedResult.fk}){
+                    self.viewModel.setSelectedJourney(tableIndex: index, journeyIndex: selectedIndex)
+                    self.isHiddingHeader = false
+                    self.setTotalFare()
+                    tableView.reloadData()
+                    self.setTableViewHeaderAfterSelection(tableView: tableView)
                     self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
                 }
             }
@@ -196,6 +203,8 @@ extension FlightDomesticMultiLegResultVC {
 //                           let width = UIScreen.main.bounds.size.width / 2.0
 //                           let headerRect = CGRect(x: 0, y: 0, width: width, height: 138.0)
                         tableView.origin.y = 0
+                       }else if let divider = subview as? ATVerticalDividerView{
+                        divider.origin.y = 0.5
                        }
                    }
                    
