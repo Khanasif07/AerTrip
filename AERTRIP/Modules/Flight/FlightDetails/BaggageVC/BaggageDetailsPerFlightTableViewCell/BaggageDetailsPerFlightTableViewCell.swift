@@ -92,7 +92,7 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                         }
                     }
                     
-                    if weight != "0 Kg" || weight != "" || weight != "0 kg" || weight != "-9"{
+                    if weight.lowercased() != "0 kg" && weight != "" && weight != "-9"{
                         perAdultCheckinLabel.text = weight
                     }
                     
