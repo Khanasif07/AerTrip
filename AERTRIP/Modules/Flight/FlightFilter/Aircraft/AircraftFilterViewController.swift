@@ -13,7 +13,8 @@ class AircraftFilterViewController: UIViewController
     @IBOutlet weak var aircraftTableView: UITableView!
     
     var selectAllAircrafts = false
-    
+    var aircraftArray = [[String:Any]]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,6 +37,11 @@ class AircraftFilterViewController: UIViewController
             }else{
                 selectAllAircrafts = true
             }
+            
+            for i in 0..<aircraftArray.count{
+                aircraftArray[i]["isSelected"] = selectAllAircrafts
+            }
+            
         }else{
             selectAllAircrafts = false
             
@@ -44,6 +50,17 @@ class AircraftFilterViewController: UIViewController
             }else{
                 sender.isSelected = true
             }
+            
+            let index = sender.tag-100
+            
+            if let isRadioButtonSelected = aircraftArray[index]["isSelected"] as? Bool{
+                if  isRadioButtonSelected{
+                    aircraftArray[index]["isSelected"] = false
+                }else{
+                    aircraftArray[index]["isSelected"] = true
+                }
+            }
+            
         }
         
         aircraftTableView.reloadData()
@@ -64,7 +81,7 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
             return 1
         }
         
-     return 10
+        return aircraftArray.count
 
     }
     
@@ -85,15 +102,10 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
                 }
                 
             }else{
-                cell.textLabel?.text = "Aircrafts"
+                cell.textLabel?.text = aircraftArray[indexPath.row]["aircraft"] as? String ?? "" //"Aircrafts"
                 
                 cell.radioButton.tag = 100+indexPath.row
-
-                if selectAllAircrafts{
-                    cell.radioButton.isSelected = true
-                }else{
-                    cell.radioButton.isSelected = false
-                }
+                cell.radioButton.isSelected = aircraftArray[indexPath.row]["isSelected"] as? Bool ?? false
             }
 
             cell.radioButton.addTarget(self, action: #selector(aircraftRadioButtonTapped(sender:)) , for: .touchDown)

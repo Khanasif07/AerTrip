@@ -267,6 +267,9 @@ extension FlightFilterBaseVC {
             }
             
         case .Aircraft:
+            if uiViewController is AircraftFilterViewController{
+                createAircraftFilter(vc: uiViewController as! AircraftFilterViewController)
+            }
             return
         }
     }
@@ -1450,6 +1453,41 @@ extension FlightFilterBaseVC {
             }
         }
         qualityViewController.updateUIPostLatestResults()
+    }
+    
+    
+//    MARK:- Aircraft Filter
+    
+    func createAircraftFilter(vc:AircraftFilterViewController)
+    {
+        var aircraftArray = [[String:Any]]()
+        var eqArray = [String]()
+        
+        for flightResult in flightResultArray{
+            for journey in flightResult.j{
+                if journey.leg.count > 0{
+                    if let leg = journey.leg.first{
+                        for flight in leg.flights{
+                            if let eq = flight.eq
+                            {
+                                if !eqArray.contains(eq){
+                                    eqArray.append(eq)
+                                    
+                                    let aircraft = ["aircraft":eq,
+                                                    "aircraftQuality":flight.eqQuality ?? "",
+                                                    "isSelected":false] as [String:Any]
+                                    
+                                    aircraftArray.append(aircraft)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        print("aircraftArray= ",aircraftArray)
+        
+        vc.aircraftArray = aircraftArray
     }
 }
 
