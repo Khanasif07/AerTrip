@@ -172,7 +172,7 @@ class BookingInfoCommonCell: ATTableViewCell {
                     return LocalizedString.NoInfo.localized
                 }
             }
-            if weight.lowercased() != "0 kg" || weight != "" || weight != "-9"{
+            if weight.lowercased() != "0 kg" && weight != "" && weight != "-9"{
                 return weight
             }
             
@@ -253,7 +253,7 @@ class BookingInfoCommonCell: ATTableViewCell {
         let weight = info.weight
         let pieces = info.piece
         
-        if weight == "0" || weight == "0 Kg"{
+        if weight == "0" || weight.lowercased() == "0 kg"{
             return LocalizedString.NoBaggage.localized
         }else if weight == "-9"{
             return LocalizedString.NoInfo.localized

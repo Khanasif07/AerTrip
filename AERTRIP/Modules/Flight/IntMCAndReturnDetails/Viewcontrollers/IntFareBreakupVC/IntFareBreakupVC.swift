@@ -449,10 +449,6 @@ class IntFareBreakupVC: BaseVC {
             self.baseFareTableview.isHidden = true
             self.baseFareTableviewHeight.constant = 0
             
-            
-            self.view.layoutSubviews()
-            self.view.setNeedsLayout()
-        },completion: { _ in
             let viewHeight = self.bookingDataDisplayViewHeight.constant + self.fewSeatsLeftViewHeight.constant + self.heightForBookingTitleView
             
             if self.isFromFlightDetails{
@@ -483,7 +479,7 @@ class IntFareBreakupVC: BaseVC {
                     
                 case 812: //11 Pro | X | Xs
                     if #available(iOS 13.0, *) {
-                        self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 55, width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
+                        self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 54, width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
                     }else{
                         self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight, width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
                     }
@@ -491,7 +487,7 @@ class IntFareBreakupVC: BaseVC {
                     
                 case 896: //11 & 11 Pro Max & Xs Max & Xr
                     if #available(iOS 13.0, *) {
-                        self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 60, width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
+                        self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 54, width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
                     }else{
                         self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight, width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
                     }
@@ -503,7 +499,9 @@ class IntFareBreakupVC: BaseVC {
             }else{
                 self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight-CGFloat(bottomInset), width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
             }
-        })
+            self.view.layoutSubviews()
+            self.view.setNeedsLayout()
+        },completion: nil)
         
         if ((self.journey.first?.fsr ?? 0) == 1){
             self.detailsDelegate?.updateHeight(to: 85 + CGFloat(bottomInset) + self.heightForBookingTitleView)
@@ -683,11 +681,19 @@ class IntFareBreakupVC: BaseVC {
         let hightOfView = UIScreen.main.bounds.height//(!isForSelectionAndCheckout) ? UIScreen.main.bounds.height : self.fareDataDisplayViewHeight.constant
         let y = UIScreen.main.bounds.height - hightOfView
         self.detailsDelegate?.updateHeight(to: hightOfView)
-        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {[weak self] in
-            guard let self = self else {return}
-            self.view.frame = CGRect(x: 0, y: y, width: UIScreen.main.bounds.width, height: hightOfView)
+        
+//        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {[weak self] in
+//            guard let self = self else {return}
+//            self.view.frame = CGRect(x: 0, y: y, width: UIScreen.main.bounds.width, height: hightOfView)
+//
+//            self.view.layoutSubviews()
+//            self.view.setNeedsLayout()
+//        })
+        
+        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
+            self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height:UIScreen.main.bounds.height)
 
-            self.view.layoutSubviews()
+            self.view.layoutIfNeeded()
             self.view.setNeedsLayout()
         })
     }

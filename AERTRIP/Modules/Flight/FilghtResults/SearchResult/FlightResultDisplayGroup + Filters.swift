@@ -822,6 +822,9 @@ extension FlightResultDisplayGroup  {
                 continue
             case .Price:
                 inputForFilter = self.applyPriceFilter(inputForFilter)
+                
+            case .Aircraft:
+                return
             }
             
         }

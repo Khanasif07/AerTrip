@@ -18,6 +18,7 @@ import FirebaseDynamicLinks
 import FirebaseCore
 import UIKit
 import FirebaseCore
+import IQKeyboardManager
 
 
 @UIApplicationMain
@@ -55,6 +56,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.reachability = Reachability.networkReachabilityForInternetConnection()
         let _ = self.reachability?.startNotifier()
         UserDefaults.standard.set(false, forKey: "NSAllowsDefaultLineBreakStrategy")
+        
+        IQKeyboardManager.shared().shouldResignOnTouchOutside = true
+        
         return true
     }
     

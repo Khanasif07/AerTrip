@@ -26,6 +26,10 @@ extension FlightDomesticMultiLegResultVC {
             self.flightSearchResultVM.flightLegs[index].updatedFilterResultCount = 0
 
          let modifiedResult = updatedArray
+            if modifiedResult.isEmpty{
+                self.viewModel.results[index].selectedJourney = nil
+                self.journeyHeaderViewArray[index].isHidden = true
+            }
 
             DispatchQueue.global(qos: .userInteractive).async {
 
@@ -116,6 +120,48 @@ extension FlightDomesticMultiLegResultVC {
             }
         }
     
+    
+    func updateSelectedJourney(index: Int){
+        let state = self.viewModel.resultsTableStates[index]
+        var newArray = [Journey]()
+        switch state{
+        case .showPinnedFlights:
+            newArray = self.viewModel.results[index].pinnedFlights
+        case .showExpensiveFlights:
+            newArray = self.viewModel.results[index].allJourneys
+        case .showRegularResults:
+            newArray = self.viewModel.results[index].suggestedJourneyArray
+        default :
+            newArray = self.viewModel.results[index].journeyArray
+        }
+        DispatchQueue.main.async {
+            if newArray.count == 0{
+                self.viewModel.results[index].selectedJourney = nil
+                self.journeyHeaderViewArray[index].isHidden = true
+                return
+            }
+            if let selectedResult = self.viewModel.results[index].selectedJourney{
+                if !newArray.contains(where: {$0.fk == selectedResult.fk}){
+                    self.viewModel.setSelectedJourney(tableIndex: index, journeyIndex: 0)
+                    self.setTotalFare()
+                    self.isHiddingHeader = false
+                    if let tableView = self.baseScrollView.viewWithTag(1000 + index) as? UITableView{
+                        tableView.reloadData()
+                        self.setTableViewHeaderAfterSelection(tableView: tableView)
+                        self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
+                    }
+                }else if let tableView = self.baseScrollView.viewWithTag(1000 + index) as? UITableView, let selectedIndex = newArray.firstIndex(where:{$0.fk == selectedResult.fk}){
+                    self.viewModel.setSelectedJourney(tableIndex: index, journeyIndex: selectedIndex)
+                    self.isHiddingHeader = false
+                    self.setTotalFare()
+                    tableView.reloadData()
+                    self.setTableViewHeaderAfterSelection(tableView: tableView)
+                    self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
+                }
+            }
+        }
+    }
+    
     func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int, shouldReload : Bool = false, completion : (()-> Void)){
 //        previousRequest?.cancel()
         self.viewModel.sortOrder = sortOrder
@@ -124,7 +170,7 @@ extension FlightDomesticMultiLegResultVC {
         self.viewModel.setPinnedFlights(tableIndex: legIndex)
 
         self.viewModel.applySorting(tableIndex: legIndex, sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex)
-                
+        self.updateSelectedJourney(index: legIndex)
         let newRequest = DispatchWorkItem {
             if shouldReload {
                 guard let tableView = self.baseScrollView.viewWithTag( 1000 + legIndex) as? UITableView else { return }
@@ -157,6 +203,8 @@ extension FlightDomesticMultiLegResultVC {
 //                           let width = UIScreen.main.bounds.size.width / 2.0
 //                           let headerRect = CGRect(x: 0, y: 0, width: width, height: 138.0)
                         tableView.origin.y = 0
+                       }else if let divider = subview as? ATVerticalDividerView{
+                        divider.origin.y = 0.5
                        }
                    }
                    
