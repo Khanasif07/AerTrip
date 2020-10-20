@@ -165,6 +165,8 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
         if let selectedJourneys = self.viewModel.getSelectedJourneyForAllLegs() {
                if selectedJourneys.count == self.viewModel.numberOfLegs {
                    ShowFareBreakupView()
+               }else{
+                hideFareBreakupView()
                }
            } else {
                hideFareBreakupView()

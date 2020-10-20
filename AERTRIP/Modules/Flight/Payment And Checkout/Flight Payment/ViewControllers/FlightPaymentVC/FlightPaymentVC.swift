@@ -132,18 +132,26 @@ class FlightPaymentVC: BaseVC {
     }
 
     func setupPayButtonTitle(){
-        let ttl = self.getTotalPayableAmount().amountInDelimeterWithSymbol
-        let amount = ttl.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
-        amount.addAttributes([.foregroundColor : AppColors.themeWhite], range: NSString(string: ttl).range(of: ttl))
-        let attributedTitle = NSMutableAttributedString(string: "  \(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: AppColors.themeWhite])
-        attributedTitle.append(amount)
-        self.payButton.setAttributedTitle(attributedTitle, for: .normal)
-        self.payButton.setAttributedTitle(attributedTitle, for: .highlighted)
-        
-//        let amount = self.getTotalPayableAmount().amountInDelimeterWithSymbol
-//        let title = " \(LocalizedString.Pay.localized)  \(amount)"
-//        self.payButton.setTitle(title , for: .normal)
-//        self.payButton.setTitle(title, for: .highlighted)
+        if self.getTotalPayableAmount() != 0.0{
+            let ttl = self.getTotalPayableAmount().amountInDelimeterWithSymbol
+            let amount = ttl.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+            amount.addAttributes([.foregroundColor : AppColors.themeWhite], range: NSString(string: ttl).range(of: ttl))
+            let attributedTitle = NSMutableAttributedString(string: "  \(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: AppColors.themeWhite])
+            attributedTitle.append(amount)
+            self.payButton.setTitle(nil, for: .normal)
+            self.payButton.setTitle(nil, for: .highlighted)
+            self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
+            self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
+            self.payButton.setAttributedTitle(attributedTitle, for: .normal)
+            self.payButton.setAttributedTitle(attributedTitle, for: .highlighted)
+        }else{
+            self.payButton.setImage(nil, for: .normal)
+            self.payButton.setImage(nil, for: .highlighted)
+            self.payButton.setAttributedTitle(nil, for: .normal)
+            self.payButton.setAttributedTitle(nil, for: .highlighted)
+            self.payButton.setTitle(LocalizedString.ConfirmBooking.localized, for: .normal)
+            self.payButton.setTitle(LocalizedString.ConfirmBooking.localized, for: .highlighted)
+        }
     }
     
     private func manageLoader() {

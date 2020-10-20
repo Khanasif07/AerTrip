@@ -50,7 +50,7 @@ extension IntMCAndReturnVC {
                     var rect = blurEffectView.frame
                     var yCordinate = invertedOffset - 86
                     yCordinate = min ( 0,  yCordinate)
-                    if self.resultsTableView.contentOffset.y <= 0{
+                    if self.resultsTableView.contentOffset.y <= 0 || rect.origin.y == 0{
                         yCordinate = 0
                     }
                     rect.origin.y = yCordinate
