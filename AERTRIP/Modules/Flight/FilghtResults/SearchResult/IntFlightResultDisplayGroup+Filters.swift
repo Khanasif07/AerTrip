@@ -1135,6 +1135,9 @@ extension IntFlightResultDisplayGroup  {
             case .Price:
                 //done
                 inputForFilter = self.applyPriceFilter(inputForFilter)
+                
+            case .Aircraft:
+                return
             }
         }
         
