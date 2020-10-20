@@ -31,7 +31,7 @@ struct MessageModel {
     let adult : Int
     let child : Int
     let infant : Int
-    let tripType: String
+    var tripType: String
     let returnDate: String
     
     var shouldShowTypingContent = false
