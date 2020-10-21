@@ -57,15 +57,25 @@ extension FlightDomesticMultiLegResultVC {
                 
                 if let blurEffectView = self.navigationController?.view.viewWithTag(500) {
                     var rect = blurEffectView.frame
-                    var yCordinate = rect.origin.y + invertedOffset
+                    var yCordinate = invertedOffset - 86
                     yCordinate = min ( 0,  yCordinate)
+                    if self.baseScrollView.contentOffset.y <= 0 || rect.origin.y == 0{
+                        yCordinate = 0
+                    }
                     rect.origin.y = yCordinate
                     blurEffectView.frame = rect
                     var baseViewContentOffset = self.baseScrollView.contentOffset
-                    baseViewContentOffset.y = min( 0 , invertedOffset)
+                    let newDiff = 86 - invertedOffset
+                    baseViewContentOffset.y = max(0 , newDiff)
+                    if self.baseScrollView.contentOffset.y <= 0{
+                        baseViewContentOffset.y = 0
+                    }
                     self.baseScrollView.setContentOffset(baseViewContentOffset, animated: false )
                     rect = self.collectionContainerView.frame
-                    var yCordinateForHeaderView = rect.origin.y + invertedOffset
+                    var yCordinateForHeaderView = invertedOffset
+                    if rect.origin.y >= 88{
+                        yCordinateForHeaderView = 88.0
+                    }
                     yCordinateForHeaderView = min(88.0 , yCordinateForHeaderView)
                     self.headerCollectionViewTop.constant = yCordinateForHeaderView
                     if ((scrollView as? UITableView) == nil) && (self.headerCollectionViewTop.constant == 88.0){
@@ -133,7 +143,7 @@ extension FlightDomesticMultiLegResultVC {
             }
             return
         }//tableView.indexPathForSelectedRow
-        let visibleRect = getVisibleAreaRectFor(tableView: tableView)
+//        let visibleRect = getVisibleAreaRectFor(tableView: tableView)
         let xCoordinate = tableView.frame.origin.x
         let selectedRowIndex = IndexPath(row: selectedIndex, section: 0)
         var selectedRowRect = tableView.rectForRow(at: selectedRowIndex)
@@ -269,51 +279,6 @@ extension FlightDomesticMultiLegResultVC {
             self.journeyHeaderViewArray[index].setValuesFrom(journey: journey)
         }
         self.hideHeaderCellAt(index: index, isHeaderNeedSet: true)
-        
-        
-//        let visibleRect = self.getVisibleAreaRectFor(tableView: tableView)
-//        let xCoordinate = tableView.frame.origin.x
-//        let zerothRowIndex = IndexPath(item: 0, section: 0)
-//        var zerothRowRect = tableView.rectForRow(at: zerothRowIndex)
-//        zerothRowRect.origin.x = xCoordinate
-//        let width = tableView.bounds.size.width
-//
-//        let isFirstCellVisible : Bool
-//        if visibleRect.contains(zerothRowRect) {
-//            isFirstCellVisible = true
-//        }
-//        else {
-//            isFirstCellVisible = false
-//        }
-        
-//        let index = tableView.tag - 1000
-//        if let journey = self.viewModel.results[index].selectedJourney{
-//            journeyHeaderViewArray[index].setValuesFrom(journey: journey)
-//        }
-////        let headerView = journeyHeaderViewArray[index]
-//
-//        let height : CGFloat = 138.0
-//        journeyHeaderViewArray[index].isHidden = true
-//        if isFirstCellVisible {
-//
-//            if headerView.isHidden {
-//                height = 138.0
-//            }
-//            else {
-//                height = 188.0
-//            }
-//        }
-
-//        if let selectedIndex =  self.getSelectedIndex(for: tableView){ //tableView.indexPathForSelectedRow
-//
-//            if selectedIndex <= 4 {//selectedIndex.row
-//                  height = 138.0
-//            }
-//        }
-//
-//        let rect = CGRect(x: 0.0, y: 0.0, width: width, height: height )
-//        let tableHeaderView = UIView(frame: rect)
-//        tableView.tableHeaderView = tableHeaderView
     }
 
     
