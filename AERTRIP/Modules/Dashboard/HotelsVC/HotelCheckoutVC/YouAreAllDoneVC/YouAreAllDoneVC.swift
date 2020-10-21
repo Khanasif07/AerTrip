@@ -541,8 +541,9 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
     
     func shareOnInstagram() {
         printDebug("Share On instagram")
+        AppGlobals.shared.shareWithActivityViewController(VC: self , shareData: AppConstants.kAppStoreLink)
         
-        InstagramManager.sharedManager.postImageToInstagramWithCaption(imageInstagram: UIImage(named: "aertripGreenText")!, instagramCaption: "\(AppConstants.kAppName) Appstore Link: \(AppConstants.kAppStoreLink)", view: self.view)
+//        InstagramManager.sharedManager.postImageToInstagramWithCaption(imageInstagram: UIImage(named: "aertripGreenText")!, instagramCaption: "\(AppConstants.kAppName) Appstore Link: \(AppConstants.kAppStoreLink)", view: self.view)
 /*
         let image = UIImage(named: "aertripGreenText")
         let instagramURL = URL(string: "instagram://app")
