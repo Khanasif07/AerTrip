@@ -139,14 +139,13 @@ extension FlightDomesticMultiLegResultVC {
         var selectedRowRect = tableView.rectForRow(at: selectedRowIndex)
         selectedRowRect.origin.y = selectedRowRect.origin.y - tableView.contentOffset.y
         selectedRowRect.origin.x = xCoordinate
-        if self.isRowCompletelyVisible(at: selectedRowIndex, for: tableView){//visibleRect.contains(selectedRowRect) {
+        if self.isRowCompletelyVisible(at: selectedRowIndex, for: tableView){
             let index = tableView.tag - 1000
             hideHeaderCellAt(index: index, isHeaderNeedSet: isHeaderNeedToSet)
         }
         else {
             showHeaderCellAt(tableView: tableView, isHeaderNeedSet: isHeaderNeedToSet)
         }
-//        setTableViewHeaderFor(tableView: tableView)
     }
         
     func showHeaderCellAt(tableView : UITableView, isHeaderNeedSet: Bool = false) {
@@ -162,17 +161,12 @@ extension FlightDomesticMultiLegResultVC {
             if let journey = self.viewModel.results[index].selectedJourney{
                 headerView.setValuesFrom(journey: journey)
             }
-            let hiddenHeaderY:CGFloat = -44.0//(self.headerCollectionViewTop.constant + self.headerCollectionView.height + self.baseScrollView.contentOffset.y - 44)
-            
+            let hiddenHeaderY:CGFloat = -44.0
             let headerJourneyRect  = CGRect(x: (width * CGFloat(index)), y: hiddenHeaderY , width: width - 1 , height: journeyCompactViewHeight)
             headerView.frame = headerJourneyRect
             UIView.animate(withDuration: 0.4, animations: {
                 var rect = headerView.frame
-//                var yCoordinate = max(self.headerCollectionViewTop.constant +  self.headerCollectionView.frame.size.height , self.headerCollectionView.frame.size.height)
-//                if self.baseScrollView.contentOffset.y == 88.0 {
-//                    yCoordinate = yCoordinate + 88.0
-//                }
-                rect.origin.y = 0.0//(self.headerCollectionViewTop.constant + self.headerCollectionView.height + self.baseScrollView.contentOffset.y)
+                rect.origin.y = 0.0
                 rect.size.height = self.journeyCompactViewHeight
                 headerView.frame = rect
             }){ _ in

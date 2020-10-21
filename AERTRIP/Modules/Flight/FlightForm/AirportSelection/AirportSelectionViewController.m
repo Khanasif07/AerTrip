@@ -1191,10 +1191,21 @@
                 cell.horizontalLineView.hidden = YES;
             }
             
+        } else if ([key  isEqual: @"RECENTLY SEARCHED AIRPORTS"]){
+            if ([[self.displaySections objectForKey:key] count] > 5){
+                count1 = 5;
+            }else{
+                count1 = [[self.displaySections objectForKey:key] count];
+            }
+            
+            if (indexPath.row == count1 - 1 ) {
+                cell.horizontalLineView.hidden = YES;
+            }
         }else{
             count1 = [[self.displaySections objectForKey:key] count];
         }
     }
+
     
     return cell;
 }

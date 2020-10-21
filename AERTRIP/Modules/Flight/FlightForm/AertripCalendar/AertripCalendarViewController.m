@@ -204,6 +204,9 @@
         NSLog(@"Failed to load font: %@", errorDescription);
         CFRelease(errorDescription);
     }
+    CFRelease(font);
+    CFRelease(provider);
+
 }
 
 - (void)makeTopCornersRounded:(UIView *)view withRadius:(double)radius{

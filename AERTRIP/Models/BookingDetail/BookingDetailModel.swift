@@ -1229,11 +1229,11 @@ struct BookingFlightDetail {
             self.fbn = "\(obj)".removeNull
         }
         
-        if let obj = json["cc"] {
+        if let obj = json["cabin_class"] {
             self.cc = "\(obj)".removeNull
         }
         
-        if let obj = json["bc"] {
+        if let obj = json["booking_class"] {
             self.bc = "\(obj)".removeNull
         }
         

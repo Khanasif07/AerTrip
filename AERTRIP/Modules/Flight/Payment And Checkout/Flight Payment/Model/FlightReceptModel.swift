@@ -150,8 +150,8 @@ struct  WhatNext {
         cabinclass = json["cabinclass"].stringValue.capitalized
         child = json["child"].stringValue
         returnDate = json["return"].stringValue
-        departCity = json["depart_city"].stringValue
-        arrivalCity = json["arrival_city"].stringValue
+        departCity = json["origin_city"].stringValue
+        arrivalCity = json["destination_city"].stringValue
         productType = ProductType.getTypeFrom(self.product)
         settingFor = isFor
         switch productType{
