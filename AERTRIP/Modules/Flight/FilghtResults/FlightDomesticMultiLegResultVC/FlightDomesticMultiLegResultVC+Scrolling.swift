@@ -402,7 +402,10 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
         if scrollView.tag > 999 {
             
             for subview in baseScrollView.subviews.filter({ $0.tag > 999 }) {
-                
+                print(scrollView.isBouncingBottom)
+                guard (!scrollView.isBouncingBottom && ((scrollView.contentSize.height - 5.0) > (scrollView.contentOffset.y + scrollView.height)) || (self.baseScrollView.contentOffset.y < 88)) else {
+                    return
+                }
                 if subview == scrollView {
                     animateTopViewOnScroll(scrollView)
                     if let tableView = scrollView as? UITableView {

@@ -224,6 +224,12 @@ extension FlightPaymentBookingStatusVC{
 extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate{
     func shareOnInstagram() {
         
+        guard let url = URL(string: AppConstants.kAppStoreLink) else { return }
+        let textToShare = [ "\(url)" ]
+        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        
+        self.present(activityViewController, animated: true, completion: nil)
     }
     
     func shareOnFaceBook() {

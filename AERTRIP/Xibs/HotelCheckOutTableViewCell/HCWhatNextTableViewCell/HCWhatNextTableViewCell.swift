@@ -82,7 +82,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
         self.fbButton.tintColor = AppColors.themeWhite
         self.twitterButton.setImage(#imageLiteral(resourceName: "twiterIcon").withRenderingMode(.alwaysTemplate), for: .normal)
         self.twitterButton.tintColor = AppColors.themeWhite
-        self.instagramButton.setImage(#imageLiteral(resourceName: "instagramNew"), for: .normal)
+        self.instagramButton.setImage(#imageLiteral(resourceName: "socialInstagram"), for: .normal)
 //        self.instagramButton.tintColor = AppColors.themeWhite
 
         //Font
