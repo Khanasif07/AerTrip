@@ -716,7 +716,7 @@ extension BulkBookingVC {
                 }
             }
         }
-        print(velocity.y)
+        printDebug(velocity.y)
     }
     
     func openBottomSheet() {

@@ -502,7 +502,7 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
             addController?.delegate = self
             self.present(addController!, animated: true)
         } catch {
-            print(error)
+            printDebug(error)
         }
     }
     

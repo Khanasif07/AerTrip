@@ -14,13 +14,16 @@ import UIKit
 import EventKit
 
 func printDebug<T>(_ obj: T) {
-    if AppConstants.isReleasingToClient {
-        if UIDevice.isSimulator {
-            print(obj)
-        }
-    } else {
-        print(obj)
-    }
+    //    if AppConstants.isReleasingToClient {
+    //        if UIDevice.isSimulator {
+    //            print(obj)
+    //        }
+    //    } else {
+    //        print(obj)
+    //    }
+    #if DEBUG
+    print(obj)
+    #endif
 }
 
 func + (left: NSAttributedString, right: NSAttributedString) -> NSAttributedString
@@ -56,7 +59,7 @@ class AppGlobals {
     private init() {}
     
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
-
+    
     //vcs used in mybooking filter screen
     var travelDateVC: TravelDateVC?
     var eventTypeVC: EventTypeVC?
@@ -123,7 +126,7 @@ class AppGlobals {
         let (_, message, hint) = ATErrorManager.default.error(forCodes: errors, module: module)
         var msgStr:String = ""
         if !message.isEmpty {
-           msgStr = message
+            msgStr = message
         }else if !hint.isEmpty {
             msgStr = hint
         }else{
@@ -135,7 +138,7 @@ class AppGlobals {
         }else if txt == "pleasetryagain.\""{
             msgStr = "please try again."
         }
-         AppToast.default.showToastMessage(message: msgStr)
+        AppToast.default.showToastMessage(message: msgStr)
     }
     
     // convert Date from one format to another
@@ -222,9 +225,9 @@ class AppGlobals {
         //        image1Attachment.bounds.origin = CGPoint(x: 0.0, y: 5.0)
         if let size = imageSize {
             image1Attachment.bounds = CGRect(x: 0, y: (font.capHeight - size).rounded() / 2, width: size, height: size)
-
+            
         } else {
-        image1Attachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height).rounded() / 2, width: image.size.width, height: image.size.height)
+            image1Attachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height).rounded() / 2, width: image.size.width, height: image.size.height)
         }
         image1Attachment.image = image
         
@@ -259,7 +262,7 @@ class AppGlobals {
         // create our NSTextAttachment
         let image1Attachment = NSTextAttachment()
         let font = AppFonts.SemiBold.withSize(18)
-            image1Attachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height).rounded() / 2, width: image.size.width, height: image.size.height)
+        image1Attachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height).rounded() / 2, width: image.size.width, height: image.size.height)
         image1Attachment.image = image
         let image1String = NSAttributedString(attachment: image1Attachment)
         fullString.append(image1String)
@@ -672,7 +675,7 @@ extension AppGlobals {
             return
         }
         if showLoader {
-        AppGlobals.shared.startLoading()
+            AppGlobals.shared.startLoading()
         }
         self.downloadPdf(fileURL: url, screenTitle: screenTitle) { localPdf in
             if let url = localPdf {
@@ -680,9 +683,9 @@ extension AppGlobals {
                     
                     AppFlowManager.default.openDocument(atURL: url, screenTitle: screenTitle)
                     if showLoader {
-//                        delay(seconds: 2) {
-                            AppGlobals.shared.stopLoading()
-//                        }
+                        //                        delay(seconds: 2) {
+                        AppGlobals.shared.stopLoading()
+                        //                        }
                     }
                     delay(seconds: 1.5) {
                         complition?(true)
@@ -696,7 +699,7 @@ extension AppGlobals {
         // Create destination URL
         if let documentsUrl: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             if showLoader {
-            AppGlobals.shared.startLoading()
+                AppGlobals.shared.startLoading()
             }
             let destinationFileUrl = documentsUrl.appendingPathComponent("\("test").pkpass")
             
@@ -710,11 +713,11 @@ extension AppGlobals {
             let request = URLRequest(url: fileURL)
             
             let task = session.downloadTask(with: request) { tempLocalUrl, response, error in
-               if showLoader {
-                   delay(seconds: 5) {
-                       AppGlobals.shared.stopLoading()
-                   }
-               }
+                if showLoader {
+                    delay(seconds: 5) {
+                        AppGlobals.shared.stopLoading()
+                    }
+                }
                 if let tempLocalUrl = tempLocalUrl, error == nil {
                     // Success
                     if let statusCode = (response as? HTTPURLResponse)?.statusCode {
@@ -778,7 +781,7 @@ extension AppGlobals {
     
     func AttributedFontAndColorForText(text: String, atributedText : String, textFont : UIFont, textColor : UIColor) -> NSAttributedString {
         
-         let labelString = text
+        let labelString = text
         
         let main_string = labelString as NSString
         //let range = main_string.range(of: atributedText)

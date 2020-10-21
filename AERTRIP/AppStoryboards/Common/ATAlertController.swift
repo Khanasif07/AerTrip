@@ -33,7 +33,7 @@ public class ATAlertController {
         }
         
         if presentedVC == nil {
-            print("AlertController Error: You don't have any views set. You may be calling in viewdidload. Try viewdidappear.")
+            printDebug("AlertController Error: You don't have any views set. You may be calling in viewdidload. Try viewdidappear.")
         }
         return presentedVC
     }

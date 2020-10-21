@@ -415,8 +415,6 @@ extension MyBookingsVC : PagingViewControllerDataSource , PagingViewControllerDe
             let text = pagingIndexItem.title
             
             let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
-            print(text)
-            print("size: \(text.widthOfString(usingFont: font))")
             return text.widthOfString(usingFont: font)
         }
         

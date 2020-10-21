@@ -385,7 +385,7 @@ class AccountOutstandingLadgerVC: BaseVC {
             
             let touchPoint = longPressGestureRecognizer.location(in: tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-                print(indexPath)
+                printDebug(indexPath)
                 //                tableView.separatorStyle = .singleLine
                 func  selectRow() {
                     self.tableView(self.tableView, didSelectRowAt: indexPath)

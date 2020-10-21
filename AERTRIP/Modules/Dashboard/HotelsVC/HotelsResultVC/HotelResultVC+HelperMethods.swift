@@ -479,7 +479,7 @@ extension HotelResultVC {
                 //printDebug("revealBlurredHeaderView.frame : \(self.headerContainerView.frame )")
                 if self.headerContainerViewTopConstraint.constant != yCordinate {
                     self.headerContainerViewTopConstraint.constant = yCordinate
-                    self.headerContainerView.layoutIfNeeded()
+                    self.view.layoutIfNeeded()
                 }
                 var value = self.topContentSpace - abs(yCordinate)
                 printDebug("revealBlurredHeaderView: \(value)")
@@ -554,7 +554,7 @@ extension HotelResultVC {
             UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseInOut], animations: {
                 if self.headerContainerViewTopConstraint.constant != 0 {
                     self.headerContainerViewTopConstraint.constant = 0
-                    self.headerContainerView.layoutIfNeeded()
+                    self.view.layoutIfNeeded()
                 }
                 self.statusBarViewContainer.isHidden = true
                 //self.tableViewVertical.contentInset = UIEdgeInsets(top: self.topContentSpace, left: 0, bottom: 0, right: 0)

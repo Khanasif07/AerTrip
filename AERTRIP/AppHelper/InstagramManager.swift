@@ -37,7 +37,7 @@ class InstagramManager: NSObject, UIDocumentInteractionControllerDelegate {
             do {
             try imageInstagram.jpegData(compressionQuality: 0.75)?.write(to: URL(fileURLWithPath: jpgPath), options: .atomic)
             } catch {
-                print(error)
+                printDebug(error)
             }
 
             let rect = CGRect.zero
