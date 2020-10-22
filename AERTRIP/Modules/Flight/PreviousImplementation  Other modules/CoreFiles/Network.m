@@ -35,7 +35,8 @@
         NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName];
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        [manager POST:url parameters:parameters progress:nil success:success failure:failure];
+        [manager POST:url parameters:parameters headers:nil progress:nil success:success failure:failure];
+        //[manager POST:url parameters:parameters progress:nil success:success failure:failure];
         
     }
     else {
@@ -72,8 +73,10 @@
             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
             
             [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
-
-        [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            
+            
+            
+        [manager POST:url parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *responseDictionary = (NSDictionary *)responseObject;
             NSLog(@"%@",responseDictionary);
             if ([Parser checkForSuccess:responseDictionary]) {
@@ -120,6 +123,7 @@
                 [textLog logTextToFile:fail];
 
             }
+            [manager invalidateSessionCancelingTasks:YES resetSession:YES];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSString* ErrorResponse = [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding];
             NSLog(@"Error : %@", ErrorResponse);
@@ -140,7 +144,7 @@
             // Logger response
             NSString *fail=[NSString stringWithFormat:@"Failure=\n%@\n##########################################################################################",ErrorResponse];
             [textLog logTextToFile:fail];
-
+            [manager invalidateSessionCancelingTasks:YES resetSession:YES];
         }];
         }
     }
@@ -182,7 +186,7 @@
 
             [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
 
-            [manager GET:url parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            [manager GET:url parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                 NSDictionary *responseDictionary = (NSDictionary *)responseObject;
                 if ([Parser checkForSuccess:responseDictionary]) {
                     NSDictionary *dataDictionary = [Parser getData:responseDictionary];
@@ -224,6 +228,7 @@
 
 
                 }
+                [manager invalidateSessionCancelingTasks:YES resetSession:YES];
             } failure:^(NSURLSessionDataTask *task, NSError *error) {
                 NSString* ErrorResponse = [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding];
                 NSLog(@"Error : %@", ErrorResponse);
@@ -240,7 +245,7 @@
                 
                 NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,ErrorResponse];
                 [textLog logTextToFile:response];
-
+                [manager invalidateSessionCancelingTasks:YES resetSession:YES];
             }];
         }
     }
@@ -264,7 +269,7 @@
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
     
-    [manager GET:url parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [manager GET:url parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *responseDictionary = (NSDictionary *)responseObject;
         if ([Parser checkForSuccess:responseDictionary]) {
             NSDictionary *dataDictionary = [Parser getData:responseDictionary];
@@ -284,7 +289,7 @@
 
         }
         NSLog(@"Response:%@",responseDictionary);
-
+        [manager invalidateSessionCancelingTasks:YES resetSession:YES];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"failure!");
         NSString* ErrorResponse = [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding];
@@ -301,7 +306,7 @@
         
         NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,ErrorResponse];
         [textLog logTextToFile:response];
-
+        [manager invalidateSessionCancelingTasks:YES resetSession:YES];
         
     }];
 }
@@ -322,7 +327,7 @@
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
 
-    [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [manager POST:url parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *responseDictionary = (NSDictionary *)responseObject;
         if ([Parser checkForSuccess:responseDictionary]) {
             NSDictionary *dataDictionary = [Parser getData:responseDictionary];
@@ -339,8 +344,9 @@
             
             NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,dataDictionary.description];
             [textLog logTextToFile:response];
-
+            
         }
+        [manager invalidateSessionCancelingTasks:YES resetSession:YES];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"failure!");
         NSString* ErrorResponse = [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding];
@@ -358,7 +364,7 @@
         NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,ErrorResponse];
         [textLog logTextToFile:response];
 
-        
+        [manager invalidateSessionCancelingTasks:YES resetSession:YES];
     }];
 }
 
@@ -380,7 +386,7 @@
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
         [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
-        [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [manager POST:url parameters:parameters headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             float actualImageSize = UIImageJPEGRepresentation(image,1.0f).length;
             float destinationFileSize = 2000000.0;
             float percentage = destinationFileSize / actualImageSize;
@@ -408,12 +414,13 @@
                 NSString *failureText = [Parser getErrorFromDictionary:responseDictionary];
                 failure(failureText,YES);
             }
+            [manager invalidateSessionCancelingTasks:YES resetSession:YES];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             
             NSString* ErrorResponse = [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding];
             NSLog(@"Error : %@", ErrorResponse);
             failure(OOPS_ERROR_MESSAGE,NO);
-            
+            [manager invalidateSessionCancelingTasks:YES resetSession:YES];
         }];
         
     }
@@ -437,7 +444,7 @@
         NSString *url = [NSString stringWithFormat:@"%@%@",localAPI,apiName];
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        [manager POST:url parameters:parameters progress:nil success:success failure:failure];
+        [manager POST:url parameters:parameters headers:nil progress:nil success:success failure:failure];
     }
     else {
         [BaseViewController notifyNoInternetIssue];
