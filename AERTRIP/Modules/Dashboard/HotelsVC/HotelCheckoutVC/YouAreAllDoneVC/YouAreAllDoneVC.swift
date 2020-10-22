@@ -16,6 +16,8 @@ class YouAreAllDoneVC: BaseVC {
     //================
     let viewModel = YouAreAllDoneVM()
     var allIndexPath = [IndexPath]()
+    var needToShowLoaderOnShare:Bool = false
+
     //var tableFooterView: YouAreAllDoneFooterView?
     
     private var viewButton: ATButton?
@@ -492,6 +494,27 @@ extension YouAreAllDoneVC: YouAreAllDoneVMDelegate {
 //        }
         return updatedTitle
     }
+    
+    func willGetPinnedTemplate() {
+//        AppGlobals.shared.startLoading()
+         self.needToShowLoaderOnShare = true
+        self.allDoneTableView.reloadData()
+//        self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
+    }
+    
+    func getPinnedTemplateSuccess() {
+        delay(seconds: 0.5 ) {
+            self.needToShowLoaderOnShare = false
+            self.allDoneTableView.reloadData()
+//            self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
+        }
+    }
+    
+    func getPinnedTemplateFail() {
+        self.needToShowLoaderOnShare = false
+        self.allDoneTableView.reloadData()
+//        self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
+    }
 }
 
 //Mark:- HCGuestsTableViewCell Delegate
@@ -541,7 +564,27 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
     
     func shareOnInstagram() {
         printDebug("Share On instagram")
-        AppGlobals.shared.shareWithActivityViewController(VC: self , shareData: AppConstants.kAppStoreLink)
+        //AppGlobals.shared.shareWithActivityViewController(VC: self , shareData: AppConstants.kAppStoreLink)
+        if !self.viewModel.shareLinkURL.isEmpty{
+            DispatchQueue.main.async {
+                self.willGetPinnedTemplate()
+                AppGlobals.shared.shareWithActivityViewController(VC: self , shareData: self.viewModel.shareLinkURL)
+                delay(seconds: 0.5) {
+                    self.getPinnedTemplateFail()
+                }
+            }
+        } else {
+            self.viewModel.getShareLinkAPI {[weak self] (sucess) in
+                guard let strongSelf = self else {return}
+                if sucess {
+                    if !strongSelf.viewModel.shareLinkURL.isEmpty{
+                       DispatchQueue.main.async {
+                            AppGlobals.shared.shareWithActivityViewController(VC: strongSelf, shareData: strongSelf.viewModel.shareLinkURL)
+                        }
+                    }
+                }
+            }
+        }
         
 //        InstagramManager.sharedManager.postImageToInstagramWithCaption(imageInstagram: UIImage(named: "aertripGreenText")!, instagramCaption: "\(AppConstants.kAppName) Appstore Link: \(AppConstants.kAppStoreLink)", view: self.view)
 /*

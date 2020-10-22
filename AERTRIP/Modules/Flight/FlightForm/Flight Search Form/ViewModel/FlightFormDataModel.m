@@ -492,24 +492,28 @@
 - (void) performFlightSearchWebServiceCall:(NSDictionary*)flightSearchParameters
 {
     [self.delegate showLoaderIndicatorForFilghtSearch];
+    __weak typeof(self) weakSelf = self;
+
     [[Network sharedNetwork]
      callGETApi:FLIGHT_SEARCH_API
      parameters:flightSearchParameters
      loadFromCache:NO
      expires:YES
      success:^(NSDictionary *dataDictionary) {
-        [self addToRecentSearch:flightSearchParameters];
+        if (!weakSelf) { return; }
+        [weakSelf addToRecentSearch:flightSearchParameters];
          BookFlightObject * bookingObject = [self handleResponseForFlightSearch:dataDictionary flightSearchParameters:flightSearchParameters];
          
          dispatch_async(dispatch_get_main_queue(), ^{
-                      [self.delegate showFlightSearchResult:bookingObject flightSearchParameters:flightSearchParameters];
+                      [weakSelf.delegate showFlightSearchResult:bookingObject flightSearchParameters:flightSearchParameters];
          });
          
 
 
     } failure:^(NSString *error, BOOL popup) {
-        [self.delegate showErrorMessage:error];
-        [self.delegate hideLoaderIndicatorForFilghtSearch];
+        if (!weakSelf) { return; }
+        [weakSelf.delegate showErrorMessage:error];
+        [weakSelf.delegate hideLoaderIndicatorForFilghtSearch];
     }];
 }
 
@@ -934,10 +938,14 @@
     
     NSString * url = [NEARBY_AIRPORT_SEARCH_API stringByAppendingString:latitudeLongituteString];
     
+    __weak typeof(self) weakSelf = self;
+    
     [[Network sharedNetwork] callGETApi:url parameters:nil loadFromCache:NO expires:YES success:^(NSDictionary *dataDictionary) {
-        [self handleNearbyAirportByLocationResult:dataDictionary];
+        if (!weakSelf) { return; }
+        [weakSelf handleNearbyAirportByLocationResult:dataDictionary];
     } failure:^(NSString *error, BOOL popup) {
-        [self.delegate showErrorMessage:error.description];
+        if (!weakSelf) { return; }
+        [weakSelf.delegate showErrorMessage:error.description];
     }];
     
 }
@@ -1213,8 +1221,11 @@
     [parametersDynamic setObject:[self dateFormattedForAPIRequest:self.onwardsDate] forKey:@"data[start_date]"];
     [parametersDynamic setObject:jsonString forKey:@"data[query]"];
     
+    __weak typeof(self) weakSelf = self;
+
     [[Network sharedNetwork] callApi:RECENT_SEARCH_SET_API parameters:parametersDynamic loadFromCache:NO expires:YES success:^(NSDictionary *dataDictionary) {
-        [self getRecentSearches];
+        if (!weakSelf) { return; }
+        [weakSelf getRecentSearches];
     } failure:^(NSString *error, BOOL popup) {
         NSLog(@"%@", error.debugDescription);
     }];
@@ -1230,8 +1241,11 @@
         NSMutableDictionary *parametersDynamic = [[NSMutableDictionary alloc] init];
     [parametersDynamic setObject:@"flight" forKey:@"product"];
     
+    __weak typeof(self) weakSelf = self;
+
     [[Network sharedNetwork] callGETApi:RECENT_SEARCH_GET_API parameters:parametersDynamic loadFromCache:NO expires:YES success:^(NSDictionary *dataDictionary) {
-        [self handleRecentSearchWSResponse:dataDictionary];
+        if (!weakSelf) { return; }
+        [weakSelf handleRecentSearchWSResponse:dataDictionary];
     } failure:^(NSString *error, BOOL popup) {
         ///Chnage for what next functionality by @Golu
         [FlightWhatNextData.shared clearData];
@@ -1414,9 +1428,11 @@
 
 - (void) performSearchOnServerWithText:(NSString *)searchText
 {
-    
+    __weak typeof(self) weakSelf = self;
+
     [[Network sharedNetwork] callGETApi:AIRPORT_SEARCH_API parameters:[self buildSearchParametersWithText:searchText] loadFromCache:NO expires:YES success:^(NSDictionary *dataDictionary) {
-        [self handleSearchResultDictionary:dataDictionary];
+        if (!weakSelf) { return; }
+        [weakSelf handleSearchResultDictionary:dataDictionary];
     } failure:^(NSString *error, BOOL popup) {
 
     }];
@@ -1475,10 +1491,11 @@
 
 - (void) performAirportSearchFromIATACode:(NSString *)searchText forOrigin:(BOOL)forOrigin
 {
-    
-    [[Network sharedNetwork] callGETApi:AIRPORT_SEARCH_API parameters:[self dictionaryForAirportSearch:searchText] loadFromCache:NO expires:YES success:^(NSDictionary *dataDictionary) {
+    __weak typeof(self) weakSelf = self;
 
-        [self HandleAirportSearchResult:dataDictionary forOrigin:forOrigin];
+    [[Network sharedNetwork] callGETApi:AIRPORT_SEARCH_API parameters:[self dictionaryForAirportSearch:searchText] loadFromCache:NO expires:YES success:^(NSDictionary *dataDictionary) {
+        if (!weakSelf) { return; }
+        [weakSelf HandleAirportSearchResult:dataDictionary forOrigin:forOrigin];
     } failure:^(NSString *error, BOOL popup) {
     }];
 }

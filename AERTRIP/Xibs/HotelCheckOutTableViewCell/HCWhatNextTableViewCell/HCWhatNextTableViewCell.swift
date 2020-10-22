@@ -37,7 +37,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
     @IBOutlet weak var tellYourPlanLabel: UILabel!
     @IBOutlet weak var fbButton: UIButton!
     @IBOutlet weak var twitterButton: UIButton!
-    @IBOutlet weak var instagramButton: UIButton!
+    @IBOutlet weak var instagramButton: ATButton!
     @IBOutlet weak var whatNext: UILabel!
     @IBOutlet weak var whatNextCollectionView: UICollectionView! {
         didSet {
