@@ -133,6 +133,7 @@ extension FlightDomesticMultiLegResultVC {
             }
             if let selectedResult = self.viewModel.results[index].selectedJourney{
                 if !newArray.contains(where: {$0.fk == selectedResult.fk}) || !self.viewModel.results[index].isJourneySelectedByUser {
+                    let isSelectedJourney = self.viewModel.results[index].isJourneySelectedByUser
                     self.viewModel.setSelectedJourney(tableIndex: index, journeyIndex: 0)
                     self.setTotalFare()
                     self.isHiddingHeader = false
@@ -141,13 +142,20 @@ extension FlightDomesticMultiLegResultVC {
                         self.setTableViewHeaderAfterSelection(tableView: tableView)
                         self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
                     }
+                    if !isSelectedJourney{
+                        self.viewModel.results[index].isJourneySelectedByUser = false
+                    }
                 }else if let tableView = self.baseScrollView.viewWithTag(1000 + index) as? UITableView, let selectedIndex = newArray.firstIndex(where:{$0.fk == selectedResult.fk}){
+                    let isSelectedJourney = self.viewModel.results[index].isJourneySelectedByUser
                     self.viewModel.setSelectedJourney(tableIndex: index, journeyIndex: selectedIndex)
                     self.isHiddingHeader = false
                     self.setTotalFare()
                     tableView.reloadData()
                     self.setTableViewHeaderAfterSelection(tableView: tableView)
                     self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
+                    if !isSelectedJourney{
+                        self.viewModel.results[index].isJourneySelectedByUser = false
+                    }
                 }
             }
         }
