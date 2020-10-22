@@ -409,7 +409,7 @@ extension FlightFilterBaseVC {
                 var qualityFilter: QualityFilter?
                 if stopsViewController.allStopsFilters.indices.contains(index) {
                     qualityFilter = stopsViewController.allStopsFilters[index].qualityFilter
-                    if userSelectedFilters[index].fq.keys.contains("coa") {
+                      if userSelectedFilters.indices.contains(index), userSelectedFilters[index].fq.keys.contains("coa") {
                         qualityFilter?.isSelected = userSelectedFilters[index].fq["ovgtlo"] == ""
                     }
                 }

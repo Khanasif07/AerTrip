@@ -8,6 +8,26 @@
 
 import Foundation
 
+
+struct DynamicFilters {
+    
+    var aircraft = AircraftFilter()
+    
+    init(){
+        
+    }
+}
+
+struct AircraftFilter {
+    
+    var selectedAircrafts : [String] = []
+    var allAircrafts : [String] = []
+    
+    init() {
+        
+    }
+}
+
 class IntFlightResultDisplayGroup {
     
     /// Only for checking if user has initiated application of filter
@@ -28,6 +48,10 @@ class IntFlightResultDisplayGroup {
     var sortOrder : Sort = .Smart
     var userSelectedFilters : [IntMultiCityAndReturnWSResponse.Results.F] = []
     var inputFilter : [IntMultiCityAndReturnWSResponse.Results.F] = []
+    
+    var dynamicFilters = DynamicFilters()
+    
+    
     private var numberOfLegs = 0
     internal var isReturnJourney = false
     
@@ -109,7 +133,7 @@ class IntFlightResultDisplayGroup {
     
     private func mergeFilters(_ flightsArray: [IntMultiCityAndReturnWSResponse.Flight]) {
         flightsArray.forEach { (flight) in
-            
+        
             if inputFilter.isEmpty {
                 inputFilter = flight.results.f
                 userSelectedFilters = flight.results.f
@@ -491,6 +515,28 @@ class IntFlightResultDisplayGroup {
     }
     
     
+    func createDinamicFilters(flightsArray: [IntMultiCityAndReturnWSResponse.Flight]){
+     
+        var allEqs : [String] = []
+        
+        allEqs.append(contentsOf: dynamicFilters.aircraft.allAircrafts)
+        
+        flightsArray.forEach { (flightResult) in
+            
+            flightResult.results.fdet.keys.forEach { (key) in
+                if let fdet = flightResult.results.fdet[key] {
+                    allEqs.append(fdet.eq)
+                }
+            }
+            
+        }
+        
+        dynamicFilters.aircraft.allAircrafts = allEqs.removeDuplicates()
+
+        printDebug("dynamicFilters.aircraft.allAircrafts.....\(dynamicFilters.aircraft.allAircrafts)")
+        
+    }
+    
     
     //MARK:- Public Methods
     
@@ -499,6 +545,7 @@ class IntFlightResultDisplayGroup {
         mergeFlightResults(flightsArray)
         mergeFilters(flightsArray)
         updateUserFiltersFromDeepLink(flightSearchParam)
+        createDinamicFilters(flightsArray: flightsArray)
         processingOnCombinedSearchResult()
     }
     
