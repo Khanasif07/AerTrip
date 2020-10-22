@@ -42,6 +42,7 @@ extension FlightDomesticMultiLegResultVC {
                         }
                         
                     }
+                    self.view.layoutIfNeeded()
                 }
             } ,completion: nil)
         }
@@ -72,7 +73,7 @@ extension FlightDomesticMultiLegResultVC {
                     }
                     self.baseScrollView.setContentOffset(baseViewContentOffset, animated: false )
                     rect = self.collectionContainerView.frame
-                    var yCordinateForHeaderView = invertedOffset
+                    var yCordinateForHeaderView = (invertedOffset + 2.0)
                     if rect.origin.y >= 88{
                         yCordinateForHeaderView = 88.0
                     }
@@ -81,6 +82,7 @@ extension FlightDomesticMultiLegResultVC {
                     if ((scrollView as? UITableView) == nil) && (self.headerCollectionViewTop.constant == 88.0){
                         self.setAllTableViewHeader()
                     }
+                    self.view.layoutIfNeeded()
                 }
             } ,completion: nil)//{_ in self.setAllTableViewHeader()}
         }
