@@ -181,8 +181,6 @@ class GetSharableUrl
             ])
         }
         
-        
-        
         parameters.append([
             "key": "sid",
             "value": sid,
@@ -243,6 +241,16 @@ class GetSharableUrl
 
         print("request= ",request.allHTTPHeaderFields)
         
+        let requestDate = Date.getCurrentDate()
+        var textLog = TextLog()
+
+        textLog.write("\n##########################################################################################\nAPI URL :::\(tempelteUrl)")
+
+        textLog.write("\nREQUEST HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: request.allHTTPHeaderFields))\n")
+        textLog.write("\nParameters :::::::: \(requestDate)  ::::::::\n\n\(parameters)\n")
+
+        
+        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
                 print(String(describing: error))
@@ -254,7 +262,10 @@ class GetSharableUrl
                 let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
                 
                 DispatchQueue.main.async {
-                    if let result = jsonResult as? [String: AnyObject] {
+                    if let result = jsonResult as? [String: AnyObject]
+                    {
+                        textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) ::::::::\(result)\n##########################################################################################\n")
+
                         if result["success"] as? Bool == true{                            
                             if let data = (result["data"] as? [String:Any]){
                                 if let view = data["view"] as? String{
