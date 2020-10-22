@@ -67,6 +67,7 @@ class MyBookingsVC: BaseVC {
         MyBookingFilterVM.shared.searchText = ""
         MyBookingsVM.shared.isFetchingBooking = false
     }
+    
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
             if noti == .myBookingFilterApplied {

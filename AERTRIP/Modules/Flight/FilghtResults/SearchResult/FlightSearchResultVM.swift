@@ -10,6 +10,7 @@ import UIKit
 
 
 protocol FlightResultViewModelDelegate : class {
+    
     func webserviceProgressUpdated(progress : Float)
     func updatedResponseReceivedAt( index: Int , filterApplied : Bool, isAPIResponseUpdated: Bool)
     func showNoResultScreenAt(index : Int)
@@ -17,7 +18,9 @@ protocol FlightResultViewModelDelegate : class {
     func filtersApplied(_ isApplied :  Bool )
     func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int)
     func showDepartReturnSame(_ show: Bool)
+    
 }
+
 
 extension FlightResultViewModelDelegate {
     func showDepartReturnSame(_ show: Bool) { }
@@ -247,8 +250,7 @@ extension FlightResultViewModelDelegate {
             
             if filter.rawValue == selectedIndex  && showSelection {
                 titleString = NSMutableAttributedString(string: filter.title, attributes: selectedTitleAttributes)
-            }
-            else {
+            } else {
                 titleString = NSMutableAttributedString(string: filter.title, attributes: titleAttributes)
             }
             
