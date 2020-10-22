@@ -32,19 +32,33 @@ class ChatVC : BaseVC {
     @IBOutlet weak var collectionViewBottom: NSLayoutConstraint!
     @IBOutlet weak var sepratorView: ATDividerView!
     
+    @IBOutlet weak var waveAnimationContainerView: UIView!
+    
+    @IBOutlet weak var AerinCommunicationOptionsView: UIView!
+    @IBOutlet weak var keyboardBtn: UIButton!
+    @IBOutlet weak var micBtn: UIButton!
+    @IBOutlet weak var aerinommunicationHelpBtn: UIButton!
+    
     //MARK:- Variables
     private var name = "Guru"
     let chatVm = ChatVM()
     var dotsView: AMDots?
     var typingCellTimer : Timer?
     
+    // Speech Recognizer
     private let speechRecognizer = SpeechRecognizer()
+    
+    // Wave Animation
+    internal var firstWaveView: HeartLoadingView?
+    internal var secondWaveView: HeartLoadingView?
     
     //MARK:- View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpSubView()
         speechRecognizer.delegate = self
+        startWaveAnimation()
+        //        waveAnimationContainerView.isHidden = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
