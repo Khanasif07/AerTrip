@@ -12,7 +12,7 @@ import UIKit
 import SnapKit
 import MessageUI
 
-class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate, getSharableUrlDelegate {
+class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate, GetSharableUrlDelegate {
     //MARK:- Outlets
     var bannerView : ResultHeaderView?
     @IBOutlet weak var headerCollectionView: UICollectionView!

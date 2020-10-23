@@ -42,7 +42,9 @@ class FlightPaymentBookingStatusVM{
         0.8/Double(self.apiBookingIds.count + 1)
     }
     var bookingAPIGroup = DispatchGroup()
-    
+    let getSharableLink = GetSharableUrl()
+    var shortUrlToShare = ""
+
     /* TableViewCellType Enum contains all tableview cell for YouAreAllDoneVC tableview */
     enum TableViewCellType {
         case  allDoneCell, eventSharedCell, carriersCell, legInfoCell,BookingPaymentCell, pnrStatusCell, totalChargeCell, confirmationHeaderCell,confirmationVoucherCell, whatNextCell
@@ -171,5 +173,50 @@ class FlightPaymentBookingStatusVM{
 //            }
         }
         return finalPNR.isEmpty ? "Pending" : finalPNR
+    }
+}
+
+
+//MARK:- Create url to share
+
+extension FlightPaymentBookingStatusVM:GetSharableUrlDelegate
+{
+    func returnSharableUrl(url: String) {
+        self.shortUrlToShare = url
+    }
+    
+    func returnEmailView(view: String) {
+        
+    }
+    
+    func generateFlightDeatilsUrlToShare()
+    {
+        getSharableLink.delegate = self
+        if ((bookingObject?.isDomestic) != nil){
+            if bookingObject!.isDomestic{
+                
+            }else{
+                let intJourney = itinerary.details
+                
+                let intVC = IntMCAndReturnVC()
+                let flightAdultCount = bookingObject?.flightAdultCount ?? 0
+                let flightChildrenCount = bookingObject?.flightChildrenCount ?? 0
+                let flightInfantCount = bookingObject?.flightInfantCount ?? 0
+                var valStr = ""
+                if #available(iOS 13.0, *) {
+                    if bookingObject != nil{
+                        valStr = intVC.generateCommonString(for: [intJourney], flightObject: bookingObject!)
+                    }
+                }
+                
+    //            let filterStr = self.getSharableLink.getAppliedFiltersForSharingIntJourney(legs: self.flightSearchResultVM?.intFlightLegs ?? [])
+    //            valStr.append(filterStr)
+                
+                self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: false, isInternational: true, journeyArray: [], valString: valStr, trip_type: "",filterString: "")
+            }
+        }else{
+            
+        }
+        
     }
 }

@@ -798,9 +798,9 @@ extension FlightDetailsBaseVC : getFareRulesDelegate
     }
 }
 
-//MARK:- getSharableUrlDelegate
+//MARK:- GetSharableUrlDelegate
 
-extension FlightDetailsBaseVC : getSharableUrlDelegate
+extension FlightDetailsBaseVC : GetSharableUrlDelegate
 {
     func returnSharableUrl(url: String)
     {
