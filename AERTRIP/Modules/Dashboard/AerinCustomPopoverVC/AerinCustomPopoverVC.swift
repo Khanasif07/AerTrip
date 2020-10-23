@@ -259,6 +259,7 @@ class AerinCustomPopoverVC: BaseVC {
         view.addSubview(animationView)
         hideAnimationView()
         chatTableView.isHidden = true
+        chatTableView.keyboardDismissMode = .onDrag
         messageTextView.tintColor = AppColors.themeGreen
         messageTextView.placeholder = LocalizedString.TryDelhiToGoaTomorrow.localized
     }
