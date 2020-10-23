@@ -17,6 +17,7 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var travellersTableView: ATTableView!
     @IBOutlet weak var passengerTable: ATTableView!
+    @IBOutlet weak var travellerTableViewTop: NSLayoutConstraint!
     
     weak var delegate : HCSelectGuestsVCDelegate?
     var viewModel = PassengerDetailsVM()
@@ -40,13 +41,20 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        IQKeyboardManager.shared().shouldResignOnTouchOutside = false
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
 
     }
     
-    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        IQKeyboardManager.shared().shouldResignOnTouchOutside = true
+    }
     
     private func registerCells(){
         
@@ -469,6 +477,14 @@ extension PassengerDetailsVC: GuestDetailTableViewCellDelegate {
         
         //  get item position
         let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: passengerTable)
+        
+        if let indexPath = self.passengerTable.indexPath(for: cell){
+            if indexPath.section == 0{
+                self.travellerTableViewTop.constant = 198.5
+            }else{
+                self.travellerTableViewTop.constant = 228
+            }
+        }
         
         let pointToScroll = CGPoint(x: 0, y: itemPosition.y - (125 + self.passengerTable.contentInset.top))
         if passengerTable.contentOffset.y < pointToScroll.y {

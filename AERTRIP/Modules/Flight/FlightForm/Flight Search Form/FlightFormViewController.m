@@ -98,6 +98,8 @@
     [super viewDidLoad];
     [self setupInitials];
     [self setAerinSearchClosure];
+    //Change for flight form not fill for some case.
+    self.viewModel.isSettingForMulticity = false;
 }
 
 -(void)viewWillAppear:(BOOL)animated {

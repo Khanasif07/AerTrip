@@ -45,6 +45,7 @@ class ChatVM {
     weak var delegate : ChatBotDelegatesDelegate?
     var msgToBeSent : String = ""
     var recentSearchesData : [RecentSearchesModel] = []
+    var lastCachedResultModel: MessageModel?
     
     private var updatedFiltersJSON = JSON()
     private let locationManager = CLLocationManager()
@@ -199,21 +200,31 @@ class ChatVM {
         }
         let newDepartDate = departDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
         
+        var newModel = model
+        
         var jsonDict = JSONDictionary()
-        jsonDict["adult"] = model.adult
-        jsonDict["child"] = model.child
-        jsonDict["infant"] = model.infant
-        jsonDict["cabinclass"] = model.cabinclass
-        jsonDict["trip_type"] = model.tripType.lowercased().isEmpty ? "single" : model.tripType.lowercased()
-        jsonDict["origin"] = model.origin
-        jsonDict["destination"] = model.destination
+        jsonDict["adult"] = newModel.adult
+        jsonDict["child"] = newModel.child
+        jsonDict["infant"] = newModel.infant
+        jsonDict["cabinclass"] = newModel.cabinclass
+        jsonDict["trip_type"] = newModel.tripType.lowercased()
+        if newModel.tripType.lowercased().isEmpty {
+            if newModel.returnDate.isEmpty {
+                jsonDict["trip_type"] = "single"
+            } else {
+                jsonDict["trip_type"] = "return"
+                newModel.tripType = "return"
+            }
+        }
+        jsonDict["origin"] = newModel.origin
+        jsonDict["destination"] = newModel.destination
         jsonDict["depart"] = newDepartDate
-        if model.tripType.lowercased() == "return" {
+        if newModel.tripType.lowercased() == "return" {
             dateFormatter.dateFormat = "yyyyMMdd"
-            var returnDate = dateFormatter.date(from: model.returnDate)
+            var returnDate = dateFormatter.date(from: newModel.returnDate)
             if returnDate == nil {
                 dateFormatter.dateFormat = "yyyy-MM-dd"
-                returnDate = dateFormatter.date(from: model.returnDate)
+                returnDate = dateFormatter.date(from: newModel.returnDate)
             }
             let newReturnDate = returnDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
             jsonDict["return"] = newReturnDate

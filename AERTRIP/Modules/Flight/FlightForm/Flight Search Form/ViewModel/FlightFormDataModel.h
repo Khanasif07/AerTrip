@@ -57,6 +57,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSMutableArray *multiCityArray;
 @property (strong, nonatomic) NSIndexPath *selectedMultiCityArrayIndex;
 @property (weak, nonatomic) id <FlightViewModelDelegate > delegate ;
+//Change for flight form not fill for some case.
+@property(nonatomic) BOOL isSettingForMulticity;
 
 -(void)setInitialValues;
 -(void)selectedDatesFromCalendar:(NSDate *)startDate endDate:(NSDate *)endDate isReturn:(BOOL)isReturn;

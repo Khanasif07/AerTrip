@@ -859,6 +859,8 @@ enum LocalizedString: String {
     case ShowPendingActionsOnly
     case DateSpan
     case VoucherType
+    case hereAreYourResults = "hereAreYourResults"
+    case seeResultsAgain = "seeResultsAgain"
     
     // MARK: - Import Contact Screen
     

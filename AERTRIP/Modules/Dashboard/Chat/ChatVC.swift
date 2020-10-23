@@ -32,19 +32,33 @@ class ChatVC : BaseVC {
     @IBOutlet weak var collectionViewBottom: NSLayoutConstraint!
     @IBOutlet weak var sepratorView: ATDividerView!
     
+    @IBOutlet weak var waveAnimationContainerView: UIView!
+    
+    @IBOutlet weak var AerinCommunicationOptionsView: UIView!
+    @IBOutlet weak var keyboardBtn: UIButton!
+    @IBOutlet weak var micBtn: UIButton!
+    @IBOutlet weak var aerinommunicationHelpBtn: UIButton!
+    
     //MARK:- Variables
     private var name = "Guru"
     let chatVm = ChatVM()
     var dotsView: AMDots?
     var typingCellTimer : Timer?
     
+    // Speech Recognizer
     private let speechRecognizer = SpeechRecognizer()
+    
+    // Wave Animation
+    internal var firstWaveView: HeartLoadingView?
+    internal var secondWaveView: HeartLoadingView?
     
     //MARK:- View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpSubView()
         speechRecognizer.delegate = self
+        startWaveAnimation()
+        //        waveAnimationContainerView.isHidden = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,6 +96,8 @@ class ChatVC : BaseVC {
     //MARK:- Send Button Tapped
     @IBAction func sendButton(_ sender: UIButton) {
         
+        removeSeeResultsAgainCell()
+        
         UIApplication.shared.beginIgnoringInteractionEvents()
     
         delay(seconds: 1) {
@@ -106,6 +122,11 @@ class ChatVC : BaseVC {
             self.animateCell(text : msg)
         }
         //MARK:- Here i had used insert row due to some issue with the yIndex of the cell i had used reload
+    }
+    
+    private func removeSeeResultsAgainCell() {
+        chatVm.messages.removeAll(where: { $0.msgSource == .seeResultsAgain })
+        chatTableView.reloadData()
     }
     
     //MARK:- Add dot animation to tableview cell
@@ -200,6 +221,7 @@ extension ChatVC {
         chatTableView.register(UINib(nibName: "SenderChatCell", bundle: nil), forCellReuseIdentifier: "SenderChatCell")
         chatTableView.register(UINib(nibName: "TypingStatusChatCell", bundle: nil), forCellReuseIdentifier: "TypingStatusChatCell")
         chatTableView.register(UINib(nibName: "ReceiverChatCell", bundle: nil), forCellReuseIdentifier: "ReceiverChatCell")
+        chatTableView.register(UINib(nibName: "SeeResultsAgainCell", bundle: nil), forCellReuseIdentifier: "SeeResultsAgainCell")
         chatTableView.estimatedRowHeight = 100
         chatTableView.rowHeight = UITableView.automaticDimension
     }
@@ -215,10 +237,9 @@ extension ChatVC {
     //MARK:- Set navigation view
     private func setUpNavigationView(){
         topNavView.delegate = self
-        topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: false)
+        topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         topNavView.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage:  #imageLiteral(resourceName: "backGreen"), normalTitle: "", selectedTitle: "", normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "green_2"), selectedImage: #imageLiteral(resourceName: "green_2"), normalTitle: "", selectedTitle: "", normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
-        topNavView.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "dictationIcon"), selectedImage: #imageLiteral(resourceName: "searchBarClearButton"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil, font: AppFonts.Regular.withSize(18.0))
     }
     
     private func scrollTableViewToLast(withAnimation : Bool = true){
@@ -239,19 +260,19 @@ extension ChatVC : TopNavigationViewDelegate {
         self.present(vc, animated: true, completion: nil)
     }
     
-    func topNavBarSecondRightButtonAction(_ sender: UIButton) {
-        sender.isSelected = !sender.isSelected
-        
-        if sender.isSelected {
-            speechRecognizer.start()
-        } else {
-            speechRecognizer.stop()
-            if !messageTextView.text.isEmpty {
-                sendButton(sendButton)
-                messageTextView.text.removeAll()
-            }
-        }
-    }
+//    func topNavBarSecondRightButtonAction(_ sender: UIButton) {
+//        sender.isSelected = !sender.isSelected
+//        
+//        if sender.isSelected {
+//            speechRecognizer.start()
+//        } else {
+//            speechRecognizer.stop()
+//            if !messageTextView.text.isEmpty {
+//                sendButton(sendButton)
+//                messageTextView.text.removeAll()
+//            }
+//        }
+//    }
 }
 
 //MARK:- Animations
@@ -566,8 +587,16 @@ extension ChatVC : ChatBotDelegatesDelegate {
     func moveFurtherWhenallRequiredInformationSubmited(data: MessageModel) {
         invalidateTypingCellTimer()
         print("lets go...\(data)")
+        chatVm.lastCachedResultModel = data
         chatVm.createFlightSearchDictionaryAndPushToVC(data)
-       }
+        if chatVm.messages.last?.msgSource != .seeResultsAgain {
+            let seeAgainMsgModel = MessageModel(msg: LocalizedString.seeResultsAgain.localized, source: .seeResultsAgain)
+            chatVm.messages.append(seeAgainMsgModel)
+            DispatchQueue.delay(1) { [weak self] in
+                self?.chatTableView.reloadData()
+            }
+        }
+    }
     
     func willGetRecentSearchHotel(){
         
