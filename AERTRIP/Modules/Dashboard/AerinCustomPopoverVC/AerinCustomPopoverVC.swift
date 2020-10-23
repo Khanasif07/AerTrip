@@ -105,9 +105,10 @@ class AerinCustomPopoverVC: BaseVC {
     
     //MARK:- Set view attributes
     private func setUpAttributes(){
+        alignmentView.backgroundColor = .clear
         whereToGoLbl.font = AppFonts.Regular.withSize(28)
         morningLbl.textColor = UIColor.black
-        morningLbl.alpha = 0
+        morningLbl.alpha = 1
         whereToGoLbl.alpha = 0
         setMorningLabelText()
         messageTextView.font = AppFonts.Regular.withSize(18)
@@ -129,17 +130,8 @@ class AerinCustomPopoverVC: BaseVC {
     
     //MARK:- MorningView animation
     private func animateMorningLabel(){
-        delay(seconds: 0.3) {
-            UIView.animate(withDuration: 1) {
-                self.morningLbl.alpha = 1
-            }
-        }
-        UIView.animate(withDuration: 1, animations: {
-            self.morningBackView.transform = CGAffineTransform(translationX: 0, y: (-50))
-        }) { (success) in
-            delay(seconds: 1) {
-                self.animateWhereToGoLabel()
-            }
+        delay(seconds: 1.0) {
+            self.animateWhereToGoLabel()
         }
     }
     
@@ -158,7 +150,7 @@ class AerinCustomPopoverVC: BaseVC {
     private func setupPopoverView() {
         popoverView.roundParticularCorners(10, [.layerMinXMinYCorner, .layerMaxXMinYCorner])
         popoverViewHeight.constant = view.bounds.height
-        midPoint = view.bounds.height * 0.45
+        midPoint = view.bounds.height * 0.4
         maxPoint = 0
         minPoint = view.bounds.height
         popoverViewTop.constant = minPoint
