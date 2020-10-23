@@ -40,20 +40,20 @@ extension Date {
     
     static func getCurrentDate() -> String {
         // memory leak
-/*
+
          let dateFormatter = DateFormatter()
 
          dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss"
-
-         return dateFormatter.string(from: Date())
-         */
+            let date = Date()
+         return dateFormatter.string(from: date)
+         
         
-        return autoreleasepool(invoking: { () -> String in
-            let dateFormatter = DateFormatter()
-            
-            dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss"
-            return dateFormatter.string(from: Date())
-        })
+//        return autoreleasepool(invoking: {  () -> String in
+//            let dateFormatter = DateFormatter()
+//
+//            dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss"
+//            return dateFormatter.string(from: Date())
+//        })
         
     }
 }

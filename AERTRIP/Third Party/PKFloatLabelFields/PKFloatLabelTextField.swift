@@ -168,6 +168,10 @@ import UIKit
 	
     deinit {
         printDebug("PKFloatLabelTextField deinit")
+        self.attributedPlaceholder = nil
+        self.attributedText = nil
+        self.inputView = nil
+        self.inputAccessoryView = nil
     }
     
 	// MARK:- Overrides
