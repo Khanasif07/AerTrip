@@ -1029,7 +1029,8 @@
         airportSearchUpdated = YES;
     }
     
-    if (airportSearchUpdated) {
+    //Change for flight form not fill for some case.
+    if ((airportSearchUpdated) && (!self.isSettingForMulticity)){
         [self.multiCityArray removeAllObjects];
         [self setupNewMulticitySearch];
     }
@@ -1375,7 +1376,8 @@
         [self setFlightFormUIForOnwardDate:departDateString returnDateString:returnDateString tripType:tripType];
         }
         else {
-            
+            //Change for flight form not fill for some case.
+            self.isSettingForMulticity = true;
             [self.multiCityArray removeAllObjects];
             self.flightSearchType = MULTI_CITY;
             
@@ -1406,6 +1408,8 @@
         }
         [self.delegate setupFlightViews];
         [self.delegate updateRecentSearch];
+        //Change for flight form not fill for some case.
+        self.isSettingForMulticity = false;
     }
 
 }
