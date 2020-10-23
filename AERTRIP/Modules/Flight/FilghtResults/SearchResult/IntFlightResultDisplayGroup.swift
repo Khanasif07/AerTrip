@@ -85,6 +85,8 @@ class IntFlightResultDisplayGroup {
                 delegate?.showDepartReturnSame(showReturnDepartSame)
             }
             
+//            createDynamicFilters(flightsArray: [IntMultiCityAndReturnWSResponse.Flight])
+            
             DispatchQueue.main.async {
                 
                 let filterApplied =  self.appliedFilters.count > 0 || self.UIFilters.count > 0
@@ -515,7 +517,7 @@ class IntFlightResultDisplayGroup {
     }
     
     
-    func createDinamicFilters(flightsArray: [IntMultiCityAndReturnWSResponse.Flight]){
+    func createDynamicFilters(flightsArray: [IntMultiCityAndReturnWSResponse.Flight]){
      
         var allEqs : [String] = []
         
@@ -535,6 +537,8 @@ class IntFlightResultDisplayGroup {
 
         printDebug("dynamicFilters.aircraft.allAircrafts.....\(dynamicFilters.aircraft.allAircrafts)")
         
+        self.delegate?.updateDynamicFilters(filters: dynamicFilters)
+        
     }
     
     
@@ -545,8 +549,9 @@ class IntFlightResultDisplayGroup {
         mergeFlightResults(flightsArray)
         mergeFilters(flightsArray)
         updateUserFiltersFromDeepLink(flightSearchParam)
-        createDinamicFilters(flightsArray: flightsArray)
         processingOnCombinedSearchResult()
+        createDynamicFilters(flightsArray: flightsArray)
+
     }
     
     private func updateUserFiltersFromDeepLink(_ flightSearchParam: JSONDictionary) {

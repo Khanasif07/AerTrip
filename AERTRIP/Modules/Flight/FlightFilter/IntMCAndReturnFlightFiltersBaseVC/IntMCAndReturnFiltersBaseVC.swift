@@ -31,6 +31,20 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         }
     }
     
+    var updateAircraftFilter : AircraftFilter = AircraftFilter() {
+        didSet {
+           let vc = Filters.Aircraft.viewController
+//            vc.loadViewIfNeeded()
+            if let airCraftVC = vc as? AircraftFilterViewController {
+                airCraftVC.loadViewIfNeeded()
+                printDebug(airCraftVC.aircraftFilter.allAircrafts)
+                airCraftVC.assignC()
+                airCraftVC.updateAircraftList(filter: updateAircraftFilter)
+            }
+            
+        }
+    }
+    
     var inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]? {
         var inputFiltersArray = [IntMultiCityAndReturnWSResponse.Results.F]()
         
@@ -254,8 +268,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                 
                 if searchType == RETURN_JOURNEY {
                     setAirlineVCForReturnJourney(uiViewController as! AirlinesFilterViewController, inputFilters: filters)
-                }
-                else {
+                } else {
                     setAirlineVC( uiViewController as! AirlinesFilterViewController, inputFilters: filters)
                 }
             }
@@ -274,7 +287,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             }
             
         case .Aircraft:
-            return
+            if let vc = uiViewController as? AircraftFilterViewController {
+                self.setAircraftFilterVC(vc)
+            }
         }
     }
     
@@ -1603,6 +1618,12 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             }
         }
         qualityViewController.updateUIPostLatestResults()
+    }
+    
+    
+    func setAircraftFilterVC(_ aircraftFilterViewController : AircraftFilterViewController) {
+
+        
     }
 }
 

@@ -18,7 +18,7 @@ protocol FlightResultViewModelDelegate : class {
     func filtersApplied(_ isApplied :  Bool )
     func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int)
     func showDepartReturnSame(_ show: Bool)
-    
+    func updateDynamicFilters(filters : DynamicFilters)
 }
 
 

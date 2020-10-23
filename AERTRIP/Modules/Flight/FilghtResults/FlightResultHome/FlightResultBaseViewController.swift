@@ -462,6 +462,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         let flightType = flightSearchResultVM.flightSearchType
         
         switch flightType {
+        
         case SINGLE_JOURNEY:
             addSingleJourneyViewController()
             
@@ -1102,14 +1103,41 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         intMCAndReturnFilterVC?.showDepartReturnSame = show
     }
     
+    func updateDynamicFilters(filters : DynamicFilters) {
+        
+        let flightType = flightSearchResultVM.flightSearchType
+        
+        
+        switch flightType {
+
+        case SINGLE_JOURNEY:
+            
+            printDebug("SINGLE_JOURNEY")
+            
+            self.flightFilterVC
+            
+        
+        default: break
+            
+            delay(seconds: 0.5) {
+                      self.intMCAndReturnFilterVC?.updateAircraftFilter = filters.aircraft
+                  }
+            
+        }
+        
+        
+        
+      
+        
+    }
+    
     func clearFilters() {
         flightSearchResultVM.clearAllFilters()
         flightFilterVC?.resetAllFilters()
         intMCAndReturnFilterVC?.resetAllFilters()
     }
     
-    func restartFlightSearch()
-    {
+    func restartFlightSearch() {
         self.navigationController?.popViewController(animated: true)
     }
     

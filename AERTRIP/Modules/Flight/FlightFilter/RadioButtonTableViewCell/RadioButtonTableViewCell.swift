@@ -28,4 +28,16 @@ class RadioButtonTableViewCell: UITableViewCell {
         self.radioButton.isSelected = true
     }
     
+    func configureAllAircraftsCell() {
+        self.textLabel?.text = "All Aircrafts"
+        //  titleLabel.text = "All Aircrafts"
+      }
+      
+      func configureAircraftCell(title : String) {
+      
+          self.textLabel?.text = title
+
+      }
+    
+    
 }
