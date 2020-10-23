@@ -547,13 +547,13 @@ extension UIViewController {
 
 // MARK: Added by Rishabh
 extension UIViewController {
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc private func dismissKeyboard() {
-        view.endEditing(true)
-    }
+//    func hideKeyboardWhenTappedAround() {
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+//        tap.cancelsTouchesInView = true
+//        view.addGestureRecognizer(tap)
+//    }
+//
+//    @objc private func dismissKeyboard() {
+//        view.endEditing(true)
+//    }
 }

@@ -18,14 +18,39 @@ class AerinCustomPopoverVC: BaseVC {
         case top
     }
     
+    enum SetupForViewType {
+        case textView
+        case textViewOpen
+        case aerinAnimation
+        case communicationControls
+    }
+    
+    var startPoint: StartPoint = .center
+    let chatVm = ChatVM()
+    var dotsView: AMDots?
+    var typingCellTimer : Timer?
+    
     private var initialPoint: CGFloat = .zero
     private var midPoint: CGFloat = .zero
     private var maxPoint: CGFloat = .zero
     private var minPoint: CGFloat = .zero
     private let maxViewColorAlpha: CGFloat = 0.4
-
-    
-    var startPoint: StartPoint = .center
+        
+    private var setupForView: SetupForViewType = .textView {
+        didSet {
+            switch setupForView {
+            case .textView:
+                alignmentViewHeight.constant = textViewBackView.height
+            case .textViewOpen:
+                alignmentViewHeight.constant = -(textViewBackViewBottom.constant) + textViewBackView.height
+            default:
+                alignmentViewHeight.constant = 100
+            }
+            UIView.animate(withDuration: 0.3) {
+                self.popoverView.layoutIfNeeded()
+            }
+        }
+    }
     
     // MARK: Outlets
     
@@ -47,12 +72,21 @@ class AerinCustomPopoverVC: BaseVC {
     @IBOutlet weak var alignmentViewBottom: NSLayoutConstraint!
     
     @IBOutlet weak var textViewBackView: UIView!
+    @IBOutlet weak var textViewBackViewHeight: NSLayoutConstraint!
     @IBOutlet weak var textViewBackViewBottom: NSLayoutConstraint!
-    @IBOutlet weak var sendBtn: UIButton!
     @IBOutlet weak var separatorView: ATDividerView!
     @IBOutlet weak var messageTextView: IQTextView!
+    @IBOutlet weak var sendBtn: UIButton!
+    @IBOutlet weak var sendBtnWidth: NSLayoutConstraint!
     
     @IBOutlet weak var chatTableView: UITableView!
+    @IBOutlet weak var suggestionsCollectionView: UICollectionView!
+    @IBOutlet weak var collectionViewBottom: NSLayoutConstraint!
+    
+    @IBOutlet var animationView: UIView!
+    @IBOutlet weak var animationBubbleImageView: UIImageView!
+    @IBOutlet weak var animationLabel: UILabel!
+    
     
     // MARK: View life cycle
     
@@ -80,12 +114,45 @@ class AerinCustomPopoverVC: BaseVC {
         IQKeyboardManager.shared().isEnabled = true
     }
     
+    override func bindViewModel() {
+        super.bindViewModel()
+        chatVm.delegate = self
+    }
+    
     // MARK: Actions
     
     @IBAction func dismissBtnAction(_ sender: UIButton) {
         startDismissAnimation()
     }
     
+    @IBAction func sendBtnAction(_ sender: UIButton) {
+        removeSeeResultsAgainCell()
+        
+        UIApplication.shared.beginIgnoringInteractionEvents()
+    
+        delay(seconds: 1) {
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
+        
+        self.messageTextView.placeholder = ""
+        self.invalidateTypingCellTimer()
+        guard  let msg = self.messageTextView.text, !msg.isEmpty else { return }
+        if self.chatVm.messages.isEmpty {
+            hideWelcomeView()
+            hideSuggestions()
+        }
+        self.animationLabel.text = msg
+        self.chatVm.messages.append(MessageModel(msg: msg, source: MessageModel.MessageSource.me))
+        self.chatTableView.reloadData()
+        self.resetFrames()
+        scrollTableViewToLast()
+        self.hideShowSenderCellContent(ishidden: true)
+        self.chatVm.msgToBeSent = msg
+        delay(seconds: 0.27) {
+            self.animateCell(text : msg)
+        }
+        //MARK:- Here i had used insert row due to some issue with the yIndex of the cell i had used reload
+    }
     
     // MARK: Functions
     
@@ -93,20 +160,94 @@ class AerinCustomPopoverVC: BaseVC {
         view.backgroundColor = UIColor.black.withAlphaComponent(0)
         messageTextView.delegate = self
         setupSubViews()
-        hideKeyboardWhenTappedAround()
+    }
+    
+    private func removeSeeResultsAgainCell() {
+        chatVm.messages.removeAll(where: { $0.msgSource == .seeResultsAgain })
+        chatTableView.reloadData()
+    }
+    
+    private func hideWelcomeView(){
+        UIView.animate(withDuration: 0.2, animations: {
+            self.morningLbl.alpha = 0
+            self.whereToGoLbl.alpha = 0
+            self.aerinImgView.alpha = 0
+        }) { (success) in
+            self.morningLbl.isHidden = true
+            self.whereToGoLbl.isHidden = true
+            self.aerinImgView.isHidden = true
+            self.chatTableView.isHidden = false
+        }
+    }
+    
+    private func hideSuggestions(){
+        self.collectionViewBottom.constant = 200
+        UIView.animate(withDuration: 1, animations: {
+            self.popoverView.layoutIfNeeded()
+        }) { _ in
+            self.suggestionsCollectionView.alpha = 0
+        }
+    }
+    
+    private func animateCell(text : String = ""){
+
+        let rectOfLastCell = self.chatTableView.rectForRow(at: IndexPath(row: self.chatVm.getMylastMessageIndex(), section: 0))
+        let rectWrtView = self.chatTableView.convert(rectOfLastCell, to: self.view)
+        self.showAnimationViewWith(text: text)
+        self.animationView.frame = CGRect(x: 0, y: self.textViewBackView.frame.origin.y - 6, width: self.view.frame.width, height: self.animationLabel.frame.height + 28)
+        let horizintalScale = self.animationBubbleImageView.frame.origin.x - 4
+        self.animationLabel.transform = CGAffineTransform(translationX: -horizintalScale, y: 0)
+        self.animationBubbleImageView.transform = CGAffineTransform(translationX: -horizintalScale, y: 0)
+        self.sendBtn.isEnabled = false
+        self.messageTextView.text = ""
+        self.resetFrames()
+        let animationOptions: UIView.AnimationOptions = .curveEaseOut
+        let keyframeAnimationOptions: UIView.KeyframeAnimationOptions = UIView.KeyframeAnimationOptions(rawValue: animationOptions.rawValue)
+        
+        UIView.animateKeyframes(withDuration: 1.2, delay: 0.0, options: keyframeAnimationOptions, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1) {
+                self.animationBubbleImageView.transform = CGAffineTransform.identity
+                self.animationLabel.transform = CGAffineTransform.identity
+            }
+            
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.28) {
+                self.animationView.frame.origin.y = rectWrtView.origin.y
+            }
+            printDebug("animation..\(Date().timeIntervalSince1970)")
+      
+            delay(seconds: 0.35) {
+                self.hideShowSenderCellContent(ishidden: false)
+                self.hideAnimationView()
+                self.chatVm.messages[self.chatVm.getMylastMessageIndex()].isHidden = false
+                self.scheduleTypingCell()
+            }
+           
+        
+        }) { (success) in
+            printDebug("animation..success\(Date().timeIntervalSince1970)")
+
+     
+            
+        }
     }
     
     private func setupSubViews() {
+        setupForView = .textView
         chatTableView.contentInset = UIEdgeInsets(top: topNavView.height, left: 0, bottom: 0, right: 0)
         setupPopoverView()
         addPanGesture()
         setUpAttributes()
+        configureTableView()
+        configureCollectionView()
+        chatVm.getRecentHotels()
+        chatVm.getRecentFlights()
+        resetFrames()
     }
     
-    //MARK:- Set view attributes
     private func setUpAttributes(){
         alignmentView.backgroundColor = .clear
         whereToGoLbl.font = AppFonts.Regular.withSize(28)
+        animationLabel.font = AppFonts.Regular.withSize(18)
         morningLbl.textColor = UIColor.black
         morningLbl.alpha = 1
         whereToGoLbl.alpha = 0
@@ -114,9 +255,58 @@ class AerinCustomPopoverVC: BaseVC {
         messageTextView.font = AppFonts.Regular.withSize(18)
         messageTextView.delegate = self
         messageTextView.autocorrectionType = .no
+        animationBubbleImageView.image = UIImage(named: "Green Chat bubble")?.resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21), resizingMode: .stretch).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        view.addSubview(animationView)
+        hideAnimationView()
         chatTableView.isHidden = true
         messageTextView.tintColor = AppColors.themeGreen
         messageTextView.placeholder = LocalizedString.TryDelhiToGoaTomorrow.localized
+    }
+    
+    private func scrollTableViewToLast(withAnimation : Bool = true){
+        if chatVm.messages.isEmpty { return }
+        chatTableView.scrollToRow(at: IndexPath(row: chatVm.messages.count - 1, section: 0), at: UITableView.ScrollPosition.top, animated: withAnimation)
+    }
+    
+    private func showAnimationViewWith(text : String){
+        self.animationLabel.textAlignment = text.count <= 10 ? .center : .left
+        self.animationView.isHidden = false
+        self.animationLabel.text = text
+        UIView.animate(withDuration: 0.25) {
+            self.animationBubbleImageView.alpha = 1
+        }
+    }
+    
+    private func hideAnimationView(){
+        animationView.isHidden = true
+        animationLabel.text = ""
+        animationBubbleImageView.alpha = 0
+    }
+    
+    private func hideShowSenderCellContent(ishidden : Bool){
+        guard let cell = chatTableView.cellForRow(at: IndexPath(row: chatVm.getMylastMessageIndex(), section: 0)) as? SenderChatCell else {
+            return }
+        cell.contentView.isHidden = ishidden
+    }
+    
+    //MARK:- Configure tableview
+    private func configureTableView(){
+        chatTableView.dataSource = self
+        chatTableView.delegate = self
+        chatTableView.register(UINib(nibName: "SenderChatCell", bundle: nil), forCellReuseIdentifier: "SenderChatCell")
+        chatTableView.register(UINib(nibName: "TypingStatusChatCell", bundle: nil), forCellReuseIdentifier: "TypingStatusChatCell")
+        chatTableView.register(UINib(nibName: "ReceiverChatCell", bundle: nil), forCellReuseIdentifier: "ReceiverChatCell")
+        chatTableView.register(UINib(nibName: "SeeResultsAgainCell", bundle: nil), forCellReuseIdentifier: "SeeResultsAgainCell")
+        chatTableView.estimatedRowHeight = 100
+        chatTableView.rowHeight = UITableView.automaticDimension
+    }
+    
+    func configureCollectionView(){
+        suggestionsCollectionView.dataSource = self
+        suggestionsCollectionView.delegate = self
+        suggestionsCollectionView.register(UINib(nibName: "SuggestionsCell", bundle: nil), forCellWithReuseIdentifier: "SuggestionsCell")
+        suggestionsCollectionView.contentInset = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
+        //        suggestionsCollectionView.isHidden = true
     }
     
     private func setMorningLabelText(){
@@ -169,8 +359,7 @@ class AerinCustomPopoverVC: BaseVC {
         }
     }
     
-    private func startDismissAnimation(_ animationDuration: TimeInterval = 0.3) {
-//        onDismissTap?()
+    func startDismissAnimation(_ animationDuration: TimeInterval = 0.3) {
         UIView.animate(withDuration: animationDuration, animations:  {
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
             self.popoverViewTop.constant = self.minPoint
@@ -229,6 +418,65 @@ extension AerinCustomPopoverVC {
     }
 }
 
+//MARK:- ManageTypingCell
+extension AerinCustomPopoverVC {
+    
+    func scheduleTypingCell(){
+        if self.chatVm.typingCellTimerCounter > 0 { return }
+        self.insertTypingCell()
+        self.chatVm.sendMessageToChatBot(message: self.chatVm.msgToBeSent)
+        self.typingCellTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(handleTypingCellTimer), userInfo: nil, repeats: true)
+    }
+    
+    @objc func handleTypingCellTimer(){
+        //        if self.chatVm.typingCellTimerCounter == 0{ self.insertTypingCell() }
+        self.chatVm.typingCellTimerCounter += 1
+//        if self.chatVm.typingCellTimerCounter == 1{self.chatVm.sendMessageToChatBot(message: self.chatVm.msgToBeSent) }
+        if self.chatVm.typingCellTimerCounter == 10{
+            invalidateTypingCellTimer()
+        }
+    }
+    
+    func invalidateTypingCellTimer(){
+        self.typingCellTimer?.invalidate()
+        self.chatVm.typingCellTimerCounter = 0
+        self.sendBtn.isEnabled = true
+        removeTypingCell()
+    }
+    
+    private func insertTypingCell(){
+        
+        printDebug("time1...\(Date().timeIntervalSince1970)")
+        
+        self.chatVm.messages.append(MessageModel(msg: "", source: MessageModel.MessageSource.typing))
+        
+//        self.chatTableView.beginUpdates()
+//        self.chatTableView.insertRows(at: [IndexPath(row: self.chatVm.messages.count - 1, section: 0)], with: UITableView.RowAnimation.none)
+//        self.chatTableView.endUpdates()
+     
+        self.chatTableView.reloadData()
+    
+        printDebug("time2...\(Date().timeIntervalSince1970)")
+      
+        self.scrollTableViewToLast(withAnimation: true)
+  
+        printDebug("time3...\(Date().timeIntervalSince1970)")
+ //       delay(seconds: 0.3) {
+//            self.addDotViewToTypingCell()
+
+//            printDebug("time4...\(Date().timeIntervalSince1970)")
+
+  //      }
+    }
+    
+    private func removeTypingCell(){
+        self.chatVm.messages = self.chatVm.messages.filter { $0.msgSource != .typing }
+        self.chatTableView.reloadData()
+        self.dotsView?.stop()
+        self.dotsView?.removeFromSuperview()
+        self.dotsView = nil
+    }
+}
 
 //MARK:- Keyboard SetUp
 extension AerinCustomPopoverVC {
@@ -246,11 +494,12 @@ extension AerinCustomPopoverVC {
             UIView.animate(withDuration: 0.1,  delay: 0, options: .curveEaseInOut, animations: {
                 if (info.cgRectValue.origin.y) >= UIDevice.screenHeight {
                     strongSelf.textViewBackViewBottom.constant = 0
+                    strongSelf.setupForView = .textView
                 } else {
                     strongSelf.textViewBackViewBottom.constant = -(keyBoardHeight - safeAreaBottomInset)
+                    strongSelf.setupForView = .textViewOpen
                 }
                 strongSelf.view.layoutIfNeeded()
-                
             }, completion: nil)
             
         })
@@ -258,6 +507,16 @@ extension AerinCustomPopoverVC {
     
     private func removeKeyboard(){
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tap.cancelsTouchesInView = false
+        popoverView.addGestureRecognizer(tap)
+    }
+    
+    @objc private func hideKeyboard() {
+        messageTextView.resignFirstResponder()
     }
 }
 
@@ -268,10 +527,133 @@ extension AerinCustomPopoverVC {
             startPoint = .top
             startPresentAnimation()
         }
+        scrollTableViewToLast(withAnimation : false)
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (range.location == 0 && text == " ") {return false}
         
+        if self.sendBtnWidth.constant == 0{
+            //  showHideSendButton(text : text, shouldCheckCount : false)
+        }
+        return true
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        arrangeTextViewHeight()
+        //        showHideSendButton(text: textView.text ?? "")
+    }
+    
+    func showHideSendButton(text : String = "", shouldCheckCount : Bool = true){
+        if text.count > 1 && shouldCheckCount { return }
+        UIView.animate(withDuration: 0.3) {
+            self.sendBtnWidth.constant = text.isEmpty ? 0 : 44
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func arrangeTextViewHeight(){
+        
+        let text = messageTextView.text ?? ""
+        
+        let height = text.heightOfText(self.view.frame.size.width - 74, font: AppFonts.Regular.withSize(18)) + 10
+        
+        if height > 44 && height < 90 {
+            self.textViewBackViewHeight.constant = height + 10
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            }
+            checkSendButtonStatus()
+        }else if height < 44{
+            resetFrames()
+        }
+    }
+    
+    func resetFrames() {
+        UIView.animate(withDuration: 0.3) {
+            self.textViewBackViewHeight.constant = 44
+            self.view.layoutIfNeeded()
+        }
+        checkSendButtonStatus()
+    }
+    func checkSendButtonStatus() {
+        sendBtn.isHidden = messageTextView.text.isEmpty
     }
 }
 
+// MARK: Chatbot Delegate
+extension AerinCustomPopoverVC : ChatBotDelegatesDelegate {
+    
+   
+    func willstarttChatBotSession() {
+
+    }
+    
+    func chatBotSessionCreatedSuccessfully() {
+        invalidateTypingCellTimer()
+        scrollTableViewToLast()
+    }
+    
+    func failedToCreateChatBotSession() {
+        
+    }
+    
+    func willCommunicateWithChatBot() {
+        
+    }
+    
+    func chatBotCommunicatedSuccessfully() {
+        invalidateTypingCellTimer()
+        scrollTableViewToLast()
+    }
+    
+    func failedToCommunicateWithChatBot() {
+        invalidateTypingCellTimer()
+    }
+    
+    func hideTypingCell(){
+        invalidateTypingCellTimer()
+    }
+    
+    func moveFurtherWhenallRequiredInformationSubmited(data: MessageModel) {
+        invalidateTypingCellTimer()
+        print("lets go...\(data)")
+        chatVm.lastCachedResultModel = data
+        chatVm.createFlightSearchDictionaryAndPushToVC(data)
+        messageTextView.resignFirstResponder()
+        startDismissAnimation()
+        
+//        if chatVm.messages.last?.msgSource != .seeResultsAgain {
+//            let seeAgainMsgModel = MessageModel(msg: LocalizedString.seeResultsAgain.localized, source: .seeResultsAgain)
+//            chatVm.messages.append(seeAgainMsgModel)
+//            DispatchQueue.delay(1) { [weak self] in
+//                self?.chatTableView.reloadData()
+//            }
+//        }
+    }
+    
+    func willGetRecentSearchHotel(){
+        
+    }
+    
+    func getRecentSearchHotelSuccessFully(){
+        self.suggestionsCollectionView.reloadData()
+    }
+    
+    func failedToGetRecentSearchApi(){
+        
+    }
+    
+    func willGetRecentSearchFlights(){
+        
+    }
+    
+    func getRecentSearchFlightsSuccessFully(){
+        self.suggestionsCollectionView.reloadData()
+    }
+    
+    func failedToGetRecentSearchedFlightsApi(){
+        
+    }
+    
+}

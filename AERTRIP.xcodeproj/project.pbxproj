@@ -1432,6 +1432,8 @@
 		84A9447B24812A140024B828 /* HotelCheckoutDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9447A24812A130024B828 /* HotelCheckoutDetailVC.swift */; };
 		84A9447D24812B170024B828 /* HotelCheckoutDetailVC+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9447C24812B170024B828 /* HotelCheckoutDetailVC+UITableViewDelegate.swift */; };
 		84A9447F24812BB30024B828 /* HotelCheckoutDetailVC+TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9447E24812BB30024B828 /* HotelCheckoutDetailVC+TableCell.swift */; };
+		84A9A9CB2542B1B50082B893 /* AerinCustomPopoverVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9A9CA2542B1B50082B893 /* AerinCustomPopoverVC+TableView.swift */; };
+		84A9A9CD2542B1D80082B893 /* AerinCustomPopoverVC+CollectionViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9A9CC2542B1D80082B893 /* AerinCustomPopoverVC+CollectionViewDelegates.swift */; };
 		84AB8FC52212934A002C0A66 /* ATGalleryScrollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AB8FC42212934A002C0A66 /* ATGalleryScrollCell.xib */; };
 		84AB8FC822129B49002C0A66 /* ATGalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB8FC622129B49002C0A66 /* ATGalleryCell.swift */; };
 		84AB8FC922129B4A002C0A66 /* ATGalleryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AB8FC722129B49002C0A66 /* ATGalleryCell.xib */; };
@@ -3238,6 +3240,8 @@
 		84A9447A24812A130024B828 /* HotelCheckoutDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelCheckoutDetailVC.swift; sourceTree = "<group>"; };
 		84A9447C24812B170024B828 /* HotelCheckoutDetailVC+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HotelCheckoutDetailVC+UITableViewDelegate.swift"; sourceTree = "<group>"; };
 		84A9447E24812BB30024B828 /* HotelCheckoutDetailVC+TableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HotelCheckoutDetailVC+TableCell.swift"; sourceTree = "<group>"; };
+		84A9A9CA2542B1B50082B893 /* AerinCustomPopoverVC+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AerinCustomPopoverVC+TableView.swift"; sourceTree = "<group>"; };
+		84A9A9CC2542B1D80082B893 /* AerinCustomPopoverVC+CollectionViewDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AerinCustomPopoverVC+CollectionViewDelegates.swift"; sourceTree = "<group>"; };
 		84AB8FC42212934A002C0A66 /* ATGalleryScrollCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ATGalleryScrollCell.xib; sourceTree = "<group>"; };
 		84AB8FC622129B49002C0A66 /* ATGalleryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATGalleryCell.swift; sourceTree = "<group>"; };
 		84AB8FC722129B49002C0A66 /* ATGalleryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ATGalleryCell.xib; sourceTree = "<group>"; };
@@ -5673,6 +5677,8 @@
 			isa = PBXGroup;
 			children = (
 				841F39A325415252007C99B6 /* AerinCustomPopoverVC.swift */,
+				84A9A9CA2542B1B50082B893 /* AerinCustomPopoverVC+TableView.swift */,
+				84A9A9CC2542B1D80082B893 /* AerinCustomPopoverVC+CollectionViewDelegates.swift */,
 			);
 			path = AerinCustomPopoverVC;
 			sourceTree = "<group>";
@@ -10104,6 +10110,7 @@
 				841AA51224744A8900B66720 /* ImageWithoutRender.swift in Sources */,
 				849DA81823E2B6DB00C2E9D8 /* ATCategoryNavBar.swift in Sources */,
 				841F3989253EE75B007C99B6 /* UIBezierPath+Heart.swift in Sources */,
+				84A9A9CD2542B1D80082B893 /* AerinCustomPopoverVC+CollectionViewDelegates.swift in Sources */,
 				0C0506CF2435CEDD00BC4703 /* ATAlertController.swift in Sources */,
 				84F983BC21B51A070018DFED /* AppDelegate.swift in Sources */,
 				188DFC852318FC530060F9D1 /* PKTapAndCopyUITextView.swift in Sources */,
@@ -10620,6 +10627,7 @@
 				84F4DB94226DDEC300B68171 /* ADVoucherTypeVM.swift in Sources */,
 				84085CEB21F59C0E00F1E844 /* SecureYourAccountVM.swift in Sources */,
 				0C6E393424FE7B3000D7383F /* FlightFilterBaseVC+Parchment.swift in Sources */,
+				84A9A9CB2542B1B50082B893 /* AerinCustomPopoverVC+TableView.swift in Sources */,
 				84B23F79222FFA9E00C952ED /* ClusterMarkerView.swift in Sources */,
 				84254F4C223B97FD00E3D120 /* Api+HotelCheckOut.swift in Sources */,
 				8438B450245AB5B900F7320B /* FlightFareInfoVC+Delegatemethods.swift in Sources */,
