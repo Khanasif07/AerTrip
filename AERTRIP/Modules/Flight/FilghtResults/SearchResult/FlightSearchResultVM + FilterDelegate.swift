@@ -49,6 +49,8 @@ extension FlightSearchResultVM : AirlineFilterDelegate {
      }
 }
 
+
+
 //MARK:- Sorting
 extension FlightSearchResultVM : SortFilterDelegate {
   
@@ -359,6 +361,24 @@ extension FlightSearchResultVM : QualityFilterDelegate {
             flightLeg.qualityFiltersChanged(filter)
         }
     }
+}
+
+extension FlightSearchResultVM : AircraftFilterDelegate {
+ 
+    func aircraftFilterUpdated(_ filter : AircraftFilter) {
+        
+        printDebug("selected...\(filter)")
+        
+        
+        for flightLeg in flightLegs {
+            
+            flightLeg.aircraftFilterUpdated(filter)
+            
+         }
+        
+        
+    }
+    
 }
 
 extension FlightSearchResultVM : FilterDelegate {
