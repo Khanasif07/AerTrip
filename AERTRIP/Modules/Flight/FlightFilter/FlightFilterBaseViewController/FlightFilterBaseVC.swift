@@ -1482,8 +1482,6 @@ extension FlightFilterBaseVC {
         qualityViewController.updateUIPostLatestResults()
     }
     
-    
-    
     func setAircraftFilterVC(_ aircraftViewController : AircraftFilterViewController) {
         DispatchQueue.main.async {
             let aircraftVc = aircraftViewController as AircraftFilterViewController

@@ -31,15 +31,20 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         }
     }
     
-    var updateAircraftFilter : AircraftFilter = AircraftFilter() {
+    var updatedAircraftFilter : AircraftFilter = AircraftFilter() {
         didSet {
-           let vc = Filters.Aircraft.viewController
-//            vc.loadViewIfNeeded()
-            if let airCraftVC = vc as? AircraftFilterViewController {
-                airCraftVC.loadViewIfNeeded()
-                printDebug(airCraftVC.aircraftFilter.allAircrafts)
-                airCraftVC.assignC()
-                airCraftVC.updateAircraftList(filter: updateAircraftFilter)
+            
+           let aircraftVc = Filters.Aircraft.viewController
+            
+//            if let airCraftVC = vc as? AircraftFilterViewController {
+//                airCraftVC.loadViewIfNeeded()
+//                printDebug(airCraftVC.aircraftFilter.allAircrafts)
+//                airCraftVC.assignC()
+//                airCraftVC.updateAircraftList(filter: updateAircraftFilter)
+//            }
+            
+            if let vc = aircraftVc as? AircraftFilterViewController {
+                self.setAircraftFilterVC(vc)
             }
         }
     }
@@ -91,6 +96,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -286,9 +292,10 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             }
             
         case .Aircraft:
-            if let vc = uiViewController as? AircraftFilterViewController {
-                self.setAircraftFilterVC(vc)
-            }
+              if let vc = uiViewController as? AircraftFilterViewController {
+                         self.setAircraftFilterVC(vc)
+
+                     }
         }
     }
     
@@ -1620,9 +1627,13 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     }
     
     
-    func setAircraftFilterVC(_ aircraftFilterViewController : AircraftFilterViewController) {
-
-        
+    func setAircraftFilterVC(_ aircraftViewController : AircraftFilterViewController) {
+        DispatchQueue.main.async {
+            let aircraftVc = aircraftViewController as AircraftFilterViewController
+            aircraftVc.loadViewIfNeeded()
+            aircraftVc.delegate = self.delegate as? AircraftFilterDelegate
+            aircraftVc.updateAircraftList(filter: self.updatedAircraftFilter)
+        }
     }
 }
 

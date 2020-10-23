@@ -52,7 +52,7 @@ class AircraftFilterViewController: UIViewController {
     
     func updateAircraftList(filter : AircraftFilter){
         
-        printDebug("filter....\(filter)")
+        printDebug("aircraft filter count....\(filter.allAircrafts.count)")
         
         self.aircraftFilter = filter
         

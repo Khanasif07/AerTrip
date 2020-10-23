@@ -57,7 +57,7 @@ extension FlightResultDisplayGroup  {
 
         self.dynamicFilters.aircraft.selectedAircrafts = filter.selectedAircrafts
         
-        if filter.selectedAircrafts.isEmpty{
+        if !filter.selectedAircrafts.isEmpty{
             
             appliedFilters.insert(.Aircraft)
 
@@ -93,6 +93,7 @@ extension FlightResultDisplayGroup  {
     }
     
     func applyAirlineFilter(_ inputArray : [Journey]) -> [Journey] {
+      
         var filteredAirlineSet = Set<String>()
         if let airlines = userSelectedFilters?.al {
             filteredAirlineSet = Set(airlines)
@@ -118,31 +119,20 @@ extension FlightResultDisplayGroup  {
 
     
     func applyAircraftFilter(_ inputArray : [Journey]) -> [Journey] {
-         var filteredAirlineSet = Set<String>()
 
-
-
-
-        if let airlines = userSelectedFilters?.al {
-             filteredAirlineSet = Set(airlines)
-         }
-//
         
-        var selectedAircrsfts = self.dynamicFilters.aircraft.selectedAircrafts
+        let selectedAircrsfts = Set(self.dynamicFilters.aircraft.selectedAircrafts)
         
          var outputArray = inputArray
          
-        
-         if !self.dynamicFilters.aircraft.selectedAircrafts.isEmpty {
+         if !selectedAircrsfts.isEmpty {
       
-            
              outputArray = inputArray.filter{
                 
-                let eqs = $0.leg.flatMap { $0.flights }.flatMap { $0.eq }
+                let eqs = $0.leg.flatMap { $0.flights }.compactMap { $0.eq }
                 
-                 let journeySet = Set($0.al)
-                 
-                 if journeySet.isDisjoint(with:filteredAirlineSet) {
+                
+                 if Set(eqs).isDisjoint(with:selectedAircrsfts) {
                      return false
                  }
                  return true

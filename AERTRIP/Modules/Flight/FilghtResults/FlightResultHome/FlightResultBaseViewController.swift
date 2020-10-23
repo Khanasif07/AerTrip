@@ -1130,7 +1130,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             } else {
             
                 delay(seconds: 0.5) {
-                    self.intMCAndReturnFilterVC?.updateAircraftFilter = filters.aircraft
+                    self.intMCAndReturnFilterVC?.updatedAircraftFilter = filters.aircraft
                 }
             
             }
@@ -1148,7 +1148,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             } else {
                         
                 delay(seconds: 0.5) {
-                    self.intMCAndReturnFilterVC?.updateAircraftFilter = filters.aircraft
+                    self.intMCAndReturnFilterVC?.updatedAircraftFilter = filters.aircraft
                 }
                 
             }

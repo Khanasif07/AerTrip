@@ -419,7 +419,7 @@ class FlightResultDisplayGroup {
             
         }
         
-        printDebug("allEqs...\(allEqs)")
+//        printDebug("allEqs...\(allEqs)")
 
         dynamicFilters.aircraft.allAircrafts = allEqs.removeDuplicates()
         
@@ -624,7 +624,7 @@ class FlightResultDisplayGroup {
     
     private func mergeFilters(_ flightsArray  : [Flights]) {
         flightsArray.forEach { (flight) in
-            print("flight filters count: \(flight.results.f.count)")
+//            print("flight filters count: \(flight.results.f.count)")
             if inputFilter == nil {
                 inputFilter = flight.results.f.last
                 userSelectedFilters = flight.results.f.last
