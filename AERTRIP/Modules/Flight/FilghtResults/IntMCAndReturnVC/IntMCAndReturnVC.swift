@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IntMCAndReturnVC : UIViewController, getSharableUrlDelegate
+class IntMCAndReturnVC : UIViewController, GetSharableUrlDelegate
 {
     
     @IBOutlet weak var resultsTableView: UITableView!

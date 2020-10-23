@@ -6,7 +6,7 @@
 //  Copyright © 2020 Aertrip. All rights reserved.
 //
 
-protocol getSharableUrlDelegate : AnyObject {
+protocol GetSharableUrlDelegate : AnyObject {
     func returnSharableUrl(url:String)
     func returnEmailView(view:String)
 }
@@ -16,7 +16,7 @@ import UIKit
 
 class GetSharableUrl
 {
-    weak var delegate : getSharableUrlDelegate?
+    weak var delegate : GetSharableUrlDelegate?
     var semaphore = DispatchSemaphore (value: 0)
     var tripType = ""
     
