@@ -263,8 +263,12 @@ class AerinVC: BaseVC {
         //             let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
         //            AppFlowManager.default.mainNavigationController.present(obj, animated: true)
         
-        let obj = ChatVC.instantiate(fromAppStoryboard: .Dashboard)
-        AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: false)
+        let aerinPopoverVC = AerinCustomPopoverVC.instantiate(fromAppStoryboard: .Dashboard)
+        aerinPopoverVC.modalPresentationStyle = .overCurrentContext
+        AppFlowManager.default.mainNavigationController.present(aerinPopoverVC, animated: false, completion: nil)
+        
+//        let obj = ChatVC.instantiate(fromAppStoryboard: .Dashboard)
+//        AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: false)
         
         //        }
     }

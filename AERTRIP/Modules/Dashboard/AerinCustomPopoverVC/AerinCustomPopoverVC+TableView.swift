@@ -1,15 +1,14 @@
 //
-//  ChatVC+TableView.swift
+//  AerinCustomPopoverVC+TableView.swift
 //  AERTRIP
 //
-//  Created by Appinventiv on 18/03/20.
+//  Created by Rishabh on 23/10/20.
 //  Copyright © 2020 Pramod Kumar. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-
-extension ChatVC : UITableViewDelegate, UITableViewDataSource {
+extension AerinCustomPopoverVC: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
