@@ -30,10 +30,10 @@ class SplashAnimationVC: UIViewController {
                            loopMode: LottieLoopMode.playOnce,
                            completion: { (finished) in
                             if finished {
-                                print("Animation Complete")
+                                printDebug("Animation Complete")
                                 AppFlowManager.default.setupInitialFlow()
                             } else {
-                                print("Animation cancelled")
+                                printDebug("Animation cancelled")
                             }
         })
         

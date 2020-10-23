@@ -13,7 +13,7 @@ class RadioButtonTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.textLabel?.font = UIFont(name:"SourceSansPro-Regular" , size: 18)
+        self.textLabel?.font = AppFonts.Regular.withSize(18)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

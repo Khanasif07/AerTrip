@@ -40,7 +40,7 @@ extension CancelledVC {
     private func mangePendingActionView() {
         let pridicate = createFinalPredicate(showPending: true)
         let result = CoreDataManager.shared.fetchData("BookingData", nsPredicate: pridicate) ?? []
-        print("CancelledVC result.count: \(result.count)")
+        printDebug("CancelledVC result.count: \(result.count)")
         manageFooter(isHidden: result.isEmpty)
         showFooterView = result.isEmpty
     }

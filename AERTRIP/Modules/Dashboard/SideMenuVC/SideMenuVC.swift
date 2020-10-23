@@ -429,7 +429,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 AppFlowManager.default.moveToSettingsVC()
                 
             default:
-                print("DO Nothing")
+                printDebug("DO Nothing")
                 AppToast.default.showToastMessage(message: "This feature is coming soon")
             }
         }
@@ -462,7 +462,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == sideMenuTableView {
-            print(scrollView.contentOffset)
+            printDebug(scrollView.contentOffset)
         }
     }
 }

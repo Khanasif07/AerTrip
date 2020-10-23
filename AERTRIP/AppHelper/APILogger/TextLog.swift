@@ -15,7 +15,7 @@ struct TextLog: TextOutputStream {
 //        let paths = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)
 //        let documentDirectoryPath = paths.first!
 //        let log = documentDirectoryPath.appendingPathComponent("log.txt")
-//
+//        print("log= ",log)
 //        do {
 //            let handle = try FileHandle(forWritingTo: log)
 //            handle.seekToEndOfFile()
@@ -29,9 +29,7 @@ struct TextLog: TextOutputStream {
 //                print(error.localizedDescription)
 //            }
 //        }
-
     }
-
 }
 
 

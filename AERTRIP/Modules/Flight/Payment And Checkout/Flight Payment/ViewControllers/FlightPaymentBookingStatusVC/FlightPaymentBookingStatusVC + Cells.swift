@@ -224,6 +224,16 @@ extension FlightPaymentBookingStatusVC{
 extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate{
     func shareOnInstagram() {
         
+        viewModel.generateFlightDeatilsUrlToShare()
+        
+        if viewModel.shortUrlToShare == "No Data"{
+        }else{
+            let textToShare = [ "I have Booked the flight with Aertrip\n\(viewModel.shortUrlToShare)" ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            
+            self.present(activityViewController, animated: true, completion: nil)
+        }
     }
     
     func shareOnFaceBook() {

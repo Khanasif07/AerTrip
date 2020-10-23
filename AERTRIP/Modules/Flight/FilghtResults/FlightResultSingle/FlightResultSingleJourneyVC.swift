@@ -14,7 +14,7 @@ import MessageUI
     func access()
 }
 
-class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDelegate , GroupedFlightCellDelegate, getSharableUrlDelegate {
+class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDelegate , GroupedFlightCellDelegate, GetSharableUrlDelegate {
    
     
     
