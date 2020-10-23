@@ -8,6 +8,13 @@
 
 import UIKit
 
+
+protocol AircraftFilterDelegate : FilterDelegate {
+//    func allAirlinesSelected(_ status: Bool)
+//    func hideMultiAirlineItineraryUpdated(_ filter: AirlineLegFilter )
+    func aircraftFilterUpdated(_ filter : AircraftFilter)
+}
+
 class AircraftFilterViewController: UIViewController {
     
     @IBOutlet weak var aircraftTableView: UITableView!
@@ -18,6 +25,8 @@ class AircraftFilterViewController: UIViewController {
     var aircraftFilter = AircraftFilter()
     
     var c = 0
+    
+    weak var delegate : AircraftFilterDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +43,7 @@ class AircraftFilterViewController: UIViewController {
 
     @objc func aircraftRadioButtonTapped(sender : UIButton) {
    
-        aircraftTableView.reloadData()
-
+   
     }
     
     func assignC(){
@@ -60,52 +68,22 @@ class AircraftFilterViewController: UIViewController {
 extension AircraftFilterViewController : UITableViewDataSource , UITableViewDelegate {
    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+    
+        return 2
+    
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        printDebug("coint is ... \(self.aircraftFilter.allAircrafts.count)")
-
-        return self.aircraftFilter.allAircrafts.count
-
+        printDebug("count is..\(self.aircraftFilter.allAircrafts.count)")
+        return section == 0 ? 1 : self.aircraftFilter.allAircrafts.count
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
+        
         return 44
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "RadioButtonCell") as? RadioButtonTableViewCell {
-            
-            cell.radioButton.setImage(#imageLiteral(resourceName: "selectOption"), for: .selected)
-            cell.radioButton.setImage(#imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
-         
-//            printDebug(indexPath.section)
-            
-//            if indexPath.section == 0 {
-//                printDebug("section..\(0)")
-//                cell.configureAllAircraftsCell()
-//
-//            } else {
-//                printDebug("section..\(1)")
-//
-//                cell.configureAircraftCell(title: self.aircraftFilter.allAircrafts[indexPath.row])
-//
-//            }
-            
-            cell.configureAircraftCell(title: "bingo")
-
-            
-
-
-            cell.radioButton.addTarget(self, action: #selector(aircraftRadioButtonTapped(sender:)) , for: .touchDown)
-            return cell
-        }
-
-        return UITableViewCell()
+        
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -129,4 +107,72 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
         }
         return 0
     }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+       
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "RadioButtonCell") as? RadioButtonTableViewCell {
+
+            
+            if indexPath.section == 0 {
+                
+                cell.configureAllAircraftsCell()
+                
+                cell.radioButton.setImage(self.aircraftFilter.selectedAircrafts.count == self.aircraftFilter.allAircrafts.count ? #imageLiteral(resourceName: "selectOption") : #imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
+           
+            } else {
+                
+                cell.configureAircraftCell(title: self.aircraftFilter.allAircrafts[indexPath.row])
+
+                if self.aircraftFilter.selectedAircrafts.contains(self.aircraftFilter.allAircrafts[indexPath.row]) {
+                        
+                        cell.radioButton.setImage(#imageLiteral(resourceName: "selectOption"), for: .normal)
+
+                    } else {
+                        
+                        cell.radioButton.setImage(#imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
+
+                    }
+                
+            }
+
+            return cell
+        }
+
+        return UITableViewCell()
+    }
+    
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.section == 0 {
+            
+            if self.aircraftFilter.selectedAircrafts.count == self.aircraftFilter.allAircrafts.count {
+                self.aircraftFilter.selectedAircrafts = []
+            } else {
+                self.aircraftFilter.selectedAircrafts = self.aircraftFilter.allAircrafts
+
+            }
+
+            
+        } else {
+            
+            if let ind = self.aircraftFilter.selectedAircrafts.firstIndex(where: { (item) -> Bool in
+                   return item == self.aircraftFilter.allAircrafts[indexPath.row]
+               }) {
+                   self.aircraftFilter.selectedAircrafts.remove(at: ind)
+               } else{
+                   self.aircraftFilter.selectedAircrafts.append(self.aircraftFilter.allAircrafts[indexPath.row])
+               }
+               
+        }
+        
+        aircraftTableView.reloadData()
+
+        self.delegate?.aircraftFilterUpdated(self.aircraftFilter)
+        
+    }
+    
+    
+    
 }

@@ -1110,26 +1110,56 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         
         switch flightType {
 
-        case SINGLE_JOURNEY:
+            case SINGLE_JOURNEY:
+                        
+                guard let filterVc = self.flightFilterVC else { return }
+                var currentData = filterVc.updatedAircraftFilter.allAircrafts
+                currentData.append(contentsOf: filters.aircraft.allAircrafts)
+                self.flightFilterVC?.updatedAircraftFilter.allAircrafts = currentData.removeDuplicates()
             
-            printDebug("SINGLE_JOURNEY")
             
-            self.flightFilterVC
-            
+        case RETURN_JOURNEY:
+       
+            if flightSearchResultVM.isDomestic {
         
-        default: break
+                guard let filterVc = self.flightFilterVC else { return }
+                var currentData = filterVc.updatedAircraftFilter.allAircrafts
+                currentData.append(contentsOf: filters.aircraft.allAircrafts)
+                self.flightFilterVC?.updatedAircraftFilter.allAircrafts = currentData.removeDuplicates()
             
-            delay(seconds: 0.5) {
-                      self.intMCAndReturnFilterVC?.updateAircraftFilter = filters.aircraft
-                  }
+            } else {
+            
+                delay(seconds: 0.5) {
+                    self.intMCAndReturnFilterVC?.updateAircraftFilter = filters.aircraft
+                }
+            
+            }
+            
+            
+        case  MULTI_CITY:
+                    
+            if flightSearchResultVM.isDomestic {
+                    
+                guard let filterVc = self.flightFilterVC else { return }
+                var currentData = filterVc.updatedAircraftFilter.allAircrafts
+                currentData.append(contentsOf: filters.aircraft.allAircrafts)
+                self.flightFilterVC?.updatedAircraftFilter.allAircrafts = currentData.removeDuplicates()
+                        
+            } else {
+                        
+                delay(seconds: 0.5) {
+                    self.intMCAndReturnFilterVC?.updateAircraftFilter = filters.aircraft
+                }
+                
+            }
+            
+        default: break
+
             
         }
         
-        
-        
-      
-        
     }
+    
     
     func clearFilters() {
         flightSearchResultVM.clearAllFilters()

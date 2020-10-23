@@ -38,17 +38,14 @@ class HotelResultSectionHeader: UITableViewHeaderFooterView {
         self.contentView.backgroundColor = AppColors.clear
         self.backgroundColor = AppColors.clear
         
-        if #available(iOS 14.0, *) {
-            var bgConfig = UIBackgroundConfiguration.listPlainCell()
-            bgConfig.backgroundColor = UIColor.clear
-            self.backgroundConfiguration = bgConfig
-            //For cell use: UITableViewCell.appearance().backgroundConfiguration = bgConfig
-            
-            //            self.automaticallyUpdatesContentConfiguration = false
-            //            self.automaticallyUpdatesBackgroundConfiguration = false
-        } else {
-            // Fallback on earlier versions
-        }
+//        if #available(iOS 14.0, *) {
+//            var bgConfig = UIBackgroundConfiguration.listPlainCell()
+//            bgConfig.backgroundColor = UIColor.clear
+//            self.backgroundConfiguration = bgConfig
+//
+//        } else {
+//
+//        }
         
     }
 }

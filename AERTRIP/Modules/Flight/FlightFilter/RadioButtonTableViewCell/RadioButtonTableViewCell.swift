@@ -9,11 +9,14 @@
 import UIKit
 
 class RadioButtonTableViewCell: UITableViewCell {
+    
     @IBOutlet weak var radioButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.textLabel?.font = AppFonts.Regular.withSize(18)
+        self.selectionStyle = .none
+        self.radioButton.isUserInteractionEnabled = false
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -24,8 +27,8 @@ class RadioButtonTableViewCell: UITableViewCell {
     
     
     override func prepareForReuse() {
-        self.imageView?.image = nil
-        self.radioButton.isSelected = true
+//        self.imageView?.image = nil
+//        self.radioButton.isSelected = true
     }
     
     func configureAllAircraftsCell() {

@@ -53,6 +53,25 @@ extension FlightResultDisplayGroup  {
     }
     
     
+    func aircraftFilterUpdated(_ filter: AircraftFilter) {
+
+        self.dynamicFilters.aircraft.selectedAircrafts = filter.selectedAircrafts
+        
+        if filter.selectedAircrafts.isEmpty{
+            
+            appliedFilters.insert(.Aircraft)
+
+        } else {
+            
+            appliedFilters.remove(.Aircraft)
+
+        }
+        
+        applyFilters()
+
+        
+    }
+    
     func applyMultiItinaryAirlineFilter( _ inputArray : [Journey]) -> [Journey] {
         
         let hideMultiAirlineItinerary =  userSelectedFilters?.multiAl == 1 ? false : true
@@ -97,6 +116,44 @@ extension FlightResultDisplayGroup  {
         return outputArray
     }
 
+    
+    func applyAircraftFilter(_ inputArray : [Journey]) -> [Journey] {
+         var filteredAirlineSet = Set<String>()
+
+
+
+
+        if let airlines = userSelectedFilters?.al {
+             filteredAirlineSet = Set(airlines)
+         }
+//
+        
+        var selectedAircrsfts = self.dynamicFilters.aircraft.selectedAircrafts
+        
+         var outputArray = inputArray
+         
+        
+         if !self.dynamicFilters.aircraft.selectedAircrafts.isEmpty {
+      
+            
+             outputArray = inputArray.filter{
+                
+                let eqs = $0.leg.flatMap { $0.flights }.flatMap { $0.eq }
+                
+                 let journeySet = Set($0.al)
+                 
+                 if journeySet.isDisjoint(with:filteredAirlineSet) {
+                     return false
+                 }
+                 return true
+             }
+         }
+         
+         
+         return outputArray
+     }
+
+    
 
 //MARK:- Sorting
 
@@ -824,7 +881,10 @@ extension FlightResultDisplayGroup  {
                 inputForFilter = self.applyPriceFilter(inputForFilter)
                 
             case .Aircraft:
-                return
+                
+                inputForFilter = self.applyAircraftFilter(inputForFilter)
+
+                
             }
             
         }

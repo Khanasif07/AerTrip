@@ -41,7 +41,6 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                 airCraftVC.assignC()
                 airCraftVC.updateAircraftList(filter: updateAircraftFilter)
             }
-            
         }
     }
     
