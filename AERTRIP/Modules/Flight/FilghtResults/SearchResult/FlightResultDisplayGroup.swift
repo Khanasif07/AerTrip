@@ -40,6 +40,9 @@ class FlightResultDisplayGroup {
     
     internal var isAPIResponseUpdated = false
 
+    var dynamicFilters = DynamicFilters()
+
+    
     //MARK:- Computed Properties
     var appliedFilters = Set<Filters>() {
         didSet{
@@ -108,10 +111,9 @@ class FlightResultDisplayGroup {
         }
     }
     
-    fileprivate func mergeFlightResults(_ flightsArray  : [Flights] )
-    {
+    fileprivate func mergeFlightResults(_ flightsArray  : [Flights] )    {
         
-        
+
         var currentJourneyArray = [Journey]()
         
         flightsArray.forEach { (flight) in
@@ -369,7 +371,62 @@ class FlightResultDisplayGroup {
         mergeFilters(flightsArray)
         updateUserFiltersFromDeepLink(flightSearchParam)
         processingOnCombinedSearchResult(searchType : searchType)
+        createDynamicFilters(flightsArray: flightsArray)
     }
+    
+    func createDynamicFilters(flightsArray: [Flights]){
+
+      var allEqs : [String] = []
+               
+      allEqs.append(contentsOf: dynamicFilters.aircraft.allAircrafts)
+        
+//        var flightsMainObjects : [Flights] = []
+        
+        var journeys : [Journey] = []
+        
+        
+        flightsArray.forEach { (flightMainObj) in
+
+//            flightsMainObjects.append(flightMainObj)
+            
+            flightMainObj.results.j.forEach { (journey) in
+
+                journeys.append(journey)
+                
+            }
+            
+        }
+        
+        var legs : [FlightLeg] = []
+
+        
+        journeys.forEach { (journey) in
+            
+            journey.leg.forEach { (leg) in
+
+                legs.append(leg)
+            }
+            
+        }
+        
+        legs.forEach { (leg) in
+            
+            leg.flights.forEach { (flight) in
+                
+                allEqs.append(flight.eq ?? "")
+
+            }
+            
+        }
+        
+//        printDebug("allEqs...\(allEqs)")
+
+        dynamicFilters.aircraft.allAircrafts = allEqs.removeDuplicates()
+        
+        self.delegate?.updateDynamicFilters(filters: dynamicFilters)
+        
+    }
+    
     
     private func updateUserFiltersFromDeepLink(_ flightSearchParam: JSONDictionary) {
         
@@ -567,7 +624,7 @@ class FlightResultDisplayGroup {
     
     private func mergeFilters(_ flightsArray  : [Flights]) {
         flightsArray.forEach { (flight) in
-            print("flight filters count: \(flight.results.f.count)")
+//            print("flight filters count: \(flight.results.f.count)")
             if inputFilter == nil {
                 inputFilter = flight.results.f.last
                 userSelectedFilters = flight.results.f.last

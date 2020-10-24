@@ -198,7 +198,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                 headerCell.setRedColoredTitles()
             }
         } else {
-            print("cell not fount...\(indexPath)")
+//            print("cell not fount...\(indexPath)")
         }
     }
     
