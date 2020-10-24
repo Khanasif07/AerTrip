@@ -717,7 +717,7 @@ extension AppFlowManager {
         UIApplication.topViewController()?.present(obj, animated: true, completion: nil)
     }
     
-    func presentYouAreAllDoneVC(forItId itId: String, bookingIds: [String], cid: [String], originLat: String, originLong: String, recieptData: HotelReceiptModel?) {
+    func presentYouAreAllDoneVC(forItId itId: String, bookingIds: [String], cid: [String], originLat: String, originLong: String, recieptData: HotelReceiptModel?, sId: String) {
         let obj = YouAreAllDoneVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.itId = itId
         obj.viewModel.bookingIds = bookingIds
@@ -725,6 +725,7 @@ extension AppFlowManager {
         obj.viewModel.originLat = originLat
         obj.viewModel.originLong = originLong
         obj.viewModel.hotelReceiptData = recieptData
+        obj.viewModel.sId = sId
         self.currentNavigation?.pushViewController(obj, animated: false)
     }
     
@@ -778,13 +779,14 @@ extension AppFlowManager {
         self.currentNavigation?.pushViewController(obj, animated: true)
     }
     
-    func moveToFinalCheckoutVC(delegate: FinalCheckOutVCDelegate, _ itinaryData: ItineraryData? = ItineraryData(), _ itinaryPriceDetail: ItenaryModel? = ItenaryModel(), originLat: String, originLong: String) {
+    func moveToFinalCheckoutVC(delegate: FinalCheckOutVCDelegate, _ itinaryData: ItineraryData? = ItineraryData(), _ itinaryPriceDetail: ItenaryModel? = ItenaryModel(), originLat: String, originLong: String, sId: String) {
         let obj = FinalCheckOutVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.itineraryData = itinaryData
         obj.delegate = delegate
         obj.viewModel.originLat = originLat
         obj.viewModel.originLong = originLong
         obj.viewModel.itinaryPriceDetail = itinaryPriceDetail
+        obj.viewModel.sId = sId
         self.currentNavigation?.pushViewController(obj, animated: true)
     }
     

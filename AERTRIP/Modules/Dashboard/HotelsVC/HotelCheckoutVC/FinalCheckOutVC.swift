@@ -692,7 +692,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     func getBookingReceiptSuccess(detail: HotelReceiptModel) {
         self.manageLoader(shouldStart: false)
         if let id = self.viewModel.itineraryData?.it_id {
-            AppFlowManager.default.presentYouAreAllDoneVC(forItId: id, bookingIds: self.viewModel.bookingIds, cid: self.viewModel.cId, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong, recieptData: detail)
+            AppFlowManager.default.presentYouAreAllDoneVC(forItId: id, bookingIds: self.viewModel.bookingIds, cid: self.viewModel.cId, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong, recieptData: detail, sId: self.viewModel.sId)
         }
     }
     

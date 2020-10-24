@@ -47,6 +47,8 @@ class FinalCheckoutVM: NSObject {
     var bookingIds: [String] = [], cId: [String] = []
     var isApplyingCoupon = false
     var paymentMethodApiCount = 1
+    var sId: String = ""
+
     
     func webServiceGetPaymentMethods() {
         let params: JSONDictionary = [APIKeys.it_id.rawValue:  self.itineraryData?.it_id ?? ""]

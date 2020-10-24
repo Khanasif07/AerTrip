@@ -235,7 +235,7 @@ extension HCEmailItinerariesVC: HCEmailItinerariesVMDelegate {
             self.viewModel.emailInfo[currentEmailIndex].emailStatus = .sending
             self.tableView.reloadData()
             delay(seconds: 1) {
-                self.viewModel.sendEmailIdApi( emailId: [self.viewModel.emailInfo[currentEmailIndex].emailId], isMultipleEmailSending: isMultipleEmailSending, currentEmailIndex: currentEmailIndex)
+                self.viewModel.sendEmailIdApi( emailId: self.viewModel.emailInfo[currentEmailIndex].emailId, isMultipleEmailSending: isMultipleEmailSending, currentEmailIndex: currentEmailIndex)
             }
         }
     }

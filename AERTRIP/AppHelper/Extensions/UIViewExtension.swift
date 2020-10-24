@@ -291,7 +291,7 @@ extension UIView {
         self.transform = CGAffineTransform(rotationAngle: rotationAngle)
         self.clipsToBounds = true
     }
-    
+     
     var collectionViewCell: UICollectionViewCell? {
         var subviewClass = self
         
