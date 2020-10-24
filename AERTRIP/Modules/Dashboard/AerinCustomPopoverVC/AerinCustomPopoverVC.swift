@@ -21,7 +21,7 @@ class AerinCustomPopoverVC: BaseVC {
     enum SetupForViewType {
         case textView
         case textViewOpen
-        case aerinAnimation
+        case waveAnimation
         case communicationControls
     }
     
@@ -30,11 +30,23 @@ class AerinCustomPopoverVC: BaseVC {
     var dotsView: AMDots?
     var typingCellTimer : Timer?
     
+    // Speech Recognizer
+    private let speechRecognizer = SpeechRecognizer()
+    
+    // Wave Animation
+    var firstWaveView: HeartLoadingView?
+    var secondWaveView: HeartLoadingView?
+    
     private var initialPoint: CGFloat = .zero
     private var midPoint: CGFloat = .zero
     private var maxPoint: CGFloat = .zero
     private var minPoint: CGFloat = .zero
     private let maxViewColorAlpha: CGFloat = 0.4
+    
+    private var waveContainerHeightConstant: CGFloat {
+        let waveContainerHeight: CGFloat = 308
+        return waveContainerHeight + view.safeAreaInsets.bottom
+    }
         
     private var setupForView: SetupForViewType = .textView {
         didSet {
@@ -43,6 +55,8 @@ class AerinCustomPopoverVC: BaseVC {
                 alignmentViewHeight.constant = textViewBackView.height
             case .textViewOpen:
                 alignmentViewHeight.constant = -(textViewBackViewBottom.constant) + textViewBackView.height
+            case .waveAnimation:
+                alignmentViewHeight.constant = 160
             default:
                 alignmentViewHeight.constant = 100
             }
@@ -87,6 +101,14 @@ class AerinCustomPopoverVC: BaseVC {
     @IBOutlet weak var animationBubbleImageView: UIImageView!
     @IBOutlet weak var animationLabel: UILabel!
     
+    @IBOutlet weak var waveAnimationContainerView: UIView!
+    @IBOutlet weak var waveAnimationContainerViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var waveAnimationContainerViewBottom: NSLayoutConstraint!
+    
+    @IBOutlet weak var aerinCommunicationOptionsView: UIView!
+    @IBOutlet weak var keyboardBtn: UIButton!
+    @IBOutlet weak var micBtn: UIButton!
+    @IBOutlet weak var aerinommunicationHelpBtn: UIButton!
     
     // MARK: View life cycle
     
@@ -160,6 +182,7 @@ class AerinCustomPopoverVC: BaseVC {
         view.backgroundColor = UIColor.black.withAlphaComponent(0)
         messageTextView.delegate = self
         setupSubViews()
+        startWaveAnimation()
     }
     
     private func removeSeeResultsAgainCell() {
@@ -232,7 +255,7 @@ class AerinCustomPopoverVC: BaseVC {
     }
     
     private func setupSubViews() {
-        setupForView = .textView
+        setupForView = .waveAnimation
         chatTableView.contentInset = UIEdgeInsets(top: topNavView.height, left: 0, bottom: 0, right: 0)
         setupPopoverView()
         addPanGesture()
@@ -242,8 +265,14 @@ class AerinCustomPopoverVC: BaseVC {
         chatVm.getRecentHotels()
         chatVm.getRecentFlights()
         resetFrames()
+        setWaveContainerView()
     }
     
+    private func setWaveContainerView() {
+        waveAnimationContainerViewHeight.constant = waveContainerHeightConstant
+        waveAnimationContainerViewBottom.constant = view.safeAreaInsets.bottom
+    }
+        
     private func setUpAttributes(){
         alignmentView.backgroundColor = .clear
         whereToGoLbl.font = AppFonts.Regular.withSize(28)
@@ -656,5 +685,4 @@ extension AerinCustomPopoverVC : ChatBotDelegatesDelegate {
     func failedToGetRecentSearchedFlightsApi(){
         
     }
-    
 }

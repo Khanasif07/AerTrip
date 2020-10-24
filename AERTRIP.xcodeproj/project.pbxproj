@@ -1434,6 +1434,7 @@
 		84A9447F24812BB30024B828 /* HotelCheckoutDetailVC+TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9447E24812BB30024B828 /* HotelCheckoutDetailVC+TableCell.swift */; };
 		84A9A9CB2542B1B50082B893 /* AerinCustomPopoverVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9A9CA2542B1B50082B893 /* AerinCustomPopoverVC+TableView.swift */; };
 		84A9A9CD2542B1D80082B893 /* AerinCustomPopoverVC+CollectionViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9A9CC2542B1D80082B893 /* AerinCustomPopoverVC+CollectionViewDelegates.swift */; };
+		84A9A9CF254313540082B893 /* AerinCustomPopoverVC+WaveAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9A9CE254313540082B893 /* AerinCustomPopoverVC+WaveAnimation.swift */; };
 		84AB8FC52212934A002C0A66 /* ATGalleryScrollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AB8FC42212934A002C0A66 /* ATGalleryScrollCell.xib */; };
 		84AB8FC822129B49002C0A66 /* ATGalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB8FC622129B49002C0A66 /* ATGalleryCell.swift */; };
 		84AB8FC922129B4A002C0A66 /* ATGalleryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AB8FC722129B49002C0A66 /* ATGalleryCell.xib */; };
@@ -3242,6 +3243,7 @@
 		84A9447E24812BB30024B828 /* HotelCheckoutDetailVC+TableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HotelCheckoutDetailVC+TableCell.swift"; sourceTree = "<group>"; };
 		84A9A9CA2542B1B50082B893 /* AerinCustomPopoverVC+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AerinCustomPopoverVC+TableView.swift"; sourceTree = "<group>"; };
 		84A9A9CC2542B1D80082B893 /* AerinCustomPopoverVC+CollectionViewDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AerinCustomPopoverVC+CollectionViewDelegates.swift"; sourceTree = "<group>"; };
+		84A9A9CE254313540082B893 /* AerinCustomPopoverVC+WaveAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AerinCustomPopoverVC+WaveAnimation.swift"; sourceTree = "<group>"; };
 		84AB8FC42212934A002C0A66 /* ATGalleryScrollCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ATGalleryScrollCell.xib; sourceTree = "<group>"; };
 		84AB8FC622129B49002C0A66 /* ATGalleryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATGalleryCell.swift; sourceTree = "<group>"; };
 		84AB8FC722129B49002C0A66 /* ATGalleryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ATGalleryCell.xib; sourceTree = "<group>"; };
@@ -5679,6 +5681,7 @@
 				841F39A325415252007C99B6 /* AerinCustomPopoverVC.swift */,
 				84A9A9CA2542B1B50082B893 /* AerinCustomPopoverVC+TableView.swift */,
 				84A9A9CC2542B1D80082B893 /* AerinCustomPopoverVC+CollectionViewDelegates.swift */,
+				84A9A9CE254313540082B893 /* AerinCustomPopoverVC+WaveAnimation.swift */,
 			);
 			path = AerinCustomPopoverVC;
 			sourceTree = "<group>";
@@ -10990,6 +10993,7 @@
 				843FF657247409E3001F21B1 /* BookFlightObject.m in Sources */,
 				84D503772474F6E500527C77 /* AppSocialNetwork.swift in Sources */,
 				0C2558FD233C979B00F57C6E /* UIViewKeyframeAnimationOptions + Extension.swift in Sources */,
+				84A9A9CF254313540082B893 /* AerinCustomPopoverVC+WaveAnimation.swift in Sources */,
 				842BE085249A471F005B604E /* InstagramManager.swift in Sources */,
 				0C0B8CDC24D2D63F008942DB /* FlightResultSingleJourneyVC+TableViewDelegates.swift in Sources */,
 				84085D1021F59C0E00F1E844 /* ContactListVC.swift in Sources */,
