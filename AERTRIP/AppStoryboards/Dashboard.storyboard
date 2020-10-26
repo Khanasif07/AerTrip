@@ -2047,7 +2047,6 @@ on Christmas”</string>
                                                 <state key="normal" image="aerinSpeechHelp"/>
                                                 <connections>
                                                     <action selector="helpBtnAction:" destination="yrF-Gi-Xwu" eventType="touchUpInside" id="368-y7-PTc"/>
-                                                    <action selector="micBtnAction:" destination="yrF-Gi-Xwu" eventType="touchUpInside" id="Yt5-Pa-YKu"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -2066,18 +2065,26 @@ on Christmas”</string>
                                         <rect key="frame" x="-207" y="459" width="828" height="308"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EfQ-Ce-Yw9">
-                                                <rect key="frame" x="0.0" y="0.0" width="828" height="308"/>
+                                                <rect key="frame" x="207" y="0.0" width="414" height="308"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ADN-RW-Kbp">
-                                                        <rect key="frame" x="0.0" y="0.0" width="828" height="308"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="308"/>
                                                         <connections>
                                                             <action selector="hideWaveBtnAction:" destination="yrF-Gi-Xwu" eventType="touchUpInside" id="3O2-9i-byr"/>
                                                         </connections>
                                                     </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AN1-fq-g2q">
+                                                        <rect key="frame" x="186.5" y="236" width="41.5" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
+                                                    <constraint firstItem="AN1-fq-g2q" firstAttribute="centerX" secondItem="ADN-RW-Kbp" secondAttribute="centerX" id="8IR-O1-d0D"/>
                                                     <constraint firstAttribute="trailing" secondItem="ADN-RW-Kbp" secondAttribute="trailing" id="90p-E9-Dbs"/>
+                                                    <constraint firstItem="AN1-fq-g2q" firstAttribute="centerY" secondItem="ADN-RW-Kbp" secondAttribute="centerY" multiplier="1.6" id="EuQ-cR-IRb"/>
                                                     <constraint firstItem="ADN-RW-Kbp" firstAttribute="leading" secondItem="EfQ-Ce-Yw9" secondAttribute="leading" id="qjv-b7-Vli"/>
                                                     <constraint firstAttribute="bottom" secondItem="ADN-RW-Kbp" secondAttribute="bottom" id="uhX-ZS-DMj"/>
                                                     <constraint firstItem="ADN-RW-Kbp" firstAttribute="top" secondItem="EfQ-Ce-Yw9" secondAttribute="top" id="vRv-sr-N2T"/>
@@ -2086,11 +2093,11 @@ on Christmas”</string>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstItem="EfQ-Ce-Yw9" firstAttribute="leading" secondItem="B4w-iD-k9i" secondAttribute="leading" id="Iyh-5w-DpS"/>
                                             <constraint firstItem="EfQ-Ce-Yw9" firstAttribute="top" secondItem="B4w-iD-k9i" secondAttribute="top" id="TVK-Di-GxJ"/>
                                             <constraint firstAttribute="bottom" secondItem="EfQ-Ce-Yw9" secondAttribute="bottom" id="Tmg-vS-xIj"/>
+                                            <constraint firstItem="EfQ-Ce-Yw9" firstAttribute="width" secondItem="B4w-iD-k9i" secondAttribute="width" multiplier="0.5" id="UVJ-aS-KwP"/>
+                                            <constraint firstItem="EfQ-Ce-Yw9" firstAttribute="centerX" secondItem="B4w-iD-k9i" secondAttribute="centerX" id="WZ5-6i-vSo"/>
                                             <constraint firstAttribute="height" constant="308" id="eWu-mc-xiG"/>
-                                            <constraint firstAttribute="trailing" secondItem="EfQ-Ce-Yw9" secondAttribute="trailing" id="y4Q-c8-RpZ"/>
                                         </constraints>
                                     </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aerinWhiteBGIcon" translatesAutoresizingMaskIntoConstraints="NO" id="kjb-fk-A1F">

@@ -25,6 +25,11 @@ class AerinCustomPopoverVC: BaseVC {
         case communicationControls
     }
     
+    enum SendButtonState {
+        case send
+        case record
+    }
+    
     var startPoint: StartPoint = .center
     let chatVm = ChatVM()
     var dotsView: AMDots?
@@ -51,6 +56,15 @@ class AerinCustomPopoverVC: BaseVC {
     private var setupForView: SetupForViewType = .textView {
         didSet {
             resetViewSetup()
+        }
+    }
+    
+    private var sendBtnState: SendButtonState = .record {
+        didSet {
+            switch sendBtnState {
+            case .record:   sendBtn.setImage(#imageLiteral(resourceName: "aerinSmallMic"), for: .normal)
+            case .send:     sendBtn.setImage(#imageLiteral(resourceName: "sendIcon"), for: .normal)
+            }
         }
     }
     
@@ -155,32 +169,39 @@ class AerinCustomPopoverVC: BaseVC {
     }
     
     @IBAction func sendBtnAction(_ sender: UIButton) {
-        removeSeeResultsAgainCell()
+        switch sendBtnState {
+        case .send:
+            removeSeeResultsAgainCell()
+            
+            UIApplication.shared.beginIgnoringInteractionEvents()
         
-        UIApplication.shared.beginIgnoringInteractionEvents()
-    
-        delay(seconds: 1) {
-            UIApplication.shared.endIgnoringInteractionEvents()
-        }
+            delay(seconds: 1) {
+                UIApplication.shared.endIgnoringInteractionEvents()
+            }
+            
+            self.messageTextView.placeholder = ""
+            self.invalidateTypingCellTimer()
+            guard  let msg = self.messageTextView.text, !msg.isEmpty else { return }
+            if self.chatVm.messages.isEmpty {
+                hideWelcomeView()
+                toggleSuggestions(true, animated: true)
+            }
+            self.animationLabel.text = msg
+            self.chatVm.messages.append(MessageModel(msg: msg, source: MessageModel.MessageSource.me))
+            self.chatTableView.reloadData()
+            self.resetFrames()
+            scrollTableViewToLast()
+            self.hideShowSenderCellContent(ishidden: true)
+            self.chatVm.msgToBeSent = msg
+            delay(seconds: 0.27) {
+                self.animateCell(text : msg)
+            }
+            //MARK:- Here i had used insert row due to some issue with the yIndex of the cell i had used reload
         
-        self.messageTextView.placeholder = ""
-        self.invalidateTypingCellTimer()
-        guard  let msg = self.messageTextView.text, !msg.isEmpty else { return }
-        if self.chatVm.messages.isEmpty {
-            hideWelcomeView()
-            toggleSuggestions(true, animated: true)
+        case .record:
+            micBtn.transform = .identity
+            setupForView = .communicationControls
         }
-        self.animationLabel.text = msg
-        self.chatVm.messages.append(MessageModel(msg: msg, source: MessageModel.MessageSource.me))
-        self.chatTableView.reloadData()
-        self.resetFrames()
-        scrollTableViewToLast()
-        self.hideShowSenderCellContent(ishidden: true)
-        self.chatVm.msgToBeSent = msg
-        delay(seconds: 0.27) {
-            self.animateCell(text : msg)
-        }
-        //MARK:- Here i had used insert row due to some issue with the yIndex of the cell i had used reload
     }
     
     // MARK: Functions
@@ -208,6 +229,7 @@ class AerinCustomPopoverVC: BaseVC {
     }
     
     private func setupForWaveAnimation() {
+        messageTextView.resignFirstResponder()
         textViewWhiteView.isHidden = true
         textViewBackView.isHidden = true
         toggleSuggestions(true, animated: true)
@@ -221,6 +243,7 @@ class AerinCustomPopoverVC: BaseVC {
     }
     
     private func setupForCommControls() {
+        messageTextView.resignFirstResponder()
         textViewWhiteView.isHidden = true
         textViewBackView.isHidden = true
         alignmentViewHeight.constant = aerinCommunicationOptionsView.height
@@ -232,15 +255,31 @@ class AerinCustomPopoverVC: BaseVC {
     private func setupForTextViewOpen() {
         toggleWaveAnimationsView(true)
         toggleSuggestions(false, animated: true)
-        toggleCommControlsView(true)
+        toggleCommControlsView(true, animated: false)
         textViewWhiteView.isHidden = false
         textViewBackView.isHidden = false
         messageTextView.becomeFirstResponder()
         alignmentViewHeight.constant = -(textViewBackViewBottom.constant) + textViewBackView.height
+        animateMicToMessageView()
+        
     }
     
-    private func toggleCommControlsView(_ hidden: Bool) {
-        UIView.animate(withDuration: 0.5) {
+    private func animateMicToMessageView() {
+        let initialFrame = micBtn.convert(micBtn.imageView!.frame, to: popoverView)
+        let finalFrame = sendBtn.convert(sendBtn.imageView!.frame, to: popoverView)
+        let animationMicImgView = UIImageView(frame: initialFrame)
+        animationMicImgView.image = micBtn.currentImage
+        popoverView.addSubview(animationMicImgView)
+        UIView.animate(withDuration: 0.3, animations: {
+            animationMicImgView.frame = finalFrame
+        }) { _ in
+            animationMicImgView.removeFromSuperview()
+        }
+    }
+    
+    private func toggleCommControlsView(_ hidden: Bool, animated: Bool = true) {
+        let animationDuration: TimeInterval = animated ? 0.5 : 0
+        UIView.animate(withDuration: animationDuration) {
             if hidden {
                 self.aerinCommunicationOptionsView.alpha = 0
                 self.micBtn.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
@@ -701,7 +740,7 @@ extension AerinCustomPopoverVC {
         checkSendButtonStatus()
     }
     func checkSendButtonStatus() {
-        sendBtn.isHidden = messageTextView.text.isEmpty
+        sendBtnState = messageTextView.text.isEmpty ? .record : .send
     }
 }
 
