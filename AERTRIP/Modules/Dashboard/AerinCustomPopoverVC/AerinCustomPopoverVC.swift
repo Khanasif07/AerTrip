@@ -44,25 +44,13 @@ class AerinCustomPopoverVC: BaseVC {
     private let maxViewColorAlpha: CGFloat = 0.4
     
     private var waveContainerHeightConstant: CGFloat {
-        let waveContainerHeight: CGFloat = 308
+        let waveContainerHeight: CGFloat = 250
         return waveContainerHeight + view.safeAreaInsets.bottom
     }
         
     private var setupForView: SetupForViewType = .textView {
         didSet {
-            switch setupForView {
-            case .textView:
-                alignmentViewHeight.constant = textViewBackView.height
-            case .textViewOpen:
-                alignmentViewHeight.constant = -(textViewBackViewBottom.constant) + textViewBackView.height
-            case .waveAnimation:
-                alignmentViewHeight.constant = 160
-            default:
-                alignmentViewHeight.constant = 100
-            }
-            UIView.animate(withDuration: 0.3) {
-                self.popoverView.layoutIfNeeded()
-            }
+            resetViewSetup()
         }
     }
     
@@ -85,6 +73,7 @@ class AerinCustomPopoverVC: BaseVC {
     @IBOutlet weak var alignmentViewHeight: NSLayoutConstraint!
     @IBOutlet weak var alignmentViewBottom: NSLayoutConstraint!
     
+    @IBOutlet weak var textViewWhiteView: UIView!
     @IBOutlet weak var textViewBackView: UIView!
     @IBOutlet weak var textViewBackViewHeight: NSLayoutConstraint!
     @IBOutlet weak var textViewBackViewBottom: NSLayoutConstraint!
@@ -104,6 +93,8 @@ class AerinCustomPopoverVC: BaseVC {
     @IBOutlet weak var waveAnimationContainerView: UIView!
     @IBOutlet weak var waveAnimationContainerViewHeight: NSLayoutConstraint!
     @IBOutlet weak var waveAnimationContainerViewBottom: NSLayoutConstraint!
+    @IBOutlet weak var waveAnimationContentView: UIView!
+    @IBOutlet weak var hideWaveBtn: UIButton!
     
     @IBOutlet weak var aerinCommunicationOptionsView: UIView!
     @IBOutlet weak var keyboardBtn: UIButton!
@@ -114,11 +105,11 @@ class AerinCustomPopoverVC: BaseVC {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        setWaveContainerView()
         startPresentAnimation()
         delay(seconds: 0.33) {
             self.animateMorningLabel()
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -147,6 +138,22 @@ class AerinCustomPopoverVC: BaseVC {
         startDismissAnimation()
     }
     
+    @IBAction func hideWaveBtnAction(_ sender: UIButton) {
+        setupForView = .communicationControls
+    }
+    
+    @IBAction func keyboardBtnAction(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func micBtnAction(_ sender: UIButton) {
+        setupForView = .waveAnimation
+    }
+    
+    @IBAction func helpBtnAction(_ sender: UIButton) {
+        
+    }
+    
     @IBAction func sendBtnAction(_ sender: UIButton) {
         removeSeeResultsAgainCell()
         
@@ -161,7 +168,7 @@ class AerinCustomPopoverVC: BaseVC {
         guard  let msg = self.messageTextView.text, !msg.isEmpty else { return }
         if self.chatVm.messages.isEmpty {
             hideWelcomeView()
-            hideSuggestions()
+            toggleSuggestions(true, animated: true)
         }
         self.animationLabel.text = msg
         self.chatVm.messages.append(MessageModel(msg: msg, source: MessageModel.MessageSource.me))
@@ -182,7 +189,76 @@ class AerinCustomPopoverVC: BaseVC {
         view.backgroundColor = UIColor.black.withAlphaComponent(0)
         messageTextView.delegate = self
         setupSubViews()
-        startWaveAnimation()
+    }
+    
+    private func resetViewSetup() {
+        switch setupForView {
+        case .textView:
+            alignmentViewHeight.constant = textViewBackView.height
+        case .textViewOpen:
+            alignmentViewHeight.constant = -(textViewBackViewBottom.constant) + textViewBackView.height
+        case .waveAnimation:
+            setupForWaveAnimation()
+        case .communicationControls:
+            setupForCommControls()
+        }
+        UIView.animate(withDuration: 0.3) {
+            self.popoverView.layoutIfNeeded()
+        }
+    }
+    
+    private func setupForWaveAnimation() {
+        textViewWhiteView.isHidden = true
+        textViewBackView.isHidden = true
+        toggleSuggestions(true, animated: true)
+        if chatVm.messages.isEmpty {
+            alignmentViewHeight.constant = aerinCommunicationOptionsView.height
+        } else {
+            alignmentViewHeight.constant = waveContainerHeightConstant/2
+        }
+        toggleWaveAnimationsView(false)
+        toggleCommControlsView(true)
+    }
+    
+    private func setupForCommControls() {
+        textViewWhiteView.isHidden = true
+        textViewBackView.isHidden = true
+        alignmentViewHeight.constant = aerinCommunicationOptionsView.height
+        toggleWaveAnimationsView(true)
+        toggleSuggestions(false, animated: true)
+        toggleCommControlsView(false)
+    }
+    
+    private func toggleCommControlsView(_ hidden: Bool) {
+        UIView.animate(withDuration: 0.5) {
+            if hidden {
+                self.aerinCommunicationOptionsView.alpha = 0
+                self.micBtn.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+            } else {
+                self.aerinCommunicationOptionsView.alpha = 1
+                self.micBtn.transform = .identity
+            }
+        }
+    }
+    
+    private func toggleWaveAnimationsView(_ hidden: Bool) {
+        if !hidden {
+            waveAnimationContainerView.alpha = 1
+        }
+        UIView.animate(withDuration: 0.5, animations: {
+            if hidden {
+                if self.waveAnimationContainerView.alpha != 0 {
+                    self.waveAnimationContainerView.transform = CGAffineTransform(translationX: 0, y: self.waveContainerHeightConstant)
+                }
+            } else {
+                self.waveAnimationContainerView.transform = .identity
+            }
+            self.popoverView.layoutIfNeeded()
+        }) { _ in
+            if hidden {
+                self.waveAnimationContainerView.alpha = 0
+            }
+        }
     }
     
     private func removeSeeResultsAgainCell() {
@@ -203,13 +279,20 @@ class AerinCustomPopoverVC: BaseVC {
         }
     }
     
-    private func hideSuggestions(){
-        self.collectionViewBottom.constant = 200
-        UIView.animate(withDuration: 1, animations: {
-            self.popoverView.layoutIfNeeded()
-        }) { _ in
-            self.suggestionsCollectionView.alpha = 0
+    private func toggleSuggestions(_ hidden: Bool, animated: Bool){
+        let animationDuration: TimeInterval = animated ? 0.5 : 0
+        if !hidden && !chatVm.messages.isEmpty {
+            return
         }
+        UIView.animate(withDuration: animationDuration, animations: {
+            if hidden {
+                self.suggestionsCollectionView.transform = CGAffineTransform(translationX: self.view.width, y: 0)
+                self.suggestionsCollectionView.alpha = 0
+            } else {
+                self.suggestionsCollectionView.transform = .identity
+                self.suggestionsCollectionView.alpha = 1
+            }
+        })
     }
     
     private func animateCell(text : String = ""){
@@ -265,10 +348,11 @@ class AerinCustomPopoverVC: BaseVC {
         chatVm.getRecentHotels()
         chatVm.getRecentFlights()
         resetFrames()
-        setWaveContainerView()
+        addWaveAnimation()
     }
     
     private func setWaveContainerView() {
+        waveAnimationContainerView.backgroundColor = .clear
         waveAnimationContainerViewHeight.constant = waveContainerHeightConstant
         waveAnimationContainerViewBottom.constant = view.safeAreaInsets.bottom
     }
@@ -375,7 +459,7 @@ class AerinCustomPopoverVC: BaseVC {
         minPoint = view.bounds.height
         popoverViewTop.constant = minPoint
         dragView.backgroundColor = AppColors.blackWith20PerAlpha
-        dragView.roundedCorners(cornerRadius: dragView.height)
+        dragView.roundedCorners(cornerRadius: 2.5)
     }
     
     private func startPresentAnimation() {
