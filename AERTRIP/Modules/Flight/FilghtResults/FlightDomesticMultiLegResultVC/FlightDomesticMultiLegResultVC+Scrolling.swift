@@ -369,7 +369,6 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
         if scrollView.tag > 999 {
             
             for subview in baseScrollView.subviews.filter({ $0.tag > 999 }) {
-                print(scrollView.isBouncingBottom)
                 guard (!scrollView.isBouncingBottom && ((scrollView.contentSize.height - 5.0) > (scrollView.contentOffset.y + scrollView.height)) || (self.baseScrollView.contentOffset.y < 88)) else {
                     return
                 }
@@ -382,7 +381,11 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
                 }
                 else {
                     if let tableView = subview as? UIScrollView {
-                        tableView.setContentOffset(tableView.contentOffset, animated: false)
+                        if tableView.contentOffset.y < 0{
+                            tableView.contentOffset.y = 0
+                        }else{
+                            tableView.setContentOffset(tableView.contentOffset, animated: false)
+                        }
                     }
                 }
             }
@@ -484,8 +487,14 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
 //                    self.baseScrollView.contentOffset.y = 0
                 }
             }
-        } else if scrollView == self.baseScrollView{
-//            setAllTableViewHeader()
+        }
+        if self.baseScrollView.contentOffset.y < 88.0{
+            if self.baseScrollView.contentOffset.y < 44{
+                self.baseScrollView.contentOffset.y = 0.0
+            }else{
+                self.baseScrollView.contentOffset.y = 88.0
+            }
+            self.changeContentOfssetWithMainScrollView(true)
         }
     }
     
