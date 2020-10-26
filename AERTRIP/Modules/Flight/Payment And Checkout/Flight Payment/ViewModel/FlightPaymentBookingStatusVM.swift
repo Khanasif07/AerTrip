@@ -212,7 +212,7 @@ extension FlightPaymentBookingStatusVM:GetSharableUrlDelegate
     //            let filterStr = self.getSharableLink.getAppliedFiltersForSharingIntJourney(legs: self.flightSearchResultVM?.intFlightLegs ?? [])
     //            valStr.append(filterStr)
                 
-                self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: false, isInternational: true, journeyArray: [], valString: valStr, trip_type: "",filterString: "")
+                self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: false, isInternational: true, journeyArray: [], valString: valStr, trip_type: "",filterString: "",searchParam: [:])
             }
         }else{
             

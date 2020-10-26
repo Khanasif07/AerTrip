@@ -374,7 +374,7 @@ class FlightDetailsBaseVC: BaseVC {
             let filterStr = self.getSharableLink.getAppliedFiltersForSharingIntJourney(legs: self.flightSearchResultVM?.intFlightLegs ?? [])
             valStr.append(filterStr)
             
-            self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: true, journeyArray: [], valString: valStr, trip_type: "",filterString: filterStr)
+            self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: true, journeyArray: [], valString: valStr, trip_type: "",filterString: filterStr,searchParam: flightSearchResultVM?.flightSearchParametersFromDeepLink)
         }else{
             let flightAdultCount = bookFlightObject.flightAdultCount
             let flightChildrenCount = bookFlightObject.flightChildrenCount
@@ -393,7 +393,7 @@ class FlightDetailsBaseVC: BaseVC {
                 tripType = "multi"
             }
             
-            self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journey, valString: "", trip_type: tripType,filterString: filterStr)
+            self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journey, valString: "", trip_type: tripType,filterString: filterStr,searchParam: flightSearchResultVM?.flightSearchParametersFromDeepLink)
         }
     }
 }

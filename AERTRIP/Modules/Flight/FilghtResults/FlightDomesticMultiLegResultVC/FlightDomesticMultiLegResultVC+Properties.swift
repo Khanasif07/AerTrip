@@ -433,13 +433,20 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         let flightChildrenCount = bookFlightObject.flightChildrenCount
         let flightInfantCount = bookFlightObject.flightInfantCount
         let isDomestic = bookFlightObject.isDomestic
-//        let tripType = (self.bookFlightObject.flightSearchType == RETURN_JOURNEY) ? "return" : "multi"
         
         var tripType = ""
+//        var returnDate = ""
+//        let inputFormatter = DateFormatter()
+
         if self.bookFlightObject.flightSearchType == SINGLE_JOURNEY{
             tripType = "single"
         }else if self.bookFlightObject.flightSearchType == RETURN_JOURNEY{
             tripType = "return"
+            
+//            if journeyArray.count == 1{
+//                inputFormatter.dateFormat = "dd-MM-yyyy"
+//                returnDate = inputFormatter.string(from: self.bookFlightObject.returnDate)
+//            }
         }else{
             tripType = "multi"
         }
@@ -447,7 +454,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         
         let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM.flightLegs)
 
-        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journeyArray, valString: "", trip_type: tripType,filterString: filterStr)
+        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journeyArray, valString: "", trip_type: tripType,filterString: filterStr,searchParam: flightSearchResultVM.flightSearchParametersFromDeepLink)
 
     }
     
