@@ -310,17 +310,20 @@ class HotelsSearchVC: BaseVC {
     }
     
     private func updateNearMeLocation() {
+        func fetchUpdatedLocation() {
+            LocationManager.shared.startUpdatingLocationWithCompletionHandler { [weak self] (location, error) in
+                LocationManager.shared.locationUpdate = nil
+                self?.viewModel.hotelsNearByMe()
+            }
+        }
         if self.viewModel.searchedFormData.destId.isEmpty {
             if let model = self.viewModel.nearMeLocation, !model.dest_id.isEmpty {
                 didSelectedDestination(hotel: model)
             } else {
-                LocationManager.shared.startUpdatingLocationWithCompletionHandler { [weak self] (location, error) in
-                    LocationManager.shared.locationUpdate = nil
-                    self?.viewModel.hotelsNearByMe()
-                }
-                
-                
+                fetchUpdatedLocation()
             }
+        } else if self.viewModel.searchedFormData.isHotelNearMeSelected {
+            fetchUpdatedLocation()
         }
     }
     
