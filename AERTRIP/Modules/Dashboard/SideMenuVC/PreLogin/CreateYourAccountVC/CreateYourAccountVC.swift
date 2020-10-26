@@ -173,7 +173,7 @@ private extension CreateYourAccountVC {
 //                let safariVC = SFSafariViewController(url: url)
 //                self.present(safariVC, animated: true, completion: nil)
 //                safariVC.delegate = self
-                AppFlowManager.default.showURLOnATWebView(url, screenTitle: LocalizedString.privacy_policy.localized)
+                AppFlowManager.default.showURLOnATWebView(url, screenTitle: LocalizedString.privacy_policy.localized.capitalized)
             }
             
             label.handleCustomTap(for: termsOfUse) { element in
@@ -182,7 +182,7 @@ private extension CreateYourAccountVC {
 //                let safariVC = SFSafariViewController(url: url)
 //                self.present(safariVC, animated: true, completion: nil)
 //                safariVC.delegate = self
-                AppFlowManager.default.showURLOnATWebView(url, screenTitle: LocalizedString.terms_of_use.localized)
+                AppFlowManager.default.showURLOnATWebView(url, screenTitle: LocalizedString.terms_of_use.localized.capitalized)
             }
         }
     }

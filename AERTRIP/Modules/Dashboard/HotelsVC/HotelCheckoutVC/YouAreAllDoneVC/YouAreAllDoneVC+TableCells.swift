@@ -190,6 +190,7 @@ extension YouAreAllDoneVC {
         cell.selectedWhatNext = {[weak self] index in
             self?.tapOnSeletedWhatNext(index: index)
         }
+        cell.instagramButton.isLoading = self.needToShowLoaderOnShare
         return cell
     }
 }

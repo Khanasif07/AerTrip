@@ -218,7 +218,7 @@ class SelectDestinationVC: BaseVC {
                 }
             }
         }
-        print(velocity.y)
+        printDebug(velocity.y)
     }
     
     func openBottomSheet() {

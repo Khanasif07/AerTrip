@@ -18,6 +18,7 @@ import FirebaseDynamicLinks
 import FirebaseCore
 import UIKit
 import FirebaseCore
+import IQKeyboardManager
 
 
 @UIApplicationMain
@@ -55,6 +56,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.reachability = Reachability.networkReachabilityForInternetConnection()
         let _ = self.reachability?.startNotifier()
         UserDefaults.standard.set(false, forKey: "NSAllowsDefaultLineBreakStrategy")
+        
+        IQKeyboardManager.shared().shouldResignOnTouchOutside = true
+        
         return true
     }
     
@@ -69,10 +73,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NotificationCenter.default.post(name: Notification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
         }
         else if remoteHostStatus == .reachableViaWiFi {
-            print("Reachable via Wifi")
+            printDebug("Reachable via Wifi")
         }
         else {
-            print("Reachable")
+            printDebug("Reachable")
         }
     }
     
@@ -186,7 +190,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         newUrl?.expandURLWithCompletionHandler(completionHandler: { url in
             if let url = url {
-                print("expandedUrl=\(url)")
+                printDebug("expandedUrl=\(url)")
             }
             
             let str = url?.query

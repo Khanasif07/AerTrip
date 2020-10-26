@@ -169,6 +169,10 @@ int alreadySelectedComponent = 0;
     return 3;
 }
 
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component{
+    return 90;
+}
+
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     if (component == 0) {
         return self.numberOfAdultArray.count;

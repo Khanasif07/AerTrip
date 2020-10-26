@@ -12,7 +12,7 @@ import UIKit
 import SnapKit
 import MessageUI
 
-class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate, getSharableUrlDelegate {
+class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate, GetSharableUrlDelegate {
     //MARK:- Outlets
     var bannerView : ResultHeaderView?
     @IBOutlet weak var headerCollectionView: UICollectionView!
@@ -198,7 +198,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                 headerCell.setRedColoredTitles()
             }
         } else {
-            print("cell not fount...\(indexPath)")
+//            print("cell not fount...\(indexPath)")
         }
     }
     

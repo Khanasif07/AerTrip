@@ -132,7 +132,7 @@ extension UITableView  {
           let dataTask =  urlSession.dataTask(with: urlRequest) {[weak self ] ( downloadedData, response, error) in
             
                 if (error != nil) {
-                    print(error.debugDescription)
+                    printDebug(error.debugDescription)
                     return
                 }
                 

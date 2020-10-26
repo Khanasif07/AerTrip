@@ -44,6 +44,29 @@ class FlightFilterBaseVC: UIViewController {
         return inputFiltersArray
     }
     
+    
+       var updatedAircraftFilter : AircraftFilter = AircraftFilter() {
+            didSet {
+               let aircraftVc = Filters.Aircraft.viewController
+                
+//                if let airCraftVC = vc as? AircraftFilterViewController {
+//                    airCraftVC.loadViewIfNeeded()
+//                    printDebug(airCraftVC.aircraftFilter.allAircrafts)
+//                    airCraftVC.assignC()
+//                    airCraftVC.updateAircraftList(filter: updateAircraftFilter)
+//                }
+                
+                if let vc = aircraftVc as? AircraftFilterViewController {
+                    self.setAircraftFilterVC(vc)
+                }
+                
+                
+            }
+        }
+    
+    
+//    var dynamicFilter = DynamicFilters()
+    
     //MARK:- Initializers
     convenience init(flightSearchResult : [FlightsResults] , selectedIndex :Int = 0 , legList : [Leg] , searchType: FlightSearchType) {
         self.init(nibName:nil, bundle:nil)
@@ -112,14 +135,15 @@ class FlightFilterBaseVC: UIViewController {
         filtersView.roundParticularCorners(10, [.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
     }
     
-    fileprivate func addToParchment(filter : Filters)
-    {
+    fileprivate func addToParchment(filter : Filters) {
+        
         let viewController = filter.viewController
         allChildVCs.append(viewController)
         let newMenuItem = MenuItemForFilter(title: filter.title, index: filter.rawValue + 1, isSelected: false)
         menuItems.append(newMenuItem)
         setValuesFor(viewController , filter: filter)
         viewController.loadViewIfNeeded()
+        
     }
     
     private func setUpViewPager() {
@@ -265,6 +289,15 @@ extension FlightFilterBaseVC {
             if uiViewController is QualityFilterViewController {
                 setQualityFilterVC(uiViewController as! QualityFilterViewController)
             }
+            
+        case .Aircraft:
+            
+            if let vc = uiViewController as? AircraftFilterViewController {
+                self.setAircraftFilterVC(vc)
+
+            }
+            
+
         }
     }
     
@@ -403,7 +436,7 @@ extension FlightFilterBaseVC {
                 var qualityFilter: QualityFilter?
                 if stopsViewController.allStopsFilters.indices.contains(index) {
                     qualityFilter = stopsViewController.allStopsFilters[index].qualityFilter
-                    if userSelectedFilters.indices.contains(index), userSelectedFilters[index].fq.keys.contains("coa") {
+                      if userSelectedFilters.indices.contains(index), userSelectedFilters[index].fq.keys.contains("coa") {
                         qualityFilter?.isSelected = userSelectedFilters[index].fq["ovgtlo"] == ""
                     }
                 }
@@ -1447,6 +1480,51 @@ extension FlightFilterBaseVC {
             }
         }
         qualityViewController.updateUIPostLatestResults()
+    }
+    
+    func setAircraftFilterVC(_ aircraftViewController : AircraftFilterViewController) {
+        DispatchQueue.main.async {
+            let aircraftVc = aircraftViewController as AircraftFilterViewController
+            aircraftVc.loadViewIfNeeded()
+            aircraftVc.delegate = self.delegate as? AircraftFilterDelegate
+            aircraftVc.updateAircraftList(filter: self.updatedAircraftFilter)
+        }
+      
+    }
+    
+    
+//    MARK:- Aircraft Filter
+    
+    func createAircraftFilter(vc:AircraftFilterViewController)
+    {
+        var aircraftArray = [[String:Any]]()
+        var eqArray = [String]()
+        
+        for flightResult in flightResultArray{
+            for journey in flightResult.j{
+                if journey.leg.count > 0{
+                    if let leg = journey.leg.first{
+                        for flight in leg.flights{
+                            if let eq = flight.eq
+                            {
+                                if !eqArray.contains(eq){
+                                    eqArray.append(eq)
+                                    
+                                    let aircraft = ["aircraft":eq,
+                                                    "aircraftQuality":flight.eqQuality ?? "",
+                                                    "isSelected":false] as [String:Any]
+                                    
+                                    aircraftArray.append(aircraft)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        print("aircraftArray= ",aircraftArray)
+        
+        vc.aircraftArray = aircraftArray
     }
 }
 

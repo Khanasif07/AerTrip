@@ -10,6 +10,7 @@ import UIKit
 
 
 protocol FlightResultViewModelDelegate : class {
+    
     func webserviceProgressUpdated(progress : Float)
     func updatedResponseReceivedAt( index: Int , filterApplied : Bool, isAPIResponseUpdated: Bool)
     func showNoResultScreenAt(index : Int)
@@ -17,7 +18,9 @@ protocol FlightResultViewModelDelegate : class {
     func filtersApplied(_ isApplied :  Bool )
     func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int)
     func showDepartReturnSame(_ show: Bool)
+    func updateDynamicFilters(filters : DynamicFilters)
 }
+
 
 extension FlightResultViewModelDelegate {
     func showDepartReturnSame(_ show: Bool) { }
@@ -216,9 +219,9 @@ extension FlightResultViewModelDelegate {
     func segmentTitles(showSelection : Bool , selectedIndex: Int) ->  [NSAttributedString]
     {
         var filterTitles = [NSAttributedString]()
-        let titleAttributes = [ NSAttributedString.Key.foregroundColor: UIColor.black , NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Regular" , size: 16)! ]
-        let selectedTitleAttributes = [ NSAttributedString.Key.foregroundColor: UIColor.black , NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Semibold" , size: 16)! ]
-        let dotAttributes = [ NSAttributedString.Key.foregroundColor: UIColor.AertripColor , NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Regular" , size: 16)!]
+        let titleAttributes = [ NSAttributedString.Key.foregroundColor: UIColor.black , NSAttributedString.Key.font : AppFonts.Regular.withSize(16)]
+        let selectedTitleAttributes = [ NSAttributedString.Key.foregroundColor: UIColor.black , NSAttributedString.Key.font : AppFonts.SemiBold.withSize(16)]
+        let dotAttributes = [ NSAttributedString.Key.foregroundColor: UIColor.AertripColor , NSAttributedString.Key.font : AppFonts.Regular.withSize(16)]
         let dotString = NSAttributedString(string: " \u{2022}", attributes: dotAttributes)
         
         var appliedFilters = Set<Filters>()
@@ -247,8 +250,7 @@ extension FlightResultViewModelDelegate {
             
             if filter.rawValue == selectedIndex  && showSelection {
                 titleString = NSMutableAttributedString(string: filter.title, attributes: selectedTitleAttributes)
-            }
-            else {
+            } else {
                 titleString = NSMutableAttributedString(string: filter.title, attributes: titleAttributes)
             }
             

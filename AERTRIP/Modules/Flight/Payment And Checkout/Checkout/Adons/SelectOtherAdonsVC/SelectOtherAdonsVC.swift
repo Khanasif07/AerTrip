@@ -31,6 +31,10 @@ class SelectOtherAdonsVC: UIViewController {
         initialSetup()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
      func setupFonts() {
         self.specialRequestLabel.font = AppFonts.Regular.withSize(14)
         self.clearButton.titleLabel?.font = AppFonts.Regular.withSize(14)
@@ -153,7 +157,7 @@ extension SelectOtherAdonsVC : UITableViewDelegate, UITableViewDataSource {
     }
                 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        self.view.endEditing(true)
         self.delegate?.addPassengerToMeal(forAdon: self.otherAdonsVm.getOthers()[indexPath.row], vcIndex: self.otherAdonsVm.getVcIndex(), currentFlightKey: self.otherAdonsVm.getCurrentFlightKey(), othersIndex: indexPath.row, selectedContacts: self.otherAdonsVm.getOthers()[indexPath.row].othersSelectedFor )
         
     }

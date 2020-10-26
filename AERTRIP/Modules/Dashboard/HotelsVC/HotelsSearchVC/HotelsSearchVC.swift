@@ -720,7 +720,7 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        print(indexPath.item)
+        printDebug(indexPath.item)
     }
 }
 

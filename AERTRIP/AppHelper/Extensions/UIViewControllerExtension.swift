@@ -447,7 +447,7 @@ extension UIViewController {
             do {
                 allContainers = try contactStore.containers(matching: nil)
             } catch {
-                print("Error fetching containers")
+                printDebug("Error fetching containers")
             }
             
             var results: [CNContact] = []
@@ -460,7 +460,7 @@ extension UIViewController {
                     let containerResults = try contactStore.unifiedContacts(matching: fetchPredicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
                     results.append(contentsOf: containerResults)
                 } catch {
-                    print("Error fetching results for container")
+                    printDebug("Error fetching results for container")
                 }
             }
             

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -158,14 +159,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hu0-UC-HMj">
-                                <rect key="frame" x="160" y="110" width="40" height="44"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <rect key="frame" x="160" y="67.5" width="40" height="44"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="nUF-Ak-rQc"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Rhw-dX-QQy">
-                                <rect key="frame" x="16" y="120.5" width="354" height="23"/>
+                                <rect key="frame" x="16" y="78" width="354" height="23"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="23" id="gMO-Fb-e8D"/>
@@ -178,7 +179,7 @@
                                 </collectionViewFlowLayout>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹ 1,252" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qwX-Sy-JgK">
-                                <rect key="frame" x="200" y="110" width="170" height="44"/>
+                                <rect key="frame" x="200" y="67.5" width="170" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="170" id="5zA-3b-PL1"/>
@@ -198,7 +199,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="qwX-Sy-JgK" secondAttribute="bottom" id="13X-LI-gnb"/>
+                            <constraint firstItem="Rhw-dX-QQy" firstAttribute="top" secondItem="eoA-86-HQg" secondAttribute="top" constant="78" id="1C6-46-dQw"/>
                             <constraint firstItem="Hu0-UC-HMj" firstAttribute="height" secondItem="qwX-Sy-JgK" secondAttribute="height" id="1WR-it-rY9"/>
                             <constraint firstItem="f9h-Ox-m6F" firstAttribute="top" secondItem="eoA-86-HQg" secondAttribute="top" constant="70" id="4oo-FW-pPM"/>
                             <constraint firstItem="Hu0-UC-HMj" firstAttribute="top" secondItem="qwX-Sy-JgK" secondAttribute="top" id="6do-UP-Flk"/>
@@ -226,13 +227,13 @@
                     </view>
                 </subviews>
             </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstItem="eoA-86-HQg" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="87T-MO-uEA"/>
                 <constraint firstAttribute="bottom" secondItem="eoA-86-HQg" secondAttribute="bottom" constant="8" id="JZw-yR-TLI"/>
                 <constraint firstAttribute="trailing" secondItem="eoA-86-HQg" secondAttribute="trailing" constant="8" id="U2q-aB-hth"/>
                 <constraint firstItem="eoA-86-HQg" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="fbf-q6-dNG"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="396" height="215"/>
             <connections>
                 <outlet property="airlineTitle" destination="gM0-By-dG1" id="BZd-lm-25F"/>
@@ -259,4 +260,9 @@
             <point key="canvasLocation" x="388.40579710144931" y="162.72321428571428"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

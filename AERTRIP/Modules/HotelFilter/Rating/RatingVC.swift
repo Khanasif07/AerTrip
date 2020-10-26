@@ -134,7 +134,7 @@ class RatingVC: BaseVC {
         self.updateTAStarButtonState(forStar: sender.tag)
         self.tripAdvisorStarLabel.text = self.getTARatingString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5)
         HotelFilterVM.shared.delegate?.updateFiltersTabs()
-        print("size: \(sender.size)")
+        printDebug("size: \(sender.size)")
     }
     
     @IBAction func includeUnratedAction(_ sender: UIButton) {

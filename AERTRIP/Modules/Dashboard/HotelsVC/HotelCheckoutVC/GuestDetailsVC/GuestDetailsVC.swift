@@ -62,7 +62,7 @@ class GuestDetailsVC: BaseVC {
         //        delay(seconds: 1.3) { [weak self] in
         //              self?.makeTableViewIndexSelectable()
         //        }
-        
+        IQKeyboardManager.shared().shouldResignOnTouchOutside = false
         IQKeyboardManager.shared().isEnabled = false
         
     }
@@ -70,7 +70,7 @@ class GuestDetailsVC: BaseVC {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        IQKeyboardManager.shared().shouldResignOnTouchOutside = true
         IQKeyboardManager.shared().isEnabled = true
     }
     

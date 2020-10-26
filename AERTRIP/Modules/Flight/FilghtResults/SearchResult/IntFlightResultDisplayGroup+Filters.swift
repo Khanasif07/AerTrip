@@ -101,6 +101,13 @@ extension IntFlightResultDisplayGroup  {
         return outputArray
     }
     
+    func applyAircraftFilter(index : Int, _ inputArray : [IntMultiCityAndReturnWSResponse.Results.J]) -> [IntMultiCityAndReturnWSResponse.Results.J] {
+
+        
+        
+        return []
+    }
+    
     
     //MARK:- Sorting
     
@@ -1135,6 +1142,13 @@ extension IntFlightResultDisplayGroup  {
             case .Price:
                 //done
                 inputForFilter = self.applyPriceFilter(inputForFilter)
+                
+            case .Aircraft:
+                inputForFilter = self.applyAircraftFilter(index: index, inputForFilter)
+
+                
+            case .Aircraft:
+                return
             }
         }
         

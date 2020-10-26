@@ -53,6 +53,25 @@ extension FlightResultDisplayGroup  {
     }
     
     
+    func aircraftFilterUpdated(_ filter: AircraftFilter) {
+
+        self.dynamicFilters.aircraft.selectedAircrafts = filter.selectedAircrafts
+        
+        if !filter.selectedAircrafts.isEmpty{
+            
+            appliedFilters.insert(.Aircraft)
+
+        } else {
+            
+            appliedFilters.remove(.Aircraft)
+
+        }
+        
+        applyFilters()
+
+        
+    }
+    
     func applyMultiItinaryAirlineFilter( _ inputArray : [Journey]) -> [Journey] {
         
         let hideMultiAirlineItinerary =  userSelectedFilters?.multiAl == 1 ? false : true
@@ -74,6 +93,7 @@ extension FlightResultDisplayGroup  {
     }
     
     func applyAirlineFilter(_ inputArray : [Journey]) -> [Journey] {
+      
         var filteredAirlineSet = Set<String>()
         if let airlines = userSelectedFilters?.al {
             filteredAirlineSet = Set(airlines)
@@ -97,6 +117,33 @@ extension FlightResultDisplayGroup  {
         return outputArray
     }
 
+    
+    func applyAircraftFilter(_ inputArray : [Journey]) -> [Journey] {
+
+        
+        let selectedAircrsfts = Set(self.dynamicFilters.aircraft.selectedAircrafts)
+        
+         var outputArray = inputArray
+         
+         if !selectedAircrsfts.isEmpty {
+      
+             outputArray = inputArray.filter{
+                
+                let eqs = $0.leg.flatMap { $0.flights }.compactMap { $0.eq }
+                
+                
+                 if Set(eqs).isDisjoint(with:selectedAircrsfts) {
+                     return false
+                 }
+                 return true
+             }
+         }
+         
+         
+         return outputArray
+     }
+
+    
 
 //MARK:- Sorting
 
@@ -822,6 +869,12 @@ extension FlightResultDisplayGroup  {
                 continue
             case .Price:
                 inputForFilter = self.applyPriceFilter(inputForFilter)
+                
+            case .Aircraft:
+                
+                inputForFilter = self.applyAircraftFilter(inputForFilter)
+
+                
             }
             
         }

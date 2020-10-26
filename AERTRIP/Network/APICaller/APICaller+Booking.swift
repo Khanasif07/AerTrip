@@ -425,7 +425,7 @@ extension APICaller {
             printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
                 if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject {
-                    print(response)
+                    printDebug(response)
                     var modes: [String] = [], reasons: [String] = []
                     if let rModes = response["refund_mode"] as? JSONDictionary {
                         modes = rModes.map({ "\($0.1)" })
@@ -492,7 +492,7 @@ extension APICaller {
         AppNetworking.GET(endPoint: APIEndPoint.hotelSpecialRequestList, parameters: [:], success: {  json in
             printDebug(json)
             if let response = json.dictionaryObject {
-                print(response)
+                printDebug(response)
                 let rqst = response.map({ "\($0.1)" })
                 completionBlock(true, [], rqst)
             }
@@ -541,7 +541,7 @@ extension APICaller {
             printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
                 if sucess, let response = jsonData[APIKeys.data.rawValue].string {
-                    print(response)
+                    printDebug(response)
                     completionBlock(true, [], response)
                 }
                 else {

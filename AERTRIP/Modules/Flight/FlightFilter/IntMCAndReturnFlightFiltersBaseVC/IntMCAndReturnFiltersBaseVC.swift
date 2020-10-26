@@ -31,6 +31,24 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         }
     }
     
+    var updatedAircraftFilter : AircraftFilter = AircraftFilter() {
+        didSet {
+            
+           let aircraftVc = Filters.Aircraft.viewController
+            
+//            if let airCraftVC = vc as? AircraftFilterViewController {
+//                airCraftVC.loadViewIfNeeded()
+//                printDebug(airCraftVC.aircraftFilter.allAircrafts)
+//                airCraftVC.assignC()
+//                airCraftVC.updateAircraftList(filter: updateAircraftFilter)
+//            }
+            
+            if let vc = aircraftVc as? AircraftFilterViewController {
+                self.setAircraftFilterVC(vc)
+            }
+        }
+    }
+    
     var inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]? {
         var inputFiltersArray = [IntMultiCityAndReturnWSResponse.Results.F]()
         
@@ -78,6 +96,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -254,8 +273,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                 
                 if searchType == RETURN_JOURNEY {
                     setAirlineVCForReturnJourney(uiViewController as! AirlinesFilterViewController, inputFilters: filters)
-                }
-                else {
+                } else {
                     setAirlineVC( uiViewController as! AirlinesFilterViewController, inputFilters: filters)
                 }
             }
@@ -272,6 +290,12 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             if uiViewController is QualityFilterViewController {
                 setQualityFilterVC(uiViewController as! QualityFilterViewController)
             }
+            
+        case .Aircraft:
+              if let vc = uiViewController as? AircraftFilterViewController {
+                         self.setAircraftFilterVC(vc)
+
+                     }
         }
     }
     
@@ -1600,6 +1624,16 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             }
         }
         qualityViewController.updateUIPostLatestResults()
+    }
+    
+    
+    func setAircraftFilterVC(_ aircraftViewController : AircraftFilterViewController) {
+        DispatchQueue.main.async {
+            let aircraftVc = aircraftViewController as AircraftFilterViewController
+            aircraftVc.loadViewIfNeeded()
+            aircraftVc.delegate = self.delegate as? AircraftFilterDelegate
+            aircraftVc.updateAircraftList(filter: self.updatedAircraftFilter)
+        }
     }
 }
 

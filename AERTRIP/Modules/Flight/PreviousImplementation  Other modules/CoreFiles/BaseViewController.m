@@ -1091,16 +1091,18 @@
 
 
 - (void) initiateNetworkingCheck{
+    __weak typeof(self) weakSelf = self;
+
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        
+        if (!weakSelf) { return; }
         if (status == AFNetworkReachabilityStatusReachableViaWiFi || status == AFNetworkReachabilityStatusReachableViaWWAN) {
-            [self saveBoolean:TRUE forKey:REACHABLE_KEY];
+            [weakSelf saveBoolean:TRUE forKey:REACHABLE_KEY];
         }
         else if(status == AFNetworkReachabilityStatusNotReachable) {
-            [self saveBoolean:FALSE forKey:REACHABLE_KEY];
+            [weakSelf saveBoolean:FALSE forKey:REACHABLE_KEY];
         }
         else {
-            [self saveBoolean:TRUE forKey:REACHABLE_KEY];
+            [weakSelf saveBoolean:TRUE forKey:REACHABLE_KEY];
         }
     }];
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];

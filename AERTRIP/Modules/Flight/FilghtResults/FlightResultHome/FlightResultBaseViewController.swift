@@ -462,6 +462,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         let flightType = flightSearchResultVM.flightSearchType
         
         switch flightType {
+        
         case SINGLE_JOURNEY:
             addSingleJourneyViewController()
             
@@ -691,8 +692,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         self.filterSegmentView.isVerticalDividerEnabled = false
         self.filterSegmentView.selectionIndicatorColor = .clear
 
-        self.filterSegmentView.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black , NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Regular" , size: 16)! ]
-        self.filterSegmentView.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.black , NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Semibold" , size: 16)!]
+        self.filterSegmentView.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black , NSAttributedString.Key.font : AppFonts.Regular.withSize(16)]
+        self.filterSegmentView.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.black , NSAttributedString.Key.font : AppFonts.SemiBold.withSize(16)]
         self.filterSegmentView .addTarget(self, action: #selector(filtersegmentChanged(_:)), for: .valueChanged)
 
         self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex)
@@ -1102,14 +1103,71 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         intMCAndReturnFilterVC?.showDepartReturnSame = show
     }
     
+    func updateDynamicFilters(filters : DynamicFilters) {
+        
+        let flightType = flightSearchResultVM.flightSearchType
+        
+        
+        switch flightType {
+
+            case SINGLE_JOURNEY:
+                        
+                guard let filterVc = self.flightFilterVC else { return }
+                var currentData = filterVc.updatedAircraftFilter.allAircrafts
+                currentData.append(contentsOf: filters.aircraft.allAircrafts)
+                self.flightFilterVC?.updatedAircraftFilter.allAircrafts = currentData.removeDuplicates()
+            
+            
+        case RETURN_JOURNEY:
+       
+            if flightSearchResultVM.isDomestic {
+        
+                guard let filterVc = self.flightFilterVC else { return }
+                var currentData = filterVc.updatedAircraftFilter.allAircrafts
+                currentData.append(contentsOf: filters.aircraft.allAircrafts)
+                self.flightFilterVC?.updatedAircraftFilter.allAircrafts = currentData.removeDuplicates()
+            
+            } else {
+            
+                delay(seconds: 0.5) {
+                    self.intMCAndReturnFilterVC?.updatedAircraftFilter = filters.aircraft
+                }
+            
+            }
+            
+            
+        case  MULTI_CITY:
+                    
+            if flightSearchResultVM.isDomestic {
+                    
+                guard let filterVc = self.flightFilterVC else { return }
+                var currentData = filterVc.updatedAircraftFilter.allAircrafts
+                currentData.append(contentsOf: filters.aircraft.allAircrafts)
+                self.flightFilterVC?.updatedAircraftFilter.allAircrafts = currentData.removeDuplicates()
+                        
+            } else {
+                        
+                delay(seconds: 0.5) {
+                    self.intMCAndReturnFilterVC?.updatedAircraftFilter = filters.aircraft
+                }
+                
+            }
+            
+        default: break
+
+            
+        }
+        
+    }
+    
+    
     func clearFilters() {
         flightSearchResultVM.clearAllFilters()
         flightFilterVC?.resetAllFilters()
         intMCAndReturnFilterVC?.resetAllFilters()
     }
     
-    func restartFlightSearch()
-    {
+    func restartFlightSearch() {
         self.navigationController?.popViewController(animated: true)
     }
     

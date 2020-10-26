@@ -21,7 +21,7 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
            
            let tableState = viewModel.resultsTableStates[index]
         
-        printDebug("state...\(index)...\(tableState)")
+//        printDebug("state...\(index)...\(tableState)")
         
            if tableState == .showTemplateResults{
                return 10
@@ -165,6 +165,8 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
         if let selectedJourneys = self.viewModel.getSelectedJourneyForAllLegs() {
                if selectedJourneys.count == self.viewModel.numberOfLegs {
                    ShowFareBreakupView()
+               }else{
+                hideFareBreakupView()
                }
            } else {
                hideFareBreakupView()

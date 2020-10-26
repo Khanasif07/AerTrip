@@ -67,6 +67,7 @@ class MyBookingsVC: BaseVC {
         MyBookingFilterVM.shared.searchText = ""
         MyBookingsVM.shared.isFetchingBooking = false
     }
+    
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
             if noti == .myBookingFilterApplied {
@@ -415,8 +416,6 @@ extension MyBookingsVC : PagingViewControllerDataSource , PagingViewControllerDe
             let text = pagingIndexItem.title
             
             let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
-            print(text)
-            print("size: \(text.widthOfString(usingFont: font))")
             return text.widthOfString(usingFont: font)
         }
         

@@ -340,8 +340,8 @@ extension MailComposerVC: EmailComposeerHeaderViewDelegate {
         msgHeight = max(minHeight, msgHeight)
         msgHeight = min(maxHeight, msgHeight)
         
-        print("headerView.checkOutMessageLabel.frame")
-        print(headerView.checkOutMessageLabel.frame)
+        printDebug("headerView.checkOutMessageLabel.frame")
+        printDebug(headerView.checkOutMessageLabel.frame)
         //let value = headerView.checkOutMessageLabel.numberOfLines * 23
         self.tableView.tableHeaderView?.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: (607.0 + emailHeight + msgHeight + labelHeight))
         

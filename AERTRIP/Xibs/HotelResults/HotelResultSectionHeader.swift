@@ -26,16 +26,29 @@ class HotelResultSectionHeader: UITableViewHeaderFooterView {
         labelBackgroundView.addBlurEffect(backgroundColor: AppColors.themeGray10.withAlphaComponent(0.85), style:  UIBlurEffect.Style.light, alpha: 1)
         labelBackgroundView.backgroundColor = AppColors.clear
         titleLabel.font = AppFonts.Regular.withSize(14.0)
-//        UIView.animate(withDuration: 0.5) {
-//            if #available(iOS 14.0, *) {
-//                self.setNeedsUpdateConfiguration()
-//            } else {
-//                // Fallback on earlier versions
-//            }
-//        }
+        //        UIView.animate(withDuration: 0.5) {
+        //            if #available(iOS 14.0, *) {
+        //                self.setNeedsUpdateConfiguration()
+        //            } else {
+        //                // Fallback on earlier versions
+        //            }
+        //        }
         self.backgroundView?.backgroundColor = AppColors.clear
         self.containerView.backgroundColor = AppColors.clear
         self.contentView.backgroundColor = AppColors.clear
         self.backgroundColor = AppColors.clear
+        
+        if #available(iOS 14.0, *) {
+            var bgConfig = UIBackgroundConfiguration.listPlainCell()
+            bgConfig.backgroundColor = UIColor.clear
+            self.backgroundConfiguration = bgConfig
+            //For cell use: UITableViewCell.appearance().backgroundConfiguration = bgConfig
+            
+            //            self.automaticallyUpdatesContentConfiguration = false
+            //            self.automaticallyUpdatesBackgroundConfiguration = false
+        } else {
+            // Fallback on earlier versions
+        }
+        
     }
 }

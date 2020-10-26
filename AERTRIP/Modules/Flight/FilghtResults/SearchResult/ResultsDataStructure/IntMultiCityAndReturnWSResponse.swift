@@ -1070,6 +1070,7 @@ struct IntMultiCityAndReturnWSResponse {
             var cityAp: [String: [String]]
             var allLayoversSelected = false
             
+            
             init(_ json: JSON) {
                 multiAl = json["multi_al"].intValue
                 cityapn = Cityapn(json["cityap_n"])

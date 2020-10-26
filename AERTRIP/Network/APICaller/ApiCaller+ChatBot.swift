@@ -48,7 +48,7 @@ extension APICaller {
 
                     if sucess {
                         
-                        print("jsonData...\(jsonData)")
+                        printDebug("jsonData...\(jsonData)")
                         
                         completionBlock(true, MessageModel(json: jsonData[APIKeys.data.rawValue]),jsonData[APIKeys.data.rawValue][APIKeys.session_id.rawValue].stringValue, jsonData[APIKeys.data.rawValue][APIKeys.filters.rawValue])
                     }else{
