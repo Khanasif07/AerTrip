@@ -143,7 +143,7 @@ class AerinCustomPopoverVC: BaseVC {
     }
     
     @IBAction func keyboardBtnAction(_ sender: UIButton) {
-        
+        setupForView = .textViewOpen
     }
     
     @IBAction func micBtnAction(_ sender: UIButton) {
@@ -196,7 +196,7 @@ class AerinCustomPopoverVC: BaseVC {
         case .textView:
             alignmentViewHeight.constant = textViewBackView.height
         case .textViewOpen:
-            alignmentViewHeight.constant = -(textViewBackViewBottom.constant) + textViewBackView.height
+            setupForTextViewOpen()
         case .waveAnimation:
             setupForWaveAnimation()
         case .communicationControls:
@@ -227,6 +227,16 @@ class AerinCustomPopoverVC: BaseVC {
         toggleWaveAnimationsView(true)
         toggleSuggestions(false, animated: true)
         toggleCommControlsView(false)
+    }
+    
+    private func setupForTextViewOpen() {
+        toggleWaveAnimationsView(true)
+        toggleSuggestions(false, animated: true)
+        toggleCommControlsView(true)
+        textViewWhiteView.isHidden = false
+        textViewBackView.isHidden = false
+        messageTextView.becomeFirstResponder()
+        alignmentViewHeight.constant = -(textViewBackViewBottom.constant) + textViewBackView.height
     }
     
     private func toggleCommControlsView(_ hidden: Bool) {
