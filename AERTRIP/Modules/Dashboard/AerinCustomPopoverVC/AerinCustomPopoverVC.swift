@@ -426,7 +426,7 @@ class AerinCustomPopoverVC: BaseVC {
         
     private func setUpAttributes(){
         resetListeningLbl()
-        listeningLblBackView.round()
+        listeningLblBackView.roundCorners()
         alignmentView.backgroundColor = .clear
         whereToGoLbl.font = AppFonts.Regular.withSize(28)
         animationLabel.font = AppFonts.Regular.withSize(18)

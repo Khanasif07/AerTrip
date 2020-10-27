@@ -145,7 +145,7 @@ extension UIView {
         self.cornerradius = cornerRadius
     }
     
-    func round() {
+    func roundCorners() {
         layer.masksToBounds = true
         layer.cornerRadius = height/2
         clipsToBounds = true
