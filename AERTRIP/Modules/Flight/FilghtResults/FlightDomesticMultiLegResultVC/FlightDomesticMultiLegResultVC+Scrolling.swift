@@ -511,6 +511,14 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
                 self.setAllTableViewHeader()
             }
         }
+        if self.baseScrollView.contentOffset.y < 88.0{
+            if self.baseScrollView.contentOffset.y < 44{
+                self.baseScrollView.contentOffset.y = 0.0
+            }else{
+                self.baseScrollView.contentOffset.y = 88.0
+            }
+            self.changeContentOfssetWithMainScrollView(true)
+        }
     }
     
     func setAllTableViewHeader(){

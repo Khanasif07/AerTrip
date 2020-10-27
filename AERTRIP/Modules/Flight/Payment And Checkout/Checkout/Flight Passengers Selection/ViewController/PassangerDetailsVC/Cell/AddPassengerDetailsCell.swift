@@ -477,18 +477,21 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
             self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
             let selected = (textField.text ?? "").toDate(dateFormat: "dd MMM yyyy")
             var minimumDate:Date? = Date()
+            var maximumDate:Date? = Date()
             if let passenger = self.guestDetail{
                 switch passenger.passengerType {
                 case .Adult:
                     minimumDate = nil
+                    maximumDate = Date().add(years: -12, days: 0)
                 case .Child:
                     minimumDate = self.lastJourneyDate.add(years: -12, days: 1)
+                    maximumDate = Date().add(years: -2, days: 0)
                 case .Infant:
                     minimumDate = self.lastJourneyDate.add(years: -2, days: 1)
-                    
+                    maximumDate = Date()
                 }
             }
-            PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd MMM yyyy", mode: .date, minimumDate: minimumDate, maximumDate: Date(), selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { [unowned self] (dateStr) in
+            PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd MMM yyyy", mode: .date, minimumDate: minimumDate, maximumDate: maximumDate, selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { [unowned self] (dateStr) in
                 textField.text = dateStr
                 if let date = dateStr.toDate(dateFormat: "dd MMM yyyy"){
                     GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].dob = date.toString(dateFormat: "yyyy-MM-dd")

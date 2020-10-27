@@ -186,9 +186,13 @@ class PassengerDetailsCell: UICollectionViewCell {
             if let type = self.contact?.passengerType{
                 guard let indx = self.innerCellIndex else {return}
                 switch type{
-                case .Adult:break
+                case .Adult:
+                    if !self.calculateMinimumAge(with: 12){
+                        GuestDetailsVM.shared.guests[0][indx.row].dob = ""
+                        self.infoImageView.isHidden = false
+                    }
                 case .Child:
-                    if !self.calculateAge(with: 12){
+                    if !self.calculateAge(with: 12) || !self.calculateMinimumAge(with: 2){
                         GuestDetailsVM.shared.guests[0][indx.row].dob = ""
                         self.infoImageView.isHidden = false
                     }
@@ -219,6 +223,13 @@ class PassengerDetailsCell: UICollectionViewCell {
             let date = dob.toDate(dateFormat: "dd MMM yyyy") else {return false}
         let component = Calendar.current.dateComponents([.year], from: date, to: lastJourneyDate)
         return (component.year ?? 0) < year
+    }
+    
+    private func calculateMinimumAge(with year:Int)-> Bool{
+        guard let dob = self.contact?.displayDob,
+            let date = dob.toDate(dateFormat: "dd MMM yyyy") else {return false}
+        let component = Calendar.current.dateComponents([.year], from: date, to: lastJourneyDate)
+        return (component.year ?? 0) >= year
     }
     
     // Mark:- IBActions
