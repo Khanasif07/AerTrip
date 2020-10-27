@@ -159,7 +159,10 @@ class HotelsSearchVM: NSObject{
             
             guard let sSelf = self else {return}
             
-            if success, let obj = hotel {
+            if success, var obj = hotel {
+                if sSelf.nearMeLocation?.isHotelNearMeSelected ?? false {
+                    obj.isHotelNearMeSelected = true
+                }
                 sSelf.nearMeLocation = obj
                 sSelf.delegate?.getMyLocationSuccess()
             }

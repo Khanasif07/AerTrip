@@ -66,7 +66,7 @@ open class ATDividerView: UIView {
     
     private func updatedBackgroundColor() {
         self.backgroundColor = .clear
-        dividerView.backgroundColor = AppColors.themeRed //defaultBackgroundColor
+        dividerView.backgroundColor = defaultBackgroundColor
     }
     
     private func updatedFrame() {
@@ -134,7 +134,7 @@ open class ATVerticalDividerView: UIView {
     
     private func updatedBackgroundColor() {
         self.backgroundColor = .clear
-        dividerView.backgroundColor = AppColors.themeRed //defaultBackgroundColor
+        dividerView.backgroundColor = defaultBackgroundColor
     }
     
     private func updatedFrame() {

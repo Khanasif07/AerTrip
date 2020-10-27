@@ -99,8 +99,9 @@ Service Name,Error Code,Error Description,Error Message,
 97,,126,passport country required,Passport country is required
 98,,127,passport number required,Passport number is required
 99,,128,passport country Code String Length,Passport country is invalid
-100,,129,"passport expiry date Formate ""yyyy-MM-dd""","Passport expiry date should be in ""YYYY-MM-DD"" format"
-101,,,,
+100,,129,"passport expiry date Formate "yyyy-MM-dd"","Passport expiry date should be in "YYYY-MM-DD" format"
+101,,130,"Age of Adult should more then 12 Year","Age of adult should be more then 12 year"
+102,,,,
 105,,1400,Unknown Component not found,
 106,,1401,g8 Component not found,
 107,,1402,g8cr Component not found,
