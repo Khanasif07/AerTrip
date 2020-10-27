@@ -56,7 +56,8 @@ class AircraftFilterViewController: UIViewController {
         
         self.aircraftFilter = filter
         
-        printDebug("c is...\(c)")
+        printDebug("aircraftFilter in vc...\(self.aircraftFilter.allAircrafts)")
+
         
         aircraftTableView.reloadData()
                 

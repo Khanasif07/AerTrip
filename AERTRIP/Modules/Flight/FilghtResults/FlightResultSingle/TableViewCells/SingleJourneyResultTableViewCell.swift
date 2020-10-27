@@ -74,8 +74,8 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
         smartIconCollectionView.dataSource = self
         smartIconCollectionView.delegate = self
     }
-    //MARK:-
     
+    //MARK:-
     fileprivate func setupGradientView( selectedColor : UIColor = UIColor.white) {
         let gradient = CAGradientLayer()
         let gradientViewRect = gradientView.bounds
@@ -116,6 +116,7 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
             self.baseView.layer.addSublayer(triangleLayer)
         }
     }
+    
     
     func setTitlesFrom( journey : Journey?) {
         guard let journey = journey else { return }

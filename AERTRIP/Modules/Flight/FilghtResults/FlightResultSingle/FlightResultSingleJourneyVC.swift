@@ -37,6 +37,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     var visualEffectViewHeight : CGFloat {
         return statusBarHeight + 88.0
     }
+    
     var statusBarHeight : CGFloat {
         return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
     }
@@ -58,9 +59,12 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         self.viewModel.setSharedFks()
     }
     
+    
+    
     deinit {
         print("FlightResultSingleJourneyVC")
     }
+    
     
     //MARK:- Additional UI Methods
     func showNoFilteredResults() {
