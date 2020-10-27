@@ -34,17 +34,14 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     var updatedAircraftFilter : AircraftFilter = AircraftFilter() {
         didSet {
             
-           let aircraftVc = Filters.Aircraft.viewController
-            
-//            if let airCraftVC = vc as? AircraftFilterViewController {
-//                airCraftVC.loadViewIfNeeded()
-//                printDebug(airCraftVC.aircraftFilter.allAircrafts)
-//                airCraftVC.assignC()
-//                airCraftVC.updateAircraftList(filter: updateAircraftFilter)
-//            }
-            
-            if let vc = aircraftVc as? AircraftFilterViewController {
-                self.setAircraftFilterVC(vc)
+            DispatchQueue.main.async {
+                                    
+                let aircraftVc = self.allChildVCs.filter { $0.className == AircraftFilterViewController.className }.first
+                
+                if let vc = aircraftVc as? AircraftFilterViewController {
+                    self.setAircraftFilterVC(vc )
+                 }
+                
             }
         }
     }
@@ -232,11 +229,11 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         menuItems[Filters.Airport.rawValue].isSelected = filters.appliedFilters[0].contains(.Airport)
         menuItems[Filters.Quality.rawValue].isSelected = filters.appliedFilters[0].contains(.Quality)
         menuItems[Filters.Price.rawValue - 1].isSelected = filters.appliedFilters[0].contains(.Price)
+        menuItems[Filters.Aircraft.rawValue - 1].isSelected = filters.appliedFilters[0].contains(.Aircraft)
         parchmentView?.reloadMenu()
     }
     
-    func setValuesFor(_ uiViewController  : UIViewController , filter : Filters)
-    {
+    func setValuesFor(_ uiViewController  : UIViewController , filter : Filters) {
         guard let filters = inputFilters else {
             return
         }

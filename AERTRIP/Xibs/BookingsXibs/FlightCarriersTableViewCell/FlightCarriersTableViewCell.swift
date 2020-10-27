@@ -137,6 +137,7 @@ class FlightCarriersTableViewCell: UITableViewCell {
             self.moreFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: uniqueCarrierCode[2]), placeholder: AppPlaceholderImage.default, showIndicator: true)
             }else {
                 self.moreFlightCarriersLabel.isHidden = true
+                self.moreFlightCarriersContView.isHidden = true
             }
             
         default:

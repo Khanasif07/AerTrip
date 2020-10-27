@@ -171,8 +171,7 @@ class HCSelectGuestsVC: BaseVC {
         
         self.selectedContactsSetHidden(isHidden: false, animated: false)
         self.selectedContactsCollectionView.reloadData()
-        
-        selectNextGuest()
+        self.selectNextGuest()
     }
     
     

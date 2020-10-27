@@ -248,8 +248,7 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
             else {
                 return 1
             }
-        }
-        else {
+        } else {
             return smartIconsArray?.count ?? 0
         }
     }
@@ -280,18 +279,23 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = smartIconCollectionView.dequeueReusableCell(withReuseIdentifier: "SmartIconCell", for: indexPath) as! SmartIconCell
-        cell.superScriptWidth.constant = 10
+
         if indexPath.section == 0 {
+        
             cell.imageView.image = UIImage(named: "checkingBaggageKg")
             cell.superScript.attributedText = baggageSuperScript
+            cell.superScriptWidth.constant = 14
+                
         }else {
+            
             guard let imageName = smartIconsArray?[indexPath.row] else { return UICollectionViewCell() }
+         
             if  imageName == "fsr" {
                 let color = UIColor(displayP3Red:1.0 , green: ( 88.0/255.0), blue:( 77.0/255.0) , alpha: 1.0)
                 let seats = currentJourney.seats
                 let tempImage = textToImage(drawText: seats, diameter:20.0 , color: color)
                 cell.imageView.image = tempImage
-            }else{
+            } else {
                 cell.imageView.image = UIImage(named: imageName)
             }
             
@@ -303,7 +307,9 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
                 cell.superScript.text = ""
             }
         }
+        
         return cell
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

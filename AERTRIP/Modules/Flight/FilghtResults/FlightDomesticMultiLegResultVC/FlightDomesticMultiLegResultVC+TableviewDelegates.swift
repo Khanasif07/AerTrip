@@ -89,8 +89,13 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
            }
            checkForOverlappingFlights()
            setTotalFare()
-        tableView.reloadData()
+//        tableView.reloadData()
 //        animateJourneyCompactView(for: tableView)
+        if let indexPath = tableView.indexPathsForVisibleRows{
+            UIView.performWithoutAnimation {
+                tableView.reloadRows(at: indexPath, with: .none)
+            }
+        }
         setTableViewHeaderAfterSelection(tableView: tableView)
         delay(seconds: 0.2) {
             tableView.isScrollEnabled = true

@@ -133,9 +133,12 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     //update dob if it not valid.
     private func updateDob(at index:Int){
         switch GuestDetailsVM.shared.guests[0][index].passengerType{
-        case .Adult:break
+        case .Adult:
+            if !calculateMinimumAge(with : GuestDetailsVM.shared.guests[0][index], year: 12){
+                GuestDetailsVM.shared.guests[0][index].dob = ""
+            }
         case .Child:
-            if !calculateAge(with : GuestDetailsVM.shared.guests[0][index], year: 12){
+            if !calculateAge(with : GuestDetailsVM.shared.guests[0][index], year: 12) || !calculateMinimumAge(with : GuestDetailsVM.shared.guests[0][index], year: 2){
                 GuestDetailsVM.shared.guests[0][index].dob = ""
             }
         case .Infant:
@@ -150,6 +153,12 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
         guard let date = dob.toDate(dateFormat: "dd MMM yyyy") else {return false}
         let component = Calendar.current.dateComponents([.year], from: date, to: Date())
         return (component.year ?? 0) < year
+    }
+    private func calculateMinimumAge(with contact: ATContact, year:Int)-> Bool{
+        let dob = contact.displayDob
+        guard let date = dob.toDate(dateFormat: "dd MMM yyyy") else {return false}
+        let component = Calendar.current.dateComponents([.year], from: date, to: Date())
+        return (component.year ?? 0) >= year
     }
     
     @IBAction func tapBackBtn(_ sender: UIButton) {
