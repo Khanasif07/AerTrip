@@ -25,22 +25,8 @@ class SpeechRecognizer: NSObject {
     
     weak var delegate: SpeechRecognizerDelegate?
     
-//    func toggleSpeechRecognition(_ isActiveForDictation:((Bool) -> ())) {
-//        speechRecognizer?.delegate = self
-//        if SFSpeechRecognizer.authorizationStatus() != .authorized {
-//            requestTranscribePermissions()
-//        }
-//
-//        if audioEngine.isRunning {
-//            audioEngine.stop()
-//            recognitionRequest?.endAudio()
-//            self.delegate?.recordButtonState(false)
-//            isActiveForDictation(true)
-//        } else {
-//            startRecording()
-//            isActiveForDictation(false)
-//        }
-//    }
+    private var recordWorkItem: DispatchWorkItem?
+    
     
     func start() {
         speechRecognizer?.delegate = self
@@ -49,44 +35,63 @@ class SpeechRecognizer: NSObject {
         }
         if !audioEngine.isRunning {
             startRecording()
+            delay(seconds: 2) {
+                self.stopRecordingAfterDelay()
+            }
         }
     }
     
     func stop() {
         if audioEngine.isRunning {
             audioEngine.stop()
+            audioEngine.inputNode.removeTap(onBus: 0)
             recognitionRequest?.endAudio()
+            self.recognitionRequest = nil
+            self.recognitionTask = nil
+            self.delegate?.recordButtonState(true)
+            self.recordWorkItem?.cancel()
+            self.recordWorkItem = nil
         }
     }
     
+    private func stopRecordingAfterDelay() {
+        recordWorkItem?.cancel()
+        recordWorkItem = DispatchWorkItem(block: { [weak self] in
+            self?.stop()
+        })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: recordWorkItem!)
+    }
+    
     private func requestTranscribePermissions() {
-        SFSpeechRecognizer.requestAuthorization { (authStatus) in
-            
-            var isButtonEnabled = false
-            
-            switch authStatus {
-            case .authorized:
-                isButtonEnabled = true
+        if SFSpeechRecognizer.authorizationStatus() != .authorized {
+            SFSpeechRecognizer.requestAuthorization { (authStatus) in
                 
-            case .denied:
-                isButtonEnabled = false
-                print("User denied access to speech recognition")
+                var isButtonEnabled = false
                 
-            case .restricted:
-                isButtonEnabled = false
-                print("Speech recognition restricted on this device")
+                switch authStatus {
+                case .authorized:
+                    isButtonEnabled = true
+                    
+                case .denied:
+                    isButtonEnabled = false
+                    print("User denied access to speech recognition")
+                    
+                case .restricted:
+                    isButtonEnabled = false
+                    print("Speech recognition restricted on this device")
+                    
+                case .notDetermined:
+                    isButtonEnabled = false
+                    print("Speech recognition not yet authorized")
+                    
+                default:
+                    isButtonEnabled = false
+                    print("default case for speech recognizer")
+                }
                 
-            case .notDetermined:
-                isButtonEnabled = false
-                print("Speech recognition not yet authorized")
-                
-            default:
-                isButtonEnabled = false
-                print("default case for speech recognizer")
-            }
-            
-            OperationQueue.main.addOperation() {
-                self.delegate?.recordButtonState(isButtonEnabled)
+                //            OperationQueue.main.addOperation() {
+                //                self.delegate?.recordButtonState(isButtonEnabled)
+                //            }
             }
         }
     }
@@ -125,19 +130,22 @@ class SpeechRecognizer: NSObject {
                 
                 self.delegate?.recordedText(result?.bestTranscription.formattedString ?? "")
                 isFinal = (result?.isFinal)!
+                
+                self.stopRecordingAfterDelay()
             }
             
             if error != nil || isFinal {
-                self.audioEngine.stop()
-                inputNode.removeTap(onBus: 0)
-                
-                self.recognitionRequest = nil
-                self.recognitionTask = nil
-                self.delegate?.recordButtonState(true)
+//                self.audioEngine.stop()
+//                inputNode.removeTap(onBus: 0)
+//
+//                self.recognitionRequest = nil
+//                self.recognitionTask = nil
+//                self.delegate?.recordButtonState(true)
             }
         })
         
         let recordingFormat = inputNode.outputFormat(forBus: 0)
+        inputNode.removeTap(onBus: 0)
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, when) in
             self.recognitionRequest?.append(buffer)
         }
@@ -157,6 +165,6 @@ class SpeechRecognizer: NSObject {
 extension SpeechRecognizer: SFSpeechRecognizerDelegate {
     
     func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
-        self.delegate?.recordButtonState(available)
+//        self.delegate?.recordButtonState(available)
     }
 }

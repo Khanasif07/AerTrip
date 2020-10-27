@@ -1418,6 +1418,7 @@
 		849D379A22893A4B00763AD8 /* AccountOfflineDepositVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D379722893A4B00763AD8 /* AccountOfflineDepositVC.swift */; };
 		849D379B22893A4B00763AD8 /* AccountOfflineDepositVC+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D379822893A4B00763AD8 /* AccountOfflineDepositVC+DelegateMethods.swift */; };
 		849D379C22893A4B00763AD8 /* AccountOfflineDepositVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D379922893A4B00763AD8 /* AccountOfflineDepositVM.swift */; };
+		849D6D222547EAB600647AC2 /* AerinCustomPopoverVC+SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D6D212547EAB600647AC2 /* AerinCustomPopoverVC+SpeechRecognizer.swift */; };
 		849DA81423E2B6C600C2E9D8 /* ATCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DA81323E2B6C600C2E9D8 /* ATCategoryView.swift */; };
 		849DA81623E2B6D200C2E9D8 /* ATPageContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DA81523E2B6D200C2E9D8 /* ATPageContainerView.swift */; };
 		849DA81823E2B6DB00C2E9D8 /* ATCategoryNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DA81723E2B6DA00C2E9D8 /* ATCategoryNavBar.swift */; };
@@ -3229,6 +3230,7 @@
 		849D379722893A4B00763AD8 /* AccountOfflineDepositVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountOfflineDepositVC.swift; sourceTree = "<group>"; };
 		849D379822893A4B00763AD8 /* AccountOfflineDepositVC+DelegateMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AccountOfflineDepositVC+DelegateMethods.swift"; sourceTree = "<group>"; };
 		849D379922893A4B00763AD8 /* AccountOfflineDepositVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountOfflineDepositVM.swift; sourceTree = "<group>"; };
+		849D6D212547EAB600647AC2 /* AerinCustomPopoverVC+SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AerinCustomPopoverVC+SpeechRecognizer.swift"; sourceTree = "<group>"; };
 		849DA81323E2B6C600C2E9D8 /* ATCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATCategoryView.swift; sourceTree = "<group>"; };
 		849DA81523E2B6D200C2E9D8 /* ATPageContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATPageContainerView.swift; sourceTree = "<group>"; };
 		849DA81723E2B6DA00C2E9D8 /* ATCategoryNavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATCategoryNavBar.swift; sourceTree = "<group>"; };
@@ -5695,6 +5697,7 @@
 				84A9A9CA2542B1B50082B893 /* AerinCustomPopoverVC+TableView.swift */,
 				84A9A9CC2542B1D80082B893 /* AerinCustomPopoverVC+CollectionViewDelegates.swift */,
 				84A9A9CE254313540082B893 /* AerinCustomPopoverVC+WaveAnimation.swift */,
+				849D6D212547EAB600647AC2 /* AerinCustomPopoverVC+SpeechRecognizer.swift */,
 			);
 			path = AerinCustomPopoverVC;
 			sourceTree = "<group>";
@@ -10680,6 +10683,7 @@
 				843FF9CF240D216300CBE5EC /* ViewProfileDetailFrequentCell.swift in Sources */,
 				846856AC2233A482001B9E13 /* AdvisorRatingTableViewCell.swift in Sources */,
 				18999D9221E48DCE00E66072 /* CategorisedByGroupsTableViewCell.swift in Sources */,
+				849D6D222547EAB600647AC2 /* AerinCustomPopoverVC+SpeechRecognizer.swift in Sources */,
 				18999D9A21E4A8B600E66072 /* GroupTableViewCell.swift in Sources */,
 				183B71A22289588400A75B7F /* EconomySaverTableViewCell.swift in Sources */,
 				0C1AA59424AF0DDB0082FE7D /* ZFTokenField.m in Sources */,

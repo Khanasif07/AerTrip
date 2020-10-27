@@ -53,7 +53,8 @@ class AerinCustomPopoverVC: BaseVC {
         return waveContainerHeight + view.safeAreaInsets.bottom
     }
         
-    private var setupForView: SetupForViewType = .textView {
+    // Not to be used externally
+    var setupForView: SetupForViewType = .textView {
         didSet {
             resetViewSetup()
         }
@@ -109,6 +110,8 @@ class AerinCustomPopoverVC: BaseVC {
     @IBOutlet weak var waveAnimationContainerViewBottom: NSLayoutConstraint!
     @IBOutlet weak var waveAnimationContentView: UIView!
     @IBOutlet weak var hideWaveBtn: UIButton!
+    @IBOutlet weak var listeningLblBackView: UIView!
+    @IBOutlet weak var listeningLbl: UILabel!
     
     @IBOutlet weak var aerinCommunicationOptionsView: UIView!
     @IBOutlet weak var keyboardBtn: UIButton!
@@ -146,6 +149,10 @@ class AerinCustomPopoverVC: BaseVC {
         chatVm.delegate = self
     }
     
+    deinit {
+        speechRecognizer.stop()
+    }
+    
     // MARK: Actions
     
     @IBAction func dismissBtnAction(_ sender: UIButton) {
@@ -153,6 +160,7 @@ class AerinCustomPopoverVC: BaseVC {
     }
     
     @IBAction func hideWaveBtnAction(_ sender: UIButton) {
+        speechRecognizer.stop()
         setupForView = .communicationControls
     }
     
@@ -171,10 +179,10 @@ class AerinCustomPopoverVC: BaseVC {
     @IBAction func sendBtnAction(_ sender: UIButton) {
         switch sendBtnState {
         case .send:
-            removeSeeResultsAgainCell()
+            //            removeSeeResultsAgainCell()
             
             UIApplication.shared.beginIgnoringInteractionEvents()
-        
+            
             delay(seconds: 1) {
                 UIApplication.shared.endIgnoringInteractionEvents()
             }
@@ -196,7 +204,7 @@ class AerinCustomPopoverVC: BaseVC {
             delay(seconds: 0.27) {
                 self.animateCell(text : msg)
             }
-            //MARK:- Here i had used insert row due to some issue with the yIndex of the cell i had used reload
+        //MARK:- Here i had used insert row due to some issue with the yIndex of the cell i had used reload
         
         case .record:
             micBtn.transform = .identity
@@ -209,6 +217,7 @@ class AerinCustomPopoverVC: BaseVC {
     internal override func initialSetup() {
         view.backgroundColor = UIColor.black.withAlphaComponent(0)
         messageTextView.delegate = self
+        speechRecognizer.delegate = self
         setupSubViews()
     }
     
@@ -236,7 +245,8 @@ class AerinCustomPopoverVC: BaseVC {
         if chatVm.messages.isEmpty {
             alignmentViewHeight.constant = aerinCommunicationOptionsView.height
         } else {
-            alignmentViewHeight.constant = waveContainerHeightConstant/2
+            alignmentViewHeight.constant = 0
+            chatTableView.contentInset = UIEdgeInsets(top: topNavView.height, left: 0, bottom: waveContainerHeightConstant/1.5, right: 0)
         }
         toggleWaveAnimationsView(false)
         toggleCommControlsView(true)
@@ -250,9 +260,16 @@ class AerinCustomPopoverVC: BaseVC {
         toggleWaveAnimationsView(true)
         toggleSuggestions(false, animated: true)
         toggleCommControlsView(false)
+        scrollTableViewToLast()
+        UIView.animate(withDuration: 0.3, delay: 0.4, options: .curveEaseInOut, animations: {
+            self.chatTableView.contentInset = UIEdgeInsets(top: self.topNavView.height, left: 0, bottom: 20, right: 0)
+        }, completion: nil)
     }
     
     private func setupForTextViewOpen() {
+        UIView.animate(withDuration: 0.3, delay: 0.4, options: .curveEaseInOut, animations: {
+            self.chatTableView.contentInset = UIEdgeInsets(top: self.topNavView.height, left: 0, bottom: 0, right: 0)
+        }, completion: nil)
         toggleWaveAnimationsView(true)
         toggleSuggestions(false, animated: true)
         toggleCommControlsView(true, animated: false)
@@ -260,8 +277,6 @@ class AerinCustomPopoverVC: BaseVC {
         textViewBackView.isHidden = false
         messageTextView.becomeFirstResponder()
         alignmentViewHeight.constant = -(textViewBackViewBottom.constant) + textViewBackView.height
-        animateMicToMessageView()
-        
     }
     
     private func animateMicToMessageView() {
@@ -293,6 +308,8 @@ class AerinCustomPopoverVC: BaseVC {
     private func toggleWaveAnimationsView(_ hidden: Bool) {
         if !hidden {
             waveAnimationContainerView.alpha = 1
+            speechRecognizer.start()
+            resetListeningLbl()
         }
         UIView.animate(withDuration: 0.5, animations: {
             if hidden {
@@ -310,12 +327,12 @@ class AerinCustomPopoverVC: BaseVC {
         }
     }
     
-    private func removeSeeResultsAgainCell() {
-        chatVm.messages.removeAll(where: { $0.msgSource == .seeResultsAgain })
-        chatTableView.reloadData()
-    }
+//    private func removeSeeResultsAgainCell() {
+//        chatVm.messages.removeAll(where: { $0.msgSource == .seeResultsAgain })
+//        chatTableView.reloadData()
+//    }
     
-    private func hideWelcomeView(){
+    func hideWelcomeView(){
         UIView.animate(withDuration: 0.2, animations: {
             self.morningLbl.alpha = 0
             self.whereToGoLbl.alpha = 0
@@ -328,7 +345,7 @@ class AerinCustomPopoverVC: BaseVC {
         }
     }
     
-    private func toggleSuggestions(_ hidden: Bool, animated: Bool){
+    func toggleSuggestions(_ hidden: Bool, animated: Bool){
         let animationDuration: TimeInterval = animated ? 0.5 : 0
         if !hidden && !chatVm.messages.isEmpty {
             return
@@ -344,7 +361,7 @@ class AerinCustomPopoverVC: BaseVC {
         })
     }
     
-    private func animateCell(text : String = ""){
+    func animateCell(text : String = ""){
 
         let rectOfLastCell = self.chatTableView.rectForRow(at: IndexPath(row: self.chatVm.getMylastMessageIndex(), section: 0))
         let rectWrtView = self.chatTableView.convert(rectOfLastCell, to: self.view)
@@ -354,6 +371,7 @@ class AerinCustomPopoverVC: BaseVC {
         self.animationLabel.transform = CGAffineTransform(translationX: -horizintalScale, y: 0)
         self.animationBubbleImageView.transform = CGAffineTransform(translationX: -horizintalScale, y: 0)
         self.sendBtn.isEnabled = false
+        self.micBtn.isEnabled = false
         self.messageTextView.text = ""
         self.resetFrames()
         let animationOptions: UIView.AnimationOptions = .curveEaseOut
@@ -407,6 +425,8 @@ class AerinCustomPopoverVC: BaseVC {
     }
         
     private func setUpAttributes(){
+        resetListeningLbl()
+        listeningLblBackView.round()
         alignmentView.backgroundColor = .clear
         whereToGoLbl.font = AppFonts.Regular.withSize(28)
         animationLabel.font = AppFonts.Regular.withSize(18)
@@ -426,12 +446,24 @@ class AerinCustomPopoverVC: BaseVC {
         messageTextView.placeholder = LocalizedString.TryDelhiToGoaTomorrow.localized
     }
     
-    private func scrollTableViewToLast(withAnimation : Bool = true){
+    func resetListeningLbl() {
+        listeningLblBackView.isHidden = false
+        listeningLbl.textColor = AppColors.themeBlack
+        listeningLbl.text = LocalizedString.Listening.localized + "..."
+        listeningLbl.font = AppFonts.Regular.withSize(18)
+        listeningLblBackView.backgroundColor = .clear
+    }
+    
+    func setupListeningLblForSpeechText() {
+        listeningLblBackView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.3)
+    }
+    
+    func scrollTableViewToLast(withAnimation : Bool = true){
         if chatVm.messages.isEmpty { return }
         chatTableView.scrollToRow(at: IndexPath(row: chatVm.messages.count - 1, section: 0), at: UITableView.ScrollPosition.top, animated: withAnimation)
     }
     
-    private func showAnimationViewWith(text : String){
+    func showAnimationViewWith(text : String){
         self.animationLabel.textAlignment = text.count <= 10 ? .center : .left
         self.animationView.isHidden = false
         self.animationLabel.text = text
@@ -440,13 +472,13 @@ class AerinCustomPopoverVC: BaseVC {
         }
     }
     
-    private func hideAnimationView(){
+    func hideAnimationView(){
         animationView.isHidden = true
         animationLabel.text = ""
         animationBubbleImageView.alpha = 0
     }
     
-    private func hideShowSenderCellContent(ishidden : Bool){
+    func hideShowSenderCellContent(ishidden : Bool){
         guard let cell = chatTableView.cellForRow(at: IndexPath(row: chatVm.getMylastMessageIndex(), section: 0)) as? SenderChatCell else {
             return }
         cell.contentView.isHidden = ishidden
@@ -604,6 +636,7 @@ extension AerinCustomPopoverVC {
         self.typingCellTimer?.invalidate()
         self.chatVm.typingCellTimerCounter = 0
         self.sendBtn.isEnabled = true
+        self.micBtn.isEnabled = true
         removeTypingCell()
     }
     
