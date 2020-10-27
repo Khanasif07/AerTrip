@@ -84,8 +84,28 @@ class GetSharableUrl
         
         var request = URLRequest(url: URL(string: pinnedUrl)!,timeoutInterval: Double.infinity)
         request.addValue(apiKey, forHTTPHeaderField: "api-key")
-        request.addValue("AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4", forHTTPHeaderField: "Cookie")
         request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        if let accessToken = UserInfo.loggedInUser?.accessToken, !accessToken.isEmpty
+        {
+            request.addValue(accessToken, forHTTPHeaderField: "Access-Token")
+        }else {
+            request.addValue(apiKey, forHTTPHeaderField: "Api-Key")
+        }
+        
+        var cookies = ""
+        if let allCookies = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie]
+        {
+            print("allCookies")
+            if allCookies.count > 0{
+                let name = allCookies.first?.name ?? ""
+                let value = allCookies.first?.value ?? ""
+                cookies = name + "=" + value
+            }
+        }
+        
+        print("cookies= ",cookies)
+        request.addValue(cookies, forHTTPHeaderField: "Cookie")
         
         request.httpMethod = "POST"
         request.httpBody = postData
@@ -234,22 +254,28 @@ class GetSharableUrl
         print("cookies= ",cookies)
         request.addValue(cookies, forHTTPHeaderField: "Cookie")
         
+        if let accessToken = UserInfo.loggedInUser?.accessToken, !accessToken.isEmpty
+        {
+            request.addValue(accessToken, forHTTPHeaderField: "Access-Token")
+        }else {
+            request.addValue(apiKey, forHTTPHeaderField: "Api-Key")
+        }
         request.httpMethod = "POST"
         request.httpBody = postData
         
         
         print("postData=", String(data: postData!, encoding: .utf8)!)
-
-//        print("request= ",request.allHTTPHeaderFields)
+        
+        //        print("request= ",request.allHTTPHeaderFields)
         
         let requestDate = Date.getCurrentDate()
         var textLog = TextLog()
-
+        
         textLog.write("\n##########################################################################################\nAPI URL :::\(tempelteUrl)")
-
+        
         textLog.write("\nREQUEST HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: request.allHTTPHeaderFields))\n")
         textLog.write("\nParameters :::::::: \(requestDate)  ::::::::\n\n\(parameters)\n")
-
+        
         
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -266,7 +292,7 @@ class GetSharableUrl
                     if let result = jsonResult as? [String: AnyObject]
                     {
                         textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) ::::::::\(result)\n##########################################################################################\n")
-
+                        
                         if result["success"] as? Bool == true{                            
                             if let data = (result["data"] as? [String:Any]){
                                 if let view = data["view"] as? String{
@@ -297,43 +323,21 @@ class GetSharableUrl
         if tripType == "single"{
             returnDate.append("return=&")
         }else if tripType == "return"{
-//            if journey.count == 2{
-//                inputFormatter.dateFormat = "yyyy-MM-dd"
-//                showDate = inputFormatter.date(from: journey[1].dd)!
-//                inputFormatter.dateFormat = "dd-MM-yyyy"
-//                let newDd = inputFormatter.string(from: showDate)
-//                returnDate.append("return=\(newDd)&")
-//            }else{
-                if self.searchParam.count > 0{
-                    returnDate.append("return=\(searchParam["return"] ?? "")&")
-                }else{
-                    returnDate.append("return=&")
-                }
-//                returnDate.append("return=\(returnDateForJourney)&")
-//            }
+            if self.searchParam.count > 0{
+                returnDate.append("return=\(searchParam["return"] ?? "")&")
+            }else{
+                returnDate.append("return=&")
+            }
         }else{
-            
             for i in 0..<journey.count{
-
+                
                 inputFormatter.dateFormat = "yyyy-MM-dd"
                 showDate = inputFormatter.date(from: journey[i].dd)!
                 inputFormatter.dateFormat = "dd-MM-yyyy"
                 let newDd = inputFormatter.string(from: showDate)
                 returnDate.append("return[\(i)]=\(newDd)&")
             }
-            
-            
-//            let origin = searchParam.filter { $0.key.contains("origin") }
-//
-//            for i in 0..<origin.count{
-//                returnDate.append("return[\(i)]=\(searchParam["depart[\(i)]"] ?? "")&")
-//            }
-            
-//            returnDate.append("return=&")
-            
         }
-        
-        
         
         return returnDate
     }
@@ -351,7 +355,7 @@ class GetSharableUrl
             }
         }else{
             let depart = searchParam.filter { $0.key.contains("depart") }
-
+            
             for i in 0..<depart.count{
                 departureDate.append("depart[\(i)]=\(searchParam["depart[\(i)]"] ?? "")&")
             }
@@ -367,7 +371,7 @@ class GetSharableUrl
             origin.append("origin=\(journey[0].ap[0])&")
         }else{
             let originCount = searchParam.filter { $0.key.contains("origin") }
-
+            
             for i in 0..<originCount.count{
                 origin.append("origin[\(i)]=\(searchParam["origin[\(i)]"] ?? "")&")
             }
@@ -382,7 +386,7 @@ class GetSharableUrl
             destination.append("destination=\(journey[0].ap[1])&")
         }else{
             let destinations = searchParam.filter { $0.key.contains("destination") }
-
+            
             for i in 0..<destinations.count{
                 destination.append("destination[\(i)]=\(searchParam["destination[\(i)]"] ?? "")&")
             }
@@ -406,6 +410,8 @@ class GetSharableUrl
     }
     
     
+//    MARK:- get user applied filters for domestic journey
+    
     func getAppliedFiltersForSharingDomesticJourney(legs:[FlightResultDisplayGroup])->String
     {
         var filterString = ""
@@ -420,7 +426,7 @@ class GetSharableUrl
             
             print("appliedFilters=",appliedFilters)
             print("uiFilters=",uiFilters)
-
+            
             var fqArray = [String]()
             
             if uiFilters.contains(.hideOvernightLayover){
@@ -440,7 +446,7 @@ class GetSharableUrl
             }
             
             var quality = ""
-
+            
             if fqArray.count > 0{
                 for n in 0..<fqArray.count{
                     quality.append("filters[\(i)][fq][\(n)]=\(fqArray[n])&")
@@ -480,14 +486,14 @@ class GetSharableUrl
                     dateFormatter.dateFormat = "yyyy-MM-dd"
                     var earlistDate = Date()
                     var latestDate = Date()
-
+                    
                     if let arrivalDateEarliest = userSelectedFilters?.arDt.earliest
                     {
                         let earliest = arrivalDateEarliest.components(separatedBy: " ")
                         var earliestTimeInverval = TimeInterval()
                         if earliest.count > 1{
                             earliestTimeInverval = convertFrom(string: earliest[1])!
-                                                        
+                            
                             if let date = dateFormatter.date(from:earliest[0]){
                                 earlistDate = date
                             }
@@ -500,7 +506,7 @@ class GetSharableUrl
                     }
                     
                     
-
+                    
                     if let arrivalDateLatest = userSelectedFilters?.arDt.latest
                     {
                         let latest = arrivalDateLatest.components(separatedBy: " ")
@@ -510,11 +516,11 @@ class GetSharableUrl
                         
                         let dayHourMinuteSecond: Set<Calendar.Component> = [.day]
                         let difference = NSCalendar.current.dateComponents(dayHourMinuteSecond, from: earlistDate, to: latestDate)
-
+                        
                         let day = difference.day ?? 0
                         
                         if day > 0{
-
+                            
                             //Add 1440 to time to add 24 hours
                             let newDay = 1440*day
                             if let latestTimeInverval = convertFrom(string: latest[1]){
@@ -642,6 +648,8 @@ class GetSharableUrl
         return filterString
     }
     
+//    MARK:- get user applied filters for international journey
+    
     func getAppliedFiltersForSharingIntJourney(legs:[IntFlightResultDisplayGroup])->String
     {
         var filterString = ""
@@ -651,7 +659,7 @@ class GetSharableUrl
             let appliedFilters = legs[0].appliedFilters
             let appliedSubFilters = legs[0].appliedSubFilters
             let uiFilters = legs[0].UIFilters
-
+            
             for i in 0..<userSelectedFilters.count
             {
                 filterString.append("&")
@@ -676,7 +684,7 @@ class GetSharableUrl
                 }
                 
                 var quality = ""
-
+                
                 if fqArray.count > 0{
                     for n in 0..<fqArray.count{
                         quality.append("filters[\(i)][fq][\(n)]=\(fqArray[n])&")
@@ -702,14 +710,14 @@ class GetSharableUrl
                         let latestTimeInverval = convertFrom(string: latest)
                         let intLatestTime = Int(latestTimeInverval!/60)
                         depTime.append("filters[\(i)][dep_dt][1]=\(intLatestTime)")
-
+                        
                         filterString.append("\(depTime)&")
-
+                        
                     }
                     
                     
                     //     Arrival Time
-
+                    
                     if ((appliedSubFilters[0]?.contains(.arrivalTime)) != nil)
                     {
                         var arrivalTime = ""
@@ -717,7 +725,7 @@ class GetSharableUrl
                         dateFormatter.dateFormat = "yyyy-MM-dd"
                         var earlistDate = Date()
                         var latestDate = Date()
-
+                        
                         let arrivalDateEarliest = userSelectedFilters[i].arDt.earliest
                         let earliestArrival = arrivalDateEarliest.components(separatedBy: " ")
                         if let date = dateFormatter.date(from:earliestArrival[0]){
@@ -730,34 +738,34 @@ class GetSharableUrl
                         
                         let arrivalDateLatest = userSelectedFilters[i].arDt.latest
                         
-                            let latestArrival = arrivalDateLatest.components(separatedBy: " ")
-                            if let date = dateFormatter.date(from:latestArrival[0]){
-                                latestDate = date
-                            }
+                        let latestArrival = arrivalDateLatest.components(separatedBy: " ")
+                        if let date = dateFormatter.date(from:latestArrival[0]){
+                            latestDate = date
+                        }
+                        
+                        let dayHourMinuteSecond: Set<Calendar.Component> = [.day]
+                        let difference = NSCalendar.current.dateComponents(dayHourMinuteSecond, from: earlistDate, to: latestDate)
+                        
+                        let day = difference.day ?? 0
+                        
+                        if day > 0{
                             
-                            let dayHourMinuteSecond: Set<Calendar.Component> = [.day]
-                            let difference = NSCalendar.current.dateComponents(dayHourMinuteSecond, from: earlistDate, to: latestDate)
-
-                            let day = difference.day ?? 0
-                            
-                            if day > 0{
-
-                                //Add 1440 to time to add 24 hours
-                                let newDay = 1440*day
-                                if let latestTimeInverval = convertFrom(string: latestArrival[1]){
-                                    var intTime = Int(latestTimeInverval/60)
-                                    intTime = intTime+newDay
-                                    arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
-                                }
-                            }else{
-                                if let latestTimeInverval = convertFrom(string: latestArrival[1]){
-                                    let intTime = Int(latestTimeInverval/60)
-                                    arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
-                                }
+                            //Add 1440 to time to add 24 hours
+                            let newDay = 1440*day
+                            if let latestTimeInverval = convertFrom(string: latestArrival[1]){
+                                var intTime = Int(latestTimeInverval/60)
+                                intTime = intTime+newDay
+                                arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
                             }
+                        }else{
+                            if let latestTimeInverval = convertFrom(string: latestArrival[1]){
+                                let intTime = Int(latestTimeInverval/60)
+                                arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
+                            }
+                        }
                         
                         filterString.append("\(arrivalTime)&")
-
+                        
                     }
                     
                     
@@ -888,9 +896,8 @@ class GetSharableUrl
     }
 }
 
-
-extension URL {
-    
+extension URL
+{
     func expandURLWithCompletionHandler(completionHandler: @escaping (URL?) -> Void) {
         let dataTask = URLSession.shared.dataTask(with: self, completionHandler: {
             _, response, _ in

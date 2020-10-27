@@ -18,8 +18,6 @@ enum WebService {
     case tripList(ass:String)
     case addToTrip(postData:Data)
     case createTrip(tripData:Data)
-    case getShareUrl(postData:Data)
-    case getEmailUrl(postData:Data)
 }
 
 extension WebService : APIProtocol {
@@ -32,17 +30,6 @@ extension WebService : APIProtocol {
         return urlRequestObj
     }
     
-//    var flightBaseUrl: String {
-//        return  flightBaseUrl123//"https://beta.aertrip.com/api/v1/flights/"
-//    }
-    
-//    var tripsBaseUrl: String{
-//        return "https://beta.aertrip.com/api/v1/trips/"
-//    }
-    
-//    var apiKey:String{
-//        return "3a457a74be76d6c3603059b559f6addf"
-//    }
     
     var path: String {
         switch self {
@@ -72,12 +59,6 @@ extension WebService : APIProtocol {
             
         case .createTrip(tripData: _):
             return tripsBaseUrl+"add"
-            
-        case .getShareUrl(postData: _):
-            return flightBaseUrl+"get-pinned-url"
-        
-        case .getEmailUrl(postData: _):
-            return flightBaseUrl+"get-pinned-template"
         }
     }
     
@@ -110,12 +91,6 @@ extension WebService : APIProtocol {
         
         case .createTrip(tripData: _):
             return "POST"
-            
-        case .getShareUrl(postData: _):
-            return "POST"
-            
-        case .getEmailUrl( _):
-             return "POST"
         }
     }
     
@@ -153,14 +128,8 @@ extension WebService : APIProtocol {
         case .addToTrip(postData: let data):
             return data
             
-
         case .createTrip(tripData: let data):
             return data
-            
-        case .getShareUrl(postData: let data):
-            return data
-        case .getEmailUrl(let postData):
-              return postData
         }
     }
     
@@ -245,23 +214,6 @@ extension WebService : APIProtocol {
               "Connection": "keep-alive",
               "cache-control": "no-cache"
             ]
-            return headers
-            
-            
-        case .getShareUrl(postData: _):
-            let headers = [
-              "content-type": "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
-              "api-key": apiKey,
-              "Host": "beta.aertrip.com",
-              "Content-Type": "multipart/form-data; boundary=--------------------------311403206525934394271310",
-            ]
-            return headers
-        case .getEmailUrl( _):
-            let headers = [
-              "api-key": apiKey,
-              "Cookie" : "AT_R_STAGE_SESSID=a186gmjn76ai68c0qfetm818p6",
-              "Content-Type": "application/x-www-form-urlencoded",
-            ]   
             return headers
         }
     }
