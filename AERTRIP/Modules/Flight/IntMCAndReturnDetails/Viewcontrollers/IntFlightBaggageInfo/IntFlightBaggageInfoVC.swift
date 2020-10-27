@@ -37,7 +37,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
     weak var tostDelegate:ShowTostDelegate?
     //Indicator:---
     var indicator = UIActivityIndicatorView()
-    var dimensionDelegate : getBaggageDimentionsDelegate?
+    weak var dimensionDelegate : getBaggageDimentionsDelegate?
 
     //MARK:- Initialise Views
     override func viewDidLoad() {

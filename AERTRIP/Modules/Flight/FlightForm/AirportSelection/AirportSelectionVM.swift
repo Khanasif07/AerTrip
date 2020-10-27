@@ -24,7 +24,7 @@ import UIKit
  class AirportSelectionVM : NSObject
 {
     @objc var isFrom : Bool
-    @objc var delegate : AirportSelctionHandler
+    @objc weak var delegate : AirportSelctionHandler?
     @objc var fromFlightArray : NSMutableArray?
     @objc var toFlightArray : NSMutableArray?
     @objc var airportSelectionMode : AirportSelectionMode
@@ -42,6 +42,6 @@ import UIKit
     }
     
     @objc func onDoneButtonTapped() {
-        self.delegate.flight!(fromSource: self.fromFlightArray, toDestination: self.toFlightArray, airlineNum:airlineNum)
+        self.delegate?.flight!(fromSource: self.fromFlightArray, toDestination: self.toFlightArray, airlineNum:airlineNum)
     }
 }

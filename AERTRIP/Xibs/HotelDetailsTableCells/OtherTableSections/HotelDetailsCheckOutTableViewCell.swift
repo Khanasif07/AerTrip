@@ -61,7 +61,7 @@ class HotelDetailsCheckOutTableViewCell: UITableViewCell {
     private func configureUI() {
         //Colors
         self.backgroundColor = .clear//AppColors.screensBackground.color
-        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
 //        layer.shouldRasterize = true
 //        layer.rasterizationScale = UIScreen.main.scale
         self.containerView.backgroundColor = AppColors.themeGreen

@@ -28,7 +28,7 @@ class PostBookingAddonsPaymentVM{
     var grossTotalPayableAmount : Double = 0.0 // without wallet amount
 //    var paymentDetails: PaymentMode? //Payment methods
     var bookingIds = [String]()
-    var delegate:PostBookingAddonsPaymentVMDelegate?
+    weak var delegate:PostBookingAddonsPaymentVMDelegate?
     var sectionTableCell = [[CellType]]()
     var sectionHeader = [sectionType]()
     

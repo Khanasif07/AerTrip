@@ -106,7 +106,7 @@ class AerinVC: BaseVC {
          self.bottomSecondView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.1)
          */
         self.bottomViewImage.cornerradius = 10
-        self.bottomCollectionView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+        self.bottomCollectionView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
         setupAnimation()
     }
     

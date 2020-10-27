@@ -57,7 +57,7 @@ class NewCityMarkerView: UIView {
         dotView.setBorder(borderWidth: 2.0, borderColor: AppColors.themeWhite)
         backgroundView.cornerradius = 31.0
         //dotView.cornerRadius = 6.5
-        dotView.addShadow(cornerRadius: 8.5, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.65), offset: CGSize(width: 0, height: 2), opacity: 1, shadowRadius: 4.0)
+        dotView.addShadow(cornerRadius: 8.5, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize(width: 0, height: 2), opacity: 1, shadowRadius: 4.0)
         
     }
 }
