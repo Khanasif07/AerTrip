@@ -49,7 +49,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     //MARK:- Variable Declaration
     weak var delegate : flightDetailsBaggageDelegate?
     
-    var arrivalPerformanceDelegate : getArrivalPerformanceDelegate?
+    weak var arrivalPerformanceDelegate : getArrivalPerformanceDelegate?
     
     var journey: [Journey]!
     var titleString : NSAttributedString!

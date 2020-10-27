@@ -189,7 +189,6 @@ extension FlightDomesticMultiLegResultVC {
                
                var rect = headerView.frame
                baseScrollViewTop.constant = 0
-               self.baseScrollView.isScrollEnabled = true
                UIView.animate(withDuration: 1.0 , animations: {
                    let y = rect.origin.y - rect.size.height - 20
                    rect.origin.y = y
@@ -207,9 +206,12 @@ extension FlightDomesticMultiLegResultVC {
                    }
                    
                }) { (bool) in
-                   self.baseScrollView.setContentOffset(CGPoint(x: 0, y: 0) , animated: false)
-                   self.bannerView?.isHidden = true
-                   self.updateUI(index: index, updatedArray : updatedArray, sortOrder: sortOrder)
+                self.baseScrollView.setContentOffset(CGPoint(x: 0, y: 0) , animated: false)
+                self.bannerView?.isHidden = true
+                self.updateUI(index: index, updatedArray : updatedArray, sortOrder: sortOrder)
+                DispatchQueue.main.async {
+                    self.baseScrollView.isScrollEnabled = true
+                }
                }
            }
            else {

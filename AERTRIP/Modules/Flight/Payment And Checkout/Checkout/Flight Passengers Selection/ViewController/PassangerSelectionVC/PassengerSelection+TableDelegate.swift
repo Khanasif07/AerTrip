@@ -225,7 +225,7 @@ extension PassengersSelectionVC: FlightContactCellDelegate, FlightEmailTextField
         self.viewModel.mobile = textField.nationalNumber
     }
     
-    func setIsdCode(_ countryDate:PKCountryModel,_ sender: UIButton){
+    func setIsdCode(_ countryDate:PKCountryModel){
         self.viewModel.isdCode = countryDate.ISOCode
         self.viewModel.manimumContactLimit = countryDate.minNSN
         self.viewModel.maximumContactLimit = countryDate.maxNSN

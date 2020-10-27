@@ -581,8 +581,10 @@ extension AppFlowManager {
             ob.delegate = delegate
             ob.viewModel.productType = productType
             ob.modalPresentationStyle = .overFullScreen
+            printDebug(DispatchTime.now())
             topVC.present(ob, animated: true, completion: {
                 printDebug("dsafafds")
+                printDebug(DispatchTime.now())
             })
         }
     }

@@ -85,7 +85,10 @@ class HCGuestListVC: BaseVC {
         self.apiProgressBar.progressTintColor = UIColor.AertripColor
         self.apiProgressBar.trackTintColor = .clear
         self.apiProgressBar.progress = 0.0
-        self.initialSetups()
+        DispatchQueue.main.async {
+            self.initialSetups()
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -203,36 +206,39 @@ class HCGuestListVC: BaseVC {
 //                self.viewModel.fetchPhoneContacts(forVC: self)
 //            }
 //        }
-        if self.currentlyUsingFor == .contacts {
-            if self.viewModel.phoneContacts.isEmpty {
-                if CNContactStore.authorizationStatus(for: .contacts) == .authorized {
-                    delay(seconds: 0.4) { [weak self] in
-                        guard let strongSelf = self else {return}
-                        strongSelf.viewModel.fetchPhoneContacts(forVC: strongSelf)
+        DispatchQueue.main.async {
+            if self.currentlyUsingFor == .contacts {
+                if self.viewModel.phoneContacts.isEmpty {
+                    if CNContactStore.authorizationStatus(for: .contacts) == .authorized {
+                        delay(seconds: 0.4) { [weak self] in
+                            guard let strongSelf = self else {return}
+                            strongSelf.viewModel.fetchPhoneContacts(forVC: strongSelf)
+                        }
+                    } else {
+                        self.tableView.backgroundView = self.allowEmptyView
                     }
                 } else {
-                    self.tableView.backgroundView = self.allowEmptyView
+                    self.tableView.backgroundView = nil
                 }
-            } else {
-                tableView.backgroundView = nil
-            }
-        }else if self.currentlyUsingFor == .facebook {
-            if self.viewModel.facebookContacts.isEmpty {
-                if AccessToken.isCurrentAccessTokenActive {
-                    self.showProgressView()
-                    delay(seconds: 0.4) { [weak self] in
-                        guard let strongSelf = self else {return}
-                        strongSelf.viewModel.fetchFacebookContacts(forVC: strongSelf)
+            }else if self.currentlyUsingFor == .facebook {
+                if self.viewModel.facebookContacts.isEmpty {
+                    if AccessToken.isCurrentAccessTokenActive {
+                        self.showProgressView()
+                        delay(seconds: 0.4) { [weak self] in
+                            guard let strongSelf = self else {return}
+                            strongSelf.viewModel.fetchFacebookContacts(forVC: strongSelf)
+                        }
+                    } else {
+                        self.tableView.backgroundView = self.allowEmptyView
                     }
                 } else {
-                    self.tableView.backgroundView = self.allowEmptyView
+                    self.tableView.backgroundView = nil
                 }
             } else {
-                tableView.backgroundView = nil
+                self.tableView.backgroundView = self.allowEmptyView
             }
-        } else {
-            self.tableView.backgroundView = self.allowEmptyView
         }
+        
         self.tableView.showsVerticalScrollIndicator = true
     }
     
