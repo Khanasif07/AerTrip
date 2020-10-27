@@ -1049,7 +1049,7 @@ on Christmas”</string>
                                 <rect key="frame" x="0.0" y="44" width="414" height="450.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="saM-KT-JLj">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="504.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="504"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TripPlaceHolder" translatesAutoresizingMaskIntoConstraints="NO" id="fYg-G9-wp0">
                                                 <rect key="frame" x="16" y="20" width="382" height="354"/>
@@ -1058,7 +1058,7 @@ on Christmas”</string>
                                                 </constraints>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="38" translatesAutoresizingMaskIntoConstraints="NO" id="QEp-10-oDs">
-                                                <rect key="frame" x="16" y="390" width="382" height="79.5"/>
+                                                <rect key="frame" x="16" y="390" width="382" height="79"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1zF-WQ-CH0">
                                                         <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
@@ -1067,7 +1067,7 @@ on Christmas”</string>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MbY-QM-mnp" customClass="ActiveLabel" customModule="ActiveLabel">
-                                                        <rect key="frame" x="0.0" y="58.5" width="382" height="21"/>
+                                                        <rect key="frame" x="0.0" y="58.5" width="382" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -2059,6 +2059,94 @@ on Christmas”</string>
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="617"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6xe-pj-3UX">
+                                        <rect key="frame" x="0.0" y="667" width="414" height="100"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Omw-oh-Hni">
+                                                <rect key="frame" x="26" y="39" width="22" height="22"/>
+                                                <state key="normal" image="CancelGreyFilled"/>
+                                                <connections>
+                                                    <action selector="keyboardBtnAction:" destination="yrF-Gi-Xwu" eventType="touchUpInside" id="Tc7-hW-4Vp"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GTb-9O-3aM">
+                                                <rect key="frame" x="177" y="20" width="60" height="60"/>
+                                                <state key="normal" image="aerinLargeMic"/>
+                                                <connections>
+                                                    <action selector="micBtnAction:" destination="yrF-Gi-Xwu" eventType="touchUpInside" id="3w0-pC-dOI"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fv5-63-p3H">
+                                                <rect key="frame" x="361" y="36.5" width="27" height="27"/>
+                                                <state key="normal" image="aerinSpeechHelp"/>
+                                                <connections>
+                                                    <action selector="helpBtnAction:" destination="yrF-Gi-Xwu" eventType="touchUpInside" id="368-y7-PTc"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="Fv5-63-p3H" firstAttribute="centerY" secondItem="GTb-9O-3aM" secondAttribute="centerY" id="8E4-1N-cjr"/>
+                                            <constraint firstAttribute="height" constant="100" id="NlA-PD-oO7"/>
+                                            <constraint firstAttribute="trailing" secondItem="Fv5-63-p3H" secondAttribute="trailing" constant="26" id="Phg-L1-XBd"/>
+                                            <constraint firstItem="Omw-oh-Hni" firstAttribute="leading" secondItem="6xe-pj-3UX" secondAttribute="leading" constant="26" id="SyZ-T7-cKd"/>
+                                            <constraint firstItem="Omw-oh-Hni" firstAttribute="centerY" secondItem="GTb-9O-3aM" secondAttribute="centerY" id="k1m-PQ-0hF"/>
+                                            <constraint firstItem="GTb-9O-3aM" firstAttribute="centerX" secondItem="6xe-pj-3UX" secondAttribute="centerX" id="kzv-SG-WXa"/>
+                                            <constraint firstItem="GTb-9O-3aM" firstAttribute="centerY" secondItem="6xe-pj-3UX" secondAttribute="centerY" id="ljm-Ec-X4P"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B4w-iD-k9i">
+                                        <rect key="frame" x="-207" y="459" width="828" height="308"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EfQ-Ce-Yw9">
+                                                <rect key="frame" x="207" y="0.0" width="414" height="308"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ADN-RW-Kbp">
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="308"/>
+                                                        <connections>
+                                                            <action selector="hideWaveBtnAction:" destination="yrF-Gi-Xwu" eventType="touchUpInside" id="3O2-9i-byr"/>
+                                                        </connections>
+                                                    </button>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZKI-L7-eYg">
+                                                        <rect key="frame" x="166.5" y="226" width="81.5" height="40.5"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AN1-fq-g2q">
+                                                                <rect key="frame" x="20" y="10" width="41.5" height="20.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="AN1-fq-g2q" firstAttribute="top" secondItem="ZKI-L7-eYg" secondAttribute="top" constant="10" id="25m-cf-QOo"/>
+                                                            <constraint firstAttribute="bottom" secondItem="AN1-fq-g2q" secondAttribute="bottom" constant="10" id="27O-CN-PVy"/>
+                                                            <constraint firstItem="AN1-fq-g2q" firstAttribute="leading" secondItem="ZKI-L7-eYg" secondAttribute="leading" constant="20" id="2yL-aM-Yx3"/>
+                                                            <constraint firstAttribute="trailing" secondItem="AN1-fq-g2q" secondAttribute="trailing" constant="20" id="nOU-lg-XOX"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="ADN-RW-Kbp" secondAttribute="trailing" id="90p-E9-Dbs"/>
+                                                    <constraint firstItem="ZKI-L7-eYg" firstAttribute="centerY" secondItem="EfQ-Ce-Yw9" secondAttribute="centerY" multiplier="1.6" id="ZE2-Ee-5KV"/>
+                                                    <constraint firstItem="ZKI-L7-eYg" firstAttribute="centerX" secondItem="EfQ-Ce-Yw9" secondAttribute="centerX" id="aC9-J5-KoD"/>
+                                                    <constraint firstItem="ZKI-L7-eYg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="EfQ-Ce-Yw9" secondAttribute="leading" constant="51" id="abH-eC-4Nk"/>
+                                                    <constraint firstItem="ADN-RW-Kbp" firstAttribute="leading" secondItem="EfQ-Ce-Yw9" secondAttribute="leading" id="qjv-b7-Vli"/>
+                                                    <constraint firstAttribute="bottom" secondItem="ADN-RW-Kbp" secondAttribute="bottom" id="uhX-ZS-DMj"/>
+                                                    <constraint firstItem="ADN-RW-Kbp" firstAttribute="top" secondItem="EfQ-Ce-Yw9" secondAttribute="top" id="vRv-sr-N2T"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="EfQ-Ce-Yw9" firstAttribute="top" secondItem="B4w-iD-k9i" secondAttribute="top" id="TVK-Di-GxJ"/>
+                                            <constraint firstAttribute="bottom" secondItem="EfQ-Ce-Yw9" secondAttribute="bottom" id="Tmg-vS-xIj"/>
+                                            <constraint firstItem="EfQ-Ce-Yw9" firstAttribute="width" secondItem="B4w-iD-k9i" secondAttribute="width" multiplier="0.5" id="UVJ-aS-KwP"/>
+                                            <constraint firstItem="EfQ-Ce-Yw9" firstAttribute="centerX" secondItem="B4w-iD-k9i" secondAttribute="centerX" id="WZ5-6i-vSo"/>
+                                            <constraint firstAttribute="height" constant="308" id="eWu-mc-xiG"/>
+                                        </constraints>
+                                    </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Mjy-XZ-ODc">
                                         <rect key="frame" x="0.0" y="524" width="414" height="93"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -2187,11 +2275,16 @@ on Christmas”</string>
                                     <constraint firstItem="7Nj-zr-eD7" firstAttribute="bottom" secondItem="EuP-l3-nTj" secondAttribute="bottom" id="6ac-d2-JWU"/>
                                     <constraint firstItem="7Nj-zr-eD7" firstAttribute="leading" secondItem="cqt-fF-JPb" secondAttribute="leading" id="7ez-5A-5gL"/>
                                     <constraint firstItem="wqg-Fg-cap" firstAttribute="top" secondItem="7Nj-zr-eD7" secondAttribute="top" id="9m2-xo-OBb"/>
+                                    <constraint firstItem="B4w-iD-k9i" firstAttribute="bottom" secondItem="EuP-l3-nTj" secondAttribute="bottom" id="Aah-Dj-3Sg"/>
                                     <constraint firstItem="wqg-Fg-cap" firstAttribute="trailing" secondItem="7Nj-zr-eD7" secondAttribute="trailing" id="G7N-1y-UG4"/>
                                     <constraint firstItem="Mjy-XZ-ODc" firstAttribute="trailing" secondItem="UUa-5q-lb9" secondAttribute="trailing" id="HtJ-DC-0bp"/>
+                                    <constraint firstItem="B4w-iD-k9i" firstAttribute="width" secondItem="cqt-fF-JPb" secondAttribute="width" multiplier="2" id="Ijn-QL-ZvR"/>
                                     <constraint firstAttribute="height" constant="850" id="JRN-tW-xOz"/>
+                                    <constraint firstItem="6xe-pj-3UX" firstAttribute="leading" secondItem="EuP-l3-nTj" secondAttribute="leading" id="KL7-OV-Oc5"/>
                                     <constraint firstItem="rEZ-HK-Fwc" firstAttribute="leading" secondItem="cqt-fF-JPb" secondAttribute="leading" id="KoH-Qa-Di0"/>
+                                    <constraint firstItem="6xe-pj-3UX" firstAttribute="trailing" secondItem="EuP-l3-nTj" secondAttribute="trailing" id="PM9-RU-5fA"/>
                                     <constraint firstItem="kjb-fk-A1F" firstAttribute="centerX" secondItem="cqt-fF-JPb" secondAttribute="centerX" id="Q6V-RP-CSg"/>
+                                    <constraint firstItem="6xe-pj-3UX" firstAttribute="bottom" secondItem="EuP-l3-nTj" secondAttribute="bottom" id="QrI-A3-d5t"/>
                                     <constraint firstAttribute="trailing" secondItem="UUa-5q-lb9" secondAttribute="trailing" id="c2J-B7-INF"/>
                                     <constraint firstItem="wqg-Fg-cap" firstAttribute="leading" secondItem="7Nj-zr-eD7" secondAttribute="leading" id="c9S-gR-bqH"/>
                                     <constraint firstItem="EuP-l3-nTj" firstAttribute="top" secondItem="UUa-5q-lb9" secondAttribute="bottom" id="cdw-pa-KGT"/>
@@ -2207,6 +2300,7 @@ on Christmas”</string>
                                     <constraint firstItem="UUa-5q-lb9" firstAttribute="top" secondItem="cqt-fF-JPb" secondAttribute="top" id="nVz-gc-gep"/>
                                     <constraint firstItem="kjb-fk-A1F" firstAttribute="top" secondItem="aQG-t5-vcB" secondAttribute="bottom" constant="-5" id="oE9-mj-uBL"/>
                                     <constraint firstAttribute="trailing" secondItem="aQG-t5-vcB" secondAttribute="trailing" id="pCo-iq-ioN"/>
+                                    <constraint firstItem="B4w-iD-k9i" firstAttribute="centerX" secondItem="cqt-fF-JPb" secondAttribute="centerX" id="pX7-DZ-ssQ"/>
                                     <constraint firstItem="Mjy-XZ-ODc" firstAttribute="bottom" secondItem="UUa-5q-lb9" secondAttribute="bottom" id="pfH-WQ-PQv"/>
                                     <constraint firstAttribute="trailing" secondItem="rEZ-HK-Fwc" secondAttribute="trailing" id="w3q-PF-kBm"/>
                                 </constraints>
@@ -2226,7 +2320,9 @@ on Christmas”</string>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="aerinCommunicationOptionsView" destination="6xe-pj-3UX" id="BgW-yP-Nrv"/>
                         <outlet property="aerinImgView" destination="kjb-fk-A1F" id="VVy-TS-cfq"/>
+                        <outlet property="aerinommunicationHelpBtn" destination="Fv5-63-p3H" id="Ncg-ki-Aga"/>
                         <outlet property="alignmentView" destination="EuP-l3-nTj" id="SEt-3Q-uvX"/>
                         <outlet property="alignmentViewBottom" destination="hkx-oI-1xj" id="Po7-we-5gz"/>
                         <outlet property="alignmentViewHeight" destination="VP9-XD-6pA" id="606-iX-kVX"/>
@@ -2237,7 +2333,12 @@ on Christmas”</string>
                         <outlet property="collectionViewBottom" destination="pfH-WQ-PQv" id="Ded-Uc-ZKJ"/>
                         <outlet property="dismissBtn" destination="KpT-tI-Xff" id="nT2-RZ-qrb"/>
                         <outlet property="dragView" destination="vN2-m8-Lby" id="sHR-pa-JUi"/>
+                        <outlet property="hideWaveBtn" destination="ADN-RW-Kbp" id="9VB-kR-LYJ"/>
+                        <outlet property="keyboardBtn" destination="Omw-oh-Hni" id="xtf-s5-dH5"/>
+                        <outlet property="listeningLbl" destination="AN1-fq-g2q" id="R2E-P0-LmM"/>
+                        <outlet property="listeningLblBackView" destination="ZKI-L7-eYg" id="aWs-CI-LYK"/>
                         <outlet property="messageTextView" destination="7rR-VP-qRB" id="fAP-SV-LL2"/>
+                        <outlet property="micBtn" destination="GTb-9O-3aM" id="w20-bI-Tzq"/>
                         <outlet property="morningBackView" destination="rEZ-HK-Fwc" id="eS5-IV-Ixn"/>
                         <outlet property="morningLbl" destination="LDN-C0-oR3" id="POG-qL-0rG"/>
                         <outlet property="popoverView" destination="cqt-fF-JPb" id="pTU-gK-iiw"/>
@@ -2250,7 +2351,12 @@ on Christmas”</string>
                         <outlet property="textViewBackView" destination="7Nj-zr-eD7" id="ckl-t7-qG5"/>
                         <outlet property="textViewBackViewBottom" destination="6ac-d2-JWU" id="qXY-Su-ZaY"/>
                         <outlet property="textViewBackViewHeight" destination="1Wg-S8-PRU" id="qpj-Bj-sMw"/>
+                        <outlet property="textViewWhiteView" destination="wqg-Fg-cap" id="oxn-Ei-Q24"/>
                         <outlet property="topNavView" destination="aQG-t5-vcB" id="YR1-hP-iLX"/>
+                        <outlet property="waveAnimationContainerView" destination="B4w-iD-k9i" id="Ogh-7d-DLM"/>
+                        <outlet property="waveAnimationContainerViewBottom" destination="Aah-Dj-3Sg" id="QyA-pZ-9AJ"/>
+                        <outlet property="waveAnimationContainerViewHeight" destination="eWu-mc-xiG" id="qzW-Dt-mX2"/>
+                        <outlet property="waveAnimationContentView" destination="EfQ-Ce-Yw9" id="v2M-er-ac5"/>
                         <outlet property="whereToGoLbl" destination="jgZ-7J-Qzs" id="mCO-8C-S1l"/>
                     </connections>
                 </viewController>
