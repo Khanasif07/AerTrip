@@ -197,7 +197,9 @@ class GroupedFlightsDetailsViewController: UIViewController, UITableViewDataSour
         
         let label = UILabel(frame: CGRect(x:0 , y: 0, width: 20,  height: 18))
         label.textAlignment = .center
-        label.font = UIFont(name: "SourceSansPro-regular", size: 14)!
+//        label.font = UIFont(name: "SourceSansPro-regular", size: 14)!
+        label.font = AppFonts.Regular.withSize(14)
+
         label.textColor = .AertripColor
         label.text = count
         return label
@@ -206,7 +208,9 @@ class GroupedFlightsDetailsViewController: UIViewController, UITableViewDataSour
     func addTitleToNavigationController() {
         
         resultTitle = UILabel(frame: CGRect(x:0 , y: 1, width: UIScreen.main.bounds.size.width, height: 23))
-        resultTitle.font = UIFont(name: "SourceSansPro-semibold", size: 18)!
+//        resultTitle.font = UIFont(name: "SourceSansPro-semibold", size: 18)!
+        resultTitle.font = AppFonts.SemiBold.withSize(18)
+
         resultTitle.attributedText = titleString
         resultTitle.textAlignment = .center
         
@@ -217,7 +221,9 @@ class GroupedFlightsDetailsViewController: UIViewController, UITableViewDataSour
         
         
         resultsubTitle = UILabel(frame: CGRect(x:0 , y: 23, width: UIScreen.main.bounds.size.width, height: 17))
-        resultsubTitle.font = UIFont(name: "SourceSansPro-regular", size: 13)!
+//        resultsubTitle.font = UIFont(name: "SourceSansPro-regular", size: 13)!
+        resultsubTitle.font = AppFonts.Regular.withSize(13)
+
         resultsubTitle.text = subtitleString
         resultsubTitle.textAlignment = .center
         

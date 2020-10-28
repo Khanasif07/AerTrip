@@ -193,7 +193,8 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
             
             rect = CGRect(x: 0, y: 12, width: width, height: 25)
             let title = UILabel ( frame: rect)
-            title.font = UIFont(name: "SourceSansPro-Semibold", size: 20)
+//            title.font = UIFont(name: "SourceSansPro-Semibold", size: 20)
+            title.font = AppFonts.SemiBold.withSize(20)
             title.tag = 1
             
             title.textAlignment = .center
@@ -202,7 +203,8 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
             
             rect = CGRect(x: 0, y: 37, width: width, height: 20)
             let subTitle = UILabel ( frame: rect)
-            subTitle.font = UIFont(name: "SourceSansPro-Regular", size: 16)
+//            subTitle.font = UIFont(name: "SourceSansPro-Regular", size: 16)
+            subTitle.font = AppFonts.Regular.withSize(16)
             subTitle.text  = "stop"
             subTitle.tag = 2
             subTitle.textAlignment = .center
@@ -377,7 +379,8 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         
         if let subTitle = sender.viewWithTag(2) as? UILabel {
             subTitle.textColor = UIColor.black
-            subTitle.font = UIFont(name: "SourceSansPro-Regular", size: 16)
+//            subTitle.font = UIFont(name: "SourceSansPro-Regular", size: 16)
+            subTitle.font = AppFonts.Regular.withSize(16)
         }
     }
     
@@ -389,7 +392,8 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         
         if let subTitle = sender.viewWithTag(2) as? UILabel {
             subTitle.textColor = UIColor.AertripColor
-            subTitle.font = UIFont(name: "SourceSansPro-Semibold", size: 16)
+//            subTitle.font = UIFont(name: "SourceSansPro-Semibold", size: 16)
+            subTitle.font = AppFonts.SemiBold.withSize(16)
         }
     }
     

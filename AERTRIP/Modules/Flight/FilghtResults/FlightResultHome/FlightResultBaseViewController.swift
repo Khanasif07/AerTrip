@@ -372,7 +372,9 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     func getStringFromImage(name : String) -> NSAttributedString {
         
         let imageAttachment = NSTextAttachment()
-        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
+//        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
+        
+        let sourceSansPro18 = AppFonts.SemiBold.withSize(18)
         let iconImage = UIImage(named: name )!
         imageAttachment.image = iconImage
         
@@ -760,7 +762,10 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     func addSubTitleToNavigationController() {
         
         resultsubTitle = UILabel(frame: CGRect(x:0 , y: statusBarHeight + 23, width: UIScreen.main.bounds.size.width, height: 17))
-        resultsubTitle.font = UIFont(name: "SourceSansPro-regular", size: 13)!
+//        resultsubTitle.font = UIFont(name: "SourceSansPro-regular", size: 13)!
+        
+        resultsubTitle.font = AppFonts.Regular.withSize(13)
+
         resultsubTitle.text = flightSearchResultVM.subTitleString
         resultsubTitle.textAlignment = .center
         
@@ -778,7 +783,9 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         clearAllFilters.setTitle("Clear all", for: .normal)
         clearAllFilters.setTitleColor( UIColor.AertripColor, for: .normal)
         clearAllFilters.setTitleColor( UIColor.TWO_ZERO_FOUR_COLOR , for: .disabled)
-        clearAllFilters.titleLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 18.0)
+//        clearAllFilters.titleLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 18.0)
+        
+        clearAllFilters.titleLabel?.font = AppFonts.Regular.withSize(18)
         clearAllFilters.titleLabel?.textAlignment = .left
         clearAllFilters.addTarget(self, action: #selector(clearAllFilterTapped), for: .touchDown)
         
@@ -823,7 +830,9 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         doneButton.setTitle("Done", for: .normal)
         doneButton.titleLabel?.textAlignment = .right
         doneButton.setTitleColor( UIColor.AertripColor, for: .normal)
-        doneButton.titleLabel?.font = UIFont(name: "SourceSansPro-Semibold", size: 18.0)
+//        doneButton.titleLabel?.font = UIFont(name: "SourceSansPro-Semibold", size: 18.0)
+        
+        doneButton.titleLabel?.font = AppFonts.SemiBold.withSize(18)
         doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchDown)
         visualEffectView.contentView.addSubview(doneButton)
         
@@ -839,7 +848,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     func addTitleToNavigationController() {
         
         resultTitle = UILabel(frame: CGRect(x: 50 , y: statusBarHeight + 1.0 , width: UIScreen.main.bounds.size.width  - 100.0 , height: 23))
-        resultTitle.font = UIFont(name: "SourceSansPro-semibold", size: 18)!
+//        resultTitle.font = UIFont(name: "SourceSansPro-semibold", size: 18)!
+        resultTitle.font = AppFonts.SemiBold.withSize(18)
 //        resultTitle.attributedText = flightSearchResultVM.titleString
         resultTitle.textAlignment = .center
         resultTitle.lineBreakMode = NSLineBreakMode.byTruncatingMiddle
@@ -994,7 +1004,9 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     
     func createFilterTitle() {
         self.filterTitle = UILabel()
-        self.filterTitle.font = UIFont(name: "SourceSansPro-Regular", size: 16.0)
+//        self.filterTitle.font = UIFont(name: "SourceSansPro-Regular", size: 16.0)
+        
+        self.filterTitle.font = AppFonts.Regular.withSize(16)
         self.filterTitle.textColor = UIColor.ONE_FIVE_THREE_COLOR
         self.filterTitle.textAlignment = .center
         

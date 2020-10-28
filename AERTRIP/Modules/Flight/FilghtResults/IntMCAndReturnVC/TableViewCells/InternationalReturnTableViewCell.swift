@@ -144,8 +144,9 @@ class InternationalReturnTableViewCell: UITableViewCell {
     
     func textToImage(drawText text: String, diameter: CGFloat, color: UIColor ) -> UIImage {
         let textColor = UIColor.white
-        let textFont = UIFont(name: "SourceSansPro-Semibold", size: 16)!
-        
+//        let textFont = UIFont(name: "SourceSansPro-Semibold", size: 16)!
+        let textFont = AppFonts.SemiBold.withSize(16)
+
         let scale = UIScreen.main.scale
         UIGraphicsBeginImageContextWithOptions(CGSize(width: diameter, height: diameter), false, scale)
         let ctx = UIGraphicsGetCurrentContext()!
@@ -297,7 +298,10 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
             if imageName == "refundStatusPending" {
                 cell.superScript.text = "?"
                 cell.superScript.textColor = UIColor.AERTRIP_RED_COLOR
-                cell.superScript.font = UIFont(name: "SourceSansPro-Bold", size: 10.0)
+//                cell.superScript.font = UIFont(name: "SourceSansPro-Bold", size: 10.0)
+                
+                cell.superScript.font = AppFonts.Bold.withSize(10)
+
             }else {
                 cell.superScript.text = ""
             }

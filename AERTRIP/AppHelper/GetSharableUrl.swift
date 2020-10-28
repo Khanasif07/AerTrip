@@ -84,28 +84,29 @@ class GetSharableUrl
         
         var request = URLRequest(url: URL(string: pinnedUrl)!,timeoutInterval: Double.infinity)
         request.addValue(apiKey, forHTTPHeaderField: "api-key")
+        request.addValue("AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4", forHTTPHeaderField: "Cookie")
         request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+//        if let accessToken = UserInfo.loggedInUser?.accessToken, !accessToken.isEmpty
+//        {
+//            request.addValue(accessToken, forHTTPHeaderField: "Access-Token")
+//        }else {
+//            request.addValue(apiKey, forHTTPHeaderField: "Api-Key")
+//        }
         
-        if let accessToken = UserInfo.loggedInUser?.accessToken, !accessToken.isEmpty
-        {
-            request.addValue(accessToken, forHTTPHeaderField: "Access-Token")
-        }else {
-            request.addValue(apiKey, forHTTPHeaderField: "Api-Key")
-        }
-        
-        var cookies = ""
-        if let allCookies = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie]
-        {
-            print("allCookies")
-            if allCookies.count > 0{
-                let name = allCookies.first?.name ?? ""
-                let value = allCookies.first?.value ?? ""
-                cookies = name + "=" + value
-            }
-        }
-        
-        print("cookies= ",cookies)
-        request.addValue(cookies, forHTTPHeaderField: "Cookie")
+//        var cookies = ""
+//        if let allCookies = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie]
+//        {
+//            print("allCookies")
+//            if allCookies.count > 0{
+//                let name = allCookies.first?.name ?? ""
+//                let value = allCookies.first?.value ?? ""
+//                cookies = name + "=" + value
+//            }
+//        }
+//
+//        print("cookies= ",cookies)
+//        request.addValue(cookies, forHTTPHeaderField: "Cookie")
         
         request.httpMethod = "POST"
         request.httpBody = postData

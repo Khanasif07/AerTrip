@@ -63,7 +63,9 @@ extension FlightDomesticMultiLegResultVC {
             let titleLabel = UILabel(frame: CGRect(x:8,y: 16 ,width:groupedFooterView.frame.width - 16  ,height:60))
             titleLabel.textColor = UIColor.AertripColor
             titleLabel.numberOfLines = 0
-            titleLabel.font = UIFont(name: "SourceSansPro-Regular", size: 14.0)
+//            titleLabel.font = UIFont(name: "SourceSansPro-Regular", size: 14.0)
+            titleLabel.font = AppFonts.Regular.withSize(14)
+
             titleLabel.textAlignment = .center
             
             if aboveHumanScoreCount == 1 {
@@ -132,7 +134,7 @@ extension FlightDomesticMultiLegResultVC {
         let titleLabel = UILabel(frame: CGRect(x:8,y: 16 ,width:expandedFooterView.frame.width - 16  ,height:60))
         titleLabel.textColor = UIColor.AertripColor
         titleLabel.numberOfLines = 0
-        titleLabel.font = UIFont(name: "SourceSansPro-Regular", size: 14.0)
+            titleLabel.font = AppFonts.Regular.withSize(14)
         titleLabel.textAlignment = .center
         titleLabel.text  = "Hide " + String(aboveHumanScoreCount) + " longer or expensive flights"
         expandedFooterView.addSubview(titleLabel)

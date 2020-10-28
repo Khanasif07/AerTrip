@@ -133,7 +133,9 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
 //        self.price.text = journey.priceAsString
         let amountText = NSMutableAttributedString.init(string: journey.priceAsString)
 
-        amountText.setAttributes([NSAttributedString.Key.font: UIFont(name: "SourceSansPro-Regular", size: 16)!], range: NSMakeRange(0, 1))
+//        amountText.setAttributes([NSAttributedString.Key.font: UIFont(name: "SourceSansPro-Regular", size: 16)!], range: NSMakeRange(0, 1))
+        
+        amountText.setAttributes([NSAttributedString.Key.font: AppFonts.Regular.withSize(16)], range: NSMakeRange(0, 1))
         self.price.attributedText = amountText
 
         self.priceWidth.constant =  self.price.intrinsicContentSize.width
@@ -163,12 +165,21 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
             self.intermediateAirports.isHidden = true
         }else{
             self.intermediateAirports.text = journey.intermediateAirports
-            if let font = UIFont(name: "SourceSansPro-Regular", size: 14 ) {
+//            if let font = UIFont(name: "SourceSansPro-Regular", size: 14 ) {
+            
+//            let fontAttributes = [NSAttributedString.Key.font: font]
+//                let myText = journey.intermediateAirports
+//                let size = (myText as NSString).size(withAttributes: fontAttributes)
+//                self.immediateAirportWidth.constant = size.width + 20
+//            }
+            
+            
+                let font = AppFonts.Regular.withSize(14)
                 let fontAttributes = [NSAttributedString.Key.font: font]
                 let myText = journey.intermediateAirports
                 let size = (myText as NSString).size(withAttributes: fontAttributes)
                 self.immediateAirportWidth.constant = size.width + 20
-            }
+
         }
         
         baggageSuperScript = journey.baggageSuperScript
@@ -203,7 +214,9 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
     
     func textToImage(drawText text: String, diameter: CGFloat, color: UIColor ) -> UIImage {
         let textColor = UIColor.white
-        let textFont = UIFont(name: "SourceSansPro-Semibold", size: 16)!
+//        let textFont = UIFont(name: "SourceSansPro-Semibold", size: 16)!
+//
+        let textFont = AppFonts.SemiBold.withSize(16)
         
         let scale = UIScreen.main.scale
         UIGraphicsBeginImageContextWithOptions(CGSize(width: diameter, height: diameter), false, scale)
@@ -283,7 +296,8 @@ extension SingleJourneyResultTableViewCell : UICollectionViewDataSource , UIColl
             if imageName == "refundStatusPending" {
                 cell.superScript.text = "?"
                 cell.superScript.textColor = UIColor.AERTRIP_RED_COLOR
-                cell.superScript.font = UIFont(name: "SourceSansPro-Bold", size: 10.0)
+//                cell.superScript.font = UIFont(name: "SourceSansPro-Bold", size: 10.0)
+                cell.superScript.font = AppFonts.Bold.withSize(10)
                 cell.superScriptWidth.constant = 10
                 if indexPath.row == 0{
                     cell.imageViewLeading.constant = 0

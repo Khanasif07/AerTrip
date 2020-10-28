@@ -220,8 +220,11 @@ class FlightDetailsBaseVC: BaseVC {
             height: 0.5,
             zIndex: Int.max - 1,
             insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-        self.parchmentView?.font = UIFont(name: "SourceSansPro-Regular", size: 16.0)!
-        self.parchmentView?.selectedFont = UIFont(name: "SourceSansPro-Semibold", size: 16.0)!
+//        self.parchmentView?.font = UIFont(name: "SourceSansPro-Regular", size: 16.0)!
+//        self.parchmentView?.selectedFont = UIFont(name: "SourceSansPro-Semibold", size: 16.0)!
+        
+        self.parchmentView?.font = AppFonts.Regular.withSize(16)
+        self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16)
         self.parchmentView?.indicatorColor = UIColor.AertripColor
         self.parchmentView?.selectedTextColor = .black
         self.parchmentView?.menuBackgroundColor = .white
