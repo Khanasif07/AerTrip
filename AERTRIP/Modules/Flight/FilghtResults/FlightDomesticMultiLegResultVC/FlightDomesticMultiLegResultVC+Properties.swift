@@ -273,7 +273,10 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                         }
                     } else if nextLegDeparture.timeIntervalSince(currentLegArrival) <= 7200 {
                        
-                        self.headerArray[i].isInCompatable = false
+                        if !self.headerArray[i].isInCompatable {
+                            self.headerArray[i].isInCompatable = false
+                        }
+                        
                         self.headerArray[i+1].isInCompatable = false
                         
                         if let parentVC = self.parent {
@@ -299,7 +302,11 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                             fareBreakupVC?.bookButton.isEnabled = true
                         }
                     } else {
-                        self.headerArray[i].isInCompatable = false
+                        
+                        if !self.headerArray[i].isInCompatable {
+                            self.headerArray[i].isInCompatable = false
+                        }
+                        
                         self.headerArray[i+1].isInCompatable = false
 //                        CustomToast.shared.fadeAllToasts(animated:  false)
                         shouldFadeAllToast = true
