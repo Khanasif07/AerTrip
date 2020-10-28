@@ -132,11 +132,13 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
                     } else {
                         
                         cell.radioButton.setImage(#imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
-
+                        
                     }
                 
             }
 
+            cell.radioButton.isUserInteractionEnabled = false
+            
             return cell
         }
 

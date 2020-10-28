@@ -230,6 +230,11 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         
         guard let selectedJourneys = self.viewModel.getSelectedJourneyForAllLegs(), selectedJourneys.count >= 2 else { return }
 
+        var msg = ""
+        var finalFrame : CGRect = CGRect.zero
+        var shouldFadeAllToast = false
+        
+        
                 for i in 0 ..< (selectedJourneys.count - 1) {
                     
                     let currentLegJourney = selectedJourneys[i]
@@ -251,9 +256,10 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                             if fsr > 0 {
                                 frame.size.height = frame.size.height - 16
                             }
-                            
+                            finalFrame = frame
                             if self.viewModel.shouldDisplayToast {
-                                AertripToastView.toast(in: parentVC.view , withText: "Flight timings are not compatible. Select a different flight." , parentRect: frame)
+                               // AertripToastView.toast(in: parentVC.view , withText: "Flight timings are not compatible. Select a different flight." , parentRect: frame)
+                                msg = "Flight timings are not compatible. Select a different flight."
                             }
                             
                             setTextColorToHeader(.AERTRIP_RED_COLOR, indexPath: i)
@@ -281,8 +287,13 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                                 frame.size.height = frame.size.height - 16
                             }
                             
+                            finalFrame = frame
+                            
                             if self.viewModel.shouldDisplayToast {
-                                AertripToastView.toast(in: parentVC.view , withText: "Selected flights have less than 2 hrs of gap." , parentRect: frame)
+//                                AertripToastView.toast(in: parentVC.view , withText: "Selected flights have less than 2 hrs of gap." , parentRect: frame)
+                                
+                               msg = "Selected flights have less than 2 hrs of gap."
+                                
                             }
                             
                             fareBreakupVC?.bookButton.isEnabled = true
@@ -290,17 +301,37 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                     } else {
                         self.headerArray[i].isInCompatable = false
                         self.headerArray[i+1].isInCompatable = false
-                        CustomToast.shared.fadeAllToasts()
-                        
+//                        CustomToast.shared.fadeAllToasts(animated:  false)
+                        shouldFadeAllToast = true
+//                        printDebug("CCCCCC")
 //                        setTextColorToHeader(.black, indexPath: i)
 //                        setTextColorToHeader(.black, indexPath: (i + 1 ))
-                        
 //                        AertripToastView.hideToast()
             }
                     headerCollectionView.reloadData()
 
        }
         
+        if shouldFadeAllToast && msg.isEmpty {
+                CustomToast.shared.fadeAllToasts(animated: false)
+            shouldFadeAllToast = false
+            printDebug("fade all")
+        }
+        
+        
+        delay(seconds: 0.5) {
+            if !msg.isEmpty {
+                
+                if let parentVC = self.parent {
+//                    printDebug("message...\(msg)")
+                    AertripToastView.toast(in: parentVC.view , withText: msg, parentRect: finalFrame)
+                    msg = ""
+                }
+                
+            }
+        }
+        
+
         
     }
     

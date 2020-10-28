@@ -446,6 +446,15 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             let invertedOffset = -offsetDifference
             revealBlurredHeaderView(invertedOffset)
         }
+        
+        
+//        guard let content = self.viewModel.contentOffset else { return }
+//
+//        self.resultsTableView.setContentOffset(content, animated: false)
+        
+//        self.viewModel.contentOffset = nil
+
+        
     }
     
     
