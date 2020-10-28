@@ -198,7 +198,11 @@ class HotelDetailsReviewsVC: BaseVC {
             }
         }
     }
-    
+    func stopProgress() {
+        self.time += 1
+        self.timer?.invalidate()
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
     @IBAction func cancelButtonAction(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -392,18 +396,14 @@ extension HotelDetailsReviewsVC: HotelTripAdvisorDetailsDelegate {
     
     func getHotelTripAdvisorDetailsSuccess() {
         self.viewModel.getTypeOfCellInSections()
-        self.timer?.invalidate()
-        self.time += 1
-        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+        stopProgress()
         printDebug("Reviews")
         self.reviewsTblView.reloadData()
        // AppGlobals.shared.stopLoading()
     }
     
     func getHotelTripAdvisorFail() {
-        self.timer?.invalidate()
-        self.time += 1
-        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+        stopProgress()
         printDebug("Api parsing failed")
        // AppGlobals.shared.stopLoading()
     }
