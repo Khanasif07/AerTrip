@@ -122,27 +122,27 @@ class AerinVC: BaseVC {
     }
     
     override func setupTexts() {
-        let greetingAttrTxt = NSMutableAttributedString(string: LocalizedString.hiImAerin.localized, attributes: [.font: AppFonts.ExtraLight.withSize(28.0), .foregroundColor: AppColors.themeTextColor])
+        let greetingAttrTxt = NSMutableAttributedString(string: LocalizedString.hiImAerin.localized, attributes: [.font: AppFonts.ExtraLight.withSize(28.0), .foregroundColor: AppColors.themeBlack])
         greetingAttrTxt.addAttribute(.font, value: AppFonts.Regular.withSize(28.0), range: (greetingAttrTxt.string as NSString).range(of: "Aerin"))
         self.greetingLabel.attributedText = greetingAttrTxt
         
         self.messageLabel.text = LocalizedString.yourPersonalTravelAssistant.localized
         
-        let commandAttrTxt = NSMutableAttributedString(string: LocalizedString.tryAskingForFlightsFromMumbai.localized, attributes: [.font: AppFonts.ExtraLight.withSize(16.0), .foregroundColor: AppColors.themeTextColor])
+        let commandAttrTxt = NSMutableAttributedString(string: LocalizedString.tryAskingForFlightsFromMumbai.localized, attributes: [.font: AppFonts.ExtraLight.withSize(16.0), .foregroundColor: AppColors.themeBlack])
         commandAttrTxt.addAttribute(.font, value: AppFonts.Regular.withSize(16.0), range: (commandAttrTxt.string as NSString).range(of: "Flights"))
         commandAttrTxt.addAttribute(.font, value: AppFonts.Regular.withSize(16.0), range: (commandAttrTxt.string as NSString).range(of: "Mumbai"))
         commandAttrTxt.addAttribute(.font, value: AppFonts.Regular.withSize(16.0), range: (commandAttrTxt.string as NSString).range(of: "Delhi"))
         commandAttrTxt.addAttribute(.font, value: AppFonts.Regular.withSize(16.0), range: (commandAttrTxt.string as NSString).range(of: "Christmas"))
         
-        let attributedString = NSMutableAttributedString(string: "Try asking for \n“Flights from Mumbai to Delhi on Christmas”", attributes: [
+        let attributedString = NSMutableAttributedString(string: "Tap and try asking for \n“Flights from Mumbai to Delhi on Christmas”", attributes: [
             .font: AppFonts.Regular.withSize(16.0),
-            .foregroundColor: AppColors.themeTextColor
+            .foregroundColor: AppColors.themeBlack
         ])
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 6
         paragraphStyle.alignment = .center
         
-        attributedString.addAttribute(.font, value: AppFonts.Regular.withSize(14.0), range: NSRange(location: 0, length: 14))
+//        attributedString.addAttribute(.font, value: AppFonts.Regular.withSize(14.0), range: NSRange(location: 0, length: 14))
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
         
         self.commandHintLabel.attributedText = attributedString
@@ -152,7 +152,7 @@ class AerinVC: BaseVC {
     }
     
     override func setupColors() {
-        self.messageLabel.textColor = AppColors.themeTextColor
+        self.messageLabel.textColor = AppColors.themeBlack
         //self.weekendMessageLabel.textColor = AppColors.themeWhite.withAlphaComponent(0.4)
         self.travelSafetyLabel.textColor = AppColors.themeTextColor
     }
