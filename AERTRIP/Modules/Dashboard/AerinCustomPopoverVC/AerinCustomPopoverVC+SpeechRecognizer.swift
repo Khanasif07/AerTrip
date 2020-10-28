@@ -18,8 +18,10 @@ extension AerinCustomPopoverVC: SpeechRecognizerDelegate {
     func recordButtonState(_ toEnable: Bool) {
         guard let msg = listeningLbl.text else { return }
         if msg == LocalizedString.Listening.localized + "..." {
-            self.setupForView = .communicationControls
-            self.listeningLblBackView.isHidden = true
+            if self.setupForView != .communicationControls {
+                self.setupForView = .communicationControls
+                self.listeningLblBackView.isHidden = true
+            }
             return
         }
         if self.chatVm.messages.isEmpty {

@@ -161,7 +161,6 @@ class AerinCustomPopoverVC: BaseVC {
     
     @IBAction func hideWaveBtnAction(_ sender: UIButton) {
         speechRecognizer.stop()
-        setupForView = .communicationControls
     }
     
     @IBAction func keyboardBtnAction(_ sender: UIButton) {

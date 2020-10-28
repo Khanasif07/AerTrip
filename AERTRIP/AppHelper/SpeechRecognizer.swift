@@ -35,9 +35,7 @@ class SpeechRecognizer: NSObject {
         }
         if !audioEngine.isRunning {
             startRecording()
-            delay(seconds: 2) {
-                self.stopRecordingAfterDelay()
-            }
+            stopRecordingAfterDelay(delayTime: 2)
         }
     }
     
@@ -54,12 +52,12 @@ class SpeechRecognizer: NSObject {
         }
     }
     
-    private func stopRecordingAfterDelay() {
+    private func stopRecordingAfterDelay(delayTime: TimeInterval = 1) {
         recordWorkItem?.cancel()
         recordWorkItem = DispatchWorkItem(block: { [weak self] in
             self?.stop()
         })
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: recordWorkItem!)
+        DispatchQueue.main.asyncAfter(deadline: .now() + delayTime, execute: recordWorkItem!)
     }
     
     private func requestTranscribePermissions() {
