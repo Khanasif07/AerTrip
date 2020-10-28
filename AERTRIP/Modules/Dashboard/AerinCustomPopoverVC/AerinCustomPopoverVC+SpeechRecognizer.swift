@@ -89,6 +89,7 @@ extension AerinCustomPopoverVC: SpeechRecognizerDelegate {
 extension AerinCustomPopoverVC {
     func giveSuccessHapticFeedback() {
         //*******************Haptic Feedback code********************
+        printDebug("Generate feedback")
         let selectionFeedbackGenerator = UINotificationFeedbackGenerator()
         selectionFeedbackGenerator.notificationOccurred(.success)
         //*******************Haptic Feedback code********************
