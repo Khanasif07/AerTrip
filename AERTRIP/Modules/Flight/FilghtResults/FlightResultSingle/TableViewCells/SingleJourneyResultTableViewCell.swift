@@ -43,12 +43,13 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
     //MARK:- Setup Methods
     fileprivate func setupBaseView() {
         backgroundColor = .clear // very important
-        layer.masksToBounds = false
-        layer.shadowOpacity = 0.5
-        layer.shadowRadius = 4
-        layer.shadowOffset = CGSize(width: 0, height: 0)
-        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
-        self.baseView.layer.cornerRadius = 10
+//        layer.masksToBounds = false
+//        layer.shadowOpacity = 0.5
+//        layer.shadowRadius = 4
+//        layer.shadowOffset = CGSize(width: 0, height: 0)
+//        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
+//        self.baseView.layer.cornerRadius = 10
+        self.baseView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
     }
     
     override func awakeFromNib() {

@@ -57,7 +57,7 @@ class ATSearchBar: UISearchBar {
     }
     
 
-    var mDelegate: ATSearchBarDelegate? {
+    weak var mDelegate: ATSearchBarDelegate? {
         didSet {
             self.delegate = self.mDelegate
         }

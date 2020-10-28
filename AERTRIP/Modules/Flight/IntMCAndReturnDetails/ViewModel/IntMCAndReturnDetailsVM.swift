@@ -55,7 +55,7 @@ class IntMCAndReturnDetailsVM{
         }
     }
     var selectedCompleteJourney = IntJourney(JSON())
-    var delegate:ShowMessageDelegate?
+    weak var delegate:ShowMessageDelegate?
     var isFareSetBefore = false
     var airportDetailsResult = [String : IntAirportDetailsWS]()
     var airlineDetailsResult = [String : IntAirlineMasterWS]()

@@ -105,7 +105,7 @@ class RoomGuestSelectionVC: BaseVC {
     override func setupColors() {
         self.doneButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.doneButton.setTitleColor(AppColors.themeGreen, for: .selected)
-        self.doneButton.addShadow(cornerRadius: 0.0, shadowColor: AppColors.themeBlack.withAlphaComponent(0.2), offset: CGSize(width: 0, height: -8))
+        self.doneButton.addShadow(cornerRadius: 0.0, shadowColor: AppColors.appShadowColor, offset: CGSize(width: 0, height: -8))
         
         self.roomNumberLabel.textColor = AppColors.themeBlack
         self.guestSelectionLabel.textColor = AppColors.themeGray40
