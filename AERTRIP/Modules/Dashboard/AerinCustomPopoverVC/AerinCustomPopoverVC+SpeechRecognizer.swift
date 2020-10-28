@@ -81,9 +81,16 @@ extension AerinCustomPopoverVC: SpeechRecognizerDelegate {
         
         }) { (success) in
             printDebug("animation..success\(Date().timeIntervalSince1970)")
-
-     
-            
         }
+    }
+}
+
+// Feedback
+extension AerinCustomPopoverVC {
+    func giveSuccessHapticFeedback() {
+        //*******************Haptic Feedback code********************
+        let selectionFeedbackGenerator = UINotificationFeedbackGenerator()
+        selectionFeedbackGenerator.notificationOccurred(.success)
+        //*******************Haptic Feedback code********************
     }
 }

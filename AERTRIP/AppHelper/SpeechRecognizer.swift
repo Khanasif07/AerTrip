@@ -166,3 +166,5 @@ extension SpeechRecognizer: SFSpeechRecognizerDelegate {
 //        self.delegate?.recordButtonState(available)
     }
 }
+
+

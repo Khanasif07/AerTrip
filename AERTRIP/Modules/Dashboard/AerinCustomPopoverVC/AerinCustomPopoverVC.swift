@@ -322,6 +322,7 @@ class AerinCustomPopoverVC: BaseVC {
     }
     
     private func toggleWaveAnimationsView(_ hidden: Bool) {
+        giveSuccessHapticFeedback()
         if !hidden {
             waveAnimationContainerView.alpha = 1
             speechRecognizer.start()
