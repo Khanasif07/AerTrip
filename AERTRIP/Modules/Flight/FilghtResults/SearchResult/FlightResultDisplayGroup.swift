@@ -17,6 +17,17 @@ class FlightResultDisplayGroup {
         case layoverDuration
         case departureTime
         case arrivalTime
+        
+        case sortSmart
+        case sortPriceHigh
+        case sortPriceLow
+        case sortDurationShort
+        case sortDurationLong
+        case sortDepartEarlist
+        case sortDepartLatest
+        case sortArrivalEarlist
+        case sortArrivalLatest
+
     }
     internal var initiatedFilters: Set<InitiatedFilters> = []
     

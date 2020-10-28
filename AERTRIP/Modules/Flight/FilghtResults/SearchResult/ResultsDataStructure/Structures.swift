@@ -28,7 +28,7 @@ public struct FiltersWS : Codable {
     var destinationTz :TimeRangeTimeZone
     var ap : [String]
     var cityap : [String : [String]]
-    
+    var aircraft : [String]
     
     
 }

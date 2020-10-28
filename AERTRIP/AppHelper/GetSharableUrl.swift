@@ -428,6 +428,8 @@ class GetSharableUrl
             print("appliedFilters=",appliedFilters)
             print("uiFilters=",uiFilters)
             
+            
+//            quality
             var fqArray = [String]()
             
             if uiFilters.contains(.hideOvernightLayover){
@@ -453,6 +455,66 @@ class GetSharableUrl
                     quality.append("filters[\(i)][fq][\(n)]=\(fqArray[n])&")
                 }
                 filterString.append(quality)
+            }
+            
+            //Aircraft
+            if appliedFilters.contains(.Aircraft)
+            {
+                var aircraft = ""
+                for n in 0..<userSelectedFilters!.aircraft.count{
+                    aircraft.append("filters[\(i)][aircraft][\(n)]=\(userSelectedFilters!.aircraft[n])&")
+                }
+                
+                filterString.append(aircraft)
+            }
+            
+            //Sort
+            if (appliedFilters.contains(.sort))
+            {
+                if appliedSubFilters.contains(.sortSmart)
+                {
+                    filterString.append("sort[]=humane-sorting_asc")
+                }
+
+                if appliedSubFilters.contains(.sortPriceLow)
+                {
+                    filterString.append("sort[]=price-sorting_asc&")
+                }
+                
+                if appliedSubFilters.contains(.sortPriceHigh)
+                {
+                    filterString.append("sort[]=price-sorting_desc&")
+                }
+                
+                if appliedSubFilters.contains(.sortDurationShort)
+                {
+                    filterString.append("sort[]=duration-sorting_asc&")
+                }
+                
+                if appliedSubFilters.contains(.sortDurationLong)
+                {
+                    filterString.append("sort[]=duration-sorting_desc&")
+                }
+                                
+                if appliedSubFilters.contains(.sortDepartEarlist)
+                {
+                    filterString.append("sort[]=depart-sorting_asc&")
+                }
+
+                if appliedSubFilters.contains(.sortDepartLatest)
+                {
+                    filterString.append("sort[]=depart-sorting_asc&")
+                }
+                
+                if appliedSubFilters.contains(.sortArrivalEarlist)
+                {
+                    filterString.append("sort[]=arrive-sorting_asc&")
+                }
+
+                if appliedSubFilters.contains(.sortArrivalLatest)
+                {
+                    filterString.append("sort[]=arrive-sorting_desc&")
+                }
             }
             
             
