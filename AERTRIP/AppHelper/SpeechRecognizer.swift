@@ -35,7 +35,7 @@ class SpeechRecognizer: NSObject {
         }
         if !audioEngine.isRunning {
             startRecording()
-            stopRecordingAfterDelay(delayTime: 2)
+            stopRecordingAfterDelay(delayTime: 2.5)
         }
     }
     

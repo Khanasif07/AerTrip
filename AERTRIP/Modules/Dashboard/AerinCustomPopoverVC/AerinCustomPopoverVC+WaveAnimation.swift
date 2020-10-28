@@ -17,7 +17,7 @@ extension AerinCustomPopoverVC {
             self.firstWaveView?.lightHeartColor = AppColors.themeGreen.withAlphaComponent(0.2)
             self.firstWaveView?.heavyHeartColor = AppColors.themeGreen.withAlphaComponent(0.2)
             self.firstWaveView?.isShowProgressText = false
-            self.firstWaveView?.animationSpeed = 20
+            self.firstWaveView?.animationSpeed = 13
             self.waveAnimationContainerView.addSubview(self.firstWaveView!)
         }
         
@@ -27,6 +27,7 @@ extension AerinCustomPopoverVC {
             self.secondWaveView?.lightHeartColor = AppColors.themeGreen.withAlphaComponent(0.2)
             self.secondWaveView?.heavyHeartColor = .clear//UIColor(r: 0, g: 105, b: 100, alpha: 0.5)
             self.secondWaveView?.isShowProgressText = false
+            self.secondWaveView?.animationSpeed = 9
             self.waveAnimationContainerView.addSubview(self.secondWaveView!)
             self.waveAnimationContainerView.bringSubviewToFront(self.waveAnimationContentView)
         }
