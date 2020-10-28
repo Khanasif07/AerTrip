@@ -161,11 +161,12 @@ class AerinCustomPopoverVC: BaseVC {
     
     @IBAction func hideWaveBtnAction(_ sender: UIButton) {
         speechRecognizer.stop()
-        setupForView = .communicationControls
     }
     
     @IBAction func keyboardBtnAction(_ sender: UIButton) {
+        let micImgFrame = micBtn.convert(micBtn.imageView!.frame, to: view)
         setupForView = .textViewOpen
+        animateMicToMessageView(micImgFrame: micImgFrame)
     }
     
     @IBAction func micBtnAction(_ sender: UIButton) {
@@ -207,8 +208,7 @@ class AerinCustomPopoverVC: BaseVC {
         //MARK:- Here i had used insert row due to some issue with the yIndex of the cell i had used reload
         
         case .record:
-            micBtn.transform = .identity
-            setupForView = .communicationControls
+            setupForView = .waveAnimation
         }
     }
     
@@ -279,16 +279,32 @@ class AerinCustomPopoverVC: BaseVC {
         alignmentViewHeight.constant = -(textViewBackViewBottom.constant) + textViewBackView.height
     }
     
-    private func animateMicToMessageView() {
-        let initialFrame = micBtn.convert(micBtn.imageView!.frame, to: popoverView)
-        let finalFrame = sendBtn.convert(sendBtn.imageView!.frame, to: popoverView)
+    private func animateMicToMessageView(micImgFrame: CGRect) {
+        sendBtn.alpha = 0
+        micBtn.alpha = 0
+        let initialFrame = micImgFrame
+        let finalFrame = sendBtn.convert(sendBtn.imageView!.frame, to: view)
         let animationMicImgView = UIImageView(frame: initialFrame)
+//        animationMicImgView.contentMode = .scaleToFill
         animationMicImgView.image = micBtn.currentImage
-        popoverView.addSubview(animationMicImgView)
-        UIView.animate(withDuration: 0.3, animations: {
-            animationMicImgView.frame = finalFrame
-        }) { _ in
-            animationMicImgView.removeFromSuperview()
+        view.addSubview(animationMicImgView)
+        
+        // Horizontal and size animation
+        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+            animationMicImgView.frame.origin.x = finalFrame.origin.x - 3
+            animationMicImgView.frame.size = CGSize(width: finalFrame.width*1.2, height: finalFrame.height*1.2)
+        }, completion: nil)
+        
+        // Vertical animation with total animation time of 0.3 seconds
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) {
+            animationMicImgView.frame.origin.y = finalFrame.origin.y - 1
+        } completion: { (_) in
+            DispatchQueue.delay(0.1) {
+                animationMicImgView.removeFromSuperview()
+                self.sendBtn.alpha = 1
+            }
+            self.micBtn.alpha = 1
+            
         }
     }
     
@@ -306,6 +322,7 @@ class AerinCustomPopoverVC: BaseVC {
     }
     
     private func toggleWaveAnimationsView(_ hidden: Bool) {
+        giveSuccessHapticFeedback()
         if !hidden {
             waveAnimationContainerView.alpha = 1
             speechRecognizer.start()
