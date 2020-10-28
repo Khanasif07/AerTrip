@@ -59,7 +59,7 @@ class SpeechRecognizer: NSObject {
         recordWorkItem = DispatchWorkItem(block: { [weak self] in
             self?.stop()
         })
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: recordWorkItem!)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: recordWorkItem!)
     }
     
     private func requestTranscribePermissions() {

@@ -286,19 +286,19 @@ class AerinCustomPopoverVC: BaseVC {
         let initialFrame = micImgFrame
         let finalFrame = sendBtn.convert(sendBtn.imageView!.frame, to: view)
         let animationMicImgView = UIImageView(frame: initialFrame)
-        animationMicImgView.contentMode = .scaleToFill
+//        animationMicImgView.contentMode = .scaleToFill
         animationMicImgView.image = micBtn.currentImage
         view.addSubview(animationMicImgView)
         
         // Horizontal and size animation
         UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-            animationMicImgView.frame.origin.x = finalFrame.origin.x
-            animationMicImgView.frame.size = finalFrame.size
+            animationMicImgView.frame.origin.x = finalFrame.origin.x - 3
+            animationMicImgView.frame.size = CGSize(width: finalFrame.width*1.2, height: finalFrame.height*1.2)
         }, completion: nil)
         
         // Vertical animation with total animation time of 0.3 seconds
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) {
-            animationMicImgView.frame.origin.y = finalFrame.origin.y
+            animationMicImgView.frame.origin.y = finalFrame.origin.y - 1
         } completion: { (_) in
             DispatchQueue.delay(0.1) {
                 animationMicImgView.removeFromSuperview()
