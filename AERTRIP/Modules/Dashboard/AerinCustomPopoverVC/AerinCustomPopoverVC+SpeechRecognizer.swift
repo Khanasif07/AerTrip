@@ -17,6 +17,7 @@ extension AerinCustomPopoverVC: SpeechRecognizerDelegate {
     
     func recordButtonState(_ toEnable: Bool) {
         guard let msg = listeningLbl.text else { return }
+        giveSuccessHapticFeedback()
         if msg == LocalizedString.Listening.localized + "..." {
             if self.setupForView != .communicationControls {
                 self.setupForView = .communicationControls
@@ -35,6 +36,7 @@ extension AerinCustomPopoverVC: SpeechRecognizerDelegate {
         scrollTableViewToLast()
         self.hideShowSenderCellContent(ishidden: true)
         self.chatVm.msgToBeSent = msg
+        self.chatVm.lastMessageSentType = .voice
         delay(seconds: 0.27) {
             self.animateCellForSpeechRecognizer(text : msg)
             self.setupForView = .communicationControls

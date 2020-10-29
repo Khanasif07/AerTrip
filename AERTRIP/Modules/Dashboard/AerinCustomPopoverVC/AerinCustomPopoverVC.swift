@@ -156,6 +156,7 @@ class AerinCustomPopoverVC: BaseVC {
     // MARK: Actions
     
     @IBAction func dismissBtnAction(_ sender: UIButton) {
+        messageTextView.resignFirstResponder()
         startDismissAnimation()
     }
     
@@ -170,11 +171,20 @@ class AerinCustomPopoverVC: BaseVC {
     }
     
     @IBAction func micBtnAction(_ sender: UIButton) {
+        if speechRecognizer.authStatus() != .authorized {
+            speechRecognizer.requestTranscribePermissions()
+            return
+        }
         setupForView = .waveAnimation
     }
     
     @IBAction func helpBtnAction(_ sender: UIButton) {
-        
+        if startPoint != .top {
+            startPoint = .top
+            startPresentAnimation()
+        }
+        let vc = ThingsCanBeAskedVC.instantiate(fromAppStoryboard: AppStoryboard.Dashboard)
+        self.present(vc, animated: true, completion: nil)
     }
     
     @IBAction func sendBtnAction(_ sender: UIButton) {
@@ -208,6 +218,10 @@ class AerinCustomPopoverVC: BaseVC {
         //MARK:- Here i had used insert row due to some issue with the yIndex of the cell i had used reload
         
         case .record:
+            if speechRecognizer.authStatus() != .authorized {
+                speechRecognizer.requestTranscribePermissions()
+                return
+            }
             setupForView = .waveAnimation
         }
     }
@@ -322,8 +336,8 @@ class AerinCustomPopoverVC: BaseVC {
     }
     
     private func toggleWaveAnimationsView(_ hidden: Bool) {
-        giveSuccessHapticFeedback()
         if !hidden {
+            giveSuccessHapticFeedback()
             waveAnimationContainerView.alpha = 1
             speechRecognizer.start()
             resetListeningLbl()
@@ -422,7 +436,6 @@ class AerinCustomPopoverVC: BaseVC {
     }
     
     private func setupSubViews() {
-        setupForView = .waveAnimation
         chatTableView.contentInset = UIEdgeInsets(top: topNavView.height, left: 0, bottom: 0, right: 0)
         setupPopoverView()
         addPanGesture()
@@ -433,6 +446,18 @@ class AerinCustomPopoverVC: BaseVC {
         chatVm.getRecentFlights()
         resetFrames()
         addWaveAnimation()
+        
+        if speechRecognizer.authStatus() == .denied {
+            self.waveAnimationContainerView.isHidden = true
+            setupForView = .textView
+            startPoint = .top
+            delay(seconds: 0.3) {
+                self.setupForView = .textViewOpen
+                self.waveAnimationContainerView.isHidden = false
+            }
+        } else {
+            setupForView = .waveAnimation
+        }
     }
     
     private func setWaveContainerView() {

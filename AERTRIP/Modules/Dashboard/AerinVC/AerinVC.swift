@@ -273,7 +273,6 @@ class AerinVC: BaseVC {
         //        }
     }
     
-    
     @IBAction func travelSafetyBtnTapped(_ sender: Any) {
         AppToast.default.showToastMessage(message: LocalizedString.UnderDevelopment.localized)
     }
