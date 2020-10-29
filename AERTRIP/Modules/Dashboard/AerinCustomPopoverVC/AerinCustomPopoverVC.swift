@@ -174,7 +174,12 @@ class AerinCustomPopoverVC: BaseVC {
     }
     
     @IBAction func helpBtnAction(_ sender: UIButton) {
-        
+        if startPoint != .top {
+            startPoint = .top
+            startPresentAnimation()
+        }
+        let vc = ThingsCanBeAskedVC.instantiate(fromAppStoryboard: AppStoryboard.Dashboard)
+        self.present(vc, animated: true, completion: nil)
     }
     
     @IBAction func sendBtnAction(_ sender: UIButton) {

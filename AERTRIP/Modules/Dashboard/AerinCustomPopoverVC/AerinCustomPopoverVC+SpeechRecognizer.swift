@@ -35,6 +35,7 @@ extension AerinCustomPopoverVC: SpeechRecognizerDelegate {
         scrollTableViewToLast()
         self.hideShowSenderCellContent(ishidden: true)
         self.chatVm.msgToBeSent = msg
+        self.chatVm.lastMessageSentType = .voice
         delay(seconds: 0.27) {
             self.animateCellForSpeechRecognizer(text : msg)
             self.setupForView = .communicationControls

@@ -1285,6 +1285,7 @@
 		8463A5782456D4BB00C70D8C /* HotelShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463A5772456D4BB00C70D8C /* HotelShimmerView.swift */; };
 		8464FD62226DDB1B0021AF2B /* MyBookingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464FD61226DDB1B0021AF2B /* MyBookingFooterView.swift */; };
 		8464FD64226DDB230021AF2B /* MyBookingFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8464FD63226DDB230021AF2B /* MyBookingFooterView.xib */; };
+		846640E7254AA17700D87651 /* SpeechSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846640E6254AA17700D87651 /* SpeechSynthesizer.swift */; };
 		846856A822339607001B9E13 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846856A622339607001B9E13 /* ReviewTableViewCell.swift */; };
 		846856A922339607001B9E13 /* ReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846856A722339607001B9E13 /* ReviewTableViewCell.xib */; };
 		846856AC2233A482001B9E13 /* AdvisorRatingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846856AA2233A482001B9E13 /* AdvisorRatingTableViewCell.swift */; };
@@ -3093,6 +3094,7 @@
 		8463A5772456D4BB00C70D8C /* HotelShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelShimmerView.swift; sourceTree = "<group>"; };
 		8464FD61226DDB1B0021AF2B /* MyBookingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookingFooterView.swift; sourceTree = "<group>"; };
 		8464FD63226DDB230021AF2B /* MyBookingFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyBookingFooterView.xib; sourceTree = "<group>"; };
+		846640E6254AA17700D87651 /* SpeechSynthesizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechSynthesizer.swift; sourceTree = "<group>"; };
 		846856A622339607001B9E13 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		846856A722339607001B9E13 /* ReviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewTableViewCell.xib; sourceTree = "<group>"; };
 		846856AA2233A482001B9E13 /* AdvisorRatingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvisorRatingTableViewCell.swift; sourceTree = "<group>"; };
@@ -9143,6 +9145,7 @@
 				845357C9246EDD1E0039FF63 /* BlurView.swift */,
 				84D503762474F6E500527C77 /* AppSocialNetwork.swift */,
 				842BE084249A471F005B604E /* InstagramManager.swift */,
+				846640E6254AA17700D87651 /* SpeechSynthesizer.swift */,
 			);
 			path = AppHelper;
 			sourceTree = "<group>";
@@ -10834,6 +10837,7 @@
 				8446C90222A7D55E0077556B /* HotleCancellationChargesCollectionViewCell.swift in Sources */,
 				843FF681247409E3001F21B1 /* RequestCompletedViewController.m in Sources */,
 				84F983E921B51A070018DFED /* EndPoints.swift in Sources */,
+				846640E7254AA17700D87651 /* SpeechSynthesizer.swift in Sources */,
 				84A03EE6247FA86F00CD3743 /* RangeTableViewCell.swift in Sources */,
 				180632A12251D66E008B1F32 /* PaymentModal.swift in Sources */,
 				843FF51324740231001F21B1 /* InternationalReturnJourneyCell.swift in Sources */,

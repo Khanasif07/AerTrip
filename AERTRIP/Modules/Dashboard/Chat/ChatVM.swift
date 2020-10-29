@@ -39,6 +39,11 @@ class ChatVM {
         case flight = "flight"
     }
     
+    enum LastMessageType {
+        case text
+        case voice
+    }
+    
     var messages : [MessageModel] = []
     var typingCellTimerCounter = 0
     var sessionId : String = ""
@@ -46,6 +51,8 @@ class ChatVM {
     var msgToBeSent : String = ""
     var recentSearchesData : [RecentSearchesModel] = []
     var lastCachedResultModel: MessageModel?
+    
+    var lastMessageSentType: LastMessageType = .text
     
     private var updatedFiltersJSON = JSON()
     private let locationManager = CLLocationManager()
@@ -89,6 +96,7 @@ class ChatVM {
                 self.sessionId = sessionId
                 guard let msg = message else { return }
                 self.messages.append(msg)
+                self.checkToProvideVoiceFeedback(msg)
                 self.updatedFiltersJSON = filters
                 self.delegate?.chatBotSessionCreatedSuccessfully()
                 if !msg.depart.isEmpty && !msg.origin.isEmpty && !msg.destination.isEmpty {
@@ -123,10 +131,12 @@ class ChatVM {
                 self.sessionId = sessionId
                 guard let msg = message else { return }
                 self.messages.append(msg)
+                self.checkToProvideVoiceFeedback(msg)
                 self.updatedFiltersJSON = filters
                 self.delegate?.chatBotCommunicatedSuccessfully()
                 if !msg.depart.isEmpty && !msg.origin.isEmpty && !msg.destination.isEmpty {
                     self.delegate?.moveFurtherWhenallRequiredInformationSubmited(data: msg)
+                    
                 }
             }else{
                 self.delegate?.failedToCommunicateWithChatBot()
@@ -388,5 +398,19 @@ class ChatVM {
         }
         
         SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
+    }
+}
+
+extension ChatVM {
+    
+    func checkToProvideVoiceFeedback(_ model: MessageModel) {
+        if lastMessageSentType == .voice {
+            if model.fullfilment.isEmpty && !model.depart.isEmpty && !model.origin.isEmpty && !model.destination.isEmpty {
+                SpeechSynthesizer.shared.synthesizeToSpeech("Here are your results")
+            } else {
+                SpeechSynthesizer.shared.synthesizeToSpeech(model.fullfilment)
+            }
+        }
+        lastMessageSentType = .text
     }
 }
