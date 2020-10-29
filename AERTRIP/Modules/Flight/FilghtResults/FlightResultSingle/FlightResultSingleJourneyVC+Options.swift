@@ -77,24 +77,36 @@ extension FlightResultSingleJourneyVC {
       
         resultsTableView.tableFooterView?.isHidden = true
       
-        if let ind = indexpath {
+//        if let ind = indexpath {
+//
+//            self.resultsTableView.reloadRow(at: ind, with: UITableView.RowAnimation.none)
+//
+//        }else{
+//            self.resultsTableView.reloadData()
+//        }
 
+        self.resultsTableView.reloadData()
 
-            self.resultsTableView.reloadRow(at: ind, with: UITableView.RowAnimation.none)
-
-
-        }else{
-            self.resultsTableView.reloadData()
-        }
         
 
 //        self.resultsTableView.reloadData()
-//
+        
+    
 //        if let content = self.viewModel.contentOffset {
 //            self.resultsTableView.setContentOffset(content, animated: false)
 //            self.viewModel.contentOffset = nil
 //        }
         
+//        guard let visibleIndexPaths = self.resultsTableView.indexPathsForVisibleRows else { return }
+//
+//        printDebug(self.viewModel.results.allJourneys.count)
+//        printDebug(self.viewModel.results.suggestedJourneyArray.count)
+//
+//        visibleIndexPaths.forEach { (path) in
+//            printDebug(path.row)
+//        }
+//
+//        self.resultsTableView.reloadRows(at: visibleIndexPaths, with: UITableView.RowAnimation.none)
         
         delay(seconds: 0.5) {
 //            self.viewModel.contentOffset = nil
