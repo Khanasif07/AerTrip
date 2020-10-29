@@ -13,8 +13,6 @@ extension FlightResultSingleJourneyVC {
     
     func setPinnedFlightAt(_ flightKey: String , isPinned : Bool, indexpath : IndexPath?) {
         
-        self.viewModel.contentOffset = self.resultsTableView.contentOffset
-
         var curJourneyArr = [JourneyOnewayDisplay]()
         
         if viewModel.resultTableState == .showRegularResults {
@@ -236,15 +234,12 @@ extension FlightResultSingleJourneyVC {
             return UIMenu(title: "", children: [])
         }
         
-        
             let pinTitle : String = markPinned ? "Pin" : "Unpin"
             
             let pin = UIAction(title:  pinTitle , image: UIImage(systemName: "pin" ), identifier: nil) { (action) in
                 guard let flightKey = fk else {
                     return
                 }
-                
-                
                 self.setPinnedFlightAt(flightKey, isPinned: markPinned, indexpath: indexpath)
             }
             let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up"), identifier: nil) {[weak self] (action) in
