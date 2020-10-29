@@ -17,6 +17,7 @@ extension AerinCustomPopoverVC: SpeechRecognizerDelegate {
     
     func recordButtonState(_ toEnable: Bool) {
         guard let msg = listeningLbl.text else { return }
+        giveSuccessHapticFeedback()
         if msg == LocalizedString.Listening.localized + "..." {
             if self.setupForView != .communicationControls {
                 self.setupForView = .communicationControls
