@@ -13,6 +13,16 @@ protocol FlightFiltersToastDelegate: AnyObject {
     func showToastWithMsg(_ msg: String)
 }
 
+protocol  FilterDelegate : AnyObject {
+    
+}
+
+protocol FilterUIDelegate : AnyObject {
+    func selectedIndexChanged(index : UInt)
+    func removedFilterUIFromParent()
+}
+
+
 class FlightFilterBaseVC: UIViewController {
 
     // MARK: Properties
@@ -47,23 +57,20 @@ class FlightFilterBaseVC: UIViewController {
     
        var updatedAircraftFilter : AircraftFilter = AircraftFilter() {
             didSet {
-               let aircraftVc = Filters.Aircraft.viewController
                 
-//                if let airCraftVC = vc as? AircraftFilterViewController {
-//                    airCraftVC.loadViewIfNeeded()
-//                    printDebug(airCraftVC.aircraftFilter.allAircrafts)
-//                    airCraftVC.assignC()
-//                    airCraftVC.updateAircraftList(filter: updateAircraftFilter)
-//                }
-                
-                if let vc = aircraftVc as? AircraftFilterViewController {
-                    self.setAircraftFilterVC(vc)
+                DispatchQueue.main.async {
+                                        
+                    let aircraftVc = self.allChildVCs.filter { $0.className == AircraftFilterViewController.className }.first
+                    
+                    if let vc = aircraftVc as? AircraftFilterViewController {
+                        self.setAircraftFilterVC(vc )
+                     }
+                    
                 }
-                
-                
+
             }
+        
         }
-    
     
 //    var dynamicFilter = DynamicFilters()
     
@@ -227,6 +234,7 @@ class FlightFilterBaseVC: UIViewController {
         menuItems[Filters.Airport.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Airport) }
         menuItems[Filters.Quality.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Quality) }
         menuItems[Filters.Price.rawValue - 1].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Price) }
+        menuItems[Filters.Aircraft.rawValue - 1].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Aircraft) }
         parchmentView?.reloadMenu()
     }
 }
@@ -301,8 +309,7 @@ extension FlightFilterBaseVC {
         }
     }
     
-    func updateInputFilters( flightResultArray : [FlightsResults])
-    {
+    func updateInputFilters( flightResultArray : [FlightsResults]) {
         self.flightResultArray = flightResultArray
         guard let filters = inputFilters else { return }
         for viewController in allChildVCs /*self.children*/ {
@@ -361,8 +368,7 @@ extension FlightFilterBaseVC {
     }
     
     // MARK:- Stops
-    func setStopsVC(_ stopsViewController  : FlightStopsFilterViewController , inputFilters : [FiltersWS])
-    {
+    func setStopsVC(_ stopsViewController  : FlightStopsFilterViewController , inputFilters : [FiltersWS]) {
         var allLegsStops = [StopsFilter]()
         for fliter in inputFilters
         {
@@ -1487,6 +1493,7 @@ extension FlightFilterBaseVC {
             let aircraftVc = aircraftViewController as AircraftFilterViewController
             aircraftVc.loadViewIfNeeded()
             aircraftVc.delegate = self.delegate as? AircraftFilterDelegate
+            printDebug("updatedAircraftFilter...\(self.updatedAircraftFilter.allAircrafts)")
             aircraftVc.updateAircraftList(filter: self.updatedAircraftFilter)
         }
       

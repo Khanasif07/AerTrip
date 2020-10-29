@@ -48,7 +48,7 @@ class CreateNewTripVC: BaseVC {
         
        // popUpContainerView.roundTopCorners(cornerRadius: 10.0)
         inputContainerView.cornerradius = 10.0
-        inputContainerShadowView.addShadow(cornerRadius: inputContainerView.cornerradius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+        inputContainerShadowView.addShadow(cornerRadius: inputContainerView.cornerradius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
         inputContainerShadowView.clipsToBounds = false
     }
     override func viewWillAppear(_ animated: Bool) {

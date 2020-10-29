@@ -13,6 +13,8 @@ extension FlightResultSingleJourneyVC {
     
     func setPinnedFlightAt(_ flightKey: String , isPinned : Bool, indexpath : IndexPath?) {
         
+        self.viewModel.contentOffset = self.resultsTableView.contentOffset
+
         var curJourneyArr = [JourneyOnewayDisplay]()
         
         if viewModel.resultTableState == .showRegularResults {
@@ -75,21 +77,51 @@ extension FlightResultSingleJourneyVC {
       
         resultsTableView.tableFooterView?.isHidden = true
       
-        if let ind = indexpath {
-            self.resultsTableView.reloadRow(at: ind, with: UITableView.RowAnimation.none)
-        }else{
-            self.resultsTableView.reloadData()
-        }
-        
-//        self.resultsTableView.reloadData()
+//        if let ind = indexpath {
+//
+//            self.resultsTableView.reloadRow(at: ind, with: UITableView.RowAnimation.none)
+//
+//        }else{
+//            self.resultsTableView.reloadData()
+//        }
+
+        self.resultsTableView.reloadData()
 
         
+
+//        self.resultsTableView.reloadData()
+        
+    
+//        if let content = self.viewModel.contentOffset {
+//            self.resultsTableView.setContentOffset(content, animated: false)
+//            self.viewModel.contentOffset = nil
+//        }
+        
+//        guard let visibleIndexPaths = self.resultsTableView.indexPathsForVisibleRows else { return }
+//
+//        printDebug(self.viewModel.results.allJourneys.count)
+//        printDebug(self.viewModel.results.suggestedJourneyArray.count)
+//
+//        visibleIndexPaths.forEach { (path) in
+//            printDebug(path.row)
+//        }
+//
+//        self.resultsTableView.reloadRows(at: visibleIndexPaths, with: UITableView.RowAnimation.none)
+        
         delay(seconds: 0.5) {
+//            self.viewModel.contentOffset = nil
 
             self.resultsTableView.tableFooterView?.isHidden = false
         }
         showFooterView()
     }
+    
+}
+
+
+extension FlightResultSingleJourneyVC {
+    
+
     
 }
 
@@ -204,12 +236,15 @@ extension FlightResultSingleJourneyVC {
             return UIMenu(title: "", children: [])
         }
         
+        
             let pinTitle : String = markPinned ? "Pin" : "Unpin"
             
             let pin = UIAction(title:  pinTitle , image: UIImage(systemName: "pin" ), identifier: nil) { (action) in
                 guard let flightKey = fk else {
                     return
                 }
+                
+                
                 self.setPinnedFlightAt(flightKey, isPinned: markPinned, indexpath: indexpath)
             }
             let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up"), identifier: nil) {[weak self] (action) in
@@ -266,7 +301,7 @@ extension FlightResultSingleJourneyVC {
         
         let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM?.flightLegs ?? [])
         
-        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journey, valString: "", trip_type: "single",filterString: filterStr)
+        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journey, valString: "", trip_type: "single",filterString: filterStr,searchParam: flightSearchResultVM?.flightSearchParametersFromDeepLink)
         
     }
 }

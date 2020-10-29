@@ -35,13 +35,14 @@ class InternationalReturnTableViewCell: UITableViewCell {
     //MARK:- Setup Methods
     fileprivate func setupBaseView() {
         backgroundColor = .clear // very important
-        layer.masksToBounds = false
-        layer.shadowOpacity = 0.5
-        layer.shadowRadius = 4
-        layer.shadowOffset = CGSize(width: 0, height: 0)
-        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
-        self.baseView.layer.cornerRadius = 10
+//        layer.masksToBounds = false
+//        layer.shadowOpacity = 0.5
+//        layer.shadowRadius = 4
+//        layer.shadowOffset = CGSize(width: 0, height: 0)
+//        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
+//        self.baseView.layer.cornerRadius = 10
         //        shadowBackView.addGrayShadow(ofColor: UIColor.black.withAlphaComponent(0.8), radius: 8, opacity: 0.7)
+        self.baseView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
     }
     
     override func awakeFromNib() {
@@ -247,8 +248,7 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
             else {
                 return 1
             }
-        }
-        else {
+        } else {
             return smartIconsArray?.count ?? 0
         }
     }
@@ -279,18 +279,23 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = smartIconCollectionView.dequeueReusableCell(withReuseIdentifier: "SmartIconCell", for: indexPath) as! SmartIconCell
-        cell.superScriptWidth.constant = 10
+
         if indexPath.section == 0 {
+        
             cell.imageView.image = UIImage(named: "checkingBaggageKg")
             cell.superScript.attributedText = baggageSuperScript
+            cell.superScriptWidth.constant = 14
+                
         }else {
+            
             guard let imageName = smartIconsArray?[indexPath.row] else { return UICollectionViewCell() }
+         
             if  imageName == "fsr" {
                 let color = UIColor(displayP3Red:1.0 , green: ( 88.0/255.0), blue:( 77.0/255.0) , alpha: 1.0)
                 let seats = currentJourney.seats
                 let tempImage = textToImage(drawText: seats, diameter:20.0 , color: color)
                 cell.imageView.image = tempImage
-            }else{
+            } else {
                 cell.imageView.image = UIImage(named: imageName)
             }
             
@@ -302,7 +307,9 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
                 cell.superScript.text = ""
             }
         }
+        
         return cell
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

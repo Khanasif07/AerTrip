@@ -120,11 +120,12 @@ extension IntMCAndReturnVC {
     func createRepeatedFooterBaseView() -> UIView {
         let baseView = UIView(frame: CGRect(x: 0 , y: 0, width: resultsTableView.frame.width, height: 44))
         baseView.backgroundColor = .white
-        baseView.layer.cornerRadius = 5.0
-        baseView.layer.shadowColor = UIColor.black.cgColor
-        baseView.layer.shadowOpacity = 0.1
-        baseView.layer.shadowRadius = 8.0
-        baseView.layer.shadowOffset = CGSize(width: 0, height: 2)
+//        baseView.layer.cornerRadius = 5.0
+//        baseView.layer.shadowColor = UIColor.black.cgColor
+//        baseView.layer.shadowOpacity = 0.1
+//        baseView.layer.shadowRadius = 8.0
+//        baseView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        baseView.addShadow(cornerRadius: 5.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize(width: 0, height: 2), opacity: 0.1, shadowRadius: 8.0)
         return baseView
     }
     

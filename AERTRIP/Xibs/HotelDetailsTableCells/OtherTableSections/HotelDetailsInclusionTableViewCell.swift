@@ -42,7 +42,7 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
     private func configureUI() {
        // self.inclusionLabel.isHidden = true
         self.dividerView.isHidden = true
-        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
         //Color
         self.backgroundColor = .clear//AppColors.screensBackground.color
         //self.inclusionLabel.textColor = AppColors.themeGray40

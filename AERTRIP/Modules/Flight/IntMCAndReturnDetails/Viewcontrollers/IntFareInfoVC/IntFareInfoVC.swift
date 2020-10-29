@@ -21,7 +21,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     //MARK:- Variable Declaration
     weak var delegate : flightDetailsSmartIconsDelegate?
-    var fareRulesDelegate : getFareRulesDelegate?
+    weak var fareRulesDelegate : getFareRulesDelegate?
 
     var journey = [IntJourney]()
     var flights : [IntFlightDetail]?

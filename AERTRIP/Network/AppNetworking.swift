@@ -238,6 +238,7 @@ enum AppNetworking {
             let base64LoginString = data.base64EncodedString()
             header["content-type"] = "application/x-www-form-urlencoded"
             header["Authorization"] = "Basic \(base64LoginString)"
+          
             if let accessToken = UserInfo.loggedInUser?.accessToken, !accessToken.isEmpty {
                 
                 header["Access-Token"] = accessToken
@@ -283,7 +284,7 @@ enum AppNetworking {
         self.addCookies(forUrl: request.request?.url)
         
         let requestDate = Date.getCurrentDate()
-        
+
         request.responseData { (response:DataResponse) in
                             
             

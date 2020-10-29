@@ -56,7 +56,8 @@ class AircraftFilterViewController: UIViewController {
         
         self.aircraftFilter = filter
         
-        printDebug("c is...\(c)")
+        printDebug("aircraftFilter in vc...\(self.aircraftFilter.allAircrafts)")
+
         
         aircraftTableView.reloadData()
                 
@@ -131,11 +132,13 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
                     } else {
                         
                         cell.radioButton.setImage(#imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
-
+                        
                     }
                 
             }
 
+            cell.radioButton.isUserInteractionEnabled = false
+            
             return cell
         }
 

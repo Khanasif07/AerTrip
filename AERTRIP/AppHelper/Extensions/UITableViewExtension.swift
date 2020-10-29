@@ -39,6 +39,7 @@ extension UITableView {
         }
         return false
     }
+    
     func isSectionPresentAt(section: Int) -> Bool {
         if section < self.numberOfSections {
             return true

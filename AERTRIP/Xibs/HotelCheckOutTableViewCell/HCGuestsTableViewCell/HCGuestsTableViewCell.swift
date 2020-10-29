@@ -17,7 +17,7 @@ class HCGuestsTableViewCell: UITableViewCell {
     //Mark:- Variables
     //================
     internal var travellers = [TravellersList]()
-    internal var delegate: HCGuestsTableViewCellDelegate?
+    internal weak var delegate: HCGuestsTableViewCellDelegate?
     
     //Mark:- IBOutlets
     //================

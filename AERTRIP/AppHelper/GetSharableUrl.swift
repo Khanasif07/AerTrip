@@ -19,12 +19,15 @@ class GetSharableUrl
     weak var delegate : GetSharableUrlDelegate?
     var semaphore = DispatchSemaphore (value: 0)
     var tripType = ""
+    var searchParam = JSONDictionary()
     
-    func getUrl(adult:String, child:String, infant:String,isDomestic:Bool, isInternational:Bool, journeyArray:[Journey], valString:String,trip_type:String, filterString:String) {
+    func getUrl(adult:String, child:String, infant:String,isDomestic:Bool, isInternational:Bool, journeyArray:[Journey], valString:String,trip_type:String, filterString:String,searchParam:JSONDictionary?)
+    {
+        self.searchParam = searchParam ?? [:]
         tripType = trip_type
         var valueString = ""
         if !isInternational{
-            let cc = journeyArray.first!.cc
+            let cc = journeyArray.first?.cc ?? ""
             let origin = getOrigin(journey: journeyArray)
             let destination = getDestination(journey: journeyArray)
             let departureDate = getDepartureDate(journey: journeyArray)
@@ -135,7 +138,6 @@ class GetSharableUrl
         var valueString = ""
         if !isInternational{
             let cc = (journeyArray as! [Journey]).first!.cc
-            //            let trip_type = getTripType(journey: (journeyArray as! [Journey]))
             let origin = getOrigin(journey: (journeyArray as! [Journey]))
             let destination = getDestination(journey: (journeyArray as! [Journey]))
             let departureDate = getDepartureDate(journey: (journeyArray as! [Journey]))
@@ -216,7 +218,6 @@ class GetSharableUrl
         
         var request = URLRequest(url: URL(string: tempelteUrl)!,timeoutInterval: Double.infinity)
         request.addValue(apiKey, forHTTPHeaderField: "api-key")
-//        request.addValue("AT_R_STAGE_SESSID=2vrftci1u2q2arn56d8fnap92c", forHTTPHeaderField: "Cookie")
         request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         
         var cookies = ""
@@ -239,7 +240,7 @@ class GetSharableUrl
         
         print("postData=", String(data: postData!, encoding: .utf8)!)
 
-        print("request= ",request.allHTTPHeaderFields)
+//        print("request= ",request.allHTTPHeaderFields)
         
         let requestDate = Date.getCurrentDate()
         var textLog = TextLog()
@@ -296,24 +297,40 @@ class GetSharableUrl
         if tripType == "single"{
             returnDate.append("return=&")
         }else if tripType == "return"{
-            if journey.count == 2{
-                inputFormatter.dateFormat = "yyyy-MM-dd"
-                showDate = inputFormatter.date(from: journey[1].dd)!
-                inputFormatter.dateFormat = "dd-MM-yyyy"
-                let newDd = inputFormatter.string(from: showDate)
-                returnDate.append("return=\(newDd)&")
-            }else{
-                returnDate.append("return=&")
-            }
+//            if journey.count == 2{
+//                inputFormatter.dateFormat = "yyyy-MM-dd"
+//                showDate = inputFormatter.date(from: journey[1].dd)!
+//                inputFormatter.dateFormat = "dd-MM-yyyy"
+//                let newDd = inputFormatter.string(from: showDate)
+//                returnDate.append("return=\(newDd)&")
+//            }else{
+                if self.searchParam.count > 0{
+                    returnDate.append("return=\(searchParam["return"] ?? "")&")
+                }else{
+                    returnDate.append("return=&")
+                }
+//                returnDate.append("return=\(returnDateForJourney)&")
+//            }
         }else{
+            
             for i in 0..<journey.count{
-                
+
                 inputFormatter.dateFormat = "yyyy-MM-dd"
                 showDate = inputFormatter.date(from: journey[i].dd)!
                 inputFormatter.dateFormat = "dd-MM-yyyy"
                 let newDd = inputFormatter.string(from: showDate)
                 returnDate.append("return[\(i)]=\(newDd)&")
             }
+            
+            
+//            let origin = searchParam.filter { $0.key.contains("origin") }
+//
+//            for i in 0..<origin.count{
+//                returnDate.append("return[\(i)]=\(searchParam["depart[\(i)]"] ?? "")&")
+//            }
+            
+//            returnDate.append("return=&")
+            
         }
         
         
@@ -327,18 +344,16 @@ class GetSharableUrl
         var showDate = Date()
         
         if tripType == "single" || tripType == "return"{
-            inputFormatter.dateFormat = "yyyy-MM-dd"
-            showDate = inputFormatter.date(from: journey[0].dd)!//ad
-            inputFormatter.dateFormat = "dd-MM-yyyy"
-            let newAd = inputFormatter.string(from: showDate)
-            departureDate.append("depart=\(newAd)&")
+            if self.searchParam.count > 0{
+                departureDate.append("depart=\(searchParam["depart"] ?? "")&")
+            }else{
+                departureDate.append("depart=&")
+            }
         }else{
-            for i in 0..<journey.count{
-                inputFormatter.dateFormat = "yyyy-MM-dd"
-                showDate = inputFormatter.date(from: journey[i].ad)!
-                inputFormatter.dateFormat = "dd-MM-yyyy"
-                let newAd = inputFormatter.string(from: showDate)
-                departureDate.append("depart[\(i)]=\(newAd)&")
+            let depart = searchParam.filter { $0.key.contains("depart") }
+
+            for i in 0..<depart.count{
+                departureDate.append("depart[\(i)]=\(searchParam["depart[\(i)]"] ?? "")&")
             }
         }
         
@@ -351,8 +366,10 @@ class GetSharableUrl
         if tripType == "single" || tripType == "return"{
             origin.append("origin=\(journey[0].ap[0])&")
         }else{
-            for i in 0..<journey.count{
-                origin.append("origin[\(i)]=\(journey[i].ap[0])&")
+            let originCount = searchParam.filter { $0.key.contains("origin") }
+
+            for i in 0..<originCount.count{
+                origin.append("origin[\(i)]=\(searchParam["origin[\(i)]"] ?? "")&")
             }
         }
         
@@ -364,8 +381,10 @@ class GetSharableUrl
         if tripType == "single" || tripType == "return"{
             destination.append("destination=\(journey[0].ap[1])&")
         }else{
-            for i in 0..<journey.count{
-                destination.append("destination[\(i)]=\(journey[i].ap[1])&")
+            let destinations = searchParam.filter { $0.key.contains("destination") }
+
+            for i in 0..<destinations.count{
+                destination.append("destination[\(i)]=\(searchParam["destination[\(i)]"] ?? "")&")
             }
         }
         
@@ -428,7 +447,6 @@ class GetSharableUrl
                 }
                 filterString.append(quality)
             }
-
             
             
             //     Times
@@ -616,6 +634,9 @@ class GetSharableUrl
                 
                 filterString.append(stops)
             }
+        }
+        if filterString == "&" || filterString == "&&"{
+            filterString = ""
         }
         
         return filterString
