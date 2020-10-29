@@ -873,11 +873,8 @@
 		843FF49B24740231001F21B1 /* FlightTimesFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3312474022F001F21B1 /* FlightTimesFilter.swift */; };
 		843FF49C24740231001F21B1 /* FlightFilterTimesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3322474022F001F21B1 /* FlightFilterTimesViewController.swift */; };
 		843FF49D24740231001F21B1 /* FlightFilterTimesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF3332474022F001F21B1 /* FlightFilterTimesViewController.xib */; };
-		843FF49E24740231001F21B1 /* FlightFilterBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF3352474022F001F21B1 /* FlightFilterBaseViewController.xib */; };
 		843FF4A024740231001F21B1 /* RadioButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF3382474022F001F21B1 /* RadioButtonTableViewCell.xib */; };
 		843FF4A124740231001F21B1 /* RadioButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3392474022F001F21B1 /* RadioButtonTableViewCell.swift */; };
-		843FF4A224740231001F21B1 /* IntMCAndReturnFlightFiltersBaseVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF33B2474022F001F21B1 /* IntMCAndReturnFlightFiltersBaseVC.xib */; };
-		843FF4A324740231001F21B1 /* IntMCAndReturnFlightFiltersBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF33C2474022F001F21B1 /* IntMCAndReturnFlightFiltersBaseVC.swift */; };
 		843FF4A424740231001F21B1 /* PriceFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF33E2474022F001F21B1 /* PriceFilterViewController.swift */; };
 		843FF4A524740231001F21B1 /* PriceFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF33F2474022F001F21B1 /* PriceFilterViewController.xib */; };
 		843FF4A624740231001F21B1 /* FlightStopsFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF3412474022F001F21B1 /* FlightStopsFilterViewController.xib */; };
@@ -11243,7 +11240,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 183;
+				CURRENT_PROJECT_VERSION = 184;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11453,7 +11450,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 183;
+				CURRENT_PROJECT_VERSION = 184;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
