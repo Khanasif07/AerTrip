@@ -75,12 +75,20 @@ extension FlightResultSingleJourneyVC {
       
         resultsTableView.tableFooterView?.isHidden = true
       
-        if let ind = indexpath {
-            self.resultsTableView.reloadRow(at: ind, with: UITableView.RowAnimation.none)
-        }else{
-            self.resultsTableView.reloadData()
+        UIView.performWithoutAnimation {
+            if let visibleIndexPath = self.resultsTableView.indexPathsForVisibleRows{
+                self.resultsTableView.reloadRows(at: visibleIndexPath, with: .none)
+            }else{
+                self.resultsTableView.reloadData()
+            }
         }
         
+//        if let ind = indexpath {
+//            self.resultsTableView.reloadRow(at: ind, with: UITableView.RowAnimation.none)
+//        }else{
+//            self.resultsTableView.reloadData()
+//        }
+//
 //        self.resultsTableView.reloadData()
 
         
