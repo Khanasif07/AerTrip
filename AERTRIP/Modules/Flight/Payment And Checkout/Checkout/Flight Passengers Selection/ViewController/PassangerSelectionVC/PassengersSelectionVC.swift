@@ -19,6 +19,7 @@ class PassengersSelectionVC: BaseVC {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var passengerTableview: UITableView!
     @IBOutlet weak var tableViewBottomConsctraint: NSLayoutConstraint!
+    @IBOutlet weak var addContactIndicator: UIActivityIndicatorView!
     
     var viewModel = PassengerSelectionVM()
     weak var intFareBreakupVC:IntFareBreakupVC?
@@ -38,6 +39,7 @@ class PassengersSelectionVC: BaseVC {
         self.passengerTableview.dataSource = self
         self.progressView.progressTintColor = UIColor.AertripColor
         self.progressView.trackTintColor = .clear
+        self.manageLoader()
         self.passengerTableview.contentInset = UIEdgeInsets(top: (backNavigationView.height - 0.5), left: 0, bottom: 0, right: 0)
 
     }
@@ -126,6 +128,26 @@ class PassengersSelectionVC: BaseVC {
         }
     }
     
+    private func manageLoader() {
+        self.addContactIndicator.style = .medium
+        self.addContactIndicator.tintColor = AppColors.themeGreen
+        self.addContactIndicator.color = AppColors.themeGreen
+        self.addContactIndicator.startAnimating()
+        self.hideShowLoader(isHidden:true)
+    }
+    
+    func hideShowLoader(isHidden:Bool){
+        DispatchQueue.main.async {
+            if isHidden{
+                self.addContactIndicator.stopAnimating()
+                
+            }else{
+                self.addContactIndicator.startAnimating()
+            }
+            self.addButton.isHidden = !isHidden
+        }
+    }
+    
     @IBAction func tapBackButton(_ sender: UIButton) {
         if #available(iOS 13, *) {
             self.statusBarStyle = .lightContent
@@ -137,7 +159,11 @@ class PassengersSelectionVC: BaseVC {
     }
     
     @IBAction func tapAddButton(_ sender: UIButton) {
+        self.hideShowLoader(isHidden: false)
         AppFlowManager.default.presentHCSelectGuestsVC(delegate: self, productType: .flight)
+        delay(seconds: 1.2){[weak self] in
+            self?.hideShowLoader(isHidden: true)
+        }
     }
 }
 
