@@ -19,6 +19,7 @@ class IntMCAndReturnVM {
     
     var results : InternationalJourneyResultsArray!
     var isConditionReverced = false
+    var appliedFilterLegIndex = -1
     var prevLegIndex = 0
     var sortOrder = Sort.Smart
     let dateFormatter = DateFormatter()
@@ -147,7 +148,9 @@ class IntMCAndReturnVM {
 
     }
     
-    func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int){
+    func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int)
+    {
+        appliedFilterLegIndex = legIndex
      
         var sortArray = self.results.suggestedJourneyArray
             

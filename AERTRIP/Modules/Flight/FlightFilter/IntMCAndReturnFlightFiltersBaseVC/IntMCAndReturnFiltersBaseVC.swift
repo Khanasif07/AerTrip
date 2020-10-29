@@ -22,6 +22,8 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     var appliedAndUIFilters: AppliedAndUIFilters?
     var userSelectedFilters = [IntMultiCityAndReturnWSResponse.Results.F]()
     
+    var flightSearchParameters = JSONDictionary()
+
     var showDepartReturnSame = false {
         didSet {
             let viewCon = Filters.Airport.viewController
@@ -356,6 +358,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     //MARK:- Sort
     func setSortVC(_ sortViewController : IntReturnAndMCSortVC, inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]) {
         
+        sortViewController.flightSearchParameters = flightSearchParameters
         sortViewController.delegate = delegate as? SortFilterDelegate
         let airportLegFilters = getAirportLegFilters(inputFilters: inputFilters)
         sortViewController.airportsArr = airportLegFilters
@@ -1628,6 +1631,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         DispatchQueue.main.async {
             let aircraftVc = aircraftViewController as AircraftFilterViewController
             aircraftVc.loadViewIfNeeded()
+            aircraftVc.flightSearchParameters = self.flightSearchParameters
             aircraftVc.delegate = self.delegate as? AircraftFilterDelegate
             aircraftVc.updateAircraftList(filter: self.updatedAircraftFilter)
         }

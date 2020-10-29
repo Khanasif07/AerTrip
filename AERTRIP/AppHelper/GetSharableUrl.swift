@@ -26,6 +26,9 @@ class GetSharableUrl
         self.searchParam = searchParam ?? [:]
         tripType = trip_type
         var valueString = ""
+        
+        print("valString=",valString)
+        
         if !isInternational{
             let cc = journeyArray.first?.cc ?? ""
             let origin = getOrigin(journey: journeyArray)
@@ -86,27 +89,27 @@ class GetSharableUrl
         request.addValue(apiKey, forHTTPHeaderField: "api-key")
         request.addValue("AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4", forHTTPHeaderField: "Cookie")
         request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-
-//        if let accessToken = UserInfo.loggedInUser?.accessToken, !accessToken.isEmpty
-//        {
-//            request.addValue(accessToken, forHTTPHeaderField: "Access-Token")
-//        }else {
-//            request.addValue(apiKey, forHTTPHeaderField: "Api-Key")
-//        }
         
-//        var cookies = ""
-//        if let allCookies = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie]
-//        {
-//            print("allCookies")
-//            if allCookies.count > 0{
-//                let name = allCookies.first?.name ?? ""
-//                let value = allCookies.first?.value ?? ""
-//                cookies = name + "=" + value
-//            }
-//        }
-//
-//        print("cookies= ",cookies)
-//        request.addValue(cookies, forHTTPHeaderField: "Cookie")
+        //        if let accessToken = UserInfo.loggedInUser?.accessToken, !accessToken.isEmpty
+        //        {
+        //            request.addValue(accessToken, forHTTPHeaderField: "Access-Token")
+        //        }else {
+        //            request.addValue(apiKey, forHTTPHeaderField: "Api-Key")
+        //        }
+        
+        //        var cookies = ""
+        //        if let allCookies = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie]
+        //        {
+        //            print("allCookies")
+        //            if allCookies.count > 0{
+        //                let name = allCookies.first?.name ?? ""
+        //                let value = allCookies.first?.value ?? ""
+        //                cookies = name + "=" + value
+        //            }
+        //        }
+        //
+        //        print("cookies= ",cookies)
+        //        request.addValue(cookies, forHTTPHeaderField: "Cookie")
         
         request.httpMethod = "POST"
         request.httpBody = postData
@@ -345,9 +348,7 @@ class GetSharableUrl
     
     func getDepartureDate(journey:[Journey])->String{
         var departureDate = ""
-        let inputFormatter = DateFormatter()
-        var showDate = Date()
-        
+
         if tripType == "single" || tripType == "return"{
             if self.searchParam.count > 0{
                 departureDate.append("depart=\(searchParam["depart"] ?? "")&")
@@ -411,9 +412,9 @@ class GetSharableUrl
     }
     
     
-//    MARK:- get user applied filters for domestic journey
+    //    MARK:- get user applied filters for domestic journey
     
-    func getAppliedFiltersForSharingDomesticJourney(legs:[FlightResultDisplayGroup])->String
+    func getAppliedFiltersForSharingDomesticJourney(legs:[FlightResultDisplayGroup], isConditionReverced:Bool)->String
     {
         var filterString = ""
         
@@ -424,12 +425,13 @@ class GetSharableUrl
             let appliedFilters = legs[i].appliedFilters
             let appliedSubFilters = legs[i].appliedSubFilters
             let uiFilters = legs[i].UIFilters
+            let dynamicFilters = legs[i].dynamicFilters
             
             print("appliedFilters=",appliedFilters)
             print("uiFilters=",uiFilters)
             
             
-//            quality
+            //            quality
             var fqArray = [String]()
             
             if uiFilters.contains(.hideOvernightLayover){
@@ -457,67 +459,51 @@ class GetSharableUrl
                 filterString.append(quality)
             }
             
-            //DynamicFilters-aircraft
             //Aircraft
-            if appliedFilters.contains(.Aircraft)
-            {
+            if dynamicFilters.aircraft.selectedAircrafts.count > 0{
                 var aircraft = ""
-                for n in 0..<userSelectedFilters!.aircraft.count{
-                    aircraft.append("filters[\(i)][aircraft][\(n)]=\(userSelectedFilters!.aircraft[n])&")
+                for n in 0..<dynamicFilters.aircraft.selectedAircrafts.count{
+                    aircraft.append("filters[\(i)][aircraft][\(n)]=\(dynamicFilters.aircraft.selectedAircrafts[n])&")
                 }
                 
                 filterString.append(aircraft)
             }
             
-            
             //isConditionReverced - true= desc & false = asc(lowto high/earlist first)
             //Sort
-            if (appliedFilters.contains(.sort))
-            {
-//                appliedFilters.contains(.)
-                if appliedSubFilters.contains(.sortSmart)
-                {
-                    filterString.append("sort[]=humane-sorting_asc")
-                }
-
-                if appliedSubFilters.contains(.sortPriceLow)
-                {
-                    filterString.append("sort[0][]=price-sorting_asc&")
-                }
-                
-                if appliedSubFilters.contains(.sortPriceHigh)
-                {
+            if legs[i].sortOrder == .Smart{
+                filterString.append("sort[]=humane-sorting_asc&")
+            }
+            
+            if legs[i].sortOrder == .Price{
+                if isConditionReverced{
                     filterString.append("sort[]=price-sorting_desc&")
+                }else{
+                    filterString.append("sort[]=price-sorting_asc&")
                 }
-                
-                if appliedSubFilters.contains(.sortDurationShort)
-                {
+            }
+            
+            if legs[i].sortOrder == .Duration{
+                if isConditionReverced{
+                    filterString.append("sort[]=duration-sorting_desc&")
+                }else{
                     filterString.append("sort[]=duration-sorting_asc&")
                 }
-                
-                if appliedSubFilters.contains(.sortDurationLong)
-                {
-                    filterString.append("sort[]=duration-sorting_desc&")
-                }
-                                
-                if appliedSubFilters.contains(.sortDepartEarlist)
-                {
+            }
+            
+            if legs[i].sortOrder == .Depart{
+                if isConditionReverced{
+                    filterString.append("sort[]=depart-sorting_desc&")
+                }else{
                     filterString.append("sort[]=depart-sorting_asc&")
                 }
-
-                if appliedSubFilters.contains(.sortDepartLatest)
-                {
-                    filterString.append("sort[]=depart-sorting_asc&")
-                }
-                
-                if appliedSubFilters.contains(.sortArrivalEarlist)
-                {
-                    filterString.append("sort[]=arrive-sorting_asc&")
-                }
-
-                if appliedSubFilters.contains(.sortArrivalLatest)
-                {
+            }
+            
+            if legs[i].sortOrder == .Arrival{
+                if isConditionReverced{
                     filterString.append("sort[]=arrive-sorting_desc&")
+                }else{
+                    filterString.append("sort[]=arrive-sorting_asc&")
                 }
             }
             
@@ -715,9 +701,9 @@ class GetSharableUrl
         return filterString
     }
     
-//    MARK:- get user applied filters for international journey
+    //    MARK:- get user applied filters for international journey
     
-    func getAppliedFiltersForSharingIntJourney(legs:[IntFlightResultDisplayGroup])->String
+    func getAppliedFiltersForSharingIntJourney(legs:[IntFlightResultDisplayGroup],isConditionReverced:Bool,appliedFilterLegIndex:Int)->String
     {
         var filterString = ""
         
@@ -726,6 +712,10 @@ class GetSharableUrl
             let appliedFilters = legs[0].appliedFilters
             let appliedSubFilters = legs[0].appliedSubFilters
             let uiFilters = legs[0].UIFilters
+            let dynamicFilters = legs[0].dynamicFilters
+            let numberOfLegs = legs[0].numberOfLegs
+            
+            print("numberOfLegs=",numberOfLegs)
             
             for i in 0..<userSelectedFilters.count
             {
@@ -939,6 +929,73 @@ class GetSharableUrl
                     
                     filterString.append(stops)
                 }
+            }
+            
+            //Aircraft
+            if dynamicFilters.aircraft.selectedAircrafts.count > 0{
+                var aircraft = ""
+                for n in 0..<dynamicFilters.aircraft.selectedAircrafts.count{
+                    aircraft.append("filters[0][aircraft][\(n)]=\(dynamicFilters.aircraft.selectedAircrafts[n])&")
+                }
+                
+                filterString.append(aircraft)
+            }
+            
+//            Example - Applied departure sort to DXB i.e. for 2nd leg so sort will be share as sort[]=depart-sorting_asc & for other 2 it will be empty as sort[]=
+//            https://beta.aertrip.com/flights?trip_type=multi&adult=1&child=0&infant=0&origin[]=BOM&origin[]=DXB&origin[]=DEL&destination[]=DXB&destination[]=DEL&destination[]=BOM&depart[]=04-11-2020&depart[]=05-11-2020&depart[]=06-11-2020&return=04-11-2020&cabinclass=Economy&pType=flight&isDomestic=false&PF[]=4f954a946c599e1d04b703dcee38ab72~f9b57244b44a50eee292513b5698b341~c585b8d58885d758acb516adaea93474&sort[]=&sort[]=depart-sorting_asc&sort[]=
+            
+
+            //isConditionReverced - true= desc & false = asc(lowto high/earlist first)
+            //Sort
+            if legs[0].sortOrder == .Smart{
+                filterString.append("sort[]=humane-sorting_asc&")
+            }
+
+            if legs[0].sortOrder == .Price{
+                if isConditionReverced{
+                    filterString.append("sort[]=price-sorting_desc&")
+                }else{
+                    filterString.append("sort[]=price-sorting_asc&")
+                }
+            }
+
+            if legs[0].sortOrder == .Duration{
+                if isConditionReverced{
+                    filterString.append("sort[]=duration-sorting_desc&")
+                }else{
+                    filterString.append("sort[]=duration-sorting_asc&")
+                }
+            }
+
+            if legs[0].sortOrder == .Depart
+            {
+                for leg in 0..<numberOfLegs{
+                    if leg == appliedFilterLegIndex{
+                        if isConditionReverced{
+                            filterString.append("sort[]=depart-sorting_desc&")
+                        }else{
+                            filterString.append("sort[]=depart-sorting_asc&")
+                        }
+                    }else{
+                        filterString.append("sort[]=&")
+                    }
+                }
+            }
+
+            if legs[0].sortOrder == .Arrival
+            {
+                for leg in 0..<numberOfLegs{
+                    if leg == appliedFilterLegIndex{
+                        if isConditionReverced{
+                            filterString.append("sort[]=arrive-sorting_desc&")
+                        }else{
+                            filterString.append("sort[]=arrive-sorting_asc&")
+                        }
+                    }else{
+                        filterString.append("sort[]=&")
+                    }
+                }
+                
             }
         }
         

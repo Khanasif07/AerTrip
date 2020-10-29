@@ -18,6 +18,8 @@ class IntReturnAndMCSortVC: UIViewController, FilterViewController {
     var selectedSorting = Sort.Smart
     var airportsArr = [AirportLegFilter]()
     
+    var flightSearchParameters = JSONDictionary()
+    
     private var curSelectedIndex: Int?
     private var earliestFirstAtDepartArrive: [Int: Bool] = [:]
     
@@ -26,6 +28,7 @@ class IntReturnAndMCSortVC: UIViewController, FilterViewController {
     //MARK:- View Controller Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         initialSetup()
     }
 

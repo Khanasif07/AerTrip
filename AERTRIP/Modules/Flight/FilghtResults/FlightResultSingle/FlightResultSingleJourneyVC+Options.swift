@@ -287,7 +287,8 @@ extension FlightResultSingleJourneyVC {
         let flightInfantCount = self.viewModel.bookFlightObject.flightInfantCount
         let isDomestic = self.viewModel.bookFlightObject.isDomestic
         
-        let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM?.flightLegs ?? [])
+//        viewModel.isConditionReverced
+        let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM?.flightLegs ?? [],isConditionReverced:viewModel.isConditionReverced)
         
         self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journey, valString: "", trip_type: "single",filterString: filterStr,searchParam: flightSearchResultVM?.flightSearchParametersFromDeepLink)
         

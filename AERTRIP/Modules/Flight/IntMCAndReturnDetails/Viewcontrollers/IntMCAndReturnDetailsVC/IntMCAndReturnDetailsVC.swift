@@ -49,8 +49,9 @@ class IntMCAndReturnDetailsVC: UIViewController {
     var onJourneySelect: ((String) -> ())?
     
     let backButton = UIButton(type: .custom)
+    var isConditionReverced = false
+    var appliedFilterLegIndex = -1
 
-    
     //MARK:-  Life cycle and override methods
     override func viewDidLoad() {
         super.viewDidLoad()

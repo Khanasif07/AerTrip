@@ -91,7 +91,8 @@ class FlightDetailsBaseVC: BaseVC {
     var flightSearchResultVM: FlightSearchResultVM?
     
     let getSharableLink = GetSharableUrl()
-    
+    var isConditionReverced = false
+    var appliedFilterLegIndex = -1
     private var parchmentLoaded = false
     
     //MARK:- Initial Display
@@ -374,7 +375,7 @@ class FlightDetailsBaseVC: BaseVC {
                 valStr = intVC.generateCommonString(for: intJourney, flightObject: self.bookFlightObject)
             }
             
-            let filterStr = self.getSharableLink.getAppliedFiltersForSharingIntJourney(legs: self.flightSearchResultVM?.intFlightLegs ?? [])
+            let filterStr = self.getSharableLink.getAppliedFiltersForSharingIntJourney(legs: self.flightSearchResultVM?.intFlightLegs ?? [],isConditionReverced: isConditionReverced,appliedFilterLegIndex: appliedFilterLegIndex)
             valStr.append(filterStr)
             
             self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: true, journeyArray: [], valString: valStr, trip_type: "",filterString: filterStr,searchParam: flightSearchResultVM?.flightSearchParametersFromDeepLink)
@@ -385,7 +386,7 @@ class FlightDetailsBaseVC: BaseVC {
             
             let isDomestic = bookFlightObject.isDomestic
             
-            let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM?.flightLegs ?? [])
+            let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM?.flightLegs ?? [],isConditionReverced:isConditionReverced)
             
             var tripType = ""
             if self.bookFlightObject.flightSearchType == SINGLE_JOURNEY{

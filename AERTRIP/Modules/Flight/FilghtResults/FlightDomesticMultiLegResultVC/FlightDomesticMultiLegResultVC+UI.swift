@@ -477,6 +477,7 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
             let flightDetailsVC:FlightDetailsBaseVC =
                 storyboard.instantiateViewController(withIdentifier: "FlightDetailsBaseVC") as! FlightDetailsBaseVC
     
+        flightDetailsVC.isConditionReverced = viewModel.isConditionReverced
             flightDetailsVC.delegate = self
             flightDetailsVC.bookFlightObject = self.bookFlightObject
             flightDetailsVC.taxesResult = self.viewModel.taxesResult

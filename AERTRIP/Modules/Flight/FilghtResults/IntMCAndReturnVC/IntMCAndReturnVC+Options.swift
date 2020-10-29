@@ -234,7 +234,8 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
         let isDomestic = bookFlightObject.isDomestic
         var valStr = generateCommonString(for: journey, flightObject: bookFlightObject)
         
-        let filterStr = self.getSharableLink.getAppliedFiltersForSharingIntJourney(legs: self.flightSearchResultVM?.intFlightLegs ?? [])
+        
+        let filterStr = self.getSharableLink.getAppliedFiltersForSharingIntJourney(legs: self.flightSearchResultVM?.intFlightLegs ?? [],isConditionReverced: viewModel.isConditionReverced,appliedFilterLegIndex: viewModel.appliedFilterLegIndex)
         valStr.append(filterStr)
         
         self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: true, journeyArray: [], valString: valStr, trip_type: "",filterString: filterStr,searchParam: [:])

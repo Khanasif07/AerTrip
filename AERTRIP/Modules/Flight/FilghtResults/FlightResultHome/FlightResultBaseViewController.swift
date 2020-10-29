@@ -607,6 +607,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             self.intMCAndReturnFilterVC?.delegate = flightSearchResultVM
             self.intMCAndReturnFilterVC?.toastDelegate = self
             self.intMCAndReturnFilterVC?.filterUIDelegate = self
+            self.intMCAndReturnFilterVC?.flightSearchParameters = self.flightSearchParameters
             self.intMCAndReturnFilterVC?.showDepartReturnSame = showDepartReturnSame
             createFilters(index)
             return
