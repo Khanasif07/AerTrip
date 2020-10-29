@@ -457,6 +457,7 @@ class GetSharableUrl
                 filterString.append(quality)
             }
             
+            //DynamicFilters-aircraft
             //Aircraft
             if appliedFilters.contains(.Aircraft)
             {
@@ -468,9 +469,12 @@ class GetSharableUrl
                 filterString.append(aircraft)
             }
             
+            
+            //isConditionReverced - true= desc & false = asc(lowto high/earlist first)
             //Sort
             if (appliedFilters.contains(.sort))
             {
+//                appliedFilters.contains(.)
                 if appliedSubFilters.contains(.sortSmart)
                 {
                     filterString.append("sort[]=humane-sorting_asc")
@@ -478,7 +482,7 @@ class GetSharableUrl
 
                 if appliedSubFilters.contains(.sortPriceLow)
                 {
-                    filterString.append("sort[]=price-sorting_asc&")
+                    filterString.append("sort[0][]=price-sorting_asc&")
                 }
                 
                 if appliedSubFilters.contains(.sortPriceHigh)

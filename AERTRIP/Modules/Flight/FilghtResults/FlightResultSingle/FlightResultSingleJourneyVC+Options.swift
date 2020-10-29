@@ -254,8 +254,8 @@ extension FlightResultSingleJourneyVC {
         resultsTableView.setContentOffset(.zero, animated: true)
     }
     
-    func shareJourney(journey : [Journey]) {
-        
+    func shareJourney(journey : [Journey])
+    {
         self.sharePinnedFilghts.setImage(UIImage(named: "OvHotelResult"), for: .normal)
         sharePinnedFilghts.displayLoadingIndicator(true)
 
