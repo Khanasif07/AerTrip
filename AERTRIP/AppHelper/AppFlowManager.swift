@@ -142,6 +142,7 @@ class AppFlowManager: NSObject {
     
     func setupInitialFlow() {
         self.goToDashboard(launchThroughSplash: true)
+        
         self.addBlurToStatusBar()
     }
     
