@@ -234,6 +234,7 @@ class FlightResultDisplayGroup {
                 for journey in sortedByTime {
                     
                     if minDuration == 0 {
+                        
                         index += 1
                         minDuration = Double(journey.duration)
                         let modifiedJourney = journey
@@ -248,8 +249,9 @@ class FlightResultDisplayGroup {
                         let modifiedJourney = journey
                         modifiedJourney.groupID = index
                         modifiedJourneyArray.append(modifiedJourney)
-                    }
-                    else {
+                        
+                    } else {
+                        
                         index += 1
                         minDuration = Double(journey.duration)
                         
@@ -430,7 +432,7 @@ class FlightResultDisplayGroup {
             
         }
         
-//        printDebug("allEqs...\(allEqs)")
+        printDebug("allEqs...\(allEqs)")
 
         dynamicFilters.aircraft.allAircrafts = allEqs.removeDuplicates()
         

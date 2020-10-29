@@ -16,7 +16,6 @@ class RadioButtonTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.textLabel?.font = AppFonts.Regular.withSize(18)
         self.selectionStyle = .none
-        self.radioButton.isUserInteractionEnabled = false
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

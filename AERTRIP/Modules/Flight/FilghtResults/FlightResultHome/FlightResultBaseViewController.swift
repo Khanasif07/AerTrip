@@ -1117,6 +1117,8 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
     
     func updateDynamicFilters(filters : DynamicFilters) {
         
+    
+        
         let flightType = flightSearchResultVM.flightSearchType
         
         

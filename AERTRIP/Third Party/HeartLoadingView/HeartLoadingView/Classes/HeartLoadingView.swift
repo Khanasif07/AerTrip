@@ -16,7 +16,7 @@ public class HeartLoadingView: UIView {
     private var amplitude = 29.0
     private var position = 40.0
     private var animationMoveSpan = 10.0
-    private let animationUnitTime = 0.04
+    private let animationUnitTime = 0.01
     
     public var heavyHeartColor = UIColor(red: 254/255.0, green: 102/255.0, blue: 131/255.0, alpha: 1.0)
     public var lightHeartColor = UIColor(red: 254/255.0, green: 168/255.0, blue: 194/255.0, alpha: 1.0)

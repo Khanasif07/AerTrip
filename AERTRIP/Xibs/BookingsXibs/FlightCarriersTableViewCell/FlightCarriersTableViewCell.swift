@@ -64,7 +64,7 @@ class FlightCarriersTableViewCell: UITableViewCell {
         self.moreFlightCarriersContView.isHidden = true
         
         //self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
-        self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
     }
     
     internal func configCell(carriers: [String], carrierCode: [String], flightNumbers: [String]) {
@@ -137,6 +137,7 @@ class FlightCarriersTableViewCell: UITableViewCell {
             self.moreFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: uniqueCarrierCode[2]), placeholder: AppPlaceholderImage.default, showIndicator: true)
             }else {
                 self.moreFlightCarriersLabel.isHidden = true
+                self.moreFlightCarriersContView.isHidden = true
             }
             
         default:

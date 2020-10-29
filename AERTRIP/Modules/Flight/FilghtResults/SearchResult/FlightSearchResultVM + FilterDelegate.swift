@@ -369,6 +369,12 @@ extension FlightSearchResultVM : AircraftFilterDelegate {
         
         printDebug("selected...\(filter)")
         
+        if isIntMCOrReturnJourney {
+
+            intFlightLegs[0].aircraftFilterUpdated(filter)
+
+            return
+        }
         
         for flightLeg in flightLegs {
             

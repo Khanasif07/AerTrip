@@ -125,6 +125,7 @@ enum AppConstants {
     // color for aap disable gradient color
     static let appthemeDisableGradientColors: [UIColor] = [AppColors.themeGray20, AppColors.themeGray20]
 
+    
 }
 
 

@@ -34,8 +34,8 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
     var combineString = ""
     var fewSeatsLeftViewHeight = 0
     var dataResp = [JSONDictionary]()
-    var dimensionDelegate : getBaggageDimentionsDelegate?
-    
+    weak var dimensionDelegate : getBaggageDimentionsDelegate?
+
     //MARK:- Initialise Views
     override func viewDidLoad() {
         super.viewDidLoad()

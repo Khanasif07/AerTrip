@@ -393,8 +393,7 @@ public class Journey: Codable , Equatable {
                 
         
             }
-        }
-         else {
+        } else {
 
             let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 16.0)! ,
                                NSAttributedString.Key.foregroundColor : UIColor.black]

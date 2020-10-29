@@ -320,7 +320,7 @@ extension ChatVC {
         }, completion: nil)
     }
     
-    private func hideWelcomeView(){
+    func hideWelcomeView(){
         UIView.animate(withDuration: 0.2, animations: {
             self.morningLabel.alpha = 0
             self.whereToGoLabel.alpha = 0

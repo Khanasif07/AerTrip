@@ -43,7 +43,7 @@ class FlightResultSingleJourneyVM {
         var flightSearchParameters = JSONDictionary()
         var sharedFks : [String] = []
         var isSharedFkmatched = false
-    
+        var contentOffset : CGPoint?
     
     func getOnewayDisplayArray( results : [Journey]) -> [JourneyOnewayDisplay] {
         

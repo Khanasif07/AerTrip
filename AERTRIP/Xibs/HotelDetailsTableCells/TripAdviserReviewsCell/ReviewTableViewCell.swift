@@ -25,6 +25,10 @@ class ReviewTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.configUI()
     }
+    
+    deinit {
+        printDebug("deinit ReviewTableViewCell")
+    }
 
     //Mark:- Functions
     //================

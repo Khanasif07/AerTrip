@@ -28,6 +28,7 @@ import UIKit
             messageWorkItem = DispatchWorkItem(block: {
                 self.hideToast(lastToast)
             })
+//            printDebug("cccccc")
             DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: messageWorkItem!)
             return
         }
@@ -51,10 +52,10 @@ import UIKit
     }
     
     /// hides all existing toasts with fade animation
-    func fadeAllToasts() {
+    func fadeAllToasts(animated : Bool = true) {
         guard let window = AppDelegate.shared.window else { return }
         func fade(_ subView: CustomToastView) {
-            UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate(withDuration: animated ? 0.3 : 0 , animations: {
                 subView.alpha = 0
             }) { (_) in
                 subView.removeFromSuperview()

@@ -44,7 +44,7 @@ class HCHotelRatingTableViewCell: UITableViewCell {
         self.hotelNameLabel.font = AppFonts.SemiBold.withSize(22.0)
         self.tripadviserImageView.isHidden = true
         self.hotelAdviserDotsView.isHidden = true
-        self.shadowView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+        self.shadowView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
         self.deviderView.isHidden = true
     }
     

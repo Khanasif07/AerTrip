@@ -58,6 +58,27 @@ extension IntFlightResultDisplayGroup  {
     }
     
     
+    func aircraftFilterUpdated(_ filter: AircraftFilter) {
+
+        self.dynamicFilters.aircraft.selectedAircrafts = filter.selectedAircrafts
+        
+        if !filter.selectedAircrafts.isEmpty{
+            
+            appliedFilters.insert(.Aircraft)
+
+        } else {
+            
+            appliedFilters.remove(.Aircraft)
+
+        }
+        
+        applyFilters(index: 0)
+
+        
+    }
+    
+    
+    
     func applyMultiItinaryAirlineFilter(index : Int,  _ inputArray : [IntMultiCityAndReturnWSResponse.Results.J]) -> [IntMultiCityAndReturnWSResponse.Results.J] {
                 
         let hideMultiAirlineItinerary =  userSelectedFilters[index].multiAl == 1 ? false : true
@@ -101,11 +122,58 @@ extension IntFlightResultDisplayGroup  {
         return outputArray
     }
     
+    
+    
+//    func applyAircraftFilter(_ inputArray : [Journey]) -> [Journey] {
+//
+//
+//        let selectedAircrsfts = Set(self.dynamicFilters.aircraft.selectedAircrafts)
+//
+//         var outputArray = inputArray
+//
+//         if !selectedAircrsfts.isEmpty {
+//
+//             outputArray = inputArray.filter{
+//
+//                let eqs = $0.leg.flatMap { $0.flights }.compactMap { $0.eq }
+//
+//
+//                 if Set(eqs).isDisjoint(with:selectedAircrsfts) {
+//                     return false
+//                 }
+//                 return true
+//             }
+//         }
+//
+//
+//         return outputArray
+//     }
+    
+    
+    
     func applyAircraftFilter(index : Int, _ inputArray : [IntMultiCityAndReturnWSResponse.Results.J]) -> [IntMultiCityAndReturnWSResponse.Results.J] {
 
+                let selectedAircrsfts = Set(self.dynamicFilters.aircraft.selectedAircrafts)
+
+                var outputArray = inputArray
+
+                 if !selectedAircrsfts.isEmpty {
+
+                                 outputArray = inputArray.filter{
+                    
+//                                    $0.legsWithDetail[0].flightsWithDetails[0].eq
+    
+                                    let eqs = $0.legsWithDetail.flatMap { $0.flightsWithDetails }.compactMap { $0.eq }
+    
+                                     if Set(eqs).isDisjoint(with:selectedAircrsfts) {
+                                         return false
+                            }
+                         return true
+                     }
+                    
+                 }
         
-        
-        return []
+        return outputArray
     }
     
     
@@ -1146,9 +1214,7 @@ extension IntFlightResultDisplayGroup  {
             case .Aircraft:
                 inputForFilter = self.applyAircraftFilter(index: index, inputForFilter)
 
-                
-            case .Aircraft:
-                return
+
             }
         }
         

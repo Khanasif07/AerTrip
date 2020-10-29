@@ -46,7 +46,7 @@ class HotelBookingAddressDetailsTableViewCell: UITableViewCell {
     //MARK:- Functions
     //MARK:===========
     private func configureUI() {
-        self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
         
         //Font
         self.hotelNameLabel.font = AppFonts.SemiBold.withSize(22)

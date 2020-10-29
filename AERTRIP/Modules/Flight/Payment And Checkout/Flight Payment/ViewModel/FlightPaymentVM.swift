@@ -41,7 +41,7 @@ class FlightPaymentVM{
 //    var parmsForItinerary:JSONDictionary = [:]
     var grossTotalPayableAmount : Double = 0.0 // without wallet amount
     var paymentDetails: PaymentModal? //Payment methods
-    var delegate:FlightPaymentVMDelegate?
+    weak var delegate:FlightPaymentVMDelegate?
     var gstDetail = GSTINModel()
     var bookingObject:BookFlightObject?
     var isGSTOn = false
