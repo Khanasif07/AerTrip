@@ -18,7 +18,7 @@ class OtherBookingsDetailsVC: BaseVC {
     let viewModel = BookingProductDetailVM()
     var headerView: OtherBookingDetailsHeaderView?
     var eventTypeImage: UIImage {
-        return #imageLiteral(resourceName: "others")
+        return #imageLiteral(resourceName: "others_hotels")
     }
     
     private var navBarHeight: CGFloat {

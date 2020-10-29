@@ -100,6 +100,12 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
             let blackAttributedString = NSAttributedString(string: "\(penalty) will be charged if you cancel on \(startingDate) or later\n" + endingDate, attributes: blackAttribute)
             attributedString.append(greenAttributedString)
             attributedString.append(blackAttributedString)
+        } else {
+            printDebug("no case found")
+            printDebug(toDate)
+            printDebug(fromDate)
+            printDebug(penalty)
+
         }
         self.descriptionLabel.attributedText = attributedString
     }

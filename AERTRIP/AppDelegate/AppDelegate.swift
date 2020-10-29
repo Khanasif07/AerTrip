@@ -7,7 +7,7 @@
 //
 
 import CoreData
-import Crashlytics
+//import Crashlytics
 import Fabric
 import FBSDKLoginKit
 import Firebase
@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GoogleLoginController.shared.configure()
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-        Fabric.with([Crashlytics.self])
+        //Fabric.with([Crashlytics.self])
         GMSServices.provideAPIKey(AppConstants.kGoogleAPIKey)
         UITextView.appearance().tintColor = AppColors.themeGreen
         UITextField.appearance().tintColor = AppColors.themeGreen
