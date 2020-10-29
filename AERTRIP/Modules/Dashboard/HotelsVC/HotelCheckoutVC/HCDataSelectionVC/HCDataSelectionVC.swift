@@ -634,7 +634,13 @@ extension HCDataSelectionVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         // plus button action
+        self.topNavView.startActivityIndicaorLoading()
+        self.topNavView.firstRightButton.isHidden = true
         AppFlowManager.default.presentHCSelectGuestsVC(delegate: self)
+        delay(seconds: 1.2) {[weak self] in
+            self?.topNavView.stopActivityIndicaorLoading()
+            self?.topNavView.firstRightButton.isHidden = false
+        }
     }
 }
 
