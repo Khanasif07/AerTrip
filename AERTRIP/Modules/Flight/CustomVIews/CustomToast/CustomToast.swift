@@ -28,6 +28,38 @@ import UIKit
             messageWorkItem = DispatchWorkItem(block: {
                 self.hideToast(lastToast)
             })
+//            printDebug("cccccc")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: messageWorkItem!)
+            return
+        }
+        
+        fadeAllToasts()
+        let toastView = CustomToastView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height - 100, width: UIScreen.main.bounds.width, height: 100))
+        toastView.toastLbl.text = msg
+        toastView.transform = CGAffineTransform(translationX: 0, y: 100)
+        window.addSubview(toastView)
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+            toastView.transform = .identity
+        }, completion: nil)
+        
+        messageWorkItem = DispatchWorkItem(block: {
+            self.hideToast(toastView)
+        })
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: messageWorkItem!)
+        
+        lastMessage = msg
+    }
+    
+    func showToastOverKeyboard(_ msg: String) {
+        guard let window = UIApplication.shared.windows.last else { return }
+        
+        if let toast = window.subviews.first(where: { $0 is CustomToastView }), msg == lastMessage {
+            guard let lastToast = toast as? CustomToastView else { return }
+            messageWorkItem?.cancel()
+            messageWorkItem = DispatchWorkItem(block: {
+                self.hideToast(lastToast)
+            })
             DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: messageWorkItem!)
             return
         }
@@ -51,10 +83,10 @@ import UIKit
     }
     
     /// hides all existing toasts with fade animation
-    func fadeAllToasts() {
+    func fadeAllToasts(animated : Bool = true) {
         guard let window = AppDelegate.shared.window else { return }
         func fade(_ subView: CustomToastView) {
-            UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate(withDuration: animated ? 0.3 : 0 , animations: {
                 subView.alpha = 0
             }) { (_) in
                 subView.removeFromSuperview()

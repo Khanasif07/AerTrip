@@ -116,8 +116,8 @@ class FareInfoNoteTableViewCell: UITableViewCell {
         let str2 = "\n•    Above mentioned charges are per passenger per sector, applicable only on refundable fares.\n•    Total Cancellation Charges displayed above include Cancellation Fees, RAF & GST.\n•    Total Rescheduling Charges = Rescheduling Fees as above + Fare Difference + Differences in Taxes (if any).\n•    In case of no-show or if the ticket is not cancelled or amended within the stipulated time, no refund is applicable.\n•    Airlines do not accept cancellation/rescheduling requests 1-75 hours before departure the flight, depending on the airline, fare basis and booking fare policy. You must raise a request at least 2 hours before the airline request time.\n•    In case of restricted fares, no amendments and/or cancellation may be allowed.\n•    In case of combo fares or round-trip special fares or tickets booked under special discounted fares, cancellation of a partial journey may not be allowed. In certain cases, cancellation or amendment of future sectors may be allowed only if the previous sectors are flown."
         let str3 = "\n\nDISCLAIMER".capitalized
         let str4 = "\n•    Above mentioned charges are indicative, subject to currency fluctuations and can change without prior notice. They need to be re-confirmed before making any amendments or cancellation. Aertrip does not guarantee or warrant this information."
-        let font = AppFonts.SemiBold.withSize(16)//UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(16))
-        let fontSuper = AppFonts.Regular.withSize(14)//UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
+        let font = AppFonts.SemiBold.withSize(16)
+        let fontSuper = AppFonts.Regular.withSize(14)
         
         let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font])
         let attString1:NSMutableAttributedString = NSMutableAttributedString(string: str2, attributes: [.font:fontSuper])

@@ -355,6 +355,8 @@ extension IntMCAndReturnDetailsVC : FareBreakupVCDelegate{
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
         let flightDetailsVC = FlightDetailsBaseVC.instantiate(fromAppStoryboard: .FlightDetailsBaseVC)
         flightDetailsVC.delegate = self
+        flightDetailsVC.isConditionReverced = isConditionReverced
+        flightDetailsVC.appliedFilterLegIndex = appliedFilterLegIndex
         flightDetailsVC.isInternational = true
         flightDetailsVC.bookFlightObject = self.viewModel.bookFlightObject
         flightDetailsVC.taxesResult = self.viewModel.taxesResult

@@ -29,7 +29,11 @@ class FlightResultSingleJourneyVM {
             }
         }
     
-        var stateBeforePinnedFlight = ResultTableViewState.showRegularResults
+    var stateBeforePinnedFlight = ResultTableViewState.showRegularResults{
+        didSet{
+            printDebug("adsfkjb adsk fbjas adsi fbadsr")
+        }
+    }
         var results : OnewayJourneyResultsArray!
         var isConditionReverced = false
 //        var prevLegIndex = 0
@@ -43,7 +47,7 @@ class FlightResultSingleJourneyVM {
         var flightSearchParameters = JSONDictionary()
         var sharedFks : [String] = []
         var isSharedFkmatched = false
-    
+        var contentOffset : CGPoint?
     
     func getOnewayDisplayArray( results : [Journey]) -> [JourneyOnewayDisplay] {
         

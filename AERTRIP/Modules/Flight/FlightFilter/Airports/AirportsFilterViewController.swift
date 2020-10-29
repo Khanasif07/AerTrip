@@ -704,7 +704,8 @@ extension AirportsFilterViewController : UITableViewDataSource , UITableViewDele
         let view = UIView()
         
         let title = UILabel(frame: CGRect(x: 16, y: 16, width: self.view.frame.size.width - 16, height: 20))
-        title.font = UIFont(name: "sourceSansPro-Regular", size: 16)
+//        title.font = UIFont(name: "sourceSansPro-Regular", size: 16)
+        title.font = AppFonts.Regular.withSize(16)
         title.textColor = UIColor.ONE_FIVE_THREE_COLOR
         title.textAlignment = .left
         view.addSubview(title)

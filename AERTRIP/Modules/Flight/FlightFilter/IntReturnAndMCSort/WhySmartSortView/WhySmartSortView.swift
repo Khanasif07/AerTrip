@@ -48,12 +48,14 @@ class WhySmartSortView: UIView {
     fileprivate func setupSortDescription() {
         
         let attributedString = NSMutableAttributedString(string: "Smart Sort enables you to select your flight from just the first few results. Flights are sorted after comparing price, duration and various other factors. Learn more", attributes: [
-            .font: UIFont(name: "SourceSansPro-Regular", size: 16.0)!,
+//            .font: UIFont(name: "SourceSansPro-Regular", size: 16.0)!,
+            .font: AppFonts.Regular.withSize(16),
             .foregroundColor: UIColor.black,
             .kern: 0.0
             ])
         attributedString.addAttributes([
-            .font: UIFont(name: "SourceSansPro-Semibold", size: 16.0)!,
+//            .font: UIFont(name: "SourceSansPro-Semibold", size: 16.0)!,
+            .font: AppFonts.SemiBold.withSize(16),
             .foregroundColor: UIColor.appColor
             ], range: NSRange(location: 156, length: 10))
         descLbl.attributedText = attributedString

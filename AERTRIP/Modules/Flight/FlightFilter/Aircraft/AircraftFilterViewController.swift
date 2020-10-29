@@ -23,7 +23,8 @@ class AircraftFilterViewController: UIViewController {
     var aircraftArray = [[String:Any]]()
 
     var aircraftFilter = AircraftFilter()
-    
+    var flightSearchParameters = JSONDictionary()
+
     var c = 0
     
     weak var delegate : AircraftFilterDelegate?
@@ -132,11 +133,13 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
                     } else {
                         
                         cell.radioButton.setImage(#imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
-
+                        
                     }
                 
             }
 
+            cell.radioButton.isUserInteractionEnabled = false
+            
             return cell
         }
 

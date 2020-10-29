@@ -62,7 +62,8 @@ extension FlightResultSingleJourneyVC {
             
             let titleLabel = UILabel(frame: CGRect(x:8,y: 8 ,width:groupedFooterView.frame.width - 16  ,height:44))
             titleLabel.textColor = UIColor.AertripColor
-            titleLabel.font = UIFont(name: "SourceSansPro-Regular", size: 18.0)
+//            titleLabel.font = UIFont(name: "SourceSansPro-Regular", size: 18.0)
+            titleLabel.font = AppFonts.Regular.withSize(18)
             titleLabel.textAlignment = .center
             
             let count = viewModel.results.aboveHumanScoreCount
@@ -115,7 +116,8 @@ extension FlightResultSingleJourneyVC {
      
             let titleLabel = UILabel(frame: CGRect(x:8,y: 8 ,width:expandedFooterView.frame.width - 16  ,height:44))
             titleLabel.textColor = UIColor.AertripColor
-            titleLabel.font = UIFont(name: "SourceSansPro-Regular", size: 18)
+//            titleLabel.font = UIFont(name: "SourceSansPro-Regular", size: 18)
+            titleLabel.font = AppFonts.Regular.withSize(18)
             titleLabel.textAlignment = .center
             let count = viewModel.results.aboveHumanScoreCount
 

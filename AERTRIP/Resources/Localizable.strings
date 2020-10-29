@@ -142,7 +142,7 @@
 "trips" = "Trips";
 "hiImAerin" = "Hi, I’m Aerin";
 "yourPersonalTravelAssistant" = "Your personal travel assistant";
-"tryAskingForFlightsFromMumbai" = "\"Try asking for \n Flights from Mumbai to Delhi on Christmas\"";
+"tryAskingForFlightsFromMumbai" = "\"Tap and try asking for \n Flights from Mumbai to Delhi on Christmas\"";
 "EnjoyAMorePersonalisedTravelExperience" = "Enjoy a more personalised \n travel experience";
 "LoginOrRegister" = "Login or Register";
 "WhyAertrip"    = "Why Aertrip";
@@ -987,6 +987,16 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 // MARK: - Import Contacts
 "ImportingContacts" = "Importing contacts";
 "ThisMightTakeSomeTime" = "This might take some time";
+
+//MARK: - Passengers Selections
+"firstName3Char" = "Passenger first name should have atleast 3 character";
+"fistNameNumeric"  = "Passenger first name should not have any numeric or special character";
+"lastName3Char" = "Passenger first last should have atleast 3 character";
+"lastNameNumeric" = "Passenger last name should not have any numeric or special character";
+"fillContactDetails" = "Please fill the passenger contact details";
+"adultAgeError" = "Age of adult must be over 12 years on the first date of travel";
+"childAgeError" = "Age of child must be between 2 and 12 years";
+"infantAgeError" = "Age of infant must be less than 2 years on the last date of travel";
 
 
 //MARK:- Settings

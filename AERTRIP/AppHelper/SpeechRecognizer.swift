@@ -35,9 +35,7 @@ class SpeechRecognizer: NSObject {
         }
         if !audioEngine.isRunning {
             startRecording()
-            delay(seconds: 2) {
-                self.stopRecordingAfterDelay()
-            }
+            stopRecordingAfterDelay(delayTime: 2.5)
         }
     }
     
@@ -54,15 +52,15 @@ class SpeechRecognizer: NSObject {
         }
     }
     
-    private func stopRecordingAfterDelay() {
+    private func stopRecordingAfterDelay(delayTime: TimeInterval = 1) {
         recordWorkItem?.cancel()
         recordWorkItem = DispatchWorkItem(block: { [weak self] in
             self?.stop()
         })
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: recordWorkItem!)
+        DispatchQueue.main.asyncAfter(deadline: .now() + delayTime, execute: recordWorkItem!)
     }
     
-    private func requestTranscribePermissions() {
+    func requestTranscribePermissions() {
         if SFSpeechRecognizer.authorizationStatus() != .authorized {
             SFSpeechRecognizer.requestAuthorization { (authStatus) in
                 
@@ -74,6 +72,9 @@ class SpeechRecognizer: NSObject {
                     
                 case .denied:
                     isButtonEnabled = false
+                    DispatchQueue.main.async {
+                        self.presentAlertForSpeechRecognizer()
+                    }
                     print("User denied access to speech recognition")
                     
                 case .restricted:
@@ -94,6 +95,14 @@ class SpeechRecognizer: NSObject {
                 //            }
             }
         }
+    }
+    
+    func presentAlertForSpeechRecognizer() {
+        AppFlowManager.default.presentMicAccessPermissionPopup()
+    }
+    
+    func authStatus() -> SFSpeechRecognizerAuthorizationStatus {
+        return SFSpeechRecognizer.authorizationStatus()
     }
     
     private func startRecording() {
@@ -168,3 +177,5 @@ extension SpeechRecognizer: SFSpeechRecognizerDelegate {
 //        self.delegate?.recordButtonState(available)
     }
 }
+
+

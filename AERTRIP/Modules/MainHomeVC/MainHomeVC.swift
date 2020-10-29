@@ -110,7 +110,6 @@ class MainHomeVC: BaseVC {
         self.scrollViewSetup()
         self.socialLoginVC?.topNavView.leftButton.isHidden = true
         self.makeDefaultSetup()
-        
         self.addEdgeSwipeGesture()
     }
     

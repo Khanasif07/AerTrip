@@ -61,8 +61,10 @@ class ArrivalPerformaceVC: UIViewController
             let range = (displayText as NSString).range(of: "(Avg. Delay = \(averageDelay) mins)")
             
             let averageDelayLbl = NSMutableAttributedString(string: displayText)
-            averageDelayLbl.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Regular", size: 14.0)! , range: range)
-            
+//            averageDelayLbl.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Regular", size: 14.0)! , range: range)
+  
+            averageDelayLbl.addAttribute(NSAttributedString.Key.font, value: AppFonts.Regular.withSize(14) , range: range)
+
             delayedTitleLbl.attributedText = averageDelayLbl
         }else{
             delayedTitleLbl.text = "Delay"

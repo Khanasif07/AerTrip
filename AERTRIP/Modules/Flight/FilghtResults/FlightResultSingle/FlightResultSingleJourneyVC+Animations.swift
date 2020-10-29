@@ -22,6 +22,8 @@ extension FlightResultSingleJourneyVC {
             printDebug("time2..\(Date().timeIntervalSince1970)")
             
             self.viewModel.resultTableState = .showExpensiveFlights
+            //To change state before(Crash issue on unpinned.)
+            self.viewModel.stateBeforePinnedFlight = .showExpensiveFlights
             self.viewModel.results.excludeExpensiveFlights = false
    
             DispatchQueue.global(qos: .default).async {
@@ -57,6 +59,8 @@ extension FlightResultSingleJourneyVC {
             self.resultsTableView.deleteRows(at: indexPathsToBedeleted, with: UITableView.RowAnimation.fade)
             
         self.viewModel.resultTableState = .showRegularResults
+        //To change state before(Crash issue on unpinned.)
+        self.viewModel.stateBeforePinnedFlight = .showRegularResults
             self.viewModel.results.excludeExpensiveFlights = false
             
             DispatchQueue.global(qos: .background).async {

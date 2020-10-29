@@ -14,19 +14,20 @@ extension AerinCustomPopoverVC {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.firstWaveView = HeartLoadingView(frame: self.waveAnimationContainerView.bounds)
             self.firstWaveView?.heartAmplitude = 50
-            self.firstWaveView?.lightHeartColor = UIColor(displayP3Red: 204/255, green: 244/255, blue: 234/255, alpha: 0.7)
-            self.firstWaveView?.heavyHeartColor = UIColor(displayP3Red: 177/255, green: 239/255, blue: 244/255, alpha: 1)
+            self.firstWaveView?.lightHeartColor = AppColors.themeGreen.withAlphaComponent(0.2)
+            self.firstWaveView?.heavyHeartColor = AppColors.themeGreen.withAlphaComponent(0.2)
             self.firstWaveView?.isShowProgressText = false
-            self.firstWaveView?.animationSpeed = 20
+            self.firstWaveView?.animationSpeed = 13
             self.waveAnimationContainerView.addSubview(self.firstWaveView!)
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             self.secondWaveView = HeartLoadingView(frame: self.waveAnimationContainerView.bounds)
             self.secondWaveView?.heartAmplitude = 50
-            self.secondWaveView?.lightHeartColor = UIColor(displayP3Red: 142/255, green: 231/255, blue: 209/255, alpha: 0.5)
+            self.secondWaveView?.lightHeartColor = AppColors.themeGreen.withAlphaComponent(0.2)
             self.secondWaveView?.heavyHeartColor = .clear//UIColor(r: 0, g: 105, b: 100, alpha: 0.5)
             self.secondWaveView?.isShowProgressText = false
+            self.secondWaveView?.animationSpeed = 9
             self.waveAnimationContainerView.addSubview(self.secondWaveView!)
             self.waveAnimationContainerView.bringSubviewToFront(self.waveAnimationContentView)
         }

@@ -142,7 +142,6 @@ class AppFlowManager: NSObject {
     
     func setupInitialFlow() {
         self.goToDashboard(launchThroughSplash: true)
-        
         self.addBlurToStatusBar()
     }
     
@@ -1290,6 +1289,19 @@ extension AppFlowManager {
         //        ob.modalPresentationCapturesStatusBarAppearance = true
         //        ob.statusBarColor = AppColors.themeWhite
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
+    }
+    
+    func presentMicAccessPermissionPopup() {
+        let alert = UIAlertController(
+            title: "Access Denied!",
+            message: "Microphone access required to start speech recognition!",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Allow Mic Access", style: .cancel, handler: { (alert) -> Void in
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+        }))
+        UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
     }
 }
 

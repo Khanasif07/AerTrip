@@ -55,7 +55,11 @@ class ReceiverChatCell : UITableViewCell {
         let deltaTextArr = msgObj.delta.components(separatedBy: " | ")
         var paragraphDeltaText = ""
         deltaTextArr.forEach { (str) in
-            paragraphDeltaText = paragraphDeltaText + str + "\n"
+            var strToAppend = str
+            if let range = str.range(of: "updated") {
+                strToAppend.removeSubrange(range)
+            }
+            paragraphDeltaText = paragraphDeltaText + strToAppend + "\n"
         }
         if paragraphDeltaText.hasSuffix("\n") {
             paragraphDeltaText.removeLast()
@@ -78,7 +82,11 @@ class ReceiverChatCell : UITableViewCell {
                 let deltaStr = deltaAttStr.mutableString.appending("\n")
                 let newDeltaAttStr = NSMutableAttributedString(string: deltaStr, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeBlack.withAlphaComponent(0.6), NSAttributedString.Key.font: AppFonts.Regular.withSize(14)])
                 newDeltaAttStr.append(resultStr)
-                finalStr = newDeltaAttStr
+                if deltaAttStr.string.isEmpty {
+                    finalStr = resultStr
+                } else {
+                    finalStr = newDeltaAttStr
+                }
             } else {
                 finalStr = resultStr
             }

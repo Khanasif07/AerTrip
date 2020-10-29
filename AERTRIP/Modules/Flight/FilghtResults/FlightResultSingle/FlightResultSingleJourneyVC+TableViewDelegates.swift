@@ -188,6 +188,7 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
             return
         }
         
+        printDebug(currentJourney.id)
         
         navigateToFlightDetailFor(journey: currentJourney, selectedIndex: indexPath)
     }
