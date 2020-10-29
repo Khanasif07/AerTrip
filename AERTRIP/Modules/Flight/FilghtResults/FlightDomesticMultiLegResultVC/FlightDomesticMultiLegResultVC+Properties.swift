@@ -490,7 +490,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         }
 
         
-        let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM.flightLegs)
+        let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM.flightLegs,isConditionReverced:viewModel.isConditionReverced)
 
         self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journeyArray, valString: "", trip_type: tripType,filterString: filterStr,searchParam: flightSearchResultVM.flightSearchParametersFromDeepLink)
 

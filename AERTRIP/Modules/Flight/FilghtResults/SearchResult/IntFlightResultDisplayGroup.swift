@@ -52,7 +52,7 @@ class IntFlightResultDisplayGroup {
     var dynamicFilters = DynamicFilters()
     
     
-    private var numberOfLegs = 0
+    var numberOfLegs = 0
     internal var isReturnJourney = false
     
     internal var isAPIResponseUpdated = false

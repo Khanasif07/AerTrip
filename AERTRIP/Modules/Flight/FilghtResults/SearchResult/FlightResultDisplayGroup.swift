@@ -18,6 +18,7 @@ class FlightResultDisplayGroup {
         case departureTime
         case arrivalTime
     }
+    
     internal var initiatedFilters: Set<InitiatedFilters> = []
     
     /// For checking if any of the sub filter is applied

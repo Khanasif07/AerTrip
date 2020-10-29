@@ -18,6 +18,8 @@ class IntReturnAndMCSortVC: UIViewController, FilterViewController {
     var selectedSorting = Sort.Smart
     var airportsArr = [AirportLegFilter]()
     
+    var flightSearchParameters = JSONDictionary()
+    
     private var curSelectedIndex: Int?
     private var earliestFirstAtDepartArrive: [Int: Bool] = [:]
     
@@ -26,6 +28,7 @@ class IntReturnAndMCSortVC: UIViewController, FilterViewController {
     //MARK:- View Controller Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         initialSetup()
     }
 
@@ -47,11 +50,17 @@ class IntReturnAndMCSortVC: UIViewController, FilterViewController {
             
             var attributes : [NSAttributedString.Key : Any]
             if ( sortFilter == selectedSorting) {
-                attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)! ,
+//                attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)! ,
+//                              NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
+                
+                attributes = [NSAttributedString.Key.font : AppFonts.Regular.withSize(18) ,
                               NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
+
             }
             else {
-                attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)!]
+//                attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)!]
+                attributes = [NSAttributedString.Key.font : AppFonts.Regular.withSize(18)]
+
             }
             
             let attributedString = NSMutableAttributedString(string: sortFilter.title, attributes: attributes)
@@ -138,11 +147,17 @@ extension IntReturnAndMCSortVC : UITableViewDataSource , UITableViewDelegate {
     private func getDepartArriveAttString(_ str: String,_ indexPath: IndexPath) -> NSAttributedString {
         var attributes : [NSAttributedString.Key : Any]
         if ( curSelectedIndex == indexPath.row) {
-            attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)! ,
+//            attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)! ,
+//                          NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
+            
+            attributes = [NSAttributedString.Key.font : AppFonts.Regular.withSize(18) ,
                           NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
+
         }
         else {
-            attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)!]
+//            attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)!]
+            attributes = [NSAttributedString.Key.font : AppFonts.Regular.withSize(18)]
+
         }
         let attributedString = NSMutableAttributedString(string: str, attributes: attributes)
         

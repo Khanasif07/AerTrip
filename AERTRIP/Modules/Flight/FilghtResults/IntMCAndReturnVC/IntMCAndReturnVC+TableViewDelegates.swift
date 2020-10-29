@@ -116,6 +116,8 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
     @objc func samePriceOptionButtonTapped(sender : UIButton){
         guard let indexPath = self.resultsTableView.indexPath(forItem: sender), let cell = self.resultsTableView.cellForRow(at: indexPath) as? InternationalReturnTableViewCell else { return }
         let vc = IntMCAndReturnDetailsVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
+        vc.isConditionReverced = viewModel.isConditionReverced
+        vc.appliedFilterLegIndex = viewModel.appliedFilterLegIndex
         vc.viewModel.taxesResult = self.taxesResult
         vc.viewModel.headerArray = self.headerTitles
         vc.viewModel.numberOfLegs = self.headerTitles.count
@@ -208,6 +210,8 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
             
             let vc = FlightDetailsBaseVC.instantiate(fromAppStoryboard: .FlightDetailsBaseVC)
             vc.delegate = self
+            vc.isConditionReverced = viewModel.isConditionReverced
+            vc.appliedFilterLegIndex = viewModel.appliedFilterLegIndex
             vc.isInternational = true
             vc.bookFlightObject = self.bookFlightObject
             vc.taxesResult = self.taxesResult

@@ -41,7 +41,9 @@ extension FlightAPIFilterViewController : UITableViewDataSource , UITableViewDel
         cell.accessoryView = UIImageView(image: UIImage(named: "UncheckedGreenRadioButton"))
         if let APIFilter = API(rawValue: indexPath.row)
         {
-            let attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)!]
+//            let attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)!]
+            let attributes = [NSAttributedString.Key.font : AppFonts.Regular.withSize(18)]
+
             let attributedString = NSAttributedString(string: APIFilter.title, attributes: attributes)
             cell.textLabel?.attributedText = attributedString
             

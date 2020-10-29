@@ -604,6 +604,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             storyboard.instantiateViewController(withIdentifier: "FlightDetailsBaseVC") as! FlightDetailsBaseVC
         flightDetailsVC.flightSearchResultVM = self.flightSearchResultVM
         flightDetailsVC.delegate = self
+        flightDetailsVC.isConditionReverced = viewModel.isConditionReverced
         flightDetailsVC.bookFlightObject = self.viewModel.bookFlightObject
         flightDetailsVC.taxesResult = self.viewModel.taxesResult
         flightDetailsVC.sid = self.viewModel.sid

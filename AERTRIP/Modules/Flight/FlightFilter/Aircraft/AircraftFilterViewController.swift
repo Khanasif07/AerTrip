@@ -23,7 +23,8 @@ class AircraftFilterViewController: UIViewController {
     var aircraftArray = [[String:Any]]()
 
     var aircraftFilter = AircraftFilter()
-    
+    var flightSearchParameters = JSONDictionary()
+
     var c = 0
     
     weak var delegate : AircraftFilterDelegate?

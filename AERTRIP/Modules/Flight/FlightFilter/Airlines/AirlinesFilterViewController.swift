@@ -78,8 +78,9 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
             stopButton.setTitleColor(UIColor.white, for: .selected)
             
             stopButton.addTarget(self, action: #selector(tappedOnMulticityButton(sender:)), for: .touchDown)
-            stopButton.titleLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 16)
-            
+//            stopButton.titleLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 16)
+            stopButton.titleLabel?.font = AppFonts.Regular.withSize(16)
+
             if i == 1 {
                 stopButton.isSelected = true
                 stopButton.backgroundColor = UIColor.AertripColor

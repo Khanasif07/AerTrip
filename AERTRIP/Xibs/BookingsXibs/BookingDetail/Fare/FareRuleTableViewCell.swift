@@ -47,9 +47,11 @@ class FareRuleTableViewCell: UITableViewCell {
             self.routeLabelTopConstraint.constant = 0
             self.routeLabelBottomConstraint.constant = 0
         }
-        let cssStr = fareRules.htmlCSSCodeString(withFont: AppFonts.Regular.withSize(28.0), isCustomFont: true, fontFileName: "SourceSansPro-Regular", fontColor: isForBookingPolicy ? AppColors.themeBlack : AppColors.themeBlack)
-        
-        var url = Bundle.main.url(forResource: "SourceSansPro-Regular", withExtension: "ttf")
+//        let cssStr = fareRules.htmlCSSCodeString(withFont: AppFonts.Regular.withSize(28.0), isCustomFont: true, fontFileName: "SourceSansPro-Regular", fontColor: isForBookingPolicy ? AppColors.themeBlack : AppColors.themeBlack)
+  
+        let cssStr = fareRules.htmlCSSCodeString(withFont: AppFonts.Regular.withSize(28.0), isCustomFont: true, fontFileName: AppFonts.Regular.rawValue, fontColor: isForBookingPolicy ? AppColors.themeBlack : AppColors.themeBlack)
+
+        var url = Bundle.main.url(forResource: AppFonts.Regular.rawValue, withExtension: "ttf")
         url?.deleteLastPathComponent()
         webView.loadHTMLString(cssStr, baseURL: url)
     }

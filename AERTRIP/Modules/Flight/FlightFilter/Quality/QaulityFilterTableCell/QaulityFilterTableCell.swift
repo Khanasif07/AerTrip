@@ -39,9 +39,12 @@ class QaulityFilterTableCell: UITableViewCell {
     
     func configure(_ filter: QualityFilter) {
         
-        filterTitleLbl.font = UIFont(name: "SourceSansPro-Regular", size: 18)!
-        filterDescLbl.font = UIFont(name: "SourceSansPro-Regular", size: 14)!
-        
+//        filterTitleLbl.font = UIFont(name: "SourceSansPro-Regular", size: 18)!
+//        filterDescLbl.font = UIFont(name: "SourceSansPro-Regular", size: 14)!
+
+        filterTitleLbl.font = AppFonts.Regular.withSize(18)
+        filterDescLbl.font = AppFonts.Regular.withSize(14)
+
         filterTitleLbl.text = filter.name
         filterDescLbl.text = filter.getFilterDescription()
         
