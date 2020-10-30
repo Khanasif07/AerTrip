@@ -369,6 +369,7 @@ class MainHomeVC: BaseVC {
         let finalFrame = self.socialLoginVC?.logoContainerView.frame ?? CGRect(x: (UIDevice.screenWidth * 0.125), y: 80.0, width: UIDevice.screenWidth * 0.75, height: self.sideMenuVC?.logoContainerView?.height ?? 179.0)
         
         self.socialLoginVC?.animateContentOnLoad()
+        
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             
             self.scrollView.contentOffset = pushPoint
