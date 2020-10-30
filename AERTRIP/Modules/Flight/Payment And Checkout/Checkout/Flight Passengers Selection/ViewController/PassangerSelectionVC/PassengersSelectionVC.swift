@@ -138,13 +138,14 @@ class PassengersSelectionVC: BaseVC {
     
     func hideShowLoader(isHidden:Bool){
         DispatchQueue.main.async {
+            self.addButton.isHidden = !isHidden
             if isHidden{
                 self.addContactIndicator.stopAnimating()
                 
             }else{
                 self.addContactIndicator.startAnimating()
             }
-            self.addButton.isHidden = !isHidden
+            
         }
     }
     
@@ -161,7 +162,7 @@ class PassengersSelectionVC: BaseVC {
     @IBAction func tapAddButton(_ sender: UIButton) {
         self.hideShowLoader(isHidden: false)
         AppFlowManager.default.presentHCSelectGuestsVC(delegate: self, productType: .flight)
-        delay(seconds: 1.2){[weak self] in
+        delay(seconds: 1.6){[weak self] in
             self?.hideShowLoader(isHidden: true)
         }
     }
@@ -296,9 +297,9 @@ extension PassengersSelectionVC{
     func getListingController(){
       if let nav = self.navigationController?.presentingViewController?.presentingViewController as? UINavigationController{
           nav.dismiss(animated: true) {[weak self] in
-          guard let _ = self else {return}
-              delay(seconds: 0.0) {[weak self] in
-                guard let self = self else {return}
+            guard let self = self else {return}
+            DispatchQueue.main.async {//[weak self] in
+//                guard let self = self else {return}
                 if let vc = nav.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
 //                    nav.popToViewController(vc, animated: true)
                     vc.searchApiResult(flightItinary: self.viewModel.itineraryData)

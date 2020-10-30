@@ -346,6 +346,7 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
         cell.allPaxInfoRequired = self.viewModel.isAllPaxInfoRequired
         cell.guestDetail = self.viewModel.passengerList[indexPath.section]
         cell.lastJourneyDate = self.viewModel.lastJourneyDate
+        cell.journeyStartDate = self.viewModel.firstJourneyDate
         cell.journeyEndDate = self.viewModel.journeyEndDate
         return cell
     }

@@ -85,9 +85,14 @@ class HCGuestListVC: BaseVC {
         self.apiProgressBar.progressTintColor = UIColor.AertripColor
         self.apiProgressBar.trackTintColor = .clear
         self.apiProgressBar.progress = 0.0
-        DispatchQueue.main.async {
+        if self.currentlyUsingFor != .travellers{
+            delay(seconds: 0.5) {
+                self.initialSetups()
+            }
+        }else{
             self.initialSetups()
         }
+        
         
     }
     
