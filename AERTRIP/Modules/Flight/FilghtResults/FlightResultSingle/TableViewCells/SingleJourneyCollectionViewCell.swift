@@ -240,11 +240,12 @@ class SingleJourneyCollectionViewCell: UICollectionViewCell {
 
 
 extension SingleJourneyCollectionViewCell : UICollectionViewDataSource , UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+ 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         
         if section == 0 {
-            if baggageSuperScript?.string == "0P" || baggageSuperScript?.string == "0" {
+            if baggageSuperScript?.string == "0P" || baggageSuperScript?.string == "0" || baggageSuperScript?.string == "?"  {
                 return 0
             }
             else {
@@ -334,7 +335,7 @@ extension SingleJourneyCollectionViewCell : UICollectionViewDataSource , UIColle
         return .zero
     }
     else {
-        if smartIconsArray?.count == 0  || baggageSuperScript?.string == "0P" || baggageSuperScript?.string == "0" {
+        if smartIconsArray?.count == 0  || baggageSuperScript?.string == "0P" || baggageSuperScript?.string == "0" || baggageSuperScript?.string == "?"  {
             return .zero
         }
         return CGSize(width: 16.0, height:  23.0)

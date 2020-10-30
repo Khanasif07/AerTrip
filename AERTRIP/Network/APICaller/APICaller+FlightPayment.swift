@@ -123,8 +123,10 @@ extension APICaller{
     
     
     func flightBookingReceiptAPI(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ hotelReceiptData : FlightReceptModelData?)->Void) {
+        printDebug("Time when hit Api \(DispatchTime.now())")
         AppNetworking.GET(endPoint:APIEndPoint.bookingReceipt, parameters: params, loader: loader, success: { [weak self] (json) in
             guard let sSelf = self else {return}
+            printDebug("Time when get Api response \(DispatchTime.now())")
             sSelf.handleResponse(json, success: { (success, jsonData) in
                 printDebug(jsonData)
                 if success {

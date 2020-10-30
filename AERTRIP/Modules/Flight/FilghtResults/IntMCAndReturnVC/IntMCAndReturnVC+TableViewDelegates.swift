@@ -205,7 +205,7 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
             
 //            printDebug("curJourney.fk...\(curJourney.fk)")
 //
-//            printDebug("curJourney.coa....\(curJourney.coa)")
+//            printDebug("curJourney.baggageSuperScript....\(curJourney.baggageSuperScript)")
 
             
             let vc = FlightDetailsBaseVC.instantiate(fromAppStoryboard: .FlightDetailsBaseVC)

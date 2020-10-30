@@ -287,7 +287,6 @@ enum AppNetworking {
 
         request.responseData { (response:DataResponse) in
                             
-            
             //save the X-Auth-Token for the security perpose as discussed with aertrip backend
             if let headers = response.response?.allHeaderFields, let xToken = headers["X-Auth-Token"] {
                 UserDefaults.setObject("\(xToken)", forKey: UserDefaults.Key.xAuthToken.rawValue)
