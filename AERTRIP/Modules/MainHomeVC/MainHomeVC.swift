@@ -275,7 +275,7 @@ class MainHomeVC: BaseVC {
         view.addSubview(toAddImgView)
         view.bringSubviewToFront(toAddImgView)
         profileImgViewOriginalFrame = toAddImgView.frame
-        let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+        let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { 
             self.scrollView.contentOffset = pushPoint
             toAddImgView.layoutIfNeeded()
             if let profileImage = self.viewProfileVC?.profileImageHeaderView?.profileImageView {

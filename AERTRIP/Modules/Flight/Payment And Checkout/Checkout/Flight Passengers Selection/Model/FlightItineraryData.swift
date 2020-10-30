@@ -130,6 +130,15 @@ struct FlightSearchParam{
         
     }
     
+    var firstJourneyDate:Date{
+        if !self.depart.isEmpty, let date = self.depart.toDate(dateFormat: "dd-MM-yyyy"){
+            return date
+        }else if let dateStr = self.dipartArr?.first, let date = dateStr.toDate(dateFormat: "dd-MM-yyyy"){
+            return date
+        }
+        return Date()
+    }
+    
     
     init(_ json:JSON = JSON()){
         adult = json["adult"].stringValue

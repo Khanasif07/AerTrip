@@ -232,6 +232,7 @@ class TravellerListVC: BaseVC {
         if self.time == 2 {
             self.timer?.invalidate()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.timer?.invalidate()
                 self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
             }
         }
@@ -245,7 +246,11 @@ class TravellerListVC: BaseVC {
         }
     }
     func stopProgress() {
+        printDebug(self.time)
         self.time += 1
+        if self.time <= 8  {
+            self.time = 9
+        }
         self.timer?.invalidate()
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
     }

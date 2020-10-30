@@ -74,6 +74,7 @@ class AddPassengerDetailsCell: UITableViewCell {
     private var preSelectedCountry: PKCountryModel?
     var lastJourneyDate:Date = Date()
     var journeyEndDate = Date()
+    var journeyStartDate = Date()
     var allPaxInfoRequired = true
     var guestDetail: ATContact? {
         didSet {
@@ -500,10 +501,10 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
                 switch passenger.passengerType {
                 case .Adult:
                     minimumDate = nil
-                    maximumDate = Date().add(years: -12, days: 0)
+                    maximumDate = journeyStartDate.add(years: -12, days: 0)
                 case .Child:
                     minimumDate = self.lastJourneyDate.add(years: -12, days: 1)
-                    maximumDate = Date().add(years: -2, days: 0)
+                    maximumDate = journeyStartDate.add(years: -2, days: 0)
                 case .Infant:
                     minimumDate = self.lastJourneyDate.add(years: -2, days: 1)
                     maximumDate = Date()

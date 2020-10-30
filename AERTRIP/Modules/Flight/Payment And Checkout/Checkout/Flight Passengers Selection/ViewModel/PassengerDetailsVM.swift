@@ -21,6 +21,7 @@ class PassengerDetailsVM {
     var isAllPaxInfoRequired = false
     var lastJourneyDate = Date()
     var journeyEndDate = Date()
+    var firstJourneyDate = Date()
     var currentIndex = 0{
         didSet{
             self.indexPath = IndexPath(row: 0, section: currentIndex)

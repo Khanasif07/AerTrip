@@ -1263,26 +1263,26 @@
     flightclass.imageName = @"";
 
     
-    if ([flightClassName isEqualToString:@"Economy"]) {
+    if ([flightClassName caseInsensitiveCompare:@"Economy"] == NSOrderedSame) {
     
         flightclass.name = @"Economy";
         flightclass.type = ECONOMY_FLIGHT_TYPE;
     }
     
-    if ([flightClassName isEqualToString:@"Premium Economy"]) {
+    if ([flightClassName caseInsensitiveCompare:@"Premium Economy"] == NSOrderedSame) {
     
         flightclass.name = @"Premium Economy";
         flightclass.type = PREMIUM_FLIGHT_TYPE;
     }
     
-     if ([flightClassName isEqualToString:@"Business"]) {
+     if ([flightClassName caseInsensitiveCompare:@"Business"] == NSOrderedSame) {
        
         flightclass.name = @"Business";
         flightclass.type = BUSINESS_FLIGHT_TYPE;
 
     }
 
-     if ([flightClassName isEqualToString:@"First"]) {
+     if ([flightClassName caseInsensitiveCompare:@"First"] == NSOrderedSame) {
        
         flightclass.name = @"First";
         flightclass.type = FIRST_FLIGHT_TYPE;
