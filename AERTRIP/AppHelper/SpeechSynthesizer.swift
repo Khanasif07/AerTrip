@@ -16,7 +16,7 @@ class SpeechSynthesizer {
     func synthesizeToSpeech(_ text: String) {
         let audioSession = AVAudioSession.sharedInstance()
         do {
-            try audioSession.setCategory(AVAudioSession.Category.playback)
+            try audioSession.setCategory(AVAudioSession.Category.soloAmbient)
             try audioSession.setMode(AVAudioSession.Mode.default)
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {

@@ -339,7 +339,9 @@ class AerinCustomPopoverVC: BaseVC {
         if !hidden {
             giveSuccessHapticFeedback()
             waveAnimationContainerView.alpha = 1
-            speechRecognizer.start()
+            DispatchQueue.delay(0.2) {
+                self.speechRecognizer.start()
+            }
             resetListeningLbl()
         }
         UIView.animate(withDuration: 0.5, animations: {
