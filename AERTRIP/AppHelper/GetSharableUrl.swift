@@ -90,27 +90,6 @@ class GetSharableUrl
         request.addValue("AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4", forHTTPHeaderField: "Cookie")
         request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         
-        //        if let accessToken = UserInfo.loggedInUser?.accessToken, !accessToken.isEmpty
-        //        {
-        //            request.addValue(accessToken, forHTTPHeaderField: "Access-Token")
-        //        }else {
-        //            request.addValue(apiKey, forHTTPHeaderField: "Api-Key")
-        //        }
-        
-        //        var cookies = ""
-        //        if let allCookies = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie]
-        //        {
-        //            print("allCookies")
-        //            if allCookies.count > 0{
-        //                let name = allCookies.first?.name ?? ""
-        //                let value = allCookies.first?.value ?? ""
-        //                cookies = name + "=" + value
-        //            }
-        //        }
-        //
-        //        print("cookies= ",cookies)
-        //        request.addValue(cookies, forHTTPHeaderField: "Cookie")
-        
         request.httpMethod = "POST"
         request.httpBody = postData
         
@@ -245,32 +224,35 @@ class GetSharableUrl
         request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         
         var cookies = ""
-        if let allCookies = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie]
-        {
-            print("allCookies")
-            if allCookies.count > 0{
-                let name = allCookies.first?.name ?? ""
-                let value = allCookies.first?.value ?? ""
-                cookies = name + "=" + value
+        if (UserInfo.loggedInUser != nil){
+            if let allCookies = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie]
+            {
+                print("allCookies")
+                if allCookies.count > 0{
+                    let name = allCookies.first?.name ?? ""
+                    let value = allCookies.first?.value ?? ""
+                    if !name.isEmpty && !value.isEmpty || !name.isEmpty || !value.isEmpty{
+                        cookies = name + "=" + value
+                    }else{
+                        cookies = "AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4"
+                    }
+                }
             }
+
+        }else{
+            cookies = "AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4"
         }
         
         print("cookies= ",cookies)
         request.addValue(cookies, forHTTPHeaderField: "Cookie")
+
         
-        if let accessToken = UserInfo.loggedInUser?.accessToken, !accessToken.isEmpty
-        {
-            request.addValue(accessToken, forHTTPHeaderField: "Access-Token")
-        }else {
-            request.addValue(apiKey, forHTTPHeaderField: "Api-Key")
-        }
+        
         request.httpMethod = "POST"
         request.httpBody = postData
         
         
         print("postData=", String(data: postData!, encoding: .utf8)!)
-        
-        //        print("request= ",request.allHTTPHeaderFields)
         
         let requestDate = Date.getCurrentDate()
         var textLog = TextLog()
