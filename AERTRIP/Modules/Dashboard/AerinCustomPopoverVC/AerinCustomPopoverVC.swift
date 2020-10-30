@@ -78,6 +78,7 @@ class AerinCustomPopoverVC: BaseVC {
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var dismissBtn: UIButton!
     @IBOutlet weak var dragView: UIView!
+    @IBOutlet weak var topAerinImgView: UIImageView!
     
     @IBOutlet weak var aerinImgView: UIImageView!
     @IBOutlet weak var morningBackView: UIView!
@@ -101,7 +102,7 @@ class AerinCustomPopoverVC: BaseVC {
     @IBOutlet weak var suggestionsCollectionView: UICollectionView!
     @IBOutlet weak var collectionViewBottom: NSLayoutConstraint!
     
-    @IBOutlet var animationView: UIView!
+    @IBOutlet weak var animationView: UIView!
     @IBOutlet weak var animationBubbleImageView: UIImageView!
     @IBOutlet weak var animationLabel: UILabel!
     
@@ -207,6 +208,9 @@ class AerinCustomPopoverVC: BaseVC {
             }
             self.animationLabel.text = msg
             self.chatVm.messages.append(MessageModel(msg: msg, source: MessageModel.MessageSource.me))
+            if aerinImgView.alpha != 1.0 {
+                showTopAerinImgView()
+            }
             self.chatTableView.reloadData()
             self.resetFrames()
             scrollTableViewToLast()
@@ -438,7 +442,6 @@ class AerinCustomPopoverVC: BaseVC {
     }
     
     private func setupSubViews() {
-        chatTableView.contentInset = UIEdgeInsets(top: topNavView.height, left: 0, bottom: 0, right: 0)
         setupPopoverView()
         addPanGesture()
         setUpAttributes()
@@ -528,6 +531,12 @@ class AerinCustomPopoverVC: BaseVC {
         cell.contentView.isHidden = ishidden
     }
     
+    func showTopAerinImgView() {
+        UIView.animate(withDuration: 0.3) {
+            self.topAerinImgView.alpha = 1.0
+        }
+    }
+    
     //MARK:- Configure tableview
     private func configureTableView(){
         chatTableView.dataSource = self
@@ -538,6 +547,7 @@ class AerinCustomPopoverVC: BaseVC {
         chatTableView.register(UINib(nibName: "SeeResultsAgainCell", bundle: nil), forCellReuseIdentifier: "SeeResultsAgainCell")
         chatTableView.estimatedRowHeight = 100
         chatTableView.rowHeight = UITableView.automaticDimension
+        chatTableView.contentInset = UIEdgeInsets(top: topNavView.height, left: 0, bottom: 0, right: 0)
     }
     
     func configureCollectionView(){
@@ -585,6 +595,7 @@ class AerinCustomPopoverVC: BaseVC {
         popoverViewTop.constant = minPoint
         dragView.backgroundColor = AppColors.blackWith20PerAlpha
         dragView.roundedCorners(cornerRadius: 2.5)
+        topAerinImgView.alpha = 0
     }
     
     private func startPresentAnimation() {
