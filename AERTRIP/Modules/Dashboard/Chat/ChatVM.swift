@@ -57,6 +57,9 @@ class ChatVM {
     private var updatedFiltersJSON = JSON()
     private let locationManager = CLLocationManager()
     
+    private let speechSynthesizer = SpeechSynthesizer()
+
+    
     func getMylastMessageIndex() -> Int {
         
         let lastIndex = messages.lastIndex { (msg) -> Bool in
@@ -406,9 +409,9 @@ extension ChatVM {
     func checkToProvideVoiceFeedback(_ model: MessageModel) {
         if lastMessageSentType == .voice {
             if model.fullfilment.isEmpty && !model.depart.isEmpty && !model.origin.isEmpty && !model.destination.isEmpty {
-                SpeechSynthesizer.shared.synthesizeToSpeech("Here are your results")
+                speechSynthesizer.synthesizeToSpeech("Here are your results")
             } else {
-                SpeechSynthesizer.shared.synthesizeToSpeech(model.fullfilment)
+                speechSynthesizer.synthesizeToSpeech(model.fullfilment)
             }
         }
         lastMessageSentType = .text

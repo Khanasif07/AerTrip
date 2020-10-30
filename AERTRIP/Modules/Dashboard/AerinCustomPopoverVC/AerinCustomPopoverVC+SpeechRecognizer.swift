@@ -32,6 +32,9 @@ extension AerinCustomPopoverVC: SpeechRecognizerDelegate {
         self.animationLabel.text = msg
         self.chatVm.messages.append(MessageModel(msg: msg, source: MessageModel.MessageSource.me))
         self.chatTableView.reloadData()
+        if aerinImgView.alpha != 1.0 {
+            showTopAerinImgView()
+        }
         self.resetFrames()
         scrollTableViewToLast()
         self.hideShowSenderCellContent(ishidden: true)

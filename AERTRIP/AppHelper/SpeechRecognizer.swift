@@ -35,12 +35,13 @@ class SpeechRecognizer: NSObject {
         }
         if !audioEngine.isRunning {
             startRecording()
-            stopRecordingAfterDelay(delayTime: 2.5)
+            stopRecordingAfterDelay(delayTime: 3)
         }
     }
     
     func stop() {
         if audioEngine.isRunning {
+            
             audioEngine.stop()
             audioEngine.inputNode.removeTap(onBus: 0)
             recognitionRequest?.endAudio()
@@ -52,7 +53,7 @@ class SpeechRecognizer: NSObject {
         }
     }
     
-    private func stopRecordingAfterDelay(delayTime: TimeInterval = 1) {
+    private func stopRecordingAfterDelay(delayTime: TimeInterval = 0.5) {
         recordWorkItem?.cancel()
         recordWorkItem = DispatchWorkItem(block: { [weak self] in
             self?.stop()
@@ -114,8 +115,8 @@ class SpeechRecognizer: NSObject {
         
         let audioSession = AVAudioSession.sharedInstance()
         do {
-            try audioSession.setCategory(AVAudioSession.Category.record)
-            try audioSession.setMode(AVAudioSession.Mode.measurement)
+            try audioSession.setCategory(AVAudioSession.Category.playAndRecord)
+            try audioSession.setMode(AVAudioSession.Mode.default)
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
             print("audioSession properties weren't set because of an error.")

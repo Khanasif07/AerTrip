@@ -10,7 +10,6 @@ PODS:
   - Crashlytics (3.14.0):
     - Fabric (~> 1.10.2)
   - Fabric (1.10.2)
-  - FBRetainCycleDetector (0.1.4)
   - FBSDKCoreKit (8.0.0):
     - FBSDKCoreKit/Basics (= 8.0.0)
     - FBSDKCoreKit/Core (= 8.0.0)
@@ -112,8 +111,6 @@ PODS:
   - Kingfisher/Core (5.15.5)
   - lottie-ios (3.1.8)
   - MiniLayout (1.4.2)
-  - MLeaksFinder (1.0.0):
-    - FBRetainCycleDetector
   - MXParallaxHeader (1.1.0)
   - nanopb (1.30906.0):
     - nanopb/decode (= 1.30906.0)
@@ -156,7 +153,6 @@ DEPENDENCIES:
   - Kingfisher
   - lottie-ios
   - MiniLayout
-  - MLeaksFinder
   - MXParallaxHeader
   - Parchment
   - PhoneNumberKit (~> 3.3)
@@ -176,7 +172,6 @@ SPEC REPOS:
     - AvailableHapticFeedback
     - Crashlytics
     - Fabric
-    - FBRetainCycleDetector
     - FBSDKCoreKit
     - FBSDKLoginKit
     - FBSDKShareKit
@@ -200,7 +195,6 @@ SPEC REPOS:
     - Kingfisher
     - lottie-ios
     - MiniLayout
-    - MLeaksFinder
     - MXParallaxHeader
     - nanopb
     - Parchment
@@ -221,7 +215,6 @@ SPEC CHECKSUMS:
   AvailableHapticFeedback: 9b21b9f6d3e4566015988b5de35b40abefe6c09a
   Crashlytics: 9220f5bc89e7a618df411b4f639389dbfb0e03d2
   Fabric: ea977e3cd9c20425516d3dafd3bf8c941c51223f
-  FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
   FBSDKCoreKit: 9d27fe97a2fa2abe5eeefea8240e837623ab88e0
   FBSDKLoginKit: 2cbaf5405379731b22f2ebc224f7c30f62378171
   FBSDKShareKit: bf3705fc42b660c3da9f15223db791b3c9c2acde
@@ -245,7 +238,6 @@ SPEC CHECKSUMS:
   Kingfisher: e3ec347a5ab8817b7585ef46923a2d2b9a7d8fbe
   lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
   MiniLayout: f819ad87432712e6b2596081a62e633a4961bfc6
-  MLeaksFinder: 8c435bd2f6d070af18cff082b503b21adc130fc0
   MXParallaxHeader: de3c867e10ba46e8f6e20c8ee1f2a910372b3b94
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   Parchment: 002785473861582385db5c6725165353c500198e
@@ -259,6 +251,6 @@ SPEC CHECKSUMS:
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
   WSTagsField: a4e91b7d866e8c9755332ebcf8123f42f2abd4a0
 
-PODFILE CHECKSUM: 336d16346d730e54707dda78b73103f2289bfbba
+PODFILE CHECKSUM: 0da05c9a36c54b34e95e181db68328502303ab98
 
 COCOAPODS: 1.10.0
