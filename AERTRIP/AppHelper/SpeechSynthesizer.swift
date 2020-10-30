@@ -22,12 +22,10 @@ class SpeechSynthesizer {
         } catch {
             print("audioSession properties weren't set because of an error.")
         }
-        
         if speechSynthesizer.isSpeaking {
             speechSynthesizer.stopSpeaking(at: .immediate)
         }
         let speechUtterance: AVSpeechUtterance = AVSpeechUtterance(string: text)
-        speechUtterance.volume = 1
         speechUtterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.ttsbundle.Samantha-compact")
         speechSynthesizer.speak(speechUtterance)
     }

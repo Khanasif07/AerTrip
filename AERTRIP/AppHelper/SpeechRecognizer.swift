@@ -114,7 +114,7 @@ class SpeechRecognizer: NSObject {
         
         let audioSession = AVAudioSession.sharedInstance()
         do {
-            try audioSession.setCategory(AVAudioSession.Category.record)
+            try audioSession.setCategory(AVAudioSession.Category.playAndRecord)
             try audioSession.setMode(AVAudioSession.Mode.default)
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
