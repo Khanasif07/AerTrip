@@ -82,7 +82,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         if !fromDate.isEmpty {
             startingDate = Date.getDateFromString(stringDate: fromDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "E, d MMM yyyy hh:mm aa") ?? ""
         }
-        if !toDate.isEmpty && fromDate.isEmpty && penalty == 0 {
+        if (!toDate.isEmpty && fromDate.isEmpty && penalty == 0) || (!toDate.isEmpty && !fromDate.isEmpty && penalty == 0) {
             let cancelDesc: String = Date.getDateFromString(stringDate: toDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "d MMM’ yy") ?? ""
             let greenAttributedString = NSAttributedString(string: LocalizedString.FreeCancellation.localized, attributes: orangeAtrribute)
             let blackAttributedString = NSAttributedString(string: " by " + cancelDesc , attributes: blackAttribute)
@@ -166,7 +166,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         }
         var penaltyString: String = ""
         if isRefundable {
-            if !toDate.isEmpty && fromDate.isEmpty && penalty == 0 {
+            if (!toDate.isEmpty && fromDate.isEmpty && penalty == 0) || !toDate.isEmpty && !fromDate.isEmpty && penalty == 0 {
                 penaltyString = "Full Refund: If you cancel by \(endingDate)\n"
                 return penaltyString
             } else if !toDate.isEmpty && !fromDate.isEmpty && penalty != 0 {
@@ -226,6 +226,9 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
             self.descriptionLabel.text = ""
             if let firstRefundableData = ratesData.penalty_array?.first {
                 self.attributeLabelSetUp(roomPrice: ratesData.price , toDate: firstRefundableData.to, fromDate: firstRefundableData.from, penalty: firstRefundableData.penalty)
+                if (self.descriptionLabel.text ?? "").isEmpty {
+                    self.infoBtnOutlet.isHidden = true
+                }
             } else {
                 self.infoBtnOutlet.isHidden = true
             }

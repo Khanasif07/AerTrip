@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -36,7 +36,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l4j-hh-7q6">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="147"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="others" translatesAutoresizingMaskIntoConstraints="NO" id="5EA-68-gEJ">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="others_hotels" translatesAutoresizingMaskIntoConstraints="NO" id="5EA-68-gEJ">
                             <rect key="frame" x="166.5" y="32.5" width="42" height="42"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="5EA-68-gEJ" secondAttribute="height" multiplier="1:1" id="R6m-Ro-zdf"/>
@@ -106,6 +106,7 @@
                     <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </progressView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="l4j-hh-7q6" secondAttribute="bottom" id="Ge2-1d-2ie"/>
@@ -117,11 +118,10 @@
                 <constraint firstAttribute="trailing" secondItem="5M5-fY-SRX" secondAttribute="trailing" id="vvq-t6-V7t"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="140" y="112"/>
         </view>
     </objects>
     <resources>
-        <image name="others" width="104" height="104"/>
+        <image name="others_hotels" width="24" height="24"/>
     </resources>
 </document>

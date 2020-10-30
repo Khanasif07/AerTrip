@@ -344,7 +344,8 @@ enum LocalizedString: String {
     case GroupAlreadyExist
     case GroupNameCanNotEmpty
     case CantCreateGroupWithThisName
-    
+    case Me = "Me"
+
     // MARK: - Import Contacts
     case ImportingContacts
     case ThisMightTakeSomeTime

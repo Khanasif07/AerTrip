@@ -19,7 +19,7 @@ import FirebaseCore
 import UIKit
 import FirebaseCore
 import IQKeyboardManager
-
+import Kingfisher
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -58,7 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.set(false, forKey: "NSAllowsDefaultLineBreakStrategy")
         
         IQKeyboardManager.shared().shouldResignOnTouchOutside = true
-        
+        ImageCache.default.memoryStorage.config.totalCostLimit = 100
+        ImageCache.default.cleanExpiredCache()
         return true
     }
     

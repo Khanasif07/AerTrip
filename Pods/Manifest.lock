@@ -7,8 +7,6 @@ PODS:
   - AppAuth/Core (1.4.0)
   - AppAuth/ExternalUserAgent (1.4.0)
   - AvailableHapticFeedback (1.0.2)
-  - Crashlytics (3.14.0):
-    - Fabric (~> 1.10.2)
   - Fabric (1.10.2)
   - FBRetainCycleDetector (0.1.4)
   - FBSDKCoreKit (8.0.0):
@@ -140,7 +138,6 @@ DEPENDENCIES:
   - ActiveLabel
   - Alamofire
   - AvailableHapticFeedback
-  - Crashlytics
   - Fabric
   - FBSDKCoreKit
   - FBSDKLoginKit
@@ -174,7 +171,6 @@ SPEC REPOS:
     - Alamofire
     - AppAuth
     - AvailableHapticFeedback
-    - Crashlytics
     - Fabric
     - FBRetainCycleDetector
     - FBSDKCoreKit
@@ -219,7 +215,6 @@ SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   AvailableHapticFeedback: 9b21b9f6d3e4566015988b5de35b40abefe6c09a
-  Crashlytics: 9220f5bc89e7a618df411b4f639389dbfb0e03d2
   Fabric: ea977e3cd9c20425516d3dafd3bf8c941c51223f
   FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
   FBSDKCoreKit: 9d27fe97a2fa2abe5eeefea8240e837623ab88e0
@@ -259,6 +254,6 @@ SPEC CHECKSUMS:
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
   WSTagsField: a4e91b7d866e8c9755332ebcf8123f42f2abd4a0
 
-PODFILE CHECKSUM: 336d16346d730e54707dda78b73103f2289bfbba
+PODFILE CHECKSUM: 87e7ffe92eddd1edde8294fda444560a72417b8d
 
 COCOAPODS: 1.10.0

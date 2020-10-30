@@ -264,7 +264,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
-        printDebug("deinit")
+        printDebug("BaseVC deinit")
     }
 }
 

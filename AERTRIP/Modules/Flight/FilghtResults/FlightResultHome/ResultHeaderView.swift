@@ -42,7 +42,7 @@ class ResultHeaderView: UIView {
 //        self.grayView.layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
 //        self.grayView.layer.cornerRadius = 10
         
-        self.grayView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 0.5, shadowRadius: 4.0)
+        self.grayView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
     }
     
 }

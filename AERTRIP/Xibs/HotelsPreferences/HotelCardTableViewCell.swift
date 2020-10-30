@@ -81,7 +81,7 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
         self.saveButton.addTarget(self, action: #selector(self.saveButtonTapped(_:)), for: UIControl.Event.touchUpOutside)
         self.setupPageControl()
         
-        self.bgView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+        self.bgView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
         self.collectionView.cornerradius = 10.0
         self.gradientView.cornerradius = 10.0
         self.collectionView.registerCell(nibName: ATGalleryCell.reusableIdentifier)
