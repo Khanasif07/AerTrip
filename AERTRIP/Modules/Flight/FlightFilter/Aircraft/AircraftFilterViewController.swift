@@ -78,7 +78,7 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         printDebug("count is..\(self.aircraftFilter.allAircrafts.count)")
-        return section == 0 ? 1 : self.aircraftFilter.allAircrafts.count
+        return section == 0 ? 1 : self.aircraftFilter.allAircraftsArray.count
         
     }
     
@@ -124,8 +124,10 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
            
             } else {
                 
-                cell.configureAircraftCell(title: self.aircraftFilter.allAircrafts[indexPath.row])
+               // cell.configureAircraftCell(title: self.aircraftFilter.allAircrafts[indexPath.row])
 
+                cell.textLabel?.text = self.aircraftFilter.allAircraftsArray[indexPath.row].name
+                
                 if self.aircraftFilter.selectedAircrafts.contains(self.aircraftFilter.allAircrafts[indexPath.row]) {
                         
                         cell.radioButton.setImage(#imageLiteral(resourceName: "selectOption"), for: .normal)
@@ -151,13 +153,11 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
         
         if indexPath.section == 0 {
             
-            if self.aircraftFilter.selectedAircrafts.count == self.aircraftFilter.allAircrafts.count {
-                self.aircraftFilter.selectedAircrafts = []
+            if self.aircraftFilter.selectedAircraftsArray.count == self.aircraftFilter.allAircraftsArray.count {
+                self.aircraftFilter.selectedAircraftsArray = []
             } else {
-                self.aircraftFilter.selectedAircrafts = self.aircraftFilter.allAircrafts
-
+                self.aircraftFilter.selectedAircraftsArray = self.aircraftFilter.allAircraftsArray
             }
-
             
         } else {
             

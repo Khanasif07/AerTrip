@@ -4878,13 +4878,6 @@
 			path = PostBookingAddonsPaymentStatusVC;
 			sourceTree = "<group>";
 		};
-		18DEFE7B249E7B7400E64260 /* IntFlightUpgradeVC */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = IntFlightUpgradeVC;
-			sourceTree = "<group>";
-		};
 		18E17B9D248DFF7B00CC9876 /* FlightPaymentPendingVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -6711,7 +6704,6 @@
 			isa = PBXGroup;
 			children = (
 				0C4CB42125022F3D000C3904 /* UpgradeFlight */,
-				18DEFE7B249E7B7400E64260 /* IntFlightUpgradeVC */,
 				843FF3BB24740230001F21B1 /* IntFlightInfoVC */,
 				843FF3BD24740230001F21B1 /* IntFlightBaggageInfo */,
 				843FF3BF24740230001F21B1 /* IntFareBreakupVC */,

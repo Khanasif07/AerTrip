@@ -596,7 +596,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         
 //        printDebug("journey.baggageSuperScript....\(journey.baggageSuperScript)")
 //
-//        printDebug("journey.baggageSuperScript....\(journey.leg.first?.fcp)")
+        printDebug("journey.baggageSuperScript....\(journey.baggageSuperScript?.string)")
 
         
         let storyboard = UIStoryboard(name: "FlightDetailsBaseVC", bundle: nil)

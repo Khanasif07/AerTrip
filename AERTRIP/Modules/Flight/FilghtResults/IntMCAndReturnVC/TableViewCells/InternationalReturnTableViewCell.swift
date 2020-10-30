@@ -243,10 +243,12 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if section == 0 {
+            
+            printDebug("baggageSuperScript?.string....\(baggageSuperScript?.string)")
+            
             if baggageSuperScript?.string == "?" || baggageSuperScript?.string == "0P" || baggageSuperScript?.string == "0" {
                 return 0
-            }
-            else {
+            } else {
                 return 1
             }
         } else {

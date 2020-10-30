@@ -417,7 +417,8 @@ class FlightResultDisplayGroup {
             leg.flights.forEach { (flight) in
                 
                 allEqs.append(flight.eq ?? "")
-
+               
+//                printDebug("flight.eqQuality....\( String(describing: flight.eqQuality))")
             }
             
         }
