@@ -53,11 +53,11 @@ class AircraftFilterViewController: UIViewController {
     
     func updateAircraftList(filter : AircraftFilter){
         
-        printDebug("aircraft filter count....\(filter.allAircrafts.count)")
+//        printDebug("aircraft filter count....\(filter.allAircrafts.count)")
         
         self.aircraftFilter = filter
         
-        printDebug("aircraftFilter in vc...\(self.aircraftFilter.allAircrafts)")
+//        printDebug("aircraftFilter in vc...\(self.aircraftFilter.allAircrafts)")
 
         
         aircraftTableView.reloadData()
@@ -77,7 +77,7 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        printDebug("count is..\(self.aircraftFilter.allAircrafts.count)")
+        printDebug("count is..\(self.aircraftFilter.allAircraftsArray.count)")
         return section == 0 ? 1 : self.aircraftFilter.allAircraftsArray.count
         
     }
@@ -120,7 +120,7 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
                 
                 cell.configureAllAircraftsCell()
                 
-                cell.radioButton.setImage(self.aircraftFilter.selectedAircrafts.count == self.aircraftFilter.allAircrafts.count ? #imageLiteral(resourceName: "selectOption") : #imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
+                cell.radioButton.setImage(self.aircraftFilter.selectedAircraftsArray.count == self.aircraftFilter.allAircraftsArray.count ? #imageLiteral(resourceName: "selectOption") : #imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
            
             } else {
                 
@@ -128,7 +128,7 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
 
                 cell.textLabel?.text = self.aircraftFilter.allAircraftsArray[indexPath.row].name
                 
-                if self.aircraftFilter.selectedAircrafts.contains(self.aircraftFilter.allAircrafts[indexPath.row]) {
+                if self.aircraftFilter.selectedAircraftsArray.contains(self.aircraftFilter.allAircraftsArray[indexPath.row]) {
                         
                         cell.radioButton.setImage(#imageLiteral(resourceName: "selectOption"), for: .normal)
 
@@ -161,12 +161,12 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
             
         } else {
             
-            if let ind = self.aircraftFilter.selectedAircrafts.firstIndex(where: { (item) -> Bool in
-                   return item == self.aircraftFilter.allAircrafts[indexPath.row]
+            if let ind = self.aircraftFilter.selectedAircraftsArray.firstIndex(where: { (item) -> Bool in
+                return item.name == self.aircraftFilter.allAircraftsArray[indexPath.row].name
                }) {
-                   self.aircraftFilter.selectedAircrafts.remove(at: ind)
+                   self.aircraftFilter.selectedAircraftsArray.remove(at: ind)
                } else{
-                   self.aircraftFilter.selectedAircrafts.append(self.aircraftFilter.allAircrafts[indexPath.row])
+                   self.aircraftFilter.selectedAircraftsArray.append(self.aircraftFilter.allAircraftsArray[indexPath.row])
                }
                
         }

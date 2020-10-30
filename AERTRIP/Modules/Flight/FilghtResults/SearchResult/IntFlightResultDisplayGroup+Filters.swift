@@ -60,9 +60,9 @@ extension IntFlightResultDisplayGroup  {
     
     func aircraftFilterUpdated(_ filter: AircraftFilter) {
 
-        self.dynamicFilters.aircraft.selectedAircrafts = filter.selectedAircrafts
+        self.dynamicFilters.aircraft.selectedAircraftsArray = filter.selectedAircraftsArray
         
-        if !filter.selectedAircrafts.isEmpty{
+        if !filter.selectedAircraftsArray.isEmpty{
             
             appliedFilters.insert(.Aircraft)
 
@@ -153,7 +153,7 @@ extension IntFlightResultDisplayGroup  {
     
     func applyAircraftFilter(index : Int, _ inputArray : [IntMultiCityAndReturnWSResponse.Results.J]) -> [IntMultiCityAndReturnWSResponse.Results.J] {
 
-                let selectedAircrsfts = Set(self.dynamicFilters.aircraft.selectedAircrafts)
+                let selectedAircrsfts = Set(self.dynamicFilters.aircraft.selectedAircraftsArray.map { $0.name })
 
                 var outputArray = inputArray
 
