@@ -251,16 +251,44 @@ class ChatVM {
     
     func createFlightSearchDictFromRecentSearches(_ dict: JSONDictionary) {
         var jsonDict = JSONDictionary()
+        let json = JSON(dict)
         jsonDict["adult"] = dict["adult"]
         jsonDict["child"] = dict["child"]
         jsonDict["infant"] = dict["infant"]
         jsonDict["cabinclass"] = "\(dict["cabinclass"] ?? "")"
         jsonDict["trip_type"] = "\(dict["trip_type"] ?? "")"
-        jsonDict["origin"] = "\(dict["origin"] ?? "")"
-        jsonDict["destination"] = "\(dict["destination"] ?? "")"
-        jsonDict["depart"] = "\(dict["depart"] ?? "")"
-        if (dict["trip_type"] as? String) == "return" {
+        
+        if json["trip_type"].stringValue == "multi" {
+            let destinations = json["origin"].arrayValue.map { $0.stringValue }
+            destinations.enumerated().forEach { (index, element) in
+                jsonDict["origin[\(index)]"] = element
+            }
+        } else {
+            jsonDict["origin"] = "\(dict["origin"] ?? "")"
+        }
+        
+        if json["trip_type"].stringValue == "multi" {
+            let destinations = json["destination"].arrayValue.map { $0.stringValue }
+            destinations.enumerated().forEach { (index, element) in
+                jsonDict["destination[\(index)]"] = element
+            }
+        } else {
+            jsonDict["destination"] = "\(dict["destination"] ?? "")"
+        }
+        
+        if json["trip_type"].stringValue == "multi" {
+            let depart = json["depart"].arrayValue.map { $0.stringValue }
+            depart.enumerated().forEach { (index, element) in
+                jsonDict["depart[\(index)]"] = element
+            }
+        } else {
+            jsonDict["depart"] = "\(dict["depart"] ?? "")"
+        }
+        
+        if json["trip_type"].stringValue == "return" {
             jsonDict["return"] = "\(dict["return"] ?? "")"
+        } else if json["trip_type"].stringValue == "multi" {
+            
         } else {
             jsonDict["totalLegs"] = dict["totalLegs"]
         }
