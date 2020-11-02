@@ -627,7 +627,6 @@ class AerinCustomPopoverVC: BaseVC {
             self.dismiss(animated: false, completion: nil)
         })
     }
-    
 }
 
 extension AerinCustomPopoverVC {
