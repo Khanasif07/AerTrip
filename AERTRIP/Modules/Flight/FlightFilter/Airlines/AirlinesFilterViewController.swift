@@ -303,6 +303,7 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
         if let cell = tableView.dequeueReusableCell(withIdentifier: "RadioButtonCell") as? RadioButtonTableViewCell {
             cell.radioButton.setImage(#imageLiteral(resourceName: "selectOption"), for: .selected)
             cell.radioButton.setImage(#imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
+            cell.imageView?.image = nil
             cell.selectionStyle = .none
             if indexPath.section == 0 {
                 cell.textLabel?.text = "All Airlines"
