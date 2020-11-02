@@ -176,7 +176,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                             let adtRafVal = rafFees["ADT"]?.values.first
                             let displayValue = getPrice(price: Double(airlineValue + adtRafVal!))
                             
-                            let aertripFees = NSAttributedString(string: " + ₹ ")
+                            let aertripFees = NSAttributedString(string: " + ")
                             displayValue.append(aertripFees)
                             
                             let atrrAertripValue = getPrice(price: Double(aertripValue))
@@ -202,7 +202,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
 //                            slabCell.perAdultAmountLabel.text = displayValue + " + ₹ " + String(aertripValue)
                             
 //                            let str = " + ₹ " + String(aertripValue)
-                            let aertripFees = NSAttributedString(string: " + ₹ ")
+                            let aertripFees = NSAttributedString(string: " + ")
                             displayValue.append(aertripFees)
                             
                             let atrrAertripValue = getPrice(price: Double(aertripValue))
@@ -245,7 +245,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         
 //                        slabCell.perChildAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
                         
-                        let str = NSAttributedString(string: " + ₹ ")
+                        let str = NSAttributedString(string: " + ")
                         displayValue.append(str)
                         
                         
@@ -287,7 +287,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         let displayValue = getPrice(price: Double(value! + chdRafVal!))
 //                        slabCell.perInfantAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
  
-                        let str = NSAttributedString(string: " + ₹ ")
+                        let str = NSAttributedString(string: " + ")
                         displayValue.append(str)
                         
                         let atrrAertripValue = getPrice(price: Double(aertripValue))
@@ -364,7 +364,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
 //                            slabCell.statusLabel.text = displayValue + " + ₹ " +  String(aertripValue)
  
 
-                            displayValue.append(NSAttributedString(string: " + ₹ "))
+                            displayValue.append(NSAttributedString(string: " + "))
                             
                             let atrrAertripValue = getPrice(price: Double(aertripValue))
                             displayValue.append(atrrAertripValue)
@@ -389,7 +389,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                             
 //                            slabCell.perAdultAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
 
-                            displayValue.append(NSAttributedString(string: " + ₹ "))
+                            displayValue.append(NSAttributedString(string: " + "))
                             
                             let atrrAertripValue = getPrice(price: Double(aertripValue))
                             displayValue.append(atrrAertripValue)
@@ -432,7 +432,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         
 //                        slabCell.perChildAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
 
-                        displayValue.append(NSAttributedString(string: " + ₹ "))
+                        displayValue.append(NSAttributedString(string: " + "))
                         
                         let atrrAertripValue = getPrice(price: Double(aertripValue))
                         displayValue.append(atrrAertripValue)
@@ -474,7 +474,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
 //                        slabCell.perInfantAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
                         
 
-                        displayValue.append(NSAttributedString(string: " + ₹ "))
+                        displayValue.append(NSAttributedString(string: " + "))
                         
                         let atrrAertripValue = getPrice(price: Double(aertripValue))
                         displayValue.append(atrrAertripValue)

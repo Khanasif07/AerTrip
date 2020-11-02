@@ -320,7 +320,7 @@ extension IntCombineFareInfoCell{
                             }
                             let displayValue = getPrice(price: Double(airlineValue + adtRafVal))
 
-                            displayValue.append(NSAttributedString(string: " + ₹ "))
+                            displayValue.append(NSAttributedString(string: " + "))
                             displayValue.append(getPrice(price: Double(aertripValue)))
                             slabCell.statusLabel.attributedText = displayValue
 //                            slabCell.statusLabel.text = displayValue + " + ₹ " + String(aertripValue)
@@ -344,7 +344,7 @@ extension IntCombineFareInfoCell{
                                 adtRafVal = (rafFees["ADT"] as? [String:Int])?.values.first ?? 0
                             }
                             let displayValue = getPrice(price: Double(airlineValue + adtRafVal))
-                            displayValue.append(NSAttributedString(string: " + ₹ "))
+                            displayValue.append(NSAttributedString(string: " + "))
                             displayValue.append(getPrice(price: Double(aertripValue)))
                             slabCell.perAdultAmountLabel.attributedText = displayValue
                             
@@ -387,7 +387,7 @@ extension IntCombineFareInfoCell{
                             chdRafVal = (rafFees["CHD"] as? [String:Int])?.values.first ?? 0
                         }
                         let displayValue = getPrice(price: Double(value + chdRafVal))
-                        displayValue.append(NSAttributedString(string: " + ₹ "))
+                        displayValue.append(NSAttributedString(string: " + "))
                         displayValue.append(getPrice(price: Double(aertripValue)))
                         
                         slabCell.perChildAmountLabel.attributedText = displayValue
@@ -430,7 +430,7 @@ extension IntCombineFareInfoCell{
                             iNFRafVal = (rafFees["INF"] as? [String:Int])?.values.first ?? 0
                         }
                         let displayValue = getPrice(price: Double(value + iNFRafVal))
-                        displayValue.append(NSAttributedString(string: " + ₹ "))
+                        displayValue.append(NSAttributedString(string: " + "))
                         displayValue.append(getPrice(price: Double(aertripValue)))
                         
                         slabCell.perInfantAmountLabel.attributedText = displayValue
@@ -505,7 +505,7 @@ extension IntCombineFareInfoCell{
                             slabCell.statusLabel.textColor = .black
                             
                             let displayValue = getPrice(price: Double(value))
-                            displayValue.append(NSAttributedString(string: " + ₹ "))
+                            displayValue.append(NSAttributedString(string: " + "))
                             displayValue.append(getPrice(price: Double(aertripValue)))
 
                             slabCell.statusLabel.attributedText = displayValue
@@ -526,7 +526,7 @@ extension IntCombineFareInfoCell{
                             slabCell.perAdultAmountLabel.textColor = .black
                             
                             let displayValue = getPrice(price: Double(value))
-                            displayValue.append(NSAttributedString(string: " + ₹ "))
+                            displayValue.append(NSAttributedString(string: " + "))
                             displayValue.append(getPrice(price: Double(aertripValue)))
                             slabCell.perAdultAmountLabel.attributedText = displayValue
 
@@ -564,7 +564,7 @@ extension IntCombineFareInfoCell{
                         slabCell.perChildAmountLabel.textColor = .black
                         
                         let displayValue = getPrice(price: Double(value))
-                        displayValue.append(NSAttributedString(string: " + ₹ "))
+                        displayValue.append(NSAttributedString(string: " + "))
                         displayValue.append(getPrice(price: Double(aertripValue)))
                         
                         slabCell.perChildAmountLabel.attributedText = displayValue
@@ -601,7 +601,7 @@ extension IntCombineFareInfoCell{
                     }else{
                         slabCell.perInfantAmountLabel.textColor = .black
                         let displayValue = getPrice(price: Double(value))
-                        displayValue.append(NSAttributedString(string: " + ₹ "))
+                        displayValue.append(NSAttributedString(string: " + "))
                         displayValue.append(getPrice(price: Double(aertripValue)))
                         slabCell.perInfantAmountLabel.attributedText = displayValue
 
