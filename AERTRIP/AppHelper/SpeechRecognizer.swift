@@ -26,6 +26,7 @@ class SpeechRecognizer: NSObject {
     weak var delegate: SpeechRecognizerDelegate?
     
     private var recordWorkItem: DispatchWorkItem?
+    private var shouldStopRecordingText = false
     
     
     func start() {
@@ -41,7 +42,7 @@ class SpeechRecognizer: NSObject {
     
     func stop() {
         if audioEngine.isRunning {
-            
+            shouldStopRecordingText = true
             audioEngine.stop()
             audioEngine.inputNode.removeTap(onBus: 0)
             recognitionRequest?.endAudio()
@@ -108,6 +109,8 @@ class SpeechRecognizer: NSObject {
     
     private func startRecording() {
         
+        shouldStopRecordingText = false
+        
         if recognitionTask != nil {
             recognitionTask?.cancel()
             recognitionTask = nil
@@ -138,7 +141,9 @@ class SpeechRecognizer: NSObject {
             
             if result != nil {
                 
-                self.delegate?.recordedText(result?.bestTranscription.formattedString ?? "")
+                if !self.shouldStopRecordingText {
+                    self.delegate?.recordedText(result?.bestTranscription.formattedString ?? "")
+                }
                 isFinal = (result?.isFinal)!
                 
                 self.stopRecordingAfterDelay()

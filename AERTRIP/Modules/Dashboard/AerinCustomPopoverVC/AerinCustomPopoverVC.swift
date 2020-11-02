@@ -596,6 +596,7 @@ class AerinCustomPopoverVC: BaseVC {
         dragView.backgroundColor = AppColors.blackWith20PerAlpha
         dragView.roundedCorners(cornerRadius: 2.5)
         topAerinImgView.alpha = 0
+        
     }
     
     private func startPresentAnimation() {
