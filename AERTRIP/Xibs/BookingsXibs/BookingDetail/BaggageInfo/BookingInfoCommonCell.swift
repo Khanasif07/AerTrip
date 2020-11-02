@@ -124,20 +124,20 @@ class BookingInfoCommonCell: ATTableViewCell {
         middleLabel.font = font
         rightLabel.font = font
         
-        if middleLabelTxt == LocalizedString.NoBaggage.localized {
-            middleLabel.textColor = AppColors.themeRed
-        }
-        if rightLabelTxt == LocalizedString.NoBaggage.localized {
-            rightLabel.textColor = AppColors.themeRed
-        }
+//        if middleLabelTxt == LocalizedString.NoBaggage.localized {
+//            middleLabel.textColor = AppColors.themeRed
+//        }
+//        if rightLabelTxt == LocalizedString.NoBaggage.localized {
+//            rightLabel.textColor = AppColors.themeRed
+//        }
         leftLabel.text = leftLabelTxt
         middleLabel.text = middleLabelTxt
         rightLabel.text = rightLabelTxt
         
         if usingFor != .title {
             
-        middleLabel.AttributedFontColorForText(text: LocalizedString.NoBaggage.localized, textColor: AppColors.themeRed)
-        rightLabel.AttributedFontColorForText(text: LocalizedString.NoBaggage.localized, textColor: AppColors.themeRed)
+//        middleLabel.AttributedFontColorForText(text: LocalizedString.NoBaggage.localized, textColor: AppColors.themeRed)
+//        rightLabel.AttributedFontColorForText(text: LocalizedString.NoBaggage.localized, textColor: AppColors.themeRed)
             
         middleLabel.AttributedFontForText(text: middleLabelTxt.components(separatedBy: "(").first ?? "", textFont: AppFonts.SemiBold.withSize(16.0))
         rightLabel.AttributedFontForText(text: rightLabelTxt.components(separatedBy: "(").first ?? "", textFont: AppFonts.SemiBold.withSize(16.0))

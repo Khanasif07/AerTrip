@@ -40,7 +40,8 @@ class FlightBookingInfoVC: BaseVC {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.registerXib()
-        delay(seconds: 0.2) {
+        delay(seconds: 0.2) { [weak self] in
+            guard let self = self else {return}
             self.tableView.reloadData()
         }
         delay(seconds: 0.3) { [weak self] in

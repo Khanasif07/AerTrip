@@ -402,12 +402,14 @@ extension HotelFilterVC: HotelFilterVMDelegate {
     }
     
     func reloadMenu(){
+        DispatchQueue.main.async {
         self.setBadgesOnAllCategories()
         UIView.setAnimationsEnabled(false)
         UIView.animate(withDuration: 0, animations: {
             self.parchmentView?.reloadMenu()
         }) { (_) in
             UIView.setAnimationsEnabled(true)
+        }
         }
     }
 }
