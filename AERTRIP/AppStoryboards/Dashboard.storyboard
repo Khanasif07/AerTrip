@@ -2099,7 +2099,7 @@ on Christmas”</string>
                                         <rect key="frame" x="-207" y="459" width="828" height="308"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wavesBackGradientImg" translatesAutoresizingMaskIntoConstraints="NO" id="VwH-Mt-rza">
-                                                <rect key="frame" x="207" y="77" width="414" height="231"/>
+                                                <rect key="frame" x="207" y="71" width="414" height="237"/>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EfQ-Ce-Yw9">
                                                 <rect key="frame" x="207" y="0.0" width="414" height="308"/>
@@ -2156,7 +2156,7 @@ on Christmas”</string>
                                             <constraint firstItem="EfQ-Ce-Yw9" firstAttribute="top" secondItem="B4w-iD-k9i" secondAttribute="top" id="TVK-Di-GxJ"/>
                                             <constraint firstAttribute="bottom" secondItem="EfQ-Ce-Yw9" secondAttribute="bottom" id="Tmg-vS-xIj"/>
                                             <constraint firstItem="EfQ-Ce-Yw9" firstAttribute="width" secondItem="B4w-iD-k9i" secondAttribute="width" multiplier="0.5" id="UVJ-aS-KwP"/>
-                                            <constraint firstItem="VwH-Mt-rza" firstAttribute="height" secondItem="B4w-iD-k9i" secondAttribute="height" multiplier="0.75" id="WMF-5Y-OnG"/>
+                                            <constraint firstItem="VwH-Mt-rza" firstAttribute="height" secondItem="B4w-iD-k9i" secondAttribute="height" multiplier="0.77" id="WMF-5Y-OnG"/>
                                             <constraint firstItem="EfQ-Ce-Yw9" firstAttribute="centerX" secondItem="B4w-iD-k9i" secondAttribute="centerX" id="WZ5-6i-vSo"/>
                                             <constraint firstAttribute="height" constant="308" id="eWu-mc-xiG"/>
                                             <constraint firstItem="VwH-Mt-rza" firstAttribute="leading" secondItem="EfQ-Ce-Yw9" secondAttribute="leading" id="k1v-2f-wdu"/>
