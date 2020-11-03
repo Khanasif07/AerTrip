@@ -988,6 +988,16 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "ImportingContacts" = "Importing contacts";
 "ThisMightTakeSomeTime" = "This might take some time";
 
+//MARK: - Passengers Selections
+"firstName3Char" = "Passenger first name should have atleast 3 character";
+"fistNameNumeric"  = "Passenger first name should not have any numeric or special character";
+"lastName3Char" = "Passenger first last should have atleast 3 character";
+"lastNameNumeric" = "Passenger last name should not have any numeric or special character";
+"fillContactDetails" = "Please fill the passenger contact details";
+"adultAgeError" = "Adult's age must be over 12 years";
+"childAgeError" = "Child's age must be between 2 and 12 years";
+"infantAgeError" = "Infant's age must be less than 2 years";
+
 
 //MARK:- Settings
 "Currency" = "Currency";

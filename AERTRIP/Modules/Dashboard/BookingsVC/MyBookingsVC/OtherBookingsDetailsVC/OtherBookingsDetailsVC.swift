@@ -18,7 +18,7 @@ class OtherBookingsDetailsVC: BaseVC {
     let viewModel = BookingProductDetailVM()
     var headerView: OtherBookingDetailsHeaderView?
     var eventTypeImage: UIImage {
-        return #imageLiteral(resourceName: "others")
+        return #imageLiteral(resourceName: "others_hotels")
     }
     
     private var navBarHeight: CGFloat {
@@ -46,7 +46,7 @@ class OtherBookingsDetailsVC: BaseVC {
         didSet {
             self.dataTableView.estimatedRowHeight = 100.0
             self.dataTableView.rowHeight = UITableView.automaticDimension
-            self.dataTableView.contentInset = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
+            //self.dataTableView.contentInset = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.dataTableView.estimatedSectionHeaderHeight = 0
             self.dataTableView.sectionHeaderHeight = 0
             self.dataTableView.backgroundColor = AppColors.screensBackground.color
@@ -63,19 +63,21 @@ class OtherBookingsDetailsVC: BaseVC {
     
     override func initialSetup() {
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
-        self.viewModel.getBookingDetail(showProgress: true)
-        self.statusBarStyle = .darkContent
+        //self.statusBarStyle = .darkContent
         self.topNavBarHeightConstraint.constant = self.navBarHeight
         self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: .white))
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
+        self.topNavBar.navTitleLabel.numberOfLines = 1
         self.setupParallaxHeader()
         self.registerNibs()
-        
+        self.configureTableHeaderView()
         self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         self.refreshControl.tintColor = AppColors.themeGreen
         //self.dataTableView.refreshControl = refreshControl
         
+        self.viewModel.getBookingDetail(showProgress: true)
+
         NotificationCenter.default.addObserver(self, selector: #selector(bookingDetailFetched(_:)), name: .bookingDetailFetched, object: nil)
 
     }

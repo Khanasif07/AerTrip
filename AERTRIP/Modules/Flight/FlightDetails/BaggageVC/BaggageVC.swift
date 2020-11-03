@@ -97,7 +97,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
             style.paragraphSpacingBefore = 16
             
             var displayTxt = ""
-
+            
             if combineString != ""{
                 displayTxt = displayTxt + "*   " + combineString + "\n"
                 
@@ -111,7 +111,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                 }
                 
                 let attributedWithTextColor: NSAttributedString = displayTxt.attributedStringWithColor(strArray, color: UIColor.clear)
-
+                
                 changeAirportCell.dataLabel.attributedText = attributedWithTextColor
             }else{
                 displayTxt = displayTxt + "•   Baggage details are indicative and subject to change without prior notice."
@@ -121,7 +121,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
             }
             
             changeAirportCell.seperatorBottom.constant = 35
-
+            
             return changeAirportCell
         }else{
             let baggageCell = tableView.dequeueReusableCell(withIdentifier: "BaggageDetailsPerFlightCell") as! BaggageDetailsPerFlightTableViewCell
@@ -164,7 +164,6 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                                     }
                                 }
                                 
-                                
                                 if weight != "" && max_pieces != ""  && max_pieces != "0 pc"{
                                     isAdultBaggageWithPiece = true
                                     var pc = ""
@@ -174,9 +173,9 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                                             pc = pieces[0]
                                         }
                                     }
-
+                                    
                                     adultBaggage = "Max \(pc) pieces can be carried weighing total \(weight)"
-
+                                    
                                     let str = "\(weight) : Max \(pc) pieces can be carried weighing total \(weight)"
                                     if !attStringArray.contains(str){
                                         attStringArray.append(str)
@@ -193,9 +192,10 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                             baggageCell.perAdultCheckinLabel.text = "NA"
                         }
                         
-                        if let chdCheckinBaggage = bgData["CHD"] as? JSONDictionary{
+                        if let chdCheckinBaggage = bgData["CHD"] as? JSONDictionary
+                        {
                             baggageCell.setPerChildCheckinBaggage(chdCheckinBaggage: chdCheckinBaggage)
-
+                            
                             if let weight = chdCheckinBaggage["weight"] as? String, let pieces = chdCheckinBaggage["pieces"] as? String, let max_pieces = chdCheckinBaggage["max_pieces"] as? String, let max_weight = chdCheckinBaggage["max_weight"] as? String{
                                 if pieces != "" && pieces != "0 pc" && max_weight == ""
                                 {
@@ -207,13 +207,12 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                                         }
                                         combineString.append(str)
                                     }
-
                                 }
                                 
                                 if weight != "" && max_pieces != ""  && max_pieces != "0 pc"
                                 {
                                     isChildBaggageWithPiece = true
-
+                                    
                                     var pc = ""
                                     if max_pieces.contains(find: " "){
                                         let pieces = max_pieces.components(separatedBy: " ")
@@ -221,9 +220,9 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                                             pc = pieces[0]
                                         }
                                     }
-
+                                    
                                     childBaggage = "Max \(pc) pieces can be carried weighing total \(weight)"
-
+                                    
                                     let str = "\(weight) : Max \(pc) pieces can be carried weighing total \(weight)"
                                     if !attStringArray.contains(str){
                                         attStringArray.append(str)
@@ -232,122 +231,24 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                                         }
                                         combineString.append(str)
                                     }
-
                                 }
                             }
-                        }
-//                        {
-//                            baggageCell.setPerChildCheckinBaggage(chdCheckinBaggage: chdCheckinBaggage)
-//
-//
-//                            if let weight = chdCheckinBaggage["weight"] as? String, let pieces = chdCheckinBaggage["pieces"] as? String, let max_pieces = chdCheckinBaggage["max_pieces"] as? String, let max_weight = chdCheckinBaggage["max_weight"] as? String{
-//
-//                                if (weight == "0 Kg" && max_pieces == "" && max_weight == "") || (weight == "" && max_pieces == "" && max_weight == "") || (weight == "-9" && max_pieces == "" && max_weight == "") && pieces != "0 pc"{
-//                                    let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
-//                                    if !attStringArray.contains(str){
-//                                        attStringArray.append(str)
-//                                        if combineString != ""{
-//                                            combineString.append("\n     ")
-//                                        }
-//                                        combineString.append(str)
-//                                    }
-//
-//                                }
-//
-//
-//                                if weight != "0 Kg" && weight != "" && weight != "-9" && max_pieces != ""{
-//                                    isChildBaggageWithPiece = true
-//
-//                                    var pc = ""
-//                                    if max_pieces.contains(find: " "){
-//                                        let pieces = max_pieces.components(separatedBy: " ")
-//                                        if pieces.count > 0{
-//                                            pc = pieces[0]
-//                                        }
-//                                    }
-//
-//                                    childBaggage = "Max \(pc) pieces can be carried weighing total \(weight)"
-//
-//                                    let str = "\(weight) : Max \(pc) pieces can be carried weighing total \(weight)"
-//                                    if !attStringArray.contains(str){
-//                                        attStringArray.append(str)
-//                                        if combineString != ""{
-//                                            combineString.append("\n     ")
-//                                        }
-//                                        combineString.append(str)
-//                                    }
-//
-//                                }
-//                            }else if let weight = chdCheckinBaggage["weight"] as? String, let pieces = chdCheckinBaggage["pieces"] as? String, let max_pieces = chdCheckinBaggage["max_pieces"] as? String{
-//
-//                                if weight == "0 Kg" && weight == "" && weight == "-9" && max_pieces == "" && pieces != "0 pc"{
-//                                    let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
-//                                    if !attStringArray.contains(str){
-//                                        attStringArray.append(str)
-//                                        if combineString != ""{
-//                                            combineString.append("\n     ")
-//                                        }
-//                                        combineString.append(str)
-//                                    }
-//
-//                                }
-//
-//
-//                                if pieces != ""{
-//                                    let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
-//                                    if !attStringArray.contains(str){
-//                                        attStringArray.append(str)
-//                                        if combineString != ""{
-//                                            combineString.append("\n     ")
-//                                        }
-//                                        combineString.append(str)
-//                                    }
-//
-//                                }
-//
-//
-//                                if weight != "0 Kg" && weight != "" && weight != "-9" && max_pieces != ""{
-//                                    isChildBaggageWithPiece = true
-//
-//                                    var pc = ""
-//                                    if max_pieces.contains(find: " "){
-//                                        let pieces = max_pieces.components(separatedBy: " ")
-//                                        if pieces.count > 0{
-//                                            pc = pieces[0]
-//                                        }
-//                                    }
-//                                    childBaggage = "Max \(pc) pieces can be carried weighing total \(weight)"
-//
-//                                    let str = "\(weight) : Max \(pc) pieces can be carried weighing total \(weight)"
-//                                    if !attStringArray.contains(str){
-//                                        attStringArray.append(str)
-//                                        if combineString != ""{
-//                                            combineString.append("\n     ")
-//                                        }
-//                                        combineString.append(str)
-//                                    }
-//                                }
-//                            }
-//
-//                        }
-                        else{
+                        }else{
                             baggageCell.perChildView.isHidden = true
                             baggageCell.perChildViewHeight.constant = 0
                             baggageCell.perChildCheckInLabel.text = "NA"
                         }
-
                         
-                        if let infCheckInBaggage = bgData["INF"] as? JSONDictionary{
+                        
+                        if let infCheckInBaggage = bgData["INF"] as? JSONDictionary
+                        {
                             baggageCell.setPerInfantCheckinBaggage(infCheckInBaggage: infCheckInBaggage)
-                            
                             
                             if let weight = infCheckInBaggage["weight"] as? String, let pieces = infCheckInBaggage["pieces"] as? String, let max_pieces = infCheckInBaggage["max_pieces"] as? String, let max_weight = infCheckInBaggage["max_weight"] as? String
                             {
-                                
-                                
                                 if pieces != "" && pieces != "0 pc" && max_weight == ""
                                 {
-
+                                    
                                     let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
                                     if !attStringArray.contains(str){
                                         attStringArray.append(str)
@@ -361,7 +262,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                                 if weight != "" && max_pieces != ""  && max_pieces != "0 pc"
                                 {
                                     isInfantBaggageWithPiece = true
-
+                                    
                                     var pc = ""
                                     if max_pieces.contains(find: " "){
                                         let pieces = max_pieces.components(separatedBy: " ")
@@ -369,10 +270,9 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                                             pc = pieces[0]
                                         }
                                     }
-
+                                    
                                     infantBaggage = "Max \(pc) pieces can be carried weighing total \(weight)"
-
-
+                                    
                                     let str = "\(weight) : Max \(pc) pieces can be carried weighing total \(weight)"
                                     if !attStringArray.contains(str){
                                         attStringArray.append(str)
@@ -382,43 +282,6 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                                         combineString.append(str)
                                     }
                                 }
-//                                if weight == "" && max_pieces == "" && max_weight == "" && pieces != "0 pc"{
-//
-//                                    let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
-//                                    if !attStringArray.contains(str){
-//                                        attStringArray.append(str)
-//                                        if combineString != ""{
-//                                            combineString.append("\n     ")
-//                                        }
-//                                        combineString.append(str)
-//                                    }
-//                                }
-                                
-                                
-//                                if weight != "" && max_pieces != "" && weight != "0 kg"{
-//
-//                                    isInfantBaggageWithPiece = true
-//
-//                                    var pc = ""
-//                                    if max_pieces.contains(find: " "){
-//                                        let pieces = max_pieces.components(separatedBy: " ")
-//                                        if pieces.count > 0{
-//                                            pc = pieces[0]
-//                                        }
-//                                    }
-//
-//                                    infantBaggage = "Max \(pc) pieces can be carried weighing total \(weight)"
-//
-//
-//                                    let str = "\(weight) : Max \(pc) pieces can be carried weighing total \(weight)"
-//                                    if !attStringArray.contains(str){
-//                                        attStringArray.append(str)
-//                                        if combineString != ""{
-//                                            combineString.append("\n     ")
-//                                        }
-//                                        combineString.append(str)
-//                                    }
-//                                }
                             }
                         }else{
                             baggageCell.perInfantView.isHidden = true
@@ -426,242 +289,6 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                             baggageCell.perInfantCheckInLabel.text = "NA"
                         }
                     }
-//                    {
-//                        if let adtCheckinBaggage = bgData["ADT"] as? JSONDictionary{
-//                            baggageCell.setPerAdultCheckinBaggage(adtCheckinBaggage: adtCheckinBaggage)
-//
-//                            let weight = adtCheckinBaggage["weight"] as? String ?? ""
-//                            let pieces = adtCheckinBaggage["pieces"] as? String ?? ""
-//                            let max_pieces = adtCheckinBaggage["max_pieces"] as? String ?? ""
-//                            let max_weight = adtCheckinBaggage["max_weight"] as? String ?? ""
-//
-//                            if pieces != "" && pieces != "0 pc" && max_weight == ""
-//                            {
-//                                let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
-//                                if !attStringArray.contains(str){
-//                                    attStringArray.append(str)
-//                                    if combineString != ""{
-//                                        combineString.append("\n     ")
-//                                    }
-//                                    combineString.append(str)
-//                                }
-//                            }
-//
-//
-//                            if weight != "" && max_pieces != ""  && max_pieces != "0 pc"{
-//                                isAdultBaggageWithPiece = true
-//                                var pc = ""
-//                                if max_pieces.contains(find: " "){
-//                                    let pieces = max_pieces.components(separatedBy: " ")
-//                                    if pieces.count > 0{
-//                                        pc = pieces[0]
-//                                    }
-//                                }
-//
-//                                adultBaggage = "Max \(pc) pieces can be carried weighing total \(weight)"
-//
-//                                let str = "\(weight) : Max \(pc) pieces can be carried weighing total \(weight)"
-//                                if !attStringArray.contains(str){
-//                                    attStringArray.append(str)
-//                                    if combineString != ""{
-//                                        combineString.append("\n     ")
-//                                    }
-//                                    combineString.append(str)
-//                                }
-//                            }
-//
-////                            if let weight = adtCheckinBaggage["weight"] as? String, let pieces = adtCheckinBaggage["pieces"] as? String, let max_pieces = adtCheckinBaggage["max_pieces"] as? String, let max_weight = adtCheckinBaggage["max_weight"] as? String
-////                            {
-////                                if (weight == "0 Kg" && max_pieces == "" && max_weight == "") || (weight == "" && max_pieces == "" && max_weight == "") || (weight == "-9" && max_pieces == "" && max_weight == "") && pieces != "0 pc"{
-////                                    let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
-////                                    if !attStringArray.contains(str){
-////                                        attStringArray.append(str)
-////                                        if combineString != ""{
-////                                            combineString.append("\n     ")
-////                                        }
-////                                        combineString.append(str)
-////                                    }
-////                                }
-////
-////
-////                                if weight != "" && max_pieces != ""
-////                                {
-////                                    isAdultBaggageWithPiece = true
-////                                    var pc = ""
-////                                    if max_pieces.contains(find: " "){
-////                                        let pieces = max_pieces.components(separatedBy: " ")
-////                                        if pieces.count > 0{
-////                                            pc = pieces[0]
-////                                        }
-////                                    }
-////
-////                                    adultBaggage = "Max \(pc) pieces can be carried weighing total \(weight)"
-////
-////                                    let str = "\(weight) : Max \(pc) pieces can be carried weighing total \(weight)"
-////                                    if !attStringArray.contains(str){
-////                                        attStringArray.append(str)
-////                                        if combineString != ""{
-////                                            combineString.append("\n     ")
-////                                        }
-////                                        combineString.append(str)
-////                                    }
-////                                }
-////                            }
-//                        }else{
-//                            baggageCell.perAdultView.isHidden = true
-//                            baggageCell.perAdultViewHeight.constant = 0
-//                            baggageCell.perAdultCheckinLabel.text = "NA"
-//                        }
-//
-//                        if let chdCheckinBaggage = bgData["CHD"] as? JSONDictionary{
-//                            baggageCell.setPerChildCheckinBaggage(chdCheckinBaggage: chdCheckinBaggage)
-//
-//
-//                            if let weight = chdCheckinBaggage["weight"] as? String, let pieces = chdCheckinBaggage["pieces"] as? String, let max_pieces = chdCheckinBaggage["max_pieces"] as? String, let max_weight = chdCheckinBaggage["max_weight"] as? String{
-//
-//                                if (weight == "0 Kg" && max_pieces == "" && max_weight == "") || (weight == "" && max_pieces == "" && max_weight == "") || (weight == "-9" && max_pieces == "" && max_weight == "") && pieces != "0 pc"{
-//                                    let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
-//                                    if !attStringArray.contains(str){
-//                                        attStringArray.append(str)
-//                                        if combineString != ""{
-//                                            combineString.append("\n     ")
-//                                        }
-//                                        combineString.append(str)
-//                                    }
-//
-//                                }
-//
-//
-//                                if weight != "0 Kg" && weight != "" && weight != "-9" && max_pieces != ""{
-//                                    isChildBaggageWithPiece = true
-//
-//                                    var pc = ""
-//                                    if max_pieces.contains(find: " "){
-//                                        let pieces = max_pieces.components(separatedBy: " ")
-//                                        if pieces.count > 0{
-//                                            pc = pieces[0]
-//                                        }
-//                                    }
-//
-//                                    childBaggage = "Max \(pc) pieces can be carried weighing total \(weight)"
-//
-//                                    let str = "\(weight) : Max \(pc) pieces can be carried weighing total \(weight)"
-//                                    if !attStringArray.contains(str){
-//                                        attStringArray.append(str)
-//                                        if combineString != ""{
-//                                            combineString.append("\n     ")
-//                                        }
-//                                        combineString.append(str)
-//                                    }
-//
-//                                }
-//                            }else if let weight = chdCheckinBaggage["weight"] as? String, let pieces = chdCheckinBaggage["pieces"] as? String, let max_pieces = chdCheckinBaggage["max_pieces"] as? String{
-//
-//                                if weight == "0 Kg" && weight == "" && weight == "-9" && max_pieces == "" && pieces != "0 pc"{
-//                                    let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
-//                                    if !attStringArray.contains(str){
-//                                        attStringArray.append(str)
-//                                        if combineString != ""{
-//                                            combineString.append("\n     ")
-//                                        }
-//                                        combineString.append(str)
-//                                    }
-//
-//                                }
-//
-//
-//                                if pieces != ""{
-//                                    let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
-//                                    if !attStringArray.contains(str){
-//                                        attStringArray.append(str)
-//                                        if combineString != ""{
-//                                            combineString.append("\n     ")
-//                                        }
-//                                        combineString.append(str)
-//                                    }
-//
-//                                }
-//
-//
-//                                if weight != "0 Kg" && weight != "" && weight != "-9" && max_pieces != ""{
-//                                    isChildBaggageWithPiece = true
-//
-//                                    var pc = ""
-//                                    if max_pieces.contains(find: " "){
-//                                        let pieces = max_pieces.components(separatedBy: " ")
-//                                        if pieces.count > 0{
-//                                            pc = pieces[0]
-//                                        }
-//                                    }
-//
-//                                    childBaggage = "Max \(pc) pieces can be carried weighing total \(weight)"
-//
-//                                    let str = "\(weight) : Max \(pc) pieces can be carried weighing total \(weight)"
-//                                    if !attStringArray.contains(str){
-//                                        attStringArray.append(str)
-//                                        if combineString != ""{
-//                                            combineString.append("\n     ")
-//                                        }
-//                                        combineString.append(str)
-//                                    }
-//                                }
-//                            }
-//                        }else{
-//                            baggageCell.perChildView.isHidden = true
-//                            baggageCell.perChildViewHeight.constant = 0
-//                            baggageCell.perChildCheckInLabel.text = "NA"
-//                        }
-//
-//
-//                        if let infCheckInBaggage = bgData["INF"] as? JSONDictionary{
-//                            baggageCell.setPerInfantCheckinBaggage(infCheckInBaggage: infCheckInBaggage)
-//
-//
-//                            if let weight = infCheckInBaggage["weight"] as? String, let pieces = infCheckInBaggage["pieces"] as? String, let max_pieces = infCheckInBaggage["max_pieces"] as? String, let max_weight = infCheckInBaggage["max_weight"] as? String
-//                            {
-//                                if weight == "" && max_pieces == "" && max_weight == "" && pieces != "0 pc"{
-//
-//                                    let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
-//                                    if !attStringArray.contains(str){
-//                                        attStringArray.append(str)
-//                                        if combineString != ""{
-//                                            combineString.append("\n     ")
-//                                        }
-//                                        combineString.append(str)
-//                                    }
-//                                }
-//
-//
-//                                if weight != "" && max_pieces != "" && weight != "0 kg"{
-//
-//                                    isInfantBaggageWithPiece = true
-//
-//                                    var pc = ""
-//                                    if max_pieces.contains(find: " "){
-//                                        let pieces = max_pieces.components(separatedBy: " ")
-//                                        if pieces.count > 0{
-//                                            pc = pieces[0]
-//                                        }
-//                                    }
-//                                    infantBaggage = "Max \(pc) pieces can be carried weighing total \(weight)"
-//
-//
-//                                    let str = "\(weight) : Max \(pc) pieces can be carried weighing total \(weight)"
-//                                    if !attStringArray.contains(str){
-//                                        attStringArray.append(str)
-//                                        if combineString != ""{
-//                                            combineString.append("\n     ")
-//                                        }
-//                                        combineString.append(str)
-//                                    }
-//                                }
-//                            }
-//                        }else{
-//                            baggageCell.perInfantView.isHidden = true
-//                            baggageCell.perInfantViewHeight.constant = 0
-//                            baggageCell.perInfantCheckInLabel.text = "NA"
-//                        }
-//                    }
                     
                     if let cbgData = baggageData["cbg"] as? JSONDictionary{
                         
@@ -672,7 +299,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                         if let chdCabinBaggage = cbgData["CHD"] as? JSONDictionary{
                             baggageCell.setPerChildCabinBaggage(chdCabinBaggage: chdCabinBaggage)
                         }
-
+                        
                         if let infCabinBaggage = cbgData["INF"] as? JSONDictionary{
                             baggageCell.setPerInfantCabinBaggage(infCabinBaggage: infCabinBaggage)
                         }
@@ -793,17 +420,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                                         self.dataResp += [datas]
                                         self.displaySetValues(journeyObj: journeyObj, baggage: self.dataResp)
                                     }
-
                                 }
-                                
-//                                for j in 0..<keys.count{
-//                                    let str = keys[j] as! String
-//                                    if let datas = data["\(str)"] as? JSONDictionary
-//                                    {
-//                                        self.dataResp += [datas]
-//                                        self.displaySetValues(journeyObj: journeyObj, baggage: self.dataResp)
-//                                    }
-//                                }
                             }
                         }
                     }
@@ -870,27 +487,32 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
 extension String {
     func attributedStringWithColor(_ strings: [String], color: UIColor, characterSpacing: UInt? = nil) -> NSAttributedString {
         let attributedString = NSMutableAttributedString(string: self)
-
+        
         let style = NSMutableParagraphStyle()
         style.alignment = .left
         style.headIndent = 15
         style.paragraphSpacingBefore = 16
-
+        
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: NSRange(location: 0, length: attributedString.length))
-        let font:UIFont = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))!
+//        let font:UIFont = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))!
+        
+        let font : UIFont = AppFonts.Regular.withSize(14)
+        
         attributedString.addAttribute(NSAttributedString.Key.font, value: font, range: NSRange(location: 0, length: attributedString.length))
-
+        
         for string in strings {
             let range = (self as NSString).range(of: string)
-            let font:UIFont = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(14))!
+//            let font:UIFont = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(14))!
+            let font : UIFont = AppFonts.SemiBold.withSize(14)
+
             attributedString.addAttribute(NSAttributedString.Key.font, value: font, range: range)
         }
-
+        
         guard let characterSpacing = characterSpacing else {return attributedString}
-
-
+        
+        
         attributedString.addAttribute(NSAttributedString.Key.kern, value: characterSpacing, range: NSRange(location: 0, length: attributedString.length))
-
+        
         return attributedString
     }
 }

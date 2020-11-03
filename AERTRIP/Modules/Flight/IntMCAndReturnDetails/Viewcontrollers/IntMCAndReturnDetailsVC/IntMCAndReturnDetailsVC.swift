@@ -49,8 +49,9 @@ class IntMCAndReturnDetailsVC: UIViewController {
     var onJourneySelect: ((String) -> ())?
     
     let backButton = UIButton(type: .custom)
+    var isConditionReverced = false
+    var appliedFilterLegIndex = -1
 
-    
     //MARK:-  Life cycle and override methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,7 +112,8 @@ class IntMCAndReturnDetailsVC: UIViewController {
     
     private func setupTitleAndButton(){
         resultTitle = UILabel(frame: CGRect(x:  50, y:1.0 , width: (UIScreen.width - 100), height: 42))
-        resultTitle.font = UIFont(name: "SourceSansPro-semibold", size: 18)!
+//        resultTitle.font = UIFont(name: "SourceSansPro-semibold", size: 18)!
+        resultTitle.font = AppFonts.SemiBold.withSize(18)
         resultTitle.text = self.viewModel.largeTitle
         resultTitle.textAlignment = .center
         resultTitle.lineBreakMode = NSLineBreakMode.byTruncatingMiddle

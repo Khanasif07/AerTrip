@@ -344,7 +344,8 @@ enum LocalizedString: String {
     case GroupAlreadyExist
     case GroupNameCanNotEmpty
     case CantCreateGroupWithThisName
-    
+    case Me = "Me"
+
     // MARK: - Import Contacts
     case ImportingContacts
     case ThisMightTakeSomeTime
@@ -1042,6 +1043,16 @@ enum LocalizedString: String {
     case QuickPayInfo
     case NoNotificationYet
     case NotificationInfo
+    
+    //MARK: - Passengers Selections
+    case firstName3Char
+    case fistNameNumeric
+    case lastName3Char
+    case lastNameNumeric
+    case fillContactDetails
+    case adultAgeError
+    case childAgeError
+    case infantAgeError
     
     
     // MARK: - Disconnect linkedin issue

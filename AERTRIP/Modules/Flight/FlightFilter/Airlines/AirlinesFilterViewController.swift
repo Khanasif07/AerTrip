@@ -78,8 +78,9 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
             stopButton.setTitleColor(UIColor.white, for: .selected)
             
             stopButton.addTarget(self, action: #selector(tappedOnMulticityButton(sender:)), for: .touchDown)
-            stopButton.titleLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 16)
-            
+//            stopButton.titleLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 16)
+            stopButton.titleLabel?.font = AppFonts.Regular.withSize(16)
+
             if i == 1 {
                 stopButton.isSelected = true
                 stopButton.backgroundColor = UIColor.AertripColor
@@ -313,6 +314,8 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
                 if allAirlineSelectedByUserInteraction {
                    cell.radioButton.isSelected  = true
                 }
+                cell.imageView?.image = nil
+
             }
             if indexPath.section == 1 {
                 
@@ -322,10 +325,12 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
                 cell.radioButton.setImage(#imageLiteral(resourceName: "selectOption"), for: .selected)
                 cell.radioButton.setImage(#imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
                 cell.radioButton.isSelected = currentSelectedAirlineFilter.hideMultipleAirline
+                cell.imageView?.image = nil
             }
             if indexPath.section == 2 {
                 let airline = currentSelectedAirlineFilter.airlinesArray[indexPath.row]
                 cell.textLabel?.text = airline.name
+                
                 if let image = tableView.resourceFor(urlPath: airline.iconImageURL , forView: indexPath.row) {
                     
                     let resizedImage = image.resizeImage(30.0, opaque: false)

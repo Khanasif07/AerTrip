@@ -580,11 +580,10 @@ extension AppFlowManager {
             ob.delegate = delegate
             ob.viewModel.productType = productType
             ob.modalPresentationStyle = .overFullScreen
-            printDebug(DispatchTime.now())
-            topVC.present(ob, animated: true, completion: {
-                printDebug("dsafafds")
-                printDebug(DispatchTime.now())
-            })
+            delay(seconds: 0.2) {
+                topVC.present(ob, animated: true, completion:nil)
+            }
+            
         }
     }
     
@@ -1218,7 +1217,7 @@ extension AppFlowManager {
     
     func moveToQuickPayVC() {
         let ob = QuickPayVC.instantiate(fromAppStoryboard: .Profile)
-        self.currentNavigation?.pushViewController(ob, animated: true)
+        self.mainNavigationController?.pushViewController(ob, animated: true)
     }
     
     // Move to Notification screen

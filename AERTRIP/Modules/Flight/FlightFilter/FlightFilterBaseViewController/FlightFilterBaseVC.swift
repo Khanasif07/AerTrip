@@ -42,6 +42,8 @@ class FlightFilterBaseVC: UIViewController {
     fileprivate var parchmentView : FiltersCustomPagingViewController?
     internal var showSelectedFontOnMenu = false
 
+    var flightSearchParameters = JSONDictionary()
+    
     var inputFilters : [FiltersWS]? {
         var inputFiltersArray = [FiltersWS]()
         

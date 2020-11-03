@@ -189,7 +189,7 @@ extension APICaller {
                     completionBlock(true, [], [:])
                 }
             }, failure:  { (errors) in
-                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .payment)
                 completionBlock(false, errors, [:])
             })
         }) { (error) in
@@ -217,7 +217,7 @@ extension APICaller {
                     completionBlock(true, [], [], [])
                 }
             }, failure:  { (errors) in
-                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .payment)
                 completionBlock(false, errors, [], [])
             })
         }) { (error) in

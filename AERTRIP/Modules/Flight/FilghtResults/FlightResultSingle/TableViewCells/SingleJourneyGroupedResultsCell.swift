@@ -81,13 +81,17 @@ class SingleJourneyGroupedResultsCell: UITableViewCell {
         
         if journey.isFastest  {
             
-            var attributes = [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Semibold", size: 16.0)!, NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
-            
+//            var attributes = [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Semibold", size: 16.0)!, NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
+  
+            var attributes = [NSAttributedString.Key.font :AppFonts.SemiBold.withSize(16), NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
+
             let summaryText = String(journey.count) + " options from "
             let combinedString = NSMutableAttributedString(string: summaryText + " ", attributes: attributes)
             
-            attributes = [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Semibold", size: 16.0)!, NSAttributedString.Key.foregroundColor : UIColor.AERTRIP_ORAGE_COLOR]
+//            attributes = [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Semibold", size: 16.0)!, NSAttributedString.Key.foregroundColor : UIColor.AERTRIP_ORAGE_COLOR]
             
+            attributes = [NSAttributedString.Key.font :AppFonts.SemiBold.withSize(16), NSAttributedString.Key.foregroundColor : UIColor.AERTRIP_ORAGE_COLOR]
+
             let timeString = NSAttributedString(string: fastestFlight.durationTitle, attributes: attributes)
             combinedString.append(timeString)
             summaryLabel.attributedText = combinedString
@@ -109,7 +113,9 @@ class SingleJourneyGroupedResultsCell: UITableViewCell {
         
         let label = UILabel(frame: CGRect(x:0 , y: 0, width: 20,  height: 18))
         label.textAlignment = .center
-        label.font = UIFont(name: "SourceSansPro-regular", size: 14)!
+//        label.font = UIFont(name: "SourceSansPro-regular", size: 14)!
+        label.font = AppFonts.Regular.withSize(14)
+
         label.textColor = .AertripColor
         label.text = count
         return label

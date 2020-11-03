@@ -13,8 +13,6 @@ extension FlightResultSingleJourneyVC {
     
     func setPinnedFlightAt(_ flightKey: String , isPinned : Bool, indexpath : IndexPath?) {
         
-        self.viewModel.contentOffset = self.resultsTableView.contentOffset
-
         var curJourneyArr = [JourneyOnewayDisplay]()
         
         if viewModel.resultTableState == .showRegularResults {
@@ -236,15 +234,12 @@ extension FlightResultSingleJourneyVC {
             return UIMenu(title: "", children: [])
         }
         
-        
             let pinTitle : String = markPinned ? "Pin" : "Unpin"
             
             let pin = UIAction(title:  pinTitle , image: UIImage(systemName: "pin" ), identifier: nil) { (action) in
                 guard let flightKey = fk else {
                     return
                 }
-                
-                
                 self.setPinnedFlightAt(flightKey, isPinned: markPinned, indexpath: indexpath)
             }
             let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up"), identifier: nil) {[weak self] (action) in
@@ -289,8 +284,8 @@ extension FlightResultSingleJourneyVC {
         resultsTableView.setContentOffset(.zero, animated: true)
     }
     
-    func shareJourney(journey : [Journey]) {
-        
+    func shareJourney(journey : [Journey])
+    {
         self.sharePinnedFilghts.setImage(UIImage(named: "OvHotelResult"), for: .normal)
         sharePinnedFilghts.displayLoadingIndicator(true)
 
@@ -299,7 +294,8 @@ extension FlightResultSingleJourneyVC {
         let flightInfantCount = self.viewModel.bookFlightObject.flightInfantCount
         let isDomestic = self.viewModel.bookFlightObject.isDomestic
         
-        let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM?.flightLegs ?? [])
+//        viewModel.isConditionReverced
+        let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM?.flightLegs ?? [],isConditionReverced:viewModel.isConditionReverced)
         
         self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journey, valString: "", trip_type: "single",filterString: filterStr,searchParam: flightSearchResultVM?.flightSearchParametersFromDeepLink)
         

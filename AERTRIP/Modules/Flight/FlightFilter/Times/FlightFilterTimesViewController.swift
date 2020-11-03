@@ -126,7 +126,9 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     
     //MARK:- Departure feature methods
     fileprivate func setDepartureLabelAttributedString() {
-        let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Semibold", size: 14.0)! , NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR]
+//        let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Semibold", size: 14.0)! , NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR]
+        let attributes =   [NSAttributedString.Key.font :AppFonts.SemiBold.withSize(14) , NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR]
+
         let departureTime  = NSMutableAttributedString(string: "Departure Time " , attributes: attributes)
         
         if multiLegTimerFilter.count > 1 {

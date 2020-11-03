@@ -91,7 +91,8 @@ class FlightDetailsBaseVC: BaseVC {
     var flightSearchResultVM: FlightSearchResultVM?
     
     let getSharableLink = GetSharableUrl()
-    
+    var isConditionReverced = false
+    var appliedFilterLegIndex = -1
     private var parchmentLoaded = false
     
     //MARK:- Initial Display
@@ -146,6 +147,7 @@ class FlightDetailsBaseVC: BaseVC {
             DispatchQueue.delay(1) {
                 self.parchmentLoaded = true
             }
+            print("self.displayView.bounds=",self.displayView.bounds)
             self.parchmentView?.view.frame = self.displayView.bounds
             self.parchmentView?.view.frame.size.height = self.dataDisplayView.height - innerControllerBottomConstraint
             self.parchmentView?.loadViewIfNeeded()
@@ -220,8 +222,11 @@ class FlightDetailsBaseVC: BaseVC {
             height: 0.5,
             zIndex: Int.max - 1,
             insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-        self.parchmentView?.font = UIFont(name: "SourceSansPro-Regular", size: 16.0)!
-        self.parchmentView?.selectedFont = UIFont(name: "SourceSansPro-Semibold", size: 16.0)!
+//        self.parchmentView?.font = UIFont(name: "SourceSansPro-Regular", size: 16.0)!
+//        self.parchmentView?.selectedFont = UIFont(name: "SourceSansPro-Semibold", size: 16.0)!
+        
+        self.parchmentView?.font = AppFonts.Regular.withSize(16)
+        self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16)
         self.parchmentView?.indicatorColor = UIColor.AertripColor
         self.parchmentView?.selectedTextColor = .black
         self.parchmentView?.menuBackgroundColor = .white
@@ -371,7 +376,7 @@ class FlightDetailsBaseVC: BaseVC {
                 valStr = intVC.generateCommonString(for: intJourney, flightObject: self.bookFlightObject)
             }
             
-            let filterStr = self.getSharableLink.getAppliedFiltersForSharingIntJourney(legs: self.flightSearchResultVM?.intFlightLegs ?? [])
+            let filterStr = self.getSharableLink.getAppliedFiltersForSharingIntJourney(legs: self.flightSearchResultVM?.intFlightLegs ?? [],isConditionReverced: isConditionReverced,appliedFilterLegIndex: appliedFilterLegIndex)
             valStr.append(filterStr)
             
             self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: true, journeyArray: [], valString: valStr, trip_type: "",filterString: filterStr,searchParam: flightSearchResultVM?.flightSearchParametersFromDeepLink)
@@ -382,7 +387,7 @@ class FlightDetailsBaseVC: BaseVC {
             
             let isDomestic = bookFlightObject.isDomestic
             
-            let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM?.flightLegs ?? [])
+            let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM?.flightLegs ?? [],isConditionReverced:isConditionReverced)
             
             var tripType = ""
             if self.bookFlightObject.flightSearchType == SINGLE_JOURNEY{
@@ -418,7 +423,11 @@ extension FlightDetailsBaseVC: PagingViewControllerDataSource , PagingViewContro
     
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat
     {
-        return 120.0
+        if UIDevice.current.name.contains(find: "SE"){
+            return 112
+        }else{
+            return 120
+        }
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool){

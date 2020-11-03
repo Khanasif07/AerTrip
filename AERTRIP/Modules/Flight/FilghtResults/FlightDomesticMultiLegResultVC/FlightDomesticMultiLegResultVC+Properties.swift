@@ -226,6 +226,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         
         for i in 0 ..< self.viewModel.numberOfLegs {
             setTextColorToHeader(.black, indexPath: i)
+            self.headerArray[i].isInCompatable = false
         }
         
         guard let selectedJourneys = self.viewModel.getSelectedJourneyForAllLegs(), selectedJourneys.count >= 2 else { return }
@@ -490,7 +491,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         }
 
         
-        let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM.flightLegs)
+        let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM.flightLegs,isConditionReverced:viewModel.isConditionReverced)
 
         self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journeyArray, valString: "", trip_type: tripType,filterString: filterStr,searchParam: flightSearchResultVM.flightSearchParametersFromDeepLink)
 

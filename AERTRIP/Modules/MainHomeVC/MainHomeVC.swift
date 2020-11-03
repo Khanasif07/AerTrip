@@ -110,7 +110,6 @@ class MainHomeVC: BaseVC {
         self.scrollViewSetup()
         self.socialLoginVC?.topNavView.leftButton.isHidden = true
         self.makeDefaultSetup()
-        
         self.addEdgeSwipeGesture()
     }
     
@@ -276,7 +275,7 @@ class MainHomeVC: BaseVC {
         view.addSubview(toAddImgView)
         view.bringSubviewToFront(toAddImgView)
         profileImgViewOriginalFrame = toAddImgView.frame
-        let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+        let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { 
             self.scrollView.contentOffset = pushPoint
             toAddImgView.layoutIfNeeded()
             if let profileImage = self.viewProfileVC?.profileImageHeaderView?.profileImageView {
@@ -370,6 +369,7 @@ class MainHomeVC: BaseVC {
         let finalFrame = self.socialLoginVC?.logoContainerView.frame ?? CGRect(x: (UIDevice.screenWidth * 0.125), y: 80.0, width: UIDevice.screenWidth * 0.75, height: self.sideMenuVC?.logoContainerView?.height ?? 179.0)
         
         self.socialLoginVC?.animateContentOnLoad()
+        
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             
             self.scrollView.contentOffset = pushPoint

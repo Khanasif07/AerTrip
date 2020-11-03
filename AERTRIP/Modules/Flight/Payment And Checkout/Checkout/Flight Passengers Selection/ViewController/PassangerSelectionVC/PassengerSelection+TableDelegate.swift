@@ -215,6 +215,7 @@ extension PassengersSelectionVC: PassengerGridSelectionDelegate{
         vc.viewModel.currentIndex = indexPath.row
         vc.viewModel.lastJourneyDate = self.viewModel.itineraryData.itinerary.searchParams.lastJourneyDate
         vc.viewModel.journeyEndDate = self.viewModel.itineraryData.itinerary.journeyEndDate
+        vc.viewModel.firstJourneyDate = self.viewModel.itineraryData.itinerary.searchParams.firstJourneyDate
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

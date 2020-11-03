@@ -140,7 +140,9 @@ class TravellerListVC: BaseVC {
         }
     }
     
-    
+    deinit {
+        self.timer?.invalidate()
+    }
     
     override func bindViewModel() {
         viewModel.delegate = self
@@ -228,21 +230,28 @@ class TravellerListVC: BaseVC {
             return
         }
         if self.time == 2 {
-            self.timer!.invalidate()
+            self.timer?.invalidate()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.timer?.invalidate()
                 self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
             }
         }
         
         if self.time >= 10 {
-            self.timer!.invalidate()
+            self.timer?.invalidate()
             delay(seconds: 0.5) {
+                self.timer?.invalidate()
                 self.progressView?.isHidden = true
             }
         }
     }
     func stopProgress() {
+        printDebug(self.time)
         self.time += 1
+        if self.time <= 8  {
+            self.time = 9
+        }
+        self.timer?.invalidate()
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
     }
     
@@ -874,23 +883,22 @@ extension TravellerListVC: TravellerListVMDelegate {
     func searchTravellerFail(errors: ErrorCodes, _ isShowLoader: Bool = false) {
         printDebug(errors)
         //AppGlobals.shared.stopLoading()
-        if isShowLoader {
-            stopProgress()
-        }
+        
         if self.showImportContactView {
             self.showImportContactView = false
             manageImportContactHeaderView()
         }
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+        if isShowLoader {
+            stopProgress()
+        }
     }
     
     
     
     func searchTravellerSuccess(_ isShowLoader: Bool = false) {
         //AppGlobals.shared.stopLoading()
-        if isShowLoader {
-            stopProgress()
-        }
+        
         if self.showImportContactView {
             self.showImportContactView = false
             manageImportContactHeaderView()
@@ -899,6 +907,9 @@ extension TravellerListVC: TravellerListVMDelegate {
         tableView.dataSource = self
         shouldHitAPI = true
         loadSavedData()
+        if isShowLoader {
+            stopProgress()
+        }
     }
 }
 

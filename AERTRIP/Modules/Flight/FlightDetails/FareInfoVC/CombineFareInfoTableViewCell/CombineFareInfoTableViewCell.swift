@@ -176,8 +176,13 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                             let adtRafVal = rafFees["ADT"]?.values.first
                             let displayValue = getPrice(price: Double(airlineValue + adtRafVal!))
                             
+                            let aertripFees = NSAttributedString(string: " + ")
+                            displayValue.append(aertripFees)
                             
-                            slabCell.statusLabel.text = displayValue + " + ₹ " + String(aertripValue)
+                            let atrrAertripValue = getPrice(price: Double(aertripValue))
+                            displayValue.append(atrrAertripValue)
+                            
+                            slabCell.statusLabel.attributedText = displayValue
                         }
                     }else{
                         if airlineValue == -9{
@@ -194,7 +199,16 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                             let adtRafVal = rafFees["ADT"]?.values.first
                             let displayValue = getPrice(price: Double(airlineValue + adtRafVal!))
                             
-                            slabCell.perAdultAmountLabel.text = displayValue + " + ₹ " + String(aertripValue)
+//                            slabCell.perAdultAmountLabel.text = displayValue + " + ₹ " + String(aertripValue)
+                            
+//                            let str = " + ₹ " + String(aertripValue)
+                            let aertripFees = NSAttributedString(string: " + ")
+                            displayValue.append(aertripFees)
+                            
+                            let atrrAertripValue = getPrice(price: Double(aertripValue))
+                            displayValue.append(atrrAertripValue)
+
+                            slabCell.perAdultAmountLabel.attributedText = displayValue
                         }
                     }
                 }else{
@@ -229,7 +243,16 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         let chdRafVal = rafFees["CHD"]?.values.first
                         let displayValue = getPrice(price: Double(value! + chdRafVal!))
                         
-                        slabCell.perChildAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+//                        slabCell.perChildAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+                        
+                        let str = NSAttributedString(string: " + ")
+                        displayValue.append(str)
+                        
+                        
+                        let atrrAertripValue = getPrice(price: Double(aertripValue))
+                        displayValue.append(atrrAertripValue)
+
+                        slabCell.perChildAmountLabel.attributedText = displayValue
                     }
                 }else{
                     slabCell.perChildAmountLabel.text = "NA"
@@ -262,7 +285,15 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         slabCell.perInfantAmountLabel.textColor = .black
                         let chdRafVal = rafFees["INF"]?.values.first
                         let displayValue = getPrice(price: Double(value! + chdRafVal!))
-                        slabCell.perInfantAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+//                        slabCell.perInfantAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+ 
+                        let str = NSAttributedString(string: " + ")
+                        displayValue.append(str)
+                        
+                        let atrrAertripValue = getPrice(price: Double(aertripValue))
+                        displayValue.append(atrrAertripValue)
+
+                        slabCell.perInfantAmountLabel.attributedText = displayValue
                     }
                 }else{
                     slabCell.perInfantAmountLabel.text = "NA"
@@ -330,7 +361,16 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                             slabCell.statusLabel.textColor = .black
                             
                             let displayValue = getPrice(price: Double(value!))
-                            slabCell.statusLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+//                            slabCell.statusLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+ 
+
+                            displayValue.append(NSAttributedString(string: " + "))
+                            
+                            let atrrAertripValue = getPrice(price: Double(aertripValue))
+                            displayValue.append(atrrAertripValue)
+
+                            slabCell.statusLabel.attributedText = displayValue
+
                         }
                     }else{
                         if value == -9{
@@ -347,7 +387,15 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                             
                             let displayValue = getPrice(price: Double(value!))
                             
-                            slabCell.perAdultAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+//                            slabCell.perAdultAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+
+                            displayValue.append(NSAttributedString(string: " + "))
+                            
+                            let atrrAertripValue = getPrice(price: Double(aertripValue))
+                            displayValue.append(atrrAertripValue)
+
+                            slabCell.perAdultAmountLabel.attributedText = displayValue
+
                         }
                     }
                 }else{
@@ -382,7 +430,15 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         
                         let displayValue = getPrice(price: Double(value!))
                         
-                        slabCell.perChildAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+//                        slabCell.perChildAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+
+                        displayValue.append(NSAttributedString(string: " + "))
+                        
+                        let atrrAertripValue = getPrice(price: Double(aertripValue))
+                        displayValue.append(atrrAertripValue)
+
+                        slabCell.perChildAmountLabel.attributedText = displayValue
+
                     }
                 }else{
                     slabCell.perChildAmountLabel.text = "NA"
@@ -415,7 +471,16 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         slabCell.perInfantAmountLabel.textColor = .black
                         let displayValue = getPrice(price: Double(value!))
                         
-                        slabCell.perInfantAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+//                        slabCell.perInfantAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+                        
+
+                        displayValue.append(NSAttributedString(string: " + "))
+                        
+                        let atrrAertripValue = getPrice(price: Double(aertripValue))
+                        displayValue.append(atrrAertripValue)
+
+                        slabCell.perInfantAmountLabel.attributedText = displayValue
+
                     }
                 }else{
                     slabCell.perInfantAmountLabel.text = "NA"
@@ -581,16 +646,45 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
     }
     
     //MARK:- Format Price
-    func getPrice(price:Double) -> String{
+//    func getPrice(price:Double) -> String{
+//        let formatter = NumberFormatter()
+//        formatter.numberStyle = .currency
+//        formatter.maximumFractionDigits = 2
+//        formatter.locale = Locale(identifier: "en_IN")
+//        var result = formatter.string(from: NSNumber(value: price))
+//        
+////        if result!.contains(find: ".00"){
+////            result = result?.replacingOccurrences(of: ".00", with: "", options: .caseInsensitive, range: Range(NSRange(location:result!.count-3,length:3), in: result!) )
+////        }
+//        return result!
+//    }
+    
+    
+    func getPrice(price:Double) -> NSMutableAttributedString{
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.maximumFractionDigits = 2
         formatter.locale = Locale(identifier: "en_IN")
-        var result = formatter.string(from: NSNumber(value: price))
-        
-        if result!.contains(find: ".00"){
-            result = result?.replacingOccurrences(of: ".00", with: "", options: .caseInsensitive, range: Range(NSRange(location:result!.count-3,length:3), in: result!) )
+        if let result = formatter.string(from: NSNumber(value: price)){
+            let fontSize = 16
+            let fontSizeSuper = 12
+
+            let displayFont = AppFonts.SemiBold.rawValue
+            let displayFontSuper = AppFonts.SemiBold.rawValue
+
+            
+            let font:UIFont? = UIFont(name: displayFont, size:CGFloat(fontSize))
+            let fontSuper:UIFont? = UIFont(name: displayFontSuper, size:CGFloat(fontSizeSuper))
+            let attString:NSMutableAttributedString = NSMutableAttributedString(string: result, attributes: [.font:font!])
+            attString.setAttributes([.font:fontSuper!,.baselineOffset:6], range: NSRange(location:result.count-3,length:3))
+            if attString.string.contains(find: ".00"){
+                attString.mutableString.replaceOccurrences(of: ".00", with: "", options: .caseInsensitive, range: NSRange(location:result.count-3,length:3))
+            }
+            return attString
+        }else{
+            return NSMutableAttributedString(string: "\(price)")
         }
-        return result!
+        
+        
     }
 }

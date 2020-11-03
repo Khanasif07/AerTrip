@@ -23,6 +23,10 @@ struct AircraftFilter {
     var selectedAircrafts : [String] = []
     var allAircrafts : [String] = []
     
+    var allAircraftsArray : [IntMultiCityAndReturnWSResponse.Results.EqMaster] = []
+    var selectedAircraftsArray : [IntMultiCityAndReturnWSResponse.Results.EqMaster] = []
+
+    
     init() {
         
     }
@@ -52,7 +56,7 @@ class IntFlightResultDisplayGroup {
     var dynamicFilters = DynamicFilters()
     
     
-    private var numberOfLegs = 0
+    var numberOfLegs = 0
     internal var isReturnJourney = false
     
     internal var isAPIResponseUpdated = false
@@ -437,7 +441,6 @@ class IntFlightResultDisplayGroup {
         
         return mutableJourneyArray
         
-        
     }
     
     
@@ -521,21 +524,44 @@ class IntFlightResultDisplayGroup {
      
         var allEqs : [String] = []
         
+        var allAircrafts : [IntMultiCityAndReturnWSResponse.Results.EqMaster] = []
+        
         allEqs.append(contentsOf: dynamicFilters.aircraft.allAircrafts)
         
         flightsArray.forEach { (flightResult) in
             
             flightResult.results.fdet.keys.forEach { (key) in
                 if let fdet = flightResult.results.fdet[key] {
+                    
+//                    printDebug("eqMaster....\(flightResult.results.eqMaster)")
+    
+                    allAircrafts.append(contentsOf: flightResult.results.eqMaster.compactMap { $0.value })
+                    
                     allEqs.append(fdet.eq)
+                        
                 }
             }
             
         }
         
         dynamicFilters.aircraft.allAircrafts = allEqs.removeDuplicates()
+      
+//        var tempAircraftsArray : [IntMultiCityAndReturnWSResponse.Results.EqMaster] = []
+//
+//
+//        allAircrafts.forEach { (craft) in
+//
+//            if !tempAircraftsArray.contains(where: { (tempCraft) -> Bool in
+//                tempCraft.name == craft.name
+//            }) {
+//                tempAircraftsArray.append(craft)
+//            }
+//
+//        }
+        
+        dynamicFilters.aircraft.allAircraftsArray = allAircrafts.removeDuplicates()
 
-        printDebug("dynamicFilters.aircraft.allAircrafts.....\(dynamicFilters.aircraft.allAircrafts)")
+        
         
         self.delegate?.updateDynamicFilters(filters: dynamicFilters)
         

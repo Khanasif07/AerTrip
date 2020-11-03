@@ -12,23 +12,23 @@ struct TextLog: TextOutputStream {
 
     mutating func write(_ string: String) {
         
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)
-        let documentDirectoryPath = paths.first!
-        let log = documentDirectoryPath.appendingPathComponent("log.txt")
-        print("log= ",log)
-        do {
-            let handle = try FileHandle(forWritingTo: log)
-            handle.seekToEndOfFile()
-            handle.write(string.data(using: .utf8)!)
-            handle.closeFile()
-        } catch {
-            print(error.localizedDescription)
-            do {
-                try string.data(using: .utf8)?.write(to: log)
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
+//        let paths = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)
+//        let documentDirectoryPath = paths.first!
+//        let log = documentDirectoryPath.appendingPathComponent("log.txt")
+//        print("log= ",log)
+//        do {
+//            let handle = try FileHandle(forWritingTo: log)
+//            handle.seekToEndOfFile()
+//            handle.write(string.data(using: .utf8)!)
+//            handle.closeFile()
+//        } catch {
+//            print(error.localizedDescription)
+//            do {
+//                try string.data(using: .utf8)?.write(to: log)
+//            } catch {
+//                print(error.localizedDescription)
+//            }
+//        }
     }
 }
 
@@ -38,11 +38,11 @@ extension Date {
 
  static func getCurrentDate() -> String {
 
-        let dateFormatter = DateFormatter()
-
-        dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss"
-
-        return dateFormatter.string(from: Date())
-
+//        let dateFormatter = DateFormatter()
+//
+//        dateFormatter.dateFormat = "dd/MM/yyyy HH:mm:ss"
+//
+//        return dateFormatter.string(from: Date())
+    return ""
     }
 }

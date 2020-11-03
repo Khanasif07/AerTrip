@@ -29,8 +29,8 @@ class FlightResultSingleJourneyVM {
             }
         }
     
-        var stateBeforePinnedFlight = ResultTableViewState.showRegularResults
-        var results : OnewayJourneyResultsArray!
+    var stateBeforePinnedFlight = ResultTableViewState.showRegularResults
+    var results : OnewayJourneyResultsArray!
         var isConditionReverced = false
 //        var prevLegIndex = 0
         var sortOrder = Sort.Smart
@@ -214,7 +214,7 @@ class FlightResultSingleJourneyVM {
                        case .Smart, .Price :
                            
                            if let ind = self.results.journeyArray[index].journeyArray.firstIndex(where: { (jrny) -> Bool in
-                               jrny.fk == self.results.journeyArray[index].getJourneyWithLeastHumanScore().fk
+                            jrny.fk == self.results.journeyArray[index].getJourneyWithLeastHumanScore()?.fk
                            }){
                             
                             self.results.journeyArray[index].selectedFK = self.results.journeyArray[index].journeyArray[ind].fk

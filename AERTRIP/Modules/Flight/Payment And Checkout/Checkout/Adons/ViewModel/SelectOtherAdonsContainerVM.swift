@@ -42,7 +42,11 @@ class SelectOtherAdonsContainerVM {
                  item.otherAdonsVm.updateContactInOthers(OthersIndex: addonIndex, contacts: [], autoSelectedFor: [])
                  AddonsDataStore.shared.flightsWithData[index].special.addonsArray[addonIndex].othersSelectedFor = []
                 }
-                item.reloadData()
+            
+            if item != nil && item.clearButton != nil {
+            item.clearButtonTapped(item.clearButton)
+            }
+            item.reloadData()
             }
     }
     
@@ -135,7 +139,8 @@ class SelectOtherAdonsContainerVM {
     
     private func getStringFromImage(name : String) -> NSAttributedString {
         let imageAttachment = NSTextAttachment()
-        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
+//        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
+        let sourceSansPro18 = AppFonts.SemiBold.withSize(18)
         let iconImage = UIImage(named: name )!
         imageAttachment.image = iconImage
         
@@ -144,7 +149,6 @@ class SelectOtherAdonsContainerVM {
         let imageString = NSAttributedString(attachment: imageAttachment)
         return imageString
     }
-    
     
     func updateSpecialRequest(txt: String, currentFk: String, vcIndex: Int) {
         
@@ -159,10 +163,14 @@ class SelectOtherAdonsContainerVM {
                     return vc.otherAdonsVm.getCurrentFlightKey() == flight.flightId
                 }) {
                     
-                        self.allChildVCs[vcIndexWithFk].otherAdonsVm.specialRequest = txt
-                        self.allChildVCs[vcIndexWithFk].specialRequestTextView.text = txt
-                        self.allChildVCs[vcIndexWithFk].showHideClearButton()
-                    
+                     let currentVc = self.allChildVCs[vcIndexWithFk]
+                  
+                    if currentVc != nil && currentVc.specialRequestTextView != nil {
+                        currentVc.otherAdonsVm.specialRequest = txt
+                        currentVc.specialRequestTextView.text = txt
+                        currentVc.showHideClearButton()
+                    }
+                                        
                     //  self.allChildVCs[index].otherAdonsTableView.reloadData()
                 }
                 

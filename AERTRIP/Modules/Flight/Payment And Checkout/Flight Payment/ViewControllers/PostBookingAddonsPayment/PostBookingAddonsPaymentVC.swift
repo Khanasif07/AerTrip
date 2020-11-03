@@ -314,7 +314,7 @@ extension PostBookingAddonsPaymentVC:PostBookingAddonsPaymentVMDelegate{
     }
     
     func getPaymentResonseFail(error: ErrorCodes) {
-        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .payment)
         hideShowLoader(isHidden: true)
     }
     

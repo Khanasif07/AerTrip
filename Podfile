@@ -24,7 +24,7 @@ target 'AERTRIP' do
   pod 'PhoneNumberKit', '~> 3.3'
   pod 'IQKeyboardManager'
   pod 'Fabric'
-  pod 'Crashlytics'
+#  pod 'Crashlytics'
   pod 'AvailableHapticFeedback'
   pod 'MiniLayout'
   pod 'GoogleMaps', '~> 2.5.0'

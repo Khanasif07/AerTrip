@@ -15,7 +15,8 @@ protocol AircraftFilterDelegate : FilterDelegate {
     func aircraftFilterUpdated(_ filter : AircraftFilter)
 }
 
-class AircraftFilterViewController: UIViewController {
+class AircraftFilterViewController: UIViewController , FilterViewController {
+   
     
     @IBOutlet weak var aircraftTableView: UITableView!
     
@@ -23,7 +24,8 @@ class AircraftFilterViewController: UIViewController {
     var aircraftArray = [[String:Any]]()
 
     var aircraftFilter = AircraftFilter()
-    
+    var flightSearchParameters = JSONDictionary()
+
     var c = 0
     
     weak var delegate : AircraftFilterDelegate?
@@ -43,8 +45,27 @@ class AircraftFilterViewController: UIViewController {
 
     @objc func aircraftRadioButtonTapped(sender : UIButton) {
    
-   
     }
+    
+    
+    func resetFilter(){
+        
+        self.aircraftFilter.selectedAircrafts.removeAll()
+        self.aircraftFilter.selectedAircraftsArray.removeAll()
+        self.aircraftTableView.reloadData()
+
+    }
+    
+    
+    func initialSetup() {
+        
+    }
+    
+    func updateUIPostLatestResults() {
+        
+    }
+    
+    
     
     func assignC(){
         c = 2
@@ -52,11 +73,11 @@ class AircraftFilterViewController: UIViewController {
     
     func updateAircraftList(filter : AircraftFilter){
         
-        printDebug("aircraft filter count....\(filter.allAircrafts.count)")
+//        printDebug("aircraft filter count....\(filter.allAircrafts.count)")
         
         self.aircraftFilter = filter
         
-        printDebug("aircraftFilter in vc...\(self.aircraftFilter.allAircrafts)")
+//        printDebug("aircraftFilter in vc...\(self.aircraftFilter.allAircrafts)")
 
         
         aircraftTableView.reloadData()
@@ -76,8 +97,8 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        printDebug("count is..\(self.aircraftFilter.allAircrafts.count)")
-        return section == 0 ? 1 : self.aircraftFilter.allAircrafts.count
+        printDebug("count is..\(self.aircraftFilter.allAircraftsArray.count)")
+        return section == 0 ? 1 : self.aircraftFilter.allAircraftsArray.count
         
     }
     
@@ -119,13 +140,15 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
                 
                 cell.configureAllAircraftsCell()
                 
-                cell.radioButton.setImage(self.aircraftFilter.selectedAircrafts.count == self.aircraftFilter.allAircrafts.count ? #imageLiteral(resourceName: "selectOption") : #imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
+                cell.radioButton.setImage(self.aircraftFilter.selectedAircraftsArray.count == self.aircraftFilter.allAircraftsArray.count ? #imageLiteral(resourceName: "selectOption") : #imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
            
             } else {
                 
-                cell.configureAircraftCell(title: self.aircraftFilter.allAircrafts[indexPath.row])
+               // cell.configureAircraftCell(title: self.aircraftFilter.allAircrafts[indexPath.row])
 
-                if self.aircraftFilter.selectedAircrafts.contains(self.aircraftFilter.allAircrafts[indexPath.row]) {
+                cell.textLabel?.text = self.aircraftFilter.allAircraftsArray[indexPath.row].name
+                
+                if self.aircraftFilter.selectedAircraftsArray.contains(self.aircraftFilter.allAircraftsArray[indexPath.row]) {
                         
                         cell.radioButton.setImage(#imageLiteral(resourceName: "selectOption"), for: .normal)
 
@@ -150,22 +173,20 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
         
         if indexPath.section == 0 {
             
-            if self.aircraftFilter.selectedAircrafts.count == self.aircraftFilter.allAircrafts.count {
-                self.aircraftFilter.selectedAircrafts = []
+            if self.aircraftFilter.selectedAircraftsArray.count == self.aircraftFilter.allAircraftsArray.count {
+                self.aircraftFilter.selectedAircraftsArray = []
             } else {
-                self.aircraftFilter.selectedAircrafts = self.aircraftFilter.allAircrafts
-
+                self.aircraftFilter.selectedAircraftsArray = self.aircraftFilter.allAircraftsArray
             }
-
             
         } else {
             
-            if let ind = self.aircraftFilter.selectedAircrafts.firstIndex(where: { (item) -> Bool in
-                   return item == self.aircraftFilter.allAircrafts[indexPath.row]
+            if let ind = self.aircraftFilter.selectedAircraftsArray.firstIndex(where: { (item) -> Bool in
+                return item.name == self.aircraftFilter.allAircraftsArray[indexPath.row].name
                }) {
-                   self.aircraftFilter.selectedAircrafts.remove(at: ind)
+                   self.aircraftFilter.selectedAircraftsArray.remove(at: ind)
                } else{
-                   self.aircraftFilter.selectedAircrafts.append(self.aircraftFilter.allAircrafts[indexPath.row])
+                   self.aircraftFilter.selectedAircraftsArray.append(self.aircraftFilter.allAircraftsArray[indexPath.row])
                }
                
         }

@@ -74,6 +74,7 @@ class AddPassengerDetailsCell: UITableViewCell {
     private var preSelectedCountry: PKCountryModel?
     var lastJourneyDate:Date = Date()
     var journeyEndDate = Date()
+    var journeyStartDate = Date()
     var allPaxInfoRequired = true
     var guestDetail: ATContact? {
         didSet {
@@ -447,6 +448,26 @@ class AddPassengerDetailsCell: UITableViewCell {
         }
     }
     
+    fileprivate func showErrorMessage(errorType:DatePickerError?){
+        var msg = ""
+        if let passenger = self.guestDetail{
+            switch passenger.passengerType {
+            case .Adult:
+                if ((errorType ?? DatePickerError.maxExceed) == DatePickerError.minExceed){
+                    msg = LocalizedString.adultAgeError.localized
+                }
+            case .Child:
+                    msg = LocalizedString.childAgeError.localized
+            case .Infant:
+                    msg = LocalizedString.infantAgeError.localized
+            }
+        }
+        if !msg.isEmpty{
+            CustomToast.shared.showToastOverKeyboard(msg)
+        }
+        
+    }
+    
     //MARK:- IBAction
     //MARK:-
     @IBAction func changeSelectedIndex(_ sender: ATUnicodeSwitch) {
@@ -475,26 +496,32 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
         case self.dobTextField:
             PKCountryPicker.default.closePicker()
             self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
-            let selected = (textField.text ?? "").toDate(dateFormat: "dd MMM yyyy")
+            var selected = (textField.text ?? "").toDate(dateFormat: "dd MMM yyyy")
             var minimumDate:Date? = Date()
             var maximumDate:Date? = Date()
             if let passenger = self.guestDetail{
                 switch passenger.passengerType {
                 case .Adult:
-                    minimumDate = nil
-                    maximumDate = Date().add(years: -12, days: 0)
+                    minimumDate = "01/01/1900".toDate(dateFormat: "DD/MM/yyyy")
+                    maximumDate = journeyStartDate.add(years: -12, days: 0)
                 case .Child:
                     minimumDate = self.lastJourneyDate.add(years: -12, days: 1)
-                    maximumDate = Date().add(years: -2, days: 0)
+                    maximumDate = journeyStartDate.add(years: -2, days: 0)
                 case .Infant:
                     minimumDate = self.lastJourneyDate.add(years: -2, days: 1)
                     maximumDate = Date()
                 }
+                if selected == nil{
+                    selected = maximumDate
+                }
             }
-            PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd MMM yyyy", mode: .date, minimumDate: minimumDate, maximumDate: maximumDate, selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { [unowned self] (dateStr) in
+            PKDatePicker.openDatePickerWithError(textField, outPutFormate: "dd MMM yyyy", mode: .date, minimumDate: minimumDate, maximumDate: maximumDate, selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { [unowned self] (dateStr, isError, errorType) in
                 textField.text = dateStr
                 if let date = dateStr.toDate(dateFormat: "dd MMM yyyy"){
                     GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].dob = date.toString(dateFormat: "yyyy-MM-dd")
+                }
+                if isError{
+                    self.showErrorMessage(errorType: errorType)
                 }
             }
             textField.tintColor = AppColors.clear

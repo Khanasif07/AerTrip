@@ -145,11 +145,15 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
     
     func setupNoDataFoundView(){
         let attributedString = NSMutableAttributedString(string: "Oops!\nOther Fares not found for this flight", attributes: [
-            .font: UIFont(name: "SourceSansPro-Regular", size: 18.0)!,
+//            .font: UIFont(name: "SourceSansPro-Regular", size: 18.0)!,
+            .font: AppFonts.Regular.withSize(18),
             .foregroundColor: UIColor.white])
         
-        attributedString.addAttribute(.font, value: UIFont(name: "SourceSansPro-Regular", size: 22.0)!, range: NSRange(location: 0, length: 5))
+//        attributedString.addAttribute(.font, value: UIFont(name: "SourceSansPro-Regular", size: 22.0)!, range: NSRange(location: 0, length: 5))
+  
         
+        attributedString.addAttribute(.font, value: AppFonts.Regular.withSize(22), range: NSRange(location: 0, length: 5))
+
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         paragraphStyle.lineSpacing = 10
@@ -169,8 +173,12 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
             height: 0.6,
             zIndex: Int.max - 1,
             insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-        self.parchmentView?.font = UIFont(name: "SourceSansPro-Regular", size: 16.0)!
-        self.parchmentView?.selectedFont = UIFont(name: "SourceSansPro-Semibold", size: 16.0)!
+//        self.parchmentView?.font = UIFont(name: "SourceSansPro-Regular", size: 16.0)!
+//        self.parchmentView?.selectedFont = UIFont(name: "SourceSansPro-Semibold", size: 16.0)!
+        
+        self.parchmentView?.font = AppFonts.Regular.withSize(16)
+        self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16)
+
         self.parchmentView?.indicatorColor = .white//UIColor.AertripColor
         self.parchmentView?.selectedTextColor = .white // .black
         self.parchmentView?.textColor = .white
@@ -618,7 +626,9 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                     
                                     let range = (displayString as NSString).range(of: displayString)
                                     
-                                    updatedStr.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Regular", size: 16.0)! , range: range)
+//                                    updatedStr.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Regular", size: 16.0)! , range: range)
+                                    
+                                    updatedStr.addAttribute(NSAttributedString.Key.font, value: AppFonts.Regular.withSize(16) , range: range)
                                     updatedStr.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: range)
                                     
                                     cell.txtView.attributedText = updatedStr

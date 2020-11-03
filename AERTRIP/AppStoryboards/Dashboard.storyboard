@@ -558,11 +558,11 @@ on Christmas”</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZaM-aV-lTD">
                                                 <rect key="frame" x="16" y="402" width="382" height="359"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Travel Safety Guidelines " translatesAutoresizingMaskIntoConstraints="NO" id="ghO-aZ-vI6">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Travel Safety Guidelines " translatesAutoresizingMaskIntoConstraints="NO" id="ghO-aZ-vI6">
                                                         <rect key="frame" x="0.0" y="0.0" width="382" height="359"/>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5U5-lW-jRa">
-                                                        <rect key="frame" x="16" y="322" width="350" height="21"/>
+                                                        <rect key="frame" x="16" y="298" width="350" height="21"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -580,7 +580,7 @@ on Christmas”</string>
                                                     <constraint firstItem="ghO-aZ-vI6" firstAttribute="leading" secondItem="ZaM-aV-lTD" secondAttribute="leading" id="Dh7-xr-4nl"/>
                                                     <constraint firstItem="O2y-wf-P4G" firstAttribute="top" secondItem="ZaM-aV-lTD" secondAttribute="top" id="Dt3-GN-kgH"/>
                                                     <constraint firstAttribute="height" constant="359" id="Gmf-A9-uXA"/>
-                                                    <constraint firstAttribute="bottom" secondItem="5U5-lW-jRa" secondAttribute="bottom" constant="16" id="Qqt-yK-ZOd"/>
+                                                    <constraint firstAttribute="bottom" secondItem="5U5-lW-jRa" secondAttribute="bottom" constant="40" id="Qqt-yK-ZOd"/>
                                                     <constraint firstAttribute="trailing" secondItem="5U5-lW-jRa" secondAttribute="trailing" constant="16" id="VTU-rD-R0s"/>
                                                     <constraint firstItem="5U5-lW-jRa" firstAttribute="leading" secondItem="ZaM-aV-lTD" secondAttribute="leading" constant="16" id="ZNp-fq-rvV"/>
                                                     <constraint firstAttribute="trailing" secondItem="ghO-aZ-vI6" secondAttribute="trailing" id="c0p-nv-R9d"/>
@@ -640,6 +640,7 @@ on Christmas”</string>
                         <outlet property="messageLabel" destination="ese-ox-irL" id="h7R-nu-PCJ"/>
                         <outlet property="travelSafetyButton" destination="O2y-wf-P4G" id="OcS-vs-Xt0"/>
                         <outlet property="travelSafetyLabel" destination="5U5-lW-jRa" id="zWg-6W-VKs"/>
+                        <outlet property="travelSafetyLabelBottom" destination="Qqt-yK-ZOd" id="Toz-OO-GBc"/>
                         <outlet property="travelSafetyViewTopConstraint" destination="he3-OK-cKT" id="O27-Xs-jAq"/>
                     </connections>
                 </viewController>
@@ -2429,8 +2430,8 @@ on Christmas”</string>
         <image name="FlightTest 66x66" width="66" height="66"/>
         <image name="HotelTest 66x66" width="66" height="66"/>
         <image name="Logo White" width="170" height="170"/>
-        <image name="Travel Safety Guidelines " width="1920" height="2010"/>
-        <image name="TripPlaceHolder" width="1372" height="1416"/>
+        <image name="Travel Safety Guidelines " width="343" height="359"/>
+        <image name="TripPlaceHolder" width="344" height="358"/>
         <image name="TripsTest 66x66" width="66" height="66"/>
         <image name="aerin" width="62.5" height="57"/>
         <image name="aerinBlackIcon" width="24" height="24"/>

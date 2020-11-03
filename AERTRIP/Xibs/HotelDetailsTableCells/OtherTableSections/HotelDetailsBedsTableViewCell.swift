@@ -42,6 +42,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     @IBOutlet weak var dropDownStackView: UIStackView!
     @IBOutlet weak var shadowViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainStackView: UIStackView!
+    @IBOutlet weak var descLabel: UILabel!
     
     //Mark:- LifeCycle
     //================
@@ -65,6 +66,8 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         self.bedDiscriptionLabel.textColor = AppColors.themeBlack
         self.bedsLabel.textColor = AppColors.themeBlack
         self.dropDownTextField.textColor = AppColors.themeGreen
+        self.descLabel.textColor = AppColors.themeBlack
+
         //Size
         self.bedTypeLabel.font = AppFonts.SemiBold.withSize(14.0)
         self.bedsLabel.font = AppFonts.Regular.withSize(14.0)
@@ -126,13 +129,17 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
             self.bedDiscriptionLabel.font = AppFonts.SemiBold.withSize(18.0)
             self.bedTypeLabel.font = AppFonts.SemiBold.withSize(18.0)
             self.deviderView.isHidden = false
+            self.descLabel.isHidden = true
             self.mainStackView.spacing = 6
         } else {
             self.bedTypeLabel.text = "No. of rooms : \(numberOfRooms)"
             self.bedDiscriptionLabel.font = AppFonts.SemiBold.withSize(18.0)
             self.bedTypeLabel.font = AppFonts.SemiBold.withSize(14.0)
+            self.descLabel.font = AppFonts.Regular.withSize(14.0)
             self.bedDiscriptionLabel.isHidden = false
-            self.bedDiscriptionLabel.text = roomData.name + " " + roomData.desc
+            self.bedDiscriptionLabel.text = roomData.name
+            self.descLabel.text = roomData.desc
+            self.descLabel.isHidden = roomData.desc.isEmpty
             self.deviderView.isHidden = true
             self.mainStackView.spacing = 1
         }

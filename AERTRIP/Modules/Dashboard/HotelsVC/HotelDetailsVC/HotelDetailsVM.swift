@@ -153,7 +153,7 @@ class HotelDetailsVM {
                             let fromDate: String = firstRefundableData.from
                             let penalty: Int = firstRefundableData.penalty
                             
-                            if !toDate.isEmpty && fromDate.isEmpty && penalty == 0 {
+                            if !toDate.isEmpty && fromDate.isEmpty && penalty == 0 || (!toDate.isEmpty && !fromDate.isEmpty && penalty == 0) {
                                 // free cancelation
                                 if  (tag.lowercased() == "free cancellation") || (tag.lowercased() == "free") {
                                     return true

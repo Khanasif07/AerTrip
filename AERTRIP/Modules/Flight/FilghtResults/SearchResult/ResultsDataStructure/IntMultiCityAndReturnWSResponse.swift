@@ -132,7 +132,7 @@ struct IntMultiCityAndReturnWSResponse {
             }
         }
         
-        struct EqMaster {
+        struct EqMaster : Equatable {
             var name: String
             var quality: Int
             
@@ -311,7 +311,9 @@ struct IntMultiCityAndReturnWSResponse {
             }
             
             func endtimeWith(Size : CGFloat) -> NSAttributedString {
-                let attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-SemiBold", size: (Size))!]
+//                let attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-SemiBold", size: (Size))!]
+                let attributes = [NSAttributedString.Key.font : AppFonts.SemiBold.withSize(Size)]
+
                 let endTime = NSMutableAttributedString(string: at, attributes: attributes)
                 
                 let dateFormatter = DateFormatter()
@@ -331,7 +333,10 @@ struct IntMultiCityAndReturnWSResponse {
                 let numberOfDays = components.day ?? 0
                 
                 if numberOfDays >= 1 {
-                    let daysStringAttributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-SemiBold", size: 8.0)! , NSAttributedString.Key.baselineOffset :  NSNumber(6) ]
+//                    let daysStringAttributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-SemiBold", size: 8.0)! , NSAttributedString.Key.baselineOffset :  NSNumber(6) ]
+                    
+                    let daysStringAttributes = [NSAttributedString.Key.font : AppFonts.SemiBold.withSize(8) , NSAttributedString.Key.baselineOffset :  NSNumber(6) ]
+
                     let daysSuperscript = "+" + String(numberOfDays)
                     let daysSuperScript = NSAttributedString(string: daysSuperscript, attributes: daysStringAttributes)
                     endTime.append(daysSuperScript)

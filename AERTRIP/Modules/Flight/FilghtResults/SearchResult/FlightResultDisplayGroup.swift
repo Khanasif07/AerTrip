@@ -18,6 +18,7 @@ class FlightResultDisplayGroup {
         case departureTime
         case arrivalTime
     }
+    
     internal var initiatedFilters: Set<InitiatedFilters> = []
     
     /// For checking if any of the sub filter is applied
@@ -416,7 +417,8 @@ class FlightResultDisplayGroup {
             leg.flights.forEach { (flight) in
                 
                 allEqs.append(flight.eq ?? "")
-
+               
+//                printDebug("flight.eqQuality....\( String(describing: flight.eqQuality))")
             }
             
         }

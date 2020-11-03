@@ -229,15 +229,17 @@ class HotelsSearchVC: BaseVC {
     ///Shadow Set Up
     private func shadowSetUp() {
         // corner radius
-        self.containerView.layer.cornerRadius = 10
-        // border
-        //self.containerView.layer.borderWidth = 1.0
-        //        self.containerView.layer.borderColor = UIColor.black.cgColor
-        // shadow
-        self.containerView.layer.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16).cgColor// UIColor.black.cgColor
-        self.containerView.layer.shadowOffset = CGSize(width: 0, height: 16)
-        self.containerView.layer.shadowOpacity = 0.7
-        self.containerView.layer.shadowRadius = 6.0
+//        self.containerView.layer.cornerRadius = 10
+//        // border
+//        //self.containerView.layer.borderWidth = 1.0
+//        //        self.containerView.layer.borderColor = UIColor.black.cgColor
+//        // shadow
+//        self.containerView.layer.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16).cgColor// UIColor.black.cgColor
+//        self.containerView.layer.shadowOffset = CGSize(width: 0, height: 16)
+//        self.containerView.layer.shadowOpacity = 0.7
+//        self.containerView.layer.shadowRadius = 6.0
+        
+        self.containerView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize(width: 0, height: 16), opacity: 0.7, shadowRadius: 6.0)
     }
     
     ///ConfigureCheckInOutView

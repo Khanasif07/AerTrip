@@ -86,6 +86,7 @@
 		0C30BC1524A9F92A004BF7E0 /* LabelWithBulletCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C30BC1324A9F92A004BF7E0 /* LabelWithBulletCell.xib */; };
 		0C30BC1724AA0112004BF7E0 /* BaggageTermsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C30BC1624AA0112004BF7E0 /* BaggageTermsVM.swift */; };
 		0C32DC06232F70FC008033B5 /* QuickPayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C32DC05232F70FC008033B5 /* QuickPayVC.swift */; };
+		0C3F21DA25504F130022F95E /* payment.csv in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F21D925504F120022F95E /* payment.csv */; };
 		0C4CB41025022C9F000C3904 /* TAViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4CB40F25022C9E000C3904 /* TAViewModel.swift */; };
 		0C4CB41225022CE5000C3904 /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4CB41125022CE4000C3904 /* CurrencyModel.swift */; };
 		0C4CB41425022D33000C3904 /* OtherFareModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4CB41325022D33000C3904 /* OtherFareModel.swift */; };
@@ -873,11 +874,8 @@
 		843FF49B24740231001F21B1 /* FlightTimesFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3312474022F001F21B1 /* FlightTimesFilter.swift */; };
 		843FF49C24740231001F21B1 /* FlightFilterTimesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3322474022F001F21B1 /* FlightFilterTimesViewController.swift */; };
 		843FF49D24740231001F21B1 /* FlightFilterTimesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF3332474022F001F21B1 /* FlightFilterTimesViewController.xib */; };
-		843FF49E24740231001F21B1 /* FlightFilterBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF3352474022F001F21B1 /* FlightFilterBaseViewController.xib */; };
 		843FF4A024740231001F21B1 /* RadioButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF3382474022F001F21B1 /* RadioButtonTableViewCell.xib */; };
 		843FF4A124740231001F21B1 /* RadioButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3392474022F001F21B1 /* RadioButtonTableViewCell.swift */; };
-		843FF4A224740231001F21B1 /* IntMCAndReturnFlightFiltersBaseVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF33B2474022F001F21B1 /* IntMCAndReturnFlightFiltersBaseVC.xib */; };
-		843FF4A324740231001F21B1 /* IntMCAndReturnFlightFiltersBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF33C2474022F001F21B1 /* IntMCAndReturnFlightFiltersBaseVC.swift */; };
 		843FF4A424740231001F21B1 /* PriceFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF33E2474022F001F21B1 /* PriceFilterViewController.swift */; };
 		843FF4A524740231001F21B1 /* PriceFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF33F2474022F001F21B1 /* PriceFilterViewController.xib */; };
 		843FF4A624740231001F21B1 /* FlightStopsFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF3412474022F001F21B1 /* FlightStopsFilterViewController.xib */; };
@@ -1751,6 +1749,7 @@
 		0C30BC1324A9F92A004BF7E0 /* LabelWithBulletCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelWithBulletCell.xib; sourceTree = "<group>"; };
 		0C30BC1624AA0112004BF7E0 /* BaggageTermsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaggageTermsVM.swift; sourceTree = "<group>"; };
 		0C32DC05232F70FC008033B5 /* QuickPayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickPayVC.swift; sourceTree = "<group>"; };
+		0C3F21D925504F120022F95E /* payment.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = payment.csv; sourceTree = "<group>"; };
 		0C4CB40F25022C9E000C3904 /* TAViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TAViewModel.swift; sourceTree = "<group>"; };
 		0C4CB41125022CE4000C3904 /* CurrencyModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
 		0C4CB41325022D33000C3904 /* OtherFareModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherFareModel.swift; sourceTree = "<group>"; };
@@ -4881,13 +4880,6 @@
 			path = PostBookingAddonsPaymentStatusVC;
 			sourceTree = "<group>";
 		};
-		18DEFE7B249E7B7400E64260 /* IntFlightUpgradeVC */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = IntFlightUpgradeVC;
-			sourceTree = "<group>";
-		};
 		18E17B9D248DFF7B00CC9876 /* FlightPaymentPendingVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -6714,7 +6706,6 @@
 			isa = PBXGroup;
 			children = (
 				0C4CB42125022F3D000C3904 /* UpgradeFlight */,
-				18DEFE7B249E7B7400E64260 /* IntFlightUpgradeVC */,
 				843FF3BB24740230001F21B1 /* IntFlightInfoVC */,
 				843FF3BD24740230001F21B1 /* IntFlightBaggageInfo */,
 				843FF3BF24740230001F21B1 /* IntFareBreakupVC */,
@@ -8304,6 +8295,7 @@
 			isa = PBXGroup;
 			children = (
 				8417772B223F6DF600DAC087 /* hotelsSearch.csv */,
+				0C3F21D925504F120022F95E /* payment.csv */,
 				0CACCAC625357DCD00975582 /* flightConfirmation.csv */,
 				849F31ED21FF1AC60076BB3D /* profile.csv */,
 				18AAAC2024B4CE3A00025ABF /* flights.csv */,
@@ -9748,6 +9740,7 @@
 				84D5F23322A65D4900824A9F /* TravellersDetailsTableViewCell.xib in Resources */,
 				843FF58424740232001F21B1 /* FareInfoTableViewCell.xib in Resources */,
 				841AA5042474378600B66720 /* WebViewController.xib in Resources */,
+				0C3F21DA25504F130022F95E /* payment.csv in Resources */,
 				843FF57F24740232001F21B1 /* CombineFareInfoTableViewCell.xib in Resources */,
 				843FF650247409E3001F21B1 /* GuestsCollectionViewCell.xib in Resources */,
 				18038D14226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.xib in Resources */,
@@ -11245,9 +11238,9 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_hotels;
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 183;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 188;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11325,8 +11318,6 @@
 					"\"CoreTelephony\"",
 					"-framework",
 					"\"CoreText\"",
-					"-framework",
-					"\"Crashlytics\"",
 					"-framework",
 					"\"FBSDKCoreKit\"",
 					"-framework",
@@ -11437,7 +11428,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.aertrip.app;
 				PRODUCT_MODULE_NAME = AERTRIP;
 				PRODUCT_NAME = Aertrip;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = Aertrip_itunes_31_jan_19;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AERTRIP/Resources/AERTRIP-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
@@ -11455,9 +11446,9 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_hotels;
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 183;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 188;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11537,8 +11528,6 @@
 					"-framework",
 					"\"CoreText\"",
 					"-framework",
-					"\"Crashlytics\"",
-					"-framework",
 					"\"FBSDKCoreKit\"",
 					"-framework",
 					"\"FBSDKLoginKit\"",
@@ -11648,7 +11637,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.aertrip.app;
 				PRODUCT_MODULE_NAME = AERTRIP;
 				PRODUCT_NAME = Aertrip;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = Aertrip_itunes_31_jan_19;
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AERTRIP/Resources/AERTRIP-Bridging-Header.h";

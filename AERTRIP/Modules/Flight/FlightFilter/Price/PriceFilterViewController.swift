@@ -249,7 +249,8 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         
         let formattedString =  currencyString
         let attributedString = NSMutableAttributedString(string: formattedString, attributes: [
-            .font: UIFont(name: "SourceSansPro-Regular", size: 18.0)!,
+//            .font: UIFont(name: "SourceSansPro-Regular", size: 18.0)!,
+            .font: AppFonts.Regular.withSize(18),
             .foregroundColor: UIColor.black,
             .kern: 0.0
         ])

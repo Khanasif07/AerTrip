@@ -7,7 +7,7 @@
 //
 
 import CoreData
-import Crashlytics
+//import Crashlytics
 import Fabric
 import FBSDKLoginKit
 import Firebase
@@ -19,7 +19,7 @@ import FirebaseCore
 import UIKit
 import FirebaseCore
 import IQKeyboardManager
-
+import Kingfisher
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GoogleLoginController.shared.configure()
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-        Fabric.with([Crashlytics.self])
+        //Fabric.with([Crashlytics.self])
         GMSServices.provideAPIKey(AppConstants.kGoogleAPIKey)
         UITextView.appearance().tintColor = AppColors.themeGreen
         UITextField.appearance().tintColor = AppColors.themeGreen
@@ -58,7 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.set(false, forKey: "NSAllowsDefaultLineBreakStrategy")
         
         IQKeyboardManager.shared().shouldResignOnTouchOutside = true
-        
+        ImageCache.default.memoryStorage.config.totalCostLimit = 100
+        ImageCache.default.cleanExpiredCache()
         return true
     }
     

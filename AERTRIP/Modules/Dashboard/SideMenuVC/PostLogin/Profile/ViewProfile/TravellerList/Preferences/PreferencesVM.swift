@@ -55,11 +55,15 @@ class PreferencesVM: NSObject {
         params["categorize_by_group"] = self.isCategorizeByGroup
         for (org, new) in self.modifiedGroups {
             if let idx = self.groups.firstIndex(of: org) {
-                self.groups[idx] = new
+                self.groups[idx] = new.capitalized
             }
         }
-        params["labels"] = self.groups
-        params["removed"] = self.removedGroups
+        params["labels"] = self.groups.map({ (group) -> String in
+            return group.capitalized
+        })
+        params["removed"] = self.removedGroups.map({ (group) -> String in
+            return group.capitalized
+        })
         
         UserInfo.loggedInUser?.generalPref?.updateLabelsPriority(newList: self.groups)
         if AppGlobals.shared.isNetworkRechable() {
@@ -71,9 +75,10 @@ class PreferencesVM: NSObject {
             params["modified[\(modified.originalGroupName)]"] = modified.modifiedGroupName
         }
         delegate?.willSavePreferences()
+        printDebug("params: \(params)")
         APICaller.shared.callSavePreferencesAPI(params: params) { [weak self] (success, erroCodes) in
             if success {
-                
+
                 self?.delegate?.savePreferencesSuccess()
             } else {
                 self?.delegate?.savePreferencesFail(errors: erroCodes)
