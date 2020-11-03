@@ -22,7 +22,7 @@ extension FlightBaggageInfoVC {
             case .adult(let isLast): return isLast ? 54.0 : 28.0
             case .child(let isLast): return isLast ? 54.0 : 28.0
             case .infant(let isLast): return isLast ? 54.0 : 28.0
-            case .layover(let isLast): return isLast ? 43.0 : 40.0
+            case .layover(let isLast): return UITableView.automaticDimension//return isLast ? 43.0 : 40.0
             case .note: return 43.0
             }
         }
