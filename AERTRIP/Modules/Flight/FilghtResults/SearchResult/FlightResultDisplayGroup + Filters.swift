@@ -839,6 +839,9 @@ extension FlightResultDisplayGroup  {
         appliedFilters.removeAll()
         UIFilters.removeAll()
         self.filteredJourneyArray = processedJourneyArray
+        self.dynamicFilters.aircraft.selectedAircrafts.removeAll()
+        self.dynamicFilters.aircraft.selectedAircraftsArray.removeAll()
+
     }
     
     

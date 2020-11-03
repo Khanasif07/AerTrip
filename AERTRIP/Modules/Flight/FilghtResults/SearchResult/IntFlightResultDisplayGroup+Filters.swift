@@ -1174,6 +1174,8 @@ extension IntFlightResultDisplayGroup  {
         UIFilters.removeAll()
         self.userSelectedFilters = inputFilter
         self.filteredJourneyArray = processedJourneyArray
+        self.dynamicFilters.aircraft.selectedAircrafts.removeAll()
+        self.dynamicFilters.aircraft.selectedAircraftsArray.removeAll()
     }
     
     func applyFilters(index : Int, isAPIResponseUpdated: Bool = false) {
