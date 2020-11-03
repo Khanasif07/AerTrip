@@ -15,16 +15,16 @@ protocol AirportFilterDelegate : FilterDelegate {
     func destinationSelectionChanged(selection : [AirportsGroupedByCity] ,at index : Int )
     func sameSourceDestinationSelected(at index : Int)
     func layoverSelectionsChanged(selection : [LayoverDisplayModel] , at index : Int )
-    func allLayoverSelectedAt( index : Int)
+    func allLayoverSelectedAt( index : Int, selected: Bool)
     func allOriginDestinationAirportsSelectedAt( index : Int)
     func airportSelectionChangedForReturnJourneys(originAirports: [AirportsGroupedByCity], destinationAirports: [AirportsGroupedByCity])
     func layoverSelectionsChangedForReturnJourney(selection : [LayoverDisplayModel] , at index : Int)
-    func allLayoversSelectedInReturn()
+    func allLayoversSelectedInReturn(selected: Bool)
 }
 
 extension AirportFilterDelegate {
     func layoverSelectionsChangedForReturnJourney(selection : [LayoverDisplayModel] , at index : Int) { }
-    func allLayoversSelectedInReturn() { }
+    func allLayoversSelectedInReturn(selected: Bool) { }
 }
 
 
@@ -70,7 +70,6 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
     var airportFilterArray  = [AirportLegFilter]()
     var currentAirportFilter : AirportLegFilter!
     var searchType : FlightSearchType? 
-    var allLayoverSelectedByUserInteraction = false
     
     private var allOriginDestSelectedAtIndex: [Int: Bool] = [:]
     var isIntReturnOrMCJourney = false
@@ -363,7 +362,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
     
     func updateUIPostLatestResults() {
         
-        if allLayoverSelectedByUserInteraction {
+        if currentAirportFilter.allLayoverSelectedByUserInteraction {
             currentAirportFilter.layoverCities = currentAirportFilter.layoverCities.map { var newAirport = $0
                 newAirport.selectAll(true)
                 return newAirport
@@ -408,10 +407,8 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         sameDepartReturnBtn.isSelected = false
         
         currentAirportFilter = airportFilterArray[currentActiveIndex]
-        if !isIntReturnOrMCJourney {
-            allLayoverButton.isSelected = false
-            allLayoverSelectedByUserInteraction = false
-        }
+        currentAirportFilter.allLayoverSelectedByUserInteraction = false
+        allLayoverButton.isSelected = false
                 
 //        setmultiLegSubviews ()
         updateSegmentTitles()
@@ -472,9 +469,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         currentAirportFilter.layoverCities[section].airports = airports
         
         let combinedSelectionStatus = currentAirportFilter.allLayoverSelected()
-        if !isIntReturnOrMCJourney {
-            allLayoverSelectedByUserInteraction = combinedSelectionStatus
-        }
+        currentAirportFilter.allLayoverSelectedByUserInteraction = combinedSelectionStatus
         allLayoverButton.isSelected = combinedSelectionStatus
         
         airportFilterArray[currentActiveIndex] = currentAirportFilter
@@ -567,12 +562,10 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         tableOffsetAtIndex[currentActiveIndex] = baseScrollview.contentOffset.y
         sender.isSelected.toggle()
 
+        currentAirportFilter.allLayoverSelectedByUserInteraction = sender.isSelected
         currentAirportFilter.layoverCities = currentAirportFilter.layoverCities.map { var newAirport = $0
             newAirport.selectAll(sender.isSelected  )
             return newAirport
-        }
-        if !isIntReturnOrMCJourney {
-//            allLayoverSelectedByUserInteraction  = sender.isSelected
         }
         airportFilterArray[currentActiveIndex] = currentAirportFilter
 //        setmultiLegSubviews ()
@@ -580,15 +573,15 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         layoverTableview.reloadData()
         if searchType == RETURN_JOURNEY {
             if isIntReturnOrMCJourney {
-                self.delegate?.allLayoversSelectedInReturn()
+                self.delegate?.allLayoversSelectedInReturn(selected: sender.isSelected)
                 return
             }
             
-            self.delegate?.allLayoverSelectedAt(index: 0)
-            self.delegate?.allLayoverSelectedAt(index: 1)
+            self.delegate?.allLayoverSelectedAt(index: 0, selected: sender.isSelected)
+            self.delegate?.allLayoverSelectedAt(index: 1, selected: sender.isSelected)
         }
         else {
-            self.delegate?.allLayoverSelectedAt(index: currentActiveIndex)
+            self.delegate?.allLayoverSelectedAt(index: currentActiveIndex, selected: sender.isSelected)
         }
         
     }
@@ -668,7 +661,7 @@ extension AirportsFilterViewController : UITableViewDataSource , UITableViewDele
                 let currentAirport = airports[indexPath.row]
                 cell.airportCode.text = currentAirport.IATACode
                 cell.airportName?.text = currentAirport.city
-                if allLayoverSelectedByUserInteraction {
+                if currentAirportFilter.allLayoverSelectedByUserInteraction {
                    cell.radioButton.isSelected  = true
                 } else {
                     print(currentAirport.isSelected)

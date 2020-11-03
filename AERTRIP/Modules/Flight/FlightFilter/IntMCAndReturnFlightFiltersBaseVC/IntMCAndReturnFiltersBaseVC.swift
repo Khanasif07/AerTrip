@@ -225,7 +225,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         menuItems[Filters.stops.rawValue].isSelected = filters.appliedFilters[0].contains(.stops) || filters.uiFilters[0].contains(.hideChangeAirport)
         menuItems[Filters.Times.rawValue].isSelected = filters.appliedFilters[0].contains(.Times) || filters.uiFilters[0].contains(.hideOvernight)
         menuItems[Filters.Duration.rawValue].isSelected = filters.appliedFilters[0].contains(.Duration) || filters.uiFilters[0].contains(.hideOvernightLayover)
-        menuItems[Filters.Airlines.rawValue].isSelected = filters.appliedFilters[0].contains(.Airlines)
+        menuItems[Filters.Airlines.rawValue].isSelected = filters.appliedFilters[0].contains(.Airlines) || filters.uiFilters[0].contains(.hideMultiAirlineItinarery)
         menuItems[Filters.Airport.rawValue].isSelected = filters.appliedFilters[0].contains(.Airport)
         menuItems[Filters.Quality.rawValue].isSelected = filters.appliedFilters[0].contains(.Quality)
         menuItems[Filters.Price.rawValue - 1].isSelected = filters.appliedFilters[0].contains(.Price)
@@ -1116,12 +1116,14 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             airlineFilters = self.createAirlineFiltersArray(inputFilters: filters)
         }
         
+        let curSelectedFilter = airlineVC.currentSelectedAirlineFilter
         airlineVC.airlinesFilterArray = airlineFilters
         airlineVC.currentSelectedAirlineFilter = airlineFilters[0]
         if appliedAndUIFilters?.appliedFilters[0].contains(.Airlines) ?? false {
             let selectedAirlines = userSelectedFilters.flatMap { $0.al }
             airlineVC.selectedAirlineArray = selectedAirlines
         }
+        airlineVC.currentSelectedAirlineFilter.hideMultipleAirline = curSelectedFilter?.hideMultipleAirline ?? false
         airlineVC.updateUIPostLatestResults()
     }
     
@@ -1491,6 +1493,8 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                 let curAiportFilter = airportViewController.airportFilterArray[index]
                 let selectedAirports = curAiportFilter.allSelectedAirports
                 
+                let allLayoversSelected = curAiportFilter.allLayoverSelectedByUserInteraction
+                
                 let inputOriginAirports = inputFilters[index].cityapn.fr.values.flatMap { $0.map { $0 } }
                 let originSelectedAirports = userSelectedFilters[index].cityapn.fr.values.flatMap { $0.map { $0 } }
                 
@@ -1535,7 +1539,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                         var newCity = city
                         newCity.airports = newCity.airports.map({ (airport) in
                             var newAirport = airport
-                            if userSelectedLayoverAirports.contains(newAirport.IATACode) {
+                            if userSelectedLayoverAirports.contains(newAirport.IATACode) || allLayoversSelected {
                                 newAirport.isSelected = true
                             }
                             return newAirport
@@ -1543,8 +1547,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                         return newCity
                     }
                 }
-                
+                airportLegFilter.allLayoverSelectedByUserInteraction = allLayoversSelected
                 airportViewController.airportFilterArray[index] = airportLegFilter
+                
                 
             } else {
                 if !airportViewController.airportFilterArray.indices.contains(index) {
