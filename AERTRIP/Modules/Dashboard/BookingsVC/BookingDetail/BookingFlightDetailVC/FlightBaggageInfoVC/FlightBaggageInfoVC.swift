@@ -25,14 +25,22 @@ class FlightBaggageInfoVC: BaseVC {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.registerXib()
+        delay(seconds: 0.2) { [weak self] in
+            guard let self = self else {return}
+            self.tableView.reloadData()
+        }
 //        delay(seconds: 0.3) { [weak self] in
 //            self?.tableView.scrollToRow(at: IndexPath(row: 0, section: self?.viewModel.legSectionTap ?? 0), at: .top, animated: false)
 //        }
         //        self.tableView.backgroundColor = AppColors.themeWhite
 //        self.viewModel.getBookingFees()
+        
     }
     
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tableView.reloadData()
+    }
     
     override func bindViewModel() {
         self.viewModel.delegate = self

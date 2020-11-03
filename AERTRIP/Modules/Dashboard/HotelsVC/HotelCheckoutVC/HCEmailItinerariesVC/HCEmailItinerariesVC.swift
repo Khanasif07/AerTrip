@@ -40,6 +40,11 @@ class HCEmailItinerariesVC: BaseVC {
         }else{
             self.viewModel.fillData()
         }
+        if self.viewModel.emailInfo.filter({$0.emailId.isEmail}).count > 1{
+            self.headerView.firstRightButton.isEnabled = true
+            self.headerView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        }
+        
 //        self.viewModel.fillData()
     }
     
