@@ -19,7 +19,7 @@ extension FlightSearchResultVM : AirlineFilterDelegate {
         }
         
         for flightLeg in flightLegs {
-            flightLeg.allAirlinesSelected()
+            flightLeg.allAirlinesSelected(selected: status)
         }
     }
     
@@ -255,28 +255,28 @@ extension FlightSearchResultVM : PriceFilterDelegate {
 //MARK:- Airport Filters
 extension FlightSearchResultVM : AirportFilterDelegate {
     
-    func sameSourceDestinationSelected(at index: Int) {
+    func sameSourceDestinationSelected(at index: Int, selected: Bool) {
         
         if isIntMCOrReturnJourney {
-            intFlightLegs[0].sameSourceDestinationSelected(index: index)
+            intFlightLegs[0].sameSourceDestinationSelected(index: index, selected: selected)
             return
         }
         
         flightLegs[index].sameSourceDestinationSelected()
     }
     
-    func allLayoverSelectedAt(index: Int) {
+    func allLayoverSelectedAt(index: Int, selected: Bool) {
         
         if isIntMCOrReturnJourney {
-            intFlightLegs[0].allLayoverSelected(index : index, isReturnJourney: false)
+            intFlightLegs[0].allLayoverSelected(index : index, isReturnJourney: false, selected: selected)
          return
         }
         
-         flightLegs[index].allLayoverSelected()
+        flightLegs[index].allLayoverSelected(selected: selected)
     }
     
-    func allLayoversSelectedInReturn() {
-        intFlightLegs[0].allLayoverSelected(index : 0, isReturnJourney: true)
+    func allLayoversSelectedInReturn(selected: Bool) {
+        intFlightLegs[0].allLayoverSelected(index : 0, isReturnJourney: true, selected: selected)
     }
     
     func allOriginDestinationAirportsSelectedAt(index: Int) {

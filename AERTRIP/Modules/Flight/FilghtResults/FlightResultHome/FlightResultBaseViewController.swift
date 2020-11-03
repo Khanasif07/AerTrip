@@ -1223,9 +1223,21 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                     break
                 }
             }
+            for uiFilters in flightSearchResultVM.flightLegsAppliedFilters.uiFilters {
+                if !uiFilters.isEmpty {
+                    isFilterApplied = true
+                    break
+                }
+            }
         } else if intMCAndReturnFilterVC != nil {
             for appliedFilters in flightSearchResultVM.intFlightLegsAppliedFilters.appliedFilters {
                 if !appliedFilters.isEmpty {
+                    isFilterApplied = true
+                    break
+                }
+            }
+            for uiFilters in flightSearchResultVM.intFlightLegsAppliedFilters.uiFilters {
+                if !uiFilters.isEmpty {
                     isFilterApplied = true
                     break
                 }
