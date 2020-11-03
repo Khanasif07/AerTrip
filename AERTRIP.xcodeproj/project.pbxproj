@@ -86,6 +86,7 @@
 		0C30BC1524A9F92A004BF7E0 /* LabelWithBulletCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C30BC1324A9F92A004BF7E0 /* LabelWithBulletCell.xib */; };
 		0C30BC1724AA0112004BF7E0 /* BaggageTermsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C30BC1624AA0112004BF7E0 /* BaggageTermsVM.swift */; };
 		0C32DC06232F70FC008033B5 /* QuickPayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C32DC05232F70FC008033B5 /* QuickPayVC.swift */; };
+		0C3F21DA25504F130022F95E /* payment.csv in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F21D925504F120022F95E /* payment.csv */; };
 		0C4CB41025022C9F000C3904 /* TAViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4CB40F25022C9E000C3904 /* TAViewModel.swift */; };
 		0C4CB41225022CE5000C3904 /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4CB41125022CE4000C3904 /* CurrencyModel.swift */; };
 		0C4CB41425022D33000C3904 /* OtherFareModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4CB41325022D33000C3904 /* OtherFareModel.swift */; };
@@ -1748,6 +1749,7 @@
 		0C30BC1324A9F92A004BF7E0 /* LabelWithBulletCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelWithBulletCell.xib; sourceTree = "<group>"; };
 		0C30BC1624AA0112004BF7E0 /* BaggageTermsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaggageTermsVM.swift; sourceTree = "<group>"; };
 		0C32DC05232F70FC008033B5 /* QuickPayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickPayVC.swift; sourceTree = "<group>"; };
+		0C3F21D925504F120022F95E /* payment.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = payment.csv; sourceTree = "<group>"; };
 		0C4CB40F25022C9E000C3904 /* TAViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TAViewModel.swift; sourceTree = "<group>"; };
 		0C4CB41125022CE4000C3904 /* CurrencyModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
 		0C4CB41325022D33000C3904 /* OtherFareModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherFareModel.swift; sourceTree = "<group>"; };
@@ -8293,6 +8295,7 @@
 			isa = PBXGroup;
 			children = (
 				8417772B223F6DF600DAC087 /* hotelsSearch.csv */,
+				0C3F21D925504F120022F95E /* payment.csv */,
 				0CACCAC625357DCD00975582 /* flightConfirmation.csv */,
 				849F31ED21FF1AC60076BB3D /* profile.csv */,
 				18AAAC2024B4CE3A00025ABF /* flights.csv */,
@@ -9737,6 +9740,7 @@
 				84D5F23322A65D4900824A9F /* TravellersDetailsTableViewCell.xib in Resources */,
 				843FF58424740232001F21B1 /* FareInfoTableViewCell.xib in Resources */,
 				841AA5042474378600B66720 /* WebViewController.xib in Resources */,
+				0C3F21DA25504F130022F95E /* payment.csv in Resources */,
 				843FF57F24740232001F21B1 /* CombineFareInfoTableViewCell.xib in Resources */,
 				843FF650247409E3001F21B1 /* GuestsCollectionViewCell.xib in Resources */,
 				18038D14226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.xib in Resources */,
@@ -11236,7 +11240,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 189;
+				CURRENT_PROJECT_VERSION = 190;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11444,7 +11448,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 189;
+				CURRENT_PROJECT_VERSION = 190;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;

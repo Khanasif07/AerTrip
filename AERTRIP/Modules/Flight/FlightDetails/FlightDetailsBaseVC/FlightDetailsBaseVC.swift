@@ -147,6 +147,7 @@ class FlightDetailsBaseVC: BaseVC {
             DispatchQueue.delay(1) {
                 self.parchmentLoaded = true
             }
+            print("self.displayView.bounds=",self.displayView.bounds)
             self.parchmentView?.view.frame = self.displayView.bounds
             self.parchmentView?.view.frame.size.height = self.dataDisplayView.height - innerControllerBottomConstraint
             self.parchmentView?.loadViewIfNeeded()
@@ -422,7 +423,11 @@ extension FlightDetailsBaseVC: PagingViewControllerDataSource , PagingViewContro
     
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat
     {
-        return 120.0
+        if UIDevice.current.name.contains(find: "SE"){
+            return 112
+        }else{
+            return 120
+        }
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool){

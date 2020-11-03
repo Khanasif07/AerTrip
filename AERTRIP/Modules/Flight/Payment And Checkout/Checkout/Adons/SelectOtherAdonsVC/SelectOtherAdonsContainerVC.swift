@@ -180,7 +180,6 @@ extension SelectOtherAdonsContainerVC: PagingViewControllerDataSource , PagingVi
             
            if let pagingIndexItem = pagingItem as? LogoMenuItem, let text = pagingIndexItem.attributedTitle {
                
-               
                let attText = NSMutableAttributedString(attributedString: text)
                attText.addAttribute(.font, value: AppFonts.SemiBold.withSize(16), range: NSRange(location: 0, length: attText.length))
                let width = attText.widthOfText(50, font: AppFonts.SemiBold.withSize(16))

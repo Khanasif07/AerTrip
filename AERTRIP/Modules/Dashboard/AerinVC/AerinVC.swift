@@ -35,6 +35,7 @@ class AerinVC: BaseVC {
     @IBOutlet weak var travelSafetyLabel: UILabel!
     @IBOutlet weak var travelSafetyViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var aerinViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var travelSafetyLabelBottom: NSLayoutConstraint!
     
     private var previousOffSet = CGPoint.zero
     private var aerInPulsAnimator: PKPulseAnimation = PKPulseAnimation()
@@ -48,6 +49,15 @@ class AerinVC: BaseVC {
         // Do any additional setup after loading the view.
         containerScrollView.alwaysBounceVertical = true
         containerScrollView.delegate = self
+        
+        if UIDevice.current.name.contains(find: "SE"){
+            bottomViewImage.contentMode = .scaleAspectFit
+            travelSafetyLabelBottom.constant = 40
+        }else{
+            bottomViewImage.contentMode = .scaleAspectFill
+            travelSafetyLabelBottom.constant = 16
+        }
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -113,7 +123,11 @@ class AerinVC: BaseVC {
     override func setupFonts() {
         self.messageLabel.font = AppFonts.Regular.withSize(16.0)
         //self.weekendMessageLabel.font = AppFonts.Regular.withSize(17.0)
-        self.travelSafetyLabel.font = AppFonts.SemiBold.withSize(28.0)
+        if UIDevice.current.name.contains(find: "SE"){
+            self.travelSafetyLabel.font = AppFonts.SemiBold.withSize(24.0)
+        }else{
+            self.travelSafetyLabel.font = AppFonts.SemiBold.withSize(28.0)
+        }
     }
     
     override func viewDidLayoutSubviews() {

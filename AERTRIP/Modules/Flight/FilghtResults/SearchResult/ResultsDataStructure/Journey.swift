@@ -481,7 +481,8 @@ class JourneyOnewayDisplay {
     }
     
     var computedHumanScore : Float {
-        return getJourneyWithLeastHumanScore().computedHumanScore!
+        guard let jrny = getJourneyWithLeastHumanScore() else { return 0.0 }
+        return jrny.computedHumanScore ?? 0.0
     }
     
     //    var isPinned : Bool?
@@ -540,9 +541,9 @@ class JourneyOnewayDisplay {
         return self.journeyArray.first(where:{ $0.fk == fk })
     }
     
-    func getJourneyWithLeastHumanScore () ->  Journey {
+    func getJourneyWithLeastHumanScore () ->  Journey? {
             let sorted =  journeyArray.sorted(by: { $0.computedHumanScore! < $1.computedHumanScore! })
-            return sorted.first!
+            return sorted.first
     }
     
     func getJourneysWithMinDuration() -> Journey? {

@@ -226,6 +226,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         
         for i in 0 ..< self.viewModel.numberOfLegs {
             setTextColorToHeader(.black, indexPath: i)
+            self.headerArray[i].isInCompatable = false
         }
         
         guard let selectedJourneys = self.viewModel.getSelectedJourneyForAllLegs(), selectedJourneys.count >= 2 else { return }

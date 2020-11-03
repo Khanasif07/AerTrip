@@ -108,6 +108,22 @@ class MealsContainerVM {
     }
     
     
+    func isAnyThingSelected() -> Bool {
+        
+        var isAnyThingSelected = false
+        
+        allChildVCs.forEach { (child) in
+            
+            child.selectMealsVM.addonsDetails.addonsArray.enumerated().forEach { (mealId, meal) in
+                if !isAnyThingSelected {
+                    isAnyThingSelected = !meal.mealsSelectedFor.isEmpty
+                }
+            }
+        }
+        
+        return isAnyThingSelected
+    }
+    
     func checkIfReadOnlyValuesAreDifferent(flights : [AddonsFlight], forAdon: AddonsDataCustom) -> Bool {
         
         var readOnlyValues : [Int] = []

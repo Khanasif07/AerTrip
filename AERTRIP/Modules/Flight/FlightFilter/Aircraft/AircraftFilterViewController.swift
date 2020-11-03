@@ -15,7 +15,8 @@ protocol AircraftFilterDelegate : FilterDelegate {
     func aircraftFilterUpdated(_ filter : AircraftFilter)
 }
 
-class AircraftFilterViewController: UIViewController {
+class AircraftFilterViewController: UIViewController , FilterViewController {
+   
     
     @IBOutlet weak var aircraftTableView: UITableView!
     
@@ -44,8 +45,27 @@ class AircraftFilterViewController: UIViewController {
 
     @objc func aircraftRadioButtonTapped(sender : UIButton) {
    
-   
     }
+    
+    
+    func resetFilter(){
+        
+        self.aircraftFilter.selectedAircrafts.removeAll()
+        self.aircraftFilter.selectedAircraftsArray.removeAll()
+        self.aircraftTableView.reloadData()
+
+    }
+    
+    
+    func initialSetup() {
+        
+    }
+    
+    func updateUIPostLatestResults() {
+        
+    }
+    
+    
     
     func assignC(){
         c = 2

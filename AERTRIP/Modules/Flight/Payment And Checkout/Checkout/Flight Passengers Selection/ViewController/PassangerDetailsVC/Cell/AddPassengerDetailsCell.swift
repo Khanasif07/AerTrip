@@ -453,7 +453,9 @@ class AddPassengerDetailsCell: UITableViewCell {
         if let passenger = self.guestDetail{
             switch passenger.passengerType {
             case .Adult:
+                if ((errorType ?? DatePickerError.maxExceed) == DatePickerError.minExceed){
                     msg = LocalizedString.adultAgeError.localized
+                }
             case .Child:
                     msg = LocalizedString.childAgeError.localized
             case .Infant:
@@ -500,7 +502,7 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
             if let passenger = self.guestDetail{
                 switch passenger.passengerType {
                 case .Adult:
-                    minimumDate = nil
+                    minimumDate = "01/01/1900".toDate(dateFormat: "DD/MM/yyyy")
                     maximumDate = journeyStartDate.add(years: -12, days: 0)
                 case .Child:
                     minimumDate = self.lastJourneyDate.add(years: -12, days: 1)

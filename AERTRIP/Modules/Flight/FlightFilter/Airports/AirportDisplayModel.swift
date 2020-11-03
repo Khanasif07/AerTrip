@@ -90,6 +90,7 @@ struct AirportLegFilter {
     var destinationCities : [AirportsGroupedByCity]
     var layoverCities : [LayoverDisplayModel]
     var sameDepartReturnSelected = false
+    var allLayoverSelectedByUserInteraction = false
     
     var originCitiesSortedArray : [AirportsGroupedByCity]{
         return originCities.sorted(by: { $0.name < $1.name })
