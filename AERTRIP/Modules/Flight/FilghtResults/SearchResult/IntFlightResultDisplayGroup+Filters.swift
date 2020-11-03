@@ -850,19 +850,28 @@ extension IntFlightResultDisplayGroup  {
             UIFilters.remove(.layoverAirports)
         }
         
-        if !UIFilters.contains(.originAirports) && !UIFilters.contains(.destinationAirports) && !UIFilters.contains(.layoverAirports) {
+        if !UIFilters.contains(.originAirports) && !UIFilters.contains(.destinationAirports) && !UIFilters.contains(.layoverAirports) && !UIFilters.contains(.originDestinationSame) {
             appliedFilters.remove(.Airport)
+        } else {
+            appliedFilters.insert(.Airport)
         }
         
         applyFilters(index: index)
     }
     
-    func sameSourceDestinationSelected(index: Int) {
-        if UIFilters.contains(.originDestinationSame) {
+    func sameSourceDestinationSelected(index: Int, selected: Bool) {
+        if !selected {
             UIFilters.remove(.originDestinationSame)
         } else {
             UIFilters.insert(.originDestinationSame)
         }
+        
+        if !UIFilters.contains(.originAirports) && !UIFilters.contains(.destinationAirports) && !UIFilters.contains(.layoverAirports) && !UIFilters.contains(.originDestinationSame) {
+            appliedFilters.remove(.Airport)
+        } else {
+            appliedFilters.insert(.Airport)
+        }
+        
         applyFilters(index: index)
     }
     

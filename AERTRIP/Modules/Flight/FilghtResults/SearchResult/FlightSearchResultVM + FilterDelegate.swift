@@ -255,10 +255,10 @@ extension FlightSearchResultVM : PriceFilterDelegate {
 //MARK:- Airport Filters
 extension FlightSearchResultVM : AirportFilterDelegate {
     
-    func sameSourceDestinationSelected(at index: Int) {
+    func sameSourceDestinationSelected(at index: Int, selected: Bool) {
         
         if isIntMCOrReturnJourney {
-            intFlightLegs[0].sameSourceDestinationSelected(index: index)
+            intFlightLegs[0].sameSourceDestinationSelected(index: index, selected: selected)
             return
         }
         

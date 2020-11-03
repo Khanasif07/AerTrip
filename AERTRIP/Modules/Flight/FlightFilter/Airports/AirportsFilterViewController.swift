@@ -13,7 +13,7 @@ protocol AirportFilterDelegate : FilterDelegate {
     
     func originSelectionChanged(selection : [AirportsGroupedByCity]  ,at index : Int )
     func destinationSelectionChanged(selection : [AirportsGroupedByCity] ,at index : Int )
-    func sameSourceDestinationSelected(at index : Int)
+    func sameSourceDestinationSelected(at index : Int, selected: Bool)
     func layoverSelectionsChanged(selection : [LayoverDisplayModel] , at index : Int )
     func allLayoverSelectedAt( index : Int, selected: Bool)
     func allOriginDestinationAirportsSelectedAt( index : Int)
@@ -527,7 +527,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
     @IBAction func sameDepartReturnBtnAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         currentAirportFilter.sameDepartReturnSelected = sender.isSelected
-        delegate?.sameSourceDestinationSelected(at: 0)
+        delegate?.sameSourceDestinationSelected(at: 0, selected: sender.isSelected)
     }
     
     
