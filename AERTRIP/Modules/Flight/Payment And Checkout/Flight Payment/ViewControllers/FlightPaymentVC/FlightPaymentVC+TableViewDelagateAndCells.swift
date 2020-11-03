@@ -122,6 +122,8 @@ extension FlightPaymentVC: UITableViewDelegate, UITableViewDataSource {
                 obj.viewModel.couponCode = self.viewModel.appliedCouponData.couponCode ?? ""
                 obj.viewModel.product = .flights
                 obj.viewModel.couponsData = data
+                obj.viewModel.isCouponApplied = self.isCouponApplied
+                obj.viewModel.appliedDataForFlight = self.viewModel.appliedCouponData
                 obj.modalPresentationStyle = .overFullScreen
                 self.present(obj, animated: true)
             }else{

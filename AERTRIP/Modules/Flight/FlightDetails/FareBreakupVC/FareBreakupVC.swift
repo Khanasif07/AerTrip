@@ -123,7 +123,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             if fromScreen == "upgradePlan" {
                 self.view.backgroundColor = .clear
             
-            if isFareBreakupExpanded == true{
+            if isFareBreakupExpanded{
                 self.fareDataDisplayView.backgroundColor = .white
                 /*
                 let gradient = CAGradientLayer()
@@ -140,7 +140,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
  */
                 self.bookingDataDisplayView.addGredient(isVertical: false)
             }else{
-                self.fareDataDisplayView.backgroundColor = .clear
+//                self.fareDataDisplayView.backgroundColor = .clear
                 /*
                 if let subLayers = bookingDataDisplayView.layer.sublayers{
                     if subLayers.count > 0{
@@ -152,7 +152,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                     }
                 }
  */
-                bookingDataDisplayView.removeGredient()
+//                bookingDataDisplayView.removeGredient()
             }
             
             
@@ -857,7 +857,12 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             
             self.view.layoutSubviews()
             self.view.setNeedsLayout()
-        },completion: nil)
+        },completion: {_ in
+            if self.fromScreen == "upgradePlan" {
+                self.bookingDataDisplayView.removeGredient()
+                self.fareDataDisplayView.backgroundColor = .clear
+            }
+        })
     }
     
     func displayExpandedView(fromSelection:String) {
