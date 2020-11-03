@@ -1437,7 +1437,7 @@ Incomplete</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coupons" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r6P-mU-234">
-                                        <rect key="frame" x="126" y="11" width="123" height="22"/>
+                                        <rect key="frame" x="86" y="11" width="203" height="22"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1478,10 +1478,10 @@ Incomplete</string>
                                     <constraint firstItem="kK5-Mb-EKH" firstAttribute="centerY" secondItem="U23-fz-joJ" secondAttribute="centerY" id="l1J-kf-pOC"/>
                                     <constraint firstAttribute="bottom" secondItem="U23-fz-joJ" secondAttribute="bottom" constant="5" id="lhy-PZ-3zi"/>
                                     <constraint firstItem="r6P-mU-234" firstAttribute="centerY" secondItem="VFj-MD-RgZ" secondAttribute="centerY" id="nbu-as-LhG"/>
-                                    <constraint firstItem="r6P-mU-234" firstAttribute="leading" secondItem="dN2-Ht-qoz" secondAttribute="trailing" constant="50" id="p9d-ug-NtI"/>
+                                    <constraint firstItem="r6P-mU-234" firstAttribute="leading" secondItem="dN2-Ht-qoz" secondAttribute="trailing" constant="10" id="p9d-ug-NtI"/>
                                     <constraint firstItem="kK5-Mb-EKH" firstAttribute="centerX" secondItem="U23-fz-joJ" secondAttribute="centerX" id="q8Z-IZ-Jke"/>
                                     <constraint firstAttribute="trailing" secondItem="U23-fz-joJ" secondAttribute="trailing" constant="16" id="t41-Uv-9rW"/>
-                                    <constraint firstItem="U23-fz-joJ" firstAttribute="leading" secondItem="r6P-mU-234" secondAttribute="trailing" constant="50" id="ue7-7v-CPR"/>
+                                    <constraint firstItem="U23-fz-joJ" firstAttribute="leading" secondItem="r6P-mU-234" secondAttribute="trailing" constant="10" id="ue7-7v-CPR"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dgG-hf-niu">

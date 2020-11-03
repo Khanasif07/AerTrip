@@ -187,7 +187,7 @@ class PassengerDetailsCell: UICollectionViewCell {
                 guard let indx = self.innerCellIndex else {return}
                 switch type{
                 case .Adult:
-                    if !self.calculateMinimumAge(with: 12){
+                    if !self.calculateMinimumAge(with: 12) && self.journeyType == .international{
                         GuestDetailsVM.shared.guests[0][indx.row].dob = ""
                         self.infoImageView.isHidden = false
                     }
