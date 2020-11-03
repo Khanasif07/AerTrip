@@ -108,9 +108,14 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 
                 
                 if !isTaxesSectionHidden{
-                    baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
-                }else{
+//                    baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
+                    
                     baseFareCell.upArrowImg.image = UIImage(named: "downGray.png")
+                }else{
+//                    baseFareCell.upArrowImg.image = UIImage(named: "downGray.png")
+                    
+                    baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
+
                 }
                 
                 baseFareCell.titleLabelLeading.constant = 16

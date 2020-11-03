@@ -78,6 +78,7 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
             let max_pieces = adtCheckinBaggage["max_pieces"] as? String ?? ""
             let max_weight = adtCheckinBaggage["max_weight"] as? String ?? ""
             
+            
             if weight == "" && pieces == "" && max_pieces == "" && max_weight == ""{
                 perAdultCheckinLabel.text = "No Info"
             }
@@ -323,6 +324,14 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
     {
         if adtCabinBaggage.count > 0{
             if let weight = adtCabinBaggage["weight"] as? String, let pieces = adtCabinBaggage["pieces"] as? String{
+                if weight.lowercased() != "0 kg" && weight != "" && weight != "-9"{
+                    dimensionsButton.isHidden = false
+                    dimensionsButton.isUserInteractionEnabled = true
+                }else{
+                    dimensionsButton.isHidden = true
+                    dimensionsButton.isUserInteractionEnabled = false
+                }
+                
                 if weight == "0 kg"{
 //                    perAdultCabinLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
                     
@@ -376,6 +385,14 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                     }
                 }
             }else if let weight = adtCabinBaggage["weight"] as? Int{
+                
+                if weight != 0 && weight != -9{
+                    dimensionsButton.isHidden = false
+                    dimensionsButton.isUserInteractionEnabled = true
+                }else{
+                    dimensionsButton.isHidden = true
+                    dimensionsButton.isUserInteractionEnabled = false
+                }
                 if weight == 0{
 //                    perAdultCabinLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
                     perAdultCabinLabel.font = AppFonts.Regular.withSize(14)
@@ -388,6 +405,14 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                     perAdultCabinLabel.text = "No Info"
                 }
             }else if let weight = adtCabinBaggage["weight"] as? String{
+                
+                if weight.lowercased() != "0 kg" && weight != "" && weight != "-9"{
+                    dimensionsButton.isHidden = false
+                    dimensionsButton.isUserInteractionEnabled = true
+                }else{
+                    dimensionsButton.isHidden = true
+                    dimensionsButton.isUserInteractionEnabled = false
+                }
                 if weight == "0"{
 //                    perAdultCabinLabel.font = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
                     perAdultCabinLabel.font = AppFonts.Regular.withSize(14)
