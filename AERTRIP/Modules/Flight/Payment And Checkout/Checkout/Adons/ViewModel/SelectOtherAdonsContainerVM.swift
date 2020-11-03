@@ -42,7 +42,10 @@ class SelectOtherAdonsContainerVM {
                  item.otherAdonsVm.updateContactInOthers(OthersIndex: addonIndex, contacts: [], autoSelectedFor: [])
                  AddonsDataStore.shared.flightsWithData[index].special.addonsArray[addonIndex].othersSelectedFor = []
                 }
+            
+            if item != nil && item.clearButton != nil {
             item.clearButtonTapped(item.clearButton)
+            }
             item.reloadData()
             }
     }
@@ -147,7 +150,6 @@ class SelectOtherAdonsContainerVM {
         return imageString
     }
     
-    
     func updateSpecialRequest(txt: String, currentFk: String, vcIndex: Int) {
         
            let dataStore = AddonsDataStore.shared
@@ -163,7 +165,7 @@ class SelectOtherAdonsContainerVM {
                     
                      let currentVc = self.allChildVCs[vcIndexWithFk]
                   
-                    if currentVc != nil {
+                    if currentVc != nil && currentVc.specialRequestTextView != nil {
                         currentVc.otherAdonsVm.specialRequest = txt
                         currentVc.specialRequestTextView.text = txt
                         currentVc.showHideClearButton()
