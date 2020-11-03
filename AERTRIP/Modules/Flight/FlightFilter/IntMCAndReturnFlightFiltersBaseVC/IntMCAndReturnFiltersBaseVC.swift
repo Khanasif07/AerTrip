@@ -1160,12 +1160,23 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             let userFilter = userSelectedFilters[index].pr
             
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Price), priceViewController.allPriceFilters.indices.contains(index) {
-                priceViewController.allPriceFilters[index].inputFareMinValue = newPriceFilter.inputFareMinValue
                 
-                priceViewController.allPriceFilters[index].inputFareMaxVaule = newPriceFilter.inputFareMaxVaule
-                priceViewController.allPriceFilters[index].userSelectedFareMinValue = CGFloat(userFilter.minPrice)
+                let onlyRefundable = priceViewController.allPriceFilters[index].onlyRefundableFaresSelected
                 
-                priceViewController.allPriceFilters[index].userSelectedFareMaxValue = CGFloat(userFilter.maxPrice)
+                if userFilters.uiFilters[0].contains(.priceRange) {
+                    priceViewController.allPriceFilters[index].inputFareMinValue = newPriceFilter.inputFareMinValue
+                    
+                    priceViewController.allPriceFilters[index].inputFareMaxVaule = newPriceFilter.inputFareMaxVaule
+                    priceViewController.allPriceFilters[index].userSelectedFareMinValue = CGFloat(userFilter.minPrice)
+                    
+                    priceViewController.allPriceFilters[index].userSelectedFareMaxValue = CGFloat(userFilter.maxPrice)
+                    
+                } else {
+                    priceViewController.allPriceFilters[index] = newPriceFilter
+                }
+                
+                priceViewController.allPriceFilters[index].onlyRefundableFaresSelected = onlyRefundable
+                
             } else {
                 if !priceViewController.allPriceFilters.indices.contains(index) {
                     priceViewController.allPriceFilters.insert(newPriceFilter, at: index)

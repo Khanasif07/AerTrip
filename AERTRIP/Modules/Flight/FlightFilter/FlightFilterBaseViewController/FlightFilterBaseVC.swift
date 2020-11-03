@@ -1126,15 +1126,26 @@ extension FlightFilterBaseVC {
             }
                 
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[index].contains(.Price), priceViewController.allPriceFilters.indices.contains(index) {
-                priceViewController.allPriceFilters[index].inputFareMinValue = newPriceFilter.inputFareMinValue
                 
-                priceViewController.allPriceFilters[index].inputFareMaxVaule = newPriceFilter.inputFareMaxVaule
+                let onlyRefundable = priceViewController.allPriceFilters[index].onlyRefundableFaresSelected
                 
-                if let userFil = userFilter {
-                    priceViewController.allPriceFilters[index].userSelectedFareMinValue = CGFloat(userFil.minPrice)
+                if userFilters.uiFilters[index].contains(.priceRange) {
+                    priceViewController.allPriceFilters[index].inputFareMinValue = newPriceFilter.inputFareMinValue
                     
-                    priceViewController.allPriceFilters[index].userSelectedFareMaxValue = CGFloat(userFil.maxPrice)
+                    priceViewController.allPriceFilters[index].inputFareMaxVaule = newPriceFilter.inputFareMaxVaule
+                    
+                    if let userFil = userFilter {
+                        priceViewController.allPriceFilters[index].userSelectedFareMinValue = CGFloat(userFil.minPrice)
+                        
+                        priceViewController.allPriceFilters[index].userSelectedFareMaxValue = CGFloat(userFil.maxPrice)
+                    }
+                    
+                } else {
+                    priceViewController.allPriceFilters[index] = newPriceFilter
                 }
+                
+                priceViewController.allPriceFilters[index].onlyRefundableFaresSelected = onlyRefundable
+                                
             } else {
                 if !priceViewController.allPriceFilters.indices.contains(index) {
                     priceViewController.allPriceFilters.insert(newPriceFilter, at: index)

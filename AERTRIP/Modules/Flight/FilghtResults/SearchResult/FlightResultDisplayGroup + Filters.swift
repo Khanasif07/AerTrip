@@ -613,6 +613,12 @@ extension FlightResultDisplayGroup  {
         userSelectedFilters?.pr.maxPrice = Int(maxFare)
         
         if userSelectedFilters?.pr == inputFilter?.pr {
+            UIFilters.remove(.priceRange)
+        } else {
+            UIFilters.insert(.priceRange)
+        }
+        
+        if userSelectedFilters?.pr == inputFilter?.pr && !UIFilters.contains(.refundableFares) {
             appliedFilters.remove(.Price)
         }
         else {
@@ -630,11 +636,19 @@ extension FlightResultDisplayGroup  {
         else {
             UIFilters.remove(.refundableFares)
         }
+        
+        if (userSelectedFilters?.pr == inputFilter?.pr) && !UIFilters.contains(.refundableFares) {
+            appliedFilters.remove(.Price)
+        }
+        else {
+            appliedFilters.insert(.Price)
+        }
+        
         applyFilters()
     }
     
     func applyPriceFilter(_ inputArray: [Journey]) -> [Journey]{
-        guard let userFil = userSelectedFilters else { return inputArray }
+        guard let userFil = userSelectedFilters, UIFilters.contains(.priceRange) else { return inputArray }
         let outputArray = inputArray.filter{  $0.farepr >= userFil.pr.minPrice && $0.farepr <= userFil.pr.maxPrice  }
         return outputArray
     }
@@ -917,6 +931,8 @@ extension FlightResultDisplayGroup  {
             case .originDestinationSelectedForReturnJourney:
                 print("originDestinationSelectedForReturnJourney")
             case .allAirlinesSelected:
+                continue
+            case .priceRange:
                 continue
             }
         }

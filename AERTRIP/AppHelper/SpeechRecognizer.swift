@@ -54,7 +54,7 @@ class SpeechRecognizer: NSObject {
         }
     }
     
-    private func stopRecordingAfterDelay(delayTime: TimeInterval = 0.5) {
+    private func stopRecordingAfterDelay(delayTime: TimeInterval = 0.7) {
         recordWorkItem?.cancel()
         recordWorkItem = DispatchWorkItem(block: { [weak self] in
             self?.stop()
