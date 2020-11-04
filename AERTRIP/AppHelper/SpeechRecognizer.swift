@@ -142,7 +142,10 @@ class SpeechRecognizer: NSObject {
             if result != nil {
                 
                 if !self.shouldStopRecordingText {
-                    self.delegate?.recordedText(result?.bestTranscription.formattedString ?? "")
+                    var finalString = result?.bestTranscription.formattedString ?? ""
+                    finalString = finalString.replacingOccurrences(of: "Erin", with: "Aerin")
+                    finalString = finalString.replacingOccurrences(of: "Aaron", with: "Aerin")
+                    self.delegate?.recordedText(finalString)
                 }
                 isFinal = (result?.isFinal)!
                 
