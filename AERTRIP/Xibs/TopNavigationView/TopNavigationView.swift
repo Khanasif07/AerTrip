@@ -197,10 +197,10 @@ class TopNavigationView: PassthroughView {
         }
     }
     
-    func configureNavBar(title: String?, isLeftButton: Bool = true, isFirstRightButton: Bool = false, isSecondRightButton: Bool = false, isDivider: Bool = true, backgroundType: BackgroundType = BackgroundType.blurMainView(isDark: false)) {
+    func configureNavBar(title: String?, isLeftButton: Bool = true, isFirstRightButton: Bool = false, isSecondRightButton: Bool = false, isDivider: Bool = true, backgroundType: BackgroundType = BackgroundType.blurMainView(isDark: false), isLeftButtonEnabled : Bool = true) {
        
+        self.leftButton.isEnabled = isLeftButtonEnabled
         self.navTitleLabel.text = title
-        
         self.leftButton.isHidden = !isLeftButton
         self.firstRightButton.isHidden = !isFirstRightButton
         self.secondRightButton.isHidden = !isSecondRightButton

@@ -11,12 +11,14 @@ import UIKit
 
 
 extension FlightResultDisplayGroup  {
-    func allAirlinesSelected() {
-        
+    func allAirlinesSelected(selected: Bool) {
         userSelectedFilters?.al = []
         userSelectedFilters?.multiAl = 0
-        appliedFilters.remove(.Airlines)
-        UIFilters.remove(.hideMultiAirlineItinarery)
+        if selected {
+            appliedFilters.insert(.Airlines)
+        } else {
+            appliedFilters.remove(.Airlines)
+        }
         applyFilters()
     }
     
@@ -640,10 +642,16 @@ extension FlightResultDisplayGroup  {
 
 //MARK:- Airport Filters
 
-    func allLayoverSelected() {
+    func allLayoverSelected(selected: Bool) {
         
         userSelectedFilters?.loap = [String]()
-        UIFilters.remove(.layoverAirports)
+        if selected || UIFilters.contains(.originAirports) || UIFilters.contains(.destinationAirports) {
+            UIFilters.insert(.layoverAirports)
+            appliedFilters.insert(.Airport)
+        } else {
+            UIFilters.remove(.layoverAirports)
+            appliedFilters.remove(.Airport)
+        }
         applyFilters()
     }
     
@@ -718,7 +726,7 @@ extension FlightResultDisplayGroup  {
         let selectedLayoverIATACodes = selectedLayovers.map{ $0.IATACode}
         
         userSelectedFilters?.loap = selectedLayoverIATACodes
-        if layOvers.count == selectedLayovers.count || selectedLayovers.count == 0 {
+        if selectedLayovers.count == 0 {
             UIFilters.remove(.layoverAirports)
         }
         else {
@@ -839,6 +847,9 @@ extension FlightResultDisplayGroup  {
         appliedFilters.removeAll()
         UIFilters.removeAll()
         self.filteredJourneyArray = processedJourneyArray
+        self.dynamicFilters.aircraft.selectedAircrafts.removeAll()
+        self.dynamicFilters.aircraft.selectedAircraftsArray.removeAll()
+
     }
     
     

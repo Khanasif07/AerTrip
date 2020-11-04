@@ -826,39 +826,52 @@ extension IntFlightResultDisplayGroup  {
 
 //MARK:- Airport Filters
 
-    func allLayoverSelected(index : Int, isReturnJourney: Bool) {
+    func allLayoverSelected(index : Int, isReturnJourney: Bool, selected: Bool) {
         self.isReturnJourney = isReturnJourney
         if isReturnJourney {
             let totalAirports = Array(Set(inputFilter[0].loap + inputFilter[1].loap))
-            if !userSelectedFilters[0].allLayoversSelected {
+            if selected {
                 userSelectedFilters[0].loap = totalAirports
             } else {
                 userSelectedFilters[0].loap.removeAll()
             }
         } else {
-            userSelectedFilters[index].loap = inputFilter[index].loap
-        }
-        userSelectedFilters[index].allLayoversSelected = !userSelectedFilters[index].allLayoversSelected
-        var shouldRemoveLayoverFilter = true
-        userSelectedFilters.enumerated().forEach { (index, filter) in
-            if (filter.loap.count != inputFilter[index].loap.count && filter.loap.count != 0) || filter.allLayoversSelected {
-                shouldRemoveLayoverFilter = false
+            if selected {
+                userSelectedFilters[index].loap = inputFilter[index].loap
+            } else {
+                userSelectedFilters[index].loap.removeAll()
             }
         }
-        if userSelectedFilters[index].allLayoversSelected && !shouldRemoveLayoverFilter {
+        userSelectedFilters[index].allLayoversSelected = selected
+        
+        if selected {
             UIFilters.insert(.layoverAirports)
-        } else if shouldRemoveLayoverFilter {
+        } else {
             UIFilters.remove(.layoverAirports)
         }
+        
+        if !UIFilters.contains(.originAirports) && !UIFilters.contains(.destinationAirports) && !UIFilters.contains(.layoverAirports) && !UIFilters.contains(.originDestinationSame) {
+            appliedFilters.remove(.Airport)
+        } else {
+            appliedFilters.insert(.Airport)
+        }
+        
         applyFilters(index: index)
     }
     
-    func sameSourceDestinationSelected(index: Int) {
-        if UIFilters.contains(.originDestinationSame) {
+    func sameSourceDestinationSelected(index: Int, selected: Bool) {
+        if !selected {
             UIFilters.remove(.originDestinationSame)
         } else {
             UIFilters.insert(.originDestinationSame)
         }
+        
+        if !UIFilters.contains(.originAirports) && !UIFilters.contains(.destinationAirports) && !UIFilters.contains(.layoverAirports) && !UIFilters.contains(.originDestinationSame) {
+            appliedFilters.remove(.Airport)
+        } else {
+            appliedFilters.insert(.Airport)
+        }
+        
         applyFilters(index: index)
     }
     
@@ -1174,6 +1187,8 @@ extension IntFlightResultDisplayGroup  {
         UIFilters.removeAll()
         self.userSelectedFilters = inputFilter
         self.filteredJourneyArray = processedJourneyArray
+        self.dynamicFilters.aircraft.selectedAircrafts.removeAll()
+        self.dynamicFilters.aircraft.selectedAircraftsArray.removeAll()
     }
     
     func applyFilters(index : Int, isAPIResponseUpdated: Bool = false) {

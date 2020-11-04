@@ -528,9 +528,15 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 
                 
                 if isTaxesSectionHidden == false{
-                    baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
-                }else{
+//                    baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
+                    
                     baseFareCell.upArrowImg.image = UIImage(named: "downGray.png")
+
+                }else{
+//                    baseFareCell.upArrowImg.image = UIImage(named: "downGray.png")
+                    
+                    baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
+
                 }
                 
                 baseFareCell.titleLabelLeading.constant = 16
@@ -1089,56 +1095,56 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     //MARK:- Price Formatting
-    func displayPriceInFormat(price:Double, fromOption:String) -> NSMutableAttributedString{
+    func displayPriceInFormat(price:Double, fromOption:String) -> NSMutableAttributedString
+    {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.maximumFractionDigits = 2
         formatter.locale = Locale(identifier: "en_IN")
-        let result = formatter.string(from: NSNumber(value: price))
-        
-        var fontSize = 10
-        var fontSizeSuper = 10
-        
-//        var displayFont = "SourceSansPro-Regular"
-//        var displayFontSuper = "SourceSansPro-Regular"
+        if let result = formatter.string(from: NSNumber(value: price)){
+            var fontSize = 10
+            var fontSizeSuper = 10
+            
+            var displayFont = AppFonts.Regular.rawValue
+            var displayFontSuper = AppFonts.Regular.rawValue
 
-        var displayFont = AppFonts.Regular.rawValue
-        var displayFontSuper = AppFonts.Regular.rawValue
+            if fromOption == "FareAmount"{
+                fontSize = 16
+                fontSizeSuper = 10
+                
+                displayFont = AppFonts.Regular.rawValue
+                displayFontSuper = AppFonts.Regular.rawValue
+            }else if fromOption == "BookingAmount"{
+                fontSize = 18
+                fontSizeSuper = 12
+                
+                displayFont = AppFonts.SemiBold.rawValue
+                displayFontSuper = AppFonts.SemiBold.rawValue
+            }else if fromOption == "totalAmount"{
+                fontSize = 20
+                fontSizeSuper = 14
+                
+                displayFont = AppFonts.SemiBold.rawValue
+                displayFontSuper = AppFonts.SemiBold.rawValue
+            }else if fromOption == "strikeOutPrice"{
+                fontSize = 12
+                fontSizeSuper = 10
+                
+                displayFont = AppFonts.Regular.rawValue
+                displayFontSuper = AppFonts.Regular.rawValue
+            }
+            
+            let font:UIFont? = UIFont(name: displayFont, size:CGFloat(fontSize))
+            let fontSuper:UIFont? = UIFont(name: displayFontSuper, size:CGFloat(fontSizeSuper))
+            let attString:NSMutableAttributedString = NSMutableAttributedString(string: result, attributes: [.font:font!])
+            attString.setAttributes([.font:fontSuper!,.baselineOffset:7], range: NSRange(location:result.count-3,length:3))
+            if attString.string.contains(find: ".00"){
+                attString.mutableString.replaceOccurrences(of: ".00", with: "", options: .caseInsensitive, range: NSRange(location:result.count-3,length:3))
+            }
+            return attString
 
-        if fromOption == "FareAmount"{
-            fontSize = 16
-            fontSizeSuper = 10
-            
-            displayFont = AppFonts.Regular.rawValue
-            displayFontSuper = AppFonts.Regular.rawValue
-        }else if fromOption == "BookingAmount"{
-            fontSize = 18
-            fontSizeSuper = 12
-            
-            displayFont = AppFonts.SemiBold.rawValue
-            displayFontSuper = AppFonts.SemiBold.rawValue
-        }else if fromOption == "totalAmount"{
-            fontSize = 20
-            fontSizeSuper = 14
-            
-            displayFont = AppFonts.SemiBold.rawValue
-            displayFontSuper = AppFonts.SemiBold.rawValue
-        }else if fromOption == "strikeOutPrice"{
-            fontSize = 12
-            fontSizeSuper = 10
-            
-            displayFont = AppFonts.Regular.rawValue
-            displayFontSuper = AppFonts.Regular.rawValue
-            
+        }else{
+            return NSMutableAttributedString(string: "\(price)")
         }
-        
-        let font:UIFont? = UIFont(name: displayFont, size:CGFloat(fontSize))
-        let fontSuper:UIFont? = UIFont(name: displayFontSuper, size:CGFloat(fontSizeSuper))
-        let attString:NSMutableAttributedString = NSMutableAttributedString(string: result ?? "", attributes: [.font:font!])
-        attString.setAttributes([.font:fontSuper!,.baselineOffset:7], range: NSRange(location:result!.count-3,length:3))
-        if attString.string.contains(find: ".00"){
-            attString.mutableString.replaceOccurrences(of: ".00", with: "", options: .caseInsensitive, range: NSRange(location:result!.count-3,length:3))
-        }
-        return attString
     }
 }

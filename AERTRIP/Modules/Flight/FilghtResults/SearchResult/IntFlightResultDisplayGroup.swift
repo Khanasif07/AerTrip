@@ -441,7 +441,6 @@ class IntFlightResultDisplayGroup {
         
         return mutableJourneyArray
         
-        
     }
     
     
@@ -539,17 +538,30 @@ class IntFlightResultDisplayGroup {
                     allAircrafts.append(contentsOf: flightResult.results.eqMaster.compactMap { $0.value })
                     
                     allEqs.append(fdet.eq)
-                    
+                        
                 }
             }
             
         }
         
         dynamicFilters.aircraft.allAircrafts = allEqs.removeDuplicates()
+      
+//        var tempAircraftsArray : [IntMultiCityAndReturnWSResponse.Results.EqMaster] = []
+//
+//
+//        allAircrafts.forEach { (craft) in
+//
+//            if !tempAircraftsArray.contains(where: { (tempCraft) -> Bool in
+//                tempCraft.name == craft.name
+//            }) {
+//                tempAircraftsArray.append(craft)
+//            }
+//
+//        }
+        
         dynamicFilters.aircraft.allAircraftsArray = allAircrafts.removeDuplicates()
 
         
-//        printDebug("dynamicFilters.aircraft.allAircrafts.....\(dynamicFilters.aircraft.allAircrafts)")
         
         self.delegate?.updateDynamicFilters(filters: dynamicFilters)
         

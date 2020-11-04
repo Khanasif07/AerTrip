@@ -137,12 +137,20 @@ class AerinCustomPopoverVC: BaseVC {
         IQKeyboardManager.shared().shouldResignOnTouchOutside = false
         addKeyboard()
         self.statusBarStyle = .darkContent
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         removeKeyboard()
         IQKeyboardManager.shared().isEnabled = true
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc private func appDidEnterForeground() {
+        if let dotAnimationCell = chatTableView.cellForRow(at: IndexPath(row: chatVm.messages.count - 1, section: 0)) as? TypingStatusChatCell {
+            dotAnimationCell.loader.play()
+        }
     }
     
     override func bindViewModel() {
@@ -596,6 +604,7 @@ class AerinCustomPopoverVC: BaseVC {
         dragView.backgroundColor = AppColors.blackWith20PerAlpha
         dragView.roundedCorners(cornerRadius: 2.5)
         topAerinImgView.alpha = 0
+        
     }
     
     private func startPresentAnimation() {
@@ -618,7 +627,6 @@ class AerinCustomPopoverVC: BaseVC {
             self.dismiss(animated: false, completion: nil)
         })
     }
-    
 }
 
 extension AerinCustomPopoverVC {

@@ -232,7 +232,9 @@ class FlightFilterBaseVC: UIViewController {
         var durationCheck = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Duration) }
         durationCheck = durationCheck || (filters.uiFilters.reduce(false) { $0 || $1.contains(.hideOvernightLayover) })
         menuItems[Filters.Duration.rawValue].isSelected = durationCheck
-        menuItems[Filters.Airlines.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Airlines) }
+        let airlinesCheck = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Airlines) }
+        let hideMultiItineraryCheck = filters.uiFilters.reduce(false) { $0 || $1.contains(.hideMultiAirlineItinarery) }
+        menuItems[Filters.Airlines.rawValue].isSelected = airlinesCheck || hideMultiItineraryCheck
         menuItems[Filters.Airport.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Airport) }
         menuItems[Filters.Quality.rawValue].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Quality) }
         menuItems[Filters.Price.rawValue - 1].isSelected = filters.appliedFilters.reduce(false) { $0 || $1.contains(.Price) }
@@ -1075,12 +1077,14 @@ extension FlightFilterBaseVC {
             airlineFilters = self.createAirlineFiltersArray(inputFilters: filters)
         }
         
+        let curSelectedFilter = airlineVC.currentSelectedAirlineFilter
         airlineVC.airlinesFilterArray = airlineFilters
         airlineVC.currentSelectedAirlineFilter = airlineFilters[0]
         if appliedAndUIFilters?.appliedFilters[0].contains(.Airlines) ?? false {
             let selectedAirlines = userSelectedFilters.flatMap { $0.al }
             airlineVC.selectedAirlineArray = selectedAirlines
         }
+        airlineVC.currentSelectedAirlineFilter.hideMultipleAirline = curSelectedFilter?.hideMultipleAirline ?? false
         airlineVC.updateUIPostLatestResults()
     }
     
@@ -1361,6 +1365,8 @@ extension FlightFilterBaseVC {
 //                let curAiportFilter = airportViewController.airportFilterArray[index]
 //                let selectedAirports = curAiportFilter.allSelectedAirports
                 
+                let allLayoversSelected = airportViewController.airportFilterArray[index].allLayoverSelectedByUserInteraction
+                
                 let inputOriginAirports = inputFilters[index].cityapN.fr.values.flatMap { $0.map { $0 } }
                 let originSelectedAirports = userSelectedFilters[index].cityapN.fr.values.flatMap { $0.map { $0 } }
                 
@@ -1405,7 +1411,7 @@ extension FlightFilterBaseVC {
                         var newCity = city
                         newCity.airports = newCity.airports.map({ (airport) in
                             var newAirport = airport
-                            if userSelectedLayoverAirports.contains(newAirport.IATACode) {
+                            if userSelectedLayoverAirports.contains(newAirport.IATACode) || allLayoversSelected {
                                 newAirport.isSelected = true
                             }
                             return newAirport
@@ -1414,7 +1420,7 @@ extension FlightFilterBaseVC {
                     }
                 }
                 airportViewController.airportFilterArray[index] = airportLegFilter
-                
+                airportViewController.airportFilterArray[index].allLayoverSelectedByUserInteraction = allLayoversSelected
             } else {
                 if !airportViewController.airportFilterArray.indices.contains(index) {
                     airportViewController.airportFilterArray.insert(airportLegFilter, at: index)
