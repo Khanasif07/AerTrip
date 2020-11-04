@@ -67,12 +67,12 @@ extension ADVoucherTypeVC: UITableViewDelegate, UITableViewDataSource {
         cell.configCell(title: ADEventFilterVM.shared.voucherTypes[indexPath.row])
         cell.dividerView.isHidden = indexPath.row != 0
         
-//        if ADEventFilterVM.shared.selectedVoucherType.isEmpty || ADEventFilterVM.shared.selectedVoucherType.count ==  ADEventFilterVM.shared.voucherTypes.count{
-//            cell.statusButton.isSelected = true
-//
-//        } else {
+        if ADEventFilterVM.shared.selectedVoucherType.isEmpty || ADEventFilterVM.shared.selectedVoucherType.count ==  ADEventFilterVM.shared.voucherTypes.count - 1{
+            cell.statusButton.isSelected = true
+
+        } else {
             cell.statusButton.isSelected = ADEventFilterVM.shared.selectedVoucherType.contains(ADEventFilterVM.shared.voucherTypes[indexPath.row])
-//        }
+        }
         
         
         return cell

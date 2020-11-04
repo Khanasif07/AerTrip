@@ -61,9 +61,9 @@ class AppGlobals {
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
     
     //vcs used in mybooking filter screen
-    var travelDateVC: TravelDateVC?
-    var eventTypeVC: EventTypeVC?
-    var bookingDateVC: TravelDateVC?
+  //  var travelDateVC: TravelDateVC?
+   // var eventTypeVC: EventTypeVC?
+   // var bookingDateVC: TravelDateVC?
     
     static func lines(label: UILabel) -> Int {
         let textSize = CGSize(width: label.frame.size.width, height: CGFloat(Float.infinity))

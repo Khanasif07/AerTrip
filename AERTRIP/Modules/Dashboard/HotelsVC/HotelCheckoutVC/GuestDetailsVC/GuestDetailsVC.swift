@@ -40,7 +40,8 @@ class GuestDetailsVC: BaseVC {
     // travellers for managing on table view
     //var travellers: [TravellerModel] = []
     var keyboardHeight: CGFloat = 0.0
-    
+    private let oldGuestState = GuestDetailsVM.shared.guests
+
     // MARK: - View Life cycle
     
     override func viewDidLoad() {
@@ -380,6 +381,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
 extension GuestDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
+        GuestDetailsVM.shared.guests = self.oldGuestState
         AppFlowManager.default.popViewController(animated: true)
     }
     
