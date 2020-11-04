@@ -636,24 +636,35 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Times),
                 userFilters.appliedSubFilters.indices.contains(index), timesViewController.multiLegTimerFilter.indices.contains(index) {
                 
+                
+                timesViewController.multiLegTimerFilter[index].departureMinTime = newFlightLegFilter.departureMinTime
+                
+                timesViewController.multiLegTimerFilter[index].departureTimeMax = newFlightLegFilter.departureTimeMax
+                
                 if userFilters.appliedSubFilters[index].contains(.departureTime) {
-                    timesViewController.multiLegTimerFilter[index].departureMinTime = newFlightLegFilter.departureMinTime
-                    
-                    timesViewController.multiLegTimerFilter[index].departureTimeMax = newFlightLegFilter.departureTimeMax
                     
                     timesViewController.multiLegTimerFilter[index].userSelectedStartTime = userDepartureMin
 
                     timesViewController.multiLegTimerFilter[index].userSelectedEndTime = userDepartureMax
+                } else {
+                    timesViewController.multiLegTimerFilter[index].userSelectedStartTime = newFlightLegFilter.departureMinTime
+                    
+                    timesViewController.multiLegTimerFilter[index].userSelectedEndTime = newFlightLegFilter.departureTimeMax
                 }
                 
+                timesViewController.multiLegTimerFilter[index].arrivalStartTime = newFlightLegFilter.arrivalStartTime
+                
+                timesViewController.multiLegTimerFilter[index].arrivalEndTime = newFlightLegFilter.arrivalEndTime
+                
                 if userFilters.appliedSubFilters[index].contains(.arrivalTime) {
-                    timesViewController.multiLegTimerFilter[index].arrivalStartTime = newFlightLegFilter.arrivalStartTime
-                    
-                    timesViewController.multiLegTimerFilter[index].arrivalEndTime = newFlightLegFilter.arrivalEndTime
                     
                     timesViewController.multiLegTimerFilter[index].userSelectedArrivalStartTime = userArrivalMin
 
                     timesViewController.multiLegTimerFilter[index].userSelectedArrivalEndTime = userArrivalMax
+                } else {
+                    timesViewController.multiLegTimerFilter[index].userSelectedArrivalStartTime = newFlightLegFilter.arrivalStartTime
+                    
+                    timesViewController.multiLegTimerFilter[index].userSelectedArrivalEndTime = newFlightLegFilter.arrivalEndTime
                 }
                 
             } else {

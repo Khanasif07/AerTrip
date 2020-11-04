@@ -568,10 +568,11 @@ extension FlightFilterBaseVC {
             
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[index].contains(.Times), timesViewController.multiLegTimerFilter.indices.contains(index) {
                 
+                timesViewController.multiLegTimerFilter[index].departureMinTime = newFlightLegFilter.departureMinTime
+                
+                timesViewController.multiLegTimerFilter[index].departureTimeMax = newFlightLegFilter.departureTimeMax
+                
                 if userFilters.appliedSubFilters[index].contains(.departureTime) {
-                    timesViewController.multiLegTimerFilter[index].departureMinTime = newFlightLegFilter.departureMinTime
-                    
-                    timesViewController.multiLegTimerFilter[index].departureTimeMax = newFlightLegFilter.departureTimeMax
                     
                     if let userMin = userDepartureMin {
                         timesViewController.multiLegTimerFilter[index].userSelectedStartTime = userMin
@@ -580,12 +581,17 @@ extension FlightFilterBaseVC {
                     if let userMax = userDepartureMax {
                         timesViewController.multiLegTimerFilter[index].userSelectedEndTime = userMax
                     }
+                } else {
+                    timesViewController.multiLegTimerFilter[index].userSelectedStartTime = newFlightLegFilter.departureMinTime
+                    
+                    timesViewController.multiLegTimerFilter[index].userSelectedEndTime = newFlightLegFilter.departureTimeMax
                 }
                 
+                timesViewController.multiLegTimerFilter[index].arrivalStartTime = newFlightLegFilter.arrivalStartTime
+                
+                timesViewController.multiLegTimerFilter[index].arrivalEndTime = newFlightLegFilter.arrivalEndTime
+                
                 if userFilters.appliedSubFilters[index].contains(.arrivalTime) {
-                    timesViewController.multiLegTimerFilter[index].arrivalStartTime = newFlightLegFilter.arrivalStartTime
-                    
-                    timesViewController.multiLegTimerFilter[index].arrivalEndTime = newFlightLegFilter.arrivalEndTime
                     
                     if let userMin = userArrivalMin {
                         timesViewController.multiLegTimerFilter[index].userSelectedArrivalStartTime = userMin
@@ -594,6 +600,10 @@ extension FlightFilterBaseVC {
                     if let userMax = userArrivalMax {
                         timesViewController.multiLegTimerFilter[index].userSelectedArrivalEndTime = userMax
                     }
+                } else {
+                    timesViewController.multiLegTimerFilter[index].userSelectedArrivalStartTime = newFlightLegFilter.arrivalStartTime
+                    
+                    timesViewController.multiLegTimerFilter[index].userSelectedArrivalEndTime = newFlightLegFilter.arrivalEndTime
                 }
                 
             } else {
