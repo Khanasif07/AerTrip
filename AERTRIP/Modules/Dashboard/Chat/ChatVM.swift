@@ -279,7 +279,7 @@ class ChatVM {
         if json["trip_type"].stringValue == "multi" {
             let depart = json["depart"].arrayValue.map { $0.stringValue }
             depart.enumerated().forEach { (index, element) in
-//                jsonDict["depart[\(index)]"] = element
+                jsonDict["depart[\(index)]"] = element
             }
         } else {
             jsonDict["depart"] = "\(dict["depart"] ?? "")"

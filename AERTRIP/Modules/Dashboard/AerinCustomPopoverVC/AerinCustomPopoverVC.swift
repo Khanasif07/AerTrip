@@ -149,7 +149,7 @@ class AerinCustomPopoverVC: BaseVC {
     
     @objc private func appDidEnterForeground() {
         if let dotAnimationCell = chatTableView.cellForRow(at: IndexPath(row: chatVm.messages.count - 1, section: 0)) as? TypingStatusChatCell {
-//            dotAnimationCell.loader.play()
+            dotAnimationCell.loader.play()
         }
     }
     
