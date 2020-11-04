@@ -212,7 +212,9 @@ class TopNavigationView: PassthroughView {
         self.configureSecondRightButton(normalImage: nil, selectedImage: nil, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
     }
     
-    func configureLeftButton(normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, normalColor: UIColor? = nil, selectedColor: UIColor? = nil, font: UIFont = AppFonts.Regular.withSize(18.0), isHideBackView: Bool = true) {
+    func configureLeftButton(normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, normalColor: UIColor? = nil, selectedColor: UIColor? = nil, font: UIFont = AppFonts.Regular.withSize(18.0), isHideBackView: Bool = true, isLeftButtonEnabled : Bool = true) {
+        
+        self.leftButton.isEnabled = isLeftButtonEnabled
         
         self.leftButton.setTitle(normalTitle, for: .normal)
         self.leftButton.setTitle(selectedTitle, for: .selected)
@@ -229,6 +231,15 @@ class TopNavigationView: PassthroughView {
         self.backView.alpha = isHideBackView ? 0.0 :  1.0
         
         self.updateTitleFrames()
+        
+        if isLeftButtonEnabled {
+            leftButton.setTitleColor(normalColor, for: UIControl.State.normal)
+
+        }else {
+            leftButton.setTitleColor(UIColor.TWO_ZERO_FOUR_COLOR, for: UIControl.State.normal)
+
+        }
+        
     }
     
     func configureFirstRightButton(normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, normalColor: UIColor? = nil, selectedColor: UIColor? = nil, font: UIFont = AppFonts.Regular.withSize(18.0)) {
