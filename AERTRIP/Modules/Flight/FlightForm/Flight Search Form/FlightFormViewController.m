@@ -117,6 +117,7 @@
     
 }
 - (void)setupCollectionView {
+    self.recentSearchTitleLabel.hidden = true;
     self.recentSearchCollectionView.delegate = self.viewModel;
     self.recentSearchCollectionView.dataSource = self.viewModel;
     self.recentSearchCollectionView.backgroundView = nil;

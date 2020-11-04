@@ -142,7 +142,7 @@ class IntFareBreakupVC: BaseVC {
     override func viewDidLayoutSubviews(){
         if fromScreen == "upgradePlanCollapse"
         {
-            /*
+            
             if let subLayers = bookingDataDisplayView.layer.sublayers{
                 if subLayers.count > 0{
                     for layer in subLayers {
@@ -152,7 +152,7 @@ class IntFareBreakupVC: BaseVC {
                     }
                 }
             }
-            */
+            
             bookingDataDisplayView.removeGredient()
             fromScreen = "upgradePlan"
 
@@ -174,7 +174,7 @@ class IntFareBreakupVC: BaseVC {
 //                bookingDataDisplayView.layer.insertSublayer(gradient, at: 0)
                 bookingDataDisplayView.addGredient(isVertical: false)
             }else{
-                self.fareDataDisplayView.backgroundColor = .clear
+//                self.fareDataDisplayView.backgroundColor = .clear
                 /*
                 if let subLayers = bookingDataDisplayView.layer.sublayers{
                     if subLayers.count > 0{
@@ -186,7 +186,7 @@ class IntFareBreakupVC: BaseVC {
                     }
                 }
                 */
-                bookingDataDisplayView.removeGredient()
+//                bookingDataDisplayView.removeGredient()
             }
         }else{
             bookingDataDisplayView.frame.size.width = self.view.frame.width
@@ -501,7 +501,12 @@ class IntFareBreakupVC: BaseVC {
             }
             self.view.layoutSubviews()
             self.view.setNeedsLayout()
-        },completion: nil)
+        },completion:{_ in
+            if self.fromScreen == "upgradePlan"{
+                self.bookingDataDisplayView.removeGredient()
+                self.fareDataDisplayView.backgroundColor = .clear
+            }
+        })
         
         if ((self.journey.first?.fsr ?? 0) == 1){
             self.detailsDelegate?.updateHeight(to: 85 + CGFloat(bottomInset) + self.heightForBookingTitleView)

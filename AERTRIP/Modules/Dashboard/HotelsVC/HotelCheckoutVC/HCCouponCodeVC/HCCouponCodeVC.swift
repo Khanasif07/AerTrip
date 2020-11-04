@@ -241,7 +241,14 @@ class HCCouponCodeVC: BaseVC {
     
     @IBAction func applyButtonAction(_ sender: UIButton) { self.view.endEditing(true)
         if (self.couponTextField.text == "") {
-            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterCouponCode.localized)
+            if self.viewModel.isCouponApplied && self.viewModel.product == .flights{
+                self.hideShowLoader(isHidden: false)
+                self.viewModel.removeFlightCouponCode()
+                return
+            }else{
+                AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterCouponCode.localized)
+            }
+            
         }
         if !self.viewModel.couponCode.isEmpty {
             printDebug("\(self.viewModel.couponCode) Applied")
@@ -308,14 +315,14 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
 extension HCCouponCodeVC {
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        //        self.enterCouponLabel.isHidden = true
-        self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
-        //self.selectedIndexPath = nil
-       // self.couponValidationTextSetUp(isCouponValid: true)
+        if self.viewModel.isCouponApplied && self.viewModel.product == .flights{
+            self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        }else{
+            self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
+        }
+        
         self.viewModel.couponCode = ""
         self.couponTableView.reloadData()
-//        guard let text = textField.text else { return true }
-//        let finalText = text.trimmingCharacters(in: .whitespacesAndNewlines)
         self.viewModel.searchCoupons(searchText: "")
         return true
     }
@@ -330,7 +337,9 @@ extension HCCouponCodeVC {
         printDebug(finalText)
         if finalText.isEmpty {
             self.viewModel.couponCode = ""
-            if self.viewModel.couponCode.isEmpty {
+            if self.viewModel.isCouponApplied && self.viewModel.product == .flights{
+                self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
+            }else{
                 self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
             }
             
