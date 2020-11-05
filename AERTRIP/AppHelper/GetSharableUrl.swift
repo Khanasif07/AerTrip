@@ -676,9 +676,6 @@ class GetSharableUrl
                 filterString.append(stops)
             }
         }
-        if filterString == "&" || filterString == "&&"{
-            filterString = ""
-        }
         
         return filterString
     }
@@ -930,22 +927,22 @@ class GetSharableUrl
             //isConditionReverced - true= desc & false = asc(lowto high/earlist first)
             //Sort
             if legs[0].sortOrder == .Smart{
-                filterString.append("sort[]=humane-sorting_asc&")
+                filterString.append("&sort[]=humane-sorting_asc")
             }
 
             if legs[0].sortOrder == .Price{
                 if isConditionReverced{
-                    filterString.append("sort[]=price-sorting_desc&")
+                    filterString.append("&sort[]=price-sorting_desc")
                 }else{
-                    filterString.append("sort[]=price-sorting_asc&")
+                    filterString.append("&sort[]=price-sorting_asc")
                 }
             }
 
             if legs[0].sortOrder == .Duration{
                 if isConditionReverced{
-                    filterString.append("sort[]=duration-sorting_desc&")
+                    filterString.append("&sort[]=duration-sorting_desc")
                 }else{
-                    filterString.append("sort[]=duration-sorting_asc&")
+                    filterString.append("&sort[]=duration-sorting_asc")
                 }
             }
 
@@ -954,12 +951,12 @@ class GetSharableUrl
                 for leg in 0..<numberOfLegs{
                     if leg == appliedFilterLegIndex{
                         if isConditionReverced{
-                            filterString.append("sort[]=depart-sorting_desc&")
+                            filterString.append("&sort[]=depart-sorting_desc")
                         }else{
-                            filterString.append("sort[]=depart-sorting_asc&")
+                            filterString.append("&sort[]=depart-sorting_asc")
                         }
                     }else{
-                        filterString.append("sort[]=&")
+                        filterString.append("&sort[]=")
                     }
                 }
             }
@@ -969,12 +966,12 @@ class GetSharableUrl
                 for leg in 0..<numberOfLegs{
                     if leg == appliedFilterLegIndex{
                         if isConditionReverced{
-                            filterString.append("sort[]=arrive-sorting_desc&")
+                            filterString.append("&sort[]=arrive-sorting_desc")
                         }else{
-                            filterString.append("sort[]=arrive-sorting_asc&")
+                            filterString.append("&sort[]=arrive-sorting_asc")
                         }
                     }else{
-                        filterString.append("sort[]=&")
+                        filterString.append("&sort[]=")
                     }
                 }
                 
