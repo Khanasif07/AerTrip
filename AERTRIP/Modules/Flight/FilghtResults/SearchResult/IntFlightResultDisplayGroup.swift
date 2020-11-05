@@ -561,8 +561,6 @@ class IntFlightResultDisplayGroup {
         
         dynamicFilters.aircraft.allAircraftsArray = allAircrafts.removeDuplicates()
 
-        
-        
         self.delegate?.updateDynamicFilters(filters: dynamicFilters)
         
     }

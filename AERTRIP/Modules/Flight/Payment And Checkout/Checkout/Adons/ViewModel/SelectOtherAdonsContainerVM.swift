@@ -42,12 +42,35 @@ class SelectOtherAdonsContainerVM {
                  item.otherAdonsVm.updateContactInOthers(OthersIndex: addonIndex, contacts: [], autoSelectedFor: [])
                  AddonsDataStore.shared.flightsWithData[index].special.addonsArray[addonIndex].othersSelectedFor = []
                 }
+            AddonsDataStore.shared.flightsWithData[index].specialRequest = ""
+
+                if item != nil && item.clearButton != nil {
+                    item.clearButtonTapped(item.clearButton)
+                }
+                    item.reloadData()
+                }
+    }
+    
+    
+    func isAnyThingSelected() -> Bool {
+        
+        var isAnyThingSelected = false
+        
+        allChildVCs.forEach { (child) in
+
+            child.otherAdonsVm.addonsDetails.addonsArray.enumerated().forEach { (othersId, other) in
+                if !isAnyThingSelected {
+                    isAnyThingSelected = !other.othersSelectedFor.isEmpty
+                    
+                }
+            }
             
-            if item != nil && item.clearButton != nil {
-            item.clearButtonTapped(item.clearButton)
+            if !isAnyThingSelected {
+                isAnyThingSelected = !child.otherAdonsVm.specialRequest.isEmpty
             }
-            item.reloadData()
-            }
+        }
+        
+        return isAnyThingSelected
     }
     
     func calculateTotalAmount() -> Int {

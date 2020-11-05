@@ -67,6 +67,22 @@ class BaggageContainerVM {
         return totalPrice
     }
     
+    func isAnyThingSelected() -> Bool {
+        
+        var isAnyThingSelected = false
+        
+        allChildVCs.forEach { (child) in
+
+            child.selectBaggageVM.addonsDetails.addonsArray.enumerated().forEach { (bagId, bag) in
+                if !isAnyThingSelected {
+                    isAnyThingSelected = !bag.bagageSelectedFor.isEmpty
+                }
+            }
+        }
+        
+        return isAnyThingSelected
+    }
+    
     func updateBaggageToDataStore(){
        
         for (index,item) in self.allChildVCs.enumerated() {

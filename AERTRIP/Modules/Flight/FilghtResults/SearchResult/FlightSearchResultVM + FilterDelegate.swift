@@ -367,7 +367,6 @@ extension FlightSearchResultVM : AircraftFilterDelegate {
  
     func aircraftFilterUpdated(_ filter : AircraftFilter) {
         
-        printDebug("selected...\(filter)")
         
         if isIntMCOrReturnJourney {
 

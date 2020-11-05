@@ -69,7 +69,6 @@ class FlightFilterBaseVC: UIViewController {
                      }
                     
                 }
-
             }
         
         }
@@ -1501,7 +1500,6 @@ extension FlightFilterBaseVC {
             let aircraftVc = aircraftViewController as AircraftFilterViewController
             aircraftVc.loadViewIfNeeded()
             aircraftVc.delegate = self.delegate as? AircraftFilterDelegate
-            printDebug("updatedAircraftFilter...\(self.updatedAircraftFilter.allAircrafts)")
             aircraftVc.updateAircraftList(filter: self.updatedAircraftFilter)
         }
       

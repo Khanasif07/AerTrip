@@ -1128,9 +1128,12 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             case SINGLE_JOURNEY:
                         
                 guard let filterVc = self.flightFilterVC else { return }
-                var currentData = filterVc.updatedAircraftFilter.allAircrafts
-                currentData.append(contentsOf: filters.aircraft.allAircrafts)
-                self.flightFilterVC?.updatedAircraftFilter.allAircrafts = currentData.removeDuplicates()
+                var currentData = filterVc.updatedAircraftFilter
+                currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
+                currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
+                self.flightFilterVC?.updatedAircraftFilter = currentData
+                
+                printDebug("selected...\(currentData.selectedAircraftsArray.count)")
             
             
         case RETURN_JOURNEY:
@@ -1138,9 +1141,10 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             if flightSearchResultVM.isDomestic {
         
                 guard let filterVc = self.flightFilterVC else { return }
-                var currentData = filterVc.updatedAircraftFilter.allAircrafts
-                currentData.append(contentsOf: filters.aircraft.allAircrafts)
-                self.flightFilterVC?.updatedAircraftFilter.allAircrafts = currentData.removeDuplicates()
+                var currentData = filterVc.updatedAircraftFilter
+                currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
+                currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
+                self.flightFilterVC?.updatedAircraftFilter = currentData
             
             } else {
             
@@ -1156,9 +1160,10 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             if flightSearchResultVM.isDomestic {
                     
                 guard let filterVc = self.flightFilterVC else { return }
-                var currentData = filterVc.updatedAircraftFilter.allAircrafts
-                currentData.append(contentsOf: filters.aircraft.allAircrafts)
-                self.flightFilterVC?.updatedAircraftFilter.allAircrafts = currentData.removeDuplicates()
+                var currentData = filterVc.updatedAircraftFilter
+                currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
+                currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
+                self.flightFilterVC?.updatedAircraftFilter = currentData
                         
             } else {
                         
