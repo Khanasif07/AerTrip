@@ -48,7 +48,7 @@ struct FlightRecept {
         hotelLinkParam = json["hotel_link_param"].arrayValue.map{HotelLinkParam($0)}
         bookingNumber = json["booking_number"].stringValue
         paymentDetails = PaymentDetails(json["payment_details"])
-        tripDetails = TripDetails(json: json["trip_details"].dictionaryValue)
+        tripDetails = TripDetails(json["trip_details"])
         tk = json["tk"].stringValue
         currency = json["currency"].stringValue
         whatNext =  json["whatsNext"].arrayValue.map{WhatNext($0, isFor: "flight")}

@@ -78,7 +78,7 @@ struct OtherFareModel {
         }else if displayString.contains(find: " · "){
             displayString = displayString.replacingOccurrences(of: " · ", with: "\n•   ")
         }
-        return displayString
+        return "\(displayString)\n"
     }
     
     var descriptionTitle:String{
