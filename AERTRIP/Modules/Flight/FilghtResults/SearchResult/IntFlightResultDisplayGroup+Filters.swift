@@ -555,7 +555,7 @@ extension IntFlightResultDisplayGroup  {
                     maxLayoverDuration *= 3600
                 }
                 
-                if appliedSubFilters[legIndex]?.contains(.tripDuration) ?? false {
+                if appliedSubFilters[legIndex]?.contains(.layoverDuration) ?? false {
                     
                     outputArray = outputArray.filter { (journey) -> Bool in
                         
