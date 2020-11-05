@@ -478,6 +478,17 @@ extension FlightResultDisplayGroup  {
         userSelectedFilters?.dt.setEarliest(time: minDuration)
         userSelectedFilters?.dt.setLatest(time: maxDuration)
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        let earliest = dateFormatter.date(from: userSelectedFilters?.depDt.earliest ?? "")?.toString(dateFormat: "yyyy-MM-dd")
+        let latest = dateFormatter.date(from: userSelectedFilters?.depDt.latest ?? "")?.toString(dateFormat: "yyyy-MM-dd")
+        
+        let dtEarliest = (userSelectedFilters?.dt.earliest ?? "")
+        userSelectedFilters?.depDt.earliest = (earliest ?? "") + " " + dtEarliest
+        
+        let dtLatest = (userSelectedFilters?.dt.latest ?? "")
+        userSelectedFilters?.depDt.latest = (latest ?? "") + " " + dtLatest
+        
         if isTimesFilterApplied() {
             appliedFilters.insert(.Times)
         } else {
