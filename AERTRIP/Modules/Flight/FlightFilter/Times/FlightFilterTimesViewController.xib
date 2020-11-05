@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -35,6 +36,7 @@
                 <outlet property="earlyMorningContainerView" destination="kH9-1y-fuF" id="k4j-nD-e8o"/>
                 <outlet property="eveningButton" destination="VGQ-bl-6hJ" id="AAI-K6-5AM"/>
                 <outlet property="eveningContainerView" destination="8iZ-h7-kib" id="XJR-pQ-VFI"/>
+                <outlet property="flightTimesScrollView" destination="J4H-rg-ZOl" id="z7w-DX-DnO"/>
                 <outlet property="lateEveningButton" destination="dPi-nd-qa5" id="S6Q-vt-jFa"/>
                 <outlet property="lateEveningContainerView" destination="Dwp-Ho-8QC" id="0ch-rJ-PxB"/>
                 <outlet property="multiLegView" destination="aad-gD-Igu" id="3aV-Rr-LSI"/>
@@ -61,6 +63,7 @@
                             </constraints>
                         </view>
                     </subviews>
+                    <viewLayoutGuide key="safeArea" id="ue4-er-KOw"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="ue4-er-KOw" firstAttribute="trailing" secondItem="BW3-J2-Xhr" secondAttribute="trailing" constant="16" id="FIE-Fz-MKq"/>
@@ -68,7 +71,6 @@
                         <constraint firstItem="BW3-J2-Xhr" firstAttribute="leading" secondItem="ue4-er-KOw" secondAttribute="leading" constant="16" id="avF-4Y-C2p"/>
                         <constraint firstItem="BW3-J2-Xhr" firstAttribute="top" secondItem="ue4-er-KOw" secondAttribute="top" constant="16" id="tZt-nd-j7W"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="ue4-er-KOw"/>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J4H-rg-ZOl">
                     <rect key="frame" x="0.0" y="50" width="420" height="514"/>
@@ -329,13 +331,13 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="356" height="0.0"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="Avoid Overnight Flights" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmC-kS-JcZ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="177.5" height="0.0"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="176.5" height="0.0"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Sectors" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sox-9r-Z04">
-                                                            <rect key="frame" x="187.5" y="0.0" width="168.5" height="0.0"/>
+                                                            <rect key="frame" x="186.5" y="0.0" width="169.5" height="0.0"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -364,7 +366,7 @@
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
                                         <constraint firstItem="oRs-Vx-QcD" firstAttribute="leading" secondItem="Cv1-eW-MUB" secondAttribute="trailing" constant="10" id="3V4-l3-aTJ"/>
                                         <constraint firstItem="Fl1-oV-1tF" firstAttribute="top" secondItem="Cv1-eW-MUB" secondAttribute="top" constant="-5" id="4vT-7k-wBR"/>
@@ -389,6 +391,7 @@
                     </constraints>
                 </scrollView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="hUh-Qq-WQ0" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="34B-T3-UVp"/>
@@ -401,7 +404,6 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="aad-gD-Igu" secondAttribute="top" id="nT7-QD-oHb"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="-147.19999999999999" y="230.28485757121442"/>
         </view>
     </objects>
@@ -411,5 +413,8 @@
         <image name="FlightFilterMorning" width="24" height="24"/>
         <image name="FlightFilterNight" width="24" height="24"/>
         <image name="UncheckedGreenRadioButton" width="22" height="22"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

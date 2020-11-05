@@ -57,6 +57,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     private var highlightedBtnArr = Set<UIButton>()
     
     //MARK:- multiLeg Outlets
+    @IBOutlet weak var flightTimesScrollView: UIScrollView!
     @IBOutlet weak var multiLegViewHeight: NSLayoutConstraint!
     @IBOutlet weak var multiLegView: UIView!
     @IBOutlet weak var multiSegmentView: UIView!
@@ -1040,6 +1041,8 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     
     func initialSetup() {
        
+        flightTimesScrollView.delegate = self
+        
         allSectorsLbl.isHidden = !isIntMCOrReturnVC
                 
         if multiLegTimerFilter.count == 1 {
@@ -1193,6 +1196,12 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
         selectionFeedbackGenerator.selectionChanged()
         //*******************Haptic Feedback code********************
+    }
+}
+
+extension FlightFilterTimesViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        buttonReleased(sender: UIButton())
     }
 }
 
