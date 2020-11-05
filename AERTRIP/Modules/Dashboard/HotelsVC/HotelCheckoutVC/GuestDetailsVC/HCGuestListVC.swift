@@ -113,6 +113,7 @@ class HCGuestListVC: BaseVC {
             self.noResultemptyView.messageLabel.text = "\(LocalizedString.noResults.localized + " " + LocalizedString.For.localized) '\(self.viewModel.searchText)'"
         }
         self.noResultemptyView.layoutSubviews()
+        self.allowEmptyView.layoutSubviews()
     }
     
     override func setupColors() {

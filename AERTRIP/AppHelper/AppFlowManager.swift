@@ -458,9 +458,9 @@ extension AppFlowManager {
             ob.viewModel.adultCount = adults
             ob.viewModel.childrenCounts = children
             //mVC.add(childViewController: ob)
-            if #available(iOS 13.0, *) {} else {
-                ob.modalPresentationStyle = .overCurrentContext
-            }
+//            if #available(iOS 13.0, *) {} else {
+                ob.modalPresentationStyle = .overFullScreen
+//            }
             (navigationController ?? mVC).present(ob, animated: false, completion: nil)
         }
     }

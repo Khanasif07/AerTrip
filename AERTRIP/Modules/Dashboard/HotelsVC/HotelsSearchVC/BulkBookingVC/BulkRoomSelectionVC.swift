@@ -120,7 +120,6 @@ class BulkRoomSelectionVC: BaseVC {
         self.view.addGestureRecognizer(swipeGesture)
         
         self.backgroundView.alpha = 1.0
-        self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
         //self.headerView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
         self.mainContainerView.roundTopCorners(cornerRadius: 15.0)
         //        self.headerView.layer.masksToBounds = true
@@ -139,10 +138,13 @@ class BulkRoomSelectionVC: BaseVC {
      
     private func show(animated: Bool) {
         self.safeAreaBackView.isHidden = false
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, delay: 0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
+            guard let self = self else { return }
             self.safeAreaBackView.alpha = 1.0
             self.headerView.isHidden = self.mainContainerView.size.height > 200.0
             self.mainContainerView.transform = .identity
+            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+
         }, completion: { (isDone) in
         })
     }
@@ -155,6 +157,8 @@ class BulkRoomSelectionVC: BaseVC {
             guard let _self = self else { return }
             _self.safeAreaBackView.alpha = 0.0
             _self.mainContainerView.transform = CGAffineTransform(translationX: 0, y: heightToChange)
+            _self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
+
             }, completion: { [weak self] _ in
                 guard let _self = self else { return }
                 _self.safeAreaBackView.isHidden = true
