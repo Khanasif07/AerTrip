@@ -474,8 +474,12 @@ extension HotelResultVC {
                 
                 var rect = self.headerContainerView.frame
                 
-                var yCordinate = rect.origin.y + invertedOffset
+//                var yCordinate = rect.origin.y + invertedOffset
+                var yCordinate = invertedOffset - 100.0
                 yCordinate = min ( 0,  yCordinate)
+                if self.tableViewVertical.contentOffset.y <= 0 || rect.origin.y == 20{
+                    yCordinate = 0
+                }
                 rect.origin.y = yCordinate
                 //printDebug("revealBlurredHeaderView.frame : \(self.headerContainerView.frame )")
                 if self.headerContainerViewTopConstraint.constant != yCordinate {
